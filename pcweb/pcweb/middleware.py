@@ -1,0 +1,19 @@
+"""Application middleware."""
+
+import pynecone as pc
+
+
+class CloseSidebarMiddleware(pc.Middleware):
+    """Middleware to make sure the sidebar closes when the page changes."""
+
+    def preprocess(self, app, state, event):
+        """Preprocess the event.
+
+        Args:
+            app: The app to apply the middleware to.
+            state: The client state.
+            event: The event to preprocess.
+        """
+        if event.name == pc.utils.get_hydrate_event(state):
+            state.navbar_state.sidebar_open = False
+            state.index_state.show_c2a = True
