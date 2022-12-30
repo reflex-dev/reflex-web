@@ -3,14 +3,3 @@
 **/*.swp
 **/.web
 **/*.db
-**/*.ipynb
-**/node_modules/**
-**/package.json
-**/package-lock.json
-bun.lockb
-poetry.lock
-diffusion/
-pynetree/frontend.zip
-pynetree/backend.zip
-asdf
-dist/*
