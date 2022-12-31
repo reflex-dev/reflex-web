@@ -15,5 +15,5 @@ class CloseSidebarMiddleware(pc.Middleware):
             event: The event to preprocess.
         """
         if event.name == pc.utils.get_hydrate_event(state):
-            state.navbar_state.sidebar_open = False
-            state.index_state.show_c2a = True
+            state.get_substate(["navbar_state"]).sidebar_open = False
+            state.get_substate(["index_state"]).show_c2a = True
