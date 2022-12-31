@@ -126,7 +126,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                                     pc.foreach(NavbarState.search_results, format_search_results),
                                     spacing="0.5em",
                                     width = "100%",
-                                    height= "30em",
+                                    max_height= "30em",
                                     align_items="start",
                                     overflow= "auto"
                                 )
