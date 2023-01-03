@@ -33,6 +33,64 @@ class CopyToClipboard(pc.Component):
 copy_to_clipboard = CopyToClipboard.create
 
 
+@pc.component
+def code_block(
+    code: pc.Var[str],
+    language: pc.Var[str],
+    copied: pc.Var[bool],
+    copy_text: pc.Var[str],
+    on_copy: pc.EventChain,
+):
+    return pc.box(
+        pc.box(
+            pc.code_block(
+                code,
+                pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                border_radius=styles.DOC_BORDER_RADIUS,
+                theme="light",
+                background="white",
+                language=language,
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+            border_radius=styles.DOC_BORDER_RADIUS,
+            box_shadow=styles.DOC_SHADOW_LIGHT,
+        ),
+        pc.cond(
+            copied,
+            pc.tooltip(
+                pc.icon(
+                    tag="CheckCircleIcon",
+                    style=icon_style,
+                    color=styles.ACCENT_COLOR,
+                ),
+                label="Copied!",
+                close_on_click=False,
+                padding="0.5em",
+                border_radius="0.5em",
+                background_color=styles.ACCENT_COLOR,
+                is_open=copied,
+            ),
+            pc.tablet_and_desktop(
+                copy_to_clipboard(
+                    pc.icon(
+                        tag="CopyIcon",
+                        style=icon_style,
+                    ),
+                    text=pc.Var.create(copy_text, is_string=True),
+                    on_copy=on_copy,
+                ),
+            ),
+        ),
+        position="relative",
+        margin_bottom="1em",
+        width="100%",
+    )
+
+
 class ClipboardState(State):
     """State for the clipboard."""
 
@@ -321,18 +379,6 @@ def doccode(
     Returns:
         The styled code snippet.
     """
-    # Add the language to the props.
-    props.update(
-        {
-            "language": language,
-            "code_tag_props": {
-                "style": {
-                    "fontFamily": "inherit",
-                }
-            },
-        }
-    )
-
     # For Python snippets, lint the code with black.
     if language == "python":
         code = black.format_str(
@@ -347,12 +393,6 @@ def doccode(
         code = textwrap.dedent(
             "\n".join(code.strip().split("\n")[lines[0] : lines[1]])
         ).strip()
-        props["starting_line_number"] = lines[0] + 1
-
-    # Set the theme if needed.
-    if "theme" not in props:
-        props["theme"] = "light"
-        props["background"] = "white"
 
     # Remove prompt characters from the copy text.
     copy_text = code.replace("$ ", "")
@@ -361,49 +401,15 @@ def doccode(
     uid = str(uuid.uuid4())
 
     # Create the code snippet.
-    return pc.box(
-        pc.box(
-            pc.code_block(
-                code,
-                pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
-                border_radius=styles.DOC_BORDER_RADIUS,
-                **props,
-            ),
-            border_radius=styles.DOC_BORDER_RADIUS,
-            box_shadow=styles.DOC_SHADOW_LIGHT,
-        ),
-        pc.cond(
-            ClipboardState.text == uid,
-            pc.tooltip(
-                pc.icon(
-                    tag="CheckCircleIcon",
-                    style=icon_style,
-                    color=styles.ACCENT_COLOR,
-                ),
-                label="Copied!",
-                close_on_click=False,
-                padding="0.5em",
-                border_radius="0.5em",
-                background_color=styles.ACCENT_COLOR,
-                is_open=ClipboardState.text == uid,
-            ),
-            pc.tablet_and_desktop(
-                copy_to_clipboard(
-                    pc.icon(
-                        tag="CopyIcon",
-                        style=icon_style,
-                    ),
-                    text=pc.Var.create(copy_text, is_string=True),
-                    on_copy=lambda: [
-                        ClipboardState.copy(pc.Var.create(utils.wrap(uid, '"'))),
-                        ClipboardState.reset_text(),
-                    ],
-                ),
-            ),
-        ),
-        position="relative",
-        margin_bottom="1em",
-        width="100%",
+    return code_block(
+        code=code,
+        language=language,
+        copied=ClipboardState.text == uid,
+        copy_text=copy_text,
+        on_copy=lambda: [
+            ClipboardState.copy(pc.Var.create(utils.wrap(uid, '"'))),
+            ClipboardState.reset_text(),
+        ],
     )
 
 

@@ -40,4 +40,3 @@ app.add_middleware(CloseSidebarMiddleware(), index=0)
 
 # Run the app.
 app.compile()
-api = app.api

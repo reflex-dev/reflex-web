@@ -12,15 +12,20 @@ from pcweb.pages.index import index
 
 import typesense
 
-client = typesense.Client({
-  'api_key': 'YOUR_API_KEY',
-  'nodes': [{
-    'host': 'xxxxxx.a1.typesense.net',
-    'port': '443',
-    'protocol': 'https'
-  }],
-  'connection_timeout_seconds': 2
-})
+client = typesense.Client(
+    {
+        "api_key": "XXX",
+        "nodes": [
+            {
+                "host": "XXX",
+                "port": "443",
+                "protocol": "https",
+            }
+        ],
+        "connection_timeout_seconds": 2,
+    }
+)
+
 
 class NavbarState(State):
     """The state for the navbar component."""
@@ -33,31 +38,38 @@ class NavbarState(State):
     search_input: str = ""
 
     def change_search(self):
-        self.search_modal = not(self.search_modal)
-
+        self.search_modal = not (self.search_modal)
 
     def toggle_sidebar(self):
         """Toggle the sidebar open state."""
         self.sidebar_open = not self.sidebar_open
 
-    @pc.var
-    def search_results(self) -> list[dict[str, dict[str, str]]]:
-        search_parameters = {
-            'q'         : self.search_input,
-            'query_by'  : 'title, description',
-            'query_by_weights': '2,1',
-            'sort_by'   : '_text_match:desc'
-        }
-        #print(client.collections['search'].documents.search(search_parameters)['hits'])
-        return client.collections['search'].documents.search(search_parameters)['hits']
+    # @pc.var
+    # def search_results(self) -> list[dict[str, dict[str, str]]]:
+    #     search_parameters = {
+    #         'q'         : self.search_input,
+    #         'query_by'  : 'title, description',
+    #         'query_by_weights': '2,1',
+    #         'sort_by'   : '_text_match:desc'
+    #     }
+    #     #print(client.collections['search'].documents.search(search_parameters)['hits'])
+    #     return client.collections['search'].documents.search(search_parameters)['hits']
 
 
 def format_search_results(result):
     return pc.vstack(
         pc.link(
-            pc.text(result['document']['title'], font_weight=600, color=styles.DOC_HEADER_COLOR),
-            pc.text(result['document']['description'], font_weight=400, color=styles.DOC_REG_TEXT_COLOR),
-            href=result['document']['href'],
+            pc.text(
+                result["document"]["title"],
+                font_weight=600,
+                color=styles.DOC_HEADER_COLOR,
+            ),
+            pc.text(
+                result["document"]["description"],
+                font_weight=400,
+                color=styles.DOC_REG_TEXT_COLOR,
+            ),
+            href=result["document"]["href"],
         ),
         bg="#efefef",
         border_radius="0.5em",
@@ -66,6 +78,8 @@ def format_search_results(result):
         padding="0.5em",
         _hover={"background_color": "#e3e3e3c"},
     )
+
+
 # Styles to use for the navbar.
 logo_style = {
     "width": "3.21em",
@@ -107,11 +121,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 _hover={"text_decoration": "none"},
             ),
             pc.hstack(
-                pc.input(
-                    placeholder="Search",
-                    on_click=NavbarState.change_search
-                )    
-
+                pc.input(placeholder="Search", on_click=NavbarState.change_search)
             ),
             pc.modal(
                 pc.modal_overlay(
@@ -120,26 +130,24 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                             pc.vstack(
                                 pc.input(
                                     placeholder="Search",
-                                    on_change=NavbarState.set_search_input
+                                    on_change=NavbarState.set_search_input,
                                 ),
-                                pc.vstack(
-                                    pc.foreach(NavbarState.search_results, format_search_results),
-                                    spacing="0.5em",
-                                    width = "100%",
-                                    max_height= "30em",
-                                    align_items="start",
-                                    overflow= "auto"
-                                )
+                                # pc.vstack(
+                                #     pc.foreach(NavbarState.search_results, format_search_results),
+                                #     spacing="0.5em",
+                                #     width = "100%",
+                                #     max_height= "30em",
+                                #     align_items="start",
+                                #     overflow= "auto"
+                                # )
                             )
                         )
                     )
                 ),
-                is_open= NavbarState.search_modal,
+                is_open=NavbarState.search_modal,
                 on_close=NavbarState.change_search,
                 padding="1em",
             ),
-
-
             pc.hstack(
                 pc.tablet_and_desktop(
                     pc.link(

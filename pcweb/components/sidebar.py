@@ -269,15 +269,16 @@ def get_prev_next(url, sidebar_items=None):
     return None, None
 
 
-def sidebar(url=None, **props) -> pc.Component:
-    """Render the sidebar."""
+@pc.component
+def sidebar_comp(
+    url: pc.Var[str],
+    fixed: pc.Var[bool],
+):
     from pcweb.pages.docs.gallery import gallery
 
     learn = get_sidebar_items_learn()
-    learn_index = calculate_index(learn, url)
-
     examples = get_sidebar_items_examples()
-    examples_index = calculate_index(examples, url)
+
     return pc.box(
         pc.heading("Learn", style=heading_style3),
         pc.accordion(
@@ -286,15 +287,15 @@ def sidebar(url=None, **props) -> pc.Component:
                     item,
                     url=url,
                     first=True,
-                    index=learn_index[1:]
-                    if learn_index is not None and i == learn_index[0]
-                    else None,
+                    # index=learn_index[1:]
+                    # if learn_index is not None and i == learn_index[0]
+                    # else None,
                 )
                 for i, item in enumerate(learn)
             ],
             allow_toggle=True,
             allow_multiple=True,
-            default_index=[learn_index[0] if learn_index is not None else None],
+            # default_index=[learn_index[0] if learn_index is not None else None],
         ),
         pc.divider(),
         pc.heading("Reference", style=heading_style3),
@@ -304,15 +305,15 @@ def sidebar(url=None, **props) -> pc.Component:
                     item,
                     url=url,
                     first=True,
-                    index=examples_index[1:]
-                    if examples_index is not None and i == examples_index[0]
-                    else None,
+                    # index=examples_index[1:]
+                    # if examples_index is not None and i == examples_index[0]
+                    # else None,
                 )
                 for i, item in enumerate(examples)
             ],
             allow_toggle=True,
             allow_multiple=True,
-            default_index=[examples_index[0] if examples_index is not None else None],
+            # default_index=[examples_index[0] if examples_index is not None else None],
         ),
         pc.vstack(
             pc.link(
@@ -337,5 +338,13 @@ def sidebar(url=None, **props) -> pc.Component:
         max_height="90%",
         padding_right="4em",
         padding_bottom="4em",
-        **props,
+        fixed=fixed,
+    )
+
+
+def sidebar(url=None, **props) -> pc.Component:
+    """Render the sidebar."""
+    return sidebar_comp(
+        url=url,
+        fixed=props.get("fixed", False),
     )
