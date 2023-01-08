@@ -3,3 +3,5 @@
 **/*.swp
 **/.web
 **/*.db
+.web
+pynecone.db

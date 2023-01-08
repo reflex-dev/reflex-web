@@ -1,5 +1,6 @@
 from .advanced_guide import *
 from .components import *
+from .component_lib import *
 from .database import *
 from .events_reference import *
 from .gallery import gallery

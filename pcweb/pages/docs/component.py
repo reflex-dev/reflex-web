@@ -11,7 +11,7 @@ from pynecone.components.component import Component
 
 from pcweb.component_list import component_list
 from pcweb.components.sidebar import SidebarItem
-from pcweb.pages.docs.components.examples import *
+from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
 
 
