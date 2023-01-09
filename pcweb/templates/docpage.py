@@ -323,6 +323,7 @@ def docheader(
         *children,
         color=styles.DOC_HEADER_COLOR,
         font_weight=styles.DOC_HEADING_FONT_WEIGHT,
+        width = "100%",
     )
 
 
@@ -362,7 +363,7 @@ def doctext(*text, **props) -> pc.Component:
     Returns:
         The styled paragraph.
     """
-    return pc.box(*text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE, **props)
+    return pc.box(*text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE, width = "100%", **props)
 
 
 def doccode(
@@ -526,4 +527,16 @@ def docalert(
             ),
             status=status,
         ),
+    )
+
+def docgraphing(data_example, data_rendered, description):
+    return  pc.fragment(
+        subheader("Data"),
+        description,
+        doccode(data_example),
+        doctext(
+            "Which will render as: ",
+        ),
+        doccode(data_rendered),
+        subheader("Examples"),
     )

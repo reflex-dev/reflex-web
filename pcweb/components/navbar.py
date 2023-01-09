@@ -12,19 +12,15 @@ from pcweb.pages.index import index
 
 import typesense
 
-client = typesense.Client(
-    {
-        "api_key": "XXX",
-        "nodes": [
-            {
-                "host": "XXX",
-                "port": "443",
-                "protocol": "https",
-            }
-        ],
-        "connection_timeout_seconds": 2,
-    }
-)
+client = typesense.Client({
+  'api_key': 'SEl86RUoGf6bDyJmLX0AuS4MbcpMEqk7',
+  'nodes': [{
+    'host': '6xtoqsb1a4ip9u8gp-1.a1.typesense.net',
+    'port': '443',
+    'protocol': 'https'
+  }],
+  'connection_timeout_seconds': 2
+})
 
 
 class NavbarState(State):
@@ -44,23 +40,14 @@ class NavbarState(State):
         """Toggle the sidebar open state."""
         self.sidebar_open = not self.sidebar_open
 
-    # @pc.var
-    # def search_results(self) -> list[dict[str, dict[str, str]]]:
-    #     search_parameters = {
-    #         'q'         : self.search_input,
-    #         'query_by'  : 'title, description',
-    #         'query_by_weights': '2,1',
-    #         'sort_by'   : '_text_match:desc'
-    #     }
-    #     #print(client.collections['search'].documents.search(search_parameters)['hits'])
-    #     return client.collections['search'].documents.search(search_parameters)['hits']
+    # s
 
 
 def format_search_results(result):
     return pc.vstack(
         pc.link(
             pc.text(
-                result["document"]["title"],
+                result["document"]["heading"],
                 font_weight=600,
                 color=styles.DOC_HEADER_COLOR,
             ),
