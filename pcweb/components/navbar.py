@@ -12,15 +12,19 @@ from pcweb.pages.index import index
 
 import typesense
 
-client = typesense.Client({
-  'api_key': 'SEl86RUoGf6bDyJmLX0AuS4MbcpMEqk7',
-  'nodes': [{
-    'host': '6xtoqsb1a4ip9u8gp-1.a1.typesense.net',
-    'port': '443',
-    'protocol': 'https'
-  }],
-  'connection_timeout_seconds': 2
-})
+client = typesense.Client(
+    {
+        "api_key": "XXX",
+        "nodes": [
+            {
+                "host": "XXX",
+                "port": "443",
+                "protocol": "https",
+            }
+        ],
+        "connection_timeout_seconds": 2,
+    }
+)
 
 
 class NavbarState(State):

@@ -206,7 +206,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
             if prev:
                 links.append(
                     pc.link(
-                        "← " + prev.name,
+                        "← " + prev.names,
                         href=prev.link,
                         style=link_style,
                     )
@@ -218,7 +218,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
             if next:
                 links.append(
                     pc.link(
-                        next.name + " →",
+                        next.names + " →",
                         href=next.link,
                         style=link_style,
                     )
@@ -323,7 +323,7 @@ def docheader(
         *children,
         color=styles.DOC_HEADER_COLOR,
         font_weight=styles.DOC_HEADING_FONT_WEIGHT,
-        width = "100%",
+        width="100%",
     )
 
 
@@ -363,7 +363,7 @@ def doctext(*text, **props) -> pc.Component:
     Returns:
         The styled paragraph.
     """
-    return pc.box(*text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE, width = "100%", **props)
+    return pc.text(*text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE, **props)
 
 
 def doccode(
@@ -529,8 +529,9 @@ def docalert(
         ),
     )
 
+
 def docgraphing(data_example, data_rendered, description):
-    return  pc.fragment(
+    return pc.fragment(
         subheader("Data"),
         description,
         doccode(data_example),

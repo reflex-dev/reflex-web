@@ -2,7 +2,14 @@ import pandas as pd
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import doccode, doctext, docdemo, docheader, subheader, docgraphing
+from pcweb.templates.docpage import (
+    doccode,
+    doctext,
+    docdemo,
+    docheader,
+    subheader,
+    docgraphing,
+)
 
 # Graphing
 
@@ -72,6 +79,7 @@ group_example_style = """pc.chart(
 )
 """
 
+
 def render_chart():
     return pc.vstack(
         doctext(
@@ -106,7 +114,7 @@ def render_chart():
         ),
         docdemo(stack_example),
     )
- 
+
 
 line_data_example = """data = pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 line_data_rendered = """data = [
@@ -140,18 +148,20 @@ line_example_style = """pc.chart(
 )
 """
 
+
 def render_line():
     return pc.vstack(
-        doctext(
-            "Line is a wrapper component that renders a line graph. ",
-            ""
+        doctext("Line is a wrapper component that renders a line graph. ", ""),
+        docgraphing(
+            line_data_example,
+            line_data_rendered,
+            doctext(
+                "Line accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data array, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
         ),
-        docgraphing(line_data_example, line_data_rendered, doctext(
-            "Line accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data array, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
         doctext(
             "The following example shows a ",
             pc.code("pc.line"),
@@ -162,7 +172,7 @@ def render_line():
             "Line also accepts a style prop, which is an object of style properties. ",
             "Additionally you can specify the interpolation prop, which determines how data points should be connected when creating a path. ",
         ),
-        docdemo(line_example_style)
+        docdemo(line_example_style),
     )
 
 
@@ -189,17 +199,22 @@ bar_example_style = """pc.chart(
 )
 """
 
+
 def render_bar():
     return pc.vstack(
         doctext(
             "Bar is a wrapper component that renders a bar graph. ",
         ),
-        docgraphing(bar_data_example, bar_data_rendered, doctext(
-            "Bar accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data array, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
+        docgraphing(
+            bar_data_example,
+            bar_data_rendered,
+            doctext(
+                "Bar accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data array, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.bar"),
@@ -210,8 +225,9 @@ def render_bar():
             "Bar also accepts a style prop, which is an object of style properties. ",
             "Additionally you can specify the interpolation prop, which determines how data points should be connected when creating a path. ",
         ),
-        docdemo(bar_example_style)
+        docdemo(bar_example_style),
     )
+
 
 area_data_example = """data = pc.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 area_data_rendered = """data = [
@@ -240,17 +256,23 @@ area_example_style = """pc.chart(
     domain_padding = {"y": 5},
 )
 """
+
+
 def render_area():
     return pc.vstack(
         doctext(
             "Area is a wrapper component that renders an area graph. ",
         ),
-        docgraphing(area_data_example, area_data_rendered, doctext(
-            "Area accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
+        docgraphing(
+            area_data_example,
+            area_data_rendered,
+            doctext(
+                "Area accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.area"),
@@ -261,7 +283,7 @@ def render_area():
             "Area also accepts a style prop, which is an object of style properties. ",
             "Additionally you can specify the interpolation prop, which determines how data points should be connected when creating a path. ",
         ),
-        docdemo(area_example_style)
+        docdemo(area_example_style),
     )
 
 
@@ -288,18 +310,23 @@ pie_example_style = """pc.pie(
 )
 """
 
+
 def render_pie():
     return pc.vstack(
         doctext(
             "Pie is a wrapper component that renders a pie graph. ",
         ),
-        docgraphing(pie_data_example, pie_data_rendered, doctext(
-            "Pie accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
-        doctext( 
+        docgraphing(
+            pie_data_example,
+            pie_data_rendered,
+            doctext(
+                "Pie accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
+        doctext(
             "The following example shows a basic ",
             pc.code("pc.pie"),
             " component.",
@@ -308,8 +335,9 @@ def render_pie():
         doctext(
             "Pie also accepts a color_scale prop, which is a string that determines the color scale used to color the pie slices. ",
         ),
-        docdemo(pie_example_style)
+        docdemo(pie_example_style),
     )
+
 
 candlestick_data_example = """data = pc.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 2, 3, 4, 10], high=[3, 5, 6, 7, 16], low=[1, 2, 3, 4, 10])"""
 candlestick_data_rendered = """data = [
@@ -337,17 +365,22 @@ candlestick_example_style = """pc.chart(
 )
 """
 
+
 def render_candlestick():
     return pc.vstack(
         doctext(
             "Candlestick is a wrapper component that renders a candlestick graph. ",
         ),
-        docgraphing(candlestick_data_example, candlestick_data_rendered, doctext(
-            "Candlestick accepts a data prop, which is an array of dictionaries with x, open, close, high, and low keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x, open, close, high, and low lists.",
-        )),
+        docgraphing(
+            candlestick_data_example,
+            candlestick_data_rendered,
+            doctext(
+                "Candlestick accepts a data prop, which is an array of dictionaries with x, open, close, high, and low keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x, open, close, high, and low lists.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.candlestick"),
@@ -357,11 +390,13 @@ def render_candlestick():
         doctext(
             "You can also style the candlestick graph by passing in a candle_colors prop. ",
         ),
-        docdemo(candlestick_example_style)
-
+        docdemo(candlestick_example_style),
     )
 
-scatter_data_example = """data = pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+
+scatter_data_example = (
+    """data = pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+)
 scatter_data_rendered = """data = [
     {"x": 1, "y": 1},
     {"x": 2, "y": 2},
@@ -398,17 +433,22 @@ scatter_example_bubble = """pc.chart(
 )
 """
 
+
 def render_scatter():
     return pc.vstack(
         doctext(
             "Scatter is a wrapper component that renders a scatter graph. ",
         ),
-        docgraphing(scatter_data_example, scatter_data_rendered, doctext(
-            "Scatter accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
+        docgraphing(
+            scatter_data_example,
+            scatter_data_rendered,
+            doctext(
+                "Scatter accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.scatter"),
@@ -426,6 +466,7 @@ def render_scatter():
         docdemo(scatter_example_bubble),
     )
 
+
 box_plot_data_example = """data = pc.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]])"""
 box_plot_data_rendered = """data = [
     {"x": 1, "y": [1, 2, 3, 4, 10]},
@@ -441,7 +482,7 @@ box_plot_example = """pc.chart(
     ),
     domain_padding = {"x": 15, "y": 5},
 )
-""" 
+"""
 
 box_plot_example_style = """pc.chart(
     pc.box_plot(
@@ -458,19 +499,24 @@ box_plot_example_style = """pc.chart(
 )
 """
 
+
 def render_boxplot():
     return pc.vstack(
         doctext(
             "BoxPlot is a wrapper component that renders a box plot graph. ",
-        ),      
-        docgraphing(box_plot_data_example, box_plot_data_rendered, doctext(
-            "BoxPlot accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " The y key should be a list of lists, where each list represents a box plot. ",
-            " Repeat x values will be grouped together.",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
+        ),
+        docgraphing(
+            box_plot_data_example,
+            box_plot_data_rendered,
+            doctext(
+                "BoxPlot accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " The y key should be a list of lists, where each list represents a box plot. ",
+                " Repeat x values will be grouped together.",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.box_plot"),
@@ -483,7 +529,10 @@ def render_boxplot():
         docdemo(box_plot_example_style),
     )
 
-histogram_data_example = """data = pc.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20])"""
+
+histogram_data_example = (
+    """data = pc.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20])"""
+)
 histogram_data_rendered = """data = [
     {"x": 1},
     {"x": 6},
@@ -515,18 +564,23 @@ histogram_example_style = """pc.chart(
 )
 """
 
+
 def render_histogram():
     return pc.vstack(
         doctext(
             "Histogram is a wrapper component that renders a histogram graph. ",
         ),
-        docgraphing(histogram_data_example, histogram_data_rendered, doctext(
-            "Histogram accepts a data prop, which is an array of dictionaries with x keys. ",
-            " x values will be grouped together and counted. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x list.",
-        )),
+        docgraphing(
+            histogram_data_example,
+            histogram_data_rendered,
+            doctext(
+                "Histogram accepts a data prop, which is an array of dictionaries with x keys. ",
+                " x values will be grouped together and counted. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.histogram"),
@@ -536,8 +590,9 @@ def render_histogram():
         doctext(
             "Histogram also accepts a style prop, which is an object of style properties. ",
         ),
-        docdemo(histogram_example_style)
+        docdemo(histogram_example_style),
     )
+
 
 error_bar_data_example = """data = pc.data("error_bar", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], error_x=[0.1, 0.2, 0.3, 0.4, 0.5], error_y=[0.1, 0.2, 0.3, 0.4, 0.5])"""
 error_bar_data_rendered = """data = [
@@ -555,17 +610,22 @@ error_bar_example = """pc.chart(
 )
 """
 
+
 def render_errorbar():
     return pc.vstack(
         doctext(
             "ErrorBar is a wrapper component that renders a error bar graph. ",
         ),
-        docgraphing(error_bar_data_example, error_bar_data_rendered, doctext(
-            "ErrorBar accepts a data prop, which is an array of dictionaries with x, y, error_x, and error_y keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x, y, error_x, and error_y list.",
-        )),
+        docgraphing(
+            error_bar_data_example,
+            error_bar_data_rendered,
+            doctext(
+                "ErrorBar accepts a data prop, which is an array of dictionaries with x, y, error_x, and error_y keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x, y, error_x, and error_y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.error_bar"),
@@ -574,7 +634,10 @@ def render_errorbar():
         docdemo(error_bar_example),
     )
 
-voronoi_data_example = """data = pc.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+
+voronoi_data_example = (
+    """data = pc.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+)
 voronoi_data_rendered = """data = [
     {"x": 1, "y": 1},
     {"x": 2, "y": 2},
@@ -603,17 +666,22 @@ voronoi_style_example = """pc.chart(
 )
 """
 
+
 def render_voronoi():
     return pc.vstack(
         doctext(
             "Voronoi is a wrapper component that renders a voronoi graph. ",
-        ), 
-        docgraphing(voronoi_data_example, voronoi_data_rendered, doctext(
-            "Voronoi accepts a data prop, which is an array of dictionaries with x and y keys. ",
-            " You can contruct your own data as input, or use the ",
-            pc.code("pc.data"),
-            " helper function to generate a data array from a x and y list.",
-        )),
+        ),
+        docgraphing(
+            voronoi_data_example,
+            voronoi_data_rendered,
+            doctext(
+                "Voronoi accepts a data prop, which is an array of dictionaries with x and y keys. ",
+                " You can contruct your own data as input, or use the ",
+                pc.code("pc.data"),
+                " helper function to generate a data array from a x and y list.",
+            ),
+        ),
         doctext(
             "The following example shows a basic ",
             pc.code("pc.voronoi"),
@@ -628,6 +696,7 @@ def render_voronoi():
         docdemo(voronoi_style_example),
     )
 
+
 polar_example = """pc.chart(
     pc.polar(),
     pc.line(
@@ -636,6 +705,7 @@ polar_example = """pc.chart(
     polar = True
 )
 """
+
 
 def render_polar():
     return pc.vstack(

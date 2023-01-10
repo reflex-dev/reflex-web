@@ -148,7 +148,21 @@ feedback_list = [
 ]
 
 # Graphing components.
-graphing_list = [[pc.Chart, pc.ChartGroup, pc.ChartStack], [pc.Area], [pc.BoxPlot], [pc.Candlestick], [pc.ErrorBar], [pc.Line],[pc.Bar], [pc.Histogram], [pc.Pie],[pc.Polar], [pc.Scatter],[pc.Voronoi], [pc.Plotly]]
+graphing_list = [
+    [pc.Chart, pc.ChartGroup, pc.ChartStack],
+    [pc.Area],
+    [pc.BoxPlot],
+    [pc.Candlestick],
+    [pc.ErrorBar],
+    [pc.Line],
+    [pc.Bar],
+    [pc.Histogram],
+    [pc.Pie],
+    [pc.Polar],
+    [pc.Scatter],
+    [pc.Voronoi],
+    [pc.Plotly],
+]
 
 # The final component list
 component_list = {
