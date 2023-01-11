@@ -167,20 +167,40 @@ def get_sidebar_items_examples():
 
 
 @pc.component
+def sidebar_leaf(
+    item: pc.Var[SidebarItem],
+    url: pc.Var[str],
+) -> pc.Component:
+    """Get the leaf node of the sidebar."""
+    return pc.accordion_item(
+        pc.cond(
+            item.link == url,
+            pc.link(
+                item.names,
+                # format_item_name(item_name),
+                href=item.link,
+                color=styles.ACCENT_COLOR,
+                _hover={"color": styles.ACCENT_COLOR},
+            ),
+            pc.link(
+                item.names,
+                # format_item_name(item_name),
+                href=item.link,
+                color=styles.DOC_REG_TEXT_COLOR,
+                _hover={"color": styles.ACCENT_COLOR},
+            ),
+        ),
+        padding_left="1em",
+        border="none",
+    )
+
+
+@pc.component
 def sidebar_item_comp(
     item: pc.Var[SidebarItem],
     index: pc.Var[int],
+    url: pc.Var[str],
 ):
-    text_style = {
-        "color": styles.DOC_REG_TEXT_COLOR,
-        "_hover": {"color": styles.ACCENT_COLOR},
-    }
-    # if item.link == url:
-    #     text_style = {
-    #         "color": styles.ACCENT_COLOR,
-    #         "_hover": {"color": styles.ACCENT_COLOR},
-    #     }
-
     def format_item_name(name):
         if name.endswith("Overview"):
             return "Overview"
@@ -189,16 +209,7 @@ def sidebar_item_comp(
     return pc.fragment(
         pc.cond(
             item.children.length() == 0,
-            pc.accordion_item(
-                pc.link(
-                    item.names,
-                    # format_item_name(item_name),
-                    style=text_style,
-                    href=item.link,
-                ),
-                padding_left="1em",
-                border="none",
-            ),
+            sidebar_leaf(item=item, url=url),
             pc.accordion_item(
                 pc.accordion_button(
                     pc.accordion_icon(),
@@ -207,8 +218,6 @@ def sidebar_item_comp(
                         font_size="1em",
                     ),
                     padding_y="0.5em",
-                    # padding_y="0.5em" if first else "0.25em",
-                    # **heading_style,
                     _hover={
                         "color": styles.ACCENT_COLOR,
                     },
@@ -216,17 +225,12 @@ def sidebar_item_comp(
                 pc.accordion_panel(
                     pc.accordion(
                         pc.vstack(
-                            # pc.foreach(item.children, lambda child: pc.text(child.name)),
                             pc.foreach(
                                 item.children,
                                 lambda child: sidebar_item_comp(
-                                    item=child, index=index
+                                    item=child, index=index, url=url
                                 ),
                             ),
-                            # *[
-                            #     render_sidebar_item(item, heading_style=heading_style2, url=url)
-                            #     for item in item.children
-                            # ],
                             align_items="start",
                             border_left="1px solid #e0e0e0",
                         ),
@@ -239,72 +243,6 @@ def sidebar_item_comp(
                 border="none",
             ),
         )
-    )
-
-
-def render_sidebar_item(
-    item: SidebarItem,
-    heading_style=heading_style,
-    url=None,
-    first=False,
-    index=None,
-) -> pc.Component:
-    text_style = {
-        "color": styles.DOC_REG_TEXT_COLOR,
-        "_hover": {"color": styles.ACCENT_COLOR},
-    }
-    if item.link == url:
-        text_style = {
-            "color": styles.ACCENT_COLOR,
-            "_hover": {"color": styles.ACCENT_COLOR},
-        }
-    item_name = item.names
-
-    def format_item_name(name):
-        if name.endswith("Overview"):
-            return "Overview"
-        return name
-
-    if len(item.children) == 0:
-        return pc.accordion_item(
-            pc.link(
-                format_item_name(item_name),
-                style=text_style,
-                href=item.link,
-            ),
-            padding_left="1em",
-            border="none",
-        )
-    return pc.accordion_item(
-        pc.accordion_button(
-            pc.accordion_icon(),
-            pc.text(
-                item_name,
-                font_size="1em",
-            ),
-            padding_y="0.5em" if first else "0.25em",
-            **heading_style,
-            _hover={
-                "color": styles.ACCENT_COLOR,
-            },
-        ),
-        pc.accordion_panel(
-            pc.accordion(
-                pc.vstack(
-                    *[
-                        render_sidebar_item(item, heading_style=heading_style2, url=url)
-                        for item in item.children
-                    ],
-                    align_items="start",
-                    border_left="1px solid #e0e0e0",
-                ),
-                allow_toggle=True,
-                allow_multiple=True,
-                default_index=[index[0] if index else None],
-            ),
-            margin_left="1em",
-        ),
-        border="none",
     )
 
 
@@ -365,92 +303,12 @@ def sidebar_comp(
             *[
                 sidebar_item_comp(
                     item=item,
-                    # url=url,
+                    url=url,
                     # first=True,
-                    index=1,
-                    # index=learn_index[1:]
-                    # if learn_index is not None and i == learn_index[0]
-                    # else -1,
-                )
-                for i, item in enumerate(learn)
-            ],
-            allow_toggle=True,
-            allow_multiple=True,
-            # default_index=[learn_index[0] if learn_index is not None else -1],
-        ),
-        pc.divider(),
-        pc.heading("Reference", style=heading_style3),
-        # pc.accordion(
-        #     *[
-        #         render_sidebar_item(
-        #             item,
-        #             url=url,
-        #             first=True,
-        #             index=examples_index[1:]
-        #             if examples_index is not None and i == examples_index[0]
-        #             else None,
-        #         )
-        #         for i, item in enumerate(examples)
-        #     ],
-        #     allow_toggle=True,
-        #     allow_multiple=True,
-        #     default_index=[examples_index[0] if examples_index is not None else None],
-        # ),
-        pc.vstack(
-            pc.link(
-                pc.hstack(
-                    pc.icon(tag="MinusIcon", height=".75rem", style=heading_style),
-                    pc.text(
-                        "Gallery",
-                        style={
-                            "color": styles.DOC_REG_TEXT_COLOR,
-                            "_hover": {"color": styles.ACCENT_COLOR},
-                        },
-                    ),
-                ),
-                href=gallery.path,
-            ),
-            align_items="left",
-            margin_left="1.3em",
-            margin_top="0.5em",
-        ),
-        align_items="start",
-        overflow_y="scroll",
-        max_height="90%",
-        padding_right="4em",
-        padding_bottom="4em",
-        # **props,
-    )
-
-
-# def sidebar(url=None, **props) -> pc.Component:
-#     """Render the sidebar."""
-#     return sidebar_comp(
-#         url=url,
-#         fixed=props.get("fixed", False),
-#     )
-
-
-def sidebar(url=None, **props) -> pc.Component:
-    """Render the sidebar."""
-    from pcweb.pages.docs.gallery import gallery
-
-    learn = get_sidebar_items_learn()
-    learn_index = calculate_index(learn, url)
-    examples = get_sidebar_items_examples()
-    examples_index = calculate_index(examples, url)
-    return pc.box(
-        pc.heading("Learn", style=heading_style3),
-        pc.accordion(
-            *[
-                sidebar_item_comp(
-                    item=item,
-                    # url=url,
-                    # first=True,
-                    index=1,
-                    # index=learn_index[1:]
-                    # if learn_index is not None and i == learn_index[0]
-                    # else -1,
+                    # index=1,
+                    index=learn_index[1:]
+                    if learn_index is not None and i == learn_index[0]
+                    else -1,
                 )
                 for i, item in enumerate(learn)
             ],
@@ -460,22 +318,23 @@ def sidebar(url=None, **props) -> pc.Component:
         ),
         pc.divider(),
         pc.heading("Reference", style=heading_style3),
-        # pc.accordion(
-        #     *[
-        #         render_sidebar_item(
-        #             item,
-        #             url=url,
-        #             first=True,
-        #             index=examples_index[1:]
-        #             if examples_index is not None and i == examples_index[0]
-        #             else None,
-        #         )
-        #         for i, item in enumerate(examples)
-        #     ],
-        #     allow_toggle=True,
-        #     allow_multiple=True,
-        #     default_index=[examples_index[0] if examples_index is not None else None],
-        # ),
+        pc.accordion(
+            *[
+                sidebar_item_comp(
+                    item=item,
+                    url=url,
+                    # first=True,
+                    # index=1
+                    index=examples_index[1:]
+                    if examples_index is not None and i == examples_index[0]
+                    else None,
+                )
+                for i, item in enumerate(examples)
+            ],
+            allow_toggle=True,
+            allow_multiple=True,
+            default_index=[examples_index[0] if examples_index is not None else None],
+        ),
         pc.vstack(
             pc.link(
                 pc.hstack(
@@ -499,5 +358,13 @@ def sidebar(url=None, **props) -> pc.Component:
         max_height="90%",
         padding_right="4em",
         padding_bottom="4em",
-        **props,
+        # fixed=fixed,
+    )
+
+
+def sidebar(url=None, **props) -> pc.Component:
+    """Render the sidebar."""
+    return sidebar_comp(
+        url=url,
+        fixed=props.get("fixed", False),
     )

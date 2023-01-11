@@ -44,8 +44,6 @@ class NavbarState(State):
         """Toggle the sidebar open state."""
         self.sidebar_open = not self.sidebar_open
 
-    # s
-
 
 def format_search_results(result):
     return pc.vstack(
