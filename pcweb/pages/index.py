@@ -334,8 +334,12 @@ components_card = card(
         "Check out the full library ->",
         href=library.path,
     ),
-    pc.center(pc.plotly(data=fig), overflow="hidden", width="100%"),
-    height="100%",
+    background_image="graphbg.png",
+    background_repeat="no-repeat",
+    background_position="bottom",
+    min_height="30em",
+    height = "100%",
+    width = "100%",
     margin_bottom="1em",
 )
 
