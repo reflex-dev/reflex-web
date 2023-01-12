@@ -215,6 +215,7 @@ def sidebar_item_comp(
                     pc.accordion_icon(),
                     pc.text(
                         item.names,
+                        font_family="Inter",
                         font_size="1em",
                     ),
                     padding_y="0.5em",
@@ -316,7 +317,10 @@ def sidebar_comp(
             allow_multiple=True,
             default_index=[learn_index[0] if learn_index is not None else -1],
         ),
-        pc.divider(),
+        pc.divider(
+            margin_bottom="1em",
+            margin_top="0.5em",
+        ),
         pc.heading("Reference", style=heading_style3),
         pc.accordion(
             *[
@@ -345,6 +349,7 @@ def sidebar_comp(
                             "color": styles.DOC_REG_TEXT_COLOR,
                             "_hover": {"color": styles.ACCENT_COLOR},
                         },
+                        font_family="Inter",
                     ),
                 ),
                 href=gallery.path,

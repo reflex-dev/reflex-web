@@ -275,6 +275,44 @@ def docpage(set_path: str | None = None) -> pc.Component:
     return docpage
 
 
+@pc.component
+def divider_comp() -> pc.Component:
+    return pc.divider(
+        margin_bottom="1em",
+        margin_top="0.5em",
+    )
+
+
+@pc.component
+def header_comp(
+    text: pc.Var[str],
+    first: pc.Var[bool],
+    # coming_soon: pc.Var[bool],
+) -> pc.Component:
+    return pc.box(
+        pc.cond(
+            first,
+            pc.heading(text),
+            pc.heading(
+                text,
+                margin_top="1em",
+            ),
+        ),
+        # pc.cond(
+        #     coming_soon,
+        #     pc.badge(
+        #         "Coming Soon!",
+        #         bg=styles.ACCENT_COLOR,
+        #         color="white",
+        #     ),
+        # ),
+        divider_comp(),
+        color=styles.DOC_HEADER_COLOR,
+        font_weight=styles.DOC_HEADING_FONT_WEIGHT,
+        width="100%",
+    )
+
+
 def docheader(
     text: str,
     first: bool = False,
@@ -327,6 +365,22 @@ def docheader(
     )
 
 
+def subheader_comp(
+    text: pc.Var[str],
+) -> pc.Component:
+    return pc.box(
+        pc.heading(
+            text,
+            margin_top="1em",
+            font_size=styles.H3_FONT_SIZE,
+        ),
+        divider_comp(),
+        color=styles.DOC_HEADER_COLOR,
+        font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
+        width="100%",
+    )
+
+
 def subheader(
     text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
 ) -> pc.Component:
@@ -351,6 +405,12 @@ def subheader(
         font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
         **props,
     )
+
+
+def text_comp(
+    text: pc.Var[str],
+) -> pc.Component:
+    return pc.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
 
 def doctext(*text, **props) -> pc.Component:
