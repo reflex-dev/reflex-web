@@ -32,6 +32,16 @@ code2 = """pc.vstack(
     ),
 )"""
 
+code3="""
+pc.vstack(
+    pc.text("Hello World", color="green", display=["none", "none", "none", "none", "flex"]),
+    pc.text("Hello World", color="blue", display=["none", "none", "none", "flex", "flex"]),
+    pc.text("Hello World", color="red", display=["none", "none", "flex", "flex", "flex"]),
+    pc.text("Hello World", color="orange", display=["none", "flex", "flex", "flex", "flex"]),
+    pc.text("Hello World", color="yellow", display=["flex", "flex", "flex", "flex", "flex"]),
+)
+"""
+
 
 @docpage()
 def responsive():
@@ -66,4 +76,11 @@ def responsive():
         ),
         doctext("Pynecone provides useful helper components for this."),
         docdemo(code2),
+        subheader("Specifying Display Breakpoints"),
+        doctext(
+            "You can specify the breakpoints to use for the responsive components by using the ",
+            pc.code("display"),
+            " style property."
+        ),
+        docdemo(code3),
     )

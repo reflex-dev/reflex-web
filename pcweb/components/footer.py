@@ -65,10 +65,15 @@ def footer(style=footer_style):
                         style=footer_item_style,
                     ),
                     pc.link(
-                        "Twitter",
+                        "Discord",
                         href=constants.TWITTER_URL,
                         style=footer_item_style,
                     ),
+                    pc.link(
+                        "Twitter",
+                        href=constants.TWITTER_URL,
+                        style=footer_item_style,
+                    ), 
                     align_items="start",
                 ),
                 justify="space-between",

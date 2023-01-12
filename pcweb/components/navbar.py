@@ -12,20 +12,15 @@ from pcweb.pages.index import index
 
 import typesense
 
-client = typesense.Client(
-    {
-        "api_key": "XXX",
-        "nodes": [
-            {
-                "host": "XXX",
-                "port": "443",
-                "protocol": "https",
-            }
-        ],
-        "connection_timeout_seconds": 2,
-    }
-)
-
+client = typesense.Client({
+  'api_key': 'XXX',
+  'nodes': [{
+    'host': 'XXX',
+    'port': '443',
+    'protocol': 'https'
+  }],
+  'connection_timeout_seconds': 2
+})
 
 class NavbarState(State):
     """The state for the navbar component."""
@@ -44,6 +39,15 @@ class NavbarState(State):
         """Toggle the sidebar open state."""
         self.sidebar_open = not self.sidebar_open
 
+    @pc.var
+    def search_results(self) -> list[dict[str, dict[str, str]]]:
+         search_parameters = {
+             'q'         : self.search_input,
+             'query_by'  : 'heading, description',
+             'query_by_weights': '2,1',
+             'sort_by'   : '_text_match:desc'
+         }
+         return client.collections['search-auto'].documents.search(search_parameters)['hits']
 
 def format_search_results(result):
     return pc.vstack(
@@ -53,14 +57,16 @@ def format_search_results(result):
                 font_weight=600,
                 color=styles.DOC_HEADER_COLOR,
             ),
+            pc.divider(),
             pc.text(
                 result["document"]["description"],
                 font_weight=400,
                 color=styles.DOC_REG_TEXT_COLOR,
             ),
+            on_click=NavbarState.change_search,
             href=result["document"]["href"],
         ),
-        bg="#efefef",
+        bg="#f7f7f7",
         border_radius="0.5em",
         width="100%",
         align_items="start",
@@ -109,10 +115,14 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 href=index.path,
                 _hover={"text_decoration": "none"},
             ),
-            pc.hstack(
-                pc.input(placeholder="Search", on_click=NavbarState.change_search)
-            ),
-            pc.modal(
+            pc.box(
+                pc.hstack(
+                    pc.input_group(
+                        pc.input_left_addon(pc.icon(tag="SearchIcon", color=styles.DOC_REG_TEXT_COLOR), bg="white"),
+                        pc.input(placeholder="Search the docs", on_click=NavbarState.change_search)
+                    ),
+                ),
+                pc.modal(
                 pc.modal_overlay(
                     pc.modal_content(
                         pc.modal_body(
@@ -121,21 +131,26 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                                     placeholder="Search",
                                     on_change=NavbarState.set_search_input,
                                 ),
-                                # pc.vstack(
-                                #     pc.foreach(NavbarState.search_results, format_search_results),
-                                #     spacing="0.5em",
-                                #     width = "100%",
-                                #     max_height= "30em",
-                                #     align_items="start",
-                                #     overflow= "auto"
-                                # )
-                            )
-                        )
+                                pc.vstack(
+                                    pc.foreach(NavbarState.search_results, format_search_results),
+                                    spacing="0.5em",
+                                    width = "100%",
+                                    max_height= "30em",
+                                    align_items="start",
+                                    overflow= "auto"
+                                )
+                            ),
+                            opacity=.8,
+                        ),
+                        opacity=.1,
                     )
                 ),
                 is_open=NavbarState.search_modal,
                 on_close=NavbarState.change_search,
                 padding="1em",
+                ),
+                display=["none", "none","none", "none", "flex"],
+
             ),
             pc.hstack(
                 pc.tablet_and_desktop(

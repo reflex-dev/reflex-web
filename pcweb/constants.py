@@ -4,7 +4,7 @@
 PIP_URL = "https://pypi.org/project/pynecone-io"
 GITHUB_URL = "https://github.com/pynecone-io/pynecone"
 TWITTER_URL = "https://twitter.com/pynecone_io"
-DISCORD_URL = ""
+DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
 CONTACT_URL = "mailto:contact@pynecone.io"
 
 # Install urls.
