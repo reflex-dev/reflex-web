@@ -32,7 +32,7 @@ code2 = """pc.vstack(
     ),
 )"""
 
-code3="""
+code3 = """
 pc.vstack(
     pc.text("Hello World", color="green", display=["none", "none", "none", "none", "flex"]),
     pc.text("Hello World", color="blue", display=["none", "none", "none", "flex", "flex"]),
@@ -80,7 +80,7 @@ def responsive():
         doctext(
             "You can specify the breakpoints to use for the responsive components by using the ",
             pc.code("display"),
-            " style property."
+            " style property.",
         ),
         docdemo(code3),
     )

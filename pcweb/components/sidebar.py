@@ -47,6 +47,8 @@ def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
     if children is None:
         name = route.title.split(" | Pynecone")[0]
+        if name.endswith("Overview"):
+            name = "Overview"
         return SidebarItem(names=name, link=route.path)
     return SidebarItem(
         names=inspect.getmodule(route)
@@ -201,11 +203,6 @@ def sidebar_item_comp(
     index: pc.Var[int],
     url: pc.Var[str],
 ):
-    def format_item_name(name):
-        if name.endswith("Overview"):
-            return "Overview"
-        return name
-
     return pc.fragment(
         pc.cond(
             item.children.length() == 0,
@@ -287,17 +284,18 @@ def get_prev_next(url, sidebar_items=None):
     return None, None
 
 
+learn = get_sidebar_items_learn()
+examples = get_sidebar_items_examples()
+
+
 @pc.component
 def sidebar_comp(
     url: pc.Var[str],
-    fixed: pc.Var[bool],
+    learn_index: pc.Var[list[int]],
+    examples_index: pc.Var[list[int]],
 ):
     from pcweb.pages.docs.gallery import gallery
 
-    learn = get_sidebar_items_learn()
-    learn_index = calculate_index(learn, url)
-    examples = get_sidebar_items_examples()
-    examples_index = calculate_index(examples, url)
     return pc.box(
         pc.heading("Learn", style=heading_style3),
         pc.accordion(
@@ -305,17 +303,16 @@ def sidebar_comp(
                 sidebar_item_comp(
                     item=item,
                     url=url,
-                    # first=True,
-                    # index=1,
-                    index=learn_index[1:]
-                    if learn_index is not None and i == learn_index[0]
-                    else -1,
+                    index=1,
+                    # index=learn_index
+                    # if learn_index is not None and i == learn_index[0]
+                    # else -1,
                 )
                 for i, item in enumerate(learn)
             ],
             allow_toggle=True,
             allow_multiple=True,
-            default_index=[learn_index[0] if learn_index is not None else -1],
+            default_index=learn_index,
         ),
         pc.divider(
             margin_bottom="1em",
@@ -328,16 +325,16 @@ def sidebar_comp(
                     item=item,
                     url=url,
                     # first=True,
-                    # index=1
-                    index=examples_index[1:]
-                    if examples_index is not None and i == examples_index[0]
-                    else None,
+                    index=1
+                    # index=examples_index[1:]
+                    # if examples_index is not None and i == examples_index[0]
+                    # else None,
                 )
                 for i, item in enumerate(examples)
             ],
             allow_toggle=True,
             allow_multiple=True,
-            default_index=[examples_index[0] if examples_index is not None else None],
+            default_index=examples_index,
         ),
         pc.vstack(
             pc.link(
@@ -361,15 +358,16 @@ def sidebar_comp(
         align_items="start",
         overflow_y="scroll",
         max_height="90%",
-        padding_right="4em",
         padding_bottom="4em",
-        # fixed=fixed,
     )
 
 
 def sidebar(url=None, **props) -> pc.Component:
     """Render the sidebar."""
+    learn_index = calculate_index(learn, url)
+    examples_index = calculate_index(examples, url)
     return sidebar_comp(
         url=url,
-        fixed=props.get("fixed", False),
+        learn_index=learn_index,
+        examples_index=examples_index,
     )

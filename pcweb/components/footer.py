@@ -73,7 +73,7 @@ def footer(style=footer_style):
                         "Twitter",
                         href=constants.TWITTER_URL,
                         style=footer_item_style,
-                    ), 
+                    ),
                     align_items="start",
                 ),
                 justify="space-between",
@@ -84,7 +84,7 @@ def footer(style=footer_style):
             ),
             pc.hstack(
                 pc.text(
-                    "Copyright © 2022 Pynecone",
+                    "Copyright © 2023 Pynecone",
                     font_weight="500",
                 ),
                 pc.link(

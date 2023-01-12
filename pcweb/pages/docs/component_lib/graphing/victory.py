@@ -435,7 +435,7 @@ scatter_example_bubble = """pc.chart(
 
 
 def render_scatter():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "Scatter is a wrapper component that renders a scatter graph. ",
         ),
@@ -501,7 +501,7 @@ box_plot_example_style = """pc.chart(
 
 
 def render_boxplot():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "BoxPlot is a wrapper component that renders a box plot graph. ",
         ),
@@ -566,7 +566,7 @@ histogram_example_style = """pc.chart(
 
 
 def render_histogram():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "Histogram is a wrapper component that renders a histogram graph. ",
         ),
@@ -612,7 +612,7 @@ error_bar_example = """pc.chart(
 
 
 def render_errorbar():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "ErrorBar is a wrapper component that renders a error bar graph. ",
         ),
@@ -668,7 +668,7 @@ voronoi_style_example = """pc.chart(
 
 
 def render_voronoi():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "Voronoi is a wrapper component that renders a voronoi graph. ",
         ),
@@ -708,7 +708,7 @@ polar_example = """pc.chart(
 
 
 def render_polar():
-    return pc.vstack(
+    return pc.box(
         doctext(
             "Polar is a wrapper component that renders a polar graph. ",
             "Polar expects a data prop, which is a list of objects with x and y keys. ",

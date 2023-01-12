@@ -338,8 +338,8 @@ components_card = card(
     background_repeat="no-repeat",
     background_position="bottom",
     min_height="35em",
-    height = "100%",
-    width = "100%",
+    height="100%",
+    width="100%",
     margin_bottom="1em",
 )
 
