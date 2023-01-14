@@ -731,7 +731,6 @@ def c2a():
                         pc.icon(
                             tag="StarIcon",
                             color="#eec600",
-                            margin_bottom="0.3em",
                             margin_left="0.2em",
                         ),
                         width="100%",

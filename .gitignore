@@ -5,3 +5,4 @@
 **/*.db
 .web
 pynecone.db
+tsclient.py

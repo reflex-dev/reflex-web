@@ -9,16 +9,7 @@ from pcweb.components.sidebar import sidebar as sb
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.getting_started import introduction
 from pcweb.pages.index import index
-
-import typesense
-
-client = typesense.Client(
-    {
-        "api_key": "XXX",
-        "nodes": [{"host": "XXX", "port": "443", "protocol": "https"}],
-        "connection_timeout_seconds": 2,
-    }
-)
+from tsclient import client
 
 
 class NavbarState(State):
