@@ -66,7 +66,7 @@ def footer(style=footer_style):
                     ),
                     pc.link(
                         "Discord",
-                        href=constants.TWITTER_URL,
+                        href=constants.DISCORD_URL,
                         style=footer_item_style,
                     ),
                     pc.link(

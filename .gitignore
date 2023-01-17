@@ -5,4 +5,5 @@
 **/*.db
 .web
 pynecone.db
-tsclient.py
+pcweb/tsclient.py
+pcconfig2.py

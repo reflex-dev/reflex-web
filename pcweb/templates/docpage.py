@@ -91,6 +91,63 @@ def code_block(
     )
 
 
+@pc.component
+def code_block_dark(
+    code: pc.Var[str],
+    language: pc.Var[str],
+    copied: pc.Var[bool],
+    copy_text: pc.Var[str],
+    on_copy: pc.EventChain,
+):
+    return pc.box(
+        pc.box(
+            pc.code_block(
+                code,
+                pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                border_radius=styles.DOC_BORDER_RADIUS,
+                theme="dark",
+                language=language,
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+            border_radius=styles.DOC_BORDER_RADIUS,
+            box_shadow=styles.DOC_SHADOW_LIGHT,
+        ),
+        pc.cond(
+            copied,
+            pc.tooltip(
+                pc.icon(
+                    tag="CheckCircleIcon",
+                    style=icon_style,
+                    color=styles.ACCENT_COLOR,
+                ),
+                label="Copied!",
+                close_on_click=False,
+                padding="0.5em",
+                border_radius="0.5em",
+                background_color=styles.ACCENT_COLOR,
+                is_open=copied,
+            ),
+            pc.tablet_and_desktop(
+                copy_to_clipboard(
+                    pc.icon(
+                        tag="CopyIcon",
+                        style=icon_style,
+                    ),
+                    text=pc.Var.create(copy_text, is_string=True),
+                    on_copy=on_copy,
+                ),
+            ),
+        ),
+        position="relative",
+        margin_bottom="1em",
+        width="100%",
+    )
+
+
 class ClipboardState(State):
     """State for the clipboard."""
 
@@ -427,7 +484,10 @@ def doctext(*text, **props) -> pc.Component:
 
 
 def doccode(
-    code: str, language: str = "python", lines: tuple[int, int] | None = None, **props
+    code: str,
+    language: str = "python",
+    lines: tuple[int, int] | None = None,
+    theme: str = "light",
 ) -> pc.Component:
     """Create a documentation code snippet.
 
@@ -462,7 +522,8 @@ def doccode(
     uid = str(uuid.uuid4())
 
     # Create the code snippet.
-    return code_block(
+    cb = code_block if theme == "light" else code_block_dark
+    return cb(
         code=code,
         language=language,
         copied=ClipboardState.text == uid,

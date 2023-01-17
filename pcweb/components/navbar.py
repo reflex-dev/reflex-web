@@ -9,7 +9,7 @@ from pcweb.components.sidebar import sidebar as sb
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.getting_started import introduction
 from pcweb.pages.index import index
-from tsclient import client
+from pcweb.tsclient import client
 
 
 class NavbarState(State):
@@ -31,6 +31,8 @@ class NavbarState(State):
 
     @pc.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
+        if self.search_input == "":
+            return []
         search_parameters = {
             "q": self.search_input,
             "query_by": "heading, description",
