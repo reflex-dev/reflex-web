@@ -250,7 +250,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(position="fixed", url=path)
+            sidebar = sb(url=path)
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path)

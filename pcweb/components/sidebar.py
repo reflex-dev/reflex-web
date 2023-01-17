@@ -260,9 +260,13 @@ def calculate_index(sidebar_items, url):
     return None
 
 
-def get_prev_next(url, sidebar_items=None):
+learn = get_sidebar_items_learn()
+examples = get_sidebar_items_examples()
+
+
+def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = sidebar_items or get_sidebar_items_learn()
+    sidebar_items = learn + examples
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -284,10 +288,6 @@ def get_prev_next(url, sidebar_items=None):
     return None, None
 
 
-learn = get_sidebar_items_learn()
-examples = get_sidebar_items_examples()
-
-
 @pc.component
 def sidebar_comp(
     url: pc.Var[str],
@@ -303,12 +303,9 @@ def sidebar_comp(
                 sidebar_item_comp(
                     item=item,
                     url=url,
-                    index=1,
-                    # index=learn_index
-                    # if learn_index is not None and i == learn_index[0]
-                    # else -1,
+                    index=-1,
                 )
-                for i, item in enumerate(learn)
+                for item in learn
             ],
             allow_toggle=True,
             allow_multiple=True,
@@ -362,7 +359,7 @@ def sidebar_comp(
     )
 
 
-def sidebar(url=None, **props) -> pc.Component:
+def sidebar(url=None) -> pc.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
     examples_index = calculate_index(examples, url)
