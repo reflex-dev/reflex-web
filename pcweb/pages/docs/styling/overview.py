@@ -37,6 +37,13 @@ pc.vstack(
     pc.text("World", style = text_style),
 )"""
 
+hover_example = """
+pc.box(
+    pc.text("Hover Me",  _hover = {"color": "red"}),
+)
+"""
+
+
 
 @docpage()
 def styling_overview():
@@ -160,4 +167,12 @@ app = pc.App(state=State, style=style)"""
             " This is useful for reusing styles betweeen multiple components.",
         ),
         docdemo(code4, code3, eval(code4)),
+        doctext(
+            "Inline styles can also be set with a ",
+            pc.code("_hover"),
+            " and ",
+            pc.code("_focus"),
+            " prop. Below is an example of text that changes color when you hover over it.",
+        ),
+        docdemo(hover_example),
     )

@@ -311,7 +311,7 @@ def render_wrap():
 
 
 basic_foreach_state = """class ForeachState(State):
-    count = ["red", "green", "blue", "yellow", "orange", "purple"]
+    color = ["red", "green", "blue", "yellow", "orange", "purple"]
 
 def colored_box(color):
     return pc.box(
@@ -322,13 +322,32 @@ def colored_box(color):
 exec(basic_foreach_state)
 basic_foreach = """pc.responsive_grid(
         pc.foreach(
-            ForeachState.count,
+            ForeachState.color,
             colored_box
         ),
         columns=[2, 4, 6],
     )
 """
 
+
+foreach_index_state = """class ForeachIndexState(State):
+    count = ["red", "green", "blue", "yellow", "orange", "purple"]
+
+def colored_box(color, index):
+    return pc.box(
+        pc.text(index),
+        bg=color
+    )
+"""
+exec(foreach_index_state)
+foreach_index = """pc.responsive_grid(
+        pc.foreach(
+            ForeachIndexState.count,
+            lambda color, index: colored_box(color, index)
+        ),
+        columns=[2, 4, 6],
+    )
+"""
 
 todo1 = """class ListState(State):
     items = ["Write Code", "Sleep", "Have Fun"]
@@ -384,6 +403,10 @@ def render_foreach():
             " component takes a list and a function that renders each item in the list. ",
         ),
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
+        doctext(
+            "The function can also take an index as a second argument. ",
+        ),
+        docdemo(foreach_index, foreach_index_state, eval(foreach_index), context=True),
         doctext("Below is a more complex example of for each with a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
         align_items="start",

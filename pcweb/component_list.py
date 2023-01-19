@@ -164,6 +164,9 @@ graphing_list = [
     [pc.Plotly],
 ]
 
+# Other
+other_list = [[pc.Html]]
+
 # The final component list
 component_list = {
     "Typography": typography_list,
@@ -176,4 +179,5 @@ component_list = {
     "Feedback": feedback_list,
     "Media": media_list,
     "Overlay": overlay_list,
+    "Other": other_list,
 }
