@@ -99,27 +99,12 @@ app.add_page(index, title="My Beautiful App")
 app.add_page(about, title="About Page")
             """
         ),
+        doctext(
+            "Additionally you can also set a description and image for the page. ",
+        ),
+        doccode(
+            """
+app.add_page(index, title="My Beautiful App", description="A beautiful app", image="https://example.com/image.png")
+            """
+        ),
     )
-
-
-'''
-doctext("Similar to how regular routes are defined, you can define a dynamic route by adding a page with a path. The variable parts of the path are enclosed in brackets, this variable becomes an input in the component binded to the page."),
-doctext("For example, if you wanted to create a page that displayed the user's profile, you could define a route like this:"),
-doccode("""def dynamic(username):
-return pc.vstack(
-"This is a dynamic page",
-pc.text("Username: ", username)
-)
-
-
-# Add state and page to the app.
-app = pc.App(state=State)
-app.add_page(dynamic, path="user/[username]")
-"""
-),
-doctext(
-    "Say the user's username is pynecone123, this component would be available at ",
-    pc.code("/user/pynecone123"),
-    ".",
-),
-'''

@@ -128,6 +128,7 @@ def get_sidebar_items_learn():
                 advanced_guide.custom_vars,
                 advanced_guide.middleware,
                 advanced_guide.wrapping_react,
+                advanced_guide.api_routes
             ],
         )
     )
