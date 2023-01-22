@@ -65,6 +65,7 @@ class QueryUser(State):
     def add_user(self):
         with pc.session() as session:
             session.add(User(username=self.username, email=self.email))
+            session.commit()
 """
         ),
     )

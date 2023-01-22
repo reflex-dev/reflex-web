@@ -79,11 +79,21 @@ def wrapping_react():
             doclink(
                 "react-colorful", href="https://www.npmjs.com/package/react-colorful"
             ),
-            " color picker component. The first step is to install the package in the ",
-            pc.code(".web/"),
-            " directory. ",
+            " color picker component. ",
+            "Simply specify the package name in your ",
+            pc.code("pcconfig.py"),
+            " file. ",
         ),
-        doccode("""$ cd .web; bun add react-colorful""", language="bash,"),
+        doccode(
+            """
+config = pc.Config(
+    app_name="colors",
+    frontend_packages=[
+        "react-colorful",
+    ]
+)
+        """
+        ),
         subheader("Step 2: Wrap the Library"),
         doctext(
             "To wrap the component, create a subclass of ",
@@ -123,18 +133,6 @@ def wrapping_react():
         doccode(code2),
         doctext("Then you can use it like any other Pynecone component."),
         docdemo(code3, code4, comp=eval(code3), context=True),
-        doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("Try clicking the color instead of dragging."),
-                    pc.alert_description(
-                        "Refresh the page if the state doesn't update.",
-                    ),
-                ),
-                status="warning",
-            ),
-        ),
         doctext(
             "That's it! ",
             "We hope over time the Pynecone ecosystem will grow to include many useful components. ",
