@@ -82,9 +82,27 @@ def pages():
             "For more complex applications, you may need a dynamic route that passes an argument to the component. ",
             "This feature is coming soon.",
         ),
-        subheader("Setting a Title"),
+        subheader("Page Metadata"),
         doctext(
-            "A page can have a title that will be displayed in the browser tab.",
+            "You can add page metadata such as: ",
+        ),
+        pc.unordered_list(
+            pc.vstack(
+                pc.list_item(
+                    pc.text("The title that will appear in the browser tab"),
+                    width="100%",
+                ),
+                pc.list_item(
+                    pc.text("The description that will appear in search results"),
+                    width="100%",
+                ),
+                pc.list_item(
+                    pc.text(
+                        "The image that will appear when the page is shared on social media"
+                    ),
+                    width="100%",
+                ),
+            )
         ),
         doccode(
             """
@@ -95,16 +113,8 @@ def about():
     return pc.text('About Page')
 
 app = pc.App()
-app.add_page(index, title="My Beautiful App")
+app.add_page(index, title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
 app.add_page(about, title="About Page")
-            """
-        ),
-        doctext(
-            "Additionally you can also set a description and image for the page. ",
-        ),
-        doccode(
-            """
-app.add_page(index, title="My Beautiful App", description="A beautiful app", image="https://example.com/image.png")
             """
         ),
     )

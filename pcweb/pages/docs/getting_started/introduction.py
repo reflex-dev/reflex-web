@@ -151,7 +151,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
     from pcweb.pages.docs.library import library
 
     return pc.fragment(
-        pc.divider(),
+        pc.divider(margin_y="1em"),
         text_comp(text="Here is the complete code to create this. "),
         intro_code1(state=state),
         subheader_comp(text="The Structure of a Pynecone App"),

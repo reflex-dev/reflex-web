@@ -2,7 +2,6 @@ import pynecone as pc
 
 from pcweb import constants
 from pcweb.templates.docpage import (
-    copy_to_clipboard,
     doccode,
     docheader,
     doclink,
@@ -83,6 +82,7 @@ def installation():
             language="bash",
         ),
         doctext("This initializes a template app in your new directory. "),
+        subheader("Run the App"),
         doctext("You can run this app in development mode: "),
         doccode(
             "\n".join(
@@ -101,18 +101,32 @@ def installation():
             pc.alert(
                 pc.alert_icon(),
                 pc.alert_title(
-                    "Note that the port may be different if you have another app running on port ",
-                    pc.code("3000"),
-                    ".",
+                    "You can change the port your app runs on in the ",
+                    pc.code("pcconfig.py"),
+                    " file.",
                 ),
-                status="warning",
+                status="success",
             ),
+        ),
+        doctext(
+            "You can debug your app by setting the ",
+            pc.code("--log-level"),
+            " flag. ",
+        ),
+        doccode(
+            "\n".join(
+                [
+                    "$ pc run --log-level debug",
+                ]
+            ),
+            language="bash",
         ),
         subheader("Fast Refresh"),
         doctext(
-            "Now you can modify the source code in ",
+            "Pynecone has fast refresh built in when running in development mode. ",
+            "You can modify the source code in ",
             pc.code(f"{app_name}/{app_name}.py"),
-            ". Pynecone has fast refreshes so you can see your changes instantly when you save your code. ",
+            " and see your changes in the browser instantly when you save your code. ",
         ),
         doctext("Continue reading to learn how to customize your app."),
     )

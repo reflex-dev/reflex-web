@@ -269,7 +269,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
                     )
                 )
             else:
-                links.append(pc.fragment())
+                links.append(pc.box())
 
             # Create the next component link.
             if next:
@@ -281,7 +281,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
                     )
                 )
             else:
-                links.append(pc.fragment())
+                links.append(pc.box())
 
             # Return the templated page.
             return pc.box(
