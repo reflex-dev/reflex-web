@@ -401,7 +401,7 @@ def render_foreach():
             "The ",
             pc.code("pc.foreach"),
             " component takes a list and a function that renders each item in the list. ",
-        ),
+        ), 
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
         doctext(
             "The function can also take an index as a second argument. ",
