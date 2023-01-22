@@ -377,7 +377,10 @@ def sidebar_comp(
         align_items="start",
         overflow_y="scroll",
         max_height="90%",
-        padding_bottom="4em",
+        padding_bottom="6em",
+        padding_right="4em",
+        position="fixed",
+        scroll_padding="4em",
     )
 
 
@@ -385,8 +388,10 @@ def sidebar(url=None) -> pc.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
     examples_index = calculate_index(examples, url)
-    return sidebar_comp(
-        url=url,
-        learn_index=learn_index,
-        examples_index=examples_index,
+    return pc.box(
+        sidebar_comp(
+            url=url,
+            learn_index=learn_index,
+            examples_index=examples_index,
+        ),
     )
