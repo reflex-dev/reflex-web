@@ -259,7 +259,7 @@ def events():
         doctext(
             "Try clicking on the number before to pause and increment. ",
         ),
-        docdemo(code14, code3, eval(code4), context=True),
+        docdemo(code4, code3, eval(code4), context=True),
         doctext(
             "In this example, we show a progress bar while performing a long calculation. ",
             "Event triggers can bind to a list of events, which are executed in order. ",
