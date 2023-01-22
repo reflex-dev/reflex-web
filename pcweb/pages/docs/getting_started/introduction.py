@@ -161,7 +161,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         pc.text(
             "We begin by importing the library. ",
             "All Pynecone functions and classes begin with the ",
-            pc.code("pc."),
+            pc.code("pc.", color=styles.ACCENT_COLOR),
             " prefix.",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
@@ -177,10 +177,16 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         ),
         pc.text(
             "Here our state has by a single var, ",
-            pc.code("count"),
+            pc.code(
+                "count",
+                color=styles.ACCENT_COLOR,
+            ),
             ", which holds the current value of the counter. ",
             " We initialize it to ",
-            pc.code("0"),
+            pc.code(
+                "0",
+                color=styles.ACCENT_COLOR,
+            ),
             ". ",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
@@ -205,9 +211,15 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         ),
         pc.text(
             "Our counter app has two event handlers, ",
-            pc.code("increment"),
+            pc.code(
+                "increment",
+                color=styles.ACCENT_COLOR,
+            ),
             " and ",
-            pc.code("decrement"),
+            pc.code(
+                "decrement",
+                color=styles.ACCENT_COLOR,
+            ),
             ".",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
@@ -219,11 +231,20 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         ),
         pc.text(
             "We use different components such as ",
-            pc.code("pc.hstack"),
+            pc.code(
+                "pc.hstack",
+                color=styles.ACCENT_COLOR,
+            ),
             ", ",
-            pc.code("pc.button"),
+            pc.code(
+                "pc.button",
+                color=styles.ACCENT_COLOR,
+            ),
             ", and ",
-            pc.code("pc.heading"),
+            pc.code(
+                "pc.heading",
+                color=styles.ACCENT_COLOR,
+            ),
             " to build the frontend. ",
             "Components can be nested to create complex layouts, ",
             " and can be styled using the full power of CSS. ",
@@ -244,9 +265,15 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         intro_code6(state=BaseVar(name="state")),
         pc.text(
             "Components can reference the app's state vars. " "The ",
-            pc.code("pc.heading"),
+            pc.code(
+                "pc.heading",
+                color=styles.ACCENT_COLOR,
+            ),
             " component displays the current value of the counter by referencing ",
-            pc.code("State.count"),
+            pc.code(
+                "State.count",
+                color=styles.ACCENT_COLOR,
+            ),
             ". ",
             "All components that reference state will reactively update whenever the state changes.",
             margin_bottom="1em",
@@ -256,19 +283,31 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         pc.text(
             "Components interact with the state by binding events triggers to event handlers. ",
             "For example, ",
-            pc.code("on_click"),
+            pc.code(
+                "on_click",
+                color=styles.ACCENT_COLOR,
+            ),
             " is an event that is triggered when a user clicks a component. ",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
         ),
         pc.text(
             "The first button in our app binds its ",
-            pc.code("on_click"),
+            pc.code(
+                "on_click",
+                color=styles.ACCENT_COLOR,
+            ),
             " event to the ",
-            pc.code("State.decrement"),
+            pc.code(
+                "State.decrement",
+                color=styles.ACCENT_COLOR,
+            ),
             " event handler, ",
             " and the second button binds its to the ",
-            pc.code("State.increment"),
+            pc.code(
+                "State.increment",
+                color=styles.ACCENT_COLOR,
+            ),
             " handler.",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
