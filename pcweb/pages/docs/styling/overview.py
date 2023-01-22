@@ -44,7 +44,6 @@ pc.box(
 """
 
 
-
 @docpage()
 def styling_overview():
     return pc.box(

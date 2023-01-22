@@ -28,13 +28,13 @@ def deploy():
     return pc.box(
         docheader("Deploy", first=True, coming_soon=True),
         doctext(
-            "So far, we've been running our apps locally on our own machines.",
-            "But what if we want to share our apps with the world?",
+            "So far, we've been running our apps locally on our own machines. ",
+            "But what if we want to share our apps with the world? ",
             "This is where deployment comes in.",
         ),
         subheader("PC Deploy"),
         doctext(
-            "Pynecone makes it easy to deploy your apps with a single command.",
+            "Pynecone makes it easy to deploy your apps with a single command. ",
             "In your terminal, add your ",
             pc.code("PC_TOKEN"),
             " to your environment variables: ",
@@ -51,7 +51,7 @@ def deploy():
             language="bash",
         ),
         doctext(
-            "This will build your app and deploy it to Pynecone's servers.",
+            "This will build your app and deploy it to Pynecone's servers. ",
             "You will get back a URL at ",
             pc.code("https://myapp.pynecone.app"),
             " that you can share with anyone. "

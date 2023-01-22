@@ -18,6 +18,7 @@ example2 = """ pc.vstack(
 )
 """
 
+
 def render_html():
     return pc.vstack(
         doctext(

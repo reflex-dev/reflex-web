@@ -128,7 +128,7 @@ def get_sidebar_items_learn():
                 advanced_guide.custom_vars,
                 advanced_guide.middleware,
                 advanced_guide.wrapping_react,
-                advanced_guide.api_routes
+                advanced_guide.api_routes,
             ],
         )
     )
@@ -203,23 +203,39 @@ def sidebar_item_comp(
     item: pc.Var[SidebarItem],
     index: pc.Var[int],
     url: pc.Var[str],
+    first: pc.Var[bool],
 ):
     return pc.fragment(
         pc.cond(
             item.children.length() == 0,
             sidebar_leaf(item=item, url=url),
             pc.accordion_item(
-                pc.accordion_button(
-                    pc.accordion_icon(),
-                    pc.text(
-                        item.names,
-                        font_family="Inter",
-                        font_size="1em",
+                pc.cond(
+                    first,
+                    pc.accordion_button(
+                        pc.accordion_icon(),
+                        pc.text(
+                            item.names,
+                            font_family="Inter",
+                            font_size="1em",
+                        ),
+                        padding_y="0.5em",
+                        _hover={
+                            "color": styles.ACCENT_COLOR,
+                        },
                     ),
-                    padding_y="0.5em",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
+                    pc.accordion_button(
+                        pc.accordion_icon(),
+                        pc.text(
+                            item.names,
+                            font_family="Inter",
+                            font_size="1em",
+                        ),
+                        padding_y="0.2em",
+                        _hover={
+                            "color": styles.ACCENT_COLOR,
+                        },
+                    ),
                 ),
                 pc.accordion_panel(
                     pc.accordion(
@@ -227,7 +243,10 @@ def sidebar_item_comp(
                             pc.foreach(
                                 item.children,
                                 lambda child: sidebar_item_comp(
-                                    item=child, index=index, url=url
+                                    item=child,
+                                    index=index,
+                                    url=url,
+                                    first=False,
                                 ),
                             ),
                             align_items="start",
@@ -305,6 +324,7 @@ def sidebar_comp(
                     item=item,
                     url=url,
                     index=-1,
+                    first=True,
                 )
                 for item in learn
             ],
@@ -323,7 +343,8 @@ def sidebar_comp(
                     item=item,
                     url=url,
                     # first=True,
-                    index=1
+                    index=1,
+                    first=True,
                     # index=examples_index[1:]
                     # if examples_index is not None and i == examples_index[0]
                     # else None,

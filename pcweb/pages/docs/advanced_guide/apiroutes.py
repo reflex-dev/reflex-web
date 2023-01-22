@@ -8,7 +8,7 @@ from pcweb.templates.docpage import (
     docpage,
     doctext,
     subheader,
-    doccode
+    doccode,
 )
 
 
@@ -20,6 +20,7 @@ app = pc.App(state=MyState)
 app.api.add_api_route("/items/{item_id}", api_test)
 app.compile()
 """
+
 
 @docpage()
 def api_routes():
@@ -34,5 +35,4 @@ def api_routes():
             "This is useful for creating a backend API that can be used by a frontend app other than your own Pynecone app. ",
         ),
         doccode(example),
-        
     )
