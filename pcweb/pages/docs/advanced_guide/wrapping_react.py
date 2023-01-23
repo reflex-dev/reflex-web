@@ -43,7 +43,7 @@ class ColorPicker(pc.Component):
     color: pc.Var[str]
 
     @classmethod
-    def get_controlled_triggers(cls) -> set[str]:
+    def get_controlled_triggers(cls) -> Set[str]:
         return {"on_change"}
 """
 exec(code5)
