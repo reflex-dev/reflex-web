@@ -265,7 +265,7 @@ input_blur_state = """class InputBlurState(State):
 """
 blur_input_example = """pc.vstack(
     pc.text(InputBlurState.text),
-    pc.input(place_holder="Type something...", on_blur=InputBlurState.set_text)
+    pc.input(placeholder="Type something...", on_blur=InputBlurState.set_text)
 )
 """
 exec(input_blur_state)
