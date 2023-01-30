@@ -29,7 +29,7 @@ def pages():
         app = pc.App()
         app.add_page(index)
         app.add_page(about)
-        app.add_page(custom, path="/custom-route")
+        app.add_page(custom, route="/custom-route")
     """
         ),
         doctext(
@@ -69,7 +69,7 @@ def pages():
             return pc.text('Nested Page')
 
         app = pc.App()
-        app.add_page(nested_page, path="/nested/page")
+        app.add_page(nested_page, route="/nested/page")
 """
         ),
         doctext(
