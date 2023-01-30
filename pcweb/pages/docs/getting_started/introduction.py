@@ -121,7 +121,11 @@ def intro1() -> pc.Component:
                 ),
                 pc.text(
                     "Build anything from small data science apps to large, multi-page websites. ",
+                    width="100%",
+                ),
+                pc.text(
                     "This entire site was built and deployed with Pynecone!",
+                    color=styles.ACCENT_COLOR_DARK,
                     width="100%",
                 ),
                 pc.list_item(
@@ -155,7 +159,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
         text_comp(text="Here is the complete code to create this. "),
         intro_code1(state=state),
         subheader_comp(text="The Structure of a Pynecone App"),
-        text_comp(text="Let's break down how Pynecone apps are structured."),
+        text_comp(text="Let's break this down."),
         subheader_comp(text="Import"),
         intro_code2(state=BaseVar(name="state")),
         pc.text(

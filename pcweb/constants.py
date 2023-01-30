@@ -1,7 +1,7 @@
 # pcweb constants.
 
 # pcweb urls.
-PIP_URL = "https://pypi.org/project/pynecone-io"
+PIP_URL = "https://pypi.org/project/pynecone"
 GITHUB_URL = "https://github.com/pynecone-io/pynecone"
 TWITTER_URL = "https://twitter.com/pynecone_io"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
