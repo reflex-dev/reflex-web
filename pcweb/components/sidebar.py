@@ -103,6 +103,7 @@ def get_sidebar_items_learn():
                 styling.styling_overview,
                 styling.responsive,
                 styling.fonts,
+                styling.theming,
             ],
         ),
         create_item(

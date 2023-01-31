@@ -77,10 +77,70 @@ def pages():
             pc.code("/nested/page"),
             ".",
         ),
-        subheader("Dynamic Routes", coming_soon=True),
+        subheader("Dynamic Routes"),
         doctext(
             "For more complex applications, you may need a dynamic route that passes an argument to the component. ",
-            "This feature is coming soon.",
+        ),
+        doctext(
+            "You can specify dynamic arguments with square brackets in the route. ",
+        ),
+        doccode(
+            """
+class State(pc.State):
+    @pc.var
+    def post_id(self):
+        return self.get_query_params().get("pid", "no pid")
+
+def post():
+    \"""A page that updates based on the route.\"""
+    return pc.heading(State.post_id)
+
+app = pc.App(state=State)
+app.add_page(post, route="/post/[pid]")
+"""
+        ),
+        doctext(
+            "When you visit ",
+            pc.code("/post/123"),
+            ", the page will render with the text ",
+            pc.code("123"),
+            ".",
+        ),
+        doctext(
+            "You can also specify multiple dynamic arguments, ",
+            "and they will be available in the ",
+            pc.code("get_query_params"),
+            " dictionary.",
+        ),
+        doctext(
+            "We also provide methods to get the current page, as well as the token of the user who made the request. ",
+        ),
+        doccode(
+            """
+class State(pc.State):
+    @pc.var
+    def post_id(self):
+        return self.get_query_params().get("pid", "no pid")
+
+    @pc.var
+    def current_page(self):
+        return self.get_current_page()
+
+    @pc.var
+    def token(self):
+        return self.get_token()
+
+def post():
+    \"""A page that updates based on the route.\"""
+    return pc.vstack(
+        pc.text(State.post_id), 
+        pc.text(State.current_page),
+        pc.text(State.token),
+    )
+
+app = pc.App(state=State)
+app.add_page(post, route="/post/[pid]")
+"""
         ),
         subheader("Page Metadata"),
         doctext(
