@@ -43,6 +43,27 @@ pc.box(
 )
 """
 
+code5 = """
+style1 = {
+    "color": "green",
+    "font_family": "Comic Sans MS",
+    "border_radius": "10px",
+    "background_color": "rgb(107,99,246)",
+}
+style2 = {
+    "color": "white",
+    "border": "5px solid #EE756A",
+    "padding": "10px",
+}
+"""
+exec(code5)
+multiple_styles = """
+pc.box(
+    "Multiple Styles",
+    style=[style1, style2],
+)
+"""
+
 
 @docpage()
 def styling_overview():
@@ -159,6 +180,20 @@ app = pc.App(state=State, style=style)"""
             "Children components inherit inline styles unless they are overridden by their own inline styles. "
         ),
         docdemo(code2),
+        subheader("Special Styles"),
+        doctext(
+            "We support all of Chakra UI's ",
+            doclink(
+                "pseudo styles",
+                href="https://chakra-ui.com/docs/features/style-props#pseudo-styles",
+            ),
+            ". ",
+        ),
+        doctext(
+            "Below is an example of text that changes color when you hover over it.",
+        ),
+        docdemo(hover_example),
+        subheader("Style Prop"),
         doctext(
             "Inline styles can also be set with a ",
             pc.code("style"),
@@ -167,11 +202,13 @@ app = pc.App(state=State, style=style)"""
         ),
         docdemo(code4, code3, eval(code4)),
         doctext(
-            "Inline styles can also be set with a ",
-            pc.code("_hover"),
-            " and ",
-            pc.code("_focus"),
-            " prop. Below is an example of text that changes color when you hover over it.",
+            "You can also pass in multiple style dictionaries to the ",
+            pc.code("style"),
+            " prop to combine styles.",
         ),
-        docdemo(hover_example),
+        docdemo(multiple_styles, code5, eval(multiple_styles)),
+        doctext(
+            "The style dictionaries are applied in the order they are passed in. ",
+            "This means that styles defined later will override styles defined earlier. ",
+        ),
     )

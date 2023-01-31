@@ -671,7 +671,7 @@ def installation():
             pc.hstack(
                 prompt_sign(),
                 pc.text(
-                    "pip install pynecone-io",
+                    "pip install pynecone",
                     font_size=styles.H4_FONT_SIZE,
                     font_family=styles.CODE_FONT_FAMILY,
                     font_weight="500",
@@ -732,6 +732,7 @@ def c2a():
                             tag="StarIcon",
                             color="#eec600",
                             margin_left="0.2em",
+                            margin_bottom="0.2em",
                         ),
                         width="100%",
                         height="100%",

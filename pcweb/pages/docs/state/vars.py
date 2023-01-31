@@ -78,6 +78,27 @@ code8 = """pc.vstack(
     pc.button("Update", on_click=VarNumberState.update),
 )"""
 
+code9 = """import numpy as np
+
+class BackendState(State):
+    text: str = "Hello World"
+    _backend: np.ndarray = np.array([1, 2, 3])
+
+    @pc.var
+    def sum(self) -> int:
+        return int(self._backend.sum())
+
+    def click(self):
+        # Add the next number to the array.
+        self._backend = np.append(self._backend, [len(self._backend)])
+"""
+exec(code9)
+code10 = """pc.vstack(
+    pc.text("Sum: " + BackendState.sum),
+    pc.button("Click Me", on_click=BackendState.click)
+)
+"""
+
 
 @docpage()
 def vars():
@@ -154,4 +175,14 @@ def vars():
             pc.code("number"),
             ", but it can be simpler just to use a var operation instead.",
         ),
+        subheader("Backend Vars"),
+        doctext(
+            "Backend vars are only stored on the backend and are not sent to the client. ",
+            "They have the advantage that they don't need to be JSON serializable. ",
+            "This means you can only use them within event handlers, they can't be used in render functions. ",
+        ),
+        doctext(
+            "Backend vars are prefixed with an underscore. ",
+        ),
+        docdemo(code10, code9, eval(code10), context=True),
     )

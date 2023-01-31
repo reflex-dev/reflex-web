@@ -57,7 +57,7 @@ def installation():
             " library:",
         ),
         doccode(
-            "$ pip install pynecone-io",
+            "$ pip install pynecone",
             language="bash",
         ),
         subheader("Create a Project"),
@@ -101,22 +101,30 @@ def installation():
             pc.alert(
                 pc.alert_icon(),
                 pc.alert_title(
-                    "You can change the port your app runs on in the ",
-                    pc.code("pcconfig.py"),
-                    " file.",
+                    "You can run your app on a different port with the ",
+                    pc.code("--port"),
+                    " flag. ",
                 ),
                 status="success",
             ),
         ),
         doctext(
+            "Pynecone also starts a ",
+            doclink("FastAPI", href=constants.FASTAPI_URL),
+            " server at port ",
+            pc.code("8000"),
+            ". All of your event handlers run on this server, ",
+            " and state changes are sent to the client via websockets. ",
+        ),
+        doctext(
             "You can debug your app by setting the ",
-            pc.code("--log-level"),
+            pc.code("--loglevel"),
             " flag. ",
         ),
         doccode(
             "\n".join(
                 [
-                    "$ pc run --log-level debug",
+                    "$ pc run --loglevel debug",
                 ]
             ),
             language="bash",

@@ -68,4 +68,22 @@ def self_hosting():
             pc.code("3000"),
             " by default.",
         ),
+        subheader("Exporting a Static Build"),
+        doctext(
+            "You can also export a static build of your app. This is useful for deploying to a static hosting service like Netlify or Github Pages."
+        ),
+        doccode(
+            """$ pc export""",
+            language="bash",
+        ),
+        doctext(
+            "This will create a ",
+            pc.code("frontend.zip"),
+            " file with your app's static build that you can upload to your static hosting service.",
+        ),
+        doctext(
+            "It also creates a ",
+            pc.code("backend.zip"),
+            " file with your app's backend code that you can upload to your server.",
+        ),
     )
