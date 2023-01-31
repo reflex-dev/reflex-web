@@ -54,7 +54,7 @@ def self_hosting():
         doccode(
             """config = pc.Config(
     app_name="your_app_name",
-    api_url="192.168.1.1:8000",
+    api_url="http://192.168.1.1:8000",
     bun_path="$HOME/.bun/bin/bun",
     db_url="sqlite:///pynecone.db",
 )
