@@ -49,6 +49,7 @@ def create_item(route: Route, children=None):
         name = route.title.split(" | Pynecone")[0]
         if name.endswith("Overview"):
             name = "Overview"
+        name = name.replace("Api", "API")
         return SidebarItem(names=name, link=route.path)
     return SidebarItem(
         names=inspect.getmodule(route)

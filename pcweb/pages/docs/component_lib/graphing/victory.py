@@ -84,7 +84,7 @@ def render_chart():
     return pc.vstack(
         doctext(
             "Chart is a wrapper component that renders a given set of children on a set of Cartesian or polar axes. ",
-            "Chart reconciles the domain for all its children, controls the layout of the chart, and coordinates animations and shared events."
+            "Chart reconciles the domain for all its children, controls the layout of the chart, and coordinates animations and shared events. "
             "If no children are provided, Chart will render a default set of axes. ",
         ),
         doctext(

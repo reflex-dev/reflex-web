@@ -480,7 +480,13 @@ def doctext(*text, **props) -> pc.Component:
     Returns:
         The styled paragraph.
     """
-    return pc.box(*text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE, **props)
+    return pc.box(
+        *text,
+        margin_bottom="1em",
+        font_size=styles.TEXT_FONT_SIZE,
+        width="100%",
+        **props,
+    )
 
 
 def doccode(

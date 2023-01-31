@@ -109,6 +109,14 @@ def installation():
             ),
         ),
         doctext(
+            "Pynecone also starts a ",
+            doclink("FastAPI", href=constants.FASTAPI_URL),
+            " server at port ",
+            pc.code("8000"),
+            ". All of your event handlers run on this server, ",
+            " and state changes are sent to the client via websockets. ",
+        ),
+        doctext(
             "You can debug your app by setting the ",
             pc.code("--loglevel"),
             " flag. ",

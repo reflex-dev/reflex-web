@@ -79,7 +79,7 @@ def pages():
         ),
         subheader("Dynamic Routes"),
         doctext(
-            "For more complex applications, you may need a dynamic route that passes an argument to the component. ",
+            "For more complex applications, you may need a dynamic route that changes based on the URL. ",
         ),
         doctext(
             "You can specify dynamic arguments with square brackets in the route. ",
