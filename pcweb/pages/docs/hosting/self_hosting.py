@@ -54,7 +54,7 @@ def self_hosting():
         doccode(
             """config = pc.Config(
     app_name="your_app_name",
-    api_url="192.168.1.1:8000",
+    api_url="http://192.168.1.1:8000",
     bun_path="$HOME/.bun/bin/bun",
     db_url="sqlite:///pynecone.db",
 )
@@ -67,6 +67,24 @@ def self_hosting():
             " Your app will be available on port ",
             pc.code("3000"),
             " by default.",
+        ),
+        subheader("Exporting a Static Build"),
+        doctext(
+            "You can also export a static build of your app. This is useful for deploying to a static hosting service like Netlify or Github Pages."
+        ),
+        doccode(
+            """$ pc export""",
+            language="bash",
+        ),
+        doctext(
+            "This will create a ",
+            pc.code("frontend.zip"),
+            " file with your app's static build that you can upload to your static hosting service.",
+        ),
+        doctext(
+            "It also creates a ",
+            pc.code("backend.zip"),
+            " file with your app's backend code that you can upload to your server.",
         ),
         subheader("Pynecone Container Service"),
         doctext(

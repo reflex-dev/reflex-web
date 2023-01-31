@@ -31,7 +31,7 @@ for key in component_list:
         path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
         app.add_page(
             multi_docs(path=path, component_list=component_group).component,
-            path,
+            route=path,
             title=f"{component_group[0].__name__} | Pynecone",
         )
 
