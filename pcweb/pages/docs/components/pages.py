@@ -117,4 +117,23 @@ app.add_page(index, title="My Beautiful App", description="A beautiful app built
 app.add_page(about, title="About Page")
             """
         ),
+        subheader("Page Load Events"),
+        doctext(
+            "You can also specify a function to run when the page loads. ",
+            "This can be useful for fetching data once vs on every render or state change.",
+        ),
+        doctext("In this example, we fetch data when the page loads:"),
+        doccode(
+            """
+            class State(pc.State):
+                data: Dict[str, Any]
+
+                def get_data():
+                    # Fetch data
+                    self.data = fetch_data()
+            def index():
+                return pc.text('A Beautiful App')
+            add_page(index, on_load=State.get_data)
+            """
+        ),
     )

@@ -89,6 +89,7 @@ class BackendState(State):
         return int(self._backend.sum())
 
     def click(self):
+        # Add the next number to the array.
         self._backend = np.append(self._backend, [len(self._backend)])
 """
 exec(code9)
