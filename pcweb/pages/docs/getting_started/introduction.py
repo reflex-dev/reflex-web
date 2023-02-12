@@ -180,7 +180,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         pc.text(
-            "Here our state has by a single var, ",
+            "Here our state has a single var, ",
             pc.code(
                 "count",
                 color=styles.ACCENT_COLOR,
