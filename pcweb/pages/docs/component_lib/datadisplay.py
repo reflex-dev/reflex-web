@@ -17,7 +17,7 @@ style = {
 
 
 def nba_data():
-    return pd.read_csv("data/nba.csv")
+    return pd.read_csv("data/nba.csv").head(10)
 
 
 badge_example1 = """pc.hstack(
@@ -204,7 +204,19 @@ def render_datatable():
         ),
         pc.center(
             pc.data_table(
-                data=nba_data()[["Name", "Height", "Age"]],
+                data=[
+                    ["Avery Bradley", "6-2", 25.0],
+                    ["Jae Crowder", "6-6", 25.0],
+                    ["John Holland", "6-5", 27.0],
+                    ["R.J. Hunter", "6-5", 22.0],
+                    ["Jonas Jerebko", "6-10", 29.0],
+                    ["Amir Johnson", "6-9", 29.0],
+                    ["Jordan Mickey", "6-8", 21.0],
+                    ["Kelly Olynyk", "7-0", 25.0],
+                    ["Terry Rozier", "6-2", 22.0],
+                    ["Marcus Smart", "6-4", 22.0],
+                ],
+                # data=nba_data()[["Name", "Height", "Age"]],
                 pagination=True,
                 search=True,
                 sort=True,
