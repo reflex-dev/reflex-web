@@ -86,4 +86,11 @@ def self_hosting():
             pc.code("backend.zip"),
             " file with your app's backend code that you can upload to your server.",
         ),
+        doctext(
+            "You can export only the frontend or backend by passing in the ",
+            pc.code("--frontend-only"),
+            " or ",
+            pc.code("--backend-only"),
+            " flags.",
+        ),
     )
