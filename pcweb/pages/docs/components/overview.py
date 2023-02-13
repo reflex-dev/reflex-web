@@ -161,8 +161,8 @@ def components_overview():
             return pc.text('About Page')
 
         app = pc.App()
-        app.add_page(index, path="/")
-        app.add_page(about, path="/about")
+        app.add_page(index, route="/")
+        app.add_page(about, route="/about")
     """
         ),
         doctext(
