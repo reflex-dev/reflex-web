@@ -9,7 +9,11 @@ from pcweb.components.sidebar import sidebar as sb
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.getting_started import introduction
 from pcweb.pages.index import index
-from pcweb.tsclient import client
+
+try:
+    from pcweb.tsclient import client
+except ImportError:
+    client = None
 
 
 class NavbarState(State):
@@ -31,7 +35,7 @@ class NavbarState(State):
 
     @pc.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
-        if self.search_input == "":
+        if client is None or self.search_input == "":
             return []
         search_parameters = {
             "q": self.search_input,

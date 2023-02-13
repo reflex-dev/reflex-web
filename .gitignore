@@ -6,3 +6,4 @@
 .web
 pynecone.db
 pcconfig2.py
+pcweb/tsclient.py
