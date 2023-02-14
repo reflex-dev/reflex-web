@@ -93,7 +93,7 @@ def render_accordion():
         ),
         docdemo(accordian_example_nested),
         doctext(
-            "You can also create an accordion using the shorthand syntax.",
+            "You can also create an accordion using the shorthand syntax. ",
             "Pass a list of tuples to the ",
             pc.code("items"),
             " prop. Each tuple should contain a label and a panel."
@@ -136,7 +136,7 @@ def render_tabs():
         ),
         docdemo(tab_example),
         doctext(
-            "You can create a tab component using the shorthand syntax.",
+            "You can create a tab component using the shorthand syntax. ",
             "Pass a list of tuples to the ",
             pc.code("items"),
             " prop. Each tuple should contain a label and a panel."

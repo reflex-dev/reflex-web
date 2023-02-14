@@ -141,7 +141,7 @@ def render_list():
     return pc.vstack(
         doctext("There are three types of lists: regular lists, ordered, unordered."),
         doctext(
-            "The shorthand syntax used to create a list is by passing in a list of items. These items can be components or python primitives."
+            "The shorthand syntax used to create a list is by passing in a list of items. These items can be components or Python primitives."
         ),
         docdemo(shorthand_list_example),
         doctext(
@@ -342,11 +342,11 @@ def render_table():
             "Tables are used to organize and display data efficiently. The table component differs from the data_table component in that it is not meant to display large amounts of data. It is meant to display data in a more organized way."
         ),
         doctext(
-            "Tables can be created with a shorthand syntax or by explicitly creating the table components.",
+            "Tables can be created with a shorthand syntax or by explicitly creating the table components. ",
             "The shorthand syntax is great for simple tables, but if you need more control over the table you can use the explicit syntax.",
         ),
         doctext("Lets start with the shorthand syntax.",
-            "The shorhard syntax has ",
+            "The shorthard syntax has ",
             pc.code("headers"),
             ", ",
             pc.code("rows"),
