@@ -3,6 +3,13 @@ import pynecone as pc
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
+
+short_hand_accordian_example = """pc.accordion(
+   items = [("Label 1", pc.center("Panel 1")), ("Label 2", pc.center("Panel 2"))],
+   width = "100%"
+   )
+"""
+
 basic_example = """pc.accordion(
     pc.accordion_item(
         pc.accordion_button(
@@ -85,6 +92,13 @@ def render_accordion():
             "You can create multilevel accordions by nesting accordions within the outer accordian panel."
         ),
         docdemo(accordian_example_nested),
+        doctext(
+            "You can also create an accordion using the shorthand syntax.",
+            "Pass a list of tuples to the ",
+            pc.code("items"),
+            " prop. Each tuple should contain a label and a panel."
+        ),
+        docdemo(short_hand_accordian_example),
         align_items="start",
     )
 
@@ -96,15 +110,23 @@ tab_example = """pc.tabs(
         pc.tab("Tab 3"),
     ),
     pc.tab_panels(
-        pc.tab_panel(pc.text("This is text from tab 1.")),
-        pc.tab_panel(pc.checkbox("This is text from tab 2.")),
-        pc.tab_panel(pc.button("This is text from tab 3.", color="black")),
+        pc.tab_panel(pc.text("Text from tab 1.")),
+        pc.tab_panel(pc.checkbox("Text from tab 2.")),
+        pc.tab_panel(pc.button("Text from tab 3.", color="black")),
     ),
     bg="black",
     color="white",
     shadow="lg",
 )
 """
+
+short_hand_tab_example = """pc.tabs(
+    items = [("Tab 1", pc.text("Text from tab 1.")), ("Tab 2", pc.checkbox("Text from tab 2.")), ("Tab 3", pc.button("Text from tab 3.", color="black"))],
+    bg="black",
+    color="white",
+    shadow="lg",
+)
+""" 
 
 
 def render_tabs():
@@ -113,5 +135,12 @@ def render_tabs():
             "Tab components allow you display conent in multiple pages within a container. These page are organized by a tab list and the corresponoding tab panel can take in children components if needed."
         ),
         docdemo(tab_example),
+        doctext(
+            "You can create a tab component using the shorthand syntax.",
+            "Pass a list of tuples to the ",
+            pc.code("items"),
+            " prop. Each tuple should contain a label and a panel."
+        ),
+        docdemo(short_hand_tab_example),
         align_items="start",
     )

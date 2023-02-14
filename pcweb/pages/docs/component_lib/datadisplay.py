@@ -130,12 +130,22 @@ icon_example = """pc.list(
 
 """
 
+shorthand_list_example = """pc.list(
+    items = ["Example 1", "Example 2", "Example 3"],
+    spacing = ".25em"
+)
+"""
+
 
 def render_list():
     return pc.vstack(
         doctext("There are three types of lists: regular lists, ordered, unordered."),
         doctext(
-            "Regular lists are used to display a list of items. They have no bullet points or numbers and stack the list items vertically."
+            "The shorthand syntax used to create a list is by passing in a list of items. These items can be components or python primitives."
+        ),
+        docdemo(shorthand_list_example),
+        doctext(
+            "The examples below have the explicit syntax of list and list_items. Regular lists are used to display a list of items. They have no bullet points or numbers and stack the list items vertically."
         ),
         docdemo(list_example),
         doctext("Unordered have bullet points to display the list items."),
@@ -144,6 +154,10 @@ def render_list():
         docdemo(ordered_example),
         doctext("Lists can also be used with icons."),
         docdemo(icon_example),
+        doctext(
+            "Lists can also be created with a shorthand syntax. Just pass in a list of items and the list items will be created automatically."
+        ),
+        
         align_items="start",
     )
 
@@ -308,13 +322,41 @@ styled_table_example = """pc.table_container(
 """
 
 
+shorthand_table_example = """pc.table_container(
+    pc.table(
+        headers=["Name", "Age", "Location"],
+        rows=[
+            ("John", 30, "New York"),
+            ("Jane", 31, "San Francisco"),
+            ("Joe", 32, "Los Angeles")
+        ],
+        footers=["Footer 1", "Footer 2", "Footer 3"],
+        variant='striped'
+    )
+)
+"""
+
 def render_table():
     return pc.vstack(
         doctext(
             "Tables are used to organize and display data efficiently. The table component differs from the data_table component in that it is not meant to display large amounts of data. It is meant to display data in a more organized way."
         ),
         doctext(
-            "Lets create a simple table to display. In this example we will make a table with 2 columns Name and Age."
+            "Tables can be created with a shorthand syntax or by explicitly creating the table components.",
+            "The shorthand syntax is great for simple tables, but if you need more control over the table you can use the explicit syntax.",
+        ),
+        doctext("Lets start with the shorthand syntax.",
+            "The shorhard syntax has ",
+            pc.code("headers"),
+            ", ",
+            pc.code("rows"),
+            ", and ",
+            pc.code("footers"),
+            " props. These props are used to create the table.",
+        ),
+        docdemo(shorthand_table_example),
+        doctext(
+            "Lets create a simple table explicitly. In this example we will make a table with 2 columns Name and Age."
         ),
         docdemo(intro_table_example),
         doctext("In the examples we will be using this data to display in a table."),
