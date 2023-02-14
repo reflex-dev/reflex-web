@@ -311,6 +311,11 @@ key_press_example = """pc.input(
     on_key_down=KeyPressInputState.on_key_down,
 )
 """
+input_type_example = """pc.vstack(
+    pc.input(type_="password"),
+    pc.input(type_="date"),
+)"""
+password_example = """pc.password()"""
 
 
 def render_input():
@@ -358,6 +363,18 @@ def render_input():
             comp=eval(key_press_example),
             context=True,
         ),
+        doctext(
+            "You can change the type of input by using the ",
+            pc.code("type_"),
+            " prop. For example you can create a password input or a date picker. ",
+        ),
+        docdemo(input_type_example),
+        doctext(
+            "We also provide a ",
+            pc.code("pc.password"),
+            " component as a shorthand for the password input.",
+        ),
+        docdemo(password_example),
         align_items="start",
     )
 

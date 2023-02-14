@@ -12,29 +12,24 @@ def pages():
         ),
         subheader("Adding a Page"),
         doctext(
-            "You can create a page by defining a function that returns a component and adding the ",
-            pc.code("pc.route"),
-            " decorator. ",
-        ),
-        doctext(
+            "You can create a page by defining a function that returns a component. ",
             "By default, the function name will be used as the route, but you can also specify a route.",
         ),
         doccode(
             """
-        @pc.route()
         def index():
             return pc.text('Root Page')
 
-        @pc.route()
         def about():
             return pc.text('About Page')
 
-        @pc.route("/custom-route")
         def custom():
             return pc.text('Custom Route')
 
         app = pc.App()
-        app.compile()
+        app.add_page(index)
+        app.add_page(about)
+        app.add_page(custom, route="/custom-route")
     """
         ),
         doctext(
@@ -70,12 +65,11 @@ def pages():
         ),
         doccode(
             """
-        @pc.route("/nested/page")
         def nested_page():
             return pc.text('Nested Page')
 
         app = pc.App()
-        app.compile()
+        app.add_page(nested_page, route="/nested/page")
 """
         ),
         doctext(
@@ -97,13 +91,12 @@ class State(pc.State):
     def post_id(self):
         return self.get_query_params().get("pid", "no pid")
 
-@pc.route("/post/[pid]")
 def post():
     \"""A page that updates based on the route.\"""
     return pc.heading(State.post_id)
 
 app = pc.App(state=State)
-app.compile()
+app.add_page(post, route="/post/[pid]")
 """
         ),
         doctext(
@@ -137,7 +130,6 @@ class State(pc.State):
     def token(self):
         return self.get_token()
 
-@pc.route("/post/[pid]")
 def post():
     \"""A page that updates based on the route.\"""
     return pc.vstack(
@@ -147,7 +139,7 @@ def post():
     )
 
 app = pc.App(state=State)
-app.compile()
+app.add_page(post, route="/post/[pid]")
 """
         ),
         subheader("Page Metadata"),
@@ -174,33 +166,16 @@ app.compile()
         ),
         doccode(
             """
-@pc.route(title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
 def index():
     return pc.text('A Beautiful App')
 
-@pc.route(title="About Page")
 def about():
     return pc.text('About Page')
 
 app = pc.App()
+app.add_page(index, title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
+app.add_page(about, title="About Page")
             """
-        ),
-        doctext(
-            "The ",
-            pc.code("pc.route"),
-            " decorator is just a shortcut for ",
-            pc.code("app.add_page"),
-            ". ",
-        ),
-        doccode(
-            """
-        def index():
-            return pc.text('Root Page')
-
-        app = pc.App()
-        app.add_page(index, route="/", title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
-        app.compile()
-        """
         ),
         subheader("Page Load Events"),
         doctext(
@@ -216,10 +191,27 @@ app = pc.App()
                 def get_data():
                     # Fetch data
                     self.data = fetch_data()
-
-            @app.route(on_load=State.get_data)
+            def index():
+                return pc.text('A Beautiful App')
+            app.add_page(index, on_load=State.get_data)
+            """
+        ),
+        subheader("Route Decorator"),
+        doctext(
+            "You can also use the ",
+            pc.code("@pc.route"),
+            " decorator to add a page.",
+        ),
+        doccode(
+            """
+            @pc.route(route="/", title="My Beautiful App")
             def index():
                 return pc.text('A Beautiful App')
             """
+        ),
+        doctext(
+            "This is equivalent to calling ",
+            pc.code("app.add_page"),
+            " with the same arguments.",
         ),
     )

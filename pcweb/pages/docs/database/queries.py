@@ -38,7 +38,7 @@ def queries():
             """
 class QueryUser(State):
     name: str
-    users: List[User]
+    users: list[User]
 
     def get_users(self):
         with pc.session() as session:
