@@ -4,7 +4,7 @@ from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
 
-short_hand_accordian_example = """pc.accordion(
+short_hand_accordion_example = """pc.accordion(
    items = [("Label 1", pc.center("Panel 1")), ("Label 2", pc.center("Panel 2"))],
    width = "100%"
    )
@@ -24,7 +24,7 @@ basic_example = """pc.accordion(
 )
 """
 
-accordian_example = """pc.accordion(
+accordion_example = """pc.accordion(
     pc.accordion_item(
         pc.accordion_button(
             pc.heading("Example 1"),
@@ -50,7 +50,7 @@ accordian_example = """pc.accordion(
 )
 """
 
-accordian_example_nested = """pc.accordion(
+accordion_example_nested = """pc.accordion(
     pc.accordion_item(
         pc.accordion_button(
             pc.accordion_icon(),
@@ -86,19 +86,19 @@ def render_accordion():
             "Accordion consist of an outer accordion component and inner accordion items. Each item has a optional button and panel. The button is used to toggle the panel's visibility."
         ),
         docdemo(basic_example),
-        doctext("An accordian can have multiple items."),
-        docdemo(accordian_example),
+        doctext("An accordion can have multiple items."),
+        docdemo(accordion_example),
         doctext(
-            "You can create multilevel accordions by nesting accordions within the outer accordian panel."
+            "You can create multilevel accordions by nesting accordions within the outer accordion panel."
         ),
-        docdemo(accordian_example_nested),
+        docdemo(accordion_example_nested),
         doctext(
             "You can also create an accordion using the shorthand syntax. ",
             "Pass a list of tuples to the ",
             pc.code("items"),
-            " prop. Each tuple should contain a label and a panel."
+            " prop. Each tuple should contain a label and a panel.",
         ),
-        docdemo(short_hand_accordian_example),
+        docdemo(short_hand_accordion_example),
         align_items="start",
     )
 
@@ -126,20 +126,20 @@ short_hand_tab_example = """pc.tabs(
     color="white",
     shadow="lg",
 )
-""" 
+"""
 
 
 def render_tabs():
     return pc.vstack(
         doctext(
-            "Tab components allow you display conent in multiple pages within a container. These page are organized by a tab list and the corresponoding tab panel can take in children components if needed."
+            "Tab components allow you display content in multiple pages within a container. These page are organized by a tab list and the corresponoding tab panel can take in children components if needed."
         ),
         docdemo(tab_example),
         doctext(
             "You can create a tab component using the shorthand syntax. ",
             "Pass a list of tuples to the ",
             pc.code("items"),
-            " prop. Each tuple should contain a label and a panel."
+            " prop. Each tuple should contain a label and a panel.",
         ),
         docdemo(short_hand_tab_example),
         align_items="start",

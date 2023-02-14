@@ -157,7 +157,6 @@ def render_list():
         doctext(
             "Lists can also be created with a shorthand syntax. Just pass in a list of items and the list items will be created automatically."
         ),
-        
         align_items="start",
     )
 
@@ -336,6 +335,7 @@ shorthand_table_example = """pc.table_container(
 )
 """
 
+
 def render_table():
     return pc.vstack(
         doctext(
@@ -345,8 +345,9 @@ def render_table():
             "Tables can be created with a shorthand syntax or by explicitly creating the table components. ",
             "The shorthand syntax is great for simple tables, but if you need more control over the table you can use the explicit syntax.",
         ),
-        doctext("Lets start with the shorthand syntax.",
-            "The shorthard syntax has ",
+        doctext(
+            "Lets start with the shorthand syntax. ",
+            "The shorthand syntax has ",
             pc.code("headers"),
             ", ",
             pc.code("rows"),
