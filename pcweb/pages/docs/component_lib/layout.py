@@ -349,6 +349,31 @@ foreach_index = """pc.responsive_grid(
     )
 """
 
+
+nested_foreach_state = """class NestedForeachState(State):
+    numbers: list[list[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+
+def display_row(row):
+    return pc.hstack(
+        pc.foreach(
+            row,
+            lambda item: pc.box(
+                item,
+                border="1px solid black",
+                padding="0.5em",
+            )
+        ),
+    )
+"""
+exec(nested_foreach_state)
+nested_foreach = """pc.vstack(
+        pc.foreach(
+             NestedForeachState.numbers,
+            display_row
+        )
+    )
+"""
+
 todo1 = """class ListState(State):
     items = ["Write Code", "Sleep", "Have Fun"]
     new_item: str
@@ -401,13 +426,21 @@ def render_foreach():
             "The ",
             pc.code("pc.foreach"),
             " component takes a list and a function that renders each item in the list. ",
+            "This is useful for dymamically rendering a list of items defined in a state."
         ),
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
         doctext(
             "The function can also take an index as a second argument. ",
         ),
         docdemo(foreach_index, foreach_index_state, eval(foreach_index), context=True),
-        doctext("Below is a more complex example of for each with a todo list."),
+        doctext(
+            "Nested foreach components can be used to render nested lists.",
+        ),
+        doctext(
+            "When indexing into a nested list, it's important to declare the list's type as Pynecone requires it for type checking. This ensures that any potential frontend JS errors are caught before the user can encounter them."
+        ),
+        docdemo(nested_foreach, nested_foreach_state, eval(nested_foreach), context=True),
+        doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
         align_items="start",
     )
