@@ -42,6 +42,8 @@ button_link = """pc.link(pc.button("Example"), href="https://pynecone.io", color
 
 local_link = """pc.link("Example", href="/docs/library", color="rgb(107,99,246)")"""
 
+anchor_example = """pc.box("Example", id="example")"""
+
 
 def render_link():
     return pc.vstack(
@@ -55,6 +57,17 @@ def render_link():
             "The link component can be used to wrap other components to make them link to other pages."
         ),
         docdemo(button_link),
+        doctext(
+            "You can also create anchors to link to specific parts of a page using the id prop."
+        ),
+        docdemo(anchor_example),
+        doctext(
+            "To reference an anchor, you can use the href prop of the link component. ",
+            "The href should be in the format of the page you want to link to followed by a # and the id of the anchor.",
+        ),
+        docdemo(
+            """pc.link("Example", href="/docs/library/navigation/link#example", color="rgb(107,99,246)")"""
+        ),
         align_items="start",
     )
 

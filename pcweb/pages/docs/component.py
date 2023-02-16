@@ -230,6 +230,12 @@ EVENTS = {
     "on_overlay_click": {
         "description": "The on_overlay_click event handler is called when the user clicks on an overlay. For example, it’s called when the user clicks on a overlay button."
     },
+    "on_key_down": {
+        "description": "The on_key_down event handler is called when the user presses a key."
+    },
+    "on_key_up": {
+        "description": "The on_key_up event handler is called when the user releases a key."
+    },
 }
 
 # Docs page

@@ -269,6 +269,53 @@ blur_input_example = """pc.vstack(
 )
 """
 exec(input_blur_state)
+clear_input_state = """
+class ClearInputState(State):
+    text: str
+
+    def clear_text(self):
+        self.text = ""
+"""
+clear_input_example = """pc.vstack(
+    pc.input(
+        value=ClearInputState.text,
+        on_change=ClearInputState.set_text,
+    ),
+    pc.button("Clear", on_click=ClearInputState.clear_text),
+)
+"""
+clear_input_state = """
+class ClearInputState(State):
+    text: str
+
+    def clear_text(self):
+        self.text = ""
+"""
+exec(clear_input_state)
+key_press_state = """
+class KeyPressInputState(State):
+    text: str
+
+    def clear_text(self):
+        self.text = ""
+
+    def on_key_down(self, key):
+        if key == "Enter":
+            self.text = self.text.upper()
+"""
+exec(key_press_state)
+key_press_example = """pc.input(
+    placeholder="Type and press enter...",
+    value=KeyPressInputState.text,
+    on_change=KeyPressInputState.set_text,
+    on_key_down=KeyPressInputState.on_key_down,
+)
+"""
+input_type_example = """pc.vstack(
+    pc.input(type_="password"),
+    pc.input(type_="date"),
+)"""
+password_example = """pc.password()"""
 
 
 def render_input():
@@ -291,6 +338,43 @@ def render_input():
             comp=eval(blur_input_example),
             context=True,
         ),
+        doctext(
+            "The input component can also be hooked up to a state using the ",
+            pc.code("value"),
+            " prop. ",
+            "This lets you control the value of the input from the state.",
+        ),
+        docdemo(
+            clear_input_example,
+            state=clear_input_state,
+            comp=eval(clear_input_example),
+            context=True,
+        ),
+        doctext(
+            "You can also use the ",
+            pc.code("on_key_down"),
+            " and ",
+            pc.code("on_key_up"),
+            " event handlers to listen for key presses.",
+        ),
+        docdemo(
+            key_press_example,
+            state=key_press_state,
+            comp=eval(key_press_example),
+            context=True,
+        ),
+        doctext(
+            "You can change the type of input by using the ",
+            pc.code("type_"),
+            " prop. For example you can create a password input or a date picker. ",
+        ),
+        docdemo(input_type_example),
+        doctext(
+            "We also provide a ",
+            pc.code("pc.password"),
+            " component as a shorthand for the password input.",
+        ),
+        docdemo(password_example),
         align_items="start",
     )
 

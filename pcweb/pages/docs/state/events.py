@@ -64,8 +64,6 @@ code5 = """class ArgState(State):
 
     def change_color(self, color, index):
         self.colors[index] = color
-        # Colors must be set not mutated (See warning below.)
-        self.colors = self.colors
 """
 exec(code5)
 code6 = """pc.hstack(
@@ -201,31 +199,6 @@ def events():
             " and the lambda calls the ",
             pc.code("change_color"),
             " event handler with the text and the index of the input.",
-        ),
-        doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("Be careful with mutations."),
-                    pc.alert_description(
-                        doctext(
-                            "Pynecone detects which state vars change and only sends deltas to the frontend. ",
-                            "This allows for fast performance as your app state grows. "
-                            "However, it cannot automatically detect in-place mutations.",
-                        ),
-                        doctext(
-                            "To ensure your changes are rendered, make sure to always set your var to a new object. ",
-                            "For example, instead of ",
-                        ),
-                        doccode("""self.my_list_var.append("item")"""),
-                        doctext(
-                            "set the var to a new list: ",
-                        ),
-                        doccode("""self.my_list_var = self.my_list_var + ["item"]"""),
-                    ),
-                ),
-                status="warning",
-            ),
         ),
         subheader("Setters"),
         doctext(

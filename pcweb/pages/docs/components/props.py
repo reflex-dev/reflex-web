@@ -49,6 +49,16 @@ code4 = """pc.badge(
     }
 )
 """
+code5 = """
+class PropCondState(State):
+    value: int
+"""
+exec(code5)
+code6 = """pc.slider(
+    on_change_end=PropCondState.set_value,
+    color_scheme=pc.cond(PropCondState.value > 50, "green", "pink"),
+)
+"""
 
 
 @docpage()
@@ -143,4 +153,12 @@ def props():
             pc.code("color_scheme"),
             " prop is updated to match. ",
         ),
+        subheader("Conditional Props"),
+        doctext(
+            "Sometimes you want to set a prop based on a condition. ",
+            "You can use the ",
+            pc.code("pc.cond"),
+            " function to do this. ",
+        ),
+        docdemo(code6, code5, eval(code6), context=True),
     )

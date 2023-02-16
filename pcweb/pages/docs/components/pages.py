@@ -193,7 +193,25 @@ app.add_page(about, title="About Page")
                     self.data = fetch_data()
             def index():
                 return pc.text('A Beautiful App')
-            add_page(index, on_load=State.get_data)
+            app.add_page(index, on_load=State.get_data)
             """
+        ),
+        subheader("Route Decorator"),
+        doctext(
+            "You can also use the ",
+            pc.code("@pc.route"),
+            " decorator to add a page.",
+        ),
+        doccode(
+            """
+            @pc.route(route="/", title="My Beautiful App")
+            def index():
+                return pc.text('A Beautiful App')
+            """
+        ),
+        doctext(
+            "This is equivalent to calling ",
+            pc.code("app.add_page"),
+            " with the same arguments.",
         ),
     )
