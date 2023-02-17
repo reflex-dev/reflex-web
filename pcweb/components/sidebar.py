@@ -361,7 +361,7 @@ def sidebar_comp(
         pc.vstack(
             pc.link(
                 pc.hstack(
-                    pc.icon(tag="MinusIcon", height=".75rem", style=heading_style),
+                    pc.icon(tag="minus", height=".75rem", style=heading_style),
                     pc.text(
                         "Gallery",
                         style={

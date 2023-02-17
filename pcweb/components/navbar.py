@@ -118,7 +118,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 pc.hstack(
                     pc.input_group(
                         pc.input_left_addon(
-                            pc.icon(tag="SearchIcon", color=styles.DOC_REG_TEXT_COLOR),
+                            pc.icon(tag="search", color=styles.DOC_REG_TEXT_COLOR),
                             bg="white",
                         ),
                         pc.input(
@@ -187,7 +187,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                         pc.hstack(
                             pc.menu_button(
                                 "Reference",
-                                pc.icon(tag="ChevronDownIcon"),
+                                pc.icon(tag="chevron_down"),
                                 color=styles.DOC_REG_TEXT_COLOR,
                                 _hover={"color": styles.ACCENT_COLOR},
                             ),
@@ -220,7 +220,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 ),
                 pc.mobile_and_tablet(
                     pc.icon(
-                        tag="HamburgerIcon",
+                        tag="hamburger",
                         on_click=NavbarState.toggle_sidebar,
                         width="1.5em",
                         height="1.5em",
@@ -238,7 +238,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                         pc.hstack(
                             logo,
                             pc.icon(
-                                tag="CloseIcon",
+                                tag="close",
                                 on_click=NavbarState.toggle_sidebar,
                                 width="4em",
                                 _hover={

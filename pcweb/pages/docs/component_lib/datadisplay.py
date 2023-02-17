@@ -122,9 +122,9 @@ ordered_example = """pc.ordered_list(
 """
 
 icon_example = """pc.list(
-    pc.list_item(pc.icon(tag="CheckCircleIcon", color = "green"), "Allowed"),
-    pc.list_item(pc.icon(tag="NotAllowedIcon", color = "red"), "Not"),
-    pc.list_item(pc.icon(tag="SettingsIcon", color = "grey"), "Settings"),
+    pc.list_item(pc.icon(tag="check_circle", color = "green"), "Allowed"),
+    pc.list_item(pc.icon(tag="not_allowed", color = "red"), "Not"),
+    pc.list_item(pc.icon(tag="settings", color = "grey"), "Settings"),
     spacing = ".25em"
 )
 
