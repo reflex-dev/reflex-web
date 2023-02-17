@@ -131,6 +131,7 @@ def get_sidebar_items_learn():
                 advanced_guide.middleware,
                 advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
+                advanced_guide.telemetry,
             ],
         )
     )
