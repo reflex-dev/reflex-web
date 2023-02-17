@@ -63,7 +63,7 @@ def code_block(
             copied,
             pc.tooltip(
                 pc.icon(
-                    tag="CheckCircleIcon",
+                    tag="check_circle",
                     style=icon_style,
                     color=styles.ACCENT_COLOR,
                 ),
@@ -77,7 +77,7 @@ def code_block(
             pc.tablet_and_desktop(
                 copy_to_clipboard(
                     pc.icon(
-                        tag="CopyIcon",
+                        tag="copy",
                         style=icon_style,
                     ),
                     text=pc.Var.create(copy_text, is_string=True),
@@ -120,7 +120,7 @@ def code_block_dark(
             copied,
             pc.tooltip(
                 pc.icon(
-                    tag="CheckCircleIcon",
+                    tag="check_circle",
                     style=icon_style,
                     color=styles.ACCENT_COLOR,
                 ),
@@ -134,7 +134,7 @@ def code_block_dark(
             pc.tablet_and_desktop(
                 copy_to_clipboard(
                     pc.icon(
-                        tag="CopyIcon",
+                        tag="copy",
                         style=icon_style,
                     ),
                     text=pc.Var.create(copy_text, is_string=True),

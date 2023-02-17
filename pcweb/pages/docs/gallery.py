@@ -140,12 +140,12 @@ def component_grid():
                 pc.vstack(
                     pc.link(
                         pc.hstack(
-                            pc.text("Source Code"), pc.icon(tag="ExternalLinkIcon")
+                            pc.text("Source Code"), pc.icon(tag="external_link")
                         ),
                         href=category["source"],
                     ),
                     pc.link(
-                        pc.hstack(pc.text("Live App"), pc.icon(tag="ViewIcon")),
+                        pc.hstack(pc.text("Live App"), pc.icon(tag="view")),
                         href=category["url"],
                     ),
                     align_items="left",

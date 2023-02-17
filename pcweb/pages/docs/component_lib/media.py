@@ -1,4 +1,5 @@
 import pynecone as pc
+from pynecone.components.media.icon import ICON_LIST
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
@@ -61,75 +62,14 @@ def render_avatar():
 
 
 codeicon1 = """pc.icon(
-    tag = "CalendarIcon",
+    tag = "calendar",
 )
 """
 
 
-icon_list = [
-    "AddIcon",
-    "ArrowBackIcon",
-    "ArrowDownIcon",
-    "ArrowForwardIcon",
-    "ArrowLeftIcon",
-    "ArrowRightIcon",
-    "ArrowUpIcon",
-    "ArrowUpDownIcon",
-    "AtSignIcon",
-    "AttachmentIcon",
-    "BellIcon",
-    "CalendarIcon",
-    "CheckCircleIcon",
-    "CheckIcon",
-    "ChevronDownIcon",
-    "ChevronLeftIcon",
-    "ChevronRightIcon",
-    "ChevronUpIcon",
-    "CloseIcon",
-    "CopyIcon",
-    "DeleteIcon",
-    "DownloadIcon",
-    "DragHandleIcon",
-    "EditIcon",
-    "EmailIcon",
-    "ExternalLinkIcon",
-    "HamburgerIcon",
-    "InfoIcon",
-    "InfoOutlineIcon",
-    "LinkIcon",
-    "LockIcon",
-    "MinusIcon",
-    "MoonIcon",
-    "NotAllowedIcon",
-    "PhoneIcon",
-    "PlusSquareIcon",
-    "QuestionIcon",
-    "QuestionOutlineIcon",
-    "RepeatIcon",
-    "RepeatClockIcon",
-    "SearchIcon",
-    "Search2Icon",
-    "SettingsIcon",
-    "SmallAddIcon",
-    "SmallCloseIcon",
-    "SpinnerIcon",
-    "StarIcon",
-    "SunIcon",
-    "TimeIcon",
-    "TriangleDownIcon",
-    "TriangleUpIcon",
-    "UnlockIcon",
-    "UpDownIcon",
-    "ViewIcon",
-    "ViewOffIcon",
-    "WarningIcon",
-    "WarningTwoIcon",
-]
-
-
 def render_icon():
     icons = []
-    for icon in icon_list:
+    for icon in ICON_LIST:
         icons.append(
             pc.vstack(
                 pc.icon(tag=icon),

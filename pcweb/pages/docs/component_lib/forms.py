@@ -22,8 +22,8 @@ button_visual_states = """pc.button_group(
 """
 
 button_group_example = """pc.button_group(
-    pc.button(pc.icon(tag="MinusIcon"), color_scheme="red"),
-    pc.button(pc.icon(tag="AddIcon"), color_scheme="green"),
+    pc.button(pc.icon(tag="minus"), color_scheme="red"),
+    pc.button(pc.icon(tag="add"), color_scheme="green"),
     is_attached=True,
 )
 """

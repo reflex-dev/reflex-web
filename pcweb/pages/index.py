@@ -178,7 +178,7 @@ def landing():
                 ),
                 pc.text(
                     pc.icon(
-                        tag="CheckIcon",
+                        tag="check",
                     ),
                     " You're on the waitlist!",
                     color=styles.ACCENT_COLOR,
@@ -729,7 +729,7 @@ def c2a():
                     pc.box(
                         "Star on GitHub",
                         pc.icon(
-                            tag="StarIcon",
+                            tag="star",
                             color="#eec600",
                             margin_left="0.2em",
                             margin_bottom="0.2em",
@@ -746,7 +746,7 @@ def c2a():
                 _hover={"bg": styles.ACCENT_COLOR_DARK},
             ),
             pc.button(
-                pc.icon(tag="CloseIcon", color="white", height=".5em", width=".5em"),
+                pc.icon(tag="close", color="white", height=".5em", width=".5em"),
                 on_click=IndexState.close_c2a,
                 bg=styles.ACCENT_COLOR,
                 color="white",

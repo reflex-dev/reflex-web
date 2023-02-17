@@ -32,7 +32,7 @@ def theming():
         doccode(
             """
             pc.button(
-                pc.icon(tag="MoonIcon"),
+                pc.icon(tag="moon"),
                 on_click=pc.toggle_color_mode,
             )
             """
