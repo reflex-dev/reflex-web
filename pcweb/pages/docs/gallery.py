@@ -139,9 +139,7 @@ def component_grid():
                 ),
                 pc.vstack(
                     pc.link(
-                        pc.hstack(
-                            pc.text("Source Code"), pc.icon(tag="external_link")
-                        ),
+                        pc.hstack(pc.text("Source Code"), pc.icon(tag="external_link")),
                         href=category["source"],
                     ),
                     pc.link(
