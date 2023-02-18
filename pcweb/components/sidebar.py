@@ -255,7 +255,7 @@ def sidebar_item_comp(
                         ),
                         allow_toggle=True,
                         allow_multiple=True,
-                        default_index=index[1:2],
+                        default_index=pc.cond(index, index[1:2], []),
                     ),
                     margin_left="1em",
                 ),

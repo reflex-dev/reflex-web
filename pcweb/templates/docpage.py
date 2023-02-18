@@ -355,14 +355,6 @@ def header_comp(
                 margin_top="1em",
             ),
         ),
-        # pc.cond(
-        #     coming_soon,
-        #     pc.badge(
-        #         "Coming Soon!",
-        #         bg=styles.ACCENT_COLOR,
-        #         color="white",
-        #     ),
-        # ),
         divider_comp(),
         color=styles.DOC_HEADER_COLOR,
         font_weight=styles.DOC_HEADING_FONT_WEIGHT,
@@ -416,6 +408,7 @@ def docheader(
     # Return the header.
     return pc.box(
         *children,
+        id="-".join(text.lower().split()),
         color=styles.DOC_HEADER_COLOR,
         font_weight=styles.DOC_HEADING_FONT_WEIGHT,
         width="100%",
