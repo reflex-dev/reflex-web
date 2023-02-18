@@ -12,7 +12,6 @@ from pcweb.templates.docpage import (
 )
 
 
-
 @docpage()
 def telemetry():
     from pcweb.pages.docs.components.overview import components_overview
@@ -24,7 +23,7 @@ def telemetry():
             "Pynecone collects completely anonymous telemetry data about general usage. Participation in this anonymous program is optional, and you may opt-out if you'd not like to share any information. ",
         ),
         subheader("What is being collected?"),
-        doctext(    
+        doctext(
             "Telemetry allows us to understand how Pynecone is used, what features are most important, and how we can improve the product. ",
         ),
         doctext(

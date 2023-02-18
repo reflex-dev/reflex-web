@@ -125,12 +125,12 @@ def self_hosting():
             pc.code("requirements.txt"),
             " in the ",
             pc.code("docker-example"),
-            " folder of the project too."
+            " folder of the project too.",
         ),
         doctext(
             "The project structure should looks like this:",
         ),
-            doccode(
+        doccode(
             """hello
 ├── .web
 ├── assets

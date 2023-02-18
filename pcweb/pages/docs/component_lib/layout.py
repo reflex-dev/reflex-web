@@ -426,7 +426,7 @@ def render_foreach():
             "The ",
             pc.code("pc.foreach"),
             " component takes a list and a function that renders each item in the list. ",
-            "This is useful for dymamically rendering a list of items defined in a state."
+            "This is useful for dymamically rendering a list of items defined in a state.",
         ),
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
         doctext(
@@ -439,7 +439,9 @@ def render_foreach():
         doctext(
             "When indexing into a nested list, it's important to declare the list's type as Pynecone requires it for type checking. This ensures that any potential frontend JS errors are caught before the user can encounter them."
         ),
-        docdemo(nested_foreach, nested_foreach_state, eval(nested_foreach), context=True),
+        docdemo(
+            nested_foreach, nested_foreach_state, eval(nested_foreach), context=True
+        ),
         doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
         align_items="start",
