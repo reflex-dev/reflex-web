@@ -98,8 +98,8 @@ def self_hosting():
             pc.code("--no-zip"),
             " parameter.",
             "This provides the frontend in the ",
-            pc.code("_static/"),
-            " directory and the backend can be found in the root directory of the project.",
+            pc.code(".web/_static/"),
+            " directory and the backend can be found in the root directory of the project. ",
         ),
         subheader("Pynecone Container Service"),
         doctext(
