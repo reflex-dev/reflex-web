@@ -221,7 +221,7 @@ def events():
             ". Both of these examples are equivalent.",
         ),
         doctext(
-            "Setters are a greate way to make your code more concise. But if you want to do something more complicated, you can always write your own function in the state."
+            "Setters are a great way to make your code more concise. But if you want to do something more complicated, you can always write your own function in the state."
         ),
         subheader("Event Chains"),
         doctext(
