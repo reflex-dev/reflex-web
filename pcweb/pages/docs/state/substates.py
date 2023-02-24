@@ -43,7 +43,7 @@ def substates():
             "Your base state should inherit from ",
             pc.code("pc.State"),
             ". ",
-            "Substates can either inheret from your base state or other substates.",
+            "Substates can either inherit from your base state or other substates.",
         ),
         docdemo(code2, code1, eval(code2)),
         doctext(
