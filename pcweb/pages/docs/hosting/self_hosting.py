@@ -93,6 +93,14 @@ def self_hosting():
             pc.code("--backend-only"),
             " flags.",
         ),
+        doctext(
+            "It is also possible to export the components without zip it separate. To do this, use the ",
+            pc.code("--no-zip"),
+            " parameter.",
+            "This provides the frontend in the ",
+            pc.code(".web/_static/"),
+            " directory and the backend can be found in the root directory of the project. ",
+        ),
         subheader("Pynecone Container Service"),
         doctext(
             "Another option is to run your Pynecone service in a container.",
