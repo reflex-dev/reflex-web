@@ -104,7 +104,7 @@ def self_hosting():
         subheader("Pynecone Container Service"),
         doctext(
             "Another option is to run your Pynecone service in a container.",
-            "For this purpose, a ",
+            " For this purpose, a ",
             pc.code("Dockerfile"),
             " and additional documentation is available in the Pynecone project in the directory ",
             pc.code("docker-example"),
