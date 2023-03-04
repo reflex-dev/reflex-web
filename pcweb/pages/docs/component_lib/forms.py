@@ -749,59 +749,7 @@ upload_code1 = """pc.upload(
     border="1px dotted rgb(107,99,246)",
     padding="5em", 
 )"""
-upload_code2 = """class UploadState(State):
-    async def handle_upload(self, file: pc.UploadFile):
-        \"""Handle the upload of a file.
-        
-        Args:
-            file: The uploaded file.
-        \"""
-        # Currently, we only support one file upload.
-        upload_data = await file.read()
-
-        # Specify a path to save the file.
-        outfile = f".web/public/{file.filename}"
-
-        # Save the file.
-        with open(outfile, "wb") as file_object:
-            file_object.write(upload_data)
-
-color = "rgb(107,99,246)"
-"""
-exec(upload_code2)
-upload_code3 = """
-def index():
-    return pc.vstack(
-        pc.upload(
-            pc.vstack(
-                pc.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
-                pc.text("Drag and drop files here or click to select files"),
-            ),
-            border=f"1px dotted {color}",
-            padding="5em", 
-        ),
-        pc.button(
-            "Upload", 
-            on_click=lambda: UploadState.handle_upload(pc.upload_files())
-        ),
-    )
-"""
-upload_code4 = """
-pc.vstack(
-    pc.upload(
-        pc.vstack(
-            pc.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
-            pc.text("Drag and drop files here or click to select files"),
-        ),
-        border=f"1px dotted {color}",
-        padding="5em", 
-    ),
-    pc.button(
-        "Upload", 
-    ),
-)
-"""
-upload_code5 = """
+upload_code2 = """
 import pynecone as pc
 
 class State(pc.State):
@@ -870,7 +818,7 @@ def render_upload():
         ),
         pc.vstack(
             pc.image(src="/upload_demo.mov", style=demo_box_style),
-            doccode(upload_code5),
+            doccode(upload_code2),
             width="100%",
             padding_bottom="1em",
         ),
