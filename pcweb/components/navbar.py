@@ -119,7 +119,8 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                     pc.input_group(
                         pc.input_left_addon(
                             pc.icon(tag="search", color=styles.DOC_REG_TEXT_COLOR),
-                            bg="white",
+                            bg="rgba(255,255,255, 0.8)",
+                            backdrop_filter="blur(10px)",
                         ),
                         pc.input(
                             placeholder="Search the docs",
@@ -127,8 +128,10 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                             _focus={
                                 "border": f"2px solid {styles.ACCENT_COLOR}",
                             },
+                            bg="rgba(255,255,255, 0.8)",
+                            backdrop_filter="blur(10px)",
                         ),
-                        bg="white",
+                         color = styles.DOC_REG_TEXT_COLOR,
                     ),
                 ),
                 pc.modal(
@@ -264,10 +267,10 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
             justify="space-between",
             padding_x=styles.PADDING_X,
         ),
-        bg="rgba(255,255,255, 0.8)",
-        backdrop_filter="blur(6px)",
+        bg="rgba(255,255,255, 0.9)",
+        backdrop_filter="blur(10px)",
         padding_y=["0.8em", "0.8em", "0.5em"],
-        border_bottom="0.05em solid rgba(100, 116, 139, .1)",
+        border_bottom="0.05em solid rgba(100, 116, 139, .2)",
         position="sticky",
         width="100%",
         top="0px",
