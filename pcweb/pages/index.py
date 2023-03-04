@@ -148,20 +148,20 @@ def landing():
                 ~IndexState.signed_up,
                 pc.wrap(
                     pc.input(
-                        placeholder="Your email address",
+                        placeholder="Your email address...",
                         on_blur=IndexState.set_email,
                         color="#676767",
                         type="email",
                         size="md",
                         border="2px solid #f4f4f4",
                         box_shadow="rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                        bg="rgba(0,0,0,0)",
+                        bg="rgba(255,255,255,.5)",
                         _focus={
                             "border": f"2px solid {styles.ACCENT_COLOR}",
                         },
                     ),
                     pc.button(
-                        "Stay Updated!",
+                        "Join Hosting Waitlist",
                         on_click=IndexState.signup,
                         bg=styles.DOC_TEXT_COLOR,
                         box_shadow=styles.DOC_SHADOW_LIGHT,
@@ -186,7 +186,8 @@ def landing():
             ),
             spacing="2em",
         ),
-        margin_y="5em",
+        padding_y="10em",
+        width = "100%",
     )
 
 
@@ -236,7 +237,7 @@ def intro():
                     pc.text(
                         "This entire website is made in Pynecone!",
                         color=styles.ACCENT_COLOR_DARK,
-                        font_style="normal",
+                        font_weight="bold",
                         margin_bottom="1.5em",
                     ),
                     pc.hstack(
@@ -278,331 +279,597 @@ def intro():
                 flex_direction=["column", "column", "column", "row", "row"],
             ),
         ),
-        background="linear-gradient(179.94deg, #FFFFFF 0.05%, #F8F7F8 113.47%)",
-        padding_y="60px",
+        background="linear-gradient(179.94deg, #FFFFFF 0.05%, #F8F8F8 113.47%)",
+        padding_top="30px",
+        padding_bottom="80px",
     )
 
+boxstyles = {
+    "background": "white",
+    "border": "1px solid #e5e5e5",
+    "border_radius":"1em",
+    "padding": "1em",
+    "box_shadow": """
+    rgba(17, 7, 53, 0.05) 0px 51px 78px 0px, rgba(17, 7, 53, 0.035) 0px 21.3066px 35.4944px 0px, rgba(17, 7, 53, 0.03) 0px 11.3915px 18.9418px 0px, rgba(17, 7, 53, 0.024) 0px 6.38599px 9.8801px 0px, rgba(17, 7, 53, 0.02) 0px 3.39155px 4.58665px 0px, rgba(17, 7, 53, 0.016) 0px 1.4113px 1.55262px 0px, rgba(41, 56, 78, 0.05) 0px 1px 0px 0px inset
+    """,
+    "height": "100%",
+    "align_items":"left",
+    "width": "100%",  
+    "min_height":"25em",
+    "padding": "2em",
+    "bg": "rgba(248, 248, 248, .75)",
+    "_hover": {
+        "box_shadow": """
+        rgba(23, 6, 100, 0.035) 0px 24px 22px 0px, rgba(23, 6, 100, 0.055) 0px 8.5846px 8.03036px 0px, rgba(23, 6, 100, 0.067) 0px 4.77692px 3.89859px 0px, rgba(23, 6, 100, 0.082) 0px 2.63479px 1.91116px 0px, rgba(23, 6, 100, 0.12) 0px 1.15891px 0.755676px 0px
+        """,
+    }
+}
 
-def card(*args, **kwargs):
-    kwargs.update(
-        {
-            "padding": ["1em", "2em"],
-            "border": "1px solid #E3E3E3",
-            "border_radius": "1em",
-            "box_shadow": styles.DOC_SHADOW_LIGHT,
-            "align_items": "left",
-            "_hover": {"box_shadow": styles.DOC_SHADOW},
-        }
-    )
-    return pc.vstack(*args, **kwargs)
+compbox = pc.vstack(
+                    pc.image(
+                        src="/icons/apps-add.svg",
+                        height="2em",
+                        width="2em",
+                    ),
+                    pc.text(
+                        "Hit the ground running with ",
+                        pc.span(
+                            "60+",
+                            background_image="linear-gradient(90deg,#6b63f6,#b563f6)",
+                            background_clip="text",
+                        ),
+                        " built-in UI Components.",
+                        font_size=styles.H2_FONT_SIZE,
+                        font_weight=styles.BOLD_WEIGHT,
+                        ),
+                   pc.text(
+                        "Pynecone comes with a large library of UI components ranging from simple buttons to complex graphs and tables.",
+                        color="#676767",
+                   ),
+                    doclink(
+                            "Check out the full library ->",
+                            href=library.path,
+                    ),
+                    style=boxstyles,
+                    align_items="left",
+                    spacing = "1em",
+                    width = "100%",
+                )
 
+reactbox = pc.vstack(
+                    pc.image(
+                        src="/icons/code-compare.svg",
+                        height="2em",
+                        width="2em",
+                    ),
+                    pc.text(
+                        "Custom Components",
+                        font_size=styles.H2_FONT_SIZE,
+                        font_weight=styles.BOLD_WEIGHT,
+                        ),
+                   pc.text(
+                       "Create your own components in a few lines of code. Simply wrap the React component of your choice.",
+                        color="#676767",
+                   ),
+                    doclink(
+                            "Wrapping React guide ->",
+                            href="/docs/advanced-guide/wrapping-react",
+                    ),
+                    style=boxstyles,
+                    align_items="left",
+                    spacing = "1em",
+                    background_image="react.svg",
+                    background_repeat="no-repeat",
+                    background_position="right bottom",
+                    background_size="10em",
+                )
 
-import plotly.graph_objects as go
+stylebox = pc.vstack(
+                    pc.image(
+                        src="/icons/settings-sliders.svg",
+                        height="2em",
+                        width="2em",
+                    ),
+                    pc.text(
+                        "Completely customizable.",
+                        font_size=styles.H2_FONT_SIZE,
+                        font_weight=styles.BOLD_WEIGHT,
+                        ),
+                   pc.text(
+                        "All Pynecone components are fully customizable. Change the colors, fonts, and styles to match your project.",
+                        color="#676767",
+                   ),
+                    doclink(
+                            "Styling guide ->",
+                            href="/docs/styling/overview",
+                    ),
+                    background_image="icons/api.svg",
+                    background_repeat="no-repeat",
+                    background_position="140% 135%",
+                    background_size="15em",
+                    style=boxstyles,
+                    align_items="left",
+                    spacing = "1em",
+                )
 
-colors = [
-    "#756AEE",
-] * 4
-colors[2] = "#EE756A"
+powerful = pc.vstack(
+                pc.image(
+                        src="/icons/power.svg",
+                        height="2em",
+                        width="2em",
+                ),
+                pc.text(
+                    "Now everyone can work across the ",
+                    pc.span(
+                            "full-stack",
+                            background_image="linear-gradient(90deg,#6b63f6,#b563f6)",
+                            background_clip="text",
+                    ),
+                    ".",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "With Pynecone every engineer can work across the whole stack allowing for a more efficient and productive workflow.",
+                        color="#676767",
+                    ),
+                    margin_bottom="1em",
+                    style=boxstyles
+                )
 
-fig = go.Figure(
-    data=[
-        go.Bar(
-            x=["A", "B", "C", "D"],
-            y=[20, 13, 23, 27],
-            marker_color=colors,  # marker color can be a single color value or an iterable
-        )
-    ]
-)
-
-components_card = card(
-    pc.text(
-        "Hit the ground running with ",
-        pc.span(
-            "60+",
-            background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
+def frontend():
+    return pc.box(container(pc.vstack(
+       pc.center(
+            "1",
+            background_image = "linear-gradient(70deg,#6b63f6,#b563f6)",
+            font_size = "2em",
+            font_weight = "bold",
+            color = "white",
+            height = "2em",
+            width = "2em",
+            border_radius = "50%",
+            box_shadow = """0 0 9px 6px rgba(255,255,255, .5), 0 0 6px 4px rgba(107,99,246, .5)""",
+       ),
+       pc.heading(
+            "Frontend",
+            background_image="linear-gradient(70deg,#6b63f6,#b563f6)",
             background_clip="text",
+       ),
+       pc.heading(
+            "Write your entire app in Python.",
+       ),
+        pc.center(
+            "No more switching between languages and frameworks. Use one language for your whole stack.",
+            color="#676767",
         ),
-        " built-in UI Components.",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=styles.BOLD_WEIGHT,
-    ),
-    pc.text(
-        "Pynecone has all the components you need to get started.",
-        color="#676767",
-    ),
-    doclink(
-        "Check out the full library ->",
-        href=library.path,
-    ),
-    background_image="graphbg.png",
-    background_repeat="no-repeat",
-    background_position="bottom",
-    min_height="35em",
-    height="100%",
-    width="100%",
-    margin_bottom="1em",
-)
-
-styling_card = card(
-    pc.text(
-        "Fully Customizable UI.",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=styles.BOLD_WEIGHT,
-    ),
-    pc.text(
-        "Style your frontend with the full power of CSS.",
-        color="#676767",
-        margin_bottom="1em",
-    ),
-    doclink(
-        "See styling docs ->",
-        href=styling_overview.path,
-    ),
-    pc.center(
-        pc.box(
-            position="absolute",
-            top="calc(50% - 4.5em)",
-            left="calc(50% - 4.5em)",
-            width="9em",
-            height="9em",
-            border_radius="50%",
-            z_index="20",
-            box_shadow="""
-inset 0 0 0.75em #fff,
-inset 0.625em 0 1.25em #756AEE,
-inset -0.625em 0 1.25em #EE756A,
-inset 0.625em 0 4.5em #756AEE,
-inset -0.625em 0 4.5em #EE756A,
-0 0 0.75em #fff,
--0.3125em 0 1.25em #756AEE,
-0.3125em 0 1.25em #EE756A
-""",
-        ),
-        doccode(
-            """pc.box(
-width= "9em",
-height="9em",
-border_radius= "50%",
-box_shadow='''
-inset 0 0 0.75em #fff,
-inset 0.625em 0 1.25em #756AEE,
-inset -0.625em 0 1.25em #EE756A,
-inset 0.625em 0 4.5em #756AEE,
-inset -0.625em 0 4.5em #EE756A,
-0 0 0.75em #fff,
--0.3125em 0 1.25em #756AEE,
-0.3125em 0 1.25em #EE756A
-'''
-)""",
-            theme="dark",
-        ),
-        position="relative",
-        width="100%",
-    ),
-    height="100%",
-    margin_bottom="1em",
-)
-
-react_card = card(
-    pc.text(
-        "Easily wrap any React component.",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=styles.BOLD_WEIGHT,
-    ),
-    pc.text(
-        "Leverage the expansive React ecosystem. ",
-        color="#676767",
-    ),
-    pc.text(
-        "Need a special component we dont support yet? ",
-        "Wrap any React component with just a few lines of Python.",
-        color="#676767",
-    ),
-    doclink(
-        "Learn how ->",
-        href=wrapping_react.path,
-    ),
-    background_image="react.svg",
-    background_repeat="no-repeat",
-    background_position="right bottom",
-    background_size="10em",
-    height="100%",
-    margin_bottom="1em",
-)
-
-db_card = card(
-    pc.text(
-        "Connect to any SQL database.",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=styles.BOLD_WEIGHT,
-    ),
-    pc.vstack(
-        pc.vstack(
-            pc.text(
-                "Use our built-in SQLite database or easily connect your own.",
-                color="#676767",
-                margin_bottom="1em",
+        pc.hstack(
+            pc.desktop_only(
+                pc.vstack(
+                    pc.hstack(
+                        compbox,
+                        stylebox,
+                        spacing = "2em",
+                        height = "100%",
+                    ),
+                    pc.hstack(
+                        reactbox,
+                        powerful,
+                        height = "100%",
+                        spacing = "2em",
+                    ),
+                    pc.icon(tag="chevron_down", height="3em", width="3em", color=styles.LIGHT_TEXT_COLOR),
+                    width = "100%",
+                    spacing = "2em", 
+                )
             ),
-            doccode(
-                """config = pc.Config(
-app_name="my_app",
-db_uri="sqlite:///pynecone.db",
-)""",
-                theme="dark",
+            pc.mobile_and_tablet(
+                pc.vstack(
+                        compbox,
+                        stylebox,
+                        reactbox,
+                        powerful,
+                        pc.icon(tag="chevron_down", height="3em", width="3em", color=styles.LIGHT_TEXT_COLOR),
+                        height = "100%",
+                        spacing = "2em",
+                )
             ),
-            align_items="start",
-            width="100%",
+            padding_y = "2em",
         ),
-        align_items="start",
-    ),
-    doclink("Check out the DB docs →", href=database_overview.path),
-    height="100%",
-    margin_bottom="1em",
-)
+        margin_y = "5em",
+        background= "radial-gradient(rgba(181, 99, 246, .12) 0, rgba(248, 248, 248, .1), #FFFFFF 100%)",
+        padding_y = "2em",
+    )))
 
-deploy_card = card(
-    pc.text(
-        "Deploy your app in a single command.",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=styles.BOLD_WEIGHT,
-    ),
-    pc.text(
-        "No more wasting time configuring infrastructure.",
-        color="#676767",
-    ),
-    pc.text(
-        "Zero-config set up with HTTPS, CDN,",
-        " and everything you need to go to production.  ",
-        color="#676767",
-    ),
-    doccode(
-        """$ pc deploy
-Deploying ...
-Your App is live at: https://counter.pynecone.app
-""",
-        language="bash",
-        theme="dark",
-    ),
-    doclink("See deploy docs →", href=deploy.path),
-    height="100%",
-    margin_bottom="1em",
-)
+ecosystem = pc.box(
+                    pc.text(
+                    "Seamlessly integrate with any Python library.",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "",
+                        color="#676767",
+                    ),
+                    pc.text(
+                        "Never get locked into a framework doesn't support your existing tech stack. ",
+                        color="#676767",
+                    ),
+                    margin_bottom="1em",
+                    style=boxstyles,
+                    min_height="20-em",
+                    background_image=["none","none","none", "icons/python.svg"],
+                    background_repeat="no-repeat",
+                    background_position="95% 80%",
+                    background_size="7em",
+                )
+
+batteries_included = pc.box(pc.vstack(
+                pc.image(
+                        src="/icons/battery-bolt.svg",
+                        height="2em",
+                        width="2em",
+                ),
+                pc.text(
+                    "Batteries included.",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "Skip the boilerplate and get started faster. ",
+                        "Pynecone integrates the frontend and backend so there is no need to write API endpoints.",
+                        color="#676767",
+                    ),
+                    doclink(
+                        "Learn about Pynecone's State ->",
+                        href="/docs/state/overview",
+                    ),
+                    margin_bottom="1em",
+                    style=boxstyles,
+                    min_height="20em",
+                ))
+
+database = pc.box(pc.vstack(
+                pc.image(
+                        src="/icons/database.svg",
+                        height="2em",
+                        width="2em",
+                ),
+                pc.text(
+                    "Built in database ORM.",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "Integrate with existing databases with a single line of code. ",
+                        "Or use our built in SQLite database.",
+                        color="#676767",
+                    ),
+                    doclink(
+                        "Database docs ->",
+                        href="/docs/database/overview",
+                    ),
+                    margin_bottom="1em",
+                    style=boxstyles,
+                    min_height="20em",
+                ), width = "100%"
+                )
 
 
-def intro_grid():
-    return pc.flex(
-        container(
-            pc.grid(
-                pc.grid_item(
-                    components_card,
-                    col_span=2,
-                ),
-                pc.grid_item(
-                    styling_card,
-                    col_span=2,
-                ),
-                pc.grid_item(
-                    react_card,
-                    col_span=1,
-                ),
-                pc.grid_item(
-                    db_card,
-                    col_span=2,
-                ),
-                pc.grid_item(
-                    deploy_card,
-                    col_span=3,
-                ),
-                h="60em",
-                template_rows="repeat(2, 1fr)",
-                template_columns="repeat(5, 1fr)",
-                width="100%",
-                gap=4,
+def backend():
+    return pc.box(container(pc.vstack(
+       pc.center(
+            "2",
+            background_image = "linear-gradient(75deg,#b563f6, #f663ee)",
+            font_size = "2em",
+            font_weight = "bold",
+            color = "white",
+            height = "2em",
+            width = "2em",
+            border_radius = "50%",
+            box_shadow = """0 0 9px 6px rgba(255,255,255, .5), 0 0 6px 4px rgba(181, 99, 246, .5)""",
+
+       ),
+       pc.heading(
+            "Backend",
+            background_image="linear-gradient(75deg,#b563f6, #f663ee)",
+            background_clip="text",
+       ),
+       pc.heading(
+            "Write your entire app in Python.",
+       ),
+        pc.center(
+            "Pynecone comes with a powerful backend built with FastAPI and SQLAlchemy.",
+            color="#676767",
+        ),
+        pc.hstack(
+            pc.desktop_only(
+                pc.vstack(
+                    pc.hstack(
+                        batteries_included,
+                        database,
+                        spacing = "2em",
+                        height = "100%",
+                    ),
+                    ecosystem,
+                    pc.icon(tag="chevron_down", height="3em", width="3em", color=styles.LIGHT_TEXT_COLOR),
+                    width = "100%",
+                    spacing = "2em",
+                )
             ),
-            min_height="60em",
-            template_rows="repeat(2, 1fr)",
-            template_columns="repeat(5, 1fr)",
-            width="100%",
-            gap=4,
+            pc.mobile_and_tablet(
+                pc.vstack(
+                    batteries_included,
+                    database,
+                    ecosystem,
+                    pc.icon(tag="chevron_down", height="3em", width="3em", color=styles.LIGHT_TEXT_COLOR),
+                    spacing = "2em",
+                    height = "100%",
+                    width = "100%",
+                )
+            ),
+            padding_y = "2em",
         ),
-        margin_y="60px",
+        margin_y = "5em",
+        background= "radial-gradient(rgba(246, 99, 238, .15) 0, rgba(255, 255, 255, .1), #f8f8f8 100%)",
+        padding_y = "2em",
+    )),
+    bg = "#f8f8f8",
+    border = "1px solid #e5e5e5",
     )
 
+hosting_service = pc.box(pc.vstack(
+                pc.image(
+                        src="/icons/globe.svg",
+                        height="2em",
+                        width="2em",
+                ),
+                pc.text(
+                    "Deploy your app with a single command.",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "Autoconfigured CDN, HTTPS, SSL, and more to make sure your app is preformant and secure.",
+                        color="#676767",
+                    ),
+                    doclink(
+                        "Deploy your app ->",
+                        href="/docs/hosting/deploy",
+                    ),
+                    background_image="icons/globelight.svg",
+                    background_repeat="no-repeat",
+                    background_position="135% 150%",
+                    background_size="15em",
+                    margin_bottom="1em",
+                    style=boxstyles
+                ), width = "100%",)
 
-def intro_gridmobile():
-    return pc.box(
-        container(
-            components_card,
-            styling_card,
-            db_card,
-            deploy_card,
-            width="100%",
-            padding_y="1em",
+self_host = pc.box(pc.vstack(
+                pc.image(
+                        src="/icons/laptop-code.svg",
+                        height="2em",
+                        width="2em",
+                ),
+                pc.text(
+                    "Self-host your app.",
+                    font_size=styles.H2_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
+                    pc.text(
+                        "Learn how to configure your own server and deploy your app on your own infrastructure. ",
+                        "With Pynecone you are not locked into a specific hosting provider.", 
+                        color="#676767",
+                    ),
+                    doclink(
+                        "Self-host your app ->",
+                        href="/docs/hosting/self-hosting",
+                    ),
+                    background_image="icons/laptop-codelight.svg",
+                    background_repeat="no-repeat",
+                    background_position="130% 130%",
+                    background_size="15em",
+                    margin_bottom="1em",
+                    style=boxstyles
+                ), width = "100%")
+
+def hosting():
+    return pc.box(container(pc.vstack(
+       pc.center(
+            "3",
+            background_image = "linear-gradient(75deg,#f55d55, #f6b563)",
+            font_size = "2em",
+            font_weight = "bold",
+            color = "white",
+            height = "2em",
+            width = "2em",
+            border_radius = "50%",
+            box_shadow = """0 0 9px 6px rgba(255,255,255, .5), 0 0 6px 4px rgba(245, 93, 85, .5)""",
+
+       ),
+       pc.heading(
+            "Hosting",
+            background_image="linear-gradient(75deg,#f55d55, #f6b563)",
+            background_clip="text",
+       ),
+       pc.heading(
+            "Deploy your app in seconds.",
+       ),
+        pc.center(
+            "Simplify the process of deploying your app with Pynecone.",
+            color="#676767",
         ),
-    )
-
-
-def gallery_card(gif, website):
-    return pc.link(
-        pc.box(
-            pc.image(
-                src=gif,
-                height="18em",
-            ),
-            border_radius="1em",
-            box_shadow=styles.DOC_SHADOW_DARK,
-            overflow="hidden",
-            _hover={
-                "box_shadow": "0 0 .25em .11em #756AEE",
-            },
+        pc.desktop_only(
+            pc.hstack(
+                    hosting_service,
+                    self_host,
+                    spacing = "2em",
+                    height = "100%",
+                    margin = "2em",
+            )
         ),
-        href=website,
-    )
-
+        pc.mobile_and_tablet(
+            pc.vstack(
+                    hosting_service,
+                    self_host,
+                    spacing = "2em",
+                    height = "100%",
+                    padding_y = "2em"
+            )
+        ),
+        margin_y = "5em",
+        background= "radial-gradient(rgba(245, 93, 85, .15) 0, rgba(248, 248, 248, .1), #FFFFFF 100%)",
+        padding_y = "2em",
+    )))
 
 def gallery():
-    return container(
-        pc.vstack(
-            pc.text(
-                "Gallery", font_size=styles.H2_FONT_SIZE, font_weight=styles.BOLD_WEIGHT
-            ),
-            pc.text(
-                "See what you can build with Pynecone. ",
-                doclink("View gallery →", href=gallery_page.path),
-                color="#676767",
-            ),
-            pc.center(
-                pc.hstack(
-                    gallery_card(
-                        gif="/gallery/dalle.gif", website="https://dalle.pynecone.app"
-                    ),
-                    pc.box(
-                        gallery_card(
-                            gif="/gallery/nba.gif", website="https://nba.pynecone.app"
+    return pc.center(
+            container(
+                pc.vstack(
+                pc.center(
+                   pc.text(
+                        "Join the growing ",
+                        pc.span(
+                            "open-source ",
+                            background_image="linear-gradient(90deg,#f55d55, #f6b563)",
+                            background_clip="text",
                         ),
-                        display=["none", "none", "none", "block", "block"],
+                        "community of Pynecone developers.",
+                        font_size=styles.H2_FONT_SIZE,
+                        font_weight=styles.BOLD_WEIGHT,
+                        text_align="center",
+                        color="white"
                     ),
-                    pc.box(
-                        gallery_card(
-                            gif="/gallery/clock.gif",
-                            website="https://clock.pynecone.app",
-                        ),
-                        display=["none", "none", "none", "none", "block"],
-                    ),
-                    spacing="1em",
-                    margin_top="1em",
+                    width = "100%",
                 ),
-                width="100%",
+                pc.desktop_only(
+                pc.flex(
+                pc.spacer(),
+                pc.vstack(
+                    pc.heading("3000+"),
+                    pc.text("Projects created per month", text_align="center"),
+                    margin = "1em",
+                    padding = "1em",
+                    min_height = "9em",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    width = "30%",
+                    height = "100%",
+                    color= "white",
+                    border_radius= "1em",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    _hover = {
+                        "border": f"2px solid #f55d55",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("5600+"),
+                    pc.text("GitHub stars", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    color= "white",
+                    padding = "1em",
+                    width = "30%",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f6b563",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("600+"),
+                    pc.text("Discord community members", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    padding = "1em",
+                    color= "white",
+                    width = "30%",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f55d55", 
+                    },
+                ),
+                pc.spacer(),
+                height = "100%",
+                min_height = "10em",
+                width = "100%",
+                margin_x = "2em",
+                ),
+                ),
+                pc.mobile_and_tablet(
+                pc.vstack(
+                pc.vstack(
+                    pc.heading("3000+"),
+                    pc.text("Projects created per month", text_align="center"),
+                    margin = "1em",
+                    padding = "1em",
+                    min_height = "9em",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    height = "100%",
+                    width = "100%",
+                    color= "white",
+                    border_radius= "1em",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    _hover = {
+                        "border": f"2px solid #f55d55",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("5600+"),
+                    pc.text("GitHub stars", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    width = "100%",
+                    color= "white",
+                    padding = "1em",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f6b563",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("600+"),
+                    pc.text("Discord community members", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    padding = "1em",
+                    width = "100%",
+                    color= "white",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f55d55", 
+                    },
+                ),
+                height = "100%",
+                min_height = "10em",
+                width = "100%",
+                ),
+                ),
+                box_shadow=styles.DOC_SHADOW,
+                bg = "black",
+                border_radius = "1em",
+                border = f"2px solid #e5e5e5",
+                padding="2em",
             ),
-            align_items="left",
-            border="1px solid #E3E3E3",
-            box_shadow=styles.DOC_SHADOW_LIGHT,
-            border_radius="12px",
-            width="100%",
-            padding=["1em", "2em"],
+            width = "100%"
         ),
-        margin_top=["3em", "3em", "5em", "12em", "12em"],
-        margin_bottom="2em",
+        bg = "linear-gradient(#f8f8f8, #ffffff)",
+        width = "100%",
+        border = "1px solid #e5e5e5",
+        padding_y=["6em", "6em", "10em", "12em", "12em"],
     )
 
 
@@ -733,7 +1000,7 @@ def c2a():
                             color="#eec600",
                             margin_left="0.2em",
                             margin_bottom="0.2em",
-                        ),
+                        ), 
                         width="100%",
                         height="100%",
                     ),
@@ -774,16 +1041,17 @@ def index() -> pc.Component:
     return pc.box(
         landing(),
         intro(),
-        pc.desktop_only(
-            intro_grid(),
-        ),
-        pc.mobile_and_tablet(
-            intro_gridmobile(),
-        ),
+        frontend(),
+        backend(),
+        hosting(),
         gallery(),
         installation(),
         pc.cond(
             IndexState.show_c2a,
             c2a(),
         ),
+        background_image="/grid.png",
+        background_repeat="no-repeat",
+        background_position="top",
+        width = "100%",
     )

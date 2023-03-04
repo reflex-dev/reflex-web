@@ -97,6 +97,15 @@ example_list = [
     },
 ]
 
+class Gallery(pc.Model):
+    name: str
+    difficulty: str
+    tags: list[str]
+    description: str
+    img: str
+    gif: str
+    url: str
+    source: str
 
 def component_grid():
     sidebar = []
@@ -105,11 +114,11 @@ def component_grid():
             pc.vstack(
                 pc.box(
                     height="10em",
-                    background_image=category["img"],
+                    background_image="https://accesspoint-881270641601.s3-accesspoint.us-west-1.amazonaws.com" + category["img"],
                     background_size="cover",
                     background_repeat="no-repeat",
                     _hover={
-                        "background_image": category["gif"],
+                        "background_image": "https://accesspoint-881270641601.s3-accesspoint.us-west-1.amazonaws.com" + category["gif"],
                         "background_size": "cover",
                     },
                     rounded="lg",

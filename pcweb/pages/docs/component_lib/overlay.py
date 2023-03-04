@@ -60,6 +60,7 @@ pc.box(pc.button("Show Right Drawer", on_click=DrawerState.right),
                 pc.drawer_footer(
                     pc.button("Close", on_click=DrawerState.right)
                 ),
+                bg = "rgba(0, 0, 0, 0.3)"
             )
         ),
         is_open=DrawerState.show_right,

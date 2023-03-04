@@ -131,7 +131,10 @@ def prop_docs(prop: Prop) -> list[pc.Component]:
     if pc.utils._issubclass(prop.type_, pc.Var):
         # For vars, get the type of the var.
         type_ = pc.utils.get_args(type_)[0]
-    type_ = type_.__name__
+    try:
+        type_ = type_.__name__
+    except AttributeError:
+        print(type_)
 
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
