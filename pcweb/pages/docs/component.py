@@ -331,6 +331,7 @@ def component_docs(component):
                     )
                     for event in component.get_triggers()
                     if event not in pc.event.EVENT_TRIGGERS
+                    and event not in ("on_drop",)
                 ],
                 border_color="rgb(255, 255, 255)",
                 allow_multiple=True,

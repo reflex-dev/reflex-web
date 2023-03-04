@@ -28,6 +28,7 @@ forms_list = [
     [pc.Slider, pc.SliderTrack, pc.SliderFilledTrack, pc.SliderThumb, pc.SliderMark],
     [pc.Switch],
     [pc.TextArea],
+    [pc.Upload],
 ]
 
 # Layout components.
