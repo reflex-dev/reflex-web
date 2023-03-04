@@ -348,11 +348,11 @@ reactbox = pc.vstack(
                         font_weight=styles.BOLD_WEIGHT,
                         ),
                    pc.text(
-                       "Create your own components in a few lines of code. Simply wrap the react component of your choice.",
+                       "Create your own components in a few lines of code. Simply wrap the React component of your choice.",
                         color="#676767",
                    ),
                     doclink(
-                            "Wrapping react guide ->",
+                            "Wrapping React guide ->",
                             href="/docs/advanced-guide/wrapping-react",
                     ),
                     style=boxstyles,
@@ -376,7 +376,7 @@ stylebox = pc.vstack(
                         font_weight=styles.BOLD_WEIGHT,
                         ),
                    pc.text(
-                        "All Pynecone components are fully customizable. Change anything from colors, fonts, and styles to match your project.",
+                        "All Pynecone components are fully customizable. Change the colors, fonts, and styles to match your project.",
                         color="#676767",
                    ),
                     doclink(
@@ -439,8 +439,7 @@ def frontend():
             "Write your entire app in Python.",
        ),
         pc.center(
-            "No need to learn specific frontend frameworks. ",
-            "With Pynecone you can write your entire app in Python. ",
+            "No more switching between languages and frameworks. Use one language for your whole stack.",
             color="#676767",
         ),
         pc.hstack(
@@ -483,7 +482,7 @@ def frontend():
 
 ecosystem = pc.box(
                     pc.text(
-                    "Seemlessly integrate with any Python library.",
+                    "Seamlessly integrate with any Python library.",
                     font_size=styles.H2_FONT_SIZE,
                     font_weight=styles.BOLD_WEIGHT,
                 ),
@@ -517,7 +516,7 @@ batteries_included = pc.box(pc.vstack(
                 ),
                     pc.text(
                         "Skip the boilerplate and get started faster. ",
-                        "With Pynecone there no need to write API endpoints you just write like you would in a normal Python script.",
+                        "Pynecone integrates the frontend and backend so there is no need to write API endpoints.",
                         color="#676767",
                     ),
                     doclink(
@@ -643,7 +642,7 @@ hosting_service = pc.box(pc.vstack(
                     background_size="15em",
                     margin_bottom="1em",
                     style=boxstyles
-                ))
+                ), width = "100%",)
 
 self_host = pc.box(pc.vstack(
                 pc.image(
@@ -657,7 +656,8 @@ self_host = pc.box(pc.vstack(
                     font_weight=styles.BOLD_WEIGHT,
                 ),
                     pc.text(
-                        "Learn how to configure your own server and deploy your app on your own infrastructure.",
+                        "Learn how to configure your own server and deploy your app on your own infrastructure. ",
+                        "With Pynecone you are not locked into a specific hosting provider.", 
                         color="#676767",
                     ),
                     doclink(
@@ -670,7 +670,7 @@ self_host = pc.box(pc.vstack(
                     background_size="15em",
                     margin_bottom="1em",
                     style=boxstyles
-                ))
+                ), width = "100%")
 
 def hosting():
     return pc.box(container(pc.vstack(
@@ -730,13 +730,14 @@ def gallery():
                         "Join the growing ",
                         pc.span(
                             "open-source ",
-                            background_image="linear-gradient(90deg,#6b63f6,#b563f6)",
+                            background_image="linear-gradient(90deg,#f55d55, #f6b563)",
                             background_clip="text",
                         ),
                         "community of Pynecone developers.",
                         font_size=styles.H2_FONT_SIZE,
                         font_weight=styles.BOLD_WEIGHT,
                         text_align="center",
+                        color="white"
                     ),
                     width = "100%",
                 ),
@@ -745,49 +746,52 @@ def gallery():
                 pc.spacer(),
                 pc.vstack(
                     pc.heading("3000+"),
-                    pc.text("Projects created per month.", text_align="center"),
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
+                    pc.text("Projects created per month", text_align="center"),
                     margin = "1em",
                     padding = "1em",
-                    min_height = "8em",
+                    min_height = "9em",
                     align_items = "center",
-                    bg = "#FFFFFF",
+                    bg = "rgba(29,33,37, 1)",
                     width = "30%",
                     height = "100%",
+                    color= "white",
+                    border_radius= "1em",
+                    border = f"2px dashed rgba(255,255,255,.5)",
                     _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
-                    },
-                ),
-                pc.vstack(
-                    pc.heading("600+"),
-                    pc.text("Community members on Discord.", text_align="center"),
-                    min_height = "8em",
-                    height = "100%",
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
-                    margin = "1em",
-                    padding = "1em",
-                    width = "30%",
-                    align_items = "center",
-                    bg = "#FFFFFF",
-                    _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
+                        "border": f"2px solid #f55d55",
                     },
                 ),
                 pc.vstack(
                     pc.heading("5600+"),
-                    pc.text("GitHub stars.", text_align="center"),
-                    min_height = "8em",
+                    pc.text("GitHub stars", text_align="center"),
+                    min_height = "9em",
                     height = "100%",
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
+                    border = f"2px dashed rgba(255,255,255,.5)",
                     margin = "1em",
+                    color= "white",
                     padding = "1em",
                     width = "30%",
-                    bg = "#FFFFFF",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
                     _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
+                        "border": f"2px solid #f6b563",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("600+"),
+                    pc.text("Discord community members", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    padding = "1em",
+                    color= "white",
+                    width = "30%",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f55d55", 
                     },
                 ),
                 pc.spacer(),
@@ -798,70 +802,73 @@ def gallery():
                 ),
                 ),
                 pc.mobile_and_tablet(
-                    pc.vstack(
+                pc.vstack(
                 pc.vstack(
                     pc.heading("3000+"),
-                    pc.text("Projects created per month.", text_align="center"),
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
+                    pc.text("Projects created per month", text_align="center"),
                     margin = "1em",
                     padding = "1em",
-                    min_height = "8em",
+                    min_height = "9em",
                     align_items = "center",
-                    width = "100%",
+                    bg = "rgba(29,33,37, 1)",
                     height = "100%",
-                    _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
-                    },
-                    bg = "#FFFFFF",
-                ),
-                pc.vstack(
-                    pc.heading("600+"),
-                    pc.text("Community members on Discord.", text_align="center"),
-                    min_height = "8em",
-                    height = "100%",
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
-                    margin = "1em",
-                    padding = "1em",
                     width = "100%",
-                    align_items = "center",
+                    color= "white",
+                    border_radius= "1em",
+                    border = f"2px dashed rgba(255,255,255,.5)",
                     _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
+                        "border": f"2px solid #f55d55",
                     },
-                    bg = "#FFFFFF",
                 ),
                 pc.vstack(
                     pc.heading("5600+"),
-                    pc.text("GitHub stars.", text_align="center"),
-                    min_height = "8em",
+                    pc.text("GitHub stars", text_align="center"),
+                    min_height = "9em",
                     height = "100%",
-                    border = f"2px dashed {styles.LIGHT_TEXT_COLOR}",
+                    border = f"2px dashed rgba(255,255,255,.5)",
+                    margin = "1em",
+                    width = "100%",
+                    color= "white",
+                    padding = "1em",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
+                    _hover = {
+                        "border": f"2px solid #f6b563",
+                    },
+                ),
+                pc.vstack(
+                    pc.heading("600+"),
+                    pc.text("Discord community members", text_align="center"),
+                    min_height = "9em",
+                    height = "100%",
+                    border = f"2px dashed rgba(255,255,255,.5)",
                     margin = "1em",
                     padding = "1em",
                     width = "100%",
+                    color= "white",
+                    align_items = "center",
+                    bg = "rgba(29,33,37, 1)",
+                    border_radius= "1em",
                     _hover = {
-                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                        "border_radius": "1em",
+                        "border": f"2px solid #f55d55", 
                     },
-                    bg = "#FFFFFF",
                 ),
                 height = "100%",
                 min_height = "10em",
                 width = "100%",
-                align_items = "center",
                 ),
                 ),
                 box_shadow=styles.DOC_SHADOW,
-                bg = "#f8f8f8",
+                bg = "black",
                 border_radius = "1em",
-                border = f"1px solid #e5e5e5",
+                border = f"2px solid #e5e5e5",
                 padding="2em",
             ),
             width = "100%"
         ),
-        bg = "linear-gradient(#ffffff, #f8f8f8)",
+        bg = "linear-gradient(#f8f8f8, #ffffff)",
         width = "100%",
+        border = "1px solid #e5e5e5",
         padding_y=["6em", "6em", "10em", "12em", "12em"],
     )
 
