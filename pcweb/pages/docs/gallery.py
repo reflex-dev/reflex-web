@@ -114,11 +114,11 @@ def component_grid():
             pc.vstack(
                 pc.box(
                     height="10em",
-                    background_image="https://accesspoint-881270641601.s3-accesspoint.us-west-1.amazonaws.com" + category["img"],
+                    background_image=category["img"],
                     background_size="cover",
                     background_repeat="no-repeat",
                     _hover={
-                        "background_image": "https://accesspoint-881270641601.s3-accesspoint.us-west-1.amazonaws.com" + category["gif"],
+                        "background_image": category["gif"],
                         "background_size": "cover",
                     },
                     rounded="lg",
