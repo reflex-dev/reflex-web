@@ -575,7 +575,7 @@ def backend():
             background_clip="text",
        ),
        pc.heading(
-            "Write your entire app in Python.",
+            "Skip the boilerplate and get started faster. ",
        ),
         pc.center(
             "Pynecone comes with a powerful backend built with FastAPI and SQLAlchemy.",
