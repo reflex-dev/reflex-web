@@ -817,7 +817,7 @@ def render_upload():
             "A full example is shown below. ",
         ),
         pc.vstack(
-            pc.image(src="/upload_demo.mov", style=demo_box_style),
+            pc.image(src="/upload.gif", style=demo_box_style),
             doccode(upload_code2),
             width="100%",
             padding_bottom="1em",

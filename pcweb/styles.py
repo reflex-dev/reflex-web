@@ -15,9 +15,7 @@ H3_FONT_SIZE = "1.35em"
 H4_FONT_SIZE = "1.1em"
 TEXT_FONT_SIZE = "1em"
 TEXT_FONT_FAMILY = "Inter"
-CODE_FONT_FAMILY = (
-    '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace'
-)
+CODE_FONT_FAMILY = "Fira Code, Fira Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"
 ACCENT_COLOR = "rgb(107,99,246)"
 ACCENT_COLOR_LIGHT = "rgba(107,99,246, 0.4)"
 ACCENT_COLOR_DARK = "rgb(86, 77, 209)"

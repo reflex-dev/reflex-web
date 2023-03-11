@@ -97,6 +97,7 @@ example_list = [
     },
 ]
 
+
 class Gallery(pc.Model):
     name: str
     difficulty: str
@@ -106,6 +107,7 @@ class Gallery(pc.Model):
     gif: str
     url: str
     source: str
+
 
 def component_grid():
     sidebar = []

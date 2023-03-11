@@ -131,7 +131,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                             bg="rgba(255,255,255, 0.8)",
                             backdrop_filter="blur(10px)",
                         ),
-                         color = styles.DOC_REG_TEXT_COLOR,
+                        color=styles.DOC_REG_TEXT_COLOR,
                     ),
                 ),
                 pc.modal(
