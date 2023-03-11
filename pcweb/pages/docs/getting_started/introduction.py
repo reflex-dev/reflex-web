@@ -24,57 +24,6 @@ class CounterExampleState(State):
         self.count -= 1
 
 
-@pc.component
-def intro_code1(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code)
-
-
-@pc.component
-def intro_code2(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(0, 1))
-
-
-@pc.component
-def intro_code3(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(2, 5))
-
-
-@pc.component
-def intro_code4(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(5, 13))
-
-
-@pc.component
-def intro_code5(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(13, 30))
-
-
-@pc.component
-def intro_code6(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(21, 22))
-
-
-@pc.component
-def intro_code7(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(15, 21))
-
-
-@pc.component
-def intro_code8(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(31, 32))
-
-
-@pc.component
-def intro_code9(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(32, 33))
-
-
-@pc.component
-def intro_code10(state: pc.Var[dict]) -> pc.Component:
-    return doccode(counter_code, lines=(33, 34))
-
-
-@pc.component
 def intro1() -> pc.Component:
     return pc.fragment(
         header_comp(text="Introduction", first=True),
@@ -149,19 +98,18 @@ def intro1() -> pc.Component:
     )
 
 
-@pc.component
-def intro2(state: pc.Var[dict]) -> pc.Component:
+def intro2() -> pc.Component:
     from pcweb.pages.docs.advanced_guide.wrapping_react import wrapping_react
     from pcweb.pages.docs.library import library
 
     return pc.fragment(
         pc.divider(margin_y="1em"),
         text_comp(text="Here is the complete code to create this. "),
-        intro_code1(state=state),
+        doccode(counter_code),
         subheader_comp(text="The Structure of a Pynecone App"),
         text_comp(text="Let's break this down."),
         subheader_comp(text="Import"),
-        intro_code2(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(0, 1)),
         pc.text(
             "We begin by importing the library. ",
             "All Pynecone functions and classes begin with the ",
@@ -171,7 +119,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="State"),
-        intro_code3(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(2, 5)),
         pc.text(
             "The state defines all the variables (called ",
             pc.span("vars", font_weight="bold"),
@@ -196,7 +144,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="Event Handlers"),
-        intro_code4(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(5, 13)),
         pc.text(
             "Within the state, we define functions, called ",
             pc.span("event handlers", font_weight="bold"),
@@ -229,7 +177,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="Frontend"),
-        intro_code5(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(13, 30)),
         text_comp(
             text="This function defines the frontend of the app. ",
         ),
@@ -266,7 +214,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
         ),
-        intro_code6(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(21, 22)),
         pc.text(
             "Components can reference the app's state vars. " "The ",
             pc.code(
@@ -283,7 +231,7 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
         ),
-        intro_code7(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(15, 21)),
         pc.text(
             "Components interact with the state by binding events triggers to event handlers. ",
             "For example, ",
@@ -317,14 +265,14 @@ def intro2(state: pc.Var[dict]) -> pc.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="Routing"),
-        intro_code8(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(31, 32)),
         text_comp(text="Next we define our app and tell it what state to use."),
-        intro_code9(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(32, 33)),
         text_comp(
             text="We add a route from the root URL of the app to the counter component. "
         ),
         subheader_comp(text="Compiling"),
-        intro_code10(state=BaseVar(name="state")),
+        doccode(counter_code, lines=(33, 34)),
         text_comp(text="Finally, we compile our app, and we are ready to run it."),
         subheader_comp(text="Next Steps"),
         text_comp(
@@ -362,7 +310,7 @@ def introduction():
                 ),
             ),
         ),
-        intro2(state=BaseVar(name="state")),
+        intro2(),
     )
 
 

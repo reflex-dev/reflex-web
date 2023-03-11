@@ -229,6 +229,7 @@ def render_datatable():
                     ["Terry Rozier", "6-2", 22.0],
                     ["Marcus Smart", "6-4", 22.0],
                 ],
+                columns=["Name", "Height", "Age"],
                 # data=nba_data()[["Name", "Height", "Age"]],
                 pagination=True,
                 search=True,

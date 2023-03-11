@@ -37,9 +37,9 @@ copy_to_clipboard = CopyToClipboard.create
 def code_block(
     code: pc.Var[str],
     language: pc.Var[str],
-    copied: pc.Var[bool],
-    copy_text: pc.Var[str],
-    on_copy: pc.EventChain,
+    # copied: pc.Var[bool],
+    # copy_text: pc.Var[str],
+    # on_copy: pc.EventChain,
 ):
     return pc.box(
         pc.box(
@@ -58,32 +58,6 @@ def code_block(
             ),
             border_radius=styles.DOC_BORDER_RADIUS,
             box_shadow=styles.DOC_SHADOW_LIGHT,
-        ),
-        pc.cond(
-            copied,
-            pc.tooltip(
-                pc.icon(
-                    tag="check_circle",
-                    style=icon_style,
-                    color=styles.ACCENT_COLOR,
-                ),
-                label="Copied!",
-                close_on_click=False,
-                padding="0.5em",
-                border_radius="0.5em",
-                background_color=styles.ACCENT_COLOR,
-                is_open=copied,
-            ),
-            pc.tablet_and_desktop(
-                copy_to_clipboard(
-                    pc.icon(
-                        tag="copy",
-                        style=icon_style,
-                    ),
-                    text=pc.Var.create(copy_text, is_string=True),
-                    on_copy=on_copy,
-                ),
-            ),
         ),
         position="relative",
         margin_bottom="1em",
@@ -521,16 +495,17 @@ def doccode(
     uid = str(uuid.uuid4())
 
     # Create the code snippet.
-    cb = code_block if theme == "light" else code_block_dark
+    # cb = code_block if theme == "light" else code_block_dark
+    cb = code_block
     return cb(
         code=code,
         language=language,
-        copied=ClipboardState.text == uid,
-        copy_text=copy_text,
-        on_copy=lambda: [
-            ClipboardState.copy(pc.Var.create(utils.wrap(uid, '"'))),
-            ClipboardState.reset_text(),
-        ],
+        # copied=ClipboardState.text == uid,
+        # copy_text=copy_text,
+        # on_copy=lambda: [
+        #     ClipboardState.copy(pc.Var.create(utils.wrap(uid, '"'))),
+        #     ClipboardState.reset_text(),
+        # ],
     )
 
 
