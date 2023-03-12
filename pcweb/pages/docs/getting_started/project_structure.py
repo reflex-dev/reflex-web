@@ -81,16 +81,6 @@ $ pc init""",
         doccode(
             """pc.image(src="image.png")""",
         ),
-        doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.alert_title(
-                    "You will have to restart your app to see changes to "
-                    " the assets directory.",
-                ),
-                status="warning",
-            ),
-        ),
         subheader("Main Project"),
         doctext(
             "Initializing your project creates a directory with the same name as your app. ",
