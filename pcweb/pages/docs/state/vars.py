@@ -2,6 +2,7 @@ import pynecone as pc
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
+    doccode,
     docdemo,
     docheader,
     doclink,
@@ -155,7 +156,29 @@ def vars():
         ),
         doctext("We recommend always using type annotations for computed vars. "),
         subheader("Var Operations"),
-        doctext("You can perform basic operations with vars within render functions."),
+        doctext(
+            "Within your render code, you cannot use arbitrary Python functions on the state vars. "
+            "For example, the following code will ",
+            pc.span("not work.", font_weight="bold"),
+        ),
+        doccode(
+            """
+class State(pc.State):
+    number: int
+
+def index():
+    pc.text(float(State.number))
+            """
+        ),
+        doctext(
+            "This is because we compile the render code to Javascript, but the value of ",
+            pc.code("State.number"),
+            " is only known at runtime. ",
+            "You can use computed vars for more complex operations. ",
+        ),
+        doctext(
+            "However, you can perform basic operations with vars within render functions, as seen below."
+        ),
         docdemo(code6, code5, eval(code6), context=True),
         doctext(
             pc.alert(

@@ -807,7 +807,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("5600+"),
+                            pc.heading("5700+"),
                             pc.text("GitHub stars", text_align="center"),
                             min_height="9em",
                             height="100%",
@@ -866,7 +866,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("5600+"),
+                            pc.heading("5700+"),
                             pc.text("GitHub stars", text_align="center"),
                             min_height="9em",
                             height="100%",
