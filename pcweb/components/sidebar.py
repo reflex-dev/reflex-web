@@ -140,6 +140,7 @@ def get_sidebar_items_learn():
 
 def get_sidebar_items_examples():
     import pcweb.pages.docs.events_reference as event_ref
+    import pcweb.pages.docs.recipe as recipe
 
     library_item = SidebarItem(
         names="Components",
@@ -167,6 +168,13 @@ def get_sidebar_items_examples():
             children=[
                 event_ref.triggers,
                 event_ref.server_side,
+            ],
+        ),
+        create_item(
+            recipe,
+            children=[
+                recipe.navbar,
+                recipe.sidebar,
             ],
         ),
     ]
