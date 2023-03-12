@@ -6,6 +6,7 @@ from .events_reference import *
 from .gallery import gallery
 from .getting_started import *
 from .hosting import *
+from .recipe import *
 from .library import library
 from .state import *
 from .styling import *
