@@ -11,7 +11,6 @@ from pcweb.templates.docpage import (
 code_example1 = """pc.text('hello world', color='blue')"""
 
 
-
 @docpage()
 def sidebar():
     return pc.box(
@@ -28,9 +27,9 @@ def sidebar():
             pc.code('position= "fixed"'),
             " prop to make the sidebar fixed to the left side of the page. ",
             "We will also use the ",
-            pc.code('left= 0'),
+            pc.code("left= 0"),
             " and ",
-            pc.code('z_index="1'),
+            pc.code("z_index=1"),
             " props to make sure the sidebar is always on top of the screen and above the other components on the page. ",
         ),
         doccode(
@@ -54,5 +53,5 @@ def sidebar():
                     z_index="500",
                 )
             """
-        )
+        ),
     )

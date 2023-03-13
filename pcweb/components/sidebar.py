@@ -49,13 +49,14 @@ def create_item(route: Route, children=None):
         name = route.title.split(" | Pynecone")[0]
         if name.endswith("Overview"):
             name = "Overview"
-        name = name.replace("Api", "API")
+        name = name.replace("Api", "API").replace("Cli", "CLI")
         return SidebarItem(names=name, link=route.path)
     return SidebarItem(
         names=inspect.getmodule(route)
         .__name__.split(".")[-1]
         .replace("_", " ")
-        .title(),
+        .title()
+        .replace("Api", "API"),
         children=list(map(create_item, children)),
     )
 
@@ -138,9 +139,10 @@ def get_sidebar_items_learn():
     return items
 
 
-def get_sidebar_items_examples():
+def get_sidebar_items_reference():
     import pcweb.pages.docs.events_reference as event_ref
-    import pcweb.pages.docs.recipe as recipe
+    from pcweb.pages.docs import recipes
+    from pcweb.pages.docs import api_reference
 
     library_item = SidebarItem(
         names="Components",
@@ -171,10 +173,16 @@ def get_sidebar_items_examples():
             ],
         ),
         create_item(
-            recipe,
+            recipes,
             children=[
-                recipe.navbar,
-                recipe.sidebar,
+                recipes.navbar,
+                recipes.sidebar,
+            ],
+        ),
+        create_item(
+            api_reference,
+            children=[
+                api_reference.cli,
             ],
         ),
     ]
@@ -290,12 +298,12 @@ def calculate_index(sidebar_items, url):
 
 
 learn = get_sidebar_items_learn()
-examples = get_sidebar_items_examples()
+reference = get_sidebar_items_reference()
 
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + examples
+    sidebar_items = learn + reference
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -321,7 +329,7 @@ def get_prev_next(url):
 def sidebar_comp(
     url: pc.Var[str],
     learn_index: pc.Var[list[int]],
-    examples_index: pc.Var[list[int]],
+    reference_index: pc.Var[list[int]],
 ):
     from pcweb.pages.docs.gallery import gallery
 
@@ -348,12 +356,12 @@ def sidebar_comp(
         pc.heading("Reference", style=heading_style3),
         pc.accordion(
             *[
-                sidebar_item_comp(item=item, url=url, first=True, index=examples_index)
-                for i, item in enumerate(examples)
+                sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
+                for item in reference
             ],
             allow_toggle=True,
             allow_multiple=True,
-            default_index=examples_index,
+            default_index=reference_index,
         ),
         pc.vstack(
             pc.link(
@@ -387,11 +395,11 @@ def sidebar_comp(
 def sidebar(url=None) -> pc.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
-    examples_index = calculate_index(examples, url)
+    reference_index = calculate_index(reference, url)
     return pc.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,
-            examples_index=examples_index,
+            reference_index=reference_index,
         ),
     )

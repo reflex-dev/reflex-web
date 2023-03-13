@@ -11,7 +11,6 @@ from pcweb.templates.docpage import (
 code_example1 = """pc.text('hello world', color='blue')"""
 
 
-
 @docpage()
 def navbar():
     return pc.box(
@@ -21,7 +20,8 @@ def navbar():
         ),
         doctext(
             "Navigation bars are useful for web apps because they provide a consistent and intuitive way for users to navigate through the app. ",
-            "Having a clear and consistent navigation structure can greatly improve the user experience by making it easy for users to find the information they need and access the different features of the app. ",        ),
+            "Having a clear and consistent navigation structure can greatly improve the user experience by making it easy for users to find the information they need and access the different features of the app. ",
+        ),
         subheader("Recipe"),
         doctext(
             "In this recipe, we will create a navbar component that can be used to create a navigation bar for a web app. ",
@@ -32,7 +32,7 @@ def navbar():
             pc.code('position= "fixed"'),
             " prop to make the navbar fixed to the top of the page. ",
             "We will also use the ",
-            pc.code('top= 0'),
+            pc.code("top= 0"),
             " and ",
             pc.code('z_index="1'),
             " props to make sure the navbar is always on top of the screen and above the other components on the page. ",
@@ -57,5 +57,5 @@ def navbar():
                     z_index="5"
                 )
             """
-        )
+        ),
     )
