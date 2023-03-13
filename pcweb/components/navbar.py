@@ -7,6 +7,7 @@ from pcweb.base_state import State
 from pcweb.components.logo import logo
 from pcweb.components.sidebar import sidebar as sb
 from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.docs.resources import resources
 from pcweb.pages.docs.getting_started import introduction
 from pcweb.pages.index import index
 
@@ -179,9 +180,9 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 pc.tablet_and_desktop(
                     pc.link(
                         pc.text(
-                            "Gallery",
+                            "Resources",
                         ),
-                        href=gallery.path,
+                        href=resources.path,
                         **button_style,
                     ),
                 ),
@@ -211,6 +212,13 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                                 ),
                                 _hover={"color": styles.ACCENT_COLOR},
                                 href="/docs/hosting/deploy",
+                            ),
+                            pc.link(
+                                pc.menu_item(
+                                    "Gallery", _hover={"background_color": "white"}
+                                ),
+                                _hover={"color": styles.ACCENT_COLOR},
+                                href=gallery.path,
                             ),
                         ),
                     )
