@@ -29,7 +29,7 @@ def sidebar():
             "We will also use the ",
             pc.code("left= 0"),
             " and ",
-            pc.code('z_index="1'),
+            pc.code("z_index=1"),
             " props to make sure the sidebar is always on top of the screen and above the other components on the page. ",
         ),
         doccode(
