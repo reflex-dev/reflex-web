@@ -60,6 +60,11 @@ code6 = """pc.slider(
 )
 """
 
+code7 = """pc.box(
+    id="box-id",
+    class_name=["class-name-1", "class-name-2",],
+)
+"""
 
 @docpage()
 def props():
@@ -99,6 +104,13 @@ def props():
                 status="success",
             ),
         ),
+        subheader("HTML Props"),
+        doctext(
+            "Each component has basic html props, class name and id.",
+            "Id accepts only str type, ",
+            "but class name uses type of str, List and Tuple.",
+        ),
+        docdemo(code7),
         subheader("Style Props"),
         doctext(
             "In addition to component-specific props, most built-in components support a full range of style props. "
