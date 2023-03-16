@@ -60,7 +60,7 @@ def footer(style=footer_style):
                 pc.vstack(
                     pc.text("Resources", color=styles.SUBHEADING_COLOR),
                     pc.link(
-                        "Github",
+                        "GitHub",
                         href=constants.GITHUB_URL,
                         style=footer_item_style,
                     ),
