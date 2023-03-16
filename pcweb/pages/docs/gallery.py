@@ -62,7 +62,8 @@ example_list = [
         "description": "An UI around Open AI's GPT3 API.",
         "img": "/gallery/gpt.png",
         "gif": "/gallery/gpt.gif",
-        "url": "https://gpt.pynecone.app/",
+        "url": "",
+        # "url": "https://gpt.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/gpt",
     },
     {
@@ -186,7 +187,9 @@ def component_grid():
                     pc.link(
                         pc.hstack(pc.text("Live App"), pc.icon(tag="view")),
                         href=category["url"],
-                    ) if category["url"] else pc.box(),
+                    )
+                    if category["url"]
+                    else pc.box(),
                     align_items="left",
                 ),
                 align_items="left",

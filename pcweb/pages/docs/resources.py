@@ -9,7 +9,7 @@ def video(title, author, url):
         pc.list_item(
             pc.hstack(
                 pc.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
-                pc.badge(author, color_scheme="green", margin_left="1em")
+                pc.badge(author, color_scheme="green", margin_left="1em"),
             )
         ),
         href=url,
@@ -17,6 +17,8 @@ def video(title, author, url):
 
 
 colors = {"Reddit": "red", "Hacker News": "orange"}
+
+
 def launch(title, platform, url):
     return pc.link(
         pc.list_item(
@@ -50,7 +52,6 @@ intro_videos = [
         "author": "CodingTheSmartWay.com",
         "url": "https://www.youtube.com/watch?v=LYl-kxYUnCc&t=891s",
     },
-
 ]
 
 tutorial_videos = [
@@ -90,54 +91,53 @@ tutorial_videos = [
         "url": "https://www.youtube.com/@codingjq",
     },
     {
-        "title":"Pynecone Styling Tutorial",
-        "author":"CodingJQ",
-        "url":"https://www.youtube.com/watch?v=mitRjfRm7uY",
-    }
-
+        "title": "Pynecone Styling Tutorial",
+        "author": "CodingJQ",
+        "url": "https://www.youtube.com/watch?v=mitRjfRm7uY",
+    },
 ]
 
 blog_posts = [
     {
-        "title":"Pynecone | An Easier way to Build Web Apps",
-        "author":"Demetri Petuskey",
-        "url":"https://medium.com/@demetri_60494/pynecone-an-easier-way-to-build-web-apps-645601cf20c7",
+        "title": "Pynecone | An Easier way to Build Web Apps",
+        "author": "Demetri Petuskey",
+        "url": "https://medium.com/@demetri_60494/pynecone-an-easier-way-to-build-web-apps-645601cf20c7",
     },
     {
-        "title":"Pynecone: Web Apps in Pure Python",
-        "author":"Alek99",
-        "url":"https://hackernoon.com/how-to-build-web-apps-in-pure-python",
+        "title": "Pynecone: Web Apps in Pure Python",
+        "author": "Alek99",
+        "url": "https://hackernoon.com/how-to-build-web-apps-in-pure-python",
     },
     {
-        "title":"Building Web Apps With Python Has Never Been Easier ",
-        "author":"Sebastian",
-        "url":"https://medium.com/codingthesmartway-com-blog/building-web-apps-with-python-has-never-been-easier-get-started-with-pynecone-a9f60c1532c",
+        "title": "Building Web Apps With Python Has Never Been Easier ",
+        "author": "Sebastian",
+        "url": "https://medium.com/codingthesmartway-com-blog/building-web-apps-with-python-has-never-been-easier-get-started-with-pynecone-a9f60c1532c",
     },
     {
-        "title":"Pynecone Applied | Search",
-        "author":"Demetri Petuskey",
-        "url":"https://medium.com/@demetri_60494/pynecone-applied-search-9ae4a6d544c6",
-    }
+        "title": "Pynecone Applied | Search",
+        "author": "Demetri Petuskey",
+        "url": "https://medium.com/@demetri_60494/pynecone-applied-search-9ae4a6d544c6",
+    },
 ]
-   
+
 launches = [
     {
-        "title":"Pynecone Show Hacker News",
-        "platform":"Hacker News",
-        "url":"https://news.ycombinator.com/item?id=33922754",
+        "title": "Pynecone Show Hacker News",
+        "platform": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=33922754",
     },
     {
-        "title":"r/Programming",
-        "platform":"Reddit",
-        "url":"https://www.reddit.com/r/programming/comments/zh0uov/i_made_a_way_to_build_web_apps_in_pure_python/",
+        "title": "r/Programming",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/programming/comments/zh0uov/i_made_a_way_to_build_web_apps_in_pure_python/",
     },
     {
-        "title":"r/Python",
-        "platform":"Reddit",
-        "url":"https://www.reddit.com/r/Python/comments/zh0pmy/pynecone_web_apps_in_pure_python/",
+        "title": "r/Python",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/Python/comments/zh0pmy/pynecone_web_apps_in_pure_python/",
     },
-
 ]
+
 
 @docpage()
 def resources():
@@ -145,11 +145,13 @@ def resources():
         pc.hstack(
             pc.box(
                 docheader("Resources", first=True),
-                doctext("Here are some resources to help you get started with Pynecone."),
                 doctext(
-                    "All of the following content is unpaid endorsements from the Pynecone community. If you have a video you would like to add to this list, please contact us at ", 
+                    "Here are some resources to help you get started with Pynecone."
+                ),
+                doctext(
+                    "All of the following content is unpaid endorsements from the Pynecone community. If you have a video you would like to add to this list, please contact us at ",
                     pc.code("alek@pynecone.io"),
-                    " and we will be happy to add it."
+                    " and we will be happy to add it.",
                 ),
                 pc.divider(),
                 pc.vstack(
