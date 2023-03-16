@@ -162,6 +162,12 @@ app.add_page(post, route="/post/[pid]")
                     ),
                     width="100%",
                 ),
+                pc.list_item(
+                    pc.text(
+                        "The optional metadata that you want to add"
+                    ),
+                    width="100%",
+                ),
             )
         ),
         doccode(
@@ -172,8 +178,14 @@ def index():
 def about():
     return pc.text('About Page')
 
+meta = [
+    {"name": "theme_color", "content": "#FFFFFF"},
+    {"char_set": "UTF-8"},
+    {"property": "og:url", "content": "url"},
+]
+
 app = pc.App()
-app.add_page(index, title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
+app.add_page(index, meta=meta, title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
 app.add_page(about, title="About Page")
             """
         ),
