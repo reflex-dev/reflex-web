@@ -128,9 +128,9 @@ def prop_docs(prop: Prop) -> list[pc.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
-    if pc.utils._issubclass(prop.type_, pc.Var):
+    if pc.utils.types._issubclass(prop.type_, pc.Var):
         # For vars, get the type of the var.
-        type_ = pc.utils.get_args(type_)[0]
+        type_ = pc.utils.types.get_args(type_)[0]
     try:
         type_ = type_.__name__
     except AttributeError:

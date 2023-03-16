@@ -180,9 +180,9 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 pc.tablet_and_desktop(
                     pc.link(
                         pc.text(
-                            "Resources",
+                            "Gallery",
                         ),
-                        href=resources.path,
+                        href=gallery.path,
                         **button_style,
                     ),
                 ),
@@ -215,10 +215,10 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                             ),
                             pc.link(
                                 pc.menu_item(
-                                    "Gallery", _hover={"background_color": "white"}
+                                    "Resources", _hover={"background_color": "white"}
                                 ),
                                 _hover={"color": styles.ACCENT_COLOR},
-                                href=gallery.path,
+                                href=resources.path,
                             ),
                         ),
                     )
