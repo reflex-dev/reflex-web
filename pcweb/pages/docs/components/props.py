@@ -60,6 +60,11 @@ code6 = """pc.slider(
 )
 """
 
+code7 = """pc.box(
+    id="box-id",
+    class_name=["class-name-1", "class-name-2",],
+)
+"""
 
 @docpage()
 def props():
@@ -99,6 +104,23 @@ def props():
                 status="success",
             ),
         ),
+        subheader("HTML Props"),
+        doctext(
+            "Each component has basic HTML props. ",
+            "You can set ",
+            pc.code("id"),
+            ", which type is a ",
+            pc.code("str"),
+            " to show specific content to the top of view with hash in URL. ",
+            "You can also add ",
+            pc.code("class_name"),
+            ", which type can be a ",
+            pc.code("str"),
+            " or a ",
+            pc.code("List[str]"),
+            " to attach style. ",
+        ),
+        docdemo(code7),
         subheader("Style Props"),
         doctext(
             "In addition to component-specific props, most built-in components support a full range of style props. "
