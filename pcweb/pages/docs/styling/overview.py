@@ -185,7 +185,7 @@ app = pc.App(state=State, style=style)"""
             "We support all of Chakra UI's ",
             doclink(
                 "pseudo styles",
-                href="https://chakra-ui.com/docs/features/style-props#pseudo-styles",
+                href="https://chakra-ui.com/docs/features/style-props#pseudo",
             ),
             ". ",
         ),
