@@ -17,7 +17,7 @@ def assets():
     return pc.box(
         docheader("Assets", first=True),
         doctext(
-            "Static files such as images can be placed in ",
+            "Static files such as images and stylesheets can be placed in ",
             pc.code("assets/"),
             " folder of the project. These files can be referenced within your app.",
         ),
