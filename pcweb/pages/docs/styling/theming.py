@@ -23,7 +23,7 @@ def theming():
         docheader("Theming", first=True),
         doctext(
             "You can also add a dark mode toggle by adding ",
-            pc.code("pc.toggle_color_mode"),
+            pc.code("pc.style.toggle_color_mode"),
             " to an event trigger. This will change the whole app to dark mode. ",
         ),
         doctext(
@@ -33,7 +33,7 @@ def theming():
             """
             pc.button(
                 pc.icon(tag="moon"),
-                on_click=pc.toggle_color_mode,
+                on_click=pc.style.toggle_color_mode,
             )
             """
         ),
