@@ -104,7 +104,7 @@ def get_sidebar_items_learn():
             children=[
                 styling.styling_overview,
                 styling.responsive,
-                styling.fonts,
+                styling.custom_stylesheets,
                 styling.theming,
             ],
         ),
