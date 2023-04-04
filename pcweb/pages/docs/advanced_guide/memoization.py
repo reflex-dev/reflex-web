@@ -19,7 +19,7 @@ def memoization():
         docheader("Memoization", first=True),
         doctext(
             "By default, Pynecone will re-render the entire page every time the state changes. "
-            "This is fine for small apps, but can be slow for larger apps. "
+            "This is fine for small app's, but can be slow for larger apps. "
         ),
         doctext(
             "You can prevent unnecessary rendering by memoizing components, which can greatly improve your apps performance. ",
