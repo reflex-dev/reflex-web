@@ -129,9 +129,10 @@ def get_sidebar_items_learn():
             advanced_guide,
             children=[
                 advanced_guide.custom_vars,
-                advanced_guide.middleware,
+                advanced_guide.memoization,
                 advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
+                advanced_guide.middleware,
                 advanced_guide.telemetry,
             ],
         )
@@ -190,8 +191,8 @@ def get_sidebar_items_reference():
 
 @pc.memo
 def sidebar_leaf(
-    item: pc.Var[SidebarItem],
-    url: pc.Var[str],
+    item: SidebarItem,
+    url: str,
 ) -> pc.Component:
     """Get the leaf node of the sidebar."""
     return pc.accordion_item(
@@ -217,10 +218,10 @@ def sidebar_leaf(
 
 @pc.memo
 def sidebar_item_comp(
-    item: pc.Var[SidebarItem],
-    index: pc.Var[list[int]],
-    url: pc.Var[str],
-    first: pc.Var[bool],
+    item: SidebarItem,
+    index: list[int],
+    url: str,
+    first: bool,
 ):
     return pc.fragment(
         pc.cond(
@@ -327,9 +328,9 @@ def get_prev_next(url):
 
 @pc.memo
 def sidebar_comp(
-    url: pc.Var[str],
-    learn_index: pc.Var[list[int]],
-    reference_index: pc.Var[list[int]],
+    url: str,
+    learn_index: list[int],
+    reference_index: list[int],
 ):
     from pcweb.pages.docs.gallery import gallery
 
