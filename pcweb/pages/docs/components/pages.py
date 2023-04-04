@@ -163,9 +163,7 @@ app.add_page(post, route="/post/[pid]")
                     width="100%",
                 ),
                 pc.list_item(
-                    pc.text(
-                        "The optional metadata that you want to add"
-                    ),
+                    pc.text("The optional metadata that you want to add"),
                     width="100%",
                 ),
             )

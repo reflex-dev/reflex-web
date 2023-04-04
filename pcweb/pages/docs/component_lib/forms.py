@@ -249,8 +249,7 @@ def render_formcontrol():
 input_state = """class InputState(State):
     text: str = "Type something..."
 """
-basic_input_example = """
-pc.vstack(
+basic_input_example = """pc.vstack(
     pc.text(InputState.text, color_scheme="green"),
     pc.input(on_change=InputState.set_text)
 )

@@ -33,10 +33,10 @@ class CopyToClipboard(pc.Component):
 copy_to_clipboard = CopyToClipboard.create
 
 
-@pc.component
+@pc.memo
 def code_block(
-    code: pc.Var[str],
-    language: pc.Var[str],
+    code: str,
+    language: str,
     # copied: pc.Var[bool],
     # copy_text: pc.Var[str],
     # on_copy: pc.EventChain,
@@ -65,12 +65,12 @@ def code_block(
     )
 
 
-@pc.component
+@pc.memo
 def code_block_dark(
-    code: pc.Var[str],
-    language: pc.Var[str],
-    copied: pc.Var[bool],
-    copy_text: pc.Var[str],
+    code: str,
+    language: str,
+    copied: bool,
+    copy_text: str,
     on_copy: pc.EventChain,
 ):
     return pc.box(
@@ -306,7 +306,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
     return docpage
 
 
-@pc.component
+@pc.memo
 def divider_comp() -> pc.Component:
     return pc.divider(
         margin_bottom="1em",
@@ -314,11 +314,10 @@ def divider_comp() -> pc.Component:
     )
 
 
-@pc.component
+@pc.memo
 def header_comp(
-    text: pc.Var[str],
-    first: pc.Var[bool],
-    # coming_soon: pc.Var[bool],
+    text: str,
+    first: bool,
 ) -> pc.Component:
     return pc.box(
         pc.cond(
@@ -548,7 +547,7 @@ def docdemo(
         comp = eval(code)
 
     # Wrap the render code in a function if needed.
-    if context and code.startswith("pc"):
+    if context:
         code = f"""def index():
         return {code}
         """
