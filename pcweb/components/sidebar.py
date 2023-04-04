@@ -188,7 +188,7 @@ def get_sidebar_items_reference():
     ]
 
 
-@pc.component
+@pc.memo
 def sidebar_leaf(
     item: pc.Var[SidebarItem],
     url: pc.Var[str],
@@ -215,7 +215,7 @@ def sidebar_leaf(
     )
 
 
-@pc.component
+@pc.memo
 def sidebar_item_comp(
     item: pc.Var[SidebarItem],
     index: pc.Var[list[int]],
@@ -325,7 +325,7 @@ def get_prev_next(url):
     return None, None
 
 
-@pc.component
+@pc.memo
 def sidebar_comp(
     url: pc.Var[str],
     learn_index: pc.Var[list[int]],

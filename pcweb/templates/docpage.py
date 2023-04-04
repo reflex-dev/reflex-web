@@ -33,7 +33,7 @@ class CopyToClipboard(pc.Component):
 copy_to_clipboard = CopyToClipboard.create
 
 
-@pc.component
+@pc.memo
 def code_block(
     code: pc.Var[str],
     language: pc.Var[str],
@@ -65,7 +65,7 @@ def code_block(
     )
 
 
-@pc.component
+@pc.memo
 def code_block_dark(
     code: pc.Var[str],
     language: pc.Var[str],
@@ -306,7 +306,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
     return docpage
 
 
-@pc.component
+@pc.memo
 def divider_comp() -> pc.Component:
     return pc.divider(
         margin_bottom="1em",
@@ -314,7 +314,7 @@ def divider_comp() -> pc.Component:
     )
 
 
-@pc.component
+@pc.memo
 def header_comp(
     text: pc.Var[str],
     first: pc.Var[bool],
