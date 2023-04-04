@@ -22,7 +22,7 @@ def memoization():
             "This is fine for small apps, but can be slow for larger apps. "
         ),
         doctext(
-            "You can make rendering faster by memoizing components. ",
+            "You can prevent unnecessary rendering by memoizing components, which can greatly improve your apps performance. ",
             "Just add the ",
             pc.code("@pc.memo"),
             " decorator to a component function to make it memoized, ",
