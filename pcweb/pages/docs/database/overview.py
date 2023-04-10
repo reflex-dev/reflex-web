@@ -39,6 +39,26 @@ def database_overview():
 )
 """
         ),
+        doctext(
+            "You can also use a DBConfig object to connect to your database.",
+        ),
+        doccode(
+            """config = pc.Config(
+    app_name="my_app",
+    db_config=pc.DBConfig(engine="postgresql+psycopg2", username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone"),
+)
+"""
+        ),
+        doctext(
+            "DBConfig class has following constructors.",
+        ),
+        doccode(
+            """
+    DBConfig.sqlite(database="pynecone.db")
+    DBConfig.postgresql(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone")
+    DBConfig.postgresql_psycopg2(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone")
+"""
+        ),
         subheader("Tables"),
         doctext(
             "To create a table make a class that inherits from ",
