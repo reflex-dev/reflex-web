@@ -754,24 +754,25 @@ import pynecone as pc
 class State(pc.State):
     \"""The app state.\"""
 
-    # The image to show.
-    img: str
+    # The images to show.
+    imgs: list[str] = []
 
-    async def handle_upload(self, file: pc.UploadFile):
-        \"""Handle the upload of a file.
-        
+    async def handle_upload(self, files: list[pc.UploadFile]):
+        \"""Handle the upload of one or more files.
+
         Args:
-            file: The uploaded file.
+            files: The uploaded files.
         \"""
-        upload_data = await file.read()
-        outfile = f".web/public/{file.filename}"
+        for file in files:
+            upload_data = await file.read()
+            outfile = f".web/public/{file.filename}"
 
-        # Save the file.
-        with open(outfile, "wb") as f:
-            f.write(upload_data)
+            # Save the file.
+            with open(outfile, "wb") as f:
+                f.write(upload_data)
 
         # Update the img var.
-        self.img = file.filename
+        self.imgs = [file.filename for file in files]
 
 color = "rgb(107,99,246)"
 
@@ -784,13 +785,29 @@ def index():
                 pc.text("Drag and drop files here or click to select files"),
             ),
             border=f"1px dotted {color}",
-            padding="5em", 
+            padding="5em",
+            accept={
+                "image/jpeg": [".jpg", ".jpeg"],
+                "image/png": [".png"],
+                "image/gif": [".gif"],
+                "image/webp": [".webp"],
+            },
         ),
         pc.button(
-            "Upload", 
+            "Upload",
             on_click=lambda: State.handle_upload(pc.upload_files()),
         ),
-        pc.image(src=State.img),
+        pc.responsive_grid(
+            pc.foreach(
+                State.imgs,
+                lambda img: pc.vstack(
+                    pc.image(src=img),
+                    pc.text(img),
+                ),
+            ),
+            columns=[2],
+            spacing="5px",
+        ),
         padding="5em",
     )
 
@@ -822,9 +839,6 @@ def render_upload():
             padding_bottom="1em",
         ),
         doctext(
-            "Currently we only support one file upload, but we plan to support multiple file uploads in the future. ",
-        ),
-        doctext(
             "Your event handler should be an async function that accepts a single argument, ",
             pc.code("file"),
             ", which is a ",
@@ -832,7 +846,9 @@ def render_upload():
                 "FastAPI UploadFile",
                 "https://fastapi.tiangolo.com/tutorial/request-files",
             ),
-            ". ",
+            ". Alternatively, the handler may accept a ",
+            pc.code("list[UploadFile]"),
+            "argument to process a multi-file upload. ",
             "You can read the file and save it anywhere as shown in the example. ",
         ),
         doctext(
