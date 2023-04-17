@@ -840,16 +840,14 @@ def render_upload():
         ),
         doctext(
             "Your event handler should be an async function that accepts a single argument, ",
-            pc.code("file"),
-            ", which is a ",
+            pc.code("files: list[UploadFile]"),
+            ", which will contain ",
             doclink(
                 "FastAPI UploadFile",
                 "https://fastapi.tiangolo.com/tutorial/request-files",
             ),
-            ". Alternatively, the handler may accept a ",
-            pc.code("list[UploadFile]"),
-            "argument to process a multi-file upload. ",
-            "You can read the file and save it anywhere as shown in the example. ",
+            " instances. ",
+            "You can read the files and save them anywhere as shown in the example. ",
         ),
         doctext(
             "In your UI, you can bind the event handler to a trigger, such as a button ",
