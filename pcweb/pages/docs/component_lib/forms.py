@@ -778,13 +778,11 @@ upload_code1 = """pc.upload(
     padding="5em", 
 )"""
 upload_code2 = """
-import pynecone as pc
-
 class State(pc.State):
     \"""The app state.\"""
 
     # The image to show.
-    img: str
+    img: list[str]
 
     async def handle_upload(self, files: List[pc.UploadFile]):
         \"""Handle the upload of file(s).
@@ -803,7 +801,7 @@ class State(pc.State):
             # Update the img var.
             self.img.append(file.filename)
 
-color = "rgb(107,99,246)"
+
 
 def index():
     \"""The main view.\"""
@@ -824,39 +822,32 @@ def index():
         padding="5em",
     )
 
-
-# Add state and page to the app.
-app = pc.App(state=State)
-app.add_page(index, title="Upload")
-app.compile()
 """
 
 upload_code3 = """
-import pynecone as pc
-
 class State(pc.State):
     \"""The app state.\"""
 
     # The image to show.
-    img: str
+    img: list[str]
 
-    async def handle_upload(self, file: pc.UploadFile):
-        \"""Handle the upload of a file.
-
+    async def handle_upload(self, files: List[pc.UploadFile]):
+        \"""Handle the upload of file(s).
+        
         Args:
-            file: The uploaded file.
+            files: The uploaded files.
         \"""
-        upload_data = await file.read()
-        outfile = f".web/public/{file.filename}"
+        for file in files:
+            upload_data = await file.read()
+            outfile = f".web/public/{file.filename}"
 
-        # Save the file.
-        with open(outfile, "wb") as f:
-            f.write(upload_data)
+            # Save the file.
+            with open(outfile, "wb") as file_object:
+                file_object.write(upload_data)
 
-        # Update the img var.
-        self.img = file.filename
+            # Update the img var.
+            self.img.append(file.filename)
 
-color = "rgb(107,99,246)"
 
 def index():
     \"""The main view.\"""
@@ -899,11 +890,6 @@ def index():
         padding="5em",
     )
 
-
-# Add state and page to the app.
-app = pc.App(state=State)
-app.add_page(index, title="Upload")
-app.compile()
 """
 
 
