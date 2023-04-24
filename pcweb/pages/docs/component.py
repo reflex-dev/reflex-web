@@ -42,7 +42,7 @@ class Source(Base):
         # Get the source code.
         self.code = [
             line
-            for line in inspect.getsource(self.component).split("\n")
+            for line in inspect.getsource(self.component).splitlines()
             if len(line) > 0
         ]
 
@@ -119,7 +119,7 @@ class Source(Base):
 
     @staticmethod
     def get_comment(comments: list[str]):
-        return "\n".join([comment.strip().strip("#") for comment in comments])
+        return "".join([comment.strip().strip("#") for comment in comments])
 
 
 # Mapping from types to colors.
