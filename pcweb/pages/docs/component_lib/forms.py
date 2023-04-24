@@ -781,7 +781,7 @@ upload_code2 = """
 class State(pc.State):
     \"""The app state.\"""
 
-    # The image to show.
+    # The images to show.
     img: list[str]
 
     async def handle_upload(self, files: List[pc.UploadFile]):
@@ -828,7 +828,7 @@ upload_code3 = """
 class State(pc.State):
     \"""The app state.\"""
 
-    # The image to show.
+    # The images to show.
     img: list[str]
 
     async def handle_upload(self, files: List[pc.UploadFile]):
