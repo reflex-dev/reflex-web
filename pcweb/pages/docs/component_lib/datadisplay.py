@@ -203,6 +203,22 @@ pc.data_table(
 )           
 """
 
+datatable_example_3 = """class State(pc.State):
+    data: List = [
+        ["Lionel", "Messi", "PSG"],
+        ["Christiano", "Ronaldo", "Al-Nasir"]
+     ]
+    columns: List[str] = ["First Name", "Last Name"]
+    
+    def index():  
+        return pc.data_table(
+        data =State.data,
+        columns=State.columns,
+        )   
+
+    
+    """
+
 
 def render_datatable():
     return pc.vstack(
@@ -230,7 +246,6 @@ def render_datatable():
                     ["Marcus Smart", "6-4", 22.0],
                 ],
                 columns=["Name", "Height", "Age"],
-                # data=nba_data()[["Name", "Height", "Age"]],
                 pagination=True,
                 search=True,
                 sort=True,
@@ -239,6 +254,8 @@ def render_datatable():
         ),
         doccode(datatable_example_2_df),
         doccode(datatable_example_2_table),
+        doctext("The example below shows how to create a data table from from a list."),
+        doccode(datatable_example_3),
         align_items="start",
     )
 

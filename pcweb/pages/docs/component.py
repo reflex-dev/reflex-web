@@ -1,11 +1,9 @@
 """Utility functions for the component docs page."""
 
 import inspect
-import os
 import re
 from typing import Any, Type
 
-import pynecone as pc
 from pynecone.base import Base
 from pynecone.components.component import Component
 
@@ -44,7 +42,7 @@ class Source(Base):
         # Get the source code.
         self.code = [
             line
-            for line in inspect.getsource(self.component).split(os.linesep)
+            for line in inspect.getsource(self.component).split("\n")
             if len(line) > 0
         ]
 
@@ -68,6 +66,7 @@ class Source(Base):
         # Get the props for this component.
         props = self.component.get_props()
 
+        comments = []
         # Loop through the source code.
         for i, line in enumerate(self.code):
             # Check if we've reached the functions.
@@ -75,6 +74,11 @@ class Source(Base):
             if reached_functions:
                 # We've reached the functions, so stop.
                 break
+
+            # Get comments for prop
+            if line.strip().startswith("#"):
+                comments.append(line)
+                continue
 
             # Check if this line has a prop.
             match = re.search("\w+:", line)
@@ -88,10 +92,15 @@ class Source(Base):
                 # This isn't a prop, so continue.
                 continue
 
+            # redundant check just to double-check line above prop is a comment
+            assert (
+                self.code[i - 1].strip().startswith("#")
+            ), f"Expected comment, got {comment}"
+
             # Get the comment for this prop.
-            comment = self.code[i - 1].strip()
-            assert comment.startswith("#"), f"Expected comment, got {comment}"
-            comment = comment[1:].strip()
+            comment = Source.get_comment(comments)
+            # reset comments
+            comments.clear()
 
             # Get the type of the prop.
             type_ = self.component.get_fields()[prop].outer_type_
@@ -107,6 +116,10 @@ class Source(Base):
 
         # Return the output.
         return out
+
+    @staticmethod
+    def get_comment(comments: list[str]):
+        return "\n".join([comment.strip().strip("#") for comment in comments])
 
 
 # Mapping from types to colors.
