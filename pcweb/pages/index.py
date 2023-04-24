@@ -508,7 +508,7 @@ ecosystem = pc.box(
         color="#676767",
     ),
     pc.text(
-        "Never get locked into a framework doesn't support your existing tech stack. ",
+        "Never get locked into a framework that doesn't support your existing tech stack. ",
         color="#676767",
     ),
     margin_bottom="1em",
