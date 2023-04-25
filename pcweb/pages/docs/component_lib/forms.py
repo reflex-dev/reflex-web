@@ -778,17 +778,15 @@ upload_code1 = """pc.upload(
     padding="5em", 
 )"""
 upload_code2 = """
-import pynecone as pc
-
 class State(pc.State):
     \"""The app state.\"""
 
     # The images to show.
-    imgs: list[str] = []
+    img: list[str]
 
-    async def handle_upload(self, files: list[pc.UploadFile]):
-        \"""Handle the upload of one or more files.
-
+    async def handle_upload(self, files: List[pc.UploadFile]):
+        \"""Handle the upload of file(s).
+        
         Args:
             files: The uploaded files.
         \"""
@@ -797,13 +795,13 @@ class State(pc.State):
             outfile = f".web/public/{file.filename}"
 
             # Save the file.
-            with open(outfile, "wb") as f:
-                f.write(upload_data)
+            with open(outfile, "wb") as file_object:
+                file_object.write(upload_data)
 
-        # Update the img var.
-        self.imgs = [file.filename for file in files]
+            # Update the img var.
+            self.img.append(file.filename)
 
-color = "rgb(107,99,246)"
+
 
 def index():
     \"""The main view.\"""
@@ -814,13 +812,65 @@ def index():
                 pc.text("Drag and drop files here or click to select files"),
             ),
             border=f"1px dotted {color}",
-            padding="5em",
-            accept={
-                "image/jpeg": [".jpg", ".jpeg"],
+            padding="5em", 
+        ),
+        pc.button(
+            "Upload", 
+            on_click=lambda: State.handle_upload(pc.upload_files()),
+        ),
+        pc.foreach(State.img, lambda img: pc.image(src=img)),
+        padding="5em",
+    )
+
+"""
+
+upload_code3 = """
+class State(pc.State):
+    \"""The app state.\"""
+
+    # The images to show.
+    img: list[str]
+
+    async def handle_upload(self, files: List[pc.UploadFile]):
+        \"""Handle the upload of file(s).
+        
+        Args:
+            files: The uploaded files.
+        \"""
+        for file in files:
+            upload_data = await file.read()
+            outfile = f".web/public/{file.filename}"
+
+            # Save the file.
+            with open(outfile, "wb") as file_object:
+                file_object.write(upload_data)
+
+            # Update the img var.
+            self.img.append(file.filename)
+
+
+def index():
+    \"""The main view.\"""
+    return pc.vstack(
+        pc.upload(
+            pc.vstack(
+                pc.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
+                pc.text("Drag and drop files here or click to select files"),
+            ),
+            multiple=True,
+            accept = {
+                "application/pdf": [".pdf"],
                 "image/png": [".png"],
+                "image/jpeg": [".jpg", ".jpeg"],
                 "image/gif": [".gif"],
                 "image/webp": [".webp"],
+                "text/html": [".html", ".htm"],
             },
+            max_files=5,
+            disabled=False,
+            on_keyboard=True,
+            border=f"1px dotted {color}",
+            padding="5em", 
         ),
         pc.button(
             "Upload",
@@ -840,11 +890,6 @@ def index():
         padding="5em",
     )
 
-
-# Add state and page to the app.
-app = pc.App(state=State)
-app.add_page(index, title="Upload")
-app.compile()
 """
 
 
@@ -867,6 +912,11 @@ def render_upload():
             width="100%",
             padding_bottom="1em",
         ),
+        doctext(
+            "In the example below, the upload component accepts a maximum number of 5 files of specific types. ",
+            "It also disables the use of the space or enter key in uploading files.",
+        ),
+        doccode(upload_code3),
         doctext(
             "Your event handler should be an async function that accepts a single argument, ",
             pc.code("files: list[UploadFile]"),
