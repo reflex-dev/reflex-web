@@ -50,6 +50,18 @@ exec(code5)
 code2 = """color_picker = ColorPicker.create"""
 exec(code2)
 
+code6 = """
+ class AnotherColorPicker(pc.Component):
+     library = "some-other-colorpicker"
+     tag = "HexColorPicker"
+     color: pc.Var[str]
+     @classmethod
+     def get_controlled_triggers(cls) -> dict[str, pc.Var]:
+         return {"on_change": pc.EVENT_ARG}
+     @classmethod
+     def get_alias(cls) -> Optional[str]:
+         return "OtherHexColorPicker"
+ """
 
 @docpage()
 def wrapping_react():
@@ -138,4 +150,14 @@ config = pc.Config(
             "We hope over time the Pynecone ecosystem will grow to include many useful components. ",
             "Our goal is to bring the full power of web development to Python. ",
         ),
+        subheader("Aliases"),
+         doctext("""If you are wrapping another components with the same tag as a 
+ component in your project you can use aliases to
+ differentiate between them and avoid naming conflicts."""
+         ),
+         doctext("""
+         Lets check out the code below, in this case if we needed to wrap another color picker 
+         library with the same tag we use an alias to avoid a conflict.
+         """),
+         doccode(code6)
     )
