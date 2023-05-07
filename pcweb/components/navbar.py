@@ -220,6 +220,14 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                                 _hover={"color": styles.ACCENT_COLOR},
                                 href=resources.path,
                             ),
+                            pc.menu_divider(),
+                            pc.link(
+                                pc.menu_item(
+                                    "Careers", _hover={"background_color": "white"}
+                                ),
+                                _hover={"color": styles.ACCENT_COLOR},
+                                href="https://www.workatastartup.com/companies/pynecone",
+                            )
                         ),
                     )
                 ),
