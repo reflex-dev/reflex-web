@@ -2,7 +2,7 @@ import pandas as pd
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import doccode, docdemo, doctext
+from pcweb.templates.docpage import doccode, docdemo, doctext, code_block
 
 style = {
     "box": {
@@ -65,7 +65,16 @@ def render_codeblock():
         doctext(
             "The code component can be used to display code easily within a website. Put in a multiline string with the correct spacing and specify and language to show the desired code."
         ),
-        docdemo(code68),
+        code_block(
+            code="""def fib(n):
+    if n <= 1:
+        return n
+    else:
+        return(fib(n-1) + fib(n-2)),
+            """,
+            language="python",
+        ),
+        doccode(code68),
         align_items="start",
     )
 
