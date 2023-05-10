@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 input_state = """class InputState(State):
     text: str = "Type something..."
@@ -66,6 +73,7 @@ input_type_example = """pc.vstack(
     pc.input(type_="date"),
 )"""
 password_example = """pc.password()"""
+
 
 def render_input():
     return pc.vstack(

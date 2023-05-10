@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 code22 = """pc.number_input(
     on_change=NumberInputState.set_number,
@@ -21,4 +28,3 @@ def render_numberinput():
         docdemo(code22, state=code23, comp=eval(code22), context=True),
         align_items="start",
     )
-

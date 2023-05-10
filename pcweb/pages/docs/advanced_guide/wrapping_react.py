@@ -63,6 +63,7 @@ code6 = """
          return "OtherHexColorPicker"
  """
 
+
 @docpage()
 def wrapping_react():
     from pcweb.pages.docs.components.overview import components_overview
@@ -151,13 +152,16 @@ config = pc.Config(
             "Our goal is to bring the full power of web development to Python. ",
         ),
         subheader("Aliases"),
-         doctext("""If you are wrapping another components with the same tag as a 
+        doctext(
+            """If you are wrapping another components with the same tag as a 
  component in your project you can use aliases to
  differentiate between them and avoid naming conflicts."""
-         ),
-         doctext("""
+        ),
+        doctext(
+            """
          Lets check out the code below, in this case if we needed to wrap another color picker 
          library with the same tag we use an alias to avoid a conflict.
-         """),
-         doccode(code6)
+         """
+        ),
+        doccode(code6),
     )

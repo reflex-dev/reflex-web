@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 slider_state = """class SliderState(State):
     value: int = 50
@@ -83,7 +90,6 @@ exec(slider_state_manual)
 exec(slider_state_combo)
 exec(slider_state_start)
 exec(slider_state)
-
 
 
 def render_slider():
