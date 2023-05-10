@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 basic_select_state = """
 options = ["Option 1", "Option 2", "Option 3"]
@@ -51,7 +58,12 @@ exec(basic_select_state)
 def render_select():
     return pc.vstack(
         doctext(""),
-        docdemo(basic_select, state=basic_select_state, comp=eval(basic_select), context=True),
+        docdemo(
+            basic_select,
+            state=basic_select_state,
+            comp=eval(basic_select),
+            context=True,
+        ),
         docdemo(customized_select),
         docdemo(styled_select),
         docdemo(fully_styled_select),

@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 basic_radio_state = """
 options = ["Option 1", "Option 2", "Option 3"]

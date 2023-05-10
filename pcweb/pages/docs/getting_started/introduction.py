@@ -284,9 +284,6 @@ def intro2() -> pc.Component:
     )
 
 
-from pynecone.var import BaseVar
-
-
 @docpage()
 def introduction():
     return pc.box(

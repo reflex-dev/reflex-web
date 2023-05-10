@@ -1,7 +1,14 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, demo_box_style, doccode, doclink, subheader
+from pcweb.templates.docpage import (
+    docdemo,
+    doctext,
+    demo_box_style,
+    doccode,
+    doclink,
+    subheader,
+)
 
 checkbox_example = """pc.vstack(
     pc.heading(SwitchState.is_checked),
@@ -38,7 +45,12 @@ def render_switch():
         doctext(
             "The Switch component is used as an alternative for the Checkbox component. You can switch between enabled or disabled states."
         ),
-        docdemo(checkbox_example, state=checkbox_example_state, comp=eval(checkbox_example), context=True),
+        docdemo(
+            checkbox_example,
+            state=checkbox_example_state,
+            comp=eval(checkbox_example),
+            context=True,
+        ),
         doctext(
             "You can also change the color scheme of the Switch component by passing the color_scheme argument. The default color scheme is blue."
         ),

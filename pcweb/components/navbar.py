@@ -227,7 +227,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                                 ),
                                 _hover={"color": styles.ACCENT_COLOR},
                                 href="https://www.workatastartup.com/companies/pynecone",
-                            )
+                            ),
                         ),
                     )
                 ),
