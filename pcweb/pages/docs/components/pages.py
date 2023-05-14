@@ -198,7 +198,7 @@ app.add_page(about, title="About Page")
             class State(pc.State):
                 data: Dict[str, Any]
 
-                def get_data():
+                def get_data(self):
                     # Fetch data
                     self.data = fetch_data()
             def index():
