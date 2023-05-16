@@ -24,8 +24,8 @@ def middleware():
     def preprocess(self, app, state, event):
         print(f"Event {event}")
 
-    def postprocess(self, app, state, event, delta):
-        print(f"Delta {delta}")"""
+    def postprocess(self, app, state, event, update):
+        print(f"Delta {update}")"""
         ),
         doctext(
             "Middleware classes must inherit from ",
