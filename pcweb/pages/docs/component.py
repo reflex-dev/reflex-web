@@ -329,7 +329,7 @@ def component_docs(component):
                                     )
                                 ),
                             )
-                            for event in component.get_triggers()
+                            for event in component().get_triggers()
                             if event in pc.event.EVENT_TRIGGERS
                         ],
                     ),
@@ -342,7 +342,7 @@ def component_docs(component):
                         ),
                         pc.accordion_panel(pc.text(EVENTS[event]["description"])),
                     )
-                    for event in component.get_triggers()
+                    for event in component().get_triggers()
                     if event not in pc.event.EVENT_TRIGGERS
                     and event not in ("on_drop",)
                 ],

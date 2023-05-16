@@ -68,19 +68,16 @@ def render_radiogroup():
             "Radios are used when only one choice may be selected in a series of options."
         ),
         docdemo(
-            basic_radio, 
-            state=basic_radio_state, 
-            comp=eval(basic_radio), 
-            context=True
+            basic_radio, state=basic_radio_state, comp=eval(basic_radio), context=True
         ),
         doctext(
             "The `default_value` and `default_checked` arguments can be used to set the default value of the radio group."
         ),
         docdemo(
-            default_checked_radio, 
-            state=basic_radio_state, 
-            comp=eval(default_checked_radio), 
-            context=True
+            default_checked_radio,
+            state=basic_radio_state,
+            comp=eval(default_checked_radio),
+            context=True,
         ),
         doctext(
             "A hstack with the `spacing` argument can be used to set the spacing between the radio buttons."
@@ -91,9 +88,7 @@ def render_radiogroup():
             comp=eval(spacing_radio),
             context=True,
         ),
-        doctext(
-            "A vstack can be used to stack the radio buttons vertically."
-        ),
+        doctext("A vstack can be used to stack the radio buttons vertically."),
         docdemo(
             vertical_radio,
             state=basic_radio_state,
