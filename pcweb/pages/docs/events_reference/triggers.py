@@ -35,7 +35,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_change",
         "description": "The on_change event handler is called when the value of an element has changed. For example, it’s called when the user types into a text input each keystoke triggers the on change.",
-        "state": """class ChangeState(pc.State):
+        "state": """class ChangeState(State):
     checked: bool = False
 
 """,

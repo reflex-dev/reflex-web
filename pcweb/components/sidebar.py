@@ -270,7 +270,6 @@ def sidebar_item_comp(
                             align_items="start",
                             border_left="1px solid #e0e0e0",
                         ),
-                        allow_toggle=True,
                         allow_multiple=True,
                         default_index=pc.cond(index, index[1:2], []),
                     ),
@@ -346,7 +345,6 @@ def sidebar_comp(
                 )
                 for item in learn
             ],
-            allow_toggle=True,
             allow_multiple=True,
             default_index=learn_index,
         ),
@@ -360,7 +358,6 @@ def sidebar_comp(
                 sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
                 for item in reference
             ],
-            allow_toggle=True,
             allow_multiple=True,
             default_index=reference_index,
         ),
