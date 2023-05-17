@@ -25,7 +25,7 @@ def installation():
         pc.unordered_list(
             pc.list_item("Python 3.7+"),
             pc.list_item(
-                doclink("NodeJS 16.6.0+", href=constants.NODEJS_URL),
+                doclink("NodeJS 16.8.0+", href=constants.NODEJS_URL),
             ),
             padding_left="2em",
         ),
