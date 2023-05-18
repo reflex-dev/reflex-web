@@ -87,12 +87,13 @@ Usage: pc run [OPTIONS]
 Options:
   --env [dev|prod]                The environment to run the app in.
                                   [default: Env.DEV]
-  --no-frontend                   Disable frontend execution.  [default: True]
-  --no-backend                    Disable backend execution.  [default: True]
+  --frontend-only                 Execute only frontend.
+  --backend-only                  Execute only backend.
   --loglevel [debug|info|warning|error|critical]
                                   The log level to use.  [default:
                                   LogLevel.ERROR]
-  --port TEXT                     Specify a different port.
+  --port TEXT                     Specify a different frontend port.
+  --backend-port TEXT             Specify a different backend port.
   --help                          Show this message and exit.
   """,
             language="bash",
