@@ -29,22 +29,23 @@ basic_select = """pc.vstack(
 """
 
 customized_select = """pc.vstack(
-    pc.select(placeholder="Select an example.", size="xs"),
-    pc.select(placeholder="Select an example.", size="sm"),
-    pc.select(placeholder="Select an example.", size="md"),
-    pc.select(placeholder="Select an example.", size="lg"),
+    pc.select(options, placeholder="Select an example.", size="xs"),
+    pc.select(options, placeholder="Select an example.", size="sm"),
+    pc.select(options, placeholder="Select an example.", size="md"),
+    pc.select(options, placeholder="Select an example.", size="lg"),
 )
 """
 
 styled_select = """pc.vstack(
-    pc.select(placeholder="Select an example.", variant="outline"),
-    pc.select(placeholder="Select an example.", variant="filled"),
-    pc.select(placeholder="Select an example.", variant="flushed"),
-    pc.select(placeholder="Select an example.", variant="unstyled"),
+    pc.select(options, placeholder="Select an example.", variant="outline"),
+    pc.select(options, placeholder="Select an example.", variant="filled"),
+    pc.select(options, placeholder="Select an example.", variant="flushed"),
+    pc.select(options, placeholder="Select an example.", variant="unstyled"),
 )
 """
 
 fully_styled_select = """pc.select(
+    options,
     placeholder="Select an example.",
     color = "white",
     bg = "#68D391",
@@ -64,8 +65,8 @@ def render_select():
             comp=eval(basic_select),
             context=True,
         ),
-        docdemo(customized_select),
-        docdemo(styled_select),
-        docdemo(fully_styled_select),
+        docdemo(customized_select, comp=eval(customized_select)),
+        docdemo(styled_select, comp=eval(styled_select)),
+        docdemo(fully_styled_select, comp=eval(fully_styled_select)),
         align_items="start",
     )
