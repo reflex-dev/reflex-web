@@ -7,6 +7,7 @@ config = pc.Config(
         "react-confetti",
         "react-colorful",
         "react-copy-to-clipboard",
+        "chakra-react-select",
     ],
     telemetry_enabled=False,
 )
