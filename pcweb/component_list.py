@@ -7,7 +7,7 @@ forms_list = [
     [pc.Button, pc.ButtonGroup],
     [pc.Checkbox],
     [pc.Editable, pc.EditableInput, pc.EditableTextarea, pc.EditablePreview],
-    [pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
+    [pc.Form, pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
     [pc.Input],
     [
         pc.NumberInput,

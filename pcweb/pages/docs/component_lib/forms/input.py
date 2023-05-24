@@ -4,10 +4,6 @@ from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
-    demo_box_style,
-    doccode,
-    doclink,
-    subheader,
 )
 
 input_state = """class InputState(State):
