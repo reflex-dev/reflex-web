@@ -92,11 +92,6 @@ class Source(Base):
                 # This isn't a prop, so continue.
                 continue
 
-            # redundant check just to double-check line above prop is a comment
-            assert (
-                self.code[i - 1].strip().startswith("#")
-            ), f"Expected comment, got {comment}"
-
             # Get the comment for this prop.
             comment = Source.get_comment(comments)
             # reset comments
