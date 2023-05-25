@@ -269,7 +269,7 @@ def events():
             ". ",
         ),
         doctext(
-            "Pynecone also has built-in server side events can be found in the ",
+            "Pynecone also has built-in special events can be found in the ",
             doclink("reference", href=special_events.path),
             ".",
         ),

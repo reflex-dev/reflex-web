@@ -9,9 +9,9 @@ def special_events():
     return pc.flex(
         pc.hstack(
             pc.box(
-                docheader("Server Side Events", first=True),
+                docheader("Special Events", first=True),
                 doctext(
-                    "There are a few built-in Pynecone events that can be triggered on the server side."
+                    "Pynecone has some special built-in events that can be attached to event triggers or returned from event handlers like any other event."
                 ),
                 pc.divider(),
                 component_grid(),
