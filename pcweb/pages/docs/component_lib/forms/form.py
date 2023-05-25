@@ -17,8 +17,7 @@ class FormState(State):
 """
 exec(form_state)
 
-form_example = """
-pc.vstack(
+form_example = """pc.vstack(
     pc.form(
         pc.vstack(
             pc.input(placeholder="First Name", id="first_name"),
