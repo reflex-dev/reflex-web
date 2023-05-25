@@ -3,6 +3,6 @@ black==22.6.0
 pandas==1.5.0
 psycopg2-binary==2.9.5
 plotly-express==0.4.1
-googletrans==3.1.0a0
+googletrans-py==4.0.0
 typesense==0.14.0
 
