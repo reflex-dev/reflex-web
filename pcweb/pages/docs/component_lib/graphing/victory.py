@@ -3,11 +3,9 @@ import pynecone as pc
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doccode,
     doctext,
     docdemo,
     docheader,
-    subheader,
     docgraphing,
 )
 

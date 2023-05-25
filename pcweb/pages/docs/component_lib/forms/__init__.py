@@ -3,6 +3,7 @@ from .button import *
 from .checkbox import *
 from .editable import *
 from .formcontrol import *
+from .form import *
 from .input import *
 from .numberinput import *
 from .pininput import *

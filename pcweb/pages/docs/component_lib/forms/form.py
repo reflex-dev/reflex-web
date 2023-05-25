@@ -3,39 +3,37 @@ import pynecone as pc
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doctext,
+    docdemo,
 )
 
-code15 = """pc.form_control(
-    pc.form_label("First Name", html_for="email"),
-    pc.checkbox("Example"),
-    pc.form_helper_text("This is a help text"),
-    is_required=True,
-    )
+form_state = """
+class FormState(State):
+
+    form_data: dict = {}
+
+    def handle_submit(self, form_data: dict):
+        \"""Handle the form submit.\"""
+        self.form_data = form_data
 """
+exec(form_state)
 
-
-form_error_state = """class FormErrorState(State):
-    name: str
-
-    @pc.var
-    def is_error(self) -> bool:
-         return len(self.name) <= 3
-"""
-exec(form_error_state)
-
-form_state_example = """pc.vstack(
-        pc.form_control(
-            pc.input(placeholder="name", on_blur=FormErrorState.set_name),
-            pc.cond(
-                FormErrorState.is_error,
-                pc.form_error_message("Name should be more than four characters"),
-                pc.form_helper_text("Enter name"),
+form_example = """pc.vstack(
+    pc.form(
+        pc.vstack(
+            pc.input(placeholder="First Name", id="first_name"),
+            pc.input(placeholder="Last Name", id="last_name"),
+            pc.hstack(
+                pc.checkbox("Checked", id="check"),
+                pc.switch("Switched", id="switch"),
             ),
-            is_invalid=FormErrorState.is_error,
-            is_required=True,
-
-        )
-    )
+            pc.button("Submit", type_="submit"),
+        ),
+        on_submit=FormState.handle_submit,
+    ),
+    pc.divider(),
+    pc.heading("Results"),
+    pc.text(FormState.form_data.to_string()),
+)
 """
 
 
@@ -44,7 +42,34 @@ def render_form():
         doctext(
             "Forms are used to collect user input. The ",
             pc.code("pc.form"),
-            " component is used to group inputs together and submit them together.",
+            " component is used to group inputs and submit them together.",
+        ),
+        doctext(
+            "The form component's children can be form controls such as ",
+            pc.code("pc.input"),
+            ", ",
+            pc.code("pc.checkbox"),
+            ", ",
+            " or ",
+            pc.code("pc.switch"),
+            ".",
+            "The controls should have an ",
+            pc.code("id"),
+            " attribute that is used to identify the control in the form data. ",
+            "The ",
+            pc.code("on_submit"),
+            " event trigger submits the form data as a dictionary to the ",
+            pc.code("handle_submit"),
+            " event handler.",
+        ),
+        doctext(
+            "The form is submitted when the user clicks the submit button or presses enter on the form controls."
+        ),
+        docdemo(
+            form_example,
+            state=form_state,
+            comp=eval(form_example),
+            context=True,
         ),
         align_items="start",
     )

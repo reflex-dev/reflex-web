@@ -7,7 +7,6 @@ from pcweb.templates.docpage import (
     demo_box_style,
     doccode,
     doclink,
-    subheader,
 )
 
 checkbox_example = """pc.vstack(
