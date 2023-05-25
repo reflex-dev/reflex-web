@@ -227,7 +227,7 @@ def component_grid():
 
 
 @docpage()
-def triggers():
+def event_triggers():
     return pc.flex(
         pc.hstack(
             pc.box(
