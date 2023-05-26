@@ -9,11 +9,18 @@ from .source import Source, generate_docs
 
 
 modules = [
+    pc.App,
     pc.Base,
     pc.Component,
     pc.Config,
+    pc.event.Event,
+    pc.event.EventHandler,
+    pc.event.EventSpec,
     pc.Model,
+    pc.Middleware,
+    pc.middleware.HydrateMiddleware,
     pc.State,
+    pc.Var,
 ]
 
 for module in modules:

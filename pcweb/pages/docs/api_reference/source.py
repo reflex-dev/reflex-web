@@ -19,7 +19,7 @@ class Source(pc.Base):
     """Parse the source code of a component."""
 
     # The component to parse.
-    module: Type[pc.Base]
+    module: Type
 
     # The source code.
     code: list[str] = []
@@ -54,9 +54,13 @@ class Source(pc.Base):
         return self.module.__doc__
 
     def get_class_fields(self) -> list[dict]:
+        if not issubclass(self.module, pc.Base):
+            return []
         return self.get_annotations(self.module.__class_vars__)
 
     def get_fields(self) -> list[dict]:
+        if not issubclass(self.module, pc.Base):
+            return []
         return self.get_annotations(self.module.__fields__)
 
     def get_methods(self):
@@ -69,7 +73,7 @@ class Source(pc.Base):
                 ret=inspect.signature(fn).return_annotation,
             )
             for name, fn in self.module.__dict__.items()
-            if not name.startswith("_") and isinstance(fn, Callable)
+            if fn.__doc__ and isinstance(fn, Callable)
         ]
 
     def get_annotations(self, props) -> list[dict]:
