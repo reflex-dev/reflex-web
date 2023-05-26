@@ -141,7 +141,6 @@ def get_sidebar_items_learn():
 
 
 def get_sidebar_items_reference():
-    import pcweb.pages.docs.events_reference as event_ref
     from pcweb.pages.docs import recipes
     from pcweb.pages.docs import api_reference
 
@@ -164,26 +163,32 @@ def get_sidebar_items_reference():
             ],
         ],
     )
+
+    children = [
+        SidebarItem(
+            names=module.__name__, link=f"/docs/api-reference/{module.__name__.lower()}"
+        )
+        for module in api_reference.modules
+    ]
+
+    ref = create_item(
+        api_reference,
+        children=[
+            api_reference.cli,
+            api_reference.event_triggers,
+            api_reference.special_events,
+        ],
+    )
+    ref.children.extend(children)
+
     return [
         library_item,
-        create_item(
-            event_ref,
-            children=[
-                event_ref.triggers,
-                event_ref.server_side,
-            ],
-        ),
+        ref,
         create_item(
             recipes,
             children=[
                 recipes.navbar,
                 recipes.sidebar,
-            ],
-        ),
-        create_item(
-            api_reference,
-            children=[
-                api_reference.cli,
             ],
         ),
     ]
