@@ -4,9 +4,9 @@ from pcweb.templates.docpage import docpage
 from .source import Source, generate_docs
 
 
-s = Source(module=pc.State)
+s = Source(module=pc.Component)
 
 
 @docpage()
-def state_reference():
-    return generate_docs("State", s)
+def component():
+    return generate_docs("Component", s)

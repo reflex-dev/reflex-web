@@ -2,3 +2,6 @@ from .cli import cli
 from .special_events import special_events
 from .event_triggers import event_triggers
 from .state import state_reference
+from .base import base
+from .component import component
+from .config import config
