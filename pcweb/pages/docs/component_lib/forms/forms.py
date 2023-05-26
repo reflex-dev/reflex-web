@@ -244,3 +244,20 @@ def render_upload():
         ),
         align_items="start",
     )
+
+
+copy_to_clipboard_example = """pc.copy_to_clipboard(
+                    pc.icon(
+                        tag="copy",
+                        style=icon_style,
+                    ),
+                    text=pc.Var.create("Text to copy", is_string=True),
+                ),"""
+
+
+def render_copytoclipboard():
+    return pc.vstack(
+        doctext("A button that will put some content into the clipboard"),
+        # docdemo(copy_to_clipboard_example),
+        doctext("TODO: Add example for copy_to_clipboard"),
+    )

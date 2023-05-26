@@ -82,6 +82,28 @@ def render_heading():
     )
 
 
+highlight_example_1 = """pc.highlight("Hello World, we have some highlight", query=['World','some'], styles={ 'px': '2', 'py': '1', 'rounded': 'full', 'bg': 'grey' })"""
+
+
+def render_highlight():
+    return pc.vstack(
+        doctext(
+            "The highlight component take in a string and display some of the words as highlighted text."
+        ),
+        doctext(
+            "The words to highlight can be select using the ",
+            pc.code("query"),
+            " prop.",
+        ),
+        doctext(
+            "You can also customize how the hightlight will be rendered with the ",
+            pc.code("styles"),
+            " prop.",
+        ),
+        docdemo(highlight_example_1),
+    )
+
+
 codemarkdown = """pc.vstack(
     pc.markdown("# Hello World!"),
     pc.markdown("## Hello World!"),
