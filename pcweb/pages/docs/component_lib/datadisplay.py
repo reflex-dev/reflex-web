@@ -34,6 +34,8 @@ badge_example2 = """pc.hstack(
 """
 badge_example3 = """pc.badge("Custom Badge", bg  = "#90EE90", color = "#3B7A57", border_color = "#29AB87", border_width = 2)
 """
+
+
 # Datadisplay
 def render_badge():
     return pc.vstack(
