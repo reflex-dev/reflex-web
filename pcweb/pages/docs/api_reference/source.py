@@ -132,7 +132,7 @@ class Source(pc.Base):
 
 def generate_docs(title, s):
     return pc.box(
-        docheader("State", first=True),
+        docheader(title.title(), first=True),
         pc.code(
             s.get_name(),
             font_size=styles.H3_FONT_SIZE,
