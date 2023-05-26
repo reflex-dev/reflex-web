@@ -91,7 +91,7 @@ def render_highlight():
             "The highlight component take in a string and display some of the words as highlighted text."
         ),
         doctext(
-            "The words to highlight can be select using the ",
+            "The words to highlight can be selected using the ",
             pc.code("query"),
             " prop.",
         ),
