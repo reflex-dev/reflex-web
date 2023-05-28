@@ -1,7 +1,7 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext
+from pcweb.templates.docpage import docdemo, doctext, subheader
 
 code49 = """pc.vstack(
     pc.box("Example", bg="yellow", border_radius="sm", width="20%"),
@@ -58,7 +58,38 @@ code52 = """class CondState(State):
     def change(self):
         self.show = not (self.show)
 """
+
+code51_a = """pc.vstack(
+    pc.button("Toggle", on_click=MultiCondState.change),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & True => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
+    ),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & False => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
+    ),  
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " | False => ", 
+        pc.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
+    ),
+)
+"""
+code52_a = """class MultiCondState(State):
+    cond1: bool = True
+    cond2: bool = False
+    cond3: bool = True
+
+    def change(self):
+        self.cond1 = not (self.cond1)
+"""
+
 exec(code52)
+
+exec(code52_a)
 
 
 def render_cond():
@@ -71,6 +102,15 @@ def render_cond():
         doctext(
             "The second component is optional and can be omitted. If it is omitted, nothing is rendered if the condition is false."
         ),
+        subheader("Multiple Conditions"),
+        doctext(
+            "You can also use the logical operator ",
+            pc.code("&"),
+            "and ",
+            pc.code("|"),
+            "to make up complex conditions",
+        ),
+        docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
         align_items="start",
     )
 
