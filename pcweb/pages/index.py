@@ -43,6 +43,7 @@ class Confetti(pc.Component):
 
     library = "react-confetti"
     tag = "ReactConfetti"
+    is_default = True
 
 
 confetti = Confetti.create
