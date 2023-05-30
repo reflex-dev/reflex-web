@@ -808,7 +808,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("5700+"),
+                            pc.heading("9000+"),
                             pc.text("GitHub stars", text_align="center"),
                             min_height="9em",
                             height="100%",
@@ -824,7 +824,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("600+"),
+                            pc.heading("1200+"),
                             pc.text("Discord community members", text_align="center"),
                             min_height="9em",
                             height="100%",
@@ -867,7 +867,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("5700+"),
+                            pc.heading("9000+"),
                             pc.text("GitHub stars", text_align="center"),
                             min_height="9em",
                             height="100%",
@@ -883,7 +883,7 @@ def gallery():
                             },
                         ),
                         pc.vstack(
-                            pc.heading("600+"),
+                            pc.heading("1200+"),
                             pc.text("Discord community members", text_align="center"),
                             min_height="9em",
                             height="100%",
