@@ -172,7 +172,7 @@ link_style = {
     "_hover": {"color": styles.ACCENT_COLOR},
     "fontSize": "1.2em",
 }
-font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE]
+font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE, styles.H4_FONT_SIZE]
 
 
 def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
