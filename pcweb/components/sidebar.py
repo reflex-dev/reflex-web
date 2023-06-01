@@ -132,7 +132,7 @@ def get_sidebar_items_learn():
                 advanced_guide.memoization,
                 advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
-                advanced_guide.middleware,
+                advanced_guide.use_middleware,
                 advanced_guide.telemetry,
             ],
         )
