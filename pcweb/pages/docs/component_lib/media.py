@@ -38,6 +38,8 @@ code82 = """pc.avatar_group(
     max_=3,
 )
 """
+
+
 # Media
 def render_avatar():
     return pc.box(
