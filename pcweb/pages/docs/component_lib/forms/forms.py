@@ -71,9 +71,7 @@ exec(code35)
 
 def render_textarea():
     return pc.vstack(
-        doctext(
-            "The Textarea component allows you to easily create multi-line text inputs."
-        ),
+        doctext("The Textarea component allows you to easily create multi-line text inputs."),
         docdemo(code34, state=code35, comp=eval(code34), context=True),
         align_items="start",
     )
@@ -99,7 +97,7 @@ class State(pc.State):
         \"""
         for file in files:
             upload_data = await file.read()
-            outfile = f".web/public/{file.filename}"
+            outfile = pc.get_asset_path(file.filename)
 
             # Save the file.
             with open(outfile, "wb") as file_object:
