@@ -38,5 +38,31 @@ for key in component_list:
 # Add the middleware.
 app.add_middleware(CloseSidebarMiddleware(), index=0)
 
+# Add redirects
+redirects = [
+    ("/docs", "/docs/getting-started/introduction"),
+    ("/docs/getting-started", "/docs/getting-started/introduction"),
+    ("/docs/components", "/docs/components/overview"),
+    ("/docs/state", "/docs/state/overview"),
+    ("/docs/styling", "/docs/styling/overview"),
+    ("/docs/database", "/docs/database/overview"),
+    ("/docs/hosting", "/docs/hosting/self-hosting"),
+    ("/docs/advanced-guide", "/docs/advanced-guide/custom-vars"),
+    ("/docs/library/typography", "/docs/library/typography/text"),
+    ("/docs/library/forms", "/docs/library/forms/form"),
+    ("/docs/library/layout", "/docs/library/layout/box"),
+    ("/docs/library/navigation", "/docs/library/navigation/link"),
+    ("/docs/library/datadisplay", "/docs/library/datadisplay/badge"),
+    ("/docs/library/graphing", "/docs/library/graphing/chart"),
+    ("/docs/library/disclosure", "/docs/library/disclosure/accordion"),
+    ("/docs/library/feedback", "/docs/library/feedback/alert"),
+    ("/docs/library/media", "/docs/library/media/image"),
+    ("/docs/library/overlay", "/docs/library/overlay/alertdialog"),
+    ("/docs/library/other", "/docs/library/other/html"),
+]
+
+for source, target in redirects:
+    app.add_page(pc.fragment(), route=source, on_load=pc.redirect(target))
+
 # Run the app.
 app.compile()
