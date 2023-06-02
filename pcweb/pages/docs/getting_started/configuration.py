@@ -24,7 +24,9 @@ def configuration():
             pc.code("pcconfig.py"),
             " file.",
         ),
-        doctext("Refer to Config API Reference for the details of all options availables."),
+        doctext(
+            "Refer to Config API Reference for the details of all options availables."
+        ),
         subheader("Environment Arguments"),
         doctext(
             "You can also set option in a .env file in the root directory of your project.",
@@ -34,7 +36,9 @@ def configuration():
             pc.code("pcconfig.py"),
         ),
         subheader("Command line Arguments"),
-        doctext("Those are the arguments that you pass when using ", pc.code("pc run"), "."),
+        doctext(
+            "Those are the arguments that you pass when using ", pc.code("pc run"), "."
+        ),
         doctext(
             "Any command line options will prevail over the one defined in ",
             pc.code("pcconfig.py"),
