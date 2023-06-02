@@ -80,37 +80,37 @@ code7 = """class ServerSideState2(State):
 exec(code7)
 code8 = """pc.button("Alert", on_click=ServerSideState2.alert)"""
 
-code9 = """class CollatzState(State):
+code_collatz_state = """class CollatzState(State):
     count: int = 0
 
     def start_collatz(self, count):
         \"""Run the collatz conjecture on the given number.\"""
         self.count = abs(int(count))
-        return self.run_step
-
+        return CollatzState.run_step
 
     async def run_step(self):
         \"""Run a single step of the collatz conjecture.\"""
-        await asyncio.sleep(0.2)
 
-        if self.count % 2 == 0:
-            # If the number is even, divide by 2.
-            self.count /= 2
-        else:
-            # If the number is odd, multiply by 3 and add 1.
-            self.count = self.count * 3 + 1
-        if self.count > 1:
-            # Keep running until we reach 1.
-            return self.run_step
+        while self.count > 1:
+            await asyncio.sleep(0.2)
 
+            if self.count % 2 == 0:
+                # If the number is even, divide by 2.
+                self.count /= 2
+            else:
+                # If the number is odd, multiply by 3 and add 1.
+                self.count = self.count * 3 + 1
+            yield
+        yield
 """
-exec(code9)
-code10 = """pc.vstack(
+
+exec(code_collatz_state)
+code_collatz_render = """pc.vstack(
     pc.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
     pc.input(on_blur=CollatzState.start_collatz),
 )"""
 
-code11 = """
+code_setter_state = """
 options = ["1", "2", "3", "4"]
 class SetterState1(State):
     selected: str = "1"
@@ -118,8 +118,8 @@ class SetterState1(State):
     def change(self, value):
         self.selected = value
 """
-exec(code11)
-code12 = """pc.vstack(
+exec(code_setter_state)
+code_setter_render = """pc.vstack(
     pc.badge(SetterState1.selected, color_scheme="green"),
     pc.select(
         options,
@@ -127,18 +127,66 @@ code12 = """pc.vstack(
     )
 )"""
 
-code13 = """
+code_setter2_state = """
 options = ["1", "2", "3", "4"]
 class SetterState2(State):
     selected: str = "1"
 """
-exec(code13)
-code14 = """pc.vstack(
+exec(code_setter2_state)
+code_setter2_render = """pc.vstack(
     pc.badge(SetterState2.selected, color_scheme="green"),
     pc.select(
         options,
         on_change= SetterState2.set_selected,
     )
+)"""
+
+code_yield_state = """class MultiUpdateState(State):
+    count: int = 0
+
+    async def timed_update(self):
+        for i in range(5):
+            await asyncio.sleep(1)
+            self.count += 1
+            yield
+"""
+exec(code_yield_state)
+code_yield_render = """pc.vstack(
+    pc.text(MultiUpdateState.count),
+    pc.button("Start", on_click=MultiUpdateState.timed_update)
+)"""
+
+
+code_callargs_state = """class CallArgsState(State):
+    count: int = 0
+
+    def run(self):
+        if self.count == 0:
+            yield CallArgsState.run_args(1, 2)
+        else:
+            yield CallArgsState.run_noargs
+    
+    def run_slow(self):
+        if self.count == 0:
+            yield CallArgsState.slow_run_args(1, 2)
+        else:
+            yield CallArgsState.run_noargs
+
+    def run_noargs(self):
+        self.count = 0
+
+    def run_args(self, arg1, arg2):
+        self.count = int(arg1) + int(arg2)
+
+    async def slow_run_args(self, arg1, arg2):
+        await asyncio.sleep(2)
+        self.count = int(arg1) + int(arg2)
+"""
+exec(code_callargs_state)
+code_callargs_render = """pc.vstack(
+    pc.badge(CallArgsState.count, font_size="1.5em", color_scheme="green"),
+    pc.button("Start", on_click=CallArgsState.run),
+    pc.button("Start Slow", on_click=CallArgsState.run_slow),
 )"""
 
 
@@ -154,18 +202,14 @@ def events():
             "make the app interactive.",
         ),
         subheader("Event Triggers"),
-        doctext(
-            "Event triggers are component actions that create an event to be sent to an event handler."
-        ),
+        doctext("Event triggers are component actions that create an event to be sent to an event handler."),
         doctext(
             "Each component supports a set of events triggers. ",
             "They are descibed in each ",
             doclink("component's documentation", href=library.path),
             " in the event trigger section.",
         ),
-        doctext(
-            "Lets take a look at an example below. Try mousing over the heading to change the word."
-        ),
+        doctext("Lets take a look at an example below. Try mousing over the heading to change the word."),
         docdemo(code2, code1, eval(code2), context=True),
         doctext(
             "In this example, the heading component has the event trigger, ",
@@ -183,9 +227,7 @@ def events():
             "In some use cases, you want to pass additional arguments to your event handlers. ",
             "To do this you can bind an event trigger to a lambda, which can call your event handler with the arguments you want.",
         ),
-        doctext(
-            "Try typing a color in an input below and clicking away from it to change the color of the input."
-        ),
+        doctext("Try typing a color in an input below and clicking away from it to change the color of the input."),
         docdemo(code6, code5, eval(code6), context=True),
         doctext(
             "In this case, in we want to pass two arguments to the event handler ",
@@ -210,9 +252,9 @@ def events():
             "Say you wanted to change the value of the select component. ",
             "You could write your own event handler to do this: ",
         ),
-        docdemo(code12, code11, eval(code12), context=True),
+        docdemo(code_setter_render, code_setter_state, eval(code_setter_render), context=True),
         doctext("Or you could could use a built-in setter for conciseness."),
-        docdemo(code14, code13, eval(code14), context=True),
+        docdemo(code_setter2_render, code_setter2_state, eval(code_setter2_render), context=True),
         doctext(
             "In this example, the setter for ",
             pc.code("selected"),
@@ -223,6 +265,20 @@ def events():
         doctext(
             "Setters are a great way to make your code more concise. But if you want to do something more complicated, you can always write your own function in the state."
         ),
+        subheader("Yielding multiple update"),
+        doctext(
+            "A regular event handler will send a StateUpdate when it has finished running.",
+            "This work fine for basic event, but sometimes we need more complex logic, ",
+            "and we eventually want the frontend to update multiple times during the event handler.",
+        ),
+        doctext(
+            "To do so, we can use the python keyword ",
+            pc.code("yield"),
+            ". ",
+            "For every yield inside the function, a StateUpdate will be sent to the frontend",
+            " with the changes up to this point in the execution of the event handler.",
+        ),
+        docdemo(code_yield_render, code_yield_state, eval(code_yield_render), context=True),
         subheader("Event Chains"),
         doctext(
             "Event triggers can be linked to a list of events, creating an ",
@@ -240,11 +296,20 @@ def events():
         subheader("Triggering Events From Event Handlers"),
         doctext(
             "So far, we have only seen events that are triggered by components. ",
-            "However, events can also be triggered by event handlers. ",
-            "To do this, you can return either an event, or an event chain from an event handler.",
+            "However, an event handler can also trigger others event handlers.",
         ),
+        doctext("This way to call event handlers work with either async or non-async events."),
+        doctext(
+            pc.alert(
+                icon=True,
+                title=pc.text(
+                    "Be sure to use the class name State (or any substate) rather than ", pc.code("self"), "."
+                ),
+            )
+        ),
+        docdemo(code_callargs_render, code_callargs_state, eval(code_callargs_render), context=True),
         doctext("Try entering an integer in the input below then clicking out."),
-        docdemo(code10, code9, eval(code10), context=True),
+        docdemo(code_collatz_render, code_collatz_state, eval(code_collatz_render), context=True),
         doctext(
             "In this example, we run the ",
             doclink(

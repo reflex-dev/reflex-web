@@ -92,17 +92,15 @@ class IndexState(State):
                 session.commit()
 
         self.signed_up = True
-        return self.start_confetti
+        return self.play_confetti
 
-    def start_confetti(self):
-        """Start the confetti."""
+    async def play_confetti(self):
+        """Play confetti for 5sec then stop."""
         self.show_confetti = True
-        return self.stop_confetti
-
-    async def stop_confetti(self):
-        """Stop the confetti."""
+        yield
         await asyncio.sleep(5)
         self.show_confetti = False
+        yield
 
 
 def container(*children, **kwargs):
