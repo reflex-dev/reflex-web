@@ -47,17 +47,11 @@ def render_avatar():
             "The Avatar component is used to represent a user, and displays the profile picture, initials or fallback icon."
         ),
         docdemo(code79),
-        doctext(
-            "Avatar components can be grouped into avatar groups for easier display."
-        ),
+        doctext("Avatar components can be grouped into avatar groups for easier display."),
         docdemo(code80),
-        doctext(
-            "Badges can also be applied to show elements about the avatar such as activity."
-        ),
+        doctext("Badges can also be applied to show elements about the avatar such as activity."),
         docdemo(code81),
-        doctext(
-            "If there are too many avatar to display a limit can be set using the max_ prop."
-        ),
+        doctext("If there are too many avatar to display a limit can be set using the max_ prop."),
         docdemo(code82),
         align_items="start",
     )
@@ -90,9 +84,7 @@ def render_icon():
     )
 
     return pc.box(
-        doctext(
-            "The Icon component is used to display an icon from a library of icons."
-        ),
+        doctext("The Icon component is used to display an icon from a library of icons."),
         docdemo(codeicon1),
         doctext("Use the tag prop to specify the icon to display."),
         pc.alert(
@@ -128,4 +120,31 @@ def render_image():
         doctext("Image composes a box and can be styled simlarly."),
         docdemo(code84),
         align_items="start",
+    )
+
+
+code_audio = """pc.audio(
+    url="https://www.youtube.com/embed/9bZkp7q19f0", 
+    width="350px", 
+    height="auto"
+)"""
+
+code_video = """pc.video(
+    url="https://www.youtube.com/embed/9bZkp7q19f0", 
+    width="350px",
+    height="auto"
+)"""
+
+
+def render_audio():
+    return pc.vstack(
+        doctext(""),
+        docdemo(code_audio),
+    )
+
+
+def render_video():
+    return pc.vstack(
+        doctext(""),
+        docdemo(code_video),
     )
