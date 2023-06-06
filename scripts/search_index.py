@@ -4,6 +4,7 @@ from pcweb.pages.docs.component import multi_docs
 from pcweb.tsclient import client
 from pynecone.components.base.bare import Bare
 
+
 def get_strings(comp):
     """Get the strings from a component."""
     strings = []
@@ -16,7 +17,10 @@ def get_strings(comp):
             strings += get_strings(child)
     return strings
 
+
 from collections import defaultdict
+
+
 def get_text(comp, href):
     """Get the text from a component."""
     text = []
@@ -28,6 +32,7 @@ def get_text(comp, href):
         else:
             text += get_text(child, href)
     return text
+
 
 def postprocess(texts):
     headings = defaultdict(list)
@@ -44,7 +49,10 @@ def postprocess(texts):
             del headings[("Base Events Triggers", href)]
     # del headings["Base Event Triggers"]
     dud = "Site Documentation Resources Copyright © 2023 Pynecone"
-    return {key: " ".join(value).replace("  ", " ").replace(dud, "") for key, value in headings.items()}
+    return {
+        key: " ".join(value).replace("  ", " ").replace(dud, "")
+        for key, value in headings.items()
+    }
 
 
 class Doc(pc.Base):
@@ -52,11 +60,13 @@ class Doc(pc.Base):
     description: str
     href: str
 
+
 out = {}
 from pcweb.component_list import component_list
+
 for key in component_list:
     for component_group in component_list[key]:
-        path =  f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
         comp = multi_docs(path=path, component_list=component_group).component()
         texts = get_text(comp, path)
         out |= postprocess(texts)
@@ -72,18 +82,20 @@ import sys
 import typesense
 
 try:
-    client.collections['search-auto'].delete()
+    client.collections["search-auto"].delete()
 except Exception as e:
     pass
 
-create_response = client.collections.create({
-    "name": "search-auto",
-    "fields": [
-        {"name": "heading", "type": "string"},
-        {"name": "description", "type": "string"},
-        {"name": "href", "type": "string"},
-    ],
-})
+create_response = client.collections.create(
+    {
+        "name": "search-auto",
+        "fields": [
+            {"name": "heading", "type": "string"},
+            {"name": "description", "type": "string"},
+            {"name": "href", "type": "string"},
+        ],
+    }
+)
 
 
 docs = []
@@ -92,4 +104,4 @@ for key, text in out.items():
 
 for doc in docs:
     print(doc)
-    client.collections['search-auto'].documents.create(doc)
+    client.collections["search-auto"].documents.create(doc)

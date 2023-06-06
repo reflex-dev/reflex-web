@@ -26,14 +26,14 @@ for route in routes:
         image="preview.png",
     )
 
-for key in component_list:
-    for component_group in component_list[key]:
-        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-        app.add_page(
-            multi_docs(path=path, component_list=component_group).component,
-            route=path,
-            title=f"{component_group[0].__name__} | Pynecone",
-        )
+# for key in component_list:
+#     for component_group in component_list[key]:
+#         path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+#         app.add_page(
+#             multi_docs(path=path, component_list=component_group).component,
+#             route=path,
+#             title=f"{component_group[0].__name__} | Pynecone",
+#         )
 
 # Add the middleware.
 app.add_middleware(CloseSidebarMiddleware(), index=0)

@@ -11,17 +11,17 @@ from pcweb.pages.index import index
 footer_item_style = {
     "font_family": "Inter",
     "font_weight": "500",
-    "_hover": {"color": styles.ACCENT_COLOR},
+    "_hover": {"color": "#82799E"},
 }
 
 footer_style = {
     "box_shadow": "medium-lg",
-    "border_top": "0.2em solid #F0F0F0",
+    "border_top": "0.1em solid #82799E",
     "vertical_align": "bottom",
     "padding_top": "4em",
     "padding_bottom": "2em",
     "padding_x": styles.PADDING_X2,
-    "bg": "white",
+    "bg": "#110F1F",
 }
 
 
@@ -36,14 +36,14 @@ def footer(style=footer_style):
                     ),
                 ),
                 pc.vstack(
-                    pc.text("Site", color=styles.SUBHEADING_COLOR),
+                    pc.text("Site", color="#DACEEE"),
                     pc.link("Home", href=index.path, style=footer_item_style),
                     pc.link("Gallery", href=gallery.path, style=footer_item_style),
                     pc.link("Hosting", href=deploy.path, style=footer_item_style),
                     align_items="start",
                 ),
                 pc.vstack(
-                    pc.text("Documentation", color=styles.SUBHEADING_COLOR),
+                    pc.text("Documentation", color="#DACEEE"),
                     pc.link(
                         "Introduction",
                         href=introduction.path,
@@ -58,7 +58,7 @@ def footer(style=footer_style):
                     align_items="start",
                 ),
                 pc.vstack(
-                    pc.text("Resources", color=styles.SUBHEADING_COLOR),
+                    pc.text("Resources", color="#DACEEE"),
                     pc.link(
                         "GitHub",
                         href=constants.GITHUB_URL,
