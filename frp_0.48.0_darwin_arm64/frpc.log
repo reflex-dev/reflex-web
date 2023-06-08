@@ -1,4 +1,0 @@
-2023/05/23 13:32:47 [1;34m[I] [service.go:299] [8a6d235141069124] login to server success, get run id [8a6d235141069124], server udp port [0][0m
-2023/05/23 13:32:47 [1;34m[I] [proxy_manager.go:142] [8a6d235141069124] proxy added: [web_app_backend web_app_frontend][0m
-2023/05/23 13:32:47 [1;34m[I] [control.go:172] [8a6d235141069124] [web_app_frontend] start proxy success[0m
-2023/05/23 13:32:47 [1;34m[I] [control.go:172] [8a6d235141069124] [web_app_backend] start proxy success[0m
