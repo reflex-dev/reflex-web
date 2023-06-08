@@ -4,7 +4,7 @@ from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subhea
 
 
 @docpage()
-def middleware():
+def use_middleware():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.styling.overview import styling_overview
 

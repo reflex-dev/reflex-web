@@ -1,7 +1,7 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext
+from pcweb.templates.docpage import docdemo, doctext, subheader
 
 code49 = """pc.vstack(
     pc.box("Example", bg="yellow", border_radius="sm", width="20%"),
@@ -28,6 +28,8 @@ iframe_example = """pc.box(
         width = "100%",
     )
 """
+
+
 # Layout
 def render_box():
     return pc.vstack(
@@ -56,7 +58,38 @@ code52 = """class CondState(State):
     def change(self):
         self.show = not (self.show)
 """
+
+code51_a = """pc.vstack(
+    pc.button("Toggle", on_click=MultiCondState.change),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & True => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
+    ),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & False => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
+    ),  
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " | False => ", 
+        pc.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
+    ),
+)
+"""
+code52_a = """class MultiCondState(State):
+    cond1: bool = True
+    cond2: bool = False
+    cond3: bool = True
+
+    def change(self):
+        self.cond1 = not (self.cond1)
+"""
+
 exec(code52)
+
+exec(code52_a)
 
 
 def render_cond():
@@ -69,6 +102,15 @@ def render_cond():
         doctext(
             "The second component is optional and can be omitted. If it is omitted, nothing is rendered if the condition is false."
         ),
+        subheader("Multiple Conditions"),
+        doctext(
+            "You can also use the logical operator ",
+            pc.code("&"),
+            "and ",
+            pc.code("|"),
+            "to make up complex conditions",
+        ),
+        docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
         align_items="start",
     )
 
@@ -445,4 +487,56 @@ def render_foreach():
         doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
         align_items="start",
+    )
+
+
+card_example1 = """pc.card(pc.text("Body of the Card Component"), header=pc.heading("Header", size="lg"), footer=pc.heading("Footer",size="sm"))"""
+
+
+def render_card():
+    return pc.vstack(
+        doctext(
+            "Card is a flexible component used to group and display content in a clear and concise format."
+        ),
+        docdemo(card_example1),
+        doctext(
+            "You can pass a header with ",
+            pc.code("header="),
+            " and/or a footer with ",
+            pc.code("footer="),
+        ),
+    )
+
+
+image_example = (
+    """pc.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
+)
+
+aspect_ratio_example = f"""pc.aspect_ratio({image_example}, ratio=4/3)"""
+
+
+def render_aspectratio():
+    return pc.vstack(
+        doctext("Preserve the ratio of the components contained within"),
+        docdemo(image_example),
+        docdemo(aspect_ratio_example),
+    )
+
+
+fragment_example = """pc.fragment(pc.text("Component1"), pc.text("Component2"))"""
+
+
+def render_fragment():
+    return pc.vstack(
+        doctext(
+            "A Fragment is a Component that allow you to group multiple Components without a wrapper node."
+        ),
+        doctext(
+            "Refer to the React docs at ",
+            pc.link(
+                "React/Fragment", href="https://react.dev/reference/react/Fragment"
+            ),
+            " for more information on its use-case",
+        ),
+        docdemo(fragment_example),
     )

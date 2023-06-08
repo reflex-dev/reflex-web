@@ -7,7 +7,6 @@ from typing import Callable
 
 import black
 import pynecone as pc
-from pynecone import utils
 
 from pcweb import styles
 from pcweb.base_state import State
@@ -173,10 +172,10 @@ link_style = {
     "_hover": {"color": styles.ACCENT_COLOR},
     "fontSize": "1.2em",
 }
-font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE]
+font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE, styles.H4_FONT_SIZE]
 
 
-def docpage(set_path: str | None = None) -> pc.Component:
+def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
     """A template that most pages on the pynecone.io site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -205,7 +204,10 @@ def docpage(set_path: str | None = None) -> pc.Component:
             path = set_path
 
         # Set the page title.
-        title = f"{contents.__name__.replace('_', ' ').title()} | Pynecone"
+        if t is None:
+            title = f"{contents.__name__.replace('_', ' ').title()} | Pynecone"
+        else:
+            title = t
 
         def wrapper(*args, **kwargs) -> pc.Component:
             """The actual function wrapper.
@@ -257,6 +259,11 @@ def docpage(set_path: str | None = None) -> pc.Component:
             else:
                 links.append(pc.box())
 
+            if not isinstance(contents, pc.Component):
+                comp = contents(*args, **kwargs)
+            else:
+                comp = contents
+
             # Return the templated page.
             return pc.box(
                 navbar(sidebar=nav_sidebar),
@@ -269,7 +276,7 @@ def docpage(set_path: str | None = None) -> pc.Component:
                             padding_y="2em",
                         ),
                         pc.box(
-                            pc.box(contents(*args, **kwargs)),
+                            pc.box(comp),
                             pc.hstack(
                                 *links,
                                 justify="space-between",

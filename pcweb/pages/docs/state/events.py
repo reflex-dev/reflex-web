@@ -144,7 +144,7 @@ code14 = """pc.vstack(
 
 @docpage()
 def events():
-    from pcweb.pages.docs.events_reference.server_side import server_side
+    from pcweb.pages.docs.api_reference.special_events import special_events
     from pcweb.pages.docs.library import library
 
     return pc.box(
@@ -269,8 +269,8 @@ def events():
             ". ",
         ),
         doctext(
-            "Pynecone also has built-in server side events can be found in the ",
-            doclink("reference", href=server_side.path),
+            "Pynecone also has built-in special events can be found in the ",
+            doclink("reference", href=special_events.path),
             ".",
         ),
         doctext(

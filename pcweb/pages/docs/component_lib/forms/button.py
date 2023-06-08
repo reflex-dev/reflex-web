@@ -1,14 +1,7 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import (
-    docdemo,
-    doctext,
-    demo_box_style,
-    doccode,
-    doclink,
-    subheader,
-)
+from pcweb.templates.docpage import docdemo, doctext
 
 # Forms
 basic_button = """pc.button("Click Me!")
@@ -90,4 +83,17 @@ def render_button():
             context=True,
         ),
         align_items="start",
+    )
+
+
+iconbutton_example = """pc.icon_button(icon="search")"""
+
+
+def render_iconbutton():
+    return pc.vstack(
+        doctext("IconButton display a clickable Icon"),
+        docdemo(iconbutton_example),
+        doctext(
+            "Since IconButton only renders an icon, you must pass the `aria_label` prop, so screen readers can give meaning to the button."
+        ),
     )

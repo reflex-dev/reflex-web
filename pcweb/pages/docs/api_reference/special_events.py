@@ -5,13 +5,13 @@ from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
 
 
 @docpage()
-def server_side():
+def special_events():
     return pc.flex(
         pc.hstack(
             pc.box(
-                docheader("Server Side Events", first=True),
+                docheader("Special Events", first=True),
                 doctext(
-                    "There are a few built-in Pynecone events that can be triggered on the server side."
+                    "Pynecone has some special built-in events that can be attached to event triggers or returned from event handlers like any other event."
                 ),
                 pc.divider(),
                 component_grid(),
@@ -25,47 +25,35 @@ def server_side():
     )
 
 
-SERVER_SIDE_EVENTS = [
+SPECIAL_EVENTS = [
+    {
+        "fn": pc.set_value,
+        "example": """pc.hstack(pc.input(id="input1"), pc.button("Erase", on_click=pc.set_value("input1", "")))""",
+    },
     {
         "fn": pc.redirect,
-        "state": f"""class RedirectState(State):
-    def redirect(self):
-        return pc.redirect("{server_side.path}")
-""",
-        "example": """pc.button("Redirect", on_click=RedirectState.redirect)""",
+        "example": f"""pc.button("Redirect", on_click=pc.redirect("{special_events.path}"))""",
     },
     {
         "fn": pc.console_log,
-        "state": """class ConsoleState(State):
-    def log(self):
-        return pc.console_log("Hello World!")
-""",
-        "example": """pc.button("Log", on_click=ConsoleState.log)""",
+        "example": """pc.button("Log", on_click=pc.console_log("Hello World!"))""",
     },
     {
         "fn": pc.window_alert,
-        "state": """class AlertState(State):
-    def alert(self):
-        return pc.window_alert("Hello World!")
-""",
-        "example": """pc.button("Alert", on_click=AlertState.alert)""",
+        "example": """pc.button("Alert", on_click=pc.window_alert("Hello World!"))""",
     },
 ]
-for i in SERVER_SIDE_EVENTS:
-    exec(i["state"])
 
 
 def component_grid():
     events = []
-    for event in SERVER_SIDE_EVENTS:
+    for event in SPECIAL_EVENTS:
         events.append(
             pc.vstack(
                 docheader(event["fn"].__name__),
                 doctext(event["fn"].__doc__.split("\n")[0]),
                 docdemo(
                     event["example"],
-                    state=event["state"],
-                    comp=eval(event["example"]),
                     context=True,
                 ),
                 align_items="left",

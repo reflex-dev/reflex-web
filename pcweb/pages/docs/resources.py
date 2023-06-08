@@ -45,7 +45,7 @@ intro_videos = [
     {
         "title": "Pynecone: What Is It?",
         "author": "CodingJQ",
-        "url": "https://www.youtube.com/watch?v=p8X8Z8ZQ0qg",
+        "url": "https://www.youtube.com/watch?v=p8pJq93snUs",
     },
     {
         "title": "Building Web Apps With Python Has Never Been Easier",

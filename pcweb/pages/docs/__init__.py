@@ -3,7 +3,6 @@ from .api_reference import *
 from .components import *
 from .component_lib import *
 from .database import *
-from .events_reference import *
 from .gallery import gallery
 from .getting_started import *
 from .hosting import *

@@ -7,7 +7,7 @@ from typing import Any, Type
 from pynecone.base import Base
 from pynecone.components.component import Component
 
-from pcweb.component_list import component_list
+from pcweb.component_list import component_list, not_ready_components
 from pcweb.components.sidebar import SidebarItem
 from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
@@ -93,9 +93,10 @@ class Source(Base):
                 continue
 
             # redundant check just to double-check line above prop is a comment
-            assert (
-                self.code[i - 1].strip().startswith("#")
-            ), f"Expected comment, got {comment}"
+            comment_above = self.code[i - 1].strip()
+            assert comment_above.startswith(
+                "#"
+            ), f"Expected comment, got {comment_above}"
 
             # Get the comment for this prop.
             comment = Source.get_comment(comments)
@@ -252,7 +253,11 @@ EVENTS = {
     "on_key_up": {
         "description": "The on_key_up event handler is called when the user releases a key."
     },
+    "on_copy": {
+        "description": "The on_copy event handler is called in CopyToClipboard component"
+    },
 }
+
 
 # Docs page
 def component_docs(component):
@@ -382,17 +387,18 @@ sidebar_items = [
 
 def multi_docs(path, component_list):
     components = [component_docs(component) for component in component_list]
+    coming_soon_components = [c.__name__ for c in not_ready_components]
 
     @docpage(set_path=path)
     def out():
+        name = component_list[0].__name__
         return pc.box(
             pc.box(
                 pc.box(
                     docheader(
-                        component_list[0].__name__,
-                        first=True,
+                        name, first=True, coming_soon=name in coming_soon_components
                     ),
-                    get_examples(component_list[0].__name__),
+                    get_examples(name),
                     text_align="left",
                 ),
                 *components,
