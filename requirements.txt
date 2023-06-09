@@ -5,4 +5,4 @@ psycopg2-binary==2.9.5
 plotly-express==0.4.1
 googletrans-py==4.0.0
 typesense==0.14.0
-
+Pillow==9.5.0
