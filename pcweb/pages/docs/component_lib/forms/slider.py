@@ -22,7 +22,7 @@ slider_base_example = """pc.vstack(
 slider_state_start = """class SliderVariation(State):
     value: int = 50
 
-    def set_end(self, value):
+    def set_end(self, value: int):
         self.value = value
 """
 
@@ -39,10 +39,10 @@ slider_state_combo = """class SliderCombo(State):
     value: int = 50
     color: str = "black"
 
-    def set_start(self, value):
+    def set_start(self):
         self.color = "#68D391" 
 
-    def set_end(self, value):
+    def set_end(self):
         self.color = "#F56565" 
 """
 
@@ -60,7 +60,7 @@ slider_combo = """pc.vstack(
 slider_state_manual = """class SliderManual(State):
     value: int = 50
 
-    def set_end(self, value):
+    def set_end(self, value: int):
         self.value = value
 """
 
@@ -129,9 +129,10 @@ def render_slider():
             " event handler.",
         ),
         doctext(
-            "For performance reasons, you may want to trigger state change only when the user releases the slider. By using the ",
+            "For performance reasons, you may want to trigger state change only when the user releases the slider by using the ",
             pc.code("on_change_end"),
-            " but if you need preform an event on every slider movement, you can use the ",
+            "event handler,",
+            " but if you need perform an event on every slider movement, you can use the ",
             pc.code("on_change"),
             " event handler.",
         ),
@@ -145,8 +146,9 @@ def render_slider():
     )
 
 
-range_slider_state = """class RangeSliderState(State):
-    value = [0,100]
+range_slider_state = """from typing import List
+class RangeSliderState(State):
+    value: List[int] = [0,100]
 """
 
 range_slider_base_example = """pc.vstack(
@@ -158,10 +160,11 @@ range_slider_base_example = """pc.vstack(
 )
 """
 
-range_slider_state_start = """class RangeSliderVariation(State):
-    value = [0,100]
+range_slider_state_start = """from typing import List
+class RangeSliderVariation(State):
+    value: List[int] = [0,100]
 
-    def set_end(self, value):
+    def set_end(self, value: List[int]):
         self.value = value
 """
 
@@ -174,18 +177,19 @@ range_slider_on_change_start = """pc.vstack(
 )
 """
 
-range_slider_state_combo = """class RangeSliderCombo(State):
-    value = [0,100]
+range_slider_state_combo = """from typing import List
+class RangeSliderCombo(State):
+    value: List[int] = [0,100]
     color: str = "black"
 
-    def set_start(self, value):
+    def set_start(self):
         self.color = "green" 
 
-    def set_val(self, value):
+    def set_val(self, value: List[int]):
         self.value = value
         self.color = "orange" 
 
-    def set_end(self, value):
+    def set_end(self):
         self.color = "red" 
 """
 
@@ -200,8 +204,9 @@ range_slider_combo = """pc.vstack(
 )
 """
 
-range_slider_state_manual = """class RangeSliderManual(State):
-    value = [0,100]
+range_slider_state_manual = """from typing import List
+class RangeSliderManual(State):
+    value: List[int] = [0,100]
 """
 
 range_slider_manual = """pc.vstack( 

@@ -12,20 +12,22 @@ from pcweb.templates.docpage import (
 )
 
 code1 = """
+from typing import List
+
 class ExampleState(State):
 
     # The colors to cycle through.
-    colors = ["black", "red", "green", "blue", "purple"]
+    colors: List[str] = ["black", "red", "green", "blue", "purple"]
 
     # The index of the current color.
-    index = 0
+    index: int = 0
 
     def next_color(self):
         \"""Cycle to the next color.\"""
         self.index = (self.index + 1) % len(self.colors)
 
     @pc.var
-    def color(self):
+    def color(self)-> str:
         return self.colors[self.index]
 """
 exec(code1)

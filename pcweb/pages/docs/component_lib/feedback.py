@@ -21,7 +21,7 @@ code36 = """pc.vstack(
     ),
     pc.alert(
         pc.alert_icon(),
-        pc.alert_title("Pynecone version is 1.0.0."),
+        pc.alert_title("Pynecone version is 0.1.32."),
         status="info",
     ),
     width="100%",

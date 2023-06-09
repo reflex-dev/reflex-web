@@ -102,7 +102,7 @@ def installation():
                 pc.alert_icon(),
                 pc.alert_title(
                     "You can run your app on a different port with the ",
-                    pc.code("--port"),
+                    pc.code("--frontend-port"),
                     " flag. ",
                 ),
                 status="success",

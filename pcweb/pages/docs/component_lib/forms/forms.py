@@ -18,9 +18,9 @@ checkbox_example = """pc.vstack(
 """
 checkbox_example_state = """class SwitchState(State):
     checked: bool = False
-    is_checked = "Switch off!"
+    is_checked: bool = "Switch off!"
 
-    def change_check(self, checked):
+    def change_check(self, checked: bool):
         self.checked = checked
         if self.checked:
             self.is_checked = "Switch on!"
