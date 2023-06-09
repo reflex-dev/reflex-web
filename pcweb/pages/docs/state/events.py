@@ -11,18 +11,21 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code1 = """class WordCycleState(State):
+code1 = """
+from typing import List
+
+class WordCycleState(State):
     # The words to cycle through.
-    text = ["Welcome", "to", "Pynecone", "!"]
+    text: List[str] = ["Welcome", "to", "Pynecone", "!"]
 
     # The index of the current word.
-    index = 0
+    index: int = 0
 
     def next_word(self):
         self.index = (self.index + 1) % len(self.text)
 
     @pc.var
-    def get_text(self):
+    def get_text(self) -> str:
         return self.text[self.index]
 
 """
@@ -36,8 +39,8 @@ code2 = """pc.heading(
 code3 = """import asyncio
 
 class ChainExampleState(State):
-    count = 0
-    show_progress = False
+    count: int = 0
+    show_progress: bool = False
 
     def toggle_progress(self):
         self.show_progress = not self.show_progress
@@ -59,10 +62,13 @@ code4 = """pc.cond(
 )"""
 
 
-code5 = """class ArgState(State):
-    colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
+code5 = """
+from typing import List
 
-    def change_color(self, color, index):
+class ArgState(State):
+    colors: List[str] = ["rgba(222,44,12)", "white", "#007ac2"]
+
+    def change_color(self, color: str, index: int):
         self.colors[index] = color
 """
 exec(code5)
@@ -83,7 +89,7 @@ code8 = """pc.button("Alert", on_click=ServerSideState2.alert)"""
 code9 = """class CollatzState(State):
     count: int = 0
 
-    def start_collatz(self, count):
+    def start_collatz(self, count: str):
         \"""Run the collatz conjecture on the given number.\"""
         self.count = abs(int(count))
         return self.run_step
@@ -111,7 +117,9 @@ code10 = """pc.vstack(
 )"""
 
 code11 = """
-options = ["1", "2", "3", "4"]
+from typing import List
+
+options: List[str] = ["1", "2", "3", "4"]
 class SetterState1(State):
     selected: str = "1"
 
@@ -128,7 +136,9 @@ code12 = """pc.vstack(
 )"""
 
 code13 = """
-options = ["1", "2", "3", "4"]
+from typing import List
+
+options: List[str] = ["1", "2", "3", "4"]
 class SetterState2(State):
     selected: str = "1"
 """
@@ -159,7 +169,7 @@ def events():
         ),
         doctext(
             "Each component supports a set of events triggers. ",
-            "They are descibed in each ",
+            "They are described in each ",
             doclink("component's documentation", href=library.path),
             " in the event trigger section.",
         ),

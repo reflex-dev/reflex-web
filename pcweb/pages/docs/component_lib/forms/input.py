@@ -19,7 +19,7 @@ exec(input_state)
 input_blur_state = """class InputBlurState(State):
     text: str = "Type something..."
 
-    def set_text(self, text):
+    def set_text(self, text: str):
         self.text = text.upper()
 """
 blur_input_example = """pc.vstack(
@@ -52,7 +52,7 @@ class KeyPressInputState(State):
     def clear_text(self):
         self.text = ""
 
-    def on_key_down(self, key):
+    def on_key_down(self, key: str):
         if key == "Enter":
             self.text = self.text.upper()
 """
