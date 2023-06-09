@@ -107,7 +107,6 @@ code_collatz_state = """class CollatzState(State):
                 # If the number is odd, multiply by 3 and add 1.
                 self.count = self.count * 3 + 1
             yield
-        yield
 """
 
 exec(code_collatz_state)
@@ -319,7 +318,11 @@ def events():
             pc.alert(
                 icon=True,
                 title=pc.text(
-                    "Be sure to use the class name State (or any substate) rather than ", pc.code("self"), "."
+                    "Be sure to use the class name ",
+                    pc.code("State"),
+                    " (or any substate) rather than ",
+                    pc.code("self"),
+                    ".",
                 ),
             )
         ),
