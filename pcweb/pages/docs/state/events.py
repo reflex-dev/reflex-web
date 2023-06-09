@@ -263,11 +263,14 @@ def events():
             ". Both of these examples are equivalent.",
         ),
         doctext(
-            "Setters are a great way to make your code more concise. But if you want to do something more complicated, you can always write your own function in the state."
+            "Setters are a great way to make your code more concise. ",
+            "But if you want to do something more complicated, you can always write your own function in the state.",
         ),
-        subheader("Yielding multiple update"),
+        subheader("Yielding Multiple Updates"),
         doctext(
-            "A regular event handler will send a StateUpdate when it has finished running.",
+            "A regular event handler will send a ",
+            pc.code("StateUpdate"),
+            " when it has finished running. ",
             "This work fine for basic event, but sometimes we need more complex logic, ",
             "and we eventually want the frontend to update multiple times during the event handler.",
         ),
@@ -275,7 +278,9 @@ def events():
             "To do so, we can use the python keyword ",
             pc.code("yield"),
             ". ",
-            "For every yield inside the function, a StateUpdate will be sent to the frontend",
+            "For every yield inside the function, a ",
+            pc.code("StateUpdate"),
+            "will be sent to the frontend",
             " with the changes up to this point in the execution of the event handler.",
         ),
         docdemo(code_yield_render, code_yield_state, eval(code_yield_render), context=True),
