@@ -9,4 +9,5 @@ pcconfig2.py
 pcweb/tsclient.py
 .vscode/__pycache__/
 *.py[cod]__pycache__/*.py[cod]
-__pycache__/*.py[cod]
+__pycache__/*.py[cod]*.py[cod]
+__pycache__/

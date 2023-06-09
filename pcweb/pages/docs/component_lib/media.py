@@ -126,13 +126,12 @@ code84 = """pc.image(
 
 
 image_state = """class ImageState(State):
-    random_int = random.randint(0, 1000)
-    url = f"https://picsum.photos/id/{random_int}/200/300"
+    url = f"https://picsum.photos/id/1/200/300"
     image = Image.open(requests.get(url, stream=True).raw)
 """
 exec(image_state)
 image_pil_example ="""pc.vstack(
-        pc.image(src=ImageState.image, alt="random unsplash image")
+        pc.image(src=ImageState.image, alt="=An Unsplash Image")
     )
 """
 
