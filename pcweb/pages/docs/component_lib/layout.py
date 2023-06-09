@@ -352,10 +352,11 @@ def render_wrap():
     )
 
 
-basic_foreach_state = """class ForeachState(State):
-    color = ["red", "green", "blue", "yellow", "orange", "purple"]
+basic_foreach_state = """from typing import List
+class ForeachState(State):
+    color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
-def colored_box(color):
+def colored_box(color: str):
     return pc.box(
         pc.text(color),
         bg=color
@@ -372,10 +373,11 @@ basic_foreach = """pc.responsive_grid(
 """
 
 
-foreach_index_state = """class ForeachIndexState(State):
-    count = ["red", "green", "blue", "yellow", "orange", "purple"]
+foreach_index_state = """from typing import List
+class ForeachIndexState(State):
+    count: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
-def colored_box(color, index):
+def colored_box(color: str, index: int):
     return pc.box(
         pc.text(index),
         bg=color
@@ -392,8 +394,9 @@ foreach_index = """pc.responsive_grid(
 """
 
 
-nested_foreach_state = """class NestedForeachState(State):
-    numbers: list[list[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+nested_foreach_state = """from typing import List
+class NestedForeachState(State):
+    numbers: List[List[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 def display_row(row):
     return pc.hstack(
@@ -416,14 +419,15 @@ nested_foreach = """pc.vstack(
     )
 """
 
-todo1 = """class ListState(State):
-    items = ["Write Code", "Sleep", "Have Fun"]
+todo1 = """from typing import List
+class ListState(State):
+    items: List[str] = ["Write Code", "Sleep", "Have Fun"]
     new_item: str
 
     def add_item(self):
         self.items += [self.new_item]
 
-    def finish_item(self, item):
+    def finish_item(self, item: str):
         self.items = [i for i in self.items if i != item]
 
 def get_item(item):

@@ -6,8 +6,8 @@ from pcweb.templates.docpage import (
     doctext,
 )
 
-basic_radio_state = """
-options = ["Option 1", "Option 2", "Option 3"]
+basic_radio_state = """from typing import List
+options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
 class RadioState(State):
     text: str = "No Selection"
