@@ -27,8 +27,5 @@ for module in modules:
     s = Source(module=module)
     name = module.__name__.lower()
     docs = generate_docs(name, s)
-    print("module", name)
     title = f"{name.replace('_', ' ').title()} | Pynecone"
-
-    # If the module is State, add a special path
-    locals()[name] = docpage(f"/docs/api-reference/{name}", title)(docs)
+    locals()[f"{name}_ref"] = docpage(f"/docs/api-reference/{name}", title)(docs)
