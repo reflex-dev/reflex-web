@@ -2,7 +2,6 @@ import pynecone as pc
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doccode,
     docdemo,
     docheader,
     doclink,
@@ -100,7 +99,7 @@ code_collatz_state = """class CollatzState(State):
         \"""Run a single step of the collatz conjecture.\"""
 
         while self.count > 1:
-            await asyncio.sleep(0.2)
+            await asyncio.sleep(0.5)
 
             if self.count % 2 == 0:
                 # If the number is even, divide by 2.
@@ -158,7 +157,7 @@ code_yield_state = """class MultiUpdateState(State):
 
     async def timed_update(self):
         for i in range(5):
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
             self.count += 1
             yield
 """
@@ -169,36 +168,35 @@ code_yield_render = """pc.vstack(
 )"""
 
 
-code_callargs_state = """class CallArgsState(State):
+code_callhandler_state = """class CallHandlerState(State):
     count: int = 0
+    progress: int = 0
 
-    def run(self):
-        if self.count == 0:
-            yield CallArgsState.run_args(1, 2)
-        else:
-            yield CallArgsState.run_noargs
-    
-    def run_slow(self):
-        if self.count == 0:
-            yield CallArgsState.slow_run_args(1, 2)
-        else:
-            yield CallArgsState.run_noargs
+    def set_progress(self, count: int):
+        self.progress = count
 
-    def run_noargs(self):
-        self.count = 0
+    async def run(self):
+        # Reset the count.
+        self.set_progress(0)
+        yield
 
-    def run_args(self, arg1, arg2):
-        self.count = int(arg1) + int(arg2)
+        # Count to 10 while showing progress.
+        for i in range(10):
+            # Wait and increment.
+            await asyncio.sleep(0.5)
+            self.count += 1
 
-    async def slow_run_args(self, arg1, arg2):
-        await asyncio.sleep(2)
-        self.count = int(arg1) + int(arg2)
+            # Update the progress.
+            self.set_progress(i + 1)
+
+            # Yield to send the update.
+            yield
 """
-exec(code_callargs_state)
-code_callargs_render = """pc.vstack(
-    pc.badge(CallArgsState.count, font_size="1.5em", color_scheme="green"),
-    pc.button("Start", on_click=CallArgsState.run),
-    pc.button("Start Slow", on_click=CallArgsState.run_slow),
+exec(code_callhandler_state)
+code_callhandler_render = """pc.vstack(
+    pc.badge(CallHandlerState.count, font_size="1.5em", color_scheme="green"),
+    pc.progress(value=CallHandlerState.progress, max_=10, width="100%"),
+    pc.button("Run", on_click=CallHandlerState.run),
 )"""
 
 
@@ -297,15 +295,29 @@ def events():
         ),
         docdemo(code_yield_render, code_yield_state, eval(code_yield_render), context=True),
         doctext(
-            "Here is another example of yielding multiple updates with a progress bar. ",
+            "Here is another example of yielding multiple updates with a loading icon. ",
         ),
         docdemo(code4, code3, eval(code4), context=True),
-        subheader("Triggering Events From Event Handlers"),
+        subheader("Calling Event Handlers From Event Handlers"),
+        doctext(
+            "You can call other event handlers from event handlers to keep your code modular. ",
+            "Just use the ",
+            pc.code("self.call_handler"),
+            " syntax to run another event handler. ",
+            " As always, you can yield within your function to send incremental updates to the frontend.",
+        ),
+        docdemo(code_callhandler_render, code_callhandler_state, eval(code_callhandler_render), context=True),
+        subheader("Returning Events From Event Handlers"),
         doctext(
             "So far, we have only seen events that are triggered by components. ",
-            "However, an event handler can also trigger others event handlers.",
+            "However, an event handler can also return events.",
         ),
-        doctext("This way to call event handlers work with either async or non-async events."),
+        doctext(
+            "In Pynecone, event handlers run synchronously, so only one event handler can run at a time, ",
+            " and the events in the queue will be blocked until the current event handler finishes.",
+            "The difference between returning an event and calling an event handler is that ",
+            " returning an event will send the event to the frontend and unblock the queue. ",
+        ),
         doctext(
             pc.alert(
                 icon=True,
@@ -314,11 +326,10 @@ def events():
                     pc.code("State"),
                     " (or any substate) rather than ",
                     pc.code("self"),
-                    ".",
+                    " when returning events.",
                 ),
             )
         ),
-        docdemo(code_callargs_render, code_callargs_state, eval(code_callargs_render), context=True),
         doctext("Try entering an integer in the input below then clicking out."),
         docdemo(code_collatz_render, code_collatz_state, eval(code_collatz_render), context=True),
         doctext(
@@ -337,13 +348,11 @@ def events():
             " is called. ",
             "It sets the initial count, then calls ",
             pc.code("run_step"),
-            " which runs a single step of the collatz conjecture. ",
-            "The ",
-            pc.code("run_step"),
-            " then repeatedly calls itself until the count reaches ",
+            " which runs until the count reaches ",
             pc.code("1"),
             ". ",
         ),
+        subheader("Special Events"),
         doctext(
             "Pynecone also has built-in special events can be found in the ",
             doclink("reference", href=special_events.path),
