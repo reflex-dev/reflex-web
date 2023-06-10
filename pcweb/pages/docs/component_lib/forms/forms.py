@@ -253,9 +253,9 @@ copy_to_clipboard_example = """pc.copy_to_clipboard(
                 ),"""
 
 
-def render_copytoclipboard():
-    return pc.vstack(
-        doctext("A button that will put some content into the clipboard"),
-        # docdemo(copy_to_clipboard_example),
-        doctext("TODO: Add example for copy_to_clipboard"),
-    )
+# def render_copytoclipboard():
+#     return pc.vstack(
+#         doctext("A button that will put some content into the clipboard"),
+#         docdemo(copy_to_clipboard_example),
+#         doctext("TODO: Add example for copy_to_clipboard"),
+#     )
