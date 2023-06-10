@@ -212,14 +212,18 @@ def events():
             "make the app interactive.",
         ),
         subheader("Event Triggers"),
-        doctext("Event triggers are component actions that create an event to be sent to an event handler."),
+        doctext(
+            "Event triggers are component actions that create an event to be sent to an event handler."
+        ),
         doctext(
             "Each component supports a set of events triggers. ",
             "They are described in each ",
             doclink("component's documentation", href=library.path),
             " in the event trigger section.",
         ),
-        doctext("Lets take a look at an example below. Try mousing over the heading to change the word."),
+        doctext(
+            "Lets take a look at an example below. Try mousing over the heading to change the word."
+        ),
         docdemo(code2, code1, eval(code2), context=True),
         doctext(
             "In this example, the heading component has the event trigger, ",
@@ -237,7 +241,9 @@ def events():
             "In some use cases, you want to pass additional arguments to your event handlers. ",
             "To do this you can bind an event trigger to a lambda, which can call your event handler with the arguments you want.",
         ),
-        doctext("Try typing a color in an input below and clicking away from it to change the color of the input."),
+        doctext(
+            "Try typing a color in an input below and clicking away from it to change the color of the input."
+        ),
         docdemo(code6, code5, eval(code6), context=True),
         doctext(
             "In this case, in we want to pass two arguments to the event handler ",
@@ -262,9 +268,19 @@ def events():
             "Say you wanted to change the value of the select component. ",
             "You could write your own event handler to do this: ",
         ),
-        docdemo(code_setter_render, code_setter_state, eval(code_setter_render), context=True),
+        docdemo(
+            code_setter_render,
+            code_setter_state,
+            eval(code_setter_render),
+            context=True,
+        ),
         doctext("Or you could could use a built-in setter for conciseness."),
-        docdemo(code_setter2_render, code_setter2_state, eval(code_setter2_render), context=True),
+        docdemo(
+            code_setter2_render,
+            code_setter2_state,
+            eval(code_setter2_render),
+            context=True,
+        ),
         doctext(
             "In this example, the setter for ",
             pc.code("selected"),
@@ -293,7 +309,9 @@ def events():
             "will be sent to the frontend",
             " with the changes up to this point in the execution of the event handler.",
         ),
-        docdemo(code_yield_render, code_yield_state, eval(code_yield_render), context=True),
+        docdemo(
+            code_yield_render, code_yield_state, eval(code_yield_render), context=True
+        ),
         doctext(
             "Here is another example of yielding multiple updates with a loading icon. ",
         ),
@@ -306,7 +324,12 @@ def events():
             " syntax to run another event handler. ",
             " As always, you can yield within your function to send incremental updates to the frontend.",
         ),
-        docdemo(code_callhandler_render, code_callhandler_state, eval(code_callhandler_render), context=True),
+        docdemo(
+            code_callhandler_render,
+            code_callhandler_state,
+            eval(code_callhandler_render),
+            context=True,
+        ),
         subheader("Returning Events From Event Handlers"),
         doctext(
             "So far, we have only seen events that are triggered by components. ",
@@ -331,7 +354,12 @@ def events():
             )
         ),
         doctext("Try entering an integer in the input below then clicking out."),
-        docdemo(code_collatz_render, code_collatz_state, eval(code_collatz_render), context=True),
+        docdemo(
+            code_collatz_render,
+            code_collatz_state,
+            eval(code_collatz_render),
+            context=True,
+        ),
         doctext(
             "In this example, we run the ",
             doclink(

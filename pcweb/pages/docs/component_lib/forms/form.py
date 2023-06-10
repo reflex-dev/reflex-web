@@ -77,7 +77,7 @@ def render_form():
                 pc.alert_title(
                     "When using the form you must include a component with the ",
                     pc.code("type_='submit'"),
-                    "."
+                    ".",
                 ),
                 status="warning",
             ),

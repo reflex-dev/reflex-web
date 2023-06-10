@@ -24,7 +24,7 @@ forms_list = [
         pc.RangeSliderTrack,
         pc.RangeSliderFilledTrack,
         pc.RangeSliderThumb,
-    ],   
+    ],
     [pc.Select],
     [pc.Slider, pc.SliderTrack, pc.SliderFilledTrack, pc.SliderThumb, pc.SliderMark],
     [pc.Switch],
