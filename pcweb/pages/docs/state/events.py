@@ -36,27 +36,28 @@ code2 = """pc.heading(
     color="green",
 )
 """
+
 code3 = """import asyncio
 
-class ChainExampleState(State):
+class ProgressExampleState(State):
     count: int = 0
     show_progress: bool = False
 
-    def toggle_progress(self):
-        self.show_progress = not self.show_progress
-
     async def increment(self):
+        self.show_progress = True
+        yield
         # Think really hard.
         await asyncio.sleep(0.5)
         self.count += 1
+        self.show_progress = False
 """
 exec(code3)
 code4 = """pc.cond(
-    ChainExampleState.show_progress,
+    ProgressExampleState.show_progress,
     pc.circular_progress(is_indeterminate=True),
     pc.heading(
-        ChainExampleState.count,
-        on_click=[ChainExampleState.toggle_progress, ChainExampleState.increment, ChainExampleState.toggle_progress],
+        ProgressExampleState.count,
+        on_click=[ProgressExampleState.increment],
         _hover={"cursor": "pointer"},
     )
 )"""
@@ -78,6 +79,7 @@ code6 = """pc.hstack(
     pc.input(default_value=ArgState.colors[2], on_blur=lambda c: ArgState.change_color(c, 2), bg=ArgState.colors[2]),
 )
 """
+
 
 code7 = """class ServerSideState2(State):
     def alert(self):
@@ -281,8 +283,8 @@ def events():
             "A regular event handler will send a ",
             pc.code("StateUpdate"),
             " when it has finished running. ",
-            "This work fine for basic event, but sometimes we need more complex logic, ",
-            "and we eventually want the frontend to update multiple times during the event handler.",
+            "This works fine for basic event, but sometimes we need more complex logic.",
+            "To update the UI multiple times in an event handler, we can yield when we want to send an update.",
         ),
         doctext(
             "To do so, we can use the python keyword ",
@@ -294,20 +296,10 @@ def events():
             " with the changes up to this point in the execution of the event handler.",
         ),
         docdemo(code_yield_render, code_yield_state, eval(code_yield_render), context=True),
-        subheader("Event Chains"),
         doctext(
-            "Event triggers can be linked to a list of events, creating an ",
-            pc.span("event chain", font_weight="bold"),
-            ".  ",
-        ),
-        doctext(
-            "Try clicking on the number before to pause and increment. ",
+            "Here is another example of yielding multiple updates with a progress bar. ",
         ),
         docdemo(code4, code3, eval(code4), context=True),
-        doctext(
-            "In this example, we show a progress bar while performing a long calculation. ",
-            "Event triggers can bind to a list of events, which are executed in order. ",
-        ),
         subheader("Triggering Events From Event Handlers"),
         doctext(
             "So far, we have only seen events that are triggered by components. ",
