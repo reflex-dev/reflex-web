@@ -71,7 +71,9 @@ exec(code35)
 
 def render_textarea():
     return pc.vstack(
-        doctext("The Textarea component allows you to easily create multi-line text inputs."),
+        doctext(
+            "The Textarea component allows you to easily create multi-line text inputs."
+        ),
         docdemo(code34, state=code35, comp=eval(code34), context=True),
         align_items="start",
     )

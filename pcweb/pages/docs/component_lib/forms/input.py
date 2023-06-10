@@ -98,7 +98,6 @@ input_form_example = """pc.vstack(
 """
 
 
-
 def render_input():
     return pc.vstack(
         doctext("The input component is used to receive text input from the user."),
@@ -156,7 +155,9 @@ def render_input():
             " component as a shorthand for the password input.",
         ),
         docdemo(password_example),
-        doctext("You can also use forms in combination with inputs. This can be useful in clearing the input after the form is submitted."),
+        doctext(
+            "You can also use forms in combination with inputs. This can be useful in clearing the input after the form is submitted."
+        ),
         docdemo(
             input_form_example,
             state=input_form_state,

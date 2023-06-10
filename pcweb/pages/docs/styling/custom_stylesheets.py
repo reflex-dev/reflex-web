@@ -42,11 +42,13 @@ def custom_stylesheets():
             pc.code("pc.App"),
             ":",
         ),
-        doccode("""app = pc.App(
+        doccode(
+            """app = pc.App(
     stylesheets=[
         "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
     ],
-)"""),
+)"""
+        ),
         subheader("Local Stylesheets"),
         doctext(
             "You can also add local stylesheets. Just put the stylesheet under ",
@@ -55,11 +57,13 @@ def custom_stylesheets():
             pc.code("pc.App"),
             ":",
         ),
-        doccode("""app = pc.App(
+        doccode(
+            """app = pc.App(
     stylesheets=[
         "styles.css",  # This path is relative to assets/
     ],
-)"""),
+)"""
+        ),
         subheader("Fonts"),
         doctext(
             "You can take advantage of Pynecone's support for custom stylesheets to add"
@@ -93,11 +97,13 @@ def custom_stylesheets():
         ),
         doccode(code2, language="css"),
         doctext("Add the reference to your new Stylesheet in your App"),
-        doccode("""app = pc.App(
+        doccode(
+            """app = pc.App(
             stylesheets=[
                 "font/myfont.css",  # This path is relative to assets/
             ],
-        )"""),
+        )"""
+        ),
         doctext(
             "And that's it! You can now use ",
             pc.code("MyFont"),
