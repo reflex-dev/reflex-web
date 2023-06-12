@@ -1,6 +1,5 @@
 import pynecone as pc
 
-from pcweb import constants
 from pcweb.templates.docpage import (
     doccode,
     docheader,
@@ -11,6 +10,7 @@ from pcweb.templates.docpage import (
 docalert
 )
 
+CONFIG_REF_URL = "/docs/api-reference/config"
 
 config_example1 = """
 # pcconfig.py
@@ -36,7 +36,7 @@ config = ExpConfig(
 )
 
 """
-CONFIG_REF_URL = "/docs/api-reference/config"
+
 @docpage()
 def configuration():
     return pc.box(
