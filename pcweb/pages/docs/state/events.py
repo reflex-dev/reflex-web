@@ -258,6 +258,19 @@ def events():
             pc.code("change_color"),
             " event handler with the text and the index of the input.",
         ),
+        doctext(
+            pc.alert(
+                pc.alert_icon(),
+                pc.box(
+                    pc.alert_title("Event Handler Parameters must provide type annotations."),
+                    pc.alert_description(
+                        "Like state vars, be sure to provide the right type annotations for the prameters in an event "
+                        "handler."
+                    ),
+                ),
+                status="warning",
+            ),
+        ),
         subheader("Setters"),
         doctext(
             "Every base var has a built-in event handler to set it's value for convenience, called",
