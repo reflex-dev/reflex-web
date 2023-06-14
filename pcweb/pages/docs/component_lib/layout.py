@@ -419,6 +419,57 @@ nested_foreach = """pc.vstack(
     )
 """
 
+simple_dict_foreach_state = """from typing import List
+class SimpleDictForeachState(State):
+    color_chart: dict[int, str] = {
+         1 : "blue",
+         2: "red",
+         3: "green"
+    }
+
+def display_color(color: List):
+    # color is presented as a list key-value pair([1, "blue"],[2, "red"], [3, "green"])
+    return pc.box(pc.text(color[0]), bg=color[1])
+"""
+exec(simple_dict_foreach_state)
+simple_dict_foreach = """pc.responsive_grid(
+        pc.foreach(
+             SimpleDictForeachState.color_chart,
+            display_color
+        ),
+        columns = [2, 4, 6]
+    )
+"""
+
+complex_dict_foreach_state = """from typing import List, Dict
+class ComplexDictForeachState(State):
+    color_chart: Dict[str, List[str]] = {
+        "purple": ["red", "blue"],
+        "orange": ["yellow", "red"],
+        "green": ["blue", "yellow"]
+    }
+
+def display_colors(color: List):
+    return pc.vstack(
+            pc.text(color[0], color=color[0]),
+            pc.hstack(
+                pc.foreach(
+                    color[1], lambda x: pc.box(pc.text(x, color="black"), bg=x)
+                )
+
+            )
+        )
+"""
+exec(complex_dict_foreach_state)
+complex_dict_foreach = """pc.responsive_grid(
+        pc.foreach(
+             ComplexDictForeachState.color_chart,
+            display_colors
+        ),
+        columns = [2, 4, 6]
+    )
+"""
+
 todo1 = """from typing import List
 class ListState(State):
     items: List[str] = ["Write Code", "Sleep", "Have Fun"]
@@ -471,8 +522,8 @@ def render_foreach():
         doctext(
             "The ",
             pc.code("pc.foreach"),
-            " component takes a list and a function that renders each item in the list. ",
-            "This is useful for dymamically rendering a list of items defined in a state.",
+            " component takes an iterable(list, tuple or dict) and a function that renders each item in the list. ",
+            "This is useful for dynamically rendering a list of items defined in a state.",
         ),
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
         doctext(
@@ -490,7 +541,20 @@ def render_foreach():
         ),
         doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
+        subheader('Dictionaries'),
+        doctext(
+            "Items in a dictionary can be accessed as list of key-value pairs. Using the color example, we can slightly modify ",
+            "the code to use dicts as shown below"
+        ),
+        docdemo(simple_dict_foreach, simple_dict_foreach_state, eval(simple_dict_foreach), context=True),
+        doctext(
+            "Now let's show a more complex example with dicts using the color example. Assuming we want to ",
+            "display a dictionary of secondary colors as keys and their constituent primary colors as values, ",
+            "we can modify the code as below: "
+        ),
+        docdemo(complex_dict_foreach, complex_dict_foreach_state, eval(complex_dict_foreach), context=True),
         align_items="start",
+
     )
 
 
