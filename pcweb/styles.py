@@ -27,21 +27,21 @@ LINK_STYLE = {
 }
 
 # Doc page styles.
-DOC_HEADER_COLOR = "#000000"
-DOC_TEXT_COLOR = "#000000"
-DOC_REG_TEXT_COLOR = "#666666"
-DOC_LIGHT_TEXT_COLOR = "#999999"
-DOCPAGE_BACKGROUND_COLOR = "#fafafa"
+DOC_HEADER_COLOR = "#1F1944"
+DOC_TEXT_COLOR = "#342E5C"
+DOC_REG_TEXT_COLOR = "#342E5C"
+DOC_LIGHT_TEXT_COLOR = "#342E5C"
+DOCPAGE_BACKGROUND_COLOR = "#FAFAFA"
 
 DOC_HEADING_FONT_WEIGHT = "700"
 DOC_SUBHEADING_FONT_WEIGHT = "600"
-DOC_SECTION_FONT_WEIGHT = "500"
+DOC_SECTION_FONT_WEIGHT = "600"
 
 DOC_SHADOW = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
 DOC_SHADOW_DARK = "rgba(0, 0, 0, 0.3) 0px 2px 8px"
-DOC_SHADOW_LIGHT = "rgba(0, 0, 0, 0.08) 0px 4px 12px"
+DOC_SHADOW_LIGHT = "0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02)"
 
-DOC_BORDER_RADIUS = "1em"
+DOC_BORDER_RADIUS = "6px"
 
 # The base application style.
 BASE_STYLE = {
@@ -56,6 +56,9 @@ BASE_STYLE = {
     pc.Code: {
         "color": ACCENT_COLOR,
     },
+    pc.Alert: {
+        "border_radius": "8px",
+    }
 }
 
 # Fonts to include.
@@ -80,4 +83,18 @@ NAV_SEARCH_STYLE = {
     "color": NAV_SEARCH_COLOR,
     "font_family": "Instrument Sans",
     "font_weight": "500",
+}
+
+Primary_Initial_Large_STYLE = {
+    "justify_content": "center",
+    "align_items": "center",
+    "isolation": "isolate",
+    "border_radius": 10,
+    "font_family": "Instrument Sans",
+    "font_style": "normal",
+    "font_weight": 600,
+    "font_feature_settings": "'tnum' on, 'lnum' on, 'case' on, 'cpsp' on, 'kern' off",
+    "color": "#F5EFFE",
+    "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(52, 46, 92, 0.8) 0%, rgba(234, 228, 253, 0) 100%), #7E69E0",
+    "box_shadow": "0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.24), 0px 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0px -20px 12px -4px rgba(86, 70, 237, 0.32)"
 }

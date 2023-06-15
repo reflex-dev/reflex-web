@@ -13,18 +13,24 @@ from pcweb.route import Route
 
 # Sidebar styles.
 heading_style = {
-    "color": styles.DOC_REG_TEXT_COLOR,
+    "color": "#494369",
     "font_weight": "500",
 }
 heading_style2 = {
     "font_size": styles.TEXT_FONT_SIZE,
-    "color": styles.DOC_REG_TEXT_COLOR,
+    "color": "#5646ED",
+    "background_color": "#F5EFFE",
+    "border_radius": "0.5em",
+    "margin_bottom": "6px",
     "font_weight": "500",
+    "width": "100%",
+    "padding_x": "0.5em",
+    "padding_y": "0.25em",
 }
 heading_style3 = {
     "font_weight": styles.DOC_SECTION_FONT_WEIGHT,
-    "font_size": styles.H3_FONT_SIZE,
-    "color": styles.DOC_HEADER_COLOR,
+    "font_size": styles.H4_FONT_SIZE,
+    "color": "#696287",
     "margin_bottom": "0.5em",
     "margin_left": "1.1em",
 }
@@ -204,20 +210,19 @@ def sidebar_leaf(
         pc.cond(
             item.link == url,
             pc.link(
-                item.names,
+                pc.text(item.names,style=heading_style2),
                 href=item.link,
-                color=styles.ACCENT_COLOR,
-                _hover={"color": styles.ACCENT_COLOR},
             ),
             pc.link(
-                item.names,
+                pc.text(item.names,color=styles.DOC_REG_TEXT_COLOR,
+                _hover={"color": styles.ACCENT_COLOR},padding_x= "0.5em"),
                 href=item.link,
-                color=styles.DOC_REG_TEXT_COLOR,
-                _hover={"color": styles.ACCENT_COLOR},
+                
             ),
         ),
         padding_left="1em",
         border="none",
+        width="100%",
     )
 
 
@@ -339,7 +344,12 @@ def sidebar_comp(
     from pcweb.pages.docs.gallery import gallery
 
     return pc.box(
-        pc.heading("Learn", style=heading_style3),
+        pc.heading(
+            pc.span("[ ", color="#DACEEE"),
+            "Learn", 
+            pc.span(" ]", color="#DACEEE"),
+            style=heading_style3
+        ),
         pc.accordion(
             *[
                 sidebar_item_comp(
@@ -353,11 +363,13 @@ def sidebar_comp(
             allow_multiple=True,
             default_index=learn_index,
         ),
-        pc.divider(
-            margin_bottom="1em",
-            margin_top="0.5em",
+        pc.heading(
+            pc.span("[ ", color="#DACEEE"),
+            "Reference", 
+            pc.span(" ]", color="#DACEEE"),
+            style=heading_style3,
+            margin_top="1em",
         ),
-        pc.heading("Reference", style=heading_style3),
         pc.accordion(
             *[
                 sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
