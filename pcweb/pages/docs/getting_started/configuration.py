@@ -41,51 +41,52 @@ config = ExpConfig(
 def configuration():
     return pc.box(
         docheader("Configuration"),
-        doctext("There are 3 ways to configure your pynecone application."),
-        doctext(""),
+        doctext("There are 3 ways to configure your Pynecone application."),
         subheader("PCConfig Arguments"),
         doctext(
-            "The first place to configure your pynecone application is ",
-            "by setting the different options in the",
+            "The first place to configure your Pynecone application is ",
+            "by setting the different options in the ",
             pc.code("pcconfig.py"),
             " file.",
         ),
         pc.text(
             "Refer to the ",
             doclink("Config API Reference ", href=CONFIG_REF_URL),
-            "for the details of all options availables."
+            " for the details of all options available."
         ),
         subheader("Environment Arguments"),
         doctext(
-            "By default, pynecone looks for a .env file (with ",
+            "By default, Pynecone looks for a .env file in your root directory.",
+            " You can change this setting by specifying a custom path to a ",
             pc.code(".env"),
-            "as file name) in your root directory.",
-            "You can change this setting by specifying a custom path to a .env file using the ",
+            " file using the ",
             pc.code("env_path"),
-            " keyword argument(or overriding the ",
+            " keyword argument (or overriding the ",
             pc.code("env_path"),
             " attribute in your custom config class).",
             doccode(config_example1),
             "or alternatively: ",
             doccode(config_example2),
-            "Environment variables set in a .env file overrides os environment variables by default. To change this setting, set the",
+            "Environment variables set in a ",
+            pc.code(".env"),
+            " file overrides os environment variables by default. To change this setting, set the ",
             pc.code("override_os_envs"),
-            "argument or attribute to",
+            " argument or attribute to ",
             pc.code("False.")
-        ),
-        doctext(
-            "Any environment options will prevail over the one defined in ",
-            pc.code("pcconfig.py"),
         ),
         docalert(
             pc.text(
                 "If the ",
-                pc.code("override_os_envs", bg="#bee3f8"),
-                "argument is set to True( which is the default ), the order of precedence of "
+                pc.code("override_os_envs"),
+                "argument is set to ",
+                pc.code("True"),
+                " (which is the default), the order of precedence of "
                 "environment variables from highest to lowest will be :",
-                pc.code(".env file >> os environment or commandline args >> pcconfig args.", bg="#bee3f8"),
-                "However, if set to False, the order of precedence becomes: ",
-                pc.code("os environment or commandline args >> .env file >> pcconfig args.", bg="#bee3f8")
+                pc.code(".env file >> os environment or commandline args >> pcconfig args."),
+                " However, if set to ",
+                pc.code("False"),
+                ", the order of precedence becomes: ",
+                pc.code("os environment or commandline args >> .env file >> pcconfig args.")
             ),
 
         ),
