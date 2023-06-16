@@ -4,11 +4,11 @@ import pynecone as pc
 
 # Form components.
 forms_list = [
-    [pc.Button, pc.ButtonGroup],
-    [pc.IconButton],
+    [pc.Form],
+    [pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
+    [pc.Button, pc.ButtonGroup, pc.IconButton],
     [pc.Checkbox],
     [pc.Editable, pc.EditableInput, pc.EditableTextarea, pc.EditablePreview],
-    [pc.Form, pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
     [pc.Input],
     [
         pc.NumberInput,
@@ -29,7 +29,7 @@ forms_list = [
     [pc.Slider, pc.SliderTrack, pc.SliderFilledTrack, pc.SliderThumb, pc.SliderMark],
     [pc.Switch],
     [pc.TextArea],
-    [pc.CopyToClipboard],
+    # [pc.CopyToClipboard],
     [pc.Upload],
 ]
 
@@ -115,7 +115,11 @@ navigation_list = [
 ]
 
 # Media components.
-media_list = [[pc.Avatar, pc.AvatarBadge, pc.AvatarGroup], [pc.Image], [pc.Icon]]
+media_list = [
+    [pc.Avatar, pc.AvatarBadge, pc.AvatarGroup],
+    [pc.Image],
+    [pc.Icon],
+]
 
 # Data display components.
 datadisplay_list = [
@@ -124,7 +128,14 @@ datadisplay_list = [
     [pc.Divider],
     [pc.DataTable],
     [pc.List, pc.ListItem, pc.UnorderedList, pc.OrderedList],
-    [pc.Stat, pc.StatLabel, pc.StatNumber, pc.StatHelpText, pc.StatArrow, pc.StatGroup],
+    [
+        pc.Stat,
+        pc.StatLabel,
+        pc.StatNumber,
+        pc.StatHelpText,
+        pc.StatArrow,
+        pc.StatGroup,
+    ],
     [
         pc.Table,
         pc.Thead,

@@ -18,9 +18,9 @@ checkbox_example = """pc.vstack(
 """
 checkbox_example_state = """class SwitchState(State):
     checked: bool = False
-    is_checked = "Switch off!"
+    is_checked: bool = "Switch off!"
 
-    def change_check(self, checked):
+    def change_check(self, checked: bool):
         self.checked = checked
         if self.checked:
             self.is_checked = "Switch on!"
@@ -71,7 +71,9 @@ exec(code35)
 
 def render_textarea():
     return pc.vstack(
-        doctext("The Textarea component allows you to easily create multi-line text inputs."),
+        doctext(
+            "The Textarea component allows you to easily create multi-line text inputs."
+        ),
         docdemo(code34, state=code35, comp=eval(code34), context=True),
         align_items="start",
     )
@@ -253,9 +255,9 @@ copy_to_clipboard_example = """pc.copy_to_clipboard(
                 ),"""
 
 
-def render_copytoclipboard():
-    return pc.vstack(
-        doctext("A button that will put some content into the clipboard"),
-        # docdemo(copy_to_clipboard_example),
-        doctext("TODO: Add example for copy_to_clipboard"),
-    )
+# def render_copytoclipboard():
+#     return pc.vstack(
+#         doctext("A button that will put some content into the clipboard"),
+#         docdemo(copy_to_clipboard_example),
+#         doctext("TODO: Add example for copy_to_clipboard"),
+#     )

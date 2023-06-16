@@ -2,7 +2,6 @@ import pynecone as pc
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doccode,
     docdemo,
     docheader,
     doclink,
@@ -11,18 +10,21 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code1 = """class WordCycleState(State):
+code1 = """
+from typing import List
+
+class WordCycleState(State):
     # The words to cycle through.
-    text = ["Welcome", "to", "Pynecone", "!"]
+    text: List[str] = ["Welcome", "to", "Pynecone", "!"]
 
     # The index of the current word.
-    index = 0
+    index: int = 0
 
     def next_word(self):
         self.index = (self.index + 1) % len(self.text)
 
     @pc.var
-    def get_text(self):
+    def get_text(self) -> str:
         return self.text[self.index]
 
 """
@@ -33,36 +35,40 @@ code2 = """pc.heading(
     color="green",
 )
 """
+
 code3 = """import asyncio
 
-class ChainExampleState(State):
-    count = 0
-    show_progress = False
-
-    def toggle_progress(self):
-        self.show_progress = not self.show_progress
+class ProgressExampleState(State):
+    count: int = 0
+    show_progress: bool = False
 
     async def increment(self):
+        self.show_progress = True
+        yield
         # Think really hard.
         await asyncio.sleep(0.5)
         self.count += 1
+        self.show_progress = False
 """
 exec(code3)
 code4 = """pc.cond(
-    ChainExampleState.show_progress,
+    ProgressExampleState.show_progress,
     pc.circular_progress(is_indeterminate=True),
     pc.heading(
-        ChainExampleState.count,
-        on_click=[ChainExampleState.toggle_progress, ChainExampleState.increment, ChainExampleState.toggle_progress],
+        ProgressExampleState.count,
+        on_click=[ProgressExampleState.increment],
         _hover={"cursor": "pointer"},
     )
 )"""
 
 
-code5 = """class ArgState(State):
-    colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
+code5 = """
+from typing import List
 
-    def change_color(self, color, index):
+class ArgState(State):
+    colors: List[str] = ["rgba(222,44,12)", "white", "#007ac2"]
+
+    def change_color(self, color: str, index: int):
         self.colors[index] = color
 """
 exec(code5)
@@ -73,6 +79,7 @@ code6 = """pc.hstack(
 )
 """
 
+
 code7 = """class ServerSideState2(State):
     def alert(self):
         return pc.window_alert("Hello World!")
@@ -80,46 +87,48 @@ code7 = """class ServerSideState2(State):
 exec(code7)
 code8 = """pc.button("Alert", on_click=ServerSideState2.alert)"""
 
-code9 = """class CollatzState(State):
+code_collatz_state = """class CollatzState(State):
     count: int = 0
 
-    def start_collatz(self, count):
+    def start_collatz(self, count: str):
         \"""Run the collatz conjecture on the given number.\"""
         self.count = abs(int(count))
-        return self.run_step
-
+        return CollatzState.run_step
 
     async def run_step(self):
         \"""Run a single step of the collatz conjecture.\"""
-        await asyncio.sleep(0.2)
 
-        if self.count % 2 == 0:
-            # If the number is even, divide by 2.
-            self.count /= 2
-        else:
-            # If the number is odd, multiply by 3 and add 1.
-            self.count = self.count * 3 + 1
-        if self.count > 1:
-            # Keep running until we reach 1.
-            return self.run_step
+        while self.count > 1:
+            await asyncio.sleep(0.5)
 
+            if self.count % 2 == 0:
+                # If the number is even, divide by 2.
+                self.count /= 2
+            else:
+                # If the number is odd, multiply by 3 and add 1.
+                self.count = self.count * 3 + 1
+            yield
 """
-exec(code9)
-code10 = """pc.vstack(
+
+exec(code_collatz_state)
+code_collatz_render = """pc.vstack(
     pc.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
     pc.input(on_blur=CollatzState.start_collatz),
 )"""
 
-code11 = """
-options = ["1", "2", "3", "4"]
+code_setter_state = """
+from typing import List
+
+options: List[str] = ["1", "2", "3", "4"]
 class SetterState1(State):
     selected: str = "1"
 
     def change(self, value):
         self.selected = value
 """
-exec(code11)
-code12 = """pc.vstack(
+
+exec(code_setter_state)
+code_setter_render = """pc.vstack(
     pc.badge(SetterState1.selected, color_scheme="green"),
     pc.select(
         options,
@@ -127,18 +136,67 @@ code12 = """pc.vstack(
     )
 )"""
 
-code13 = """
-options = ["1", "2", "3", "4"]
+code_setter2_state = """
+from typing import List
+
+options: List[str] = ["1", "2", "3", "4"]
 class SetterState2(State):
     selected: str = "1"
 """
-exec(code13)
-code14 = """pc.vstack(
+exec(code_setter2_state)
+code_setter2_render = """pc.vstack(
     pc.badge(SetterState2.selected, color_scheme="green"),
     pc.select(
         options,
         on_change= SetterState2.set_selected,
     )
+)"""
+
+code_yield_state = """class MultiUpdateState(State):
+    count: int = 0
+
+    async def timed_update(self):
+        for i in range(5):
+            await asyncio.sleep(0.5)
+            self.count += 1
+            yield
+"""
+exec(code_yield_state)
+code_yield_render = """pc.vstack(
+    pc.text(MultiUpdateState.count),
+    pc.button("Start", on_click=MultiUpdateState.timed_update)
+)"""
+
+
+code_callhandler_state = """class CallHandlerState(State):
+    count: int = 0
+    progress: int = 0
+
+    def set_progress(self, count: int):
+        self.progress = count
+
+    async def run(self):
+        # Reset the count.
+        self.set_progress(0)
+        yield
+
+        # Count to 10 while showing progress.
+        for i in range(10):
+            # Wait and increment.
+            await asyncio.sleep(0.5)
+            self.count += 1
+
+            # Update the progress.
+            self.set_progress(i + 1)
+
+            # Yield to send the update.
+            yield
+"""
+exec(code_callhandler_state)
+code_callhandler_render = """pc.vstack(
+    pc.badge(CallHandlerState.count, font_size="1.5em", color_scheme="green"),
+    pc.progress(value=CallHandlerState.progress, max_=10, width="100%"),
+    pc.button("Run", on_click=CallHandlerState.run),
 )"""
 
 
@@ -159,7 +217,7 @@ def events():
         ),
         doctext(
             "Each component supports a set of events triggers. ",
-            "They are descibed in each ",
+            "They are described in each ",
             doclink("component's documentation", href=library.path),
             " in the event trigger section.",
         ),
@@ -210,9 +268,19 @@ def events():
             "Say you wanted to change the value of the select component. ",
             "You could write your own event handler to do this: ",
         ),
-        docdemo(code12, code11, eval(code12), context=True),
+        docdemo(
+            code_setter_render,
+            code_setter_state,
+            eval(code_setter_render),
+            context=True,
+        ),
         doctext("Or you could could use a built-in setter for conciseness."),
-        docdemo(code14, code13, eval(code14), context=True),
+        docdemo(
+            code_setter2_render,
+            code_setter2_state,
+            eval(code_setter2_render),
+            context=True,
+        ),
         doctext(
             "In this example, the setter for ",
             pc.code("selected"),
@@ -221,30 +289,77 @@ def events():
             ". Both of these examples are equivalent.",
         ),
         doctext(
-            "Setters are a great way to make your code more concise. But if you want to do something more complicated, you can always write your own function in the state."
+            "Setters are a great way to make your code more concise. ",
+            "But if you want to do something more complicated, you can always write your own function in the state.",
         ),
-        subheader("Event Chains"),
+        subheader("Yielding Multiple Updates"),
         doctext(
-            "Event triggers can be linked to a list of events, creating an ",
-            pc.span("event chain", font_weight="bold"),
-            ".  ",
+            "A regular event handler will send a ",
+            pc.code("StateUpdate"),
+            " when it has finished running. ",
+            "This works fine for basic event, but sometimes we need more complex logic.",
+            "To update the UI multiple times in an event handler, we can yield when we want to send an update.",
         ),
         doctext(
-            "Try clicking on the number before to pause and increment. ",
+            "To do so, we can use the python keyword ",
+            pc.code("yield"),
+            ". ",
+            "For every yield inside the function, a ",
+            pc.code("StateUpdate"),
+            "will be sent to the frontend",
+            " with the changes up to this point in the execution of the event handler.",
+        ),
+        docdemo(
+            code_yield_render, code_yield_state, eval(code_yield_render), context=True
+        ),
+        doctext(
+            "Here is another example of yielding multiple updates with a loading icon. ",
         ),
         docdemo(code4, code3, eval(code4), context=True),
+        subheader("Calling Event Handlers From Event Handlers"),
         doctext(
-            "In this example, we show a progress bar while performing a long calculation. ",
-            "Event triggers can bind to a list of events, which are executed in order. ",
+            "You can call other event handlers from event handlers to keep your code modular. ",
+            "Just use the ",
+            pc.code("self.call_handler"),
+            " syntax to run another event handler. ",
+            " As always, you can yield within your function to send incremental updates to the frontend.",
         ),
-        subheader("Triggering Events From Event Handlers"),
+        docdemo(
+            code_callhandler_render,
+            code_callhandler_state,
+            eval(code_callhandler_render),
+            context=True,
+        ),
+        subheader("Returning Events From Event Handlers"),
         doctext(
             "So far, we have only seen events that are triggered by components. ",
-            "However, events can also be triggered by event handlers. ",
-            "To do this, you can return either an event, or an event chain from an event handler.",
+            "However, an event handler can also return events.",
+        ),
+        doctext(
+            "In Pynecone, event handlers run synchronously, so only one event handler can run at a time, ",
+            " and the events in the queue will be blocked until the current event handler finishes.",
+            "The difference between returning an event and calling an event handler is that ",
+            " returning an event will send the event to the frontend and unblock the queue. ",
+        ),
+        doctext(
+            pc.alert(
+                icon=True,
+                title=pc.text(
+                    "Be sure to use the class name ",
+                    pc.code("State"),
+                    " (or any substate) rather than ",
+                    pc.code("self"),
+                    " when returning events.",
+                ),
+            )
         ),
         doctext("Try entering an integer in the input below then clicking out."),
-        docdemo(code10, code9, eval(code10), context=True),
+        docdemo(
+            code_collatz_render,
+            code_collatz_state,
+            eval(code_collatz_render),
+            context=True,
+        ),
         doctext(
             "In this example, we run the ",
             doclink(
@@ -261,13 +376,11 @@ def events():
             " is called. ",
             "It sets the initial count, then calls ",
             pc.code("run_step"),
-            " which runs a single step of the collatz conjecture. ",
-            "The ",
-            pc.code("run_step"),
-            " then repeatedly calls itself until the count reaches ",
+            " which runs until the count reaches ",
             pc.code("1"),
             ". ",
         ),
+        subheader("Special Events"),
         doctext(
             "Pynecone also has built-in special events can be found in the ",
             doclink("reference", href=special_events.path),

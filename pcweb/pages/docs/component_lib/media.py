@@ -4,6 +4,11 @@ from pynecone.components.media.icon import ICON_LIST
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
+from PIL import Image
+import random
+import requests
+
+
 code79 = """pc.hstack(
     pc.avatar(size="sm"),
     pc.avatar(name="Barack Obama", size="md"),
@@ -119,6 +124,17 @@ code84 = """pc.image(
 """
 
 
+image_state = """class ImageState(State):
+    url = f"https://picsum.photos/id/1/200/300"
+    image = Image.open(requests.get(url, stream=True).raw)
+"""
+exec(image_state)
+image_pil_example = """pc.vstack(
+        pc.image(src=ImageState.image, alt="=An Unsplash Image")
+    )
+"""
+
+
 def render_image():
     return pc.vstack(
         doctext(
@@ -127,5 +143,12 @@ def render_image():
         docdemo(code83),
         doctext("Image composes a box and can be styled simlarly."),
         docdemo(code84),
+        doctext("You can also pass a PIL image object as the src."),
+        docdemo(
+            image_pil_example,
+            state=image_state,
+            comp=eval(image_pil_example),
+            context=True,
+        ),
         align_items="start",
     )

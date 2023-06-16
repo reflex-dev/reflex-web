@@ -28,4 +28,4 @@ for module in modules:
     name = module.__name__.lower()
     docs = generate_docs(name, s)
     title = f"{name.replace('_', ' ').title()} | Pynecone"
-    locals()[name] = docpage(f"/docs/api-reference/{name}", title)(docs)
+    locals()[f"{name}_ref"] = docpage(f"/docs/api-reference/{name}", title)(docs)

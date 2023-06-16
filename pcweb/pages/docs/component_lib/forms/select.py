@@ -6,8 +6,8 @@ from pcweb.templates.docpage import (
     doctext,
 )
 
-basic_select_state = """
-options = ["Option 1", "Option 2", "Option 3"]
+basic_select_state = """from typing import List
+options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
 class SelectState(State):
     option: str = "No selection yet."
@@ -15,11 +15,11 @@ class SelectState(State):
 """
 
 
-multi_select_state = """
-options = ["Option 1", "Option 2", "Option 3"]
+multi_select_state = """from typing import List
+options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
 class MultiSelectState(State):
-    option: list[str] = []
+    option: List[str] = []
 """
 
 

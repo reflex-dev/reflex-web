@@ -19,7 +19,7 @@ exec(input_state)
 input_blur_state = """class InputBlurState(State):
     text: str = "Type something..."
 
-    def set_text(self, text):
+    def set_text(self, text: str):
         self.text = text.upper()
 """
 blur_input_example = """pc.vstack(
@@ -52,7 +52,7 @@ class KeyPressInputState(State):
     def clear_text(self):
         self.text = ""
 
-    def on_key_down(self, key):
+    def on_key_down(self, key: str):
         if key == "Enter":
             self.text = self.text.upper()
 """
@@ -69,6 +69,33 @@ input_type_example = """pc.vstack(
     pc.input(type_="date"),
 )"""
 password_example = """pc.password()"""
+
+
+input_form_state = """
+class InputFormState(State):
+
+    form_data: dict = {}
+
+    def handle_submit(self, form_data: dict):
+        \"""Handle the form submit.\"""
+        self.form_data = form_data
+"""
+exec(input_form_state)
+
+input_form_example = """pc.vstack(
+    pc.form(
+        pc.vstack(
+            pc.input(placeholder="First Name", id="first_name"),
+            pc.input(placeholder="Last Name", id="last_name"),
+            pc.button("Submit", type_="submit"),
+        ),
+        on_submit=InputFormState.handle_submit,
+    ),
+    pc.divider(),
+    pc.heading("Results"),
+    pc.text(InputFormState.form_data.to_string()),
+)
+"""
 
 
 def render_input():
@@ -128,5 +155,14 @@ def render_input():
             " component as a shorthand for the password input.",
         ),
         docdemo(password_example),
+        doctext(
+            "You can also use forms in combination with inputs. This can be useful in clearing the input after the form is submitted."
+        ),
+        docdemo(
+            input_form_example,
+            state=input_form_state,
+            comp=eval(input_form_example),
+            context=True,
+        ),
         align_items="start",
     )
