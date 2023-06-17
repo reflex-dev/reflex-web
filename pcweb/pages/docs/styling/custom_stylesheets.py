@@ -100,7 +100,7 @@ def custom_stylesheets():
         doccode(
             """app = pc.App(
             stylesheets=[
-                "font/myfont.css",  # This path is relative to assets/
+                "fonts/myfont.css",  # This path is relative to assets/
             ],
         )"""
         ),
