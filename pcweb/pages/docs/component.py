@@ -291,7 +291,6 @@ def component_docs(component):
         ]
     else:
         props = [
-            subheader("Props"),
             pc.box(
                 pc.unordered_list(
                     pc.list_item(
@@ -300,7 +299,7 @@ def component_docs(component):
                         )
                     )
                 ),
-                padding_x="1em",
+                padding_x="1.5em",
                 max_width="100%",
                 overflow_x="auto",
             ),
@@ -308,24 +307,13 @@ def component_docs(component):
 
     triggers = []
 
-    triggers = [
-        pc.box(
+    trig = []
+    for event in component().get_triggers():
+        if event not in pc.event.EVENT_TRIGGERS and event not in ("on_drop",):
+            trig.append(event)
 
-            pc.accordion(
-                pc.accordion_item(
-                    pc.accordion_button(pc.accordion_icon(), pc.heading("Event Triggers", font_size="1em")),
-                    pc.accordion_panel(
-                        pc.accordion_item(
-                            pc.accordion_button(
-                                pc.link(
-                                    pc.hstack(pc.icon(tag="link"), 
-                                    pc.heading("Base Event Triggers", font_size="1em")), 
-                                    href="/docs/api-reference/event-triggers"
-                                )
-                            ),
-                            border_color="rgb(255, 255, 255)",
-                        ),
-                        pc.accordion_item(
+    if trig:
+        specific_triggers = pc.accordion_item(
                             pc.accordion_button(pc.accordion_icon(), pc.heading("Component Specific Triggers", font_size="1em")),
                             pc.accordion_panel(
                                 *[
@@ -343,21 +331,55 @@ def component_docs(component):
                             ),
                             border_color="rgb(255, 255, 255)",
                         )
-
+        
+        component_specific_triggers =  pc.accordion(
+                pc.accordion_item(
+                    pc.accordion_button(pc.accordion_icon(), pc.heading("Event Triggers", font_size="1em")),
+                    pc.accordion_panel(
+                        pc.accordion_item(
+                            pc.accordion_button(
+                                pc.link(
+                                    pc.hstack(pc.icon(tag="link"), 
+                                    pc.heading("Base Event Triggers", font_size="1em")), 
+                                    href="/docs/api-reference/event-triggers"
+                                )
+                            ),
+                            border_color="rgb(255, 255, 255)",
+                        ),
+                        specific_triggers
                     ),
                 ),
                 border_color="rgb(255, 255, 255)",
                 allow_multiple=True,
                 width = "100%",
                 align_items = "left"
-            ),
+            )
+                        
+    else:
+        component_specific_triggers = pc.box(
+                pc.unordered_list(
+                    pc.list_item(
+                        pc.heading("Base Event Triggers", font_size="1em")
+                    )
+                ),
+                padding_top  = "1.5em",
+                padding_x="1.5em",
+                max_width="100%",
+                overflow_x="auto",
+            )
+
+    triggers = [
+        pc.box(
+            component_specific_triggers,
             max_width="100%",
             overflow_x="auto",
         ),
     ]
+
     return pc.box(
         docheader(component.__name__),
         pc.markdown(src.get_docs()),
+        pc.divider(),
         *props,
         *triggers,
         text_align="left",

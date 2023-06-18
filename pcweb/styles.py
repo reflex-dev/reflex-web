@@ -12,7 +12,7 @@ HERO_FONT_SIZE = ["2em", "3em", "3em", "4em"]
 H1_FONT_SIZE = ["2.2em", "2.4em", "2.5em"]
 H2_FONT_SIZE = ["1.8em", "1.9em", "2em"]
 H3_FONT_SIZE = "1.35em"
-H4_FONT_SIZE = "1.1em"
+H4_FONT_SIZE = "1em"
 TEXT_FONT_SIZE = "1em"
 TEXT_FONT_FAMILY = "Instrument Sans"
 CODE_FONT_FAMILY = "Fira Code, Fira Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"
@@ -66,6 +66,7 @@ STYLESHEETS = [
     "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
     "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap",
     "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,600;1,600&display=swap"
 ]
 
 

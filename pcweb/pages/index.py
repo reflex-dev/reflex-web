@@ -147,6 +147,7 @@ def landing():
                         ),
                     pc.text(
                             "Web apps in pure Python.",
+                            font_family="IBM Plex Mono",
                             font_style="normal;",
                             font_weight="600",
                             font_size="58px",
@@ -204,6 +205,9 @@ def landing():
                                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1);",
                                 border_radius="4px;",
                                 width="100%",
+                                _focus={
+                                        "border": f"2px solid {styles.ACCENT_COLOR}",
+                                },
                             ),
                             pc.spacer(),
                             pc.button(
@@ -217,6 +221,9 @@ def landing():
                             padding_x = "1em",
                             padding_top = "1em",    
                         ),
+                        pc.box(
+                            pc.text("Repsonse text")
+                        ),
                         min_height="15em",
                         width="100%",
                         bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.06) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
@@ -225,7 +232,7 @@ def landing():
                     ),
                     pc.hstack(
                         tag("GPT Demo"),
-                        pc.text("View code"),
+                        pc.text("View code", color="#777583"),
                         pc.spacer(),
                         pc.hstack(
                             pc.text("All examples"),
@@ -245,7 +252,8 @@ def landing():
                     width="100%",
                 ),
         ),
-        padding_y="8em",
+        padding_top="8em",
+        padding_bottom="6em",
         width="100%",
     )
 
@@ -293,10 +301,11 @@ def intro():
             pc.vstack(
                 pc.text(
                     "Build anything, faster.",
+                    font_size =styles.H2_FONT_SIZE,
+                    font_family="IBM Plex Mono",
                     font_style="normal",
-                    font_weight=800,
-                    font_size="2em",
-                    padding_bottom="0.5em",
+                    font_weight=600,
+                    padding_bottom="0.25em",
                 ),
                 pc.text(
                     "Create your whole app in a single language. ",
@@ -357,8 +366,8 @@ def intro():
                 align_items="flex-start",
             )
         ),
-        padding_top="30px",
-        padding_bottom="80px",
+        padding_top="5em",
+        padding_bottom="5em",
     )
 
 
@@ -373,7 +382,7 @@ compbox = pc.hstack(
     pc.vstack(
         pc.text(
             "60+ built-in UI Components",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -409,7 +418,7 @@ stylebox = pc.hstack(
     pc.vstack(
         pc.text(
             "Completely customizable",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -445,7 +454,7 @@ reactbox = pc.hstack(
     pc.vstack(
         pc.text(
             "Custom Components",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -481,7 +490,7 @@ powerful = pc.hstack(
     pc.vstack(
         pc.text(
             "Now everyone can work across the full-stack",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -504,7 +513,7 @@ def frontend():
             height="8em",
             width="100%",
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(188, 136, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);",
-            opacity="0.75;",
+            opacity="0.4;",
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
@@ -520,6 +529,8 @@ def frontend():
                 ),
                 pc.heading(
                     "Write your entire app in Python.",
+                    font_size=styles.H3_FONT_SIZE,
+                    font_family="IBM Plex Mono",
                 ),
                 pc.text(
                     "No more switching between languages and frameworks. Use one language for your whole stack.",
@@ -576,7 +587,7 @@ battery_icon = pc.hstack(
     pc.vstack(
         pc.text(
             "Batteries included",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -612,7 +623,7 @@ orm_icon = pc.hstack(
     pc.vstack(
         pc.text(
             "Built in database ORM",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -648,7 +659,7 @@ python_icon = pc.hstack(
     pc.vstack(
         pc.text(
             "Seamlessly integrate with any Python library",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -670,7 +681,7 @@ def backend():
             height="8em",
             width="100%",
             background="radial-gradient(55.39% 67.5% at 50% 100%, #EBEBFF 0%, rgba(255, 255, 255, 0) 100%)",
-            opacity="0.75;",
+            opacity="0.4;",
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
@@ -678,17 +689,19 @@ def backend():
                 pc.box(
                     pc.text(
                     "[",
-                    pc.span("Backend", color="#2B199C"),
+                    pc.span("Backend", color="#2B199C", bg="#F3F7FE"),
                     "]",
                     color="#2B199C",
                     font_family="Space Mono",
                     )
                 ),
                 pc.heading(
-                    "Write your entire app in Python.",
+                    "Skip the boilerplate and get started faster",
+                    font_size=styles.H3_FONT_SIZE,
+                    font_family="IBM Plex Mono",
                 ),
                 pc.text(
-                    "No more switching between languages and frameworks. Use one language for your whole stack.",
+                    "Reflex comes with a powerful backend built with FastAPI and SQLAlchemy.",
                     color="#342E5C",
                     max_width="50%",
                 ),
@@ -743,7 +756,7 @@ deploy_icon = pc.hstack(
     pc.vstack(
         pc.text(
             "Deploy your app with a single command",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -779,7 +792,7 @@ host_icon = pc.hstack(
     pc.vstack(
         pc.text(
             "Self-host your app",
-            font_size=styles.H3_FONT_SIZE,
+            font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         pc.text(
@@ -813,7 +826,7 @@ def hosting():
             height="8em",
             width="100%",
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(32, 17, 126, 0.1) 0%, rgba(255, 255, 255, 0) 100%)",
-            opacity="0.75;",
+            opacity="0.4;",
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
@@ -821,17 +834,20 @@ def hosting():
                 pc.box(
                     pc.text(
                     "[",
-                    pc.span("Hosting", color="#342E5C"),
+                    pc.span("Hosting", color="#342E5C",bg ="#FAF8FB"),
                     "]",
                     color="#342E5C",
                     font_family="Space Mono",
-                    )
+                    ),
+                    
                 ),
                 pc.heading(
-                    "Write your entire app in Python.",
+                    "Deploy your app in seconds",
+                    font_size=styles.H3_FONT_SIZE,
+                    font_family="IBM Plex Mono",
                 ),
                 pc.text(
-                    "No more switching between languages and frameworks. Use one language for your whole stack.",
+                    "Simplify the process of deploying your app with Reflex.",
                     color="#342E5C",
                     max_width="50%",
                 ),
@@ -882,6 +898,7 @@ def gallery():
                             color="#DACEEE",
                         ),
                         "community of Pynecone developers.",
+                        font_family="IBM Plex Mono",
                         font_size=styles.H2_FONT_SIZE,
                         font_weight=styles.BOLD_WEIGHT,
                         text_align="center",
@@ -944,7 +961,6 @@ def gallery():
                         width="100%",
                     ),
                 ),
-                box_shadow=styles.DOC_SHADOW,
                 padding="2em",
             ),
             width="100%",
@@ -967,34 +983,42 @@ def installation():
     return pc.vstack(
         container(
             pc.flex(
-                pc.vstack(
-                    pc.heading(
-                        "Get up and running in seconds!",
-                        font_weight=styles.BOLD_WEIGHT,
-                        font_size=styles.H3_FONT_SIZE,
-                    ),
-                    pc.box(
-                        pc.text(
-                            "Pynecone requires Python 3.7+ and NodeJS 12+",
+                pc.center(
+                    pc.vstack(
+                        pc.heading(
+                            "Get up and running in seconds!",
+                            font_family="IBM Plex Mono",
+                            font_weight=styles.BOLD_WEIGHT,
+                            font_size=styles.H3_FONT_SIZE,
                         ),
-                        pc.text(
-                            "(Don't worry, you'll never have to write any Javascript)",
+                        pc.box(
+                            pc.text(
+                                "Pynecone requires  ",
+                                pc.span(" Python 3.7+", _as = "u"),
+                                pc.span(" and"),
+                                pc.span(" NodeJS 12+"),
+                                "."
+                            ),
+                            pc.text(
+                                "(Don't worry, you'll never have to write any Javascript)",
+                            ),
+                            color="#82799E",
+                            font_family=styles.TEXT_FONT_FAMILY,
+                            padding_y=".5em",
                         ),
-                        color="#82799E",
-                        font_family=styles.TEXT_FONT_FAMILY,
-                        padding_y=".5em",
+                        align_items="start",
+                        min_width="10em",
+                        margin_x="auto",
+                        width="100%",
                     ),
-                    align_items="start",
-                    max_width="38em",
                     min_width="10em",
-                    margin_x="auto",
                     width="100%",
                 ),
                 pc.spacer(),
                 pc.vstack(
                     pc.text(
                         "Install our library to get started:",
-                        font_family=styles.TEXT_FONT_FAMILY,
+                        font_family="Space Mono",
                         padding_x="1em",
                         padding_top=".5em",
                     ),
@@ -1037,18 +1061,21 @@ def installation():
                             pc.text("And you should see your first Pynecone app!", font_size=".75em"),
                             pc.text("Check out our docs to learn more.", font_size=".75em"),
                             align_items="left",
-                            padding_x="1em",
+                            padding_x=".5em",
                             width="100%",
                         ),
                         pc.spacer(),
                         pc.button(
                             "View Docs",
-                            bg = ""
+                            color="#494369",
+                            font_weight= 600,
+                            bg = "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF",
+                            box_shadow = "box-shadow: 0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2)",
+                            padding_x = "1em",
                         ),
                         width="100%",
                         padding_x=".25em",
                     ),
-                    min_width="10em",
                     height="100%",
                     border= "1px solid #342E5C;",
                     box_shadow="0px 2px 3px rgba(3, 3, 11, 0.32), 0px 4px 8px rgba(3, 3, 11, 0.32), 0px 4px 10px -2px rgba(3, 3, 11, 0.52), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 20px 32px -10px rgba(86, 70, 237, 0.32);",
@@ -1056,11 +1083,12 @@ def installation():
                     border_radius="8px;",
                     align_items="left",
                     width="100%",
+                    min_width  = "25em"
                 ),
-                gap="1em",
                 width="100%",
                 flex_direction=["column", "column", "column", "column", "row"],
-            )
+            ),
+            width = "100%",
         ),
         pc.box(
             height="5em",
@@ -1068,7 +1096,6 @@ def installation():
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(188, 136, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);",
             opacity="0.75;",
         ),
-        padding_x=styles.PADDING_X2,
         font_family=styles.TEXT_FONT_FAMILY,
         font_size="1.2em",
         color="white",
