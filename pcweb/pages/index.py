@@ -119,7 +119,7 @@ def tag(text):
         bg="#F5EFFE",
         padding_x="0.5em",
         padding_y="0.25em",
-        border_radius="6px",
+        border_radius="8px",
         font_weight=600,
     )
 
@@ -196,8 +196,7 @@ def landing():
                 ),
                 width="100%",
             ),
-            pc.center(
-                pc.vstack(
+            pc.vstack(
                     pc.vstack(
                         pc.hstack(
                             pc.input(
@@ -215,18 +214,29 @@ def landing():
                                 href="/docs",
                             ),
                             width="100%",
-                            padding_x="1em",
+                            padding_x = "1em",
+                            padding_top = "1em",    
                         ),
-                        padding_top="1em",
                         min_height="15em",
                         width="100%",
-                        bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.08) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
+                        bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.06) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
+                        border_bottom= "2px solid #F4F3F6",
+                        border_radius= "8px 8px 0 0"
                     ),
                     pc.hstack(
-                        tag("New"),
+                        tag("GPT Demo"),
+                        pc.text("View code"),
                         pc.spacer(),
-                        pc.button("Docs", href="/docs"),
+                        pc.hstack(
+                            pc.text("All examples"),
+                            pc.icon(tag="arrow_forward", color="#494369"),
+                            border_radius="6px",
+                            box_shadow= "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                            padding_x = ".5em"
+                        ),
                         width="100%",
+                        padding_x = "1em",
+                        padding_bottom = ".5em"
                     ),
                     min_width="10em",
                     border="1px solid #F4F3F6;",
@@ -234,9 +244,6 @@ def landing():
                     border_radius="8px;",
                     width="100%",
                 ),
-                width="100%",
-            ),
-            width="100%",
         ),
         padding_y="8em",
         width="100%",

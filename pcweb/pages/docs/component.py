@@ -11,7 +11,7 @@ from pcweb.component_list import component_list
 from pcweb.components.sidebar import SidebarItem
 from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
-
+from pcweb import constants, styles
 
 class Prop(Base):
     """Hold information about a prop."""
@@ -261,25 +261,33 @@ def component_docs(component):
 
     if len(src.get_props()) > 0:
         props = [
-            subheader("Props"),
-            pc.box(
-                pc.table(
-                    pc.thead(
-                        pc.tr(
-                            pc.th("Prop"),
-                            pc.th("Type"),
-                            pc.th("Description"),
-                        )
+            pc.accordion(
+                pc.accordion_item(
+                pc.accordion_button(pc.accordion_icon(), pc.heading("Props", font_size="1em")),
+                pc.accordion_panel(pc.box(
+                    pc.table(
+                        pc.thead(
+                            pc.tr(
+                                pc.th("Prop"),
+                                pc.th("Type"),
+                                pc.th("Description"),
+                            )
+                        ),
+                        pc.tbody(*[pc.tr(*prop_docs(prop)) for prop in src.get_props()]),
                     ),
-                    pc.tbody(*[pc.tr(*prop_docs(prop)) for prop in src.get_props()]),
+                    background_color="rgb(255, 255, 255)",
+                    border_radius="1em",
+                    box_shadow=styles.DOC_SHADOW_LIGHT,
+                    padding="1em",
+                    max_width="100%",
+                    overflow_x="auto",
+                )
+                )
                 ),
-                background_color="rgb(255, 255, 255)",
-                border_radius="1em",
-                box_shadow="rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
-                padding="1em",
-                max_width="100%",
-                overflow_x="auto",
-            ),
+                border_color="rgb(255, 255, 255)",
+                width = "100%",
+                allow_toggle = True
+            )
         ]
     else:
         props = [
@@ -301,58 +309,48 @@ def component_docs(component):
     triggers = []
 
     triggers = [
-        subheader("Event Triggers"),
         pc.box(
+
             pc.accordion(
                 pc.accordion_item(
-                    pc.accordion_button(
-                        pc.accordion_icon(),
-                        pc.heading("Base Events Triggers", font_size="1em"),
-                    ),
+                    pc.accordion_button(pc.accordion_icon(), pc.heading("Event Triggers", font_size="1em")),
                     pc.accordion_panel(
-                        pc.text(
-                            "These triggers are available for all Pynecone components. "
-                            "They take in no arguments. ",
-                            margin_bottom="1em",
+                        pc.accordion_item(
+                            pc.accordion_button(
+                                pc.link(
+                                    pc.hstack(pc.icon(tag="link"), 
+                                    pc.heading("Base Event Triggers", font_size="1em")), 
+                                    href="/docs/api-reference/event-triggers"
+                                )
+                            ),
+                            border_color="rgb(255, 255, 255)",
                         ),
-                        *[
-                            pc.accordion_item(
-                                pc.accordion_button(
-                                    pc.accordion_icon(),
-                                    pc.code(event),
-                                ),
-                                pc.accordion_panel(
-                                    pc.text(
-                                        EVENTS[event].get(
-                                            "description",
-                                        )
+                        pc.accordion_item(
+                            pc.accordion_button(pc.accordion_icon(), pc.heading("Component Specific Triggers", font_size="1em")),
+                            pc.accordion_panel(
+                                *[
+                                    pc.accordion_item(
+                                        pc.accordion_button(
+                                            pc.accordion_icon(),
+                                            pc.code(event),
+                                        ),
+                                        pc.accordion_panel(pc.text(EVENTS[event]["description"])),
                                     )
-                                ),
-                            )
-                            for event in component().get_triggers()
-                            if event in pc.event.EVENT_TRIGGERS
-                        ],
+                                    for event in component().get_triggers()
+                                    if event not in pc.event.EVENT_TRIGGERS
+                                    and event not in ("on_drop",)
+                                ],
+                            ),
+                            border_color="rgb(255, 255, 255)",
+                        )
+
                     ),
                 ),
-                *[
-                    pc.accordion_item(
-                        pc.accordion_button(
-                            pc.code(event),
-                            pc.accordion_icon(),
-                        ),
-                        pc.accordion_panel(pc.text(EVENTS[event]["description"])),
-                    )
-                    for event in component().get_triggers()
-                    if event not in pc.event.EVENT_TRIGGERS
-                    and event not in ("on_drop",)
-                ],
                 border_color="rgb(255, 255, 255)",
                 allow_multiple=True,
+                width = "100%",
+                align_items = "left"
             ),
-            background_color="rgb(255, 255, 255)",
-            border_radius="1em",
-            box_shadow="rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
-            padding="1em",
             max_width="100%",
             overflow_x="auto",
         ),

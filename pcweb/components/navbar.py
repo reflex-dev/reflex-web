@@ -205,6 +205,11 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                     href="/docs/gallery",
                     style=styles.NAV_TEXT_STYLE,
                 ),
+                pc.link(
+                    "Blog",
+                    href="/docs/gallery",
+                    style=styles.NAV_TEXT_STYLE,
+                ),
                 spacing="2em",
             ),
             pc.hstack(
@@ -220,7 +225,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
         bg="rgba(255,255,255, 0.9)",
         backdrop_filter="blur(10px)",
         padding_y=["0.8em", "0.8em", "0.5em"],
-        border_bottom="0.05em solid #F4F3F6",
+        border_bottom="2px solid #F4F3F6",
         position="sticky",
         width="100%",
         top="0px",
