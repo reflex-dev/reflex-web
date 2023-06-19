@@ -97,7 +97,7 @@ def search_bar():
     return pc.hstack(
         pc.fragment(
             pc.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            pc.text("Search Docs", style=styles.NAV_SEARCH_STYLE),
+            pc.text("Search Docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
         ),
         pc.spacer(),
         pc.text("/", style=styles.NAV_SEARCH_STYLE),
@@ -205,10 +205,15 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                     href="/docs/gallery",
                     style=styles.NAV_TEXT_STYLE,
                 ),
-                pc.link(
-                    "Blog",
-                    href="/docs/gallery",
-                    style=styles.NAV_TEXT_STYLE,
+                pc.menu(
+                    pc.menu_button("Resources", style=styles.NAV_TEXT_STYLE),
+                    pc.menu_list(
+                        pc.menu_item("Blog", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
+                        pc.menu_divider(),
+                        pc.menu_item("Roadmap", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
+                        pc.menu_item("Contributor Program", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
+                    ),
+                    background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
                 ),
                 spacing="2em",
             ),

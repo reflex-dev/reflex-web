@@ -98,7 +98,7 @@ def chat_component():
                     ),
                     pc.hstack(
                         tag("GPT Demo"),
-                        pc.text("View code", color="#777583"),
+                        pc.text("View code", font_weight= "600", color="#777583"),
                         pc.spacer(),
                         pc.hstack(
                             pc.text("All examples"),

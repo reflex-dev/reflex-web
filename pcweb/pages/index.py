@@ -165,12 +165,14 @@ def landing():
                                 pc.input(
                                     placeholder="Your email address...",
                                     on_blur=IndexState.set_email,
-                                    color="#676767",
+                                    _placeholder = {"color": "#494369"},
+                                    color="#494369",
                                     type="email",
                                     size="md",
-                                    border="2px solid #f4f4f4",
-                                    box_shadow="rgba(0, 0, 0, 0.08) 0px 4px 12px",
-                                    bg="rgba(255,255,255,.5)",
+                                    border_color="transparent", 
+                                    border_radius= "6px",
+                                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1)",
+                                    bg="#FFFFFF",
                                     _focus={
                                         "border": f"2px solid {styles.ACCENT_COLOR}",
                                     },
@@ -183,6 +185,7 @@ def landing():
                                 justify="left",
                                 should_wrap_children=True,
                                 spacing="1em",
+                                padding_bottom="1em",
                             ),
                             pc.text(
                                 pc.icon(
