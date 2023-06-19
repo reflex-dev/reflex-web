@@ -2,6 +2,7 @@ import pynecone as pc
 
 from pcweb import constants
 from pcweb.templates.docpage import (
+    docalert,
     doccode,
     docheader,
     doclink,
@@ -108,6 +109,14 @@ def installation():
                 status="success",
             ),
         ),
+        docalert(
+            "Running on Windows.",
+            "We strongly advise you to use Windows Subsystem for Linux (WSL) for optimal performance"
+            " when using Pynecone. Due to compatibility issues with one of our dependencies, Bun,"
+            " you may experience slower performance on Windows. By using WSL, you can expect to "
+            "see a significant speed increase.",
+            status="warning",
+        ),
         doctext(
             "Pynecone also starts a ",
             doclink("FastAPI", href=constants.FASTAPI_URL),
@@ -136,5 +145,17 @@ def installation():
             pc.code(f"{app_name}/{app_name}.py"),
             " and see your changes in the browser instantly when you save your code. ",
         ),
+        docalert(
+            "Fast Refresh on Windows.",
+            "When running on windows, the hot reload feature may not work as "
+            "expected if you're running a project that resides on a different "
+            "file system (eg. running your Pynecone project from Windows with "
+            "your project residing on the WSL file system). This is as a result "
+            "of incompatibilities between the the windows file system and that of WSL."
+            " It is however, recommended "
+            "to run your app on the same file system your app resides.",
+            status="error",
+        ),
+
         doctext("Continue reading to learn how to customize your app."),
     )
