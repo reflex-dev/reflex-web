@@ -18,7 +18,7 @@ from pcweb.pages.docs.hosting import deploy
 from pcweb.pages.docs.gallery import gallery as gallery_page
 from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
-
+from pcweb.components.chat import chat_component
 
 from pcweb.templates.docpage import (
     doclink,
@@ -123,7 +123,6 @@ def tag(text):
         font_weight=600,
     )
 
-
 def landing():
     return container(
         pc.cond(
@@ -197,60 +196,7 @@ def landing():
                 ),
                 width="100%",
             ),
-            pc.vstack(
-                    pc.vstack(
-                        pc.hstack(
-                            pc.input(
-                                placeholder="Search docs...",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1);",
-                                border_radius="4px;",
-                                width="100%",
-                                _focus={
-                                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                                },
-                            ),
-                            pc.spacer(),
-                            pc.button(
-                                "Get Started",
-                                background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
-                                box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2);",
-                                border_radius="8px;",
-                                href="/docs",
-                            ),
-                            width="100%",
-                            padding_x = "1em",
-                            padding_top = "1em",    
-                        ),
-                        pc.box(
-                            pc.text("Repsonse text")
-                        ),
-                        min_height="15em",
-                        width="100%",
-                        bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.06) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
-                        border_bottom= "2px solid #F4F3F6",
-                        border_radius= "8px 8px 0 0"
-                    ),
-                    pc.hstack(
-                        tag("GPT Demo"),
-                        pc.text("View code", color="#777583"),
-                        pc.spacer(),
-                        pc.hstack(
-                            pc.text("All examples"),
-                            pc.icon(tag="arrow_forward", color="#494369"),
-                            border_radius="6px",
-                            box_shadow= "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                            padding_x = ".5em"
-                        ),
-                        width="100%",
-                        padding_x = "1em",
-                        padding_bottom = ".5em"
-                    ),
-                    min_width="10em",
-                    border="1px solid #F4F3F6;",
-                    box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02);",
-                    border_radius="8px;",
-                    width="100%",
-                ),
+            chat_component(),
         ),
         padding_top="8em",
         padding_bottom="6em",
@@ -994,9 +940,9 @@ def installation():
                         pc.box(
                             pc.text(
                                 "Pynecone requires  ",
-                                pc.span(" Python 3.7+", _as = "u"),
+                                pc.span(" Python 3.7+", as_ = "u"),
                                 pc.span(" and"),
-                                pc.span(" NodeJS 12+"),
+                                pc.span(" NodeJS 12+", as_ = "u"),
                                 "."
                             ),
                             pc.text(

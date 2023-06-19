@@ -66,7 +66,7 @@ STYLESHEETS = [
     "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
     "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap",
     "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,600;1,600&display=swap"
+    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&display=swap"
 ]
 
 
