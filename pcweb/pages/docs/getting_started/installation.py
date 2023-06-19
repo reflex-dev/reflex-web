@@ -110,7 +110,7 @@ def installation():
             ),
         ),
         docalert(
-            "Running on Windows",
+            "Running on Windows.",
             "We strongly advise you to use Windows Subsystem for Linux (WSL) for optimal performance"
             " when using Pynecone. Due to compatibility issues with one of our dependencies, Bun,"
             " you may experience slower performance on Windows. By using WSL, you can expect to "
@@ -146,7 +146,7 @@ def installation():
             " and see your changes in the browser instantly when you save your code. ",
         ),
         docalert(
-            "Fast Refresh on Windows",
+            "Fast Refresh on Windows.",
             "When running on windows, the hot reload feature may not work as "
             "expected if you're running a project that resides on a different "
             "file system (eg. running your Pynecone project from Windows with "
