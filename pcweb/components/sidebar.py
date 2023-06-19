@@ -79,6 +79,7 @@ def get_sidebar_items_learn():
                 getting_started.introduction,
                 getting_started.installation,
                 getting_started.project_structure,
+                getting_started.configuration,
             ],
         ),
         create_item(
