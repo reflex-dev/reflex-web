@@ -3,7 +3,11 @@ from pcweb import constants, styles
 from pcweb.base_state import State
 import openai
 import os
-openai.api_key = os.environ["OPENAI_API_KEY"]
+
+try:
+    openai.api_key = os.environ["OPENAI_API_KEY"]
+except KeyError:
+    raise Exception("OPENAI_API_KEY environment variable not set.")
 
 def tag(text):
     return rx.text(
@@ -26,21 +30,26 @@ class GptState(State):
             print("Limit Reached")
             return rx.window_alert("Limit Reached")
         self.limit += 1
-        session = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=self.question,
-            max_tokens=50,
-            n=1,
-            stop=None,
-            temperature=0.7,
-            stream=True,  # Enable streaming
-        )
-        self.answer = ""
-        yield
-        # Stream the results, yielding after every word.
-        for item in session:
-            answer_text = item["choices"][0]["text"]
-            self.answer += answer_text
+        try:
+            session = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=self.question,
+                max_tokens=50,
+                n=1,
+                stop=None,
+                temperature=0.7,
+                stream=True,  # Enable streaming
+            )
+            self.answer = ""
+            yield
+            # Stream the results, yielding after every word.
+            for item in session:
+                answer_text = item["choices"][0]["text"]
+                self.answer += answer_text
+                yield
+        except Exception as e:
+            print(e)
+            self.answer = "Error OpenAI API Key not set"
             yield
         
 def qa():
