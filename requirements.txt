@@ -6,3 +6,4 @@ plotly-express==0.4.1
 googletrans-py==4.0.0
 typesense==0.14.0
 Pillow==9.5.0
+openai==0.27.8
