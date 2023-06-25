@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import inspect
 
-import pynecone as pc
-from pynecone.base import Base
+import reflex as rx
+from reflex.base import Base
 
 from pcweb import styles
 from pcweb.component_list import component_list
@@ -52,7 +52,7 @@ class SidebarItem(Base):
 def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
     if children is None:
-        name = route.title.split(" | Pynecone")[0]
+        name = route.title.split(" | Reflex")[0]
         if name.endswith("Overview"):
             name = "Overview"
         name = name.replace("Api", "API").replace("Cli", "CLI")
@@ -201,21 +201,21 @@ def get_sidebar_items_reference():
     ]
 
 
-@pc.memo
+@rx.memo
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
-) -> pc.Component:
+) -> rx.Component:
     """Get the leaf node of the sidebar."""
-    return pc.accordion_item(
-        pc.cond(
+    return rx.accordion_item(
+        rx.cond(
             item.link == url,
-            pc.link(
-                pc.text(item.names,style=heading_style2),
+            rx.link(
+                rx.text(item.names,style=heading_style2),
                 href=item.link,
             ),
-            pc.link(
-                pc.text(item.names,color=styles.DOC_REG_TEXT_COLOR,
+            rx.link(
+                rx.text(item.names,color=styles.DOC_REG_TEXT_COLOR,
                 _hover={"color": styles.ACCENT_COLOR},padding_x= "0.5em"),
                 href=item.link,
                 
@@ -227,23 +227,23 @@ def sidebar_leaf(
     )
 
 
-@pc.memo
+@rx.memo
 def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
     first: bool,
 ):
-    return pc.fragment(
-        pc.cond(
+    return rx.fragment(
+        rx.cond(
             item.children.length() == 0,
             sidebar_leaf(item=item, url=url),
-            pc.accordion_item(
-                pc.cond(
+            rx.accordion_item(
+                rx.cond(
                     first,
-                    pc.accordion_button(
-                        pc.accordion_icon(),
-                        pc.text(
+                    rx.accordion_button(
+                        rx.accordion_icon(),
+                        rx.text(
                             item.names,
                             font_family="Inter",
                             font_size="1em",
@@ -253,9 +253,9 @@ def sidebar_item_comp(
                             "color": styles.ACCENT_COLOR,
                         },
                     ),
-                    pc.accordion_button(
-                        pc.accordion_icon(),
-                        pc.text(
+                    rx.accordion_button(
+                        rx.accordion_icon(),
+                        rx.text(
                             item.names,
                             font_family="Inter",
                             font_size="1em",
@@ -266,10 +266,10 @@ def sidebar_item_comp(
                         },
                     ),
                 ),
-                pc.accordion_panel(
-                    pc.accordion(
-                        pc.vstack(
-                            pc.foreach(
+                rx.accordion_panel(
+                    rx.accordion(
+                        rx.vstack(
+                            rx.foreach(
                                 item.children,
                                 lambda child: sidebar_item_comp(
                                     item=child,
@@ -282,7 +282,7 @@ def sidebar_item_comp(
                             border_left="1px solid #e0e0e0",
                         ),
                         allow_multiple=True,
-                        default_index=pc.cond(index, index[1:2], []),
+                        default_index=rx.cond(index, index[1:2], []),
                     ),
                     margin_left="1em",
                 ),
@@ -336,7 +336,7 @@ def get_prev_next(url):
     return None, None
 
 
-@pc.memo
+@rx.memo
 def sidebar_comp(
     url: str,
     learn_index: list[int],
@@ -344,14 +344,14 @@ def sidebar_comp(
 ):
     from pcweb.pages.docs.gallery import gallery
 
-    return pc.box(
-        pc.heading(
-            pc.span("[ ", color="#DACEEE"),
+    return rx.box(
+        rx.heading(
+            rx.span("[ ", color="#DACEEE"),
             "Learn", 
-            pc.span(" ]", color="#DACEEE"),
+            rx.span(" ]", color="#DACEEE"),
             style=heading_style3
         ),
-        pc.accordion(
+        rx.accordion(
             *[
                 sidebar_item_comp(
                     item=item,
@@ -364,14 +364,14 @@ def sidebar_comp(
             allow_multiple=True,
             default_index=learn_index,
         ),
-        pc.heading(
-            pc.span("[ ", color="#DACEEE"),
+        rx.heading(
+            rx.span("[ ", color="#DACEEE"),
             "Reference", 
-            pc.span(" ]", color="#DACEEE"),
+            rx.span(" ]", color="#DACEEE"),
             style=heading_style3,
             margin_top="1em",
         ),
-        pc.accordion(
+        rx.accordion(
             *[
                 sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
                 for item in reference
@@ -379,11 +379,11 @@ def sidebar_comp(
             allow_multiple=True,
             default_index=reference_index,
         ),
-        pc.vstack(
-            pc.link(
-                pc.hstack(
-                    pc.icon(tag="minus", height=".75rem", style=heading_style),
-                    pc.text(
+        rx.vstack(
+            rx.link(
+                rx.hstack(
+                    rx.icon(tag="minus", height=".75rem", style=heading_style),
+                    rx.text(
                         "Gallery",
                         style={
                             "color": styles.DOC_REG_TEXT_COLOR,
@@ -408,11 +408,11 @@ def sidebar_comp(
     )
 
 
-def sidebar(url=None) -> pc.Component:
+def sidebar(url=None) -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
     reference_index = calculate_index(reference, url)
-    return pc.box(
+    return rx.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,

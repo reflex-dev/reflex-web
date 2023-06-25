@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -9,10 +9,10 @@ from pcweb.templates.docpage import (
 pin_state = """class PinInputState(State):
     pin: str
 """
-basic_pin_example = """pc.vstack(
-    pc.heading(PinInputState.pin),
-    pc.box(
-        pc.pin_input(
+basic_pin_example = """rx.vstack(
+    rx.heading(PinInputState.pin),
+    rx.box(
+        rx.pin_input(
             length=4,
             on_change=PinInputState.set_pin,
             mask=True,
@@ -23,13 +23,13 @@ basic_pin_example = """pc.vstack(
 
 exec(pin_state)
 
-pin_custom_example = """pc.center(
-    pc.pin_input(
-        pc.pin_input_field(color="red"),
-        pc.pin_input_field(border_color="green"),
-        pc.pin_input_field(shadow="md"),
-        pc.pin_input_field(color="blue"),
-        pc.pin_input_field(border_radius="md"),
+pin_custom_example = """rx.center(
+    rx.pin_input(
+        rx.pin_input_field(color="red"),
+        rx.pin_input_field(border_color="green"),
+        rx.pin_input_field(shadow="md"),
+        rx.pin_input_field(color="blue"),
+        rx.pin_input_field(border_radius="md"),
         on_change=PinInputState.set_pin,
     )
 )
@@ -37,7 +37,7 @@ pin_custom_example = """pc.center(
 
 
 def render_pininput():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The PinInput component is similar to the Input component, but it is optimized for entering sequences of digits."
         ),

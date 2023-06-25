@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -7,21 +7,21 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-basic_checkbox = """pc.checkbox("Check Me!")
+basic_checkbox = """rx.checkbox("Check Me!")
 """
-checkbox_style = """pc.hstack(
-    pc.checkbox("Example", color_scheme="green", size="sm"),
-    pc.checkbox("Example", color_scheme="blue", size="sm"),
-    pc.checkbox("Example", color_scheme="yellow", size="md"),
-    pc.checkbox("Example", color_scheme="orange", size="md"),
-    pc.checkbox("Example", color_scheme="red", size="lg"),
+checkbox_style = """rx.hstack(
+    rx.checkbox("Example", color_scheme="green", size="sm"),
+    rx.checkbox("Example", color_scheme="blue", size="sm"),
+    rx.checkbox("Example", color_scheme="yellow", size="md"),
+    rx.checkbox("Example", color_scheme="orange", size="md"),
+    rx.checkbox("Example", color_scheme="red", size="lg"),
 )
 """
-checkbox_visual_states = """pc.hstack(
-    pc.checkbox(
+checkbox_visual_states = """rx.hstack(
+    rx.checkbox(
         "Example", color_scheme="green", size="lg", is_invalid=True
     ),
-    pc.checkbox(
+    rx.checkbox(
         "Example", color_scheme="green", size="lg", is_disabled=True
     ),
 )
@@ -34,36 +34,36 @@ checkbox_state = """class CheckboxState(State):
 
 """
 exec(checkbox_state)
-checkbox_state_example = """pc.hstack(
-    pc.cond(
+checkbox_state_example = """rx.hstack(
+    rx.cond(
         CheckboxState.checked,
-        pc.text("Checked", color="green"),
-        pc.text("Unchecked", color="red"),
+        rx.text("Checked", color="green"),
+        rx.text("Unchecked", color="red"),
     ),
-    pc.checkbox(
+    rx.checkbox(
         "Example",
         on_change=CheckboxState.set_checked,
     ),
-    pc.box(
+    rx.box(
         "Example",
         on_blur=CheckboxState.toggle,
     ),
 )
 """
 
-checkbox_group_example = """pc.checkbox_group(
-    pc.checkbox("Example", color_scheme="green"),
-    pc.checkbox("Example", color_scheme="blue"),
-    pc.checkbox("Example", color_scheme="yellow"),
-    pc.checkbox("Example", color_scheme="orange"),
-    pc.checkbox("Example", color_scheme="red"),
+checkbox_group_example = """rx.checkbox_group(
+    rx.checkbox("Example", color_scheme="green"),
+    rx.checkbox("Example", color_scheme="blue"),
+    rx.checkbox("Example", color_scheme="yellow"),
+    rx.checkbox("Example", color_scheme="orange"),
+    rx.checkbox("Example", color_scheme="red"),
     space="1em",
 )
 """
 
 
 def render_checkbox():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "A checkbox is a common way to toggle boolean value. The checkbox component can be used on its own or in a group.",
         ),
@@ -74,7 +74,7 @@ def render_checkbox():
         docdemo(checkbox_visual_states),
         doctext(
             "Checkboxes can be hooked up to a state using the ",
-            pc.code("on_change"),
+            rx.code("on_change"),
             " prop.",
         ),
         docdemo(

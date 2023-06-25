@@ -1,29 +1,29 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
 # Forms
-basic_button = """pc.button("Click Me!")
+basic_button = """rx.button("Click Me!")
 """
-button_style = """pc.button_group(
-    pc.button("Example", bg="lightblue", color="black", size = 'sm'),
-    pc.button("Example", bg="orange", color="white", size = 'md'),
-    pc.button("Example", color_scheme="red", size = 'lg'),
+button_style = """rx.button_group(
+    rx.button("Example", bg="lightblue", color="black", size = 'sm'),
+    rx.button("Example", bg="orange", color="white", size = 'md'),
+    rx.button("Example", color_scheme="red", size = 'lg'),
     space = "1em",
 )
 """
-button_visual_states = """pc.button_group(
-    pc.button("Example", bg="lightgreen", color="black", is_loading = True),
-    pc.button("Example", bg="lightgreen", color="black", is_disabled = True),
-    pc.button("Example", bg="lightgreen", color="black", is_active = True),
+button_visual_states = """rx.button_group(
+    rx.button("Example", bg="lightgreen", color="black", is_loading = True),
+    rx.button("Example", bg="lightgreen", color="black", is_disabled = True),
+    rx.button("Example", bg="lightgreen", color="black", is_active = True),
     space = '1em',
 )
 """
 
-button_group_example = """pc.button_group(
-    pc.button(pc.icon(tag="minus"), color_scheme="red"),
-    pc.button(pc.icon(tag="add"), color_scheme="green"),
+button_group_example = """rx.button_group(
+    rx.button(rx.icon(tag="minus"), color_scheme="red"),
+    rx.button(rx.icon(tag="add"), color_scheme="green"),
     is_attached=True,
 )
 """
@@ -38,16 +38,16 @@ button_state = """class ButtonState(State):
         self.count -= 1
 """
 exec(button_state)
-button_state_example = """pc.button_group(
-    pc.button(
+button_state_example = """rx.button_group(
+    rx.button(
         "Decrement",
         color_scheme="red",
         variant="outline",
         border_radius="1em",
         on_click=ButtonState.decrement,
     ),
-    pc.heading(ButtonState.count, font_size=24),
-    pc.button(
+    rx.heading(ButtonState.count, font_size=24),
+    rx.button(
         "Increment",
         color_scheme="green",
         variant="outline",
@@ -60,7 +60,7 @@ button_state_example = """pc.button_group(
 
 
 def render_button():
-    return pc.vstack(
+    return rx.vstack(
         doctext("A button is a clickable element that is used to trigger an event."),
         docdemo(basic_button),
         doctext(
@@ -73,7 +73,7 @@ def render_button():
         docdemo(button_group_example),
         doctext(
             "Buttons are use to trigger events using the",
-            pc.code("on_click"),
+            rx.code("on_click"),
             " event handler. ",
         ),
         docdemo(
@@ -86,11 +86,11 @@ def render_button():
     )
 
 
-iconbutton_example = """pc.icon_button(icon="search")"""
+iconbutton_example = """rx.icon_button(icon="search")"""
 
 
 def render_iconbutton():
-    return pc.vstack(
+    return rx.vstack(
         doctext("IconButton display a clickable Icon"),
         docdemo(iconbutton_example),
         doctext(

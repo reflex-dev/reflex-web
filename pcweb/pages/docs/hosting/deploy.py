@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import (
     doccode,
@@ -8,15 +8,15 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = """pc.text('hello world', color='blue')"""
+code_example1 = """rx.text('hello world', color='blue')"""
 code_example2 = """
-pc.hstack(
-    pc.circular_progress(
-        pc.circular_progress_label("50", color="green"),
+rx.hstack(
+    rx.circular_progress(
+        rx.circular_progress_label("50", color="green"),
         value=50,
     ),
-    pc.circular_progress(
-        pc.circular_progress_label("∞", color="rgb(107,99,246)"),
+    rx.circular_progress(
+        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
         is_indeterminate=True,
     ),
 )
@@ -25,7 +25,7 @@ pc.hstack(
 
 @docpage()
 def deploy():
-    return pc.box(
+    return rx.box(
         docheader("Deploy", first=True, coming_soon=True),
         doctext(
             "So far, we've been running our apps locally on our own machines. ",
@@ -34,9 +34,9 @@ def deploy():
         ),
         subheader("PC Deploy"),
         doctext(
-            "Pynecone makes it easy to deploy your apps with a single command. ",
+            "Reflex makes it easy to deploy your apps with a single command. ",
             "In your terminal, add your ",
-            pc.code("PC_TOKEN"),
+            rx.code("PC_TOKEN"),
             " to your environment variables: ",
         ),
         doccode(
@@ -51,11 +51,11 @@ def deploy():
             language="bash",
         ),
         doctext(
-            "This will build your app and deploy it to Pynecone's servers. ",
+            "This will build your app and deploy it to Reflex's servers. ",
             "You will get back a URL at ",
-            pc.code("https://myapp.pynecone.app"),
+            rx.code("https://myapp.pynecone.app"),
             " that you can share with anyone. "
-            "You can log into your Pynecone dashboard to monitor your app.",
+            "You can log into your Reflex dashboard to monitor your app.",
         ),
         doctext(
             "This feature is coming soon! ",

@@ -1,10 +1,10 @@
 from typing import Callable
 
-import pynecone as pc
+import reflex as rx
 
 from pcweb.route import Route
 
-DEFAULT_TITLE = "Pynecone: The easiest way to build web apps."
+DEFAULT_TITLE = "Reflex: The easiest way to build web apps."
 
 
 def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
@@ -32,7 +32,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             The templated route.
         """
 
-        def wrapper(*children, **props) -> pc.Component:
+        def wrapper(*children, **props) -> rx.Component:
             """The template component.
 
             Args:
@@ -47,7 +47,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             from pcweb.components.navbar import navbar
 
             # Wrap the component in the template.
-            return pc.box(
+            return rx.box(
                 navbar(),
                 contents(*children, **props),
                 footer(),

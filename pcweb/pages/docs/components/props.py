@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -10,11 +10,11 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code1 = """pc.avatar(
+code1 = """rx.avatar(
     name="John Doe",
 )"""
 
-code2 = """pc.button(
+code2 = """rx.button(
     "Fancy Button",
     border_radius="1em",
     box_shadow="rgba(151, 65, 252, 0.8) 0 15px 30px -10px",
@@ -39,7 +39,7 @@ class PropExampleState(State):
 
 """
 exec(code3)
-code4 = """pc.badge(
+code4 = """rx.badge(
     PropExampleState.text,
     color_scheme=PropExampleState.color,
     on_click=PropExampleState.flip_color,
@@ -54,13 +54,13 @@ class PropCondState(State):
     value: int
 """
 exec(code5)
-code6 = """pc.slider(
+code6 = """rx.slider(
     on_change_end=PropCondState.set_value,
-    color_scheme=pc.cond(PropCondState.value > 50, "green", "pink"),
+    color_scheme=rx.cond(PropCondState.value > 50, "green", "pink"),
 )
 """
 
-code7 = """pc.box(
+code7 = """rx.box(
     id="box-id",
     class_name=["class-name-1", "class-name-2",],
 )
@@ -75,7 +75,7 @@ def props():
     from pcweb.pages.docs.state.vars import vars
     from pcweb.pages.docs.styling.overview import styling_overview
 
-    return pc.box(
+    return rx.box(
         docheader("Props", first=True),
         doctext(
             "Props modify the behavior and appearance of a component. ",
@@ -85,9 +85,9 @@ def props():
         doctext(
             "Each component has props that are specific to that component. ",
             "For example, the ",
-            pc.code("pc.avatar"),
+            rx.code("rx.avatar"),
             " component has a ",
-            pc.code("name"),
+            rx.code("name"),
             " prop that sets the name of the avatar. ",
         ),
         docdemo(code1),
@@ -95,10 +95,10 @@ def props():
             "Check the docs for the component you are using to see what props are available. ",
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.alert_title(
-                    "Pynecone has several ",
+            rx.alert(
+                rx.alert_icon(),
+                rx.alert_title(
+                    "Reflex has several ",
                     doclink("built-in components", href=library.path),
                     " to get you started quickly.",
                 ),
@@ -109,16 +109,16 @@ def props():
         doctext(
             "Each component has basic HTML props. ",
             "You can set ",
-            pc.code("id"),
+            rx.code("id"),
             ", which type is a ",
-            pc.code("str"),
+            rx.code("str"),
             " to show specific content to the top of view with hash in URL. ",
             "You can also add ",
-            pc.code("class_name"),
+            rx.code("class_name"),
             ", which type can be a ",
-            pc.code("str"),
+            rx.code("str"),
             " or a ",
-            pc.code("List[str]"),
+            rx.code("List[str]"),
             " to attach style. ",
         ),
         docdemo(code7),
@@ -135,15 +135,15 @@ def props():
         ),
         subheader("Binding Props to State"),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title(
                         "We recommend reading the ",
                         doclink("state docs", href=state_overview.path),
                         " for this section.",
                     ),
-                    pc.alert_description(
+                    rx.alert_description(
                         "The rest of this page discusses how props interact with your app state. ",
                         "Feel free to continue with the component docs, and come back to this later. ",
                     ),
@@ -162,25 +162,25 @@ def props():
         docdemo(code4, code3, eval(code4), context=True),
         doctext(
             "In this example, the ",
-            pc.code("color_scheme"),
+            rx.code("color_scheme"),
             " prop is bound to the ",
-            pc.code("color"),
+            rx.code("color"),
             " state var. ",
         ),
         doctext(
             "When the ",
-            pc.code("flip_color"),
+            rx.code("flip_color"),
             " event handler is called, the ",
-            pc.code("color"),
+            rx.code("color"),
             " var is updated, and the ",
-            pc.code("color_scheme"),
+            rx.code("color_scheme"),
             " prop is updated to match. ",
         ),
         subheader("Conditional Props"),
         doctext(
             "Sometimes you want to set a prop based on a condition. ",
             "You can use the ",
-            pc.code("pc.cond"),
+            rx.code("rx.cond"),
             " function to do this. ",
         ),
         docdemo(code6, code5, eval(code6), context=True),

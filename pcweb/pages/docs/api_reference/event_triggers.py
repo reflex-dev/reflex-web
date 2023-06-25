@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
@@ -16,7 +16,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.input(value = FocusState.text, on_focus=FocusState.change_text)""",
+        "example": """rx.input(value = FocusState.text, on_focus=FocusState.change_text)""",
     },
     {
         "name": "on_blur",
@@ -30,7 +30,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.input(value = BlurState.text, on_blur=BlurState.change_text)""",
+        "example": """rx.input(value = BlurState.text, on_blur=BlurState.change_text)""",
     },
     {
         "name": "on_change",
@@ -39,7 +39,7 @@ SYNTHETIC_EVENTS = [
     checked: bool = False
 
 """,
-        "example": """pc.switch(on_change=ChangeState.set_checked)""",
+        "example": """rx.switch(on_change=ChangeState.set_checked)""",
     },
     {
         "name": "on_click",
@@ -53,7 +53,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(ClickState.text, on_click=ClickState.change_text)""",
+        "example": """rx.button(ClickState.text, on_click=ClickState.change_text)""",
     },
     {
         "name": "on_context_menu",
@@ -67,7 +67,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(ContextState.text, on_context_menu=ContextState.change_text)""",
+        "example": """rx.button(ContextState.text, on_context_menu=ContextState.change_text)""",
     },
     {
         "name": "on_double_click",
@@ -81,7 +81,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(DoubleClickState.text, on_double_click=DoubleClickState.change_text)""",
+        "example": """rx.button(DoubleClickState.text, on_double_click=DoubleClickState.change_text)""",
     },
     {
         "name": "on_mouse_up",
@@ -95,7 +95,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseUpState.text, on_mouse_up=MouseUpState.change_text)""",
+        "example": """rx.button(MouseUpState.text, on_mouse_up=MouseUpState.change_text)""",
     },
     {
         "name": "on_mouse_down",
@@ -109,7 +109,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseDown.text, on_mouse_down=MouseDown.change_text)""",
+        "example": """rx.button(MouseDown.text, on_mouse_down=MouseDown.change_text)""",
     },
     {
         "name": "on_mouse_enter",
@@ -123,7 +123,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseEnter.text, on_mouse_enter=MouseEnter.change_text)""",
+        "example": """rx.button(MouseEnter.text, on_mouse_enter=MouseEnter.change_text)""",
     },
     {
         "name": "on_mouse_leave",
@@ -137,7 +137,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseLeave.text, on_mouse_leave=MouseLeave.change_text)""",
+        "example": """rx.button(MouseLeave.text, on_mouse_leave=MouseLeave.change_text)""",
     },
     {
         "name": "on_mouse_move",
@@ -151,7 +151,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseMove.text, on_mouse_move=MouseMove.change_text)""",
+        "example": """rx.button(MouseMove.text, on_mouse_move=MouseMove.change_text)""",
     },
     {
         "name": "on_mouse_out",
@@ -165,7 +165,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseOut.text, on_mouse_out=MouseOut.change_text)""",
+        "example": """rx.button(MouseOut.text, on_mouse_out=MouseOut.change_text)""",
     },
     {
         "name": "on_mouse_over",
@@ -179,7 +179,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.button(MouseOver.text, on_mouse_over=MouseOver.change_text)""",
+        "example": """rx.button(MouseOver.text, on_mouse_over=MouseOver.change_text)""",
     },
     {
         "name": "on_scroll",
@@ -193,10 +193,10 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """pc.vstack(
-            pc.text("Scroll to make the text below change."),
-            pc.text(ScrollState.text),
-            pc.text("Scroll to make the text above change."),
+        "example": """rx.vstack(
+            rx.text("Scroll to make the text below change."),
+            rx.text(ScrollState.text),
+            rx.text("Scroll to make the text above change."),
             on_scroll=ScrollState.change_text,
             overflow = "auto",
             height = "3em",
@@ -213,7 +213,7 @@ def component_grid():
     events = []
     for event in SYNTHETIC_EVENTS:
         events.append(
-            pc.vstack(
+            rx.vstack(
                 docheader(event["name"]),
                 doctext(event["description"]),
                 docdemo(
@@ -223,14 +223,14 @@ def component_grid():
             )
         )
 
-    return pc.box(*events)
+    return rx.box(*events)
 
 
 @docpage()
 def event_triggers():
-    return pc.flex(
-        pc.hstack(
-            pc.box(
+    return rx.flex(
+        rx.hstack(
+            rx.box(
                 docheader("Event Triggers", first=True),
                 doctext(
                     "Components can modify the state based on user events such as clicking a button or entering text in a field. These events are triggered by event triggers."
@@ -238,7 +238,7 @@ def event_triggers():
                 doctext(
                     "Event triggers are component specific and are listed in the documentation for each component."
                 ),
-                pc.divider(),
+                rx.divider(),
                 component_grid(),
                 text_align="left",
             ),

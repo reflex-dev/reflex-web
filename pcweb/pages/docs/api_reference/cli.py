@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import (
     doccode,
@@ -8,21 +8,21 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = """pc.text('hello world', color='blue')"""
+code_example1 = """rx.text('hello world', color='blue')"""
 
 
 @docpage()
 def cli():
-    return pc.box(
+    return rx.box(
         docheader("CLI", first=True),
         doctext(
             "The ",
-            pc.code("pc"),
-            " command line interface (CLI) is a tool for creating and managing Pynecone apps. ",
+            rx.code("pc"),
+            " command line interface (CLI) is a tool for creating and managing Reflex apps. ",
         ),
         doctext(
             "To see a list of all available commands, run ",
-            pc.code("pc --help"),
+            rx.code("pc --help"),
             ".",
         ),
         doccode(
@@ -33,20 +33,20 @@ Options:
   --help   Show this message and exit.
 
 Commands:
-  deploy   Deploy the app to the Pynecone hosting service.
+  deploy   Deploy the app to the Reflex hosting service.
   export   Export the app to a zip file.
-  init     Initialize a new Pynecone app in the current directory.
+  init     Initialize a new Reflex app in the current directory.
   run      Run the app in the current directory.
-  version  Get the Pynecone version.""",
+  version  Get the Reflex version.""",
             language="bash",
         ),
         subheader("Init"),
         doctext(
             "The ",
-            pc.code("pc init"),
-            " command creates a new Pynecone app in the current directory. ",
+            rx.code("pc init"),
+            " command creates a new Reflex app in the current directory. ",
             "If a ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             " file already exists already, it will re-initialize the app with the latest template. ",
         ),
         doccode(
@@ -67,7 +67,7 @@ Commands:
         subheader("Run"),
         doctext(
             "The ",
-            pc.code("pc run"),
+            rx.code("pc run"),
             " command runs the app in the current directory. ",
         ),
         doctext(
@@ -102,7 +102,7 @@ Options:
         subheader("Export"),
         doctext(
             "You can export your app's frontend and backend to zip files using the ",
-            pc.code("pc export"),
+            rx.code("pc export"),
             " command. ",
         ),
         doctext(
@@ -122,7 +122,7 @@ Options:
                    True]
   --backend-only   Export only backend.
   --frontend-only  Export only frontend.
-  --for-pc-deploy  Whether export the app for Pynecone Deploy Service.
+  --for-pc-deploy  Whether export the app for Reflex Deploy Service.
   --help           Show this message and exit.
   """,
             language="bash",

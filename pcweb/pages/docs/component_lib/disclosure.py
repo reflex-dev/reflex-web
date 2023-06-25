@@ -1,46 +1,46 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
 
-short_hand_accordion_example = """pc.accordion(
-   items = [("Label 1", pc.center("Panel 1")), ("Label 2", pc.center("Panel 2"))],
+short_hand_accordion_example = """rx.accordion(
+   items = [("Label 1", rx.center("Panel 1")), ("Label 2", rx.center("Panel 2"))],
    width = "100%"
    )
 """
 
-basic_example = """pc.accordion(
-    pc.accordion_item(
-        pc.accordion_button(
-            pc.heading("Example"),
-            pc.accordion_icon(),
+basic_example = """rx.accordion(
+    rx.accordion_item(
+        rx.accordion_button(
+            rx.heading("Example"),
+            rx.accordion_icon(),
         ),
-        pc.accordion_panel(
-            pc.text("This is an example of an accordion component.")
+        rx.accordion_panel(
+            rx.text("This is an example of an accordion component.")
         )
     ),
     width = "100%"
 )
 """
 
-accordion_example = """pc.accordion(
-    pc.accordion_item(
-        pc.accordion_button(
-            pc.heading("Example 1"),
-            pc.accordion_icon(),
+accordion_example = """rx.accordion(
+    rx.accordion_item(
+        rx.accordion_button(
+            rx.heading("Example 1"),
+            rx.accordion_icon(),
         ),
-        pc.accordion_panel(
-            pc.text("This is an example of an accordion component.")
+        rx.accordion_panel(
+            rx.text("This is an example of an accordion component.")
         ),
     ),
-    pc.accordion_item(
-        pc.accordion_button(
-            pc.heading("Example 2"),
-            pc.accordion_icon(),
+    rx.accordion_item(
+        rx.accordion_button(
+            rx.heading("Example 2"),
+            rx.accordion_icon(),
         ),
-        pc.accordion_panel(
-            pc.text("This is an example of an accordion component.")
+        rx.accordion_panel(
+            rx.text("This is an example of an accordion component.")
         ),
     ),
     allow_multiple = True,
@@ -50,22 +50,22 @@ accordion_example = """pc.accordion(
 )
 """
 
-accordion_example_nested = """pc.accordion(
-    pc.accordion_item(
-        pc.accordion_button(
-            pc.accordion_icon(),
-            pc.heading("Outer"),
+accordion_example_nested = """rx.accordion(
+    rx.accordion_item(
+        rx.accordion_button(
+            rx.accordion_icon(),
+            rx.heading("Outer"),
             
         ),
-        pc.accordion_panel(
-            pc.accordion(
-            pc.accordion_item(
-                pc.accordion_button(
-                    pc.accordion_icon(),
-                    pc.heading("Inner"),    
+        rx.accordion_panel(
+            rx.accordion(
+            rx.accordion_item(
+                rx.accordion_button(
+                    rx.accordion_icon(),
+                    rx.heading("Inner"),    
                 ),
-                pc.accordion_panel(
-                    pc.badge("Inner Panel", variant="solid", color_scheme="green"),
+                rx.accordion_panel(
+                    rx.badge("Inner Panel", variant="solid", color_scheme="green"),
                 )
             )
             ),
@@ -78,7 +78,7 @@ accordion_example_nested = """pc.accordion(
 
 # Disclosure
 def render_accordion():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Accordions allow you to hide and show content in a container under a header."
         ),
@@ -95,7 +95,7 @@ def render_accordion():
         doctext(
             "You can also create an accordion using the shorthand syntax. ",
             "Pass a list of tuples to the ",
-            pc.code("items"),
+            rx.code("items"),
             " prop. Each tuple should contain a label and a panel.",
         ),
         docdemo(short_hand_accordion_example),
@@ -103,16 +103,16 @@ def render_accordion():
     )
 
 
-tab_example = """pc.tabs(
-    pc.tab_list(
-        pc.tab("Tab 1"),
-        pc.tab("Tab 2"),
-        pc.tab("Tab 3"),
+tab_example = """rx.tabs(
+    rx.tab_list(
+        rx.tab("Tab 1"),
+        rx.tab("Tab 2"),
+        rx.tab("Tab 3"),
     ),
-    pc.tab_panels(
-        pc.tab_panel(pc.text("Text from tab 1.")),
-        pc.tab_panel(pc.checkbox("Text from tab 2.")),
-        pc.tab_panel(pc.button("Text from tab 3.", color="black")),
+    rx.tab_panels(
+        rx.tab_panel(rx.text("Text from tab 1.")),
+        rx.tab_panel(rx.checkbox("Text from tab 2.")),
+        rx.tab_panel(rx.button("Text from tab 3.", color="black")),
     ),
     bg="black",
     color="white",
@@ -120,8 +120,8 @@ tab_example = """pc.tabs(
 )
 """
 
-short_hand_tab_example = """pc.tabs(
-    items = [("Tab 1", pc.text("Text from tab 1.")), ("Tab 2", pc.checkbox("Text from tab 2.")), ("Tab 3", pc.button("Text from tab 3.", color="black"))],
+short_hand_tab_example = """rx.tabs(
+    items = [("Tab 1", rx.text("Text from tab 1.")), ("Tab 2", rx.checkbox("Text from tab 2.")), ("Tab 3", rx.button("Text from tab 3.", color="black"))],
     bg="black",
     color="white",
     shadow="lg",
@@ -130,7 +130,7 @@ short_hand_tab_example = """pc.tabs(
 
 
 def render_tabs():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Tab components allow you display content in multiple pages within a container. These page are organized by a tab list and the corresponoding tab panel can take in children components if needed."
         ),
@@ -138,7 +138,7 @@ def render_tabs():
         doctext(
             "You can create a tab component using the shorthand syntax. ",
             "Pass a list of tuples to the ",
-            pc.code("items"),
+            rx.code("items"),
             " prop. Each tuple should contain a label and a panel.",
         ),
         docdemo(short_hand_tab_example),

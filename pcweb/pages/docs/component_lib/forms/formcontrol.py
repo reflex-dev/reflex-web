@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -6,10 +6,10 @@ from pcweb.templates.docpage import (
     doctext,
 )
 
-code15 = """pc.form_control(
-    pc.form_label("First Name", html_for="email"),
-    pc.checkbox("Example"),
-    pc.form_helper_text("This is a help text"),
+code15 = """rx.form_control(
+    rx.form_label("First Name", html_for="email"),
+    rx.checkbox("Example"),
+    rx.form_helper_text("This is a help text"),
     is_required=True,
     )
 """
@@ -18,19 +18,19 @@ code15 = """pc.form_control(
 form_error_state = """class FormErrorState(State):
     name: str
 
-    @pc.var
+    @rx.var
     def is_error(self) -> bool:
          return len(self.name) <= 3
 """
 exec(form_error_state)
 
-form_state_example = """pc.vstack(
-        pc.form_control(
-            pc.input(placeholder="name", on_blur=FormErrorState.set_name),
-            pc.cond(
+form_state_example = """rx.vstack(
+        rx.form_control(
+            rx.input(placeholder="name", on_blur=FormErrorState.set_name),
+            rx.cond(
                 FormErrorState.is_error,
-                pc.form_error_message("Name should be more than four characters"),
-                pc.form_helper_text("Enter name"),
+                rx.form_error_message("Name should be more than four characters"),
+                rx.form_helper_text("Enter name"),
             ),
             is_invalid=FormErrorState.is_error,
             is_required=True,
@@ -42,7 +42,7 @@ form_state_example = """pc.vstack(
 
 
 def render_formcontrol():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Provides context such as filled/focused/error/required for form inputs."
         ),

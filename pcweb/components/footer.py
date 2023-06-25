@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.components.logo import logo
@@ -26,50 +26,50 @@ footer_style = {
 
 
 def footer(style=footer_style):
-    return pc.box(
-        pc.vstack(
-            pc.hstack(
-                pc.desktop_only(
+    return rx.box(
+        rx.vstack(
+            rx.hstack(
+                rx.desktop_only(
                     logo(
                         width=["4.28em", "4.28em", "5.35em"],
                         height=["4em", "4em", "5em"],
                     ),
                 ),
-                pc.vstack(
-                    pc.text("Site", color="#DACEEE"),
-                    pc.link("Home", href=index.path, style=footer_item_style),
-                    pc.link("Gallery", href=gallery.path, style=footer_item_style),
-                    pc.link("Hosting", href=deploy.path, style=footer_item_style),
+                rx.vstack(
+                    rx.text("Site", color="#DACEEE"),
+                    rx.link("Home", href=index.path, style=footer_item_style),
+                    rx.link("Gallery", href=gallery.path, style=footer_item_style),
+                    rx.link("Hosting", href=deploy.path, style=footer_item_style),
                     align_items="start",
                 ),
-                pc.vstack(
-                    pc.text("Documentation", color="#DACEEE"),
-                    pc.link(
+                rx.vstack(
+                    rx.text("Documentation", color="#DACEEE"),
+                    rx.link(
                         "Introduction",
                         href=introduction.path,
                         style=footer_item_style,
                     ),
-                    pc.link(
+                    rx.link(
                         "Installation",
                         href=installation.path,
                         style=footer_item_style,
                     ),
-                    pc.link("Components", href=library.path, style=footer_item_style),
+                    rx.link("Components", href=library.path, style=footer_item_style),
                     align_items="start",
                 ),
-                pc.vstack(
-                    pc.text("Resources", color="#DACEEE"),
-                    pc.link(
+                rx.vstack(
+                    rx.text("Resources", color="#DACEEE"),
+                    rx.link(
                         "GitHub",
                         href=constants.GITHUB_URL,
                         style=footer_item_style,
                     ),
-                    pc.link(
+                    rx.link(
                         "Discord",
                         href=constants.DISCORD_URL,
                         style=footer_item_style,
                     ),
-                    pc.link(
+                    rx.link(
                         "Twitter",
                         href=constants.TWITTER_URL,
                         style=footer_item_style,
@@ -82,12 +82,12 @@ def footer(style=footer_style):
                 padding_bottom="3em",
                 min_width="100%",
             ),
-            pc.hstack(
-                pc.text(
-                    "Copyright © 2023 Pynecone",
+            rx.hstack(
+                rx.text(
+                    "Copyright © 2023 Pynecone, Inc.",
                     font_weight="500",
                 ),
-                pc.link(
+                rx.link(
                     "Contact",
                     href=constants.CONTACT_URL,
                     font_weight="500",

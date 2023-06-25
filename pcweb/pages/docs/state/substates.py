@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docheader, docpage, doctext, subheader
@@ -22,17 +22,17 @@ class ChildState3(ChildState1):
 """
 exec(code1)
 code2 = """
-pc.badge(ChildState3.text, color_scheme=ChildState2.color)
+rx.badge(ChildState3.text, color_scheme=ChildState2.color)
 """
 
 code3 = """
-pc.heading(ChildState3.count, color="green")
+rx.heading(ChildState3.count, color="green")
 """
 
 
 @docpage()
 def substates():
-    return pc.box(
+    return rx.box(
         docheader("Substates", first=True),
         doctext(
             "As your app grows, your state will grow too. ",
@@ -41,23 +41,23 @@ def substates():
         subheader("Creating a Substate"),
         doctext(
             "Your base state should inherit from ",
-            pc.code("pc.State"),
+            rx.code("rx.State"),
             ". ",
             "Substates can either inherit from your base state or other substates.",
         ),
         docdemo(code2, code1, eval(code2)),
         doctext(
             "In the example above, we have a base state ",
-            pc.code("ParentState"),
+            rx.code("ParentState"),
             " with two substates ",
-            pc.code("ChildState1"),
+            rx.code("ChildState1"),
             " and ",
-            pc.code("ChildState2"),
+            rx.code("ChildState2"),
             ". ",
             "Additionally, ",
-            pc.code("ChildState3"),
+            rx.code("ChildState3"),
             " inherits from ",
-            pc.code("ChildState1"),
+            rx.code("ChildState1"),
             ". ",
             "Components can access any var or event handler from any substate.",
         ),

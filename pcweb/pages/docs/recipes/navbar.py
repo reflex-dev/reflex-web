@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import (
     doccode,
@@ -8,12 +8,12 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = """pc.text('hello world', color='blue')"""
+code_example1 = """rx.text('hello world', color='blue')"""
 
 
 @docpage()
 def navbar():
-    return pc.box(
+    return rx.box(
         docheader("Navigation Bar", first=True),
         doctext(
             "A navigation bar, also known as a navbar, is a common UI element found at the top of a webpage or application. It typically provides links or buttons to the main sections of a website or application, allowing users to easily navigate and access the different pages. ",
@@ -29,27 +29,27 @@ def navbar():
         ),
         doctext(
             "In this example we want the navbar to stick to the top of the page, so we will use the ",
-            pc.code('position= "fixed"'),
+            rx.code('position= "fixed"'),
             " prop to make the navbar fixed to the top of the page. ",
             "We will also use the ",
-            pc.code("top= 0"),
+            rx.code("top= 0"),
             " and ",
-            pc.code('z_index="1'),
+            rx.code('z_index="1'),
             " props to make sure the navbar is always on top of the screen and above the other components on the page. ",
         ),
         doccode(
             """
-            import pynecone as pc
+            import reflex as rx
 
             def navbar():
-                return pc.box(
-                    pc.hstack(
-                        pc.image(src="favicon.ico"),
-                        pc.heading("My App")
+                return rx.box(
+                    rx.hstack(
+                        rx.image(src="favicon.ico"),
+                        rx.heading("My App")
                     ),
-                    pc.spacer(),
-                    pc.menu(
-                        pc.menu_button("Menu"),
+                    rx.spacer(),
+                    rx.menu(
+                        rx.menu_button("Menu"),
                     ),
                     position="fixed",
                     width="100%",

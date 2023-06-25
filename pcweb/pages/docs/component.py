@@ -4,8 +4,8 @@ import inspect
 import re
 from typing import Any, Type
 
-from pynecone.base import Base
-from pynecone.components.component import Component
+from reflex.base import Base
+from reflex.components.component import Component
 
 from pcweb.component_list import component_list, not_ready_components
 from pcweb.components.sidebar import SidebarItem
@@ -138,13 +138,13 @@ TYPE_COLORS = {
 }
 
 
-def prop_docs(prop: Prop) -> list[pc.Component]:
+def prop_docs(prop: Prop) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
-    if pc.utils.types._issubclass(prop.type_, pc.Var):
+    if rx.utils.types._issubclass(prop.type_, rx.Var):
         # For vars, get the type of the var.
-        type_ = pc.utils.types.get_args(type_)[0]
+        type_ = rx.utils.types.get_args(type_)[0]
     try:
         type_ = type_.__name__
     except AttributeError:
@@ -155,13 +155,13 @@ def prop_docs(prop: Prop) -> list[pc.Component]:
 
     # Return the docs for the prop.
     return [
-        pc.td(pc.code(prop.name, color="#333")),
-        pc.td(pc.badge(type_, color_scheme=color, variant="solid")),
-        pc.td(pc.markdown(prop.description)),
+        rx.td(rx.code(prop.name, color="#333")),
+        rx.td(rx.badge(type_, color_scheme=color, variant="solid")),
+        rx.td(rx.markdown(prop.description)),
     ]
 
 
-def get_examples(component: str) -> pc.Component:
+def get_examples(component: str) -> rx.Component:
     return eval(f"render_{component.lower()}()")
 
 
@@ -266,19 +266,19 @@ def component_docs(component):
 
     if len(src.get_props()) > 0:
         props = [
-            pc.accordion(
-                pc.accordion_item(
-                pc.accordion_button(pc.accordion_icon(), pc.heading("Props", font_size="1em")),
-                pc.accordion_panel(pc.box(
-                    pc.table(
-                        pc.thead(
-                            pc.tr(
-                                pc.th("Prop"),
-                                pc.th("Type"),
-                                pc.th("Description"),
+            rx.accordion(
+                rx.accordion_item(
+                rx.accordion_button(rx.accordion_icon(), rx.heading("Props", font_size="1em")),
+                rx.accordion_panel(rx.box(
+                    rx.table(
+                        rx.thead(
+                            rx.tr(
+                                rx.th("Prop"),
+                                rx.th("Type"),
+                                rx.th("Description"),
                             )
                         ),
-                        pc.tbody(*[pc.tr(*prop_docs(prop)) for prop in src.get_props()]),
+                        rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
                     ),
                     background_color="rgb(255, 255, 255)",
                     border_radius="1em",
@@ -296,10 +296,10 @@ def component_docs(component):
         ]
     else:
         props = [
-            pc.box(
-                pc.unordered_list(
-                    pc.list_item(
-                        pc.heading(
+            rx.box(
+                rx.unordered_list(
+                    rx.list_item(
+                        rx.heading(
                             f"No props for {component.__name__}.", font_size="1em"
                         )
                     )
@@ -314,38 +314,38 @@ def component_docs(component):
 
     trig = []
     for event in component().get_triggers():
-        if event not in pc.event.EVENT_TRIGGERS and event not in ("on_drop",):
+        if event not in rx.event.EVENT_TRIGGERS and event not in ("on_drop",):
             trig.append(event)
 
     if trig:
-        specific_triggers = pc.accordion_item(
-                            pc.accordion_button(pc.accordion_icon(), pc.heading("Component Specific Triggers", font_size="1em")),
-                            pc.accordion_panel(
+        specific_triggers = rx.accordion_item(
+                            rx.accordion_button(rx.accordion_icon(), rx.heading("Component Specific Triggers", font_size="1em")),
+                            rx.accordion_panel(
                                 *[
-                                    pc.accordion_item(
-                                        pc.accordion_button(
-                                            pc.accordion_icon(),
-                                            pc.code(event),
+                                    rx.accordion_item(
+                                        rx.accordion_button(
+                                            rx.accordion_icon(),
+                                            rx.code(event),
                                         ),
-                                        pc.accordion_panel(pc.text(EVENTS[event]["description"])),
+                                        rx.accordion_panel(rx.text(EVENTS[event]["description"])),
                                     )
                                     for event in component().get_triggers()
-                                    if event not in pc.event.EVENT_TRIGGERS
+                                    if event not in rx.event.EVENT_TRIGGERS
                                     and event not in ("on_drop",)
                                 ],
                             ),
                             border_color="rgb(255, 255, 255)",
                         )
         
-        component_specific_triggers =  pc.accordion(
-                pc.accordion_item(
-                    pc.accordion_button(pc.accordion_icon(), pc.heading("Event Triggers", font_size="1em")),
-                    pc.accordion_panel(
-                        pc.accordion_item(
-                            pc.accordion_button(
-                                pc.link(
-                                    pc.hstack(pc.icon(tag="link"), 
-                                    pc.heading("Base Event Triggers", font_size="1em")), 
+        component_specific_triggers =  rx.accordion(
+                rx.accordion_item(
+                    rx.accordion_button(rx.accordion_icon(), rx.heading("Event Triggers", font_size="1em")),
+                    rx.accordion_panel(
+                        rx.accordion_item(
+                            rx.accordion_button(
+                                rx.link(
+                                    rx.hstack(rx.icon(tag="link"), 
+                                    rx.heading("Base Event Triggers", font_size="1em")), 
                                     href="/docs/api-reference/event-triggers"
                                 )
                             ),
@@ -361,10 +361,10 @@ def component_docs(component):
             )
                         
     else:
-        component_specific_triggers = pc.box(
-                pc.unordered_list(
-                    pc.list_item(
-                        pc.heading("Base Event Triggers", font_size="1em")
+        component_specific_triggers = rx.box(
+                rx.unordered_list(
+                    rx.list_item(
+                        rx.heading("Base Event Triggers", font_size="1em")
                     )
                 ),
                 padding_top  = "1.5em",
@@ -374,17 +374,17 @@ def component_docs(component):
             )
 
     triggers = [
-        pc.box(
+        rx.box(
             component_specific_triggers,
             max_width="100%",
             overflow_x="auto",
         ),
     ]
 
-    return pc.box(
+    return rx.box(
         docheader(component.__name__),
-        pc.markdown(src.get_docs()),
-        pc.divider(),
+        rx.markdown(src.get_docs()),
+        rx.divider(),
         *props,
         *triggers,
         text_align="left",
@@ -412,9 +412,9 @@ def multi_docs(path, component_list):
     @docpage(set_path=path)
     def out():
         name = component_list[0].__name__
-        return pc.box(
-            pc.box(
-                pc.box(
+        return rx.box(
+            rx.box(
+                rx.box(
                     docheader(
                         name, first=True, coming_soon=name in coming_soon_components
                     ),

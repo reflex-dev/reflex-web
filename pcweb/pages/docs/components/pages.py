@@ -1,11 +1,11 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
 
 @docpage()
 def pages():
-    return pc.box(
+    return rx.box(
         docheader("Pages", first=True),
         doctext(
             "Pages specify the component to render for a given URL.",
@@ -18,15 +18,15 @@ def pages():
         doccode(
             """
         def index():
-            return pc.text('Root Page')
+            return rx.text('Root Page')
 
         def about():
-            return pc.text('About Page')
+            return rx.text('About Page')
 
         def custom():
-            return pc.text('Custom Route')
+            return rx.text('Custom Route')
 
-        app = pc.App()
+        app = rx.App()
         app.add_page(index)
         app.add_page(about)
         app.add_page(custom, route="/custom-route")
@@ -36,24 +36,24 @@ def pages():
             "In this example we create three pages: ",
         ),
         doctext(
-            pc.unordered_list(
-                pc.vstack(
-                    pc.list_item(
-                        pc.code("index"),
+            rx.unordered_list(
+                rx.vstack(
+                    rx.list_item(
+                        rx.code("index"),
                         " - The root route, available at ",
-                        pc.code("/"),
+                        rx.code("/"),
                         width="100%",
                     ),
-                    pc.list_item(
-                        pc.code("about"),
+                    rx.list_item(
+                        rx.code("about"),
                         " - available at ",
-                        pc.code("/about"),
+                        rx.code("/about"),
                         width="100%",
                     ),
-                    pc.list_item(
-                        pc.code("custom"),
+                    rx.list_item(
+                        rx.code("custom"),
                         " - available at ",
-                        pc.code("/custom-route"),
+                        rx.code("/custom-route"),
                         width="100%",
                     ),
                 )
@@ -66,15 +66,15 @@ def pages():
         doccode(
             """
         def nested_page():
-            return pc.text('Nested Page')
+            return rx.text('Nested Page')
 
-        app = pc.App()
+        app = rx.App()
         app.add_page(nested_page, route="/nested/page")
 """
         ),
         doctext(
             "This component will be available at ",
-            pc.code("/nested/page"),
+            rx.code("/nested/page"),
             ".",
         ),
         subheader("Dynamic Routes"),
@@ -86,30 +86,30 @@ def pages():
         ),
         doccode(
             """
-class State(pc.State):
-    @pc.var
+class State(rx.State):
+    @rx.var
     def post_id(self):
         return self.get_query_params().get("pid", "no pid")
 
 def post():
     \"""A page that updates based on the route.\"""
-    return pc.heading(State.post_id)
+    return rx.heading(State.post_id)
 
-app = pc.App(state=State)
+app = rx.App(state=State)
 app.add_page(post, route="/post/[pid]")
 """
         ),
         doctext(
             "When you visit ",
-            pc.code("/post/123"),
+            rx.code("/post/123"),
             ", the page will render with the text ",
-            pc.code("123"),
+            rx.code("123"),
             ".",
         ),
         doctext(
             "You can also specify multiple dynamic arguments, ",
             "and they will be available in the ",
-            pc.code("get_query_params"),
+            rx.code("get_query_params"),
             " dictionary.",
         ),
         doctext(
@@ -117,28 +117,28 @@ app.add_page(post, route="/post/[pid]")
         ),
         doccode(
             """
-class State(pc.State):
-    @pc.var
+class State(rx.State):
+    @rx.var
     def post_id(self):
         return self.get_query_params().get("pid", "no pid")
 
-    @pc.var
+    @rx.var
     def current_page(self):
         return self.get_current_page()
 
-    @pc.var
+    @rx.var
     def token(self):
         return self.get_token()
 
 def post():
     \"""A page that updates based on the route.\"""
-    return pc.vstack(
-        pc.text(State.post_id), 
-        pc.text(State.current_page),
-        pc.text(State.token),
+    return rx.vstack(
+        rx.text(State.post_id), 
+        rx.text(State.current_page),
+        rx.text(State.token),
     )
 
-app = pc.App(state=State)
+app = rx.App(state=State)
 app.add_page(post, route="/post/[pid]")
 """
         ),
@@ -146,24 +146,24 @@ app.add_page(post, route="/post/[pid]")
         doctext(
             "You can add page metadata such as: ",
         ),
-        pc.unordered_list(
-            pc.vstack(
-                pc.list_item(
-                    pc.text("The title that will appear in the browser tab"),
+        rx.unordered_list(
+            rx.vstack(
+                rx.list_item(
+                    rx.text("The title that will appear in the browser tab"),
                     width="100%",
                 ),
-                pc.list_item(
-                    pc.text("The description that will appear in search results"),
+                rx.list_item(
+                    rx.text("The description that will appear in search results"),
                     width="100%",
                 ),
-                pc.list_item(
-                    pc.text(
+                rx.list_item(
+                    rx.text(
                         "The image that will appear when the page is shared on social media"
                     ),
                     width="100%",
                 ),
-                pc.list_item(
-                    pc.text("The optional metadata that you want to add"),
+                rx.list_item(
+                    rx.text("The optional metadata that you want to add"),
                     width="100%",
                 ),
             )
@@ -171,10 +171,10 @@ app.add_page(post, route="/post/[pid]")
         doccode(
             """
 def index():
-    return pc.text('A Beautiful App')
+    return rx.text('A Beautiful App')
 
 def about():
-    return pc.text('About Page')
+    return rx.text('About Page')
 
 meta = [
     {"name": "theme_color", "content": "#FFFFFF"},
@@ -182,8 +182,8 @@ meta = [
     {"property": "og:url", "content": "url"},
 ]
 
-app = pc.App()
-app.add_page(index, meta=meta, title="My Beautiful App", description="A beautiful app built with Pynecone", image="/splash.png")
+app = rx.App()
+app.add_page(index, meta=meta, title="My Beautiful App", description="A beautiful app built with Reflex", image="/splash.png")
 app.add_page(about, title="About Page")
             """
         ),
@@ -195,33 +195,33 @@ app.add_page(about, title="About Page")
         doctext("In this example, we fetch data when the page loads:"),
         doccode(
             """
-            class State(pc.State):
+            class State(rx.State):
                 data: Dict[str, Any]
 
                 def get_data(self):
                     # Fetch data
                     self.data = fetch_data()
             def index():
-                return pc.text('A Beautiful App')
+                return rx.text('A Beautiful App')
             app.add_page(index, on_load=State.get_data)
             """
         ),
         subheader("Route Decorator"),
         doctext(
             "You can also use the ",
-            pc.code("@pc.route"),
+            rx.code("@rx.route"),
             " decorator to add a page.",
         ),
         doccode(
             """
-            @pc.route(route="/", title="My Beautiful App")
+            @rx.route(route="/", title="My Beautiful App")
             def index():
-                return pc.text('A Beautiful App')
+                return rx.text('A Beautiful App')
             """
         ),
         doctext(
             "This is equivalent to calling ",
-            pc.code("app.add_page"),
+            rx.code("app.add_page"),
             " with the same arguments.",
         ),
     )

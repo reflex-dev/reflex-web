@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 from pcweb.templates.docpage import (
     doccode,
     docheader,
@@ -15,7 +15,7 @@ import inspect
 import re
 
 
-class Source(pc.Base):
+class Source(rx.Base):
     """Parse the source code of a component."""
 
     # The component to parse.
@@ -54,12 +54,12 @@ class Source(pc.Base):
         return self.module.__doc__
 
     def get_class_fields(self) -> list[dict]:
-        if not issubclass(self.module, pc.Base):
+        if not issubclass(self.module, rx.Base):
             return []
         return self.get_annotations(self.module.__class_vars__)
 
     def get_fields(self) -> list[dict]:
-        if not issubclass(self.module, pc.Base):
+        if not issubclass(self.module, rx.Base):
             return []
         return self.get_annotations(self.module.__fields__)
 
@@ -135,69 +135,69 @@ class Source(pc.Base):
 
 
 def generate_docs(title, s):
-    return pc.box(
+    return rx.box(
         docheader(title.title(), first=True),
-        pc.code(
+        rx.code(
             s.get_name(),
             font_size=styles.H3_FONT_SIZE,
             font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
         ),
-        pc.divider(),
+        rx.divider(),
         doctext(s.get_overview()),
         subheader("Class Fields"),
-        pc.table(
-            pc.thead(
-                pc.tr(
-                    pc.th("Field"),
-                    pc.th("Description"),
+        rx.table(
+            rx.thead(
+                rx.tr(
+                    rx.th("Field"),
+                    rx.th("Description"),
                 )
             ),
-            pc.tbody(
+            rx.tbody(
                 *[
-                    pc.tr(
-                        pc.td(pc.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                        pc.td(field["description"]),
+                    rx.tr(
+                        rx.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
+                        rx.td(field["description"]),
                     )
                     for field in s.get_class_fields()
                 ],
             ),
         ),
         subheader("Fields"),
-        pc.table(
-            pc.thead(
-                pc.tr(
-                    pc.th("Field"),
-                    pc.th("Description"),
+        rx.table(
+            rx.thead(
+                rx.tr(
+                    rx.th("Field"),
+                    rx.th("Description"),
                 )
             ),
-            pc.tbody(
+            rx.tbody(
                 *[
-                    pc.tr(
-                        pc.td(pc.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                        pc.td(field["description"]),
+                    rx.tr(
+                        rx.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
+                        rx.td(field["description"]),
                     )
                     for field in s.get_fields()
                 ],
             ),
         ),
         subheader("Methods"),
-        pc.table(
-            pc.thead(
-                pc.tr(
-                    pc.th("Signature"),
-                    pc.th("Description"),
+        rx.table(
+            rx.thead(
+                rx.tr(
+                    rx.th("Signature"),
+                    rx.th("Description"),
                 )
             ),
-            pc.tbody(
+            rx.tbody(
                 *[
-                    pc.tr(
-                        pc.td(
-                            pc.code(
+                    rx.tr(
+                        rx.td(
+                            rx.code(
                                 field["name"] + field["signature"],
                                 font_weight=styles.BOLD_WEIGHT,
                             )
                         ),
-                        pc.td(field["description"]),
+                        rx.td(field["description"]),
                     )
                     for field in s.get_methods()
                 ],

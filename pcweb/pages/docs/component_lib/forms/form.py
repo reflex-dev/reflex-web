@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -17,49 +17,49 @@ class FormState(State):
 """
 exec(form_state)
 
-form_example = """pc.vstack(
-    pc.form(
-        pc.vstack(
-            pc.input(placeholder="First Name", id="first_name"),
-            pc.input(placeholder="Last Name", id="last_name"),
-            pc.hstack(
-                pc.checkbox("Checked", id="check"),
-                pc.switch("Switched", id="switch"),
+form_example = """rx.vstack(
+    rx.form(
+        rx.vstack(
+            rx.input(placeholder="First Name", id="first_name"),
+            rx.input(placeholder="Last Name", id="last_name"),
+            rx.hstack(
+                rx.checkbox("Checked", id="check"),
+                rx.switch("Switched", id="switch"),
             ),
-            pc.button("Submit", type_="submit"),
+            rx.button("Submit", type_="submit"),
         ),
         on_submit=FormState.handle_submit,
     ),
-    pc.divider(),
-    pc.heading("Results"),
-    pc.text(FormState.form_data.to_string()),
+    rx.divider(),
+    rx.heading("Results"),
+    rx.text(FormState.form_data.to_string()),
 )
 """
 
 
 def render_form():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Forms are used to collect user input. The ",
-            pc.code("pc.form"),
+            rx.code("rx.form"),
             " component is used to group inputs and submit them together.",
         ),
         doctext(
             "The form component's children can be form controls such as ",
-            pc.code("pc.input"),
+            rx.code("rx.input"),
             ", ",
-            pc.code("pc.checkbox"),
+            rx.code("rx.checkbox"),
             ", ",
             " or ",
-            pc.code("pc.switch"),
+            rx.code("rx.switch"),
             ".",
             "The controls should have an ",
-            pc.code("id"),
+            rx.code("id"),
             " attribute that is used to identify the control in the form data. ",
             "The ",
-            pc.code("on_submit"),
+            rx.code("on_submit"),
             " event trigger submits the form data as a dictionary to the ",
-            pc.code("handle_submit"),
+            rx.code("handle_submit"),
             " event handler.",
         ),
         doctext(
@@ -72,11 +72,11 @@ def render_form():
             context=True,
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.alert_title(
+            rx.alert(
+                rx.alert_icon(),
+                rx.alert_title(
                     "When using the form you must include a component with the ",
-                    pc.code("type_='submit'"),
+                    rx.code("type_='submit'"),
                     ".",
                 ),
                 status="warning",

@@ -3,8 +3,8 @@
 import inspect
 from typing import Callable
 
-import pynecone as pc
-from pynecone.base import Base
+import reflex as rx
+from reflex.base import Base
 
 
 class Route(Base):
@@ -17,7 +17,7 @@ class Route(Base):
     title: str | None = None
 
     # The component to render for the route.
-    component: pc.Component | Callable[[], pc.Component]
+    component: rx.Component | Callable[[], rx.Component]
 
 
 def get_path(component_fn: Callable):

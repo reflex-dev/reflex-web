@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import (
     doccode,
@@ -12,10 +12,10 @@ from pcweb.templates.docpage import (
 
 @docpage()
 def database_overview():
-    return pc.box(
+    return rx.box(
         docheader("Database", first=True),
         doctext(
-            "Pynecone comes with a built-in ORM wrapping SQLAlchemy. ",
+            "Reflex comes with a built-in ORM wrapping SQLAlchemy. ",
             "We will cover some basic use cases, but you can refer to their ",
             doclink(
                 text="docs",
@@ -25,17 +25,17 @@ def database_overview():
         ),
         subheader("Connecting"),
         doctext(
-            "Pynecone provides a built-in SQLite database for storing and retrieving data. "
+            "Reflex provides a built-in SQLite database for storing and retrieving data. "
         ),
         doctext(
             "You can connect to your own SQL compatible database by modifying the ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             " file with your database url.",
         ),
         doccode(
-            """config = pc.Config(
+            """config = rx.Config(
     app_name="my_app",
-    db_url="sqlite:///pynecone.db",
+    db_url="sqlite:///reflex.db",
 )
 """
         ),
@@ -43,9 +43,9 @@ def database_overview():
             "You can also use a DBConfig object to connect to your database.",
         ),
         doccode(
-            """config = pc.Config(
+            """config = rx.Config(
     app_name="my_app",
-    db_config=pc.DBConfig(engine="postgresql+psycopg2", username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone"),
+    db_config=rx.DBConfig(engine="postgresql+psycopg2", username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex"),
 )
 """
         ),
@@ -54,19 +54,19 @@ def database_overview():
         ),
         doccode(
             """
-    DBConfig.sqlite(database="pynecone.db")
-    DBConfig.postgresql(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone")
-    DBConfig.postgresql_psycopg2(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="pynecone")
+    DBConfig.sqlite(database="reflex.db")
+    DBConfig.postgresql(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex")
+    DBConfig.postgresql_psycopg2(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex")
 """
         ),
         subheader("Tables"),
         doctext(
             "To create a table make a class that inherits from ",
-            pc.code("pc.Model"),
+            rx.code("rx.Model"),
             " with and specify that it is a table.",
         ),
         doccode(
-            """class User(pc.Model, table=True):
+            """class User(rx.Model, table=True):
     username: str
     email: str
     password: str   
@@ -74,14 +74,14 @@ def database_overview():
         ),
         doctext(
             "Each time you run your app with ",
-            pc.code("pc run"),
+            rx.code("pc run"),
             " it will check if the table exists in the database, ",
             "and will create it if it does not exist.",
         ),
         subheader("Queries"),
         doctext(
             "To query the database you can create a ",
-            pc.code("pc.session()"),
+            rx.code("rx.session()"),
             ", which handles opening and closing the database connection.",
         ),
         doctext(
@@ -89,7 +89,7 @@ def database_overview():
         ),
         doccode(
             """
-        with pc.session() as session:
+        with rx.session() as session:
             session.add(User(username="test", email="admin@pynecone.io", password="admin"))
             session.commit()
         """

@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
@@ -8,18 +8,18 @@ def use_middleware():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.styling.overview import styling_overview
 
-    return pc.box(
+    return rx.box(
         docheader("Middleware", first=True),
         doctext(
             "Middleware allows you to run custom code during the handling of events in your app. "
         ),
         subheader("Example: Logging"),
         doctext(
-            "Pynecone includes a built in middleware that logs all events to the console. "
+            "Reflex includes a built in middleware that logs all events to the console. "
             "Let's see how it works. "
         ),
         doccode(
-            """class LoggingMiddleware(pc.Middleware):
+            """class LoggingMiddleware(rx.Middleware):
 
     def preprocess(self, app, state, event):
         print(f"Event {event}")
@@ -29,12 +29,12 @@ def use_middleware():
         ),
         doctext(
             "Middleware classes must inherit from ",
-            pc.code("pc.Middleware"),
+            rx.code("rx.Middleware"),
             ". ",
             "They have two functions that can be overridden: ",
-            pc.code("preprocess"),
+            rx.code("preprocess"),
             " and ",
-            pc.code("postprocess"),
+            rx.code("postprocess"),
             ". ",
         ),
         doctext(
@@ -43,7 +43,7 @@ def use_middleware():
         ),
         doctext("You can add middleware during app creation. "),
         doccode(
-            """app = pc.App(
+            """app = rx.App(
                 middleware=[LoggingMiddleware()]
             )"""
         ),

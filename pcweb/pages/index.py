@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 
-import pynecone as pc
+import reflex as rx
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 
@@ -38,7 +38,7 @@ link_style = {
 }
 
 
-class Confetti(pc.Component):
+class Confetti(rx.Component):
     """Confetti component."""
 
     library = "react-confetti"
@@ -49,7 +49,7 @@ class Confetti(pc.Component):
 confetti = Confetti.create
 
 
-class Waitlist(pc.Model, table=True):
+class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
@@ -81,10 +81,10 @@ class IndexState(State):
             self.email = validation.email
         except EmailNotValidError as e:
             # Alert the error message.
-            return pc.window_alert(str(e))
+            return rx.window_alert(str(e))
 
         # Check if the user is already on the waitlist.
-        with pc.session() as session:
+        with rx.session() as session:
             user = session.query(Waitlist).filter(Waitlist.email == self.email).first()
             if user is None:
                 # Add the user to the waitlist.
@@ -105,14 +105,14 @@ class IndexState(State):
 
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
-    return pc.container(
+    return rx.container(
         *children,
         **kwargs,
     )
 
 
 def tag(text):
-    return pc.text(
+    return rx.text(
         text,
         color="#5646ED",
         bg="#F5EFFE",
@@ -124,26 +124,26 @@ def tag(text):
 
 def landing():
     return container(
-        pc.cond(
+        rx.cond(
             IndexState.show_confetti,
             confetti(),
         ),
-        pc.hstack(
-            pc.center(
-                pc.vstack(
-                    pc.text(
-                            pc.span("[", color="#DACEEE"),
-                            pc.span("Frontend", color="#696287"),
-                            pc.span("]", color="#DACEEE"),
-                            pc.span("[", color="#DACEEE"),
-                            pc.span("Backend", color="#696287"),
-                            pc.span("]", color="#DACEEE"),
-                            pc.span("[", color="#DACEEE"),
-                            pc.span("Hosting", color="#696287"),
-                            pc.span("]", color="#DACEEE"),
+        rx.hstack(
+            rx.center(
+                rx.vstack(
+                    rx.text(
+                            rx.span("[", color="#DACEEE"),
+                            rx.span("Frontend", color="#696287"),
+                            rx.span("]", color="#DACEEE"),
+                            rx.span("[", color="#DACEEE"),
+                            rx.span("Backend", color="#696287"),
+                            rx.span("]", color="#DACEEE"),
+                            rx.span("[", color="#DACEEE"),
+                            rx.span("Hosting", color="#696287"),
+                            rx.span("]", color="#DACEEE"),
                             font_family="Space Mono",
                         ),
-                    pc.text(
+                    rx.text(
                             "Web apps in pure Python.",
                             font_family="IBM Plex Mono",
                             font_style="normal;",
@@ -151,23 +151,23 @@ def landing():
                             font_size="58px",
                             line_height="60px",
                         ),
-                    pc.text(
+                    rx.text(
                             "Build web apps in minutes. Deploy with a single command.",
                             color="grey",
                             font_size="1.1em",
                             font_family=styles.TEXT_FONT_FAMILY,
                             padding_top="1em",
                         ),
-                    pc.cond(
+                    rx.cond(
                             ~IndexState.signed_up,
-                            pc.wrap(
-                                pc.input(
+                            rx.wrap(
+                                rx.input(
                                     placeholder="Your email address...",
                                     on_blur=IndexState.set_email,
                                     type="email",
                                     style=styles.INPUT_STYLE,
                                 ),
-                                pc.button(
+                                rx.button(
                                     "Join Hosting Waitlist",
                                     on_click=IndexState.signup,
                                     style=styles.Primary_Initial_Large_STYLE
@@ -177,8 +177,8 @@ def landing():
                                 spacing="1em",
                                 padding_y="1em",
                             ),
-                            pc.text(
-                                pc.icon(
+                            rx.text(
+                                rx.icon(
                                     tag="check",
                                 ),
                                 " You're on the waitlist!",
@@ -199,8 +199,8 @@ def landing():
 
 
 def list_circle(text):
-    return pc.flex(
-        pc.text(text),
+    return rx.flex(
+        rx.text(text),
         width="2em",
         height="2em",
         border_radius="6px",
@@ -213,13 +213,13 @@ def list_circle(text):
 
 
 def example_card(title, tags, href):
-    return pc.hstack(
-        pc.icon(tag="link", color="#494369"),
-        pc.text(title, color="#494369", font_weight="400"),
-        pc.spacer(),
+    return rx.hstack(
+        rx.icon(tag="link", color="#494369"),
+        rx.text(title, color="#494369", font_weight="400"),
+        rx.spacer(),
         *[tag(t) for t in tags],
-        pc.link(pc.center(
-            pc.icon(tag="arrow_forward", color="#494369"),
+        rx.link(rx.center(
+            rx.icon(tag="arrow_forward", color="#494369"),
             border_radius="6px",
             box_shadow= "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
             min_width="2em",
@@ -236,10 +236,10 @@ def example_card(title, tags, href):
 
 
 def intro():
-    return pc.box(
+    return rx.box(
         container(
-            pc.vstack(
-                pc.text(
+            rx.vstack(
+                rx.text(
                     "Build anything, faster.",
                     font_size =styles.H2_FONT_SIZE,
                     font_family="IBM Plex Mono",
@@ -247,42 +247,42 @@ def intro():
                     font_weight=600,
                     padding_bottom="0.25em",
                 ),
-                pc.text(
+                rx.text(
                     "Create your whole app in a single language. ",
                     "Don't worry about writing APIs to connect your frontend and backend. ",
                     color="#666",
                     margin_bottom="1.5em",
                     max_width="50%",
                 ),
-                pc.spacer(),
-                pc.flex(
-                    pc.box(
-                        pc.hstack(
+                rx.spacer(),
+                rx.flex(
+                    rx.box(
+                        rx.hstack(
                             list_circle("1"),
-                            pc.text("Any use case.", font_weight="600"),
+                            rx.text("Any use case.", font_weight="600"),
                             margin_bottom="0.5em",
                         ),
-                        pc.text(
-                            "With Pynecone you can build anything from internal tools and data apps to complex multi-page apps.",
+                        rx.text(
+                            "With Reflex you can build anything from internal tools and data apps to complex multi-page apps.",
                             color="#666",
                             margin_bottom=".5em",
                         ),
-                        pc.text(
-                            pc.span('"""', color="#AA9EC3"),
-                            pc.span('This entire website is made in Pynecone!', color="#494369"),
-                            pc.span('"""', color="#AA9EC3"), bg="#FAF8FB",
+                        rx.text(
+                            rx.span('"""', color="#AA9EC3"),
+                            rx.span('This entire website is made in Reflex!', color="#494369"),
+                            rx.span('"""', color="#AA9EC3"), bg="#FAF8FB",
                             font_family="Space Mono",
                             font_weight="600",
                             font_size="0.8em",
                             padding_x="1em",
                             margin_bottom="1em",
                         ),
-                        pc.hstack(
+                        rx.hstack(
                             list_circle("2"),
-                            pc.text("It’s just Python.", font_weight="600"),
+                            rx.text("It’s just Python.", font_weight="600"),
                             margin_bottom="0.5em",
                         ),
-                        pc.text(
+                        rx.text(
                             "The app state is just a class. ",
                             "State updates are methods in the class. ",
                             "And the UI is a reflection of the state. ",
@@ -292,7 +292,7 @@ def intro():
                         margin_right=[0, 0, "1em"],
                         margin_bottom=["2em", "2em", 0],
                     ),
-                    pc.vstack(
+                    rx.vstack(
                         example_card("Sales email generator", ["OpenAI", "Database"], "/examples/todo"),
                         example_card("DALL-E", ["ML", "Image Generation"], "/examples/counter"),
                         example_card("Todo App", ["Short"], "/examples/todo"),
@@ -313,26 +313,26 @@ def intro():
 
 boxstyles = {}
 
-compbox = pc.hstack(
-    pc.image(
+compbox = rx.hstack(
+    rx.image(
         src="/landing_icons/icon1.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "60+ built-in UI Components",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
-            "Pynecone comes with a large library of UI components ranging from simple buttons to complex graphs and tables.",
+        rx.text(
+            "Reflex comes with a large library of UI components ranging from simple buttons to complex graphs and tables.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Check out the full library",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -349,26 +349,26 @@ compbox = pc.hstack(
     width="100%",
 )
 
-stylebox = pc.hstack(
-    pc.image(
+stylebox = rx.hstack(
+    rx.image(
         src="/landing_icons/icon2.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Completely customizable",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "All Reflex components are fully customizable. Change the colors, fonts, and styles to match your project.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Styling Guide",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -385,26 +385,26 @@ stylebox = pc.hstack(
     width="100%",
 )
 
-reactbox = pc.hstack(
-    pc.image(
+reactbox = rx.hstack(
+    rx.image(
         src="/landing_icons/icon3.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Custom Components",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Create your own components in a few lines of code. Simply wrap the React component of your choice.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Wrapping React guide",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -421,19 +421,19 @@ reactbox = pc.hstack(
     width="100%",
 )
 
-powerful = pc.hstack(
-    pc.image(
+powerful = rx.hstack(
+    rx.image(
         src="/landing_icons/icon4.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Now everyone can work across the full-stack",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "With Reflex every engineer can work across the whole stack allowing for a more efficient and productive workflow.",
             color="#342E5C",
         ),
@@ -448,7 +448,7 @@ powerful = pc.hstack(
 
 
 def frontend():
-    return pc.box(
+    return rx.box(
         container(
             height="8em",
             width="100%",
@@ -457,36 +457,36 @@ def frontend():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            pc.vstack(
-                pc.box(
-                    pc.text(
+            rx.vstack(
+                rx.box(
+                    rx.text(
                     "[",
-                    pc.span("Frontend", bg = "#F5EFFE", color="#5646ED"),
+                    rx.span("Frontend", bg = "#F5EFFE", color="#5646ED"),
                     "]",
                     color="#5646ED",
                     font_family="Space Mono",
                     )
                 ),
-                pc.heading(
+                rx.heading(
                     "Write your entire app in Python.",
                     font_size=styles.H3_FONT_SIZE,
                     font_family="IBM Plex Mono",
                 ),
-                pc.text(
+                rx.text(
                     "No more switching between languages and frameworks. Use one language for your whole stack.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                pc.hstack(
-                    pc.desktop_only(
-                        pc.vstack(
-                            pc.hstack(
+                rx.hstack(
+                    rx.desktop_only(
+                        rx.vstack(
+                            rx.hstack(
                                 compbox,
                                 stylebox,
                                 spacing="2em",
                                 height="100%",
                             ),
-                            pc.hstack(
+                            rx.hstack(
                                 reactbox,
                                 powerful,
                                 height="100%",
@@ -497,8 +497,8 @@ def frontend():
                             spacing="2em",
                         )
                     ),
-                    pc.mobile_and_tablet(
-                        pc.vstack(
+                    rx.mobile_and_tablet(
+                        rx.vstack(
                             compbox,
                             stylebox,
                             reactbox,
@@ -518,26 +518,26 @@ def frontend():
     )
 
 
-battery_icon = pc.hstack(
-    pc.image(
+battery_icon = rx.hstack(
+    rx.image(
         src="/landing_icons/battery-icon.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Batteries included",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Skip the boilerplate and get started faster. Reflex integrates the frontend and backend so there is no need to write API endpoints.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "State docs",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -554,26 +554,26 @@ battery_icon = pc.hstack(
     width="100%",
 )
 
-orm_icon = pc.hstack(
-    pc.image(
+orm_icon = rx.hstack(
+    rx.image(
         src="/landing_icons/orm-icon.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Built in database ORM",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Integrate with existing databases with a single line of code. Or use our built in SQLite database.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Database docs",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -590,19 +590,19 @@ orm_icon = pc.hstack(
     width="100%",
 )
 
-python_icon = pc.hstack(
-    pc.image(
+python_icon = rx.hstack(
+    rx.image(
         src="/landing_icons/python-icon.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Seamlessly integrate with any Python library",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Never get locked into a framework that doesn't support your existing tech stack.",
             color="#342E5C",
         ),
@@ -616,7 +616,7 @@ python_icon = pc.hstack(
 )
 
 def backend():
-    return pc.box(
+    return rx.box(
         container(
             height="8em",
             width="100%",
@@ -625,36 +625,36 @@ def backend():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            pc.vstack(
-                pc.box(
-                    pc.text(
+            rx.vstack(
+                rx.box(
+                    rx.text(
                     "[",
-                    pc.span("Backend", color="#2B199C", bg="#F3F7FE"),
+                    rx.span("Backend", color="#2B199C", bg="#F3F7FE"),
                     "]",
                     color="#2B199C",
                     font_family="Space Mono",
                     )
                 ),
-                pc.heading(
+                rx.heading(
                     "Skip the boilerplate and get started faster",
                     font_size=styles.H3_FONT_SIZE,
                     font_family="IBM Plex Mono",
                 ),
-                pc.text(
+                rx.text(
                     "Reflex comes with a powerful backend built with FastAPI and SQLAlchemy.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                pc.hstack(
-                    pc.desktop_only(
-                        pc.vstack(
-                            pc.hstack(
+                rx.hstack(
+                    rx.desktop_only(
+                        rx.vstack(
+                            rx.hstack(
                                 battery_icon,
                                 orm_icon,
                                 spacing="2em",
                                 height="100%",
                             ),
-                            pc.hstack(
+                            rx.hstack(
                                 python_icon,
                                 spacing="2em",
                                 height="100%",
@@ -666,8 +666,8 @@ def backend():
                             align_items="left",
                         )
                     ),
-                    pc.mobile_and_tablet(
-                        pc.vstack(
+                    rx.mobile_and_tablet(
+                        rx.vstack(
                             battery_icon,
                             orm_icon,
                             python_icon,
@@ -687,26 +687,26 @@ def backend():
 
 
 
-deploy_icon = pc.hstack(
-    pc.image(
+deploy_icon = rx.hstack(
+    rx.image(
         src="/landing_icons/deploy-icon.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Deploy your app with a single command",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Autoconfigured CDN, HTTPS, SSL, and more to make sure your app is preformant and secure.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Deply your app",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -723,26 +723,26 @@ deploy_icon = pc.hstack(
     width="100%",
 )
 
-host_icon = pc.hstack(
-    pc.image(
+host_icon = rx.hstack(
+    rx.image(
         src="/landing_icons/host-icon.svg",
         height="4em",
         width="4em",
     ),
-    pc.vstack(
-        pc.text(
+    rx.vstack(
+        rx.text(
             "Self-host your app",
             font_size=styles.H4_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        pc.text(
+        rx.text(
             "Learn how to configure your own server and deploy your app on your own infrastructure. With Reflex you are not locked into a specific hosting provider.",
             color="#342E5C",
         ),
-        pc.box(
-            pc.button(
+        rx.box(
+            rx.button(
                 "Self-host your app",
-                pc.icon(tag="arrow_forward"),
+                rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 bg="#FFFFFF",
@@ -761,7 +761,7 @@ host_icon = pc.hstack(
 
 
 def hosting():
-    return pc.box(
+    return rx.box(
         container(
             height="8em",
             width="100%",
@@ -770,31 +770,31 @@ def hosting():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            pc.vstack(
-                pc.box(
-                    pc.text(
+            rx.vstack(
+                rx.box(
+                    rx.text(
                     "[",
-                    pc.span("Hosting", color="#342E5C",bg ="#FAF8FB"),
+                    rx.span("Hosting", color="#342E5C",bg ="#FAF8FB"),
                     "]",
                     color="#342E5C",
                     font_family="Space Mono",
                     ),
                     
                 ),
-                pc.heading(
+                rx.heading(
                     "Deploy your app in seconds",
                     font_size=styles.H3_FONT_SIZE,
                     font_family="IBM Plex Mono",
                 ),
-                pc.text(
+                rx.text(
                     "Simplify the process of deploying your app with Reflex.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                pc.hstack(
-                    pc.desktop_only(
-                        pc.vstack(
-                            pc.hstack(
+                rx.hstack(
+                    rx.desktop_only(
+                        rx.vstack(
+                            rx.hstack(
                                 deploy_icon,
                                 host_icon,
                                 spacing="2em",
@@ -805,8 +805,8 @@ def hosting():
                             spacing="2em",
                         )
                     ),
-                    pc.mobile_and_tablet(
-                        pc.vstack(
+                    rx.mobile_and_tablet(
+                        rx.vstack(
                             deploy_icon,
                             host_icon,
                             padding_bottom="2em",
@@ -827,17 +827,17 @@ def hosting():
 
 
 def gallery():
-    return pc.center(
+    return rx.center(
         container(
-            pc.vstack(
-                pc.center(
-                    pc.text(
+            rx.vstack(
+                rx.center(
+                    rx.text(
                         "Join the growing ",
-                        pc.span(
+                        rx.span(
                             "open-source ",
                             color="#DACEEE",
                         ),
-                        "community of Pynecone developers.",
+                        "community of Reflex developers.",
                         font_family="IBM Plex Mono",
                         font_size=styles.H2_FONT_SIZE,
                         font_weight=styles.BOLD_WEIGHT,
@@ -847,54 +847,54 @@ def gallery():
                     width="50%",
                     padding_y="2em",
                 ),
-                pc.desktop_only(
-                    pc.flex(
-                        pc.spacer(),
-                        pc.vstack(
-                            pc.heading("3000+", color="#DACEEE"),
-                            pc.text(
+                rx.desktop_only(
+                    rx.flex(
+                        rx.spacer(),
+                        rx.vstack(
+                            rx.heading("3000+", color="#DACEEE"),
+                            rx.text(
                                 "Projects created per month",
                                 color="#82799E",
                                 text_align="center",
                             ),
                             padding_x="2em",
                         ),
-                        pc.vstack(
-                            pc.heading("5700+", color="#DACEEE"),
-                            pc.text(
+                        rx.vstack(
+                            rx.heading("5700+", color="#DACEEE"),
+                            rx.text(
                                 "GitHub stars", color="#82799E", text_align="center"
                             ),
                             padding_x="2em",
                         ),
-                        pc.vstack(
-                            pc.heading("600+", color="#DACEEE"),
-                            pc.text(
+                        rx.vstack(
+                            rx.heading("600+", color="#DACEEE"),
+                            rx.text(
                                 "Discord community members",
                                 color="#82799E",
                                 text_align="center",
                             ),
                             padding_x="2em",
                         ),
-                        pc.spacer(),
+                        rx.spacer(),
                         height="100%",
                         min_height="10em",
                         width="100%",
                         margin_x="2em",
                     ),
                 ),
-                pc.mobile_and_tablet(
-                    pc.vstack(
-                        pc.vstack(
-                            pc.heading("3000+", color="#DACEEE"),
-                            pc.text("Projects created per month", color="#82799E", text_align="center"),
+                rx.mobile_and_tablet(
+                    rx.vstack(
+                        rx.vstack(
+                            rx.heading("3000+", color="#DACEEE"),
+                            rx.text("Projects created per month", color="#82799E", text_align="center"),
                         ),
-                        pc.vstack(
-                            pc.heading("5700+", color="#DACEEE"),
-                            pc.text("GitHub stars", color="#82799E", text_align="center"),
+                        rx.vstack(
+                            rx.heading("5700+", color="#DACEEE"),
+                            rx.text("GitHub stars", color="#82799E", text_align="center"),
                         ),
-                        pc.vstack(
-                            pc.heading("600+", color="#DACEEE"),
-                            pc.text("Discord community members", color="#82799E", text_align="center"),
+                        rx.vstack(
+                            rx.heading("600+", color="#DACEEE"),
+                            rx.text("Discord community members", color="#82799E", text_align="center"),
 
                         ),
                         height="100%",
@@ -912,7 +912,7 @@ def gallery():
 
 
 def prompt_sign():
-    return pc.text(
+    return rx.text(
         "$",
         color=styles.ACCENT_COLOR,
         font_family=styles.TEXT_FONT_FAMILY,
@@ -921,26 +921,26 @@ def prompt_sign():
 
 
 def installation():
-    return pc.vstack(
+    return rx.vstack(
         container(
-            pc.flex(
-                pc.center(
-                    pc.vstack(
-                        pc.heading(
+            rx.flex(
+                rx.center(
+                    rx.vstack(
+                        rx.heading(
                             "Get up and running in seconds!",
                             font_family="IBM Plex Mono",
                             font_weight=styles.BOLD_WEIGHT,
                             font_size=styles.H3_FONT_SIZE,
                         ),
-                        pc.box(
-                            pc.text(
-                                "Pynecone requires  ",
-                                pc.span(" Python 3.7+", as_ = "u"),
-                                pc.span(" and"),
-                                pc.span(" NodeJS 12+", as_ = "u"),
+                        rx.box(
+                            rx.text(
+                                "Reflex requires  ",
+                                rx.span(" Python 3.7+", as_ = "u"),
+                                rx.span(" and"),
+                                rx.span(" NodeJS 12+", as_ = "u"),
                                 "."
                             ),
-                            pc.text(
+                            rx.text(
                                 "(Don't worry, you'll never have to write any Javascript)",
                             ),
                             color="#82799E",
@@ -955,38 +955,38 @@ def installation():
                     min_width="10em",
                     width="100%",
                 ),
-                pc.spacer(),
-                pc.vstack(
-                    pc.text(
+                rx.spacer(),
+                rx.vstack(
+                    rx.text(
                         "Install our library to get started:",
                         font_family="Space Mono",
                         padding_x="1em",
                         padding_top=".5em",
                     ),
-                    pc.divider(),
-                    pc.vstack(
-                        pc.hstack(
-                            pc.text("1", color="#494369"),
+                    rx.divider(),
+                    rx.vstack(
+                        rx.hstack(
+                            rx.text("1", color="#494369"),
                             prompt_sign(),
-                            pc.text(
-                                "pip install pynecone",
+                            rx.text(
+                                "pip install reflex",
                                 font_family=styles.CODE_FONT_FAMILY,
                                 font_weight="500",
                             ),
                         ),
-                        pc.hstack(
-                            pc.text("2", color="#494369"),
+                        rx.hstack(
+                            rx.text("2", color="#494369"),
                             prompt_sign(),
-                            pc.text(
+                            rx.text(
                                 "pc init",
                                 font_family=styles.CODE_FONT_FAMILY,
                                 font_weight="500",
                             ),
                         ),
-                        pc.hstack(
-                            pc.text("3", color="#494369"),
+                        rx.hstack(
+                            rx.text("3", color="#494369"),
                             prompt_sign(),
-                            pc.text(
+                            rx.text(
                                 "pc run",
                                 font_family=styles.CODE_FONT_FAMILY,
                                 font_weight="500",
@@ -996,17 +996,17 @@ def installation():
                         align_items="left",
                         padding_x="1em",
                     ),
-                    pc.divider(),
-                    pc.hstack(
-                        pc.vstack(
-                            pc.text("And you should see your first Pynecone app!", font_size=".75em"),
-                            pc.text("Check out our docs to learn more.", font_size=".75em"),
+                    rx.divider(),
+                    rx.hstack(
+                        rx.vstack(
+                            rx.text("And you should see your first Reflex app!", font_size=".75em"),
+                            rx.text("Check out our docs to learn more.", font_size=".75em"),
                             align_items="left",
                             padding_x=".5em",
                             width="100%",
                         ),
-                        pc.spacer(),
-                        pc.button(
+                        rx.spacer(),
+                        rx.button(
                             "View Docs",
                             color="#494369",
                             font_weight= 600,
@@ -1031,7 +1031,7 @@ def installation():
             ),
             width = "100%",
         ),
-        pc.box(
+        rx.box(
             height="5em",
             width="100%",
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(188, 136, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);",
@@ -1047,11 +1047,11 @@ def installation():
 
 
 @webpage(path="/")
-def index() -> pc.Component:
-    """Get the main Pynecone landing page."""
-    return pc.box(
+def index() -> rx.Component:
+    """Get the main Reflex landing page."""
+    return rx.box(
         landing(),
-        container(pc.divider(border_color="#F4F3F6")),
+        container(rx.divider(border_color="#F4F3F6")),
         intro(),
         frontend(),
         backend(),

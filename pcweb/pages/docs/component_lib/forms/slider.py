@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -10,9 +10,9 @@ slider_state = """class SliderState(State):
     value: int = 50
 """
 
-slider_base_example = """pc.vstack(
-    pc.heading(SliderState.value),
-    pc.slider(
+slider_base_example = """rx.vstack(
+    rx.heading(SliderState.value),
+    rx.slider(
         on_change=SliderState.set_value
     ),
     width="100%",
@@ -26,9 +26,9 @@ slider_state_start = """class SliderVariation(State):
         self.value = value
 """
 
-slider_on_change_start = """pc.vstack(
-    pc.heading(SliderVariation.value),
-    pc.slider(
+slider_on_change_start = """rx.vstack(
+    rx.heading(SliderVariation.value),
+    rx.slider(
         on_change_end=SliderVariation.set_end
     ),
     width="100%",
@@ -46,9 +46,9 @@ slider_state_combo = """class SliderCombo(State):
         self.color = "#F56565" 
 """
 
-slider_combo = """pc.vstack(
-    pc.heading(SliderCombo.value, color=SliderCombo.color),
-    pc.slider(
+slider_combo = """rx.vstack(
+    rx.heading(SliderCombo.value, color=SliderCombo.color),
+    rx.slider(
         on_change_start=SliderCombo.set_start,
         on_change_end=SliderCombo.set_end
     ),
@@ -64,15 +64,15 @@ slider_state_manual = """class SliderManual(State):
         self.value = value
 """
 
-slider_manual = """pc.vstack( 
-    pc.heading("Weather is " + SliderManual.value + " degrees"),
-    pc.slider(
-        pc.slider_track(
-            pc.slider_filled_track(bg="tomato"),
+slider_manual = """rx.vstack( 
+    rx.heading("Weather is " + SliderManual.value + " degrees"),
+    rx.slider(
+        rx.slider_track(
+            rx.slider_filled_track(bg="tomato"),
             bg='red.100'
         ),
-        pc.slider_thumb(
-            pc.icon(tag="sun", color="white"),
+        rx.slider_thumb(
+            rx.icon(tag="sun", color="white"),
             box_size="1.5em",
             bg="tomato",
         ),
@@ -89,7 +89,7 @@ exec(slider_state)
 
 
 def render_slider():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The Slider is used to allow users to make selections from a range of values."
         ),
@@ -101,11 +101,11 @@ def render_slider():
         ),
         doctext(
             "You can also combine all three event handlers ",
-            pc.code("on_change"),
+            rx.code("on_change"),
             ", ",
-            pc.code("on_change_start"),
+            rx.code("on_change_start"),
             ", and ",
-            pc.code("on_change_end"),
+            rx.code("on_change_end"),
             " together.",
         ),
         docdemo(
@@ -125,15 +125,15 @@ def render_slider():
         ),
         doctext(
             "If you want to trigger state change on every slider movement, you can use the ",
-            pc.code("on_change"),
+            rx.code("on_change"),
             " event handler.",
         ),
         doctext(
             "For performance reasons, you may want to trigger state change only when the user releases the slider by using the ",
-            pc.code("on_change_end"),
+            rx.code("on_change_end"),
             "event handler,",
             " but if you need perform an event on every slider movement, you can use the ",
-            pc.code("on_change"),
+            rx.code("on_change"),
             " event handler.",
         ),
         docdemo(
@@ -151,9 +151,9 @@ class RangeSliderState(State):
     value: List[int] = [0,100]
 """
 
-range_slider_base_example = """pc.vstack(
-    pc.heading(RangeSliderState.value[0]+" : "+RangeSliderState.value[1]),
-    pc.range_slider(
+range_slider_base_example = """rx.vstack(
+    rx.heading(RangeSliderState.value[0]+" : "+RangeSliderState.value[1]),
+    rx.range_slider(
         on_change=RangeSliderState.set_value
     ),
     width="100%",
@@ -168,9 +168,9 @@ class RangeSliderVariation(State):
         self.value = value
 """
 
-range_slider_on_change_start = """pc.vstack(
-    pc.heading(RangeSliderVariation.value[0]+" : "+RangeSliderVariation.value[1]),
-    pc.range_slider(
+range_slider_on_change_start = """rx.vstack(
+    rx.heading(RangeSliderVariation.value[0]+" : "+RangeSliderVariation.value[1]),
+    rx.range_slider(
         on_change_end=RangeSliderVariation.set_end
     ),
     width="100%",
@@ -193,9 +193,9 @@ class RangeSliderCombo(State):
         self.color = "red" 
 """
 
-range_slider_combo = """pc.vstack(
-    pc.heading(RangeSliderCombo.value[0]+" : "+RangeSliderCombo.value[1], color=RangeSliderCombo.color),
-    pc.range_slider(
+range_slider_combo = """rx.vstack(
+    rx.heading(RangeSliderCombo.value[0]+" : "+RangeSliderCombo.value[1], color=RangeSliderCombo.color),
+    rx.range_slider(
         on_change_start=RangeSliderCombo.set_start,
         on_change=RangeSliderCombo.set_val,
         on_change_end=RangeSliderCombo.set_end
@@ -209,21 +209,21 @@ class RangeSliderManual(State):
     value: List[int] = [0,100]
 """
 
-range_slider_manual = """pc.vstack( 
-    pc.heading("Between " + RangeSliderManual.value[0] + " and " + RangeSliderManual.value[1]),
-    pc.range_slider(
-        pc.range_slider_track(
-            pc.range_slider_filled_track(bg="#48BB78"),
+range_slider_manual = """rx.vstack( 
+    rx.heading("Between " + RangeSliderManual.value[0] + " and " + RangeSliderManual.value[1]),
+    rx.range_slider(
+        rx.range_slider_track(
+            rx.range_slider_filled_track(bg="#48BB78"),
             bg='#C6F6D5'
         ),
-        pc.range_slider_thumb( 
-            pc.icon(tag="arrow_left", color="white"),
+        rx.range_slider_thumb( 
+            rx.icon(tag="arrow_left", color="white"),
             bg="#48BB78",
             box_size="2em",
             index = 0
         ),
-        pc.range_slider_thumb(
-            pc.icon(tag="arrow_right", color="white"),
+        rx.range_slider_thumb(
+            rx.icon(tag="arrow_right", color="white"),
             bg="#48BB78",
             box_size="2em",
             index = 1
@@ -240,7 +240,7 @@ exec(range_slider_state_manual)
 
 
 def render_rangeslider():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The range slider is used to allow users to make selections from a range of values."
         ),
@@ -258,7 +258,7 @@ def render_rangeslider():
         ),
         doctext(
             "If you want to trigger state change on every slider movement, you can use the ",
-            pc.code("on_change"),
+            rx.code("on_change"),
             " event handler. This is not recommended for performance reasons and should only be used if you need to perform an event on every slider movement.",
         ),
         docdemo(

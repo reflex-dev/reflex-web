@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -11,12 +11,12 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code0 = """class ColorPicker(pc.Component):
+code0 = """class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
 """
 code1 = """
-class ColorPicker(pc.Component):
+class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: Var[str]
@@ -25,9 +25,9 @@ class ColorPicker(pc.Component):
 code4 = """class ColorPickerState(State):
     color: str = "#db114b"
 """
-code3 = """pc.box(
-    pc.vstack(
-        pc.heading(ColorPickerState.color),
+code3 = """rx.box(
+    rx.vstack(
+        rx.heading(ColorPickerState.color),
         color_picker(on_change=ColorPickerState.set_color),
     ),
     background_color=ColorPickerState.color,
@@ -37,27 +37,27 @@ code3 = """pc.box(
 exec(code4)
 
 code5 = """
-class ColorPicker(pc.Component):
+class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
-    color: pc.Var[str]
+    color: rx.Var[str]
 
     @classmethod
-    def get_controlled_triggers(cls) -> dict[str, pc.Var]:
-        return {"on_change": pc.EVENT_ARG}
+    def get_controlled_triggers(cls) -> dict[str, rx.Var]:
+        return {"on_change": rx.EVENT_ARG}
 """
 exec(code5)
 code2 = """color_picker = ColorPicker.create"""
 exec(code2)
 
 code6 = """
- class AnotherColorPicker(pc.Component):
+ class AnotherColorPicker(rx.Component):
      library = "some-other-colorpicker"
      tag = "HexColorPicker"
-     color: pc.Var[str]
+     color: rx.Var[str]
      @classmethod
-     def get_controlled_triggers(cls) -> dict[str, pc.Var]:
-         return {"on_change": pc.EVENT_ARG}
+     def get_controlled_triggers(cls) -> dict[str, rx.Var]:
+         return {"on_change": rx.EVENT_ARG}
      @classmethod
      def get_alias(cls) -> Optional[str]:
          return "OtherHexColorPicker"
@@ -69,20 +69,20 @@ def wrapping_react():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.styling.overview import styling_overview
 
-    return pc.box(
+    return rx.box(
         docheader("Wrapping React", first=True),
         doctext(
-            "One of Pynecone's most powerful features is the ability to wrap React components. ",
+            "One of Reflex's most powerful features is the ability to wrap React components. ",
             "This allows us to build on top of the powerful React ecosystem, but interface with it through Python. ",
         ),
         doctext(
-            "Most of Pynecone's base components are just wrappers around the great ",
+            "Most of Reflex's base components are just wrappers around the great ",
             doclink("Chakra UI", "https://chakra-ui.com/"),
             " library. Let's see how you can wrap your own component in three easy steps. ",
         ),
         subheader("Step 1: Install the Library"),
         doctext(
-            "If you want a cool component for your app but Pynecone doesn't provide it, there's a good chance it's available as a React component. ",
+            "If you want a cool component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. ",
             "Search the web for an ",
             doclink("npm package", "https://www.npmjs.com/"),
             " that provides the component you want. ",
@@ -94,12 +94,12 @@ def wrapping_react():
             ),
             " color picker component. ",
             "Simply specify the package name in your ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             " file. ",
         ),
         doccode(
             """
-config = pc.Config(
+config = rx.Config(
     app_name="colors",
     frontend_packages=[
         "react-colorful",
@@ -110,24 +110,24 @@ config = pc.Config(
         subheader("Step 2: Wrap the Library"),
         doctext(
             "To wrap the component, create a subclass of ",
-            pc.code("pc.Component"),
+            rx.code("rx.Component"),
             ". ",
         ),
         doccode(code0),
         doctext(
             "The two most important props are ",
-            pc.code("library"),
+            rx.code("library"),
             ", which is the name of the npm package, and ",
-            pc.code("tag"),
+            rx.code("tag"),
             ", which is the name of the React component. ",
         ),
         doctext(
             "A component may also have many props. ",
             "You can add props by declaring them as ",
-            pc.code("pc.Var"),
+            rx.code("rx.Var"),
             "s in the class. ",
             " In this example, we have just one prop, ",
-            pc.code("value"),
+            rx.code("value"),
             ", which is the current color. ",
         ),
         doccode(code1),
@@ -140,15 +140,15 @@ config = pc.Config(
         doctext(
             "Now we're ready to use the component! ",
             "Every component has a ",
-            pc.code("create"),
+            rx.code("create"),
             " method. Usually you'll want to store this for easy access. ",
         ),
         doccode(code2),
-        doctext("Then you can use it like any other Pynecone component."),
+        doctext("Then you can use it like any other Reflex component."),
         docdemo(code3, code4, comp=eval(code3), context=True),
         doctext(
             "That's it! ",
-            "We hope over time the Pynecone ecosystem will grow to include many useful components. ",
+            "We hope over time the Reflex ecosystem will grow to include many useful components. ",
             "Our goal is to bring the full power of web development to Python. ",
         ),
         subheader("Aliases"),

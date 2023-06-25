@@ -1,19 +1,19 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
-basic_breadcrumb = """pc.breadcrumb(
-    pc.breadcrumb_item(pc.breadcrumb_link("Home", href="#")),
-    pc.breadcrumb_item(pc.breadcrumb_link("Docs", href="#")),
-    pc.breadcrumb_item(pc.breadcrumb_link("Breadcrumb", href="#")),
+basic_breadcrumb = """rx.breadcrumb(
+    rx.breadcrumb_item(rx.breadcrumb_link("Home", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Docs", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Breadcrumb", href="#")),
 )
 """
 
-breadcrumb_separator = """pc.breadcrumb(
-    pc.breadcrumb_item(pc.breadcrumb_link("Home", href="#")),
-    pc.breadcrumb_item(pc.breadcrumb_link("Docs", href="#")),
-    pc.breadcrumb_item(pc.breadcrumb_link("Breadcrumb", href="#")),
+breadcrumb_separator = """rx.breadcrumb(
+    rx.breadcrumb_item(rx.breadcrumb_link("Home", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Docs", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Breadcrumb", href="#")),
     separator=">",
     color="rgb(107,99,246)"
 )
@@ -22,7 +22,7 @@ breadcrumb_separator = """pc.breadcrumb(
 
 # Navigation
 def render_breadcrumb():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Breadcrumbs, or a breadcrumb navigation, can help enhance how users navigate to previous page levels of a website."
         ),
@@ -35,19 +35,19 @@ def render_breadcrumb():
 
 
 link_example = (
-    """pc.link("Example", href="https://pynecone.io", color="rgb(107,99,246)")"""
+    """rx.link("Example", href="https://pynecone.io", color="rgb(107,99,246)")"""
 )
 
-button_link = """pc.link(pc.button("Example"), href="https://pynecone.io", color="rgb(107,99,246)", button=True)
+button_link = """rx.link(rx.button("Example"), href="https://pynecone.io", color="rgb(107,99,246)", button=True)
 """
 
-local_link = """pc.link("Example", href="/docs/library", color="rgb(107,99,246)")"""
+local_link = """rx.link("Example", href="/docs/library", color="rgb(107,99,246)")"""
 
-anchor_example = """pc.box("Example", id="example")"""
+anchor_example = """rx.box("Example", id="example")"""
 
 
 def render_link():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Links are accessible elements used primarily for navigation."),
         docdemo(link_example),
         doctext(
@@ -67,20 +67,20 @@ def render_link():
             "The href should be in the format of the page you want to link to followed by a # and the id of the anchor.",
         ),
         docdemo(
-            """pc.link("Example", href="/docs/library/navigation/link#example", color="rgb(107,99,246)")"""
+            """rx.link("Example", href="/docs/library/navigation/link#example", color="rgb(107,99,246)")"""
         ),
         align_items="start",
     )
 
 
-code97 = """pc.link_overlay(
-    pc.box("Example", bg="black", color="white", font_size=30),
+code97 = """rx.link_overlay(
+    rx.box("Example", bg="black", color="white", font_size=30),
 )
 """
 
 
 def render_linkoverlay():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Link overlay provides a semantic way to wrap elements (cards, blog post, articles, etc.) in a link."
         ),

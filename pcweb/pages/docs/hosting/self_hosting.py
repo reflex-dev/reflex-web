@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import (
     doccode,
@@ -9,15 +9,15 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = """pc.text('hello world', color='blue')"""
+code_example1 = """rx.text('hello world', color='blue')"""
 code_example2 = """
-pc.hstack(
-    pc.circular_progress(
-        pc.circular_progress_label("50", color="green"),
+rx.hstack(
+    rx.circular_progress(
+        rx.circular_progress_label("50", color="green"),
         value=50,
     ),
-    pc.circular_progress(
-        pc.circular_progress_label("∞", color="rgb(107,99,246)"),
+    rx.circular_progress(
+        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
         is_indeterminate=True,
     ),
 )
@@ -28,11 +28,11 @@ pc.hstack(
 def self_hosting():
     from pcweb.pages.docs.getting_started import installation
 
-    return pc.box(
+    return rx.box(
         docheader("Self Hosting", first=True),
         doctext(
             "We recommend using ",
-            pc.code("pc deploy"),
+            rx.code("pc deploy"),
             " but you can also host your apps yourself.",
         ),
         doctext(
@@ -43,20 +43,20 @@ def self_hosting():
         subheader("Edit Config"),
         doctext(
             "Edit your ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             " file to match the ip address of your server. With the port ",
-            pc.code(":8000"),
+            rx.code(":8000"),
             " at the end.",
         ),
         doctext(
             "For example if your server is at 192.168.1.1, your config would look like this:"
         ),
         doccode(
-            """config = pc.Config(
+            """config = rx.Config(
     app_name="your_app_name",
     api_url="http://192.168.1.1:8000",
     bun_path="$HOME/.bun/bin/bun",
-    db_url="sqlite:///pynecone.db",
+    db_url="sqlite:///reflex.db",
 )
 """,
         ),
@@ -65,7 +65,7 @@ def self_hosting():
         doctext(
             " Production mode creates an optimized build of your app.",
             " Your app will be available on port ",
-            pc.code("3000"),
+            rx.code("3000"),
             " by default.",
         ),
         subheader("Exporting a Static Build"),
@@ -78,61 +78,61 @@ def self_hosting():
         ),
         doctext(
             "This will create a ",
-            pc.code("frontend.zip"),
+            rx.code("frontend.zip"),
             " file with your app's static build that you can upload to your static hosting service.",
         ),
         doctext(
             "It also creates a ",
-            pc.code("backend.zip"),
+            rx.code("backend.zip"),
             " file with your app's backend code that you can upload to your server.",
         ),
         doctext(
             "You can export only the frontend or backend by passing in the ",
-            pc.code("--frontend-only"),
+            rx.code("--frontend-only"),
             " or ",
-            pc.code("--backend-only"),
+            rx.code("--backend-only"),
             " flags.",
         ),
         doctext(
             "It is also possible to export the components without zip it separate. To do this, use the ",
-            pc.code("--no-zip"),
+            rx.code("--no-zip"),
             " parameter.",
             "This provides the frontend in the ",
-            pc.code(".web/_static/"),
+            rx.code(".web/_static/"),
             " directory and the backend can be found in the root directory of the project. ",
         ),
-        subheader("Pynecone Container Service"),
+        subheader("Reflex Container Service"),
         doctext(
-            "Another option is to run your Pynecone service in a container. ",
+            "Another option is to run your Reflex service in a container. ",
             "For this purpose, a ",
-            pc.code("Dockerfile"),
-            " and additional documentation is available in the Pynecone project in the directory ",
-            pc.code("docker-example"),
+            rx.code("Dockerfile"),
+            " and additional documentation is available in the Reflex project in the directory ",
+            rx.code("docker-example"),
             ". ",
         ),
         doctext(
             "For the build of the container image it is necessary to edit the ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             " and the add the ",
-            pc.code("requirements.txt"),
+            rx.code("requirements.txt"),
             " to your project folder. The following changes are necessary in ",
-            pc.code("pcconfig.py"),
+            rx.code("pcconfig.py"),
             ":",
         ),
         doccode(
-            """config = pc.Config(
+            """config = rx.Config(
     app_name="app",
     api_url="0.0.0.0:8000",
     bun_path="/app/.bun/bin/bun",
-    db_url="sqlite:///pynecone.db",
+    db_url="sqlite:///reflex.db",
 )
 """,
         ),
         doctext(
             "You can find the ",
-            pc.code("requirements.txt"),
+            rx.code("requirements.txt"),
             " in the ",
-            pc.code("docker-example"),
+            rx.code("docker-example"),
             " folder of the project too.",
         ),
         doctext(
@@ -158,10 +158,10 @@ def self_hosting():
             language="bash",
         ),
         doctext(
-            "Finally, you can start your Pynecone container service as follows.",
+            "Finally, you can start your Reflex container service as follows.",
         ),
         doccode(
-            """$ docker run -d -p 3000:3000 -p 8000:8000 --name pynecone pynecone:latest""",
+            """$ docker run -d -p 3000:3000 -p 8000:8000 --name reflex reflex:latest""",
             language="bash",
         ),
     )

@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -23,9 +23,9 @@ class MultiSelectState(State):
 """
 
 
-basic_select = """pc.vstack(
-    pc.heading(SelectState.option),
-    pc.select(
+basic_select = """rx.vstack(
+    rx.heading(SelectState.option),
+    rx.select(
         options,
         placeholder="Select an example.",
         on_change=SelectState.set_option,
@@ -35,9 +35,9 @@ basic_select = """pc.vstack(
 """
 
 
-multi_select = """pc.vstack(
-    pc.heading(MultiSelectState.option),
-    pc.select(
+multi_select = """rx.vstack(
+    rx.heading(MultiSelectState.option),
+    rx.select(
         options, 
         placeholder="Select examples", 
         is_multi=True,
@@ -49,23 +49,23 @@ multi_select = """pc.vstack(
 """
 
 
-customized_select = """pc.vstack(
-    pc.select(options, placeholder="Select an example.", size="xs"),
-    pc.select(options, placeholder="Select an example.", size="sm"),
-    pc.select(options, placeholder="Select an example.", size="md"),
-    pc.select(options, placeholder="Select an example.", size="lg"),
+customized_select = """rx.vstack(
+    rx.select(options, placeholder="Select an example.", size="xs"),
+    rx.select(options, placeholder="Select an example.", size="sm"),
+    rx.select(options, placeholder="Select an example.", size="md"),
+    rx.select(options, placeholder="Select an example.", size="lg"),
 )
 """
 
-styled_select = """pc.vstack(
-    pc.select(options, placeholder="Select an example.", variant="outline"),
-    pc.select(options, placeholder="Select an example.", variant="filled"),
-    pc.select(options, placeholder="Select an example.", variant="flushed"),
-    pc.select(options, placeholder="Select an example.", variant="unstyled"),
+styled_select = """rx.vstack(
+    rx.select(options, placeholder="Select an example.", variant="outline"),
+    rx.select(options, placeholder="Select an example.", variant="filled"),
+    rx.select(options, placeholder="Select an example.", variant="flushed"),
+    rx.select(options, placeholder="Select an example.", variant="unstyled"),
 )
 """
 
-fully_styled_select = """pc.select(
+fully_styled_select = """rx.select(
     options,
     placeholder="Select an example.",
     color = "white",
@@ -80,7 +80,7 @@ exec(multi_select_state)
 
 
 def render_select():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Simple Select (one choice)"),
         docdemo(
             basic_select,

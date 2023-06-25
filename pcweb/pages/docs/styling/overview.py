@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb import styles
 from pcweb.templates.docpage import (
@@ -14,12 +14,12 @@ from pcweb.templates.docpage import (
 text_style = {"color": "white", "bg": "black", "font_size": "20px"}
 
 
-code1 = """pc.text("Hello World", background_image = "linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
+code1 = """rx.text("Hello World", background_image = "linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
                 background_clip = "text", font_weight="bold", font_size="2em")"""
-code2 = """pc.box(
-    pc.hstack(
-        pc.button("Default Button"),
-        pc.button("Red Button", color="red"),
+code2 = """rx.box(
+    rx.hstack(
+        rx.button("Default Button"),
+        rx.button("Red Button", color="red"),
     ),
     color="blue",
 )"""
@@ -32,14 +32,14 @@ code3 = """text_style = {
 }"""
 exec(code3)
 code4 = """
-pc.vstack(
-    pc.text("Hello", style = text_style),
-    pc.text("World", style = text_style),
+rx.vstack(
+    rx.text("Hello", style = text_style),
+    rx.text("World", style = text_style),
 )"""
 
 hover_example = """
-pc.box(
-    pc.text("Hover Me",  _hover = {"color": "red"}),
+rx.box(
+    rx.text("Hover Me",  _hover = {"color": "red"}),
 )
 """
 
@@ -58,7 +58,7 @@ style2 = {
 """
 exec(code5)
 multiple_styles = """
-pc.box(
+rx.box(
     "Multiple Styles",
     style=[style1, style2],
 )
@@ -67,10 +67,10 @@ pc.box(
 
 @docpage()
 def styling_overview():
-    return pc.box(
+    return rx.box(
         docheader("Styling", first=True),
         doctext(
-            "Pynecone components can be styled using the full power of ",
+            "Reflex components can be styled using the full power of ",
             doclink("CSS", href="https://www.w3schools.com/css/"),
             ". ",
         ),
@@ -78,20 +78,20 @@ def styling_overview():
             "There are three main ways to add style to your app and they take precedence in the following order:",
         ),
         doctext(
-            pc.ordered_list(
-                pc.vstack(
-                    pc.list_item(
-                        pc.span("Inline: ", font_weight="bold"),
+            rx.ordered_list(
+                rx.vstack(
+                    rx.list_item(
+                        rx.span("Inline: ", font_weight="bold"),
                         "Styles applied to a single component instance.",
                         width="100%",
                     ),
-                    pc.list_item(
-                        pc.span("Component: ", font_weight="bold"),
+                    rx.list_item(
+                        rx.span("Component: ", font_weight="bold"),
                         "Styles applied to components of a specific type.",
                         width="100%",
                     ),
-                    pc.list_item(
-                        pc.span("Global: ", font_weight="bold"),
+                    rx.list_item(
+                        rx.span("Global: ", font_weight="bold"),
                         "Styles applied to all components.",
                         width="100%",
                     ),
@@ -100,13 +100,13 @@ def styling_overview():
             )
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("Style keys can be any valid CSS property name."),
-                    pc.alert_description(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("Style keys can be any valid CSS property name."),
+                    rx.alert_description(
                         "To be consistent with Python standards, you can specify keys in ",
-                        pc.code("snake_case"),
+                        rx.code("snake_case"),
                         ".",
                     ),
                 ),
@@ -128,7 +128,7 @@ style = {
     "font_size": "16px"
 }
         
-app = pc.App(state=State, style=style)"""
+app = rx.App(state=State, style=style)"""
         ),
         subheader("Component Styles"),
         doctext(
@@ -141,29 +141,29 @@ style = {
     "::selection": {
         "background_color": accent_color,
     },
-    pc.Text: {
+    rx.Text: {
         "font_family": "Inter",
     },
-    pc.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    pc.Heading: {
+    rx.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
+    rx.Heading: {
         "font_weight": "500",
     },
-    pc.Code: {
+    rx.Code: {
         "color": accent_color,
     },
 }
         
-app = pc.App(state=State, style=style)"""
+app = rx.App(state=State, style=style)"""
         ),
         doctext(
             "Using style dictionaries like this, you can easily create a consistent theme for your app. "
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("Note the use of the uppercase component names."),
-                    pc.alert_description(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("Note the use of the uppercase component names."),
+                    rx.alert_description(
                         "We specify the component classes as keys, rather than their constructors. ",
                     ),
                 ),
@@ -196,14 +196,14 @@ app = pc.App(state=State, style=style)"""
         subheader("Style Prop"),
         doctext(
             "Inline styles can also be set with a ",
-            pc.code("style"),
+            rx.code("style"),
             " prop. ",
             " This is useful for reusing styles betweeen multiple components.",
         ),
         docdemo(code4, code3, eval(code4)),
         doctext(
             "You can also pass in multiple style dictionaries to the ",
-            pc.code("style"),
+            rx.code("style"),
             " prop to combine styles.",
         ),
         docdemo(multiple_styles, code5, eval(multiple_styles)),

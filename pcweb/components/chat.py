@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 from pcweb import constants, styles
 from pcweb.base_state import State
 import openai
@@ -6,7 +6,7 @@ import os
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 def tag(text):
-    return pc.text(
+    return rx.text(
         text,
         color="#5646ED",
         bg="#F5EFFE",
@@ -24,7 +24,7 @@ class GptState(State):
     def get_answer(self):
         if self.limit > 2:
             print("Limit Reached")
-            return pc.window_alert("Limit Reached")
+            return rx.window_alert("Limit Reached")
         self.limit += 1
         session = openai.Completion.create(
             engine="text-davinci-003",
@@ -44,12 +44,12 @@ class GptState(State):
             yield
         
 def qa():
-    return pc.vstack(
-        pc.text(GptState.question, font_family="IBM Plex Mono",margin_top=".5em", padding = "1em", font_weight =  "500", font_size  ="11px",border_top="1px solid #EAE4FD"),
-        pc.cond(
+    return rx.vstack(
+        rx.text(GptState.question, font_family="IBM Plex Mono",margin_top=".5em", padding = "1em", font_weight =  "500", font_size  ="11px",border_top="1px solid #EAE4FD"),
+        rx.cond(
             GptState.limit > 2,
-            pc.text("Limit Reached", bg = "white", padding = "1em", border_radius = "6px", border="1px solid #EAE4FD", font_family="IBM Plex Mono",font_weight =  "500",  font_size  ="11px"),
-            pc.text(GptState.answer, bg = "white", padding = "1em", border_radius = "6px", border="1px solid #EAE4FD", font_family="IBM Plex Mono",font_weight =  "500",  font_size  ="11px"),
+            rx.text("Limit Reached", bg = "white", padding = "1em", border_radius = "6px", border="1px solid #EAE4FD", font_family="IBM Plex Mono",font_weight =  "500",  font_size  ="11px"),
+            rx.text(GptState.answer, bg = "white", padding = "1em", border_radius = "6px", border="1px solid #EAE4FD", font_family="IBM Plex Mono",font_weight =  "500",  font_size  ="11px"),
         ),
         width="100%",
         align_items="left",
@@ -58,17 +58,17 @@ def qa():
 
 
 def chat_component():
-    return pc.vstack(
-                    pc.vstack(
-                        pc.hstack(
-                            pc.input(
+    return rx.vstack(
+                    rx.vstack(
+                        rx.hstack(
+                            rx.input(
                                 placeholder="Search docs...",
                                 on_blur = GptState.set_question,
                                 width="100%",
                                 styles=styles.INPUT_STYLE           
                             ),
-                            pc.spacer(),
-                            pc.button(
+                            rx.spacer(),
+                            rx.button(
                                 "Get answer",
                                 on_click=GptState.get_answer,
                                 background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
@@ -88,13 +88,13 @@ def chat_component():
                         border_bottom= "2px solid #F4F3F6",
                         border_radius= "8px 8px 0 0"
                     ),
-                    pc.hstack(
+                    rx.hstack(
                         tag("GPT Demo"),
-                        pc.text("View code", font_weight= "600", color="#777583"),
-                        pc.spacer(),
-                        pc.hstack(
-                            pc.text("All examples"),
-                            pc.icon(tag="arrow_forward", color="#494369"),
+                        rx.text("View code", font_weight= "600", color="#777583"),
+                        rx.spacer(),
+                        rx.hstack(
+                            rx.text("All examples"),
+                            rx.icon(tag="arrow_forward", color="#494369"),
                             border_radius="6px",
                             box_shadow= "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                             padding_x = ".5em"

@@ -1,6 +1,6 @@
 """UI and logic for the navbar component."""
 
-import pynecone as pc
+import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.base_state import State
@@ -18,7 +18,7 @@ except ImportError:
     client = None
 
 
-class NavMenu(pc.Component):
+class NavMenu(rx.Component):
     library = "@radix-ui/react-navigation-menu"
     tag = "NavigationMenu"
 
@@ -43,7 +43,7 @@ class NavbarState(State):
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
 
-    @pc.var
+    @rx.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
         """Get the search results."""
         if client is None or self.search_input == "":
@@ -60,15 +60,15 @@ class NavbarState(State):
 
 
 def format_search_results(result):
-    return pc.vstack(
-            pc.link(
-                pc.text(
+    return rx.vstack(
+            rx.link(
+                rx.text(
                     result["document"]["heading"],
                     font_weight=600,
                     color="#1F1944",
                 ),
-                pc.divider(),
-                pc.text(
+                rx.divider(),
+                rx.text(
                     result["document"]["description"],
                     font_weight=400,
                     color="#696287",
@@ -106,13 +106,13 @@ hover_button_style = {
 }
 
 def search_bar():
-    return pc.hstack(
-        pc.fragment(
-            pc.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            pc.text("Search Docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
+    return rx.hstack(
+        rx.fragment(
+            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+            rx.text("Search Docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
         ),
-        pc.spacer(),
-        pc.text("/", style=styles.NAV_SEARCH_STYLE),
+        rx.spacer(),
+        rx.text("/", style=styles.NAV_SEARCH_STYLE),
         on_click=NavbarState.change_search,
         display=["none", "none", "none", "flex", "flex"],
         bg="#FAF8FB",
@@ -123,14 +123,14 @@ def search_bar():
     )
 
 def search_modal(state: NavbarState):
-    return pc.modal(
-        pc.modal_overlay(
-            pc.modal_content(
-                pc.modal_body(
-                    pc.vstack(
-                        pc.hstack(
-                            pc.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                            pc.input(
+    return rx.modal(
+        rx.modal_overlay(
+            rx.modal_content(
+                rx.modal_body(
+                    rx.vstack(
+                        rx.hstack(
+                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+                            rx.input(
                                 placeholder="Search the docs",
                                 on_change=NavbarState.set_search_input,
                                 focus_border_color="transparent",
@@ -138,9 +138,9 @@ def search_modal(state: NavbarState):
                             ),
                             width="100%",
                         ),
-                        pc.divider(),
-                        pc.vstack(
-                            pc.foreach(
+                        rx.divider(),
+                        rx.vstack(
+                            rx.foreach(
                                 NavbarState.search_results,
                                 format_search_results,
                             ),
@@ -163,10 +163,10 @@ def search_modal(state: NavbarState):
 
 
 def github_button():
-    return pc.hstack(
-        pc.image(src="/github.png", height="1.25em"),
-        pc.text("Star", style=styles.NAV_TEXT_STYLE),
-        pc.text(
+    return rx.hstack(
+        rx.image(src="/github.png", height="1.25em"),
+        rx.text("Star", style=styles.NAV_TEXT_STYLE),
+        rx.text(
             "9k+", 
             color="#5646ED",
             bg="#F5EFFE",
@@ -183,8 +183,8 @@ def github_button():
     )
 
 def discord_button():
-    return pc.center(
-        pc.image(src="/icons/discord.svg", height="1.25em"),
+    return rx.center(
+        rx.image(src="/icons/discord.svg", height="1.25em"),
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
         height="2em",
         width="2em",
@@ -193,7 +193,7 @@ def discord_button():
         style=hover_button_style,
     )
 
-def navbar(sidebar: pc.Component = None) -> pc.Component:
+def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
 
     Args:
@@ -203,31 +203,31 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
     sidebar = sidebar or sb()
 
     # Create the navbar component.
-    return pc.box(
-        pc.hstack(
-            pc.hstack(
+    return rx.box(
+        rx.hstack(
+            rx.hstack(
                 logo,
-                pc.link(
+                rx.link(
                     "Docs",
                     href="/docs/getting-started/introduction",
                     style=styles.NAV_TEXT_STYLE,
                 ),
-                pc.link(
+                rx.link(
                     "Gallery",
                     href="/docs/gallery",
                     style=styles.NAV_TEXT_STYLE,
                 ),
-                pc.menu(
-                    pc.menu_button("Resources", style=styles.NAV_TEXT_STYLE),
-                    pc.menu_list(
-                        pc.hstack(
-                            pc.link(pc.vstack(
-                                pc.text("Contributor Program", style=styles.NAV_TEXT_STYLE),
-                                pc.text("Become a contributor", style=styles.NAV_TEXT_STYLE),
+                rx.menu(
+                    rx.menu_button("Resources", style=styles.NAV_TEXT_STYLE),
+                    rx.menu_list(
+                        rx.hstack(
+                            rx.link(rx.vstack(
+                                rx.text("Contributor Program", style=styles.NAV_TEXT_STYLE),
+                                rx.text("Become a contributor", style=styles.NAV_TEXT_STYLE),
                             ), href="/docs/gallery"),
-                            pc.vstack(
-                                pc.text("Community", style=styles.NAV_TEXT_STYLE),
-                                pc.text("Join the community", style=styles.NAV_TEXT_STYLE),
+                            rx.vstack(
+                                rx.text("Community", style=styles.NAV_TEXT_STYLE),
+                                rx.text("Join the community", style=styles.NAV_TEXT_STYLE),
                             )
                         ),
                     ),
@@ -235,7 +235,7 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 ),
                 spacing="2em",
             ),
-            pc.hstack(
+            rx.hstack(
                 search_bar(),
                 github_button(),
                 discord_button(),

@@ -6,14 +6,14 @@ import uuid
 from typing import Callable
 
 import black
-import pynecone as pc
+import reflex as rx
 
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
 
-class CopyToClipboard(pc.Component):
+class CopyToClipboard(rx.Component):
     """Component to copy text to clipboard."""
 
     library = "react-copy-to-clipboard"
@@ -21,7 +21,7 @@ class CopyToClipboard(pc.Component):
     tag = "CopyToClipboard"
 
     # The text to copy when clicked.
-    text: pc.Var[str]
+    text: rx.Var[str]
 
     @classmethod
     def get_triggers(cls) -> set[str]:
@@ -32,19 +32,19 @@ class CopyToClipboard(pc.Component):
 copy_to_clipboard = CopyToClipboard.create
 
 
-@pc.memo
+@rx.memo
 def code_block(
     code: str,
     language: str,
-    # copied: pc.Var[bool],
-    # copy_text: pc.Var[str],
-    # on_copy: pc.EventChain,
+    # copied: rx.Var[bool],
+    # copy_text: rx.Var[str],
+    # on_copy: rx.EventChain,
 ):
-    return pc.box(
-        pc.box(
-            pc.code_block(
+    return rx.box(
+        rx.box(
+            rx.code_block(
                 code,
-                pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                rx.button("Copy", bg="white", border="1px solid #EAEAEA"),
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="light",
                 background="transparent",
@@ -66,19 +66,19 @@ def code_block(
     )
 
 
-@pc.memo
+@rx.memo
 def code_block_dark(
     code: str,
     language: str,
     copied: bool,
     copy_text: str,
-    on_copy: pc.EventChain,
+    on_copy: rx.EventChain,
 ):
-    return pc.box(
-        pc.box(
-            pc.code_block(
+    return rx.box(
+        rx.box(
+            rx.code_block(
                 code,
-                pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                rx.button("Copy", bg="white", border="1px solid #EAEAEA"),
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="dark",
                 language=language,
@@ -91,10 +91,10 @@ def code_block_dark(
             border_radius=styles.DOC_BORDER_RADIUS,
             box_shadow=styles.DOC_SHADOW_LIGHT,
         ),
-        pc.cond(
+        rx.cond(
             copied,
-            pc.tooltip(
-                pc.icon(
+            rx.tooltip(
+                rx.icon(
                     tag="check_circle",
                     style=icon_style,
                     color=styles.ACCENT_COLOR,
@@ -106,13 +106,13 @@ def code_block_dark(
                 background_color=styles.ACCENT_COLOR,
                 is_open=copied,
             ),
-            pc.tablet_and_desktop(
+            rx.tablet_and_desktop(
                 copy_to_clipboard(
-                    pc.icon(
+                    rx.icon(
                         tag="copy",
                         style=icon_style,
                     ),
-                    text=pc.Var.create(copy_text, is_string=True),
+                    text=rx.Var.create(copy_text, is_string=True),
                     on_copy=on_copy,
                 ),
             ),
@@ -191,7 +191,7 @@ logo = navbar_logo(**logo_style)
 
 
 def doc_section(*contents):
-    return pc.box(
+    return rx.box(
         *contents,
         margin_top = "1em",
         margin_left = ".5em",
@@ -203,7 +203,7 @@ def doc_section(*contents):
 
 
 
-def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
+def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the pynecone.io site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -233,11 +233,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
 
         # Set the page title.
         if t is None:
-            title = f"{contents.__name__.replace('_', ' ').title()} | Pynecone"
+            title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
         else:
             title = t
 
-        def wrapper(*args, **kwargs) -> pc.Component:
+        def wrapper(*args, **kwargs) -> rx.Component:
             """The actual function wrapper.
 
             Args:
@@ -266,54 +266,54 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
             # Create the previous component link.
             if prev:
                 links.append(
-                    pc.link(
+                    rx.link(
                         "← " + prev.names,
                         href=prev.link,
                         style=link_style,
                     )
                 )
             else:
-                links.append(pc.box())
+                links.append(rx.box())
 
             # Create the next component link.
             if next:
                 links.append(
-                    pc.link(
+                    rx.link(
                         next.names + " →",
                         href=next.link,
                         style=link_style,
                     )
                 )
             else:
-                links.append(pc.box())
+                links.append(rx.box())
 
-            if not isinstance(contents, pc.Component):
+            if not isinstance(contents, rx.Component):
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
 
             # Return the templated page.
-            return pc.box(
+            return rx.box(
                 navbar(sidebar=nav_sidebar),
-                pc.box(
-                    pc.flex(
-                        pc.desktop_only(
+                rx.box(
+                    rx.flex(
+                        rx.desktop_only(
                             sidebar,
                             width=["0", "0%", "25%"],
                             padding_left=styles.PADDING_X,
                             padding_y="2em",
                         ),
-                        pc.box(
-                            pc.box(comp),
-                            pc.hstack(
+                        rx.box(
+                            rx.box(comp),
+                            rx.hstack(
                                 *links,
                                 justify="space-between",
                                 margin_y="3em",
                             ),
-                            pc.hstack(
+                            rx.hstack(
                                 logo,
-                                pc.spacer(),
-                                pc.text("Copyright © 2023 Pynecone", color="#CDCCD1"), 
+                                rx.spacer(),
+                                rx.text("Copyright © 2023 Pynecone, Inc.", color="#CDCCD1"), 
                                 width="100%",
                             ),
                             padding_left=["1em", "2em", "5em", "8em"],
@@ -343,24 +343,24 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
     return docpage
 
 
-@pc.memo
-def divider_comp() -> pc.Component:
-    return pc.divider(
+@rx.memo
+def divider_comp() -> rx.Component:
+    return rx.divider(
         margin_bottom="1em",
         margin_top="0.5em",
     )
 
 
-@pc.memo
+@rx.memo
 def header_comp(
     text: str,
     first: bool,
-) -> pc.Component:
-    return pc.box(
-        pc.cond(
+) -> rx.Component:
+    return rx.box(
+        rx.cond(
             first,
-            pc.heading(text),
-            pc.heading(
+            rx.heading(text),
+            rx.heading(
                 text,
                 margin_top="1em",
             ),
@@ -379,7 +379,7 @@ def docheader(
     coming_soon: bool = False,
     divider: bool = True,
     **props,
-) -> pc.Component:
+) -> rx.Component:
     """Style the header on a docpage.
 
     Args:
@@ -399,12 +399,12 @@ def docheader(
         style["fontSize"] = font_size
 
     # Set the text.
-    children = [pc.heading(text, style=style, **props)]
+    children = [rx.heading(text, style=style, **props)]
 
     # Add a badge if the header is coming soon.
     if coming_soon:
         children.append(
-            pc.badge(
+            rx.badge(
                 "Coming Soon!",
                 bg=styles.ACCENT_COLOR,
                 color="white",
@@ -413,10 +413,10 @@ def docheader(
 
     # Add a divider if needed.
     if divider:
-        children.append(pc.divider())
+        children.append(rx.divider())
 
     # Return the header.
-    return pc.box(
+    return rx.box(
         *children,
         id="-".join(text.lower().split()),
         color=styles.DOC_HEADER_COLOR,
@@ -426,10 +426,10 @@ def docheader(
 
 
 def subheader_comp(
-    text: pc.Var[str],
-) -> pc.Component:
-    return pc.box(
-        pc.heading(
+    text: rx.Var[str],
+) -> rx.Component:
+    return rx.box(
+        rx.heading(
             text,
             margin_top="1em",
             font_size=styles.H3_FONT_SIZE,
@@ -443,7 +443,7 @@ def subheader_comp(
 
 def subheader(
     text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
-) -> pc.Component:
+) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
@@ -468,12 +468,12 @@ def subheader(
 
 
 def text_comp(
-    text: pc.Var[str],
-) -> pc.Component:
-    return pc.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
+    text: rx.Var[str],
+) -> rx.Component:
+    return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
 
-def doctext(*text, **props) -> pc.Component:
+def doctext(*text, **props) -> rx.Component:
     """Create a documentation paragraph.
 
     Args:
@@ -483,7 +483,7 @@ def doctext(*text, **props) -> pc.Component:
     Returns:
         The styled paragraph.
     """
-    return pc.box(
+    return rx.box(
         *text,
         margin_bottom="1em",
         font_size=styles.TEXT_FONT_SIZE,
@@ -497,7 +497,7 @@ def doccode(
     language: str = "python",
     lines: tuple[int, int] | None = None,
     theme: str = "light",
-) -> pc.Component:
+) -> rx.Component:
     """Create a documentation code snippet.
 
     Args:
@@ -515,8 +515,8 @@ def doccode(
             textwrap.dedent(code), mode=black.FileMode(line_length=60)
         ).strip()
 
-        # Replace "State" with "pc.State".
-        code = code.replace("(State)", "(pc.State)")
+        # Replace "State" with "rx.State".
+        code = code.replace("(State)", "(rx.State)")
 
     # If needed, only display a subset of the lines.
     if lines is not None:
@@ -539,13 +539,13 @@ def doccode(
         # copied=ClipboardState.text == uid,
         # copy_text=copy_text,
         # on_copy=lambda: [
-        #     ClipboardState.copy(pc.Var.create(utils.wrap(uid, '"'))),
+        #     ClipboardState.copy(rx.Var.create(utils.wrap(uid, '"'))),
         #     ClipboardState.reset_text(),
         # ],
     )
 
 
-def docdemobox(*children) -> pc.Component:
+def docdemobox(*children) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
     Args:
@@ -554,8 +554,8 @@ def docdemobox(*children) -> pc.Component:
     Returns:
         The styled demo box.
     """
-    return pc.box(
-        pc.center(*children),
+    return rx.box(
+        rx.center(*children),
         style=demo_box_style,
     )
 
@@ -563,10 +563,10 @@ def docdemobox(*children) -> pc.Component:
 def docdemo(
     code: str,
     state: str | None = None,
-    comp: pc.Component | None = None,
+    comp: rx.Component | None = None,
     context: bool = False,
     **props,
-) -> pc.Component:
+) -> rx.Component:
     """Create a documentation demo with code and output.
 
     Args:
@@ -594,7 +594,7 @@ def docdemo(
         code = state + code
 
     # Create the demo.
-    return pc.vstack(
+    return rx.vstack(
         docdemobox(comp),
         doccode(code),
         width="100%",
@@ -604,7 +604,7 @@ def docdemo(
     )
 
 
-def doclink(text: str, href: str, **props) -> pc.Component:
+def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
     Args:
@@ -615,10 +615,10 @@ def doclink(text: str, href: str, **props) -> pc.Component:
     Returns:
         The styled link.
     """
-    return pc.link(text, href=href, style=styles.LINK_STYLE, **props)
+    return rx.link(text, href=href, style=styles.LINK_STYLE, **props)
 
 
-def definition(title: str, *children) -> pc.Component:
+def definition(title: str, *children) -> rx.Component:
     """Create a definition for a doc page.
 
     Args:
@@ -628,8 +628,8 @@ def definition(title: str, *children) -> pc.Component:
     Returns:
         The styled definition.
     """
-    return pc.box(
-        pc.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
+    return rx.box(
+        rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
         *children,
         padding="1em",
         border=f"1px solid {styles.ACCENT_COLOR}",
@@ -639,7 +639,7 @@ def definition(title: str, *children) -> pc.Component:
 
 def docalert(
     title: str = "", description: str = "", status: str = "info"
-) -> pc.Component:
+) -> rx.Component:
     """Create an alert for a doc page.
 
     Args:
@@ -651,11 +651,11 @@ def docalert(
         The styled alert.
     """
     return doctext(
-        pc.alert(
-            pc.alert_icon(),
-            pc.box(
-                pc.alert_title(title),
-                pc.alert_description(description),
+        rx.alert(
+            rx.alert_icon(),
+            rx.box(
+                rx.alert_title(title),
+                rx.alert_description(description),
             ),
             status=status,
         ),
@@ -663,7 +663,7 @@ def docalert(
 
 
 def docgraphing(data_example, data_rendered, description):
-    return pc.fragment(
+    return rx.fragment(
         subheader("Data"),
         description,
         doccode(data_example),

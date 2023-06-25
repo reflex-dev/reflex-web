@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb import constants
 from pcweb.templates.docpage import (
@@ -17,20 +17,20 @@ default_url = "http://localhost:3000"
 
 @docpage()
 def installation():
-    return pc.box(
+    return rx.box(
         docheader("Installation", first=True),
         subheader("Prerequisites"),
         doctext(
-            "Pynecone requires the following to get started:",
+            "Reflex requires the following to get started:",
         ),
-        pc.unordered_list(
-            pc.list_item("Python 3.7+"),
-            pc.list_item(
+        rx.unordered_list(
+            rx.list_item("Python 3.7+"),
+            rx.list_item(
                 doclink("NodeJS 16.8.0+", href=constants.NODEJS_URL),
             ),
             padding_left="2em",
         ),
-        pc.divider(),
+        rx.divider(),
         subheader("Virtual Environment (Optional)"),
         doctext(
             "We recommend creating a virtual environment for your project. ",
@@ -38,38 +38,38 @@ def installation():
         doctext(
             "Below are some tools you can use to manage environments:",
         ),
-        pc.unordered_list(
-            pc.list_item(doclink("poetry", href=constants.POETRY_URL)),
-            pc.list_item(doclink("pipenv", href=constants.PIPENV_URL)),
-            pc.list_item(
+        rx.unordered_list(
+            rx.list_item(doclink("poetry", href=constants.POETRY_URL)),
+            rx.list_item(doclink("pipenv", href=constants.PIPENV_URL)),
+            rx.list_item(
                 doclink("venv", href=constants.VENV_URL),
             ),
-            pc.list_item(
+            rx.list_item(
                 doclink("virtualenv", href=constants.VIRTUALENV_URL),
             ),
-            pc.list_item(doclink("conda", href=constants.CONDA_URL)),
+            rx.list_item(doclink("conda", href=constants.CONDA_URL)),
             padding_left="2em",
             padding_bottom="1em",
         ),
         subheader("Installing"),
         doctext(
-            "Pynecone is available as a ",
+            "Reflex is available as a ",
             doclink("pip", href=constants.PIP_URL),
             " library:",
         ),
         doccode(
-            "$ pip install pynecone",
+            "$ pip install reflex",
             language="bash",
         ),
         subheader("Create a Project"),
         doctext(
-            "Installing Pynecone also installs the ",
-            pc.code("pc"),
+            "Installing Reflex also installs the ",
+            rx.code("pc"),
             " command line tool. ",
         ),
         doctext(
             "Test that the install was successful by creating a new project. Replace ",
-            pc.code(app_name),
+            rx.code(app_name),
             " with your project name:",
         ),
         doccode(
@@ -99,11 +99,11 @@ def installation():
             ".",
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.alert_title(
+            rx.alert(
+                rx.alert_icon(),
+                rx.alert_title(
                     "You can run your app on a different port with the ",
-                    pc.code("--frontend-port"),
+                    rx.code("--frontend-port"),
                     " flag. ",
                 ),
                 status="success",
@@ -112,22 +112,22 @@ def installation():
         docalert(
             "Running on Windows.",
             "We strongly advise you to use Windows Subsystem for Linux (WSL) for optimal performance"
-            " when using Pynecone. Due to compatibility issues with one of our dependencies, Bun,"
+            " when using Reflex. Due to compatibility issues with one of our dependencies, Bun,"
             " you may experience slower performance on Windows. By using WSL, you can expect to "
             "see a significant speed increase.",
             status="warning",
         ),
         doctext(
-            "Pynecone also starts a ",
+            "Reflex also starts a ",
             doclink("FastAPI", href=constants.FASTAPI_URL),
             " server at port ",
-            pc.code("8000"),
+            rx.code("8000"),
             ". All of your event handlers run on this server, ",
             " and state changes are sent to the client via websockets. ",
         ),
         doctext(
             "You can debug your app by setting the ",
-            pc.code("--loglevel"),
+            rx.code("--loglevel"),
             " flag. ",
         ),
         doccode(
@@ -140,16 +140,16 @@ def installation():
         ),
         subheader("Fast Refresh"),
         doctext(
-            "Pynecone has fast refresh built in when running in development mode. ",
+            "Reflex has fast refresh built in when running in development mode. ",
             "You can modify the source code in ",
-            pc.code(f"{app_name}/{app_name}.py"),
+            rx.code(f"{app_name}/{app_name}.py"),
             " and see your changes in the browser instantly when you save your code. ",
         ),
         docalert(
             "Fast Refresh on Windows.",
             "When running on windows, the hot reload feature may not work as "
             "expected if you're running a project that resides on a different "
-            "file system (eg. running your Pynecone project from Windows with "
+            "file system (eg. running your Reflex project from Windows with "
             "your project residing on the WSL file system). This is as a result "
             "of incompatibilities between the the windows file system and that of WSL."
             " It is however, recommended "
