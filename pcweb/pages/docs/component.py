@@ -7,7 +7,7 @@ from typing import Any, Type
 from pynecone.base import Base
 from pynecone.components.component import Component
 
-from pcweb.component_list import component_list
+from pcweb.component_list import component_list, not_ready_components
 from pcweb.components.sidebar import SidebarItem
 from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
@@ -93,9 +93,10 @@ class Source(Base):
                 continue
 
             # redundant check just to double-check line above prop is a comment
-            assert (
-                self.code[i - 1].strip().startswith("#")
-            ), f"Expected comment, got {comment}"
+            comment_above = self.code[i - 1].strip()
+            assert comment_above.startswith(
+                "#"
+            ), f"Expected comment, got {comment_above}"
 
             # Get the comment for this prop.
             comment = Source.get_comment(comments)
@@ -166,61 +167,61 @@ def get_examples(component: str) -> pc.Component:
 
 EVENTS = {
     "on_focus": {
-        "description": "Called when the element (or some element inside of it) receives focus. For example, it’s called when the user clicks on a text input."
+        "description": "Function or event handler called when the element (or some element inside of it) receives focus. For example, it is called when the user clicks on a text input."
     },
     "on_blur": {
-        "description": "Called when focus has left the element (or left some element inside of it). For example, it’s called when the user clicks outside of a focused text input."
+        "description": "Function or event handler called when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input."
     },
     "on_change": {
-        "description": "Called when the value of an element has changed. For example, it’s called when the user types into a text input each keystoke triggers the on change."
+        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystoke triggers the on change."
     },
     "on_click": {
-        "description": "Called when the user clicks on an element. For example, it’s called when the user clicks on a button."
+        "description": "Function or event handler called when the user clicks on an element. For example, it’s called when the user clicks on a button."
     },
     "on_context_menu": {
-        "description": "Called when the user right-clicks on an element. For example, it’s called when the user right-clicks on a button."
+        "description": "Function or event handler called when the user right-clicks on an element. For example, it is called when the user right-clicks on a button."
     },
     "on_double_click": {
-        "description": "Called when the user double-clicks on an element. For example, it’s called when the user double-clicks on a button."
+        "description": "Function or event handler called when the user double-clicks on an element. For example, it is called when the user double-clicks on a button."
     },
     "on_mouse_up": {
-        "description": "Called when the user releases a mouse button on an element. For example, it’s called when the user releases the left mouse button on a button."
+        "description": "Function or event handler called when the user releases a mouse button on an element. For example, it is called when the user releases the left mouse button on a button."
     },
     "on_mouse_down": {
-        "description": "Called when the user presses a mouse button on an element. For example, it’s called when the user presses the left mouse button on a button."
+        "description": "Function or event handler called when the user presses a mouse button on an element. For example, it is called when the user presses the left mouse button on a button."
     },
     "on_mouse_enter": {
-        "description": "Called when the user’s mouse enters an element. For example, it’s called when the user’s mouse enters a button."
+        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button."
     },
     "on_mouse_leave": {
-        "description": "Called when the user’s mouse leaves an element. For example, it’s called when the user’s mouse leaves a button."
+        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button."
     },
     "on_mouse_move": {
-        "description": "Called when the user moves the mouse over an element. For example, it’s called when the user moves the mouse over a button."
+        "description": "Function or event handler called when the user moves the mouse over an element. For example, it’s called when the user moves the mouse over a button."
     },
     "on_mouse_out": {
-        "description": "Called when the user’s mouse leaves an element. For example, it’s called when the user’s mouse leaves a button."
+        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button."
     },
     "on_mouse_over": {
-        "description": "Called when the user’s mouse enters an element. For example, it’s called when the user’s mouse enters a button."
+        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button."
     },
     "on_scroll": {
-        "description": "Called when the user scrolls the page. For example, it’s called when the user scrolls the page down."
+        "description": "Function or event handler called when the user scrolls the page. For example, it is called when the user scrolls the page down."
     },
     "on_submit": {
-        "description": "Called when the user submits a form. For example, it’s called when the user clicks on a submit button."
+        "description": "Function or event handler called when the user submits a form. For example, it is called when the user clicks on a submit button."
     },
     "on_cancel": {
-        "description": "Called when the user cancels a form. For example, it’s called when the user clicks on a cancel button."
+        "description": "Function or event handler called when the user cancels a form. For example, it is called when the user clicks on a cancel button."
     },
     "on_edit": {
-        "description": "Called when the user edits a form. For example, it’s called when the user clicks on a edit button."
+        "description": "Function or event handler called when the user edits a form. For example, it is called when the user clicks on a edit button."
     },
     "on_change_start": {
-        "description": "Called when the user starts to change a form. For example, it’s called when the user clicks on a change start button."
+        "description": "Function or event handler called when the user starts selecting a new value(By dragging or clicking)."
     },
     "on_change_end": {
-        "description": "Called when the user ends to change a form. For example, it’s called when the user clicks on a change end button."
+        "description": "Function or event handler called when the user is done selecting a new value(By dragging or clicking)."
     },
     "on_complete": {
         "description": "Called when the user completes a form. For example, it’s called when the user clicks on a complete button."
@@ -229,22 +230,22 @@ EVENTS = {
         "description": "The on_error event handler is called when the user encounters an error in a form. For example, it’s called when the user clicks on a error button."
     },
     "on_load": {
-        "description": "The on_load event handler is called when the user loads a form. For example, it’s called when the user clicks on a load button."
+        "description": "The on_load event handler is called when the user loads a form. For example, it is called when the user clicks on a load button."
     },
     "on_esc": {
-        "description": "The on_esc event handler is called when the user presses the escape key. For example, it’s called when the user presses the escape key."
+        "description": "The on_esc event handler is called when the user presses the escape key. For example, it is called when the user presses the escape key."
     },
     "on_open": {
-        "description": "The on_open event handler is called when the user opens a form. For example, it’s called when the user clicks on a open button."
+        "description": "The on_open event handler is called when the user opens a form. For example, it is called when the user clicks on a open button."
     },
     "on_close": {
-        "description": "The on_close event handler is called when the user closes a form. For example, it’s called when the user clicks on a close button."
+        "description": "The on_close event handler is called when the user closes a form. For example, it is called when the user clicks on a close button."
     },
     "on_close_complete": {
-        "description": "The on_close_complete event handler is called when the user closes a form. For example, it’s called when the user clicks on a close complete button."
+        "description": "The on_close_complete event handler is called when the user closes a form. For example, it is called when the user clicks on a close complete button."
     },
     "on_overlay_click": {
-        "description": "The on_overlay_click event handler is called when the user clicks on an overlay. For example, it’s called when the user clicks on a overlay button."
+        "description": "The on_overlay_click event handler is called when the user clicks on an overlay. For example, it is called when the user clicks on a overlay button."
     },
     "on_key_down": {
         "description": "The on_key_down event handler is called when the user presses a key."
@@ -252,7 +253,11 @@ EVENTS = {
     "on_key_up": {
         "description": "The on_key_up event handler is called when the user releases a key."
     },
+    "on_copy": {
+        "description": "The on_copy event handler is called in CopyToClipboard component"
+    },
 }
+
 
 # Docs page
 def component_docs(component):
@@ -402,17 +407,18 @@ sidebar_items = [
 
 def multi_docs(path, component_list):
     components = [component_docs(component) for component in component_list]
+    coming_soon_components = [c.__name__ for c in not_ready_components]
 
     @docpage(set_path=path)
     def out():
+        name = component_list[0].__name__
         return pc.box(
             pc.box(
                 pc.box(
                     docheader(
-                        component_list[0].__name__,
-                        first=True,
+                        name, first=True, coming_soon=name in coming_soon_components
                     ),
-                    get_examples(component_list[0].__name__),
+                    get_examples(name),
                     text_align="left",
                 ),
                 *components,

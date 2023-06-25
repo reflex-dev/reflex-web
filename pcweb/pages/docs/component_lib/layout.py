@@ -1,7 +1,7 @@
 import pynecone as pc
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext
+from pcweb.templates.docpage import docdemo, doctext, subheader
 
 code49 = """pc.vstack(
     pc.box("Example", bg="yellow", border_radius="sm", width="20%"),
@@ -28,6 +28,8 @@ iframe_example = """pc.box(
         width = "100%",
     )
 """
+
+
 # Layout
 def render_box():
     return pc.vstack(
@@ -56,7 +58,38 @@ code52 = """class CondState(State):
     def change(self):
         self.show = not (self.show)
 """
+
+code51_a = """pc.vstack(
+    pc.button("Toggle", on_click=MultiCondState.change),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & True => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
+    ),
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " & False => ", 
+        pc.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
+    ),  
+    pc.text(
+        pc.cond(MultiCondState.cond1, "True", "False"), 
+        " | False => ", 
+        pc.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
+    ),
+)
+"""
+code52_a = """class MultiCondState(State):
+    cond1: bool = True
+    cond2: bool = False
+    cond3: bool = True
+
+    def change(self):
+        self.cond1 = not (self.cond1)
+"""
+
 exec(code52)
+
+exec(code52_a)
 
 
 def render_cond():
@@ -69,6 +102,15 @@ def render_cond():
         doctext(
             "The second component is optional and can be omitted. If it is omitted, nothing is rendered if the condition is false."
         ),
+        subheader("Multiple Conditions"),
+        doctext(
+            "You can also use the logical operator ",
+            pc.code("&"),
+            "and ",
+            pc.code("|"),
+            "to make up complex conditions",
+        ),
+        docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
         align_items="start",
     )
 
@@ -310,10 +352,11 @@ def render_wrap():
     )
 
 
-basic_foreach_state = """class ForeachState(State):
-    color = ["red", "green", "blue", "yellow", "orange", "purple"]
+basic_foreach_state = """from typing import List
+class ForeachState(State):
+    color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
-def colored_box(color):
+def colored_box(color: str):
     return pc.box(
         pc.text(color),
         bg=color
@@ -330,10 +373,11 @@ basic_foreach = """pc.responsive_grid(
 """
 
 
-foreach_index_state = """class ForeachIndexState(State):
-    count = ["red", "green", "blue", "yellow", "orange", "purple"]
+foreach_index_state = """from typing import List
+class ForeachIndexState(State):
+    count: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
-def colored_box(color, index):
+def colored_box(color: str, index: int):
     return pc.box(
         pc.text(index),
         bg=color
@@ -350,8 +394,9 @@ foreach_index = """pc.responsive_grid(
 """
 
 
-nested_foreach_state = """class NestedForeachState(State):
-    numbers: list[list[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+nested_foreach_state = """from typing import List
+class NestedForeachState(State):
+    numbers: List[List[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 def display_row(row):
     return pc.hstack(
@@ -374,14 +419,66 @@ nested_foreach = """pc.vstack(
     )
 """
 
-todo1 = """class ListState(State):
-    items = ["Write Code", "Sleep", "Have Fun"]
+simple_dict_foreach_state = """from typing import List
+class SimpleDictForeachState(State):
+    color_chart: dict[int, str] = {
+         1 : "blue",
+         2: "red",
+         3: "green"
+    }
+
+def display_color(color: List):
+    # color is presented as a list key-value pair([1, "blue"],[2, "red"], [3, "green"])
+    return pc.box(pc.text(color[0]), bg=color[1])
+"""
+exec(simple_dict_foreach_state)
+simple_dict_foreach = """pc.responsive_grid(
+        pc.foreach(
+             SimpleDictForeachState.color_chart,
+            display_color
+        ),
+        columns = [2, 4, 6]
+    )
+"""
+
+complex_dict_foreach_state = """from typing import List, Dict
+class ComplexDictForeachState(State):
+    color_chart: Dict[str, List[str]] = {
+        "purple": ["red", "blue"],
+        "orange": ["yellow", "red"],
+        "green": ["blue", "yellow"]
+    }
+
+def display_colors(color: List):
+    return pc.vstack(
+            pc.text(color[0], color=color[0]),
+            pc.hstack(
+                pc.foreach(
+                    color[1], lambda x: pc.box(pc.text(x, color="black"), bg=x)
+                )
+
+            )
+        )
+"""
+exec(complex_dict_foreach_state)
+complex_dict_foreach = """pc.responsive_grid(
+        pc.foreach(
+             ComplexDictForeachState.color_chart,
+            display_colors
+        ),
+        columns = [2, 4, 6]
+    )
+"""
+
+todo1 = """from typing import List
+class ListState(State):
+    items: List[str] = ["Write Code", "Sleep", "Have Fun"]
     new_item: str
 
     def add_item(self):
         self.items += [self.new_item]
 
-    def finish_item(self, item):
+    def finish_item(self, item: str):
         self.items = [i for i in self.items if i != item]
 
 def get_item(item):
@@ -425,8 +522,8 @@ def render_foreach():
         doctext(
             "The ",
             pc.code("pc.foreach"),
-            " component takes a list and a function that renders each item in the list. ",
-            "This is useful for dymamically rendering a list of items defined in a state.",
+            " component takes an iterable(list, tuple or dict) and a function that renders each item in the list. ",
+            "This is useful for dynamically rendering a list of items defined in a state.",
         ),
         docdemo(basic_foreach, basic_foreach_state, eval(basic_foreach), context=True),
         doctext(
@@ -444,5 +541,70 @@ def render_foreach():
         ),
         doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
+        subheader('Dictionaries'),
+        doctext(
+            "Items in a dictionary can be accessed as list of key-value pairs. Using the color example, we can slightly modify ",
+            "the code to use dicts as shown below"
+        ),
+        docdemo(simple_dict_foreach, simple_dict_foreach_state, eval(simple_dict_foreach), context=True),
+        doctext(
+            "Now let's show a more complex example with dicts using the color example. Assuming we want to ",
+            "display a dictionary of secondary colors as keys and their constituent primary colors as values, ",
+            "we can modify the code as below: "
+        ),
+        docdemo(complex_dict_foreach, complex_dict_foreach_state, eval(complex_dict_foreach), context=True),
         align_items="start",
+
+    )
+
+
+card_example1 = """pc.card(pc.text("Body of the Card Component"), header=pc.heading("Header", size="lg"), footer=pc.heading("Footer",size="sm"))"""
+
+
+def render_card():
+    return pc.vstack(
+        doctext(
+            "Card is a flexible component used to group and display content in a clear and concise format."
+        ),
+        docdemo(card_example1),
+        doctext(
+            "You can pass a header with ",
+            pc.code("header="),
+            " and/or a footer with ",
+            pc.code("footer="),
+        ),
+    )
+
+
+image_example = (
+    """pc.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
+)
+
+aspect_ratio_example = f"""pc.aspect_ratio({image_example}, ratio=4/3)"""
+
+
+def render_aspectratio():
+    return pc.vstack(
+        doctext("Preserve the ratio of the components contained within"),
+        docdemo(image_example),
+        docdemo(aspect_ratio_example),
+    )
+
+
+fragment_example = """pc.fragment(pc.text("Component1"), pc.text("Component2"))"""
+
+
+def render_fragment():
+    return pc.vstack(
+        doctext(
+            "A Fragment is a Component that allow you to group multiple Components without a wrapper node."
+        ),
+        doctext(
+            "Refer to the React docs at ",
+            pc.link(
+                "React/Fragment", href="https://react.dev/reference/react/Fragment"
+            ),
+            " for more information on its use-case",
+        ),
+        docdemo(fragment_example),
     )

@@ -34,6 +34,8 @@ badge_example2 = """pc.hstack(
 """
 badge_example3 = """pc.badge("Custom Badge", bg  = "#90EE90", color = "#3B7A57", border_color = "#29AB87", border_width = 2)
 """
+
+
 # Datadisplay
 def render_badge():
     return pc.vstack(
@@ -202,7 +204,9 @@ def render_stat():
     )
 
 
-datatable_example_2_df = """nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")"""
+datatable_example_2_df = """import pandas as pd
+...
+nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")"""
 datatable_example_2_table = """
 pc.data_table(
     data = nba_data[["Name", "Height", "Age"]],
@@ -232,10 +236,10 @@ datatable_example_3 = """class State(pc.State):
 def render_datatable():
     return pc.vstack(
         doctext(
-            "The datatable component is a great way to display data in a table format. You can passs in a pandas dataframe to the df prop to create the table."
+            "The datatable component is a great way to display data in a table format. You can pass in a pandas dataframe to the data prop to create the table."
         ),
         doctext(
-            "In this example we will read data from a csv file and display it in a data_table."
+            "In this example we will read data from a csv file, convert it to a pandas dataframe and display it in a data_table."
         ),
         doctext(
             "We will also add a search, pagination, sorting to the data_table to make it more accessible."

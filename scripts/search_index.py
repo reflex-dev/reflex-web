@@ -10,7 +10,7 @@ def get_strings(comp):
     strings = []
     for child in comp.children:
         if isinstance(child, Bare):
-            s = str(child).removeprefix("{`").removesuffix("`}")
+            s = child._render().contents.removeprefix("{`").removesuffix("`}")
             if not s.startswith("{"):
                 strings.append(s)
         else:

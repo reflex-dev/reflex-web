@@ -71,5 +71,16 @@ def render_form():
             comp=eval(form_example),
             context=True,
         ),
+        doctext(
+            pc.alert(
+                pc.alert_icon(),
+                pc.alert_title(
+                    "When using the form you must include a component with the ",
+                    pc.code("type_='submit'"),
+                    ".",
+                ),
+                status="warning",
+            ),
+        ),
         align_items="start",
     )

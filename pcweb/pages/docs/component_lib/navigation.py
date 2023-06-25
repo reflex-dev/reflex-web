@@ -19,6 +19,7 @@ breadcrumb_separator = """pc.breadcrumb(
 )
 """
 
+
 # Navigation
 def render_breadcrumb():
     return pc.vstack(

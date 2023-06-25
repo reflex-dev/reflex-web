@@ -208,4 +208,19 @@ def index():
             "Backend vars are prefixed with an underscore. ",
         ),
         docdemo(code10, code9, eval(code10), context=True),
+        doctext(
+            pc.alert(
+                pc.alert_icon(),
+                pc.box(
+                    pc.alert_title("State Vars must provide type annotations."),
+                    pc.alert_description(
+                        "Pynecone relies on type annotations to determine the type of state vars during the "
+                        "compilation process.",
+                        " Therefore, all state vars should be annotated correctly.",
+                        ".",
+                    ),
+                ),
+                status="warning",
+            ),
+        ),
     )

@@ -181,6 +181,7 @@ link_style = {
     },
     "fontSize": "1.2em",
 }
+
 font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE]
 logo_style = {
     "height": "1em",
@@ -199,7 +200,6 @@ def doc_section(*contents):
         width = "100%"
         
     )
-
 
 def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
     """A template that most pages on the pynecone.io site should use.
@@ -303,7 +303,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
                         ),
                         pc.box(
                             pc.box(comp),
-                            pc.divider(),
                             pc.hstack(
                                 *links,
                                 justify="space-between",

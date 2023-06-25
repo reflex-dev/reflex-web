@@ -4,10 +4,11 @@ import pynecone as pc
 
 # Form components.
 forms_list = [
-    [pc.Button, pc.ButtonGroup],
+    [pc.Form],
+    [pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
+    [pc.Button, pc.ButtonGroup, pc.IconButton],
     [pc.Checkbox],
     [pc.Editable, pc.EditableInput, pc.EditableTextarea, pc.EditablePreview],
-    [pc.Form, pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
     [pc.Input],
     [
         pc.NumberInput,
@@ -28,6 +29,7 @@ forms_list = [
     [pc.Slider, pc.SliderTrack, pc.SliderFilledTrack, pc.SliderThumb, pc.SliderMark],
     [pc.Switch],
     [pc.TextArea],
+    # [pc.CopyToClipboard],
     [pc.Upload],
 ]
 
@@ -41,9 +43,12 @@ layout_list = [
     [pc.Foreach],
     [pc.Grid, pc.GridItem],
     [pc.ResponsiveGrid],
+    [pc.Card, pc.CardHeader, pc.CardBody, pc.CardFooter],
     [pc.Spacer],
     [pc.Stack, pc.Hstack, pc.Vstack],
     [pc.Wrap, pc.WrapItem],
+    [pc.AspectRatio],
+    [pc.Fragment],
 ]
 
 # Overlay components.
@@ -95,7 +100,13 @@ overlay_list = [
 ]
 
 # Typography components.
-typography_list = [[pc.Text], [pc.Heading], [pc.Span], [pc.Markdown]]
+typography_list = [
+    [pc.Text],
+    [pc.Heading],
+    [pc.Span],
+    [pc.Markdown],
+    [pc.Highlight],
+]
 
 # Navigation components.
 navigation_list = [
@@ -104,7 +115,11 @@ navigation_list = [
 ]
 
 # Media components.
-media_list = [[pc.Avatar, pc.AvatarBadge, pc.AvatarGroup], [pc.Image], [pc.Icon]]
+media_list = [
+    [pc.Avatar, pc.AvatarBadge, pc.AvatarGroup],
+    [pc.Image],
+    [pc.Icon],
+]
 
 # Data display components.
 datadisplay_list = [
@@ -113,7 +128,14 @@ datadisplay_list = [
     [pc.Divider],
     [pc.DataTable],
     [pc.List, pc.ListItem, pc.UnorderedList, pc.OrderedList],
-    [pc.Stat, pc.StatLabel, pc.StatNumber, pc.StatHelpText, pc.StatArrow, pc.StatGroup],
+    [
+        pc.Stat,
+        pc.StatLabel,
+        pc.StatNumber,
+        pc.StatHelpText,
+        pc.StatArrow,
+        pc.StatGroup,
+    ],
     [
         pc.Table,
         pc.Thead,
@@ -182,3 +204,9 @@ component_list = {
     "Overlay": overlay_list,
     "Other": other_list,
 }
+
+not_ready_components = [
+    pc.CopyToClipboard,
+    pc.IconButton,
+    pc.AspectRatio,
+]

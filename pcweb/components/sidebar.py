@@ -85,6 +85,7 @@ def get_sidebar_items_learn():
                 getting_started.introduction,
                 getting_started.installation,
                 getting_started.project_structure,
+                getting_started.configuration,
             ],
         ),
         create_item(
@@ -138,7 +139,7 @@ def get_sidebar_items_learn():
                 advanced_guide.memoization,
                 advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
-                advanced_guide.middleware,
+                advanced_guide.use_middleware,
                 advanced_guide.telemetry,
             ],
         )

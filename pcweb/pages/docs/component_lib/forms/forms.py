@@ -18,9 +18,9 @@ checkbox_example = """pc.vstack(
 """
 checkbox_example_state = """class SwitchState(State):
     checked: bool = False
-    is_checked = "Switch off!"
+    is_checked: bool = "Switch off!"
 
-    def change_check(self, checked):
+    def change_check(self, checked: bool):
         self.checked = checked
         if self.checked:
             self.is_checked = "Switch on!"
@@ -99,7 +99,7 @@ class State(pc.State):
         \"""
         for file in files:
             upload_data = await file.read()
-            outfile = f".web/public/{file.filename}"
+            outfile = pc.get_asset_path(file.filename)
 
             # Save the file.
             with open(outfile, "wb") as file_object:
@@ -244,3 +244,20 @@ def render_upload():
         ),
         align_items="start",
     )
+
+
+copy_to_clipboard_example = """pc.copy_to_clipboard(
+                    pc.icon(
+                        tag="copy",
+                        style=icon_style,
+                    ),
+                    text=pc.Var.create("Text to copy", is_string=True),
+                ),"""
+
+
+# def render_copytoclipboard():
+#     return pc.vstack(
+#         doctext("A button that will put some content into the clipboard"),
+#         docdemo(copy_to_clipboard_example),
+#         doctext("TODO: Add example for copy_to_clipboard"),
+#     )

@@ -92,7 +92,8 @@ Options:
   --loglevel [debug|info|warning|error|critical]
                                   The log level to use.  [default:
                                   LogLevel.ERROR]
-  --port TEXT                     Specify a different frontend port.
+  --frontend-port TEXT            Specify a different frontend port.
+  --backend-host TEXT             Specify a different backend host.
   --backend-port TEXT             Specify a different backend port.
   --help                          Show this message and exit.
   """,
