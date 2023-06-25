@@ -165,17 +165,8 @@ def landing():
                                 pc.input(
                                     placeholder="Your email address...",
                                     on_blur=IndexState.set_email,
-                                    _placeholder = {"color": "#494369"},
-                                    color="#494369",
                                     type="email",
-                                    size="md",
-                                    border_color="transparent", 
-                                    border_radius= "6px",
-                                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1)",
-                                    bg="#FFFFFF",
-                                    _focus={
-                                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                                    },
+                                    style=styles.INPUT_STYLE,
                                 ),
                                 pc.button(
                                     "Join Hosting Waitlist",
@@ -185,7 +176,7 @@ def landing():
                                 justify="left",
                                 should_wrap_children=True,
                                 spacing="1em",
-                                padding_bottom="1em",
+                                padding_y="1em",
                             ),
                             pc.text(
                                 pc.icon(
@@ -196,6 +187,7 @@ def landing():
                             ),
                         ),
                     align_items="left",
+                    padding="1em",
                 ),
                 width="100%",
             ),

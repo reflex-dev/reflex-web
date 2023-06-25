@@ -99,3 +99,16 @@ Primary_Initial_Large_STYLE = {
     "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(52, 46, 92, 0.8) 0%, rgba(234, 228, 253, 0) 100%), #7E69E0",
     "box_shadow": "0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.24), 0px 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0px -20px 12px -4px rgba(86, 70, 237, 0.32)"
 }
+
+
+INPUT_STYLE = {
+    "border": "1px solid rgba(84, 82, 95, 0.12)",
+    "color":"#494369",
+    "border-radius": "6px",
+    "_focus": {
+        "border": f"2px solid {ACCENT_COLOR}",
+    },
+    "_placeholder": {
+        "color": "#494369",
+    },
+}

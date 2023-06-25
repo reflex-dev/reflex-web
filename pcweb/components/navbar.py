@@ -10,11 +10,21 @@ from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.resources import resources
 from pcweb.pages.docs.getting_started import introduction
 from pcweb.pages.index import index
+from typing import Optional
 
 try:
     from pcweb.tsclient import client
 except ImportError:
     client = None
+
+
+class NavMenu(pc.Component):
+    library = "@radix-ui/react-navigation-menu"
+    tag = "NavigationMenu"
+
+    @classmethod
+    def get_alias(cls) -> Optional[str]:
+        return "*"
 
 
 class NavbarState(State):
@@ -50,33 +60,35 @@ class NavbarState(State):
 
 
 def format_search_results(result):
-    return pc.link(
-        pc.vstack(
-            pc.text(
-                result["document"]["heading"],
-                font_weight=600,
-                color="#1F1944",
-            ),
-            pc.divider(),
-            pc.text(
-                result["document"]["description"],
-                font_weight=400,
-                color="#696287",
-                
+    return pc.vstack(
+            pc.link(
+                pc.text(
+                    result["document"]["heading"],
+                    font_weight=600,
+                    color="#1F1944",
+                ),
+                pc.divider(),
+                pc.text(
+                    result["document"]["description"],
+                    font_weight=400,
+                    color="#696287",
+                    
+                ),
+            on_click=NavbarState.change_search,
+            href=result["document"]["href"],
             ),
             bg="#FAF8FB",
             border_radius="8px",
             align_items="start",
             padding="0.5em",
+            shadow = styles.DOC_SHADOW_LIGHT,
             _hover={
                 "background_color": "#F5EFFE",
                 "color":"#5646ED"
             },
             width="100%",
-    ),
-    on_click=NavbarState.change_search,
-    href=result["document"]["href"],
-)
+    )
+
 
 
 # Styles to use for the navbar.
@@ -132,11 +144,11 @@ def search_modal(state: NavbarState):
                                 NavbarState.search_results,
                                 format_search_results,
                             ),
-                            spacing="0.5em",
+                            spacing="1em",
                             width="100%",
                             max_height="30em",
                             align_items="start",
-                            overflow="auto",
+                            overflow_y="auto",
                         )
                     )
                 ),
@@ -208,10 +220,16 @@ def navbar(sidebar: pc.Component = None) -> pc.Component:
                 pc.menu(
                     pc.menu_button("Resources", style=styles.NAV_TEXT_STYLE),
                     pc.menu_list(
-                        pc.menu_item("Blog", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
-                        pc.menu_divider(),
-                        pc.menu_item("Roadmap", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
-                        pc.menu_item("Contributor Program", font_family="Instrument Sans", _hover={"bg": "#FAF8FB"}),
+                        pc.hstack(
+                            pc.link(pc.vstack(
+                                pc.text("Contributor Program", style=styles.NAV_TEXT_STYLE),
+                                pc.text("Become a contributor", style=styles.NAV_TEXT_STYLE),
+                            ), href="/docs/gallery"),
+                            pc.vstack(
+                                pc.text("Community", style=styles.NAV_TEXT_STYLE),
+                                pc.text("Join the community", style=styles.NAV_TEXT_STYLE),
+                            )
+                        ),
                     ),
                     background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
                 ),

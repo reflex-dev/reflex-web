@@ -63,17 +63,9 @@ def chat_component():
                         pc.hstack(
                             pc.input(
                                 placeholder="Search docs...",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1);",
-                                border_radius="4px;",
-                                border_color="transparent",
-                                width="100%",
-                                bg = "#FFFFFF",
                                 on_blur = GptState.set_question,
-                                _focus={
-                                        "border": f"2px solid {styles.ACCENT_COLOR}",
-                                        "box_shadow":"0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 2px rgba(84, 82, 95, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.04), inset 0px 1px 0px rgba(255, 255, 255, 0.1);",
-                                },
-                                font_family  = "Instrument Sans"
+                                width="100%",
+                                styles=styles.INPUT_STYLE           
                             ),
                             pc.spacer(),
                             pc.button(
