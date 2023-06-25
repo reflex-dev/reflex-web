@@ -6,8 +6,8 @@ import os
 
 try:
     openai.api_key = os.environ["OPENAI_API_KEY"]
-except KeyError:
-    raise Exception("OPENAI_API_KEY environment variable not set.")
+except Exception as e:
+    print("OPENAI_API_KEY environment variable not set.")
 
 def tag(text):
     return rx.text(
