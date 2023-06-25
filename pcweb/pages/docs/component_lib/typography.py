@@ -33,13 +33,19 @@ def render_text():
                         pc.list_item(pc.code("i"), ": Italic text"),
                         pc.list_item(pc.code("em"), ": Emphasized text"),
                         pc.list_item(pc.code("mark"), ": Marked text"),
+                        pc.list_item(pc.code("kdb"), ": Inserted text"),
+                        pc.list_item(pc.code("cite"), ": Inserted text"),
+                        pc.list_item(pc.code("abbr"), ": Inserted text"),
                     )
                 ),
                 pc.box(
                     pc.unordered_list(
+                        pc.list_item(pc.code("u"), ": Inserted text"),
                         pc.list_item(pc.code("small"), ": Smaller text"),
                         pc.list_item(pc.code("del"), ": Deleted text"),
                         pc.list_item(pc.code("ins"), ": Inserted text"),
+                        pc.list_item(pc.code("samp"), ": Inserted text"),
+                        pc.list_item(pc.code("s"), ": Inserted text"),
                         pc.list_item(pc.code("sub"), ": Subscript text"),
                         pc.list_item(pc.code("sup"), ": Superscript text"),
                     )

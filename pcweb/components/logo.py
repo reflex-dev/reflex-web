@@ -23,7 +23,10 @@ def navbar_logo(**style_props):
     Args:
         style_props: The style properties to apply to the component.
     """
-    return pc.image(
-        src=styles.NAVBAR_LOGO,
-        **style_props,
+    return pc.link(
+        pc.image(
+            src=styles.NAVBAR_LOGO,
+            **style_props,
+        ),
+        href = "/"
     )

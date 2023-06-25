@@ -11,7 +11,7 @@ import pynecone as pc
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
-
+from pcweb.components.logo import navbar_logo
 
 class CopyToClipboard(pc.Component):
     """Component to copy text to clipboard."""
@@ -47,16 +47,18 @@ def code_block(
                 pc.button("Copy", bg="white", border="1px solid #EAEAEA"),
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="light",
-                background="white",
+                background="transparent",
                 language=language,
+                show_line_numbers=True,
                 code_tag_props={
                     "style": {
                         "fontFamily": "inherit",
+
                     }
                 },
             ),
             border_radius=styles.DOC_BORDER_RADIUS,
-            box_shadow=styles.DOC_SHADOW_LIGHT,
+            border = "1px solid #F4F3F6"
         ),
         position="relative",
         margin_bottom="1em",
@@ -160,19 +162,45 @@ icon_style = {
 }
 demo_box_style = {
     "borderRadius": styles.DOC_BORDER_RADIUS,
-    "bg": "white",
+    #"border": "1px solid #F4F3F6",
+    "bg": "rgba(255,255,255, 0.5)",
     "boxShadow": styles.DOC_SHADOW_LIGHT,
     "padding": 5,
     "width": "100%",
     "overflow_x": "auto",
 }
 link_style = {
-    "color": styles.LIGHT_TEXT_COLOR,
-    "font_weight": "500",
-    "_hover": {"color": styles.ACCENT_COLOR},
+    "color": "#494369",
+    "font_weight": "600",
+    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+    "border_radius": "8px",
+    "padding_x": "0.5em",
+    "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
+    "_hover": {
+        "box-shadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
+    },
     "fontSize": "1.2em",
 }
-font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE, styles.H4_FONT_SIZE]
+
+font_sizes = [styles.H3_FONT_SIZE, styles.H3_FONT_SIZE, styles.H3_FONT_SIZE, styles.H3_FONT_SIZE]
+logo_style = {
+    "height": "1em",
+    "opacity": 0.2,
+}
+logo = navbar_logo(**logo_style)
+
+
+def doc_section(*contents):
+    return pc.box(
+        *contents,
+        margin_top = "1em",
+        margin_left = ".5em",
+        border_left = "1px #F4F3F6 solid",
+        padding_left = "1em",
+        width = "100%"
+        
+    )
+
 
 
 def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
@@ -282,16 +310,16 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
                                 justify="space-between",
                                 margin_y="3em",
                             ),
-                            pc.divider(),
-                            footer(
-                                style={
-                                    "padding_y": "2em",
-                                }
+                            pc.hstack(
+                                logo,
+                                pc.spacer(),
+                                pc.text("Copyright © 2023 Pynecone", color="#CDCCD1"), 
+                                width="100%",
                             ),
                             padding_left=["1em", "2em", "5em", "8em"],
                             padding_right=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
-                            padding_top="2em",
+                            padding_y="2em",
                         ),
                     ),
                     max_width="80em",
@@ -299,7 +327,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> pc.Component:
                     margin_top="1em",
                 ),
                 color=styles.DOC_TEXT_COLOR,
-                bg=styles.DOCPAGE_BACKGROUND_COLOR,
+                background= "radial-gradient(35.39% 37.5% at 100% 0%, rgba(188, 136, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);",
+                background_attachment="fixed;",
+                font="Instrument Sans",
                 font_family="Inter",
             )
 
@@ -568,7 +598,8 @@ def docdemo(
         docdemobox(comp),
         doccode(code),
         width="100%",
-        padding_bottom="1em",
+        padding_bottom="2em",
+        spacing = "1em",
         **props,
     )
 

@@ -11,6 +11,7 @@ from pcweb.templates.docpage import (
     doclink,
     docpage,
     doctext,
+    doc_section
 )
 
 
@@ -32,9 +33,9 @@ def intro1() -> pc.Component:
         ),
         subheader_comp(text="Motivation"),
         text_comp(text="Pynecone was created with the following goals:"),
-        pc.unordered_list(
-            pc.vstack(
-                pc.list_item(
+        doc_section(
+        pc.vstack(
+                pc.text(
                     pc.span(
                         "Pure Python",
                         font_weight="bold",
@@ -45,7 +46,7 @@ def intro1() -> pc.Component:
                     "Use Python for everything. Don't worry about learning a new language.",
                     width="100%",
                 ),
-                pc.list_item(
+                pc.text(
                     pc.span(
                         "Easy to Learn",
                         font_weight="bold",
@@ -56,7 +57,7 @@ def intro1() -> pc.Component:
                     "Build and share your first app in minutes. No webdev experience required.",
                     width="100%",
                 ),
-                pc.list_item(
+                pc.text(
                     pc.span(
                         "Full Flexibility",
                         font_weight="bold",
@@ -77,7 +78,7 @@ def intro1() -> pc.Component:
                     color=styles.ACCENT_COLOR_DARK,
                     width="100%",
                 ),
-                pc.list_item(
+                pc.text(
                     pc.span(
                         "Batteries Included",
                         font_weight="bold",
@@ -91,10 +92,6 @@ def intro1() -> pc.Component:
                 text_align="left",
             ),
         ),
-        subheader_comp(text="First Example"),
-        text_comp(
-            text="Let's go over a simple counter app to explore the basics of Pynecone. "
-        ),
     )
 
 
@@ -102,12 +99,36 @@ def intro2() -> pc.Component:
     from pcweb.pages.docs.advanced_guide.wrapping_react import wrapping_react
     from pcweb.pages.docs.library import library
 
-    return pc.fragment(
-        pc.divider(margin_y="1em"),
-        text_comp(text="Here is the complete code to create this. "),
-        doccode(counter_code),
+    return pc.box(
+        subheader_comp(text="First Example"),
+        text_comp(
+            text="Let's go over a simple counter app to explore the basics of Pynecone. "
+        ),
+        docdemobox(
+            pc.hstack(
+                pc.button(
+                    "Decrement",
+                    color_scheme="red",
+                    border_radius="1em",
+                    on_click=CounterExampleState.decrement,
+                ),
+                pc.heading(
+                    CounterExampleState.count, font_size="2em", padding_x="0.5em"
+                ),
+                pc.button(
+                    "Increment",
+                    color_scheme="green",
+                    border_radius="1em",
+                    on_click=CounterExampleState.increment,
+                ),
+            ),
+        ),
+        doc_section(
+            text_comp(text="Here is the complete code to create this. "),
+            doccode(counter_code),
+        ),
         subheader_comp(text="The Structure of a Pynecone App"),
-        text_comp(text="Let's break this down."),
+        text_comp(text="Let's break this counter example down."),
         subheader_comp(text="Import"),
         doccode(counter_code, lines=(0, 1)),
         pc.text(
@@ -115,7 +136,7 @@ def intro2() -> pc.Component:
             "All Pynecone functions and classes begin with the ",
             pc.code("pc.", color=styles.ACCENT_COLOR),
             " prefix.",
-            margin_bottom="1em",
+            margin_bottom="1em", 
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="State"),
@@ -281,6 +302,7 @@ def intro2() -> pc.Component:
             "From here we can continue developing or deploy it to the web in a single command. "
         ),
         doctext("Keep reading the docs to learn how to try Pynecone yourself!"),
+        padding_top = "1em"
     )
 
 
@@ -288,25 +310,6 @@ def intro2() -> pc.Component:
 def introduction():
     return pc.box(
         intro1(),
-        docdemobox(
-            pc.hstack(
-                pc.button(
-                    "Decrement",
-                    color_scheme="red",
-                    border_radius="1em",
-                    on_click=CounterExampleState.decrement,
-                ),
-                pc.heading(
-                    CounterExampleState.count, font_size="2em", padding_x="0.5em"
-                ),
-                pc.button(
-                    "Increment",
-                    color_scheme="green",
-                    border_radius="1em",
-                    on_click=CounterExampleState.increment,
-                ),
-            ),
-        ),
         intro2(),
     )
 

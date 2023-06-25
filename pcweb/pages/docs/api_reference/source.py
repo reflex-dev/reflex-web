@@ -141,7 +141,6 @@ def generate_docs(title, s):
             s.get_name(),
             font_size=styles.H3_FONT_SIZE,
             font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
-            max_width="100%",
         ),
         pc.divider(),
         doctext(s.get_overview()),
