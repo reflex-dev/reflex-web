@@ -48,7 +48,7 @@ def postprocess(texts):
         if ("Base Events Triggers", href) in headings:
             del headings[("Base Events Triggers", href)]
     # del headings["Base Event Triggers"]
-    dud = "Site Documentation Resources Copyright © 2023 Pynecone"
+    dud = "Site Documentation Resources Copyright © 2023 Pynecone, Inc."
     return {
         key: " ".join(value).replace("  ", " ").replace(dud, "")
         for key, value in headings.items()

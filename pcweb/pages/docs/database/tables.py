@@ -1,11 +1,11 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
 
 @docpage()
 def tables():
-    return pc.box(
+    return rx.box(
         docheader("Tables", first=True),
         doctext("Tables are database objects that contain all the data in a database."),
         doctext(
@@ -14,22 +14,22 @@ def tables():
         subheader("Creating a Table"),
         doctext(
             "To create a table make a class that inherits from ",
-            pc.code("pc.Model"),
+            rx.code("rx.Model"),
         ),
         doctext(
             "The following example shows how to create a table called ",
-            pc.code("User"),
+            rx.code("User"),
             ".",
         ),
         doccode(
-            """class User(pc.Model, table=True):
+            """class User(rx.Model, table=True):
     username: str
     email: str
 """
         ),
         doctext(
             "The ",
-            pc.code("table=True"),
-            " argument tells Pynecone to create a table in the database for this class.",
+            rx.code("table=True"),
+            " argument tells Reflex to create a table in the database for this class.",
         ),
     )

@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -6,7 +6,7 @@ from pcweb.templates.docpage import (
     doctext,
 )
 
-code22 = """pc.number_input(
+code22 = """rx.number_input(
     on_change=NumberInputState.set_number,
 )
 """
@@ -17,7 +17,7 @@ exec(code23)
 
 
 def render_numberinput():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The NumberInput component is similar to the Input component, but it has controls for incrementing or decrementing numeric values."
         ),

@@ -1,7 +1,7 @@
 """The base application state."""
 
-import pynecone as pc
+import reflex as rx
 
 
-class State(pc.State):
+class State(rx.State):
     """The base state."""

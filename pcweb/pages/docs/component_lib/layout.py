@@ -1,19 +1,19 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext, subheader
 
-code49 = """pc.vstack(
-    pc.box("Example", bg="yellow", border_radius="sm", width="20%"),
-    pc.box("Example", bg="orange", border_radius="md", width="40%"),
-    pc.box("Example", bg="red", border_radius="md", width="60%"),
-    pc.box("Example", bg="lightblue", border_radius="lg", width="80%"),
-    pc.box("Example", bg="lightgreen", border_radius="xl", width="100%"),
+code49 = """rx.vstack(
+    rx.box("Example", bg="yellow", border_radius="sm", width="20%"),
+    rx.box("Example", bg="orange", border_radius="md", width="40%"),
+    rx.box("Example", bg="red", border_radius="md", width="60%"),
+    rx.box("Example", bg="lightblue", border_radius="lg", width="80%"),
+    rx.box("Example", bg="lightgreen", border_radius="xl", width="100%"),
     width="100%",
 )
 """
-code50 = """pc.box(
-    pc.button("Click Me"),
+code50 = """rx.box(
+    rx.button("Click Me"),
     bg="lightgreen",
     border_radius="15px",
     border_color="green",
@@ -22,7 +22,7 @@ code50 = """pc.box(
 )
 """
 
-iframe_example = """pc.box(
+iframe_example = """rx.box(
         element= "iframe",
         src="https://www.youtube.com/embed/9bZkp7q19f0",
         width = "100%",
@@ -32,7 +32,7 @@ iframe_example = """pc.box(
 
 # Layout
 def render_box():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Box is a generic container component that can be used to group other components."
         ),
@@ -47,9 +47,9 @@ def render_box():
     )
 
 
-code51 = """pc.vstack(
-    pc.button("Toggle", on_click=CondState.change),
-    pc.cond(CondState.show, pc.text("Text 1", color="blue"), pc.text("Text 2", color="red")),
+code51 = """rx.vstack(
+    rx.button("Toggle", on_click=CondState.change),
+    rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
 )
 """
 code52 = """class CondState(State):
@@ -59,22 +59,22 @@ code52 = """class CondState(State):
         self.show = not (self.show)
 """
 
-code51_a = """pc.vstack(
-    pc.button("Toggle", on_click=MultiCondState.change),
-    pc.text(
-        pc.cond(MultiCondState.cond1, "True", "False"), 
+code51_a = """rx.vstack(
+    rx.button("Toggle", on_click=MultiCondState.change),
+    rx.text(
+        rx.cond(MultiCondState.cond1, "True", "False"), 
         " & True => ", 
-        pc.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
+        rx.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
     ),
-    pc.text(
-        pc.cond(MultiCondState.cond1, "True", "False"), 
+    rx.text(
+        rx.cond(MultiCondState.cond1, "True", "False"), 
         " & False => ", 
-        pc.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
+        rx.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
     ),  
-    pc.text(
-        pc.cond(MultiCondState.cond1, "True", "False"), 
+    rx.text(
+        rx.cond(MultiCondState.cond1, "True", "False"), 
         " | False => ", 
-        pc.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
+        rx.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
     ),
 )
 """
@@ -93,7 +93,7 @@ exec(code52_a)
 
 
 def render_cond():
-    return pc.vstack(
+    return rx.vstack(
         doctext("This component is used to conditionally render components."),
         doctext(
             "The cond component takes a condition and two components. If the condition is true, the first component is rendered, otherwise the second component is rendered. "
@@ -105,9 +105,9 @@ def render_cond():
         subheader("Multiple Conditions"),
         doctext(
             "You can also use the logical operator ",
-            pc.code("&"),
+            rx.code("&"),
             "and ",
-            pc.code("|"),
+            rx.code("|"),
             "to make up complex conditions",
         ),
         docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
@@ -115,22 +115,22 @@ def render_cond():
     )
 
 
-code53 = """pc.center(
-    pc.text("Hello World!"),
+code53 = """rx.center(
+    rx.text("Hello World!"),
     border_radius="15px",
     border_width="thick",
     width="50%",
 )
 """
-code54 = """pc.hstack(
-    pc.square(
-        pc.vstack(pc.text("Square")),
+code54 = """rx.hstack(
+    rx.square(
+        rx.vstack(rx.text("Square")),
         border_width="thick",
         border_color="purple",
         padding="1em",
     ),
-    pc.circle(
-        pc.vstack(pc.text("Circle")),
+    rx.circle(
+        rx.vstack(rx.text("Circle")),
         border_width="thick",
         border_color="orange",
         padding="1em",
@@ -140,7 +140,7 @@ code54 = """pc.hstack(
 
 
 def render_center():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Center, Square, and Circle  are components that center its children within itself."
         ),
@@ -151,8 +151,8 @@ def render_center():
     )
 
 
-code55 = """pc.container(
-    pc.box("Example", bg="blue", color="white", width="50%"),
+code55 = """rx.container(
+    rx.box("Example", bg="blue", color="white", width="50%"),
     center_content=True,
     bg="lightblue",
 )
@@ -160,7 +160,7 @@ code55 = """pc.container(
 
 
 def render_container():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Containers are used to constrain a content's width to the current breakpoint, while keeping it fluid."
         ),
@@ -169,25 +169,25 @@ def render_container():
     )
 
 
-code56 = """pc.flex(
-    pc.center("Center", bg="lightblue"),
-    pc.square("Square", bg="lightgreen", padding=10),
-    pc.box("Box", bg="salmon", width="150px"),
+code56 = """rx.flex(
+    rx.center("Center", bg="lightblue"),
+    rx.square("Square", bg="lightgreen", padding=10),
+    rx.box("Box", bg="salmon", width="150px"),
 )
 """
-code57 = """pc.flex(
-    pc.center("Center", bg="lightblue"),
-    pc.spacer(),
-    pc.square("Square", bg="lightgreen", padding=10),
-    pc.spacer(),
-    pc.box("Box", bg="salmon", width="150px"),
+code57 = """rx.flex(
+    rx.center("Center", bg="lightblue"),
+    rx.spacer(),
+    rx.square("Square", bg="lightgreen", padding=10),
+    rx.spacer(),
+    rx.box("Box", bg="salmon", width="150px"),
     width = "100%",
 )
 """
 
 
 def render_flex():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Flexbox is a layout model that allows elements to align and distribute space within a container. Using flexible widths and heights, elements can be aligned to fill a space or distribute space between elements, which makes it a great tool to use for responsive design systems."
         ),
@@ -200,23 +200,23 @@ def render_flex():
     )
 
 
-code58 = """pc.grid(
-    pc.grid_item(row_span=1, col_span=1, bg="lightgreen"),
-    pc.grid_item(row_span=1, col_span=1, bg="lightblue"),
-    pc.grid_item(row_span=1, col_span=1, bg="purple"),
-    pc.grid_item(row_span=1, col_span=1, bg="orange"),
-    pc.grid_item(row_span=1, col_span=1, bg="yellow"),
+code58 = """rx.grid(
+    rx.grid_item(row_span=1, col_span=1, bg="lightgreen"),
+    rx.grid_item(row_span=1, col_span=1, bg="lightblue"),
+    rx.grid_item(row_span=1, col_span=1, bg="purple"),
+    rx.grid_item(row_span=1, col_span=1, bg="orange"),
+    rx.grid_item(row_span=1, col_span=1, bg="yellow"),
     template_columns="repeat(5, 1fr)",
     h="10em",
     width="100%",
     gap=4,
 )
 """
-code59 = """pc.grid(
-    pc.grid_item(row_span=2, col_span=1, bg="lightblue"),
-    pc.grid_item(col_span=2, bg="lightgreen"),
-    pc.grid_item(col_span=2, bg="yellow"),
-    pc.grid_item(col_span=4, bg="orange"),
+code59 = """rx.grid(
+    rx.grid_item(row_span=2, col_span=1, bg="lightblue"),
+    rx.grid_item(col_span=2, bg="lightgreen"),
+    rx.grid_item(col_span=2, bg="yellow"),
+    rx.grid_item(col_span=4, bg="orange"),
     template_rows="repeat(2, 1fr)",
     template_columns="repeat(5, 1fr)",
     h="200px",
@@ -227,7 +227,7 @@ code59 = """pc.grid(
 
 
 def render_grid():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "A primitive useful for grid layouts. Grid is Box with display, grid and it comes with helpful style shorthand. It renders a div element."
         ),
@@ -240,31 +240,31 @@ def render_grid():
     )
 
 
-code60 = """pc.responsive_grid(
-    pc.box(height="5em", width="5em", bg="lightgreen"),
-    pc.box(height="5em", width="5em", bg="lightblue"),
-    pc.box(height="5em", width="5em", bg="purple"),
-    pc.box(height="5em", width="5em", bg="tomato"),
-    pc.box(height="5em", width="5em", bg="orange"),
-    pc.box(height="5em", width="5em", bg="yellow"),
+code60 = """rx.responsive_grid(
+    rx.box(height="5em", width="5em", bg="lightgreen"),
+    rx.box(height="5em", width="5em", bg="lightblue"),
+    rx.box(height="5em", width="5em", bg="purple"),
+    rx.box(height="5em", width="5em", bg="tomato"),
+    rx.box(height="5em", width="5em", bg="orange"),
+    rx.box(height="5em", width="5em", bg="yellow"),
     columns=[3],
     spacing="4",
 )
 """
-code61 = """pc.responsive_grid(
-    pc.box(height="5em", width="5em", bg="lightgreen"),
-    pc.box(height="5em", width="5em", bg="lightblue"),
-    pc.box(height="5em", width="5em", bg="purple"),
-    pc.box(height="5em", width="5em", bg="tomato"),
-    pc.box(height="5em", width="5em", bg="orange"),
-    pc.box(height="5em", width="5em", bg="yellow"),
+code61 = """rx.responsive_grid(
+    rx.box(height="5em", width="5em", bg="lightgreen"),
+    rx.box(height="5em", width="5em", bg="lightblue"),
+    rx.box(height="5em", width="5em", bg="purple"),
+    rx.box(height="5em", width="5em", bg="tomato"),
+    rx.box(height="5em", width="5em", bg="orange"),
+    rx.box(height="5em", width="5em", bg="yellow"),
     columns=[1, 2, 3, 4, 5, 6],
 )
 """
 
 
 def render_responsivegrid():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "ResponsiveGrid provides a friendly interface to create responsive grid layouts with ease. SimpleGrid composes Box so you can pass all the Box props and css grid props with addition to the ones below."
         ),
@@ -275,28 +275,28 @@ def render_responsivegrid():
     )
 
 
-code62 = """pc.hstack(
-    pc.box("Example", bg="red", border_radius="md", width="10%"),
-    pc.box("Example", bg="orange", border_radius="md", width="10%"),
-    pc.box("Example", bg="yellow", border_radius="md", width="10%"),
-    pc.box("Example", bg="lightblue", border_radius="md", width="10%"),
-    pc.box("Example", bg="lightgreen", border_radius="md", width="60%"),
+code62 = """rx.hstack(
+    rx.box("Example", bg="red", border_radius="md", width="10%"),
+    rx.box("Example", bg="orange", border_radius="md", width="10%"),
+    rx.box("Example", bg="yellow", border_radius="md", width="10%"),
+    rx.box("Example", bg="lightblue", border_radius="md", width="10%"),
+    rx.box("Example", bg="lightgreen", border_radius="md", width="60%"),
     width="100%",
 )
 """
-code63 = """pc.vstack(
-    pc.box("Example", bg="red", border_radius="md", width="20%"),
-    pc.box("Example", bg="orange", border_radius="md", width="40%"),
-    pc.box("Example", bg="yellow", border_radius="md", width="60%"),
-    pc.box("Example", bg="lightblue", border_radius="md", width="80%"),
-    pc.box("Example", bg="lightgreen", border_radius="md", width="100%"),
+code63 = """rx.vstack(
+    rx.box("Example", bg="red", border_radius="md", width="20%"),
+    rx.box("Example", bg="orange", border_radius="md", width="40%"),
+    rx.box("Example", bg="yellow", border_radius="md", width="60%"),
+    rx.box("Example", bg="lightblue", border_radius="md", width="80%"),
+    rx.box("Example", bg="lightgreen", border_radius="md", width="100%"),
     width="100%",
 )
 """
 
 
 def render_stack():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Below are two examples the different types of stack components vstack and hstack."
         ),
@@ -306,19 +306,19 @@ def render_stack():
     )
 
 
-code64 = """pc.flex(
-    pc.center(pc.text("Example"), bg="lightblue"),
-    pc.spacer(),
-    pc.center(pc.text("Example"), bg="lightgreen"),
-    pc.spacer(),
-    pc.center(pc.text("Example"), bg="salmon"),
+code64 = """rx.flex(
+    rx.center(rx.text("Example"), bg="lightblue"),
+    rx.spacer(),
+    rx.center(rx.text("Example"), bg="lightgreen"),
+    rx.spacer(),
+    rx.center(rx.text("Example"), bg="salmon"),
     width="100%",
 )
 """
 
 
 def render_spacer():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Creates an adjustable, empty space that can be used to tune the spacing between child elements within Flex."
         ),
@@ -327,11 +327,11 @@ def render_spacer():
     )
 
 
-code65 = """pc.wrap(
-    pc.wrap_item(pc.box("Example", bg="lightgreen", w="100px", h="80px")),
-    pc.wrap_item(pc.box("Example", bg="lightblue", w="200px", h="80px")),
-    pc.wrap_item(pc.box("Example", bg="red", w="300px", h="80px")),
-    pc.wrap_item(pc.box("Example", bg="orange", w="400px", h="80px")),
+code65 = """rx.wrap(
+    rx.wrap_item(rx.box("Example", bg="lightgreen", w="100px", h="80px")),
+    rx.wrap_item(rx.box("Example", bg="lightblue", w="200px", h="80px")),
+    rx.wrap_item(rx.box("Example", bg="red", w="300px", h="80px")),
+    rx.wrap_item(rx.box("Example", bg="orange", w="400px", h="80px")),
     width="100%",
     spacing="2em",
     align="center",
@@ -340,7 +340,7 @@ code65 = """pc.wrap(
 
 
 def render_wrap():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Wrap is a layout component that adds a defined space between its children."
         ),
@@ -357,14 +357,14 @@ class ForeachState(State):
     color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
 def colored_box(color: str):
-    return pc.box(
-        pc.text(color),
+    return rx.box(
+        rx.text(color),
         bg=color
     )
 """
 exec(basic_foreach_state)
-basic_foreach = """pc.responsive_grid(
-        pc.foreach(
+basic_foreach = """rx.responsive_grid(
+        rx.foreach(
             ForeachState.color,
             colored_box
         ),
@@ -378,14 +378,14 @@ class ForeachIndexState(State):
     count: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
 def colored_box(color: str, index: int):
-    return pc.box(
-        pc.text(index),
+    return rx.box(
+        rx.text(index),
         bg=color
     )
 """
 exec(foreach_index_state)
-foreach_index = """pc.responsive_grid(
-        pc.foreach(
+foreach_index = """rx.responsive_grid(
+        rx.foreach(
             ForeachIndexState.count,
             lambda color, index: colored_box(color, index)
         ),
@@ -399,10 +399,10 @@ class NestedForeachState(State):
     numbers: List[List[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 def display_row(row):
-    return pc.hstack(
-        pc.foreach(
+    return rx.hstack(
+        rx.foreach(
             row,
-            lambda item: pc.box(
+            lambda item: rx.box(
                 item,
                 border="1px solid black",
                 padding="0.5em",
@@ -411,8 +411,8 @@ def display_row(row):
     )
 """
 exec(nested_foreach_state)
-nested_foreach = """pc.vstack(
-        pc.foreach(
+nested_foreach = """rx.vstack(
+        rx.foreach(
              NestedForeachState.numbers,
             display_row
         )
@@ -429,11 +429,11 @@ class SimpleDictForeachState(State):
 
 def display_color(color: List):
     # color is presented as a list key-value pair([1, "blue"],[2, "red"], [3, "green"])
-    return pc.box(pc.text(color[0]), bg=color[1])
+    return rx.box(rx.text(color[0]), bg=color[1])
 """
 exec(simple_dict_foreach_state)
-simple_dict_foreach = """pc.responsive_grid(
-        pc.foreach(
+simple_dict_foreach = """rx.responsive_grid(
+        rx.foreach(
              SimpleDictForeachState.color_chart,
             display_color
         ),
@@ -450,19 +450,19 @@ class ComplexDictForeachState(State):
     }
 
 def display_colors(color: List):
-    return pc.vstack(
-            pc.text(color[0], color=color[0]),
-            pc.hstack(
-                pc.foreach(
-                    color[1], lambda x: pc.box(pc.text(x, color="black"), bg=x)
+    return rx.vstack(
+            rx.text(color[0], color=color[0]),
+            rx.hstack(
+                rx.foreach(
+                    color[1], lambda x: rx.box(rx.text(x, color="black"), bg=x)
                 )
 
             )
         )
 """
 exec(complex_dict_foreach_state)
-complex_dict_foreach = """pc.responsive_grid(
-        pc.foreach(
+complex_dict_foreach = """rx.responsive_grid(
+        rx.foreach(
              ComplexDictForeachState.color_chart,
             display_colors
         ),
@@ -482,26 +482,26 @@ class ListState(State):
         self.items = [i for i in self.items if i != item]
 
 def get_item(item):
-    return pc.list_item(
-        pc.hstack(
-            pc.button(
+    return rx.list_item(
+        rx.hstack(
+            rx.button(
                 on_click=lambda: ListState.finish_item(item),
                 height="1.5em",
                 background_color="white",
                 border="1px solid blue",
             ),
-            pc.text(item, font_size="1.25em"),
+            rx.text(item, font_size="1.25em"),
         ),
     )
 """
 exec(todo1)
-todo2 = """pc.vstack(
-    pc.heading("Todos"),
-    pc.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
-    pc.button("Add", on_click=ListState.add_item, bg = "white"),
-    pc.divider(),
-    pc.ordered_list(
-        pc.foreach(
+todo2 = """rx.vstack(
+    rx.heading("Todos"),
+    rx.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
+    rx.button("Add", on_click=ListState.add_item, bg = "white"),
+    rx.divider(),
+    rx.ordered_list(
+        rx.foreach(
             ListState.items,
             get_item,
         ),
@@ -518,10 +518,10 @@ todo3 = f"""def index():
 
 
 def render_foreach():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The ",
-            pc.code("pc.foreach"),
+            rx.code("rx.foreach"),
             " component takes an iterable(list, tuple or dict) and a function that renders each item in the list. ",
             "This is useful for dynamically rendering a list of items defined in a state.",
         ),
@@ -534,7 +534,7 @@ def render_foreach():
             "Nested foreach components can be used to render nested lists.",
         ),
         doctext(
-            "When indexing into a nested list, it's important to declare the list's type as Pynecone requires it for type checking. This ensures that any potential frontend JS errors are caught before the user can encounter them."
+            "When indexing into a nested list, it's important to declare the list's type as Reflex requires it for type checking. This ensures that any potential frontend JS errors are caught before the user can encounter them."
         ),
         docdemo(
             nested_foreach, nested_foreach_state, eval(nested_foreach), context=True
@@ -558,50 +558,50 @@ def render_foreach():
     )
 
 
-card_example1 = """pc.card(pc.text("Body of the Card Component"), header=pc.heading("Header", size="lg"), footer=pc.heading("Footer",size="sm"))"""
+card_example1 = """rx.card(rx.text("Body of the Card Component"), header=rx.heading("Header", size="lg"), footer=rx.heading("Footer",size="sm"))"""
 
 
 def render_card():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Card is a flexible component used to group and display content in a clear and concise format."
         ),
         docdemo(card_example1),
         doctext(
             "You can pass a header with ",
-            pc.code("header="),
+            rx.code("header="),
             " and/or a footer with ",
-            pc.code("footer="),
+            rx.code("footer="),
         ),
     )
 
 
 image_example = (
-    """pc.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
+    """rx.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
 )
 
-aspect_ratio_example = f"""pc.aspect_ratio({image_example}, ratio=4/3)"""
+aspect_ratio_example = f"""rx.aspect_ratio({image_example}, ratio=4/3)"""
 
 
 def render_aspectratio():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Preserve the ratio of the components contained within"),
         docdemo(image_example),
         docdemo(aspect_ratio_example),
     )
 
 
-fragment_example = """pc.fragment(pc.text("Component1"), pc.text("Component2"))"""
+fragment_example = """rx.fragment(rx.text("Component1"), rx.text("Component2"))"""
 
 
 def render_fragment():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "A Fragment is a Component that allow you to group multiple Components without a wrapper node."
         ),
         doctext(
             "Refer to the React docs at ",
-            pc.link(
+            rx.link(
                 "React/Fragment", href="https://react.dev/reference/react/Fragment"
             ),
             " for more information on its use-case",

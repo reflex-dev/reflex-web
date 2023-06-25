@@ -1,6 +1,6 @@
-"""The main Pynecone website."""
+"""The main Reflex website."""
 
-import pynecone as pc
+import reflex as rx
 
 from pcweb import styles
 from pcweb.base_state import State
@@ -10,7 +10,7 @@ from pcweb.pages import routes
 from pcweb.pages.docs.component import multi_docs
 
 # Create the app.
-app = pc.App(
+app = rx.App(
     state=State,
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
@@ -32,7 +32,7 @@ for key in component_list:
         app.add_page(
             multi_docs(path=path, component_list=component_group).component,
             route=path,
-            title=f"{component_group[0].__name__} | Pynecone",
+            title=f"{component_group[0].__name__} | Reflex",
         )
 
 # Add the middleware.
@@ -62,7 +62,7 @@ redirects = [
 ]
 
 for source, target in redirects:
-    app.add_page(pc.fragment(), route=source, on_load=pc.redirect(target))
+    app.add_page(rx.fragment(), route=source, on_load=rx.redirect(target))
 
 # Run the app.
 app.compile()

@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -26,14 +26,14 @@ class ExampleState(State):
         \"""Cycle to the next color.\"""
         self.index = (self.index + 1) % len(self.colors)
 
-    @pc.var
+    @rx.var
     def color(self)-> str:
         return self.colors[self.index]
 """
 exec(code1)
 
-code2 = """pc.heading(
-    "Welcome to Pynecone!",
+code2 = """rx.heading(
+    "Welcome to Reflex!",
     on_click=ExampleState.next_color,
     color=ExampleState.color,
     _hover={"cursor": "pointer"},
@@ -43,20 +43,20 @@ code2 = """pc.heading(
 
 @docpage()
 def state_overview():
-    return pc.box(
+    return rx.box(
         docheader("State", first=True),
         doctext(
             "The app's state is where we define all the ",
-            pc.span("vars", font_weight="bold"),
+            rx.span("vars", font_weight="bold"),
             " that can change in the app, as well as all the functions that can modify them.",
         ),
         doctext(
-            "State allows us to add interaction in Pynecone apps. ",
+            "State allows us to add interaction in Reflex apps. ",
             "Components can modify the state based on user ",
-            pc.span("events", font_weight="bold"),
+            rx.span("events", font_weight="bold"),
             " such as clicking a button or entering text in a field. ",
             "This is done through ",
-            pc.span("event handlers", font_weight="bold"),
+            rx.span("event handlers", font_weight="bold"),
             ".",
         ),
         doctext(
@@ -71,38 +71,38 @@ def state_overview():
         ),
         subheader("State Basics"),
         doctext(
-            "These are the main concepts to understand how state works in Pynecone."
+            "These are the main concepts to understand how state works in Reflex."
         ),
-        pc.responsive_grid(
+        rx.responsive_grid(
             definition(
                 "Base Vars",
-                pc.unordered_list(
-                    pc.list_item("Vars in a app that can change over time."),
-                    pc.list_item("Can only be modified within event handlers."),
+                rx.unordered_list(
+                    rx.list_item("Vars in a app that can change over time."),
+                    rx.list_item("Can only be modified within event handlers."),
                 ),
             ),
             definition(
                 "Computed Vars",
-                pc.unordered_list(
-                    pc.list_item("Vars that are functions of other vars."),
-                    pc.list_item("Cannot be set directly, only derived."),
+                rx.unordered_list(
+                    rx.list_item("Vars that are functions of other vars."),
+                    rx.list_item("Cannot be set directly, only derived."),
                 ),
             ),
             definition(
                 "Events",
-                pc.unordered_list(
-                    pc.list_item(
+                rx.unordered_list(
+                    rx.list_item(
                         "Actions that occur in the app that trigger event handlers."
                     ),
                 ),
             ),
             definition(
                 "Event Handlers",
-                pc.unordered_list(
-                    pc.list_item(
+                rx.unordered_list(
+                    rx.list_item(
                         "Functions that update the state in response to events."
                     ),
-                    pc.list_item("Defined as functions in the State Class."),
+                    rx.list_item("Defined as functions in the State Class."),
                 ),
             ),
             margin_bottom="1em",
@@ -111,36 +111,36 @@ def state_overview():
         ),
         subheader("Example"),
         doctext(
-            "Here is a example of how to use state within a Pynecone app. ",
+            "Here is a example of how to use state within a Reflex app. ",
             "Click the text to change its color.",
         ),
         docdemo(code2, code1, eval(code2), context=True),
         doctext(
             "The base vars are ",
-            pc.code("colors"),
+            rx.code("colors"),
             " and ",
-            pc.code("index"),
+            rx.code("index"),
             ". They are the only vars in the app that may be directly modified within event handlers.",
         ),
         doctext(
             "There is a single computed property, ",
-            pc.code("color"),
+            rx.code("color"),
             ", that is a function of the base vars. ",
             "It will be computed automatically whenever the base vars change. ",
         ),
         doctext(
             "The heading component links its ",
-            pc.code("on_click"),
+            rx.code("on_click"),
             " event to the ",
-            pc.code("ExampleState.next_color"),
+            rx.code("ExampleState.next_color"),
             " event handler, which increments the color index.",
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("With Pynecone, you never have to write an API."),
-                    pc.alert_description(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("With Reflex, you never have to write an API."),
+                    rx.alert_description(
                         "All interactions between the frontend and backend are handled through events. "
                     ),
                 ),

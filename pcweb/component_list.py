@@ -1,194 +1,194 @@
 """A list of components to show in the library."""
 
-import pynecone as pc
+import reflex as rx
 
 # Form components.
 forms_list = [
-    [pc.Form],
-    [pc.FormControl, pc.FormLabel, pc.FormErrorMessage, pc.FormHelperText],
-    [pc.Button, pc.ButtonGroup, pc.IconButton],
-    [pc.Checkbox],
-    [pc.Editable, pc.EditableInput, pc.EditableTextarea, pc.EditablePreview],
-    [pc.Input],
+    [rx.Form],
+    [rx.FormControl, rx.FormLabel, rx.FormErrorMessage, rx.FormHelperText],
+    [rx.Button, rx.ButtonGroup, rx.IconButton],
+    [rx.Checkbox],
+    [rx.Editable, rx.EditableInput, rx.EditableTextarea, rx.EditablePreview],
+    [rx.Input],
     [
-        pc.NumberInput,
-        pc.NumberInputField,
-        pc.NumberInputStepper,
-        pc.NumberIncrementStepper,
-        pc.NumberDecrementStepper,
+        rx.NumberInput,
+        rx.NumberInputField,
+        rx.NumberInputStepper,
+        rx.NumberIncrementStepper,
+        rx.NumberDecrementStepper,
     ],
-    [pc.PinInput],
-    [pc.RadioGroup, pc.Radio],
+    [rx.PinInput],
+    [rx.RadioGroup, rx.Radio],
     [
-        pc.RangeSlider,
-        pc.RangeSliderTrack,
-        pc.RangeSliderFilledTrack,
-        pc.RangeSliderThumb,
+        rx.RangeSlider,
+        rx.RangeSliderTrack,
+        rx.RangeSliderFilledTrack,
+        rx.RangeSliderThumb,
     ],
-    [pc.Select],
-    [pc.Slider, pc.SliderTrack, pc.SliderFilledTrack, pc.SliderThumb, pc.SliderMark],
-    [pc.Switch],
-    [pc.TextArea],
-    # [pc.CopyToClipboard],
-    [pc.Upload],
+    [rx.Select],
+    [rx.Slider, rx.SliderTrack, rx.SliderFilledTrack, rx.SliderThumb, rx.SliderMark],
+    [rx.Switch],
+    [rx.TextArea],
+    # [rx.CopyToClipboard],
+    [rx.Upload],
 ]
 
 # Layout components.
 layout_list = [
-    [pc.Box],
-    [pc.Center, pc.Circle, pc.Square],
-    [pc.Cond],
-    [pc.Container],
-    [pc.Flex],
-    [pc.Foreach],
-    [pc.Grid, pc.GridItem],
-    [pc.ResponsiveGrid],
-    [pc.Card, pc.CardHeader, pc.CardBody, pc.CardFooter],
-    [pc.Spacer],
-    [pc.Stack, pc.Hstack, pc.Vstack],
-    [pc.Wrap, pc.WrapItem],
-    [pc.AspectRatio],
-    [pc.Fragment],
+    [rx.Box],
+    [rx.Center, rx.Circle, rx.Square],
+    [rx.Cond],
+    [rx.Container],
+    [rx.Flex],
+    [rx.Foreach],
+    [rx.Grid, rx.GridItem],
+    [rx.ResponsiveGrid],
+    [rx.Card, rx.CardHeader, rx.CardBody, rx.CardFooter],
+    [rx.Spacer],
+    [rx.Stack, rx.Hstack, rx.Vstack],
+    [rx.Wrap, rx.WrapItem],
+    [rx.AspectRatio],
+    [rx.Fragment],
 ]
 
 # Overlay components.
 overlay_list = [
     [
-        pc.AlertDialog,
-        pc.AlertDialogBody,
-        pc.AlertDialogHeader,
-        pc.AlertDialogFooter,
-        pc.AlertDialogContent,
-        pc.AlertDialogOverlay,
+        rx.AlertDialog,
+        rx.AlertDialogBody,
+        rx.AlertDialogHeader,
+        rx.AlertDialogFooter,
+        rx.AlertDialogContent,
+        rx.AlertDialogOverlay,
     ],
     [
-        pc.Drawer,
-        pc.DrawerBody,
-        pc.DrawerHeader,
-        pc.DrawerFooter,
-        pc.DrawerContent,
-        pc.DrawerOverlay,
+        rx.Drawer,
+        rx.DrawerBody,
+        rx.DrawerHeader,
+        rx.DrawerFooter,
+        rx.DrawerContent,
+        rx.DrawerOverlay,
     ],
     [
-        pc.Menu,
-        pc.MenuButton,
-        pc.MenuDivider,
-        pc.MenuGroup,
-        pc.MenuItem,
-        pc.MenuItemOption,
-        pc.MenuList,
-        pc.MenuOptionGroup,
+        rx.Menu,
+        rx.MenuButton,
+        rx.MenuDivider,
+        rx.MenuGroup,
+        rx.MenuItem,
+        rx.MenuItemOption,
+        rx.MenuList,
+        rx.MenuOptionGroup,
     ],
     [
-        pc.Modal,
-        pc.ModalBody,
-        pc.ModalHeader,
-        pc.ModalFooter,
-        pc.ModalContent,
-        pc.ModalOverlay,
+        rx.Modal,
+        rx.ModalBody,
+        rx.ModalHeader,
+        rx.ModalFooter,
+        rx.ModalContent,
+        rx.ModalOverlay,
     ],
     [
-        pc.Popover,
-        pc.PopoverHeader,
-        pc.PopoverBody,
-        pc.PopoverFooter,
-        pc.PopoverTrigger,
-        pc.PopoverAnchor,
-        pc.PopoverArrow,
+        rx.Popover,
+        rx.PopoverHeader,
+        rx.PopoverBody,
+        rx.PopoverFooter,
+        rx.PopoverTrigger,
+        rx.PopoverAnchor,
+        rx.PopoverArrow,
     ],
-    [pc.Tooltip],
+    [rx.Tooltip],
 ]
 
 # Typography components.
 typography_list = [
-    [pc.Text],
-    [pc.Heading],
-    [pc.Span],
-    [pc.Markdown],
-    [pc.Highlight],
+    [rx.Text],
+    [rx.Heading],
+    [rx.Span],
+    [rx.Markdown],
+    [rx.Highlight],
 ]
 
 # Navigation components.
 navigation_list = [
-    [pc.Breadcrumb, pc.BreadcrumbItem, pc.BreadcrumbLink],
-    [pc.Link],
+    [rx.Breadcrumb, rx.BreadcrumbItem, rx.BreadcrumbLink],
+    [rx.Link],
 ]
 
 # Media components.
 media_list = [
-    [pc.Avatar, pc.AvatarBadge, pc.AvatarGroup],
-    [pc.Image],
-    [pc.Icon],
+    [rx.Avatar, rx.AvatarBadge, rx.AvatarGroup],
+    [rx.Image],
+    [rx.Icon],
 ]
 
 # Data display components.
 datadisplay_list = [
-    [pc.Badge],
-    [pc.CodeBlock, pc.Code],
-    [pc.Divider],
-    [pc.DataTable],
-    [pc.List, pc.ListItem, pc.UnorderedList, pc.OrderedList],
+    [rx.Badge],
+    [rx.CodeBlock, rx.Code],
+    [rx.Divider],
+    [rx.DataTable],
+    [rx.List, rx.ListItem, rx.UnorderedList, rx.OrderedList],
     [
-        pc.Stat,
-        pc.StatLabel,
-        pc.StatNumber,
-        pc.StatHelpText,
-        pc.StatArrow,
-        pc.StatGroup,
+        rx.Stat,
+        rx.StatLabel,
+        rx.StatNumber,
+        rx.StatHelpText,
+        rx.StatArrow,
+        rx.StatGroup,
     ],
     [
-        pc.Table,
-        pc.Thead,
-        pc.Tbody,
-        pc.Tfoot,
-        pc.Tr,
-        pc.Th,
-        pc.Td,
-        pc.TableCaption,
-        pc.TableContainer,
+        rx.Table,
+        rx.Thead,
+        rx.Tbody,
+        rx.Tfoot,
+        rx.Tr,
+        rx.Th,
+        rx.Td,
+        rx.TableCaption,
+        rx.TableContainer,
     ],
 ]
 
 # Disclosure components.
 disclosure_list = [
     [
-        pc.Accordion,
-        pc.AccordionItem,
-        pc.AccordionButton,
-        pc.AccordionPanel,
-        pc.AccordionIcon,
+        rx.Accordion,
+        rx.AccordionItem,
+        rx.AccordionButton,
+        rx.AccordionPanel,
+        rx.AccordionIcon,
     ],
-    [pc.Tabs, pc.Tab, pc.TabList, pc.TabPanel, pc.TabPanels],
+    [rx.Tabs, rx.Tab, rx.TabList, rx.TabPanel, rx.TabPanels],
 ]
 
 # Feedback components.
 feedback_list = [
-    [pc.Alert, pc.AlertIcon, pc.AlertTitle, pc.AlertDescription],
-    [pc.CircularProgress, pc.CircularProgressLabel],
-    [pc.Progress],
-    [pc.Skeleton, pc.SkeletonCircle, pc.SkeletonText],
-    [pc.Spinner],
+    [rx.Alert, rx.AlertIcon, rx.AlertTitle, rx.AlertDescription],
+    [rx.CircularProgress, rx.CircularProgressLabel],
+    [rx.Progress],
+    [rx.Skeleton, rx.SkeletonCircle, rx.SkeletonText],
+    [rx.Spinner],
 ]
 
 # Graphing components.
 graphing_list = [
-    [pc.Chart, pc.ChartGroup, pc.ChartStack],
-    [pc.Area],
-    [pc.BoxPlot],
-    [pc.Candlestick],
-    [pc.ErrorBar],
-    [pc.Line],
-    [pc.Bar],
-    [pc.Histogram],
-    [pc.Pie],
-    [pc.Polar],
-    [pc.Scatter],
-    [pc.Voronoi],
-    [pc.Plotly],
+    [rx.Chart, rx.ChartGroup, rx.ChartStack],
+    [rx.Area],
+    [rx.BoxPlot],
+    [rx.Candlestick],
+    [rx.ErrorBar],
+    [rx.Line],
+    [rx.Bar],
+    [rx.Histogram],
+    [rx.Pie],
+    [rx.Polar],
+    [rx.Scatter],
+    [rx.Voronoi],
+    [rx.Plotly],
 ]
 
 # Other
-other_list = [[pc.Html]]
+other_list = [[rx.Html]]
 
 # The final component list
 component_list = {
@@ -206,7 +206,7 @@ component_list = {
 }
 
 not_ready_components = [
-    pc.CopyToClipboard,
-    pc.IconButton,
-    pc.AspectRatio,
+    rx.CopyToClipboard,
+    rx.IconButton,
+    rx.AspectRatio,
 ]

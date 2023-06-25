@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -9,9 +9,9 @@ from pcweb.templates.docpage import (
 input_state = """class InputState(State):
     text: str = "Type something..."
 """
-basic_input_example = """pc.vstack(
-    pc.text(InputState.text, color_scheme="green"),
-    pc.input(on_change=InputState.set_text)
+basic_input_example = """rx.vstack(
+    rx.text(InputState.text, color_scheme="green"),
+    rx.input(on_change=InputState.set_text)
 )
 """
 exec(input_state)
@@ -22,9 +22,9 @@ input_blur_state = """class InputBlurState(State):
     def set_text(self, text: str):
         self.text = text.upper()
 """
-blur_input_example = """pc.vstack(
-    pc.text(InputBlurState.text),
-    pc.input(placeholder="Type something...", on_blur=InputBlurState.set_text)
+blur_input_example = """rx.vstack(
+    rx.text(InputBlurState.text),
+    rx.input(placeholder="Type something...", on_blur=InputBlurState.set_text)
 )
 """
 exec(input_blur_state)
@@ -35,12 +35,12 @@ class ClearInputState(State):
     def clear_text(self):
         self.text = ""
 """
-clear_input_example = """pc.vstack(
-    pc.input(
+clear_input_example = """rx.vstack(
+    rx.input(
         value=ClearInputState.text,
         on_change=ClearInputState.set_text,
     ),
-    pc.button("Clear", on_click=ClearInputState.clear_text),
+    rx.button("Clear", on_click=ClearInputState.clear_text),
 )
 """
 
@@ -57,18 +57,18 @@ class KeyPressInputState(State):
             self.text = self.text.upper()
 """
 exec(key_press_state)
-key_press_example = """pc.input(
+key_press_example = """rx.input(
     placeholder="Type and press enter...",
     value=KeyPressInputState.text,
     on_change=KeyPressInputState.set_text,
     on_key_down=KeyPressInputState.on_key_down,
 )
 """
-input_type_example = """pc.vstack(
-    pc.input(type_="password"),
-    pc.input(type_="date"),
+input_type_example = """rx.vstack(
+    rx.input(type_="password"),
+    rx.input(type_="date"),
 )"""
-password_example = """pc.password()"""
+password_example = """rx.password()"""
 
 
 input_form_state = """
@@ -82,24 +82,24 @@ class InputFormState(State):
 """
 exec(input_form_state)
 
-input_form_example = """pc.vstack(
-    pc.form(
-        pc.vstack(
-            pc.input(placeholder="First Name", id="first_name"),
-            pc.input(placeholder="Last Name", id="last_name"),
-            pc.button("Submit", type_="submit"),
+input_form_example = """rx.vstack(
+    rx.form(
+        rx.vstack(
+            rx.input(placeholder="First Name", id="first_name"),
+            rx.input(placeholder="Last Name", id="last_name"),
+            rx.button("Submit", type_="submit"),
         ),
         on_submit=InputFormState.handle_submit,
     ),
-    pc.divider(),
-    pc.heading("Results"),
-    pc.text(InputFormState.form_data.to_string()),
+    rx.divider(),
+    rx.heading("Results"),
+    rx.text(InputFormState.form_data.to_string()),
 )
 """
 
 
 def render_input():
-    return pc.vstack(
+    return rx.vstack(
         doctext("The input component is used to receive text input from the user."),
         docdemo(
             basic_input_example,
@@ -109,7 +109,7 @@ def render_input():
         ),
         doctext(
             "The input component can also use the ",
-            pc.code("on_blur"),
+            rx.code("on_blur"),
             " event handler to only change the state when the user clicks away from the input. This is useful for performance reasons, as the state will only be updated when the user is done typing.",
         ),
         docdemo(
@@ -120,7 +120,7 @@ def render_input():
         ),
         doctext(
             "The input component can also be hooked up to a state using the ",
-            pc.code("value"),
+            rx.code("value"),
             " prop. ",
             "This lets you control the value of the input from the state.",
         ),
@@ -132,9 +132,9 @@ def render_input():
         ),
         doctext(
             "You can also use the ",
-            pc.code("on_key_down"),
+            rx.code("on_key_down"),
             " and ",
-            pc.code("on_key_up"),
+            rx.code("on_key_up"),
             " event handlers to listen for key presses.",
         ),
         docdemo(
@@ -145,13 +145,13 @@ def render_input():
         ),
         doctext(
             "You can change the type of input by using the ",
-            pc.code("type_"),
+            rx.code("type_"),
             " prop. For example you can create a password input or a date picker. ",
         ),
         docdemo(input_type_example),
         doctext(
             "We also provide a ",
-            pc.code("pc.password"),
+            rx.code("rx.password"),
             " component as a shorthand for the password input.",
         ),
         docdemo(password_example),

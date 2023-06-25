@@ -1,5 +1,5 @@
 import pandas as pd
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -11,22 +11,22 @@ from pcweb.templates.docpage import (
 
 # Graphing
 
-chart_demo1 = """pc.hstack(pc.chart(), pc.chart(polar=True))"""
-chart_demo_line = """pc.chart(
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+chart_demo1 = """rx.hstack(rx.chart(), rx.chart(polar=True))"""
+chart_demo_line = """rx.chart(
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     )
 )
 """
 
-chart_demo_styled = """pc.chart(
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+chart_demo_styled = """rx.chart(
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
         interpolation="natural",
         style = {"data": {"stroke": "green", "strokeWidth": 2}},
     ),
-    pc.scatter(
-        data=pc.data("scatter", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1], amount=[6, 5, 3, 9, 3]),
+    rx.scatter(
+        data=rx.data("scatter", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1], amount=[6, 5, 3, 9, 3]),
         bubble_property="amount",
         min_bubble_size=0.0,
         max_bubble_size=10.0,
@@ -37,39 +37,39 @@ chart_demo_styled = """pc.chart(
 """
 
 
-stack_example = """pc.chart_stack(
-    pc.area(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+stack_example = """rx.chart_stack(
+    rx.area(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     ),
-    pc.area(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
+    rx.area(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
     ),
 )
 """
-group_example = """pc.chart_group(
-    pc.bar(
-        data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[1, 2, 3, 4, 10]),
+group_example = """rx.chart_group(
+    rx.bar(
+        data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[1, 2, 3, 4, 10]),
     ),
-    pc.bar(
-        data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[5, 12, 4, 6, 1]),
+    rx.bar(
+        data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[5, 12, 4, 6, 1]),
     ),
-    pc.bar(
-        data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[3, 2, 5, 14, 1]),
+    rx.bar(
+        data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[3, 2, 5, 14, 1]),
     ),
     offset=20.0
 )
 """
 
-group_example_style = """pc.chart(
-    pc.chart_group(
-        pc.bar(
-            data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[1, 2, 3, 4, 10]),
+group_example_style = """rx.chart(
+    rx.chart_group(
+        rx.bar(
+            data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[1, 2, 3, 4, 10]),
         ),
-        pc.bar(
-            data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[5, 12, 4, 6, 1]),
+        rx.bar(
+            data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[5, 12, 4, 6, 1]),
         ),
-        pc.bar(
-            data=pc.data("bar", x=["a", "b", "c", "d", "e"], y=[3, 2, 5, 14, 1]),
+        rx.bar(
+            data=rx.data("bar", x=["a", "b", "c", "d", "e"], y=[3, 2, 5, 14, 1]),
         ),
         offset=20.0,
         color_scale="qualitative", 
@@ -79,7 +79,7 @@ group_example_style = """pc.chart(
 
 
 def render_chart():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Chart is a wrapper component that renders a given set of children on a set of Cartesian or polar axes. ",
             "Chart reconciles the domain for all its children, controls the layout of the chart, and coordinates animations and shared events. "
@@ -114,7 +114,7 @@ def render_chart():
     )
 
 
-line_data_example = """data = pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+line_data_example = """data = rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 line_data_rendered = """data = [
     {"x": 1, "y": 1},
     {"x": 2, "y": 2},
@@ -123,22 +123,22 @@ line_data_rendered = """data = [
     {"x": 5, "y": 10},
 ]"""
 
-line_example = """pc.chart(
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+line_example = """rx.chart(
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     ),
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
     ),
 )
 """
 
-line_example_style = """pc.chart(
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+line_example_style = """rx.chart(
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     ),
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
         interpolation="natural",
         style={"data": {"stroke": "red"}}
     ),
@@ -148,7 +148,7 @@ line_example_style = """pc.chart(
 
 
 def render_line():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Line is a wrapper component that renders a line graph. ", ""),
         docgraphing(
             line_data_example,
@@ -156,13 +156,13 @@ def render_line():
             doctext(
                 "Line accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data array, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a ",
-            pc.code("pc.line"),
+            rx.code("rx.line"),
             " component.",
         ),
         docdemo(line_example),
@@ -174,7 +174,7 @@ def render_line():
     )
 
 
-bar_data_example = """data = pc.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10])"""
+bar_data_example = """data = rx.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10])"""
 bar_data_rendered = """data = [
     {"x": "Cats", "y": 1},
     {"x": "Dogs", "y": 2},
@@ -183,14 +183,14 @@ bar_data_rendered = """data = [
     {"x": "Reptiles", "y": 10},
 ]"""
 
-bar_example = """pc.bar(
-    data=pc.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10]),
+bar_example = """rx.bar(
+    data=rx.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10]),
 )
 """
 
-bar_example_style = """pc.chart(
-    pc.bar(
-        data=pc.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10]),
+bar_example_style = """rx.chart(
+    rx.bar(
+        data=rx.data("bar", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 4, 10]),
         style={"data": {"fill": "rgb(107,99,246)", "stroke": "black", "strokeWidth": 2}},
     ),
     domain_padding = {"x": 20, "y": 0},
@@ -199,7 +199,7 @@ bar_example_style = """pc.chart(
 
 
 def render_bar():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Bar is a wrapper component that renders a bar graph. ",
         ),
@@ -209,13 +209,13 @@ def render_bar():
             doctext(
                 "Bar accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data array, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.bar"),
+            rx.code("rx.bar"),
             " component.",
         ),
         docdemo(bar_example),
@@ -227,7 +227,7 @@ def render_bar():
     )
 
 
-area_data_example = """data = pc.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+area_data_example = """data = rx.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 area_data_rendered = """data = [
     {"x": 1, "y": 1},
     {"x": 2, "y": 2},
@@ -236,18 +236,18 @@ area_data_rendered = """data = [
     {"x": 5, "y": 10},
 ]"""
 
-area_example = """pc.area(
-    data=pc.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+area_example = """rx.area(
+    data=rx.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
 )
 """
 
-area_example_style = """pc.chart(
-    pc.area(
-        data=pc.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+area_example_style = """rx.chart(
+    rx.area(
+        data=rx.data("area", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
         style={"data": {"fill": "orange", "stroke": "black", "strokeWidth": 2}},
     ),
-    pc.area(
-        data=pc.data("area", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
+    rx.area(
+        data=rx.data("area", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
         style={"data": {"fill": "rgb(107,99,246)", "stroke": "black", "strokeWidth": 2, "opacity": 0.5}},
         interpolation="natural",
     ),
@@ -257,7 +257,7 @@ area_example_style = """pc.chart(
 
 
 def render_area():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Area is a wrapper component that renders an area graph. ",
         ),
@@ -267,13 +267,13 @@ def render_area():
             doctext(
                 "Area accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.area"),
+            rx.code("rx.area"),
             " component.",
         ),
         docdemo(area_example),
@@ -285,7 +285,7 @@ def render_area():
     )
 
 
-pie_data_example = """data = pc.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4])"""
+pie_data_example = """data = rx.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4])"""
 pie_data_rendered = """data = [
     {"x": "Cats", "y": 1},
     {"x": "Dogs", "y": 2},
@@ -294,13 +294,13 @@ pie_data_rendered = """data = [
     {"x": "Reptiles", "y": 4},
 ]"""
 
-pie_example = """pc.pie(
-    data=pc.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4]),
+pie_example = """rx.pie(
+    data=rx.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4]),
 )
 """
 
-pie_example_style = """pc.pie(
-    data=pc.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4]),
+pie_example_style = """rx.pie(
+    data=rx.data("pie", x=["Cats", "Dogs", "Birds", "Fish", "Reptiles"], y=[1, 2, 3, 10, 4]),
     color_scale="qualitative",
     pad_angle=5.0,
     inner_radius=100.0,
@@ -310,7 +310,7 @@ pie_example_style = """pc.pie(
 
 
 def render_pie():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Pie is a wrapper component that renders a pie graph. ",
         ),
@@ -320,13 +320,13 @@ def render_pie():
             doctext(
                 "Pie accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.pie"),
+            rx.code("rx.pie"),
             " component.",
         ),
         docdemo(pie_example),
@@ -337,7 +337,7 @@ def render_pie():
     )
 
 
-candlestick_data_example = """data = pc.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 2, 3, 4, 10], high=[3, 5, 6, 7, 16], low=[1, 2, 3, 4, 10])"""
+candlestick_data_example = """data = rx.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 2, 3, 4, 10], high=[3, 5, 6, 7, 16], low=[1, 2, 3, 4, 10])"""
 candlestick_data_rendered = """data = [
     {"x": 1, "open": 1, "close": 1, "high": 3, "low": 1},
     {"x": 2, "open": 3, "close": 2, "high": 5, "low": 2},
@@ -346,16 +346,16 @@ candlestick_data_rendered = """data = [
     {"x": 5, "open": 15, "close": 10, "high": 16, "low": 10},
 ]"""
 
-candlestick_example = """pc.chart(
-    pc.candlestick(
-            data=pc.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 2, 3, 4, 10], high=[3, 5, 6, 7, 16], low=[1, 2, 3, 4, 10]),
+candlestick_example = """rx.chart(
+    rx.candlestick(
+            data=rx.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 2, 3, 4, 10], high=[3, 5, 6, 7, 16], low=[1, 2, 3, 4, 10]),
     )
 )
 """
 
-candlestick_example_style = """pc.chart(
-    pc.candlestick(
-            data=pc.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 11, 3, 4, 10], high=[3, 14, 6, 7, 16], low=[1, 2, 3, 4, 10]),
+candlestick_example_style = """rx.chart(
+    rx.candlestick(
+            data=rx.data("candlestick", x=[1, 2, 3, 4, 5], open=[1, 3, 6, 7, 15], close=[1, 11, 3, 4, 10], high=[3, 14, 6, 7, 16], low=[1, 2, 3, 4, 10]),
             candle_colors={"positive": "green", "negative": "red"},
             candle_width=10.0,
             candle_ratio=0.5,
@@ -365,7 +365,7 @@ candlestick_example_style = """pc.chart(
 
 
 def render_candlestick():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Candlestick is a wrapper component that renders a candlestick graph. ",
         ),
@@ -375,13 +375,13 @@ def render_candlestick():
             doctext(
                 "Candlestick accepts a data prop, which is an array of dictionaries with x, open, close, high, and low keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x, open, close, high, and low lists.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.candlestick"),
+            rx.code("rx.candlestick"),
             " component.",
         ),
         docdemo(candlestick_example),
@@ -393,7 +393,7 @@ def render_candlestick():
 
 
 scatter_data_example = (
-    """data = pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+    """data = rx.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 )
 scatter_data_rendered = """data = [
     {"x": 1, "y": 1},
@@ -403,27 +403,27 @@ scatter_data_rendered = """data = [
     {"x": 5, "y": 10},
 ]"""
 
-scatter_example = """pc.chart(
-    pc.scatter(
-        data=pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+scatter_example = """rx.chart(
+    rx.scatter(
+        data=rx.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     )
 )
 """
 
-scatter_example_style = """pc.chart(
-    pc.scatter(
-        data=pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+scatter_example_style = """rx.chart(
+    rx.scatter(
+        data=rx.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     ),
-    pc.scatter(
-        data=pc.data("scatter", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
+    rx.scatter(
+        data=rx.data("scatter", x=[1, 2, 3, 4, 5], y=[5, 12, 4, 6, 1]),
         style={"data": {"fill": "red"}}
     ),
 )
 """
 
-scatter_example_bubble = """pc.chart(
-    pc.scatter(
-        data=pc.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], amount=[1, 2, 3, 4, 10]),
+scatter_example_bubble = """rx.chart(
+    rx.scatter(
+        data=rx.data("scatter", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], amount=[1, 2, 3, 4, 10]),
         min_bubble_size=1.0,
         max_bubble_size=10.0,
         bubble_property="amount",
@@ -433,7 +433,7 @@ scatter_example_bubble = """pc.chart(
 
 
 def render_scatter():
-    return pc.box(
+    return rx.box(
         doctext(
             "Scatter is a wrapper component that renders a scatter graph. ",
         ),
@@ -443,13 +443,13 @@ def render_scatter():
             doctext(
                 "Scatter accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.scatter"),
+            rx.code("rx.scatter"),
             " component.",
         ),
         docdemo(scatter_example),
@@ -465,7 +465,7 @@ def render_scatter():
     )
 
 
-box_plot_data_example = """data = pc.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]])"""
+box_plot_data_example = """data = rx.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]])"""
 box_plot_data_rendered = """data = [
     {"x": 1, "y": [1, 2, 3, 4, 10]},
     {"x": 2, "y": [5, 12, 4, 6, 1]},
@@ -474,17 +474,17 @@ box_plot_data_rendered = """data = [
     {"x": 5, "y": [1, 2, 3, 4, 10]},
 ]"""
 
-box_plot_example = """pc.chart(
-    pc.box_plot(
-        data=pc.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]]),
+box_plot_example = """rx.chart(
+    rx.box_plot(
+        data=rx.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]]),
     ),
     domain_padding = {"x": 15, "y": 5},
 )
 """
 
-box_plot_example_style = """pc.chart(
-    pc.box_plot(
-        data=pc.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]]),
+box_plot_example_style = """rx.chart(
+    rx.box_plot(
+        data=rx.data("box_plot", x=[1, 2, 3, 4, 5], y=[[1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10], [5, 12, 4, 6, 1], [1, 2, 3, 4, 10]]),
         style={
             "min": {"stroke": "tomato"},
             "max": {"stroke": "orange"},
@@ -499,7 +499,7 @@ box_plot_example_style = """pc.chart(
 
 
 def render_boxplot():
-    return pc.box(
+    return rx.box(
         doctext(
             "BoxPlot is a wrapper component that renders a box plot graph. ",
         ),
@@ -511,13 +511,13 @@ def render_boxplot():
                 " The y key should be a list of lists, where each list represents a box plot. ",
                 " Repeat x values will be grouped together.",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.box_plot"),
+            rx.code("rx.box_plot"),
             " component.",
         ),
         docdemo(box_plot_example),
@@ -529,7 +529,7 @@ def render_boxplot():
 
 
 histogram_data_example = (
-    """data = pc.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20])"""
+    """data = rx.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20])"""
 )
 histogram_data_rendered = """data = [
     {"x": 1},
@@ -543,16 +543,16 @@ histogram_data_rendered = """data = [
     {"x": 20},
 ]"""
 
-histogram_example = """pc.chart(
-    pc.histogram( 
-        data=pc.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20]),
+histogram_example = """rx.chart(
+    rx.histogram( 
+        data=rx.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20]),
     ),
 )
 """
 
-histogram_example_style = """pc.chart(
-    pc.histogram(
-        data=pc.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20]),
+histogram_example_style = """rx.chart(
+    rx.histogram(
+        data=rx.data("histogram", x=[1, 6, 3, 5, 3, 14, 18, 19, 20]),
         style={
             "data": {"fill": "orange", "stroke": "tomato", "strokeWidth": 2, "opacity": 0.5},
             "labels": {"fill": "white", "fontSize": 12},
@@ -564,7 +564,7 @@ histogram_example_style = """pc.chart(
 
 
 def render_histogram():
-    return pc.box(
+    return rx.box(
         doctext(
             "Histogram is a wrapper component that renders a histogram graph. ",
         ),
@@ -575,13 +575,13 @@ def render_histogram():
                 "Histogram accepts a data prop, which is an array of dictionaries with x keys. ",
                 " x values will be grouped together and counted. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.histogram"),
+            rx.code("rx.histogram"),
             " component.",
         ),
         docdemo(histogram_example),
@@ -592,7 +592,7 @@ def render_histogram():
     )
 
 
-error_bar_data_example = """data = pc.data("error_bar", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], error_x=[0.1, 0.2, 0.3, 0.4, 0.5], error_y=[0.1, 0.2, 0.3, 0.4, 0.5])"""
+error_bar_data_example = """data = rx.data("error_bar", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], error_x=[0.1, 0.2, 0.3, 0.4, 0.5], error_y=[0.1, 0.2, 0.3, 0.4, 0.5])"""
 error_bar_data_rendered = """data = [
     {"x": 1, "y": 1, "error_x": 0.1, "error_y": 0.1},
     {"x": 2, "y": 2, "error_x": 0.2, "error_y": 0.2},
@@ -601,16 +601,16 @@ error_bar_data_rendered = """data = [
     {"x": 5, "y": 10, "error_x": 0.5, "error_y": 0.5},
 ]"""
 
-error_bar_example = """pc.chart(
-    pc.error_bar(
-        data=pc.data("error_bar", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], error_x=[0.1, 0.2, 0.3, 0.4, 0.5], error_y=[0.1, 0.2, 0.3, 0.4, 0.5]),
+error_bar_example = """rx.chart(
+    rx.error_bar(
+        data=rx.data("error_bar", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10], error_x=[0.1, 0.2, 0.3, 0.4, 0.5], error_y=[0.1, 0.2, 0.3, 0.4, 0.5]),
     ),
 )
 """
 
 
 def render_errorbar():
-    return pc.box(
+    return rx.box(
         doctext(
             "ErrorBar is a wrapper component that renders a error bar graph. ",
         ),
@@ -620,13 +620,13 @@ def render_errorbar():
             doctext(
                 "ErrorBar accepts a data prop, which is an array of dictionaries with x, y, error_x, and error_y keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x, y, error_x, and error_y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.error_bar"),
+            rx.code("rx.error_bar"),
             " component.",
         ),
         docdemo(error_bar_example),
@@ -634,7 +634,7 @@ def render_errorbar():
 
 
 voronoi_data_example = (
-    """data = pc.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
+    """data = rx.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10])"""
 )
 voronoi_data_rendered = """data = [
     {"x": 1, "y": 1},
@@ -644,21 +644,21 @@ voronoi_data_rendered = """data = [
     {"x": 5, "y": 10},
 ]"""
 
-voronoi_example = """pc.chart(
-    pc.voronoi( 
-        data=pc.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+voronoi_example = """rx.chart(
+    rx.voronoi( 
+        data=rx.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
         style={"data": {"fill": "none", "stroke": "black", "strokeWidth": 1}}
     ),
 )
 """
 
-voronoi_style_example = """pc.chart(
-    pc.voronoi(
-        data=pc.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+voronoi_style_example = """rx.chart(
+    rx.voronoi(
+        data=rx.data("voronoi", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
         style={"data": {"fill": "none", "stroke": "#000C66", "strokeWidth": 1}}
     ),
-    pc.voronoi(
-        data=pc.data("voronoi", x=[1, 3, 5, 7, 8], y=[1, 5, 6, 9, 10]),
+    rx.voronoi(
+        data=rx.data("voronoi", x=[1, 3, 5, 7, 8], y=[1, 5, 6, 9, 10]),
         style={"data": {"fill": "#7EC8E3", "stroke": "#050A30", "strokeWidth": 1, "opacity": 0.5}}
     ),
 )
@@ -666,7 +666,7 @@ voronoi_style_example = """pc.chart(
 
 
 def render_voronoi():
-    return pc.box(
+    return rx.box(
         doctext(
             "Voronoi is a wrapper component that renders a voronoi graph. ",
         ),
@@ -676,29 +676,29 @@ def render_voronoi():
             doctext(
                 "Voronoi accepts a data prop, which is an array of dictionaries with x and y keys. ",
                 " You can contruct your own data as input, or use the ",
-                pc.code("pc.data"),
+                rx.code("rx.data"),
                 " helper function to generate a data array from a x and y list.",
             ),
         ),
         doctext(
             "The following example shows a basic ",
-            pc.code("pc.voronoi"),
+            rx.code("rx.voronoi"),
             " component.",
         ),
         docdemo(voronoi_example),
         doctext(
             "The following example shows a ",
-            pc.code("pc.voronoi"),
+            rx.code("rx.voronoi"),
             " component with multiple data sets and custom styles.",
         ),
         docdemo(voronoi_style_example),
     )
 
 
-polar_example = """pc.chart(
-    pc.polar(),
-    pc.line(
-        data=pc.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
+polar_example = """rx.chart(
+    rx.polar(),
+    rx.line(
+        data=rx.data("line", x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 10]),
     ),
     polar = True
 )
@@ -706,7 +706,7 @@ polar_example = """pc.chart(
 
 
 def render_polar():
-    return pc.box(
+    return rx.box(
         doctext(
             "Polar is a wrapper component that renders a polar graph. ",
             "Polar expects a data prop, which is a list of objects with x and y keys. ",

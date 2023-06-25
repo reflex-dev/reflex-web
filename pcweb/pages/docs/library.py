@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.component_list import component_list
 from pcweb.templates.docpage import docheader, docpage, doctext
@@ -8,12 +8,12 @@ def component_grid():
     sidebar = []
     for category in component_list:
         sidebar.append(
-            pc.box(
-                pc.heading(category, style={"fontSize": "1.5em"}),
-                pc.divider(),
-                pc.vstack(
+            rx.box(
+                rx.heading(category, style={"fontSize": "1.5em"}),
+                rx.divider(),
+                rx.vstack(
                     *[
-                        pc.link(
+                        rx.link(
                             c[0].__name__,
                             href=f"/docs/library/{category.lower()}/{c[0].__name__.lower()}",
                             style={"fontSize": "1em"},
@@ -34,21 +34,21 @@ def component_grid():
             )
         )
 
-    return pc.box(
-        pc.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
+    return rx.box(
+        rx.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
 @docpage()
 def library():
-    return pc.flex(
-        pc.hstack(
-            pc.box(
+    return rx.flex(
+        rx.hstack(
+            rx.box(
                 docheader("Component Library", first=True),
                 doctext(
                     "Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
                 ),
-                pc.divider(),
+                rx.divider(),
                 component_grid(),
                 text_align="left",
             ),

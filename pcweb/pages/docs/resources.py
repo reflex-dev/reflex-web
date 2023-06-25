@@ -1,15 +1,15 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext, subheader
 
 
 def video(title, author, url):
-    return pc.link(
-        pc.list_item(
-            pc.hstack(
-                pc.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
-                pc.badge(author, color_scheme="green", margin_left="1em"),
+    return rx.link(
+        rx.list_item(
+            rx.hstack(
+                rx.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
+                rx.badge(author, color_scheme="green", margin_left="1em"),
             )
         ),
         href=url,
@@ -20,11 +20,11 @@ colors = {"Reddit": "red", "Hacker News": "orange"}
 
 
 def launch(title, platform, url):
-    return pc.link(
-        pc.list_item(
-            pc.hstack(
-                pc.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
-                pc.badge(platform, color_scheme=colors[platform], margin_left="1em"),
+    return rx.link(
+        rx.list_item(
+            rx.hstack(
+                rx.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
+                rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
             )
         ),
         href=url,
@@ -91,7 +91,7 @@ tutorial_videos = [
         "url": "https://www.youtube.com/@codingjq",
     },
     {
-        "title": "Pynecone Styling Tutorial",
+        "title": "Reflex Styling Tutorial",
         "author": "CodingJQ",
         "url": "https://www.youtube.com/watch?v=mitRjfRm7uY",
     },
@@ -141,37 +141,37 @@ launches = [
 
 @docpage()
 def resources():
-    return pc.flex(
-        pc.hstack(
-            pc.box(
+    return rx.flex(
+        rx.hstack(
+            rx.box(
                 docheader("Resources", first=True),
                 doctext(
-                    "Here are some resources to help you get started with Pynecone."
+                    "Here are some resources to help you get started with Reflex."
                 ),
                 doctext(
-                    "All of the following content is unpaid endorsements from the Pynecone community. If you have a video you would like to add to this list, please contact us at ",
-                    pc.code("alek@pynecone.io"),
+                    "All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at ",
+                    rx.code("alek@pynecone.io"),
                     " and we will be happy to add it.",
                 ),
-                pc.divider(),
-                pc.vstack(
+                rx.divider(),
+                rx.vstack(
                     subheader("Launches"),
-                    pc.unordered_list(
+                    rx.unordered_list(
                         *[launch(**v) for v in launches],
                         padding_left="2em",
                     ),
                     subheader("Introduction Videos"),
-                    pc.unordered_list(
+                    rx.unordered_list(
                         *[video(**v) for v in intro_videos],
                         padding_left="2em",
                     ),
                     subheader("Tutorial Videos"),
-                    pc.unordered_list(
+                    rx.unordered_list(
                         *[video(**v) for v in tutorial_videos],
                         padding_left="2em",
                     ),
                     subheader("Blog Posts"),
-                    pc.unordered_list(
+                    rx.unordered_list(
                         *[video(**v) for v in blog_posts],
                         padding_left="2em",
                     ),

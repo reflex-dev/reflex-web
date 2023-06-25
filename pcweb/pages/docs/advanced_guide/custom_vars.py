@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -12,7 +12,7 @@ from pcweb.templates.docpage import (
 
 code1 = """import googletrans
 
-class Translation(pc.Base):
+class Translation(rx.Base):
     original_text: str
     translated_text: str
 
@@ -27,10 +27,10 @@ class TranslationState(State):
 """
 exec(code1)
 
-code2 = """pc.vstack(
-    pc.input(on_blur=TranslationState.set_input_text, default_value=TranslationState.input_text, placeholder="Text to translate..."),
-    pc.button("Translate", on_click=TranslationState.translate),
-    pc.text(TranslationState.current_translation.translated_text),
+code2 = """rx.vstack(
+    rx.input(on_blur=TranslationState.set_input_text, default_value=TranslationState.input_text, placeholder="Text to translate..."),
+    rx.button("Translate", on_click=TranslationState.translate),
+    rx.text(TranslationState.current_translation.translated_text),
 )"""
 
 
@@ -38,17 +38,17 @@ code2 = """pc.vstack(
 def custom_vars():
     from pcweb.pages.docs.state.vars import vars
 
-    return pc.box(
+    return rx.box(
         docheader("Custom Vars", first=True),
         doctext(
             "As mentioned in the ",
             doclink("vars", vars.path),
-            " page, Pynecone vars must be JSON serializable. ",
+            " page, Reflex vars must be JSON serializable. ",
         ),
         doctext(
             "This means we can support any Python primitive types, as well as lists, dicts, and tuples. "
             "However, you can also create more complex var types by inheriting from ",
-            pc.code("pc.Base"),
+            rx.code("rx.Base"),
             ". ",
         ),
         subheader("Defining a Type"),

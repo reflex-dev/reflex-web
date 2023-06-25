@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -9,7 +9,7 @@ from pcweb.templates.docpage import (
     doctext,
 )
 
-code1 = """pc.text(
+code1 = """rx.text(
     "Check out my font",
     font_family="Silkscreen",
     font_size="1.5em",
@@ -19,11 +19,11 @@ code1 = """pc.text(
 
 @docpage()
 def theming():
-    return pc.box(
+    return rx.box(
         docheader("Theming", first=True),
         doctext(
             "You can also add a dark mode toggle by adding ",
-            pc.code("pc.toggle_color_mode"),
+            rx.code("rx.toggle_color_mode"),
             " to an event trigger. This will change the whole app to dark mode. ",
         ),
         doctext(
@@ -31,9 +31,9 @@ def theming():
         ),
         doccode(
             """
-            pc.button(
-                pc.icon(tag="moon"),
-                on_click=pc.toggle_color_mode,
+            rx.button(
+                rx.icon(tag="moon"),
+                on_click=rx.toggle_color_mode,
             )
             """
         ),

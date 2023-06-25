@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, doctext
@@ -46,15 +46,15 @@ def mount():
 
 # Graphing
 def render_plotly():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Plotly is a graphing library that can be used to create interactive graphs."
         ),
         doctext(
             "Let's create a line graph of life expectancy in Canada as an example."
         ),
-        pc.center(
-            pc.plotly(data=line()),
+        rx.center(
+            rx.plotly(data=line()),
             height="400px",
             style=style["box"],
         ),
@@ -69,13 +69,13 @@ fig = px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')
         ),
         doctext("Now pass the plotly figure to the plotly component."),
         doccode(
-            """pc.plotly(data=fig, height="400px")""",
+            """rx.plotly(data=fig, height="400px")""",
         ),
         doctext("Not lets take a look at a more compex example."),
         doctext("Let's create a 3D surface plot of Mount Bruno."),
-        pc.center(
-            pc.vstack(
-                pc.plotly(data=mount()),
+        rx.center(
+            rx.vstack(
+                rx.plotly(data=mount()),
             ),
             height="400px",
             style=style["box"],
@@ -100,7 +100,7 @@ fig.update_layout(scene_camera_eye=dict(x=1.87, y=0.88, z=-0.64),
         ),
         doctext("Now pass the plotly figure again to the plotly component."),
         doccode(
-            """pc.plotly(data=fig, height="400px")""",
+            """rx.plotly(data=fig, height="400px")""",
         ),
         align_items="start",
     )

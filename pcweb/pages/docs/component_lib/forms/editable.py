@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -15,9 +15,9 @@ basic_editable_class = """class EditableState(State):
         print("testing")
         self.example_state = example_state.upper()
 """
-basic_editable_example = """pc.editable(
-    pc.editable_preview(),
-    pc.editable_input(),
+basic_editable_example = """rx.editable(
+    rx.editable_preview(),
+    rx.editable_input(),
     placeholder="An input example...",
     on_submit=EditableState.set_uppertext,
     width="100%", 
@@ -26,18 +26,18 @@ basic_editable_example = """pc.editable(
 
 exec(basic_editable_class)
 
-textarea_editable_example = """pc.editable(
-    pc.editable_preview(),
-    pc.editable_textarea(),
+textarea_editable_example = """rx.editable(
+    rx.editable_preview(),
+    rx.editable_textarea(),
     placeholder="A textarea example...",
     on_submit=EditableState.set_example_textarea,
     width="100%",
 )
 """
 
-state_editable_blur_example = """pc.editable(
-    pc.editable_preview(),
-    pc.editable_input(),
+state_editable_blur_example = """rx.editable(
+    rx.editable_preview(),
+    rx.editable_input(),
     on_blur=EditableState.set_uppertext,
     width="100%",
 )
@@ -45,7 +45,7 @@ state_editable_blur_example = """pc.editable(
 
 
 def render_editable():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Editable is used for inline renaming of some text. It appears as normal UI text but transforms into a text input field when the user clicks on or focuses it."
         ),

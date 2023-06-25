@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -15,7 +15,7 @@ from typing import List
 
 class WordCycleState(State):
     # The words to cycle through.
-    text: List[str] = ["Welcome", "to", "Pynecone", "!"]
+    text: List[str] = ["Welcome", "to", "Reflex", "!"]
 
     # The index of the current word.
     index: int = 0
@@ -23,13 +23,13 @@ class WordCycleState(State):
     def next_word(self):
         self.index = (self.index + 1) % len(self.text)
 
-    @pc.var
+    @rx.var
     def get_text(self) -> str:
         return self.text[self.index]
 
 """
 exec(code1)
-code2 = """pc.heading(
+code2 = """rx.heading(
     WordCycleState.get_text,
     on_mouse_over=WordCycleState.next_word,
     color="green",
@@ -51,10 +51,10 @@ class ProgressExampleState(State):
         self.show_progress = False
 """
 exec(code3)
-code4 = """pc.cond(
+code4 = """rx.cond(
     ProgressExampleState.show_progress,
-    pc.circular_progress(is_indeterminate=True),
-    pc.heading(
+    rx.circular_progress(is_indeterminate=True),
+    rx.heading(
         ProgressExampleState.count,
         on_click=[ProgressExampleState.increment],
         _hover={"cursor": "pointer"},
@@ -72,20 +72,20 @@ class ArgState(State):
         self.colors[index] = color
 """
 exec(code5)
-code6 = """pc.hstack(
-    pc.input(default_value=ArgState.colors[0], on_blur=lambda c: ArgState.change_color(c, 0), bg=ArgState.colors[0]),
-    pc.input(default_value=ArgState.colors[1], on_blur=lambda c: ArgState.change_color(c, 1), bg=ArgState.colors[1]),
-    pc.input(default_value=ArgState.colors[2], on_blur=lambda c: ArgState.change_color(c, 2), bg=ArgState.colors[2]),
+code6 = """rx.hstack(
+    rx.input(default_value=ArgState.colors[0], on_blur=lambda c: ArgState.change_color(c, 0), bg=ArgState.colors[0]),
+    rx.input(default_value=ArgState.colors[1], on_blur=lambda c: ArgState.change_color(c, 1), bg=ArgState.colors[1]),
+    rx.input(default_value=ArgState.colors[2], on_blur=lambda c: ArgState.change_color(c, 2), bg=ArgState.colors[2]),
 )
 """
 
 
 code7 = """class ServerSideState2(State):
     def alert(self):
-        return pc.window_alert("Hello World!")
+        return rx.window_alert("Hello World!")
 """
 exec(code7)
-code8 = """pc.button("Alert", on_click=ServerSideState2.alert)"""
+code8 = """rx.button("Alert", on_click=ServerSideState2.alert)"""
 
 code_collatz_state = """class CollatzState(State):
     count: int = 0
@@ -111,9 +111,9 @@ code_collatz_state = """class CollatzState(State):
 """
 
 exec(code_collatz_state)
-code_collatz_render = """pc.vstack(
-    pc.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
-    pc.input(on_blur=CollatzState.start_collatz),
+code_collatz_render = """rx.vstack(
+    rx.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
+    rx.input(on_blur=CollatzState.start_collatz),
 )"""
 
 code_setter_state = """
@@ -128,9 +128,9 @@ class SetterState1(State):
 """
 
 exec(code_setter_state)
-code_setter_render = """pc.vstack(
-    pc.badge(SetterState1.selected, color_scheme="green"),
-    pc.select(
+code_setter_render = """rx.vstack(
+    rx.badge(SetterState1.selected, color_scheme="green"),
+    rx.select(
         options,
         on_change= lambda value: SetterState1.change(value),
     )
@@ -144,9 +144,9 @@ class SetterState2(State):
     selected: str = "1"
 """
 exec(code_setter2_state)
-code_setter2_render = """pc.vstack(
-    pc.badge(SetterState2.selected, color_scheme="green"),
-    pc.select(
+code_setter2_render = """rx.vstack(
+    rx.badge(SetterState2.selected, color_scheme="green"),
+    rx.select(
         options,
         on_change= SetterState2.set_selected,
     )
@@ -162,9 +162,9 @@ code_yield_state = """class MultiUpdateState(State):
             yield
 """
 exec(code_yield_state)
-code_yield_render = """pc.vstack(
-    pc.text(MultiUpdateState.count),
-    pc.button("Start", on_click=MultiUpdateState.timed_update)
+code_yield_render = """rx.vstack(
+    rx.text(MultiUpdateState.count),
+    rx.button("Start", on_click=MultiUpdateState.timed_update)
 )"""
 
 
@@ -193,10 +193,10 @@ code_callhandler_state = """class CallHandlerState(State):
             yield
 """
 exec(code_callhandler_state)
-code_callhandler_render = """pc.vstack(
-    pc.badge(CallHandlerState.count, font_size="1.5em", color_scheme="green"),
-    pc.progress(value=CallHandlerState.progress, max_=10, width="100%"),
-    pc.button("Run", on_click=CallHandlerState.run),
+code_callhandler_render = """rx.vstack(
+    rx.badge(CallHandlerState.count, font_size="1.5em", color_scheme="green"),
+    rx.progress(value=CallHandlerState.progress, max_=10, width="100%"),
+    rx.button("Run", on_click=CallHandlerState.run),
 )"""
 
 
@@ -205,7 +205,7 @@ def events():
     from pcweb.pages.docs.api_reference.special_events import special_events
     from pcweb.pages.docs.library import library
 
-    return pc.box(
+    return rx.box(
         docheader("Events", first=True),
         doctext(
             "Events are how we modify the state and ",
@@ -227,12 +227,12 @@ def events():
         docdemo(code2, code1, eval(code2), context=True),
         doctext(
             "In this example, the heading component has the event trigger, ",
-            pc.code("on_mouse_over"),
+            rx.code("on_mouse_over"),
             ".",
         ),
         doctext(
             "Whenever the user hovers over the heading, the ",
-            pc.code("next_word"),
+            rx.code("next_word"),
             " handler will be called to cycle the word. ",
             "Once the handler returns, the UI will be updated to reflect the new state.",
         ),
@@ -247,23 +247,23 @@ def events():
         docdemo(code6, code5, eval(code6), context=True),
         doctext(
             "In this case, in we want to pass two arguments to the event handler ",
-            pc.code("change_color"),
+            rx.code("change_color"),
             ", the color and the index of the color to change.",
         ),
         doctext(
             "The ",
-            pc.code("on_blur"),
+            rx.code("on_blur"),
             " event trigger passes the text of the input as an argument to the lambda, ",
             " and the lambda calls the ",
-            pc.code("change_color"),
+            rx.code("change_color"),
             " event handler with the text and the index of the input.",
         ),
         doctext(
-            pc.alert(
-                pc.alert_icon(),
-                pc.box(
-                    pc.alert_title("Event Handler Parameters must provide type annotations."),
-                    pc.alert_description(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("Event Handler Parameters must provide type annotations."),
+                    rx.alert_description(
                         "Like state vars, be sure to provide the right type annotations for the prameters in an event "
                         "handler."
                     ),
@@ -274,7 +274,7 @@ def events():
         subheader("Setters"),
         doctext(
             "Every base var has a built-in event handler to set it's value for convenience, called",
-            pc.code("set_VARNAME"),
+            rx.code("set_VARNAME"),
             ".",
         ),
         doctext(
@@ -296,9 +296,9 @@ def events():
         ),
         doctext(
             "In this example, the setter for ",
-            pc.code("selected"),
+            rx.code("selected"),
             " is ",
-            pc.code("set_selected"),
+            rx.code("set_selected"),
             ". Both of these examples are equivalent.",
         ),
         doctext(
@@ -308,17 +308,17 @@ def events():
         subheader("Yielding Multiple Updates"),
         doctext(
             "A regular event handler will send a ",
-            pc.code("StateUpdate"),
+            rx.code("StateUpdate"),
             " when it has finished running. ",
             "This works fine for basic event, but sometimes we need more complex logic.",
             "To update the UI multiple times in an event handler, we can yield when we want to send an update.",
         ),
         doctext(
             "To do so, we can use the python keyword ",
-            pc.code("yield"),
+            rx.code("yield"),
             ". ",
             "For every yield inside the function, a ",
-            pc.code("StateUpdate"),
+            rx.code("StateUpdate"),
             "will be sent to the frontend",
             " with the changes up to this point in the execution of the event handler.",
         ),
@@ -333,7 +333,7 @@ def events():
         doctext(
             "You can call other event handlers from event handlers to keep your code modular. ",
             "Just use the ",
-            pc.code("self.call_handler"),
+            rx.code("self.call_handler"),
             " syntax to run another event handler. ",
             " As always, you can yield within your function to send incremental updates to the frontend.",
         ),
@@ -349,19 +349,19 @@ def events():
             "However, an event handler can also return events.",
         ),
         doctext(
-            "In Pynecone, event handlers run synchronously, so only one event handler can run at a time, ",
+            "In Reflex, event handlers run synchronously, so only one event handler can run at a time, ",
             " and the events in the queue will be blocked until the current event handler finishes.",
             "The difference between returning an event and calling an event handler is that ",
             " returning an event will send the event to the frontend and unblock the queue. ",
         ),
         doctext(
-            pc.alert(
+            rx.alert(
                 icon=True,
-                title=pc.text(
+                title=rx.text(
                     "Be sure to use the class name ",
-                    pc.code("State"),
+                    rx.code("State"),
                     " (or any substate) rather than ",
-                    pc.code("self"),
+                    rx.code("self"),
                     " when returning events.",
                 ),
             )
@@ -383,19 +383,19 @@ def events():
         ),
         doctext(
             "When the ",
-            pc.code("on_blur"),
+            rx.code("on_blur"),
             " event is triggered, the event handler ",
-            pc.code("start_collatz"),
+            rx.code("start_collatz"),
             " is called. ",
             "It sets the initial count, then calls ",
-            pc.code("run_step"),
+            rx.code("run_step"),
             " which runs until the count reaches ",
-            pc.code("1"),
+            rx.code("1"),
             ". ",
         ),
         subheader("Special Events"),
         doctext(
-            "Pynecone also has built-in special events can be found in the ",
+            "Reflex also has built-in special events can be found in the ",
             doclink("reference", href=special_events.path),
             ".",
         ),

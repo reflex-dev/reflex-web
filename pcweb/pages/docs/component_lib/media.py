@@ -1,5 +1,5 @@
-import pynecone as pc
-from pynecone.components.media.icon import ICON_LIST
+import reflex as rx
+from reflex.components.media.icon import ICON_LIST
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
@@ -9,36 +9,36 @@ import random
 import requests
 
 
-code79 = """pc.hstack(
-    pc.avatar(size="sm"),
-    pc.avatar(name="Barack Obama", size="md"),
-    pc.avatar(name="Donald Trump", size="lg"),
-    pc.avatar(name="Joe Biden", size="xl"),
+code79 = """rx.hstack(
+    rx.avatar(size="sm"),
+    rx.avatar(name="Barack Obama", size="md"),
+    rx.avatar(name="Donald Trump", size="lg"),
+    rx.avatar(name="Joe Biden", size="xl"),
 )
 """
-code80 = """ pc.avatar_group(
-    pc.avatar(name="Barack Obama"),
-    pc.avatar(name="Donald Trump"),
-    pc.avatar(name="Joe Biden"),
+code80 = """ rx.avatar_group(
+    rx.avatar(name="Barack Obama"),
+    rx.avatar(name="Donald Trump"),
+    rx.avatar(name="Joe Biden"),
 )
 """
-code81 = """pc.avatar_group(
-    pc.avatar(
-        pc.avatar_badge(
+code81 = """rx.avatar_group(
+    rx.avatar(
+        rx.avatar_badge(
             box_size="1.25em", bg="green.500", border_color="green.500"
         ),
         name="Barack Obama",
     ),
-    pc.avatar(
-        pc.avatar_badge(
+    rx.avatar(
+        rx.avatar_badge(
             box_size="1.25em", bg="yellow.500", border_color="red.500"
         ),
         name="Donald Trump",
     ),
 )
 """
-code82 = """pc.avatar_group(
-    *([pc.avatar(name="Barack Obama")] * 5),
+code82 = """rx.avatar_group(
+    *([rx.avatar(name="Barack Obama")] * 5),
     size="md",
     max_=3,
 )
@@ -47,7 +47,7 @@ code82 = """pc.avatar_group(
 
 # Media
 def render_avatar():
-    return pc.box(
+    return rx.box(
         doctext(
             "The Avatar component is used to represent a user, and displays the profile picture, initials or fallback icon."
         ),
@@ -68,7 +68,7 @@ def render_avatar():
     )
 
 
-codeicon1 = """pc.icon(
+codeicon1 = """rx.icon(
     tag = "calendar",
 )
 """
@@ -78,9 +78,9 @@ def render_icon():
     icons = []
     for icon in ICON_LIST:
         icons.append(
-            pc.vstack(
-                pc.icon(tag=icon),
-                pc.text(icon),
+            rx.vstack(
+                rx.icon(tag=icon),
+                rx.text(icon),
                 bg="white",
                 border="1px solid #EAEAEA",
                 border_radius="0.5em",
@@ -88,32 +88,32 @@ def render_icon():
             )
         )
 
-    grid = pc.responsive_grid(
+    grid = rx.responsive_grid(
         *icons,
         columns=[2, 2, 3, 3, 4],
         spacing="1em",
     )
 
-    return pc.box(
+    return rx.box(
         doctext(
             "The Icon component is used to display an icon from a library of icons."
         ),
         docdemo(codeicon1),
         doctext("Use the tag prop to specify the icon to display."),
-        pc.alert(
-            pc.alert_icon(),
-            pc.alert_title("Below is a list of all available icons."),
+        rx.alert(
+            rx.alert_icon(),
+            rx.alert_title("Below is a list of all available icons."),
             status="success",
         ),
-        pc.divider(),
+        rx.divider(),
         grid,
         align_items="start",
     )
 
 
-code83 = """pc.image(src="/black.png", width="100px", height="auto")
+code83 = """rx.image(src="/black.png", width="100px", height="auto")
 """
-code84 = """pc.image(
+code84 = """rx.image(
     src="/black.png",
     width="100px",
     height="auto",
@@ -129,14 +129,14 @@ image_state = """class ImageState(State):
     image = Image.open(requests.get(url, stream=True).raw)
 """
 exec(image_state)
-image_pil_example = """pc.vstack(
-        pc.image(src=ImageState.image, alt="=An Unsplash Image")
+image_pil_example = """rx.vstack(
+        rx.image(src=ImageState.image, alt="=An Unsplash Image")
     )
 """
 
 
 def render_image():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The image component can display an image given a src path as an argment. This could either be a local path from the assets folder or an external link."
         ),

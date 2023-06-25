@@ -1,5 +1,5 @@
 import pandas as pd
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, docdemo, doctext, code_block
@@ -20,25 +20,25 @@ def nba_data():
     return pd.read_csv("data/nba.csv").head(10)
 
 
-badge_example1 = """pc.hstack(
-    pc.badge("Example", variant="solid", color_scheme="green"),
-    pc.badge("Example", variant="subtle", color_scheme="green"),
-    pc.badge("Example", variant="outline", color_scheme="green"),
+badge_example1 = """rx.hstack(
+    rx.badge("Example", variant="solid", color_scheme="green"),
+    rx.badge("Example", variant="subtle", color_scheme="green"),
+    rx.badge("Example", variant="outline", color_scheme="green"),
 )
 """
-badge_example2 = """pc.hstack(
-    pc.badge("Example", variant="subtle", color_scheme="green"),
-    pc.badge("Example", variant="subtle", color_scheme="red"),
-    pc.badge("Example", variant="subtle", color_scheme="yellow"),
+badge_example2 = """rx.hstack(
+    rx.badge("Example", variant="subtle", color_scheme="green"),
+    rx.badge("Example", variant="subtle", color_scheme="red"),
+    rx.badge("Example", variant="subtle", color_scheme="yellow"),
 )
 """
-badge_example3 = """pc.badge("Custom Badge", bg  = "#90EE90", color = "#3B7A57", border_color = "#29AB87", border_width = 2)
+badge_example3 = """rx.badge("Custom Badge", bg  = "#90EE90", color = "#3B7A57", border_color = "#29AB87", border_width = 2)
 """
 
 
 # Datadisplay
 def render_badge():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Badges are used to highlight an item's status for quick recognition."),
         doctext("There are 3 variants of badges: solid, subtle, and outline. "),
         docdemo(badge_example1),
@@ -50,7 +50,7 @@ def render_badge():
     )
 
 
-code68 = """pc.code_block(
+code68 = """rx.code_block(
     \"""def fib(n):
     if n <= 1:
         return n
@@ -63,7 +63,7 @@ code68 = """pc.code_block(
 
 
 def render_codeblock():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The code component can be used to display code easily within a website. Put in a multiline string with the correct spacing and specify and language to show the desired code."
         ),
@@ -81,17 +81,17 @@ def render_codeblock():
     )
 
 
-divider_example_variations = """pc.vstack(
-    pc.text("Example"),
-    pc.divider(border_color="black"),
-    pc.text("Example"),
-    pc.divider(variant="dashed", border_color="black"),
+divider_example_variations = """rx.vstack(
+    rx.text("Example"),
+    rx.divider(border_color="black"),
+    rx.text("Example"),
+    rx.divider(variant="dashed", border_color="black"),
     width="100%",
 )
 """
 
-divider_example_vertical = """pc.center(
-        pc.divider(
+divider_example_vertical = """rx.center(
+        rx.divider(
             orientation="vertical", 
             border_color = "black"
         ), 
@@ -101,7 +101,7 @@ divider_example_vertical = """pc.center(
 
 
 def render_divider():
-    return pc.vstack(
+    return rx.vstack(
         doctext("Dividers are a quick built in way to separate sections of content."),
         docdemo(divider_example_variations),
         doctext(
@@ -112,36 +112,36 @@ def render_divider():
     )
 
 
-list_example = """pc.list(
-    pc.list_item("Example 1"),
-    pc.list_item("Example 2"),
-    pc.list_item("Example 3"),
+list_example = """rx.list(
+    rx.list_item("Example 1"),
+    rx.list_item("Example 2"),
+    rx.list_item("Example 3"),
 )
 """
 
-unordered_example = """pc.unordered_list(
-    pc.list_item("Example 1"),
-    pc.list_item("Example 2"),
-    pc.list_item("Example 3"),
+unordered_example = """rx.unordered_list(
+    rx.list_item("Example 1"),
+    rx.list_item("Example 2"),
+    rx.list_item("Example 3"),
 )
 """
-ordered_example = """pc.ordered_list(
-    pc.list_item("Example 1"),
-    pc.list_item("Example 2"),
-    pc.list_item("Example 3"),
+ordered_example = """rx.ordered_list(
+    rx.list_item("Example 1"),
+    rx.list_item("Example 2"),
+    rx.list_item("Example 3"),
 )
 """
 
-icon_example = """pc.list(
-    pc.list_item(pc.icon(tag="check_circle", color = "green"), "Allowed"),
-    pc.list_item(pc.icon(tag="not_allowed", color = "red"), "Not"),
-    pc.list_item(pc.icon(tag="settings", color = "grey"), "Settings"),
+icon_example = """rx.list(
+    rx.list_item(rx.icon(tag="check_circle", color = "green"), "Allowed"),
+    rx.list_item(rx.icon(tag="not_allowed", color = "red"), "Not"),
+    rx.list_item(rx.icon(tag="settings", color = "grey"), "Settings"),
     spacing = ".25em"
 )
 
 """
 
-shorthand_list_example = """pc.list(
+shorthand_list_example = """rx.list(
     items = ["Example 1", "Example 2", "Example 3"],
     spacing = ".25em"
 )
@@ -149,7 +149,7 @@ shorthand_list_example = """pc.list(
 
 
 def render_list():
-    return pc.vstack(
+    return rx.vstack(
         doctext("There are three types of lists: regular lists, ordered, unordered."),
         doctext(
             "The shorthand syntax used to create a list is by passing in a list of items. These items can be components or Python primitives."
@@ -172,20 +172,20 @@ def render_list():
     )
 
 
-basic_stat_example = """pc.stat(
-    pc.stat_label("Example Price"),
-    pc.stat_number("$25"),
-    pc.stat_help_text("The price of the item."),
+basic_stat_example = """rx.stat(
+    rx.stat_label("Example Price"),
+    rx.stat_number("$25"),
+    rx.stat_help_text("The price of the item."),
 )
 """
-stat_group_example = """pc.stat_group(
-        pc.stat(
-            pc.stat_number("$250"),
-            pc.stat_help_text("%50", pc.stat_arrow(type_="increase")),
+stat_group_example = """rx.stat_group(
+        rx.stat(
+            rx.stat_number("$250"),
+            rx.stat_help_text("%50", rx.stat_arrow(type_="increase")),
         ),
-        pc.stat(
-            pc.stat_number("£100"),
-            pc.stat_help_text("%50", pc.stat_arrow(type_="decrease")),
+        rx.stat(
+            rx.stat_number("£100"),
+            rx.stat_help_text("%50", rx.stat_arrow(type_="decrease")),
         ),
         width="100%",
 )
@@ -193,7 +193,7 @@ stat_group_example = """pc.stat_group(
 
 
 def render_stat():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The stat component is a great way to visualize statistics in a clean and concise way."
         ),
@@ -208,7 +208,7 @@ datatable_example_2_df = """import pandas as pd
 ...
 nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")"""
 datatable_example_2_table = """
-pc.data_table(
+rx.data_table(
     data = nba_data[["Name", "Height", "Age"]],
     pagination= True,
     search= True,
@@ -216,7 +216,7 @@ pc.data_table(
 )           
 """
 
-datatable_example_3 = """class State(pc.State):
+datatable_example_3 = """class State(rx.State):
     data: List = [
         ["Lionel", "Messi", "PSG"],
         ["Christiano", "Ronaldo", "Al-Nasir"]
@@ -224,7 +224,7 @@ datatable_example_3 = """class State(pc.State):
     columns: List[str] = ["First Name", "Last Name"]
     
     def index():  
-        return pc.data_table(
+        return rx.data_table(
         data =State.data,
         columns=State.columns,
         )   
@@ -234,7 +234,7 @@ datatable_example_3 = """class State(pc.State):
 
 
 def render_datatable():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "The datatable component is a great way to display data in a table format. You can pass in a pandas dataframe to the data prop to create the table."
         ),
@@ -244,8 +244,8 @@ def render_datatable():
         doctext(
             "We will also add a search, pagination, sorting to the data_table to make it more accessible."
         ),
-        pc.center(
-            pc.data_table(
+        rx.center(
+            rx.data_table(
                 data=[
                     ["Avery Bradley", "6-2", 25.0],
                     ["Jae Crowder", "6-6", 25.0],
@@ -282,67 +282,67 @@ data = [
 footer = ["Footer 1", "Footer 2", "Footer 3"]
 
 """
-intro_table_example = """pc.table(
-    pc.thead(
-        pc.tr(
-            pc.th("Name"),
-            pc.th("Age"),
+intro_table_example = """rx.table(
+    rx.thead(
+        rx.tr(
+            rx.th("Name"),
+            rx.th("Age"),
         )
     ),
-    pc.tbody(
-        pc.tr(
-            pc.td("John"),
-            pc.td(30),
+    rx.tbody(
+        rx.tr(
+            rx.td("John"),
+            rx.td(30),
         )
     ),
 )
 """
 exec(data_example)
 
-table_example = """pc.table_container(
-    pc.table(
-        pc.table_caption("Example Table"),
-        pc.thead(
-            pc.tr(
-                *[pc.th(column) for column in columns]
+table_example = """rx.table_container(
+    rx.table(
+        rx.table_caption("Example Table"),
+        rx.thead(
+            rx.tr(
+                *[rx.th(column) for column in columns]
             )
         ),
-        pc.tbody(
-            *[pc.tr(*[pc.td(item) for item in row]) for row in data]
+        rx.tbody(
+            *[rx.tr(*[rx.td(item) for item in row]) for row in data]
         ),
-        pc.tfoot(
-            pc.tr(
-                *[pc.th(item) for item in footer]
+        rx.tfoot(
+            rx.tr(
+                *[rx.th(item) for item in footer]
             )
         ),
     )
 )
 """
 
-styled_table_example = """pc.table_container(
-    pc.table(
-        pc.thead(
-        pc.tr(
-            pc.th("Name"),
-            pc.th("Age"),
-            pc.th("Location"),
+styled_table_example = """rx.table_container(
+    rx.table(
+        rx.thead(
+        rx.tr(
+            rx.th("Name"),
+            rx.th("Age"),
+            rx.th("Location"),
             )
         ),
-        pc.tbody(
-            pc.tr(
-                pc.td("John"),
-                pc.td(30),
-                pc.td("New York"),
+        rx.tbody(
+            rx.tr(
+                rx.td("John"),
+                rx.td(30),
+                rx.td("New York"),
             ),
-            pc.tr(
-                pc.td("Jane"), 
-                pc.td(31),
-                pc.td("San Francisco"),
+            rx.tr(
+                rx.td("Jane"), 
+                rx.td(31),
+                rx.td("San Francisco"),
             ),
-            pc.tr(
-                pc.td("Joe"),
-                pc.td(32),
-                pc.td("Los Angeles"),
+            rx.tr(
+                rx.td("Joe"),
+                rx.td(32),
+                rx.td("Los Angeles"),
             )
         ),
         variant='striped',
@@ -352,8 +352,8 @@ styled_table_example = """pc.table_container(
 """
 
 
-shorthand_table_example = """pc.table_container(
-    pc.table(
+shorthand_table_example = """rx.table_container(
+    rx.table(
         headers=["Name", "Age", "Location"],
         rows=[
             ("John", 30, "New York"),
@@ -368,7 +368,7 @@ shorthand_table_example = """pc.table_container(
 
 
 def render_table():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Tables are used to organize and display data efficiently. The table component differs from the data_table component in that it is not meant to display large amounts of data. It is meant to display data in a more organized way."
         ),
@@ -379,11 +379,11 @@ def render_table():
         doctext(
             "Lets start with the shorthand syntax. ",
             "The shorthand syntax has ",
-            pc.code("headers"),
+            rx.code("headers"),
             ", ",
-            pc.code("rows"),
+            rx.code("rows"),
             ", and ",
-            pc.code("footers"),
+            rx.code("footers"),
             " props. These props are used to create the table.",
         ),
         docdemo(shorthand_table_example),
@@ -394,13 +394,13 @@ def render_table():
         doctext("In the examples we will be using this data to display in a table."),
         doccode(data_example),
         doctext("Now lets create a table with the data we created."),
-        pc.center(
-            pc.table_container(
-                pc.table(
-                    pc.table_caption("Example Table"),
-                    pc.thead(pc.tr(*[pc.th(column) for column in columns])),
-                    pc.tbody(*[pc.tr(*[pc.td(item) for item in row]) for row in data]),
-                    pc.tfoot(pc.tr(*[pc.th(item) for item in footer])),
+        rx.center(
+            rx.table_container(
+                rx.table(
+                    rx.table_caption("Example Table"),
+                    rx.thead(rx.tr(*[rx.th(column) for column in columns])),
+                    rx.tbody(*[rx.tr(*[rx.td(item) for item in row]) for row in data]),
+                    rx.tfoot(rx.tr(*[rx.th(item) for item in footer])),
                 )
             ),
             style=style["box"],

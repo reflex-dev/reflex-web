@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext
@@ -6,7 +6,7 @@ from pcweb.templates.docpage import docheader, docpage, doctext
 difficulty_colors = {"Beginner": "green", "Intermediate": "orange", "Advanced": "red"}
 example_list = [
     {
-        "name": "Pynecone",
+        "name": "Reflex",
         "difficulty": "Advanced",
         "tags": ["Multi-Page"],
         "description": "This website!",
@@ -129,7 +129,7 @@ example_list = [
 ]
 
 
-class Gallery(pc.Model):
+class Gallery(rx.Model):
     name: str
     difficulty: str
     tags: list[str]
@@ -144,8 +144,8 @@ def component_grid():
     sidebar = []
     for category in example_list:
         sidebar.append(
-            pc.vstack(
-                pc.box(
+            rx.vstack(
+                rx.box(
                     height="10em",
                     background_image=category["img"],
                     background_size="cover",
@@ -156,40 +156,40 @@ def component_grid():
                     },
                     rounded="lg",
                 ),
-                pc.hstack(
-                    pc.spacer(),
-                    pc.badge(
+                rx.hstack(
+                    rx.spacer(),
+                    rx.badge(
                         category["difficulty"],
                         color_scheme=difficulty_colors[category["difficulty"]],
                     ),
                 ),
-                pc.heading(category["name"], style={"fontSize": "1.5em"}),
-                pc.box(
+                rx.heading(category["name"], style={"fontSize": "1.5em"}),
+                rx.box(
                     category["description"],
                     color=styles.DOC_REG_TEXT_COLOR,
                     height="2.5em",
                     overflow="scroll",
                     background="linear-gradient(transparent .5em, white)",
                 ),
-                pc.divider(),
-                pc.hstack(
+                rx.divider(),
+                rx.hstack(
                     *[
-                        pc.badge(tag, border_radius="15px", padding_x=".5em")
+                        rx.badge(tag, border_radius="15px", padding_x=".5em")
                         for tag in category["tags"]
                     ],
                     padding_bottom=".5em",
                 ),
-                pc.vstack(
-                    pc.link(
-                        pc.hstack(pc.text("Source Code"), pc.icon(tag="external_link")),
+                rx.vstack(
+                    rx.link(
+                        rx.hstack(rx.text("Source Code"), rx.icon(tag="external_link")),
                         href=category["source"],
                     ),
-                    pc.link(
-                        pc.hstack(pc.text("Live App"), pc.icon(tag="view")),
+                    rx.link(
+                        rx.hstack(rx.text("Live App"), rx.icon(tag="view")),
                         href=category["url"],
                     )
                     if category["url"]
-                    else pc.box(),
+                    else rx.box(),
                     align_items="left",
                 ),
                 align_items="left",
@@ -204,19 +204,19 @@ def component_grid():
                 },
             )
         )
-    return pc.box(
-        pc.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
+    return rx.box(
+        rx.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
 @docpage()
 def gallery():
-    return pc.flex(
-        pc.hstack(
-            pc.box(
+    return rx.flex(
+        rx.hstack(
+            rx.box(
                 docheader("Gallery", first=True),
-                doctext("Here are some examples of what you can make with Pynecone. "),
-                pc.divider(),
+                doctext("Here are some examples of what you can make with Reflex. "),
+                rx.divider(),
                 component_grid(),
                 text_align="left",
             ),

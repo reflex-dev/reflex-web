@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -10,45 +10,45 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code1 = """pc.text(
+code1 = """rx.text(
     "Hello World", 
     color=["orange", "red", "purple",  "blue", "green"]
 )"""
-code2 = """pc.vstack(
-    pc.desktop_only(
-        pc.text("Desktop View"),
+code2 = """rx.vstack(
+    rx.desktop_only(
+        rx.text("Desktop View"),
     ),
-    pc.tablet_only(
-        pc.text("Tablet View"),
+    rx.tablet_only(
+        rx.text("Tablet View"),
     ),
-    pc.mobile_only(
-        pc.text("Mobile View"),
+    rx.mobile_only(
+        rx.text("Mobile View"),
     ),
-    pc.mobile_and_tablet(
-        pc.text("Visible on Mobile and Tablet"),
+    rx.mobile_and_tablet(
+        rx.text("Visible on Mobile and Tablet"),
     ),
-    pc.tablet_and_desktop(
-        pc.text("Visible on Desktop and Tablet"),
+    rx.tablet_and_desktop(
+        rx.text("Visible on Desktop and Tablet"),
     ),
 )"""
 
 code3 = """
-pc.vstack(
-    pc.text("Hello World", color="green", display=["none", "none", "none", "none", "flex"]),
-    pc.text("Hello World", color="blue", display=["none", "none", "none", "flex", "flex"]),
-    pc.text("Hello World", color="red", display=["none", "none", "flex", "flex", "flex"]),
-    pc.text("Hello World", color="orange", display=["none", "flex", "flex", "flex", "flex"]),
-    pc.text("Hello World", color="yellow", display=["flex", "flex", "flex", "flex", "flex"]),
+rx.vstack(
+    rx.text("Hello World", color="green", display=["none", "none", "none", "none", "flex"]),
+    rx.text("Hello World", color="blue", display=["none", "none", "none", "flex", "flex"]),
+    rx.text("Hello World", color="red", display=["none", "none", "flex", "flex", "flex"]),
+    rx.text("Hello World", color="orange", display=["none", "flex", "flex", "flex", "flex"]),
+    rx.text("Hello World", color="yellow", display=["flex", "flex", "flex", "flex", "flex"]),
 )
 """
 
 
 @docpage()
 def responsive():
-    return pc.box(
+    return rx.box(
         docheader("Responsive", first=True),
         doctext(
-            "Pynecone apps can be made responsive to look good on mobile, tablet, and desktop."
+            "Reflex apps can be made responsive to look good on mobile, tablet, and desktop."
         ),
         doctext(
             "You can pass a list of values to any style property to specify it's value on different screen sizes. "
@@ -74,12 +74,12 @@ def responsive():
         doctext(
             "A common use case for responsive is to show different components based on the screen size."
         ),
-        doctext("Pynecone provides useful helper components for this."),
+        doctext("Reflex provides useful helper components for this."),
         docdemo(code2),
         subheader("Specifying Display Breakpoints"),
         doctext(
             "You can specify the breakpoints to use for the responsive components by using the ",
-            pc.code("display"),
+            rx.code("display"),
             " style property.",
         ),
         docdemo(code3),

@@ -1,11 +1,11 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
 
 @docpage()
 def queries():
-    return pc.box(
+    return rx.box(
         docheader("Queries", first=True),
         doctext("Queries are used to retrieve data from a database."),
         doctext(
@@ -14,21 +14,21 @@ def queries():
         subheader("Session"),
         doctext(
             "To execute a query you must first create a ",
-            pc.code("pc.session"),
+            rx.code("rx.session"),
             ". You can use the session to query the database using SQLAlchemy syntax.",
         ),
         doctext(
             "The ",
-            pc.code("with pc.session"),
+            rx.code("with rx.session"),
             " statement will automatically close the session when the code block is finished.",
         ),
         doctext(
             "The following example shows how to create a session and query the database. First we create a table called ",
-            pc.code("User"),
+            rx.code("User"),
             ".",
         ),
         doccode(
-            """class User(pc.Model, table=True):
+            """class User(rx.Model, table=True):
     username: str
     email: str
 """
@@ -41,20 +41,20 @@ class QueryUser(State):
     users: list[User]
 
     def get_users(self):
-        with pc.session() as session:
+        with rx.session() as session:
             self.users = session.query(User).filter(User.username.contains(self.name)).all()
 """
         ),
         doctext(
             "The ",
-            pc.code("get_users"),
+            rx.code("get_users"),
             " method will query the database for all users that contain the value of the state var ",
-            pc.code("name"),
+            rx.code("name"),
             ".",
         ),
         doctext(
             "Similarly you can use the ",
-            pc.code("session.add()"),
+            rx.code("session.add()"),
             " method to add a new record to the database.",
         ),
         doccode(
@@ -63,7 +63,7 @@ class QueryUser(State):
     email: str
     
     def add_user(self):
-        with pc.session() as session:
+        with rx.session() as session:
             session.add(User(username=self.username, email=self.email))
             session.commit()
 """

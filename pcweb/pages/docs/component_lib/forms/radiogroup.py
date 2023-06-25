@@ -1,4 +1,4 @@
-import pynecone as pc
+import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -12,17 +12,17 @@ options: List[str] = ["Option 1", "Option 2", "Option 3"]
 class RadioState(State):
     text: str = "No Selection"
 """
-basic_radio = """pc.vstack(
-    pc.badge(RadioState.text, color_scheme="green"),
-    pc.radio_group(
+basic_radio = """rx.vstack(
+    rx.badge(RadioState.text, color_scheme="green"),
+    rx.radio_group(
         options,
         on_change=RadioState.set_text,
     ),
 )
 """
 
-default_checked_radio = """pc.vstack(
-    pc.radio_group(
+default_checked_radio = """rx.vstack(
+    rx.radio_group(
         options,
         default_value="Option 2",
         default_checked=True,
@@ -30,12 +30,12 @@ default_checked_radio = """pc.vstack(
 )
 """
 
-spacing_radio = """pc.radio_group(
-    pc.radio_group(
-        pc.hstack(
-            pc.foreach(
+spacing_radio = """rx.radio_group(
+    rx.radio_group(
+        rx.hstack(
+            rx.foreach(
                 options,
-                lambda option: pc.radio(option),
+                lambda option: rx.radio(option),
             ),
         spacing="2em",
         ),
@@ -43,12 +43,12 @@ spacing_radio = """pc.radio_group(
 )
 """
 
-vertical_radio = """pc.radio_group(
-    pc.radio_group(
-        pc.vstack(
-            pc.foreach(
+vertical_radio = """rx.radio_group(
+    rx.radio_group(
+        rx.vstack(
+            rx.foreach(
                 options,
-                lambda option: pc.radio(option),
+                lambda option: rx.radio(option),
             ),
         ),
     ),
@@ -59,7 +59,7 @@ exec(basic_radio_state)
 
 
 def render_radiogroup():
-    return pc.vstack(
+    return rx.vstack(
         doctext(
             "Radios are used when only one choice may be selected in a series of options."
         ),

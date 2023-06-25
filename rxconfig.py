@@ -1,6 +1,6 @@
-import pynecone as pc
+import reflex as rx
 
-config = pc.Config(
+config = rx.Config(
     port=3000,
     app_name="pcweb",
     frontend_packages=[
