@@ -158,36 +158,44 @@ def search_modal(state: NavbarState):
 
 
 def github_button():
-    return rx.hstack(
-        rx.image(src="/github.svg", height="1.25em"),
-        rx.text("Star", style=styles.NAV_TEXT_STYLE),
-        rx.text(
-            "9k+",
-            color="#5646ED",
-            bg="#F5EFFE",
-            padding_x="0.5em",
-            border_radius="6px",
-            font_weight=600,
+    return rx.link(
+        rx.hstack(
+            rx.image(src="/github.svg", height="1.25em"),
+            rx.text("Star", style=styles.NAV_TEXT_STYLE),
+            rx.text(
+                "9k+",
+                color="#5646ED",
+                bg="#F5EFFE",
+                padding_x="0.5em",
+                border_radius="6px",
+                font_weight=600,
+            ),
+            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            padding_x=".5em",
+            height="2em",
+            border_radius="8px",
+            bg="#FFFFFF",
+            style=hover_button_style,
         ),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        padding_x=".5em",
-        height="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
+        href=constants.GITHUB_URL,
     )
+
 
 
 def discord_button():
-    return rx.center(
-        rx.image(src="/icons/discord.svg", height="1.25em"),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        height="2em",
-        width="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
+    return rx.link(
+        rx.center(
+            rx.image(src="/icons/discord.svg", height="1.25em"),
+            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            height="2em",
+            width="2em",
+            border_radius="8px",
+            bg="#FFFFFF",
+            style=hover_button_style,
+        ),
+        href=constants.DISCORD_URL,
     )
+
 
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:

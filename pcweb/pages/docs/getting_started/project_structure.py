@@ -26,7 +26,7 @@ def project_structure():
         doccode(
             """$ mkdir hello
 $ cd hello
-$ pc init""",
+$ reflex init""",
             language="bash",
         ),
         doctext(
@@ -39,12 +39,12 @@ $ pc init""",
 ├── hello
 │   ├── __init__.py
 │   └── hello.py
-└── pcconfig.py""",
+└── rxconfig.py""",
             language="bash",
         ),
         doctext(
             "Let's go over what ",
-            rx.code("pc init"),
+            rx.code("reflex init"),
             " creates.",
         ),
         subheader(".web"),
@@ -95,7 +95,7 @@ $ pc init""",
         subheader("Config"),
         doctext(
             "The ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file contains configuration for your app. ",
             " By default it looks something like this: ",
         ),
@@ -117,7 +117,7 @@ config = rx.Config(
             doclink("bun", href=constants.BUN_URL),
             " to manage Javascript libraries. "
             "Bun is installed automatically when you run ",
-            rx.code("pc init"),
+            rx.code("reflex init"),
             " at ",
             rx.code("~/.bun/bin/bun"),
             ". ",

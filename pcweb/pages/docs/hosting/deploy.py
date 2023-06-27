@@ -32,28 +32,28 @@ def deploy():
             "But what if we want to share our apps with the world? ",
             "This is where deployment comes in.",
         ),
-        subheader("PC Deploy"),
+        subheader("Reflex Deploy"),
         doctext(
             "Reflex makes it easy to deploy your apps with a single command. ",
             "In your terminal, add your ",
-            rx.code("PC_TOKEN"),
+            rx.code("REFLEX_TOKEN"),
             " to your environment variables: ",
         ),
         doccode(
-            "$ export PC_TOKEN=your_token",
+            "$ export REFLEX_TOKEN=your_token",
             language="bash",
         ),
         doctext(
             "Then run the deploy command:",
         ),
         doccode(
-            "$ pc deploy",
+            "$ reflex deploy",
             language="bash",
         ),
         doctext(
             "This will build your app and deploy it to Reflex's servers. ",
             "You will get back a URL at ",
-            rx.code("https://myapp.pynecone.app"),
+            rx.code("https://myapp.reflex.app"),
             " that you can share with anyone. "
             "You can log into your Reflex dashboard to monitor your app.",
         ),

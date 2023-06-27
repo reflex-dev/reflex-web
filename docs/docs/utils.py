@@ -2,7 +2,7 @@
 import os
 import sys
 
-import pynecone as pc
+import reflex as rx
 
 PAGES_PATH = "docs/pages/"
 
@@ -21,7 +21,7 @@ def parse(source: str):
             # End normal block.
             line = line[len("```reflex") :]
             in_reflex_block = True
-            output.append(pc.markdown("\n".join(current_block)))
+            output.append(rx.markdown("\n".join(current_block)))
             current_block = []
         elif in_reflex_block and line.startswith("```"):
             # End reflex block.

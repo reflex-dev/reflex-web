@@ -17,17 +17,17 @@ def cli():
         docheader("CLI", first=True),
         doctext(
             "The ",
-            rx.code("pc"),
+            rx.code("reflex"),
             " command line interface (CLI) is a tool for creating and managing Reflex apps. ",
         ),
         doctext(
             "To see a list of all available commands, run ",
-            rx.code("pc --help"),
+            rx.code("reflex --help"),
             ".",
         ),
         doccode(
-            """$ pc --help
-Usage: pc [OPTIONS] COMMAND [ARGS]...
+            """$ reflex --help
+Usage: reflex [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --help   Show this message and exit.
@@ -43,14 +43,14 @@ Commands:
         subheader("Init"),
         doctext(
             "The ",
-            rx.code("pc init"),
+            rx.code("reflex init"),
             " command creates a new Reflex app in the current directory. ",
             "If a ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file already exists already, it will re-initialize the app with the latest template. ",
         ),
         doccode(
-            """ ~/my_app $ pc init
+            """ ~/my_app $ reflex init
 [...] Initializing the web directory.                                                                                                                            utils.py:421
 [...] Finished Initializing: my_app
 ~/my_app $ tree
@@ -60,14 +60,14 @@ Commands:
 ├── my_app
 │   ├── __init__.py
 │   └── my_app.py
-└── pcconfig.py
+└── rxconfig.py
  """,
             language="bash",
         ),
         subheader("Run"),
         doctext(
             "The ",
-            rx.code("pc run"),
+            rx.code("reflex run"),
             " command runs the app in the current directory. ",
         ),
         doctext(
@@ -79,8 +79,8 @@ Commands:
             "You can configure the mode, as well as other options through flags. ",
         ),
         doccode(
-            """$ pc run --help
-Usage: pc run [OPTIONS]
+            """$ reflex run --help
+Usage: reflex run [OPTIONS]
 
   Run the app in the current directory.
 
@@ -102,7 +102,7 @@ Options:
         subheader("Export"),
         doctext(
             "You can export your app's frontend and backend to zip files using the ",
-            rx.code("pc export"),
+            rx.code("reflex export"),
             " command. ",
         ),
         doctext(
@@ -112,8 +112,8 @@ Options:
             "See the self-hosting guide for more information. ",
         ),
         doccode(
-            """$ pc export --help
-Usage: pc export [OPTIONS]
+            """$ reflex export --help
+Usage: reflex export [OPTIONS]
 
   Export the app to a zip file.
 
@@ -122,7 +122,7 @@ Options:
                    True]
   --backend-only   Export only backend.
   --frontend-only  Export only frontend.
-  --for-pc-deploy  Whether export the app for Reflex Deploy Service.
+  --for-reflex-deploy  Whether export the app for Reflex Deploy Service.
   --help           Show this message and exit.
   """,
             language="bash",
