@@ -73,8 +73,7 @@ def chat_component():
                             rx.input(
                                 placeholder="Search docs...",
                                 on_blur = GptState.set_question,
-                                width="100%",
-                                styles=styles.INPUT_STYLE           
+                                style=styles.INPUT_STYLE           
                             ),
                             rx.spacer(),
                             rx.button(
@@ -117,5 +116,5 @@ def chat_component():
                     box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02);",
                     border_radius="8px;",
                     width="100%",
-                    display=["none", "none", "none", "none", "flex", "flex"],
+                    display=["none", "none", "none", "flex", "flex", "flex"],
                 )

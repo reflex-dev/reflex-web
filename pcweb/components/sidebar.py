@@ -404,7 +404,15 @@ def sidebar_comp(
         padding_bottom="6em",
         padding_right="4em",
         position="fixed",
-        scroll_padding="4em",
+        scroll_padding="1em",
+        style={
+            "&::-webkit-scrollbar-thumb": {
+                "background_color": "transparent",
+            },
+            '&::-webkit-scrollbar': {
+                "background_color": "transparent",
+            }
+        }
     )
 
 

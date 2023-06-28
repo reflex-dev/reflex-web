@@ -25,12 +25,6 @@ from pcweb.templates.docpage import (
     doccode,
 )
 
-background_style = {
-    "background_size": "cover",
-    "background_repeat": "no-repeat",
-    "background_image": "bg.svg",
-}
-
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
@@ -166,6 +160,7 @@ def landing():
                                     on_blur=IndexState.set_email,
                                     type="email",
                                     style=styles.INPUT_STYLE,
+                                    padding_x="1em",
                                 ),
                                 rx.button(
                                     "Join Hosting Waitlist",
@@ -175,6 +170,7 @@ def landing():
                                 justify="left",
                                 should_wrap_children=True,
                                 spacing="1em",
+                                padding_x=".25em",
                                 padding_y="1em",
                             ),
                             rx.text(
@@ -210,7 +206,6 @@ def list_circle(text):
         justify_content="center",
         font_weight="800",
     )
-
 
 def example_card(title, tags, href):
     return rx.hstack(

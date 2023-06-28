@@ -164,7 +164,7 @@ def search_modal(state: NavbarState):
 
 def github_button():
     return rx.hstack(
-        rx.image(src="/github.png", height="1.25em"),
+        rx.image(src="/github.svg", height="1.25em"),
         rx.text("Star", style=styles.NAV_TEXT_STYLE),
         rx.text(
             "9k+", 
@@ -213,25 +213,52 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     style=styles.NAV_TEXT_STYLE,
                 ),
                 rx.link(
-                    "Gallery",
-                    href="/docs/gallery",
+                    "Blog",
+                    href="/docs/blog",
                     style=styles.NAV_TEXT_STYLE,
                 ),
-                rx.menu(
-                    rx.menu_button("Resources", style=styles.NAV_TEXT_STYLE),
-                    rx.menu_list(
+                rx.popover(
+                    rx.popover_trigger(
                         rx.hstack(
-                            rx.link(rx.vstack(
-                                rx.text("Contributor Program", style=styles.NAV_TEXT_STYLE),
-                                rx.text("Become a contributor", style=styles.NAV_TEXT_STYLE),
-                            ), href="/docs/gallery"),
-                            rx.vstack(
-                                rx.text("Community", style=styles.NAV_TEXT_STYLE),
-                                rx.text("Join the community", style=styles.NAV_TEXT_STYLE),
-                            )
-                        ),
+                            rx.text("Resources", style=styles.NAV_TEXT_STYLE), 
+                            rx.icon(tag="chevron_down", style=styles.NAV_TEXT_STYLE)
+                        )
                     ),
-                    background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
+                    rx.popover_content(
+                        rx.grid(
+                            rx.grid_item(rx.text("Gallery", style=styles.NAV_TEXT_STYLE), row_span=2, col_span=3, style=styles.NAV_BOX_STYLE),
+                            rx.grid_item(
+                                rx.vstack(
+                                    rx.vstack(
+                                        rx.text("Gallery", style=styles.NAV_TEXT_STYLE, font_size="1em"), 
+                                        rx.text("A collection of projects built with Reflex.", font_size="0.75em"),
+                                        align_items="start",
+                                    ),
+                                    rx.spacer(),
+                                    rx.vstack(
+                                        rx.text("Gallery", style=styles.NAV_TEXT_STYLE,  font_size="1em"), 
+                                        rx.text("A collection of projects built with Reflex.", font_size="0.75em"),
+                                        align_items="start",
+                                    ),
+                                    padding_y="1em",
+                                    padding_left=".5em",
+                                    align_items="center",
+                                ),
+                                col_span=5,
+                                row_span=2,
+                            ),
+                            template_rows="repeat(2, 1fr)",
+                            template_columns="repeat(8, 1fr)",
+                            border_radius="8px",
+                            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                            bg="#FAF8FB",
+                            h="10em",
+                            gap=".25em",
+                            padding=".5em",
+                        ),
+                        width="60m",
+                        border="transparent",
+                    )
                 ),
                 spacing="2em",
             ),
@@ -252,5 +279,5 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         position="sticky",
         width="100%",
         top="0px",
-        z_index="99",
+        z_index="999",
     )

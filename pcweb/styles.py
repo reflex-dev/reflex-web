@@ -102,8 +102,9 @@ Primary_Initial_Large_STYLE = {
 
 
 INPUT_STYLE = {
-    "border": "1px solid rgba(84, 82, 95, 0.12)",
+    "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.04), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
     "color":"#494369",
+    "border_color": "transparent",
     "border-radius": "6px",
     "_focus": {
         "border": f"2px solid {ACCENT_COLOR}",
@@ -111,4 +112,13 @@ INPUT_STYLE = {
     "_placeholder": {
         "color": "#494369",
     },
+
+}
+
+NAV_BOX_STYLE = {
+    "color": NAV_SEARCH_COLOR,
+    "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+    "margin": ".25em",
+    "padding": ".25em",
+    "border_radius": "6px",
 }

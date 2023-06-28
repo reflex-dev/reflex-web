@@ -58,7 +58,7 @@ def code_block(
                 },
             ),
             border_radius=styles.DOC_BORDER_RADIUS,
-            border = "1px solid #F4F3F6"
+            border = "2px solid #F4F3F6"
         ),
         position="relative",
         margin_bottom="1em",
@@ -161,13 +161,13 @@ icon_style = {
     },
 }
 demo_box_style = {
-    "borderRadius": styles.DOC_BORDER_RADIUS,
-    #"border": "1px solid #F4F3F6",
     "bg": "rgba(255,255,255, 0.5)",
-    "boxShadow": styles.DOC_SHADOW_LIGHT,
+    "border-radius": "8px;",
+    "box_shadow": "rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;",
     "padding": 5,
     "width": "100%",
     "overflow_x": "auto",
+    "border":"2px solid #F4F3F6"   
 }
 link_style = {
     "color": "#494369",
