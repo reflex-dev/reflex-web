@@ -209,9 +209,9 @@ def list_circle(text):
     )
 
 
-def example_card(title, tags, href):
+def example_card(title, tags, href, image):
     return rx.hstack(
-        rx.icon(tag="link", color="#494369"),
+        rx.image(src=image, height="1em", width="1em"),
         rx.text(title, color="#494369", font_weight="400"),
         rx.spacer(),
         *[tag(t) for t in tags],
@@ -298,12 +298,13 @@ def intro():
                             "Sales email generator",
                             ["OpenAI", "Database"],
                             "/examples/todo",
+                            "/landing_icons/custom_icons/draw.svg",
                         ),
                         example_card(
-                            "DALL-E", ["ML", "Image Generation"], "/examples/counter"
+                            "DALL-E", ["ML", "Image Generation"], "/examples/counter", "/landing_icons/custom_icons/bucket.svg"
                         ),
-                        example_card("Todo App", ["Short"], "/examples/todo"),
-                        example_card("Counter", ["Tutorial"], "/examples/counter"),
+                        example_card("Graphing Traversal", ["DFS", "BFS", "Graph"], "/examples/counter",  "/landing_icons/custom_icons/nodes.svg",),
+                        example_card("Todo App", ["Short"], "/examples/todo",  "/landing_icons/custom_icons/check.svg",),
                         align_items="center",
                         margin_left=[0, 0, "1em"],
                         flex=1,

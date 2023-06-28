@@ -116,7 +116,6 @@ INPUT_STYLE = {
 
 NAV_BOX_STYLE = {
     "color": NAV_SEARCH_COLOR,
-    "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
     "margin": ".25em",
     "padding": ".25em",
     "border_radius": "6px",
@@ -126,6 +125,6 @@ NAV_DROPDOWN_STYLE = {
     "align_items":"left",
     "width":"100%",
     "border_radius":"8px",
-    "padding":".5em",
+    "padding":".75em",
     "_hover":{"box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",}
 }
