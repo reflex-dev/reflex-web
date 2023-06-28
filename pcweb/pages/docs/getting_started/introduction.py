@@ -11,7 +11,7 @@ from pcweb.templates.docpage import (
     doclink,
     docpage,
     doctext,
-    doc_section
+    doc_section,
 )
 
 
@@ -34,7 +34,7 @@ def intro1() -> rx.Component:
         subheader_comp(text="Motivation"),
         text_comp(text="Reflex was created with the following goals:"),
         doc_section(
-        rx.vstack(
+            rx.vstack(
                 rx.text(
                     rx.span(
                         "Pure Python",
@@ -136,7 +136,7 @@ def intro2() -> rx.Component:
             "All Reflex functions and classes begin with the ",
             rx.code("rx.", color=styles.ACCENT_COLOR),
             " prefix.",
-            margin_bottom="1em", 
+            margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="State"),
@@ -302,7 +302,7 @@ def intro2() -> rx.Component:
             "From here we can continue developing or deploy it to the web in a single command. "
         ),
         doctext("Keep reading the docs to learn how to try Reflex yourself!"),
-        padding_top = "1em"
+        padding_top="1em",
     )
 
 

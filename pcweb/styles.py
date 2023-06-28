@@ -58,7 +58,7 @@ BASE_STYLE = {
     },
     rx.Alert: {
         "border_radius": "8px",
-    }
+    },
 }
 
 # Fonts to include.
@@ -66,7 +66,7 @@ STYLESHEETS = [
     "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
     "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap",
     "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&display=swap"
+    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&display=swap",
 ]
 
 
@@ -97,13 +97,13 @@ Primary_Initial_Large_STYLE = {
     "font_feature_settings": "'tnum' on, 'lnum' on, 'case' on, 'cpsp' on, 'kern' off",
     "color": "#F5EFFE",
     "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(52, 46, 92, 0.8) 0%, rgba(234, 228, 253, 0) 100%), #7E69E0",
-    "box_shadow": "0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.24), 0px 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0px -20px 12px -4px rgba(86, 70, 237, 0.32)"
+    "box_shadow": "0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.24), 0px 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0px -20px 12px -4px rgba(86, 70, 237, 0.32)",
 }
 
 
 INPUT_STYLE = {
     "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.04), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-    "color":"#494369",
+    "color": "#494369",
     "border_color": "transparent",
     "border-radius": "6px",
     "_focus": {
@@ -112,7 +112,6 @@ INPUT_STYLE = {
     "_placeholder": {
         "color": "#494369",
     },
-
 }
 
 NAV_BOX_STYLE = {
@@ -121,4 +120,12 @@ NAV_BOX_STYLE = {
     "margin": ".25em",
     "padding": ".25em",
     "border_radius": "6px",
+}
+
+NAV_DROPDOWN_STYLE = {
+    "align_items":"left",
+    "width":"100%",
+    "border_radius":"8px",
+    "padding":".5em",
+    "_hover":{"box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",}
 }

@@ -7,7 +7,7 @@ from pcweb.templates.docpage import (
     docpage,
     doctext,
     subheader,
-docalert
+    docalert,
 )
 
 CONFIG_REF_URL = "/docs/api-reference/config"
@@ -37,6 +37,7 @@ config = ExpConfig(
 
 """
 
+
 @docpage()
 def configuration():
     return rx.box(
@@ -52,7 +53,7 @@ def configuration():
         rx.text(
             "Refer to the ",
             doclink("Config API Reference ", href=CONFIG_REF_URL),
-            " for the details of all options available."
+            " for the details of all options available.",
         ),
         subheader("Environment Arguments"),
         doctext(
@@ -72,7 +73,7 @@ def configuration():
             " file overrides os environment variables by default. To change this setting, set the ",
             rx.code("override_os_envs"),
             " argument or attribute to ",
-            rx.code("False.")
+            rx.code("False."),
         ),
         docalert(
             rx.text(
@@ -82,13 +83,16 @@ def configuration():
                 rx.code("True"),
                 " (which is the default), the order of precedence of "
                 "environment variables from highest to lowest will be :",
-                rx.code(".env file >> os environment or commandline args >> pcconfig args."),
+                rx.code(
+                    ".env file >> os environment or commandline args >> pcconfig args."
+                ),
                 " However, if set to ",
                 rx.code("False"),
                 ", the order of precedence becomes: ",
-                rx.code("os environment or commandline args >> .env file >> pcconfig args.")
+                rx.code(
+                    "os environment or commandline args >> .env file >> pcconfig args."
+                ),
             ),
-
         ),
         subheader("Command line Arguments"),
         doctext(

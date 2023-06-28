@@ -24,7 +24,7 @@ example_list = [
         "gif": "",
         "url": "",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
-    }
+    },
 ]
 
 

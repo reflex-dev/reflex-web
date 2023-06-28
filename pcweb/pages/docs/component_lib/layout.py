@@ -541,20 +541,29 @@ def render_foreach():
         ),
         doctext("Below is a more complex example of foreach within a todo list."),
         docdemo(todo3, todo1, eval(todo2)),
-        subheader('Dictionaries'),
+        subheader("Dictionaries"),
         doctext(
             "Items in a dictionary can be accessed as list of key-value pairs. Using the color example, we can slightly modify ",
-            "the code to use dicts as shown below"
+            "the code to use dicts as shown below",
         ),
-        docdemo(simple_dict_foreach, simple_dict_foreach_state, eval(simple_dict_foreach), context=True),
+        docdemo(
+            simple_dict_foreach,
+            simple_dict_foreach_state,
+            eval(simple_dict_foreach),
+            context=True,
+        ),
         doctext(
             "Now let's show a more complex example with dicts using the color example. Assuming we want to ",
             "display a dictionary of secondary colors as keys and their constituent primary colors as values, ",
-            "we can modify the code as below: "
+            "we can modify the code as below: ",
         ),
-        docdemo(complex_dict_foreach, complex_dict_foreach_state, eval(complex_dict_foreach), context=True),
+        docdemo(
+            complex_dict_foreach,
+            complex_dict_foreach_state,
+            eval(complex_dict_foreach),
+            context=True,
+        ),
         align_items="start",
-
     )
 
 

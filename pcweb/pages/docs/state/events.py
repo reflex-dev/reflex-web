@@ -262,7 +262,9 @@ def events():
             rx.alert(
                 rx.alert_icon(),
                 rx.box(
-                    rx.alert_title("Event Handler Parameters must provide type annotations."),
+                    rx.alert_title(
+                        "Event Handler Parameters must provide type annotations."
+                    ),
                     rx.alert_description(
                         "Like state vars, be sure to provide the right type annotations for the prameters in an event "
                         "handler."

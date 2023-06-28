@@ -156,6 +156,5 @@ def installation():
             "to run your app on the same file system your app resides.",
             status="error",
         ),
-
         doctext("Continue reading to learn how to customize your app."),
     )

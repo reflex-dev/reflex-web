@@ -13,6 +13,7 @@ from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
 from pcweb import constants, styles
 
+
 class Prop(Base):
     """Hold information about a prop."""
 
@@ -268,30 +269,38 @@ def component_docs(component):
         props = [
             rx.accordion(
                 rx.accordion_item(
-                rx.accordion_button(rx.accordion_icon(), rx.heading("Props", font_size="1em")),
-                rx.accordion_panel(rx.box(
-                    rx.table(
-                        rx.thead(
-                            rx.tr(
-                                rx.th("Prop"),
-                                rx.th("Type"),
-                                rx.th("Description"),
-                            )
-                        ),
-                        rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
+                    rx.accordion_button(
+                        rx.accordion_icon(), rx.heading("Props", font_size="1em")
                     ),
-                    background_color="rgb(255, 255, 255)",
-                    border_radius="1em",
-                    box_shadow=styles.DOC_SHADOW_LIGHT,
-                    padding="1em",
-                    max_width="100%",
-                    overflow_x="auto",
-                )
-                )
+                    rx.accordion_panel(
+                        rx.box(
+                            rx.table(
+                                rx.thead(
+                                    rx.tr(
+                                        rx.th("Prop"),
+                                        rx.th("Type"),
+                                        rx.th("Description"),
+                                    )
+                                ),
+                                rx.tbody(
+                                    *[
+                                        rx.tr(*prop_docs(prop))
+                                        for prop in src.get_props()
+                                    ]
+                                ),
+                            ),
+                            background_color="rgb(255, 255, 255)",
+                            border_radius="1em",
+                            box_shadow=styles.DOC_SHADOW_LIGHT,
+                            padding="1em",
+                            max_width="100%",
+                            overflow_x="auto",
+                        )
+                    ),
                 ),
                 border_color="rgb(255, 255, 255)",
-                width = "100%",
-                allow_toggle = True
+                width="100%",
+                allow_toggle=True,
             )
         ]
     else:
@@ -319,59 +328,64 @@ def component_docs(component):
 
     if trig:
         specific_triggers = rx.accordion_item(
-                            rx.accordion_button(rx.accordion_icon(), rx.heading("Component Specific Triggers", font_size="1em")),
-                            rx.accordion_panel(
-                                *[
-                                    rx.accordion_item(
-                                        rx.accordion_button(
-                                            rx.accordion_icon(),
-                                            rx.code(event),
-                                        ),
-                                        rx.accordion_panel(rx.text(EVENTS[event]["description"])),
-                                    )
-                                    for event in component().get_triggers()
-                                    if event not in rx.event.EVENT_TRIGGERS
-                                    and event not in ("on_drop",)
-                                ],
-                            ),
-                            border_color="rgb(255, 255, 255)",
-                        )
-        
-        component_specific_triggers =  rx.accordion(
-                rx.accordion_item(
-                    rx.accordion_button(rx.accordion_icon(), rx.heading("Event Triggers", font_size="1em")),
-                    rx.accordion_panel(
-                        rx.accordion_item(
-                            rx.accordion_button(
-                                rx.link(
-                                    rx.hstack(rx.icon(tag="link"), 
-                                    rx.heading("Base Event Triggers", font_size="1em")), 
-                                    href="/docs/api-reference/event-triggers"
-                                )
-                            ),
-                            border_color="rgb(255, 255, 255)",
+            rx.accordion_button(
+                rx.accordion_icon(),
+                rx.heading("Component Specific Triggers", font_size="1em"),
+            ),
+            rx.accordion_panel(
+                *[
+                    rx.accordion_item(
+                        rx.accordion_button(
+                            rx.accordion_icon(),
+                            rx.code(event),
                         ),
-                        specific_triggers
-                    ),
+                        rx.accordion_panel(rx.text(EVENTS[event]["description"])),
+                    )
+                    for event in component().get_triggers()
+                    if event not in rx.event.EVENT_TRIGGERS
+                    and event not in ("on_drop",)
+                ],
+            ),
+            border_color="rgb(255, 255, 255)",
+        )
+
+        component_specific_triggers = rx.accordion(
+            rx.accordion_item(
+                rx.accordion_button(
+                    rx.accordion_icon(), rx.heading("Event Triggers", font_size="1em")
                 ),
-                border_color="rgb(255, 255, 255)",
-                allow_multiple=True,
-                width = "100%",
-                align_items = "left"
-            )
-                        
+                rx.accordion_panel(
+                    rx.accordion_item(
+                        rx.accordion_button(
+                            rx.link(
+                                rx.hstack(
+                                    rx.icon(tag="link"),
+                                    rx.heading("Base Event Triggers", font_size="1em"),
+                                ),
+                                href="/docs/api-reference/event-triggers",
+                            )
+                        ),
+                        border_color="rgb(255, 255, 255)",
+                    ),
+                    specific_triggers,
+                ),
+            ),
+            border_color="rgb(255, 255, 255)",
+            allow_multiple=True,
+            width="100%",
+            align_items="left",
+        )
+
     else:
         component_specific_triggers = rx.box(
-                rx.unordered_list(
-                    rx.list_item(
-                        rx.heading("Base Event Triggers", font_size="1em")
-                    )
-                ),
-                padding_top  = "1.5em",
-                padding_x="1.5em",
-                max_width="100%",
-                overflow_x="auto",
-            )
+            rx.unordered_list(
+                rx.list_item(rx.heading("Base Event Triggers", font_size="1em"))
+            ),
+            padding_top="1.5em",
+            padding_x="1.5em",
+            max_width="100%",
+            overflow_x="auto",
+        )
 
     triggers = [
         rx.box(
