@@ -8,7 +8,8 @@ config = rx.Config(
         "react-colorful",
         "react-copy-to-clipboard",
         "chakra-react-select",
-        "@radix-ui/react-navigation-menu"
+        "@radix-ui/react-navigation-menu",
     ],
     telemetry_enabled=False,
+    tailwind={},
 )

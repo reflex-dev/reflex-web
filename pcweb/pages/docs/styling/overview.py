@@ -180,6 +180,68 @@ app = rx.App(state=State, style=style)"""
             "Children components inherit inline styles unless they are overridden by their own inline styles. "
         ),
         docdemo(code2),
+        subheader("Tailwind"),
+        doctext(
+            "Reflex supports ",
+            doclink("Tailwind CSS", href="https://tailwindcss.com/"),
+            " out of the box. To enable it, pass in a dictionary for the ",
+            rx.code("tailwind"),
+            " argument of your ",
+            rx.code("rxconfig.py"),
+            ":",
+        ),
+        doccode(
+            """
+import reflex as rx
+
+
+class AppConfig(rx.Config):
+    pass
+
+
+config = AppConfig(
+    app_name="app",
+    db_url="sqlite:///reflex.db",
+    env=rx.Env.DEV,
+    tailwind={},
+)"""
+        ),
+        doctext(
+            "All Tailwind configuration options are supported.",
+            " Plugins and presets are automatically wrapped in ",
+            rx.code("require()"),
+            ":",
+        ),
+        doccode(
+            """
+config = AppConfig(
+    app_name="app",
+    db_url="sqlite:///reflex.db",
+    env=rx.Env.DEV,
+    tailwind={
+        "theme": {
+            "extend": {},
+        },
+        "plugins": ["@tailwindcss/typography"],
+    },
+    frontend_packages=["@tailwindcss/typography"],
+)"""
+        ),
+        doctext(
+            "You can use any of the ",
+            doclink(
+                "utility classes", href="https://tailwindcss.com/docs/utility-first"
+            ),
+            " under the ",
+            rx.code("class_name"),
+            " prop: ",
+        ),
+        docdemo(
+            """rx.box(
+    "Hello World",
+    class_name="text-4xl text-center text-blue-500",
+)"""
+        ),
         subheader("Special Styles"),
         doctext(
             "We support all of Chakra UI's ",
