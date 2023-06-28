@@ -70,9 +70,7 @@ def state_overview():
             + "The state delta is then sent to the frontend, which updates the UI to reflect the new state.",
         ),
         subheader("State Basics"),
-        doctext(
-            "These are the main concepts to understand how state works in Reflex."
-        ),
+        doctext("These are the main concepts to understand how state works in Reflex."),
         rx.responsive_grid(
             definition(
                 "Base Vars",

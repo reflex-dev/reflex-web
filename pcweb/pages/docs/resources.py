@@ -145,9 +145,7 @@ def resources():
         rx.hstack(
             rx.box(
                 docheader("Resources", first=True),
-                doctext(
-                    "Here are some resources to help you get started with Reflex."
-                ),
+                doctext("Here are some resources to help you get started with Reflex."),
                 doctext(
                     "All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at ",
                     rx.code("alek@pynecone.io"),

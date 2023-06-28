@@ -211,14 +211,17 @@ def sidebar_leaf(
         rx.cond(
             item.link == url,
             rx.link(
-                rx.text(item.names,style=heading_style2),
+                rx.text(item.names, style=heading_style2),
                 href=item.link,
             ),
             rx.link(
-                rx.text(item.names,color=styles.DOC_REG_TEXT_COLOR,
-                _hover={"color": styles.ACCENT_COLOR},padding_x= "0.5em"),
+                rx.text(
+                    item.names,
+                    color=styles.DOC_REG_TEXT_COLOR,
+                    _hover={"color": styles.ACCENT_COLOR},
+                    padding_x="0.5em",
+                ),
                 href=item.link,
-                
             ),
         ),
         padding_left="1em",
@@ -347,9 +350,9 @@ def sidebar_comp(
     return rx.box(
         rx.heading(
             rx.span("[ ", color="#DACEEE"),
-            "Learn", 
+            "Learn",
             rx.span(" ]", color="#DACEEE"),
-            style=heading_style3
+            style=heading_style3,
         ),
         rx.accordion(
             *[
@@ -366,7 +369,7 @@ def sidebar_comp(
         ),
         rx.heading(
             rx.span("[ ", color="#DACEEE"),
-            "Reference", 
+            "Reference",
             rx.span(" ]", color="#DACEEE"),
             style=heading_style3,
             margin_top="1em",
@@ -404,7 +407,15 @@ def sidebar_comp(
         padding_bottom="6em",
         padding_right="4em",
         position="fixed",
-        scroll_padding="4em",
+        scroll_padding="1em",
+        style={
+            "&::-webkit-scrollbar-thumb": {
+                "background_color": "transparent",
+            },
+            "&::-webkit-scrollbar": {
+                "background_color": "transparent",
+            },
+        },
     )
 
 
@@ -418,4 +429,5 @@ def sidebar(url=None) -> rx.Component:
             learn_index=learn_index,
             reference_index=reference_index,
         ),
+        padding_right="2em",
     )

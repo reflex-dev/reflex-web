@@ -25,12 +25,6 @@ from pcweb.templates.docpage import (
     doccode,
 )
 
-background_style = {
-    "background_size": "cover",
-    "background_repeat": "no-repeat",
-    "background_image": "bg.svg",
-}
-
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
@@ -122,6 +116,7 @@ def tag(text):
         font_weight=600,
     )
 
+
 def landing():
     return container(
         rx.cond(
@@ -132,59 +127,61 @@ def landing():
             rx.center(
                 rx.vstack(
                     rx.text(
-                            rx.span("[", color="#DACEEE"),
-                            rx.span("Frontend", color="#696287"),
-                            rx.span("]", color="#DACEEE"),
-                            rx.span("[", color="#DACEEE"),
-                            rx.span("Backend", color="#696287"),
-                            rx.span("]", color="#DACEEE"),
-                            rx.span("[", color="#DACEEE"),
-                            rx.span("Hosting", color="#696287"),
-                            rx.span("]", color="#DACEEE"),
-                            font_family="Space Mono",
-                        ),
+                        rx.span("[", color="#DACEEE"),
+                        rx.span("Frontend", color="#696287"),
+                        rx.span("]", color="#DACEEE"),
+                        rx.span("[", color="#DACEEE"),
+                        rx.span("Backend", color="#696287"),
+                        rx.span("]", color="#DACEEE"),
+                        rx.span("[", color="#DACEEE"),
+                        rx.span("Hosting", color="#696287"),
+                        rx.span("]", color="#DACEEE"),
+                        font_family="Space Mono",
+                    ),
                     rx.text(
-                            "Web apps in pure Python.",
-                            font_family="IBM Plex Mono",
-                            font_style="normal;",
-                            font_weight="600",
-                            font_size="58px",
-                            line_height="60px",
-                        ),
+                        "Web apps in pure Python.",
+                        font_family="IBM Plex Mono",
+                        font_style="normal;",
+                        font_weight="600",
+                        font_size="58px",
+                        line_height="60px",
+                    ),
                     rx.text(
-                            "Build web apps in minutes. Deploy with a single command.",
-                            color="grey",
-                            font_size="1.1em",
-                            font_family=styles.TEXT_FONT_FAMILY,
-                            padding_top="1em",
-                        ),
+                        "Build web apps in minutes. Deploy with a single command.",
+                        color="grey",
+                        font_size="1.1em",
+                        font_family=styles.TEXT_FONT_FAMILY,
+                        padding_top="1em",
+                    ),
                     rx.cond(
-                            ~IndexState.signed_up,
-                            rx.wrap(
-                                rx.input(
-                                    placeholder="Your email address...",
-                                    on_blur=IndexState.set_email,
-                                    type="email",
-                                    style=styles.INPUT_STYLE,
-                                ),
-                                rx.button(
-                                    "Join Hosting Waitlist",
-                                    on_click=IndexState.signup,
-                                    style=styles.Primary_Initial_Large_STYLE
-                                ),
-                                justify="left",
-                                should_wrap_children=True,
-                                spacing="1em",
-                                padding_y="1em",
+                        ~IndexState.signed_up,
+                        rx.wrap(
+                            rx.input(
+                                placeholder="Your email address...",
+                                on_blur=IndexState.set_email,
+                                type="email",
+                                style=styles.INPUT_STYLE,
+                                padding_x="1em",
                             ),
-                            rx.text(
-                                rx.icon(
-                                    tag="check",
-                                ),
-                                " You're on the waitlist!",
-                                color=styles.ACCENT_COLOR,
+                            rx.button(
+                                "Join Hosting Waitlist",
+                                on_click=IndexState.signup,
+                                style=styles.Primary_Initial_Large_STYLE,
                             ),
+                            justify="left",
+                            should_wrap_children=True,
+                            spacing="1em",
+                            padding_x=".25em",
+                            padding_y="1em",
                         ),
+                        rx.text(
+                            rx.icon(
+                                tag="check",
+                            ),
+                            " You're on the waitlist!",
+                            color=styles.ACCENT_COLOR,
+                        ),
+                    ),
                     align_items="left",
                     padding="1em",
                 ),
@@ -212,27 +209,27 @@ def list_circle(text):
     )
 
 
-def example_card(title, tags, href):
+def example_card(title, tags, href, image):
     return rx.hstack(
-        rx.icon(tag="link", color="#494369"),
+        rx.image(src=image, height="1em", width="1em"),
         rx.text(title, color="#494369", font_weight="400"),
         rx.spacer(),
         *[tag(t) for t in tags],
-        rx.link(rx.center(
-            rx.icon(tag="arrow_forward", color="#494369"),
-            border_radius="6px",
-            box_shadow= "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-            min_width="2em",
-            min_height="2em",
-        ),
-        href=href,
+        rx.link(
+            rx.center(
+                rx.icon(tag="arrow_forward", color="#494369"),
+                border_radius="6px",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                min_width="2em",
+                min_height="2em",
+            ),
+            href=href,
         ),
         border="1px solid #F5EFFE",
         width="100%",
         padding=".5em",
         border_radius="8px",
-)
-
+    )
 
 
 def intro():
@@ -241,7 +238,7 @@ def intro():
             rx.vstack(
                 rx.text(
                     "Build anything, faster.",
-                    font_size =styles.H2_FONT_SIZE,
+                    font_size=styles.H2_FONT_SIZE,
                     font_family="IBM Plex Mono",
                     font_style="normal",
                     font_weight=600,
@@ -269,8 +266,12 @@ def intro():
                         ),
                         rx.text(
                             rx.span('"""', color="#AA9EC3"),
-                            rx.span('This entire website is made in Reflex!', color="#494369"),
-                            rx.span('"""', color="#AA9EC3"), bg="#FAF8FB",
+                            rx.span(
+                                "This entire website is made in Reflex!",
+                                color="#494369",
+                            ),
+                            rx.span('"""', color="#AA9EC3"),
+                            bg="#FAF8FB",
                             font_family="Space Mono",
                             font_weight="600",
                             font_size="0.8em",
@@ -293,10 +294,17 @@ def intro():
                         margin_bottom=["2em", "2em", 0],
                     ),
                     rx.vstack(
-                        example_card("Sales email generator", ["OpenAI", "Database"], "/examples/todo"),
-                        example_card("DALL-E", ["ML", "Image Generation"], "/examples/counter"),
-                        example_card("Todo App", ["Short"], "/examples/todo"),
-                        example_card("Counter", ["Tutorial"], "/examples/counter"),
+                        example_card(
+                            "Sales email generator",
+                            ["OpenAI", "Database"],
+                            "/examples/todo",
+                            "/landing_icons/custom_icons/draw.svg",
+                        ),
+                        example_card(
+                            "DALL-E", ["ML", "Image Generation"], "/examples/counter", "/landing_icons/custom_icons/bucket.svg"
+                        ),
+                        example_card("Graphing Traversal", ["DFS", "BFS", "Graph"], "/examples/counter",  "/landing_icons/custom_icons/nodes.svg",),
+                        example_card("Todo App", ["Short"], "/examples/todo",  "/landing_icons/custom_icons/check.svg",),
                         align_items="center",
                         margin_left=[0, 0, "1em"],
                         flex=1,
@@ -460,11 +468,11 @@ def frontend():
             rx.vstack(
                 rx.box(
                     rx.text(
-                    "[",
-                    rx.span("Frontend", bg = "#F5EFFE", color="#5646ED"),
-                    "]",
-                    color="#5646ED",
-                    font_family="Space Mono",
+                        "[",
+                        rx.span("Frontend", bg="#F5EFFE", color="#5646ED"),
+                        "]",
+                        color="#5646ED",
+                        font_family="Space Mono",
                     )
                 ),
                 rx.heading(
@@ -508,7 +516,7 @@ def frontend():
                             spacing="2em",
                         )
                     ),
-                   padding_y="2em",
+                    padding_y="2em",
                 ),
                 padding_bottom="2em",
                 align_items="left",
@@ -615,6 +623,7 @@ python_icon = rx.hstack(
     width="100%",
 )
 
+
 def backend():
     return rx.box(
         container(
@@ -628,11 +637,11 @@ def backend():
             rx.vstack(
                 rx.box(
                     rx.text(
-                    "[",
-                    rx.span("Backend", color="#2B199C", bg="#F3F7FE"),
-                    "]",
-                    color="#2B199C",
-                    font_family="Space Mono",
+                        "[",
+                        rx.span("Backend", color="#2B199C", bg="#F3F7FE"),
+                        "]",
+                        color="#2B199C",
+                        font_family="Space Mono",
                     )
                 ),
                 rx.heading(
@@ -684,7 +693,6 @@ def backend():
         ),
         bg="rgba(247, 247, 250, 0.6);",
     )
-
 
 
 deploy_icon = rx.hstack(
@@ -773,13 +781,12 @@ def hosting():
             rx.vstack(
                 rx.box(
                     rx.text(
-                    "[",
-                    rx.span("Hosting", color="#342E5C",bg ="#FAF8FB"),
-                    "]",
-                    color="#342E5C",
-                    font_family="Space Mono",
+                        "[",
+                        rx.span("Hosting", color="#342E5C", bg="#FAF8FB"),
+                        "]",
+                        color="#342E5C",
+                        font_family="Space Mono",
                     ),
-                    
                 ),
                 rx.heading(
                     "Deploy your app in seconds",
@@ -825,7 +832,6 @@ def hosting():
     )
 
 
-
 def gallery():
     return rx.center(
         container(
@@ -844,14 +850,16 @@ def gallery():
                         text_align="center",
                         color="white",
                     ),
-                    width="50%",
-                    padding_y="2em",
+                    width="55%",
+                    padding_bottom="2em",
+                    padding_top="6em",
                 ),
                 rx.desktop_only(
                     rx.flex(
                         rx.spacer(),
                         rx.vstack(
                             rx.heading("3000+", color="#DACEEE"),
+                            rx.image(src="/landing_icons/stats_icons/project.svg", height="1em"),
                             rx.text(
                                 "Projects created per month",
                                 color="#82799E",
@@ -860,14 +868,16 @@ def gallery():
                             padding_x="2em",
                         ),
                         rx.vstack(
-                            rx.heading("5700+", color="#DACEEE"),
+                            rx.heading("9200+", color="#DACEEE"),
+                            rx.image(src="/landing_icons/stats_icons/github.svg", height="1em"),
                             rx.text(
                                 "GitHub stars", color="#82799E", text_align="center"
                             ),
                             padding_x="2em",
                         ),
                         rx.vstack(
-                            rx.heading("600+", color="#DACEEE"),
+                            rx.heading("1300+", color="#DACEEE"),
+                            rx.image(src="/landing_icons/stats_icons/discord.svg", height="1em"),
                             rx.text(
                                 "Discord community members",
                                 color="#82799E",
@@ -886,16 +896,28 @@ def gallery():
                     rx.vstack(
                         rx.vstack(
                             rx.heading("3000+", color="#DACEEE"),
-                            rx.text("Projects created per month", color="#82799E", text_align="center"),
+                            rx.image(src="/landing_icons/stats_icons/project.svg", height="1em"),
+                            rx.text(
+                                "Projects created per month",
+                                color="#82799E",
+                                text_align="center",
+                            ),
                         ),
                         rx.vstack(
-                            rx.heading("5700+", color="#DACEEE"),
-                            rx.text("GitHub stars", color="#82799E", text_align="center"),
+                            rx.heading("9200+", color="#DACEEE"),
+                            rx.image(src="/landing_icons/stats_icons/github.svg", height="1em"),
+                            rx.text(
+                                "GitHub stars", color="#82799E", text_align="center"
+                            ),
                         ),
                         rx.vstack(
-                            rx.heading("600+", color="#DACEEE"),
-                            rx.text("Discord community members", color="#82799E", text_align="center"),
-
+                            rx.heading("1300+", color="#DACEEE"),
+                            rx.image(src="/landing_icons/stats_icons/discord.svg", height="1em"),
+                            rx.text(
+                                "Discord community members",
+                                color="#82799E",
+                                text_align="center",
+                            ),
                         ),
                         height="100%",
                         min_height="10em",
@@ -935,10 +957,10 @@ def installation():
                         rx.box(
                             rx.text(
                                 "Reflex requires  ",
-                                rx.span(" Python 3.7+", as_ = "u"),
+                                rx.span(" Python 3.7+", as_="u"),
                                 rx.span(" and"),
-                                rx.span(" NodeJS 12+", as_ = "u"),
-                                "."
+                                rx.span(" NodeJS 12+", as_="u"),
+                                ".",
                             ),
                             rx.text(
                                 "(Don't worry, you'll never have to write any Javascript)",
@@ -999,8 +1021,13 @@ def installation():
                     rx.divider(),
                     rx.hstack(
                         rx.vstack(
-                            rx.text("And you should see your first Reflex app!", font_size=".75em"),
-                            rx.text("Check out our docs to learn more.", font_size=".75em"),
+                            rx.text(
+                                "And you should see your first Reflex app!",
+                                font_size=".75em",
+                            ),
+                            rx.text(
+                                "Check out our docs to learn more.", font_size=".75em"
+                            ),
                             align_items="left",
                             padding_x=".5em",
                             width="100%",
@@ -1008,28 +1035,25 @@ def installation():
                         rx.spacer(),
                         rx.button(
                             "View Docs",
-                            color="#494369",
-                            font_weight= 600,
-                            bg = "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF",
-                            box_shadow = "box-shadow: 0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2)",
-                            padding_x = "1em",
+                            style=styles.Primary_Initial_Large_STYLE,
+                            padding_x="1em",
                         ),
                         width="100%",
                         padding_x=".25em",
                     ),
                     height="100%",
-                    border= "1px solid #342E5C;",
+                    border="1px solid #342E5C;",
                     box_shadow="0px 2px 3px rgba(3, 3, 11, 0.32), 0px 4px 8px rgba(3, 3, 11, 0.32), 0px 4px 10px -2px rgba(3, 3, 11, 0.52), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 20px 32px -10px rgba(86, 70, 237, 0.32);",
                     bg="radial-gradient(69.66% 165.73% at 70.23% 84.65%, rgba(86, 70, 237, 0.12) 0%, rgba(20, 18, 39, 0.12) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #110F1F;",
                     border_radius="8px;",
                     align_items="left",
                     width="100%",
-                    min_width  = "25em"
+                    min_width="25em",
                 ),
                 width="100%",
                 flex_direction=["column", "column", "column", "column", "row"],
             ),
-            width = "100%",
+            width="100%",
         ),
         rx.box(
             height="5em",
@@ -1041,7 +1065,7 @@ def installation():
         font_size="1.2em",
         color="white",
         width="100%",
-        bg = "#110F1F",
+        bg="#110F1F",
         padding_top="2em",
     )
 

@@ -28,5 +28,5 @@ def navbar_logo(**style_props):
             src=styles.NAVBAR_LOGO,
             **style_props,
         ),
-        href = "/"
+        href="/",
     )
