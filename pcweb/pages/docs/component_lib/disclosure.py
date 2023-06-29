@@ -132,7 +132,7 @@ short_hand_tab_example = """rx.tabs(
 def render_tabs():
     return rx.vstack(
         doctext(
-            "Tab components allow you display content in multiple pages within a container. These page are organized by a tab list and the corresponoding tab panel can take in children components if needed."
+            "Tab components allow you display content in multiple pages within a container. These page are organized by a tab list and the corresponding tab panel can take in children components if needed."
         ),
         docdemo(tab_example),
         doctext(
