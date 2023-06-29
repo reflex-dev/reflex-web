@@ -179,7 +179,6 @@ link_style = {
     "_hover": {
         "box-shadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
     },
-    "fontSize": "1.2em",
 }
 
 font_sizes = [
@@ -335,11 +334,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     height="100%",
                 ),
                 color=styles.DOC_TEXT_COLOR,
-                background="radial-gradient(35.39% 37.5% at 100% 0%, rgba(188, 136, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);",
-                background_attachment="fixed;",
-                font="Instrument Sans",
-                font_family="Inter",
-                height="100vh"
+                background="radial-gradient(35.39% 37.5% at 100% 0%, rgba(188, 136, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)",
+                background_attachment="fixed",
+                font_family=styles.SANS,
+                height="100vh",
             )
 
         # Return the route.
@@ -357,27 +355,6 @@ def divider_comp() -> rx.Component:
     return rx.divider(
         margin_bottom="1em",
         margin_top="0.5em",
-    )
-
-
-@rx.memo
-def header_comp(
-    text: str,
-    first: bool,
-) -> rx.Component:
-    return rx.box(
-        rx.cond(
-            first,
-            rx.heading(text),
-            rx.heading(
-                text,
-                margin_top="1em",
-            ),
-        ),
-        divider_comp(),
-        color=styles.DOC_HEADER_COLOR,
-        font_weight=styles.DOC_HEADING_FONT_WEIGHT,
-        width="100%",
     )
 
 

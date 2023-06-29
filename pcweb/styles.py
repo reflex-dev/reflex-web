@@ -3,6 +3,8 @@
 import reflex as rx
 
 # General styles.
+SANS = "Instrument Sans"
+MONO = "IBM Plex Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"
 BOLD_WEIGHT = "800"
 NAVBAR_LOGO = "/Reflex.svg"
 LOGO_URL = "/Reflex_white.svg"
@@ -14,8 +16,6 @@ H2_FONT_SIZE = ["1.8em", "1.9em", "2em"]
 H3_FONT_SIZE = "1.35em"
 H4_FONT_SIZE = "1em"
 TEXT_FONT_SIZE = "1em"
-TEXT_FONT_FAMILY = "Instrument Sans"
-CODE_FONT_FAMILY = "Fira Code, Fira Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"
 ACCENT_COLOR = "rgb(107,99,246)"
 ACCENT_COLOR_LIGHT = "rgba(107,99,246, 0.4)"
 ACCENT_COLOR_DARK = "rgb(86, 77, 209)"
@@ -23,7 +23,6 @@ SUBHEADING_COLOR = "rgb(37,50,56)"
 LIGHT_TEXT_COLOR = "#94a3b8"
 LINK_STYLE = {
     "color": ACCENT_COLOR,
-    "text_decoration": "underline",
 }
 
 # Doc page styles.
@@ -49,8 +48,11 @@ BASE_STYLE = {
         "background_color": ACCENT_COLOR_LIGHT,
     },
     rx.Text: {
-        "font_family": "Instrument Sans",
+        "font_family": SANS,
         "font_size": 16,
+    },
+    rx.Heading: {
+        "font_family": SANS,
     },
     rx.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
     rx.Code: {
@@ -59,14 +61,12 @@ BASE_STYLE = {
     rx.Alert: {
         "border_radius": "8px",
     },
+    rx.Link: {"text_decoration": "none", "_hover": {}},
 }
 
 # Fonts to include.
 STYLESHEETS = [
-    "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
-    "https://fonts.googleapis.com/css2?family=Silkscreen&display=swap",
-    "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
-    "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&display=swap",
+    "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&display=swap",
 ]
 
 
@@ -76,36 +76,34 @@ NAV_SEARCH_COLOR = "#342E5C"
 
 NAV_TEXT_STYLE = {
     "color": NAV_TEXT_COLOR,
-    "font_family": "Instrument Sans",
+    "font_family": SANS,
     "font_weight": "600",
 }
 
 NAV_SEARCH_STYLE = {
     "color": NAV_SEARCH_COLOR,
-    "font_family": "Instrument Sans",
+    "font_family": SANS,
     "font_weight": "500",
 }
 
-Primary_Initial_Large_STYLE = {
+CALL_TO_ACTION_BUTTON = {
     "justify_content": "center",
     "align_items": "center",
     "isolation": "isolate",
     "border_radius": 10,
-    "font_family": "Instrument Sans",
+    "font_family": SANS,
     "font_style": "normal",
     "font_weight": 600,
-    "font_feature_settings": "'tnum' on, 'lnum' on, 'case' on, 'cpsp' on, 'kern' off",
     "color": "#F5EFFE",
     "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(52, 46, 92, 0.8) 0%, rgba(234, 228, 253, 0) 100%), #7E69E0",
-    "box_shadow": "0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.24), 0px 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0px 1px 0px rgba(255, 255, 255, 0.16), inset 0px 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0px -20px 12px -4px rgba(86, 70, 237, 0.32)",
+    "box_shadow": "0 0 0 1px rgba(32, 17, 126, 0.56), 0 2px 3px rgba(3, 3, 11, 0.1), 0 4px 8px rgba(3, 3, 11, 0.24), 0 4px 10px -2px rgba(3, 3, 11, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 12px 12px -2px rgba(149, 128, 247, 0.16), inset 0 -20px 12px -4px rgba(86, 70, 237, 0.32)",
 }
 
 
 INPUT_STYLE = {
-    "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.04), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+    "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.04), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset",
     "color": "#494369",
-    "border_color": "transparent",
-    "border-radius": "6px",
+    "border": "2px solid transparent",
     "_focus": {
         "border": f"2px solid {ACCENT_COLOR}",
     },
@@ -122,9 +120,11 @@ NAV_BOX_STYLE = {
 }
 
 NAV_DROPDOWN_STYLE = {
-    "align_items":"left",
-    "width":"100%",
-    "border_radius":"8px",
-    "padding":".75em",
-    "_hover":{"box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",}
+    "align_items": "left",
+    "width": "100%",
+    "border_radius": "8px",
+    "padding": ".75em",
+    "_hover": {
+        "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+    },
 }

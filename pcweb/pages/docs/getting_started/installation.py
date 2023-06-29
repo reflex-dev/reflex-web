@@ -1,5 +1,4 @@
 import reflex as rx
-
 from pcweb import constants
 from pcweb.templates.docpage import (
     docalert,

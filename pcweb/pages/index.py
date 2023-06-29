@@ -1,29 +1,15 @@
 import asyncio
 from datetime import datetime
 
-import reflex as rx
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 
-from pcweb import constants, styles
+import reflex as rx
+from pcweb import styles
 from pcweb.base_state import State
-from pcweb.pages.docs.advanced_guide import wrapping_react
-from pcweb.pages.docs.getting_started import (
-    introduction,
-    installation as installation_page,
-)
-from pcweb.pages.docs.styling.overview import styling_overview
-from pcweb.pages.docs.database.overview import database_overview
-from pcweb.pages.docs.hosting import deploy
-from pcweb.pages.docs.gallery import gallery as gallery_page
+from pcweb.components.chat import chat_component
 from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
-from pcweb.components.chat import chat_component
-
-from pcweb.templates.docpage import (
-    doclink,
-    doccode,
-)
 
 link_style = {
     "color": "black",
@@ -136,21 +122,23 @@ def landing():
                         rx.span("[", color="#DACEEE"),
                         rx.span("Hosting", color="#696287"),
                         rx.span("]", color="#DACEEE"),
-                        font_family="Space Mono",
+                        font_family=styles.MONO,
+                        mb=2,
                     ),
                     rx.text(
                         "Web apps in pure Python.",
-                        font_family="IBM Plex Mono",
-                        font_style="normal;",
+                        font_family=styles.MONO,
+                        font_style="normal",
                         font_weight="600",
-                        font_size="58px",
-                        line_height="60px",
+                        font_size="6xl",
+                        line_height="1.2",
+                        letter_spacing="-0.02em",
                     ),
                     rx.text(
                         "Build web apps in minutes. Deploy with a single command.",
                         color="grey",
                         font_size="1.1em",
-                        font_family=styles.TEXT_FONT_FAMILY,
+                        font_family=styles.SANS,
                         padding_top="1em",
                     ),
                     rx.cond(
@@ -166,7 +154,7 @@ def landing():
                             rx.button(
                                 "Join Hosting Waitlist",
                                 on_click=IndexState.signup,
-                                style=styles.Primary_Initial_Large_STYLE,
+                                style=styles.CALL_TO_ACTION_BUTTON,
                             ),
                             justify="left",
                             should_wrap_children=True,
@@ -235,84 +223,95 @@ def example_card(title, tags, href, image):
 def intro():
     return rx.box(
         container(
-            rx.vstack(
-                rx.text(
-                    "Build anything, faster.",
-                    font_size=styles.H2_FONT_SIZE,
-                    font_family="IBM Plex Mono",
-                    font_style="normal",
-                    font_weight=600,
-                    padding_bottom="0.25em",
-                ),
-                rx.text(
-                    "Create your whole app in a single language. ",
-                    "Don't worry about writing APIs to connect your frontend and backend. ",
-                    color="#666",
-                    margin_bottom="1.5em",
-                    max_width="50%",
-                ),
-                rx.spacer(),
-                rx.flex(
-                    rx.box(
-                        rx.hstack(
-                            list_circle("1"),
-                            rx.text("Any use case.", font_weight="600"),
-                            margin_bottom="0.5em",
-                        ),
-                        rx.text(
-                            "With Reflex you can build anything from internal tools and data apps to complex multi-page apps.",
-                            color="#666",
-                            margin_bottom=".5em",
-                        ),
-                        rx.text(
-                            rx.span('"""', color="#AA9EC3"),
-                            rx.span(
-                                "This entire website is made in Reflex!",
-                                color="#494369",
-                            ),
-                            rx.span('"""', color="#AA9EC3"),
-                            bg="#FAF8FB",
-                            font_family="Space Mono",
-                            font_weight="600",
-                            font_size="0.8em",
-                            padding_x="1em",
-                            margin_bottom="1em",
-                        ),
-                        rx.hstack(
-                            list_circle("2"),
-                            rx.text("It’s just Python.", font_weight="600"),
-                            margin_bottom="0.5em",
-                        ),
-                        rx.text(
-                            "The app state is just a class. ",
-                            "State updates are methods in the class. ",
-                            "And the UI is a reflection of the state. ",
-                            color="#666",
-                        ),
-                        flex=1,
-                        margin_right=[0, 0, "1em"],
-                        margin_bottom=["2em", "2em", 0],
+            rx.text(
+                "Build anything, faster.",
+                font_size="4xl",
+                font_family=styles.MONO,
+                font_style="normal",
+                font_weight=600,
+                pb=1,
+                letter_spacing="-0.02em",
+                mb=4,
+            ),
+            rx.text(
+                "Create your whole app in a single language. ",
+                "Don't worry about writing APIs to connect your frontend and backend. ",
+                color="#666",
+                mb=8,
+                max_width="50%",
+            ),
+            rx.flex(
+                rx.box(
+                    rx.hstack(
+                        list_circle("1"),
+                        rx.text("Any use case.", font_weight="600"),
+                        mb=4,
                     ),
-                    rx.vstack(
-                        example_card(
-                            "Sales email generator",
-                            ["OpenAI", "Database"],
-                            "/examples/todo",
-                            "/landing_icons/custom_icons/draw.svg",
-                        ),
-                        example_card(
-                            "DALL-E", ["ML", "Image Generation"], "/examples/counter", "/landing_icons/custom_icons/bucket.svg"
-                        ),
-                        example_card("Graphing Traversal", ["DFS", "BFS", "Graph"], "/examples/counter",  "/landing_icons/custom_icons/nodes.svg",),
-                        example_card("Todo App", ["Short"], "/examples/todo",  "/landing_icons/custom_icons/check.svg",),
-                        align_items="center",
-                        margin_left=[0, 0, "1em"],
-                        flex=1,
+                    rx.text(
+                        "With Reflex you can build anything from internal tools and data apps to complex multi-page apps.",
+                        color="#666",
+                        mb=4,
                     ),
-                    flex_direction=["column", "column", "column", "row", "row"],
+                    rx.text(
+                        rx.span('"""', color="#AA9EC3"),
+                        rx.span(
+                            "This entire website is made in Reflex!",
+                            color="#494369",
+                        ),
+                        rx.span('"""', color="#AA9EC3"),
+                        bg="#FAF8FB",
+                        font_family=styles.MONO,
+                        p=4,
+                        border="1px solid #EAE4FD",
+                        mb=8,
+                        border_radius="lg",
+                    ),
+                    rx.hstack(
+                        list_circle("2"),
+                        rx.text("It’s just Python.", font_weight="600"),
+                        mb=4,
+                    ),
+                    rx.text(
+                        "The app state is just a class. ",
+                        "State updates are methods in the class. ",
+                        "And the UI is a reflection of the state. ",
+                        color="#666",
+                    ),
+                    flex=1,
+                    margin_right=[0, 0, "1em"],
+                    margin_bottom=["2em", "2em", 0],
                 ),
-                align_items="flex-start",
-            )
+                rx.vstack(
+                    example_card(
+                        "Sales email generator",
+                        ["OpenAI", "Database"],
+                        "/examples/todo",
+                        "/landing_icons/custom_icons/draw.svg",
+                    ),
+                    example_card(
+                        "DALL-E",
+                        ["ML", "Image Generation"],
+                        "/examples/counter",
+                        "/landing_icons/custom_icons/bucket.svg",
+                    ),
+                    example_card(
+                        "Graphing Traversal",
+                        ["DFS", "BFS", "Graph"],
+                        "/examples/counter",
+                        "/landing_icons/custom_icons/nodes.svg",
+                    ),
+                    example_card(
+                        "Todo App",
+                        ["Short"],
+                        "/examples/todo",
+                        "/landing_icons/custom_icons/check.svg",
+                    ),
+                    align_items="center",
+                    margin_left=[0, 0, "1em"],
+                    flex=1,
+                ),
+                flex_direction=["column", "column", "column", "row", "row"],
+            ),
         ),
         padding_top="5em",
         padding_bottom="5em",
@@ -472,13 +471,13 @@ def frontend():
                         rx.span("Frontend", bg="#F5EFFE", color="#5646ED"),
                         "]",
                         color="#5646ED",
-                        font_family="Space Mono",
+                        font_family=styles.MONO,
                     )
                 ),
                 rx.heading(
                     "Write your entire app in Python.",
                     font_size=styles.H3_FONT_SIZE,
-                    font_family="IBM Plex Mono",
+                    font_family=styles.MONO,
                 ),
                 rx.text(
                     "No more switching between languages and frameworks. Use one language for your whole stack.",
@@ -641,13 +640,13 @@ def backend():
                         rx.span("Backend", color="#2B199C", bg="#F3F7FE"),
                         "]",
                         color="#2B199C",
-                        font_family="Space Mono",
+                        font_family=styles.MONO,
                     )
                 ),
                 rx.heading(
                     "Skip the boilerplate and get started faster",
                     font_size=styles.H3_FONT_SIZE,
-                    font_family="IBM Plex Mono",
+                    font_family=styles.MONO,
                 ),
                 rx.text(
                     "Reflex comes with a powerful backend built with FastAPI and SQLAlchemy.",
@@ -713,7 +712,7 @@ deploy_icon = rx.hstack(
         ),
         rx.box(
             rx.button(
-                "Deply your app",
+                "Deploy your app",
                 rx.icon(tag="arrow_forward"),
                 color="#494369",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
@@ -785,13 +784,13 @@ def hosting():
                         rx.span("Hosting", color="#342E5C", bg="#FAF8FB"),
                         "]",
                         color="#342E5C",
-                        font_family="Space Mono",
+                        font_family=styles.MONO,
                     ),
                 ),
                 rx.heading(
                     "Deploy your app in seconds",
                     font_size=styles.H3_FONT_SIZE,
-                    font_family="IBM Plex Mono",
+                    font_family=styles.MONO,
                 ),
                 rx.text(
                     "Simplify the process of deploying your app with Reflex.",
@@ -832,6 +831,25 @@ def hosting():
     )
 
 
+def stat(number, icon, metric):
+    """A statistic."""
+    return rx.vstack(
+        rx.heading(number, color="#DACEEE"),
+        rx.hstack(
+            rx.image(
+                src=f"/landing_icons/stats_icons/{icon}.svg",
+                height="1em",
+            ),
+            rx.text(
+                metric,
+                color="#82799E",
+                text_align="center",
+            ),
+        ),
+        padding_x="2em",
+    )
+
+
 def gallery():
     return rx.center(
         container(
@@ -844,7 +862,7 @@ def gallery():
                             color="#DACEEE",
                         ),
                         "community of Reflex developers.",
-                        font_family="IBM Plex Mono",
+                        font_family=styles.MONO,
                         font_size=styles.H2_FONT_SIZE,
                         font_weight=styles.BOLD_WEIGHT,
                         text_align="center",
@@ -857,34 +875,9 @@ def gallery():
                 rx.desktop_only(
                     rx.flex(
                         rx.spacer(),
-                        rx.vstack(
-                            rx.heading("3000+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/project.svg", height="1em"),
-                            rx.text(
-                                "Projects created per month",
-                                color="#82799E",
-                                text_align="center",
-                            ),
-                            padding_x="2em",
-                        ),
-                        rx.vstack(
-                            rx.heading("9200+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/github.svg", height="1em"),
-                            rx.text(
-                                "GitHub stars", color="#82799E", text_align="center"
-                            ),
-                            padding_x="2em",
-                        ),
-                        rx.vstack(
-                            rx.heading("1300+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/discord.svg", height="1em"),
-                            rx.text(
-                                "Discord community members",
-                                color="#82799E",
-                                text_align="center",
-                            ),
-                            padding_x="2em",
-                        ),
+                        stat("3000+", "project", "Projects created per month"),
+                        stat("9200+", "github", "GitHub stars"),
+                        stat("1300+", "discord", "Discord community members"),
                         rx.spacer(),
                         height="100%",
                         min_height="10em",
@@ -896,7 +889,10 @@ def gallery():
                     rx.vstack(
                         rx.vstack(
                             rx.heading("3000+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/project.svg", height="1em"),
+                            rx.image(
+                                src="/landing_icons/stats_icons/project.svg",
+                                height="1em",
+                            ),
                             rx.text(
                                 "Projects created per month",
                                 color="#82799E",
@@ -905,14 +901,20 @@ def gallery():
                         ),
                         rx.vstack(
                             rx.heading("9200+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/github.svg", height="1em"),
+                            rx.image(
+                                src="/landing_icons/stats_icons/github.svg",
+                                height="1em",
+                            ),
                             rx.text(
                                 "GitHub stars", color="#82799E", text_align="center"
                             ),
                         ),
                         rx.vstack(
                             rx.heading("1300+", color="#DACEEE"),
-                            rx.image(src="/landing_icons/stats_icons/discord.svg", height="1em"),
+                            rx.image(
+                                src="/landing_icons/stats_icons/discord.svg",
+                                height="1em",
+                            ),
                             rx.text(
                                 "Discord community members",
                                 color="#82799E",
@@ -937,7 +939,7 @@ def prompt_sign():
     return rx.text(
         "$",
         color=styles.ACCENT_COLOR,
-        font_family=styles.TEXT_FONT_FAMILY,
+        font_family=styles.SANS,
         style={"userSelect": "none"},
     )
 
@@ -950,7 +952,7 @@ def installation():
                     rx.vstack(
                         rx.heading(
                             "Get up and running in seconds!",
-                            font_family="IBM Plex Mono",
+                            font_family=styles.MONO,
                             font_weight=styles.BOLD_WEIGHT,
                             font_size=styles.H3_FONT_SIZE,
                         ),
@@ -963,10 +965,10 @@ def installation():
                                 ".",
                             ),
                             rx.text(
-                                "(Don't worry, you'll never have to write any Javascript)",
+                                "(Don't worry, you'll never have to write any JavaScript)",
                             ),
                             color="#82799E",
-                            font_family=styles.TEXT_FONT_FAMILY,
+                            font_family=styles.SANS,
                             padding_y=".5em",
                         ),
                         align_items="start",
@@ -976,12 +978,12 @@ def installation():
                     ),
                     min_width="10em",
                     width="100%",
+                    mb=8,
                 ),
-                rx.spacer(),
                 rx.vstack(
                     rx.text(
                         "Install our library to get started:",
-                        font_family="Space Mono",
+                        font_family=styles.MONO,
                         padding_x="1em",
                         padding_top=".5em",
                     ),
@@ -992,7 +994,7 @@ def installation():
                             prompt_sign(),
                             rx.text(
                                 "pip install reflex",
-                                font_family=styles.CODE_FONT_FAMILY,
+                                font_family=styles.MONO,
                                 font_weight="500",
                             ),
                         ),
@@ -1000,8 +1002,8 @@ def installation():
                             rx.text("2", color="#494369"),
                             prompt_sign(),
                             rx.text(
-                                "pc init",
-                                font_family=styles.CODE_FONT_FAMILY,
+                                "reflex init",
+                                font_family=styles.MONO,
                                 font_weight="500",
                             ),
                         ),
@@ -1009,8 +1011,8 @@ def installation():
                             rx.text("3", color="#494369"),
                             prompt_sign(),
                             rx.text(
-                                "pc run",
-                                font_family=styles.CODE_FONT_FAMILY,
+                                "reflex run",
+                                font_family=styles.MONO,
                                 font_weight="500",
                             ),
                         ),
@@ -1020,26 +1022,17 @@ def installation():
                     ),
                     rx.divider(),
                     rx.hstack(
-                        rx.vstack(
-                            rx.text(
-                                "And you should see your first Reflex app!",
-                                font_size=".75em",
-                            ),
-                            rx.text(
-                                "Check out our docs to learn more.", font_size=".75em"
-                            ),
-                            align_items="left",
-                            padding_x=".5em",
-                            width="100%",
+                        rx.text(
+                            "And you should see your first Reflex app!",
                         ),
                         rx.spacer(),
                         rx.button(
                             "View Docs",
-                            style=styles.Primary_Initial_Large_STYLE,
+                            style=styles.CALL_TO_ACTION_BUTTON,
                             padding_x="1em",
                         ),
                         width="100%",
-                        padding_x=".25em",
+                        padding=4,
                     ),
                     height="100%",
                     border="1px solid #342E5C;",
@@ -1061,8 +1054,7 @@ def installation():
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(188, 136, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);",
             opacity="0.75;",
         ),
-        font_family=styles.TEXT_FONT_FAMILY,
-        font_size="1.2em",
+        font_family=styles.SANS,
         color="white",
         width="100%",
         bg="#110F1F",

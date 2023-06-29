@@ -11,7 +11,7 @@ from pcweb.templates.docpage import (
 
 code1 = """rx.text(
     "Check out my font",
-    font_family="Silkscreen",
+    font_family="IBM Plex Mono",
     font_size="1.5em",
 )
 """
