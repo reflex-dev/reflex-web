@@ -1,17 +1,16 @@
 import reflex as rx
-
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
+    doc_section,
     doccode,
     docdemobox,
-    header_comp,
-    subheader_comp,
-    text_comp,
+    docheader,
     doclink,
     docpage,
     doctext,
-    doc_section,
+    subheader_comp,
+    text_comp,
 )
 
 
@@ -27,7 +26,7 @@ class CounterExampleState(State):
 
 def intro1() -> rx.Component:
     return rx.fragment(
-        header_comp(text="Introduction", first=True),
+        docheader(text="Introduction", first=True),
         text_comp(
             "Reflex is a full-stack framework for building and deploying web apps."
         ),
@@ -108,8 +107,9 @@ def intro2() -> rx.Component:
             rx.hstack(
                 rx.button(
                     "Decrement",
-                    color_scheme="red",
-                    border_radius="1em",
+                    bg="#fef2f2",
+                    color="#b91c1c",
+                    border_radius="lg",
                     on_click=CounterExampleState.decrement,
                 ),
                 rx.heading(
@@ -117,8 +117,9 @@ def intro2() -> rx.Component:
                 ),
                 rx.button(
                     "Increment",
-                    color_scheme="green",
-                    border_radius="1em",
+                    bg="#ecfdf5",
+                    color="#047857",
+                    border_radius="lg",
                     on_click=CounterExampleState.increment,
                 ),
             ),

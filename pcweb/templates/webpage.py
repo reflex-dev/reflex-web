@@ -1,4 +1,5 @@
 from typing import Callable
+from pcweb import styles
 
 import reflex as rx
 
@@ -51,7 +52,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
                 navbar(),
                 contents(*children, **props),
                 footer(),
-                font_family="Inter",
+                font_family=styles.SANS,
                 **props
             )
 

@@ -1,16 +1,12 @@
 """UI and logic for the navbar component."""
 
-import reflex as rx
+from typing import Optional
 
-from pcweb import constants, styles
+import reflex as rx
+from pcweb import styles
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
-from pcweb.pages.docs.gallery import gallery
-from pcweb.pages.docs.resources import resources
-from pcweb.pages.docs.getting_started import introduction
-from pcweb.pages.index import index
-from typing import Optional
 
 try:
     from pcweb.tsclient import client
@@ -107,17 +103,17 @@ def search_bar():
     return rx.hstack(
         rx.fragment(
             rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            rx.text("Search Docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
+            rx.text("Search docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
         ),
         rx.spacer(),
         rx.text("/", style=styles.NAV_SEARCH_STYLE),
         on_click=NavbarState.change_search,
         display=["none", "none", "none", "flex", "flex"],
-        bg="#FAF8FB",
         min_width="15em",
         padding_x="1em",
         height="2em",
         border_radius="20px",
+        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
     )
 
 
@@ -223,7 +219,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         rx.hstack(
                             rx.text("Resources", style=styles.NAV_TEXT_STYLE),
                             rx.icon(tag="chevron_down", style=styles.NAV_TEXT_STYLE),
-                        )
+                            cursor="pointer",
+                        ),
                     ),
                     rx.popover_content(
                         rx.grid(
@@ -232,25 +229,32 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     rx.text("App Gallery", style=styles.NAV_TEXT_STYLE),
                                     rx.text(
                                         "See what people are building with Reflex.",
-                                        font_size="0.75em",
                                     ),
                                     rx.hstack(
-                                        rx.text("View Gallery", style=styles.NAV_TEXT_STYLE),
-                                        rx.icon(tag="arrow_forward", style=styles.NAV_TEXT_STYLE),
+                                        rx.text(
+                                            "View Gallery",
+                                            style=styles.NAV_TEXT_STYLE,
+                                            font_size="sm",
+                                        ),
+                                        rx.icon(
+                                            tag="arrow_forward",
+                                            style=styles.NAV_TEXT_STYLE,
+                                        ),
                                         background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
                                         box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2);",
-                                        border_radius="8px;",
-                                        padding_x="1em",
+                                        border_radius="8px",
+                                        px=4,
+                                        py=2,
                                     ),
                                     align_items="flex-start",
                                     justify_content="flex-end",
                                     height="100%",
-                                    padding="1em",
-                            
+                                    p=4,
                                 ),
                                 row_span=2,
                                 col_span=3,
-                                box_shadow= "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+                                box_shadow="0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+                                background="linear-gradient(to top right, #FFFFFF 0%, #F5EFFE 100%)",
                                 style=styles.NAV_BOX_STYLE,
                             ),
                             rx.grid_item(
@@ -266,13 +270,13 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                                 "Roadmap",
                                                 style=styles.NAV_TEXT_STYLE,
                                                 font_size="1em",
-                                            )
+                                            ),
                                         ),
                                         rx.text(
-                                            "See whats happening with Reflex's open source and hosting.",
+                                            "Stay updated on Reflex's plans.",
                                             font_size="0.75em",
                                         ),
-                                        style=styles.NAV_DROPDOWN_STYLE
+                                        style=styles.NAV_DROPDOWN_STYLE,
                                     ),
                                     rx.spacer(),
                                     rx.vstack(
@@ -286,13 +290,13 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                                 "Contributor Program",
                                                 style=styles.NAV_TEXT_STYLE,
                                                 font_size="1em",
-                                            )
+                                            ),
                                         ),
                                         rx.text(
                                             "Get involved in the Reflex community.",
                                             font_size="0.75em",
                                         ),
-                                        style=styles.NAV_DROPDOWN_STYLE
+                                        style=styles.NAV_DROPDOWN_STYLE,
                                     ),
                                     height="100%",
                                 ),
@@ -304,7 +308,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             template_columns="repeat(8, 1fr)",
                             border_radius="8px",
                             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                            #bg="#FAF8FB",
+                            # bg="#FAF8FB",
                             h="12em",
                             gap=".25em",
                             padding=".5em",
@@ -328,7 +332,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         bg="rgba(255,255,255, 0.9)",
         backdrop_filter="blur(10px)",
         padding_y=["0.8em", "0.8em", "0.5em"],
-        border_bottom="2px solid #F4F3F6",
+        border_bottom="1px solid #F4F3F6",
         position="sticky",
         width="100%",
         top="0px",

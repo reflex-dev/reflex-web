@@ -1,7 +1,6 @@
 """The main Reflex website."""
 
 import reflex as rx
-
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.component_list import component_list

@@ -12,7 +12,7 @@ from pcweb.templates.docpage import (
 
 code1 = """rx.text(
     "Check out my font",
-    font_family="Silkscreen",
+    font_family="IBM Plex Mono",
     font_size="1.5em",
 )
 """
@@ -76,7 +76,9 @@ def custom_stylesheets():
         ),
         doctext(
             "In this example, we will use the ",
-            doclink("Silkscreen", href="https://fonts.google.com/specimen/Silkscreen"),
+            doclink(
+                "IBM Plex Mono", href="https://fonts.google.com/specimen/IBM+Plex+Mono"
+            ),
             " font from Google Fonts.",
         ),
         docdemo(code1),

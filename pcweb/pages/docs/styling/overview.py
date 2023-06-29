@@ -142,7 +142,7 @@ style = {
         "background_color": accent_color,
     },
     rx.Text: {
-        "font_family": "Inter",
+        "font_family": styles.SANS,
     },
     rx.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
     rx.Heading: {

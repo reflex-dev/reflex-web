@@ -5,11 +5,10 @@ from __future__ import annotations
 import inspect
 
 import reflex as rx
-from reflex.base import Base
-
 from pcweb import styles
 from pcweb.component_list import component_list
 from pcweb.route import Route
+from reflex.base import Base
 
 # Sidebar styles.
 heading_style = {
@@ -21,7 +20,6 @@ heading_style2 = {
     "color": "#5646ED",
     "background_color": "#F5EFFE",
     "border_radius": "0.5em",
-    "margin_bottom": "6px",
     "font_weight": "500",
     "width": "100%",
     "padding_x": "0.5em",
@@ -243,32 +241,15 @@ def sidebar_item_comp(
             item.children.length() == 0,
             sidebar_leaf(item=item, url=url),
             rx.accordion_item(
-                rx.cond(
-                    first,
-                    rx.accordion_button(
-                        rx.accordion_icon(),
-                        rx.text(
-                            item.names,
-                            font_family="Inter",
-                            font_size="1em",
-                        ),
-                        padding_y="0.5em",
-                        _hover={
-                            "color": styles.ACCENT_COLOR,
-                        },
+                rx.accordion_button(
+                    rx.box(rx.accordion_icon(), opacity="0.6"),
+                    rx.text(
+                        item.names,
+                        font_family=styles.SANS,
                     ),
-                    rx.accordion_button(
-                        rx.accordion_icon(),
-                        rx.text(
-                            item.names,
-                            font_family="Inter",
-                            font_size="1em",
-                        ),
-                        padding_y="0.2em",
-                        _hover={
-                            "color": styles.ACCENT_COLOR,
-                        },
-                    ),
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
                 ),
                 rx.accordion_panel(
                     rx.accordion(
@@ -393,7 +374,7 @@ def sidebar_comp(
                             "color": styles.DOC_REG_TEXT_COLOR,
                             "_hover": {"color": styles.ACCENT_COLOR},
                         },
-                        font_family="Inter",
+                        font_family=styles.SANS,
                     ),
                 ),
                 href=gallery.path,

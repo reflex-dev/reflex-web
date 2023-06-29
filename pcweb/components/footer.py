@@ -1,15 +1,14 @@
 import reflex as rx
-
 from pcweb import constants, styles
 from pcweb.components.logo import logo
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.getting_started import installation, introduction
-from pcweb.pages.docs.library import library
 from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.pages.docs.library import library
 from pcweb.pages.index import index
 
 footer_item_style = {
-    "font_family": "Inter",
+    "font_family": styles.SANS,
     "font_weight": "500",
     "_hover": {"color": "#82799E"},
 }
