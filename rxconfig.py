@@ -11,4 +11,5 @@ config = rx.Config(
         "@radix-ui/react-navigation-menu",
     ],
     telemetry_enabled=False,
+    tailwind={},
 )
