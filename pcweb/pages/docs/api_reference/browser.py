@@ -54,9 +54,7 @@ def browser():
             "To write a cookie, you can use the ",
             doclink("special event", href="/docs/api-reference/special-event"),
             " ",
-            rx.code("set_cookies(content)"),
-            """_summary_
-    """,
+            rx.code("set_cookie(key , value)"),
         ),
         docdemo(code_sc, state=code_state_gc, comp=eval(code_sc)),
         subheader("Local Storage"),
