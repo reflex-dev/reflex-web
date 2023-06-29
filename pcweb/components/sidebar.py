@@ -184,6 +184,7 @@ def get_sidebar_items_reference():
             api_reference.cli,
             api_reference.event_triggers,
             api_reference.special_events,
+            api_reference.browser,
         ],
     )
     ref.children.extend(children)
