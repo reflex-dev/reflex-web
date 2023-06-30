@@ -140,8 +140,6 @@ class Gallery(rx.Model):
     source: str
 
 
-
-
 def component_grid():
     sidebar = []
     for category in example_list:
@@ -159,27 +157,24 @@ def component_grid():
                     rounded="lg",
                 ),
                 rx.hstack(
-                    rx.heading(
-                        category["name"], 
-                        style={"fontSize": "1em"}
-                    ),
+                    rx.heading(category["name"], style={"fontSize": "1em"}),
                     rx.spacer(),
                     rx.hstack(
                         rx.link(
                             rx.box(
-                                rx.image(src="/icons/code.svg", width="1em"), 
+                                rx.image(src="/icons/code.svg", width="1em"),
                                 padding_x="0.5em",
                                 border_radius="15px",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)"
+                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
                             ),
                             href=category["source"],
                         ),
                         rx.link(
                             rx.box(
-                                rx.image(src="/icons/eye.svg", width="1em"), 
+                                rx.image(src="/icons/eye.svg", width="1em"),
                                 padding_x="0.5em",
                                 border_radius="15px",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)"
+                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
                             ),
                             href=category["source"],
                         )
@@ -187,7 +182,7 @@ def component_grid():
                         else rx.box(),
                         align_items="left",
                     ),
-                    width = "100%",
+                    width="100%",
                     border_bottom="1px solid #e2e8f0",
                     border_top="1px solid #e2e8f0",
                     padding_y="0.5em",
