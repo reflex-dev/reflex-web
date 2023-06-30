@@ -34,6 +34,10 @@ for key in component_list:
             title=f"{component_group[0].__name__} | Reflex",
         )
 
+# Add the blog pages.
+# from pcweb.pages.blog.blog import add_pages
+# add_pages(app)
+
 # Add the middleware.
 app.add_middleware(CloseSidebarMiddleware(), index=0)
 
