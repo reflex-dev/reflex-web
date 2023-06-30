@@ -3,7 +3,7 @@
 from typing import Optional
 
 import reflex as rx
-from pcweb import styles
+from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb

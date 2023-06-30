@@ -43,7 +43,7 @@ def configuration():
     return rx.box(
         docheader("Configuration"),
         doctext("There are 3 ways to configure your Reflex application."),
-        subheader("RXonfig Arguments"),
+        subheader("RXConfig Arguments"),
         doctext(
             "The first place to configure your Reflex application is ",
             "by setting the different options in the ",
