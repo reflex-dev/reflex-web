@@ -13,7 +13,7 @@ from pcweb.templates.docpage import (
 CONFIG_REF_URL = "/docs/api-reference/config"
 
 config_example1 = """
-# pcconfig.py
+# rxconfig.py
 import reflex as rx
 class ExpConfig(rx.Config):
     pass
@@ -26,7 +26,7 @@ config = ExpConfig(
 """
 
 config_example2 = """
-# pcconfig.py
+# rxconfig.py
 import reflex as rx
 class ExpConfig(rx.Config):
     env_path = "path/to/env/file"
@@ -43,11 +43,11 @@ def configuration():
     return rx.box(
         docheader("Configuration"),
         doctext("There are 3 ways to configure your Reflex application."),
-        subheader("PCConfig Arguments"),
+        subheader("RXConfig Arguments"),
         doctext(
             "The first place to configure your Reflex application is ",
             "by setting the different options in the ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file.",
         ),
         rx.text(
@@ -84,19 +84,21 @@ def configuration():
                 " (which is the default), the order of precedence of "
                 "environment variables from highest to lowest will be :",
                 rx.code(
-                    ".env file >> os environment or commandline args >> pcconfig args."
+                    ".env file >> os environment or commandline args >> rxconfig args."
                 ),
                 " However, if set to ",
                 rx.code("False"),
                 ", the order of precedence becomes: ",
                 rx.code(
-                    "os environment or commandline args >> .env file >> pcconfig args."
+                    "os environment or commandline args >> .env file >> rxconfig args."
                 ),
             ),
         ),
         subheader("Command line Arguments"),
         doctext(
-            "These are the arguments that you pass when using ", rx.code("pc run"), "."
+            "These are the arguments that you pass when using ",
+            rx.code("reflex run"),
+            ".",
         ),
         doctext(
             "The arguments to pass when running your app are defined ",

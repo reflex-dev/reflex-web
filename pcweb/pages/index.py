@@ -337,14 +337,17 @@ compbox = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Check out the full library",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Check out the full library",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                    href=library.path,
+                ),
+                href="/docs/library",
             )
         ),
         align_items="left",
@@ -373,14 +376,16 @@ stylebox = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Styling Guide",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Styling Guide",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/styling/overview",
             )
         ),
         align_items="left",
@@ -409,14 +414,16 @@ reactbox = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Wrapping React guide",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Wrapping React guide",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/advanced-guide/wrapping-react",
             )
         ),
         align_items="left",
@@ -542,14 +549,16 @@ battery_icon = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "State docs",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "State docs",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/state/overview",
             )
         ),
         align_items="left",
@@ -578,14 +587,16 @@ orm_icon = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Database docs",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Database docs",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/database/overview",
             )
         ),
         align_items="left",
@@ -711,14 +722,16 @@ deploy_icon = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Deploy your app",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Deploy your app",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/hosting/deploy",
             )
         ),
         align_items="left",
@@ -747,14 +760,16 @@ host_icon = rx.hstack(
             color="#342E5C",
         ),
         rx.box(
-            rx.button(
-                "Self-host your app",
-                rx.icon(tag="arrow_forward"),
-                color="#494369",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                bg="#FFFFFF",
-                border_radius="8px",
-                href=library.path,
+            rx.link(
+                rx.button(
+                    "Self-host your app",
+                    rx.icon(tag="arrow_forward"),
+                    color="#494369",
+                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                    bg="#FFFFFF",
+                    border_radius="8px",
+                ),
+                href="/docs/hosting/self-hosting",
             )
         ),
         align_items="left",
@@ -1026,10 +1041,14 @@ def installation():
                             "And you should see your first Reflex app!",
                         ),
                         rx.spacer(),
-                        rx.button(
-                            "View Docs",
-                            style=styles.CALL_TO_ACTION_BUTTON,
-                            padding_x="1em",
+                        rx.link(
+                            rx.button(
+                                "View Docs",
+                                style=styles.CALL_TO_ACTION_BUTTON,
+                                padding_x="1em",
+                            ),
+                            href="/docs/getting-started/introduction",
+                            style=styles.NAV_TEXT_STYLE,
                         ),
                         width="100%",
                         padding=4,

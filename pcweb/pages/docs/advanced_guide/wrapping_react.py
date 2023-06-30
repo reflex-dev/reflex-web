@@ -94,7 +94,7 @@ def wrapping_react():
             ),
             " color picker component. ",
             "Simply specify the package name in your ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file. ",
         ),
         doccode(

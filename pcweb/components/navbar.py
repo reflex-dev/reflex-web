@@ -3,7 +3,7 @@
 from typing import Optional
 
 import reflex as rx
-from pcweb import styles
+from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
@@ -158,35 +158,41 @@ def search_modal(state: NavbarState):
 
 
 def github_button():
-    return rx.hstack(
-        rx.image(src="/github.svg", height="1.25em"),
-        rx.text("Star", style=styles.NAV_TEXT_STYLE),
-        rx.text(
-            "9k+",
-            color="#5646ED",
-            bg="#F5EFFE",
-            padding_x="0.5em",
-            border_radius="6px",
-            font_weight=600,
+    return rx.link(
+        rx.hstack(
+            rx.image(src="/github.svg", height="1.25em"),
+            rx.text("Star", style=styles.NAV_TEXT_STYLE),
+            rx.text(
+                "9k+",
+                color="#5646ED",
+                bg="#F5EFFE",
+                padding_x="0.5em",
+                border_radius="6px",
+                font_weight=600,
+            ),
+            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            padding_x=".5em",
+            height="2em",
+            border_radius="8px",
+            bg="#FFFFFF",
+            style=hover_button_style,
         ),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        padding_x=".5em",
-        height="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
+        href=constants.GITHUB_URL,
     )
 
 
 def discord_button():
-    return rx.center(
-        rx.image(src="/icons/discord.svg", height="1.25em"),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        height="2em",
-        width="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
+    return rx.link(
+        rx.center(
+            rx.image(src="/icons/discord.svg", height="1.25em"),
+            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            height="2em",
+            width="2em",
+            border_radius="8px",
+            bg="#FFFFFF",
+            style=hover_button_style,
+        ),
+        href=constants.DISCORD_URL,
     )
 
 
@@ -249,7 +255,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     align_items="flex-start",
                                     justify_content="flex-end",
                                     height="100%",
-                                    _hover= {
+                                    _hover={
                                         "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
                                     },
                                     p=4,

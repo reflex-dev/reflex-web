@@ -1,13 +1,12 @@
-import pynecone as pc
+import reflex as rx
 
-
-class DocsConfig(pc.Config):
+class DocsConfig(rx.Config):
     pass
 
 
 config = DocsConfig(
     app_name="docs",
     db_url="sqlite:///pynecone.db",
-    env=pc.Env.DEV,
+    env=rx.Env.DEV,
     tailwind={},
 )

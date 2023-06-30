@@ -565,7 +565,7 @@ def docdemo(
     Returns:
         The styled demo.
     """
-    # Render the component if necesssary.
+    # Render the component if necessary.
     if comp is None:
         comp = eval(code)
 

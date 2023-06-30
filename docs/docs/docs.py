@@ -1,16 +1,16 @@
-import pynecone as pc
-from pynecone import el
+import reflex as rx
+from reflex import el
 
 from .utils import add_pages
 
 
-class State(pc.State):
+class State(rx.State):
     """The app state."""
 
     ...
 
 
-def page(markup) -> pc.Component:
+def page(markup) -> rx.Component:
     """Create a page."""
     return el.div(
         *markup,
@@ -19,6 +19,6 @@ def page(markup) -> pc.Component:
 
 
 # Add state and page to the app.
-app = pc.App(state=State)
+app = rx.App(state=State)
 add_pages(app, component=page)
 app.compile()

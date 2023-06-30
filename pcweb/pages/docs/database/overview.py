@@ -29,7 +29,7 @@ def database_overview():
         ),
         doctext(
             "You can connect to your own SQL compatible database by modifying the ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file with your database url.",
         ),
         doccode(
@@ -74,7 +74,7 @@ def database_overview():
         ),
         doctext(
             "Each time you run your app with ",
-            rx.code("pc run"),
+            rx.code("reflex run"),
             " it will check if the table exists in the database, ",
             "and will create it if it does not exist.",
         ),

@@ -63,7 +63,7 @@ def installation():
         subheader("Create a Project"),
         doctext(
             "Installing Reflex also installs the ",
-            rx.code("pc"),
+            rx.code("reflex"),
             " command line tool. ",
         ),
         doctext(
@@ -76,7 +76,7 @@ def installation():
                 [
                     f"$ mkdir {app_name}",
                     f"$ cd {app_name}",
-                    "$ pc init",
+                    "$ reflex init",
                 ]
             ),
             language="bash",
@@ -87,7 +87,7 @@ def installation():
         doccode(
             "\n".join(
                 [
-                    "$ pc run",
+                    "$ reflex run",
                 ]
             ),
             language="bash",
@@ -132,7 +132,7 @@ def installation():
         doccode(
             "\n".join(
                 [
-                    "$ pc run --loglevel debug",
+                    "$ reflex run --loglevel debug",
                 ]
             ),
             language="bash",

@@ -44,7 +44,7 @@ def telemetry():
             "To disable telemetry, set ",
             rx.code("telemetry_enabled = False"),
             " in your ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
         ),
         doccode(
             """config = rx.Config(

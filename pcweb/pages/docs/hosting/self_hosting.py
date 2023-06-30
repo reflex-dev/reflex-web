@@ -32,7 +32,7 @@ def self_hosting():
         docheader("Self Hosting", first=True),
         doctext(
             "We recommend using ",
-            rx.code("pc deploy"),
+            rx.code("reflex deploy"),
             " but you can also host your apps yourself.",
         ),
         doctext(
@@ -43,7 +43,7 @@ def self_hosting():
         subheader("Edit Config"),
         doctext(
             "Edit your ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " file to match the ip address of your server. With the port ",
             rx.code(":8000"),
             " at the end.",
@@ -61,7 +61,7 @@ def self_hosting():
 """,
         ),
         doctext("Then run your app in production mode:"),
-        doccode("$ pc run --env prod", language="bash"),
+        doccode("$ reflex run --env prod", language="bash"),
         doctext(
             " Production mode creates an optimized build of your app.",
             " Your app will be available on port ",
@@ -73,7 +73,7 @@ def self_hosting():
             "You can also export a static build of your app. This is useful for deploying to a static hosting service like Netlify or Github Pages."
         ),
         doccode(
-            """$ pc export""",
+            """$ reflex export""",
             language="bash",
         ),
         doctext(
@@ -112,11 +112,11 @@ def self_hosting():
         ),
         doctext(
             "For the build of the container image it is necessary to edit the ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             " and the add the ",
             rx.code("requirements.txt"),
             " to your project folder. The following changes are necessary in ",
-            rx.code("pcconfig.py"),
+            rx.code("rxconfig.py"),
             ":",
         ),
         doccode(
@@ -145,7 +145,7 @@ def self_hosting():
 ├── hello
 │   ├── __init__.py
 │   └── hello.py
-├── pcconfig.py
+├── rxconfig.py
 ├── Dockerfile
 └── requirements.txt""",
             language="bash",
@@ -154,7 +154,7 @@ def self_hosting():
             "After all changes have been made, the container image can now be created as follows.",
         ),
         doccode(
-            """$ docker build -t pynecone-project:latest .""",
+            """$ docker build -t reflex-project:latest .""",
             language="bash",
         ),
         doctext(
