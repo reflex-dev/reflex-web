@@ -16,7 +16,7 @@ example_list = [
         "source": "https://github.com/pynecone-io/pcweb",
     },
     {
-        "name": "Sales Email Generator",
+        "name": "Email Gen",
         "difficulty": "Intermediate",
         "tags": ["OpenAI", "Database"],
         "description": "A sales email generator using OpenAI's GPT3 API.",
@@ -36,7 +36,7 @@ example_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/dalle",
     },
     {
-        "name": "Graphing Traversal",
+        "name": "Graphing Trav",
         "difficulty": "Intermediate",
         "tags": ["DFS", "BFS", "Graph"],
         "description": "A graphing traversal app.",
@@ -140,6 +140,8 @@ class Gallery(rx.Model):
     source: str
 
 
+
+
 def component_grid():
     sidebar = []
     for category in example_list:
@@ -157,13 +159,39 @@ def component_grid():
                     rounded="lg",
                 ),
                 rx.hstack(
-                    rx.spacer(),
-                    rx.badge(
-                        category["difficulty"],
-                        color_scheme=difficulty_colors[category["difficulty"]],
+                    rx.heading(
+                        category["name"], 
+                        style={"fontSize": "1em"}
                     ),
+                    rx.spacer(),
+                    rx.hstack(
+                        rx.link(
+                            rx.box(
+                                rx.image(src="/icons/code.svg", width="1em"), 
+                                padding_x="0.5em",
+                                border_radius="15px",
+                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)"
+                            ),
+                            href=category["source"],
+                        ),
+                        rx.link(
+                            rx.box(
+                                rx.image(src="/icons/eye.svg", width="1em"), 
+                                padding_x="0.5em",
+                                border_radius="15px",
+                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)"
+                            ),
+                            href=category["source"],
+                        )
+                        if category["url"]
+                        else rx.box(),
+                        align_items="left",
+                    ),
+                    width = "100%",
+                    border_bottom="1px solid #e2e8f0",
+                    border_top="1px solid #e2e8f0",
+                    padding_y="0.5em",
                 ),
-                rx.heading(category["name"], style={"fontSize": "1.5em"}),
                 rx.box(
                     category["description"],
                     color=styles.DOC_REG_TEXT_COLOR,
@@ -171,26 +199,18 @@ def component_grid():
                     overflow="scroll",
                     background="linear-gradient(transparent .5em, white)",
                 ),
-                rx.divider(),
-                rx.hstack(
+                rx.spacer(),
+                rx.wrap(
+                    rx.badge(
+                        category["difficulty"],
+                        border_radius="15px",
+                        color_scheme=difficulty_colors[category["difficulty"]],
+                    ),
                     *[
                         rx.badge(tag, border_radius="15px", padding_x=".5em")
                         for tag in category["tags"]
                     ],
                     padding_bottom=".5em",
-                ),
-                rx.vstack(
-                    rx.link(
-                        rx.hstack(rx.text("Source Code"), rx.icon(tag="external_link")),
-                        href=category["source"],
-                    ),
-                    rx.link(
-                        rx.hstack(rx.text("Live App"), rx.icon(tag="view")),
-                        href=category["url"],
-                    )
-                    if category["url"]
-                    else rx.box(),
-                    align_items="left",
                 ),
                 align_items="left",
                 row_span=3,
