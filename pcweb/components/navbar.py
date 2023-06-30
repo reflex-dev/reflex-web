@@ -249,6 +249,9 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     align_items="flex-start",
                                     justify_content="flex-end",
                                     height="100%",
+                                    _hover= {
+                                        "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+                                    },
                                     p=4,
                                 ),
                                 row_span=2,
