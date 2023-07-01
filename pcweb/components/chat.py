@@ -128,7 +128,12 @@ def chat_component():
         ),
         rx.hstack(
             tag("GPT Demo"),
-            rx.text("View code", font_weight="600", color="#777583"),
+            rx.link(
+                "View code",
+                href="https://github.com/pynecone-io/pynecone-chat",
+                font_weight="600",
+                color="#777583",
+            ),
             rx.spacer(),
             rx.hstack(
                 rx.text("All examples"),
