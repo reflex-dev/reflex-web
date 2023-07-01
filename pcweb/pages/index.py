@@ -285,25 +285,25 @@ def intro():
                     example_card(
                         "Sales email generator",
                         ["OpenAI", "Database"],
-                        "/examples/todo",
+                        "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
                         "/landing_icons/custom_icons/draw.svg",
                     ),
                     example_card(
                         "DALL-E",
                         ["ML", "Image Generation"],
-                        "/examples/counter",
+                        "https://github.com/pynecone-io/pynecone-examples/tree/main/dalle",
                         "/landing_icons/custom_icons/bucket.svg",
                     ),
                     example_card(
                         "Graphing Traversal",
                         ["DFS", "BFS", "Graph"],
-                        "/examples/counter",
+                        "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
                         "/landing_icons/custom_icons/nodes.svg",
                     ),
                     example_card(
                         "Todo App",
                         ["Short"],
-                        "/examples/todo",
+                        "https://github.com/pynecone-io/pynecone-examples/tree/main/todo",
                         "/landing_icons/custom_icons/check.svg",
                     ),
                     align_items="center",
@@ -973,14 +973,7 @@ def installation():
                         ),
                         rx.box(
                             rx.text(
-                                "Reflex requires  ",
-                                rx.span(" Python 3.7+", as_="u"),
-                                rx.span(" and"),
-                                rx.span(" NodeJS 12+", as_="u"),
-                                ".",
-                            ),
-                            rx.text(
-                                "(Don't worry, you'll never have to write any JavaScript)",
+                                "Reflex requires Python 3.7+ and NodeJS 12+. (Don't worry, you'll never have to write any JavaScript.)",
                             ),
                             color="#82799E",
                             font_family=styles.SANS,

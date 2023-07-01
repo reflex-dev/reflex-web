@@ -36,7 +36,7 @@ example_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/dalle",
     },
     {
-        "name": "Graphing Trav",
+        "name": "Graphing Traversal",
         "difficulty": "Intermediate",
         "tags": ["DFS", "BFS", "Graph"],
         "description": "A graphing traversal app.",
@@ -176,7 +176,7 @@ def component_grid():
                                 border_radius="15px",
                                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
                             ),
-                            href=category["source"],
+                            href=category["url"],
                         )
                         if category["url"]
                         else rx.box(),
