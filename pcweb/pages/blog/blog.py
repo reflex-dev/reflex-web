@@ -7,14 +7,15 @@ import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.webpage import webpage
-from pcweb.templates.docpage import docheader, doctext, doclink, doccode
+from pcweb.templates.docpage import docheader, subheader, doctext, doclink, doccode
 
 
 PAGES_PATH = "blog/"
 
+
 def parse_markdown_front_matter(markdown_content):
     # Define the regular expression pattern to match front matter
-    pattern = r'^---\s*\n(.+?)\n---\s*\n(.*)$'
+    pattern = r"^---\s*\n(.+?)\n---\s*\n(.*)$"
     # Extract the front matter and content using the pattern
     match = re.match(pattern, markdown_content, re.DOTALL)
     if match:
@@ -68,11 +69,11 @@ def get_all_markdown_files(path: str):
                 markdown_files.append(os.path.join(root, file))
     return markdown_files
 
+
 def get_blog_data(paths):
     blogs = {}
     for path in paths:
         front_matter, output = parse(open(path).read())
-        print(front_matter, output)
         path = path.replace(".md", "")
         blogs[path] = (front_matter, output)
     return blogs
@@ -82,39 +83,24 @@ def get_route(path: str):
     """Get the route for a page."""
     return path.replace(PAGES_PATH, "").replace(".md", "")
 
-def page(markup) -> rx.Component:
+
+def page(meta, markup) -> rx.Component:
     """Create a page."""
-    print("Creating page", markup)
     return rx.container(
+        rx.image(src=f"/{meta['image']}", width="100%", object_fit="cover"),
+        docheader(meta["title"]),
+        rx.hstack(
+            rx.avatar(name=meta["author"], size="xs"),
+            rx.text(meta["author"], style={"fontSize": "0.75em"}),
+            rx.spacer(),
+            rx.text(str(meta["date"]), style={"fontSize": "0.75em"}),
+        ),
         *markup,
     )
 
+
 paths = get_all_markdown_files(PAGES_PATH)
 blogs = get_blog_data(paths)
-
-difficulty_colors = {"Beginner": "green", "Intermediate": "orange", "Advanced": "red"}
-example_list = [
-    {
-        "name": "Pynecone to Reflex",
-        "date": "11/30/21",
-        "tags": ["Multi-Page"],
-        "author": "Alek Petuskey",
-        "img": "/gallery/pcweb.png",
-        "gif": "",
-        "url": "https://pynecone.io/",
-        "source": "https://github.com/pynecone-io/pcweb",
-    },
-    # {
-    #     "name": "AI Template",
-    #     "date": "11/30/21",
-    #     "tags": ["OpenAI", "Database"],
-    #     "author": "Nikhil Rao",
-    #     "img": "/gallery/sales.png",
-    #     "gif": "",
-    #     "url": "",
-    #     "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
-    # },
-]
 
 
 class Gallery(rx.Model):
@@ -137,7 +123,7 @@ def component_grid():
                 rx.vstack(
                     rx.box(
                         height="10em",
-                        # background_image=meta["image"],
+                        background_image=meta["image"],
                         background_size="cover",
                         background_position="center",
                         background_repeat="no-repeat",
@@ -151,7 +137,7 @@ def component_grid():
                         rx.avatar(name=meta["author"], size="xs"),
                         rx.text(meta["author"], style={"fontSize": "0.75em"}),
                         rx.spacer(),
-                        # rx.text(str(meta["date"]), style={"fontSize": "0.75em"}),
+                        rx.text(str(meta["date"]), style={"fontSize": "0.75em"}),
                     ),
                     align_items="left",
                     row_span=3,
@@ -194,9 +180,8 @@ def blg():
 
 for path, blog in blogs.items():
     meta, contents = blog
-    print(meta, contents)
     path = path.replace(".md", "")
-    print("adding page", path)
+
     @webpage(path=path)
     def p():
-        return page(contents)
+        return page(meta, contents)
