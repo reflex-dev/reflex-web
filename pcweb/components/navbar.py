@@ -217,7 +217,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.link(
                     "Blog",
-                    href="/docs/blog",
+                    href="/blog",
                     style=styles.NAV_TEXT_STYLE,
                 ),
                 rx.popover(
