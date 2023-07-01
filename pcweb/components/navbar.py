@@ -7,6 +7,7 @@ from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
+from pcweb.pages.docs.gallery import gallery
 
 try:
     from pcweb.tsclient import client
@@ -236,7 +237,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     rx.text(
                                         "See what people are building with Reflex.",
                                     ),
-                                    rx.hstack(
+                                    rx.link(
                                         rx.text(
                                             "View Gallery",
                                             style=styles.NAV_TEXT_STYLE,
@@ -249,8 +250,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                         background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
                                         box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2);",
                                         border_radius="8px",
+                                        href=gallery.path,
                                         px=4,
                                         py=2,
+                                        display="flex",
+                                        align_items="center",
                                     ),
                                     align_items="flex-start",
                                     justify_content="flex-end",
@@ -268,44 +272,52 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             ),
                             rx.grid_item(
                                 rx.vstack(
-                                    rx.vstack(
-                                        rx.hstack(
-                                            rx.image(
-                                                src="/maps.svg",
-                                                height="1.5em",
-                                                width="1.5em",
+                                    rx.link(
+                                        rx.vstack(
+                                            rx.hstack(
+                                                rx.image(
+                                                    src="/maps.svg",
+                                                    height="1.5em",
+                                                    width="1.5em",
+                                                ),
+                                                rx.text(
+                                                    "Roadmap",
+                                                    style=styles.NAV_TEXT_STYLE,
+                                                    font_size="1em",
+                                                ),
                                             ),
                                             rx.text(
-                                                "Roadmap",
-                                                style=styles.NAV_TEXT_STYLE,
-                                                font_size="1em",
+                                                "Stay updated on Reflex's plans.",
+                                                font_size="0.75em",
                                             ),
+                                            style=styles.NAV_DROPDOWN_STYLE,
                                         ),
-                                        rx.text(
-                                            "Stay updated on Reflex's plans.",
-                                            font_size="0.75em",
-                                        ),
-                                        style=styles.NAV_DROPDOWN_STYLE,
+                                        href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+                                        w="100%",
                                     ),
                                     rx.spacer(),
-                                    rx.vstack(
-                                        rx.hstack(
-                                            rx.image(
-                                                src="/rocket.svg",
-                                                height="1.5em",
-                                                width="1.5em",
+                                    rx.link(
+                                        rx.vstack(
+                                            rx.hstack(
+                                                rx.image(
+                                                    src="/rocket.svg",
+                                                    height="1.5em",
+                                                    width="1.5em",
+                                                ),
+                                                rx.text(
+                                                    "Contributor Program",
+                                                    style=styles.NAV_TEXT_STYLE,
+                                                    font_size="1em",
+                                                ),
                                             ),
                                             rx.text(
-                                                "Contributor Program",
-                                                style=styles.NAV_TEXT_STYLE,
-                                                font_size="1em",
+                                                "Get involved in the Reflex community.",
+                                                font_size="0.75em",
                                             ),
+                                            style=styles.NAV_DROPDOWN_STYLE,
                                         ),
-                                        rx.text(
-                                            "Get involved in the Reflex community.",
-                                            font_size="0.75em",
-                                        ),
-                                        style=styles.NAV_DROPDOWN_STYLE,
+                                        href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",
+                                        w="100%",
                                     ),
                                     height="100%",
                                 ),

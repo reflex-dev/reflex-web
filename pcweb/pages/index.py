@@ -973,14 +973,7 @@ def installation():
                         ),
                         rx.box(
                             rx.text(
-                                "Reflex requires  ",
-                                rx.span(" Python 3.7+", as_="u"),
-                                rx.span(" and"),
-                                rx.span(" NodeJS 12+", as_="u"),
-                                ".",
-                            ),
-                            rx.text(
-                                "(Don't worry, you'll never have to write any JavaScript)",
+                                "Reflex requires Python 3.7+ and NodeJS 12+. (Don't worry, you'll never have to write any JavaScript.)",
                             ),
                             color="#82799E",
                             font_family=styles.SANS,
