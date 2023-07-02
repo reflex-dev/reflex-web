@@ -109,7 +109,7 @@ def search_bar():
         rx.spacer(),
         rx.text("/", style=styles.NAV_SEARCH_STYLE),
         on_click=NavbarState.change_search,
-        display=["none", "none", "none", "flex", "flex"],
+        display=["none", "flex", "flex", "flex", "flex"],
         min_width="15em",
         padding_x="1em",
         height="2em",
@@ -179,6 +179,7 @@ def github_button():
             style=hover_button_style,
         ),
         href=constants.GITHUB_URL,
+        display=["none", "none", "none", "flex", "flex"],
     )
 
 
@@ -187,6 +188,7 @@ def discord_button():
         rx.center(
             rx.image(src="/icons/discord.svg", height="1.25em"),
             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            display=["none", "none", "none", "flex", "flex"],
             height="2em",
             width="2em",
             border_radius="8px",
@@ -211,131 +213,137 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         rx.hstack(
             rx.hstack(
                 logo,
-                rx.link(
-                    "Docs",
-                    href="/docs/getting-started/introduction",
-                    style=styles.NAV_TEXT_STYLE,
+                rx.desktop_only(
+                    rx.link(
+                        "Docs",
+                        href="/docs/getting-started/introduction",
+                        style=styles.NAV_TEXT_STYLE,
+                    )
                 ),
-                rx.link(
-                    "Blog",
-                    href="/blog",
-                    style=styles.NAV_TEXT_STYLE,
+                rx.desktop_only(
+                    rx.link(
+                        "Blog",
+                        href="/blog",
+                        style=styles.NAV_TEXT_STYLE,
+                    )
                 ),
-                rx.popover(
-                    rx.popover_trigger(
-                        rx.hstack(
-                            rx.text("Resources", style=styles.NAV_TEXT_STYLE),
-                            rx.icon(tag="chevron_down", style=styles.NAV_TEXT_STYLE),
-                            cursor="pointer",
-                        ),
-                    ),
-                    rx.popover_content(
-                        rx.grid(
-                            rx.grid_item(
-                                rx.vstack(
-                                    rx.text("App Gallery", style=styles.NAV_TEXT_STYLE),
-                                    rx.text(
-                                        "See what people are building with Reflex.",
-                                    ),
-                                    rx.link(
-                                        rx.text(
-                                            "View Gallery",
-                                            style=styles.NAV_TEXT_STYLE,
-                                            font_size="sm",
-                                        ),
-                                        rx.icon(
-                                            tag="arrow_forward",
-                                            style=styles.NAV_TEXT_STYLE,
-                                        ),
-                                        background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
-                                        box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2);",
-                                        border_radius="8px",
-                                        href=gallery.path,
-                                        px=4,
-                                        py=2,
-                                        display="flex",
-                                        align_items="center",
-                                    ),
-                                    align_items="flex-start",
-                                    justify_content="flex-end",
-                                    height="100%",
-                                    _hover={
-                                        "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
-                                    },
-                                    p=4,
+                rx.desktop_only(
+                    rx.popover(
+                            rx.popover_trigger(
+                                rx.hstack(
+                                    rx.text("Resources", style=styles.NAV_TEXT_STYLE),
+                                    rx.icon(tag="chevron_down", style=styles.NAV_TEXT_STYLE),
+                                    cursor="pointer",
                                 ),
-                                row_span=2,
-                                col_span=3,
-                                box_shadow="0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
-                                background="linear-gradient(to top right, #FFFFFF 0%, #F5EFFE 100%)",
-                                style=styles.NAV_BOX_STYLE,
                             ),
-                            rx.grid_item(
-                                rx.vstack(
-                                    rx.link(
+                            rx.popover_content(
+                                rx.grid(
+                                    rx.grid_item(
                                         rx.vstack(
-                                            rx.hstack(
-                                                rx.image(
-                                                    src="/maps.svg",
-                                                    height="1.5em",
-                                                    width="1.5em",
-                                                ),
-                                                rx.text(
-                                                    "Roadmap",
-                                                    style=styles.NAV_TEXT_STYLE,
-                                                    font_size="1em",
-                                                ),
-                                            ),
+                                            rx.text("App Gallery", style=styles.NAV_TEXT_STYLE),
                                             rx.text(
-                                                "Stay updated on Reflex's plans.",
-                                                font_size="0.75em",
+                                                "See what people are building with Reflex.",
                                             ),
-                                            style=styles.NAV_DROPDOWN_STYLE,
+                                            rx.link(
+                                                rx.text(
+                                                    "View Gallery",
+                                                    style=styles.NAV_TEXT_STYLE,
+                                                    font_size="sm",
+                                                ),
+                                                rx.icon(
+                                                    tag="arrow_forward",
+                                                    style=styles.NAV_TEXT_STYLE,
+                                                ),
+                                                background="radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
+                                                box_shadow="0px 0px 0px 1px rgba(52, 46, 92, 0.14), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.2), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.32), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.2);",
+                                                border_radius="8px",
+                                                href=gallery.path,
+                                                px=4,
+                                                py=2,
+                                                display="flex",
+                                                align_items="center",
+                                            ),
+                                            align_items="flex-start",
+                                            justify_content="flex-end",
+                                            height="100%",
+                                            _hover={
+                                                "box_shadow": "0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+                                            },
+                                            p=4,
                                         ),
-                                        href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
-                                        w="100%",
+                                        row_span=2,
+                                        col_span=3,
+                                        box_shadow="0px 2px 3px 0px rgba(3, 3, 11, 0.02), 0px 1px 2px 0px rgba(84, 82, 95, 0.06), 0px 0px 0px 1px rgba(84, 82, 95, 0.09), 0px 1px 0px 0px rgba(255, 255, 255, 0.05) inset;",
+                                        background="linear-gradient(to top right, #FFFFFF 0%, #F5EFFE 100%)",
+                                        style=styles.NAV_BOX_STYLE,
                                     ),
-                                    rx.spacer(),
-                                    rx.link(
+                                    rx.grid_item(
                                         rx.vstack(
-                                            rx.hstack(
-                                                rx.image(
-                                                    src="/rocket.svg",
-                                                    height="1.5em",
-                                                    width="1.5em",
+                                            rx.link(
+                                                rx.vstack(
+                                                    rx.hstack(
+                                                        rx.image(
+                                                            src="/maps.svg",
+                                                            height="1.5em",
+                                                            width="1.5em",
+                                                        ),
+                                                        rx.text(
+                                                            "Roadmap",
+                                                            style=styles.NAV_TEXT_STYLE,
+                                                            font_size="1em",
+                                                        ),
+                                                    ),
+                                                    rx.text(
+                                                        "Stay updated on Reflex's plans.",
+                                                        font_size="0.75em",
+                                                    ),
+                                                    style=styles.NAV_DROPDOWN_STYLE,
                                                 ),
-                                                rx.text(
-                                                    "Contributor Program",
-                                                    style=styles.NAV_TEXT_STYLE,
-                                                    font_size="1em",
+                                                href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+                                                w="100%",
+                                            ),
+                                            rx.spacer(),
+                                            rx.link(
+                                                rx.vstack(
+                                                    rx.hstack(
+                                                        rx.image(
+                                                            src="/rocket.svg",
+                                                            height="1.5em",
+                                                            width="1.5em",
+                                                        ),
+                                                        rx.text(
+                                                            "Contributor Program",
+                                                            style=styles.NAV_TEXT_STYLE,
+                                                            font_size="1em",
+                                                        ),
+                                                    ),
+                                                    rx.text(
+                                                        "Get involved in the Reflex community.",
+                                                        font_size="0.75em",
+                                                    ),
+                                                    style=styles.NAV_DROPDOWN_STYLE,
                                                 ),
+                                                href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",
+                                                w="100%",
                                             ),
-                                            rx.text(
-                                                "Get involved in the Reflex community.",
-                                                font_size="0.75em",
-                                            ),
-                                            style=styles.NAV_DROPDOWN_STYLE,
+                                            height="100%",
                                         ),
-                                        href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",
-                                        w="100%",
+                                        col_span=5,
+                                        row_span=2,
+                                        style=styles.NAV_BOX_STYLE,
                                     ),
-                                    height="100%",
+                                    template_rows="repeat(2, 1fr)",
+                                    template_columns="repeat(8, 1fr)",
+                                    border_radius="8px",
+                                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+                                    # bg="#FAF8FB",
+                                    h="12em",
+                                    gap=".25em",
+                                    padding=".5em",
                                 ),
-                                col_span=5,
-                                row_span=2,
-                                style=styles.NAV_BOX_STYLE,
+                                width="60m",
+                                border="transparent",
                             ),
-                            template_rows="repeat(2, 1fr)",
-                            template_columns="repeat(8, 1fr)",
-                            border_radius="8px",
-                            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                            # bg="#FAF8FB",
-                            h="12em",
-                            gap=".25em",
-                            padding=".5em",
-                        ),
-                        width="60m",
-                        border="transparent",
                     ),
                 ),
                 spacing="2em",
@@ -344,7 +352,48 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 search_bar(),
                 github_button(),
                 discord_button(),
+                rx.mobile_and_tablet(
+                    rx.icon(
+                        tag="hamburger",
+                        on_click=NavbarState.toggle_sidebar,
+                        width="1.5em",
+                        height="1.5em",
+                        _hover={
+                            "cursor": "pointer",
+                            "color": styles.ACCENT_COLOR,
+                        },
+                    ),
+                ),
                 height="full",
+            ),
+            rx.drawer(
+                rx.drawer_overlay(
+                    rx.drawer_content(
+                        rx.hstack(
+                            logo,
+                            rx.icon(
+                                tag="close",
+                                on_click=NavbarState.toggle_sidebar,
+                                width="4em",
+                                _hover={
+                                    "cursor": "pointer",
+                                    "color": styles.ACCENT_COLOR,
+                                },
+                            ),
+                            justify="space-between",
+                            margin_bottom="1.5em",
+                        ),
+                        sidebar if sidebar is not None else rx.text("Sidebar"),
+                        padding_x="2em",
+                        padding_top="2em",
+                        bg="rgba(255,255,255, 0.97)",
+                    ),
+                    bg="rgba(255,255,255, 0.5)",
+                ),
+                placement="left",
+                is_open=NavbarState.sidebar_open,
+                on_close=NavbarState.toggle_sidebar,
+                bg="rgba(255,255,255, 0.5)",
             ),
             search_modal(NavbarState),
             justify="space-between",

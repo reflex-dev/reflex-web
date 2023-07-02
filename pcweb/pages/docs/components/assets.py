@@ -9,7 +9,7 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = "rx.image(src = '/logo.png', width = '5em')"
+code_example1 = "rx.image(src = '/Reflex.svg', width = '5em')"
 
 
 @docpage()
