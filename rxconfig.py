@@ -9,7 +9,12 @@ config = rx.Config(
         "react-copy-to-clipboard",
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
+        "@tailwindcss/typography",
     ],
     telemetry_enabled=False,
-    tailwind={},
+    tailwind={
+        "plugins": [
+            "@tailwindcss/typography",
+        ],
+    },
 )

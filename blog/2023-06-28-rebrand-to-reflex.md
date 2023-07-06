@@ -7,12 +7,11 @@ image: reflex_banner.png
 
 We have some exciting news to share about the next stage of our company!
 
-#### Pynecone is rebranding to Reflex.
+### Pynecone is rebranding to Reflex.
 
 This name aligns with our goal of creating a web framework easy and intuitive, while remaining flexible and powerful to support any app.
 
 We will continue to grow Reflex as an open source project to include all the features of web development. We're also working on our hosting service that will be available later this year.
-
 
 ### Key Changes
 
@@ -30,7 +29,6 @@ rx.unordered_list(
 ```reflex
 doctext("If you have an existing Pynecone project, run ", rx.code("reflex init"), " from a directory that has a ", rx.code("pcconfig.py"), " file, you will have the option to migrate your project.")
 ```
-
 
 ### Next Steps
 
