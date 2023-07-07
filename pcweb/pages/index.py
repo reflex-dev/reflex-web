@@ -1071,7 +1071,7 @@ def installation():
         width="100%",
         bg="#110F1F",
         padding_top="2em",
-        display=["none", "flex", "flex", "flex", "flex"], 
+        display=["none", "flex", "flex", "flex", "flex"],
     )
 
 

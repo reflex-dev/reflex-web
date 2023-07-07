@@ -45,7 +45,7 @@ def code_block(
         rx.box(
             rx.code_block(
                 code,
-                rx.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                can_copy=True,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="light",
                 background="transparent",
@@ -78,7 +78,7 @@ def code_block_dark(
         rx.box(
             rx.code_block(
                 code,
-                rx.button("Copy", bg="white", border="1px solid #EAEAEA"),
+                can_copy=True,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="dark",
                 language=language,
@@ -183,9 +183,8 @@ link_style = {
 
 font_sizes = [
     styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
+    "1.18em",
+    "1.1em",
 ]
 logo_style = {
     "height": "1em",

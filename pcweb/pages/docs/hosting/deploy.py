@@ -8,20 +8,6 @@ from pcweb.templates.docpage import (
     subheader,
 )
 
-code_example1 = """rx.text('hello world', color='blue')"""
-code_example2 = """
-rx.hstack(
-    rx.circular_progress(
-        rx.circular_progress_label("50", color="green"),
-        value=50,
-    ),
-    rx.circular_progress(
-        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
-        is_indeterminate=True,
-    ),
-)
-"""
-
 
 @docpage()
 def deploy():
