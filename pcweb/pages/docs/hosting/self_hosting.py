@@ -37,9 +37,7 @@ project_structure = """hello
 └── requirements.txt"""
 
 docker_build_example = """$ docker build -t reflex-project:latest ."""
-docker_run_example = (
-    """$ docker run -d -p 3000:3000 -p 8000:8000 --name reflex reflex:latest"""
-)
+docker_run_example = """$ docker run -d -p 3000:3000 -p 8000:8000 --name reflex reflex:latest"""
 
 lighthouse_ref_link = "https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk"
 nginx_gzip_doc_link = "http://nginx.org/en/docs/http/ngx_http_gzip_module.html"
@@ -70,9 +68,7 @@ def self_hosting():
             rx.code(":8000"),
             " at the end.",
         ),
-        doctext(
-            "For example if your server is at 192.168.1.1, your config would look like this:"
-        ),
+        doctext("For example if your server is at 192.168.1.1, your config would look like this:"),
         doccode(hosting_config),
         doctext("Then run your app in production mode:"),
         doccode("$ reflex run --env prod", language="bash"),
@@ -143,9 +139,7 @@ def self_hosting():
         ),
         doctext("The project structure should looks like this:"),
         doccode(project_structure, language="bash"),
-        doctext(
-            "After all changes have been made, the container image can now be created as follows."
-        ),
+        doctext("After all changes have been made, the container image can now be created as follows."),
         doccode(docker_build_example, language="bash"),
         doctext("Finally, you can start your Reflex container service as follows."),
         doccode(docker_run_example, language="bash"),
@@ -163,6 +157,12 @@ def self_hosting():
             "Among others, enabling compression is one of the foremost point to optimize. \n",
             "We use Next.js to run the frontend, and while it has gzip compression enabled by default, ",
             "it is usually recommanded to offload it to your reverse proxy (ie. Nginx or Apache)",
+        ),
+        doctext(
+            "If you want to turn off the NextJS compression, use the parameter",
+            rx.code("next_compression"),
+            "inside ",
+            rx.code("rxconfig.py"),
         ),
         doctext(
             "Reference links for enabling gzip compression: ",
