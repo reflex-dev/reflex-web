@@ -1,14 +1,14 @@
 import os
 import re
 import sys
+
 import yaml
 
 import reflex as rx
-
 from pcweb import constants, styles
+from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
 from pcweb.templates.webpage import webpage
-from pcweb.templates.docpage import docheader, subheader, doctext, doclink, doccode
-
+from reflex import el
 
 PAGES_PATH = "blog/"
 
@@ -87,15 +87,24 @@ def get_route(path: str):
 def page(meta, markup) -> rx.Component:
     """Create a page."""
     return rx.container(
-        rx.image(src=f"/{meta['image']}", width="100%", object_fit="cover"),
-        docheader(meta["title"]),
+        rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
         rx.hstack(
             rx.avatar(name=meta["author"], size="xs"),
-            rx.text(meta["author"], style={"fontSize": "0.75em"}),
-            rx.spacer(),
-            rx.text(str(meta["date"]), style={"fontSize": "0.75em"}),
+            rx.text(meta["author"], font_size="0.9rem"),
+            rx.text(" · "),
+            rx.text(str(meta["date"]), font_size="0.9rem"),
         ),
-        *markup,
+        rx.image(
+            src=f"/{meta['image']}",
+            object_fit="contain",
+            shadow="sm",
+            my=8,
+            border_radius="8px",
+        ),
+        el.div(
+            *markup,
+            class_name="prose prose-a:!underline prose-a:!decoration-violet-200 hover:prose-a:!decoration-inherit prose-a:!transition-all prose-a:underline-offset-2 prose-headings:!my-1 prose-p:!my-1 prose-p:text-gray-600",
+        ),
     )
 
 
@@ -115,66 +124,90 @@ class Gallery(rx.Model):
 
 
 def component_grid():
-    sidebar = []
+    posts = []
     for path, blog in blogs.items():
-        meta, output = blog
-        sidebar.append(
+        meta, _ = blog
+        posts.append(
             rx.link(
-                rx.vstack(
-                    rx.box(
-                        height="10em",
-                        background_image=meta["image"],
-                        background_size="cover",
-                        background_position="center",
-                        background_repeat="no-repeat",
-                        _hover={
-                            "background_size": "cover",
-                        },
-                        rounded="lg",
-                    ),
-                    rx.heading(meta["title"], style={"fontSize": "1em"}),
-                    rx.hstack(
-                        rx.avatar(name=meta["author"], size="xs"),
-                        rx.text(meta["author"], style={"fontSize": "0.75em"}),
-                        rx.spacer(),
-                        rx.text(str(meta["date"]), style={"fontSize": "0.75em"}),
-                    ),
-                    align_items="left",
-                    row_span=3,
-                    col_span=1,
-                    box_shadow="lg",
-                    border_radius="1em",
-                    bg_color="white",
-                    padding="1em",
+                rx.box(
+                    height="10rem",
+                    background_image=meta["image"],
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    transition= "background-size 1s;",
                     _hover={
-                        "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
+                        "background_size": "165%",
                     },
+                    w="100%",
                 ),
+                rx.box(
+                    rx.heading(
+                        meta["title"],
+                        font_size="1.2rem",
+                        mb=4,
+                    ),
+                    rx.text(
+                        meta["description"],
+                        font_size="0.8rem",
+                    ),  
+                    rx.hstack(
+                        rx.vstack(
+                            rx.text("Written by", font_size="0.8rem"),
+                            rx.hstack(
+                                rx.avatar(name=meta["author"], size="xs"),
+                                rx.text(meta["author"], font_size="0.9rem")
+                            ),
+                            align_items="left",
+                        ),
+                        rx.spacer(),
+                        rx.vstack(
+                            rx.text("Published on", font_size="0.8rem"),
+                            rx.text(str(meta["date"]), font_size="0.9rem"),
+                            align_items="left",
+                        ),
+                        color="#666",
+                        padding_y="0.5em",
+                    ),
+                    p=4,
+                ),
+                border="1px solid #eee",
+                border_radius="8px",
+                overflow="hidden",
+                bg_color="white",
+                _hover={
+                    "box_shadow": "0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02)"
+                },
                 href=path,
             ),
         )
     return rx.box(
-        rx.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
+        rx.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
 @webpage(path="/blog/index")
 def blg():
     return rx.container(
-        rx.hstack(
+        rx.vstack(
             rx.box(
-                docheader("Blog", first=True),
-                doctext("The latest news from the Reflex team. "),
-                rx.divider(),
-                component_grid(),
+                rx.heading("Reflex Blog", font_size="3rem", mt=12, mb=4),
+                rx.text(
+                    "The latest news from the Reflex team. ",
+                    color=styles.DOC_TEXT_COLOR,
+                ),
+                rx.divider(), 
                 text_align="left",
+                width="100%",
             ),
-            align_items="start",
-            min_height="100vh",
+            component_grid(),
+            align_items="stretch",
+            min_height="80vh", 
             margin_bottom="4em",
             padding_y="2em",
         ),
         flex_direction="column",
+        max_width="960px",
     )
 
 

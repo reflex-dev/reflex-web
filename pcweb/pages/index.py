@@ -7,7 +7,7 @@ from sqlmodel import Field
 import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
-from pcweb.components.chat import chat_component
+from pcweb.components.chat import spline_component
 from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
 
@@ -136,7 +136,7 @@ def landing():
                     ),
                     rx.text(
                         "Build web apps in minutes. Deploy with a single command.",
-                        color="grey",
+                        color="#342E5C",
                         font_size="1.1em",
                         font_family=styles.SANS,
                         padding_top="1em",
@@ -154,7 +154,7 @@ def landing():
                             rx.button(
                                 "Join Hosting Waitlist",
                                 on_click=IndexState.signup,
-                                style=styles.CALL_TO_ACTION_BUTTON,
+                                style=styles.ACCENT_BUTTON,
                             ),
                             justify="left",
                             should_wrap_children=True,
@@ -175,9 +175,9 @@ def landing():
                 ),
                 width="100%",
             ),
-            chat_component(),
+            spline_component(),
         ),
-        padding_top="8em",
+        padding_top="6em",
         padding_bottom="6em",
         width="100%",
     )
@@ -283,6 +283,12 @@ def intro():
                 ),
                 rx.vstack(
                     example_card(
+                        "Chat GPT",
+                        ["LLM", "Chatbot"],
+                        "https://github.com/pynecone-io/pynecone-chat",
+                        "/landing_icons/custom_icons/chat.svg",
+                    ),
+                    example_card(
                         "Sales email generator",
                         ["OpenAI", "Database"],
                         "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
@@ -341,10 +347,7 @@ compbox = rx.hstack(
                 rx.button(
                     "Check out the full library",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                     href=library.path,
                 ),
                 href="/docs/library",
@@ -380,10 +383,7 @@ stylebox = rx.hstack(
                 rx.button(
                     "Styling Guide",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/styling/overview",
             )
@@ -418,10 +418,7 @@ reactbox = rx.hstack(
                 rx.button(
                     "Wrapping React guide",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/advanced-guide/wrapping-react",
             )
@@ -553,10 +550,7 @@ battery_icon = rx.hstack(
                 rx.button(
                     "State docs",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/state/overview",
             )
@@ -591,10 +585,7 @@ orm_icon = rx.hstack(
                 rx.button(
                     "Database docs",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/database/overview",
             )
@@ -726,10 +717,7 @@ deploy_icon = rx.hstack(
                 rx.button(
                     "Deploy your app",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/hosting/deploy",
             )
@@ -764,10 +752,7 @@ host_icon = rx.hstack(
                 rx.button(
                     "Self-host your app",
                     rx.icon(tag="arrow_forward"),
-                    color="#494369",
-                    box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-                    bg="#FFFFFF",
-                    border_radius="8px",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href="/docs/hosting/self-hosting",
             )
@@ -1037,7 +1022,7 @@ def installation():
                         rx.link(
                             rx.button(
                                 "View Docs",
-                                style=styles.CALL_TO_ACTION_BUTTON,
+                                style=styles.ACCENT_BUTTON,
                                 padding_x="1em",
                             ),
                             href="/docs/getting-started/introduction",
