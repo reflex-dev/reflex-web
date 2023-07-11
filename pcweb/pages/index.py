@@ -154,7 +154,7 @@ def landing():
                             rx.button(
                                 "Join Hosting Waitlist",
                                 on_click=IndexState.signup,
-                                style=styles.CALL_TO_ACTION_BUTTON,
+                                style=styles.ACCENT_BUTTON,
                             ),
                             justify="left",
                             should_wrap_children=True,
@@ -177,7 +177,7 @@ def landing():
             ),
             chat_component(),
         ),
-        padding_top="8em",
+        padding_top="6em",
         padding_bottom="6em",
         width="100%",
     )
@@ -282,6 +282,12 @@ def intro():
                     margin_bottom=["2em", "2em", 0],
                 ),
                 rx.vstack(
+                    example_card(
+                        "Chat GPT",
+                        ["LLM", "Chatbot"],
+                        "https://github.com/pynecone-io/pynecone-chat",
+                        "/landing_icons/custom_icons/chat.svg",
+                    ),
                     example_card(
                         "Sales email generator",
                         ["OpenAI", "Database"],
@@ -1037,7 +1043,7 @@ def installation():
                         rx.link(
                             rx.button(
                                 "View Docs",
-                                style=styles.CALL_TO_ACTION_BUTTON,
+                                style=styles.ACCENT_BUTTON,
                                 padding_x="1em",
                             ),
                             href="/docs/getting-started/introduction",

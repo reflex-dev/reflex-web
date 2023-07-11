@@ -144,15 +144,29 @@ def component_grid():
                     rx.heading(
                         meta["title"],
                         font_size="1.2rem",
-                        line_height="1.2",
                         mb=4,
                     ),
+                    rx.text(
+                        meta["description"],
+                        font_size="0.8rem",
+                    ),  
                     rx.hstack(
-                        rx.avatar(name=meta["author"], size="xs"),
-                        rx.text(meta["author"], font_size="0.9rem"),
+                        rx.vstack(
+                            rx.text("Written by", font_size="0.8rem"),
+                            rx.hstack(
+                                rx.avatar(name=meta["author"], size="xs"),
+                                rx.text(meta["author"], font_size="0.9rem")
+                            ),
+                            align_items="left",
+                        ),
                         rx.spacer(),
-                        rx.text(str(meta["date"]), font_size="0.9rem"),
+                        rx.vstack(
+                            rx.text("Published on", font_size="0.8rem"),
+                            rx.text(str(meta["date"]), font_size="0.9rem"),
+                            align_items="left",
+                        ),
                         color="#666",
+                        padding_y="0.5em",
                     ),
                     p=4,
                 ),
@@ -173,17 +187,17 @@ def blg():
     return rx.container(
         rx.vstack(
             rx.box(
-                rx.heading("Blog", font_size="3rem", mt=12, mb=4),
+                rx.heading("Reflex Blog", font_size="3rem", mt=12, mb=4),
                 rx.text(
                     "The latest news from the Reflex team. ",
                     color=styles.DOC_TEXT_COLOR,
                     mb=16,
                 ),
-                text_align="center",
+                text_align="left",
             ),
             component_grid(),
             align_items="stretch",
-            min_height="100vh",
+            min_height="80vh", 
             margin_bottom="4em",
             padding_y="2em",
         ),
