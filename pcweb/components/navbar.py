@@ -136,6 +136,8 @@ def search_modal(state: NavbarState):
                                 on_change=NavbarState.set_search_input,
                                 focus_border_color="transparent",
                                 border_color="transparent",
+                                font_weight=400,
+                                _placeholder={"color": "#342E5C"},
                             ),
                             width="100%",
                         ),

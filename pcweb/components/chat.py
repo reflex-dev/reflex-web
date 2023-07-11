@@ -111,69 +111,14 @@ spline  = Spline.create
 
 
 
-def chat_component():
+def spline_component():
     return rx.center(
         rx.center(
             spline(),
             overflow = "hidden",
             width="42em",
-            height="40em",
+            height="42em",
         ),
         width="100%",
         display=["none", "none", "none", "none", "flex", "flex"],
     )
-
-
-# def chat_component():
-#     return rx.vstack(
-#         rx.vstack(
-#             rx.hstack(
-#                 rx.input(
-#                     placeholder="Ask a question...",
-#                     on_blur=GptState.set_question,
-#                     style=styles.INPUT_STYLE,
-#                 ),
-#                 rx.spacer(),
-#                 rx.button(
-#                     "Get answer",
-#                     on_click=GptState.get_answer,
-#                     href="/docs",
-#                     style=styles.BUTTON_LIGHT,
-#                 ),
-#                 width="100%",
-#                 padding_x="1em",
-#                 padding_top="1em",
-#             ),
-#             qa(),
-#             min_height="15em",
-#             width="100%",
-#             bg="radial-gradient(82.06% 100% at 50.00% 100.00%, rgba(86, 70, 237, 0.08) 0%, rgba(245, 239, 254, 0.00) 100%), #FFF;",
-#             border_bottom= "1px solid var(--gray-100, #F4F3F6);",
-#             box_shadow= "0px -10px 32px -10px rgba(86, 70, 237, 0.12) inset;",
-#             border_radius="8px 8px 0 0",
-#         ),
-#         rx.hstack(
-#             tag("GPT Demo"),
-#             rx.link(
-#                 "View code",
-#                 href="https://github.com/pynecone-io/pynecone-chat",
-#                 font_weight="600",
-#                 color="#777583",
-#             ),
-#             rx.spacer(),
-#             rx.hstack(
-#                 rx.text("All examples", color="#494369", font_weight="500"),
-#                 rx.icon(tag="arrow_forward", color="#494369"),
-#                 style=styles.BUTTON_LIGHT_NO_BACKGROUND,
-#             ),
-#             width="100%",
-#             padding_x="1em",
-#             padding_bottom=".5em",
-#         ),
-#         min_width="10em",
-#         box_shadow="0px 8px 12px -4px rgba(3, 3, 11, 0.02), 0px 12px 8px 0px rgba(3, 3, 11, 0.04), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 1px rgba(52, 46, 92, 0.12);",
-#         border_radius="8px",
-#         background="white",
-#         width="100%",
-#         display=["none", "none", "none", "flex", "flex", "flex"],
-#     )

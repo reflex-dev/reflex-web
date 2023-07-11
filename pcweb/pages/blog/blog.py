@@ -135,8 +135,9 @@ def component_grid():
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
+                    transition= "background-size 1s;",
                     _hover={
-                        "background_size": "cover",
+                        "background_size": "165%",
                     },
                     w="100%",
                 ),
@@ -174,6 +175,9 @@ def component_grid():
                 border_radius="8px",
                 overflow="hidden",
                 bg_color="white",
+                _hover={
+                    "box_shadow": "0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02)"
+                },
                 href=path,
             ),
         )
@@ -191,9 +195,10 @@ def blg():
                 rx.text(
                     "The latest news from the Reflex team. ",
                     color=styles.DOC_TEXT_COLOR,
-                    mb=16,
                 ),
+                rx.divider(), 
                 text_align="left",
+                width="100%",
             ),
             component_grid(),
             align_items="stretch",

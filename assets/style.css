@@ -5,11 +5,6 @@
   font-weight: 600;
 }
 
-.move-text:nth-child(2) {
-  animation-delay: 12.5s;
-}
-
-
 .move-text:hover {
   animation-play-state: paused;
 }
