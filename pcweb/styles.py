@@ -142,7 +142,6 @@ BUTTON_LIGHT = {
         "box_shadow": " 0px 4px 10px -2px rgba(3, 3, 11, 0.02), 0px 4px 8px 0px rgba(3, 3, 11, 0.04), 0px 2px 3px 0px rgba(3, 3, 11, 0.20), 0px 0px 0px 1px rgba(52, 46, 92, 0.20), 0px -20px 12px -4px rgba(234, 228, 253, 0.36) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.32) inset, 0px 2px 0px 0px rgba(255, 255, 255, 0.40) inset;",
         "color": "#342E5C",
     },
-
 }
 
 BUTTON_LIGHT_NO_BACKGROUND = {
@@ -178,7 +177,6 @@ INPUT_STYLE_BLANK = {
     "background": "transparent",
     "border": "0px solid transparent",
     "focus_border_color":"transparent",
-    "border_color":"transparent",
     "_placeholder": {
         "color": "#1F1944",
         "font_weight": "500",

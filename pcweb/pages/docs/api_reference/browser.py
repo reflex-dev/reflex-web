@@ -68,7 +68,7 @@ def browser():
         docdemo(code_gls),
         doctext(
             "To write a variable inside the local storage, you can use the ",
-            doclink("special event", href="/docs/api-reference/special-event"),
+            doclink("special event", href="/docs/api-reference/special-events"),
             " ",
             rx.code("rx.set_local_storage(key,value)"),
         ),
