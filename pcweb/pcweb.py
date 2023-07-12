@@ -20,21 +20,21 @@ for route in routes:
     app.add_page(
         route.component,
         route.path,
-        route.title,
-        description="Write web apps in pure Python. Deploy in minutes.",
-        image="preview.png",
+        "Reflex",
+        description="Performant, customizable web apps in pure Python. Deploy in seconds.",
+        image="preview.jpg",
     )
 
-# for key in component_list:
-#     for component_group in component_list[key]:
-#         path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-#         app.add_page(
-#             multi_docs(path=path, component_list=component_group).component,
-#             route=path,
-#             title=f"{component_group[0].__name__} | Reflex",
-#         )
+for key in component_list:
+    for component_group in component_list[key]:
+        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+        app.add_page(
+            multi_docs(path=path, component_list=component_group).component,
+            route=path,
+            title=f"{component_group[0].__name__} | Reflex",
+        )
 
-# Add the blog pages.
+# #Add the blog pages.
 # from pcweb.pages.blog.blog import add_pages
 # add_pages(app)
 
