@@ -1,8 +1,8 @@
 from pcweb.pages import routes
-import pynecone as pc
+import reflex as rx
 from pcweb.pages.docs.component import multi_docs
 from pcweb.tsclient import client
-from pynecone.components.base.bare import Bare
+from reflex.components.base.bare import Bare
 
 
 def get_strings(comp):
@@ -25,9 +25,9 @@ def get_text(comp, href):
     """Get the text from a component."""
     text = []
     for child in comp.children:
-        if isinstance(child, pc.Heading):
+        if isinstance(child, rx.Heading):
             text.append(("heading", get_strings(child), href))
-        if isinstance(child, pc.Text):
+        if isinstance(child, rx.Text):
             text.append(("text", get_strings(child), href))
         else:
             text += get_text(child, href)
@@ -48,14 +48,14 @@ def postprocess(texts):
         if ("Base Events Triggers", href) in headings:
             del headings[("Base Events Triggers", href)]
     # del headings["Base Event Triggers"]
-    dud = "Site Documentation Resources Copyright © 2023 Pynecone, Inc."
+    dud = "Copyright © 2023 Pynecone, Inc."
     return {
         key: " ".join(value).replace("  ", " ").replace(dud, "")
         for key, value in headings.items()
     }
 
 
-class Doc(pc.Base):
+class Doc(rx.Base):
     heading: str
     description: str
     href: str
