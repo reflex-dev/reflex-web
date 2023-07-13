@@ -144,19 +144,21 @@ def landing():
                     rx.cond(
                         ~IndexState.signed_up,
                         rx.wrap(
-                                rx.input_group(
-                                rx.input_left_element( 
-                                    rx.image(src="/landing_icons/custom_icons/email.png", height="1.2em"),
+                            rx.input_group(
+                                rx.input_left_element(
+                                    rx.image(
+                                        src="/landing_icons/custom_icons/email.png",
+                                        height="1.2em",
+                                    ),
                                 ),
                                 rx.input(
                                     placeholder="Your email address...",
                                     on_blur=IndexState.set_email,
                                     style=styles.INPUT_STYLE,
                                     type="email",
-
-                                ), 
-                                style=styles.INPUT_STYLE
                                 ),
+                                style=styles.INPUT_STYLE,
+                            ),
                             rx.button(
                                 "Join Hosting Waitlist",
                                 on_click=IndexState.signup,
@@ -1062,7 +1064,7 @@ def installation():
         width="100%",
         bg="#110F1F",
         padding_top="2em",
-        display=["none", "flex", "flex", "flex", "flex"], 
+        display=["none", "flex", "flex", "flex", "flex"],
     )
 
 

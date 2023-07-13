@@ -99,8 +99,8 @@ NAV_DROPDOWN_STYLE = {
     "font_family": SANS,
     "font_weight": "500",
     "_hover": {
-        "color":"#5646ED",
-        "bg":"#F5EFFE",
+        "color": "#5646ED",
+        "bg": "#F5EFFE",
     },
 }
 
@@ -119,8 +119,8 @@ ACCENT_BUTTON = {
     "box_shadow": "0px 4px 10px -2px rgba(3, 3, 11, 0.32), 0px 4px 8px 0px rgba(3, 3, 11, 0.24), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 1px rgba(32, 17, 126, 0.56), 0px -20px 12px -4px rgba(86, 70, 237, 0.32) inset, 0px 12px 12px -2px rgba(149, 128, 247, 0.16) inset, 0px 1px 0px 0px rgba(255, 255, 255, 0.16) inset;",
     "_hover": {
         "background": "radial-gradient(82.06% 100% at 50.00% 100.00%, rgba(52, 46, 92, 0.80) 0%, rgba(234, 228, 253, 0.00) 100%), #7E69E0);",
-        "box_shadow": "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;"
-    }
+        "box_shadow": "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
+    },
 }
 
 BUTTON_LIGHT = {
@@ -145,11 +145,11 @@ BUTTON_LIGHT = {
 }
 
 BUTTON_LIGHT_NO_BACKGROUND = {
-    "border_radius":"6px",
-    "box_shadow":"0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-    "bg":"#FFFFFF",
-    "padding_x":".75em",
-    "border_radius":"8px",
+    "border_radius": "6px",
+    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+    "bg": "#FFFFFF",
+    "padding_x": ".75em",
+    "border_radius": "8px",
     "_hover": {
         "box_shadow": "0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px 2px 3px 0px rgba(3, 3, 11, 0.01), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
     },
@@ -176,7 +176,7 @@ INPUT_STYLE_BLANK = {
     "color": "#1F1944",
     "background": "transparent",
     "border": "0px solid transparent",
-    "focus_border_color":"transparent",
+    "focus_border_color": "transparent",
     "_placeholder": {
         "color": "#1F1944",
         "font_weight": "500",

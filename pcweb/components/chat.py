@@ -66,7 +66,7 @@ def qa():
             font_weight="500",
             font_size="11px",
             border_top="1px solid #EAE4FD",
-            color="#1F1944"
+            color="#1F1944",
         ),
         rx.cond(
             GptState.limit > 2,
@@ -89,10 +89,10 @@ def qa():
                 font_family=styles.MONO,
                 font_weight="500",
                 font_size="11px",
-                color="#1F1944"
+                color="#1F1944",
             ),
         ),
-        spacing = "0em",
+        spacing="0em",
         width="100%",
         align_items="left",
         padding_x="1em",
@@ -107,15 +107,15 @@ class Spline(rx.Component):
     scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
     is_default = True
 
-spline  = Spline.create
 
+spline = Spline.create
 
 
 def spline_component():
     return rx.center(
         rx.center(
             spline(),
-            overflow = "hidden",
+            overflow="hidden",
             width="42em",
             height="42em",
         ),
