@@ -25,18 +25,14 @@ for route in routes:
         image="preview.jpg",
     )
 
-# for key in component_list:
-#     for component_group in component_list[key]:
-#         path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-#         app.add_page(
-#             multi_docs(path=path, component_list=component_group).component,
-#             route=path,
-#             title=f"{component_group[0].__name__} | Reflex",
-#         )
-
-# #Add the blog pages.
-# from pcweb.pages.blog.blog import add_pages
-# add_pages(app)
+for key in component_list:
+    for component_group in component_list[key]:
+        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+        app.add_page(
+            multi_docs(path=path, component_list=component_group).component,
+            route=path,
+            title=f"{component_group[0].__name__} | Reflex",
+        )
 
 # Add the middleware.
 app.add_middleware(CloseSidebarMiddleware(), index=0)
