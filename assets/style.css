@@ -1,7 +1,7 @@
 .move-text {
   animation: moveRightToLeft 25s linear infinite;
   color: #F8F8F8;
-  width: 100%;
+  width: 80%;
   font-weight: 600;
 }
 

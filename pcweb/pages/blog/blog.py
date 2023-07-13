@@ -135,7 +135,7 @@ def component_grid():
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
-                    transition= "background-size 1s;",
+                    transition="background-size 1s;",
                     _hover={
                         "background_size": "165%",
                     },
@@ -150,13 +150,13 @@ def component_grid():
                     rx.text(
                         meta["description"],
                         font_size="0.8rem",
-                    ),  
+                    ),
                     rx.hstack(
                         rx.vstack(
                             rx.text("Written by", font_size="0.8rem"),
                             rx.hstack(
                                 rx.avatar(name=meta["author"], size="xs"),
-                                rx.text(meta["author"], font_size="0.9rem")
+                                rx.text(meta["author"], font_size="0.9rem"),
                             ),
                             align_items="left",
                         ),
@@ -196,13 +196,13 @@ def blg():
                     "The latest news from the Reflex team. ",
                     color=styles.DOC_TEXT_COLOR,
                 ),
-                rx.divider(), 
+                rx.divider(),
                 text_align="left",
                 width="100%",
             ),
             component_grid(),
             align_items="stretch",
-            min_height="80vh", 
+            min_height="80vh",
             margin_bottom="4em",
             padding_y="2em",
         ),

@@ -119,7 +119,7 @@ def search_bar():
         padding_x="1em",
         height="2em",
         border_radius="20px",
-        bg = "#FAF8FB"
+        bg="#FAF8FB",
     )
 
 
@@ -186,7 +186,7 @@ def github_button():
             style=hover_button_style,
         ),
         href=constants.GITHUB_URL,
-        display=["none", "none", "none","flex", "flex", "flex"],
+        display=["none", "none", "none", "flex", "flex", "flex"],
     )
 
 
@@ -195,7 +195,7 @@ def discord_button():
         rx.center(
             rx.image(src="/icons/discord.svg", height="1.25em"),
             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-            display=["none", "none", "none", "flex","flex", "flex"],
+            display=["none", "none", "none", "flex", "flex", "flex"],
             height="2em",
             width="2em",
             border_radius="8px",
@@ -217,66 +217,113 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
 
     # Create the navbar component.
     return rx.vstack(
-    rx.cond(
-        NavbarState.banner,
-        rx.box(
-        rx.hstack(
-            rx.box("🎉  We have some exciting news to share Pynecone has rebranded to Reflex!", 
-                    " Read more about it on our ",
-                    rx.link("blog.", href="/blog/2023-06-28-rebrand-to-reflex", style={"color": "#FFFFFF", "text_decoration": "underline"}),
-                    "  🎉",
-                    class_name="move-text"
-                ), 
-            rx.spacer(),
-            rx.icon(tag="close", z_index = 1000, style={"color": "#FFFFFF"}, on_click=NavbarState.toggle_banner),
-            width="100%",
-            padding_x=styles.PADDING_X,
+        rx.cond(
+            NavbarState.banner,
+            rx.box(
+                rx.hstack(
+                    rx.center(
+                        rx.box(
+                            "✨  We have some exciting news to share Pynecone has rebranded to Reflex!",
+                            " Read more about it on our ",
+                            rx.link(
+                                "blog",
+                                href="/blog/2023-06-28-rebrand-to-reflex",
+                                style={
+                                    "color": "#FFFFFF",
+                                    "text_decoration": "underline",
+                                    "_hover": {"color": styles.ACCENT_COLOR},
+                                },
+                            ),
+                            "  ✨",
+                            color="#FFFFFF",
+                            font_weight=600,
+                        ),
+                        width="100%",
+                    ),
+                    rx.spacer(),
+                    rx.icon(
+                        tag="close",
+                        z_index=1000,
+                        style={
+                                    "color": "#FFFFFF",
+                                    "text_decoration": "underline",
+                                    "_hover": {"color": styles.ACCENT_COLOR},
+                                },
+                        on_click=NavbarState.toggle_banner,
+                    ),
+                    width="100%",
+                    padding_x=styles.PADDING_X,
+                    align_items="center",
+                ),
+                background_color="#110F1F",
+                padding_y=["0.8em", "0.8em", "0.5em"],
+                width="100%",
+            ),
         ),
-        background_color="#110F1F",
-        padding_y=["0.8em", "0.8em", "0.5em"],
-        border_bottom="1px solid #F4F3F6",
-        position="sticky",
-        width="100%",
-        top="0px", 
-        z_index="999",
-    )),
-    rx.box(
-        rx.hstack(
+        rx.box(
             rx.hstack(
-                logo,
-                rx.link(
+                rx.hstack(
+                    logo,
+                    rx.link(
                         "Docs",
                         href="/docs/getting-started/introduction",
                         style=styles.NAV_TEXT_STYLE,
-                        display=["none", "none", "none", "none","flex", "flex"],
-                ),
-                rx.link(
-                    "Blog",
-                    href="/blog",
-                    style=styles.NAV_TEXT_STYLE,
-                    display=["none", "none", "none", "none","flex", "flex"],
-                ),
-                rx.menu(
-                    rx.menu_button(rx.hstack(
-                                    rx.text("Resources", style=styles.NAV_TEXT_STYLE),
-                                    rx.icon(tag="chevron_down", style=styles.NAV_TEXT_STYLE),
-                                    cursor="pointer",
-                                    display=["none", "none", "none", "none","flex", "flex"],
-                                )),
-                    rx.menu_list(
-                        rx.link(rx.menu_item("App Gallery", style=styles.NAV_DROPDOWN_STYLE), href="/docs/gallery"),
-                        rx.link(rx.menu_item("Roadmap",style=styles.NAV_DROPDOWN_STYLE),href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37"),
-                        rx.menu_divider(),
-                        rx.link(rx.menu_item("Contributor Program",style=styles.NAV_DROPDOWN_STYLE),href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",),                        
+                        display=["none", "none", "none", "none", "flex", "flex"],
                     ),
+                    rx.link(
+                        "Blog",
+                        href="/blog",
+                        style=styles.NAV_TEXT_STYLE,
+                        display=["none", "none", "none", "none", "flex", "flex"],
+                    ),
+                    rx.menu(
+                        rx.menu_button(
+                            rx.hstack(
+                                rx.text("Resources", style=styles.NAV_TEXT_STYLE),
+                                rx.icon(
+                                    tag="chevron_down", style=styles.NAV_TEXT_STYLE
+                                ),
+                                cursor="pointer",
+                                display=[
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "flex",
+                                    "flex",
+                                ],
+                            )
+                        ),
+                        rx.menu_list(
+                            rx.link(
+                                rx.menu_item(
+                                    "App Gallery", style=styles.NAV_DROPDOWN_STYLE
+                                ),
+                                href="/docs/gallery",
+                            ),
+                            rx.link(
+                                rx.menu_item(
+                                    "Roadmap", style=styles.NAV_DROPDOWN_STYLE
+                                ),
+                                href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+                            ),
+                            rx.menu_divider(),
+                            rx.link(
+                                rx.menu_item(
+                                    "Contributor Program",
+                                    style=styles.NAV_DROPDOWN_STYLE,
+                                ),
+                                href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",
+                            ),
+                        ),
+                    ),
+                    spacing="2em",
                 ),
-                spacing="2em",
-            ),
-            rx.hstack(
-                search_bar(),
-                github_button(),
-                discord_button(),
-                rx.icon(
+                rx.hstack(
+                    search_bar(),
+                    github_button(),
+                    discord_button(),
+                    rx.icon(
                         tag="hamburger",
                         on_click=NavbarState.toggle_sidebar,
                         width="1.5em",
@@ -285,50 +332,52 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             "cursor": "pointer",
                             "color": styles.ACCENT_COLOR,
                         },
-                        display=["flex", "flex", "flex", "none","none", "none"],
-                ),
-                height="full",
-            ),
-            rx.drawer(
-                rx.drawer_overlay(
-                    rx.drawer_content(
-                        rx.hstack(
-                            logo,
-                            rx.icon(
-                                tag="close",
-                                on_click=NavbarState.toggle_sidebar,
-                                width="4em",
-                                _hover={
-                                    "cursor": "pointer",
-                                    "color": styles.ACCENT_COLOR,
-                                },
-                            ),
-                            justify="space-between",
-                            margin_bottom="1.5em",
-                        ),
-                        sidebar if sidebar is not None else rx.text("Sidebar"),
-                        padding_x="2em",
-                        padding_top="2em",
-                        bg="rgba(255,255,255, 0.97)",
+                        display=["flex", "flex", "flex", "none", "none", "none"],
                     ),
+                    height="full",
+                ),
+                rx.drawer(
+                    rx.drawer_overlay(
+                        rx.drawer_content(
+                            rx.hstack(
+                                logo,
+                                rx.icon(
+                                    tag="close",
+                                    on_click=NavbarState.toggle_sidebar,
+                                    width="4em",
+                                    _hover={
+                                        "cursor": "pointer",
+                                        "color": styles.ACCENT_COLOR,
+                                    },
+                                ),
+                                justify="space-between",
+                                margin_bottom="1.5em",
+                            ),
+                            sidebar if sidebar is not None else rx.text("Sidebar"),
+                            padding_x="2em",
+                            padding_top="2em",
+                            bg="rgba(255,255,255, 0.97)",
+                        ),
+                        bg="rgba(255,255,255, 0.5)",
+                    ),
+                    placement="left",
+                    is_open=NavbarState.sidebar_open,
+                    on_close=NavbarState.toggle_sidebar,
                     bg="rgba(255,255,255, 0.5)",
                 ),
-                placement="left",
-                is_open=NavbarState.sidebar_open,
-                on_close=NavbarState.toggle_sidebar,
-                bg="rgba(255,255,255, 0.5)",
+                search_modal(NavbarState),
+                justify="space-between",
+                padding_x=styles.PADDING_X,
             ),
-            search_modal(NavbarState),
-            justify="space-between",
-            padding_x=styles.PADDING_X,
+            bg="rgba(255,255,255, 0.9)",
+            backdrop_filter="blur(10px)",
+            padding_y=["0.8em", "0.8em", "0.5em"],
+            border_bottom="1px solid #F4F3F6",
+            width="100%",
         ),
-        bg="rgba(255,255,255, 0.9)",
-        backdrop_filter="blur(10px)",
-        padding_y=["0.8em", "0.8em", "0.5em"],
-        border_bottom="1px solid #F4F3F6",
         position="sticky",
-        width="100%",
-        top="0px",
         z_index="999",
-    )
+        top="0",
+        width="100%",
+        spacing="0",
     )
