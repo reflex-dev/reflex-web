@@ -7,6 +7,7 @@ from pcweb.templates.docpage import (
     docpage,
     doctext,
     subheader,
+    docalert,
 )
 
 hosting_config = """config = rx.Config(
@@ -39,7 +40,7 @@ project_structure = """hello
 docker_build_example = """$ docker build -t reflex-project:latest ."""
 docker_run_example = """$ docker run -d -p 3000:3000 -p 8000:8000 --name reflex reflex:latest"""
 
-lighthouse_ref_link = "https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk"
+lighthouse_ref_link = "https://developer.chrome.com/docs/lighthouse/overview/"
 nginx_gzip_doc_link = "http://nginx.org/en/docs/http/ngx_http_gzip_module.html"
 apache_gzip_doc_link = "https://ubiq.co/tech-blog/enable-gzip-compression-apache/"
 
@@ -148,9 +149,21 @@ def self_hosting():
             "When self-hosting a Reflex app, you might encounter the need to improve its performance. ",
         ),
         doctext(
-            "Once you have a public URL leading to your app, you can use tools like ",
+            "If you are using Chrome, you can open Devtools (with ",
+            rx.kbd("F12"),
+            ") and use ",
             doclink("Lighthouse", href=lighthouse_ref_link),
-            " to analyze it and reveal which bottlenecks are slowing down things.",
+            " to analyze your app and reveal which bottlenecks are slowing down things.",
+        ),
+        docalert(
+            rx.text(
+                "Use ",
+                rx.code("rx.Env.PROD"),
+                " for realistic diagnosis, because ",
+                rx.code("rx.Env.DEV"),
+                " is very slow and will result in bad performance.",
+            ),
+            status="warning",
         ),
         subheader("Compression", level=1),
         doctext(
