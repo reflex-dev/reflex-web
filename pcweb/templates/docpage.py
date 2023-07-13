@@ -50,7 +50,6 @@ def code_block(
                 theme="light",
                 background="transparent",
                 language=language,
-                show_line_numbers=True,
                 code_tag_props={
                     "style": {
                         "fontFamily": "inherit",
@@ -162,7 +161,7 @@ icon_style = {
 }
 demo_box_style = {
     "bg": "rgba(255,255,255, 0.5)",
-    "border-radius": "8px;",
+    "border_radius": "8px;",
     "box_shadow": "rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;",
     "padding": 5,
     "width": "100%",
@@ -177,7 +176,7 @@ link_style = {
     "padding_x": "0.5em",
     "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
     "_hover": {
-        "box-shadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
+        "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
     },
 }
 
@@ -315,9 +314,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.hstack(
                                 logo,
                                 rx.spacer(),
-                                rx.text(
-                                    "Copyright © 2023 Pynecone, Inc.", color="#CDCCD1"
-                                ),
+                                rx.text("Copyright © 2023 Pynecone, Inc.", color="#CDCCD1"),
                                 width="100%",
                             ),
                             padding_left=["1em", "2em", "5em", "8em"],
@@ -426,9 +423,7 @@ def subheader_comp(
     )
 
 
-def subheader(
-    text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
-) -> rx.Component:
+def subheader(text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
@@ -496,18 +491,14 @@ def doccode(
     """
     # For Python snippets, lint the code with black.
     if language == "python":
-        code = black.format_str(
-            textwrap.dedent(code), mode=black.FileMode(line_length=60)
-        ).strip()
+        code = black.format_str(textwrap.dedent(code), mode=black.FileMode(line_length=60)).strip()
 
         # Replace "State" with "rx.State".
         code = code.replace("(State)", "(rx.State)")
 
     # If needed, only display a subset of the lines.
     if lines is not None:
-        code = textwrap.dedent(
-            "\n".join(code.strip().split("\n")[lines[0] : lines[1]])
-        ).strip()
+        code = textwrap.dedent("\n".join(code.strip().split("\n")[lines[0] : lines[1]])).strip()
 
     # Remove prompt characters from the copy text.
     copy_text = code.replace("$ ", "")
@@ -622,9 +613,7 @@ def definition(title: str, *children) -> rx.Component:
     )
 
 
-def docalert(
-    title: str = "", description: str = "", status: str = "info"
-) -> rx.Component:
+def docalert(title: str = "", description: str = "", status: str = "info") -> rx.Component:
     """Create an alert for a doc page.
 
     Args:
