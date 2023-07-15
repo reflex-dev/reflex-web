@@ -72,11 +72,37 @@ def database_overview():
     password: str   
 """
         ),
+        subheader("Migrations"),
         doctext(
-            "Each time you run your app with ",
-            rx.code("reflex run"),
-            " it will check if the table exists in the database, ",
-            "and will create it if it does not exist.",
+            "Reflex leverages ",
+            doclink(
+                text="alembic",
+                href="https://alembic.sqlalchemy.org/en/latest/",
+            ),
+            " to manage database schema changes. ",
+        ),
+        doctext(
+            "Before the database feature can be used in a new app ",
+            "you must call ",
+            rx.code("reflex db init"),
+            " to initialize alembic and create a migration script with ",
+            "the current schema.",
+        ),
+        doctext(
+            "After making changes to the schema, use ",
+            rx.code("reflex db makemigrations --message 'something changed'"),
+            " to generate a script in the ",
+            rx.code("alembic/versions"),
+            " directory that will update the database schema. It is recommended ",
+            "that scripts be inspected before applying them.",
+        ),
+        doctext(
+            "The ",
+            rx.code("reflex db migrate"),
+            " command is used to apply migration scripts to bring the database ",
+            "up to date. During app startup, if Reflex detects that the current ",
+            "database schema is not up to date, a warning will be displayed on ",
+            "the console.",
         ),
         subheader("Queries"),
         doctext(
