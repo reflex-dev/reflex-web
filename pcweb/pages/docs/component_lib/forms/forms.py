@@ -109,6 +109,8 @@ class State(rx.State):
             self.img.append(file.filename)
 
 
+color = "rgb(107,99,246)"
+
 
 def index():
     \"""The main view.\"""
@@ -154,6 +156,9 @@ class State(rx.State):
 
             # Update the img var.
             self.img.append(file.filename)
+
+
+color = "rgb(107,99,246)"
 
 
 def index():
