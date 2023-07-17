@@ -63,6 +63,21 @@ code6 = """
          return "OtherHexColorPicker"
  """
 
+no_ssr_code = '''
+class ReactPlayerComponent(rx.Component):
+    library = "react-player"
+    tag = "ReactPlayer"
+
+    def _get_imports(self) -> Optional[imports.ImportDict]:
+        return {}
+
+    def _get_custom_code(self) -> Optional[str]:
+        return """
+import dynamic from "next/dynamic";
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+"""
+'''
+
 
 @docpage()
 def wrapping_react():
@@ -164,4 +179,31 @@ config = rx.Config(
          """
         ),
         doccode(code6),
+        subheader("Import Types"),
+        doctext(
+            """By default, the library and tag specified in the Component are used to generate
+            a javascript import where the tag name is treated as the default import from the
+            library module.""",
+        ),
+        doccode('import HexColorPicker from "react-colorful"', language="javascript"),
+        subheader("Non-default", level=1),
+        doctext(
+            "If the tag is not the default export from the module, then set ",
+            rx.code("is_default = False"),
+            " in the component class definition to generate an import using the curly brace syntax.",
+        ),
+        doccode(
+            'import { HexColorPicker } from "react-colorful"', language="javascript"
+        ),
+        subheader("Client-side Only", level=1),
+        doctext(
+            "For components that do not work properly during server-side rendering, use ",
+            rx.code("_get_custom_code"),
+            " to emit a dynamic loader.",
+        ),
+        doccode(no_ssr_code),
+        doctext(
+            """The strategy of emitting custom code can be used to surpass any current
+            limitations of the Reflex component compiler."""
+        ),
     )
