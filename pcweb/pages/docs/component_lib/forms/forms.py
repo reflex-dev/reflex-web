@@ -91,7 +91,7 @@ class State(rx.State):
     # The images to show.
     img: list[str]
 
-    async def handle_upload(self, files: List[rx.UploadFile]):
+    async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
         
         Args:
@@ -108,6 +108,8 @@ class State(rx.State):
             # Update the img var.
             self.img.append(file.filename)
 
+
+color = "rgb(107,99,246)"
 
 
 def index():
@@ -138,7 +140,7 @@ class State(rx.State):
     # The images to show.
     img: list[str]
 
-    async def handle_upload(self, files: List[rx.UploadFile]):
+    async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
         
         Args:
@@ -154,6 +156,9 @@ class State(rx.State):
 
             # Update the img var.
             self.img.append(file.filename)
+
+
+color = "rgb(107,99,246)"
 
 
 def index():
