@@ -14,7 +14,7 @@ example = """rx.vstack(
 """
 
 example2 = """ rx.vstack(
-    rx.html("<img src='https://pynecone.io/logo.png' />"),
+    rx.html("<img src='https://reflex.dev/reflex_banner.png' />"),
 )
 """
 
