@@ -91,7 +91,7 @@ class State(rx.State):
     # The images to show.
     img: list[str]
 
-    async def handle_upload(self, files: List[rx.UploadFile]):
+    async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
         
         Args:
@@ -140,7 +140,7 @@ class State(rx.State):
     # The images to show.
     img: list[str]
 
-    async def handle_upload(self, files: List[rx.UploadFile]):
+    async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
         
         Args:
