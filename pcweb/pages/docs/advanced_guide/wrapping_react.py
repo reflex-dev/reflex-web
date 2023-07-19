@@ -19,7 +19,7 @@ code1 = """
 class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
-    color: Var[str]
+    color: rx.Var[str]
 """
 
 code4 = """class ColorPickerState(State):
