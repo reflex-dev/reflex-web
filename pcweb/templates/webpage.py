@@ -9,7 +9,7 @@ DEFAULT_TITLE = "Reflex: The easiest way to build web apps."
 
 
 def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
-    """A template that most pages on the pynecone.io site should use.
+    """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
 
@@ -53,7 +53,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
                 contents(*children, **props),
                 footer(),
                 font_family=styles.SANS,
-                **props
+                **props,
             )
 
         return Route(

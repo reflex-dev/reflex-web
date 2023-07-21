@@ -8,6 +8,8 @@ from pcweb.middleware import CloseSidebarMiddleware
 from pcweb.pages import routes
 from pcweb.pages.docs.component import multi_docs
 
+from pcweb.pages import page404
+
 # Create the app.
 app = rx.App(
     state=State,
@@ -63,5 +65,6 @@ redirects = [
 for source, target in redirects:
     app.add_page(rx.fragment(), route=source, on_load=rx.redirect(target))
 
+app.add_custom_404_page(page404.index)
 # Run the app.
 app.compile()
