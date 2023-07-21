@@ -25,11 +25,35 @@ def parse_markdown_front_matter(markdown_content):
         front_matter = match.group(1)
         content = match.group(2)
         # Parse the front matter as YAML
-        front_matter_data = yaml.safe_load(front_matter)
+        try:
+            front_matter_data = yaml.safe_load(str(front_matter))
+        except yaml.scanner.ScannerError:
+            print("exception")
+            front_matter_data = front_matter
+
+        if isinstance(front_matter_data, str):
+            front_matter_data = front_matter
+
+        print("front matter data", front_matter_data)
         return front_matter_data, content
     else:
         return None, markdown_content
 
+def evaluate_template_string(input_string, scope):
+    # Regular expression to match the template placeholders
+    template_regex = r"{(.*?)}"
+    matches = re.findall(template_regex, input_string)
+
+    for match in matches:
+        try:
+            # Evaluate the Python expression and replace the template placeholder
+            eval_result = str(eval(match, scope))
+            input_string = input_string.replace("{" + match + "}", eval_result)
+        except Exception as e:
+            # If the evaluation fails, leave the template placeholder unchanged
+            print(f"Failed to evaluate expression '{match}': {e}")
+
+    return input_string
 
 def parse(source: str):
     """Parse out code blocks annotated with ```reflex
@@ -37,17 +61,25 @@ def parse(source: str):
     The surrounding Markdown should be left untouched.
     """
     front_matter, source = parse_markdown_front_matter(source)
+    print("front", front_matter, type(front_matter))
+    if isinstance(front_matter, str):
+        exec(front_matter)
+
     lines = source.split("\n")
     output = []
     in_reflex_block = False
     current_block = []
+
     for line in lines:
+        if not in_reflex_block:
+            if line == "" and not in_reflex_block:
+                # End normal block.
+                output.append(rx.markdown("\n".join(current_block)))
+                current_block = []
+
         if line.startswith("```reflex"):
-            # End normal block.
             line = line[len("```reflex") :]
             in_reflex_block = True
-            output.append(rx.markdown("\n".join(current_block)))
-            current_block = []
         elif in_reflex_block and line.startswith("```"):
             # End reflex block.
             in_reflex_block = False
@@ -59,7 +91,8 @@ def parse(source: str):
             output.append(result)
             current_block = []
         else:
-            current_block.append(line)
+            current_block.append(evaluate_template_string(line, scope=locals()))
+
     return front_matter, output
 
 

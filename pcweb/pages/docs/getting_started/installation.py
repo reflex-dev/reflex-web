@@ -1,21 +1,25 @@
 import reflex as rx
 from pcweb import constants
 from pcweb.templates.docpage import (
-    docalert,
-    doccode,
-    docheader,
-    doclink,
     docpage,
-    doctext,
+    docheader,
     subheader,
+    doctext,
+    doccode,
+    doclink,
+    docalert,
 )
 
-app_name = "my_app_name"
-default_url = "http://localhost:3000"
-
+app_name = "myapp"
+default_url = f"http://localhost:3000"
 
 @docpage()
 def installation():
+    from pcweb.pages.blog import parse
+    
+    # Get the file.
+    front_matter, output = parse(open("docs/getting-started/02-installation.md").read())
+
     return rx.box(
         docheader("Installation", first=True),
         subheader("Prerequisites"),
