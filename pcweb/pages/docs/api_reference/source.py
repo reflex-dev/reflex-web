@@ -7,6 +7,7 @@ from pcweb.templates.docpage import (
     subheader,
 )
 from pcweb import styles
+from pcweb.styles import font_weights as fw
 
 
 # Get the comment for a specific field.
@@ -140,7 +141,7 @@ def generate_docs(title, s):
         rx.code(
             s.get_name(),
             font_size=styles.H3_FONT_SIZE,
-            font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
+            font_weight=fw["section"]
         ),
         rx.divider(),
         doctext(s.get_overview()),

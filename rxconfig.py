@@ -13,6 +13,7 @@ config = rx.Config(
         "@tailwindcss/typography",
         "@splinetool/react-spline",
         "@splinetool/runtime",
+        "@inkeep/widgets"
     ],
     telemetry_enabled=False,
     tailwind={

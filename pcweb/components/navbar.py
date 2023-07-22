@@ -1,6 +1,6 @@
 """UI and logic for the navbar component."""
 
-from typing import Optional
+from typing import Optional, Set
 
 import reflex as rx
 from pcweb import constants, styles
@@ -8,6 +8,8 @@ from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
 from pcweb.pages.docs.gallery import gallery
+from reflex.vars import BaseVar, Var
+from reflex.components.component import EVENT_ARG, Component
 
 try:
     from pcweb.tsclient import client
@@ -15,13 +17,107 @@ except ImportError:
     client = None
 
 
-class NavMenu(rx.Component):
-    library = "@radix-ui/react-navigation-menu"
-    tag = "NavigationMenu"
+class Search(rx.Component):
+    tag = "InkeepSearchBar"
 
-    @classmethod
-    def get_alias(cls) -> Optional[str]:
-        return "*"
+    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}")}
+
+    def _get_custom_code(self) -> str:
+        return """ 
+import dynamic from 'next/dynamic'
+const InkeepSearchBar = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepSearchBar), { ssr: false });
+
+const searchBarProps = {
+  baseSettings: {
+    apiKey: "87b7469f79014c35a3313795088151a52de8a58a547abd16",
+    integrationId: "clkbf9e7e0001s601sa0ciax1",
+    organizationId: "org_WQKeNdnuPGEfuUhC",
+    organizationDisplayName: 'Reflex',
+    primaryBrandColor: '#5646ED',
+    breadcrumbRules: {
+      urlToBreadcrumbMapper: [
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev',
+            maxNChildSubpaths: 1,
+          },
+          breadcrumbName: 'Home',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/blog',
+          },
+          breadcrumbName: 'Blogs',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs',
+          },
+          breadcrumbName: 'Docs',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs/api-reference',
+          },
+          replaceLeading: true,
+          breadcrumbName: 'API Reference',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs/library',
+          },
+          replaceLeading: true,
+          breadcrumbName: 'Components Reference',
+        },
+      ],
+      wordMapper: [
+        {
+          word: 'Api',
+          replaceWith: 'API',
+        },
+        {
+          word: 'Cli',
+          replaceWith: 'CLI',
+        },
+      ],
+    },
+    documentTitleSettings: {
+      replaceSubstrings: [
+        {
+          matchingRule: {
+            ruleType: 'Substring',
+            string: ' | Reflex',
+          },
+          replaceWith: '',
+        },
+      ],
+    },
+  },
+  modalSettings: {
+    // optional typeof InkeepModalSettings
+  },
+  searchSettings: { // optional InkeepSearchSettings
+    tabSettings: {
+      areRootBreadcrumbsTabs: true,
+      tabOrderByLabel: ['Home', 'Docs', 'API Reference', 'Components Reference', 'Blogs'],
+    },
+  },
+  aiChatSettings: { // optional typeof InkeepAIChatSettings
+    quickQuestions: [
+      'How does Reflex work?',
+      'What types of apps can I build with Reflex?',
+      'Where can I deploy my apps?',
+    ],
+  },
+};
+"""
+
+inkeep = Search.create
 
 
 class NavbarState(State):
@@ -105,66 +201,6 @@ hover_button_style = {
 }
 
 
-def search_bar():
-    return rx.hstack(
-        rx.fragment(
-            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            rx.text("Search docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
-        ),
-        rx.spacer(),
-        rx.text("/", style=styles.NAV_SEARCH_STYLE),
-        on_click=NavbarState.change_search,
-        display=["none", "flex", "flex", "flex", "flex"],
-        min_width=["15em", "15em", "15em", "20em", "20em"],
-        padding_x="1em",
-        height="2em",
-        border_radius="20px",
-        bg="#FAF8FB",
-    )
-
-
-def search_modal(state: NavbarState):
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_body(
-                    rx.vstack(
-                        rx.hstack(
-                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                            rx.input(
-                                placeholder="Search the docs",
-                                on_change=NavbarState.set_search_input,
-                                focus_border_color="transparent",
-                                border_color="transparent",
-                                font_weight=400,
-                                _placeholder={"color": "#342E5C"},
-                            ),
-                            width="100%",
-                        ),
-                        rx.divider(),
-                        rx.vstack(
-                            rx.foreach(
-                                NavbarState.search_results,
-                                format_search_results,
-                            ),
-                            spacing="1em",
-                            width="100%",
-                            max_height="30em",
-                            align_items="start",
-                            overflow_y="auto",
-                        ),
-                    )
-                ),
-                bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.12) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
-            )
-        ),
-        is_open=NavbarState.search_modal,
-        on_close=NavbarState.change_search,
-        padding_top="1em",
-        padding_x="1em",
-    )
-
-
 def github_button():
     return rx.link(
         rx.hstack(
@@ -245,10 +281,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         tag="close",
                         z_index=1000,
                         style={
-                                    "color": "#FFFFFF",
-                                    "text_decoration": "underline",
-                                    "_hover": {"color": styles.ACCENT_COLOR},
-                                },
+                            "color": "#FFFFFF",
+                            "text_decoration": "underline",
+                            "_hover": {"color": styles.ACCENT_COLOR},
+                        },
                         on_click=NavbarState.toggle_banner,
                     ),
                     width="100%",
@@ -320,7 +356,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     spacing="2em",
                 ),
                 rx.hstack(
-                    search_bar(),
+                    inkeep(),
                     github_button(),
                     discord_button(),
                     rx.icon(
@@ -336,36 +372,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     ),
                     height="full",
                 ),
-                rx.drawer(
-                    rx.drawer_overlay(
-                        rx.drawer_content(
-                            rx.hstack(
-                                logo,
-                                rx.icon(
-                                    tag="close",
-                                    on_click=NavbarState.toggle_sidebar,
-                                    width="4em",
-                                    _hover={
-                                        "cursor": "pointer",
-                                        "color": styles.ACCENT_COLOR,
-                                    },
-                                ),
-                                justify="space-between",
-                                margin_bottom="1.5em",
-                            ),
-                            sidebar if sidebar is not None else rx.text("Sidebar"),
-                            padding_x="2em",
-                            padding_top="2em",
-                            bg="rgba(255,255,255, 0.97)",
-                        ),
-                        bg="rgba(255,255,255, 0.5)",
-                    ),
-                    placement="left",
-                    is_open=NavbarState.sidebar_open,
-                    on_close=NavbarState.toggle_sidebar,
-                    bg="rgba(255,255,255, 0.5)",
-                ),
-                search_modal(NavbarState),
                 justify="space-between",
                 padding_x=styles.PADDING_X,
             ),

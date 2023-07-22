@@ -9,6 +9,9 @@ from pcweb import styles
 from pcweb.component_list import component_list
 from pcweb.route import Route
 from reflex.base import Base
+from pcweb.styles import font_weights as fw
+
+from pcweb.styles import text_colors as tc
 
 # Sidebar styles.
 heading_style = {
@@ -26,7 +29,7 @@ heading_style2 = {
     "padding_y": "0.25em",
 }
 heading_style3 = {
-    "font_weight": styles.DOC_SECTION_FONT_WEIGHT,
+    "font_weight": fw["section"],
     "font_size": styles.H4_FONT_SIZE,
     "color": "#696287",
     "margin_bottom": "0.5em",
@@ -216,7 +219,7 @@ def sidebar_leaf(
             rx.link(
                 rx.text(
                     item.names,
-                    color=styles.DOC_REG_TEXT_COLOR,
+                    color=tc["docs"]["body"],
                     _hover={"color": styles.ACCENT_COLOR},
                     padding_x="0.5em",
                 ),
@@ -371,7 +374,7 @@ def sidebar_comp(
                     rx.text(
                         "Gallery",
                         style={
-                            "color": styles.DOC_REG_TEXT_COLOR,
+                            "color": tc["docs"]["body"],
                             "_hover": {"color": styles.ACCENT_COLOR},
                         },
                         font_family=styles.SANS,

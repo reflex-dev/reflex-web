@@ -2,6 +2,7 @@ import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext
+from pcweb.styles import text_colors as tc
 
 difficulty_colors = {"Beginner": "green", "Intermediate": "orange", "Advanced": "red"}
 example_list = [
@@ -189,7 +190,7 @@ def component_grid():
                 ),
                 rx.box(
                     category["description"],
-                    color=styles.DOC_REG_TEXT_COLOR,
+                    color=tc["docs"]["body"],
                     height="2.5em",
                     overflow="scroll",
                     background="linear-gradient(transparent .5em, white)",

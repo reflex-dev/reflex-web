@@ -10,6 +10,9 @@ from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subhea
 from pcweb.templates.webpage import webpage
 from reflex import el
 
+from pcweb.styles import text_colors as tc
+from pcweb.styles import colors as c
+
 PAGES_PATH = "blog/"
 
 
@@ -145,29 +148,30 @@ def component_grid():
                     rx.heading(
                         meta["title"],
                         font_size="1.2rem",
-                        mb=4,
+                        mb="0.5em",
                     ),
                     rx.text(
                         meta["description"],
                         font_size="0.8rem",
                     ),
+                    rx.divider(),
                     rx.hstack(
                         rx.vstack(
-                            rx.text("Written by", font_size="0.8rem"),
+                            rx.text("Written by", font_size="0.6rem"),
                             rx.hstack(
-                                rx.avatar(name=meta["author"], size="xs"),
-                                rx.text(meta["author"], font_size="0.9rem"),
+                                rx.avatar(name=meta["author"], size="sm", bg = c["indigo"][800], color=c["white"]),
+                                rx.text(meta["author"], font_size="0.8rem"),
                             ),
                             align_items="left",
                         ),
                         rx.spacer(),
                         rx.vstack(
-                            rx.text("Published on", font_size="0.8rem"),
-                            rx.text(str(meta["date"]), font_size="0.9rem"),
+                            rx.text("Published on", font_size="0.6rem"),
+                            rx.text(str(meta["date"]), font_size="0.8em"), 
                             align_items="left",
                         ),
-                        color="#666",
-                        padding_y="0.5em",
+                        color=tc["docs"]["body"],
+                        padding_bottom="0.5em",
                     ),
                     p=4,
                 ),
@@ -191,10 +195,10 @@ def blg():
     return rx.container(
         rx.vstack(
             rx.box(
-                rx.heading("Reflex Blog", font_size="3rem", mt=12, mb=4),
+                rx.heading("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
                 rx.text(
                     "The latest news from the Reflex team. ",
-                    color=styles.DOC_TEXT_COLOR,
+                    color=tc["docs"]["body"],
                 ),
                 rx.divider(),
                 text_align="left",
