@@ -55,7 +55,7 @@ def evaluate_template_string(input_string, scope):
 
     return input_string
 
-def parse(source: str):
+def parse(source: str, md=rx.markdown):
     """Parse out code blocks annotated with ```reflex
     and replace them with the output of the code block.
     The surrounding Markdown should be left untouched.
@@ -74,7 +74,7 @@ def parse(source: str):
         if not in_reflex_block:
             if line == "" and not in_reflex_block:
                 # End normal block.
-                output.append(rx.markdown("\n".join(current_block)))
+                output.append(md("\n".join(current_block)))
                 current_block = []
 
         if line.startswith("```reflex"):

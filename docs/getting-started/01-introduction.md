@@ -2,7 +2,7 @@
 from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docheader, subheader
-from pcweb.pages.docs.getting_started.introduction import CounterExampleState
+from pcweb.pages.docs.getting_started.introduction import CounterExampleState, counter_code
 ---
 
 # Introduction
@@ -64,3 +64,19 @@ rx.hstack(
     ),
 )
 ```
+
+Here is the full code for this example:
+
+```python
+{counter_code}
+```
+
+### The Structure of a Reflex App
+
+Let's break this example down.
+
+### Import
+
+We begin by importing the `reflex` library. All Reflex functions and classes begin with the `rx` prefix.
+
+## State
