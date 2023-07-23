@@ -1,7 +1,7 @@
 ---
 from pcweb import constants, styles
 from pcweb.base_state import State
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader
+from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 from pcweb.pages.docs.getting_started.introduction import CounterExampleState, counter_code
 ---
 
@@ -9,7 +9,7 @@ from pcweb.pages.docs.getting_started.introduction import CounterExampleState, c
 
 Reflex is a full-stack framework for building and deploying web apps.
 
-## Motivation
+### Motivation
 
 Reflex was created with the following goals:
 
@@ -39,29 +39,31 @@ rx.text(
 
 No need to reach for a bunch of different tools. Reflex handles the frontend, backend, and deployment of your app.
 
-## First Example
+### First Example
 
 Let's go over a simple counter app to explore the basics of Reflex.
 
 ```reflex
-rx.hstack(
-    rx.button(
-        "Decrement",
-        bg="#fef2f2",
-        color="#b91c1c",
-        border_radius="lg",
-        on_click=CounterExampleState.decrement,
-    ),
-    rx.heading(
-        CounterExampleState.count, font_size="2em", padding_x="0.5em"
-    ),
-    rx.button(
-        "Increment",
-        bg="#ecfdf5",
-        color="#047857",
-        border_radius="lg",
-        on_click=CounterExampleState.increment,
-    ),
+docdemobox(
+    rx.hstack(
+        rx.button(
+            "Decrement",
+            bg="#fef2f2",
+            color="#b91c1c",
+            border_radius="lg",
+            on_click=CounterExampleState.decrement,
+        ),
+        rx.heading(
+            CounterExampleState.count, font_size="2em", padding_x="0.5em"
+        ),
+        rx.button(
+            "Increment",
+            bg="#ecfdf5",
+            color="#047857",
+            border_radius="lg",
+            on_click=CounterExampleState.increment,
+        ),
+    )
 )
 ```
 
@@ -79,4 +81,4 @@ Let's break this example down.
 
 We begin by importing the `reflex` library. All Reflex functions and classes begin with the `rx` prefix.
 
-## State
+### State
