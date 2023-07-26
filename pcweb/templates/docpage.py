@@ -265,9 +265,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             # Create the previous component link.
             if prev:
+                next_prev_name = prev.alt_name_for_next_prev if prev.alt_name_for_next_prev else prev.names
                 links.append(
                     rx.link(
-                        "← " + prev.names,
+                        "← " + next_prev_name,
                         href=prev.link,
                         style=link_style,
                     )
@@ -277,9 +278,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             # Create the next component link.
             if next:
+                next_prev_name = next.alt_name_for_next_prev if next.alt_name_for_next_prev else next.names
                 links.append(
                     rx.link(
-                        next.names + " →",
+                        next_prev_name + " →",
                         href=next.link,
                         style=link_style,
                     )

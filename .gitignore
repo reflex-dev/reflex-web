@@ -1,12 +1,16 @@
+# Common virtual env folders
+# IntelliJ IDEA settings
 **/*.db
 **/*.pyc
 **/*.swp
 **/.DS_Store
 **/.web
 *.py[cod]
+.idea
 .web
 __pycache__/
 pcconfig2.py
 pcweb/tsclient.py
 pynecone.db
 reflex.db
+venv/
