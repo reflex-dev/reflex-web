@@ -110,6 +110,7 @@ def get_sidebar_items_learn():
                 state.vars,
                 state.events,
                 state.substates,
+                state.utility_methods,
             ],
         ),
         create_item(
