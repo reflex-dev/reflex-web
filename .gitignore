@@ -1,5 +1,3 @@
-# Common virtual env folders
-# IntelliJ IDEA settings
 **/*.db
 **/*.pyc
 **/*.swp
