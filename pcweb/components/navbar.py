@@ -171,7 +171,7 @@ def github_button():
             rx.image(src="/github.svg", height="1.25em"),
             rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
-                "9k+",
+                "10k+",
                 color="#5646ED",
                 bg="#F5EFFE",
                 padding_x="0.5em",
