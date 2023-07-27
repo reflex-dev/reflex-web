@@ -40,6 +40,8 @@ class SidebarItem(Base):
     # The name to display in the sidebar.
     names: str = ""
 
+    alt_name_for_next_prev: str = ""
+
     # The link to navigate to when the item is clicked.
     link: str = ""
 
@@ -52,9 +54,15 @@ def create_item(route: Route, children=None):
     if children is None:
         name = route.title.split(" | Reflex")[0]
         if name.endswith("Overview"):
+            # For "Overview", we want to keep the qualifier prefix ("Components overview")
+            alt_name_for_next_prev = name
             name = "Overview"
+        else:
+            alt_name_for_next_prev = ""
         name = name.replace("Api", "API").replace("Cli", "CLI")
-        return SidebarItem(names=name, link=route.path)
+        return SidebarItem(names=name,
+                           alt_name_for_next_prev=alt_name_for_next_prev,
+                           link=route.path)
     return SidebarItem(
         names=inspect.getmodule(route)
         .__name__.split(".")[-1]
@@ -102,6 +110,7 @@ def get_sidebar_items_learn():
                 state.vars,
                 state.events,
                 state.substates,
+                state.utility_methods,
             ],
         ),
         create_item(
@@ -152,7 +161,9 @@ def get_sidebar_items_reference():
     library_item = SidebarItem(
         names="Components",
         children=[
-            SidebarItem(names="Overview", link="/docs/library"),
+            SidebarItem(names="Overview",
+                        alt_name_for_next_prev="Components Reference: Overview",
+                        link="/docs/library"),
             *[
                 SidebarItem(
                     names=category,

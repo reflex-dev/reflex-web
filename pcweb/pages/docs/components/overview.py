@@ -15,10 +15,12 @@ from pcweb.templates.docpage import (
 code_example1 = """rx.text('Hello World!', color='blue', font_size="1.5em")"""
 code_example2 = """
 rx.hstack(
+    # Static 50% progress
     rx.circular_progress(
         rx.circular_progress_label("50", color="green"),
         value=50,
     ),
+    # "Spinning" progress
     rx.circular_progress(
         rx.circular_progress_label("∞", color="rgb(107,99,246)"),
         is_indeterminate=True,
@@ -31,11 +33,11 @@ definitions = [
     definition(
         "Children",
         rx.unordered_list(
-            rx.list_item("Other Reflex components nested inside a component."),
+            rx.list_item("Text or other Reflex components nested inside a component."),
             rx.list_item(
-                "They are passed in as ",
+                "Passed as ",
                 rx.span("positional arguments", font_weight="bold"),
-                " to the component.",
+                ".",
             ),
         ),
     ),
@@ -46,9 +48,9 @@ definitions = [
                 "Attributes that affect the behavior and appearance of a component."
             ),
             rx.list_item(
-                "They are passed in as ",
+                "Passed as ",
                 rx.span("keyword arguments", font_weight="bold"),
-                " to the component.",
+                ".",
             ),
         ),
     ),
@@ -69,13 +71,13 @@ def components_overview():
             They let you split the UI into independent, reusable pieces, and let you think about each piece in isolation."""
         ),
         doctext(
-            "If you are familiar with React, Reflex components are simply wrappers around React components. ",
+            "Reflex components wrap React components behind the scenes, enabling a pure Python development experience.",
         ),
         doctext(
-            "Components are created with Python functions.",
-            "They can be configured with keyword arguments, called ",
+            "Components are created with Python functions. ",
+            "They are configured with keyword arguments, called ",
             doclink("props", href=props.path),
-            ", and can be nested to create  complex UIs.",
+            ", and can be nested to create complex UIs.",
         ),
         subheader("Component Basics"),
         doctext(
@@ -88,10 +90,15 @@ def components_overview():
             ),
         ),
         rx.tablet_and_desktop(
-            rx.hstack(
-                *definitions,
+            rx.grid(
+                rx.grid_item(definitions[0], row_span=1, col_span=1, width="100%"),
+                rx.grid_item(definitions[1], row_span=1, col_span=1, width="100%"),
+                template_columns="repeat(2, 1fr)",
+                h="10em",
+                width="100%",
+                gap=4,
                 margin_bottom="1em",
-            ),
+            )
         ),
         doctext(
             "Let's take a look at the ",

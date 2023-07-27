@@ -21,8 +21,9 @@ code2 = """rx.button(
     background_image="linear-gradient(144deg,#AF40FF,#5B42F3 50%,#00DDEB)",
     box_sizing="border-box",
     color="white",
+    opacity="0.6",
     _hover={
-        "opacity": 0.85,
+        "opacity": 1,
     }
 )"""
 
@@ -98,7 +99,7 @@ def props():
             rx.alert(
                 rx.alert_icon(),
                 rx.alert_title(
-                    "Reflex has several ",
+                    "Reflex has a wide selection of ",
                     doclink("built-in components", href=library.path),
                     " to get you started quickly.",
                 ),
@@ -107,19 +108,12 @@ def props():
         ),
         subheader("HTML Props"),
         doctext(
-            "Each component has basic HTML props. ",
-            "You can set ",
-            rx.code("id"),
-            ", which type is a ",
-            rx.code("str"),
-            " to show specific content to the top of view with hash in URL. ",
-            "You can also add ",
-            rx.code("class_name"),
-            ", which type can be a ",
-            rx.code("str"),
-            " or a ",
-            rx.code("List[str]"),
-            " to attach style. ",
+            "Components support many standard HTML properties as props. ",
+            "For example: the HTML ", doclink("id", href="https://www.w3schools.com/html/html_id.asp"),
+            " property is exposed directly as the prop ", rx.code("id"), ". ",
+            "The HTML ", doclink("className", href="https://www.w3schools.com/jsref/prop_html_classname.asp"),
+            " property is exposed as the prop ", rx.code("class_name"),
+            " (note the Pythonic snake_casing!).",
         ),
         docdemo(code7),
         subheader("Style Props"),
@@ -135,17 +129,18 @@ def props():
         ),
         subheader("Binding Props to State"),
         doctext(
+            "Reflex apps maintain ", doclink("State", href=state_overview.path), "."
+        ),
+        doctext("State may be modified in response to things like user input, or rendering events (like page load)."),
+        doctext(
+            "State may be bound to component props, so that the UI reacts to state updates."
+        ),
+        doctext(
             rx.alert(
                 rx.alert_icon(),
                 rx.box(
-                    rx.alert_title(
-                        "We recommend reading the ",
-                        doclink("state docs", href=state_overview.path),
-                        " for this section.",
-                    ),
                     rx.alert_description(
-                        "The rest of this page discusses how props interact with your app state. ",
-                        "Feel free to continue with the component docs, and come back to this later. ",
+                        "Optional: Learn all about ", doclink("State", href=state_overview.path), " first."
                     ),
                 ),
                 status="warning",

@@ -107,13 +107,8 @@ app.add_page(post, route="/post/[pid]")
             ".",
         ),
         doctext(
-            "You can also specify multiple dynamic arguments, ",
-            "and they will be available in the ",
-            rx.code("get_query_params"),
-            " dictionary.",
-        ),
-        doctext(
-            "We also provide methods to get the current page, as well as the token of the user who made the request. ",
+            "You can specify multiple dynamic arguments. Their values can be retrieved by calling ",
+            rx.code("get_query_params()"), "."
         ),
         doccode(
             """
@@ -121,21 +116,12 @@ class State(rx.State):
     @rx.var
     def post_id(self):
         return self.get_query_params().get("pid", "no pid")
-
-    @rx.var
-    def current_page(self):
-        return self.get_current_page()
-
-    @rx.var
-    def token(self):
-        return self.get_token()
+ 
 
 def post():
     \"""A page that updates based on the route.\"""
     return rx.vstack(
         rx.text(State.post_id), 
-        rx.text(State.current_page),
-        rx.text(State.token),
     )
 
 app = rx.App(state=State)
@@ -149,24 +135,25 @@ app.add_page(post, route="/post/[pid]")
         rx.unordered_list(
             rx.vstack(
                 rx.list_item(
-                    rx.text("The title that will appear in the browser tab"),
+                    rx.text("The title to be shown in the browser tab"),
                     width="100%",
                 ),
                 rx.list_item(
-                    rx.text("The description that will appear in search results"),
+                    rx.text("The description as shown in search results"),
                     width="100%",
                 ),
                 rx.list_item(
                     rx.text(
-                        "The image that will appear when the page is shared on social media"
+                        "The image to be shown when the page is shared on social media"
                     ),
                     width="100%",
                 ),
                 rx.list_item(
-                    rx.text("The optional metadata that you want to add"),
+                    rx.text("Any additional metadata"),
                     width="100%",
                 ),
-            )
+            ),
+            padding_bottom="1em",
         ),
         doccode(
             """
@@ -183,7 +170,11 @@ meta = [
 ]
 
 app = rx.App()
-app.add_page(index, meta=meta, title="My Beautiful App", description="A beautiful app built with Reflex", image="/splash.png")
+app.add_page(index,
+             title="My Beautiful App",
+             description="A beautiful app built with Reflex",
+             image="/splash.png",
+             meta=meta)
 app.add_page(about, title="About Page")
             """
         ),
@@ -222,6 +213,6 @@ app.add_page(about, title="About Page")
         doctext(
             "This is equivalent to calling ",
             rx.code("app.add_page"),
-            " with the same arguments.",
+            " with the same arguments."
         ),
     )
