@@ -111,10 +111,10 @@ def render_icon():
     )
 
 
-code83 = """rx.image(src="/black.png", width="100px", height="auto")
+code83 = """rx.image(src="/rocket.svg", width="100px", height="auto")
 """
 code84 = """rx.image(
-    src="/black.png",
+    src="/rocket.svg",
     width="100px",
     height="auto",
     border_radius="15px 50px",
