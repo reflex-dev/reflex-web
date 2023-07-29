@@ -159,7 +159,12 @@ def component_grid():
                         rx.vstack(
                             rx.text("Written by", font_size="0.6rem"),
                             rx.hstack(
-                                rx.avatar(name=meta["author"], size="sm", bg = c["indigo"][800], color=c["white"]),
+                                rx.avatar(
+                                    name=meta["author"],
+                                    size="sm",
+                                    bg=c["indigo"][800],
+                                    color=c["white"],
+                                ),
                                 rx.text(meta["author"], font_size="0.8rem"),
                             ),
                             align_items="left",
@@ -167,7 +172,7 @@ def component_grid():
                         rx.spacer(),
                         rx.vstack(
                             rx.text("Published on", font_size="0.6rem"),
-                            rx.text(str(meta["date"]), font_size="0.8em"), 
+                            rx.text(str(meta["date"]), font_size="0.8em"),
                             align_items="left",
                         ),
                         color=tc["docs"]["body"],

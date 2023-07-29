@@ -138,11 +138,7 @@ class Source(rx.Base):
 def generate_docs(title, s):
     return rx.box(
         docheader(title.title(), first=True),
-        rx.code(
-            s.get_name(),
-            font_size=styles.H3_FONT_SIZE,
-            font_weight=fw["section"]
-        ),
+        rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
         rx.divider(),
         doctext(s.get_overview()),
         subheader("Class Fields"),

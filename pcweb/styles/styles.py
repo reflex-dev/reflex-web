@@ -3,6 +3,7 @@
 import reflex as rx
 from .colors import colors as c
 from .fonts import font_weights as fw
+
 # General styles.
 SANS = "Instrument Sans"
 MONO = "IBM Plex Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"

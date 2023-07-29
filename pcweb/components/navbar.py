@@ -4,6 +4,7 @@ from typing import Optional, Set
 
 import reflex as rx
 from pcweb import constants, styles
+from reflex.style import Style
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
@@ -11,39 +12,40 @@ from pcweb.pages.docs.gallery import gallery
 from reflex.vars import BaseVar, Var
 from reflex.components.component import EVENT_ARG, Component
 
-try:
-    from pcweb.tsclient import client
-except ImportError:
-    client = None
-
 
 class Search(rx.Component):
-    tag = "InkeepSearchBar"
+    tag = "InkeepCustomTrigger"
 
-    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}")}
+    special_props: Set[Var] = {Var.create_safe("{...inkeepCustomTriggerProps}")}
 
+    is_open: BaseVar[bool] = False
+    
+
+    def get_triggers(self) -> Set[str]:
+        """Get the event triggers for the component.
+
+        Returns:
+            The event triggers.
+        """
+        return super().get_triggers() | {
+            "on_close",
+            "on_shortcutKey_pressed"
+        }
+    
     def _get_custom_code(self) -> str:
         return """ 
 import dynamic from 'next/dynamic'
-const InkeepSearchBar = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepSearchBar), { ssr: false });
+const InkeepCustomTrigger = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepCustomTrigger), { ssr: false });
 
-const searchBarProps = {
+const inkeepCustomTriggerProps = {
   baseSettings: {
-    apiKey: "87b7469f79014c35a3313795088151a52de8a58a547abd16",
-    integrationId: "clkbf9e7e0001s601sa0ciax1",
-    organizationId: "org_WQKeNdnuPGEfuUhC",
+    apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
+    integrationId: 'clkbf9e7e0001s601sa0ciax1',
+    organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#5646ED',
     breadcrumbRules: {
       urlToBreadcrumbMapper: [
-        {
-          matchingRule: {
-            ruleType: 'PartialUrl',
-            partialUrl: 'reflex.dev',
-            maxNChildSubpaths: 1,
-          },
-          breadcrumbName: 'Home',
-        },
         {
           matchingRule: {
             ruleType: 'PartialUrl',
@@ -75,37 +77,36 @@ const searchBarProps = {
           breadcrumbName: 'Components Reference',
         },
       ],
-      wordMapper: [
-        {
-          word: 'Api',
-          replaceWith: 'API',
-        },
-        {
-          word: 'Cli',
-          replaceWith: 'CLI',
-        },
-      ],
     },
-    documentTitleSettings: {
-      replaceSubstrings: [
-        {
-          matchingRule: {
-            ruleType: 'Substring',
-            string: ' | Reflex',
-          },
-          replaceWith: '',
+    stringReplacementRules: [
+      {
+        matchingRule: {
+          ruleType: 'Substring',
+          string: 'Api',
         },
-      ],
-    },
+        replaceWith: 'API',
+        replaceInTitles: true,
+      },
+      {
+        matchingRule: {
+          ruleType: 'Substring',
+          string: 'Cli',
+        },
+        replaceWith: 'CLI',
+        replaceInTitles: true,
+      },
+    ],
   },
   modalSettings: {
     // optional typeof InkeepModalSettings
   },
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {
-      areRootBreadcrumbsTabs: true,
-      tabOrderByLabel: ['Home', 'Docs', 'API Reference', 'Components Reference', 'Blogs'],
+      isAllTabEnabled: true,
+      useAllRootBreadcrumbsAsTabs: true,
+      tabOrderByLabel: ['All', 'Docs', 'API Reference', 'Components Reference', 'Blogs'],
     },
+    placeholder: 'Search documentation...',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
     quickQuestions: [
@@ -116,6 +117,7 @@ const searchBarProps = {
   },
 };
 """
+
 
 inkeep = Search.create
 
@@ -143,46 +145,21 @@ class NavbarState(State):
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
 
-    @rx.var
-    def search_results(self) -> list[dict[str, dict[str, str]]]:
-        """Get the search results."""
-        if client is None or self.search_input == "":
-            return []
-        search_parameters = {
-            "q": self.search_input,
-            "query_by": "heading, description",
-            "query_by_weights": "2,1",
-            "sort_by": "_text_match:desc",
-        }
-        return client.collections["search-auto"].documents.search(search_parameters)[
-            "hits"
-        ]
-
-
-def format_search_results(result):
-    return rx.vstack(
-        rx.link(
-            rx.text(
-                result["document"]["heading"],
-                font_weight=600,
-                color="#1F1944",
-            ),
-            rx.divider(),
-            rx.text(
-                result["document"]["description"],
-                font_weight=400,
-                color="#696287",
-            ),
-            on_click=NavbarState.change_search,
-            href=result["document"]["href"],
+def search_bar():
+    return rx.hstack(
+        rx.fragment(
+            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+            rx.text("Search documentation...", style=styles.NAV_SEARCH_STYLE, font_weight=400),
         ),
+        rx.spacer(),
+        rx.text("/", style=styles.NAV_SEARCH_STYLE),
+        on_click=NavbarState.change_search,
+        display=["none", "flex", "flex", "flex", "flex"],
+        min_width=["15em", "15em", "15em", "20em", "20em"],
+        padding_x="1em",
+        height="2em",
+        border_radius="20px",
         bg="#FAF8FB",
-        border_radius="8px",
-        align_items="start",
-        padding="0.5em",
-        shadow=styles.DOC_SHADOW_LIGHT,
-        _hover={"background_color": "#F5EFFE", "color": "#5646ED"},
-        width="100%",
     )
 
 
@@ -356,7 +333,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     spacing="2em",
                 ),
                 rx.hstack(
-                    inkeep(),
+                    search_bar(),
+                    inkeep(is_open=NavbarState.search_modal, on_close=NavbarState.change_search),
                     github_button(),
                     discord_button(),
                     rx.icon(

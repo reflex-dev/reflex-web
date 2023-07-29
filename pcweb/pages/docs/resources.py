@@ -4,6 +4,7 @@ from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext, subheader
 from pcweb.styles import text_colors as tc
 
+
 def video(title, author, url):
     return rx.link(
         rx.list_item(

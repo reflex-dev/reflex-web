@@ -619,8 +619,12 @@ def definition(title: str, *children) -> rx.Component:
         rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
         *children,
         padding="1em",
-        border=f"1px solid {styles.ACCENT_COLOR}",
-        border_radius="15px",
+        border=f"1px solid {c['gray'][200]}",
+        border_radius=styles.DOC_BORDER_RADIUS,
+        _hover={
+            "box_shadow": styles.DOC_SHADOW_LIGHT,
+            "border": f"1.5px solid {c['violet'][200]}",
+        },
     )
 
 
