@@ -60,9 +60,9 @@ def create_item(route: Route, children=None):
         else:
             alt_name_for_next_prev = ""
         name = name.replace("Api", "API").replace("Cli", "CLI")
-        return SidebarItem(names=name,
-                           alt_name_for_next_prev=alt_name_for_next_prev,
-                           link=route.path)
+        return SidebarItem(
+            names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
+        )
     return SidebarItem(
         names=inspect.getmodule(route)
         .__name__.split(".")[-1]
@@ -161,9 +161,11 @@ def get_sidebar_items_reference():
     library_item = SidebarItem(
         names="Components",
         children=[
-            SidebarItem(names="Overview",
-                        alt_name_for_next_prev="Components Reference: Overview",
-                        link="/docs/library"),
+            SidebarItem(
+                names="Overview",
+                alt_name_for_next_prev="Components Reference: Overview",
+                link="/docs/library",
+            ),
             *[
                 SidebarItem(
                     names=category,
@@ -206,6 +208,7 @@ def get_sidebar_items_reference():
             children=[
                 recipes.navbar,
                 recipes.sidebar,
+                recipes.checkboxes,
             ],
         ),
     ]

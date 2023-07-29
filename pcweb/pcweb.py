@@ -12,7 +12,6 @@ from pcweb.pages import page404
 
 # Create the app.
 app = rx.App(
-    state=State,
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
 )
