@@ -38,23 +38,22 @@ button_state = """class ButtonState(State):
         self.count -= 1
 """
 exec(button_state)
-button_state_example = """rx.button_group(
+button_state_example = """rx.hstack(
     rx.button(
         "Decrement",
-        color_scheme="red",
-        variant="outline",
-        border_radius="1em",
+        bg="#fef2f2",
+        color="#b91c1c",
+        border_radius="lg",
         on_click=ButtonState.decrement,
     ),
-    rx.heading(ButtonState.count, font_size=24),
+    rx.heading(ButtonState.count, font_size="2em", padding_x="0.5em"),
     rx.button(
         "Increment",
-        color_scheme="green",
-        variant="outline",
-        border_radius="1em",
+        bg="#ecfdf5",
+        color="#047857",
+        border_radius="lg",
         on_click=ButtonState.increment,
     ),
-    space="1em",
 )
 """
 
