@@ -22,13 +22,15 @@ example2 = """ rx.vstack(
 def render_html():
     return rx.vstack(
         doctext(
-            "The html component can be used to render raw html code.",
-            "This is useful for rendering html code that is not supported by the reflex library.",
-            "It takes in a string of html code and renders it.",
+            "The HTML component can be used to render raw HTML code. ",
+            "It takes in a string of HTML code and renders it.",
+        ),
+        doctext(
+            "Before you reach for this component, consider using Reflex's raw HTML element support instead."
         ),
         docdemo(example),
         doctext(
-            "Here is another example of the html component. In this example, we render an image."
+            "Here is another example of the HTML component. In this example, we render an image."
         ),
         docdemo(example2),
     )
