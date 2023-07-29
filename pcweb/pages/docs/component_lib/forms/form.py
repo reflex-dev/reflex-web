@@ -75,7 +75,7 @@ def render_form():
             rx.alert(
                 rx.alert_icon(),
                 rx.alert_title(
-                    "When using the form you must include a component with the ",
+                    "When using the form you must include a button or input with ",
                     rx.code("type_='submit'"),
                     ".",
                 ),

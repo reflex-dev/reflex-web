@@ -130,19 +130,19 @@ def render_input():
             comp=eval(clear_input_example),
             context=True,
         ),
-        doctext(
-            "You can also use the ",
-            rx.code("on_key_down"),
-            " and ",
-            rx.code("on_key_up"),
-            " event handlers to listen for key presses.",
-        ),
-        docdemo(
-            key_press_example,
-            state=key_press_state,
-            comp=eval(key_press_example),
-            context=True,
-        ),
+        # doctext(
+        #     "You can also use the ",
+        #     rx.code("on_key_down"),
+        #     " and ",
+        #     rx.code("on_key_up"),
+        #     " event handlers to listen for key presses.",
+        # ),
+        # docdemo(
+        #     key_press_example,
+        #     state=key_press_state,
+        #     comp=eval(key_press_example),
+        #     context=True,
+        # ),
         doctext(
             "You can change the type of input by using the ",
             rx.code("type_"),

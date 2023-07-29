@@ -20,6 +20,7 @@ basic_example = """rx.accordion(
             rx.text("This is an example of an accordion component.")
         )
     ),
+    allow_toggle = True,
     width = "100%"
 )
 """

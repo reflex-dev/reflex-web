@@ -1,7 +1,7 @@
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, subheader
+from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
 
 code49 = """rx.vstack(
     rx.box("Example", bg="yellow", border_radius="sm", width="20%"),
@@ -610,7 +610,7 @@ def render_fragment():
         ),
         doctext(
             "Refer to the React docs at ",
-            rx.link(
+            doclink(
                 "React/Fragment", href="https://react.dev/reference/react/Fragment"
             ),
             " for more information on its use-case",
