@@ -31,7 +31,9 @@ for key in component_list:
         app.add_page(
             multi_docs(path=path, component_list=component_group).component,
             route=path,
-            title=f"{component_group[0].__name__} | Reflex",
+            title=f"Reflex | {component_group[0].__name__}",
+            description=f"Reflex | Docs for {component_group[0].__name__} component.",
+            image="preview.jpg",
         )
 
 # Add the middleware.

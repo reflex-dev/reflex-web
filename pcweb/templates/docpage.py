@@ -386,7 +386,7 @@ def docheader(
         style["fontSize"] = font_size
 
     # Set the text.
-    children = [rx.heading(text, style=style, **props)]
+    children = [rx.heading(text, _as= "h1", style=style, **props)]
 
     # Add a badge if the header is coming soon.
     if coming_soon:
