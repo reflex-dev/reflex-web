@@ -50,7 +50,8 @@ slider_combo = """rx.vstack(
     rx.heading(SliderCombo.value, color=SliderCombo.color),
     rx.slider(
         on_change_start=SliderCombo.set_start,
-        on_change_end=SliderCombo.set_end
+        on_change=SliderCombo.set_value,
+        on_change_end=SliderCombo.set_end,
     ),
     width="100%",
 )
