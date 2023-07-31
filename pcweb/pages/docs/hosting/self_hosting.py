@@ -1,6 +1,7 @@
 import reflex as rx
 
 from pcweb.templates.docpage import (
+    docalert,
     doccode,
     docheader,
     doclink,
@@ -40,51 +41,84 @@ def self_hosting():
             doclink("requirements", href=installation.path),
             ".",
         ),
-        subheader("Edit Config"),
+        subheader("API URL"),
         doctext(
             "Edit your ",
             rx.code("rxconfig.py"),
-            " file to match the ip address of your server. With the port ",
+            " file and set ",
+            rx.code("api_url"),
+            " to the publicly accessible IP address or hostname of your server, with the port ",
             rx.code(":8000"),
-            " at the end.",
+            " at the end."
         ),
         doctext(
-            "For example if your server is at 192.168.1.1, your config would look like this:"
+            "For example if your server is at app.example.com, your config would look like this:"
         ),
         doccode(
             """config = rx.Config(
     app_name="your_app_name",
-    api_url="http://192.168.1.1:8000",
+    api_url="http://app.example.com:8000",
     bun_path="$HOME/.bun/bin/bun",
     db_url="sqlite:///reflex.db",
 )
 """,
         ),
+        doctext(
+            "It is also possible to set the environment variable ",
+            rx.code("API_URL"),
+            " at run time or export time to retain the default for local development.",
+        ),
+        subheader("Production Mode"),
         doctext("Then run your app in production mode:"),
         doccode("$ reflex run --env prod", language="bash"),
         doctext(
             " Production mode creates an optimized build of your app.",
-            " Your app will be available on port ",
+            " By default, the static frontend of the app (HTML, Javascript, CSS) will be"
+            " exposed on port ",
             rx.code("3000"),
-            " by default.",
+            " and the backend (event handlers) will be listening on port ",
+            rx.code("8000"),
+            ".",
+        ),
+        doctext(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("Reverse Proxy and Websockets"),
+                    rx.alert_description(
+                        "Because the backend uses websockets, some reverse proxy servers, ",
+                        "like ",
+                        rx.link("nginx", href="https://nginx.org/en/docs/http/websocket.html"),
+                        " or ",
+                        rx.link("apache", href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#protoupgrade"),
+                        ", must be configured to pass the ",
+                        rx.code("Upgrade"),
+                        " header to allow backend connectivity.",
+                    ),
+                ),
+                status="warning",
+            ),
         ),
         subheader("Exporting a Static Build"),
         doctext(
-            "You can also export a static build of your app. This is useful for deploying to a static hosting service like Netlify or Github Pages."
+            "Exporting a static build of the frontend allows the app to be served ",
+            "using a static hosting provider, like Netlify or Github Pages. Be sure ",
+            rx.code("api_url"),
+            " is set to an accessible backend URL when the frontend is exported."
         ),
         doccode(
-            """$ reflex export""",
+            """$ API_URL=http://app.example.com:8000 reflex export""",
             language="bash",
         ),
         doctext(
             "This will create a ",
             rx.code("frontend.zip"),
-            " file with your app's static build that you can upload to your static hosting service.",
+            " file with your app's minified HTML, Javascript, and CSS build that can be uploaded to your static hosting service.",
         ),
         doctext(
             "It also creates a ",
             rx.code("backend.zip"),
-            " file with your app's backend code that you can upload to your server.",
+            " file with your app's backend python code to upload to your server and run.",
         ),
         doctext(
             "You can export only the frontend or backend by passing in the ",
@@ -96,7 +130,7 @@ def self_hosting():
         doctext(
             "It is also possible to export the components without zip it separate. To do this, use the ",
             rx.code("--no-zip"),
-            " parameter.",
+            " parameter. ",
             "This provides the frontend in the ",
             rx.code(".web/_static/"),
             " directory and the backend can be found in the root directory of the project. ",
