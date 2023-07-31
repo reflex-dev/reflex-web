@@ -1,4 +1,3 @@
-
 import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
@@ -14,8 +13,9 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
     docalert,
-    subheader
+    subheader,
 )
+
 
 @docpage()
 def adding_state():
@@ -26,7 +26,9 @@ def adding_state():
             Now let’s make your chat app interactive. To do this, we will hook it up to Reflex’s state. The app's state is where we define all the vars that can change in the app and all the functions that can modify them. A detailed explanation of the state can be found here. 
             """,
         ),
-        doctext("For this app we will need to keep track of two things the question asked and the answer to the question. We will also define a function process question which will call the OpenAI API to get the answer to our question. "),
+        doctext(
+            "For this app we will need to keep track of two things the question asked and the answer to the question. We will also define a function process question which will call the OpenAI API to get the answer to our question. "
+        ),
         doccode(
             '''import reflex as rx
 import openai
@@ -100,7 +102,5 @@ def action_bar() -> rx.Component:
         width="100%",
     )
             '''
-        )
-
-
+        ),
     )

@@ -78,7 +78,7 @@ def get_sidebar_items_learn():
         create_item(
             getting_started,
             children=[
-                getting_started.introduction, 
+                getting_started.introduction,
                 getting_started.installation,
                 getting_started.project_structure,
                 getting_started.configuration,
@@ -93,7 +93,7 @@ def get_sidebar_items_learn():
                 tutorial.chat_history,
                 tutorial.deployment,
             ],
-        )
+        ),
     ]
     return items
 

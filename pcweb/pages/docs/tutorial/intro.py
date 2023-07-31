@@ -13,7 +13,7 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
     docalert,
-    subheader
+    subheader,
 )
 from pcweb.constants import CHAT_APP_URL
 
@@ -30,7 +30,7 @@ def intro():
             ".",
         ),
         subheader("What you'll do"),
-        doctext(   
+        doctext(
             """
             In this tutorial you'll learn how to:
             """,
@@ -39,6 +39,6 @@ def intro():
                 rx.list_item("Add interactivity to your Reflex app"),
                 rx.list_item("Deploy your Reflex app"),
                 margin_top=".5em",
-            )
-        )
+            ),
+        ),
     )

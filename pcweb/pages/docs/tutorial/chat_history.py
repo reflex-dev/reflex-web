@@ -13,8 +13,9 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
     docalert,
-    subheader
+    subheader,
 )
+
 
 @docpage()
 def chat_history():

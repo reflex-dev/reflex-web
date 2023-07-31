@@ -18,5 +18,4 @@ from pcweb.templates.docpage import (
 
 @docpage()
 def deployment():
-    return rx.box(
-    )
+    return rx.box()

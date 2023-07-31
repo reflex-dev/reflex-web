@@ -4,13 +4,10 @@ from typing import Optional, Set
 
 import reflex as rx
 from pcweb import constants, styles
-from reflex.style import Style
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
-from pcweb.pages.docs.gallery import gallery
-from reflex.vars import BaseVar, Var
-from reflex.components.component import EVENT_ARG, Component
+from reflex.vars import Var
 
 
 class Search(rx.Component):
@@ -18,8 +15,7 @@ class Search(rx.Component):
 
     special_props: Set[Var] = {Var.create_safe("{...inkeepCustomTriggerProps}")}
 
-    is_open: BaseVar[bool] = False
-    
+    is_open: Var[bool] = False
 
     def get_triggers(self) -> Set[str]:
         """Get the event triggers for the component.
@@ -27,11 +23,8 @@ class Search(rx.Component):
         Returns:
             The event triggers.
         """
-        return super().get_triggers() | {
-            "on_close",
-            "on_shortcutKey_pressed"
-        }
-    
+        return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
+
     def _get_custom_code(self) -> str:
         return """ 
 import dynamic from 'next/dynamic'
@@ -145,11 +138,16 @@ class NavbarState(State):
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
 
+
 def search_bar():
     return rx.hstack(
         rx.fragment(
             rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            rx.text("Search documentation...", style=styles.NAV_SEARCH_STYLE, font_weight=400),
+            rx.text(
+                "Search documentation...",
+                style=styles.NAV_SEARCH_STYLE,
+                font_weight=400,
+            ),
         ),
         rx.spacer(),
         rx.text("/", style=styles.NAV_SEARCH_STYLE),
@@ -334,7 +332,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
-                    inkeep(is_open=NavbarState.search_modal, on_close=NavbarState.change_search),
+                    inkeep(
+                        is_open=NavbarState.search_modal,
+                        on_close=NavbarState.change_search,
+                    ),
                     github_button(),
                     discord_button(),
                     rx.icon(

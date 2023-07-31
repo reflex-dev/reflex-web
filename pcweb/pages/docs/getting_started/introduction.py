@@ -71,7 +71,6 @@ class CounterExampleState(State):
         self.count -= 1
 
 
-
 def get_started() -> rx.Component:
     return rx.fragment(
         subheader_comp(text="Get Started"),
@@ -153,6 +152,7 @@ def motivation() -> rx.Component:
         ),
         margin_bottom="1em",
     )
+
 
 def counter_example() -> rx.Component:
     from pcweb.pages.docs.advanced_guide.wrapping_react import wrapping_react
@@ -370,9 +370,9 @@ def counter_example() -> rx.Component:
 @docpage()
 def introduction():
     return rx.box(
-        docheader("Reflex Docs"), 
+        docheader("Reflex Docs"),
         rx.center(
-            rx.span( 
+            rx.span(
                 "Looking for Pynecone? You are in the right place, Pynecone is now Reflex!",
                 color="#494369",
             ),
@@ -386,10 +386,12 @@ def introduction():
         ),
         doctext(
             rx.span("Reflex", font_weight="bold"),
-            rx.span("""
+            rx.span(
+                """
             is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. 
             This can be anything from a small data science/internal app to a large multi-page web app. 
-            """),
+            """
+            ),
         ),
         motivation(),
         get_started(),

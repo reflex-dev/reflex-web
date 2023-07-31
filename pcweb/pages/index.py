@@ -882,7 +882,7 @@ def gallery():
                 ),
                 rx.desktop_only(
                     rx.flex(
-                        rx.spacer(), 
+                        rx.spacer(),
                         stat("3000+", "project", "Projects created per month"),
                         stat("10,000+", "github", "GitHub stars"),
                         stat("1500+", "discord", "Discord community members"),

@@ -13,8 +13,9 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
     docalert,
-    subheader
+    subheader,
 )
+
 
 @docpage()
 def starting_point():
@@ -25,7 +26,9 @@ def starting_point():
             Let's start with defining the UI for our chat app. In Reflex, UI can be broken down into components. A more detailed guide about components can be found here, but in short, they let you split the UI into independent, reusable pieces, and let you think about each piece in isolation.
             """,
         ),
-        doctext("Below we will make a component that displays the question and answer."),
+        doctext(
+            "Below we will make a component that displays the question and answer."
+        ),
         doccode(
             """def qa() -> rx.Component:
     return rx.box(
@@ -150,7 +153,5 @@ app = rx.App()
 app.add_page(index)
 app.compile()
             '''
-        )
-
-
+        ),
     )
