@@ -5,9 +5,9 @@ from typing import Optional, Set
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.base_state import State
+from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
-from reflex.vars import Var
 
 
 class Search(rx.Component):
@@ -16,6 +16,9 @@ class Search(rx.Component):
     special_props: Set[Var] = {Var.create_safe("{...inkeepCustomTriggerProps}")}
 
     is_open: Var[bool] = False
+
+    def _get_imports(self):
+        return {"next/dynamic": {ImportVar(tag="dynamic", is_default=True)}}
 
     def get_triggers(self) -> Set[str]:
         """Get the event triggers for the component.
@@ -27,7 +30,6 @@ class Search(rx.Component):
 
     def _get_custom_code(self) -> str:
         return """ 
-import dynamic from 'next/dynamic'
 const InkeepCustomTrigger = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepCustomTrigger), { ssr: false });
 
 const inkeepCustomTriggerProps = {
