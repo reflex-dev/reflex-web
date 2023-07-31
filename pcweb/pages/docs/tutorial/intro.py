@@ -15,6 +15,7 @@ from pcweb.templates.docpage import (
     docalert,
     subheader
 )
+from pcweb.constants import CHAT_APP_URL
 
 
 @docpage()
@@ -25,7 +26,7 @@ def intro():
             """
             This tutorial will walk you through building an ai chat app with Reflex. This app is fairly complex, but don't worry we'll break it down into small steps. You can find the full source code for this app 
             """,
-            doclink("here", href="https://github.com/reflex-dev/reflex-chat"),
+            doclink("here", href=CHAT_APP_URL),
             ".",
         ),
         subheader("What you'll do"),

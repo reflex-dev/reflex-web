@@ -14,7 +14,8 @@ from pcweb.templates.docpage import (
     definition,
     docalert,
 )
-
+from pcweb.pages.docs.tutorial import intro
+from pcweb.pages.docs.getting_started import installation
 
 definitions = [
     definition(
@@ -79,9 +80,9 @@ def get_started() -> rx.Component:
         ),
         doctext(
             "For a more in depth example, we recommend going through the ",
-            doclink("tutorial", href="/docs/quickstart"),
+            doclink("tutorial", href=intro.path),
             " tutorial or go straight to the ",
-            doclink("installation", href="/gallery"),
+            doclink("installation", href=installation.path),
             " to start building your own app.",
         ),
     )
@@ -388,20 +389,7 @@ def introduction():
             rx.span("""
             is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. 
             This can be anything from a small data science/internal app to a large multi-page web app. 
-            Once your app is built, you can deploy your app with a single command to our
             """),
-            rx.span("hosting service (coming soon!)", font_weight="bold"),
-            rx.span(" or self-host with your preferred provider.") 
-        ),
-        doctext(   
-            """
-            The main value propositions of Reflex are:
-            """,
-            rx.unordered_list(
-                rx.list_item("Easy to get started with for those with no previous web development experience even for those with no previous web development experience"),
-                rx.list_item("Flexible enough to grow with the complexity of your app."),
-                margin_top=".5em",
-            )
         ),
         motivation(),
         get_started(),
