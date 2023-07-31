@@ -36,9 +36,13 @@ class ClearInputState(State):
         self.text = ""
 """
 clear_input_example = """rx.vstack(
-    rx.input(
+    rx.text(ClearInputState.text),
+    rx.debounce_input(
+        rx.input(
+            on_change=ClearInputState.set_text,
+        ),
         value=ClearInputState.text,
-        on_change=ClearInputState.set_text,
+        debounce_timeout=150,
     ),
     rx.button("Clear", on_click=ClearInputState.clear_text),
 )
@@ -57,11 +61,13 @@ class KeyPressInputState(State):
             self.text = self.text.upper()
 """
 exec(key_press_state)
-key_press_example = """rx.input(
-    placeholder="Type and press enter...",
+key_press_example = """rx.debounce_input(
+    rx.input(
+        placeholder="Type and press enter...",
+        on_change=KeyPressInputState.set_text,
+        on_key_down=KeyPressInputState.on_key_down,
+    ),
     value=KeyPressInputState.text,
-    on_change=KeyPressInputState.set_text,
-    on_key_down=KeyPressInputState.on_key_down,
 )
 """
 input_type_example = """rx.vstack(
@@ -79,6 +85,7 @@ class InputFormState(State):
     def handle_submit(self, form_data: dict):
         \"""Handle the form submit.\"""
         self.form_data = form_data
+        return [rx.set_value(field_id, "") for field_id in form_data]
 """
 exec(input_form_state)
 
@@ -119,10 +126,15 @@ def render_input():
             context=True,
         ),
         doctext(
-            "The input component can also be hooked up to a state using the ",
+            "Alternatively, the ",
+            rx.code("rx.debounce_input"),
+            " component can wrap an ",
+            rx.code("rx.input"),
+            " to avoid sending state updates ",
+            "to the backend while the user is still typing. ",
+            "This allows a state var to directly control the ",
             rx.code("value"),
-            " prop. ",
-            "This lets you control the value of the input from the state.",
+            " prop from the backend without the user experiencing input lag. ",
         ),
         docdemo(
             clear_input_example,
@@ -156,7 +168,10 @@ def render_input():
         ),
         docdemo(password_example),
         doctext(
-            "You can also use forms in combination with inputs. This can be useful in clearing the input after the form is submitted."
+            "You can also use forms in combination with inputs. This is useful for collecting multiple values with a single ",
+            "event handler and automatically supporting ",
+            rx.kbd("Enter"),
+            " key submit functionality that desktop users expect. ",
         ),
         docdemo(
             input_form_example,

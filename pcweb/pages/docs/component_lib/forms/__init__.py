@@ -1,6 +1,7 @@
 from .forms import *
 from .button import *
 from .checkbox import *
+from .debounce import *
 from .editable import *
 from .formcontrol import *
 from .form import *

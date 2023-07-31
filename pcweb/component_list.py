@@ -31,6 +31,7 @@ forms_list = [
     [rx.TextArea],
     # [rx.CopyToClipboard],
     [rx.Upload],
+    [rx.DebounceInput],
 ]
 
 # Layout components.
