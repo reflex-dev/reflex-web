@@ -5,7 +5,7 @@ from pcweb import styles
 from pcweb.base_state import State
 from pcweb.component_list import component_list
 from pcweb.middleware import CloseSidebarMiddleware
-from pcweb.pages import routes
+from pcweb.pages import blog_routes, doc_routes, routes
 from pcweb.pages.docs.component import multi_docs
 
 # Create the app.
@@ -22,7 +22,27 @@ for route in routes:
         route.path,
         "Reflex",
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
-        image="preview.jpg",
+        image="preview.png",
+    )
+
+# Add the pages to the app.
+for route in blog_routes:
+    app.add_page(
+        route.component,
+        route.path,
+        "Reflex | Blog",
+        description="Keep up to date with the latest Reflex news.",
+        image="preview.png",
+    )
+
+# Add the pages to the app.
+for route in doc_routes:
+    app.add_page(
+        route.component,
+        route.path,
+        "Reflex | Docs",
+        description="Learn how to build web apps in pure Python.",
+        image="preview.png",
     )
 
 for key in component_list:
@@ -33,7 +53,7 @@ for key in component_list:
             route=path,
             title=f"Reflex | {component_group[0].__name__}",
             description=f"Reflex | Docs for {component_group[0].__name__} component.",
-            image="preview.jpg",
+            image="preview.png",
         )
 
 # Add the middleware.

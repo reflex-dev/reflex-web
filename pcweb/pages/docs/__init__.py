@@ -1,3 +1,4 @@
+from pcweb.route import Route
 from .advanced_guide import *
 from .api_reference import *
 from .components import *
@@ -12,3 +13,5 @@ from .state import *
 from .styling import *
 from .resources import resources
 from .tutorial import *
+
+doc_routes = [r for r in locals().values() if isinstance(r, Route)]
