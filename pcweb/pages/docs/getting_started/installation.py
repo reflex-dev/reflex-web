@@ -24,9 +24,6 @@ def installation():
         ),
         rx.unordered_list(
             rx.list_item("Python 3.7+"),
-            rx.list_item(
-                doclink("NodeJS 16.8.0+", href=constants.NODEJS_URL),
-            ),
             padding_left="2em",
         ),
         rx.divider(),

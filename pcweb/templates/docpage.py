@@ -9,6 +9,10 @@ import black
 import reflex as rx
 
 from pcweb import styles
+from pcweb.styles import colors as c
+from pcweb.styles import text_colors as tc
+from pcweb.styles import font_weights as fw
+
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
@@ -333,11 +337,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     margin_top="1em",
                     height="100%",
                 ),
-                color=styles.DOC_TEXT_COLOR,
+                color=tc["docs"]["body"],
                 background="radial-gradient(35.39% 37.5% at 100% 0%, rgba(188, 136, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)",
                 background_attachment="fixed",
                 font_family=styles.SANS,
-                height="100vh",
             )
 
         # Return the route.
@@ -385,7 +388,7 @@ def docheader(
         style["fontSize"] = font_size
 
     # Set the text.
-    children = [rx.heading(text, style=style, **props)]
+    children = [rx.heading(text, _as="h1", style=style, **props)]
 
     # Add a badge if the header is coming soon.
     if coming_soon:
@@ -405,8 +408,8 @@ def docheader(
     return rx.box(
         *children,
         id="-".join(text.lower().split()),
-        color=styles.DOC_HEADER_COLOR,
-        font_weight=styles.DOC_HEADING_FONT_WEIGHT,
+        color=tc["docs"]["header"],
+        font_weight=fw["heading"],
         width="100%",
     )
 
@@ -421,8 +424,8 @@ def subheader_comp(
             font_size=styles.H3_FONT_SIZE,
         ),
         divider_comp(),
-        color=styles.DOC_HEADER_COLOR,
-        font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
+        color=tc["docs"]["header"],
+        font_weight=fw["subheading"],
         width="100%",
     )
 
@@ -447,8 +450,8 @@ def subheader(
         font_size=font_sizes[level],
         coming_soon=coming_soon,
         divider=divider,
-        color=styles.DOC_HEADER_COLOR,
-        font_weight=styles.DOC_SUBHEADING_FONT_WEIGHT,
+        color=tc["docs"]["header"],
+        font_weight=fw["subheading"],
         **props,
     )
 
@@ -618,8 +621,12 @@ def definition(title: str, *children) -> rx.Component:
         rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
         *children,
         padding="1em",
-        border=f"1px solid {styles.ACCENT_COLOR}",
-        border_radius="15px",
+        border=f"1px solid {c['gray'][200]}",
+        border_radius=styles.DOC_BORDER_RADIUS,
+        _hover={
+            "box_shadow": styles.DOC_SHADOW_LIGHT,
+            "border": f"1.5px solid {c['violet'][200]}",
+        },
     )
 
 

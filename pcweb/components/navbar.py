@@ -1,27 +1,118 @@
 """UI and logic for the navbar component."""
 
-from typing import Optional
+from typing import Optional, Set
 
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
-from pcweb.pages.docs.gallery import gallery
-
-try:
-    from pcweb.tsclient import client
-except ImportError:
-    client = None
+from reflex.vars import Var
 
 
-class NavMenu(rx.Component):
-    library = "@radix-ui/react-navigation-menu"
-    tag = "NavigationMenu"
+class Search(rx.Component):
+    tag = "InkeepCustomTrigger"
 
-    @classmethod
-    def get_alias(cls) -> Optional[str]:
-        return "*"
+    special_props: Set[Var] = {Var.create_safe("{...inkeepCustomTriggerProps}")}
+
+    is_open: Var[bool] = False
+
+    def get_triggers(self) -> Set[str]:
+        """Get the event triggers for the component.
+
+        Returns:
+            The event triggers.
+        """
+        return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
+
+    def _get_custom_code(self) -> str:
+        return """ 
+import dynamic from 'next/dynamic'
+const InkeepCustomTrigger = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepCustomTrigger), { ssr: false });
+
+const inkeepCustomTriggerProps = {
+  baseSettings: {
+    apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
+    integrationId: 'clkbf9e7e0001s601sa0ciax1',
+    organizationId: 'org_WQKeNdnuPGEfuUhC',
+    organizationDisplayName: 'Reflex',
+    primaryBrandColor: '#5646ED',
+    breadcrumbRules: {
+      urlToBreadcrumbMapper: [
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/blog',
+          },
+          breadcrumbName: 'Blogs',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs',
+          },
+          breadcrumbName: 'Docs',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs/api-reference',
+          },
+          replaceLeading: true,
+          breadcrumbName: 'API Reference',
+        },
+        {
+          matchingRule: {
+            ruleType: 'PartialUrl',
+            partialUrl: 'reflex.dev/docs/library',
+          },
+          replaceLeading: true,
+          breadcrumbName: 'Components Reference',
+        },
+      ],
+    },
+    stringReplacementRules: [
+      {
+        matchingRule: {
+          ruleType: 'Substring',
+          string: 'Api',
+        },
+        replaceWith: 'API',
+        replaceInTitles: true,
+      },
+      {
+        matchingRule: {
+          ruleType: 'Substring',
+          string: 'Cli',
+        },
+        replaceWith: 'CLI',
+        replaceInTitles: true,
+      },
+    ],
+  },
+  modalSettings: {
+    // optional typeof InkeepModalSettings
+  },
+  searchSettings: { // optional InkeepSearchSettings
+    tabSettings: {
+      isAllTabEnabled: true,
+      useAllRootBreadcrumbsAsTabs: true,
+      tabOrderByLabel: ['All', 'Docs', 'API Reference', 'Components Reference', 'Blogs'],
+    },
+    placeholder: 'Search documentation...',
+  },
+  aiChatSettings: { // optional typeof InkeepAIChatSettings
+    quickQuestions: [
+      'How does Reflex work?',
+      'What types of apps can I build with Reflex?',
+      'Where can I deploy my apps?',
+    ],
+  },
+};
+"""
+
+
+inkeep = Search.create
 
 
 class NavbarState(State):
@@ -47,46 +138,26 @@ class NavbarState(State):
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
 
-    @rx.var
-    def search_results(self) -> list[dict[str, dict[str, str]]]:
-        """Get the search results."""
-        if client is None or self.search_input == "":
-            return []
-        search_parameters = {
-            "q": self.search_input,
-            "query_by": "heading, description",
-            "query_by_weights": "2,1",
-            "sort_by": "_text_match:desc",
-        }
-        return client.collections["search-auto"].documents.search(search_parameters)[
-            "hits"
-        ]
 
-
-def format_search_results(result):
-    return rx.vstack(
-        rx.link(
+def search_bar():
+    return rx.hstack(
+        rx.fragment(
+            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
             rx.text(
-                result["document"]["heading"],
-                font_weight=600,
-                color="#1F1944",
-            ),
-            rx.divider(),
-            rx.text(
-                result["document"]["description"],
+                "Search documentation...",
+                style=styles.NAV_SEARCH_STYLE,
                 font_weight=400,
-                color="#696287",
             ),
-            on_click=NavbarState.change_search,
-            href=result["document"]["href"],
         ),
+        rx.spacer(),
+        rx.text("/", style=styles.NAV_SEARCH_STYLE),
+        on_click=NavbarState.change_search,
+        display=["none", "flex", "flex", "flex", "flex"],
+        min_width=["15em", "15em", "15em", "20em", "20em"],
+        padding_x="1em",
+        height="2em",
+        border_radius="20px",
         bg="#FAF8FB",
-        border_radius="8px",
-        align_items="start",
-        padding="0.5em",
-        shadow=styles.DOC_SHADOW_LIGHT,
-        _hover={"background_color": "#F5EFFE", "color": "#5646ED"},
-        width="100%",
     )
 
 
@@ -103,66 +174,6 @@ hover_button_style = {
         "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
     },
 }
-
-
-def search_bar():
-    return rx.hstack(
-        rx.fragment(
-            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-            rx.text("Search docs", style=styles.NAV_SEARCH_STYLE, font_weight=400),
-        ),
-        rx.spacer(),
-        rx.text("/", style=styles.NAV_SEARCH_STYLE),
-        on_click=NavbarState.change_search,
-        display=["none", "flex", "flex", "flex", "flex"],
-        min_width=["15em", "15em", "15em", "20em", "20em"],
-        padding_x="1em",
-        height="2em",
-        border_radius="20px",
-        bg="#FAF8FB",
-    )
-
-
-def search_modal(state: NavbarState):
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_body(
-                    rx.vstack(
-                        rx.hstack(
-                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                            rx.input(
-                                placeholder="Search the docs",
-                                on_change=NavbarState.set_search_input,
-                                focus_border_color="transparent",
-                                border_color="transparent",
-                                font_weight=400,
-                                _placeholder={"color": "#342E5C"},
-                            ),
-                            width="100%",
-                        ),
-                        rx.divider(),
-                        rx.vstack(
-                            rx.foreach(
-                                NavbarState.search_results,
-                                format_search_results,
-                            ),
-                            spacing="1em",
-                            width="100%",
-                            max_height="30em",
-                            align_items="start",
-                            overflow_y="auto",
-                        ),
-                    )
-                ),
-                bg="radial-gradient(82.06% 100% at 50% 100%, rgba(86, 70, 237, 0.12) 0%, rgba(245, 239, 254, 0) 100%), #FFFFFF;",
-            )
-        ),
-        is_open=NavbarState.search_modal,
-        on_close=NavbarState.change_search,
-        padding_top="1em",
-        padding_x="1em",
-    )
 
 
 def github_button():
@@ -245,10 +256,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         tag="close",
                         z_index=1000,
                         style={
-                                    "color": "#FFFFFF",
-                                    "text_decoration": "underline",
-                                    "_hover": {"color": styles.ACCENT_COLOR},
-                                },
+                            "color": "#FFFFFF",
+                            "text_decoration": "underline",
+                            "_hover": {"color": styles.ACCENT_COLOR},
+                        },
                         on_click=NavbarState.toggle_banner,
                     ),
                     width="100%",
@@ -321,6 +332,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
+                    inkeep(
+                        is_open=NavbarState.search_modal,
+                        on_close=NavbarState.change_search,
+                    ),
                     github_button(),
                     discord_button(),
                     rx.icon(
@@ -336,36 +351,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     ),
                     height="full",
                 ),
-                rx.drawer(
-                    rx.drawer_overlay(
-                        rx.drawer_content(
-                            rx.hstack(
-                                logo,
-                                rx.icon(
-                                    tag="close",
-                                    on_click=NavbarState.toggle_sidebar,
-                                    width="4em",
-                                    _hover={
-                                        "cursor": "pointer",
-                                        "color": styles.ACCENT_COLOR,
-                                    },
-                                ),
-                                justify="space-between",
-                                margin_bottom="1.5em",
-                            ),
-                            sidebar if sidebar is not None else rx.text("Sidebar"),
-                            padding_x="2em",
-                            padding_top="2em",
-                            bg="rgba(255,255,255, 0.97)",
-                        ),
-                        bg="rgba(255,255,255, 0.5)",
-                    ),
-                    placement="left",
-                    is_open=NavbarState.sidebar_open,
-                    on_close=NavbarState.toggle_sidebar,
-                    bg="rgba(255,255,255, 0.5)",
-                ),
-                search_modal(NavbarState),
                 justify="space-between",
                 padding_x=styles.PADDING_X,
             ),

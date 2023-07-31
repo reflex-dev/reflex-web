@@ -9,6 +9,9 @@ from pcweb import styles
 from pcweb.component_list import component_list
 from pcweb.route import Route
 from reflex.base import Base
+from pcweb.styles import font_weights as fw
+
+from pcweb.styles import text_colors as tc
 
 # Sidebar styles.
 heading_style = {
@@ -26,7 +29,7 @@ heading_style2 = {
     "padding_y": "0.25em",
 }
 heading_style3 = {
-    "font_weight": styles.DOC_SECTION_FONT_WEIGHT,
+    "font_weight": fw["section"],
     "font_size": styles.H4_FONT_SIZE,
     "color": "#696287",
     "margin_bottom": "0.5em",
@@ -75,13 +78,8 @@ def create_item(route: Route, children=None):
 
 def get_sidebar_items_learn():
     from pcweb.pages.docs import (
-        advanced_guide,
-        components,
-        database,
         getting_started,
-        hosting,
-        state,
-        styling,
+        tutorial,
     )
 
     items = [
@@ -94,6 +92,31 @@ def get_sidebar_items_learn():
                 getting_started.configuration,
             ],
         ),
+        create_item(
+            tutorial,
+            children=[
+                tutorial.intro,
+                tutorial.starting_point,
+                tutorial.adding_state,
+                tutorial.chat_history,
+                tutorial.deployment,
+            ],
+        ),
+    ]
+    return items
+
+
+def get_sidebar_items_concepts():
+    from pcweb.pages.docs import (
+        advanced_guide,
+        components,
+        database,
+        hosting,
+        state,
+        styling,
+    )
+
+    items = [
         create_item(
             components,
             children=[
@@ -230,7 +253,7 @@ def sidebar_leaf(
             rx.link(
                 rx.text(
                     item.names,
-                    color=styles.DOC_REG_TEXT_COLOR,
+                    color=tc["docs"]["body"],
                     _hover={"color": styles.ACCENT_COLOR},
                     padding_x="0.5em",
                 ),
@@ -308,6 +331,7 @@ def calculate_index(sidebar_items, url):
 
 
 learn = get_sidebar_items_learn()
+concepts = get_sidebar_items_concepts()
 reference = get_sidebar_items_reference()
 
 
@@ -333,6 +357,13 @@ def get_prev_next(url):
             else:
                 return flat_items[i - 1], flat_items[i + 1]
     return None, None
+
+
+signle_item = {
+    "color": tc["docs"]["body"],
+    "_hover": {"color": styles.ACCENT_COLOR},
+    "font_family": styles.SANS,
+}
 
 
 @rx.memo
@@ -365,6 +396,26 @@ def sidebar_comp(
         ),
         rx.heading(
             rx.span("[ ", color="#DACEEE"),
+            "Concepts",
+            rx.span(" ]", color="#DACEEE"),
+            style=heading_style3,
+            margin_top="1em",
+        ),
+        rx.accordion(
+            *[
+                sidebar_item_comp(
+                    item=item,
+                    index=[-1],
+                    url=url,
+                    first=True,
+                )
+                for item in concepts
+            ],
+            allow_multiple=True,
+            default_index=learn_index,
+        ),
+        rx.heading(
+            rx.span("[ ", color="#DACEEE"),
             "Reference",
             rx.span(" ]", color="#DACEEE"),
             style=heading_style3,
@@ -377,25 +428,6 @@ def sidebar_comp(
             ],
             allow_multiple=True,
             default_index=reference_index,
-        ),
-        rx.vstack(
-            rx.link(
-                rx.hstack(
-                    rx.icon(tag="minus", height=".75rem", style=heading_style),
-                    rx.text(
-                        "Gallery",
-                        style={
-                            "color": styles.DOC_REG_TEXT_COLOR,
-                            "_hover": {"color": styles.ACCENT_COLOR},
-                        },
-                        font_family=styles.SANS,
-                    ),
-                ),
-                href=gallery.path,
-            ),
-            align_items="left",
-            margin_left="1.3em",
-            margin_top="0.5em",
         ),
         align_items="start",
         overflow_y="scroll",

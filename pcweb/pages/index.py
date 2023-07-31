@@ -884,8 +884,8 @@ def gallery():
                     rx.flex(
                         rx.spacer(),
                         stat("3000+", "project", "Projects created per month"),
-                        stat("9200+", "github", "GitHub stars"),
-                        stat("1300+", "discord", "Discord community members"),
+                        stat("10,000+", "github", "GitHub stars"),
+                        stat("1500+", "discord", "Discord community members"),
                         rx.spacer(),
                         height="100%",
                         min_height="10em",
@@ -908,7 +908,7 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading("9200+", color="#DACEEE"),
+                            rx.heading("10,000+", color="#DACEEE"),
                             rx.image(
                                 src="/landing_icons/stats_icons/github.svg",
                                 height="1em",
@@ -918,7 +918,7 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading("1300+", color="#DACEEE"),
+                            rx.heading("1500+", color="#DACEEE"),
                             rx.image(
                                 src="/landing_icons/stats_icons/discord.svg",
                                 height="1em",
@@ -966,7 +966,7 @@ def installation():
                         ),
                         rx.box(
                             rx.text(
-                                "Reflex requires Python 3.7+ and NodeJS 12+. (Don't worry, you'll never have to write any JavaScript.)",
+                                "Reflex requires Python 3.7+",
                             ),
                             color="#82799E",
                             font_family=styles.SANS,

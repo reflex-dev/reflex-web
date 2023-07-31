@@ -11,7 +11,54 @@ from pcweb.templates.docpage import (
     doctext,
     subheader_comp,
     text_comp,
+    definition,
+    docalert,
 )
+from pcweb.pages.docs.tutorial import intro
+from pcweb.pages.docs.getting_started import installation
+
+definitions = [
+    definition(
+        "Quickstart",
+        rx.text(
+            "Learn how to use Reflex in few minutes through an interactive chat app tutorial.",
+        ),
+    ),
+    definition(
+        "Gallery",
+        rx.text(
+            "Check out the gallery to see what types of apps you can build with Reflex.",
+        ),
+    ),
+]
+
+render_code = """rx.hstack(
+    rx.button("Decrement", color_scheme = "red", border_radius="1em", on_click = State.decrement),
+    rx.heading(State.count, font_size="2em"),
+    rx.button("Increment", color_scheme = "green", border_radius="1em", on_click = State.increment),
+)"""
+
+counter_code = f"""
+import reflex as rx
+
+class State(rx.State):
+    count: int = 0
+
+    def increment(self):
+        self.count += 1
+
+    def decrement(self):
+        self.count -= 1
+
+
+def index():
+    return {render_code} 
+
+
+app = rx.App(state=State)
+app.add_page(index)
+app.compile()
+"""
 
 
 class CounterExampleState(State):
@@ -24,12 +71,24 @@ class CounterExampleState(State):
         self.count -= 1
 
 
-def intro1() -> rx.Component:
+def get_started() -> rx.Component:
     return rx.fragment(
-        docheader(text="Introduction", first=True),
-        text_comp(
-            "Reflex is a full-stack framework for building and deploying web apps."
+        subheader_comp(text="Get Started"),
+        doctext(
+            "Below is a quick example of a counter app to get a feel for how Reflex works. ",
         ),
+        doctext(
+            "For a more in depth example, we recommend going through the ",
+            doclink("tutorial", href=intro.path),
+            " tutorial or go straight to the ",
+            doclink("installation", href=installation.path),
+            " to start building your own app.",
+        ),
+    )
+
+
+def motivation() -> rx.Component:
+    return rx.fragment(
         subheader_comp(text="Motivation"),
         text_comp(text="Reflex was created with the following goals:"),
         doc_section(
@@ -91,15 +150,16 @@ def intro1() -> rx.Component:
                 text_align="left",
             ),
         ),
+        margin_bottom="1em",
     )
 
 
-def intro2() -> rx.Component:
+def counter_example() -> rx.Component:
     from pcweb.pages.docs.advanced_guide.wrapping_react import wrapping_react
     from pcweb.pages.docs.library import library
 
     return rx.box(
-        subheader_comp(text="First Example"),
+        subheader_comp(text="Quickstart"),
         text_comp(
             text="Let's go over a simple counter app to explore the basics of Reflex. "
         ),
@@ -310,34 +370,30 @@ def intro2() -> rx.Component:
 @docpage()
 def introduction():
     return rx.box(
-        intro1(),
-        intro2(),
+        docheader("Reflex Docs"),
+        rx.center(
+            rx.span(
+                "Looking for Pynecone? You are in the right place, Pynecone is now Reflex!",
+                color="#494369",
+            ),
+            bg="#FAF8FB",
+            font_family=styles.MONO,
+            padding=4,
+            margin_bottom="1em",
+            border="1px solid #EAE4FD",
+            border_radius=styles.DOC_BORDER_RADIUS,
+            font_size=".8em",
+        ),
+        doctext(
+            rx.span("Reflex", font_weight="bold"),
+            rx.span(
+                """
+            is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. 
+            This can be anything from a small data science/internal app to a large multi-page web app. 
+            """
+            ),
+        ),
+        motivation(),
+        get_started(),
+        counter_example(),
     )
-
-
-render_code = """rx.hstack(
-    rx.button("Decrement", color_scheme = "red", border_radius="1em", on_click = State.decrement),
-    rx.heading(State.count, font_size="2em"),
-    rx.button("Increment", color_scheme = "green", border_radius="1em", on_click = State.increment),
-)"""
-counter_code = f"""
-import reflex as rx
-
-class State(rx.State):
-    count: int = 0
-
-    def increment(self):
-        self.count += 1
-
-    def decrement(self):
-        self.count -= 1
-
-
-def index():
-    return {render_code} 
-
-
-app = rx.App(state=State)
-app.add_page(index)
-app.compile()
-"""

@@ -2,13 +2,14 @@ import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext, subheader
+from pcweb.styles import text_colors as tc
 
 
 def video(title, author, url):
     return rx.link(
         rx.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
+                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
                 rx.badge(author, color_scheme="green", margin_left="1em"),
             )
         ),
@@ -23,7 +24,7 @@ def launch(title, platform, url):
     return rx.link(
         rx.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=styles.DOC_REG_TEXT_COLOR),
+                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
                 rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
             )
         ),

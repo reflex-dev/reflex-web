@@ -6,6 +6,7 @@ GITHUB_URL = "https://github.com/pynecone-io/reflex"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
 CONTACT_URL = "mailto:contact@pynecone.io"
+CHAT_APP_URL = "https://github.com/reflex-dev/reflex-chat"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
