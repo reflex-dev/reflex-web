@@ -7,7 +7,6 @@ from pcweb.templates.docpage import (
     docpage,
     doctext,
     subheader,
-    docalert,
 )
 
 CONFIG_REF_URL = "/docs/api-reference/config"
@@ -42,66 +41,69 @@ config = ExpConfig(
 def configuration():
     return rx.box(
         docheader("Configuration"),
-        doctext("There are 3 ways to configure your Reflex application."),
-        subheader("RXConfig Arguments"),
         doctext(
-            "The first place to configure your Reflex application is ",
-            "by setting the different options in the ",
+            "Reflex apps can be configured using a ",
+            "configuration file, environment variables, and command line arguments. ",
+        ),
+        subheader("Configuration File"),
+        doctext(
+            "Running ",
+            rx.code("reflex init"),
+            " will create a ",
             rx.code("rxconfig.py"),
-            " file.",
+            " file in your root directory. ",
+            "You can pass keyword arguments to the ",
+            rx.code("Config"),
+            " class to configure your app.",
+        ),
+        doctext(
+            "For example: ",
+        ),
+        doccode(
+            """# rxconfig.py
+import reflex as rx
+
+config = rx.Config(
+    app_name="my_app_name",
+    # Connect to your own database.
+    db_url="postgresql://user:password@localhost:5432/my_db",
+    # Change the frontend port.
+    frontend_port=3001,
+)
+"""
         ),
         rx.text(
-            "Refer to the ",
-            doclink("Config API Reference ", href=CONFIG_REF_URL),
-            " for the details of all options available.",
+            "See the ",
+            doclink("config reference ", href=CONFIG_REF_URL),
+            " for all the parameters available.",
         ),
-        subheader("Environment Arguments"),
+        subheader("Environment Variables"),
         doctext(
-            "By default, Reflex looks for a .env file in your root directory.",
-            " You can change this setting by specifying a custom path to a ",
-            rx.code(".env"),
-            " file using the ",
-            rx.code("env_path"),
-            " keyword argument (or overriding the ",
-            rx.code("env_path"),
-            " attribute in your custom config class).",
-            doccode(config_example1),
-            "or alternatively: ",
-            doccode(config_example2),
-            "Environment variables set in a ",
-            rx.code(".env"),
-            " file overrides os environment variables by default. To change this setting, set the ",
-            rx.code("override_os_envs"),
-            " argument or attribute to ",
-            rx.code("False."),
+            "You can override the configuration file by setting environment variables. ",
+            "For example, to override the ",
+            rx.code("frontend_port"),
+            " setting, you can set the ",
+            rx.code("FRONTEND_PORT"),
+            " environment variable.",
         ),
-        docalert(
-            rx.text(
-                "If the ",
-                rx.code("override_os_envs"),
-                "argument is set to ",
-                rx.code("True"),
-                " (which is the default), the order of precedence of "
-                "environment variables from highest to lowest will be :",
-                rx.code(
-                    ".env file >> os environment or commandline args >> rxconfig args."
-                ),
-                " However, if set to ",
-                rx.code("False"),
-                ", the order of precedence becomes: ",
-                rx.code(
-                    "os environment or commandline args >> .env file >> rxconfig args."
-                ),
-            ),
+        doccode(
+            """$ FRONTEND_PORT=3001 reflex run""",
+            language="bash",
         ),
-        subheader("Command line Arguments"),
+        subheader("Command Line Arguments"),
         doctext(
-            "These are the arguments that you pass when using ",
+            "Finally, you can override the configuration file and environment variables ",
+            "by passing command line arguments to ",
             rx.code("reflex run"),
             ".",
         ),
+        doccode(
+            """$ reflex run --frontend-port 3001""",
+            language="bash",
+        ),
         doctext(
-            "The arguments to pass when running your app are defined ",
-            doclink("here", href="/docs/api-reference/cli"),
+            "See the ",
+            doclink("CLI reference", href="/docs/api-reference/cli"),
+            " for all the command line arguments available.",
         ),
     )
