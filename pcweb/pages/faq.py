@@ -11,7 +11,7 @@ faq_items = [
     {
         "Q": "What is Reflex?",
         "A": rx.text(
-            "Reflex is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. It offers the ease of use and accessibility of low-code frameworks, combined with the flexibility, performance, and customizability of traditional web development. Reflex is open-source and designed to be easy to get started with for those with no previous web development experience."
+            "Reflex is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. It offers the ease of use and accessibility of low-code frameworks, combined with the flexibility, performance, and customizability of traditional web development. Reflex is designed to be easy to get started with for those with no previous web development experience."
         ),
     },
     {
@@ -19,12 +19,11 @@ faq_items = [
         "A": rx.vstack(
             rx.text(
             """
-            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a small-scale data science project/internal app, or a large-scale multi-page web app, Reflex has the tools and features to handle any project. 
-            """),
+            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a single purpose user interface for a data science project/internal app, or a large multi-page web app, Reflex has the tools and features to handle both and scale up as your project grows.            """),
             rx.text(
                 "Check out our ",
                 rx.span(doclink("gallery", href="/docs/gallery")),
-                " to see what you can build with Reflex.",
+                " to see what ur community has already built with Reflex.",
             ),
             align_items="flex-start",
             width="100%",
@@ -58,8 +57,7 @@ faq_items = [
             Web apps are the most common way for developers to share their ideas. But even for skilled engineers, without experience in traditional frontend tools like Javascript or React, making a web app can be overwhelming and time-consuming. And once their app is created, deploying it is often a nightmare. Over the years, many low-code and no-code frameworks have tried to make web development more accessible, but they all have limitations and graduation risks compared to standard web frameworks. With Reflex, we have created a framework that lets developers leverage their existing Python skills to build and deploy apps without compromising on flexibility or customization.
             """),
             rx.text("""
-            Reflex allows you to make anything from a small data science project to a full-scale, multi-page web app. Since Reflex apps compile down to traditional frontend frameworks, there's no constraint on the type of apps you can build. Instead of reinventing the web development ecosystem, we're trying to make the existing ecosystem more accessible.
-            """),
+            Reflex allows you to make anything from a small data science project to a full-scale, multi-page web app. Since Reflex apps compile down to traditional frontend frameworks, there's no constraint on the type of apps you can build. Instead of reinventing the web development ecosystem, we're making the existing ecosystem more accessible.            """),
             align_items="flex-start",
             width="100%",
         ),
@@ -68,7 +66,7 @@ faq_items = [
         "Q": "Can Reflex work with X Javascript/React library?",
         "A": rx.text(
             """
-            One of Reflex's most powerful features is the ability to wrap React components. This allows us to build on top of the powerful React ecosystem, but interface with it through Python. Check out our section on
+            One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
             rx.span(doclink("wrapping React", href="/docs/advanced-guide/wrapping-react")),
             " to learn more.",

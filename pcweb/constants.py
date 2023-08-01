@@ -2,7 +2,7 @@
 
 # pcweb urls.
 PIP_URL = "https://pypi.org/project/reflex"
-GITHUB_URL = "https://github.com/pynecone-io/reflex"
+GITHUB_URL = "https://github.com/reflex-dev/reflex"
 GITHUB_DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
