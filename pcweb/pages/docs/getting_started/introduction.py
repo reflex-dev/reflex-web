@@ -55,7 +55,7 @@ def index():
     return {render_code} 
 
 
-app = rx.App(state=State)
+app = rx.App()
 app.add_page(index)
 app.compile()
 """
@@ -359,7 +359,7 @@ def counter_example() -> rx.Component:
         subheader_comp(text="Next Steps"),
         text_comp(
             text="And that's it! "
-            "We've created an entire frontend and backend in less than 40 lines of code. "
+            "We've created an entire frontend and backend in less than 30 lines of code. "
             "From here we can continue developing or deploy it to the web in a single command. "
         ),
         doctext("Keep reading the docs to learn how to try Reflex yourself!"),

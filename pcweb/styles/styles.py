@@ -25,7 +25,7 @@ ACCENT_COLOR_DARK = c["violet"][800]
 DOC_BORDER = ("2px solid #F4F3F6",)
 
 LIGHT_TEXT_COLOR = "#94a3b8"
-LINK_STYLE = {"color": ACCENT_COLOR}
+LINK_STYLE = {"color": ACCENT_COLOR, "__hover": {"text_decoration": "underline"}}
 
 
 DOC_SHADOW = "rgba(0, 0, 0, 0.15) 0px 2px 8px"

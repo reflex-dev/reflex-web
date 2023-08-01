@@ -95,7 +95,7 @@ def post():
     \"""A page that updates based on the route.\"""
     return rx.heading(State.post_id)
 
-app = rx.App(state=State)
+app = rx.App()
 app.add_page(post, route="/post/[pid]")
 """
         ),
@@ -125,7 +125,7 @@ def post():
         rx.text(State.post_id), 
     )
 
-app = rx.App(state=State)
+app = rx.App()
 app.add_page(post, route="/post/[pid]")
 """
         ),
