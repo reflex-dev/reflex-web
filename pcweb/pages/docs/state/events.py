@@ -316,7 +316,7 @@ def events():
             "To update the UI multiple times in an event handler, we can yield when we want to send an update.",
         ),
         doctext(
-            "To do so, we can use the python keyword ",
+            "To do so, we can use the Python keyword ",
             rx.code("yield"),
             ". ",
             "For every yield inside the function, a ",

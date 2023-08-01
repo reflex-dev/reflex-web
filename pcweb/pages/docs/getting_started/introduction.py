@@ -101,7 +101,7 @@ def motivation() -> rx.Component:
                     width="100%",
                 ),
                 rx.text(
-                    "Use Python for everything. Don't worry about learning a new language.",
+                    "Use Python for everytasdfsdfdshing. Don't worry about learning a new language.",
                     width="100%",
                 ),
                 rx.text(
@@ -133,7 +133,7 @@ def motivation() -> rx.Component:
                 ),
                 rx.text(
                     "This entire site was built and deployed with Reflex!",
-                    color=styles.ACCENT_COLOR_DARK,
+                    color=styles.ACCENT_COLOR,
                     width="100%",
                 ),
                 rx.text(
@@ -388,8 +388,7 @@ def introduction():
             rx.span("Reflex", font_weight="bold"),
             rx.span(
                 """
-            is an open-source, full-stack python framework that makes it easy to build and deploy web apps in minutes. 
-            This can be anything from a small data science/internal app to a large multi-page web app. 
+            is an open-source, full-stack Python framework that makes it easy to build and deploy web apps in minutes.
             """
             ),
         ),
