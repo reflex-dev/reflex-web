@@ -87,7 +87,7 @@ $ reflex init""",
             " file. ",
             "You can modify this file to customize your app. ",
         ),
-        subheader("Config"),
+        subheader("Configuration"),
         doctext(
             "The ",
             rx.code("rxconfig.py"),

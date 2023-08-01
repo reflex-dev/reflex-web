@@ -347,12 +347,8 @@ def counter_example() -> rx.Component:
             font_size=styles.TEXT_FONT_SIZE,
         ),
         subheader_comp(text="Routing"),
-        doccode(counter_code, lines=(31, 32)),
-        text_comp(text="Next we define our app and tell it what state to use."),
-        doccode(counter_code, lines=(32, 33)),
-        text_comp(
-            text="We add a route from the root URL of the app to the counter component. "
-        ),
+        doccode(counter_code, lines=(31, 33)),
+        text_comp(text="Next we define our app and add the counter component to the base route."),
         subheader_comp(text="Compiling"),
         doccode(counter_code, lines=(33, 34)),
         text_comp(text="Finally, we compile our app, and we are ready to run it."),

@@ -112,7 +112,9 @@ def installation():
         doctext(
             "You can debug your app by setting the ",
             rx.code("--loglevel"),
-            " flag. ",
+            " flag on any ",
+            rx.code("reflex"),
+            " command. ",
         ),
         doccode(
             "\n".join(
@@ -122,6 +124,4 @@ def installation():
             ),
             language="bash",
         ),
-
-        doctext("Continue reading to learn how to customize your app."),
     )
