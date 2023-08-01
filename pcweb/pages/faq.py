@@ -16,13 +16,19 @@ faq_items = [
     },
     {
         "Q": "What can I build with Reflex?",
-        "A": rx.text(
+        "A": rx.vstack(
+            rx.text(
             """
-            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a small-scale data science project/internal app, or a large-scale multi-page web app, Reflex has the tools and features to handle any project. Check out our
-            """,
-            rx.span(doclink("gallery.", href="/docs/gallery")),
-            " to see what you can build with Reflex.",
-        ),
+            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a small-scale data science project/internal app, or a large-scale multi-page web app, Reflex has the tools and features to handle any project. 
+            """),
+            rx.text(
+                "Check out our ",
+                rx.span(doclink("gallery", href="/docs/gallery")),
+                " to see what you can build with Reflex.",
+            ),
+            align_items="flex-start",
+            width="100%",
+        )
     },
     {
         "Q": "Whats the status on hosting?",
