@@ -833,7 +833,8 @@ def hosting():
                 ),
                 padding_y="2em",
                 align_items="left",
-            )
+            ),
+            padding_bottom="2em",
         ),
         bg="rgba(247, 247, 250, 0.6);",
     )

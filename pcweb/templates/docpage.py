@@ -269,7 +269,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             # Create the previous component link.
             if prev:
-                next_prev_name = prev.alt_name_for_next_prev if prev.alt_name_for_next_prev else prev.names
+                next_prev_name = (
+                    prev.alt_name_for_next_prev
+                    if prev.alt_name_for_next_prev
+                    else prev.names
+                )
                 links.append(
                     rx.link(
                         "← " + next_prev_name,
@@ -282,7 +286,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             # Create the next component link.
             if next:
-                next_prev_name = next.alt_name_for_next_prev if next.alt_name_for_next_prev else next.names
+                next_prev_name = (
+                    next.alt_name_for_next_prev
+                    if next.alt_name_for_next_prev
+                    else next.names
+                )
                 links.append(
                     rx.link(
                         next_prev_name + " →",
@@ -621,7 +629,7 @@ def definition(title: str, *children) -> rx.Component:
         rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
         *children,
         padding="1em",
-        border="2px solid #F4F3F6",
+        border=styles.DOC_BORDER,
         border_radius=styles.DOC_BORDER_RADIUS,
         _hover={
             "box_shadow": styles.DOC_SHADOW_LIGHT,

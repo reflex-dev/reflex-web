@@ -49,7 +49,7 @@ def self_hosting():
             rx.code("api_url"),
             " to the publicly accessible IP address or hostname of your server, with the port ",
             rx.code(":8000"),
-            " at the end."
+            " at the end.",
         ),
         doctext(
             "For example if your server is at app.example.com, your config would look like this:"
@@ -88,9 +88,15 @@ def self_hosting():
                     rx.alert_description(
                         "Because the backend uses websockets, some reverse proxy servers, ",
                         "like ",
-                        rx.link("nginx", href="https://nginx.org/en/docs/http/websocket.html"),
+                        rx.link(
+                            "nginx",
+                            href="https://nginx.org/en/docs/http/websocket.html",
+                        ),
                         " or ",
-                        rx.link("apache", href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#protoupgrade"),
+                        rx.link(
+                            "apache",
+                            href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#protoupgrade",
+                        ),
                         ", must be configured to pass the ",
                         rx.code("Upgrade"),
                         " header to allow backend connectivity.",
@@ -104,7 +110,7 @@ def self_hosting():
             "Exporting a static build of the frontend allows the app to be served ",
             "using a static hosting provider, like Netlify or Github Pages. Be sure ",
             rx.code("api_url"),
-            " is set to an accessible backend URL when the frontend is exported."
+            " is set to an accessible backend URL when the frontend is exported.",
         ),
         doccode(
             """$ API_URL=http://app.example.com:8000 reflex export""",

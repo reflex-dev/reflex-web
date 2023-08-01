@@ -22,6 +22,8 @@ ACCENT_COLOR = c["violet"][500]
 ACCENT_COLOR_LIGHT = c["violet"][200]
 ACCENT_COLOR_DARK = c["violet"][800]
 
+DOC_BORDER = ("2px solid #F4F3F6",)
+
 LIGHT_TEXT_COLOR = "#94a3b8"
 LINK_STYLE = {"color": ACCENT_COLOR}
 

@@ -30,8 +30,7 @@ def footer(style=footer_style):
             rx.hstack(
                 rx.desktop_only(
                     logo(
-                        width=["4.28em", "4.28em", "5.35em"],
-                        height=["4em", "4em", "5em"],
+                        width=["5em", "6em", "7em"],
                     ),
                 ),
                 rx.vstack(
@@ -59,18 +58,18 @@ def footer(style=footer_style):
                 rx.vstack(
                     rx.text("Resources", color="#DACEEE"),
                     rx.link(
-                        "GitHub",
-                        href=constants.GITHUB_URL,
+                        "FAQ",
+                        href="/faq",
                         style=footer_item_style,
                     ),
                     rx.link(
-                        "Discord",
+                        "Roadmap",
                         href=constants.DISCORD_URL,
                         style=footer_item_style,
                     ),
                     rx.link(
-                        "Twitter",
-                        href=constants.TWITTER_URL,
+                        "Forum",
+                        href=constants.GITHUB_DISCUSSIONS_URL,
                         style=footer_item_style,
                     ),
                     align_items="start",
@@ -84,13 +83,30 @@ def footer(style=footer_style):
             rx.hstack(
                 rx.text(
                     "Copyright © 2023 Pynecone, Inc.",
-                    font_weight="500",
-                ),
-                rx.link(
-                    "Contact",
-                    href=constants.CONTACT_URL,
-                    font_weight="500",
                     style=footer_item_style,
+                ),
+                rx.hstack(
+                    rx.link(
+                        rx.image(src="/companies/light/github.svg", height="1.75em"),
+                        href=constants.GITHUB_URL,
+                    ),
+                    rx.link(
+                        rx.image(src="/companies/light/linkedin.svg", height="1.75em"),
+                        href=constants.LINKEDIN_URL,
+                    ),
+                    rx.link(
+                        rx.image(src="/companies/light/yc.svg", height="1.75em"),
+                        href=constants.YC_URL,
+                    ),
+                    rx.link(
+                        rx.image(src="/companies/light/twitter.svg", height="1.75em"),
+                        href=constants.TWITTER_URL,
+                    ),
+                    rx.link(
+                        rx.image(src="/companies/light/discord.svg", height="1.75em"),
+                        href=constants.DISCORD_URL,
+                    ),
+                    spacing="1em",
                 ),
                 justify="space-between",
                 color=styles.LIGHT_TEXT_COLOR,
