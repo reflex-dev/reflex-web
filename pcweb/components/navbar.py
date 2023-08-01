@@ -132,6 +132,7 @@ class NavbarState(State):
     banner: bool = True
 
     def toggle_banner(self):
+
         self.banner = not self.banner
 
     def change_search(self):
@@ -181,7 +182,7 @@ hover_button_style = {
 def github_button():
     return rx.link(
         rx.hstack(
-            rx.image(src="/github.svg", height="1.25em"),
+            rx.image(src="/companies/dark/github.svg", height="1.25em"),
             rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
                 "10k+",
@@ -206,7 +207,7 @@ def github_button():
 def discord_button():
     return rx.link(
         rx.center(
-            rx.image(src="/icons/discord.svg", height="1.25em"),
+            rx.image(src="/companies/dark/discord.svg", height="1.25em"),
             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
             display=["none", "none", "none", "flex", "flex", "flex"],
             height="2em",
@@ -318,7 +319,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 rx.menu_item(
                                     "Roadmap", style=styles.NAV_DROPDOWN_STYLE
                                 ),
-                                href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+                                href=constants.ROADMAP_URL,
+                            ),
+                            rx.link(
+                                rx.menu_item("FAQ", style=styles.NAV_DROPDOWN_STYLE),
+                                href="/faq",
                             ),
                             rx.menu_divider(),
                             rx.link(
@@ -326,7 +331,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     "Contributor Program",
                                     style=styles.NAV_DROPDOWN_STYLE,
                                 ),
-                                href="https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7",
+                                href=constants.CONTRIBUTOR_PROGRAM_URL,
                             ),
                         ),
                     ),

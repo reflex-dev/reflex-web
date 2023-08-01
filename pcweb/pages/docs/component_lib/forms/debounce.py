@@ -25,6 +25,7 @@ debounce_checkbox_state_example = """rx.hstack(
 )
 """
 
+
 def render_debounceinput():
     return rx.vstack(
         doctext(
@@ -37,7 +38,7 @@ def render_debounceinput():
             " component allows the frontend to remain responsive while receiving user input ",
             "and send the value to the backend after some delay, on blur, or when ",
             rx.kbd("Enter"),
-            " is pressed."
+            " is pressed.",
         ),
         doctext(
             "Typically, this component is used to wrap a child ",
@@ -51,7 +52,9 @@ def render_debounceinput():
             " event handler can be used with ",
             rx.code("rx.debounce_input"),
         ),
-        doctext("This example only sends the final checkbox state to the backend after a 1 second delay."),
+        doctext(
+            "This example only sends the final checkbox state to the backend after a 1 second delay."
+        ),
         docdemo(
             debounce_checkbox_state_example,
             state=debounce_checkbox_state,

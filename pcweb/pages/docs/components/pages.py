@@ -108,7 +108,8 @@ app.add_page(post, route="/post/[pid]")
         ),
         doctext(
             "You can specify multiple dynamic arguments. Their values can be retrieved by calling ",
-            rx.code("get_query_params()"), "."
+            rx.code("get_query_params()"),
+            ".",
         ),
         doccode(
             """
@@ -213,6 +214,6 @@ app.add_page(about, title="About Page")
         doctext(
             "This is equivalent to calling ",
             rx.code("app.add_page"),
-            " with the same arguments."
+            " with the same arguments.",
         ),
     )

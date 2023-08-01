@@ -2,11 +2,16 @@
 
 # pcweb urls.
 PIP_URL = "https://pypi.org/project/reflex"
-GITHUB_URL = "https://github.com/pynecone-io/reflex"
+GITHUB_URL = "https://github.com/reflex-dev/reflex"
+GITHUB_DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
 CONTACT_URL = "mailto:contact@pynecone.io"
 CHAT_APP_URL = "https://github.com/reflex-dev/reflex-chat"
+LINKEDIN_URL = "https://www.linkedin.com/company/reflex-dev"
+YC_URL = "https://www.ycombinator.com/companies/reflex"
+ROADMAP_URL = "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37"
+CONTRIBUTOR_PROGRAM_URL = "https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7"
 
 # Install urls.
 BUN_URL = "https://bun.sh"

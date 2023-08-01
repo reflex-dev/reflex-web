@@ -109,10 +109,18 @@ def props():
         subheader("HTML Props"),
         doctext(
             "Components support many standard HTML properties as props. ",
-            "For example: the HTML ", doclink("id", href="https://www.w3schools.com/html/html_id.asp"),
-            " property is exposed directly as the prop ", rx.code("id"), ". ",
-            "The HTML ", doclink("className", href="https://www.w3schools.com/jsref/prop_html_classname.asp"),
-            " property is exposed as the prop ", rx.code("class_name"),
+            "For example: the HTML ",
+            doclink("id", href="https://www.w3schools.com/html/html_id.asp"),
+            " property is exposed directly as the prop ",
+            rx.code("id"),
+            ". ",
+            "The HTML ",
+            doclink(
+                "className",
+                href="https://www.w3schools.com/jsref/prop_html_classname.asp",
+            ),
+            " property is exposed as the prop ",
+            rx.code("class_name"),
             " (note the Pythonic snake_casing!).",
         ),
         docdemo(code7),
@@ -131,7 +139,9 @@ def props():
         doctext(
             "Reflex apps maintain ", doclink("State", href=state_overview.path), "."
         ),
-        doctext("State may be modified in response to things like user input, or rendering events (like page load)."),
+        doctext(
+            "State may be modified in response to things like user input, or rendering events (like page load)."
+        ),
         doctext(
             "State may be bound to component props, so that the UI reacts to state updates."
         ),
@@ -140,7 +150,9 @@ def props():
                 rx.alert_icon(),
                 rx.box(
                     rx.alert_description(
-                        "Optional: Learn all about ", doclink("State", href=state_overview.path), " first."
+                        "Optional: Learn all about ",
+                        doclink("State", href=state_overview.path),
+                        " first.",
                     ),
                 ),
                 status="warning",
