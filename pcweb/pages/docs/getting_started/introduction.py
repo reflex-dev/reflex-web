@@ -101,7 +101,7 @@ def motivation() -> rx.Component:
                     width="100%",
                 ),
                 rx.text(
-                    "Use Python for everytasdfsdfdshing. Don't worry about learning a new language.",
+                    "Use Python for everything. Don't worry about learning a new language.",
                     width="100%",
                 ),
                 rx.text(
