@@ -23,7 +23,7 @@ for route in routes:
         route.path,
         "Reflex",
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
-        image="index_preview.png",
+        image="/index_preview.png",
     )
 
 # Add the pages to the app.
