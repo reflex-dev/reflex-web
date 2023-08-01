@@ -49,12 +49,7 @@ $ reflex init""",
         ),
         subheader(".web"),
         doctext(
-            "The Reflex frontend compiles down to a ",
-            doclink("NextJS", href=constants.NEXTJS_URL),
-            " app. ",
-            "The output is stored in the ",
-            rx.code(".web"),
-            " directory. ",
+            "This is where the compiled Javascript files will be stored. ",
             "You will never need to touch this directory, "
             " but it can be useful for debugging.",
         ),
@@ -96,7 +91,7 @@ $ reflex init""",
         doctext(
             "The ",
             rx.code("rxconfig.py"),
-            " file contains configuration for your app. ",
+            " file can be used to configure your app. ",
             " By default it looks something like this: ",
         ),
         doccode(
@@ -105,40 +100,10 @@ $ reflex init""",
 
 config = rx.Config(
     app_name="hello",
-    bun_path="$HOME/.bun/bin/bun",
-    db_url="sqlite:///reflex.db",
-    env=rx.Env.DEV,
-    port=3000,
 )
 """,
         ),
         doctext(
-            "Reflex uses ",
-            doclink("bun", href=constants.BUN_URL),
-            " to manage Javascript libraries. "
-            "Bun is installed automatically when you run ",
-            rx.code("reflex init"),
-            " at ",
-            rx.code("~/.bun/bin/bun"),
-            ". ",
-            "You can specify a different path in your config. ",
-        ),
-        doctext(
-            "The database url is discussed in the ",
-            doclink("database", href=database_overview.path),
-            " section. ",
-        ),
-        doctext(
-            "The environment can be set to ",
-            rx.code("rx.Env.DEV"),
-            " or ",
-            rx.code("rx.Env.PROD"),
-            ". See the ",
-            doclink("self hosting", href=self_hosting.path),
-            " section for more details. ",
-        ),
-        subheader("Next Steps"),
-        doctext(
-            "Continue reading to see how to customize your app. ",
+            "We will discuss configuration in more detail in the next section. ",
         ),
     )
