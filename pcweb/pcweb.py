@@ -5,7 +5,7 @@ from pcweb import styles
 from pcweb.base_state import State
 from pcweb.component_list import component_list
 from pcweb.middleware import CloseSidebarMiddleware
-from pcweb.pages import blog_routes, doc_routes, routes
+from pcweb.pages import blog_routes, doc_routes, routes, faq_routes
 from pcweb.pages.docs.component import multi_docs
 
 from pcweb.pages import page404
@@ -23,7 +23,7 @@ for route in routes:
         route.path,
         "Reflex",
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
-        image="preview.png",
+        image="index_preview.png",
     )
 
 # Add the pages to the app.
@@ -33,7 +33,7 @@ for route in blog_routes:
         route.path,
         "Reflex | Blog",
         description="Keep up to date with the latest Reflex news.",
-        image="preview.png",
+        image="previews/blog_preview.png",
     )
 
 # Add the pages to the app.
@@ -43,7 +43,17 @@ for route in doc_routes:
         route.path,
         "Reflex | Docs",
         description="Learn how to build web apps in pure Python.",
-        image="preview.png",
+        image="previews/docs_preview.png",
+    )
+
+# Add the pages to the app.
+for route in faq_routes:
+    app.add_page(
+        route.component,
+        route.path,
+        "Reflex | FAQ",
+        description="Frequently asked questions about Reflex.",
+        image="previews/faq_preview.png",
     )
 
 for key in component_list:

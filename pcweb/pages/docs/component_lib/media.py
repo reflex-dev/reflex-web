@@ -2,7 +2,7 @@ import reflex as rx
 from reflex.components.media.icon import ICON_LIST
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext
+from pcweb.templates.docpage import docdemo, doctext, doccode, docdemobox
 
 from PIL import Image
 import random
@@ -128,12 +128,16 @@ image_state = """class ImageState(State):
     url = f"https://picsum.photos/id/1/200/300"
     image = Image.open(requests.get(url, stream=True).raw)
 """
-exec(image_state)
 image_pil_example = """rx.vstack(
         rx.image(src=ImageState.image, alt="=An Unsplash Image")
     )
 """
 
+
+image_pil_example_show = """rx.vstack(
+        rx.image(src="https://picsum.photos/id/1/200/300", alt="=An Unsplash Image")
+    )
+"""
 
 def render_image():
     return rx.vstack(
@@ -144,11 +148,8 @@ def render_image():
         doctext("Image composes a box and can be styled simlarly."),
         docdemo(code84),
         doctext("You can also pass a PIL image object as the src."),
-        docdemo(
-            image_pil_example,
-            state=image_state,
-            comp=eval(image_pil_example),
-            context=True,
-        ),
+        docdemobox(eval(image_pil_example_show)),
+        doccode(image_state),
+        doccode(image_pil_example),
         align_items="start",
     )

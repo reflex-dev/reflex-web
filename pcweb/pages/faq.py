@@ -2,8 +2,7 @@ import reflex as rx
 from pcweb import constants, styles
 from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
 from pcweb.templates.webpage import webpage
-from reflex import el
-
+from pcweb.route import Route
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 
@@ -131,3 +130,7 @@ def faq():
         flex_direction="column",
         max_width="960px",
     )
+
+
+
+faq_routes = [r for r in locals().values() if isinstance(r, Route)]
