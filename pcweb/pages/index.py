@@ -717,7 +717,7 @@ deploy_icon = rx.hstack(
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
-            "Autoconfigured CDN, HTTPS, SSL, and more to make sure your app is preformant and secure.",
+            "Autoconfigured CDN, HTTPS, SSL, and more to make sure your app is performant and secure.",
             color="#342E5C",
         ),
         rx.box(

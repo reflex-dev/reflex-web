@@ -70,6 +70,7 @@ def get_all_markdown_files(path: str):
         for file in files:
             if file.endswith(".md"):
                 markdown_files.append(os.path.join(root, file))
+                
     return markdown_files
 
 
@@ -224,6 +225,7 @@ for path, blog in blogs.items():
     meta, contents = blog
     path = path.replace(".md", "")
 
+    print(path)
     @webpage(path=path)
     def p():
         return page(meta, contents)
