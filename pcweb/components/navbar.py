@@ -237,7 +237,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "✨  We have some exciting news to share: Pynecone has rebranded to Reflex!",
+                            "✨ We're rebranding to Reflex!",
                             " Read more about it on our ",
                             rx.link(
                                 "blog",

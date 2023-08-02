@@ -1,7 +1,7 @@
 import reflex as rx
 
 from pcweb import constants, styles
-from pcweb.templates.docpage import docheader, docpage, doctext
+from pcweb.templates.docpage import docheader, docpage, doctext, docalert
 from pcweb.styles import text_colors as tc
 
 difficulty_colors = {"Beginner": "green", "Intermediate": "orange", "Advanced": "red"}
@@ -15,6 +15,16 @@ example_list = [
         "gif": "",
         "url": "https://pynecone.io/",
         "source": "https://github.com/pynecone-io/pcweb",
+    },
+    {
+        "name": "Chat App",
+        "difficulty": "Advanced",
+        "tags": ["Multi-Page", "ML"],
+        "description": "An AI chat app.",
+        "img": "/gallery/chat.gif",
+        "gif": "",
+        "url": "",
+        "source": "https://github.com/reflex-dev/reflex-chat",
     },
     {
         "name": "Email Gen",
@@ -129,7 +139,6 @@ example_list = [
     },
 ]
 
-
 class Gallery(rx.Model):
     name: str
     difficulty: str
@@ -141,9 +150,9 @@ class Gallery(rx.Model):
     source: str
 
 
-def component_grid():
+def component_grid(examples):
     sidebar = []
-    for category in example_list:
+    for category in examples:
         sidebar.append(
             rx.vstack(
                 rx.box(
@@ -192,7 +201,6 @@ def component_grid():
                     category["description"],
                     color=tc["docs"]["body"],
                     height="2.5em",
-                    overflow="scroll",
                     background="linear-gradient(transparent .5em, white)",
                 ),
                 rx.spacer(),
@@ -228,13 +236,21 @@ def component_grid():
 @docpage()
 def gallery():
     return rx.flex(
-        rx.hstack(
+        rx.vstack(
             rx.box(
                 docheader("Gallery", first=True),
                 doctext("Here are some examples of what you can make with Reflex. "),
                 rx.divider(),
-                component_grid(),
+                component_grid(example_list),
                 text_align="left",
+            ),
+            rx.box(
+                docheader("Community Gallery", first=True),
+                doctext("Here are some examples of what the community has made with Reflex. "),
+                docalert(
+                    "This section is coming soon! If you have an app you'd like to share, please join our discord and let us know."
+                ),
+                padding_top="2em",
             ),
             align_items="start",
         ),
