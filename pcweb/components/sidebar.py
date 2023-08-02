@@ -96,6 +96,7 @@ def get_sidebar_items_learn():
             tutorial,
             children=[
                 tutorial.intro,
+                tutorial.setup,
                 tutorial.starting_point,
                 tutorial.adding_state,
                 tutorial.chat_history,
