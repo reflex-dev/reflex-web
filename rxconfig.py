@@ -11,7 +11,7 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
         "@tailwindcss/typography",
-        "@splinetool/react-spline",
+        "@splinetool/react-spline", 
         "@splinetool/runtime",
         "@inkeep/widgets@0.2.164",
     ],
