@@ -26,6 +26,7 @@ class ExampleState(State):
     def next_color(self):
         \"""An event handler to go to the next color.\"""
         # Event handlers can modify the base vars.
+        # Here we reference the base vars `colors` and `index`.
         self.index = (self.index + 1) % len(self.colors)
 
     @rx.var
@@ -55,16 +56,6 @@ def state_overview():
             "State allows us to create interactive apps that can respond to user input. ",
             "It defines the variables that can change over time, and the functions that can modify them. ",
         ),
-        # doctext(
-        #     "Each user who opens your app has a unique ID and their own copy of the state. ",
-        #     "This means that each user can interact with the app and modify the state "
-        #     " independently of other users.",
-        # ),
-        # docalert(
-        #     "All user state is stored on the server.",
-        #     "Behind the scenes, events are sent as API calls to update the state on the server. "
-        #     + "The state delta is then sent to the frontend, which updates the UI to reflect the new state.",
-        # ),
         subheader("State Basics"),
         doctext(
             "The base state is defined as a class that inherits from ",
@@ -168,5 +159,18 @@ def state_overview():
                 ),
                 status="success",
             ),
+        ),
+        subheader("Client States"),
+        doctext(
+            "Each user who opens your app has a unique ID and their own copy of the state. ",
+            "This means that each user can interact with the app and modify the state "
+            "independently of other users. ",
+        ),
+        docalert(
+            "Try opening an app in multiple tabs to see how the state changes independently."
+        ),
+        doctext(
+            "All user state is stored on the server, and all event handlers are executed on the server. ",
+            "Reflex uses websockets to send events to the server, and to send state updates back to the client. ",
         ),
     )
