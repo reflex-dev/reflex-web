@@ -282,13 +282,13 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         "Docs",
                         href="/docs/getting-started/introduction",
                         style=styles.NAV_TEXT_STYLE,
-                        display=["none", "none", "none", "none", "flex", "flex"],
+                        display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
                     rx.link(
                         "Blog",
                         href="/blog",
                         style=styles.NAV_TEXT_STYLE,
-                        display=["none", "none", "none", "none", "flex", "flex"],
+                        display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
                     rx.menu(
                         rx.menu_button(
@@ -298,14 +298,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     tag="chevron_down", style=styles.NAV_TEXT_STYLE
                                 ),
                                 cursor="pointer",
-                                display=[
-                                    "none",
-                                    "none",
-                                    "none",
-                                    "none",
-                                    "flex",
-                                    "flex",
-                                ],
+                                display=["none", "none", "none", "flex", "flex", "flex"],
                             )
                         ),
                         rx.menu_list(
