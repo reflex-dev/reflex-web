@@ -1,18 +1,10 @@
 import reflex as rx
-from pcweb import styles
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doc_section,
     doccode,
     docdemobox,
     docheader,
-    doclink,
     docpage,
     doctext,
-    subheader_comp,
-    text_comp,
-    definition,
-    docalert,
     subheader,
 )
 from pcweb.pages.docs.tutorial.adding_state import ChatappState, chat1, style
@@ -168,7 +160,6 @@ button_style = dict(
 
 @docpage()
 def final_app():
-    from pcweb.pages.docs.hosting.self_hosting import self_hosting
     return rx.box(
         docheader("Final App"),
         doctext(
@@ -197,12 +188,5 @@ def final_app():
             "in more detail. ",
             "The best way to learn is to build something, so try to build your own app using this ",
             "as a starting point! ",
-        ),
-        doctext(
-            "Once you've built your app, you can deploy it to the web. ",
-            "We are working on a single command deployment, but for now, you can follow ",
-            "the instructions in the ",
-            rx.link("self hosting", self_hosting),
-            " guide to deploy your app. ",
         )
     )
