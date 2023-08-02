@@ -16,6 +16,7 @@ from pcweb.templates.docpage import (
     docalert,
     subheader,
 )
+from pcweb.pages.docs.tutorial import style
 
 code1 = """# chatapp.py
 import reflex as rx
@@ -112,11 +113,99 @@ code3_out = rx.container(
         action_bar(),
     )
 
+code4_style = """# style.py
+
+# Common styles for questions and answers.
+shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
+chat_margin = "20%"
+message_style = dict(
+    padding="1em",
+    border_radius="5px",
+    margin_y="0.5em",
+    box_shadow=shadow,
+    width="auto",
+)
+
+# Set specific styles for questions and answers.
+question_style = message_style | dict(bg="#F5EFFE", margin_left=chat_margin)
+answer_style = message_style | dict(bg="#DEEAFD", margin_right=chat_margin)
+
+# Styles for the action bar.
+input_style = dict(
+    border_width="1px", padding="1em", box_shadow=shadow
+)
+button_style = dict(
+    bg="#CEFFEE", box_shadow=shadow
+)
+"""
+code4 = """# chatapp.py
+import reflex as rx
+
+from chatapp import style
+
+
+def qa(question: str, answer: str) -> rx.Component:
+    return rx.box(
+        rx.box(rx.text(question, text_align="right"), style=style.question_style),
+        rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
+        margin_y="1em",
+    )
+
+def chat() -> rx.Component:
+    qa_pairs = [
+        ("What is Reflex?", "A way to build web apps in pure Python!"),
+        ("What can I make with it?", "Anything from a simple website to a complex web app!"),
+    ]
+    return rx.box(*[qa(question, answer) for question, answer in qa_pairs]) 
+
+
+def action_bar() -> rx.Component:
+    return rx.hstack(
+        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.button("Ask", style=style.button_style),
+    )
+
+
+def index() -> rx.Component:
+    return rx.container(
+        chat(),
+        action_bar(),
+    )
+
+
+app = rx.App()
+app.add_page(index)
+app.compile()
+"""
+def qa4(question: str, answer: str) -> rx.Component:
+    return rx.box(
+        rx.box(rx.text(question, text_align="right"), style=style.question_style),
+        rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
+        margin_y="1em",
+    )
+def chat4() -> rx.Component:
+    qa_pairs = [
+        ("What is Reflex?", "A way to build web apps in pure Python!"),
+        ("What can I make with it?", "Anything from a simple website to a complex web app!"),
+    ]
+    return rx.box(*[qa4(question, answer) for question, answer in qa_pairs]) 
+def action_bar4() -> rx.Component:
+    return rx.hstack(
+        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.button("Ask", style=style.button_style),
+    )
+code4_out = rx.container(
+    chat4(),
+    action_bar4(),
+)
+
+
 
 @docpage()
 def starting_point():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.components.props import props
+    from pcweb.pages.docs.styling.overview import styling_overview
     return rx.box(
         docheader("Basic Frontend", first=True),
         doctext(
@@ -173,92 +262,27 @@ def starting_point():
         ),
         docdemobox(code3_out),
         doccode(code3),
+        subheader("Styling"),
         doctext(
-            """
-            Let's add some styling to the apps. A detailed guide on how to style reflex apps can be found here. For cleanliness, we will put all styling in a separate file style.py:
-            """,
+            "Let's add some styling to the app. ",
+            "More information on styling can be found in the ",
+            doclink("styling docs", styling_overview.path),
+            ".",
+            "To keep our code clean, we will move the styling to a separate file ",
+            rx.code("chatapp/style.py"),
+            ".",
         ),
-        doccode(
-            """message_style = dict(
-    display="inline-block",
-    padding="4",
-    border_radius="5px",
-    max_width="30em",
-    box_shadow="rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;",
-)
-
-question_style = {**dict(bg="#F5EFFE"), **message_style}
-answer_style = {**dict(bg="#DEEAFD"), **message_style}
-
-input_style = dict(
-    border_width="1px", p="4", box_shadow="rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;"
-)
-
-button_style = dict(
-    bg="#CEFFEE", box_shadow="rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;"
-)
-        """
-        ),
+        doccode(code4_style),
         doctext(
-            """
-            The app so far should be the following:
-            """,
+            "We will import the styles in ",
+            rx.code("chatapp.py"),
+            " and use them in the components. ",
+            "At this point, the app should look like this: "
         ),
-        doccode(
-            '''import reflex as rx
-from .styles import question_style, answer_style, button_style, input_style
- 
-class State(rx.State):
-	pass
-
-def qa() -> rx.Component:
-    return rx.box(
-        rx.box(
-            rx.text(
-                "What is the meaning of life?",
-                style=question_style,
-            ),
-            text_align="right",
-            margin_top="1em",
-        ),
-        rx.box(
-            rx.text(
-                "42",
-                style=answer_style,
-            ),
-            text_align="left",
-            padding_top="1em",
-        ),
-        width="100%",
-    )
-
-
-def action_bar() -> rx.Component:
-    """The action bar to send a new message."""
-    return rx.hstack(
-        rx.input(
-            placeholder="Ask a question...",
-            style=input_style,
-        ),
-        rx.button("Ask", style=button_style),
-        width="100%",
-    )
-
-
-def index() -> rx.Component:
-    """The index page."""
-    return rx.vstack(
-        qa(),
-        action_bar(),
-        width="100%",
-        padding="1em",
-    )
-
-
-# Add state and page to the app.
-app = rx.App()
-app.add_page(index)
-app.compile()
-            '''
-        ),
+        docdemobox(code4_out),
+        doccode(code4),
+        doctext(
+            "The app is looking good, but it's not very useful yet! ",
+            "In the next section, we will add some functionality to the app. "
+        )
     )
