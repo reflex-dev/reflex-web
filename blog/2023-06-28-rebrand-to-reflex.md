@@ -21,7 +21,8 @@ rx.unordered_list(
     rx.list_item("Our main website will change from ", doclink("https://pynecone.io", href="https://pynecone.io"), " to ", doclink("https://reflex.dev", href="https://reflex.dev"), "."),
     rx.list_item("Our Python package will change from ", rx.code("pip install pynecone"), " to ", rx.code("pip install reflex"), "."),
     rx.list_item("Our library will change from ", rx.code("import pynecone as pc"), " to ", rx.code("import reflex as rx"), "."),
-    rx.list_item("Our Github repo will switch from ", doclink("https://github.com/pynecone-io/pynecone", href="https://github.com/pynecone-io/pynecone"), " to ", doclink("https://github.com/reflex-dev/reflex", href="https://github.com/reflex-dev/reflex"), ".")
+    rx.list_item("Our Github repo will switch from ", doclink("https://github.com/pynecone-io/pynecone", href="https://github.com/pynecone-io/pynecone"), " to ", doclink("https://github.com/reflex-dev/reflex", href="https://github.com/reflex-dev/reflex"), "."),
+    spacing="0em"
 )
 ```
 

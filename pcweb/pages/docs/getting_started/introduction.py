@@ -195,7 +195,7 @@ def counter_example() -> rx.Component:
         rx.text(
             "We begin by importing the library. ",
             "All Reflex functions and classes begin with the ",
-            rx.code("rx.", color=styles.ACCENT_COLOR),
+            rx.code("rx."),
             " prefix.",
             margin_bottom="1em",
             font_size=styles.TEXT_FONT_SIZE,
@@ -213,13 +213,11 @@ def counter_example() -> rx.Component:
             "Here our state has a single var, ",
             rx.code(
                 "count",
-                color=styles.ACCENT_COLOR,
             ),
             ", which holds the current value of the counter. ",
             " We initialize it to ",
             rx.code(
                 "0",
-                color=styles.ACCENT_COLOR,
             ),
             ". ",
             margin_bottom="1em",
@@ -247,12 +245,10 @@ def counter_example() -> rx.Component:
             "Our counter app has two event handlers, ",
             rx.code(
                 "increment",
-                color=styles.ACCENT_COLOR,
             ),
             " and ",
             rx.code(
                 "decrement",
-                color=styles.ACCENT_COLOR,
             ),
             ".",
             margin_bottom="1em",
@@ -267,17 +263,14 @@ def counter_example() -> rx.Component:
             "We use different components such as ",
             rx.code(
                 "rx.hstack",
-                color=styles.ACCENT_COLOR,
             ),
             ", ",
             rx.code(
                 "rx.button",
-                color=styles.ACCENT_COLOR,
             ),
             ", and ",
             rx.code(
                 "rx.heading",
-                color=styles.ACCENT_COLOR,
             ),
             " to build the frontend. ",
             "Components can be nested to create complex layouts, ",
@@ -301,12 +294,10 @@ def counter_example() -> rx.Component:
             "Components can reference the app's state vars. " "The ",
             rx.code(
                 "rx.heading",
-                color=styles.ACCENT_COLOR,
             ),
             " component displays the current value of the counter by referencing ",
             rx.code(
                 "State.count",
-                color=styles.ACCENT_COLOR,
             ),
             ". ",
             "All components that reference state will reactively update whenever the state changes.",
@@ -319,7 +310,6 @@ def counter_example() -> rx.Component:
             "For example, ",
             rx.code(
                 "on_click",
-                color=styles.ACCENT_COLOR,
             ),
             " is an event that is triggered when a user clicks a component. ",
             margin_bottom="1em",
@@ -329,18 +319,15 @@ def counter_example() -> rx.Component:
             "The first button in our app binds its ",
             rx.code(
                 "on_click",
-                color=styles.ACCENT_COLOR,
             ),
             " event to the ",
             rx.code(
                 "State.decrement",
-                color=styles.ACCENT_COLOR,
             ),
             " event handler, ",
             " and the second button binds its to the ",
             rx.code(
                 "State.increment",
-                color=styles.ACCENT_COLOR,
             ),
             " handler.",
             margin_bottom="1em",
