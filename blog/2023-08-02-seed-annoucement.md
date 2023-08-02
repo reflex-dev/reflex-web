@@ -69,5 +69,9 @@ doctext("A more detailed roadmap of what’s coming next can be found ", doclink
 ```
 
 ```reflex
-doctext("-Reflex team")
+rx.text("- Reflex Team", margin_bottom="5em")
 ```
+```reflex
+rx.box(height="8em")
+```
+
