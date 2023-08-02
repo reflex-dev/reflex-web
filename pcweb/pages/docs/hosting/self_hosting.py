@@ -1,7 +1,6 @@
 import reflex as rx
 
 from pcweb.templates.docpage import (
-    docalert,
     doccode,
     docheader,
     doclink,
@@ -9,20 +8,6 @@ from pcweb.templates.docpage import (
     doctext,
     subheader,
 )
-
-code_example1 = """rx.text('hello world', color='blue')"""
-code_example2 = """
-rx.hstack(
-    rx.circular_progress(
-        rx.circular_progress_label("50", color="green"),
-        value=50,
-    ),
-    rx.circular_progress(
-        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
-        is_indeterminate=True,
-    ),
-)
-"""
 
 
 @docpage()
@@ -49,7 +34,7 @@ def self_hosting():
             rx.code("api_url"),
             " to the publicly accessible IP address or hostname of your server, with the port ",
             rx.code(":8000"),
-            " at the end.",
+            " at the end. Setting this correctly is essential for the frontend to interact with the backend state.",
         ),
         doctext(
             "For example if your server is at app.example.com, your config would look like this:"
@@ -58,8 +43,6 @@ def self_hosting():
             """config = rx.Config(
     app_name="your_app_name",
     api_url="http://app.example.com:8000",
-    bun_path="$HOME/.bun/bin/bun",
-    db_url="sqlite:///reflex.db",
 )
 """,
         ),
@@ -162,11 +145,15 @@ def self_hosting():
         doccode(
             """config = rx.Config(
     app_name="app",
-    api_url="0.0.0.0:8000",
-    bun_path="/app/.bun/bin/bun",
-    db_url="sqlite:///reflex.db",
+    api_url="http://app.example.com:8000",
 )
 """,
+        ),
+        doctext(
+            "Notice that the ",
+            rx.code("api_url"),
+            " should be set to the externally accessible hostname or IP, as the client browser must ",
+            "be able to connect to it directly to establish interactivity."
         ),
         doctext(
             "You can find the ",
@@ -201,7 +188,7 @@ def self_hosting():
             "Finally, you can start your Reflex container service as follows.",
         ),
         doccode(
-            """$ docker run -d -p 3000:3000 -p 8000:8000 --name reflex reflex:latest""",
+            """$ docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest""",
             language="bash",
         ),
     )
