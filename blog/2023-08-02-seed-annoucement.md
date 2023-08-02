@@ -14,7 +14,7 @@ doctext("We’re thrilled to announce Reflex (formerly Pynecone - more on that i
 ```
 
 ```reflex
-doctext("Additionally, we are thrilled to bring on some fantastic founders as angel investors, including ", doclink("Qasar Younis", href="https://www.linkedin.com/in/qasar/"), " (Founder and CEO of Applied Intuition), ", doclink("Jack Altman", href="https://www.linkedin.com/in/jackealtman/"), " (Founder and CEO of Lattice), ", doclink("Paul Copplestone", href="https://www.linkedin.com/in/paulcopplestone/"), " (Founder and CEO of Supabase), ", doclink("Matt Kraning", href="https://www.linkedin.com/in/matt-kraning/"), " (CTO, Cortex at Palo Alto Networks), ", doclink("Alfredo Andere", href="https://www.linkedin.com/in/alfredoandere/"), " (Founder and CEO of Latch Bio), ",
+doctext("Additionally, we are thrilled to bring on some fantastic founders as angel investors, including ", doclink("Qasar Younis", href="https://www.linkedin.com/in/qasar/"), " (Cofounder and CEO of Applied Intuition), ", doclink("Jack Altman", href="https://www.linkedin.com/in/jackealtman/"), " (Cofounder and CEO of Lattice), ", doclink("Paul Copplestone", href="https://www.linkedin.com/in/paulcopplestone/"), " (Cofounder and CEO of Supabase), ", doclink("Matt Kraning", href="https://www.linkedin.com/in/matt-kraning/"), " (CTO, Cortex at Palo Alto Networks), ", doclink("Alfredo Andere", href="https://www.linkedin.com/in/alfredoandere/"), " (Cofounder and CEO of Latch Bio), ",
 " and others.", padding_y="1em")
 ```
 
@@ -69,5 +69,5 @@ doctext("A more detailed roadmap of what’s coming next can be found ", doclink
 ```
 
 ```reflex
-doctext("Reflex team")
+doctext("-Reflex team")
 ```
