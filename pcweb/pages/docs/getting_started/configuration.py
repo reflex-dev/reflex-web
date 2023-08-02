@@ -104,6 +104,6 @@ config = rx.Config(
         doctext(
             "See the ",
             doclink("CLI reference", href="/docs/api-reference/cli"),
-            " for all the command line arguments available.",
+            " for all the arguments available.",
         ),
     )

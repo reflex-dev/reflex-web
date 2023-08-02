@@ -198,15 +198,15 @@ app.add_page(about, title="About Page")
             app.add_page(index, on_load=State.get_data)
             """
         ),
-        subheader("Route Decorator"),
+        subheader("Page Decorator"),
         doctext(
             "You can also use the ",
-            rx.code("@rx.route"),
+            rx.code("@rx.page"),
             " decorator to add a page.",
         ),
         doccode(
             """
-            @rx.route(route="/", title="My Beautiful App")
+            @rx.page(route="/", title="My Beautiful App")
             def index():
                 return rx.text('A Beautiful App')
             """
