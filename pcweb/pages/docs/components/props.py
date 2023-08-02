@@ -11,7 +11,7 @@ from pcweb.templates.docpage import (
 )
 
 code1 = """rx.avatar(
-    name="John Doe",
+    name="John Doe"
 )"""
 
 code2 = """rx.button(
@@ -137,13 +137,16 @@ def props():
         ),
         subheader("Binding Props to State"),
         doctext(
-            "Reflex apps maintain ", doclink("State", href=state_overview.path), "."
+            "Reflex apps can have a ", doclink("State", href=state_overview.path), 
+            " that stores all variables that can change when the app is running, "
+            " as well as the event handlers that can change those variables."
         ),
         doctext(
-            "State may be modified in response to things like user input, or rendering events (like page load)."
+            "State may be modified in response to things like user input like clicking a button,",
+             " or in response to events like loading a page."
         ),
         doctext(
-            "State may be bound to component props, so that the UI reacts to state updates."
+            "State vars can be bound to component props, so that the UI always reflects the current state of the app."
         ),
         doctext(
             rx.alert(

@@ -5,6 +5,7 @@ from pcweb.templates.docpage import (
     definition,
     docalert,
     docdemo,
+    doccode,
     docheader,
     docpage,
     doctext,
@@ -16,25 +17,30 @@ from typing import List
 
 class ExampleState(State):
 
-    # The colors to cycle through.
+    # A base var for the list of colors to cycle through.
     colors: List[str] = ["black", "red", "green", "blue", "purple"]
 
-    # The index of the current color.
+    # A base var for the index of the current color.
     index: int = 0
 
     def next_color(self):
-        \"""Cycle to the next color.\"""
+        \"""An event handler to go to the next color.\"""
+        # Event handlers can modify the base vars.
         self.index = (self.index + 1) % len(self.colors)
 
     @rx.var
     def color(self)-> str:
+        \"""A computed var that returns the current color.\"""
+        # Computed vars update automatically when the state changes.
         return self.colors[self.index]
 """
 exec(code1)
 
 code2 = """rx.heading(
     "Welcome to Reflex!",
+    # Event handlers can be bound to event triggers.
     on_click=ExampleState.next_color,
+    # State vars can be bound to component props.
     color=ExampleState.color,
     _hover={"cursor": "pointer"},
 )
@@ -46,52 +52,65 @@ def state_overview():
     return rx.box(
         docheader("State", first=True),
         doctext(
-            "The app's state is where we define all the ",
-            rx.span("vars", font_weight="bold"),
-            " that can change in the app, as well as all the functions that can modify them.",
+            "State allows us to create interactive apps that can respond to user input. ",
+            "It defines the variables that can change over time, and the functions that can modify them. ",
         ),
-        doctext(
-            "State allows us to add interaction in Reflex apps. ",
-            "Components can modify the state based on user ",
-            rx.span("events", font_weight="bold"),
-            " such as clicking a button or entering text in a field. ",
-            "This is done through ",
-            rx.span("event handlers", font_weight="bold"),
-            ".",
-        ),
-        doctext(
-            "Each user who opens your app has a unique ID and their own copy of the state. ",
-            "This means that each user can interact with the app and modify the state "
-            " independently of other users.",
-        ),
-        docalert(
-            "All user state is stored on the server.",
-            "Behind the scenes, events are sent as API calls to update the state on the server. "
-            + "The state delta is then sent to the frontend, which updates the UI to reflect the new state.",
-        ),
+        # doctext(
+        #     "Each user who opens your app has a unique ID and their own copy of the state. ",
+        #     "This means that each user can interact with the app and modify the state "
+        #     " independently of other users.",
+        # ),
+        # docalert(
+        #     "All user state is stored on the server.",
+        #     "Behind the scenes, events are sent as API calls to update the state on the server. "
+        #     + "The state delta is then sent to the frontend, which updates the UI to reflect the new state.",
+        # ),
         subheader("State Basics"),
+        doctext(
+            "The base state is defined as a class that inherits from ",
+            rx.code("rx.State"),
+            ". ",
+        ),
+        doccode(
+        """
+        import reflex as rx
+        class State(rx.State):
+            \"""Define your app state here.\"""
+"""
+        ),
+        doctext(
+            "State is made up of two main parts: vars and event handlers. ",
+        ),
+        doctext(
+            rx.span("Vars", font_weight="bold"),
+            " are variables in your app that can change over time. ",
+            rx.span("Event handlers", font_weight="bold"),
+            " are functions that modify these vars in response to events. ",
+        ),
         doctext("These are the main concepts to understand how state works in Reflex."),
         rx.responsive_grid(
             definition(
-                "Base Vars",
+                "Base Var",
                 rx.unordered_list(
-                    rx.list_item("Vars in a app that can change over time."),
-                    rx.list_item("Can only be modified within event handlers."),
+                    rx.list_item("Any variable in your app that can change over time."),
+                    rx.list_item("Defined as a field in the ", rx.code("State"), " class"),
+                    rx.list_item("Can only be modified by event handlers."),
                 ),
             ),
             definition(
-                "Computed Vars",
+                "Computed Var",
                 rx.unordered_list(
-                    rx.list_item("Vars that are functions of other vars."),
-                    rx.list_item("Cannot be set directly, only derived."),
+                    rx.list_item("Vars that change automatically based on other vars."),
+                    rx.list_item("Defined as functions using the ", rx.code("@rx.var"), " decorator."),
+                    rx.list_item("Cannot be set by event handlers, are always recomputed when the state changes."),
                 ),
             ),
             definition(
-                "Events",
+                "Event Trigger",
                 rx.unordered_list(
-                    rx.list_item(
-                        "Actions that occur in the app that trigger event handlers."
-                    ),
+                    rx.list_item("A user interaction that triggers an event. For example, a button click."),
+                    rx.list_item("Defined as special component props, such as ", rx.code("on_click"), "."),
+                    rx.list_item("Can be used to trigger event handlers.")
                 ),
             ),
             definition(
@@ -100,7 +119,12 @@ def state_overview():
                     rx.list_item(
                         "Functions that update the state in response to events."
                     ),
-                    rx.list_item("Defined as functions in the State Class."),
+                    rx.list_item(
+                        "Defined as methods in the ", rx.code("State"), " class."
+                    ),
+                    rx.list_item(
+                        "Can be called by event triggers, or by other event handlers."
+                    ),
                 ),
             ),
             margin_bottom="1em",
@@ -121,7 +145,7 @@ def state_overview():
             ". They are the only vars in the app that may be directly modified within event handlers.",
         ),
         doctext(
-            "There is a single computed property, ",
+            "There is a single computed var, ",
             rx.code("color"),
             ", that is a function of the base vars. ",
             "It will be computed automatically whenever the base vars change. ",

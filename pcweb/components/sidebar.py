@@ -337,7 +337,7 @@ reference = get_sidebar_items_reference()
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + reference
+    sidebar_items = learn + concepts + reference
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -370,6 +370,7 @@ signle_item = {
 def sidebar_comp(
     url: str,
     learn_index: list[int],
+    concepts_index: list[int],
     reference_index: list[int],
 ):
     from pcweb.pages.docs.gallery import gallery
@@ -412,7 +413,7 @@ def sidebar_comp(
                 for item in concepts
             ],
             allow_multiple=True,
-            default_index=learn_index,
+            default_index=concepts_index,
         ),
         rx.heading(
             rx.span("[ ", color="#DACEEE"),
@@ -450,11 +451,13 @@ def sidebar_comp(
 def sidebar(url=None) -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
+    concepts_index = calculate_index(concepts, url)
     reference_index = calculate_index(reference, url)
     return rx.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,
+            concepts_index=concepts_index,
             reference_index=reference_index,
         ),
         padding_right="2em",

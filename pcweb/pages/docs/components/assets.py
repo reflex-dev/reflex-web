@@ -30,7 +30,7 @@ def assets():
         doctext("For example, you can store your logo in your assets folder: "),
         doccode(
             """assets
-└── logo.png""",
+└── Reflex.svg""",
             language="bash",
         ),
         doctext(
