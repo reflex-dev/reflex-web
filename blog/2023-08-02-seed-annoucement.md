@@ -68,5 +68,6 @@ We have three core goals for the next stage of our company.
 doctext("A more detailed roadmap of what’s coming next can be found ", doclink("here", href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37"), ". Stay tuned for updates on our progress!", padding_bottom="2em")
 ```
 
-
-Reflex team 
+```reflex
+doctext("Reflex team")
+``````
