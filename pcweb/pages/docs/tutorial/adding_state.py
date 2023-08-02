@@ -1,21 +1,17 @@
 import reflex as rx
-from pcweb import styles
 from pcweb.pages.docs.tutorial import style
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doc_section,
     doccode,
     docdemobox,
     docheader,
     doclink,
     docpage,
     doctext,
-    subheader_comp,
-    text_comp,
-    definition,
-    docalert,
     subheader,
 )
+import openai
+openai.api_key = "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"
 
 
 class ChatappState(State):
@@ -46,6 +42,28 @@ class ChatappState(State):
             await asyncio.sleep(0.1)
             self.chat_history[-1] = (self.question, answer[:i])
             yield
+        yield rx.set_value("question", "")
+
+    def answer4(self):
+        # Our chatbot has some brains now!
+        session = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": self.question}
+            ],
+            stop=None,
+            temperature=0.7,
+            stream=True,
+        )
+
+        answer = ""
+        self.chat_history.append((self.question, answer))
+        for item in session:
+            if hasattr(item.choices[0].delta, "content"):
+                answer += item.choices[0].delta.content
+                self.chat_history[-1] = (self.question, answer)
+                yield
+
         yield rx.set_value("question", "")
 
 

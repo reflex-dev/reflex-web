@@ -1,6 +1,5 @@
 from .setup import setup
 from .frontend import frontend
 from .adding_state import adding_state
-from .deployment import deployment
-from .chat_history import chat_history
+from .final_app import final_app
 from .intro import intro

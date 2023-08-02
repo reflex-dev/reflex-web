@@ -99,8 +99,7 @@ def get_sidebar_items_learn():
                 tutorial.setup,
                 tutorial.frontend,
                 tutorial.adding_state,
-                tutorial.chat_history,
-                tutorial.deployment,
+                tutorial.final_app,
             ],
         ),
     ]
