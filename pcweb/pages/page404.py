@@ -25,8 +25,8 @@ def _404():
             ),
             rx.spacer(),
         ),
+        height="80vh",
         width="100%",
-        height="20%",
     )
 
 
@@ -38,5 +38,4 @@ def index():
         footer(),
         font_family=styles.SANS,
         width="100vw",
-        height="100vh",
     )

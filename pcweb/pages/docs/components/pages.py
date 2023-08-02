@@ -1,6 +1,6 @@
 import reflex as rx
 
-from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
+from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader, doclink
 
 
 @docpage()
@@ -58,6 +58,18 @@ def pages():
                     ),
                 )
             )
+        ),
+        doctext(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_description(
+                        "Index is a special exception where it is available at both  / and /index .",
+                        "All other pages are only available at their specified route."
+                    ),
+                ),
+                status="info",
+            ),
         ),
         subheader("Nested Routes"),
         doctext(
@@ -145,7 +157,7 @@ app.add_page(post, route="/post/[pid]")
                 ),
                 rx.list_item(
                     rx.text(
-                        "The image to be shown when the page is shared on social media"
+                        "The preview image to be shown when the page is shared on social media"
                     ),
                     width="100%",
                 ),

@@ -62,6 +62,7 @@ code6 = """rx.slider(
 """
 
 code7 = """rx.box(
+    "Hello World",
     id="box-id",
     class_name=["class-name-1", "class-name-2",],
 )
@@ -106,6 +107,17 @@ def props():
                 status="success",
             ),
         ),
+        subheader("Style Props"),
+        doctext(
+            "In addition to component-specific props, most built-in components support a full range of style props. "
+            "You can use any CSS property to style a component. ",
+        ),
+        docdemo(code2),
+        doctext(
+            "See the ",
+            doclink("styling docs", href=styling_overview.path),
+            " to learn more about customizing the appearance of your app.",
+        ),
         subheader("HTML Props"),
         doctext(
             "Components support many standard HTML properties as props. ",
@@ -124,17 +136,6 @@ def props():
             " (note the Pythonic snake_casing!).",
         ),
         docdemo(code7),
-        subheader("Style Props"),
-        doctext(
-            "In addition to component-specific props, most built-in components support a full range of style props. "
-            "You can use any CSS property to style a component. ",
-        ),
-        docdemo(code2),
-        doctext(
-            "See the ",
-            doclink("styling docs", href=styling_overview.path),
-            " to learn more about customizing the appearance of your app.",
-        ),
         subheader("Binding Props to State"),
         doctext(
             "Reflex apps maintain ", doclink("State", href=state_overview.path), "."

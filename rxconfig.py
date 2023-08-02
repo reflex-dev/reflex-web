@@ -3,7 +3,7 @@ import reflex as rx
 config = rx.Config(
     port=3000,
     app_name="pcweb",
-    deploy_url="https://reflex.dev",
+    rxdeploy_url="https://reflex.dev",
     frontend_packages=[
         "react-confetti",
         "react-colorful",
@@ -11,7 +11,7 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
         "@tailwindcss/typography",
-        "@splinetool/react-spline",
+        "@splinetool/react-spline", 
         "@splinetool/runtime",
         "@inkeep/widgets@0.2.164",
     ],
