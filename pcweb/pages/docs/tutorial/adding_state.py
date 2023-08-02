@@ -31,7 +31,7 @@ class ChatappState(State):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, answer))
-        return rx.set_value("question", "")
+        # return rx.set_value("question", "")
 
     async def answer3(self):
         import asyncio
@@ -42,7 +42,7 @@ class ChatappState(State):
             await asyncio.sleep(0.1)
             self.chat_history[-1] = (self.question, answer[:i])
             yield
-        yield rx.set_value("question", "")
+        # yield rx.set_value("question", "")
 
     def answer4(self):
         # Our chatbot has some brains now!
@@ -64,7 +64,7 @@ class ChatappState(State):
                 self.chat_history[-1] = (self.question, answer)
                 yield
 
-        yield rx.set_value("question", "")
+        # yield rx.set_value("question", "")
 
 
 state1 = """# state.py
@@ -160,9 +160,6 @@ async def answer(self):
         # Add one letter at a time to the output.
         self.chat_history[-1] = (self.question, answer[:i])
         yield
-
-    # Clear the input.
-    yield rx.set_value("question", "")
 """
 def action_bar3() -> rx.Component:
     return rx.hstack(
@@ -239,34 +236,34 @@ def adding_state():
             doclink("events docs", events.path),
             ".",
         ),
-        subheader("Clearing the Input"),
-        doctext(
-            "Currently the input doesn't clear after the user clicks the button. ",
-            "We can fix this by adding an ",
-            rx.code("id"),
-            " to the input and creating an event to clear it. ",
-        ),
-        docdemobox(code_out2),
-        doccode(code2),
-        doccode(state2),
-        doctext(
-            "After setting the question, we return an event from our ",
-            rx.code("answer"),
-            " event handler to clear the input. ",
-            "Learn more about returning events in the ",
-            doclink("events docs", f"{events.path}#returning-events-from-event-handlers"),
-            ".",
-        ),
-        doctext(
-            "We use the ",
-            rx.code("set_value"),
-            " function to set the value of the ",
-            rx.code("question"),
-            " state var to an empty string. ",
-            "See the ",
-            doclink("special events docs", special_events.path),
-            " for more info on special events. ",
-        ),
+        # subheader("Clearing the Input"),
+        # doctext(
+        #     "Currently the input doesn't clear after the user clicks the button. ",
+        #     "We can fix this by adding an ",
+        #     rx.code("id"),
+        #     " to the input and creating an event to clear it. ",
+        # ),
+        # docdemobox(code_out2),
+        # doccode(code2),
+        # doccode(state2),
+        # doctext(
+        #     "After setting the question, we return an event from our ",
+        #     rx.code("answer"),
+        #     " event handler to clear the input. ",
+        #     "Learn more about returning events in the ",
+        #     doclink("events docs", f"{events.path}#returning-events-from-event-handlers"),
+        #     ".",
+        # ),
+        # doctext(
+        #     "We use the ",
+        #     rx.code("set_value"),
+        #     " function to set the value of the ",
+        #     rx.code("question"),
+        #     " state var to an empty string. ",
+        #     "See the ",
+        #     doclink("special events docs", special_events.path),
+        #     " for more info on special events. ",
+        # ),
         subheader("Streaming Text"),
         doctext(
             "Normally state updates are sent to the frontend when an event handler returns. ",

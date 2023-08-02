@@ -37,8 +37,6 @@ def answer(self):
             answer += item.choices[0].delta.content
             self.chat_history[-1] = (self.question, answer)
             yield
-
-    yield rx.set_value("question", "")
 """
 def action_bar3() -> rx.Component:
     return rx.hstack(
@@ -127,8 +125,6 @@ class State(rx.State):
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.question, answer)
                 yield
-
-        yield rx.set_value("question", "")
 
 """
 
