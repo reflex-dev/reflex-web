@@ -70,7 +70,7 @@ def state_overview():
 """
         ),
         doctext(
-            "State is made up of two main parts: vars and event handlers. ",
+            "State is made up of two parts: vars and event handlers. ",
         ),
         doctext(
             rx.span("Vars", font_weight="bold"),
@@ -99,7 +99,7 @@ def state_overview():
             definition(
                 "Event Trigger",
                 rx.unordered_list(
-                    rx.list_item("A user interaction that triggers an event. For example, a button click."),
+                    rx.list_item("A user interaction that triggers an event, such as a button click."),
                     rx.list_item("Defined as special component props, such as ", rx.code("on_click"), "."),
                     rx.list_item("Can be used to trigger event handlers.")
                 ),

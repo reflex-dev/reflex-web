@@ -152,7 +152,9 @@ code_setter2_render = """rx.vstack(
     )
 )"""
 
-code_yield_state = """class MultiUpdateState(State):
+code_yield_state = """import asyncio
+
+class MultiUpdateState(State):
     count: int = 0
 
     async def timed_update(self):
@@ -171,9 +173,6 @@ code_yield_render = """rx.vstack(
 code_callhandler_state = """class CallHandlerState(State):
     count: int = 0
     progress: int = 0
-
-    def set_progress(self, count: int):
-        self.progress = count
 
     async def run(self):
         # Reset the count.
@@ -213,7 +212,7 @@ def events():
         ),
         subheader("Event Triggers"),
         doctext(
-            "Event triggers are component actions that create an event to be sent to an event handler."
+            "Event triggers are component props that create an event to be sent to an event handler."
         ),
         doctext(
             "Each component supports a set of events triggers. ",
@@ -263,7 +262,7 @@ def events():
                 rx.alert_icon(),
                 rx.box(
                     rx.alert_title(
-                        "Event Handler Parameters must provide type annotations."
+                        "Event Handler Parameters should provide type annotations."
                     ),
                     rx.alert_description(
                         "Like state vars, be sure to provide the right type annotations for the prameters in an event "
@@ -312,8 +311,10 @@ def events():
             "A regular event handler will send a ",
             rx.code("StateUpdate"),
             " when it has finished running. ",
-            "This works fine for basic event, but sometimes we need more complex logic.",
-            "To update the UI multiple times in an event handler, we can yield when we want to send an update.",
+            "This works fine for basic event, but sometimes we need more complex logic. ",
+            "To update the UI multiple times in an event handler, we can ",
+            rx.code("yield"),
+            " when we want to send an update.",
         ),
         doctext(
             "To do so, we can use the Python keyword ",

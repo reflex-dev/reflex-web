@@ -40,6 +40,7 @@ code3 = """class UppercaseState(State):
 
     @rx.var
     def upper_text(self) -> str:
+        # This will be recomputed whenever `text` changes.
         return self.text.upper()
     """
 exec(code3)
@@ -51,13 +52,15 @@ code4 = """rx.vstack(
 code5 = """
 coins = ["BTC", "ETH", "LTC", "DOGE"]
 class VarSelectState(State):
-    selected: str = "LTC"
+    selected: str = "DOGE"
 """
 exec(code5)
 code6 = """rx.vstack(
+    # Using a var operation to concatenate a string with a var.
     rx.heading("I just bought a bunch of " + VarSelectState.selected),
     rx.select(
         coins,
+        value=VarSelectState.selected,
         on_change=VarSelectState.set_selected,
     )
 )"""
@@ -71,6 +74,7 @@ class VarNumberState(State):
 exec(code7)
 code8 = """rx.vstack(
     rx.heading("The number is " + VarNumberState.number),
+    # Var operations can be composed for more complex expressions.
     rx.cond(
         VarNumberState.number % 2 == 0,
         rx.text("Even", color="green"),
@@ -132,9 +136,10 @@ def vars():
                 rx.box(
                     rx.alert_title("Vars must be JSON serializable."),
                     rx.alert_description(
-                        "Vars are used to communicate between the frontend and backend, so they must be Python builtin types. ",
-                        "For more complex use cases you can use a ",
-                        doclink("custom var", custom_vars.path),
+                        "Vars are used to communicate between the frontend and backend. ",
+                        "They must be primitive Python types, ",
+                        "Plotly figures, Pandas dataframes, or ",
+                        doclink("a custom defined type", custom_vars.path),
                         ".",
                     ),
                 ),
@@ -143,7 +148,10 @@ def vars():
         ),
         subheader("Computed Vars"),
         doctext(
-            " Computed properties are properties that are computed from other properties."
+            "Computed vars are vars that are computed from other properties. "
+            "They are defined as methods in your State class with the ",
+            rx.code("@rx.var"),
+            " decorator. ",
         ),
         doctext("Try typing in the input box and clicking out. "),
         docdemo(code4, code3, eval(code4), context=True),
@@ -157,7 +165,7 @@ def vars():
         doctext("We recommend always using type annotations for computed vars. "),
         subheader("Var Operations"),
         doctext(
-            "Within your render code, you cannot use arbitrary Python functions on the state vars. "
+            "Within your frontend components, you cannot use arbitrary Python functions on the state vars. "
             "For example, the following code will ",
             rx.span("not work.", font_weight="bold"),
         ),
@@ -167,17 +175,19 @@ class State(rx.State):
     number: int
 
 def index():
+    # This will be compiled before runtime, when we don't know the value of `State.number`.
+    # Since `float` is not a valid var operation, this will throw an error.
     rx.text(float(State.number))
             """
         ),
         doctext(
-            "This is because we compile the render code to Javascript, but the value of ",
+            "This is because we compile the frontend to Javascript, but the value of ",
             rx.code("State.number"),
             " is only known at runtime. ",
             "You can use computed vars for more complex operations. ",
         ),
         doctext(
-            "However, you can perform basic operations with vars within render functions, as seen below."
+            "However, you can perform basic operations with vars within components, as seen below."
         ),
         docdemo(code6, code5, eval(code6), context=True),
         doctext(
@@ -186,15 +196,22 @@ def index():
                 rx.box(
                     rx.alert_title("Vars support many common operations."),
                     rx.alert_description(
-                        "They can be used for arithemtic, string concatenation, inequalities, indexing, and more."
+                        "They can be used for arithemtic, string concatenation, inequalities, indexing, and more. "
+                        "See the ",
+                        doclink("full list of supported operations", "docs/api-reference/var"),
+                        ".",
+
                     ),
                 ),
                 status="success",
             ),
         ),
+        doctext(
+            "You can also combine multiple var operations together, as seen in the next example. "
+        ),
         docdemo(code8, code7, eval(code8), context=True),
         doctext(
-            "Here, we could have made a computed property that returns the parity of ",
+            "Here, we could have made a computed var that returns the parity of ",
             rx.code("number"),
             ", but it can be simpler just to use a var operation instead.",
         ),
@@ -202,7 +219,7 @@ def index():
         doctext(
             "Backend vars are only stored on the backend and are not sent to the client. ",
             "They have the advantage that they don't need to be JSON serializable. ",
-            "This means you can only use them within event handlers, they can't be used in render functions. ",
+            "This means you can only use them within event handlers, they can't be used in frontend components. ",
         ),
         doctext(
             "Backend vars are prefixed with an underscore. ",
@@ -212,11 +229,10 @@ def index():
             rx.alert(
                 rx.alert_icon(),
                 rx.box(
-                    rx.alert_title("State Vars must provide type annotations."),
+                    rx.alert_title("State Vars should provide type annotations."),
                     rx.alert_description(
                         "Reflex relies on type annotations to determine the type of state vars during the "
-                        "compilation process.",
-                        " Therefore, all state vars should be annotated correctly.",
+                        "compilation process. ",
                         ".",
                     ),
                 ),
