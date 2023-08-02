@@ -131,7 +131,7 @@ def answer(self):
 def action_bar2() -> rx.Component:
     return rx.hstack(
         rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
-        rx.button("Ask", on_click=[rx.set_value("question", ""), ChatappState.answer2], style=style.button_style),
+        rx.button("Ask", on_click=ChatappState.answer2, style=style.button_style),
     )
 code2 = """# chatapp.py
 def action_bar() -> rx.Component:
