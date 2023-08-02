@@ -49,7 +49,7 @@ def configuration():
         doctext(
             "Running ",
             rx.code("reflex init"),
-            " will create a ",
+            " will create an ",
             rx.code("rxconfig.py"),
             " file in your root directory. ",
             "You can pass keyword arguments to the ",
