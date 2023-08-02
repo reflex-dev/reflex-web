@@ -64,7 +64,7 @@ def pages():
                 rx.alert_icon(),
                 rx.box(
                     rx.alert_description(
-                        "Index is a special exception where it is available at both  / and /index .",
+                        "Index is a special exception where it is available at both  / and /index . ",
                         "All other pages are only available at their specified route."
                     ),
                 ),
