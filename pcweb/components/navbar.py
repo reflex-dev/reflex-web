@@ -241,7 +241,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             " Read more about it on our ",
                             rx.link(
                                 "blog",
-                                href="/blog/2023-08-02-seed-announcement",
+                                href="/blog/2023-08-02-seed-annoucement",
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",
