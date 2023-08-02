@@ -237,7 +237,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "✨ Announcing our seed round led by Lux Capital.",
+                            "✨ We're rebranding to Reflex!",
                             " Read more about it on our ",
                             rx.link(
                                 "blog",
