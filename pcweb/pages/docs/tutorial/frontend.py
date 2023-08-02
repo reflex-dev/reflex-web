@@ -1,19 +1,11 @@
 import reflex as rx
-from pcweb import styles
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
-    doc_section,
     doccode,
-    docdemo,
     docdemobox,
     docheader,
     doclink,
     docpage,
     doctext,
-    subheader_comp,
-    text_comp,
-    definition,
-    docalert,
     subheader,
 )
 from pcweb.pages.docs.tutorial import style
@@ -202,7 +194,7 @@ code4_out = rx.container(
 
 
 @docpage()
-def starting_point():
+def frontend():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.components.props import props
     from pcweb.pages.docs.styling.overview import styling_overview
