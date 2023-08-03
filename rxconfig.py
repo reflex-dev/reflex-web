@@ -14,7 +14,7 @@ config = rx.Config(
         "@splinetool/react-spline", 
         "@splinetool/runtime",
         "@inkeep/widgets@0.2.164",
-    ],
+    ], 
     telemetry_enabled=False,
     tailwind={
         "plugins": [

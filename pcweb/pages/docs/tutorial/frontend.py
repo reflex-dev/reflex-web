@@ -115,7 +115,8 @@ message_style = dict(
     border_radius="5px",
     margin_y="0.5em",
     box_shadow=shadow,
-    width="auto",
+    max_width="30em",
+    display="inline-block",
 )
 
 # Set specific styles for questions and answers.
@@ -138,8 +139,8 @@ from chatapp import style
 
 def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
-        rx.box(rx.text(question, text_align="right"), style=style.question_style),
-        rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
+        rx.box(rx.text(question, style=style.question_style), text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
         margin_y="1em",
     )
 
@@ -171,9 +172,10 @@ app.compile()
 """
 def qa4(question: str, answer: str) -> rx.Component:
     return rx.box(
-        rx.box(rx.text(question, text_align="right"), style=style.question_style),
-        rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
+        rx.box(rx.text(question, style=style.question_style), text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
         margin_y="1em",
+        width="100%",
     )
 def chat4() -> rx.Component:
     qa_pairs = [

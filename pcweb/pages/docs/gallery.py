@@ -161,9 +161,6 @@ def component_grid(examples):
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
-                    _hover={
-                        "background_size": "cover",
-                    },
                     rounded="lg",
                 ),
                 rx.hstack(

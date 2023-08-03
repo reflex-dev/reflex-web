@@ -90,6 +90,7 @@ def get_route(path: str):
 
 def page(meta, markup) -> rx.Component:
     """Create a page."""
+
     return rx.container(
         rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
         rx.hstack(
@@ -116,6 +117,7 @@ paths = get_all_markdown_files(PAGES_PATH)
 blogs = get_blog_data(paths)
 
 
+
 class Gallery(rx.Model):
     name: str
     date: str
@@ -139,10 +141,6 @@ def component_grid():
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
-                    transition="background-size 1s;",
-                    _hover={
-                        "background_size": "165%",
-                    },
                     w="100%",
                 ),
                 rx.box(
@@ -164,7 +162,7 @@ def component_grid():
                                     name=meta["author"],
                                     size="sm",
                                     bg=c["indigo"][800],
-                                    color=c["white"],
+                                    color="#DACEEE",
                                 ),
                                 rx.text(meta["author"], font_size="0.8rem"),
                             ),
@@ -221,11 +219,21 @@ def blg():
     )
 
 
-for path, blog in blogs.items():
-    meta, contents = blog
-    path = path.replace(".md", "")
+@webpage(path="/blog/2023-08-02-seed-annoucement")
+def seed():
+    meta, contents = blogs["blog/2023-08-02-seed-annoucement"]
+    return page(meta, contents)
 
-    print(path)
-    @webpage(path=path)
-    def p():
-        return page(meta, contents)
+
+@webpage(path="blog/2023-06-28-rebrand-to-reflex")
+def rebrand():
+    meta, contents = blogs["blog/2023-06-28-rebrand-to-reflex"]
+    return page(meta, contents)
+
+# for path, blog in blogs.items():
+#     meta, contents = blog
+#     path = path.replace(".md", "")
+    
+#     @webpage(path=path)
+#     def p():
+#         return page(meta, contents)

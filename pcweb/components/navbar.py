@@ -237,15 +237,15 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "✨ We're rebranding to Reflex!",
+                            "✨ Announcing our seed led by Lux Capital!",
                             " Read more about it on our ",
                             rx.link(
                                 "blog",
-                                href="/blog/2023-06-28-rebrand-to-reflex",
+                                href="/blog/2023-08-02-seed-annoucement",
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",
-                                    "_hover": {"color": styles.ACCENT_COLOR},
+                                    "_hover": {"color": "#AD9BF8"},
                                 },
                             ),
                             "  ✨",
@@ -261,7 +261,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         style={
                             "color": "#FFFFFF",
                             "text_decoration": "underline",
-                            "_hover": {"color": styles.ACCENT_COLOR},
+                            "_hover": {"color": "#AD9BF8"},
                         },
                         on_click=NavbarState.toggle_banner,
                     ),
