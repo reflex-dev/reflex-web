@@ -1,6 +1,6 @@
 """UI and logic for the navbar component."""
 
-from typing import Optional, Set
+from typing import Set
 
 import reflex as rx
 from pcweb import constants, styles
@@ -359,6 +359,35 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             padding_y=["0.8em", "0.8em", "0.5em"],
             border_bottom="1px solid #F4F3F6",
             width="100%",
+        ),
+        rx.drawer(
+            rx.drawer_overlay(
+                rx.drawer_content(
+                    rx.hstack(
+                        logo,
+                        rx.icon(
+                            tag="close",
+                            on_click=NavbarState.toggle_sidebar,
+                            width="4em",
+                            _hover={
+                                "cursor": "pointer",
+                                "color": styles.ACCENT_COLOR,
+                            },
+                        ),
+                        justify="space-between",
+                        margin_bottom="1.5em",
+                    ),
+                    sidebar if sidebar is not None else rx.text("Sidebar"),
+                    padding_x="2em",
+                    padding_top="2em",
+                    bg="rgba(255,255,255, 0.97)",
+                ),
+                bg="rgba(255,255,255, 0.5)",
+            ),
+            placement="left",
+            is_open=NavbarState.sidebar_open,
+            on_close=NavbarState.toggle_sidebar,
+            bg="rgba(255,255,255, 0.5)",
         ),
         position="sticky",
         z_index="999",
