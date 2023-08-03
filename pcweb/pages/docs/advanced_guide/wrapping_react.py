@@ -63,6 +63,23 @@ code6 = """
          return "OtherHexColorPicker"
  """
 
+custom_component_js_code = """export function Welcome(props) {
+    return <h1>Hello, {props.name}</h1>;
+}"""
+
+custom_component_python_code = """class Welcome(rx.Component):
+    library = "../public/welcome.js"
+    tag = "Welcome"
+
+    name: rx.Var[str]
+
+welcome = Welcome.create"""
+
+custom_component_python_usage_code = """def index():
+    return rx.vstack(
+        welcome(name="Reflex")
+    )"""
+
 no_ssr_code = '''
 class ReactPlayerComponent(rx.Component):
     library = "react-player"
@@ -179,6 +196,43 @@ config = rx.Config(
          """
         ),
         doccode(code6),
+        subheader("Local Components"),
+        doctext(
+            "Javascript files containing custom React components may be added to the ",
+            rx.code("assets"),
+            " directory of a Reflex project and then wrapped in python code using a relative path ",
+            "for the ",
+            rx.code("library"),
+            " attribute.",
+        ),
+        doctext(
+            "As an example, save the following code as ",
+            rx.code("./assets/welcome.js"),
+        ),
+        doccode(custom_component_js_code, language="javascript"),
+        doctext(
+            "Then in your Reflex app, create a ",
+            rx.code("Component"),
+            " wrapper referencing the relative path and exported component name. ",
+        ),
+        doccode(custom_component_python_code),
+        doctext(
+            "(Note that the contents of ",
+            rx.code("assets"),
+            " are compiled to ",
+            rx.code(".web/public"),
+            " so the wrapped component uses the ",
+            rx.code("../public"),
+            " prefix for ",
+            rx.code("library"),
+            " because the page code is compiled to a sibling directory, ",
+            rx.code(".web/pages"),
+            ")",
+        ),
+        doctext(
+            "The local wrapped component can now be used like any other Reflex component.",
+        ),
+        doccode(custom_component_python_usage_code),
         subheader("Import Types"),
         doctext(
             """By default, the library and tag specified in the Component are used to generate
