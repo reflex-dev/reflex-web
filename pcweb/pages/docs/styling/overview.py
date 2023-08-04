@@ -184,7 +184,7 @@ app = rx.App(state=State, style=style)"""
                     rx.alert_description(
                         "Reflex automatically converts ",
                         rx.code("snake_case"),
-                        "identifiers into ",
+                        " identifiers into ",
                         rx.code("camelCase"),
                         " format when applying styles. To ensure consistency, it is recommended to use the dash character "
                         "or camelCase identifiers in your own class names and IDs. ",
