@@ -10,6 +10,7 @@ from pcweb.base_state import State
 from pcweb.components.chat import spline_component
 from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
+from pcweb import constants
 
 link_style = {
     "color": "black",
@@ -858,6 +859,8 @@ def stat(number, icon, metric):
         padding_x="2em",
     )
 
+def format_with_commas(number):
+    return '{:,}+'.format(number)
 
 def gallery():
     return rx.center(
@@ -884,9 +887,9 @@ def gallery():
                 rx.desktop_only(
                     rx.flex(
                         rx.spacer(),
-                        stat("3000+", "project", "Projects created per month"),
-                        stat("10,000+", "github", "GitHub stars"),
-                        stat("1500+", "discord", "Discord community members"),
+                        stat(format_with_commas(constants.MONTHLY_USERS), "project", "Projects created per month"),
+                        stat(format_with_commas(constants.GITHUB_STARS), "github", "GitHub stars"),
+                        stat(format_with_commas(constants.DISCORD), "discord", "Discord members"),
                         rx.spacer(),
                         height="100%",
                         min_height="10em",
@@ -897,7 +900,7 @@ def gallery():
                 rx.mobile_and_tablet(
                     rx.vstack(
                         rx.vstack(
-                            rx.heading("3000+", color="#DACEEE"),
+                            rx.heading(format_with_commas(constants.MONTHLY_USERS), color="#DACEEE"),
                             rx.image(
                                 src="/landing_icons/stats_icons/project.svg",
                                 height="1em",
@@ -909,7 +912,7 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading("10,000+", color="#DACEEE"),
+                            rx.heading(format_with_commas(constants.GITHUB_STARS), color="#DACEEE"),
                             rx.image(
                                 src="/landing_icons/stats_icons/github.svg",
                                 height="1em",
@@ -919,13 +922,13 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading("1500+", color="#DACEEE"),
+                            rx.heading(format_with_commas(constants.DISCORD), color="#DACEEE"),
                             rx.image(
                                 src="/landing_icons/stats_icons/discord.svg",
                                 height="1em",
                             ),
                             rx.text(
-                                "Discord community members",
+                                "Discord members",
                                 color="#82799E",
                                 text_align="center",
                             ),

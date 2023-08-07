@@ -9,7 +9,13 @@ from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
 
+def shorten_to_k(number):
+    if number >= 1000:
+        return '{:.0f}k+'.format(number / 1000)
+    else:
+        return str(number)
 
+    
 class Search(rx.Component):
     tag = "InkeepCustomTrigger"
 
@@ -185,7 +191,7 @@ def github_button():
             rx.image(src="/companies/dark/github.svg", height="1.25em"),
             rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
-                "10k+",
+                shorten_to_k(constants.GITHUB_STARS),
                 color="#5646ED",
                 bg="#F5EFFE",
                 padding_x="0.5em",
@@ -325,6 +331,14 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     style=styles.NAV_DROPDOWN_STYLE,
                                 ),
                                 href=constants.CONTRIBUTOR_PROGRAM_URL,
+                            ),
+                            rx.menu_divider(),
+                            rx.link(
+                                rx.menu_item(
+                                    "Report A Bug",
+                                    style=styles.NAV_DROPDOWN_STYLE,
+                                ),
+                                href=constants.REPORT_A_BUG_URL,
                             ),
                         ),
                     ),

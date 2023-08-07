@@ -225,15 +225,7 @@ def seed():
     return page(meta, contents)
 
 
-@webpage(path="blog/2023-06-28-rebrand-to-reflex")
+@webpage(path="/blog/2023-06-28-rebrand-to-reflex")
 def rebrand():
     meta, contents = blogs["blog/2023-06-28-rebrand-to-reflex"]
     return page(meta, contents)
-
-# for path, blog in blogs.items():
-#     meta, contents = blog
-#     path = path.replace(".md", "")
-    
-#     @webpage(path=path)
-#     def p():
-#         return page(meta, contents)

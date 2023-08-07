@@ -198,7 +198,7 @@ def index():
                     rx.alert_description(
                         "They can be used for arithemtic, string concatenation, inequalities, indexing, and more. "
                         "See the ",
-                        doclink("full list of supported operations", "docs/api-reference/var"),
+                        doclink("full list of supported operations", "/api-reference/var"),
                         ".",
 
                     ),
