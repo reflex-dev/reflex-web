@@ -10,6 +10,7 @@ from pcweb.templates.docpage import (
     doctext,
     subheader,
 )
+from pcweb.pages.docs.styling import custom_stylesheets
 
 text_style = {"color": "white", "bg": "black", "font_size": "20px"}
 
@@ -132,7 +133,8 @@ app = rx.App(state=State, style=style)"""
         ),
         subheader("Component Styles"),
         doctext(
-            "In your style dictionary, you can also specify default styles for specific component types. "
+            "In your style dictionary, you can also specify default styles for specific component types or ",
+            "arbitrary CSS classes and IDs. ",
         ),
         doccode(
             """
@@ -141,6 +143,10 @@ style = {
     "::selection": {
         "background_color": accent_color,
     },
+    ".some-css-class": {
+        "text_decoration": "underline",
+    },
+    "#special-input": {"width": "20vw"},
     rx.Text: {
         "font_family": styles.SANS,
     },
@@ -165,6 +171,27 @@ app = rx.App(state=State, style=style)"""
                     rx.alert_title("Note the use of the uppercase component names."),
                     rx.alert_description(
                         "We specify the component classes as keys, rather than their constructors. ",
+                    ),
+                ),
+                status="warning",
+            ),
+        ),
+        doctext(
+            rx.alert(
+                rx.alert_icon(),
+                rx.box(
+                    rx.alert_title("Watch out for underscores in class names and IDs"),
+                    rx.alert_description(
+                        "Reflex automatically converts ",
+                        rx.code("snake_case"),
+                        " identifiers into ",
+                        rx.code("camelCase"),
+                        " format when applying styles. To ensure consistency, it is recommended to use the dash character "
+                        "or camelCase identifiers in your own class names and IDs. ",
+                        "To style third-party libraries relying on underscore class names, an external stylesheet should be "
+                        "used. See ",
+                        doclink("custom stylesheets", href=custom_stylesheets.path),
+                        " for how to reference external CSS files.",
                     ),
                 ),
                 status="warning",
