@@ -189,7 +189,7 @@ graphing_list = [
 ]
 
 # Other
-other_list = [[rx.Html]]
+other_list = [[rx.Html], [rx.Script]]
 
 # The final component list
 component_list = {
