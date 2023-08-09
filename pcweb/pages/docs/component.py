@@ -257,6 +257,9 @@ EVENTS = {
     "on_copy": {
         "description": "The on_copy event handler is called in CopyToClipboard component"
     },
+    "on_ready": {
+        "description": "The on_ready event handler is called when the script is ready to be executed."
+    }
 }
 
 
