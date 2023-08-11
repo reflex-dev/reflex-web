@@ -142,7 +142,7 @@ def generate_docs(title, s):
         rx.divider(),
         doctext(s.get_overview()),
         subheader("Class Fields"),
-        rx.table(
+        rx.box(rx.table(
             rx.thead(
                 rx.tr(
                     rx.th("Field"),
@@ -158,9 +158,9 @@ def generate_docs(title, s):
                     for field in s.get_class_fields()
                 ],
             ),
-        ),
+        ), style={"overflow": "auto"}),
         subheader("Fields"),
-        rx.table(
+        rx.box(rx.table(
             rx.thead(
                 rx.tr(
                     rx.th("Field"),
@@ -176,9 +176,9 @@ def generate_docs(title, s):
                     for field in s.get_fields()
                 ],
             ),
-        ),
+        ), style={"overflow": "auto"}),
         subheader("Methods"),
-        rx.table(
+        rx.box(rx.table(
             rx.thead(
                 rx.tr(
                     rx.th("Signature"),
@@ -192,12 +192,13 @@ def generate_docs(title, s):
                             rx.code(
                                 field["name"] + field["signature"],
                                 font_weight=styles.BOLD_WEIGHT,
-                            )
+                            ), 
+                            white_space="normal"
                         ),
-                        rx.td(field["description"]),
+                        rx.td(field["description"], white_space="normal"),
                     )
                     for field in s.get_methods()
                 ],
             ),
-        ),
+        ), style={"overflow": "auto"}),
     )
