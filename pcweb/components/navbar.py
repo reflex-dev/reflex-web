@@ -327,12 +327,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             rx.menu_divider(),
                             rx.link(
                                 rx.menu_item(
-                                    "Contributor Program",
+                                    "Contribute to Open Source",
                                     style=styles.NAV_DROPDOWN_STYLE,
                                 ),
-                                href=constants.CONTRIBUTOR_PROGRAM_URL,
+                                href=constants.CONTRIBUTING_URL,
                             ),
-                            rx.menu_divider(),
                             rx.link(
                                 rx.menu_item(
                                     "Report A Bug",

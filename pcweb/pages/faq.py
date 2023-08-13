@@ -43,9 +43,9 @@ faq_items = [
         "A": rx.text(
             """
             We're always looking for contributors to help us build Reflex. 
-            If you're interested in contributing, check out our 
+            If you're interested in contributing, check out our page on 
             """,
-            rx.span(doclink("contributor program", href=constants.CONTRIBUTOR_PROGRAM_URL)),
+            rx.span(doclink(" contributing to Reflex Open Source", href=constants.CONTRIBUTING_URL)),
             "."
         ),
     },
