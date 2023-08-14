@@ -71,6 +71,14 @@ faq_items = [
             " to learn more.",
         ),
     },
+    {
+        "Q": "Why is the initial startup time slower on Windows?",
+        "A": rx.text(
+            """
+            Reflex uses Bun under the hood to install frontend dependencies, significantly reducing our startup times and memory usage. Bun does not yet compile on Windows natively, so we use Node on Windows instead. This creates longer startup times and higher memory usage on Windows. We are actively working on cutting our frontend dependencies improving start up times on all platforms.
+            """
+        ),
+    }
 ]
 
 
