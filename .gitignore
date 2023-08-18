@@ -12,3 +12,4 @@ pcweb/tsclient.py
 pynecone.db
 reflex.db
 venv/
+.mypy_cache/

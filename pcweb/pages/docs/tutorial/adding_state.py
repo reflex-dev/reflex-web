@@ -107,7 +107,7 @@ def chat() -> rx.Component:
             lambda messages: qa(messages[0], messages[1])
         )
     )
-    
+
 ...
 
 def action_bar() -> rx.Component:
@@ -158,7 +158,7 @@ async def answer(self):
         # Pause to show the streaming effect.
         await asyncio.sleep(0.1)
         # Add one letter at a time to the output.
-        self.chat_history[-1] = (self.question, answer[:i])
+        self.chat_history[-1] = (self.question, answer[:i+1])
         yield
 """
 def action_bar3() -> rx.Component:
