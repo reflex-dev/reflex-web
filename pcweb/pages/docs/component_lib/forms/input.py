@@ -3,6 +3,7 @@ import reflex as rx
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
+    doclink,
     doctext,
 )
 
@@ -11,7 +12,7 @@ input_state = """class InputState(State):
 """
 basic_input_example = """rx.vstack(
     rx.text(InputState.text, color_scheme="green"),
-    rx.input(on_change=InputState.set_text)
+    rx.input(value=InputState.text, on_change=InputState.set_text)
 )
 """
 exec(input_state)
@@ -37,12 +38,9 @@ class ClearInputState(State):
 """
 clear_input_example = """rx.vstack(
     rx.text(ClearInputState.text),
-    rx.debounce_input(
-        rx.input(
-            on_change=ClearInputState.set_text,
-        ),
+    rx.input(
+        on_change=ClearInputState.set_text,
         value=ClearInputState.text,
-        debounce_timeout=150,
     ),
     rx.button("Clear", on_click=ClearInputState.clear_text),
 )
@@ -61,13 +59,11 @@ class KeyPressInputState(State):
             self.text = self.text.upper()
 """
 exec(key_press_state)
-key_press_example = """rx.debounce_input(
-    rx.input(
-        placeholder="Type and press enter...",
-        on_change=KeyPressInputState.set_text,
-        on_key_down=KeyPressInputState.on_key_down,
-    ),
+key_press_example = """rx.input(
     value=KeyPressInputState.text,
+    placeholder="Type and press enter...",
+    on_change=KeyPressInputState.set_text,
+    on_key_down=KeyPressInputState.on_key_down,
 )
 """
 input_type_example = """rx.vstack(
@@ -115,6 +111,28 @@ def render_input():
             context=True,
         ),
         doctext(
+            "Behind the scene, the input component is implemented ",
+            "using debounced input to avoid sending individual state ",
+            "updates per character to the backend while the user is ",
+            "still typing. ",
+            "This allows a state var to directly control the ",
+            rx.code("value"),
+            " prop from the backend without the user experiencing input lag. ",
+            "For advanced use cases, you can tune the debounce delay ",
+            "by setting the ",
+            rx.code("debounce_timeout"),
+            " when creating the Input component. ",
+            "You can find examples of how it is used in ",
+            doclink("DebouncedInput", href="/docs/library/forms/debounceinput"),
+            " component.",
+        ),
+        docdemo(
+            clear_input_example,
+            state=clear_input_state,
+            comp=eval(clear_input_example),
+            context=True,
+        ),
+        doctext(
             "The input component can also use the ",
             rx.code("on_blur"),
             " event handler to only change the state when the user clicks away from the input. This is useful for performance reasons, as the state will only be updated when the user is done typing.",
@@ -123,23 +141,6 @@ def render_input():
             blur_input_example,
             state=input_blur_state,
             comp=eval(blur_input_example),
-            context=True,
-        ),
-        doctext(
-            "Alternatively, the ",
-            rx.code("rx.debounce_input"),
-            " component can wrap an ",
-            rx.code("rx.input"),
-            " to avoid sending state updates ",
-            "to the backend while the user is still typing. ",
-            "This allows a state var to directly control the ",
-            rx.code("value"),
-            " prop from the backend without the user experiencing input lag. ",
-        ),
-        docdemo(
-            clear_input_example,
-            state=clear_input_state,
-            comp=eval(clear_input_example),
             context=True,
         ),
         # doctext(

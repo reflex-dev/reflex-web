@@ -11,16 +11,19 @@ from pcweb.templates.docpage import (
     subheader,
 )
 import openai
+
 openai.api_key = "YOUR_OPENAI_KEY"
 
 
 class ChatappState(State):
-
     # The current question being asked.
     question: str
 
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
+
+    def clear_question(self):
+        self.question = ""
 
     def answer(self):
         # Our chatbot is not very smart right now...
@@ -31,40 +34,47 @@ class ChatappState(State):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, answer))
-        # return rx.set_value("question", "")
+        return ChatappState.clear_question
 
     async def answer3(self):
         import asyncio
+
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, ""))
+        # After adding the question into the chat history,
+        # we clear the question and yield such that
+        # the frontend updates now instead of sending an event.
+        self.clear_question()
+        yield
         for i in range(len(answer)):
             await asyncio.sleep(0.1)
-            self.chat_history[-1] = (self.question, answer[:i])
+            self.chat_history[-1] = (self.chat_history[-1][0], answer[: i + 1])
             yield
-        # yield rx.set_value("question", "")
 
     def answer4(self):
         # Our chatbot has some brains now!
         session = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "user", "content": self.question}
-            ],
+            messages=[{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,
             stream=True,
         )
 
+        # Add to the answer as the chatbot responds.
         answer = ""
         self.chat_history.append((self.question, answer))
+        # After adding the question into the chat history,
+        # we clear the question and yield such that
+        # the frontend updates now instead of sending an event.
+        self.clear_question()
+        yield
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 answer += item.choices[0].delta.content
-                self.chat_history[-1] = (self.question, answer)
+                self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
-
-        # yield rx.set_value("question", "")
 
 
 state1 = """# state.py
@@ -83,18 +93,27 @@ class State(rx.State):
         self.chat_history.append((self.question, answer))
 """
 from pcweb.pages.docs.tutorial.frontend import qa4 as qa
+
+
 def chat1() -> rx.Component:
     return rx.box(
         rx.foreach(
-            ChatappState.chat_history,
-            lambda messages: qa(messages[0], messages[1])
+            ChatappState.chat_history, lambda messages: qa(messages[0], messages[1])
         )
     )
+
+
 def action_bar1() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            placeholder="Ask a question",
+            on_change=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer, style=style.button_style),
     )
+
+
 code1 = """# chatapp.py
 from chatapp.state import State
 
@@ -107,12 +126,12 @@ def chat() -> rx.Component:
             lambda messages: qa(messages[0], messages[1])
         )
     )
-    
+
 ...
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", on_blur=State.set_question, style=style.input_style),
+        rx.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 """
@@ -122,21 +141,37 @@ code_out1 = rx.container(
 )
 
 state2 = """# state.py
+def clear_question(self):
+    self.question = ""
+
 def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
     self.chat_history.append((self.question, answer))
-    return rx.set_value("question", "")
+    return ChatappState.clear_question
 """
+
+
 def action_bar2() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            value=ChatappState.question,
+            placeholder="Ask a question",
+            on_change=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer2, style=style.button_style),
     )
+
+
 code2 = """# chatapp.py
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=State.set_question, style=style.input_style),
+        rx.input(
+            value=ChatappState.question,
+            placeholder="Ask a question",
+            on_change=State.set_question,
+            style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 """
@@ -149,23 +184,36 @@ state3 = """# state.py
 import asyncio
 
 ...
-
 async def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
     self.chat_history.append((self.question, ""))
+    # After adding the question into the chat history,
+    # we clear the question and yield such that
+    # the frontend updates now instead of sending an event.
+    self.clear_question()
+    yield
     for i in range(len(answer)):
         # Pause to show the streaming effect.
         await asyncio.sleep(0.1)
         # Add one letter at a time to the output.
-        self.chat_history[-1] = (self.question, answer[:i])
+        self.chat_history[-1] = (self.chat_history[-1][0], answer[:i + 1])
         yield
 """
+
+
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            value=ChatappState.question,
+            placeholder="Ask a question",
+            on_change=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer3, style=style.button_style),
     )
+
+
 code_out3 = rx.container(
     chat1(),
     action_bar3(),
@@ -177,6 +225,7 @@ def adding_state():
     from pcweb.pages.docs.state.overview import state_overview
     from pcweb.pages.docs.state.events import events
     from pcweb.pages.docs.api_reference.special_events import special_events
+
     return rx.box(
         docheader("State", first=True),
         doctext(
@@ -221,12 +270,12 @@ def adding_state():
         ),
         doctext(
             "We also bind the input's ",
-            rx.code("on_blur"),
+            rx.code("on_change"),
             " event to the ",
             rx.code("set_question"),
             " event handler, which will update the ",
             rx.code("question"),
-            " state var when the user clicks away from the input. ",
+            " state var while the user types in the input. ",
             "We bind the button's ",
             rx.code("on_click"),
             " event to the ",
@@ -236,34 +285,28 @@ def adding_state():
             doclink("events docs", events.path),
             ".",
         ),
-        # subheader("Clearing the Input"),
-        # doctext(
-        #     "Currently the input doesn't clear after the user clicks the button. ",
-        #     "We can fix this by adding an ",
-        #     rx.code("id"),
-        #     " to the input and creating an event to clear it. ",
-        # ),
-        # docdemobox(code_out2),
-        # doccode(code2),
-        # doccode(state2),
-        # doctext(
-        #     "After setting the question, we return an event from our ",
-        #     rx.code("answer"),
-        #     " event handler to clear the input. ",
-        #     "Learn more about returning events in the ",
-        #     doclink("events docs", f"{events.path}#returning-events-from-event-handlers"),
-        #     ".",
-        # ),
-        # doctext(
-        #     "We use the ",
-        #     rx.code("set_value"),
-        #     " function to set the value of the ",
-        #     rx.code("question"),
-        #     " state var to an empty string. ",
-        #     "See the ",
-        #     doclink("special events docs", special_events.path),
-        #     " for more info on special events. ",
-        # ),
+        subheader("Clearing the Input"),
+        doctext(
+            "Currently the input doesn't clear after the user clicks the button. ",
+            "We can fix this by binding the value of the input to ",
+            rx.code("question"),
+            " and creating an event ",
+            rx.code("clear_question"),
+            " to clear it. ",
+        ),
+        docdemobox(code_out2),
+        doccode(code2),
+        doccode(state2),
+        doctext(
+            "After setting the question, we return an event from our ",
+            rx.code("answer"),
+            " event handler to clear the input. ",
+            "Learn more about returning events in the ",
+            doclink(
+                "events docs", f"{events.path}#returning-events-from-event-handlers"
+            ),
+            ".",
+        ),
         subheader("Streaming Text"),
         doctext(
             "Normally state updates are sent to the frontend when an event handler returns. ",
@@ -273,8 +316,8 @@ def adding_state():
             doclink("event yield docs", f"{events.path}#yielding-multiple-updates"),
             " for more info. ",
         ),
-        doccode(state3),
         docdemobox(code_out3),
+        doccode(state3),
         doctext(
             "In the next section, we will finish our chatbot by adding AI!",
         ),

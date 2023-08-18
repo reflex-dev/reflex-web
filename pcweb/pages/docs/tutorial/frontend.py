@@ -59,8 +59,8 @@ def chat() -> rx.Component:
         ("What is Reflex?", "A way to build web apps in pure Python!"),
         ("What can I make with it?", "Anything from a simple website to a complex web app!"),
     ]
-    return rx.box(*[qa(question, answer) for question, answer in qa_pairs]) 
-    
+    return rx.box(*[qa(question, answer) for question, answer in qa_pairs])
+
 def index() -> rx.Component:
     return rx.container(chat())
     """
@@ -80,7 +80,7 @@ def chat() -> rx.Component:
         ("What is Reflex?", "A way to build web apps in pure Python!"),
         ("What can I make with it?", "Anything from a simple website to a complex web app!"),
     ]
-    return rx.box(*[qa(question, answer) for question, answer in qa_pairs]) 
+    return rx.box(*[qa(question, answer) for question, answer in qa_pairs])
 code2_out = rx.container(chat())
 
 code3 = """def action_bar() -> rx.Component:
@@ -88,7 +88,7 @@ code3 = """def action_bar() -> rx.Component:
         rx.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
-    
+
 def index() -> rx.Component:
     return rx.container(
         chat(),
@@ -149,7 +149,7 @@ def chat() -> rx.Component:
         ("What is Reflex?", "A way to build web apps in pure Python!"),
         ("What can I make with it?", "Anything from a simple website to a complex web app!"),
     ]
-    return rx.box(*[qa(question, answer) for question, answer in qa_pairs]) 
+    return rx.box(*[qa(question, answer) for question, answer in qa_pairs])
 
 
 def action_bar() -> rx.Component:
@@ -182,7 +182,7 @@ def chat4() -> rx.Component:
         ("What is Reflex?", "A way to build web apps in pure Python!"),
         ("What can I make with it?", "Anything from a simple website to a complex web app!"),
     ]
-    return rx.box(*[qa4(question, answer) for question, answer in qa_pairs]) 
+    return rx.box(*[qa4(question, answer) for question, answer in qa_pairs])
 def action_bar4() -> rx.Component:
     return rx.hstack(
         rx.input(placeholder="Ask a question", style=style.input_style),
