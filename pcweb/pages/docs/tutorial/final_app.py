@@ -40,7 +40,7 @@ def answer(self):
     for item in session:
         if hasattr(item.choices[0].delta, "content"):
             answer += item.choices[0].delta.content
-            self.chat_history[-1] = (self.question, answer)
+            self.chat_history[-1] = (self.chat_history[-1][0], answer)
             yield
 """
 
@@ -189,8 +189,8 @@ def final_app():
         doctext("We will use OpenAI's API to give our chatbot some intelligence. "),
         subheader("Using the API"),
         doctext("We need to modify our event handler to send a request to the API. "),
-        doccode(state1),
         docdemobox(code_out1),
+        doccode(state1),
         doctext("Finally, we have our chatbot! "),
         subheader("Final Code"),
         doctext("We wrote all our code in three files, which you can find below. "),
