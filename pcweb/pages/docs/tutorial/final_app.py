@@ -32,11 +32,12 @@ def answer(self):
     # Add to the answer as the chatbot responds.
     answer = ""
     self.chat_history.append((self.question, answer))
-    # After adding the question into the chat history,
-    # we clear the question and yield such that
-    # the frontend updates now instead of sending an event.
-    self.clear_question()
+
+    # Clear the question input.
+    self.question = ""
+    # Yield here to clear the frontend input before continuing.
     yield
+
     for item in session:
         if hasattr(item.choices[0].delta, "content"):
             answer += item.choices[0].delta.content
@@ -125,9 +126,6 @@ class State(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def clear_question(self):
-        self.question = ""
-
     def answer(self):
         # Our chatbot has some brains now!
         session = openai.ChatCompletion.create(
@@ -143,11 +141,12 @@ class State(rx.State):
         # Add to the answer as the chatbot responds.
         answer = ""
         self.chat_history.append((self.question, answer))
-        # After adding the question into the chat history,
-        # we clear the question and yield such that
-        # the frontend updates now instead of sending an event.
-        self.clear_question()
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
         yield
+
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 answer += item.choices[0].delta.content

@@ -22,9 +22,6 @@ class ChatappState(State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def clear_question(self):
-        self.question = ""
-
     def answer(self):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
@@ -34,7 +31,8 @@ class ChatappState(State):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, answer))
-        return ChatappState.clear_question
+        # Clear the question input.
+        self.question = ""
 
     async def answer3(self):
         import asyncio
@@ -42,11 +40,12 @@ class ChatappState(State):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, ""))
-        # After adding the question into the chat history,
-        # we clear the question and yield such that
-        # the frontend updates now instead of sending an event.
-        self.clear_question()
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
         yield
+
         for i in range(len(answer)):
             await asyncio.sleep(0.1)
             self.chat_history[-1] = (self.chat_history[-1][0], answer[: i + 1])
@@ -65,11 +64,12 @@ class ChatappState(State):
         # Add to the answer as the chatbot responds.
         answer = ""
         self.chat_history.append((self.question, answer))
-        # After adding the question into the chat history,
-        # we clear the question and yield such that
-        # the frontend updates now instead of sending an event.
-        self.clear_question()
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
         yield
+
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 answer += item.choices[0].delta.content
@@ -141,8 +141,6 @@ code_out1 = rx.container(
 )
 
 state2 = """# state.py
-def clear_question(self):
-    self.question = ""
 
 def answer(self):
     # Our chatbot is not very smart right now...
@@ -188,11 +186,12 @@ async def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
     self.chat_history.append((self.question, ""))
-    # After adding the question into the chat history,
-    # we clear the question and yield such that
-    # the frontend updates now instead of sending an event.
-    self.clear_question()
+
+    # Clear the question input.
+    self.question = ""
+    # Yield here to clear the frontend input before continuing.
     yield
+
     for i in range(len(answer)):
         # Pause to show the streaming effect.
         await asyncio.sleep(0.1)
@@ -290,23 +289,13 @@ def adding_state():
             "Currently the input doesn't clear after the user clicks the button. ",
             "We can fix this by binding the value of the input to ",
             rx.code("question"),
-            " and creating an event ",
-            rx.code("clear_question"),
-            " to clear it. ",
+            " and clear it when we run the event handler for ",
+            rx.code("answer"),
+            ". ",
         ),
         docdemobox(code_out2),
         doccode(code2),
         doccode(state2),
-        doctext(
-            "After setting the question, we return an event from our ",
-            rx.code("answer"),
-            " event handler to clear the input. ",
-            "Learn more about returning events in the ",
-            doclink(
-                "events docs", f"{events.path}#returning-events-from-event-handlers"
-            ),
-            ".",
-        ),
         subheader("Streaming Text"),
         doctext(
             "Normally state updates are sent to the frontend when an event handler returns. ",
