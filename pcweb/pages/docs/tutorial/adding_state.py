@@ -146,7 +146,7 @@ def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
     self.chat_history.append((self.question, answer))
-    return ChatappState.clear_question
+    self.question = ""
 """
 
 
