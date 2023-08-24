@@ -32,17 +32,32 @@ def answer(self):
     # Add to the answer as the chatbot responds.
     answer = ""
     self.chat_history.append((self.question, answer))
+
+    # Clear the question input.
+    self.question = ""
+    # Yield here to clear the frontend input before continuing.
+    yield
+
     for item in session:
         if hasattr(item.choices[0].delta, "content"):
             answer += item.choices[0].delta.content
-            self.chat_history[-1] = (self.question, answer)
+            self.chat_history[-1] = (self.chat_history[-1][0], answer)
             yield
 """
+
+
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            value=ChatappState.question,
+            placeholder="Ask a question",
+            on_change=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer4, style=style.button_style),
     )
+
+
 code_out1 = rx.container(
     chat1(),
     action_bar3(),
@@ -70,10 +85,15 @@ def chat() -> rx.Component:
         )
     )
 
-    
+
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=State.set_question, style=style.input_style),
+        rx.input(
+            value=ChatappState.question,
+            placeholder="Ask a question",
+            on_change=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 
@@ -118,12 +138,19 @@ class State(rx.State):
             stream=True,
         )
 
+        # Add to the answer as the chatbot responds.
         answer = ""
         self.chat_history.append((self.question, answer))
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
+        yield
+
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 answer += item.choices[0].delta.content
-                self.chat_history[-1] = (self.question, answer)
+                self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
 
 """
@@ -158,22 +185,14 @@ button_style = dict(
 def final_app():
     return rx.box(
         docheader("Final App"),
-        doctext(
-            "We will use OpenAI's API to give our chatbot some intelligence. "
-        ),
+        doctext("We will use OpenAI's API to give our chatbot some intelligence. "),
         subheader("Using the API"),
-        doctext(
-            "We need to modify our event handler to send a request to the API. "
-        ),
-        doccode(state1),
+        doctext("We need to modify our event handler to send a request to the API. "),
         docdemobox(code_out1),
-        doctext(
-            "Finally, we have our chatbot! "
-        ),
+        doccode(state1),
+        doctext("Finally, we have our chatbot! "),
         subheader("Final Code"),
-        doctext(
-            "We wrote all our code in three files, which you can find below. "
-        ),
+        doctext("We wrote all our code in three files, which you can find below. "),
         doccode(final_code),
         doccode(final_state),
         doccode(final_style),
@@ -184,5 +203,5 @@ def final_app():
             "in more detail. ",
             "The best way to learn is to build something, so try to build your own app using this ",
             "as a starting point! ",
-        )
+        ),
     )

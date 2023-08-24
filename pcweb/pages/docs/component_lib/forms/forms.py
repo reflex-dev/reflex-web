@@ -60,7 +60,7 @@ def render_switch():
 
 code34 = """rx.vstack(
     rx.heading(TextareaState.text),
-    rx.text_area(on_blur=TextareaState.set_text)
+    rx.text_area(value=TextareaState.text, on_change=TextareaState.set_text)
 )
 """
 code35 = """class TextareaState(State):
@@ -72,9 +72,22 @@ exec(code35)
 def render_textarea():
     return rx.vstack(
         doctext(
-            "The Textarea component allows you to easily create multi-line text inputs."
+            "The TextArea component allows you to easily create multi-line text inputs."
         ),
         docdemo(code34, state=code35, comp=eval(code34), context=True),
+        doctext(
+            "Alternatively, you can use the ",
+            rx.code("on_blur"),
+            " event handler to only update the state when the user clicks away. ",
+            "Similar to the Input component, the TextArea is also implemented using debounced input ",
+            "when it is fully controlled. ",
+            "You can tune the debounce delay by setting the ",
+            rx.code("debounce_timeout"),
+            " when creating the TextArea component. ",
+            "You can find examples of how it is used in ",
+            doclink("DebouncedInput", href="/docs/library/forms/debounceinput"),
+            " component.",
+        ),
         align_items="start",
     )
 
@@ -82,7 +95,7 @@ def render_textarea():
 upload_code1 = """rx.upload(
     rx.text("Drag and drop files here or click to select files"),
     border="1px dotted rgb(107,99,246)",
-    padding="5em", 
+    padding="5em",
 )"""
 upload_code2 = """
 class State(rx.State):
@@ -93,7 +106,7 @@ class State(rx.State):
 
     async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
-        
+
         Args:
             files: The uploaded files.
         \"""
@@ -121,10 +134,10 @@ def index():
                 rx.text("Drag and drop files here or click to select files"),
             ),
             border=f"1px dotted {color}",
-            padding="5em", 
+            padding="5em",
         ),
         rx.button(
-            "Upload", 
+            "Upload",
             on_click=lambda: State.handle_upload(rx.upload_files()),
         ),
         rx.foreach(State.img, lambda img: rx.image(src=img)),
@@ -142,7 +155,7 @@ class State(rx.State):
 
     async def handle_upload(self, files: list[rx.UploadFile]):
         \"""Handle the upload of file(s).
-        
+
         Args:
             files: The uploaded files.
         \"""
@@ -182,7 +195,7 @@ def index():
             disabled=False,
             on_keyboard=True,
             border=f"1px dotted {color}",
-            padding="5em", 
+            padding="5em",
         ),
         rx.button(
             "Upload",

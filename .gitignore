@@ -3,6 +3,7 @@
 **/*.swp
 **/.DS_Store
 **/.web
+*.db
 *.py[cod]
 .idea
 .web

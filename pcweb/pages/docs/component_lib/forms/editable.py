@@ -12,7 +12,6 @@ basic_editable_class = """class EditableState(State):
     example_state: str
 
     def set_uppertext(self, example_state: str):
-        print("testing")
         self.example_state = example_state.upper()
 """
 basic_editable_example = """rx.editable(
@@ -20,7 +19,7 @@ basic_editable_example = """rx.editable(
     rx.editable_input(),
     placeholder="An input example...",
     on_submit=EditableState.set_uppertext,
-    width="100%", 
+    width="100%",
     )
 """
 
