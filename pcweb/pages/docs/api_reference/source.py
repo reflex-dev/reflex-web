@@ -142,63 +142,76 @@ def generate_docs(title, s):
         rx.divider(),
         doctext(s.get_overview()),
         subheader("Class Fields"),
-        rx.box(rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Field"),
-                    rx.th("Description"),
-                )
-            ),
-            rx.tbody(
-                *[
+        rx.box(
+            rx.table(
+                rx.thead(
                     rx.tr(
-                        rx.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                        rx.td(field["description"]),
+                        rx.th("Field"),
+                        rx.th("Description"),
                     )
-                    for field in s.get_class_fields()
-                ],
+                ),
+                rx.tbody(
+                    *[
+                        rx.tr(
+                            rx.td(
+                                rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
+                            ),
+                            rx.td(field["description"]),
+                        )
+                        for field in s.get_class_fields()
+                    ],
+                ),
             ),
-        ), style={"overflow": "auto"}),
+            style={"overflow": "auto"},
+        ),
         subheader("Fields"),
-        rx.box(rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Field"),
-                    rx.th("Description"),
-                )
-            ),
-            rx.tbody(
-                *[
+        rx.box(
+            rx.table(
+                rx.thead(
                     rx.tr(
-                        rx.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                        rx.td(field["description"]),
+                        rx.th("Field"),
+                        rx.th("Description"),
                     )
-                    for field in s.get_fields()
-                ],
+                ),
+                rx.tbody(
+                    *[
+                        rx.tr(
+                            rx.td(
+                                rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
+                            ),
+                            rx.td(field["description"]),
+                        )
+                        for field in s.get_fields()
+                    ],
+                ),
             ),
-        ), style={"overflow": "auto"}),
+            style={"overflow": "auto"},
+        ),
         subheader("Methods"),
-        rx.box(rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Signature"),
-                    rx.th("Description"),
-                )
-            ),
-            rx.tbody(
-                *[
+        rx.box(
+            rx.table(
+                rx.thead(
                     rx.tr(
-                        rx.td(
-                            rx.code(
-                                field["name"] + field["signature"],
-                                font_weight=styles.BOLD_WEIGHT,
-                            ), 
-                            white_space="normal"
-                        ),
-                        rx.td(field["description"], white_space="normal"),
+                        rx.th("Signature"),
+                        rx.th("Description"),
                     )
-                    for field in s.get_methods()
-                ],
+                ),
+                rx.tbody(
+                    *[
+                        rx.tr(
+                            rx.td(
+                                rx.code(
+                                    field["name"] + field["signature"],
+                                    font_weight=styles.BOLD_WEIGHT,
+                                ),
+                                white_space="normal",
+                            ),
+                            rx.td(field["description"], white_space="normal"),
+                        )
+                        for field in s.get_methods()
+                    ],
+                ),
             ),
-        ), style={"overflow": "auto"}),
+            style={"overflow": "auto"},
+        ),
     )

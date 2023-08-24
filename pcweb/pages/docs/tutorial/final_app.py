@@ -38,11 +38,20 @@ def answer(self):
             self.chat_history[-1] = (self.question, answer)
             yield
 """
+
+
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            id="question",
+            placeholder="Ask a question",
+            on_blur=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer4, style=style.button_style),
     )
+
+
 code_out1 = rx.container(
     chat1(),
     action_bar3(),
@@ -158,22 +167,14 @@ button_style = dict(
 def final_app():
     return rx.box(
         docheader("Final App"),
-        doctext(
-            "We will use OpenAI's API to give our chatbot some intelligence. "
-        ),
+        doctext("We will use OpenAI's API to give our chatbot some intelligence. "),
         subheader("Using the API"),
-        doctext(
-            "We need to modify our event handler to send a request to the API. "
-        ),
+        doctext("We need to modify our event handler to send a request to the API. "),
         doccode(state1),
         docdemobox(code_out1),
-        doctext(
-            "Finally, we have our chatbot! "
-        ),
+        doctext("Finally, we have our chatbot! "),
         subheader("Final Code"),
-        doctext(
-            "We wrote all our code in three files, which you can find below. "
-        ),
+        doctext("We wrote all our code in three files, which you can find below. "),
         doccode(final_code),
         doccode(final_state),
         doccode(final_style),
@@ -184,5 +185,5 @@ def final_app():
             "in more detail. ",
             "The best way to learn is to build something, so try to build your own app using this ",
             "as a starting point! ",
-        )
+        ),
     )

@@ -138,13 +138,14 @@ def props():
         docdemo(code7),
         subheader("Binding Props to State"),
         doctext(
-            "Reflex apps can have a ", doclink("State", href=state_overview.path), 
+            "Reflex apps can have a ",
+            doclink("State", href=state_overview.path),
             " that stores all variables that can change when the app is running, "
-            " as well as the event handlers that can change those variables."
+            " as well as the event handlers that can change those variables.",
         ),
         doctext(
             "State may be modified in response to things like user input like clicking a button,",
-             " or in response to events like loading a page."
+            " or in response to events like loading a page.",
         ),
         doctext(
             "State vars can be bound to component props, so that the UI always reflects the current state of the app."

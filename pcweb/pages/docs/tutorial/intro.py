@@ -26,7 +26,11 @@ def intro():
         doctext(
             "In this tutorial you'll learn how to: ",
             rx.ordered_list(
-                rx.list_item("Install ", rx.code("reflex"), " and set up your development environment."),
+                rx.list_item(
+                    "Install ",
+                    rx.code("reflex"),
+                    " and set up your development environment.",
+                ),
                 rx.list_item("Create components to define and style your UI."),
                 rx.list_item("Use state to interactivity to your app."),
                 rx.list_item("Deploy your app to share with others."),

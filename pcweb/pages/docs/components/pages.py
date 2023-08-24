@@ -1,6 +1,13 @@
 import reflex as rx
 
-from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader, doclink
+from pcweb.templates.docpage import (
+    doccode,
+    docheader,
+    docpage,
+    doctext,
+    subheader,
+    doclink,
+)
 
 
 @docpage()
@@ -65,7 +72,7 @@ def pages():
                 rx.box(
                     rx.alert_description(
                         "Index is a special exception where it is available at both  / and /index . ",
-                        "All other pages are only available at their specified route."
+                        "All other pages are only available at their specified route.",
                     ),
                 ),
                 status="info",

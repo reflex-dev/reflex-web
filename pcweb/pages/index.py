@@ -859,8 +859,10 @@ def stat(number, icon, metric):
         padding_x="2em",
     )
 
+
 def format_with_commas(number):
-    return '{:,}+'.format(number)
+    return "{:,}+".format(number)
+
 
 def gallery():
     return rx.center(
@@ -887,9 +889,21 @@ def gallery():
                 rx.desktop_only(
                     rx.flex(
                         rx.spacer(),
-                        stat(format_with_commas(constants.MONTHLY_USERS), "project", "Projects created per month"),
-                        stat(format_with_commas(constants.GITHUB_STARS), "github", "GitHub stars"),
-                        stat(format_with_commas(constants.DISCORD), "discord", "Discord members"),
+                        stat(
+                            format_with_commas(constants.MONTHLY_USERS),
+                            "project",
+                            "Projects created per month",
+                        ),
+                        stat(
+                            format_with_commas(constants.GITHUB_STARS),
+                            "github",
+                            "GitHub stars",
+                        ),
+                        stat(
+                            format_with_commas(constants.DISCORD),
+                            "discord",
+                            "Discord members",
+                        ),
                         rx.spacer(),
                         height="100%",
                         min_height="10em",
@@ -900,7 +914,10 @@ def gallery():
                 rx.mobile_and_tablet(
                     rx.vstack(
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.MONTHLY_USERS), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.MONTHLY_USERS),
+                                color="#DACEEE",
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/project.svg",
                                 height="1em",
@@ -912,7 +929,10 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.GITHUB_STARS), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.GITHUB_STARS),
+                                color="#DACEEE",
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/github.svg",
                                 height="1em",
@@ -922,7 +942,9 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.DISCORD), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.DISCORD), color="#DACEEE"
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/discord.svg",
                                 height="1em",

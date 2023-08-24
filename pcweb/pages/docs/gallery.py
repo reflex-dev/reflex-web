@@ -139,6 +139,7 @@ example_list = [
     },
 ]
 
+
 class Gallery(rx.Model):
     name: str
     difficulty: str
@@ -243,7 +244,9 @@ def gallery():
             ),
             rx.box(
                 docheader("Community Gallery", first=True),
-                doctext("Here are some examples of what the community has made with Reflex. "),
+                doctext(
+                    "Here are some examples of what the community has made with Reflex. "
+                ),
                 docalert(
                     "This section is coming soon! If you have an app you'd like to share, please join our discord and let us know."
                 ),

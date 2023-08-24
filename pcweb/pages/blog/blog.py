@@ -70,7 +70,7 @@ def get_all_markdown_files(path: str):
         for file in files:
             if file.endswith(".md"):
                 markdown_files.append(os.path.join(root, file))
-                
+
     return markdown_files
 
 
@@ -115,7 +115,6 @@ def page(meta, markup) -> rx.Component:
 
 paths = get_all_markdown_files(PAGES_PATH)
 blogs = get_blog_data(paths)
-
 
 
 class Gallery(rx.Model):

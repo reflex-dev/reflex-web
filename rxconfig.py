@@ -11,10 +11,10 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
         "@tailwindcss/typography",
-        "@splinetool/react-spline", 
-        "@splinetool/runtime",
+        "@splinetool/react-spline@2.2.6",
+        "@splinetool/runtime@0.9.411",
         "@inkeep/widgets@0.2.164",
-    ], 
+    ],
     telemetry_enabled=False,
     tailwind={
         "plugins": [

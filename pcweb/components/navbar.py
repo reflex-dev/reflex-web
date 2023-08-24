@@ -9,13 +9,14 @@ from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
 
+
 def shorten_to_k(number):
     if number >= 1000:
-        return '{:.0f}k+'.format(number / 1000)
+        return "{:.0f}k+".format(number / 1000)
     else:
         return str(number)
 
-    
+
 class Search(rx.Component):
     tag = "InkeepCustomTrigger"
 
@@ -296,6 +297,12 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
+                    rx.link(
+                        "Changelog",
+                        href="/changelog",
+                        style=styles.NAV_TEXT_STYLE,
+                        display=["none", "none", "none", "none", "flex", "flex"],
+                    ),
                     rx.menu(
                         rx.menu_button(
                             rx.hstack(
@@ -304,7 +311,14 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     tag="chevron_down", style=styles.NAV_TEXT_STYLE
                                 ),
                                 cursor="pointer",
-                                display=["none", "none", "none", "flex", "flex", "flex"],
+                                display=[
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "flex",
+                                    "flex",
+                                    "flex",
+                                ],
                             )
                         ),
                         rx.menu_list(

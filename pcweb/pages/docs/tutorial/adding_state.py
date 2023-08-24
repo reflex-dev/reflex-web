@@ -11,6 +11,7 @@ from pcweb.templates.docpage import (
     subheader,
 )
 import openai
+
 openai.api_key = "YOUR_OPENAI_KEY"
 
 
@@ -35,6 +36,7 @@ class ChatappState(State):
 
     async def answer3(self):
         import asyncio
+
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, ""))
@@ -48,9 +50,7 @@ class ChatappState(State):
         # Our chatbot has some brains now!
         session = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role": "user", "content": self.question}
-            ],
+            messages=[{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,
             stream=True,
@@ -83,18 +83,27 @@ class State(rx.State):
         self.chat_history.append((self.question, answer))
 """
 from pcweb.pages.docs.tutorial.frontend import qa4 as qa
+
+
 def chat1() -> rx.Component:
     return rx.box(
         rx.foreach(
-            ChatappState.chat_history,
-            lambda messages: qa(messages[0], messages[1])
+            ChatappState.chat_history, lambda messages: qa(messages[0], messages[1])
         )
     )
+
+
 def action_bar1() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            placeholder="Ask a question",
+            on_blur=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer, style=style.button_style),
     )
+
+
 code1 = """# chatapp.py
 from chatapp.state import State
 
@@ -128,11 +137,20 @@ def answer(self):
     self.chat_history.append((self.question, answer))
     return rx.set_value("question", "")
 """
+
+
 def action_bar2() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            id="question",
+            placeholder="Ask a question",
+            on_blur=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer2, style=style.button_style),
     )
+
+
 code2 = """# chatapp.py
 def action_bar() -> rx.Component:
     return rx.hstack(
@@ -161,11 +179,20 @@ async def answer(self):
         self.chat_history[-1] = (self.question, answer[:i])
         yield
 """
+
+
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.input(id="question", placeholder="Ask a question", on_blur=ChatappState.set_question, style=style.input_style),
+        rx.input(
+            id="question",
+            placeholder="Ask a question",
+            on_blur=ChatappState.set_question,
+            style=style.input_style,
+        ),
         rx.button("Ask", on_click=ChatappState.answer3, style=style.button_style),
     )
+
+
 code_out3 = rx.container(
     chat1(),
     action_bar3(),
@@ -177,6 +204,7 @@ def adding_state():
     from pcweb.pages.docs.state.overview import state_overview
     from pcweb.pages.docs.state.events import events
     from pcweb.pages.docs.api_reference.special_events import special_events
+
     return rx.box(
         docheader("State", first=True),
         doctext(

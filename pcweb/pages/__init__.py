@@ -1,6 +1,7 @@
 from pcweb.route import Route
 from .docs import doc_routes
 from .blog import blog_routes
+from .changelog import changelog_routes
 from .index import index
 from .faq import faq_routes
 

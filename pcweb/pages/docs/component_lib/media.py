@@ -139,6 +139,7 @@ image_pil_example_show = """rx.vstack(
     )
 """
 
+
 def render_image():
     return rx.vstack(
         doctext(
