@@ -259,7 +259,13 @@ EVENTS = {
     },
     "on_ready": {
         "description": "The on_ready event handler is called when the script is ready to be executed."
-    }
+    },
+    "on_mount": {
+        "description": "The on_mount event handler is called when the component is loaded on the page."
+    },
+    "on_unmount": {
+        "description": "The on_unmount event handler is called when the component is removed from the page. This handler is only called during navigation, not when the page is refreshed."
+    },
 }
 
 
