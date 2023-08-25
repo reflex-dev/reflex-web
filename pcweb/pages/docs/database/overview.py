@@ -15,13 +15,33 @@ def database_overview():
     return rx.box(
         docheader("Database", first=True),
         doctext(
-            "Reflex comes with a built-in ORM wrapping SQLAlchemy. ",
-            "We will cover some basic use cases, but you can refer to their ",
+            "Reflex uses ",
             doclink(
-                text="docs",
+                text="sqlmodel",
+                href="https://sqlmodel.tiangolo.com",
+            ),
+            " to provide a built-in ORM wrapping SQLAlchemy. ",
+        ),
+        doctext(
+            "The examples on this page refer specifically to how Reflex uses various tools ",
+            "to expose an integrated database interface. ",
+            "Only basic use cases will be covered below, but you can refer to the ",
+            doclink(
+                text="sqlmodel tutorial",
+                href="https://sqlmodel.tiangolo.com/tutorial/select/",
+            ),
+            " for more examples and information ",
+            *["(just replace ", rx.code("SQLModel"), " with ", rx.code("rx.Model")],
+            " and ",
+            *[rx.code("Session(engine)"), " with ", rx.code("rx.session()"), "). "],
+        ),
+        doctext(
+            "For advanced use cases, please see the ",
+            doclink(
+                text="SQLAlchemy docs",
                 href="https://docs.sqlalchemy.org/en/14/orm/quickstart.html",
             ),
-            " to learn more.",
+            " (v1.4).",
         ),
         subheader("Connecting"),
         doctext(
