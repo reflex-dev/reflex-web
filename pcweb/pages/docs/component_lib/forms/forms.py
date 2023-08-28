@@ -136,6 +136,7 @@ def index():
             border=f"1px dotted {color}",
             padding="5em",
         ),
+        rx.hstack(rx.foreach(rx.selected_files, rx.text)),
         rx.button(
             "Upload",
             on_click=lambda: State.handle_upload(rx.upload_files()),
@@ -227,7 +228,10 @@ def render_upload():
         ),
         docdemo(upload_code1, context=True),
         doctext(
-            "Selecting a file will add it to the browser's file list. ",
+            "Selecting a file will add it to the browser's file list, which can be rendered ",
+            "on the frontend using the ",
+            rx.code("rx.selected_files"),
+            " special Var. "
             "To upload the file, you need to bind an event handler and pass the file list. ",
             "A full example is shown below. ",
         ),
