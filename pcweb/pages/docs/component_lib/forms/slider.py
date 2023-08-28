@@ -66,7 +66,7 @@ slider_state_manual = """class SliderManual(State):
 """
 
 slider_manual = """rx.vstack( 
-    rx.heading("Weather is " + SliderManual.value + " degrees"),
+    rx.heading(f"Weather is {SliderManual.value} degrees"),
     rx.slider(
         rx.slider_track(
             rx.slider_filled_track(bg="tomato"),
@@ -153,7 +153,7 @@ class RangeSliderState(State):
 """
 
 range_slider_base_example = """rx.vstack(
-    rx.heading(RangeSliderState.value[0]+" : "+RangeSliderState.value[1]),
+    rx.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
     rx.range_slider(
         on_change=RangeSliderState.set_value
     ),
@@ -170,7 +170,7 @@ class RangeSliderVariation(State):
 """
 
 range_slider_on_change_start = """rx.vstack(
-    rx.heading(RangeSliderVariation.value[0]+" : "+RangeSliderVariation.value[1]),
+    rx.heading(f"{RangeSliderVariation.value[0]} : {RangeSliderVariation.value[1]}"),
     rx.range_slider(
         on_change_end=RangeSliderVariation.set_end
     ),
@@ -211,7 +211,7 @@ class RangeSliderManual(State):
 """
 
 range_slider_manual = """rx.vstack( 
-    rx.heading("Between " + RangeSliderManual.value[0] + " and " + RangeSliderManual.value[1]),
+    rx.heading(f"Between {RangeSliderManual.value[0]} and {RangeSliderManual.value[1]}"),
     rx.range_slider(
         rx.range_slider_track(
             rx.range_slider_filled_track(bg="#48BB78"),

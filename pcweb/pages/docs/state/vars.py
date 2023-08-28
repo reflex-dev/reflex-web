@@ -73,7 +73,7 @@ class VarNumberState(State):
 """
 exec(code7)
 code8 = """rx.vstack(
-    rx.heading("The number is " + VarNumberState.number),
+    rx.heading(f"The number is {VarNumberState.number}"),
     # Var operations can be composed for more complex expressions.
     rx.cond(
         VarNumberState.number % 2 == 0,
@@ -99,7 +99,7 @@ class BackendState(State):
 """
 exec(code9)
 code10 = """rx.vstack(
-    rx.text("Sum: " + BackendState.sum),
+    rx.text(f"Sum: {BackendState.sum}"),
     rx.button("Click Me", on_click=BackendState.click)
 )
 """
