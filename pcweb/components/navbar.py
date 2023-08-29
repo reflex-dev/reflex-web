@@ -296,6 +296,12 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
+                    rx.link(
+                        "Changelog",
+                        href="/changelog",
+                        style=styles.NAV_TEXT_STYLE,
+                        display=["none", "none", "none", "none", "flex", "flex"],
+                    ),
                     rx.menu(
                         rx.menu_button(
                             rx.hstack(
