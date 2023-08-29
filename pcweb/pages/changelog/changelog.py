@@ -55,7 +55,7 @@ def changelog_content():
                 "Added the step prop to Slider.",
                 "Added support for limits in pagination",
             ],
-            "/docs",
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.6",
         ),
         change(
             "2021-08-01",
@@ -66,7 +66,7 @@ def changelog_content():
                 "3x performance improvement on the frontend (dev mode should be much snappier now!)",
                 "f-string support for vars",
             ],
-            "/docs",
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.5",
         ),
         width="100%",
     )
