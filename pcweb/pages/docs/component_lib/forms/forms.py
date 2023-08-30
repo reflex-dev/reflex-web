@@ -141,6 +141,10 @@ def index():
             "Upload",
             on_click=lambda: State.handle_upload(rx.upload_files()),
         ),
+        rx.button(
+            "Clear",
+            on_click=rx.clear_selected_files,
+        ),
         rx.foreach(State.img, lambda img: rx.image(src=img)),
         padding="5em",
     )
@@ -231,7 +235,9 @@ def render_upload():
             "Selecting a file will add it to the browser's file list, which can be rendered ",
             "on the frontend using the ",
             rx.code("rx.selected_files"),
-            " special Var. "
+            " special Var. To clear the selected files, you can use another special Var ",
+            rx.code("rx.clear_selected_files"),
+            " as an event handler. ",
             "To upload the file, you need to bind an event handler and pass the file list. ",
             "A full example is shown below. ",
         ),
