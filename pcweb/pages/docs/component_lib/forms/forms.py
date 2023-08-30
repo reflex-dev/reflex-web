@@ -237,7 +237,7 @@ def render_upload():
             rx.code("rx.selected_files"),
             " special Var. To clear the selected files, you can use another special Var ",
             rx.code("rx.clear_selected_files"),
-            ". ",
+            " as an event handler. ",
             "To upload the file, you need to bind an event handler and pass the file list. ",
             "A full example is shown below. ",
         ),
