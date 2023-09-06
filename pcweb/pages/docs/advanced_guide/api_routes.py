@@ -58,7 +58,7 @@ def api_routes():
         ),
         subheader("Event", level=2),
         doctext(
-            rx.code("localhost:8000/event"),
+            rx.code("localhost:8000/_event"),
             ": the frontend will use this route to notify the backend that an event occurred",
         ),
         rx.alert(
@@ -68,7 +68,7 @@ def api_routes():
         ),
         subheader("Upload", level=2),
         doctext(
-            rx.code("localhost:8000/upload"),
+            rx.code("localhost:8000/_upload"),
             ": This route is used for the upload of file when using ",
             rx.code("rx.upload()"),
         ),
