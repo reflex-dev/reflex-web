@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import reflex as rx
 
 from pcweb.base_state import State
@@ -227,7 +229,7 @@ SYNTHETIC_EVENTS = [
     },
 ]
 
-exec("from datetime import datetime")
+
 for i in SYNTHETIC_EVENTS:
     exec(i["state"])
 
