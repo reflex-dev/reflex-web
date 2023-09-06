@@ -84,6 +84,28 @@ SYNTHETIC_EVENTS = [
         "example": """rx.button(DoubleClickState.text, on_double_click=DoubleClickState.change_text)""",
     },
     {
+        "name": "on_mount",
+        "description": "The on_mount event handler is called after the component is rendered on the page. It is similar to a page on_load event, although it does not necessarily fire when navigating between pages.",
+        "state": """class MountState(State):
+    events: list[str] = []
+
+    def on_mount(self):
+        self.events = self.events[-4:] + ["on_mount @ " + str(datetime.now())]
+""",
+        "example": """rx.vstack(rx.foreach(MountState.events, rx.text), on_mount=MountState.on_mount)""",
+    },
+    {
+        "name": "on_unmount",
+        "description": "The on_unmount event handler is called after removing the component from the page. However, on_unmount will only be called for internal navigation, not when following external links or refreshing the page.",
+        "state": """class UnmountState(State):
+    events: list[str] = []
+
+    def on_unmount(self):
+        self.events = self.events[-4:] + ["on_unmount @ " + str(datetime.now())]
+""",
+        "example": """rx.vstack(rx.foreach(UnmountState.events, rx.text), on_unmount=UnmountState.on_unmount)""",
+    },
+    {
         "name": "on_mouse_up",
         "description": "The on_mouse_up event handler is called when the user releases a mouse button on an element. For example, it’s called when the user releases the left mouse button on a button.",
         "state": """class MouseUpState(State):
@@ -205,6 +227,7 @@ SYNTHETIC_EVENTS = [
     },
 ]
 
+exec("from datetime import datetime")
 for i in SYNTHETIC_EVENTS:
     exec(i["state"])
 
