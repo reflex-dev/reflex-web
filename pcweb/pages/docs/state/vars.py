@@ -103,6 +103,18 @@ code10 = """rx.vstack(
     rx.button("Click Me", on_click=BackendState.click)
 )
 """
+code11 = """class ClientStorageState(State):
+    my_cookie: rx.Cookie = ""
+    my_local_storage: rx.LocalStorage = ""
+    custom_cookie: rx.Cookie = rx.Cookie(name="CustomNamedCookie", max_age=3600)
+"""
+exec(code11)
+code12 = """rx.vstack(
+    rx.hstack(rx.text("my_cookie"), rx.input(value=ClientStorageState.my_cookie, on_change=ClientStorageState.set_my_cookie)),
+    rx.hstack(rx.text("my_local_storage"), rx.input(value=ClientStorageState.my_local_storage, on_change=ClientStorageState.set_my_local_storage)),
+    rx.hstack(rx.text("custom_cookie"), rx.input(value=ClientStorageState.custom_cookie, on_change=ClientStorageState.set_custom_cookie)),
+)
+"""
 
 
 @docpage()
@@ -241,4 +253,26 @@ def index():
                 status="warning",
             ),
         ),
+        subheader("Client-side Storage"),
+        doctext(
+            "You can use the browser's local storage to persist state between sessions. ",
+            "This allows user preferences, authentication cookies, other bits of information ",
+            "to be stored on the client and accessed from different browser tabs. ",
+        ),
+        doctext(
+            "A client-side storage var looks and acts like a normal ",
+            rx.code("str"),
+            " var, except it is annotated with ",
+            "either ",
+            rx.code("rx.Cookie"),
+            " or ",
+            rx.code("rx.LocalStorage"),
+            " depending on where the value should be stored. By default, the key name will ",
+            "be the same as the var name, but this can be overridden. ",
+        ),
+        doctext(
+            "Try entering some values in the text boxes below and then load the page in a separate ",
+            "tab or check the storage section of browser devtools to see the values saved in the browser. ",
+        ),
+        docdemo(code12, code11, eval(code12), context=True),
     )
