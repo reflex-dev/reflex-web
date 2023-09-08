@@ -91,6 +91,11 @@ exec(code52)
 
 exec(code52_a)
 
+code52_b = """rx.vstack(
+    rx.button("Toggle", on_click=CondState.change),
+    rx.cond(~CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
+)
+"""
 
 def render_cond():
     return rx.vstack(
@@ -102,13 +107,20 @@ def render_cond():
         doctext(
             "The second component is optional and can be omitted. If it is omitted, nothing is rendered if the condition is false."
         ),
+        subheader("Negation"),
+        doctext(
+            "You can use the logical operator ",
+            rx.code("~"),
+            " to negate a condition.",
+        ),
+        docdemo(code52_b, state=code52, comp=eval(code52_b)),
         subheader("Multiple Conditions"),
         doctext(
             "You can also use the logical operator ",
             rx.code("&"),
-            "and ",
+            " and ",
             rx.code("|"),
-            "to make up complex conditions",
+            " to make up complex conditions",
         ),
         docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
         align_items="start",
