@@ -125,19 +125,6 @@ def wrapping_react():
                 "react-colorful", href="https://www.npmjs.com/package/react-colorful"
             ),
             " color picker component. ",
-            "Simply specify the package name in your ",
-            rx.code("rxconfig.py"),
-            " file. ",
-        ),
-        doccode(
-            """
-config = rx.Config(
-    app_name="colors",
-    frontend_packages=[
-        "react-colorful",
-    ]
-)
-        """
         ),
         subheader("Step 2: Wrap the Library"),
         doctext(
@@ -152,6 +139,16 @@ config = rx.Config(
             ", which is the name of the npm package, and ",
             rx.code("tag"),
             ", which is the name of the React component. ",
+        ),
+        doctext(
+            "Reflex will automatically install the ",
+            rx.code("library"),
+            " specified in your code if needed. ",
+        ),
+        doctext(
+            "If your component depends on non-react JS libs to work, add them as a list in ",
+            rx.code("lib_dependencies"),
+            " and the dependencies will be installed automatically.",
         ),
         doctext(
             "A component may also have many props. ",

@@ -250,8 +250,7 @@ config = AppConfig(
             "extend": {},
         },
         "plugins": ["@tailwindcss/typography"],
-    },
-    frontend_packages=["@tailwindcss/typography"],
+    }
 )"""
         ),
         doctext(
