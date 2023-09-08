@@ -141,12 +141,14 @@ def wrapping_react():
             ", which is the name of the React component. ",
         ),
         doctext(
-            "Reflex can detect if the package you mentionned in ",
+            "Reflex will automatically install the ",
             rx.code("library"),
-            "need to be installed, no config needed. ",
+            " specified in your code if needed. ",
+        ),
+        doctext(
             "If your component depends on non-react JS libs to work, add them as a list in ",
             rx.code("lib_dependencies"),
-            "and the dependencies will be installed automatically.",
+            " and the dependencies will be installed automatically.",
         ),
         doctext(
             "A component may also have many props. ",
