@@ -48,7 +48,7 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
-            "2021-08-01",
+            "2021-09-08",
             "v0.2.7",
             "Bug fix to connect to no sql databases.",
             [
@@ -61,7 +61,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.7",
         ),
         change(
-            "2021-08-01",
+            "2021-08-14",
             "v0.2.6",
             "Bug fix to connect to no sql databases.",
             [
