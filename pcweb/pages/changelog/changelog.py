@@ -50,7 +50,7 @@ def changelog_content():
         change(
             "2021-09-08",
             "v0.2.7",
-            "Bug fix to connect to no sql databases.",
+            "Performance improvements + Client-side Storage.",
             [
                 "Reduced initial package size by 60%",
                 "Client-side Storage integrated with State",
