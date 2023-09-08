@@ -93,6 +93,7 @@ exec(code52_a)
 
 code52_b = """rx.vstack(
     rx.button("Toggle", on_click=CondState.change),
+    rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
     rx.cond(~CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
 )
 """
