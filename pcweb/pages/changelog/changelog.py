@@ -48,7 +48,20 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
-            "2021-08-01",
+            "2021-09-08",
+            "v0.2.7",
+            "Reduced Package Size + Client-side Storage.",
+            [
+                "Reduced initial package size by 60%",
+                "Client-side Storage integrated with State",
+                "Added on_mount and on_unmount triggers for all components",
+                "Per-component prop autocompletion for IDEs and breakpoints support"
+
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.7",
+        ),
+        change(
+            "2021-08-14",
             "v0.2.6",
             "Bug fix to connect to no sql databases.",
             [
