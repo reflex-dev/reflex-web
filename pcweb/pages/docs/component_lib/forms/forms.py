@@ -208,7 +208,7 @@ def index():
         ),
         rx.responsive_grid(
             rx.foreach(
-                State.imgs,
+                State.img,
                 lambda img: rx.vstack(
                     rx.image(src=img),
                     rx.text(img),
