@@ -27,6 +27,12 @@ def installation():
             " for optimal performance.",
             status="warning",
         ),
+        docalert(
+            "For macOS users with Apple M1 or M2 chips, you may need to install Rosetta 2"
+            " to run Reflex. This can be done with the following command:",
+            rx.code("/usr/sbin/softwareupdate --install-rosetta --agree-to-license"),
+            status="warning",
+        ),
         rx.divider(),
         subheader("Virtual Environment (Optional)"),
         doctext(
