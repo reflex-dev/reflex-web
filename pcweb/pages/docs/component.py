@@ -254,9 +254,6 @@ EVENTS = {
     "on_key_up": {
         "description": "The on_key_up event handler is called when the user releases a key."
     },
-    # "on_copy": {
-    #     "description": "The on_copy event handler is called in CopyToClipboard component"
-    # },
     "on_ready": {
         "description": "The on_ready event handler is called when the script is ready to be executed."
     },
