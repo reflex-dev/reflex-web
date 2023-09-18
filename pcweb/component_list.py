@@ -29,7 +29,6 @@ forms_list = [
     [rx.Slider, rx.SliderTrack, rx.SliderFilledTrack, rx.SliderThumb, rx.SliderMark],
     [rx.Switch],
     [rx.TextArea],
-    # [rx.CopyToClipboard],
     [rx.Upload],
     [rx.DebounceInput],
 ]
@@ -207,7 +206,6 @@ component_list = {
 }
 
 not_ready_components = [
-    rx.CopyToClipboard,
     rx.IconButton,
     rx.AspectRatio,
 ]
