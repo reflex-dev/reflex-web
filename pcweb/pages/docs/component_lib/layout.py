@@ -4,32 +4,6 @@ from pcweb.base_state import State
 from pcweb import flexdown
 from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
 
-code49 = """rx.vstack(
-    rx.box("Example", bg="yellow", border_radius="sm", width="20%"),
-    rx.box("Example", bg="orange", border_radius="md", width="40%"),
-    rx.box("Example", bg="red", border_radius="md", width="60%"),
-    rx.box("Example", bg="lightblue", border_radius="lg", width="80%"),
-    rx.box("Example", bg="lightgreen", border_radius="xl", width="100%"),
-    width="100%",
-)
-"""
-code50 = """rx.box(
-    rx.button("Click Me"),
-    bg="lightgreen",
-    border_radius="15px",
-    border_color="green",
-    border_width="thick",
-    padding=5,
-)
-"""
-
-iframe_example = """rx.box(
-        element= "iframe",
-        src="https://www.youtube.com/embed/9bZkp7q19f0",
-        width = "100%",
-    )
-"""
-
 
 # Layout
 def render_box():
@@ -37,19 +11,6 @@ def render_box():
     front_matter, output = flexdown.read("docs/library/layout/01-box.md")
     return rx.box(
         *output,
-    )
-    return rx.vstack(
-        doctext(
-            "Box is a generic container component that can be used to group other components."
-        ),
-        docdemo(code49),
-        doctext(
-            "Below is an example of how a box component can contain other components."
-        ),
-        docdemo(code50),
-        doctext("Box can also compose videos and iframe elements."),
-        docdemo(iframe_example),
-        align_items="start",
     )
 
 
