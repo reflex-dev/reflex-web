@@ -268,6 +268,28 @@ config = AppConfig(
     class_name="text-4xl text-center text-blue-500",
 )"""
         ),
+        subheader("Disabling Tailwind"),
+        doctext(
+            "If you want to disable Tailwind in your configuration, you can do so by adding a ",
+            rx.code("disable"),
+            " key to the tailwind configuration dictionary and setting it to ",
+            rx.code("True"),
+            ". This can be useful if you need to temporarily turn off Tailwind for your project: ",
+        ),
+        doccode(
+            """
+config = AppConfig(
+    app_name="app",
+    db_url="sqlite:///reflex.db",
+    env=rx.Env.DEV,
+    tailwind={
+        "disable": True
+    }
+)"""
+        ),
+        doctext(
+            "With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application."
+        ),
         subheader("Special Styles"),
         doctext(
             "We support all of Chakra UI's ",
