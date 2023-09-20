@@ -270,10 +270,10 @@ config = AppConfig(
         ),
         subheader("Disabling Tailwind"),
         doctext(
-            "If you want to disable Tailwind in your configuration, you can do so by adding a ",
-            rx.code("disable"),
-            " key to the tailwind configuration dictionary and setting it to ",
-            rx.code("True"),
+            "If you want to disable Tailwind in your configuration, you can do so by setting the ",
+            rx.code("tailwind"),
+            " config to ",
+            rx.code("None"),
             ". This can be useful if you need to temporarily turn off Tailwind for your project: ",
         ),
         doccode(
@@ -282,9 +282,7 @@ config = AppConfig(
     app_name="app",
     db_url="sqlite:///reflex.db",
     env=rx.Env.DEV,
-    tailwind={
-        "disable": True
-    }
+    tailwind=None
 )"""
         ),
         doctext(
