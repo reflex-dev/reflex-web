@@ -1,3 +1,5 @@
+import os
+
 import reflex as rx
 from pcweb.pages.docs.tutorial import style
 from pcweb.base_state import State
@@ -12,7 +14,9 @@ from pcweb.templates.docpage import (
 )
 import openai
 
-openai.api_key = "YOUR_OPENAI_KEY"
+# If it's in environment, no need to hardcode (openai SDK will pick it up)
+if "OPENAI_API_KEY" not in os.environ:
+    openai.api_key = "YOUR_OPENAI_KEY"
 
 
 class ChatappState(State):
