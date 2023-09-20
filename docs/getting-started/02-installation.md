@@ -1,6 +1,5 @@
 ---
 from pcweb import constants
-from pcweb.templates.docpage import docalert, doccode
 ---
 
 # Installation
@@ -67,10 +66,4 @@ You can debug your app by setting the `--loglevel` flag on any reflex command.
 
 ```bash
 $ reflex run --loglevel debug
-```
-
-
-```reflex
-rx.heading("TEST", color="red")
-
 ```
