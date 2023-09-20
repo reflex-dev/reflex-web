@@ -22,8 +22,8 @@ We recommend creating a virtual environment for your project.
 
 Below are some tools you can use to manage environments:
 
-- [venv](constants.VENV_URL)
-- [poetry](constants.POETRY_URL)
+- [venv]({constants.VENV_URL})
+- [poetry]({constants.POETRY_URL})
 
 ## Installing
 
@@ -31,13 +31,6 @@ Reflex is available as a [pip](constants.PIP_URL) package.
 
 ```bash
 pip install reflex
-```
-
-```reflex
-doccode(
-    "$ pip install reflex",
-    language="bash"
-)
 ```
 
 ## Create a Project
@@ -74,4 +67,10 @@ You can debug your app by setting the `--loglevel` flag on any reflex command.
 
 ```bash
 $ reflex run --loglevel debug
+```
+
+
+```reflex
+rx.heading("TEST", color="red")
+
 ```
