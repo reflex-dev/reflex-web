@@ -328,8 +328,9 @@ def component_docs(component):
     triggers = []
 
     trig = []
-    for event in component().get_triggers():
-        if event not in rx.event.EVENT_TRIGGERS and event not in ("on_drop",):
+    default_triggers = rx.Component.create().get_event_triggers().keys()
+    for event in component().get_event_triggers().keys():
+        if event not in default_triggers and event not in ("on_drop",):
             trig.append(event)
 
     if trig:
@@ -347,9 +348,8 @@ def component_docs(component):
                         ),
                         rx.accordion_panel(rx.text(EVENTS[event]["description"])),
                     )
-                    for event in component().get_triggers()
-                    if event not in rx.event.EVENT_TRIGGERS
-                    and event not in ("on_drop",)
+                    for event in component().get_event_triggers().keys()
+                    if event not in default_triggers and event not in ("on_drop",)
                 ],
             ),
             border_color="rgb(255, 255, 255)",

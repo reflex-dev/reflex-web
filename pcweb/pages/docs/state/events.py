@@ -56,7 +56,7 @@ code4 = """rx.cond(
     rx.circular_progress(is_indeterminate=True),
     rx.heading(
         ProgressExampleState.count,
-        on_click=[ProgressExampleState.increment],
+        on_click=ProgressExampleState.increment,
         _hover={"cursor": "pointer"},
     )
 )"""
