@@ -129,7 +129,7 @@ style = {
     "font_size": "16px"
 }
         
-app = rx.App(state=State, style=style)"""
+app = rx.App(style=style)"""
         ),
         subheader("Component Styles"),
         doctext(
@@ -159,7 +159,7 @@ style = {
     },
 }
         
-app = rx.App(state=State, style=style)"""
+app = rx.App(style=style)"""
         ),
         doctext(
             "Using style dictionaries like this, you can easily create a consistent theme for your app. "
