@@ -28,13 +28,11 @@ def parse_markdown_front_matter(markdown_content):
         try:
             front_matter_data = yaml.safe_load(str(front_matter))
         except yaml.scanner.ScannerError:
-            print("exception")
             front_matter_data = front_matter
 
         if isinstance(front_matter_data, str):
             front_matter_data = front_matter
 
-        print("front matter data", front_matter_data)
         return front_matter_data, content
     else:
         return None, markdown_content
@@ -61,7 +59,6 @@ def parse(source: str, md=rx.markdown):
     The surrounding Markdown should be left untouched.
     """
     front_matter, source = parse_markdown_front_matter(source)
-    print("front", front_matter, type(front_matter))
     if isinstance(front_matter, str):
         exec(front_matter)
 

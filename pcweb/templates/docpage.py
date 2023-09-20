@@ -521,24 +521,11 @@ def doccode(
             "\n".join(code.strip().split("\n")[lines[0] : lines[1]])
         ).strip()
 
-    # Remove prompt characters from the copy text.
-    copy_text = code.replace("$ ", "")
-
-    # A unique id for the code snippet.
-    uid = str(uuid.uuid4())
-
     # Create the code snippet.
-    # cb = code_block if theme == "light" else code_block_dark
     cb = code_block
     return cb(
         code=code,
         language=language,
-        # copied=ClipboardState.text == uid,
-        # copy_text=copy_text,
-        # on_copy=lambda: [
-        #     ClipboardState.copy(rx.Var.create(utils.wrap(uid, '"'))),
-        #     ClipboardState.reset_text(),
-        # ],
     )
 
 

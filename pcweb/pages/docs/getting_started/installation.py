@@ -17,9 +17,46 @@ default_url = "http://localhost:3000"
 @docpage()
 def installation():
     from pcweb.pages.blog import parse
+    from pcweb import styles
+
+    custom_styles = {
+        "h1": {
+            "as_": "h1",
+            "size": "xl",
+            "color": styles.text_colors["docs"]["header"],
+            "font_weight": styles.font_weights["heading"],
+        },
+        "h2": {
+            "as_": "h2",
+            "size": "md",
+            "margin_top": "1em",
+            "color": styles.text_colors["docs"]["header"],
+            "font_weight": styles.font_weights["heading"],
+        },
+        "h3": {
+            "as_": "h3",
+            "size": "md",
+            "color": styles.text_colors["docs"]["header"],
+            "font_weight": styles.font_weights["heading"],
+        },
+        "a": styles.LINK_STYLE,
+        "p": {
+            "as_": "p",
+            "margin_y": "1em",
+        },
+    }
+
+    def md(source: str):
+        return rx.markdown(
+            source,
+            custom_styles=custom_styles,
+        )
     
     # Get the file.
-    front_matter, output = parse(open("docs/getting-started/02-installation.md").read())
+    front_matter, output = parse(open("docs/getting-started/02-installation.md").read(), md=md)
+    return rx.box(
+        *output,
+    )
 
     return rx.box(
         docheader("Installation", first=True),
