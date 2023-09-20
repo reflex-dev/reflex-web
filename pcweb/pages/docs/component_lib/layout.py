@@ -1,6 +1,7 @@
 import reflex as rx
 
 from pcweb.base_state import State
+from pcweb import flexdown
 from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
 
 code49 = """rx.vstack(
@@ -32,6 +33,11 @@ iframe_example = """rx.box(
 
 # Layout
 def render_box():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/01-box.md")
+    return rx.box(
+        *output,
+    )
     return rx.vstack(
         doctext(
             "Box is a generic container component that can be used to group other components."
