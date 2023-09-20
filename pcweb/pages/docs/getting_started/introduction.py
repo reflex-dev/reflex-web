@@ -70,16 +70,6 @@ class CounterExampleState(State):
     def decrement(self):
         self.count -= 1
 
-@rx.memo
-def header(text: str) -> rx.Component:
-    return rx.heading(
-        text,
-        id=text,
-        color=styles.DOC_HEADER_COLOR,
-        font_weight=styles.DOC_HEADING_FONT_WEIGHT,
-        size="2xl",
-        width="100%",
-    )
 
 def get_started() -> rx.Component:
     return rx.fragment(
