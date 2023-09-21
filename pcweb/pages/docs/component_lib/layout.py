@@ -151,36 +151,12 @@ def render_spacer():
     )
 
 
-code62 = """rx.hstack(
-    rx.box("Example", bg="red", border_radius="md", width="10%"),
-    rx.box("Example", bg="orange", border_radius="md", width="10%"),
-    rx.box("Example", bg="yellow", border_radius="md", width="10%"),
-    rx.box("Example", bg="lightblue", border_radius="md", width="10%"),
-    rx.box("Example", bg="lightgreen", border_radius="md", width="60%"),
-    width="100%",
-)
-"""
-code63 = """rx.vstack(
-    rx.box("Example", bg="red", border_radius="md", width="20%"),
-    rx.box("Example", bg="orange", border_radius="md", width="40%"),
-    rx.box("Example", bg="yellow", border_radius="md", width="60%"),
-    rx.box("Example", bg="lightblue", border_radius="md", width="80%"),
-    rx.box("Example", bg="lightgreen", border_radius="md", width="100%"),
-    width="100%",
-)
-"""
-
-
 def render_stack():
-    return rx.vstack(
-        doctext(
-            "Below are two examples the different types of stack components vstack and hstack."
-        ),
-        docdemo(code62),
-        docdemo(code63),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/stack.md")
+    return rx.box(
+        *output,
     )
-
 
 
 code65 = """rx.wrap(
