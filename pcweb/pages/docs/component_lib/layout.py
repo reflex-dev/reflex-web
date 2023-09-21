@@ -6,6 +6,15 @@ from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
 
 
 # Layout
+
+def render_aspectratio():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/aspect_ratio.md")
+    return rx.box(
+        *output,
+    )
+
+
 def render_box():
     # Get the file.
     front_matter, output = flexdown.read("docs/library/layout/01-box.md")
@@ -384,19 +393,7 @@ def render_foreach():
 
 
 
-image_example = (
-    """rx.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
-)
 
-aspect_ratio_example = f"""rx.aspect_ratio({image_example}, ratio=4/3)"""
-
-
-def render_aspectratio():
-    return rx.vstack(
-        doctext("Preserve the ratio of the components contained within"),
-        docdemo(image_example),
-        docdemo(aspect_ratio_example),
-    )
 
 
 fragment_example = """rx.fragment(rx.text("Component1"), rx.text("Component2"))"""
