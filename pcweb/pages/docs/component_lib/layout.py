@@ -17,7 +17,7 @@ def render_aspectratio():
 
 def render_box():
     # Get the file.
-    front_matter, output = flexdown.read("docs/library/layout/01-box.md")
+    front_matter, output = flexdown.read("docs/library/layout/box.md")
     return rx.box(
         *output,
     )

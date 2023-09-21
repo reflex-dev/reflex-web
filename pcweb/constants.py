@@ -13,6 +13,7 @@ YC_URL = "https://www.ycombinator.com/companies/reflex"
 ROADMAP_URL = "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37"
 CONTRIBUTING_URL = "https://reflex-dev.notion.site/2107ab2bc166497db951b8d742748284?v=f0eaff78fa984b5ab15d204af58907d7"
 REPORT_A_BUG_URL = "https://github.com/reflex-dev/reflex/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
+FRAGMENT_COMPONENT_INFO_URL = "https://react.dev/reference/react/Fragment"
 # Install urls.
 BUN_URL = "https://bun.sh"
 NEXTJS_URL = "https://nextjs.org"
