@@ -1,6 +1,6 @@
 """UI and logic for the navbar component."""
 
-from typing import Set
+from typing import Any, Set
 
 import reflex as rx
 from pcweb import constants, styles
@@ -26,13 +26,17 @@ class Search(rx.Component):
     def _get_imports(self):
         return {"next/dynamic": {ImportVar(tag="dynamic", is_default=True)}}
 
-    def get_triggers(self) -> Set[str]:
-        """Get the event triggers for the component.
+    def get_event_triggers(self) -> dict[str, Any]:
+        """Get the event triggers that pass the component's value to the handler.
 
         Returns:
-            The event triggers.
+            A dict mapping the event trigger to the var that is passed to the handler.
         """
-        return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
+        return {
+            **super().get_event_triggers(),
+            "on_close": lambda: [],
+            "on_shortcutKey_pressed": lambda: [],
+        }
 
     def _get_custom_code(self) -> str:
         return """ 
