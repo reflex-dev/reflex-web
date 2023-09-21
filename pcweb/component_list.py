@@ -207,7 +207,6 @@ component_list = {
 }
 
 not_ready_components = [
-    rx.CopyToClipboard,
     rx.IconButton,
     rx.AspectRatio,
 ]

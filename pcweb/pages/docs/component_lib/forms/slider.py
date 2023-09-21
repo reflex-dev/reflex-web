@@ -39,10 +39,10 @@ slider_state_combo = """class SliderCombo(State):
     value: int = 50
     color: str = "black"
 
-    def set_start(self):
+    def set_start(self, value):
         self.color = "#68D391" 
 
-    def set_end(self):
+    def set_end(self, value):
         self.color = "#F56565" 
 """
 

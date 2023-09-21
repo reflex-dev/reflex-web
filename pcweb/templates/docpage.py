@@ -18,25 +18,6 @@ from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
 
 
-class CopyToClipboard(rx.Component):
-    """Component to copy text to clipboard."""
-
-    library = "react-copy-to-clipboard"
-
-    tag = "CopyToClipboard"
-
-    # The text to copy when clicked.
-    text: rx.Var[str]
-
-    @classmethod
-    def get_triggers(cls) -> set[str]:
-        return super().get_triggers() | {"on_copy"}
-
-
-# Convenience method to create the compoennt.
-copy_to_clipboard = CopyToClipboard.create
-
-
 @rx.memo
 def code_block(
     code: str,
@@ -107,16 +88,6 @@ def code_block_dark(
                 border_radius="0.5em",
                 background_color=styles.ACCENT_COLOR,
                 is_open=copied,
-            ),
-            rx.tablet_and_desktop(
-                copy_to_clipboard(
-                    rx.icon(
-                        tag="copy",
-                        style=icon_style,
-                    ),
-                    text=rx.Var.create(copy_text, is_string=True),
-                    on_copy=on_copy,
-                ),
             ),
         ),
         position="relative",
