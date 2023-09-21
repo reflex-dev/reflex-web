@@ -103,21 +103,11 @@ def render_center():
     )
 
 
-code55 = """rx.container(
-    rx.box("Example", bg="blue", color="white", width="50%"),
-    center_content=True,
-    bg="lightblue",
-)
-"""
-
-
 def render_container():
-    return rx.vstack(
-        doctext(
-            "Containers are used to constrain a content's width to the current breakpoint, while keeping it fluid."
-        ),
-        docdemo(code55),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/container.md")
+    return rx.box(
+        *output,
     )
 
 
