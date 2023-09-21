@@ -127,39 +127,11 @@ def render_grid():
     )
 
 
-
-code60 = """rx.responsive_grid(
-    rx.box(height="5em", width="5em", bg="lightgreen"),
-    rx.box(height="5em", width="5em", bg="lightblue"),
-    rx.box(height="5em", width="5em", bg="purple"),
-    rx.box(height="5em", width="5em", bg="tomato"),
-    rx.box(height="5em", width="5em", bg="orange"),
-    rx.box(height="5em", width="5em", bg="yellow"),
-    columns=[3],
-    spacing="4",
-)
-"""
-code61 = """rx.responsive_grid(
-    rx.box(height="5em", width="5em", bg="lightgreen"),
-    rx.box(height="5em", width="5em", bg="lightblue"),
-    rx.box(height="5em", width="5em", bg="purple"),
-    rx.box(height="5em", width="5em", bg="tomato"),
-    rx.box(height="5em", width="5em", bg="orange"),
-    rx.box(height="5em", width="5em", bg="yellow"),
-    columns=[1, 2, 3, 4, 5, 6],
-)
-"""
-
-
 def render_responsivegrid():
-    return rx.vstack(
-        doctext(
-            "ResponsiveGrid provides a friendly interface to create responsive grid layouts with ease. SimpleGrid composes Box so you can pass all the Box props and css grid props with addition to the ones below."
-        ),
-        doctext("Specify a fixed number of columns for the grid layout."),
-        docdemo(code60),
-        docdemo(code61),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/responsive_grid.md")
+    return rx.box(
+        *output,
     )
 
 
