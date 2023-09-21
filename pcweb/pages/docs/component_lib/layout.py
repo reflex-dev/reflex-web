@@ -95,39 +95,11 @@ def render_cond():
     )
 
 
-code53 = """rx.center(
-    rx.text("Hello World!"),
-    border_radius="15px",
-    border_width="thick",
-    width="50%",
-)
-"""
-code54 = """rx.hstack(
-    rx.square(
-        rx.vstack(rx.text("Square")),
-        border_width="thick",
-        border_color="purple",
-        padding="1em",
-    ),
-    rx.circle(
-        rx.vstack(rx.text("Circle")),
-        border_width="thick",
-        border_color="orange",
-        padding="1em",
-    ),
-    spacing="2em",
-)"""
-
-
 def render_center():
-    return rx.vstack(
-        doctext(
-            "Center, Square, and Circle  are components that center its children within itself."
-        ),
-        docdemo(code53),
-        doctext("Below are examples of circle and sqaure."),
-        docdemo(code54),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/center.md")
+    return rx.box(
+        *output,
     )
 
 
