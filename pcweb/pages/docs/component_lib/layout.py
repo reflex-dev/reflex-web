@@ -136,6 +136,14 @@ def render_flex():
     )
 
 
+def render_fragment():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/fragment.md")
+    return rx.box(
+        *output,
+    )
+
+
 def render_grid():
     # Get the file.
     front_matter, output = flexdown.read("docs/library/layout/grid.md")
@@ -392,24 +400,3 @@ def render_foreach():
 
 
 
-
-
-
-
-fragment_example = """rx.fragment(rx.text("Component1"), rx.text("Component2"))"""
-
-
-def render_fragment():
-    return rx.vstack(
-        doctext(
-            "A Fragment is a Component that allow you to group multiple Components without a wrapper node."
-        ),
-        doctext(
-            "Refer to the React docs at ",
-            doclink(
-                "React/Fragment", href="https://react.dev/reference/react/Fragment"
-            ),
-            " for more information on its use-case",
-        ),
-        docdemo(fragment_example),
-    )
