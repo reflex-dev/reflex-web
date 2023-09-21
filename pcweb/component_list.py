@@ -35,20 +35,20 @@ forms_list = [
 
 # Layout components.
 layout_list = [
+    [rx.AspectRatio],
     [rx.Box],
+    [rx.Card, rx.CardHeader, rx.CardBody, rx.CardFooter],
     [rx.Center, rx.Circle, rx.Square],
     [rx.Cond],
     [rx.Container],
     [rx.Flex],
     [rx.Foreach],
+    [rx.Fragment],
     [rx.Grid, rx.GridItem],
     [rx.ResponsiveGrid],
-    [rx.Card, rx.CardHeader, rx.CardBody, rx.CardFooter],
     [rx.Spacer],
     [rx.Stack, rx.Hstack, rx.Vstack],
     [rx.Wrap, rx.WrapItem],
-    [rx.AspectRatio],
-    [rx.Fragment],
 ]
 
 # Overlay components.
