@@ -268,6 +268,24 @@ config = AppConfig(
     class_name="text-4xl text-center text-blue-500",
 )"""
         ),
+        subheader("Disabling Tailwind"),
+        doctext(
+            "If you want to disable Tailwind in your configuration, you can do so by setting the ",
+            rx.code("tailwind"),
+            " config to ",
+            rx.code("None"),
+            ". This can be useful if you need to temporarily turn off Tailwind for your project: ",
+        ),
+        doccode(
+            """
+config = rx.Config(
+    app_name="app",
+    tailwind=None
+)"""
+        ),
+        doctext(
+            "With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application."
+        ),
         subheader("Special Styles"),
         doctext(
             "We support all of Chakra UI's ",
