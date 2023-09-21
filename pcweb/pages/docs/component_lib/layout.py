@@ -111,34 +111,12 @@ def render_container():
     )
 
 
-code56 = """rx.flex(
-    rx.center("Center", bg="lightblue"),
-    rx.square("Square", bg="lightgreen", padding=10),
-    rx.box("Box", bg="salmon", width="150px"),
-)
-"""
-code57 = """rx.flex(
-    rx.center("Center", bg="lightblue"),
-    rx.spacer(),
-    rx.square("Square", bg="lightgreen", padding=10),
-    rx.spacer(),
-    rx.box("Box", bg="salmon", width="150px"),
-    width = "100%",
-)
-"""
-
 
 def render_flex():
-    return rx.vstack(
-        doctext(
-            "Flexbox is a layout model that allows elements to align and distribute space within a container. Using flexible widths and heights, elements can be aligned to fill a space or distribute space between elements, which makes it a great tool to use for responsive design systems."
-        ),
-        docdemo(code56),
-        doctext(
-            "Combining flex with spacer allows for stackable and responsive components."
-        ),
-        docdemo(code57),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/flex.md")
+    return rx.box(
+        *output,
     )
 
 
