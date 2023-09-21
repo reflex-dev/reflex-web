@@ -14,6 +14,14 @@ def render_box():
     )
 
 
+def render_card():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/card.md")
+    return rx.box(
+        *output,
+    )
+
+
 code51 = """rx.vstack(
     rx.button("Toggle", on_click=CondState.change),
     rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
@@ -427,22 +435,6 @@ def render_foreach():
     )
 
 
-card_example1 = """rx.card(rx.text("Body of the Card Component"), header=rx.heading("Header", size="lg"), footer=rx.heading("Footer",size="sm"))"""
-
-
-def render_card():
-    return rx.vstack(
-        doctext(
-            "Card is a flexible component used to group and display content in a clear and concise format."
-        ),
-        docdemo(card_example1),
-        doctext(
-            "You can pass a header with ",
-            rx.code("header="),
-            " and/or a footer with ",
-            rx.code("footer="),
-        ),
-    )
 
 
 image_example = (
