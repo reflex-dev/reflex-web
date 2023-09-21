@@ -143,6 +143,14 @@ def render_responsivegrid():
     )
 
 
+def render_spacer():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/spacer.md")
+    return rx.box(
+        *output,
+    )
+
+
 code62 = """rx.hstack(
     rx.box("Example", bg="red", border_radius="md", width="10%"),
     rx.box("Example", bg="orange", border_radius="md", width="10%"),
@@ -173,26 +181,6 @@ def render_stack():
         align_items="start",
     )
 
-
-code64 = """rx.flex(
-    rx.center(rx.text("Example"), bg="lightblue"),
-    rx.spacer(),
-    rx.center(rx.text("Example"), bg="lightgreen"),
-    rx.spacer(),
-    rx.center(rx.text("Example"), bg="salmon"),
-    width="100%",
-)
-"""
-
-
-def render_spacer():
-    return rx.vstack(
-        doctext(
-            "Creates an adjustable, empty space that can be used to tune the spacing between child elements within Flex."
-        ),
-        docdemo(code64),
-        align_items="start",
-    )
 
 
 code65 = """rx.wrap(
