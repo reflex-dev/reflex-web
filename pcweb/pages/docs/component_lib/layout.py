@@ -159,28 +159,11 @@ def render_stack():
     )
 
 
-code65 = """rx.wrap(
-    rx.wrap_item(rx.box("Example", bg="lightgreen", w="100px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="lightblue", w="200px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="red", w="300px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="orange", w="400px", h="80px")),
-    width="100%",
-    spacing="2em",
-    align="center",
-)
-"""
-
-
 def render_wrap():
-    return rx.vstack(
-        doctext(
-            "Wrap is a layout component that adds a defined space between its children."
-        ),
-        doctext(
-            "It wraps its children automatically if there isn't enough space to fit any more in the same row. Think of it as a smarter flex-wrap with spacing support."
-        ),
-        docdemo(code65),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/wrap.md")
+    return rx.box(
+        *output,
     )
 
 
