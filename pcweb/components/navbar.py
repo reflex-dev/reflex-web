@@ -105,6 +105,15 @@ const inkeepEmbeddedChatProps = {
         replaceInTitles: true,
       },
     ],
+    theme: {
+      components: {
+        AIChatPageWrapper: {
+          defaultProps: {
+            variant: '',
+          },
+        },
+      }
+    },
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
     quickQuestions: [
@@ -260,7 +269,7 @@ def search_modal():
                             align_items="start",
                             overflow_y="auto",
                         ),
-                        inkeep(box_shadow="none"),
+                        inkeep(),
                         ),
                     )
                 ),
