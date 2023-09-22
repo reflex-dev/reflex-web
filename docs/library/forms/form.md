@@ -30,7 +30,9 @@ form_example = """rx.vstack(
     rx.heading("Results"),
     rx.text(FormState.form_data.to_string()),
 )"""
+
 exec(form_state)
+
 ---
 Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
 
