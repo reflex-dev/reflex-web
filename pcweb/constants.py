@@ -25,6 +25,6 @@ CONDA_URL = "https://docs.conda.io/en/latest/"
 FASTAPI_URL = "https://fastapi.tiangolo.com"
 
 # Stats
-GITHUB_STARS = 11000
+GITHUB_STARS = 12500
 MONTHLY_USERS = 3000
-DISCORD = 1700
+DISCORD = 2200
