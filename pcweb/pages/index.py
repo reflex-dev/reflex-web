@@ -75,7 +75,6 @@ class IndexState(State):
  
         except httpx.RequestError as e:
             print(f"An error occurred: {e}")
-            return None
 
 
     def signup(self):
