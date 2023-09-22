@@ -1,43 +1,62 @@
 import reflex as rx
 
 from pcweb.base_state import State
+from pcweb import flexdown
 from pcweb.templates.docpage import (
     doctext,
     docdemo,
 )
 
-form_state = """
-class FormState(State):
+# form_state = """
+# class FormState(State):
 
-    form_data: dict = {}
+#     form_data: dict = {}
 
-    def handle_submit(self, form_data: dict):
-        \"""Handle the form submit.\"""
-        self.form_data = form_data
-"""
-exec(form_state)
+#     def handle_submit(self, form_data: dict):
+#         \"""Handle the form submit.\"""
+#         self.form_data = form_data
+# """
+# exec(form_state)
 
-form_example = """rx.vstack(
-    rx.form(
-        rx.vstack(
-            rx.input(placeholder="First Name", id="first_name"),
-            rx.input(placeholder="Last Name", id="last_name"),
-            rx.hstack(
-                rx.checkbox("Checked", id="check"),
-                rx.switch("Switched", id="switch"),
-            ),
-            rx.button("Submit", type_="submit"),
-        ),
-        on_submit=FormState.handle_submit,
-    ),
-    rx.divider(),
-    rx.heading("Results"),
-    rx.text(FormState.form_data.to_string()),
-)
-"""
+# form_example = """rx.vstack(
+#     rx.form(
+#         rx.vstack(
+#             rx.input(placeholder="First Name", id="first_name"),
+#             rx.input(placeholder="Last Name", id="last_name"),
+#             rx.hstack(
+#                 rx.checkbox("Checked", id="check"),
+#                 rx.switch("Switched", id="switch"),
+#             ),
+#             rx.button("Submit", type_="submit"),
+#         ),
+#         on_submit=FormState.handle_submit,
+#     ),
+#     rx.divider(),
+#     rx.heading("Results"),
+#     rx.text(FormState.form_data.to_string()),
+# )
+# """
 
+
+# form_state = """
+# class FormState(State):
+
+#     form_data: dict = {}
+#     abababab = 0
+#     def handle_submit(self, form_data: dict):
+#         \"""Handle the form submit.\"""
+#         self.form_data = form_data
+# """
+#exec(form_state)
 
 def render_form():
+    # Get the file.
+
+    front_matter, output = flexdown.read("docs/library/forms/form.md")
+    return rx.box(
+        *output,
+    )
+
     return rx.vstack(
         doctext(
             "Forms are used to collect user input. The ",
