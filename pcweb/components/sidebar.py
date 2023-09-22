@@ -165,6 +165,7 @@ def get_sidebar_items_concepts():
         create_item(
             advanced_guide,
             children=[
+                advanced_guide.background_tasks,
                 advanced_guide.custom_vars,
                 advanced_guide.memoization,
                 advanced_guide.wrapping_react,
