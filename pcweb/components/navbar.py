@@ -1,5 +1,4 @@
 """UI and logic for the navbar component."""
-
 from typing import Any, Set
 
 import reflex as rx
@@ -9,6 +8,11 @@ from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
 
+try:
+    from pcweb.tsclient import client
+except ImportError:
+    client = None
+
 def shorten_to_k(number):
     if number >= 1000:
         return '{:.0f}k+'.format(number / 1000)
@@ -17,9 +21,9 @@ def shorten_to_k(number):
 
     
 class Search(rx.Component):
-    tag = "InkeepCustomTrigger"
+    tag = "InkeepEmbeddedChat"
 
-    special_props: Set[Var] = {Var.create_safe("{...inkeepCustomTriggerProps}")}
+    special_props: Set[Var] = {Var.create_safe("{...inkeepEmbeddedChatProps}")}
 
     is_open: Var[bool] = False
 
@@ -40,9 +44,9 @@ class Search(rx.Component):
 
     def _get_custom_code(self) -> str:
         return """ 
-const InkeepCustomTrigger = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepCustomTrigger), { ssr: false });
+const InkeepEmbeddedChat = dynamic(() => import("@inkeep/widgets").then((mod) => mod.InkeepEmbeddedChat), { ssr: false });
 
-const inkeepCustomTriggerProps = {
+const inkeepEmbeddedChatProps = {
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
@@ -101,17 +105,15 @@ const inkeepCustomTriggerProps = {
         replaceInTitles: true,
       },
     ],
-  },
-  modalSettings: {
-    // optional typeof InkeepModalSettings
-  },
-  searchSettings: { // optional InkeepSearchSettings
-    tabSettings: {
-      isAllTabEnabled: true,
-      useAllRootBreadcrumbsAsTabs: true,
-      tabOrderByLabel: ['All', 'Docs', 'API Reference', 'Components Reference', 'Blogs'],
+    theme: {
+      components: {
+        AIChatPageWrapper: {
+          defaultProps: {
+            variant: '',
+          },
+        },
+      }
     },
-    placeholder: 'Search documentation...',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
     quickQuestions: [
@@ -141,6 +143,8 @@ class NavbarState(State):
 
     banner: bool = True
 
+    ai_chat: bool = True
+
     def toggle_banner(self):
 
         self.banner = not self.banner
@@ -150,6 +154,24 @@ class NavbarState(State):
 
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
+
+    def toggle_ai_chat(self):
+        self.ai_chat = not self.ai_chat
+
+    @rx.var
+    def search_results(self) -> list[dict[str, dict[str, str]]]:
+        """Get the search results."""
+        if client is None or self.search_input == "":
+            return []
+        search_parameters = {
+            "q": self.search_input,
+            "query_by": "heading, description",
+            "query_by_weights": "2,1",
+            "sort_by": "_text_match:desc",
+        }
+        return client.collections["search-auto"].documents.search(search_parameters)[
+            "hits"
+        ]
 
 
 def search_bar():
@@ -171,6 +193,93 @@ def search_bar():
         height="2em",
         border_radius="20px",
         bg="#FAF8FB",
+    )
+
+
+def format_search_results(result):
+    return rx.vstack(
+        rx.link(
+            rx.text(
+                result["document"]["heading"],
+                font_weight=600,
+                color="#1F1944",
+            ),
+            rx.divider(),
+            rx.text(
+                result["document"]["description"],
+                font_weight=400,
+                color="#696287",
+            ),
+            on_click=NavbarState.change_search,
+            href=result["document"]["href"],
+        ),
+        bg="#FAF8FB",
+        border_radius="8px",
+        align_items="start",
+        padding="0.5em",
+        shadow=styles.DOC_SHADOW,
+        _hover={"background_color": "#F5EFFE", "color": "#5646ED"},
+        width="100%",
+    )
+
+def ai_button():
+    return rx.center(
+            rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
+            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+            display=["none", "none", "none", "flex", "flex", "flex"],
+            height="2em",
+            width="6.5em",
+            border_radius="8px",
+            bg="#FFFFFF",
+            style=hover_button_style,
+            on_click=NavbarState.toggle_ai_chat, 
+        )
+
+def search_modal():
+    return rx.modal(
+        rx.modal_overlay(
+            rx.modal_content(
+                rx.modal_body(
+                    rx.vstack(
+                        rx.hstack(
+                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+                            rx.input(
+                                placeholder="Search the docs",
+                                on_change=NavbarState.set_search_input,
+                                focus_border_color="transparent",
+                                border_color="transparent",
+                                font_weight=400,
+                                _placeholder={"color": "#342E5C"},
+                                _hover={"border_color": "transparent"},
+                            ),
+                            ai_button(),
+                            width="100%",
+                        ),
+                        rx.divider(),
+                        rx.cond(
+                        NavbarState.ai_chat,
+                        rx.vstack(
+                            rx.foreach(
+                                NavbarState.search_results,
+                                format_search_results,
+                            ),
+                            spacing="1em",
+                            width="100%",
+                            max_height="30em",
+                            align_items="start",
+                            overflow_y="auto",
+                        ),
+                        inkeep(),
+                        ),
+                    )
+                ),
+                bg="#FFFFFF",
+            )
+        ),
+        is_open=NavbarState.search_modal,
+        on_close=NavbarState.change_search,
+        padding_top="1em",
+        padding_x="1em",
     )
 
 
@@ -355,10 +464,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
-                    inkeep(
-                        is_open=NavbarState.search_modal,
-                        on_close=NavbarState.change_search,
-                    ),
+                    # inkeep(
+                    #     is_open=NavbarState.search_modal,
+                    #     on_close=NavbarState.change_search,
+                    # ),
                     github_button(),
                     discord_button(),
                     rx.icon(
@@ -412,6 +521,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             on_close=NavbarState.toggle_sidebar,
             bg="rgba(255,255,255, 0.5)",
         ),
+        search_modal(),
         position="sticky",
         z_index="999",
         top="0",
