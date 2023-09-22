@@ -224,11 +224,11 @@ def format_search_results(result):
 
 def ai_button():
     return rx.center(
-            rx.image(src="/landing_icons/custom_icons/draw.svg", height="1em"),
+            rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
             display=["none", "none", "none", "flex", "flex", "flex"],
             height="2em",
-            width="2.5em",
+            width="6.5em",
             border_radius="8px",
             bg="#FFFFFF",
             style=hover_button_style,
