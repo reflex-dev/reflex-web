@@ -1,5 +1,8 @@
+import os
 import asyncio
 from datetime import datetime
+import json
+import httpx
 
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
@@ -54,6 +57,26 @@ class IndexState(State):
         """Close the call to action."""
         self.show_c2a = False
 
+
+    def add_contact_to_loops(self, contact_data):
+        url = "https://app.loops.so/api/v1/contacts/create"
+        loops_api_key = os.getenv("LOOPS_API_KEY")
+        if loops_api_key is None:
+            print("Loops API key does not exist")
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"Bearer {loops_api_key}",
+        }
+
+        try:
+            with httpx.Client() as client:
+                response = client.post(url, headers=headers, json=contact_data)
+                response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
+ 
+        except httpx.RequestError as e:
+            print(f"An error occurred: {e}")
+
+
     def signup(self):
         """Sign the user up for the waitlist."""
         # Check if the email is valid.
@@ -71,9 +94,12 @@ class IndexState(State):
                 # Add the user to the waitlist.
                 session.add(Waitlist(email=self.email))
                 session.commit()
+                contact_data = json.dumps({"email": self.email})
+                self.add_contact_to_loops(contact_data)
 
         self.signed_up = True
-        return self.play_confetti
+        return IndexState.play_confetti
+    
 
     async def play_confetti(self):
         """Play confetti for 5sec then stop."""
