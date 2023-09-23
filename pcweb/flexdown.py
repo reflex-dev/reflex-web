@@ -91,6 +91,10 @@ def parse(source: str, md=md):
     front_matter, source = parse_markdown_front_matter(source)
     if isinstance(front_matter, str):
         exec(front_matter)
+    elif isinstance(front_matter, dict):
+        py_front_matter, source = parse_markdown_front_matter(source)
+        if isinstance(py_front_matter, str):
+            exec(py_front_matter)
 
     lines = source.split("\n")
     output = []
