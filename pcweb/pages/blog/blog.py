@@ -165,3 +165,11 @@ def seed():
 def rebrand():
     meta, contents = blogs["blog/2023-06-28-rebrand-to-reflex"]
     return page(meta, contents)
+
+
+@webpage(path="/blog/2023-09-22-unlocking-new-workflows-with-background-tasks")
+def background_tasks():
+    meta, contents = blogs[
+        "blog/2023-09-22-unlocking-new-workflows-with-background-tasks"
+    ]
+    return page(meta, contents)
