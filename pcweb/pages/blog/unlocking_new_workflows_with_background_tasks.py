@@ -34,13 +34,12 @@ class CollatzBackgroundState(State):
     task_running: bool = False
 
     @rx.background  # decorator marks the handler as a background task
-    async def run_collatz(self, count: str):
+    async def run_collatz(self):
         async with self:
-            # Inside the context block, the task can update state
-            self.count = abs(int(count))
-
+            # Inside the context, the latest state values are available
             if self.task_running:
-                return  # Only allow one task at a time
+                # Do not start multiple tasks
+                return
             self.task_running = True
 
         while self.task_running:
@@ -59,10 +58,16 @@ class CollatzBackgroundState(State):
                 else:
                     self.count = self.count * 3 + 1
 
+    def set_count(self, count: str):
+        self.count = abs(int(count))
+        if not self.task_running:
+            return CollatzBackgroundState.set_task_running(True)
+
     def set_task_running(self, is_checked: bool):
-        self.task_running = is_checked
-        if self.task_running:
-            return CollatzBackgroundState.run_collatz(self.count)
+        if is_checked and not self.task_running:
+            return CollatzBackgroundState.run_collatz
+        elif not is_checked:
+            self.task_running = False
 
 
 def collatz_background_render_code():
@@ -75,7 +80,7 @@ def collatz_background_render_code():
         rx.hstack(
             rx.input(
                 value=CollatzBackgroundState.count.to_string(),
-                on_change=CollatzBackgroundState.run_collatz,
+                on_change=CollatzBackgroundState.set_count,
                 debounce_timeout=500,
             ),
             rx.switch(
