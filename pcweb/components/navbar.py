@@ -15,11 +15,11 @@ except ImportError:
 
 def shorten_to_k(number):
     if number >= 1000:
-        return '{:.0f}k+'.format(number / 1000)
+        return "{:.0f}k+".format(number / 1000)
     else:
         return str(number)
 
-    
+
 class Search(rx.Component):
     tag = "InkeepEmbeddedChat"
 
@@ -146,7 +146,6 @@ class NavbarState(State):
     ai_chat: bool = True
 
     def toggle_banner(self):
-
         self.banner = not self.banner
 
     def change_search(self):
@@ -423,7 +422,14 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     tag="chevron_down", style=styles.NAV_TEXT_STYLE
                                 ),
                                 cursor="pointer",
-                                display=["none", "none", "none", "flex", "flex", "flex"],
+                                display=[
+                                    "none",
+                                    "none",
+                                    "none",
+                                    "flex",
+                                    "flex",
+                                    "flex",
+                                ],
                             )
                         ),
                         rx.menu_list(

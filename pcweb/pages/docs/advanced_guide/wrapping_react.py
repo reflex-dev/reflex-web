@@ -1,4 +1,5 @@
 import reflex as rx
+from typing import Any
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
@@ -42,26 +43,32 @@ class ColorPicker(rx.Component):
     tag = "HexColorPicker"
     color: rx.Var[str]
 
-    @classmethod
-    def get_controlled_triggers(cls) -> dict[str, rx.Var]:
-        return {"on_change": rx.EVENT_ARG}
+    def get_event_triggers(self) -> dict[str, Any]:
+        return {
+            **super().get_event_triggers(),
+            "on_change": lambda e0: [e0]
+        }
 """
 exec(code5)
 code2 = """color_picker = ColorPicker.create"""
 exec(code2)
 
 code6 = """
- class AnotherColorPicker(rx.Component):
-     library = "some-other-colorpicker"
-     tag = "HexColorPicker"
-     color: rx.Var[str]
-     @classmethod
-     def get_controlled_triggers(cls) -> dict[str, rx.Var]:
-         return {"on_change": rx.EVENT_ARG}
-     @classmethod
-     def get_alias(cls) -> Optional[str]:
-         return "OtherHexColorPicker"
- """
+class AnotherColorPicker(rx.Component):
+    library = "some-other-colorpicker"
+    tag = "HexColorPicker"
+    color: rx.Var[str]
+
+    def get_event_triggers(self) -> dict[str, Any]:
+        return {
+            **super().get_event_triggers(),
+            "on_change": lambda e0: [e0]
+        }
+
+    @classmethod
+    def get_alias(cls) -> Optional[str]:
+        return "OtherHexColorPicker"
+"""
 
 custom_component_js_code = """export function Welcome(props) {
     return <h1>Hello, {props.name}</h1>;
