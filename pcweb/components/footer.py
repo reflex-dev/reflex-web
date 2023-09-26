@@ -38,6 +38,7 @@ def footer(style=footer_style):
                     rx.link("Home", href=index.path, style=footer_item_style),
                     rx.link("Gallery", href=gallery.path, style=footer_item_style),
                     rx.link("Blog", href="/blog", style=footer_item_style),
+                    rx.link("Changelog", href="/changelog", style=footer_item_style),
                     align_items="start",
                 ),
                 rx.vstack(

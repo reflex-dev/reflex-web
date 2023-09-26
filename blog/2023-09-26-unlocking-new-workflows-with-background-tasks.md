@@ -1,9 +1,9 @@
 ---
 author: Masen Furer
-date: 2023-09-22
+date: 2023-09-26
 title: "Unlocking New Workflows with Background Tasks"
 description: "What is a background task and how can it help you build better apps?"
-image: /reflex_banner.png
+image: /gears_abstract.jpg
 ---
 ---
 import asyncio
@@ -62,14 +62,14 @@ state from a background task.
 When a background task enters an `async with self` context block, it refreshes
 the state instance and takes an exclusive lock on the it.
 
-Inside the context block, the background task is guaranteed that `self` has the latest
-values and no other `EventHandler` functions are modifying the state.
+* Inside the context block, the background task is guaranteed that `self` has the **latest
+  values** and **no other `EventHandler` functions are modifying the state**.
 
-After exiting the context block, an update is sent to the frontend to reflect
-the new state, and the lock is released, allowing any queued events to be processed.
+* After exiting the context block, **an update is sent to the frontend** to reflect
+  the new state, and **the lock is released**, allowing any queued events to be processed.
 
-Outside of the context block, the state may be _stale_, but other event handlers
-can execute while the task is `await`ing long-running processes.
+* Outside of the context block, the state may be _stale_, but **other event handlers
+  can execute** while the task is `await`ing long-running processes.
 
 ## Using Background Tasks
 
@@ -102,9 +102,13 @@ docdemobox(
 )
 ```
 
+```reflex
+rx.box(height="8em")
+```
+
 # ✌️
 
-Background tasks are a powerful new feature that enables you to build
+Background tasks is a powerful new feature that enables you to build
 long-running workflows that can respond to user input in real time. We hope you
 find unique and creative ways to use them in your apps.
 

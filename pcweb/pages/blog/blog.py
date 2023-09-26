@@ -36,7 +36,7 @@ def page(meta, markup) -> rx.Component:
             rx.text(str(meta["date"]), font_size="0.9rem"),
         ),
         rx.image(
-            src=f"/{meta['image']}",
+            src=f"{meta['image']}",
             object_fit="contain",
             shadow="sm",
             my=8,
@@ -166,9 +166,9 @@ def rebrand():
     return page(meta, contents)
 
 
-@webpage(path="/blog/2023-09-22-unlocking-new-workflows-with-background-tasks")
+@webpage(path="/blog/2023-09-26-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
     meta, contents = blogs[
-        "blog/2023-09-22-unlocking-new-workflows-with-background-tasks"
+        "blog/2023-09-26-unlocking-new-workflows-with-background-tasks"
     ]
     return page(meta, contents)

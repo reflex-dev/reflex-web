@@ -48,6 +48,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2023-09-22",
+            "v0.2.8",
+            "Background Tasks + Improved API for wrapping components.",
+            [
+                "Support long-running non-blocking operations",
+                "Trigger file downloads",
+                "Better change tracking for state vars",
+                "Arbitrary args for event triggers and serializers for custom types",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.8",
+        ),
+        change(
             "2021-09-08",
             "v0.2.7",
             "Reduced Package Size + Client-side Storage.",
