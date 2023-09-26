@@ -14,6 +14,16 @@ from pcweb.pages import page404
 app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
+    head_components=[
+        rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),
+        rx.script("""
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4T7C8ZD9TR');
+"""
+        )
+    ]
 )
 
 # Add the pages to the app.
