@@ -3,7 +3,7 @@ author: Masen Furer
 date: 2023-09-26
 title: "Unlocking New Workflows with Background Tasks"
 description: "What is a background task and how can it help you build better apps?"
-image: /gears_abstract.jpg
+image: /background_task.jpg
 ---
 ---
 import asyncio
