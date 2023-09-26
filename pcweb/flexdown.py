@@ -7,25 +7,18 @@ import yaml
 import reflex as rx
 
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
+from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, doclink2
 
+
+component_map = {
+    "h1": docheader2,
+    "h2": subheader2,
+    "a": doclink2,
+    "p": doctext,
+    "code": lambda source: rx.code(source, color="#1F1944", bg="#EAE4FD"),
+}
 
 custom_styles = {
-    "h1": {
-        "as_": "h1",
-        "size": "xl",
-        "color": styles.text_colors["docs"]["header"],
-        "font_weight": styles.font_weights["heading"],
-        "font_family": styles.SANS,
-    },
-    "h2": {
-        "as_": "h2",
-        "font_size": styles.H3_FONT_SIZE,
-        "margin_top": "1em",
-        "color": styles.text_colors["docs"]["header"],
-        "font_weight": styles.font_weights["subheading"],
-        "font_family": styles.SANS,
-    },
     "a": styles.LINK_STYLE,
     "p": {
         "as_": "p",
@@ -50,7 +43,7 @@ custom_styles = {
 def md(source: str):
     return rx.markdown(
         source,
-        custom_styles=custom_styles,
+        component_map=component_map
     )
 
 def parse_markdown_front_matter(markdown_content):
