@@ -45,6 +45,7 @@ def page(meta, markup) -> rx.Component:
         rx.box(
             *markup,
         ),
+        max_width="60em",
     )
 
 
