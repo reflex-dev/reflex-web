@@ -28,7 +28,7 @@ def change(date, title, description, points, link):
         rx.hstack(
             rx.hstack(
                 rx.image(src="/icons/copy.svg", width="1em", height="1em"),
-                rx.text(title, font_size=styles.H4_FONT_SIZE, font_weight=styles.BOLD_WEIGHT),
+                rx.text(title, font_size=styles.TEXT_FONT_SIZE, font_weight=styles.BOLD_WEIGHT),
                 padding_right="1em",
             ),
             rx.divider(margin_x="1em" ),

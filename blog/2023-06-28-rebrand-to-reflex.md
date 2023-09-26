@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2023-06-28
 title: "Pynecone is now Reflex"
 description: "We have some exciting news to share about the next stage of our company!"
-image: reflex_banner.png
+image: /reflex_banner.png
 ---
 
 We have some exciting news to share about the next stage of our company!

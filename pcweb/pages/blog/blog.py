@@ -12,8 +12,8 @@ PAGES_PATH = "blog/"
 
 def get_blog_data(paths):
     blogs = {}
-    for path in paths:
-        front_matter, output = flexdown.parse(open(path).read())
+    for path in reversed(sorted(paths)):
+        front_matter, output = flexdown.read(path)
         path = path.replace(".md", "")
         blogs[path] = (front_matter, output)
     return blogs
@@ -42,9 +42,8 @@ def page(meta, markup) -> rx.Component:
             my=8,
             border_radius="8px",
         ),
-        el.div(
+        rx.box(
             *markup,
-            class_name="prose prose-a:!underline prose-a:!decoration-violet-200 hover:prose-a:!decoration-inherit prose-a:!transition-all prose-a:underline-offset-2 prose-headings:!my-1 prose-p:!my-1 prose-p:text-gray-600",
         ),
     )
 
