@@ -355,11 +355,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "✨ Announcing our seed funding led by Lux Capital!",
-                            " Read more about it on our ",
+                            "✨ Reflex is in Hacktoberfest, and we want YOU to be a part of the action! 🎉 ",
+                            " Learn more ",
                             rx.link(
-                                "blog",
-                                href="/blog/2023-08-02-seed-annoucement",
+                                "here",
+                                href="https://github.com/reflex-dev/hacktoberfest/",
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",
