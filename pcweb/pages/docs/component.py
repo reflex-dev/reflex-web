@@ -254,6 +254,9 @@ EVENTS = {
     "on_key_up": {
         "description": "The on_key_up event handler is called when the user releases a key."
     },
+    "on_copy": {
+        "description": "The on_copy event handler is called in CopyToClipboard component"
+    },
     "on_ready": {
         "description": "The on_ready event handler is called when the script is ready to be executed."
     },
@@ -328,9 +331,8 @@ def component_docs(component):
     triggers = []
 
     trig = []
-    default_triggers = rx.Component.create().get_event_triggers().keys()
-    for event in component().get_event_triggers().keys():
-        if event not in default_triggers and event not in ("on_drop",):
+    for event in component().get_triggers():
+        if event not in rx.event.EVENT_TRIGGERS and event not in ("on_drop",):
             trig.append(event)
 
     if trig:
@@ -348,8 +350,9 @@ def component_docs(component):
                         ),
                         rx.accordion_panel(rx.text(EVENTS[event]["description"])),
                     )
-                    for event in component().get_event_triggers().keys()
-                    if event not in default_triggers and event not in ("on_drop",)
+                    for event in component().get_triggers()
+                    if event not in rx.event.EVENT_TRIGGERS
+                    and event not in ("on_drop",)
                 ],
             ),
             border_color="rgb(255, 255, 255)",

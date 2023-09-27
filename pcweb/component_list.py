@@ -29,6 +29,7 @@ forms_list = [
     [rx.Slider, rx.SliderTrack, rx.SliderFilledTrack, rx.SliderThumb, rx.SliderMark],
     [rx.Switch],
     [rx.TextArea],
+    # [rx.CopyToClipboard],
     [rx.Upload],
     [rx.DebounceInput],
 ]

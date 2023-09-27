@@ -39,10 +39,10 @@ slider_state_combo = """class SliderCombo(State):
     value: int = 50
     color: str = "black"
 
-    def set_start(self, value: int):
+    def set_start(self, value):
         self.color = "#68D391" 
 
-    def set_end(self, value: int):
+    def set_end(self, value):
         self.color = "#F56565" 
 """
 
@@ -183,14 +183,14 @@ class RangeSliderCombo(State):
     value: List[int] = [0,100]
     color: str = "black"
 
-    def set_start(self, value: int):
+    def set_start(self):
         self.color = "green" 
 
     def set_val(self, value: List[int]):
         self.value = value
         self.color = "orange" 
 
-    def set_end(self, value: int):
+    def set_end(self):
         self.color = "red" 
 """
 
