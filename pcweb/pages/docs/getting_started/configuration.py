@@ -80,6 +80,10 @@ config = rx.Config(
         subheader("Environment Variables"),
         doctext(
             "You can override the configuration file by setting environment variables. ",
+            "Every configuration parameter has a corresponding environment variable, ",
+            "which is the uppercase version of the parameter name. ",
+        ),
+        doctext(
             "For example, to override the ",
             rx.code("frontend_port"),
             " setting, you can set the ",

@@ -1,6 +1,7 @@
 import reflex as rx
 from typing import Any
 
+from pcweb import flexdown
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doccode,
@@ -107,6 +108,9 @@ const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 def wrapping_react():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.styling.overview import styling_overview
+
+    front_matter, output = flexdown.read("docs/advanced-guide/wrapping-react.md")
+    return rx.box(*output)
 
     return rx.box(
         docheader("Wrapping React", first=True),

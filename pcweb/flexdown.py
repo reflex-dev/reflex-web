@@ -48,8 +48,8 @@ def parse_markdown_front_matter(markdown_content):
         return None, markdown_content
 
 def evaluate_template_string(input_string, scope):
-    # Regular expression to match the template placeholders
-    template_regex = r"{(.*?)}"
+    # Regular expression to match the template placeholders (checking for escapes).
+    template_regex = r"(?<!\\)(?<!\\\\){(?!\\)(.*?)(?<!\\)}"
     matches = re.findall(template_regex, input_string)
 
     for match in matches:
@@ -62,6 +62,14 @@ def evaluate_template_string(input_string, scope):
             print(f"Failed to evaluate expression '{match}': {e}")
 
     return input_string
+
+
+import enum
+class BlockType(enum.Enum):
+    CODE = enum.auto()
+    REFLEX = enum.auto()
+    MARKDOWN = enum.auto()
+
 
 def parse(source: str, md=md):
     """Parse out code blocks annotated with ```reflex
@@ -80,17 +88,23 @@ def parse(source: str, md=md):
     output = []
     in_reflex_block = False
     current_block = []
+    in_block = False
 
     for line in lines:
-        if not in_reflex_block:
-            if line == "" and not in_reflex_block:
-                # End normal block.
-                output.append(md("\n".join(current_block)))
-                current_block = []
+        if line == "" and not in_reflex_block and not in_block:
+            # End normal block.
+            output.append(md("\n".join(current_block)))
+            current_block = []
 
         if line.startswith("```reflex"):
             line = line[len("```reflex") :]
             in_reflex_block = True
+        elif not in_reflex_block and not in_block and line.startswith("```"):
+            current_block.append(evaluate_template_string(line, scope=locals()))
+            in_block = True
+        elif not in_reflex_block and in_block and line.startswith("```"):
+            current_block.append(evaluate_template_string(line, scope=locals()))
+            in_block = False
         elif in_reflex_block and line.startswith("```"):
             # End reflex block.
             in_reflex_block = False

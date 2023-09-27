@@ -53,7 +53,7 @@ for route in doc_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Docs",
+        title=route.title,
         description="Learn how to build web apps in pure Python.",
         image="/previews/docs_preview.png",
     )
@@ -73,7 +73,7 @@ for route in faq_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | FAQ",
+        title=route.title,
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
     )
