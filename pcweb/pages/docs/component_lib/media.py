@@ -2,6 +2,7 @@ import reflex as rx
 from reflex.components.media.icon import ICON_LIST
 
 from pcweb.base_state import State
+from pcweb import flexdown
 from pcweb.templates.docpage import docdemo, doctext, doccode, docdemobox
 
 from PIL import Image
@@ -152,4 +153,19 @@ def render_image():
         doccode(image_state),
         doccode(image_pil_example),
         align_items="start",
+    )
+
+
+def render_audio():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/media/audio.md")
+    return rx.box(
+        *output,
+    )
+
+def render_video():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/media/video.md")
+    return rx.box(
+        *output,
     )

@@ -116,9 +116,11 @@ navigation_list = [
 
 # Media components.
 media_list = [
+    [rx.Audio],
     [rx.Avatar, rx.AvatarBadge, rx.AvatarGroup],
-    [rx.Image],
     [rx.Icon],
+    [rx.Image],
+    [rx.Video],
 ]
 
 # Data display components.
