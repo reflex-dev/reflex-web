@@ -6,20 +6,14 @@ description: "What is a background task and how can it help you build better app
 image: /background_task.jpg
 ---
 ---
-import asyncio
-import inspect
-
-from pcweb.base_state import State
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
-from pcweb.pages.blog.unlocking_new_workflows_with_background_tasks import (
-    CollatzBackgroundState,
-    collatz_background_render_code,
-    prev_collatz_state,
-)
+# hacks because curly braces always evaluate python code
+pid = "{pid}"
+class self(object):
+    last_id = "{self.last_id}"
 ---
 
 
-Reflex just released v0.2.8 earlier this afternoon and with it, one of the most
+Reflex just released v0.2.8 earlier last week and with it, one of the most
 exciting features I've worked on: **background tasks**.
 
 ## Why?
@@ -32,16 +26,29 @@ and still keep the UI interactive and responsive to user input.
 
 In previous releases, the main way to retain interactivity while running a long
 task was to explicitly chain steps of the calculation together using `yield` or
-`return` statements:
+`return` statements.
+
+The following code example defines `State.get_post` which recursively queues itself
+to fetch 10 posts from an API, while still allowing over queued events to be
+processed in between.
 
 ```python
-{prev_collatz_state}
+class State(rx.State):
+    last_id: int = 0
+    posts: List[str] = []
+     
+    def get_post(self):
+        if self.last_id < 10:
+            response = httpx.get(f"https://dummyjson.com/products/{self.last_id}")
+            self.posts.append(response.text)
+            self.last_id += 1
+            return State.step
 ```
 
 This works okay for some types of problems, but it complicates the code,
 hindering readability and future maintenance. Further, the event queue **is
-still blocked** while each step the process runs. So while this does allow for
-_some_ interactivity, it's not a complete solution.
+still blocked** while each step in the process runs. So while this does allow
+for _some_ interactivity, it's not a complete solution.
 
 ## Enter background tasks...
 
@@ -60,7 +67,7 @@ state from a background task.
 ### _So what does `async with self` actually do?_
 
 When a background task enters an `async with self` context block, it refreshes
-the state instance and takes an exclusive lock on the it.
+the state instance and takes an exclusive lock on it.
 
 * Inside the context block, the background task is guaranteed that `self` has the **latest
   values** and **no other `EventHandler` functions are modifying the state**.
@@ -73,38 +80,47 @@ the state instance and takes an exclusive lock on the it.
 
 ## Using Background Tasks
 
-We'll rewrite the `CollatzState` example above to see how background tasks work
-in practice:
+Rewriting the example above shows how background tasks work in practice:
 
 ```python
-{inspect.getsource(CollatzBackgroundState).strip().replace("(State)", "(rx.State)")}
+class State(rx.State):
+    posts: List[str] = []
+    
+    @rx.background
+    async def get_posts(self):
+        with httpx.AsyncClient() as client:
+            for pid in range(10):
+                response = await client.get(f"https://dummyjson.com/products/{pid}")
+                async with self:
+                    self.posts.append(response.text)
 ```
 
-## _Hold on... that looks **more** complicated than before!_
+The background task can fetch all of the posts while allowing the app to
+continue processing UI events in the foreground.  The only time the UI is
+blocked is during the short period of time where the response is being appended
+to the state.
 
-Yes, it does. But the key difference is that the background task can now respond
-to user input while it is running. With the addition of the `task_running` flag,
-the UI can present a "Running" switch to the user, allowing them to stop or pause
-the task and resume it later. The user can also change the input value while the
-task is running, and it will continue with the new value.
+For a more complete example with comparisons of the two styles, see the
+`random-number-range` app in the
+[reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/masenf/random-number-range/random-number-range/random_number_range/random_number_range.py)
+repository.
 
-Here is the frontend code:
+## Parallelizing Work
 
-```python
-{inspect.getsource(collatz_background_render_code).strip().replace("collatz_background_render_code", "index")}
-```
-
-And the demo:
+Aside from UI interactivity, the other motivation for using background tasks is
+to parallelize work within the app. For example the user can be monitoring
+responses from several API calls at once. Or the app can define different
+background tasks for a multi-view dashboard UI and have separate portions of the
+screen updating and processing simultaneously.
 
 ```reflex
-docdemobox(
-    {inspect.getsource(collatz_background_render_code).partition("return")[2].strip()}
+rx.fragment(
+    rx.video(url="https://user-images.githubusercontent.com/1524005/271007407-09c832ff-ecbd-4a9d-a8a5-67779c673045.mov"),
+    rx.box(height="3em")
 )
 ```
 
-```reflex
-rx.box(height="8em")
-```
+Full code for this example is available in [reflex-examples/lorem-stream](https://github.com/reflex-dev/reflex-examples/tree/masenf/lorem-stream/lorem-stream).
 
 # ✌️
 
