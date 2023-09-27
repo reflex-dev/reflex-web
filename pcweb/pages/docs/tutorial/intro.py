@@ -28,7 +28,7 @@ def intro():
             rx.ordered_list(
                 rx.list_item("Install ", rx.code("reflex"), " and set up your development environment."),
                 rx.list_item("Create components to define and style your UI."),
-                rx.list_item("Use state to interactivity to your app."),
+                rx.list_item("Use state to add interactivity to your app."),
                 rx.list_item("Deploy your app to share with others."),
                 margin_top=".5em",
             ),

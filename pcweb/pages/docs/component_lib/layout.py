@@ -1,49 +1,33 @@
 import reflex as rx
 
 from pcweb.base_state import State
+from pcweb import flexdown
 from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
-
-code49 = """rx.vstack(
-    rx.box("Example", bg="yellow", border_radius="sm", width="20%"),
-    rx.box("Example", bg="orange", border_radius="md", width="40%"),
-    rx.box("Example", bg="red", border_radius="md", width="60%"),
-    rx.box("Example", bg="lightblue", border_radius="lg", width="80%"),
-    rx.box("Example", bg="lightgreen", border_radius="xl", width="100%"),
-    width="100%",
-)
-"""
-code50 = """rx.box(
-    rx.button("Click Me"),
-    bg="lightgreen",
-    border_radius="15px",
-    border_color="green",
-    border_width="thick",
-    padding=5,
-)
-"""
-
-iframe_example = """rx.box(
-        element= "iframe",
-        src="https://www.youtube.com/embed/9bZkp7q19f0",
-        width = "100%",
-    )
-"""
 
 
 # Layout
+
+def render_aspectratio():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/aspect_ratio.md")
+    return rx.box(
+        *output,
+    )
+
+
 def render_box():
-    return rx.vstack(
-        doctext(
-            "Box is a generic container component that can be used to group other components."
-        ),
-        docdemo(code49),
-        doctext(
-            "Below is an example of how a box component can contain other components."
-        ),
-        docdemo(code50),
-        doctext("Box can also compose videos and iframe elements."),
-        docdemo(iframe_example),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/box.md")
+    return rx.box(
+        *output,
+    )
+
+
+def render_card():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/card.md")
+    return rx.box(
+        *output,
     )
 
 
@@ -128,240 +112,75 @@ def render_cond():
     )
 
 
-code53 = """rx.center(
-    rx.text("Hello World!"),
-    border_radius="15px",
-    border_width="thick",
-    width="50%",
-)
-"""
-code54 = """rx.hstack(
-    rx.square(
-        rx.vstack(rx.text("Square")),
-        border_width="thick",
-        border_color="purple",
-        padding="1em",
-    ),
-    rx.circle(
-        rx.vstack(rx.text("Circle")),
-        border_width="thick",
-        border_color="orange",
-        padding="1em",
-    ),
-    spacing="2em",
-)"""
-
-
 def render_center():
-    return rx.vstack(
-        doctext(
-            "Center, Square, and Circle  are components that center its children within itself."
-        ),
-        docdemo(code53),
-        doctext("Below are examples of circle and sqaure."),
-        docdemo(code54),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/center.md")
+    return rx.box(
+        *output,
     )
-
-
-code55 = """rx.container(
-    rx.box("Example", bg="blue", color="white", width="50%"),
-    center_content=True,
-    bg="lightblue",
-)
-"""
 
 
 def render_container():
-    return rx.vstack(
-        doctext(
-            "Containers are used to constrain a content's width to the current breakpoint, while keeping it fluid."
-        ),
-        docdemo(code55),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/container.md")
+    return rx.box(
+        *output,
     )
-
-
-code56 = """rx.flex(
-    rx.center("Center", bg="lightblue"),
-    rx.square("Square", bg="lightgreen", padding=10),
-    rx.box("Box", bg="salmon", width="150px"),
-)
-"""
-code57 = """rx.flex(
-    rx.center("Center", bg="lightblue"),
-    rx.spacer(),
-    rx.square("Square", bg="lightgreen", padding=10),
-    rx.spacer(),
-    rx.box("Box", bg="salmon", width="150px"),
-    width = "100%",
-)
-"""
 
 
 def render_flex():
-    return rx.vstack(
-        doctext(
-            "Flexbox is a layout model that allows elements to align and distribute space within a container. Using flexible widths and heights, elements can be aligned to fill a space or distribute space between elements, which makes it a great tool to use for responsive design systems."
-        ),
-        docdemo(code56),
-        doctext(
-            "Combining flex with spacer allows for stackable and responsive components."
-        ),
-        docdemo(code57),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/flex.md")
+    return rx.box(
+        *output,
     )
 
 
-code58 = """rx.grid(
-    rx.grid_item(row_span=1, col_span=1, bg="lightgreen"),
-    rx.grid_item(row_span=1, col_span=1, bg="lightblue"),
-    rx.grid_item(row_span=1, col_span=1, bg="purple"),
-    rx.grid_item(row_span=1, col_span=1, bg="orange"),
-    rx.grid_item(row_span=1, col_span=1, bg="yellow"),
-    template_columns="repeat(5, 1fr)",
-    h="10em",
-    width="100%",
-    gap=4,
-)
-"""
-code59 = """rx.grid(
-    rx.grid_item(row_span=2, col_span=1, bg="lightblue"),
-    rx.grid_item(col_span=2, bg="lightgreen"),
-    rx.grid_item(col_span=2, bg="yellow"),
-    rx.grid_item(col_span=4, bg="orange"),
-    template_rows="repeat(2, 1fr)",
-    template_columns="repeat(5, 1fr)",
-    h="200px",
-    width="100%",
-    gap=4,
-)
-"""
+def render_fragment():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/fragment.md")
+    return rx.box(
+        *output,
+    )
 
 
 def render_grid():
-    return rx.vstack(
-        doctext(
-            "A primitive useful for grid layouts. Grid is Box with display, grid and it comes with helpful style shorthand. It renders a div element."
-        ),
-        docdemo(code58),
-        doctext(
-            "In some layouts, you may need certain grid items to span specific amount of columns or rows instead of an even distribution. To achieve this, you need to pass the col_span prop to the GridItem component to span across columns and also pass the row_span component to span across rows. You also need to specify the template_columns and template_rows."
-        ),
-        docdemo(code59),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/grid.md")
+    return rx.box(
+        *output,
     )
-
-
-code60 = """rx.responsive_grid(
-    rx.box(height="5em", width="5em", bg="lightgreen"),
-    rx.box(height="5em", width="5em", bg="lightblue"),
-    rx.box(height="5em", width="5em", bg="purple"),
-    rx.box(height="5em", width="5em", bg="tomato"),
-    rx.box(height="5em", width="5em", bg="orange"),
-    rx.box(height="5em", width="5em", bg="yellow"),
-    columns=[3],
-    spacing="4",
-)
-"""
-code61 = """rx.responsive_grid(
-    rx.box(height="5em", width="5em", bg="lightgreen"),
-    rx.box(height="5em", width="5em", bg="lightblue"),
-    rx.box(height="5em", width="5em", bg="purple"),
-    rx.box(height="5em", width="5em", bg="tomato"),
-    rx.box(height="5em", width="5em", bg="orange"),
-    rx.box(height="5em", width="5em", bg="yellow"),
-    columns=[1, 2, 3, 4, 5, 6],
-)
-"""
 
 
 def render_responsivegrid():
-    return rx.vstack(
-        doctext(
-            "ResponsiveGrid provides a friendly interface to create responsive grid layouts with ease. SimpleGrid composes Box so you can pass all the Box props and css grid props with addition to the ones below."
-        ),
-        doctext("Specify a fixed number of columns for the grid layout."),
-        docdemo(code60),
-        docdemo(code61),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/responsive_grid.md")
+    return rx.box(
+        *output,
     )
-
-
-code62 = """rx.hstack(
-    rx.box("Example", bg="red", border_radius="md", width="10%"),
-    rx.box("Example", bg="orange", border_radius="md", width="10%"),
-    rx.box("Example", bg="yellow", border_radius="md", width="10%"),
-    rx.box("Example", bg="lightblue", border_radius="md", width="10%"),
-    rx.box("Example", bg="lightgreen", border_radius="md", width="60%"),
-    width="100%",
-)
-"""
-code63 = """rx.vstack(
-    rx.box("Example", bg="red", border_radius="md", width="20%"),
-    rx.box("Example", bg="orange", border_radius="md", width="40%"),
-    rx.box("Example", bg="yellow", border_radius="md", width="60%"),
-    rx.box("Example", bg="lightblue", border_radius="md", width="80%"),
-    rx.box("Example", bg="lightgreen", border_radius="md", width="100%"),
-    width="100%",
-)
-"""
-
-
-def render_stack():
-    return rx.vstack(
-        doctext(
-            "Below are two examples the different types of stack components vstack and hstack."
-        ),
-        docdemo(code62),
-        docdemo(code63),
-        align_items="start",
-    )
-
-
-code64 = """rx.flex(
-    rx.center(rx.text("Example"), bg="lightblue"),
-    rx.spacer(),
-    rx.center(rx.text("Example"), bg="lightgreen"),
-    rx.spacer(),
-    rx.center(rx.text("Example"), bg="salmon"),
-    width="100%",
-)
-"""
 
 
 def render_spacer():
-    return rx.vstack(
-        doctext(
-            "Creates an adjustable, empty space that can be used to tune the spacing between child elements within Flex."
-        ),
-        docdemo(code64),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/spacer.md")
+    return rx.box(
+        *output,
     )
 
 
-code65 = """rx.wrap(
-    rx.wrap_item(rx.box("Example", bg="lightgreen", w="100px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="lightblue", w="200px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="red", w="300px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="orange", w="400px", h="80px")),
-    width="100%",
-    spacing="2em",
-    align="center",
-)
-"""
+def render_stack():
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/stack.md")
+    return rx.box(
+        *output,
+    )
 
 
 def render_wrap():
-    return rx.vstack(
-        doctext(
-            "Wrap is a layout component that adds a defined space between its children."
-        ),
-        doctext(
-            "It wraps its children automatically if there isn't enough space to fit any more in the same row. Think of it as a smarter flex-wrap with spacing support."
-        ),
-        docdemo(code65),
-        align_items="start",
+    # Get the file.
+    front_matter, output = flexdown.read("docs/library/layout/wrap.md")
+    return rx.box(
+        *output,
     )
 
 
@@ -580,53 +399,4 @@ def render_foreach():
     )
 
 
-card_example1 = """rx.card(rx.text("Body of the Card Component"), header=rx.heading("Header", size="lg"), footer=rx.heading("Footer",size="sm"))"""
 
-
-def render_card():
-    return rx.vstack(
-        doctext(
-            "Card is a flexible component used to group and display content in a clear and concise format."
-        ),
-        docdemo(card_example1),
-        doctext(
-            "You can pass a header with ",
-            rx.code("header="),
-            " and/or a footer with ",
-            rx.code("footer="),
-        ),
-    )
-
-
-image_example = (
-    """rx.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")"""
-)
-
-aspect_ratio_example = f"""rx.aspect_ratio({image_example}, ratio=4/3)"""
-
-
-def render_aspectratio():
-    return rx.vstack(
-        doctext("Preserve the ratio of the components contained within"),
-        docdemo(image_example),
-        docdemo(aspect_ratio_example),
-    )
-
-
-fragment_example = """rx.fragment(rx.text("Component1"), rx.text("Component2"))"""
-
-
-def render_fragment():
-    return rx.vstack(
-        doctext(
-            "A Fragment is a Component that allow you to group multiple Components without a wrapper node."
-        ),
-        doctext(
-            "Refer to the React docs at ",
-            doclink(
-                "React/Fragment", href="https://react.dev/reference/react/Fragment"
-            ),
-            " for more information on its use-case",
-        ),
-        docdemo(fragment_example),
-    )
