@@ -120,7 +120,7 @@ media_list = [
     [rx.Avatar, rx.AvatarBadge, rx.AvatarGroup],
     [rx.Icon],
     [rx.Image],
-    [rx.Video].
+    [rx.Video],
     
 ]
 
