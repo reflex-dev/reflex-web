@@ -355,7 +355,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "✨ Reflex is in Hacktoberfest, and we want YOU to be a part of the action! 🎉 ",
+                            "✨ Reflex is in Hacktoberfest, and we want YOU to be a part of the action! 🎉",
                             " Learn more ",
                             rx.link(
                                 "here",
@@ -365,6 +365,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                     "text_decoration": "underline",
                                     "_hover": {"color": "#AD9BF8"},
                                 },
+                                is_external=True,
                             ),
                             "  ✨",
                             color="#FFFFFF",
