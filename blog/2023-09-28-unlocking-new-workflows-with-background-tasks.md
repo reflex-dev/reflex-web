@@ -1,6 +1,6 @@
 ---
 author: Masen Furer
-date: 2023-09-27
+date: 2023-09-28
 title: "Unlocking New Workflows with Background Tasks"
 description: "What is a background task and how can it help you build better apps?"
 image: /background_task.jpg

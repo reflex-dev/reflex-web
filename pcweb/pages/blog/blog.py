@@ -167,9 +167,9 @@ def rebrand():
     return page(meta, contents)
 
 
-@webpage(path="/blog/2023-09-27-unlocking-new-workflows-with-background-tasks")
+@webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
     meta, contents = blogs[
-        "blog/2023-09-27-unlocking-new-workflows-with-background-tasks"
+        "blog/2023-09-28-unlocking-new-workflows-with-background-tasks"
     ]
     return page(meta, contents)
