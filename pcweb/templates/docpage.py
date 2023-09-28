@@ -594,6 +594,19 @@ def doccode(
         language=language,
     )
 
+def doccode2(*_, **props) -> rx.Component:
+    """Create a documentation code snippet.
+
+    Args:
+        code: The code to display.
+        language: The language of the code.
+        lines: The start/end lines to display.
+        props: Props to apply to the code snippet.
+
+    Returns:
+        The styled code snippet.
+    """
+    return code_block
 
 def docdemobox(*children) -> rx.Component:
     """Create a documentation demo box with the output of the code.

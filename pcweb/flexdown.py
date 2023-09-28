@@ -7,7 +7,7 @@ import yaml
 import reflex as rx
 
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, subheader3, doclink2
+from pcweb.templates.docpage import doccode, code_block, docheader, docheader2, doclink, doctext, subheader, subheader2, subheader3, doclink2
 
 
 component_map = {
@@ -17,6 +17,7 @@ component_map = {
     "a": doclink2,
     "p": doctext,
     "code": lambda source: rx.code(source, color="#1F1944", bg="#EAE4FD"),
+    # "codeblock": lambda *_, **props: code_block(**props)
 }
 
 
@@ -116,6 +117,7 @@ def parse(source: str, md=md):
             output.append(result)
             current_block = []
         else:
+            print("line", line)
             current_block.append(evaluate_template_string(line, scope=locals()))
 
     return front_matter, output
