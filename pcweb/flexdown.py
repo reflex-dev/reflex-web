@@ -117,7 +117,6 @@ def parse(source: str, md=md):
             output.append(result)
             current_block = []
         else:
-            print("line", line)
             current_block.append(evaluate_template_string(line, scope=locals()))
 
     return front_matter, output
