@@ -102,7 +102,7 @@ to the state.
 
 For a more complete example with comparisons of the two styles, see the
 `random-number-range` app in the
-[reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/masenf/random-number-range/random-number-range/random_number_range/random_number_range.py)
+[reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/main/random-number-range/random_number_range/random_number_range.py)
 repository.
 
 ## Parallelizing Work
@@ -120,7 +120,7 @@ rx.fragment(
 )
 ```
 
-Full code for this example is available in [reflex-examples/lorem-stream](https://github.com/reflex-dev/reflex-examples/tree/masenf/lorem-stream/lorem-stream).
+Full code for this example is available in [reflex-examples/lorem-stream](https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream).
 
 # ✌️
 
