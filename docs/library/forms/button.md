@@ -117,7 +117,7 @@ allowing you to create dynamic and interactive user experiences.
 You can bind these events to buttons using the `on_click` prop.
 For a comprehensive list of 
 available special events and server-side actions, please refer to the
-[Special Events Documentation](file:///docs/advanced-guide/background-tasks) ```reflex rx.text('click', on_click=rx.redirect('/docs/api-reference/special-events/'))``` for detailed information and usage examples.
+[Special Events Documentation](/docs/advanced-guide/background-tasks) for detailed information and usage examples.
 
 ## Grouping Buttons
 In your Reflex application, you can group buttons effectively using the `Stack` component and 
