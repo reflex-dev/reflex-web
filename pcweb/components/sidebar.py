@@ -30,7 +30,7 @@ heading_style2 = {
 }
 heading_style3 = {
     "font_weight": fw["section"],
-    "font_size": styles.H4_FONT_SIZE,
+    "font_size": styles.TEXT_FONT_SIZE,
     "color": "#696287",
     "margin_bottom": "0.5em",
     "margin_left": "1.1em",
