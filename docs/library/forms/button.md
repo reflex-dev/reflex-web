@@ -1,17 +1,15 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docdemobox, doctext
+from pcweb.templates.docpage import docdemo, docdemobox
 from pcweb.pages.docs.component_lib.forms.button import ButtonState,ExampleButtonState, button_state, button_state_code, button_state_example, button_state2, button_state2_code,  button_state2_render_code
 
 button = (
-"""rx.fragment(
-            rx.button('Click Me!')
-        )
+"""rx.button('Click Me!')
 """
   )
 
 button_sizes = (
-"""rx.fragment(
+"""rx.button_group(
         rx.button(
         'Example', bg='lightblue', color='black', size='sm'
         ),
@@ -209,17 +207,17 @@ In your Reflex-based application, you can group buttons effectively using the `S
 the `ButtonGroup` component. Each of these options offers unique capabilities to help you structure 
 and style your buttons.
 
-### Using the `Stack` Component
+## Using the `Stack` Component
 The `Stack` component allows you to stack buttons both vertically and horizontally, providing a flexible
 layout for your button arrangements.
 
-### Stack Buttons Vertically:
+## Stack Buttons Vertically:
 
 ```reflex
 docdemo(stack_buttons_vertical)
 ```
 
-### Stack Buttons Horizontally:
+## Stack Buttons Horizontally:
 
 ```reflex
 docdemo(stack_buttons_horizontal)
@@ -234,5 +232,17 @@ The `ButtonGroup` component is designed specifically for grouping buttons. It al
 
 ```reflex
 docdemo(button_group)
+```
+```reflex
+rx.alert(
+    icon=True,
+    title=rx.text(
+        "The ",
+        rx.code("button_group"),
+        " component stacks buttons horizontally, whereas the ",
+        rx.code("stack"),
+        " component allows stacking buttons both vertically and horizontally.",
+    ),
+)
 ```
 
