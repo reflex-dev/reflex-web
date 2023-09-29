@@ -9,10 +9,10 @@ video_example = """rx.video(
 )"""
 
 ---
-The video component can display a video given an src path as an argment. This could either be a local path from the assets folder or an external link.
+The video component can display a video given an src path as an argument. This could either be a local path from the assets folder or an external link.
 
 ```reflex
 docdemo(video_example)
 ```
 
-If we had a local file in the `assets` folder named `test.mp4` we could set `url=test.mp4` to view the video.
+If we had a local file in the `assets` folder named `test.mp4` we could set `url="/test.mp3"` to view the video.
