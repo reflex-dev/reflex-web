@@ -1,111 +1,26 @@
 ---
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docdemobox
-from pcweb.pages.docs.component_lib.forms.button import ButtonState,ExampleButtonState, button_state, button_state_code, button_state_example, button_state2, button_state2_code,  button_state2_render_code
-
-button = (
-"""rx.button('Click Me!')
-"""
-  )
-
-button_sizes = (
-"""rx.button_group(
-        rx.button(
-        'Example', bg='lightblue', color='black', size='sm'
-        ),
-        rx.button(
-            'Example', bg='orange', color='white', size='md'
-        ),
-        rx.button('Example', color_scheme='red', size='lg'),
+from pcweb.pages.docs.component_lib.forms.button import (
+          ButtonState,
+          ExampleButtonState, 
+          button_state, 
+          button_state_code, 
+          button_state_example, 
+          button_state2, 
+          button_state2_code, 
+          button_state2_render_code,
+          basic_button,
+          button_sizes,
+          button_colors,
+          button_variants,
+          button_disable,
+          loading_states,
+          stack_buttons_vertical,
+          stack_buttons_horizontal,
+          button_group 
+                                
 )
-"""  
-)
-
-button_colors = (
-"""rx.button_group(
-        rx.button('White Alpha', color_scheme='whiteAlpha', min_width='unset'),
-        rx.button('Black Alpha', color_scheme='blackAlpha', min_width='unset'),
-        rx.button('Gray', color_scheme='gray', min_width='unset'),
-        rx.button('Red', color_scheme='red', min_width='unset'),
-        rx.button('Orange', color_scheme='orange', min_width='unset'),
-        rx.button('Yellow', color_scheme='yellow', min_width='unset'),
-        rx.button('Green', color_scheme='green', min_width='unset'),
-        rx.button('Teal', color_scheme='teal', min_width='unset'),
-        rx.button('Blue', color_scheme='blue', min_width='unset'),
-        rx.button('Cyan', color_scheme='cyan', min_width='unset'),
-        rx.button('Purple', color_scheme='purple', min_width='unset'),
-        rx.button('Pink', color_scheme='pink', min_width='unset'),
-        rx.button('LinkedIn', color_scheme='linkedin', min_width='unset'),
-        rx.button('Facebook', color_scheme='facebook', min_width='unset'),
-        rx.button('Messenger', color_scheme='messenger', min_width='unset'),
-        rx.button('WhatsApp', color_scheme='whatsapp', min_width='unset'),
-        rx.button('Twitter', color_scheme='twitter', min_width='unset'),
-        rx.button('Telegram', color_scheme='telegram', min_width='unset'),
-        width='100%',
-)
-
-""" 
-)
-
-button_variants = (
-"""rx.button_group(
-        rx.button('Ghost Button', variant='ghost'),
-        rx.button('Outline Button', variant='outline'),
-        rx.button('Solid Button', variant='solid'),
-        rx.button('Link Button', variant='link'),
-        rx.button('Unstyled Button', variant='unstyled'),
-    )
-"""  
-
-)
-
-button_disable = (
-"""rx.button('Inactive button', is_disabled=True)"""  
-)
-  
-loading_states = (
-"""rx.button(
-            'Random button',
-            is_loading=True,
-            loading_text='Loading...',
-            spinner_placement='start'
-    )
-"""  
-)
-
-stack_buttons_vertical = (
-"""rx.stack(
-        rx.button('Button 1'),
-        rx.button('Button 2'),
-        rx.button('Button 3'),
-        direction='column',
-)
-
-"""  
-)
-
-stack_buttons_horizontal = (
-"""rx.stack(
-        rx.button('Button 1'),
-        rx.button('Button 2'),
-        rx.button('Button 3'),
-        direction='row',
-)
-"""  
-)
-
-button_group = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-            variant='outline',
-	        is_attached=True,
-        )
-"""  
-
-)
-
 ---
 Buttons are essential elements in your application's user interface that users can click to trigger events. 
 This documentation will help you understand how to use button components effectively in your Reflex application.
@@ -114,7 +29,7 @@ This documentation will help you understand how to use button components effecti
 A basic button component is created using the `rx.button` method:
 
 ```reflex
-docdemo(button)
+docdemo(basic_button)
 ```
 ## Button Sizing
 You can change the size of a button by setting the size prop to one of the following 
@@ -202,7 +117,7 @@ allowing you to create dynamic and interactive user experiences.
 You can bind these events to buttons using the `on_click` prop.
 For a comprehensive list of 
 available special events and server-side actions, please refer to the
-[Special Events Documentation](https://specialevent/link/here) for detailed information and usage examples.
+[Special Events Documentation](file:///docs/advanced-guide/background-tasks) ```reflex rx.text('click', on_click=rx.redirect('/docs/api-reference/special-events/'))``` for detailed information and usage examples.
 
 ## Grouping Buttons
 In your Reflex application, you can group buttons effectively using the `Stack` component and 
