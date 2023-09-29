@@ -1,13 +1,70 @@
 ---
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docdemobox
-from pcweb.pages.docs.component_lib.forms.button_group import (
-    basic_button_group,
-    button_group_attached,
-    button_group_variant,
-    button_group_sizes,
-    button_group_disable,
-    button_group_spacing
+
+
+basic_button_group = (
+"""rx.button_group(
+            rx.button('Option 1'),
+            rx.button('Option 2'),
+            rx.button('Option 3'),
+        )
+"""
+)
+
+button_group_attached = (
+"""rx.button_group(
+            rx.button('Option 1'),
+            rx.button('Option 2'),
+            rx.button('Option 3'),
+            is_attached=True,
+        )
+
+"""  
+)
+
+button_group_variant = (
+"""rx.button_group(
+            rx.button('Option 1'),
+            rx.button('Option 2'),
+            rx.button('Option 3'),
+            variant='ghost',
+        )
+
+"""  
+)
+
+button_group_sizes = (
+"""rx.button_group(
+            rx.button('Large Button', size='lg'),
+            rx.button('Medium Button', size='md'),
+            rx.button('Small Button', size='sm'),
+        )
+
+"""  
+)
+
+button_group_disable = (
+"""rx.button_group(
+            rx.button('Option 1'),
+            rx.button('Option 2'),
+            rx.button('Option 3'),
+            is_disabled=True,
+        )
+
+"""  
+)
+
+button_group_spacing = (
+"""rx.button_group(
+            rx.button('Option 1'),
+            rx.button('Option 2'),
+            rx.button('Option 3'),
+            spacing=8,
+        )
+
+"""  
+
 )
 ---
 
