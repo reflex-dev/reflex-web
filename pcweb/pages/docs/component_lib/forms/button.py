@@ -1,7 +1,8 @@
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext
+from pcweb.templates.docpage import docdemo, doctext, docpage
+from pcweb import flexdown
 
 # Forms
 basic_button = """rx.button("Click Me!")
@@ -58,6 +59,43 @@ button_state_example = """rx.hstack(
 """
 
 
+button_state_code = f"""
+import reflex as rx
+
+{button_state.replace("(State)", "(rx.State)")}
+
+def index():
+    return {button_state_example}
+
+app = rx.App()
+app.add_page(index)
+app.compile()"""
+
+button_state2 = """class ExampleButtonState(State):
+    text_value: str = "Random value"
+"""
+exec(button_state2)
+
+button_state2_render_code = """rx.vstack(
+	rx.text(ExampleButtonState.text_value),
+        rx.button(
+            "Change Value",
+            on_click=ExampleButtonState.set_text_value("Modified value"))
+    )
+"""
+
+button_state2_code = f"""
+import reflex as rx
+
+{button_state2.replace("(State)", "(rx.State)")}
+
+def index():
+    return {button_state2_render_code}
+
+app = rx.App()
+app.add_page(index)
+app.compile()"""
+
 def render_button():
     return rx.vstack(
         doctext("A button is a clickable element that is used to trigger an event."),
@@ -95,4 +133,12 @@ def render_iconbutton():
         doctext(
             "Since IconButton only renders an icon, you must pass the `aria_label` prop, so screen readers can give meaning to the button."
         ),
+    )
+
+
+@docpage()
+def button():
+    _, output = flexdown.read("docs/library/forms/button.md")
+    return rx.box(
+        *output,
     )
