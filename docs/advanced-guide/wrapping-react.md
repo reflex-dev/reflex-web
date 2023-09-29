@@ -167,7 +167,7 @@ Store your local component within the `assets/` directory. In this example, we w
 ```javascript
 // assets/welcome.js
 export function Welcome(props) {
-    return <h1>Hello, {props.name}</h1>;
+    return <h1>Hello, \{props.name}</h1>;
 }
 ```
 
@@ -197,7 +197,7 @@ def index():
 
 If the tag is the default export from the module, then set `is_default = True` in the component class definition to generate an import using the curly brace syntax.
 
-By default, the import will use the `import { Tag } from "library"` syntax.
+By default, the import will use the `import \{ Tag } from "library"` syntax.
 
 ```python
 class Markdown(Component):
@@ -224,12 +224,12 @@ class ReactPlayerComponent(rx.Component):
     tag = "ReactPlayer"
 
     def _get_imports(self) -> Optional[imports.ImportDict]:
-        return {}
+        return \{}
 
     def _get_custom_code(self) -> Optional[str]:
         return """
 import dynamic from "next/dynamic";
-const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+const ReactPlayer = dynamic(() => import("react-player/lazy"), \{ ssr: false });
 """
 ```
 
