@@ -90,7 +90,7 @@ A component may also have many props. You can add props by declaring them as rx.
 Finally, we must specify any event triggers that the component takes. This component has a single trigger to specify when the color changes.
 
 ```python
-{get_lines(color_picker_code, end=16)
+{get_lines(color_picker_code, end=16)}
 ```
 
 The event triggers are a dictionary where the keys are the names of the triggers.
