@@ -1,7 +1,5 @@
 ---
-from pcweb import constants, styles
 from pcweb.base_state import State
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 from pcweb.pages.docs.advanced_guide.background_tasks import LowLevelState, low_level_code, low_level_render_code, MyTaskState, my_task_code, my_task_render_code
 ---
 

@@ -35,7 +35,7 @@ doctext("If you have an existing Pynecone project, run ", rx.code("reflex init")
 ### Next Steps
 
 ```reflex
-doctext("If you have any issues through the migration, please come join our ", doclink("Discord", href=constants.DISCORD_URL), ". We will post the latest news there as well as on our ", doclink("Twitter", href=constants.TWITTER_URL), ".")
+doctext("If you have any issues through the migration, please come join our ", doclink("Discord", href=pcweb.constants.DISCORD_URL), ". We will post the latest news there as well as on our ", doclink("Twitter", href=pcweb.constants.TWITTER_URL), ".")
 ```
 
 Thanks for supporting us through this change. We're excited to start this new chapter and see what the community builds with Reflex!

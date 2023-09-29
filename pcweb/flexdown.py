@@ -6,7 +6,7 @@ import yaml
 
 import reflex as rx
 
-from pcweb import constants, styles
+from pcweb import constants, flexdown_scope, styles
 from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, subheader3, doclink2
 
 
@@ -70,11 +70,11 @@ def parse(source: str, md=md):
     """
     front_matter, source = parse_markdown_front_matter(source)
     if isinstance(front_matter, str):
-        exec(front_matter)
+        exec(front_matter, flexdown_scope.SCOPE)
     elif isinstance(front_matter, dict):
         py_front_matter, source = parse_markdown_front_matter(source)
         if isinstance(py_front_matter, str):
-            exec(py_front_matter)
+            exec(py_front_matter, flexdown_scope.SCOPE)
 
     lines = source.split("\n")
     output = []
@@ -95,14 +95,14 @@ def parse(source: str, md=md):
             # End reflex block.
             in_reflex_block = False
             try:
-                result = eval("\n".join(current_block))
+                result = eval("\n".join(current_block), flexdown_scope.SCOPE)
             except Exception as e:
                 print(f"Error in reflex block: {str(e)}")
                 sys.exit(1)
             output.append(result)
             current_block = []
         else:
-            current_block.append(evaluate_template_string(line, scope=locals()))
+            current_block.append(evaluate_template_string(line, scope=flexdown_scope.SCOPE))
 
     return front_matter, output
 

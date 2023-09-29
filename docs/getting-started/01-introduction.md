@@ -1,7 +1,6 @@
 ---
-from pcweb import constants, styles
+from pcweb import styles
 from pcweb.base_state import State
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 from pcweb.pages.docs.getting_started.introduction import CounterExampleState, counter_code
 ---
 
