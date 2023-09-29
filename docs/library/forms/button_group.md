@@ -1,70 +1,13 @@
 ---
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docdemobox
-
-
-button_group = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-        )
-"""
-)
-
-button_group_attached = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-            is_attached=True,
-        )
-
-"""  
-)
-
-button_group_variant = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-            variant='ghost',
-        )
-
-"""  
-)
-
-button_group_sizes = (
-"""rx.button_group(
-            rx.button('Large Button', size='lg'),
-            rx.button('Medium Button', size='md'),
-            rx.button('Small Button', size='sm'),
-        )
-
-"""  
-)
-
-button_group_disable = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-            is_disabled=True,
-        )
-
-"""  
-)
-
-button_group_spacing = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
-            spacing=8,
-        )
-
-"""  
-
+from pcweb.pages.docs.component_lib.forms.button_group import (
+    basic_button_group,
+    button_group_attached,
+    button_group_variant,
+    button_group_sizes,
+    button_group_disable,
+    button_group_spacing
 )
 ---
 
@@ -76,7 +19,7 @@ This is commonly used to group related actions or options in your application's 
 Here's an example of how to use the `rx.button_group` component to create a simple group of buttons:
 
 ```reflex
-docdemo(button_group)
+docdemo(basic_button_group)
 ```
 
 In this example, a button group is created with three buttons. The buttons are visually connected, and there 
