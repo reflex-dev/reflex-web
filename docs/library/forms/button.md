@@ -23,24 +23,25 @@ button_sizes = (
 
 button_colors = (
 """rx.button_group(
-        rx.button('White Alpha', color_scheme='whiteAlpha'),
-        rx.button('Black Alpha', color_scheme='blackAlpha'),
-        rx.button('Gray', color_scheme='gray'),
-        rx.button('Red', color_scheme='red'),
-        rx.button('Orange', color_scheme='orange'),
-        rx.button('Yellow', color_scheme='yellow'),
-        rx.button('Green', color_scheme='green'),
-        rx.button('Teal', color_scheme='teal'),
-        rx.button('Blue', color_scheme='blue'),
-        rx.button('Cyan', color_scheme='cyan'),
-        rx.button('Purple', color_scheme='purple'),
-        rx.button('Pink', color_scheme='pink'),
-        rx.button('LinkedIn', color_scheme='linkedin'),
-        rx.button('Facebook', color_scheme='facebook'),
-        rx.button('Messenger', color_scheme='messenger'),
-        rx.button('WhatsApp', color_scheme='whatsapp'),
-        rx.button('Twitter', color_scheme='twitter'),
-        rx.button('Telegram', color_scheme='telegram'),
+        rx.button('White Alpha', color_scheme='whiteAlpha', min_width='unset'),
+        rx.button('Black Alpha', color_scheme='blackAlpha', min_width='unset'),
+        rx.button('Gray', color_scheme='gray', min_width='unset'),
+        rx.button('Red', color_scheme='red', min_width='unset'),
+        rx.button('Orange', color_scheme='orange', min_width='unset'),
+        rx.button('Yellow', color_scheme='yellow', min_width='unset'),
+        rx.button('Green', color_scheme='green', min_width='unset'),
+        rx.button('Teal', color_scheme='teal', min_width='unset'),
+        rx.button('Blue', color_scheme='blue', min_width='unset'),
+        rx.button('Cyan', color_scheme='cyan', min_width='unset'),
+        rx.button('Purple', color_scheme='purple', min_width='unset'),
+        rx.button('Pink', color_scheme='pink', min_width='unset'),
+        rx.button('LinkedIn', color_scheme='linkedin', min_width='unset'),
+        rx.button('Facebook', color_scheme='facebook', min_width='unset'),
+        rx.button('Messenger', color_scheme='messenger', min_width='unset'),
+        rx.button('WhatsApp', color_scheme='whatsapp', min_width='unset'),
+        rx.button('Twitter', color_scheme='twitter', min_width='unset'),
+        rx.button('Telegram', color_scheme='telegram', min_width='unset'),
+        width='100%',
 )
 
 """ 
@@ -77,7 +78,7 @@ stack_buttons_vertical = (
         rx.button('Button 1'),
         rx.button('Button 2'),
         rx.button('Button 3'),
-        direction='vertical',
+        direction='column',
 )
 
 """  
@@ -88,7 +89,7 @@ stack_buttons_horizontal = (
         rx.button('Button 1'),
         rx.button('Button 2'),
         rx.button('Button 3'),
-        direction='horizontal',
+        direction='row',
 )
 """  
 )
