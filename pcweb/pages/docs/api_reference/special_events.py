@@ -2,7 +2,7 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
-
+from pcweb import flexdown
 
 @docpage()
 def special_events():
@@ -89,3 +89,11 @@ def component_grid():
         )
 
     return rx.box(*events)
+
+
+@docpage()
+def special_events_flex_docs():
+    _, output = flexdown.read("docs/api-reference/special-events.md")
+    return rx.box(
+        *output,
+    )
