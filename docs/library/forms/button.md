@@ -59,22 +59,16 @@ button_variants = (
 )
 
 button_disable = (
-"""rx.fragment(
-   rx.button('Inactive button', is_disabled=True),
-)
-"""  
+"""rx.button('Inactive button', is_disabled=True)"""  
 )
   
 loading_states = (
-"""rx.fragment(
-     rx.button(
+"""rx.button(
             'Random button',
             is_loading=True,
             loading_text='Loading...',
             spinner_placement='start'
     )
-)
-
 """  
 )
 
@@ -100,15 +94,13 @@ stack_buttons_horizontal = (
 )
 
 button_group = (
-"""rx.fragment(
-        rx.button_group(
+"""rx.button_group(
             rx.button('Option 1'),
             rx.button('Option 2'),
             rx.button('Option 3'),
             variant='outline',
 	        is_attached=True,
         )
-    )
 """  
 
 )
@@ -202,8 +194,17 @@ In this example, we have a `ButtonState` state class that maintains a count base
 When the "Increment" button is clicked, it triggers the `ButtonState.increment` event handler, and when the "Decrement" 
 button is clicked, it triggers the `ButtonState.decrement` event handler.
 
+## Special Events and Server-Side Actions
+
+Buttons in Reflex can trigger special events and server-side actions,
+allowing you to create dynamic and interactive user experiences.
+You can bind these events to buttons using the `on_click` prop.
+For a comprehensive list of 
+available special events and server-side actions, please refer to the
+[Special Events Documentation](https://specialevent/link/here) for detailed information and usage examples.
+
 ## Grouping Buttons
-In your Reflex-based application, you can group buttons effectively using the `Stack` component and 
+In your Reflex application, you can group buttons effectively using the `Stack` component and 
 the `ButtonGroup` component. Each of these options offers unique capabilities to help you structure 
 and style your buttons.
 
