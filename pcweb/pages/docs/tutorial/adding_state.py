@@ -170,7 +170,7 @@ code2 = """# chatapp.py
 def action_bar() -> rx.Component:
     return rx.hstack(
         rx.input(
-            value=ChatappState.question,
+            value=State.question,
             placeholder="Ask a question",
             on_change=State.set_question,
             style=style.input_style),
@@ -298,7 +298,7 @@ def adding_state():
             "We can fix this by binding the value of the input to ",
             rx.code("question"),
             ", with ",
-            rx.code("value=ChatappState.question"),
+            rx.code("value=State.question"),
             ", and clear it when we run the event handler for ",
             rx.code("answer"),
             ", with ",
