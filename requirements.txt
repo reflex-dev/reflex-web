@@ -9,3 +9,4 @@ Pillow==9.5.0
 openai==0.27.8
 pyyaml==6.0.1
 reflex>=0.2.6
+flexdown==0.1.0a2
