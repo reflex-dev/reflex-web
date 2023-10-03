@@ -1,6 +1,6 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
 data = [
   {
@@ -56,9 +56,8 @@ line_chart_simple_example = """rx.line_chart(
                     stroke="#82ca9d",), 
                 rx.x_axis(data_key="name"), 
                 rx.y_axis(),
-                data=data,
-                width=730, 
-                height=250)"""
+                data=data
+                )"""
 
 line_chart_complex_example = """rx.line_chart(
                 rx.line(
@@ -72,11 +71,10 @@ line_chart_complex_example = """rx.line_chart(
                 rx.x_axis(data_key="name"), 
                 rx.y_axis(),
                 rx.cartesian_grid(stroke_dasharray="3 3"),
-                #rx.tooltip(),
+                rx.graphing_tooltip(),
                 rx.legend(),
-                data=data,
-                width=730, 
-                height=250)"""
+                data=data
+                )"""
 ---
 
 A line chart is a type of chart used to show information that changes over time. Line charts are created by plotting a series of several points and connecting them with a straight line.
@@ -84,12 +82,12 @@ A line chart is a type of chart used to show information that changes over time.
 For a line chart we must define an `rx.line()` component for each set of values we wish to plot. Each `rx.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.x_axis`.
 
 ```reflex
-docdemo(line_chart_simple_example, comp=eval(line_chart_simple_example))
+docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), data =  "data=" + str(data))
 ```
 
 Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background and we add an `rx.legend` to give us a legend for our graphs. 
 
 ```reflex
-docdemo(line_chart_complex_example, comp=eval(line_chart_complex_example))
+docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))
 ```
 

@@ -1,6 +1,6 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
 data = [
   {
@@ -347,19 +347,17 @@ data = [
 
 
 treemap_example = """rx.treemap(
+                rx.graphing_tooltip(),
                 data=data,
-                dataKey="size",
-                aspectRatio={4 / 3},
+                data_key="size",
                 stroke="#fff",
-                fill="#8884d8",
-                width=730, 
-                height=250)"""
+                fill="#8884d8")"""
 
 ---
 
 
 ```reflex
-docdemo(treemap_example, comp=eval(treemap_example))
+docgraphing(treemap_example, comp=eval(treemap_example), data =  "data=" + str(data))
 ```
 
 

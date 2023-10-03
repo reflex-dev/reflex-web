@@ -172,19 +172,6 @@ feedback_list = [
 
 # Graphing components.
 graphing_list = [
-    # [rx.Chart, rx.ChartGroup, rx.ChartStack],
-    # [rx.Area],
-    # [rx.BoxPlot],
-    # [rx.Candlestick],
-    # [rx.ErrorBar],
-    # [rx.Line],
-    # [rx.Bar],
-    # [rx.Histogram],
-    # [rx.Pie],
-    # [rx.Polar],
-    # [rx.Scatter],
-    # [rx.Voronoi],
-    # [rx.Plotly],
     [rx.AreaChart, rx.Area],
     [rx.BarChart, rx.RadialBarChart, rx.Bar],
     [rx.ComposedChart],
@@ -201,11 +188,10 @@ graphing_list = [
     [rx.Brush],
     [rx.Legend],
     [rx.Label, rx.LabelList],
-    [rx.ResponsiveContainer],
-    [rx.Tooltip],
-]
-
-# Other
+    [rx.GraphingTooltip],
+]  
+ 
+# Other 
 other_list = [[rx.Html], [rx.Script]]
 
 # The final component list

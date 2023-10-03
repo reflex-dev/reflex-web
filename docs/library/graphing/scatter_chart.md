@@ -1,6 +1,6 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
 data01 = [
   {
@@ -73,12 +73,35 @@ scatter_chart_simple_example = """rx.scatter_chart(
                     data=data01,
                     fill="#8884d8",),
                 rx.x_axis(data_key="x"), 
+                rx.y_axis(data_key="y")
+                )"""
+
+scatter_chart_simple_complex = """rx.scatter_chart(
+                rx.scatter(
+                    data=data01,
+                    fill="#8884d8",
+                    name="A"
+                  ),
+                rx.scatter(
+                    data=data02,
+                    fill="#82ca9d",
+                    name="B"
+                  ),
+                rx.cartesian_grid(stroke_dasharray="3 3"),
+                rx.x_axis(data_key="x"), 
                 rx.y_axis(data_key="y"),
-                width=730, 
-                height=250)"""
+                rx.z_axis(data_key="z", range=[60, 400], name="score"),
+                rx.legend(),
+                rx.graphing_tooltip(),
+                margin={"top": 20, "right": 20}
+                )"""
 
 ---
 
 ```reflex
-docdemo(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example))
+docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data01))
+```
+
+```reflex
+docgraphing(scatter_chart_simple_complex, comp=eval(scatter_chart_simple_complex), data =  "data01=" + str(data01) + "&data02=" + str(data02))
 ```

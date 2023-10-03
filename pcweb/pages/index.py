@@ -230,7 +230,7 @@ def list_circle(text):
         justify_content="center",
         font_weight="800",
     )
-
+ 
 
 def example_card(title, tags, href, image):
     return rx.hstack(

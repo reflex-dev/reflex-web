@@ -115,16 +115,9 @@ def render_label():
         *output,
     )
 
-def render_responsivecontainer():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/responsive_container.md")
-    return rx.box(
-        *output,
-    )
-
-def render_tooltip():
+def render_graphingtooltip():
     # Get the file.
     front_matter, output = flexdown.read("docs/library/graphing/tooltip.md")
     return rx.box(
         *output,
-    )
+    )                      

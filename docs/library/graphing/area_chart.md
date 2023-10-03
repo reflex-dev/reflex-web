@@ -1,8 +1,53 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
-rangeData = [
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
+range_data = [
   {
     "day": "05-01",
     "temperature": [
@@ -68,16 +113,43 @@ rangeData = [
   }
 ]
 
+
+
 area_chart_example = """rx.area_chart(
+                rx.area(
+                    data_key="uv",
+                    stroke="#8884d8",
+                    fill="#8884d8"
+                ), 
+                rx.x_axis(data_key="name"), 
+                rx.y_axis(),
+                data=data)"""
+
+area_chart_example_2 = """rx.area_chart(
+                rx.area(
+                    data_key="uv",
+                    stroke="#8884d8",
+                    fill="#8884d8"
+                ), 
+                rx.area(
+                    data_key="pv",
+                    stroke="#82ca9d",
+                    fill="#82ca9d"
+                ), 
+                rx.x_axis(data_key="name"), 
+                rx.y_axis(),
+                data=data)"""
+
+
+range_area_chart = """rx.area_chart(
                 rx.area(
                     data_key="temperature",
                     stroke="#8884d8",
-                    fill="#8884d8",), 
+                    fill="#8884d8"
+                ), 
                 rx.x_axis(data_key="day"), 
                 rx.y_axis(),
-                data=rangeData,
-                width=730, 
-                height=250)"""
+                data=range_data)"""
 ---
 
 
@@ -86,7 +158,29 @@ An area chart combines the line chart and bar chart to show how one or more grou
 For an area chart we must define an `rx.area()` component that has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we track temperature against time and therefore set the `rx.x_axis` to equal `day`.
 
 ```reflex
-docdemo(area_chart_example, comp=eval(area_chart_example))
+docgraphing(
+  area_chart_example, 
+  comp = eval(area_chart_example),
+  data =  "data=" + str(data)
+)
 ```
 
+Multiple areas can be placed on the same `area_chart`.
 
+```reflex
+docgraphing(
+  area_chart_example_2, 
+  comp = eval(area_chart_example_2),
+  data =  "data=" + str(data)
+)
+```
+
+You can also assign a range in the area by assiging tge data_key int the `rx.area` to a list with two elements.
+
+```reflex
+docgraphing(
+  area_chart_example_2, 
+  comp = eval(range_area_chart),
+  data =  "data=" + str(range_data)
+)
+```

@@ -47,9 +47,9 @@ def code_block(
         margin_bottom="1em",
         width="100%",
     )
-
-
-@rx.memo
+   
+   
+@rx.memo 
 def code_block_dark(
     code: str,
     language: str,
@@ -94,8 +94,8 @@ def code_block_dark(
         margin_bottom="1em",
         width="100%",
     )
-
-
+            
+             
 class ClipboardState(State):
     """State for the clipboard."""
 
@@ -118,8 +118,8 @@ class ClipboardState(State):
         # Reset the text.
         self.reset()
         self.text = ""
-
-
+   
+   
 # Docpage styles.
 icon_style = {
     "right": "1em",
@@ -624,9 +624,9 @@ def docdemo(
         padding_bottom="2em",
         spacing="1em",
         **props,
-    )
-
-
+    ) 
+ 
+ 
 def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
@@ -701,15 +701,50 @@ def docalert(
         ),
     )
 
-
-def docgraphing(data_example, data_rendered, description):
-    return rx.fragment(
-        subheader("Data"),
-        description,
-        doccode(data_example),
-        doctext(
-            "Which will render as: ",
+ 
+ 
+tab_style = {
+    "color":"#494369",
+    "font_weight":600,
+    "_selected": {
+        "color":"#5646ED",
+        "bg":"#F5EFFE",
+        "padding_x":"0.5em",
+        "padding_y":"0.25em",
+        "border_radius":"8px",
+        
+    }
+}  
+          
+        
+def docgraphing(code: str,
+    state: str | None = None,
+    comp: rx.Component | None = None,
+    data: str | None = None,
+    context: bool = False,
+    **props): 
+    return rx.vstack(
+    rx.box(
+        rx.center(comp, width="100%", height="15em"),
+        style=demo_box_style,
+    ),
+    rx.tabs(
+        rx.tab_list(
+            rx.tab("Code", style=tab_style),
+            rx.tab("Data", style=tab_style),
+            padding_x=0,
         ),
-        doccode(data_rendered),
-        subheader("Examples"),
-    )
+        rx.tab_panels(
+            rx.tab_panel(doccode(code), width="100%", padding_x=0, padding_y=".25em"),
+            rx.tab_panel(doccode(data), width="100%", padding_x=0, padding_y=".25em"),
+            width="100%",
+        ), 
+        variant='unstyled',
+        color_scheme='purple',
+        align='end',
+        width="100%", 
+        padding_top=".5em",
+    ), 
+    width="100%"
+)
+                                           

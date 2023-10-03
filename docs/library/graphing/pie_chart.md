@@ -1,6 +1,6 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
 data01 = [
   {
@@ -62,13 +62,39 @@ pie_chart_simple_example = """rx.pie_chart(
                     name_key="name",
                     cx="50%",
                     cy="50%",
-                    fill="#8884d8",), 
-                width=730, 
-                height=250)"""
+                    fill="#8884d8",
+                    label=True,
+                    )
+                    )"""
+
+pie_chart_complex_example = """rx.pie_chart(
+                  rx.pie(
+                    data=data01,
+                    data_key="value",
+                    name_key="name",
+                    cx="50%",
+                    cy="50%",
+                    fill="#82ca9d",
+                    inner_radius="60%",
+                    ),
+                    rx.pie(
+                    data=data02,
+                    data_key="value",
+                    name_key="name",
+                    cx="50%",
+                    cy="50%",
+                    fill="#8884d8",
+                    outer_radius="50%",
+                    ),
+                    rx.graphing_tooltip(),
+                    )"""
 
 ---
 
 ```reflex
-docdemo(pie_chart_simple_example, comp=eval(pie_chart_simple_example))
+docgraphing(pie_chart_simple_example, comp=eval(pie_chart_simple_example),  data =  "data01=" + str(data01))
 ```
 
+```reflex
+docgraphing(pie_chart_complex_example, comp=eval(pie_chart_complex_example),  data =  "data01=" + str(data01))
+```
