@@ -5,29 +5,29 @@ from pcweb.templates.docpage import docalert, doccode, docheader, subheader, doc
 
 route = (
 """
+@rx.page()
 def index():
     return rx.text('Root Page')
 
+@rx.page()
 def about():
     return rx.text('About Page')
 
+@rx.page(route='/custom-route')
 def custom():
     return rx.text('Custom Route')
 
 app = rx.App()
-app.add_page(index)
-app.add_page(about)
-app.add_page(custom, route='/custom-route')
 """
 )
 
 nested_routes = (
 """
+@rx.page(route='/nested/page')
 def nested_page():
     return rx.text('Nested Page')
 
 app = rx.App()
-app.add_page(nested_page, route='/nested/page')
 """
 
 )
@@ -38,13 +38,13 @@ class State(rx.State):
     @rx.var
     def post_id(self) -> str:
         return self.get_query_params().get('pid', 'no pid')
-
+        
+@rx.page(route='/post/[pid]')
 def post():
     \'''A page that updates based on the route.\'''
     return rx.heading(State.post_id)
 
 app = rx.App()
-app.add_page(post, route='/post/[pid]')
 """
 )
   
@@ -58,7 +58,7 @@ class State(rx.State):
         post_id = args.get('id')
         return f'Posts by {username}: Post {post_id}'
 
-
+@rx.page(route='/user/[username]/posts/[id]')
 def post():
     return rx.center(
         rx.text(State.user_post)
@@ -66,16 +66,21 @@ def post():
 
 
 app = rx.App()
-app.add_page(post, route='/user/[username]/posts/[id]')
 """  
 )
 
 meta_data = (
 """
+@rx.page(
+    title='My Beautiful App',
+    description='A beautiful app built with Reflex',
+    image='/splash.png',
+    meta=meta,
+)
 def index():
     return rx.text('A Beautiful App')
 
-
+@rx.page(title='About Page')
 def about():
     return rx.text('About Page')
 
@@ -87,14 +92,6 @@ meta = [
 ]
 
 app = rx.App()
-app.add_page(
-    index,
-    title='My Beautiful App',
-    description='A beautiful app built with Reflex',
-    image='/splash.png',
-    meta=meta,
-)
-app.add_page(about, title='About Page')
 """  
 
 )
@@ -108,12 +105,9 @@ class State(rx.State):
         # Fetch data
         self.data = fetch_data()
 
-
+@rx.page(on_load=State.get_data)
 def index():
     return rx.text('A Beautiful App')
-
-
-app.add_page(index, on_load=State.get_data)
 """  
 )
 
@@ -144,7 +138,7 @@ class State(rx.State):
         usernames = args.get('username', [])
         return f'Posts by {', '.join(usernames)}'
 
-
+@rx.page(route='/users/[id]/posts/[...username]')
 def post():
     return rx.center(
         rx.text(State.user_post)
@@ -152,7 +146,6 @@ def post():
 
 
 app = rx.App()
-app.add_page(post, route='/users/[id]/posts/[...username]')
 """  
 )
 
@@ -165,7 +158,7 @@ class State(rx.State):
         usernames = args.get('username', [])
         return f'Posts by {', '.join(usernames)}'
 
-
+@rx.page(route='/users/[id]/posts/[[...username]]')
 def post():
     return rx.center(
         rx.text(State.user_post)
@@ -173,7 +166,6 @@ def post():
 
 
 app = rx.App()
-app.add_page(post, route='/users/[id]/posts/[[...username]]')
 """  
 )
 current_page_info = (
@@ -210,11 +202,19 @@ By default, the function name will be used as the route, but you can also specif
 ```
 
 In this example we create three pages: 
-- `index` - The root route, available at `1`
-- `about` - available at `'/about`
+- `index` - The root route, available at `/`
+- `about` - available at `/about`
 - `/custom` - available at `/custom-route`
 
-<br>
+## Page Decorator
+You can also use the `@rx.page` decorator to add a page.
+
+```python
+{page_decorator}
+```
+
+This is equivalent to calling `app.add_page` with the same arguments.
+
 
 ```reflex
 rx.alert(
@@ -349,14 +349,3 @@ In this example, we fetch data when the page loads:
 ```python
 {page_load_events}
 ```
-
-## Page Decorator
-You can also use the `@rx.page` decorator to add a page.
-
-```python
-{page_decorator}
-```
-
-
-This is equivalent to calling `app.add_page` with the same arguments.
-
