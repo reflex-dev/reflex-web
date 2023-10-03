@@ -118,7 +118,7 @@ In this example, the `size` prop is used to set the size of all buttons within t
 You can also disable all the buttons within a button group by setting the `is_disabled` prop to `True`:
 
 ```reflex
-docdemo(button_group_sizes)
+docdemo(button_group_disable)
 ```
 In this case, all the buttons within the group will be disabled and unclickable.
 
