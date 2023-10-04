@@ -71,11 +71,8 @@ def index() -> rx.Component:
                 "Filter by tags:",
                 size="sm",
             ),
-            rx.debounce_input(
                 rx.input(
-                    on_change=lambda value: FilteredTableState.input_filter_on_change(
-                        value
-                    ),
+                    on_change=FilteredTableState.input_filter_on_change,
                     value=FilteredTableState.filter_expr,
                 ),
                 debounce_timeout=1000,
