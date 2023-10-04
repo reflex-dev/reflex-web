@@ -92,7 +92,7 @@ app.compile()
 
 
 @docpage()
-def checkboxes():
+def filtered_table():
     return rx.box(
         docheader("Table with row filtering", first=True),
         doctext(
