@@ -101,7 +101,7 @@ def checkboxes():
         subheader("Recipe"),
         rx.center(rx.image(src="/gallery/filtered_table.gif")),
         doctext(
-            "This recipe use a ",
+            "This recipe uses a ",
             rx.code("rx.foreach"),
             " for the row generation with a computed var filtering the data for rows",
             " using an input value for filter value",
