@@ -1,6 +1,6 @@
 ---
 import reflex as rx
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo, docgraphing
 
 data = [
   {
@@ -44,5 +44,9 @@ A funnel chart is a graphical representation used to visualize how data moves th
 
 
 ```reflex
-docdemo(funnel_chart_example, comp=eval(funnel_chart_example))
+docgraphing(
+  funnel_chart_example, 
+  comp = eval(funnel_chart_example),
+  data =  "data=" + str(data)
+)
 ```

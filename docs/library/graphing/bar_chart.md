@@ -155,7 +155,7 @@ range_bar_chart = """rx.bar_chart(
 
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
 
-For a bar chart we must define an `rx.bar()` component for each set of values we wish to plot. Each `rx.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate bars against the `name` column which we set as the `data_key` in `rx.x_axis`.
+For a bar chart we must define an `rx.bar()` component for each set of values we wish to plot. Each `rx.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.x_axis`.
 
 
 ```reflex
@@ -166,7 +166,7 @@ docgraphing(
 )
 ```
 
-Multiple areas can be placed on the same `bar_chart`.
+Multiple bars can be placed on the same `bar_chart`, using multiple `rx.bar()` components.
 
 ```reflex
 docgraphing(
@@ -176,11 +176,11 @@ docgraphing(
 )
 ```
 
-You can also assign a range in the area by assiging tge data_key int the `rx.area` to a list with two elements.
+You can also assign a range in the bar by assiging the data_key in the `rx.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
 ```reflex
 docgraphing(
-  bar_chart_example_2, 
+  range_bar_chart, 
   comp = eval(range_bar_chart),
   data =  "data=" + str(range_data)
 )

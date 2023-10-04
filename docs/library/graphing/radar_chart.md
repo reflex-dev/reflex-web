@@ -71,10 +71,16 @@ radar_chart_complex_example = """rx.radar_chart(
                     )"""
 
 ---
+A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis. 
+
+For a radar chart we must define an `rx.radar()` component for each set of values we wish to plot. Each `rx.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.polar_angle_axis`. 
+
 
 ```reflex
 docgraphing(radar_chart_simple_example, comp=eval(radar_chart_simple_example),  data =  "data=" + str(data))
 ```
+
+We can also add two radars on one chart by using two `rx.radar` components.
 
 ```reflex
 docgraphing(radar_chart_complex_example, comp=eval(radar_chart_complex_example),  data =  "data=" + str(data))

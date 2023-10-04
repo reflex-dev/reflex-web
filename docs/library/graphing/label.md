@@ -72,6 +72,8 @@ brush_example = """rx.bar_chart(
                 data=data)"""
 ---
 
+`rx.label`and `rx.label_list` add in labels to the graphs. `rx.label_list` takes in a `data_key` where we define the data column to plot.
+
 ```reflex
 docgraphing(
   brush_example, 

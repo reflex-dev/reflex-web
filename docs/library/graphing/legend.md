@@ -140,8 +140,7 @@ composed_chart_example = """rx.composed_chart(
 ---
 
 
-A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
-
+A legend tells what each plot represents. Just like on a map, the legend helps the reader understand what they are looking at. For a line graph for example it tells us what each line represents.
 
 ```reflex
 docgraphing(

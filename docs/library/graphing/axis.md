@@ -1,3 +1,3 @@
-x y and z axes !!!!
+The X-, Y-, Z-axes.
 
 

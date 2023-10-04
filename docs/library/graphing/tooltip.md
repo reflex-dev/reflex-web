@@ -138,9 +138,7 @@ composed_chart_example = """rx.composed_chart(
                 data=data)"""
 ---
 
-
-A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
-
+Tooltips are the little boxes that pop up when you hover over something. Tooltips are always attached to something, like a dot on a scatter chart, or a bar on a bar chart.
 
 ```reflex
 docgraphing(

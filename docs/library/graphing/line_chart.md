@@ -85,7 +85,7 @@ For a line chart we must define an `rx.line()` component for each set of values 
 docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), data =  "data=" + str(data))
 ```
 
-Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background and we add an `rx.legend` to give us a legend for our graphs. 
+Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background, an `rx.legend` to give us a legend for our graphs and an `rx.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
 
 ```reflex
 docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))

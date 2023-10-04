@@ -90,11 +90,16 @@ pie_chart_complex_example = """rx.pie_chart(
                     )"""
 
 ---
+A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
+
+For a pie chart we must define an `rx.pie()` component for each set of values we wish to plot. Each `rx.pie()` component has a `data`, a `data_key` and a `name_key` which clearly states which data and which variables in our data we are tracking. In this simple example we plot `value` column as our `data_key` against the `name` column which we set as our `name_key`.
 
 ```reflex
 docgraphing(pie_chart_simple_example, comp=eval(pie_chart_simple_example),  data =  "data01=" + str(data01))
 ```
 
+We can also add two pies on one chart by using two `rx.pie` components.
+
 ```reflex
-docgraphing(pie_chart_complex_example, comp=eval(pie_chart_complex_example),  data =  "data01=" + str(data01))
+docgraphing(pie_chart_complex_example, comp=eval(pie_chart_complex_example),  data =  "data01=" + str(data01) + "&data02=" + str(data02))
 ```

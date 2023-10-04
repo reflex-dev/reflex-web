@@ -89,6 +89,7 @@ scatter_chart_simple_example = """rx.scatter_chart(
                 rx.legend(),
                 )"""
 ---
+An error bar is a line through a point on a graph, parallel to one of the axes, which represents the uncertainty or variation of the corresponding coordinate of the point.
 
 ```reflex
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))

@@ -138,9 +138,7 @@ composed_chart_example = """rx.composed_chart(
                 data=data)"""
 ---
 
-
-A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
-
+A cartesian axis adds in reference axes to the cartesian graphs.
 
 ```reflex
 docgraphing(

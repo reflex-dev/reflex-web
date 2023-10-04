@@ -62,6 +62,8 @@ brush_example = """rx.bar_chart(
                 rx.y_axis(),
                 data=data)"""
 ---
+The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
+
 
 ```reflex
 docgraphing(
