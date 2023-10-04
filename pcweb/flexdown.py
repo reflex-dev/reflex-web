@@ -7,7 +7,7 @@ import yaml
 import reflex as rx
 
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, doclink2
+from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, subheader3, doclink2
 
  
 component_map = { 
@@ -91,6 +91,10 @@ def parse(source: str, md=md):
     front_matter, source = parse_markdown_front_matter(source)
     if isinstance(front_matter, str):
         exec(front_matter)
+    elif isinstance(front_matter, dict):
+        py_front_matter, source = parse_markdown_front_matter(source)
+        if isinstance(py_front_matter, str):
+            exec(py_front_matter)
 
     lines = source.split("\n")
     output = []

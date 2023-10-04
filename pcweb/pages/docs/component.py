@@ -54,8 +54,22 @@ class Source(Base):
             The docstring of the component.
         """
         return self.component.__doc__
-
+    
     def get_props(self) -> list[Prop]:
+        """Get a dictionary of the props and their descriptions.
+
+        Returns:
+            A dictionary of the props and their descriptions.
+        """
+        props = self._get_props()
+
+        parent_cls = self.component.__bases__[0]
+        if parent_cls != rx.Component:
+            props += Source(component=parent_cls).get_props()
+
+        return props
+
+    def _get_props(self) -> list[Prop]:
         """Get a dictionary of the props and their descriptions.
 
         Returns:

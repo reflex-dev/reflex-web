@@ -503,6 +503,33 @@ def subheader2(
         **props,
     )
 
+def subheader3(
+    text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
+) -> rx.Component:
+    """Create a subheader for a docpage.
+
+    Args:
+        text: The text to display.
+        level: The level of the subheader.
+        coming_soon: Whether this is a coming soon header.
+        divider: Whether to show a divider below the header.
+        props: Props to apply to the subheader.
+
+    Returns:
+        The styled subheader.
+    """
+    return docheader2(
+        text,
+        first=False,
+        font_size=styles.H4_FONT_SIZE,
+        coming_soon=coming_soon,
+        divider=divider,
+        color=tc["docs"]["header"],
+        font_weight=fw["subheading"],
+        **props,
+    )
+
+
 def text_comp(
     text: rx.Var[str],
 ) -> rx.Component:

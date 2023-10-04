@@ -28,7 +28,7 @@ def change(date, title, description, points, link):
         rx.hstack(
             rx.hstack(
                 rx.image(src="/icons/copy.svg", width="1em", height="1em"),
-                rx.text(title, font_size=styles.H4_FONT_SIZE, font_weight=styles.BOLD_WEIGHT),
+                rx.text(title, font_size=styles.TEXT_FONT_SIZE, font_weight=styles.BOLD_WEIGHT),
                 padding_right="1em",
             ),
             rx.divider(margin_x="1em" ),
@@ -47,6 +47,18 @@ def change(date, title, description, points, link):
 
 def changelog_content():
     return rx.vstack(
+        change(
+            "2023-09-22",
+            "v0.2.8",
+            "Background Tasks + Improved API for wrapping components.",
+            [
+                "Support long-running non-blocking operations",
+                "Trigger file downloads",
+                "Better change tracking for state vars",
+                "Arbitrary args for event triggers and serializers for custom types",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.8",
+        ),
         change(
             "2021-09-08",
             "v0.2.7",

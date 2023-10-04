@@ -370,7 +370,7 @@ compbox = rx.hstack(
     rx.vstack(
         rx.text(
             "60+ built-in UI Components",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -406,7 +406,7 @@ stylebox = rx.hstack(
     rx.vstack(
         rx.text(
             "Completely customizable",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -441,7 +441,7 @@ reactbox = rx.hstack(
     rx.vstack(
         rx.text(
             "Custom Components",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -476,7 +476,7 @@ powerful = rx.hstack(
     rx.vstack(
         rx.text(
             "Now everyone can work across the full-stack",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -573,7 +573,7 @@ battery_icon = rx.hstack(
     rx.vstack(
         rx.text(
             "Batteries included",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -608,7 +608,7 @@ orm_icon = rx.hstack(
     rx.vstack(
         rx.text(
             "Built in database ORM",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -643,7 +643,7 @@ python_icon = rx.hstack(
     rx.vstack(
         rx.text(
             "Seamlessly integrate with any Python library",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -740,7 +740,7 @@ deploy_icon = rx.hstack(
     rx.vstack(
         rx.text(
             "Deploy your app with a single command",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(
@@ -775,7 +775,7 @@ host_icon = rx.hstack(
     rx.vstack(
         rx.text(
             "Self-host your app",
-            font_size=styles.H4_FONT_SIZE,
+            font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
         rx.text(

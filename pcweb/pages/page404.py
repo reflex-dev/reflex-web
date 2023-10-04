@@ -17,7 +17,7 @@ class State404(State):
 def _404():
     return rx.center(
         rx.vstack(
-            rx.heading(rx.constants.TITLE_404),
+            rx.heading(rx.constants.Page404.TITLE),
             rx.text(
                 "Oups, the page at ",
                 rx.code(State404.origin_url),
