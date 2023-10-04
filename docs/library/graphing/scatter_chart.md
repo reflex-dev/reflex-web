@@ -72,7 +72,7 @@ scatter_chart_simple_example = """rx.scatter_chart(
                 rx.scatter(
                     data=data01,
                     fill="#8884d8",),
-                rx.x_axis(data_key="x"), 
+                rx.x_axis(data_key="x", type_="number"), 
                 rx.y_axis(data_key="y")
                 )"""
 
@@ -88,7 +88,7 @@ scatter_chart_simple_complex = """rx.scatter_chart(
                     name="B"
                   ),
                 rx.cartesian_grid(stroke_dasharray="3 3"),
-                rx.x_axis(data_key="x"), 
+                rx.x_axis(data_key="x", type_="number"), 
                 rx.y_axis(data_key="y"),
                 rx.z_axis(data_key="z", range=[60, 400], name="score"),
                 rx.legend(),

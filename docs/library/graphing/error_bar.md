@@ -29,7 +29,7 @@ data = [
     "z": 260,
     "errorY": 20,
     "errorX": [
-      10,
+      5,
       3
     ]
   },
@@ -69,17 +69,18 @@ data = [
     "z": 200,
     "errorY": 21,
     "errorX": [
-      1,
-      8
+      5,
+      6
     ]
   }
 ]
 
 
+
 scatter_chart_simple_example = """rx.scatter_chart(
                 rx.scatter(
-                    rx.error_bar(data_key="errorY", direction="y"),
-                    rx.error_bar(data_key="errorX", direction="x"),
+                    rx.error_bar(data_key="errorY", direction="y", width=4, stroke_width=2, stroke="red"),
+                    rx.error_bar(data_key="errorX", direction="x", width=4, stroke_width=2),
                     data=data,
                     fill="#8884d8",
                     name="A"),

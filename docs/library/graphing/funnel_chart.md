@@ -32,10 +32,11 @@ data = [
 
 funnel_chart_example = """rx.funnel_chart(
                 rx.funnel(
+                    rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     data_key="value",
-                    data=data),
-                #rx.label_list(position="right", data_key="name"),
-                data=data,
+                    data=data
+                ),
+                rx.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
 ---
