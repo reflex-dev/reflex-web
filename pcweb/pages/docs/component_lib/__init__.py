@@ -4,6 +4,7 @@ from .feedback import *
 from .forms import *
 from .graphing.plotly import *
 from .graphing.victory import *
+from .graphing.recharts import *
 from .layout import *
 from .media import *
 from .navigation import *

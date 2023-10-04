@@ -2,23 +2,43 @@ import os
 import re
 import sys
 
-import yaml
+import yaml 
 
 import reflex as rx
 
 from pcweb import constants, styles
 from pcweb.templates.docpage import doccode, docheader, docheader2, doclink, doctext, subheader, subheader2, subheader3, doclink2
 
-
-component_map = {
+ 
+component_map = { 
     "h1": docheader2,
-    "h2": subheader2,
-    "h3": subheader3,
-    "a": doclink2,
-    "p": doctext,
+    "h2": subheader2, 
+    "a": doclink2,   
+    "p": doctext,   
     "code": lambda source: rx.code(source, color="#1F1944", bg="#EAE4FD"),
+}  
+  
+custom_styles = {   
+    "a": styles.LINK_STYLE,   
+    "p": {
+        "as_": "p",  
+        "margin_y": "1em", 
+        "font_family": styles.SANS,
+    },
+    "code": {
+        "color": "#1F1944",
+        "bg": "#EAE4FD",
+    }, 
+    "pre": {
+        "border_radius": styles.DOC_BORDER_RADIUS,
+        "background": "transparent",
+        "code_tag_props": {
+            "style": {
+                "fontFamily": "inherit"
+            }  
+        }
+    }
 }
-
 
 def md(source: str):
     return rx.markdown(
