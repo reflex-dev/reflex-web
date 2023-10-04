@@ -6,7 +6,8 @@ import reflex as rx
 forms_list = [
     [rx.Form],
     [rx.FormControl, rx.FormLabel, rx.FormErrorMessage, rx.FormHelperText],
-    [rx.Button, rx.ButtonGroup, rx.IconButton],
+    [rx.Button, rx.IconButton],
+    [rx.ButtonGroup],
     [rx.Checkbox],
     [rx.Editable, rx.EditableInput, rx.EditableTextarea, rx.EditablePreview],
     [rx.Input],
@@ -121,7 +122,7 @@ media_list = [
     [rx.Icon],
     [rx.Image],
     [rx.Video],
-    
+
 ]
 
 # Data display components.
