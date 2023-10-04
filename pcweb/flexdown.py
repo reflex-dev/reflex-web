@@ -128,7 +128,7 @@ def parse(source: str, md=md):
 
 def read(filename: str):
     """Read a markdown file and parse it."""
-    source = open(filename).read()
+    source = open(filename, encoding="utf-8").read()
     return parse(source)
 
 
