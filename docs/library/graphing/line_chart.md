@@ -1,6 +1,11 @@
 ```python exec
+import inspect
+import random
+from typing import Any
+
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.base_state import State
+from pcweb.templates.docpage import doccode, docdemo, docgraphing
 
 data = [
   {
@@ -47,6 +52,7 @@ data = [
   }
 ]
 
+
 line_chart_simple_example = """rx.line_chart(
                 rx.line(
                     data_key="pv",
@@ -85,9 +91,57 @@ For a line chart we must define an `rx.line()` component for each set of values 
 docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), data =  "data=" + str(data))
 ```
 
+## Chart Features
+
 Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background, an `rx.legend` to give us a legend for our graphs and an `rx.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
 
 ```python eval
 docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))
 ```
 
+## Updating Data
+
+```python exec
+initial_data = data
+
+
+class LineChartState(State):
+    data: list[dict[str, Any]] = initial_data
+
+    def munge_data(self):
+        for row in self.data:
+            row["uv"] += random.randint(-100, 100)
+            row["pv"] += random.randint(-500, 500)
+
+
+line_chart_state_example = """rx.fragment(
+                rx.line_chart(
+                    rx.line(
+                        data_key="pv",
+                        type_="monotone",
+                        stroke="#8884d8",
+                    ),
+                    rx.line(
+                        data_key="uv",
+                        type_="monotone",
+                        stroke="#82ca9d",
+                    ), 
+                    rx.x_axis(data_key="name"), 
+                    rx.y_axis(),
+                    data=LineChartState.data,
+                ),
+                rx.button("Munge Data", on_click=LineChartState.munge_data),
+            )"""
+```
+
+Chart data can also be modified by tying the data prop to a State var. In the following
+example the "Munge Data" button can be used to randomly modify the data. Since the data 
+is saved in the per-browser-tab State, the changes will not be visible to other visitors.
+
+```python eval
+docgraphing(
+    inspect.getsource(LineChartState).replace("(State)", "(rx.State)") + f"\n\n{line_chart_state_example}",
+    comp=eval(line_chart_state_example),
+    data="initial_data=" + str(data),
+)
+```
