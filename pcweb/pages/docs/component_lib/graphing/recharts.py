@@ -1,123 +1,72 @@
 import reflex as rx
-from pcweb import flexdown
+from pcweb.flexdown import component_map
+import flexdown
 
 
 def render_areachart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/area_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/area_chart.md", component_map=component_map)
+
 
 def render_barchart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/bar_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/bar_chart.md", component_map=component_map)
+
 
 def render_composedchart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/composed_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/composed_chart.md", component_map=component_map)
+
 
 def render_funnelchart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/funnel_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/funnel_chart.md", component_map=component_map)
+
 
 def render_linechart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/line_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/line_chart.md", component_map=component_map)
+
 
 def render_piechart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/pie_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/pie_chart.md", component_map=component_map)
+
 
 def render_radarchart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/radar_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/radar_chart.md", component_map=component_map)
+
 
 def render_scatterchart():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/scatter_chart.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/scatter_chart.md", component_map=component_map)
+
 
 def render_treemap():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/treemap.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/treemap.md", component_map=component_map)
 
 
 def render_errorbar():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/error_bar.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/error_bar.md", component_map=component_map)
+
 
 def render_referenceline():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/reference.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/reference.md", component_map=component_map)
+
 
 def render_cartesianaxis():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/cartesian_axis_grid.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/cartesian_axis_grid.md", component_map=component_map)
+
 
 def render_xaxis():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/axis.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/axis.md", component_map=component_map)
+
 
 def render_brush():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/brush.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/brush.md", component_map=component_map)
+
 
 def render_legend():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/legend.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/legend.md", component_map=component_map)
+
 
 def render_label():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/label.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/graphing/label.md", component_map=component_map)
+
 
 def render_graphingtooltip():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/graphing/tooltip.md")
-    return rx.box(
-        *output,
-    )                      
+    return flexdown.render_file("docs/library/graphing/tooltip.md", component_map=component_map)
+                

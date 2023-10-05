@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -150,14 +150,13 @@ range_area_chart = """rx.area_chart(
                 rx.x_axis(data_key="day"), 
                 rx.y_axis(),
                 data=range_data)"""
----
-
+```
 
 An area chart combines the line chart and bar chart to show how one or more groups’ numeric values change over the progression of a second variable, typically that of time. An area chart is distinguished from a line chart by the addition of shading between lines and a baseline, like in a bar chart.
 
 For an area chart we must define an `rx.area()` component that has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we track `uv` against `name` and therefore set the `rx.x_axis` to equal `name`.
 
-```reflex
+```python eval
 docgraphing(
   area_chart_example, 
   comp = eval(area_chart_example),
@@ -167,7 +166,7 @@ docgraphing(
 
 Multiple areas can be placed on the same `area_chart`.
 
-```reflex
+```python eval
 docgraphing(
   area_chart_example_2, 
   comp = eval(area_chart_example_2),
@@ -177,7 +176,7 @@ docgraphing(
 
 You can also assign a range in the area by assiging the data_key in the `rx.area` to a list with two elements, i.e. here a range of two temperatures for each date.
 
-```reflex
+```python eval
 docgraphing(
   area_chart_example_2, 
   comp = eval(range_area_chart),

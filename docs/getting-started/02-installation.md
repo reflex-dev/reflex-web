@@ -1,6 +1,8 @@
----
+```python exec
 from pcweb import constants
----
+app_name = "my_app_name"
+default_url = "http://localhost:3000"
+```
 
 # Installation
 
@@ -36,11 +38,11 @@ pip install reflex
 
 Installing Reflex also installs the `reflex` command line tool.
 
-Test that the install was successful by creating a new project. Replace `my_app_name` with your project name:
+Test that the install was successful by creating a new project. Replace `{app_name}` with your project name:
 
 ```bash
-$ mkdir my_app_name
-$ cd my_app_name
+$ mkdir {app_name}
+$ cd {app_name}
 $ reflex init
 ```
 
@@ -58,7 +60,7 @@ You should see your app running at [http://localhost:3000](http://localhost:3000
 
 ## Fast Refresh
 
-Reflex has fast refreshes when running in development mode. You can modify the source code in `my_app_name/my_app_name.py` and see your changes in the browser instantly when you save your code.
+Reflex has fast refreshes when running in development mode. You can modify the source code in `{app_name}/{app_name}.py` and see your changes in the browser instantly when you save your code.
 
 ## Debugging
 

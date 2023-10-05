@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -86,9 +86,9 @@ scatter_chart_simple_example = """rx.scatter_chart(
                 rx.y_axis(data_key="y", name="y", type_="number"),
                 rx.graphing_tooltip(),
                 )"""
----
+```
 
-```reflex
+```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
 ```
 

@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo
 
@@ -8,10 +8,11 @@ video_example = """rx.video(
     height="auto"
 )"""
 
----
+```
+
 The video component can display a video given an src path as an argument. This could either be a local path from the assets folder or an external link.
 
-```reflex
+```python eval
 docdemo(video_example)
 ```
 

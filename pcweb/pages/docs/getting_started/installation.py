@@ -1,23 +1,8 @@
-import reflex as rx
-from pcweb import constants, flexdown
-from pcweb.templates.docpage import (
-    docalert,
-    doccode,
-    docheader,
-    doclink,
-    docpage,
-    doctext,
-    subheader,
-)
-
-app_name = "my_app_name"
-default_url = "http://localhost:3000"
+from pcweb.templates.docpage import docpage
+from pcweb.flexdown import component_map
+import flexdown
 
 
 @docpage()
 def installation():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/getting-started/02-installation.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/getting-started/02-installation.md", component_map=component_map)

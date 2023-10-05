@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -70,11 +70,11 @@ brush_example = """rx.bar_chart(
                 margin={"left": 10, "right": 0, "top": 20, "bottom": 10},
 
                 data=data)"""
----
+```
 
 `rx.label`and `rx.label_list` add in labels to the graphs. `rx.label_list` takes in a `data_key` where we define the data column to plot.
 
-```reflex
+```python eval
 docgraphing(
   brush_example, 
   comp = eval(brush_example),

@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -136,11 +136,11 @@ composed_chart_example = """rx.composed_chart(
                 rx.cartesian_grid(stroke_dasharray="3 3"),
                 rx.graphing_tooltip(),
                 data=data)"""
----
+```
 
 A cartesian axis adds in reference axes to the cartesian graphs.
 
-```reflex
+```python eval
 docgraphing(
   composed_chart_example, 
   comp = eval(composed_chart_example),

@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -114,7 +114,6 @@ range_data = [
 ]
 
 
-
 bar_chart_example = """rx.bar_chart(
                 rx.bar(
                     data_key="uv",
@@ -150,7 +149,7 @@ range_bar_chart = """rx.bar_chart(
                 rx.x_axis(data_key="day"), 
                 rx.y_axis(),
                 data=range_data)"""
----
+```
 
 
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
@@ -158,7 +157,7 @@ A bar chart presents categorical data with rectangular bars with heights or leng
 For a bar chart we must define an `rx.bar()` component for each set of values we wish to plot. Each `rx.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.x_axis`.
 
 
-```reflex
+```python eval
 docgraphing(
   bar_chart_example, 
   comp = eval(bar_chart_example),
@@ -168,7 +167,7 @@ docgraphing(
 
 Multiple bars can be placed on the same `bar_chart`, using multiple `rx.bar()` components.
 
-```reflex
+```python eval
 docgraphing(
   bar_chart_example_2, 
   comp = eval(bar_chart_example_2),
@@ -178,7 +177,7 @@ docgraphing(
 
 You can also assign a range in the bar by assiging the data_key in the `rx.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
-```reflex
+```python eval
 docgraphing(
   range_bar_chart, 
   comp = eval(range_bar_chart),
