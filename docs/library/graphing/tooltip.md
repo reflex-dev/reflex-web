@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -136,11 +136,11 @@ composed_chart_example = """rx.composed_chart(
                 rx.cartesian_grid(stroke_dasharray="3 3"),
                 rx.graphing_tooltip(),
                 data=data)"""
----
+```
 
 Tooltips are the little boxes that pop up when you hover over something. Tooltips are always attached to something, like a dot on a scatter chart, or a bar on a bar chart.
 
-```reflex
+```python eval
 docgraphing(
   composed_chart_example, 
   comp = eval(composed_chart_example),

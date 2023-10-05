@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -39,12 +39,12 @@ funnel_chart_example = """rx.funnel_chart(
                 rx.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
----
+```
 
 A funnel chart is a graphical representation used to visualize how data moves through a process. In a funnel chart, the dependent variable’s value diminishes in the subsequent stages of the process. It can be used to demonstrate the flow of users through for example a business or sales process.
 
 
-```reflex
+```python eval
 docgraphing(
   funnel_chart_example, 
   comp = eval(funnel_chart_example),

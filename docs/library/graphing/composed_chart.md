@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -136,13 +136,13 @@ composed_chart_example = """rx.composed_chart(
                 rx.cartesian_grid(stroke_dasharray="3 3"),
                 rx.graphing_tooltip(),
                 data=data)"""
----
+```
 
 
 A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
 
 
-```reflex
+```python eval
 docgraphing(
   composed_chart_example, 
   comp = eval(composed_chart_example),

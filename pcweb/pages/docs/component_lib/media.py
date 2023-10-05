@@ -2,8 +2,9 @@ import reflex as rx
 from reflex.components.media.icon import ICON_LIST
 
 from pcweb.base_state import State
-from pcweb import flexdown
 from pcweb.templates.docpage import docdemo, doctext, doccode, docdemobox
+from pcweb.flexdown import component_map
+import flexdown
 
 from PIL import Image
 import random
@@ -157,16 +158,8 @@ def render_image():
 
 
 def render_audio():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/media/audio.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/media/audio.md", component_map=component_map)
 
 
 def render_video():
-    # Get the file.
-    front_matter, output = flexdown.read("docs/library/media/video.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/media/video.md", component_map=component_map)

@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -137,12 +137,12 @@ composed_chart_example = """rx.composed_chart(
                 rx.graphing_tooltip(),
                 rx.legend(),
                 data=data)"""
----
+```
 
 
 A legend tells what each plot represents. Just like on a map, the legend helps the reader understand what they are looking at. For a line graph for example it tells us what each line represents.
 
-```reflex
+```python eval
 docgraphing(
   composed_chart_example, 
   comp = eval(composed_chart_example),

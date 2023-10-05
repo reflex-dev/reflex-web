@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -353,12 +353,12 @@ treemap_example = """rx.treemap(
                 stroke="#fff",
                 fill="#8884d8")"""
 
----
+```
 
 Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension of the data.
 
 
-```reflex
+```python eval
 docgraphing(treemap_example, comp=eval(treemap_example), data =  "data=" + str(data))
 ```
 

@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -93,20 +93,21 @@ scatter_chart_simple_complex = """rx.scatter_chart(
                 rx.z_axis(data_key="z", range=[60, 400], name="score"),
                 rx.legend(),
                 rx.graphing_tooltip(),
-                margin={"top": 20, "right": 20}
+                
                 )"""
 
----
+```
+
 A scatter chart always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
 
 For a scatter chart we must define an `rx.scatter()` component for each set of values we wish to plot. Each `rx.scatter()` component has a `data` prop which clearly states which data source we plot. We also must define `rx.x_axis()` and `rx.y_axis()` so that the graph knows what data to plot on each axis.
 
-```reflex
+```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data01=" + str(data01))
 ```
 
 We can also add two scatters on one chart by using two `rx.scatter()` components, and we can define an `rx.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
 
-```reflex
+```python eval
 docgraphing(scatter_chart_simple_complex, comp=eval(scatter_chart_simple_complex), data =  "data01=" + str(data01) + "&data02=" + str(data02))
 ```

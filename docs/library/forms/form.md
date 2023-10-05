@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo
@@ -32,7 +32,8 @@ form_example = """rx.vstack(
     rx.text(FormState.form_data.to_string()),
 )"""
 
----
+```
+
 Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
 
 
@@ -41,7 +42,7 @@ The form component's children can be form controls such as `rx.input`, `rx.check
 The form is submitted when the user clicks the submit button or presses enter on the form controls.
 
 
-```reflex
+```python eval
 docdemo(form_example,
         state=form_state,
         comp=eval(form_example),
@@ -49,7 +50,7 @@ docdemo(form_example,
 )
 ```
 
-```reflex
+```python eval
 rx.alert(
     rx.alert_icon(),
     rx.alert_title(

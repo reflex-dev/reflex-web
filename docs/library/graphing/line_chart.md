@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing
 
@@ -75,19 +75,19 @@ line_chart_complex_example = """rx.line_chart(
                 rx.legend(),
                 data=data
                 )"""
----
+```
 
 A line chart is a type of chart used to show information that changes over time. Line charts are created by plotting a series of several points and connecting them with a straight line.
 
 For a line chart we must define an `rx.line()` component for each set of values we wish to plot. Each `rx.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.x_axis`.
 
-```reflex
+```python eval
 docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), data =  "data=" + str(data))
 ```
 
 Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background, an `rx.legend` to give us a legend for our graphs and an `rx.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
 
-```reflex
+```python eval
 docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))
 ```
 
