@@ -5,6 +5,7 @@ from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 from pcweb.templates.webpage import webpage
+from pcweb.flexdown import component_map
 
 PAGES_PATH = "blog/"
 
@@ -43,7 +44,7 @@ def page(document) -> rx.Component:
             my=8,
             border_radius="8px",
         ),
-        flexdown.render(document),
+        flexdown.render(document, component_map=component_map),
     )
 
 
