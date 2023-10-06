@@ -1,11 +1,10 @@
 import reflex as rx
-from pcweb import constants, flexdown, styles
-from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
-from pcweb.templates.webpage import webpage
-from reflex import el
+import flexdown
 
+from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
+from pcweb.templates.webpage import webpage
 
 PAGES_PATH = "blog/"
 
@@ -13,9 +12,9 @@ PAGES_PATH = "blog/"
 def get_blog_data(paths):
     blogs = {}
     for path in reversed(sorted(paths)):
-        front_matter, output = flexdown.read(path)
+        document = flexdown.parse_file(path)
         path = path.replace(".md", "")
-        blogs[path] = (front_matter, output)
+        blogs[path] = document
     return blogs
 
 
@@ -24,8 +23,10 @@ def get_route(path: str):
     return path.replace(PAGES_PATH, "").replace(".md", "")
 
 
-def page(meta, markup) -> rx.Component:
+def page(document) -> rx.Component:
     """Create a page."""
+
+    meta = document.metadata
 
     return rx.container(
         rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
@@ -42,13 +43,11 @@ def page(meta, markup) -> rx.Component:
             my=8,
             border_radius="8px",
         ),
-        rx.box(
-            *markup,
-        ),
+        flexdown.render(document),
     )
 
 
-paths = flexdown.get_all_markdown_files(PAGES_PATH)
+paths = flexdown.utils.get_flexdown_files(PAGES_PATH)
 blogs = get_blog_data(paths)
 
 
@@ -66,8 +65,8 @@ class Gallery(rx.Model):
 
 def component_grid():
     posts = []
-    for path, blog in blogs.items():
-        meta, _ = blog
+    for path, document in blogs.items():
+        meta = document.metadata
         posts.append(
             rx.link(
                 rx.box(
@@ -156,19 +155,16 @@ def blg():
 
 @webpage(path="/blog/2023-08-02-seed-annoucement")
 def seed():
-    meta, contents = blogs["blog/2023-08-02-seed-annoucement"]
-    return page(meta, contents)
+    return page(blogs["blog/2023-08-02-seed-annoucement"])
 
 
 @webpage(path="/blog/2023-06-28-rebrand-to-reflex")
 def rebrand():
-    meta, contents = blogs["blog/2023-06-28-rebrand-to-reflex"]
-    return page(meta, contents)
+    return page(blogs["blog/2023-06-28-rebrand-to-reflex"])
 
 
 @webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
-    meta, contents = blogs[
+    return page(blogs[
         "blog/2023-09-28-unlocking-new-workflows-with-background-tasks"
-    ]
-    return page(meta, contents)
+    ])

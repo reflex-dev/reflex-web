@@ -5,12 +5,15 @@ title: "Unlocking New Workflows with Background Tasks"
 description: "What is a background task and how can it help you build better apps?"
 image: /background_task.jpg
 ---
----
+
+```python exec
+import reflex as rx
+
 # hacks because curly braces always evaluate python code
 pid = "{pid}"
 class self(object):
     last_id = "{self.last_id}"
----
+```
 
 
 Reflex just released v0.2.8 earlier last week and with it, one of the most
@@ -113,7 +116,7 @@ responses from several API calls at once. Or the app can define different
 background tasks for a multi-view dashboard UI and have separate portions of the
 screen updating and processing simultaneously.
 
-```reflex
+```python eval
 rx.center(
     rx.video(url="https://user-images.githubusercontent.com/1524005/271007407-09c832ff-ecbd-4a9d-a8a5-67779c673045.mov"),
     rx.box(height="3em"),
@@ -137,9 +140,9 @@ release notes for all the new features and bug fixes.
 
 🔧 Happy Building 🚀
 
-```reflex
+```python eval
 rx.text("- Reflex Team", margin_bottom="5em")
 ```
-```reflex
+```python eval
 rx.box(height="8em")
 ```

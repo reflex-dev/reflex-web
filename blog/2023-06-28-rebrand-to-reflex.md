@@ -6,6 +6,12 @@ description: "We have some exciting news to share about the next stage of our co
 image: /reflex_banner.png
 ---
 
+```python exec
+from pcweb.templates.docpage import doctext, doclink
+from pcweb import constants
+import reflex as rx
+```
+
 We have some exciting news to share about the next stage of our company!
 
 ### Pynecone is rebranding to Reflex.
@@ -16,7 +22,7 @@ We will continue to grow Reflex as an open source project to include all the fea
 
 ### Key Changes
 
-```reflex
+```python eval
 rx.unordered_list(
     rx.list_item("Our main website will change from ", doclink("https://pynecone.io", href="https://pynecone.io"), " to ", doclink("https://reflex.dev", href="https://reflex.dev"), "."),
     rx.list_item("Our Python package will change from ", rx.code("pip install pynecone"), " to ", rx.code("pip install reflex"), "."),
@@ -28,18 +34,18 @@ rx.unordered_list(
 
 ### Migrating Existing Projects
 
-```reflex
+```python eval
 doctext("If you have an existing Pynecone project, run ", rx.code("reflex init"), " from a directory that has a ", rx.code("pcconfig.py"), " file, you will have the option to migrate your project.")
 ```
 
 ### Next Steps
 
-```reflex
+```python eval
 doctext("If you have any issues through the migration, please come join our ", doclink("Discord", href=constants.DISCORD_URL), ". We will post the latest news there as well as on our ", doclink("Twitter", href=constants.TWITTER_URL), ".")
 ```
 
 Thanks for supporting us through this change. We're excited to start this new chapter and see what the community builds with Reflex!
 
-```reflex
+```python eval
 rx.box("", height="8em")
 ```
