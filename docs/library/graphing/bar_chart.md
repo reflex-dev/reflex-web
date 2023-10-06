@@ -188,7 +188,7 @@ bar_chart_example_with_state = """rx.bar_chart(
                 stroke_dasharray="3 3",
             ),
             data=BarState.data,
-            width=1000,
+            width="100%",
             height=400,
         ) 
 """

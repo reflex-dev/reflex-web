@@ -64,7 +64,7 @@ funnel_chart_example_with_state = """rx.funnel_chart(
                     on_click=FunnelState.randomize_data,
                 ),
                 rx.graphing_tooltip(), 
-                width=730, 
+                width=1000, 
                 height=250)"""
 
 ```

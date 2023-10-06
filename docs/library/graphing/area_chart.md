@@ -191,7 +191,7 @@ area_chart_example_with_state = """rx.area_chart(
                 stroke_dasharray="3 3",
             ),
             data=AreaState.data,
-            width=1000,
+            width="100%",
             height=400,
         ) 
 """
