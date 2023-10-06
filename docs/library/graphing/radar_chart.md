@@ -87,3 +87,84 @@ We can also add two radars on one chart by using two `rx.radar` components.
 docgraphing(radar_chart_complex_example, comp=eval(radar_chart_complex_example),  data =  "data=" + str(data))
 ```
 
+# Dynamic Data
+
+Chart data tied to a State var causes the chart to automatically update when the
+state changes, providing a nice way to visualize data in response to user
+interface elements. View the "Data" tab to see the substate driving this
+radar chart of character traits.
+
+```python exec
+import inspect
+from typing import Any
+
+from pcweb.base_state import State
+
+
+class RadarChartState(State):
+    total_points: int = 100
+    traits: list[dict[str, Any]] = [
+        dict(trait="Strength", value=15),
+        dict(trait="Dexterity", value=15),
+        dict(trait="Constitution", value=15),
+        dict(trait="Intelligence", value=15),
+        dict(trait="Wisdom", value=15),
+        dict(trait="Charisma", value=15),
+    ]
+
+    @rx.var
+    def remaining_points(self) -> int:
+        return self.total_points - sum(t["value"] for t in self.traits)
+
+    @rx.cached_var
+    def trait_names(self) -> list[str]:
+        return [t["trait"] for t in self.traits]
+
+    def set_trait(self, trait: str, value: int):
+        for t in self.traits:
+            if t["trait"] == trait:
+                available_points = self.remaining_points + t["value"]
+                value = min(value, available_points)
+                t["value"] = value
+                break
+
+radar_chart_state_example = """
+rx.hstack(
+    rx.radar_chart(
+        rx.radar(
+            data_key="value",
+            stroke="#8884d8",
+            fill="#8884d8",
+        ),
+        rx.polar_grid(),
+        rx.polar_angle_axis(data_key="trait"),
+        data=RadarChartState.traits,
+    ),
+    rx.vstack(
+        rx.foreach(
+            RadarChartState.trait_names,
+            lambda trait_name, i: rx.hstack(
+                rx.text(trait_name, width="7em"),
+                rx.slider(
+                    value=RadarChartState.traits[i]["value"].to(int),
+                    on_change=lambda value: RadarChartState.set_trait(trait_name, value),
+                    width="25vw",
+                ),
+                rx.text(RadarChartState.traits[i]['value']),
+            ),
+        ),
+        rx.text("Remaining points: ", RadarChartState.remaining_points),
+    ),
+    width="100%",
+    height="15em",
+)
+"""
+```
+
+```python eval
+docgraphing(
+    radar_chart_state_example,
+    comp=eval(radar_chart_state_example),
+    data=inspect.getsource(RadarChartState).replace("(State)", "(rx.State)"),
+)
+```
