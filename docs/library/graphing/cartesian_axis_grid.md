@@ -115,26 +115,26 @@ range_data = [
 
 
 
-composed_chart_example = """rx.composed_chart(
-                rx.area(
+composed_chart_example = """rx.recharts.composed_chart(
+                rx.recharts.area(
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.bar(
+                rx.recharts.bar(
                     data_key="amt",
                     bar_size=20,
                     fill="#413ea0"
                 ),
-                rx.line(
+                rx.recharts.line(
                     data_key="pv",
                     type_="monotone",
                     stroke="#ff7300"
                 ), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
-                rx.cartesian_grid(stroke_dasharray="3 3"),
-                rx.graphing_tooltip(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
+                rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+                rx.recharts.graphing_tooltip(),
                 data=data)"""
 ```
 

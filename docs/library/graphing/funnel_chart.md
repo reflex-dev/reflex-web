@@ -46,24 +46,24 @@ funnel_chart_state = """class FunnelState(State):
 """
 exec(funnel_chart_state)
 
-funnel_chart_example = """rx.funnel_chart(
-                rx.funnel(
-                    rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
+funnel_chart_example = """rx.recharts.funnel_chart(
+                rx.recharts.funnel(
+                    rx.recharts.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     data_key="value",
                     data=data
                 ),
-                rx.graphing_tooltip(), 
+                rx.recharts.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
 
-funnel_chart_example_with_state = """rx.funnel_chart(
-                rx.funnel(
-                    rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
+funnel_chart_example_with_state = """rx.recharts.funnel_chart(
+                rx.recharts.funnel(
+                    rx.recharts.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     data_key="value",
                     data=FunnelState.data,
                     on_click=FunnelState.randomize_data,
                 ),
-                rx.graphing_tooltip(), 
+                rx.recharts.graphing_tooltip(), 
                 width=1000, 
                 height=250)"""
 

@@ -53,39 +53,39 @@ data = [
 ]
 
 
-line_chart_simple_example = """rx.line_chart(
-                rx.line(
+line_chart_simple_example = """rx.recharts.line_chart(
+                rx.recharts.line(
                     data_key="pv",
                     stroke="#8884d8",),
-                rx.line(
+                rx.recharts.line(
                     data_key="uv",
                     stroke="#82ca9d",), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
                 data=data
                 )"""
 
-line_chart_complex_example = """rx.line_chart(
-                rx.line(
+line_chart_complex_example = """rx.recharts.line_chart(
+                rx.recharts.line(
                     data_key="pv",
                     type_="monotone",
                     stroke="#8884d8",),
-                rx.line(
+                rx.recharts.line(
                     data_key="uv",
                     type_="monotone",
                     stroke="#82ca9d",), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
-                rx.cartesian_grid(stroke_dasharray="3 3"),
-                rx.graphing_tooltip(),
-                rx.legend(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
+                rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+                rx.recharts.graphing_tooltip(),
+                rx.recharts.legend(),
                 data=data
                 )"""
 ```
 
 A line chart is a type of chart used to show information that changes over time. Line charts are created by plotting a series of several points and connecting them with a straight line.
 
-For a line chart we must define an `rx.line()` component for each set of values we wish to plot. Each `rx.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.x_axis`.
+For a line chart we must define an `rx.recharts.line()` component for each set of values we wish to plot. Each `rx.recharts.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
 
 ```python eval
 docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), data =  "data=" + str(data))
@@ -93,7 +93,7 @@ docgraphing(line_chart_simple_example, comp=eval(line_chart_simple_example), dat
 
 ## Chart Features
 
-Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.line` to style the lines differently. In addition, we add an `rx.cartesian_grid` to get a grid in the background, an `rx.legend` to give us a legend for our graphs and an `rx.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
+Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.recharts.line` to style the lines differently. In addition, we add an `rx.recharts.cartesian_grid` to get a grid in the background, an `rx.recharts.legend` to give us a legend for our graphs and an `rx.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
 
 ```python eval
 docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))
@@ -117,19 +117,19 @@ class LineChartState(State):
 
 
 line_chart_state_example = """rx.vstack(
-                rx.line_chart(
-                    rx.line(
+                rx.recharts.line_chart(
+                    rx.recharts.line(
                         data_key="pv",
                         type_=LineChartState.pv_type,
                         stroke="#8884d8",
                     ),
-                    rx.line(
+                    rx.recharts.line(
                         data_key="uv",
                         type_=LineChartState.uv_type,
                         stroke="#82ca9d",
                     ), 
-                    rx.x_axis(data_key="name"), 
-                    rx.y_axis(),
+                    rx.recharts.x_axis(data_key="name"), 
+                    rx.recharts.y_axis(),
                     data=LineChartState.data,
                 ),
                 rx.button("Munge Data", on_click=LineChartState.munge_data),

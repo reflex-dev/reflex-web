@@ -68,31 +68,31 @@ data02 = [
   }
 ]
 
-scatter_chart_simple_example = """rx.scatter_chart(
-                rx.scatter(
+scatter_chart_simple_example = """rx.recharts.scatter_chart(
+                rx.recharts.scatter(
                     data=data01,
                     fill="#8884d8",),
-                rx.x_axis(data_key="x", type_="number"), 
-                rx.y_axis(data_key="y")
+                rx.recharts.x_axis(data_key="x", type_="number"), 
+                rx.recharts.y_axis(data_key="y")
                 )"""
 
-scatter_chart_simple_complex = """rx.scatter_chart(
-                rx.scatter(
+scatter_chart_simple_complex = """rx.recharts.scatter_chart(
+                rx.recharts.scatter(
                     data=data01,
                     fill="#8884d8",
                     name="A"
                   ),
-                rx.scatter(
+                rx.recharts.scatter(
                     data=data02,
                     fill="#82ca9d",
                     name="B"
                   ),
-                rx.cartesian_grid(stroke_dasharray="3 3"),
-                rx.x_axis(data_key="x", type_="number"), 
-                rx.y_axis(data_key="y"),
-                rx.z_axis(data_key="z", range=[60, 400], name="score"),
-                rx.legend(),
-                rx.graphing_tooltip(),
+                rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+                rx.recharts.x_axis(data_key="x", type_="number"), 
+                rx.recharts.y_axis(data_key="y"),
+                rx.recharts.z_axis(data_key="z", range=[60, 400], name="score"),
+                rx.recharts.legend(),
+                rx.recharts.graphing_tooltip(),
                 
                 )"""
 
@@ -100,13 +100,13 @@ scatter_chart_simple_complex = """rx.scatter_chart(
 
 A scatter chart always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
 
-For a scatter chart we must define an `rx.scatter()` component for each set of values we wish to plot. Each `rx.scatter()` component has a `data` prop which clearly states which data source we plot. We also must define `rx.x_axis()` and `rx.y_axis()` so that the graph knows what data to plot on each axis.
+For a scatter chart we must define an `rx.recharts.scatter()` component for each set of values we wish to plot. Each `rx.recharts.scatter()` component has a `data` prop which clearly states which data source we plot. We also must define `rx.recharts.x_axis()` and `rx.recharts.y_axis()` so that the graph knows what data to plot on each axis.
 
 ```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data01=" + str(data01))
 ```
 
-We can also add two scatters on one chart by using two `rx.scatter()` components, and we can define an `rx.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
+We can also add two scatters on one chart by using two `rx.recharts.scatter()` components, and we can define an `rx.recharts.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
 
 ```python eval
 docgraphing(scatter_chart_simple_complex, comp=eval(scatter_chart_simple_complex), data =  "data01=" + str(data01) + "&data02=" + str(data02))
@@ -132,7 +132,7 @@ class ScatterChartState(State):
 
     def compute_collatz(self, form_data: dict) -> int:
         n = int(form_data["start"])
-        yield rx.set_value("start", "")
+        yield rx.recharts.set_value("start", "")
         self.data = []
         for ix in range(400):
             self.data.append({"x": ix, "y": n})
@@ -146,13 +146,13 @@ class ScatterChartState(State):
 
 scatter_chart_state_example = """
 rx.vstack(
-    rx.scatter_chart(
-        rx.scatter(
+    rx.recharts.scatter_chart(
+        rx.recharts.scatter(
             data=ScatterChartState.data,
             fill="#8884d8",
         ),
-        rx.x_axis(data_key="x", type_="number"),
-        rx.y_axis(data_key="y", type_="number"),
+        rx.recharts.x_axis(data_key="x", type_="number"),
+        rx.recharts.y_axis(data_key="y", type_="number"),
     ),
     rx.form(
         rx.input(placeholder="Enter a number", id="start"),

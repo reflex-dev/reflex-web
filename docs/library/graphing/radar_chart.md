@@ -41,32 +41,32 @@ data = [
   }
 ]
 
-radar_chart_simple_example = """rx.radar_chart(
-                rx.radar(
+radar_chart_simple_example = """rx.recharts.radar_chart(
+                rx.recharts.radar(
                     data_key="A",
                     stroke="#8884d8",
                     fill="#8884d8",
                     ),
-                    rx.polar_grid(),
-                    rx.polar_angle_axis(data_key="subject"),
+                    rx.recharts.polar_grid(),
+                    rx.recharts.polar_angle_axis(data_key="subject"),
                     data=data
                     )"""
 
-radar_chart_complex_example = """rx.radar_chart(
-                rx.radar(
+radar_chart_complex_example = """rx.recharts.radar_chart(
+                rx.recharts.radar(
                     data_key="A",
                     stroke="#8884d8",
                     fill="#8884d8",
                     ),
-                rx.radar(
+                rx.recharts.radar(
                     data_key="B",
                     stroke="#82ca9d",
                     fill="#82ca9d",
                     fill_opacity=0.6,
                     ),
-                    rx.polar_grid(),
-                    rx.polar_angle_axis(data_key="subject"),
-                    rx.legend(),
+                    rx.recharts.polar_grid(),
+                    rx.recharts.polar_angle_axis(data_key="subject"),
+                    rx.recharts.legend(),
                     data=data
                     )"""
 
@@ -74,7 +74,7 @@ radar_chart_complex_example = """rx.radar_chart(
 
 A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis. 
 
-For a radar chart we must define an `rx.radar()` component for each set of values we wish to plot. Each `rx.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.polar_angle_axis`. 
+For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.polar_angle_axis`. 
 
 
 ```python eval
@@ -130,14 +130,14 @@ class RadarChartState(State):
 
 radar_chart_state_example = """
 rx.hstack(
-    rx.radar_chart(
-        rx.radar(
+    rx.recharts.radar_chart(
+        rx.recharts.radar(
             data_key="value",
             stroke="#8884d8",
             fill="#8884d8",
         ),
-        rx.polar_grid(),
-        rx.polar_angle_axis(data_key="trait"),
+        rx.recharts.polar_grid(),
+        rx.recharts.polar_angle_axis(data_key="trait"),
         data=RadarChartState.traits,
     ),
     rx.vstack(
