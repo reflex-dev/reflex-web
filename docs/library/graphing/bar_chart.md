@@ -1,6 +1,8 @@
 ```python exec
 import reflex as rx
+from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
+import random
 
 data = [
   {
@@ -113,6 +115,18 @@ range_data = [
   }
 ]
 
+bar_chart_state = """class BarState(State):
+    data=data
+
+    def randomize_data(self):
+        for i in range(len(self.data)):
+            self.data[i]["uv"] = random.randint(0, 10000)
+            self.data[i]["pv"] = random.randint(0, 10000)
+            self.data[i]["amt"] = random.randint(0, 10000)
+
+
+"""
+exec(bar_chart_state)
 
 bar_chart_example = """rx.recharts.bar_chart(
                 rx.recharts.bar(
@@ -149,6 +163,35 @@ range_bar_chart = """rx.recharts.bar_chart(
                 rx.recharts.x_axis(data_key="day"), 
                 rx.recharts.y_axis(),
                 data=range_data)"""
+
+bar_chart_example_with_state = """rx.bar_chart(
+            rx.bar(
+                data_key="uv",
+                stroke="#8884d8",
+                fill="#8884d8",
+                type_="natural",
+                on_click=BarState.randomize_data,
+
+            ),
+            rx.bar(
+                data_key="pv",
+                stroke="#82ca9d", 
+                fill="#82ca9d",
+                type_="natural",
+            ),
+            rx.x_axis(
+                data_key="name",
+            ),
+            rx.y_axis(), 
+            rx.legend(),
+            rx.cartesian_grid(
+                stroke_dasharray="3 3",
+            ),
+            data=BarState.data,
+            width="100%",
+            height=400,
+        ) 
+"""
 ```
 
 
@@ -182,5 +225,15 @@ docgraphing(
   range_bar_chart, 
   comp = eval(range_bar_chart),
   data =  "data=" + str(range_data)
+)
+```
+
+Here is an example of a bar graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `bar` is clicked on using `on_click=BarState.randomize_data`.
+
+```python eval
+docdemo(bar_chart_example_with_state,
+        state=bar_chart_state,
+        comp=eval(bar_chart_example_with_state),
+        context=True,
 )
 ```

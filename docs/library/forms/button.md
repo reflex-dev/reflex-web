@@ -1,4 +1,4 @@
----
+```python exec
 import reflex as rx
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docdemobox
@@ -219,21 +219,22 @@ button_group = (
 
 )
 
----
+```
+
 Buttons are essential elements in your application's user interface that users can click to trigger events. 
 This documentation will help you understand how to use button components effectively in your Reflex application.
 
 ## Basic Usage
 A basic button component is created using the `rx.button` method:
 
-```reflex
+```python eval
 docdemo(basic_button)
 ```
 ## Button Sizing
 You can change the size of a button by setting the size prop to one of the following 
 values: `xs`,`sm`,`md`, or `lg`.
 
-```reflex
+```python eval
 docdemo(button_sizes)
 ```
 
@@ -242,7 +243,7 @@ Customize the appearance of buttons by adjusting their color scheme through the 
 You have the flexibility to choose from a range of color scales provided by your design 
 system, such as whiteAlpha, blackAlpha, gray, red, blue, or even utilize your own custom color scale.
 
-```reflex
+```python eval
 docdemobox(
     eval(button_colors)
 )
@@ -260,13 +261,13 @@ You can customize the visual style of your buttons using the variant prop. Here 
 - `link`: A button that resembles a text link.
 - `unstyled`: A button with no specific styling.
 
-```reflex
+```python eval
 docdemo(button_variants)
 ```
 ## Disabling Buttons
 Make buttons inactive by setting the `is_disabled` prop to `True`.
 
-```reflex
+```python eval
 docdemo(button_disable)
 ```
 
@@ -277,7 +278,7 @@ To indicate a loading state for a button after it's clicked, you can use the fol
 - `spinner_placement`: You can specify the placement of the spinner element, which is 'start' by default.
 
 
-```reflex
+```python eval
 docdemo(loading_states)
 ```
 
@@ -285,7 +286,7 @@ docdemo(loading_states)
 You can define what happens when a button is clicked using the `on_click` event argument. 
 For example, to change a value in your application state when a button is clicked:
 
-```reflex
+```python eval
 docdemobox(
     eval(button_state2_render_code)
 )
@@ -300,7 +301,7 @@ Reflex provides a default setter event_handler for every base var which can be a
 
 Here’s another example that creates two buttons to increase and decrease a count value:
 
-```reflex
+```python eval
 docdemobox(
     eval(button_state_example)
 )
@@ -334,13 +335,13 @@ layout for your button arrangements.
 
 ## Stack Buttons Vertically:
 
-```reflex
+```python eval
 docdemo(stack_buttons_vertical)
 ```
 
 ## Stack Buttons Horizontally:
 
-```reflex
+```python eval
 docdemo(stack_buttons_horizontal)
 ```
 With the `stack` component, you can easily create both vertical and horizontal button arrangements.
@@ -351,10 +352,10 @@ The `ButtonGroup` component is designed specifically for grouping buttons. It al
 - Add `spacing` between the buttons.
 - Flush the buttons together by removing the border radius of their children as needed.
 
-```reflex
+```python eval
 docdemo(button_group)
 ```
-```reflex
+```python eval
 rx.alert(
     icon=True,
     title=rx.text(

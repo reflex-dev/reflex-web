@@ -1,4 +1,5 @@
----
+```python exec
+import reflex as rx
 from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
@@ -188,7 +189,8 @@ class State(rx.State):
 
 """  
 )
----
+```
+
 # Pages
 Pages in Reflex allow you to define components for different URLs. This section covers creating pages, handling URL 
 arguments, accessing query parameters, managing page metadata, and handling page load events.
@@ -198,7 +200,7 @@ You can create a page by defining a function that returns a component.
 By default, the function name will be used as the route, but you can also specify a route.
 
 ```python
-  {route.strip()}
+{route.strip()}
 ```
 
 In this example we create three pages: 
@@ -216,7 +218,7 @@ You can also use the `@rx.page` decorator to add a page.
 This is equivalent to calling `app.add_page` with the same arguments.
 
 
-```reflex
+```python eval
 rx.alert(
     icon=True,
     title=rx.text(
@@ -268,7 +270,7 @@ Example:
 Optional catch-all routes allow matching URLs with or without specific segments. 
 Each optional catch-all pattern should be independent and not nested within another catch-all pattern.
 
-```reflex
+```python eval
 rx.alert(
     icon=True,
     title=rx.text(
