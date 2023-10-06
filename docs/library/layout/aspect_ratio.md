@@ -7,7 +7,6 @@ Preserve the ratio of the components contained within a region.
 
 ```python exec
 image_example = rx.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")
-print(image_example)
 ```
 
 ```python eval
