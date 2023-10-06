@@ -99,7 +99,7 @@ Our second example uses exactly the same data as our first example, except now w
 docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), data =  "data=" + str(data))
 ```
 
-## Updating Data
+## Dynamic Data and Style
 
 ```python exec
 initial_data = data
@@ -107,23 +107,25 @@ initial_data = data
 
 class LineChartState(State):
     data: list[dict[str, Any]] = initial_data
+    pv_type: str = "monotone"
+    uv_type: str = "monotone"
 
     def munge_data(self):
         for row in self.data:
-            row["uv"] += random.randint(-100, 100)
-            row["pv"] += random.randint(-500, 500)
+            row["uv"] += random.randint(-500, 500)
+            row["pv"] += random.randint(-1000, 1000)
 
 
-line_chart_state_example = """rx.fragment(
+line_chart_state_example = """rx.vstack(
                 rx.line_chart(
                     rx.line(
                         data_key="pv",
-                        type_="monotone",
+                        type_=LineChartState.pv_type,
                         stroke="#8884d8",
                     ),
                     rx.line(
                         data_key="uv",
-                        type_="monotone",
+                        type_=LineChartState.uv_type,
                         stroke="#82ca9d",
                     ), 
                     rx.x_axis(data_key="name"), 
@@ -131,12 +133,26 @@ line_chart_state_example = """rx.fragment(
                     data=LineChartState.data,
                 ),
                 rx.button("Munge Data", on_click=LineChartState.munge_data),
+                rx.select(
+                    ["monotone", "linear", "step", "stepBefore", "stepAfter"],
+                    value=LineChartState.pv_type,
+                    on_change=LineChartState.set_pv_type
+                ),
+                rx.select(
+                    ["monotone", "linear", "step", "stepBefore", "stepAfter"],
+                    value=LineChartState.uv_type,
+                    on_change=LineChartState.set_uv_type
+                ),
+                height="15em",
+                width="100%",
             )"""
 ```
 
-Chart data can also be modified by tying the data prop to a State var. In the following
-example the "Munge Data" button can be used to randomly modify the data. Since the data 
-is saved in the per-browser-tab State, the changes will not be visible to other visitors.
+Chart data can be modified by tying the `data` prop to a State var. Most other
+props, such as `type_`, can be controlled dynamically as well. In the following
+example the "Munge Data" button can be used to randomly modify the data, and the
+two `select` elements change the line `type_`. Since the data and style is saved
+in the per-browser-tab State, the changes will not be visible to other visitors.
 
 ```python eval
 docgraphing(
