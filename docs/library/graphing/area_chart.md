@@ -154,7 +154,7 @@ range_area_chart = """rx.recharts.area_chart(
 
 An area chart combines the line chart and bar chart to show how one or more groups’ numeric values change over the progression of a second variable, typically that of time. An area chart is distinguished from a line chart by the addition of shading between lines and a baseline, like in a bar chart.
 
-For an area chart we must define an `rx.area()` component that has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we track `uv` against `name` and therefore set the `rx.x_axis` to equal `name`.
+For an area chart we must define an `rx.recharts.area()` component that has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we track `uv` against `name` and therefore set the `rx.recharts.x_axis` to equal `name`.
 
 ```python eval
 docgraphing(
@@ -174,7 +174,7 @@ docgraphing(
 )
 ```
 
-You can also assign a range in the area by assiging the data_key in the `rx.area` to a list with two elements, i.e. here a range of two temperatures for each date.
+You can also assign a range in the area by assiging the data_key in the `rx.recharts.area` to a list with two elements, i.e. here a range of two temperatures for each date.
 
 ```python eval
 docgraphing(
