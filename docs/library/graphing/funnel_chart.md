@@ -1,6 +1,8 @@
 ```python exec
 import reflex as rx
+from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
+import random
 
 data = [
   {
@@ -30,6 +32,20 @@ data = [
   }
 ]
 
+funnel_chart_state = """class FunnelState(State):
+    data=data
+
+    def randomize_data(self):
+        self.data[0]["value"] = 100
+        for i in range(len(self.data)-1):
+            self.data[i+1]["value"] = self.data[i]["value"] - random.randint(0, 20)
+            
+
+
+
+"""
+exec(funnel_chart_state)
+
 funnel_chart_example = """rx.funnel_chart(
                 rx.funnel(
                     rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
@@ -39,6 +55,18 @@ funnel_chart_example = """rx.funnel_chart(
                 rx.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
+
+funnel_chart_example_with_state = """rx.funnel_chart(
+                rx.funnel(
+                    rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
+                    data_key="value",
+                    data=FunnelState.data,
+                    on_click=FunnelState.randomize_data,
+                ),
+                rx.graphing_tooltip(), 
+                width=1000, 
+                height=250)"""
+
 ```
 
 A funnel chart is a graphical representation used to visualize how data moves through a process. In a funnel chart, the dependent variable’s value diminishes in the subsequent stages of the process. It can be used to demonstrate the flow of users through for example a business or sales process.
@@ -49,5 +77,15 @@ docgraphing(
   funnel_chart_example, 
   comp = eval(funnel_chart_example),
   data =  "data=" + str(data)
+)
+```
+
+Here is an example of a funnel chart with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data when the graph is clicked on using `on_click=FunnelState.randomize_data`.
+
+```python eval
+docdemo(funnel_chart_example_with_state,
+        state=funnel_chart_state,
+        comp=eval(funnel_chart_example_with_state),
+        context=True,
 )
 ```

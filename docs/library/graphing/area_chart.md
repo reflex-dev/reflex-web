@@ -1,6 +1,8 @@
 ```python exec
 import reflex as rx
+from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
+import random
 
 data = [
   {
@@ -114,6 +116,19 @@ range_data = [
 ]
 
 
+area_chart_state = """class AreaState(State):
+    data=data
+
+    def randomize_data(self):
+        for i in range(len(self.data)):
+            self.data[i]["uv"] = random.randint(0, 10000)
+            self.data[i]["pv"] = random.randint(0, 10000)
+            self.data[i]["amt"] = random.randint(0, 10000)
+
+
+"""
+exec(area_chart_state)
+
 
 area_chart_example = """rx.area_chart(
                 rx.area(
@@ -150,6 +165,37 @@ range_area_chart = """rx.area_chart(
                 rx.x_axis(data_key="day"), 
                 rx.y_axis(),
                 data=range_data)"""
+
+
+area_chart_example_with_state = """rx.area_chart(
+            rx.area(
+                data_key="uv",
+                stroke="#8884d8",
+                fill="#8884d8",
+                type_="natural",
+                on_click=AreaState.randomize_data,
+
+            ),
+            rx.area(
+                data_key="pv",
+                stroke="#82ca9d", 
+                fill="#82ca9d",
+                type_="natural",
+            ),
+            rx.x_axis(
+                data_key="name",
+            ),
+            rx.y_axis(), 
+            rx.legend(),
+            rx.cartesian_grid(
+                stroke_dasharray="3 3",
+            ),
+            data=AreaState.data,
+            width="100%",
+            height=400,
+        ) 
+"""
+
 ```
 
 An area chart combines the line chart and bar chart to show how one or more groups’ numeric values change over the progression of a second variable, typically that of time. An area chart is distinguished from a line chart by the addition of shading between lines and a baseline, like in a bar chart.
@@ -181,5 +227,15 @@ docgraphing(
   area_chart_example_2, 
   comp = eval(range_area_chart),
   data =  "data=" + str(range_data)
+)
+```
+
+Here is an example of an area graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `area` is clicked on using `on_click=AreaState.randomize_data`.
+
+```python eval
+docdemo(area_chart_example_with_state,
+        state=area_chart_state,
+        comp=eval(area_chart_example_with_state),
+        context=True,
 )
 ```
