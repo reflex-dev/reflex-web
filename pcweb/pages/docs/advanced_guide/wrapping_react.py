@@ -57,6 +57,7 @@ code6 = """
 class AnotherColorPicker(rx.Component):
     library = "some-other-colorpicker"
     tag = "HexColorPicker"
+    alias = "OtherHexColorPicker"
     color: rx.Var[str]
 
     def get_event_triggers(self) -> dict[str, Any]:
@@ -64,10 +65,6 @@ class AnotherColorPicker(rx.Component):
             **super().get_event_triggers(),
             "on_change": lambda e0: [e0]
         }
-
-    @classmethod
-    def get_alias(cls) -> Optional[str]:
-        return "OtherHexColorPicker"
 """
 
 custom_component_js_code = """export function Welcome(props) {
