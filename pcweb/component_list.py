@@ -10,6 +10,7 @@ forms_list = [
     [rx.ButtonGroup],
     [rx.Checkbox],
     [rx.Editable, rx.EditableInput, rx.EditableTextarea, rx.EditablePreview],
+    [rx.Editor],
     [rx.Input],
     [
         rx.NumberInput,

@@ -277,6 +277,27 @@ EVENTS = {
     "on_unmount": {
         "description": "The on_unmount event handler is called when the component is removed from the page. This handler is only called during navigation, not when the page is refreshed."
     },
+    "on_input": {
+        "description": "The on_input event handler is called when the editor receives input from the user. It receives the raw browser event as an argument.",
+    },
+    "on_resize_editor": {
+        "description": "The on_resize_editor event handler is called when the editor is resized. It receives the height and previous height as arguments.",
+    },
+    "on_copy": {
+        "description": "The on_copy event handler is called when the user copies text from the editor. It receives the clipboard data as an argument.",
+    },
+    "on_cut": {
+        "description": "The on_cut event handler is called when the user cuts text from the editor. It receives the clipboard data as an argument.",
+    },
+    "on_paste": {
+        "description": "The on_paste event handler is called when the user pastes text into the editor. It receives the clipboard data and max character count as arguments.",
+    },
+    "toggle_code_view": {
+        "description": "The toggle_code_view event handler is called when the user toggles code view. It receives a boolean whether code view is active.",
+    },
+    "toggle_full_screen": {
+        "description": "The toggle_full_screen event handler is called when the user toggles full screen. It receives a boolean whether full screen is active.",
+    },
 }
 
 
