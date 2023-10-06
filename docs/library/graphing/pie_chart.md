@@ -104,3 +104,81 @@ We can also add two pies on one chart by using two `rx.pie` components.
 ```python eval
 docgraphing(pie_chart_complex_example, comp=eval(pie_chart_complex_example),  data =  "data01=" + str(data01) + "&data02=" + str(data02))
 ```
+
+# Dynamic Data
+
+Chart data tied to a State var causes the chart to automatically update when the
+state changes, providing a nice way to visualize data in response to user
+interface elements. View the "Data" tab to see the substate driving this
+half-pie chart.
+
+```python exec
+import inspect
+from typing import Any
+
+from pcweb.base_state import State
+
+
+class PieChartState(State):
+    resources: list[dict[str, Any]] = [
+        dict(type_="🏆", count=1),
+        dict(type_="🪵", count=1),
+        dict(type_="🥑", count=1),
+        dict(type_="🧱", count=1),
+    ]
+
+    @rx.cached_var
+    def resource_types(self) -> list[str]:
+        return [r["type_"] for r in self.resources]
+
+    def increment(self, type_: str):
+        for resource in self.resources:
+            if resource["type_"] == type_:
+                resource["count"] += 1
+                break
+
+    def decrement(self, type_: str):
+        for resource in self.resources:
+            if resource["type_"] == type_ and resource["count"] > 0:
+                resource["count"] -= 1
+                break
+
+
+pie_chart_state_example = """
+rx.hstack(
+    rx.pie_chart(
+        rx.pie(
+            data=PieChartState.resources,
+            data_key="count",
+            name_key="type_",
+            cx="50%",
+            cy="50%",
+            start_angle=180,
+            end_angle=0,
+            fill="#8884d8",
+            label=True,
+        ),
+        rx.graphing_tooltip(),
+    ),
+    rx.vstack(
+        rx.foreach(
+            PieChartState.resource_types,
+            lambda type_, i: rx.hstack(
+                rx.button("-", on_click=PieChartState.decrement(type_)),
+                rx.text(type_, PieChartState.resources[i]["count"]),
+                rx.button("+", on_click=PieChartState.increment(type_)),
+            ),
+        ),
+    ),
+    width="100%",
+    height="15em",
+)"""
+```
+
+```python eval
+docgraphing(
+    pie_chart_state_example,
+    comp=eval(pie_chart_state_example),
+    data=inspect.getsource(PieChartState).replace("(State)", "(rx.State)"),
+)
+```
