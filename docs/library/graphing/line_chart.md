@@ -156,8 +156,8 @@ in the per-browser-tab State, the changes will not be visible to other visitors.
 
 ```python eval
 docgraphing(
-    inspect.getsource(LineChartState).replace("(State)", "(rx.State)") + f"\n\n{line_chart_state_example}",
+    line_chart_state_example,
     comp=eval(line_chart_state_example),
-    data="initial_data=" + str(data),
+    data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState).replace("(State)", "(rx.State)"),
 )
 ```
