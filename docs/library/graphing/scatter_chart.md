@@ -111,3 +111,65 @@ We can also add two scatters on one chart by using two `rx.scatter()` components
 ```python eval
 docgraphing(scatter_chart_simple_complex, comp=eval(scatter_chart_simple_complex), data =  "data01=" + str(data01) + "&data02=" + str(data02))
 ```
+
+# Dynamic Data
+
+
+Chart data tied to a State var causes the chart to automatically update when the
+state changes, providing a nice way to visualize data in response to user
+interface elements. View the "Data" tab to see the substate driving this
+calculation of iterations in the Collatz Conjecture for a given starting number.
+Enter a starting number in the box below the chart to recalculate.
+
+```python exec
+import inspect
+
+from pcweb.base_state import State
+
+
+class ScatterChartState(State):
+    data: list[dict[str, int]] = []
+
+    def compute_collatz(self, form_data: dict) -> int:
+        n = int(form_data["start"])
+        yield rx.set_value("start", "")
+        self.data = []
+        for ix in range(400):
+            self.data.append({"x": ix, "y": n})
+            if n == 1:
+                break
+            if n % 2 == 0:
+                n = n // 2
+            else:
+                n = 3 * n + 1
+
+
+scatter_chart_state_example = """
+rx.vstack(
+    rx.scatter_chart(
+        rx.scatter(
+            data=ScatterChartState.data,
+            fill="#8884d8",
+        ),
+        rx.x_axis(data_key="x", type_="number"),
+        rx.y_axis(data_key="y", type_="number"),
+    ),
+    rx.form(
+        rx.input(placeholder="Enter a number", id="start"),
+        rx.button("Compute", type_="submit"),
+        on_submit=ScatterChartState.compute_collatz,
+    ),
+    width="100%",
+    height="15em",
+    on_mount=ScatterChartState.compute_collatz({"start": "15"}),
+)
+"""
+```
+
+```python eval
+docgraphing(
+    scatter_chart_state_example,
+    comp=eval(scatter_chart_state_example),
+    data=inspect.getsource(ScatterChartState).replace("(State)", "(rx.State)"),
+)
+```
