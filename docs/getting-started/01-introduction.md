@@ -1,9 +1,9 @@
----
+```python exec
 from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 from pcweb.pages.docs.getting_started.introduction import CounterExampleState, counter_code
----
+```
 
 # Introduction
 
@@ -28,7 +28,7 @@ Reflex is easy to get started with, but powerful enough for advanced use cases.
 
 Build anything from small data science apps to large, multi-page websites.
 
-```reflex
+```python eval
 rx.text(
     "This entire site was built and deployed with Reflex!",
     color=styles.ACCENT_COLOR_DARK,
@@ -43,7 +43,7 @@ No need to reach for a bunch of different tools. Reflex handles the frontend, ba
 
 Let's go over a simple counter app to explore the basics of Reflex.
 
-```reflex
+```python eval
 docdemobox(
     rx.hstack(
         rx.button(

@@ -1,9 +1,6 @@
-import reflex as rx
-from pcweb import flexdown
+from pcweb.flexdown import component_map
+import flexdown
 
 
 def render_buttongroup():
-    _, output = flexdown.read("docs/library/forms/button_group.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/library/forms/button_group.md", component_map=component_map)

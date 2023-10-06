@@ -1,12 +1,8 @@
-import reflex as rx
-
 from pcweb.templates.docpage import docpage
-from pcweb import flexdown
+from pcweb.flexdown import component_map
+import flexdown
+
 
 @docpage()
 def pages():
-    # Get the file.
-    _, output = flexdown.read("docs/components/pages.md")
-    return rx.box(
-        *output,
-    )
+    return flexdown.render_file("docs/components/pages.md", component_map=component_map)
