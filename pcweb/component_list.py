@@ -193,6 +193,7 @@ graphing_list = [
     [rx.recharts.Legend],
     [rx.recharts.Label, rx.recharts.LabelList],
     [rx.recharts.GraphingTooltip],
+    [rx.Plotly],
 ]  
  
 # Other 
