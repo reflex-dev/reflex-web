@@ -167,8 +167,8 @@ range_area_chart = """rx.recharts.area_chart(
                 data=range_data)"""
 
 
-area_chart_example_with_state = """rx.area_chart(
-            rx.area(
+area_chart_example_with_state = """rx.recharts.area_chart(
+            rx.recharts.area(
                 data_key="uv",
                 stroke="#8884d8",
                 fill="#8884d8",
@@ -176,18 +176,18 @@ area_chart_example_with_state = """rx.area_chart(
                 on_click=AreaState.randomize_data,
 
             ),
-            rx.area(
+            rx.recharts.area(
                 data_key="pv",
                 stroke="#82ca9d", 
                 fill="#82ca9d",
                 type_="natural",
             ),
-            rx.x_axis(
+            rx.recharts.x_axis(
                 data_key="name",
             ),
-            rx.y_axis(), 
-            rx.legend(),
-            rx.cartesian_grid(
+            rx.recharts.y_axis(), 
+            rx.recharts.legend(),
+            rx.recharts.cartesian_grid(
                 stroke_dasharray="3 3",
             ),
             data=AreaState.data,

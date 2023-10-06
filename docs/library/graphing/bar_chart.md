@@ -164,8 +164,8 @@ range_bar_chart = """rx.recharts.bar_chart(
                 rx.recharts.y_axis(),
                 data=range_data)"""
 
-bar_chart_example_with_state = """rx.bar_chart(
-            rx.bar(
+bar_chart_example_with_state = """rx.recharts.bar_chart(
+            rx.recharts.bar(
                 data_key="uv",
                 stroke="#8884d8",
                 fill="#8884d8",
@@ -173,18 +173,18 @@ bar_chart_example_with_state = """rx.bar_chart(
                 on_click=BarState.randomize_data,
 
             ),
-            rx.bar(
+            rx.recharts.bar(
                 data_key="pv",
                 stroke="#82ca9d", 
                 fill="#82ca9d",
                 type_="natural",
             ),
-            rx.x_axis(
+            rx.recharts.x_axis(
                 data_key="name",
             ),
-            rx.y_axis(), 
-            rx.legend(),
-            rx.cartesian_grid(
+            rx.recharts.y_axis(), 
+            rx.recharts.legend(),
+            rx.recharts.cartesian_grid(
                 stroke_dasharray="3 3",
             ),
             data=BarState.data,
