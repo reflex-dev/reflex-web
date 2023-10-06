@@ -146,13 +146,13 @@ class ScatterChartState(State):
 
 scatter_chart_state_example = """
 rx.vstack(
-    rx.scatter_chart(
-        rx.scatter(
+    rx.recharts.scatter_chart(
+        rx.recharts.scatter(
             data=ScatterChartState.data,
             fill="#8884d8",
         ),
-        rx.x_axis(data_key="x", type_="number"),
-        rx.y_axis(data_key="y", type_="number"),
+        rx.recharts.x_axis(data_key="x", type_="number"),
+        rx.recharts.y_axis(data_key="y", type_="number"),
     ),
     rx.form(
         rx.input(placeholder="Enter a number", id="start"),
