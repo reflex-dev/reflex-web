@@ -49,30 +49,30 @@ data = [
 
 
 
-brush_example = """rx.bar_chart(
-                rx.bar(
-                    rx.label_list(data_key="uv", position="top"),
+brush_example = """rx.recharts.bar_chart(
+                rx.recharts.bar(
+                    rx.recharts.label_list(data_key="uv", position="top"),
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                     
                 ), 
-                rx.bar(
-                    rx.label_list(data_key="pv", position="top"),
+                rx.recharts.bar(
+                    rx.recharts.label_list(data_key="pv", position="top"),
                     data_key="pv",
                     stroke="#82ca9d",
                     fill="#82ca9d" 
                 ), 
-                rx.x_axis(
+                rx.recharts.x_axis(
                     data_key="name"
                 ), 
-                rx.y_axis(),
+                rx.recharts.y_axis(),
                 margin={"left": 10, "right": 0, "top": 20, "bottom": 10},
 
                 data=data)"""
 ```
 
-`rx.label`and `rx.label_list` add in labels to the graphs. `rx.label_list` takes in a `data_key` where we define the data column to plot.
+`rx.recharts.label`and `rx.recharts.label_list` add in labels to the graphs. `rx.recharts.label_list` takes in a `data_key` where we define the data column to plot.
 
 ```python eval
 docgraphing(

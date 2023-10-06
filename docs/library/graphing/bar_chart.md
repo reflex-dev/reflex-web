@@ -128,40 +128,40 @@ bar_chart_state = """class BarState(State):
 """
 exec(bar_chart_state)
 
-bar_chart_example = """rx.bar_chart(
-                rx.bar(
+bar_chart_example = """rx.recharts.bar_chart(
+                rx.recharts.bar(
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
                 data=data)"""
 
-bar_chart_example_2 = """rx.bar_chart(
-                rx.bar(
+bar_chart_example_2 = """rx.recharts.bar_chart(
+                rx.recharts.bar(
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.bar(
+                rx.recharts.bar(
                     data_key="pv",
                     stroke="#82ca9d",
                     fill="#82ca9d"
                 ), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
                 data=data)"""
 
 
-range_bar_chart = """rx.bar_chart(
-                rx.bar(
+range_bar_chart = """rx.recharts.bar_chart(
+                rx.recharts.bar(
                     data_key="temperature",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.x_axis(data_key="day"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="day"), 
+                rx.recharts.y_axis(),
                 data=range_data)"""
 
 bar_chart_example_with_state = """rx.bar_chart(
@@ -197,7 +197,7 @@ bar_chart_example_with_state = """rx.bar_chart(
 
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
 
-For a bar chart we must define an `rx.bar()` component for each set of values we wish to plot. Each `rx.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.x_axis`.
+For a bar chart we must define an `rx.recharts.bar()` component for each set of values we wish to plot. Each `rx.recharts.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
 
 
 ```python eval
@@ -208,7 +208,7 @@ docgraphing(
 )
 ```
 
-Multiple bars can be placed on the same `bar_chart`, using multiple `rx.bar()` components.
+Multiple bars can be placed on the same `bar_chart`, using multiple `rx.recharts.bar()` components.
 
 ```python eval
 docgraphing(
@@ -218,7 +218,7 @@ docgraphing(
 )
 ```
 
-You can also assign a range in the bar by assiging the data_key in the `rx.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
+You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
 ```python eval
 docgraphing(

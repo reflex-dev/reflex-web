@@ -76,15 +76,15 @@ data = [
 ]
 
 
-scatter_chart_simple_example = """rx.scatter_chart(
-                rx.scatter(
+scatter_chart_simple_example = """rx.recharts.scatter_chart(
+                rx.recharts.scatter(
                     data=data,
                     fill="#8884d8",
                     name="A"),
-                rx.reference_area(x1= 150, x2=180, y1=150, y2=300, fill="#8884d8", fill_opacity=0.3),
-                rx.x_axis(data_key="x", name="x", type_="number"), 
-                rx.y_axis(data_key="y", name="y", type_="number"),
-                rx.graphing_tooltip(),
+                rx.recharts.reference_area(x1= 150, x2=180, y1=150, y2=300, fill="#8884d8", fill_opacity=0.3),
+                rx.recharts.x_axis(data_key="x", name="x", type_="number"), 
+                rx.recharts.y_axis(data_key="y", name="y", type_="number"),
+                rx.recharts.graphing_tooltip(),
                 )"""
 ```
 

@@ -55,8 +55,8 @@ data02 = [
   }
 ]
 
-pie_chart_simple_example = """rx.pie_chart(
-                rx.pie(
+pie_chart_simple_example = """rx.recharts.pie_chart(
+                rx.recharts.pie(
                     data=data01,
                     data_key="value",
                     name_key="name",
@@ -67,8 +67,8 @@ pie_chart_simple_example = """rx.pie_chart(
                     )
                     )"""
 
-pie_chart_complex_example = """rx.pie_chart(
-                  rx.pie(
+pie_chart_complex_example = """rx.recharts.pie_chart(
+                  rx.recharts.pie(
                     data=data01,
                     data_key="value",
                     name_key="name",
@@ -77,7 +77,7 @@ pie_chart_complex_example = """rx.pie_chart(
                     fill="#82ca9d",
                     inner_radius="60%",
                     ),
-                    rx.pie(
+                    rx.recharts.pie(
                     data=data02,
                     data_key="value",
                     name_key="name",
@@ -86,20 +86,20 @@ pie_chart_complex_example = """rx.pie_chart(
                     fill="#8884d8",
                     outer_radius="50%",
                     ),
-                    rx.graphing_tooltip(),
+                    rx.recharts.graphing_tooltip(),
                     )"""
 
 ```
 
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
 
-For a pie chart we must define an `rx.pie()` component for each set of values we wish to plot. Each `rx.pie()` component has a `data`, a `data_key` and a `name_key` which clearly states which data and which variables in our data we are tracking. In this simple example we plot `value` column as our `data_key` against the `name` column which we set as our `name_key`.
+For a pie chart we must define an `rx.recharts.pie()` component for each set of values we wish to plot. Each `rx.recharts.pie()` component has a `data`, a `data_key` and a `name_key` which clearly states which data and which variables in our data we are tracking. In this simple example we plot `value` column as our `data_key` against the `name` column which we set as our `name_key`.
 
 ```python eval
 docgraphing(pie_chart_simple_example, comp=eval(pie_chart_simple_example),  data =  "data01=" + str(data01))
 ```
 
-We can also add two pies on one chart by using two `rx.pie` components.
+We can also add two pies on one chart by using two `rx.recharts.pie` components.
 
 ```python eval
 docgraphing(pie_chart_complex_example, comp=eval(pie_chart_complex_example),  data =  "data01=" + str(data01) + "&data02=" + str(data02))
@@ -146,8 +146,8 @@ class PieChartState(State):
 
 pie_chart_state_example = """
 rx.hstack(
-    rx.pie_chart(
-        rx.pie(
+    rx.recharts.pie_chart(
+        rx.recharts.pie(
             data=PieChartState.resources,
             data_key="count",
             name_key="type_",
@@ -158,7 +158,7 @@ rx.hstack(
             fill="#8884d8",
             label=True,
         ),
-        rx.graphing_tooltip(),
+        rx.recharts.graphing_tooltip(),
     ),
     rx.vstack(
         rx.foreach(

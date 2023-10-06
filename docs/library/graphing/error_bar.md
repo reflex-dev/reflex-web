@@ -77,17 +77,17 @@ data = [
 
 
 
-scatter_chart_simple_example = """rx.scatter_chart(
-                rx.scatter(
-                    rx.error_bar(data_key="errorY", direction="y", width=4, stroke_width=2, stroke="red"),
-                    rx.error_bar(data_key="errorX", direction="x", width=4, stroke_width=2),
+scatter_chart_simple_example = """rx.recharts.scatter_chart(
+                rx.recharts.scatter(
+                    rx.recharts.error_bar(data_key="errorY", direction="y", width=4, stroke_width=2, stroke="red"),
+                    rx.recharts.error_bar(data_key="errorX", direction="x", width=4, stroke_width=2),
                     data=data,
                     fill="#8884d8",
                     name="A"),
-                rx.x_axis(data_key="x", name="x"), 
-                rx.y_axis(data_key="y", name="y"),
-                rx.graphing_tooltip(),
-                rx.legend(),
+                rx.recharts.x_axis(data_key="x", name="x"), 
+                rx.recharts.y_axis(data_key="y", name="y"),
+                rx.recharts.graphing_tooltip(),
+                rx.recharts.legend(),
                 )"""
 ```
 

@@ -346,8 +346,8 @@ data = [
 ]
 
 
-treemap_example = """rx.treemap(
-                rx.graphing_tooltip(),
+treemap_example = """rx.recharts.treemap(
+                rx.recharts.graphing_tooltip(),
                 data=data,
                 data_key="size",
                 stroke="#fff",

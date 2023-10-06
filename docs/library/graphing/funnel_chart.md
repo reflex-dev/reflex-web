@@ -32,27 +32,14 @@ data = [
   }
 ]
 
-funnel_chart_state = """class FunnelState(State):
-    data=data
-
-    def randomize_data(self):
-        self.data[0]["value"] = 100
-        for i in range(len(self.data)-1):
-            self.data[i+1]["value"] = self.data[i]["value"] - random.randint(0, 20)
-            
-
-
-
-"""
-exec(funnel_chart_state)
-
-funnel_chart_example = """rx.funnel_chart(
-                rx.funnel(
+funnel_chart_example = """rx.recharts.funnel_chart(
+                rx.recharts.funnel(
+                    rx.recharts.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     data_key="value",
                     data=data
                 ),
-                rx.graphing_tooltip(), 
+                rx.recharts.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
 
