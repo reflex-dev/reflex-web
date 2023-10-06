@@ -30,13 +30,13 @@ data = [
   }
 ]
 
-funnel_chart_example = """rx.funnel_chart(
-                rx.funnel(
-                    rx.label_list(position="right", data_key="name", fill="#000", stroke="none"),
+funnel_chart_example = """rx.recharts.funnel_chart(
+                rx.recharts.funnel(
+                    rx.recharts.label_list(position="right", data_key="name", fill="#000", stroke="none"),
                     data_key="value",
                     data=data
                 ),
-                rx.graphing_tooltip(), 
+                rx.recharts.graphing_tooltip(), 
                 width=730, 
                 height=250)"""
 ```

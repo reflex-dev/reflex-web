@@ -115,40 +115,40 @@ range_data = [
 
 
 
-area_chart_example = """rx.area_chart(
-                rx.area(
+area_chart_example = """rx.recharts.area_chart(
+                rx.recharts.area(
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
                 data=data)"""
 
-area_chart_example_2 = """rx.area_chart(
-                rx.area(
+area_chart_example_2 = """rx.recharts.area_chart(
+                rx.recharts.area(
                     data_key="uv",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.area(
+                rx.recharts.area(
                     data_key="pv",
                     stroke="#82ca9d",
                     fill="#82ca9d"
                 ), 
-                rx.x_axis(data_key="name"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="name"), 
+                rx.recharts.y_axis(),
                 data=data)"""
 
 
-range_area_chart = """rx.area_chart(
-                rx.area(
+range_area_chart = """rx.recharts.area_chart(
+                rx.recharts.area(
                     data_key="temperature",
                     stroke="#8884d8",
                     fill="#8884d8"
                 ), 
-                rx.x_axis(data_key="day"), 
-                rx.y_axis(),
+                rx.recharts.x_axis(data_key="day"), 
+                rx.recharts.y_axis(),
                 data=range_data)"""
 ```
 
