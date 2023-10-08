@@ -65,7 +65,7 @@ def footer(style=footer_style):
                     ),
                     rx.link(
                         "Roadmap",
-                        href=constants.DISCORD_URL,
+                        href=constants.ROADMAP_URL,
                         style=footer_item_style,
                     ),
                     rx.link(
