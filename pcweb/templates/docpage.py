@@ -131,35 +131,11 @@ def code_block_dark(
     )
 
 
-class ClipboardState(State):
-    """State for the clipboard."""
-
-    # The copied text.
-    text: str = ""
-
-    def copy(self, text: str):
-        """Set the text to copy.
-
-        Args:
-            text: The text to copy.
-        """
-        self.text = text
-
-    async def reset_text(self):
-        """Reset the copied text."""
-        # Wait in order to show the toast.
-        await asyncio.sleep(2)
-
-        # Reset the text.
-        self.reset()
-        self.text = ""
-
-
 # Docpage styles.
 icon_style = {
-    "right": "1em",
-    "top": "1em",
-    "position": "absolute",
+    # "right": "1em",
+    # "top": "1em",
+    # "position": "absolute",
     "color": "gray",
     "width": "1.5em",
     "height": "1.5em",
@@ -434,8 +410,6 @@ def docheader2(
     text: str,
     first: bool = True,
     font_size: float = None,
-    coming_soon: bool = False,
-    divider: bool = True,
     **props,
 ) -> rx.Component:
     # Get the basic styles.
@@ -443,29 +417,20 @@ def docheader2(
     if font_size:
         style["fontSize"] = font_size
 
-    # Set the text.
-    children = [rx.heading(text, _as="h1", style=style, **props)]
-
-    # Add a badge if the header is coming soon.
-    if coming_soon:
-        children.append(
-            rx.badge(
-                "Coming Soon!",
-                bg=styles.ACCENT_COLOR,
-                color="white",
-            ),
-        )
-
-    # Add a divider if needed.
-    if divider:
-        children.append(rx.divider(margin_y="1em"))
-
     id_ = text[0].to_string(json=False).lower().split().join("-")
 
     # Return the header.
     return rx.box(
-        *children,
-        id=id_,
+        rx.hstack(
+            rx.heading(text, _as="h1", id=id_, style=style, **props),
+            rx.icon(
+                tag="link",
+                style=icon_style,
+                color=styles.ACCENT_COLOR,
+                on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+            ),
+        ),
+        rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
         font_weight=fw["heading"],
         width="100%",
