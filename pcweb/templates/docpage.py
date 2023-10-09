@@ -410,6 +410,7 @@ def docheader2(
     text: str,
     first: bool = True,
     font_size: float = None,
+    tag="h1",
     **props,
 ) -> rx.Component:
     # Get the basic styles.
@@ -422,7 +423,7 @@ def docheader2(
     # Return the header.
     return rx.box(
         rx.hstack(
-            rx.heading(text, _as="h1", id=id_, style=style, **props),
+            rx.heading(text, _as=tag, id=id_, style=style, **props),
             rx.icon(
                 tag="link",
                 style=icon_style,
@@ -497,6 +498,7 @@ def subheader2(
     return docheader2(
         text,
         first=False,
+        tag="h2",
         font_size=font_sizes[level],
         coming_soon=coming_soon,
         divider=divider,
@@ -524,6 +526,7 @@ def subheader3(
     return docheader2(
         text,
         first=False,
+        tag="h3",
         font_size=styles.H4_FONT_SIZE,
         coming_soon=coming_soon,
         divider=divider,
