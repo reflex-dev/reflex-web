@@ -1,7 +1,5 @@
-import reflex as rx
+from pcweb import flexdown
 from pcweb.base_state import State
-from pcweb.flexdown import component_map
-import flexdown
 
 
 class FormState(State):
@@ -14,6 +12,4 @@ class FormState(State):
 
 
 def render_form():
-    return flexdown.render_file(
-        "docs/library/forms/form.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/forms/form.md")

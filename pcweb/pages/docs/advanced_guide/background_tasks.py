@@ -3,10 +3,9 @@ import asyncio
 import httpx
 import reflex as rx
 
+from pcweb import flexdown
 from pcweb.base_state import State
 from pcweb.templates.docpage import docpage
-from pcweb.flexdown import component_map
-import flexdown
 
 
 my_task_state_code = """
@@ -142,6 +141,4 @@ app.compile()"""
 
 @docpage()
 def background_tasks():
-    return flexdown.render_file(
-        "docs/advanced-guide/01-background-tasks.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/advanced-guide/01-background-tasks.md")

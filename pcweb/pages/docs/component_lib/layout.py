@@ -1,30 +1,23 @@
 import reflex as rx
 
+from pcweb import flexdown
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
-from pcweb.flexdown import component_map
-import flexdown
 
 
 # Layout
 
 
 def render_aspectratio():
-    return flexdown.render_file(
-        "docs/library/layout/aspect_ratio.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/aspect_ratio.md")
 
 
 def render_box():
-    return flexdown.render_file(
-        "docs/library/layout/box.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/box.md")
 
 
 def render_card():
-    return flexdown.render_file(
-        "docs/library/layout/card.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/card.md")
 
 
 code51 = """rx.vstack(
@@ -110,57 +103,39 @@ def render_cond():
 
 
 def render_center():
-    return flexdown.render_file(
-        "docs/library/layout/center.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/center.md")
 
 
 def render_container():
-    return flexdown.render_file(
-        "docs/library/layout/container.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/container.md")
 
 
 def render_flex():
-    return flexdown.render_file(
-        "docs/library/layout/flex.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/flex.md")
 
 
 def render_fragment():
-    return flexdown.render_file(
-        "docs/library/layout/fragment.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/fragment.md")
 
 
 def render_grid():
-    return flexdown.render_file(
-        "docs/library/layout/grid.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/grid.md")
 
 
 def render_responsivegrid():
-    return flexdown.render_file(
-        "docs/library/layout/responsive_grid.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/responsive_grid.md")
 
 
 def render_spacer():
-    return flexdown.render_file(
-        "docs/library/layout/spacer.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/spacer.md")
 
 
 def render_stack():
-    return flexdown.render_file(
-        "docs/library/layout/stack.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/stack.md")
 
 
 def render_wrap():
-    return flexdown.render_file(
-        "docs/library/layout/wrap.md", component_map=component_map
-    )
+    return flexdown.render_file("docs/library/layout/wrap.md")
 
 
 basic_foreach_state = """from typing import List

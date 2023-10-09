@@ -1,4 +1,5 @@
 import reflex as rx
+import flexdown
 
 from pcweb.templates.docpage import (
     code_block2,
@@ -19,3 +20,7 @@ component_map = {
     "code": lambda source: rx.code(source, color="#1F1944", bg="#EAE4FD"),
     "codeblock": code_block2,
 }
+
+
+def render_file(path):
+    return flexdown.render_file(path, component_map=component_map)
