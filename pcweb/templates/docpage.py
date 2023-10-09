@@ -132,18 +132,6 @@ def code_block_dark(
 
 
 # Docpage styles.
-icon_style = {
-    # "right": "1em",
-    # "top": "1em",
-    # "position": "absolute",
-    # "color": "gray",
-    # "width": "1.5em",
-    # "height": "1.5em",
-    "_hover": {
-        "cursor": "pointer",
-        "color": styles.ACCENT_COLOR,
-    },
-}
 demo_box_style = {
     "bg": "rgba(255,255,255, 0.5)",
     "border_radius": "8px;",
@@ -371,18 +359,24 @@ def docheader(
 
     # Return the header.
     return rx.box(
-        rx.hstack(
-            rx.heading(text, id=id_, **props),
-            rx.box(
+        rx.link(
+            rx.hstack(
+                rx.heading(text, id=id_, **props),
                 rx.icon(
                     tag="link",
-                    style=icon_style,
                     color="#696287",
-                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_),
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
                 ),
+                margin_top="0em" if first else "1.5em",
+                align_items="center",
             ),
-            margin_top="0em" if first else "1.5em",
-            align_items="center",
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=State.current_page + "#" + id_,
         ),
         rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
@@ -401,18 +395,24 @@ def docheader2(
 
     # Return the header.
     return rx.box(
-        rx.hstack(
-            rx.heading(text, _as=tag, id=id_, **props),
-            rx.box(
+        rx.link(
+            rx.hstack(
+                rx.heading(text, id=id_, **props),
                 rx.icon(
                     tag="link",
-                    style=icon_style,
                     color="#696287",
-                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_),
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
                 ),
+                margin_top="0em" if first else "1.5em",
+                align_items="center",
             ),
-            margin_top="0em" if first else "1.5em",
-            align_items="center",
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=State.current_page + "#" + id_,
         ),
         rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
