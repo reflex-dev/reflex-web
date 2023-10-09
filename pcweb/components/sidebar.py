@@ -202,9 +202,6 @@ def get_sidebar_items_reference():
                 )
                 category_item_children.append(component_item)
 
-        print(
-            category_item_children
-        )
         category_item = SidebarItem(
             names=category,
             children=category_item_children
