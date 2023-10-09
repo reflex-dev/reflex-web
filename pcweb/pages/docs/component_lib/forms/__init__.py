@@ -4,6 +4,7 @@ from .button_group import *
 from .checkbox import *
 from .debounce import *
 from .editable import *
+from .editor import *
 from .formcontrol import *
 from .form import *
 from .input import *

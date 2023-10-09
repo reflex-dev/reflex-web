@@ -135,7 +135,7 @@ class Source(rx.Base):
         return out
 
 
-def generate_docs(title, s):
+def generate_docs(title: str, s: Source):
     return rx.box(
         docheader(title.title(), first=True),
         rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
