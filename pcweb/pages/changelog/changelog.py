@@ -1,6 +1,13 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader, doc_section
+from pcweb.templates.docpage import (
+    doccode,
+    docheader,
+    doclink,
+    doctext,
+    subheader,
+    doc_section,
+)
 from pcweb.templates.webpage import webpage
 from reflex import el
 
@@ -8,12 +15,18 @@ from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 from pcweb import constants
 
+
 def change(date, title, description, points, link):
     return rx.vstack(
         rx.vstack(
             rx.image(src="/changelog_icon.svg", width="5em", height="5em", opacity=1),
-            rx.heading("Reflex " + title, font_family=styles.MONO, font_size=styles.H3_FONT_SIZE, opacity=1),
-            background = "radial-gradient(55.39% 67.50% at 50.00% 0%, rgba(32, 17, 126, 0.05) 0%, rgba(255, 255, 255, 0.00) 100%);",
+            rx.heading(
+                "Reflex " + title,
+                font_family=styles.MONO,
+                font_size=styles.H3_FONT_SIZE,
+                opacity=1,
+            ),
+            background="radial-gradient(55.39% 67.50% at 50.00% 0%, rgba(32, 17, 126, 0.05) 0%, rgba(255, 255, 255, 0.00) 100%);",
             box_shadow=" 0px 8px 12px -4px rgba(3, 3, 11, 0.02), 0px 12px 8px 0px rgba(3, 3, 11, 0.04), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 1px rgba(52, 46, 92, 0.12);",
             align_items="center",
             width="100%",
@@ -22,18 +35,32 @@ def change(date, title, description, points, link):
         ),
         rx.text(description, color="#494369", font_family=styles.MONO),
         rx.unordered_list(
-            *[rx.list_item(d, font_size=".8em",color="#494369", font_family=styles.MONO) for d in points],
+            *[
+                rx.list_item(
+                    d, font_size=".8em", color="#494369", font_family=styles.MONO
+                )
+                for d in points
+            ],
             padding_left="1.5em",
         ),
         rx.hstack(
             rx.hstack(
                 rx.image(src="/icons/copy.svg", width="1em", height="1em"),
-                rx.text(title, font_size=styles.TEXT_FONT_SIZE, font_weight=styles.BOLD_WEIGHT),
+                rx.text(
+                    title,
+                    font_size=styles.TEXT_FONT_SIZE,
+                    font_weight=styles.BOLD_WEIGHT,
+                ),
                 padding_right="1em",
             ),
-            rx.divider(margin_x="1em" ),
+            rx.divider(margin_x="1em"),
             rx.link(
-                rx.button("Full changelog", rx.icon(tag="arrow_forward"), padding_x="2em", style=styles.BUTTON_LIGHT_NO_BACKGROUND),
+                rx.button(
+                    "Full changelog",
+                    rx.icon(tag="arrow_forward"),
+                    padding_x="2em",
+                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
+                ),
                 href=link,
             ),
             width="100%",
@@ -67,8 +94,7 @@ def changelog_content():
                 "Reduced initial package size by 60%",
                 "Client-side Storage integrated with State",
                 "Added on_mount and on_unmount triggers for all components",
-                "Per-component prop autocompletion for IDEs and breakpoints support"
-
+                "Per-component prop autocompletion for IDEs and breakpoints support",
             ],
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.7",
         ),
@@ -102,9 +128,7 @@ def changelog_display():
     return rx.container(
         rx.vstack(
             rx.box(
-                rx.heading(
-                    "Changelog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4
-                ),
+                rx.heading("Changelog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
                 rx.text(
                     "Keep up to date with the latest Reflex news.",
                     color=tc["docs"]["body"],
@@ -113,7 +137,7 @@ def changelog_display():
                     rx.span(
                         "Reflex has new releases and features coming every week! Make sure to star and watch on ",
                         rx.link("GitHub", href=constants.GITHUB_URL),
-                        " to stay up to date.", 
+                        " to stay up to date.",
                         color="#494369",
                     ),
                     bg="#FAF8FB",
@@ -128,7 +152,7 @@ def changelog_display():
                 changelog_content(),
                 text_align="left",
                 width="100%",
-                spacing="2em"
+                spacing="2em",
             ),
             align_items="stretch",
             min_height="80vh",

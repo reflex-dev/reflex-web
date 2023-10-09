@@ -52,7 +52,6 @@ paths = flexdown.utils.get_flexdown_files(PAGES_PATH)
 blogs = get_blog_data(paths)
 
 
-
 class Gallery(rx.Model):
     name: str
     date: str
@@ -166,6 +165,4 @@ def rebrand():
 
 @webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
-    return page(blogs[
-        "blog/2023-09-28-unlocking-new-workflows-with-background-tasks"
-    ])
+    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"])

@@ -13,6 +13,7 @@ try:
 except ImportError:
     client = None
 
+
 def shorten_to_k(number):
     if number >= 1000:
         return "{:.0f}k+".format(number / 1000)
@@ -221,18 +222,20 @@ def format_search_results(result):
         width="100%",
     )
 
+
 def ai_button():
     return rx.center(
-            rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
-            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-            display=["none", "none", "none", "flex", "flex", "flex"],
-            height="2em",
-            width="6.5em",
-            border_radius="8px",
-            bg="#FFFFFF",
-            style=hover_button_style,
-            on_click=NavbarState.toggle_ai_chat, 
-        )
+        rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
+        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        display=["none", "none", "none", "flex", "flex", "flex"],
+        height="2em",
+        width="6.5em",
+        border_radius="8px",
+        bg="#FFFFFF",
+        style=hover_button_style,
+        on_click=NavbarState.toggle_ai_chat,
+    )
+
 
 def search_modal():
     return rx.modal(
@@ -256,19 +259,19 @@ def search_modal():
                         ),
                         rx.divider(),
                         rx.cond(
-                        NavbarState.ai_chat,
-                        rx.vstack(
-                            rx.foreach(
-                                NavbarState.search_results,
-                                format_search_results,
+                            NavbarState.ai_chat,
+                            rx.vstack(
+                                rx.foreach(
+                                    NavbarState.search_results,
+                                    format_search_results,
+                                ),
+                                spacing="1em",
+                                width="100%",
+                                max_height="30em",
+                                align_items="start",
+                                overflow_y="auto",
                             ),
-                            spacing="1em",
-                            width="100%",
-                            max_height="30em",
-                            align_items="start",
-                            overflow_y="auto",
-                        ),
-                        inkeep(),
+                            inkeep(),
                         ),
                     )
                 ),

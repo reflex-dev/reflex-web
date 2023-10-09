@@ -142,4 +142,6 @@ app.compile()"""
 
 @docpage()
 def background_tasks():
-    return flexdown.render_file("docs/advanced-guide/01-background-tasks.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/advanced-guide/01-background-tasks.md", component_map=component_map
+    )

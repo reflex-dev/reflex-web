@@ -47,20 +47,21 @@ def code_block(
         margin_bottom="1em",
         width="100%",
     )
-   
+
+
 def code_block2(*_, **props):
     return rx.code_block(
-                border_radius=styles.DOC_BORDER_RADIUS,
-                border="2px solid #F4F3F6",
-                theme="light",
-                background="transparent",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-                **props,
-            )
+        border_radius=styles.DOC_BORDER_RADIUS,
+        border="2px solid #F4F3F6",
+        theme="light",
+        background="transparent",
+        code_tag_props={
+            "style": {
+                "fontFamily": "inherit",
+            }
+        },
+        **props,
+    )
     return rx.box(
         rx.box(
             rx.code_block(
@@ -81,8 +82,9 @@ def code_block2(*_, **props):
         margin_bottom="1em",
         width="100%",
     )
-   
-@rx.memo 
+
+
+@rx.memo
 def code_block_dark(
     code: str,
     language: str,
@@ -127,8 +129,8 @@ def code_block_dark(
         margin_bottom="1em",
         width="100%",
     )
-            
-             
+
+
 class ClipboardState(State):
     """State for the clipboard."""
 
@@ -151,8 +153,8 @@ class ClipboardState(State):
         # Reset the text.
         self.reset()
         self.text = ""
-   
-   
+
+
 # Docpage styles.
 icon_style = {
     "right": "1em",
@@ -372,6 +374,7 @@ def divider_comp() -> rx.Component:
         margin_top="0.5em",
     )
 
+
 def docheader(
     text: str,
     first: bool = False,
@@ -510,6 +513,7 @@ def subheader(
         **props,
     )
 
+
 def subheader2(
     text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
 ) -> rx.Component:
@@ -535,6 +539,7 @@ def subheader2(
         font_weight=fw["subheading"],
         **props,
     )
+
 
 def subheader3(
     text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
@@ -684,9 +689,9 @@ def docdemo(
         padding_bottom="2em",
         spacing="1em",
         **props,
-    ) 
- 
- 
+    )
+
+
 def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
@@ -699,6 +704,7 @@ def doclink(text: str, href: str, **props) -> rx.Component:
         The styled link.
     """
     return rx.link(text, href=href, style=styles.LINK_STYLE, **props)
+
 
 def doclink2(text: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
@@ -761,50 +767,53 @@ def docalert(
         ),
     )
 
- 
- 
+
 tab_style = {
-    "color":"#494369",
-    "font_weight":600,
+    "color": "#494369",
+    "font_weight": 600,
     "_selected": {
-        "color":"#5646ED",
-        "bg":"#F5EFFE",
-        "padding_x":"0.5em",
-        "padding_y":"0.25em",
-        "border_radius":"8px",
-        
-    }
-}  
-          
-        
-def docgraphing(code: str,
+        "color": "#5646ED",
+        "bg": "#F5EFFE",
+        "padding_x": "0.5em",
+        "padding_y": "0.25em",
+        "border_radius": "8px",
+    },
+}
+
+
+def docgraphing(
+    code: str,
     state: str | None = None,
     comp: rx.Component | None = None,
     data: str | None = None,
     context: bool = False,
-    **props): 
+    **props,
+):
     return rx.vstack(
-    rx.box(
-        rx.center(comp, width="100%", height="15em"),
-        style=demo_box_style,
-    ),
-    rx.tabs(
-        rx.tab_list(
-            rx.tab("Code", style=tab_style),
-            rx.tab("Data", style=tab_style),
-            padding_x=0,
+        rx.box(
+            rx.center(comp, width="100%", height="15em"),
+            style=demo_box_style,
         ),
-        rx.tab_panels(
-            rx.tab_panel(doccode(code), width="100%", padding_x=0, padding_y=".25em"),
-            rx.tab_panel(doccode(data), width="100%", padding_x=0, padding_y=".25em"),
+        rx.tabs(
+            rx.tab_list(
+                rx.tab("Code", style=tab_style),
+                rx.tab("Data", style=tab_style),
+                padding_x=0,
+            ),
+            rx.tab_panels(
+                rx.tab_panel(
+                    doccode(code), width="100%", padding_x=0, padding_y=".25em"
+                ),
+                rx.tab_panel(
+                    doccode(data), width="100%", padding_x=0, padding_y=".25em"
+                ),
+                width="100%",
+            ),
+            variant="unstyled",
+            color_scheme="purple",
+            align="end",
             width="100%",
-        ), 
-        variant='unstyled',
-        color_scheme='purple',
-        align='end',
-        width="100%", 
-        padding_top=".5em",
-    ), 
-    width="100%"
-)
-                                           
+            padding_top=".5em",
+        ),
+        width="100%",
+    )

@@ -65,22 +65,35 @@ def index() -> rx.Component:
     return rx.container(chat())
     """
 
+
 def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
         rx.box(question, text_align="right"),
         rx.box(answer, text_align="left"),
         margin_y="1em",
     )
+
+
 qa_pairs = [
-        ("What is Reflex?", "A way to build web apps in pure Python!"),
-        ("What can I make with it?", "Anything from a simple website to a complex web app!"),
-    ]
+    ("What is Reflex?", "A way to build web apps in pure Python!"),
+    (
+        "What can I make with it?",
+        "Anything from a simple website to a complex web app!",
+    ),
+]
+
+
 def chat() -> rx.Component:
     qa_pairs = [
         ("What is Reflex?", "A way to build web apps in pure Python!"),
-        ("What can I make with it?", "Anything from a simple website to a complex web app!"),
+        (
+            "What can I make with it?",
+            "Anything from a simple website to a complex web app!",
+        ),
     ]
     return rx.box(*[qa(question, answer) for question, answer in qa_pairs])
+
+
 code2_out = rx.container(chat())
 
 code3 = """def action_bar() -> rx.Component:
@@ -95,15 +108,19 @@ def index() -> rx.Component:
         action_bar(),
     )
     """
+
+
 def action_bar() -> rx.Component:
     return rx.hstack(
         rx.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
+
+
 code3_out = rx.container(
-        chat(),
-        action_bar(),
-    )
+    chat(),
+    action_bar(),
+)
 
 code4_style = """# style.py
 
@@ -170,6 +187,8 @@ app = rx.App()
 app.add_page(index)
 app.compile()
 """
+
+
 def qa4(question: str, answer: str) -> rx.Component:
     return rx.box(
         rx.box(rx.text(question, style=style.question_style), text_align="right"),
@@ -177,22 +196,30 @@ def qa4(question: str, answer: str) -> rx.Component:
         margin_y="1em",
         width="100%",
     )
+
+
 def chat4() -> rx.Component:
     qa_pairs = [
         ("What is Reflex?", "A way to build web apps in pure Python!"),
-        ("What can I make with it?", "Anything from a simple website to a complex web app!"),
+        (
+            "What can I make with it?",
+            "Anything from a simple website to a complex web app!",
+        ),
     ]
     return rx.box(*[qa4(question, answer) for question, answer in qa_pairs])
+
+
 def action_bar4() -> rx.Component:
     return rx.hstack(
         rx.input(placeholder="Ask a question", style=style.input_style),
         rx.button("Ask", style=style.button_style),
     )
+
+
 code4_out = rx.container(
     chat4(),
     action_bar4(),
 )
-
 
 
 @docpage()
@@ -200,6 +227,7 @@ def frontend():
     from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.components.props import props
     from pcweb.pages.docs.styling.overview import styling_overview
+
     return rx.box(
         docheader("Basic Frontend", first=True),
         doctext(
@@ -271,12 +299,12 @@ def frontend():
             "We will import the styles in ",
             rx.code("chatapp.py"),
             " and use them in the components. ",
-            "At this point, the app should look like this: "
+            "At this point, the app should look like this: ",
         ),
         docdemobox(code4_out),
         doccode(code4),
         doctext(
             "The app is looking good, but it's not very useful yet! ",
-            "In the next section, we will add some functionality to the app. "
-        )
+            "In the next section, we will add some functionality to the app. ",
+        ),
     )

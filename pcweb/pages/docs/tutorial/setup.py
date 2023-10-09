@@ -73,4 +73,3 @@ App running at: http://localhost:3000""",
             "Now that we have our project set up, in the next section we will start building our app! ",
         ),
     )
-

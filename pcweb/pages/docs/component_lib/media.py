@@ -141,6 +141,7 @@ image_pil_example_show = """rx.vstack(
     )
 """
 
+
 def render_image():
     return rx.vstack(
         doctext(
@@ -158,8 +159,12 @@ def render_image():
 
 
 def render_audio():
-    return flexdown.render_file("docs/library/media/audio.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/media/audio.md", component_map=component_map
+    )
 
 
 def render_video():
-    return flexdown.render_file("docs/library/media/video.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/media/video.md", component_map=component_map
+    )

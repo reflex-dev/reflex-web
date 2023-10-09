@@ -291,7 +291,6 @@ def adding_state():
             doclink("events docs", events.path),
             " under the Setters section.",
         ),
-        
         subheader("Clearing the Input"),
         doctext(
             "Currently the input doesn't clear after the user clicks the button. ",
@@ -303,7 +302,7 @@ def adding_state():
             rx.code("answer"),
             ", with ",
             rx.code("self.question = ''"),
-            "."
+            ".",
         ),
         docdemobox(code_out2),
         doccode(code2),

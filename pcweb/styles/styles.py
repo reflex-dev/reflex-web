@@ -26,15 +26,16 @@ DOC_BORDER = ("2px solid #F4F3F6",)
 
 LIGHT_TEXT_COLOR = "#94a3b8"
 LINK_STYLE = {
-    "font_weight": "bold", 
+    "font_weight": "bold",
     "color": "#03030B",
-    "text_decoration": "underline", 
-      "text_decoration_color": "#AD9BF8", 
-      "__hover": {
-          "color": "#AD9BF8", 
-          "text_decoration": "underline",  
-          "text_decoration_color": "#03030B"}
-    }
+    "text_decoration": "underline",
+    "text_decoration_color": "#AD9BF8",
+    "__hover": {
+        "color": "#AD9BF8",
+        "text_decoration": "underline",
+        "text_decoration_color": "#03030B",
+    },
+}
 
 
 DOC_SHADOW = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
@@ -56,10 +57,7 @@ BASE_STYLE = {
         "font_family": SANS,
     },
     rx.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    rx.Code: {
-        "color": "#1F1944",
-        "bg": "#EAE4FD"
-    },
+    rx.Code: {"color": "#1F1944", "bg": "#EAE4FD"},
     rx.Alert: {
         "border_radius": "8px",
     },

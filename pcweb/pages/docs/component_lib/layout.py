@@ -8,16 +8,23 @@ import flexdown
 
 # Layout
 
+
 def render_aspectratio():
-    return flexdown.render_file("docs/library/layout/aspect_ratio.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/aspect_ratio.md", component_map=component_map
+    )
 
 
 def render_box():
-    return flexdown.render_file("docs/library/layout/box.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/box.md", component_map=component_map
+    )
 
 
 def render_card():
-    return flexdown.render_file("docs/library/layout/card.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/card.md", component_map=component_map
+    )
 
 
 code51 = """rx.vstack(
@@ -71,6 +78,7 @@ code52_b = """rx.vstack(
 )
 """
 
+
 def render_cond():
     return rx.vstack(
         doctext("This component is used to conditionally render components."),
@@ -102,39 +110,57 @@ def render_cond():
 
 
 def render_center():
-    return flexdown.render_file("docs/library/layout/center.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/center.md", component_map=component_map
+    )
 
 
 def render_container():
-    return flexdown.render_file("docs/library/layout/container.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/container.md", component_map=component_map
+    )
 
 
 def render_flex():
-    return flexdown.render_file("docs/library/layout/flex.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/flex.md", component_map=component_map
+    )
 
 
 def render_fragment():
-    return flexdown.render_file("docs/library/layout/fragment.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/fragment.md", component_map=component_map
+    )
 
 
 def render_grid():
-    return flexdown.render_file("docs/library/layout/grid.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/grid.md", component_map=component_map
+    )
 
 
 def render_responsivegrid():
-    return flexdown.render_file("docs/library/layout/responsive_grid.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/responsive_grid.md", component_map=component_map
+    )
 
 
 def render_spacer():
-    return flexdown.render_file("docs/library/layout/spacer.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/spacer.md", component_map=component_map
+    )
 
 
 def render_stack():
-    return flexdown.render_file("docs/library/layout/stack.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/stack.md", component_map=component_map
+    )
 
 
 def render_wrap():
-    return flexdown.render_file("docs/library/layout/wrap.md", component_map=component_map)
+    return flexdown.render_file(
+        "docs/library/layout/wrap.md", component_map=component_map
+    )
 
 
 basic_foreach_state = """from typing import List
@@ -350,6 +376,3 @@ def render_foreach():
         ),
         align_items="start",
     )
-
-
-
