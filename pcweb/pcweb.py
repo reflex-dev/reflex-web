@@ -84,14 +84,17 @@ for route in faq_routes:
 
 for key in component_list:
     for component_group in component_list[key]:
-        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-        app.add_page(
-            multi_docs(path=path, component_list=component_group).component,
-            route=path,
-            title=f"Reflex | {component_group[0].__name__}",
-            description=f"Reflex | Docs for {component_group[0].__name__} component.",
-            image="/previews/index_preview.png",
-        )
+        if isinstance(component_group[0], str):
+            continue
+        else:
+            path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+            app.add_page(
+                multi_docs(path=path, component_list=component_group).component,
+                route=path,
+                title=f"Reflex | {component_group[0].__name__}",
+                description=f"Reflex | Docs for {component_group[0].__name__} component.",
+                image="/previews/index_preview.png",
+            )
 
 # Add the middleware.
 app.add_middleware(CloseSidebarMiddleware(), index=0)
