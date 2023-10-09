@@ -450,7 +450,7 @@ def multi_docs(path, component_list):
             rx.box(
                 rx.box(
                     docheader(
-                        name, first=True, coming_soon=name in coming_soon_components
+                        name, first=True
                     ),
                     get_examples(name),
                     text_align="left",

@@ -136,9 +136,9 @@ icon_style = {
     # "right": "1em",
     # "top": "1em",
     # "position": "absolute",
-    "color": "gray",
-    "width": "1.5em",
-    "height": "1.5em",
+    # "color": "gray",
+    # "width": "1.5em",
+    # "height": "1.5em",
     "_hover": {
         "cursor": "pointer",
         "color": styles.ACCENT_COLOR,
@@ -354,9 +354,6 @@ def divider_comp() -> rx.Component:
 def docheader(
     text: str,
     first: bool = False,
-    font_size: float = None,
-    coming_soon: bool = False,
-    divider: bool = True,
     **props,
 ) -> rx.Component:
     """Style the header on a docpage.
@@ -365,41 +362,29 @@ def docheader(
         text: The text to display.
         first: Whether this is the first header on the page.
         font_size: The font size to use.
-        coming_soon: Whether this is a coming soon header.
-        divider: Whether to show a divider below the header.
         props: Props to apply to the header.
 
     Returns:
         The styled header.
     """
-    # Get the basic styles.
-    style = {"marginTop": "1em"} if not first else {}
-    if font_size:
-        style["fontSize"] = font_size
-
-    # Set the text.
-    children = [rx.heading(text, _as="h1", style=style, **props)]
-
-    # Add a badge if the header is coming soon.
-    if coming_soon:
-        children.append(
-            rx.badge(
-                "Coming Soon!",
-                bg=styles.ACCENT_COLOR,
-                color="white",
-            ),
-        )
-
-    # Add a divider if needed.
-    if divider:
-        children.append(rx.divider())
-
     id_ = "-".join(text.lower().split())
 
     # Return the header.
     return rx.box(
-        *children,
-        id=id_,
+        rx.hstack(
+            rx.heading(text, id=id_, **props),
+            rx.box(
+                rx.icon(
+                    tag="link",
+                    style=icon_style,
+                    color="#696287",
+                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+                ),
+            ),
+            margin_top="0em" if first else "1.5em",
+            align_items="center",
+        ),
+        rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
         font_weight=fw["heading"],
         width="100%",
@@ -409,27 +394,25 @@ def docheader(
 def docheader2(
     text: str,
     first: bool = True,
-    font_size: float = None,
     tag="h1",
     **props,
 ) -> rx.Component:
-    # Get the basic styles.
-    style = {"marginTop": "1em"} if not first else {}
-    if font_size:
-        style["fontSize"] = font_size
-
     id_ = text[0].to_string(json=False).lower().split().join("-")
 
     # Return the header.
     return rx.box(
         rx.hstack(
-            rx.heading(text, _as=tag, id=id_, style=style, **props),
-            rx.icon(
-                tag="link",
-                style=icon_style,
-                color=styles.ACCENT_COLOR,
-                on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+            rx.heading(text, _as=tag, id=id_, **props),
+            rx.box(
+                rx.icon(
+                    tag="link",
+                    style=icon_style,
+                    color="#696287",
+                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+                ),
             ),
+            margin_top="0em" if first else "1.5em",
+            align_items="center",
         ),
         rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
@@ -455,15 +438,13 @@ def subheader_comp(
 
 
 def subheader(
-    text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
+    text: str, level: int = 0, **props
 ) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
         text: The text to display.
         level: The level of the subheader.
-        coming_soon: Whether this is a coming soon header.
-        divider: Whether to show a divider below the header.
         props: Props to apply to the subheader.
 
     Returns:
@@ -472,8 +453,6 @@ def subheader(
     return docheader(
         text,
         font_size=font_sizes[level],
-        coming_soon=coming_soon,
-        divider=divider,
         color=tc["docs"]["header"],
         font_weight=fw["subheading"],
         **props,
@@ -481,15 +460,13 @@ def subheader(
 
 
 def subheader2(
-    text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
+    text: str, level: int = 0, **props
 ) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
         text: The text to display.
         level: The level of the subheader.
-        coming_soon: Whether this is a coming soon header.
-        divider: Whether to show a divider below the header.
         props: Props to apply to the subheader.
 
     Returns:
@@ -500,24 +477,23 @@ def subheader2(
         first=False,
         tag="h2",
         font_size=font_sizes[level],
-        coming_soon=coming_soon,
-        divider=divider,
         color=tc["docs"]["header"],
         font_weight=fw["subheading"],
         **props,
     )
 
+<<<<<<< HEAD
 
 def subheader3(
     text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
 ) -> rx.Component:
+=======
+def subheader3(text: str, **props) -> rx.Component:
+>>>>>>> bbb61d1 (Add links to header tags)
     """Create a subheader for a docpage.
 
     Args:
         text: The text to display.
-        level: The level of the subheader.
-        coming_soon: Whether this is a coming soon header.
-        divider: Whether to show a divider below the header.
         props: Props to apply to the subheader.
 
     Returns:
@@ -528,8 +504,6 @@ def subheader3(
         first=False,
         tag="h3",
         font_size=styles.H4_FONT_SIZE,
-        coming_soon=coming_soon,
-        divider=divider,
         color=tc["docs"]["header"],
         font_weight=fw["subheading"],
         **props,
@@ -537,7 +511,7 @@ def subheader3(
 
 
 def text_comp(
-    text: rx.Var[str],
+    text: rx.Var[str]
 ) -> rx.Component:
     return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
