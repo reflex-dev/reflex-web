@@ -449,9 +449,7 @@ def multi_docs(path, component_list):
         return rx.box(
             rx.box(
                 rx.box(
-                    docheader(
-                        name, first=True
-                    ),
+                    docheader(name, first=True),
                     get_examples(name),
                     text_align="left",
                 ),

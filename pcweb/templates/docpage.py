@@ -378,7 +378,7 @@ def docheader(
                     tag="link",
                     style=icon_style,
                     color="#696287",
-                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_),
                 ),
             ),
             margin_top="0em" if first else "1.5em",
@@ -408,7 +408,7 @@ def docheader2(
                     tag="link",
                     style=icon_style,
                     color="#696287",
-                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_)
+                    on_click=lambda: rx.set_clipboard(State.current_page + "#" + id_),
                 ),
             ),
             margin_top="0em" if first else "1.5em",
@@ -437,9 +437,7 @@ def subheader_comp(
     )
 
 
-def subheader(
-    text: str, level: int = 0, **props
-) -> rx.Component:
+def subheader(text: str, level: int = 0, **props) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
@@ -459,9 +457,7 @@ def subheader(
     )
 
 
-def subheader2(
-    text: str, level: int = 0, **props
-) -> rx.Component:
+def subheader2(text: str, level: int = 0, **props) -> rx.Component:
     """Create a subheader for a docpage.
 
     Args:
@@ -482,14 +478,8 @@ def subheader2(
         **props,
     )
 
-<<<<<<< HEAD
 
-def subheader3(
-    text: str, level: int = 0, coming_soon: bool = False, divider: bool = True, **props
-) -> rx.Component:
-=======
 def subheader3(text: str, **props) -> rx.Component:
->>>>>>> bbb61d1 (Add links to header tags)
     """Create a subheader for a docpage.
 
     Args:
@@ -510,9 +500,7 @@ def subheader3(text: str, **props) -> rx.Component:
     )
 
 
-def text_comp(
-    text: rx.Var[str]
-) -> rx.Component:
+def text_comp(text: rx.Var[str]) -> rx.Component:
     return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
 
