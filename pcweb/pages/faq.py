@@ -17,8 +17,9 @@ faq_items = [
         "Q": "What can I build with Reflex?",
         "A": rx.vstack(
             rx.text(
-            """
-            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a single purpose user interface for a data science project/internal app, or a large multi-page web app, Reflex has the tools and features to handle both and scale up as your project grows.            """),
+                """
+            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a single purpose user interface for a data science project/internal app, or a large multi-page web app, Reflex has the tools and features to handle both and scale up as your project grows.            """
+            ),
             rx.text(
                 "Check out our ",
                 rx.span(doclink("gallery", href="/docs/gallery")),
@@ -26,7 +27,7 @@ faq_items = [
             ),
             align_items="flex-start",
             width="100%",
-        )
+        ),
     },
     {
         "Q": "Whats the status on hosting?",
@@ -45,18 +46,27 @@ faq_items = [
             We're always looking for contributors to help us build Reflex. 
             If you're interested in contributing, check out our page on 
             """,
-            rx.span(doclink(" contributing to Reflex Open Source", href=constants.CONTRIBUTING_URL)),
-            "."
+            rx.span(
+                doclink(
+                    " contributing to Reflex Open Source",
+                    href=constants.CONTRIBUTING_URL,
+                )
+            ),
+            ".",
         ),
     },
     {
         "Q": "How does this compare existing solutions?",
         "A": rx.vstack(
-            rx.text("""
+            rx.text(
+                """
             Web apps are the most common way for developers to share their ideas. But even for skilled engineers, without experience in traditional frontend tools like Javascript or React, making a web app can be overwhelming and time-consuming. And once their app is created, deploying it is often a nightmare. Over the years, many low-code and no-code frameworks have tried to make web development more accessible, but they all have limitations and graduation risks compared to standard web frameworks. With Reflex, we have created a framework that lets developers leverage their existing Python skills to build and deploy apps without compromising on flexibility or customization.
-            """),
-            rx.text("""
-            Reflex allows you to make anything from a small data science project to a full-scale, multi-page web app. Since Reflex apps compile down to traditional frontend frameworks, there's no constraint on the type of apps you can build. Instead of reinventing the web development ecosystem, we're making the existing ecosystem more accessible.            """),
+            """
+            ),
+            rx.text(
+                """
+            Reflex allows you to make anything from a small data science project to a full-scale, multi-page web app. Since Reflex apps compile down to traditional frontend frameworks, there's no constraint on the type of apps you can build. Instead of reinventing the web development ecosystem, we're making the existing ecosystem more accessible.            """
+            ),
             align_items="flex-start",
             width="100%",
         ),
@@ -67,7 +77,9 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.span(doclink("wrapping React", href="/docs/advanced-guide/wrapping-react")),
+            rx.span(
+                doclink("wrapping React", href="/docs/advanced-guide/wrapping-react")
+            ),
             " to learn more.",
         ),
     },
@@ -78,7 +90,7 @@ faq_items = [
             Reflex uses Bun under the hood to install frontend dependencies, significantly reducing our startup times and memory usage. Bun does not yet compile on Windows natively, so we use Node on Windows instead. This creates longer startup times and higher memory usage on Windows. We are actively working on cutting our frontend dependencies improving start up times on all platforms.
             """
         ),
-    }
+    },
 ]
 
 
@@ -138,7 +150,6 @@ def faq():
         flex_direction="column",
         max_width="960px",
     )
-
 
 
 faq_routes = [r for r in locals().values() if isinstance(r, Route)]

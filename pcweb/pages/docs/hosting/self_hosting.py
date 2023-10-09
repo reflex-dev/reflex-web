@@ -153,7 +153,7 @@ def self_hosting():
             "Notice that the ",
             rx.code("api_url"),
             " should be set to the externally accessible hostname or IP, as the client browser must ",
-            "be able to connect to it directly to establish interactivity."
+            "be able to connect to it directly to establish interactivity.",
         ),
         doctext(
             "You can find the ",

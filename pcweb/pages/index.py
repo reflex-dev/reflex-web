@@ -10,7 +10,7 @@ from sqlmodel import Field
 import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
-from pcweb.components.chat import spline_component
+from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
 from pcweb import constants
@@ -57,7 +57,6 @@ class IndexState(State):
         """Close the call to action."""
         self.show_c2a = False
 
-
     def add_contact_to_loops(self, contact_data):
         url = "https://app.loops.so/api/v1/contacts/create"
         loops_api_key = os.getenv("LOOPS_API_KEY")
@@ -72,10 +71,9 @@ class IndexState(State):
             with httpx.Client() as client:
                 response = client.post(url, headers=headers, json=contact_data)
                 response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
- 
+
         except httpx.RequestError as e:
             print(f"An error occurred: {e}")
-
 
     def signup(self):
         """Sign the user up for the waitlist."""
@@ -99,7 +97,6 @@ class IndexState(State):
 
         self.signed_up = True
         return IndexState.play_confetti
-    
 
     async def play_confetti(self):
         """Play confetti for 5sec then stop."""
@@ -230,7 +227,7 @@ def list_circle(text):
         justify_content="center",
         font_weight="800",
     )
- 
+
 
 def example_card(title, tags, href, image):
     return rx.hstack(
@@ -885,8 +882,10 @@ def stat(number, icon, metric):
         padding_x="2em",
     )
 
+
 def format_with_commas(number):
-    return '{:,}+'.format(number)
+    return "{:,}+".format(number)
+
 
 def gallery():
     return rx.center(
@@ -913,9 +912,21 @@ def gallery():
                 rx.desktop_only(
                     rx.flex(
                         rx.spacer(),
-                        stat(format_with_commas(constants.MONTHLY_USERS), "project", "Projects created per month"),
-                        stat(format_with_commas(constants.GITHUB_STARS), "github", "GitHub stars"),
-                        stat(format_with_commas(constants.DISCORD), "discord", "Discord members"),
+                        stat(
+                            format_with_commas(constants.MONTHLY_USERS),
+                            "project",
+                            "Projects created per month",
+                        ),
+                        stat(
+                            format_with_commas(constants.GITHUB_STARS),
+                            "github",
+                            "GitHub stars",
+                        ),
+                        stat(
+                            format_with_commas(constants.DISCORD),
+                            "discord",
+                            "Discord members",
+                        ),
                         rx.spacer(),
                         height="100%",
                         min_height="10em",
@@ -926,7 +937,10 @@ def gallery():
                 rx.mobile_and_tablet(
                     rx.vstack(
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.MONTHLY_USERS), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.MONTHLY_USERS),
+                                color="#DACEEE",
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/project.svg",
                                 height="1em",
@@ -938,7 +952,10 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.GITHUB_STARS), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.GITHUB_STARS),
+                                color="#DACEEE",
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/github.svg",
                                 height="1em",
@@ -948,7 +965,9 @@ def gallery():
                             ),
                         ),
                         rx.vstack(
-                            rx.heading(format_with_commas(constants.DISCORD), color="#DACEEE"),
+                            rx.heading(
+                                format_with_commas(constants.DISCORD), color="#DACEEE"
+                            ),
                             rx.image(
                                 src="/landing_icons/stats_icons/discord.svg",
                                 height="1em",

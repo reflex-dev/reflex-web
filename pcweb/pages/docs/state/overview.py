@@ -63,7 +63,7 @@ def state_overview():
             ". ",
         ),
         doccode(
-        """
+            """
         import reflex as rx
         class State(rx.State):
             \"""Define your app state here.\"""
@@ -84,7 +84,9 @@ def state_overview():
                 "Base Var",
                 rx.unordered_list(
                     rx.list_item("Any variable in your app that can change over time."),
-                    rx.list_item("Defined as a field in the ", rx.code("State"), " class"),
+                    rx.list_item(
+                        "Defined as a field in the ", rx.code("State"), " class"
+                    ),
                     rx.list_item("Can only be modified by event handlers."),
                 ),
             ),
@@ -92,16 +94,28 @@ def state_overview():
                 "Computed Var",
                 rx.unordered_list(
                     rx.list_item("Vars that change automatically based on other vars."),
-                    rx.list_item("Defined as functions using the ", rx.code("@rx.var"), " decorator."),
-                    rx.list_item("Cannot be set by event handlers, are always recomputed when the state changes."),
+                    rx.list_item(
+                        "Defined as functions using the ",
+                        rx.code("@rx.var"),
+                        " decorator.",
+                    ),
+                    rx.list_item(
+                        "Cannot be set by event handlers, are always recomputed when the state changes."
+                    ),
                 ),
             ),
             definition(
                 "Event Trigger",
                 rx.unordered_list(
-                    rx.list_item("A user interaction that triggers an event, such as a button click."),
-                    rx.list_item("Defined as special component props, such as ", rx.code("on_click"), "."),
-                    rx.list_item("Can be used to trigger event handlers.")
+                    rx.list_item(
+                        "A user interaction that triggers an event, such as a button click."
+                    ),
+                    rx.list_item(
+                        "Defined as special component props, such as ",
+                        rx.code("on_click"),
+                        ".",
+                    ),
+                    rx.list_item("Can be used to trigger event handlers."),
                 ),
             ),
             definition(

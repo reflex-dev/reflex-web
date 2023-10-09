@@ -122,7 +122,6 @@ media_list = [
     [rx.Icon],
     [rx.Image],
     [rx.Video],
-
 ]
 
 # Data display components.
@@ -194,9 +193,9 @@ graphing_list = [
     [rx.recharts.Label, rx.recharts.LabelList],
     [rx.recharts.GraphingTooltip],
     [rx.Plotly],
-]  
- 
-# Other 
+]
+
+# Other
 other_list = [[rx.Html], [rx.Script]]
 
 # The final component list
