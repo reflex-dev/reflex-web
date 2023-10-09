@@ -71,12 +71,10 @@ def index() -> rx.Component:
                 "Filter by tags:",
                 size="sm",
             ),
-                rx.input(
-                    on_change=FilteredTableState.input_filter_on_change,
-                    value=FilteredTableState.filter_expr,
-                    debounce_timeout=1000,
-                ),
-
+            rx.input(
+                on_change=FilteredTableState.input_filter_on_change,
+                value=FilteredTableState.filter_expr,
+                debounce_timeout=1000,
             ),
         ),
         rx.box(
