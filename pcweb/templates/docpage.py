@@ -48,6 +48,39 @@ def code_block(
         width="100%",
     )
    
+def code_block2(*_, **props):
+    return rx.code_block(
+                border_radius=styles.DOC_BORDER_RADIUS,
+                border="2px solid #F4F3F6",
+                theme="light",
+                background="transparent",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+                **props,
+            )
+    return rx.box(
+        rx.box(
+            rx.code_block(
+                border_radius=styles.DOC_BORDER_RADIUS,
+                theme="light",
+                background="transparent",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+                **props,
+            ),
+            border_radius=styles.DOC_BORDER_RADIUS,
+            border="2px solid #F4F3F6",
+        ),
+        position="relative",
+        margin_bottom="1em",
+        width="100%",
+    )
    
 @rx.memo 
 def code_block_dark(
