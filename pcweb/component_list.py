@@ -176,6 +176,7 @@ feedback_list = [
 
 # Graphing components.
 graphing_list = [
+    ["Core Charts"],
     [rx.recharts.AreaChart, rx.recharts.Area],
     [rx.recharts.BarChart, rx.recharts.RadialBarChart, rx.recharts.Bar],
     [rx.recharts.ComposedChart],
@@ -184,8 +185,7 @@ graphing_list = [
     [rx.recharts.PieChart],
     [rx.recharts.RadarChart],
     [rx.recharts.ScatterChart, rx.recharts.Scatter],
-    [rx.recharts.Treemap],
-    [rx.recharts.ErrorBar],
+    ["Core Helpers"],
     [rx.recharts.ReferenceLine, rx.recharts.ReferenceDot, rx.recharts.ReferenceArea],
     [rx.recharts.CartesianAxis, rx.recharts.CartesianGrid],
     [rx.recharts.XAxis, rx.recharts.YAxis, rx.recharts.ZAxis],
@@ -193,6 +193,7 @@ graphing_list = [
     [rx.recharts.Legend],
     [rx.recharts.Label, rx.recharts.LabelList],
     [rx.recharts.GraphingTooltip],
+    ["Other Graphing"],
     [rx.Plotly],
 ]  
  

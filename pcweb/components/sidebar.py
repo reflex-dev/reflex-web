@@ -182,6 +182,36 @@ def get_sidebar_items_reference():
     from pcweb.pages.docs import recipes
     from pcweb.pages.docs import api_reference
 
+    library_item_children = []
+
+    for category in component_list:
+        category_item_children = []
+        for c in component_list[category]:
+            if isinstance(c[0], str):
+                category_name = c[0]
+                category_item_children.append(SidebarItem(
+                    names=category_name,
+                    children=[]
+                ))
+            else: 
+                component_name = c[0].__name__
+                component_link = f"/docs/library/{category.lower()}/{component_name.lower()}"
+                component_item = SidebarItem(
+                    names=component_name.replace("Chart", "").replace("X", ""),
+                    link=component_link
+                )
+                category_item_children.append(component_item)
+
+        print(
+            category_item_children
+        )
+        category_item = SidebarItem(
+            names=category,
+            children=category_item_children
+        )
+
+        library_item_children.append(category_item)
+
     library_item = SidebarItem(
         names="Components",
         children=[
@@ -190,21 +220,11 @@ def get_sidebar_items_reference():
                 alt_name_for_next_prev="Components Reference: Overview",
                 link="/docs/library",
             ),
-            *[
-                SidebarItem(
-                    names=category,
-                    children=[
-                        SidebarItem(
-                            names=c[0].__name__,
-                            link=f"/docs/library/{category.lower()}/{c[0].__name__.lower()}",
-                        )
-                        for c in component_list[category]
-                    ],
-                )
-                for category in component_list
-            ],
-        ],
+            *library_item_children
+        ]
     )
+
+
 
     children = [
         SidebarItem(
@@ -251,14 +271,25 @@ def sidebar_leaf(
                 rx.text(item.names, style=heading_style2),
                 href=item.link,
             ),
-            rx.link(
-                rx.text(
+            rx.cond(
+                item.link == "",
+                rx.heading(
+                    rx.span("[ ", color="#DACEEE"),
                     item.names,
-                    color=tc["docs"]["body"],
-                    _hover={"color": styles.ACCENT_COLOR},
-                    padding_x="0.5em",
+                    rx.span(" ]", color="#DACEEE"),
+                    style=heading_style3,
+                    margin_left="0em",
+                    margin_top="0.5em",
                 ),
-                href=item.link,
+                rx.link(
+                    rx.text(
+                        item.names,
+                        color=tc["docs"]["body"],
+                        _hover={"color": styles.ACCENT_COLOR},
+                        padding_x="0.5em",
+                    ),
+                    href=item.link,
+                )
             ),
         ),
         padding_left="1em",
