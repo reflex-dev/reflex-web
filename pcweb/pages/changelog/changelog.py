@@ -75,6 +75,19 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2023-10-09",
+            "v0.2.9",
+            "Core Graphing Improvements",
+            [
+                "Core Graphing Library is now Recharts",
+                "HTML Editor Component",
+                "Run Arbitrary Javascript from Event Handler",
+                "Redirect into New Window",
+                "rx.constants Module Refactored",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.2.9",
+        ),
+        change(
             "2023-09-22",
             "v0.2.8",
             "Background Tasks + Improved API for wrapping components.",
