@@ -85,7 +85,40 @@ in place of a sublist to denote a line break in the toolbar.
 Some valid `button_list` options are enumerated in `rx.EditorButtonList`, seen below.
 
 ```python eval
-doccode(inspect.getsource(rx.EditorButtonList))
+doccode(
+    """
+class EditorButtonList(list, enum.Enum):
+
+    BASIC = [
+        ["font", "fontSize"],
+        ["fontColor"],
+        ["horizontalRule"],
+        ["link", "image"],
+    ]
+    FORMATTING = [
+        ["undo", "redo"],
+        ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+        ["removeFormat"],
+        ["outdent", "indent"],
+        ["fullScreen", "showBlocks", "codeView"],
+        ["preview", "print"],
+    ]
+    COMPLEX = [
+        ["undo", "redo"],
+        ["font", "fontSize", "formatBlock"],
+        ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+        ["removeFormat"],
+        "/",
+        ["fontColor", "hiliteColor"],
+        ["outdent", "indent"],
+        ["align", "horizontalRule", "list", "table"],
+        ["link", "image", "video"],
+        ["fullScreen", "showBlocks", "codeView"],
+        ["preview", "print"],
+        ["save", "template"],
+    ]
+    """
+)
 ```
 
 A custom list of toolbar buttons may also be specified using these names as seen
