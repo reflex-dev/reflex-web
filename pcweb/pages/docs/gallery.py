@@ -1,15 +1,18 @@
 import reflex as rx
-
 from pcweb import constants, styles
 from pcweb.templates.docpage import docheader, docpage, doctext, docalert
 from pcweb.styles import text_colors as tc
+from pcweb.templates.webpage import webpage
 
-difficulty_colors = {"Beginner": "green", "Intermediate": "orange", "Advanced": "red"}
-example_list = [
+from pcweb.base_state import State 
+import pandas as pd
+
+
+apps_list = [
     {
         "name": "Reflex",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page"],
+        "tags": ["Multi-Page", "Graphs", "Forms", "Data Table", "Database"],
         "description": "This website!",
         "img": "/gallery/pcweb.png",
         "gif": "",
@@ -19,7 +22,7 @@ example_list = [
     {
         "name": "Chat App",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "ML"],
+        "tags": ["Multi-Page", "AI", "Wrapping 3rd Party Component"],
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
@@ -29,7 +32,7 @@ example_list = [
     {
         "name": "Email Gen",
         "difficulty": "Intermediate",
-        "tags": ["OpenAI", "Database"],
+        "tags": ["AI", "Database"],
         "description": "A sales email generator using OpenAI's GPT3 API.",
         "img": "/gallery/sales.png",
         "gif": "",
@@ -39,7 +42,7 @@ example_list = [
     {
         "name": "DALL-E",
         "difficulty": "Beginner",
-        "tags": ["ML", "Image Generation"],
+        "tags": ["AI"],
         "description": "An app to generate images using OpenAI's DALL-E model.",
         "img": "/gallery/dalle.png",
         "gif": "/gallery/dalle.gif",
@@ -49,7 +52,7 @@ example_list = [
     {
         "name": "Graphing Traversal",
         "difficulty": "Intermediate",
-        "tags": ["DFS", "BFS", "Graph"],
+        "tags": ["Graphs"],
         "description": "A graphing traversal app.",
         "img": "/gallery/traversal.png",
         "gif": "",
@@ -59,7 +62,7 @@ example_list = [
     {
         "name": "Counter",
         "difficulty": "Beginner",
-        "tags": ["Tutorial"],
+        "tags": ["Intro"],
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
@@ -69,7 +72,7 @@ example_list = [
     {
         "name": "GPT Q&A",
         "difficulty": "Advanced",
-        "tags": ["ML", "Login"],
+        "tags": ["AI", "Auth"],
         "description": "An UI around Open AI's GPT3 API.",
         "img": "/gallery/gpt.png",
         "gif": "/gallery/gpt.gif",
@@ -80,7 +83,7 @@ example_list = [
     {
         "name": "NBA",
         "difficulty": "Intermediate",
-        "tags": ["Data Science", "Graph"],
+        "tags": ["Graphs", "Database", "Data Table"],
         "description": "An interactive dashboard for NBA data.",
         "img": "/gallery/nba.png",
         "gif": "/gallery/nba.gif",
@@ -90,7 +93,7 @@ example_list = [
     {
         "name": "Quiz",
         "difficulty": "Intermediate",
-        "tags": ["Data Science", "Graph"],
+        "tags": ["Forms", "Data Table", "Database"],
         "description": "A quiz app that will test your Python knowledge.",
         "img": "/gallery/quiz.png",
         "gif": "/gallery/quiz.gif",
@@ -100,7 +103,7 @@ example_list = [
     {
         "name": "Todo",
         "difficulty": "Beginner",
-        "tags": ["Short"],
+        "tags": ["Intro"],
         "description": "A todo list app.",
         "img": "/gallery/todo.png",
         "gif": "/gallery/todo.gif",
@@ -110,7 +113,7 @@ example_list = [
     {
         "name": "Twitter Clone",
         "difficulty": "Beginner",
-        "tags": ["Login", "Database"],
+        "tags": ["Auth", "Database", "Multi-Page"],
         "description": "A twitter clone with a login system and database.",
         "img": "/gallery/twitter.png",
         "gif": "/gallery/twitter.gif",
@@ -120,7 +123,7 @@ example_list = [
     {
         "name": "Translator",
         "difficulty": "Beginner",
-        "tags": ["Short"],
+        "tags": ["Intro"],
         "description": "A translator app.",
         "img": "/gallery/translator.png",
         "gif": "/gallery/translator.gif",
@@ -130,7 +133,7 @@ example_list = [
     {
         "name": "Clock",
         "difficulty": "Intermediate",
-        "tags": ["Styling", "Animation"],
+        "tags": [],
         "description": "An analog clock with different time zones.",
         "img": "/gallery/clock.png",
         "gif": "/gallery/clock.gif",
@@ -148,100 +151,188 @@ class Gallery(rx.Model):
     img: str
     gif: str
     url: str
-    source: str
+    source: str  
 
 
-def component_grid(examples):
-    sidebar = []
-    for category in examples:
-        sidebar.append(
-            rx.vstack(
-                rx.box(
-                    height="10em",
-                    background_image=category["img"],
-                    background_size="cover",
-                    background_position="center",
-                    background_repeat="no-repeat",
-                    rounded="lg",
-                ),
-                rx.hstack(
-                    rx.heading(category["name"], style={"fontSize": "1em"}),
-                    rx.spacer(),
-                    rx.hstack(
-                        rx.link(
-                            rx.box(
-                                rx.image(src="/icons/code.svg", width="1em"),
-                                padding_x="0.5em",
-                                border_radius="15px",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
-                            ),
-                            href=category["source"],
-                        ),
-                        rx.link(
-                            rx.box(
-                                rx.image(src="/icons/eye.svg", width="1em"),
-                                padding_x="0.5em",
-                                border_radius="15px",
-                                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
-                            ),
-                            href=category["url"],
-                        )
-                        if category["url"]
-                        else rx.box(),
-                        align_items="left",
-                    ),
-                    width="100%",
-                    border_bottom="1px solid #e2e8f0",
-                    border_top="1px solid #e2e8f0",
-                    padding_y="0.5em",
-                ),
-                rx.box(
-                    category["description"],
-                    color=tc["docs"]["body"],
-                    height="2.5em",
-                    background="linear-gradient(transparent .5em, white)",
-                ),
-                rx.spacer(),
-                rx.wrap(
-                    rx.badge(
-                        category["difficulty"],
+apps_df = pd.DataFrame(apps_list)
+
+
+def create_list_of_tags(dataframe:pd.DataFrame) -> list:
+    """This function takes our pandas dataframe and returns all types of tags
+    that exist across all our apps"""
+    # Extract the "tags" column from the DataFrame
+    tags_column = dataframe["tags"]
+
+    # Convert the "tags" column to a list
+    tags_list = tags_column.tolist()
+
+    # Flatten the list of lists into a single list
+    flattened_tags = [tag for sublist in tags_list for tag in sublist]
+
+    # Create a set of unique tags
+    unique_tags_set = set(flattened_tags)
+
+    # Convert the set back to a list if needed
+    unique_tags_list = list(unique_tags_set)
+    return unique_tags_list
+
+list_of_tags = create_list_of_tags(apps_df)
+
+
+
+class SideBarState(State):
+    """Side Bar State"""
+    
+    chosen_tags_dict: dict[str, bool] = {key: False for key in list_of_tags}
+
+    def update_tag(self, name : str):
+        self.chosen_tags_dict[name] = not self.chosen_tags_dict[name]
+    
+    
+    @rx.var
+    def true_tags(self)->list:
+        """This function returns a list of the tags selected in the UI, if no tags
+        are selected then it returns all the tags"""
+
+        true_keys = [key for key, value in self.chosen_tags_dict.items() if value]
+        if not true_keys:
+            return list(self.chosen_tags_dict)
+        return list(true_keys)
+    
+
+    @rx.var
+    def data_to_return(self)->list[dict[str, str]]:
+        """This function iterates over all the apps we have and if the app has one of the 
+        tags we have selected in true_tags then it will render this app in the UI"""
+        selected_examples = []
+        for example_dict in apps_list:
+            example_tags = set(example_dict["tags"])
+            if example_tags.intersection(self.true_tags):
+                selected_examples.append(example_dict)
+        return selected_examples
+        
+
+
+border_radius = ("0.375rem",)
+box_shadow = ("0px 0px 0px 1px rgba(84, 82, 95, 0.14)",)
+border = "1px solid #F4F3F6"
+text_color = "black"
+accent_text_color = "#1A1060"
+accent_color = "#F5EFFE"
+
+
+def add_item(category):
+    return rx.vstack(
+        rx.box(
+            height="10em",
+            background_image=category["img"],
+            background_size="cover",
+            background_position="center",
+            background_repeat="no-repeat",
+            rounded="lg",
+        ),
+        rx.hstack(
+            rx.heading(category["name"], style={"fontSize": "1em"}),
+            rx.spacer(),
+            rx.hstack(
+                rx.link(
+                    rx.box(
+                        rx.image(src="/icons/code.svg", width="1em"),
+                        padding_x="0.5em",
                         border_radius="15px",
-                        color_scheme=difficulty_colors[category["difficulty"]],
+                        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
                     ),
-                    *[
-                        rx.badge(tag, border_radius="15px", padding_x=".5em")
-                        for tag in category["tags"]
-                    ],
-                    padding_bottom=".5em",
+                    href=category["source"],
+                ),
+                rx.cond(category["url"], 
+                    rx.link(
+                        rx.box(
+                            rx.image(src="/icons/eye.svg", width="1em"),
+                            padding_x="0.5em",
+                            border_radius="15px",
+                            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+                        ),
+                        href=category["url"],
+                    ),
                 ),
                 align_items="left",
-                row_span=3,
-                col_span=1,
-                box_shadow="lg",
-                border_radius="1em",
-                bg_color="white",
-                padding="1em",
-                _hover={
-                    "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
-                },
-            )
-        )
+            ),
+            width="100%",
+            border_bottom="1px solid #e2e8f0",
+            border_top="1px solid #e2e8f0",
+            padding_y="0.5em",
+        ),
+        rx.box(
+            category["description"],
+            color=tc["docs"]["body"],
+            height="2.5em",
+            background="linear-gradient(transparent .5em, white)",
+        ),
+        rx.spacer(),
+        rx.wrap(
+            rx.badge(
+                category["difficulty"],
+                border_radius="15px",
+            ),
+            rx.foreach(category["tags"], lambda tag:rx.badge(tag, border_radius="15px", padding_x=".5em")),
+            padding_bottom=".5em",
+        ),
+        align_items="left",
+        row_span=3,
+        col_span=1,
+        box_shadow="lg",
+        border_radius="1em",
+        bg_color="white",
+        padding="1em",
+        _hover={
+            "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
+        },
+    )
+
+    
+def component_grid():    
     return rx.box(
-        rx.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
+        rx.responsive_grid(rx.foreach(SideBarState.data_to_return, add_item), columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
-@docpage()
-def gallery():
-    return rx.flex(
+def sidebar_component_grid(tags):
+    return rx.wrap(*[rx.button(tag, border_radius="15px", padding_x=".5em", is_active=SideBarState.chosen_tags_dict[tag], on_click=SideBarState.update_tag(tag))
+            for tag in tags])
+
+
+def sidebar():
+    return rx.box(
+        rx.vstack(
+            rx.vstack(
+                rx.heading("Filters", font_size="2em"),
+                sidebar_component_grid(list_of_tags),
+                width="100%",
+                align_items="flex-start",
+                padding="1em",
+            ),
+            rx.spacer(),
+            height="100vh",
+        ),
+        min_width="20em",
+        width="25em",
+        height="100%",
+        left="0px",
+        top="0px",
+        border_right=border,
+    )
+
+
+def gallery_with_no_sidebar():
+    return rx.container(
         rx.vstack(
             rx.box(
                 docheader("Gallery", first=True),
                 doctext("Here are some examples of what you can make with Reflex. "),
                 rx.divider(),
-                component_grid(example_list),
                 text_align="left",
             ),
+            component_grid(),
             rx.box(
                 docheader("Community Gallery", first=True),
                 doctext(
@@ -252,9 +343,23 @@ def gallery():
                 ),
                 padding_top="2em",
             ),
-            align_items="start",
+            align_items="stretch",
+            min_height="80vh",
+            margin_bottom="4em",
+            padding_y="2em",
         ),
         flex_direction="column",
-        height="100%",
-        margin_bottom="4em",
+        max_width="1260px",
+        # height="100%",
+        # margin_bottom="4em",
+    )
+
+
+@webpage(path="/docs/gallery/index")
+def gallery() -> rx.Component:
+    return rx.hstack(
+        sidebar(),
+        gallery_with_no_sidebar(),
+        rx.spacer(),
+        align_items="flex-start",
     )
