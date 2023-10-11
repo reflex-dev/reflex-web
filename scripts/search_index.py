@@ -64,7 +64,8 @@ def index_flexdown(source: str, href: str) -> list[tuple[str, str, str]]:
         # Recursively get the strings from the children.
         for child in comp.children:
             if isinstance(child, mistletoe.block_token.Heading):
-                strings.append(("heading", [child.content], href))
+                content = get_strings(child)[0][1]
+                strings.append(("heading", [content], href))
             if isinstance(child, mistletoe.span_token.RawText):
                 strings.append(("text", child.content, href))
             else:
@@ -188,8 +189,8 @@ def index_flexdown_file(
     """
     # Index the flexdown file.
     contents = open(path).read()
-    texts = index_flexdown(contents, path)
     path = "/" + path.replace(".md", "")
+    texts = index_flexdown(contents, path)
 
     # Add the heading if it exists.
     if heading is not None:
@@ -278,4 +279,5 @@ if __name__ == "__main__":
     docs = []
     for key, text in out.items():
         docs.append({"heading": key[0], "description": text, "href": key[1]})
+        print(docs[-1])
     # upload_docs(docs)
