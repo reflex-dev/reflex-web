@@ -1,8 +1,6 @@
 """Template for documentation pages."""
 
-import asyncio
 import textwrap
-import uuid
 from typing import Callable
 
 import black
@@ -19,13 +17,7 @@ from pcweb.components.logo import navbar_logo
 
 
 @rx.memo
-def code_block(
-    code: str,
-    language: str,
-    # copied: rx.Var[bool],
-    # copy_text: rx.Var[str],
-    # on_copy: rx.EventChain,
-):
+def code_block(code: str, language: str):
     return rx.box(
         rx.box(
             rx.code_block(
