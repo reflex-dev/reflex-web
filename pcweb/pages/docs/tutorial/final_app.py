@@ -7,7 +7,89 @@ from pcweb.templates.docpage import (
     doctext,
     subheader,
 )
-from pcweb.pages.docs.tutorial.adding_state import ChatappState, chat1, style
+from pcweb.base_state import State
+from pcweb.pages.docs.tutorial.adding_state import style
+import openai
+
+
+class ChatappState(State):
+    # The current question being asked.
+    question: str
+
+    # Keep track of the chat history as a list of (question, answer) tuples.
+    chat_history: list[tuple[str, str]]
+
+    def answer(self):
+        # Our chatbot is not very smart right now...
+        answer = "I don't know!"
+        self.chat_history.append((self.question, answer))
+
+    def answer2(self):
+        # Our chatbot is not very smart right now...
+        answer = "I don't know!"
+        self.chat_history.append((self.question, answer))
+        # Clear the question input.
+        self.question = ""
+
+    async def answer3(self):
+        import asyncio
+
+        # Our chatbot is not very smart right now...
+        answer = "I don't know!"
+        self.chat_history.append((self.question, ""))
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
+        yield
+
+        for i in range(len(answer)):
+            await asyncio.sleep(0.1)
+            self.chat_history[-1] = (self.chat_history[-1][0], answer[: i + 1])
+            yield
+
+    def answer4(self):
+        # Our chatbot has some brains now!
+        session = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": self.question}],
+            stop=None,
+            temperature=0.7,
+            stream=True,
+        )
+
+        # Add to the answer as the chatbot responds.
+        answer = ""
+        self.chat_history.append((self.question, answer))
+
+        # Clear the question input.
+        self.question = ""
+        # Yield here to clear the frontend input before continuing.
+        yield
+
+        for item in session:
+            if hasattr(item.choices[0].delta, "content"):
+                answer += item.choices[0].delta.content
+                self.chat_history[-1] = (self.chat_history[-1][0], answer)
+                yield
+
+
+def qa(question: str, answer: str) -> rx.Component:
+    return rx.box(
+        rx.box(rx.text(question, style=style.question_style), text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
+        margin_y="1em",
+        width="100%",
+    )
+
+
+def chat1() -> rx.Component:
+    return rx.box(
+        rx.foreach(
+            ChatappState.chat_history, lambda messages: qa(messages[0], messages[1])
+        )
+    )
+
 
 state1 = """# state.py
 import os
