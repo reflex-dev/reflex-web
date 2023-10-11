@@ -26,9 +26,7 @@ def get_route(path: str):
 
 def page(document) -> rx.Component:
     """Create a page."""
-
     meta = document.metadata
-
     return rx.container(
         rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
         rx.hstack(
@@ -88,6 +86,7 @@ def component_grid():
                         font_size="0.8rem",
                     ),
                     rx.divider(),
+                    rx.spacer(),
                     rx.hstack(
                         rx.vstack(
                             rx.text("Written by", font_size="0.6rem"),
@@ -110,8 +109,11 @@ def component_grid():
                         ),
                         color=tc["docs"]["body"],
                         padding_bottom="0.5em",
+                        width="100%",
                     ),
                     p=4,
+                    height="100%",
+                    width="100%",
                 ),
                 border="1px solid #eee",
                 border_radius="8px",
@@ -158,11 +160,17 @@ def seed():
     return page(blogs["blog/2023-08-02-seed-annoucement"])
 
 
-@webpage(path="/blog/2023-06-28-rebrand-to-reflex")
+@webpage(path="/blog/2023-06-28-rebrand-to-reflex") 
 def rebrand():
     return page(blogs["blog/2023-06-28-rebrand-to-reflex"])
-
+ 
 
 @webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
-    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"])
+    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"]) 
+ 
+
+@webpage(path="/blog/2023-10-11-graphing-update") 
+def background_tasks():    
+    return page(blogs["blog/2023-10-11-graphing-update"])                  
+      

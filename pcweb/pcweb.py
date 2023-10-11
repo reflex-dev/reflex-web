@@ -93,11 +93,11 @@ for key in component_list:
                 route=path,
                 title=f"Reflex | {component_group[0].__name__}",
                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
-                image="/previews/index_preview.png",
-            )
+                image="/previews/index_preview.png", 
+            )   
 
 # Add the middleware.
-app.add_middleware(CloseSidebarMiddleware(), index=0)
+app.add_middleware(CloseSidebarMiddleware(), index=0)  
 
 # Add redirects
 redirects = [
@@ -121,7 +121,7 @@ redirects = [
     ("/docs/library/overlay", "/docs/library/overlay/alertdialog"),
     ("/docs/library/other", "/docs/library/other/html"),
 ]
-
+ 
 for source, target in redirects:
     app.add_page(rx.fragment(), route=source, on_load=rx.redirect(target))
 
