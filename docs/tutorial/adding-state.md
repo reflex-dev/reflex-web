@@ -41,7 +41,9 @@ We will create a new file called `state.py` in the `chatapp` directory. Our stat
 ```python exec
 def show_code_defining_state():
     # state.py
+    import reflex as rx
 
+    
     class State(rx.State):
 
         # The current question being asked.
