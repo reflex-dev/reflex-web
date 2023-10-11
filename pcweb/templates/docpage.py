@@ -282,7 +282,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 rx.box(
                     rx.flex(
                         rx.desktop_only(
-                            sidebar, 
+                            sidebar,
                             width=["0", "0%", "25%"],
                             padding_left=styles.PADDING_X,
                             padding_y="2em",
@@ -297,7 +297,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.spacer(),
                             rx.hstack(
                                 logo,
-                                rx.spacer(), 
+                                rx.spacer(),
                                 rx.text(
                                     "Copyright © 2023 Pynecone, Inc.", color="#CDCCD1"
                                 ),

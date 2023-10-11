@@ -160,17 +160,16 @@ def seed():
     return page(blogs["blog/2023-08-02-seed-annoucement"])
 
 
-@webpage(path="/blog/2023-06-28-rebrand-to-reflex") 
+@webpage(path="/blog/2023-06-28-rebrand-to-reflex")
 def rebrand():
     return page(blogs["blog/2023-06-28-rebrand-to-reflex"])
- 
+
 
 @webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
 def background_tasks():
-    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"]) 
- 
+    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"])
 
-@webpage(path="/blog/2023-10-11-graphing-update") 
-def background_tasks():    
-    return page(blogs["blog/2023-10-11-graphing-update"])                  
-      
+
+@webpage(path="/blog/2023-10-11-graphing-update")
+def background_tasks():
+    return page(blogs["blog/2023-10-11-graphing-update"])

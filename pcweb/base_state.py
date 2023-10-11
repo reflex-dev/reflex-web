@@ -15,4 +15,3 @@ class State(rx.State):
         )
         print(page)
         return page
-   

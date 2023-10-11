@@ -18,7 +18,8 @@ def component_grid():
                             href=f"/docs/library/{category.lower()}/{c[0].__name__.lower()}",
                             style={"fontSize": "1em"},
                         )
-                        for c in component_list[category] if not isinstance(c[0], str)
+                        for c in component_list[category]
+                        if not isinstance(c[0], str)
                     ],
                     align_items="start",
                 ),
