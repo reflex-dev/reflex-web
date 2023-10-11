@@ -1,5 +1,6 @@
 import reflex as rx
 from pcweb import constants, styles
+from pcweb.styles import font_weights as fw
 from pcweb.templates.docpage import docheader, docpage, doctext, docalert
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
@@ -22,7 +23,7 @@ apps_list = [
     {
         "name": "Chat App",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "AI", "Wrapping 3rd Party Component"],
+        "tags": ["Multi-Page", "AI", "React Components"],
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
@@ -297,41 +298,61 @@ def component_grid():
 
 
 def sidebar_component_grid(tags):
-    return rx.wrap(*[rx.button(tag, border_radius="15px", padding_x=".5em", is_active=SideBarState.chosen_tags_dict[tag], on_click=SideBarState.update_tag(tag))
-            for tag in tags])
+    return rx.wrap(
+        *[
+            rx.button(
+                tag, 
+                border_radius="15px", 
+                padding_x=".5em", 
+                is_active=SideBarState.chosen_tags_dict[tag], 
+                on_click=SideBarState.update_tag(tag),
+                color="#5646ED",
+                bg="#F5EFFE",
+                _hover={
+                    "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+                },
+                _active={
+                    "color": "white",
+                    "bg": "#5646ED",
+                },
+            )
+            for tag in tags
+        ],
+        padding_y="1em",
+        padding_x=".5em",
+    )
+
+heading_style3 = {
+    
+}
 
 
 def sidebar():
     return rx.box(
         rx.vstack(
             rx.vstack(
-                rx.heading("Filters", font_size="2em"),
+                rx.heading(
+                    "Filters",
+                    padding_left=".5em",
+                ),
                 sidebar_component_grid(list_of_tags),
                 width="100%",
-                align_items="flex-start",
-                padding="1em",
+                align_items="left",
             ),
             rx.spacer(),
             height="100vh",
         ),
         min_width="20em",
-        width="25em",
+        width="25%",
         height="100%",
-        left="0px",
-        top="0px",
-        border_right=border,
+        padding_y="2em",
+        display=["none", "none", "none", "none", "flex"],
     )
 
 
 def gallery_with_no_sidebar():
     return rx.container(
         rx.vstack(
-            rx.box(
-                docheader("Gallery", first=True),
-                doctext("Here are some examples of what you can make with Reflex. "),
-                rx.divider(),
-                text_align="left",
-            ),
             component_grid(),
             rx.box(
                 docheader("Community Gallery", first=True),
@@ -357,9 +378,30 @@ def gallery_with_no_sidebar():
 
 @webpage(path="/docs/gallery/index")
 def gallery() -> rx.Component:
-    return rx.hstack(
-        sidebar(),
-        gallery_with_no_sidebar(),
-        rx.spacer(),
-        align_items="flex-start",
+    return rx.vstack(
+        rx.vstack(
+            rx.heading("Gallery", font_size="2em"),
+            rx.text(
+                "Browse our growing library of example apps. Use them as they are, right out of the box, or customize them to suit your needs.",
+                color="#342E5C",
+                font_size="1.2em",
+                font_family=styles.SANS,
+                text_align="center",
+            ),
+            rx.divider(),
+            width="100%",
+            align_items="center",
+            padding_x="4em",
+        ),
+        rx.hstack(
+            rx.spacer(),
+            sidebar(),
+            gallery_with_no_sidebar(),
+            rx.spacer(),
+            align_items="flex-start",
+        ),
+        max_width="80em",
+        margin_x="auto",
+        margin_top="2em",
+        height="100%",
     )
