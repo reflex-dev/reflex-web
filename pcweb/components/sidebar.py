@@ -124,6 +124,7 @@ def get_sidebar_items_concepts():
                 components.props,
                 components.pages,
                 components.assets,
+                components.files,
             ],
         ),
         create_item(
@@ -189,23 +190,21 @@ def get_sidebar_items_reference():
         for c in component_list[category]:
             if isinstance(c[0], str):
                 category_name = c[0]
-                category_item_children.append(SidebarItem(
-                    names=category_name,
-                    children=[]
-                ))
-            else: 
+                category_item_children.append(
+                    SidebarItem(names=category_name, children=[])
+                )
+            else:
                 component_name = c[0].__name__
-                component_link = f"/docs/library/{category.lower()}/{component_name.lower()}"
+                component_link = (
+                    f"/docs/library/{category.lower()}/{component_name.lower()}"
+                )
                 component_item = SidebarItem(
                     names=component_name.replace("Chart", "").replace("X", ""),
-                    link=component_link
+                    link=component_link,
                 )
                 category_item_children.append(component_item)
 
-        category_item = SidebarItem(
-            names=category,
-            children=category_item_children
-        )
+        category_item = SidebarItem(names=category, children=category_item_children)
 
         library_item_children.append(category_item)
 
@@ -217,11 +216,9 @@ def get_sidebar_items_reference():
                 alt_name_for_next_prev="Components Reference: Overview",
                 link="/docs/library",
             ),
-            *library_item_children
-        ]
+            *library_item_children,
+        ],
     )
-
-
 
     children = [
         SidebarItem(
@@ -250,7 +247,7 @@ def get_sidebar_items_reference():
                 recipes.navbar,
                 recipes.sidebar,
                 recipes.checkboxes,
-                recipes.filtered_table
+                recipes.filtered_table,
             ],
         ),
     ]
@@ -287,7 +284,7 @@ def sidebar_leaf(
                         padding_x="0.5em",
                     ),
                     href=item.link,
-                )
+                ),
             ),
         ),
         padding_left="1em",
