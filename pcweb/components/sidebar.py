@@ -124,7 +124,6 @@ def get_sidebar_items_concepts():
                 components.props,
                 components.pages,
                 components.assets,
-                components.files,
             ],
         ),
         create_item(
