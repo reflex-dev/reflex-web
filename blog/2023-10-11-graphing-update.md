@@ -35,6 +35,7 @@ In this example we will create a live streaming graph that updates every second 
 We start by defining some initial data for our chart to use as well as some imports we will use for the project:
 
 ```python
+from typing import Any, Dict, List
 import reflex as rx
 import random
 import asyncio
@@ -56,8 +57,8 @@ Next we define a `StreamingState` class that will be used to store the data and 
 
 ```python
 class StreamingState(rx.State):
-    data = data
-    stream = False
+    data: List[Dict[str, Any]] = data
+    stream: bool = False
 
     def stop_stream(self):
         self.stream = False
