@@ -48,23 +48,12 @@ def code_block(
         width="100%",
     )
 
-
-def code_block2(*_, **props):
-    return rx.code_block(
-        border_radius=styles.DOC_BORDER_RADIUS,
-        border="2px solid #F4F3F6",
-        theme="light",
-        background="transparent",
-        code_tag_props={
-            "style": {
-                "fontFamily": "inherit",
-            }
-        },
-        **props,
-    )
+@rx.memo
+def code_block_memo(children: str, language: str):
     return rx.box(
         rx.box(
             rx.code_block(
+                language=language,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 theme="light",
                 background="transparent",
@@ -73,8 +62,7 @@ def code_block2(*_, **props):
                         "fontFamily": "inherit",
                     }
                 },
-                **props,
-            ),
+            ).set(special_props={rx.Var.create_safe("children={children}"),}),
             border_radius=styles.DOC_BORDER_RADIUS,
             border="2px solid #F4F3F6",
         ),
@@ -83,53 +71,9 @@ def code_block2(*_, **props):
         width="100%",
     )
 
-
-@rx.memo
-def code_block_dark(
-    code: str,
-    language: str,
-    copied: bool,
-    copy_text: str,
-    on_copy: rx.EventChain,
-):
-    return rx.box(
-        rx.box(
-            rx.code_block(
-                code,
-                rx.button("Copy", bg="white", border="1px solid #EAEAEA"),
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="dark",
-                language=language,
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
-            border_radius=styles.DOC_BORDER_RADIUS,
-            box_shadow=styles.DOC_SHADOW_LIGHT,
-        ),
-        rx.cond(
-            copied,
-            rx.tooltip(
-                rx.icon(
-                    tag="check_circle",
-                    style=icon_style,
-                    color=styles.ACCENT_COLOR,
-                ),
-                label="Copied!",
-                close_on_click=False,
-                padding="0.5em",
-                border_radius="0.5em",
-                background_color=styles.ACCENT_COLOR,
-                is_open=copied,
-            ),
-        ),
-        position="relative",
-        margin_bottom="1em",
-        width="100%",
-    )
-
+def code_block2(*_, **props):
+    language = props.get("language", "none")
+    return code_block_memo(children="", language=language)
 
 # Docpage styles.
 demo_box_style = {
