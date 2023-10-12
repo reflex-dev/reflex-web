@@ -2,35 +2,35 @@ from pcweb import flexdown
 
 
 def render_areachart():
-    return flexdown.render_file("docs/library/graphing/area_chart.md")
+    return flexdown.render_file("docs/library/graphing/areachart.md")
 
 
 def render_barchart():
-    return flexdown.render_file("docs/library/graphing/bar_chart.md")
+    return flexdown.render_file("docs/library/graphing/barchart.md")
 
 
 def render_composedchart():
-    return flexdown.render_file("docs/library/graphing/composed_chart.md")
+    return flexdown.render_file("docs/library/graphing/composedchart.md")
 
 
 def render_funnelchart():
-    return flexdown.render_file("docs/library/graphing/funnel_chart.md")
+    return flexdown.render_file("docs/library/graphing/funnelchart.md")
 
 
 def render_linechart():
-    return flexdown.render_file("docs/library/graphing/line_chart.md")
+    return flexdown.render_file("docs/library/graphing/linechart.md")
 
 
 def render_piechart():
-    return flexdown.render_file("docs/library/graphing/pie_chart.md")
+    return flexdown.render_file("docs/library/graphing/piechart.md")
 
 
 def render_radarchart():
-    return flexdown.render_file("docs/library/graphing/radar_chart.md")
+    return flexdown.render_file("docs/library/graphing/radarchart.md")
 
 
 def render_scatterchart():
-    return flexdown.render_file("docs/library/graphing/scatter_chart.md")
+    return flexdown.render_file("docs/library/graphing/scatterchart.md")
 
 
 def render_treemap():
@@ -38,7 +38,7 @@ def render_treemap():
 
 
 def render_errorbar():
-    return flexdown.render_file("docs/library/graphing/error_bar.md")
+    return flexdown.render_file("docs/library/graphing/errorbar.md")
 
 
 def render_referenceline():
@@ -46,7 +46,7 @@ def render_referenceline():
 
 
 def render_cartesianaxis():
-    return flexdown.render_file("docs/library/graphing/cartesian_axis_grid.md")
+    return flexdown.render_file("docs/library/graphing/cartesianaxisgrid.md")
 
 
 def render_xaxis():
