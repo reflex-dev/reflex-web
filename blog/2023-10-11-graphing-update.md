@@ -50,10 +50,12 @@ data = [
 ]
 ```
 
+Here `uv` stands for unique visitors, `pv` stands for page views, and `amt` stands for amount. They are arbitrary values that we will use to populate our graph.
+
 Next we define a `StreamingState` class that will be used to store the data and update it with an event handler:
 
 ```python
-class StreamingState(State):
+class StreamingState(rx.State):
     data = data
     stream = False
 
@@ -73,7 +75,11 @@ class StreamingState(State):
             await asyncio.sleep(3)
 ```
 
-Finally we will define our UI using Reflex's new graphing components. We pass the data from our `StreamingState` class to the `area_chart` component and refernce the data key we want to use in `area` component. We also add a buttons to start and stop the stream.
+Here we define a `stop_stream` method that will stop the stream when called. We also define a `start_stream` method that will start the stream. We use the `@rx.background` decorator to run the method in the background. This allows us to update the data without blocking the UI.
+
+Remember to use `async with self:` when updating the state in a background task.
+
+Finally we will define our UI using Reflex's new graphing components. We pass the data from our `StreamingState` class to the `area_chart` component and reference the data key we want to use in `area` component. We also add a buttons to start and stop the stream.
 
 ```python exec
 data = [
