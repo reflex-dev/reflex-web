@@ -518,7 +518,7 @@ def doctext(*text, **props) -> rx.Component:
     Returns:
         The styled paragraph.
     """
-    return rx.text(
+    return rx.box(
         *text,
         margin_bottom="1em",
         font_size=styles.TEXT_FONT_SIZE,
