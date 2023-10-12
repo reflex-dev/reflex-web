@@ -93,10 +93,7 @@ app.compile()
 def filtered_table():
     return rx.box(
         docheader("Table with row filtering", first=True),
-        doctext(
-            "A Table that you can apply a simple row selection filtering by tag"
-            
-        ),
+        doctext("A Table that you can apply a simple row selection filtering by tag"),
         subheader("Recipe"),
         rx.center(rx.image(src="/gallery/filtered_table.gif")),
         doctext(
