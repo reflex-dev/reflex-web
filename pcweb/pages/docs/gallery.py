@@ -257,4 +257,4 @@ def gallery():
         flex_direction="column",
         height="100%",
         margin_bottom="4em",
-    )
+    ) 

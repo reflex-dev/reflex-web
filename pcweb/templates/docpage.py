@@ -275,7 +275,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
-
+                
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),

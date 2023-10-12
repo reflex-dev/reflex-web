@@ -183,7 +183,7 @@ def index():
 
 ## Extra Example
 
-We can add add extra `area` components to our chart to show the `uv` and `amt` data as well. We can also add a `tooltip` component to show the data when we hover over the chart.
+We can add extra `area` components to our chart to show the `uv` and `amt` data as well. We can also add a `graphing_tooltip` an `cartesian_grid` component to show the data when we hover over the chart.
 
 Keep in mind the child coming first will be display in the back so the order of the `area` components matters.
 
@@ -212,6 +212,8 @@ rx.vstack(
             data_key="name",
         ),
         rx.recharts.y_axis(),
+        rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+        rx.recharts.graphing_tooltip(),
         data=StreamingState.data,
         width="90%",
         height=400,
