@@ -1,8 +1,9 @@
 ```python exec
+
 import reflex as rx
 from pcweb.templates.docpage import docdemobox
 
-download_link = """rx.link("Download", href="reflex_logo.png")
+download_link = """rx.link("Download", href="/reflex_logo.png")
 """
 
 download_button = """rx.button(
@@ -21,11 +22,33 @@ download_button2 = """rx.button(
 """
 ```
 
-# Files
-Manipulating files is a very important part of making a web app, whether you want to 
-share medias, allow user to import their data via a file, or export the backend data in a csv file.
+# Assets
 
-In this page, we will cover all you need to know for manipulating files in Reflex.
+Static files such as images and stylesheets can be placed in `"assets/"` folder of the project. These files can be referenced within your app.
+
+## Referencing Assets
+
+To reference an image in the `"assets/"` simply pass the relative path as a prop.
+
+For example, you can store your logo in your assets folder:
+```bash
+assets
+└── Reflex.svg
+```
+
+Then you can display it using a `rx.image` component:
+
+## Favicon
+
+The favicon is the small icon that appears in the browser tab.
+
+You can add a `"favicon.ico"` file to the `"assets/"` folder to change the favicon.
+
+# Files
+
+In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share medias, allow user to import their data, or export some backend data.
+
+In this section, we will cover all you need to know for manipulating files in Reflex.
 
 ## Download
 
@@ -89,4 +112,3 @@ def index():
 ```
 
 For detailed informations, see the reference page of the component [here](/docs/library/forms/upload)
-
