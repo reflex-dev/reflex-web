@@ -206,10 +206,9 @@ doccode(state2)
 
 ## Streaming Text
 
-Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [event yield docs]({events.path}) for more info.
+Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [event yield docs]({events.path + "#yielding-multiple-updates"}) for more info.
 
 
-Come back to the link above to fix
 
 ```python exec
 def show_code_streaming_text():
