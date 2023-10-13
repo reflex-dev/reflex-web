@@ -1,7 +1,8 @@
 ```python exec
 
 import reflex as rx
-from pcweb.templates.docpage import docdemobox
+from pcweb.templates.docpage import docdemobox, docdemo
+import inspect
 
 download_link = """rx.link("Download", href="/reflex_logo.png")
 """
@@ -20,6 +21,8 @@ download_button2 = """rx.button(
     ),
 )
 """
+def image_example():
+    return rx.image(src="/Reflex.svg", width="5em")
 ```
 
 # Assets
@@ -37,6 +40,12 @@ assets
 ```
 
 Then you can display it using a `rx.image` component:
+
+```python eval
+docdemo(inspect.getsource(image_example).replace("def image_example():", "").replace("return ", ""),
+    comp=image_example(),
+)
+```
 
 ## Favicon
 
@@ -94,7 +103,7 @@ docdemobox(
 {download_button2.strip()}
 ```
 
-Reference page for `rx.download` [here](docs/api-reference/special-events/)
+Reference page for `rx.download` [here]({"/docs/api-reference/special-events"}).
 
 ## Upload
 
@@ -111,4 +120,6 @@ def index():
     )
 ```
 
-For detailed informations, see the reference page of the component [here](/docs/library/forms/upload)
+For detailed informations, see the reference page of the component [here](/docs/library/forms/upload).
+
+
