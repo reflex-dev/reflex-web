@@ -82,6 +82,7 @@ class ChatappState(State):
 
 
 state1 = """# state.py
+import reflex as rx
 
 class State(rx.State):
 
