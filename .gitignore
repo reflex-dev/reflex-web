@@ -13,3 +13,4 @@ pcweb/tsclient.py
 pynecone.db
 reflex.db
 venv/
+*.zip
