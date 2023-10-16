@@ -1,8 +1,6 @@
 """Template for documentation pages."""
 
-import asyncio
 import textwrap
-import uuid
 from typing import Callable
 
 import black
@@ -19,13 +17,7 @@ from pcweb.components.logo import navbar_logo
 
 
 @rx.memo
-def code_block(
-    code: str,
-    language: str,
-    # copied: rx.Var[bool],
-    # copy_text: rx.Var[str],
-    # on_copy: rx.EventChain,
-):
+def code_block(code: str, language: str):
     return rx.box(
         rx.box(
             rx.code_block(
@@ -95,12 +87,6 @@ link_style = {
     },
 }
 
-font_sizes = [
-    styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
-    styles.H3_FONT_SIZE,
-]
 logo_style = {
     "height": "1em",
     "opacity": 0.2,
@@ -274,11 +260,13 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
 
 @rx.memo
-def divider_comp() -> rx.Component:
-    return rx.divider(
-        margin_bottom="1em",
-        margin_top="0.5em",
-    )
+def text_comp(text: rx.Var[str]) -> rx.Component:
+    return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
+
+
+@rx.memo
+def code_comp(text: rx.Var[str]) -> rx.Component:
+    return rx.code(text, color="#1F1944", bg="#EAE4FD")
 
 
 def docheader(
@@ -297,10 +285,18 @@ def docheader(
     Returns:
         The styled header.
     """
-    id_ = "-".join(text.lower().split())
-    href = State.current_page + "#" + id_
+    # id_ = "-".join(text.lower().split())
+    # href = State.current_page + "#" + id_
 
     # Return the header.
+    return rx.box(
+        rx.heading(text, **props),
+        rx.divider(margin_y="1em"),
+        margin_top="0em" if first else "1.5em",
+        color=tc["docs"]["header"],
+        font_weight=fw["heading"],
+        width="100%",
+    )
     return rx.box(
         rx.link(
             rx.hstack(
@@ -329,56 +325,49 @@ def docheader(
     )
 
 
-def docheader2(
-    text: str,
-    first: bool = True,
-    tag="h1",
-    **props,
-) -> rx.Component:
-    id_ = text[0].to_string(json=False).lower().split().join("-")
-    href = State.current_page + "#" + id_
-
-    # Return the header.
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(text, id=id_, **props),
-                rx.icon(
-                    tag="link",
-                    color="#696287",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                ),
-                margin_top="0em" if first else "1.5em",
-                align_items="center",
-            ),
-            _hover={
-                "cursor": "pointer",
-                "textDecoration": "none",
-            },
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-        ),
-        rx.divider(margin_y="1em"),
-        color=tc["docs"]["header"],
-        font_weight=fw["heading"],
-        width="100%",
-    )
-
-
-def subheader_comp(
-    text: rx.Var[str],
-) -> rx.Component:
+@rx.memo
+def h1_comp(text: rx.Var[str]) -> rx.Component:
     return rx.box(
         rx.heading(
             text,
-            margin_top="1em",
-            font_size=styles.H3_FONT_SIZE,
+            as_="h1",
+            font_size=styles.H1_FONT_SIZE,
+            font_weight=fw["heading"],
         ),
-        divider_comp(),
+        rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
-        font_weight=fw["subheading"],
+        width="100%",
+    )
+
+
+@rx.memo
+def h2_comp(text: rx.Var[str]) -> rx.Component:
+    return rx.box(
+        rx.heading(
+            text,
+            as_="h2",
+            font_size=styles.H3_FONT_SIZE,
+            font_weight=fw["subheading"],
+        ),
+        rx.divider(margin_y="1em"),
+        margin_top="1.5em",
+        color=tc["docs"]["header"],
+        width="100%",
+    )
+
+
+@rx.memo
+def h3_comp(text: rx.Var[str]) -> rx.Component:
+    return rx.box(
+        rx.heading(
+            text,
+            as_="h3",
+            font_size=styles.H4_FONT_SIZE,
+            font_weight=fw["subheading"],
+        ),
+        rx.divider(margin_y="1em"),
+        margin_top="1.5em",
+        color=tc["docs"]["header"],
         width="100%",
     )
 
@@ -396,58 +385,11 @@ def subheader(text: str, level: int = 0, **props) -> rx.Component:
     """
     return docheader(
         text,
-        font_size=font_sizes[level],
+        font_size=styles.H2_FONT_SIZE,
         color=tc["docs"]["header"],
         font_weight=fw["subheading"],
         **props,
     )
-
-
-def subheader2(text: str, level: int = 0, **props) -> rx.Component:
-    """Create a subheader for a docpage.
-
-    Args:
-        text: The text to display.
-        level: The level of the subheader.
-        props: Props to apply to the subheader.
-
-    Returns:
-        The styled subheader.
-    """
-    return docheader2(
-        text,
-        first=False,
-        tag="h2",
-        font_size=font_sizes[level],
-        color=tc["docs"]["header"],
-        font_weight=fw["subheading"],
-        **props,
-    )
-
-
-def subheader3(text: str, **props) -> rx.Component:
-    """Create a subheader for a docpage.
-
-    Args:
-        text: The text to display.
-        props: Props to apply to the subheader.
-
-    Returns:
-        The styled subheader.
-    """
-    return docheader2(
-        text,
-        first=False,
-        tag="h3",
-        font_size=styles.H4_FONT_SIZE,
-        color=tc["docs"]["header"],
-        font_weight=fw["subheading"],
-        **props,
-    )
-
-
-def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
 
 def doctext(*text, **props) -> rx.Component:
