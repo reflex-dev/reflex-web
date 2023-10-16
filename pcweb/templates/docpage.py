@@ -291,10 +291,18 @@ def docheader(
     Returns:
         The styled header.
     """
-    id_ = "-".join(text.lower().split())
-    href = State.current_page + "#" + id_
+    # id_ = "-".join(text.lower().split())
+    # href = State.current_page + "#" + id_
 
     # Return the header.
+    return rx.box(
+        rx.heading(text, **props),
+        rx.divider(margin_y="1em"),
+        margin_top="0em" if first else "1.5em",
+        color=tc["docs"]["header"],
+        font_weight=fw["heading"],
+        width="100%",
+    )
     return rx.box(
         rx.link(
             rx.hstack(
@@ -329,8 +337,16 @@ def docheader2(
     tag="h1",
     **props,
 ) -> rx.Component:
-    id_ = text[0].to_string(json=False).lower().split().join("-")
-    href = State.current_page + "#" + id_
+    return rx.box(
+        rx.heading(text, **props),
+        rx.divider(margin_y="1em"),
+        color=tc["docs"]["header"],
+        margin_top="0em" if first else "1.5em",
+        font_weight=fw["heading"],
+        width="100%",
+    )
+    # id_ = text[0].to_string(json=False).lower().split().join("-")
+    # href = State.current_page + "#" + id_
 
     # Return the header.
     return rx.box(

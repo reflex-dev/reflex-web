@@ -93,6 +93,7 @@ doc_section(
             width="100%",
         ),
         text_align="left",
+        margin_bottom="2em",
     ),
 )
 ```
