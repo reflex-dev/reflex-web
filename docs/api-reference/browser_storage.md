@@ -60,7 +60,7 @@ Represents a state Var that is stored in localStorage in the browser.
 Parameters
 - `encoding`: The encoding to use
 - `errors`: The error handling scheme to use.
-- `name`: THe name of the storage key on the client side.
+- `name`: The name of the storage key on the client side.
 
 ```python eval
 doccode(
