@@ -68,7 +68,7 @@ SPECIAL_EVENTS = [
     },
     {
         "fn": rx.download,
-        "example": """rx.download(url="/reflex_logo.png", filename="different_name_logo.png")""",
+        "example": """rx.button("Download", on_click=rx.download(url="/reflex_logo.png", filename="different_name_logo.png"))""",
     },
 ]
 
