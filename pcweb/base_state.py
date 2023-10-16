@@ -13,6 +13,5 @@ class State(rx.State):
             self.router_data.get("headers", {}).get("origin", "")
             + self.get_current_page()
         )
-        print(page)
         return page
  
