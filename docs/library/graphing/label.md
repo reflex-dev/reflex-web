@@ -80,4 +80,4 @@ docgraphing(
   comp = eval(brush_example),
   data =  "data=" + str(data)
 )
-``` 
+```

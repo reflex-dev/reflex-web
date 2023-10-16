@@ -12,6 +12,22 @@ from pcweb.pages.docs.library import library
 
 # Introduction
 
+```python eval
+rx.center(
+    rx.span(
+        "Looking for Pynecone? You are in the right place, Pynecone is now Reflex!",
+        color="#494369",
+    ),
+    bg="#FAF8FB",
+    font_family=styles.MONO,
+    padding=4,
+    margin_bottom="1em",
+    border="1px solid #EAE4FD",
+    border_radius=styles.DOC_BORDER_RADIUS,
+    font_size=".8em",
+)
+```
+
 **Reflex** is an open-source, full-stack Python framework that makes it easy to build and deploy web apps in minutes.
 Reflex is a full-stack framework for building and deploying web apps.
 
