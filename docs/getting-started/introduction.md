@@ -139,6 +139,7 @@ def index():
             border_radius="lg",
             on_click=CounterExampleState.increment,
         ),
+        spacing="1em",
     )
 
 index_code = inspect.getsource(index).replace("CounterExampleState", "State").strip()

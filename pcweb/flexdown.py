@@ -3,21 +3,22 @@ import flexdown
 
 from pcweb.templates.docpage import (
     code_block2,
-    docheader2,
-    doctext,
-    subheader2,
-    subheader3,
+    text_comp,
+    h1_comp,
+    h2_comp,
+    h3_comp,
+    code_comp,
     doclink2,
 )
 
 
 component_map = {
-    "h1": docheader2,
-    "h2": subheader2,
-    "h3": subheader3,
+    "h1": lambda text: h1_comp(text=text),
+    "h2": lambda text: h2_comp(text=text),
+    "h3": lambda text: h3_comp(text=text),
+    "p": lambda text: text_comp(text=text),
     "a": doclink2,
-    "p": doctext,
-    "code": lambda source: rx.code(source, color="#1F1944", bg="#EAE4FD"),
+    "code": lambda text: code_comp(text=text),
     "codeblock": code_block2,
 }
 
