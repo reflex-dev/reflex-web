@@ -66,6 +66,10 @@ SPECIAL_EVENTS = [
         "fn": rx.window_alert,
         "example": """rx.button("Alert", on_click=rx.window_alert("Hello World!"))""",
     },
+    {
+        "fn": rx.download,
+        "example": """rx.download(url="/reflex_logo.png", filename="different_name_logo.png")""",
+    },
 ]
 
 
