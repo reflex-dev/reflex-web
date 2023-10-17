@@ -114,6 +114,7 @@ def get_sidebar_items_concepts():
         hosting,
         state,
         styling,
+        wrapping_react,
     )
 
     items = [
@@ -151,13 +152,21 @@ def get_sidebar_items_concepts():
                 database.database_overview,
                 database.tables,
                 database.queries,
-            ],
+            ], 
         ),
         create_item(
             hosting,
             children=[
                 hosting.deploy,
                 hosting.self_hosting,
+            ],
+        ),
+        create_item( 
+            wrapping_react,
+            children=[
+                wrapping_react.intro,
+                wrapping_react.imports, 
+                wrapping_react.example,
             ],
         ),
     ]
@@ -168,12 +177,11 @@ def get_sidebar_items_concepts():
                 advanced_guide.background_tasks,
                 advanced_guide.custom_vars,
                 advanced_guide.memoization,
-                advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
                 advanced_guide.use_middleware,
                 advanced_guide.telemetry,
             ],
-        )
+        ) 
     )
     return items
 
