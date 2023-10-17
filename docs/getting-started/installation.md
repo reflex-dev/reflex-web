@@ -25,7 +25,7 @@ rx.alert(
     rx.box(
         rx.alert_title("Error ", rx.code("command not found: reflex"),),
         rx.alert_description(
-            "If you install Reflex with no virtual environment and get this error it means your PATH cannot find the reflex package. A virtual environment should solve this problem.",
+            "If you install Reflex with no virtual environment and get this error it means your PATH cannot find the reflex package. A virtual environment should solve this problem, or you can try running ", rx.code("python3 -m"), " before the reflex command.",
         ),
     ),
     status="warning",
@@ -44,52 +44,21 @@ Below are some tools you can use to manage environments:
 - [conda]({constants.CONDA_URL})
 
 ```python eval
-rx.box(height=8)
+rx.box(height=6)
 ```
 
 
 
 ## Installing on macOS/Linux
 
-Reflex's recommended package manager and environment manager for macOS and Linux are [pip]({constants.PIP_URL}) and [venv]({constants.VENV_URL}), respectively. `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. See instructions on how to install and use `pip` below.
+Reflex's recommended environment manager for macOS and Linux is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
 
 
-### Install pip
-
-Install `pip`. More details about installing pip can be found in [pip's documentation]({constants.PIP_DOCS}).
-
-On a macOS:
+On Ubuntu with Python 3 we must run the command :
 
 ```bash
-python -m ensurepip --upgrade
+$ sudo apt-get install python3-pip python3-venv
 ```
-
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("command not found: python"),),
-        rx.alert_description(
-            "On mac sometimes you need to write python3 instead of python",
-        ),
-    ),
-    status="warning",
-)
-```
-
-```python eval
-rx.box(height=2)
-```
-
-On Ubuntu with Python 3:
-
-```bash
-sudo apt-get install python3-pip
-```
-
-For other Linux distributions, see [How to install PIP for Python]({constants.HOW_TO_INSTALL_PIP}).
-
-
 
 
 ### Create a new environment with Reflex
@@ -97,15 +66,15 @@ For other Linux distributions, see [How to install PIP for Python]({constants.HO
 1. Create a new project folder and navigate to it. Replace `{app_name}` with your project name:
 
 ```bash
-mkdir {app_name}
-cd {app_name}
+$ mkdir {app_name}
+$ cd {app_name}
 ```
 
 2. Create a new virtual environment in that folder and activate that environment:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+$ python3 -m venv .venv
+$ source .venv/bin/activate
 ```
 
 When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
@@ -115,13 +84,13 @@ When you run the command above, a directory called .venv will appear in the fold
 3. Reflex is available as a [pip](constants.PIP_URL) package. Install Reflex in your environment:
 
 ```bash
-pip install reflex
+$ pip install reflex
 ```
 
 4. Installing Reflex also installs the `reflex` command line tool. Test that the install was successful by running:
 
 ```bash
-reflex init
+$ reflex init
 ```
 
 This initializes a template app in your new directory.
@@ -130,41 +99,53 @@ When you're done using this environment, type `deactivate` to return to your nor
 
 
 
-
-
 ```python eval
 rx.box(height=8)
 ```
 
+
+
+
 ## Installing on Windows
 
-Reflex's recommended environment manager on Windows is [Anaconda Navigator]({constants.ANACONDA_URL}).
+Reflex's recommended environment manager for macOS and Linux is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
 
-
-### Install Anaconda
-
-If you don't have Anaconda install yet, follow the steps provided on the [Anaconda installation page]({constants.ANACONDA_INSTALLATION}).
 
 
 ### Create a new environment with Reflex
 
-Next you'll need to set up your environment.
+1. Create a new project folder and navigate to it. Replace `{app_name}` with your project name:
 
- 1. Follow the steps provided by Anaconda to [set up and manage your environment]({constants.ANACONDA_SETUP_ENVIRONMENT}) using the Anaconda Navigator.
+```bash
+> mkdir {app_name}
+> cd {app_name}
+```
 
- 2. Select the "▶" icon next to your new environment. Then select "Open terminal".
+2. Create a new virtual environment in that folder and activate that environment:
 
- 3. In the terminal that appears, type:
-    ```bash
-    pip install reflex
-    ```
-    Installing Reflex also installs the `reflex` command line tool. 
-  
- 4. Test that the install was successful by running:
-    ```bash
-    reflex init
-    ```
-    This initializes a template app in your new directory.
+```bash
+> py -3 -m venv .venv
+> .venv\Scripts\activate
+```
+
+When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
+
+
+3. Reflex is available as a [pip](constants.PIP_URL) package. Install Reflex in your environment:
+
+```bash
+> pip install reflex
+```
+
+4. Installing Reflex also installs the `reflex` command line tool. Test that the install was successful by running:
+
+```bash
+> reflex init
+```
+
+This initializes a template app in your new directory.
+
+When you're done using this environment, type `deactivate` to return to your normal shell.
 
 
 
