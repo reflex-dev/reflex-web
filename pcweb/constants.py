@@ -20,10 +20,17 @@ NEXTJS_URL = "https://nextjs.org"
 NODEJS_URL = "https://nodejs.org/en/"
 POETRY_URL = "https://python-poetry.org/"
 PIPENV_URL = "https://pipenv.pypa.io/en/latest/"
+PIP_URL = "https://pypi.org/project/pip/"
 VENV_URL = "https://docs.python.org/3/library/venv.html"
 VIRTUALENV_URL = "https://virtualenv.pypa.io/en/latest/"
-CONDA_URL = "https://docs.conda.io/en/latest/"
+CONDA_URL = "https://docs.anaconda.com/free/anaconda/getting-started/"
 FASTAPI_URL = "https://fastapi.tiangolo.com"
+PYTHON_STANDARD_LIBRARY = "https://docs.python.org/3/library/index.html"
+PIP_DOCS = "https://pip.pypa.io/en/stable/installation/#supported-methods"
+HOW_TO_INSTALL_PIP = "https://www.makeuseof.com/tag/install-pip-for-python/"
+ANACONDA_URL = "https://docs.anaconda.com/free/navigator/"
+ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows/"
+ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
 # Stats
 GITHUB_STARS = 13000
