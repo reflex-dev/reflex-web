@@ -8,7 +8,7 @@ from pcweb.templates.webpage import webpage
 from pcweb.base_state import State 
 import pandas as pd
 
-
+# every app must have at least one tag in order to be rendered
 apps_list = [
     {
         "name": "Reflex",
@@ -47,7 +47,7 @@ apps_list = [
         "description": "An app to generate images using OpenAI's DALL-E model.",
         "img": "/gallery/dalle.png",
         "gif": "/gallery/dalle.gif",
-        "url": "https://dalle.pynecone.app/",
+        "url": "",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/dalle",
     },
     {
@@ -67,7 +67,7 @@ apps_list = [
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
-        "url": "https://counter.pynecone.app/",
+        "url": "",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/counter",
     },
     {
@@ -88,7 +88,8 @@ apps_list = [
         "description": "An interactive dashboard for NBA data.",
         "img": "/gallery/nba.png",
         "gif": "/gallery/nba.gif",
-        "url": "https://nba.pynecone.app/",
+        "url": "",
+        #"url": "https://nba.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/nba",
     },
     {
@@ -98,7 +99,7 @@ apps_list = [
         "description": "A quiz app that will test your Python knowledge.",
         "img": "/gallery/quiz.png",
         "gif": "/gallery/quiz.gif",
-        "url": "https://quiz.pynecone.app/",
+        "url": "",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/quiz",
     },
     {
@@ -108,7 +109,8 @@ apps_list = [
         "description": "A todo list app.",
         "img": "/gallery/todo.png",
         "gif": "/gallery/todo.gif",
-        "url": "https://todo.pynecone.app/",
+        "url": "",
+        #"url": "https://todo.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/todo",
     },
     {
@@ -118,7 +120,8 @@ apps_list = [
         "description": "A twitter clone with a login system and database.",
         "img": "/gallery/twitter.png",
         "gif": "/gallery/twitter.gif",
-        "url": "https://twitter.pynecone.app/",
+        "url": "",
+        #"url": "https://twitter.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/twitter",
     },
     {
@@ -128,17 +131,17 @@ apps_list = [
         "description": "A translator app.",
         "img": "/gallery/translator.png",
         "gif": "/gallery/translator.gif",
-        "url": "https://translator.pynecone.app/",
+        "url": "https://translator.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/translator",
     },
     {
         "name": "Clock",
         "difficulty": "Intermediate",
-        "tags": [],
+        "tags": ["Intro"],
         "description": "An analog clock with different time zones.",
         "img": "/gallery/clock.png",
         "gif": "/gallery/clock.gif",
-        "url": "https://clock.pynecone.app/",
+        "url": "https://clock.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/clock",
     },
 ]
