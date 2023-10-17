@@ -1,7 +1,7 @@
 """The base application state."""
 
 import reflex as rx
- 
+
 
 class State(rx.State):
     """The base state."""
@@ -14,4 +14,3 @@ class State(rx.State):
             + self.get_current_page()
         )
         return page
- 

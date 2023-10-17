@@ -40,6 +40,7 @@ def code_block(code: str, language: str):
         width="100%",
     )
 
+
 @rx.memo
 def code_block_memo(children: str, language: str):
     return rx.box(
@@ -54,7 +55,11 @@ def code_block_memo(children: str, language: str):
                         "fontFamily": "inherit",
                     }
                 },
-            ).set(special_props={rx.Var.create_safe("children={children}"),}),
+            ).set(
+                special_props={
+                    rx.Var.create_safe("children={children}"),
+                }
+            ),
             border_radius=styles.DOC_BORDER_RADIUS,
             border="2px solid #F4F3F6",
         ),
@@ -63,9 +68,11 @@ def code_block_memo(children: str, language: str):
         width="100%",
     )
 
+
 def code_block2(*_, **props):
     language = props.get("language", "none")
     return code_block_memo(children="", language=language)
+
 
 # Docpage styles.
 demo_box_style = {
@@ -203,7 +210,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
-                
+
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),

@@ -5,7 +5,7 @@ from pcweb.templates.docpage import docheader, docpage, doctext, docalert
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 
-from pcweb.base_state import State 
+from pcweb.base_state import State
 import pandas as pd
 
 
@@ -152,13 +152,13 @@ class Gallery(rx.Model):
     img: str
     gif: str
     url: str
-    source: str  
+    source: str
 
 
 apps_df = pd.DataFrame(apps_list)
 
 
-def create_list_of_tags(dataframe:pd.DataFrame) -> list:
+def create_list_of_tags(dataframe: pd.DataFrame) -> list:
     """This function takes our pandas dataframe and returns all types of tags
     that exist across all our apps"""
     # Extract the "tags" column from the DataFrame
@@ -177,21 +177,20 @@ def create_list_of_tags(dataframe:pd.DataFrame) -> list:
     unique_tags_list = list(unique_tags_set)
     return unique_tags_list
 
-list_of_tags = create_list_of_tags(apps_df)
 
+list_of_tags = create_list_of_tags(apps_df)
 
 
 class SideBarState(State):
     """Side Bar State"""
-    
+
     chosen_tags_dict: dict[str, bool] = {key: False for key in list_of_tags}
 
-    def update_tag(self, name : str):
+    def update_tag(self, name: str):
         self.chosen_tags_dict[name] = not self.chosen_tags_dict[name]
-    
-    
+
     @rx.var
-    def true_tags(self)->list:
+    def true_tags(self) -> list:
         """This function returns a list of the tags selected in the UI, if no tags
         are selected then it returns all the tags"""
 
@@ -199,11 +198,10 @@ class SideBarState(State):
         if not true_keys:
             return list(self.chosen_tags_dict)
         return list(true_keys)
-    
 
     @rx.var
-    def data_to_return(self)->list[dict[str, str]]:
-        """This function iterates over all the apps we have and if the app has one of the 
+    def data_to_return(self) -> list[dict[str, str]]:
+        """This function iterates over all the apps we have and if the app has one of the
         tags we have selected in true_tags then it will render this app in the UI"""
         selected_examples = []
         for example_dict in apps_list:
@@ -211,7 +209,6 @@ class SideBarState(State):
             if example_tags.intersection(self.true_tags):
                 selected_examples.append(example_dict)
         return selected_examples
-        
 
 
 border_radius = ("0.375rem",)
@@ -245,7 +242,8 @@ def add_item(category):
                     ),
                     href=category["source"],
                 ),
-                rx.cond(category["url"], 
+                rx.cond(
+                    category["url"],
                     rx.link(
                         rx.box(
                             rx.image(src="/icons/eye.svg", width="1em"),
@@ -275,7 +273,10 @@ def add_item(category):
                 category["difficulty"],
                 border_radius="15px",
             ),
-            rx.foreach(category["tags"], lambda tag:rx.badge(tag, border_radius="15px", padding_x=".5em")),
+            rx.foreach(
+                category["tags"],
+                lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
+            ),
             padding_bottom=".5em",
         ),
         align_items="left",
@@ -290,10 +291,14 @@ def add_item(category):
         },
     )
 
-    
-def component_grid():    
+
+def component_grid():
     return rx.box(
-        rx.responsive_grid(rx.foreach(SideBarState.data_to_return, add_item), columns=[1, 2, 2, 2, 3], gap=4),
+        rx.responsive_grid(
+            rx.foreach(SideBarState.data_to_return, add_item),
+            columns=[1, 2, 2, 2, 3],
+            gap=4,
+        ),
     )
 
 
@@ -301,10 +306,10 @@ def sidebar_component_grid(tags):
     return rx.wrap(
         *[
             rx.button(
-                tag, 
-                border_radius="15px", 
-                padding_x=".5em", 
-                is_active=SideBarState.chosen_tags_dict[tag], 
+                tag,
+                border_radius="15px",
+                padding_x=".5em",
+                is_active=SideBarState.chosen_tags_dict[tag],
                 on_click=SideBarState.update_tag(tag),
                 color="#5646ED",
                 bg="#F5EFFE",
@@ -322,9 +327,8 @@ def sidebar_component_grid(tags):
         padding_x=".5em",
     )
 
-heading_style3 = {
-    
-}
+
+heading_style3 = {}
 
 
 def sidebar():
