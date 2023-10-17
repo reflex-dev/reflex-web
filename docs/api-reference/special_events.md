@@ -1,5 +1,5 @@
 ```python exec
-from pcweb.templates.docpage import doccode
+from pcweb.templates.docpage import docdemo
 ```
 
 # Special Events.
@@ -12,11 +12,9 @@ Below are the special events available in Reflex, along with explanations of the
 Perform a console.log in the browser's console.
 
 ```python eval
-doccode(
-"""def index():
-    return rx.button(
-        'Log', on_click=rx.console_log('Hello World!')
-    )
+docdemo(
+"""
+rx.button('Log', on_click=rx.console_log('Hello World!'))
 """
 )
 ```
@@ -32,13 +30,12 @@ Redirect the user to a new path within the application.
 - `external`: If set to True, the redirection will open in a new tab. Defaults to `False`.
 
 ```python eval
-doccode(
+docdemo(
 """
-# Redirect to a new path within the application (opens in the same tab)
-rx.redirect('/docs/api-reference/special-events')
-
-# Redirect to an external URL in a new tab
-rx.redirect('https://example.com', external=True)
+rx.vstack(
+    rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special-events")),
+    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', external=True))
+)
 
 """
 )
@@ -52,13 +49,9 @@ will open in a new tab or window, providing a seamless user experience.
 Set the specified text content to the clipboard.
 
 ```python eval
-doccode(
+docdemo(
 """
-def index():
-    return rx.button(
-        'Copy "Hello World" to clipboard',
-        on_click=rx.set_clipboard('Hello World'),
-    )
+rx.button('Copy "Hello World" to clipboard',on_click=rx.set_clipboard('Hello World'),)
 """
 )
 ```
@@ -71,10 +64,9 @@ allowing users to easily copy information to paste elsewhere.
 Set the value of a specified reference element.
 
 ```python eval
-doccode(
+docdemo(
 """
-def index():
-    return rx.hstack(
+rx.hstack(
         rx.input(id='input1'),
         rx.button(
             'Erase', on_click=rx.set_value('input1', '')
@@ -90,11 +82,9 @@ With this event, you can modify the value of a particular HTML element, typicall
 Create a window alert in the browser.
 
 ```python eval
-doccode(
-"""def index():
-    return rx.button(
-        'Alert', on_click=rx.window_alert('Hello World!')
-    )
+docdemo(
+"""
+rx.button('Alert', on_click=rx.window_alert('Hello World!'))
 """
 )
 ```
@@ -107,7 +97,7 @@ Parameters:
 - `filename`: The desired filename of the downloaded file.
 
 ```python eval
-doccode(
+docdemo(
 """
 rx.button("Download", on_click=rx.download(url="/reflex_logo.png", filename="different_name_logo.png"))
 """
