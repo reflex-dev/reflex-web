@@ -21,7 +21,8 @@ component_map = {
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block2,
 }
+xd = flexdown.Flexdown(component_map=component_map)
 
 
 def render_file(path):
-    return flexdown.render_file(path, component_map=component_map)
+    return xd.render_file(path)
