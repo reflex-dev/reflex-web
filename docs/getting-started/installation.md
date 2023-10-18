@@ -54,7 +54,7 @@ rx.box(height=6)
 Reflex's recommended environment manager for macOS and Linux is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
 
 
-On Ubuntu with Python 3 we must run the command :
+On Ubuntu with Python 3 we must run the command:
 
 ```bash
 $ sudo apt-get install python3-pip python3-venv
@@ -108,7 +108,7 @@ rx.box(height=8)
 
 ## Installing on Windows
 
-Reflex's recommended environment manager for macOS and Linux is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
+Reflex's recommended environment manager for Windows is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
 
 
 
