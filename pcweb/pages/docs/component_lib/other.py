@@ -75,7 +75,7 @@ script_example4 = """rx.vstack(
             window.alert("You clicked at " + arg.clientX + ", " + arg.clientY);
         }'''
     ),
-    rx.button("Where Did I Click?", on_click=rx.client_side("handle_press(args)")),
+    rx.button("Where Did I Click?", on_click=rx.call_script("handle_press(args)")),
 )
 """
 
@@ -120,7 +120,7 @@ def render_script():
         subheader("Client Side Events"),
         doctext(
             "The provided ",
-            rx.code("rx.client_side"),
+            rx.code("rx.call_script"),
             " event handler can be used to execute arbitrary javascript code in response to UI events. ",
             "The handler may call functions defined in previous ",
             rx.code("rx.script"),
