@@ -47,7 +47,7 @@ apps_list = [
         "description": "An app to generate images using OpenAI's DALL-E model.",
         "img": "/gallery/dalle.png",
         "gif": "/gallery/dalle.gif",
-        "url": "",
+        "url": "https://dalle.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/dalle",
     },
     {
@@ -88,8 +88,7 @@ apps_list = [
         "description": "An interactive dashboard for NBA data.",
         "img": "/gallery/nba.png",
         "gif": "/gallery/nba.gif",
-        "url": "",
-        #"url": "https://nba.pynecone.app/",
+        "url": "https://nba.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/nba",
     },
     {
@@ -99,7 +98,7 @@ apps_list = [
         "description": "A quiz app that will test your Python knowledge.",
         "img": "/gallery/quiz.png",
         "gif": "/gallery/quiz.gif",
-        "url": "",
+        "url": "https://quiz.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/quiz",
     },
     {
