@@ -5,6 +5,7 @@
 **/.web
 *.db
 *.py[cod]
+*.zip
 .idea
 .web
 __pycache__/
@@ -13,4 +14,3 @@ pcweb/tsclient.py
 pynecone.db
 reflex.db
 venv/
-*.zip
