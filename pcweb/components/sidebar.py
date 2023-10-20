@@ -151,6 +151,7 @@ def get_sidebar_items_concepts():
                 database.database_overview,
                 database.tables,
                 database.queries,
+                database.relationships,
             ],
         ),
         create_item(

@@ -21,42 +21,21 @@ class User(rx.Model, table=True):
 The `table=True` argument tells Reflex to create a table in the database for
 this class.
 
-## Foreign Key Relationships
+### Primary Key
 
-Foreign key relationships are used to link two tables together. For example,
-a `User` table may have a foreign key relationship with a `Post` table. This
-would allow us to relate multiple `Post` objects to a `User` that created them.
+By default, Reflex will create a primary key column called `id` for each table.
 
-Defining relationships like this requires the use of `sqlmodel` objects as
-seen in the example.
+However, if an `rx.Model` defines a different field with `primary_key=True`, then the
+default `id` field will not be created. A table may also redefine `id` as needed.
 
-```python
-import sqlmodel
-
-
-class Post(rx.Model, table=True):
-    title: str
-    body: str
-    user_id: int = sqlmodel.Field(default=None, foreign_key="user.id")
-
-    user: Optional["User"] = sqlmodel.Relationship(back_populates="posts")
-
-
-class User(rx.Model, table=True):
-    username: str
-    email: str
-
-    posts: List[Post] = sqlmodel.Relationship(back_populates="user")
-```
-
-
-See the [SQLModel Relationship Docs](https://sqlmodel.tiangolo.com/tutorial/relationship-attributes/define-relationships-attributes/) for more details.
+It is not currently possible to create a table without a primary key.
 
 ## Advanced Column Types
 
-SQLModel automatically maps basic python types to SQLAlchemy column types, but for more advanced use cases, it is
-possible to define the column type using `sqlalchemy` directly. For example, we can add a last updated timestamp
-to the post example.
+SQLModel automatically maps basic python types to SQLAlchemy column types, but
+for more advanced use cases, it is possible to define the column type using
+`sqlalchemy` directly. For example, we can add a last updated timestamp to the
+post example as a proper `DateTime` field with timezone.
 
 ```python
 import datetime

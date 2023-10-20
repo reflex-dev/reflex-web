@@ -12,7 +12,9 @@ To execute a query you must first create a `rx.session`. You can use the session
 to query the database using SQLModel or SQLAlchemy syntax.
 
 The `rx.session` statement will automatically close the session when the code
-block is finished.
+block is finished. **If `session.commit()` is not called, the changes will be
+rolled back and not persisted to the database.** The code can also explicitly
+rollback without closing the session via `session.rollback()`.
 
 The following example shows how to create a session and query the database.
 First we create a table called `User`.
@@ -140,157 +142,45 @@ class AddUserForm(State):
 If an ORM object will be referenced and accessed outside of a session, you
 should call `.refresh()` on it to avoid stale object exceptions. 
 
-## Querying Relationships
+## Using SQL Directly
 
-Adding a `Flag` table to the `User` + `Post` example from the tables page, we
-can create a micro blogging schema that allows users to mark inappropriate
-posts.
+Avoiding SQL is one of the main benefits of using an ORM, but sometimes it is
+necessary for particularly complex queries, or when using database-specific
+features.
+
+SQLModel exposes the `session.execute()` method that can be used to execute raw
+SQL strings.  If parameter binding is needed, the query may be wrapped in
+[`sqlalchemy.text`](https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text),
+which allows colon-prefix names to be used as placeholders.
+
+```python exec
+from pcweb.templates.docpage import docalert
+```
+
+```python eval
+docalert("Never use string formatting to construct SQL queries, as this may lead to SQL injection vulnerabilities in the app.")
+```
 
 ```python
-import datetime
-from typing import List, Optional
-
 import sqlalchemy
-import sqlmodel
 
 import reflex as rx
 
 
-class Post(rx.Model, table=True):
-    title: str
-    body: str
-    user_id: int = sqlmodel.Field(foreign_key="user.id")
-    update_ts: datetime.datetime = sqlmodel.Field(
-        default=None,
-        sa_column=sqlalchemy.Column(
-            "update_ts",
-            sqlalchemy.DateTime(timezone=True),
-            server_default=sqlalchemy.func.now(),
-        ),
-    )
-
-    user: Optional["User"] = sqlmodel.Relationship(back_populates="posts")
-    flags: Optional[List["Flag"]] = sqlmodel.Relationship(back_populates="post")
-
-
-class User(rx.Model, table=True):
-    username: str
-    email: str
-
-    posts: List[Post] = sqlmodel.Relationship(back_populates="user")
-
-
-class Flag(rx.Model, table=True):
-    post_id: int = sqlmodel.Field(foreign_key="post.id")
-    user_id: int = sqlmodel.Field(foreign_key="user.id")
-    message: str
-
-    post: Optional[Post] = sqlmodel.Relationship(back_populates="flags")
-    user: Optional[User] = sqlmodel.Relationship()
-```
-
-### Inserting Linked Objects
-
-The following example assumes that the flagging user is stored in the state as a
-`User` instance and that the post `id` is provided in the data submitted in the
-form.
-
-```python
-class FlagPostForm(State):
-    user: User
-
-    def flag_post(self, form_data: dict[str, str]):
+class State(rx.State):
+    def insert_user_raw(self, username, email):
         with rx.session() as session:
-            post = session.get(Post, int(form_data.pop("post_id")))
-            flag = Flag(message=form_data.pop("message"), post=post, user=self.user)
-            session.add(flag)
+            session.execute(
+                sqlalchemy.text(
+                    "INSERT INTO user (username, email) "
+                    "VALUES (:username, :email)"
+                ),
+                \{"username": username, "email": email},
+            )
             session.commit()
-```
 
-### How are Relationships Dereferenced?
-
-By default, the relationship attributes are in **lazy loading** or `"select"`
-mode, which generates a query _on access_ to the relationship attribute. Lazy
-loading is generally fine for single object lookups and manipulation, but can be
-inefficient when accessing many linked objects for serialization purposes.
-
-There are several alternative loading mechanisms available that can be set on
-the relationship object or when performing the query.
-
-* "joined" or `joinload` - generates a single query to load all related objects
-  at once.
-* "subquery" or `subqueryload` - generates a single query to load all related
-  objects at once, but uses a subquery to do the join, instead of a join in the
-  main query.
-* "selectin" or `selectinload` - emits a second (or more) SELECT statement which
-  assembles the primary key identifiers of the parent objects into an IN clause,
-  so that all members of related collections / scalar references are loaded at
-  once by primary key
-
-There are also non-loading mechanisms, "raise" and "noload" which are used to
-specifically avoid loading a relationship.
-
-Each loading method comes with tradeoffs and some are better suited for different
-data access patterns.
-See [SQLAlchemy: Relationship Loading Techniques](https://docs.sqlalchemy.org/en/14/orm/loading_relationships.html)
-for more detail.
-
-### Querying Linked Objects
-
-To query the `Post` table and include all `User` and `Flag` objects up front,
-the `.options` interface will be used to specify `selectinload` for the required
-relationships. Using this method, the linked objects will be available for
-rendering in frontend code without additional steps.
-
-```python
-import sqlalchemy
-
-
-class PostState(State):
-    posts: List[Post]
-
-    def load_posts(self):
+    @rx.var
+    def raw_user_tuples(self) -> list[list]:
         with rx.session() as session:
-            self.posts = session.exec(
-                Post.select
-                .options(
-                    sqlalchemy.orm.selectinload(Post.user),
-                    sqlalchemy.orm.selectinload(Post.flags).options(
-                        sqlalchemy.orm.selectinload(Flag.user),
-                    ),
-                )
-                .limit(15)
-                .order_by(Post.update_ts.desc())
-            ).all()
-```
-
-The loading methods create new query objects and thus may be linked if the
-relationship itself has other relationships that need to be loaded. In this
-example, since `Flag` references `User`, the `Flag.user` relationship must be
-chain loaded from the `Post.flags` relationship.
-
-### Specifying the Loading Mechanism on the Relationship
-
-Alternatively, the loading mechanism can be specified on the relationship by
-passing `sa_relationship_kwargs=\{"lazy": method}` to `sqlmodel.Relationship`,
-which will use the given loading mechanism in all queries by default.
-
-```python
-from typing import List, Optional
-
-import sqlmodel
-
-import reflex as rx
-
-
-class Post(rx.Model, table=True):
-    ...
-    user: Optional["User"] = sqlmodel.Relationship(
-        back_populates="posts",
-        sa_relationship_kwargs=\{"lazy": "selectin"},
-    )
-    flags: Optional[List["Flag"]] = sqlmodel.Relationship(
-        back_populates="post",
-        sa_relationship_kwargs=\{"lazy": "selectin"},
-    )
+            return [list(row) for row in session.execute("SELECT * FROM user").all()]
 ```
