@@ -68,8 +68,8 @@ class StreamingState(rx.State):
         async with self:
             self.stream = True
         while self.stream:
-            for i in range(len(self.data)):
-                async with self:
+            async with self:
+                for i in range(len(self.data)):
                     self.data[i]["uv"] = random.randint(0, 100)
                     self.data[i]["pv"] = random.randint(100, 200)
                     self.data[i]["amt"] = random.randint(200, 300)
@@ -105,8 +105,8 @@ class StreamingState(State):
         async with self:
             self.stream = True
         while self.stream:
-            for i in range(len(self.data)):
-                async with self:
+            async with self:
+                for i in range(len(self.data)):
                     self.data[i]["uv"] = random.randint(0, 100)
                     self.data[i]["pv"] = random.randint(100, 200)
                     self.data[i]["amt"] = random.randint(200, 300)
