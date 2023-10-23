@@ -171,5 +171,5 @@ def background_tasks():
 
 
 @webpage(path="/blog/2023-10-11-graphing-update")
-def background_tasks():
+def graphing_update():
     return page(blogs["blog/2023-10-11-graphing-update"])
