@@ -73,7 +73,7 @@ apps_list = [
     {
         "name": "GPT Q&A",
         "difficulty": "Advanced",
-        "tags": ["AI", "Auth"],
+        "tags": ["AI", "Auth", "Database"],
         "description": "An UI around Open AI's GPT3 API.",
         "img": "/gallery/gpt.png",
         "gif": "/gallery/gpt.gif",
@@ -142,6 +142,16 @@ apps_list = [
         "gif": "/gallery/clock.gif",
         "url": "https://clock.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/clock",
+    },
+    {
+        "name": "Simple Background Tasks",
+        "difficulty": "Intermediate",
+        "tags": ["Streaming"],
+        "description": "An app that showcases simple Background tasks.",
+        "img": "/gallery/simple_background_tasks.png",
+        "gif": "/gallery/simple_background_tasks.gif",
+        "url": "https://simple-background-tasks.reflex.run",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream",
     },
 ]
 
