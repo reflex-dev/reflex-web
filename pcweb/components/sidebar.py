@@ -84,8 +84,8 @@ def get_sidebar_items_learn():
 
     items = [
         create_item(
-            getting_started,
-            children=[
+            getting_started, 
+            children=[ 
                 getting_started.introduction,
                 getting_started.installation,
                 getting_started.project_structure,
@@ -111,10 +111,10 @@ def get_sidebar_items_concepts():
         advanced_guide,
         components,
         database,
-        hosting,
+        hosting, 
         state,
-        styling,
-        wrapping_react,
+        styling, 
+        wrapping_react, 
     )
 
     items = [
@@ -122,12 +122,12 @@ def get_sidebar_items_concepts():
             components,
             children=[
                 components.components_overview,
-                components.props,
+                components.props, 
                 components.pages,
                 components.assets,
             ],
         ),
-        create_item(
+        create_item( 
             state,
             children=[
                 state.state_overview,
@@ -164,8 +164,9 @@ def get_sidebar_items_concepts():
         create_item( 
             wrapping_react,
             children=[
-                wrapping_react.intro,
+                wrapping_react.overview,
                 wrapping_react.imports, 
+                wrapping_react.logic,
                 wrapping_react.example,
             ],
         ),

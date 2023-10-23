@@ -6,7 +6,7 @@ from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, doc_section, docdemobox
 from pcweb.pages.docs.tutorial import intro
 from pcweb.pages.docs.getting_started import installation
-from pcweb.pages.docs.wrapping_react import intro
+from pcweb.pages.docs.wrapping_react import overview
 from pcweb.pages.docs.library import library
 ```
 
@@ -214,7 +214,7 @@ This function defines the frontend of the app.
 We use different components such as `rx.hstack`, `rx.button`, and `rx.heading` to build the frontend. Components can be nested to create complex layouts, and can be styled using the full power of CSS.
 
 Reflex comes with [50+ built-in components]({library.path}) to help you get started.
-We are actively adding more components, plus it's easy to [wrap your own React components]({intro.path}).
+We are actively adding more components, plus it's easy to [wrap your own React components]({overview.path}).
 
 ```python eval
 doccode(counter_code, lines=(22, 23))

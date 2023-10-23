@@ -3,14 +3,14 @@ import reflex as rx
 from typing import Any
 from pcweb.base_state import State
 ```
-# Wrapping React
+# Wrapping React Overview
 
 
 One of Reflex's most powerful features is the ability to wrap React components. This allows us to build on top of the existing React ecosystem, and leverage the vast array of existing React components and libraries.
 
 If you want a specific component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. Search for it on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app.
 
-In this section, we'll learn how to wrap React components and use them in Reflex apps.
+In this section, we'll go over how to wrap React components on a high level. In the subsequent sections, we'll go over the details of how to wrap more complex components.
 
 ## ColorPicker Example
 
@@ -78,7 +78,7 @@ class ColorPickerState(rx.State):
 def index():
     return rx.box(
         rx.vstack(
-            rx.heading(ColorPickerState.color),
+            rx.heading(ColorPickerState.color, color="white"),
             color_picker(
                 on_change=ColorPickerState.set_color
             ),
@@ -112,7 +112,7 @@ class ColorPickerState(State):
 ```python eval
 rx.box(
         rx.vstack(
-            rx.heading(ColorPickerState.color),
+            rx.heading(ColorPickerState.color, color="white"),
             color_picker(
                 on_change=ColorPickerState.set_color
             ),
