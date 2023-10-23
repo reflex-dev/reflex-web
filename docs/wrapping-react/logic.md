@@ -4,9 +4,7 @@ from typing import Any
 from pcweb.base_state import State
 ```
 
-## Vars
-
-### Declaring Vars
+## Declaring Vars
 
 As seen in our [state section](https://reflex.dev/docs/state/), we can use `rx.Var` to define state variables in our Reflex apps.
 
@@ -31,7 +29,7 @@ class SomeComponent(rx.Component):
 
 Here we define a var that is a list of dictionaries. This is useful for when you want to pass in a list of data to your component.
 
-### Serializing Vars
+## Serializing Vars
 
 Sometimes you want to create a var that isn't a common primitive type. In this case, you can use the `serializer` to convert your var to a primitive type which can be stored in your state.
 
@@ -95,5 +93,5 @@ class ColorPicker(rx.Component):
         return \{
             **super().get_event_triggers(),
             "on_change": lambda e0: [e0],
-        \}
+        }
 ```

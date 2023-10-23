@@ -120,25 +120,25 @@ initial_nodes = [
     \{
         'id': '1',
         'type': 'input',
-        'data': \{'label': '150'\},
-        'position': \{'x': 250, 'y': 25\},
-    \},
+        'data': \{'label': '150'},
+        'position': \{'x': 250, 'y': 25},
+    },
     \{
         'id': '2',
-        'data': \{'label': '25'\},
-        'position': \{'x': 100, 'y': 125\},
-    \},
+        'data': \{'label': '25'},
+        'position': \{'x': 100, 'y': 125},
+    },
     \{
         'id': '3',
         'type': 'output',
-        'data': \{'label': '5'\},
-        'position': \{'x': 250, 'y': 250\},
-    \},
+        'data': \{'label': '5'},
+        'position': \{'x': 250, 'y': 250},
+    },
 ]
 
 initial_edges = [
-    \{'id': 'e1-2', 'source': '1', 'target': '2', 'label': '*', 'animated': True\},
-    \{'id': 'e2-3', 'source': '2', 'target': '3', 'label': '+', 'animated': True\},
+    \{'id': 'e1-2', 'source': '1', 'target': '2', 'label': '*', 'animated': True},
+    \{'id': 'e2-3', 'source': '2', 'target': '3', 'label': '+', 'animated': True},
 ]
 ```
 
@@ -164,8 +164,8 @@ class State(rx.State):
         new_node = {
             'id': new_node_id,
             'type': node_type,
-            'data': \{'label': label\},
-            'position': \{'x': x, 'y': y\},
+            'data': \{'label': label},
+            'position': \{'x': x, 'y': y},
             'draggable': True,
         }
         self.nodes.append(new_node)
@@ -178,14 +178,14 @@ class State(rx.State):
         # Iterate over the existing edges
         for i, edge in enumerate(self.edges):
             # If we find an edge with the same ID as the new edge
-            if edge["id"] == f"e\{new_edge['source']\}-\{new_edge['target']\}":
+            if edge["id"] == f"e\{new_edge['source']}-\{new_edge['target']}":
                 # Delete the existing edge
                 del self.edges[i]
                 break
 
         # Add the new edge
         self.edges.append({
-            "id": f"e\{new_edge['source']\}-\{new_edge['target']\}",
+            "id": f"e\{new_edge['source']}-\{new_edge['target']}",
             "source": new_edge["source"],
             "target": new_edge["target"],
             "label": random.choice(["+", "-", "*", "/"]),

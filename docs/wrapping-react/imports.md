@@ -3,23 +3,72 @@ import reflex as rx
 from typing import Any
 from pcweb.base_state import State
 ```
-# Wrapping React
+## Basics of Imports
 
+Before deciding to extend Reflex by wrapping a component, check to see if there is a corresponding, well maintained React library. Search for it on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app.
 
-One of Reflex's most powerful features is the ability to wrap React components. This allows us to build on top of the existing React ecosystem, and leverage the vast array of existing React components and libraries.
+```javascript 
+import \{ HexColorPicker } from "react-colorful"
+```
 
-If you want a specific component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. Search for it on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app.
+The two main things we need to know when wrapping a React component are the library and the tag.
 
-In this section, we'll learn how to wrap React components and use them in Reflex apps.
+The library is the name of the npm package, and the tag is the name of the React component. As seen in the example above, the library is `react-colorful` and the tag is `HexColorPicker`.
+
+The corresponding Reflex component would look like this:
+
+```python
+class Spline(rx.Component):
+    """Spline component."""
+ 
+    library = "@splinetool/react-spline"
+    tag = "Spline"
+    ...
+```
 
 ## Import Types
 
+If the tag is the default export from the module, you can set `is_default = True` in your component class. This is normally used when components don't have curly braces around them when importing.
 
-If the tag is not the default export from the module, then set `is_default = False` in the component class definition to generate an import using the curly brace syntax.
+We do this in the Spline example in the overview section:
 
-```javascript 
-import \{ HexColorPicker \} from "react-colorful"
+```javascript
+import Spline from '@splinetool/react-spline';
 ```
+
+To wrap this component we would set `is_default = True` in our component class:
+
+```python
+class Spline(rx.Component):
+    """Spline component."""
+ 
+    library = "@splinetool/react-spline"
+    tag = "Spline"
+    scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+    is_default = True
+
+    lib_dependencies: list[str] = ["@splinetool/runtime"]
+```
+
+## Library Dependencies
+
+By default Reflex will install the library you have specified in the library property. However, sometimes you may need to install other libraries to use a component. In this case you can use the `lib_dependencies` property to specify other libraries to install.
+
+
+As seen in the Spline example in the overview section, we need to import the `@splinetool/runtime` library to use the `Spline` component. We can specify this in our component class like this:
+
+```python
+class Spline(rx.Component):
+    """Spline component."""
+
+    library = "@splinetool/react-spline"
+    tag = "Spline"
+    scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+    is_default = True
+
+    lib_dependencies: list[str] = ["@splinetool/runtime"]
+```
+
 
 ## Aliases
 
@@ -35,7 +84,7 @@ class AnotherColorPicker(rx.Component):
     color: rx.Var[str]
 
     def get_event_triggers(self) -> dict[str, Any]:
-        return {
+        return \{
             **super().get_event_triggers(),
             "on_change": lambda e0: [e0],
         }

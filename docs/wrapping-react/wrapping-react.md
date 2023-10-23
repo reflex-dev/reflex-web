@@ -2,6 +2,8 @@
 import reflex as rx
 from typing import Any
 from pcweb.base_state import State
+from pcweb.components.spline import spline
+from pcweb.templates.docpage import demo_box_style
 ```
 # Wrapping React Overview
 
@@ -12,51 +14,126 @@ If you want a specific component for your app but Reflex doesn't provide it, the
 
 In this section, we'll go over how to wrap React components on a high level. In the subsequent sections, we'll go over the details of how to wrap more complex components.
 
-## ColorPicker Example
 
-Lets take a color picker example. We'll use the [react-colorful](https://www.npmjs.com/package/react-colorful) component, which is a simple color picker component.
+## Spline Example
+
+
+Let's start with a library called [Spline](https://spline.design/). Spline is a tool for creating 3D scenes and animations. It's a great tool for creating interactive 3D visualizations.
+
+
+We have some code that creates a Spline scene. We want to wrap this code in a Reflex component so that we can use it in our Reflex app.
 
 ```javascript
-import \{ HexColorPicker \} from "react-colorful";
+import Spline from '@splinetool/react-spline';
 
-const YourComponent = () => \\{
-  const [color, setColor] = useState("#aabbcc");
-  return <HexColorPicker color=\{color\} onChange=\{setColor\} />;
-\};
+export default function App() {
+  return (
+    <Spline scene="https://prod.spline.design/up1SQcRLq1s6yks3/scene.splinecode" />
+  );
+}
 ```
-
-## Wrapping React Components
 
 The two most important props are `library`, which is the name of the npm package, and `tag`, which is the name of the React component.
 
-Reflex will automatically install the library specified in your code if needed.
-
 ```python
-class ColorPicker(rx.Component):
-    library = "react-colorful"
-    tag = "HexColorPicker"
+class Spline(rx.Component):
+    """Spline component."""
+
+    library = "@splinetool/react-spline"
+    tag = "Spline"
+    scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+    is_default = True
+
+    lib_dependencies: list[str] = ["@splinetool/runtime"]
 ```
 
-A component may also have many props. You can add props by declaring them as rx.Vars in the class. In this example, we have just one prop, value, which is the current color.
 
-Finally, we must specify any event triggers that the component takes. This component has a single trigger to specify when the color changes.
+Here the library is `@splinetool/react-spline` and the tag is `Spline`. In the next section we will go into a deep dive on imports but we also set `is_default = True` because the tag is the default export from the module.
+
+
+Additionally, we can specify any props that the component takes. In this case, the `Spline` component takes a `scene` prop, which is the URL of the Spline scene.
+
+
+## Full Example
+
+```python eval
+rx.center(
+        spline(
+            scene="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode"
+        ),
+        overflow="hidden",
+        width="100%",
+        height="30em",
+        padding="0",
+        margin_bottom="1em",
+        style=demo_box_style,
+    )
+```
 
 ```python
+class Spline(rx.Component):
+    """Spline component."""
+
+    library = "@splinetool/react-spline"
+    tag = "Spline"
+    scene: Var[str] ="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode"
+    is_default = True
+
+    lib_dependencies: list[str] = ["@splinetool/runtime"]
+
+spline = Spline.create
+
+def spline_example():
+    return rx.center(
+        spline(),
+        overflow="hidden",
+        width="100%",
+        height="30em",
+    )
+```
+
+## ColorPicker Example
+
+Similar to the Spline example we start with defining the library and tag. In this case the library is `react-colorful` and the tag is `HexColorPicker`.
+
+We also have a var `color` which is the current color of the color picker.
+
+Since this componnent has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color.
+
+
+```python exec
 class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
 
     def get_event_triggers(self) -> dict[str, Any]:
-        return \{
+        return {
             **super().get_event_triggers(),
             "on_change": lambda e0: [e0],
-        \}
+        }
+
+color_picker = ColorPicker.create
+
+
+class ColorPickerState(State):
+    color: str = "#db114b"
 ```
 
-## Using the Component
-
-Now we're ready to use the component! Every component has a create method. Usually you'll want to store this for easy access.
+```python eval
+rx.box(
+        rx.vstack(
+            rx.heading(ColorPickerState.color, color="white"),
+            color_picker(
+                on_change=ColorPickerState.set_color
+            ),
+        ),
+        background_color=ColorPickerState.color,
+        padding="5em",
+        border_radius="1em",
+        margin_bottom="1em",
+    )
+```
 
 ```python
 class ColorPicker(rx.Component):
@@ -90,36 +167,4 @@ def index():
 
 ```
 
-```python exec
-class ColorPicker(rx.Component):
-    library = "react-colorful"
-    tag = "HexColorPicker"
-    color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
-
-color_picker = ColorPicker.create
-
-
-class ColorPickerState(State):
-    color: str = "#db114b"
-```
-
-```python eval
-rx.box(
-        rx.vstack(
-            rx.heading(ColorPickerState.color, color="white"),
-            color_picker(
-                on_change=ColorPickerState.set_color
-            ),
-        ),
-        background_color=ColorPickerState.color,
-        padding="5em",
-        border_radius="1em",
-    )
-```
 
