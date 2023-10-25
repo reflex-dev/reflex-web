@@ -33,6 +33,6 @@ ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows
 ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
 # Stats
-GITHUB_STARS = 13000
+GITHUB_STARS = 13400
 MONTHLY_USERS = 3000
-DISCORD = 2300
+DISCORD = 2400
