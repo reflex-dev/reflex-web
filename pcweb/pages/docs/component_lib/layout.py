@@ -161,9 +161,9 @@ basic_foreach = """rx.responsive_grid(
 
 foreach_index_state = """from typing import List
 class ForeachIndexState(State):
-    count: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
+    color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
-def colored_box(color: str, index: int):
+def colored_box_index(color: str, index: int):
     return rx.box(
         rx.text(index),
         bg=color
@@ -172,8 +172,8 @@ def colored_box(color: str, index: int):
 exec(foreach_index_state)
 foreach_index = """rx.responsive_grid(
         rx.foreach(
-            ForeachIndexState.count,
-            lambda color, index: colored_box(color, index)
+            ForeachIndexState.color,
+            lambda color, index: colored_box_index(color, index)
         ),
         columns=[2, 4, 6],
     )
