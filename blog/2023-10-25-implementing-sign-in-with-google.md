@@ -8,6 +8,8 @@ image: /background_task.jpg
 
 ```python exec
 import reflex as rx
+import pcweb.pages.docs.api_reference.browser
+import pcweb.pages.docs.state.overview
 from pcweb.templates.docpage import docalert
 ```
 
@@ -177,14 +179,16 @@ app.add_page(index)
 app.compile()
 ```
 
-After a successful login, you will see the decoded JWT with user profile
-information displayed in the terminal!
+After a successful login, you will see the decoded [JSON Web Token
+(JWT)](https://jwt.io) with user profile information displayed in the terminal!
 
 ## Saving the Token
 
 The `GoogleLogin` component does NOT store the token in any way, so it is up to
 our app to store and manage the credential after login. For this purpose, we
-will use an `rx.LocalStorage` `Var` in the `State` that is set in the
+will use an
+[`rx.LocalStorage`]({pcweb.pages.docs.api_reference.browser.path}) `Var` in the
+[`State`]({pcweb.pages.docs.state.overview.state_overview.path}) that is set in the
 `on_success` event handler.
 
 Additionally, an `rx.cached_var` will be used to verify and return the decoded
@@ -329,7 +333,7 @@ class State(rx.State):
 docalert(
     "Private data must come from the State",
     "Reflex compiles the page function and makes its content publicly "
-    "accessible! Although conditional rendering is used to to show the "
+    "accessible! Although conditional rendering is used to show the "
     "login button to unauthenticated users, the source code of the "
     "page will also be available to unauthenticated users. "
     "Because of this, all private content must originate from the State "
