@@ -146,6 +146,6 @@ class PlotlyLib(NoSSRComponent):
 
     lib_dependencies: List[str] = ["plotly.js@2.22.0"]
 
-    def get_custom_code(self) -> str:
+    def _get_custom_code(self) -> str:
         return "const customCode = 'customCode';"
 ```
