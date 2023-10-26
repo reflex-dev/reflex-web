@@ -228,7 +228,6 @@ app.compile()
 
 
 ```python exec
-"""Welcome to Reflex! This file outlines the steps to create a basic app."""
 import reflex as rx
 from reflex.components.component import Component
 from typing import Any, Dict, List, Union

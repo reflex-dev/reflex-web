@@ -18,12 +18,11 @@ The library is the name of the npm package, and the tag is the name of the React
 The corresponding Reflex component would look like this:
 
 ```python
-class Spline(rx.Component):
-    """Spline component."""
- 
-    library = "@splinetool/react-spline"
-    tag = "Spline"
-    ...
+class ColorPicker(rx.Component):
+    """Color picker component."""
+
+    library = "react-colorful"
+    tag = "HexColorPicker"
 ```
 
 ## Import Types
@@ -95,7 +94,7 @@ class AnotherColorPicker(rx.Component):
 Some libraries you may want to wrap may require dynamic imports. This is because they they may not be compatible with Server-Side Rendering (SSR).
 
 
-To handle this in Reflex all you need todo is subclass when defining your component `NoSSRComponent`
+To handle this in Reflex all you need to do is subclass `NoSSRComponent` when defining your component.
 
 
 Often times when you see an import something like this:
@@ -124,7 +123,7 @@ class PlotlyLib(NoSSRComponent):
 
 ## Custom Code
 
-Sometimes you may need to add custom code to your component. This could be anything from adding custom constants, to adding custom imports, or even adding custom functions.
+Sometimes you may need to add custom code to your component. This could be anything from adding custom constants, to adding custom imports, or even adding custom functions. Custom code will be inserted _outside_ of the react component function.
 
 ```javascript
 import React from "react";
