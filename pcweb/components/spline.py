@@ -11,19 +11,19 @@ class Spline(rx.Component):
     is_default = True
 
     lib_dependencies: list[str] = ["@splinetool/runtime"]
-
-
+  
+ 
 spline = Spline.create
+  
 
-
-def spline_component():
-    return rx.center(
+def spline_component():  
+    return rx.center( 
         rx.center(
             spline(),
             overflow="hidden",
             width="42em",
-            height="42em",
+            height="42em", 
         ),
-        width="100%",
-        display=["none", "none", "none", "none", "flex", "flex"],
+        width="100%", 
+        display=["none", "none", "none", "none", "flex", "flex"],   
     )

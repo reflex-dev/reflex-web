@@ -64,11 +64,11 @@ def code_block_memo(children: str, language: str):
             border="2px solid #F4F3F6",
         ),
         position="relative",
-        margin_bottom="1em",
+        margin_bottom="1em", 
         width="100%",
-    )
-
-
+    )       
+   
+   
 def code_block2(*_, **props):
     language = props.get("language", "none")
     return code_block_memo(children="", language=language)
@@ -418,8 +418,8 @@ def doctext(*text, **props) -> rx.Component:
         width="100%",
         **props,
     )
-
-
+ 
+  
 def doccode(
     code: str,
     language: str = "python",

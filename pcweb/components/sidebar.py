@@ -84,8 +84,8 @@ def get_sidebar_items_learn():
 
     items = [
         create_item(
-            getting_started,
-            children=[
+            getting_started, 
+            children=[ 
                 getting_started.introduction,
                 getting_started.installation,
                 getting_started.project_structure,
@@ -111,9 +111,10 @@ def get_sidebar_items_concepts():
         advanced_guide,
         components,
         database,
-        hosting,
+        hosting, 
         state,
-        styling,
+        styling, 
+        wrapping_react, 
     )
 
     items = [
@@ -121,12 +122,12 @@ def get_sidebar_items_concepts():
             components,
             children=[
                 components.components_overview,
-                components.props,
+                components.props, 
                 components.pages,
                 components.assets,
             ],
         ),
-        create_item(
+        create_item( 
             state,
             children=[
                 state.state_overview,
@@ -151,13 +152,22 @@ def get_sidebar_items_concepts():
                 database.database_overview,
                 database.tables,
                 database.queries,
-            ],
+            ], 
         ),
         create_item(
             hosting,
             children=[
                 hosting.deploy,
                 hosting.self_hosting,
+            ],
+        ),
+        create_item( 
+            wrapping_react,
+            children=[
+                wrapping_react.overview,
+                wrapping_react.imports, 
+                wrapping_react.logic,
+                wrapping_react.example,
             ],
         ),
     ]
@@ -168,12 +178,11 @@ def get_sidebar_items_concepts():
                 advanced_guide.background_tasks,
                 advanced_guide.custom_vars,
                 advanced_guide.memoization,
-                advanced_guide.wrapping_react,
                 advanced_guide.api_routes,
                 advanced_guide.use_middleware,
                 advanced_guide.telemetry,
             ],
-        )
+        ) 
     )
     return items
 
