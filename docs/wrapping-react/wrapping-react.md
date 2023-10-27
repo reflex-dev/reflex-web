@@ -32,6 +32,7 @@ export default function App() {
   );
 }
 ```
+Here is how we would wrap this component in Reflex.
 
 The two most important props are `library`, which is the name of the npm package, and `tag`, which is the name of the React component.
 
