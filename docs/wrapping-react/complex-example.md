@@ -26,7 +26,7 @@ class ReactFlowLib(Component):
         """
 ```
 
-Notice we also use the`_get_custom_code` method to import the css file that is needed for the styling of the library.
+Notice we also use the `_get_custom_code` method to import the css file that is needed for the styling of the library.
 
 ## Components 
 
