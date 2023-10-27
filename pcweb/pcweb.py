@@ -38,14 +38,14 @@ for route in routes:
     )
 
 # Add the pages to the app.
-# for route in blog_routes:
-#     app.add_page(
-#         route.component,
-#         route.path,
-#         "Reflex | Blog",
-#         description="Keep up to date with the latest Reflex news.",
-#         image="/previews/blog_preview.png",
-#     )
+for route in blog_routes:
+    app.add_page(
+        route.component,
+        route.path,
+        "Reflex | Blog",
+        description="Keep up to date with the latest Reflex news.",
+        image="/previews/blog_preview.png",
+    )
 
 # Add the pages to the app.
 for route in doc_routes:
@@ -75,7 +75,7 @@ for route in faq_routes:
         "Reflex | FAQ",
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
-    )
+    ) 
 
 
 for key in component_list:

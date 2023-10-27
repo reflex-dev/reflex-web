@@ -187,8 +187,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         href=prev.link,
                         style=link_style,
                     )
-                )
-            else:
+                )   
+            else:   
                 links.append(rx.box())
 
             # Create the next component link.
@@ -418,8 +418,8 @@ def doctext(*text, **props) -> rx.Component:
         width="100%",
         **props,
     )
- 
-  
+
+
 def doccode(
     code: str,
     language: str = "python",
@@ -436,7 +436,7 @@ def doccode(
 
     Returns:
         The styled code snippet.
-    """
+    """ 
     # For Python snippets, lint the code with black.
     if language == "python":
         code = black.format_str(
@@ -458,7 +458,7 @@ def doccode(
         code=code,
         language=language,
     )
- 
+  
 
 def docdemobox(*children) -> rx.Component:
     """Create a documentation demo box with the output of the code.
@@ -606,8 +606,8 @@ tab_style = {
         "border_radius": "8px",
     },
 }
-
-
+ 
+ 
 def docgraphing(
     code: str,
     state: str | None = None,
@@ -644,3 +644,4 @@ def docgraphing(
         ),
         width="100%",
     )
+    
