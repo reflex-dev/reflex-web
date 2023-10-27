@@ -14,7 +14,7 @@ from pcweb.styles import font_weights as fw
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
-
+ 
 
 @rx.memo
 def code_block(code: str, language: str):
@@ -458,7 +458,7 @@ def doccode(
         code=code,
         language=language,
     )
-
+ 
 
 def docdemobox(*children) -> rx.Component:
     """Create a documentation demo box with the output of the code.
