@@ -27,7 +27,7 @@ apps_list = [
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
-        "url": "",
+        "url": "https://webui-teal-star.reflex.run",
         "source": "https://github.com/reflex-dev/reflex-chat",
     },
     {
