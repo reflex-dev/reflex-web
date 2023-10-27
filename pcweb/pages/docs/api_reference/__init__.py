@@ -1,7 +1,7 @@
 from .cli import cli
 from .special_events import special_events
 from .event_triggers import event_triggers
-from .browser import browser
+from .browser import browser_javascript, browser_storage
 
 import reflex as rx
 
