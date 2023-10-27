@@ -57,7 +57,7 @@ for route in doc_routes:
         image="/previews/docs_preview.png",
     )
 
-# Add the pages to the app.
+# # Add the pages to the app.
 for route in changelog_routes:
     app.add_page(
         route.component,
@@ -75,7 +75,7 @@ for route in faq_routes:
         "Reflex | FAQ",
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
-    )
+    ) 
 
 
 for key in component_list:
