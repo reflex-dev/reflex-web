@@ -21,7 +21,7 @@ In this section, we'll go over how to wrap React components on a high level. In 
 Let's start with a library called [Spline](https://spline.design/). Spline is a tool for creating 3D scenes and animations. It's a great tool for creating interactive 3D visualizations.
 
 
-We have some code that creates a Spline scene. We want to wrap this code in a Reflex component so that we can use it in our Reflex app.
+We have some react code that creates a Spline scene. We want to wrap this code in a Reflex component so that we can use it in our Reflex app.
 
 ```javascript
 import Spline from '@splinetool/react-spline';
@@ -98,7 +98,7 @@ Similar to the Spline example we start with defining the library and tag. In thi
 
 We also have a var `color` which is the current color of the color picker.
 
-Since this componnent has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color.
+Since this component has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color. Here `super().get_event_triggers()` is used to get the default event triggers for all components.
 
 
 ```python exec
