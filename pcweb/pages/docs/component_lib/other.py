@@ -69,16 +69,6 @@ script_example2 = """rx.script(src="/my-custom.js")"""
 
 script_example3 = """rx.script(src="//gc.zgo.at/count.js", custom_attrs={"data-goatcounter": "https://reflextoys.goatcounter.com/count"}),"""
 
-script_example4 = """rx.vstack(
-    rx.script(
-        '''const handle_press = (arg) => {
-            window.alert("You clicked at " + arg.clientX + ", " + arg.clientY);
-        }'''
-    ),
-    rx.button("Where Did I Click?", on_click=rx.call_script("handle_press(args)")),
-)
-"""
-
 
 def render_script():
     return rx.vstack(
@@ -116,30 +106,5 @@ def render_script():
         doccode(
             '<script src="//gc.zgo.at/count.js" data-goatcounter="https://reflextoys.goatcounter.com/count" data-nscript="afterInteractive"></script>',
             language="html",
-        ),
-        subheader("Client Side Events"),
-        doctext(
-            "The provided ",
-            rx.code("rx.call_script"),
-            " event handler can be used to execute arbitrary javascript code in response to UI events. ",
-            "The handler may call functions defined in previous ",
-            rx.code("rx.script"),
-            " components.",
-        ),
-        docdemo(script_example4),
-        doctext(
-            rx.alert(
-                rx.alert_icon(),
-                rx.box(
-                    rx.alert_title("Avoid Recreating the Wheel"),
-                    rx.alert_description(
-                        "This snippet uses ",
-                        rx.code("window.alert"),
-                        " directly as an example. Users should generally avoid inline javascript where Reflex provides an "
-                        "alternative, like ",
-                        rx.code("rx.window_alert"),
-                    ),
-                ),
-            ),
         ),
     )
