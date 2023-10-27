@@ -40,9 +40,6 @@ This component is introduced as an alternative to the [datatable](docs/library/d
 The columns definition should be a `list` of `dict`, each `dict` describing the associated columns.
 Property of a column dict:
 - `title`: The text to display in the header of the column.
-```reflex eval
-rx.badge("Required")
-```
 - `id`: An id for the column, if not defined, will default to a lower case of `title`
 - `width`: The width of the column.
 - `type`: The type of the columns, default to `"str"`.
@@ -263,18 +260,6 @@ rx.data_editor(
     on_cell_clicked=DataEditorState_HP.click_cell,
 )
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Styling Example
 

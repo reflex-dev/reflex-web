@@ -67,8 +67,8 @@ def code_block_memo(children: str, language: str):
         margin_bottom="1em", 
         width="100%",
     )       
-   
-   
+
+
 def code_block2(*_, **props):
     language = props.get("language", "none")
     return code_block_memo(children="", language=language)
@@ -145,7 +145,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         # Set the page title.
         if t is None:
             title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
-        else:
+        else: 
             title = t
 
         def wrapper(*args, **kwargs) -> rx.Component:
