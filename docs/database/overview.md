@@ -26,22 +26,10 @@ config = rx.Config(
 )
 ```
 
-You can also use a `DBConfig` object to connect to your database.
-
-```python
-config = rx.Config(
-    app_name="my_app",
-    db_config=rx.DBConfig(engine="postgresql+psycopg2", username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex"),
-)
-```
-
-DBConfig class has following constructors.
-
-```python
-DBConfig.sqlite(database="reflex.db")
-DBConfig.postgresql(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex")
-DBConfig.postgresql_psycopg2(username="your-db-username", password="your-db-password", host="localhost", port=5432, database="reflex")
-```
+For more examples of database URLs that can be used, see the [SQLAlchemy
+docs](https://docs.sqlalchemy.org/en/14/core/engines.html#backend-specific-urls).
+Be sure to install the appropriate DBAPI driver for the database you intend to
+use.
 
 ## Tables
 
