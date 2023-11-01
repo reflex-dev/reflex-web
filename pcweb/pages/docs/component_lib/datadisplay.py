@@ -3,6 +3,8 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, docdemo, doctext, code_block
+from pcweb import flexdown
+
 
 style = {
     "box": {
@@ -271,6 +273,10 @@ def render_datatable():
         doccode(datatable_example_3),
         align_items="start",
     )
+
+
+def render_dataeditor():
+    return flexdown.render_file("docs/library/datadisplay/data_editor.md")
 
 
 data_example = """

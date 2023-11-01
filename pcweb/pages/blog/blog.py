@@ -171,5 +171,10 @@ def background_tasks():
 
 
 @webpage(path="/blog/2023-10-11-graphing-update")
-def background_tasks():
+def graphing_update():
     return page(blogs["blog/2023-10-11-graphing-update"])
+
+
+@webpage(path="/blog/2023-10-25-implementing-sign-in-with-google")
+def sign_in_with_google():
+    return page(blogs["blog/2023-10-25-implementing-sign-in-with-google"])

@@ -298,6 +298,51 @@ EVENTS = {
     "toggle_full_screen": {
         "description": "The toggle_full_screen event handler is called when the user toggles full screen. It receives a boolean whether full screen is active.",
     },
+    "on_cell_activated": {
+        "description": "The on_cell_activated event handler is called when the user activate a cell from the data editor. It receive the coordinates of the cell.",
+    },
+    "on_cell_clicked": {
+        "description": "The on_cell_clicked event handler is called when the user click on a cell of the data editor. It receive the coordinates of the cell.",
+    },
+    "on_cell_context_menu": {
+        "description": "The on_cell_context_menu event handler is called when the user right-click on a cell of the data editor. It receives the coordinates of the cell.",
+    },
+    "on_cell_edited": {
+        "description": "The on_cell_edited event handler is called when the user modify the content of a cell. It receives the coordinates of the cell and the modified content.",
+    },
+    "on_group_header_clicked": {
+        "description": "The on_group_header_clicked event handler is called when the user left-click on a group header of the data editor. It receive the index and the data of the group header.",
+    },
+    "on_group_header_context_menu": {
+        "description": "The on_group_header_context_menu event handler is called when the user right-click on a group header of the data editor. It receive the index and the data of the group header.",
+    },
+    "on_group_header_renamed": {
+        "description": "The on_group_header_context_menu event handler is called when the user rename a group header of the data editor. It receive the index and the modified content of the group header.",
+    },
+    "on_header_clicked": {
+        "description": "The on_header_clicked event handler is called when the user left-click a header of the data editor. It receive the index and the content of the header.",
+    },
+    "on_header_context_menu": {
+        "description": "The on_header_context_menu event handler is called when the user right-click a header of the data editor. It receives the index and the content of the header. ",
+    },
+    "on_header_menu_click": {
+        "description": "The on_header_menu_click event handler is called when the user click on the menu button of the header. (menu header not implemented yet)",
+    },
+    "on_item_hovered": {
+        "description": "The on_item_hovered event handler is called when the user hover on an item of the data editor.",
+    },
+    "on_delete": {
+        "description": "The on_delete event handler is called when the user delete a cell of the data editor.",
+    },
+    "on_finished_editing": {
+        "description": "The on_finished_editing event handler is called when the user finish an editing, regardless of if the value changed or not.",
+    },
+    "on_row_appended": {
+        "description": "The on_row_appended event handler is called when the user add a row to the data editor.",
+    },
+    "on_selection_cleared": {
+        "description": "The on_selection_cleared event handler is called when the user unselect a region of the data editor.",
+    },
 }
 
 

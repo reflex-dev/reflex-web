@@ -1,6 +1,20 @@
-# Deploy
+```python exec
+import reflex as rx
+```
 
-**This feature is coming soon!**
+# Reflex Hosting Service
+
+```python eval
+rx.alert(
+    rx.alert_icon(),
+    rx.alert_title("Hosting is in a closed Alpha"),
+    rx.alert_description("Please reach out to us on Discord if you have an app ready to deploy and if we have capacity we will give you an invitation code."
+    ),
+    status="info",
+    width="100%",
+    margin_bottom="1rem",
+)
+```
 
 So far, we've been running our apps locally on our own machines.
 But what if we want to share our apps with the world?  This is where
@@ -8,24 +22,6 @@ deployment comes in.
 
 ## Reflex Deploy
 
-Reflex makes it easy to deploy your apps with a single command.  In your
-terminal, add your `REFLEX_TOKEN` to your environment variables: 
+Please follow the hosting guide here to deploy your app **(invitation code needed)**: [Reflex Hosting](https://reflex-dev.notion.site/Reflex-Hosting-Documentation-57a4dd55d6234858bbae0be75be79ce7?pvs=4)
 
-```bash
-$ export REFLEX_TOKEN=your_token
-```
 
-Then run the deploy command:
-
-```bash
-$ reflex deploy
-```
-
-This will build your app and deploy it to Reflex's servers.  You will get back a
-URL at `https://myapp.reflex.app` that you can share with anyone.  You
-can log into your Reflex dashboard to monitor your app.
-
-This feature is coming soon! 
-
-In the meantime, you can create a production build and deploy with an existing
-cloud provider as we will see in the next section.

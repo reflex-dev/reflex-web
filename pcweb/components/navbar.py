@@ -413,7 +413,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
                     rx.link(
-                        "App Gallery",
+                        "Gallery",
                         href="/docs/gallery",
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "none", "flex", "flex"],

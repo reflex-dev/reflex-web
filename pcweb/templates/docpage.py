@@ -14,7 +14,7 @@ from pcweb.styles import font_weights as fw
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
-
+ 
 
 @rx.memo
 def code_block(code: str, language: str):
@@ -64,9 +64,9 @@ def code_block_memo(children: str, language: str):
             border="2px solid #F4F3F6",
         ),
         position="relative",
-        margin_bottom="1em",
+        margin_bottom="1em", 
         width="100%",
-    )
+    )       
 
 
 def code_block2(*_, **props):
@@ -92,6 +92,8 @@ link_style = {
     "_hover": {
         "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
     },
+    "padding_x": "0.5em",
+    "border_radius": "8px",
 }
 
 logo_style = {
@@ -143,7 +145,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         # Set the page title.
         if t is None:
             title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
-        else:
+        else: 
             title = t
 
         def wrapper(*args, **kwargs) -> rx.Component:
@@ -185,8 +187,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         href=prev.link,
                         style=link_style,
                     )
-                )
-            else:
+                )   
+            else:   
                 links.append(rx.box())
 
             # Create the next component link.
@@ -434,7 +436,7 @@ def doccode(
 
     Returns:
         The styled code snippet.
-    """
+    """ 
     # For Python snippets, lint the code with black.
     if language == "python":
         code = black.format_str(
@@ -456,7 +458,7 @@ def doccode(
         code=code,
         language=language,
     )
-
+  
 
 def docdemobox(*children) -> rx.Component:
     """Create a documentation demo box with the output of the code.
@@ -604,8 +606,8 @@ tab_style = {
         "border_radius": "8px",
     },
 }
-
-
+ 
+ 
 def docgraphing(
     code: str,
     state: str | None = None,
@@ -642,3 +644,4 @@ def docgraphing(
         ),
         width="100%",
     )
+    

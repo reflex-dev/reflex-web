@@ -131,6 +131,7 @@ datadisplay_list = [
     [rx.CodeBlock, rx.Code],
     [rx.Divider],
     [rx.DataTable],
+    [rx.DataEditor],
     [rx.List, rx.ListItem, rx.UnorderedList, rx.OrderedList],
     [
         rx.Stat,
