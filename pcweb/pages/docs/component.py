@@ -343,6 +343,9 @@ EVENTS = {
     "on_selection_cleared": {
         "description": "The on_selection_cleared event handler is called when the user unselect a region of the data editor.",
     },
+    "on_column_resize": {
+        "description": "The on_column_resize event handler is called when the user try to resize a column from the data editor."
+    },
 }
 
 
