@@ -57,7 +57,7 @@ apps_list = [
         "description": "A graphing traversal app.",
         "img": "/gallery/traversal.png",
         "gif": "",
-        "url": "",
+        "url": "https://traversal.reflex.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
     },
     {
@@ -67,7 +67,7 @@ apps_list = [
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
-        "url": "",
+        "url": "https://counter.reflex.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/counter",
     },
     {
