@@ -37,7 +37,7 @@ apps_list = [
         "description": "A sales email generator using OpenAI's GPT3 API.",
         "img": "/gallery/sales.png",
         "gif": "",
-        "url": "",
+        "url": "https://sales.reflex.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
     },
     {
