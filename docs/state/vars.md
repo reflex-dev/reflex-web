@@ -264,7 +264,8 @@ class BackendVarState(State):
         self.offset = max(self.offset - self.limit, 0)
 
     def next_page(self):
-        self.offset = min(self.offset + self.limit, len(self._backend) - 1)
+        if self.offset + self.limit < len(self._backend):
+            self.offset += self.limit
 
     def generate_more(self):
         self._backend = np.append(self._backend, [random.randint(0, 100) for _ in range(random.randint(0, 100))])
