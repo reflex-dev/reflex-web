@@ -392,7 +392,7 @@ def gallery_with_no_sidebar():
     )
 
 
-@webpage(path="/docs/gallery/index")
+@webpage(path="/docs/gallery")
 def gallery() -> rx.Component:
     return rx.vstack(
         rx.vstack(
