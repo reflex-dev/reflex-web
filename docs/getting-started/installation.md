@@ -125,7 +125,7 @@ Reflex's recommended environment manager for Windows is [venv]({constants.VENV_U
 
 ```bash
 > py -3 -m venv .venv
-> .venv\Scripts\activate
+> .venv\\Scripts\\activate
 ```
 
 When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
