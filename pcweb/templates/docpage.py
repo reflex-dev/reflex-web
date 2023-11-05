@@ -1,7 +1,8 @@
 """Template for documentation pages."""
 
+import inspect
 import textwrap
-from typing import Callable
+from typing import Any, Callable
 
 import black
 import reflex as rx
@@ -516,6 +517,35 @@ def docdemo(
         padding_bottom="2em",
         spacing="1em",
         **props,
+    )
+
+
+def docdemo_from(
+    *state_models_helpers: Any,
+    component: Callable[..., rx.Component],
+    imports: list[str] = None,
+):
+    """Create a documentation demo from a component and state.
+    
+    Reading the source code from the given objects and rendering the component
+    above it.
+    
+    Args:
+        *state_and_models: The state and any models to read.
+        component: The component to render.
+    """
+    if imports is None:
+        imports = []
+    if "import reflex as rx" not in imports:
+        imports.append("import reflex as rx")
+    state = "\n".join(imports) + "\n\n" + "\n\n".join(
+        inspect.getsource(obj).replace("(State)", "(rx.State)")
+        for obj in state_models_helpers
+    )
+    return docdemo(
+        code=inspect.getsource(component),
+        state=state,
+        comp=component(),
     )
 
 
