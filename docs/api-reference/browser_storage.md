@@ -111,7 +111,7 @@ import inspect
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemo_from
 
 
 class AppSettings(rx.Base):
@@ -122,7 +122,7 @@ class AppSettings(rx.Base):
 
 
 class ComplexLocalStorageState(State):
-    data_raw: str = rx.LocalStorage()
+    data_raw: str = rx.LocalStorage("{}")
     data: AppSettings = AppSettings()
     settings_open: bool = False
 
@@ -192,13 +192,10 @@ def app_settings_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(AppSettings) + "\n\n" + inspect.getsource(
-        ComplexLocalStorageState,
-    ).replace("(State)", "(rx.State)"),
-    inspect.getsource(app_settings) + "\n\n" + inspect.getsource(
-        app_settings_example,
-    ).partition("return ")[2],
-    app_settings_example(),
+docdemo_from(
+    AppSettings,
+    ComplexLocalStorageState,
+    app_settings,
+    component=app_settings_example
 )
 ```
