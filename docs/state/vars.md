@@ -11,7 +11,7 @@ from pcweb.base_state import State
 from pcweb.pages.docs.advanced_guide.custom_vars import custom_vars
 from pcweb.templates.docpage import (
     doccode,
-    docdemo,
+    docdemo_from,
     docheader,
     doclink,
     docpage,
@@ -68,11 +68,7 @@ def ticker_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(TickerState).replace("(State)", "(rx.State)"),
-    inspect.getsource(ticker_example).partition("return ")[2],
-    ticker_example()
-)
+docdemo_from(TickerState, component=ticker_example)
 ```
 
 In this example `ticker` and `price` are base vars in the app, which can be modified at runtime.
@@ -120,11 +116,7 @@ def uppercase_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(UppercaseState).replace("(State)", "(rx.State)"),
-    inspect.getsource(uppercase_example).partition("return ")[2],
-    uppercase_example()
-)
+docdemo_from(UppercaseState, component=uppercase_example)
 ```
 
 Here, `upper_text` is a computed var that always holds the upper case version of `text`.
@@ -178,11 +170,7 @@ def cached_var_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(CachedVarState).replace("(State)", "(rx.State)"),
-    inspect.getsource(cached_var_example).partition("return ")[2],
-    cached_var_example()
-)
+docdemo_from(CachedVarState, component=cached_var_example)
 ```
 
 ## Client-storage Vars
@@ -203,9 +191,9 @@ tab or check the storage section of browser devtools to see the values saved in 
 
 ```python exec
 class ClientStorageState(State):
-    my_cookie: rx.Cookie = ""
-    my_local_storage: rx.LocalStorage = ""
-    custom_cookie: rx.Cookie = rx.Cookie(name="CustomNamedCookie", max_age=3600)
+    my_cookie: str = rx.Cookie("")
+    my_local_storage: str = rx.LocalStorage("")
+    custom_cookie: str = rx.Cookie(name="CustomNamedCookie", max_age=3600)
 
 
 def client_storage_example():
@@ -217,11 +205,7 @@ def client_storage_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(ClientStorageState).replace("(State)", "(rx.State)"),
-    inspect.getsource(client_storage_example).partition("return ")[2],
-    client_storage_example()
-)
+docdemo_from(ClientStorageState, component=client_storage_example)
 ```
 
 ## Backend-only Vars
@@ -300,11 +284,7 @@ def backend_var_example():
     )
 ```
 ```python eval
-docdemo(
-    inspect.getsource(BackendVarState).replace("(State)", "(rx.State)"),
-    inspect.getsource(backend_var_example).partition("return ")[2],
-    backend_var_example()
-)
+docdemo_from(BackendVarState, component=backend_var_example, imports=["import numpy as np"])
 ```
 
 # Var Operations
@@ -346,11 +326,7 @@ def var_operations_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(VarSelectState).replace("(State)", "(rx.State)"),
-    inspect.getsource(var_operations_example).partition("return ")[2],
-    var_operations_example()
-)
+docdemo_from(VarSelectState, component=var_operations_example)
 ```
 
 ```python eval
@@ -398,11 +374,7 @@ def var_number_example():
 ```
 
 ```python eval
-docdemo(
-    inspect.getsource(VarNumberState).replace("(State)", "(rx.State)"),
-    inspect.getsource(var_number_example).partition("return ")[2],
-    var_number_example()
-)
+docdemo_from(VarNumberState, component=var_number_example, imports=["import random"])
 ```
 
 We could have made a computed var that returns the parity of `number`, but
