@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
-	"postCreateCommand": "/bin/bash -c 'python -m venv venv && ./venv/bin/pip install -r requirements.txt && ./venv/bin/reflex init'",
+        "postCreateCommand": "/bin/bash -c 'python -m pip install -r requirements.txt && reflex init'",
 	"forwardPorts": [3000, 8000],
 	"portsAttributes": {
 		"3000": {
