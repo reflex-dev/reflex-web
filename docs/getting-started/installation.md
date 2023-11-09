@@ -95,7 +95,16 @@ $ reflex init
 
 This initializes a template app in your new directory.
 
+
+5. Run the demo app to get an idea of what you can build with Reflex:
+
+```bash
+$ reflex demo
+```
+
+
 When you're done using this environment, type `deactivate` to return to your normal shell.
+
 
 
 
@@ -144,6 +153,14 @@ When you run the command above, a directory called .venv will appear in the fold
 ```
 
 This initializes a template app in your new directory.
+
+
+5. Run the demo app to get an idea of what you can build with Reflex:
+
+```bash
+$ reflex demo
+```
+
 
 When you're done using this environment, type `deactivate` to return to your normal shell.
 
