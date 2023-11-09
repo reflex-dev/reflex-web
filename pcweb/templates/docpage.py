@@ -528,6 +528,7 @@ def docdemo_from(
     *state_models_helpers: Any,
     component: Callable[..., rx.Component] = None,
     imports: list[str] = None,
+    assignments: dict[str, Any] | None = None,
     collapsible_code: bool = False,
     demobox_props: dict[str, Any] | None = None,
     **props,
@@ -545,9 +546,17 @@ def docdemo_from(
         imports = []
     if "import reflex as rx" not in imports:
         imports.append("import reflex as rx")
-    state = "\n".join(imports) + "\n\n" + "\n\n".join(
-        inspect.getsource(obj).replace("(State)", "(rx.State)")
-        for obj in state_models_helpers
+    if assignments is None:
+        assignments = {}
+    state = "\n\n".join(
+        [
+            "\n".join(imports),
+            "\n".join(f"{k} = {v}" for k, v in assignments.items()),
+            *(
+                inspect.getsource(obj).replace("(State)", "(rx.State)")
+                for obj in state_models_helpers
+            ),
+        ]
     )
     code = inspect.getsource(component) if component is not None else ""
     if not collapsible_code:

@@ -173,6 +173,12 @@ def cached_var_example():
 docdemo_from(CachedVarState, component=cached_var_example)
 ```
 
+In this example `last_touch_time` is a normal computed var, which updates any
+time the state is modified. `last_counter_a_update` is a computed var that only
+depends on `counter_a`, so it only gets recomputed when `counter_a` has changes.
+Similarly `last_counter_b_update` only depends on `counter_b`, and thus is
+updated only when `counter_b` changes.
+
 ## Client-storage Vars
 
 You can use the browser's local storage to persist state between sessions. 
@@ -310,6 +316,7 @@ is only known at runtime.
 
 ```python exec
 coins = ["BTC", "ETH", "LTC", "DOGE"]
+
 class VarSelectState(State):
     selected: str = "DOGE"
 
@@ -317,6 +324,8 @@ def var_operations_example():
     return rx.vstack(
         # Using a var operation to concatenate a string with a var.
         rx.heading("I just bought a bunch of " + VarSelectState.selected),
+        # Using an f-string to interpolate a var.
+        rx.text(f"{VarSelectState.selected} is going to the moon!"),
         rx.select(
             coins,
             value=VarSelectState.selected,
@@ -326,7 +335,7 @@ def var_operations_example():
 ```
 
 ```python eval
-docdemo_from(VarSelectState, component=var_operations_example)
+docdemo_from(VarSelectState, component=var_operations_example, assignments={"coins": coins})
 ```
 
 ```python eval
