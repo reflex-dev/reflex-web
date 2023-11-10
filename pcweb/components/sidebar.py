@@ -259,6 +259,7 @@ def get_sidebar_items_reference():
                 recipes.sidebar,
                 recipes.checkboxes,
                 recipes.filtered_table,
+                recipes.datatable_tutorial,
             ],
         ),
     ]
