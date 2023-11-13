@@ -9,7 +9,7 @@ State allows us to create interactive apps that can respond to user input. It de
 
 ## State Basics
 
-The base state is defined as a class that inherits from `rx.State`.
+In your reflex app, a base state is defined as a class that inherits from `rx.State`.
 
 ```python
 import reflex as rx
@@ -18,6 +18,22 @@ import reflex as rx
 class State(rx.State):
     """Define your app state here."""
 ```
+You can also define multiple states in your app based on your needs. 
+
+```python
+class LoginState(rx.State):
+    email: str
+    password: str
+                
+class RegisterState(rx.State):
+    first_name: str
+    last_name: str
+    email: str
+    password: str
+
+```
+(In the example above, we define two states to each handle login and registration logic respectively)
+
 
 State is made up of two parts: vars and event handlers.
 
