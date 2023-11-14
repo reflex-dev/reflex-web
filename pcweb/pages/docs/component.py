@@ -12,6 +12,7 @@ from pcweb.components.sidebar import SidebarItem
 from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docheader, docpage, subheader
 from pcweb import constants, styles
+from pcweb.flexdown import markdown_memo
 
 
 class Prop(Base):
@@ -172,7 +173,7 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
     return [
         rx.td(rx.code(prop.name, color="#333")),
         rx.td(rx.badge(type_, color_scheme=color, variant="solid")),
-        rx.td(rx.markdown(prop.description)),
+        rx.td(markdown_memo(content=prop.description)),
     ]
 
 
@@ -486,7 +487,7 @@ def component_docs(component):
 
     return rx.box(
         docheader(component.__name__),
-        rx.markdown(src.get_docs()),
+        markdown_memo(content=src.get_docs()),
         rx.divider(),
         *props,
         *triggers,
