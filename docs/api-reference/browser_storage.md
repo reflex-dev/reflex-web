@@ -1,16 +1,10 @@
-```python exec
-from pcweb.templates.docpage import doccode
-```
-
 # Browser Storage
 
 ## rx.Cookie
 
-Represents a state Var that is stored as a cookie in the browser.
+Represents a state Var that is stored as a cookie in the browser. Currently only supports string values.
 
  Parameters
-- `encoding`: The character encoding to use.
-- `errors` : The error handling scheme to use.
 - `name` : The name of the cookie on the client side.
 - `path`: The cookie path. Use `/` to make the cookie accessible on all pages.
 - `max_age` : Relative max age of the cookie in seconds from when the client receives it.
@@ -18,21 +12,16 @@ Represents a state Var that is stored as a cookie in the browser.
 - `secure`: If the cookie is only accessible through HTTPS.
 - `same_site`: Whether the cookie is sent with third-party requests. Can be one of (`True`, `False`, `None`, `lax`, `strict`).
 
-```python eval
-doccode(
-    """
+```python
 class CookieState(rx.State):
     c1: str = rx.Cookie()
-    c2: rx.Cookie = 'c2 default'
+    c2: str = rx.Cookie('c2 default')
 
     # cookies with custom settings
     c3: str = rx.Cookie(max_age=2)  # expires after 2 second
-    c4: rx.Cookie = rx.Cookie(same_site='strict')
+    c4: str = rx.Cookie(same_site='strict')
     c5: str = rx.Cookie(path='/foo/')  # only accessible on `/foo/`
-    c6: str = rx.Cookie(name='c6')
-    c7: str = rx.Cookie('c7 default')
-""" 
-)
+    c6: str = rx.Cookie(name='c6-custom-name')
 ```
 
 ## rx.remove_cookies
@@ -42,41 +31,36 @@ Remove a cookie from the client's browser.
 Parameters:
 - `key`: The name of cookie to remove.
 
-```python eval
-doccode(
-    """
-def index():
-    return rx.button(
-        'Remove cookie', on_click=rx.remove_cookie('key')
-    )
-"""  
+```python
+rx.button(
+    'Remove cookie', on_click=rx.remove_cookie('key')
 )
 ```
 
+This event can also be returned from an event handler:
+
+```python
+class CookieState(rx.State):
+    ...
+    def logout(self):
+        return rx.remove_cookie('auth_token')
+```
 
 ## rx.LocalStorage
-Represents a state Var that is stored in localStorage in the browser.
+Represents a state Var that is stored in localStorage in the browser. Currently only supports string values.
 
 Parameters
-- `encoding`: The encoding to use
-- `errors`: The error handling scheme to use.
 - `name`: The name of the storage key on the client side.
 
-```python eval
-doccode(
-    """
+```python
 class LocalStorageState(rx.State):
     # local storage with default settings
     l1: str = rx.LocalStorage()
-    l2: rx.LocalStorage = "l2 default"  # type: ignore
 
     # local storage with custom settings
+    l2: str = rx.LocalStorage("l2 default")
     l3: str = rx.LocalStorage(name="l3")
-    l4: str = rx.LocalStorage("l4 default")
-""" 
-)
 ```
-
 
 ## rx.remove_local_storage
 Remove a local storage item from the client's browser.
@@ -85,30 +69,133 @@ Remove a local storage item from the client's browser.
 Parameters
 - `key`: The key to remove from local storage.
 
-```python eval
-doccode(
-    """
-def index():
-    return rx.button(
-        'Remove Local Storage',
-        on_click=rx.remove_local_storage('key'),
-    )
-"""  
+```python
+rx.button(
+    'Remove Local Storage',
+    on_click=rx.remove_local_storage('key'),
 )
 ```
 
-## rx.clear_local_storage()
-Clear all local storage items from the client's browser.
+This event can also be returned from an event handler:
 
+```python
+class LocalStorageState(rx.State):
+    ...
+    def logout(self):
+        return rx.remove_local_storage('local_storage_state.l1')
+```
+
+## rx.clear_local_storage()
+
+Clear all local storage items from the client's browser. This may affect other
+apps running in the same domain or libraries within your app that use local
+storage.
+
+
+```python
+rx.button(
+    'Clear all Local Storage',
+    on_click=rx.clear_local_storage(),
+)
+```
+
+# Serialization Strategies
+
+If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage` var it needs to
+be serialized before and after storing it. It is recommended to use `rx.Base` for the data
+which provides simple serialization helpers and works recursively in complex object structures.
+
+```python exec
+import inspect
+
+import reflex as rx
+
+from pcweb.base_state import State
+from pcweb.templates.docpage import docdemo_from
+
+
+class AppSettings(rx.Base):
+    theme: str = 'light'
+    sidebar_visible: bool = True
+    update_frequency: int = 60
+    error_messages: list[str] = []
+
+
+class ComplexLocalStorageState(State):
+    data_raw: str = rx.LocalStorage("{}")
+    data: AppSettings = AppSettings()
+    settings_open: bool = False
+
+    def save_settings(self):
+        self.data_raw = self.data.json()
+        self.settings_open = False
+
+    def open_settings(self):
+        self.data = AppSettings.parse_raw(self.data_raw)
+        self.settings_open = True
+
+    def set_field(self, field, value):
+        setattr(self.data, field, value)
+
+
+def app_settings():
+    return rx.form(
+        rx.foreach(
+            ComplexLocalStorageState.data.error_messages,
+            rx.text,
+        ),
+        rx.form_label(
+            "Theme",
+            rx.input(
+                value=ComplexLocalStorageState.data.theme,
+                on_change=lambda v: ComplexLocalStorageState.set_field("theme", v),
+            ),
+        ),
+        rx.form_label(
+            "Sidebar Visible",
+            rx.switch(
+                is_checked=ComplexLocalStorageState.data.sidebar_visible,
+                on_change=lambda v: ComplexLocalStorageState.set_field(
+                    "sidebar_visible",
+                    v,
+                ),
+            ),
+        ),
+        rx.form_label(
+            "Update Frequency (seconds)",
+            rx.number_input(
+                value=ComplexLocalStorageState.data.update_frequency,
+                on_change=lambda v: ComplexLocalStorageState.set_field(
+                    "update_frequency",
+                    v,
+                ),
+            ),
+        ),
+        rx.button("Save", type_="submit"),
+        on_submit=lambda _: ComplexLocalStorageState.save_settings(),
+    )
+
+def app_settings_example():
+    return rx.fragment(
+        rx.modal(
+            rx.modal_overlay(
+                rx.modal_content(
+                    rx.modal_header("App Settings"),
+                    rx.modal_body(app_settings()),
+                ),
+            ),
+            is_open=ComplexLocalStorageState.settings_open,
+            on_close=ComplexLocalStorageState.set_settings_open(False),
+        ),
+        rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
+    )
+```
 
 ```python eval
-doccode(
-    """
-def index():
-    return rx.button(
-        'Clear all Local Storage',
-        on_click=rx.clear_local_storage(),
-    )
-""" 
+docdemo_from(
+    AppSettings,
+    ComplexLocalStorageState,
+    app_settings,
+    component=app_settings_example
 )
 ```

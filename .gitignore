@@ -7,6 +7,7 @@
 *.py[cod]
 *.zip
 .idea
+.venv/
 .web
 __pycache__/
 pcconfig2.py

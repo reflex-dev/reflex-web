@@ -1,7 +1,8 @@
 """Template for documentation pages."""
 
+import inspect
 import textwrap
-from typing import Callable
+from typing import Any, Callable
 
 import black
 import reflex as rx
@@ -83,6 +84,8 @@ demo_box_style = {
     "width": "100%",
     "overflow_x": "auto",
     "border": "2px solid #F4F3F6",
+    "align_items": "center",
+    "justify_content": "center",
 }
 link_style = {
     "color": "#494369",
@@ -460,7 +463,7 @@ def doccode(
     )
   
 
-def docdemobox(*children) -> rx.Component:
+def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
     Args:
@@ -469,9 +472,10 @@ def docdemobox(*children) -> rx.Component:
     Returns:
         The styled demo box.
     """
-    return rx.box(
-        rx.center(*children),
+    return rx.flex(
+        *children,
         style=demo_box_style,
+        **props,
     )
 
 
@@ -480,6 +484,7 @@ def docdemo(
     state: str | None = None,
     comp: rx.Component | None = None,
     context: bool = False,
+    demobox_props: dict[str, Any] | None = None,
     **props,
 ) -> rx.Component:
     """Create a documentation demo with code and output.
@@ -510,8 +515,78 @@ def docdemo(
 
     # Create the demo.
     return rx.vstack(
-        docdemobox(comp),
+        docdemobox(comp, **(demobox_props or {})),
         doccode(code),
+        width="100%",
+        padding_bottom="2em",
+        spacing="1em",
+        **props,
+    )
+
+
+def docdemo_from(
+    *state_models_helpers: Any,
+    component: Callable[..., rx.Component] = None,
+    imports: list[str] = None,
+    assignments: dict[str, Any] | None = None,
+    collapsible_code: bool = False,
+    demobox_props: dict[str, Any] | None = None,
+    **props,
+):
+    """Create a documentation demo from a component and state.
+    
+    Reading the source code from the given objects and rendering the component
+    above it.
+    
+    Args:
+        *state_and_models: The state and any models to read.
+        component: The component to render.
+    """
+    if imports is None:
+        imports = []
+    if "import reflex as rx" not in imports:
+        imports.append("import reflex as rx")
+    if assignments is None:
+        assignments = {}
+    state = "\n\n".join(
+        [
+            "\n".join(imports),
+            "\n".join(f"{k} = {v}" for k, v in assignments.items()),
+            *(
+                inspect.getsource(obj).replace("(State)", "(rx.State)")
+                for obj in state_models_helpers
+            ),
+        ]
+    )
+    code = inspect.getsource(component) if component is not None else ""
+    if not collapsible_code:
+        if component is not None:
+            return docdemo(
+                code=code,
+                state=state,
+                comp=component(),
+                demobox_props=demobox_props,
+                **props,
+            )
+        return doccode(state)
+
+    # collabsible code
+    return rx.vstack(
+        docdemobox(
+            component(),
+            **(demobox_props or {}),
+        ) if component is not None else rx.fragment(),
+        rx.accordion(
+            rx.accordion_item(
+                rx.accordion_button(
+                    rx.text("View Code"),
+                    rx.accordion_icon(),
+                ),
+                rx.accordion_panel(doccode(state + code), width="100%"),
+            ),
+            allow_toggle=True,
+            width="100%",
+        ),
         width="100%",
         padding_bottom="2em",
         spacing="1em",
@@ -617,8 +692,9 @@ def docgraphing(
     **props,
 ):
     return rx.vstack(
-        rx.box(
-            rx.center(comp, width="100%", height="15em"),
+        rx.flex(
+            comp,
+            height="15em",
             style=demo_box_style,
         ),
         rx.tabs(
