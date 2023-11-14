@@ -8,10 +8,6 @@ from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
 
-try:
-    from pcweb.tsclient import client
-except ImportError:
-    client = None
 
 
 def shorten_to_k(number):
@@ -161,6 +157,8 @@ class NavbarState(State):
     @rx.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
         """Get the search results."""
+        from pcweb.tsclient import client
+
         if client is None or self.search_input == "":
             return []
         search_parameters = {
