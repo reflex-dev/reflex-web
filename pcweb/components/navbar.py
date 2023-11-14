@@ -358,11 +358,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "🎃 Reflex is in Hacktoberfest!",
+                            "✨ Reflex is in Hosting Alpha!",
                             " Learn more ",
                             rx.link(
                                 "here",
-                                href="https://github.com/reflex-dev/hacktoberfest/",
+                                href="https://www.notion.so/reflex-dev/Reflex-Hosting-Documentation-57a4dd55d6234858bbae0be75be79ce7?pvs=4",
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",
@@ -370,7 +370,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 },
                                 is_external=True,
                             ),
-                            " 🕸️",
+                            ". ✨",
                             color="#FFFFFF",
                             font_weight=600,
                         ),
