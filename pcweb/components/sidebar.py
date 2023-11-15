@@ -414,59 +414,71 @@ def sidebar_comp(
     from pcweb.pages.docs.gallery import gallery
 
     return rx.box(
-        rx.heading(
-            rx.span("[ ", color="#DACEEE"),
-            "Learn",
-            rx.span(" ]", color="#DACEEE"),
-            style=heading_style3,
-        ),
-        rx.accordion(
-            *[
-                sidebar_item_comp(
-                    item=item,
-                    index=[-1],
-                    url=url,
-                    first=True,
+        rx.tabs(
+            rx.tab_list(
+                rx.tab("Learn"),
+                rx.tab("Concepts"),
+            ),
+            rx.tab_panels(
+                rx.tab_panel(
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
+                        "Learn",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                    ),
+                    rx.accordion(
+                        *[
+                            sidebar_item_comp(
+                                item=item,
+                                index=[-1],
+                                url=url,
+                                first=True,
+                            )
+                            for item in learn
+                        ],
+                        allow_multiple=True,
+                        default_index=learn_index,
+                    ),
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
+                        "Concepts",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                        margin_top="1em",
+                    ),
+                    rx.accordion(
+                *[
+                    sidebar_item_comp(
+                        item=item,
+                        index=[-1],
+                        url=url,
+                        first=True,
+                    )
+                    for item in concepts
+                ],
+                allow_multiple=True,
+                default_index=concepts_index,
+            ),
+                ),
+                rx.tab_panel(   
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
+                        "Reference",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                        margin_top="1em",
+                    ),
+                    rx.accordion(
+                *[
+                    sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
+                    for item in reference
+                ],
+                allow_multiple=True,
+                default_index=reference_index,
+            ),
                 )
-                for item in learn
-            ],
-            allow_multiple=True,
-            default_index=learn_index,
-        ),
-        rx.heading(
-            rx.span("[ ", color="#DACEEE"),
-            "Concepts",
-            rx.span(" ]", color="#DACEEE"),
-            style=heading_style3,
-            margin_top="1em",
-        ),
-        rx.accordion(
-            *[
-                sidebar_item_comp(
-                    item=item,
-                    index=[-1],
-                    url=url,
-                    first=True,
-                )
-                for item in concepts
-            ],
-            allow_multiple=True,
-            default_index=concepts_index,
-        ),
-        rx.heading(
-            rx.span("[ ", color="#DACEEE"),
-            "Reference",
-            rx.span(" ]", color="#DACEEE"),
-            style=heading_style3,
-            margin_top="1em",
-        ),
-        rx.accordion(
-            *[
-                sidebar_item_comp(item=item, url=url, first=True, index=reference_index)
-                for item in reference
-            ],
-            allow_multiple=True,
-            default_index=reference_index,
+            )
         ),
         align_items="start",
         overflow_y="scroll",
