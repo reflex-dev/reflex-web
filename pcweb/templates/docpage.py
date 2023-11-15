@@ -117,11 +117,6 @@ def doc_section(*contents):
         width="100%",
     )
 
-
-
-
-
-
 def my_form():
     from pcweb.components.navbar import NavbarState
     return rx.form(
@@ -145,16 +140,37 @@ def my_form():
         width="25em",
     )
 
+class Rating(rx.Component):
+    """Spline component."""
+
+    library = "@smastrom/react-rating"
+    tag = "Rating"
+
+    value: rx.Var[int]
+
+    def get_event_triggers(self) -> dict[str, Any]:
+        return {
+            **super().get_event_triggers(),
+            "on_change": lambda e0: [e0],
+        }
+    
+
+
+rating = Rating.create
+
+
 def feedback_button():
     from pcweb.components.navbar import NavbarState, hover_button_style
     return rx.hstack(
         rx.menu(
             rx.hstack(
-                rx.text("Was this helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em"),
-                rx.menu_button("🤩", on_click=NavbarState.update_score(4), padding="0.2em"),
-                rx.menu_button("😀", on_click=NavbarState.update_score(3), padding="0.2em"),
-                rx.menu_button("🙁", on_click=NavbarState.update_score(2), padding="0.2em"),
-                rx.menu_button("😭", on_click=NavbarState.update_score(1), padding="0.2em"),
+                rx.text("Feedback", style=styles.NAV_TEXT_STYLE, padding="0.2em", font_size="1em"),
+                rating(
+                    value=NavbarState.page_score,
+                    on_change=NavbarState.update_score,
+                ),
+                width="5em",
+                height="1em",
             ),
             rx.menu_list(my_form()),
         ),

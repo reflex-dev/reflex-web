@@ -164,7 +164,7 @@ class NavbarState(State):
 
     feedback: str = ""
 
-    score: int = 0
+    page_score: int = 0
 
     def handle_submit(self, form_data: dict):
         self.feedback = form_data["feedback"]
@@ -202,8 +202,11 @@ class NavbarState(State):
     def toggle_banner(self):
         self.banner = not self.banner
 
-    def change_search(self):
-        self.search_modal = not (self.search_modal)
+    def open_search(self):
+        self.search_modal = True
+
+    def close_search(self):
+        self.search_modal = False
 
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
@@ -239,7 +242,7 @@ def search_bar():
         ),
         rx.spacer(),
         rx.text("/", style=styles.NAV_SEARCH_STYLE),
-        on_click=NavbarState.change_search,
+        on_click=NavbarState.open_search,
         display=["none", "flex", "flex", "flex", "flex"],
         min_width=["15em", "15em", "15em", "20em", "20em"],
         padding_x="1em",
@@ -263,7 +266,7 @@ def format_search_results(result):
                 font_weight=400,
                 color="#696287",
             ),
-            on_click=NavbarState.change_search,
+            on_click=NavbarState.close_search,
             href=result["document"]["href"],
         ),
         bg="#FAF8FB",
@@ -278,11 +281,9 @@ def format_search_results(result):
 
 def ai_button():
     return rx.center(
-        rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
+        rx.icon(tag="chat", style=styles.NAV_TEXT_STYLE),
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
         display=["none", "none", "none", "flex", "flex", "flex"],
-        height="2em",
-        width="6.5em",
         border_radius="8px",
         bg="#FFFFFF",
         style=hover_button_style,
@@ -296,24 +297,23 @@ def search_modal():
             rx.modal_content(
                 rx.modal_body(
                     rx.vstack(
-                        rx.hstack(
-                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                            rx.input(
-                                placeholder="Search the docs",
-                                on_change=NavbarState.set_search_input,
-                                focus_border_color="transparent",
-                                border_color="transparent",
-                                font_weight=400,
-                                _placeholder={"color": "#342E5C"},
-                                _hover={"border_color": "transparent"},
-                            ),
-                            ai_button(),
-                            width="100%",
-                        ),
-                        rx.divider(),
                         rx.cond(
                             NavbarState.ai_chat,
                             rx.vstack(
+                                        rx.hstack(
+                                    rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+                                    rx.input(
+                                        placeholder="Search the docs...",
+                                        on_change=NavbarState.set_search_input,
+                                        focus_border_color="transparent",
+                                        border_color="transparent",
+                                        font_weight=400,
+                                        _placeholder={"color": "#342E5C"},
+                                        _hover={"border_color": "transparent"},
+                                    ),
+                                    ai_button(),
+                                    width="100%",
+                                ),
                                 rx.foreach(
                                     NavbarState.search_results,
                                     format_search_results,
@@ -324,7 +324,11 @@ def search_modal():
                                 align_items="start",
                                 overflow_y="auto",
                             ),
-                            inkeep(),
+                            rx.vstack(
+                                rx.hstack(rx.spacer(), ai_button()),
+                                inkeep(),
+                                width="100%",
+                            ),
                         ),
                     )
                 ),
@@ -332,7 +336,7 @@ def search_modal():
             )
         ),
         is_open=NavbarState.search_modal,
-        on_close=NavbarState.change_search,
+        on_close=NavbarState.close_search,
         padding_top="1em",
         padding_x="1em",
     )
@@ -357,7 +361,7 @@ def github_button():
     return rx.link(
         rx.hstack(
             rx.image(src="/companies/dark/github.svg", height="1.25em"),
-            rx.text("Star", style=styles.NAV_TEXT_STYLE),
+            # rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
                 shorten_to_k(constants.GITHUB_STARS),
                 color="#5646ED",
@@ -428,6 +432,7 @@ def feedback_button():
             rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
             rx.menu_list(my_form()),
         ),
+        display=["none", "none", "none", "none", "none", "flex"],
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
         padding_x=".5em",
         height="2em",
@@ -435,20 +440,6 @@ def feedback_button():
         bg="#FFFFFF",
         style=hover_button_style,
     )
-
-    # return rx.link(
-    #     rx.stack(
-    #         rx.text("Feedback", style=styles.NAV_TEXT_STYLE),
-    #         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-    #         padding_x=".5em",
-    #         height="2em",
-    #         border_radius="8px",
-    #         bg="#FFFFFF",
-    #         style=hover_button_style,
-    #     ),
-    #     href=constants.GITHUB_URL,
-    #     display=["none", "none", "none", "flex", "flex", "flex"],
-    # )
 
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
@@ -583,12 +574,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     spacing="2em",
                 ),
                 rx.hstack(
-                    search_bar(),
-                    # inkeep(
-                    #     is_open=NavbarState.search_modal,
-                    #     on_close=NavbarState.change_search,
-                    # ),
-                    
+                    search_bar(),                    
                     feedback_button(),
                     github_button(),
                     discord_button(),
