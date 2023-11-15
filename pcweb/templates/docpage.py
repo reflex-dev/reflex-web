@@ -140,23 +140,20 @@ def my_form():
         width="25em",
     )
 
-class Rating(rx.Component):
-    """Spline component."""
 
-    library = "@smastrom/react-rating"
-    tag = "Rating"
-
-    value: rx.Var[int]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
-    
-
-
-rating = Rating.create
+def feedback_icon(number):
+    from pcweb.components.navbar import NavbarState, hover_button_style
+    return rx.icon(
+        tag="star", 
+        on_mouse_enter=NavbarState.update_score(number),
+        color = rx.cond(
+            NavbarState.page_score >= number,
+            "black",
+            "white",
+        ),
+        bg = "white",
+        border_color = "1px solid black",
+    )
 
 
 def feedback_button():
@@ -164,13 +161,12 @@ def feedback_button():
     return rx.hstack(
         rx.menu(
             rx.hstack(
-                rx.text("Feedback", style=styles.NAV_TEXT_STYLE, padding="0.2em", font_size="1em"),
-                rating(
-                    value=NavbarState.page_score,
-                    on_change=NavbarState.update_score,
-                ),
-                width="5em",
-                height="1em",
+                rx.text("Was this helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em", font_size="1em"),
+                feedback_icon(1),
+                feedback_icon(2),
+                feedback_icon(3),
+                feedback_icon(4),
+                feedback_icon(5), 
             ),
             rx.menu_list(my_form()),
         ),

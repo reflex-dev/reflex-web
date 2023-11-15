@@ -163,7 +163,7 @@ class NavbarState(State):
     email: str = ""
 
     feedback: str = ""
-
+    
     page_score: int = 0
 
     def handle_submit(self, form_data: dict):
@@ -195,9 +195,10 @@ class NavbarState(State):
             print("session")
             # contact_data = json.dumps({"email": self.email})
             # self.add_contact_to_loops(contact_data)
-
+    
     def update_score(self, score):
-        self.score = score
+        self.page_score = score
+        print(self.page_score)
 
     def toggle_banner(self):
         self.banner = not self.banner
