@@ -166,6 +166,8 @@ class NavbarState(State):
     
     page_score: int = 0
 
+    show_form = False
+
     def handle_submit(self, form_data: dict):
         self.feedback = form_data["feedback"]
 
@@ -195,10 +197,15 @@ class NavbarState(State):
             print("session")
             # contact_data = json.dumps({"email": self.email})
             # self.add_contact_to_loops(contact_data)
-    
+
     def update_score(self, score):
+        if self.show_form == True:
+            if self.page_score == score:
+                self.show_form = not self.show_form
+        else:
+            self.show_form = not self.show_form
+
         self.page_score = score
-        print(self.page_score)
 
     def toggle_banner(self):
         self.banner = not self.banner
@@ -282,13 +289,19 @@ def format_search_results(result):
 
 def ai_button():
     return rx.center(
-        rx.icon(tag="chat", style=styles.NAV_TEXT_STYLE),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        rx.icon(
+            tag="chat", 
+            color=rx.cond(
+                NavbarState.ai_chat,
+                "#342E5C",
+                "#5646ED",      
+            ),
+        ),
         display=["none", "none", "none", "flex", "flex", "flex"],
         border_radius="8px",
-        bg="#FFFFFF",
         style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
+        height="1em",
     )
 
 
@@ -296,25 +309,27 @@ def search_modal():
     return rx.modal(
         rx.modal_overlay(
             rx.modal_content(
+                rx.modal_header(
+                    rx.hstack(
+                        rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE, height="1em",),
+                        rx.input(
+                            placeholder="Search the docs...",
+                            on_change=NavbarState.set_search_input,
+                            focus_border_color="transparent",
+                            border_color="transparent",
+                            font_weight=400,
+                            _placeholder={"color": "#342E5C"},
+                            _hover={"border_color": "transparent"},
+                        ),
+                        ai_button(),
+                        border_bottom="1px solid #F4F3F6",
+                    ),
+                ),
                 rx.modal_body(
                     rx.vstack(
                         rx.cond(
                             NavbarState.ai_chat,
                             rx.vstack(
-                                        rx.hstack(
-                                    rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                                    rx.input(
-                                        placeholder="Search the docs...",
-                                        on_change=NavbarState.set_search_input,
-                                        focus_border_color="transparent",
-                                        border_color="transparent",
-                                        font_weight=400,
-                                        _placeholder={"color": "#342E5C"},
-                                        _hover={"border_color": "transparent"},
-                                    ),
-                                    ai_button(),
-                                    width="100%",
-                                ),
                                 rx.foreach(
                                     NavbarState.search_results,
                                     format_search_results,
@@ -325,19 +340,17 @@ def search_modal():
                                 align_items="start",
                                 overflow_y="auto",
                             ),
-                            rx.vstack(
-                                rx.hstack(rx.spacer(), ai_button()),
-                                inkeep(),
-                                width="100%",
-                            ),
+                            inkeep(),
                         ),
-                    )
+                    ),
+                    width="100%",
                 ),
                 bg="#FFFFFF",
             )
         ),
         is_open=NavbarState.search_modal,
         on_close=NavbarState.close_search,
+        size="lg",
         padding_top="1em",
         padding_x="1em",
     )

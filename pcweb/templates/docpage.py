@@ -120,24 +120,31 @@ def doc_section(*contents):
 def my_form():
     from pcweb.components.navbar import NavbarState
     return rx.form(
-        rx.text_area(
-            placeholder="Your Feedback",
-            id="feedback",
-            margin="0.25em 0.5em",
-            width="24em",
-            border_color="#eaeaef",
-        ),
-        rx.center(
-            rx.button(
-                "Send",
-                type_="submit",
-                style=styles.ACCENT_BUTTON,
-                margin="0.5em",
+        rx.vstack(
+            rx.text_area(
+                placeholder="Your Feedback...",
+                id="feedback",
+                width="100%",
+                font_size=".8em",
             ),
-            width="100%"
+            rx.hstack(
+                rx.spacer(),
+                rx.button(
+                    "Send",
+                    type_="submit",
+                    font_size=".8em",
+                    padding_x=".5em",
+                    padding_y=".2em",
+                    style=styles.ACCENT_BUTTON
+                ),
+                width="100%"
+            ),
+            padding_x=".5em",
+            width="100%",
         ),
         on_submit=NavbarState.handle_submit,
-        width="25em",
+        padding_bottom=".2em",
+        width="100%",
     )
 
 
@@ -145,11 +152,11 @@ def feedback_icon(number):
     from pcweb.components.navbar import NavbarState, hover_button_style
     return rx.icon(
         tag="star", 
-        on_mouse_enter=NavbarState.update_score(number),
+        on_click=NavbarState.update_score(number),
         color = rx.cond(
             NavbarState.page_score >= number,
-            "black",
-            "white",
+            c["indigo"][400],
+            c["indigo"][200],
         ),
         bg = "white",
         border_color = "1px solid black",
@@ -158,24 +165,21 @@ def feedback_icon(number):
 
 def feedback_button():
     from pcweb.components.navbar import NavbarState, hover_button_style
-    return rx.hstack(
-        rx.menu(
-            rx.hstack(
-                rx.text("Was this helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em", font_size="1em"),
-                feedback_icon(1),
-                feedback_icon(2),
-                feedback_icon(3),
-                feedback_icon(4),
-                feedback_icon(5), 
-            ),
-            rx.menu_list(my_form()),
+    return rx.vstack(
+        rx.hstack(
+            rx.text("Was this page helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em", padding_x=".5", font_size="1em"),
+            feedback_icon(1),
+            feedback_icon(2),
+            feedback_icon(3),
+            feedback_icon(4),
+            feedback_icon(5), 
         ),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        padding_x=".5em",
-        height="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
+        rx.cond(
+            NavbarState.show_form,
+            my_form(),
+        ),
+        transition="all 2s",
+        style=styles.BUTTON_LIGHT_NO_BACKGROUND,
     )
 
 
