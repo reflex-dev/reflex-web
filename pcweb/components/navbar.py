@@ -7,6 +7,11 @@ from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
+from email_validator import EmailNotValidError, validate_email
+from sqlmodel import Field
+from datetime import datetime
+from sqlalchemy import Column, JSON
+from typing import Optional
 
 try:
     from pcweb.tsclient import client
@@ -130,6 +135,15 @@ const inkeepEmbeddedChatProps = {
 inkeep = Search.create
 
 
+class Feedback(rx.Model, table=True):
+    email: Optional[str]
+    feedback: str
+    score: Optional[int]
+    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    page: str
+    meta: dict = Field(default={}, sa_column=Column(JSON))
+
+
 class NavbarState(State):
     """The state for the navbar component."""
 
@@ -145,6 +159,45 @@ class NavbarState(State):
     banner: bool = True
 
     ai_chat: bool = True
+
+    email: str = ""
+
+    feedback: str = ""
+
+    score: int = 0
+
+    def handle_submit(self, form_data: dict):
+        self.feedback = form_data["feedback"]
+
+        # Check if the email is valid.
+        if "email" in form_data:
+            self.email = form_data["email"]
+            try:
+                validation = validate_email(self.email, check_deliverability=True)
+                self.email = validation.email
+            except EmailNotValidError as e:
+                # Alert the error message.
+                return rx.window_alert(str(e))
+
+        current_page_route = self.get_current_page()
+        # Check if the user is already on the waitlist.
+        with rx.session() as session:
+            
+            # Add the feedback to database.
+            session.add(Feedback(
+                email=self.email,
+                feedback=self.feedback,
+                score=self.score,
+                page=current_page_route,
+                ),
+            )
+            session.commit()
+            print("session")
+            # contact_data = json.dumps({"email": self.email})
+            # self.add_contact_to_loops(contact_data)
+
+    def update_score(self, score):
+        self.score = score
 
     def toggle_banner(self):
         self.banner = not self.banner
@@ -340,6 +393,63 @@ def discord_button():
         href=constants.DISCORD_URL,
     )
 
+def my_form():
+    return rx.form(
+        rx.input(
+            placeholder="Email",
+            id="email",
+            margin="0.25em 0.5em",
+            width="24em",
+            border_color="#eaeaef",
+        ),
+        rx.text_area(
+            placeholder="Your Feedback",
+            id="feedback",
+            margin="0.25em 0.5em",
+            width="24em",
+            border_color="#eaeaef",
+        ),
+        rx.center(
+            rx.button(
+                "Send",
+                type_="submit",
+                style=styles.ACCENT_BUTTON,
+                margin="0.5em",
+            ),
+            width="100%"
+        ),
+        on_submit=NavbarState.handle_submit,
+        width="25em",
+    )
+
+def feedback_button():
+    return rx.hstack(
+        rx.menu(
+            rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
+            rx.menu_list(my_form()),
+        ),
+        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
+        style=hover_button_style,
+    )
+
+    # return rx.link(
+    #     rx.stack(
+    #         rx.text("Feedback", style=styles.NAV_TEXT_STYLE),
+    #         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+    #         padding_x=".5em",
+    #         height="2em",
+    #         border_radius="8px",
+    #         bg="#FFFFFF",
+    #         style=hover_button_style,
+    #     ),
+    #     href=constants.GITHUB_URL,
+    #     display=["none", "none", "none", "flex", "flex", "flex"],
+    # )
+
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
@@ -478,6 +588,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     #     is_open=NavbarState.search_modal,
                     #     on_close=NavbarState.change_search,
                     # ),
+                    
+                    feedback_button(),
                     github_button(),
                     discord_button(),
                     rx.icon(

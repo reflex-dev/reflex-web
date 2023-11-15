@@ -15,6 +15,7 @@ from pcweb.styles import font_weights as fw
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
+
  
 
 @rx.memo
@@ -114,6 +115,55 @@ def doc_section(*contents):
         border_left="1px #F4F3F6 solid",
         padding_left="1em",
         width="100%",
+    )
+
+
+
+
+
+
+def my_form():
+    from pcweb.components.navbar import NavbarState
+    return rx.form(
+        rx.text_area(
+            placeholder="Your Feedback",
+            id="feedback",
+            margin="0.25em 0.5em",
+            width="24em",
+            border_color="#eaeaef",
+        ),
+        rx.center(
+            rx.button(
+                "Send",
+                type_="submit",
+                style=styles.ACCENT_BUTTON,
+                margin="0.5em",
+            ),
+            width="100%"
+        ),
+        on_submit=NavbarState.handle_submit,
+        width="25em",
+    )
+
+def feedback_button():
+    from pcweb.components.navbar import NavbarState, hover_button_style
+    return rx.hstack(
+        rx.menu(
+            rx.hstack(
+                rx.text("Was this helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em"),
+                rx.menu_button("🤩", on_click=NavbarState.update_score(4), padding="0.2em"),
+                rx.menu_button("😀", on_click=NavbarState.update_score(3), padding="0.2em"),
+                rx.menu_button("🙁", on_click=NavbarState.update_score(2), padding="0.2em"),
+                rx.menu_button("😭", on_click=NavbarState.update_score(1), padding="0.2em"),
+            ),
+            rx.menu_list(my_form()),
+        ),
+        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
+        style=hover_button_style,
     )
 
 
@@ -235,6 +285,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 margin_y="3em",
                             ),
                             rx.spacer(),
+                            rx.center(
+                                feedback_button(),
+                                width="100%",
+                            ),
+                            rx.box(height="2em"),
                             rx.hstack(
                                 logo,
                                 rx.spacer(),
