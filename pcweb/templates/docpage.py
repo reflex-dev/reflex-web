@@ -15,6 +15,7 @@ from pcweb.styles import font_weights as fw
 from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
+
  
 
 @rx.memo
@@ -114,6 +115,71 @@ def doc_section(*contents):
         border_left="1px #F4F3F6 solid",
         padding_left="1em",
         width="100%",
+    )
+
+def my_form():
+    from pcweb.components.navbar import NavbarState
+    return rx.form(
+        rx.vstack(
+            rx.text_area(
+                placeholder="Your Feedback...",
+                id="feedback",
+                width="100%",
+                font_size=".8em",
+            ),
+            rx.hstack(
+                rx.spacer(),
+                rx.button(
+                    "Send",
+                    type_="submit",
+                    font_size=".8em",
+                    padding_x=".5em",
+                    padding_y=".2em",
+                    style=styles.ACCENT_BUTTON
+                ),
+                width="100%"
+            ),
+            padding_x=".5em",
+            width="100%",
+        ),
+        on_submit=NavbarState.handle_submit,
+        padding_bottom=".2em",
+        width="100%",
+    )
+
+
+def feedback_icon(number):
+    from pcweb.components.navbar import NavbarState, hover_button_style
+    return rx.icon(
+        tag="star", 
+        on_click=NavbarState.update_score(number),
+        color = rx.cond(
+            NavbarState.page_score >= number,
+            c["indigo"][400],
+            c["indigo"][200],
+        ),
+        bg = "white",
+        border_color = "1px solid black",
+    )
+
+
+def feedback_button():
+    from pcweb.components.navbar import NavbarState, hover_button_style
+    return rx.vstack(
+        rx.hstack(
+            rx.text("Was this page helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em", padding_x=".5", font_size="1em"),
+            feedback_icon(1),
+            feedback_icon(2),
+            feedback_icon(3),
+            feedback_icon(4),
+            feedback_icon(5), 
+        ),
+        rx.cond(
+            NavbarState.show_form,
+            my_form(),
+        ),
+        transition="all 2s",
+        style=styles.BUTTON_LIGHT_NO_BACKGROUND,
     )
 
 
@@ -235,6 +301,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 margin_y="3em",
                             ),
                             rx.spacer(),
+                            rx.center(
+                                feedback_button(),
+                                width="100%",
+                            ),
+                            rx.box(height="2em"),
                             rx.hstack(
                                 logo,
                                 rx.spacer(),
