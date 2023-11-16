@@ -38,7 +38,7 @@ dynamic_routes = (
 class State(rx.State):
     @rx.var
     def post_id(self) -> str:
-        return self.get_query_params().get('pid', 'no pid')
+        return self.router.page.params.get('pid', 'no pid')
         
 @rx.page(route='/post/[pid]')
 def post():
@@ -54,7 +54,7 @@ routes_get_query_params = (
 class State(rx.State):
     @rx.var
     def user_post(self) -> str:
-        args = self.get_query_params()
+        args = self.router.page.params
         username = args.get('username')
         post_id = args.get('id')
         return f'Posts by {username}: Post {post_id}'
@@ -126,7 +126,7 @@ class State(rx.State):
     
     @rx.var
     def current_url(self) -> str:
-        return f'{self.get_headers().get(\"origin\")}{self.get_current_page(origin=True)}'
+        return self.router.page.full_raw_path
 """  
 )
 
@@ -135,7 +135,7 @@ catch_all_route = (
 class State(rx.State):
     @rx.var
     def user_post(self) -> str:
-        args = self.get_query_params()
+        args = self.router.page.params
         usernames = args.get('username', [])
         return f'Posts by {', '.join(usernames)}'
 
@@ -155,7 +155,7 @@ optional_catch_all_route = (
 class State(rx.State):
     @rx.var
     def user_post(self) -> str:
-        args = self.get_query_params()
+        args = self.router.page.params
         usernames = args.get('username', [])
         return f'Posts by {', '.join(usernames)}'
 
@@ -173,8 +173,8 @@ current_page_info = (
 """
 class State(rx.State):
     def some_method(self):
-        current_page_route = self.get_current_page()
-        current_page_url = self.get_current_page(origin=True)
+        current_page_route = self.router.page.path
+        current_page_url = self.router.page.raw_path
         # ... Your logic here ...
 
 """  
@@ -184,7 +184,7 @@ client_ip = (
 """
 class State(rx.State):
     def some_method(self):
-        client_ip = self.get_client_ip()
+        client_ip = self.router.session.client_ip
         # ... Your logic here ...
 
 """  
@@ -303,9 +303,11 @@ rx.alert(
 
 
 ## Getting the Current Page Link
-The `get_current_page()` method allows you to obtain the path of the current page from the router data. 
-By setting the `origin` parameter to `True`, you can get the actual URL displayed in the browser. 
-If `origin` is set to False (which is the default), it returns the route pattern.
+The `router.page.path` attribute allows you to obtain the path of the current page from the router data,
+for dynamic pages this will contain the slug rather than the actual value used to load the page.
+
+To get the actual URL displayed in the browser, use `router.page.raw_path`. This
+will contain all query parameters and dynamic path segments.
 
 ```python
 {current_page_info}
@@ -313,7 +315,7 @@ If `origin` is set to False (which is the default), it returns the route pattern
 In the above example, `current_page_route` will contain the route pattern (e.g., `/posts/[id]`), while `current_page_url`
 will contain the actual URL (e.g., `http://example.com/posts/123`).
 
-To get the full URL, combine the origin data from the headers with the current page's path.
+To get the full URL, access the same attributes with `full_` prefix.
 
 Example:
 
@@ -324,7 +326,7 @@ In this example, running on `localhost` should display `http://localhost:3000/us
 
 
 ## Getting Client IP
-You can use the `get_client_ip()` method to obtain the IP address of the client associated 
+You can use the `router.session.client_ip` attribute to obtain the IP address of the client associated 
 with the current state.
 
 ```python

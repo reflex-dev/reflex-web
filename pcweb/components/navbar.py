@@ -7,11 +7,12 @@ from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sidebar as sb
+from email_validator import EmailNotValidError, validate_email
+from sqlmodel import Field
+from datetime import datetime
+from sqlalchemy import Column, JSON
+from typing import Optional
 
-try:
-    from pcweb.tsclient import client
-except ImportError:
-    client = None
 
 
 def shorten_to_k(number):
@@ -130,6 +131,15 @@ const inkeepEmbeddedChatProps = {
 inkeep = Search.create
 
 
+class Feedback(rx.Model, table=True):
+    email: Optional[str]
+    feedback: str
+    score: Optional[int]
+    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    page: str
+    meta: dict = Field(default={}, sa_column=Column(JSON))
+
+
 class NavbarState(State):
     """The state for the navbar component."""
 
@@ -146,11 +156,61 @@ class NavbarState(State):
 
     ai_chat: bool = True
 
+    email: str = ""
+
+    feedback: str = ""
+    
+    page_score: int = 0
+
+    show_form = False
+
+    def handle_submit(self, form_data: dict):
+        self.feedback = form_data["feedback"]
+
+        # Check if the email is valid.
+        if "email" in form_data:
+            self.email = form_data["email"]
+            try:
+                validation = validate_email(self.email, check_deliverability=True)
+                self.email = validation.email
+            except EmailNotValidError as e:
+                # Alert the error message.
+                return rx.window_alert(str(e))
+
+        current_page_route = self.get_current_page()
+        # Check if the user is already on the waitlist.
+        with rx.session() as session:
+            
+            # Add the feedback to database.
+            session.add(Feedback(
+                email=self.email,
+                feedback=self.feedback,
+                score=self.score,
+                page=current_page_route,
+                ),
+            )
+            session.commit()
+            print("session")
+            # contact_data = json.dumps({"email": self.email})
+            # self.add_contact_to_loops(contact_data)
+
+    def update_score(self, score):
+        if self.show_form == True:
+            if self.page_score == score:
+                self.show_form = not self.show_form
+        else:
+            self.show_form = not self.show_form
+
+        self.page_score = score
+
     def toggle_banner(self):
         self.banner = not self.banner
 
-    def change_search(self):
-        self.search_modal = not (self.search_modal)
+    def open_search(self):
+        self.search_modal = True
+
+    def close_search(self):
+        self.search_modal = False
 
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
@@ -161,6 +221,8 @@ class NavbarState(State):
     @rx.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
         """Get the search results."""
+        from pcweb.tsclient import client
+
         if client is None or self.search_input == "":
             return []
         search_parameters = {
@@ -186,7 +248,7 @@ def search_bar():
         ),
         rx.spacer(),
         rx.text("/", style=styles.NAV_SEARCH_STYLE),
-        on_click=NavbarState.change_search,
+        on_click=NavbarState.open_search,
         display=["none", "flex", "flex", "flex", "flex"],
         min_width=["15em", "15em", "15em", "20em", "20em"],
         padding_x="1em",
@@ -210,7 +272,7 @@ def format_search_results(result):
                 font_weight=400,
                 color="#696287",
             ),
-            on_click=NavbarState.change_search,
+            on_click=NavbarState.close_search,
             href=result["document"]["href"],
         ),
         bg="#FAF8FB",
@@ -225,15 +287,19 @@ def format_search_results(result):
 
 def ai_button():
     return rx.center(
-        rx.text("AI Chat", style=styles.NAV_TEXT_STYLE),
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        rx.icon(
+            tag="chat", 
+            color=rx.cond(
+                NavbarState.ai_chat,
+                "#342E5C",
+                "#5646ED",      
+            ),
+        ),
         display=["none", "none", "none", "flex", "flex", "flex"],
-        height="2em",
-        width="6.5em",
         border_radius="8px",
-        bg="#FFFFFF",
         style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
+        height="1em",
     )
 
 
@@ -241,23 +307,24 @@ def search_modal():
     return rx.modal(
         rx.modal_overlay(
             rx.modal_content(
+                rx.modal_header(
+                    rx.hstack(
+                        rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE, height="1em",),
+                        rx.input(
+                            placeholder="Search the docs...",
+                            on_change=NavbarState.set_search_input,
+                            focus_border_color="transparent",
+                            border_color="transparent",
+                            font_weight=400,
+                            _placeholder={"color": "#342E5C"},
+                            _hover={"border_color": "transparent"},
+                        ),
+                        ai_button(),
+                        border_bottom="1px solid #F4F3F6",
+                    ),
+                ),
                 rx.modal_body(
                     rx.vstack(
-                        rx.hstack(
-                            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
-                            rx.input(
-                                placeholder="Search the docs",
-                                on_change=NavbarState.set_search_input,
-                                focus_border_color="transparent",
-                                border_color="transparent",
-                                font_weight=400,
-                                _placeholder={"color": "#342E5C"},
-                                _hover={"border_color": "transparent"},
-                            ),
-                            ai_button(),
-                            width="100%",
-                        ),
-                        rx.divider(),
                         rx.cond(
                             NavbarState.ai_chat,
                             rx.vstack(
@@ -273,13 +340,15 @@ def search_modal():
                             ),
                             inkeep(),
                         ),
-                    )
+                    ),
+                    width="100%",
                 ),
                 bg="#FFFFFF",
             )
         ),
         is_open=NavbarState.search_modal,
-        on_close=NavbarState.change_search,
+        on_close=NavbarState.close_search,
+        size="lg",
         padding_top="1em",
         padding_x="1em",
     )
@@ -304,7 +373,7 @@ def github_button():
     return rx.link(
         rx.hstack(
             rx.image(src="/companies/dark/github.svg", height="1.25em"),
-            rx.text("Star", style=styles.NAV_TEXT_STYLE),
+            # rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
                 shorten_to_k(constants.GITHUB_STARS),
                 color="#5646ED",
@@ -340,6 +409,50 @@ def discord_button():
         href=constants.DISCORD_URL,
     )
 
+def my_form():
+    return rx.form(
+        rx.input(
+            placeholder="Email",
+            id="email",
+            margin="0.25em 0.5em",
+            width="24em",
+            border_color="#eaeaef",
+        ),
+        rx.text_area(
+            placeholder="Your Feedback",
+            id="feedback",
+            margin="0.25em 0.5em",
+            width="24em",
+            border_color="#eaeaef",
+        ),
+        rx.center(
+            rx.button(
+                "Send",
+                type_="submit",
+                style=styles.ACCENT_BUTTON,
+                margin="0.5em",
+            ),
+            width="100%"
+        ),
+        on_submit=NavbarState.handle_submit,
+        width="25em",
+    )
+
+def feedback_button():
+    return rx.hstack(
+        rx.menu(
+            rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
+            rx.menu_list(my_form()),
+        ),
+        display=["none", "none", "none", "none", "none", "flex"],
+        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
+        style=hover_button_style,
+    )
+
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
@@ -358,11 +471,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 rx.hstack(
                     rx.center(
                         rx.box(
-                            "🎃 Reflex is in Hacktoberfest!",
+                            "✨ Reflex is in Hosting Alpha!",
                             " Learn more ",
                             rx.link(
                                 "here",
-                                href="https://github.com/reflex-dev/hacktoberfest/",
+                                href="https://www.notion.so/reflex-dev/Reflex-Hosting-Documentation-57a4dd55d6234858bbae0be75be79ce7?pvs=4",
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",
@@ -370,7 +483,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 },
                                 is_external=True,
                             ),
-                            " 🕸️",
+                            ". ✨",
                             color="#FFFFFF",
                             font_weight=600,
                         ),
@@ -473,11 +586,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     spacing="2em",
                 ),
                 rx.hstack(
-                    search_bar(),
-                    # inkeep(
-                    #     is_open=NavbarState.search_modal,
-                    #     on_close=NavbarState.change_search,
-                    # ),
+                    search_bar(),                    
+                    feedback_button(),
                     github_button(),
                     discord_button(),
                     rx.icon(

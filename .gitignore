@@ -7,10 +7,10 @@
 *.py[cod]
 *.zip
 .idea
+.venv/
 .web
 __pycache__/
 pcconfig2.py
-pcweb/tsclient.py
 pynecone.db
 reflex.db
 venv/

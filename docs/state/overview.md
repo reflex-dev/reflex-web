@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import definition
+from pcweb.templates.docpage import definition, docalert, docdemo_from
 ```
 
 # State
@@ -22,6 +22,7 @@ class State(rx.State):
 State is made up of two parts: vars and event handlers.
 
 **Vars** are variables in your app that can change over time. 
+
 **Event handlers** are functions that modify these vars in response to events.
 
 These are the main concepts to understand how state works in Reflex:
@@ -86,6 +87,87 @@ rx.responsive_grid(
 )
 ```
 
+## Example
+
+Here is a example of how to use state within a Reflex app.
+Click the text to change its color.
+
+```python exec
+from typing import List
+
+from pcweb.base_state import State
 
 
+class ExampleState(State):
 
+    # A base var for the list of colors to cycle through.
+    colors: List[str] = ["black", "red", "green", "blue", "purple"]
+
+    # A base var for the index of the current color.
+    index: int = 0
+
+    def next_color(self):
+        """An event handler to go to the next color."""
+        # Event handlers can modify the base vars.
+        # Here we reference the base vars `colors` and `index`.
+        self.index = (self.index + 1) % len(self.colors)
+
+    @rx.var
+    def color(self)-> str:
+        """A computed var that returns the current color."""
+        # Computed vars update automatically when the state changes.
+        return self.colors[self.index]
+
+
+def index():
+    return rx.heading(
+        "Welcome to Reflex!",
+        # Event handlers can be bound to event triggers.
+        on_click=ExampleState.next_color,
+        # State vars can be bound to component props.
+        color=ExampleState.color,
+        _hover={"cursor": "pointer"},
+    )
+```
+
+```python eval
+docdemo_from(ExampleState, component=index, imports=["from typing import List"])
+```
+
+The base vars are `colors` and `index`. They are the only vars in the app that
+may be directly modified within event handlers.
+
+There is a single computed var, `color`, that is a function of the base vars. It
+will be computed automatically whenever the base vars change.
+
+The heading component links its `on_click` event to the
+`ExampleState.next_color` event handler, which increments the color index.
+
+```python eval
+rx.alert(
+    rx.alert_icon(),
+    rx.box(
+        rx.alert_title("With Reflex, you never have to write an API."),
+        rx.alert_description(
+            "All interactions between the frontend and backend are handled through events. "
+        ),
+    ),
+    status="success",
+)
+```
+
+## Client States
+
+Each user who opens your app has a unique ID and their own copy of the state. 
+This means that each user can interact with the app and modify the state 
+independently of other users. 
+
+```python eval
+docalert(
+    "Try opening an app in multiple tabs to see how the state changes independently."
+)
+```
+
+All user state is stored on the server, and all event handlers are executed on
+the server.  Reflex uses websockets to send events to the server, and to send
+state updates back to the client. 

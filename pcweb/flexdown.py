@@ -11,7 +11,6 @@ from pcweb.templates.docpage import (
     doclink2,
 )
 
-
 component_map = {
     "h1": lambda text: h1_comp(text=text),
     "h2": lambda text: h2_comp(text=text),
@@ -23,6 +22,10 @@ component_map = {
 }
 xd = flexdown.Flexdown(component_map=component_map)
 
+
+@rx.memo
+def markdown_memo(content: str) -> rx.Component:
+    return rx.markdown(content, component_map=component_map)
 
 def render_file(path):
     return xd.render_file(path)

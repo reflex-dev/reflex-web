@@ -9,8 +9,4 @@ class State(rx.State):
     @rx.var
     def current_page(self) -> str:
         """The current page."""
-        page = (
-            self.router_data.get("headers", {}).get("origin", "")
-            + self.get_current_page()
-        )
-        return page
+        return self.router.page.full_path
