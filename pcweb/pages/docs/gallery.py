@@ -109,7 +109,7 @@ apps_list = [
         "img": "/gallery/todo.png",
         "gif": "/gallery/todo.gif",
         "url": "",
-        #"url": "https://todo.pynecone.app/",
+        # "url": "https://todo.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/todo",
     },
     {
@@ -120,7 +120,7 @@ apps_list = [
         "img": "/gallery/twitter.png",
         "gif": "/gallery/twitter.gif",
         "url": "",
-        #"url": "https://twitter.pynecone.app/",
+        # "url": "https://twitter.pynecone.app/",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/twitter",
     },
     {
