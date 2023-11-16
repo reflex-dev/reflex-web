@@ -299,16 +299,7 @@ def format_search_results(result):
             ),
             on_click=NavbarState.close_search,
             href=result["document"]["href"],
-        ),
-
-        bg="#FAF8FB",
-        border_radius="8px",
-        align_items="start",
-        padding="0.5em",
-        shadow=styles.DOC_SHADOW,
-        _hover={"background_color": "#F5EFFE", "color": "#5646ED"},
-        width="100%",
-    )
+        )
 
 
 def ai_button():
