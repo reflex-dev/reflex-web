@@ -16,12 +16,12 @@
 
 A public repository which contains the source code of the reflex.dev website.
 
-- It's built with [Reflex](https://reflex.dev/), a Python web framework.
+- It's built with [Reflex](https://reflex.dev/), a framework to build web apps in pure Python.
 - You can find everything related to Reflex at [reflex.dev](https://reflex.dev/).
 
 ## About Reflex
 
-Reflex.dev is a groundbreaking web development framework that empowers Python developers to seamlessly create web apps without the nuances of traditional frontend tools. Its open-source core framework ensures flexibility for projects of any scale. Explore the future of web development at [reflex.dev](https://reflex.dev/).
+Reflex is a full-stack web framework that allows developers to build their app in pure Python, and deploy with a single command. Its open-source core framework ensures flexibility for projects of any scale. Explore the future of web development at [reflex.dev](https://reflex.dev/).
 
 ## Requirements
 
