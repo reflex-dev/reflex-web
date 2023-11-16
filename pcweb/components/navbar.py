@@ -165,7 +165,7 @@ class NavbarState(State):
     show_form = False
 
     current_category = 'All'
-    
+
     def handle_submit(self, form_data: dict):
         self.feedback = form_data["feedback"]
 
@@ -195,8 +195,7 @@ class NavbarState(State):
             print("session")
             # contact_data = json.dumps({"email": self.email})
             # self.add_contact_to_loops(contact_data)
-
-
+            
     def update_score(self, score):
         if self.show_form == True:
             if self.page_score == score:
@@ -298,6 +297,10 @@ def format_search_results(result):
                 href=result["document"]["href"],
                 width="100%",
             ),
+            on_click=NavbarState.close_search,
+            href=result["document"]["href"],
+        ),
+
         bg="#FAF8FB",
         border_radius="8px",
         align_items="start",
