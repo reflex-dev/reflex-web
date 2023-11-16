@@ -164,6 +164,8 @@ class NavbarState(State):
 
     show_form = False
 
+    current_category = 'All'
+
     def handle_submit(self, form_data: dict):
         self.feedback = form_data["feedback"]
 
@@ -193,7 +195,7 @@ class NavbarState(State):
             print("session")
             # contact_data = json.dumps({"email": self.email})
             # self.add_contact_to_loops(contact_data)
-
+            
     def update_score(self, score):
         if self.show_form == True:
             if self.page_score == score:
@@ -217,6 +219,9 @@ class NavbarState(State):
 
     def toggle_ai_chat(self):
         self.ai_chat = not self.ai_chat
+    
+    def update_category(self, tag):
+        self.current_category = tag
 
     @rx.var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
@@ -225,12 +230,22 @@ class NavbarState(State):
 
         if client is None or self.search_input == "":
             return []
-        search_parameters = {
-            "q": self.search_input,
-            "query_by": "heading, description",
-            "query_by_weights": "2,1",
-            "sort_by": "_text_match:desc",
-        }
+        
+        if self.current_category == "All":
+            search_parameters = {
+                "q": self.search_input,
+                "query_by": "heading, description",
+                "query_by_weights": "2,1",
+                "sort_by": "_text_match:desc",
+            }
+        else:
+            search_parameters = {
+                "q": self.search_input,
+                "query_by": "heading, description",
+                "query_by_weights": "2,1",
+                "sort_by": "_text_match:desc",
+                "filter_by": f"category: {self.current_category}",
+            }
         return client.collections["search-auto"].documents.search(search_parameters)[
             "hits"
         ]
@@ -260,21 +275,32 @@ def search_bar():
 
 def format_search_results(result):
     return rx.vstack(
-        rx.link(
-            rx.text(
-                result["document"]["heading"],
-                font_weight=600,
-                color="#1F1944",
-            ),
-            rx.divider(),
-            rx.text(
-                result["document"]["description"],
-                font_weight=400,
-                color="#696287",
+            rx.link(
+                rx.hstack(
+                    rx.text(
+                        result["document"]["heading"],
+                        font_weight=600,
+                        color="#1F1944",
+                    ),
+                    rx.spacer(),
+                    rx.text(result["document"]["category"]),
+                    width='100%'
+                ),
+                rx.divider(),
+                rx.text(
+                    result["document"]["description"],
+                    no_of_lines=1,
+                    font_weight=400,
+                    color="#696287",
+                ),
+                on_click=NavbarState.close_search,
+                href=result["document"]["href"],
+                width="100%",
             ),
             on_click=NavbarState.close_search,
             href=result["document"]["href"],
         ),
+
         bg="#FAF8FB",
         border_radius="8px",
         align_items="start",
@@ -288,7 +314,7 @@ def format_search_results(result):
 def ai_button():
     return rx.center(
         rx.icon(
-            tag="chat", 
+            tag="chat",
             color=rx.cond(
                 NavbarState.ai_chat,
                 "#342E5C",
@@ -303,11 +329,38 @@ def ai_button():
     )
 
 
+def search_bar_categories(categories):
+    return rx.hstack(
+        *[
+            rx.button(
+                category,
+                border_radius="15px",
+                padding_x=".5em",
+                on_click=NavbarState.update_category(category),
+                color="#5646ED",
+                bg="#F5EFFE",
+                _hover={
+                    "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+                },
+                _active={
+                    "color": "white",
+                    "bg": "#5646ED",
+                },
+            )
+            for category in categories
+        ],
+        padding_y="1em",
+        padding_x=".5em",
+    )
+
+
 def search_modal():
     return rx.modal(
         rx.modal_overlay(
             rx.modal_content(
                 rx.modal_header(
+                    # add in filter tabs here categories
+                    search_bar_categories(['All', 'Learn', 'Component', 'API Reference', 'Blog']),
                     rx.hstack(
                         rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE, height="1em",),
                         rx.input(
@@ -344,6 +397,7 @@ def search_modal():
                     width="100%",
                 ),
                 bg="#FFFFFF",
+            max_width="50em",
             )
         ),
         is_open=NavbarState.search_modal,
