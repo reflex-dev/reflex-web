@@ -25,6 +25,8 @@ def shorten_to_k(number):
 class Search(rx.Component):
     tag = "InkeepEmbeddedChat"
 
+    library = "@inkeep/widgets@latest"
+
     special_props: Set[Var] = {Var.create_safe("{...inkeepEmbeddedChatProps}")}
 
     is_open: Var[bool] = False
@@ -55,6 +57,22 @@ const inkeepEmbeddedChatProps = {
     organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#5646ED',
+    theme: {
+        primaryColors: {
+        textColorOnPrimary: '#11181c',
+        textBold: '#141d20',
+        textSubtle: '#354a51',
+        lighter: '#e5feff',
+        light: '#85f0ff',
+        lightSubtle: '#f1f8fa',
+        medium: '#26d6ff', // primaryBrandColor
+        strong: '#00b5dd',
+        stronger: '#006881',
+        hitContentPreview: '#00b5dd',
+        hitContentPreviewHover: '#006881',
+        textColorOnPrimary: 'white',
+        },
+    },
     breadcrumbRules: {
       urlToBreadcrumbMapper: [
         {
@@ -118,6 +136,8 @@ const inkeepEmbeddedChatProps = {
     },
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
+    botName: 'Reflex AI',
+    botAvatarSrcUrl: "/bot.png",
     quickQuestions: [
       'How does Reflex work?',
       'What types of apps can I build with Reflex?',
@@ -312,7 +332,6 @@ def ai_button():
                 "#5646ED",      
             ),
         ),
-        display=["none", "none", "none", "flex", "flex", "flex"],
         border_radius="8px",
         style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
@@ -384,16 +403,19 @@ def search_modal():
                             ),
                             inkeep(),
                         ),
+                        max_height="30em",
+                        overflow = "auto",
+                        scrollbar_width = "none",
                     ),
                     width="100%",
                 ),
                 bg="#FFFFFF",
-            max_width="50em",
+                max_width="50em",
             )
         ),
         is_open=NavbarState.search_modal,
         on_close=NavbarState.close_search,
-        size="lg",
+        size="xl",
         padding_top="1em",
         padding_x="1em",
     )
