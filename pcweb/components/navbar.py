@@ -350,7 +350,7 @@ def format_search_results(result):
             _hover={
                 "bg": "#F5EFFE",
             },
-            bg = styles.c["gray"][50],
+            bg = "#f4f3f4",
             border_radius="8px",
             padding_x=".5em",
             padding_y=".25em",
@@ -359,6 +359,7 @@ def format_search_results(result):
         on_click=NavbarState.close_search,
         href=result["document"]["href"],
         style={"text_decoration": "none"},
+        width="100%",
     )
 
 
