@@ -512,3 +512,5 @@ def sidebar(url=None) -> rx.Component:
         ),
         padding_right="2em",
     )
+
+sb = sidebar()
