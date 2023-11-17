@@ -7,7 +7,7 @@ config = rx.Config(
     frontend_packages=[
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
-        "@inkeep/widgets@0.2.190",
+        "@inkeep/widgets@latest",
     ],
     telemetry_enabled=False,
     tailwind={

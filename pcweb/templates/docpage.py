@@ -16,7 +16,6 @@ from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
 
- 
 
 @rx.memo
 def code_block(code: str, language: str):
@@ -66,9 +65,9 @@ def code_block_memo(children: str, language: str):
             border="2px solid #F4F3F6",
         ),
         position="relative",
-        margin_bottom="1em", 
+        margin_bottom="1em",
         width="100%",
-    )       
+    )
 
 
 def code_block2(*_, **props):
@@ -117,8 +116,10 @@ def doc_section(*contents):
         width="100%",
     )
 
+
 def my_form():
     from pcweb.components.navbar import NavbarState
+
     return rx.form(
         rx.vstack(
             rx.text_area(
@@ -135,9 +136,9 @@ def my_form():
                     font_size=".8em",
                     padding_x=".5em",
                     padding_y=".2em",
-                    style=styles.ACCENT_BUTTON
+                    style=styles.ACCENT_BUTTON,
                 ),
-                width="100%"
+                width="100%",
             ),
             padding_x=".5em",
             width="100%",
@@ -150,29 +151,37 @@ def my_form():
 
 def feedback_icon(number):
     from pcweb.components.navbar import NavbarState, hover_button_style
+
     return rx.icon(
-        tag="star", 
+        tag="star",
         on_click=NavbarState.update_score(number),
-        color = rx.cond(
+        color=rx.cond(
             NavbarState.page_score >= number,
             c["indigo"][400],
             c["indigo"][200],
         ),
-        bg = "white",
-        border_color = "1px solid black",
+        bg="white",
+        border_color="1px solid black",
     )
 
 
 def feedback_button():
     from pcweb.components.navbar import NavbarState, hover_button_style
+
     return rx.vstack(
         rx.hstack(
-            rx.text("Was this page helpful?", style=styles.NAV_TEXT_STYLE, padding="0.2em", padding_x=".5", font_size="1em"),
+            rx.text(
+                "Was this page helpful?",
+                style=styles.NAV_TEXT_STYLE,
+                padding="0.2em",
+                padding_x=".5",
+                font_size="1em",
+            ),
             feedback_icon(1),
             feedback_icon(2),
             feedback_icon(3),
             feedback_icon(4),
-            feedback_icon(5), 
+            feedback_icon(5),
         ),
         rx.cond(
             NavbarState.show_form,
@@ -214,7 +223,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         # Set the page title.
         if t is None:
             title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
-        else: 
+        else:
             title = t
 
         def wrapper(*args, **kwargs) -> rx.Component:
@@ -256,8 +265,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         href=prev.link,
                         style=link_style,
                     )
-                )   
-            else:   
+                )
+            else:
                 links.append(rx.box())
 
             # Create the next component link.
@@ -510,7 +519,7 @@ def doccode(
 
     Returns:
         The styled code snippet.
-    """ 
+    """
     # For Python snippets, lint the code with black.
     if language == "python":
         code = black.format_str(
@@ -532,7 +541,7 @@ def doccode(
         code=code,
         language=language,
     )
-  
+
 
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
@@ -605,10 +614,10 @@ def docdemo_from(
     **props,
 ):
     """Create a documentation demo from a component and state.
-    
+
     Reading the source code from the given objects and rendering the component
     above it.
-    
+
     Args:
         *state_and_models: The state and any models to read.
         component: The component to render.
@@ -646,7 +655,9 @@ def docdemo_from(
         docdemobox(
             component(),
             **(demobox_props or {}),
-        ) if component is not None else rx.fragment(),
+        )
+        if component is not None
+        else rx.fragment(),
         rx.accordion(
             rx.accordion_item(
                 rx.accordion_button(
@@ -752,8 +763,8 @@ tab_style = {
         "border_radius": "8px",
     },
 }
- 
- 
+
+
 def docgraphing(
     code: str,
     state: str | None = None,
@@ -791,4 +802,3 @@ def docgraphing(
         ),
         width="100%",
     )
-    

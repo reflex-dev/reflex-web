@@ -246,7 +246,7 @@ def determine_category(path):
     elif path.startswith("/docs/api-reference/"):
         return "API Reference"
     else:
-        return "Learn" 
+        return "Learn"
 
 
 def index_docs():
@@ -258,11 +258,12 @@ def index_docs():
     category = ""
     docs_with_categories = {}
     for key, text in docs.items():
-        #print(key, text)
+        # print(key, text)
         category = determine_category(key[1])
         new_key = (key[0], key[1], category)
         docs_with_categories[new_key] = text
     return docs_with_categories
+
 
 def create_collection():
     """Create the collection."""
@@ -293,10 +294,12 @@ def upload_docs(docs: list[Doc]):
 
 
 if __name__ == "__main__":
-    #create_collection()
+    # create_collection()
     out = index_docs()
     docs = []
     for key, text in out.items():
-        docs.append({"heading": key[0], "description": text, "href": key[1], "category": key[2]})
-        #print(docs[-1])
-    #upload_docs(docs)
+        docs.append(
+            {"heading": key[0], "description": text, "href": key[1], "category": key[2]}
+        )
+        # print(docs[-1])
+    # upload_docs(docs)

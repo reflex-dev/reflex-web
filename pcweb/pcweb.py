@@ -75,7 +75,7 @@ for route in faq_routes:
         "Reflex | FAQ",
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
-    ) 
+    )
 
 
 for key in component_list:

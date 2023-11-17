@@ -14,7 +14,6 @@ from sqlalchemy import Column, JSON
 from typing import Optional
 
 
-
 def shorten_to_k(number):
     if number >= 1000:
         return "{:.0f}k+".format(number / 1000)
@@ -24,6 +23,8 @@ def shorten_to_k(number):
 
 class Search(rx.Component):
     tag = "InkeepEmbeddedChat"
+
+    library = "@inkeep/widgets@latest"
 
     special_props: Set[Var] = {Var.create_safe("{...inkeepEmbeddedChatProps}")}
 
@@ -55,6 +56,22 @@ const inkeepEmbeddedChatProps = {
     organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#5646ED',
+    theme: {
+        primaryColors: {
+        textColorOnPrimary: '#11181c',
+        textBold: '#141d20',
+        textSubtle: '#354a51',
+        lighter: '#e5feff',
+        light: '#85f0ff',
+        lightSubtle: '#f1f8fa',
+        medium: '#26d6ff', // primaryBrandColor
+        strong: '#00b5dd',
+        stronger: '#006881',
+        hitContentPreview: '#00b5dd',
+        hitContentPreviewHover: '#006881',
+        textColorOnPrimary: 'white',
+        },
+    },
     breadcrumbRules: {
       urlToBreadcrumbMapper: [
         {
@@ -112,12 +129,14 @@ const inkeepEmbeddedChatProps = {
         AIChatPageWrapper: {
           defaultProps: {
             variant: '',
+            size: 'expand',
           },
         },
       }
     },
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
+    botName: 'Reflex AI',
     quickQuestions: [
       'How does Reflex work?',
       'What types of apps can I build with Reflex?',
@@ -159,12 +178,12 @@ class NavbarState(State):
     email: str = ""
 
     feedback: str = ""
-    
+
     page_score: int = 0
 
     show_form = False
 
-    current_category = 'All'
+    current_category = "All"
 
     def handle_submit(self, form_data: dict):
         self.feedback = form_data["feedback"]
@@ -182,20 +201,21 @@ class NavbarState(State):
         current_page_route = self.get_current_page()
         # Check if the user is already on the waitlist.
         with rx.session() as session:
-            
+
             # Add the feedback to database.
-            session.add(Feedback(
-                email=self.email,
-                feedback=self.feedback,
-                score=self.score,
-                page=current_page_route,
+            session.add(
+                Feedback(
+                    email=self.email,
+                    feedback=self.feedback,
+                    score=self.score,
+                    page=current_page_route,
                 ),
             )
             session.commit()
             print("session")
             # contact_data = json.dumps({"email": self.email})
             # self.add_contact_to_loops(contact_data)
-            
+
     def update_score(self, score):
         if self.show_form == True:
             if self.page_score == score:
@@ -219,7 +239,7 @@ class NavbarState(State):
 
     def toggle_ai_chat(self):
         self.ai_chat = not self.ai_chat
-    
+
     def update_category(self, tag):
         self.current_category = tag
 
@@ -230,7 +250,7 @@ class NavbarState(State):
 
         if client is None or self.search_input == "":
             return []
-        
+
         if self.current_category == "All":
             search_parameters = {
                 "q": self.search_input,
@@ -273,33 +293,74 @@ def search_bar():
     )
 
 
+def search_badge(category, stateful=True):
+    if stateful:
+        return rx.badge(
+            category,
+            border_radius="8px",
+            padding_x=".5em",
+            on_click=NavbarState.update_category(category),
+            color=rx.cond(
+                NavbarState.current_category == category,
+                styles.c["violet"][500],
+                styles.c["gray"][500],
+            ),
+            bg=rx.cond(
+                NavbarState.current_category == category,
+                styles.c["violet"][50],
+                styles.c["gray"][50],
+            ),
+            _hover={
+                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+            },
+        )
+    else: return rx.badge(
+            category,
+            border_radius="8px",
+            color = styles.c["violet"][500],
+            bg = styles.c["violet"][50],
+            padding_x=".5em",
+            _hover={
+                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+            },
+        )
+
+
+
 def format_search_results(result):
-    return rx.vstack(
-            rx.link(
-                rx.hstack(
-                    rx.text(
-                        result["document"]["heading"],
-                        font_weight=600,
-                        color="#1F1944",
-                    ),
-                    rx.spacer(),
-                    rx.text(result["document"]["category"]),
-                    width='100%'
-                ),
-                rx.divider(),
+    return rx.link(
+        rx.vstack(
+            rx.hstack(
                 rx.text(
-                    result["document"]["description"],
-                    no_of_lines=1,
-                    font_weight=400,
-                    color="#696287",
+                    result["document"]["heading"],
+                    font_weight=600,
+                    color=styles.c["indigo"][700],
                 ),
-                on_click=NavbarState.close_search,
-                href=result["document"]["href"],
+                rx.spacer(),
+                search_badge(result["document"]["category"], stateful=False),
                 width="100%",
             ),
-            on_click=NavbarState.close_search,
-            href=result["document"]["href"],
-        )
+            rx.text(
+                result["document"]["description"],
+                no_of_lines=1,
+                font_weight=400,
+                color=styles.c["indigo"][500],
+            ),
+            width="100%",
+            _hover={
+                "bg": "#F5EFFE",
+            },
+            bg = "#f4f3f4",
+            border_radius="8px",
+            padding_x=".5em",
+            padding_y=".25em",
+            spacing="0.25em",
+        ),
+        on_click=NavbarState.close_search,
+        href=result["document"]["href"],
+        style={"text_decoration": "none"},
+        width="100%",
+    )
 
 
 def ai_button():
@@ -309,10 +370,9 @@ def ai_button():
             color=rx.cond(
                 NavbarState.ai_chat,
                 "#342E5C",
-                "#5646ED",      
+                "#5646ED",
             ),
         ),
-        display=["none", "none", "none", "flex", "flex", "flex"],
         border_radius="8px",
         style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
@@ -322,26 +382,8 @@ def ai_button():
 
 def search_bar_categories(categories):
     return rx.hstack(
-        *[
-            rx.button(
-                category,
-                border_radius="15px",
-                padding_x=".5em",
-                on_click=NavbarState.update_category(category),
-                color="#5646ED",
-                bg="#F5EFFE",
-                _hover={
-                    "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
-                },
-                _active={
-                    "color": "white",
-                    "bg": "#5646ED",
-                },
-            )
-            for category in categories
-        ],
-        padding_y="1em",
-        padding_x=".5em",
+        *[search_badge(category) for category in categories],
+        padding_bottom=".25em",
     )
 
 
@@ -351,9 +393,15 @@ def search_modal():
             rx.modal_content(
                 rx.modal_header(
                     # add in filter tabs here categories
-                    search_bar_categories(['All', 'Learn', 'Component', 'API Reference', 'Blog']),
+                    search_bar_categories(
+                        ["All", "Learn", "Component", "API Reference", "Blog"]
+                    ),
                     rx.hstack(
-                        rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE, height="1em",),
+                        rx.icon(
+                            tag="search2",
+                            style=styles.NAV_SEARCH_STYLE,
+                            height="1em",
+                        ),
                         rx.input(
                             placeholder="Search the docs...",
                             on_change=NavbarState.set_search_input,
@@ -381,19 +429,25 @@ def search_modal():
                                 max_height="30em",
                                 align_items="start",
                                 overflow_y="auto",
+                                padding_top="0em"
                             ),
-                            inkeep(),
+                            inkeep(
+                                width="100%",
+                            ),
                         ),
+                        max_height="40em",
+                        overflow="auto",
+                        scrollbar_width="none",
                     ),
                     width="100%",
                 ),
                 bg="#FFFFFF",
-            max_width="50em",
+                max_width="50em",
             )
         ),
         is_open=NavbarState.search_modal,
         on_close=NavbarState.close_search,
-        size="lg",
+        size="xl",
         padding_top="1em",
         padding_x="1em",
     )
@@ -404,8 +458,6 @@ logo_style = {
     "height": "1.25em",
 }
 logo = navbar_logo(**logo_style)
-
-
 hover_button_style = {
     "_hover": {
         "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
@@ -454,6 +506,7 @@ def discord_button():
         href=constants.DISCORD_URL,
     )
 
+
 def my_form():
     return rx.form(
         rx.input(
@@ -477,11 +530,12 @@ def my_form():
                 style=styles.ACCENT_BUTTON,
                 margin="0.5em",
             ),
-            width="100%"
+            width="100%",
         ),
         on_submit=NavbarState.handle_submit,
         width="25em",
     )
+
 
 def feedback_button():
     return rx.hstack(
@@ -631,7 +685,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     spacing="2em",
                 ),
                 rx.hstack(
-                    search_bar(),                    
+                    search_bar(),
                     feedback_button(),
                     github_button(),
                     discord_button(),

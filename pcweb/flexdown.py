@@ -27,5 +27,6 @@ xd = flexdown.Flexdown(component_map=component_map)
 def markdown_memo(content: str) -> rx.Component:
     return rx.markdown(content, component_map=component_map)
 
+
 def render_file(path):
     return xd.render_file(path)
