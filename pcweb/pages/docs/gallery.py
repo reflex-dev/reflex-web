@@ -156,6 +156,81 @@ apps_list = [
 ]
 
 
+community_apps_list = [
+    # {
+    #     "name": "Reflex",
+    #     "difficulty": "Advanced",
+    #     "tags": ["Multi-Page", "Graphs", "Forms", "Data Table", "Database"],
+    #     "description": "This website!",
+    #     "img": "/gallery/pcweb.png",
+    #     "gif": "",
+    #     "url": "https://pynecone.io/",
+    #     "source": "https://github.com/pynecone-io/pcweb",
+    # },
+    {
+        "name": "Half Truth",
+        "difficulty": "Intermediate",
+        "tags": ["AI"],
+        "description": "A game where half the statements are facts and half are fibbs.",
+        "img": "/gallery/half_truth.png",
+        "gif": "",
+        "url": "https://halftruth.reflex.run",
+        "source": "https://github.com/romankouz/hacktoberfest/tree/5050_official/submissions/miscellaneous/romankouz_half_truth",
+    },
+    {
+        "name": "Git Gold Book",
+        "difficulty": "Intermediate",
+        "tags": [],
+        "description": "An overview about about pull requests for a particular repo.",
+        "img": "/gallery/git_gold_book.png",
+        "gif": "",
+        "url": "https://git-app-gold-book.reflex.run",
+        "source": "https://github.com/reflex-dev/hacktoberfest/tree/main/submissions/data_visualizations/ashish_git_App",
+    },
+    {
+        "name": "Dataframe Chatbot",
+        "difficulty": "Intermediate",
+        "tags": ["AI"],
+        "description": "Users can interact with their dataframe using natural language.",
+        "img": "/gallery/dataframechatbot.png",
+        "gif": "",
+        "url": "https://interactwithyourcsv.reflex.run",
+        "source": "https://github.com/reflex-dev/hacktoberfest/tree/main/submissions/interactive_db/emmanuel/my_dataframe_chatbot",
+    },
+    {
+        "name": "Text Summarizer",
+        "difficulty": "Intermediate",
+        "tags": [],
+        "description": "An app to summarize text.",
+        "img": "/gallery/text_summarizer.png",
+        "gif": "",
+        "url": "https://textsummarizer.reflex.run",
+        "source": "https://github.com/reflex-dev/hacktoberfest/tree/main/submissions/ai_apps/emmanuel/text_summarizer",
+    },
+    {
+        "name": "Reflex Rave",
+        "difficulty": "Intermediate",
+        "tags": [],
+        "description": "A movie recommendation system.",
+        "img": "/gallery/reflexrave.png",
+        "gif": "",
+        "url": "https://reflexrave.reflex.run",
+        "source": "https://github.com/HeetVekariya/hacktoberfest/tree/heet/ReflexRave",
+    },
+    {
+        "name": "Fynesse",
+        "difficulty": "Intermediate",
+        "tags": [],
+        "description": "Spotify recommendations generator with control.",
+        "img": "/gallery/fynesse.png",
+        "gif": "",
+        "url": "https://fynesse.reflex.run",
+        "source": "https://github.com/wightwick/fynesse",
+    },
+    
+]
+
+
 class Gallery(rx.Model):
     name: str
     difficulty: str
@@ -195,6 +270,8 @@ list_of_tags = create_list_of_tags(apps_df)
 
 class SideBarState(State):
     """Side Bar State"""
+
+    community_apps_list : list[dict[str, str]] = community_apps_list
 
     chosen_tags_dict: dict[str, bool] = {key: False for key in list_of_tags}
 
@@ -314,6 +391,16 @@ def component_grid():
     )
 
 
+def community_component_grid():
+    return rx.box(
+        rx.responsive_grid(
+            rx.foreach(SideBarState.community_apps_list, add_item),
+            columns=[1, 2, 2, 2, 3],
+            gap=4,
+        ),
+    )
+
+
 def sidebar_component_grid(tags):
     return rx.wrap(
         *[
@@ -371,12 +458,25 @@ def gallery_with_no_sidebar():
         rx.vstack(
             component_grid(),
             rx.box(
-                docheader("Community Gallery", first=True),
-                doctext(
-                    "Here are some examples of what the community has made with Reflex. "
+                rx.heading("Community Gallery"),
+                rx.divider(),
+                rx.text(
+                    "Here are some examples of what the community has made with Reflex. ",
+                    margin_bottom="1em"
                 ),
-                docalert(
-                    "This section is coming soon! If you have an app you'd like to share, please join our discord and let us know."
+                community_component_grid(),
+                rx.alert(
+                    rx.alert_icon(),
+                    rx.alert_title(
+                        "If you have an app you'd like to share, please fill out this ", 
+                        rx.link(
+                            rx.text("form", as_="b"), 
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link",
+                            color="rgb(107,99,246)",
+                        ),
+                        "."),
+                    status="info",
+                    margin_top="2em",
                 ),
                 padding_top="2em",
             ),
