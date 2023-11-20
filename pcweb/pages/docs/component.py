@@ -2,7 +2,7 @@
 
 import inspect
 import re
-from typing import Any, Type
+from typing import Any, Type, Literal, get_args
 
 from reflex.base import Base
 from reflex.components.component import Component
@@ -169,16 +169,29 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
 
+
+    # if the type if leteral show all the options
+    if type_ == "Literal":
+        output = get_args(prop.type_)
+        prop.description = str(output).replace("typing.Literal[", "").replace("']", "").replace("(", "").replace(")", "").replace(",", " | ")
+
+
     # Return the docs for the prop.
     return [
-        rx.td(rx.code(prop.name, color="#333")),
-        rx.td(rx.badge(type_, color_scheme=color, variant="solid")),
-        rx.td(markdown_memo(content=prop.description)),
+        rx.td(rx.code(prop.name, color="#333"), padding_left="0",),
+        rx.td(rx.badge(type_, color_scheme=color, variant="solid"), padding_left="0",),
+        rx.td(rx.markdown(prop.description), padding_left="0",),
     ]
 
 
 def get_examples(component: str) -> rx.Component:
-    return eval(f"render_{component.lower()}()")
+    return rx.vstack(
+        rx.heading(component, font_size="2em"),
+        rx.divider(),
+        eval(f"render_{component.lower()}()"),
+        width="100%",
+        align_items="left",
+    )
 
 
 EVENTS = {
@@ -356,148 +369,114 @@ def component_docs(component):
 
     src = Source(component=component)
     props = []
-
     if len(src.get_props()) > 0:
         props = [
-            rx.accordion(
-                rx.accordion_item(
-                    rx.accordion_button(
-                        rx.accordion_icon(), rx.heading("Props", font_size="1em")
-                    ),
-                    rx.accordion_panel(
-                        rx.box(
-                            rx.table(
-                                rx.thead(
-                                    rx.tr(
-                                        rx.th("Prop"),
-                                        rx.th("Type"),
-                                        rx.th("Description"),
-                                    )
-                                ),
-                                rx.tbody(
-                                    *[
-                                        rx.tr(*prop_docs(prop))
-                                        for prop in src.get_props()
-                                    ]
-                                ),
-                            ),
-                            background_color="rgb(255, 255, 255)",
-                            border_radius="1em",
-                            box_shadow=styles.DOC_SHADOW_LIGHT,
-                            padding="1em",
-                            max_width="100%",
-                            overflow_x="auto",
+            rx.vstack(
+            rx.table(
+                    rx.thead(
+                        rx.tr(
+                            rx.th("Prop", padding_left="0"),
+                            rx.th("Type", padding_left="0",),
+                            rx.th("Description/Values", padding_left="0"), 
+                            
                         )
                     ),
-                ),
-                border_color="rgb(255, 255, 255)",
-                width="100%",
-                allow_toggle=True,
+                    rx.tbody(
+                        *[
+                            rx.tr(*prop_docs(prop))
+                            for prop in src.get_props()
+                        ]
+                    ),
+                    width="100%",
+                    padding_x="0",
+                    size="sm",
+            ),
+            align_items="left",
+            padding_bottom="2em",
             )
         ]
     else:
         props = [
-            rx.box(
-                rx.unordered_list(
-                    rx.list_item(
-                        rx.heading(
-                            f"No props for {component.__name__}.", font_size="1em"
-                        )
-                    )
-                ),
-                padding_x="1.5em",
-                max_width="100%",
-                overflow_x="auto",
-            ),
+            rx.box(),
         ]
 
-    triggers = []
 
     trig = []
     default_triggers = rx.Component.create().get_event_triggers().keys()
     for event in component().get_event_triggers().keys():
         if event not in default_triggers and event not in ("on_drop",):
             trig.append(event)
-
-    if trig:
-        specific_triggers = rx.accordion_item(
-            rx.accordion_button(
-                rx.accordion_icon(),
-                rx.heading("Component Specific Triggers", font_size="1em"),
-            ),
-            rx.accordion_panel(
-                *[
-                    rx.accordion_item(
-                        rx.accordion_button(
-                            rx.accordion_icon(),
-                            rx.code(event),
-                        ),
-                        rx.accordion_panel(rx.text(EVENTS[event]["description"])),
-                    )
-                    for event in component().get_event_triggers().keys()
-                    if event not in default_triggers and event not in ("on_drop",)
-                ],
-            ),
-            border_color="rgb(255, 255, 255)",
-        )
-
-        component_specific_triggers = rx.accordion(
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.accordion_icon(), rx.heading("Event Triggers", font_size="1em")
-                ),
-                rx.accordion_panel(
-                    rx.accordion_item(
-                        rx.accordion_button(
-                            rx.link(
-                                rx.hstack(
-                                    rx.icon(tag="link"),
-                                    rx.heading("Base Event Triggers", font_size="1em"),
-                                ),
-                                href=event_triggers.path,
+    if trig != []:
+        triggers = rx.vstack(
+                    rx.heading("Event Triggers", font_size="1em"),
+                    rx.table(
+                        rx.thead(
+                            rx.tr(
+                                rx.th("Trigger", padding_left="0"),
+                                rx.th("Description", padding_left="0"),
                             )
                         ),
-                        border_color="rgb(255, 255, 255)",
+                        rx.tbody(
+                            *[
+                                rx.tr(
+                                    rx.td(rx.code(event), padding_left="0"),
+                                    rx.td(rx.text(EVENTS[event]["description"])),
+                                )
+                                for event in component().get_event_triggers().keys()
+                                if event not in default_triggers and event not in ("on_drop",)
+                            ]
+                        ),
+                        width="100%",
                     ),
-                    specific_triggers,
-                ),
-            ),
-            border_color="rgb(255, 255, 255)",
-            allow_multiple=True,
-            width="100%",
-            align_items="left",
-        )
-
+                    width="100%",
+                    overflow_x="auto",
+                    align_items="left",
+                )
     else:
-        component_specific_triggers = rx.box(
-            rx.unordered_list(
-                rx.list_item(rx.heading("Base Event Triggers", font_size="1em"))
-            ),
-            padding_top="1.5em",
-            padding_x="1.5em",
-            max_width="100%",
-            overflow_x="auto",
+        triggers = rx.vstack(
+                    rx.heading("Event Triggers", font_size="1em"),
+                    rx.text("No component specfic event triggers"),
+                    width="100%",
+                    overflow_x="auto",
+                    align_items="left",
+                    padding_y=".5em",
+                )
+
+    valid_children = []
+    children = rx.text("")
+    if  component._valid_children:
+        for child in component._valid_children:
+            valid_children.append(rx.code(child))
+        children = rx.vstack(
+            rx.heading("Valid Children", font_size="1em"),
+            rx.hstack(*valid_children),
+            width = "100%",
+            align_items="left",
+            overflow = "auto",
+            padding_y=".5em",
         )
 
-    triggers = [
-        rx.box(
-            component_specific_triggers,
-            max_width="100%",
-            overflow_x="auto",
-        ),
-    ]
+
 
     return rx.box(
-        docheader(component.__name__),
-        markdown_memo(content=src.get_docs()),
+        rx.heading(component.__name__, font_size="2em"),
         rx.divider(),
+        rx.markdown(src.get_docs()),
+        rx.heading("Props", font_size="1em"),
         *props,
-        *triggers,
+        children,
+        triggers,
         text_align="left",
+        width="100%",
+        padding_bottom="2em",
     )
 
+tab_style = {"font_size": "1em", "font_weight": "500", "font_weight": "500", "padding_x": ".5em", "color": "#696287"}
+tab_selected_style = {"color":"#5646ED", "bg":"#F5EFFE", "font_size": "1em", "font_weight": "500", "padding_x": ".5em", "padding_y": ".10em", "border_radius": "8px"}
 
 def multi_docs(path, component_list):
+    components = [component_docs(component) for component in component_list]
+
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
@@ -507,11 +486,23 @@ def multi_docs(path, component_list):
         return rx.box(
             rx.box(
                 rx.box(
-                    docheader(name, first=True),
-                    get_examples(name),
-                    text_align="left",
+                    
+                    rx.tabs(
+                        rx.tab_list(
+                            rx.spacer(),
+                            rx.tab("Docs", _selected=tab_selected_style, style=tab_style),
+                            rx.tab("Props", _selected=tab_selected_style, style=tab_style),
+                            width="100%",
+                        ),
+                        rx.tab_panels(
+                            rx.tab_panel(get_examples(name)),
+                            rx.tab_panel(rx.vstack(*components)),
+                        ),
+                        variant="unstyled",
+                    ),
+                    padding_y="1em",
                 ),
-                *components,
+               
             ),
         )
 
