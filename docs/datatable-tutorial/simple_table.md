@@ -23,7 +23,7 @@ rx.alert(
 ```python eval
 rx.box(height="2em")
 ```
-We need to start by defining our `columns` that will then take in our data. These columns should be a list of dict, where each dict describes the associated columns. 
+We need to start by defining our columns that describe the shape of our data. The column var should be typed as a `list` of `dict` (`list[dict]`), where each item describes the attributes of a single column in the table. 
 
 Each dict has these variables below:
 1. title: The text to display in the header of the column
