@@ -14,7 +14,7 @@ rx.alert(
         rx.alert_icon(),
         rx.alert_title(f"There is another ",
         doclink("datatable component", href="https://reflex.dev/docs/library/datadisplay/datatable/"),
-        ", but this is only used for displaying data and there is no possible user interaction while using this component"),
+        ", which is only used for displaying data and does not support user interactivity or editing"),
         status="info",
     )
 ```
