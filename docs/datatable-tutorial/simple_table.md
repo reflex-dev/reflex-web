@@ -95,6 +95,6 @@ rx.data_editor(
 )
 ```
 
-Now we have our datatable, but there is no way to interact with it. On the next page we will explore how to add interactivity to our datatable.
+This is enough to display the data, but there is no way to interact with it. On the next page we will explore how to add interactivity to our datatable.
 
 
