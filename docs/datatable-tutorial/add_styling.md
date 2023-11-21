@@ -116,7 +116,6 @@ rx.data_editor(
     columns=DataTableState2.cols,
     data=DataTableState2.data,
 
-    #rows=4,
     on_paste=True,
     draw_focus_ring=False,
     freeze_columns=2,
