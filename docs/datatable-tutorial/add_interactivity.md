@@ -30,7 +30,7 @@ class DataTableState(rx.State):
         
 ```
 
-Here we define a state var called `clicked_cell` that we will use to keep track of the clicked cell. We define an event handler `get_clicked_data` that updates the value of the `clicked_cell` var when it is called. In essence, we have clicked on a cell, called the `on_cell_clicked` event trigger which calls the `get_clicked_data` event handler, which updates the `clicked_cell` var.
+The state has a var called `clicked_cell` that will store a message about which cell was clicked. We define an event handler `get_clicked_data` that updates the value of the `clicked_cell` var when it is called. In essence, we have clicked on a cell, called the `on_cell_clicked` event trigger which calls the `get_clicked_data` event handler, which updates the `clicked_cell` var.
 
 
 ```python demo
