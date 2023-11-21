@@ -23,9 +23,6 @@ component_map = {
 xd = flexdown.Flexdown(component_map=component_map)
 
 # Monkeypatch markdown custom components.
-md = rx.markdown("test", component_map=component_map)
-custom = md.get_custom_components()
-
 def get_custom_components(self, seen):
     return custom
 
