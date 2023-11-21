@@ -32,11 +32,7 @@ Each column dict recognizes the keys below:
 4. type: The type of the columns, default to "str"
 
 
-Below we define a `DataTableState` which has Harry Potter data. Here an example of a dict in the cols var is: {
-            "title": "Name",
-            "type": "str",
-            "width": 300,
-        }.
+Below we define `DataTableState` with columns definitions in the `cols` var, and data about Harry Potter characters in the `data` var..
 
 ```python
 class DataTableState(rx.State):
