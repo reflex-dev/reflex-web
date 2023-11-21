@@ -10,7 +10,7 @@ from pcweb.pages.docs.datatable_tutorial.states import DataTableState, DataTable
 
 
 
-## Adding Interactivity to our DataTable
+# Adding Interactivity to our DataTable
 
 
 Now we will add interactivity to our datatable. We do this using event handlers and event triggers.
@@ -25,7 +25,7 @@ class DataTableState(rx.State):
     ...
 
 
-    def get_clicked_data(self, pos) -> str:
+    def get_clicked_data(self, pos: tuple[int, int]) -> str:
         self.clicked_cell = f"Cell clicked: \{pos}"
         
 ```
@@ -34,7 +34,7 @@ The state has a var called `clicked_cell` that will store a message about which 
 
 
 ```python demo
-rx.heading(DataTableState.clicked_cell)
+rx.text(DataTableState.clicked_cell, as_="strong")
 ```
 
 ```python demo
@@ -48,7 +48,7 @@ rx.data_editor(
 
 The event handler `on_cell_context_menu` can be used in the same way as `on_cell_clicked`, except here the event trigger is called when the user right clicks, i.e. when the cell should show a context menu.
 
-### Editing cells
+## Editing cells
 
 Another important type of interactivity we will showcase is how to edit cells. Here we use the `on_cell_edited` event trigger to update the data based on what the user entered.
 
@@ -66,7 +66,7 @@ class DataTableState(rx.State):
     def get_edited_data(self, pos, val) -> str:
         col, row = pos
         self.data[row][col] = val["data"]
-        self.edited_cell = f"Cell edited: \{pos}, Cell value: \{val['data']}"
+        self.edited_cell = f"Cell edited: \{pos}, Cell value: \{val["data"]}"
         
 ```
 
@@ -74,7 +74,7 @@ The `on_cell_edited` event trigger is called when the user modifies the content 
 
 
 ```python demo
-rx.heading(DataTableState.edited_cell)
+rx.text(DataTableState.edited_cell, as_="strong")
 ```
 
 ```python demo
@@ -86,7 +86,7 @@ rx.data_editor(
 )
 ```
 
-### Group Header 
+## Group Header 
 
 We can define group headers which are headers that encompass a group of columns. We define these in the `columns` using the `group` property such as `"group": "Data"`. The `columns` would now be defined as below. Only the `Title` does not fall under a group header, all the rest fall under the `Data` group header.
 
@@ -172,7 +172,7 @@ class DataTableState2(rx.State):
 ```
 
 ```python demo
-rx.heading(DataTableState2.right_clicked_group_header)
+rx.text(DataTableState2.right_clicked_group_header, as_="strong")
 ```
 
 ```python demo
@@ -188,12 +188,11 @@ rx.data_editor(
 In this example we use the `on_group_header_context_menu` event trigger which is called when the user right-clicks on a group header. It returns the `index` and the `data` of the group header. We can also use the `on_group_header_clicked` and `on_group_header_renamed` event triggers which are called when the user left-clicks on a group header and when a user renames a group header respectively.
 
 
-### More Event Triggers
+## More Event Triggers
 
 There are several other event triggers that are worth exploring. The `on_item_hovered` event trigger is called whenever the user hovers over an item in the datatable. The `on_delete` event trigger is called when the user deletes a cell from the datatable. 
 
-The final event trigger to check out is `on_column_resize`, this allows us to manually resize the width of our columns by hand. The event trigger returns the `col` we are adjusting and the new `width` we have defined. We then index into `self.cols` defined in our state and change the `width` of that column using this code: `self.cols[col['pos']]['width'] = width`.
-
+The final event trigger to check out is `on_column_resize`. `on_column_resize` allows us to respond to the user dragging the handle between columns. The event trigger returns the `col` we are adjusting and the new `width` we have defined. The `col` that is returned is a dictionary for example: `\{'title': 'Name', 'type': 'str', 'group': 'Data', 'width': 198, 'pos': 1}`. We then index into `self.cols` defined in our state and change the `width` of that column using this code: `self.cols[col['pos']]['width'] = width`.
 
 
 ```python
@@ -220,11 +219,11 @@ class DataTableState2(rx.State):
 
 
 ```python demo
-rx.heading(DataTableState2.item_hovered)
+rx.text(DataTableState2.item_hovered, as_="strong")
 ```
 
 ```python demo
-rx.heading(DataTableState2.deleted)
+rx.text(DataTableState2.deleted, as_="strong")
 ```
 
 ```python demo

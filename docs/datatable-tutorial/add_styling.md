@@ -5,7 +5,7 @@ from pcweb.pages.docs.datatable_tutorial.states import DataTableState2
 
 
 
-## DataTable Styling
+# DataTable Styling
 
 
 There are props that we can explore to ensure the datatable is shaped correctly and reacts in the way we expect. We can set `on_paste` to `True`, which allows us to paste directly into a cell. We can use `draw_focus_ring` to draw a ring around the cells when selected, this defaults to `True` so can be turned off if we do not want it. The `rows` prop can be used to hard code the number of rows that we show.
@@ -17,6 +17,8 @@ We can add `row_markers`, which appear on the furthest left side of the table. T
 By default there is a `vertical_border` between the columns, we can turn it off by setting this prop to `False`. We can define how many columns a user can select at a time by setting the `column_select` prop. It can take values of `"none", "single", "multi"`.
 
 We can allow `overscroll_x`, which allows users to scroll past the limit of the actual horizontal content. There is an equivalent `overscroll_y`. 
+
+Check out [these docs](https://reflex.dev/docs/library/datadisplay/dataeditor/) for more information on these props.
 
 ```python demo
 rx.data_editor(
@@ -49,7 +51,7 @@ rx.data_editor(
 ```
 
 
-### Theming
+## Theming
 
 Lastly there is a `theme` prop that allows us to pass in all color and font information for the data table.
 

@@ -7,7 +7,7 @@ from pcweb.pages.docs.datatable_tutorial.states import DataTableState, DataTable
 
 
 
-# Data Table Tutorial
+# Data Table (Editable) Tutorial
 
 ```python eval
 rx.alert(
@@ -26,10 +26,10 @@ rx.box(height="2em")
 We need to start by defining our columns that describe the shape of our data. The column var should be typed as a `list` of `dict` (`list[dict]`), where each item describes the attributes of a single column in the table. 
 
 Each column dict recognizes the keys below:
-1. title: The text to display in the header of the column
-2. id: An id for the column, if not defined, will default to a lower case of title
-3. width: The width of the column
-4. type: The type of the columns, default to "str"
+1. `title`: The text to display in the header of the column
+2. `id`: An id for the column, if not defined, will default to a lower case of title
+3. `width`: The width of the column (in pixels)
+4. `type`: The type of the columns, default to "str"
 
 
 Below we define `DataTableState` with columns definitions in the `cols` var, and data about Harry Potter characters in the `data` var..
