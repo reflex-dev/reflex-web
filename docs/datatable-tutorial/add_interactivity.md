@@ -50,7 +50,7 @@ The event handler `on_cell_context_menu` can be used in the same way as `on_cell
 
 ### Editing cells
 
-Another important type of interactivity we will showcase is how to edit cells. Here we use the `on_cell_edited` event trigger.
+Another important type of interactivity we will showcase is how to edit cells. Here we use the `on_cell_edited` event trigger to update the data based on what the user entered.
 
 ```python
 class DataTableState(rx.State):
