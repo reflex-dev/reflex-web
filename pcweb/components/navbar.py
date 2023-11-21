@@ -6,7 +6,7 @@ from pcweb import constants, styles
 from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
-from pcweb.components.sidebar import sidebar as sb
+from pcweb.components.sidebar import sb
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 from datetime import datetime
@@ -553,6 +553,7 @@ def feedback_button():
     )
 
 
+
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
 
@@ -560,7 +561,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         sidebar: The sidebar component to use.
     """
     # If the sidebar is not provided, create a default one.
-    sidebar = sidebar or sb()
+    sidebar = sidebar or sb
 
     # Create the navbar component.
     return rx.vstack(
