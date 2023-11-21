@@ -25,7 +25,7 @@ rx.box(height="2em")
 ```
 We need to start by defining our columns that describe the shape of our data. The column var should be typed as a `list` of `dict` (`list[dict]`), where each item describes the attributes of a single column in the table. 
 
-Each dict has these variables below:
+Each column dict recognizes the keys below:
 1. title: The text to display in the header of the column
 2. id: An id for the column, if not defined, will default to a lower case of title
 3. width: The width of the column
