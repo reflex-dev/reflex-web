@@ -86,7 +86,7 @@ class DataTableState(rx.State):
 
 
 
-We then define our simple table using `rx.data_editor()`, where we pass in the columns and data as variables.
+We then define a basic table by passing the previously defined state vars as props `columns` and `data` to the `rx.data_editor()` component, 
 
 ```python demo
 rx.data_editor(
