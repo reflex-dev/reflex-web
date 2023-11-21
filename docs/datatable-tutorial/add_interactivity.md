@@ -16,7 +16,7 @@ from pcweb.pages.docs.datatable_tutorial.states import DataTableState, DataTable
 Now we will add interactivity to our datatable. We do this using event handlers and event triggers.
 
 
-For our first interactivity example we will use the `on_cell_clicked` event trigger, this is called when the user clicks on a cell of the data editor. The event trigger receives the coordinates of the cell.
+The first example implements a handler for the `on_cell_clicked` event trigger, which is called when the user clicks on a cell of the data editor. The event trigger receives the coordinates of the cell.
 
 ```python
 class DataTableState(rx.State):
