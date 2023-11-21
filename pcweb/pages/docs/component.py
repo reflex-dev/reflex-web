@@ -446,13 +446,12 @@ def component_docs(component):
     children = rx.text("")
     if  component._valid_children:
         for child in component._valid_children:
-            valid_children.append(rx.code(child))
+            valid_children.append(rx.wrap_item(rx.code(child)))
         children = rx.vstack(
             rx.heading("Valid Children", font_size="1em"),
-            rx.hstack(*valid_children),
+            rx.wrap(*valid_children),
             width = "100%",
             align_items="left",
-            overflow = "auto",
             padding_y=".5em",
         )
 
@@ -461,7 +460,7 @@ def component_docs(component):
     return rx.box(
         rx.heading(component.__name__, font_size="2em"),
         rx.divider(),
-        rx.markdown(src.get_docs()),
+        rx.box(rx.markdown(src.get_docs()), padding_bottom="1em"),
         rx.heading("Props", font_size="1em"),
         *props,
         children,

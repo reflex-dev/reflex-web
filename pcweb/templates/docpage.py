@@ -134,9 +134,6 @@ def my_form():
                     "Send",
                     type_="submit",
                     font_size=".8em",
-                    padding_x=".5em",
-                    padding_y=".2em",
-                    style=styles.ACCENT_BUTTON,
                 ),
                 width="100%",
             ),
@@ -189,6 +186,7 @@ def feedback_button():
         ),
         transition="all 2s",
         style=styles.BUTTON_LIGHT_NO_BACKGROUND,
+        padding = "0.2em",
     )
 
 
