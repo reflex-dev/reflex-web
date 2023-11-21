@@ -6,6 +6,7 @@ import inspect
 
 import reflex as rx
 from pcweb import styles
+from pcweb.base_state import State
 from pcweb.component_list import component_list
 from pcweb.route import Route
 from reflex.base import Base
@@ -51,6 +52,15 @@ class SidebarItem(Base):
     # The children items.
     children: list[SidebarItem] = []
 
+class SidebarState(State):
+
+    @rx.var 
+    def sidebar_index(self) -> str:
+        route = self.router.page.path
+
+        if "docs" in route or "api-reference" in route or "recipe" in route:
+            return 1
+        return 0
 
 def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
@@ -275,6 +285,7 @@ def sidebar_leaf(
             item.link == url,
             rx.link(
                 rx.text(item.names, style=heading_style2),
+                _hover={"text_decoration": "none"},
                 href=item.link,
             ),
             rx.cond(
@@ -290,10 +301,12 @@ def sidebar_leaf(
                 rx.link(
                     rx.text(
                         item.names,
-                        color=tc["docs"]["body"],
-                        _hover={"color": styles.ACCENT_COLOR},
+                        color="#494369",
+                        _hover={"color": styles.ACCENT_COLOR, "text_decoration": "none"},
+                        transition="color 0.4s ease-in-out",
                         padding_x="0.5em",
                     ),
+                    _hover={"text_decoration": "none"},
                     href=item.link,
                 ),
             ),
@@ -317,14 +330,16 @@ def sidebar_item_comp(
             sidebar_leaf(item=item, url=url),
             rx.accordion_item(
                 rx.accordion_button(
-                    rx.box(rx.accordion_icon(), opacity="0.6"),
+                    rx.accordion_icon(),
                     rx.text(
                         item.names,
                         font_family=styles.SANS,
+                        font_weight="600",
                     ),
                     _hover={
                         "color": styles.ACCENT_COLOR,
                     },
+                    color = "#494369"
                 ),
                 rx.accordion_panel(
                     rx.accordion(
@@ -339,16 +354,17 @@ def sidebar_item_comp(
                                 ),
                             ),
                             align_items="start",
-                            border_left="1px solid #e0e0e0",
+                            border_left="1px solid #F4F3F6",
                         ),
                         allow_multiple=True,
                         default_index=rx.cond(index, index[1:2], []),
                     ),
-                    margin_left="1em",
+                    margin_left=".7em",
                 ),
                 border="none",
             ),
-        )
+        ),
+        width="100%",
     )
 
 
@@ -413,11 +429,37 @@ def sidebar_comp(
 ):
     from pcweb.pages.docs.gallery import gallery
 
-    return rx.box(
+    return rx.vstack(
         rx.tabs(
             rx.tab_list(
-                rx.tab("Learn"),
-                rx.tab("Concepts"),
+                rx.tab(
+                    rx.hstack(
+                        rx.image(src="/icons/doc.svg", height="1em"),
+                        rx.text("Learn"),
+                    ),
+                    padding_left="0em",
+                    _selected = {
+                        "color": styles.ACCENT_COLOR,
+                        "font_weight": "600",
+                        "border_bottom": "2px solid #5646ED",
+                    },
+                ),
+                rx.tab(
+                    rx.hstack(
+                        rx.image(src="/icons/ref.svg", height="1em"),
+                        rx.text("Reference"),
+                    ),
+                    padding_left="0em",
+                    _selected = {
+                        "color": styles.ACCENT_COLOR,
+                        "font_weight": "600",
+                        "border_bottom": "2px solid #5646ED",
+                    },
+                ),
+                width="100%",
+                margin_left="1.1em",
+                align="left",
+                font_weight="450",
             ),
             rx.tab_panels(
                 rx.tab_panel(
@@ -439,6 +481,7 @@ def sidebar_comp(
                         ],
                         allow_multiple=True,
                         default_index=learn_index,
+                        width="100%",
                     ),
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
@@ -460,15 +503,10 @@ def sidebar_comp(
                         allow_multiple=True,
                         default_index=concepts_index,
                     ),
+                    padding_x="0em",
+                    width="100%",
                 ),
                 rx.tab_panel(
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "Reference",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                        margin_top="1em",
-                    ),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -479,6 +517,8 @@ def sidebar_comp(
                         allow_multiple=True,
                         default_index=reference_index,
                     ),
+                    padding_x="0em",
+                    width="100%",
                 ),
             ),
         ),
@@ -486,7 +526,6 @@ def sidebar_comp(
         overflow_y="scroll",
         max_height="90%",
         padding_bottom="6em",
-        padding_right="4em",
         position="fixed",
         scroll_padding="1em",
         style={
@@ -497,6 +536,7 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
+        width="100%",
     )
 
 
@@ -512,7 +552,6 @@ def sidebar(url=None) -> rx.Component:
             concepts_index=concepts_index,
             reference_index=reference_index,
         ),
-        padding_right="2em",
     )
 
 

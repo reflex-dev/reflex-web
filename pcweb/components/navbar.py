@@ -310,8 +310,9 @@ def search_badge(category, stateful=True):
                 styles.c["gray"][50],
             ),
             _hover={
-                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+               "color": styles.c["violet"][500],
             },
+            transition="all 0.2s ease-in-out",
         )
     else:
         return rx.badge(
@@ -320,9 +321,6 @@ def search_badge(category, stateful=True):
             color=styles.c["violet"][500],
             bg=styles.c["violet"][50],
             padding_x=".5em",
-            _hover={
-                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
-            },
         )
 
 
@@ -372,10 +370,13 @@ def ai_button():
                 "#5646ED",
             ),
         ),
-        border_radius="8px",
-        style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
+        _hover={
+            "cursor": "pointer",
+            "color": styles.ACCENT_COLOR,
+        },
         height="1em",
+        transition="all 0.2s ease-in-out",
     )
 
 
@@ -710,7 +711,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 justify="space-between",
                 padding_x=styles.PADDING_X,
             ),
-            bg="rgba(255,255,255, 0.9)",
+            bg="rgba(255,255,255, 0.8)",
             backdrop_filter="blur(10px)",
             padding_y=["0.8em", "0.8em", "0.5em"],
             border_bottom="1px solid #F4F3F6",

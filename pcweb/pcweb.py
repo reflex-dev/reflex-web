@@ -123,5 +123,4 @@ for source, target in redirects:
 
 app.add_custom_404_page(page404.index)
 # Run the app.
-app.compile() 
- 
+app.compile()
