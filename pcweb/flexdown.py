@@ -26,8 +26,10 @@ xd = flexdown.Flexdown(component_map=component_map)
 md = rx.markdown("", component_map=component_map)
 custom = md.get_custom_components()
 
+
 def get_custom_components(self, seen):
     return custom
+
 
 rx.Markdown.get_custom_components = get_custom_components
 

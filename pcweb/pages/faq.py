@@ -80,9 +80,7 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.span(
-                doclink("wrapping React", href=wrapping_react_overview.path)
-            ),
+            rx.span(doclink("wrapping React", href=wrapping_react_overview.path)),
             " to learn more.",
         ),
     },

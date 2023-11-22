@@ -201,7 +201,6 @@ class NavbarState(State):
         current_page_route = self.get_current_page()
         # Check if the user is already on the waitlist.
         with rx.session() as session:
-
             # Add the feedback to database.
             session.add(
                 Feedback(
@@ -314,17 +313,17 @@ def search_badge(category, stateful=True):
                 "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
             },
         )
-    else: return rx.badge(
+    else:
+        return rx.badge(
             category,
             border_radius="8px",
-            color = styles.c["violet"][500],
-            bg = styles.c["violet"][50],
+            color=styles.c["violet"][500],
+            bg=styles.c["violet"][50],
             padding_x=".5em",
             _hover={
                 "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
             },
         )
-
 
 
 def format_search_results(result):
@@ -350,7 +349,7 @@ def format_search_results(result):
             _hover={
                 "bg": "#F5EFFE",
             },
-            bg = "#f4f3f4",
+            bg="#f4f3f4",
             border_radius="8px",
             padding_x=".5em",
             padding_y=".25em",
@@ -429,7 +428,7 @@ def search_modal():
                                 max_height="30em",
                                 align_items="start",
                                 overflow_y="auto",
-                                padding_top="0em"
+                                padding_top="0em",
                             ),
                             inkeep(
                                 width="100%",
@@ -551,7 +550,6 @@ def feedback_button():
         bg="#FFFFFF",
         style=hover_button_style,
     )
-
 
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
