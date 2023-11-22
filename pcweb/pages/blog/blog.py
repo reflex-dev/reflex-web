@@ -43,6 +43,7 @@ def page(document) -> rx.Component:
             border_radius="8px",
         ),
         flexdown.render(document, component_map=component_map),
+        padding_bottom="8em",
     )
 
 

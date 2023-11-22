@@ -36,7 +36,3 @@ If you have any issues through the migration, please come join our [Discord]({co
 We will post the latest news there as well as on our [Twitter]({constants.TWITTER_URL}).
 
 Thanks for supporting us through this change. We're excited to start this new chapter and see what the community builds with Reflex!
-
-```python eval
-rx.box("", height="8em")
-```
