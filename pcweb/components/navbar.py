@@ -7,7 +7,6 @@ from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sb
-from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 from datetime import datetime
 from typing import Optional
@@ -191,22 +190,22 @@ class NavbarState(State):
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
-            try:
-                validation = validate_email(self.email, check_deliverability=True)
-                self.email = validation.email
-            except EmailNotValidError as e:
-                # Alert the error message.
-                return rx.window_alert(str(e))
+            
+        if len(self.feedback) < 10:
+            return rx.window_alert("Please enter your feedback. (min 10 characters)")
 
         current_page_route = self.get_current_page()
 
         feedback = f"""
-        Feedback: {self.feedback}
-Score: {"👍" if self.page_score > 1 else "👎"}
+_________________________
+Contact: {self.email}
+Feedback: {self.feedback}
+Score: {"?" if  self.page_score==0 else "👍" if self.page_score > 1 else "👎"}
 Page: {current_page_route}
+_________________________
 """
 
-        DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1176688606987956335/SuUdzddiI6B_ffNQfzvagH08gzfbztOTHOpLrY8l0T-pAMm39tuPZbMIjpalua9KIxMi"
+        DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
         payload = {'content': feedback}
         response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
 
@@ -503,38 +502,98 @@ def discord_button():
         href=constants.DISCORD_URL,
     )
 
-
 def my_form():
     return rx.form(
-        rx.input(
-            placeholder="Email",
-            id="email",
-            margin="0.25em 0.5em",
-            width="24em",
-            border_color="#eaeaef",
-        ),
-        rx.text_area(
-            placeholder="Your Feedback",
-            id="feedback",
-            margin="0.25em 0.5em",
-            width="24em",
-            border_color="#eaeaef",
-        ),
-        rx.center(
-            rx.button(
-                "Send",
-                type_="submit",
-                style=styles.ACCENT_BUTTON,
-                margin="0.5em",
+        rx.vstack(
+            rx.input(
+                placeholder="Email (optional)",
+                id="email",
+                type_="email",
+                width="100%",
+                font_size=".8em",
+                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
             ),
+            rx.text_area(
+                placeholder="Your Feedback...",
+                id="feedback",
+                width="100%",
+                font_size=".8em",
+                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+            ),
+            rx.hstack(
+                rx.spacer(),
+                rx.button(
+                    "Send",
+                    type_="submit",
+                    size="sm",
+                    style=styles.BUTTON_LIGHT,
+                ),
+                width="100%",
+            ),
+            padding_x=".5em",
             width="100%",
         ),
         on_submit=NavbarState.handle_submit,
-        width="25em",
+        padding_bottom=".2em",
+        width="100%",
+    )
+
+def feedback_indicator(icon, score):
+    return rx.hstack(
+        rx.image(src=icon, height="1em"),
+        on_click=NavbarState.update_score(score),
+        box_shadow = rx.cond(
+            NavbarState.page_score == score,
+            "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
+            "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        ),
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
+    )
+
+def feedback_button():
+    return rx.vstack(
+        rx.hstack(
+            rx.text(
+                "Was this page useful?",
+                style=styles.NAV_TEXT_STYLE,
+                font_size="1em",
+            ),
+            feedback_indicator("/icons/thumbs-down.svg", 1),    
+            feedback_indicator("/icons/thumbs-up.svg", 2),
+            padding_x=".5em",
+            padding_y=".25em",
+        ),
+        rx.cond(
+            NavbarState.show_form,
+            my_form(),
+        ),
+        transition="all 2s",
+        border="2px solid #F4F3F6",
+        border_radius="8px",
+        padding="0.2em",
     )
 
 
-def feedback_button():
+def feedback_button_nav():
     return rx.hstack(
         rx.menu(
             rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
@@ -689,7 +748,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
-                    feedback_button(),
+                    feedback_button_nav(),
                     github_button(),
                     discord_button(),
                     rx.icon(

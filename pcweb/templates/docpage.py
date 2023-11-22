@@ -123,6 +123,22 @@ def my_form():
 
     return rx.form(
         rx.vstack(
+            rx.input(
+                placeholder="Email (optional)",
+                id="email",
+                type_="email",
+                width="100%",
+                font_size=".8em",
+                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+            ),
             rx.text_area(
                 placeholder="Your Feedback...",
                 id="feedback",
@@ -154,50 +170,6 @@ def my_form():
         on_submit=NavbarState.handle_submit,
         padding_bottom=".2em",
         width="100%",
-    )
-
-
-
-def feedback_indicator(icon, score):
-    from pcweb.components.navbar import NavbarState, hover_button_style
-
-    return rx.hstack(
-        rx.image(src=icon, height="1em"),
-        on_click=NavbarState.update_score(score),
-        box_shadow = rx.cond(
-            NavbarState.page_score == score,
-            "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
-            "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        ),
-        padding_x=".5em",
-        height="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-    )
-
-def feedback_button():
-    from pcweb.components.navbar import NavbarState
-
-    return rx.vstack(
-        rx.hstack(
-            rx.text(
-                "Was this page useful?",
-                style=styles.NAV_TEXT_STYLE,
-                font_size="1em",
-            ),
-            feedback_indicator("/icons/thumbs-down.svg", 1),    
-            feedback_indicator("/icons/thumbs-up.svg", 2),
-            padding_x=".5em",
-            padding_y=".25em",
-        ),
-        rx.cond(
-            NavbarState.show_form,
-            my_form(),
-        ),
-        transition="all 2s",
-        border="2px solid #F4F3F6",
-        border_radius="8px",
-        padding="0.2em",
     )
 
 
@@ -247,7 +219,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
-            from pcweb.components.navbar import navbar
+            from pcweb.components.navbar import navbar, feedback_button
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
