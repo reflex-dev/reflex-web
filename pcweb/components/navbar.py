@@ -510,7 +510,7 @@ def my_form():
                 id="email",
                 type_="email",
                 width="100%",
-                font_size=".8em",
+                font_size="1em",
                 _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
                 _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
                 _placeholder={
@@ -525,7 +525,7 @@ def my_form():
                 placeholder="Your Feedback...",
                 id="feedback",
                 width="100%",
-                font_size=".8em",
+                font_size="1em",
                 _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
                 _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
                 _placeholder={
