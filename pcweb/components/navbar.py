@@ -181,6 +181,7 @@ class NavbarState(State):
     page_score: int = 0
 
     show_form = False
+    form_submitted = False
 
     current_category = "All"
 
@@ -207,9 +208,13 @@ _________________________
 
         DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
         payload = {'content': discord_message}
-        response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        try:
+            response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        except:
+            pass    
 
         self.show_form = False
+        self.form_submitted = True
 
     def update_score(self, score):
         if self.show_form == True:
@@ -219,6 +224,9 @@ _________________________
             self.show_form = not self.show_form
 
         self.page_score = score
+
+    def display_form(self):
+        self.show_form = True
 
     def toggle_banner(self):
         self.banner = not self.banner
@@ -597,7 +605,13 @@ def feedback_button_nav():
     return rx.hstack(
         rx.menu(
             rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
-            rx.menu_list(my_form()),
+            rx.menu_list(
+               rx.cond(
+                    NavbarState.form_submitted,
+                    rx.center("Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"),
+                    my_form(),
+                )
+            ),
         ),
         display=["none", "none", "none", "none", "none", "flex"],
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
