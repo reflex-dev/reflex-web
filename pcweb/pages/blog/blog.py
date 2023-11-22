@@ -131,7 +131,7 @@ def component_grid():
     )
 
 
-@webpage(path="/blog/index")
+@webpage(path="/blog")
 def blg():
     return rx.container(
         rx.vstack(
