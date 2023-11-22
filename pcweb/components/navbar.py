@@ -10,8 +10,9 @@ from pcweb.components.sidebar import sb
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 from datetime import datetime
-from sqlalchemy import Column, JSON
 from typing import Optional
+import os
+import requests
 
 
 def shorten_to_k(number):
@@ -156,7 +157,6 @@ class Feedback(rx.Model, table=True):
     score: Optional[int]
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     page: str
-    meta: dict = Field(default={}, sa_column=Column(JSON))
 
 
 class NavbarState(State):
@@ -199,21 +199,18 @@ class NavbarState(State):
                 return rx.window_alert(str(e))
 
         current_page_route = self.get_current_page()
-        # Check if the user is already on the waitlist.
-        with rx.session() as session:
-            # Add the feedback to database.
-            session.add(
-                Feedback(
-                    email=self.email,
-                    feedback=self.feedback,
-                    score=self.score,
-                    page=current_page_route,
-                ),
-            )
-            session.commit()
-            print("session")
-            # contact_data = json.dumps({"email": self.email})
-            # self.add_contact_to_loops(contact_data)
+
+        feedback = f"""
+        Feedback: {self.feedback}
+Score: {"👍" if self.page_score > 1 else "👎"}
+Page: {current_page_route}
+"""
+
+        DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1176688606987956335/SuUdzddiI6B_ffNQfzvagH08gzfbztOTHOpLrY8l0T-pAMm39tuPZbMIjpalua9KIxMi"
+        payload = {'content': feedback}
+        response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+        self.show_form = False
 
     def update_score(self, score):
         if self.show_form == True:

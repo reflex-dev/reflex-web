@@ -117,6 +117,7 @@ def doc_section(*contents):
     )
 
 
+
 def my_form():
     from pcweb.components.navbar import NavbarState
 
@@ -127,11 +128,15 @@ def my_form():
                 id="feedback",
                 width="100%",
                 font_size=".8em",
-                _active={"border": "1px solid #F4F3F6", "box_shadow": "none"},
-                _focus={"border": "1px solid #F4F3F6", "box_shadow": "none"},
-                _placeholder=styles.NAV_TEXT_STYLE,
+                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
                 border_radius="8px",
-                border="1px solid #F4F3F6",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
             ),
             rx.hstack(
                 rx.spacer(),
@@ -139,9 +144,7 @@ def my_form():
                     "Send",
                     type_="submit",
                     size="sm",
-                    bg="#F5EFFE",
-                    color="#5646ED",
-                    _hover={"bg": "#5646ED", "color": "#F5EFFE"},
+                    style=styles.BUTTON_LIGHT,
                 ),
                 width="100%",
             ),
@@ -154,8 +157,26 @@ def my_form():
     )
 
 
-def feedback_button():
+
+def feedback_indicator(icon, score):
     from pcweb.components.navbar import NavbarState, hover_button_style
+
+    return rx.hstack(
+        rx.image(src=icon, height="1em"),
+        on_click=NavbarState.update_score(score),
+        box_shadow = rx.cond(
+            NavbarState.page_score == score,
+            "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
+            "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
+        ),
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
+    )
+
+def feedback_button():
+    from pcweb.components.navbar import NavbarState
 
     return rx.vstack(
         rx.hstack(
@@ -164,36 +185,8 @@ def feedback_button():
                 style=styles.NAV_TEXT_STYLE,
                 font_size="1em",
             ),
-            rx.badge(
-                "Yes",
-                on_click=NavbarState.update_score(1),
-                bg=rx.cond(
-                    NavbarState.page_score == 1,
-                    "#5646ED",
-                    "#F5EFFE",
-                ),
-                color=rx.cond(
-                    NavbarState.page_score == 1,
-                    "white",
-                    "#5646ED",
-                ),
-                padding_x=".25em",
-            ),
-            rx.badge(
-                "No",
-                on_click=NavbarState.update_score(2),
-                bg=rx.cond(
-                    NavbarState.page_score == 2,
-                    "#5646ED",
-                    "#F5EFFE",
-                ),
-                color=rx.cond(
-                    NavbarState.page_score == 2,
-                    "white",
-                    "#5646ED",
-                ),
-                padding_x=".25em",
-            ),
+            feedback_indicator("/icons/thumbs-down.svg", 1),    
+            feedback_indicator("/icons/thumbs-up.svg", 2),
             padding_x=".5em",
             padding_y=".25em",
         ),
