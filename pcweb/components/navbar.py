@@ -560,6 +560,12 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     Args:
         sidebar: The sidebar component to use.
     """
+    from pcweb.pages.docs.getting_started.introduction import introduction
+    from pcweb.pages.blog.blog import blg
+    from pcweb.pages.docs.gallery import gallery
+    from pcweb.pages.changelog.changelog import changelog_display
+    from pcweb.pages.faq import faq
+
     # If the sidebar is not provided, create a default one.
     sidebar = sidebar or sb
 
@@ -615,19 +621,19 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     logo,
                     rx.link(
                         "Docs",
-                        href="/docs/getting-started/introduction",
+                        href=introduction.path,
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
                     rx.link(
                         "Blog",
-                        href="/blog",
+                        href=blg.path,
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),
                     rx.link(
                         "Gallery",
-                        href="/docs/gallery",
+                        href=gallery.path,
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "none", "flex", "flex"],
                     ),
@@ -654,7 +660,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 rx.menu_item(
                                     "Changelog", style=styles.NAV_DROPDOWN_STYLE
                                 ),
-                                href="/changelog",
+                                href=changelog_display.path,
                             ),
                             rx.link(
                                 rx.menu_item(
@@ -664,7 +670,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             ),
                             rx.link(
                                 rx.menu_item("FAQ", style=styles.NAV_DROPDOWN_STYLE),
-                                href="/faq",
+                                href=faq.path,
                             ),
                             rx.menu_divider(),
                             rx.link(

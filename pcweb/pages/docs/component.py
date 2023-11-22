@@ -352,6 +352,8 @@ EVENTS = {
 
 # Docs page
 def component_docs(component):
+    from pcweb.pages.docs.api_reference.event_triggers import event_triggers
+
     src = Source(component=component)
     props = []
 
@@ -452,7 +454,7 @@ def component_docs(component):
                                     rx.icon(tag="link"),
                                     rx.heading("Base Event Triggers", font_size="1em"),
                                 ),
-                                href="/docs/api-reference/event-triggers",
+                                href=event_triggers.path,
                             )
                         ),
                         border_color="rgb(255, 255, 255)",

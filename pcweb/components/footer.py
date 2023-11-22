@@ -25,6 +25,10 @@ footer_style = {
 
 
 def footer(style=footer_style):
+    from pcweb.pages.blog import blg
+    from pcweb.pages.changelog.changelog import changelog_display
+    from pcweb.pages.faq import faq
+
     return rx.box(
         rx.vstack(
             rx.hstack(
@@ -37,8 +41,8 @@ def footer(style=footer_style):
                     rx.text("Site", color="#DACEEE"),
                     rx.link("Home", href=index.path, style=footer_item_style),
                     rx.link("Gallery", href=gallery.path, style=footer_item_style),
-                    rx.link("Blog", href="/blog", style=footer_item_style),
-                    rx.link("Changelog", href="/changelog", style=footer_item_style),
+                    rx.link("Blog", href=blg.path, style=footer_item_style),
+                    rx.link("Changelog", href=changelog_display.path, style=footer_item_style),
                     align_items="start",
                 ),
                 rx.vstack(
@@ -60,7 +64,7 @@ def footer(style=footer_style):
                     rx.text("Resources", color="#DACEEE"),
                     rx.link(
                         "FAQ",
-                        href="/faq",
+                        href=faq.path,
                         style=footer_item_style,
                     ),
                     rx.link(
