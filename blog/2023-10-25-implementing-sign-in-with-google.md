@@ -515,9 +515,4 @@ rx.center(
 
 🔐 Happy Building 🚀
 
-```python eval
-rx.text("- Reflex Team", margin_bottom="5em")
-```
-```python eval
-rx.box(height="8em")
-```
+-- Reflex Team

@@ -3,7 +3,6 @@ from pcweb.base_state import State
 
 
 class FormState(State):
-
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):

@@ -1,8 +1,11 @@
 # pcweb constants.
 
 # pcweb urls.
+REFLEX_URL = "https://reflex.dev"
+PYNECONE_URL = "https://pynecone.io"
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"
+OLD_GITHUB_URL = "https://github.com/pynecone-io/pynecone"
 GITHUB_DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
@@ -14,6 +17,7 @@ ROADMAP_URL = "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v
 CONTRIBUTING_URL = "https://www.notion.so/reflex-dev/aca6bf9bed5b4bb99b86b33d0761a445?v=f113d3d8d0664b709e55a1cfa286641e&pvs=4"
 REPORT_A_BUG_URL = "https://github.com/reflex-dev/reflex/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
 FRAGMENT_COMPONENT_INFO_URL = "https://react.dev/reference/react/Fragment"
+
 # Install urls.
 BUN_URL = "https://bun.sh"
 NEXTJS_URL = "https://nextjs.org"

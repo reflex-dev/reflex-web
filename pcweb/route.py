@@ -17,7 +17,7 @@ class Route(Base):
     title: str | None = None
 
     # The component to render for the route.
-    component: rx.Component | Callable[[], rx.Component]
+    component: Callable[[], rx.Component]
 
 
 def get_path(component_fn: Callable):

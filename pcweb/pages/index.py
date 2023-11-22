@@ -12,6 +12,13 @@ from pcweb import styles
 from pcweb.base_state import State
 from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
+from pcweb.pages.docs.getting_started.introduction import introduction
+from pcweb.pages.docs.styling.overview import styling_overview
+from pcweb.pages.docs.database import database_overview
+from pcweb.pages.docs.state.overview import state_overview
+from pcweb.pages.docs.hosting.self_hosting import self_hosting
+from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
 from pcweb.templates import webpage
 from pcweb import constants
 
@@ -380,9 +387,8 @@ compbox = rx.hstack(
                     "Check out the full library",
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
-                    href=library.path,
                 ),
-                href="/docs/library",
+                href=library.path,
             )
         ),
         align_items="left",
@@ -417,7 +423,7 @@ stylebox = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/styling/overview",
+                href=styling_overview.path,
             )
         ),
         align_items="left",
@@ -452,7 +458,7 @@ reactbox = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/advanced-guide/wrapping-react",
+                href=wrapping_react_overview.path,
             )
         ),
         align_items="left",
@@ -584,7 +590,7 @@ battery_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/state/overview",
+                href=state_overview.path,
             )
         ),
         align_items="left",
@@ -619,7 +625,7 @@ orm_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/database/overview",
+                href=database_overview.path,
             )
         ),
         align_items="left",
@@ -751,7 +757,7 @@ deploy_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/hosting/deploy",
+                href=deploy.path,
             )
         ),
         align_items="left",
@@ -786,7 +792,7 @@ host_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/hosting/self-hosting",
+                href=self_hosting.path,
             )
         ),
         align_items="left",
@@ -1082,7 +1088,7 @@ def installation():
                                 style=styles.ACCENT_BUTTON,
                                 padding_x="1em",
                             ),
-                            href="/docs/getting-started/introduction",
+                            href=introduction.path,
                             style=styles.NAV_TEXT_STYLE,
                         ),
                         width="100%",
