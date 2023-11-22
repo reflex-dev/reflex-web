@@ -7,7 +7,6 @@ image: /reflex_banner.png
 ---
 
 ```python exec
-from pcweb.templates.docpage import doctext, doclink
 from pcweb import constants
 import reflex as rx
 ```
@@ -22,27 +21,19 @@ We will continue to grow Reflex as an open source project to include all the fea
 
 ### Key Changes
 
-```python eval
-rx.unordered_list(
-    rx.list_item("Our main website will change from ", doclink("https://pynecone.io", href="https://pynecone.io"), " to ", doclink("https://reflex.dev", href="https://reflex.dev"), "."),
-    rx.list_item("Our Python package will change from ", rx.code("pip install pynecone"), " to ", rx.code("pip install reflex"), "."),
-    rx.list_item("Our library will change from ", rx.code("import pynecone as pc"), " to ", rx.code("import reflex as rx"), "."),
-    rx.list_item("Our Github repo will switch from ", doclink("https://github.com/pynecone-io/pynecone", href="https://github.com/pynecone-io/pynecone"), " to ", doclink("https://github.com/reflex-dev/reflex", href="https://github.com/reflex-dev/reflex"), "."),
-    spacing="0em"
-)
-```
+* Our main website will change from [{constants.PYNECONE_URL}]({constants.PYNECONE_URL}) to [{constants.REFLEX_URL}]({constants.REFLEX_URL}).
+* Our Python package will change from `pip install pynecone` to `pip install reflex`.
+* Our library will change `import pynecone as pc` to `import reflex as rx`.
+* Our Github repo will switch from [{constants.OLD_GITHUB_URL}]({constants.OLD_GITHUB_URL}) to [{constants.GITHUB_URL}]({constants.GITHUB_URL}).
 
 ### Migrating Existing Projects
 
-```python eval
-doctext("If you have an existing Pynecone project, run ", rx.code("reflex init"), " from a directory that has a ", rx.code("pcconfig.py"), " file, you will have the option to migrate your project.")
-```
+If you have an existing Pynecone project, run `reflex init` from a directory that has a `pcconfig.py` file, you will have the option to migrate your project.
 
 ### Next Steps
 
-```python eval
-doctext("If you have any issues through the migration, please come join our ", doclink("Discord", href=constants.DISCORD_URL), ". We will post the latest news there as well as on our ", doclink("Twitter", href=constants.TWITTER_URL), ".")
-```
+If you have any issues through the migration, please come join our [Discord]({constants.DISCORD_URL}).
+We will post the latest news there as well as on our [Twitter]({constants.TWITTER_URL}).
 
 Thanks for supporting us through this change. We're excited to start this new chapter and see what the community builds with Reflex!
 

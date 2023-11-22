@@ -12,6 +12,7 @@ from pcweb import styles
 from pcweb.base_state import State
 from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
+from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
 from pcweb.templates import webpage
 from pcweb import constants
 
@@ -452,7 +453,7 @@ reactbox = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href="/docs/advanced-guide/wrapping-react",
+                href=wrapping_react_overview.path,
             )
         ),
         align_items="left",

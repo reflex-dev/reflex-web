@@ -496,11 +496,11 @@ def component_docs(component):
 
 
 def multi_docs(path, component_list):
-    components = [component_docs(component) for component in component_list]
-    coming_soon_components = [c.__name__ for c in not_ready_components]
-
     @docpage(set_path=path)
     def out():
+        components = [component_docs(component) for component in component_list]
+        coming_soon_components = [c.__name__ for c in not_ready_components]
+
         name = component_list[0].__name__
         return rx.box(
             rx.box(

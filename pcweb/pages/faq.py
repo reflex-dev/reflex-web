@@ -5,6 +5,7 @@ from pcweb.templates.webpage import webpage
 from pcweb.route import Route
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
+from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
 
 faq_items = [
     {
@@ -152,4 +153,4 @@ def faq():
     )
 
 
-faq_routes = [r for r in locals().values() if isinstance(r, Route)]
+faq_routes = [faq]
