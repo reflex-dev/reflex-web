@@ -7,8 +7,8 @@ import reflex as rx
 ```python eval
 rx.alert(
     rx.alert_icon(),
-    rx.alert_title("Hosting is in a closed Alpha"),
-    rx.alert_description("Please reach out to us on Discord if you have an app ready to deploy and if we have capacity we will give you an invitation code."
+    rx.alert_title("Hosting is in Alpha"),
+    rx.alert_description("Please reach out to us on Discord if you have an app ready to deploy and if we will give you an invitation code."
     ),
     status="info",
     width="100%",

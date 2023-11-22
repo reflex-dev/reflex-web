@@ -140,9 +140,4 @@ release notes for all the new features and bug fixes.
 
 🔧 Happy Building 🚀
 
-```python eval
-rx.text("- Reflex Team", margin_bottom="5em")
-```
-```python eval
-rx.box(height="8em")
-```
+-- Reflex Team

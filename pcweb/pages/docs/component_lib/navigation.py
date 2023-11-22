@@ -35,10 +35,10 @@ def render_breadcrumb():
 
 
 link_example = (
-    """rx.link("Example", href="https://pynecone.io", color="rgb(107,99,246)")"""
+    """rx.link("Example", href="https://reflex.dev", color="rgb(107,99,246)")"""
 )
 
-button_link = """rx.link(rx.button("Example"), href="https://pynecone.io", color="rgb(107,99,246)", button=True)
+button_link = """rx.link(rx.button("Example"), href="https://reflex.dev", color="rgb(107,99,246)", button=True)
 """
 
 local_link = """rx.link("Example", href="/docs/library", color="rgb(107,99,246)")"""
