@@ -328,7 +328,7 @@ def sidebar_item_comp(
     url: str,
     first: bool,
 ):
-    return rx.fragment(
+    return rx.box(
         rx.cond(
             item.children.length() == 0,
             sidebar_leaf(item=item, url=url),
