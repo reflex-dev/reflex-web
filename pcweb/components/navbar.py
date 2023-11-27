@@ -217,6 +217,7 @@ _________________________
         self.form_submitted = True
 
     def update_score(self, score):
+        print("update score", score)
         if self.show_form == True:
             if self.page_score == score:
                 self.show_form = not self.show_form
