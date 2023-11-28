@@ -7,11 +7,11 @@ from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from pcweb.components.sidebar import sb
-from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 from datetime import datetime
-from sqlalchemy import Column, JSON
 from typing import Optional
+import os
+import requests
 
 
 def shorten_to_k(number):
@@ -156,7 +156,6 @@ class Feedback(rx.Model, table=True):
     score: Optional[int]
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     page: str
-    meta: dict = Field(default={}, sa_column=Column(JSON))
 
 
 class NavbarState(State):
@@ -182,38 +181,39 @@ class NavbarState(State):
     page_score: int = 0
 
     show_form = False
+    form_submitted = False
 
     current_category = "All"
 
     def handle_submit(self, form_data: dict):
-        self.feedback = form_data["feedback"]
-
+        feedback = form_data["feedback"]
+        
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
-            try:
-                validation = validate_email(self.email, check_deliverability=True)
-                self.email = validation.email
-            except EmailNotValidError as e:
-                # Alert the error message.
-                return rx.window_alert(str(e))
 
+        if len(feedback) < 10 or len(feedback) > 500:
+            return rx.window_alert("Please enter your feedback. Between 10 and 500 characters.")
+        
         current_page_route = self.get_current_page()
-        # Check if the user is already on the waitlist.
-        with rx.session() as session:
-            # Add the feedback to database.
-            session.add(
-                Feedback(
-                    email=self.email,
-                    feedback=self.feedback,
-                    score=self.score,
-                    page=current_page_route,
-                ),
-            )
-            session.commit()
-            print("session")
-            # contact_data = json.dumps({"email": self.email})
-            # self.add_contact_to_loops(contact_data)
+
+        discord_message = f"""
+Contact: {self.email}
+Page: {current_page_route}
+Score: {"?" if  self.page_score==0 else "👍" if self.page_score > 1 else "👎"}
+Feedback: {feedback}
+"""
+
+        DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
+        payload = {"content": discord_message}
+        try:
+            response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        except:
+            pass
+
+        self.show_form = False
+        self.form_submitted = True
+        self.page_score = 0
 
     def update_score(self, score):
         if self.show_form == True:
@@ -223,6 +223,9 @@ class NavbarState(State):
             self.show_form = not self.show_form
 
         self.page_score = score
+
+    def display_form(self):
+        self.show_form = True
 
     def toggle_banner(self):
         self.banner = not self.banner
@@ -310,8 +313,9 @@ def search_badge(category, stateful=True):
                 styles.c["gray"][50],
             ),
             _hover={
-                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
+                "color": styles.c["violet"][500],
             },
+            transition="all 0.2s ease-in-out",
         )
     else:
         return rx.badge(
@@ -320,9 +324,6 @@ def search_badge(category, stateful=True):
             color=styles.c["violet"][500],
             bg=styles.c["violet"][50],
             padding_x=".5em",
-            _hover={
-                "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
-            },
         )
 
 
@@ -372,10 +373,13 @@ def ai_button():
                 "#5646ED",
             ),
         ),
-        border_radius="8px",
-        style=hover_button_style,
         on_click=NavbarState.toggle_ai_chat,
+        _hover={
+            "cursor": "pointer",
+            "color": styles.ACCENT_COLOR,
+        },
         height="1em",
+        transition="all 0.2s ease-in-out",
     )
 
 
@@ -507,40 +511,95 @@ def discord_button():
 
 
 def my_form():
-    return rx.form(
-        rx.input(
-            placeholder="Email",
-            id="email",
-            margin="0.25em 0.5em",
-            width="24em",
-            border_color="#eaeaef",
+    # Define common styles
+    border_none = {"border": "none"}
+    common_shadow_style = {
+        "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+    }
+    placeholder_style = {
+        "color": "#A9A7B1",
+        "font_weight": "400"
+    }
+    common_input_style = {
+        "width": "100%",
+        "font_size": ".8em",
+        "border_radius": "8px",
+        "border": "none",
+        "box_shadow": common_shadow_style["box_shadow"],
+        "_active": border_none | common_shadow_style,
+        "_focus": border_none | common_shadow_style,
+        "_placeholder": placeholder_style,
+    }
+
+    # Create input and text area elements
+    email_input = rx.input(placeholder="Email (optional)", id="email", type_="email", **common_input_style)
+    feedback_text_area = rx.text_area(placeholder="Your Feedback...", id="feedback", **common_input_style)
+
+    # Create button element
+    submit_button = rx.hstack(rx.spacer(), rx.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT), width="100%")
+
+    # Form container with vertical stack
+    form_container = rx.vstack(email_input, feedback_text_area, submit_button, padding_x=".5em", width="100%")
+
+    # Return the complete form
+    return rx.form(form_container, on_submit=NavbarState.handle_submit, padding_bottom=".2em", width="100%")
+
+
+
+def feedback_indicator(icon, score):
+    return rx.hstack(
+        rx.image(src=icon, height="1em"),
+        on_click=NavbarState.update_score(score),
+        box_shadow=rx.cond(
+            NavbarState.page_score == score,
+            "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
+            "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
         ),
-        rx.text_area(
-            placeholder="Your Feedback",
-            id="feedback",
-            margin="0.25em 0.5em",
-            width="24em",
-            border_color="#eaeaef",
-        ),
-        rx.center(
-            rx.button(
-                "Send",
-                type_="submit",
-                style=styles.ACCENT_BUTTON,
-                margin="0.5em",
-            ),
-            width="100%",
-        ),
-        on_submit=NavbarState.handle_submit,
-        width="25em",
+        padding_x=".5em",
+        height="2em",
+        border_radius="8px",
+        bg="#FFFFFF",
     )
 
 
 def feedback_button():
+    return rx.vstack(
+        rx.hstack(
+            rx.text(
+                "Was this page useful?",
+                style=styles.NAV_TEXT_STYLE,
+                font_size="1em",
+            ),
+            feedback_indicator("/icons/thumbs-down.svg", 1),
+            feedback_indicator("/icons/thumbs-up.svg", 2),
+            padding_x=".5em",
+            padding_y=".25em",
+        ),
+        rx.cond(
+            NavbarState.show_form,
+            my_form(),
+        ),
+        transition="all 2s",
+        border="2px solid #F4F3F6",
+        border_radius="8px",
+        padding="0.2em",
+    )
+
+
+def feedback_button_nav():
     return rx.hstack(
         rx.menu(
             rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
-            rx.menu_list(my_form()),
+            rx.menu_list(
+                rx.cond(
+                    NavbarState.form_submitted,
+                    rx.center(
+                        "Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"
+                    ),
+                    my_form(),
+                ),
+                opacity=".5"
+            ),
         ),
         display=["none", "none", "none", "none", "none", "flex"],
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
@@ -691,7 +750,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
-                    feedback_button(),
+                    feedback_button_nav(),
                     github_button(),
                     discord_button(),
                     rx.icon(
@@ -710,7 +769,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 justify="space-between",
                 padding_x=styles.PADDING_X,
             ),
-            bg="rgba(255,255,255, 0.9)",
+            bg="rgba(255,255,255, 0.8)",
             backdrop_filter="blur(10px)",
             padding_y=["0.8em", "0.8em", "0.5em"],
             border_bottom="1px solid #F4F3F6",

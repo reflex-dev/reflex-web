@@ -122,21 +122,56 @@ def my_form():
 
     return rx.form(
         rx.vstack(
+            rx.input(
+                placeholder="Email (optional)",
+                id="email",
+                type_="email",
+                width="100%",
+                font_size=".8em",
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+            ),
             rx.text_area(
                 placeholder="Your Feedback...",
                 id="feedback",
                 width="100%",
                 font_size=".8em",
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.hstack(
                 rx.spacer(),
                 rx.button(
                     "Send",
                     type_="submit",
-                    font_size=".8em",
-                    padding_x=".5em",
-                    padding_y=".2em",
-                    style=styles.ACCENT_BUTTON,
+                    size="sm",
+                    style=styles.BUTTON_LIGHT,
                 ),
                 width="100%",
             ),
@@ -146,49 +181,6 @@ def my_form():
         on_submit=NavbarState.handle_submit,
         padding_bottom=".2em",
         width="100%",
-    )
-
-
-def feedback_icon(number):
-    from pcweb.components.navbar import NavbarState, hover_button_style
-
-    return rx.icon(
-        tag="star",
-        on_click=NavbarState.update_score(number),
-        color=rx.cond(
-            NavbarState.page_score >= number,
-            c["indigo"][400],
-            c["indigo"][200],
-        ),
-        bg="white",
-        border_color="1px solid black",
-    )
-
-
-def feedback_button():
-    from pcweb.components.navbar import NavbarState, hover_button_style
-
-    return rx.vstack(
-        rx.hstack(
-            rx.text(
-                "Was this page helpful?",
-                style=styles.NAV_TEXT_STYLE,
-                padding="0.2em",
-                padding_x=".5",
-                font_size="1em",
-            ),
-            feedback_icon(1),
-            feedback_icon(2),
-            feedback_icon(3),
-            feedback_icon(4),
-            feedback_icon(5),
-        ),
-        rx.cond(
-            NavbarState.show_form,
-            my_form(),
-        ),
-        transition="all 2s",
-        style=styles.BUTTON_LIGHT_NO_BACKGROUND,
     )
 
 
@@ -238,7 +230,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
-            from pcweb.components.navbar import navbar
+            from pcweb.components.navbar import navbar, feedback_button
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -299,8 +291,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         rx.desktop_only(
                             sidebar,
                             width=["0", "0%", "25%"],
-                            padding_left=styles.PADDING_X,
                             padding_y="2em",
+                            padding_left=["1em", "2em", "2em", "2m", "2em"],
                         ),
                         rx.box(
                             rx.box(comp),
@@ -323,8 +315,14 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ),
                                 width="100%",
                             ),
-                            padding_left=["1em", "2em", "5em", "8em"],
-                            padding_right=styles.PADDING_X,
+                            border_left=[
+                                "none",
+                                "none",
+                                "none",
+                                "none",
+                                "1px solid #F4F3F6",
+                            ],
+                            padding_x=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
                             padding_y="2em",
                             height="100%",
