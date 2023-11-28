@@ -524,7 +524,7 @@ def sidebar_comp(
                             for item in frontend
                         ],
                         allow_multiple=True,
-                        default_index=frontend_index if frontend is not None else [],
+                        default_index=frontend_index if frontend_index is not None else [],
                     ),
 
                     rx.heading(
