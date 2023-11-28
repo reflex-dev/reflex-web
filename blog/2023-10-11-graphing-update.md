@@ -300,9 +300,4 @@ rx.vstack(
 
 We hope you enjoy the new graphing components. We are excited to see what you build with them. If you have any questions or feedback, please reach out to us on [Discord](https://discord.gg/T5WSbC2YtQ).
 
-```python eval
-rx.text("- Reflex Team", margin_y="2em")
-```
-```python eval
-rx.box(height="8em")
-```
+-- Reflex Team
