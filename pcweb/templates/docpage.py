@@ -117,7 +117,6 @@ def doc_section(*contents):
     )
 
 
-
 def my_form():
     from pcweb.components.navbar import NavbarState
 
@@ -129,30 +128,42 @@ def my_form():
                 type_="email",
                 width="100%",
                 font_size=".8em",
-                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
-                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
                 _placeholder={
                     "color": "#A9A7B1",
                     "font_weight": "400",
                 },
                 border_radius="8px",
                 border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.text_area(
                 placeholder="Your Feedback...",
                 id="feedback",
                 width="100%",
                 font_size=".8em",
-                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
-                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
                 _placeholder={
                     "color": "#A9A7B1",
                     "font_weight": "400",
                 },
                 border_radius="8px",
                 border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.hstack(
                 rx.spacer(),
@@ -304,7 +315,13 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ),
                                 width="100%",
                             ),
-                            border_left=["none","none", "none","none","1px solid #F4F3F6"],
+                            border_left=[
+                                "none",
+                                "none",
+                                "none",
+                                "none",
+                                "1px solid #F4F3F6",
+                            ],
                             padding_x=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
                             padding_y="2em",

@@ -377,106 +377,76 @@ EVENTS = {
 }
 
 
-# Docs page
 def component_docs(component):
-    from pcweb.pages.docs.api_reference.event_triggers import event_triggers
-
-    src = Source(component=component)
-    props = []
-    if len(src.get_props()) > 0:
-        props = [
-            rx.vstack(
-                rx.table(
-                    rx.thead(
-                        rx.tr(
-                            rx.th("Prop", padding_left="0"),
-                            rx.th(
-                                "Type",
-                                padding_left="0",
-                            ),
-                            rx.th("Description/Values", padding_left="0"),
-                        )
-                    ),
-                    rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
-                    width="100%",
-                    padding_x="0",
-                    size="sm",
-                ),
-                align_items="left",
-                padding_bottom="2em",
+    """Generates documentation for a given component."""
+    def generate_props(src):
+        if len(src.get_props()) == 0:
+            return rx.vstack(
+                rx.heading("Props", font_size="1em"),
+                rx.text("No component specific props"),
+                width="100%", overflow_x="auto", align_items="left", padding_y=".5em"
             )
-        ]
-    else:
-        props = [
-            rx.box(),
-        ]
-
-    trig = []
-    default_triggers = rx.Component.create().get_event_triggers().keys()
-    for event in component().get_event_triggers().keys():
-        if event not in default_triggers and event not in ("on_drop",):
-            trig.append(event)
-    if trig != []:
-        triggers = rx.vstack(
-            rx.heading("Event Triggers", font_size="1em"),
+        
+        return rx.vstack(
             rx.table(
                 rx.thead(
                     rx.tr(
-                        rx.th("Trigger", padding_left="0"),
-                        rx.th("Description", padding_left="0"),
+                        rx.th("Prop", padding_left="0"),
+                        rx.th("Type", padding_left="0"),
+                        rx.th("Description/Values", padding_left="0")
                     )
                 ),
-                rx.tbody(
-                    *[
-                        rx.tr(
-                            rx.td(rx.code(event), padding_left="0"),
-                            rx.td(rx.text(EVENTS[event]["description"])),
-                        )
-                        for event in component().get_event_triggers().keys()
-                        if event not in default_triggers and event not in ("on_drop",)
-                    ]
-                ),
-                width="100%",
+                rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
+                width="100%", padding_x="0", size="sm"
             ),
-            width="100%",
-            overflow_x="auto",
-            align_items="left",
-        )
-    else:
-        triggers = rx.vstack(
-            rx.heading("Event Triggers", font_size="1em"),
-            rx.text("No component specfic event triggers"),
-            width="100%",
-            overflow_x="auto",
-            align_items="left",
-            padding_y=".5em",
+            align_items="left", padding_bottom="2em"
         )
 
-    valid_children = []
-    children = rx.text("")
-    if component._valid_children:
-        for child in component._valid_children:
-            valid_children.append(rx.wrap_item(rx.code(child)))
-        children = rx.vstack(
+    def generate_event_triggers(comp):
+        default_triggers = rx.Component.create().get_event_triggers().keys()
+        custom_events = [event for event in comp().get_event_triggers().keys() if event not in default_triggers and event != "on_drop"]
+
+        if not custom_events:
+            return rx.vstack(
+                rx.heading("Event Triggers", font_size="1em"),
+                rx.text("No component specific event triggers"),
+                width="100%", overflow_x="auto", align_items="left", padding_y=".5em"
+            )
+        
+        return rx.vstack(
+            rx.heading("Event Triggers", font_size="1em"),
+            rx.table(
+                rx.thead(rx.tr(rx.th("Trigger", padding_left="0"), rx.th("Description", padding_left="0"))),
+                rx.tbody(*[rx.tr(rx.td(rx.code(event), padding_left="0"), rx.td(rx.text(EVENTS[event]["description"]))) for event in custom_events]),
+                width="100%"
+            ),
+            width="100%", overflow_x="auto", align_items="left"
+        )
+
+    def generate_valid_children(comp):
+        if not comp._valid_children:
+            return rx.text("")
+        
+        valid_children = [rx.wrap_item(rx.code(child)) for child in comp._valid_children]
+        return rx.vstack(
             rx.heading("Valid Children", font_size="1em"),
             rx.wrap(*valid_children),
-            width="100%",
-            align_items="left",
-            padding_y=".5em",
+            width="100%", align_items="left", padding_y=".5em"
         )
+
+    src = Source(component=component)
+    props = generate_props(src)
+    triggers = generate_event_triggers(component)
+    children = generate_valid_children(component)
 
     return rx.box(
         rx.heading(component.__name__, font_size="2em"),
         rx.divider(),
         rx.box(rx.markdown(src.get_docs()), padding_bottom="1em"),
-        rx.heading("Props", font_size="1em"),
-        *props,
-        children,
-        triggers,
-        text_align="left",
-        width="100%",
-        padding_bottom="2em",
+        props, children, triggers,
+        text_align="left", width="100%", padding_bottom="2em"
     )
+
 
 
 tab_style = {
@@ -511,20 +481,6 @@ def multi_docs(path, component_list):
                 rx.box(
                     rx.tabs(
                         rx.tab_list(
-                            rx.center(
-                                rx.breadcrumb(
-                                    rx.breadcrumb_item(
-                                        rx.breadcrumb_link("Home", href="#")
-                                    ),
-                                    rx.breadcrumb_item(
-                                        rx.breadcrumb_link("Docs", href="#")
-                                    ),
-                                    rx.breadcrumb_item(
-                                        rx.breadcrumb_link("Breadcrumb", href="#")
-                                    ),
-                                    color = "#494369",
-                                )
-                            ),
                             rx.spacer(),
                             rx.tab(
                                 "Docs", _selected=tab_selected_style, style=tab_style

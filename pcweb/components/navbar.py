@@ -191,7 +191,7 @@ class NavbarState(State):
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
-            
+
         if len(feedback) < 10:
             return rx.window_alert("Please enter your feedback. (min 10 characters)")
 
@@ -207,11 +207,11 @@ _________________________
 """
 
         DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
-        payload = {'content': discord_message}
+        payload = {"content": discord_message}
         try:
             response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
         except:
-            pass    
+            pass
 
         self.show_form = False
         self.form_submitted = True
@@ -315,7 +315,7 @@ def search_badge(category, stateful=True):
                 styles.c["gray"][50],
             ),
             _hover={
-               "color": styles.c["violet"][500],
+                "color": styles.c["violet"][500],
             },
             transition="all 0.2s ease-in-out",
         )
@@ -511,6 +511,7 @@ def discord_button():
         href=constants.DISCORD_URL,
     )
 
+
 def my_form():
     return rx.form(
         rx.vstack(
@@ -520,30 +521,42 @@ def my_form():
                 type_="email",
                 width="100%",
                 font_size="1em",
-                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
-                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
                 _placeholder={
                     "color": "#A9A7B1",
                     "font_weight": "400",
                 },
                 border_radius="8px",
                 border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.text_area(
                 placeholder="Your Feedback...",
                 id="feedback",
                 width="100%",
                 font_size="1em",
-                _active={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
-                _focus={"border": "none", "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"},
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
                 _placeholder={
                     "color": "#A9A7B1",
                     "font_weight": "400",
                 },
                 border_radius="8px",
                 border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.hstack(
                 rx.spacer(),
@@ -563,11 +576,12 @@ def my_form():
         width="100%",
     )
 
+
 def feedback_indicator(icon, score):
     return rx.hstack(
         rx.image(src=icon, height="1em"),
         on_click=NavbarState.update_score(score),
-        box_shadow = rx.cond(
+        box_shadow=rx.cond(
             NavbarState.page_score == score,
             "0px 4px 10px -2px rgba(3, 3, 11, 0.12), 0px 4px 8px 0px rgba(3, 3, 11, 0.12), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px -20px 12px -4px rgba(126, 105, 224, 0.60) inset, 0px 12px 12px -2px rgba(86, 70, 237, 0.12) inset, 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
             "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
@@ -578,6 +592,7 @@ def feedback_indicator(icon, score):
         bg="#FFFFFF",
     )
 
+
 def feedback_button():
     return rx.vstack(
         rx.hstack(
@@ -586,7 +601,7 @@ def feedback_button():
                 style=styles.NAV_TEXT_STYLE,
                 font_size="1em",
             ),
-            feedback_indicator("/icons/thumbs-down.svg", 1),    
+            feedback_indicator("/icons/thumbs-down.svg", 1),
             feedback_indicator("/icons/thumbs-up.svg", 2),
             padding_x=".5em",
             padding_y=".25em",
@@ -607,9 +622,11 @@ def feedback_button_nav():
         rx.menu(
             rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
             rx.menu_list(
-               rx.cond(
+                rx.cond(
                     NavbarState.form_submitted,
-                    rx.center("Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"),
+                    rx.center(
+                        "Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"
+                    ),
                     my_form(),
                 )
             ),

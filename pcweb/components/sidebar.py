@@ -52,6 +52,7 @@ class SidebarItem(Base):
     # The children items.
     children: list[SidebarItem] = []
 
+
 class SidebarState(State):
 
     sidebar_index: int = 0
@@ -62,9 +63,10 @@ class SidebarState(State):
     def set_initial_sidebar_index(self) -> int:
         route = self.router.page.path
         if "library" in route or "api-reference" in route or "recipe" in route:
-             self.sidebar_index = 1
+            self.sidebar_index = 1
         else:
             self.sidebar_index = 0
+
 
 def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
@@ -306,7 +308,10 @@ def sidebar_leaf(
                     rx.text(
                         item.names,
                         color="#494369",
-                        _hover={"color": styles.ACCENT_COLOR, "text_decoration": "none"},
+                        _hover={
+                            "color": styles.ACCENT_COLOR,
+                            "text_decoration": "none",
+                        },
                         transition="color 0.4s ease-in-out",
                         padding_x="0.5em",
                     ),
@@ -343,7 +348,7 @@ def sidebar_item_comp(
                     _hover={
                         "color": styles.ACCENT_COLOR,
                     },
-                    color = "#494369"
+                    color="#494369",
                 ),
                 rx.accordion_panel(
                     rx.accordion(
@@ -441,7 +446,7 @@ def sidebar_comp(
                         rx.text("Learn"),
                         on_click=lambda: SidebarState.set_sidebar_index(0),
                     ),
-                    color = "#494369",
+                    color="#494369",
                     padding_left="0em",
                 ),
                 rx.tab(
@@ -451,15 +456,14 @@ def sidebar_comp(
                         on_click=lambda: SidebarState.set_sidebar_index(1),
                     ),
                     padding_left="0em",
-                    color = "#494369",
-
+                    color="#494369",
                 ),
-                color = "#494369",
+                color="#494369",
                 margin_left="1.1em",
                 align="left",
                 font_weight="450",
-                on_mount = SidebarState.set_initial_sidebar_index,
-            ), 
+                on_mount=SidebarState.set_initial_sidebar_index,
+            ),
             rx.tab_panels(
                 rx.tab_panel(
                     rx.heading(
@@ -500,7 +504,9 @@ def sidebar_comp(
                             for item in concepts
                         ],
                         allow_multiple=True,
-                        default_index=concepts_index if concepts_index is not None else [],
+                        default_index=concepts_index
+                        if concepts_index is not None
+                        else [],
                     ),
                     padding_x="0em",
                     width="100%",
@@ -514,13 +520,15 @@ def sidebar_comp(
                             for item in reference
                         ],
                         allow_multiple=True,
-                        default_index=reference_index if reference_index is not None else [],
+                        default_index=reference_index
+                        if reference_index is not None
+                        else [],
                     ),
                     padding_x="0em",
                     width="100%",
                 ),
-            ), 
-            index = SidebarState.sidebar_index,
+            ),
+            index=SidebarState.sidebar_index,
         ),
         align_items="start",
         overflow_y="scroll",
@@ -536,7 +544,6 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        width="100%",
     )
 
 
@@ -547,14 +554,13 @@ def sidebar(url=None) -> rx.Component:
     reference_index = calculate_index(reference, url)
 
     return rx.box(
-            sidebar_comp(
-                url=url,
-                learn_index=learn_index,
-                concepts_index=concepts_index,
-                reference_index=reference_index,
-            ),
-        )
-
+        sidebar_comp(
+            url=url,
+            learn_index=learn_index,
+            concepts_index=concepts_index,
+            reference_index=reference_index,
+        ),
+    )
 
 
 sb = sidebar()
