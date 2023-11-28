@@ -187,7 +187,7 @@ class NavbarState(State):
 
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
-
+    
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
@@ -195,6 +195,7 @@ class NavbarState(State):
         if len(feedback) < 10:
             return rx.window_alert("Please enter your feedback. (min 10 characters)")
 
+        
         current_page_route = self.get_current_page()
 
         discord_message = f"""
@@ -215,9 +216,9 @@ _________________________
 
         self.show_form = False
         self.form_submitted = True
-
+        self.page_score = 0
+        
     def update_score(self, score):
-        print("update score", score)
         if self.show_form == True:
             if self.page_score == score:
                 self.show_form = not self.show_form
@@ -513,68 +514,39 @@ def discord_button():
 
 
 def my_form():
-    return rx.form(
-        rx.vstack(
-            rx.input(
-                placeholder="Email (optional)",
-                id="email",
-                type_="email",
-                width="100%",
-                font_size="1em",
-                _active={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _focus={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _placeholder={
-                    "color": "#A9A7B1",
-                    "font_weight": "400",
-                },
-                border_radius="8px",
-                border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-            ),
-            rx.text_area(
-                placeholder="Your Feedback...",
-                id="feedback",
-                width="100%",
-                font_size="1em",
-                _active={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _focus={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _placeholder={
-                    "color": "#A9A7B1",
-                    "font_weight": "400",
-                },
-                border_radius="8px",
-                border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-            ),
-            rx.hstack(
-                rx.spacer(),
-                rx.button(
-                    "Send",
-                    type_="submit",
-                    size="sm",
-                    style=styles.BUTTON_LIGHT,
-                ),
-                width="100%",
-            ),
-            padding_x=".5em",
-            width="100%",
-        ),
-        on_submit=NavbarState.handle_submit,
-        padding_bottom=".2em",
-        width="100%",
-    )
+    # Define common styles
+    border_none = {"border": "none"}
+    common_shadow_style = {
+        "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
+    }
+    placeholder_style = {
+        "color": "#A9A7B1",
+        "font_weight": "400"
+    }
+    common_input_style = {
+        "width": "100%",
+        "font_size": ".8em",
+        "border_radius": "8px",
+        "border": "none",
+        "box_shadow": common_shadow_style["box_shadow"],
+        "_active": border_none | common_shadow_style,
+        "_focus": border_none | common_shadow_style,
+        "_placeholder": placeholder_style,
+    }
+
+    # Create input and text area elements
+    email_input = rx.input(placeholder="Email (optional)", id="email", type_="email", **common_input_style)
+    feedback_text_area = rx.text_area(placeholder="Your Feedback...", id="feedback", **common_input_style)
+
+    # Create button element
+    submit_button = rx.hstack(rx.spacer(), rx.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT), width="100%")
+
+    # Form container with vertical stack
+    form_container = rx.vstack(email_input, feedback_text_area, submit_button, padding_x=".5em", width="100%")
+
+    # Return the complete form
+    return rx.form(form_container, on_submit=NavbarState.handle_submit, padding_bottom=".2em", width="100%")
+
 
 
 def feedback_indicator(icon, score):
@@ -628,7 +600,8 @@ def feedback_button_nav():
                         "Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"
                     ),
                     my_form(),
-                )
+                ),
+                opacity=".5"
             ),
         ),
         display=["none", "none", "none", "none", "none", "flex"],
