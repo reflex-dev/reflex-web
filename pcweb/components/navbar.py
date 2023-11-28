@@ -187,24 +187,21 @@ class NavbarState(State):
 
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
-    
+        
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
 
-        if len(feedback) < 10:
-            return rx.window_alert("Please enter your feedback. (min 10 characters)")
-
+        if len(feedback) < 10 or len(feedback) > 500:
+            return rx.window_alert("Please enter your feedback. Between 10 and 500 characters.")
         
         current_page_route = self.get_current_page()
 
         discord_message = f"""
-_________________________
 Contact: {self.email}
-Feedback: {self.feedback}
-Score: {"?" if  self.page_score==0 else "👍" if self.page_score > 1 else "👎"}
 Page: {current_page_route}
-_________________________
+Score: {"?" if  self.page_score==0 else "👍" if self.page_score > 1 else "👎"}
+Feedback: {feedback}
 """
 
         DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
@@ -217,7 +214,7 @@ _________________________
         self.show_form = False
         self.form_submitted = True
         self.page_score = 0
-        
+
     def update_score(self, score):
         if self.show_form == True:
             if self.page_score == score:
