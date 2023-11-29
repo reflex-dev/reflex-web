@@ -358,7 +358,7 @@ def sidebar_item_comp(
                     rx.text(
                         item.names,
                         font_family=styles.SANS,
-                        font_weight="600",
+                        font_weight="500",
                     ),
                     _hover={
                         "color": styles.ACCENT_COLOR,
