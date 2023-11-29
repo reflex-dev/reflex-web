@@ -157,7 +157,7 @@ class Feedback(rx.Model, table=True):
     page: str
 
 
-class NavbarState(State):
+class NavbarState(rx.State):
     """The state for the navbar component."""
 
     # Whether the sidebar is open.
