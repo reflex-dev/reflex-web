@@ -45,7 +45,7 @@ class Waitlist(rx.Model, table=True):
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
 
-class IndexState(rx.State):
+class IndexState(State):
     """Hold the state for the home page."""
 
     # The waitlist email.

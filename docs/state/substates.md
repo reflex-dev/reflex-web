@@ -60,7 +60,7 @@ docdemo_from(
 In this code, you can see that both states share a common resource (`shape_type`). We can improve code organization and promote reusability by introducing the concept of substates. 
 This involves creating a base state (`QuadrilateralState`), from which other states can inherit or subclass. After refactoring, the code takes on the following structure:
 
-```python exec
+```python
 class QuadrilateralState(rx.State):
     shape_type: str = "quadrilateral"
 
