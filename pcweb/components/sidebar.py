@@ -221,6 +221,7 @@ def get_sidebar_items_other():
 
 
 def get_sidebar_items_reference():
+    from pcweb.pages.docs import datatable_tutorial
     from pcweb.pages.docs import recipes
     from pcweb.pages.docs import api_reference
 
@@ -290,6 +291,15 @@ def get_sidebar_items_reference():
                 recipes.sidebar,
                 recipes.checkboxes,
                 recipes.filtered_table,
+            ],
+        ),
+        create_item(
+            datatable_tutorial,
+            children=[
+                datatable_tutorial.simple_table,
+                datatable_tutorial.add_interactivity,
+                datatable_tutorial.add_styling,
+                datatable_tutorial.live_stream,
             ],
         ),
     ]
