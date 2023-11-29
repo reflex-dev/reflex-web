@@ -471,7 +471,7 @@ def sidebar_comp(
                 rx.tab(
                     rx.hstack(
                         rx.image(src="/icons/ref.svg", height="1em"),
-                        rx.text("API Reference"),
+                        rx.text("Reference"),
                         on_click=lambda: SidebarState.set_sidebar_index(1),
                     ),
                     padding_left="0em",
