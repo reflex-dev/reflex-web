@@ -122,17 +122,11 @@ def get_sidebar_items_learn():
     return items
 
 
-def get_sidebar_items_concepts():
+def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
-        advanced_guide,
         components,
-        database,
-        hosting,
-        state,
         styling,
-        wrapping_react,
     )
-
     items = [
         create_item(
             components,
@@ -145,6 +139,25 @@ def get_sidebar_items_concepts():
             ],
         ),
         create_item(
+            styling,
+            children=[
+                styling.styling_overview,
+                styling.responsive,
+                styling.custom_stylesheets,
+                styling.theming,
+            ],
+        ),
+    ]
+    return items
+
+def get_sidebar_items_backend():
+    from pcweb.pages.docs import (
+        state,
+        database,
+    )
+
+    items = [
+        create_item(
             state,
             children=[
                 state.state_overview,
@@ -152,15 +165,6 @@ def get_sidebar_items_concepts():
                 state.events,
                 state.substates,
                 state.utility_methods,
-            ],
-        ),
-        create_item(
-            styling,
-            children=[
-                styling.styling_overview,
-                styling.responsive,
-                styling.custom_stylesheets,
-                styling.theming,
             ],
         ),
         create_item(
@@ -172,6 +176,17 @@ def get_sidebar_items_concepts():
                 database.relationships,
             ],
         ),
+    ]
+    return items
+
+def get_sidebar_items_other():
+    from pcweb.pages.docs import (
+        advanced_guide, 
+        hosting,
+        wrapping_react,
+    )
+
+    items = [
         create_item(
             hosting,
             children=[
@@ -343,7 +358,7 @@ def sidebar_item_comp(
                     rx.text(
                         item.names,
                         font_family=styles.SANS,
-                        font_weight="600",
+                        font_weight="500",
                     ),
                     _hover={
                         "color": styles.ACCENT_COLOR,
@@ -394,13 +409,15 @@ def calculate_index(sidebar_items, url):
 
 
 learn = get_sidebar_items_learn()
-concepts = get_sidebar_items_concepts()
 reference = get_sidebar_items_reference()
+frontend = get_sidebar_items_frontend()
+backend = get_sidebar_items_backend()
+other = get_sidebar_items_other()
 
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + concepts + reference
+    sidebar_items = learn + frontend + backend + other + reference 
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -432,8 +449,10 @@ signle_item = {
 def sidebar_comp(
     url: str,
     learn_index: list[int],
-    concepts_index: list[int],
     reference_index: list[int],
+    frontend_index: list[int],
+    backend_index: list[int],
+    other_index: list[int],
 ):
     from pcweb.pages.docs.gallery import gallery
 
@@ -468,7 +487,7 @@ def sidebar_comp(
                 rx.tab_panel(
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
-                        "Learn",
+                        "Onboarding",
                         rx.span(" ]", color="#DACEEE"),
                         style=heading_style3,
                     ),
@@ -486,9 +505,10 @@ def sidebar_comp(
                         default_index=learn_index if learn_index is not None else [],
                         width="100%",
                     ),
+
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
-                        "Concepts",
+                        "Frontend",
                         rx.span(" ]", color="#DACEEE"),
                         style=heading_style3,
                         margin_top="1em",
@@ -501,12 +521,52 @@ def sidebar_comp(
                                 url=url,
                                 first=True,
                             )
-                            for item in concepts
+                            for item in frontend
                         ],
                         allow_multiple=True,
-                        default_index=concepts_index
-                        if concepts_index is not None
-                        else [],
+                        default_index=frontend_index if frontend_index is not None else [],
+                    ),
+
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
+                        "Backend",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                        margin_top="1em",
+                    ),
+                    rx.accordion(
+                        *[
+                            sidebar_item_comp(
+                                item=item,
+                                index=[-1],
+                                url=url,
+                                first=True,
+                            )
+                            for item in backend
+                        ],
+                        allow_multiple=True,
+                        default_index=backend_index if backend_index is not None else [],
+                    ),
+
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
+                        "Other",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                        margin_top="1em",
+                    ),
+                    rx.accordion(
+                        *[
+                            sidebar_item_comp(
+                                item=item,
+                                index=[-1],
+                                url=url,
+                                first=True,
+                            )
+                            for item in other
+                        ],
+                        allow_multiple=True,
+                        default_index=other_index if other_index is not None else [],
                     ),
                     padding_x="0em",
                     width="100%",
@@ -520,9 +580,7 @@ def sidebar_comp(
                             for item in reference
                         ],
                         allow_multiple=True,
-                        default_index=reference_index
-                        if reference_index is not None
-                        else [],
+                        default_index=reference_index if reference_index is not None else [],
                     ),
                     padding_x="0em",
                     width="100%",
@@ -550,15 +608,18 @@ def sidebar_comp(
 def sidebar(url=None) -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
-    concepts_index = calculate_index(concepts, url)
     reference_index = calculate_index(reference, url)
-
+    frontend_index = calculate_index(frontend, url)
+    backend_index = calculate_index(backend, url)
+    other_index = calculate_index(other, url)
     return rx.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,
-            concepts_index=concepts_index,
             reference_index=reference_index,
+            frontend_index=frontend_index,
+            backend_index=backend_index,
+            other_index=other_index,
         ),
     )
 
