@@ -42,37 +42,9 @@ def code_block(code: str, language: str):
     )
 
 
-@rx.memo
-def code_block_memo(children: str, language: str):
-    return rx.box(
-        rx.box(
-            rx.code_block(
-                language=language,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="light",
-                background="transparent",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ).set(
-                special_props={
-                    rx.Var.create_safe("children={children}"),
-                }
-            ),
-            border_radius=styles.DOC_BORDER_RADIUS,
-            border="2px solid #F4F3F6",
-        ),
-        position="relative",
-        margin_bottom="1em",
-        width="100%",
-    )
-
-
-def code_block2(*_, **props):
+def code_block_markdown(*children, **props):
     language = props.get("language", "none")
-    return code_block_memo(children="", language=language)
+    return code_block(code=children[0], language=language)
 
 
 # Docpage styles.
