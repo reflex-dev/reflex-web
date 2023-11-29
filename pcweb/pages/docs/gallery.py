@@ -278,7 +278,7 @@ class SideBarState(State):
     def update_tag(self, name: str):
         self.chosen_tags_dict[name] = not self.chosen_tags_dict[name]
 
-    @rx.var
+    @rx.cached_var
     def true_tags(self) -> list:
         """This function returns a list of the tags selected in the UI, if no tags
         are selected then it returns all the tags"""
@@ -288,7 +288,7 @@ class SideBarState(State):
             return list(self.chosen_tags_dict)
         return list(true_keys)
 
-    @rx.var
+    @rx.cached_var
     def data_to_return(self) -> list[dict[str, str]]:
         """This function iterates over all the apps we have and if the app has one of the
         tags we have selected in true_tags then it will render this app in the UI"""
