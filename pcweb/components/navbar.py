@@ -245,7 +245,7 @@ Feedback: {feedback}
     def update_category(self, tag):
         self.current_category = tag
 
-    @rx.var
+    @rx.cached_var
     def search_results(self) -> list[dict[str, dict[str, str]]]:
         """Get the search results."""
         from pcweb.tsclient import client
