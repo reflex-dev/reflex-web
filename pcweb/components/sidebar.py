@@ -470,6 +470,7 @@ signle_item = {
 }
 
 
+@rx.memo
 def sidebar_comp(
     url: str,
     learn_index: list[int],
