@@ -4,7 +4,6 @@ import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.component_list import component_list
-from pcweb.middleware import CloseSidebarMiddleware
 from pcweb.pages import blog_routes, doc_routes, routes, faq_routes, changelog_routes
 from pcweb.pages.docs.component import multi_docs
 
@@ -91,9 +90,6 @@ for key in component_list:
                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
                 image="/previews/index_preview.png",
             )
-
-# Add the middleware.
-app.add_middleware(CloseSidebarMiddleware(), index=0)
 
 # Add redirects
 redirects = [

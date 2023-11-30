@@ -7,6 +7,7 @@ import inspect
 import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
+from pcweb.components.navbar import NavbarState
 from pcweb.component_list import component_list
 from pcweb.route import Route
 from reflex.base import Base
@@ -55,17 +56,30 @@ class SidebarItem(Base):
 
 class SidebarState(State):
 
-    sidebar_index: int = 0
+    _sidebar_index: int = -1
 
     def set_sidebar_index(self, num) -> int:
-        self.sidebar_index = num
+        self._sidebar_index = num
 
-    def set_initial_sidebar_index(self) -> int:
-        route = self.router.page.path
-        if "library" in route or "api-reference" in route or "recipe" in route:
-            self.sidebar_index = 1
-        else:
-            self.sidebar_index = 0
+    @rx.cached_var
+    def sidebar_index(self) -> int:
+        if self._sidebar_index < 0:
+            route = self.router.page.path
+            if "library" in route or "api-reference" in route or "recipe" in route:
+                return 1
+            else:
+                return 0
+        return self._sidebar_index
+
+
+def sidebar_link(*children, **props):
+    """Create a sidebar link that closes the sidebar when clicked."""
+    on_click = props.pop("on_click", NavbarState.set_sidebar_open(False))
+    return rx.link(
+        *children,
+        on_click=on_click,
+        **props,
+    )
 
 
 def create_item(route: Route, children=None):
@@ -314,7 +328,7 @@ def sidebar_leaf(
     return rx.accordion_item(
         rx.cond(
             item.link == url,
-            rx.link(
+            sidebar_link(
                 rx.text(item.names, style=heading_style2),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -329,7 +343,7 @@ def sidebar_leaf(
                     margin_left="0em",
                     margin_top="0.5em",
                 ),
-                rx.link(
+                sidebar_link(
                     rx.text(
                         item.names,
                         color="#494369",
@@ -491,7 +505,6 @@ def sidebar_comp(
                 margin_left="1.1em",
                 align="left",
                 font_weight="450",
-                on_mount=SidebarState.set_initial_sidebar_index,
             ),
             rx.tab_panels(
                 rx.tab_panel(

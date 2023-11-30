@@ -48,9 +48,6 @@ class Waitlist(rx.Model, table=True):
 class IndexState(State):
     """Hold the state for the home page."""
 
-    # Whether to show the call to action.
-    show_c2a: bool = True
-
     # The waitlist email.
     email: str
 
@@ -59,10 +56,6 @@ class IndexState(State):
 
     # Whether to show the confetti.
     show_confetti: bool = False
-
-    def close_c2a(self):
-        """Close the call to action."""
-        self.show_c2a = False
 
     def add_contact_to_loops(self, contact_data):
         url = "https://app.loops.so/api/v1/contacts/create"
