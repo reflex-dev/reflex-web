@@ -6,7 +6,6 @@ from pcweb import constants, styles
 from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
-from pcweb.components.sidebar import sb
 from sqlmodel import Field
 from datetime import datetime
 from typing import Optional
@@ -617,6 +616,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     Args:
         sidebar: The sidebar component to use.
     """
+    from pcweb.components.sidebar import sb
     from pcweb.pages.docs.getting_started.introduction import introduction
     from pcweb.pages.blog.blog import blg
     from pcweb.pages.docs.gallery import gallery
@@ -782,7 +782,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         logo,
                         rx.icon(
                             tag="close",
-                            on_click=NavbarState.toggle_sidebar,
+                            on_click=NavbarState.set_sidebar_open(False),
                             width="4em",
                             _hover={
                                 "cursor": "pointer",
@@ -801,7 +801,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             ),
             placement="left",
             is_open=NavbarState.sidebar_open,
-            on_close=NavbarState.toggle_sidebar,
+            on_close=NavbarState.set_sidebar_open(False),
             bg="rgba(255,255,255, 0.5)",
         ),
         search_modal(),
