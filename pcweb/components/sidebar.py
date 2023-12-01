@@ -141,6 +141,7 @@ def get_sidebar_items_frontend():
         components,
         styling,
     )
+
     items = [
         create_item(
             components,
@@ -163,6 +164,7 @@ def get_sidebar_items_frontend():
         ),
     ]
     return items
+
 
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
@@ -193,9 +195,10 @@ def get_sidebar_items_backend():
     ]
     return items
 
+
 def get_sidebar_items_other():
     from pcweb.pages.docs import (
-        advanced_guide, 
+        advanced_guide,
         hosting,
         wrapping_react,
     )
@@ -441,7 +444,7 @@ other = get_sidebar_items_other()
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + frontend + backend + other + reference 
+    sidebar_items = learn + frontend + backend + other + reference
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -529,7 +532,6 @@ def sidebar_comp(
                         default_index=learn_index if learn_index is not None else [],
                         width="100%",
                     ),
-
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
                         "Frontend",
@@ -548,9 +550,10 @@ def sidebar_comp(
                             for item in frontend
                         ],
                         allow_multiple=True,
-                        default_index=frontend_index if frontend_index is not None else [],
+                        default_index=frontend_index
+                        if frontend_index is not None
+                        else [],
                     ),
-
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
                         "Backend",
@@ -569,9 +572,10 @@ def sidebar_comp(
                             for item in backend
                         ],
                         allow_multiple=True,
-                        default_index=backend_index if backend_index is not None else [],
+                        default_index=backend_index
+                        if backend_index is not None
+                        else [],
                     ),
-
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
                         "Other",
@@ -604,7 +608,9 @@ def sidebar_comp(
                             for item in reference
                         ],
                         allow_multiple=True,
-                        default_index=reference_index if reference_index is not None else [],
+                        default_index=reference_index
+                        if reference_index is not None
+                        else [],
                     ),
                     padding_x="0em",
                     width="100%",

@@ -379,59 +379,92 @@ EVENTS = {
 
 def component_docs(component):
     """Generates documentation for a given component."""
+
     def generate_props(src):
         if len(src.get_props()) == 0:
             return rx.vstack(
                 rx.heading("Props", font_size="1em"),
                 rx.text("No component specific props"),
-                width="100%", overflow_x="auto", align_items="left", padding_y=".5em"
+                width="100%",
+                overflow_x="auto",
+                align_items="left",
+                padding_y=".5em",
             )
-        
+
         return rx.vstack(
             rx.table(
                 rx.thead(
                     rx.tr(
                         rx.th("Prop", padding_left="0"),
                         rx.th("Type", padding_left="0"),
-                        rx.th("Description/Values", padding_left="0")
+                        rx.th("Description/Values", padding_left="0"),
                     )
                 ),
                 rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
-                width="100%", padding_x="0", size="sm"
+                width="100%",
+                padding_x="0",
+                size="sm",
             ),
-            align_items="left", padding_bottom="2em"
+            align_items="left",
+            padding_bottom="2em",
         )
 
     def generate_event_triggers(comp):
         default_triggers = rx.Component.create().get_event_triggers().keys()
-        custom_events = [event for event in comp().get_event_triggers().keys() if event not in default_triggers and event != "on_drop"]
+        custom_events = [
+            event
+            for event in comp().get_event_triggers().keys()
+            if event not in default_triggers and event != "on_drop"
+        ]
 
         if not custom_events:
             return rx.vstack(
                 rx.heading("Event Triggers", font_size="1em"),
                 rx.text("No component specific event triggers"),
-                width="100%", overflow_x="auto", align_items="left", padding_y=".5em"
+                width="100%",
+                overflow_x="auto",
+                align_items="left",
+                padding_y=".5em",
             )
-        
+
         return rx.vstack(
             rx.heading("Event Triggers", font_size="1em"),
             rx.table(
-                rx.thead(rx.tr(rx.th("Trigger", padding_left="0"), rx.th("Description", padding_left="0"))),
-                rx.tbody(*[rx.tr(rx.td(rx.code(event), padding_left="0"), rx.td(rx.text(EVENTS[event]["description"]))) for event in custom_events]),
-                width="100%"
+                rx.thead(
+                    rx.tr(
+                        rx.th("Trigger", padding_left="0"),
+                        rx.th("Description", padding_left="0"),
+                    )
+                ),
+                rx.tbody(
+                    *[
+                        rx.tr(
+                            rx.td(rx.code(event), padding_left="0"),
+                            rx.td(rx.text(EVENTS[event]["description"])),
+                        )
+                        for event in custom_events
+                    ]
+                ),
+                width="100%",
             ),
-            width="100%", overflow_x="auto", align_items="left"
+            width="100%",
+            overflow_x="auto",
+            align_items="left",
         )
 
     def generate_valid_children(comp):
         if not comp._valid_children:
             return rx.text("")
-        
-        valid_children = [rx.wrap_item(rx.code(child)) for child in comp._valid_children]
+
+        valid_children = [
+            rx.wrap_item(rx.code(child)) for child in comp._valid_children
+        ]
         return rx.vstack(
             rx.heading("Valid Children", font_size="1em"),
             rx.wrap(*valid_children),
-            width="100%", align_items="left", padding_y=".5em"
+            width="100%",
+            align_items="left",
+            padding_y=".5em",
         )
 
     src = Source(component=component)
@@ -443,10 +476,13 @@ def component_docs(component):
         rx.heading(component.__name__, font_size="2em"),
         rx.divider(),
         rx.box(rx.markdown(src.get_docs()), padding_bottom="1em"),
-        props, children, triggers,
-        text_align="left", width="100%", padding_bottom="2em"
+        props,
+        children,
+        triggers,
+        text_align="left",
+        width="100%",
+        padding_bottom="2em",
     )
-
 
 
 tab_style = {
