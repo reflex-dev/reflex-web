@@ -57,7 +57,7 @@ Reflex's recommended environment manager for macOS and Linux is [venv]({constant
 On Ubuntu with Python 3 we must run the command:
 
 ```bash
-$ sudo apt-get install python3-pip python3-venv
+sudo apt-get install python3-pip python3-venv
 ```
 
 
@@ -66,15 +66,15 @@ $ sudo apt-get install python3-pip python3-venv
 1. Create a new project folder and navigate to it. Replace `{app_name}` with your project name:
 
 ```bash
-$ mkdir {app_name}
-$ cd {app_name}
+mkdir {app_name}
+cd {app_name}
 ```
 
 2. Create a new virtual environment in that folder and activate that environment:
 
 ```bash
-$ python3 -m venv .venv
-$ source .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
@@ -84,13 +84,13 @@ When you run the command above, a directory called .venv will appear in the fold
 3. Reflex is available as a [pip](constants.PIP_URL) package. Install Reflex in your environment:
 
 ```bash
-$ pip install reflex
+pip install reflex
 ```
 
 4. Installing Reflex also installs the `reflex` command line tool. Test that the install was successful by running:
 
 ```bash
-$ reflex init
+reflex init
 ```
 
 This initializes a template app in your new directory.
@@ -99,7 +99,7 @@ This initializes a template app in your new directory.
 5. Run the demo app to get an idea of what you can build with Reflex:
 
 ```bash
-$ reflex demo
+reflex demo
 ```
 
 
@@ -158,7 +158,7 @@ This initializes a template app in your new directory.
 5. Run the demo app to get an idea of what you can build with Reflex:
 
 ```bash
-$ reflex demo
+reflex demo
 ```
 
 
@@ -177,7 +177,7 @@ rx.box(height=8)
 You can run this app in development mode:
 
 ```bash
-$ reflex run
+reflex run
 ```
 
 You should see your app running at [http://localhost:3000](http://localhost:3000).
@@ -192,5 +192,5 @@ Reflex has fast refreshes when running in development mode. You can modify the s
 You can debug your app by setting the `--loglevel` flag on any reflex command.
 
 ```bash
-$ reflex run --loglevel debug
+reflex run --loglevel debug
 ```

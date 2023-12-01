@@ -35,7 +35,7 @@ You can override the configuration file by setting environment variables.
 For example, to override the `frontend_port` setting, you can set the `FRONTEND_PORT` environment variable.
 
 ```bash
-$ FRONTEND_PORT=3001 reflex run
+FRONTEND_PORT=3001 reflex run
 ```
 
 ## Command Line Arguments
@@ -43,7 +43,7 @@ $ FRONTEND_PORT=3001 reflex run
 Finally, you can override the configuration file and environment variables by passing command line arguments to `reflex run`.
 
 ```bash
-$ reflex run --frontend-port 3001
+reflex run --frontend-port 3001
 ```
 
 See the [CLI reference]({cli_api_ref_url}) for all the arguments available.

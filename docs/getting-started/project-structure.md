@@ -9,9 +9,9 @@ app_name = "hello"
 Let's create a new app called `{app_name}`
 
 ```bash
-$ mkdir {app_name}
-$ cd {app_name}
-$ reflex init
+mkdir {app_name}
+cd {app_name}
+reflex init
 ```
 
 This will create a directory structure like this:
