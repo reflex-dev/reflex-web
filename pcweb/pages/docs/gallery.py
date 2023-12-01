@@ -227,7 +227,6 @@ community_apps_list = [
         "url": "https://fynesse.reflex.run",
         "source": "https://github.com/wightwick/fynesse",
     },
-    
 ]
 
 
@@ -271,7 +270,7 @@ list_of_tags = create_list_of_tags(apps_df)
 class SideBarState(State):
     """Side Bar State"""
 
-    community_apps_list : list[dict[str, str]] = community_apps_list
+    community_apps_list: list[dict[str, str]] = community_apps_list
 
     chosen_tags_dict: dict[str, bool] = {key: False for key in list_of_tags}
 
@@ -462,19 +461,20 @@ def gallery_with_no_sidebar():
                 rx.divider(),
                 rx.text(
                     "Here are some examples of what the community has made with Reflex. ",
-                    margin_bottom="1em"
+                    margin_bottom="1em",
                 ),
                 community_component_grid(),
                 rx.alert(
                     rx.alert_icon(),
                     rx.alert_title(
-                        "If you have an app you'd like to share, please fill out this ", 
+                        "If you have an app you'd like to share, please fill out this ",
                         rx.link(
-                            rx.text("form", as_="b"), 
+                            rx.text("form", as_="b"),
                             href="https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link",
                             color="rgb(107,99,246)",
                         ),
-                        "."),
+                        ".",
+                    ),
                     status="info",
                     margin_top="2em",
                 ),

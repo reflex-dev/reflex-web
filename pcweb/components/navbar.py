@@ -186,14 +186,16 @@ class NavbarState(State):
 
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
-        
+
         # Check if the email is valid.
         if "email" in form_data:
             self.email = form_data["email"]
 
         if len(feedback) < 10 or len(feedback) > 500:
-            return rx.window_alert("Please enter your feedback. Between 10 and 500 characters.")
-        
+            return rx.window_alert(
+                "Please enter your feedback. Between 10 and 500 characters."
+            )
+
         current_page_route = self.get_current_page()
 
         discord_message = f"""
@@ -515,10 +517,7 @@ def my_form():
     common_shadow_style = {
         "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;"
     }
-    placeholder_style = {
-        "color": "#A9A7B1",
-        "font_weight": "400"
-    }
+    placeholder_style = {"color": "#A9A7B1", "font_weight": "400"}
     common_input_style = {
         "width": "100%",
         "font_size": ".8em",
@@ -531,18 +530,32 @@ def my_form():
     }
 
     # Create input and text area elements
-    email_input = rx.input(placeholder="Email (optional)", id="email", type_="email", **common_input_style)
-    feedback_text_area = rx.text_area(placeholder="Your Feedback...", id="feedback", **common_input_style)
+    email_input = rx.input(
+        placeholder="Email (optional)", id="email", type_="email", **common_input_style
+    )
+    feedback_text_area = rx.text_area(
+        placeholder="Your Feedback...", id="feedback", **common_input_style
+    )
 
     # Create button element
-    submit_button = rx.hstack(rx.spacer(), rx.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT), width="100%")
+    submit_button = rx.hstack(
+        rx.spacer(),
+        rx.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT),
+        width="100%",
+    )
 
     # Form container with vertical stack
-    form_container = rx.vstack(email_input, feedback_text_area, submit_button, padding_x=".5em", width="100%")
+    form_container = rx.vstack(
+        email_input, feedback_text_area, submit_button, padding_x=".5em", width="100%"
+    )
 
     # Return the complete form
-    return rx.form(form_container, on_submit=NavbarState.handle_submit, padding_bottom=".2em", width="100%")
-
+    return rx.form(
+        form_container,
+        on_submit=NavbarState.handle_submit,
+        padding_bottom=".2em",
+        width="100%",
+    )
 
 
 def feedback_indicator(icon, score):
@@ -597,7 +610,7 @@ def feedback_button_nav():
                     ),
                     my_form(),
                 ),
-                opacity=".5"
+                opacity=".5",
             ),
         ),
         display=["none", "none", "none", "none", "none", "flex"],
