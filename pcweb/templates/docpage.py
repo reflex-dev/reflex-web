@@ -20,22 +20,33 @@ from pcweb.components.logo import navbar_logo
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
-        rx.box(
-            rx.code_block(
-                code,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="light",
-                background="transparent",
-                language=language,
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
+        rx.code_block(
+            code,
             border_radius=styles.DOC_BORDER_RADIUS,
-            border="2px solid #F4F3F6",
+            theme="light",
+            background="transparent",
+            language=language,
+            code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
         ),
+        rx.button(
+            rx.icon(tag="copy"),
+            on_click=rx.set_clipboard(code),
+            position="absolute",
+            top="0.5em",
+            right="0.5em",
+            color=tc["docs"]["body"],
+            background="transparent",
+            _hover={
+                "background": "transparent",
+                "color": styles.ACCENT_COLOR,
+            },
+        ),
+        border_radius=styles.DOC_BORDER_RADIUS,
+        border="2px solid #F4F3F6",
         position="relative",
         margin_bottom="1em",
         width="100%",
