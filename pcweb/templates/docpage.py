@@ -347,8 +347,8 @@ def docheader(
     Returns:
         The styled header.
     """
-    # id_ = "-".join(text.lower().split())
-    # href = State.current_page + "#" + id_
+    id_ = "-".join(text.lower().split())
+    href = State.current_page + "#" + id_
 
     # Return the header.
     return rx.box(
@@ -389,12 +389,34 @@ def docheader(
 
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
+    id_ = text.to(list[str])[0].lower().split().join("-")
+    href = State.current_page + "#" + id_
+
     return rx.box(
-        rx.heading(
-            text,
-            as_="h1",
-            font_size=styles.H1_FONT_SIZE,
-            font_weight=fw["heading"],
+        rx.link(
+            rx.hstack(
+                rx.heading(
+                    text,
+                    id=id_,
+                    as_="h1",
+                    font_size=styles.H1_FONT_SIZE,
+                    font_weight=fw["heading"],
+                ),
+                rx.icon(
+                    tag="link",
+                    color="#696287",
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
+                ),
+                align_items="center",
+            ),
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
@@ -404,12 +426,34 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
 
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
+    id_ = text.to(list[str])[0].lower().split().join("-")
+    href = State.current_page + "#" + id_
+
     return rx.box(
-        rx.heading(
-            text,
-            as_="h2",
-            font_size=styles.H3_FONT_SIZE,
-            font_weight=fw["subheading"],
+        rx.link(
+            rx.hstack(
+                rx.heading(
+                    text,
+                    id=id_,
+                    as_="h2",
+                    font_size=styles.H3_FONT_SIZE,
+                    font_weight=fw["subheading"],
+                ),
+                rx.icon(
+                    tag="link",
+                    color="#696287",
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
+                ),
+                align_items="center",
+            ),
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
         margin_top="1.5em",
@@ -420,12 +464,34 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
 
 @rx.memo
 def h3_comp(text: rx.Var[str]) -> rx.Component:
+    id_ = text.to(list[str])[0].lower().split().join("-")
+    href = State.current_page + "#" + id_
+
     return rx.box(
-        rx.heading(
-            text,
-            as_="h3",
-            font_size=styles.H4_FONT_SIZE,
-            font_weight=fw["subheading"],
+        rx.link(
+            rx.hstack(
+                rx.heading(
+                    text,
+                    id=id_,
+                    as_="h3",
+                    font_size=styles.H4_FONT_SIZE,
+                    font_weight=fw["subheading"],
+                ),
+                rx.icon(
+                    tag="link",
+                    color="#696287",
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
+                ),
+                align_items="center",
+            ),
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
         margin_top="1.5em",
