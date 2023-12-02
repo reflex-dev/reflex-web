@@ -5,7 +5,7 @@ import reflex as rx
 
 from pcweb.route import Route
 
-DEFAULT_TITLE = "Reflex: The easiest way to build web apps."
+DEFAULT_TITLE = "Web Apps in Pure Python"
 
 
 def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:

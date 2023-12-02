@@ -1116,7 +1116,7 @@ def installation():
     )
 
 
-@webpage(path="/")
+@webpage(path="/", title="Reflex: Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(

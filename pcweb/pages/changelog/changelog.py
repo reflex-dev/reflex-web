@@ -136,7 +136,7 @@ def changelog_content():
     )
 
 
-@webpage(path="/changelog")
+@webpage(path="/changelog", title="Changelog")
 def changelog_display():
     return rx.container(
         rx.vstack(

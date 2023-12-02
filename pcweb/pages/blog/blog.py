@@ -131,7 +131,7 @@ def component_grid():
     )
 
 
-@webpage(path="/blog")
+@webpage(path="/blog", title="Blog")
 def blg():
     return rx.container(
         rx.vstack(
@@ -156,26 +156,32 @@ def blg():
     )
 
 
-@webpage(path="/blog/2023-08-02-seed-annoucement")
+@webpage(path="/blog/2023-08-02-seed-annoucement", title="Seed Annoucement")
 def seed():
     return page(blogs["blog/2023-08-02-seed-annoucement"])
 
 
-@webpage(path="/blog/2023-06-28-rebrand-to-reflex")
+@webpage(path="/blog/2023-06-28-rebrand-to-reflex", title="Rebrand to Reflex")
 def rebrand():
     return page(blogs["blog/2023-06-28-rebrand-to-reflex"])
 
 
-@webpage(path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks")
+@webpage(
+    path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks",
+    title="Unlocking New Workflows with Background Tasks",
+)
 def background_tasks():
     return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"])
 
 
-@webpage(path="/blog/2023-10-11-graphing-update")
+@webpage(path="/blog/2023-10-11-graphing-update", title="Graphing Update")
 def graphing_update():
     return page(blogs["blog/2023-10-11-graphing-update"])
 
 
-@webpage(path="/blog/2023-10-25-implementing-sign-in-with-google")
+@webpage(
+    path="/blog/2023-10-25-implementing-sign-in-with-google",
+    title="Implementing Sign In with Google",
+)
 def sign_in_with_google():
     return page(blogs["blog/2023-10-25-implementing-sign-in-with-google"])

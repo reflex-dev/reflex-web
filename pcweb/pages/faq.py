@@ -112,7 +112,7 @@ def faq_item(question, answer, index):
     )
 
 
-@webpage(path="/faq")
+@webpage(path="/faq", title="FAQ")
 def faq():
     return rx.container(
         rx.vstack(
