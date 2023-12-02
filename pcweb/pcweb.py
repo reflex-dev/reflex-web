@@ -31,7 +31,7 @@ for route in routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex",
+        route.title,
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
         image="/previews/index_preview.png",
     )
@@ -41,7 +41,7 @@ for route in blog_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Blog",
+        route.title,
         description="Keep up to date with the latest Reflex news.",
         image="/previews/blog_preview.png",
     )
@@ -51,7 +51,7 @@ for route in doc_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Docs",
+        route.title,
         description="Learn how to build web apps in pure Python.",
         image="/previews/docs_preview.png",
     )
@@ -61,7 +61,7 @@ for route in changelog_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Changelog",
+        route.title,
         description="Keep up to date with the latest Reflex news.",
         image="/previews/changelog_preview.png",
     )
@@ -71,7 +71,7 @@ for route in faq_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | FAQ",
+        route.title,
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
     )
@@ -86,7 +86,7 @@ for key in component_list:
             app.add_page(
                 multi_docs(path=path, component_list=component_group).component,
                 route=path,
-                title=f"Reflex | {component_group[0].__name__}",
+                title=component_group[0].__name__,
                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
                 image="/previews/index_preview.png",
             )

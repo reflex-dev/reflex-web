@@ -197,7 +197,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
         # Set the page title.
         if t is None:
-            title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
+            title = contents.__name__.replace("_", " ").title()
         else:
             title = t
 

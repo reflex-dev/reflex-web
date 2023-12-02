@@ -85,7 +85,7 @@ def sidebar_link(*children, **props):
 def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
     if children is None:
-        name = route.title.split(" | Reflex")[0]
+        name = route.title
         if name.endswith("Overview"):
             # For "Overview", we want to keep the qualifier prefix ("Components overview")
             alt_name_for_next_prev = name
