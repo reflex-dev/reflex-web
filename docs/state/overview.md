@@ -5,11 +5,12 @@ from pcweb.templates.docpage import definition, docalert, docdemo_from
 
 # State
 
-State allows us to create interactive apps that can respond to user input. It defines the variables that can change over time, and the functions that can modify them.
+State allows us to create interactive apps that can respond to user input.
+It defines the variables that can change over time, and the functions that can modify them.
 
 ## State Basics
 
-In your reflex app, a base state is defined as a class that inherits from `rx.State`.
+You can define state by creating a class that inherits from `rx.State`:
 
 ```python
 import reflex as rx
@@ -18,24 +19,8 @@ import reflex as rx
 class State(rx.State):
     """Define your app state here."""
 ```
-You can also define multiple states in your app based on your needs. 
 
-```python
-class LoginState(rx.State):
-    email: str
-    password: str
-                
-class RegisterState(rx.State):
-    first_name: str
-    last_name: str
-    email: str
-    password: str
-
-```
-(In the example above, we define two states to each handle login and registration logic respectively)
-
-
-State is made up of two parts: vars and event handlers.
+A state class is made up of two parts: vars and event handlers.
 
 **Vars** are variables in your app that can change over time. 
 
@@ -50,7 +35,7 @@ rx.responsive_grid(
         rx.unordered_list(
             rx.list_item("Any variable in your app that can change over time."),
             rx.list_item(
-                "Defined as a field in the ", rx.code("State"), " class"
+                "Defined as a field in a ", rx.code("State"), " class"
             ),
             rx.list_item("Can only be modified by event handlers."),
         ),
@@ -109,15 +94,13 @@ Here is a example of how to use state within a Reflex app.
 Click the text to change its color.
 
 ```python exec
-from typing import List
-
 from pcweb.base_state import State
 
 
 class ExampleState(State):
 
     # A base var for the list of colors to cycle through.
-    colors: List[str] = ["black", "red", "green", "blue", "purple"]
+    colors: list[str] = ["black", "red", "green", "blue", "purple"]
 
     # A base var for the index of the current color.
     index: int = 0
