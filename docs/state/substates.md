@@ -5,63 +5,118 @@ from pcweb.templates.docpage import docdemo_from
 ```
 
 # Substates
-As your app grows, your state will grow too.  You can split your state into
-multiple substates from your base state to keep things organized.
 
-## Creating a Substate
-Your base state should inherit from `rx.State`. Substates can either inherit
-from your base state or other substates.
-
-```python exec
-class ParentState(State):
-    checked: bool = True
-    count: int = 0
+Substates allow you to break up your state into multiple classes to make it more manageable. This is useful as your app grows, as it allows you to think about each page as a separate entity. Substates also allow you to share common state resources, such as variables or event handlers.
 
 
-class ChildState1(ParentState):
-    value: int = 42
+## Multiple States
+
+One common pattern is to create a substate for each page in your app.
+This allows you to think about each page as a separate entity, and makes it easier to manage your code as your app grows.
+
+To create a substate, simply inherit from `rx.State` multiple times:
+
+```python
+# index.py
+import reflex as rx
+
+class IndexState(rx.State):
+    """Define your main state here."""
+    data: str = "Hello World"
 
 
-class ChildState2(ParentState):
-    color: str = "red"
+@rx.page()
+def index():
+    return rx.box(rx.text(IndexState.data)
+
+# signup.py
+import reflex as rx
 
 
-class ChildState3(ChildState1):
-    text: str = "Hello World"
+class SignupState(rx.State):
+    """Define your signup state here."""
+    username: str = ""
+    password: str = ""
+
+    def signup(self):
+        ...
 
 
-def my_badge():
-    return rx.badge(ChildState3.text, color_scheme=ChildState2.color)
+@rx.page()
+def signup_page():
+    return rx.box(
+        rx.input(value=SignupState.username),
+        rx.input(value=SignupState.password),
+    )
+
+# login.py
+import reflex as rx
+
+class LoginState(rx.State):
+    """Define your login state here."""
+    username: str = ""
+    password: str = ""
+
+    def login(self):
+        ...
+
+@rx.page()
+def login_page():
+    return rx.box(
+        rx.input(value=LoginState.username),
+        rx.input(value=LoginState.password),
+    )
 ```
 
-```python eval
-docdemo_from(
-    ParentState,
-    ChildState1,
-    ChildState2,
-    ChildState3,
-    component=my_badge,
-)
+Separating the states is purely a matter of organization. You can still access the state from other pages by importing the state class.
+
+```python
+# index.py
+
+import reflex as rx
+
+from signup import SignupState
+
+...
+
+def index():
+    return rx.box(
+        rx.text(IndexState.data),
+        rx.input(value=SignupState.username),
+        rx.input(value=SignupState.password),
+    )
 ```
 
-In the example above, we have a base state, `ParentState`, with two substates
-`ChildState1` and `ChildState2`. Additionally, `ChildState3` inherits from
-`ChildState1`. Components can access any var or event handler from any substate.
+## State Inheritance
 
-A common use case may be to create a substate for each page of your app, while
-keeping general vars such as the logged in user in the base state for easy
-access.
+A substate can also inherit from another substate other than `rx.State`, allowing you to create a hierarchy of states.
 
-## Accessing Parent State Properties
+
+For example, you can create a base state that defines variables and event handlers that are common to all pages in your app, such as the current logged in user.
+
+```python
+class BaseState(rx.State):
+    """Define your base state here."""
+
+    current_user: str = ""
+
+    def logout(self):
+        self.current_user = ""
+
+
+class LoginState(BaseState):
+    """Define your login state here."""
+
+    username: str = ""
+    password: str = ""
+
+    def login(self, username, password):
+        # authenticate
+        authenticate(...)
+
+        # Set the var on the parent state. 
+        self.current_user = username
+```
 
 You can access the parent state properties from a child substate, however you
 cannot access the child properties from the parent state.
-
-```python exec
-def my_heading():
-    return rx.heading(ChildState3.count, color="green")
-```
-
-```python eval
-docdemo_from(component=my_heading)
-```
