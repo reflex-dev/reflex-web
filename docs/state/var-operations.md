@@ -94,7 +94,7 @@ rx.alert(
 
 Var operations allow us to change vars on the front-end without having to create more computed vars on the back-end in the state.
 
-The `==` var operator is used to check if two vars are equal. The `to_string()` var operator is used to convert a var to a string.
+Some simple examples are the `==` var operator, which is used to check if two vars are equal and the `to_string()` var operator, which is used to convert a var to a string.
 
 ```python exec
 
@@ -143,11 +143,11 @@ class VarOperationState(State):
 
 def var_operation_example():
     return rx.vstack(
-        rx.heading(f"The number is {VarOperationState.number}"),
+        rx.heading(f"The number: {VarOperationState.number}", size="lg"),
     
-        rx.text(f"The negated number is {-VarOperationState.number}"),
-        rx.text(f"The absolute value of the number is {abs(VarOperationState.number)}"),
-        rx.text(f"Number of values seen so far {VarOperationState.numbers_seen.length()}"),
+        rx.heading(f"The negated number is {-VarOperationState.number}", size="md"),
+        rx.heading(f"The absolute value of the number is {abs(VarOperationState.number)}", size="md"),
+        rx.heading(f"Number of values seen so far {VarOperationState.numbers_seen.length()}", size="md"),
         rx.button("Update", on_click=VarOperationState.update),
     )
 ```
@@ -175,20 +175,20 @@ class VarComparisonState(State):
 
 def var_comparison_example():
     return rx.vstack(
-        rx.heading(f"Integer 1 is {VarComparisonState.number_1}"),
-        rx.heading(f"Integer 2 is {VarComparisonState.number_2}"),
+        rx.heading(f"Integer 1: {VarComparisonState.number_1}", size="lg"),
+        rx.heading(f"Integer 2: {VarComparisonState.number_2}", size="lg"),
         # Var operations can be composed for more complex expressions.
         
-        rx.text(f"Integer 1 and Integer 2 are equal (==): {VarComparisonState.number_1 == VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 and Integer 2 are not equal (!=): {VarComparisonState.number_1 != VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 is larger than Integer 2 (>): {VarComparisonState.number_1 > VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 is larger than or equal to Integer 2 (>=): {VarComparisonState.number_1 >= VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 is less than Integer 2 (<): {VarComparisonState.number_1 < VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 is less than or equal Integer 2 (<=): {VarComparisonState.number_1 <= VarComparisonState.number_2}"),
-        rx.text(f"Sum of Integer 1 and Integer 2 (+): {VarComparisonState.number_1 + VarComparisonState.number_2}"),
-        rx.text(f"Take Integer 2 away from Integer 1 (-): {VarComparisonState.number_1 - VarComparisonState.number_2}"),
-        rx.text(f"Multiplication of Integer 1 and Integer 2 (*): {VarComparisonState.number_1 * VarComparisonState.number_2}"),
-        rx.text(f"Integer 1 to the power of Integer 2 (pow()): {pow(VarComparisonState.number_1, VarComparisonState.number_2)}"),
+        rx.heading(f"Integer 1 and Integer 2 are equal (==): {VarComparisonState.number_1 == VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 and Integer 2 are not equal (!=): {VarComparisonState.number_1 != VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 is larger than Integer 2 (>): {VarComparisonState.number_1 > VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 is larger than or equal to Integer 2 (>=): {VarComparisonState.number_1 >= VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 is less than Integer 2 (<): {VarComparisonState.number_1 < VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 is less than or equal Integer 2 (<=): {VarComparisonState.number_1 <= VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Sum of Integer 1 and Integer 2 (+): {VarComparisonState.number_1 + VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Take Integer 2 away from Integer 1 (-): {VarComparisonState.number_1 - VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Multiplication of Integer 1 and Integer 2 (*): {VarComparisonState.number_1 * VarComparisonState.number_2}", size="md"),
+        rx.heading(f"Integer 1 to the power of Integer 2 (pow()): {pow(VarComparisonState.number_1, VarComparisonState.number_2)}", size="md"),
         rx.button("Update", on_click=VarComparisonState.update),
     )
 ```
@@ -214,12 +214,12 @@ class VarDivState(State):
 
 def var_div_example():
     return rx.vstack(
-        rx.heading(f"Integer 1 is {VarDivState.number_1}"),
-        rx.heading(f"Integer 2 is {VarDivState.number_2}"),
+        rx.heading(f"Integer 1: {VarDivState.number_1}", size="lg"),
+        rx.heading(f"Integer 2: {VarDivState.number_2}", size="lg"),
         
-        rx.text(f"True Division of Integer 1 and Integer 2 (/): {VarDivState.number_1 / VarDivState.number_2}"),
-        rx.text(f"Floor Division of Integer 1 and Integer 2 (//): {VarDivState.number_1 // VarDivState.number_2}"),
-        rx.text(f"Remainder of Integer 1 and Integer 2 (%): {VarDivState.number_1 % VarDivState.number_2}"),
+        rx.heading(f"True Division of Integer 1 and Integer 2 (/): {VarDivState.number_1 / VarDivState.number_2}", size="md"),
+        rx.heading(f"Floor Division of Integer 1 and Integer 2 (//): {VarDivState.number_1 // VarDivState.number_2}", size="md"),
+        rx.heading(f"Remainder of Integer 1 and Integer 2 (%): {VarDivState.number_1 % VarDivState.number_2}", size="md"),
         
         rx.button("Update", on_click=VarDivState.update),
     )
@@ -249,12 +249,12 @@ class VarLogicalState(State):
 
 def var_logical_example():
     return rx.vstack(
-        rx.heading(f"Var 1 is {VarLogicalState.var_1}"),
-        rx.heading(f"Var 2 is {VarLogicalState.var_2}"),
+        rx.heading(f"Var 1: {VarLogicalState.var_1}", size="lg"),
+        rx.heading(f"Var 2: {VarLogicalState.var_2}", size="lg"),
         
-        rx.text(f"Logical AND: {VarLogicalState.var_1 & VarLogicalState.var_2}"),
-        rx.text(f"Logical OR: {VarLogicalState.var_1 | VarLogicalState.var_2}"),
-        rx.text(f"The inverted var is {~VarOperationState.number}"),
+        rx.heading(f"Logical AND (&): {VarLogicalState.var_1 & VarLogicalState.var_2}", size="md"),
+        rx.heading(f"Logical OR (|): {VarLogicalState.var_1 | VarLogicalState.var_2}", size="md"),
+        rx.heading(f"The invert of Var 1 (~): {~VarLogicalState.var_1}", size="md"),
 
         rx.button("Update", on_click=VarLogicalState.update),
     )
@@ -282,12 +282,13 @@ class VarListState(State):
 
 def var_list_example():
     return rx.vstack(
-        rx.heading(f"List 1 is {VarListState.list_1}"),
-        rx.heading(f"List 2 is {VarListState.list_2}"),
+        rx.heading(f"List 1: {VarListState.list_1}", size="lg"),
+        rx.heading(f"List 2: {VarListState.list_2}", size="lg"),
+        rx.heading(f"List 3: {VarListState.list_3}", size="lg"),
         
-        rx.text(f"Does List 1 contain the number 3: {VarListState.list_1.contains(3)}"),
-        rx.text(f"Reverse List 2: {VarListState.list_2.reverse()}"),
-        rx.text(f"Join List 3 into string: {VarListState.list_3.join()}"),
+        rx.heading(f"Does List 1 contain the number 3: {VarListState.list_1.contains(3)}", size="md"),
+        rx.heading(f"Reverse List 2: {VarListState.list_2.reverse()}", size="md"),
+        rx.heading(f"Join List 3 into string: {VarListState.list_3.join()}", size="md"),
 
     )
 ```
@@ -310,12 +311,12 @@ class VarStringState(State):
 
 def var_string_example():
     return rx.vstack(
-        rx.heading(f"List 1 is {VarStringState.string_1}"),
-        rx.heading(f"List 2 is {VarStringState.string_2}"),
+        rx.heading(f"List 1: {VarStringState.string_1}", size="lg"),
+        rx.heading(f"List 2: {VarStringState.string_2}", size="lg"),
 
-        rx.heading(f"Lower Case output: {VarStringState.string_1.lower()}"),
-        rx.heading(f"Upper Case output: {VarStringState.string_2.upper()}"),
-        rx.heading(f"Split String 2: {VarStringState.string_2.split()}"),   
+        rx.heading(f"Lower Case output of List 1: {VarStringState.string_1.lower()}", size="md"),
+        rx.heading(f"Upper Case output of List 2: {VarStringState.string_2.upper()}", size="md"),
+        rx.heading(f"Split String 2: {VarStringState.string_2.split()}", size="md"),   
     )
 ```
 
@@ -324,6 +325,152 @@ docdemo_from(VarStringState, component=var_string_example)
 ```
 
 
+## Get Item (Indexing)
+
+Indexing is only supported for strings, lists, tuples, dicts, and dataframes. To index into a state var strict type annotations are required.
+
+```python
+class GetItemState1(State):
+    list_1: list = [50, 10, 20]
+
+def get_item_error_1():
+    return rx.vstack(
+        rx.circular_progress(value=GetItemState1.list_1[0])
+    )
+```
+
+
+In the code above you would expect to index into the first index of the list_1 state var. In fact the code above throws the error: `Invalid var passed for prop value, expected type <class 'int'>, got value of type typing.Any.` This is because the type of the items inside the list have not been clearly defined in the state. To fix this you change the list_1 defintion to `list_1: list[int] = [50, 10, 20]`
+
+```python exec
+class GetItemState1(State):
+    list_1: list[int] = [50, 10, 20]
+
+def get_item_error_1():
+    return rx.vstack(
+        rx.circular_progress(value=GetItemState1.list_1[0])
+    )
+```
+
+```python eval
+docdemo_from(GetItemState1, component=get_item_error_1)
+```
+
+
+### Using with Foreach
+
+Errors frequently occur when using indexing and `foreach`. 
+
+```python
+class ProjectsState(rx.State):
+    projects: List[dict] = [
+        {
+            "technologies": ["Next.js", "Prisma", "Tailwind", "Google Cloud", "Docker", "MySQL"]
+        },
+        {
+            "technologies": ["Python", "Flask", "Google Cloud", "Docker"]
+        }
+    ]
+
+def get_badge(technology: str) -> rx.Component:
+    return rx.badge(technology, variant="subtle", color_scheme="green")
+
+def project_item(project: dict):
+
+    return rx.box(
+        rx.hstack(            
+            rx.foreach(project["technologies"], get_badge)
+        ),
+    )
+```
+The code above throws the error `TypeError: Could not foreach over var of type Any. (If you are trying to foreach over a state var, add a type annotation to the var.)`
+
+We must change `projects: list[dict]` => `projects: list[dict[str, list]]` because while projects is annotated, the item in project["technologies"] is not.
+
+
+
+```python exec
+class ProjectsState(rx.State):
+    projects: list[dict[str, list]] = [
+        {
+            "technologies": ["Next.js", "Prisma", "Tailwind", "Google Cloud", "Docker", "MySQL"]
+        },
+        {
+            "technologies": ["Python", "Flask", "Google Cloud", "Docker"]
+        }
+    ]
+
+
+def projects_example() -> rx.Component:
+    def get_badge(technology: str) -> rx.Component:
+        return rx.badge(technology, variant="subtle", color_scheme="green")
+
+    def project_item(project: dict) -> rx.Component:
+
+        return rx.box(
+            rx.hstack(            
+                rx.foreach(project["technologies"], get_badge)
+            ),
+        )
+    return rx.box(rx.foreach(ProjectsState.projects, project_item))
+```
+
+```python eval
+docdemo_from(ProjectsState, component=projects_example)
+```
+
+
+The previous example had only a single type for each of the dictionaries `keys` and `values`. For complex multi-type data, you need to use a `Base var`, as shown below.
+
+```python exec
+
+class ActressType(rx.Base):
+    actress_name: str
+    age: int
+    pages: list[dict[str, str]]
+
+class MultiDataTypeState(rx.State):
+    """The app state."""
+    actresses: list[ActressType] = [
+        ActressType(
+            actress_name="Ariana Grande",
+            age=30,
+            pages=[
+                {"url": "arianagrande.com"}, {"url": "https://es.wikipedia.org/wiki/Ariana_Grande"}
+            ]
+        ),
+        ActressType(
+            actress_name="Gal Gadot",
+            age=38,
+            pages=[
+                {"url": "http://www.galgadot.com/"}, {"url": "https://es.wikipedia.org/wiki/Gal_Gadot"}
+            ]
+        )
+    ] 
+
+def actresses_example() -> rx.Component:
+    def showpage(page: dict[str, str]):
+        return rx.vstack(
+            rx.text(page["url"]),
+        )
+
+    def showlist(item: ActressType):
+        return rx.vstack(
+            rx.hstack(
+                rx.text(item.actress_name),
+                rx.text(item.age),
+            ),
+            rx.foreach(item.pages, showpage),
+        )
+    return rx.box(rx.foreach(MultiDataTypeState.actresses, showlist))
+
+```
+
+```python eval
+docdemo_from(ActressType, MultiDataTypeState, component=actresses_example)
+```
+
+Setting the type of `actresses` to be `actresses: list[dict[str,str]]` would fail as it cannot be understood that the `value` for the `pages key` is actually a `list`.
 
 
 
@@ -343,7 +490,7 @@ class VarNumberState(State):
 
 def var_number_example():
     return rx.vstack(
-        rx.heading(f"The number is {VarNumberState.number}"),
+        rx.heading(f"The number is {VarNumberState.number}", size="lg"),
         # Var operations can be composed for more complex expressions.
         rx.cond(
             VarNumberState.number % 2 == 0,
