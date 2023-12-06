@@ -75,6 +75,13 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2023-12-06",
+            "v0.3.6",
+            "rx.el components working with State",
+            [],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.6",
+        ),
+        change(
             "2023-12-05",
             "v0.3.5",
             "Performance Improvements",
