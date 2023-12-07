@@ -174,21 +174,27 @@ class VarComparisonState(State):
         self.number_2 = random.randint(-10, 10)
 
 def var_comparison_example():
+    
     return rx.vstack(
-        rx.heading(f"Integer 1: {VarComparisonState.number_1}", size="lg"),
-        rx.heading(f"Integer 2: {VarComparisonState.number_2}", size="lg"),
-        # Var operations can be composed for more complex expressions.
-        
-        rx.heading(f"Integer 1 and Integer 2 are equal (==): {VarComparisonState.number_1 == VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 and Integer 2 are not equal (!=): {VarComparisonState.number_1 != VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 is larger than Integer 2 (>): {VarComparisonState.number_1 > VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 is larger than or equal to Integer 2 (>=): {VarComparisonState.number_1 >= VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 is less than Integer 2 (<): {VarComparisonState.number_1 < VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 is less than or equal Integer 2 (<=): {VarComparisonState.number_1 <= VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Sum of Integer 1 and Integer 2 (+): {VarComparisonState.number_1 + VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Take Integer 2 away from Integer 1 (-): {VarComparisonState.number_1 - VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Multiplication of Integer 1 and Integer 2 (*): {VarComparisonState.number_1 * VarComparisonState.number_2}", size="md"),
-        rx.heading(f"Integer 1 to the power of Integer 2 (pow()): {pow(VarComparisonState.number_1, VarComparisonState.number_2)}", size="md"),
+        rx.table_container(
+            rx.table(
+                headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
+                rows=[
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "are equal (==)", f"{VarComparisonState.number_1 == VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "are not equal (!=)", f"{VarComparisonState.number_1 != VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is larger than Int 2 (>)", f"{VarComparisonState.number_1 > VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is larger than or equal Int 2 (>=)", f"{VarComparisonState.number_1 >= VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is less than Int 2 (<)", f"{VarComparisonState.number_1 < VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is less than or equal Int 2 (<=)", f"{VarComparisonState.number_1 <= VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Sum of Int 1 and Int 2 (+)", f"{VarComparisonState.number_1 + VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Take Int 2 away from Int 1 (-)", f"{VarComparisonState.number_1 - VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Multiplication of Int 1 and Int 2 (*)", f"{VarComparisonState.number_1 * VarComparisonState.number_2}"),
+                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 to the power of Int 2 (pow())", f"{pow(VarComparisonState.number_1, VarComparisonState.number_2)}"),
+                ],
+                variant="striped",
+                color_scheme="teal",
+            ),
+        ),
         rx.button("Update", on_click=VarComparisonState.update),
     )
 ```
@@ -214,13 +220,18 @@ class VarDivState(State):
 
 def var_div_example():
     return rx.vstack(
-        rx.heading(f"Integer 1: {VarDivState.number_1}", size="lg"),
-        rx.heading(f"Integer 2: {VarDivState.number_2}", size="lg"),
-        
-        rx.heading(f"True Division of Integer 1 and Integer 2 (/): {VarDivState.number_1 / VarDivState.number_2}", size="md"),
-        rx.heading(f"Floor Division of Integer 1 and Integer 2 (//): {VarDivState.number_1 // VarDivState.number_2}", size="md"),
-        rx.heading(f"Remainder of Integer 1 and Integer 2 (%): {VarDivState.number_1 % VarDivState.number_2}", size="md"),
-        
+        rx.table_container(
+            rx.table(
+                headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
+                rows=[
+                    (VarDivState.number_1, VarDivState.number_2, "True Division of Int 1 by Int 2 (/)", f"{VarDivState.number_1 / VarDivState.number_2}"),
+                    (VarDivState.number_1, VarDivState.number_2, "Floor Division of Int 1 by Int 2 (//)", f"{VarDivState.number_1 // VarDivState.number_2}"),
+                    (VarDivState.number_1, VarDivState.number_2, "Remainder of Int 1 and Int 2 (%)", f"{VarDivState.number_1 % VarDivState.number_2}"),
+                    ],
+                variant="striped",
+                color_scheme="red",
+            ),
+        ),
         rx.button("Update", on_click=VarDivState.update),
     )
 ```
@@ -249,13 +260,18 @@ class VarLogicalState(State):
 
 def var_logical_example():
     return rx.vstack(
-        rx.heading(f"Var 1: {VarLogicalState.var_1}", size="lg"),
-        rx.heading(f"Var 2: {VarLogicalState.var_2}", size="lg"),
-        
-        rx.heading(f"Logical AND (&): {VarLogicalState.var_1 & VarLogicalState.var_2}", size="md"),
-        rx.heading(f"Logical OR (|): {VarLogicalState.var_1 | VarLogicalState.var_2}", size="md"),
-        rx.heading(f"The invert of Var 1 (~): {~VarLogicalState.var_1}", size="md"),
-
+        rx.table_container(
+            rx.table(
+                headers=["Var 1", "Var 2", "Operation", "Outcome"],
+                rows=[
+                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "Logical AND (&)", f"{VarLogicalState.var_1 & VarLogicalState.var_2}"),
+                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "Logical OR (|)", f"{VarLogicalState.var_1 | VarLogicalState.var_2}"),
+                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "The invert of Var 1 (~)", f"{~VarLogicalState.var_1}"),
+                    ],
+                variant="striped",
+                color_scheme="green",
+            ),
+        ),
         rx.button("Update", on_click=VarLogicalState.update),
     )
 ```
