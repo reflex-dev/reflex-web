@@ -178,6 +178,7 @@ def get_sidebar_items_backend():
             children=[
                 state.state_overview,
                 state.vars,
+                state.var_operations,
                 state.events,
                 state.substates,
                 state.utility_methods,
