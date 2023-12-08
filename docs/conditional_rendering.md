@@ -3,7 +3,7 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
-
+from pcweb.pages.docs.component_lib.layout import render_cond
 ```
 
 # Conditional Rendering
@@ -235,5 +235,34 @@ docdemo_from(CNS, component=cond_nested_example, imports=["import random"])
 
 
 ## Cond used as a style prop
+
+`Cond` can also be used to show and hide content in your reflex app. In this example, we have no third argument to the `cond` operator which means that nothing is rendered if the condition is false.
+
+```python exec
+class CondStyleState(rx.State):
+    show: bool = False
+    img_url: str = "/preview.png"
+    def change(self):
+        self.show = not (self.show)
+
+
+def cond_style_example():
+    return rx.vstack(
+        rx.button("Toggle", on_click=CondStyleState.change),
+        rx.cond(
+            CondStyleState.show,
+            rx.image(
+                src=CondStyleState.img_url,
+                height="25em",
+                width="25em",
+            ),
+        ),
+    )
+```
+
+```python eval
+docdemo_from(CondStyleState, component=cond_style_example)
+```
+
 
 
