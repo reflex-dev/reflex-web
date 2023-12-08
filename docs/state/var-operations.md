@@ -100,21 +100,21 @@ Some simple examples are the `==` var operator, which is used to check if two va
 
 fruits = ["Apple", "Banana", "Orange", "Mango"]
 
-class VarEqualsState(State):
+class EqualsState(State):
     selected: str = "Apple"
     favorite: str = "Banana"
 
 
 def var_equals_example():
     return rx.vstack(
-        rx.text(VarEqualsState.favorite.to_string() + "is my favorite fruit!"),
+        rx.text(EqualsState.favorite.to_string() + "is my favorite fruit!"),
         rx.select(
             fruits,
-            value=VarEqualsState.selected,
-            on_change=VarEqualsState.set_selected,
+            value=EqualsState.selected,
+            on_change=EqualsState.set_selected,
         ),
         rx.cond(
-            VarEqualsState.selected == VarEqualsState.favorite,
+            EqualsState.selected == EqualsState.favorite,
             rx.text("The selected fruit is equal to the favorite fruit!"),
             rx.text("The selected fruit is not equal to the favorite fruit."),
         ),
@@ -123,7 +123,7 @@ def var_equals_example():
 ```
 
 ```python eval
-docdemo_from(VarEqualsState, component=var_equals_example, assignments={"fruits": fruits})
+docdemo_from(EqualsState, component=var_equals_example, assignments={"fruits": fruits})
 ```
 
 ### Negate, Absolute and Length
@@ -134,7 +134,7 @@ The `-` operator is used to get the negative version of the var. The `abs()` ope
 ```python exec
 import random
 
-class VarOperationState(State):
+class OperState(State):
     number: int
     numbers_seen: list = []
     def update(self):
@@ -143,17 +143,18 @@ class VarOperationState(State):
 
 def var_operation_example():
     return rx.vstack(
-        rx.heading(f"The number: {VarOperationState.number}", size="lg"),
-    
-        rx.heading(f"The negated number is {-VarOperationState.number}", size="md"),
-        rx.heading(f"The absolute value of the number is {abs(VarOperationState.number)}", size="md"),
-        rx.heading(f"Number of values seen so far {VarOperationState.numbers_seen.length()}", size="md"),
-        rx.button("Update", on_click=VarOperationState.update),
+        rx.heading(f"The number: {OperState.number}", size="md"),
+        rx.hstack(
+            rx.text("Negated:", rx.badge(-OperState.number, variant="subtle", color_scheme="green")), 
+            rx.text(f"Absolute:", rx.badge(abs(OperState.number), variant="subtle", color_scheme="blue")),
+            rx.text(f"Numbers seen:", rx.badge(OperState.numbers_seen.length(), variant="subtle", color_scheme="red")),
+        ),
+        rx.button("Update", on_click=OperState.update),
     )
 ```
 
 ```python eval
-docdemo_from(VarOperationState, component=var_operation_example, imports=["import random"])
+docdemo_from(OperState, component=var_operation_example, imports=["import random"])
 ```
 
 ### Comparisons and Mathematical Operators
@@ -165,7 +166,7 @@ There are operators to add two vars `+`, subract two vars `-`, multiply two vars
 ```python exec
 import random
 
-class VarComparisonState(State):
+class CompState(State):
     number_1: int
     number_2: int
 
@@ -180,27 +181,27 @@ def var_comparison_example():
             rx.table(
                 headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
                 rows=[
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "are equal (==)", f"{VarComparisonState.number_1 == VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "are not equal (!=)", f"{VarComparisonState.number_1 != VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is larger than Int 2 (>)", f"{VarComparisonState.number_1 > VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is larger than or equal Int 2 (>=)", f"{VarComparisonState.number_1 >= VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is less than Int 2 (<)", f"{VarComparisonState.number_1 < VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 is less than or equal Int 2 (<=)", f"{VarComparisonState.number_1 <= VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Sum of Int 1 and Int 2 (+)", f"{VarComparisonState.number_1 + VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Take Int 2 away from Int 1 (-)", f"{VarComparisonState.number_1 - VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Multiplication of Int 1 and Int 2 (*)", f"{VarComparisonState.number_1 * VarComparisonState.number_2}"),
-                    (VarComparisonState.number_1, VarComparisonState.number_2, "Int 1 to the power of Int 2 (pow())", f"{pow(VarComparisonState.number_1, VarComparisonState.number_2)}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 == Int 2", f"{CompState.number_1 == CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 != Int 2", f"{CompState.number_1 != CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 > Int 2", f"{CompState.number_1 > CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 >= Int 2", f"{CompState.number_1 >= CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 < Int 2 ", f"{CompState.number_1 < CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 <= Int 2", f"{CompState.number_1 <= CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 + Int 2", f"{CompState.number_1 + CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 - Int 2", f"{CompState.number_1 - CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "Int 1 * Int 2", f"{CompState.number_1 * CompState.number_2}"),
+                    (CompState.number_1, CompState.number_2, "pow(Int 1, Int2)", f"{pow(CompState.number_1, CompState.number_2)}"),
                 ],
                 variant="striped",
                 color_scheme="teal",
             ),
         ),
-        rx.button("Update", on_click=VarComparisonState.update),
+        rx.button("Update", on_click=CompState.update),
     )
 ```
 
 ```python eval
-docdemo_from(VarComparisonState, component=var_comparison_example, imports=["import random"])
+docdemo_from(CompState, component=var_comparison_example, imports=["import random"])
 ```
 
 ### True Division, Floor Division and Remainder
@@ -210,7 +211,7 @@ The operator `/` represents true division. The operator `//` represents floor di
 ```python exec
 import random
 
-class VarDivState(State):
+class DivState(State):
     number_1: float = 3.5
     number_2: float = 1.4
 
@@ -224,20 +225,20 @@ def var_div_example():
             rx.table(
                 headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
                 rows=[
-                    (VarDivState.number_1, VarDivState.number_2, "True Division of Int 1 by Int 2 (/)", f"{VarDivState.number_1 / VarDivState.number_2}"),
-                    (VarDivState.number_1, VarDivState.number_2, "Floor Division of Int 1 by Int 2 (//)", f"{VarDivState.number_1 // VarDivState.number_2}"),
-                    (VarDivState.number_1, VarDivState.number_2, "Remainder of Int 1 and Int 2 (%)", f"{VarDivState.number_1 % VarDivState.number_2}"),
+                    (DivState.number_1, DivState.number_2, "Int 1 / Int 2", f"{DivState.number_1 / DivState.number_2}"),
+                    (DivState.number_1, DivState.number_2, "Int 1 // Int 2", f"{DivState.number_1 // DivState.number_2}"),
+                    (DivState.number_1, DivState.number_2, "Int 1 % Int 2", f"{DivState.number_1 % DivState.number_2}"),
                     ],
                 variant="striped",
                 color_scheme="red",
             ),
         ),
-        rx.button("Update", on_click=VarDivState.update),
+        rx.button("Update", on_click=DivState.update),
     )
 ```
 
 ```python eval
-docdemo_from(VarDivState, component=var_div_example, imports=["import random"])
+docdemo_from(DivState, component=var_div_example, imports=["import random"])
 ```
 
 
@@ -250,7 +251,7 @@ The `~` operator is used to invert a var. It is used on a var of type `bool` and
 ```python exec
 import random
 
-class VarLogicalState(State):
+class LogicState(State):
     var_1: bool = True
     var_2: bool = True
 
@@ -264,20 +265,20 @@ def var_logical_example():
             rx.table(
                 headers=["Var 1", "Var 2", "Operation", "Outcome"],
                 rows=[
-                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "Logical AND (&)", f"{VarLogicalState.var_1 & VarLogicalState.var_2}"),
-                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "Logical OR (|)", f"{VarLogicalState.var_1 | VarLogicalState.var_2}"),
-                    (f"{VarLogicalState.var_1}", f"{VarLogicalState.var_2}", "The invert of Var 1 (~)", f"{~VarLogicalState.var_1}"),
+                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "Logical AND (&)", f"{LogicState.var_1 & LogicState.var_2}"),
+                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "Logical OR (|)", f"{LogicState.var_1 | LogicState.var_2}"),
+                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "The invert of Var 1 (~)", f"{~LogicState.var_1}"),
                     ],
                 variant="striped",
                 color_scheme="green",
             ),
         ),
-        rx.button("Update", on_click=VarLogicalState.update),
+        rx.button("Update", on_click=LogicState.update),
     )
 ```
 
 ```python eval
-docdemo_from(VarLogicalState, component=var_logical_example, imports=["import random"])
+docdemo_from(LogicState, component=var_logical_example, imports=["import random"])
 ```
 
 ### Contains, Reverse and Join
@@ -291,26 +292,30 @@ We use the `reverse` operation to reverse a list var. The var must be of type `l
 Finally we use the `join` operation to join a list var into a string. 
 
 ```python exec
-class VarListState(State):
+class ListsState(State):
     list_1: list = [1, 2, 3, 4, 6]
     list_2: list = [7, 8, 9, 10]
     list_3: list = ["p","y","t","h","o","n"]
 
 def var_list_example():
-    return rx.vstack(
-        rx.heading(f"List 1: {VarListState.list_1}", size="lg"),
-        rx.heading(f"List 2: {VarListState.list_2}", size="lg"),
-        rx.heading(f"List 3: {VarListState.list_3}", size="lg"),
-        
-        rx.heading(f"Does List 1 contain the number 3: {VarListState.list_1.contains(3)}", size="md"),
-        rx.heading(f"Reverse List 2: {VarListState.list_2.reverse()}", size="md"),
-        rx.heading(f"Join List 3 into string: {VarListState.list_3.join()}", size="md"),
-
+    return rx.hstack(
+        rx.vstack(
+            rx.heading(f"List 1: {ListsState.list_1}", size="md"),
+            rx.text(f"List 1 Contains 3: {ListsState.list_1.contains(3)}"),
+        ),
+        rx.vstack(
+            rx.heading(f"List 2: {ListsState.list_2}", size="md"),
+            rx.text(f"Reverse List 2: {ListsState.list_2.reverse()}"),
+        ),
+        rx.vstack(
+            rx.heading(f"List 3: {ListsState.list_3}", size="md"),
+            rx.text(f"List 3 Joins: {ListsState.list_3.join()}"),
+        ),
     )
 ```
 
 ```python eval
-docdemo_from(VarListState, component=var_list_example)
+docdemo_from(ListsState, component=var_list_example)
 ```
 
 
@@ -320,24 +325,27 @@ docdemo_from(VarListState, component=var_list_example)
 The `lower` operator converts a string var to lowercase. The `upper` operator converts a string var to uppercase. The `split` operator splits a string var into a list.
 
 ```python exec
-class VarStringState(State):
+class StringState(State):
     string_1: str = "PYTHON is FUN"
     string_2: str = "react is hard"
    
 
 def var_string_example():
-    return rx.vstack(
-        rx.heading(f"List 1: {VarStringState.string_1}", size="lg"),
-        rx.heading(f"List 2: {VarStringState.string_2}", size="lg"),
-
-        rx.heading(f"Lower Case output of List 1: {VarStringState.string_1.lower()}", size="md"),
-        rx.heading(f"Upper Case output of List 2: {VarStringState.string_2.upper()}", size="md"),
-        rx.heading(f"Split String 2: {VarStringState.string_2.split()}", size="md"),   
+    return rx.hstack(
+        rx.vstack(
+            rx.heading(f"List 1: {StringState.string_1}", size="md"),
+            rx.text(f"List 1 Lower Case: {StringState.string_1.lower()}"),
+        ),
+        rx.vstack(
+            rx.heading(f"List 2: {StringState.string_2}", size="md"),
+            rx.text(f"List 2 Upper Case: {StringState.string_2.upper()}"),
+            rx.text(f"Split String 2: {StringState.string_2.split()}"),  
+        ),
     )
 ```
 
 ```python eval
-docdemo_from(VarStringState, component=var_string_example)
+docdemo_from(StringState, component=var_string_example)
 ```
 
 
