@@ -15,5 +15,6 @@ from .resources import resources
 from .tutorial import *
 from .wrapping_react import *
 from .datatable_tutorial import *
+from .rendering_iterables import rendering_iterables
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
