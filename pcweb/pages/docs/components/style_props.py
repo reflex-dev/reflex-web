@@ -3,5 +3,5 @@ from pcweb import flexdown
 
 
 @docpage()
-def props():
-    return flexdown.render_file("docs/components/props.md")
+def style_props():
+    return flexdown.render_file("docs/components/style_props.md")

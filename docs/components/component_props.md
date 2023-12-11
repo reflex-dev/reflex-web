@@ -44,34 +44,6 @@ rx.alert(
 )
 ```
 
-## Style Props
-
-In addition to component-specific props, most built-in components support a full range of style props. You can use any CSS property to style a component.
-
-```python exec
-def button():
-    return rx.button(
-    "Fancy Button",
-    border_radius="1em",
-    box_shadow="rgba(151, 65, 252, 0.8) 0 15px 30px -10px",
-    background_image="linear-gradient(144deg,#AF40FF,#5B42F3 50%,#00DDEB)",
-    box_sizing="border-box",
-    color="white",
-    opacity="0.6",
-    _hover={
-        "opacity": 1,
-    }
-)
-```
-
-```python eval
-docdemo(inspect.getsource(button).replace("def button():", "").replace("return", ""),
-    comp=button()
-)
-```
-
-See the [styling docs]({styling_overview.path}) to learn more about customizing the appearance of your app.
-
 
 ## HTML Props
 
@@ -152,26 +124,3 @@ docdemo(inspect.getsource(index),
 In this example, the `color_scheme` prop is bound to the `color` state var.
 
 When the `flip_color` event handler is called, the `color` var is updated, and the `color_scheme` prop is updated to match.
-
-## Conditional Props
-
-Sometimes you want to set a prop based on a condition. You can use the `rx.cond` function to do this.
-
-```python exec
-class PropCondState(State):
-    value: int
-
-
-def cond_prop():
-    return rx.slider(
-        on_change_end=PropCondState.set_value,
-        color_scheme=rx.cond(PropCondState.value > 50, "green", "pink"),
-    )
-```
-
-```python eval
-docdemo(inspect.getsource(cond_prop),
-    comp=cond_prop(),
-    state=inspect.getsource(PropCondState)
-)
-```

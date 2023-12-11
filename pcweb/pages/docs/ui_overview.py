@@ -3,5 +3,5 @@ from pcweb import flexdown
 
 
 @docpage()
-def pages():
-    return flexdown.render_file("docs/components/pages.md")
+def ui_overview():
+    return flexdown.render_file("docs/ui_overview.md")

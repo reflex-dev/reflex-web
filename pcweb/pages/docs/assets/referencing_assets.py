@@ -8,4 +8,4 @@ code_example1 = "rx.image(src = '/Reflex.svg', width = '5em')"
 
 @docpage()
 def referencing_assets():
-    return flexdown.render_file("docs/components/assets.md")
+    return flexdown.render_file("docs/assets/referencing-assets.md")

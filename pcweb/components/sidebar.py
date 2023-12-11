@@ -138,20 +138,23 @@ def get_sidebar_items_learn():
 
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
+        ui_overview,
         components,
         dynamic_rendering,
-        page,
+        pages,
         styling,
         assets,
         wrapping_react,
     )
 
     items = [
+        create_item(ui_overview),
         create_item(
             components,
             children=[
-                components.components_overview,
-                components.props,
+                components.component_props,
+                components.style_props,
+                components.conditional_props,
                 components.library,
             ],
         ),
@@ -159,9 +162,11 @@ def get_sidebar_items_frontend():
         #     dynamic_rendering,
         # ),
         create_item(
-            page,
+            pages,
             children=[
-                page.pages
+                pages.routes,
+                pages.dynamic_routing,
+                pages.page_meta_data,
             ]
         ),
         create_item(
@@ -177,6 +182,7 @@ def get_sidebar_items_frontend():
             assets,
             children=[
                 assets.referencing_assets,
+                assets.file_handling,
             ]
         ),
         create_item(

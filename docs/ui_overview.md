@@ -1,5 +1,5 @@
 ```python exec
-from pcweb.pages.docs.components.props import props
+from pcweb.pages.docs.components.component_props import component_props
 from pcweb.pages.docs.library import library
 import reflex as rx
 from pcweb.templates.docpage import definition, doccode, docdemo, docalert, doclink
@@ -54,13 +54,13 @@ definitions = [
 ]
 ```
 
-# Components
+# UI Overview
 
 Components are the building blocks of Reflex's frontend. They let you split the UI into independent, reusable pieces, and let you think about each piece in isolation.
 
 Reflex components wrap React components behind the scenes, enabling a pure Python development experience.
 
-Components are created with Python functions. They are configured with keyword arguments, called [props]({props.path}), and can be nested to create complex UIs.
+Components are created with Python functions. They are configured with keyword arguments, called [props]({component_props.path}), and can be nested to create complex UIs.
 
 ## Component Basics
 
