@@ -15,5 +15,8 @@ from .resources import resources
 from .tutorial import *
 from .wrapping_react import *
 from .datatable_tutorial import *
+from .assets import *
+from .dynamic_rendering import *
+from .page import *
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]

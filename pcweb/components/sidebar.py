@@ -139,7 +139,11 @@ def get_sidebar_items_learn():
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
         components,
+        dynamic_rendering,
+        page,
         styling,
+        assets,
+        wrapping_react,
     )
 
     items = [
@@ -148,10 +152,17 @@ def get_sidebar_items_frontend():
             children=[
                 components.components_overview,
                 components.props,
-                components.pages,
-                components.assets,
                 components.library,
             ],
+        ),
+        # create_item(
+        #     dynamic_rendering,
+        # ),
+        create_item(
+            page,
+            children=[
+                page.pages
+            ]
         ),
         create_item(
             styling,
@@ -160,6 +171,21 @@ def get_sidebar_items_frontend():
                 styling.responsive,
                 styling.custom_stylesheets,
                 styling.theming,
+            ],
+        ),
+        create_item(
+            assets,
+            children=[
+                assets.referencing_assets,
+            ]
+        ),
+        create_item(
+            wrapping_react,
+            children=[
+                wrapping_react.overview,
+                wrapping_react.imports,
+                wrapping_react.logic,
+                wrapping_react.example,
             ],
         ),
     ]
@@ -201,7 +227,6 @@ def get_sidebar_items_other():
     from pcweb.pages.docs import (
         advanced_guide,
         hosting,
-        wrapping_react,
     )
 
     items = [
@@ -210,15 +235,6 @@ def get_sidebar_items_other():
             children=[
                 hosting.deploy,
                 hosting.self_hosting,
-            ],
-        ),
-        create_item(
-            wrapping_react,
-            children=[
-                wrapping_react.overview,
-                wrapping_react.imports,
-                wrapping_react.logic,
-                wrapping_react.example,
             ],
         ),
     ]

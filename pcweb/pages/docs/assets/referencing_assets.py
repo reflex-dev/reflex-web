@@ -7,5 +7,5 @@ code_example1 = "rx.image(src = '/Reflex.svg', width = '5em')"
 
 
 @docpage()
-def assets():
+def referencing_assets():
     return flexdown.render_file("docs/components/assets.md")
