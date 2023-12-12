@@ -201,6 +201,7 @@ def get_sidebar_items_frontend():
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
         state,
+        events,
         database,
     )
 
@@ -211,9 +212,21 @@ def get_sidebar_items_backend():
                 state.state_overview,
                 state.vars,
                 state.var_operations,
-                state.events,
                 state.substates,
                 state.utility_methods,
+            ],
+        ),
+        create_item(
+            events,
+            children=[
+                events.events_overview,
+                events.event_arguments,
+                events.setters,
+                events.yield_events,
+                events.chaining_events,
+                events.special_events_docs,
+                events.page_load_events,
+                events.background_events,
             ],
         ),
         create_item(
@@ -248,7 +261,6 @@ def get_sidebar_items_other():
         create_item(
             advanced_guide,
             children=[
-                advanced_guide.background_tasks,
                 advanced_guide.custom_vars,
                 advanced_guide.memoization,
                 advanced_guide.api_routes,
