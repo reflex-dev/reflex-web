@@ -17,7 +17,7 @@ from pcweb.templates.docpage import (
 import openai
 
 import inspect
-from pcweb.pages.docs.state.overview import state_overview
+from pcweb.pages.docs.state_overview import state_overview
 from pcweb.pages.docs.events.setters import setters
 from pcweb.pages.docs.events.yield_events import yield_events
 

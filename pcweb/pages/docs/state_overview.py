@@ -4,5 +4,5 @@ from pcweb.templates.docpage import docpage
 
 
 @docpage()
-def substates():
-    return flexdown.render_file("docs/state/substates.md")
+def state_overview():
+    return flexdown.render_file("docs/state_overview.md")

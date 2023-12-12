@@ -200,21 +200,16 @@ def get_sidebar_items_frontend():
 
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
-        state,
+        state_overview,
         events,
         vars,
+        substates,
+        utility_methods,
         database,
     )
 
     items = [
-        create_item(
-            state,
-            children=[
-                state.state_overview,
-                state.substates,
-                state.utility_methods,
-            ],
-        ),
+        create_item(state_overview),
         create_item(
             vars,
             children=[
@@ -238,12 +233,24 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
+            substates,
+            children=[
+                substates.substates_overview,
+            ],
+        ),
+        create_item(
             database,
             children=[
                 database.database_overview,
                 database.tables,
                 database.queries,
                 database.relationships,
+            ],
+        ),
+        create_item(
+            utility_methods,
+            children=[
+                utility_methods.utility_methods_overview,
             ],
         ),
     ]

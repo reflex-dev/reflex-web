@@ -15,7 +15,7 @@ from pcweb.pages.docs.library import library
 from pcweb.pages.docs.getting_started.introduction import introduction
 from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.pages.docs.database import database_overview
-from pcweb.pages.docs.state.overview import state_overview
+from pcweb.pages.docs.state_overview import state_overview
 from pcweb.pages.docs.hosting.self_hosting import self_hosting
 from pcweb.pages.docs.hosting.deploy import deploy
 from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
