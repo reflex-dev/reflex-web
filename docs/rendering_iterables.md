@@ -3,11 +3,12 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.pages.docs.state.var_operations import var_operations
 ```
 
 # Rendering Iterables
 
-You will often want to display multiple similar components from a collection of data. The `rx.foreach` component takes an `iterable(list, tuple or dict)` and a `function` that renders each item in the list. This is useful for dynamically rendering a list of items defined in a state.
+You will often want to display multiple similar components from a collection of data. The `rx.foreach` component takes an `iterable` (list, tuple or dict) and a `function` that renders each item in the list. This is useful for dynamically rendering a list of items defined in a state.
 
 
 In this first simple example we iterate through a `list` of colors and render the name of the color and use this color as the background for that `rx.box`. As we can see we have a function `colored_box` that we pass to the `rx.foreach` component. This function renders each item from the `list` that we have defined as a state var `color`.
@@ -40,6 +41,18 @@ def simple_foreach():
 docdemo_from(ForeachState, colored_box, component=simple_foreach)
 ```
 
+```python eval
+rx.alert(
+    rx.alert_icon(),
+    rx.alert_title(
+        "The type signature of the functions does not matter to the", rx.code("foreach"), "component. It's the type annotation on the ", rx.code("state var"), " that determines what operations are available (e.g. when nesting)."
+    ),
+    status="warning",
+)
+```
+
+
+
 ## Enumeration
 
 The function can also take an index as a second argument, meaning that we can enumerate through data as shown in the example below.
@@ -57,17 +70,11 @@ class ForeachIndexState(rx.State):
     ]
 
 
-def colored_box_index(color: str, index: int):
-    return rx.box(rx.text(index), bg=color)
-
-
 def enumerate_foreach():
     return rx.responsive_grid(
         rx.foreach(
             ForeachIndexState.color,
-            lambda color, index: colored_box_index(
-                color, index
-            ),
+            lambda color, index: rx.box(rx.text(index), bg=color)
         ),
         columns=[2, 4, 6],
     )
@@ -75,27 +82,27 @@ def enumerate_foreach():
 ```
 
 ```python eval
-docdemo_from(ForeachIndexState, colored_box_index, component=enumerate_foreach)
+docdemo_from(ForeachIndexState, component=enumerate_foreach)
 ```
 
 
 
 ## Dictionary
 
-We can iterate through a `dict` data structure using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `([1, "blue"],[2, "red"], [3, "green"])`.
+We can iterate through a `dict` data structure using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `[("sky", "blue"), ("balloon", "red"), ("grass", "green")]`.
 
 ```python exec
 class SimpleDictForeachState(rx.State):
-    color_chart: dict[int, str] = {
-        1: "blue",
-        2: "red",
-        3: "green",
+    color_chart: dict[str, str] = {
+        "sky": "blue",
+        "balloon": "red",
+        "grass": "green",
     }
 
 
 def display_color(color: list):
-    # color is presented as a list key-value pair([1, "blue"],[2, "red"], [3, "green"])
-    return rx.box(rx.text(color[0]), bg=color[1], padding_x="1em")
+    # color is presented as a list key-value pairs [("sky", "blue"), ("balloon", "red"), ("grass", "green")]
+    return rx.box(rx.text(color[0]), bg=color[1], padding_x="1.5em")
 
 
 def dict_foreach():
@@ -119,7 +126,7 @@ docdemo_from(SimpleDictForeachState, display_color, component=dict_foreach)
 
 ## Nested examples
 
-`rx.foreach` can be used with nested state vars. Here we use nested `foreach` components to render the nested state vars. The `rx.foreach(project["technologies"], get_badge)` inside of the `project_item` function, renders the `dict` values which are `lists`. The `rx.box(rx.foreach(NestedState.projects, project_item))` inside of the `projects_example` function renders each of the `dicts` inside of the overall state var `list`.
+`rx.foreach` can be used with nested state vars. Here we use nested `foreach` components to render the nested state vars. The `rx.foreach(project["technologies"], get_badge)` inside of the `project_item` function, renders the `dict` values which are of type `list`. The `rx.box(rx.foreach(NestedState.projects, project_item))` inside of the `projects_example` function renders each `dict` inside of the overall state var `projects`.
 
 ```python exec
 class NestedState(rx.State):
@@ -151,7 +158,7 @@ docdemo_from(NestedState, get_badge, project_item, component=projects_example)
 ```
 
 
-If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]("https://reflex.dev/docs/state/var-operations/#get-item-(indexing)").
+If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({var_operations.path}).
 
 Here is a further example of how to use `foreach` with a nested data structure.
 
