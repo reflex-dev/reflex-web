@@ -4,5 +4,5 @@ from pcweb.templates.docpage import docpage
 
 
 @docpage()
-def vars():
-    return flexdown.render_file("docs/state/vars.md")
+def computed_vars():
+    return flexdown.render_file("docs/vars/computed_vars.md")
