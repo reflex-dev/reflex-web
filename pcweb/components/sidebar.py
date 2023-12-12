@@ -166,7 +166,7 @@ def get_sidebar_items_frontend():
             children=[
                 pages.routes,
                 pages.dynamic_routing,
-                pages.page_meta_data,
+                pages.meta_data,
             ]
         ),
         create_item(
@@ -264,7 +264,8 @@ def get_sidebar_items_backend():
         create_item(
             utility_methods,
             children=[
-                utility_methods.utility_methods_overview,
+                utility_methods.files_router_methods,
+                utility_methods.other_methods,
             ],
         ),
     ]
@@ -287,7 +288,6 @@ def get_sidebar_items_hosting():
 def get_sidebar_items_other():
     from pcweb.pages.docs import (
         advanced_guide,
-        hosting,
     )
 
     items = [

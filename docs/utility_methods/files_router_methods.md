@@ -9,7 +9,7 @@ from pcweb.templates.docpage import docdemo_from
 The state object has several methods and attributes that return information
 about the current page, session, or state.
 
-## Router
+## Files Router Methods
 
 The `self.router` attribute has several sub-attributes that provide various information:
 
@@ -63,18 +63,3 @@ def router_values():
 ```python eval
 docdemo_from(RouterState, component=router_values, collapsible_code=True, demobox_props={"justify_content": "flex-start"})
 ```
-
-## Other Methods
-
-* `reset`: set all Vars to their default value for the given state (including substates).
-* `get_value`: returns the value of a Var **without tracking changes to it**. This is useful
-   for serialization where the tracking wrapper is considered unserializable.
-* `dict`: returns all state Vars (and substates) as a dictionary. This is
-  used internally when a page is first loaded and needs to be "hydrated" and
-  sent to the client.
-
-## Special Attributes
-
-* `dirty_vars`: a set of all Var names that have been modified since the last
-  time the state was sent to the client. This is used internally to determine
-  which Vars need to be sent to the client after processing an event.

@@ -14,6 +14,7 @@ You can call other event handlers from event handlers to keep your code modular.
 
 
 ```python exec
+import asyncio
 
 class CallHandlerState(State):
     count: int = 0
@@ -46,7 +47,7 @@ def call_handler_example():
 ```
 
 ```python eval
-docdemo_from(CallHandlerState, component=call_handler_example)
+docdemo_from(CallHandlerState, component=call_handler_example, imports=["import asyncio"])
 ```
 
 
