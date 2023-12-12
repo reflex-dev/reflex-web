@@ -25,7 +25,7 @@ class ForeachState(rx.State):
 
 
 def colored_box(color: str):
-    return rx.box(rx.text(color), bg=color)
+    return rx.box(rx.text(color), background_color=color)
 
 
 def simple_foreach():
