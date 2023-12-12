@@ -271,6 +271,19 @@ def get_sidebar_items_backend():
     return items
 
 
+
+def get_sidebar_items_hosting():
+    from pcweb.pages.docs import (
+        hosting,
+    )
+    items = [
+        create_item(hosting.deploy),
+        create_item(hosting.self_hosting),
+    ]
+    return items
+
+
+
 def get_sidebar_items_other():
     from pcweb.pages.docs import (
         advanced_guide,
@@ -279,15 +292,6 @@ def get_sidebar_items_other():
 
     items = [
         create_item(
-            hosting,
-            children=[
-                hosting.deploy,
-                hosting.self_hosting,
-            ],
-        ),
-    ]
-    items.append(
-        create_item(
             advanced_guide,
             children=[
                 advanced_guide.memoization,
@@ -295,7 +299,8 @@ def get_sidebar_items_other():
                 advanced_guide.telemetry,
             ],
         )
-    )
+    ]
+
     return items
 
 
@@ -501,12 +506,13 @@ learn = get_sidebar_items_learn()
 reference = get_sidebar_items_reference()
 frontend = get_sidebar_items_frontend()
 backend = get_sidebar_items_backend()
+hosting = get_sidebar_items_hosting()
 other = get_sidebar_items_other()
 
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + frontend + backend + other + reference
+    sidebar_items = learn + frontend + backend + hosting + other + reference
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -542,6 +548,7 @@ def sidebar_comp(
     reference_index: list[int],
     frontend_index: list[int],
     backend_index: list[int],
+    hosting_index: list[int],
     other_index: list[int],
 ):
     from pcweb.pages.docs.gallery import gallery
@@ -640,6 +647,26 @@ def sidebar_comp(
                     ),
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
+                        "Hosting",
+                        rx.span(" ]", color="#DACEEE"),
+                        style=heading_style3,
+                        margin_top="1em",
+                    ),
+                    rx.accordion(
+                        *[
+                            sidebar_item_comp(
+                                item=item,
+                                index=[-1],
+                                url=url,
+                                first=True,
+                            )
+                            for item in hosting
+                        ],
+                        allow_multiple=True,
+                        default_index=hosting_index if hosting_index is not None else [],
+                    ),
+                    rx.heading(
+                        rx.span("[ ", color="#DACEEE"),
                         "Other",
                         rx.span(" ]", color="#DACEEE"),
                         style=heading_style3,
@@ -703,6 +730,7 @@ def sidebar(url=None) -> rx.Component:
     reference_index = calculate_index(reference, url)
     frontend_index = calculate_index(frontend, url)
     backend_index = calculate_index(backend, url)
+    hosting_index = calculate_index(hosting, url)
     other_index = calculate_index(other, url)
     return rx.box(
         sidebar_comp(
@@ -711,6 +739,7 @@ def sidebar(url=None) -> rx.Component:
             reference_index=reference_index,
             frontend_index=frontend_index,
             backend_index=backend_index,
+            hosting_index=hosting_index,
             other_index=other_index,
         ),
     )
