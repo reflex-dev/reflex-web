@@ -204,6 +204,8 @@ def get_sidebar_items_backend():
         events,
         vars,
         substates,
+        api_routes,
+        client_storage,
         utility_methods,
         database,
     )
@@ -236,6 +238,18 @@ def get_sidebar_items_backend():
             substates,
             children=[
                 substates.substates_overview,
+            ],
+        ),
+        create_item(
+            api_routes,
+            children=[
+                api_routes.api_routes_overview,
+            ],
+        ),
+        create_item(
+            client_storage,
+            children=[
+                client_storage.client_storage_overview,
             ],
         ),
         create_item(
@@ -276,9 +290,7 @@ def get_sidebar_items_other():
         create_item(
             advanced_guide,
             children=[
-                advanced_guide.custom_vars,
                 advanced_guide.memoization,
-                advanced_guide.api_routes,
                 advanced_guide.use_middleware,
                 advanced_guide.telemetry,
             ],

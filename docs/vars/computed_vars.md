@@ -6,7 +6,6 @@ import time
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.pages.docs.advanced_guide.custom_vars import custom_vars
 from pcweb.templates.docpage import docdemo_from
 ```
 

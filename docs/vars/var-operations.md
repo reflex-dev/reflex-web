@@ -8,7 +8,6 @@ import numpy as np
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.pages.docs.advanced_guide.custom_vars import custom_vars
 from pcweb.templates.docpage import (
     doccode,
     docdemo_from,

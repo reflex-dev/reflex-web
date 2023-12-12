@@ -23,5 +23,7 @@ from .vars import *
 from .substates import *
 from .utility_methods import *
 from .state_overview import state_overview
+from .api_routes import *
+from .client_storage import *
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
