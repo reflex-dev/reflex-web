@@ -2,8 +2,8 @@
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo_from
-from pcweb.pages.docs.component_lib.layout import render_cond
+from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.pages.docs.state.vars import vars
 ```
 
 # Conditional Rendering
@@ -14,7 +14,7 @@ We use the `cond` component to conditionally render components. The `cond` compo
 ```python eval
 rx.alert(
     rx.alert_icon(),
-    rx.alert_title("A link to the API reference cond docs will go here"),
+    rx.alert_title("Check out the API reference for ", doclink("cond docs", href="https://reflex.dev/docs/library/layout/cond/")),
     status="info",
 )
 ```
@@ -54,9 +54,9 @@ docdemo_from(CondSimpleState, component=cond_simple_example)
 ```
 
 
-## Negation
+## Var Operations (negation)
 
-You can use the logical operator `~` to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
+You can use var operations with the `cond` component. To learn more generally about var operators check out [these docs]({vars.path}). The logical operator `~` can be used to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
 
 
 ```python exec
@@ -171,7 +171,60 @@ docdemo_from(ToDoListItem, CondRepeatState, render_item, component=packing_list)
 
 ## Nested Conditional 
 
-In python we can have an `if` statement that then has several `elif` statements before finishing with an `else`. This is also possible in reflex using nested `cond` components. Here we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`. 
+
+We can also nest `cond` components within each other to create more complex logic. In python we can have an `if` statement that then has several `elif` statements before finishing with an `else`. This is also possible in reflex using nested `cond` components. In this example we check whether a number is positive, negative or zero.
+
+Here is the python logic using `if` statements:
+
+```python
+number = 0
+
+if number > 0:
+    print("Positive number")
+
+elif number == 0:
+    print('Zero')
+else:
+    print('Negative number')
+```
+
+This reflex code that is logically identical:
+
+```python exec
+
+import random
+
+
+class NestedState(rx.State):
+    
+    num: int = 0
+
+    def change(self):
+        self.num = random.randint(-10, 10)
+
+
+def cond_nested_example():
+    return rx.vstack(
+        rx.button("Toggle", on_click=NestedState.change),
+        rx.cond(
+            NestedState.num > 0,
+            rx.text(f"{NestedState.num} is Positive!", color="orange"),
+            rx.cond(
+                NestedState.num == 0,
+                rx.text(f"{NestedState.num} is Zero!", color="blue"),
+                rx.text(f"{NestedState.num} is Negative!", color="red"),
+            )
+        ),
+    )
+
+```
+
+```python eval
+docdemo_from(NestedState, component=cond_nested_example, imports=["import random"])
+```
+
+
+Here is a more advanced example where we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`. 
 
 The reflex code that follows is logically identical to doing the following in python:
 
@@ -208,7 +261,7 @@ class CNS(rx.State):
         self.c = random.randint(0, 10)
 
 
-def cond_nested_example():
+def cond_nested_example_2():
     return rx.vstack(
         rx.button("Toggle", on_click=CNS.change),
         rx.text(f"a: {CNS.a}, b: {CNS.b}, c: {CNS.c}"),
@@ -230,7 +283,7 @@ def cond_nested_example():
 ```
 
 ```python eval
-docdemo_from(CNS, component=cond_nested_example, imports=["import random"])
+docdemo_from(CNS, component=cond_nested_example_2, imports=["import random"])
 ```
 
 
