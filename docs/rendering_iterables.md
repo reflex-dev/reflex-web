@@ -171,7 +171,8 @@ class NestedDictForeachState(rx.State):
     }
 
 
-def display_colors(color: list):
+def display_colors(color: list[str, list[str]]):
+    
     return rx.vstack(
         rx.text(color[0], color=color[0]),
         rx.hstack(
