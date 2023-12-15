@@ -388,6 +388,9 @@ def search_bar_categories(categories):
     return rx.hstack(
         *[search_badge(category) for category in categories],
         padding_bottom=".25em",
+        _hover={
+            "cursor": "pointer",
+        }
     )
 
 

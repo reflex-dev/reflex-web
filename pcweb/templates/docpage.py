@@ -214,6 +214,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
             from pcweb.components.navbar import navbar, feedback_button
+            from pcweb.components.breadcrumbs import breadcrumbs
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -278,6 +279,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             padding_left=["1em", "2em", "2em", "2m", "2em"],
                         ),
                         rx.box(
+                            rx.box(
+                                breadcrumbs(),
+                                padding_y="1em"
+                            ),
                             rx.box(comp),
                             rx.hstack(
                                 *links,
