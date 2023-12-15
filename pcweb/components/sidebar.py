@@ -141,6 +141,7 @@ def get_sidebar_items_frontend():
         components,
         styling,
         rendering_iterables,
+        conditional_rendering,
     )
 
     items = [
@@ -164,6 +165,7 @@ def get_sidebar_items_frontend():
             ],
         ),
         create_item(rendering_iterables),
+        create_item(conditional_rendering),
     ]
     return items
 
