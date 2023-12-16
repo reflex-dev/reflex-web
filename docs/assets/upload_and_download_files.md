@@ -93,5 +93,3 @@ def index():
 ```
 
 For detailed informations, see the reference page of the component [here](/docs/library/forms/upload).
-
-

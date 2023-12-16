@@ -11,7 +11,7 @@ from pcweb.templates.docpage import (
     subheader,
 )
 import inspect
-from pcweb.pages.docs.components.component_props import component_props
+from pcweb.pages.docs.components.props import props
 from pcweb.pages.docs.components.style_props import style_props
 from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.pages.docs.tutorial import style
@@ -20,7 +20,7 @@ from pcweb.pages.docs.tutorial import style
 
 # Basic Frontend
 
-Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs]({component_props.path}) for more information.
+Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs]({props.path}) for more information.
 
 ## Display A Question And Answer
 

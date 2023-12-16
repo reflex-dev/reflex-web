@@ -3,5 +3,5 @@ from pcweb import flexdown
 
 
 @docpage()
-def meta_data():
-    return flexdown.render_file("docs/pages/meta_data.md")
+def props():
+    return flexdown.render_file("docs/components/props.md")

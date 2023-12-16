@@ -152,7 +152,7 @@ def get_sidebar_items_frontend():
         create_item(
             components,
             children=[
-                components.component_props,
+                components.props,
                 components.style_props,
                 components.conditional_props,
                 components.library,
@@ -166,7 +166,7 @@ def get_sidebar_items_frontend():
             children=[
                 pages.routes,
                 pages.dynamic_routing,
-                pages.meta_data,
+                pages.metadata,
             ]
         ),
         create_item(
@@ -182,7 +182,7 @@ def get_sidebar_items_frontend():
             assets,
             children=[
                 assets.referencing_assets,
-                assets.file_handling,
+                assets.upload_and_download_files,
             ]
         ),
         create_item(
@@ -603,7 +603,7 @@ def sidebar_comp(
                     ),
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
-                        "Frontend",
+                        "UI (Frontend)",
                         rx.span(" ]", color="#DACEEE"),
                         style=heading_style3,
                         margin_top="1em",
@@ -625,7 +625,7 @@ def sidebar_comp(
                     ),
                     rx.heading(
                         rx.span("[ ", color="#DACEEE"),
-                        "Backend",
+                        "State (Backend)",
                         rx.span(" ]", color="#DACEEE"),
                         style=heading_style3,
                         margin_top="1em",
