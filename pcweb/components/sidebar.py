@@ -140,6 +140,7 @@ def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
         components,
         styling,
+        rendering_iterables,
         conditional_rendering,
     )
 
@@ -163,6 +164,7 @@ def get_sidebar_items_frontend():
                 styling.theming,
             ],
         ),
+        create_item(rendering_iterables),
         create_item(conditional_rendering),
     ]
     return items

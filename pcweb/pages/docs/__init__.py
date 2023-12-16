@@ -16,5 +16,6 @@ from .tutorial import *
 from .wrapping_react import *
 from .datatable_tutorial import *
 from .conditional_rendering import conditional_rendering
+from .rendering_iterables import rendering_iterables
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
