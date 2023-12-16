@@ -126,10 +126,10 @@ docdemo_from(SimpleDictForeachState, display_color, component=dict_foreach)
 
 ## Nested examples
 
-`rx.foreach` can be used with nested state vars. Here we use nested `foreach` components to render the nested state vars. The `rx.foreach(project["technologies"], get_badge)` inside of the `project_item` function, renders the `dict` values which are of type `list`. The `rx.box(rx.foreach(NestedState.projects, project_item))` inside of the `projects_example` function renders each `dict` inside of the overall state var `projects`.
+`rx.foreach` can be used with nested state vars. Here we use nested `foreach` components to render the nested state vars. The `rx.foreach(project["technologies"], get_badge)` inside of the `project_item` function, renders the `dict` values which are of type `list`. The `rx.box(rx.foreach(NestedStateFE.projects, project_item))` inside of the `projects_example` function renders each `dict` inside of the overall state var `projects`.
 
 ```python exec
-class NestedState(rx.State):
+class NestedStateFE(rx.State):
     projects: list[dict[str, list]] = [
         {
             "technologies": ["Next.js", "Prisma", "Tailwind", "Google Cloud", "Docker", "MySQL"]
@@ -150,11 +150,11 @@ def project_item(project: dict) -> rx.Component:
     )
 
 def projects_example() -> rx.Component:
-    return rx.box(rx.foreach(NestedState.projects, project_item))
+    return rx.box(rx.foreach(NestedStateFE.projects, project_item))
 ```
 
 ```python eval
-docdemo_from(NestedState, get_badge, project_item, component=projects_example)
+docdemo_from(NestedStateFE, get_badge, project_item, component=projects_example)
 ```
 
 
