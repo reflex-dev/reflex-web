@@ -145,6 +145,8 @@ def get_sidebar_items_frontend():
         styling,
         assets,
         wrapping_react,
+        rendering_iterables,
+        conditional_rendering,
     )
 
     items = [
@@ -194,6 +196,8 @@ def get_sidebar_items_frontend():
                 wrapping_react.example,
             ],
         ),
+        create_item(rendering_iterables),
+        create_item(conditional_rendering),
     ]
     return items
 

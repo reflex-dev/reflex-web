@@ -25,5 +25,7 @@ from .utility_methods import *
 from .state_overview import state_overview
 from .api_routes import *
 from .client_storage import *
+from .conditional_rendering import conditional_rendering
+from .rendering_iterables import rendering_iterables
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
