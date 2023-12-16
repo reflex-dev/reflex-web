@@ -14,7 +14,6 @@ from pcweb.templates.docpage import (
 
 @docpage()
 def telemetry():
-    from pcweb.pages.docs.components.overview import components_overview
     from pcweb.pages.docs.styling.overview import styling_overview
 
     return rx.box(
