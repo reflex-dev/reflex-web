@@ -3,7 +3,7 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from, doclink
-from pcweb.pages.docs.state.var_operations import var_operations
+from pcweb.pages.docs.vars.var_operations import var_operations
 ```
 
 # Rendering Iterables
