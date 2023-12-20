@@ -268,7 +268,7 @@ Now let's style our datatable to make it look more aesthetic and easier to use. 
 We then set these themes using `theme=DataEditorTheme(**dark_theme)`. On top of the styling we can also set some `props` to make some other aesthetic changes to our datatable. We have set the `row_height` to equal `50` so that the content is easier to read. We have also made the `smooth_scroll_x` and `smooth_scroll_y` equal `True` so that we can smoothly scroll along the columns and rows. Finally, we added `column_select=single`, where column select can take any of the following values `none`, `single` or `multiple`.
 
 ```python exec
-from reflex.components.glide_data_grid.dataeditor import DataEditorTheme
+from reflex.components.datadisplay.dataeditor import DataEditorTheme
 dark_theme = {
     "accentColor": "#8c96ff",
     "accentLight": "rgba(202, 206, 255, 0.253)",
