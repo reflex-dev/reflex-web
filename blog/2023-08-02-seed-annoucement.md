@@ -61,6 +61,6 @@ We will continue to grow our open-source framework to have feature parity with t
 This includes adding more complex styling methods like detailed animations and improvements to our core component library.  
 
 A more detailed roadmap of what’s coming next can be found [here](https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37).
-Stay tuned for updates on our progress!", padding_bottom="2em")
+Stay tuned for updates on our progress!
 
 -- Reflex Team
