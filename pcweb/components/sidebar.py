@@ -148,7 +148,7 @@ def get_sidebar_items_frontend():
         rendering_iterables,
         conditional_rendering,
     )
-
+ 
     items = [
         create_item(ui_overview),
         create_item(
@@ -160,9 +160,6 @@ def get_sidebar_items_frontend():
                 components.library,
             ],
         ),
-        # create_item(
-        #     dynamic_rendering,
-        # ),
         create_item(
             pages,
             children=[
@@ -181,6 +178,13 @@ def get_sidebar_items_frontend():
             ],
         ),
         create_item(
+            dynamic_rendering,
+            children = [
+            rendering_iterables,
+            conditional_rendering
+            ]
+        ),
+        create_item(
             assets,
             children=[
                 assets.referencing_assets,
@@ -196,8 +200,6 @@ def get_sidebar_items_frontend():
                 wrapping_react.example,
             ],
         ),
-        create_item(rendering_iterables),
-        create_item(conditional_rendering),
     ]
     return items
 
@@ -276,7 +278,6 @@ def get_sidebar_items_backend():
     return items
 
 
-
 def get_sidebar_items_hosting():
     from pcweb.pages.docs import (
         hosting,
@@ -286,7 +287,6 @@ def get_sidebar_items_hosting():
         create_item(hosting.self_hosting),
     ]
     return items
-
 
 
 def get_sidebar_items_other():
@@ -427,6 +427,7 @@ def sidebar_leaf(
                         },
                         transition="color 0.4s ease-in-out",
                         padding_x="0.5em",
+                        width="100%",
                     ),
                     _hover={"text_decoration": "none"},
                     href=item.link,
@@ -446,22 +447,23 @@ def sidebar_item_comp(
     url: str,
     first: bool,
 ):
-    return rx.box(
-        rx.cond(
+    return rx.cond(
             item.children.length() == 0,
             sidebar_leaf(item=item, url=url),
             rx.accordion_item(
                 rx.accordion_button(
-                    rx.accordion_icon(),
                     rx.text(
                         item.names,
                         font_family=styles.SANS,
                         font_weight="500",
                     ),
+                    rx.spacer(),
+                    rx.accordion_icon(),
                     _hover={
                         "color": styles.ACCENT_COLOR,
                     },
                     color="#494369",
+                    width="100%",
                 ),
                 rx.accordion_panel(
                     rx.accordion(
@@ -482,12 +484,11 @@ def sidebar_item_comp(
                         default_index=rx.cond(index, index[1:2], []),
                     ),
                     margin_left=".7em",
+                    width="100%"
                 ),
                 border="none",
             ),
-        ),
-        width="100%",
-    )
+        )
 
 
 def calculate_index(sidebar_items, url):
@@ -545,6 +546,18 @@ signle_item = {
 }
 
 
+def sidebar_section(name):
+    return rx.heading(
+        rx.span("[ ", color="#DACEEE"),
+        name,
+        rx.span(" ]", color="#DACEEE"),
+        style=heading_style3,
+        margin_top="1em",
+    )
+
+
+
+
 @rx.memo
 def sidebar_comp(
     url: str,
@@ -585,12 +598,7 @@ def sidebar_comp(
             ),
             rx.tab_panels(
                 rx.tab_panel(
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "Onboarding",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                    ),
+                    sidebar_section("Onboarding"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -605,13 +613,7 @@ def sidebar_comp(
                         default_index=learn_index if learn_index is not None else [],
                         width="100%",
                     ),
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "UI (Frontend)",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                        margin_top="1em",
-                    ),
+                    sidebar_section("UI"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -626,14 +628,9 @@ def sidebar_comp(
                         default_index=frontend_index
                         if frontend_index is not None
                         else [],
+                        width="100%",
                     ),
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "State (Backend)",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                        margin_top="1em",
-                    ),
+                    sidebar_section("State"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -648,14 +645,9 @@ def sidebar_comp(
                         default_index=backend_index
                         if backend_index is not None
                         else [],
+                        width="100%",
                     ),
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "Hosting",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                        margin_top="1em",
-                    ),
+                    sidebar_section("Hosting"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -668,14 +660,9 @@ def sidebar_comp(
                         ],
                         allow_multiple=True,
                         default_index=hosting_index if hosting_index is not None else [],
+                        width="100%",
                     ),
-                    rx.heading(
-                        rx.span("[ ", color="#DACEEE"),
-                        "Other",
-                        rx.span(" ]", color="#DACEEE"),
-                        style=heading_style3,
-                        margin_top="1em",
-                    ),
+                    sidebar_section("Other"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -708,8 +695,10 @@ def sidebar_comp(
                     padding_x="0em",
                     width="100%",
                 ),
+                width="100%",
             ),
             index=SidebarState.sidebar_index,
+            width="100%",
         ),
         align_items="start",
         overflow_y="scroll",

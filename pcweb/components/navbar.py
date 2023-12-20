@@ -597,32 +597,6 @@ def feedback_button():
         padding="0.2em",
     )
 
-
-def feedback_button_nav():
-    return rx.hstack(
-        rx.menu(
-            rx.menu_button(rx.text("Feedback", style=styles.NAV_TEXT_STYLE)),
-            rx.menu_list(
-                rx.cond(
-                    NavbarState.form_submitted,
-                    rx.center(
-                        "Feedback Submitted", style=styles.NAV_TEXT_STYLE, width="100%"
-                    ),
-                    my_form(),
-                ),
-                opacity=".5",
-            ),
-        ),
-        display=["none", "none", "none", "none", "none", "flex"],
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-        padding_x=".5em",
-        height="2em",
-        border_radius="8px",
-        bg="#FFFFFF",
-        style=hover_button_style,
-    )
-
-
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
 
@@ -763,7 +737,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                 ),
                 rx.hstack(
                     search_bar(),
-                    feedback_button_nav(),
                     github_button(),
                     discord_button(),
                     rx.icon(
