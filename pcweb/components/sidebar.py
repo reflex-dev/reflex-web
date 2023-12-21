@@ -385,26 +385,32 @@ def get_sidebar_items_reference():
     ref.children.extend(children)
 
     return [
-        library_item,
-        ref,
-        create_item(
-            recipes,
-            children=[
-                recipes.navbar,
-                recipes.sidebar,
-                recipes.checkboxes,
-                recipes.filtered_table,
-            ],
+        SidebarItem(
+            names="Overview",
+            alt_name_for_next_prev="Components Reference: Overview",
+            link="/docs/library",
         ),
-        create_item(
-            datatable_tutorial,
-            children=[
-                datatable_tutorial.simple_table,
-                datatable_tutorial.add_interactivity,
-                datatable_tutorial.add_styling,
-                datatable_tutorial.live_stream,
-            ],
-        ),
+        *library_item_children,
+        # library_item,
+        # ref,
+        # create_item(
+        #     recipes,
+        #     children=[
+        #         recipes.navbar,
+        #         recipes.sidebar,
+        #         recipes.checkboxes,
+        #         recipes.filtered_table,
+        #     ],
+        # ),
+        # create_item(
+        #     datatable_tutorial,
+        #     children=[
+        #         datatable_tutorial.simple_table,
+        #         datatable_tutorial.add_interactivity,
+        #         datatable_tutorial.add_styling,
+        #         datatable_tutorial.live_stream,
+        #     ],
+        # ),
     ]
 
 def get_sidebar_items_other_libraries():
@@ -419,7 +425,6 @@ def get_sidebar_items_other_libraries():
         children=chakra_children
     )
 
-    # breakpoint()
     return [
         chakra_item
     ]
