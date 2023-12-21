@@ -97,7 +97,7 @@ class Source(Base):
                 continue
 
             # Check if this line has a prop.
-            match = re.search("\w+:", line)
+            match = re.search(r"\w+:", line)
             if match is None:
                 # This line doesn't have a var, so continue.
                 continue

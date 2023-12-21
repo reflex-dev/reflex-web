@@ -8,7 +8,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.components.navbar import NavbarState
-from pcweb.component_list import component_list
+from pcweb.component_list import component_list, chakra_components
 from pcweb.route import Route
 from reflex.base import Base
 from pcweb.styles import font_weights as fw
@@ -71,6 +71,14 @@ class SidebarState(State):
                 return 0
         return self._sidebar_index
 
+def sidebar_section(name):
+    return rx.heading(
+        rx.span("[ ", color="#DACEEE"),
+        name,
+        rx.span(" ]", color="#DACEEE"),
+        style=heading_style3,
+        margin_top="1em",
+    )
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -308,6 +316,32 @@ def get_sidebar_items_other():
     return items
 
 
+def get_category_children(category, category_list, prefix=""):
+    if isinstance(category_list, dict):
+        return SidebarItem(
+            names=category,
+            children=[
+                get_category_children(c, category_list[c]) for c in category_list
+            ],
+        )
+    category_item_children = []
+    for c in category_list:
+        if isinstance(c[0], str):
+            category_name = c[0]
+            item = SidebarItem(names=category_name, children=[])
+        else:
+            component_name = c[0].__name__
+            component_link = (
+                f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+            )
+            item = SidebarItem(
+                names=component_name.replace("Chart", "").replace("X", ""),
+                link=component_link,
+            )
+        category_item_children.append(item)
+    return SidebarItem(names=category, children=category_item_children)
+
+
 def get_sidebar_items_reference():
     from pcweb.pages.docs import datatable_tutorial
     from pcweb.pages.docs import recipes
@@ -316,26 +350,7 @@ def get_sidebar_items_reference():
     library_item_children = []
 
     for category in component_list:
-        category_item_children = []
-        for c in component_list[category]:
-            if isinstance(c[0], str):
-                category_name = c[0]
-                category_item_children.append(
-                    SidebarItem(names=category_name, children=[])
-                )
-            else:
-                component_name = c[0].__name__
-                component_link = (
-                    f"/docs/library/{category.lower()}/{component_name.lower()}"
-                )
-                component_item = SidebarItem(
-                    names=component_name.replace("Chart", "").replace("X", ""),
-                    link=component_link,
-                )
-                category_item_children.append(component_item)
-
-        category_item = SidebarItem(names=category, children=category_item_children)
-
+        category_item = get_category_children(category, component_list[category])
         library_item_children.append(category_item)
 
     library_item = SidebarItem(
@@ -390,6 +405,23 @@ def get_sidebar_items_reference():
                 datatable_tutorial.live_stream,
             ],
         ),
+    ]
+
+def get_sidebar_items_other_libraries():
+
+    chakra_children = []
+    for category in chakra_components:
+        category_item = get_category_children(category, chakra_components[category], prefix="chakra/")
+        chakra_children.append(category_item)
+
+    chakra_item = SidebarItem(
+        names="Chakra UI",
+        children=chakra_children
+    )
+
+    # breakpoint()
+    return [
+        chakra_item
     ]
 
 
@@ -513,6 +545,7 @@ frontend = get_sidebar_items_frontend()
 backend = get_sidebar_items_backend()
 hosting = get_sidebar_items_hosting()
 other = get_sidebar_items_other()
+other_libs = get_sidebar_items_other_libraries()
 
 
 def get_prev_next(url):
@@ -546,17 +579,6 @@ signle_item = {
 }
 
 
-def sidebar_section(name):
-    return rx.heading(
-        rx.span("[ ", color="#DACEEE"),
-        name,
-        rx.span(" ]", color="#DACEEE"),
-        style=heading_style3,
-        margin_top="1em",
-    )
-
-
-
 
 @rx.memo
 def sidebar_comp(
@@ -567,9 +589,8 @@ def sidebar_comp(
     backend_index: list[int],
     hosting_index: list[int],
     other_index: list[int],
+    other_libs_index: list[int],
 ):
-    from pcweb.pages.docs.gallery import gallery
-
     return rx.vstack(
         rx.tabs(
             rx.tab_list(
@@ -680,6 +701,7 @@ def sidebar_comp(
                     width="100%",
                 ),
                 rx.tab_panel(
+                    sidebar_section("Core"),
                     rx.accordion(
                         *[
                             sidebar_item_comp(
@@ -690,6 +712,19 @@ def sidebar_comp(
                         allow_multiple=True,
                         default_index=reference_index
                         if reference_index is not None
+                        else [],
+                    ),
+                    sidebar_section("Other Libraries"),
+                    rx.accordion(
+                        *[
+                            sidebar_item_comp(
+                                item=item, url=url, first=True, index=other_libs_index
+                            )
+                            for item in other_libs
+                        ],
+                        allow_multiple=True,
+                        default_index=other_libs_index
+                        if other_libs_index is not None
                         else [],
                     ),
                     padding_x="0em",
@@ -725,6 +760,10 @@ def sidebar(url=None) -> rx.Component:
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
     other_index = calculate_index(other, url)
+    other_libs_index = calculate_index(other_libs, url)
+
+
+
     return rx.box(
         sidebar_comp(
             url=url,
@@ -734,6 +773,7 @@ def sidebar(url=None) -> rx.Component:
             backend_index=backend_index,
             hosting_index=hosting_index,
             other_index=other_index,
+            other_libs_index=other_libs_index,
         ),
     )
 

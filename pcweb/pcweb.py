@@ -3,7 +3,7 @@
 import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
-from pcweb.component_list import component_list
+from pcweb.component_list import component_list, chakra_components
 from pcweb.pages import blog_routes, doc_routes, routes, faq_routes, changelog_routes
 from pcweb.pages.docs.component import multi_docs
 
@@ -77,19 +77,33 @@ for route in doc_routes:
 #     )
 
 
-# for key in component_list:
-#     for component_group in component_list[key]:
-#         if isinstance(component_group[0], str):
-#             continue
-#         else:
-#             path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-#             app.add_page(
-#                 multi_docs(path=path, component_list=component_group).component,
-#                 route=path,
-#                 title=component_group[0].__name__,
-#                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
-#                 image="/previews/index_preview.png",
-#             )
+for key in component_list:
+    for component_group in component_list[key]:
+        if isinstance(component_group[0], str):
+            continue
+        else:
+            path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+            app.add_page(
+                multi_docs(path=path, component_list=component_group).component,
+                route=path,
+                title=component_group[0].__name__,
+                description=f"Reflex | Docs for {component_group[0].__name__} component.",
+                image="/previews/index_preview.png",
+            )
+
+for key in chakra_components:
+    for component_group in chakra_components[key]:
+        if isinstance(component_group[0], str):
+            continue
+        else:
+            path = f"/docs/library/chakra/{key.lower()}/{component_group[0].__name__.lower()}"
+            app.add_page(
+                multi_docs(path=path, component_list=component_group).component,
+                route=path,
+                title=component_group[0].__name__,
+                description=f"Reflex | Docs for {component_group[0].__name__} component.",
+                image="/previews/index_preview.png",
+            )
 
 # Add redirects
 redirects = [
@@ -118,5 +132,3 @@ for source, target in redirects:
     app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.index)
-# Run the app.
-app.compile()
