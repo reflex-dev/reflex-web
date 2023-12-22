@@ -2,17 +2,13 @@
 
 import inspect
 import re
-from typing import Any, Type, Literal, get_args
+from typing import Any, Type, get_args
 
 from reflex.base import Base
 from reflex.components.component import Component
 
-from pcweb.component_list import component_list, not_ready_components
-from pcweb.components.sidebar import SidebarItem
 from pcweb.pages.docs.component_lib import *
-from pcweb.templates.docpage import docheader, docpage, subheader
-from pcweb import constants, styles
-from pcweb.flexdown import markdown_memo
+from pcweb.templates.docpage import docpage
 
 
 class Prop(Base):
@@ -507,7 +503,6 @@ def multi_docs(path, component_list):
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
-        coming_soon_components = [c.__name__ for c in not_ready_components]
 
         name = component_list[0].__name__
         return rx.box(
