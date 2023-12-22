@@ -5,6 +5,7 @@ import reflex as rx
 # Form components.
 forms_list = [
     [rx.Upload],
+    [rx.Editor],
     [rx.DebounceInput],
 ]
 
@@ -68,10 +69,15 @@ chakra_components = {
         [rx.chakra.Highlight],
     ],
     "Forms": [
-        [rx.chakra.FormControl, rx.chakra.FormLabel, rx.chakra.FormErrorMessage],
-        [rx.chakra.Input],
-        [rx.chakra.NumberInput],
+        [rx.chakra.Form],
+        [rx.chakra.FormControl, rx.chakra.FormLabel, rx.chakra.FormErrorMessage, rx.chakra.FormHelperText],
+        [rx.chakra.Button, rx.chakra.IconButton],
+        [rx.chakra.ButtonGroup],
         [rx.chakra.Checkbox],
+        [rx.chakra.Editable, rx.chakra.EditablePreview, rx.chakra.EditableInput, rx.chakra.EditableTextarea],
+        [rx.chakra.Input],
+        [rx.chakra.NumberInput, rx.chakra.NumberInputField, rx.chakra.NumberInputStepper, rx.chakra.NumberIncrementStepper, rx.chakra.NumberDecrementStepper],
+        [rx.chakra.PinInput],
         [rx.chakra.RadioGroup, rx.chakra.Radio],
         [rx.chakra.RangeSlider, rx.chakra.SliderTrack, rx.chakra.SliderFilledTrack, rx.chakra.SliderThumb],
         [rx.chakra.Select],
@@ -80,18 +86,29 @@ chakra_components = {
         [rx.chakra.TextArea],
     ],
     "Layout": [
+        [rx.chakra.AspectRatio],
         [rx.chakra.Box],
-        [rx.chakra.Center],
+        [rx.chakra.Card, rx.chakra.CardHeader, rx.chakra.CardBody, rx.chakra.CardFooter],
+        [rx.chakra.Center, rx.chakra.Circle, rx.chakra.Square],
         [rx.chakra.Container],
         [rx.chakra.Flex],
-        [rx.chakra.Grid],
+        [rx.chakra.Grid, rx.chakra.GridItem],
+        [rx.chakra.ResponsiveGrid],
         [rx.chakra.Spacer],
-        [rx.chakra.Stack],
-        [rx.chakra.Wrap],
+        [rx.chakra.Stack, rx.chakra.Hstack, rx.chakra.Vstack],
+        [rx.chakra.Wrap, rx.chakra.WrapItem],
     ],
     "Navigation": [
         [rx.chakra.Breadcrumb, rx.chakra.BreadcrumbItem, rx.chakra.BreadcrumbLink],
         [rx.chakra.Link],
+    ],
+    "Overlay": [
+        [rx.chakra.AlertDialog, rx.chakra.AlertDialogBody, rx.chakra.AlertDialogFooter, rx.chakra.AlertDialogHeader, rx.chakra.AlertDialogContent, rx.chakra.AlertDialogOverlay],
+        [rx.chakra.Drawer, rx.chakra.DrawerBody, rx.chakra.DrawerFooter, rx.chakra.DrawerHeader, rx.chakra.DrawerContent, rx.chakra.DrawerOverlay],
+        [rx.chakra.Menu, rx.chakra.MenuButton, rx.chakra.MenuList, rx.chakra.MenuItem, rx.chakra.MenuGroup, rx.chakra.MenuDivider, rx.chakra.MenuOptionGroup, rx.chakra.MenuItemOption],
+        [rx.chakra.Modal, rx.chakra.ModalOverlay, rx.chakra.ModalContent, rx.chakra.ModalHeader, rx.chakra.ModalBody, rx.chakra.ModalFooter],
+        [rx.chakra.Popover, rx.chakra.PopoverTrigger, rx.chakra.PopoverHeader, rx.chakra.PopoverBody, rx.chakra.PopoverFooter, rx.chakra.PopoverArrow, rx.chakra.PopoverAnchor],
+        [rx.chakra.Tooltip],
     ],
     "DataDisplay": [
         [rx.chakra.Badge],
@@ -110,6 +127,13 @@ chakra_components = {
         [rx.chakra.Icon],
         [rx.chakra.Avatar, rx.chakra.AvatarBadge, rx.chakra.AvatarGroup],
     ],
+    "Feedback": [
+        [rx.chakra.Alert, rx.chakra.AlertIcon, rx.chakra.AlertTitle, rx.chakra.AlertDescription],
+        [rx.chakra.Progress],
+        [rx.chakra.Skeleton, rx.chakra.SkeletonText, rx.chakra.SkeletonCircle],
+        [rx.chakra.Spinner],
+        [rx.chakra.CircularProgress, rx.chakra.CircularProgressLabel],
+    ]
 }
 
 # The final component list

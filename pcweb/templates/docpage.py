@@ -166,6 +166,60 @@ def my_form():
         width="100%",
     )
 
+tab_style = {
+    "font_size": "1em",
+    "font_weight": "500",
+    "font_weight": "500",
+    "padding_x": ".5em",
+    "color": "#696287",
+}
+tab_selected_style = {
+    "color": "#5646ED",
+    "bg": "#F5EFFE",
+    "font_size": "1em",
+    "font_weight": "500",
+    "padding_x": ".5em",
+    "padding_y": ".10em",
+    "border_radius": "8px",
+}
+
+
+def component_docpage(path) -> rx.Component:
+    from pcweb import flexdown
+    fname = path + ".md"
+    def contents():
+        return rx.box(
+            rx.box(
+                rx.box(
+                    rx.tabs(
+                        rx.tab_list(
+                            rx.spacer(),
+                            rx.tab(
+                                "Docs", _selected=tab_selected_style, style=tab_style
+                            ),
+                            rx.tab(
+                                "Styling", _selected=tab_selected_style, style=tab_style
+                            ),
+                            rx.tab(
+                                "API Reference", _selected=tab_selected_style, style=tab_style
+                            ),
+                            width="100%",
+                            padding_bottom="1em",
+                        ),
+                        rx.tab_panels(
+                            rx.tab_panel(flexdown.render_file(fname)),
+                            rx.tab_panel(flexdown.render_file(fname.replace(".md", "-style.md"))),
+                            rx.tab_panel(flexdown.render_file(fname)),
+                        ),
+                        variant="unstyled",
+                    ),
+                    padding_y="1em",
+                ),
+            ),
+        )
+
+    return docpage(set_path=path)(contents)
+
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the pynecone.io site should use.

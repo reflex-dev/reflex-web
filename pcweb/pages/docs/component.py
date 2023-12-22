@@ -504,8 +504,6 @@ tab_selected_style = {
 
 
 def multi_docs(path, component_list):
-    components = [component_docs(component) for component in component_list]
-
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
