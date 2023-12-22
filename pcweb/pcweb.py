@@ -81,19 +81,23 @@ for route in doc_routes:
 #     )
 
 
+from reflex.components.radix.themes.base import RadixThemesComponent
+
 for key in component_list:
     for component_group in component_list[key]:
         if isinstance(component_group[0], str):
             continue
-        else:
-            path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
-            app.add_page(
-                multi_docs(path=path, component_list=component_group).component,
-                route=path,
-                title=component_group[0].__name__,
-                description=f"Reflex | Docs for {component_group[0].__name__} component.",
-                image="/previews/index_preview.png",
-            )
+        if issubclass(component_group[0], RadixThemesComponent):
+            continue
+
+        path = f"/docs/library/{key.lower()}/{component_group[0].__name__.lower()}"
+        app.add_page(
+            multi_docs(path=path, component_list=component_group).component,
+            route=path,
+            title=component_group[0].__name__,
+            description=f"Reflex | Docs for {component_group[0].__name__} component.",
+            image="/previews/index_preview.png",
+        )
 
 for key in chakra_components:
     for component_group in chakra_components[key]:

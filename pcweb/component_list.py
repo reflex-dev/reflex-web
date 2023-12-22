@@ -2,6 +2,8 @@
 
 import reflex as rx
 
+from reflex.components.radix.themes import Text, Badge
+
 # Form components.
 forms_list = [
     [rx.Upload],
@@ -18,6 +20,7 @@ layout_list = [
 
 # Typography components.
 typography_list = [
+    [Text],
     [rx.Span],
     [rx.Markdown],
 ]
@@ -32,6 +35,7 @@ media_list = [
 # Data display components.
 datadisplay_list = [
     [rx.CodeBlock],
+    [Badge],
     [rx.DataTable],
     [rx.DataEditor],
 ]

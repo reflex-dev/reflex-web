@@ -218,7 +218,7 @@ def component_docpage(path) -> rx.Component:
             ),
         )
 
-    return docpage(set_path=path)(contents)
+    return docpage(set_path=f"/{path}")(contents)
 
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
