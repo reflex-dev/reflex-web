@@ -27,5 +27,7 @@ from .api_routes import *
 from .client_storage import *
 from .conditional_rendering import conditional_rendering
 from .rendering_iterables import rendering_iterables
+from .component_lib.data_display.radix_badge import radix_badge
+from .radix_dialog import radix_dialog
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]

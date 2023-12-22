@@ -6,6 +6,7 @@ from pcweb.base_state import State
 from pcweb.component_list import component_list, chakra_components
 from pcweb.pages import blog_routes, doc_routes, routes, faq_routes, changelog_routes
 from pcweb.pages.docs.component import multi_docs
+import reflex.components.radix.themes as rdxt
 
 from pcweb.pages import page404
 
@@ -13,6 +14,9 @@ from pcweb.pages import page404
 app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
+    theme=rdxt.theme(
+        appearance="dark", has_background=True, radius="large", accent_color="teal"
+    ),
     head_components=[
         rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),
         rx.script(
