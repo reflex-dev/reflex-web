@@ -14,7 +14,7 @@ text("The quick brown fox jumps over the lazy dog.")
 
 ## As another element
 
-Use the as prop to render text as a `p`, `label`, `div` or `span`. This prop is purely semantic and does not alter visual appearance.
+Use the `as_` prop to render text as a `p`, `label`, `div` or `span`. This prop is purely semantic and does not alter visual appearance.
 
 ```python demo
 flex(

@@ -2,7 +2,7 @@
 
 import reflex as rx
 
-from reflex.components.radix.themes import Text, Badge
+from reflex.components.radix.themes import Text, Badge, Heading
 
 # Form components.
 forms_list = [
@@ -21,6 +21,7 @@ layout_list = [
 # Typography components.
 typography_list = [
     [Text],
+    [Heading],
     [rx.Span],
     [rx.Markdown],
 ]
