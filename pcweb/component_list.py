@@ -12,7 +12,8 @@ from reflex.components.radix.themes import (
     Em, 
     Kbd, 
     Quote, 
-    Strong
+    Strong,
+    CalloutRoot,
     )
 
 # Form components.
@@ -27,6 +28,11 @@ layout_list = [
     [rx.Cond],
     [rx.Foreach],
     [rx.Fragment],
+]
+
+# Feedback components.
+feedback_list = [
+    [CalloutRoot],
 ]
 
 # Typography components.
@@ -163,6 +169,7 @@ chakra_components = {
 component_list = {
     "Typography": typography_list,
     "Forms": forms_list,
+    "Feedback": feedback_list,
     "Layout": layout_list,
     "DataDisplay": datadisplay_list,
     "Graphing": graphing_list,
