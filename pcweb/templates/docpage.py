@@ -184,8 +184,9 @@ tab_selected_style = {
 }
 
 
-def component_docpage(path) -> rx.Component:
+def component_docpage(path, comp) -> rx.Component:
     from pcweb import flexdown
+    from pcweb.pages.docs.component import component_docs
     fname = path + ".md"
     def contents():
         return rx.box(
@@ -209,7 +210,7 @@ def component_docpage(path) -> rx.Component:
                         rx.tab_panels(
                             rx.tab_panel(flexdown.render_file(fname)),
                             rx.tab_panel(flexdown.render_file(fname.replace(".md", "-style.md"))),
-                            rx.tab_panel(flexdown.render_file(fname)),
+                            rx.tab_panel(component_docs(comp)),
                         ),
                         variant="unstyled",
                     ),
