@@ -66,7 +66,7 @@ def sound_effect_demo():
     return rx.hstack(
         rx.script("""
             var button_sfx = new Audio("/vintage-button-sound-effect.mp3")
-            const playFromStart = (sfx) => {sfx.load(); sfx.play()}"""),
+            function playFromStart (sfx) {sfx.load(); sfx.play()}"""),
         rx.button("Play Immediately", on_click=rx.call_script("playFromStart(button_sfx)")),
         rx.button("Play Later", on_click=SoundEffectState.delayed_play),
     )

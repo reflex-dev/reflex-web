@@ -17,8 +17,9 @@ from pcweb.templates.docpage import (
 import openai
 
 import inspect
-from pcweb.pages.docs.state.overview import state_overview
-from pcweb.pages.docs.state.events import events
+from pcweb.pages.docs.state_overview import state_overview
+from pcweb.pages.docs.events.setters import setters
+from pcweb.pages.docs.events.yield_events import yield_events
 
 from pcweb.pages.docs.tutorial.final_app import ChatappState
 
@@ -141,7 +142,7 @@ docdemo(
 
 Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({"/docs/library/layout/foreach"}) component to iterate over the chat history.
 
-We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one.Learn more in the [events docs]({events.path}) under the Setters section.
+We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({setters.path}) under the Setters section.
 
 
 ## Clearing the Input
@@ -208,7 +209,7 @@ doccode(state2)
 
 ## Streaming Text
 
-Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [event yield docs]({events.path + "#yielding-multiple-updates"}) for more info.
+Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs]({yield_events.path}) for more info.
 
 
 

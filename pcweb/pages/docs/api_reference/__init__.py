@@ -28,5 +28,5 @@ for module in modules:
     s = Source(module=module)
     name = module.__name__.lower()
     docs = generate_docs(name, s)
-    title = f"{name.replace('_', ' ').title()} | Reflex"
+    title = name.replace("_", " ").title()
     locals()[f"{name}_ref"] = docpage(f"/docs/api-reference/{name}", title)(docs)

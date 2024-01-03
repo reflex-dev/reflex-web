@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs.components.assets import assets
+from pcweb.pages.docs.assets.upload_and_download_files import upload_and_download_files
 ```
 
 # Custom Stylesheets
@@ -17,7 +17,7 @@ app = rx.App(
 
 ## Local Stylesheets
 
-You can also add local stylesheets. Just put the stylesheet under [`assets/`]({assets.path}) and pass the path to the stylesheet to `rx.App`:
+You can also add local stylesheets. Just put the stylesheet under [`assets/`]({upload_and_download_files.path}) and pass the path to the stylesheet to `rx.App`:
 
 ```python
 app = rx.App(

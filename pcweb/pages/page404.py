@@ -8,19 +8,13 @@ from pcweb.components.footer import footer
 from pcweb.components.navbar import navbar
 
 
-class State404(State):
-    @rx.var
-    def origin_url(self) -> str:
-        return self.router_data.get("asPath", "")
-
-
 def _404():
     return rx.center(
         rx.vstack(
             rx.heading(rx.constants.Page404.TITLE),
             rx.text(
                 "Oups, the page at ",
-                rx.code(State404.origin_url),
+                rx.code(State.router.page.raw_path),
                 " doesn't exist.",
             ),
             rx.spacer(),

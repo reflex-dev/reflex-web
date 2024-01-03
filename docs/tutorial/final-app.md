@@ -35,7 +35,7 @@ def chat1() -> rx.Component:
 def show_code_using_the_api():
     # state.py
     import os
-    import openai
+    from openai import OpenAI
 
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -43,7 +43,8 @@ def show_code_using_the_api():
 
     def answer(self):
         # Our chatbot has some brains now!
-        session = openai.ChatCompletion.create(
+        client = OpenAI()
+        session = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "user", "content": self.question}
@@ -64,6 +65,9 @@ def show_code_using_the_api():
 
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
+                if item.choices[0].delta.content is None:
+                    # presence of 'None' indicates the end of the response
+                    break
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
@@ -172,7 +176,8 @@ def show_final_state():
 
         def answer(self):
             # Our chatbot has some brains now!
-            session = openai.ChatCompletion.create(
+            client = OpenAI()
+            session = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "user", "content": self.question}
@@ -193,6 +198,9 @@ def show_final_state():
 
             for item in session:
                 if hasattr(item.choices[0].delta, "content"):
+                    if item.choices[0].delta.content is None:
+                        # presence of 'None' indicates the end of the response
+                        break
                     answer += item.choices[0].delta.content
                     self.chat_history[-1] = (self.chat_history[-1][0], answer)
                     yield

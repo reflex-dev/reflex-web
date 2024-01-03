@@ -2,7 +2,7 @@ import reflex as rx
 import flexdown
 
 from pcweb.templates.docpage import (
-    code_block2,
+    code_block_markdown,
     text_comp,
     h1_comp,
     h2_comp,
@@ -18,7 +18,7 @@ component_map = {
     "p": lambda text: text_comp(text=text),
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
-    "codeblock": code_block2,
+    "codeblock": code_block_markdown,
 }
 xd = flexdown.Flexdown(component_map=component_map)
 
@@ -26,8 +26,10 @@ xd = flexdown.Flexdown(component_map=component_map)
 md = rx.markdown("", component_map=component_map)
 custom = md.get_custom_components()
 
+
 def get_custom_components(self, seen):
     return custom
+
 
 rx.Markdown.get_custom_components = get_custom_components
 

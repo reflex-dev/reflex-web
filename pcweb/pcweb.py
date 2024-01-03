@@ -4,7 +4,6 @@ import reflex as rx
 from pcweb import styles
 from pcweb.base_state import State
 from pcweb.component_list import component_list
-from pcweb.middleware import CloseSidebarMiddleware
 from pcweb.pages import blog_routes, doc_routes, routes, faq_routes, changelog_routes
 from pcweb.pages.docs.component import multi_docs
 
@@ -32,7 +31,7 @@ for route in routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex",
+        route.title,
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
         image="/previews/index_preview.png",
     )
@@ -42,7 +41,7 @@ for route in blog_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Blog",
+        route.title,
         description="Keep up to date with the latest Reflex news.",
         image="/previews/blog_preview.png",
     )
@@ -52,7 +51,7 @@ for route in doc_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Docs",
+        route.title,
         description="Learn how to build web apps in pure Python.",
         image="/previews/docs_preview.png",
     )
@@ -62,7 +61,7 @@ for route in changelog_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | Changelog",
+        route.title,
         description="Keep up to date with the latest Reflex news.",
         image="/previews/changelog_preview.png",
     )
@@ -72,7 +71,7 @@ for route in faq_routes:
     app.add_page(
         route.component,
         route.path,
-        "Reflex | FAQ",
+        route.title,
         description="Frequently asked questions about Reflex.",
         image="/previews/faq_preview.png",
     )
@@ -87,13 +86,10 @@ for key in component_list:
             app.add_page(
                 multi_docs(path=path, component_list=component_group).component,
                 route=path,
-                title=f"Reflex | {component_group[0].__name__}",
+                title=component_group[0].__name__,
                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
                 image="/previews/index_preview.png",
             )
-
-# Add the middleware.
-app.add_middleware(CloseSidebarMiddleware(), index=0)
 
 # Add redirects
 redirects = [
@@ -119,7 +115,7 @@ redirects = [
 ]
 
 for source, target in redirects:
-    app.add_page(rx.fragment(), route=source, on_load=rx.redirect(target))
+    app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.index)
 # Run the app.

@@ -32,7 +32,7 @@ export time to retain the default for local development.
 Then run your app in production mode:
 
 ```bash
-$ reflex run --env prod
+reflex run --env prod
 ```
 
 Production mode creates an optimized build of your app.  By default, the static
@@ -72,7 +72,7 @@ static hosting provider, like Netlify or Github Pages. Be sure `api_url` is set
 to an accessible backend URL when the frontend is exported.
 
 ```bash
-$ API_URL=http://app.example.com:8000 reflex export
+API_URL=http://app.example.com:8000 reflex export
 ```
 
 This will create a `frontend.zip` file with your app's minified HTML,
@@ -130,11 +130,11 @@ hello
 After all changes have been made, the container image can now be created as follows.
             
 ```bash
-$ docker build -t reflex-project:latest .
+docker build -t reflex-project:latest .
 ```
 
 Finally, you can start your Reflex container service as follows.
             
 ```bash
-$ docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
+docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
 ```

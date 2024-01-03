@@ -75,6 +75,56 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2023-12-06",
+            "v0.3.6",
+            "rx.el components working with State",
+            [],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.6",
+        ),
+        change(
+            "2023-12-05",
+            "v0.3.5",
+            "Performance Improvements",
+            [
+                "More flexible rx.State subclassing",
+                "Enhanced standard HTML elements under `rx.el`",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.5",
+        ),
+        change(
+            "2023-11-17",
+            "v0.3.4",
+            "Support Dynamic Forms",
+            [
+                "Support python 3.12",
+                "NextJS 14",
+                "Fast lazy import",
+                "Upload with progress and cancellation",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.4",
+        ),
+        change(
+            "2023-11-03",
+            "v0.3.2",
+            "Work with Github Codespaces",
+            [
+                "Expose gunicorn_worker_class for extended configuration",
+                "stop_propagation and prevent_default for all events",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.2",
+        ),
+        change(
+            "2023-10-27",
+            "v0.3.0",
+            "New rx.data_editor Component",
+            [
+                "Reflex hosting alpha CLI",
+                "Drop python 3.7 support",
+                "Experimental support for Radix themes",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.0",
+        ),
+        change(
             "2023-10-09",
             "v0.2.9",
             "Core Graphing Improvements",
@@ -136,7 +186,7 @@ def changelog_content():
     )
 
 
-@webpage(path="/changelog")
+@webpage(path="/changelog", title="Changelog")
 def changelog_display():
     return rx.container(
         rx.vstack(

@@ -20,59 +20,42 @@ from pcweb.components.logo import navbar_logo
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
-        rx.box(
-            rx.code_block(
-                code,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="light",
-                background="transparent",
-                language=language,
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
+        rx.code_block(
+            code,
             border_radius=styles.DOC_BORDER_RADIUS,
-            border="2px solid #F4F3F6",
-        ),
-        position="relative",
-        margin_bottom="1em",
-        width="100%",
-    )
-
-
-@rx.memo
-def code_block_memo(children: str, language: str):
-    return rx.box(
-        rx.box(
-            rx.code_block(
-                language=language,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="light",
-                background="transparent",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ).set(
-                special_props={
-                    rx.Var.create_safe("children={children}"),
+            theme="light",
+            background="transparent",
+            language=language,
+            code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
                 }
-            ),
-            border_radius=styles.DOC_BORDER_RADIUS,
-            border="2px solid #F4F3F6",
+            },
         ),
+        rx.button(
+            rx.icon(tag="copy"),
+            on_click=rx.set_clipboard(code),
+            position="absolute",
+            top="0.5em",
+            right="0.5em",
+            color=tc["docs"]["body"],
+            background="transparent",
+            _hover={
+                "background": "transparent",
+                "color": styles.ACCENT_COLOR,
+            },
+        ),
+        border_radius=styles.DOC_BORDER_RADIUS,
+        border="2px solid #F4F3F6",
         position="relative",
         margin_bottom="1em",
         width="100%",
     )
 
 
-def code_block2(*_, **props):
+def code_block_markdown(*children, **props):
     language = props.get("language", "none")
-    return code_block_memo(children="", language=language)
+    return code_block(code=children[0], language=language)
 
 
 # Docpage styles.
@@ -122,21 +105,56 @@ def my_form():
 
     return rx.form(
         rx.vstack(
+            rx.input(
+                placeholder="Email (optional)",
+                id="email",
+                type_="email",
+                width="100%",
+                font_size=".8em",
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+            ),
             rx.text_area(
                 placeholder="Your Feedback...",
                 id="feedback",
                 width="100%",
                 font_size=".8em",
+                _active={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _focus={
+                    "border": "none",
+                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+                },
+                _placeholder={
+                    "color": "#A9A7B1",
+                    "font_weight": "400",
+                },
+                border_radius="8px",
+                border="none",
+                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
             ),
             rx.hstack(
                 rx.spacer(),
                 rx.button(
                     "Send",
                     type_="submit",
-                    font_size=".8em",
-                    padding_x=".5em",
-                    padding_y=".2em",
-                    style=styles.ACCENT_BUTTON,
+                    size="sm",
+                    style=styles.BUTTON_LIGHT,
                 ),
                 width="100%",
             ),
@@ -146,49 +164,6 @@ def my_form():
         on_submit=NavbarState.handle_submit,
         padding_bottom=".2em",
         width="100%",
-    )
-
-
-def feedback_icon(number):
-    from pcweb.components.navbar import NavbarState, hover_button_style
-
-    return rx.icon(
-        tag="star",
-        on_click=NavbarState.update_score(number),
-        color=rx.cond(
-            NavbarState.page_score >= number,
-            c["indigo"][400],
-            c["indigo"][200],
-        ),
-        bg="white",
-        border_color="1px solid black",
-    )
-
-
-def feedback_button():
-    from pcweb.components.navbar import NavbarState, hover_button_style
-
-    return rx.vstack(
-        rx.hstack(
-            rx.text(
-                "Was this page helpful?",
-                style=styles.NAV_TEXT_STYLE,
-                padding="0.2em",
-                padding_x=".5",
-                font_size="1em",
-            ),
-            feedback_icon(1),
-            feedback_icon(2),
-            feedback_icon(3),
-            feedback_icon(4),
-            feedback_icon(5),
-        ),
-        rx.cond(
-            NavbarState.show_form,
-            my_form(),
-        ),
-        transition="all 2s",
-        style=styles.BUTTON_LIGHT_NO_BACKGROUND,
     )
 
 
@@ -222,7 +197,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
         # Set the page title.
         if t is None:
-            title = f"{contents.__name__.replace('_', ' ').title()} | Reflex"
+            title = contents.__name__.replace("_", " ").title()
         else:
             title = t
 
@@ -238,7 +213,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
-            from pcweb.components.navbar import navbar
+            from pcweb.components.navbar import navbar, feedback_button
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -299,8 +274,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         rx.desktop_only(
                             sidebar,
                             width=["0", "0%", "25%"],
-                            padding_left=styles.PADDING_X,
                             padding_y="2em",
+                            padding_left=["1em", "2em", "2em", "2m", "2em"],
                         ),
                         rx.box(
                             rx.box(comp),
@@ -323,8 +298,14 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ),
                                 width="100%",
                             ),
-                            padding_left=["1em", "2em", "5em", "8em"],
-                            padding_right=styles.PADDING_X,
+                            border_left=[
+                                "none",
+                                "none",
+                                "none",
+                                "none",
+                                "1px solid #F4F3F6",
+                            ],
+                            padding_x=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
                             padding_y="2em",
                             height="100%",
@@ -377,8 +358,8 @@ def docheader(
     Returns:
         The styled header.
     """
-    # id_ = "-".join(text.lower().split())
-    # href = State.current_page + "#" + id_
+    id_ = "-".join(text.lower().split())
+    href = State.current_page + "#" + id_
 
     # Return the header.
     return rx.box(
@@ -419,12 +400,34 @@ def docheader(
 
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
+    id_ = text.to(list[str])[0].lower().split().join("-")
+    href = State.current_page + "#" + id_
+
     return rx.box(
-        rx.heading(
-            text,
-            as_="h1",
-            font_size=styles.H1_FONT_SIZE,
-            font_weight=fw["heading"],
+        rx.link(
+            rx.hstack(
+                rx.heading(
+                    text,
+                    id=id_,
+                    as_="h1",
+                    font_size=styles.H1_FONT_SIZE,
+                    font_weight=fw["heading"],
+                ),
+                rx.icon(
+                    tag="link",
+                    color="#696287",
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
+                ),
+                align_items="center",
+            ),
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
         color=tc["docs"]["header"],
@@ -434,12 +437,34 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
 
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
+    id_ = text.to(list[str])[0].lower().split().join("-")
+    href = State.current_page + "#" + id_
+
     return rx.box(
-        rx.heading(
-            text,
-            as_="h2",
-            font_size=styles.H3_FONT_SIZE,
-            font_weight=fw["subheading"],
+        rx.link(
+            rx.hstack(
+                rx.heading(
+                    text,
+                    id=id_,
+                    as_="h2",
+                    font_size=styles.H3_FONT_SIZE,
+                    font_weight=fw["subheading"],
+                ),
+                rx.icon(
+                    tag="link",
+                    color="#696287",
+                    _hover={
+                        "color": styles.ACCENT_COLOR,
+                    },
+                ),
+                align_items="center",
+            ),
+            _hover={
+                "cursor": "pointer",
+                "textDecoration": "none",
+            },
+            href=href,
+            on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
         margin_top="1.5em",
