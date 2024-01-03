@@ -14,10 +14,12 @@ from reflex.components.radix.themes import (
     Quote, 
     Strong,
     CalloutRoot,
+    Checkbox,
     )
 
 # Form components.
 forms_list = [
+    [Checkbox],
     [rx.Upload],
     [rx.Editor],
     [rx.DebounceInput],
