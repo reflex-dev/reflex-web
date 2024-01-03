@@ -204,17 +204,17 @@ other_list = [[rx.Html], [rx.Script]]
 
 # The final component list
 component_list = {
-    # "Typography": typography_list,
-    # "Forms": forms_list,
-    # "Layout": layout_list,
-    # "Navigation": navigation_list,
+    "Typography": typography_list,
+    "Forms": forms_list,
+    "Layout": layout_list,
+    "Navigation": navigation_list,
     "DataDisplay": datadisplay_list,
-    # "Graphing": graphing_list,
-    # "Disclosure": disclosure_list,
-    # "Feedback": feedback_list,
-    # "Media": media_list,
-    # "Overlay": overlay_list,
-    # "Other": other_list,
+    "Graphing": graphing_list,
+    "Disclosure": disclosure_list,
+    "Feedback": feedback_list,
+    "Media": media_list,
+    "Overlay": overlay_list,
+    "Other": other_list,
 }
 
 not_ready_components = [
