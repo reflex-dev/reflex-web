@@ -13,7 +13,7 @@ from pcweb.templates.docpage import (
 import inspect
 from pcweb.pages.docs import components
 from pcweb.pages.docs import styling
-from pcweb.pages.docs.tutorial import style
+from pcweb.pages.docs import tutorial_style as style
 
 ```
 

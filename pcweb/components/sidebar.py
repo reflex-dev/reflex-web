@@ -132,7 +132,7 @@ def get_sidebar_items_learn():
             ],
         ),
         create_item(
-            tutorial,
+            "Tutorial",
             children=[
                 tutorial.intro,
                 tutorial.setup,

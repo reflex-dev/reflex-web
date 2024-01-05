@@ -6,7 +6,6 @@ from .gallery import gallery
 from .recipes import *
 from .library import *
 from .resources import resources
-from .tutorial import *
 from .datatable_tutorial import *
 from .api_routes import *
 

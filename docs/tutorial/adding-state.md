@@ -2,7 +2,6 @@
 import os
 
 import reflex as rx
-from pcweb.pages.docs.tutorial import style
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doccode,
@@ -20,7 +19,8 @@ import inspect
 from pcweb.pages.docs import state
 from pcweb.pages.docs import events
 
-from pcweb.pages.docs.tutorial.final_app import ChatappState
+from pcweb.pages.docs.tutorial_utils import ChatappState
+from pcweb.pages.docs import tutorial_style as style
 
 # If it's in environment, no need to hardcode (openai SDK will pick it up)
 if "OPENAI_API_KEY" not in os.environ:
