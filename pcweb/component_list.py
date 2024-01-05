@@ -2,10 +2,24 @@
 
 import reflex as rx
 
-from reflex.components.radix.themes import Text, Badge
+from reflex.components.radix.themes import (
+    Text, 
+    Badge, 
+    Heading, 
+    Code, 
+    Link, 
+    Blockquote, 
+    Em, 
+    Kbd, 
+    Quote, 
+    Strong,
+    CalloutRoot,
+    Checkbox,
+    )
 
 # Form components.
 forms_list = [
+    [Checkbox],
     [rx.Upload],
     [rx.Editor],
     [rx.DebounceInput],
@@ -18,8 +32,21 @@ layout_list = [
     [rx.Fragment],
 ]
 
+# Feedback components.
+feedback_list = [
+    [CalloutRoot],
+]
+
 # Typography components.
 typography_list = [
+    [Blockquote],
+    [Code],
+    [Em],
+    [Heading],
+    [Kbd],
+    [Link],
+    [Quote],
+    [Strong],
     [Text],
     [rx.Span],
     [rx.Markdown],
@@ -144,6 +171,7 @@ chakra_components = {
 component_list = {
     "Typography": typography_list,
     "Forms": forms_list,
+    "Feedback": feedback_list,
     "Layout": layout_list,
     "DataDisplay": datadisplay_list,
     "Graphing": graphing_list,
