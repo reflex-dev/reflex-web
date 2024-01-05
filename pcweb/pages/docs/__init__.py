@@ -5,7 +5,8 @@ from .components import *
 from .component_lib import *
 from .database import *
 from .gallery import gallery
-from .getting_started import *
+
+# from .getting_started import *
 from .hosting import *
 from .recipes import *
 from .library import *
@@ -27,5 +28,26 @@ from .api_routes import *
 from .client_storage import *
 from .conditional_rendering import conditional_rendering
 from .rendering_iterables import rendering_iterables
+
+from types import SimpleNamespace
+from pcweb.templates.docpage import docpage
+from pcweb import flexdown
+
+getting_started = SimpleNamespace()
+getting_started.introduction = docpage(set_path="/docs/getting-started/introduction", t="Introduction")(
+    lambda: flexdown.render_file("docs/getting-started/introduction.md")
+)
+getting_started.installation = docpage(set_path="/docs/getting-started/installation", t="Installation")(
+    lambda: flexdown.render_file("docs/getting-started/installation.md")
+)
+getting_started.project_structure = docpage(
+    set_path="/docs/getting-started/project-structure", t="Project Structure"
+)(
+    lambda: flexdown.render_file("docs/getting-started/project-structure.md")
+)
+getting_started.configuration = docpage(set_path="/docs/getting-started/configuration", t="Configuration")(
+    lambda: flexdown.render_file("docs/getting-started/configuration.md")
+)
+
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
