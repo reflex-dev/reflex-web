@@ -126,7 +126,6 @@ def get_sidebar_items_learn():
 
     items = [
         create_item(
-            # getting_started,
             "Getting Started",
             children=[
                 getting_started.introduction,

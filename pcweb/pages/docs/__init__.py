@@ -29,25 +29,19 @@ from .client_storage import *
 from .conditional_rendering import conditional_rendering
 from .rendering_iterables import rendering_iterables
 
+doc_routes = [r for r in locals().values() if isinstance(r, Route)]
+
 from types import SimpleNamespace
 from pcweb.templates.docpage import docpage
-from pcweb import flexdown
+import flexdown
 
 getting_started = SimpleNamespace()
-getting_started.introduction = docpage(set_path="/docs/getting-started/introduction", t="Introduction")(
-    lambda: flexdown.render_file("docs/getting-started/introduction.md")
-)
-getting_started.installation = docpage(set_path="/docs/getting-started/installation", t="Installation")(
-    lambda: flexdown.render_file("docs/getting-started/installation.md")
-)
-getting_started.project_structure = docpage(
-    set_path="/docs/getting-started/project-structure", t="Project Structure"
-)(
-    lambda: flexdown.render_file("docs/getting-started/project-structure.md")
-)
-getting_started.configuration = docpage(set_path="/docs/getting-started/configuration", t="Configuration")(
-    lambda: flexdown.render_file("docs/getting-started/configuration.md")
-)
-
-
-doc_routes = [r for r in locals().values() if isinstance(r, Route)]
+flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
+for doc in flexdown_docs:
+    if not doc.startswith("docs/getting-started") and not doc.startswith("docs/tutorial"):
+        continue
+    route = f"/{doc.replace('.md', '')}"
+    title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
+    comp = docpage(set_path=route, t=rx.utils.format.to_title_case(title))(lambda: flexdown.render_file(doc))
+    setattr(getting_started, title, comp)
+    doc_routes.append(comp)

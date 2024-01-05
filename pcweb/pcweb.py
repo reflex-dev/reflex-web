@@ -52,23 +52,7 @@ for route in blog_routes:
         image="/previews/blog_preview.png",
     )
 
-# Add the flexdown docs.
-flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
-for doc in flexdown_docs:
-    if not doc.startswith("docs/getting-started"):
-        continue
-    route = f"/{doc.replace('.md', '')}"
-    comp = docpage(set_path=route)(lambda: flexdown.render_file(doc))
-    title = doc.rsplit("/", 1)[1].replace(".md", "")
-    title = rx.utils.format.to_title_case(title)
-    app.add_page(
-        comp.component,
-        route,
-        title,
-    )
-
-
-# Add the pages to the app.
+# Add the doc pages to the app.
 for route in doc_routes:
     app.add_page(
         route.component,
