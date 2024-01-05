@@ -104,14 +104,18 @@ def create_item(route: Route, children=None):
         return SidebarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
-    return SidebarItem(
-        names=inspect.getmodule(route)
-        .__name__.split(".")[-1]
-        .replace("_", " ")
-        .title()
-        .replace("Api", "API"),
-        children=list(map(create_item, children)),
-    )
+    try:
+        return SidebarItem(
+            names=route if isinstance(route, str) else 
+            inspect.getmodule(route)
+            .__name__.split(".")[-1]
+            .replace("_", " ")
+            .title()
+            .replace("Api", "API"),
+            children=list(map(create_item, children)),
+        )
+    except:
+        breakpoint()
 
 
 def get_sidebar_items_learn():
@@ -122,7 +126,7 @@ def get_sidebar_items_learn():
 
     items = [
         create_item(
-            getting_started,
+            "Getting Started",
             children=[
                 getting_started.introduction,
                 getting_started.installation,
