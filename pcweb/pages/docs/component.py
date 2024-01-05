@@ -370,6 +370,9 @@ EVENTS = {
     "on_column_resize": {
         "description": "The on_column_resize event handler is called when the user try to resize a column from the data editor."
     },
+    "on_checked_change": {
+        "description": "The on_checked_change event handler is called when the checked state of the checkbox changes."
+    },
 }
 
 

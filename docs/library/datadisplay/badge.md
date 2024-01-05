@@ -26,7 +26,7 @@ badge("New", color_scheme="orange")
 ```
 
 
-## examples of using all the props (exclude the style props: color, variant, size)
+## examples of using all the props (exclude the style props: color, variant, size, high contrast)
 
 N/A
 
