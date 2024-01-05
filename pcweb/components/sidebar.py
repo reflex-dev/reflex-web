@@ -152,24 +152,24 @@ def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
         ui_overview,
         components,
-        dynamic_rendering,
         pages,
         styling,
         assets,
         wrapping_react,
-        rendering_iterables,
-        conditional_rendering,
+        library,
     )
  
     items = [
         create_item(ui_overview),
         create_item(
-            components,
+            "Components",
             children=[
                 components.props,
                 components.style_props,
                 components.conditional_props,
-                components.library,
+                components.conditional_rendering,
+                components.rendering_iterables,
+                library,
             ],
         ),
         create_item(
@@ -188,13 +188,6 @@ def get_sidebar_items_frontend():
                 styling.custom_stylesheets,
                 styling.theming,
             ],
-        ),
-        create_item(
-            dynamic_rendering,
-            children = [
-            rendering_iterables,
-            conditional_rendering
-            ]
         ),
         create_item(
             assets,
