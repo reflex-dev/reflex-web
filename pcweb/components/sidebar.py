@@ -233,14 +233,14 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            events,
+            "Events",
             children=[
                 events.events_overview,
                 events.event_arguments,
                 events.setters,
                 events.yield_events,
                 events.chaining_events,
-                events.special_events_docs,
+                events.special_events,
                 events.page_load_events,
                 events.background_events,
             ],
@@ -258,9 +258,9 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            client_storage,
+            "Client Storage",
             children=[
-                client_storage.client_storage_overview,
+                client_storage.overview,
             ],
         ),
         create_item(
@@ -273,7 +273,7 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            utility_methods,
+            "Utility Methods",
             children=[
                 utility_methods.files_router_methods,
                 utility_methods.other_methods,
