@@ -40,7 +40,7 @@ import flexdown
 getting_started = SimpleNamespace()
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 for doc in flexdown_docs:
-    if not doc.startswith("docs/getting-started") and not doc.startswith("docs/tutorial"):
+    if not doc.startswith("docs/getting-started") and not doc.startswith("docs/library/typography") and not doc.startswith("docs/library/feedback"):
         continue
     route = f"/{doc.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
