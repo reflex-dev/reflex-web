@@ -264,9 +264,9 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            database,
+            "Database",
             children=[
-                database.database_overview,
+                database.overview,
                 database.tables,
                 database.queries,
                 database.relationships,

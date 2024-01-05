@@ -2,7 +2,6 @@ from pcweb.route import Route
 from .advanced_guide import *
 from .api_reference import *
 from .component_lib import *
-from .database import *
 from .gallery import gallery
 from .hosting import *
 from .recipes import *
@@ -25,6 +24,9 @@ import flexdown
 
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 for doc in flexdown_docs:
+    if doc.startswith("docs/library"):
+        continue
+
     # Get the docpage component.
     route = f"/{doc.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
