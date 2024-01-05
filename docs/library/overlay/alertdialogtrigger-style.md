@@ -1,0 +1,1 @@
+# alert dialog style
