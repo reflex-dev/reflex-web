@@ -5,7 +5,7 @@ from pcweb import constants, styles
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, doc_section, docdemobox
 from pcweb.pages.docs.tutorial import intro
-from pcweb.pages.docs.getting_started import installation
+from pcweb.pages.docs import getting_started
 from pcweb.pages.docs.wrapping_react import overview
 from pcweb.pages.docs.library import library
 ```
@@ -102,7 +102,7 @@ doc_section(
 
 Below is a quick example of a counter app to get a feel for how Reflex works.
 
-For a more in depth example, we recommend going through the [tutorial]({intro.path}) or go straight to the [installation]({installation.path}) to start building your own app.
+For a more in depth example, we recommend going through the [tutorial]({intro.path}) or go straight to the [installation]({getting_started.installation.path}) to start building your own app.
 
 ## First Example
 

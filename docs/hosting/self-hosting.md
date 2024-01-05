@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 
-from pcweb.pages.docs.getting_started import installation
+from pcweb.pages.docs import getting_started
 ```
 
 # Self Hosting
@@ -9,7 +9,7 @@ from pcweb.pages.docs.getting_started import installation
 When available, we recommend using `reflex deploy`, but you can also host your
 apps yourself in the meantime.
 
-Clone your code to a server and install the [requirements]({installation.path}).
+Clone your code to a server and install the [requirements]({getting_started.installation.path}).
 
 ## API URL
 Edit your `rxconfig.py` file and set `api_url` to the publicly accessible IP
