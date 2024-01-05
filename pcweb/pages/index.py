@@ -12,7 +12,7 @@ from pcweb import styles
 from pcweb.base_state import State
 from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs.getting_started.introduction import introduction
+from pcweb.pages.docs import getting_started
 from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.pages.docs.database import database_overview
 from pcweb.pages.docs.state_overview import state_overview
@@ -1081,7 +1081,7 @@ def installation():
                                 style=styles.ACCENT_BUTTON,
                                 padding_x="1em",
                             ),
-                            href=introduction.path,
+                            href=getting_started.introduction.path,
                             style=styles.NAV_TEXT_STYLE,
                         ),
                         width="100%",

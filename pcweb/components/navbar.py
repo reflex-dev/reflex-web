@@ -604,7 +604,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         sidebar: The sidebar component to use.
     """
     from pcweb.components.sidebar import sb
-    from pcweb.pages.docs.getting_started.introduction import introduction
+    from pcweb.pages.docs import getting_started
     from pcweb.pages.blog.blog import blg
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.changelog.changelog import changelog_display
@@ -665,7 +665,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     logo,
                     rx.link(
                         "Docs",
-                        href=introduction.path,
+                        href=getting_started.introduction.path,
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "flex", "flex", "flex"],
                     ),

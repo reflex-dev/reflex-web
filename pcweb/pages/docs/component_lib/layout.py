@@ -9,15 +9,15 @@ from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
 
 
 def render_aspectratio():
-    return flexdown.render_file("docs/library/layout/aspect_ratio.md")
+    return flexdown.render_file("docs/library/chakra//layout/aspect_ratio.md")
 
 
 def render_box():
-    return flexdown.render_file("docs/library/layout/box.md")
+    return flexdown.render_file("docs/library/chakra/layout/box.md")
 
 
 def render_card():
-    return flexdown.render_file("docs/library/layout/card.md")
+    return flexdown.render_file("docs/library/chakra/layout/card.md")
 
 
 code51 = """rx.vstack(
@@ -103,39 +103,39 @@ def render_cond():
 
 
 def render_center():
-    return flexdown.render_file("docs/library/layout/center.md")
+    return flexdown.render_file("docs/library/chakra/layout/center.md")
 
 
 def render_container():
-    return flexdown.render_file("docs/library/layout/container.md")
+    return flexdown.render_file("docs/library/chakra/layout/container.md")
 
 
 def render_flex():
-    return flexdown.render_file("docs/library/layout/flex.md")
+    return flexdown.render_file("docs/library/chakra/layout/flex.md")
 
 
 def render_fragment():
-    return flexdown.render_file("docs/library/layout/fragment.md")
+    return flexdown.render_file("docs/library/chakra/layout/fragment.md")
 
 
 def render_grid():
-    return flexdown.render_file("docs/library/layout/grid.md")
+    return flexdown.render_file("docs/library/chakra/layout/grid.md")
 
 
 def render_responsivegrid():
-    return flexdown.render_file("docs/library/layout/responsive_grid.md")
+    return flexdown.render_file("docs/library/chakra/layout/responsive_grid.md")
 
 
 def render_spacer():
-    return flexdown.render_file("docs/library/layout/spacer.md")
+    return flexdown.render_file("docs/library/chakra/layout/spacer.md")
 
 
 def render_stack():
-    return flexdown.render_file("docs/library/layout/stack.md")
+    return flexdown.render_file("docs/library/chakra/layout/stack.md")
 
 
 def render_wrap():
-    return flexdown.render_file("docs/library/layout/wrap.md")
+    return flexdown.render_file("docs/library/chakra/layout/wrap.md")
 
 
 basic_foreach_state = """from typing import List
