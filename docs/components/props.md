@@ -1,6 +1,6 @@
 ```python exec
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs.state_overview import state_overview
+from pcweb.pages.docs import state
 from pcweb.pages.docs.vars.base_vars import base_vars
 from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.templates.docpage import docdemo, doclink
@@ -66,7 +66,7 @@ docdemo(inspect.getsource(box).replace("def box():", "").replace("return", ""),
 
 ## Binding Props to State
 
-Reflex apps can have a [State]({state_overview.path}) that stores all variables that can change when the app is running, as well as the event handlers that can change those variables.
+Reflex apps can have a [State]({state.overview.path}) that stores all variables that can change when the app is running, as well as the event handlers that can change those variables.
 
 State may be modified in response to things like user input like clicking a button, or in response to events like loading a page.
 
@@ -78,7 +78,7 @@ rx.alert(
     rx.box(
         rx.alert_description(
             "Optional: Learn all about ",
-            doclink("State", href=state_overview.path),
+            doclink("State", href=state.overview.path),
             " first.",
         ),
     ),

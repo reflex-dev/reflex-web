@@ -17,7 +17,7 @@ from pcweb.templates.docpage import (
 import openai
 
 import inspect
-from pcweb.pages.docs.state_overview import state_overview
+from pcweb.pages.docs import state
 from pcweb.pages.docs.events.setters import setters
 from pcweb.pages.docs.events.yield_events import yield_events
 
@@ -33,7 +33,7 @@ if "OPENAI_API_KEY" not in os.environ:
 
 # State
 
-Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs]({state_overview.path}).
+Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs]({state.overview.path}).
 
 ## Defining State
 

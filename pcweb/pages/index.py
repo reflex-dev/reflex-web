@@ -15,10 +15,10 @@ from pcweb.pages.docs.library import library
 from pcweb.pages.docs import getting_started
 from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.pages.docs.database import database_overview
-from pcweb.pages.docs.state_overview import state_overview
+from pcweb.pages.docs import state
 from pcweb.pages.docs.hosting.self_hosting import self_hosting
 from pcweb.pages.docs.hosting.deploy import deploy
-from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
+from pcweb.pages.docs import wrapping_react
 from pcweb.templates import webpage
 from pcweb import constants
 
@@ -451,7 +451,7 @@ reactbox = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=wrapping_react_overview.path,
+                href=wrapping_react.overview.path,
             )
         ),
         align_items="left",
@@ -583,7 +583,7 @@ battery_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=state_overview.path,
+                href=state.overview.path,
             )
         ),
         align_items="left",

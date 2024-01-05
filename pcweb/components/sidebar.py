@@ -197,7 +197,7 @@ def get_sidebar_items_frontend():
             ]
         ),
         create_item(
-            wrapping_react,
+            "Wrapping React",
             children=[
                 wrapping_react.overview,
                 wrapping_react.imports,
@@ -211,7 +211,7 @@ def get_sidebar_items_frontend():
 
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
-        state_overview,
+        state,
         events,
         vars,
         substates,
@@ -222,9 +222,9 @@ def get_sidebar_items_backend():
     )
 
     items = [
-        create_item(state_overview),
+        create_item(state.overview),
         create_item(
-            vars,
+            "Vars",
             children=[
                 vars.base_vars,
                 vars.computed_vars,
