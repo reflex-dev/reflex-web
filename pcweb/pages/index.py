@@ -13,11 +13,10 @@ from pcweb.base_state import State
 from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import getting_started
-from pcweb.pages.docs.styling.overview import styling_overview
+from pcweb.pages.docs import styling
 from pcweb.pages.docs import database
 from pcweb.pages.docs import state
-from pcweb.pages.docs.hosting.self_hosting import self_hosting
-from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.pages.docs import hosting
 from pcweb.pages.docs import wrapping_react
 from pcweb.templates import webpage
 from pcweb import constants
@@ -416,7 +415,7 @@ stylebox = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=styling_overview.path,
+                href=styling.overview.path,
             )
         ),
         align_items="left",
@@ -750,7 +749,7 @@ deploy_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=deploy.path,
+                href=hosting.deploy.path,
             )
         ),
         align_items="left",
@@ -785,7 +784,7 @@ host_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=self_hosting.path,
+                href=hosting.self_hosting.path,
             )
         ),
         align_items="left",

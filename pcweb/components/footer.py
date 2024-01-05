@@ -3,7 +3,6 @@ from pcweb import constants, styles
 from pcweb.components.logo import logo
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs import getting_started
-from pcweb.pages.docs.hosting.deploy import deploy
 from pcweb.pages.docs.library import library
 from pcweb.pages.index import index
 

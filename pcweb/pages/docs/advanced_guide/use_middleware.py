@@ -5,8 +5,6 @@ from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subhea
 
 @docpage()
 def use_middleware():
-    from pcweb.pages.docs.styling.overview import styling_overview
-
     return rx.box(
         docheader("Middleware", first=True),
         doctext(

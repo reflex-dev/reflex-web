@@ -3,17 +3,11 @@ from .advanced_guide import *
 from .api_reference import *
 from .component_lib import *
 from .gallery import gallery
-from .hosting import *
 from .recipes import *
 from .library import *
-from .styling import *
 from .resources import resources
 from .tutorial import *
 from .datatable_tutorial import *
-from .assets import *
-from .pages import *
-from .ui_overview import ui_overview
-from .substates import *
 from .api_routes import *
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]

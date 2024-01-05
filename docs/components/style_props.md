@@ -1,6 +1,6 @@
 ```python exec
 from pcweb.base_state import State
-from pcweb.pages.docs.styling.overview import styling_overview
+from pcweb.pages.docs import styling
 from pcweb.templates.docpage import docdemo
 import reflex as rx
 import inspect
@@ -32,4 +32,4 @@ docdemo(inspect.getsource(button).replace("def button():", "").replace("return",
 )
 ```
 
-See the [styling docs]({styling_overview.path}) to learn more about customizing the appearance of your app.
+See the [styling docs]({styling.overview.path}) to learn more about customizing the appearance of your app.

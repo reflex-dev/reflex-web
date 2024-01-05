@@ -104,18 +104,15 @@ def create_item(route: Route, children=None):
         return SidebarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
-    try:
-        return SidebarItem(
-            names=route if isinstance(route, str) else 
-            inspect.getmodule(route)
-            .__name__.split(".")[-1]
-            .replace("_", " ")
-            .title()
-            .replace("Api", "API"),
-            children=list(map(create_item, children)),
-        )
-    except:
-        breakpoint()
+    return SidebarItem(
+        names=route if isinstance(route, str) else 
+        inspect.getmodule(route)
+        .__name__.split(".")[-1]
+        .replace("_", " ")
+        .title()
+        .replace("Api", "API"),
+        children=list(map(create_item, children)),
+    )
 
 
 def get_sidebar_items_learn():
@@ -150,7 +147,7 @@ def get_sidebar_items_learn():
 
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
-        ui_overview,
+        ui,
         components,
         pages,
         styling,
@@ -160,7 +157,7 @@ def get_sidebar_items_frontend():
     )
  
     items = [
-        create_item(ui_overview),
+        create_item(ui.overview),
         create_item(
             "Components",
             children=[
@@ -173,7 +170,7 @@ def get_sidebar_items_frontend():
             ],
         ),
         create_item(
-            pages,
+            "Pages",
             children=[
                 pages.routes,
                 pages.dynamic_routing,
@@ -181,16 +178,16 @@ def get_sidebar_items_frontend():
             ]
         ),
         create_item(
-            styling,
+            "Styling",
             children=[
-                styling.styling_overview,
+                styling.overview,
                 styling.responsive,
                 styling.custom_stylesheets,
                 styling.theming,
             ],
         ),
         create_item(
-            assets,
+            "Assets",
             children=[
                 assets.referencing_assets,
                 assets.upload_and_download_files,
@@ -246,9 +243,9 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            substates,
+            "Substates",
             children=[
-                substates.substates_overview,
+                substates.overview,
             ],
         ),
         create_item(

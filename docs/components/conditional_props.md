@@ -1,6 +1,5 @@
 ```python exec
 from pcweb.base_state import State
-from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.templates.docpage import docdemo, doclink
 import reflex as rx
 import inspect

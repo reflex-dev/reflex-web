@@ -12,7 +12,7 @@ from pcweb.templates.docpage import (
 )
 import inspect
 from pcweb.pages.docs import components
-from pcweb.pages.docs.styling.overview import styling_overview
+from pcweb.pages.docs import styling
 from pcweb.pages.docs.tutorial import style
 
 ```
@@ -194,7 +194,7 @@ docdemo(
 
 ## Styling
 
-Let's add some styling to the app. More information on styling can be found in the [styling docs]({styling_overview.path}). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
+Let's add some styling to the app. More information on styling can be found in the [styling docs]({styling.overview.path}). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
 
 ```python exec 
 def show_code_styling_1():

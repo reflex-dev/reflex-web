@@ -7,7 +7,7 @@ from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.gallery import gallery
-from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.pages.docs import hosting
 
 faq_items = [
     {
@@ -38,7 +38,7 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.span(doclink("deployment guide", href=deploy.path)),
+            rx.span(doclink("deployment guide", href=hosting.deploy.path)),
             ".",
         ),
     },

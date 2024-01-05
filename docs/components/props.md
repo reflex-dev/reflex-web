@@ -2,7 +2,6 @@
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import state
 from pcweb.pages.docs.vars.base_vars import base_vars
-from pcweb.pages.docs.styling.overview import styling_overview
 from pcweb.templates.docpage import docdemo, doclink
 from pcweb.base_state import State
 import reflex as rx
