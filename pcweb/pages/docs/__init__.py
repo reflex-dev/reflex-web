@@ -42,6 +42,6 @@ for doc in flexdown_docs:
         continue
     route = f"/{doc.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
-    comp = docpage(set_path=route, t=rx.utils.format.to_title_case(title))(lambda: flexdown.render_file(doc))
+    comp = docpage(set_path=route, t=rx.utils.format.to_title_case(title))(lambda doc=doc: flexdown.render_file(doc))
     setattr(getting_started, title, comp)
     doc_routes.append(comp)
