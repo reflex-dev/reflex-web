@@ -9,7 +9,7 @@ from pcweb.templates.docpage import docdemo_from
 # Blockquote
 
 ```python demo
-blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.")
+blockquote("Perfect typography is certainly the most elusive of all arts.")
 ```
 
 
@@ -20,15 +20,15 @@ Use the `size` prop to control the size of the blockquote. The prop also provide
 
 ```python demo
 flex(
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="1"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="2"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="3"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="4"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="5"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="6"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="7"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="8"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", size="9"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="1"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="2"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="3"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="4"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="5"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="6"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="7"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="8"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", size="9"),
     direction="column",
     gap="3",
 )
@@ -41,10 +41,10 @@ Use the `weight` prop to set the blockquote weight.
 
 ```python demo
 flex(
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", weight="light"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", weight="regular"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", weight="medium"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", weight="bold"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", weight="light"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", weight="regular"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", weight="medium"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", weight="bold"),
     direction="column",
     gap="3",
 )
@@ -59,11 +59,12 @@ Use the `color_scheme` prop to assign a specific color, ignoring the global them
 
 ```python demo
 flex(
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", color_scheme="indigo"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", color_scheme="cyan"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", color_scheme="crimson"),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", color_scheme="orange"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="indigo"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="cyan"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="crimson"),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="orange"),
     direction="column",
+    gap="3",
 )
 ```
 
@@ -74,8 +75,9 @@ Use the `high_contrast` prop to increase color contrast with the background.
 
 ```python demo
 flex(
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy."),
-    blockquote("Perfect typography is certainly the most elusive of all arts. Sculpture in stone alone comes near it in obstinacy.", high_contrast=True),
+    blockquote("Perfect typography is certainly the most elusive of all arts."),
+    blockquote("Perfect typography is certainly the most elusive of all arts.", high_contrast=True),
     direction="column",
+    gap="3",
 )
 ```
