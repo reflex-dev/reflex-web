@@ -8,7 +8,7 @@ import numpy as np
 import reflex as rx
 
 from pcweb.base_state import State
-from pcweb.pages.docs.vars.custom_vars import custom_vars
+from pcweb.pages.docs import vars
 from pcweb.templates.docpage import docdemo_from, doclink
 ```
 
@@ -75,7 +75,7 @@ rx.alert(
             "Vars are used to communicate between the frontend and backend. ",
             "They must be primitive Python types, ",
             "Plotly figures, Pandas dataframes, or ",
-            doclink("a custom defined type", custom_vars.path),
+            doclink("a custom defined type", vars.custom_vars.path),
             ".",
         ),
     ),

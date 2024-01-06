@@ -3,12 +3,12 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
-from pcweb.pages.docs.vars.base_vars import base_vars
+from pcweb.pages.docs import vars
 ```
 
 # Custom Vars
 
-As mentioned in the [vars page]({base_vars.path}), Reflex vars must be JSON serializable.
+As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
 
 This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types by inheriting from `rx.Base`.
 

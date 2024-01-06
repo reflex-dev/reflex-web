@@ -5,7 +5,7 @@ from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 from pcweb.templates.webpage import webpage
-from pcweb.flexdown import component_map
+from pcweb.flexdown import xd
 
 PAGES_PATH = "blog/"
 
@@ -42,7 +42,7 @@ def page(document) -> rx.Component:
             my=8,
             border_radius="8px",
         ),
-        flexdown.render(document, component_map=component_map),
+        xd.render(document),
         padding_bottom="8em",
     )
 
@@ -156,32 +156,14 @@ def blg():
     )
 
 
-@webpage(path="/blog/2023-08-02-seed-annoucement", title="Seed Annoucement")
-def seed():
-    return page(blogs["blog/2023-08-02-seed-annoucement"])
+blog_routes = [blg]
+for path, document in blogs.items():
+    # Get the docpage component.
+    route = f"/{path.replace('.md', '')}"
+    title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
+    comp = webpage(path=route, title=document.metadata["title"])(
+        lambda doc=document: page(doc)
+    )
 
-
-@webpage(path="/blog/2023-06-28-rebrand-to-reflex", title="Rebrand to Reflex")
-def rebrand():
-    return page(blogs["blog/2023-06-28-rebrand-to-reflex"])
-
-
-@webpage(
-    path="/blog/2023-09-28-unlocking-new-workflows-with-background-tasks",
-    title="Unlocking New Workflows with Background Tasks",
-)
-def background_tasks():
-    return page(blogs["blog/2023-09-28-unlocking-new-workflows-with-background-tasks"])
-
-
-@webpage(path="/blog/2023-10-11-graphing-update", title="Graphing Update")
-def graphing_update():
-    return page(blogs["blog/2023-10-11-graphing-update"])
-
-
-@webpage(
-    path="/blog/2023-10-25-implementing-sign-in-with-google",
-    title="Implementing Sign In with Google",
-)
-def sign_in_with_google():
-    return page(blogs["blog/2023-10-25-implementing-sign-in-with-google"])
+    # Add the route to the list of routes.
+    blog_routes.append(comp)

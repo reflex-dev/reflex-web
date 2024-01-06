@@ -3,7 +3,7 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from, doclink
-from pcweb.pages.docs.vars.var_operations import var_operations
+from pcweb.pages.docs import vars
 ```
 
 # Conditional Rendering
@@ -56,7 +56,7 @@ docdemo_from(CondSimpleState, component=cond_simple_example)
 
 ## Var Operations (negation)
 
-You can use var operations with the `cond` component. To learn more generally about var operators check out [these docs]({var_operations.path}). The logical operator `~` can be used to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
+You can use var operations with the `cond` component. To learn more generally about var operators check out [these docs]({vars.var_operations.path}). The logical operator `~` can be used to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
 
 
 ```python exec

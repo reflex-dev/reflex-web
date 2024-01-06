@@ -1,12 +1,9 @@
 """The main Reflex website."""
 
 import reflex as rx
-import flexdown
 from pcweb import styles
-from pcweb.base_state import State
-from pcweb.component_list import component_list, chakra_components
-from pcweb.pages import blog_routes, doc_routes, routes, faq_routes, changelog_routes
-from pcweb.templates.docpage import docpage
+from pcweb.component_list import chakra_components
+from pcweb.pages import blog_routes, doc_routes, routes, faq_routes
 from pcweb.pages.docs.component import multi_docs
 import reflex.components.radix.themes as rdxt
 
@@ -60,16 +57,6 @@ for route in doc_routes:
         route.title,
         description="Learn how to build web apps in pure Python.",
         image="/previews/docs_preview.png",
-    )
-
-# Add the pages to the app.
-for route in changelog_routes:
-    app.add_page(
-        route.component,
-        route.path,
-        route.title,
-        description="Keep up to date with the latest Reflex news.",
-        image="/previews/changelog_preview.png",
     )
 
 # Add the pages to the app.
