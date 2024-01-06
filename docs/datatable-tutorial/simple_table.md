@@ -2,7 +2,7 @@
 import reflex as rx
 from pcweb.templates.docpage import docdemobox, doclink
 from pcweb.base_state import State
-from pcweb.pages.docs.datatable_tutorial.states import DataTableState, DataTableState2
+from pcweb.pages.docs.datatable_tutorial_utils import DataTableState, DataTableState2
 ```
 
 

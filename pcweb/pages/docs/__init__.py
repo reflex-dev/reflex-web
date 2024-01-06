@@ -6,8 +6,6 @@ from .gallery import gallery
 from .recipes import *
 from .library import *
 from .resources import resources
-from .datatable_tutorial import *
-from .api_routes import *
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
 

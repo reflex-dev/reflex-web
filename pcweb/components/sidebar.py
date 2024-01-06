@@ -249,9 +249,9 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            api_routes,
+            "API Routes",
             children=[
-                api_routes.api_routes_overview,
+                api_routes.overview,
             ],
         ),
         create_item(
