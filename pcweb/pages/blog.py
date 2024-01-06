@@ -2,6 +2,7 @@ import reflex as rx
 import flexdown
 
 from pcweb import styles
+from pcweb.route import Route
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
 from pcweb.templates.webpage import webpage
@@ -185,3 +186,6 @@ def graphing_update():
 )
 def sign_in_with_google():
     return page(blogs["blog/2023-10-25-implementing-sign-in-with-google"])
+
+
+blog_routes = [r for r in locals().values() if isinstance(r, Route)]

@@ -605,7 +605,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     """
     from pcweb.components.sidebar import sb
     from pcweb.pages.docs import getting_started
-    from pcweb.pages.blog.blog import blg
+    from pcweb.pages.blog import blg
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
