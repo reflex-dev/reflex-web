@@ -1,12 +1,9 @@
 """The main Reflex website."""
 
 import reflex as rx
-import flexdown
 from pcweb import styles
-from pcweb.base_state import State
-from pcweb.component_list import component_list, chakra_components
+from pcweb.component_list import chakra_components
 from pcweb.pages import blog_routes, doc_routes, routes, faq_routes
-from pcweb.templates.docpage import docpage
 from pcweb.pages.docs.component import multi_docs
 import reflex.components.radix.themes as rdxt
 
