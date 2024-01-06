@@ -1,4 +1,5 @@
 ```python exec
+import reflex as rx
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
@@ -80,9 +81,7 @@ alertdialog_root(
             side="x",
             my="5",
         ),
-
         flex(
-
             alertdialog_cancel(
                 button("Cancel", variant="soft", color_scheme="gray"),
             ),
@@ -97,3 +96,47 @@ alertdialog_root(
 )
 ```
 
+
+
+## Examples using all the event handlers
+
+The `on_open_change` event handler is called when the `open` state of the dialog changes. It is an event handler of the `alertdialog_root`. The controlled `open` state of the dialog prop must be used in conjunction with the `on_open_change` event handler.
+
+```python demo
+alertdialog_root(
+    alertdialog_trigger(
+        button("Revoke access", color_scheme="red"),
+    ),
+    alertdialog_content(
+        alertdialog_title("Revoke access"),
+        flex(
+            alertdialog_action(
+                button("Revoke access", color_scheme="red", variant="solid"),
+            ),
+        ),
+    ),
+    on_open_change=rx.window_alert("You just used the on_open_change event handler"),
+)
+
+```
+
+
+The `on_escape_key_down` event handler is called when the escape keyboard key is down. It is an event handler of the `alertdialog_content`.
+
+```python demo
+alertdialog_root(
+    alertdialog_trigger(
+        button("Revoke access", color_scheme="red"),
+    ),
+    alertdialog_content(
+        alertdialog_title("Revoke access"),
+        flex(
+            alertdialog_action(
+                button("Revoke access", color_scheme="red", variant="solid"),
+            ),
+        ),
+        on_escape_key_down=rx.window_alert("Escape Key Down"),
+    ),
+)
+
+```
