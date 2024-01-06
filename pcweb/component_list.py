@@ -16,7 +16,8 @@ from reflex.components.radix.themes import (
     CalloutRoot,
     Checkbox,
     AlertDialogTrigger,
-    )
+    DialogRoot,
+)
 
 # Form components.
 forms_list = [
@@ -41,6 +42,7 @@ feedback_list = [
 # Overlay components.
 overlay_list = [
     [AlertDialogTrigger],
+    [DialogRoot],
 ]
 
 # Typography components.
