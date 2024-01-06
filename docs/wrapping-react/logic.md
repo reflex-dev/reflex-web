@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.base_state import State
 ```
 
 ## Declaring Vars

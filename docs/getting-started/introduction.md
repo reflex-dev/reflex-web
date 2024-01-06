@@ -1,8 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb import constants, styles
-from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, doc_section, docdemobox
 from pcweb.pages.docs import tutorial
 from pcweb.pages.docs import getting_started
@@ -111,7 +109,7 @@ Let's go over a simple counter app to explore the basics of Reflex.
 ```python exec
 import inspect
 
-class CounterExampleState(State):
+class CounterExampleState(rx.State):
     count: int = 0
 
     def increment(self):
@@ -120,7 +118,7 @@ class CounterExampleState(State):
     def decrement(self):
         self.count -= 1
 
-state_code = inspect.getsource(CounterExampleState).replace("(State)", "(rx.State)").replace("CounterExampleState", "State").strip()
+state_code = inspect.getsource(CounterExampleState).replace("CounterExampleState", "State").strip()
 
 def index():
     return rx.hstack(

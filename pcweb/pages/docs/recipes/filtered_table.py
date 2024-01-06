@@ -2,8 +2,6 @@ import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
-from pcweb.base_state import State
-
 
 code_example = """
 import reflex as rx

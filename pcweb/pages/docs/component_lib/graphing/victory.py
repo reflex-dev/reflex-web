@@ -1,7 +1,6 @@
 import pandas as pd
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doctext,
     docdemo,

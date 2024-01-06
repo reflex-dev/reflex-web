@@ -1,12 +1,11 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
 )
 
-basic_editable_class = """class EditableState(State):
+basic_editable_class = """class EditableState(rx.State):
     example_input: str
     example_textarea: str
     example_state: str

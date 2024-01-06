@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -9,7 +8,7 @@ from pcweb.templates.docpage import (
 basic_radio_state = """from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
-class RadioState(State):
+class RadioState(rx.State):
     text: str = "No Selection"
 """
 basic_radio = """rx.vstack(

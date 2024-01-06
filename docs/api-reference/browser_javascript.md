@@ -4,7 +4,6 @@ import inspect
 from typing import Any
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docdemobox 
 ```
 
@@ -55,7 +54,7 @@ The functions and variables in the script can be accessed from backend event
 handlers or frontend event triggers via the `rx.call_script` interface.
 
 ```python exec
-class SoundEffectState(State):
+class SoundEffectState(rx.State):
     @rx.background
     async def delayed_play(self):
         await asyncio.sleep(1)
@@ -78,7 +77,7 @@ docdemobox(sound_effect_demo())
 
 ```python eval
 doccode(
-    inspect.getsource(SoundEffectState).replace("(State)", "(rx.State)") + "\n\n" + inspect.getsource(
+    inspect.getsource(SoundEffectState) + "\n\n" + inspect.getsource(
         sound_effect_demo 
     )
 )
@@ -119,7 +118,7 @@ Javascript code. This can be used to access client-side values such as the
 `window.location` or current scroll location, or any previously defined value.
 
 ```python exec
-class WindowState(State):
+class WindowState(rx.State):
     location: dict[str, str] = {}
     scroll_position: dict[str, int] = {}
 
@@ -161,7 +160,7 @@ docdemobox(window_state_demo())
 
 ```python eval
 doccode(
-    inspect.getsource(WindowState).replace("(State)", "(rx.State)") + "\n\n" + inspect.getsource(
+    inspect.getsource(WindowState) + "\n\n" + inspect.getsource(
         window_state_demo
     )
 )
@@ -191,7 +190,7 @@ The following example uses `useEffect` to register global hotkeys on the
 `document` object, and then triggers an event when a specific key is pressed.
 
 ```python exec
-class GlobalKeyState(State):
+class GlobalKeyState(rx.State):
     key: str = ""
 
     def update_key(self, key):
@@ -245,7 +244,7 @@ docdemobox(global_key_demo())
 
 ```python eval
 doccode(
-    inspect.getsource(GlobalKeyState).replace("(State)", "(rx.State)") + "\n\n" + inspect.getsource(
+    inspect.getsource(GlobalKeyState) + "\n\n" + inspect.getsource(
         GlobalKeyWatcher
     ) + "\n\n" + inspect.getsource(
         global_key_demo

@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -18,7 +17,7 @@ To do so, we can use the Python keyword `yield`. For every yield inside the func
 
 import asyncio
 
-class MultiUpdateState(State):
+class MultiUpdateState(rx.State):
     count: int = 0
 
     async def timed_update(self):
@@ -46,7 +45,7 @@ Here is another example of yielding multiple updates with a loading icon.
 
 import asyncio
 
-class ProgressExampleState(State):
+class ProgressExampleState(rx.State):
     count: int = 0
     show_progress: bool = False
 

@@ -5,11 +5,8 @@ import time
 
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
-
-
 # Computed Vars
 
 
@@ -20,7 +17,7 @@ var is recomputed whenever an event is processed against the state.
 Try typing in the input box and clicking out.
 
 ```python exec
-class UppercaseState(State):
+class UppercaseState(rx.State):
     text: str = "hello"
 
     @rx.var
@@ -54,7 +51,7 @@ useful for expensive computations, but in some cases it may not update when you
 expect it to.
 
 ```python exec
-class CachedVarState(State):
+class CachedVarState(rx.State):
     counter_a: int = 0
     counter_b: int = 0
 

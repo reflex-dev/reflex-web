@@ -2,11 +2,9 @@ import reflex as rx
 
 from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
 
-from pcweb.base_state import State
-
 
 code_example = """
-class CBoxeState(State):
+class CBoxeState(rx.State):
     
     choices: dict[str, bool] = {k: False for k in ["Choice A", "Choice B", "Choice C"]}
     _check_limit = 2

@@ -1,5 +1,4 @@
 ```python exec
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doclink
 import reflex as rx
 import inspect
@@ -10,7 +9,7 @@ import inspect
 Sometimes you want to set a prop based on a condition. You can use the `rx.cond` function to do this.
 
 ```python exec
-class PropCondState(State):
+class PropCondState(rx.State):
     value: int
 
 

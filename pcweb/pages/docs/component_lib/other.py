@@ -1,7 +1,6 @@
 import reflex as rx
 
-from pcweb.base_state import State
-from pcweb.templates.docpage import doccode, docdemo, doclink, doctext, subheader
+from pcweb.templates.docpage import doccode, docdemo, doclink, doctext
 
 example = """rx.vstack(
     rx.html("<h1>Hello World</h1>"),

@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.base_state import State
 from pcweb.components.spline import spline
 from pcweb.templates.docpage import demo_box_style
 ```
@@ -117,7 +116,7 @@ class ColorPicker(rx.Component):
 color_picker = ColorPicker.create
 
 
-class ColorPickerState(State):
+class ColorPickerState(rx.State):
     color: str = "#db114b"
 ```
 

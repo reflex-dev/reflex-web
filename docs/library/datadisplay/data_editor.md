@@ -3,7 +3,6 @@ A datagrid editor based on [Glide Data Grid](https://grid.glideapps.com/)
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemobox, doccode, docgraphing
 
 columns: list[dict[str, str]] = [
@@ -95,7 +94,7 @@ rx.data_editor(
 ## Interactive Example
 
 ```python exec
-class DataEditorState_HP(State):
+class DataEditorState_HP(rx.State):
 
     clicked_data: str = "Cell clicked: "
     cols: list[Any] = [
@@ -182,7 +181,7 @@ docdemobox(rx.data_editor(
 ```
 
 ```python
-class DataEditorState_HP(State):
+class DataEditorState_HP(rx.State):
     
     clicked_data: str = "Cell clicked: "
 

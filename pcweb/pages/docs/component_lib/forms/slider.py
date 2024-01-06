@@ -1,12 +1,11 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
 )
 
-slider_state = """class SliderState(State):
+slider_state = """class SliderState(rx.State):
     value: int = 50
 """
 
@@ -19,7 +18,7 @@ slider_base_example = """rx.vstack(
 )
 """
 
-slider_state_start = """class SliderVariation(State):
+slider_state_start = """class SliderVariation(rx.State):
     value: int = 50
 
     def set_end(self, value: int):
@@ -35,7 +34,7 @@ slider_on_change_start = """rx.vstack(
 )
 """
 
-slider_state_combo = """class SliderCombo(State):
+slider_state_combo = """class SliderCombo(rx.State):
     value: int = 50
     color: str = "black"
 
@@ -58,7 +57,7 @@ slider_combo = """rx.vstack(
 """
 
 
-slider_state_manual = """class SliderManual(State):
+slider_state_manual = """class SliderManual(rx.State):
     value: int = 50
 
     def set_end(self, value: int):
@@ -148,7 +147,7 @@ def render_slider():
 
 
 range_slider_state = """from typing import List
-class RangeSliderState(State):
+class RangeSliderState(rx.State):
     value: List[int] = [0,100]
 """
 
@@ -162,7 +161,7 @@ range_slider_base_example = """rx.vstack(
 """
 
 range_slider_state_start = """from typing import List
-class RangeSliderVariation(State):
+class RangeSliderVariation(rx.State):
     value: List[int] = [0,100]
 
     def set_end(self, value: List[int]):
@@ -179,7 +178,7 @@ range_slider_on_change_start = """rx.vstack(
 """
 
 range_slider_state_combo = """from typing import List
-class RangeSliderCombo(State):
+class RangeSliderCombo(rx.State):
     value: List[int] = [0,100]
     color: str = "black"
 
@@ -206,7 +205,7 @@ range_slider_combo = """rx.vstack(
 """
 
 range_slider_state_manual = """from typing import List
-class RangeSliderManual(State):
+class RangeSliderManual(rx.State):
     value: List[int] = [0,100]
 """
 

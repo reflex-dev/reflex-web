@@ -3,7 +3,6 @@ from typing import Any, Set
 
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.base_state import State
 from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
 from sqlmodel import Field
@@ -157,7 +156,7 @@ class Feedback(rx.Model, table=True):
     page: str
 
 
-class NavbarState(State):
+class NavbarState(rx.State):
     """The state for the navbar component."""
 
     # Whether the sidebar is open.

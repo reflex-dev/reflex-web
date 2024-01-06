@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -16,7 +15,7 @@ Try typing a color in an input below and clicking away from it to change the col
 
 ```python exec
 
-class ArgState(State):
+class ArgState(rx.State):
     colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
 
     def change_color(self, color: str, index: int):

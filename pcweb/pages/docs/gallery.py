@@ -1,11 +1,8 @@
 import reflex as rx
-from pcweb import constants, styles
-from pcweb.styles import font_weights as fw
-from pcweb.templates.docpage import docheader, docpage, doctext, docalert
+from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 
-from pcweb.base_state import State
 import pandas as pd
 
 # every app must have at least one tag in order to be rendered
@@ -267,7 +264,7 @@ def create_list_of_tags(dataframe: pd.DataFrame) -> list:
 list_of_tags = create_list_of_tags(apps_df)
 
 
-class SideBarState(State):
+class SideBarState(rx.State):
     """Side Bar State"""
 
     community_apps_list: list[dict[str, str]] = community_apps_list

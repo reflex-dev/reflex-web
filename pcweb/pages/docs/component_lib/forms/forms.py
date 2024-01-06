@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -16,7 +15,7 @@ checkbox_example = """rx.vstack(
     ),
 )
 """
-checkbox_example_state = """class SwitchState(State):
+checkbox_example_state = """class SwitchState(rx.State):
     checked: bool = False
     is_checked: bool = "Switch off!"
 
@@ -63,7 +62,7 @@ code34 = """rx.vstack(
     rx.text_area(value=TextareaState.text, on_change=TextareaState.set_text)
 )
 """
-code35 = """class TextareaState(State):
+code35 = """class TextareaState(rx.State):
     text: str = "Hello World!"
 """
 exec(code35)

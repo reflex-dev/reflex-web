@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.base_state import State
 ```
 # Complex Example
 
@@ -231,7 +230,6 @@ app.compile()
 import reflex as rx
 from reflex.components.component import Component
 from typing import Any, Dict, List, Union
-from pcweb.base_state import State
 from reflex.vars import Var
 import random
 
@@ -314,7 +312,7 @@ initial_edges = [
 ]
 
 
-class ReactFlowState(State):
+class ReactFlowState(rx.State):
     """The app state."""
     nodes: List[Dict[str, Any]] = initial_nodes
     edges: List[Dict[str, Any]] = initial_edges

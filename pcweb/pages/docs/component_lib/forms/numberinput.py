@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -10,7 +9,7 @@ code22 = """rx.number_input(
     on_change=NumberInputState.set_number,
 )
 """
-code23 = """class NumberInputState(State):
+code23 = """class NumberInputState(rx.State):
     number: int
 """
 exec(code23)

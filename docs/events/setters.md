@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -16,7 +15,7 @@ Say you wanted to change the value of the select component. You could write your
 ```python exec
 
 options: list[str] = ["1", "2", "3", "4"]
-class SetterState1(State):
+class SetterState1(rx.State):
     selected: str = "1"
 
     def change(self, value):
@@ -44,7 +43,7 @@ Or you could could use a built-in setter for conciseness.
 ```python exec
 
 options: list[str] = ["1", "2", "3", "4"]
-class SetterState2(State):
+class SetterState2(rx.State):
     selected: str = "1"
 
 def code_setter_2():

@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 from pcweb.pages.docs.library import library
 
@@ -20,7 +19,7 @@ Each component supports a set of events triggers. They are described in each [co
 Lets take a look at an example below. Try mousing over the heading to change the word.
 
 ```python exec
-class WordCycleState(State):
+class WordCycleState(rx.State):
     # The words to cycle through.
     text: list[str] = ["Welcome", "to", "Reflex", "!"]
 

@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -16,7 +15,7 @@ You can call other event handlers from event handlers to keep your code modular.
 ```python exec
 import asyncio
 
-class CallHandlerState(State):
+class CallHandlerState(rx.State):
     count: int = 0
     progress: int = 0
 
@@ -77,7 +76,7 @@ Try entering an integer in the input below then clicking out.
 
 
 ```python exec
-class CollatzState(State):
+class CollatzState(rx.State):
     count: int = 0
 
     def start_collatz(self, count: str):

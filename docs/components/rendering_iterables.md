@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from, doclink
 from pcweb.pages.docs import vars
 ```
@@ -14,7 +13,7 @@ You will often want to display multiple similar components from a collection of 
 In this first simple example we iterate through a `list` of colors and render the name of the color and use this color as the background for that `rx.box`. As we can see we have a function `colored_box` that we pass to the `rx.foreach` component. This function renders each item from the `list` that we have defined as a state var `color`.
 
 ```python exec
-class ForeachState(rx.State):
+class IterState(rx.State):
     color: list[str] = [
         "red",
         "green",
@@ -31,14 +30,14 @@ def colored_box(color: str):
 
 def simple_foreach():
     return rx.responsive_grid(
-        rx.foreach(ForeachState.color, colored_box),
+        rx.foreach(IterState.color, colored_box),
         columns=[2, 4, 6],
     )
 
 ```
 
 ```python eval
-docdemo_from(ForeachState, colored_box, component=simple_foreach)
+docdemo_from(IterState, colored_box, component=simple_foreach)
 ```
 
 ```python eval
@@ -59,7 +58,7 @@ The function can also take an index as a second argument, meaning that we can en
 
 
 ```python exec
-class ForeachIndexState(rx.State):
+class IterIndexState(rx.State):
     color: list[str] = [
         "red",
         "green",
@@ -73,7 +72,7 @@ class ForeachIndexState(rx.State):
 def enumerate_foreach():
     return rx.responsive_grid(
         rx.foreach(
-            ForeachIndexState.color,
+            IterIndexState.color,
             lambda color, index: rx.box(rx.text(index), bg=color)
         ),
         columns=[2, 4, 6],
@@ -82,7 +81,7 @@ def enumerate_foreach():
 ```
 
 ```python eval
-docdemo_from(ForeachIndexState, component=enumerate_foreach)
+docdemo_from(IterIndexState, component=enumerate_foreach)
 ```
 
 
@@ -92,7 +91,7 @@ docdemo_from(ForeachIndexState, component=enumerate_foreach)
 We can iterate through a `dict` data structure using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `[("sky", "blue"), ("balloon", "red"), ("grass", "green")]`.
 
 ```python exec
-class SimpleDictForeachState(rx.State):
+class SimpleDictIterState(rx.State):
     color_chart: dict[str, str] = {
         "sky": "blue",
         "balloon": "red",
@@ -108,7 +107,7 @@ def display_color(color: list):
 def dict_foreach():
     return rx.responsive_grid(
         rx.foreach(
-            SimpleDictForeachState.color_chart,
+            SimpleDictIterState.color_chart,
             display_color,
         ),
         columns=[2, 4, 6],
@@ -118,7 +117,7 @@ def dict_foreach():
 
 
 ```python eval
-docdemo_from(SimpleDictForeachState, display_color, component=dict_foreach)
+docdemo_from(SimpleDictIterState, display_color, component=dict_foreach)
 ```
 
 
@@ -163,7 +162,7 @@ If you want an example where not all of the values in the dict are the same type
 Here is a further example of how to use `foreach` with a nested data structure.
 
 ```python exec
-class NestedDictForeachState(rx.State):
+class NestedDictIterState(rx.State):
     color_chart: dict[str, list[str]] = {
         "purple": ["red", "blue"],
         "orange": ["yellow", "red"],
@@ -189,7 +188,7 @@ def display_colors(color: list[str, list[str]]):
 def nested_dict_foreach():
     return rx.responsive_grid(
         rx.foreach(
-            NestedDictForeachState.color_chart,
+            NestedDictIterState.color_chart,
             display_colors,
         ),
         columns=[2, 4, 6],
@@ -198,7 +197,7 @@ def nested_dict_foreach():
 ```
 
 ```python eval
-docdemo_from(NestedDictForeachState, display_colors, component=nested_dict_foreach)
+docdemo_from(NestedDictIterState, display_colors, component=nested_dict_foreach)
 ```
 
 

@@ -94,10 +94,7 @@ Here is a example of how to use state within a Reflex app.
 Click the text to change its color.
 
 ```python exec
-from pcweb.base_state import State
-
-
-class ExampleState(State):
+class ExampleState(rx.State):
 
     # A base var for the list of colors to cycle through.
     colors: list[str] = ["black", "red", "green", "blue", "purple"]

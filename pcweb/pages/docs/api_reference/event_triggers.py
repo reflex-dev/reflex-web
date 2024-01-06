@@ -1,15 +1,12 @@
-from datetime import datetime
-
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
 
 SYNTHETIC_EVENTS = [
     {
         "name": "on_focus",
         "description": "The on_focus event handler is called when the element (or some element inside of it) receives focus. For example, it’s called when the user clicks on a text input.",
-        "state": """class FocusState(State):
+        "state": """class FocusState(rx.State):
     text = "Change Me!"
 
     def change_text(self, text):
@@ -23,7 +20,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_blur",
         "description": "The on_blur event handler is called when focus has left the element (or left some element inside of it). For example, it’s called when the user clicks outside of a focused text input.",
-        "state": """class BlurState(State):
+        "state": """class BlurState(rx.State):
     text = "Change Me!"
 
     def change_text(self, text):
@@ -37,7 +34,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_change",
         "description": "The on_change event handler is called when the value of an element has changed. For example, it’s called when the user types into a text input each keystoke triggers the on change.",
-        "state": """class ChangeState(State):
+        "state": """class ChangeState(rx.State):
     checked: bool = False
 
 """,
@@ -46,7 +43,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_click",
         "description": "The on_click event handler is called when the user clicks on an element. For example, it’s called when the user clicks on a button.",
-        "state": """class ClickState(State):
+        "state": """class ClickState(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -60,7 +57,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_context_menu",
         "description": "The on_context_menu event handler is called when the user right-clicks on an element. For example, it’s called when the user right-clicks on a button.",
-        "state": """class ContextState(State):
+        "state": """class ContextState(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -74,7 +71,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_double_click",
         "description": "The on_double_click event handler is called when the user double-clicks on an element. For example, it’s called when the user double-clicks on a button.",
-        "state": """class DoubleClickState(State):
+        "state": """class DoubleClickState(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -88,7 +85,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mount",
         "description": "The on_mount event handler is called after the component is rendered on the page. It is similar to a page on_load event, although it does not necessarily fire when navigating between pages.",
-        "state": """class MountState(State):
+        "state": """class MountState(rx.State):
     events: list[str] = []
 
     def on_mount(self):
@@ -99,7 +96,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_unmount",
         "description": "The on_unmount event handler is called after removing the component from the page. However, on_unmount will only be called for internal navigation, not when following external links or refreshing the page.",
-        "state": """class UnmountState(State):
+        "state": """class UnmountState(rx.State):
     events: list[str] = []
 
     def on_unmount(self):
@@ -110,7 +107,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_up",
         "description": "The on_mouse_up event handler is called when the user releases a mouse button on an element. For example, it’s called when the user releases the left mouse button on a button.",
-        "state": """class MouseUpState(State):
+        "state": """class MouseUpState(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -124,7 +121,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_down",
         "description": "The on_mouse_down event handler is called when the user presses a mouse button on an element. For example, it’s called when the user presses the left mouse button on a button.",
-        "state": """class MouseDown(State):
+        "state": """class MouseDown(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -138,7 +135,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_enter",
         "description": "The on_mouse_enter event handler is called when the user’s mouse enters an element. For example, it’s called when the user’s mouse enters a button.",
-        "state": """class MouseEnter(State):
+        "state": """class MouseEnter(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -152,7 +149,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_leave",
         "description": "The on_mouse_leave event handler is called when the user’s mouse leaves an element. For example, it’s called when the user’s mouse leaves a button.",
-        "state": """class MouseLeave(State):
+        "state": """class MouseLeave(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -166,7 +163,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_move",
         "description": "The on_mouse_move event handler is called when the user moves the mouse over an element. For example, it’s called when the user moves the mouse over a button.",
-        "state": """class MouseMove(State):
+        "state": """class MouseMove(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -180,7 +177,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_out",
         "description": "The on_mouse_out event handler is called when the user’s mouse leaves an element. For example, it’s called when the user’s mouse leaves a button.",
-        "state": """class MouseOut(State):
+        "state": """class MouseOut(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -194,7 +191,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_mouse_over",
         "description": "The on_mouse_over event handler is called when the user’s mouse enters an element. For example, it’s called when the user’s mouse enters a button.",
-        "state": """class MouseOver(State):
+        "state": """class MouseOver(rx.State):
     text = "Change Me!"
 
     def change_text(self):
@@ -208,7 +205,7 @@ SYNTHETIC_EVENTS = [
     {
         "name": "on_scroll",
         "description": "The on_scroll event handler is called when the user scrolls the page. For example, it’s called when the user scrolls the page down.",
-        "state": """class ScrollState(State):
+        "state": """class ScrollState(rx.State):
     text = "Change Me!"
 
     def change_text(self):

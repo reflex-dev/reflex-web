@@ -116,10 +116,8 @@ half-pie chart.
 import inspect
 from typing import Any
 
-from pcweb.base_state import State
 
-
-class PieChartState(State):
+class PieChartState(rx.State):
     resources: list[dict[str, Any]] = [
         dict(type_="🏆", count=1),
         dict(type_="🪵", count=1),
@@ -179,6 +177,6 @@ rx.hstack(
 docgraphing(
     pie_chart_state_example,
     comp=eval(pie_chart_state_example),
-    data=inspect.getsource(PieChartState).replace("(State)", "(rx.State)"),
+    data=inspect.getsource(PieChartState),
 )
 ```

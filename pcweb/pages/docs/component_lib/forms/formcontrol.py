@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -15,7 +14,7 @@ code15 = """rx.form_control(
 """
 
 
-form_error_state = """class FormErrorState(State):
+form_error_state = """class FormErrorState(rx.State):
     name: str
 
     @rx.var

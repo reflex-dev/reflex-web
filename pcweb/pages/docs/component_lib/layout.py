@@ -1,8 +1,7 @@
 import reflex as rx
 
 from pcweb import flexdown
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo, doctext, subheader, doclink
+from pcweb.templates.docpage import docdemo, doctext, subheader
 
 
 # Layout
@@ -25,7 +24,7 @@ code51 = """rx.vstack(
     rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
 )
 """
-code52 = """class CondState(State):
+code52 = """class CondState(rx.State):
     show: bool = True
 
     def change(self):
@@ -51,7 +50,7 @@ code51_a = """rx.vstack(
     ),
 )
 """
-code52_a = """class MultiCondState(State):
+code52_a = """class MultiCondState(rx.State):
     cond1: bool = True
     cond2: bool = False
     cond3: bool = True
@@ -139,7 +138,7 @@ def render_wrap():
 
 
 basic_foreach_state = """from typing import List
-class ForeachState(State):
+class ForeachState(rx.State):
     color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
 def colored_box(color: str):
@@ -160,7 +159,7 @@ basic_foreach = """rx.responsive_grid(
 
 
 foreach_index_state = """from typing import List
-class ForeachIndexState(State):
+class ForeachIndexState(rx.State):
     color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
 
 def colored_box_index(color: str, index: int):
@@ -181,7 +180,7 @@ foreach_index = """rx.responsive_grid(
 
 
 nested_foreach_state = """from typing import List
-class NestedForeachState(State):
+class NestedForeachState(rx.State):
     numbers: List[List[str]] = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 def display_row(row):
@@ -206,7 +205,7 @@ nested_foreach = """rx.vstack(
 """
 
 simple_dict_foreach_state = """from typing import List
-class SimpleDictForeachState(State):
+class SimpleDictForeachState(rx.State):
     color_chart: dict[int, str] = {
          1 : "blue",
          2: "red",
@@ -228,7 +227,7 @@ simple_dict_foreach = """rx.responsive_grid(
 """
 
 complex_dict_foreach_state = """from typing import List, Dict
-class ComplexDictForeachState(State):
+class ComplexDictForeachState(rx.State):
     color_chart: Dict[str, List[str]] = {
         "purple": ["red", "blue"],
         "orange": ["yellow", "red"],
@@ -257,7 +256,7 @@ complex_dict_foreach = """rx.responsive_grid(
 """
 
 todo1 = """from typing import List
-class ListState(State):
+class ListState(rx.State):
     items: List[str] = ["Write Code", "Sleep", "Have Fun"]
     new_item: str
 

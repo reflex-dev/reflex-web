@@ -6,7 +6,6 @@ import inspect
 
 import reflex as rx
 from pcweb import styles
-from pcweb.base_state import State
 from pcweb.components.navbar import NavbarState
 from pcweb.component_list import component_list, chakra_components
 from pcweb.route import Route
@@ -54,7 +53,7 @@ class SidebarItem(Base):
     children: list[SidebarItem] = []
 
 
-class SidebarState(State):
+class SidebarState(rx.State):
 
     _sidebar_index: int = -1
 
