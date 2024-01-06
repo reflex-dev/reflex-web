@@ -607,7 +607,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     from pcweb.pages.docs import getting_started
     from pcweb.pages.blog.blog import blg
     from pcweb.pages.docs.gallery import gallery
-    from pcweb.pages.changelog.changelog import changelog_display
+    from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
 
     # If the sidebar is not provided, create a default one.
@@ -704,7 +704,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 rx.menu_item(
                                     "Changelog", style=styles.NAV_DROPDOWN_STYLE
                                 ),
-                                href=changelog_display.path,
+                                href=changelog.path,
                             ),
                             rx.link(
                                 rx.menu_item(

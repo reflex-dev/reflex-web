@@ -25,7 +25,7 @@ footer_style = {
 
 def footer(style=footer_style):
     from pcweb.pages.blog import blg
-    from pcweb.pages.changelog.changelog import changelog_display
+    from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
 
     return rx.box(
@@ -43,7 +43,7 @@ def footer(style=footer_style):
                     rx.link("Blog", href=blg.path, style=footer_item_style),
                     rx.link(
                         "Changelog",
-                        href=changelog_display.path,
+                        href=changelog.path,
                         style=footer_item_style,
                     ),
                     align_items="start",
