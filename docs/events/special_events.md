@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 from pcweb.pages.docs.api_reference.special_events import special_events
 ```
@@ -15,7 +14,7 @@ For example, an event handler can trigger an alert on the browser.
 
 
 ```python exec
-class SpecialEventsState(State):
+class SpecialEventsState(rx.State):
     def alert(self):
         return rx.window_alert("Hello World!")
 

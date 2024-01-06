@@ -98,10 +98,8 @@ radar chart of character traits.
 import inspect
 from typing import Any
 
-from pcweb.base_state import State
 
-
-class RadarChartState(State):
+class RadarChartState(rx.State):
     total_points: int = 100
     traits: list[dict[str, Any]] = [
         dict(trait="Strength", value=15),
@@ -165,6 +163,6 @@ rx.hstack(
 docgraphing(
     radar_chart_state_example,
     comp=eval(radar_chart_state_example),
-    data=inspect.getsource(RadarChartState).replace("(State)", "(rx.State)"),
+    data=inspect.getsource(RadarChartState),
 )
 ```

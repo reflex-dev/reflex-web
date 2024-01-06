@@ -9,7 +9,6 @@ from sqlmodel import Field
 
 import reflex as rx
 from pcweb import styles
-from pcweb.base_state import State
 from pcweb.components.spline import spline_component
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import getting_started
@@ -44,7 +43,7 @@ class Waitlist(rx.Model, table=True):
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
 
-class IndexState(State):
+class IndexState(rx.State):
     """Hold the state for the home page."""
 
     # The waitlist email.

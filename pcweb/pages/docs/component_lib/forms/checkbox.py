@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -26,7 +25,7 @@ checkbox_visual_states = """rx.hstack(
     ),
 )
 """
-checkbox_state = """class CheckboxState(State):
+checkbox_state = """class CheckboxState(rx.State):
     checked: bool = False
 
     def toggle(self):

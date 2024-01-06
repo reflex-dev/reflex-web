@@ -6,12 +6,11 @@ import inspect
 import reflex as rx
 
 from pcweb import styles
-from pcweb.base_state import State
 from pcweb.pages.docs.api_reference.source import Source, generate_docs
 from pcweb.templates.docpage import doccode, docdemo, docheader, subheader
 
 
-class EditorState(State):
+class EditorState(rx.State):
     content: str = "<p>Editor content</p>"
 
     def handle_change(self, content: str):
@@ -37,7 +36,7 @@ def editor_example():
 ```python eval
 docdemo(
     code=inspect.getsource(editor_example),
-    state=inspect.getsource(EditorState).replace("(State)", "(rx.State)"),
+    state=inspect.getsource(EditorState),
     comp=editor_example(),
 )
 ```

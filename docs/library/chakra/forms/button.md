@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docdemobox
 
 
@@ -28,7 +27,7 @@ button_group_example = """rx.button_group(
 )
 """
 
-button_state = """class ButtonState(State):
+button_state = """class ButtonState(rx.State):
     count: int = 0
 
     def increment(self):
@@ -61,7 +60,7 @@ button_state_example = """rx.hstack(
 button_state_code = f"""
 import reflex as rx
 
-{button_state.replace("(State)", "(rx.State)")}
+{button_state}
 
 def index():
     return {button_state_example}
@@ -70,7 +69,7 @@ app = rx.App()
 app.add_page(index)
 app.compile()"""
 
-button_state2 = """class ExampleButtonState(State):
+button_state2 = """class ExampleButtonState(rx.State):
     text_value: str = "Random value"
 """
 exec(button_state2)
@@ -86,7 +85,7 @@ button_state2_render_code = """rx.vstack(
 button_state2_code = f"""
 import reflex as rx
 
-{button_state2.replace("(State)", "(rx.State)")}
+{button_state2}
 
 def index():
     return {button_state2_render_code}

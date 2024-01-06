@@ -1,13 +1,12 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doclink,
     doctext,
 )
 
-input_state = """class InputState(State):
+input_state = """class InputState(rx.State):
     text: str = "Type something..."
 """
 basic_input_example = """rx.vstack(
@@ -17,7 +16,7 @@ basic_input_example = """rx.vstack(
 """
 exec(input_state)
 
-input_blur_state = """class InputBlurState(State):
+input_blur_state = """class InputBlurState(rx.State):
     text: str = "Type something..."
 
     def set_text(self, text: str):
@@ -30,7 +29,7 @@ blur_input_example = """rx.vstack(
 """
 exec(input_blur_state)
 clear_input_state = """
-class ClearInputState(State):
+class ClearInputState(rx.State):
     text: str
 
     def clear_text(self):
@@ -48,7 +47,7 @@ clear_input_example = """rx.vstack(
 
 exec(clear_input_state)
 key_press_state = """
-class KeyPressInputState(State):
+class KeyPressInputState(rx.State):
     text: str
 
     def clear_text(self):
@@ -74,7 +73,7 @@ password_example = """rx.password()"""
 
 
 input_form_state = """
-class InputFormState(State):
+class InputFormState(rx.State):
 
     form_data: dict = {}
 

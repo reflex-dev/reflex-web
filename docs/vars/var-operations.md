@@ -7,7 +7,6 @@ import numpy as np
 
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doccode,
     docdemo_from,
@@ -45,7 +44,7 @@ In this example below we use a var operation to concatenate a `string` with a `v
 ```python exec
 coins = ["BTC", "ETH", "LTC", "DOGE"]
 
-class VarSelectState(State):
+class VarSelectState(rx.State):
     selected: str = "DOGE"
 
 def var_operations_example():
@@ -99,7 +98,7 @@ Some simple examples are the `==` var operator, which is used to check if two va
 
 fruits = ["Apple", "Banana", "Orange", "Mango"]
 
-class EqualsState(State):
+class EqualsState(rx.State):
     selected: str = "Apple"
     favorite: str = "Banana"
 
@@ -133,7 +132,7 @@ The `-` operator is used to get the negative version of the var. The `abs()` ope
 ```python exec
 import random
 
-class OperState(State):
+class OperState(rx.State):
     number: int
     numbers_seen: list = []
     def update(self):
@@ -165,7 +164,7 @@ There are operators to add two vars `+`, subract two vars `-`, multiply two vars
 ```python exec
 import random
 
-class CompState(State):
+class CompState(rx.State):
     number_1: int
     number_2: int
 
@@ -210,7 +209,7 @@ The operator `/` represents true division. The operator `//` represents floor di
 ```python exec
 import random
 
-class DivState(State):
+class DivState(rx.State):
     number_1: float = 3.5
     number_2: float = 1.4
 
@@ -250,7 +249,7 @@ The `~` operator is used to invert a var. It is used on a var of type `bool` and
 ```python exec
 import random
 
-class LogicState(State):
+class LogicState(rx.State):
     var_1: bool = True
     var_2: bool = True
 
@@ -291,7 +290,7 @@ We use the `reverse` operation to reverse a list var. The var must be of type `l
 Finally we use the `join` operation to join a list var into a string. 
 
 ```python exec
-class ListsState(State):
+class ListsState(rx.State):
     list_1: list = [1, 2, 3, 4, 6]
     list_2: list = [7, 8, 9, 10]
     list_3: list = ["p","y","t","h","o","n"]
@@ -324,7 +323,7 @@ docdemo_from(ListsState, component=var_list_example)
 The `lower` operator converts a string var to lowercase. The `upper` operator converts a string var to uppercase. The `split` operator splits a string var into a list.
 
 ```python exec
-class StringState(State):
+class StringState(rx.State):
     string_1: str = "PYTHON is FUN"
     string_2: str = "react is hard"
    
@@ -353,7 +352,7 @@ docdemo_from(StringState, component=var_string_example)
 Indexing is only supported for strings, lists, tuples, dicts, and dataframes. To index into a state var strict type annotations are required.
 
 ```python
-class GetItemState1(State):
+class GetItemState1(rx.State):
     list_1: list = [50, 10, 20]
 
 def get_item_error_1():
@@ -366,7 +365,7 @@ def get_item_error_1():
 In the code above you would expect to index into the first index of the list_1 state var. In fact the code above throws the error: `Invalid var passed for prop value, expected type <class 'int'>, got value of type typing.Any.` This is because the type of the items inside the list have not been clearly defined in the state. To fix this you change the list_1 defintion to `list_1: list[int] = [50, 10, 20]`
 
 ```python exec
-class GetItemState1(State):
+class GetItemState1(rx.State):
     list_1: list[int] = [50, 10, 20]
 
 def get_item_error_1():
@@ -505,7 +504,7 @@ You can also combine multiple var operations together, as seen in the next examp
 ```python exec
 import random
 
-class VarNumberState(State):
+class VarNumberState(rx.State):
     number: int
 
     def update(self):

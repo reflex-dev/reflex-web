@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -11,7 +10,7 @@ The form component's children can be form controls such as `rx.input`, `rx.check
 The form is submitted when the user clicks the submit button or presses enter on the form controls.
 
 ```python exec
-class FormState(State):
+class FormState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
@@ -65,7 +64,7 @@ This example allows the user to add new fields to the form prior to submit, and 
 fields will be included in the form data passed to the `handle_submit` function.
 
 ```python exec
-class DynamicFormState(State):
+class DynamicFormState(rx.State):
     form_data: dict = {}
     form_fields: list[str] = ["first_name", "last_name", "email"]
 

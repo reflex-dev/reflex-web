@@ -1,9 +1,7 @@
 import pandas as pd
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, docdemo, doctext, code_block
-from pcweb import flexdown
 
 
 style = {

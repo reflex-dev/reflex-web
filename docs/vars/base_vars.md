@@ -7,13 +7,9 @@ import numpy as np
 
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.pages.docs import vars
 from pcweb.templates.docpage import docdemo_from, doclink
 ```
-
-
-
 # Base Vars
 
 
@@ -42,7 +38,7 @@ rx.alert(
 ```
 
 ```python exec
-class TickerState(State):
+class TickerState(rx.State):
     ticker: str ="AAPL"
     price: str = "$150"
 
@@ -100,7 +96,7 @@ For example, a backend-only var is used to store a large data structure which is
 then paged to the frontend using cached vars. 
 
 ```python exec
-class BackendVarState(State):
+class BackendVarState(rx.State):
     _backend: np.ndarray = np.array([random.randint(0, 100) for _ in range(100)])
     offset: int = 0
     limit: int = 10

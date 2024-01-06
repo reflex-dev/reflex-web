@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
@@ -9,7 +8,7 @@ from pcweb.templates.docpage import (
 basic_select_state = """from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
-class SelectState(State):
+class SelectState(rx.State):
     option: str = "No selection yet."
 
 """
@@ -18,7 +17,7 @@ class SelectState(State):
 multi_select_state = """from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
-class MultiSelectState(State):
+class MultiSelectState(rx.State):
     option: List[str] = []
 """
 

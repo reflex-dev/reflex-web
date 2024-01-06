@@ -9,7 +9,6 @@ image: /graphing.png
 ```python exec
 import reflex as rx
 import random
-from pcweb.base_state import State
 import asyncio
 # hacks because curly braces always evaluate python code
 pid = "{pid}"
@@ -93,7 +92,7 @@ data = [
     {"name": "G", "uv": 50, "pv": 190, "amt": 260},
 ]
 
-class StreamingState(State):
+class StreamingState(rx.State):
     data = data
     stream = False
 

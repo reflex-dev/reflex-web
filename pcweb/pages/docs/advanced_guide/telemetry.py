@@ -1,11 +1,8 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doccode,
-    docdemo,
     docheader,
-    doclink,
     docpage,
     doctext,
     subheader,

@@ -1,6 +1,5 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, doctext
 
 # Overlay
@@ -20,7 +19,7 @@ rx.box(rx.button("Show Alert Dialog", on_click=AlertDialogState.change),
     )
 )
 """
-code86 = """class AlertDialogState(State):
+code86 = """class AlertDialogState(rx.State):
     show: bool = False
 
     def change(self):
@@ -39,7 +38,7 @@ def render_alertdialog():
     )
 
 
-code88 = """class DrawerState(State):
+code88 = """class DrawerState(rx.State):
     show_right: bool = False
     show_top: bool = False
 
@@ -137,7 +136,7 @@ code91 = """rx.box(
     ),
 )
 """
-code92 = """class ModalState(State):
+code92 = """class ModalState(rx.State):
     show: bool = False
 
     def change(self):

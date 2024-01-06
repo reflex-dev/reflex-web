@@ -1,11 +1,9 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 from pcweb.pages.docs import vars
 ```
-
 # Custom Vars
 
 As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
@@ -25,7 +23,7 @@ class Translation(rx.Base):
     original_text: str
     translated_text: str
 
-class TranslationState(State):
+class TranslationState(rx.State):
     input_text: str = "Hola Mundo"
     current_translation: Translation = Translation(original_text="", translated_text="")
 

@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -23,7 +22,7 @@ Try entering some values in the text boxes below and then load the page in a sep
 tab or check the storage section of browser devtools to see the values saved in the browser. 
 
 ```python exec
-class ClientStorageState(State):
+class ClientStorageState(rx.State):
     my_cookie: str = rx.Cookie("")
     my_local_storage: str = rx.LocalStorage("")
     custom_cookie: str = rx.Cookie(name="CustomNamedCookie", max_age=3600)

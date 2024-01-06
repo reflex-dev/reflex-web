@@ -3,7 +3,6 @@ import reflex as rx
 
 from pcweb import styles
 
-from pcweb.base_state import State
 from pcweb.components.footer import footer
 from pcweb.components.navbar import navbar
 
@@ -14,7 +13,7 @@ def _404():
             rx.heading(rx.constants.Page404.TITLE),
             rx.text(
                 "Oups, the page at ",
-                rx.code(State.router.page.raw_path),
+                rx.code(rx.State.router.page.raw_path),
                 " doesn't exist.",
             ),
             rx.spacer(),

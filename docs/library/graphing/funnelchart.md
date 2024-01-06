@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
 import random
 
@@ -32,7 +31,7 @@ data = [
   }
 ]
 
-funnel_chart_state = """class FunnelState(State):
+funnel_chart_state = """class FunnelState(rx.State):
     data=data
 
     def randomize_data(self):

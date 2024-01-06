@@ -1,12 +1,11 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
 )
 
-pin_state = """class PinInputState(State):
+pin_state = """class PinInputState(rx.State):
     pin: str
 """
 basic_pin_example = """rx.vstack(

@@ -110,7 +110,6 @@ import inspect
 
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 
 
@@ -121,7 +120,7 @@ class AppSettings(rx.Base):
     error_messages: list[str] = []
 
 
-class ComplexLocalStorageState(State):
+class ComplexLocalStorageState(rx.State):
     data_raw: str = rx.LocalStorage("{}")
     data: AppSettings = AppSettings()
     settings_open: bool = False

@@ -16,7 +16,6 @@ from pcweb.styles import colors as c
 from pcweb.styles import text_colors as tc
 from pcweb.styles import font_weights as fw
 
-from pcweb.base_state import State
 from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
 
@@ -421,7 +420,7 @@ def docheader(
         The styled header.
     """
     id_ = "-".join(text.lower().split())
-    href = State.current_page + "#" + id_
+    href = rx.State.router.page.path + "#" + id_
 
     # Return the header.
     return rx.box(
@@ -463,7 +462,7 @@ def docheader(
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
-    href = State.current_page + "#" + id_
+    href = rx.State.router.page.path + "#" + id_
 
     return rx.box(
         rx.link(
@@ -500,7 +499,7 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
-    href = State.current_page + "#" + id_
+    href = rx.State.router.page.path + "#" + id_
 
     return rx.box(
         rx.link(
@@ -613,9 +612,6 @@ def doccode(
             textwrap.dedent(code), mode=black.FileMode(line_length=60)
         ).strip()
 
-        # Replace "State" with "rx.State".
-        code = code.replace("(State)", "(rx.State)")
-
     # If needed, only display a subset of the lines.
     if lines is not None:
         code = textwrap.dedent(
@@ -720,7 +716,7 @@ def docdemo_from(
             "\n".join(imports),
             "\n".join(f"{k} = {v}" for k, v in assignments.items()),
             *(
-                inspect.getsource(obj).replace("(State)", "(rx.State)")
+                inspect.getsource(obj)
                 for obj in state_models_helpers
             ),
         ]

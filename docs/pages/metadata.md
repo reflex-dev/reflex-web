@@ -1,7 +1,6 @@
 ```python exec
 
 import reflex as rx
-from pcweb.base_state import State
 
 meta_data = (
 """

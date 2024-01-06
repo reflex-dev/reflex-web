@@ -1,12 +1,11 @@
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import (
     docdemo,
     doctext,
 )
 
-debounce_checkbox_state = """class DebounceCheckboxState(State):
+debounce_checkbox_state = """class DebounceCheckboxState(rx.State):
     checked: bool = False
 """
 exec(debounce_checkbox_state)

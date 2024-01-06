@@ -3,7 +3,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import reflex as rx
 
-from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, doctext
 
 style = {

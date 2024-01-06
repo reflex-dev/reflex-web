@@ -1,11 +1,10 @@
-from pcweb.base_state import State
 import reflex as rx
 import asyncio
 import httpx
 from typing import Any
 
 
-class DataTableState(State):
+class DataTableState(rx.State):
     """The app state."""
 
     clicked_cell: str = "Cell clicked: "
@@ -130,7 +129,7 @@ class DataTableState(State):
         self.edited_cell = f"Cell edited: {pos}, Cell value: {val['data']}"
 
 
-class DataTableState2(State):
+class DataTableState2(rx.State):
     """The app state."""
 
     clicked_cell: str = "Cell clicked: "
@@ -283,7 +282,7 @@ class DataTableState2(State):
         self.cols[col["pos"]]["width"] = width
 
 
-class DataTableLiveState(State):
+class DataTableLiveState(rx.State):
     "The app state."
 
     running: bool = False

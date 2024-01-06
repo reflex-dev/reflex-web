@@ -1,11 +1,10 @@
 import reflex as rx
 from pcweb.templates.docpage import docpage
-from pcweb.base_state import State
 from pcweb import flexdown
 import openai
 
 
-class ChatappState(State):
+class ChatappState(rx.State):
     # The current question being asked.
     question: str
 

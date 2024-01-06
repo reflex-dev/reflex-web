@@ -124,10 +124,8 @@ Enter a starting number in the box below the chart to recalculate.
 ```python exec
 import inspect
 
-from pcweb.base_state import State
 
-
-class ScatterChartState(State):
+class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
     def compute_collatz(self, form_data: dict) -> int:
@@ -170,6 +168,6 @@ rx.vstack(
 docgraphing(
     scatter_chart_state_example,
     comp=eval(scatter_chart_state_example),
-    data=inspect.getsource(ScatterChartState).replace("(State)", "(rx.State)"),
+    data=inspect.getsource(ScatterChartState),
 )
 ```

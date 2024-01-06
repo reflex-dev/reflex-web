@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from
 ```
 
@@ -35,7 +34,7 @@ The `self.router` attribute has several sub-attributes that provide various info
 ### Example Values on this Page
 
 ```python exec
-class RouterState(State):
+class RouterState(rx.State):
     pass
 
 

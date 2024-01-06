@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
 import random
 
@@ -116,7 +115,7 @@ range_data = [
 ]
 
 
-area_chart_state = """class AreaState(State):
+area_chart_state = """class AreaState(rx.State):
     data=data
 
     def randomize_data(self):

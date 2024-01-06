@@ -1,11 +1,10 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 
 my_task_state_code = """
-class MyTaskState(State):
+class MyTaskState(rx.State):
     counter: int = 0
     max_counter: int = 10
     running: bool = False
@@ -69,7 +68,7 @@ my_task_code = f"""
 import asyncio
 import reflex as rx
 
-{my_task_state_code.replace("(State)", "(rx.State)")}
+{my_task_state_code}
 
 def index():
     return {my_task_render_code}
@@ -93,7 +92,7 @@ async def _fetch_data(app, token):
         substate.result = response.text
 
 
-class LowLevelState(State):
+class LowLevelState(rx.State):
     result: str = ""
 
     def fetch_data(self):
@@ -125,7 +124,7 @@ import asyncio
 import httpx
 import reflex as rx
 
-{low_level_state_code.replace("(State)", "(rx.State)")}
+{low_level_state_code}
 
 def index():
     return {low_level_render_code}

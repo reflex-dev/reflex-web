@@ -3,7 +3,6 @@ from pcweb.pages.docs.library import library
 from pcweb.pages.docs import state
 from pcweb.pages.docs import vars
 from pcweb.templates.docpage import docdemo, doclink
-from pcweb.base_state import State
 import reflex as rx
 import inspect
 ```
@@ -90,7 +89,7 @@ You can set the value of a prop to a [state var]({vars.base_vars.path}) to make 
 Try clicking the badge below to change its color.
 
 ```python exec
-class PropExampleState(State):
+class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"
 

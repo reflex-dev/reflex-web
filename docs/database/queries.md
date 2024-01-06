@@ -30,7 +30,7 @@ class User(rx.Model, table=True):
 Then we create a session and query the User table.
 
 ```python
-class QueryUser(State):
+class QueryUser(rx.State):
     name: str
     users: list[User]
 
@@ -51,7 +51,7 @@ Similarly, the `session.add()` method to add a new record to the
 database or persist an existing object.
 
 ```python
-class AddUser(State):
+class AddUser(rx.State):
     username: str
     email: str
     
@@ -67,7 +67,7 @@ To update the user, first query the database for the object, make the desired
 modifications, `.add` the object to the session and finally call `.commit()`.
 
 ```python
-class ChangeEmail(State):
+class ChangeEmail(rx.State):
     username: str
     email: str
 
@@ -85,7 +85,7 @@ To delete a user, first query the database for the object, then call
 `.delete()` on the session and finally call `.commit()`.
 
 ```python
-class RemoveUser(State):
+class RemoveUser(rx.State):
     username: str
 
     def delete_user(self):
@@ -105,7 +105,7 @@ To avoid this, the `session.refresh()` method can be used to update the object e
 ensure all fields are up to date before exiting the session.
 
 ```python
-class AddUserForm(State):
+class AddUserForm(rx.State):
     user: User | None = None
     
     def add_user(self, form_data: dict[str, str]):
@@ -126,7 +126,7 @@ necessarily create the object, but rather associates it with a session where it
 may either be created or updated accordingly.
 
 ```python
-class AddUserForm(State):
+class AddUserForm(rx.State):
     ...
     
     def update_user(self, form_data: dict[str, str]):
