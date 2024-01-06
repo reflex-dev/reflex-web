@@ -161,7 +161,7 @@ for path, document in blogs.items():
     # Get the docpage component.
     route = f"/{path.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    comp = webpage(path=route, title=rx.utils.format.to_title_case(title))(
+    comp = webpage(path=route, title=document.metadata["title"])(
         lambda doc=document: page(doc)
     )
 
