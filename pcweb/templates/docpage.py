@@ -420,7 +420,7 @@ def docheader(
         The styled header.
     """
     id_ = "-".join(text.lower().split())
-    href = rx.State.router.page.path + "#" + id_
+    href = rx.State.router.page.full_path + "#" + id_
 
     # Return the header.
     return rx.box(
@@ -462,7 +462,7 @@ def docheader(
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
-    href = rx.State.router.page.path + "#" + id_
+    href = rx.State.router.page.full_path + "#" + id_
 
     return rx.box(
         rx.link(
@@ -499,7 +499,7 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
-    href = rx.State.router.page.path + "#" + id_
+    href = rx.State.router.page.full_path + "#" + id_
 
     return rx.box(
         rx.link(
