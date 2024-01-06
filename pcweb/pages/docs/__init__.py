@@ -4,7 +4,7 @@ from .api_reference import *
 from .component_lib import *
 from .gallery import gallery
 from .recipes import *
-from .library import *
+from .library import library
 from .resources import resources
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
