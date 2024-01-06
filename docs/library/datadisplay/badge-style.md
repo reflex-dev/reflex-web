@@ -2,12 +2,15 @@
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
-# from reflex.components.radix.doc_functions import style_grid
+from pcweb.templates.docpage import style_grid
 ```
 
 # Styling 
 
-blurb about the grid for this one ...
+
+```python eval
+style_grid(component_used=badge, component_used_str="badge", variants=["solid", "soft", "surface", "outline"], components_passed="England!",)
+```
 
 
 ## Size

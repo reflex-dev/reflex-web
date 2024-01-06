@@ -275,10 +275,6 @@ def render_datatable():
     )
 
 
-def render_dataeditor():
-    return flexdown.render_file("docs/library/datadisplay/data_editor.md")
-
-
 data_example = """
 columns = ["Name", "Age", "Location"]
 data = [

@@ -65,8 +65,3 @@ class ChatappState(State):
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
-
-
-@docpage()
-def final_app():
-    return flexdown.render_file("docs/tutorial/final-app.md")

@@ -11,16 +11,15 @@ from pcweb.templates.docpage import (
     subheader,
 )
 import inspect
-from pcweb.pages.docs.components.props import props
-from pcweb.pages.docs.components.style_props import style_props
-from pcweb.pages.docs.styling.overview import styling_overview
-from pcweb.pages.docs.tutorial import style
+from pcweb.pages.docs import components
+from pcweb.pages.docs import styling
+from pcweb.pages.docs import tutorial_style as style
 
 ```
 
 # Basic Frontend
 
-Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs]({props.path}) for more information.
+Let's start with defining the frontend for our chat app. In Reflex, the frontend can be broken down into independent, reusable components. See the [components docs]({components.props.path}) for more information.
 
 ## Display A Question And Answer
 
@@ -83,7 +82,7 @@ docdemo(
 Components can be nested inside each other to create complex layouts. Here we create a parent container that contains two boxes for the question and answer.
 
 
-We also add some basic styling to the components. Components take in keyword arguments, called [props]({style_props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
+We also add some basic styling to the components. Components take in keyword arguments, called [props]({components.style_props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
 
 ## Reusing Components
 
@@ -195,7 +194,7 @@ docdemo(
 
 ## Styling
 
-Let's add some styling to the app. More information on styling can be found in the [styling docs]({styling_overview.path}). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
+Let's add some styling to the app. More information on styling can be found in the [styling docs]({styling.overview.path}). To keep our code clean, we will move the styling to a separate file `chatapp/style.py`.
 
 ```python exec 
 def show_code_styling_1():

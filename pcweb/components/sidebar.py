@@ -104,18 +104,15 @@ def create_item(route: Route, children=None):
         return SidebarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
-    try:
-        return SidebarItem(
-            names=route if isinstance(route, str) else 
-            inspect.getmodule(route)
-            .__name__.split(".")[-1]
-            .replace("_", " ")
-            .title()
-            .replace("Api", "API"),
-            children=list(map(create_item, children)),
-        )
-    except:
-        breakpoint()
+    return SidebarItem(
+        names=route if isinstance(route, str) else 
+        inspect.getmodule(route)
+        .__name__.split(".")[-1]
+        .replace("_", " ")
+        .title()
+        .replace("Api", "API"),
+        children=list(map(create_item, children)),
+    )
 
 
 def get_sidebar_items_learn():
@@ -135,7 +132,7 @@ def get_sidebar_items_learn():
             ],
         ),
         create_item(
-            tutorial,
+            "Tutorial",
             children=[
                 tutorial.intro,
                 tutorial.setup,
@@ -150,30 +147,30 @@ def get_sidebar_items_learn():
 
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
-        ui_overview,
+        ui,
         components,
-        dynamic_rendering,
         pages,
         styling,
         assets,
         wrapping_react,
-        rendering_iterables,
-        conditional_rendering,
+        library,
     )
  
     items = [
-        create_item(ui_overview),
+        create_item(ui.overview),
         create_item(
-            components,
+            "Components",
             children=[
                 components.props,
                 components.style_props,
                 components.conditional_props,
-                components.library,
+                components.conditional_rendering,
+                components.rendering_iterables,
+                library,
             ],
         ),
         create_item(
-            pages,
+            "Pages",
             children=[
                 pages.routes,
                 pages.dynamic_routing,
@@ -181,30 +178,23 @@ def get_sidebar_items_frontend():
             ]
         ),
         create_item(
-            styling,
+            "Styling",
             children=[
-                styling.styling_overview,
+                styling.overview,
                 styling.responsive,
                 styling.custom_stylesheets,
                 styling.theming,
             ],
         ),
         create_item(
-            dynamic_rendering,
-            children = [
-            rendering_iterables,
-            conditional_rendering
-            ]
-        ),
-        create_item(
-            assets,
+            "Assets",
             children=[
                 assets.referencing_assets,
                 assets.upload_and_download_files,
             ]
         ),
         create_item(
-            wrapping_react,
+            "Wrapping React",
             children=[
                 wrapping_react.overview,
                 wrapping_react.imports,
@@ -218,7 +208,7 @@ def get_sidebar_items_frontend():
 
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
-        state_overview,
+        state,
         events,
         vars,
         substates,
@@ -229,9 +219,9 @@ def get_sidebar_items_backend():
     )
 
     items = [
-        create_item(state_overview),
+        create_item(state.overview),
         create_item(
-            vars,
+            "Vars",
             children=[
                 vars.base_vars,
                 vars.computed_vars,
@@ -240,47 +230,47 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            events,
+            "Events",
             children=[
                 events.events_overview,
                 events.event_arguments,
                 events.setters,
                 events.yield_events,
                 events.chaining_events,
-                events.special_events_docs,
+                events.special_events,
                 events.page_load_events,
                 events.background_events,
             ],
         ),
         create_item(
-            substates,
+            "Substates",
             children=[
-                substates.substates_overview,
+                substates.overview,
             ],
         ),
         create_item(
-            api_routes,
+            "API Routes",
             children=[
-                api_routes.api_routes_overview,
+                api_routes.overview,
             ],
         ),
         create_item(
-            client_storage,
+            "Client Storage",
             children=[
-                client_storage.client_storage_overview,
+                client_storage.overview,
             ],
         ),
         create_item(
-            database,
+            "Database",
             children=[
-                database.database_overview,
+                database.overview,
                 database.tables,
                 database.queries,
                 database.relationships,
             ],
         ),
         create_item(
-            utility_methods,
+            "Utility Methods",
             children=[
                 utility_methods.files_router_methods,
                 utility_methods.other_methods,

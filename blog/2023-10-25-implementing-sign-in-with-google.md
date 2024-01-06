@@ -9,7 +9,7 @@ image: /auth_blog.png
 ```python exec
 import reflex as rx
 import pcweb.pages.docs.api_reference
-from pcweb.pages.docs.state_overview import state_overview
+from pcweb.pages.docs import state
 from pcweb.templates.docpage import docalert
 ```
 
@@ -188,7 +188,7 @@ The `GoogleLogin` component does NOT store the token in any way, so it is up to
 our app to store and manage the credential after login. For this purpose, we
 will use an
 [`rx.LocalStorage`]({pcweb.pages.docs.api_reference.browser_storage.path}) `Var` in the
-[`State`]({state_overview.path}) that is set in the
+[`State`]({state.overview.path}) that is set in the
 `on_success` event handler.
 
 Additionally, an `rx.cached_var` will be used to verify and return the decoded

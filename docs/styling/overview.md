@@ -3,7 +3,7 @@ from pcweb.templates.docpage import docdemo, doclink
 from pcweb.base_state import State
 import reflex as rx
 import inspect
-from pcweb.pages.docs.styling import custom_stylesheets
+from pcweb.pages.docs import styling
 ```
 
 # Styling 
@@ -110,7 +110,7 @@ rx.alert(
             "or camelCase identifiers in your own class names and IDs. ",
             "To style third-party libraries relying on underscore class names, an external stylesheet should be "
             "used. See ",
-            doclink("custom stylesheets", href=custom_stylesheets.path),
+            doclink("custom stylesheets", href=styling.custom_stylesheets.path),
             " for how to reference external CSS files.",
         ),
     ),

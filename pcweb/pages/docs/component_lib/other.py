@@ -2,7 +2,6 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, docdemo, doclink, doctext, subheader
-from pcweb.pages.docs.styling.overview import styling_overview
 
 example = """rx.vstack(
     rx.html("<h1>Hello World</h1>"),
@@ -21,6 +20,7 @@ example2 = """ rx.vstack(
 
 
 def render_html():
+    from pcweb.pages.docs import styling
     return rx.vstack(
         doctext(
             "The HTML component can be used to render raw HTML code. ",
@@ -50,7 +50,7 @@ def render_html():
                         " config in ",
                         rx.code("rxconfig.py"),
                         ". See the ",
-                        doclink("Tailwind docs", href=styling_overview.path),
+                        doclink("Tailwind docs", href=styling.overview.path),
                         " for an example of adding this plugin.",
                     ),
                 ),

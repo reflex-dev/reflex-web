@@ -14,8 +14,6 @@ from pcweb.templates.docpage import (
 
 @docpage()
 def telemetry():
-    from pcweb.pages.docs.styling.overview import styling_overview
-
     return rx.box(
         docheader("Anonymous Telemetry", first=True),
         doctext(

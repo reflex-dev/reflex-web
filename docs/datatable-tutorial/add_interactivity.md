@@ -2,16 +2,11 @@
 import reflex as rx
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemobox
-from pcweb.pages.docs.datatable_tutorial.states import DataTableState, DataTableState2
+from pcweb.pages.docs.datatable_tutorial_utils import DataTableState, DataTableState2
 
 ```
 
-
-
-
-
 # Adding Interactivity to our DataTable
-
 
 Now we will add interactivity to our datatable. We do this using event handlers and event triggers.
 
