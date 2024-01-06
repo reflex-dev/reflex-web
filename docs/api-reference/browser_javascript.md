@@ -3,7 +3,7 @@ import asyncio
 import inspect
 from typing import Any
 import reflex as rx
-import pcweb.pages.docs.wrapping_react
+from pcweb.pages.docs import wrapping_react
 from pcweb.base_state import State
 from pcweb.templates.docpage import docalert, doccode, docdemobox 
 ```
@@ -40,7 +40,7 @@ These previous two methods can work in tandem to load external scripts and then
 call functions defined within them in response to user events.
 
 The following two methods are geared towards wrapping components and are
-described with examples in the [Wrapping React]({pcweb.pages.docs.wrapping_react.overview.path})
+described with examples in the [Wrapping React]({wrapping_react.overview.path})
 section.
 
 * `_get_hooks` and `_get_custom_code` in an `rx.Component` subclass

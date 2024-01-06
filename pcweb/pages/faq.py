@@ -5,9 +5,9 @@ from pcweb.templates.webpage import webpage
 from pcweb.route import Route
 from pcweb.styles import text_colors as tc
 from pcweb.styles import colors as c
-from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
+from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.gallery import gallery
-from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.pages.docs import hosting
 
 faq_items = [
     {
@@ -38,7 +38,7 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.span(doclink("deployment guide", href=deploy.path)),
+            rx.span(doclink("deployment guide", href=hosting.deploy.path)),
             ".",
         ),
     },
@@ -80,7 +80,7 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.span(doclink("wrapping React", href=wrapping_react_overview.path)),
+            rx.span(doclink("wrapping React", href=wrapping_react.overview.path)),
             " to learn more.",
         ),
     },

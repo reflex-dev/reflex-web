@@ -2,7 +2,6 @@
 import os
 
 import reflex as rx
-from pcweb.pages.docs.tutorial import style
 from pcweb.base_state import State
 from pcweb.templates.docpage import (
     doccode,
@@ -17,11 +16,11 @@ from pcweb.templates.docpage import (
 import openai
 
 import inspect
-from pcweb.pages.docs.state_overview import state_overview
-from pcweb.pages.docs.events.setters import setters
-from pcweb.pages.docs.events.yield_events import yield_events
+from pcweb.pages.docs import state
+from pcweb.pages.docs import events
 
-from pcweb.pages.docs.tutorial.final_app import ChatappState
+from pcweb.pages.docs.tutorial_utils import ChatappState
+from pcweb.pages.docs import tutorial_style as style
 
 # If it's in environment, no need to hardcode (openai SDK will pick it up)
 if "OPENAI_API_KEY" not in os.environ:
@@ -33,7 +32,7 @@ if "OPENAI_API_KEY" not in os.environ:
 
 # State
 
-Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs]({state_overview.path}).
+Now let’s make the chat app interactive by adding state. The state is where we define all the variables that can change in the app and all the functions that can modify them. You can learn more about state in the [state docs]({state.overview.path}).
 
 ## Defining State
 
@@ -142,7 +141,7 @@ docdemo(
 
 Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({"/docs/library/layout/foreach"}) component to iterate over the chat history.
 
-We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({setters.path}) under the Setters section.
+We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({events.setters.path}) under the Setters section.
 
 
 ## Clearing the Input
@@ -209,7 +208,7 @@ doccode(state2)
 
 ## Streaming Text
 
-Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs]({yield_events.path}) for more info.
+Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs]({events.yield_events.path}) for more info.
 
 
 

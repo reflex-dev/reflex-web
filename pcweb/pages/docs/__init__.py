@@ -1,49 +1,43 @@
 from pcweb.route import Route
 from .advanced_guide import *
 from .api_reference import *
-from .components import *
 from .component_lib import *
-from .database import *
 from .gallery import gallery
-
-# from .getting_started import *
-from .hosting import *
 from .recipes import *
-from .library import *
-from .styling import *
+from .library import library
 from .resources import resources
-from .tutorial import *
-from .wrapping_react import *
-from .datatable_tutorial import *
-from .assets import *
-from .dynamic_rendering import *
-from .pages import *
-from .ui_overview import ui_overview
-from .events import *
-from .vars import *
-from .substates import *
-from .utility_methods import *
-from .state_overview import state_overview
-from .api_routes import *
-from .client_storage import *
-from .conditional_rendering import conditional_rendering
-from .rendering_iterables import rendering_iterables
-from .component_lib.data_display.radix_badge import radix_badge
-from .radix_dialog import radix_dialog
 
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
 
 from types import SimpleNamespace
-from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import docpage, component_docpage
 import flexdown
 
-getting_started = SimpleNamespace()
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 for doc in flexdown_docs:
-    if not doc.startswith("docs/getting-started") and not doc.startswith("docs/library/typography") and not doc.startswith("docs/library/feedback"):
+    if doc.startswith("docs/library/chakra"):
         continue
+    if doc.endswith("-style.md"):
+        continue
+
+    # Get the docpage component.
     route = f"/{doc.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
-    comp = docpage(set_path=route, t=rx.utils.format.to_title_case(title))(lambda doc=doc: flexdown.render_file(doc))
-    setattr(getting_started, title, comp)
+    if doc.startswith("docs/library"):
+        comp = component_docpage(set_path=route.strip("/"), t=rx.utils.format.to_title_case(title))
+    else:
+        comp = docpage(set_path=route, t=rx.utils.format.to_title_case(title))(lambda doc=doc: flexdown.render_file(doc))
+
+
+    # Get the namespace.
+    namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
+
+    # Create a namespace if it doesn't exist.
+    if namespace not in locals():
+        locals()[namespace] = SimpleNamespace()
+
+    # Add the component to the namespace.
+    setattr(locals()[namespace], title, comp)
+
+    # Add the route to the list of routes.
     doc_routes.append(comp)

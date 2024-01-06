@@ -188,10 +188,13 @@ tab_selected_style = {
 }
 
 
-def component_docpage(path, comp) -> rx.Component:
+def component_docpage(set_path: str | None = None, comp=None, t: str | None = None) -> rx.Component:
     from pcweb import flexdown
     from pcweb.pages.docs.component import component_docs
-    fname = path + ".md"
+    import os
+    comp_name = rx.utils.format.to_title_case(set_path.split("/")[-1])
+    fname = set_path + ".md"
+    style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
     def contents():
         return rx.box(
             rx.box(
@@ -213,8 +216,8 @@ def component_docpage(path, comp) -> rx.Component:
                         ),
                         rx.tab_panels(
                             rx.tab_panel(flexdown.render_file(fname)),
-                            rx.tab_panel(flexdown.render_file(fname.replace(".md", "-style.md"))),
-                            rx.tab_panel(component_docs(comp)),
+                            rx.tab_panel(flexdown.render_file(fname.replace(".md", "-style.md"))) if style_doc_exists else rx.fragment(),
+                            rx.tab_panel(component_docs(getattr(rx, comp_name))) if hasattr(rx, comp_name) else rx.fragment(),
                         ),
                         variant="unstyled",
                     ),
@@ -223,7 +226,7 @@ def component_docpage(path, comp) -> rx.Component:
             ),
         )
 
-    return docpage(set_path=f"/{path}")(contents)
+    return docpage(set_path=f"/{set_path}", t=t)(contents)
 
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
