@@ -6,6 +6,10 @@ from typing import Any, Callable
 
 import black
 import reflex as rx
+from reflex.components.radix.themes.components import *
+from reflex.components.radix.themes.typography import *
+from reflex.components.radix.themes.layout import *
+import reflex.components.radix.themes as rdxt
 
 from pcweb import styles
 from pcweb.styles import colors as c
@@ -883,14 +887,6 @@ def docgraphing(
         width="100%",
     )
 
-
-
-
-import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.typography import *
-from reflex.components.radix.themes.layout import *
-import reflex.components.radix.themes as rdxt
 
 
 class RadixDocState(rx.State):
