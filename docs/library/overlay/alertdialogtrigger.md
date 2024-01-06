@@ -37,7 +37,17 @@ alertdialog_root(
 
 ```
 
-An `alertdialog` is made up of several sub-components. The most important is the `alertdialog_root`, which contains all the parts of the dialog. The `alertdialog_trigger` wraps the control that will open the dialog. The `alertdialog_content` contains the content of the dialog. It is based on the `div` element. The `alertdialog_title` is an accessible title that is announced when the dialog is opened. This part is based on the `heading` component with a pre-defined font size and leading trim on top. The `alertdialog_description` is an optional accessible description that is announced when the dialog is opened. This part is based on the `text` component with a pre-defined font size. The `alertdialog_cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_action` wrapped control. The `alertdialog_action` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_cancel` wrapped control.
+An `alertdialog` is made up of several sub-components. The most important is the `alertdialog_root`, which contains all the parts of the dialog. 
+
+The `alertdialog_trigger` wraps the control that will open the dialog. 
+
+The `alertdialog_content` contains the content of the dialog. It is based on the `div` element. The `alertdialog_title` is an accessible title that is announced when the dialog is opened. This part is based on the `heading` component with a pre-defined font size and leading trim on top. 
+
+The `alertdialog_description` is an optional accessible description that is announced when the dialog is opened. This part is based on the `text` component with a pre-defined font size. 
+
+The `alertdialog_cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_action` wrapped control. 
+
+The `alertdialog_action` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_cancel` wrapped control.
 
 
 
