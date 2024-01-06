@@ -1,7 +1,7 @@
 ```python exec
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import state
-from pcweb.pages.docs.vars.base_vars import base_vars
+from pcweb.pages.docs import vars
 from pcweb.templates.docpage import docdemo, doclink
 from pcweb.base_state import State
 import reflex as rx
@@ -85,7 +85,7 @@ rx.alert(
 )
 ```
 
-You can set the value of a prop to a [state var]({base_vars.path}) to make the component update when the var changes.
+You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.
 
 Try clicking the badge below to change its color.
 

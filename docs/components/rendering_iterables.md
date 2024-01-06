@@ -3,7 +3,7 @@ import reflex as rx
 
 from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo_from, doclink
-from pcweb.pages.docs.vars.var_operations import var_operations
+from pcweb.pages.docs import vars
 ```
 
 # Rendering Iterables
@@ -158,7 +158,7 @@ docdemo_from(NestedStateFE, get_badge, project_item, component=projects_example)
 ```
 
 
-If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({var_operations.path}).
+If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({vars.var_operations.path}).
 
 Here is a further example of how to use `foreach` with a nested data structure.
 
