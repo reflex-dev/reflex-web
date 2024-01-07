@@ -327,15 +327,15 @@ def get_sidebar_items_reference():
         category_item = get_category_children(category, component_list[category])
         library_item_children.append(category_item)
 
-    children = [
-        SidebarItem(
-            names=module.__name__, link=f"/docs/api-reference/{module.__name__.lower()}"
-        )
-        for module in api_reference.modules
-    ]
+    # children = [
+    #     SidebarItem(
+    #         names=module.__name__, link=f"/docs/api-reference/{module.__name__.lower()}"
+    #     )
+    #     for module in api_reference.modules
+    # ]
 
     ref = create_item(
-        api_reference,
+        "API Reference",
         children=[
             api_reference.cli,
             api_reference.event_triggers,
@@ -344,7 +344,7 @@ def get_sidebar_items_reference():
             api_reference.browser_javascript,
         ],
     )
-    ref.children.extend(children)
+    # ref.children.extend(children)
 
     return [
         SidebarItem(

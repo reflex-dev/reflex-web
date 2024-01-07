@@ -1,3 +1,4 @@
+```python exec
 import reflex as rx
 
 from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
@@ -225,11 +226,8 @@ SYNTHETIC_EVENTS = [
         )""",
     },
 ]
-
-
 for i in SYNTHETIC_EVENTS:
     exec(i["state"])
-
 
 def component_grid():
     events = []
@@ -246,27 +244,18 @@ def component_grid():
         )
 
     return rx.box(*events)
+```
 
+# Event Triggers
 
-@docpage()
-def event_triggers():
-    return rx.flex(
-        rx.hstack(
-            rx.box(
-                docheader("Event Triggers", first=True),
-                doctext(
-                    "Components can modify the state based on user events such as clicking a button or entering text in a field. These events are triggered by event triggers."
-                ),
-                doctext(
-                    "Event triggers are component specific and are listed in the documentation for each component."
-                ),
-                rx.divider(),
-                component_grid(),
-                text_align="left",
-            ),
-            align_items="start",
-        ),
-        flex_direction="column",
-        height="100%",
-        margin_bottom="4em",
-    )
+Components can modify the state based on user events such as clicking a button or entering text in a field. 
+These events are triggered by event triggers.
+
+Event triggers are component specific and are listed in the documentation for each component.
+
+```python eval
+rx.box(
+     rx.divider(),
+    component_grid(),
+)
+```
