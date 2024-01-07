@@ -290,25 +290,6 @@ def get_sidebar_items_hosting():
     return items
 
 
-def get_sidebar_items_other():
-    from pcweb.pages.docs import (
-        advanced_guide,
-    )
-
-    items = [
-        create_item(
-            advanced_guide,
-            children=[
-                advanced_guide.memoization,
-                advanced_guide.use_middleware,
-                advanced_guide.telemetry,
-            ],
-        )
-    ]
-
-    return items
-
-
 def get_category_children(category, category_list, prefix=""):
     if isinstance(category_list, dict):
         return SidebarItem(
@@ -542,13 +523,12 @@ reference = get_sidebar_items_reference()
 frontend = get_sidebar_items_frontend()
 backend = get_sidebar_items_backend()
 hosting = get_sidebar_items_hosting()
-other = get_sidebar_items_other()
 other_libs = get_sidebar_items_other_libraries()
 
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + frontend + backend + hosting + other + reference
+    sidebar_items = learn + frontend + backend + hosting + reference
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -586,7 +566,6 @@ def sidebar_comp(
     frontend_index: list[int],
     backend_index: list[int],
     hosting_index: list[int],
-    other_index: list[int],
     other_libs_index: list[int],
 ):
     return rx.vstack(
@@ -681,20 +660,6 @@ def sidebar_comp(
                         default_index=hosting_index if hosting_index is not None else [],
                         width="100%",
                     ),
-                    sidebar_section("Other"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item,
-                                index=[-1],
-                                url=url,
-                                first=True,
-                            )
-                            for item in other
-                        ],
-                        allow_multiple=True,
-                        default_index=other_index if other_index is not None else [],
-                    ),
                     padding_x="0em",
                     width="100%",
                 ),
@@ -757,7 +722,6 @@ def sidebar(url=None) -> rx.Component:
     frontend_index = calculate_index(frontend, url)
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
-    other_index = calculate_index(other, url)
     other_libs_index = calculate_index(other_libs, url)
 
 
@@ -770,7 +734,6 @@ def sidebar(url=None) -> rx.Component:
             frontend_index=frontend_index,
             backend_index=backend_index,
             hosting_index=hosting_index,
-            other_index=other_index,
             other_libs_index=other_libs_index,
         ),
     )

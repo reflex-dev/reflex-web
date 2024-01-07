@@ -1,5 +1,4 @@
 from pcweb.route import Route
-from .advanced_guide import *
 from .api_reference import *
 from .component_lib import *
 from .gallery import gallery
