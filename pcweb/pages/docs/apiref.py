@@ -1,5 +1,3 @@
-from .event_triggers import event_triggers
-
 import reflex as rx
 
 from pcweb.templates.docpage import docpage
