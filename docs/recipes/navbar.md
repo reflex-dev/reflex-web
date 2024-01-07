@@ -20,7 +20,7 @@ We will also use the `top= 0` and `z_index="1"` props to make sure the navbar is
 import reflex as rx
 
 def navbar():
-    return rx.box(
+    return rx.hstack(
         rx.hstack(
             rx.image(src="favicon.ico"),
             rx.heading("My App")
