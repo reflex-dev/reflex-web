@@ -17,8 +17,6 @@ modules = [
     rx.event.EventHandler,
     rx.event.EventSpec,
     rx.Model,
-    rx.Middleware,
-    rx.middleware.HydrateMiddleware,
     rx.State,
     rx.Var,
 ]
