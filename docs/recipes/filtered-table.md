@@ -1,16 +1,27 @@
+```python exec
 import reflex as rx
+```
 
-from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
+# Filtered Table
 
+## Recipe
 
-code_example = """
+```python eval
+rx.center(rx.image(src="/gallery/filtered_table.gif"))
+```
+
+This recipe uses an `rx.foreach` for the row generation with a computed var filtering the data for rows, using an input value for filter value.
+
+Additionally, the filter input uses a debounce that limits the update, which prevents filtered data to be calculated on every keypress.
+
+```python
 import reflex as rx
 from typing import List, Dict
 
 RAW_DATA = [
-    {"name": "Alice", "tags": "tag1"},
-    {"name": "Bob", "tags": "tag2"},
-    {"name": "Charlie", "tags": "tag1"},
+    \{"name": "Alice", "tags": "tag1"},
+    \{"name": "Bob", "tags": "tag2"},
+    \{"name": "Charlie", "tags": "tag1"},
 ]
 RAW_DATA_COLUMNS = ["Name", "tags"]
 
@@ -36,7 +47,7 @@ class FilteredTableState(rx.State):
     def input_filter_on_change(self, value):
         self.filter_expr = value
         # for DEBUGGING
-        yield rx.console_log(f"Filter set to: {self.filter_expr}")
+        yield rx.console_log(f"Filter set to: \{self.filter_expr}")
 
 
 def render_row(row):
@@ -83,26 +94,4 @@ def index() -> rx.Component:
 
 app = rx.App()
 app.add_page(index, route="/")
-app.compile()
-"""
-
-
-@docpage()
-def filtered_table():
-    return rx.box(
-        docheader("Table with row filtering", first=True),
-        doctext("A Table that you can apply a simple row selection filtering by tag"),
-        subheader("Recipe"),
-        rx.center(rx.image(src="/gallery/filtered_table.gif")),
-        doctext(
-            "This recipe uses a ",
-            rx.code("rx.foreach"),
-            " for the row generation with a computed var filtering the data for rows",
-            " using an input value for filter value",
-        ),
-        doctext(
-            "Additionally, the filter input uses a debounce that limits the ",
-            "update,  prevents filtered data to be calculated on every keypress.",
-        ),
-        doccode(code_example),
-    )
+```

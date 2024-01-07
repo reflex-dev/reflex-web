@@ -355,7 +355,7 @@ def get_sidebar_items_reference():
         *library_item_children,
         ref,
         create_item(
-            recipes,
+            "Recipes",
             children=[
                 recipes.navbar,
                 recipes.sidebar,
