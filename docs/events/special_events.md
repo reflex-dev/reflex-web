@@ -2,13 +2,13 @@
 import reflex as rx
 
 from pcweb.templates.docpage import docdemo_from
-from pcweb.pages.docs.api_reference.special_events import special_events
+from pcweb.pages.docs import api_reference
 ```
 
 
 # Special Events
 
-Reflex also has built-in special events can be found in the [reference]({special_events.path}).
+Reflex also has built-in special events can be found in the [reference]({api_reference.special_events.path}).
 
 For example, an event handler can trigger an alert on the browser.
 

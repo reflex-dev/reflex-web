@@ -1,8 +1,6 @@
 import reflex as rx
 from pcweb.templates.docpage import (
-    doccode,
     docheader,
-    docpage,
     doctext,
     subheader,
 )

@@ -1,7 +1,3 @@
-from .cli import cli
-from .special_events import special_events
-from .event_triggers import event_triggers
-
 import reflex as rx
 
 from pcweb.templates.docpage import docpage
@@ -17,8 +13,6 @@ modules = [
     rx.event.EventHandler,
     rx.event.EventSpec,
     rx.Model,
-    rx.Middleware,
-    rx.middleware.HydrateMiddleware,
     rx.State,
     rx.Var,
 ]

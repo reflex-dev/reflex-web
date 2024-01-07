@@ -1,12 +1,24 @@
+```python exec
 import reflex as rx
+```
 
-from pcweb.templates.docpage import doccode, docheader, docpage, doctext, subheader
+# Smart Checkboxes Group
 
+A smart checkboxes group where you can track all checked boxes, as well as place a limit on how many checks are possible.
 
-code_example = """
+## Recipe
+
+```python eval
+rx.center(rx.image(src="/gallery/smart_checkboxes.gif")),
+```
+
+This recipe use a `dict[str, bool]` for the checkboxes state tracking.
+Additionally, the limit that prevent the user from checking more boxes than allowed with a computed var.
+
+```python
 class CBoxeState(rx.State):
     
-    choices: dict[str, bool] = {k: False for k in ["Choice A", "Choice B", "Choice C"]}
+    choices: dict[str, bool] = \{k: False for k in ["Choice A", "Choice B", "Choice C"]}
     _check_limit = 2
 
     def check_choice(self, value, index):
@@ -54,26 +66,4 @@ def index() -> rx.Component:
         ),
         height="100vh",
     )
-"""
-
-
-@docpage()
-def checkboxes():
-    return rx.box(
-        docheader("Smart Checkboxes Group", first=True),
-        doctext(
-            "A smart checkboxes group where you can track all checked boxes simply, "
-            "as well as place limit on how many checks are possible."
-        ),
-        subheader("Recipe"),
-        rx.center(rx.image(src="/gallery/smart_checkboxes.gif")),
-        doctext(
-            "This recipe use a ",
-            rx.code("dict[str, bool]"),
-            " for the checkboxes state tracking",
-        ),
-        doctext(
-            "Additionnaly, the limit that prevent the user from checking more boxes than allowed is done with a computed var."
-        ),
-        doccode(code_example),
-    )
+```
