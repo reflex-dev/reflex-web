@@ -327,18 +327,6 @@ def get_sidebar_items_reference():
         category_item = get_category_children(category, component_list[category])
         library_item_children.append(category_item)
 
-    library_item = SidebarItem(
-        names="Components",
-        children=[
-            SidebarItem(
-                names="Overview",
-                alt_name_for_next_prev="Components Reference: Overview",
-                link="/docs/library",
-            ),
-            *library_item_children,
-        ],
-    )
-
     children = [
         SidebarItem(
             names=module.__name__, link=f"/docs/api-reference/{module.__name__.lower()}"
@@ -365,26 +353,25 @@ def get_sidebar_items_reference():
             link="/docs/library",
         ),
         *library_item_children,
-        # library_item,
-        # ref,
-        # create_item(
-        #     recipes,
-        #     children=[
-        #         recipes.navbar,
-        #         recipes.sidebar,
-        #         recipes.checkboxes,
-        #         recipes.filtered_table,
-        #     ],
-        # ),
-        # create_item(
-        #     datatable_tutorial,
-        #     children=[
-        #         datatable_tutorial.simple_table,
-        #         datatable_tutorial.add_interactivity,
-        #         datatable_tutorial.add_styling,
-        #         datatable_tutorial.live_stream,
-        #     ],
-        # ),
+        ref,
+        create_item(
+            recipes,
+            children=[
+                recipes.navbar,
+                recipes.sidebar,
+                recipes.checkboxes,
+                recipes.filtered_table,
+            ],
+        ),
+        create_item(
+            "Datatable Tutorial",
+            children=[
+                datatable_tutorial.simple_table,
+                datatable_tutorial.add_interactivity,
+                datatable_tutorial.add_styling,
+                datatable_tutorial.live_stream,
+            ],
+        ),
     ]
 
 def get_sidebar_items_other_libraries():
