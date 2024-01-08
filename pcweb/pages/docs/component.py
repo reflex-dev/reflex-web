@@ -200,7 +200,9 @@ def get_examples(component: str) -> rx.Component:
         return flexdown.render_file(f"docs/library/chakra/forms/{component.lower()}.md")
     except:
         try:
-            return flexdown.render_file(f"docs/library/chakra/layout/{component.lower()}.md")
+            return flexdown.render_file(
+                f"docs/library/chakra/layout/{component.lower()}.md"
+            )
         except:
             try:
                 comp = eval(f"render_{component.lower()}()")
