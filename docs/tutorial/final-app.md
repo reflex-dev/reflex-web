@@ -154,7 +154,6 @@ def show_final_code():
 
     app = rx.App()
     app.add_page(index)
-    app.compile()
 
 
 def show_final_state():

@@ -53,7 +53,6 @@ def show_code_1():
     # Add state and page to the app.
     app = rx.App()
     app.add_page(index)
-    app.compile()
 
 
 def rendered_code_1():
@@ -272,7 +271,6 @@ def show_code_overall_app():
 
     app = rx.App()
     app.add_page(index)
-    app.compile()
 
 
 

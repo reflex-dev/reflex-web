@@ -85,7 +85,6 @@ def index() -> rx.Component:
 
 app = rx.App()
 app.add_page(index, route="/")
-app.compile()
 """
 
 

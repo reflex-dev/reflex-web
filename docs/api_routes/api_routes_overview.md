@@ -15,7 +15,6 @@ async def api_test(item_id: int):
 
 app = rx.App()
 app.api.add_api_route("/items/\{item_id}", api_test)
-app.compile()
 ```
 
 Now you can access the endpoint at `localhost:8000/items/23` and get the result.
