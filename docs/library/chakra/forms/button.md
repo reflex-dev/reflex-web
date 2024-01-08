@@ -219,6 +219,7 @@ button_group = (
 )
 
 ```
+# Button
 
 Buttons are essential elements in your application's user interface that users can click to trigger events. 
 This documentation will help you understand how to use button components effectively in your Reflex application.

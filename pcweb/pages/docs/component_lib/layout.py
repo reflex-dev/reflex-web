@@ -4,19 +4,6 @@ from pcweb.templates.docpage import docdemo, doctext, subheader
 
 # Layout
 
-
-def render_aspectratio():
-    return flexdown.render_file("docs/library/chakra//layout/aspect_ratio.md")
-
-
-def render_box():
-    return flexdown.render_file("docs/library/chakra/layout/box.md")
-
-
-def render_card():
-    return flexdown.render_file("docs/library/chakra/layout/card.md")
-
-
 code51 = """rx.vstack(
     rx.button("Toggle", on_click=CondState.change),
     rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
@@ -97,43 +84,6 @@ def render_cond():
         docdemo(code51_a, state=code52_a, comp=eval(code51_a)),
         align_items="start",
     )
-
-
-def render_center():
-    return flexdown.render_file("docs/library/chakra/layout/center.md")
-
-
-def render_container():
-    return flexdown.render_file("docs/library/chakra/layout/container.md")
-
-
-def render_flex():
-    return flexdown.render_file("docs/library/chakra/layout/flex.md")
-
-
-def render_fragment():
-    return flexdown.render_file("docs/library/chakra/layout/fragment.md")
-
-
-def render_grid():
-    return flexdown.render_file("docs/library/chakra/layout/grid.md")
-
-
-def render_responsivegrid():
-    return flexdown.render_file("docs/library/chakra/layout/responsive_grid.md")
-
-
-def render_spacer():
-    return flexdown.render_file("docs/library/chakra/layout/spacer.md")
-
-
-def render_stack():
-    return flexdown.render_file("docs/library/chakra/layout/stack.md")
-
-
-def render_wrap():
-    return flexdown.render_file("docs/library/chakra/layout/wrap.md")
-
 
 basic_foreach_state = """from typing import List
 class ForeachState(rx.State):

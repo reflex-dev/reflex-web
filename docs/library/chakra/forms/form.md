@@ -3,6 +3,8 @@ import reflex as rx
 from pcweb.templates.docpage import docdemo_from
 ```
 
+# Form
+
 Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
 
 The form component's children can be form controls such as `rx.input`, `rx.checkbox`, or `rx.switch`. The controls should have an `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.

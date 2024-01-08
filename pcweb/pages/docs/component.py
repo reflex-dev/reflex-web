@@ -194,10 +194,23 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
 
 
 def get_examples(component: str) -> rx.Component:
+    from pcweb import flexdown
+
+    try:
+        return flexdown.render_file(f"docs/library/chakra/forms/{component.lower()}.md")
+    except:
+        try:
+            return flexdown.render_file(f"docs/library/chakra/layout/{component.lower()}.md")
+        except:
+            try:
+                comp = eval(f"render_{component.lower()}()")
+            except:
+                breakpoint()
+
     return rx.vstack(
         rx.heading(component, font_size="2em"),
         rx.divider(),
-        eval(f"render_{component.lower()}()"),
+        comp,
         width="100%",
         align_items="left",
     )

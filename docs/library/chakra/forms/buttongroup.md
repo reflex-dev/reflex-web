@@ -68,6 +68,8 @@ button_group_spacing = (
 )
 ```
 
+# Button Group
+
 The `rx.button_group` component allows you to create a group of buttons that are visually connected and styled together.
 This is commonly used to group related actions or options in your application's user interface.
 
