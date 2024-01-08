@@ -47,4 +47,4 @@ for doc in flexdown_docs:
     setattr(locals()[namespace], title, comp)
 
     # Add the route to the list of routes.
-    # doc_routes.append(comp)
+    doc_routes.append(comp)

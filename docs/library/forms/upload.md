@@ -61,10 +61,10 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
-            border=f"1px dotted {color}",
+            border=f"1px dotted \{color}",
             padding="5em",
         ),
         rx.hstack(rx.foreach(rx.selected_files, rx.text)),
@@ -99,7 +99,7 @@ class State(rx.State):
         \"""
         for file in files:
             upload_data = await file.read()
-            outfile = f".web/public/{file.filename}"
+            outfile = f".web/public/\{file.filename}"
 
             # Save the file.
             with open(outfile, "wb") as file_object:
@@ -117,7 +117,7 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
             multiple=True,
@@ -132,7 +132,7 @@ def index():
             max_files=5,
             disabled=False,
             on_keyboard=True,
-            border=f"1px dotted {color}",
+            border=f"1px dotted \{color}",
             padding="5em",
         ),
         rx.button(
