@@ -1,13 +1,7 @@
 import reflex as rx
-from reflex.components.media.icon import ICON_LIST
-
 from pcweb import flexdown
-from pcweb.templates.docpage import docdemo, doctext, doccode, docdemobox
-
-from PIL import Image
-import random
-import requests
-
+from pcweb.templates.docpage import doccode, docdemo, docdemobox, doctext
+from reflex.components.media.icon import ICON_LIST
 
 code79 = """rx.hstack(
     rx.avatar(size="sm"),

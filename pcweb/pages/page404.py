@@ -1,8 +1,5 @@
 import reflex as rx
-
-
 from pcweb import styles
-
 from pcweb.components.footer import footer
 from pcweb.components.navbar import navbar
 

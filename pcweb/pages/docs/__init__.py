@@ -1,4 +1,5 @@
 from pcweb.route import Route
+
 from .component_lib import *
 from .gallery import gallery
 from .library import library
@@ -7,9 +8,11 @@ from .resources import resources
 doc_routes = [r for r in locals().values() if isinstance(r, Route)]
 
 from types import SimpleNamespace
-from pcweb.templates.docpage import docpage, component_docpage
+
 import flexdown
+
 from pcweb.flexdown import xd
+from pcweb.templates.docpage import component_docpage, docpage
 
 
 def to_title_case(text: str) -> str:
@@ -27,9 +30,7 @@ for doc in flexdown_docs:
     route = f"/{doc.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
     if doc.startswith("docs/library"):
-        comp = component_docpage(
-            set_path=route.strip("/"), t=to_title_case(title)
-        )
+        comp = component_docpage(set_path=route.strip("/"), t=to_title_case(title))
     else:
         comp = docpage(set_path=route, t=to_title_case(title))(
             lambda doc=doc: xd.render_file(doc)

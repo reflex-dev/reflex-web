@@ -1,19 +1,7 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import (
-    doccode,
-    docheader,
-    doclink,
-    doctext,
-    subheader,
-    doc_section,
-)
-from pcweb.templates.webpage import webpage
-from reflex import el
-
 from pcweb.styles import text_colors as tc
-from pcweb.styles import colors as c
-from pcweb import constants
+from pcweb.templates.webpage import webpage
 
 
 def change(date, title, description, points, link):

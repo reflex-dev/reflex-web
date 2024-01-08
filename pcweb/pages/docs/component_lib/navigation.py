@@ -1,5 +1,4 @@
 import reflex as rx
-
 from pcweb.templates.docpage import docdemo, doctext
 
 basic_breadcrumb = """rx.breadcrumb(

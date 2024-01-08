@@ -1,8 +1,7 @@
 from typing import Callable
-from pcweb import styles
 
 import reflex as rx
-
+from pcweb import styles
 from pcweb.route import Route
 
 DEFAULT_TITLE = "Web Apps in Pure Python"

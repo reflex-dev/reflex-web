@@ -1,8 +1,7 @@
 import reflex as rx
-
 from pcweb.templates.docpage import docpage
-from .source import Source, generate_docs
 
+from .source import Source, generate_docs
 
 modules = [
     rx.App,

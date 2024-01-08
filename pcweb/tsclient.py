@@ -1,6 +1,7 @@
 # pcweb/tsclient.py
-import typesense
 import os
+
+import typesense
 
 try:
     client = typesense.Client(

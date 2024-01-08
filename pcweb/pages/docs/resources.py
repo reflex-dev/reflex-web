@@ -1,8 +1,6 @@
 import reflex as rx
-
-from pcweb import constants, styles
-from pcweb.templates.docpage import docheader, docpage, doctext, subheader
 from pcweb.styles import text_colors as tc
+from pcweb.templates.docpage import docheader, docpage, doctext, subheader
 
 
 def video(title, author, url):

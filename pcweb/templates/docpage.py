@@ -5,19 +5,17 @@ import textwrap
 from typing import Any, Callable
 
 import black
+
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.typography import *
-from reflex.components.radix.themes.layout import *
-import reflex.components.radix.themes as rdxt
-
 from pcweb import styles
-from pcweb.styles import colors as c
-from pcweb.styles import text_colors as tc
-from pcweb.styles import font_weights as fw
-
-from pcweb.route import Route, get_path
 from pcweb.components.logo import navbar_logo
+from pcweb.route import Route, get_path
+from pcweb.styles import colors as c
+from pcweb.styles import font_weights as fw
+from pcweb.styles import text_colors as tc
+from reflex.components.radix.themes.components import *
+from reflex.components.radix.themes.layout import *
+from reflex.components.radix.themes.typography import *
 
 
 @rx.memo
@@ -169,9 +167,9 @@ def my_form():
         width="100%",
     )
 
+
 tab_style = {
     "font_size": "1em",
-    "font_weight": "500",
     "font_weight": "500",
     "padding_x": ".5em",
     "color": "#696287",
@@ -187,13 +185,18 @@ tab_selected_style = {
 }
 
 
-def component_docpage(set_path: str | None = None, comp=None, t: str | None = None) -> rx.Component:
+def component_docpage(
+    set_path: str | None = None, comp=None, t: str | None = None
+) -> rx.Component:
+    import os
+
     from pcweb import flexdown
     from pcweb.pages.docs.component import component_docs
-    import os
+
     comp_name = rx.utils.format.to_title_case(set_path.split("/")[-1])
     fname = set_path + ".md"
     style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
+
     def contents():
         return rx.box(
             rx.box(
@@ -208,15 +211,23 @@ def component_docpage(set_path: str | None = None, comp=None, t: str | None = No
                                 "Styling", _selected=tab_selected_style, style=tab_style
                             ),
                             rx.tab(
-                                "API Reference", _selected=tab_selected_style, style=tab_style
+                                "API Reference",
+                                _selected=tab_selected_style,
+                                style=tab_style,
                             ),
                             width="100%",
                             padding_bottom="1em",
                         ),
                         rx.tab_panels(
                             rx.tab_panel(flexdown.render_file(fname)),
-                            rx.tab_panel(flexdown.render_file(fname.replace(".md", "-style.md"))) if style_doc_exists else rx.fragment(),
-                            rx.tab_panel(component_docs(getattr(rx, comp_name))) if hasattr(rx, comp_name) else rx.fragment(),
+                            rx.tab_panel(
+                                flexdown.render_file(fname.replace(".md", "-style.md"))
+                            )
+                            if style_doc_exists
+                            else rx.fragment(),
+                            rx.tab_panel(component_docs(getattr(rx, comp_name)))
+                            if hasattr(rx, comp_name)
+                            else rx.fragment(),
                         ),
                         variant="unstyled",
                     ),
@@ -251,16 +262,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             The final route with the template applied.
         """
         # Get the path to set for the sidebar.
-        if set_path is None:
-            path = get_path(contents)
-        else:
-            path = set_path
+        path = get_path(contents) if set_path is None else set_path
 
         # Set the page title.
-        if t is None:
-            title = contents.__name__.replace("_", " ").title()
-        else:
-            title = t
+        title = contents.__name__.replace("_", " ").title() if t is None else t
 
         def wrapper(*args, **kwargs) -> rx.Component:
             """The actual function wrapper.
@@ -273,8 +278,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 The page with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.footer import footer
-            from pcweb.components.navbar import navbar, feedback_button
+            from pcweb.components.navbar import feedback_button, navbar
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -715,10 +719,7 @@ def docdemo_from(
         [
             "\n".join(imports),
             "\n".join(f"{k} = {v}" for k, v in assignments.items()),
-            *(
-                inspect.getsource(obj)
-                for obj in state_models_helpers
-            ),
+            *(inspect.getsource(obj) for obj in state_models_helpers),
         ]
     )
     code = inspect.getsource(component) if component is not None else ""
@@ -887,7 +888,6 @@ def docgraphing(
     )
 
 
-
 class RadixDocState(rx.State):
     """The app state."""
 
@@ -916,102 +916,140 @@ def dict_to_formatted_string(input_dict):
         if isinstance(value, str):
             formatted_part = f'{key}="{value}"'  # Enclose string values in quotes
         else:
-            formatted_part = f'{key}={value}'  # Non-string values as is
+            formatted_part = f"{key}={value}"  # Non-string values as is
 
         # Append the formatted part to the list
         formatted_parts.append(formatted_part)
 
     # Join all parts with a comma and a space
-    return ', '.join(formatted_parts)
+    return ", ".join(formatted_parts)
 
 
-def used_component(component_used: rx.Component, components_passed: rx.Component | str | None, color_scheme: str, variant: str, high_contrast: bool, disabled: bool = False, **kwargs) -> rx.Component:
+def used_component(
+    component_used: rx.Component,
+    components_passed: rx.Component | str | None,
+    color_scheme: str,
+    variant: str,
+    high_contrast: bool,
+    disabled: bool = False,
+    **kwargs,
+) -> rx.Component:
 
-        if components_passed == None and disabled == False:
-            return component_used(color_scheme=color_scheme, variant=variant, high_contrast=high_contrast, **kwargs)
+    if components_passed is None and disabled is False:
+        return component_used(
+            color_scheme=color_scheme,
+            variant=variant,
+            high_contrast=high_contrast,
+            **kwargs,
+        )
 
-        elif components_passed != None and disabled == False:
-            return component_used(components_passed, color_scheme=color_scheme, variant=variant, high_contrast=high_contrast, **kwargs)
+    elif components_passed is not None and disabled is False:
+        return component_used(
+            components_passed,
+            color_scheme=color_scheme,
+            variant=variant,
+            high_contrast=high_contrast,
+            **kwargs,
+        )
 
-        elif components_passed == None and disabled == True:
-            return component_used(color_scheme=color_scheme, variant=variant, high_contrast=high_contrast, disabled=True, **kwargs)
+    elif components_passed is None and disabled is True:
+        return component_used(
+            color_scheme=color_scheme,
+            variant=variant,
+            high_contrast=high_contrast,
+            disabled=True,
+            **kwargs,
+        )
 
-        else: 
-            return component_used(components_passed, color_scheme=color_scheme, variant=variant, high_contrast=high_contrast, disabled=True, **kwargs)
+    else:
+        return component_used(
+            components_passed,
+            color_scheme=color_scheme,
+            variant=variant,
+            high_contrast=high_contrast,
+            disabled=True,
+            **kwargs,
+        )
 
 
-
-def style_grid(component_used: rx.Component, component_used_str: str, variants: list, components_passed: rx.Component | str | None = None, disabled: bool = False, **kwargs) -> rx.Component:
-     return rx.vstack(
-                    grid(
-                        text("", size="5"),
-                        *[
-                            text(variant, size="5") for variant in variants
-                        ],
-                        text("Accent", size="5"),
-                        *[
-                            hover_item(
-                                component=used_component(
-                                    component_used=component_used,
-                                    components_passed=components_passed,
-                                    color_scheme=RadixDocState.color,
-                                    variant=variant,
-                                    high_contrast=False,
-                                    **kwargs,
-                                ),
-                                component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=False, {dict_to_formatted_string(kwargs)})",
-                            )
-                            for variant in variants
-                        ],
-                        text("", size="5"),
-                        *[
-                            hover_item(
-                                component=used_component(
-                                component_used=component_used,
-                                components_passed=components_passed,
-                                color_scheme=RadixDocState.color,
-                                variant=variant,
-                                high_contrast=True,
-                                **kwargs,
-                                ),
-                                component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=True, {dict_to_formatted_string(kwargs)})",
-                            )
-                            for variant in variants
-                        ],
-                        text("Gray", size="5"),
-                        *[
-                            hover_item(
-                                component=used_component(
-                                component_used=component_used,
-                                components_passed=components_passed,
-                                color_scheme="gray",
-                                variant=variant,
-                                high_contrast=False,
-                                **kwargs,
-                                ),
-                                component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=False, {dict_to_formatted_string(kwargs)})",
-                            )
-                            for variant in variants
-                        ],
-                        text("", size="5"),
-                        *[
-                            hover_item(
-                                component=used_component(
-                                component_used=component_used,
-                                components_passed=components_passed,
-                                color_scheme="gray",
-                                variant=variant,
-                                high_contrast=True,
-                                **kwargs,
-                                ),
-                                component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=True, {dict_to_formatted_string(kwargs)})",
-                            )
-                            for variant in variants
-                        ],
-                        (rx.fragment(text("Disabled", size="5"),
-                        *[
-                            hover_item(
-                                component=used_component(
+def style_grid(
+    component_used: rx.Component,
+    component_used_str: str,
+    variants: list,
+    components_passed: rx.Component | str | None = None,
+    disabled: bool = False,
+    **kwargs,
+) -> rx.Component:
+    return rx.vstack(
+        grid(
+            text("", size="5"),
+            *[text(variant, size="5") for variant in variants],
+            text("Accent", size="5"),
+            *[
+                hover_item(
+                    component=used_component(
+                        component_used=component_used,
+                        components_passed=components_passed,
+                        color_scheme=RadixDocState.color,
+                        variant=variant,
+                        high_contrast=False,
+                        **kwargs,
+                    ),
+                    component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=False, {dict_to_formatted_string(kwargs)})",
+                )
+                for variant in variants
+            ],
+            text("", size="5"),
+            *[
+                hover_item(
+                    component=used_component(
+                        component_used=component_used,
+                        components_passed=components_passed,
+                        color_scheme=RadixDocState.color,
+                        variant=variant,
+                        high_contrast=True,
+                        **kwargs,
+                    ),
+                    component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=True, {dict_to_formatted_string(kwargs)})",
+                )
+                for variant in variants
+            ],
+            text("Gray", size="5"),
+            *[
+                hover_item(
+                    component=used_component(
+                        component_used=component_used,
+                        components_passed=components_passed,
+                        color_scheme="gray",
+                        variant=variant,
+                        high_contrast=False,
+                        **kwargs,
+                    ),
+                    component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=False, {dict_to_formatted_string(kwargs)})",
+                )
+                for variant in variants
+            ],
+            text("", size="5"),
+            *[
+                hover_item(
+                    component=used_component(
+                        component_used=component_used,
+                        components_passed=components_passed,
+                        color_scheme="gray",
+                        variant=variant,
+                        high_contrast=True,
+                        **kwargs,
+                    ),
+                    component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, high_contrast=True, {dict_to_formatted_string(kwargs)})",
+                )
+                for variant in variants
+            ],
+            (
+                rx.fragment(
+                    text("Disabled", size="5"),
+                    *[
+                        hover_item(
+                            component=used_component(
                                 component_used=component_used,
                                 components_passed=components_passed,
                                 color_scheme="gray",
@@ -1019,64 +1057,64 @@ def style_grid(component_used: rx.Component, component_used_str: str, variants: 
                                 high_contrast=True,
                                 disabled=disabled,
                                 **kwargs,
-                                ),
-                                component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, disabled=True, {dict_to_formatted_string(kwargs)})",
-                            )
-                            for variant in variants
-                        ]) if disabled else ""),
-
-
-
-                        flow="column",
-                        columns="5",
-                        rows=str(len(variants) + 1),
-                        gap="3",
-                    ),
-
-                    select_root(
-                        select_trigger(button(size="2", on_click=RadixDocState.change_color())),
-                        select_content(
-                            select_group(
-                                select_label("Colors"),
-                                *[
-                                    select_item(
-                                        color,
-                                        value=color,
-                                        _hover={"background": f"var(--{color}-9)"},
-                                    )
-                                    for color in [
-                                        "tomato",
-                                        "red",
-                                        "ruby",
-                                        "crimson",
-                                        "pink",
-                                        "plum",
-                                        "purple",
-                                        "violet",
-                                        "iris",
-                                        "indigo",
-                                        "blue",
-                                        "cyan",
-                                        "teal",
-                                        "jade",
-                                        "green",
-                                        "grass",
-                                        "brown",
-                                        "orange",
-                                        "sky",
-                                        "mint",
-                                        "lime",
-                                        "yellow",
-                                        "amber",
-                                        "gold",
-                                        "bronze",
-                                        "gray",
-                                    ]
-                                ],
                             ),
-                        ),
-                        ## we need to clearly document how the on_value_change works as it is not obvious at all
-                        default_value=RadixDocState.color,
-                        on_value_change=RadixDocState.change_color,
-                    ),
+                            component_str=f"{component_used_str}(color_scheme={RadixDocState.color}, variant={variant}, disabled=True, {dict_to_formatted_string(kwargs)})",
+                        )
+                        for variant in variants
+                    ],
                 )
+                if disabled
+                else ""
+            ),
+            flow="column",
+            columns="5",
+            rows=str(len(variants) + 1),
+            gap="3",
+        ),
+        select_root(
+            select_trigger(button(size="2", on_click=RadixDocState.change_color())),
+            select_content(
+                select_group(
+                    select_label("Colors"),
+                    *[
+                        select_item(
+                            color,
+                            value=color,
+                            _hover={"background": f"var(--{color}-9)"},
+                        )
+                        for color in [
+                            "tomato",
+                            "red",
+                            "ruby",
+                            "crimson",
+                            "pink",
+                            "plum",
+                            "purple",
+                            "violet",
+                            "iris",
+                            "indigo",
+                            "blue",
+                            "cyan",
+                            "teal",
+                            "jade",
+                            "green",
+                            "grass",
+                            "brown",
+                            "orange",
+                            "sky",
+                            "mint",
+                            "lime",
+                            "yellow",
+                            "amber",
+                            "gold",
+                            "bronze",
+                            "gray",
+                        ]
+                    ],
+                ),
+            ),
+            ## we need to clearly document how the on_value_change works as it is not obvious at all
+            default_value=RadixDocState.color,
+            on_value_change=RadixDocState.change_color,
+        ),
+    )

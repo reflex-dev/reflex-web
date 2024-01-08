@@ -1,5 +1,4 @@
 import reflex as rx
-
 from pcweb.templates.docpage import doccode, docdemo, doclink, doctext
 
 example = """rx.vstack(
@@ -20,6 +19,7 @@ example2 = """ rx.vstack(
 
 def render_html():
     from pcweb.pages.docs import styling
+
     return rx.vstack(
         doctext(
             "The HTML component can be used to render raw HTML code. ",

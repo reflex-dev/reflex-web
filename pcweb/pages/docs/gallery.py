@@ -1,9 +1,9 @@
+import pandas as pd
+
 import reflex as rx
 from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
-
-import pandas as pd
 
 # every app must have at least one tag in order to be rendered
 apps_list = [
@@ -243,7 +243,9 @@ apps_df = pd.DataFrame(apps_list)
 
 def create_list_of_tags(dataframe: pd.DataFrame) -> list:
     """This function takes our pandas dataframe and returns all types of tags
-    that exist across all our apps"""
+    that exist across all our apps
+    .
+    """
     # Extract the "tags" column from the DataFrame
     tags_column = dataframe["tags"]
 
@@ -265,7 +267,7 @@ list_of_tags = create_list_of_tags(apps_df)
 
 
 class SideBarState(rx.State):
-    """Side Bar State"""
+    """Side Bar State."""
 
     community_apps_list: list[dict[str, str]] = community_apps_list
 
@@ -277,8 +279,9 @@ class SideBarState(rx.State):
     @rx.cached_var
     def true_tags(self) -> list:
         """This function returns a list of the tags selected in the UI, if no tags
-        are selected then it returns all the tags"""
-
+        are selected then it returns all the tags
+        .
+        """
         true_keys = [key for key, value in self.chosen_tags_dict.items() if value]
         if not true_keys:
             return list(self.chosen_tags_dict)
@@ -287,7 +290,9 @@ class SideBarState(rx.State):
     @rx.cached_var
     def data_to_return(self) -> list[dict[str, str]]:
         """This function iterates over all the apps we have and if the app has one of the
-        tags we have selected in true_tags then it will render this app in the UI"""
+        tags we have selected in true_tags then it will render this app in the UI
+        .
+        """
         selected_examples = []
         for example_dict in apps_list:
             example_tags = set(example_dict["tags"])

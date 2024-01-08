@@ -1,17 +1,17 @@
+import inspect
+import re
+
+# Get the comment for a specific field.
+from typing import Callable, Type
+
 import reflex as rx
+from pcweb import styles
+from pcweb.styles import font_weights as fw
 from pcweb.templates.docpage import (
     docheader,
     doctext,
     subheader,
 )
-from pcweb import styles
-from pcweb.styles import font_weights as fw
-
-
-# Get the comment for a specific field.
-from typing import Type, Callable
-import inspect
-import re
 
 
 class Source(rx.Base):
@@ -99,7 +99,7 @@ class Source(rx.Base):
                 continue
 
             # Check if this line has a prop.
-            match = re.search("\w+:", line)
+            match = re.search("\\w+:", line)
             if match is None:
                 # This line doesn't have a var, so continue.
                 continue

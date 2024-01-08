@@ -1,5 +1,6 @@
-from pcweb.flexdown import component_map
 import flexdown
+
+from pcweb.flexdown import component_map
 
 
 def render_editor():
