@@ -1,13 +1,16 @@
 """Utility functions for the component docs page."""
 
+import glob
 import inspect
 import re
 from typing import Any, Type, get_args
 
 import reflex as rx
-from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
+
+from pcweb import flexdown
+from pcweb.templates.docpage import docpage
 
 
 class Prop(Base):
@@ -193,61 +196,12 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
     ]
 
 
+chakra_docs = glob.glob("docs/library/chakra/**/*.md", recursive=True)
+
+
 def get_examples(component: str) -> rx.Component:
-    from pcweb import flexdown
-
-    try:
-        return flexdown.render_file(f"docs/library/chakra/forms/{component.lower()}.md")
-    except FileNotFoundError:
-        try:
-            return flexdown.render_file(
-                f"docs/library/chakra/layout/{component.lower()}.md"
-            )
-        except FileNotFoundError:
-            try:
-                return flexdown.render_file(
-                    f"docs/library/chakra/overlay/{component.lower()}.md"
-                )
-            except FileNotFoundError:
-                try:
-                    return flexdown.render_file(
-                        f"docs/library/chakra/typography/{component.lower()}.md"
-                    )
-                except FileNotFoundError:
-                    try:
-                        return flexdown.render_file(
-                            f"docs/library/chakra/feedback/{component.lower()}.md"
-                        )
-                    except FileNotFoundError:
-                        try:
-                            return flexdown.render_file(
-                                f"docs/library/chakra/navigation/{component.lower()}.md"
-                            )
-                        except FileNotFoundError:
-                            try:
-                                return flexdown.render_file(
-                                    f"docs/library/chakra/disclosure/{component.lower()}.md"
-                                )
-                            except FileNotFoundError:
-                                try:
-                                    return flexdown.render_file(
-                                        f"docs/library/chakra/media/{component.lower()}.md"
-                                    )
-                                except FileNotFoundError:
-                                    try:
-                                        return flexdown.render_file(
-                                            f"docs/library/chakra/datadisplay/{component.lower()}.md"
-                                        )
-                                    except FileNotFoundError:
-                                        comp = eval(f"render_{component.lower()}()")
-
-    return rx.vstack(
-        rx.heading(component, font_size="2em"),
-        rx.divider(),
-        comp,
-        width="100%",
-        align_items="left",
-    )
+    comp = [c for c in chakra_docs if c.endswith(f"/{component.lower()}.md")][0]
+    return flexdown.render_file(comp)
 
 
 EVENTS = {
