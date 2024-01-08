@@ -1,0 +1,16 @@
+```python exec
+import reflex as rx
+from pcweb.templates.docpage import docdemo_from
+```
+
+# Tooltip
+
+A tooltip is a brief, informative message that appears when a user interacts with an element.
+Tooltips are usually initiated in one of two ways: through a mouse-hover gesture or through a keyboard-hover gesture.
+
+```python demo
+rx.tooltip(
+    rx.text("Example", font_size=30),
+    label="Tooltip helper.",
+)
+```

@@ -1,0 +1,21 @@
+```python exec
+import reflex as rx
+from pcweb.templates.docpage import docdemo_from
+```
+
+# CodeBlock
+
+The CodeBlock component can be used to display code easily within a website.
+Put in a multiline string with the correct spacing and specify and language to show the desired code.
+
+```python demo
+rx.code_block(
+    """def fib(n):
+    if n <= 1:
+        return n
+    else:
+        return(fib(n-1) + fib(n-2))""",
+    language="python",
+    show_line_numbers=True,
+)
+```

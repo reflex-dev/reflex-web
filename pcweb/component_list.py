@@ -147,7 +147,7 @@ chakra_components = {
             rx.chakra.SliderThumb,
             rx.chakra.SliderMark,
         ],
-        [rx.chakra.Switch],
+        # [rx.chakra.Switch],
         [rx.chakra.TextArea],
     ],
     "Layout": [
@@ -220,10 +220,10 @@ chakra_components = {
     ],
     "DataDisplay": [
         [rx.chakra.Badge],
-        [
-            rx.CodeBlock,
-            rx.chakra.Code,
-        ],  # Including rx.CodeBlock for backwards compatibility
+        # [
+        #     rx.CodeBlock,
+        #     rx.chakra.Code,
+        # ],  # Including rx.CodeBlock for backwards compatibility
         [rx.chakra.Divider],
         [
             rx.chakra.List,
