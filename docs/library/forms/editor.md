@@ -6,7 +6,7 @@ import inspect
 import reflex as rx
 
 from pcweb import styles
-from pcweb.pages.docs.api_reference.source import Source, generate_docs
+from pcweb.pages.docs.source import Source, generate_docs
 from pcweb.templates.docpage import doccode, docdemo, docheader, subheader
 
 

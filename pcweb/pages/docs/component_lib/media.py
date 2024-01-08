@@ -1,5 +1,4 @@
 import reflex as rx
-from pcweb import flexdown
 from pcweb.templates.docpage import doccode, docdemo, docdemobox, doctext
 from reflex.components.media.icon import ICON_LIST
 
@@ -148,11 +147,3 @@ def render_image():
         doccode(image_pil_example),
         align_items="start",
     )
-
-
-def render_audio():
-    return flexdown.render_file("docs/library/media/audio.md")
-
-
-def render_video():
-    return flexdown.render_file("docs/library/media/video.md")
