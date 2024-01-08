@@ -1,6 +1,6 @@
+import reflex as rx
 from pcweb.route import Route
 
-from .component_lib import *
 from .gallery import gallery
 from .library import library
 from .resources import resources
