@@ -4,7 +4,7 @@ import inspect
 import re
 from typing import Any, Type, get_args
 
-from pcweb.pages.docs.component_lib import *
+import reflex as rx
 from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
@@ -198,51 +198,48 @@ def get_examples(component: str) -> rx.Component:
 
     try:
         return flexdown.render_file(f"docs/library/chakra/forms/{component.lower()}.md")
-    except:
+    except FileNotFoundError:
         try:
             return flexdown.render_file(
                 f"docs/library/chakra/layout/{component.lower()}.md"
             )
-        except:
+        except FileNotFoundError:
             try:
                 return flexdown.render_file(
                     f"docs/library/chakra/overlay/{component.lower()}.md"
                 )
-            except:
+            except FileNotFoundError:
                 try:
                     return flexdown.render_file(
                         f"docs/library/chakra/typography/{component.lower()}.md"
                     )
-                except:
+                except FileNotFoundError:
                     try:
                         return flexdown.render_file(
                             f"docs/library/chakra/feedback/{component.lower()}.md"
                         )
-                    except:
+                    except FileNotFoundError:
                         try:
                             return flexdown.render_file(
                                 f"docs/library/chakra/navigation/{component.lower()}.md"
                             )
-                        except:
+                        except FileNotFoundError:
                             try:
                                 return flexdown.render_file(
                                     f"docs/library/chakra/disclosure/{component.lower()}.md"
                                 )
-                            except:
+                            except FileNotFoundError:
                                 try:
                                     return flexdown.render_file(
                                         f"docs/library/chakra/media/{component.lower()}.md"
                                     )
-                                except:
+                                except FileNotFoundError:
                                     try:
                                         return flexdown.render_file(
                                             f"docs/library/chakra/datadisplay/{component.lower()}.md"
                                         )
-                                    except:
-                                        try:
-                                            comp = eval(f"render_{component.lower()}()")
-                                        except:
-                                            breakpoint()
+                                    except FileNotFoundError:
+                                        comp = eval(f"render_{component.lower()}()")
 
     return rx.vstack(
         rx.heading(component, font_size="2em"),

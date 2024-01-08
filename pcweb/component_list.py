@@ -147,7 +147,7 @@ chakra_components = {
             rx.chakra.SliderThumb,
             rx.chakra.SliderMark,
         ],
-        [rx.chakra.Switch],
+        # [rx.chakra.Switch],
         [rx.chakra.TextArea],
     ],
     "Layout": [
