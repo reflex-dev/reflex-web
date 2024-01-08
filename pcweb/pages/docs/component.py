@@ -225,9 +225,24 @@ def get_examples(component: str) -> rx.Component:
                             )
                         except:
                             try:
-                                comp = eval(f"render_{component.lower()}()")
+                                return flexdown.render_file(
+                                    f"docs/library/chakra/disclosure/{component.lower()}.md"
+                                )
                             except:
-                                breakpoint()
+                                try:
+                                    return flexdown.render_file(
+                                        f"docs/library/chakra/media/{component.lower()}.md"
+                                    )
+                                except:
+                                    try:
+                                        return flexdown.render_file(
+                                            f"docs/library/chakra/datadisplay/{component.lower()}.md"
+                                        )
+                                    except:
+                                        try:
+                                            comp = eval(f"render_{component.lower()}()")
+                                        except:
+                                            breakpoint()
 
     return rx.vstack(
         rx.heading(component, font_size="2em"),

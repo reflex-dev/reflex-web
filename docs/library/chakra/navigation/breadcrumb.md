@@ -3,46 +3,28 @@ import reflex as rx
 from pcweb.templates.docpage import docdemo_from
 ```
 
-# Switch
+# Breadcrumb
 
-The Switch component is used as an alternative for the Checkbox component.
-You can switch between enabled or disabled states.
+Breadcrumbs, or a breadcrumb navigation, can help enhance how users navigate to previous page levels of a website.
 
-```python exec
-class SwitchState(rx.State):
-    checked: bool = False
-    is_checked: bool = "Switch off!"
-
-    def change_check(self, checked: bool):
-        self.checked = checked
-        if self.checked:
-            self.is_checked = "Switch on!"
-        else:
-            self.is_checked = "Switch off!"
-
-
-def switch_example():
-    return rx.vstack(
-        rx.heading(SwitchState.is_checked),
-        rx.switch(
-            is_checked=SwitchState.checked, on_change=SwitchState.change_check
-        ),
-    )
-```
-
-```python eval
-docdemo_from(SwitchState, component=switch_example)
-```
-
-You can also change the color scheme of the Switch component by passing the `color_scheme` argument.
-The default color scheme is blue.
+This is userful for websites with a lot of pages.
 
 ```python demo
-rx.hstack(
-    rx.switch(color_scheme="red"),
-    rx.switch(color_scheme="green"),
-    rx.switch(color_scheme="yellow"),
-    rx.switch(color_scheme="blue"),
-    rx.switch(color_scheme="purple"),
+rx.breadcrumb(
+    rx.breadcrumb_item(rx.breadcrumb_link("Home", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Docs", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Breadcrumb", href="#")),
+)
+```
+
+The separator prop can be used to change the default separator.
+
+```python demo
+rx.breadcrumb(
+    rx.breadcrumb_item(rx.breadcrumb_link("Home", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Docs", href="#")),
+    rx.breadcrumb_item(rx.breadcrumb_link("Breadcrumb", href="#")),
+    separator=">",
+    color="rgb(107,99,246)"
 )
 ```
