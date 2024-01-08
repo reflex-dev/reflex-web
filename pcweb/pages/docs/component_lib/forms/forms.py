@@ -1,11 +1,10 @@
 import reflex as rx
-
 from pcweb.templates.docpage import (
-    docdemo,
-    doctext,
     demo_box_style,
     doccode,
+    docdemo,
     doclink,
+    doctext,
 )
 
 checkbox_example = """rx.vstack(

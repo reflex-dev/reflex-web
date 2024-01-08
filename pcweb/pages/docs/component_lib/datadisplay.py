@@ -1,8 +1,7 @@
 import pandas as pd
+
 import reflex as rx
-
-from pcweb.templates.docpage import doccode, docdemo, doctext, code_block
-
+from pcweb.templates.docpage import code_block, doccode, docdemo, doctext
 
 style = {
     "box": {

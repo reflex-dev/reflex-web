@@ -1,6 +1,7 @@
 """App styling."""
 
 import reflex as rx
+
 from .colors import colors as c
 from .fonts import font_weights as fw
 

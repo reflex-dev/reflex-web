@@ -1,24 +1,25 @@
-import os
 import asyncio
-from datetime import datetime
 import json
-import httpx
+import os
+from datetime import datetime
 
+import httpx
 from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 
 import reflex as rx
-from pcweb import styles
+from pcweb import constants, styles
 from pcweb.components.spline import spline_component
+from pcweb.pages.docs import (
+    database,
+    getting_started,
+    hosting,
+    state,
+    styling,
+    wrapping_react,
+)
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs import getting_started
-from pcweb.pages.docs import styling
-from pcweb.pages.docs import database
-from pcweb.pages.docs import state
-from pcweb.pages.docs import hosting
-from pcweb.pages.docs import wrapping_react
 from pcweb.templates import webpage
-from pcweb import constants
 
 link_style = {
     "color": "black",

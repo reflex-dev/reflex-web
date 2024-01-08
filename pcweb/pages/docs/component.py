@@ -4,11 +4,10 @@ import inspect
 import re
 from typing import Any, Type, get_args
 
-from reflex.base import Base
-from reflex.components.component import Component
-
 from pcweb.pages.docs.component_lib import *
 from pcweb.templates.docpage import docpage
+from reflex.base import Base
+from reflex.components.component import Component
 
 
 class Prop(Base):
@@ -412,7 +411,7 @@ def component_docs(component):
         default_triggers = rx.Component.create().get_event_triggers().keys()
         custom_events = [
             event
-            for event in comp().get_event_triggers().keys()
+            for event in comp().get_event_triggers()
             if event not in default_triggers and event != "on_drop"
         ]
 
@@ -486,7 +485,6 @@ def component_docs(component):
 
 tab_style = {
     "font_size": "1em",
-    "font_weight": "500",
     "font_weight": "500",
     "padding_x": ".5em",
     "color": "#696287",

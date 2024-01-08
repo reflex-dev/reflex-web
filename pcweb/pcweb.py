@@ -1,13 +1,11 @@
 """The main Reflex website."""
 
 import reflex as rx
+import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.component_list import chakra_components
-from pcweb.pages import blog_routes, doc_routes, routes, faq_routes
+from pcweb.pages import page404, routes
 from pcweb.pages.docs.component import multi_docs
-import reflex.components.radix.themes as rdxt
-
-from pcweb.pages import page404
 
 # Create the app.
 app = rx.App(
@@ -38,37 +36,6 @@ for route in routes:
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
         image="/previews/index_preview.png",
     )
-
-# Add the pages to the app.
-for route in blog_routes:
-    app.add_page(
-        route.component,
-        route.path,
-        route.title,
-        description="Keep up to date with the latest Reflex news.",
-        image="/previews/blog_preview.png",
-    )
-
-# Add the doc pages to the app.
-for route in doc_routes:
-    app.add_page(
-        route.component,
-        route.path,
-        route.title,
-        description="Learn how to build web apps in pure Python.",
-        image="/previews/docs_preview.png",
-    )
-
-# Add the pages to the app.
-for route in faq_routes:
-    app.add_page(
-        route.component,
-        route.path,
-        route.title,
-        description="Frequently asked questions about Reflex.",
-        image="/previews/faq_preview.png",
-    )
-
 
 for key in chakra_components:
     for component_group in chakra_components[key]:

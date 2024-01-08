@@ -1,15 +1,15 @@
 """UI and logic for the navbar component."""
-from typing import Any, Set
+import os
+from datetime import datetime
+from typing import Any, Optional, Set
+
+import requests
+from sqlmodel import Field
 
 import reflex as rx
 from pcweb import constants, styles
-from reflex.vars import ImportVar, Var
 from pcweb.components.logo import navbar_logo
-from sqlmodel import Field
-from datetime import datetime
-from typing import Optional
-import os
-import requests
+from reflex.vars import ImportVar, Var
 
 
 def shorten_to_k(number):
@@ -207,7 +207,7 @@ Feedback: {feedback}
         DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
         payload = {"content": discord_message}
         try:
-            response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+            requests.post(DISCORD_WEBHOOK_URL, json=payload)
         except:
             pass
 
@@ -216,7 +216,7 @@ Feedback: {feedback}
         self.page_score = 0
 
     def update_score(self, score):
-        if self.show_form == True:
+        if self.show_form is True:
             if self.page_score == score:
                 self.show_form = not self.show_form
         else:
@@ -596,6 +596,7 @@ def feedback_button():
         padding="0.2em",
     )
 
+
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     """Create the navbar component.
 
@@ -603,10 +604,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         sidebar: The sidebar component to use.
     """
     from pcweb.components.sidebar import sb
-    from pcweb.pages.docs import getting_started
     from pcweb.pages.blog import blg
-    from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.changelog import changelog
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.faq import faq
 
     # If the sidebar is not provided, create a default one.

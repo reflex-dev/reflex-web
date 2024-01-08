@@ -1,7 +1,6 @@
 """The Reflex logo component."""
 
 import reflex as rx
-
 from pcweb import styles
 
 

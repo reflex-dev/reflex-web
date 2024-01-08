@@ -1,13 +1,10 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
-from pcweb.templates.webpage import webpage
-from pcweb.route import Route
-from pcweb.styles import text_colors as tc
-from pcweb.styles import colors as c
-from pcweb.pages.docs import wrapping_react
+from pcweb.pages.docs import hosting, wrapping_react
 from pcweb.pages.docs.gallery import gallery
-from pcweb.pages.docs import hosting
+from pcweb.styles import text_colors as tc
+from pcweb.templates.docpage import doclink
+from pcweb.templates.webpage import webpage
 
 faq_items = [
     {

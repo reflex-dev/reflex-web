@@ -6,13 +6,12 @@ import inspect
 
 import reflex as rx
 from pcweb import styles
+from pcweb.component_list import chakra_components, component_list
 from pcweb.components.navbar import NavbarState
-from pcweb.component_list import component_list, chakra_components
 from pcweb.route import Route
-from reflex.base import Base
 from pcweb.styles import font_weights as fw
-
 from pcweb.styles import text_colors as tc
+from reflex.base import Base
 
 # Sidebar styles.
 heading_style = {
@@ -70,6 +69,7 @@ class SidebarState(rx.State):
                 return 0
         return self._sidebar_index
 
+
 def sidebar_section(name):
     return rx.heading(
         rx.span("[ ", color="#DACEEE"),
@@ -78,6 +78,7 @@ def sidebar_section(name):
         style=heading_style3,
         margin_top="1em",
     )
+
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -104,8 +105,9 @@ def create_item(route: Route, children=None):
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
     return SidebarItem(
-        names=route if isinstance(route, str) else 
-        inspect.getmodule(route)
+        names=route
+        if isinstance(route, str)
+        else inspect.getmodule(route)
         .__name__.split(".")[-1]
         .replace("_", " ")
         .title()
@@ -146,15 +148,15 @@ def get_sidebar_items_learn():
 
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
-        ui,
+        assets,
         components,
+        library,
         pages,
         styling,
-        assets,
+        ui,
         wrapping_react,
-        library,
     )
- 
+
     items = [
         create_item(ui.overview),
         create_item(
@@ -174,7 +176,7 @@ def get_sidebar_items_frontend():
                 pages.routes,
                 pages.dynamic_routing,
                 pages.metadata,
-            ]
+            ],
         ),
         create_item(
             "Styling",
@@ -190,7 +192,7 @@ def get_sidebar_items_frontend():
             children=[
                 assets.referencing_assets,
                 assets.upload_and_download_files,
-            ]
+            ],
         ),
         create_item(
             "Wrapping React",
@@ -207,14 +209,14 @@ def get_sidebar_items_frontend():
 
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
-        state,
-        events,
-        vars,
-        substates,
         api_routes,
         client_storage,
-        utility_methods,
         database,
+        events,
+        state,
+        substates,
+        utility_methods,
+        vars,
     )
 
     items = [
@@ -283,6 +285,7 @@ def get_sidebar_items_hosting():
     from pcweb.pages.docs import (
         hosting,
     )
+
     items = [
         create_item(hosting.deploy),
         create_item(hosting.self_hosting),
@@ -317,9 +320,7 @@ def get_category_children(category, category_list, prefix=""):
 
 
 def get_sidebar_items_reference():
-    from pcweb.pages.docs import datatable_tutorial
-    from pcweb.pages.docs import recipes
-    from pcweb.pages.docs import api_reference
+    from pcweb.pages.docs import api_reference, datatable_tutorial, recipes
 
     library_item_children = []
 
@@ -374,21 +375,19 @@ def get_sidebar_items_reference():
         ),
     ]
 
+
 def get_sidebar_items_other_libraries():
 
     chakra_children = []
     for category in chakra_components:
-        category_item = get_category_children(category, chakra_components[category], prefix="chakra/")
+        category_item = get_category_children(
+            category, chakra_components[category], prefix="chakra/"
+        )
         chakra_children.append(category_item)
 
-    chakra_item = SidebarItem(
-        names="Chakra UI",
-        children=chakra_children
-    )
+    chakra_item = SidebarItem(names="Chakra UI", children=chakra_children)
 
-    return [
-        chakra_item
-    ]
+    return [chakra_item]
 
 
 @rx.memo
@@ -446,47 +445,47 @@ def sidebar_item_comp(
     first: bool,
 ):
     return rx.cond(
-            item.children.length() == 0,
-            sidebar_leaf(item=item, url=url),
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.text(
-                        item.names,
-                        font_family=styles.SANS,
-                        font_weight="500",
-                    ),
-                    rx.spacer(),
-                    rx.accordion_icon(),
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                    color="#494369",
-                    width="100%",
+        item.children.length() == 0,
+        sidebar_leaf(item=item, url=url),
+        rx.accordion_item(
+            rx.accordion_button(
+                rx.text(
+                    item.names,
+                    font_family=styles.SANS,
+                    font_weight="500",
                 ),
-                rx.accordion_panel(
-                    rx.accordion(
-                        rx.vstack(
-                            rx.foreach(
-                                item.children,
-                                lambda child: sidebar_item_comp(
-                                    item=child,
-                                    index=index,
-                                    url=url,
-                                    first=False,
-                                ),
-                            ),
-                            align_items="start",
-                            border_left="1px solid #F4F3F6",
-                        ),
-                        allow_multiple=True,
-                        default_index=rx.cond(index, index[1:2], []),
-                    ),
-                    margin_left=".7em",
-                    width="100%"
-                ),
-                border="none",
+                rx.spacer(),
+                rx.accordion_icon(),
+                _hover={
+                    "color": styles.ACCENT_COLOR,
+                },
+                color="#494369",
+                width="100%",
             ),
-        )
+            rx.accordion_panel(
+                rx.accordion(
+                    rx.vstack(
+                        rx.foreach(
+                            item.children,
+                            lambda child: sidebar_item_comp(
+                                item=child,
+                                index=index,
+                                url=url,
+                                first=False,
+                            ),
+                        ),
+                        align_items="start",
+                        border_left="1px solid #F4F3F6",
+                    ),
+                    allow_multiple=True,
+                    default_index=rx.cond(index, index[1:2], []),
+                ),
+                margin_left=".7em",
+                width="100%",
+            ),
+            border="none",
+        ),
+    )
 
 
 def calculate_index(sidebar_items, url):
@@ -542,7 +541,6 @@ signle_item = {
     "_hover": {"color": styles.ACCENT_COLOR},
     "font_family": styles.SANS,
 }
-
 
 
 @rx.memo
@@ -644,7 +642,9 @@ def sidebar_comp(
                             for item in hosting
                         ],
                         allow_multiple=True,
-                        default_index=hosting_index if hosting_index is not None else [],
+                        default_index=hosting_index
+                        if hosting_index is not None
+                        else [],
                         width="100%",
                     ),
                     padding_x="0em",
@@ -710,8 +710,6 @@ def sidebar(url=None) -> rx.Component:
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
     other_libs_index = calculate_index(other_libs, url)
-
-
 
     return rx.box(
         sidebar_comp(

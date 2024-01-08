@@ -1,14 +1,14 @@
-import reflex as rx
 import flexdown
 
+import reflex as rx
 from pcweb.templates.docpage import (
     code_block_markdown,
-    text_comp,
+    code_comp,
+    doclink2,
     h1_comp,
     h2_comp,
     h3_comp,
-    code_comp,
-    doclink2,
+    text_comp,
 )
 
 component_map = {

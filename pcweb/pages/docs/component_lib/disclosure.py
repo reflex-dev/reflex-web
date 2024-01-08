@@ -1,7 +1,5 @@
 import reflex as rx
-
 from pcweb.templates.docpage import docdemo, doctext
-
 
 short_hand_accordion_example = """rx.accordion(
    items = [("Label 1", rx.center("Panel 1")), ("Label 2", rx.center("Panel 2"))],

@@ -5,6 +5,6 @@ from .forms import *
 from .layout import *
 from .media import *
 from .navigation import *
+from .other import *
 from .overlay import *
 from .typography import *
-from .other import *
