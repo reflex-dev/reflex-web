@@ -1,5 +1,5 @@
 import reflex as rx
-from reflex.components.chakra.media.icon import ICON_LIST
+from reflex.components.media.icon import ICON_LIST
 
 from pcweb import flexdown
 from pcweb.base_state import State
