@@ -1,3 +1,13 @@
+---
+components:
+    - rx.chakra.AlertDialog
+    - rx.chakra.AlertDialogOverlay
+    - rx.chakra.AlertDialogContent
+    - rx.chakra.AlertDialogHeader
+    - rx.chakra.AlertDialogBody
+    - rx.chakra.AlertDialogFooter
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

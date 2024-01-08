@@ -1,3 +1,16 @@
+---
+components:
+    - rx.chakra.Table
+    - rx.chakra.TableCaption
+    - rx.chakra.Thead
+    - rx.chakra.Tbody
+    - rx.chakra.Tfoot
+    - rx.chakra.Tr
+    - rx.chakra.Th
+    - rx.chakra.Td
+    - rx.chakra.TableContainer
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

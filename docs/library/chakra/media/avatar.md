@@ -1,3 +1,10 @@
+---
+components:
+    - rx.chakra.Avatar
+    - rx.chakra.AvatarBadge
+    - rx.chakra.AvatarGroup
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

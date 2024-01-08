@@ -1,3 +1,12 @@
+---
+components:
+    - rx.chakra.Accordion
+    - rx.chakra.AccordionItem
+    - rx.chakra.AccordionButton
+    - rx.chakra.AccordionPanel
+    - rx.chakra.AccordionIcon
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

@@ -1,3 +1,11 @@
+---
+components:
+    - rx.chakra.FormControl
+    - rx.chakra.FormLabel
+    - rx.chakra.FormErrorMessage
+    - rx.chakra.FormHelperText
+---
+
 # Form Control
 
 Form control provides context such as filled/focused/error/required for form inputs.

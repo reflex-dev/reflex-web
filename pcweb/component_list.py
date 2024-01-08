@@ -298,8 +298,3 @@ component_list = {
     "Media": media_list,
     "Other": other_list,
 }
-
-not_ready_components = [
-    rx.IconButton,
-    rx.AspectRatio,
-]

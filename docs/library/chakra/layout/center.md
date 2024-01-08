@@ -1,3 +1,10 @@
+---
+components:
+    - rx.chakra.Center
+    - rx.chakra.Circle
+    - rx.chakra.Square
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo

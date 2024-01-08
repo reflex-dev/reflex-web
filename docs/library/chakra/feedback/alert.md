@@ -1,3 +1,11 @@
+---
+components:
+    - rx.chakra.Alert
+    - rx.chakra.AlertIcon
+    - rx.chakra.AlertTitle
+    - rx.chakra.AlertDescription
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

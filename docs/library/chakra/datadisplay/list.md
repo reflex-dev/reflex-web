@@ -1,3 +1,11 @@
+---
+components:
+    - rx.chakra.List
+    - rx.chakra.ListItem
+    - rx.chakra.UnorderedList
+    - rx.chakra.OrderedList
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

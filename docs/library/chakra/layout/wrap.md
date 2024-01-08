@@ -1,3 +1,9 @@
+---
+components:
+    - rx.chakra.Wrap
+    - rx.chakra.WrapItem
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo

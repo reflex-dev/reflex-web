@@ -37,12 +37,19 @@ for route in routes:
         image="/previews/index_preview.png",
     )
 
+import flexdown
 for key in chakra_components:
     for component_group in chakra_components[key]:
         if isinstance(component_group[0], str):
             continue
         else:
             path = f"/docs/library/chakra/{key.lower()}/{component_group[0].__name__.lower()}"
+            doc = flexdown.parse_file(f"{path.strip("/")}.md")
+            try:
+                component_list = [eval(c) for c in doc.metadata["components"]]
+            except:
+                print("Missing components for", path)
+                exit()
             app.add_page(
                 multi_docs(path=path, component_list=component_group).component,
                 route=path,
