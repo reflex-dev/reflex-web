@@ -1,3 +1,10 @@
+---
+components:
+    - rx.chakra.Stack
+    - rx.chakra.Hstack
+    - rx.chakra.Vstack
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo

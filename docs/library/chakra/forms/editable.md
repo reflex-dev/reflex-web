@@ -1,3 +1,11 @@
+---
+components:
+    - rx.chakra.Editable
+    - rx.chakra.EditablePreview
+    - rx.chakra.EditableInput
+    - rx.chakra.EditableTextarea
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

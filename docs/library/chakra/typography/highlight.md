@@ -1,3 +1,8 @@
+---
+components:
+    - rx.chakra.Highlight
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

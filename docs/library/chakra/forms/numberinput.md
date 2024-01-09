@@ -1,3 +1,12 @@
+---
+components:
+    - rx.chakra.NumberInput
+    - rx.chakra.NumberInputField
+    - rx.chakra.NumberInputStepper
+    - rx.chakra.NumberIncrementStepper
+    - rx.chakra.NumberDecrementStepper
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

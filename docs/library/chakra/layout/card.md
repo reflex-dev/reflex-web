@@ -1,3 +1,11 @@
+---
+components:
+    - rx.chakra.Card
+    - rx.chakra.CardHeader
+    - rx.chakra.CardBody
+    - rx.chakra.CardFooter
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo

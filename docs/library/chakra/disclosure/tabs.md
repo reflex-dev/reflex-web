@@ -1,3 +1,12 @@
+---
+components:
+    - rx.chakra.Tabs
+    - rx.chakra.TabList
+    - rx.chakra.Tab
+    - rx.chakra.TabPanel
+    - rx.chakra.TabPanels
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

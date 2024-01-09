@@ -1,3 +1,8 @@
+---
+components:
+    - rx.chakra.Image
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemobox

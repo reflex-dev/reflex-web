@@ -1,3 +1,9 @@
+---
+components:
+    - rx.chakra.CircularProgress
+    - rx.chakra.CircularProgressLabel
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

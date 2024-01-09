@@ -1,3 +1,9 @@
+---
+components:
+    - rx.chakra.Button
+    - rx.chakra.IconButton
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docdemobox
