@@ -6,11 +6,10 @@ import re
 from typing import Any, Type, get_args
 
 import reflex as rx
+from pcweb.flexdown import xd
+from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
-
-from pcweb import flexdown
-from pcweb.templates.docpage import docpage
 
 
 class Prop(Base):
@@ -197,11 +196,6 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
 
 
 chakra_docs = glob.glob("docs/library/chakra/**/*.md", recursive=True)
-
-
-def get_examples(component: str) -> rx.Component:
-    comp = [c for c in chakra_docs if c.endswith(f"/{component.lower()}.md")][0]
-    return flexdown.render_file(comp)
 
 
 EVENTS = {
@@ -501,12 +495,11 @@ tab_selected_style = {
 }
 
 
-def multi_docs(path, component_list):
+def multi_docs(path, comp, component_list):
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
 
-        name = component_list[0].__name__
         return rx.box(
             rx.box(
                 rx.box(
@@ -523,7 +516,7 @@ def multi_docs(path, component_list):
                             padding_bottom="1em",
                         ),
                         rx.tab_panels(
-                            rx.tab_panel(get_examples(name)),
+                            rx.tab_panel(xd.render(comp)),
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",

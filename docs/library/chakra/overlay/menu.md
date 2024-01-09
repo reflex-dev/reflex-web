@@ -1,3 +1,15 @@
+---
+components:
+    - rx.chakra.Menu
+    - rx.chakra.MenuButton
+    - rx.chakra.MenuList
+    - rx.chakra.MenuItem
+    - rx.chakra.MenuDivider
+    - rx.chakra.MenuGroup
+    - rx.chakra.MenuOptionGroup
+    - rx.chakra.MenuItemOption
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

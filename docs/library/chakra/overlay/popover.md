@@ -1,3 +1,15 @@
+---
+components:
+    - rx.chakra.Popover
+    - rx.chakra.PopoverTrigger
+    - rx.chakra.PopoverContent
+    - rx.chakra.PopoverHeader
+    - rx.chakra.PopoverBody
+    - rx.chakra.PopoverFooter
+    - rx.chakra.PopoverArrow
+    - rx.chakra.PopoverAnchor
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from
