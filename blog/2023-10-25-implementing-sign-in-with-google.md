@@ -169,7 +169,6 @@ def index():
 
 app = rx.App()
 app.add_page(index)
-app.compile()
 ```
 
 After a successful login, you will see the decoded [JSON Web Token
@@ -484,7 +483,6 @@ def protected() -> rx.Component:
 
 app = rx.App()
 app.add_page(index)
-app.compile()
 ```
 
 ### Demo

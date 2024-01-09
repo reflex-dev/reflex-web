@@ -63,6 +63,27 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2024-01-08",
+            "v0.3.8",
+            "New rx.match helper acts as a switch statement",
+            [
+                "app.compile() is no longer required",
+                "Add time_picker component",
+                "Support bare SQLAlchemy DeclarativeBase models",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.8",
+        ),
+        change(
+            "2023-12-14",
+            "v0.3.7",
+            "Support SQLAlchemy v2",
+            [
+                "Preview of radix themes components",
+                "Allow redis:// and rediss:// style URL",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.7",
+        ),
+        change(
             "2023-12-06",
             "v0.3.6",
             "rx.el components working with State",
