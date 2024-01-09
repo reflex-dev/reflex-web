@@ -14,7 +14,7 @@ The Switch component is used as an alternative for the Checkbox component.
 You can switch between enabled or disabled states.
 
 ```python exec
-class SwitchState(rx.State):
+class SwitchState1(rx.State):
     checked: bool = False
     is_checked: bool = "Switch off!"
 
@@ -28,15 +28,15 @@ class SwitchState(rx.State):
 
 def switch_example():
     return rx.vstack(
-        rx.heading(SwitchState.is_checked),
+        rx.heading(SwitchState1.is_checked),
         rx.switch(
-            is_checked=SwitchState.checked, on_change=SwitchState.change_check
+            is_checked=SwitchState1.checked, on_change=SwitchState1.change_check
         ),
     )
 ```
 
 ```python eval
-docdemo_from(SwitchState, component=switch_example)
+docdemo_from(SwitchState1, component=switch_example)
 ```
 
 You can also change the color scheme of the Switch component by passing the `color_scheme` argument.

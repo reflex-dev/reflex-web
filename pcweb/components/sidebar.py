@@ -6,7 +6,7 @@ import inspect
 
 import reflex as rx
 from pcweb import styles
-from pcweb.component_list import chakra_components, component_list
+from pcweb.component_list import component_list
 from pcweb.components.navbar import NavbarState
 from pcweb.route import Route
 from pcweb.styles import font_weights as fw
@@ -377,6 +377,8 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
+
+    from pcweb.pages.docs import chakra_components
 
     chakra_children = []
     for category in chakra_components:

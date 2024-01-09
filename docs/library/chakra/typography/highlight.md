@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.chakra.Heading
+    - rx.chakra.Highlight
 ---
 
 ```python exec

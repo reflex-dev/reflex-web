@@ -3,9 +3,7 @@
 import reflex as rx
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
-from pcweb.component_list import chakra_components
 from pcweb.pages import page404, routes
-from pcweb.pages.docs.component import multi_docs
 
 # Create the app.
 app = rx.App(
@@ -36,27 +34,6 @@ for route in routes:
         description="Performant, customizable web apps in pure Python. Deploy in seconds.",
         image="/previews/index_preview.png",
     )
-
-import flexdown
-for key in chakra_components:
-    for component_group in chakra_components[key]:
-        if isinstance(component_group[0], str):
-            continue
-        else:
-            path = f"/docs/library/chakra/{key.lower()}/{component_group[0].__name__.lower()}"
-            doc = flexdown.parse_file(f"{path.strip("/")}.md")
-            try:
-                component_list = [eval(c) for c in doc.metadata["components"]]
-            except:
-                print("Missing components for", path)
-                exit()
-            app.add_page(
-                multi_docs(path=path, component_list=component_group).component,
-                route=path,
-                title=component_group[0].__name__,
-                description=f"Reflex | Docs for {component_group[0].__name__} component.",
-                image="/previews/index_preview.png",
-            )
 
 # Add redirects
 redirects = [
