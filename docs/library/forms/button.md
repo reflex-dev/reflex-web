@@ -67,8 +67,7 @@ def index():
     return {button_state_example}
 
 app = rx.App()
-app.add_page(index)
-app.compile()"""
+app.add_page(index)"""
 
 button_state2 = """class ExampleButtonState(State):
     text_value: str = "Random value"
@@ -92,8 +91,7 @@ def index():
     return {button_state2_render_code}
 
 app = rx.App()
-app.add_page(index)
-app.compile()"""
+app.add_page(index)"""
 
 
 button_sizes = (

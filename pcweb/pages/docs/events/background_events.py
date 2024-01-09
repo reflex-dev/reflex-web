@@ -83,8 +83,7 @@ def index():
     return {my_task_render_code}
 
 app = rx.App()
-app.add_page(index)
-app.compile()"""
+app.add_page(index)"""
 
 
 low_level_state_code = """
@@ -139,8 +138,7 @@ def index():
     return {low_level_render_code}
 
 app = rx.App()
-app.add_page(index)
-app.compile()"""
+app.add_page(index)"""
 
 @docpage()
 def background_events():
