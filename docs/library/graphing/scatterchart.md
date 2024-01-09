@@ -1,3 +1,9 @@
+---
+components:
+    - rx.recharts.ScatterChart
+    - rx.recharts.Scatter
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

@@ -1,3 +1,8 @@
+---
+components:
+    - rx.DebounceInput
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from, demo_box_style

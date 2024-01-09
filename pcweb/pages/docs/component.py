@@ -2,6 +2,7 @@
 
 import glob
 import inspect
+import os
 import re
 from typing import Any, Type, get_args
 
@@ -367,6 +368,9 @@ EVENTS = {
     "on_checked_change": {
         "description": "The on_checked_change event handler is called when the checked state of the checkbox changes."
     },
+    "on_open_change": {
+        "description": "The on_open_change event handler is called when the open state of the component changes."
+    },
 }
 
 
@@ -499,6 +503,8 @@ def multi_docs(path, comp, component_list):
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
+        fname = path.strip("/") + ".md"
+        style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
 
         return rx.box(
             rx.box(
@@ -510,6 +516,11 @@ def multi_docs(path, comp, component_list):
                                 "Docs", _selected=tab_selected_style, style=tab_style
                             ),
                             rx.tab(
+                                "Styling", _selected=tab_selected_style, style=tab_style
+                            )
+                            if style_doc_exists
+                            else rx.fragment(),
+                            rx.tab(
                                 "Props", _selected=tab_selected_style, style=tab_style
                             ),
                             width="100%",
@@ -517,6 +528,11 @@ def multi_docs(path, comp, component_list):
                         ),
                         rx.tab_panels(
                             rx.tab_panel(xd.render(comp)),
+                            rx.tab_panel(
+                                xd.render_file(fname.replace(".md", "-style.md"))
+                            )
+                            if style_doc_exists
+                            else rx.fragment(),
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",

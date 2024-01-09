@@ -1,3 +1,8 @@
+---
+components:
+    - rx.radix.themes.DialogRoot
+---
+
 ```python exec
 import reflex as rx
 from reflex.components.radix.themes.components import *
