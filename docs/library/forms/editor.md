@@ -1,3 +1,8 @@
+---
+components:
+    - rx.Editor
+---
+
 An HTML editor component based on [Suneditor](http://suneditor.com/sample/index.html).
 
 ```python exec

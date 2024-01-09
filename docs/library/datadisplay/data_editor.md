@@ -1,3 +1,8 @@
+---
+components:
+    - rx.DataEditor
+---
+
 A datagrid editor based on [Glide Data Grid](https://grid.glideapps.com/)
 
 ```python exec

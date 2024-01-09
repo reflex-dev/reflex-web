@@ -6,7 +6,6 @@ import inspect
 
 import reflex as rx
 from pcweb import styles
-from pcweb.component_list import component_list
 from pcweb.components.navbar import NavbarState
 from pcweb.route import Route
 from pcweb.styles import font_weights as fw
@@ -320,7 +319,12 @@ def get_category_children(category, category_list, prefix=""):
 
 
 def get_sidebar_items_reference():
-    from pcweb.pages.docs import api_reference, datatable_tutorial, recipes
+    from pcweb.pages.docs import (
+        api_reference,
+        component_list,
+        datatable_tutorial,
+        recipes,
+    )
 
     library_item_children = []
 

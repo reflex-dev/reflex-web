@@ -1,3 +1,8 @@
+---
+components:
+    - rx.Fragment
+---
+
 ```python exec
 import reflex as rx
 from pcweb import constants

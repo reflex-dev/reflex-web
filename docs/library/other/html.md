@@ -1,48 +1,54 @@
+---
+components:
+    - rx.Html
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from
+from pcweb.pages.docs import styling
 ```
 
 # HTML 
 
-The Switch component is used as an alternative for the Checkbox component.
-You can switch between enabled or disabled states.
+The HTML component can be used to render raw HTML code. 
 
-```python exec
-class SwitchState(rx.State):
-    checked: bool = False
-    is_checked: bool = "Switch off!"
+Before you reach for this component, consider using Reflex's raw HTML element support instead.
 
-    def change_check(self, checked: bool):
-        self.checked = checked
-        if self.checked:
-            self.is_checked = "Switch on!"
-        else:
-            self.is_checked = "Switch off!"
-
-
-def switch_example():
-    return rx.vstack(
-        rx.heading(SwitchState.is_checked),
-        rx.switch(
-            is_checked=SwitchState.checked, on_change=SwitchState.change_check
-        ),
-    )
+```python demo
+rx.vstack(
+    rx.html("<h1>Hello World</h1>"),
+    rx.html("<h2>Hello World</h2>"),
+    rx.html("<h3>Hello World</h3>"),
+    rx.html("<h4>Hello World</h4>"),
+    rx.html("<h5>Hello World</h5>"),
+    rx.html("<h6>Hello World</h6>"),
+)
 ```
 
 ```python eval
-docdemo_from(SwitchState, component=switch_example)
+rx.alert(
+    rx.alert_icon(),
+    rx.box(
+        rx.alert_title("Missing Styles?"),
+        rx.alert_description(
+            rx.markdown(
+                "Reflex uses Chakra-UI and Tailwind for styling, both of "
+                "which reset default styles for headings. If you are "
+                "using the html component and want pretty default "
+                "styles, consider setting `class_name='prose'` "
+                ", adding `@tailwindcss/typography` package to "
+                "`frontend_packages` and enabling it via `tailwind` "
+                "config in `rxconfig.py`. See the "
+                "[Tailwind docs]({styling.overview.path}) for an example of adding this plugin."
+            ),
+        )
+    )
+)
 ```
 
-You can also change the color scheme of the Switch component by passing the `color_scheme` argument.
-The default color scheme is blue.
+In this example, we render an image.
 
 ```python demo
-rx.hstack(
-    rx.switch(color_scheme="red"),
-    rx.switch(color_scheme="green"),
-    rx.switch(color_scheme="yellow"),
-    rx.switch(color_scheme="blue"),
-    rx.switch(color_scheme="purple"),
-)
+rx.html("<img src='https://reflex.dev/reflex_banner.png' />")
 ```
