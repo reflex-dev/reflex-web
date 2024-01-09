@@ -8,12 +8,12 @@ from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import vars
 ```
+<!-- TODO how do we consistently rename page title? -->
+# Introduction
 
-# Pure Python Web Apps
+**Reflex** is an open-source framework for quickly building beautiful, interactive web applications in **pure Python**.
 
-**Reflex** is an open-source framework for quickly building beautiful, interactive web applications in pure Python.
-
-## Reflex's goals
+## Goals
 
 ```python eval
 doc_section(
@@ -79,7 +79,7 @@ doc_section(
 ```
 ## An example: Make it count!
 
-Here, we go over a simple counter app that lets the user count up or down with mouse clicks.
+Here, we go over a simple counter app that lets the user count up or down.
 
 <!-- TODO use radix components, to allow more concise styling - e.g. all them props -->
 
@@ -159,7 +159,7 @@ We begin by importing the `reflex` package (aliased to `rx`). We reference Refle
 doccode(counter_code, lines=(2, 5))
 ```
 
-The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions that change them.
+The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event_handlers](#event-handlers)**) that change them.
 
 Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
 
@@ -214,7 +214,7 @@ In other words, the sequence goes like this:
 * `State.count` is incremented.
 * UI updates to reflect the new value of `State.count`.
 
-## Attach index page to the app
+## Add pages
 
 Next we define our app and add the counter component to the base route.
 ```python
