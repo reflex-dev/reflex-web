@@ -1,3 +1,9 @@
+---
+components:
+    - rx.recharts.AreaChart
+    - rx.recharts.Area
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

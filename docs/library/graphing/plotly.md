@@ -1,3 +1,8 @@
+---
+components:
+    - rx.Plotly
+---
+
 ```python exec
 import reflex as rx
 import pandas as pd

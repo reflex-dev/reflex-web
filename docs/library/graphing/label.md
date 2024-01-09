@@ -1,3 +1,9 @@
+---
+components:
+    - rx.recharts.Label
+    - rx.recharts.LabelList
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

@@ -1,9 +1,10 @@
 import reflex as rx
-from pcweb.component_list import component_list
 from pcweb.templates.docpage import docheader, docpage, doctext
 
 
 def component_grid():
+    from pcweb.pages.docs import component_list
+
     sidebar = []
     for category in component_list:
         sidebar.append(

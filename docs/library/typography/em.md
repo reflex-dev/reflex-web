@@ -1,3 +1,8 @@
+---
+components:
+    - rx.radix.themes.Em
+---
+
 ```python exec
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
