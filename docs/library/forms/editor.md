@@ -12,7 +12,7 @@ import reflex as rx
 
 from pcweb import styles
 from pcweb.pages.docs.source import Source, generate_docs
-from pcweb.templates.docpage import doccode, docdemo, docheader, subheader
+from pcweb.templates.docpage import doccode, docdemo, h2_comp
 
 
 class EditorState(rx.State):
@@ -57,7 +57,7 @@ editor_options_source = Source(module=rx.EditorOptions)
 
 ```python eval
 rx.fragment(
-    subheader("Fields"),
+    h2_comp(text="Fields"),
     rx.box(rx.table(
         rx.thead(
             rx.tr(

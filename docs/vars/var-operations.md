@@ -10,10 +10,8 @@ import reflex as rx
 from pcweb.templates.docpage import (
     doccode,
     docdemo_from,
-    docheader,
     doclink,
     docpage,
-    doctext,
 )
 ```
 

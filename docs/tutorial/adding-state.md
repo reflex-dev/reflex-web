@@ -6,11 +6,8 @@ from pcweb.templates.docpage import (
     doccode,
     docdemo,
     docdemobox,
-    docheader,
     doclink,
     docpage,
-    doctext,
-    subheader,
 )
 import openai
 
