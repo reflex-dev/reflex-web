@@ -35,7 +35,7 @@ for route in routes:
         image="/previews/index_preview.png",
     )
 
-<<<<<<< HEAD
+
 # for key in chakra_components:
 #     for component_group in chakra_components[key]:
 #         if isinstance(component_group[0], str):
@@ -50,8 +50,6 @@ for route in routes:
 #                 image="/previews/index_preview.png",
 #             )
 
-=======
->>>>>>> d80281c (Autogenerate chakra sidebar (#352))
 # Add redirects
 redirects = [
     ("/docs", "/docs/getting-started/introduction"),
