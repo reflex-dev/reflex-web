@@ -16,10 +16,12 @@ from reflex.components.radix.themes import (
     Quote,
     Strong,
     Text,
+    RadioGroupRoot,
 )
 
 # Form components.
 forms_list = [
+    [RadioGroupRoot],
     [Checkbox],
     [rx.Upload],
     [rx.Editor],
