@@ -42,11 +42,6 @@ layout_list = [
     [rx.Fragment],
 ]
 
-# Feedback components.
-feedback_list = [
-    [CalloutRoot],
-]
-
 # Overlay components.
 overlay_list = [
     [AlertDialogTrigger],
@@ -77,6 +72,7 @@ media_list = [
 
 # Data display components.
 datadisplay_list = [
+    [CalloutRoot],
     [ScrollArea],
     [rx.CodeBlock],
     [Badge],
