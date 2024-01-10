@@ -14,14 +14,12 @@ that runs in the user's browser. There are instances where you may need to suppl
 code to interop with Web APIs, use certain third-party libraries, or wrap low-level functionality
 that is not exposed via Reflex's Python API.
 
-```python eval
-docalert(
-    "Avoid Custom Javascript",
-    "Custom Javascript code in your Reflex app presents a maintenance challenge, "
-    "as it will be harder to debug and may be unstable across Reflex versions. "
-    "Prefer to use the Python API whenever possible and file an issue if you need "
-    "additional functionality that is not currently provided."
-)
+```md alert
+# Avoid Custom Javascript
+
+Custom Javascript code in your Reflex app presents a maintenance challenge, as it will be harder to debug and may be unstable across Reflex versions.
+
+Prefer to use the Python API whenever possible and file an issue if you need additional functionality that is not currently provided.
 ```
 
 ## Executing Script
@@ -131,13 +129,11 @@ def window_state_demo():
     )
 ```
 
-```python eval
-docalert(
-    "Allowed Callback Values",
-    "The `callback` parameter may be an EventHandler with one argument, "
-    "or a lambda with one argument that returns an EventHandler. If the "
-    "callback is None, then no event is triggered.",
-)
+```md alert
+# Allowed Callback Values
+
+The `callback` parameter may be an `EventHandler` with one argument, or a lambda with one argument that returns an `EventHandler`.
+If the callback is None, then no event is triggered.
 ```
 
 ## Using React Hooks
@@ -203,12 +199,9 @@ def global_key_demo():
     )
 ```
 
-```python eval
-docalert(
-    "rx.utils.format.format_event_chain?",
-    "The `format_event_chain` function is used to format an event trigger defined on the "
-    "component via `get_event_triggers` into a Javascript expression that can be used to "
-    "actually trigger the event. The Javascript code should do minimal work, preferring "
-    "to hand off execution to a user-supplied python Event Handler for processing on the backend."
-)
+```md alert
+# rx.utils.format.format_event_chain?
+
+The `format_event_chain` function is used to format an event trigger defined on the component via `get_event_triggers` into a Javascript expression that can be used to actually trigger the event.
+The Javascript code should do minimal work, preferring to hand off execution to a user-supplied python `EventHandler` for processing on the backend.
 ```

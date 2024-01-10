@@ -13,6 +13,39 @@ from pcweb.templates.docpage import (
 )
 
 
+class AlertBlock(flexdown.blocks.Block):
+    """A block that displays a component along with its code."""
+
+    starting_indicator = "```md alert"
+    ending_indicator = "```"
+    include_indicators = True
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        args = lines[0].removeprefix(self.starting_indicator).split()
+
+        if len(args) == 0:
+            args = ["info"]
+        status = args[0]
+
+        if lines[1].startswith("#"):
+            title = lines[1].strip("#").strip()
+            content = "\n".join(lines[2:-1])
+        else:
+            title = ""
+            content = "\n".join(lines[1:-1])
+
+        return rx.alert(
+            rx.alert_icon(),
+            rx.box(
+                rx.alert_title(title) if title else "",
+                rx.alert_description(markdown(content)),
+            ),
+            status=status,
+        )
+
+
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -49,6 +82,11 @@ md = rx.markdown("", component_map=component_map)
 custom = md.get_custom_components()
 
 
+@rx.memo
+def markdown1(text):
+    return rx.markdown(text, component_map=component_map)
+
+
 def get_custom_components(self, seen):
     return custom
 
@@ -56,4 +94,8 @@ def get_custom_components(self, seen):
 rx.Markdown.get_custom_components = get_custom_components
 
 
-xd = flexdown.Flexdown(block_types=[DemoBlock], component_map=component_map)
+xd = flexdown.Flexdown(block_types=[DemoBlock, AlertBlock], component_map=component_map)
+
+
+def markdown(text):
+    return xd.default_block_type().render_fn(content=text)
