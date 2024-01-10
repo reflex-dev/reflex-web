@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import definition, docalert
+from pcweb.templates.docpage import definition
 ```
 
 # State
@@ -154,10 +154,8 @@ Each user who opens your app has a unique ID and their own copy of the state.
 This means that each user can interact with the app and modify the state 
 independently of other users. 
 
-```python eval
-docalert(
-    "Try opening an app in multiple tabs to see how the state changes independently."
-)
+```md alert
+Try opening an app in multiple tabs to see how the state changes independently.
 ```
 
 All user state is stored on the server, and all event handlers are executed on

@@ -10,12 +10,8 @@ from pcweb.pages.docs import vars
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title("Check out the API reference for ", doclink("cond docs", href="https://reflex.dev/docs/library/layout/cond/")),
-    status="info",
-)
+```md alert
+Check out the API reference for [cond docs](https://reflex.dev/docs/library/layout/cond/").
 ```
 ```python eval
 rx.box(height="2em")

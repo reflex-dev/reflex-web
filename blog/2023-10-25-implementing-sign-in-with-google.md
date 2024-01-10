@@ -8,9 +8,7 @@ image: /auth_blog.png
 
 ```python exec
 import reflex as rx
-from pcweb.pages.docs import api_reference
-from pcweb.pages.docs import state
-from pcweb.templates.docpage import docalert
+from pcweb.pages.docs import api_reference, state
 ```
 
 Almost any non-trivial web app needs a way to identify and authenticate users,
@@ -77,13 +75,10 @@ class GoogleOAuthProvider(rx.Component):
     client_id: rx.Var[str]
 ```
 
-```python eval
-docalert(
-    "Why client_id and not clientID",
-    "When Reflex compiles the component to Javascript, `snake_case` property names "
-    "are automatically formatted as `camelCase`, although the names may be defined "
-    "in `camelCase` as well",
-)
+```md alert
+# Why client_id and not clientID
+
+When Reflex compiles the component to Javascript, `snake_case` property names are automatically formatted as `camelCase`, although the names may be defined in `camelCase` as well.
 ```
 ### GoogleLogin
 
@@ -109,12 +104,10 @@ event handler.
 
 ## Handling the Token
 
-```python eval
-docalert(
-    "Always use TLS in production",
-    "The user's token may be compromised if sent over an insecure websocket!",
-    status="warning",
-)
+```md alert warning
+# Always use TLS in production",
+
+The user's token may be compromised if sent over an insecure websocket!
 ```
 
 An event handler will be used to receive the token after a successful login.
@@ -304,14 +297,11 @@ def require_google_login(page) -> rx.Component:
     return _auth_wrapper
 ```
 
-```python eval
-docalert(
-    "Why two rx.cond?",
-    "The first rx.cond checks if the State is hydrated, meaning the frontend has "
-    "access to the latest state values from the backend. Before hydration, we show a "
-    "loading spinner instead of flashing a login button "
-    "to users that may already logged in without the frontend being aware of it yet."
-)
+```md alert
+# Why two rx.cond?
+
+The first rx.cond checks if the State is hydrated, meaning the frontend has access to the latest state values from the backend.
+Before hydration, we show a loading spinner instead of flashing a login button to users that may already logged in without the frontend being aware of it yet.
 ```
 
 ### Protecting Content
@@ -329,18 +319,13 @@ class State(rx.State):
         return "Not logged in."
 ```
 
-```python eval
-docalert(
-    "Private data must come from the State",
-    "Reflex compiles the page function and makes its content publicly "
-    "accessible! Although conditional rendering is used to show the "
-    "login button to unauthenticated users, the source code of the "
-    "page will also be available to unauthenticated users. "
-    "Because of this, all private content must originate from the State "
-    "and only be returned after verifying the user's token is valid on "
-    "the backend.",
-    status="warning",
-)
+```md alert warning
+# Private data must come from the State
+
+Reflex compiles the page function and makes its content publicly accessible!
+Although conditional rendering is used to show the login button to unauthenticated users, the source code of the page will also be available to unauthenticated users.
+
+Because of this, all private content must originate from the State and only be returned after verifying the user's token is valid on the backend.
 ```
 
 ### Show Login Button

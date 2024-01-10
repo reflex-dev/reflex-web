@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import docalert
 
 dynamic_routes = (
 """

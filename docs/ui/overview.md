@@ -2,7 +2,7 @@
 from pcweb.pages.docs import components
 from pcweb.pages.docs.library import library
 import reflex as rx
-from pcweb.templates.docpage import definition, docalert, doclink
+from pcweb.templates.docpage import definition, doclink
 
 definitions = [
     definition(
@@ -75,12 +75,9 @@ rx.text('Hello World!', color='blue', font_size="1.5em")
 
 Here `"Hello World!"` is the child text to display, while `color` and `font_size` are props that modify the appearance of the text.
 
-```python eval
-docalert(
-    "Regular Python data types can be passed in as children to components. ",
-    "This is useful for passing in text, numbers, and other simple data types. ",
-    status="success",
-)
+```md alert success
+Regular Python data types can be passed in as children to components.
+This is useful for passing in text, numbers, and other simple data types.
 ```
 
 ## Another Example
