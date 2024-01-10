@@ -1,10 +1,8 @@
 ```python exec
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs import state
-from pcweb.pages.docs import vars
-from pcweb.templates.docpage import docdemo, doclink
+from pcweb.pages.docs import state, vars
+from pcweb.templates.docpage import docdemo_from, doclink
 import reflex as rx
-import inspect
 ```
 
 # Props
@@ -15,16 +13,9 @@ Props modify the behavior and appearance of a component. They are passed in as k
 
 Each component has props that are specific to that component. For example, the `rx.avatar` component has a name prop that sets the `name` of the avatar.
 
-```python exec
-def avatar():
-    return rx.avatar(
-        name="John Doe"
-    )
-```
-
-```python eval
-docdemo(inspect.getsource(avatar).replace("def avatar():", "").replace("return", ""),
-    comp=avatar()
+```python demo
+rx.avatar(
+    name="John Doe"
 )
 ```
 
@@ -47,18 +38,11 @@ rx.alert(
 
 Components support many standard HTML properties as props. For example: the HTML [id]({"https://www.w3schools.com/html/html_id.asp"}) property is exposed directly as the prop `id`. The HTML [className]({"https://www.w3schools.com/jsref/prop_html_classname.asp"}) property is exposed as the prop `class_name` (note the Pythonic snake_casing!).
 
-```python exec
-def box():
-    return rx.box(
-        "Hello World",
-        id="box-id",
-        class_name=["class-name-1", "class-name-2",],
-    )
-```
-
-```python eval
-docdemo(inspect.getsource(box).replace("def box():", "").replace("return", ""),
-    comp=box()
+```python demo
+rx.box(
+    "Hello World",
+    id="box-id",
+    class_name=["class-name-1", "class-name-2",],
 )
 ```
 
@@ -113,10 +97,7 @@ def index():
 ```
 
 ```python eval
-docdemo(inspect.getsource(index),
-    comp=index(),
-    state=inspect.getsource(PropExampleState)
-)
+docdemo_from(PropExampleState, component=index)
 ```
 
 In this example, the `color_scheme` prop is bound to the `color` state var.

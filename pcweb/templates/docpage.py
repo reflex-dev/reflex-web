@@ -336,62 +336,6 @@ def code_comp(text: rx.Var[str]) -> rx.Component:
     return rx.code(text, color="#1F1944", bg="#EAE4FD")
 
 
-def docheader(
-    text: str,
-    first: bool = False,
-    **props,
-) -> rx.Component:
-    """Style the header on a docpage.
-
-    Args:
-        text: The text to display.
-        first: Whether this is the first header on the page.
-        font_size: The font size to use.
-        props: Props to apply to the header.
-
-    Returns:
-        The styled header.
-    """
-    id_ = "-".join(text.lower().split())
-    href = rx.State.router.page.full_path + "#" + id_
-
-    # Return the header.
-    return rx.box(
-        rx.heading(text, **props),
-        rx.divider(margin_y="1em"),
-        margin_top="0em" if first else "1.5em",
-        color=tc["docs"]["header"],
-        font_weight=fw["heading"],
-        width="100%",
-    )
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(text, id=id_, **props),
-                rx.icon(
-                    tag="link",
-                    color="#696287",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                ),
-                margin_top="0em" if first else "1.5em",
-                align_items="center",
-            ),
-            _hover={
-                "cursor": "pointer",
-                "textDecoration": "none",
-            },
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-        ),
-        rx.divider(margin_y="1em"),
-        color=tc["docs"]["header"],
-        font_weight=fw["heading"],
-        width="100%",
-    )
-
-
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
@@ -464,6 +408,7 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
         margin_top="1.5em",
         color=tc["docs"]["header"],
         width="100%",
+        scroll_margin_top="4em",
     )
 
 
@@ -480,45 +425,6 @@ def h3_comp(text: rx.Var[str]) -> rx.Component:
         margin_top="1.5em",
         color=tc["docs"]["header"],
         width="100%",
-    )
-
-
-def subheader(text: str, level: int = 0, **props) -> rx.Component:
-    """Create a subheader for a docpage.
-
-    Args:
-        text: The text to display.
-        level: The level of the subheader.
-        props: Props to apply to the subheader.
-
-    Returns:
-        The styled subheader.
-    """
-    return docheader(
-        text,
-        font_size=styles.H2_FONT_SIZE,
-        color=tc["docs"]["header"],
-        font_weight=fw["subheading"],
-        **props,
-    )
-
-
-def doctext(*text, **props) -> rx.Component:
-    """Create a documentation paragraph.
-
-    Args:
-        text: The text components to display.
-        props: Props to apply to the paragraph.
-
-    Returns:
-        The styled paragraph.
-    """
-    return rx.box(
-        *text,
-        margin_bottom="1em",
-        font_size=styles.TEXT_FONT_SIZE,
-        width="100%",
-        **props,
     )
 
 
@@ -753,15 +659,13 @@ def docalert(
     Returns:
         The styled alert.
     """
-    return doctext(
-        rx.alert(
-            rx.alert_icon(),
-            rx.box(
-                rx.alert_title(title),
-                rx.alert_description(description),
-            ),
-            status=status,
+    return rx.alert(
+        rx.alert_icon(),
+        rx.box(
+            rx.alert_title(title),
+            rx.alert_description(description),
         ),
+        status=status,
     )
 
 

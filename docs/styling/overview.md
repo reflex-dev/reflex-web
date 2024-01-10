@@ -1,5 +1,5 @@
 ```python exec
-from pcweb.templates.docpage import docdemo, doclink
+from pcweb.templates.docpage import doclink
 import reflex as rx
 import inspect
 from pcweb.pages.docs import styling

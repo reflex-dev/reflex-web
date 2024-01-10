@@ -7,11 +7,7 @@ from typing import Callable, Type
 import reflex as rx
 from pcweb import styles
 from pcweb.styles import font_weights as fw
-from pcweb.templates.docpage import (
-    docheader,
-    doctext,
-    subheader,
-)
+from pcweb.templates.docpage import h1_comp, h2_comp, text_comp
 
 
 class Source(rx.Base):
@@ -135,11 +131,11 @@ class Source(rx.Base):
 
 def generate_docs(title: str, s: Source):
     return rx.box(
-        docheader(title.title(), first=True),
+        h1_comp(text=title.title()),
         rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
         rx.divider(),
-        doctext(s.get_overview()),
-        subheader("Class Fields"),
+        text_comp(text=s.get_overview()),
+        h2_comp(text="Class Fields"),
         rx.box(
             rx.table(
                 rx.thead(
@@ -162,7 +158,7 @@ def generate_docs(title: str, s: Source):
             ),
             style={"overflow": "auto"},
         ),
-        subheader("Fields"),
+        h2_comp(text="Fields"),
         rx.box(
             rx.table(
                 rx.thead(
@@ -185,7 +181,7 @@ def generate_docs(title: str, s: Source):
             ),
             style={"overflow": "auto"},
         ),
-        subheader("Methods"),
+        h2_comp(text="Methods"),
         rx.box(
             rx.table(
                 rx.thead(

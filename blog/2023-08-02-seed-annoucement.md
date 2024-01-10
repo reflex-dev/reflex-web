@@ -8,7 +8,6 @@ image: /fundraise_dark.png
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import doctext, doclink
 ```
 
 ### Announcing our Seed Round!
