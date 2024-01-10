@@ -576,29 +576,6 @@ def definition(title: str, *children) -> rx.Component:
     )
 
 
-def docalert(
-    title: str = "", description: str = "", status: str = "info"
-) -> rx.Component:
-    """Create an alert for a doc page.
-
-    Args:
-        title: The title of the alert.
-        description: The description of the alert.
-        status: The status of the alert.
-
-    Returns:
-        The styled alert.
-    """
-    return rx.alert(
-        rx.alert_icon(),
-        rx.box(
-            rx.alert_title(title),
-            rx.alert_description(description),
-        ),
-        status=status,
-    )
-
-
 tab_style = {
     "color": "#494369",
     "font_weight": 600,
