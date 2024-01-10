@@ -100,13 +100,8 @@ Example:
 Optional catch-all routes allow matching URLs with or without specific segments. 
 Each optional catch-all pattern should be independent and not nested within another catch-all pattern.
 
-```python eval
-rx.alert(
-    icon=True,
-    title=rx.text(
-        "Catch-all routes must be placed at the end of the URL pattern to ensure proper route matching.",
-    ),
-)
+```md alert
+# Catch-all routes must be placed at the end of the URL pattern to ensure proper route matching.
 ```
 
 ### Routes Validation Table

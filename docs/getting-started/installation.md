@@ -18,18 +18,10 @@ This can be done with the following command:
     
 `/usr/sbin/softwareupdate --install-rosetta --agree-to-license`
 
-
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("command not found: reflex"),),
-        rx.alert_description(
-            "If you install Reflex with no virtual environment and get this error it means your PATH cannot find the reflex package. A virtual environment should solve this problem, or you can try running ", rx.code("python3 -m"), " before the reflex command.",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Error `command not found: reflex`
+If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
+A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
 ```
 
 

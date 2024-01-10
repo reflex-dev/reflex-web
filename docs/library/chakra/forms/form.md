@@ -45,16 +45,8 @@ def form_example():
     )
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "When using the form you must include a button or input with ",
-        rx.code("type_='submit'"),
-        ".",
-    ),
-    status="warning",
-)
+```md alert warning
+# When using the form you must include a button or input with `type_='submit'`.
 ```
 
 ## Dynamic Forms

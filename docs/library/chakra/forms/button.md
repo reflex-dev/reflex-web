@@ -361,16 +361,8 @@ The `ButtonGroup` component is designed specifically for grouping buttons. It al
 ```python eval
 docdemo(button_group)
 ```
-```python eval
-rx.alert(
-    icon=True,
-    title=rx.text(
-        "The ",
-        rx.code("button_group"),
-        " component stacks buttons horizontally, whereas the ",
-        rx.code("stack"),
-        " component allows stacking buttons both vertically and horizontally.",
-    ),
-)
+
+```md alert 
+# The `ButtonGroup` component stacks buttons horizontally, whereas the `Stack` component allows stacking buttons both vertically and horizontally.
 ```
 

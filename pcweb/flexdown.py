@@ -39,7 +39,7 @@ class AlertBlock(flexdown.blocks.Block):
         return rx.alert(
             rx.alert_icon(),
             rx.box(
-                rx.alert_title(title) if title else "",
+                rx.alert_title(markdown(title)) if title else "",
                 rx.alert_description(markdown(content)),
             ),
             status=status,

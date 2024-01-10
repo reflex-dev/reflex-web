@@ -18,13 +18,12 @@ rx.icon(tag="calendar")
 
 Use the tag prop to specify the icon to display.
 
+```md alert success
+Below is a list of all available icons.
+```
+
 ```python eval
 rx.box(
-    rx.alert(
-        rx.alert_icon(),
-        rx.alert_title("Below is a list of all available icons."),
-        status="success",
-    ),
     rx.divider(),
     rx.responsive_grid(
         *[

@@ -19,20 +19,9 @@ Base vars are defined as fields in your State class.
 They can have a preset default value. If you don't provide a default value, you
 must provide a type annotation.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("State Vars should provide type annotations."),
-        rx.alert_description(
-            "Reflex relies on type annotations to determine the type of state vars during the "
-            "compilation process. ",
-            ".",
-        ),
-    ),
-    status="warning",
-    margin_bottom="3em",
-)
+```md alert warning
+# State Vars should provide type annotations.
+Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
 ```python demo exec
@@ -55,6 +44,11 @@ def ticker_example():
 ```
 
 In this example `ticker` and `price` are base vars in the app, which can be modified at runtime.
+
+```md alert warning
+# Vars must be JSON serializable.
+Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
+```
 
 ```python eval
 rx.alert(

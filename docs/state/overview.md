@@ -135,17 +135,9 @@ will be computed automatically whenever the base vars change.
 The heading component links its `on_click` event to the
 `ExampleState.next_color` event handler, which increments the color index.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("With Reflex, you never have to write an API."),
-        rx.alert_description(
-            "All interactions between the frontend and backend are handled through events. "
-        ),
-    ),
-    status="success",
-)
+```md alert success
+# With Reflex, you never have to write an API.
+All interactions between the frontend and backend are handled through events. 
 ```
 
 ## Client States

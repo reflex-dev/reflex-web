@@ -28,18 +28,7 @@ In this case, in we want to pass two arguments to the event handler `change_colo
 
 The `on_blur` event trigger passes the text of the input as an argument to the lambda, and the lambda calls the `change_color` event handler with the text and the index of the input.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title(
-            "Event Handler Parameters should provide type annotations."
-        ),
-        rx.alert_description(
-            "Like state vars, be sure to provide the right type annotations for the prameters in an event "
-            "handler."
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Event Handler Parameters should provide type annotations.
+Like state vars, be sure to provide the right type annotations for the parameters in an event handler.
 ```

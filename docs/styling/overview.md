@@ -14,19 +14,9 @@ There are three main ways to add style to your app and they take precedence in t
 2. **Component:** Styles applied to components of a specific type.
 3. **Global:** Styles applied to all components.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Style keys can be any valid CSS property name."),
-        rx.alert_description(
-            "To be consistent with Python standards, you can specify keys in ",
-            rx.code("snake_case"),
-            ".",
-        ),
-    ),
-    status="success",
-)
+```md alert success
+# Style keys can be any valid CSS property name.
+To be consistent with Python standards, you can specify keys in `snake_case`.
 ```
 
 ## Global Styles
@@ -78,6 +68,11 @@ app = rx.App(style=style)
 
 Using style dictionaries like this, you can easily create a consistent theme for your app.
 
+```md alert
+# Note the use of the uppercase component names.
+We specify the component classes as keys, rather than their constructors.
+```
+
 ```python eval
 rx.alert(
     rx.alert_icon(),
@@ -93,6 +88,11 @@ rx.alert(
 
 ```python eval
 rx.box(height=2)
+```
+
+```md alert warning
+# Watch out for underscores in class names and IDs
+Reflex automatically converts `snake_case` identifiers into `camelCase` format when applying styles. To ensure consistency, it is recommended to use the dash character or camelCase identifiers in your own class names and IDs. To style third-party libraries relying on underscore class names, an external stylesheet should be used. See [custom stylesheets]({styling.custom_stylesheets.path}) for how to reference external CSS files.
 ```
 
 ```python eval
