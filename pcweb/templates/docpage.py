@@ -427,6 +427,79 @@ def h3_comp(text: rx.Var[str]) -> rx.Component:
     )
 
 
+def doccmdoutput(
+    command: str,
+    output: str,
+) -> rx.Component:
+    """Create a documentation code snippet.
+
+    Args:
+        command: The command to display.
+        output: The output of the command.
+        theme: The theme of the component.
+
+    Returns:
+        The styled command and its example output.
+    """
+    return flex(
+        flex(
+            icon(tag="double_arrow_right"),
+            rx.code_block(
+                command,
+                border_radius=styles.DOC_BORDER_RADIUS,
+                background="transparent",
+                color_scheme="black",
+                language="bash",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+            rx.button(
+                rx.icon(tag="copy"),
+                on_click=rx.set_clipboard(command),
+                position="absolute",
+                top="0.5em",
+                right="0.5em",
+                color=tc["docs"]["body"],
+                background="transparent",
+                _hover={
+                    "background": "transparent",
+                    "color": styles.ACCENT_COLOR,
+                },
+            ),
+            direction="row",
+            align="center",
+            gap="1",
+            margin_left="1em",
+        ),
+        separator(
+            size="4",
+        ),
+        flex(
+            rx.code_block(
+                output,
+                border_radius=styles.DOC_BORDER_RADIUS,
+                background="transparent",
+                language="log",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+        ),
+        direction="column",
+        gap="2",
+        border_radius=styles.DOC_BORDER_RADIUS,
+        border="2px solid #F4F3F6",
+        position="relative",
+        margin="1em",
+        width="100%",
+    )
+
+
 def doccode(
     code: str,
     language: str = "python",
