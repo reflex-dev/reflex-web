@@ -50,24 +50,6 @@ In this example `ticker` and `price` are base vars in the app, which can be modi
 Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Vars must be JSON serializable."),
-        rx.alert_description(
-            "Vars are used to communicate between the frontend and backend. ",
-            "They must be primitive Python types, ",
-            "Plotly figures, Pandas dataframes, or ",
-            doclink("a custom defined type", vars.custom_vars.path),
-            ".",
-        ),
-    ),
-    status="warning",
-)
-```
-
-
 ## Backend-only Vars
 
 Any Var in a state class that starts with an underscore is considered backend
