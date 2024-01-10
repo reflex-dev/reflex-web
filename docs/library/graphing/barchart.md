@@ -1,3 +1,10 @@
+---
+components:
+    - rx.recharts.BarChart
+    - rx.recharts.RadialBarChart
+    - rx.recharts.Bar
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

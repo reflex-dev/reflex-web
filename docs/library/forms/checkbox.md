@@ -1,3 +1,8 @@
+---
+components:
+    - rx.radix.themes.Checkbox
+---
+
 ```python exec
 import reflex as rx
 import reflex.components.radix.themes as rdxt

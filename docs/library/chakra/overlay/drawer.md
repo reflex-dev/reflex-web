@@ -1,3 +1,13 @@
+---
+components:
+    - rx.chakra.Drawer
+    - rx.chakra.DrawerOverlay
+    - rx.chakra.DrawerContent
+    - rx.chakra.DrawerHeader
+    - rx.chakra.DrawerBody
+    - rx.chakra.DrawerFooter
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

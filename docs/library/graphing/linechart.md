@@ -1,3 +1,9 @@
+---
+components:
+    - rx.recharts.LineChart
+    - rx.recharts.Line
+---
+
 ```python exec
 import inspect
 import random

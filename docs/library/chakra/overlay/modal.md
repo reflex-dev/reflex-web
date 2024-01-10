@@ -1,3 +1,13 @@
+---
+components:
+    - rx.chakra.Modal
+    - rx.chakra.ModalOverlay
+    - rx.chakra.ModalContent
+    - rx.chakra.ModalHeader
+    - rx.chakra.ModalBody
+    - rx.chakra.ModalFooter
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

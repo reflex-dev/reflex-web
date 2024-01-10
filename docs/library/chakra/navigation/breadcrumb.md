@@ -1,3 +1,10 @@
+---
+components:
+    - rx.chakra.Breadcrumb
+    - rx.chakra.BreadcrumbItem
+    - rx.chakra.BreadcrumbLink
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

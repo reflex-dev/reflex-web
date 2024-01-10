@@ -1,3 +1,12 @@
+---
+components:
+    - rx.chakra.Slider
+    - rx.chakra.SliderTrack
+    - rx.chakra.SliderFilledTrack
+    - rx.chakra.SliderThumb
+    - rx.chakra.SliderMark
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

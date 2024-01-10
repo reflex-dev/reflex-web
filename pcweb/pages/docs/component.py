@@ -2,15 +2,15 @@
 
 import glob
 import inspect
+import os
 import re
 from typing import Any, Type, get_args
 
 import reflex as rx
+from pcweb.flexdown import xd
+from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
-
-from pcweb import flexdown
-from pcweb.templates.docpage import docpage
 
 
 class Prop(Base):
@@ -199,11 +199,6 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
 chakra_docs = glob.glob("docs/library/chakra/**/*.md", recursive=True)
 
 
-def get_examples(component: str) -> rx.Component:
-    comp = [c for c in chakra_docs if c.endswith(f"/{component.lower()}.md")][0]
-    return flexdown.render_file(comp)
-
-
 EVENTS = {
     "on_focus": {
         "description": "Function or event handler called when the element (or some element inside of it) receives focus. For example, it is called when the user clicks on a text input."
@@ -373,6 +368,9 @@ EVENTS = {
     "on_checked_change": {
         "description": "The on_checked_change event handler is called when the checked state of the checkbox changes."
     },
+    "on_open_change": {
+        "description": "The on_open_change event handler is called when the open state of the component changes."
+    },
 }
 
 
@@ -501,12 +499,13 @@ tab_selected_style = {
 }
 
 
-def multi_docs(path, component_list):
+def multi_docs(path, comp, component_list):
     @docpage(set_path=path)
     def out():
         components = [component_docs(component) for component in component_list]
+        fname = path.strip("/") + ".md"
+        style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
 
-        name = component_list[0].__name__
         return rx.box(
             rx.box(
                 rx.box(
@@ -517,13 +516,23 @@ def multi_docs(path, component_list):
                                 "Docs", _selected=tab_selected_style, style=tab_style
                             ),
                             rx.tab(
+                                "Styling", _selected=tab_selected_style, style=tab_style
+                            )
+                            if style_doc_exists
+                            else rx.fragment(),
+                            rx.tab(
                                 "Props", _selected=tab_selected_style, style=tab_style
                             ),
                             width="100%",
                             padding_bottom="1em",
                         ),
                         rx.tab_panels(
-                            rx.tab_panel(get_examples(name)),
+                            rx.tab_panel(xd.render(comp)),
+                            rx.tab_panel(
+                                xd.render_file(fname.replace(".md", "-style.md"))
+                            )
+                            if style_doc_exists
+                            else rx.fragment(),
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",

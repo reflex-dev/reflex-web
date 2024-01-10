@@ -1,3 +1,10 @@
+---
+components:
+    - rx.recharts.ReferenceLine
+    - rx.recharts.ReferenceDot
+    - rx.recharts.ReferenceArea
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

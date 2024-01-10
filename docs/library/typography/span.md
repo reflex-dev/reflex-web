@@ -1,3 +1,8 @@
+---
+components:
+    - rx.Span
+---
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo_from

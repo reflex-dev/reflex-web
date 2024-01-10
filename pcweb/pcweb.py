@@ -3,10 +3,9 @@
 import reflex as rx
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
-from pcweb.component_list import chakra_components
 from pcweb.pages import page404, routes
 from pcweb.pages.docs.component import multi_docs
- 
+
 # Create the app.
 app = rx.App(
     style=styles.BASE_STYLE,
@@ -50,7 +49,7 @@ for key in chakra_components:
                 description=f"Reflex | Docs for {component_group[0].__name__} component.",
                 image="/previews/index_preview.png",
             )
- 
+            
 # Add redirects
 redirects = [
     ("/docs", "/docs/getting-started/introduction"),

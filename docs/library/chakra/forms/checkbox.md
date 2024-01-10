@@ -1,3 +1,8 @@
+---
+components:
+    - rx.chakra.Checkbox
+---
+
 # Checkbox
 
 A checkbox is a common way to toggle boolean value.
