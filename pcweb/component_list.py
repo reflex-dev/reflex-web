@@ -20,6 +20,7 @@ from reflex.components.radix.themes import (
     Slider,
     SelectRoot,
     Switch,
+    ScrollArea,
 )
 
 # Form components.
@@ -76,6 +77,7 @@ media_list = [
 
 # Data display components.
 datadisplay_list = [
+    [ScrollArea],
     [rx.CodeBlock],
     [Badge],
     [rx.DataTable],
