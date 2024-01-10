@@ -8,7 +8,6 @@ import numpy as np
 import reflex as rx
 
 from pcweb.templates.docpage import (
-    doccode,
     docdemo_from,
     doclink,
     docpage,

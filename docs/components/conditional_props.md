@@ -1,7 +1,6 @@
 ```python exec
-from pcweb.templates.docpage import docdemo, doclink
+from pcweb.templates.docpage import docdemo_from, doclink
 import reflex as rx
-import inspect
 ```
 
 # Conditional Props
@@ -21,8 +20,5 @@ def cond_prop():
 ```
 
 ```python eval
-docdemo(inspect.getsource(cond_prop),
-    comp=cond_prop(),
-    state=inspect.getsource(PropCondState)
-)
+docdemo_from(PropCondState, component=cond_prop)
 ```

@@ -14,7 +14,6 @@ Try typing a color in an input below and clicking away from it to change the col
 
 
 ```python exec
-
 class ArgState(rx.State):
     colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
 

@@ -3,28 +3,6 @@ from pcweb.pages.docs import components
 from pcweb.pages.docs.library import library
 import reflex as rx
 from pcweb.templates.docpage import definition, doccode, docdemo, docalert, doclink
-import inspect
-
-
-def hello_world():
-    return rx.text('Hello World!', color='blue', font_size="1.5em")
-
-
-def another_example():
-    return rx.hstack(
-        # Static 50% progress
-        rx.circular_progress(
-            rx.circular_progress_label("50", color="green"),
-            value=50,
-        ),
-        # "Spinning" progress
-        rx.circular_progress(
-            rx.circular_progress_label("∞", color="rgb(107,99,246)"),
-            is_indeterminate=True,
-        ),
-    )
-
-
 
 definitions = [
     definition(
@@ -91,10 +69,8 @@ rx.tablet_and_desktop(
 
 Let's take a look at the `rx.text` component.
 
-```python eval
-docdemo(inspect.getsource(hello_world).replace("def hello_world():", "").replace("return", ""),
-    comp=hello_world()
-)
+```python demo
+rx.text('Hello World!', color='blue', font_size="1.5em")
 ```
 
 Here `"Hello World!"` is the child text to display, while `color` and `font_size` are props that modify the appearance of the text.
@@ -112,9 +88,18 @@ docalert(
 Now let's take a look at a more complex component, which has other components nested inside it. The `rx.hstack` component is a container that arranges its children horizontally.
 
 
-```python eval
-docdemo(inspect.getsource(another_example).replace("def another_example():", "").replace("return", ""),
-    comp=another_example()
+```python demo
+rx.hstack(
+    # Static 50% progress
+    rx.circular_progress(
+        rx.circular_progress_label("50", color="green"),
+        value=50,
+    ),
+    # "Spinning" progress
+    rx.circular_progress(
+        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
+        is_indeterminate=True,
+    ),
 )
 ```
 
