@@ -500,7 +500,7 @@ tab_selected_style = {
 
 
 def multi_docs(path, comp, component_list):
-    @docpage(set_path=path)
+    @docpage(set_path=path, t=component_list[0].__name__)
     def out():
         components = [component_docs(component) for component in component_list]
         fname = path.strip("/") + ".md"
