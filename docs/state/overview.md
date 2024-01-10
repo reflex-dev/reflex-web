@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import definition, docalert, docdemo_from
+from pcweb.templates.docpage import definition, docalert
 ```
 
 # State
@@ -93,7 +93,7 @@ rx.responsive_grid(
 Here is a example of how to use state within a Reflex app.
 Click the text to change its color.
 
-```python exec
+```python demo exec
 class ExampleState(rx.State):
 
     # A base var for the list of colors to cycle through.
@@ -124,10 +124,6 @@ def index():
         color=ExampleState.color,
         _hover={"cursor": "pointer"},
     )
-```
-
-```python eval
-docdemo_from(ExampleState, component=index, imports=["from typing import List"])
 ```
 
 The base vars are `colors` and `index`. They are the only vars in the app that

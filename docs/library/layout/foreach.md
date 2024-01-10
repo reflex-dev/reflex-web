@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Foreach
@@ -13,7 +12,7 @@ from pcweb.templates.docpage import docdemo_from
 The `rx.foreach` component takes an iterable(list, tuple or dict) and a function that renders each item in the list.
 This is useful for dynamically rendering a list of items defined in a state.
 
-```python exec
+```python demo exec
 from typing import List
 class ForeachState(rx.State):
     color: List[str] = ["red", "green", "blue", "yellow", "orange", "purple"]
@@ -34,13 +33,9 @@ def foreach_example():
     )
 ```
 
-```python eval
-docdemo_from(ForeachState, colored_box, component=foreach_example)
-```
-
 The function can also take an index as a second argument.
 
-```python exec
+```python demo exec
 def colored_box_index(color: str, index: int):
     return rx.box(
         rx.text(index),
@@ -57,17 +52,13 @@ def foreach_example_index():
     )
 ```
 
-```python eval
-docdemo_from(ForeachState, colored_box_index, component=foreach_example_index)
-```
-
 Nested foreach components can be used to render nested lists.
 
 When indexing into a nested list, it's important to declare the list's type as Reflex requires it for type checking.
 This ensures that any potential frontend JS errors are caught before the user can encounter them.
 
 
-```python exec
+```python demo exec
 from typing import List
 
 class NestedForeachState(rx.State):
@@ -94,13 +85,9 @@ def nested_foreach_example():
     )
 ```
 
-```python eval
-docdemo_from(NestedForeachState, display_row, component=nested_foreach_example)
-```
-
 Below is a more complex example of foreach within a todo list.
 
-```python exec
+```python demo exec
 from typing import List
 class ListState(rx.State):
     items: List[str] = ["Write Code", "Sleep", "Have Fun"]
@@ -144,16 +131,12 @@ def todo_example():
     )
 ```
 
-```python eval
-docdemo_from(ListState, get_item, component=todo_example)
-```
-
 ## Dictionaries
 
 Items in a dictionary can be accessed as list of key-value pairs.
 Using the color example, we can slightly modify the code to use dicts as shown below.
 
-```python exec
+```python demo exec
 from typing import List
 class SimpleDictForeachState(rx.State):
     color_chart: dict[int, str] = {
@@ -177,14 +160,10 @@ def foreach_dict_example():
     )
 ```
 
-```python eval
-docdemo_from(SimpleDictForeachState, display_color, component=foreach_dict_example)
-```
-
 Now let's show a more complex example with dicts using the color example.
 Assuming we want to display a dictionary of secondary colors as keys and their constituent primary colors as values, we can modify the code as below:
 
-```python exec
+```python demo exec
 from typing import List, Dict
 class ComplexDictForeachState(rx.State):
     color_chart: Dict[str, List[str]] = {
@@ -212,8 +191,4 @@ def foreach_complex_dict_example():
         ),
         columns=[2, 4, 6]
     )
-```
-
-```python eval
-docdemo_from(ComplexDictForeachState, display_colors, component=foreach_complex_dict_example)
 ```

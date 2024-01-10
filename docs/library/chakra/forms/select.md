@@ -5,14 +5,13 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Select
 
 The Select component is used to create a list of options, which allows a user to select one or more options from it.
 
-```python exec
+```python demo exec
 from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
@@ -32,13 +31,9 @@ def basic_select_example():
     )
 ```
 
-```python eval
-docdemo_from(SelectState, component=basic_select_example)
-```
-
 Select can also have multiple options selected at once.
 
-```python exec
+```python demo exec
 from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
@@ -58,10 +53,6 @@ def multiselect_example():
             color_schemes="twitter",
         ),
     )
-```
-
-```python eval
-docdemo_from(MultiSelectState, component=multiselect_example)
 ```
 
 The component can also be customized and styled as seen in the next examples.

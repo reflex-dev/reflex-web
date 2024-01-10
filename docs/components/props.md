@@ -1,7 +1,7 @@
 ```python exec
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import state, vars
-from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.templates.docpage import doclink
 import reflex as rx
 ```
 
@@ -72,7 +72,7 @@ You can set the value of a prop to a [state var]({vars.base_vars.path}) to make 
 
 Try clicking the badge below to change its color.
 
-```python exec
+```python demo exec
 class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"
@@ -94,10 +94,6 @@ def index():
             "cursor": "pointer",
         }
     )
-```
-
-```python eval
-docdemo_from(PropExampleState, component=index)
 ```
 
 In this example, the `color_scheme` prop is bound to the `color` state var.

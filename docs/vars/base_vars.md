@@ -3,12 +3,10 @@ import inspect
 import random
 import time
 
-import numpy as np
-
 import reflex as rx
 
 from pcweb.pages.docs import vars
-from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.templates.docpage import doclink
 ```
 # Base Vars
 
@@ -37,7 +35,7 @@ rx.alert(
 )
 ```
 
-```python exec
+```python demo exec
 class TickerState(rx.State):
     ticker: str ="AAPL"
     price: str = "$150"
@@ -54,10 +52,6 @@ def ticker_example():
             ),
         ),
     )
-```
-
-```python eval
-docdemo_from(TickerState, component=ticker_example)
 ```
 
 In this example `ticker` and `price` are base vars in the app, which can be modified at runtime.
@@ -95,7 +89,10 @@ values that should not be sent to the client.
 For example, a backend-only var is used to store a large data structure which is
 then paged to the frontend using cached vars. 
 
-```python exec
+```python demo exec
+import numpy as np
+
+
 class BackendVarState(rx.State):
     _backend: np.ndarray = np.array([random.randint(0, 100) for _ in range(100)])
     offset: int = 0
@@ -154,7 +151,4 @@ def backend_var_example():
             ),
         ),
     )
-```
-```python eval
-docdemo_from(BackendVarState, component=backend_var_example, imports=["import numpy as np"])
 ```
