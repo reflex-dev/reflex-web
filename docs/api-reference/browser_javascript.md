@@ -4,7 +4,7 @@ import inspect
 from typing import Any
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.templates.docpage import docalert, doccode, docdemobox 
+from pcweb.templates.docpage import docalert, docdemobox, docdemo_from
 ```
 
 # Browser Javascript
@@ -76,11 +76,7 @@ docdemobox(sound_effect_demo())
 ```
 
 ```python eval
-doccode(
-    inspect.getsource(SoundEffectState) + "\n\n" + inspect.getsource(
-        sound_effect_demo 
-    )
-)
+docdemo_from(SoundEffectState, component=sound_effect_demo)
 ```
 
 ## External Scripts
@@ -88,25 +84,14 @@ doccode(
 External scripts can be loaded either from the `assets` directory, or from CDN URL, and then controlled
 via `rx.call_script`.
 
-```python exec
-def snowstorm_example():
-    return rx.vstack(
-        rx.script(
-            src="https://cdn.jsdelivr.net/gh/scottschiller/snowstorm@snowstorm_20131208/snowstorm-min.js",
-            on_ready=rx.call_script("snowStorm.autoStart = false; snowStorm.snowColor = '#111'"),
-        ),
-        rx.button("Start Duststorm", on_click=rx.call_script("snowStorm.start()")),
-        rx.button("Toggle Duststorm", on_click=rx.call_script("snowStorm.toggleSnow()")),
-    )
-```
-
-```python eval
-docdemobox(snowstorm_example())
-```
-
-```python eval
-doccode(
-    inspect.getsource(snowstorm_example)
+```python demo
+rx.vstack(
+    rx.script(
+        src="https://cdn.jsdelivr.net/gh/scottschiller/snowstorm@snowstorm_20131208/snowstorm-min.js",
+        on_ready=rx.call_script("snowStorm.autoStart = false; snowStorm.snowColor = '#111'"),
+    ),
+    rx.button("Start Duststorm", on_click=rx.call_script("snowStorm.start()")),
+    rx.button("Toggle Duststorm", on_click=rx.call_script("snowStorm.toggleSnow()")),
 )
 ```
 
@@ -155,15 +140,7 @@ def window_state_demo():
 ```
 
 ```python eval
-docdemobox(window_state_demo())
-```
-
-```python eval
-doccode(
-    inspect.getsource(WindowState) + "\n\n" + inspect.getsource(
-        window_state_demo
-    )
-)
+docdemo_from(WindowState, component=window_state_demo)
 ```
 
 ```python eval
@@ -239,17 +216,7 @@ def global_key_demo():
 ```
 
 ```python eval
-docdemobox(global_key_demo())
-```
-
-```python eval
-doccode(
-    inspect.getsource(GlobalKeyState) + "\n\n" + inspect.getsource(
-        GlobalKeyWatcher
-    ) + "\n\n" + inspect.getsource(
-        global_key_demo
-    )
-)
+docdemo_from(GlobalKeyState, GlobalKeyWatcher, component=global_key_demo)
 ```
 
 ```python eval

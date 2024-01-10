@@ -1,7 +1,3 @@
-```python exec
-from pcweb.templates.docpage import docdemo
-```
-
 # CLI 
 
 The `reflex` command line interface (CLI) is a tool for creating and managing Reflex apps.

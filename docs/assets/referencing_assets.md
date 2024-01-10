@@ -2,11 +2,6 @@
 
 import reflex as rx
 from pcweb.templates.docpage import docdemobox, docdemo
-import inspect
-
-
-def image_example():
-    return rx.image(src="/Reflex.svg", width="5em")
 ```
 
 # Assets
@@ -25,10 +20,8 @@ assets
 
 Then you can display it using a `rx.image` component:
 
-```python eval
-docdemo(inspect.getsource(image_example).replace("def image_example():", "").replace("return ", ""),
-    comp=image_example(),
-)
+```python demo
+rx.image(src="/Reflex.svg", width="5em")
 ```
 
 ## Favicon

@@ -1,5 +1,4 @@
 ```python exec
-from pcweb.templates.docpage import docdemo, doclink
 import reflex as rx
 ```
 # Responsive

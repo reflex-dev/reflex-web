@@ -10,7 +10,7 @@ import random
 from typing import Any
 
 import reflex as rx
-from pcweb.templates.docpage import doccode, docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
