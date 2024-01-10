@@ -81,7 +81,7 @@ flex(
 
 ### High Contrast
 
-We use the highContrast prop to increase color contrast of the fallback text with the background.
+We use the `high_contrast` prop to increase color contrast of the fallback text with the background.
 
 ```python demo
 grid(
@@ -97,7 +97,7 @@ grid(
 
 ### Radius
 
-We use the radius prop to assign a specific radius value, ignoring the global theme.
+We use the `radius` prop to assign a specific radius value, ignoring the global theme. It can take values `"none" | "small" | "medium" | "large" | "full"`.
 
 ```python demo
 grid(
@@ -119,7 +119,7 @@ grid(
 
 ### Fallback
 
-We use the fallback prop to modify the rendered fallback text.
+We use the `fallback` prop to modify the rendered fallback text.
 
 ```python demo
 flex(

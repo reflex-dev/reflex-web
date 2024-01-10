@@ -55,7 +55,7 @@ flex(
 
 ## Styling
 
-The icons are based on the Radix primitive component, and it is unstyled. It does not accept common styling props such as `size` or `color_theme`. You can still use `width` and `height` together to control the size of the icon, and specify its `color`.
+The icons are based on the Radix primitive component, and it is unstyled. **It does not accept common styling props such as `size` or `color_theme`**. You can still use `width` and `height` together to control the size of the icon, and specify its `color`.
 
 ### Width and Height
 
