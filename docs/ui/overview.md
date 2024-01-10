@@ -104,16 +104,8 @@ Some props are specific to a component. For example, the `value` prop of the `rx
 
 Styling props like `color` are shared across many components.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "You can find all the props for a component by checking its documentation page in the ",
-        doclink("component library", href=library.path),
-        ".",
-    ),
-    status="info",
-)
+```md alert info
+# You can find all the props for a component by checking its documentation page in the [component library]({library.path}).
 ```
 
 ## Pages

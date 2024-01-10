@@ -35,14 +35,8 @@ def simple_foreach():
 
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "The type signature of the functions does not matter to the", rx.code("foreach"), "component. It's the type annotation on the ", rx.code("state var"), " that determines what operations are available (e.g. when nesting)."
-    ),
-    status="warning",
-)
+```md alert warning
+# The type signature of the functions does not matter to the `foreach` component. It's the type annotation on the `state var` that determines what operations are available (e.g. when nesting).
 ```
 
 ## Enumeration

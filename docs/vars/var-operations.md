@@ -57,24 +57,9 @@ def var_operations_example():
     )
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Vars support many common operations."),
-        rx.alert_description(
-            "They can be used for arithemtic, string concatenation, inequalities, indexing, and more. "
-            "See the ",
-            doclink(
-                "full list of supported operations",
-                "/docs/api-reference/var",
-            ),
-            ".",
-        ),
-    ),
-    status="success",
-    margin_bottom="3em",
-)
+```md alert success
+# Vars support many common operations.
+They can be used for arithmetic, string concatenation, inequalities, indexing, and more. See the [full list of supported operations](/docs/api-reference/var).
 ```
 
 
