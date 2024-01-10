@@ -72,12 +72,54 @@ flex(
 
 ## Color
 
+Here is an example using basic colors in icons.
+
 ```python demo
 flex(
-    icon(tag="magnifying_glass", color="indigo"),
-    icon(tag="magnifying_glass", color="cyan"),
-    icon(tag="magnifying_glass", color="orange"),
-    icon(tag="magnifying_glass", color="crimson"),
+    icon(tag="magnifying_glass", width=18, height=18, color="indigo"),
+    icon(tag="magnifying_glass", width=18, height=18, color="cyan"),
+    icon(tag="magnifying_glass", width=18, height=18, color="orange"),
+    icon(tag="magnifying_glass", width=18, height=18, color="crimson"),
+    gap="2",
+)
+```
+
+You can also use color with a scale such as below.
+
+```python demo
+flex(
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-1)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-2)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-3)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-4)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-5)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-6)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-7)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-8)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-9)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-10)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-11)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-12)"),
+    gap="2",
+)
+```
+
+Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
+
+```python demo
+flex(
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-1)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-2)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-3)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-4)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-5)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-6)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-7)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-8)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-9)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-10)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-11)"),
+    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-12)"),
     gap="2",
 )
 ```
