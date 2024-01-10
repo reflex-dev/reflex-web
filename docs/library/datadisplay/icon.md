@@ -7,7 +7,6 @@ components:
 ```python exec
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.components.icons import ICON_LIST
-from reflex.components.radix.themes.components.callout import CalloutRoot, CalloutIcon, CalloutText
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 ```
@@ -26,9 +25,9 @@ icon(tag="calendar")
 
 ```python eval
 flex(
-    CalloutRoot.create(
-        CalloutIcon.create(icon(tag="check_circled", variant="solid", high_contrast=True, color="green")),
-        CalloutText.create("Below is a list of all available icons.", color="black", weight="bold"),
+    callout_root(
+        callout_icon(icon(tag="check_circled", variant="solid", high_contrast=True, color="green")),
+        callout_text("Below is a list of all available icons.", color="black", weight="bold"),
         color="green",
     ),
     separator(size="4"),
