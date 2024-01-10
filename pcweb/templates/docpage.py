@@ -887,7 +887,7 @@ def docgraphing(
         width="100%",
     )
 
-
+ 
 class RadixDocState(rx.State):
     """The app state."""
 
@@ -924,7 +924,7 @@ def dict_to_formatted_string(input_dict):
     # Join all parts with a comma and a space
     return ", ".join(formatted_parts)
 
-
+ 
 def used_component(
     component_used: rx.Component,
     components_passed: rx.Component | str | None,
@@ -970,12 +970,14 @@ def used_component(
             disabled=True,
             **kwargs,
         )
-
-
+     
+        
 def style_grid(
     component_used: rx.Component,
     component_used_str: str,
     variants: list,
+    sizes: list | None = None,
+    radius: list | None = None,
     components_passed: rx.Component | str | None = None,
     disabled: bool = False,
     **kwargs,
@@ -1117,4 +1119,5 @@ def style_grid(
             default_value=RadixDocState.color,
             on_value_change=RadixDocState.change_color,
         ),
+        style=demo_box_style,
     )
