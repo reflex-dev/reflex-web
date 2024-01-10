@@ -614,11 +614,8 @@ tab_style = {
 
 def docgraphing(
     code: str,
-    state: str | None = None,
     comp: rx.Component | None = None,
     data: str | None = None,
-    context: bool = False,
-    **props,
 ):
     return rx.box()
     return rx.vstack(
