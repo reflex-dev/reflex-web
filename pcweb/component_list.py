@@ -37,11 +37,6 @@ layout_list = [
     [rx.Fragment],
 ]
 
-# Feedback components.
-feedback_list = [
-    [CalloutRoot],
-]
-
 # Overlay components.
 overlay_list = [
     [AlertDialogTrigger],
