@@ -535,6 +535,7 @@ def docdemo_from(
     demobox_props: dict[str, Any] | None = None,
     **props,
 ):
+    return rx.box()
     """Create a documentation demo from a component and state.
 
     Reading the source code from the given objects and rendering the component
@@ -690,6 +691,7 @@ def docgraphing(
     context: bool = False,
     **props,
 ):
+    return rx.box()
     return rx.vstack(
         rx.flex(
             comp,

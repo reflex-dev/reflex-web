@@ -174,6 +174,6 @@ rx.vstack(
 docgraphing(
     scatter_chart_state_example,
     comp=eval(scatter_chart_state_example),
-    data=inspect.getsource(ScatterChartState),
+    # data=inspect.getsource(ScatterChartState),
 )
 ```
