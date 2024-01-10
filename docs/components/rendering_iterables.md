@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.templates.docpage import docdemo_from
 from pcweb.pages.docs import vars
 ```
 

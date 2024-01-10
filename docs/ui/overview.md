@@ -2,7 +2,7 @@
 from pcweb.pages.docs import components
 from pcweb.pages.docs.library import library
 import reflex as rx
-from pcweb.templates.docpage import definition, doccode, docdemo, docalert, doclink
+from pcweb.templates.docpage import definition, docalert, doclink
 
 definitions = [
     definition(

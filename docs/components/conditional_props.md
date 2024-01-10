@@ -1,5 +1,5 @@
 ```python exec
-from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.templates.docpage import docdemo_from
 import reflex as rx
 ```
 

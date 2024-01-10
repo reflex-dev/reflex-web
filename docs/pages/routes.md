@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import docalert, doccode, docdemobox
+from pcweb.templates.docpage import docalert
 
 route = (
 """

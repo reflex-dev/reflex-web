@@ -6,7 +6,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data01 = [
   {

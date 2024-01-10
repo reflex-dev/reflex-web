@@ -10,7 +10,7 @@ import reflex as rx
 
 from pcweb import styles
 from pcweb.pages.docs.source import Source, generate_docs
-from pcweb.templates.docpage import doccode, docdemo_from, h2_comp
+from pcweb.templates.docpage import docdemo_from, h2_comp
 
 
 class EditorState(rx.State):
@@ -82,9 +82,7 @@ in place of a sublist to denote a line break in the toolbar.
 
 Some valid `button_list` options are enumerated in `rx.EditorButtonList`, seen below.
 
-```python eval
-doccode(
-    """
+```python
 class EditorButtonList(list, enum.Enum):
 
     BASIC = [
@@ -115,8 +113,6 @@ class EditorButtonList(list, enum.Enum):
         ["preview", "print"],
         ["save", "template"],
     ]
-    """
-)
 ```
 
 A custom list of toolbar buttons may also be specified using these names as seen
