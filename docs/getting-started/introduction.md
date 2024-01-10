@@ -118,7 +118,8 @@ class CounterExampleState(rx.State):
     def decrement(self):
         self.count -= 1
 
-state_code = inspect.getsource(CounterExampleState).replace("CounterExampleState", "State").strip()
+state_code = "foo"
+# state_code = inspect.getsource(CounterExampleState).replace("CounterExampleState", "State").strip()
 
 def index():
     return rx.hstack(
@@ -140,7 +141,8 @@ def index():
         spacing="1em",
     )
 
-index_code = inspect.getsource(index).replace("CounterExampleState", "State").strip()
+index_code = "foo"
+# index_code = inspect.getsource(index).replace("CounterExampleState", "State").strip()
 
 counter_code = f"""
 import reflex as rx

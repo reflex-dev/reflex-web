@@ -168,6 +168,6 @@ rx.hstack(
 docgraphing(
     radar_chart_state_example,
     comp=eval(radar_chart_state_example),
-    data=inspect.getsource(RadarChartState),
+    # data=inspect.getsource(RadarChartState),
 )
 ```

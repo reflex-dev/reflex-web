@@ -53,7 +53,7 @@ frontend behavior.
 The functions and variables in the script can be accessed from backend event
 handlers or frontend event triggers via the `rx.call_script` interface.
 
-```python exec
+```python demo exec
 class SoundEffectState(rx.State):
     @rx.background
     async def delayed_play(self):
@@ -65,18 +65,10 @@ def sound_effect_demo():
     return rx.hstack(
         rx.script("""
             var button_sfx = new Audio("/vintage-button-sound-effect.mp3")
-            function playFromStart (sfx) {sfx.load(); sfx.play()}"""),
+            function playFromStart (sfx) {sfx.load(); sfx.play()}"""), 
         rx.button("Play Immediately", on_click=rx.call_script("playFromStart(button_sfx)")),
         rx.button("Play Later", on_click=SoundEffectState.delayed_play),
     )
-```
-
-```python eval
-docdemobox(sound_effect_demo())
-```
-
-```python eval
-docdemo_from(SoundEffectState, component=sound_effect_demo)
 ```
 
 ## External Scripts

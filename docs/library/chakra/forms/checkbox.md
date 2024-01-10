@@ -8,6 +8,10 @@ components:
 A checkbox is a common way to toggle boolean value.
 The checkbox component can be used on its own or in a group.
 
+```python exec
+import reflex as rx
+```
+
 ```python demo
 rx.checkbox("Check Me!")
 ```

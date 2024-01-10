@@ -10,6 +10,10 @@ components:
 
 Form control provides context such as filled/focused/error/required for form inputs.
 
+```python exec
+import reflex as rx
+```
+
 ```python demo
 rx.form_control(
     rx.form_label("First Name", html_for="email"),
