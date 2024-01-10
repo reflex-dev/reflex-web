@@ -1,6 +1,5 @@
 """Template for documentation pages."""
 
-import inspect
 import textwrap
 from typing import Any, Callable
 
@@ -526,76 +525,6 @@ def docdemo(
     )
 
 
-def docdemo_from(
-    *state_models_helpers: Any,
-    component: Callable[..., rx.Component] = None,
-    imports: list[str] = None,
-    assignments: dict[str, Any] | None = None,
-    collapsible_code: bool = False,
-    demobox_props: dict[str, Any] | None = None,
-    **props,
-):
-    return rx.box()
-    """Create a documentation demo from a component and state.
-
-    Reading the source code from the given objects and rendering the component
-    above it.
-
-    Args:
-        *state_and_models: The state and any models to read.
-        component: The component to render.
-    """
-    if imports is None:
-        imports = []
-    if "import reflex as rx" not in imports:
-        imports.append("import reflex as rx")
-    if assignments is None:
-        assignments = {}
-    state = "\n\n".join(
-        [
-            "\n".join(imports),
-            "\n".join(f"{k} = {v}" for k, v in assignments.items()),
-            *(inspect.getsource(obj) for obj in state_models_helpers),
-        ]
-    )
-    code = inspect.getsource(component) if component is not None else ""
-    if not collapsible_code:
-        if component is not None:
-            return docdemo(
-                code=code,
-                state=state,
-                comp=component(),
-                demobox_props=demobox_props,
-                **props,
-            )
-        return doccode(state)
-
-    # collabsible code
-    return rx.vstack(
-        docdemobox(
-            component(),
-            **(demobox_props or {}),
-        )
-        if component is not None
-        else rx.fragment(),
-        rx.accordion(
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.text("View Code"),
-                    rx.accordion_icon(),
-                ),
-                rx.accordion_panel(doccode(state + code), width="100%"),
-            ),
-            allow_toggle=True,
-            width="100%",
-        ),
-        width="100%",
-        padding_bottom="2em",
-        spacing="1em",
-        **props,
-    )
-
-
 def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
@@ -769,7 +698,6 @@ def used_component(
     disabled: bool = False,
     **kwargs,
 ) -> rx.Component:
-
     if components_passed is None and disabled is False:
         return component_used(
             color_scheme=color_scheme,

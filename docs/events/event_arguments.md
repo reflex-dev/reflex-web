@@ -1,19 +1,14 @@
 ```python exec
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 ```
 
-
 # Event Arguments
-
 
 In some use cases, you want to pass additional arguments to your event handlers. To do this you can bind an event trigger to a lambda, which can call your event handler with the arguments you want.
 
 Try typing a color in an input below and clicking away from it to change the color of the input.
 
-
-```python exec
+```python demo exec
 class ArgState(rx.State):
     colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
 
@@ -27,10 +22,6 @@ def event_arguments_example():
         rx.input(default_value=ArgState.colors[2], on_blur=lambda c: ArgState.change_color(c, 2), bg=ArgState.colors[2]),
     )
 
-```
-
-```python eval
-docdemo_from(ArgState, component=event_arguments_example)
 ```
 
 In this case, in we want to pass two arguments to the event handler `change_color`, the color and the index of the color to change.

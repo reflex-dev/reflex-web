@@ -52,7 +52,6 @@ class SidebarItem(Base):
 
 
 class SidebarState(rx.State):
-
     _sidebar_index: int = -1
 
     def set_sidebar_index(self, num) -> int:
@@ -381,7 +380,6 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
-
     from pcweb.pages.docs import chakra_components
 
     chakra_children = []

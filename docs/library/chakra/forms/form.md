@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Form
@@ -16,7 +15,7 @@ The form component's children can be form controls such as `rx.input`, `rx.check
 
 The form is submitted when the user clicks the submit button or presses enter on the form controls.
 
-```python exec
+```python demo exec
 class FormState(rx.State):
     form_data: dict = {}
 
@@ -46,11 +45,6 @@ def form_example():
     )
 ```
 
-
-```python eval
-docdemo_from(FormState, component=form_example)
-```
-
 ```python eval
 rx.alert(
     rx.alert_icon(),
@@ -70,7 +64,7 @@ Forms can be dynamically created by iterating through state vars using `rx.forea
 This example allows the user to add new fields to the form prior to submit, and all
 fields will be included in the form data passed to the `handle_submit` function.
 
-```python exec
+```python demo exec
 class DynamicFormState(rx.State):
     form_data: dict = {}
     form_fields: list[str] = ["first_name", "last_name", "email"]
@@ -121,8 +115,4 @@ def dynamic_form():
         rx.heading("Results"),
         rx.text(DynamicFormState.form_data.to_string()),
     )
-```
-
-```python eval
-docdemo_from(DynamicFormState, component=dynamic_form)
 ```

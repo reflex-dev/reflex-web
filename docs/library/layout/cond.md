@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Cond
@@ -15,7 +14,7 @@ This component is used to conditionally render components.
 The cond component takes a condition and two components.
 If the condition is `True`, the first component is rendered, otherwise the second component is rendered.
 
-```python exec
+```python demo exec
 class CondState(rx.State):
     show: bool = True
 
@@ -28,10 +27,6 @@ def cond_example():
         rx.button("Toggle", on_click=CondState.change),
         rx.cond(CondState.show, rx.text("Text 1", color="blue"), rx.text("Text 2", color="red")),
     )
-```
-
-```python eval
-docdemo_from(CondState, component=cond_example)
 ```
 
 The second component is optional and can be omitted.
@@ -53,7 +48,7 @@ rx.vstack(
 
 You can use the logical operators `&` and `|` to combine multiple conditions.
 
-```python exec
+```python demo exec
 class MultiCondState(rx.State):
     cond1: bool = True
     cond2: bool = False
@@ -82,8 +77,4 @@ def multi_cond_example():
             rx.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
         ),
     )
-```
-
-```python eval
-docdemo_from(MultiCondState, component=multi_cond_example)
 ```

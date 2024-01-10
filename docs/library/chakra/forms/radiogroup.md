@@ -6,7 +6,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Radio
@@ -14,7 +13,7 @@ from pcweb.templates.docpage import docdemo_from
 Radios are used when only one choice may be selected in a series of options.
 
 
-```python exec
+```python demo exec
 from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
 
@@ -30,10 +29,6 @@ def basic_radio_example():
             on_change=RadioState.set_text,
         ),
     )
-```
-
-```python eval
-docdemo_from(RadioState, component=basic_radio_example)
 ```
 
 The `default_value` and `default_checked` arguments can be used to set the default value of the radio group.

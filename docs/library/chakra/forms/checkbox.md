@@ -43,9 +43,8 @@ rx.hstack(
 
 Checkboxes can be hooked up to a state using the `on_change` prop.
 
-```python exec
+```python demo exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 
 
 class CheckboxState(rx.State):
@@ -67,10 +66,6 @@ def checkbox_state_example():
             on_change=CheckboxState.set_checked,
         )
     )
-```
-
-```python eval
-docdemo_from(CheckboxState, component=checkbox_state_example)
 ```
 
 ## Checkbox Group

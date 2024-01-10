@@ -9,14 +9,13 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Slider
 
 The Slider is used to allow users to make selections from a range of values.
 
-```python exec
+```python demo exec
 class SliderState(rx.State):
     value: int = 50
 
@@ -31,13 +30,9 @@ def slider_example():
     )
 ```
 
-```python eval
-docdemo_from(SliderState, component=slider_example)
-```
-
 You can also combine all three event handlers: `on_change`, `on_change_start`, and `on_change_end`.
 
-```python exec
+```python demo exec
 class SliderCombo(rx.State):
     value: int = 50
     color: str = "black"
@@ -61,13 +56,9 @@ def slider_combo_example():
     )
 ```
 
-```python eval
-docdemo_from(SliderCombo, component=slider_combo_example)
-```
-
 You can also customize the appearance of the slider by passing in custom components for the track and thumb.
 
-```python exec
+```python demo exec
 class SliderManual(rx.State):
     value: int = 50
 
@@ -92,10 +83,6 @@ def slider_manual_example():
         ),
         width="100%",
     )
-```
-
-```python eval
-docdemo_from(SliderManual, component=slider_manual_example)
 ```
 
 If you want to trigger state change on every slider movement, you can use the `on_change` event handler.

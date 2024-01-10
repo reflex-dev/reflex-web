@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # State Utility Methods
@@ -33,7 +32,7 @@ The `self.router` attribute has several sub-attributes that provide various info
 
 ### Example Values on this Page
 
-```python exec
+```python demo exec
 class RouterState(rx.State):
     pass
 
@@ -57,8 +56,4 @@ def router_values():
         ],
         overflow_x="auto",
     )
-```
-
-```python eval
-docdemo_from(RouterState, component=router_values, collapsible_code=True, demobox_props={"justify_content": "flex-start"})
 ```

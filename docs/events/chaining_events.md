@@ -1,7 +1,5 @@
 ```python exec
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 ```
 
 
@@ -12,7 +10,7 @@ from pcweb.templates.docpage import docdemo_from
 You can call other event handlers from event handlers to keep your code modular. Just use the `self.call_handler` syntax to run another event handler. As always, you can yield within your function to send incremental updates to the frontend.
 
 
-```python exec
+```python demo exec
 import asyncio
 
 class CallHandlerState(rx.State):
@@ -45,16 +43,9 @@ def call_handler_example():
     )
 ```
 
-```python eval
-docdemo_from(CallHandlerState, component=call_handler_example, imports=["import asyncio"])
-```
-
-
 ## Returning Events From Event Handlers
 
-
 So far, we have only seen events that are triggered by components. However, an event handler can also return events.
-
 
 In Reflex, event handlers run synchronously, so only one event handler can run at a time, and the events in the queue will be blocked until the current event handler finishes.The difference between returning an event and calling an event handler is that returning an event will send the event to the frontend and unblock the queue.
 
@@ -75,7 +66,7 @@ rx.alert(
 Try entering an integer in the input below then clicking out.
 
 
-```python exec
+```python demo exec
 class CollatzState(rx.State):
     count: int = 0
 
@@ -106,11 +97,6 @@ def collatz_example():
     )
 
 ```
-
-```python eval
-docdemo_from(CollatzState, component=collatz_example)
-```
-
 
 In this example, we run the [Collatz Conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) on a number entered by the user.
 

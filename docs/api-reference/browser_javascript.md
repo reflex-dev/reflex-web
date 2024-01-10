@@ -4,7 +4,7 @@ import inspect
 from typing import Any
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.templates.docpage import docalert, docdemobox, docdemo_from
+from pcweb.templates.docpage import docalert, docdemobox
 ```
 
 # Browser Javascript
@@ -94,7 +94,7 @@ Event Handler with one argument which will receive the result of evaluating the
 Javascript code. This can be used to access client-side values such as the
 `window.location` or current scroll location, or any previously defined value.
 
-```python exec
+```python demo exec
 class WindowState(rx.State):
     location: dict[str, str] = {}
     scroll_position: dict[str, int] = {}
@@ -132,10 +132,6 @@ def window_state_demo():
 ```
 
 ```python eval
-docdemo_from(WindowState, component=window_state_demo)
-```
-
-```python eval
 docalert(
     "Allowed Callback Values",
     "The `callback` parameter may be an EventHandler with one argument, "
@@ -158,7 +154,7 @@ function, use `_get_custom_code`.
 The following example uses `useEffect` to register global hotkeys on the
 `document` object, and then triggers an event when a specific key is pressed.
 
-```python exec
+```python demo exec
 class GlobalKeyState(rx.State):
     key: str = ""
 
@@ -205,10 +201,6 @@ def global_key_demo():
         rx.text("Press a, s, d or w to trigger an event"),
         rx.heading(f"Last watched key pressed: {GlobalKeyState.key}"),
     )
-```
-
-```python eval
-docdemo_from(GlobalKeyState, GlobalKeyWatcher, component=global_key_demo)
 ```
 
 ```python eval

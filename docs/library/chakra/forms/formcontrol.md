@@ -25,9 +25,8 @@ rx.form_control(
 
 The example below shows a form error when then name length is 3 or less.
 
-```python exec
+```python demo exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 
 class FormErrorState(rx.State):
     name: str
@@ -49,8 +48,4 @@ def form_state_example():
             is_required=True,
         )
     )
-```
-
-```python eval
-docdemo_from(FormErrorState, component=form_state_example)
 ```

@@ -4,8 +4,6 @@ import random
 import time
 
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 ```
 # Computed Vars
 
@@ -16,7 +14,7 @@ var is recomputed whenever an event is processed against the state.
 
 Try typing in the input box and clicking out.
 
-```python exec
+```python demo exec
 class UppercaseState(rx.State):
     text: str = "hello"
 
@@ -33,10 +31,6 @@ def uppercase_example():
     )
 ```
 
-```python eval
-docdemo_from(UppercaseState, component=uppercase_example)
-```
-
 Here, `upper_text` is a computed var that always holds the upper case version of `text`.
 
 We recommend always using type annotations for computed vars.
@@ -50,7 +44,7 @@ that is only recomputed when the other state vars it depends on change. This is
 useful for expensive computations, but in some cases it may not update when you
 expect it to.
 
-```python exec
+```python demo exec
 class CachedVarState(rx.State):
     counter_a: int = 0
     counter_b: int = 0
@@ -87,10 +81,6 @@ def cached_var_example():
             rx.button("Increment B", on_click=CachedVarState.increment_b),
         ),
     )
-```
-
-```python eval
-docdemo_from(CachedVarState, component=cached_var_example)
 ```
 
 In this example `last_touch_time` is a normal computed var, which updates any

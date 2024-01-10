@@ -8,7 +8,6 @@ import numpy as np
 import reflex as rx
 
 from pcweb.templates.docpage import (
-    docdemo_from,
     doclink,
     docpage,
 )
@@ -38,7 +37,7 @@ is only known at runtime.
 
 In this example below we use a var operation to concatenate a `string` with a `var`, meaning we do not have to do in within state as a computed var.
 
-```python exec
+```python demo exec
 coins = ["BTC", "ETH", "LTC", "DOGE"]
 
 class VarSelectState(rx.State):
@@ -56,10 +55,6 @@ def var_operations_example():
             on_change=VarSelectState.set_selected,
         )
     )
-```
-
-```python eval
-docdemo_from(VarSelectState, component=var_operations_example, assignments={"coins": coins})
 ```
 
 ```python eval
@@ -91,7 +86,7 @@ Var operations allow us to change vars on the front-end without having to create
 
 Some simple examples are the `==` var operator, which is used to check if two vars are equal and the `to_string()` var operator, which is used to convert a var to a string.
 
-```python exec
+```python demo exec
 
 fruits = ["Apple", "Banana", "Orange", "Mango"]
 
@@ -117,16 +112,12 @@ def var_equals_example():
 
 ```
 
-```python eval
-docdemo_from(EqualsState, component=var_equals_example, assignments={"fruits": fruits})
-```
-
 ### Negate, Absolute and Length
 
 The `-` operator is used to get the negative version of the var. The `abs()` operator is used to get the absolute value of the var. The `.length()` operator is used to get the length of a list var.
 
 
-```python exec
+```python demo exec
 import random
 
 class OperState(rx.State):
@@ -148,17 +139,13 @@ def var_operation_example():
     )
 ```
 
-```python eval
-docdemo_from(OperState, component=var_operation_example, imports=["import random"])
-```
-
 ### Comparisons and Mathematical Operators
 
 All of the comparison operators are used as expected in python. These include `==`, `!=`, `>`, `>=`, `<`, `<=`. 
 
 There are operators to add two vars `+`, subract two vars `-`, multiply two vars `*` and raise a var to a power `pow()`.
 
-```python exec
+```python demo exec
 import random
 
 class CompState(rx.State):
@@ -195,15 +182,11 @@ def var_comparison_example():
     )
 ```
 
-```python eval
-docdemo_from(CompState, component=var_comparison_example, imports=["import random"])
-```
-
 ### True Division, Floor Division and Remainder
 
 The operator `/` represents true division. The operator `//` represents floor division. The operator `%` represents the remainder of the division.
 
-```python exec
+```python demo exec
 import random
 
 class DivState(rx.State):
@@ -232,18 +215,13 @@ def var_div_example():
     )
 ```
 
-```python eval
-docdemo_from(DivState, component=var_div_example, imports=["import random"])
-```
-
-
 ### And, Or and Not
 
 In Reflex the `&` operator represents the logical AND when used in the front end. This means that it returns true only when both conditions are true simultaneously. 
 The `|` operator represents the logical OR when used in the front end. This means that it returns true when either one or both conditions are true.
 The `~` operator is used to invert a var. It is used on a var of type `bool` and is equivalent to the `not` operator.
 
-```python exec
+```python demo exec
 import random
 
 class LogicState(rx.State):
@@ -272,12 +250,7 @@ def var_logical_example():
     )
 ```
 
-```python eval
-docdemo_from(LogicState, component=var_logical_example, imports=["import random"])
-```
-
 ### Contains, Reverse and Join
-
 
 The 'in' operator is not supported for Var types, we must use the `Var.contains()` instead. When we use `contains`, the var must be of type: `dict`, `list`, `tuple` or `str`. 
 `contains` checks if a var contains the object that we pass to it as an argument.
@@ -286,7 +259,7 @@ We use the `reverse` operation to reverse a list var. The var must be of type `l
 
 Finally we use the `join` operation to join a list var into a string. 
 
-```python exec
+```python demo exec
 class ListsState(rx.State):
     list_1: list = [1, 2, 3, 4, 6]
     list_2: list = [7, 8, 9, 10]
@@ -309,17 +282,11 @@ def var_list_example():
     )
 ```
 
-```python eval
-docdemo_from(ListsState, component=var_list_example)
-```
-
-
-
 ### Lower, Upper, Split
 
 The `lower` operator converts a string var to lowercase. The `upper` operator converts a string var to uppercase. The `split` operator splits a string var into a list.
 
-```python exec
+```python demo exec
 class StringState(rx.State):
     string_1: str = "PYTHON is FUN"
     string_2: str = "react is hard"
@@ -339,11 +306,6 @@ def var_string_example():
     )
 ```
 
-```python eval
-docdemo_from(StringState, component=var_string_example)
-```
-
-
 ## Get Item (Indexing)
 
 Indexing is only supported for strings, lists, tuples, dicts, and dataframes. To index into a state var strict type annotations are required.
@@ -361,7 +323,7 @@ def get_item_error_1():
 
 In the code above you would expect to index into the first index of the list_1 state var. In fact the code above throws the error: `Invalid var passed for prop value, expected type <class 'int'>, got value of type typing.Any.` This is because the type of the items inside the list have not been clearly defined in the state. To fix this you change the list_1 defintion to `list_1: list[int] = [50, 10, 20]`
 
-```python exec
+```python demo exec
 class GetItemState1(rx.State):
     list_1: list[int] = [50, 10, 20]
 
@@ -370,11 +332,6 @@ def get_item_error_1():
         rx.circular_progress(value=GetItemState1.list_1[0])
     )
 ```
-
-```python eval
-docdemo_from(GetItemState1, component=get_item_error_1)
-```
-
 
 ### Using with Foreach
 
@@ -408,7 +365,7 @@ We must change `projects: list[dict]` => `projects: list[dict[str, list]]` becau
 
 
 
-```python exec
+```python demo exec
 class ProjectsState(rx.State):
     projects: list[dict[str, list]] = [
         {
@@ -434,15 +391,9 @@ def projects_example() -> rx.Component:
     return rx.box(rx.foreach(ProjectsState.projects, project_item))
 ```
 
-```python eval
-docdemo_from(ProjectsState, component=projects_example)
-```
-
-
 The previous example had only a single type for each of the dictionaries `keys` and `values`. For complex multi-type data, you need to use a `Base var`, as shown below.
 
-```python exec
-
+```python demo exec
 class ActressType(rx.Base):
     actress_name: str
     age: int
@@ -485,10 +436,6 @@ def actresses_example() -> rx.Component:
 
 ```
 
-```python eval
-docdemo_from(ActressType, MultiDataTypeState, component=actresses_example)
-```
-
 Setting the type of `actresses` to be `actresses: list[dict[str,str]]` would fail as it cannot be understood that the `value` for the `pages key` is actually a `list`.
 
 
@@ -498,7 +445,7 @@ Setting the type of `actresses` to be `actresses: list[dict[str,str]]` would fai
 
 You can also combine multiple var operations together, as seen in the next example.
 
-```python exec
+```python demo exec
 import random
 
 class VarNumberState(rx.State):
@@ -518,10 +465,6 @@ def var_number_example():
         ),
         rx.button("Update", on_click=VarNumberState.update),
     )
-```
-
-```python eval
-docdemo_from(VarNumberState, component=var_number_example, imports=["import random"])
 ```
 
 We could have made a computed var that returns the parity of `number`, but

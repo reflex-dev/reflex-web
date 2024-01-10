@@ -9,7 +9,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # NumberInput
@@ -17,7 +16,7 @@ from pcweb.templates.docpage import docdemo_from
 The NumberInput component is similar to the Input component, but it has controls for incrementing or decrementing numeric values.
 
 
-```python exec
+```python demo exec
 class NumberInputState(rx.State):
     number: int
 
@@ -27,8 +26,4 @@ def number_input_example():
         value=NumberInputState.number,
         on_change=NumberInputState.set_number,
     )
-```
-
-```python eval
-docdemo_from(NumberInputState, component=number_input_example)
 ```

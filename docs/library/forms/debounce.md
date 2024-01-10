@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from, demo_box_style
 ```
 
 # Debounce
@@ -18,7 +17,7 @@ Using the `rx.debounce_input`  component allows the frontend to remain responsiv
 
 This example only sends the final checkbox state to the backend after a 1 second delay.
 
-```python exec
+```python demo exec
 class DebounceCheckboxState(rx.State):
     checked: bool = False
 
@@ -36,8 +35,4 @@ def debounce_checkbox_example():
             debounce_timeout=1000,
         ),
     )
-```
-
-```python eval
-docdemo_from(DebounceCheckboxState, component=debounce_checkbox_example)
 ```
