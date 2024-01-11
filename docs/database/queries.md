@@ -153,12 +153,8 @@ SQL strings.  If parameter binding is needed, the query may be wrapped in
 [`sqlalchemy.text`](https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text),
 which allows colon-prefix names to be used as placeholders.
 
-```python exec
-from pcweb.templates.docpage import docalert
-```
-
-```python eval
-docalert("Never use string formatting to construct SQL queries, as this may lead to SQL injection vulnerabilities in the app.")
+```md alert
+Never use string formatting to construct SQL queries, as this may lead to SQL injection vulnerabilities in the app.
 ```
 
 ```python

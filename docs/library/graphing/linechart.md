@@ -5,7 +5,6 @@ components:
 ---
 
 ```python exec
-import inspect
 import random
 from typing import Any
 
@@ -163,6 +162,6 @@ in the per-browser-tab State, the changes will not be visible to other visitors.
 docgraphing(
     line_chart_state_example,
     comp=eval(line_chart_state_example),
-    data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState),
+    # data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState),
 )
 ```

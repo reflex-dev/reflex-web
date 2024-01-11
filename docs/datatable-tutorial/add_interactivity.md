@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs.datatable_tutorial_utils import DataTableState, DataTableState2
-
+from datatable_tutorial_utils import DataTableState, DataTableState2
 ```
 
 # Adding Interactivity to our DataTable

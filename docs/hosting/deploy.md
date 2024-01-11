@@ -4,16 +4,9 @@ import reflex as rx
 
 # Reflex Hosting Service
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title("Hosting is in Alpha"),
-    rx.alert_description("Please reach out to us on Discord if you have an app ready to deploy and if we will give you an invitation code."
-    ),
-    status="info",
-    width="100%",
-    margin_bottom="1rem",
-)
+```md alert info
+# Hosting is in Alpha
+Please reach out to us on Discord if you have an app ready to deploy and we will give you an invitation code.
 ```
 
 So far, we've been running our apps locally on our own machines.

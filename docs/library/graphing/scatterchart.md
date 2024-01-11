@@ -127,10 +127,7 @@ interface elements. View the "Data" tab to see the substate driving this
 calculation of iterations in the Collatz Conjecture for a given starting number.
 Enter a starting number in the box below the chart to recalculate.
 
-```python exec
-import inspect
-
-
+```python demo graphing
 class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
@@ -148,32 +145,23 @@ class ScatterChartState(rx.State):
                 n = 3 * n + 1
 
 
-scatter_chart_state_example = """
-rx.vstack(
-    rx.recharts.scatter_chart(
-        rx.recharts.scatter(
-            data=ScatterChartState.data,
-            fill="#8884d8",
+def index():
+    return rx.vstack(
+        rx.recharts.scatter_chart(
+            rx.recharts.scatter(
+                data=ScatterChartState.data,
+                fill="#8884d8",
+            ),
+            rx.recharts.x_axis(data_key="x", type_="number"),
+            rx.recharts.y_axis(data_key="y", type_="number"),
         ),
-        rx.recharts.x_axis(data_key="x", type_="number"),
-        rx.recharts.y_axis(data_key="y", type_="number"),
-    ),
-    rx.form(
-        rx.input(placeholder="Enter a number", id="start"),
-        rx.button("Compute", type_="submit"),
-        on_submit=ScatterChartState.compute_collatz,
-    ),
-    width="100%",
-    height="15em",
-    on_mount=ScatterChartState.compute_collatz({"start": "15"}),
-)
-"""
-```
-
-```python eval
-docgraphing(
-    scatter_chart_state_example,
-    comp=eval(scatter_chart_state_example),
-    data=inspect.getsource(ScatterChartState),
-)
+        rx.form(
+            rx.input(placeholder="Enter a number", id="start"),
+            rx.button("Compute", type_="submit"),
+            on_submit=ScatterChartState.compute_collatz,
+        ),
+        width="100%",
+        height="15em",
+        on_mount=ScatterChartState.compute_collatz({"start": "15"}),
+    )
 ```

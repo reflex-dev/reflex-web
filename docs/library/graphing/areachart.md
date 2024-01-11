@@ -200,7 +200,6 @@ area_chart_example_with_state = """rx.recharts.area_chart(
             height=400,
         ) 
 """
-
 ```
 
 An area chart combines the line chart and bar chart to show how one or more groups’ numeric values change over the progression of a second variable, typically that of time. An area chart is distinguished from a line chart by the addition of shading between lines and a baseline, like in a bar chart.

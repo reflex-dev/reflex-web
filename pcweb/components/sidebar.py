@@ -52,7 +52,6 @@ class SidebarItem(Base):
 
 
 class SidebarState(rx.State):
-
     _sidebar_index: int = -1
 
     def set_sidebar_index(self, num) -> int:
@@ -302,18 +301,15 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     for c in category_list:
-        if isinstance(c[0], str):
-            category_name = c[0]
-            item = SidebarItem(names=category_name, children=[])
-        else:
-            component_name = c[0].__name__
-            component_link = (
-                f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
-            )
-            item = SidebarItem(
-                names=component_name.replace("Chart", "").replace("X", ""),
-                link=component_link,
-            )
+        component_name = rx.utils.format.to_snake_case(c[0].__name__)
+        component_link = (
+            f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+        )
+        name = rx.utils.format.to_title_case(component_name)
+        item = SidebarItem(
+            names=name,
+            link=component_link,
+        )
         category_item_children.append(item)
     return SidebarItem(names=category, children=category_item_children)
 
@@ -381,7 +377,6 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
-
     from pcweb.pages.docs import chakra_components
 
     chakra_children = []

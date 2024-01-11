@@ -1,10 +1,8 @@
 ```python exec
 import asyncio
-import inspect
 from typing import Any
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.templates.docpage import docalert, docdemobox, docdemo_from
 ```
 
 # Browser Javascript
@@ -14,14 +12,12 @@ that runs in the user's browser. There are instances where you may need to suppl
 code to interop with Web APIs, use certain third-party libraries, or wrap low-level functionality
 that is not exposed via Reflex's Python API.
 
-```python eval
-docalert(
-    "Avoid Custom Javascript",
-    "Custom Javascript code in your Reflex app presents a maintenance challenge, "
-    "as it will be harder to debug and may be unstable across Reflex versions. "
-    "Prefer to use the Python API whenever possible and file an issue if you need "
-    "additional functionality that is not currently provided."
-)
+```md alert
+# Avoid Custom Javascript
+
+Custom Javascript code in your Reflex app presents a maintenance challenge, as it will be harder to debug and may be unstable across Reflex versions.
+
+Prefer to use the Python API whenever possible and file an issue if you need additional functionality that is not currently provided.
 ```
 
 ## Executing Script
@@ -53,7 +49,7 @@ frontend behavior.
 The functions and variables in the script can be accessed from backend event
 handlers or frontend event triggers via the `rx.call_script` interface.
 
-```python exec
+```python demo exec
 class SoundEffectState(rx.State):
     @rx.background
     async def delayed_play(self):
@@ -65,18 +61,10 @@ def sound_effect_demo():
     return rx.hstack(
         rx.script("""
             var button_sfx = new Audio("/vintage-button-sound-effect.mp3")
-            function playFromStart (sfx) {sfx.load(); sfx.play()}"""),
+            function playFromStart (sfx) {sfx.load(); sfx.play()}"""), 
         rx.button("Play Immediately", on_click=rx.call_script("playFromStart(button_sfx)")),
         rx.button("Play Later", on_click=SoundEffectState.delayed_play),
     )
-```
-
-```python eval
-docdemobox(sound_effect_demo())
-```
-
-```python eval
-docdemo_from(SoundEffectState, component=sound_effect_demo)
 ```
 
 ## External Scripts
@@ -102,7 +90,7 @@ Event Handler with one argument which will receive the result of evaluating the
 Javascript code. This can be used to access client-side values such as the
 `window.location` or current scroll location, or any previously defined value.
 
-```python exec
+```python demo exec
 class WindowState(rx.State):
     location: dict[str, str] = {}
     scroll_position: dict[str, int] = {}
@@ -139,17 +127,11 @@ def window_state_demo():
     )
 ```
 
-```python eval
-docdemo_from(WindowState, component=window_state_demo)
-```
+```md alert
+# Allowed Callback Values
 
-```python eval
-docalert(
-    "Allowed Callback Values",
-    "The `callback` parameter may be an EventHandler with one argument, "
-    "or a lambda with one argument that returns an EventHandler. If the "
-    "callback is None, then no event is triggered.",
-)
+The `callback` parameter may be an `EventHandler` with one argument, or a lambda with one argument that returns an `EventHandler`.
+If the callback is None, then no event is triggered.
 ```
 
 ## Using React Hooks
@@ -166,7 +148,7 @@ function, use `_get_custom_code`.
 The following example uses `useEffect` to register global hotkeys on the
 `document` object, and then triggers an event when a specific key is pressed.
 
-```python exec
+```python demo exec
 class GlobalKeyState(rx.State):
     key: str = ""
 
@@ -215,16 +197,9 @@ def global_key_demo():
     )
 ```
 
-```python eval
-docdemo_from(GlobalKeyState, GlobalKeyWatcher, component=global_key_demo)
-```
+```md alert
+# rx.utils.format.format_event_chain?
 
-```python eval
-docalert(
-    "rx.utils.format.format_event_chain?",
-    "The `format_event_chain` function is used to format an event trigger defined on the "
-    "component via `get_event_triggers` into a Javascript expression that can be used to "
-    "actually trigger the event. The Javascript code should do minimal work, preferring "
-    "to hand off execution to a user-supplied python Event Handler for processing on the backend."
-)
+The `format_event_chain` function is used to format an event trigger defined on the component via `get_event_triggers` into a Javascript expression that can be used to actually trigger the event.
+The Javascript code should do minimal work, preferring to hand off execution to a user-supplied python `EventHandler` for processing on the backend.
 ```
