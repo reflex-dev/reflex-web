@@ -1,10 +1,14 @@
+---
+components:
+    - rx.radix.themes.Switch
+---
+
 ```python exec
 import reflex as rx
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Switch
@@ -36,7 +40,7 @@ When the `required` prop is `True`, it indicates that the user must check the sw
 
 The `value` prop is only used for form submission, use the `checked` prop to control state of the `switch`.
 
-```python exec
+```python demo exec
 class FormSwitchState(rx.State):
     form_data: dict = {}
 
@@ -66,9 +70,6 @@ def form_switch():
     )
 ```
 
-```python eval
-docdemo_from(FormSwitchState, component=form_switch, collapsible_code=True)
-```
 
 
 ### High control of switch component
@@ -82,7 +83,7 @@ The `disabled` prop when `True`, prevents the user from interacting with the swi
 In our example below, even though the third switch is `disabled` we are still able to change whether it is checked or not using the `checked` prop. 
 
 
-```python exec
+```python demo exec
 class SwitchState2(rx.State):
 
     checked = True
@@ -111,9 +112,7 @@ def switch_example2():
     )
 ```
 
-```python eval
-docdemo_from(SwitchState2, component=switch_example2, collapsible_code=True)
-```
+
 
 
 
@@ -129,7 +128,7 @@ style_grid(component_used=switch, component_used_str="switch", variants=["classi
 ## Real World Example
 
 
-```python exec
+```python demo exec
 class FormSwitchState2(rx.State):
     form_data: dict = {}
 
@@ -216,8 +215,6 @@ def form_switch2():
     )
 ```
 
-```python eval
-docdemo_from(FormSwitchState2, component=form_switch2, collapsible_code=True)
-```
+
 
 

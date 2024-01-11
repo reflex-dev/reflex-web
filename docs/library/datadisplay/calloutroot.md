@@ -1,3 +1,11 @@
+---
+components:
+    - rx.radix.themes.CalloutRoot
+    - rx.radix.themes.CalloutIcon
+    - rx.radix.themes.CalloutText
+---
+
+
 ```python exec
 import reflex as rx
 from reflex.components.radix.themes.components import *

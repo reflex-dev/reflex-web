@@ -1,10 +1,15 @@
+---
+components:
+    - rx.radix.themes.Slider
+---
+
+
 ```python exec
 import reflex as rx
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
-from pcweb.templates.docpage import docdemo_from
 ```
 
 
@@ -38,7 +43,7 @@ slider(default_value=[40, 60], width="100%")
 
 The `on_value_change` event handler is called when the `value` of the slider changes. 
 
-```python exec
+```python demo exec
 class SliderVariationState(rx.State):
     value: int = 50
 
@@ -54,9 +59,7 @@ def slider_on_value_change():
     )
 ```
 
-```python eval
-docdemo_from(SliderVariationState, component=slider_on_value_change)
-```
+
 
 
 ### name
@@ -64,7 +67,7 @@ docdemo_from(SliderVariationState, component=slider_on_value_change)
 The `name` of the slider. Submitted with its owning form as part of a name/value pair.
 
 
-```python exec
+```python demo exec
 class FormSliderState(rx.State):
     form_data: dict = {}
 
@@ -92,9 +95,6 @@ def form_example2():
     )
 ```
 
-```python eval
-docdemo_from(FormSliderState, component=form_example2)
-```
 
 
 
@@ -107,7 +107,7 @@ The stepping interval can also be adjusted by using the `step` prop. It defaults
 
 The `on_value_commit` event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.
 
-```python exec
+```python demo exec
 
 def slider_max_min_step():
     return rx.vstack(
@@ -120,10 +120,6 @@ def slider_max_min_step():
         slider(default_value=[40], step=0.5, width="100%", on_value_commit=SliderVariationState.set_end),
         width="100%",
     )
-```
-
-```python eval
-docdemo_from(SliderVariationState, component=slider_max_min_step)
 ```
 
 

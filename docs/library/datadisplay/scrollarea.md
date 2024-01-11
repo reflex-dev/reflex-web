@@ -1,3 +1,9 @@
+---
+components:
+    - rx.radix.themes.ScrollArea
+---
+
+
 ```python exec
 import random
 import reflex as rx

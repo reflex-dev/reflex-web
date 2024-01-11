@@ -1,3 +1,16 @@
+---
+components:
+    - rx.radix.themes.SelectRoot
+    - rx.radix.themes.SelectTrigger
+    - rx.radix.themes.SelectContent
+    - rx.radix.themes.SelectGroup
+    - rx.radix.themes.SelectItem
+    - rx.radix.themes.SelectLabel
+    - rx.radix.themes.SelectSeparator
+    
+---
+
+
 ```python exec
 import random
 import reflex as rx
@@ -5,7 +18,6 @@ from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
-from pcweb.templates.docpage import docdemo_from
 ```
 
 
@@ -127,7 +139,7 @@ button that opens and button that randomly changes the select value
 
 The `on_value_change` event handler is called when the value of the select changes. In this example we set the `select_root` `value` prop to change the select `value` using a button in this case. 
 
-```python exec
+```python demo exec
 class SelectState2(rx.State):
     
     values: list[str] = ["apple", "grape", "pear"]
@@ -157,9 +169,6 @@ def select_example2():
     )
 ```
 
-```python eval
-docdemo_from(SelectState2, component=select_example2, collapsible_code=True)
-```
 
  
 
@@ -194,7 +203,7 @@ When the `required` prop of the `select_root` is `True`, it indicates that the u
 
 The `value` prop of `select_item` is only used for form submission, and is given as data when submitted with a `name`. Use the `value` prop to control state of the `select`.
 
-```python exec
+```python demo exec
 class FormSelectState(rx.State):
     form_data: dict = {}
 
@@ -240,9 +249,6 @@ def form_select():
     )
 ```
 
-```python eval
-docdemo_from(FormSelectState, component=form_select, collapsible_code=True)
-```
 
 
 

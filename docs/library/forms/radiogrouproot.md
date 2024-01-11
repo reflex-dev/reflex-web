@@ -1,10 +1,16 @@
+---
+components:
+    - rx.radix.themes.RadioGroupRoot
+    - rx.radix.themes.RadioGroupItem
+---
+
+
 ```python exec
 import reflex as rx
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
-from pcweb.templates.docpage import docdemo_from
 ```
 
 
@@ -37,7 +43,7 @@ The `radio_group_root` contains all the parts of a radio group. The `radio_group
 The controlled `value` of the radio item to check. Should be used in conjunction with `on_value_change` event handler.
 
 
-```python exec
+```python demo exec
 class RadioState1(rx.State):
     text: str = "No Selection"
 
@@ -52,10 +58,6 @@ def radio_state_example():
             on_value_change=RadioState1.set_text,
         ),
     )
-```
-
-```python eval
-docdemo_from(RadioState1, component=radio_state_example)
 ```
 
 
@@ -89,7 +91,7 @@ The `name` prop is used to name the group. It is submitted with its owning form 
 
 When the `required` prop is `True`, it indicates that the user must check a radio item before the owning form can be submitted.
 
-```python exec
+```python demo exec
 class FormRadioState(rx.State):
     form_data: dict = {}
 
@@ -121,9 +123,6 @@ def form_example():
     )
 ```
 
-```python eval
-docdemo_from(FormRadioState, component=form_example)
-```
 
 
 
@@ -202,7 +201,7 @@ flex(
 When `True`, indicates that the user must check the `radio_item_group` before the owning form can be submitted. This can only be used when a single `radio_group_item` is used.
 
 
-```python exec
+```python demo exec
 class FormRadioState2(rx.State):
     form_data: dict = {}
 
@@ -228,10 +227,6 @@ def form_example2():
         rx.heading("Results"),
         rx.text(FormRadioState2.form_data.to_string()),
     )
-```
-
-```python eval
-docdemo_from(FormRadioState2, component=form_example2)
 ```
 
 
@@ -518,5 +513,3 @@ radio_group_root(
     default_value="1",
 )
 ```
-
-another one using it in a form
