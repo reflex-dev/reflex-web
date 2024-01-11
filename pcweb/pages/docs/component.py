@@ -6,7 +6,7 @@ import re
 from typing import Any, Type, get_args
 
 import reflex as rx
-from pcweb.flexdown import xd
+from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
@@ -189,7 +189,7 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
             padding_left="0",
         ),
         rx.td(
-            rx.markdown(prop.description),
+            markdown(prop.description),
             padding_left="0",
         ),
     ]
@@ -468,7 +468,7 @@ def component_docs(component):
     return rx.box(
         rx.heading(component.__name__, font_size="2em"),
         rx.divider(),
-        rx.box(rx.markdown(src.get_docs()), padding_bottom="1em"),
+        rx.box(markdown(src.get_docs()), padding_bottom="1em"),
         props,
         children,
         triggers,

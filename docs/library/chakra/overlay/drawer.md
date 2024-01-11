@@ -10,7 +10,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Drawer
@@ -18,7 +17,7 @@ from pcweb.templates.docpage import docdemo_from
 The Drawer component is a panel that slides out from the edge of the screen.
 It can be useful when you need users to complete a task or view some details without leaving the current page.
 
-```python exec
+```python demo exec
 class DrawerState(rx.State):
     show_right: bool = False
     show_top: bool = False
@@ -46,10 +45,6 @@ def drawer_example():
             is_open=DrawerState.show_right,
         )
     )
-```
-
-```python eval
-docdemo_from(DrawerState, component=drawer_example)
 ```
 
 Drawer can display from the top, bottom, left, or right.

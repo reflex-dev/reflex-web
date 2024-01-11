@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import definition, docalert, docdemo_from
+from pcweb.templates.docpage import definition
 ```
 
 # State
@@ -93,7 +93,7 @@ rx.responsive_grid(
 Here is a example of how to use state within a Reflex app.
 Click the text to change its color.
 
-```python exec
+```python demo exec
 class ExampleState(rx.State):
 
     # A base var for the list of colors to cycle through.
@@ -126,10 +126,6 @@ def index():
     )
 ```
 
-```python eval
-docdemo_from(ExampleState, component=index, imports=["from typing import List"])
-```
-
 The base vars are `colors` and `index`. They are the only vars in the app that
 may be directly modified within event handlers.
 
@@ -139,17 +135,9 @@ will be computed automatically whenever the base vars change.
 The heading component links its `on_click` event to the
 `ExampleState.next_color` event handler, which increments the color index.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("With Reflex, you never have to write an API."),
-        rx.alert_description(
-            "All interactions between the frontend and backend are handled through events. "
-        ),
-    ),
-    status="success",
-)
+```md alert success
+# With Reflex, you never have to write an API.
+All interactions between the frontend and backend are handled through events. 
 ```
 
 ## Client States
@@ -158,10 +146,8 @@ Each user who opens your app has a unique ID and their own copy of the state.
 This means that each user can interact with the app and modify the state 
 independently of other users. 
 
-```python eval
-docalert(
-    "Try opening an app in multiple tabs to see how the state changes independently."
-)
+```md alert
+Try opening an app in multiple tabs to see how the state changes independently.
 ```
 
 All user state is stored on the server, and all event handlers are executed on

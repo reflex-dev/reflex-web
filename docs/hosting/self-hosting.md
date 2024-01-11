@@ -39,30 +39,9 @@ Production mode creates an optimized build of your app.  By default, the static
 frontend of the app (HTML, Javascript, CSS) will be exposed on port `3000` and
 the backend (event handlers) will be listening on port `8000`.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Reverse Proxy and Websockets"),
-        rx.alert_description(
-            "Because the backend uses websockets, some reverse proxy servers, ",
-            "like ",
-            rx.link(
-                "nginx",
-                href="https://nginx.org/en/docs/http/websocket.html",
-            ),
-            " or ",
-            rx.link(
-                "apache",
-                href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#protoupgrade",
-            ),
-            ", must be configured to pass the ",
-            rx.code("Upgrade"),
-            " header to allow backend connectivity.",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Reverse Proxy and Websockets
+Because the backend uses websockets, some reverse proxy servers, like [nginx](https://nginx.org/en/docs/http/websocket.html) or [apache](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#protoupgrade), must be configured to pass the `Upgrade` header to allow backend connectivity.
 ```
 
 ## Exporting a Static Build

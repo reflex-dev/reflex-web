@@ -5,12 +5,12 @@ components:
 
 An HTML editor component based on [Suneditor](http://suneditor.com/sample/index.html).
 
-```python exec
+```python demo exec
 import reflex as rx
 
 from pcweb import styles
 from pcweb.pages.docs.source import Source, generate_docs
-from pcweb.templates.docpage import docdemo_from, h2_comp
+from pcweb.templates.docpage import h2_comp
 
 
 class EditorState(rx.State):
@@ -34,10 +34,6 @@ def editor_example():
             width="100%",
         ),
     )
-```
-
-```python eval
-docdemo_from(EditorState, component=editor_example)
 ```
 
 # EditorOptions

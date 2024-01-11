@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo_from
 from pcweb.pages.docs import vars
 ```
 # Custom Vars
@@ -16,7 +15,7 @@ In this example, we will create a custom var type for storing translations.
 
 Once defined, we can use it as a state var, and reference it from within a component.
 
-```python exec
+```python demo exec
 import googletrans
 
 class Translation(rx.Base):
@@ -38,8 +37,4 @@ def translation_example():
         rx.button("Translate", on_click=TranslationState.translate),
         rx.text(TranslationState.current_translation.translated_text),
     )
-```
-
-```python eval
-docdemo_from(Translation, TranslationState, component=translation_example, imports=["import googletrans"])
 ```

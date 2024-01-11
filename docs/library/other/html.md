@@ -25,25 +25,10 @@ rx.vstack(
 )
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Missing Styles?"),
-        rx.alert_description(
-            rx.markdown(
-                "Reflex uses Chakra-UI and Tailwind for styling, both of "
-                "which reset default styles for headings. If you are "
-                "using the html component and want pretty default "
-                "styles, consider setting `class_name='prose'` "
-                ", adding `@tailwindcss/typography` package to "
-                "`frontend_packages` and enabling it via `tailwind` "
-                "config in `rxconfig.py`. See the "
-                "[Tailwind docs]({styling.overview.path}) for an example of adding this plugin."
-            ),
-        )
-    )
-)
+```md alert
+# Missing Styles?
+Reflex uses Chakra-UI and tailwind for styling, both of which reset default styles for headings. 
+If you are using the html component and want pretty default styles, consider setting `class_name='prose'`, adding `@tailwindcss/typography` package to `frontend_packages` and enabling it via `tailwind` config in `rxconfig.py`. See the [Tailwind docs]({styling.overview.path}) for an example of adding this plugin.
 ```
 
 In this example, we render an image.

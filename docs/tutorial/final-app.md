@@ -1,9 +1,8 @@
 ```python exec
 from pcweb.templates.docpage import docdemobox
 import reflex as rx
-from pcweb.pages.docs.tutorial_utils import ChatappState
-from pcweb.pages.docs import tutorial_style as style
-import inspect
+from tutorial_utils import ChatappState
+import tutorial_style as style
 ```
 
 # Final App

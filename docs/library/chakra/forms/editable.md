@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Editable
@@ -16,7 +15,7 @@ from pcweb.templates.docpage import docdemo_from
 Editable is used for inline renaming of some text.
 It appears as normal UI text but transforms into a text input field when the user clicks on or focuses it.
 
-```python exec
+```python demo exec
 class EditableState(rx.State):
     example_input: str
     example_textarea: str
@@ -34,10 +33,6 @@ def editable_example():
         on_submit=EditableState.set_uppertext,
         width="100%",
     )
-```
-
-```python eval
-docdemo_from(EditableState, component=editable_example)
 ```
 
 Another variant of editable can be made with a textarea instead of an input.

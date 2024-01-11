@@ -37,36 +37,26 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("No module named venv")),
-        rx.alert_description(
-            "While Python typically ships with ", rx.code("venv"),", it is not installed by default on some systems. If so, please install it manually. E.g. on Ubuntu Linux, run ", rx.code("sudo apt-get install python3-venv")
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Error `No module named venv`
+
+While Python typically ships with `venv` it is not installed by default on some systems.
+If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get install python3-venv`.
 ```
+
 ### Install Reflex package
 Reflex is available as a [pip](constants.PIP_URL) package.
 ```text
 pip install reflex
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("command not found: pip")),
-        rx.alert_description(
-            "While Python typically ships with ", rx.code("pip"), " the standard package management tool", ", it is not installed by default on some systems. You may need to install it manually. E.g. on Ubuntu Linux, run ", rx.code("sudo apt-get install python3-pip")
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Error `command not found: pip`
+
+While Python typically ships with `pip` as the standard package management tool, it is not installed by default on some systems.
+You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install python3-pip`
 ```
+
 ### Initialize the project
 ```text
 reflex init
@@ -83,6 +73,12 @@ rx.alert(
     ),
     status="warning",
 )
+```
+
+```md alert warning
+# Error `command not found: reflex`
+If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
+A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
 ```
 
 ## Install on Windows

@@ -1,7 +1,5 @@
 ```python exec
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 ```
 
 
@@ -21,7 +19,7 @@ For more information see [Browser Storage](/docs/api-reference/browser/).
 Try entering some values in the text boxes below and then load the page in a separate 
 tab or check the storage section of browser devtools to see the values saved in the browser. 
 
-```python exec
+```python demo exec
 class ClientStorageState(rx.State):
     my_cookie: str = rx.Cookie("")
     my_local_storage: str = rx.LocalStorage("")
@@ -34,8 +32,4 @@ def client_storage_example():
         rx.hstack(rx.text("my_local_storage"), rx.input(value=ClientStorageState.my_local_storage, on_change=ClientStorageState.set_my_local_storage)),
         rx.hstack(rx.text("custom_cookie"), rx.input(value=ClientStorageState.custom_cookie, on_change=ClientStorageState.set_custom_cookie)),
     )
-```
-
-```python eval
-docdemo_from(ClientStorageState, component=client_storage_example)
 ```
