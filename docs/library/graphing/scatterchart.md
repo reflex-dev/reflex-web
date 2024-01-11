@@ -128,9 +128,6 @@ calculation of iterations in the Collatz Conjecture for a given starting number.
 Enter a starting number in the box below the chart to recalculate.
 
 ```python exec
-import inspect
-
-
 class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 

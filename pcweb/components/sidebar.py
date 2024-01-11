@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
-
 import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar import NavbarState

@@ -5,7 +5,6 @@ import reflex as rx
 from pcweb.templates.docpage import docdemobox, docpage
 import openai
 
-import inspect
 from pcweb.pages.docs import state
 from pcweb.pages.docs import events
 

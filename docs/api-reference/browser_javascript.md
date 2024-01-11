@@ -1,10 +1,8 @@
 ```python exec
 import asyncio
-import inspect
 from typing import Any
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.templates.docpage import docalert, docdemobox
 ```
 
 # Browser Javascript

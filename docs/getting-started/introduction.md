@@ -84,8 +84,6 @@ Here, we go over a simple counter app that lets the user count up or down.
 <!-- TODO use radix components, to allow more concise styling - e.g. all them props -->
 
 ```python exec
-import inspect
-
 class CounterExampleState(rx.State):
     count: int = 0
 

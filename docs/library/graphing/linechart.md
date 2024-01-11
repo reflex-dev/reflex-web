@@ -5,7 +5,6 @@ components:
 ---
 
 ```python exec
-import inspect
 import random
 from typing import Any
 

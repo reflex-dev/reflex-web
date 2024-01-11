@@ -100,7 +100,6 @@ interface elements. View the "Data" tab to see the substate driving this
 radar chart of character traits.
 
 ```python exec
-import inspect
 from typing import Any
 
 

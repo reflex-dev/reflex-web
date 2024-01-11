@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import doclink
-from pcweb.pages.docs.datatable_tutorial_utils import DataTableState, DataTableState2
+from datatable_tutorial_utils import DataTableState, DataTableState2
 ```
 
 

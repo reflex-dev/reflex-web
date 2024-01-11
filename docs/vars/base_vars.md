@@ -1,12 +1,10 @@
 ```python exec
-import inspect
 import random
 import time
 
 import reflex as rx
 
 from pcweb.pages.docs import vars
-from pcweb.templates.docpage import doclink
 ```
 # Base Vars
 

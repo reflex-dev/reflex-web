@@ -1,5 +1,4 @@
 ```python exec
-import inspect
 import random
 import time
 
@@ -7,10 +6,7 @@ import numpy as np
 
 import reflex as rx
 
-from pcweb.templates.docpage import (
-    doclink,
-    docpage,
-)
+from pcweb.templates.docpage import docpage
 ```
 
 # Var Operations
