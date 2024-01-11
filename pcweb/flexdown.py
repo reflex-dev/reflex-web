@@ -67,7 +67,9 @@ class DemoBlock(flexdown.blocks.Block):
             exec(code, env, env)
             comp = env[list(env.keys())[-1]]()
             # Get all the code before the final "def".
-            parts = code.rpartition("def",)
+            parts = code.rpartition(
+                "def",
+            )
             data, code = parts[0], parts[1] + parts[2]
             comp = docgraphing(code, comp=comp, data=data)
         else:
