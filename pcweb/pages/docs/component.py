@@ -367,6 +367,23 @@ EVENTS = {
     "on_open_change": {
         "description": "The on_open_change event handler is called when the open state of the component changes."
     },
+    "on_value_change": {
+        "description": "The on_value_change event handler is called when the value state of the component changes."
+    },
+    "on_close_auto_focus": {
+        "description": "The on_close_auto_focus event handler is called when the user clicks off of the component."
+    },
+    "on_escape_key_down": {
+        "description": "The on_escape_key_down event handler is called when the user clicks the escape (esc) keyboard key."
+    },
+    "on_pointer_down_outside": {
+        "description": "The on_pointer_down_outside event handler is called when the user clicks outside the component."
+    },
+    "on_value_commit": {
+        "description": "The on_value_commit event handler is called when ..."
+    },
+    
+    
 }
 
 
