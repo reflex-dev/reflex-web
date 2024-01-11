@@ -11,12 +11,7 @@ from reflex.components.radix.themes.typography import *
 
 So far, we've been running our apps locally on our own machines.
 But what if we want to share our apps with the world?  This is where
-deployment comes in.
-
-```md alert info
-# Hosting is in Alpha
-Please reach out to us on Discord if you have an app ready to deploy and we will give you an invitation code.
-```
+the hosting service comes in.
 
 ```python eval
 callout_root(
@@ -24,9 +19,9 @@ callout_root(
     callout_text(
         text("Hosting is in Alpha. Please reach out to us on "),
         link("Discord", href=constants.DISCORD_URL),
-        text(" if you have an app ready to deploy and if we will give you an invitation code."),
+        text(" if you are ready to deploy and we will give you an invitation code."),
         color_scheme="black",
-        weight="bold"
+        font_weight="bold"
     ),
     size="3",
     color_scheme="blue",
@@ -36,7 +31,7 @@ callout_root(
 
 ## Quick Start
 
-Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring your infrastructure.
+Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring the infrastructure.
 
 ```python eval
 callout_root(
@@ -48,7 +43,7 @@ callout_root(
         code("reflex run"),
         text(" your app"),
         color="black",
-        weight="bold"
+        font_weight="bold"
     ),
     size="3",
     color_scheme="blue",
@@ -58,7 +53,22 @@ callout_root(
 
 ### Authentication
 
-First, create or log in to your account using the following command. (Requires `Reflex >= v0.3.2`)
+```python eval
+callout_root(
+    callout_icon(icon(tag="info_circled", width=18, height=18)),
+    callout_text(
+        text("Hosting service requires "),
+        code("reflex>=0.3.2"),
+        color="black",
+        font_weight="bold",
+    ),
+    size="3",
+    color_scheme="green",
+    high_contrast=True,
+)
+```
+
+First, create or log in to your account using the following command.
 
 ```bash
 reflex login
@@ -73,6 +83,8 @@ callout_root(
         text("You will need an invitation code! Contact us on "),
         link("Discord", href=constants.DISCORD_URL),
         text(" if you have an app ready to deploy, and we will give you a code."),
+        color="black",
+        font_weight="bold",
     ),
     size="3",
     color_scheme="green",
@@ -82,13 +94,15 @@ callout_root(
 
 ### Deployment
 
-Once you have successfully logged in to your account, you can deploy your apps.
+Once you have successfully authenticated, you can deploy your apps.
 
 ```python eval
 callout_root(
     callout_icon(icon(tag="info_circled", width=18, height=18)),
     callout_text(
-        "Make sure you have a requirements.txt containing all your python dependencies at the top level app directory!",
+        "Make sure you have a ",
+        code("requirements.txt"),
+        " file at the top level app directory that contains all your python dependencies !",
         color="black",
         weight="bold"),
     size="3",
@@ -97,43 +111,85 @@ callout_root(
 )
 ```
 
-Navigate to the project you want to deploy and type the following command:
+Navigate to the project directory that you want to deploy and type the following command:
 
 ```bash
 reflex deploy
 ```
 
-**Name**: choose a name for the deployed app. This name will be part of the deployed app URL, i.e. `<your-app-name>.reflex.run`. The name should only contain domain name safe characters: no slashes, no underscores. It is also case insensitive, so simply use all lower cases.
+The command is by default interactive. It asks you a few questions for information required for the deployment.
 
-**Regions**: check the list of regions you can select from [reflex deployments regions](#reflex-deployments-regions)
+**Name**: choose a name for the deployed app. This name will be part of the deployed app URL, i.e. `<app-name>.reflex.run`. The name should only contain domain name safe characters: no slashes, no underscores. Domain names are case insensitive. To avoid confusion, the name you choose here is also case insensitive. If you enter letters in upper cases, we automatically convert them to lower cases.
+
+**Regions**: enter the region code here or press `Enter` to accept the default. The default code `sjc` stands for San Jose, California in the US west coast. Check the list of supported regions at [reflex deployments regions](#reflex-deployments-regions).
+
+**Envs**: `Envs` are environment variables. You might not have used them at all in your app. In that case, press `Enter` to skip. More on the environment variables in the later section [Environment Variables](#environment-variables).
 
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
+```python eval
+callout_root(
+    callout_icon(icon(tag="info_circled", width=18, height=18)),
+    callout_text(
+        "Once your code is uploaded, the hosting service will start the deployment. Exiting from the command from that point on does not affect the deployment process. The command prints a message when you can close the command without affecting the deployment.",
+        color="black",
+        weight="bold"),
+    size="3",
+    color_scheme="green",
+    high_contrast=True,
+)
+```
+
 ## Concepts
+
+### Requirements
+
+To be able to deploy your app, we ask that you prepare a `requirements.txt` file containing all the required Python packages for it. The hosting service runs a `pip install` command based on this file to prepare the instances that run your app. We recommend that  you use a Python virtual environment when starting a new app, and only install the necessary packages. This reduces the preparation time installing no more packages than needed, and your app is deployed faster. There are a lot of resources online on Python virtual environment tools and how to capture the packages in a `requirements.txt` file.
 
 ### Environment Variables
 
-When deploying to Reflex hosting service, you will be asked if you want to add any environment variables. These are encrypted and safely stored. We will not show you the values of them any CLI commands, only the key names. Make sure to enter the Environment Variables without any quotation marks.
+When deploying to Reflex's hosting service, the command prompt asks if you want to add any environment variables. These are encrypted and safely stored. We do not show the values of them in any CLI commands, only their names (or keys). We recommend that backend API keys or secrets are entered as `envs`. Make sure to enter the `Environment Variables` without any quotation marks.
 
-Anything like backend API keys or secrets should be entered here and referenced in your app as an environment variable `os.environ` in the backend python code.
+However, if your app intentionally prints the values of these variables, the logs returned still contain the printed values. At the moment, the logs are not censored against anything resembling secrets. Only the app owner and Reflex team admins can access these logs.
 
-### Redeployment
+The environment variables are key value pairs. You access their values by referencing their names as keys in `os.environ` in your app's backend. For example, if you set an env `ASYNC_DB_URL`, you are able to access it by `os.environ["ASYNC_DB_URL"]`. Some Python libraries automatically look for certain environment variables. For example, `OPENAI_API_KEY` for the `openai` python client. The `boto3` client credentials can be configured by setting `AWS_ACCESS_KEY_ID`,`AWS_SECRET_ACCESS_KEY`.
 
-To redeploy your app, navigate to your project directory and type `reflex deploy` again. This command communicates with the hosting service to automatically detects your existing app under the same name. If your current directory has a `rxconfig` that says your app name is `abc-app`, and you have already deployed an `abc-app`, and this time the deploy command overwrites it. You should see a prompt similar to `Overwriting your app abc-app ... `. This is a complete overwrite and not an incremental update.
+### Updating Deployment
+
+To redeploy or update your app, navigate to the project directory and type `reflex deploy` again. This command communicates with the hosting service to automatically detects your existing app by the same name. This time the deploy command overwrites the app. You should see a prompt similar to `Overwrite deployment [ app-name ] ...`. This operation is a complete overwrite and not an incremental update.
 
 ## Hosting CLI Commands
 
-All the commands come with help manual. Type `--help` to see it, for example, `reflex deploy --help`. The help manual provides additional options that may be useful.
+All the `reflex` commands come with a help manual. The help manual provides additional options that may be useful. You type `--help` to see the help manual. Some commands are organized under a `subcommands` series. Here is an example below. Note that the help manual may look different depending on the version of `reflex` or the `reflex-hosting-cli`.
+
+```python eval
+doccmdoutput(
+    command="reflex deployments --help",
+    output="""Usage: reflex deployments [OPTIONS] COMMAND [ARGS]...
+
+  Subcommands for managing the Deployments.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  build-logs  Get the build logs for a deployment.
+  delete      Delete a hosted instance.
+  list        List all the hosted deployments of the authenticated user.
+  logs        Get the logs for a deployment.
+  regions     List all the regions of the hosting service.
+  status      Check the status of a deployment.
+"""
+)
+```
+
+`--loglevel` is another common `reflex` command option. When setting `--loglevel debug`, a command prints additional information, which can be helpful during debug.
 
 ### Authentication Commands
 
 #### reflex login
 
-1. User types the command for the very first time, CLI opens the hosting service URL login page for user to use one of the OAuth providers to authorize and log in.
-2. After user authorizes OAuth access, the page redirects back to a page on the hosting service website. It shows elements only relevant to authenticated users, such as logout button. Note that we are frequently improving our website, the exact view for authenticated user may be different than described here.
-3. Your access token is cached locally in the reflex support directory. For subsequent login commands, as long as the access token is valid, the CLI shows “**You’re already logged in**” without opening up your browser again.
-4. Cont’d from 3: if the validation fails, the CLI shows 1) “**Session expired**” 2) “**User is banned**” 3) “**Access denied**” (for other cases we have no need to distinguish a bad token or just that user needs to re-authenticate) and CLI  will be opening the browser for re-authentication.
-5. If for any reason, there is no cached token on user machine, but the user session is still active on the browser, the hosting service login page will skip the step of redirecting to OAuth provider and show the same page described above in step 2.
+When you type the `reflex login` command for the very first time, it opens the hosting service login page. We authenticate users through OAuth. At the moment the supported OAuth providers are Github and Gmail. You should be able to revoke such authorization on your Github and Google account settings page. We do not log into your Github or Gmail account. OAuth authorization provides us your email address and in case of Github your username handle. We use those to create an account for you. When you return, the email used in the original account creation is used to identify you as a user. If you have authenticated using different emails, those create separate accounts. To switch to another account, first log out using the `reflex logout` command. More details on the logout command are in [reflex logout](#reflex-logout) section.
 
 ```python eval
 doccmdoutput(
@@ -144,24 +200,19 @@ Successfully logged in.
 )
 ```
 
+After authenticated, the browser redirects to the original hosting service page. It shows you have logged in. Now you can return to the terminal where you type the login command. It should print a message such as `Successfully logged in`.
+
+Your access token is cached locally in the reflex support directory. For subsequent login commands, the cached token is validated first. If the token is still valid, the CLI command simply shows `You’re already logged in`. If the token is expired or simply not valid for any reason, the login command tries to open your browser again for web based authentication.
+
 #### reflex logout
 
-1. User types this command, if no token is cached, CLI shows “**Login info not found**”
-2. If a token is found, (behind the scene: CLI makes a request to hosting service to delete/deactivate the access token. If the hosting service responds success, ) CLI shows “Successfully logged out”. (If hosting service responds with any error), CLI shows “**Unable to log out, please try again later**” (retryable errors), “**You’re not logged in**”. In all cases, the cached login config is deleted from user machine.
+When you successfully authenticate with the hosting service, there is information cached in two different places: a file containing the access token in the reflex support folder, and cookies in your browser. The cookies include the access token, a refresh token, some unix epochs indicating when the access token expires. The logout command removes the cached information from these places.
 
 ### Deployment Commands
 
 #### reflex deploy
 
-Summary
-
-1. User types `reflex deploy` command.
-2. If not in the reflex app root directory (with the rxconfig file), alert “**You must be in the top level directory of your app to deploy**”
-3. If not `reflex init` before, it asks the user to run `reflex init` first, this is the same as `reflex run` command
-4. If the user does not have `requirements.txt` in the directory, alert.
-5. If not all the dependencies are installed, CLI accepts the import errors and alerts the user, “**Did you forget to install all dependencies?**”
-6. **Example 1** shows the sequences of a successful deployment.
-7. The deploy command by default interacts with the user and prompts for information. To provide all the settings for your app in a one shot without this interaction, use the `--no-interactive` flag. Type `reflex deploy --help` to see the help command for explanation on each flag. There is an example below: example 2. The deploy sequences are the same regardless the command is interactive or not. Example 2 skips the deploy sequences.
+This is the command to deploy a reflex app from its top level app directory. This directory contains a `rxconfig.py` where you run `reflex init` and `reflex run`. A `requirements.txt` file is required. The deploy command checks the existence of this file and also the content of it (this is available in more recent versions of `reflex-hosting-cli` such as `0.1.3`). The command prompts you for updates on the requirements when there are new packages or newer versions of packages detected in the Python environment.
 
 ```python eval
 doccmdoutput(
@@ -186,7 +237,9 @@ Your site [ todo ] at ['lax'] is up: https://todo.reflex.run
 )
 ```
 
-The non-interactive deploy command requires user to provide all the required information, such as the app name of your choice, the regions to deploy to, environmental variables if you have them.
+The deploy command is by default interactive and prompts you for information. To provide all the settings for your app in one shot without the interaction, add the `--no-interactive` option. Type `reflex deploy --help` to see the help command for explanation on each option. The deploy sequences are the same whether the command is interactive or not.
+
+The non-interactive deploy command requires you to provide all the required information, such as the app name of your choice, the regions to deploy to, environmental variables if you have them.
 
 ```bash
 reflex deploy --no-interactive -k todo -r sjc -r sea --env OPENAI_API_KEY=YOU-KEY-NO-EXTRA-QUOTES --env DB_URL=YOUR-EXTERNAL-DB-URI --env KEY3=THATS-ALOTOF-KEYS
@@ -213,35 +266,39 @@ basic-crud-navy-apple         ['dfw']  basic_crud            0.3.8              
 
 #### reflex deployments status `app-name`
 
-Get the status of a specific app.
+Get the status of a specific app, including backend and frontend.
 
 ```python eval
 doccmdoutput(
     command="reflex deployments status clock-gray-piano",
     output="""Getting status for [ clock-gray-piano ] ...
 
-backend_url                               reachable    updated_at
-----------------------------------------  -----------  ------------
-https://rxh-dev-clock-gray-piano.fly.dev  False        N/A
+backend_url                                reachable    updated_at
+-----------------------------------------  -----------  ------------
+https://rxh-prod-clock-gray-piano.fly.dev  False        N/A
 
 
-frontend_url                                 reachable    updated_at
--------------------------------------------  -----------  -----------------------
-https://clock-gray-piano.dev.reflexcorp.run  True         2023-10-13 15:23:07 PDT
+frontend_url                               reachable    updated_at
+-----------------------------------------  -----------  -----------------------
+https://clock-gray-piano.reflex.run        True         2023-10-13 15:23:07 PDT
 """,
 )
 ```
 
 #### reflex deployments logs `app-name`
 
-Get the logs from a specified deployment.
+Get the logs from a specific deployment.
+
+The returned logs are the console messages. If you have `print` statements in your code, they show up in these logs. By default, the logs command return the latest 100 lines of logs and continue to stream any new lines.
+
+We have added more options to this command including `from` and `to` timestamps and the limit on how many lines of logs to fetch. Accepted timestamp formats include the ISO 8601 format, unix epoch and relative timestamp. A relative timestamp is some time units ago from `now`. The units are `d (day), h (hour), m (minute), s (second)`. For example, `--from 3d --to 4h` queries from 3 days ago up to 4 hours ago. For the exact syntax in the version of CLI you use, refer to the help manual.
 
 ```python eval
 doccmdoutput(
     command="reflex deployments logs todo",
     output="""Note: there is a few seconds delay for logs to be available.
 2023-10-13 22:18:39.696028 | rxh-dev-todo | info | Pulling container image registry.fly.io/rxh-dev-todo:depot-1697235471
-2023-10-13 22:18:41.462929 | rxh-dev-todo | info | Pulling Gcontainer image registry.fly.io/rxh-dev-todo@sha256:60b7b531e99e037f2fb496b3e05893ee28f93a454ee618bda89a531a547c4002
+2023-10-13 22:18:41.462929 | rxh-dev-todo | info | Pulling container image registry.fly.io/rxh-dev-todo@sha256:60b7b531e99e037f2fb496b3e05893ee28f93a454ee618bda89a531a547c4002
 2023-10-13 22:18:45.963840 | rxh-dev-todo | info | Successfully prepared image registry.fly.io/rxh-dev-todo@sha256:60b7b531e99e037f2fb496b3e05893ee28f93a454ee618bda89a531a547c4002 (4.500906837s)
 2023-10-13 22:18:46.134860 | rxh-dev-todo | info | Successfully prepared image registry.fly.io/rxh-dev-todo:depot-1697235471 (6.438815793s)
 2023-10-13 22:18:46.210583 | rxh-dev-todo | info | Configuring firecracker
@@ -284,9 +341,13 @@ doccmdoutput(
 )
 ```
 
+The hosting service prints log messages when preparing and deploying your app. These log messages are called build logs. Build logs are useful in troubleshooting deploy failures. For example, if there is a package `numpz==1.26.3` (supposed to be `numpy`) in the `requirements.txt`, hosting service will be unable to install it. That package does not exist. We expect to find a few lines in the build logs indicating that the `pip install` command fails.
+
+During the deploy command, we print a few lines of the deploy sequence "milestones" from the build logs, such as `Backend updated!`, `Deploy success (frontend)`.
+
 #### reflex deployments delete `app-name`
 
-Delete a specified deployment.
+Delete a specific deployment.
 
 ### Public Commands
 

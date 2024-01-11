@@ -443,12 +443,12 @@ def doccmdoutput(
     """
     return flex(
         flex(
-            icon(tag="double_arrow_right"),
+            icon(tag="double_arrow_right", color="white", width=18, height=18),
             rx.code_block(
                 command,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                color_scheme="black",
+                theme="a11y-dark",
                 language="bash",
                 code_tag_props={
                     "style": {
@@ -474,14 +474,13 @@ def doccmdoutput(
             gap="1",
             margin_left="1em",
         ),
-        separator(
-            size="4",
-        ),
+        separator(size="4", color_scheme="green"),
         flex(
             rx.code_block(
                 output,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
+                theme="a11y-dark",
                 language="log",
                 code_tag_props={
                     "style": {
@@ -497,6 +496,7 @@ def doccmdoutput(
         position="relative",
         margin="1em",
         width="100%",
+        background_color="black",
     )
 
 
