@@ -107,8 +107,6 @@ For a more in depth example, we recommend going through the [tutorial]({tutorial
 Let's go over a simple counter app to explore the basics of Reflex.
 
 ```python exec
-import inspect
-
 class CounterExampleState(rx.State):
     count: int = 0
 

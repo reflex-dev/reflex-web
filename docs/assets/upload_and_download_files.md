@@ -1,8 +1,7 @@
 ```python exec
 
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, docdemo
-import inspect
+from pcweb.templates.docpage import docdemobox
 
 
 download_link = """rx.link("Download", href="/reflex_logo.png")

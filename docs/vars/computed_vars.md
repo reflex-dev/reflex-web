@@ -1,5 +1,4 @@
 ```python exec
-import inspect
 import random
 import time
 
