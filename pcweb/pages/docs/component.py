@@ -371,16 +371,16 @@ EVENTS = {
         "description": "The on_value_change event handler is called when the value state of the component changes."
     },
     "on_close_auto_focus": {
-        "description": "The on_close_auto_focus event handler is called when the user clicks off of the component."
+        "description": "The on_close_auto_focus event handler is called when focus moves to the trigger after closing. It can be prevented by calling event.preventDefault."
     },
     "on_escape_key_down": {
-        "description": "The on_escape_key_down event handler is called when the user clicks the escape (esc) keyboard key."
+        "description": "The on_escape_key_down event handler is called when the escape key is down. It can be prevented by calling event.preventDefault."
     },
     "on_pointer_down_outside": {
-        "description": "The on_pointer_down_outside event handler is called when the user clicks outside the component."
+        "description": "The on_pointer_down_outside event handler is called when a pointer event occurs outside the bounds of the component. It can be prevented by calling event.preventDefault."
     },
     "on_value_commit": {
-        "description": "The on_value_commit event handler is called when ..."
+        "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service."
     },
     
     
