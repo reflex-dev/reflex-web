@@ -73,6 +73,8 @@ rx.alert(
     ),
     status="warning",
 )
+```
+
 ```md alert warning
 # Error `command not found: reflex`
 If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 

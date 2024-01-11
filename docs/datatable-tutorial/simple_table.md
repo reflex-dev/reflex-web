@@ -8,7 +8,7 @@ from datatable_tutorial_utils import DataTableState, DataTableState2
 # Data Table (Editable) Tutorial
 
 ```md alert info
-#There is another [datatable component]("https://reflex.dev/docs/library/datadisplay/datatable/"), which is only used for displaying data and does not support user interactivity or editing.
+#There is another [datatable component](https://reflex.dev/docs/library/datadisplay/datatable/), which is only used for displaying data and does not support user interactivity or editing.
 ```
 
 

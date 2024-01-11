@@ -6,11 +6,10 @@ import re
 from typing import Any, Type, get_args
 
 import reflex as rx
-from pcweb.flexdown import xd
+from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
-from pcweb.flexdown import markdown
 
 
 class Prop(Base):

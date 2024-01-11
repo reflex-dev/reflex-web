@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import inspect
+
 import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar import NavbarState
@@ -299,18 +301,15 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     for c in category_list:
-        if isinstance(c[0], str):
-            category_name = c[0]
-            item = SidebarItem(names=category_name, children=[])
-        else:
-            component_name = c[0].__name__
-            component_link = (
-                f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
-            )
-            item = SidebarItem(
-                names=component_name.replace("Chart", "").replace("X", ""),
-                link=component_link,
-            )
+        component_name = rx.utils.format.to_snake_case(c[0].__name__)
+        component_link = (
+            f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+        )
+        name = rx.utils.format.to_title_case(component_name)
+        item = SidebarItem(
+            names=name,
+            link=component_link,
+        )
         category_item_children.append(item)
     return SidebarItem(names=category, children=category_item_children)
 
