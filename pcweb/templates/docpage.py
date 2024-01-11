@@ -594,7 +594,6 @@ def docgraphing(
     comp: rx.Component | None = None,
     data: str | None = None,
 ):
-    return rx.box()
     return rx.vstack(
         rx.flex(
             comp,
@@ -612,7 +611,7 @@ def docgraphing(
                     doccode(code), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 rx.tab_panel(
-                    doccode(data), width="100%", padding_x=0, padding_y=".25em"
+                    doccode(data or "hi"), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 width="100%",
             ),

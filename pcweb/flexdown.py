@@ -5,6 +5,7 @@ from pcweb.templates.docpage import (
     code_block_markdown,
     code_comp,
     docdemo,
+    docgraphing,
     doclink2,
     h1_comp,
     h2_comp,
@@ -62,6 +63,13 @@ class DemoBlock(flexdown.blocks.Block):
         if "exec" in args:
             exec(code, env, env)
             comp = env[list(env.keys())[-1]]()
+        elif "graphing" in args:
+            exec(code, env, env)
+            comp = env[list(env.keys())[-1]]()
+            # Get all the code before the final "def".
+            parts = code.rpartition("def",)
+            data, code = parts[0], parts[1] + parts[2]
+            comp = docgraphing(code, comp=comp, data=data)
         else:
             comp = eval(code, env, env)
 

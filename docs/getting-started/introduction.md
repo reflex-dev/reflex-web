@@ -93,8 +93,16 @@ class CounterExampleState(rx.State):
     def decrement(self):
         self.count -= 1
 
-state_code = "foo"
-# state_code = inspect.getsource(CounterExampleState).replace("CounterExampleState", "State").strip()
+state_code = """
+class State(rx.State):
+    count: int = 0
+
+    def increment(self):
+        self.count += 1
+
+    def decrement(self):
+        self.count -= 1
+"""
 
 def index():
     return rx.hstack(
@@ -116,8 +124,27 @@ def index():
         spacing="1em",
     )
 
-index_code = "foo"
-# index_code = inspect.getsource(index).replace("CounterExampleState", "State").strip()
+index_code = """
+def index():
+    return rx.hstack(
+        rx.button(
+            "Decrement",
+            bg="#fef2f2",
+            color="#b91c1c",
+            border_radius="lg",
+            on_click=State.decrement,
+        ),
+        rx.heading(State.count, font_size="2em"),
+        rx.button(
+            "Increment",
+            bg="#ecfdf5",
+            color="#047857",
+            border_radius="lg",
+            on_click=State.increment,
+        ),
+        spacing="1em",
+    )
+"""
 
 counter_code = f"""
 import reflex as rx
