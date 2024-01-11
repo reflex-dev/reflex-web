@@ -33,11 +33,7 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
     category = doc.split("/")[-2].title()
     d = flexdown.parse_file(doc)
-    if doc.startswith("docs/library/chakra"):
-        clist = [eval(c) for c in d.metadata["components"]]
-        chakra_components[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
-    elif doc.startswith("docs/library"):
+    if doc.startswith("docs/library"):
         clist = [eval(c) for c in d.metadata["components"]]
         component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
