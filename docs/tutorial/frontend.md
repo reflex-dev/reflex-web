@@ -3,8 +3,7 @@ import reflex as rx
 from pcweb.templates.docpage import docdemobox, docpage
 from pcweb.pages.docs import components
 from pcweb.pages.docs import styling
-from pcweb.pages.docs import tutorial_style as style
-
+import tutorial_style as style
 ```
 
 # Basic Frontend
