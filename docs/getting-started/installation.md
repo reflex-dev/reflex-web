@@ -8,16 +8,69 @@ default_url = "http://localhost:3000"
 # Installation
 
 ## Prerequisites
+Reflex requires Python 3.8+.
 
-Reflex requires Python 3.7+ to get started.
+For Windows users, we recommend using [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) for optimal performance.
 
-For Windows users, we recommend using Windows Subsystem for Linux (WSL) for optimal performance.
-
-For macOS users with Apple M1 or M2 chips, you may need to install Rosetta 2 to run Reflex. 
-This can be done with the following command:
+macOS (Apple Silicon) users should install [Rosetta 2](https://support.apple.com/en-us/HT211861). Run this command:
     
 `/usr/sbin/softwareupdate --install-rosetta --agree-to-license`
 
+## Virtual Environment
+
+We **highly recommend** creating a virtual environment for your project.
+
+[venv]({constants.VENV_URL}) is the standard option. [conda]({constants.CONDA_URL}) and [poetry]({constants.POETRY_URL}) are some alternatives.
+
+## Install on macOS/Linux
+We will go with [venv]({constants.VENV_URL}) here. 
+
+### Create the project directory 
+Replace `{app_name}` with your project name. Switch to the new directory.
+```text
+mkdir {app_name}
+cd {app_name}
+```
+### Setup virtual environment
+```text
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+```python eval
+rx.alert(
+    rx.alert_icon(),
+    rx.box(
+        rx.alert_title("Error ", rx.code("No module named venv")),
+        rx.alert_description(
+            "While Python typically ships with ", rx.code("venv"),", it is not installed by default on some systems. If so, please install it manually. E.g. on Ubuntu Linux, run ", rx.code("sudo apt-get install python3-venv")
+        ),
+    ),
+    status="warning",
+)
+```
+### Install Reflex package
+Reflex is available as a [pip](constants.PIP_URL) package.
+```text
+pip install reflex
+```
+
+```python eval
+rx.alert(
+    rx.alert_icon(),
+    rx.box(
+        rx.alert_title("Error ", rx.code("command not found: pip")),
+        rx.alert_description(
+            "While Python typically ships with ", rx.code("pip"), " the standard package management tool", ", it is not installed by default on some systems. You may need to install it manually. E.g. on Ubuntu Linux, run ", rx.code("sudo apt-get install python3-pip")
+        ),
+    ),
+    status="warning",
+)
+```
+### Initialize the project
+```text
+reflex init
+```
 
 ```python eval
 rx.alert(
@@ -25,172 +78,68 @@ rx.alert(
     rx.box(
         rx.alert_title("Error ", rx.code("command not found: reflex"),),
         rx.alert_description(
-            "If you install Reflex with no virtual environment and get this error it means your PATH cannot find the reflex package. A virtual environment should solve this problem, or you can try running ", rx.code("python3 -m"), " before the reflex command.",
+            "The Reflex framework includes the ", rx.code("reflex"), " command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
         ),
     ),
     status="warning",
 )
 ```
 
+## Install on Windows
 
-## Virtual Environment (Recommended)
+WSL users should refer to instructions for Linux above.
 
-We recommend creating a virtual environment for your project.
+For the rest of this section we will work with native Windows (non-WSL).
 
-Below are some tools you can use to manage environments:
+We will go with [venv]({constants.VENV_URL}) here, for virtual environments.
 
-- [venv]({constants.VENV_URL})
-- [poetry]({constants.POETRY_URL})
-- [conda]({constants.CONDA_URL})
-
-```python eval
-rx.box(height=6)
-```
-
-
-
-## Installing on macOS/Linux
-
-Reflex's recommended environment manager for macOS and Linux is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
-
-
-On Ubuntu with Python 3 we must run the command:
-
-```bash
-sudo apt-get install python3-pip python3-venv
-```
-
-
-### Create a new environment with Reflex
-
-1. Create a new project folder and navigate to it. Replace `{app_name}` with your project name:
-
-```bash
+### Create a new project directory
+```text
 mkdir {app_name}
 cd {app_name}
 ```
-
-2. Create a new virtual environment in that folder and activate that environment:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
+### Setup virtual environment
+```text
+py -3 -m venv .venv
+.venv\\Scripts\\activate
 ```
-
-When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
-
-
-
-3. Reflex is available as a [pip](constants.PIP_URL) package. Install Reflex in your environment:
-
-```bash
+### Install Reflex package
+```text
 pip install reflex
 ```
-
-4. Installing Reflex also installs the `reflex` command line tool. Test that the install was successful by running:
-
-```bash
+### Initialize the project
+```text
 reflex init
 ```
 
-This initializes a template app in your new directory.
-
-
-5. Run the demo app to get an idea of what you can build with Reflex:
-
-```bash
-reflex demo
-```
-
-
-When you're done using this environment, type `deactivate` to return to your normal shell.
-
-
-
-
 ```python eval
-rx.box(height=8)
+rx.alert(
+    rx.alert_icon(),
+    rx.box(
+        rx.alert_title("Error ", rx.code("command not found: reflex"),),
+        rx.alert_description(
+            "The Reflex framework includes the ", rx.code("reflex"), " command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
+        ),
+    ),
+    status="warning",
+)
 ```
-
-
-
-
-## Installing on Windows
-
-Reflex's recommended environment manager for Windows is [venv]({constants.VENV_URL}). `venv` is a part of [The Python Standard Library]({constants.PYTHON_STANDARD_LIBRARY}) and comes bundled with your installation of Python. 
-
-
-
-### Create a new environment with Reflex
-
-1. Create a new project folder and navigate to it. Replace `{app_name}` with your project name:
-
-```bash
-> mkdir {app_name}
-> cd {app_name}
-```
-
-2. Create a new virtual environment in that folder and activate that environment:
-
-```bash
-> py -3 -m venv .venv
-> .venv\\Scripts\\activate
-```
-
-When you run the command above, a directory called .venv will appear in the folder {app_name} (this is a hidden folder). This directory is where your virtual environment and its dependencies are installed.
-
-
-3. Reflex is available as a [pip](constants.PIP_URL) package. Install Reflex in your environment:
-
-```bash
-> pip install reflex
-```
-
-4. Installing Reflex also installs the `reflex` command line tool. Test that the install was successful by running:
-
-```bash
-> reflex init
-```
-
-This initializes a template app in your new directory.
-
-
-5. Run the demo app to get an idea of what you can build with Reflex:
-
-```bash
-reflex demo
-```
-
-
-When you're done using this environment, type `deactivate` to return to your normal shell.
-
-
-
-```python eval
-rx.box(height=8)
-```
-
-
 
 ## Run the App
-
-You can run this app in development mode:
-
-```bash
+Run it in development mode:
+```text
 reflex run
 ```
+Your app runs at [http://localhost:3000](http://localhost:3000).
 
-You should see your app running at [http://localhost:3000](http://localhost:3000).
-
-
-## Fast Refresh
-
-Reflex has fast refreshes when running in development mode. You can modify the source code in `{app_name}/{app_name}.py` and see your changes in the browser instantly when you save your code.
-
-## Debugging
-
-You can debug your app by setting the `--loglevel` flag on any reflex command.
-
-```bash
+Reflex prints logs to the terminal. To increase log verbosity to help with debugging, use the `--loglevel` flag:
+```text
 reflex run --loglevel debug
+```
+Reflex will *hot reload* any code changes in real time when running in development mode. Your code edits will show up on [http://localhost:3000](http://localhost:3000) automatically.
+
+## (Optional) Run the demo app
+The demo app showcases some of Reflex's features.
+```text
+reflex demo
 ```
