@@ -46,6 +46,52 @@ class AlertBlock(flexdown.blocks.Block):
             status=status,
         )
 
+class SectionBlock(flexdown.blocks.Block):
+    """A block that displays a component along with its code."""
+
+    starting_indicator = "```md section"
+    ending_indicator = "```"
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        # Split up content into sections based on markdown headers.
+        header_indices = [i for i, line in enumerate(lines) if line.startswith("#")]
+        header_indices.append(len(lines))
+        sections = [
+            (lines[header_indices[i]].strip("#"), "\n".join(lines[header_indices[i] + 1 : header_indices[i + 1]]))
+            for i in range(len(header_indices) - 1)
+        ]
+
+
+        return rx.box(
+            rx.vstack(
+                *[
+                    rx.fragment(
+                        rx.text(
+                            rx.span(
+                                header,
+                                font_weight="bold",
+                            ),
+                            width="100%",
+                        ),
+                        rx.box(
+                            markdown(section),
+                            width="100%",
+                        ),
+                    )
+                    for header, section in sections
+                ],
+                text_align="left",
+                margin_bottom="2em",
+                width="100%",
+            ),
+            margin_top="1em",
+            margin_left=".5em",
+            border_left="1px #F4F3F6 solid",
+            padding_left="1em",
+            width="100%",
+        )
 
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
@@ -104,7 +150,7 @@ def get_custom_components(self, seen):
 rx.Markdown.get_custom_components = get_custom_components
 
 
-xd = flexdown.Flexdown(block_types=[DemoBlock, AlertBlock], component_map=component_map)
+xd = flexdown.Flexdown(block_types=[DemoBlock, AlertBlock, SectionBlock], component_map=component_map)
 
 
 def markdown(text):

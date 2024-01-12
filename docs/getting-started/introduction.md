@@ -8,6 +8,7 @@ from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import vars
 ```
+
 <!-- TODO how do we consistently rename page title? -->
 # Introduction
 
@@ -15,68 +16,22 @@ from pcweb.pages.docs import vars
 
 ## Goals
 
-```python eval
-doc_section(
-    rx.vstack(
-        rx.text(
-            rx.span(
-                "Pure Python",
-                font_weight="bold",
-            ),
-            width="100%",
-        ),
-        rx.text(
-            "Use Python for everything. Don't worry about learning a new language.",
-            width="100%",
-        ),
-        rx.text(
-            rx.span(
-                "Easy to Learn",
-                font_weight="bold",
-            ),
-            width="100%",
-        ),
-        rx.text(
-            "Build and share your first app in minutes. No web development experience required.",
-            width="100%",
-        ),
-        rx.text(
-            rx.span(
-                "Full Flexibility",
-                font_weight="bold",
-            ),
-            width="100%",
-        ),
-        rx.text(
-            "Remain as flexible as traditional web frameworks. ",
-            "Reflex is easy to use, yet allows for advanced use cases.",
-            width="100%",
-        ),
-        rx.text(
-            "Build anything from small data science apps to large, multi-page websites. ",
-            width="100%",
-        ),
-        rx.text(
-            "This entire site was built and deployed with Reflex!",
-            color=styles.ACCENT_COLOR,
-            width="100%",
-        ),
-        rx.text(
-            rx.span(
-                "Batteries Included",
-                font_weight="bold",
-            ),
-            width="100%",
-        ),
-        rx.text(
-            "No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.",
-            width="100%",
-        ),
-        text_align="left",
-        margin_bottom="2em",
-    ),
-)
+```md section
+# Pure Python
+Use Python for everything. Don't worry about learning a new language.
+
+# Easy to Learn
+Build and share your first app in minutes. No web development experience required.
+
+# Full Flexibility
+Remain as flexible as traditional web frameworks. Reflex is easy to use, yet allows for advanced use cases.
+
+Build anything from small data science apps to large, multi-page websites. **This entire site was built and deployed with Reflex!**
+
+# Batteries Included
+No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.
 ```
+
 ## An example: Make it count!
 
 Here, we go over a simple counter app that lets the user count up or down.
