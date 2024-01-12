@@ -2,7 +2,6 @@
 import os
 
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, docpage
 import openai
 
 from pcweb.pages.docs import state
@@ -78,12 +77,10 @@ def action_bar1() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar1(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar1(),
 )
 ```
 
@@ -132,12 +129,10 @@ def action_bar2() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar2(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar2(),
 )
 ```
 
@@ -184,12 +179,10 @@ def action_bar3() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar3(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar3(),
 )
 ```
 

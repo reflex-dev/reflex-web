@@ -1,10 +1,12 @@
 import flexdown
 
 import reflex as rx
+from pcweb import styles
 from pcweb.templates.docpage import (
     code_block_markdown,
     code_comp,
     docdemo,
+    docdemobox,
     docgraphing,
     doclink2,
     h1_comp,
@@ -47,6 +49,109 @@ class AlertBlock(flexdown.blocks.Block):
         )
 
 
+class SectionBlock(flexdown.blocks.Block):
+    """A block that displays a component along with its code."""
+
+    starting_indicator = "```md section"
+    ending_indicator = "```"
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        # Split up content into sections based on markdown headers.
+        header_indices = [i for i, line in enumerate(lines) if line.startswith("#")]
+        header_indices.append(len(lines))
+        sections = [
+            (
+                lines[header_indices[i]].strip("#"),
+                "\n".join(lines[header_indices[i] + 1 : header_indices[i + 1]]),
+            )
+            for i in range(len(header_indices) - 1)
+        ]
+
+        return rx.box(
+            rx.vstack(
+                *[
+                    rx.fragment(
+                        rx.text(
+                            rx.span(
+                                header,
+                                font_weight="bold",
+                            ),
+                            width="100%",
+                        ),
+                        rx.box(
+                            markdown(section),
+                            width="100%",
+                        ),
+                    )
+                    for header, section in sections
+                ],
+                text_align="left",
+                margin_bottom="2em",
+                width="100%",
+            ),
+            margin_top="1em",
+            margin_left=".5em",
+            border_left="1px #F4F3F6 solid",
+            padding_left="1em",
+            width="100%",
+        )
+
+
+class DefinitionBlock(flexdown.blocks.Block):
+    starting_indicator = "```md definition"
+    ending_indicator = "```"
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        # Split up content into sections based on markdown headers.
+        header_indices = [i for i, line in enumerate(lines) if line.startswith("#")]
+        header_indices.append(len(lines))
+        sections = [
+            (
+                lines[header_indices[i]].removeprefix("#"),
+                "\n".join(lines[header_indices[i] + 1 : header_indices[i + 1]]),
+            )
+            for i in range(len(header_indices) - 1)
+        ]
+
+        def single_def(title, content):
+            return rx.box(
+                rx.heading(
+                    title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
+                ),
+                markdown(content),
+                padding="1em",
+                border=styles.DOC_BORDER,
+                border_radius=styles.DOC_BORDER_RADIUS,
+                _hover={
+                    "box_shadow": styles.DOC_SHADOW_LIGHT,
+                    "border": f"2px solid {styles.colors['violet'][200]}",
+                },
+            )
+
+        defs = [single_def(title, content) for title, content in sections]
+
+        return rx.fragment(
+            rx.mobile_only(rx.vstack(*defs)),
+            rx.tablet_and_desktop(
+                rx.grid(
+                    *[
+                        rx.grid_item(d, row_span=1, col_span=1, width="100%")
+                        for d in defs
+                    ],
+                    template_columns="repeat(2, 1fr)",
+                    h="10em",
+                    width="100%",
+                    gap=4,
+                    margin_bottom="1em",
+                )
+            ),
+        )
+
+
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -72,6 +177,9 @@ class DemoBlock(flexdown.blocks.Block):
             )
             data, code = parts[0], parts[1] + parts[2]
             comp = docgraphing(code, comp=comp, data=data)
+        elif "box" in args:
+            comp = eval(code, env, env)
+            return rx.box(docdemobox(comp), margin_bottom="1em")
         else:
             comp = eval(code, env, env)
 
@@ -104,7 +212,10 @@ def get_custom_components(self, seen):
 rx.Markdown.get_custom_components = get_custom_components
 
 
-xd = flexdown.Flexdown(block_types=[DemoBlock, AlertBlock], component_map=component_map)
+xd = flexdown.Flexdown(
+    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
+    component_map=component_map,
+)
 
 
 def markdown(text):

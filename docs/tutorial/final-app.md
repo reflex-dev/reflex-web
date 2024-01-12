@@ -1,5 +1,4 @@
 ```python exec
-from pcweb.templates.docpage import docdemobox
 import reflex as rx
 from tutorial_utils import ChatappState
 import tutorial_style as style
@@ -43,12 +42,10 @@ def action_bar3() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar3(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar3(),
 )
 ```
 
