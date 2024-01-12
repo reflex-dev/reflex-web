@@ -195,22 +195,6 @@ component_map = {
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block_markdown,
 }
-# Monkeypatch markdown custom components.
-md = rx.markdown("", component_map=component_map)
-custom = md.get_custom_components()
-
-
-@rx.memo
-def markdown1(text):
-    return rx.markdown(text, component_map=component_map)
-
-
-def get_custom_components(self, seen):
-    return custom
-
-
-rx.Markdown.get_custom_components = get_custom_components
-
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
