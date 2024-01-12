@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.templates.docpage import docheader, docpage, doctext
+from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
@@ -45,9 +45,9 @@ def library():
     return rx.flex(
         rx.hstack(
             rx.box(
-                docheader("Component Library", first=True),
-                doctext(
-                    "Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
+                h1_comp(text="Component Library"),
+                text_comp(
+                    text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
                 ),
                 rx.divider(),
                 component_grid(),

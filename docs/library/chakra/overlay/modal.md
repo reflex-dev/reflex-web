@@ -10,7 +10,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Modal
@@ -19,7 +18,7 @@ A modal dialog is a window overlaid on either the primary window or another dial
 Content behind a modal dialog is inert, meaning that users cannot interact with it.
 
 
-```python exec
+```python demo exec
 class ModalState(rx.State):
     show: bool = False
 
@@ -41,8 +40,4 @@ def modal_example():
         is_open=ModalState.show,
     ),
 )
-```
-
-```python eval
-docdemo_from(ModalState, component=modal_example)
 ```

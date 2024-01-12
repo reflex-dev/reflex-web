@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data01 = [
   {
@@ -118,7 +118,6 @@ interface elements. View the "Data" tab to see the substate driving this
 half-pie chart.
 
 ```python exec
-import inspect
 from typing import Any
 
 
@@ -182,6 +181,6 @@ rx.hstack(
 docgraphing(
     pie_chart_state_example,
     comp=eval(pie_chart_state_example),
-    data=inspect.getsource(PieChartState),
+    # data=inspect.getsource(PieChartState),
 )
 ```

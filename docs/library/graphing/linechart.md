@@ -5,12 +5,11 @@ components:
 ---
 
 ```python exec
-import inspect
 import random
 from typing import Any
 
 import reflex as rx
-from pcweb.templates.docpage import doccode, docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -163,6 +162,6 @@ in the per-browser-tab State, the changes will not be visible to other visitors.
 docgraphing(
     line_chart_state_example,
     comp=eval(line_chart_state_example),
-    data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState),
+    # data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState),
 )
 ```

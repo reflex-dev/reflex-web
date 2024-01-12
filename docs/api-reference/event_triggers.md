@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo, docheader, docpage, doctext
+from pcweb.templates.docpage import docdemo, h1_comp, text_comp, docpage
 
 SYNTHETIC_EVENTS = [
     {
@@ -234,8 +234,8 @@ def component_grid():
     for event in SYNTHETIC_EVENTS:
         events.append(
             rx.vstack(
-                docheader(event["name"]),
-                doctext(event["description"]),
+                h1_comp(text=event["name"]),
+                text_comp(text=event["description"]),
                 docdemo(
                     event["example"], state=event["state"], comp=eval(event["example"])
                 ),

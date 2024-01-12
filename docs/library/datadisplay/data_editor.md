@@ -8,7 +8,7 @@ A datagrid editor based on [Glide Data Grid](https://grid.glideapps.com/)
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.templates.docpage import docdemobox, doccode, docgraphing
+from pcweb.templates.docpage import docdemobox
 
 columns: list[dict[str, str]] = [
     {

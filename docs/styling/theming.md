@@ -15,15 +15,10 @@ rx.button(
 )
 ```
 
-```python eval
-rx.alert(
-        rx.alert_icon(),
-        rx.alert_title(
-            "Any custom colors you add will not be overwritten by the dark mode toggle."
-        ),
-        status="warning",
-    )
+```md alert warning
+# Any custom colors you add will not be overwritten by the dark mode toggle.
 ```
+
 ```python eval
 rx.box(height=4)
 ```

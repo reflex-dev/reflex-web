@@ -51,7 +51,7 @@ def footer(style=footer_style):
                 rx.vstack(
                     rx.text("Documentation", color="#DACEEE"),
                     rx.link(
-                        "Introduction",
+                        "Pure Python Web Apps",
                         href=getting_started.introduction.path,
                         style=footer_item_style,
                     ),

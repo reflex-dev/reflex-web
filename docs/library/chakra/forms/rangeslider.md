@@ -8,14 +8,13 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # RangeSlider
 
 The range slider is used to allow users to make selections from a range of values.
 
-```python exec
+```python demo exec
 from typing import List
 
 class RangeSliderState(rx.State):
@@ -30,10 +29,6 @@ def range_slider_example():
         ),
         width="100%",
     )
-```
-
-```python eval
-docdemo_from(RangeSliderState, component=range_slider_example)
 ```
 
 If you want to trigger state change on every slider movement, you can use the `on_change` event handler.

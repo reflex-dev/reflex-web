@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo_from, doclink
 from pcweb.pages.docs import vars
 ```
 
@@ -12,7 +11,7 @@ You will often want to display multiple similar components from a collection of 
 
 In this first simple example we iterate through a `list` of colors and render the name of the color and use this color as the background for that `rx.box`. As we can see we have a function `colored_box` that we pass to the `rx.foreach` component. This function renders each item from the `list` that we have defined as a state var `color`.
 
-```python exec
+```python demo exec
 class IterState(rx.State):
     color: list[str] = [
         "red",
@@ -36,28 +35,15 @@ def simple_foreach():
 
 ```
 
-```python eval
-docdemo_from(IterState, colored_box, component=simple_foreach)
+```md alert warning
+# The type signature of the functions does not matter to the `foreach` component. It's the type annotation on the `state var` that determines what operations are available (e.g. when nesting).
 ```
-
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "The type signature of the functions does not matter to the", rx.code("foreach"), "component. It's the type annotation on the ", rx.code("state var"), " that determines what operations are available (e.g. when nesting)."
-    ),
-    status="warning",
-)
-```
-
-
 
 ## Enumeration
 
 The function can also take an index as a second argument, meaning that we can enumerate through data as shown in the example below.
 
-
-```python exec
+```python demo exec
 class IterIndexState(rx.State):
     color: list[str] = [
         "red",
@@ -80,17 +66,11 @@ def enumerate_foreach():
 
 ```
 
-```python eval
-docdemo_from(IterIndexState, component=enumerate_foreach)
-```
-
-
-
 ## Dictionary
 
 We can iterate through a `dict` data structure using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `[("sky", "blue"), ("balloon", "red"), ("grass", "green")]`.
 
-```python exec
+```python demo exec
 class SimpleDictIterState(rx.State):
     color_chart: dict[str, str] = {
         "sky": "blue",
@@ -115,19 +95,11 @@ def dict_foreach():
 
 ```
 
-
-```python eval
-docdemo_from(SimpleDictIterState, display_color, component=dict_foreach)
-```
-
-
-
-
 ## Nested examples
 
 `rx.foreach` can be used with nested state vars. Here we use nested `foreach` components to render the nested state vars. The `rx.foreach(project["technologies"], get_badge)` inside of the `project_item` function, renders the `dict` values which are of type `list`. The `rx.box(rx.foreach(NestedStateFE.projects, project_item))` inside of the `projects_example` function renders each `dict` inside of the overall state var `projects`.
 
-```python exec
+```python demo exec
 class NestedStateFE(rx.State):
     projects: list[dict[str, list]] = [
         {
@@ -152,16 +124,11 @@ def projects_example() -> rx.Component:
     return rx.box(rx.foreach(NestedStateFE.projects, project_item))
 ```
 
-```python eval
-docdemo_from(NestedStateFE, get_badge, project_item, component=projects_example)
-```
-
-
 If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({vars.var_operations.path}).
 
 Here is a further example of how to use `foreach` with a nested data structure.
 
-```python exec
+```python demo exec
 class NestedDictIterState(rx.State):
     color_chart: dict[str, list[str]] = {
         "purple": ["red", "blue"],
@@ -196,19 +163,13 @@ def nested_dict_foreach():
 
 ```
 
-```python eval
-docdemo_from(NestedDictIterState, display_colors, component=nested_dict_foreach)
-```
-
-
 ## Foreach with Cond
-
 
 We can also use `foreach` with the `cond` component.
 
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`. We use the `foreach` to iterate over all of the items in the `to_do_list` using the `render_item` function.
 
-```python exec
+```python demo exec
 class ToDoListItem(rx.Base):
     item_name: str
     is_packed: bool
@@ -234,8 +195,4 @@ def packing_list():
         rx.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
     )
 
-```
-
-```python eval
-docdemo_from(ToDoListItem, ForeachCondState, render_item, component=packing_list)
 ```

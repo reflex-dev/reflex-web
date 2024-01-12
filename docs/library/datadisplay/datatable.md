@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from, docdemobox
+from pcweb.templates.docpage import docdemobox
 ```
 
 # DataTable

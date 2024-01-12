@@ -138,13 +138,8 @@ docdemo(button_group_spacing)
 ```
 By setting `spacing` to `8`, the buttons will have a larger gap between them.
 
-```python eval
-rx.alert(
-    rx.unordered_list(
-        rx.list_item("You can nest other components or elements within the button group to create more complex layouts."),
-        rx.list_item("Button groups are a useful way to visually organize related actions or options in your application, providing a consistent and cohesive user interface."),
-        rx.list_item("Experiment with different combinations of props to achieve the desired styling and behavior for your button groups in Reflex-based applications."),
-    ),
-    icon=True,
-)
+```md alert info
+- You can nest other components or elements within the button group to create more complex layouts.
+- Button groups are a useful way to visually organize related actions or options in your application, providing a consistent and cohesive user interface.
+- Experiment with different combinations of props to achieve the desired styling and behavior for your button groups in Reflex-based applications.
 ```
