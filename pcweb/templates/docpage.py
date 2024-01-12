@@ -854,3 +854,46 @@ def style_grid(
             on_value_change=RadixDocState.change_color,
         ),
     )
+
+
+def icon_grid(
+    category_name: str, icon_tags: list[str], columns: str = "4"
+) -> rx.Component:
+    return flex(
+        callout_root(
+            callout_icon(
+                icon(
+                    tag="check_circled",
+                    width=18,
+                    height=18,
+                )
+            ),
+            callout_text(
+                f"Below is a list of all available ",
+                text(category_name, weight="bold"),
+                " icons.",
+                color="black",
+            ),
+            color="green",
+        ),
+        separator(size="4"),
+        grid(
+            *[
+                flex(
+                    icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
+                    text(icon_tag),
+                    direction="column",
+                    align="center",
+                    bg="white",
+                    border="1px solid #EAEAEA",
+                    border_radius="0.5em",
+                    padding=".75em",
+                )
+                for icon_tag in icon_tags
+            ],
+            columns=columns,
+            gap="1",
+        ),
+        direction="column",
+        gap="2",
+    )

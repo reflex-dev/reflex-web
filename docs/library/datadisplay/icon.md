@@ -6,12 +6,13 @@ components:
 
 ```python exec
 from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.components.icons import ICON_LIST
+from reflex.components.radix.themes.components.icons import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
+from pcweb.templates.docpage import icon_grid
 ```
 
-The Icon component is used to display an icon from a library of icons.
+The Icon component is used to display an icon from a library of icons. This implementation is based on the [Radix icons](https://www.radix-ui.com/icons).
 
 ## Basic Example
 
@@ -23,34 +24,64 @@ icon(tag="calendar")
 
 ## List of Icons
 
+### Abstract
+
 ```python eval
-flex(
-    callout_root(
-        callout_icon(icon(tag="check_circled", variant="solid", high_contrast=True, color="green")),
-        callout_text("Below is a list of all available icons.", color="black", weight="bold"),
-        color="green",
-    ),
-    separator(size="4"),
-    grid(
-        *[
-            flex(
-                icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
-                text(icon_tag),
-                direction="column",
-                align="center",
-                bg="white",
-                border="1px solid #EAEAEA",
-                border_radius="0.5em",
-                padding=".75em",
-            )
-            for icon_tag in ICON_LIST
-        ],
-        columns="3",
-        gap="1",
-    ),
-    direction="column",
-    gap="2",
-)
+icon_grid("Abstract", ICON_ABSTRACT)
+```
+
+### Alignment
+
+```python eval
+icon_grid("Alignment", ICON_ALIGNS, columns="3")
+```
+
+### Arrows
+
+```python eval
+icon_grid("Arrows", ICON_ARROWS)
+```
+
+### Borders and Corners
+
+```python eval
+icon_grid("Borders and Corners", ICON_BORDERS)
+```
+
+### Design
+
+```python eval
+icon_grid("Design", ICON_DESIGN)
+```
+
+### Components
+
+```python eval
+icon_grid("Components", ICON_COMPONENTS, columns="5")
+```
+
+### Logos
+
+```python eval
+icon_grid("Logos", ICON_LOGOS)
+```
+
+### Music
+
+```python eval
+icon_grid("Music", ICON_MUSIC)
+```
+
+### Objects
+
+```python eval
+icon_grid("Objects", ICON_OBJECTS)
+```
+
+### Typography
+
+```python eval
+icon_grid("Typography", ICON_TYPOGRAPHY)
 ```
 
 ## Styling
