@@ -17,22 +17,6 @@ the hosting service comes in.
 Hosting is in Alpha. Please reach out to us on Discord if you are ready to deploy and we will give you an invitation code.
 ```
 
-```python eval
-callout_root(
-    callout_icon(icon(tag="info_circled", width=18, height=18)),
-    callout_text(
-        text("Hosting is in Alpha. Please reach out to us on "),
-        link("Discord", href=constants.DISCORD_URL),
-        text(" if you are ready to deploy and we will give you an invitation code."),
-        color_scheme="black",
-        font_weight="bold"
-    ),
-    size="3",
-    color_scheme="blue",
-    high_contrast=True,
-)
-```
-
 ## Quick Start
 
 Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring the infrastructure.
@@ -41,43 +25,10 @@ Reflex’s hosting service makes it easy to deploy your apps without worrying ab
 This tutorial assumes you’ve successfully `reflex init` and `reflex run` your app.
 ```
 
-```python eval
-callout_root(
-    callout_icon(icon(tag="info_circled", width=18, height=18)),
-    callout_text(
-        text("This tutorial assumes you’ve successfully "),
-        code("reflex init"),
-        text(" and "),
-        code("reflex run"),
-        text(" your app"),
-        color="black",
-        font_weight="bold"
-    ),
-    size="3",
-    color_scheme="blue",
-    high_contrast=True,
-)
-```
-
 ### Authentication
 
 ```md alert info
 Hosting service requires `reflex>=0.3.2`.
-```
-
-```python eval
-callout_root(
-    callout_icon(icon(tag="info_circled", width=18, height=18)),
-    callout_text(
-        text("Hosting service requires "),
-        code("reflex>=0.3.2"),
-        color="black",
-        font_weight="bold",
-    ),
-    size="3",
-    color_scheme="green",
-    high_contrast=True,
-)
 ```
 
 First, create or log in to your account using the following command.
@@ -92,43 +43,12 @@ You will be prompted to your browser where you can authenticate through Github o
 You will need an invitation code! Contact us on Discord if you have an app ready to deploy, and we will give you a code.
 ```
 
-```python eval
-callout_root(
-    callout_icon(icon(tag="lock_open_2", width=18, height=18)),
-    callout_text(
-        text("You will need an invitation code! Contact us on "),
-        link("Discord", href=constants.DISCORD_URL),
-        text(" if you have an app ready to deploy, and we will give you a code."),
-        color="black",
-        font_weight="bold",
-    ),
-    size="3",
-    color_scheme="green",
-    high_contrast=True,
-)
-```
-
 ### Deployment
 
 Once you have successfully authenticated, you can deploy your apps.
 
 ```md alert warning
 Make sure you have a `requirements.txt`  file at the top level app directory that contains all your python dependencies!
-```
-
-```python eval
-callout_root(
-    callout_icon(icon(tag="info_circled", width=18, height=18)),
-    callout_text(
-        "Make sure you have a ",
-        code("requirements.txt"),
-        " file at the top level app directory that contains all your python dependencies !",
-        color="black",
-        weight="bold"),
-    size="3",
-    color_scheme="blue",
-    high_contrast=True,
-)
 ```
 
 Navigate to the project directory that you want to deploy and type the following command:
@@ -149,19 +69,6 @@ That’s it! You should receive some feedback on the progress of your deployment
 
 ```md alert info
 Once your code is uploaded, the hosting service will start the deployment. Exiting from the command from that point on **does not** affect the deployment process. The command prints a message when you can close the command without affecting the deployment.
-```
-
-```python eval
-callout_root(
-    callout_icon(icon(tag="info_circled", width=18, height=18)),
-    callout_text(
-        "Once your code is uploaded, the hosting service will start the deployment. Exiting from the command from that point on does not affect the deployment process. The command prints a message when you can close the command without affecting the deployment.",
-        color="black",
-        weight="bold"),
-    size="3",
-    color_scheme="green",
-    high_contrast=True,
-)
 ```
 
 ## Concepts
