@@ -4,6 +4,7 @@ components:
 ---
 
 ```python exec
+import reflex as rx
 import reflex.components.radix.themes as rdxt
 ```
 
@@ -18,14 +19,41 @@ By default, the Box component is based on the `div` and rendered as a block elem
 Like all other layout components, `Box` provides shorthand props for
 setting the padding (`p`) and margin (`m`) using the radix `"1"` - `"9"` scale.
 
-Horizontal (`x`), Vertical (`y`), Top (`t`), Bottom (`b`), Left (`l`), and Right (`r`)
-modifiers may be appended to `p` or `m` props to set specific padding or margin values for
-the component.
+```python exec
+# Migh Level API
+def row(prop, description):
+    return rdxt.table_row(
+        rdxt.table_row_header_cell(prop),
+        rdxt.table_cell(description),
+    )
+```
 
-The `grow` and `shrink` props accept either `"0"` or `"1"` and control
-whether the box should expand to fill the parent container, or whether it
-should take up the smallest amount of space possible. These props are useful
-when creating flexible responsive layouts.
+```python eval
+rdxt.table_root(
+    rdxt.table_header(
+        rdxt.table_row(
+            rdxt.table_column_header_cell("Prop"),
+            rdxt.table_column_header_cell("Description"),
+        ),
+    ),
+    rdxt.table_body(
+        row("p", "Padding for all sides"),
+        row("px", "Horizontal padding"),
+        row("py", "Vertical padding"),
+        row("pt", "Top padding"),
+        row("pb", "Bottom padding"),
+        row("pl", "Left padding"),
+        row("pr", "Right padding"),
+        row("m", "Margin for all sides"),
+        row("mx", "Horizontal margin"),
+        row("my", "Vertical margin"),
+        row("mt", "Top margin"),
+        row("mb", "Bottom margin"),
+        row("ml", "Left margin"),
+        row("mr", "Right margin"),
+    ),
+)
+```
 
 ## Basic Example
 
