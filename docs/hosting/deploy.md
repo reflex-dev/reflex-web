@@ -144,21 +144,50 @@ This is the command to deploy a reflex app from its top level app directory. Thi
 ```python eval
 doccmdoutput(
     command="reflex deploy",
-    output="""Name of deployment (todo-blue-ocean): todo
-Region to deploy to (sjc): lax
-Environment variables ...
-  Env name (enter to skip):
-No envs added. Continuing ...
--------------------------- Compiling production app and preparing for export. -------------------
-Compiling:  ---------------------------------------- 100% 2/2 0:00:00
-Creating Production Build:  ---------------------------------------- 100% 9/9 0:00:08
-Zipping Frontend: --------------------------------------- 100% 19/19 0:00:00
-Zipping Backend: ---------------------------------------- 100% 4/4 0:00:00
-Uploading code ...
-Deployment will start shortly.
+    output="""Info: The requirements.txt may need to be updated.
+--- requirements.txt
++++ new_requirements.txt
+@@ -1,3 +1,3 @@
+-reflex>=0.2.0
+-openai==0.28
++openai==0.28.0
++reflex==0.3.8
+
+Would you like to update requirements.txt based on the changes above? [y/n]: y
+
+Choose a name for your deployed app (https://<picked-name>.reflex.run)
+Enter to use default. (webui-gray-sun): demo-chat
+Region to deploy to. See regions: https://bit.ly/46Qr3mF
+Enter to use default. (sjc): lax
+Environment variables for your production App ...
+ * env-1 name (enter to skip): OPENAI_API_KEY
+   env-1 value: sk-*********************
+ * env-2 name (enter to skip):
+Finished adding envs.
+──────────────── Compiling production app and preparing for export. ────────────────
+Zipping Backend: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 12/12 0:00:00
+Uploading Backend code and sending request ...
+Backend deployment will start shortly.
+──────────────── Compiling production app and preparing for export. ────────────────
+Compiling: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 9/9 0:00:00
+Creating Production Build:  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 9/9 0:00:07
+Zipping Frontend: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 20/20 0:00:00
+Uploading Frontend code and sending request ...
+Frontend deployment will start shortly.
+───────────────────────────── Deploying production app. ────────────────────────────
+Deployment will start shortly: https://demo-chat.reflex.run
+Closing this command now will not affect your deployment.
+Waiting for server to report progress ...
+2024-01-12 12:24:54.188271 PST | Updating frontend...
+2024-01-12 12:24:55.074264 PST | Frontend updated!
+2024-01-12 12:24:55.137679 PST | Deploy success (frontend)
+2024-01-12 12:24:59.722384 PST | Updating backend...
+2024-01-12 12:25:01.006386 PST | Building backend image...
+2024-01-12 12:26:03.672379 PST | Deploying backend image...
+2024-01-12 12:26:21.017946 PST | Backend updated!
+2024-01-12 12:26:21.018003 PST | Deploy success (backend)
 Waiting for the new deployment to come up
-...
-Your site [ todo ] at ['lax'] is up: https://todo.reflex.run
+Your site [ demo-chat ] at ['lax'] is up: https://demo-chat.reflex.run
 """,
 )
 ```
