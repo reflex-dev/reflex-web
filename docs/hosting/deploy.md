@@ -13,6 +13,10 @@ So far, we've been running our apps locally on our own machines.
 But what if we want to share our apps with the world?  This is where
 the hosting service comes in.
 
+```md alert info
+Hosting is in Alpha. Please reach out to us on Discord if you are ready to deploy and we will give you an invitation code.
+```
+
 ```python eval
 callout_root(
     callout_icon(icon(tag="info_circled", width=18, height=18)),
@@ -33,6 +37,10 @@ callout_root(
 
 Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring the infrastructure.
 
+```md alert info
+This tutorial assumes you’ve successfully `reflex init` and `reflex run` your app.
+```
+
 ```python eval
 callout_root(
     callout_icon(icon(tag="info_circled", width=18, height=18)),
@@ -52,6 +60,10 @@ callout_root(
 ```
 
 ### Authentication
+
+```md alert info
+Hosting service requires `reflex>=0.3.2`.
+```
 
 ```python eval
 callout_root(
@@ -76,6 +88,10 @@ reflex login
 
 You will be prompted to your browser where you can authenticate through Github or Gmail.
 
+```md alert info
+You will need an invitation code! Contact us on Discord if you have an app ready to deploy, and we will give you a code.
+```
+
 ```python eval
 callout_root(
     callout_icon(icon(tag="lock_open_2", width=18, height=18)),
@@ -95,6 +111,10 @@ callout_root(
 ### Deployment
 
 Once you have successfully authenticated, you can deploy your apps.
+
+```md alert warning
+Make sure you have a `requirements.txt`  file at the top level app directory that contains all your python dependencies!
+```
 
 ```python eval
 callout_root(
@@ -126,6 +146,10 @@ The command is by default interactive. It asks you a few questions for informati
 **Envs**: `Envs` are environment variables. You might not have used them at all in your app. In that case, press `Enter` to skip. More on the environment variables in the later section [Environment Variables](#environment-variables).
 
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
+
+```md alert info
+Once your code is uploaded, the hosting service will start the deployment. Exiting from the command from that point on **does not** affect the deployment process. The command prints a message when you can close the command without affecting the deployment.
+```
 
 ```python eval
 callout_root(
