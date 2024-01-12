@@ -6,6 +6,7 @@ from pcweb.templates.docpage import (
     code_block_markdown,
     code_comp,
     docdemo,
+    docdemobox,
     docgraphing,
     doclink2,
     h1_comp,
@@ -176,6 +177,9 @@ class DemoBlock(flexdown.blocks.Block):
             )
             data, code = parts[0], parts[1] + parts[2]
             comp = docgraphing(code, comp=comp, data=data)
+        elif "box" in args:
+            comp = eval(code, env, env)
+            return rx.box(docdemobox(comp), margin_bottom="1em")
         else:
             comp = eval(code, env, env)
 

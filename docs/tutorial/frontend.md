@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, docpage
 from pcweb.pages.docs import components
 from pcweb.pages.docs import styling
 import tutorial_style as style
@@ -15,8 +14,8 @@ Let's start with defining the frontend for our chat app. In Reflex, the frontend
 We will modify the `index` function in `chatapp/chatapp.py` file to return a component that displays a single question and answer.
 
 
-```python eval
-docdemobox(
+```python demo box
+rx.fragment(
     rx.box(
         "What is Reflex?",
         # The user's question is on the right.
@@ -95,8 +94,8 @@ def chat() -> rx.Component:
     return rx.box(*[qa(question, answer) for question, answer in qa_pairs])
 ```
 
-```python eval
-docdemobox(rx.container(chat()))
+```python demo box
+rx.container(chat())
 ```
 
 ```python
@@ -133,12 +132,10 @@ def action_bar() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat(),
-        action_bar(),
-    )
+```python demo box
+rx.container(
+    chat(),
+    action_bar(),
 )
 ```
 
@@ -219,12 +216,10 @@ def action_bar4() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat4(),
-        action_bar4(),
-    )
+```python demo box
+rx.container(
+    chat4(),
+    action_bar4(),
 )
 ```
 

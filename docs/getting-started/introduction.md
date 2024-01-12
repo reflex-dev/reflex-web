@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docdemobox
+from pcweb.templates.docpage import doccode
 from pcweb.pages.docs import tutorial
 from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
@@ -113,8 +113,8 @@ app.add_page(index)
 """.strip()
 ```
 
-```python eval
-rx.box(docdemobox(index()), margin_bottom="1em")
+```python demo box
+index()
 ```
 
 Here is the full code for this example:

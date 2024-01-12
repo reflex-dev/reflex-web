@@ -1,3 +1,7 @@
+```python exec
+import reflex as rx
+```
+
 # Special Events.
 
 Reflex includes a set of built-in special events that can be utilized as event triggers 

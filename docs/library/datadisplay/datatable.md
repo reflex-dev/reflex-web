@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemobox
 ```
 
 # DataTable
@@ -18,26 +17,24 @@ In this example we will read data from a csv file, convert it to a pandas datafr
 We will also add a search, pagination, sorting to the data_table to make it more accessible.
 
 
-```python eval
-docdemobox(
-    rx.data_table(
-        data=[
-            ["Avery Bradley", "6-2", 25.0],
-            ["Jae Crowder", "6-6", 25.0],
-            ["John Holland", "6-5", 27.0],
-            ["R.J. Hunter", "6-5", 22.0],
-            ["Jonas Jerebko", "6-10", 29.0],
-            ["Amir Johnson", "6-9", 29.0],
-            ["Jordan Mickey", "6-8", 21.0],
-            ["Kelly Olynyk", "7-0", 25.0],
-            ["Terry Rozier", "6-2", 22.0],
-            ["Marcus Smart", "6-4", 22.0],
-        ],
-        columns=["Name", "Height", "Age"],
-        pagination=True,
-        search=True,
-        sort=True,
-    )
+```python demo box
+rx.data_table(
+    data=[
+        ["Avery Bradley", "6-2", 25.0],
+        ["Jae Crowder", "6-6", 25.0],
+        ["John Holland", "6-5", 27.0],
+        ["R.J. Hunter", "6-5", 22.0],
+        ["Jonas Jerebko", "6-10", 29.0],
+        ["Amir Johnson", "6-9", 29.0],
+        ["Jordan Mickey", "6-8", 21.0],
+        ["Kelly Olynyk", "7-0", 25.0],
+        ["Terry Rozier", "6-2", 22.0],
+        ["Marcus Smart", "6-4", 22.0],
+    ],
+    columns=["Name", "Height", "Age"],
+    pagination=True,
+    search=True,
+    sort=True,
 )
 ```
 

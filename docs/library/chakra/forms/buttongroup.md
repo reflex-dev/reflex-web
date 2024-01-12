@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docdemobox
+from pcweb.templates.docpage import docdemo
 
 
 basic_button_group = (
