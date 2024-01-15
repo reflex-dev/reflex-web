@@ -4,6 +4,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
+from pcweb import constants
 
 # every app must have at least one tag in order to be rendered
 apps_list = [

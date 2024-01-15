@@ -50,7 +50,6 @@ for doc in sorted(flexdown_docs):
         # Create a namespace if it doesn't exist.
         if namespace not in locals():
             locals()[namespace] = SimpleNamespace()
-            print(doc, "->", locals()[namespace].path)
 
         # Add the component to the namespace.
         setattr(locals()[namespace], title, comp)
