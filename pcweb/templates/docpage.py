@@ -473,7 +473,7 @@ def docdemobox(*children, **props) -> rx.Component:
     Returns:
         The styled demo box.
     """
-    return rx.flex(
+    return rx.vstack(
         *children,
         style=demo_box_style,
         **props,
