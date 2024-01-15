@@ -3,6 +3,7 @@ import reflex as rx
 from pcweb.base_state import State
 from pcweb.templates.docpage import doccode, docdemo, doclink, doctext, subheader
 from pcweb.pages.docs.styling.overview import styling_overview
+from pcweb import constants
 
 example = """rx.vstack(
     rx.html("<h1>Hello World</h1>"),
@@ -77,7 +78,7 @@ def render_script():
             "It uses the ",
             rx.link(
                 "next/script component",
-                href="https://nextjs.org/docs/app/api-reference/components/script",
+                href=constants.NEXT_SCRIPT_URL,
             ),
             " to inject the script and can be safely used with conditional rendering ",
             "to allow script side effects to be controlled by the state.",
