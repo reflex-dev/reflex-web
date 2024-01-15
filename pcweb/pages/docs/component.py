@@ -367,6 +367,24 @@ EVENTS = {
     "on_open_change": {
         "description": "The on_open_change event handler is called when the open state of the component changes."
     },
+    "on_close_auto_focus": {
+        "description": "The on_close_auto_focus event handler is called when the component closes and the focus is returned to the trigger."
+    },
+    "on_escape_key_down": {
+        "description": "The on_escape_key_down event handler is called when the escape key is pressed."
+    },
+    "on_pointer_down_outside": {
+        "description": "The on_pointer_down_outside event handler is called when the user clicks outside the component."
+    },
+    "on_focus_outside": {
+        "description": "The on_focus_outside event handler is called when the user focuses outside the component."
+    },
+    "on_interact_outside": {
+        "description": "The on_interact_outside event handler is called when the user interacts outside the component."
+    },
+    "on_open_auto_focus": {
+        "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
+    },
 }
 
 
