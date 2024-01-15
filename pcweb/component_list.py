@@ -133,6 +133,7 @@ datadisplay_list = [
     [rx.DataTable],
     [rx.DataEditor],
     [rx.List, rx.ListItem, rx.UnorderedList, rx.OrderedList],
+    [rx.Moment],
     [
         rx.Stat,
         rx.StatLabel,
