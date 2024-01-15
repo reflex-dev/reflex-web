@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs.datatable_tutorial_utils import DataTableLiveState
+from datatable_tutorial_utils import DataTableLiveState
 
 darkTheme = {
     "accentColor": "#8c96ff",

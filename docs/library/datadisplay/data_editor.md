@@ -8,7 +8,6 @@ A datagrid editor based on [Glide Data Grid](https://grid.glideapps.com/)
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.templates.docpage import docdemobox, docgraphing
 
 columns: list[dict[str, str]] = [
     {
@@ -57,11 +56,11 @@ The `data` props of `rx.data_editor` accept a `list` of `list`, where each `list
 
 Here is a basic example of using the data_editor representing data with no interaction and no styling. Below we define the `columns` and the `data` which are taken in by the `rx.data_editor` component. When we define the `columns` we must define a `title` and a `type` for each column we create. The columns in the `data` must then match the defined `type` or errors will be thrown.
 
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=columns,
     data=data,
-))
+)
 ```
 
 ```python
@@ -173,16 +172,16 @@ class DataEditorState_HP(rx.State):
 
 Here we define a State, as shown below, that allows us to print the location of the cell as a heading when we click on it, using the `on_cell_clicked` `event trigger`. Check out all the other `event triggers` that you can use with datatable at the bottom of this page. We also define a `group` with a label `Data`. This groups all the columns with this `group` label under a larger group `Data` as seen in the table below.
 
-```python eval
-docdemobox(rx.heading(DataEditorState_HP.clicked_data))
+```python demo box
+rx.heading(DataEditorState_HP.clicked_data)
 ```
 
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=DataEditorState_HP.cols,
     data=DataEditorState_HP.data,
     on_cell_clicked=DataEditorState_HP.click_cell,
-))
+)
 ```
 
 ```python
@@ -303,8 +302,8 @@ dark_theme = {
 
 
 
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=DataEditorState_HP.cols,
     data=DataEditorState_HP.data,
     row_height=80,
@@ -313,7 +312,7 @@ docdemobox(rx.data_editor(
     column_select="single",
     theme=DataEditorTheme(**dark_theme),
     height="30vh",
-))
+)
 ```
 
 ```python

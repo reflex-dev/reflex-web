@@ -1,27 +1,5 @@
 ```python exec
-
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, docdemo
-import inspect
-
-
-download_link = """rx.link("Download", href="/reflex_logo.png")
-"""
-
-download_button = """rx.button(
-    "Download", 
-    on_click=rx.download(url="/reflex_logo.png"),
-)
-"""
-
-download_button2 = """rx.button(
-    "Download and Rename", 
-    on_click=rx.download(
-        url="/reflex_logo.png", 
-        filename="different_name_logo.png"
-    ),
-)
-"""
 ```
 
 
@@ -39,40 +17,31 @@ If you want to let the users of your app download files from your server to thei
 
 For some basic usage, simply providing the path to your resource in a `rx.link` will work, and clicking the link will download the resource.
 
-```python eval
-docdemobox(
-    eval(download_link)
-)
-```
-
-```python
-{download_link.strip()}
+```python demo
+rx.link("Download", href="/reflex_logo.png")
 ```
 
 ### With `rx.download` event
 
 In case a simple link is not enough, or if you want to trigger downloads from the backend, you can use `rx.download` event.
 
-```python eval
-docdemobox(
-    eval(download_button)
+```python demo
+rx.button(
+    "Download", 
+    on_click=rx.download(url="/reflex_logo.png"),
 )
-```
-
-```python
-{download_button.strip()}
 ```
 
 `rx.download` also let you specify a name for the file that will be downloaded, if you want it to be different from the name on the server side.
 
-```python eval
-docdemobox(
-    eval(download_button2)
+```python demo
+rx.button(
+    "Download and Rename", 
+    on_click=rx.download(
+        url="/reflex_logo.png", 
+        filename="different_name_logo.png"
+    ),
 )
-```
-
-```python
-{download_button2.strip()}
 ```
 
 Reference page for `rx.download` [here]({"/docs/api-reference/special-events"}).

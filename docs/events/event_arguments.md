@@ -1,19 +1,14 @@
 ```python exec
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 ```
 
-
 # Event Arguments
-
 
 In some use cases, you want to pass additional arguments to your event handlers. To do this you can bind an event trigger to a lambda, which can call your event handler with the arguments you want.
 
 Try typing a color in an input below and clicking away from it to change the color of the input.
 
-
-```python exec
+```python demo exec
 class ArgState(rx.State):
     colors: list[str] = ["rgba(222,44,12)", "white", "#007ac2"]
 
@@ -29,26 +24,11 @@ def event_arguments_example():
 
 ```
 
-```python eval
-docdemo_from(ArgState, component=event_arguments_example)
-```
-
 In this case, in we want to pass two arguments to the event handler `change_color`, the color and the index of the color to change.
 
 The `on_blur` event trigger passes the text of the input as an argument to the lambda, and the lambda calls the `change_color` event handler with the text and the index of the input.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title(
-            "Event Handler Parameters should provide type annotations."
-        ),
-        rx.alert_description(
-            "Like state vars, be sure to provide the right type annotations for the prameters in an event "
-            "handler."
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Event Handler Parameters should provide type annotations.
+Like state vars, be sure to provide the right type annotations for the parameters in an event handler.
 ```

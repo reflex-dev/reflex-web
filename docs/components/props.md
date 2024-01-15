@@ -1,7 +1,6 @@
 ```python exec
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import state, vars
-from pcweb.templates.docpage import docdemo_from, doclink
 import reflex as rx
 ```
 
@@ -21,16 +20,8 @@ rx.avatar(
 
 Check the docs for the component you are using to see what props are available.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "Reflex has a wide selection of ",
-        doclink("built-in components", href=library.path),
-        " to get you started quickly.",
-    ),
-    status="success",
-)
+```md alert success
+# Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly {library.path}.
 ```
 
 
@@ -54,25 +45,15 @@ State may be modified in response to things like user input like clicking a butt
 
 State vars can be bound to component props, so that the UI always reflects the current state of the app.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_description(
-            "Optional: Learn all about ",
-            doclink("State", href=state.overview.path),
-            " first.",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+Optional: Learn all about [State](state.overview.path) first.
 ```
 
 You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.
 
 Try clicking the badge below to change its color.
 
-```python exec
+```python demo exec
 class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"
@@ -94,10 +75,6 @@ def index():
             "cursor": "pointer",
         }
     )
-```
-
-```python eval
-docdemo_from(PropExampleState, component=index)
 ```
 
 In this example, the `color_scheme` prop is bound to the `color` state var.

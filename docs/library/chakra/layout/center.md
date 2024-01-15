@@ -7,24 +7,23 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo
 ```
 
 Center, Square, and Circle are components that center its children within itself.
 
-```python eval
-docdemo("""rx.center(
+```python demo
+rx.center(
     rx.text("Hello World!"),
     border_radius="15px",
     border_width="thick",
     width="50%",
-)""")
+)
 ```
 
 Below are examples of circle and square.
 
-```python eval
-docdemo("""rx.hstack(
+```python demo
+rx.hstack(
     rx.square(
         rx.vstack(rx.text("Square")),
         border_width="thick",
@@ -38,6 +37,6 @@ docdemo("""rx.hstack(
         padding="1em",
     ),
     spacing="2em",
-)""")
+)
 ```
 

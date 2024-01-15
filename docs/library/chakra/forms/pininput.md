@@ -5,14 +5,13 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # PinInput
 
 The PinInput component is similar to the Input component, but it is optimized for entering sequences of digits
 
-```python exec
+```python demo exec
 class PinInputState(rx.State):
     pin: str
 
@@ -28,10 +27,6 @@ def basic_pininput_example():
             ),
         ),
     )
-```
-
-```python eval
-docdemo_from(PinInputState, component=basic_pininput_example)
 ```
 
 The PinInput component can also be customized as seen below.

@@ -8,7 +8,6 @@ import reflex as rx
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # Radix Dialog
@@ -45,7 +44,20 @@ N/A
 
 ## examples using all the event handlers
 
-```python exec
+The `on_open_change` event handler is called when the open state of the dialog changes. In this example we create an event handler `count_opens` that prints the value of `open`, which is the controlled open state of the dialog. We hook this `count_opens` event handler to the `dialog_root` event handler `on_open_change`. This means when the `dialog` component is opened up our `count_opens` event handler is triggered and we print the value of `open` and if this value of `open` is `True`, then we add 1 to our `counter` state var. 
+
+As we click on the dialog component and then close it, we see the following printed in our terminal due to the `count_opens` event handler.
+
+```bash
+True
+False
+True
+False
+True
+False
+```
+
+```python demo exec
 class DialogState(rx.State):
     """The app state."""
 
@@ -74,33 +86,11 @@ def on_open_change_event():
     )
 ```
 
-The `on_open_change` event handler is called when the open state of the dialog changes. In this example we create an event handler `count_opens` that prints the value of `open`, which is the controlled open state of the dialog. We hook this `count_opens` event handler to the `dialog_root` event handler `on_open_change`. This means when the `dialog` component is opened up our `count_opens` event handler is triggered and we print the value of `open` and if this value of `open` is `True`, then we add 1 to our `counter` state var. 
-
-As we click on the dialog component and then close it, we see the following printed in our terminal due to the `count_opens` event handler.
-
-```bash
-True
-False
-True
-False
-True
-False
-```
-
-
-```python eval
-docdemo_from(DialogState, component=on_open_change_event)
-```
-
 ```python demo
 text(DialogState.counter)
 ```
 
-
-
-
 ## give in context examples 
-
 
 ```python demo
 dialog_root(

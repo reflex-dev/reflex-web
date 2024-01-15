@@ -2,15 +2,13 @@
 import os
 
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, docpage
 import openai
 
-import inspect
 from pcweb.pages.docs import state
 from pcweb.pages.docs import events
 
-from pcweb.pages.docs.tutorial_utils import ChatappState
-from pcweb.pages.docs import tutorial_style as style
+from tutorial_utils import ChatappState
+import tutorial_style as style
 
 # If it's in environment, no need to hardcode (openai SDK will pick it up)
 if "OPENAI_API_KEY" not in os.environ:
@@ -79,12 +77,10 @@ def action_bar1() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar1(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar1(),
 )
 ```
 
@@ -133,12 +129,10 @@ def action_bar2() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar2(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar2(),
 )
 ```
 
@@ -185,12 +179,10 @@ def action_bar3() -> rx.Component:
     )
 ```
 
-```python eval
-docdemobox(
-    rx.container(
-        chat1(),
-        action_bar3(),
-    )
+```python demo box
+rx.container(
+    chat1(),
+    action_bar3(),
 )
 ```
 

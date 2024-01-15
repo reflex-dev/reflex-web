@@ -43,7 +43,7 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     else:
         comp = docpage(set_path=route, t=to_title_case(title))(
-            lambda doc=d: xd.render(doc)
+            lambda d=d, doc=doc: xd.render(d, doc)
         )
         # Get the namespace.
         namespace = rx.utils.format.to_snake_case(doc.split("/")[1])

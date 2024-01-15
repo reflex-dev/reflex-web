@@ -1,19 +1,15 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo_from
 ```
 
-
 # Yielding Multiple Updates
-
 
 A regular event handler will send a `StateUpdate` when it has finished running. This works fine for basic event, but sometimes we need more complex logic. To update the UI multiple times in an event handler, we can `yield` when we want to send an update.
 
 To do so, we can use the Python keyword `yield`. For every yield inside the function, a `StateUpdate` will be sent to the frontend with the changes up to this point in the execution of the event handler.
 
-
-```python exec
+```python demo exec
 
 import asyncio
 
@@ -35,13 +31,9 @@ def multi_update():
 
 ```
 
-```python eval
-docdemo_from(MultiUpdateState, component=multi_update, imports=["import asyncio"])
-```
-
 Here is another example of yielding multiple updates with a loading icon.
 
-```python exec
+```python demo exec
 
 import asyncio
 
@@ -68,8 +60,4 @@ def progress_example():
         )
     )
 
-```
-
-```python eval
-docdemo_from(ProgressExampleState, component=progress_example, imports=["import asyncio"])
 ```

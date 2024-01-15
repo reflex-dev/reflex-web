@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 
-from pcweb.templates.docpage import docdemo_from, doclink
 from pcweb.pages.docs import vars
 ```
 
@@ -10,12 +9,8 @@ from pcweb.pages.docs import vars
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title("Check out the API reference for ", doclink("cond docs", href="https://reflex.dev/docs/library/layout/cond/")),
-    status="info",
-)
+```md alert
+Check out the API reference for [cond docs](https://reflex.dev/docs/library/layout/cond/).
 ```
 ```python eval
 rx.box(height="2em")
@@ -29,7 +24,7 @@ If `show` is `True` then the 2nd argument to the `cond` component is rendered, i
 
 If `show` is `False` then the 3rd argument to the `cond` component is rendered, in this case that is `rx.text("Text 2", color="red")`.
 
-```python exec
+```python demo exec
 class CondSimpleState(rx.State):
     show: bool = True
 
@@ -48,17 +43,12 @@ def cond_simple_example():
     )
 ```
 
-```python eval
-docdemo_from(CondSimpleState, component=cond_simple_example)
-```
-
-
 ## Var Operations (negation)
 
 You can use var operations with the `cond` component. To learn more generally about var operators check out [these docs]({vars.var_operations.path}). The logical operator `~` can be used to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
 
 
-```python exec
+```python demo exec
 class CondNegativeState(rx.State):
     show: bool = True
 
@@ -83,11 +73,6 @@ def cond_negative_example():
     )
 ```
 
-```python eval
-docdemo_from(CondNegativeState, component=cond_negative_example)
-```
-
-
 ## Multiple Conditions
 
 It is also possible to make up complex conditions using the `logical or` (|) and `logical and` (&) operators. 
@@ -97,7 +82,7 @@ Here we have an example using the var operators `>=`, `<=`, `&`. We define a con
 We could equally use the operator `|` to represent a `logical or` in one of our conditions.
 
 
-```python exec
+```python demo exec
 import random
 
 class CondComplexState(rx.State):
@@ -120,22 +105,13 @@ def cond_complex_example():
 
 ```
 
-```python eval
-docdemo_from(CondComplexState, component=cond_complex_example, imports=["import random"])
-```
-
-
-
-
-
 ## Reusing Cond
-
 
 We can also reuse a `cond` component several times by defining it within a function that returns a `cond`. 
 
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`.
 
-```python exec
+```python demo exec
 class ToDoListItem(rx.Base):
     item_name: str
     is_packed: bool
@@ -163,13 +139,7 @@ def packing_list():
 
 ```
 
-```python eval
-docdemo_from(ToDoListItem, CondRepeatState, render_item, component=packing_list)
-```
-
-
 ## Nested Conditional 
-
 
 We can also nest `cond` components within each other to create more complex logic. In python we can have an `if` statement that then has several `elif` statements before finishing with an `else`. This is also possible in reflex using nested `cond` components. In this example we check whether a number is positive, negative or zero.
 
@@ -189,8 +159,7 @@ else:
 
 This reflex code that is logically identical:
 
-```python exec
-
+```python demo exec
 import random
 
 
@@ -218,11 +187,6 @@ def cond_nested_example():
 
 ```
 
-```python eval
-docdemo_from(NestedState, component=cond_nested_example, imports=["import random"])
-```
-
-
 Here is a more advanced example where we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`. 
 
 The reflex code that follows is logically identical to doing the following in python:
@@ -243,7 +207,7 @@ else:
 ```
 
 
-```python exec
+```python demo exec
 import random
 
 
@@ -281,16 +245,11 @@ def cond_nested_example_2():
 
 ```
 
-```python eval
-docdemo_from(CNS, component=cond_nested_example_2, imports=["import random"])
-```
-
-
 ## Cond used as a style prop
 
 `Cond` can also be used to show and hide content in your reflex app. In this example, we have no third argument to the `cond` operator which means that nothing is rendered if the condition is false.
 
-```python exec
+```python demo exec
 class CondStyleState(rx.State):
     show: bool = False
     img_url: str = "/preview.png"
@@ -311,10 +270,3 @@ def cond_style_example():
         ),
     )
 ```
-
-```python eval
-docdemo_from(CondStyleState, component=cond_style_example)
-```
-
-
-

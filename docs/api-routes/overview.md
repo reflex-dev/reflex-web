@@ -35,12 +35,8 @@ The expected return is `"pong"`.
 
 `localhost:8000/_event`: the frontend will use this route to notify the backend that an event occurred.
 
-```python eval
-rx.alert(
-    icon=True,
-    title="Overriding this route will break the event communication",
-    status="error",
-)
+```md alert error
+# Overriding this route will break the event communication
 ```
 
 ## Upload

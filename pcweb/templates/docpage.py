@@ -1,6 +1,5 @@
 """Template for documentation pages."""
 
-import inspect
 import textwrap
 from typing import Any, Callable
 
@@ -526,75 +525,6 @@ def docdemo(
     )
 
 
-def docdemo_from(
-    *state_models_helpers: Any,
-    component: Callable[..., rx.Component] = None,
-    imports: list[str] = None,
-    assignments: dict[str, Any] | None = None,
-    collapsible_code: bool = False,
-    demobox_props: dict[str, Any] | None = None,
-    **props,
-):
-    """Create a documentation demo from a component and state.
-
-    Reading the source code from the given objects and rendering the component
-    above it.
-
-    Args:
-        *state_and_models: The state and any models to read.
-        component: The component to render.
-    """
-    if imports is None:
-        imports = []
-    if "import reflex as rx" not in imports:
-        imports.append("import reflex as rx")
-    if assignments is None:
-        assignments = {}
-    state = "\n\n".join(
-        [
-            "\n".join(imports),
-            "\n".join(f"{k} = {v}" for k, v in assignments.items()),
-            *(inspect.getsource(obj) for obj in state_models_helpers),
-        ]
-    )
-    code = inspect.getsource(component) if component is not None else ""
-    if not collapsible_code:
-        if component is not None:
-            return docdemo(
-                code=code,
-                state=state,
-                comp=component(),
-                demobox_props=demobox_props,
-                **props,
-            )
-        return doccode(state)
-
-    # collabsible code
-    return rx.vstack(
-        docdemobox(
-            component(),
-            **(demobox_props or {}),
-        )
-        if component is not None
-        else rx.fragment(),
-        rx.accordion(
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.text("View Code"),
-                    rx.accordion_icon(),
-                ),
-                rx.accordion_panel(doccode(state + code), width="100%"),
-            ),
-            allow_toggle=True,
-            width="100%",
-        ),
-        width="100%",
-        padding_bottom="2em",
-        spacing="1em",
-        **props,
-    )
-
-
 def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
@@ -646,29 +576,6 @@ def definition(title: str, *children) -> rx.Component:
     )
 
 
-def docalert(
-    title: str = "", description: str = "", status: str = "info"
-) -> rx.Component:
-    """Create an alert for a doc page.
-
-    Args:
-        title: The title of the alert.
-        description: The description of the alert.
-        status: The status of the alert.
-
-    Returns:
-        The styled alert.
-    """
-    return rx.alert(
-        rx.alert_icon(),
-        rx.box(
-            rx.alert_title(title),
-            rx.alert_description(description),
-        ),
-        status=status,
-    )
-
-
 tab_style = {
     "color": "#494369",
     "font_weight": 600,
@@ -684,11 +591,8 @@ tab_style = {
 
 def docgraphing(
     code: str,
-    state: str | None = None,
     comp: rx.Component | None = None,
     data: str | None = None,
-    context: bool = False,
-    **props,
 ):
     return rx.vstack(
         rx.flex(
@@ -707,7 +611,7 @@ def docgraphing(
                     doccode(code), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 rx.tab_panel(
-                    doccode(data), width="100%", padding_x=0, padding_y=".25em"
+                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 width="100%",
             ),
@@ -767,7 +671,6 @@ def used_component(
     disabled: bool = False,
     **kwargs,
 ) -> rx.Component:
-
     if components_passed is None and disabled is False:
         return component_used(
             color_scheme=color_scheme,
@@ -950,4 +853,47 @@ def style_grid(
             default_value=RadixDocState.color,
             on_value_change=RadixDocState.change_color,
         ),
+    )
+
+
+def icon_grid(
+    category_name: str, icon_tags: list[str], columns: str = "4"
+) -> rx.Component:
+    return flex(
+        callout_root(
+            callout_icon(
+                icon(
+                    tag="check_circled",
+                    width=18,
+                    height=18,
+                )
+            ),
+            callout_text(
+                f"Below is a list of all available ",
+                text(category_name, weight="bold"),
+                " icons.",
+                color="black",
+            ),
+            color="green",
+        ),
+        separator(size="4"),
+        grid(
+            *[
+                flex(
+                    icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
+                    text(icon_tag),
+                    direction="column",
+                    align="center",
+                    bg="white",
+                    border="1px solid #EAEAEA",
+                    border_radius="0.5em",
+                    padding=".75em",
+                )
+                for icon_tag in icon_tags
+            ],
+            columns=columns,
+            gap="1",
+        ),
+        direction="column",
+        gap="2",
     )
