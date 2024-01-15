@@ -60,7 +60,11 @@ def footer(style=footer_style):
                         href=getting_started.installation.path,
                         style=footer_item_style,
                     ),
-                    rx.link("Components", href=library.path, style=footer_item_style),
+                    rx.link(
+                        "Components",
+                        href=library.path,
+                        style=footer_item_style,
+                    ),
                     align_items="start",
                 ),
                 rx.vstack(

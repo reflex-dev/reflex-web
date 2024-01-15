@@ -47,10 +47,10 @@ for doc in sorted(flexdown_docs):
         )
         # Get the namespace.
         namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
-
         # Create a namespace if it doesn't exist.
         if namespace not in locals():
             locals()[namespace] = SimpleNamespace()
+            print(doc, "->", locals()[namespace].path)
 
         # Add the component to the namespace.
         setattr(locals()[namespace], title, comp)

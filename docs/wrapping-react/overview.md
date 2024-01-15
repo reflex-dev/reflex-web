@@ -3,13 +3,14 @@ import reflex as rx
 from typing import Any
 from pcweb.components.spline import spline
 from pcweb.templates.docpage import demo_box_style
+from pcweb import constants
 ```
 # Wrapping React Overview
 
 
 One of Reflex's most powerful features is the ability to wrap React components. This allows us to build on top of the existing React ecosystem, and leverage the vast array of existing React components and libraries.
 
-If you want a specific component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. Search for it on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app.
+If you want a specific component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. Search for it on [npm]({constants.NPMJS_URL}), and if it's there, you can use it in your Reflex app.
 
 In this section, we'll go over how to wrap React components on a high level. In the subsequent sections, we'll go over the details of how to wrap more complex components.
 
@@ -17,7 +18,7 @@ In this section, we'll go over how to wrap React components on a high level. In 
 ## Spline Example
 
 
-Let's start with a library called [Spline](https://spline.design/). Spline is a tool for creating 3D scenes and animations. It's a great tool for creating interactive 3D visualizations.
+Let's start with a library called [Spline]({constants.SPLINE_URL}). Spline is a tool for creating 3D scenes and animations. It's a great tool for creating interactive 3D visualizations.
 
 
 We have some react code that creates a Spline scene. We want to wrap this code in a Reflex component so that we can use it in our Reflex app.

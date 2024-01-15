@@ -609,6 +609,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     from pcweb.pages.docs import getting_started
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.faq import faq
+    from pcweb import constants
 
     # If the sidebar is not provided, create a default one.
     sidebar = sidebar or sb
@@ -625,7 +626,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                             " Learn more ",
                             rx.link(
                                 "here",
-                                href="https://www.notion.so/reflex-dev/Reflex-Hosting-Documentation-57a4dd55d6234858bbae0be75be79ce7?pvs=4",
+                                href=constants.NOTION_HOSTING_URL,
                                 style={
                                     "color": "#FFFFFF",
                                     "text_decoration": "underline",

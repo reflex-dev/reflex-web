@@ -94,4 +94,26 @@ def index() -> rx.Component:
 
 app = rx.App()
 app.add_page(index, route="/")
+
+
+@docpage()
+def filtered_table():
+    return rx.box(
+        docheader("Table with row filtering", first=True),
+        doctext("A Table that you can apply a simple row selection filtering by tag"),
+        subheader("Recipe"),
+        rx.center(rx.image(src="/gallery/filtered_table.gif")),
+        doctext(
+            "This recipe uses a ",
+            rx.code("rx.foreach"),
+            " for the row generation with a computed var filtering the data for rows",
+            " using an input value for filter value",
+        ),
+        doctext(
+            "Additionally, the filter input uses a debounce that limits the ",
+            "update,  prevents filtered data to be calculated on every keypress.",
+        ),
+        doccode(code_example),
+    )
+
 ```
