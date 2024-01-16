@@ -3,6 +3,7 @@ from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
+    from pcweb.components.sidebar import get_component_link
     from pcweb.pages.docs import component_list
 
     sidebar = []
@@ -14,12 +15,11 @@ def component_grid():
                 rx.vstack(
                     *[
                         rx.link(
-                            c[0].__name__,
-                            href=f"/docs/library/{category.lower()}/{c[0].__name__.lower()}",
+                            c[0],
+                            href=get_component_link(category, c),
                             style={"fontSize": "1em"},
                         )
                         for c in component_list[category]
-                        if not isinstance(c[0], str)
                     ],
                     align_items="start",
                 ),
