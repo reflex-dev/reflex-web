@@ -6,7 +6,6 @@ components:
 ```python exec
 import reflex as rx
 import reflex.components.radix.themes as rdxt
-from pcweb.templates.docpage import style_grid, docdemo_from
 ```
 
 
@@ -49,53 +48,6 @@ The `on_change` trigger is called when the checkbox is clicked.
 
 ```python demo
 rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"))
-```
-
-## Styling
-
-### Color
-
-The `color` prop changes the color of the checkbox. The default color is `primary`.
-
-```python demo
-rx.hstack(
-    rdxt.checkbox(color_scheme="grass", default_checked=True),
-    rdxt.checkbox(color_scheme="indigo", default_checked=True),
-    rdxt.checkbox(color_scheme="orange", default_checked=True),
-    rdxt.checkbox(color_scheme="tomato", default_checked=True),
-)
-```
-
-### High-constrast
-
-```python demo
-rx.vstack(
-    rx.hstack(
-      rdxt.checkbox(color_scheme="grass", default_checked=True),
-      rdxt.checkbox(color_scheme="indigo", default_checked=True),
-      rdxt.checkbox(color_scheme="orange", default_checked=True),
-      rdxt.checkbox(color_scheme="tomato", default_checked=True),
-  ),
-  rx.hstack(
-      rdxt.checkbox(color_scheme="grass", default_checked=True, high_contrast=True),
-      rdxt.checkbox(color_scheme="indigo", default_checked=True, high_contrast=True),
-      rdxt.checkbox(color_scheme="orange", default_checked=True, high_contrast=True),
-      rdxt.checkbox(color_scheme="tomato", default_checked=True, high_contrast=True),
-  )
-)
-```
-
-
-### Size
-
-The `size` prop changes the size of the button. The default size is `2`.
-
-```python demo
-rx.hstack(
-    rdxt.checkbox(size="1", default_checked=True),
-    rdxt.checkbox(size="2", default_checked=True),
-    rdxt.checkbox(size="3", default_checked=True),
-)
 ```
 
 
