@@ -93,7 +93,7 @@ rdxt.flex(
     *[
         rdxt.box(
             rdxt.aspect_ratio(
-                rx.image(src="/reflex_logo.png", width="100%", height="100%"),
+                rx.image(src="/logo.jpg", width="100%", height="100%"),
                 ratio=ratio,
             ),
             width="20%",
