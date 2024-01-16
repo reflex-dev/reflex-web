@@ -9,6 +9,7 @@ from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
+from pcweb.pages.docs import vars
 ```
 
 # Switch
@@ -28,6 +29,8 @@ text(
 )
 
 ```
+
+Here we set the `default_checked` prop to be `True` which sets the state of the switch when it is initially rendered.
 
 ## Usage
 
@@ -72,11 +75,11 @@ def form_switch():
 
 
 
-### High control of switch component
+### Control the value
 
 The `checked` prop is used to control the state of the switch. 
 
-The event handler `on_checked_change` is called when the state of the switch changes.
+The event `on_checked_change` is called when the state of the switch changes, when the `change_checked` event handler is called.
 
 The `disabled` prop when `True`, prevents the user from interacting with the switch.
 
@@ -108,13 +111,10 @@ def switch_example2():
             on_checked_change=SwitchState2.change_checked,
             disabled=True,
         ),
-        
     )
 ```
 
-
-
-
+In this example we use the `~` operator, which is used to invert a var. To learn more check out [var operators]({vars.var_operations.path}).
 
 
 

@@ -39,7 +39,7 @@ The `radio_group_root` contains all the parts of a radio group. The `radio_group
 ## Radio Group Root 
 
 
-### value and on_value_change
+### Control the value
 The controlled `value` of the radio item to check. Should be used in conjunction with `on_value_change` event handler.
 
 
@@ -61,13 +61,10 @@ def radio_state_example():
 ```
 
 
-### default_value
-The value of the radio item that should be checked when initially rendered.
+The `default_value` prop can be used to set the value of the radio item that should be checked when initially rendered.
 
 
-### disabled
-
-When `True`, prevents the user from interacting with radio items.
+When the `disabled` prop is set to `True`, it prevents the user from interacting with radio items.
 
 ```python demo
 flex(
@@ -85,7 +82,8 @@ flex(
 
 ```
 
-### name and required
+
+### Submitting a form using Radio Group
 
 The `name` prop is used to name the group. It is submitted with its owning form as part of a name/value pair.
 
@@ -228,11 +226,6 @@ def form_example2():
         rx.text(FormRadioState2.form_data.to_string()),
     )
 ```
-
-
-
-
-
 
 
 

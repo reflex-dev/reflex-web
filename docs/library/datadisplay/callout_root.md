@@ -15,9 +15,8 @@ from reflex.components.radix.themes.typography import *
 
 # Callout
 
-A short message to attract user's attention.
+A `callout` is a short message to attract user's attention.
 
-Here is a simple example of using the `callout` component.
 
 ```python demo
 callout_root(

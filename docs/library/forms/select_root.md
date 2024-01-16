@@ -126,18 +126,10 @@ select_root(
 
 
 
-## High control of select component
+## High control of select component (value and open changes)
 
-## checking when a value changes 
 
-### value and on_value_change
-
-## checking when the select is opened
-
-### root open and on_open_change
-button that opens and button that randomly changes the select value
-
-The `on_value_change` event handler is called when the value of the select changes. In this example we set the `select_root` `value` prop to change the select `value` using a button in this case. 
+The `on_value_change` event is called when the value of the select changes. In this example we set the `select_root` `value` prop to change the select `value` using a button in this case. 
 
 ```python demo exec
 class SelectState2(rx.State):
@@ -170,11 +162,8 @@ def select_example2():
 ```
 
 
- 
 
-The `on_value_change` event handler is called when the value changes. 
-
-The `on_open_change` event handler acts in a similar way called the open state of the select changes.
+The `on_open_change` event handler acts in a similar way to the `on_value_change` and is called when the open state of the select changes.
 
 ```python demo
 select_root(

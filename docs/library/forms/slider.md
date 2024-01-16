@@ -24,12 +24,40 @@ slider(default_value=[40], width="100%")
 ```
 
 
+### Setting slider defaults
 
-## Props and Event Handlers
+We can set the `min` and `max` values for the range of the slider. The defaults for `min` and `max` are 0 and 100. 
+
+The stepping interval can also be adjusted by using the `step` prop. It defaults to 1.
+
+The `on_value_commit` event is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.
+
+```python demo exec
+
+def slider_max_min_step():
+    return rx.vstack(
+        heading(SliderVariationState.value),
+        text("Min=20 Max=240"),
+        slider(default_value=[40], min=20, max=240, width="100%", on_value_commit=SliderVariationState.set_end),
+        text("Step=5"),
+        slider(default_value=[40], step=5, width="100%", on_value_commit=SliderVariationState.set_end),
+        text("Step=0.5"),
+        slider(default_value=[40], step=0.5, width="100%", on_value_commit=SliderVariationState.set_end),
+        width="100%",
+    )
+```
 
 
+### Disabling
 
-### default value
+When the `disabled` prop is set to `True`, it prevents the user from interacting with the slider.
+
+```python demo
+slider(default_value=[40], width="100%", disabled=True)
+```
+
+
+### Control the value
 
 The `default_value` is the value of the slider when initially rendered. It must be passed as a `List[float]`. You can pass in more than one `float` value and this renders multiple thumbs to drag. Providing multiple values creates a range slider.
 
@@ -39,9 +67,7 @@ slider(default_value=[40, 60], width="100%")
 ```
 
 
-### value and on_value_change
-
-The `on_value_change` event handler is called when the `value` of the slider changes. 
+The `on_value_change` event is called when the `value` of the slider changes. 
 
 ```python demo exec
 class SliderVariationState(rx.State):
@@ -62,7 +88,7 @@ def slider_on_value_change():
 
 
 
-### name
+### Submitting a form using slider
 
 The `name` of the slider. Submitted with its owning form as part of a name/value pair.
 
@@ -97,44 +123,7 @@ def form_example2():
 
 
 
-
-
-### min, max, step and on_value_commit
-
-We can set the `min` and `max` values for the range of the slider. The defaults for `min` and `max` are 0 and 100. 
-
-The stepping interval can also be adjusted by using the `step` prop. It defaults to 1.
-
-The `on_value_commit` event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.
-
-```python demo exec
-
-def slider_max_min_step():
-    return rx.vstack(
-        heading(SliderVariationState.value),
-        text("Min=20 Max=240"),
-        slider(default_value=[40], min=20.0, max=240.0, width="100%", on_value_commit=SliderVariationState.set_end),
-        text("Step=5"),
-        slider(default_value=[40], step=5.0, width="100%", on_value_commit=SliderVariationState.set_end),
-        text("Step=0.5"),
-        slider(default_value=[40], step=0.5, width="100%", on_value_commit=SliderVariationState.set_end),
-        width="100%",
-    )
-```
-
-
-
-
-### disabled
-
-When the `disabled` prop is set to `True`, it prevents the user from interacting with the slider.
-
-```python demo
-slider(default_value=[40], width="100%", disabled=True)
-```
-
-
-### orientation
+### Orientation
 
 Use the `orientation` prop to change the orientation of the slider.
 
@@ -145,9 +134,6 @@ slider(default_value=[40], width="100%", orientation="horizontal")
 ```python demo
 slider(default_value=[40], height="4em", orientation="vertical")
 ```
-
-
-
 
 
 
