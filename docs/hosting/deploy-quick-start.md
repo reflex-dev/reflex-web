@@ -60,3 +60,16 @@ That’s it! You should receive some feedback on the progress of your deployment
 ```md alert info
 Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
 ```
+
+## See it in Action
+
+Below is a video of deploying the [AI chat app](/docs/tutorial/intro) to our hosting service.
+
+```python eval
+rx.center(
+    rx.video(url="https://www.youtube.com/embed/pf3FKE26hx4"),
+    rx.box(height="3em"),
+    width="100%",
+    padding_y="2em"
+)
+```
