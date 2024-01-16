@@ -24,6 +24,7 @@ flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
 component_list = defaultdict(list)
+from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 
 for doc in sorted(flexdown_docs):
@@ -36,12 +37,12 @@ for doc in sorted(flexdown_docs):
     category = doc.split("/")[-2].title()
     d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
-        clist = [eval(c) for c in d.metadata["components"]]
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     elif doc.startswith("docs/library"):
-        clist = [eval(c) for c in d.metadata["components"]]
-        if issubclass(clist[0], RadixThemesComponent):
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        if issubclass(clist[1], RadixThemesComponent):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
         else:
