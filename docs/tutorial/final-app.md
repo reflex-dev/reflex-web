@@ -2,6 +2,7 @@
 import reflex as rx
 from tutorial_utils import ChatappState
 import tutorial_style as style
+from pcweb.pages.docs import hosting
 ```
 
 # Final App
@@ -225,4 +226,4 @@ Congratulations! You have built your first chatbot. From here, you can read thro
 
 ## One More Thing
 
-With our hosting service, you can deploy this app with a single command within minutes. Check out our [Hosting Quick Start](/docs/hosting/deploy-quick-start).
+With our hosting service, you can deploy this app with a single command within minutes. Check out our [Hosting Quick Start]({hosting.deploy_quick_start.path}).

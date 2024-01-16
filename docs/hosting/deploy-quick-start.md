@@ -3,6 +3,7 @@
 ```python exec
 import reflex as rx
 from pcweb import constants
+from pcweb.pages import docs
 from pcweb.templates.docpage import doccmdoutput
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
@@ -63,7 +64,7 @@ Once your code is uploaded, the hosting service will start the deployment. After
 
 ## See it in Action
 
-Below is a video of deploying the [AI chat app](/docs/tutorial/intro) to our hosting service.
+Below is a video of deploying the [AI chat app]({docs.tutorial.intro.path}) to our hosting service.
 
 ```python eval
 rx.center(
