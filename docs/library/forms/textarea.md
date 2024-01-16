@@ -49,3 +49,28 @@ def controlled_example():
         ),
     )
 ```
+
+# Real World Example
+
+```python demo
+rdxt.card(
+    rdxt.flex(
+        rdxt.text("Are you enjoying Reflex?"),
+        rdxt.textarea(placeholder="Write your feedback…"),
+        rdxt.flex(
+            rdxt.text("Attach screenshot?", size="2"),
+            rdxt.switch(size="1", default_checked=True),
+            justify="between",
+        ),
+        rdxt.grid(
+            rdxt.button("Back", variant="surface"),
+            rdxt.button("Send"),
+            columns="2",
+            gap="2",
+        ),
+        direction="column",
+        gap="3",
+    ),
+    style={"maxWidth": 500},
+)
+```

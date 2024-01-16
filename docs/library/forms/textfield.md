@@ -24,7 +24,6 @@ rdxt.textfield_root(
     rdxt.textfield_input(
         placeholder="Search here...",
     ),
-    
 )
 ```
 
@@ -70,4 +69,58 @@ def controlled_example():
     
 )
     )
+```
+
+
+# Real World Example
+
+```python demo exec
+
+def song(title, initials: str, genre: str):
+    return rdxt.card(rdxt.flex(
+        rdxt.flex(
+            rdxt.avatar(fallback=initials),
+            rdxt.flex(
+                rdxt.text(title, size="2", weight="bold"),
+                rdxt.text(genre, size="1", color_scheme="gray"),
+                direction="column",
+                gap="1",
+            ),
+            direction="row",
+            align_items="left",
+            gap="1",
+        ),
+        rdxt.flex(
+            rdxt.icon(tag="chevron_right"),
+            align_items="center",
+        ),
+        justify="between",
+    ))
+
+def search():
+    return rdxt.card(
+    rdxt.flex(
+        rdxt.textfield_root(
+            rdxt.textfield_slot(
+                rdxt.icon(tag="magnifying_glass"),
+            ),
+            rdxt.textfield_input(
+                placeholder="Search songs...",
+            ),
+        ),
+        rdxt.flex(
+            song("The Less I Know", "T", "Rock"),
+            song("Breathe Deeper", "ZB", "Rock"),
+            song("Let It Happen", "TF", "Rock"),
+            song("Borderline", "ZB", "Pop"),
+            song("Lost In Yesterday", "TO", "Rock"),
+            song("Is It True", "TO", "Rock"),
+            direction="column",
+            gap="1",
+        ),
+        direction="column",
+        gap="3",
+    ),
+    style={"maxWidth": 500},
+)
 ```
