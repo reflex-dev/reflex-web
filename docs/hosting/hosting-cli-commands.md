@@ -1,4 +1,4 @@
-# Reflex Hosting Service
+# Reflex Hosting Service CLI Commands
 
 ```python exec
 import reflex as rx
@@ -7,64 +7,6 @@ from pcweb.templates.docpage import doccmdoutput
 from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
-```
-
-So far, we have been running our apps locally on our own machines.
-But what if we want to share our apps with the world?  This is where
-the hosting service comes in.
-
-```md alert info
-Hosting is in Alpha. Please reach out to us on Discord if you are ready to deploy and we will give you an invitation code.
-```
-
-## Quick Start
-
-Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring the infrastructure.
-
-```md alert info
-This tutorial assumes you have successfully `reflex init` and `reflex run` your app.
-```
-
-### Authentication
-
-```md alert info
-Hosting service requires `reflex>=0.3.2`.
-```
-
-First, create an account or log into it using the following command.
-
-```bash
-reflex login
-```
-
-You will be redirected to your browser where you can authenticate through Github or Gmail.
-
-### Deployment
-
-Once you have successfully authenticated, you can start deploying your apps.
-
-```md alert warning
-Make sure you have a `requirements.txt`  file at the top level app directory that contains all your python dependencies!
-```
-
-Navigate to the project directory that you want to deploy and type the following command:
-
-```bash
-reflex deploy
-```
-
-The command is by default interactive. It asks you a few questions for information required for the deployment.
-
-**Name**: choose a name for the deployed app. This name will be part of the deployed app URL, i.e. `<app-name>.reflex.run`. The name should only contain domain name safe characters: no slashes, no underscores. Domain names are case insensitive. To avoid confusion, the name you choose here is also case insensitive. If you enter letters in upper cases, we automatically convert them to lower cases.
-
-**Regions**: enter the region code here or press `Enter` to accept the default. The default code `sjc` stands for San Jose, California in the US west coast. Check the list of supported regions at [reflex deployments regions](#reflex-deployments-regions).
-
-**Envs**: `Envs` are environment variables. You might not have used them at all in your app. In that case, press `Enter` to skip. More on the environment variables in the later section [Environment Variables](#environment-variables).
-
-That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
-
-```md alert info
-Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
 ```
 
 ## Concepts
@@ -85,7 +27,7 @@ You access the values of `envs` by referencing `os.environ` with their names as 
 
 To redeploy or update your app, navigate to the project directory and type `reflex deploy` again. This command communicates with the hosting service to automatically detects your existing app by the same name. This time the deploy command overwrites the app. You should see a prompt similar to `Overwrite deployment [ app-name ] ...`. This operation is a complete overwrite and not an incremental update.
 
-## Hosting CLI Commands
+## CLI Command Reference
 
 All the `reflex` commands come with a help manual. The help manual lists additional command options that may be useful. You type `--help` to see the help manual. Some commands are organized under a `subcommands` series. Here is an example below. Note that the help manual may look different depending on the version of `reflex` or the `reflex-hosting-cli`.
 
