@@ -134,7 +134,7 @@ Your site [ demo-chat ] at ['lax'] is up: https://demo-chat.reflex.run
 )
 ```
 
-The deploy command is by default interactive. To deploy without interaction, add `--no-interactive` and set relevant the command options for deployment settings. Type `reflex deploy --help` to see the help manual for explanations on each option. The deploy sequences are the same whether the command is interactive or not.
+The deploy command is by default interactive. To deploy without interaction, add `--no-interactive` and set the relevant command options as deployment settings. Type `reflex deploy --help` to see the help manual for explanations on each option. The deploy sequences are the same, whether the deploy command is interactive or not.
 
 ```bash
 reflex deploy --no-interactive -k todo -r sjc -r sea --env OPENAI_API_KEY=YOU-KEY-NO-EXTRA-QUOTES --env DB_URL=YOUR-EXTERNAL-DB-URI --env KEY3=THATS-ALOTOF-KEYS
