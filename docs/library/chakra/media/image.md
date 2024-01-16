@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemobox
 ```
 
 # Image
@@ -32,11 +31,9 @@ rx.image(
 
 You can also pass a `PIL` image object as the `src`.
 
-```python eval
-docdemobox(
-    rx.vstack(
-        rx.image(src="https://picsum.photos/id/1/200/300", alt="=An Unsplash Image")
-    )
+```python demo box
+rx.vstack(
+    rx.image(src="https://picsum.photos/id/1/200/300", alt="An Unsplash Image")
 )
 ```
 

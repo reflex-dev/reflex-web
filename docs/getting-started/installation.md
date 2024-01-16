@@ -62,19 +62,6 @@ You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install 
 reflex init
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("command not found: reflex"),),
-        rx.alert_description(
-            "The Reflex framework includes the ", rx.code("reflex"), " command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
-        ),
-    ),
-    status="warning",
-)
-```
-
 ```md alert warning
 # Error `command not found: reflex`
 If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
@@ -108,17 +95,10 @@ pip install reflex
 reflex init
 ```
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Error ", rx.code("command not found: reflex"),),
-        rx.alert_description(
-            "The Reflex framework includes the ", rx.code("reflex"), " command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Error `command not found: reflex`
+
+The Reflex framework includes the `reflex` command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
 ```
 
 ## Run the App

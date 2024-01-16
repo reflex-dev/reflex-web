@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
-
 import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar import NavbarState
@@ -280,9 +278,7 @@ def get_sidebar_items_backend():
 
 
 def get_sidebar_items_hosting():
-    from pcweb.pages.docs import (
-        hosting,
-    )
+    from pcweb.pages.docs import hosting
 
     items = [
         create_item(hosting.deploy),
