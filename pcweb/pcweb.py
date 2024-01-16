@@ -61,4 +61,4 @@ redirects = [
 for source, target in redirects:
     app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
-app.add_custom_404_page(page404.index)
+app.add_custom_404_page(page404.component)
