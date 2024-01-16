@@ -33,6 +33,11 @@ The stepping interval can also be adjusted by using the `step` prop. It defaults
 The `on_value_commit` event is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.
 
 ```python demo exec
+class SliderVariationState(rx.State):
+    value: int = 50
+
+    def set_end(self, value: int):
+        self.value = value
 
 def slider_max_min_step():
     return rx.vstack(
@@ -69,8 +74,9 @@ slider(default_value=[40, 60], width="100%")
 
 The `on_value_change` event is called when the `value` of the slider changes. 
 
+
 ```python demo exec
-class SliderVariationState(rx.State):
+class SliderVariationState2(rx.State):
     value: int = 50
 
     def set_end(self, value: int):
@@ -79,8 +85,8 @@ class SliderVariationState(rx.State):
 
 def slider_on_value_change():
     return rx.vstack(
-        heading(SliderVariationState.value),
-        slider(default_value=[40], width="100%", on_value_change=SliderVariationState.set_end),
+        heading(SliderVariationState2.value),
+        slider(default_value=[40], width="100%", on_value_change=SliderVariationState2.set_end),
         width="100%",
     )
 ```
