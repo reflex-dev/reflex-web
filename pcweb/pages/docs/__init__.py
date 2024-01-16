@@ -1,32 +1,31 @@
 from collections import defaultdict
+from types import SimpleNamespace
+
+import flexdown
 
 import reflex as rx
-from pcweb.route import Route
+from pcweb.flexdown import xd
+from pcweb.pages.docs.component import multi_docs
+from pcweb.templates.docpage import docpage
 
 from .gallery import gallery
 from .library import library
 from .resources import resources
 
-doc_routes = [r for r in locals().values() if isinstance(r, Route)]
-
-from types import SimpleNamespace
-
-import flexdown
-
-from pcweb.flexdown import xd
-from pcweb.templates.docpage import docpage
+doc_routes = [gallery, library, resources]
 
 
 def to_title_case(text: str) -> str:
     return " ".join(word.capitalize() for word in text.split("_"))
 
 
-from pcweb.pages.docs.component import multi_docs
-
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 
 chakra_components = defaultdict(list)
+radix_components = defaultdict(list)
 component_list = defaultdict(list)
+from reflex.components.chakra.base import ChakraComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 for doc in sorted(flexdown_docs):
     if doc.endswith("-style.md"):
@@ -38,27 +37,30 @@ for doc in sorted(flexdown_docs):
     category = doc.split("/")[-2].title()
     d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
-        clist = [eval(c) for c in d.metadata["components"]]
-        chakra_components[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist)
-    elif doc.startswith("docs/library"):
-        clist = [eval(c) for c in d.metadata["components"]]
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist)
+        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
+    elif doc.startswith("docs/library"):
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        if issubclass(clist[1], RadixThemesComponent):
+            radix_components[category].append(clist)
+            route = route.replace("library/", "library/radix/")
+        else:
+            component_list[category].append(clist)
+        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     else:
         comp = docpage(set_path=route, t=to_title_case(title))(
-            lambda doc=doc: xd.render_file(doc)
+            lambda d=d, doc=doc: xd.render(d, doc)
         )
+        # Get the namespace.
+        namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
 
-    # Get the namespace.
-    namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
+        # Create a namespace if it doesn't exist.
+        if namespace not in locals():
+            locals()[namespace] = SimpleNamespace()
 
-    # Create a namespace if it doesn't exist.
-    if namespace not in locals():
-        locals()[namespace] = SimpleNamespace()
-
-    # Add the component to the namespace.
-    setattr(locals()[namespace], title, comp)
+        # Add the component to the namespace.
+        setattr(locals()[namespace], title, comp)
 
     # Add the route to the list of routes.
     doc_routes.append(comp)

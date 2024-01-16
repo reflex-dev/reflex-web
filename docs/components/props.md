@@ -1,10 +1,7 @@
 ```python exec
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs import state
-from pcweb.pages.docs import vars
-from pcweb.templates.docpage import docdemo, doclink
+from pcweb.pages.docs import state, vars
 import reflex as rx
-import inspect
 ```
 
 # Props
@@ -15,31 +12,16 @@ Props modify the behavior and appearance of a component. They are passed in as k
 
 Each component has props that are specific to that component. For example, the `rx.avatar` component has a name prop that sets the `name` of the avatar.
 
-```python exec
-def avatar():
-    return rx.avatar(
-        name="John Doe"
-    )
-```
-
-```python eval
-docdemo(inspect.getsource(avatar).replace("def avatar():", "").replace("return", ""),
-    comp=avatar()
+```python demo
+rx.avatar(
+    name="John Doe"
 )
 ```
 
 Check the docs for the component you are using to see what props are available.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "Reflex has a wide selection of ",
-        doclink("built-in components", href=library.path),
-        " to get you started quickly.",
-    ),
-    status="success",
-)
+```md alert success
+# Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly {library.path}.
 ```
 
 
@@ -47,18 +29,11 @@ rx.alert(
 
 Components support many standard HTML properties as props. For example: the HTML [id]({"https://www.w3schools.com/html/html_id.asp"}) property is exposed directly as the prop `id`. The HTML [className]({"https://www.w3schools.com/jsref/prop_html_classname.asp"}) property is exposed as the prop `class_name` (note the Pythonic snake_casing!).
 
-```python exec
-def box():
-    return rx.box(
-        "Hello World",
-        id="box-id",
-        class_name=["class-name-1", "class-name-2",],
-    )
-```
-
-```python eval
-docdemo(inspect.getsource(box).replace("def box():", "").replace("return", ""),
-    comp=box()
+```python demo
+rx.box(
+    "Hello World",
+    id="box-id",
+    class_name=["class-name-1", "class-name-2",],
 )
 ```
 
@@ -70,25 +45,15 @@ State may be modified in response to things like user input like clicking a butt
 
 State vars can be bound to component props, so that the UI always reflects the current state of the app.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_description(
-            "Optional: Learn all about ",
-            doclink("State", href=state.overview.path),
-            " first.",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+Optional: Learn all about [State](state.overview.path) first.
 ```
 
 You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.
 
 Try clicking the badge below to change its color.
 
-```python exec
+```python demo exec
 class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"
@@ -110,13 +75,6 @@ def index():
             "cursor": "pointer",
         }
     )
-```
-
-```python eval
-docdemo(inspect.getsource(index),
-    comp=index(),
-    state=inspect.getsource(PropExampleState)
-)
 ```
 
 In this example, the `color_scheme` prop is bound to the `color` state var.

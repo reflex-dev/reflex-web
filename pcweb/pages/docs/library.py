@@ -1,8 +1,9 @@
 import reflex as rx
-from pcweb.templates.docpage import docheader, docpage, doctext
+from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
+    from pcweb.components.sidebar import get_component_link
     from pcweb.pages.docs import component_list
 
     sidebar = []
@@ -14,12 +15,11 @@ def component_grid():
                 rx.vstack(
                     *[
                         rx.link(
-                            c[0].__name__,
-                            href=f"/docs/library/{category.lower()}/{c[0].__name__.lower()}",
+                            c[0],
+                            href=get_component_link(category, c),
                             style={"fontSize": "1em"},
                         )
                         for c in component_list[category]
-                        if not isinstance(c[0], str)
                     ],
                     align_items="start",
                 ),
@@ -45,9 +45,9 @@ def library():
     return rx.flex(
         rx.hstack(
             rx.box(
-                docheader("Component Library", first=True),
-                doctext(
-                    "Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
+                h1_comp(text="Component Library"),
+                text_comp(
+                    text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
                 ),
                 rx.divider(),
                 component_grid(),

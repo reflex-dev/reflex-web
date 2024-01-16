@@ -1,17 +1,14 @@
 ```python exec
 from pcweb.pages.docs import styling
-from pcweb.templates.docpage import docdemo
 import reflex as rx
-import inspect
 ```
 
 # Style Props
 
 In addition to component-specific props, most built-in components support a full range of style props. You can use any CSS property to style a component.
 
-```python exec
-def button():
-    return rx.button(
+```python demo
+rx.button(
     "Fancy Button",
     border_radius="1em",
     box_shadow="rgba(151, 65, 252, 0.8) 0 15px 30px -10px",
@@ -22,12 +19,6 @@ def button():
     _hover={
         "opacity": 1,
     }
-)
-```
-
-```python eval
-docdemo(inspect.getsource(button).replace("def button():", "").replace("return", ""),
-    comp=button()
 )
 ```
 

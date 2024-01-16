@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 
 route = (
 """
@@ -122,14 +121,8 @@ You can also use the `@rx.page` decorator to add a page.
 
 This is equivalent to calling `app.add_page` with the same arguments.
 
-
-```python eval
-rx.alert(
-    icon=True,
-    title=rx.text(
-        "Index is a special exception where it is available at both / and /index . All other pages are only available at their specified route.",
-    ),
-)
+```md alert
+# Index is a special exception where it is available at both `/` and `/index`. All other pages are only available at their specified route.
 ```
 
 ## Nested Routes

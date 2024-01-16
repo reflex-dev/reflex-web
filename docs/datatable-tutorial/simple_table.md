@@ -1,21 +1,14 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemobox, doclink
-from pcweb.pages.docs.datatable_tutorial_utils import DataTableState, DataTableState2
+from datatable_tutorial_utils import DataTableState, DataTableState2
 ```
 
 
 
 # Data Table (Editable) Tutorial
 
-```python eval
-rx.alert(
-        rx.alert_icon(),
-        rx.alert_title(f"There is another ",
-        doclink("datatable component", href="https://reflex.dev/docs/library/datadisplay/datatable/"),
-        ", which is only used for displaying data and does not support user interactivity or editing"),
-        status="info",
-    )
+```md alert info
+#There is another [datatable component](https://reflex.dev/docs/library/datadisplay/datatable/), which is only used for displaying data and does not support user interactivity or editing.
 ```
 
 

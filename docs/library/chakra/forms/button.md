@@ -6,7 +6,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docdemobox
+from pcweb.templates.docpage import docdemo
 
 
 basic_button = """rx.button("Click Me!")
@@ -249,10 +249,8 @@ Customize the appearance of buttons by adjusting their color scheme through the 
 You have the flexibility to choose from a range of color scales provided by your design 
 system, such as whiteAlpha, blackAlpha, gray, red, blue, or even utilize your own custom color scale.
 
-```python eval
-docdemobox(
-    eval(button_colors)
-)
+```python demo box
+eval(button_colors)
 ```
 
 ```python
@@ -292,10 +290,8 @@ docdemo(loading_states)
 You can define what happens when a button is clicked using the `on_click` event argument. 
 For example, to change a value in your application state when a button is clicked:
 
-```python eval
-docdemobox(
-    eval(button_state2_render_code)
-)
+```python demo box
+eval(button_state2_render_code)
 ```
 
 ```python
@@ -307,10 +303,8 @@ Reflex provides a default setter event_handler for every base var which can be a
 
 Here’s another example that creates two buttons to increase and decrease a count value:
 
-```python eval
-docdemobox(
-    eval(button_state_example)
-)
+```python demo box
+eval(button_state_example)
 ```
 
 ```python
@@ -361,16 +355,8 @@ The `ButtonGroup` component is designed specifically for grouping buttons. It al
 ```python eval
 docdemo(button_group)
 ```
-```python eval
-rx.alert(
-    icon=True,
-    title=rx.text(
-        "The ",
-        rx.code("button_group"),
-        " component stacks buttons horizontally, whereas the ",
-        rx.code("stack"),
-        " component allows stacking buttons both vertically and horizontally.",
-    ),
-)
+
+```md alert 
+# The `ButtonGroup` component stacks buttons horizontally, whereas the `Stack` component allows stacking buttons both vertically and horizontally.
 ```
 

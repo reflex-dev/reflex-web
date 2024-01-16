@@ -1,6 +1,5 @@
 """Template for documentation pages."""
 
-import inspect
 import textwrap
 from typing import Any, Callable
 
@@ -336,62 +335,6 @@ def code_comp(text: rx.Var[str]) -> rx.Component:
     return rx.code(text, color="#1F1944", bg="#EAE4FD")
 
 
-def docheader(
-    text: str,
-    first: bool = False,
-    **props,
-) -> rx.Component:
-    """Style the header on a docpage.
-
-    Args:
-        text: The text to display.
-        first: Whether this is the first header on the page.
-        font_size: The font size to use.
-        props: Props to apply to the header.
-
-    Returns:
-        The styled header.
-    """
-    id_ = "-".join(text.lower().split())
-    href = rx.State.router.page.full_path + "#" + id_
-
-    # Return the header.
-    return rx.box(
-        rx.heading(text, **props),
-        rx.divider(margin_y="1em"),
-        margin_top="0em" if first else "1.5em",
-        color=tc["docs"]["header"],
-        font_weight=fw["heading"],
-        width="100%",
-    )
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(text, id=id_, **props),
-                rx.icon(
-                    tag="link",
-                    color="#696287",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                ),
-                margin_top="0em" if first else "1.5em",
-                align_items="center",
-            ),
-            _hover={
-                "cursor": "pointer",
-                "textDecoration": "none",
-            },
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-        ),
-        rx.divider(margin_y="1em"),
-        color=tc["docs"]["header"],
-        font_weight=fw["heading"],
-        width="100%",
-    )
-
-
 @rx.memo
 def h1_comp(text: rx.Var[str]) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
@@ -464,6 +407,7 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
         margin_top="1.5em",
         color=tc["docs"]["header"],
         width="100%",
+        scroll_margin_top="4em",
     )
 
 
@@ -480,45 +424,6 @@ def h3_comp(text: rx.Var[str]) -> rx.Component:
         margin_top="1.5em",
         color=tc["docs"]["header"],
         width="100%",
-    )
-
-
-def subheader(text: str, level: int = 0, **props) -> rx.Component:
-    """Create a subheader for a docpage.
-
-    Args:
-        text: The text to display.
-        level: The level of the subheader.
-        props: Props to apply to the subheader.
-
-    Returns:
-        The styled subheader.
-    """
-    return docheader(
-        text,
-        font_size=styles.H2_FONT_SIZE,
-        color=tc["docs"]["header"],
-        font_weight=fw["subheading"],
-        **props,
-    )
-
-
-def doctext(*text, **props) -> rx.Component:
-    """Create a documentation paragraph.
-
-    Args:
-        text: The text components to display.
-        props: Props to apply to the paragraph.
-
-    Returns:
-        The styled paragraph.
-    """
-    return rx.box(
-        *text,
-        margin_bottom="1em",
-        font_size=styles.TEXT_FONT_SIZE,
-        width="100%",
-        **props,
     )
 
 
@@ -620,75 +525,6 @@ def docdemo(
     )
 
 
-def docdemo_from(
-    *state_models_helpers: Any,
-    component: Callable[..., rx.Component] = None,
-    imports: list[str] = None,
-    assignments: dict[str, Any] | None = None,
-    collapsible_code: bool = False,
-    demobox_props: dict[str, Any] | None = None,
-    **props,
-):
-    """Create a documentation demo from a component and state.
-
-    Reading the source code from the given objects and rendering the component
-    above it.
-
-    Args:
-        *state_and_models: The state and any models to read.
-        component: The component to render.
-    """
-    if imports is None:
-        imports = []
-    if "import reflex as rx" not in imports:
-        imports.append("import reflex as rx")
-    if assignments is None:
-        assignments = {}
-    state = "\n\n".join(
-        [
-            "\n".join(imports),
-            "\n".join(f"{k} = {v}" for k, v in assignments.items()),
-            *(inspect.getsource(obj) for obj in state_models_helpers),
-        ]
-    )
-    code = inspect.getsource(component) if component is not None else ""
-    if not collapsible_code:
-        if component is not None:
-            return docdemo(
-                code=code,
-                state=state,
-                comp=component(),
-                demobox_props=demobox_props,
-                **props,
-            )
-        return doccode(state)
-
-    # collabsible code
-    return rx.vstack(
-        docdemobox(
-            component(),
-            **(demobox_props or {}),
-        )
-        if component is not None
-        else rx.fragment(),
-        rx.accordion(
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.text("View Code"),
-                    rx.accordion_icon(),
-                ),
-                rx.accordion_panel(doccode(state + code), width="100%"),
-            ),
-            allow_toggle=True,
-            width="100%",
-        ),
-        width="100%",
-        padding_bottom="2em",
-        spacing="1em",
-        **props,
-    )
-
-
 def doclink(text: str, href: str, **props) -> rx.Component:
     """Create a styled link for doc pages.
 
@@ -740,31 +576,6 @@ def definition(title: str, *children) -> rx.Component:
     )
 
 
-def docalert(
-    title: str = "", description: str = "", status: str = "info"
-) -> rx.Component:
-    """Create an alert for a doc page.
-
-    Args:
-        title: The title of the alert.
-        description: The description of the alert.
-        status: The status of the alert.
-
-    Returns:
-        The styled alert.
-    """
-    return doctext(
-        rx.alert(
-            rx.alert_icon(),
-            rx.box(
-                rx.alert_title(title),
-                rx.alert_description(description),
-            ),
-            status=status,
-        ),
-    )
-
-
 tab_style = {
     "color": "#494369",
     "font_weight": 600,
@@ -780,11 +591,8 @@ tab_style = {
 
 def docgraphing(
     code: str,
-    state: str | None = None,
     comp: rx.Component | None = None,
     data: str | None = None,
-    context: bool = False,
-    **props,
 ):
     return rx.vstack(
         rx.flex(
@@ -803,7 +611,7 @@ def docgraphing(
                     doccode(code), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 rx.tab_panel(
-                    doccode(data), width="100%", padding_x=0, padding_y=".25em"
+                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 width="100%",
             ),
@@ -863,7 +671,6 @@ def used_component(
     disabled: bool = False,
     **kwargs,
 ) -> rx.Component:
-
     if components_passed is None and disabled is False:
         return component_used(
             color_scheme=color_scheme,
@@ -1046,4 +853,47 @@ def style_grid(
             default_value=RadixDocState.color,
             on_value_change=RadixDocState.change_color,
         ),
+    )
+
+
+def icon_grid(
+    category_name: str, icon_tags: list[str], columns: str = "4"
+) -> rx.Component:
+    return flex(
+        callout_root(
+            callout_icon(
+                icon(
+                    tag="check_circled",
+                    width=18,
+                    height=18,
+                )
+            ),
+            callout_text(
+                f"Below is a list of all available ",
+                text(category_name, weight="bold"),
+                " icons.",
+                color="black",
+            ),
+            color="green",
+        ),
+        separator(size="4"),
+        grid(
+            *[
+                flex(
+                    icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
+                    text(icon_tag),
+                    direction="column",
+                    align="center",
+                    bg="white",
+                    border="1px solid #EAEAEA",
+                    border_radius="0.5em",
+                    padding=".75em",
+                )
+                for icon_tag in icon_tags
+            ],
+            columns=columns,
+            gap="1",
+        ),
+        direction="column",
+        gap="2",
     )

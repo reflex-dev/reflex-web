@@ -105,12 +105,9 @@ If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage`
 be serialized before and after storing it. It is recommended to use `rx.Base` for the data
 which provides simple serialization helpers and works recursively in complex object structures.
 
-```python exec
-import inspect
 
+```python demo exec
 import reflex as rx
-
-from pcweb.templates.docpage import docdemo_from
 
 
 class AppSettings(rx.Base):
@@ -188,13 +185,4 @@ def app_settings_example():
         ),
         rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
     )
-```
-
-```python eval
-docdemo_from(
-    AppSettings,
-    ComplexLocalStorageState,
-    app_settings,
-    component=app_settings_example
-)
 ```

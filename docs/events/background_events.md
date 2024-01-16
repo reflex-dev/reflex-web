@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
 
 my_task_state_code = """
 class MyTaskState(rx.State):
@@ -156,10 +155,8 @@ In the following example, the `my_task` event handler is decorated with
 long as certain conditions are met. While it is running, the UI remains
 interactive and continues to process events normally.
 
-```python eval
-docdemobox(
-    eval(my_task_render_code)
-)
+```python demo box
+eval(my_task_render_code)
 ```
 
 ```python
@@ -207,10 +204,8 @@ The following example creates an arbitrary `asyncio.Task` to fetch data and then
 uses the low-level API to safely update the state and send the changes to the
 frontend.
 
-```python eval
-docdemobox(
-    eval(low_level_render_code)
-)
+```python demo box
+eval(low_level_render_code)
 ```
 
 ```python

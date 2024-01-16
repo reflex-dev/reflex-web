@@ -10,7 +10,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from
 ```
 
 # AlertDialog
@@ -18,7 +17,7 @@ from pcweb.templates.docpage import docdemo_from
 AlertDialog component is used to interrupt the user with a mandatory confirmation or event.
 The component will appear in front of the page prompting the user to conplete an event.
 
-```python exec
+```python demo exec
 class AlertDialogState(rx.State):
     show: bool = False
 
@@ -43,8 +42,4 @@ def alertdialog_example():
         ),
         width="100%",
     )
-```
-
-```python eval
-docdemo_from(AlertDialogState, component=alertdialog_example)
 ```

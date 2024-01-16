@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -100,7 +100,6 @@ interface elements. View the "Data" tab to see the substate driving this
 radar chart of character traits.
 
 ```python exec
-import inspect
 from typing import Any
 
 
@@ -168,6 +167,6 @@ rx.hstack(
 docgraphing(
     radar_chart_state_example,
     comp=eval(radar_chart_state_example),
-    data=inspect.getsource(RadarChartState),
+    # data=inspect.getsource(RadarChartState),
 )
 ```

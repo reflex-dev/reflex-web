@@ -1,14 +1,10 @@
 ```python exec
-import inspect
 import random
 import time
-
-import numpy as np
 
 import reflex as rx
 
 from pcweb.pages.docs import vars
-from pcweb.templates.docpage import docdemo_from, doclink
 ```
 # Base Vars
 
@@ -21,23 +17,12 @@ Base vars are defined as fields in your State class.
 They can have a preset default value. If you don't provide a default value, you
 must provide a type annotation.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("State Vars should provide type annotations."),
-        rx.alert_description(
-            "Reflex relies on type annotations to determine the type of state vars during the "
-            "compilation process. ",
-            ".",
-        ),
-    ),
-    status="warning",
-    margin_bottom="3em",
-)
+```md alert warning
+# State Vars should provide type annotations.
+Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
-```python exec
+```python demo exec
 class TickerState(rx.State):
     ticker: str ="AAPL"
     price: str = "$150"
@@ -56,29 +41,12 @@ def ticker_example():
     )
 ```
 
-```python eval
-docdemo_from(TickerState, component=ticker_example)
-```
-
 In this example `ticker` and `price` are base vars in the app, which can be modified at runtime.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Vars must be JSON serializable."),
-        rx.alert_description(
-            "Vars are used to communicate between the frontend and backend. ",
-            "They must be primitive Python types, ",
-            "Plotly figures, Pandas dataframes, or ",
-            doclink("a custom defined type", vars.custom_vars.path),
-            ".",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Vars must be JSON serializable.
+Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
 ```
-
 
 ## Backend-only Vars
 
@@ -95,7 +63,10 @@ values that should not be sent to the client.
 For example, a backend-only var is used to store a large data structure which is
 then paged to the frontend using cached vars. 
 
-```python exec
+```python demo exec
+import numpy as np
+
+
 class BackendVarState(rx.State):
     _backend: np.ndarray = np.array([random.randint(0, 100) for _ in range(100)])
     offset: int = 0
@@ -154,7 +125,4 @@ def backend_var_example():
             ),
         ),
     )
-```
-```python eval
-docdemo_from(BackendVarState, component=backend_var_example, imports=["import numpy as np"])
 ```

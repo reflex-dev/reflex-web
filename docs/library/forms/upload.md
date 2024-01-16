@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo_from, demo_box_style
 ```
 
 # Upload
@@ -29,8 +28,8 @@ To upload the file, you need to bind an event handler and pass the file list.
 
 A full example is shown below.
 
-```python eval
-rx.image(src="/upload.gif", style=demo_box_style)
+```python demo box
+rx.image(src="/upload.gif")
 ```
 
 ```python

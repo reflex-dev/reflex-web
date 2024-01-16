@@ -5,14 +5,12 @@ components:
 
 An HTML editor component based on [Suneditor](http://suneditor.com/sample/index.html).
 
-```python exec
-import inspect
-
+```python demo exec
 import reflex as rx
 
 from pcweb import styles
 from pcweb.pages.docs.source import Source, generate_docs
-from pcweb.templates.docpage import doccode, docdemo, docheader, subheader
+from pcweb.templates.docpage import h2_comp
 
 
 class EditorState(rx.State):
@@ -38,14 +36,6 @@ def editor_example():
     )
 ```
 
-```python eval
-docdemo(
-    code=inspect.getsource(editor_example),
-    state=inspect.getsource(EditorState),
-    comp=editor_example(),
-)
-```
-
 # EditorOptions
 
 The extended options and toolbar buttons can be customized by passing an instance
@@ -57,7 +47,7 @@ editor_options_source = Source(module=rx.EditorOptions)
 
 ```python eval
 rx.fragment(
-    subheader("Fields"),
+    h2_comp(text="Fields"),
     rx.box(rx.table(
         rx.thead(
             rx.tr(
@@ -88,9 +78,7 @@ in place of a sublist to denote a line break in the toolbar.
 
 Some valid `button_list` options are enumerated in `rx.EditorButtonList`, seen below.
 
-```python eval
-doccode(
-    """
+```python
 class EditorButtonList(list, enum.Enum):
 
     BASIC = [
@@ -121,8 +109,6 @@ class EditorButtonList(list, enum.Enum):
         ["preview", "print"],
         ["save", "template"],
     ]
-    """
-)
 ```
 
 A custom list of toolbar buttons may also be specified using these names as seen
@@ -131,32 +117,24 @@ in the following example.
 Since this example uses the same state as above, the two editors contents are
 shared and can be modified by either one.
 
-```python exec
-def editor_toolbar_example():
-    return rx.editor(
-        set_contents=EditorState.content,
-        set_options=rx.EditorOptions(
-            button_list=[
-                ["font", "fontSize", "formatBlock"],
-                ["fontColor", "hiliteColor"],
-                ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-                ["removeFormat"],
-                "/",
-                ["outdent", "indent"],
-                ["align", "horizontalRule", "list", "table"],
-                ["link"],
-                ["fullScreen", "showBlocks", "codeView"],
-                ["preview", "print"],
-            ]
-        ),
-        on_change=EditorState.handle_change,
-    )
-```
-
-```python eval
-docdemo(
-    code=inspect.getsource(editor_toolbar_example),
-    comp=editor_toolbar_example(),
+```python demo
+rx.editor(
+    set_contents=EditorState.content,
+    set_options=rx.EditorOptions(
+        button_list=[
+            ["font", "fontSize", "formatBlock"],
+            ["fontColor", "hiliteColor"],
+            ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+            ["removeFormat"],
+            "/",
+            ["outdent", "indent"],
+            ["align", "horizontalRule", "list", "table"],
+            ["link"],
+            ["fullScreen", "showBlocks", "codeView"],
+            ["preview", "print"],
+        ]
+    ),
+    on_change=EditorState.handle_change,
 )
 ```
 
