@@ -367,6 +367,15 @@ EVENTS = {
     "on_open_change": {
         "description": "The on_open_change event handler is called when the open state of the component changes."
     },
+    "on_focus_outside": {
+        "description": "The on_focus_outside event handler is called when the user focuses outside the component."
+    },
+    "on_interact_outside": {
+        "description": "The on_interact_outside event handler is called when the user interacts outside the component."
+    },
+    "on_open_auto_focus": {
+        "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
+    },
     "on_value_change": {
         "description": "The on_value_change event handler is called when the value state of the component changes."
     },
@@ -381,9 +390,7 @@ EVENTS = {
     },
     "on_value_commit": {
         "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service."
-    },
-    
-    
+    }
 }
 
 
