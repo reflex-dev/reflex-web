@@ -1,2 +1,0 @@
-# Checkbox Style
-

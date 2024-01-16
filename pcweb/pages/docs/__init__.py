@@ -22,7 +22,10 @@ def to_title_case(text: str) -> str:
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 
 chakra_components = defaultdict(list)
+radix_components = defaultdict(list)
 component_list = defaultdict(list)
+from reflex.components.chakra.base import ChakraComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 for doc in sorted(flexdown_docs):
     if doc.endswith("-style.md"):
@@ -33,9 +36,17 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
     category = doc.split("/")[-2].title()
     d = flexdown.parse_file(doc)
-    if doc.startswith("docs/library"):
-        clist = [eval(c) for c in d.metadata["components"]]
+    if doc.startswith("docs/library/chakra"):
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
+        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
+    elif doc.startswith("docs/library"):
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        if issubclass(clist[1], RadixThemesComponent):
+            radix_components[category].append(clist)
+            route = route.replace("library/", "library/radix/")
+        else:
+            component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     else:
         comp = docpage(set_path=route, t=to_title_case(title))(

@@ -101,13 +101,7 @@ def create_item(route: Route, children=None):
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
     return SidebarItem(
-        names=route
-        if isinstance(route, str)
-        else inspect.getmodule(route)
-        .__name__.split(".")[-1]
-        .replace("_", " ")
-        .title()
-        .replace("Api", "API"),
+        names=route,
         children=list(map(create_item, children)),
     )
 
@@ -288,6 +282,16 @@ def get_sidebar_items_hosting():
     return items
 
 
+from reflex.components.chakra.base import ChakraComponent
+
+
+def get_component_link(category, clist, prefix="") -> str:
+    if issubclass(clist[1], ChakraComponent):
+        prefix = "chakra/"
+    component_name = rx.utils.format.to_snake_case(clist[0])
+    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+
+
 def get_category_children(category, category_list, prefix=""):
     if isinstance(category_list, dict):
         return SidebarItem(
@@ -298,14 +302,11 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     for c in category_list:
-        component_name = rx.utils.format.to_snake_case(c[0].__name__)
-        component_link = (
-            f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
-        )
+        component_name = rx.utils.format.to_snake_case(c[0])
         name = rx.utils.format.to_title_case(component_name)
         item = SidebarItem(
             names=name,
-            link=component_link,
+            link=get_component_link(category, c, prefix=prefix),
         )
         category_item_children.append(item)
     return SidebarItem(names=category, children=category_item_children)
@@ -374,16 +375,16 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
-    from pcweb.pages.docs import chakra_components
+    from pcweb.pages.docs import radix_components
 
     chakra_children = []
-    for category in chakra_components:
+    for category in radix_components:
         category_item = get_category_children(
-            category, chakra_components[category], prefix="chakra/"
+            category, radix_components[category], prefix="radix/"
         )
         chakra_children.append(category_item)
 
-    chakra_item = SidebarItem(names="Chakra UI", children=chakra_children)
+    chakra_item = SidebarItem(names="Radix UI", children=chakra_children)
 
     return [chakra_item]
 
