@@ -44,7 +44,7 @@ rx.hstack(
 
 ### OnCheckedChange
 
-The `on_change` trigger is called when the checkbox is clicked.
+The `on_change` trigger is called when the checkbox is clicked. A disabled button does not respond to user interactions such as click and cannot be focused.
 
 ```python demo
 rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"))

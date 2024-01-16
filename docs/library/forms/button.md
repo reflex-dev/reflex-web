@@ -34,7 +34,7 @@ rdxt.button(
 
 ### Disabled
 
-The `disabled` prop disables the button, by default it is `False`.
+The `disabled` prop disables the button, by default it is `False`.  A disabled button does not respond to user interactions such as click and cannot be focused.
 
 ```python demo
 rx.hstack(
@@ -72,7 +72,7 @@ def counter():
             color_scheme="red",
             on_click=CountState.decrement,
         ),
-        rx.heading(
+        rdxt.heading(
             CountState.count,
             font_size="2em",
             padding_x="0.5em",
