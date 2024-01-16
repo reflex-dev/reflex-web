@@ -52,8 +52,6 @@ Commands:
 )
 ```
 
-`--loglevel` is another common command option. When setting `--loglevel debug`, a command prints additional information, which can be helpful during debug.
-
 ### Authentication Commands
 
 #### reflex login
@@ -81,7 +79,9 @@ When you successfully authenticate with the hosting service, there is informatio
 
 #### reflex deploy
 
-This is the command to deploy a reflex app from its top level app directory. This directory contains a `rxconfig.py` where you run `reflex init` and `reflex run`. A `requirements.txt` file is required. The deploy command checks the existence of this file and also the content of it (this is available in more recent versions of `reflex-hosting-cli` such as `0.1.3`). The command prompts you for potential updates on the requirements when there are new packages or newer versions of packages detected in your Python environment.
+This is the command to deploy a reflex app from its top level app directory. This directory contains a `rxconfig.py` where you run `reflex init` and `reflex run`.
+
+A `requirements.txt` file is required. The deploy command checks the content of this file against the top level packages installed in your current Python environment. If the command detects new packages in your Python environment, or newer versions of the same packages, it prints the difference and asks if you would like to update your `requirements.txt`. Make sure you double check the suggested updates. This functionality is added in more recent versions of the hosting CLI package `reflex-hosting-cli>=0.1.3`.
 
 ```python eval
 doccmdoutput(
@@ -134,9 +134,7 @@ Your site [ demo-chat ] at ['lax'] is up: https://demo-chat.reflex.run
 )
 ```
 
-The deploy command is by default interactive and prompts you for information. To provide all the settings for your app in one shot without the interaction, add the `--no-interactive` option. Type `reflex deploy --help` to see the help manual for explanations on each option. The deploy sequences are the same whether the command is interactive or not.
-
-The non-interactive deploy command requires you to properly all the required information, such as the app name of your choice, the regions to deploy to, environmental variables if you have them.
+The deploy command is by default interactive. To deploy without interaction, add `--no-interactive` and set relevant the command options for deployment settings. Type `reflex deploy --help` to see the help manual for explanations on each option. The deploy sequences are the same whether the command is interactive or not.
 
 ```bash
 reflex deploy --no-interactive -k todo -r sjc -r sea --env OPENAI_API_KEY=YOU-KEY-NO-EXTRA-QUOTES --env DB_URL=YOUR-EXTERNAL-DB-URI --env KEY3=THATS-ALOTOF-KEYS
