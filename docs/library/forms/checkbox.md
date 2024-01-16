@@ -31,7 +31,7 @@ rdxt.text(
 
 ### Disabled
 
-The `disabled` prop disables the button, by default it is `False`.
+The `disabled` prop disables the button, by default it is `False`. A disabled button does not respond to user interactions such as click and cannot be focused.
 
 ```python demo
 rx.hstack(
@@ -44,8 +44,7 @@ rx.hstack(
 
 ### OnCheckedChange
 
-The `on_change` trigger is called when the checkbox is clicked. A disabled button does not respond to user interactions such as click and cannot be focused.
-
+The `on_change` trigger is called when the checkbox is clicked. 
 ```python demo
 rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"))
 ```
