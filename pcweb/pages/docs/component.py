@@ -390,7 +390,7 @@ EVENTS = {
     },
     "on_value_commit": {
         "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service."
-    }
+    },
 }
 
 

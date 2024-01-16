@@ -373,16 +373,16 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
-    from pcweb.pages.docs import chakra_components
+    from pcweb.pages.docs import radix_components
 
     chakra_children = []
-    for category in chakra_components:
+    for category in radix_components:
         category_item = get_category_children(
-            category, chakra_components[category], prefix="chakra/"
+            category, radix_components[category], prefix="radix/"
         )
         chakra_children.append(category_item)
 
-    chakra_item = SidebarItem(names="Chakra UI", children=chakra_children)
+    chakra_item = SidebarItem(names="Radix UI", children=chakra_children)
 
     return [chakra_item]
 
