@@ -1,16 +1,5 @@
 from pcweb import flexdown
-
 from pcweb.templates.docpage import docpage
-
-import asyncio
-
-import httpx
-import reflex as rx
-
-from pcweb import flexdown
-from pcweb.base_state import State
-from pcweb.templates.docpage import docpage
-
 
 my_task_state_code = """
 class MyTaskState(State):
@@ -139,6 +128,7 @@ def index():
 
 app = rx.App()
 app.add_page(index)"""
+
 
 @docpage()
 def background_events():

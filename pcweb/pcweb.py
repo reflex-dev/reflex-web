@@ -1,10 +1,14 @@
 """The main Reflex website."""
 
+import time
+
 import reflex as rx
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.pages import page404, routes
 
+print("starting")
+t0 = time.time()
 # Create the app.
 app = rx.App(
     style=styles.BASE_STYLE,
@@ -62,3 +66,5 @@ for source, target in redirects:
     app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.component)
+time = time.time() - t0
+print(f"App created in {time:.2f} seconds.")

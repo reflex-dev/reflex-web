@@ -1,6 +1,4 @@
-import reflex as rx
-from pcweb import styles
-from pcweb.base_state import State
+from pcweb.pages.docs.tutorial.adding_state import ChatappState, chat1, style
 from pcweb.templates.docpage import (
     doccode,
     docdemobox,
@@ -9,7 +7,8 @@ from pcweb.templates.docpage import (
     doctext,
     subheader,
 )
-from pcweb.pages.docs.tutorial.adding_state import ChatappState, chat1, style
+
+import reflex as rx
 
 state1 = """# state.py
 import os

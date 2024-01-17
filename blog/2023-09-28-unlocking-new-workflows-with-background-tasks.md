@@ -60,14 +60,14 @@ concurrently with other `EventHandler` functions. They mostly work like normal
 `EventHandler` functions on a State, however they must be `async` and they
 **cannot _directly_ modify the state**.
 
-### _Wait a sec... if they cannot modify the state, how are they useful?_
+**Wait a sec... if they cannot modify the state, how are they useful?**
 
 Well, a background task _can_ modify the state, but **only inside of an `async
 with self` context block**. Python 3.7 added support for async contextmanagers,
 and Reflex takes advantage of this feature to provide a safe way to modify the
 state from a background task.
 
-### _So what does `async with self` actually do?_
+**So what does `async with self` actually do?**
 
 When a background task enters an `async with self` context block, it refreshes
 the state instance and takes an exclusive lock on it.
@@ -127,7 +127,7 @@ rx.center(
 
 Full code for this example is available in [reflex-examples/lorem-stream](https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream).
 
-# ✌️
+# Next Steps
 
 Background tasks is a powerful new feature that enables you to build
 long-running workflows that can respond to user input in real time. We hope you
