@@ -275,7 +275,8 @@ def get_sidebar_items_hosting():
     from pcweb.pages.docs import hosting
 
     items = [
-        create_item(hosting.deploy),
+        create_item(hosting.deploy_quick_start),
+        create_item(hosting.hosting_cli_commands),
         create_item(hosting.self_hosting),
     ]
     return items

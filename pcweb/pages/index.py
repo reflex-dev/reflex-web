@@ -749,7 +749,7 @@ deploy_icon = rx.hstack(
                     rx.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
-                href=hosting.deploy.path,
+                href=hosting.deploy_quick_start.path,
             )
         ),
         align_items="left",

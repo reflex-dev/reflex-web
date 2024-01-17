@@ -35,7 +35,7 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.span(doclink("deployment guide", href=hosting.deploy.path)),
+            rx.span(doclink("deployment guide", href=hosting.deploy_quick_start.path)),
             ".",
         ),
     },
@@ -43,8 +43,8 @@ faq_items = [
         "Q": "How can I contribute?",
         "A": rx.text(
             """
-            We're always looking for contributors to help us build Reflex. 
-            If you're interested in contributing, check out our page on 
+            We're always looking for contributors to help us build Reflex.
+            If you're interested in contributing, check out our page on
             """,
             rx.span(
                 doclink(
