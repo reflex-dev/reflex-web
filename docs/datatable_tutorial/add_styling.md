@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from datatable_tutorial_utils import DataTableState, DataTableState2
+from docs.datatable_tutorial.datatable_tutorial_utils import DataTableState, DataTableState2
 from pcweb.pages.docs import library
 ```
 

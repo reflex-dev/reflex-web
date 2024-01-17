@@ -1,5 +1,6 @@
 """Script to index docs to Typesense."""
-
+import argparse
+import json
 import os
 from collections import defaultdict
 
@@ -7,23 +8,12 @@ import mistletoe
 import reflex as rx
 from reflex.components.base.bare import Bare
 
-from pcweb.component_list import component_list
-from pcweb.pages import routes, doc_routes, changelog_routes, faq_routes, blog_routes
-from pcweb.pages.docs.component import multi_docs
+from pcweb.pages import routes
 from pcweb.tsclient import client
+from pcweb.flexdown import xd
 
-
-from flexdown import Document, Flexdown
+from flexdown import Document
 from flexdown.blocks import MarkdownBlock
-
-
-routes = [
-    *routes,
-    *doc_routes,
-    *changelog_routes,
-    *faq_routes,
-    *blog_routes,
-]
 
 
 def index_flexdown(source: str, href: str) -> list[tuple[str, str, str]]:
@@ -36,7 +26,6 @@ def index_flexdown(source: str, href: str) -> list[tuple[str, str, str]]:
     Returns:
         A list of tuples of the form (type, text, href).
     """
-    flexdown = Flexdown()
     source = Document.from_source(source)
 
     # The environment used for execing and evaling code.
@@ -46,12 +35,21 @@ def index_flexdown(source: str, href: str) -> list[tuple[str, str, str]]:
     source = source.content
 
     # Get the blocks in the source code.
-    blocks = flexdown.get_blocks(source)
-    flexdown.process_blocks(blocks, env)
+    # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
+    blocks = xd.get_blocks(source)
 
-    # Get all the markdown blocks.
-    markdown_blocks = [block for block in blocks if block.type == MarkdownBlock.type]
-    content = "\n".join([block.get_content(env) for block in markdown_blocks])
+    content_pieces = []
+    for block in blocks:
+        # Render all blocks for their side effect of env augmentation
+        # Unexpected, but hey!
+        # TODO Probably better to return env as part of return
+        _ = block.render(env=env)
+        if isinstance(block, MarkdownBlock):
+            # Now we should have all the env entries we need
+            content = block.get_content(env)
+            content_pieces.append(content)
+
+    content = "\n".join(content_pieces)
 
     def get_strings(comp):
         """Get the strings from markdown component."""
@@ -200,31 +198,6 @@ def index_flexdown_file(
     return postprocess(texts, join_char="")
 
 
-def index_components():
-    """Index the components."""
-    out = {}
-    # Iterate over the component list.
-    for key in component_list:
-        for component_group in component_list[key]:
-            # Skip the group if it is a string (category name)
-            if isinstance(component_group[0], str):
-                continue
-
-            # Get the component name and path.
-            comp_name = component_group[0].__name__.lower()
-            path = f"/docs/library/{key.lower()}/{comp_name}"
-
-            # Check if a flexdown file exists.
-            flexdown_path = f"{path.strip('/')}.md"
-            if os.path.exists(flexdown_path):
-                out |= index_flexdown_file(flexdown_path, heading=comp_name)
-            else:
-                comp = multi_docs(path=path, component_list=component_group).component()
-                out |= postprocess(index_component(comp, path))
-
-    return out
-
-
 def index_routes():
     """Index the routes."""
     out = {}
@@ -249,32 +222,27 @@ def determine_category(path):
         return "Learn"
 
 
-def index_docs():
-    """Index the docs."""
-    docs = {
-        **index_routes(),
-        **index_components(),
-    }
-    category = ""
-    docs_with_categories = {}
-    for key, text in docs.items():
-        # print(key, text)
+def index_everything():
+    """Index everything."""
+    everything = index_routes()
+    everything_with_categories = {}
+    for key, text in everything.items():
         category = determine_category(key[1])
         new_key = (key[0], key[1], category)
-        docs_with_categories[new_key] = text
-    return docs_with_categories
+        everything_with_categories[new_key] = text
+    return everything_with_categories
 
 
-def create_collection():
+def create_collection(collection_name: str):
     """Create the collection."""
     try:
-        client.collections["search-auto"].delete()
+        client.collections[collection_name].delete()
     except Exception as e:
         pass
 
     create_response = client.collections.create(
         {
-            "name": "search-auto",
+            "name": collection_name,
             "fields": [
                 {"name": "heading", "type": "string"},
                 {"name": "description", "type": "string"},
@@ -283,23 +251,39 @@ def create_collection():
             ],
         }
     )
-    print(create_response)
 
 
-def upload_docs(docs: list[Doc]):
+def upload_docs(collection_name: str, docs: list[Doc]):
     """Upload the docs."""
     for doc in docs:
+        print("Uploading")
         print(doc)
-        client.collections["search-auto"].documents.create(doc)
+        client.collections[collection_name].documents.create(doc)
 
 
 if __name__ == "__main__":
-    # create_collection()
-    out = index_docs()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--upload", action="store_true", default=False)
+    parser.add_argument("--collection-name")
+    args = parser.parse_args()
+
+    if bool(args.upload) != bool(args.collection_name):
+        raise ValueError("Must set both or neither of --upload and --collection-name.")
+
+    print("Generating index documents.")
+    out = index_everything()
     docs = []
     for key, text in out.items():
         docs.append(
             {"heading": key[0], "description": text, "href": key[1], "category": key[2]}
         )
-        # print(docs[-1])
-    # upload_docs(docs)
+    print(f"{len(docs)} documents done.")
+    if args.upload:
+        print(f"Recreating Typesense collection {args.collection_name}.")
+        create_collection(args.collection_name)
+        print("Uploading documents to Typesense.")
+        upload_docs(args.collection_name, docs)
+        print("\033[92mUpload complete!")
+    else:
+        print(json.dumps(docs, indent=4))
+        print("\033[96m[set --upload and --collection-name to actually publish to Typesense Cloud]")

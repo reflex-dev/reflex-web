@@ -3,7 +3,7 @@ import reflex as rx
 from pcweb.pages.docs import components
 from pcweb.pages.docs import styling
 from pcweb.pages.docs import library
-import tutorial_style as style
+import docs.tutorial.tutorial_style as style
 ```
 
 # Basic Frontend
