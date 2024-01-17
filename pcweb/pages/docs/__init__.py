@@ -26,6 +26,7 @@ radix_components = defaultdict(list)
 component_list = defaultdict(list)
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
+from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 for doc in sorted(flexdown_docs):
     if doc.endswith("-style.md"):
@@ -42,7 +43,7 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     elif doc.startswith("docs/library"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
-        if issubclass(clist[1], RadixThemesComponent):
+        if issubclass(clist[1], (RadixIconComponent, RadixThemesComponent)):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
         else:
