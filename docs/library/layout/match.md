@@ -31,7 +31,6 @@ rx.match(
     default_component,
 )
 
-
 ```
 - `condition`: The value to match against.
 - `(case_i, component_i)`: A Tuple of matching cases and their corresponding return components.
@@ -184,6 +183,7 @@ rx.match(
         )
 
 ```
+
 ## Usage as Props
 Similar to rx.cond, rx.match can be used as prop values, allowing dynamic behavior for UI components:
 
@@ -281,7 +281,6 @@ def match_multi_prop_demo_():
 
 
 ```
-
 
 ```md alert warning
 # Usage with Structural Pattern Matching
