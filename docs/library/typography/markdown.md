@@ -37,7 +37,7 @@ You can render code blocks with syntax highlighting using the \`\`\`\{language} 
 
 ```python demo  
 rx.markdown(
-"""
+r"""
 \```python
 import reflex as rx
 from .pages import index
@@ -90,7 +90,7 @@ component_map = {
 def index():
     return rx.box(
         rx.markdown(
-"""
+r"""
 # Hello World!
 
 ## This is a Subheader

@@ -275,8 +275,13 @@ def get_sidebar_items_hosting():
     from pcweb.pages.docs import hosting
 
     items = [
-        create_item(hosting.deploy_quick_start),
-        create_item(hosting.hosting_cli_commands),
+        create_item(
+            "Reflex Deploy",
+            children=[
+                hosting.deploy_quick_start,
+                hosting.hosting_cli_commands,
+            ],
+        ),
         create_item(hosting.self_hosting),
     ]
     return items
@@ -441,7 +446,6 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-    first: bool,
 ):
     return rx.cond(
         item.children.length() == 0,
@@ -470,7 +474,6 @@ def sidebar_item_comp(
                                 item=child,
                                 index=index,
                                 url=url,
-                                first=False,
                             ),
                         ),
                         align_items="start",
@@ -587,7 +590,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in learn
                         ],
@@ -602,7 +604,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in frontend
                         ],
@@ -619,7 +620,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in backend
                         ],
@@ -636,7 +636,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in hosting
                         ],
@@ -653,9 +652,7 @@ def sidebar_comp(
                     sidebar_section("Core"),
                     rx.accordion(
                         *[
-                            sidebar_item_comp(
-                                item=item, url=url, first=True, index=reference_index
-                            )
+                            sidebar_item_comp(item=item, url=url, index=reference_index)
                             for item in reference
                         ],
                         allow_multiple=True,
@@ -667,7 +664,7 @@ def sidebar_comp(
                     rx.accordion(
                         *[
                             sidebar_item_comp(
-                                item=item, url=url, first=True, index=other_libs_index
+                                item=item, url=url, index=other_libs_index
                             )
                             for item in other_libs
                         ],
