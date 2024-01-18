@@ -11,6 +11,8 @@ from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 from reflex.components.radix.primitives import *
+from reflex.components.core import *
+from reflex.components.radix.themes import *
 ```
 
 # Accordion
@@ -58,29 +60,34 @@ We use the `default_value` prop to specify which item should open by default. Th
 unique values set by an `accordion_item`.
 
 ```python demo
-accordion(
-    accordion_item(
-        "First Item",
-        "The first accordion item's content",
-        font_size="3em",
-        value="item_1",
+flex(
+    accordion(
+        accordion_item(
+            "First Item",
+            "The first accordion item's content",
+            font_size="3em",
+            value="item_1",
+        ),
+        accordion_item(
+            "Second Item",
+            "The second accordion item's content",
+            font_size="3em",
+            value="item_2",
+        ),
+        accordion_item(
+            "Third item",
+            "The third accordion item's content",
+            font_size="3em",
+            value="item_3",
+        ),
+        collapsible=True,
+        width="300px",
+        default_value="item_2",
     ),
-    accordion_item(
-        "Second Item",
-        "The second accordion item's content",
-        font_size="3em",
-        value="item_2",
-    ),
-    accordion_item(
-        "Third item",
-        "The third accordion item's content",
-        font_size="3em",
-        value="item_3",
-    ),
-    collapsible=True,
-    width="300px",
-    default_value="item_2",
+    direction="row",
+    gap="2"
 )
+
 ```
 
 ### Collapsible
@@ -88,26 +95,23 @@ accordion(
 We use the `collapsible` prop to allow all items to close. If set to false, an opened item cannot be closed.
 
 ```python demo
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+flex(
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item("Second Item", "The second accordion item's content", font_size="3em"),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    disabled=True,
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item("Second Item", "The second accordion item's content", font_size="3em"),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=False,
+        width="300px",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=False,
-    width="300px",
-    disabled=True,
+    direction="row",
+    gap="2"
 )
 ```
 
@@ -118,9 +122,7 @@ We use the `disabled` prop to prevent interaction with the accordion and all its
 ```python demo
 accordion(
     accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
-    ),
+    accordion_item("Second Item", "The second accordion item's content", font_size="3em"),
     accordion_item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
@@ -164,7 +166,7 @@ accordion(
     width="300px",
     variant="classic",
     color_scheme="primary",
-    orientation="veritcal",
+    orientation="vertical",
 )
 ```
 
@@ -186,59 +188,60 @@ accordion(
 ### Variant
 
 ```python demo
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+flex(
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        variant="classic",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    variant="classic",
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        variant="soft",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    variant="soft",
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        variant="outline",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    variant="outline",
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        variant="surface",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    variant="surface",
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        variant="ghost",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    variant="ghost",
+    direction="row",
+    gap="2"
+    
 )
 ```
 
@@ -247,26 +250,29 @@ accordion(
 We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
 
 ```python demo
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+flex(
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        color_scheme="primary",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    color_scheme="primary",
-)
-
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
+    accordion(
+        accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+        accordion_item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+        collapsible=True,
+        width="300px",
+        color_scheme="accent",
     ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    color_scheme="accent",
+    direction="row",
+    gap="2"
 )
 ```
 
@@ -296,7 +302,7 @@ def index() -> rx.Component:
                 accordion(
                     accordion_item(
                         "Is it accessible?",
-                        rdxt.button("Test button"),
+                        button("Test button"),
                         font_size="3em",
                         value="item_1",
                     ),
