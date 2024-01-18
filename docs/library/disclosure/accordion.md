@@ -3,8 +3,6 @@ components:
     - rx.components.radix.primitives.AccordionRoot
     - rx.components.radix.primitives.AccordionHeader
     - rx.components.radix.primitives.AccordionContent
-
-
 ---
 
 ```python exec
@@ -18,9 +16,8 @@ from reflex.components.radix.primitives import *
 # Accordion
 
 An accordion is a vertically stacked set of interactive headings that each reveal an associated section of content.
-
-
-The accordion component us made up of `accordion` which is the root of the component and groups 
+The accordion component us made up of `accordion` which is the root of the component and takes in an `accordion_item`
+which contains all the contents of the collapsible section
 
 ## Basic Example
 
@@ -56,6 +53,7 @@ accordion(
 ```
 
 ### Default Value
+
 We use the `default_value` prop to specify which item should open by default. The value for this prop should be any of the 
 unique values set by an `accordion_item`.
 
@@ -86,6 +84,7 @@ accordion(
 ```
 
 ### Collapsible
+
 We use the `collapsible` prop to allow all items to close. If set to false, an opened item cannot be closed.
 
 ```python demo
@@ -113,6 +112,7 @@ accordion(
 ```
 
 ### Disable
+
 We use the `disabled` prop to prevent interaction with the accordion and all its items.
 
 ```python demo
@@ -129,6 +129,7 @@ accordion(
 ```
 
 ### Direction
+
 We use the `dir` prop to specify the reading direction of the accordion when applicable. This can be set to `ltr`
 or `rtl`. By default, the direction is set to `ltr`
 
@@ -146,6 +147,7 @@ accordion(
 ```
 
 ### Orientation
+
 We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
 will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but will change the 
 functional orientation. This means for vertical orientation, the up/down arrow keys moves focus between the next or previous item,
@@ -240,8 +242,6 @@ accordion(
 )
 ```
 
-
-
 ### Color Scheme
 
 We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
@@ -272,6 +272,7 @@ accordion(
 
 
 ### Value
+
 We use the `value` prop to specify the controlled value of the accordion item that we want to activate.
 This property should be used in conjunction with the `on_value_change` event argument.
 
@@ -327,6 +328,7 @@ def index() -> rx.Component:
 ```
 
 ## AccordionItem
+
 The accordion item contains all the parts of a collapsible section.
 
 ## Styling
