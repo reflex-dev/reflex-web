@@ -9,9 +9,9 @@ components:
 
 ```python exec
 import reflex as rx
-# from reflex.components.radix.themes.components import *
-# from reflex.components.radix.themes.layout import *
-# from reflex.components.radix.themes.typography import *
+from reflex.components.radix.themes.components import *
+from reflex.components.radix.themes.layout import *
+from reflex.components.radix.themes.typography import *
 from reflex.components.radix.primitives import *
 ```
 
@@ -26,188 +26,254 @@ The accordion component us made up of `accordion` which is the root of the compo
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            color_scheme="primary"
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    color_scheme="primary",
 )
-
 ```
 
 ## Styling
 
 ### Type
+We use the `type_` prop to determine whether multiple items can be opened at once.
+
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            multiple=True
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    multiple=True,
 )
-
 ```
 
 ### Default Value
+We use the `default_value` prop to specify which item should open by default. The value for this prop should be any of the 
+unique values set by an `accordion_item`.
+
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_1"),
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_2"),
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_3"),
-            collapsible=True,
-            width="300px",
-            default_value="item_2"
+    accordion_item(
+        "First Item",
+        "The first accordion item's content",
+        font_size="3em",
+        value="item_1",
+    ),
+    accordion_item(
+        "Second Item",
+        "The second accordion item's content",
+        font_size="3em",
+        value="item_2",
+    ),
+    accordion_item(
+        "Third item",
+        "The third accordion item's content",
+        font_size="3em",
+        value="item_3",
+    ),
+    collapsible=True,
+    width="300px",
+    default_value="item_2",
 )
-
 ```
 
 ### Collapsible
+We use the `collapsible` prop to allow all items to close. If set to false, an opened item cannot be closed.
+
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            disabled=True,
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    disabled=True,
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=False,
-            width="300px",
-            disabled=True,
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=False,
+    width="300px",
+    disabled=True,
 )
-
 ```
 
-### Disabled
+### Disable
+We use the `disabled` prop to prevent interaction with the accordion and all its items.
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            disabled=True,
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    disabled=True,
 )
-
 ```
 
 ### Direction
-
-
-### Orientation
+We use the `dir` prop to specify the reading direction of the accordion when applicable. This can be set to `ltr`
+or `rtl`. By default, the direction is set to `ltr`
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="classic",
-            color_scheme="primary",
-            orientation="veritcal"
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    dir="rtl",
 )
+```
 
+### Orientation
+We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
+will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but will change the 
+functional orientation. This means for vertical orientation, the up/down arrow keys moves focus between the next or previous item,
+while for horizontal orientation, the left/right arrow keys moves focus between items.
+
+```python demo
+accordion(
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="classic",
+    color_scheme="primary",
+    orientation="veritcal",
+)
 ```
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="classic",
-            color_scheme="primary",
-            orientation="horizontal"
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="classic",
+    color_scheme="primary",
+    orientation="horizontal",
 )
-
 ```
 
 ### Variant
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="classic",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="classic",
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="soft",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="soft",
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="outline",
-
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="outline",
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="surface",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="surface",
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            variant="ghost",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    variant="ghost",
 )
-
-
 ```
 
 
 
 ### Color Scheme
 
+We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
+
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            color_scheme="primary",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    color_scheme="primary",
 )
 
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            color_scheme="accent",
+    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    color_scheme="accent",
 )
-
 ```
 
 
 ### Value
+We use the `value` prop to specify the controlled value of the accordion item that we want to activate.
+This property should be used in conjunction with the `on_value_change` event argument.
 
 ```python demo exec
 class AccordionState(rx.State):
@@ -222,11 +288,11 @@ class AccordionState(rx.State):
 
 
 def index() -> rx.Component:
-    return rdxt.theme(
-        rdxt.container(
-            rdxt.text(AccordionState.item_selected),
-            rdxt.flex(
-                rdxp.accordion(
+    return theme(
+        container(
+            text(AccordionState.item_selected),
+            flex(
+                accordion(
                     accordion_item(
                         "Is it accessible?",
                         rdxt.button("Test button"),
@@ -261,6 +327,7 @@ def index() -> rx.Component:
 ```
 
 ## AccordionItem
+The accordion item contains all the parts of a collapsible section.
 
 ## Styling
 
@@ -268,25 +335,46 @@ def index() -> rx.Component:
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_1"),
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_2"),
-            accordion_item("Is it accessible?", "content", font_size="3em", value="item_3"),
-            collapsible=True,
-            width="300px",
+    accordion_item(
+        "First Item",
+        "The first accordion item's content",
+        font_size="3em",
+        value="item_1",
+    ),
+    accordion_item(
+        "Second Item",
+        "The second accordion item's content",
+        font_size="3em",
+        value="item_2",
+    ),
+    accordion_item(
+        "Third item",
+        "The third accordion item's content",
+        font_size="3em",
+        value="item_3",
+    ),
+    collapsible=True,
+    width="300px",
 )
-
 ```
 
 ### Disable
 
 ```python demo
 accordion(
-            accordion_item("Is it accessible?", "content", font_size="3em", disable=True),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            accordion_item("Is it accessible?", "content", font_size="3em"),
-            collapsible=True,
-            width="300px",
-            color_scheme="primary",
+    accordion_item(
+        "First Item",
+        "The first accordion item's content",
+        font_size="3em",
+        disabled=True,
+    ),
+    accordion_item(
+        "Second Item", "The second accordion item's content", font_size="3em"
+    ),
+    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
+    collapsible=True,
+    width="300px",
+    color_scheme="primary",
 )
 ```
 
