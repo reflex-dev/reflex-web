@@ -63,7 +63,7 @@ tabs_root(
 
 ### Orientation
 We use `orientation` prop to set the orientation of the tabs component to `vertical` or `horizontal`. By default, the orientation
-will be set to horizontal. Note that, the orientation prop wont change the visual orientation but will change the 
+will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but will change the 
 functional orientation. This means for vertical orientation, the up/down arrow keys moves focus between the next or previous tab,
 while for horizontal orientation, the left/right arrow keys moves focus between tabs.
 
@@ -105,7 +105,7 @@ tabs_root(
 )
 ```
 ### Value
-We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_value_change` event argument
+We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_value_change` event argument.
 
 ```python demo exec
 class TabsState(rx.State):
