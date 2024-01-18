@@ -110,8 +110,7 @@ rdxt.flex(
 
 ## Final Example
 
-A badge may contain more complex elements within it. This example uses a `flex`.
-component to align an icon and the text correctly, using the `gap` prop to
+A badge may contain more complex elements within it. This example uses a `flex` component to align an icon and the text correctly, using the `gap` prop to
 ensure a comfortable spacing between the two.
 
 ```python demo
