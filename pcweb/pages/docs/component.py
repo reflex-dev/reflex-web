@@ -367,6 +367,30 @@ EVENTS = {
     "on_open_change": {
         "description": "The on_open_change event handler is called when the open state of the component changes."
     },
+    "on_focus_outside": {
+        "description": "The on_focus_outside event handler is called when the user focuses outside the component."
+    },
+    "on_interact_outside": {
+        "description": "The on_interact_outside event handler is called when the user interacts outside the component."
+    },
+    "on_open_auto_focus": {
+        "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
+    },
+    "on_value_change": {
+        "description": "The on_value_change event handler is called when the value state of the component changes."
+    },
+    "on_close_auto_focus": {
+        "description": "The on_close_auto_focus event handler is called when focus moves to the trigger after closing. It can be prevented by calling event.preventDefault."
+    },
+    "on_escape_key_down": {
+        "description": "The on_escape_key_down event handler is called when the escape key is down. It can be prevented by calling event.preventDefault."
+    },
+    "on_pointer_down_outside": {
+        "description": "The on_pointer_down_outside event handler is called when a pointer event occurs outside the bounds of the component. It can be prevented by calling event.preventDefault."
+    },
+    "on_value_commit": {
+        "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service."
+    },
 }
 
 
@@ -498,7 +522,7 @@ tab_selected_style = {
 def multi_docs(path, comp, component_list, title):
     @docpage(set_path=path, t=title)
     def out():
-        components = [component_docs(component) for component in component_list]
+        components = [component_docs(component) for component in component_list[1:]]
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
 

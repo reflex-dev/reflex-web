@@ -2,6 +2,7 @@
 import reflex as rx
 from tutorial_utils import ChatappState
 import tutorial_style as style
+from pcweb.pages.docs import hosting
 ```
 
 # Final App
@@ -215,4 +216,6 @@ answer_style = message_style | dict(bg="#DEEAFD", margin_right=chat_margin)
 
 Congratulations! You have built your first chatbot. From here, you can read through the rest of the documentations to learn about Reflex in more detail. The best way to learn is to build something, so try to build your own app using this as a starting point!
 
+## One More Thing
 
+With our hosting service, you can deploy this app with a single command within minutes. Check out our [Hosting Quick Start]({hosting.deploy_quick_start.path}).

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
-
 import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar import NavbarState
@@ -103,13 +101,7 @@ def create_item(route: Route, children=None):
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
     return SidebarItem(
-        names=route
-        if isinstance(route, str)
-        else inspect.getmodule(route)
-        .__name__.split(".")[-1]
-        .replace("_", " ")
-        .title()
-        .replace("Api", "API"),
+        names=route,
         children=list(map(create_item, children)),
     )
 
@@ -283,10 +275,26 @@ def get_sidebar_items_hosting():
     from pcweb.pages.docs import hosting
 
     items = [
-        create_item(hosting.deploy),
+        create_item(
+            "Reflex Deploy",
+            children=[
+                hosting.deploy_quick_start,
+                hosting.hosting_cli_commands,
+            ],
+        ),
         create_item(hosting.self_hosting),
     ]
     return items
+
+
+from reflex.components.chakra.base import ChakraComponent
+
+
+def get_component_link(category, clist, prefix="") -> str:
+    if issubclass(clist[1], ChakraComponent):
+        prefix = "chakra/"
+    component_name = rx.utils.format.to_snake_case(clist[0])
+    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
 
 
 def get_category_children(category, category_list, prefix=""):
@@ -299,14 +307,11 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     for c in category_list:
-        component_name = rx.utils.format.to_snake_case(c[0].__name__)
-        component_link = (
-            f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
-        )
+        component_name = rx.utils.format.to_snake_case(c[0])
         name = rx.utils.format.to_title_case(component_name)
         item = SidebarItem(
             names=name,
-            link=component_link,
+            link=get_component_link(category, c, prefix=prefix),
         )
         category_item_children.append(item)
     return SidebarItem(names=category, children=category_item_children)
@@ -375,16 +380,16 @@ def get_sidebar_items_reference():
 
 
 def get_sidebar_items_other_libraries():
-    from pcweb.pages.docs import chakra_components
+    from pcweb.pages.docs import radix_components
 
     chakra_children = []
-    for category in chakra_components:
+    for category in radix_components:
         category_item = get_category_children(
-            category, chakra_components[category], prefix="chakra/"
+            category, radix_components[category], prefix="radix/"
         )
         chakra_children.append(category_item)
 
-    chakra_item = SidebarItem(names="Chakra UI", children=chakra_children)
+    chakra_item = SidebarItem(names="Radix UI", children=chakra_children)
 
     return [chakra_item]
 
@@ -441,7 +446,6 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-    first: bool,
 ):
     return rx.cond(
         item.children.length() == 0,
@@ -470,7 +474,6 @@ def sidebar_item_comp(
                                 item=child,
                                 index=index,
                                 url=url,
-                                first=False,
                             ),
                         ),
                         align_items="start",
@@ -587,7 +590,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in learn
                         ],
@@ -602,7 +604,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in frontend
                         ],
@@ -619,7 +620,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in backend
                         ],
@@ -636,7 +636,6 @@ def sidebar_comp(
                                 item=item,
                                 index=[-1],
                                 url=url,
-                                first=True,
                             )
                             for item in hosting
                         ],
@@ -653,9 +652,7 @@ def sidebar_comp(
                     sidebar_section("Core"),
                     rx.accordion(
                         *[
-                            sidebar_item_comp(
-                                item=item, url=url, first=True, index=reference_index
-                            )
+                            sidebar_item_comp(item=item, url=url, index=reference_index)
                             for item in reference
                         ],
                         allow_multiple=True,
@@ -667,7 +664,7 @@ def sidebar_comp(
                     rx.accordion(
                         *[
                             sidebar_item_comp(
-                                item=item, url=url, first=True, index=other_libs_index
+                                item=item, url=url, index=other_libs_index
                             )
                             for item in other_libs
                         ],

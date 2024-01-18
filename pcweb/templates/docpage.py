@@ -335,8 +335,14 @@ def code_comp(text: rx.Var[str]) -> rx.Component:
     return rx.code(text, color="#1F1944", bg="#EAE4FD")
 
 
-@rx.memo
-def h1_comp(text: rx.Var[str]) -> rx.Component:
+def h_comp_common(
+    text: rx.Var[str],
+    heading: str,
+    font_size: list[str] | str,
+    font_weight: str,
+    margin_top: str,
+    scroll_margin: str,
+) -> rx.Component:
     id_ = text.to(list[str])[0].lower().split().join("-")
     href = rx.State.router.page.full_path + "#" + id_
 
@@ -346,9 +352,10 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
                 rx.heading(
                     text,
                     id=id_,
-                    as_="h1",
-                    font_size=styles.H1_FONT_SIZE,
-                    font_weight=fw["heading"],
+                    as_=heading,
+                    font_size=font_size,
+                    font_weight=font_weight,
+                    scroll_margin=scroll_margin,
                 ),
                 rx.icon(
                     tag="link",
@@ -367,63 +374,130 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
             on_click=lambda: rx.set_clipboard(href),
         ),
         rx.divider(margin_y="1em"),
+        margin_top=margin_top,
         color=tc["docs"]["header"],
         width="100%",
+    )
+
+
+@rx.memo
+def h1_comp(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h1",
+        font_size=styles.H1_FONT_SIZE,
+        font_weight=fw["heading"],
+        margin_top="0",
+        scroll_margin="4em",
     )
 
 
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
-    id_ = text.to(list[str])[0].lower().split().join("-")
-    href = rx.State.router.page.full_path + "#" + id_
-
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(
-                    text,
-                    id=id_,
-                    as_="h2",
-                    font_size=styles.H3_FONT_SIZE,
-                    font_weight=fw["subheading"],
-                ),
-                rx.icon(
-                    tag="link",
-                    color="#696287",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                ),
-                align_items="center",
-            ),
-            _hover={
-                "cursor": "pointer",
-                "textDecoration": "none",
-            },
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-        ),
-        rx.divider(margin_y="1em"),
+    return h_comp_common(
+        text=text,
+        heading="h2",
+        font_size=styles.H3_FONT_SIZE,
+        font_weight=fw["subheading"],
         margin_top="1.5em",
-        color=tc["docs"]["header"],
-        width="100%",
-        scroll_margin_top="4em",
+        scroll_margin="5em",
     )
 
 
 @rx.memo
 def h3_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.box(
-        rx.heading(
-            text,
-            as_="h3",
-            font_size=styles.H4_FONT_SIZE,
-            font_weight=fw["subheading"],
-        ),
-        rx.divider(margin_y="1em"),
+    return h_comp_common(
+        text=text,
+        heading="h3",
+        font_size=styles.H4_FONT_SIZE,
+        font_weight=fw["subheading"],
         margin_top="1.5em",
-        color=tc["docs"]["header"],
+        scroll_margin="5em",
+    )
+
+
+@rx.memo
+def h4_comp(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h4",
+        font_size=styles.H4_FONT_SIZE,
+        font_weight=fw["subheading"],
+        margin_top="1.5em",
+        scroll_margin="6em",
+    )
+
+
+def doccmdoutput(
+    command: str,
+    output: str,
+) -> rx.Component:
+    """Create a documentation code snippet.
+
+    Args:
+        command: The command to display.
+        output: The output of the command.
+        theme: The theme of the component.
+
+    Returns:
+        The styled command and its example output.
+    """
+    return flex(
+        flex(
+            icon(tag="double_arrow_right", color="white", width=18, height=18),
+            rx.code_block(
+                command,
+                border_radius=styles.DOC_BORDER_RADIUS,
+                background="transparent",
+                theme="a11y-dark",
+                language="bash",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+            rx.button(
+                rx.icon(tag="copy"),
+                on_click=rx.set_clipboard(command),
+                position="absolute",
+                top="0.5em",
+                right="0.5em",
+                color=tc["docs"]["body"],
+                background="transparent",
+                _hover={
+                    "background": "transparent",
+                    "color": styles.ACCENT_COLOR,
+                },
+            ),
+            direction="row",
+            align="center",
+            gap="1",
+            margin_left="1em",
+        ),
+        separator(size="4", color_scheme="green"),
+        flex(
+            rx.code_block(
+                output,
+                border_radius=styles.DOC_BORDER_RADIUS,
+                background="transparent",
+                theme="a11y-dark",
+                language="log",
+                code_tag_props={
+                    "style": {
+                        "fontFamily": "inherit",
+                    }
+                },
+            ),
+        ),
+        direction="column",
+        gap="2",
+        border_radius=styles.DOC_BORDER_RADIUS,
+        border="2px solid #F4F3F6",
+        position="relative",
+        margin="1em",
         width="100%",
+        background_color="black",
     )
 
 
@@ -473,7 +547,7 @@ def docdemobox(*children, **props) -> rx.Component:
     Returns:
         The styled demo box.
     """
-    return rx.flex(
+    return rx.vstack(
         *children,
         style=demo_box_style,
         **props,

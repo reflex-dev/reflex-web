@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 from types import SimpleNamespace
 
@@ -8,6 +9,7 @@ from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 from .gallery import gallery
 from .library import library
@@ -52,6 +54,7 @@ def build_nested_namespace(
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 
 chakra_components = defaultdict(list)
+radix_components = defaultdict(list)
 component_list = defaultdict(list)
 
 docs_ns = SimpleNamespace()
@@ -63,16 +66,20 @@ for doc in sorted(flexdown_docs):
     # Get the docpage component.
     route = f"/{doc.replace('.md', '')}"
     path = doc.split("/")[1:-1]
-    title = rx.utils.format.to_snake_case(doc.rsplit("/", 1)[1].replace(".md", ""))
-    category = doc.split("/")[-2].title()
+    title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
+    category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
-        clist = [eval(c) for c in d.metadata["components"]]
-        chakra_components[category].append(clist)
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     elif doc.startswith("docs/library"):
-        clist = [eval(c) for c in d.metadata["components"]]
-        component_list[category].append(clist)
+        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        if issubclass(clist[1], RadixThemesComponent):
+            radix_components[category].append(clist)
+            route = route.replace("library/", "library/radix/")
+        else:
+            component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     else:
         comp = docpage(set_path=route, t=to_title_case(title))(
