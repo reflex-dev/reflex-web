@@ -1,8 +1,9 @@
 ---
 components:
     - rx.radix.themes.TabsRoot
-
-
+    - rx.radix.themes.TabsList
+    - rx.radix.themes.TabsTrigger
+    - rx.radix.themes.TabsContent
 ---
 
 ```python exec
@@ -103,7 +104,7 @@ tabs_root(
     orientation="horizontal",
 )
 ```
-### value
+### Value
 We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_value_change` event argument
 
 ```python demo exec
@@ -191,7 +192,7 @@ Contains the content associated with each trigger.
 
 ## Styling 
 
-### value
+### Value
 We use the `value` prop to assign a unique value that associates the content with a trigger.
 
 ```python
