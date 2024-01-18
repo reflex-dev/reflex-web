@@ -17,6 +17,11 @@ ROADMAP_URL = "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v
 CONTRIBUTING_URL = "https://www.notion.so/reflex-dev/aca6bf9bed5b4bb99b86b33d0761a445?v=f113d3d8d0664b709e55a1cfa286641e&pvs=4"
 REPORT_A_BUG_URL = "https://github.com/reflex-dev/reflex/issues/new?assignees=&labels=&projects=&template=bug_report.md&title="
 FRAGMENT_COMPONENT_INFO_URL = "https://react.dev/reference/react/Fragment"
+NOTION_HOSTING_URL = "https://www.notion.so/reflex-dev/Reflex-Hosting-Documentation-57a4dd55d6234858bbae0be75be79ce7?pvs=4"
+NEXT_SCRIPT_URL = "https://nextjs.org/docs/app/api-reference/components/script"
+GALLERY_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link"
+NPMJS_URL = "https://www.npmjs.com/"
+SPLINE_URL = "https://spline.design/"
 
 # Install urls.
 BUN_URL = "https://bun.sh"

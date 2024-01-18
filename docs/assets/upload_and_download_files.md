@@ -1,5 +1,7 @@
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
+from pcweb.pages.docs import api_reference
 ```
 
 
@@ -44,7 +46,7 @@ rx.button(
 )
 ```
 
-Reference page for `rx.download` [here]({"/docs/api-reference/special-events"}).
+Reference page for `rx.download` [here]({api_reference.special_events.path}).
 
 ## Upload
 
@@ -61,4 +63,4 @@ def index():
     )
 ```
 
-For detailed informations, see the reference page of the component [here](/docs/library/forms/upload).
+For detailed informations, see the reference page of the component [here]({library.forms.upload.path}).

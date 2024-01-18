@@ -2,6 +2,7 @@
 import reflex as rx
 from pcweb.pages.docs import components
 from pcweb.pages.docs import styling
+from pcweb.pages.docs import library
 import tutorial_style as style
 ```
 
@@ -121,7 +122,7 @@ def index() -> rx.Component:
 
 ## Chat Input
 
-Now we want a way for the user to input a question. For this, we will use the [input]({"/docs/library/forms/input"}) component to have the user add text and a [button]({"/docs/library/forms/button"}) component to submit the question.
+Now we want a way for the user to input a question. For this, we will use the [input]({library.chakra.forms.input.path}) component to have the user add text and a [button]({library.chakra.forms.button.path}) component to submit the question.
 
 
 ```python exec

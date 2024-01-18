@@ -1,11 +1,12 @@
 ```python exec
 import reflex as rx
 from typing import Any
+from pcweb.pages.docs import state
 ```
 
 ## Declaring Vars
 
-As seen in our [state section](https://reflex.dev/docs/state/), we can use `rx.Var` to define state variables in our Reflex apps.
+As seen in our [state section]({state.overview.path}), we can use `rx.Var` to define state variables in our Reflex apps.
 
 When wrapping your own react components, you can use `rx.Var` to define props for your component. In the example below, we define a `color` prop for our `ColorPicker` component.
 

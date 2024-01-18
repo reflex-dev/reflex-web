@@ -5,6 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 ```
 
 # Textarea
@@ -26,4 +27,4 @@ Alternatively, you can use the `on_blur` event handler to only update the state 
 
 Similar to the Input component, the TextArea is also implemented using debounced input when it is fully controlled.
 You can tune the debounce delay by setting the `debounce_timeout` prop.
-You can find examples of how it is used in the [DebouncedInput]("/docs/library/forms/debounceinput") component.
+You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
