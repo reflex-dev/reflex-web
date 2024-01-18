@@ -16,7 +16,7 @@ from pcweb.templates.docpage import (
 )
 
 
-class AlertBlock(flexdown.blocks.Block):
+class AlertBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a component along with its code."""
 
     starting_indicator = "```md alert"

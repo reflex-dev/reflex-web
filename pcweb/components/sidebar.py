@@ -148,7 +148,7 @@ def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
         assets,
         components,
-        library,
+        library_,
         pages,
         styling,
         ui,
@@ -165,7 +165,7 @@ def get_sidebar_items_frontend():
                 components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
-                library,
+                library_,
             ],
         ),
         create_item(

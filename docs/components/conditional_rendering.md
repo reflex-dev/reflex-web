@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
 
-from pcweb.pages.docs import vars
+from pcweb.pages.docs import vars, library
 ```
 
 # Conditional Rendering
@@ -10,8 +10,9 @@ We use the `cond` component to conditionally render components. The `cond` compo
 
 
 ```md alert
-Check out the API reference for [cond docs](https://reflex.dev/docs/library/layout/cond/).
+Check out the API reference for [cond docs]({library.layout.cond.path}).
 ```
+
 ```python eval
 rx.box(height="2em")
 ```
