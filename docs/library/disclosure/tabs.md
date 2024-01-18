@@ -36,7 +36,7 @@ tabs_root(
 
 ```
 
-The `tabs` component is made up of a `tabs_root` which groups `tabs_list` and `tabs_content` parts
+The `tabs` component is made up of a `tabs_root` which groups `tabs_list` and `tabs_content` parts.
 
 ## Styling
 
@@ -63,9 +63,9 @@ tabs_root(
 
 ### Orientation
 We use `orientation` prop to set the orientation of the tabs component to `vertical` or `horizontal`. By default, the orientation
-will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but will change the 
-functional orientation. This means for vertical orientation, the up/down arrow keys moves focus between the next or previous tab,
-while for horizontal orientation, the left/right arrow keys moves focus between tabs.
+will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but the 
+functional orientation. This means for vertical orientation, the up and down arrow keys moves focus between the next or previous tab,
+while for horizontal orientation, the left and right arrow keys moves focus between tabs.
 
 ```python demo 
 tabs_root(

@@ -19,7 +19,7 @@ from reflex.components.radix.themes import *
 
 An accordion is a vertically stacked set of interactive headings that each reveal an associated section of content.
 The accordion component us made up of `accordion` which is the root of the component and takes in an `accordion_item`
-which contains all the contents of the collapsible section
+which contains all the contents of the collapsible section.
 
 ## Basic Example
 
@@ -30,16 +30,15 @@ accordion(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
     accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
     width="300px",
-    color_scheme="primary",
 )
 ```
 
 ## Styling
 
 ### Type
-We use the `type_` prop to determine whether multiple items can be opened at once.
+We use the `type_` prop to determine whether multiple items can be opened at once. The allowed values for this prop are 
+`single` and `multiple` where `single` will only open one item at a time. The default value for this prop is `single`.
 
 ```python demo
 accordion(
@@ -50,7 +49,7 @@ accordion(
     accordion_item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
-    multiple=True,
+    type_="multiple",
 )
 ```
 
@@ -80,19 +79,17 @@ flex(
             font_size="3em",
             value="item_3",
         ),
-        collapsible=True,
         width="300px",
         default_value="item_2",
     ),
     direction="row",
     gap="2"
 )
-
 ```
 
 ### Collapsible
 
-We use the `collapsible` prop to allow all items to close. If set to false, an opened item cannot be closed.
+We use the `collapsible` prop to allow all items to close. If set to `False`, an opened item cannot be closed.
 
 ```python demo
 flex(
@@ -151,9 +148,9 @@ accordion(
 ### Orientation
 
 We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
-will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but will change the 
-functional orientation. This means for vertical orientation, the up/down arrow keys moves focus between the next or previous item,
-while for horizontal orientation, the left/right arrow keys moves focus between items.
+will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but the 
+functional orientation of the accordion. This means that for vertical orientation, the up and down arrow keys moves focus between the next or previous item,
+while for horizontal orientation, the left or right arrow keys moves focus between items.
 
 ```python demo
 accordion(
@@ -164,8 +161,6 @@ accordion(
     accordion_item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
-    variant="classic",
-    color_scheme="primary",
     orientation="vertical",
 )
 ```
@@ -179,8 +174,6 @@ accordion(
     accordion_item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
-    variant="classic",
-    color_scheme="primary",
     orientation="horizontal",
 )
 ```
@@ -247,7 +240,8 @@ flex(
 
 ### Color Scheme
 
-We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
+We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme. There
+are two color schemes for the accordion: `primary` and `accent`. The default color scheme is `primary`
 
 ```python demo
 flex(
