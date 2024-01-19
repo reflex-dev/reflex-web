@@ -433,7 +433,9 @@ def radix_form_example():
                         rdxp.form_control(
                             rdxt.textfield_input(
                                 placeholder="Username",
+                                # workaround: `name` seems to be required when on_change is set
                                 on_change=RadixFormState.set_user_entered_username,
+                                name="username",
                             ),
                             as_child=True,
                         ),
@@ -471,6 +473,7 @@ def radix_form_example():
                             rdxt.textfield_input(
                                 placeholder="Email Address",
                                 on_change=RadixFormState.set_user_entered_email,
+                                name="email",
                             ),
                             as_child=True,
                         ),
