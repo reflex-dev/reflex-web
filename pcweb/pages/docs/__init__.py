@@ -10,6 +10,7 @@ from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage
 from reflex.components.radix.themes.base import RadixThemesComponent
+from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 
 from .gallery import gallery
 from .library import library
@@ -75,7 +76,9 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     elif doc.startswith("docs/library"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
-        if issubclass(clist[1], RadixThemesComponent):
+        if issubclass(clist[1], RadixThemesComponent) or issubclass(
+            clist[1], RadixPrimitiveComponent
+        ):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
         else:
