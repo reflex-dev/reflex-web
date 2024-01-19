@@ -19,7 +19,7 @@ With `rx.match`, developers can not only handle multiple conditions but also per
 making it a versatile tool for managing various scenarios in Reflex applications.
 
 ## Basic Usage
-The rx.match function provides a clear and expressive syntax for handling multiple 
+The `rx.match` function provides a clear and expressive syntax for handling multiple 
 conditions and their corresponding components:
 
 ```python
@@ -46,27 +46,29 @@ import reflex.components.radix.themes as rdxt
 
 
 class MatchState(rx.State):
-    color: str = ""
-    options: List[str] = ["red", "green", "blue"]
+    cat_breed: str = ""
+    animal_options: List[str] = ["persian", "siamese", "maine coon", "ragdoll", "pug", "corgi"]
 
 
 def match_demo():
     return rdxt.flex(
         rx.match(
-            MatchState.color,
-            ("red", rdxt.text("red color selected")),
-            ("green", rdxt.text("green color selected")),
-            rdxt.text("Default color selected.")
+            MatchState.cat_breed,
+            ("persian", rdxt.text("Persian cat selected.")),
+            ("siamese", rdxt.text("Siamese cat selected.")),
+            ("maine coon", rdxt.text("Maine Coon cat selected.")),
+            ("ragdoll", rdxt.text("Ragdoll cat selected.")),
+            rdxt.text("Unknown cat breed selected.")
         ),
         rdxt.select_root(
             rdxt.select_trigger(),
             rdxt.select_content(
                 rdxt.select_group(
-                    rx.foreach(MatchState.options, lambda x: rdxt.select_item(x, value=x))
+                    rx.foreach(MatchState.animal_options, lambda x: rdxt.select_item(x, value=x))
                 ),
             ),
-            value=MatchState.color,
-            on_value_change=MatchState.set_color,
+            value=MatchState.cat_breed,
+            on_value_change=MatchState.set_cat_breed,
             
         ),
         direction= "column",
@@ -75,55 +77,55 @@ def match_demo():
 ```
 
 ## Default Case
-The default case in rx.match serves as a universal handler for scenarios where none of 
+The default case in `rx.match` serves as a universal handler for scenarios where none of 
 the specified match cases aligns with the given match condition. Here are key considerations 
 when working with the default case:
 
-- **Placement in the Match Function**: The default case must be the last non-tuple argument in the rx.match function. 
+- **Placement in the Match Function**: The default case must be the last non-tuple argument in the `rx.match` component. 
 All match cases should be enclosed in tuples; any non-tuple value is automatically treated as the default case. For example:
     
  ```python
 rx.match(
-            MatchState.color,
-            ("red", rdxt.text("red color selected")),
-            rdxt.text("Default color selected.")
-            ("green", rdxt.text("green color selected")),
+            MatchState.cat_breed,
+            ("persian", rdxt.text("persian cat selected")),
+            rdxt.text("Unknown cat breed selected."),
+            ("siamese", rdxt.text("siamese cat selected")),
         )
 ```
 The above code snippet will result in an error due to the misplaced default case.
 
-- **Single Default Case**: Only one default case is allowed in the rx.match function. 
+- **Single Default Case**: Only one default case is allowed in the `rx.match` component. 
 Attempting to specify multiple default cases will lead to an error. For instance:
 
  ```python
 rx.match(
-            MatchState.color,
-            ("red", rdxt.text("red color selected")),
-            ("green", rdxt.text("green color selected")),
-            rdxt.text("Default color selected."),
-            rdxt.text("Another default color selected.")
+            MatchState.cat_breed,
+            ("persian", rdxt.text("persian cat selected")),
+            ("siamese", rdxt.text("siamese cat selected")),
+            rdxt.text("Unknown cat breed selected."),
+            rdxt.text("Another unknown cat selected.")
         )
 ```
 
-- **Optional Default Case for Component Return Values**: If the match cases in a rx.match component 
+- **Optional Default Case for Component Return Values**: If the match cases in a `rx.match` component 
 return components, the default case can be optional. In this scenario, if a default case is 
-not provided, rx.fragment will be implicitly assigned as the default. For example:
+not provided, `rx.fragment` will be implicitly assigned as the default. For example:
 
  ```python
 rx.match(
-            MatchState.color,
-            ("red", rdxt.text("red color selected")),
-            ("green", rdxt.text("green color selected")),
+            MatchState.cat_breed,
+            ("persian", rdxt.text("persian cat selected")),
+            ("siamese", rdxt.text("siamese cat selected")),
         )
 ```
-In this case, rx.fragment is the default case. However, not providing a default case for non-component 
+In this case, `rx.fragment` is the default case. However, not providing a default case for non-component 
 return values will result in an error:
 
  ```python
 rx.match(
-            MatchState.color,
-            ("red", "first value"),
-            ("green", "second value"),
+            MatchState.cat_breed,
+            ("persian", "persian cat selected"),
+            ("siamese", "siamese cat selected"),
         )
 ```
 The above code snippet will result in an error as a default case must be explicitly 
@@ -143,26 +145,27 @@ import reflex.components.radix.themes as rdxt
 
 
 class MultiMatchState(rx.State):
-    color: str = ""
-    options: List[str] = ["red", "green", "blue", "yellow", "orange", "black", "white"]
+    animal_breed: str = ""
+    animal_options: List[str] = ["persian", "siamese", "maine coon", "pug", "corgi", "mustang", "rahvan", "football", "golf"]
     
 def multi_match_demo():
     return rdxt.flex(
         rx.match(
-            MultiMatchState.color,
-            ("red", "yellow", "blue", rdxt.text("primary color")),
-            ("green","orange", rdxt.text("secondary color")),
-            rdxt.text("neither primary nor secondary.")
+            MultiMatchState.animal_breed,
+            ("persian", "siamese", "maine coon", rdxt.text("Breeds of cats.")),
+            ("pug", "corgi", rdxt.text("Breeds of dogs.")),
+            ("mustang", "rahvan", rdxt.text("Breeds of horses.")),
+            rdxt.text("Unknown animal breed")
         ),
         rdxt.select_root(
             rdxt.select_trigger(),
             rdxt.select_content(
                 rdxt.select_group(
-                    rx.foreach(MultiMatchState.options, lambda x: rdxt.select_item(x, value=x))
+                    rx.foreach(MultiMatchState.animal_options, lambda x: rdxt.select_item(x, value=x))
                 ),
             ),
-            value=MatchState.color,
-            on_value_change=MultiMatchState.set_color,
+            value=MultiMatchState.animal_breed,
+            on_value_change=MultiMatchState.set_animal_breed,
             
         ),
         direction= "column",
@@ -177,15 +180,14 @@ The following code snippet will result in an error:
 
 ```python
 rx.match(
-            MatchState.color,
-            ("red",),
-            ("green", rdxt.text("green color selected")),
+            MatchState.cat_breed,
+            ("persian",),
+            ("maine coon", rdxt.text("Maine Coon cat selected")),
         )
-
 ```
 
 ## Usage as Props
-Similar to rx.cond, rx.match can be used as prop values, allowing dynamic behavior for UI components:
+Similar to `rx.cond`, `rx.match` can be used as prop values, allowing dynamic behavior for UI components:
 
 ```python demo exec
 import reflex as rx
@@ -204,22 +206,27 @@ class MatchPropState(rx.State):
 
 def match_prop_demo_():
     return rdxt.flex(
-        rdxt.heading(
-            MatchPropState.value, 
-            color="white",
-            background_color= rx.match(
-                MatchPropState.value,
-                (1, "red"),
-                (5, "blue"),
-                (10, "green"),
-                (15, "orange"),
-                "black"
-                
+        rdxt.box(
+            rdxt.heading(
+                MatchPropState.value, 
+                color="white",
+                as_="h2"
             ),
-            as_="h2"
+            background_color= rx.match(
+                    MatchPropState.value,
+                    (1, "red"),
+                    (5, "blue"),
+                    (10, "green"),
+                    (15, "orange"),
+                    "black"
+                    
+                ),
+            padding="1rem 3rem",
+            border_radius="8px",
+            text_align="center"
         ),
         rdxt.flex(
-            rdxt.button("decrement", on_click=MatchPropState.decr),
+            rdxt.button("decrement", on_click=MatchPropState.decr, background_color="red"),
             rdxt.button("increment", on_click=MatchPropState.incr),
             gap= "2"
         ),
@@ -227,11 +234,9 @@ def match_prop_demo_():
         direction= "column",
         gap= "2"
     )
-
-
 ```
 
-In the example above, the background color property of the text component containing `State.value` changes to red when 
+In the example above, the background color property of the box component containing `State.value` changes to red when 
 `state.value` is 1, blue when its 5, green when its 5, orange when its 15 and black for any other value.
 
 The example below also shows handling multiple conditions with the match component as props.
@@ -253,33 +258,35 @@ class MatchMultiPropState(rx.State):
 
 def match_multi_prop_demo_():
     return rdxt.flex(
-        rdxt.heading(
-            MatchMultiPropState.value, 
-            color="white",
-            background_color= rx.match(
-                MatchMultiPropState.value,
-                (1, 3, 9, "red"),
-                (2, 4, 5, "blue"),
-                (6, 8, 12, "green"),
-                (10, 15, 20, 25, "orange"),
-                "black"
-                
+        rdxt.box(
+            rdxt.heading(
+                MatchMultiPropState.value, 
+                color="white",
+                as_="h2"
             ),
-            as_="h2"
-            
+            background_color= rx.match(
+                    MatchMultiPropState.value,
+                    (1, 3, 9, "red"),
+                    (2, 4, 5, "blue"),
+                    (6, 8, 12, "green"),
+                    (10, 15, 20, 25, "orange"),
+                    "black"
+                    
+                ),
+            padding="1rem 3rem",
+            border_radius="8px",
+            text_align="center"
         ),
         rdxt.flex(
-            rdxt.button("decrement", on_click=MatchMultiPropState.decr),
+            rdxt.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
             rdxt.button("increment", on_click=MatchMultiPropState.incr),
             gap="2"
         ),
         align_items="center",
         justify_content="center",
         direction= "column",
-        gap= "2"
+        gap= "3"
     )
-
-
 ```
 
 ```md alert warning
