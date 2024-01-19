@@ -1,7 +1,7 @@
 ```python exec
 import reflex as rx
-from tutorial_utils import ChatappState
-import tutorial_style as style
+from docs.tutorial.tutorial_utils import ChatappState
+import docs.tutorial.tutorial_style as style
 from pcweb.pages.docs import hosting
 ```
 

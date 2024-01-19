@@ -268,7 +268,8 @@ Feedback: {feedback}
                 "sort_by": "_text_match:desc",
                 "filter_by": f"category: {self.current_category}",
             }
-        return client.collections["search-auto"].documents.search(search_parameters)[
+        typesense_collection_name = os.gentenv("TYPESENSE_COLLECTION_NAME", "search-auto")
+        return client.collections[typesense_collection_name].documents.search(search_parameters)[
             "hits"
         ]
 
