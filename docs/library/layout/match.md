@@ -103,7 +103,7 @@ rx.match(
             ("persian", rdxt.text("persian cat selected")),
             ("siamese", rdxt.text("siamese cat selected")),
             rdxt.text("Unknown cat breed selected."),
-            rdxt.text("Another unknown cat selected.")
+            rdxt.text("Another unknown cat breed selected.")
         )
 ```
 
