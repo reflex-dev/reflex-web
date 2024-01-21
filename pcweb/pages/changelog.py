@@ -71,7 +71,7 @@ def changelog_content():
                 "Improvements to Radix-UI preview components",
             ],
             "https://github.com/reflex-dev/reflex/releases/tag/v0.3.9",
-        )
+        ),
         change(
             "2024-01-08",
             "v0.3.8",
