@@ -206,33 +206,23 @@ class MatchPropState(rx.State):
 
 def match_prop_demo_():
     return rdxt.flex(
-        rdxt.box(
-            rdxt.heading(
-                MatchPropState.value, 
-                color="white",
-                as_="h2"
-            ),
-            background_color= rx.match(
+        rdxt.button("decrement", on_click=MatchPropState.decr, background_color="red"),
+        rdxt.badge(
+            MatchPropState.value, 
+            color_scheme= rx.match(
                     MatchPropState.value,
                     (1, "red"),
-                    (5, "blue"),
-                    (10, "green"),
-                    (15, "orange"),
-                    "black"
-                    
+                    (2, "blue"),
+                    (6, "purple"),
+                    (10, "orange"),
+                    "green"
                 ),
-            padding="1rem 3rem",
-            border_radius="8px",
-            text_align="center"
+                size="2",
         ),
-        rdxt.flex(
-            rdxt.button("decrement", on_click=MatchPropState.decr, background_color="red"),
-            rdxt.button("increment", on_click=MatchPropState.incr),
-            gap= "2"
-        ),
+        rdxt.button("increment", on_click=MatchPropState.incr),
         align_items="center",
-        direction= "column",
-        gap= "2"
+        direction= "row",
+        gap= "3"
     )
 ```
 
@@ -258,33 +248,22 @@ class MatchMultiPropState(rx.State):
 
 def match_multi_prop_demo_():
     return rdxt.flex(
-        rdxt.box(
-            rdxt.heading(
-                MatchMultiPropState.value, 
-                color="white",
-                as_="h2"
-            ),
-            background_color= rx.match(
+        rdxt.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
+        rdxt.badge(
+            MatchMultiPropState.value, 
+            color_scheme= rx.match(
                     MatchMultiPropState.value,
                     (1, 3, 9, "red"),
                     (2, 4, 5, "blue"),
-                    (6, 8, 12, "green"),
+                    (6, 8, 12, "purple"),
                     (10, 15, 20, 25, "orange"),
-                    "black"
-                    
+                    "green"
                 ),
-            padding="1rem 3rem",
-            border_radius="8px",
-            text_align="center"
+                size="2",
         ),
-        rdxt.flex(
-            rdxt.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
-            rdxt.button("increment", on_click=MatchMultiPropState.incr),
-            gap="2"
-        ),
+        rdxt.button("increment", on_click=MatchMultiPropState.incr),
         align_items="center",
-        justify_content="center",
-        direction= "column",
+        direction= "row",
         gap= "3"
     )
 ```
@@ -294,13 +273,13 @@ def match_multi_prop_demo_():
 
 The `rx.match` component is designed for structural pattern matching. If the value of your match condition evaluates to a boolean (True or False), it is recommended to use `rx.cond` instead. 
 
-Consider the following example, which is more suitable for `rx.cond`:
+Consider the following example, which is more suitable for `rx.cond`:*
+```
 
-```python
+```python 
 rx.cond(
     MatchPropState.value == 10,
     "true value",
     "false value"
 )
-```
 ```
