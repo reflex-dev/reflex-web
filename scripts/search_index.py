@@ -286,4 +286,6 @@ if __name__ == "__main__":
         print("\033[92mUpload complete!")
     else:
         print(json.dumps(docs, indent=4))
-        print("\033[96m[set --upload and --collection-name to actually publish to Typesense Cloud]")
+        print(
+            "\033[96m[set --upload and --collection-name to actually publish to Typesense Cloud]"
+        )
