@@ -66,7 +66,8 @@ for doc in sorted(flexdown_docs):
         continue
 
     # Get the docpage component.
-    route = f"/{doc.replace('.md', '')}".replace("\\", "/")
+    doc = doc.replace("\\", "/")
+    route = f"/{doc.replace('.md', '')}"
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     category = os.path.basename(os.path.dirname(doc)).title()
