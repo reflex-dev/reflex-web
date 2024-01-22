@@ -1,5 +1,8 @@
 """The main Reflex website."""
 
+import os
+import sys
+
 import reflex as rx
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
@@ -24,6 +27,17 @@ gtag('config', 'G-4T7C8ZD9TR');
         ),
     ],
 )
+
+
+# XXX: The app is TOO BIG to build on Windows, so explicitly disallow it except for testing
+if sys.platform == "win32":
+    if not os.environ.get("REFLEX_WEB_WINDOWS_OVERRIDE"):
+        raise RuntimeError(
+            "reflex-web cannot be built on Windows due to EMFILE error. To build a "
+            "subset of pages for testing, set environment variable REFLEX_WEB_WINDOWS_OVERRIDE."
+        )
+    routes = routes[:150]
+
 
 # Add the pages to the app.
 for route in routes:
