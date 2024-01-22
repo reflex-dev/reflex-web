@@ -8,6 +8,12 @@ import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.pages import page404, routes
 
+
+# This number discovered by trial and error on Windows 11 w/ Node 18, any
+# higher and the prod build fails with EMFILE error.
+WINDOWS_MAX_ROUTES = 125
+
+
 # Create the app.
 app = rx.App(
     style=styles.BASE_STYLE,
@@ -36,7 +42,7 @@ if sys.platform == "win32":
             "reflex-web cannot be built on Windows due to EMFILE error. To build a "
             "subset of pages for testing, set environment variable REFLEX_WEB_WINDOWS_OVERRIDE."
         )
-    routes = routes[:150]
+    routes = routes[:WINDOWS_MAX_ROUTES]
 
 
 # Add the pages to the app.
