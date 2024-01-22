@@ -3,6 +3,8 @@ components:
     - rx.chakra.ResponsiveGrid
 ---
 
+# Responsive Grid
+
 ```python exec
 import reflex as rx
 ```

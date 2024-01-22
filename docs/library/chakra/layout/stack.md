@@ -5,6 +5,8 @@ components:
     - rx.chakra.Vstack
 ---
 
+# Stack
+
 ```python exec
 import reflex as rx
 ```

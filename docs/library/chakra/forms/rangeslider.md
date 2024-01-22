@@ -23,7 +23,7 @@ class RangeSliderState(rx.State):
 
 def range_slider_example():
     return rx.vstack(
-        rx.heading(RangeSliderState.value),
+        rx.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
         rx.range_slider(
             on_change_end=RangeSliderState.set_value
         ),
@@ -36,7 +36,7 @@ This is not recommended for performance reasons and should only be used if you n
 
 ```python demo
 rx.vstack(
-    rx.heading(RangeSliderState.value),
+    rx.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
     rx.range_slider(
         on_change=RangeSliderState.set_value
     ),

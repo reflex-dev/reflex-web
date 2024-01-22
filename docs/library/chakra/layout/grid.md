@@ -4,6 +4,8 @@ components:
     - rx.chakra.GridItem
 ---
 
+# Grid
+
 ```python exec
 import reflex as rx
 ```

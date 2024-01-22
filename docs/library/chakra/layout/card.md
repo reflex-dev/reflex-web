@@ -10,6 +10,8 @@ components:
 import reflex as rx
 ```
 
+# Card
+
 Card is a flexible component used to group and display content in a clear and concise format.
 
 ```python demo

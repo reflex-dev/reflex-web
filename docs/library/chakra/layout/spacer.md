@@ -3,6 +3,8 @@ components:
     - rx.chakra.Spacer
 ---
 
+# Spacer
+
 ```python exec
 import reflex as rx
 ```
