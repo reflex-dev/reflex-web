@@ -32,7 +32,7 @@ The `self.router` attribute has several sub-attributes that provide various info
 
 ### Example Values on this Page
 
-```python demo exec align-items=start
+```python demo exec alignItems=start
 class RouterState(rx.State):
     pass
 

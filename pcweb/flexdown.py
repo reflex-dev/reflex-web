@@ -164,8 +164,6 @@ class DemoBlock(flexdown.blocks.Block):
         lines = self.get_lines(env)
         code = "\n".join(lines[1:-1])
 
-        demobox_props = {}
-
         args = lines[0].removeprefix(self.starting_indicator).split()
 
         if "exec" in args:
@@ -185,8 +183,13 @@ class DemoBlock(flexdown.blocks.Block):
             return rx.box(docdemobox(comp), margin_bottom="1em")
         else:
             comp = eval(code, env, env)
-        if "align-items=start" in args:
-            demobox_props = {"align-items": "start"}
+
+        # Sweep up additional CSS-like props to apply to the demobox itself
+        demobox_props = {}
+        for arg in args:
+            prop, equals, value = arg.partition("=")
+            if equals:
+                demobox_props[prop] = value
 
         return docdemo(code, comp=comp, demobox_props=demobox_props)
 
