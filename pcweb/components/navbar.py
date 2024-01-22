@@ -268,10 +268,12 @@ Feedback: {feedback}
                 "sort_by": "_text_match:desc",
                 "filter_by": f"category: {self.current_category}",
             }
-        typesense_collection_name = os.gentenv("TYPESENSE_COLLECTION_NAME", "search-auto")
-        return client.collections[typesense_collection_name].documents.search(search_parameters)[
-            "hits"
-        ]
+        typesense_collection_name = os.gentenv(
+            "TYPESENSE_COLLECTION_NAME", "search-auto"
+        )
+        return client.collections[typesense_collection_name].documents.search(
+            search_parameters
+        )["hits"]
 
 
 def search_bar():
