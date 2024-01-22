@@ -263,7 +263,7 @@ def get_sidebar_items_backend():
         create_item(
             "Utility Methods",
             children=[
-                utility_methods.files_router_methods,
+                utility_methods.router_attributes,
                 utility_methods.other_methods,
             ],
         ),

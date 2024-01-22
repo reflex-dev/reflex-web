@@ -184,7 +184,14 @@ class DemoBlock(flexdown.blocks.Block):
         else:
             comp = eval(code, env, env)
 
-        return docdemo(code, comp=comp)
+        # Sweep up additional CSS-like props to apply to the demobox itself
+        demobox_props = {}
+        for arg in args:
+            prop, equals, value = arg.partition("=")
+            if equals:
+                demobox_props[prop] = value
+
+        return docdemo(code, comp=comp, demobox_props=demobox_props)
 
 
 component_map = {
