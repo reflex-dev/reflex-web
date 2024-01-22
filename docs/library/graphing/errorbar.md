@@ -3,6 +3,8 @@ components:
     - rx.recharts.ErrorBar
 ---
 
+# Error Bar
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

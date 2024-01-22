@@ -3,6 +3,8 @@ components:
     - rx.Plotly
 ---
 
+# Plotly
+
 ```python exec
 import reflex as rx
 import pandas as pd

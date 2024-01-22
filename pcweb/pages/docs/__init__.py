@@ -9,6 +9,7 @@ from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage
+from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 
@@ -79,6 +80,10 @@ for doc in sorted(flexdown_docs):
         if issubclass(clist[1], (RadixThemesComponent, RadixPrimitiveComponent)):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
+        elif issubclass(clist[1], ChakraComponent):
+            # Workaround for Chakra components outside of chakra directory (like Html).
+            component_list[category].append(clist)
+            route = route.replace("library/", "library/chakra/")
         else:
             component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)

@@ -3,6 +3,8 @@ components:
     - rx.recharts.Brush
 ---
 
+# Brush
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

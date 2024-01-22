@@ -3,6 +3,8 @@ components:
     - rx.Editor
 ---
 
+# Editor
+
 An HTML editor component based on [Suneditor](http://suneditor.com/sample/index.html).
 
 ```python demo exec

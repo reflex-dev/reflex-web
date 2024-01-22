@@ -3,6 +3,8 @@ components:
     - rx.chakra.Flex
 ---
 
+# Flex
+
 ```python exec
 import reflex as rx
 ```
