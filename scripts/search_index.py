@@ -30,13 +30,14 @@ def index_flexdown(source: str, href: str) -> list[tuple[str, str, str]]:
 
     # The environment used for execing and evaling code.
     env = source.metadata
+    env["__xd"] = xd
 
     # Get the content of the document.
     source = source.content
 
     # Get the blocks in the source code.
     # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
-    blocks = xd.get_blocks(source)
+    blocks = xd.get_blocks(source, href)
 
     content_pieces = []
     for block in blocks:
