@@ -451,7 +451,7 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):
+):  
     return rx.cond(
         item.children.length() == 0,
         sidebar_leaf(item=item, url=url),
@@ -461,6 +461,19 @@ def sidebar_item_comp(
                     item.names,
                     font_family=styles.SANS,
                     font_weight="500",
+                ),
+                rx.cond(
+                    item.names == "Radix UI",
+                    rx.text(
+                        "Experimental",
+                        color="#5646ED",
+                        bg="#F5EFFE",
+                        padding_x="0.5em",
+                        border_radius="4px",
+                        font_weight=600,
+                        font_size=".8em",
+                        margin_left="0.5em",
+                    )
                 ),
                 rx.spacer(),
                 rx.accordion_icon(),
