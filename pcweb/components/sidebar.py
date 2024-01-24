@@ -140,7 +140,7 @@ def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
         assets,
         components,
-        library,
+        library_,
         pages,
         styling,
         ui,
@@ -157,7 +157,7 @@ def get_sidebar_items_frontend():
                 components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
-                library,
+                library_,
             ],
         ),
         create_item(
@@ -263,7 +263,7 @@ def get_sidebar_items_backend():
         create_item(
             "Utility Methods",
             children=[
-                utility_methods.files_router_methods,
+                utility_methods.router_attributes,
                 utility_methods.other_methods,
             ],
         ),
@@ -282,7 +282,10 @@ def get_sidebar_items_hosting():
                 hosting.hosting_cli_commands,
             ],
         ),
-        create_item(hosting.self_hosting),
+        create_item(
+            "Self Hosting",
+            children=[hosting.self_hosting],
+        ),
     ]
     return items
 
@@ -464,6 +467,7 @@ def sidebar_item_comp(
                 },
                 color="#494369",
                 width="100%",
+                min_width="10em",
             ),
             rx.accordion_panel(
                 rx.accordion(
@@ -486,6 +490,7 @@ def sidebar_item_comp(
                 width="100%",
             ),
             border="none",
+            width="100%",
         ),
     )
 
@@ -556,134 +561,142 @@ def sidebar_comp(
     other_libs_index: list[int],
 ):
     return rx.vstack(
-        rx.tabs(
-            rx.tab_list(
-                rx.tab(
-                    rx.hstack(
-                        rx.image(src="/icons/doc.svg", height="1em"),
-                        rx.text("Learn"),
-                        on_click=lambda: SidebarState.set_sidebar_index(0),
-                    ),
-                    color="#494369",
-                    padding_left="0em",
-                ),
-                rx.tab(
-                    rx.hstack(
-                        rx.image(src="/icons/ref.svg", height="1em"),
-                        rx.text("Reference"),
-                        on_click=lambda: SidebarState.set_sidebar_index(1),
-                    ),
-                    padding_left="0em",
-                    color="#494369",
-                ),
-                color="#494369",
-                margin_left="1.1em",
-                align="left",
-                font_weight="450",
+        rx.box(
+            rx.text(
+                "Learn",
+                font_weight= fw["section"],
+                font_size= styles.TEXT_FONT_SIZE,
+                color= "#696287",  
+            ),    
+            on_click=lambda: SidebarState.set_sidebar_index(0),
+            background=rx.cond(
+                SidebarState.sidebar_index == 0,
+                "#F5EFFE",
+                "transparent",
             ),
-            rx.tab_panels(
-                rx.tab_panel(
-                    sidebar_section("Onboarding"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item,
-                                index=[-1],
-                                url=url,
-                            )
-                            for item in learn
-                        ],
-                        allow_multiple=True,
-                        default_index=learn_index if learn_index is not None else [],
-                        width="100%",
-                    ),
-                    sidebar_section("UI"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item,
-                                index=[-1],
-                                url=url,
-                            )
-                            for item in frontend
-                        ],
-                        allow_multiple=True,
-                        default_index=frontend_index
-                        if frontend_index is not None
-                        else [],
-                        width="100%",
-                    ),
-                    sidebar_section("State"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item,
-                                index=[-1],
-                                url=url,
-                            )
-                            for item in backend
-                        ],
-                        allow_multiple=True,
-                        default_index=backend_index
-                        if backend_index is not None
-                        else [],
-                        width="100%",
-                    ),
-                    sidebar_section("Hosting"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item,
-                                index=[-1],
-                                url=url,
-                            )
-                            for item in hosting
-                        ],
-                        allow_multiple=True,
-                        default_index=hosting_index
-                        if hosting_index is not None
-                        else [],
-                        width="100%",
-                    ),
-                    padding_x="0em",
-                    width="100%",
-                ),
-                rx.tab_panel(
-                    sidebar_section("Core"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(item=item, url=url, index=reference_index)
-                            for item in reference
-                        ],
-                        allow_multiple=True,
-                        default_index=reference_index
-                        if reference_index is not None
-                        else [],
-                    ),
-                    sidebar_section("Other Libraries"),
-                    rx.accordion(
-                        *[
-                            sidebar_item_comp(
-                                item=item, url=url, index=other_libs_index
-                            )
-                            for item in other_libs
-                        ],
-                        allow_multiple=True,
-                        default_index=other_libs_index
-                        if other_libs_index is not None
-                        else [],
-                    ),
-                    padding_x="0em",
-                    width="100%",
-                ),
-                width="100%",
-            ),
-            index=SidebarState.sidebar_index,
+            align_items="left",
+            padding_y="0.5em",
+            padding_x="0.5em",
+            border_radius="0.5em",
+            border="2px solid #F4F3F6",
             width="100%",
+        ),
+        rx.box(
+            rx.text(
+                "Reference",
+                font_weight= fw["section"],
+                font_size= styles.TEXT_FONT_SIZE,
+                color= "#696287",  
+            ), 
+            on_click=lambda: SidebarState.set_sidebar_index(1),
+            background=rx.cond(
+                SidebarState.sidebar_index == 1,
+                "#F5EFFE",
+                "transparent",
+            ),
+            align_items="left",
+            padding_y="0.5em",
+            padding_x="0.5em",
+            border_radius="0.5em",
+            border="2px solid #F4F3F6",
+            width="100%",
+        ),
+        rx.divider(),
+        rx.cond(
+            SidebarState.sidebar_index == 0,
+            rx.vstack(
+                sidebar_section("Onboarding"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(
+                            item=item,
+                            index=[-1],
+                            url=url,
+                        )
+                        for item in learn
+                    ],
+                    allow_multiple=True,
+                    default_index=learn_index if learn_index is not None else [],
+                    width="100%",
+                ),
+                sidebar_section("UI"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(
+                            item=item,
+                            index=[-1],
+                            url=url,
+                        )
+                        for item in frontend
+                    ],
+                    allow_multiple=True,
+                    default_index=frontend_index if frontend_index is not None else [],
+                    width="100%",
+                ),
+                sidebar_section("State"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(
+                            item=item,
+                            index=[-1],
+                            url=url,
+                        )
+                        for item in backend
+                    ],
+                    allow_multiple=True,
+                    default_index=backend_index if backend_index is not None else [],
+                    width="100%",
+                ),
+                sidebar_section("Hosting"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(
+                            item=item,
+                            index=[-1],
+                            url=url,
+                        )
+                        for item in hosting
+                    ],
+                    allow_multiple=True,
+                    default_index=hosting_index if hosting_index is not None else [],
+                    width="100%",
+                ),
+                padding_x="0em",
+                width="100%",
+                align_items="start",
+            ),
+            rx.vstack(
+                sidebar_section("Core"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(item=item, url=url, index=reference_index)
+                        for item in reference
+                    ],
+                    allow_multiple=True,
+                    default_index=reference_index
+                    if reference_index is not None
+                    else [],
+                ),
+                sidebar_section("Other Libraries"),
+                rx.accordion(
+                    *[
+                        sidebar_item_comp(item=item, url=url, index=other_libs_index)
+                        for item in other_libs
+                    ],
+                    allow_multiple=True,
+                    default_index=other_libs_index
+                    if other_libs_index is not None
+                    else [],
+                ),
+                padding_x="0em",
+                width="100%",
+                align_items="start",
+            ),
         ),
         align_items="start",
         overflow_y="scroll",
         max_height="90%",
+        width="17em",
         padding_bottom="6em",
         position="fixed",
         scroll_padding="1em",
@@ -717,6 +730,7 @@ def sidebar(url=None) -> rx.Component:
             hosting_index=hosting_index,
             other_libs_index=other_libs_index,
         ),
+        width="100%",
     )
 
 

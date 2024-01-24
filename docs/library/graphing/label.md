@@ -4,6 +4,8 @@ components:
     - rx.recharts.LabelList
 ---
 
+# Label
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

@@ -1,14 +1,14 @@
 ```python exec
 import reflex as rx
-from datatable_tutorial_utils import DataTableState, DataTableState2
+from docs.datatable_tutorial.datatable_tutorial_utils import DataTableState, DataTableState2
+from pcweb.pages.docs import library
 ```
-
 
 
 # Data Table (Editable) Tutorial
 
 ```md alert info
-#There is another [datatable component](https://reflex.dev/docs/library/datadisplay/datatable/), which is only used for displaying data and does not support user interactivity or editing.
+#There is another [datatable component]({library.datadisplay.datatable.path}), which is only used for displaying data and does not support user interactivity or editing.
 ```
 
 

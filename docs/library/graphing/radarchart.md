@@ -3,6 +3,8 @@ components:
     - rx.recharts.RadarChart
 ---
 
+# Radar Chart
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

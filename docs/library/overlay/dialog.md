@@ -10,7 +10,7 @@ from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 ```
 
-# Radix Dialog
+# Dialog
 
 ```python demo
 dialog_root(

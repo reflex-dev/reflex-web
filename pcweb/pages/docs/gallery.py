@@ -4,6 +4,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
+from pcweb import constants
 
 # every app must have at least one tag in order to be rendered
 apps_list = [
@@ -472,7 +473,7 @@ def gallery_with_no_sidebar():
                         "If you have an app you'd like to share, please fill out this ",
                         rx.link(
                             rx.text("form", as_="b"),
-                            href="https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link",
+                            href=constants.GALLERY_FORM_URL,
                             color="rgb(107,99,246)",
                         ),
                         ".",

@@ -3,6 +3,8 @@ components:
     - rx.recharts.Legend
 ---
 
+# Legend
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

@@ -19,7 +19,6 @@ from reflex.components.radix.themes.typography import *
 
 # Alert Dialog
 
-
 ```python demo
 alertdialog_root(
     alertdialog_trigger(

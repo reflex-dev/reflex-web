@@ -3,6 +3,8 @@ components:
     - rx.recharts.ComposedChart
 ---
 
+# Composed Chart
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing

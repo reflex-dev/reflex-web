@@ -42,7 +42,7 @@ def page(document) -> rx.Component:
             my=8,
             border_radius="8px",
         ),
-        xd.render(document),
+        xd.render(document, "blog.md"),
         padding_bottom="8em",
     )
 

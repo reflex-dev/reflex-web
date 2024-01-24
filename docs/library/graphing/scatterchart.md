@@ -4,6 +4,8 @@ components:
     - rx.recharts.Scatter
 ---
 
+# Scatter Chart
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing
