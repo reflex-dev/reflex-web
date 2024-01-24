@@ -15,9 +15,9 @@ def component_grid():
                 rx.vstack(
                     *[
                         rx.link(
-                            c[0],
+                            rx.utils.format.to_title_case(c[0]),
                             href=get_component_link(category, c),
-                            style={"fontSize": "1em"},
+                            font_size="1em",
                         )
                         for c in component_list[category]
                     ],

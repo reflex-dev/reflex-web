@@ -9,7 +9,7 @@ A smart checkboxes group where you can track all checked boxes, as well as place
 ## Recipe
 
 ```python eval
-rx.center(rx.image(src="/gallery/smart_checkboxes.gif")),
+rx.center(rx.image(src="/gallery/smart_checkboxes.gif"))
 ```
 
 This recipe use a `dict[str, bool]` for the checkboxes state tracking.
