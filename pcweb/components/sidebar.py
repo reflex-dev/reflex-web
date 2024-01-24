@@ -73,6 +73,8 @@ def sidebar_section(name):
         rx.span(" ]", color="#DACEEE"),
         style=heading_style3,
         margin_top="1em",
+        margin_left="0em",
+        padding_left="1em",
     )
 
 
@@ -438,7 +440,7 @@ def sidebar_leaf(
                 ),
             ),
         ),
-        padding_left="1em",
+        padding_left=".5em",
         border="none",
         width="100%",
     )
@@ -486,7 +488,7 @@ def sidebar_item_comp(
                     allow_multiple=True,
                     default_index=rx.cond(index, index[1:2], []),
                 ),
-                margin_left=".7em",
+                margin_left="0em",
                 width="100%",
             ),
             border="none",
@@ -663,7 +665,7 @@ def sidebar_comp(
                 ),
                 padding_x="0em",
                 width="100%",
-                align_items="start",
+                align_items="left",
             ),
             rx.vstack(
                 sidebar_section("Core"),
@@ -676,6 +678,7 @@ def sidebar_comp(
                     default_index=reference_index
                     if reference_index is not None
                     else [],
+                    width="100%",
                 ),
                 sidebar_section("Other Libraries"),
                 rx.accordion(
@@ -687,13 +690,14 @@ def sidebar_comp(
                     default_index=other_libs_index
                     if other_libs_index is not None
                     else [],
+                    width="100%",
                 ),
                 padding_x="0em",
                 width="100%",
-                align_items="start",
+                align_items="left",
             ),
         ),
-        align_items="start",
+        align_items="left",
         overflow_y="scroll",
         max_height="90%",
         width="17em",
