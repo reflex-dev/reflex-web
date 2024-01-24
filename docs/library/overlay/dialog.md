@@ -41,12 +41,12 @@ dialog_root(
         dialog_description(
             "Change your profile details and preferences.",
             size="2",
-            mb="4",
+            margin_bottom="16px",
         ),
         flex(
-            text("Name", as_="div", size="2", mb="1", weight="bold"),
+            text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
             textfield_input(default_value="Freja Johnson", placeholder="Enter your name"),
-            text("Email", as_="div", size="2", mb="1", weight="bold"),
+            text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
             textfield_input(default_value="freja@example.com", placeholder="Enter your email"),
             direction="column",
             gap="3",
@@ -59,7 +59,7 @@ dialog_root(
                 button("Save"),
             ),
             gap="3",
-            mt="4",
+            margin_top="16px",
             justify="end",
         ),
     ),
@@ -97,7 +97,8 @@ dialog_root(
                 ),
             ),
             side="x",
-            my="5",
+            margin_top="24px",
+            margin_bottom="24px",
         ),
         flex(
             dialog_close(

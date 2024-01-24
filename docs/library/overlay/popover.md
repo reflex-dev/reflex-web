@@ -45,10 +45,10 @@ popover_root(
                         button("Comment", size="1")
                     ),
                     gap="3",
-                    mt="3",
+                    margin_top="12px",
                     justify="between",
                 ),
-                grow="1",
+                flex_grow="1",
             ),
             gap="3"
         ),
@@ -86,10 +86,10 @@ popover_root(
                     button("Comment", size="1")
                 ),
                 gap="3",
-                mt="3",
+                margin_top="12px",
                 justify="between",
             ),
-            pt="3",
+            padding_top="12px",
         ),
         style={"width": 360},
     )

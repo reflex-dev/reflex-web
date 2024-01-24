@@ -126,7 +126,7 @@ def example1():
             wrap=FlexPlaygroundState.wrap,
             width="100%",
             height="20vh",
-            mt="4",
+            margin_top="16px",
         ),
         width="100%",
     )
@@ -136,7 +136,7 @@ def example1():
 ## Size Hinting
 
 When a child component is included in a flex container,
-the `grow` (default `"0"`) and `shrink` (default `"1"`) props control
+the `flex_grow` (default `"0"`) and `flex_shrink` (default `"1"`) props control
 how the box is sized relative to other components in the same container.
 
 The resizing always applies to the main axis of the flex container. If the direction is
@@ -145,9 +145,9 @@ applies to the `height`. To set the optimal size along the main axis, the `flex_
 is used and may be either a percentage or CSS size units. When unspecified, the
 corresponding `width` or `height` value is used if set, otherwise the content size is used.
 
-When `grow="0"`, the box will not grow beyond the `flex_basis`.
+When `flex_grow="0"`, the box will not grow beyond the `flex_basis`.
 
-When `shrink="0"`, the box will not shrink to less than the `flex_basis`.
+When `flex_shrink="0"`, the box will not shrink to less than the `flex_basis`.
 
 These props are used when creating flexible responsive layouts.
 
@@ -171,12 +171,12 @@ def border_box(*children, **props):
 def example2():
     return rdxt.box(
         rdxt.flex(
-            border_box("shrink=0", shrink="0", width="100px"),
-            border_box("shrink=1", shrink="1", width="200px"),
-            border_box("grow=0", grow="0"),
-            border_box("grow=1", grow="1"),
+            border_box("flex_shrink=0", flex_shrink="0", width="100px"),
+            border_box("flex_shrink=1", flex_shrink="1", width="200px"),
+            border_box("flex_grow=0", flex_grow="0"),
+            border_box("flex_grow=1", flex_grow="1"),
             width=f"{FlexGrowShrinkState.width_pct}%",
-            mb="4",
+            margin_bottom="16px",
             gap="2",
         ),
         rdxt.slider(

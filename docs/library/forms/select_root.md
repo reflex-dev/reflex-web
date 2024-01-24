@@ -260,16 +260,16 @@ rdxt.card(
     rdxt.flex(
         rx.image(src="/reflex_logo.png", width="100%", height="auto"),
         rdxt.flex(
-            rdxt.heading("Reflex Swag", size="4", mb="1"),
-            rdxt.heading("$99", size="6", mb="1"),
+            rdxt.heading("Reflex Swag", size="4", margin_bottom="4px"),
+            rdxt.heading("$99", size="6", margin_bottom="4px"),
             direction="row", justify="between",
             width="100%",
         ),
-        rdxt.text("Reflex swag with a sense of nostalgia, as if they carry whispered tales of past adventures", size="2", mb="1"),
+        rdxt.text("Reflex swag with a sense of nostalgia, as if they carry whispered tales of past adventures", size="2", margin_bottom="4px"),
         rdxt.separator(size="4"),
         rdxt.flex(
             rdxt.flex(
-                rdxt.text("Color", size="2", mb="1", color_scheme="gray"),
+                rdxt.text("Color", size="2", margin_bottom="4px", color_scheme="gray"),
                 rdxt.select_root(
                     rdxt.select_trigger(),
                     rdxt.select_content(
@@ -283,7 +283,7 @@ rdxt.card(
                 direction="column",
             ),
             rdxt.flex(
-                rdxt.text("Size", size="2", mb="1", color_scheme="gray"),
+                rdxt.text("Size", size="2", margin_bottom="4px", color_scheme="gray"),
                 rdxt.select_root(
                     rdxt.select_trigger(),
                     rdxt.select_content(

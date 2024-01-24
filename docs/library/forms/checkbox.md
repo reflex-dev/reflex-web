@@ -74,6 +74,6 @@ rdxt.flex(
     background_color="#f7fafc",
     border_radius="15px",
     gap="3",
-    p="3",
+    padding="12px",
 )
 ```
