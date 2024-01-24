@@ -15,5 +15,4 @@ config = rx.Config(
             "@tailwindcss/typography",
         ],
     },
-    redis_url="localhost:6379",
 )
