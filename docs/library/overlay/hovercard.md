@@ -12,6 +12,8 @@ from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 ```
 
+# Hovercard
+
 ```python demo
 rx.text(
     "Hover over the text to see the tooltip. ",
