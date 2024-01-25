@@ -93,23 +93,20 @@ import reflex.components.radix.themes as rdxt
 import reflex.components.radix.primitives as rdxp
 
 class RadixFormSubmissionState(rx.State):
-    box1: str
-    box2: str
-    box3: str
-    box4: str
-    box5: str
-    box6: str
-    box7: str
+    form_data: dict
 
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
-        self.box1 = form_data.get("box1")
-        self.box2 = form_data.get("box2")
-        self.box3 = form_data.get("box3")
-        self.box4 = form_data.get("box4")
-        self.box5 = form_data.get("box5")
-        self.box6 = form_data.get("box6")
-        self.box7 = form_data.get("box7")
+        self.form_data = form_data
+
+    @rx.var
+    def form_data_keys(self) -> list:
+        return list(self.form_data.keys())
+
+    @rx.var
+    def form_data_values(self) -> list:
+        return list(self.form_data.values())
+
 
 def radix_form_submission_example():
     return rdxt.flex(
@@ -211,33 +208,8 @@ def radix_form_submission_example():
             "Results",
             weight="bold",
         ),
-        rdxt.text(
-            "box1: ",
-            RadixFormSubmissionState.box1,
-        ),
-        rdxt.text(
-            "box2: ",
-            RadixFormSubmissionState.box2,
-        ),
-        rdxt.text(
-            "box3: ",
-            RadixFormSubmissionState.box3,
-        ),
-        rdxt.text(
-            "box4: ",
-            RadixFormSubmissionState.box4,
-        ),
-        rdxt.text(
-            "box5: ",
-            RadixFormSubmissionState.box5,
-        ),
-        rdxt.text(
-            "box6: ",
-            RadixFormSubmissionState.box6,
-        ),
-        rdxt.text(
-            "box7: ",
-            RadixFormSubmissionState.box7,
+        rx.foreach(RadixFormSubmissionState.form_data_keys,
+            lambda key, idx: rdxt.text(key, " : ", RadixFormSubmissionState.form_data_values[idx])
         ),
         direction="column",
         gap="4",
