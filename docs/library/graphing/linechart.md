@@ -4,6 +4,8 @@ components:
     - rx.recharts.Line
 ---
 
+# Line Chart
+
 ```python exec
 import random
 from typing import Any

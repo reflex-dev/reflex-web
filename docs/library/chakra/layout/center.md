@@ -5,6 +5,8 @@ components:
     - rx.chakra.Square
 ---
 
+# Center
+
 ```python exec
 import reflex as rx
 ```

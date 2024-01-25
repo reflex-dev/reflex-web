@@ -1,8 +1,36 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
+```
 
-my_task_state_code = """
+
+# Background Tasks
+
+A background task is a special type of `EventHandler` that may run
+concurrently with other `EventHandler` functions. This enables long-running
+tasks to execute without blocking UI interactivity.
+
+A background task is defined by decorating an async `State` method with
+`@rx.background`.
+
+Whenever a background task needs to interact with the state, **it must enter an
+`async with self` context block** which refreshes the state and takes an
+exclusive lock to prevent other tasks or event handlers from modifying it
+concurrently.  Because other `EventHandler` functions may modify state while the
+task is running, **outside of the context block, Vars accessed by the background
+task may be _stale_**. Attempting to modify the state from a background task
+outside of the context block will raise an `ImmutableStateError` exception.
+
+In the following example, the `my_task` event handler is decorated with
+`@rx.background` and increments the `counter` variable every half second, as
+long as certain conditions are met. While it is running, the UI remains
+interactive and continues to process events normally.
+
+```python demo exec
+import asyncio
+import reflex as rx
+
+
 class MyTaskState(rx.State):
     counter: int = 0
     max_counter: int = 10
@@ -41,11 +69,10 @@ class MyTaskState(rx.State):
 
     def clear_counter(self):
         self.counter = 0
-"""
 
-exec(my_task_state_code)
 
-my_task_render_code = """rx.hstack(
+def background_task_example():
+    return rx.hstack(
         rx.heading(MyTaskState.counter, " /"),
         rx.number_input(
             value=MyTaskState.max_counter,
@@ -61,106 +88,6 @@ my_task_render_code = """rx.hstack(
             on_click=MyTaskState.clear_counter,
         ),
     )
-"""
-
-my_task_code = f"""
-import asyncio
-import reflex as rx
-
-{my_task_state_code}
-
-def index():
-    return {my_task_render_code}
-
-app = rx.App()
-app.add_page(index)
-app.compile()"""
-
-
-low_level_state_code = """
-my_tasks = set()
-
-
-async def _fetch_data(app, token):
-    async with httpx.AsyncClient() as client:
-        response = await client.get("https://api.github.com/zen")
-    async with app.modify_state(token) as state:
-        substate = state.get_substate(
-            LowLevelState.get_full_name().split("."),
-        )
-        substate.result = response.text
-
-
-class LowLevelState(rx.State):
-    result: str = ""
-
-    def fetch_data(self):
-        task = asyncio.create_task(
-            _fetch_data(
-                app=rx.utils.prerequisites.get_app().app,
-                token=self.get_token(),
-            ),
-        )
-
-        # Always save a reference to your tasks until they are done
-        my_tasks.add(task)
-        task.add_done_callback(my_tasks.discard)
-"""
-
-exec(low_level_state_code)
-
-low_level_render_code = """rx.vstack(
-        rx.text(LowLevelState.result),
-        rx.button(
-            "Fetch Data",
-            on_click=LowLevelState.fetch_data,
-        ),
-    )
-"""
-
-low_level_code = f"""
-import asyncio
-import httpx
-import reflex as rx
-
-{low_level_state_code}
-
-def index():
-    return {low_level_render_code}
-
-app = rx.App()
-app.add_page(index)
-app.compile()"""
-```
-
-# Background Tasks
-
-A background task is a special type of `EventHandler` that may run
-concurrently with other `EventHandler` functions. This enables long-running
-tasks to execute without blocking UI interactivity.
-
-A background task is defined by decorating an async `State` method with
-`@rx.background`.
-
-Whenever a background task needs to interact with the state, **it must enter an
-`async with self` context block** which refreshes the state and takes an
-exclusive lock to prevent other tasks or event handlers from modifying it
-concurrently.  Because other `EventHandler` functions may modify state while the
-task is running, **outside of the context block, Vars accessed by the background
-task may be _stale_**. Attempting to modify the state from a background task
-outside of the context block will raise an `ImmutableStateError` exception.
-
-In the following example, the `my_task` event handler is decorated with
-`@rx.background` and increments the `counter` variable every half second, as
-long as certain conditions are met. While it is running, the UI remains
-interactive and continues to process events normally.
-
-```python demo box
-eval(my_task_render_code)
-```
-
-```python
-{my_task_code.strip()}
 ```
 
 ## Task Lifecycle
@@ -204,10 +131,46 @@ The following example creates an arbitrary `asyncio.Task` to fetch data and then
 uses the low-level API to safely update the state and send the changes to the
 frontend.
 
-```python demo box
-eval(low_level_render_code)
-```
+```python demo exec
+import asyncio
+import httpx
+import reflex as rx
 
-```python
-{low_level_code.strip()}
+my_tasks = set()
+
+
+async def _fetch_data(app, token):
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://api.github.com/zen")
+    async with app.modify_state(token) as state:
+        substate = state.get_substate(
+            LowLevelState.get_full_name().split("."),
+        )
+        substate.result = response.text
+
+
+class LowLevelState(rx.State):
+    result: str = ""
+
+    def fetch_data(self):
+        task = asyncio.create_task(
+            _fetch_data(
+                app=rx.utils.prerequisites.get_app().app,
+                token=self.get_token(),
+            ),
+        )
+
+        # Always save a reference to your tasks until they are done
+        my_tasks.add(task)
+        task.add_done_callback(my_tasks.discard)
+
+
+def low_level_example():
+    return rx.vstack(
+        rx.text(LowLevelState.result),
+        rx.button(
+            "Fetch Data",
+            on_click=LowLevelState.fetch_data,
+        ),
+    )
 ```

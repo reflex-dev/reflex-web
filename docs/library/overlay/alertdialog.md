@@ -19,7 +19,6 @@ from reflex.components.radix.themes.typography import *
 
 # Alert Dialog
 
-
 ```python demo
 alertdialog_root(
     alertdialog_trigger(
@@ -39,7 +38,7 @@ alertdialog_root(
                 button("Revoke access", color_scheme="red", variant="solid"),
             ),
             gap="3",
-            mt="4",
+            margin_top="16px",
             justify="end",
         ),
         style={"max_width": 450},
@@ -84,7 +83,8 @@ alertdialog_root(
                 ),
             ),
             side="x",
-            my="5",
+            margin_top="24px",
+            margin_bottom="24px",
         ),
         flex(
             alertdialog_cancel(

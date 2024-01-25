@@ -8,8 +8,8 @@ from pcweb.pages.docs import events
 from pcweb.pages.docs import library
 from pcweb.pages.docs import state
 
-from tutorial_utils import ChatappState
-import tutorial_style as style
+from docs.tutorial.tutorial_utils import ChatappState
+import docs.tutorial.tutorial_style as style
 
 # If it's in environment, no need to hardcode (openai SDK will pick it up)
 if "OPENAI_API_KEY" not in os.environ:

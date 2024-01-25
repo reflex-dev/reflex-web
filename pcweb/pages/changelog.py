@@ -63,6 +63,16 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2024-01-22",
+            "v0.3.9",
+            "Improve hot-reload times in dev mode",
+            [
+                "Allow State subclasses to use mixins to define fields",
+                "Improvements to Radix-UI preview components",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.9",
+        ),
+        change(
             "2024-01-08",
             "v0.3.8",
             "New rx.match helper acts as a switch statement",

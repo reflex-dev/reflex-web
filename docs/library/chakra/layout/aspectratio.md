@@ -3,6 +3,8 @@ components:
     - rx.chakra.AspectRatio
 ---
 
+# Aspect Ratio
+
 ```python exec
 import reflex as rx
 ```

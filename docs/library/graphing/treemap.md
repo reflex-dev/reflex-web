@@ -3,6 +3,8 @@ components:
     - rx.recharts.Treemap
 ---
 
+# Treemap
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing
