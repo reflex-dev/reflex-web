@@ -53,7 +53,7 @@ rdxp.form_root(
 )
 ```
 
-In this example, the `textfield_input` has an attribute `type="email"` and the `form_message` attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when we use other components to construct `form_control` or `form_submit`. In the example, we have used `textfield_input` to construct the `form_control` and `button` the `form_submit`.
+In this example, the `textfield_input` has an attribute `type="email"` and the `form_message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `textfield_input` to construct the Form Control and `button` the Form Submit.
 
 ## Form Anatomy
 
@@ -71,21 +71,21 @@ rx.code_block(
 )
 ```
 
-A `form_root` contains all the parts of a form. The `form_field`, `form_submit`, etc should all be inside a `form_root`. A `form_field` can contain a `form_label`, a `form_control`, and a `form_message`. A `form_label` is a label element. A `form_control` is where the user enters the input or makes selections. By default, `form_control` is a input. You can use your own form components to construct the `form_control` and set the prop `as_child=True`.
+A Form Root (`form_root`) contains all the parts of a form. The Form Field (`form_field`), Form Submit (`form_submit`), etc should all be inside a Form Root. A Form Field can contain a Form Label (`form_label`), a Form Control (`form_control`), and a Form Message (`form_message`). A Form Label is a label element. A Form Control is where the user enters the input or makes selections. By default, the Form Control is a input. Using other form components to construct the Form Control is supported. To do that, set the prop `as_child=True` on the Form Control.
 
 ```md alert info
-The current version of Radix Forms does not support composing `form_control` with other Radix form primitives such as `checkbox`, `select`, etc.
+The current version of Radix Forms does not support composing **Form Control** with other Radix form primitives such as **Checkbox**, **Select**, etc.
 ```
 
-The `form_message` is a validation message which is automatically wired (functionality and accessibility). When `form_control` determines the input is invalid, the `form_message` is shown. You set the `match` prop to enable [client side validation](#client-side-validation). You can set the `force_match` prop of `form_message` and `server_invalid` prop of `form_field` together to perform [server side validation](#server-side-validation).
+The Form Message is a validation message which is automatically wired (functionality and accessibility). When the Form Control determines the input is invalid, the Form Message is shown. The `match` prop is to enable [client side validation](#client-side-validation). To perform [server side validation](#server-side-validation), **both** the `force_match` prop of the Form Control and the `server_invalid` prop of the Form Field are set together.
 
-The `form_submit` is by default a button that submits the form. You can use your own button component as a `form_submit` by including that button as a child inside the `form_submit` and set the `as_child` prop to `True`.
+The Form Submit is by default a button that submits the form. To use another button component as a Form Submit, include that button as a child inside `form_submit` and set the prop `as_child=True`.
 
-The `on_submit` prop of `form_root` accepts an event handler. It is called with the submitted form data dictionary. To clear the form after submission, set the `reset_on_submit=True` prop.
+The `on_submit` prop of the Form Root accepts an event handler. It is called with the submitted form data dictionary. To clear the form after submission, set the `reset_on_submit=True` prop.
 
 ## Data Submission
 
-As previously mentioned, the various pieces of data in the form are submitted together as a dictionary. The form control or the input components must have the `name` attribute. This `name` is the key to get the value from the form data dictionary. If you do not need any validation, you can include the form type components such as Checkbox, Radio Groups, TextArea directly under the `form_root`.
+As previously mentioned, the various pieces of data in the form are submitted together as a dictionary. The form control or the input components must have the `name` attribute. This `name` is the key to get the value from the form data dictionary. If no validation is needed, the form type components such as Checkbox, Radio Groups, TextArea can be included directly under the Form Root instead of inside a Form Control.
 
 ```python demo exec
 import reflex as rx
@@ -220,9 +220,9 @@ def radix_form_submission_example():
 
 ### Client Side Validation
 
-Client side validation is achieved by examining the property of an interface of HTML elements called `ValidityState`. By setting the `match` prop of `form_message`, you can determine when the message should be displayed. The `match` prop takes the following values: `"badInput" | "patternMismatch" | "rangeOverflow" | "rangeUnderflow" | "stepMismatch" | "tooLong" | "tooShort" | "typeMismatch" | "valueMissing"`. For example, `"typeMismatch"` is set to `True` when an input element has a `type` attribute and the entered value is not valid for the `type`. If the input is specified as `type="url"`, it is expected to start with `http://` or `https://`. For the list of supported types, please refer to [HTML input element docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type). The above references are all part of the HTML standards. For more details, please refer to [ValidityState docs](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) and further more the reference links on that page.
+Client side validation is achieved by examining the property of an interface of HTML elements called **ValidityState**. The `match` prop of the Form Message determines when the message should be displayed. The valid `match` prop values can be found in the **props** tab at the top of this page. For example, `"typeMismatch"` is set to `True` when an input element has a `type` attribute and the entered value is not valid for the `type`. If the input is specified as `type="url"`, it is expected to start with `http://` or `https://`. For the list of supported types, please refer to [HTML input element docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type). The above references are all part of the HTML standards. For more details, please refer to [ValidityState docs](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) and further more the reference links on that page.
 
-Below is an example of a form that collects a `number` from a `textfield_input`. We require a range of `[30, 100]` (both ends of the range are inclusive: `30` and `100` are valid). When you enter a number smaller than `30`, a message below the input field is printed: `"Please enter a number >= 30"`. This is because we have set `min=30` on the `textfield_input` and `match="rangeUnderflow"` on the `form_message`. Similarly, when you enter a number larger than `100`, this message `"Please enter a number <= 100"` is displayed. You can see the `max=100` attribute on the `textfield_input` and `match="rangeOverflow"` on `form_message`.
+Below is an example of a form that collects a **number** from a `textfield_input`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `textfield_input` and `match="rangeUnderflow"` on the `form_message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `textfield_input` and `match="rangeOverflow"` on the `form_message`.
 
 ```python demo
 rdxp.form_root(
@@ -255,7 +255,7 @@ rdxp.form_root(
 )
 ```
 
-Here is an example if you want the input text to be at least a certain length. You notice the attribute `min_length` is written as snake case. Behind the scene, we automatically convert this to the camel case `minLength` used in the frontend.
+Here is an example where the input text is expected to be at least a certain length. Note that the attribute `min_length` is written as snake case. Behind the scene, Reflex automatically convert this to the camel case `minLength` used in the frontend.
 
 ```python demo
 rdxp.form_root(
@@ -285,7 +285,7 @@ rdxp.form_root(
 )
 ```
 
-If the input follows certain patterns, setting `pattern` on the input and `match="patternMismatch"` on the `form_message` could be useful. Below is an example of a form that requires input to be precisely 10 digits. You can find more information at [ValidityState: patternMismatch property](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch).
+If the input follows certain patterns, setting `pattern` on the input and `match="patternMismatch"` on the `form_message` could be useful. Below is an example of a form that requires input to be precisely 10 digits. More information is available at [ValidityState: patternMismatch property](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch).
 
 ```python demo
 rdxp.form_root(
@@ -351,11 +351,11 @@ rdxp.form_root(
 
 ### Server Side Validation
 
-Server side validation is done through `Computed Vars` on the State. The `Var` returns a boolean flag indicating when input is invalid. You pass the `Var` to both the `server_invalid` prop on `form_field` and the `force_match` prop on `form_message`. There is an example how to do that in the [Final Example](#final-example).
+Server side validation is done through **Computed Vars** on the State. The **Var** should return a boolean flag indicating when input is invalid. Set that **Var** on both the `server_invalid` prop of `form_field` and the `force_match` prop of `form_message`. There is an example how to do that in the [Final Example](#final-example).
 
 ## Final Example
 
-In the final example, we show a form that collects username and email during sign-up and validates them using server side validation. When server side validation fails, messages are displayed in red to show what is not accepted in the form, and the submit button is disabled. After submission, the collected form data is displayed in texts below the form and the form is cleared.
+The final example shows a form that collects username and email during sign-up and validates them using server side validation. When server side validation fails, messages are displayed in red to show what is not accepted in the form, and the submit button is disabled. After submission, the collected form data is displayed in texts below the form and the form is cleared.
 
 ```python demo exec
 import re
@@ -424,7 +424,7 @@ def radix_form_example():
                             "Username already taken",
                             # this is a workaround:
                             # `force_match` does not work without `match`
-                            # In this case, we do not want client side validation
+                            # This case does not want client side validation
                             # and intentionally not set `required` on the input
                             # so "valueMissing" is always false
                             match="valueMissing",
