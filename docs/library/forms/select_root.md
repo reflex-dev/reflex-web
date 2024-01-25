@@ -18,7 +18,6 @@ import reflex as rx
 import reflex.components.radix.themes as rdxt
 import reflex.components.radix.primitives as rdxp
 from pcweb.templates.docpage import style_grid
-import reflex.components.radix.themes as rdxt
 ```
 
 # High Level Select
@@ -371,11 +370,12 @@ The `open` prop and `on_open_change` event trigger work similarly to `value` and
 If `on_open_change` handler does not alter the `open` prop, the select will not be able to be opened or closed by clicking on the
 `select_trigger`.
 
-```python demo exec
-class SelectState3(rx.State):
+
+ ```python demo exec
+class SelectState8(rx.State):
     is_open: bool = False
     
-def select_example3():    
+def select_example8():    
     return rdxt.flex(
         rdxt.select_root(
             rdxt.select_trigger(placeholder="No Selection"),
@@ -385,14 +385,13 @@ def select_example3():
                     rdxt.select_item("Grape", value="grape"),
                 ),
             ),
-            open=SelectState3.is_open,
-            on_open_change=SelectState3.set_is_open,
+            open=SelectState8.is_open,
+            on_open_change=SelectState8.set_is_open,
         ),
-        rdxt.button("Toggle", on_click=SelectState3.set_is_open(~SelectState3.is_open)),
+        rdxt.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
         gap="2",
     )
 ```
- 
 
 
 
