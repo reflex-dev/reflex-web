@@ -525,6 +525,11 @@ def multi_docs(path, comp, component_list, title):
         components = [component_docs(component) for component in component_list[1:]]
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
+        ll_doc_exists = os.path.exists(fname.replace('radix/', '').replace(".md", "-ll.md"))
+        if fname == "docs/library/radix/forms/textfield.md":
+
+            print(fname)
+            print(ll_doc_exists)
 
         return rx.box(
             rx.box(
@@ -533,8 +538,13 @@ def multi_docs(path, comp, component_list, title):
                         rx.tab_list(
                             rx.spacer(),
                             rx.tab(
-                                "Docs", _selected=tab_selected_style, style=tab_style
+                                "High Level API", _selected=tab_selected_style, style=tab_style
                             ),
+                            rx.tab(
+                                "Low Level API", _selected=tab_selected_style, style=tab_style
+                            )
+                            if ll_doc_exists
+                            else "",
                             rx.tab(
                                 "Styling", _selected=tab_selected_style, style=tab_style
                             )
@@ -548,6 +558,11 @@ def multi_docs(path, comp, component_list, title):
                         ),
                         rx.tab_panels(
                             rx.tab_panel(xd.render(comp, filename=fname)),
+                            rx.tab_panel(
+                                xd.render_file(fname.replace('radix/', '').replace(".md", "-ll.md"))
+                            )
+                            if ll_doc_exists
+                            else "",
                             rx.tab_panel(
                                 xd.render_file(fname.replace(".md", "-style.md"))
                             )

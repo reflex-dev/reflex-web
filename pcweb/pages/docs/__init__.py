@@ -65,6 +65,9 @@ for doc in sorted(flexdown_docs):
     if doc.endswith("-style.md"):
         continue
 
+    if doc.endswith("-ll.md"):
+        continue
+
     # Get the docpage component.
     route = f"/{doc.replace('.md', '')}"
     path = doc.split("/")[1:-1]
