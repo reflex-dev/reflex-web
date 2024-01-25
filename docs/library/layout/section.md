@@ -20,13 +20,15 @@ rdxt.box(
     rdxt.section(
         rdxt.heading("First"),
         rdxt.text("This is the first content section"),
-        px="3",
+        padding_left="12px",
+        padding_right="12px",
         background_color="var(--gray-2)",
     ),
     rdxt.section(
         rdxt.heading("Second"),
         rdxt.text("This is the second content section"),
-        px="2",
+        padding_left="12px",
+        padding_right="12px",
         background_color="var(--gray-2)",
     ),
     width="100%",

@@ -3,6 +3,8 @@ components:
     - rx.chakra.Box
 ---
 
+# Box
+
 ```python exec
 import reflex as rx
 ```

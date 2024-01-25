@@ -4,6 +4,8 @@ components:
     - rx.recharts.Area
 ---
 
+# Area Chart
+
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docdemo, docgraphing

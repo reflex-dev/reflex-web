@@ -7,7 +7,7 @@ import reflex as rx
 The state object has several methods and attributes that return information
 about the current page, session, or state.
 
-## Files Router Methods
+## Router Attributes
 
 The `self.router` attribute has several sub-attributes that provide various information:
 
@@ -32,7 +32,7 @@ The `self.router` attribute has several sub-attributes that provide various info
 
 ### Example Values on this Page
 
-```python demo exec
+```python demo exec alignItems=start
 class RouterState(rx.State):
     pass
 

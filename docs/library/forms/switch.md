@@ -154,7 +154,7 @@ def form_switch2():
                         dialog_description(
                             "Change your cookie preferences.",
                             size="2",
-                            mb="4",
+                            margin_bottom="16px",
                         ),
                         flex(
                             text(
@@ -164,11 +164,11 @@ def form_switch2():
                                     gap="2",
                                     justify="between",
                                 ),
-                                as_="div", size="2", mb="1", weight="bold",
+                                as_="div", size="2", margin_bottom="4px", weight="bold",
                             ),
 
                             *[flex(
-                                text(cookie_type.capitalize(), as_="div", size="2", mb="1", weight="bold"),
+                                text(cookie_type.capitalize(), as_="div", size="2", margin_bottom="4px", weight="bold"),
                                 text(
                                     flex(
                                         rx.cond(
@@ -182,7 +182,7 @@ def form_switch2():
                                             on_checked_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
                                         gap="2",
                                     ),
-                                    as_="div", size="2", mb="1", weight="bold",
+                                    as_="div", size="2", margin_bottom="4px", weight="bold",
                                 ),
                                 direction="row", justify="between",
                             )
@@ -199,7 +199,7 @@ def form_switch2():
                                 button("Exit"),
                             ),
                             gap="3",
-                            mt="4",
+                            margin_top="16px",
                             justify="end",
                         ),
                         on_submit=FormSwitchState2.handle_submit,

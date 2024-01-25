@@ -5,10 +5,8 @@ components:
 # Icon
 
 ```python exec
-from reflex.components.radix.themes.components import *
+import reflex.components.radix.themes as rdxt
 from reflex.components.radix.themes.components.icons import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import icon_grid
 ```
 
@@ -16,10 +14,10 @@ The Icon component is used to display an icon from a library of icons. This impl
 
 ## Basic Example
 
-To create an icon, we specify the `tag` prop from the list of available icons.
+To display an icon, specify the `tag` prop from the list of available icons.
 
 ```python demo
-icon(tag="calendar")
+rdxt.icon(tag="calendar")
 ```
 
 ## List of Icons
@@ -86,16 +84,21 @@ icon_grid("Typography", ICON_TYPOGRAPHY)
 
 ## Styling
 
-The icons are based on the Radix primitive component, and it is unstyled. **It does not accept common styling props such as `size` or `color_theme`**. You can still use `width` and `height` together to control the size of the icon, and specify its `color`.
+An icon is based on the Radix primitive component, and is unstyled. **It does
+not accept radix styling props such as `size` or `color_theme`**.
+
+Instead, CSS props should be used; such as `width` and `height` to control the
+size of the icon, and `color` to set the stroke color using CSS colors or radix
+colors via the `var()` syntax.
 
 ### Width and Height
 
 ```python demo
-flex(
-    icon(tag="magnifying_glass", width=15, height=15),
-    icon(tag="magnifying_glass", width=20, height=20),
-    icon(tag="magnifying_glass", width=25, height=25),
-    icon(tag="magnifying_glass", width=30, height=30),
+rdxt.flex(
+    rdxt.icon(tag="magnifying_glass", width=15, height=15),
+    rdxt.icon(tag="magnifying_glass", width=20, height=20),
+    rdxt.icon(tag="magnifying_glass", width=25, height=25),
+    rdxt.icon(tag="magnifying_glass", width=30, height=30),
     align="center",
     gap="2",
 )
@@ -106,31 +109,31 @@ flex(
 Here is an example using basic colors in icons.
 
 ```python demo
-flex(
-    icon(tag="magnifying_glass", width=18, height=18, color="indigo"),
-    icon(tag="magnifying_glass", width=18, height=18, color="cyan"),
-    icon(tag="magnifying_glass", width=18, height=18, color="orange"),
-    icon(tag="magnifying_glass", width=18, height=18, color="crimson"),
+rdxt.flex(
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="indigo"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="cyan"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="orange"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="crimson"),
     gap="2",
 )
 ```
 
-You can also use color with a scale such as below.
+A radix color with a scale may also be specified using the `var()` token syntax seen below.
 
 ```python demo
-flex(
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-1)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-2)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-3)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-4)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-5)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-6)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-7)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-8)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-9)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-10)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-11)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-12)"),
+rdxt.flex(
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-1)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-2)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-3)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-4)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-5)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-6)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-7)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-8)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-9)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-10)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-11)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--purple-12)"),
     gap="2",
 )
 ```
@@ -138,32 +141,32 @@ flex(
 Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
 
 ```python demo
-flex(
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-1)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-2)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-3)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-4)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-5)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-6)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-7)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-8)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-9)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-10)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-11)"),
-    icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-12)"),
+rdxt.flex(
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-1)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-2)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-3)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-4)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-5)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-6)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-7)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-8)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-9)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-10)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-11)"),
+    rdxt.icon(tag="magnifying_glass", width=18, height=18, color="var(--accent-12)"),
     gap="2",
 )
 ```
 
 ## Final Example
 
-Icons can be used as child components of many other components. Here is an example of a search bar with a magnifying glass icon.
+Icons can be used as child components of many other components. For example, adding a magnifying glass icon to a search bar.
 
 ```python demo
-badge(
-    flex(
-        icon(tag="magnifying_glass", height=18, width=18),
-        text("Search documentation...", size="3", weight="medium"),
+rdxt.badge(
+    rdxt.flex(
+        rdxt.icon(tag="magnifying_glass", height=18, width=18),
+        rdxt.text("Search documentation...", size="3", weight="medium"),
         direction="row",
         gap="1",
         align="center",

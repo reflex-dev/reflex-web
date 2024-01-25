@@ -9,6 +9,7 @@ from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage
+from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 
@@ -57,6 +58,9 @@ flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
 component_list = defaultdict(list)
+from reflex.components.chakra.base import ChakraComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
+from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 docs_ns = SimpleNamespace()
 
@@ -65,6 +69,7 @@ for doc in sorted(flexdown_docs):
         continue
 
     # Get the docpage component.
+    doc = doc.replace("\\", "/")
     route = f"/{doc.replace('.md', '')}"
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
@@ -76,11 +81,13 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
     elif doc.startswith("docs/library"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
-        if issubclass(clist[1], RadixThemesComponent) or issubclass(
-            clist[1], RadixPrimitiveComponent
-        ):
+        if issubclass(clist[1], (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent)):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
+        elif issubclass(clist[1], ChakraComponent):
+            # Workaround for Chakra components outside of chakra directory (like Html).
+            component_list[category].append(clist)
+            route = route.replace("library/", "library/chakra/")
         else:
             component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title)

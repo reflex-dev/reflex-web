@@ -5,6 +5,8 @@ components:
     - rx.recharts.ZAxis
 ---
 
+# Axis
+
 The X-, Y-, Z-axes.
 
 

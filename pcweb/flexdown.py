@@ -167,15 +167,13 @@ class DemoBlock(flexdown.blocks.Block):
         args = lines[0].removeprefix(self.starting_indicator).split()
 
         if "exec" in args:
-            exec(code, env, env)
+            env["__xd"].exec(code, env, self.filename)
             comp = env[list(env.keys())[-1]]()
         elif "graphing" in args:
-            exec(code, env, env)
+            env["__xd"].exec(code, env, self.filename)
             comp = env[list(env.keys())[-1]]()
             # Get all the code before the final "def".
-            parts = code.rpartition(
-                "def",
-            )
+            parts = code.rpartition("def")
             data, code = parts[0], parts[1] + parts[2]
             comp = docgraphing(code, comp=comp, data=data)
         elif "box" in args:
@@ -184,7 +182,14 @@ class DemoBlock(flexdown.blocks.Block):
         else:
             comp = eval(code, env, env)
 
-        return docdemo(code, comp=comp)
+        # Sweep up additional CSS-like props to apply to the demobox itself
+        demobox_props = {}
+        for arg in args:
+            prop, equals, value = arg.partition("=")
+            if equals:
+                demobox_props[prop] = value
+
+        return docdemo(code, comp=comp, demobox_props=demobox_props)
 
 
 component_map = {
@@ -202,6 +207,7 @@ xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
     component_map=component_map,
 )
+xd.clear_modules()
 
 
 def markdown(text):

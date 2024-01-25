@@ -3,14 +3,12 @@ components:
     - rx.Editor
 ---
 
+# Editor
+
 An HTML editor component based on [Suneditor](http://suneditor.com/sample/index.html).
 
 ```python demo exec
 import reflex as rx
-
-from pcweb import styles
-from pcweb.pages.docs.source import Source, generate_docs
-from pcweb.templates.docpage import h2_comp
 
 
 class EditorState(rx.State):
@@ -42,6 +40,9 @@ The extended options and toolbar buttons can be customized by passing an instanc
 of `rx.EditorOptions` for the `set_options` prop.
 
 ```python exec
+from pcweb import styles
+from pcweb.pages.docs.source import Source, generate_docs
+from pcweb.templates.docpage import h2_comp
 editor_options_source = Source(module=rx.EditorOptions)
 ```
 

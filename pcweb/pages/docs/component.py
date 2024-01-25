@@ -550,7 +550,7 @@ def multi_docs(path, comp, component_list, title):
                             padding_bottom="1em",
                         ),
                         rx.tab_panels(
-                            rx.tab_panel(xd.render(comp)),
+                            rx.tab_panel(xd.render(comp, filename=fname)),
                             rx.tab_panel(
                                 xd.render_file(fname.replace(".md", "-style.md"))
                             )
