@@ -48,7 +48,7 @@ rdxp.form_root(
         ),
         name="email",
     ),
-    on_submit=lambda _: rx.window_alert("Submitted!"),
+    on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
     reset_on_submit=True,
 )
 ```
@@ -278,7 +278,7 @@ rdxp.form_root(
         ),
         name="some_number",
     ),
-    on_submit=lambda _: rx.window_alert("Submitted!"),
+    on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
     reset_on_submit=True,
 )
 ```
@@ -308,7 +308,7 @@ rdxp.form_root(
         ),
         name="user_password",
     ),
-    on_submit=lambda _: rx.window_alert("Submitted!"),
+    on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
     reset_on_submit=True,
 )
 ```
@@ -342,7 +342,7 @@ rdxp.form_root(
         ),
         name="phone_number",
     ),
-    on_submit=lambda _: rx.window_alert("Submitted!"),
+    on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
     reset_on_submit=True,
 )
 ```
@@ -372,7 +372,7 @@ rdxp.form_root(
         ),
         name="user_url",
     ),
-    on_submit=lambda _: rx.window_alert("Submitted!"),
+    on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
     reset_on_submit=True,
 )
 ```
