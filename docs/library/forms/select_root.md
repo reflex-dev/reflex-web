@@ -111,7 +111,7 @@ def select_example3():
 The `on_open_change` event handler acts in a similar way to the `on_value_change` and is called when the open state of the select changes.
 
 ```python demo
-select(
+rdxt.select(
     ["apple", "grape", "pear"],
     on_value_change=rx.window_alert("on_value_change event handler called"),
 )
