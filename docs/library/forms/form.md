@@ -265,6 +265,7 @@ rdxp.form_root(
             rdxp.form_control(
                 rdxt.textfield_input(
                     placeholder="Enter your password",
+                    type="password",
                     min_length=8
                 ),
                 as_child=True,
