@@ -7,6 +7,9 @@ components:
     - rx.radix.themes.AlertDialogDescription
     - rx.radix.themes.AlertDialogAction
     - rx.radix.themes.AlertDialogCancel
+
+only_low_level:
+    - True
 ---
 
 

@@ -4,6 +4,9 @@ components:
     - rx.radix.themes.PopoverContent
     - rx.radix.themes.PopoverTrigger
     - rx.radix.themes.PopoverClose
+
+only_low_level:
+    - True
 ---
 
 

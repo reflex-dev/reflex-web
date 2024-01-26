@@ -8,6 +8,9 @@ components:
     - rx.radix.themes.ContextMenuSub
     - rx.radix.themes.ContextMenuSubTrigger
     - rx.radix.themes.ContextMenuSubContent
+
+only_low_level:
+    - True
 ---
 
 

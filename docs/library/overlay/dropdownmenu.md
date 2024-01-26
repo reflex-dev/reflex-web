@@ -6,6 +6,9 @@ components:
     - rx.radix.themes.DropdownMenuItem
     - rx.radix.themes.DropdownMenuSeparator
     - rx.radix.themes.DropdownMenuSubContent
+
+only_low_level:
+    - True
 ---
 
 

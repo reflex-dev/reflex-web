@@ -526,9 +526,6 @@ def multi_docs(path, comp, component_list, title):
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
         ll_doc_exists = os.path.exists(fname.replace('radix/', '').replace(".md", "-ll.md"))
-        
-        # print(fname)
-        # print(ll_doc_exists)
 
         return rx.box(
             rx.box(
@@ -570,6 +567,7 @@ def multi_docs(path, comp, component_list, title):
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",
+                        default_index=1 if 'only_low_level' in comp.metadata else 0,
                     ),
                     padding_y="1em",
                 ),

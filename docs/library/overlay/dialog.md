@@ -6,6 +6,9 @@ components:
     - rx.radix.themes.DialogContent
     - rx.radix.themes.DialogDescription
     - rx.radix.themes.DialogClose
+
+only_low_level:
+    - True
 ---
 
 
