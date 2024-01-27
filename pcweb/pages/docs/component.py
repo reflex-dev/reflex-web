@@ -153,8 +153,18 @@ TYPE_COLORS = {
     "Figure": "green",
 }
 
+count = 0
 
-def prop_docs(prop: Prop, prop_dict) -> list[rx.Component]:
+import hashlib
+def get_id(s):
+    global count
+    count += 1
+    s = str(count)
+    hash_object = hashlib.sha256(s.encode())
+    hex_dig = hash_object.hexdigest()
+    return "a_" + hex_dig[:8]
+
+def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
@@ -193,7 +203,8 @@ def prop_docs(prop: Prop, prop_dict) -> list[rx.Component]:
             return rx.fragment()
         # Get the first option.
         option = type_.__args__[0]
-        name = rx.vars.get_unique_variable_name()
+        name = get_id(f"{component.__qualname__}_{prop.name}")
+        print("name", name)
         rx.State.add_var(name, str, option)
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
@@ -438,7 +449,7 @@ def generate_props(src, component):
         )
 
     prop_dict = {}
-    body = rx.tbody(*[rx.tr(*prop_docs(prop, prop_dict)) for prop in src.get_props()])
+    body = rx.tbody(*[rx.tr(*prop_docs(prop, prop_dict, component)) for prop in src.get_props()])
     try:
         comp = component.create("Test", **prop_dict)
         if "data" in component.__name__.lower():
