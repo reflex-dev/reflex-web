@@ -154,7 +154,7 @@ TYPE_COLORS = {
 }
 
 
-def prop_docs(prop: Prop) -> list[rx.Component]:
+def prop_docs(prop: Prop, prop_dict) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
@@ -181,6 +181,29 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
             .replace(",", " | ")
         )
 
+    from typing import Literal, _GenericAlias
+
+    def render_select(prop):
+        try:
+            type_ = rx.utils.types.get_args(prop.type_)[0]
+        except:
+            print(f"Failed to get args for {prop.type_}")
+            return rx.fragment()
+        if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
+            return rx.fragment()
+        # Get the first option.
+        option = type_.__args__[0]
+        name = rx.vars.get_unique_variable_name()
+        rx.State.add_var(name, str, option)
+        var = getattr(rx.State, name)
+        setter = getattr(rx.State, f"set_{name}")
+        prop_dict[prop.name] = var
+        return rx.radio_group(
+            *[rx.radio(option, value=option) for option in type_.__args__],
+            value=var,
+            on_change=setter,
+        )
+
     # Return the docs for the prop.
     return [
         rx.td(
@@ -192,7 +215,10 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
             padding_left="0",
         ),
         rx.td(
-            markdown(prop.description),
+            rx.vstack(
+                markdown(prop.description),
+                render_select(prop),
+            ),
             padding_left="0",
         ),
     ]
@@ -400,7 +426,7 @@ EVENTS = {
 }
 
 
-def generate_props(src):
+def generate_props(src, component):
     if len(src.get_props()) == 0:
         return rx.vstack(
             rx.heading("Props", font_size="1em"),
@@ -411,7 +437,18 @@ def generate_props(src):
             padding_y=".5em",
         )
 
+    prop_dict = {}
+    body = rx.tbody(*[rx.tr(*prop_docs(prop, prop_dict)) for prop in src.get_props()])
+    try:
+        comp = component.create("Test", **prop_dict)
+        if "data" in component.__name__.lower():
+            raise Exception("Data components cannot be created")
+    except:
+        print(f"Failed to create component {component.__name__}")
+        comp = rx.fragment()
+
     return rx.vstack(
+        comp,
         rx.table(
             rx.thead(
                 rx.tr(
@@ -420,7 +457,7 @@ def generate_props(src):
                     rx.th("Description/Values", padding_left="0"),
                 )
             ),
-            rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
+            body,
             width="100%",
             padding_x="0",
             size="sm",
@@ -507,7 +544,7 @@ def generate_valid_children(comp):
 def component_docs(component):
     """Generates documentation for a given component."""
     src = Source(component=component)
-    props = generate_props(src)
+    props = generate_props(src, component)
     triggers = generate_event_triggers(component)
     children = generate_valid_children(component)
 
