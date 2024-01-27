@@ -204,28 +204,27 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         # Get the first option.
         option = type_.__args__[0]
         name = get_id(f"{component.__qualname__}_{prop.name}")
-        print("name", name)
         rx.State.add_var(name, str, option)
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
         prop_dict[prop.name] = var
-        return rx.radio_group(
-            *[rx.radio(option, value=option) for option in type_.__args__],
+        return rdxt.radio_group(
+            list(map(str, type_.__args__)),
             value=var,
-            on_change=setter,
+            on_value_change=setter,
         )
 
     # Return the docs for the prop.
     return [
-        rx.td(
-            rx.code(prop.name, color="#333"),
+        rdxt.table_cell(
+            rdxt.code(prop.name, color="#333"),
             padding_left="0",
         ),
-        rx.td(
-            rx.badge(type_, color_scheme=color, variant="solid"),
+        rdxt.table_cell(
+            rdxt.badge(type_, color_scheme=color, variant="solid"),
             padding_left="0",
         ),
-        rx.td(
+        rdxt.table_cell(
             rx.vstack(
                 markdown(prop.description),
                 render_select(prop),
@@ -437,6 +436,8 @@ EVENTS = {
 }
 
 
+from reflex.components.radix import themes as rdxt
+
 def generate_props(src, component):
     if len(src.get_props()) == 0:
         return rx.vstack(
@@ -449,7 +450,9 @@ def generate_props(src, component):
         )
 
     prop_dict = {}
-    body = rx.tbody(*[rx.tr(*prop_docs(prop, prop_dict, component)) for prop in src.get_props()])
+    body = rdxt.table_body(
+        *[rdxt.table_row(*prop_docs(prop, prop_dict, component)) for prop in src.get_props()]
+    )
     try:
         comp = component.create("Test", **prop_dict)
         if "data" in component.__name__.lower():
@@ -460,18 +463,18 @@ def generate_props(src, component):
 
     return rx.vstack(
         comp,
-        rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Prop", padding_left="0"),
-                    rx.th("Type", padding_left="0"),
-                    rx.th("Description/Values", padding_left="0"),
+        rdxt.table_root(
+            rdxt.table_header(
+                rdxt.table_row(
+                    rdxt.table_column_header_cell("Prop", padding_left="0"),
+                    rdxt.table_column_header_cell("Type", padding_left="0"),
+                    rdxt.table_column_header_cell("Description/Values", padding_left="0"),
                 )
             ),
             body,
             width="100%",
             padding_x="0",
-            size="sm",
+            size="1",
         ),
         align_items="left",
         padding_bottom="2em",
