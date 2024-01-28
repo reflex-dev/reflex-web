@@ -151,11 +151,14 @@ TYPE_COLORS = {
     "Tuple": "blue",
     "None": "gray",
     "Figure": "green",
+    "Literal": "ruby",
 }
 
 count = 0
 
 import hashlib
+
+
 def get_id(s):
     global count
     count += 1
@@ -163,6 +166,7 @@ def get_id(s):
     hash_object = hashlib.sha256(s.encode())
     hex_dig = hash_object.hexdigest()
     return "a_" + hex_dig[:8]
+
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
@@ -199,6 +203,21 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         except:
             print(f"Failed to get args for {prop.type_}")
             return rx.fragment()
+
+        try:
+            if issubclass(type_, bool):
+                name = get_id(f"{component.__qualname__}_{prop.name}")
+                rx.State.add_var(name, bool, False)
+                var = getattr(rx.State, name)
+                setter = getattr(rx.State, f"set_{name}")
+                prop_dict[prop.name] = var
+                return rdxt.checkbox(
+                    var,
+                    on_checked_change=setter,
+                )
+        except TypeError:
+            pass
+
         if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
             return rx.fragment()
         # Get the first option.
@@ -438,6 +457,7 @@ EVENTS = {
 
 from reflex.components.radix import themes as rdxt
 
+
 def generate_props(src, component):
     if len(src.get_props()) == 0:
         return rx.vstack(
@@ -451,7 +471,10 @@ def generate_props(src, component):
 
     prop_dict = {}
     body = rdxt.table_body(
-        *[rdxt.table_row(*prop_docs(prop, prop_dict, component)) for prop in src.get_props()]
+        *[
+            rdxt.table_row(*prop_docs(prop, prop_dict, component))
+            for prop in src.get_props()
+        ]
     )
     try:
         comp = component.create("Test", **prop_dict)
@@ -463,21 +486,26 @@ def generate_props(src, component):
 
     return rx.vstack(
         comp,
-        rdxt.table_root(
-            rdxt.table_header(
-                rdxt.table_row(
-                    rdxt.table_column_header_cell("Prop", padding_left="0"),
-                    rdxt.table_column_header_cell("Type", padding_left="0"),
-                    rdxt.table_column_header_cell("Description/Values", padding_left="0"),
-                )
+        rdxt.scroll_area(
+            rdxt.table_root(
+                rdxt.table_header(
+                    rdxt.table_row(
+                        rdxt.table_column_header_cell("Prop", padding_left="0"),
+                        rdxt.table_column_header_cell("Type", padding_left="0"),
+                        rdxt.table_column_header_cell(
+                            "Description/Values", padding_left="0"
+                        ),
+                    )
+                ),
+                body,
+                width="100%",
+                padding_x="0",
+                size="1",
             ),
-            body,
-            width="100%",
-            padding_x="0",
-            size="1",
+            align_items="left",
+            padding_bottom="2em",
         ),
-        align_items="left",
-        padding_bottom="2em",
+        height="30em",
     )
 
 
