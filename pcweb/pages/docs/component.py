@@ -423,13 +423,26 @@ def generate_props(src):
         padding_bottom="2em",
     )
 
+# Default event triggers.
+default_triggers = rx.Component.create().get_event_triggers()
+
+
+import inspect
+
+def same_trigger(t1, t2):
+    if t1 is None or t2 is None:
+        return False
+    args1 = inspect.getfullargspec(t1).args
+    args2 = inspect.getfullargspec(t2).args
+    return args1 == args2
 
 def generate_event_triggers(comp):
-    default_triggers = rx.Component.create().get_event_triggers().keys()
+    triggers = comp().get_event_triggers()
     custom_events = [
         event
-        for event in comp().get_event_triggers()
-        if event not in default_triggers and event != "on_drop"
+        for event in triggers
+        if event != "on_drop" and
+        not same_trigger(triggers.get(event), default_triggers.get(event))
     ]
 
     if not custom_events:
