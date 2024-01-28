@@ -25,6 +25,9 @@ class Prop(Base):
     description: str
 
 
+from reflex.components.el.elements.base import BaseHTML
+
+
 class Source(Base):
     """Parse the source code of a component."""
 
@@ -62,7 +65,7 @@ class Source(Base):
         props = self._get_props()
 
         parent_cls = self.component.__bases__[0]
-        if parent_cls != rx.Component:
+        if parent_cls != rx.Component and parent_cls != BaseHTML:
             props += Source(component=parent_cls).get_props()
 
         return props
@@ -423,11 +426,13 @@ def generate_props(src):
         padding_bottom="2em",
     )
 
+
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
 
 
 import inspect
+
 
 def same_trigger(t1, t2):
     if t1 is None or t2 is None:
@@ -436,13 +441,14 @@ def same_trigger(t1, t2):
     args2 = inspect.getfullargspec(t2).args
     return args1 == args2
 
+
 def generate_event_triggers(comp):
     triggers = comp().get_event_triggers()
     custom_events = [
         event
         for event in triggers
-        if event != "on_drop" and
-        not same_trigger(triggers.get(event), default_triggers.get(event))
+        if event != "on_drop"
+        and not same_trigger(triggers.get(event), default_triggers.get(event))
     ]
 
     if not custom_events:
@@ -538,7 +544,9 @@ def multi_docs(path, comp, component_list, title):
         components = [component_docs(component) for component in component_list[1:]]
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
-        ll_doc_exists = os.path.exists(fname.replace('radix/', '').replace(".md", "-ll.md"))
+        ll_doc_exists = os.path.exists(
+            fname.replace("radix/", "").replace(".md", "-ll.md")
+        )
 
         return rx.box(
             rx.box(
@@ -547,10 +555,14 @@ def multi_docs(path, comp, component_list, title):
                         rx.tab_list(
                             rx.spacer(),
                             rx.tab(
-                                "High Level API", _selected=tab_selected_style, style=tab_style
+                                "High Level API",
+                                _selected=tab_selected_style,
+                                style=tab_style,
                             ),
                             rx.tab(
-                                "Low Level API", _selected=tab_selected_style, style=tab_style
+                                "Low Level API",
+                                _selected=tab_selected_style,
+                                style=tab_style,
                             )
                             if ll_doc_exists
                             else "",
@@ -568,7 +580,9 @@ def multi_docs(path, comp, component_list, title):
                         rx.tab_panels(
                             rx.tab_panel(xd.render(comp, filename=fname)),
                             rx.tab_panel(
-                                xd.render_file(fname.replace('radix/', '').replace(".md", "-ll.md"))
+                                xd.render_file(
+                                    fname.replace("radix/", "").replace(".md", "-ll.md")
+                                )
                             )
                             if ll_doc_exists
                             else "",
@@ -580,7 +594,7 @@ def multi_docs(path, comp, component_list, title):
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",
-                        default_index=1 if 'only_low_level' in comp.metadata else 0,
+                        default_index=1 if "only_low_level" in comp.metadata else 0,
                     ),
                     padding_y="1em",
                 ),
