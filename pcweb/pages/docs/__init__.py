@@ -76,12 +76,13 @@ for doc in sorted(flexdown_docs):
     route = f"/{doc.replace('.md', '')}"
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
+    title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
+        comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     elif doc.startswith("docs/library"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         if issubclass(clist[1], (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent)):
@@ -93,9 +94,9 @@ for doc in sorted(flexdown_docs):
             route = route.replace("library/", "library/chakra/")
         else:
             component_list[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist, title=title)
+        comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     else:
-        comp = docpage(set_path=route, t=to_title_case(title))(
+        comp = docpage(set_path=route, t=title2)(
             lambda d=d, doc=doc: xd.render(d, doc)
         )
 
