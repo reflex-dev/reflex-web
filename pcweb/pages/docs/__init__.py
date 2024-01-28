@@ -10,8 +10,8 @@ from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage
 from reflex.components.chakra.base import ChakraComponent
-from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 from .gallery import gallery
 from .library import library
@@ -85,7 +85,10 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     elif doc.startswith("docs/library"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
-        if issubclass(clist[1], (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent)):
+        if issubclass(
+            clist[1],
+            (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent),
+        ):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")
         elif issubclass(clist[1], ChakraComponent):
@@ -96,9 +99,7 @@ for doc in sorted(flexdown_docs):
             component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     else:
-        comp = docpage(set_path=route, t=title2)(
-            lambda d=d, doc=doc: xd.render(d, doc)
-        )
+        comp = docpage(set_path=route, t=title2)(lambda d=d, doc=doc: xd.render(d, doc))
 
     # Get the namespace.
     namespace = rx.utils.format.to_snake_case(doc.split("/")[1])

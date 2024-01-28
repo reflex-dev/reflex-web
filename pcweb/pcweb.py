@@ -8,7 +8,6 @@ import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.pages import page404, routes
 
-
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
 WINDOWS_MAX_ROUTES = 125
