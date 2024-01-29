@@ -298,7 +298,7 @@ from reflex.components.chakra.base import ChakraComponent
 def get_component_link(category, clist, prefix="") -> str:
     if issubclass(clist[1], ChakraComponent):
         prefix = "chakra/"
-    component_name = rx.utils.format.to_snake_case(clist[0])
+    component_name = rx.utils.format.to_kebab_case(clist[0])
     return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
 
 
@@ -451,7 +451,7 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):  
+):
     return rx.cond(
         item.children.length() == 0,
         sidebar_leaf(item=item, url=url),
@@ -473,7 +473,7 @@ def sidebar_item_comp(
                         font_weight=600,
                         font_size=".8em",
                         margin_left="0.5em",
-                    )
+                    ),
                 ),
                 rx.spacer(),
                 rx.accordion_icon(),
@@ -579,10 +579,10 @@ def sidebar_comp(
         rx.box(
             rx.text(
                 "Learn",
-                font_weight= fw["section"],
-                font_size= styles.TEXT_FONT_SIZE,
-                color= "#696287",  
-            ),    
+                font_weight=fw["section"],
+                font_size=styles.TEXT_FONT_SIZE,
+                color="#696287",
+            ),
             on_click=lambda: SidebarState.set_sidebar_index(0),
             background=rx.cond(
                 SidebarState.sidebar_index == 0,
@@ -599,10 +599,10 @@ def sidebar_comp(
         rx.box(
             rx.text(
                 "Reference",
-                font_weight= fw["section"],
-                font_size= styles.TEXT_FONT_SIZE,
-                color= "#696287",  
-            ), 
+                font_weight=fw["section"],
+                font_size=styles.TEXT_FONT_SIZE,
+                color="#696287",
+            ),
             on_click=lambda: SidebarState.set_sidebar_index(1),
             background=rx.cond(
                 SidebarState.sidebar_index == 1,
