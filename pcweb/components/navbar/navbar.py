@@ -46,18 +46,36 @@ def feedback_button():
         padding="0.2em",
     )
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+def resources_section():
+    return rdxt.hovercard_root(
+            rdxt.hovercard_trigger(
+                rdxt.text("Resources", color=rx.color("mauve", 11)),
+            ),
+            rdxt.hovercard_content(
+                rdxt.grid(
+                    columns="120px 1fr",
+                ),
+                background_color=rx.color("violet", 7),
+                style={"width": 360},
+            ),
+        )
+
+def navigation_section():
     return rdxt.flex(
-        rx.image(
-            src="/logo/light.svg",
-        ),
-        rdxt.flex(
             rdxt.text("Docs", color=rx.color("mauve", 11)),
             rdxt.text("Blog",color=rx.color("mauve", 11)),
             rdxt.text("Gallery", color=rx.color("mauve", 11)),
-            rdxt.text("Resources", color=rx.color("mauve", 11)),
+            resources_section(),
             gap="5",
+        )
+
+def navbar(sidebar: rx.Component = None) -> rx.Component():
+    return rdxt.flex(
+        rx.image(
+            src="Reflex.svg",
+            height="20px",
         ),
+        navigation_section(),
         rdxt.box(
             grow='1',
         ),
