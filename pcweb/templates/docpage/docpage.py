@@ -1,75 +1,16 @@
 """Template for documentation pages."""
 
-import textwrap
 from typing import Any, Callable
 
-import black
-
 import reflex as rx
+import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
-from pcweb.styles import colors as c
-from pcweb.styles import font_weights as fw
-from pcweb.styles import text_colors as tc
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 
-
-@rx.memo
-def code_block(code: str, language: str):
-    return rx.box(
-        rx.code_block(
-            code,
-            border_radius=styles.DOC_BORDER_RADIUS,
-            theme="light",
-            background="transparent",
-            language=language,
-            code_tag_props={
-                "style": {
-                    "fontFamily": "inherit",
-                }
-            },
-        ),
-        rx.button(
-            rx.icon(tag="copy"),
-            on_click=rx.set_clipboard(code),
-            position="absolute",
-            top="0.5em",
-            right="0.5em",
-            color=tc["docs"]["body"],
-            background="transparent",
-            _hover={
-                "background": "transparent",
-                "color": styles.ACCENT_COLOR,
-            },
-        ),
-        border_radius=styles.DOC_BORDER_RADIUS,
-        border="2px solid #F4F3F6",
-        position="relative",
-        margin_bottom="1em",
-        width="100%",
-    )
-
-
-def code_block_markdown(*children, **props):
-    language = props.get("language", "none")
-    return code_block(code=children[0], language=language)
-
+from .blocks import *
 
 # Docpage styles.
-demo_box_style = {
-    "bg": "rgba(255,255,255, 0.5)",
-    "border_radius": "8px;",
-    "box_shadow": "rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;",
-    "padding": 5,
-    "width": "100%",
-    "overflow_x": "auto",
-    "border": "2px solid #F4F3F6",
-    "align_items": "center",
-    "justify_content": "center",
-}
 link_style = {
     "color": "#494369",
     "font_weight": "600",
@@ -299,11 +240,12 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 "Test",
                                 "Test",
                                 direction="column",
+                                position="fixed",
                             ),
                             width=["0", "0%","0%", "0%","25%"],
                         ),
                     background = rx.color("mauve", 1),
-                    max_width="100em",
+                    max_width="110em",
                     margin_x="auto",
                     margin_top="100px",
                     height="100%",
@@ -320,380 +262,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     return docpage
 
 
-@rx.memo
-def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
-
-
-@rx.memo
-def code_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.code(text, color="#1F1944", bg="#EAE4FD")
-
-
-def h_comp_common(
-    text: rx.Var[str],
-    heading: str,
-    font_size: list[str] | str,
-    font_weight: str,
-    margin_top: str,
-    scroll_margin: str,
-) -> rx.Component:
-    id_ = text.to(list[str])[0].lower().split().join("-")
-    href = rx.State.router.page.full_path + "#" + id_
-
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(
-                    text,
-                    id=id_,
-                    as_=heading,
-                    font_size=font_size,
-                    font_weight=font_weight,
-                    scroll_margin=scroll_margin,
-                ),
-                rx.icon(
-                    tag="link",
-                    color="#696287",
-                    _hover={
-                        "color": styles.ACCENT_COLOR,
-                    },
-                ),
-                align_items="center",
-            ),
-            _hover={
-                "cursor": "pointer",
-                "textDecoration": "none",
-            },
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-        ),
-        rx.divider(margin_y="1em"),
-        margin_top=margin_top,
-        color=tc["docs"]["header"],
-        width="100%",
-    )
-
-
-@rx.memo
-def h1_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h1",
-        font_size=styles.H1_FONT_SIZE,
-        font_weight=fw["heading"],
-        margin_top="0",
-        scroll_margin="4em",
-    )
-
-
-@rx.memo
-def h2_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h2",
-        font_size=styles.H3_FONT_SIZE,
-        font_weight=fw["subheading"],
-        margin_top="1.5em",
-        scroll_margin="5em",
-    )
-
-
-@rx.memo
-def h3_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h3",
-        font_size=styles.H4_FONT_SIZE,
-        font_weight=fw["subheading"],
-        margin_top="1.5em",
-        scroll_margin="5em",
-    )
-
-
-@rx.memo
-def h4_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h4",
-        font_size=styles.H4_FONT_SIZE,
-        font_weight=fw["subheading"],
-        margin_top="1.5em",
-        scroll_margin="6em",
-    )
-
-
-def doccmdoutput(
-    command: str,
-    output: str,
-) -> rx.Component:
-    """Create a documentation code snippet.
-
-    Args:
-        command: The command to display.
-        output: The output of the command.
-        theme: The theme of the component.
-
-    Returns:
-        The styled command and its example output.
-    """
-    return flex(
-        flex(
-            icon(tag="double_arrow_right", color="white", width=18, height=18),
-            rx.code_block(
-                command,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                background="transparent",
-                theme="a11y-dark",
-                language="bash",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
-            rx.button(
-                rx.icon(tag="copy"),
-                on_click=rx.set_clipboard(command),
-                position="absolute",
-                top="0.5em",
-                right="0.5em",
-                color=tc["docs"]["body"],
-                background="transparent",
-                _hover={
-                    "background": "transparent",
-                    "color": styles.ACCENT_COLOR,
-                },
-            ),
-            direction="row",
-            align="center",
-            gap="1",
-            margin_left="1em",
-        ),
-        separator(size="4", color_scheme="green"),
-        flex(
-            rx.code_block(
-                output,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                background="transparent",
-                theme="a11y-dark",
-                language="log",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
-        ),
-        direction="column",
-        gap="2",
-        border_radius=styles.DOC_BORDER_RADIUS,
-        border="2px solid #F4F3F6",
-        position="relative",
-        margin="1em",
-        width="100%",
-        background_color="black",
-    )
-
-
-def doccode(
-    code: str,
-    language: str = "python",
-    lines: tuple[int, int] | None = None,
-    theme: str = "light",
-) -> rx.Component:
-    """Create a documentation code snippet.
-
-    Args:
-        code: The code to display.
-        language: The language of the code.
-        lines: The start/end lines to display.
-        props: Props to apply to the code snippet.
-
-    Returns:
-        The styled code snippet.
-    """
-    # For Python snippets, lint the code with black.
-    if language == "python":
-        code = black.format_str(
-            textwrap.dedent(code), mode=black.FileMode(line_length=60)
-        ).strip()
-
-    # If needed, only display a subset of the lines.
-    if lines is not None:
-        code = textwrap.dedent(
-            "\n".join(code.strip().split("\n")[lines[0] : lines[1]])
-        ).strip()
-
-    # Create the code snippet.
-    cb = code_block
-    return cb(
-        code=code,
-        language=language,
-    )
-
-
-def docdemobox(*children, **props) -> rx.Component:
-    """Create a documentation demo box with the output of the code.
-
-    Args:
-        children: The children to display.
-
-    Returns:
-        The styled demo box.
-    """
-    return rx.vstack(
-        *children,
-        style=demo_box_style,
-        **props,
-    )
-
-
-def docdemo(
-    code: str,
-    state: str | None = None,
-    comp: rx.Component | None = None,
-    context: bool = False,
-    demobox_props: dict[str, Any] | None = None,
-    **props,
-) -> rx.Component:
-    """Create a documentation demo with code and output.
-
-    Args:
-        code: The code to render the component.
-        state: Code for any state needed for the component.
-        comp: The pre-rendered component.
-        context: Whether to wrap the render code in a function.
-        props: Additional props to apply to the component.
-
-    Returns:
-        The styled demo.
-    """
-    # Render the component if necessary.
-    if comp is None:
-        comp = eval(code)
-
-    # Wrap the render code in a function if needed.
-    if context:
-        code = f"""def index():
-        return {code}
-        """
-
-    # Add the state code
-    if state is not None:
-        code = state + code
-
-    # Create the demo.
-    return rx.vstack(
-        docdemobox(comp, **(demobox_props or {})),
-        doccode(code),
-        width="100%",
-        padding_bottom="2em",
-        spacing="1em",
-        **props,
-    )
-
-
-def doclink(text: str, href: str, **props) -> rx.Component:
-    """Create a styled link for doc pages.
-
-    Args:
-        text: The text to display.
-        href: The link to go to.
-        props: Props to apply to the link.
-
-    Returns:
-        The styled link.
-    """
-    return rx.link(text, href=href, style=styles.LINK_STYLE, **props)
-
-
-def doclink2(text: str, **props) -> rx.Component:
-    """Create a styled link for doc pages.
-
-    Args:
-        text: The text to display.
-        href: The link to go to.
-        props: Props to apply to the link.
-
-    Returns:
-        The styled link.
-    """
-    return rx.link(text, style=styles.LINK_STYLE, **props)
-
-
-def definition(title: str, *children) -> rx.Component:
-    """Create a definition for a doc page.
-
-    Args:
-        title: The title of the definition.
-        children: The children to display.
-
-    Returns:
-        The styled definition.
-    """
-    return rx.box(
-        rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
-        *children,
-        padding="1em",
-        border=styles.DOC_BORDER,
-        border_radius=styles.DOC_BORDER_RADIUS,
-        _hover={
-            "box_shadow": styles.DOC_SHADOW_LIGHT,
-            "border": f"2px solid {c['violet'][200]}",
-        },
-    )
-
-
-tab_style = {
-    "color": "#494369",
-    "font_weight": 600,
-    "_selected": {
-        "color": "#5646ED",
-        "bg": "#F5EFFE",
-        "padding_x": "0.5em",
-        "padding_y": "0.25em",
-        "border_radius": "8px",
-    },
-}
-
-
-def docgraphing(
-    code: str,
-    comp: rx.Component | None = None,
-    data: str | None = None,
-):
-    return rx.vstack(
-        rx.flex(
-            comp,
-            height="15em",
-            style=demo_box_style,
-        ),
-        rx.tabs(
-            rx.tab_list(
-                rx.tab("Code", style=tab_style),
-                rx.tab("Data", style=tab_style),
-                padding_x=0,
-            ),
-            rx.tab_panels(
-                rx.tab_panel(
-                    doccode(code), width="100%", padding_x=0, padding_y=".25em"
-                ),
-                rx.tab_panel(
-                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
-                ),
-                width="100%",
-            ),
-            variant="unstyled",
-            color_scheme="purple",
-            align="end",
-            width="100%",
-            padding_top=".5em",
-        ),
-        width="100%",
-    )
-
-
 class RadixDocState(rx.State):
     """The app state."""
 
@@ -704,9 +272,9 @@ class RadixDocState(rx.State):
 
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
-    return hovercard_root(
-        hovercard_trigger(flex(component)),
-        hovercard_content(
+    return rdxt.hovercard_root(
+        rdxt.hovercard_trigger(rdxt.flex(component)),
+        rdxt.hovercard_content(
             rx.code_block(f"{component_str}", can_copy=True, language="python"),
         ),
     )
@@ -786,10 +354,10 @@ def style_grid(
     **kwargs,
 ) -> rx.Component:
     return rx.vstack(
-        grid(
-            text("", size="5"),
-            *[text(variant, size="5") for variant in variants],
-            text("Accent", size="5"),
+        rdxt.grid(
+            rdxt.text("", size="5"),
+            *[rdxt.text(variant, size="5") for variant in variants],
+            rdxt.text("Accent", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -804,7 +372,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            text("", size="5"),
+            rdxt.text("", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -819,7 +387,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            text("Gray", size="5"),
+            rdxt.text("Gray", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -834,7 +402,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            text("", size="5"),
+            rdxt.text("", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -851,7 +419,7 @@ def style_grid(
             ],
             (
                 rx.fragment(
-                    text("Disabled", size="5"),
+                    rdxt.text("Disabled", size="5"),
                     *[
                         hover_item(
                             component=used_component(
@@ -876,13 +444,13 @@ def style_grid(
             rows=str(len(variants) + 1),
             gap="3",
         ),
-        select_root(
-            select_trigger(button(size="2", on_click=RadixDocState.change_color())),
-            select_content(
-                select_group(
-                    select_label("Colors"),
+        rdxt.select_root(
+            rdxt.select_trigger(rdxt.button(size="2", on_click=RadixDocState.change_color())),
+            rdxt.select_content(
+                rdxt.select_group(
+                    rdxt.select_label("Colors"),
                     *[
-                        select_item(
+                        rdxt.select_item(
                             color,
                             value=color,
                             _hover={"background": f"var(--{color}-9)"},
@@ -928,29 +496,29 @@ def style_grid(
 def icon_grid(
     category_name: str, icon_tags: list[str], columns: str = "4"
 ) -> rx.Component:
-    return flex(
-        callout_root(
-            callout_icon(
-                icon(
+    return rdxt.flex(
+        rdxt.callout_root(
+            rdxt.callout_icon(
+                rdxt.icon(
                     tag="check_circled",
                     width=18,
                     height=18,
                 )
             ),
-            callout_text(
+            rdxt.callout_text(
                 f"Below is a list of all available ",
-                text(category_name, weight="bold"),
+                rdxt.text(category_name, weight="bold"),
                 " icons.",
                 color="black",
             ),
             color="green",
         ),
-        separator(size="4"),
-        grid(
+        rdxt.separator(size="4"),
+        rdxt.grid(
             *[
-                flex(
-                    icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
-                    text(icon_tag),
+                rdxt.flex(
+                    rdxt.icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
+                    rdxt.text(icon_tag),
                     direction="column",
                     align="center",
                     bg="white",
