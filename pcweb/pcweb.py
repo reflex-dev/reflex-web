@@ -18,7 +18,7 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rdxt.theme(
-        appearance="light", has_background=True, radius="large", accent_color="teal"
+        appearance="dark", has_background=True, radius="large", accent_color="teal"
     ),
     head_components=[
         rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),

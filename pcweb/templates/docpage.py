@@ -262,15 +262,12 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),
-                rx.box(
-                    rx.flex(
-                        rx.desktop_only(
+                rx.flex(
+                    rx.desktop_only(
                             sidebar,
                             width=["0", "0%", "25%"],
-                            padding_y="2em",
-                            padding_left=["1em", "2em", "2em", "2m", "2em"],
                         ),
-                        rx.box(
+                    rx.box(
                             rx.box(comp),
                             rx.hstack(
                                 *links,
@@ -291,28 +288,26 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ),
                                 width="100%",
                             ),
-                            border_left=[
-                                "none",
-                                "none",
-                                "none",
-                                "none",
-                                "1px solid #F4F3F6",
-                            ],
                             padding_x=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
-                            padding_y="2em",
                             height="100%",
                         ),
-                    ),
-                    max_width="80em",
+                    rx.desktop_only(
+                            rx.flex(
+                                "Test",
+                                "Test",
+                                "Test",
+                                "Test",
+                                direction="column",
+                            ),
+                            width=["0", "0%","0%", "0%","25%"],
+                        ),
+                    background = rx.color("mauve", 1),
+                    max_width="100em",
                     margin_x="auto",
-                    margin_top="1em",
+                    margin_top="100px",
                     height="100%",
-                ),
-                color=tc["docs"]["body"],
-                background="radial-gradient(35.39% 37.5% at 100% 0%, rgba(188, 136, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%)",
-                background_attachment="fixed",
-                font_family=styles.SANS,
+                )
             )
 
         # Return the route.
