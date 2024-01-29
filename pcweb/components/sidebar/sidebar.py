@@ -7,64 +7,12 @@ from pcweb import styles
 from pcweb.components.navbar import NavbarState
 from pcweb.route import Route
 from pcweb.styles import font_weights as fw
-from pcweb.styles import text_colors as tc
-from reflex.base import Base
+from .state import SidebarState, SidebarItem
+from .style import heading_style2, heading_style3
 
-# Sidebar styles.
-heading_style = {
-    "color": "#494369",
-    "font_weight": "500",
-}
-heading_style2 = {
-    "font_size": styles.TEXT_FONT_SIZE,
-    "color": "#5646ED",
-    "background_color": "#F5EFFE",
-    "border_radius": "0.5em",
-    "font_weight": "500",
-    "width": "100%",
-    "padding_x": "0.5em",
-    "padding_y": "0.25em",
-}
-heading_style3 = {
-    "font_weight": fw["section"],
-    "font_size": styles.TEXT_FONT_SIZE,
-    "color": "#696287",
-    "margin_bottom": "0.5em",
-    "margin_left": "1.1em",
-}
-
-
-class SidebarItem(Base):
-    """A single item in the sidebar."""
-
-    # The name to display in the sidebar.
-    names: str = ""
-
-    alt_name_for_next_prev: str = ""
-
-    # The link to navigate to when the item is clicked.
-    link: str = ""
-
-    # The children items.
-    children: list[SidebarItem] = []
-
-
-class SidebarState(rx.State):
-    _sidebar_index: int = -1
-
-    def set_sidebar_index(self, num) -> int:
-        self._sidebar_index = num
-
-    @rx.cached_var
-    def sidebar_index(self) -> int:
-        if self._sidebar_index < 0:
-            route = self.router.page.path
-            if "library" in route or "api-reference" in route or "recipe" in route:
-                return 1
-            else:
-                return 0
-        return self._sidebar_index
-
+from .sidebar_items.learn import learn, frontend, backend, hosting
+from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
+from .sidebar_items.reference import api_reference, recipes, tutorials
 
 def sidebar_section(name):
     return rx.heading(
@@ -106,297 +54,6 @@ def create_item(route: Route, children=None):
         names=route,
         children=list(map(create_item, children)),
     )
-
-
-def get_sidebar_items_learn():
-    from pcweb.pages.docs import (
-        getting_started,
-        tutorial,
-    )
-
-    items = [
-        create_item(
-            "Getting Started",
-            children=[
-                getting_started.introduction,
-                getting_started.installation,
-                getting_started.project_structure,
-                getting_started.configuration,
-            ],
-        ),
-        create_item(
-            "Tutorial",
-            children=[
-                tutorial.intro,
-                tutorial.setup,
-                tutorial.frontend,
-                tutorial.adding_state,
-                tutorial.final_app,
-            ],
-        ),
-    ]
-    return items
-
-
-def get_sidebar_items_frontend():
-    from pcweb.pages.docs import (
-        assets,
-        components,
-        library_,
-        pages,
-        styling,
-        ui,
-        wrapping_react,
-    )
-
-    items = [
-        create_item(ui.overview),
-        create_item(
-            "Components",
-            children=[
-                components.props,
-                components.style_props,
-                components.conditional_props,
-                components.conditional_rendering,
-                components.rendering_iterables,
-                library_,
-            ],
-        ),
-        create_item(
-            "Pages",
-            children=[
-                pages.routes,
-                pages.dynamic_routing,
-                pages.metadata,
-            ],
-        ),
-        create_item(
-            "Styling",
-            children=[
-                styling.overview,
-                styling.responsive,
-                styling.custom_stylesheets,
-                styling.theming,
-            ],
-        ),
-        create_item(
-            "Assets",
-            children=[
-                assets.referencing_assets,
-                assets.upload_and_download_files,
-            ],
-        ),
-        create_item(
-            "Wrapping React",
-            children=[
-                wrapping_react.overview,
-                wrapping_react.imports,
-                wrapping_react.logic,
-                wrapping_react.example,
-            ],
-        ),
-    ]
-    return items
-
-
-def get_sidebar_items_backend():
-    from pcweb.pages.docs import (
-        api_routes,
-        client_storage,
-        database,
-        events,
-        state,
-        substates,
-        utility_methods,
-        vars,
-    )
-
-    items = [
-        create_item(state.overview),
-        create_item(
-            "Vars",
-            children=[
-                vars.base_vars,
-                vars.computed_vars,
-                vars.var_operations,
-                vars.custom_vars,
-            ],
-        ),
-        create_item(
-            "Events",
-            children=[
-                events.events_overview,
-                events.event_arguments,
-                events.setters,
-                events.yield_events,
-                events.chaining_events,
-                events.special_events,
-                events.page_load_events,
-                events.background_events,
-            ],
-        ),
-        create_item(
-            "Substates",
-            children=[
-                substates.overview,
-            ],
-        ),
-        create_item(
-            "API Routes",
-            children=[
-                api_routes.overview,
-            ],
-        ),
-        create_item(
-            "Client Storage",
-            children=[
-                client_storage.overview,
-            ],
-        ),
-        create_item(
-            "Database",
-            children=[
-                database.overview,
-                database.tables,
-                database.queries,
-                database.relationships,
-            ],
-        ),
-        create_item(
-            "Utility Methods",
-            children=[
-                utility_methods.router_attributes,
-                utility_methods.other_methods,
-            ],
-        ),
-    ]
-    return items
-
-
-def get_sidebar_items_hosting():
-    from pcweb.pages.docs import hosting
-
-    items = [
-        create_item(
-            "Reflex Deploy",
-            children=[
-                hosting.deploy_quick_start,
-                hosting.hosting_cli_commands,
-            ],
-        ),
-        create_item(
-            "Self Hosting",
-            children=[hosting.self_hosting],
-        ),
-    ]
-    return items
-
-
-from reflex.components.chakra.base import ChakraComponent
-
-
-def get_component_link(category, clist, prefix="") -> str:
-    if issubclass(clist[1], ChakraComponent):
-        prefix = "chakra/"
-    component_name = rx.utils.format.to_snake_case(clist[0])
-    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
-
-
-def get_category_children(category, category_list, prefix=""):
-    if isinstance(category_list, dict):
-        return SidebarItem(
-            names=category,
-            children=[
-                get_category_children(c, category_list[c]) for c in category_list
-            ],
-        )
-    category_item_children = []
-    for c in category_list:
-        component_name = rx.utils.format.to_snake_case(c[0])
-        name = rx.utils.format.to_title_case(component_name)
-        item = SidebarItem(
-            names=name,
-            link=get_component_link(category, c, prefix=prefix),
-        )
-        category_item_children.append(item)
-    return SidebarItem(names=category, children=category_item_children)
-
-
-def get_sidebar_items_reference():
-    from pcweb.pages.docs import (
-        api_reference,
-        component_list,
-        datatable_tutorial,
-        recipes,
-    )
-
-    library_item_children = []
-
-    for category in component_list:
-        category_item = get_category_children(category, component_list[category])
-        library_item_children.append(category_item)
-
-    # children = [
-    #     SidebarItem(
-    #         names=module.__name__, link=f"/docs/api-reference/{module.__name__.lower()}"
-    #     )
-    #     for module in api_reference.modules
-    # ]
-
-    ref = create_item(
-        "API Reference",
-        children=[
-            api_reference.cli,
-            api_reference.event_triggers,
-            api_reference.special_events,
-            api_reference.browser_storage,
-            api_reference.browser_javascript,
-        ],
-    )
-    # ref.children.extend(children)
-
-    return [
-        SidebarItem(
-            names="Overview",
-            alt_name_for_next_prev="Components Reference: Overview",
-            link="/docs/library",
-        ),
-        *library_item_children,
-        ref,
-        create_item(
-            "Recipes",
-            children=[
-                recipes.navbar,
-                recipes.sidebar,
-                recipes.checkboxes,
-                recipes.filtered_table,
-            ],
-        ),
-        create_item(
-            "Datatable Tutorial",
-            children=[
-                datatable_tutorial.simple_table,
-                datatable_tutorial.add_interactivity,
-                datatable_tutorial.add_styling,
-                datatable_tutorial.live_stream,
-            ],
-        ),
-    ]
-
-
-def get_sidebar_items_other_libraries():
-    from pcweb.pages.docs import radix_components
-
-    chakra_children = []
-    for category in radix_components:
-        category_item = get_category_children(
-            category, radix_components[category], prefix="radix/"
-        )
-        chakra_children.append(category_item)
-
-    chakra_item = SidebarItem(names="Radix UI", children=chakra_children)
-
-    return [chakra_item]
 
 
 @rx.memo
@@ -526,17 +183,9 @@ def calculate_index(sidebar_items, url):
     return None
 
 
-learn = get_sidebar_items_learn()
-reference = get_sidebar_items_reference()
-frontend = get_sidebar_items_frontend()
-backend = get_sidebar_items_backend()
-hosting = get_sidebar_items_hosting()
-other_libs = get_sidebar_items_other_libraries()
-
-
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + frontend + backend + hosting + reference
+    sidebar_items = learn + frontend + backend + hosting + component_lib
     # Flatten the list of sidebar items
     flat_items = []
 
@@ -558,18 +207,11 @@ def get_prev_next(url):
     return None, None
 
 
-signle_item = {
-    "color": tc["docs"]["body"],
-    "_hover": {"color": styles.ACCENT_COLOR},
-    "font_family": styles.SANS,
-}
-
-
 @rx.memo
 def sidebar_comp(
     url: str,
     learn_index: list[int],
-    reference_index: list[int],
+    component_lib_index: list[int],
     frontend_index: list[int],
     backend_index: list[int],
     hosting_index: list[int],
@@ -684,12 +326,12 @@ def sidebar_comp(
                 sidebar_section("Core"),
                 rx.accordion(
                     *[
-                        sidebar_item_comp(item=item, url=url, index=reference_index)
-                        for item in reference
+                        sidebar_item_comp(item=item, url=url, index=component_lib_index)
+                        for item in component_lib
                     ],
                     allow_multiple=True,
-                    default_index=reference_index
-                    if reference_index is not None
+                    default_index=component_lib_index
+                    if component_lib_index is not None
                     else [],
                     width="100%",
                 ),
@@ -725,13 +367,14 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
+        border_right= f"1px solid {rx.color('mauve', 11)};",
     )
 
 
 def sidebar(url=None) -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
-    reference_index = calculate_index(reference, url)
+    component_lib_index = calculate_index(component_lib, url)
     frontend_index = calculate_index(frontend, url)
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
@@ -741,7 +384,7 @@ def sidebar(url=None) -> rx.Component:
         sidebar_comp(
             url=url,
             learn_index=learn_index,
-            reference_index=reference_index,
+            component_lib_index=component_lib_index,
             frontend_index=frontend_index,
             backend_index=backend_index,
             hosting_index=hosting_index,
