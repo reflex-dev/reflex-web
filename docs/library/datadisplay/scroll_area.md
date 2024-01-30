@@ -7,9 +7,7 @@ components:
 ```python exec
 import random
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+import reflex.components.radix.themes as rdxt
 from pcweb.templates.docpage import style_grid
 ```
 
@@ -22,16 +20,16 @@ Custom styled, cross-browser scrollable area using native functionality.
 ## Basic Example
 
 ```python demo
-scroll_area(
-    flex(
-        text(
+rdxt.scroll_area(
+    rdxt.flex(
+        rdxt.text(
             """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense “legible” and “readable”
         are often used synonymously, typographically they are separate but
         related concepts.""",
             as_="p",
         ),
-        text(
+        rdxt.text(
             """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as “the
         quality of being decipherable and recognisable”. For instance, if a “b”
@@ -39,7 +37,7 @@ scroll_area(
         sizes, this is a problem of legibility.""",
             as_="p",
         ),
-        text(
+        rdxt.text(
             """Typographers are concerned with legibility insofar as it is their job to
         select the correct font to use. Brush Script is an example of a font
         containing many characters that might be difficult to distinguish. The
@@ -50,7 +48,7 @@ scroll_area(
         direction="column",
         gap="4",
     ),
-    type="always",
+    type_="always",
     scrollbars="vertical",
     style={"height": 180},
 
@@ -65,17 +63,17 @@ Use the `scrollbars` prop to limit scrollable axes. This prop can take values `"
 
 
 ```python demo
-grid(
-    scroll_area(
-        flex(
-            text(
+rdxt.grid(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            text(
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -83,22 +81,22 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", pr="8", direction="column", gap="4",
+            padding="8px", padding_right="48px", direction="column", gap="4",
         ),
         type_="always",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    scroll_area(
-        flex(
-            text(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            text(
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -106,22 +104,22 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", gap="4", style={"width": 700},
+            padding="8px", gap="4", style={"width": 700},
         ),
         type_="always",
         scrollbars="horizontal",
         style={"height": 150}, 
     ),
-    scroll_area(
-        flex(
-            text(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            text(
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -129,7 +127,7 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", gap="4", style={"width": 400},
+            padding="8px", gap="4", style={"width": 400},
         ),
         type_="always",
         scrollbars="both",
@@ -155,11 +153,11 @@ The `type_` prop describes the nature of scrollbar visibility.
 
 
 ```python demo
-grid(
-    scroll_area(
-        flex(
-            text("type_= 'auto'",  weight="bold"),
-            text(
+rdxt.grid(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text("type_= 'auto'",  weight="bold"),
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -167,16 +165,16 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", direction="column", gap="4",
+            padding="8px", direction="column", gap="4",
         ),
         type_="auto",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    scroll_area(
-        flex(
-            text("type_= 'always'",  weight="bold"),
-            text(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text("type_= 'always'",  weight="bold"),
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -184,16 +182,16 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", direction="column", gap="4",
+            padding="8px", direction="column", gap="4",
         ),
         type_="always",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    scroll_area(
-        flex(
-            text("type_= 'scroll'",  weight="bold"),
-            text(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text("type_= 'scroll'",  weight="bold"),
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -201,16 +199,16 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", direction="column", gap="4",
+            padding="8px", direction="column", gap="4",
         ),
         type_="scroll",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    scroll_area(
-        flex(
-            text("type_= 'hover'",  weight="bold"),
-            text(
+    rdxt.scroll_area(
+        rdxt.flex(
+            rdxt.text("type_= 'hover'",  weight="bold"),
+            rdxt.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -218,7 +216,7 @@ grid(
         sizes, this is a problem of legibility.""",
                 size="2", trim="both",
             ),
-            p="2", direction="column", gap="4",
+            padding="8px", direction="column", gap="4",
         ),
         type_="hover",
         scrollbars="vertical",
@@ -229,13 +227,3 @@ grid(
 )
 
 ```
-
-
-## Styling 
-
-
-### size
-
-### radius
-
-

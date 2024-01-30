@@ -47,6 +47,9 @@ def controlled_example():
             value=TextAreaControlled.text,
             on_change=TextAreaControlled.set_text,
         ),
+        rdxt.textarea(
+            value="Simon says: " + TextAreaControlled.text,
+        ),
     )
 ```
 

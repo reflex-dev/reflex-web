@@ -606,13 +606,13 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     Args:
         sidebar: The sidebar component to use.
     """
+    from pcweb import constants
     from pcweb.components.sidebar import sb
     from pcweb.pages.blog import blg
     from pcweb.pages.changelog import changelog
     from pcweb.pages.docs import getting_started
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.faq import faq
-    from pcweb import constants
 
     # If the sidebar is not provided, create a default one.
     sidebar = sidebar or sb

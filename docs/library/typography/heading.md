@@ -117,18 +117,18 @@ Trimming the leading is useful when dialing in vertical spacing in cards or othe
 ```python demo
 flex(
     box(
-        heading("Without trim", mb="1", size="3",),
+        heading("Without trim", margin_bottom="4px", size="3",),
         text("The goal of typography is to relate font size, line height, and line width in a proportional way that maximizes beauty and makes reading easier and more pleasant."),
         style={"background": "var(--gray-a2)", 
                 "border": "1px dashed var(--gray-a7)",},
-        p="4",
+        padding="16px",
     ),
     box(
-        heading("With trim", mb="1", size="3", trim="start"),
+        heading("With trim", margin_bottom="4px", size="3", trim="start"),
         text("The goal of typography is to relate font size, line height, and line width in a proportional way that maximizes beauty and makes reading easier and more pleasant."),
         style={"background": "var(--gray-a2)", 
                 "border": "1px dashed var(--gray-a7)",},
-        p="4",
+        padding="16px",
     ),
     direction="column",
     gap="3",

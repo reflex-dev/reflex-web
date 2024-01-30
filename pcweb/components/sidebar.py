@@ -73,6 +73,8 @@ def sidebar_section(name):
         rx.span(" ]", color="#DACEEE"),
         style=heading_style3,
         margin_top="1em",
+        margin_left="0em",
+        padding_left="1em",
     )
 
 
@@ -296,7 +298,7 @@ from reflex.components.chakra.base import ChakraComponent
 def get_component_link(category, clist, prefix="") -> str:
     if issubclass(clist[1], ChakraComponent):
         prefix = "chakra/"
-    component_name = rx.utils.format.to_snake_case(clist[0])
+    component_name = rx.utils.format.to_kebab_case(clist[0])
     return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
 
 
@@ -438,7 +440,7 @@ def sidebar_leaf(
                 ),
             ),
         ),
-        padding_left="1em",
+        padding_left=".5em",
         border="none",
         width="100%",
     )
@@ -459,6 +461,19 @@ def sidebar_item_comp(
                     item.names,
                     font_family=styles.SANS,
                     font_weight="500",
+                ),
+                rx.cond(
+                    item.names == "Radix UI",
+                    rx.text(
+                        "Experimental",
+                        color="#5646ED",
+                        bg="#F5EFFE",
+                        padding_x="0.5em",
+                        border_radius="4px",
+                        font_weight=600,
+                        font_size=".8em",
+                        margin_left="0.5em",
+                    ),
                 ),
                 rx.spacer(),
                 rx.accordion_icon(),
@@ -486,7 +501,7 @@ def sidebar_item_comp(
                     allow_multiple=True,
                     default_index=rx.cond(index, index[1:2], []),
                 ),
-                margin_left=".7em",
+                margin_left="0em",
                 width="100%",
             ),
             border="none",
@@ -564,10 +579,10 @@ def sidebar_comp(
         rx.box(
             rx.text(
                 "Learn",
-                font_weight= fw["section"],
-                font_size= styles.TEXT_FONT_SIZE,
-                color= "#696287",  
-            ),    
+                font_weight=fw["section"],
+                font_size=styles.TEXT_FONT_SIZE,
+                color="#696287",
+            ),
             on_click=lambda: SidebarState.set_sidebar_index(0),
             background=rx.cond(
                 SidebarState.sidebar_index == 0,
@@ -584,10 +599,10 @@ def sidebar_comp(
         rx.box(
             rx.text(
                 "Reference",
-                font_weight= fw["section"],
-                font_size= styles.TEXT_FONT_SIZE,
-                color= "#696287",  
-            ), 
+                font_weight=fw["section"],
+                font_size=styles.TEXT_FONT_SIZE,
+                color="#696287",
+            ),
             on_click=lambda: SidebarState.set_sidebar_index(1),
             background=rx.cond(
                 SidebarState.sidebar_index == 1,
@@ -663,7 +678,7 @@ def sidebar_comp(
                 ),
                 padding_x="0em",
                 width="100%",
-                align_items="start",
+                align_items="left",
             ),
             rx.vstack(
                 sidebar_section("Core"),
@@ -676,6 +691,7 @@ def sidebar_comp(
                     default_index=reference_index
                     if reference_index is not None
                     else [],
+                    width="100%",
                 ),
                 sidebar_section("Other Libraries"),
                 rx.accordion(
@@ -687,13 +703,14 @@ def sidebar_comp(
                     default_index=other_libs_index
                     if other_libs_index is not None
                     else [],
+                    width="100%",
                 ),
                 padding_x="0em",
                 width="100%",
-                align_items="start",
+                align_items="left",
             ),
         ),
-        align_items="start",
+        align_items="left",
         overflow_y="scroll",
         max_height="90%",
         width="17em",

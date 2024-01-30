@@ -18,7 +18,7 @@ from reflex.components.radix.themes import *
 # Accordion
 
 An accordion is a vertically stacked set of interactive headings that each reveal an associated section of content.
-The accordion component us made up of `accordion` which is the root of the component and takes in an `accordion_item`
+The accordion component is made up of `accordion`, which is the root of the component and takes in an `accordion_item`,
 which contains all the contents of the collapsible section.
 
 ## Basic Example
@@ -127,23 +127,7 @@ accordion(
 )
 ```
 
-### Direction
 
-We use the `dir` prop to specify the reading direction of the accordion when applicable. This can be set to `ltr`
-or `rtl`. By default, the direction is set to `ltr`
-
-```python demo
-accordion(
-    accordion_item("First Item", "The first accordion item's content", font_size="3em"),
-    accordion_item(
-        "Second Item", "The second accordion item's content", font_size="3em"
-    ),
-    accordion_item("Third item", "The third accordion item's content", font_size="3em"),
-    collapsible=True,
-    width="300px",
-    dir="rtl",
-)
-```
 
 ### Orientation
 
@@ -178,6 +162,7 @@ accordion(
 )
 ```
 
+
 ### Variant
 
 ```python demo
@@ -189,7 +174,6 @@ flex(
         ),
         accordion_item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
-        width="300px",
         variant="classic",
     ),
     accordion(
@@ -199,7 +183,6 @@ flex(
         ),
         accordion_item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
-        width="300px",
         variant="soft",
     ),
     accordion(
@@ -209,7 +192,6 @@ flex(
         ),
         accordion_item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
-        width="300px",
         variant="outline",
     ),
     accordion(
@@ -219,7 +201,6 @@ flex(
         ),
         accordion_item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
-        width="300px",
         variant="surface",
     ),
     accordion(
@@ -229,7 +210,6 @@ flex(
         ),
         accordion_item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
-        width="300px",
         variant="ghost",
     ),
     direction="row",
