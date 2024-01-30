@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import reflex as rx
+import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.components.navbar import NavbarState
 from pcweb.route import Route
@@ -197,12 +198,27 @@ def get_prev_next(url):
 
 
 def sidebar_category(name, color, index):
-    return rx.box(
-            rx.text(
+    return rdxt.flex(
+            rdxt.flex(
+                rdxt.icon(
+                    tag="face",
+                    height="20px",
+                    width="20px",
+                    color = rx.color("violet", 1),
+                ),
+                height="30px",
+                width="30px",
+                border_radius= "6px",
+                background= rx.color("violet", 10),
+                box_shadow="0px 0px 0px 1px #3A2BC5, 0px 3px 5px -1px rgba(34, 23, 135, 0.45), 0px 1.5px 0px 0px rgba(255, 255, 255, 0.20) inset;",
+                align_items="center",
+                justify="center",
+                
+            ),
+            rdxt.text(
                 name,
-                font_weight= fw["section"],
-                font_size= styles.TEXT_FONT_SIZE,
-                color= "#696287",  
+                color= rx.color("mauve", 11),
+                padding="0px 0px 0px 5px",
             ),    
             on_click=lambda: SidebarState.set_sidebar_index(index),
             background=rx.cond(
@@ -210,23 +226,18 @@ def sidebar_category(name, color, index):
                 "#F5EFFE",
                 "transparent",
             ),
-            align_items="left",
-            padding_y="0.5em",
-            padding_x="0.5em",
+            align_items="center",
+            justify="start",
+            padding="10px 10px 10px 10px",
             border_radius="0.5em",
-            border="2px solid #F4F3F6",
             width="100%",
         )
 
 def sidebar_section(name):
-    return rx.heading(
-        rx.span("[ ", color="#DACEEE"),
+    return rdxt.text(
         name,
-        rx.span(" ]", color="#DACEEE"),
-        style=heading_style3,
-        margin_top="1em",
-        margin_left="0em",
-        padding_left="1em",
+        color = rx.color("mauve", 12),
+        font_weight = "550",
     )
 
 def create_sidebar_section(section_title, items, index, url):
@@ -265,10 +276,10 @@ def sidebar_comp(
     tutorials_index: list[int],
 ):
     return rx.vstack(
-        sidebar_category("Learn", "red", 0),
-        sidebar_category("Components", "red", 1),
-        sidebar_category("API Reference", "red", 2),
-        rx.divider(),
+        sidebar_category("Learn", "purple", 0),
+        sidebar_category("Components", "sky", 1),
+        sidebar_category("API Reference", "crimson", 2),
+        rdxt.separator(size="4"),
         rx.match(
             SidebarState.sidebar_index,
             (0, rx.vstack(
@@ -290,7 +301,7 @@ def sidebar_comp(
         align_items="left",
         overflow_y="scroll",
         max_height="90%",
-        width="17em",
+        width="18em",
         padding_bottom="6em",
         position="fixed",
         scroll_padding="1em",
@@ -302,7 +313,6 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        border_right= f"1px solid {rx.color('mauve', 11)};",
     )
 
 
@@ -332,6 +342,7 @@ def sidebar(url=None) -> rx.Component:
             tutorials_index=tutorials_index,
         ),
         width="100%",
+        height="100%",
     )
 
 

@@ -1,6 +1,7 @@
 import flexdown
 
 import reflex as rx
+import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.templates.docpage import (
     code_block_markdown,
@@ -40,14 +41,33 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             title = ""
             content = "\n".join(lines[1:-1])
 
-        return rx.alert(
-            rx.alert_icon(),
-            rx.box(
-                rx.alert_title(markdown(title)) if title else "",
-                rx.alert_description(markdown(content)),
-            ),
-            status=status,
+
+
+        return rdxt.callout_root(
+    rdxt.callout_icon(
+        rx.match(
+            status,
+            ("info", rdxt.icon(tag="info_circled")),
+            ("success", rdxt.icon(tag="check_circled")),
+            ("warning", rdxt.icon(tag="exclamation_triangle")),
+            ("error", rdxt.icon(tag="cross_circled")),
         )
+    ),
+    rdxt.callout_text(
+        markdown(title) if title else "",
+        markdown(content),
+    ),
+    color_scheme=rx.match(
+        status,
+        ("info", "blue"),
+        ("success", "green"),
+        ("warning", "yellow"),
+        ("error", "red"),
+        "blue"
+    ),
+    margin_top="1em",
+    margin_bottom="1em",
+)
 
 
 class SectionBlock(flexdown.blocks.Block):
@@ -119,8 +139,8 @@ class DefinitionBlock(flexdown.blocks.Block):
         ]
 
         def single_def(title, content):
-            return rx.box(
-                rx.heading(
+            return rdxt.box(
+                rdxt.heading(
                     title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
                 ),
                 markdown(content),
