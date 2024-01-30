@@ -23,18 +23,24 @@ def navbar():
     return rx.hstack(
         rx.hstack(
             rx.image(src="/favicon.ico"),
-            rx.heading("My App")
+            rx.heading("My App"),
         ),
         rx.spacer(),
         rx.menu(
             rx.menu_button("Menu"),
+            rx.menu_list(
+                rx.menu_item("Item 1"),
+                rx.menu_divider(),
+                rx.menu_item("Item 2"),
+                rx.menu_item("Item 3"),
+            ),
         ),
         # position="fixed",
         # top="0px",
         background_color="lightgray",
         padding="1em",
         width="100%",
-        z_index="5"
+        z_index="5",
     )
 ```
 
@@ -47,19 +53,24 @@ def navbar():
     return rx.hstack(
         rx.hstack(
             rx.image(src="/favicon.ico"),
-            rx.heading("My App")
+            rx.heading("My App"),
         ),
         rx.spacer(),
         rx.menu(
             rx.menu_button("Menu"),
-            rx.menu_item("Home"),
+            rx.menu_list(
+                rx.menu_item("Item 1"),
+                rx.menu_divider(),
+                rx.menu_item("Item 2"),
+                rx.menu_item("Item 3"),
+            ),
         ),
         position="fixed",
         top="0px",
         background_color="lightgray",
         padding="1em",
         width="100%",
-        z_index="5"
+        z_index="5",
     )
 ```
 
@@ -80,9 +91,61 @@ def content():
 def index():
     return rx.fragment(
         navbar(),
-        rx.box(
+        rx.container(
             content(),
-            padding_top="50px",
+            padding_top="6em",
+            max_width="60em",
         ),
     )
+```
+
+Here is the full code for a basic navbar with main content:
+
+```python
+import reflex as rx
+
+def content():
+    return rx.box(
+        rx.heading("Welcome to My App"),
+        rx.text("This is the main content of the page."),
+    )
+
+def navbar():
+    return rx.hstack(
+        rx.hstack(
+            rx.image(src="/favicon.ico", width="2em"),
+            rx.heading("My App", font_size="2em"),
+        ),
+        rx.spacer(),
+        rx.menu(
+            rx.menu_button("Menu"),
+            rx.menu_list(
+                rx.menu_item("Item 1"),
+                rx.menu_divider(),
+                rx.menu_item("Item 2"),
+                rx.menu_item("Item 3"),
+            ),
+        ),
+        position="fixed",
+        top="0px",
+        background_color="lightgray",
+        padding="1em",
+        width="100%",
+        z_index="5",
+    )
+
+
+def index():
+    return rx.fragment(
+        navbar(),
+        rx.container(
+            content(),
+            padding_top="6em",
+            max_width="60em",
+        ),
+    )
+
+
+app = rx.App()
+app.add_page(index)
 ```
