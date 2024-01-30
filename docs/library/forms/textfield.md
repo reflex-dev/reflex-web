@@ -9,6 +9,7 @@ components:
 ```python exec
 import reflex as rx
 import reflex.components.radix.themes as rdxt
+from pcweb.pages.docs import library
 ```
 
 
@@ -83,6 +84,9 @@ def controlled_example():
 
 
 
+Behind the scene, the input component is implemented using debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state var to directly control the `value` prop from the backend without the user experiencing input lag. For advanced use cases, you can tune the debounce delay by setting the `debounce_timeout` when creating the Input component. You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
+
+
 
 ### Submitting a form using input
 
@@ -90,6 +94,7 @@ The `name` prop is needed to submit with its owning form as part of a name/value
 
 When the `required` prop is `True`, it indicates that the user must input text before the owning form can be submitted.
 
+The `type` is set here to `password`. The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read. The `type` prop can take any value of [`button`, `checkbox`, `color`, `date`, `datetime-local`, `email`, `file`, `hidden`, `image`, `month`, `number`, `password`, `radio`, `range`, `reset`, `search`, `submit`, `tel`, `text`, `time`, `url`, `week`]. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password).
 
 ```python demo exec
 class FormInputState(rx.State):
@@ -104,7 +109,7 @@ def form_input1():
     return rx.vstack(
         rx.form(
             rx.vstack(
-                rdxt.input(name="input", default_value="search", placeholder="Input text here...",),
+                rdxt.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
                 rdxt.button("Submit", type_="submit"),
                 width="100%",
             ),
@@ -120,7 +125,7 @@ def form_input1():
 ```
 
 
-
+To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
 
 ## Real World Example
 
