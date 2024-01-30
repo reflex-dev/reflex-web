@@ -12,8 +12,12 @@ from reflex.components.radix.themes.typography import *
 
 # Tooltip
 
-```python demo
+A `tooltip` displays informative information when users hover over or focus on an element. 
 
+It takes a `content` prop, which is the content associated with the tooltip.
+
+
+```python demo
 tooltip(
     button("Hover over me"),
     content="This is the tooltip content.",
