@@ -94,7 +94,7 @@ The `name` prop is needed to submit with its owning form as part of a name/value
 
 When the `required` prop is `True`, it indicates that the user must input text before the owning form can be submitted.
 
-The `type` is set here to `password`. The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read. The `type` prop can take any value of [`button`, `checkbox`, `color`, `date`, `datetime-local`, `email`, `file`, `hidden`, `image`, `month`, `number`, `password`, `radio`, `range`, `reset`, `search`, `submit`, `tel`, `text`, `time`, `url`, `week`]. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password).
+The `type` is set here to `password`. The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be read. The `type` prop can take any value of `email`, `file`, `password`, `text` and several others. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
 
 ```python demo exec
 class FormInputState(rx.State):
