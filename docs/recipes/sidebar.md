@@ -8,7 +8,7 @@ Similar to a navigation bar, a sidebar is a common UI element found on the side 
 In this recipe, we will create a sidebar component than can help with navigation in a web app.
 
 In this example we want the sidebar to stick to the left side of the page, so we will use the `position="fixed"` prop to make the sidebar fixed to the left side of the page.
-We will also use the `left=0`, `top=0`, and `z_index=5` props to make sure the sidebar is always on top of the screen and above the other components on the page.
+We use `left=0` and `top=0` props to specify the position of the sidebar, and the `z_index=5` props to make sure the sidebar stays above the other components on the page.
 
 ```python exec
 import reflex as rx
@@ -69,7 +69,7 @@ def sidebar():
 Now that we have a sidebar, we can add some content to the main part of the page.
 
 We wrap both the sidebar and content in an `rx.fragment`.
-We also make sure the content is aligned to the right of the sidebar by setting the `padding_left` prop to `250px`.
+We also make sure the content is aligned to the right of the sidebar by setting the `margin_left` prop to `250px` (the same as the width of the sidebar).
 
 ```python exec
 
