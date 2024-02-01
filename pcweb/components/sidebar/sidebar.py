@@ -56,58 +56,97 @@ def sidebar_leaf(
         rx.cond(
             item.link == url,
             sidebar_link(
-                rx.text(item.names, style=heading_style2),
+                rdxt.flex(rdxt.flex(
+                    rdxt.text(
+                            item.names, 
+                            font_size=styles.TEXT_FONT_SIZE, 
+                            color="#644FC1", 
+                            font_weight="500", 
+                            margin_left="0.25em"
+                        ), 
+                        style=heading_style2,
+                        margin_top="0.25em",
+                    ),
+                        padding_left= "0.5em",
+                        border_left="1.5px solid #644FC1",
+                ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
             ),
-            rx.cond(
-                item.link == "",
-                rx.heading(
-                    rx.span("[ ", color="#DACEEE"),
-                    item.names,
-                    rx.span(" ]", color="#DACEEE"),
-                    style=heading_style3,
-                    margin_left="0em",
-                    margin_top="0.5em",
-                ),
-                sidebar_link(
-                    rx.text(
-                        item.names,
-                        color="#494369",
-                        _hover={
-                            "color": styles.ACCENT_COLOR,
-                            "text_decoration": "none",
-                        },
-                        transition="color 0.4s ease-in-out",
-                        padding_x="0.5em",
-                        width="100%",
+            sidebar_link(
+                    rdxt.flex(
+                        rdxt.text(
+                            item.names,
+                            color=rx.color("mauve", 11),
+                            _hover={
+                                "color": styles.ACCENT_COLOR,
+                                "text_decoration": "none",
+                            },
+                            transition="color 0.4s ease-in-out",
+                            margin_left="0.25em",
+                            margin_top="0.25em",
+                            width="100%",
+                        ),
+                        padding_left= "1em",
+                        border_left="1.5px solid #EEEDEF",
                     ),
                     _hover={"text_decoration": "none"},
                     href=item.link,
                 ),
-            ),
         ),
-        padding_left=".5em",
         border="none",
         width="100%",
     )
 
 
-@rx.memo
+def sidebar_icon(name):
+    mappings = {
+        "Getting Started": "rocket",
+        "Tutorial": "life-buoy",
+        "Components": "layers",
+        "Pages": "sticky-note",
+        "Styling": "palette",
+        "Assets": "folder-open-dot",
+        "Wrapping React": "atom",
+        "Vars": "variable",
+        "Events": "arrow-left-right",
+        "Substates": "boxes",
+        "API Routes": "route",
+        "Client Storage": "package-open",
+        "Database": "database",
+        "Utility Methods": "cog",
+        "Reflex Deploy": "globe-2",
+        "Self Hosting": "server",
+    }
+
+    if name in mappings:
+        return rx.lucide.icon(
+                tag=mappings[name], 
+                color=rx.color("mauve", 11), 
+                size=18, 
+                margin_right="0.5em"
+            )
+    else:
+        return rx.fragment()
+
+    
+
 def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
 ):  
     return rx.cond(
-        item.children.length() == 0,
+        len(item.children) == 0,
         sidebar_leaf(item=item, url=url),
         rx.accordion_item(
             rx.accordion_button(
+                sidebar_icon(item.names),
                 rx.text(
                     item.names,
+                    color=rx.color("mauve", 11),
                     font_family=styles.SANS,
-                    font_weight="500",
+                    font_weight="500", 
                 ),
                 rx.cond(
                     item.names == "Radix UI",
@@ -124,31 +163,26 @@ def sidebar_item_comp(
                 ),
                 rx.spacer(),
                 rx.accordion_icon(),
+                align_items="center",
                 _hover={
                     "color": styles.ACCENT_COLOR,
                 },
                 color="#494369",
                 width="100%",
                 min_width="10em",
+                padding_left="10px",
+                padding_right="0px",
             ),
             rx.accordion_panel(
                 rx.accordion(
-                    rx.vstack(
-                        rx.foreach(
-                            item.children,
-                            lambda child: sidebar_item_comp(
-                                item=child,
-                                index=index,
-                                url=url,
-                            ),
-                        ),
+                    rx.flex(
+                        *[sidebar_item_comp(item=child, index=index, url=url) for child in item.children],
                         align_items="start",
-                        border_left="1px solid #F4F3F6",
+                        direction="column",
                     ),
                     allow_multiple=True,
                     default_index=rx.cond(index, index[1:2], []),
                 ),
-                margin_left="0em",
                 width="100%",
             ),
             border="none",
@@ -237,11 +271,12 @@ def sidebar_section(name):
     return rdxt.text(
         name,
         color = rx.color("mauve", 12),
-        font_weight = "550",
+        font_weight = "500",
+        padding="10px 10px 10px 10px",
     )
 
 def create_sidebar_section(section_title, items, index, url):
-    return rx.vstack(
+    return rdxt.flex(
         sidebar_section(section_title),
         rx.accordion(
             *[
@@ -255,8 +290,11 @@ def create_sidebar_section(section_title, items, index, url):
             allow_multiple=True,
             default_index=index if index is not None else [],
             width="100%",
+            padding_left="0em",
+            margin_left="0em",
         ),
-        padding_x="0em",
+        margin_left="0em",
+        direction="column",
         width="100%",
         align_items="left",
     )
@@ -275,33 +313,37 @@ def sidebar_comp(
     recipes_index: list[int],
     tutorials_index: list[int],
 ):
-    return rx.vstack(
+    return rdxt.flex(
         sidebar_category("Learn", "purple", 0),
         sidebar_category("Components", "sky", 1),
         sidebar_category("API Reference", "crimson", 2),
-        rdxt.separator(size="4"),
+        rdxt.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
-            (0, rx.vstack(
+            (0, rdxt.flex(
                 create_sidebar_section("Onboarding", learn, learn_index, url),
                 create_sidebar_section("UI", frontend, frontend_index, url),
                 create_sidebar_section("State", backend, backend_index, url),
-                create_sidebar_section("Hosting", hosting, hosting_index, url)
+                create_sidebar_section("Hosting", hosting, hosting_index, url),
+                direction="column",
             )),
-            (1, rx.vstack(
+            (1, rdxt.flex(
                 create_sidebar_section("Core Components", component_lib, component_lib_index, url),
-                create_sidebar_section("Other Libraries", other_libs, other_libs_index, url)         
+                create_sidebar_section("Other Libraries", other_libs, other_libs_index, url),
+                direction="column",       
             )),
-            (2, rx.vstack(
+            (2, rdxt.flex(
                 create_sidebar_section("API Reference", api_reference, api_reference_index, url),
                 create_sidebar_section("Recipes", recipes, recipes_index, url),
-                create_sidebar_section("Tutorials", tutorials, tutorials_index, url)       
+                create_sidebar_section("Tutorials", tutorials, tutorials_index, url),
+                direction="column",       
             )),
         ),
+        direction="column",
         align_items="left",
         overflow_y="scroll",
         max_height="90%",
-        width="18em",
+        width="17em",
         padding_bottom="6em",
         position="fixed",
         scroll_padding="1em",
@@ -328,7 +370,7 @@ def sidebar(url=None) -> rx.Component:
     recipes_index = calculate_index(recipes, url)
     tutorials_index = calculate_index(tutorials, url)
 
-    return rx.box(
+    return rdxt.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,

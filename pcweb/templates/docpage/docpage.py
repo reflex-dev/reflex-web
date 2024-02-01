@@ -14,7 +14,6 @@ link_style = {
     "color": rx.color("violet", 10),
     "font_weight": "600",
 }
-
 logo_style = {
     "height": "1em",
     "opacity": 0.2,
@@ -32,9 +31,6 @@ def doc_section(*contents):
         width="100%",
     )
 
-
-
-
 def feedback_content(icon):
     return rdxt.flex(
             rdxt.button(
@@ -44,9 +40,9 @@ def feedback_content(icon):
             ),
             rdxt.box(
                 rdxt.flex(
-                    rdxt.textarea(
+                    rdxt.input(
                         placeholder="Contact Info (Optional)",
-                        style={"height": 5},
+                        _type = "email",
                     ),
                     rdxt.textarea(
                         placeholder="Write a comment…",
@@ -83,10 +79,16 @@ def feedback_content(icon):
 def feedback(text, icon):
     return rdxt.popover_root(
     rdxt.popover_trigger(
-        rdxt.button(
+        rdxt.flex(
             icon,   
             text,
-            variant="outline",
+            color=rx.color("mauve", 9),
+            border=f"1px solid {rx.color('mauve', 9)}",
+            align="center",
+            justify="center",
+            border_radius="5px",
+            padding="0px 10px",
+            gap="2",
         )
     ),
     rdxt.popover_content(
@@ -103,9 +105,11 @@ def docpage_footer():
                 rdxt.text(
                     "Did you find this useful?", 
                     color = rx.color("mauve", 12),
+                    white_space="nowrap",
                 ),
-                feedback("No", rx.lucide.icon(tag="thumbs_down"),),
-                feedback("Yes", rx.lucide.icon(tag="thumbs_up"),),
+                rdxt.separator(size="4", orientation="vertical"),
+                feedback("No", rx.lucide.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
+                feedback("Yes", rx.lucide.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
                 align_items="center",
                 gap="2"
             ),
@@ -114,14 +118,26 @@ def docpage_footer():
             ),
             rdxt.separator(size="4", orientation="vertical"),
             rdxt.flex(
-                rdxt.button(
+                rx.desktop_only(rdxt.flex(
                     "Raise an issue",
-                    variant="outline"
-                ),
-                rdxt.button(
+                    color=rx.color("mauve", 9),
+                    border=f"1px solid {rx.color('mauve', 9)}",
+                    align="center",
+                    justify="center",
+                    border_radius="5px",
+                    padding="0px 10px",
+                    white_space="nowrap",
+                )),
+                rx.desktop_only(rdxt.flex(
                     "Edit this page",
-                    variant="outline"
-                ),
+                    color=rx.color("mauve", 9),
+                    border=f"1px solid {rx.color('mauve', 9)}",
+                    align="center",
+                    justify="center",
+                    border_radius="5px",
+                    padding="0px 10px",
+                    white_space="nowrap",
+                )),
                 gap="2"
             ),
             align_items="center",
@@ -130,11 +146,11 @@ def docpage_footer():
         rdxt.separator(size="4"),
         rdxt.flex(
             rdxt.flex(
-                rdxt.text("Home"),
-                rdxt.text("Gallery"),
-                rdxt.text("Change Log"),
-                rdxt.text("Introduction"),
-                rdxt.text("Hosting"),
+                rdxt.link("Home", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Gallery", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Change Log", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Introduction", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Hosting", color=rx.color("mauve", 11), underline="always"),
                 gap="2",
             ),
             rdxt.box(
@@ -165,6 +181,7 @@ def docpage_footer():
         gap="2",
         margin_bottom="2em",
     )
+
 
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
@@ -207,6 +224,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.navbar import navbar
+            from pcweb.components.footer import footer
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -256,22 +274,33 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             if not isinstance(contents, rx.Component):
                 comp = contents(*args, **kwargs)
+                
             else:
                 comp = contents
 
             # Return the templated page.
-            return rx.box(
+            return rdxt.box(
                 navbar(sidebar=nav_sidebar),
-                rx.flex(
+                rdxt.flex(
                     rx.desktop_only(
                             sidebar,
-                            margin_top="40px",
+                            margin_top="120px",
                             margin_left="1em",
                             margin_right="1em",
+                            height="100%",
                             width=["none", "none", "none", "25%", "25%"],
                         ),
-                    rx.box(
-                            rx.box(comp, margin_top="40px"),
+                    rdxt.box(
+                            rdxt.box(
+                                rdxt.text(
+                                    "Onboarding  /  Components  /  Getting Started",
+                                    font_weight="500",
+                                    color=rx.color("mauve", 9)
+                                ),  
+                                margin_top="120px", 
+                                margin_bottom="20px"
+                            ),
+                            rx.box(comp),
                             rx.hstack(
                                 *links,
                                 justify="space-between",
@@ -281,7 +310,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.box(height="2em"),
                             docpage_footer(),
                             border_left= ["none", "none", "none", "none",f"1px solid {rx.color('mauve', 4)};"],
-                            padding_x=styles.PADDING_X,
+                            padding_left=styles.PADDING_X,
+                            padding_right=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
                             height="100%",
                         ),
@@ -300,15 +330,19 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 direction="column",
                                 position="fixed",
                             ),
-                            margin_top="40px",
+                            margin_top="120px",
                             width=["none", "none", "none", "none","25%"],
                         ),
                     background = rx.color("mauve", 1),
                     max_width="110em",
-                    margin_x="auto",
-                    margin_top="80px",
+                    margin_left="auto",
+                    margin_right="auto",
+                    margin_top="0px",
                     height="100%",
-                )
+                    min_height="100vh",
+                    width="100%",
+                ),
+                background = rx.color("mauve", 1),
             )
 
         # Return the route.

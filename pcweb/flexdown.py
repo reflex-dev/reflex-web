@@ -59,7 +59,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
     ),
     color_scheme=rx.match(
         status,
-        ("info", "blue"),
+        ("info", "violet"),
         ("success", "green"),
         ("warning", "yellow"),
         ("error", "red"),
