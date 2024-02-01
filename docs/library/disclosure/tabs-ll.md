@@ -105,7 +105,7 @@ tabs_root(
 )
 ```
 ### Value
-We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_value_change` event argument.
+We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_change` event argument.
 
 ```python demo exec
 class TabsState(rx.State):
@@ -139,7 +139,7 @@ def index() -> rx.Component:
                     ),
                     default_value="tab1",
                     value=TabsState.value,
-                    on_value_change=lambda x: TabsState.change_value(x),
+                    on_change=lambda x: TabsState.change_value(x),
                 ),
                 direction="column",
                 gap="2",

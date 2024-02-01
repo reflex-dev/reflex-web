@@ -72,7 +72,7 @@ slider(default_value=[40, 60], width="100%")
 ```
 
 
-The `on_value_change` event is called when the `value` of the slider changes. 
+The `on_change` event is called when the `value` of the slider changes. 
 
 
 ```python demo exec
@@ -83,10 +83,10 @@ class SliderVariationState2(rx.State):
         self.value = value
 
 
-def slider_on_value_change():
+def slider_on_change():
     return rx.vstack(
         heading(SliderVariationState2.value),
-        slider(default_value=[40], width="100%", on_value_change=SliderVariationState2.set_end),
+        slider(default_value=[40], width="100%", on_change=SliderVariationState2.set_end),
         width="100%",
     )
 ```
