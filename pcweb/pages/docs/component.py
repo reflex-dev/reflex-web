@@ -364,9 +364,6 @@ EVENTS = {
     "on_column_resize": {
         "description": "The on_column_resize event handler is called when the user try to resize a column from the data editor."
     },
-    "on_checked_change": {
-        "description": "The on_checked_change event handler is called when the checked state of the checkbox changes."
-    },
     "on_open_change": {
         "description": "The on_open_change event handler is called when the open state of the component changes."
     },
@@ -379,8 +376,11 @@ EVENTS = {
     "on_open_auto_focus": {
         "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
     },
+    "on_change": {
+        "description": "The on_change event handler is called when the value or checked state of the component changes."
+    },
     "on_value_change": {
-        "description": "The on_value_change event handler is called when the value state of the component changes."
+        "description": "The on_change event handler is called when the value state of the component changes."
     },
     "on_close_auto_focus": {
         "description": "The on_close_auto_focus event handler is called when focus moves to the trigger after closing. It can be prevented by calling event.preventDefault."

@@ -79,7 +79,7 @@ def form_switch():
 
 The `checked` prop is used to control the state of the switch. 
 
-The event `on_checked_change` is called when the state of the switch changes, when the `change_checked` event handler is called.
+The event `on_change` is called when the state of the switch changes, when the `change_checked` event handler is called.
 
 The `disabled` prop when `True`, prevents the user from interacting with the switch.
 
@@ -100,15 +100,15 @@ def switch_example2():
     return rx.hstack(
         switch(
             checked=SwitchState2.checked,
-            on_checked_change=SwitchState2.change_checked,
+            on_change=SwitchState2.change_checked,
         ),
         switch(
             checked=~SwitchState2.checked,
-            on_checked_change=lambda v: SwitchState2.change_checked(~v),
+            on_change=lambda v: SwitchState2.change_checked(~v),
         ),
         switch(
             checked=SwitchState2.checked,
-            on_checked_change=SwitchState2.change_checked,
+            on_change=SwitchState2.change_checked,
             disabled=True,
         ),
     )
@@ -179,7 +179,7 @@ def form_switch2():
                                         switch(
                                             name=cookie_type, 
                                             checked=FormSwitchState2.cookie_types[cookie_type], 
-                                            on_checked_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
+                                            on_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
                                         gap="2",
                                     ),
                                     as_="div", size="2", margin_bottom="4px", weight="bold",
