@@ -1,12 +1,12 @@
 ---
 components:
-    - rx.radix.themes.Button
+    - rx.radix.button
 ---
 
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 ```
 
  
@@ -17,14 +17,14 @@ Buttons are essential elements in your application's user interface that users c
 ## Basic Example
 
 ```python demo
-rdxt.button("Click me")
+rdx.button("Click me")
 ```
 
 ### With Icon
 
 ```python demo
-rdxt.button(
-    rdxt.icon(tag="heart"),
+rdx.button(
+    rdx.icon(tag="heart"),
     "Like",
     color_scheme="red",
 )
@@ -37,9 +37,9 @@ rdxt.button(
 The `disabled` prop disables the button, by default it is `False`.  A disabled button does not respond to user interactions such as click and cannot be focused.
 
 ```python demo
-rdxt.flex(
-    rdxt.button("Enabled"),
-    rdxt.button("Disabled", disabled=True),
+rdx.flex(
+    rdx.button("Enabled"),
+    rdx.button("Disabled", disabled=True),
     gap="2",
 )
 ```
@@ -51,7 +51,7 @@ rdxt.flex(
 The `on_click` trigger is called when the button is clicked.
 
 ```python demo
-rdxt.button("Click me", on_click=rx.window_alert("Clicked!"))
+rdx.button("Click me", on_click=rx.window_alert("Clicked!"))
 ```
 
 ## Real World Example
@@ -67,14 +67,14 @@ class CountState(rx.State):
         self.count -= 1
 
 def counter():
-    return rdxt.flex(
-        rdxt.button(
+    return rdx.flex(
+        rdx.button(
             "Decrement",
             color_scheme="red",
             on_click=CountState.decrement,
         ),
-        rdxt.heading(CountState.count),
-        rdxt.button(
+        rdx.heading(CountState.count),
+        rdx.button(
             "Increment",
             color_scheme="grass",
             on_click=CountState.increment,

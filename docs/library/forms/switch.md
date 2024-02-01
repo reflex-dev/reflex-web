@@ -1,13 +1,11 @@
 ---
 components:
-    - rx.radix.themes.Switch
+    - rx.radix.switch
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+rdx = rx.radix
 from pcweb.templates.docpage import style_grid
 from pcweb.pages.docs import vars
 ```
@@ -20,9 +18,9 @@ A toggle switch alternative to the checkbox.
 ## Basic Example
 
 ```python demo
-text(
-    flex(
-        switch(default_checked=True),
+rdx.text(
+    rdx.flex(
+        rdx.switch(default_checked=True),
         "Sync Settings",
         gap="2",
     )
@@ -56,9 +54,9 @@ def form_switch():
     return rx.vstack(
         rx.form(
             rx.vstack(
-                switch(name="s1"),
-                switch(name="s2"),
-                switch(name="s3", required=True),
+                rdx.switch(name="s1"),
+                rdx.switch(name="s2"),
+                rdx.switch(name="s3", required=True),
                 rx.button("Submit", type_="submit"),
                 width="100%",
             ),
@@ -98,15 +96,15 @@ class SwitchState2(rx.State):
 
 def switch_example2():
     return rx.hstack(
-        switch(
+        rdx.switch(
             checked=SwitchState2.checked,
             on_checked_change=SwitchState2.change_checked,
         ),
-        switch(
+        rdx.switch(
             checked=~SwitchState2.checked,
             on_checked_change=lambda v: SwitchState2.change_checked(~v),
         ),
-        switch(
+        rdx.switch(
             checked=SwitchState2.checked,
             on_checked_change=SwitchState2.change_checked,
             disabled=True,
@@ -121,7 +119,7 @@ In this example we use the `~` operator, which is used to invert a var. To learn
 ## Styling
 
 ```python eval
-style_grid(component_used=switch, component_used_str="switch", variants=["classic", "surface", "soft"], disabled=True, default_checked=True)
+style_grid(component_used=rdx.switch, component_used_str="switch", variants=["classic", "surface", "soft"], disabled=True, default_checked=True)
 ```
 
 
@@ -144,39 +142,39 @@ class FormSwitchState2(rx.State):
 
 def form_switch2():
     return rx.vstack(
-            dialog_root(
-                dialog_trigger(
-                    button("View Cookie Settings", size="4", variant="outline")
+            rdx.dialog.root(
+                rdx.dialog.trigger(
+                    rdx.button("View Cookie Settings", size="4", variant="outline")
                 ),
-                dialog_content(
+                rdx.dialog.content(
                     rx.form(
-                        dialog_title("Your Cookie Preferences"),
-                        dialog_description(
+                        rdx.dialog.title("Your Cookie Preferences"),
+                        rdx.dialog.description(
                             "Change your cookie preferences.",
                             size="2",
                             margin_bottom="16px",
                         ),
-                        flex(
-                            text(
-                                flex(
+                        rdx.flex(
+                            rdx.text(
+                                rdx.flex(
                                     "Required",
-                                    switch(default_checked=True, disabled=True, name="required"),
+                                    rdx.switch(default_checked=True, disabled=True, name="required"),
                                     gap="2",
                                     justify="between",
                                 ),
                                 as_="div", size="2", margin_bottom="4px", weight="bold",
                             ),
 
-                            *[flex(
-                                text(cookie_type.capitalize(), as_="div", size="2", margin_bottom="4px", weight="bold"),
-                                text(
-                                    flex(
+                            *[rdx.flex(
+                                rdx.text(cookie_type.capitalize(), as_="div", size="2", margin_bottom="4px", weight="bold"),
+                                rdx.text(
+                                    rdx.flex(
                                         rx.cond(
                                             FormSwitchState2.cookie_types[cookie_type],
                                             "Enabled",
                                             "Disabled",
                                         ),
-                                        switch(
+                                        rdx.switch(
                                             name=cookie_type, 
                                             checked=FormSwitchState2.cookie_types[cookie_type], 
                                             on_checked_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
@@ -193,10 +191,10 @@ def form_switch2():
                             direction="column",
                             gap="3",
                         ),
-                        flex(
-                            button("Save & Accept", type_="submit"),
-                            dialog_close(
-                                button("Exit"),
+                        rdx.flex(
+                            rdx.button("Save & Accept", type_="submit"),
+                            rdx.dialog.close(
+                                rdx.button("Exit"),
                             ),
                             gap="3",
                             margin_top="16px",

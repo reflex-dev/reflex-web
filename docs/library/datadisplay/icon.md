@@ -1,12 +1,12 @@
 ---
 components:
-    - rx.radix.themes.Icon
+    - rx.radix.icon
     - rx.lucide.Icon
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 ```
 
 # Icon
@@ -22,7 +22,7 @@ Passing the tag as the first children is also supported and will be assigned to 
 The `tag` is expected to be in `snake_case` format, but `kebab-case` is also supported to allow copy-paste from [https://lucide.dev/icons](https://lucide.dev/icons).
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("calendar"),
     rx.lucide.icon(tag="calendar"),
     gap="2",
@@ -36,7 +36,7 @@ Icon from Lucide can be customized with the following props `stroke_width`, `siz
 ### Stroke Width
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("moon", stroke_width=1),
     rx.lucide.icon("moon", stroke_width=1.5),
     rx.lucide.icon("moon", stroke_width=2),
@@ -49,7 +49,7 @@ rdxt.flex(
 ### Size
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("zoom_in", size=15),
     rx.lucide.icon("zoom_in", size=20),
     rx.lucide.icon("zoom_in", size=25),
@@ -64,7 +64,7 @@ rdxt.flex(
 Here is an example using basic colors in icons.
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("zoom_in", size=18, color="indigo"),
     rx.lucide.icon("zoom_in", size=18, color="cyan"),
     rx.lucide.icon("zoom_in", size=18, color="orange"),
@@ -76,7 +76,7 @@ rdxt.flex(
 A radix color with a scale may also be specified using the `var()` token syntax seen below.
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("zoom_in", size=18, color="var(--purple-1)"),
     rx.lucide.icon("zoom_in", size=18, color="var(--purple-2)"),
     rx.lucide.icon("zoom_in", size=18, color="var(--purple-3)"),
@@ -96,7 +96,7 @@ rdxt.flex(
 Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
 
 ```python demo
-rdxt.flex(
+rdx.flex(
     rx.lucide.icon("zoom_in", size=18, color="var(--accent-1)"),
     rx.lucide.icon("zoom_in", size=18, color="var(--accent-2)"),
     rx.lucide.icon("zoom_in", size=18, color="var(--accent-3)"),
@@ -118,10 +118,10 @@ rdxt.flex(
 Icons can be used as child components of many other components. For example, adding a magnifying glass icon to a search bar.
 
 ```python demo
-rdxt.badge(
-    rdxt.flex(
+rdx.badge(
+    rdx.flex(
         rx.lucide.icon("search", size=18),
-        rdxt.text("Search documentation...", size="3", weight="medium"),
+        rdx.text("Search documentation...", size="3", weight="medium"),
         direction="row",
         gap="1",
         align="center",

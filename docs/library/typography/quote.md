@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Quote
+    - rx.radix.quote
 ---
 
 ```python exec

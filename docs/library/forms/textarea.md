@@ -1,11 +1,11 @@
 ---
 components:
-    - rx.radix.themes.TextArea
+    - rx.radix.text_area
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 ```
 
 # TextArea
@@ -15,7 +15,7 @@ A text area is a multi-line text input field. This component uses Radix's [text 
 ## Basic Example
 
 ```python demo
-rdxt.textarea(
+rdx.text_area(
     placeholder="Type here...",
 )
 ```
@@ -27,8 +27,8 @@ class TextAreaBlur(rx.State):
 
 def blur_example():
     return rx.vstack(
-        rdxt.heading(TextAreaBlur.text),
-        rdxt.textarea(
+        rdx.heading(TextAreaBlur.text),
+        rdx.text_area(
             on_blur=TextAreaBlur.set_text,
         ),
     )
@@ -42,12 +42,12 @@ class TextAreaControlled(rx.State):
 
 def controlled_example():
     return rx.vstack(
-        rdxt.heading(TextAreaControlled.text),
-        rdxt.textarea(
+        rdx.heading(TextAreaControlled.text),
+        rdx.text_area(
             value=TextAreaControlled.text,
             on_change=TextAreaControlled.set_text,
         ),
-        rdxt.textarea(
+        rdx.text_area(
             value="Simon says: " + TextAreaControlled.text,
         ),
     )
@@ -56,18 +56,18 @@ def controlled_example():
 # Real World Example
 
 ```python demo
-rdxt.card(
-    rdxt.flex(
-        rdxt.text("Are you enjoying Reflex?"),
-        rdxt.textarea(placeholder="Write your feedback…"),
-        rdxt.flex(
-            rdxt.text("Attach screenshot?", size="2"),
-            rdxt.switch(size="1", default_checked=True),
+rdx.card(
+    rdx.flex(
+        rdx.text("Are you enjoying Reflex?"),
+        rdx.text_area(placeholder="Write your feedback…"),
+        rdx.flex(
+            rdx.text("Attach screenshot?", size="2"),
+            rdx.switch(size="1", default_checked=True),
             justify="between",
         ),
-        rdxt.grid(
-            rdxt.button("Back", variant="surface"),
-            rdxt.button("Send"),
+        rdx.grid(
+            rdx.button("Back", variant="surface"),
+            rdx.button("Send"),
             columns="2",
             gap="2",
         ),

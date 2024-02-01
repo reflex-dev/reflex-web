@@ -1,19 +1,17 @@
 ---
 components:
-    - rx.radix.themes.DropdownMenuRoot
-    - rx.radix.themes.DropdownMenuContent
-    - rx.radix.themes.DropdownMenuTrigger
-    - rx.radix.themes.DropdownMenuItem
-    - rx.radix.themes.DropdownMenuSeparator
-    - rx.radix.themes.DropdownMenuSubContent
+    - rx.radix.dropdown_menu.root
+    - rx.radix.dropdown_menu.content
+    - rx.radix.dropdown_menu.trigger
+    - rx.radix.dropdown_menu.item
+    - rx.radix.dropdown_menu.separator
+    - rx.radix.dropdown_menu.sub_content
 ---
 
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+rdx = rx.radix
 ```
 
 
@@ -22,29 +20,29 @@ from reflex.components.radix.themes.typography import *
 A dropdown menu is a menu that offers a list of options that a user can select from. They are typically positioned near a button that will control their appearance and disappearance.
 
 ```python demo
-dropdownmenu_root(
-    dropdownmenu_trigger(
-        button("Options", variant="soft"),
+rdx.dropdown_menu.root(
+    rdx.dropdown_menu.trigger(
+        rdx.button("Options", variant="soft"),
     ),
-    dropdownmenu_content(
-        dropdownmenu_item("Edit", shortcut="⌘ E"),
-        dropdownmenu_item("Duplicate", shortcut="⌘ D"),
-        dropdownmenu_separator(),
-        dropdownmenu_item("Archive", shortcut="⌘ N"),
-        dropdownmenu_sub(
-            dropdownmenu_sub_trigger("More"),
-            dropdownmenu_sub_content(
-                dropdownmenu_item("Move to project…"),
-                dropdownmenu_item("Move to folder…"),
-                dropdownmenu_separator(),
-                dropdownmenu_item("Advanced options…"),
+    rdx.dropdown_menu.content(
+        rdx.dropdown_menu.item("Edit", shortcut="⌘ E"),
+        rdx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
+        rdx.dropdown_menu.separator(),
+        rdx.dropdown_menu.item("Archive", shortcut="⌘ N"),
+        rdx.dropdown_menu.sub(
+            rdx.dropdown_menu.sub_trigger("More"),
+            rdx.dropdown_menu.sub_content(
+                rdx.dropdown_menu.item("Move to project…"),
+                rdx.dropdown_menu.item("Move to folder…"),
+                rdx.dropdown_menu.separator(),
+                rdx.dropdown_menu.item("Advanced options…"),
             ),
         ),
-        dropdownmenu_separator(),
-        dropdownmenu_item("Share"),
-        dropdownmenu_item("Add to favorites"),
-        dropdownmenu_separator(),
-        dropdownmenu_item("Delete", shortcut="⌘ ⌫", color="red"),
+        rdx.dropdown_menu.separator(),
+        rdx.dropdown_menu.item("Share"),
+        rdx.dropdown_menu.item("Add to favorites"),
+        rdx.dropdown_menu.separator(),
+        rdx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
     ),
 )
 ```
@@ -52,32 +50,32 @@ dropdownmenu_root(
 # Size
 
 ```python demo
-flex(
-    dropdownmenu_root(
-        dropdownmenu_trigger(
-            button("Options", variant="soft", size="2"),
+rdx.flex(
+    rdx.dropdown_menu.root(
+        rdx.dropdown_menu.trigger(
+            rdx.button("Options", variant="soft", size="2"),
         ),
-        dropdownmenu_content(
-            dropdownmenu_item("Edit", shortcut="⌘ E"),
-            dropdownmenu_item("Duplicate", shortcut="⌘ D"),
-            dropdownmenu_separator(),
-            dropdownmenu_item("Archive", shortcut="⌘ N"),
-            dropdownmenu_separator(),
-            dropdownmenu_item("Delete", shortcut="⌘ ⌫", color="red"),
+        rdx.dropdown_menu.content(
+            rdx.dropdown_menu.item("Edit", shortcut="⌘ E"),
+            rdx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
+            rdx.dropdown_menu.separator(),
+            rdx.dropdown_menu.item("Archive", shortcut="⌘ N"),
+            rdx.dropdown_menu.separator(),
+            rdx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
             size="2",
         ),
     ),
-    dropdownmenu_root(
-        dropdownmenu_trigger(
-            button("Options", variant="soft", size="1"),
+    rdx.dropdown_menu.root(
+        rdx.dropdown_menu.trigger(
+            rdx.button("Options", variant="soft", size="1"),
         ),
-        dropdownmenu_content(
-            dropdownmenu_item("Edit", shortcut="⌘ E"),
-            dropdownmenu_item("Duplicate", shortcut="⌘ D"),
-            dropdownmenu_separator(),
-            dropdownmenu_item("Archive", shortcut="⌘ N"),
-            dropdownmenu_separator(),
-            dropdownmenu_item("Delete", shortcut="⌘ ⌫", color="red"),
+        rdx.dropdown_menu.content(
+            rdx.dropdown_menu.item("Edit", shortcut="⌘ E"),
+            rdx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
+            rdx.dropdown_menu.separator(),
+            rdx.dropdown_menu.item("Archive", shortcut="⌘ N"),
+            rdx.dropdown_menu.separator(),
+            rdx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
             size="1",
         ),
     ),

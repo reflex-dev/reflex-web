@@ -53,6 +53,19 @@ def build_nested_namespace(
     return parent_namespace
 
 
+def get_components_from_metadata(current_doc):
+    components = []
+    for comp_str in current_doc.metadata.get("components", []):
+        component = eval(comp_str)
+        if isinstance(component, type):
+            components.append(component)
+        elif hasattr(component, "__self__"):
+            components.append(component.__self__)
+        elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
+            components.append(component.__call__.__self__)
+    return components
+
+
 flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 
 chakra_components = defaultdict(list)
@@ -80,11 +93,11 @@ for doc in sorted(flexdown_docs):
     category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
-        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        clist = [title, *get_components_from_metadata(d)]
         component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     elif doc.startswith("docs/library"):
-        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        clist = [title, *get_components_from_metadata(d)]
         if issubclass(
             clist[1],
             (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent),

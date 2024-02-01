@@ -1,55 +1,53 @@
 ---
 components:
-    - rx.radix.themes.HoverCardRoot
-    - rx.radix.themes.HoverCardContent
-    - rx.radix.themes.HoverCardTrigger
+    - rx.radix.hover_card.root
+    - rx.radix.hover_card.content
+    - rx.radix.hover_card.trigger
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+rdx = rx.radix
 ```
 
 # Hovercard
 
 ```python demo
-rx.text(
+rdx.text(
     "Hover over the text to see the tooltip. ",
-    hovercard_root(
-        hovercard_trigger(
-            link("Hover over me", color_scheme="blue", underline="always"),
+    rdx.hover_card.root(
+        rdx.hover_card.trigger(
+            rdx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        hovercard_content(
-            text("This is the tooltip content."),
+        rdx.hover_card.content(
+            rdx.text("This is the tooltip content."),
         ),
     ),
 )
 ```
 
 ```python demo
-rx.text(
+rdx.text(
     "Hover over the text to see the tooltip. ",
-    hovercard_root(
-        hovercard_trigger(
-            link("Hover over me", color_scheme="blue", underline="always"),
+    rdx.hover_card.root(
+        rdx.hover_card.trigger(
+            rdx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        hovercard_content(
-            grid(
-                inset(
+        rdx.hover_card.content(
+            rdx.grid(
+                rdx.inset(
                     side="left",
                     pr="current",
                     background="url('https://source.unsplash.com/random/800x600') center/cover",
                     height="full",
                 ),
-                box(
-                    textarea(placeholder="Write a comment…", style={"height": 80}),
-                    flex(
-                        flex(
-                            text(
-                                checkbox(),
-                                text("Send to group"),
+                rdx.box(
+                    rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                    rdx.flex(
+                        rdx.flex(
+                            rdx.text(
+                                rdx.checkbox.root(),
+                                rdx.text("Send to group"),
                                 as_="label",
                                 size="2",
                             ),

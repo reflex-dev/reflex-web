@@ -1,19 +1,18 @@
 ---
 components:
-    - rx.radix.themes.TableRoot
-    - rx.radix.themes.TableHeader
-    - rx.radix.themes.TableRow
-    - rx.radix.themes.TableColumnHeaderCell
-    - rx.radix.themes.TableBody
-    - rx.radix.themes.TableCell
-    - rx.radix.themes.TableRowHeaderCell
-    
+    - rx.radix.table.root
+    - rx.radix.table.header
+    - rx.radix.table.row
+    - rx.radix.table.column_header_cell
+    - rx.radix.table.body
+    - rx.radix.table.cell
+    - rx.radix.table.row_header_cell
 ---
 
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 ```
 
 # Table
@@ -25,28 +24,28 @@ A semantic table for presenting tabular data.
 ## Basic Example
 
 ```python demo
-rdxt.table_root(
-    rdxt.table_header(
-        rdxt.table_row(
-            rdxt.table_column_header_cell("Full name"),
-            rdxt.table_column_header_cell("Email"),
-            rdxt.table_column_header_cell("Group"),
+rdx.table.root(
+    rdx.table.header(
+        rdx.table.row(
+            rdx.table.column_header_cell("Full name"),
+            rdx.table.column_header_cell("Email"),
+            rdx.table.column_header_cell("Group"),
         ),
     ),
-    rdxt.table_body(
-        rdxt.table_row(
-            rdxt.table_row_header_cell("Danilo Sousa"),
-            rdxt.table_cell("danilo@example.com"),
-            rdxt.table_cell("Developer"),
+    rdx.table.body(
+        rdx.table.row(
+            rdx.table.row_header_cell("Danilo Sousa"),
+            rdx.table.cell("danilo@example.com"),
+            rdx.table.cell("Developer"),
         ),
-        rdxt.table_row(
-            rdxt.table_row_header_cell("Zahra Ambessa"),
-            rdxt.table_cell("zahra@example.com"),
-            rdxt.table_cell("Admin"),
-        ),rdxt.table_row(
-            rdxt.table_row_header_cell("Jasper Eriksson"),
-            rdxt.table_cell("jasper@example.com"),
-            rdxt.table_cell("Developer"),
+        rdx.table.row(
+            rdx.table.row_header_cell("Zahra Ambessa"),
+            rdx.table.cell("zahra@example.com"),
+            rdx.table.cell("Admin"),
+        ),rdx.table.row(
+            rdx.table.row_header_cell("Jasper Eriksson"),
+            rdx.table.cell("jasper@example.com"),
+            rdx.table.cell("Developer"),
         ),
     ),
 )
@@ -58,36 +57,36 @@ rdxt.table_root(
 ## Real World Example
 
 ```python demo
-rdxt.flex(
-    rdxt.heading("Your Team"),
-    rdxt.text("Invite and manage your team members"),
-    rdxt.flex(
-        rdxt.textfield_input(placeholder="Email Address"),
-        rdxt.button("Invite"),
+rdx.flex(
+    rdx.heading("Your Team"),
+    rdx.text("Invite and manage your team members"),
+    rdx.flex(
+        rdx.text_field.input(placeholder="Email Address"),
+        rdx.button("Invite"),
         justify="center",
         gap="2",
     ),
-    rdxt.table_root(
-        rdxt.table_body(
-            rdxt.table_row(
-                rdxt.table_cell(rdxt.avatar(fallback="DS")),
-                rdxt.table_row_header_cell(rdxt.link("Danilo Sousa")),
-                rdxt.table_cell("danilo@example.com"),
-                rdxt.table_cell("Developer"),
+    rdx.table.root(
+        rdx.table.body(
+            rdx.table.row(
+                rdx.table.cell(rdx.avatar(fallback="DS")),
+                rdx.table.row_header_cell(rdx.link("Danilo Sousa")),
+                rdx.table.cell("danilo@example.com"),
+                rdx.table.cell("Developer"),
                 align="center",
             ),
-            rdxt.table_row(
-                rdxt.table_cell(rdxt.avatar(fallback="ZA")),
-                rdxt.table_row_header_cell(rdxt.link("Zahra Ambessa")),
-                rdxt.table_cell("zahra@example.com"),
-                rdxt.table_cell("Admin"),
+            rdx.table.row(
+                rdx.table.cell(rdx.avatar(fallback="ZA")),
+                rdx.table.row_header_cell(rdx.link("Zahra Ambessa")),
+                rdx.table.cell("zahra@example.com"),
+                rdx.table.cell("Admin"),
                 align="center",
             ),
-            rdxt.table_row(
-                rdxt.table_cell(rdxt.avatar(fallback="JE")),
-                rdxt.table_row_header_cell(rdxt.link("Jasper Eriksson")),
-                rdxt.table_cell("jasper@example.com"),
-                rdxt.table_cell("Developer"),
+            rdx.table.row(
+                rdx.table.cell(rdx.avatar(fallback="JE")),
+                rdx.table.row_header_cell(rdx.link("Jasper Eriksson")),
+                rdx.table.cell("jasper@example.com"),
+                rdx.table.cell("Developer"),
                 align="center",
             ),
         ),

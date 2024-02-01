@@ -1,10 +1,11 @@
 ---
 components:
-  - rx.radix.themes.Section
+  - rx.radix.section
 ---
 
 ```python exec
-import reflex.components.radix.themes as rdxt
+import reflex as rx
+rdx = rx.radix
 ```
 
 # Section
@@ -16,17 +17,17 @@ Primarily this is a semantic component that is used to group related textual con
 ## Basic Example
 
 ```python demo
-rdxt.box(
-    rdxt.section(
-        rdxt.heading("First"),
-        rdxt.text("This is the first content section"),
+rdx.box(
+    rdx.section(
+        rdx.heading("First"),
+        rdx.text("This is the first content section"),
         padding_left="12px",
         padding_right="12px",
         background_color="var(--gray-2)",
     ),
-    rdxt.section(
-        rdxt.heading("Second"),
-        rdxt.text("This is the second content section"),
+    rdx.section(
+        rdx.heading("Second"),
+        rdx.text("This is the second content section"),
         padding_left="12px",
         padding_right="12px",
         background_color="var(--gray-2)",

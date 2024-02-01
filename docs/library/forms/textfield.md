@@ -1,14 +1,14 @@
 ---
 components:
-    - rx.radix.themes.Input
-    - rx.radix.themes.TextFieldRoot
-    - rx.radix.themes.TextFieldInput
-    - rx.radix.themes.TextFieldSlot
+    - rx.radix.text_field
+    - rx.radix.text_field.root
+    - rx.radix.text_field.input
+    - rx.radix.text_field.slot
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 from pcweb.pages.docs import library
 ```
 
@@ -22,7 +22,7 @@ The `input` component is an input field that users can type into.
 ## Basic Example
 
 ```python demo
-rdxt.input(icon="magnifying_glass")
+rdx.input(icon="magnifying_glass")
 ```
 
 Can set an `icon` for the `input` component using the `icon` prop. 
@@ -35,7 +35,7 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rdxt.input(icon="magnifying_glass", placeholder="Search here...", max_length="20")
+rdx.input(icon="magnifying_glass", placeholder="Search here...", max_length="20")
 ```
 
 
@@ -53,8 +53,8 @@ class TextfieldBlur(rx.State):
 
 def blur_example():
     return rx.vstack(
-        rdxt.heading(TextfieldBlur.text),
-        rdxt.input(
+        rdx.heading(TextfieldBlur.text),
+        rdx.input(
             icon="magnifying_glass", 
             placeholder="Search here...", 
             on_blur=TextfieldBlur.set_text,
@@ -72,8 +72,8 @@ class TextfieldControlled(rx.State):
 
 def controlled_example():
     return rx.vstack(
-        rdxt.heading(TextfieldControlled.text),
-        rdxt.input(
+        rdx.heading(TextfieldControlled.text),
+        rdx.input(
             icon="magnifying_glass", 
             placeholder="Search here...", 
             value=TextfieldControlled.text,
@@ -109,17 +109,17 @@ def form_input1():
     return rx.vstack(
         rx.form(
             rx.vstack(
-                rdxt.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
-                rdxt.button("Submit", type_="submit"),
+                rdx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
+                rdx.button("Submit", type_="submit"),
                 width="100%",
             ),
             on_submit=FormInputState.handle_submit,
             reset_on_submit=True,
             width="100%",
         ),
-        rdxt.separator(width="100%"),
-        rdxt.heading("Results"),
-        rdxt.text(FormInputState.form_data.to_string()),
+        rdx.separator(width="100%"),
+        rdx.heading("Results"),
+        rdx.text(FormInputState.form_data.to_string()),
         width="100%",
     )
 ```
@@ -132,12 +132,12 @@ To learn more about how to use forms in the [Form]({library.forms.form.path}) do
 ```python demo exec
 
 def song(title, initials: str, genre: str):
-    return rdxt.card(rdxt.flex(
-        rdxt.flex(
-            rdxt.avatar(fallback=initials),
-            rdxt.flex(
-                rdxt.text(title, size="2", weight="bold"),
-                rdxt.text(genre, size="1", color_scheme="gray"),
+    return rdx.card(rdx.flex(
+        rdx.flex(
+            rdx.avatar(fallback=initials),
+            rdx.flex(
+                rdx.text(title, size="2", weight="bold"),
+                rdx.text(genre, size="1", color_scheme="gray"),
                 direction="column",
                 gap="1",
             ),
@@ -145,8 +145,8 @@ def song(title, initials: str, genre: str):
             align_items="left",
             gap="1",
         ),
-        rdxt.flex(
-            rdxt.icon(tag="chevron_right"),
+        rdx.flex(
+            rdx.icon(tag="chevron_right"),
             align_items="center",
         ),
         justify="between",
@@ -154,10 +154,10 @@ def song(title, initials: str, genre: str):
 
 
 def search():
-    return rdxt.card(
-    rdxt.flex(
-        rdxt.input(icon="magnifying_glass", placeholder="Search songs...", ),
-        rdxt.flex(
+    return rdx.card(
+    rdx.flex(
+        rdx.input(icon="magnifying_glass", placeholder="Search songs...", ),
+        rdx.flex(
             song("The Less I Know", "T", "Rock"),
             song("Breathe Deeper", "ZB", "Rock"),
             song("Let It Happen", "TF", "Rock"),

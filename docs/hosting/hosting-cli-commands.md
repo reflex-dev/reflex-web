@@ -2,11 +2,9 @@
 
 ```python exec
 import reflex as rx
+rdx = rx.radix
 from pcweb import constants
 from pcweb.templates.docpage import doccmdoutput
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 ## Concepts
@@ -251,105 +249,105 @@ These commands do not require authentication.
 List all the valid regions to select for a deployment.
 
 ```python eval
-table_root(
-    table_header(
-        table_row(
-            table_column_header_cell("Region Code"),
-            table_column_header_cell("Region"),
+rdx.table.root(
+    rdx.table.header(
+        rdx.table.row(
+            rdx.table.column_header_cell("Region Code"),
+            rdx.table.column_header_cell("Region"),
         ),
     ),
-    table_body(
-        table_row(
-            table_row_header_cell("alt"),
-            table_cell("Atlanta, Georgia (US)"),
+    rdx.table.body(
+        rdx.table.row(
+            rdx.table.row_header_cell("alt"),
+            rdx.table.cell("Atlanta, Georgia (US)"),
         ),
-        table_row(
-            table_row_header_cell("bog"),
-            table_cell("Bogotá, Colombia"),
+        rdx.table.row(
+            rdx.table.row_header_cell("bog"),
+            rdx.table.cell("Bogotá, Colombia"),
         ),
-        table_row(
-            table_row_header_cell("bos"),
-            table_cell("Boston, Massachusetts (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("bos"),
+            rdx.table.cell("Boston, Massachusetts (US)"),
         ),
-        table_row(
-            table_row_header_cell("cdg"),
-            table_cell("Paris, France"),
+        rdx.table.row(
+            rdx.table.row_header_cell("cdg"),
+            rdx.table.cell("Paris, France"),
         ),
-        table_row(
-            table_row_header_cell("den"),
-            table_cell("Denver, Colorado (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("den"),
+            rdx.table.cell("Denver, Colorado (US)"),
         ),
-        table_row(
-            table_row_header_cell("dfw"),
-            table_cell("Dallas, Texas (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("dfw"),
+            rdx.table.cell("Dallas, Texas (US)"),
         ),
-        table_row(
-            table_row_header_cell("eze"),
-            table_cell("Ezeiza, Argentina"),
+        rdx.table.row(
+            rdx.table.row_header_cell("eze"),
+            rdx.table.cell("Ezeiza, Argentina"),
         ),
-        table_row(
-            table_row_header_cell("fra"),
-            table_cell("Frankfurt, Germany"),
+        rdx.table.row(
+            rdx.table.row_header_cell("fra"),
+            rdx.table.cell("Frankfurt, Germany"),
         ),
-        table_row(
-            table_row_header_cell("hkg"),
-            table_cell("Hong Kong, Hong Kong"),
+        rdx.table.row(
+            rdx.table.row_header_cell("hkg"),
+            rdx.table.cell("Hong Kong, Hong Kong"),
         ),
-        table_row(
-            table_row_header_cell("iad"),
-            table_cell("Ashburn, Virginia (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("iad"),
+            rdx.table.cell("Ashburn, Virginia (US)"),
         ),
-        table_row(
-            table_row_header_cell("lax"),
-            table_cell("Los Angeles, California (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("lax"),
+            rdx.table.cell("Los Angeles, California (US)"),
         ),
-        table_row(
-            table_row_header_cell("lhr"),
-            table_cell("London, United Kingdom"),
+        rdx.table.row(
+            rdx.table.row_header_cell("lhr"),
+            rdx.table.cell("London, United Kingdom"),
         ),
-        table_row(
-            table_row_header_cell("mad"),
-            table_cell("Madrid, Spain"),
+        rdx.table.row(
+            rdx.table.row_header_cell("mad"),
+            rdx.table.cell("Madrid, Spain"),
         ),
-        table_row(
-            table_row_header_cell("mia"),
-            table_cell("Miami, Florida (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("mia"),
+            rdx.table.cell("Miami, Florida (US)"),
         ),
-        table_row(
-            table_row_header_cell("ord"),
-            table_cell("Chicago, Illinois (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("ord"),
+            rdx.table.cell("Chicago, Illinois (US)"),
         ),
-        table_row(
-            table_row_header_cell("scl"),
-            table_cell("Santiago, Chile"),
+        rdx.table.row(
+            rdx.table.row_header_cell("scl"),
+            rdx.table.cell("Santiago, Chile"),
         ),
-        table_row(
-            table_row_header_cell("sea"),
-            table_cell("Seattle, Washington (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("sea"),
+            rdx.table.cell("Seattle, Washington (US)"),
         ),
-        table_row(
-            table_row_header_cell("sin"),
-            table_cell("Singapore, Singapore"),
+        rdx.table.row(
+            rdx.table.row_header_cell("sin"),
+            rdx.table.cell("Singapore, Singapore"),
         ),
-        table_row(
-            table_row_header_cell("sjc"),
-            table_cell("San Jose, California (US)"),
+        rdx.table.row(
+            rdx.table.row_header_cell("sjc"),
+            rdx.table.cell("San Jose, California (US)"),
         ),
-        table_row(
-            table_row_header_cell("syd"),
-            table_cell("Sydney, Australia"),
+        rdx.table.row(
+            rdx.table.row_header_cell("syd"),
+            rdx.table.cell("Sydney, Australia"),
         ),
-        table_row(
-            table_row_header_cell("waw"),
-            table_cell("Warsaw, Poland"),
+        rdx.table.row(
+            rdx.table.row_header_cell("waw"),
+            rdx.table.cell("Warsaw, Poland"),
         ),
-        table_row(
-            table_row_header_cell("yul"),
-            table_cell("Montréal, Canada"),
+        rdx.table.row(
+            rdx.table.row_header_cell("yul"),
+            rdx.table.cell("Montréal, Canada"),
         ),
-        table_row(
-            table_row_header_cell("yyz"),
-            table_cell("Toronto, Canada"),
+        rdx.table.row(
+            rdx.table.row_header_cell("yyz"),
+            rdx.table.cell("Toronto, Canada"),
         ),
     ),
     variant="surface",

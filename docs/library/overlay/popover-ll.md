@@ -1,40 +1,38 @@
 ---
 components:
-    - rx.radix.themes.PopoverRoot
-    - rx.radix.themes.PopoverContent
-    - rx.radix.themes.PopoverTrigger
-    - rx.radix.themes.PopoverClose
+    - rx.radix.popover.root
+    - rx.radix.popover.content
+    - rx.radix.popover.trigger
+    - rx.radix.popover.close
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+rdx = rx.radix
 ```
 
 # Popover
 
 ```python demo
 
-popover_root(
-    popover_trigger(
-        button("Comment", variant="soft"),
+rdx.popover.root(
+    rdx.popover.trigger(
+        rdx.button("Comment", variant="soft"),
     ),
-    popover_content(
-        flex(
-            avatar(
+    rdx.popover.content(
+        rdx.flex(
+            rdx.avatar(
                 "2",
                 fallback="RX",
                 radius="full"
             ),
-            box(
-                textarea(placeholder="Write a comment…", style={"height": 80}),
-                flex(
-                    flex(
-                        text(
-                            checkbox(),
-                            text("Send to group"),
+            rdx.box(
+                rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                rdx.flex(
+                    rdx.flex(
+                        rdx.text(
+                            rdx.checkbox.root(),
+                            rdx.text("Send to group"),
                             as_="label",
                             size="2",
                         ),
@@ -42,8 +40,8 @@ popover_root(
                         gap="2",
                         as_child=True,
                     ),
-                    popover_close(
-                        button("Comment", size="1")
+                    rdx.popover.close(
+                        rdx.button("Comment", size="1")
                     ),
                     gap="3",
                     margin_top="12px",
@@ -59,23 +57,23 @@ popover_root(
 ```
 
 ```python demo
-popover_root(
-    popover_trigger(
-        button("Feedback", variant="classic"),
+rdx.popover.root(
+    rdx.popover.trigger(
+        rdx.button("Feedback", variant="classic"),
     ),
-    popover_content(
-        inset(
+    rdx.popover.content(
+        rdx.inset(
             side="top",
             background="url('https://source.unsplash.com/random/800x600') center/cover",
             height="100px",
         ),
-        box(
-            textarea(placeholder="Write a comment…", style={"height": 80}),
-            flex(
-                flex(
-                    text(
-                        checkbox(),
-                        text("Send to group"),
+        rdx.box(
+            rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
+            rdx.flex(
+                rdx.flex(
+                    rdx.text(
+                        rdx.checkbox.root(),
+                        rdx.text("Send to group"),
                         as_="label",
                         size="2",
                     ),
@@ -83,8 +81,8 @@ popover_root(
                     gap="2",
                     as_child=True,
                 ),
-                popover_close(
-                    button("Comment", size="1")
+                rdx.popover.close(
+                    rdx.button("Comment", size="1")
                 ),
                 gap="3",
                 margin_top="12px",

@@ -1,12 +1,11 @@
 ---
 components:
-    - rx.radix.themes.HighLevelCheckbox
-    - rx.radix.themes.Checkbox
+    - rx.radix.checkbox.root
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
+rdx = rx.radix
 ```
 
 
@@ -17,9 +16,9 @@ Checkboxes allow users to select one or more items from a set. This component us
 ## Basic Example
 
 ```python demo
-rdxt.text(
-  rdxt.flex(
-    rdxt.checkbox(default_checked=True),
+rdx.text(
+  rdx.flex(
+    rdx.checkbox.root(default_checked=True),
     "Agree to Terms and Conditions", 
     gap="2",
   ),
@@ -36,8 +35,8 @@ The `disabled` prop disables the `checkbox`, by default it is `False`. A disable
 
 ```python demo
 rx.hstack(
-    rdxt.checkbox(),
-    rdxt.checkbox(disabled=True),
+    rdx.checkbox.root(),
+    rdx.checkbox.root(disabled=True),
 )
 ```
 
@@ -47,7 +46,7 @@ rx.hstack(
 
 The `on_change` trigger is called when the checkbox is clicked. 
 ```python demo
-rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"))
+rdx.checkbox.root(default_checked=True, on_checked_change=rx.window_alert("Checked!"))
 ```
 
 
@@ -55,20 +54,20 @@ rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"
 
 
 ```python demo
-rdxt.flex(
-   rdxt.heading("Terms and Conditions"),
-   rdxt.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu 'pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.",
+rdx.flex(
+   rdx.heading("Terms and Conditions"),
+   rdx.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu 'pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.",
    ),
-   rdxt.text(
-      rdxt.flex(
-        rdxt.checkbox(default_checked=True, color_scheme="indigo"),
+   rdx.text(
+      rdx.flex(
+        rdx.checkbox.root(default_checked=True, color_scheme="indigo"),
         "I certify that I have read and agree to the terms and conditions for this reservation.", 
         gap="2",
       ),
       as_="label",
       size="2",
     ),
-    rdxt.button("Book Reservation", color_scheme="indigo", width="100%"),
+    rdx.button("Book Reservation", color_scheme="indigo", width="100%"),
     direction="column",
     align_items="start",
     border="1px solid #e2e8f0",

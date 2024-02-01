@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Strong
+    - rx.radix.strong
 ---
 
 ```python exec

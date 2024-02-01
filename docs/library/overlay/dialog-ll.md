@@ -1,32 +1,30 @@
 ---
 components:
-    - rx.radix.themes.DialogRoot
-    - rx.radix.themes.DialogTrigger
-    - rx.radix.themes.DialogTitle
-    - rx.radix.themes.DialogContent
-    - rx.radix.themes.DialogDescription
-    - rx.radix.themes.DialogClose
+    - rx.radix.dialog.root
+    - rx.radix.dialog.trigger
+    - rx.radix.dialog.title
+    - rx.radix.dialog.content
+    - rx.radix.dialog.description
+    - rx.radix.dialog.close
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+rdx = rx.radix
 ```
 
 # Dialog
 
 ```python demo
-dialog_root(
-    dialog_trigger(button("Open Dialog")),
-    dialog_content(
-        dialog_title("Welcome to Reflex!"),
-        dialog_description(
+rdx.dialog.root(
+    rdx.dialog.trigger(rdx.button("Open Dialog")),
+    rdx.dialog.content(
+        rdx.dialog.title("Welcome to Reflex!"),
+        rdx.dialog.description(
             "This is a dialog component. You can render anything you want in here.",
         ),
-        dialog_close(
-            button("Close Dialog", size="3"),
+        rdx.dialog.close(
+            rdx.button("Close Dialog", size="3"),
         ),
     ),
 )
@@ -37,31 +35,31 @@ dialog_root(
 ## give in context examples 
 
 ```python demo
-dialog_root(
-    dialog_trigger(
-        button("Edit Profile", size="4")
+rdx.dialog.root(
+    rdx.dialog.trigger(
+        rdx.button("Edit Profile", size="4")
     ),
-    dialog_content(
-        dialog_title("Edit Profile"),
-        dialog_description(
+    rdx.dialog.content(
+        rdx.dialog.title("Edit Profile"),
+        rdx.dialog.description(
             "Change your profile details and preferences.",
             size="2",
             margin_bottom="16px",
         ),
-        flex(
-            text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            textfield_input(default_value="Freja Johnson", placeholder="Enter your name"),
-            text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            textfield_input(default_value="freja@example.com", placeholder="Enter your email"),
+        rdx.flex(
+            rdx.text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
+            rdx.text_field(default_value="Freja Johnson", placeholder="Enter your name"),
+            rdx.text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
+            rdx.text_field(default_value="freja@example.com", placeholder="Enter your email"),
             direction="column",
             gap="3",
         ),
-        flex(
-            dialog_close(
-                button("Cancel", color_scheme="gray", variant="soft"),
+        rdx.flex(
+            rdx.dialog.close(
+                rdx.button("Cancel", color_scheme="gray", variant="soft"),
             ),
-            dialog_close(
-                button("Save"),
+            rdx.dialog.close(
+                rdx.button("Save"),
             ),
             gap="3",
             margin_top="16px",
@@ -73,31 +71,31 @@ dialog_root(
 
 
 ```python demo
-dialog_root(
-    dialog_trigger(button("View users", size="4")),
-    dialog_content(
-        dialog_title("Users"),
-        dialog_description("The following users have access to this project."),
+rdx.dialog.root(
+    rdx.dialog.trigger(rdx.button("View users", size="4")),
+    rdx.dialog.content(
+        rdx.dialog.title("Users"),
+        rdx.dialog.description("The following users have access to this project."),
 
-        inset(
-            table_root(
-                table_header(
-                    table_row(
-                        table_column_header_cell("Full Name"),
-                        table_column_header_cell("Email"),
-                        table_column_header_cell("Group"),
+        rdx.inset(
+            rdx.table.root(
+                rdx.table.header(
+                    rdx.table.row(
+                        rdx.table.column_header_cell("Full Name"),
+                        rdx.table.column_header_cell("Email"),
+                        rdx.table.column_header_cell("Group"),
                     ),
                 ),
-                table_body(
-                    table_row(
-                        table_row_header_cell("Danilo Rosa"),
-                        table_cell("danilo@example.com"),
-                        table_cell("Developer"),
+                rdx.table.body(
+                    rdx.table.row(
+                        rdx.table.row_header_cell("Danilo Rosa"),
+                        rdx.table.cell("danilo@example.com"),
+                        rdx.table.cell("Developer"),
                     ),
-                    table_row(
-                        table_row_header_cell("Zahra Ambessa"),
-                        table_cell("zahra@example.com"),
-                        table_cell("Admin"),
+                    rdx.table.row(
+                        rdx.table.row_header_cell("Zahra Ambessa"),
+                        rdx.table.cell("zahra@example.com"),
+                        rdx.table.cell("Admin"),
                     ),
                 ),
             ),
@@ -105,9 +103,9 @@ dialog_root(
             margin_top="24px",
             margin_bottom="24px",
         ),
-        flex(
-            dialog_close(
-                button("Close", variant="soft", color_scheme="gray"),
+        rdx.flex(
+            rdx.dialog.close(
+                rdx.button("Close", variant="soft", color_scheme="gray"),
             ),
             gap="3",
             justify="end",

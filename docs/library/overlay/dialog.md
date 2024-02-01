@@ -1,11 +1,11 @@
 ---
 components:
-    - rx.radix.themes.DialogRoot
-    - rx.radix.themes.DialogTrigger
-    - rx.radix.themes.DialogTitle
-    - rx.radix.themes.DialogContent
-    - rx.radix.themes.DialogDescription
-    - rx.radix.themes.DialogClose
+    - rx.radix.dialog.root
+    - rx.radix.dialog.trigger
+    - rx.radix.dialog.title
+    - rx.radix.dialog.content
+    - rx.radix.dialog.description
+    - rx.radix.dialog.close
 
 only_low_level:
     - True
