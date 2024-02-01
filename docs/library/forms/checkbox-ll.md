@@ -47,7 +47,7 @@ rx.hstack(
 
 The `on_change` trigger is called when the checkbox is clicked. 
 ```python demo
-rdxt.checkbox(default_checked=True, on_checked_change=rx.window_alert("Checked!"))
+rdxt.checkbox(default_checked=True, on_change=rx.window_alert("Checked!"))
 ```
 
 

@@ -56,7 +56,7 @@ rx.hstack(
 The `on_change` trigger is called when the `checkbox` is clicked.
 
 ```python demo
-rdxt.checkbox_hl("Agree to Terms and Conditios", default_checked=True, on_checked_change=rx.window_alert("Checked!"))
+rdxt.checkbox_hl("Agree to Terms and Conditios", default_checked=True, on_change=rx.window_alert("Checked!"))
 ```
 
 
