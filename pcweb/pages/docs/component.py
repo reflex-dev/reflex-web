@@ -213,7 +213,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 prop_dict[prop.name] = var
                 return rdxt.checkbox(
                     var,
-                    on_checked_change=setter,
+                    on_change=setter,
                 )
         except TypeError:
             pass
@@ -230,7 +230,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         return rdxt.radio_group(
             list(map(str, type_.__args__)),
             value=var,
-            on_value_change=setter,
+            on_change=setter,
         )
 
     # Return the docs for the prop.
