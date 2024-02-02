@@ -47,8 +47,6 @@ style = {
 }
 ```
 
-# Plotly
-
 Plotly is a graphing library that can be used to create interactive graphs.
 
 Let's create a line graph of life expectancy in Canada as an example.
