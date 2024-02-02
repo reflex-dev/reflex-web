@@ -458,7 +458,7 @@ EVENTS = {
 from reflex.components.radix import themes as rdxt
 
 
-def generate_props(src, component):
+def generate_props(src, component, comp):
     if len(src.get_props()) == 0:
         return rx.vstack(
             rx.heading("Props", font_size="1em"),
@@ -477,9 +477,15 @@ def generate_props(src, component):
         ]
     )
     try:
-        comp = component.create("Test", **prop_dict)
-        if "data" in component.__name__.lower():
-            raise Exception("Data components cannot be created")
+        if "prototype" in comp.metadata:
+            comp = eval(comp.metadata["prototype"])(**prop_dict)
+        else:
+            try:
+                comp = rx.vstack(component.create("Test", **prop_dict))
+            except:
+                comp = rx.fragment()
+            if "data" in component.__name__.lower():
+                raise Exception("Data components cannot be created")
     except:
         print(f"Failed to create component {component.__name__}")
         comp = rx.fragment()
@@ -583,10 +589,10 @@ def generate_valid_children(comp):
     )
 
 
-def component_docs(component):
+def component_docs(component, comp):
     """Generates documentation for a given component."""
     src = Source(component=component)
-    props = generate_props(src, component)
+    props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component)
     children = generate_valid_children(component)
 
@@ -623,7 +629,7 @@ tab_selected_style = {
 def multi_docs(path, comp, component_list, title):
     @docpage(set_path=path, t=title)
     def out():
-        components = [component_docs(component) for component in component_list[1:]]
+        components = [component_docs(component, comp) for component in component_list[1:]]
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
         ll_doc_exists = os.path.exists(

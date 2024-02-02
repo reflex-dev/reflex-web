@@ -1,6 +1,9 @@
 ---
 components:
     - rx.radix.themes.Avatar
+
+prototype: |
+    lambda **props: rx.radix.themes.avatar(src="/logo.jpg", **props)
 ---
 # Avatar
 

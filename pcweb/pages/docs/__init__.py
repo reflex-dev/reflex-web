@@ -79,6 +79,7 @@ for doc in sorted(flexdown_docs):
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
+
     if doc.startswith("docs/library/chakra"):
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)

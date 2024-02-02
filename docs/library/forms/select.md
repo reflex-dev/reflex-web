@@ -9,6 +9,9 @@ components:
     - rx.radix.themes.SelectLabel
     - rx.radix.themes.SelectSeparator
     
+
+prototype: |
+    lambda **props: rx.radix.themes.select(["apple", "grape", "pear"], default_value="pear", **props)
 ---
 
 
