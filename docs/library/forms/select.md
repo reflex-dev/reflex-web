@@ -83,7 +83,7 @@ rdxt.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", varian
 ## High control of select component (value and open changes)
 
 
-The `on_value_change` event is called when the value of the `select` changes. In this example we set the `value` prop to change the select `value` using a button in this case. 
+The `on_change` event is called when the value of the `select` changes. In this example we set the `value` prop to change the select `value` using a button in this case. 
 
 ```python demo exec
 class SelectState3(rx.State):
@@ -102,7 +102,7 @@ def select_example3():
         rdxt.select(
             SelectState3.values,
             value=SelectState3.value,
-            on_value_change=SelectState3.set_value,
+            on_change=SelectState3.set_value,
         ),
         rdxt.button("Change Value", on_click=SelectState3.change_value),
         
@@ -110,12 +110,12 @@ def select_example3():
 ```
 
 
-The `on_open_change` event handler acts in a similar way to the `on_value_change` and is called when the open state of the select changes.
+The `on_open_change` event handler acts in a similar way to the `on_change` and is called when the open state of the select changes.
 
 ```python demo
 rdxt.select(
     ["apple", "grape", "pear"],
-    on_value_change=rx.window_alert("on_value_change event handler called"),
+    on_change=rx.window_alert("on_change event handler called"),
 )
 
 ```

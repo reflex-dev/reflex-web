@@ -62,7 +62,7 @@ def radio_state_example_HL1():
 
 
 ### Control the value
-The controlled `value` of the radio item to check. Should be used in conjunction with `on_value_change` event handler.
+The controlled `value` of the radio item to check. Should be used in conjunction with `on_change` event handler.
 
 
 ```python demo exec
@@ -73,7 +73,7 @@ class RadioState_HL(rx.State):
 def radio_state_example_HL():
     return rx.vstack(
         rdxt.badge(RadioState_HL.text, color_scheme="green"),
-        rdxt.radio_group(["1", "2", "3"], on_value_change=RadioState_HL.set_text),
+        rdxt.radio_group(["1", "2", "3"], on_change=RadioState_HL.set_text),
     )
 ```
 

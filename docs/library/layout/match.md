@@ -68,7 +68,7 @@ def match_demo():
                 ),
             ),
             value=MatchState.cat_breed,
-            on_value_change=MatchState.set_cat_breed,
+            on_change=MatchState.set_cat_breed,
             
         ),
         direction= "column",
@@ -165,7 +165,7 @@ def multi_match_demo():
                 ),
             ),
             value=MultiMatchState.animal_breed,
-            on_value_change=MultiMatchState.set_animal_breed,
+            on_change=MultiMatchState.set_animal_breed,
             
         ),
         direction= "column",
