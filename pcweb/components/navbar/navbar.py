@@ -19,9 +19,18 @@ def resources_section():
             ),
             rdxt.hovercard_content(
                 rdxt.grid(
-                    columns="120px 1fr",
+                    rdxt.box("Changelog"),
+                    rdxt.box("Roadmap"),
+                    rdxt.box("FAQ"),
+                    rdxt.box("Components"),
+                    rdxt.box("Contribute to Reflex"),
+                    rdxt.box("Report a Bug"),
+                    columns="2",
+                    gap="2",
+                    width="auto"
                 ),
-                style={"width": 360, "height": 200},
+                border=f"1px solid {rx.color('mauve', 4)}",
+                style={"width": 360, "height": 200, "opacity": 0.9},
             ),
         )
 

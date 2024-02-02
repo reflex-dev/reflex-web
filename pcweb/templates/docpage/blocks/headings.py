@@ -48,10 +48,11 @@ def h_comp_common(
         rdxt.flex(
             rdxt.separator(size="4"),
             margin_top=".5em",
-            margin_bottom=".5em",
-             width="100%"
+            margin_bottom="1em",
+            width="100%"
         ),
         margin_top=margin_top,
+        margin_bottom=margin_top,
         width="100%",
     )
 

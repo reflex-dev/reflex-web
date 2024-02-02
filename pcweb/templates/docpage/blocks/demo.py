@@ -7,13 +7,12 @@ from .code import code_block
 import black
 
 demo_box_style = {
-    "bg": rx.color("mauve", 2),
+    "bg": "rgba(249, 248, 249, 1)",
     "border_radius": "8px;",
-    "box_shadow": "rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;",
     "padding": 5,
     "width": "100%",
     "overflow_x": "auto",
-    "border": f"2px solid {rx.color('mauve', 2)}",
+    "border": f"2px solid {rx.color('mauve', 4)}",
     "align_items": "center",
     "justify_content": "center",
 }

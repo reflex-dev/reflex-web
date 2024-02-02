@@ -3,6 +3,8 @@
 from typing import Any, Callable
 
 import reflex as rx
+import os
+import string
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.components.logo import navbar_logo
@@ -97,7 +99,7 @@ def feedback(text, icon):
     ),
 )
 
-def docpage_footer():
+def docpage_footer(path):
     return rdxt.flex(
         rdxt.separator(size="4"),
         rdxt.flex( 
@@ -118,7 +120,7 @@ def docpage_footer():
             ),
             rdxt.separator(size="4", orientation="vertical"),
             rdxt.flex(
-                rx.desktop_only(rdxt.flex(
+                rx.desktop_only(rdxt.link(rdxt.flex(
                     "Raise an issue",
                     color=rx.color("mauve", 9),
                     border=f"1px solid {rx.color('mauve', 9)}",
@@ -127,8 +129,9 @@ def docpage_footer():
                     border_radius="5px",
                     padding="0px 10px",
                     white_space="nowrap",
-                )),
-                rx.desktop_only(rdxt.flex(
+                    
+                ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with documentation&amp;body=Path: {path}")),
+                rx.desktop_only(rdxt.link(rdxt.flex(
                     "Edit this page",
                     color=rx.color("mauve", 9),
                     border=f"1px solid {rx.color('mauve', 9)}",
@@ -137,7 +140,8 @@ def docpage_footer():
                     border_radius="5px",
                     padding="0px 10px",
                     white_space="nowrap",
-                )),
+                    
+                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}")),
                 gap="2"
             ),
             align_items="center",
@@ -183,6 +187,30 @@ def docpage_footer():
     )
 
 
+def breadcrumb(path):
+    # Split the path into segments, removing 'docs' and capitalizing each segment
+    segments = [segment.capitalize() for segment in path.split('/') if segment and segment != 'docs']
+
+    # Initialize an empty list to store the breadcrumbs and their separators
+    breadcrumbs = []
+
+    # Iteratively build the href for each segment
+    for i in range(len(segments)):
+        # Construct href by joining the segments up to the current one
+        href = '/' + '/'.join(segments[:i+1]).lower()
+
+        # Create the breadcrumb item
+        breadcrumb_item = rdxt.link(segments[i], href=href, color=rx.color("mauve", 9))
+
+        # Add the breadcrumb item to the list
+        breadcrumbs.append(breadcrumb_item)
+
+        # If it's not the last segment, add a separator
+        if i < len(segments) - 1:
+            breadcrumbs.append(rdxt.text("/", color=rx.color("mauve", 9)))
+
+    # Return the list of breadcrumb items with separators
+    return rdxt.flex(*breadcrumbs, gap="2")
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
@@ -208,7 +236,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         """
         # Get the path to set for the sidebar.
         path = get_path(contents) if set_path is None else set_path
-
         # Set the page title.
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
@@ -273,8 +300,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 links.append(rx.box())
 
             if not isinstance(contents, rx.Component):
-                comp = contents(*args, **kwargs)
-                
+                comp = contents(*args, **kwargs)   
             else:
                 comp = contents
 
@@ -292,11 +318,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         ),
                     rdxt.box(
                             rdxt.box(
-                                rdxt.text(
-                                    "Onboarding  /  Components  /  Getting Started",
-                                    font_weight="500",
-                                    color=rx.color("mauve", 9)
-                                ),  
+                                breadcrumb(path),
                                 margin_top="120px", 
                                 margin_bottom="20px"
                             ),
@@ -308,7 +330,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             ),
                             rx.spacer(),
                             rx.box(height="2em"),
-                            docpage_footer(),
+                            docpage_footer(path),
                             border_left= ["none", "none", "none", "none",f"1px solid {rx.color('mauve', 4)};"],
                             padding_left=styles.PADDING_X,
                             padding_right=styles.PADDING_X,
@@ -342,7 +364,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-                background = rx.color("mauve", 1),
+               background = rx.color("mauve", 1),
             )
 
         # Return the route.

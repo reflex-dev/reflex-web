@@ -46,7 +46,6 @@ def create_item(route: Route, children=None):
     )
 
 
-@rx.memo
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
@@ -65,7 +64,8 @@ def sidebar_leaf(
                             margin_left="0.25em"
                         ), 
                         style=heading_style2,
-                        margin_top="0.25em",
+                        margin_top="0.2em",
+                        margin_bottom="0.2em",
                     ),
                         padding_left= "0.5em",
                         border_left="1.5px solid #644FC1",
@@ -84,7 +84,8 @@ def sidebar_leaf(
                             },
                             transition="color 0.4s ease-in-out",
                             margin_left="0.25em",
-                            margin_top="0.25em",
+                            margin_top="0.2em",
+                            margin_bottom="0.2em",
                             width="100%",
                         ),
                         padding_left= "1em",
@@ -129,7 +130,6 @@ def sidebar_icon(name):
     else:
         return rx.fragment()
 
-    
 
 def sidebar_item_comp(
     item: SidebarItem,
@@ -231,23 +231,23 @@ def get_prev_next(url):
     return None, None
 
 
-def sidebar_category(name, color, index):
+def sidebar_category(name, icon, color, index):
     return rdxt.flex(
-            rdxt.flex(
-                rdxt.icon(
-                    tag="face",
-                    height="20px",
-                    width="20px",
-                    color = rx.color("violet", 1),
+            rdxt.button(
+                rx.lucide.icon(
+                    tag=icon,
+                    color = rx.color(color, 1),
+                    size=20,
+                    
                 ),
                 height="30px",
                 width="30px",
+                padding="0px",
                 border_radius= "6px",
-                background= rx.color("violet", 10),
-                box_shadow="0px 0px 0px 1px #3A2BC5, 0px 3px 5px -1px rgba(34, 23, 135, 0.45), 0px 1.5px 0px 0px rgba(255, 255, 255, 0.20) inset;",
+                color_scheme=color,
+                variant="classic",
                 align_items="center",
                 justify="center",
-                
             ),
             rdxt.text(
                 name,
@@ -314,9 +314,9 @@ def sidebar_comp(
     tutorials_index: list[int],
 ):
     return rdxt.flex(
-        sidebar_category("Learn", "purple", 0),
-        sidebar_category("Components", "sky", 1),
-        sidebar_category("API Reference", "crimson", 2),
+        sidebar_category("Learn", "graduation-cap", "purple", 0),
+        sidebar_category("Components", "layout-panel-left", "sky", 1),
+        sidebar_category("API Reference", "book-text","crimson", 2),
         rdxt.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
