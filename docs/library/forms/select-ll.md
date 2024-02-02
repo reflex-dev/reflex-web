@@ -131,8 +131,8 @@ rdx.select.root(
 ## Fully controlled
 
 
-The `on_value_change` event trigger is fired when the value of the select changes.
-In this example the `rdx.select.root` `value` prop specifies which item is selected, and this 
+The `on_change` event trigger is fired when the value of the select changes.
+In this example the `rdx.select_root` `value` prop specifies which item is selected, and this 
 can also be controlled using state and a button without direct interaction with the select component.
 
 ```python demo exec
@@ -159,7 +159,7 @@ def select_example2():
                 ),
             ),
             value=SelectState2.value,
-            on_value_change=SelectState2.set_value,
+            on_change=SelectState2.set_value,
             
         ),
         rdx.button("Choose Randomly", on_click=SelectState2.choose_randomly),
@@ -169,7 +169,7 @@ def select_example2():
 
 
 
-The `open` prop and `on_open_change` event trigger work similarly to `value` and `on_value_change` to control the open state of the select.
+The `open` prop and `on_open_change` event trigger work similarly to `value` and `on_change` to control the open state of the select.
 If `on_open_change` handler does not alter the `open` prop, the select will not be able to be opened or closed by clicking on the
 `select_trigger`.
 

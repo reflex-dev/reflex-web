@@ -18,11 +18,18 @@ rdx = rx.radix
 
 # ContextMenu
 
-A ContextMenu is a popup menu that appears upon user interaction, such as a right-click or a hover.
+A Context Menu is a popup menu that appears upon user interaction, such as a right-click or a hover.
 
 ## Basic Usage
 
-A ContextMenu is composed of a `ContextMenuTrigger` and a `ContextMenuContent`. The `ContextMenuTrigger` is the element that the user interacts with to open the menu. The `ContextMenuContent` is the menu itself.
+A Context Menu is composed of a `contextmenu_root`, a `contextmenu_trigger` and a `contextmenu_content`. The `context_menu_root` contains all the parts of a context menu. The `contextmenu_trigger` is the element that the user interacts with to open the menu. It wraps the element that will open the context menu. The `contextmenu_content` is the component that pops out when the context menu is open.
+
+The `contextmenu_item` contains the actual context menu items and sits under the `contextmenu_content`. 
+
+The `contextmenu_sub` contains all the parts of a submenu. There is a `contextmenu_sub_trigger`, which is an item that opens a submenu. It must be rendered inside a `contextmenu_sub` component. The `contextmenu_sub_component` is the component that pops out when a submenu is open. It must also be rendered inside a `contextmenu_sub` component. 
+
+The `contextmenu_separator` is used to visually separate items in a context menu.
+
 
 ```python demo
 rdx.context_menu.root(

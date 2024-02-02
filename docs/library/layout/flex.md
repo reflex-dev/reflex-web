@@ -79,7 +79,7 @@ class FlexPlaygroundState(rx.State):
     wrap: str = "nowrap"
     
     
-def select(label, items, value, on_value_change):
+def select(label, items, value, on_change):
     return rdx.flex(
         rdx.text(label),
         rdx.select.root(
@@ -91,7 +91,7 @@ def select(label, items, value, on_value_change):
                 ]
             ),
             value=value,
-            on_value_change=on_value_change,
+            on_change=on_change,
         ),
         align="center",
         justify="center",
@@ -183,7 +183,7 @@ def example2():
             min=0,
             max=100,
             value=FlexGrowShrinkState.width_pct,
-            on_value_change=FlexGrowShrinkState.set_width_pct,
+            on_change=FlexGrowShrinkState.set_width_pct,
         ),
         width="100%",
     )

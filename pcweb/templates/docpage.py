@@ -925,9 +925,9 @@ def style_grid(
                     ],
                 ),
             ),
-            ## we need to clearly document how the on_value_change works as it is not obvious at all
+            ## we need to clearly document how the on_change works as it is not obvious at all
             default_value=RadixDocState.color,
-            on_value_change=RadixDocState.change_color,
+            on_change=RadixDocState.change_color,
         ),
     )
 

@@ -46,7 +46,7 @@ The `default_value` prop is used to set the value of the radio item that should 
 
 The state can specify which item in a radio group is checked by setting the `value` prop, 
 making the radio group a fully-controlled input. To allow the user to change the selected
-value by clicking, the `on_value_change` event handler must be defined to update
+value by clicking, the `on_change` event handler must be defined to update
 the Var representing the current `value`.
 
 ```python demo exec
@@ -69,7 +69,7 @@ def radio_state_example():
             rdx.radio_group.item(value="2"),
             rdx.radio_group.item(value="3"),
             value=RadioState1.val,
-            on_value_change=RadioState1.set_val,
+            on_change=RadioState1.set_val,
         ),
         rdx.button("Clear", on_click=RadioState1.set_val("")),
         align="center",

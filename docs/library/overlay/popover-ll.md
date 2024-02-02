@@ -13,6 +13,39 @@ rdx = rx.radix
 
 # Popover
 
+A popover displays content, triggered by a button.
+
+The `popover_root` contains all the parts of a popover.
+
+The `popover_trigger` contains the button that toggles the popover.
+
+The `popover_content` is the component that pops out when the popover is open.
+
+The `popover_close` is the button that closes an open popover.
+
+## Basic Example
+
+```python demo
+popover_root(
+    popover_trigger(
+        button("Popover"),
+    ),
+    popover_content(
+        flex(
+            text("Simple Example"),
+            popover_close(
+                button("Close"),
+            ),
+            direction="column",
+            gap="3",
+        ),
+    ),
+)
+```
+
+## Examples in Context
+
+
 ```python demo
 
 rdx.popover.root(
