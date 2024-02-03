@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 from pcweb.templates.docpage import style_grid
 ```
 
@@ -21,7 +20,7 @@ A set of interactive radio buttons where only one can be selected at a time.
 
 
 ```python demo
-rdx.radio_group(["1", "2", "3"], default_value="1")
+rx.radio_group(["1", "2", "3"], default_value="1")
 ```
 
 The `default_value` prop can be used to set the value of the radio item that should be checked when initially rendered.
@@ -38,7 +37,7 @@ The gap between the `radio_group` items can also be set using the `gap` prop, wh
 The size of the `radio_group` items and the associated text can be set with the `size` prop, which can take values `1' | '2' | '3' |`
 
 ```python demo
-rdx.radio_group(["1", "2", "3", "4", "5"], direction="row", gap="8", size="3")
+rx.radio_group(["1", "2", "3", "4", "5"], direction="row", gap="8", size="3")
 ```
 
 
@@ -53,7 +52,7 @@ class RadioState_HL1(rx.State):
     items: list[str] = ["1", "2", "3"]
 
 def radio_state_example_HL1():
-    return rdx.radio_group(RadioState_HL1.items, direction="row", gap="9")
+    return rx.radio_group(RadioState_HL1.items, direction="row", gap="9")
 ```
 
 
@@ -68,8 +67,8 @@ class RadioState_HL(rx.State):
 
 def radio_state_example_HL():
     return rx.vstack(
-        rdx.badge(RadioState_HL.text, color_scheme="green"),
-        rdx.radio_group(["1", "2", "3"], on_change=RadioState_HL.set_text),
+        rx.badge(RadioState_HL.text, color_scheme="green"),
+        rx.radio_group(["1", "2", "3"], on_change=RadioState_HL.set_text),
     )
 ```
 
@@ -77,9 +76,9 @@ def radio_state_example_HL():
 When the `disabled` prop is set to `True`, it prevents the user from interacting with radio items.
 
 ```python demo
-rdx.flex(
-    rdx.radio_group(["1", "2"]),
-    rdx.radio_group(["1", "2"], disabled=True),
+rx.flex(
+    rx.radio_group(["1", "2"]),
+    rx.radio_group(["1", "2"], disabled=True),
     gap="2",
 )
 
@@ -105,15 +104,15 @@ def form_example_HL():
     return rx.vstack(
         rx.form.root(
             rx.vstack(
-                rdx.radio_group(["1", "2", "3"], name="radio", required=True,),
+                rx.radio_group(["1", "2", "3"], name="radio", required=True,),
                 rx.button("Submit", type_="submit"),
             ),
             on_submit=FormRadioState_HL.handle_submit,
             reset_on_submit=True,
         ),
-        rdx.separator(width="100%"),
-        rdx.heading("Results"),
-        rdx.text(FormRadioState_HL.form_data.to_string()),
+        rx.separator(width="100%"),
+        rx.heading("Results"),
+        rx.text(FormRadioState_HL.form_data.to_string()),
     )
 ```
 

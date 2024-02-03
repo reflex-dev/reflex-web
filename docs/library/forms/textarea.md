@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # TextArea
@@ -15,7 +14,7 @@ A text area is a multi-line text input field. This component uses Radix's [text 
 ## Basic Example
 
 ```python demo
-rdx.text_area(
+rx.text_area(
     placeholder="Type here...",
 )
 ```
@@ -27,8 +26,8 @@ class TextAreaBlur(rx.State):
 
 def blur_example():
     return rx.vstack(
-        rdx.heading(TextAreaBlur.text),
-        rdx.text_area(
+        rx.heading(TextAreaBlur.text),
+        rx.text_area(
             on_blur=TextAreaBlur.set_text,
         ),
     )
@@ -42,12 +41,12 @@ class TextAreaControlled(rx.State):
 
 def controlled_example():
     return rx.vstack(
-        rdx.heading(TextAreaControlled.text),
-        rdx.text_area(
+        rx.heading(TextAreaControlled.text),
+        rx.text_area(
             value=TextAreaControlled.text,
             on_change=TextAreaControlled.set_text,
         ),
-        rdx.text_area(
+        rx.text_area(
             value="Simon says: " + TextAreaControlled.text,
         ),
     )
@@ -56,18 +55,18 @@ def controlled_example():
 # Real World Example
 
 ```python demo
-rdx.card(
-    rdx.flex(
-        rdx.text("Are you enjoying Reflex?"),
-        rdx.text_area(placeholder="Write your feedback…"),
-        rdx.flex(
-            rdx.text("Attach screenshot?", size="2"),
-            rdx.switch(size="1", default_checked=True),
+rx.card(
+    rx.flex(
+        rx.text("Are you enjoying Reflex?"),
+        rx.text_area(placeholder="Write your feedback…"),
+        rx.flex(
+            rx.text("Attach screenshot?", size="2"),
+            rx.switch(size="1", default_checked=True),
             justify="between",
         ),
-        rdx.grid(
-            rdx.button("Back", variant="surface"),
-            rdx.button("Send"),
+        rx.grid(
+            rx.button("Back", variant="surface"),
+            rx.button("Send"),
             columns="2",
             gap="2",
         ),

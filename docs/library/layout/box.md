@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Box
@@ -17,12 +16,12 @@ By default, the Box component is based on the `div` and rendered as a block elem
 ## Basic Example
 
 ```python demo
-rdx.box(
-    rdx.box("CSS color", background_color="yellow", border_radius="2px", width="20%", margin="4px", padding="4px"),
-    rdx.box("CSS color", background_color="orange", border_radius="5px", width="40%", margin="8px", padding="8px"),
-    rdx.box("Radix Color", background_color="var(--tomato-3)", border_radius="5px", width="60%", margin="12px", padding="12px"),
-    rdx.box("Radix Color", background_color="var(--plum-3)", border_radius="10px", width="80%", margin="16px", padding="16px"),
-    rdx.box("Radix Theme Color", background_color="var(--accent-2)", radius="full", width="100%", margin="24px", padding="25px"),
+rx.box(
+    rx.box("CSS color", background_color="yellow", border_radius="2px", width="20%", margin="4px", padding="4px"),
+    rx.box("CSS color", background_color="orange", border_radius="5px", width="40%", margin="8px", padding="8px"),
+    rx.box("Radix Color", background_color="var(--tomato-3)", border_radius="5px", width="60%", margin="12px", padding="12px"),
+    rx.box("Radix Color", background_color="var(--plum-3)", border_radius="10px", width="80%", margin="16px", padding="16px"),
+    rx.box("Radix Theme Color", background_color="var(--accent-2)", radius="full", width="100%", margin="24px", padding="25px"),
     flex_grow="1",
     text_align="center",
 )
@@ -35,11 +34,11 @@ To set a background [image](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS
 use the [`background` CSS prop](https://developer.mozilla.org/en-US/docs/Web/CSS/background).
 
 ```python demo
-rdx.flex(
-    rdx.box(background="linear-gradient(45deg, var(--tomato-9), var(--plum-9))", width="20%", height="100%"),
-    rdx.box(background="linear-gradient(red, yellow, blue, orange)", width="20%", height="100%"),
-    rdx.box(background="radial-gradient(at 0% 30%, red 10px, yellow 30%, #1e90ff 50%)", width="20%", height="100%"),
-    rdx.box(background="center/cover url('/reflex_banner.png')", width="20%", height="100%"),
+rx.flex(
+    rx.box(background="linear-gradient(45deg, var(--tomato-9), var(--plum-9))", width="20%", height="100%"),
+    rx.box(background="linear-gradient(red, yellow, blue, orange)", width="20%", height="100%"),
+    rx.box(background="radial-gradient(at 0% 30%, red 10px, yellow 30%, #1e90ff 50%)", width="20%", height="100%"),
+    rx.box(background="center/cover url('/reflex_banner.png')", width="20%", height="100%"),
     gap="2",
     width="100%",
     height="10vh",

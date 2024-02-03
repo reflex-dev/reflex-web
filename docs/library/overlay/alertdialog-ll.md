@@ -11,7 +11,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 
@@ -64,22 +63,22 @@ rx.alert_dialog.root(
 
 
 ```python demo
-rdx.alert_dialog.root(
-    rdx.alert_dialog.trigger(
-        rdx.button("Revoke access", color_scheme="red"),
+rx.alert_dialog.root(
+    rx.alert_dialog.trigger(
+        rx.button("Revoke access", color_scheme="red"),
     ),
-    rdx.alert_dialog.content(
-        rdx.alert_dialog.title("Revoke access"),
-        rdx.alert_dialog.description(
+    rx.alert_dialog.content(
+        rx.alert_dialog.title("Revoke access"),
+        rx.alert_dialog.description(
             "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
             size="2",
         ),
-        rdx.flex(
-            rdx.alert_dialog.cancel(
-                rdx.button("Cancel", variant="soft", color_scheme="gray"),
+        rx.flex(
+            rx.alert_dialog.cancel(
+                rx.button("Cancel", variant="soft", color_scheme="gray"),
             ),
-            rdx.alert_dialog.action(
-                rdx.button("Revoke access", color_scheme="red", variant="solid"),
+            rx.alert_dialog.action(
+                rx.button("Revoke access", color_scheme="red", variant="solid"),
             ),
             gap="3",
             margin_top="16px",
@@ -94,35 +93,35 @@ Use the `inset` component to align content flush with the sides of the dialog.
 
 
 ```python demo
-rdx.alert_dialog.root(
-    rdx.alert_dialog.trigger(
-        rdx.button("Delete Users", color_scheme="red"),
+rx.alert_dialog.root(
+    rx.alert_dialog.trigger(
+        rx.button("Delete Users", color_scheme="red"),
     ),
-    rdx.alert_dialog.content(
-        rdx.alert_dialog.title("Delete Users"),
-        rdx.alert_dialog.description(
+    rx.alert_dialog.content(
+        rx.alert_dialog.title("Delete Users"),
+        rx.alert_dialog.description(
             "Are you sure you want to delete these users? This action is permanent and cannot be undone.",
             size="2",
         ),
-        rdx.inset(
-            rdx.table.root(
-                rdx.table.header(
-                    rdx.table.row(
-                        rdx.table.column_header_cell("Full Name"),
-                        rdx.table.column_header_cell("Email"),
-                        rdx.table.column_header_cell("Group"),
+        rx.inset(
+            rx.table.root(
+                rx.table.header(
+                    rx.table.row(
+                        rx.table.column_header_cell("Full Name"),
+                        rx.table.column_header_cell("Email"),
+                        rx.table.column_header_cell("Group"),
                     ),
                 ),
-                rdx.table.body(
-                    rdx.table.row(
-                        rdx.table.row_header_cell("Danilo Rosa"),
-                        rdx.table.cell("danilo@example.com"),
-                        rdx.table.cell("Developer"),
+                rx.table.body(
+                    rx.table.row(
+                        rx.table.row_header_cell("Danilo Rosa"),
+                        rx.table.cell("danilo@example.com"),
+                        rx.table.cell("Developer"),
                     ),
-                    rdx.table.row(
-                        rdx.table.row_header_cell("Zahra Ambessa"),
-                        rdx.table.cell("zahra@example.com"),
-                        rdx.table.cell("Admin"),
+                    rx.table.row(
+                        rx.table.row_header_cell("Zahra Ambessa"),
+                        rx.table.cell("zahra@example.com"),
+                        rx.table.cell("Admin"),
                     ),
                 ),
             ),
@@ -130,12 +129,12 @@ rdx.alert_dialog.root(
             margin_top="24px",
             margin_bottom="24px",
         ),
-        rdx.flex(
-            rdx.alert_dialog.cancel(
-                rdx.button("Cancel", variant="soft", color_scheme="gray"),
+        rx.flex(
+            rx.alert_dialog.cancel(
+                rx.button("Cancel", variant="soft", color_scheme="gray"),
             ),
-            rdx.alert_dialog.action(
-                rdx.button("Delete users", color_scheme="red"),
+            rx.alert_dialog.action(
+                rx.button("Delete users", color_scheme="red"),
             ),
             gap="3",
             justify="end",

@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Inset
@@ -17,13 +16,13 @@ Applies a negative margin to allow content to bleed into the surrounding contain
 Nesting an Inset component inside a Card will render the content from edge to edge of the card.
 
 ```python demo
-rdx.card(
-    rdx.inset(
+rx.card(
+    rx.inset(
         rx.image(src="/reflex_banner.png", width="100%", height="auto"),
         side="top",
         pb="current",
     ),
-    rdx.text("Reflex is a web framework that allows developers to build their app in pure Python."),
+    rx.text("Reflex is a web framework that allows developers to build their app in pure Python."),
     width="25vw",
 )
 ```
@@ -35,9 +34,9 @@ it is helpful to set the padding for the opposite side to `current` to retain th
 content would have had if it went to the edge of the parent component.
 
 ```python demo
-rdx.card(
-    rdx.text("The inset below uses a bottom side."),
-    rdx.inset(
+rx.card(
+    rx.text("The inset below uses a bottom side."),
+    rx.inset(
         rx.image(src="/reflex_banner.png", width="100%", height="auto"),
         side="bottom",
         pt="current",
@@ -47,11 +46,11 @@ rdx.card(
 ```
 
 ```python demo
-rdx.card(
-    rdx.flex(
-        rdx.text("This inset uses a right side, which requires a flex with direction row."),
-        rdx.inset(
-            rdx.box(background="center/cover url('/reflex_banner.png')", height="100%"),
+rx.card(
+    rx.flex(
+        rx.text("This inset uses a right side, which requires a flex with direction row."),
+        rx.inset(
+            rx.box(background="center/cover url('/reflex_banner.png')", height="100%"),
             width="100%",
             side="right",
             pl="current",
@@ -64,15 +63,15 @@ rdx.card(
 ```
 
 ```python demo
-rdx.card(
-    rdx.flex(
-        rdx.inset(
-            rdx.box(background="center/cover url('/reflex_banner.png')", height="100%"),
+rx.card(
+    rx.flex(
+        rx.inset(
+            rx.box(background="center/cover url('/reflex_banner.png')", height="100%"),
             width="100%",
             side="left",
             pr="current",
         ),
-        rdx.text("This inset uses a left side, which also requires a flex with direction row."),
+        rx.text("This inset uses a left side, which also requires a flex with direction row."),
         direction="row",
         width="100%",
     ),

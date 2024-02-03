@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 from reflex.components.core import *
 ```
 
@@ -21,12 +20,12 @@ which contains all the contents of the collapsible section.
 ## Basic Example
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+    rx.accordion.item(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     width="300px",
 )
 ```
@@ -38,12 +37,12 @@ We use the `type_` prop to determine whether multiple items can be opened at onc
 `single` and `multiple` where `single` will only open one item at a time. The default value for this prop is `single`.
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+    rx.accordion.item(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
     type_="multiple",
@@ -56,21 +55,21 @@ We use the `default_value` prop to specify which item should open by default. Th
 unique values set by an `accordion.item`.
 
 ```python demo
-rdx.flex(
-    rdx.accordion.root(
-        rdx.accordion.item(
+rx.flex(
+    rx.accordion.root(
+        rx.accordion.item(
             "First Item",
             "The first accordion item's content",
             font_size="3em",
             value="item_1",
         ),
-        rdx.accordion.item(
+        rx.accordion.item(
             "Second Item",
             "The second accordion item's content",
             font_size="3em",
             value="item_2",
         ),
-        rdx.accordion.item(
+        rx.accordion.item(
             "Third item",
             "The third accordion item's content",
             font_size="3em",
@@ -89,18 +88,18 @@ rdx.flex(
 We use the `collapsible` prop to allow all items to close. If set to `False`, an opened item cannot be closed.
 
 ```python demo
-rdx.flex(
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+rx.flex(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         width="300px",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=False,
         width="300px",
     ),
@@ -114,10 +113,10 @@ rdx.flex(
 We use the `disabled` prop to prevent interaction with the accordion and all its items.
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-    rdx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+rx.accordion.root(
+    rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+    rx.accordion.item("Second Item", "The second accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
     disabled=True,
@@ -134,12 +133,12 @@ functional orientation of the accordion. This means that for vertical orientatio
 while for horizontal orientation, the left or right arrow keys moves focus between items.
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+    rx.accordion.item(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
     orientation="vertical",
@@ -147,12 +146,12 @@ rdx.accordion.root(
 ```
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+    rx.accordion.item(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
     orientation="horizontal",
@@ -163,49 +162,49 @@ rdx.accordion.root(
 ### Variant
 
 ```python demo
-rdx.flex(
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+rx.flex(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         variant="classic",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         variant="soft",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         variant="outline",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         variant="surface",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         variant="ghost",
     ),
@@ -221,23 +220,23 @@ We use the `color_scheme` prop to assign a specific color to the accordion backg
 are two color schemes for the accordion: `primary` and `accent`. The default color scheme is `primary`
 
 ```python demo
-rdx.flex(
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+rx.flex(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         width="300px",
         color_scheme="primary",
     ),
-    rdx.accordion.root(
-        rdx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
-        rdx.accordion.item(
+    rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
             "Second Item", "The second accordion item's content", font_size="3em"
         ),
-        rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         width="300px",
         color_scheme="accent",
@@ -266,23 +265,23 @@ class AccordionState(rx.State):
 
 
 def index() -> rx.Component:
-    return rdx.theme(
-        rdx.container(
-            rdx.text(AccordionState.item_selected),
-            rdx.flex(
-                rdx.accordion.root(
-                    rdx.accordion.item(
+    return rx.theme(
+        rx.container(
+            rx.text(AccordionState.item_selected),
+            rx.flex(
+                rx.accordion.root(
+                    rx.accordion.item(
                         "Is it accessible?",
-                        rdx.button("Test button"),
+                        rx.button("Test button"),
                         font_size="3em",
                         value="item_1",
                     ),
-                    rdx.accordion.item(
+                    rx.accordion.item(
                         "Is it unstyled?",
                         "Yes. It's unstyled by default, giving you freedom over the look and feel.",
                         value="item_2",
                     ),
-                    rdx.accordion.item(
+                    rx.accordion.item(
                         "Is it finished?",
                         "It's still in beta, but it's ready to use in production.",
                         value="item_3",
@@ -313,20 +312,20 @@ The accordion item contains all the parts of a collapsible section.
 ### Value
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item(
         "First Item",
         "The first accordion item's content",
         font_size="3em",
         value="item_1",
     ),
-    rdx.accordion.item(
+    rx.accordion.item(
         "Second Item",
         "The second accordion item's content",
         font_size="3em",
         value="item_2",
     ),
-    rdx.accordion.item(
+    rx.accordion.item(
         "Third item",
         "The third accordion item's content",
         font_size="3em",
@@ -340,17 +339,17 @@ rdx.accordion.root(
 ### Disable
 
 ```python demo
-rdx.accordion.root(
-    rdx.accordion.item(
+rx.accordion.root(
+    rx.accordion.item(
         "First Item",
         "The first accordion item's content",
         font_size="3em",
         disabled=True,
     ),
-    rdx.accordion.item(
+    rx.accordion.item(
         "Second Item", "The second accordion item's content", font_size="3em"
     ),
-    rdx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+    rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
     color_scheme="primary",

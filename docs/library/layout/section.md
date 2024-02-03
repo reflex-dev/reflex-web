@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Section
@@ -17,17 +16,17 @@ Primarily this is a semantic component that is used to group related textual con
 ## Basic Example
 
 ```python demo
-rdx.box(
-    rdx.section(
-        rdx.heading("First"),
-        rdx.text("This is the first content section"),
+rx.box(
+    rx.section(
+        rx.heading("First"),
+        rx.text("This is the first content section"),
         padding_left="12px",
         padding_right="12px",
         background_color="var(--gray-2)",
     ),
-    rdx.section(
-        rdx.heading("Second"),
-        rdx.text("This is the second content section"),
+    rx.section(
+        rx.heading("Second"),
+        rx.text("This is the second content section"),
         padding_left="12px",
         padding_right="12px",
         background_color="var(--gray-2)",

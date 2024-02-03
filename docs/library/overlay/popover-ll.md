@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Popover
@@ -48,23 +47,23 @@ rx.popover.root(
 
 ```python demo
 
-rdx.popover.root(
-    rdx.popover.trigger(
-        rdx.button("Comment", variant="soft"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Comment", variant="soft"),
     ),
-    rdx.popover.content(
-        rdx.flex(
-            rdx.avatar(
+    rx.popover.content(
+        rx.flex(
+            rx.avatar(
                 "2",
                 fallback="RX",
                 radius="full"
             ),
-            rdx.box(
-                rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
-                rdx.flex(
-                    rdx.checkbox("Send to group"),
-                    rdx.popover.close(
-                        rdx.button("Comment", size="1")
+            rx.box(
+                rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                rx.flex(
+                    rx.checkbox("Send to group"),
+                    rx.popover.close(
+                        rx.button("Comment", size="1")
                     ),
                     gap="3",
                     margin_top="12px",
@@ -80,22 +79,22 @@ rdx.popover.root(
 ```
 
 ```python demo
-rdx.popover.root(
-    rdx.popover.trigger(
-        rdx.button("Feedback", variant="classic"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Feedback", variant="classic"),
     ),
-    rdx.popover.content(
-        rdx.inset(
+    rx.popover.content(
+        rx.inset(
             side="top",
             background="url('https://source.unsplash.com/random/800x600') center/cover",
             height="100px",
         ),
-        rdx.box(
-            rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
-            rdx.flex(
-                rdx.checkbox("Send to group"),
-                rdx.popover.close(
-                    rdx.button("Comment", size="1")
+        rx.box(
+            rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+            rx.flex(
+                rx.checkbox("Send to group"),
+                rx.popover.close(
+                    rx.button("Comment", size="1")
                 ),
                 gap="3",
                 margin_top="12px",

@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 from pcweb.pages.docs import library
 ```
 
@@ -22,7 +21,7 @@ The `input` component is an input field that users can type into.
 ## Basic Example
 
 ```python demo
-rdx.input(icon="magnifying_glass")
+rx.input(icon="magnifying_glass")
 ```
 
 Can set an `icon` for the `input` component using the `icon` prop. 
@@ -35,7 +34,7 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rdx.input(icon="magnifying_glass", placeholder="Search here...", max_length="20")
+rx.input(icon="magnifying_glass", placeholder="Search here...", max_length="20")
 ```
 
 
@@ -53,8 +52,8 @@ class TextfieldBlur(rx.State):
 
 def blur_example():
     return rx.vstack(
-        rdx.heading(TextfieldBlur.text),
-        rdx.input(
+        rx.heading(TextfieldBlur.text),
+        rx.input(
             icon="magnifying_glass", 
             placeholder="Search here...", 
             on_blur=TextfieldBlur.set_text,
@@ -72,8 +71,8 @@ class TextfieldControlled(rx.State):
 
 def controlled_example():
     return rx.vstack(
-        rdx.heading(TextfieldControlled.text),
-        rdx.input(
+        rx.heading(TextfieldControlled.text),
+        rx.input(
             icon="magnifying_glass", 
             placeholder="Search here...", 
             value=TextfieldControlled.text,
@@ -109,17 +108,17 @@ def form_input1():
     return rx.vstack(
         rx.form.root(
             rx.vstack(
-                rdx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
-                rdx.button("Submit", type_="submit"),
+                rx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
+                rx.button("Submit", type_="submit"),
                 width="100%",
             ),
             on_submit=FormInputState.handle_submit,
             reset_on_submit=True,
             width="100%",
         ),
-        rdx.separator(width="100%"),
-        rdx.heading("Results"),
-        rdx.text(FormInputState.form_data.to_string()),
+        rx.separator(width="100%"),
+        rx.heading("Results"),
+        rx.text(FormInputState.form_data.to_string()),
         width="100%",
     )
 ```
@@ -132,12 +131,12 @@ To learn more about how to use forms in the [Form]({library.forms.form.path}) do
 ```python demo exec
 
 def song(title, initials: str, genre: str):
-    return rdx.card(rdx.flex(
-        rdx.flex(
-            rdx.avatar(fallback=initials),
-            rdx.flex(
-                rdx.text(title, size="2", weight="bold"),
-                rdx.text(genre, size="1", color_scheme="gray"),
+    return rx.card(rx.flex(
+        rx.flex(
+            rx.avatar(fallback=initials),
+            rx.flex(
+                rx.text(title, size="2", weight="bold"),
+                rx.text(genre, size="1", color_scheme="gray"),
                 direction="column",
                 gap="1",
             ),
@@ -145,8 +144,8 @@ def song(title, initials: str, genre: str):
             align_items="left",
             gap="1",
         ),
-        rdx.flex(
-            rdx.icon(tag="chevron_right"),
+        rx.flex(
+            rx.icon(tag="chevron_right"),
             align_items="center",
         ),
         justify="between",
@@ -154,10 +153,10 @@ def song(title, initials: str, genre: str):
 
 
 def search():
-    return rdx.card(
-    rdx.flex(
-        rdx.input(icon="magnifying_glass", placeholder="Search songs...", ),
-        rdx.flex(
+    return rx.card(
+    rx.flex(
+        rx.input(icon="magnifying_glass", placeholder="Search songs...", ),
+        rx.flex(
             song("The Less I Know", "T", "Rock"),
             song("Breathe Deeper", "ZB", "Rock"),
             song("Let It Happen", "TF", "Rock"),

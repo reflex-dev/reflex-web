@@ -16,7 +16,7 @@ from reflex.components.radix.themes.components import *
 from reflex.components.radix.themes.layout import *
 from reflex.components.radix.themes.typography import *
 
-rdx = rx.radix
+
 
 
 @rx.memo
@@ -711,9 +711,9 @@ class RadixDocState(rx.State):
 
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
-    return rdx.hover_card.root(
-        rdx.hover_card.trigger(rdx.flex(component)),
-        rdx.hover_card.content(
+    return rx.hover_card.root(
+        rx.hover_card.trigger(rx.flex(component)),
+        rx.hover_card.content(
             rx.code_block(f"{component_str}", can_copy=True, language="python"),
         ),
     )
@@ -883,13 +883,13 @@ def style_grid(
             rows=str(len(variants) + 1),
             gap="3",
         ),
-        rdx.select.root(
-            rdx.select.trigger(rdx.button(size="2", on_click=RadixDocState.change_color())),
-            rdx.select.content(
-                rdx.select.group(
-                    rdx.select.label("Colors"),
+        rx.select.root(
+            rx.select.trigger(rx.button(size="2", on_click=RadixDocState.change_color())),
+            rx.select.content(
+                rx.select.group(
+                    rx.select.label("Colors"),
                     *[
-                        rdx.select.item(
+                        rx.select.item(
                             color,
                             value=color,
                             _hover={"background": f"var(--{color}-9)"},

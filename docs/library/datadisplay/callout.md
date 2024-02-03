@@ -9,7 +9,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Callout
@@ -17,7 +16,7 @@ rdx = rx.radix
 A `callout` is a short message to attract user's attention.
 
 ```python demo
-rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled")
+rx.callout("You will need admin privileges to install and access this application.", icon="info_circled")
 ```
 
 The `icon` prop allows an icon to be passed to the `callout` component. See the [**icon** component for all icons that are available.](/docs/library/radix/datadisplay/icon)
@@ -25,7 +24,7 @@ The `icon` prop allows an icon to be passed to the `callout` component. See the 
 ## As alert
 
 ```python demo
-rdx.callout("Access denied. Please contact the network administrator to view this page.", icon="exclamation_triangle", color_scheme="red", role="alert")
+rx.callout("Access denied. Please contact the network administrator to view this page.", icon="exclamation_triangle", color_scheme="red", role="alert")
 ```
 
 
@@ -37,10 +36,10 @@ rdx.callout("Access denied. Please contact the network administrator to view thi
 Use the `size` prop to control the size.
 
 ```python demo
-rdx.flex(
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="3",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="2",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="1",),
+rx.flex(
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="3",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="2",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", size="1",),
     direction="column",
     gap="3",
     align="start",
@@ -52,10 +51,10 @@ rdx.flex(
 Use the `variant` prop to control the visual style. It is set to `soft` by default.
 
 ```python demo
-rdx.flex(
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="soft",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="surface",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="outline",),
+rx.flex(
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="soft",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="surface",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", variant="outline",),
     direction="column",
     gap="3",
 )
@@ -67,10 +66,10 @@ Use the `color_scheme` prop to assign a specific color, ignoring the global them
 
 
 ```python demo
-rdx.flex(
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="blue",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="green",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="red",),
+rx.flex(
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="blue",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="green",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", color_scheme="red",),
     direction="column",
     gap="3",
 )
@@ -83,9 +82,9 @@ Use the `high_contrast` prop to add additional contrast.
 
 
 ```python demo
-rdx.flex(
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled",),
-    rdx.callout("You will need admin privileges to install and access this application.", icon="info_circled", high_contrast=True,),
+rx.flex(
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled",),
+    rx.callout("You will need admin privileges to install and access this application.", icon="info_circled", high_contrast=True,),
     direction="column",
     gap="3",
 )

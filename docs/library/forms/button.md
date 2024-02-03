@@ -6,7 +6,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
  
@@ -17,14 +16,14 @@ Buttons are essential elements in your application's user interface that users c
 ## Basic Example
 
 ```python demo
-rdx.button("Click me")
+rx.button("Click me")
 ```
 
 ### With Icon
 
 ```python demo
-rdx.button(
-    rdx.icon(tag="heart"),
+rx.button(
+    rx.icon(tag="heart"),
     "Like",
     color_scheme="red",
 )
@@ -37,9 +36,9 @@ rdx.button(
 The `disabled` prop disables the button, by default it is `False`.  A disabled button does not respond to user interactions such as click and cannot be focused.
 
 ```python demo
-rdx.flex(
-    rdx.button("Enabled"),
-    rdx.button("Disabled", disabled=True),
+rx.flex(
+    rx.button("Enabled"),
+    rx.button("Disabled", disabled=True),
     gap="2",
 )
 ```
@@ -51,7 +50,7 @@ rdx.flex(
 The `on_click` trigger is called when the button is clicked.
 
 ```python demo
-rdx.button("Click me", on_click=rx.window_alert("Clicked!"))
+rx.button("Click me", on_click=rx.window_alert("Clicked!"))
 ```
 
 ## Real World Example
@@ -67,14 +66,14 @@ class CountState(rx.State):
         self.count -= 1
 
 def counter():
-    return rdx.flex(
-        rdx.button(
+    return rx.flex(
+        rx.button(
             "Decrement",
             color_scheme="red",
             on_click=CountState.decrement,
         ),
-        rdx.heading(CountState.count),
-        rdx.button(
+        rx.heading(CountState.count),
+        rx.button(
             "Increment",
             color_scheme="grass",
             on_click=CountState.increment,

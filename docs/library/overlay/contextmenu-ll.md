@@ -13,7 +13,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # ContextMenu
@@ -32,62 +31,62 @@ The `contextmenu_separator` is used to visually separate items in a context menu
 
 
 ```python demo
-rdx.context_menu.root(
-    rdx.context_menu.trigger(
-       rdx.button("Right click me"),
+rx.context_menu.root(
+    rx.context_menu.trigger(
+       rx.button("Right click me"),
     ),
-    rdx.context_menu.content(
-        rdx.context_menu.item("Edit", shortcut="⌘ E"),
-        rdx.context_menu.item("Duplicate", shortcut="⌘ D"),
-        rdx.context_menu.separator(),
-        rdx.context_menu.item("Archive", shortcut="⌘ N"),
-        rdx.context_menu.sub(
-            rdx.context_menu.sub_trigger("More"),
-            rdx.context_menu.sub_content(
-                rdx.context_menu.item("Move to project…"),
-                rdx.context_menu.item("Move to folder…"),
-                rdx.context_menu.separator(),
-                rdx.context_menu.item("Advanced options…"),
+    rx.context_menu.content(
+        rx.context_menu.item("Edit", shortcut="⌘ E"),
+        rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Archive", shortcut="⌘ N"),
+        rx.context_menu.sub(
+            rx.context_menu.sub_trigger("More"),
+            rx.context_menu.sub_content(
+                rx.context_menu.item("Move to project…"),
+                rx.context_menu.item("Move to folder…"),
+                rx.context_menu.separator(),
+                rx.context_menu.item("Advanced options…"),
             ),
         ),
-        rdx.context_menu.separator(),
-        rdx.context_menu.item("Share"),
-        rdx.context_menu.item("Add to favorites"),
-        rdx.context_menu.separator(),
-        rdx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Share"),
+        rx.context_menu.item("Add to favorites"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
     ),
 )
 ```
 
 
 ```python demo
-rdx.grid(
-    rdx.context_menu.root(
-        rdx.context_menu.trigger(
-            rdx.button("Right click me"),
+rx.grid(
+    rx.context_menu.root(
+        rx.context_menu.trigger(
+            rx.button("Right click me"),
         ),
-        rdx.context_menu.content(
-            rdx.context_menu.item("Edit", shortcut="⌘ E"),
-            rdx.context_menu.item("Duplicate", shortcut="⌘ D"),
-            rdx.context_menu.separator(),
-            rdx.context_menu.item("Archive", shortcut="⌘ N"),
-            rdx.context_menu.separator(),
-            rdx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red",
+        rx.context_menu.content(
+            rx.context_menu.item("Edit", shortcut="⌘ E"),
+            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Archive", shortcut="⌘ N"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red",
             ),
             size="1",
         ),
     ),
-    rdx.context_menu.root(
-        rdx.context_menu.trigger(
-             rdx.button("Right click me"),
+    rx.context_menu.root(
+        rx.context_menu.trigger(
+             rx.button("Right click me"),
         ),
-        rdx.context_menu.content(
-            rdx.context_menu.item("Edit", shortcut="⌘ E"),
-            rdx.context_menu.item("Duplicate", shortcut="⌘ D"),
-            rdx.context_menu.separator(),
-            rdx.context_menu.item("Archive", shortcut="⌘ N"),
-            rdx.context_menu.separator(),
-            rdx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"
+        rx.context_menu.content(
+            rx.context_menu.item("Edit", shortcut="⌘ E"),
+            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Archive", shortcut="⌘ N"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"
             ),
             size="2",
         ),

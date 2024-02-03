@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 
@@ -19,24 +18,24 @@ They facilitate the organization and navigation between sets of content that sha
 ## Basic Example
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"), 
-        rdx.tabs.trigger("Tab 2", value="tab2")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"), 
+        rx.tabs.trigger("Tab 2", value="tab2")
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 1"),
+    rx.tabs.content(
+        rx.text("item on tab 1"),
         value="tab1",
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 2"),
+    rx.tabs.content(
+        rx.text("item on tab 2"),
         value="tab2",
     ),
 )
 
 ```
 
-The `tabs` component is made up of a `rdx.tabs.root` which groups `rdx.tabs.list` and `rdx.tabs.content` parts.
+The `tabs` component is made up of a `rx.tabs.root` which groups `rx.tabs.list` and `rx.tabs.content` parts.
 
 ## Styling
 
@@ -44,17 +43,17 @@ The `tabs` component is made up of a `rdx.tabs.root` which groups `rdx.tabs.list
 We use the `default_value` prop to set a default active tab, this will select the specified tab by default.
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2")
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 1"),
+    rx.tabs.content(
+        rx.text("item on tab 1"),
         value="tab1",
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 2"),
+    rx.tabs.content(
+        rx.text("item on tab 2"),
         value="tab2",
     ),
     default_value="tab2",
@@ -68,17 +67,17 @@ functional orientation. This means for vertical orientation, the up and down arr
 while for horizontal orientation, the left and right arrow keys moves focus between tabs.
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2")
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 1"),
+    rx.tabs.content(
+        rx.text("item on tab 1"),
         value="tab1",
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 2"),
+    rx.tabs.content(
+        rx.text("item on tab 2"),
         value="tab2",
     ),
     default_value="tab1",
@@ -87,17 +86,17 @@ rdx.tabs.root(
 ```
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2")
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 1"),
+    rx.tabs.content(
+        rx.text("item on tab 1"),
         value="tab1",
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 2"),
+    rx.tabs.content(
+        rx.text("item on tab 2"),
         value="tab2",
     ),
     default_value="tab1",
@@ -120,21 +119,21 @@ class TabsState(rx.State):
 
 
 def index() -> rx.Component:
-    return rdx.theme(
-        rdx.container(
-            rdx.flex(
-                rdx.text(f"{TabsState.value}  clicked !"),
-                rdx.tabs.root(
-                    rdx.tabs.list(
-                        rdx.tabs.trigger("Tab 1", value="tab1"),
-                        rdx.tabs.trigger("Tab 2", value="tab2"),
+    return rx.theme(
+        rx.container(
+            rx.flex(
+                rx.text(f"{TabsState.value}  clicked !"),
+                rx.tabs.root(
+                    rx.tabs.list(
+                        rx.tabs.trigger("Tab 1", value="tab1"),
+                        rx.tabs.trigger("Tab 2", value="tab2"),
                     ),
-                    rdx.tabs.content(
-                         rdx.text("items on tab 1"),
+                    rx.tabs.content(
+                         rx.text("items on tab 1"),
                         value="tab1",
                     ),
-                    rdx.tabs.content(
-                        rdx.text("items on tab 2"),
+                    rx.tabs.content(
+                        rx.text("items on tab 2"),
                         value="tab2",
                     ),
                     default_value="tab1",
@@ -165,11 +164,11 @@ This is the button that activates the tab's associated content. It is typically 
 We use the `value` prop to assign a unique value that associates the trigger with content.
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2"),
-        rdx.tabs.trigger("Tab 3", value="tab3")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2"),
+        rx.tabs.trigger("Tab 3", value="tab3")
     ),
 )
 ```
@@ -178,11 +177,11 @@ rdx.tabs.root(
 We use the `disabled` prop to disable the tab.
 
 ```python demo 
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2"),
-        rdx.tabs.trigger("Tab 3", value="tab3", disabled=True)
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2"),
+        rx.tabs.trigger("Tab 3", value="tab3", disabled=True)
     ),
 )
 ```
@@ -196,17 +195,17 @@ Contains the content associated with each trigger.
 We use the `value` prop to assign a unique value that associates the content with a trigger.
 
 ```python
-rdx.tabs.root(
-    rdx.tabs.list(
-        rdx.tabs.trigger("Tab 1", value="tab1"),
-        rdx.tabs.trigger("Tab 2", value="tab2")
+rx.tabs.root(
+    rx.tabs.list(
+        rx.tabs.trigger("Tab 1", value="tab1"),
+        rx.tabs.trigger("Tab 2", value="tab2")
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 1"),
+    rx.tabs.content(
+        rx.text("item on tab 1"),
         value="tab1",
     ),
-    rdx.tabs.content(
-        rdx.text("item on tab 2"),
+    rx.tabs.content(
+        rx.text("item on tab 2"),
         value="tab2",
     ),
     default_value="tab1",

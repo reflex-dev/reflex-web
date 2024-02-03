@@ -14,7 +14,6 @@ components:
 ```python exec
 import random
 import reflex as rx
-rdx = rx.radix
 import reflex.components.radix.primitives as rdxp
 from pcweb.templates.docpage import style_grid
 ```
@@ -26,7 +25,7 @@ Displays a list of options for the user to pick from—triggered by a button.
 ## Basic Example
 
 ```python demo
-rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"])
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"])
 ```
 
 
@@ -37,7 +36,7 @@ rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"])
 To prevent the user from interacting with select, set the `disabled` prop to `True`.
 
 ```python demo
-rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], disabled=True)
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], disabled=True)
 ```
 
 
@@ -52,14 +51,14 @@ Can set the `label` prop, which is a label in the `select`.
 
 
 ```python demo
-rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], placeholder="Selection of Fruits", label="Fruits")
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], placeholder="Selection of Fruits", label="Fruits")
 ```
 
 Can set the `default_value` prop, which is the value of the `select` when initially rendered.
 
 
 ```python demo
-rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], default_value="Orange")
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], default_value="Orange")
 ```
 
 
@@ -70,7 +69,7 @@ Can set the `color`, `variant` and `radius` to easily style the `select`.
 
 
 ```python demo
-rdx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%")
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%")
 ```
 
 
@@ -95,12 +94,12 @@ class SelectState3(rx.State):
 
 def select_example3():
     return rx.vstack(
-        rdx.select(
+        rx.select(
             SelectState3.values,
             value=SelectState3.value,
             on_change=SelectState3.set_value,
         ),
-        rdx.button("Change Value", on_click=SelectState3.change_value),
+        rx.button("Change Value", on_click=SelectState3.change_value),
         
     )
 ```
@@ -109,7 +108,7 @@ def select_example3():
 The `on_open_change` event handler acts in a similar way to the `on_change` and is called when the open state of the select changes.
 
 ```python demo
-rdx.select(
+rx.select(
     ["apple", "grape", "pear"],
     on_change=rx.window_alert("on_change event handler called"),
 )
@@ -139,21 +138,21 @@ def form_select1():
     return rx.vstack(
         rx.form.root(
             rx.vstack(
-                rdx.select(
+                rx.select(
                     ["apple", "grape", "pear"],
                     default_value="apple",
                     name="select",
                 ),
-                rdx.button("Submit", type_="submit"),
+                rx.button("Submit", type_="submit"),
                 width="100%",
             ),
             on_submit=FormSelectState1.handle_submit,
             reset_on_submit=True,
             width="100%",
         ),
-        rdx.separator(width="100%"),
-        rdx.heading("Results"),
-        rdx.text(FormSelectState1.form_data.to_string()),
+        rx.separator(width="100%"),
+        rx.heading("Results"),
+        rx.text(FormSelectState1.form_data.to_string()),
         width="100%",
     )
 ```
@@ -166,31 +165,31 @@ def form_select1():
 
 
 ```python demo
-rdx.card(
+rx.card(
     rx.vstack(
         rx.image(src="/reflex_logo.png", width="100%", height="auto"),
-        rdx.flex(
-            rdx.heading("Reflex Swag", size="4", mb="1"),
-            rdx.heading("$99", size="6", mb="1"),
+        rx.flex(
+            rx.heading("Reflex Swag", size="4", mb="1"),
+            rx.heading("$99", size="6", mb="1"),
             direction="row", justify="between",
             width="100%",
         ),
-        rdx.text("Reflex swag with a sense of nostalgia, as if they carry whispered tales of past adventures", size="2", mb="1"),
-        rdx.separator(width="100%"),
-        rdx.flex(
-            rdx.flex(
-                rdx.text("Color", size="2", mb="1", color_scheme="gray"),
-                rdx.select(["light", "dark"], default_value="light"),
+        rx.text("Reflex swag with a sense of nostalgia, as if they carry whispered tales of past adventures", size="2", mb="1"),
+        rx.separator(width="100%"),
+        rx.flex(
+            rx.flex(
+                rx.text("Color", size="2", mb="1", color_scheme="gray"),
+                rx.select(["light", "dark"], default_value="light"),
                 direction="column",
             ),
-            rdx.flex(
-                rdx.text("Size", size="2", mb="1", color_scheme="gray"),
-                rdx.select(["24", "26", "28", "30", "32", "34", "36"], default_value="30"),
+            rx.flex(
+                rx.text("Size", size="2", mb="1", color_scheme="gray"),
+                rx.select(["24", "26", "28", "30", "32", "34", "36"], default_value="30"),
                 direction="column",
             ),
-            rdx.flex(
-                rdx.text(".", size="2",),
-                rdx.button("Add to cart"),
+            rx.flex(
+                rx.text(".", size="2",),
+                rx.button("Add to cart"),
                 direction="column",
             ),
             direction="row",

@@ -12,7 +12,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 import reflex.components.radix.primitives as rdxp
 ```
 
@@ -25,21 +24,21 @@ This implementation is based on the [Radix forms](https://www.radix-ui.com/primi
 Here is an example of a form collecting an email address, with built-in validation on the email. If email entered is invalid, the form cannot be submitted. Note that the `form.submit` button is not automatically disabled. It is still clickable, but does not submit the form data. After successful submission, an alert window shows up and the form is cleared. There are a few `flex` containers used in the example to control the layout of the form components.
 
 ```python demo
-rdx.form.root(
-    rdx.form.field(
-        rdx.flex(
-            rdx.form.label("Email"),
-            rdx.form.control(
-                rdx.text_field.input(
+rx.form.root(
+    rx.form.field(
+        rx.flex(
+            rx.form.label("Email"),
+            rx.form.control(
+                rx.text_field.input(
                     placeholder="Email Address",
                     # type attribute is required for "typeMismatch" validation
                     type="email",
                 ),
                 as_child=True,
             ),
-            rdx.form.message("Please enter a valid email", match="typeMismatch"),
-            rdx.form.submit(
-                  rdx.button("Submit"),
+            rx.form.message("Please enter a valid email", match="typeMismatch"),
+            rx.form.submit(
+                  rx.button("Submit"),
                   as_child=True,
             ),
             direction="column",
@@ -89,7 +88,6 @@ As previously mentioned, the various pieces of data in the form are submitted to
 
 ```python demo exec
 import reflex as rx
-rdx = rx.radix
 import reflex.components.radix.primitives as rdxp
 
 class RadixFormSubmissionState(rx.State):
@@ -109,36 +107,36 @@ class RadixFormSubmissionState(rx.State):
 
 
 def radix_form_submission_example():
-    return rdx.flex(
-        rdx.form.root(
-            rdx.flex(
-                rdx.flex(
-                    rdx.checkbox(
+    return rx.flex(
+        rx.form.root(
+            rx.flex(
+                rx.flex(
+                    rx.checkbox(
                         default_checked=True,
                         name="box1",
                     ),
-                    rdx.text("box1 checkbox"),
+                    rx.text("box1 checkbox"),
                     direction="row",
                     gap="2",
                     align="center",
                 ),
-                rdx.radio_group.root(
-                    rdx.flex(
-                        rdx.radio_group.item(value="1"),
+                rx.radio_group.root(
+                    rx.flex(
+                        rx.radio_group.item(value="1"),
                         "1",
                         direction="row",
                         align="center",
                         gap="2",
                     ),
-                    rdx.flex(
-                        rdx.radio_group.item(value="2"),
+                    rx.flex(
+                        rx.radio_group.item(value="2"),
                         "2",
                         direction="row",
                         align="center",
                         gap="2",
                     ),
-                    rdx.flex(
-                        rdx.radio_group.item(value="3"),
+                    rx.flex(
+                        rx.radio_group.item(value="3"),
                         "3",
                         direction="row",
                         align="center",
@@ -147,21 +145,21 @@ def radix_form_submission_example():
                     default_value="1",
                     name="box2",
                 ),
-                rdx.text_field.input(
+                rx.text_field.input(
                     placeholder="box3 textfield input",
                     name="box3",
                 ),
-                rdx.select.root(
-                    rdx.select.trigger(
+                rx.select.root(
+                    rx.select.trigger(
                         placeholder="box4 select",
                     ),
-                    rdx.select.content(
-                        rdx.select.group(
-                            rdx.select.item(
+                    rx.select.content(
+                        rx.select.group(
+                            rx.select.item(
                                 "Orange",
                                 value="orange"
                             ),
-                            rdx.select.item(
+                            rx.select.item(
                                 "Apple",
                                 value="apple"
                             ),
@@ -169,8 +167,8 @@ def radix_form_submission_example():
                     ),
                     name="box4",
                 ),
-                rdx.flex(
-                    rdx.switch(
+                rx.flex(
+                    rx.switch(
                         default_checked=True,
                         name="box5",
                     ),
@@ -179,8 +177,8 @@ def radix_form_submission_example():
                     align="center",
                     direction="row",
                 ),
-                rdx.flex(
-                    rdx.slider(
+                rx.flex(
+                    rx.slider(
                         default_value=[40],
                         width="100%",
                         name="box6",
@@ -190,12 +188,12 @@ def radix_form_submission_example():
                     gap="2",
                     align="center",
                 ),
-                rdx.text_area(
+                rx.text_area(
                     placeholder="Enter for box7 textarea",
                     name="box7",
                 ),
-                rdx.form.submit(
-                    rdx.button("Submit"),
+                rx.form.submit(
+                    rx.button("Submit"),
                     as_child=True,
                 ),
                 direction="column",
@@ -203,13 +201,13 @@ def radix_form_submission_example():
             ),
             on_submit=RadixFormSubmissionState.handle_submit,
         ),
-        rdx.separator(size="4"),
-        rdx.text(
+        rx.separator(size="4"),
+        rx.text(
             "Results",
             weight="bold",
         ),
         rx.foreach(RadixFormSubmissionState.form_data_keys,
-            lambda key, idx: rdx.text(key, " : ", RadixFormSubmissionState.form_data_values[idx])
+            lambda key, idx: rx.text(key, " : ", RadixFormSubmissionState.form_data_values[idx])
         ),
         direction="column",
         gap="4",
@@ -225,12 +223,12 @@ Client side validation is achieved by examining the property of an interface of 
 Below is an example of a form that collects a **number** from a `text_field.input`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `text_field.input` and `match="rangeUnderflow"` on the `form.message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `text_field.input` and `match="rangeOverflow"` on the `form.message`.
 
 ```python demo
-rdx.form.root(
-    rdx.form.field(
-        rdx.flex(
-            rdx.form.label("Requires number in range [30, 100]"),
-            rdx.form.control(
-                rdx.text_field.input(
+rx.form.root(
+    rx.form.field(
+        rx.flex(
+            rx.form.label("Requires number in range [30, 100]"),
+            rx.form.control(
+                rx.text_field.input(
                     placeholder="Enter a number",
                     type="number",
                     max=100,
@@ -238,10 +236,10 @@ rdx.form.root(
                 ),
                 as_child=True,
             ),
-            rdx.form.message("Please enter a number <= 100", match="rangeOverflow"),
-            rdx.form.message("Please enter a number >= 30", match="rangeUnderflow"),
-            rdx.form.submit(
-                rdx.button("Submit"),
+            rx.form.message("Please enter a number <= 100", match="rangeOverflow"),
+            rx.form.message("Please enter a number >= 30", match="rangeUnderflow"),
+            rx.form.submit(
+                rx.button("Submit"),
                 as_child=True,
             ),
             direction="column",
@@ -258,21 +256,21 @@ rdx.form.root(
 Here is an example where the input text is expected to be at least a certain length. Note that the attribute `min_length` is written as snake case. Behind the scene, Reflex automatically convert this to the camel case `minLength` used in the frontend.
 
 ```python demo
-rdx.form.root(
-    rdx.form.field(
-        rdx.flex(
-            rdx.form.label("Please choose a password of length >= 8 characters"),
-            rdx.form.control(
-                rdx.text_field.input(
+rx.form.root(
+    rx.form.field(
+        rx.flex(
+            rx.form.label("Please choose a password of length >= 8 characters"),
+            rx.form.control(
+                rx.text_field.input(
                     placeholder="Enter your password",
                     type="password",
                     min_length=8
                 ),
                 as_child=True,
             ),
-            rdx.form.message("Please enter a password length >= 8", match="tooShort"),
-            rdx.form.submit(
-                rdx.button("Submit"),
+            rx.form.message("Please enter a password length >= 8", match="tooShort"),
+            rx.form.submit(
+                rx.button("Submit"),
                 as_child=True,
             ),
             direction="column",
@@ -289,24 +287,24 @@ rdx.form.root(
 If the input follows certain patterns, setting `pattern` on the input and `match="patternMismatch"` on the `form.message` could be useful. Below is an example of a form that requires input to be precisely 10 digits. More information is available at [ValidityState: patternMismatch property](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState/patternMismatch).
 
 ```python demo
-rdx.form.root(
-    rdx.form.field(
-        rdx.flex(
-            rdx.form.label("Please enter your phone number with only digits. Let's say in your region the phone number is exactly 10 digits long."),
-            rdx.form.control(
-                rdx.text_field.input(
+rx.form.root(
+    rx.form.field(
+        rx.flex(
+            rx.form.label("Please enter your phone number with only digits. Let's say in your region the phone number is exactly 10 digits long."),
+            rx.form.control(
+                rx.text_field.input(
                     placeholder="Enter your your phone number",
                     type="text",
                     pattern="[0-9]{10}",
                 ),
                 as_child=True,
             ),
-            rdx.form.message(
+            rx.form.message(
                 "Please enter a valid phone number",
                 match="patternMismatch",
             ),
-            rdx.form.submit(
-                rdx.button("Submit"),
+            rx.form.submit(
+                rx.button("Submit"),
                 as_child=True,
             ),
             direction="column",
@@ -323,20 +321,20 @@ rdx.form.root(
 Below is an example of `"typeMismatch"` validation.
 
 ```python demo
-rdx.form.root(
-    rdx.form.field(
-        rdx.flex(
-            rdx.form.label("Please enter a valid URL starting with http or https"),
-            rdx.form.control(
-                rdx.text_field.input(
+rx.form.root(
+    rx.form.field(
+        rx.flex(
+            rx.form.label("Please enter a valid URL starting with http or https"),
+            rx.form.control(
+                rx.text_field.input(
                     placeholder="Enter your URL",
                     type="url",
                 ),
                 as_child=True,
             ),
-            rdx.form.message("Please enter a valid URL", match="typeMismatch"),
-            rdx.form.submit(
-                rdx.button("Submit"),
+            rx.form.message("Please enter a valid URL", match="typeMismatch"),
+            rx.form.submit(
+                rx.button("Submit"),
                 as_child=True,
             ),
             direction="column",
@@ -361,7 +359,6 @@ The final example shows a form that collects username and email during sign-up a
 ```python demo exec
 import re
 import reflex as rx
-rdx = rx.radix
 import reflex.components.radix.primitives as rdxp
 
 class RadixFormState(rx.State):
@@ -397,14 +394,14 @@ class RadixFormState(rx.State):
         self.email = form_data.get("email")
 
 def radix_form_example():
-    return rdx.flex(
-        rdx.form.root(
-            rdx.flex(
-                rdx.form.field(
-                    rdx.flex(
-                        rdx.form.label("Username"),
-                        rdx.form.control(
-                            rdx.text_field.input(
+    return rx.flex(
+        rx.form.root(
+            rx.flex(
+                rx.form.field(
+                    rx.flex(
+                        rx.form.label("Username"),
+                        rx.form.control(
+                            rx.text_field.input(
                                 placeholder="Username",
                                 # workaround: `name` seems to be required when on_change is set
                                 on_change=RadixFormState.set_user_entered_username,
@@ -415,13 +412,13 @@ def radix_form_example():
                         # server side validation message can be displayed inside a rx.cond
                         rx.cond(
                             RadixFormState.username_empty,
-                            rdx.form.message(
+                            rx.form.message(
                                 "Username cannot be empty",
                                 color="var(--red-11)",
                             ),
                         ),
                         # server side validation message can be displayed by `force_match` prop
-                        rdx.form.message(
+                        rx.form.message(
                             "Username already taken",
                             # this is a workaround:
                             # `force_match` does not work without `match`
@@ -439,18 +436,18 @@ def radix_form_example():
                     name="username",
                     server_invalid=RadixFormState.username_is_taken,
                 ),
-                rdx.form.field(
-                    rdx.flex(
-                        rdx.form.label("Email"),
-                        rdx.form.control(
-                            rdx.text_field.input(
+                rx.form.field(
+                    rx.flex(
+                        rx.form.label("Email"),
+                        rx.form.control(
+                            rx.text_field.input(
                                 placeholder="Email Address",
                                 on_change=RadixFormState.set_user_entered_email,
                                 name="email",
                             ),
                             as_child=True,
                         ),
-                        rdx.form.message(
+                        rx.form.message(
                             "A valid Email is required",
                             match="valueMissing",
                             force_match=RadixFormState.invalid_email,
@@ -463,8 +460,8 @@ def radix_form_example():
                     name="email",
                     server_invalid=RadixFormState.invalid_email,
                 ),
-                rdx.form.submit(
-                    rdx.button(
+                rx.form.submit(
+                    rx.button(
                         "Submit",
                         disabled=RadixFormState.input_invalid,
                     ),
@@ -477,18 +474,18 @@ def radix_form_example():
             on_submit=RadixFormState.handle_submit,
             reset_on_submit=True,
         ),
-        rdx.separator(size="4"),
-        rdx.text(
+        rx.separator(size="4"),
+        rx.text(
             "Username submitted: ",
-            rdx.text(
+            rx.text(
                 RadixFormState.username,
                 weight="bold",
                 color="var(--accent-11)",
             ),
         ),
-        rdx.text(
+        rx.text(
             "Email submitted: ",
-            rdx.text(
+            rx.text(
                 RadixFormState.email,
                 weight="bold",
                 color="var(--accent-11)",

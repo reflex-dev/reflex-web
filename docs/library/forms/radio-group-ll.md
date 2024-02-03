@@ -8,7 +8,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 from pcweb.templates.docpage import style_grid
 ```
 
@@ -22,13 +21,13 @@ A set of interactive radio buttons where only one can be selected at a time.
 
 ## Basic example
 
-The `rdx.radio_group.root` contains all the parts of a radio group. The `rdx.radio_group.item` is an item in the group that can be checked.
+The `rx.radio_group.root` contains all the parts of a radio group. The `rx.radio_group.item` is an item in the group that can be checked.
 
 ```python demo
-rdx.radio_group.root(
-    rdx.radio_group.item(value="1"),
-    rdx.radio_group.item(value="2"),
-    rdx.radio_group.item(value="3"),
+rx.radio_group.root(
+    rx.radio_group.item(value="1"),
+    rx.radio_group.item(value="2"),
+    rx.radio_group.item(value="3"),
     default_value="1",
 )
 
@@ -59,19 +58,19 @@ class RadioState1(rx.State):
 
 
 def radio_state_example():
-    return rdx.flex(
-        rdx.badge(
+    return rx.flex(
+        rx.badge(
             RadioState1.display_value,
             color_scheme="green"
         ),
-        rdx.radio_group.root(
-            rdx.radio_group.item(value="1"),
-            rdx.radio_group.item(value="2"),
-            rdx.radio_group.item(value="3"),
+        rx.radio_group.root(
+            rx.radio_group.item(value="1"),
+            rx.radio_group.item(value="2"),
+            rx.radio_group.item(value="3"),
             value=RadioState1.val,
             on_change=RadioState1.set_val,
         ),
-        rdx.button("Clear", on_click=RadioState1.set_val("")),
+        rx.button("Clear", on_click=RadioState1.set_val("")),
         align="center",
         justify="center",
         direction="column",
@@ -82,14 +81,14 @@ def radio_state_example():
 When the `disabled` prop is set to `True`, it prevents the user from interacting with radio items.
 
 ```python demo
-rdx.flex(
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
-        rdx.radio_group.item(value="2"),
+rx.flex(
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
+        rx.radio_group.item(value="2"),
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
-        rdx.radio_group.item(value="2"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
+        rx.radio_group.item(value="2"),
         disabled=True,
     ),
     gap="2",
@@ -114,27 +113,27 @@ class FormRadioState(rx.State):
 
 
 def form_example():
-    return rdx.flex(
-        rdx.form.root(
-            rdx.flex(
-                rdx.radio_group.root(
+    return rx.flex(
+        rx.form.root(
+            rx.flex(
+                rx.radio_group.root(
                     "Radio Group ",
-                    rdx.radio_group.item(value="1"),
-                    rdx.radio_group.item(value="2"),
-                    rdx.radio_group.item(value="3"),
+                    rx.radio_group.item(value="1"),
+                    rx.radio_group.item(value="2"),
+                    rx.radio_group.item(value="3"),
                     name="radio",
                     required=True,
                 ),
-                rdx.button("Submit", type_="submit"),
+                rx.button("Submit", type_="submit"),
                 direction="column",
                 gap="2",
             ),
             on_submit=FormRadioState.handle_submit,
             reset_on_submit=True,
         ),
-        rdx.separator(size="4"),
-        rdx.heading("Results"),
-        rdx.text(FormRadioState.form_data.to_string()),
+        rx.separator(size="4"),
+        rx.heading("Results"),
+        rx.text(FormRadioState.form_data.to_string()),
         direction="column",
         gap="2",
     )
@@ -145,29 +144,29 @@ def form_example():
 
 
 ### value
-The `value` given as data when submitted with a `name` on `rdx.radio_group.root`.
+The `value` given as data when submitted with a `name` on `rx.radio_group.root`.
 
 
 ### disabled
 
-Use the `disabled` prop to create a disabled radiobutton. When `True`, prevents the user from interacting with the radio item. This differs from the `disabled` prop used by the `rdx.radio_group.root`, which allows you to disable all the `rdx.radio_group.item` components within the `rdx.radio_group.root`.
+Use the `disabled` prop to create a disabled radiobutton. When `True`, prevents the user from interacting with the radio item. This differs from the `disabled` prop used by the `rx.radio_group.root`, which allows you to disable all the `rx.radio_group.item` components within the `rx.radio_group.root`.
 
 ```python demo
-rdx.flex(
-    rdx.radio_group.root(
-        rdx.flex(
-            rdx.text(
-                rdx.flex(
-                    rdx.radio_group.item(value="1"),
+rx.flex(
+    rx.radio_group.root(
+        rx.flex(
+            rx.text(
+                rx.flex(
+                    rx.radio_group.item(value="1"),
                     "Off",
                     gap="2",
                 ),
                 as_="label",
                 size="2",
             ),
-            rdx.text(
-                rdx.flex(
-                    rdx.radio_group.item(value="2"),
+            rx.text(
+                rx.flex(
+                    rx.radio_group.item(value="2"),
                     "On",
                     gap="2",
                 ),
@@ -178,11 +177,11 @@ rdx.flex(
             gap="2",
         ),
     ),
-    rdx.radio_group.root(
-        rdx.flex(
-            rdx.text(
-                rdx.flex(
-                    rdx.radio_group.item(value="1", disabled=True),
+    rx.radio_group.root(
+        rx.flex(
+            rx.text(
+                rx.flex(
+                    rx.radio_group.item(value="1", disabled=True),
                     "Off",
                     gap="2",
                 ),
@@ -190,9 +189,9 @@ rdx.flex(
                 size="2",
                 color="gray",
             ),
-            rdx.text(
-                rdx.flex(
-                    rdx.radio_group.item(value="2"),
+            rx.text(
+                rx.flex(
+                    rx.radio_group.item(value="2"),
                     "On",
                     gap="2",
                 ),
@@ -213,7 +212,7 @@ rdx.flex(
 ### required
 
 
-When `True`, indicates that the user must check the `radio_item_group` before the owning form can be submitted. This can only be used when a single `rdx.radio_group.item` is used.
+When `True`, indicates that the user must check the `radio_item_group` before the owning form can be submitted. This can only be used when a single `rx.radio_group.item` is used.
 
 
 ```python demo exec
@@ -226,23 +225,23 @@ class FormRadioState2(rx.State):
 
 
 def form_example2():
-    return rdx.flex(
-        rdx.form.root(
-            rdx.flex(
-                rdx.radio_group.root(
-                    rdx.radio_group.item(value="1", required=True),
+    return rx.flex(
+        rx.form.root(
+            rx.flex(
+                rx.radio_group.root(
+                    rx.radio_group.item(value="1", required=True),
                     name="radio",
                 ),
-                rdx.button("Submit", type_="submit"),
+                rx.button("Submit", type_="submit"),
                 direction="column",
                 gap="2",
             ),
             on_submit=FormRadioState2.handle_submit,
             reset_on_submit=True,
         ),
-        rdx.separator(size="4"),
-        rdx.heading("Results"),
-        rdx.text(FormRadioState2.form_data.to_string()),
+        rx.separator(size="4"),
+        rx.heading("Results"),
+        rx.text(FormRadioState2.form_data.to_string()),
         direction="column",
         gap="2",
     )
@@ -256,17 +255,17 @@ def form_example2():
 ### size
 
 ```python demo
-rdx.flex(
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+rx.flex(
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         size="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         size="2",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         size="3",
     ),
     gap="2",
@@ -277,11 +276,11 @@ rdx.flex(
 ### variant
 
 ```python demo
-rdx.flex(
-    rdx.flex(
-        rdx.radio_group.root(
-            rdx.radio_group.item(value="1"),
-            rdx.radio_group.item(value="2"),
+rx.flex(
+    rx.flex(
+        rx.radio_group.root(
+            rx.radio_group.item(value="1"),
+            rx.radio_group.item(value="2"),
             variant="surface",
             default_value="1",
         ),
@@ -289,10 +288,10 @@ rdx.flex(
         gap="2",
         as_child=True,
     ),
-    rdx.flex(
-        rdx.radio_group.root(
-            rdx.radio_group.item(value="1"),
-            rdx.radio_group.item(value="2"),
+    rx.flex(
+        rx.radio_group.root(
+            rx.radio_group.item(value="1"),
+            rx.radio_group.item(value="2"),
             variant="classic",
             default_value="1",
         ),
@@ -300,10 +299,10 @@ rdx.flex(
         gap="2",
         as_child=True,
     ),
-    rdx.flex(
-        rdx.radio_group.root(
-            rdx.radio_group.item(value="1"),
-            rdx.radio_group.item(value="2"),
+    rx.flex(
+        rx.radio_group.root(
+            rx.radio_group.item(value="1"),
+            rx.radio_group.item(value="2"),
             variant="soft",
             default_value="1",
         ),
@@ -319,24 +318,24 @@ rdx.flex(
 ### color
 
 ```python demo
-rdx.flex(
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+rx.flex(
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="indigo",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="cyan",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="orange",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="crimson",
         default_value="1",
     ),
@@ -349,47 +348,47 @@ rdx.flex(
 Use the `high_contrast` prop to increase color contrast with the background.
 
 ```python demo
-rdx.grid(
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+rx.grid(
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="cyan",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="cyan",
         default_value="1",
         high_contrast=True,
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="indigo",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="indigo",
         default_value="1",
         high_contrast=True,
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="orange",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="orange",
         default_value="1",
         high_contrast=True,
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="crimson",
         default_value="1",
     ),
-    rdx.radio_group.root(
-        rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.radio_group.item(value="1"),
         color_scheme="crimson",
         default_value="1",
         high_contrast=True,
@@ -405,24 +404,24 @@ rdx.grid(
 ### alignment 
 
 
-Composing `rdx.radio_group.item` within `text` automatically centers it with the first line of text.
+Composing `rx.radio_group.item` within `text` automatically centers it with the first line of text.
 
 
 ```python demo
-rdx.flex(
-    rdx.radio_group.root(
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="1"),
+rx.flex(
+    rx.radio_group.root(
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="1"),
                 "Default",
                 gap="2",
             ),
             size="2",
             as_="label",
         ),
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="2"),
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="2"),
                 "Compact",
                 gap="2",
             ),
@@ -432,19 +431,19 @@ rdx.flex(
         default_value="1",
         size="1",
     ),
-    rdx.radio_group.root(
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="1"),
                 "Default",
                 gap="2",
             ),
             size="3",
             as_="label",
         ),
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="2"),
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="2"),
                 "Compact",
                 gap="2",
             ),
@@ -454,19 +453,19 @@ rdx.flex(
         default_value="1",
         size="2",
     ),
-    rdx.radio_group.root(
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="1"),
+    rx.radio_group.root(
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="1"),
                 "Default",
                 gap="2",
             ),
             size="4",
             as_="label",
         ),
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="2"),
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="2"),
                 "Compact",
                 gap="2",
             ),
@@ -483,7 +482,7 @@ rdx.flex(
 
 
 ```python eval
-style_grid(component_used=rdx.radio_group.root, component_used_str="radiogrouproot", variants=["classic", "surface", "soft"], components_passed=rdx.radio_group.item(), disabled=True,)
+style_grid(component_used=rx.radio_group.root, component_used_str="radiogrouproot", variants=["classic", "surface", "soft"], components_passed=rx.radio_group.item(), disabled=True,)
 ```
 
 
@@ -492,29 +491,29 @@ style_grid(component_used=rdx.radio_group.root, component_used_str="radiogroupro
 ## Real World Example
 
 ```python demo
-rdx.radio_group.root(
-    rdx.flex(
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="1"),
+rx.radio_group.root(
+    rx.flex(
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="1"),
                 "Default",
                 gap="2",
             ),
             size="2",
             as_="label",
         ),
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="2"),
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="2"),
                 "Comfortable",
                 gap="2",
             ),
             size="2",
             as_="label",
         ),
-        rdx.text(
-            rdx.flex(
-                rdx.radio_group.item(value="3"),
+        rx.text(
+            rx.flex(
+                rx.radio_group.item(value="3"),
                 "Compact",
                 gap="2",
             ),

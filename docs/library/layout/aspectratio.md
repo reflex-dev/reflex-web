@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Aspect Ratio
@@ -19,9 +18,9 @@ of the content such that the `width` divided by the `height` equals the `ratio`.
 For responsive scaling, set the `width` or `height` of the content to `"100%"`.
 
 ```python demo
-rdx.grid(
-    rdx.aspect_ratio(
-        rdx.box(
+rx.grid(
+    rx.aspect_ratio(
+        rx.box(
             "Widescreen 16:9",
             background_color="papayawhip",
             width="100%",
@@ -29,8 +28,8 @@ rdx.grid(
         ),
         ratio=16 / 9,
     ),
-    rdx.aspect_ratio(
-        rdx.box(
+    rx.aspect_ratio(
+        rx.box(
             "Letterbox 4:3",
             background_color="orange",
             width="100%",
@@ -38,8 +37,8 @@ rdx.grid(
         ),
         ratio=4 / 3,
     ),
-    rdx.aspect_ratio(
-        rdx.box(
+    rx.aspect_ratio(
+        rx.box(
             "Square 1:1",
             background_color="green",
             width="100%",
@@ -47,8 +46,8 @@ rdx.grid(
         ),
         ratio=1,
     ),
-    rdx.aspect_ratio(
-        rdx.box(
+    rx.aspect_ratio(
+        rx.box(
             "Portrait 5:7",
             background_color="lime",
             width="100%",
@@ -64,7 +63,7 @@ rdx.grid(
 ```python eval
 rx.chakra.alert(
     rx.chakra.alert_icon(),
-    rdx.box(
+    rx.box(
         rx.chakra.alert_title(
             "Never set ",
             rx.code("height"),
@@ -89,10 +88,10 @@ rx.chakra.alert(
 ```
 
 ```python demo
-rdx.flex(
+rx.flex(
     *[
-        rdx.box(
-            rdx.aspect_ratio(
+        rx.box(
+            rx.aspect_ratio(
                 rx.image(src="/logo.jpg", width="100%", height="100%"),
                 ratio=ratio,
             ),

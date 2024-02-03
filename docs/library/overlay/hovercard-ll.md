@@ -7,7 +7,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Hovercard
@@ -21,38 +20,38 @@ The `hover_card.content` contains the content of the open hover card.
 
 
 ```python demo
-rdx.text(
+rx.text(
     "Hover over the text to see the tooltip. ",
-    rdx.hover_card.root(
-        rdx.hover_card.trigger(
-            rdx.link("Hover over me", color_scheme="blue", underline="always"),
+    rx.hover_card.root(
+        rx.hover_card.trigger(
+            rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        rdx.hover_card.content(
-            rdx.text("This is the tooltip content."),
+        rx.hover_card.content(
+            rx.text("This is the tooltip content."),
         ),
     ),
 )
 ```
 
 ```python demo
-rdx.text(
+rx.text(
     "Hover over the text to see the tooltip. ",
-    rdx.hover_card.root(
-        rdx.hover_card.trigger(
-            rdx.link("Hover over me", color_scheme="blue", underline="always"),
+    rx.hover_card.root(
+        rx.hover_card.trigger(
+            rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        rdx.hover_card.content(
-            rdx.grid(
-                rdx.inset(
+        rx.hover_card.content(
+            rx.grid(
+                rx.inset(
                     side="left",
                     pr="current",
                     background="url('https://source.unsplash.com/random/800x600') center/cover",
                     height="full",
                 ),
-                rdx.box(
-                    rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
-                    rdx.flex(
-                        rdx.checkbox("Send to group"),
+                rx.box(
+                    rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                    rx.flex(
+                        rx.checkbox("Send to group"),
                         gap="3",
                         margin_top="12px",
                         justify="between",

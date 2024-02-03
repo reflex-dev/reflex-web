@@ -6,7 +6,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Icon
@@ -22,7 +21,7 @@ Passing the tag as the first children is also supported and will be assigned to 
 The `tag` is expected to be in `snake_case` format, but `kebab-case` is also supported to allow copy-paste from [https://lucide.dev/icons](https://lucide.dev/icons).
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("calendar"),
     rx.icon(tag="calendar"),
     gap="2",
@@ -36,7 +35,7 @@ Icon from Lucide can be customized with the following props `stroke_width`, `siz
 ### Stroke Width
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("moon", stroke_width=1),
     rx.icon("moon", stroke_width=1.5),
     rx.icon("moon", stroke_width=2),
@@ -49,7 +48,7 @@ rdx.flex(
 ### Size
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("zoom_in", size=15),
     rx.icon("zoom_in", size=20),
     rx.icon("zoom_in", size=25),
@@ -64,7 +63,7 @@ rdx.flex(
 Here is an example using basic colors in icons.
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("zoom_in", size=18, color="indigo"),
     rx.icon("zoom_in", size=18, color="cyan"),
     rx.icon("zoom_in", size=18, color="orange"),
@@ -76,7 +75,7 @@ rdx.flex(
 A radix color with a scale may also be specified using the `var()` token syntax seen below.
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("zoom_in", size=18, color="var(--purple-1)"),
     rx.icon("zoom_in", size=18, color="var(--purple-2)"),
     rx.icon("zoom_in", size=18, color="var(--purple-3)"),
@@ -96,7 +95,7 @@ rdx.flex(
 Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
 
 ```python demo
-rdx.flex(
+rx.flex(
     rx.icon("zoom_in", size=18, color="var(--accent-1)"),
     rx.icon("zoom_in", size=18, color="var(--accent-2)"),
     rx.icon("zoom_in", size=18, color="var(--accent-3)"),
@@ -118,10 +117,10 @@ rdx.flex(
 Icons can be used as child components of many other components. For example, adding a magnifying glass icon to a search bar.
 
 ```python demo
-rdx.badge(
-    rdx.flex(
+rx.badge(
+    rx.flex(
         rx.icon("search", size=18),
-        rdx.text("Search documentation...", size="3", weight="medium"),
+        rx.text("Search documentation...", size="3", weight="medium"),
         direction="row",
         gap="1",
         align="center",

@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-rdx = rx.radix
 ```
 
 # Grid
@@ -15,10 +14,10 @@ Component for creating grid layouts. Either `rows` or `columns` may be specified
 ## Basic Example
 
 ```python demo
-rdx.grid(
+rx.grid(
     rx.foreach(
         rx.Var.range(12),
-        lambda i: rdx.card(f"Card {i + 1}", height="10vh"),
+        lambda i: rx.card(f"Card {i + 1}", height="10vh"),
     ),
     columns="3",
     gap="4",
@@ -27,10 +26,10 @@ rdx.grid(
 ```
 
 ```python demo
-rdx.grid(
+rx.grid(
     rx.foreach(
         rx.Var.range(12),
-        lambda i: rdx.card(f"Card {i + 1}", height="10vh"),
+        lambda i: rx.card(f"Card {i + 1}", height="10vh"),
     ),
     rows="3",
     flow="column",
