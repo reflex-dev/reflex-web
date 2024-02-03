@@ -358,6 +358,9 @@ EVENTS = {
     "on_row_appended": {
         "description": "The on_row_appended event handler is called when the user add a row to the data editor.",
     },
+    "on_select": {
+        "description": "The on_select event handler is called when the user selects an item (via mouse or keyboard).",
+    },
     "on_selection_cleared": {
         "description": "The on_selection_cleared event handler is called when the user unselect a region of the data editor.",
     },
@@ -562,18 +565,24 @@ def multi_docs(path, comp, component_list, title):
                                 _selected=tab_selected_style,
                                 style=tab_style,
                             ),
-                            rx.tab(
-                                "Low Level API",
-                                _selected=tab_selected_style,
-                                style=tab_style,
-                            )
-                            if ll_doc_exists
-                            else "",
-                            rx.tab(
-                                "Styling", _selected=tab_selected_style, style=tab_style
-                            )
-                            if style_doc_exists
-                            else "",
+                            (
+                                rx.tab(
+                                    "Low Level API",
+                                    _selected=tab_selected_style,
+                                    style=tab_style,
+                                )
+                                if ll_doc_exists
+                                else ""
+                            ),
+                            (
+                                rx.tab(
+                                    "Styling",
+                                    _selected=tab_selected_style,
+                                    style=tab_style,
+                                )
+                                if style_doc_exists
+                                else ""
+                            ),
                             rx.tab(
                                 "Props", _selected=tab_selected_style, style=tab_style
                             ),
@@ -582,18 +591,24 @@ def multi_docs(path, comp, component_list, title):
                         ),
                         rx.tab_panels(
                             rx.tab_panel(xd.render(comp, filename=fname)),
-                            rx.tab_panel(
-                                xd.render_file(
-                                    fname.replace("radix/", "").replace(".md", "-ll.md")
+                            (
+                                rx.tab_panel(
+                                    xd.render_file(
+                                        fname.replace("radix/", "").replace(
+                                            ".md", "-ll.md"
+                                        )
+                                    )
                                 )
-                            )
-                            if ll_doc_exists
-                            else "",
-                            rx.tab_panel(
-                                xd.render_file(fname.replace(".md", "-style.md"))
-                            )
-                            if style_doc_exists
-                            else "",
+                                if ll_doc_exists
+                                else ""
+                            ),
+                            (
+                                rx.tab_panel(
+                                    xd.render_file(fname.replace(".md", "-style.md"))
+                                )
+                                if style_doc_exists
+                                else ""
+                            ),
                             rx.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",
