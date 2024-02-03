@@ -70,7 +70,7 @@ def component_grid():
             rx.link(
                 rx.box(
                     height="10rem",
-                    background_image=meta["image"],
+                    background_image=f'url({meta["image"]})',
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",

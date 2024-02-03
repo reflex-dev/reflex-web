@@ -486,7 +486,7 @@ def sidebar_item_comp(
             ),
             rx.chakra.accordion_panel(
                 rx.chakra.accordion(
-                    rx.vstack(
+                    rx.chakra.vstack(
                         rx.foreach(
                             item.children,
                             lambda child: sidebar_item_comp(
@@ -575,7 +575,7 @@ def sidebar_comp(
     hosting_index: list[int],
     other_libs_index: list[int],
 ):
-    return rx.vstack(
+    return rx.chakra.vstack(
         rx.box(
             rx.text(
                 "Learn",
@@ -619,7 +619,7 @@ def sidebar_comp(
         rx.chakra.divider(),
         rx.cond(
             SidebarState.sidebar_index == 0,
-            rx.vstack(
+            rx.chakra.vstack(
                 sidebar_section("Onboarding"),
                 rx.chakra.accordion(
                     *[
@@ -680,7 +680,7 @@ def sidebar_comp(
                 width="100%",
                 align_items="left",
             ),
-            rx.vstack(
+            rx.chakra.vstack(
                 sidebar_section("Core"),
                 rx.chakra.accordion(
                     *[
