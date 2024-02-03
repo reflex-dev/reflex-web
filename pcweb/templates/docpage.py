@@ -185,6 +185,40 @@ def get_headings(comp):
         headings.extend(get_headings(child))
     return headings
 
+def get_toc(source, href):
+    from pcweb.flexdown import xd
+
+    # Generate the TOC
+    # The environment used for execing and evaling code.
+    env = source.metadata
+    env["__xd"] = xd
+
+    # Get the content of the document.
+    source = source.content
+
+    # Get the blocks in the source code.
+    # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
+    blocks = xd.get_blocks(source, href)
+
+    content_pieces = []
+    for block in blocks:
+        # Render all blocks for their side effect of env augmentation
+        # Unexpected, but hey!
+        # TODO Probably better to return env as part of return
+        try:
+            _ = block.render(env=env)
+        except:
+            continue
+        if isinstance(block, flexdown.blocks.MarkdownBlock):
+            # Now we should have all the env entries we need
+            content = block.get_content(env)
+            content_pieces.append(content)
+
+    content = "\n".join(content_pieces)
+    doc = mistletoe.Document(content)
+
+    # Parse the markdown headers.
+    return get_headings(doc)
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the pynecone.io site should use.
@@ -228,7 +262,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             from pcweb.components.navbar import feedback_button, navbar
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
-            from pcweb.flexdown import xd
 
             # Create the docpage sidebar.
             sidebar = sb(url=path)
@@ -281,37 +314,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents
 
             if isinstance(comp, tuple):
-                source, href = comp
-                comp = xd.render(source, href)
-
-                # Generate the TOC
-                # The environment used for execing and evaling code.
-                env = source.metadata
-                env["__xd"] = xd
-
-                # Get the content of the document.
-                source = source.content
-
-                # Get the blocks in the source code.
-                # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
-                blocks = xd.get_blocks(source, href)
-
-                content_pieces = []
-                for block in blocks:
-                    # Render all blocks for their side effect of env augmentation
-                    # Unexpected, but hey!
-                    # TODO Probably better to return env as part of return
-                    _ = block.render(env=env)
-                    if isinstance(block, flexdown.blocks.MarkdownBlock):
-                        # Now we should have all the env entries we need
-                        content = block.get_content(env)
-                        content_pieces.append(content)
-
-                content = "\n".join(content_pieces)
-                doc = mistletoe.Document(content)
-
-                # Parse the markdown headrs.
-                toc = get_headings(doc)
+                from pcweb.flexdown import xd
+                toc = get_toc(*comp)
+                comp = xd.render(*comp)
 
             # Return the templated page.
             return rx.box(
