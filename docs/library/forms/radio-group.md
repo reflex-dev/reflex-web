@@ -103,7 +103,7 @@ class FormRadioState_HL(rx.State):
 
 def form_example_HL():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
                 rdx.radio_group(["1", "2", "3"], name="radio", required=True,),
                 rx.button("Submit", type_="submit"),

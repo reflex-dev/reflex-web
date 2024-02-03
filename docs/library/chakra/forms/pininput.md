@@ -17,10 +17,10 @@ class PinInputState(rx.State):
 
 
 def basic_pininput_example():
-    return rx.vstack(
-        rx.heading(PinInputState.pin),
-        rx.box(
-            rx.pin_input(
+    return rx.chakra.vstack(
+        rx.chakra.heading(PinInputState.pin),
+        rx.chakra.box(
+            rx.chakra.pin_input(
                 length=4,
                 on_change=PinInputState.set_pin,
                 mask=True,
@@ -32,13 +32,13 @@ def basic_pininput_example():
 The PinInput component can also be customized as seen below.
 
 ```python demo
-rx.center(
-    rx.pin_input(
-        rx.pin_input_field(color="red"),
-        rx.pin_input_field(border_color="green"),
-        rx.pin_input_field(shadow="md"),
-        rx.pin_input_field(color="blue"),
-        rx.pin_input_field(border_radius="md"),
+rx.chakra.center(
+    rx.chakra.pin_input(
+        rx.chakra.pin_input_field(color="red"),
+        rx.chakra.pin_input_field(border_color="green"),
+        rx.chakra.pin_input_field(shadow="md"),
+        rx.chakra.pin_input_field(color="blue"),
+        rx.chakra.pin_input_field(border_radius="md"),
         on_change=PinInputState.set_pin,
     )
 )

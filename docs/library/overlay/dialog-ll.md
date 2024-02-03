@@ -16,17 +16,17 @@ rdx = rx.radix
 # Dialog
 
 
-The `dialog_root` contains all the parts of a dialog. 
+The `dialog.root` contains all the parts of a dialog. 
 
-The `dialog_trigger` wraps the control that will open the dialog.
+The `dialog.trigger` wraps the control that will open the dialog.
 
-The `dialog_content` contains the content of the dialog.
+The `dialog.content` contains the content of the dialog.
 
-The `dialog_title` is a title that is announced when the dialog is opened.
+The `dialog.title` is a title that is announced when the dialog is opened.
 
-The `dialog_description` is a description that is announced when the dialog is opened.
+The `dialog.description` is a description that is announced when the dialog is opened.
 
-The `dialog_close` wraps the control that will close the dialog.
+The `dialog.close` wraps the control that will close the dialog.
 
 
 ```python demo
@@ -144,18 +144,18 @@ class DialogState(rx.State):
 
 
 def dialog_example():
-    return flex(
-        heading(f"Number of times dialog opened or closed: {DialogState.num_opens}"),
-        heading(f"Dialog open: {DialogState.opened}"),
-        dialog_root(
-            dialog_trigger(button("Open Dialog")),
-            dialog_content(
-                dialog_title("Welcome to Reflex!"),
-                dialog_description(
+    return rx.flex(
+        rx.heading(f"Number of times dialog opened or closed: {DialogState.num_opens}"),
+        rx.heading(f"Dialog open: {DialogState.opened}"),
+        rx.dialog.root(
+            rx.dialog.trigger(rx.button("Open Dialog")),
+            rx.dialog.content(
+                rx.dialog.title("Welcome to Reflex!"),
+                rx.dialog.description(
                     "This is a dialog component. You can render anything you want in here.",
                 ),
-                dialog_close(
-                    button("Close Dialog", size="3"),
+                rx.dialog.close(
+                    rx.button("Close Dialog", size="3"),
                 ),
             ),
             on_open_change=DialogState.count_opens,

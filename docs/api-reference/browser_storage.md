@@ -135,21 +135,21 @@ class ComplexLocalStorageState(rx.State):
 
 
 def app_settings():
-    return rx.form(
+    return rx.chakra.form(
         rx.foreach(
             ComplexLocalStorageState.data.error_messages,
             rx.text,
         ),
-        rx.form_label(
+        rx.chakra.form_label(
             "Theme",
-            rx.input(
+            rx.chakra.input(
                 value=ComplexLocalStorageState.data.theme,
                 on_change=lambda v: ComplexLocalStorageState.set_field("theme", v),
             ),
         ),
-        rx.form_label(
+        rx.chakra.form_label(
             "Sidebar Visible",
-            rx.switch(
+            rx.chakra.switch(
                 is_checked=ComplexLocalStorageState.data.sidebar_visible,
                 on_change=lambda v: ComplexLocalStorageState.set_field(
                     "sidebar_visible",
@@ -157,9 +157,9 @@ def app_settings():
                 ),
             ),
         ),
-        rx.form_label(
+        rx.chakra.form_label(
             "Update Frequency (seconds)",
-            rx.number_input(
+            rx.chakra.number_input(
                 value=ComplexLocalStorageState.data.update_frequency,
                 on_change=lambda v: ComplexLocalStorageState.set_field(
                     "update_frequency",
@@ -173,11 +173,11 @@ def app_settings():
 
 def app_settings_example():
     return rx.fragment(
-        rx.modal(
-            rx.modal_overlay(
-                rx.modal_content(
-                    rx.modal_header("App Settings"),
-                    rx.modal_body(app_settings()),
+        rx.chakra.modal(
+            rx.chakra.modal_overlay(
+                rx.chakra.modal_content(
+                    rx.chakra.modal_header("App Settings"),
+                    rx.chakra.modal_body(app_settings()),
                 ),
             ),
             is_open=ComplexLocalStorageState.settings_open,

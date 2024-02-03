@@ -50,19 +50,19 @@ BASE_STYLE = {
     "::selection": {
         "background_color": ACCENT_COLOR_LIGHT,
     },
-    rx.Text: {
+    rx.chakra.text: {
         "font_family": SANS,
         "font_size": 16,
     },
-    rx.Heading: {
+    rx.chakra.heading: {
         "font_family": SANS,
     },
-    rx.Divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    rx.Code: {"color": "#1F1944", "bg": "#EAE4FD"},
-    rx.Alert: {
+    rx.chakra.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
+    rx.chakra.code: {"color": "#1F1944", "bg": "#EAE4FD"},
+    rx.chakra.alert: {
         "border_radius": "8px",
     },
-    rx.Link: {"text_decoration": "none", "_hover": {}},
+    rx.chakra.link: {"text_decoration": "none", "_hover": {}},
 }
 
 # Fonts to include.

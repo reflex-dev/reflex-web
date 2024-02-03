@@ -21,9 +21,9 @@ class SliderState(rx.State):
 
 
 def slider_example():
-    return rx.vstack(
-        rx.heading(SliderState.value),
-        rx.slider(
+    return rx.chakra.vstack(
+        rx.chakra.heading(SliderState.value),
+        rx.chakra.slider(
             on_change=SliderState.set_value
         ),
         width="100%",
@@ -45,9 +45,9 @@ class SliderCombo(rx.State):
 
 
 def slider_combo_example():
-    return rx.vstack(
-        rx.heading(SliderCombo.value, color=SliderCombo.color),
-        rx.slider(
+    return rx.chakra.vstack(
+        rx.chakra.heading(SliderCombo.value, color=SliderCombo.color),
+        rx.chakra.slider(
             on_change_start=SliderCombo.set_start,
             on_change=SliderCombo.set_value,
             on_change_end=SliderCombo.set_end,
@@ -67,15 +67,15 @@ class SliderManual(rx.State):
 
 
 def slider_manual_example():
-    return rx.vstack( 
-        rx.heading(f"Weather is {SliderManual.value} degrees"),
-        rx.slider(
-            rx.slider_track(
-                rx.slider_filled_track(bg="tomato"),
+    return rx.chakra.vstack( 
+        rx.chakra.heading(f"Weather is {SliderManual.value} degrees"),
+        rx.chakra.slider(
+            rx.chakra.slider_track(
+                rx.chakra.slider_filled_track(bg="tomato"),
                 bg='red.100'
             ),
-            rx.slider_thumb(
-                rx.icon(tag="sun", color="white"),
+            rx.chakra.slider_thumb(
+                rx.chakra.icon(tag="sun", color="white"),
                 box_size="1.5em",
                 bg="tomato",
             ),
@@ -90,9 +90,9 @@ If you want to trigger state change on every slider movement, you can use the `o
 For performance reasons, you may want to trigger state change only when the user releases the slider by using the `on_change_end` event handler, but if you need perform an event on every slider movement, you can use the `on_change` event handler.
 
 ```python demo
-rx.vstack(
-    rx.heading(SliderState.value),
-    rx.slider(
+rx.chakra.vstack(
+    rx.chakra.heading(SliderState.value),
+    rx.chakra.slider(
         on_change=SliderState.set_value
     ),
     width="100%",

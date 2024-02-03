@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Match
+    - rx.match
 ---
 
 ```python exec

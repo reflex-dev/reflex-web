@@ -52,7 +52,7 @@ class FormSwitchState(rx.State):
 
 def form_switch():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
                 rdx.switch(name="s1"),
                 rdx.switch(name="s2"),
@@ -64,7 +64,7 @@ def form_switch():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.heading("Results"),
         rx.text(FormSwitchState.form_data.to_string()),
         width="100%",
@@ -147,7 +147,7 @@ def form_switch2():
                     rdx.button("View Cookie Settings", size="4", variant="outline")
                 ),
                 rdx.dialog.content(
-                    rx.form(
+                    rx.form.root(
                         rdx.dialog.title("Your Cookie Preferences"),
                         rdx.dialog.description(
                             "Change your cookie preferences.",
@@ -206,7 +206,7 @@ def form_switch2():
                     ),
                 ),
             ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.heading("Results"),
         rx.text(FormSwitchState2.form_data.to_string()),
         width="100%",

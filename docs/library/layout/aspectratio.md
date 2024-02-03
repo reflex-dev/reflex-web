@@ -62,10 +62,10 @@ rdx.grid(
 ```
 
 ```python eval
-rx.alert(
-    rx.alert_icon(),
+rx.chakra.alert(
+    rx.chakra.alert_icon(),
     rdx.box(
-        rx.alert_title(
+        rx.chakra.alert_title(
             "Never set ",
             rx.code("height"),
             " or ",
@@ -74,7 +74,7 @@ rx.alert(
             rx.code("aspect_ratio"),
             " component or its contents.",
         ),
-        rx.alert_description(
+        rx.chakra.alert_description(
             "Instead, wrap the ",
             rx.code("aspect_ratio"),
             " in a ",

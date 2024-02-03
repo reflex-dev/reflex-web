@@ -29,12 +29,12 @@ class TickerState(rx.State):
 
 
 def ticker_example():
-    return rx.stat_group(
-        rx.stat(
-            rx.stat_label(TickerState.ticker),
-            rx.stat_number(TickerState.price),
-            rx.stat_help_text(
-                rx.stat_arrow(type_="increase"),
+    return rx.chakra.stat_group(
+        rx.chakra.stat(
+            rx.chakra.stat_label(TickerState.ticker),
+            rx.chakra.stat_number(TickerState.price),
+            rx.chakra.stat_help_text(
+                rx.chakra.stat_arrow(type_="increase"),
                 "4%",
             ),
         ),
@@ -111,14 +111,14 @@ def backend_var_example():
                 on_click=BackendVarState.next_page,
             ),
             rx.text("Page Size"),
-            rx.number_input(
+            rx.chakra.number_input(
                 width="5em",
                 value=BackendVarState.limit,
                 on_change=BackendVarState.set_limit,
             ),
             rx.button("Generate More", on_click=BackendVarState.generate_more),
         ),
-        rx.list(
+        rx.chakra.list(
             rx.foreach(
                 BackendVarState.page,
                 lambda x, ix: rx.text(f"_backend[{ix + BackendVarState.offset}] = {x}"),

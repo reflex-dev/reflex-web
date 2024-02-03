@@ -9,26 +9,26 @@ import reflex as rx
 from pcweb.templates.docpage import docdemo
 
 
-basic_button = """rx.button("Click Me!")
+basic_button = """rx.chakra.button("Click Me!")
 """
-button_style = """rx.button_group(
-    rx.button("Example", bg="lightblue", color="black", size = 'sm'),
-    rx.button("Example", bg="orange", color="white", size = 'md'),
-    rx.button("Example", color_scheme="red", size = 'lg'),
+button_style = """rx.chakra.button_group(
+    rx.chakra.button("Example", bg="lightblue", color="black", size = 'sm'),
+    rx.chakra.button("Example", bg="orange", color="white", size = 'md'),
+    rx.chakra.button("Example", color_scheme="red", size = 'lg'),
     space = "1em",
 )
 """
-button_visual_states = """rx.button_group(
-    rx.button("Example", bg="lightgreen", color="black", is_loading = True),
-    rx.button("Example", bg="lightgreen", color="black", is_disabled = True),
-    rx.button("Example", bg="lightgreen", color="black", is_active = True),
+button_visual_states = """rx.chakra.button_group(
+    rx.chakra.button("Example", bg="lightgreen", color="black", is_loading = True),
+    rx.chakra.button("Example", bg="lightgreen", color="black", is_disabled = True),
+    rx.chakra.button("Example", bg="lightgreen", color="black", is_active = True),
     space = '1em',
 )
 """
 
-button_group_example = """rx.button_group(
-    rx.button(rx.icon(tag="minus"), color_scheme="red"),
-    rx.button(rx.icon(tag="add"), color_scheme="green"),
+button_group_example = """rx.chakra.button_group(
+    rx.chakra.button(rx.chakra.icon(tag="minus"), color_scheme="red"),
+    rx.chakra.button(rx.chakra.icon(tag="add"), color_scheme="green"),
     is_attached=True,
 )
 """
@@ -43,16 +43,16 @@ button_state = """class ButtonState(rx.State):
         self.count -= 1
 """
 exec(button_state)
-button_state_example = """rx.hstack(
-    rx.button(
+button_state_example = """rx.chakra.hstack(
+    rx.chakra.button(
         "Decrement",
         bg="#fef2f2",
         color="#b91c1c",
         border_radius="lg",
         on_click=ButtonState.decrement,
     ),
-    rx.heading(ButtonState.count, font_size="2em", padding_x="0.5em"),
-    rx.button(
+    rx.chakra.heading(ButtonState.count, font_size="2em", padding_x="0.5em"),
+    rx.chakra.button(
         "Increment",
         bg="#ecfdf5",
         color="#047857",
@@ -71,7 +71,7 @@ import reflex as rx
 def index():
     return {button_state_example}
 
-app = rx.App()
+app = rx.chakra.App()
 app.add_page(index)"""
 
 button_state2 = """class ExampleButtonState(rx.State):
@@ -79,9 +79,9 @@ button_state2 = """class ExampleButtonState(rx.State):
 """
 exec(button_state2)
 
-button_state2_render_code = """rx.vstack(
-	rx.text(ExampleButtonState.text_value),
-        rx.button(
+button_state2_render_code = """rx.chakra.vstack(
+	rx.chakra.text(ExampleButtonState.text_value),
+        rx.chakra.button(
             "Change Value",
             on_click=ExampleButtonState.set_text_value("Modified value"))
     )
@@ -95,43 +95,43 @@ import reflex as rx
 def index():
     return {button_state2_render_code}
 
-app = rx.App()
+app = rx.chakra.App()
 app.add_page(index)"""
 
 
 button_sizes = (
-"""rx.button_group(
-        rx.button(
+"""rx.chakra.button_group(
+        rx.chakra.button(
         'Example', bg='lightblue', color='black', size='sm'
         ),
-        rx.button(
+        rx.chakra.button(
             'Example', bg='orange', color='white', size='md'
         ),
-        rx.button('Example', color_scheme='red', size='lg'),
+        rx.chakra.button('Example', color_scheme='red', size='lg'),
 )
 """  
 )
 
 button_colors = (
-"""rx.button_group(
-        rx.button('White Alpha', color_scheme='whiteAlpha', min_width='unset'),
-        rx.button('Black Alpha', color_scheme='blackAlpha', min_width='unset'),
-        rx.button('Gray', color_scheme='gray', min_width='unset'),
-        rx.button('Red', color_scheme='red', min_width='unset'),
-        rx.button('Orange', color_scheme='orange', min_width='unset'),
-        rx.button('Yellow', color_scheme='yellow', min_width='unset'),
-        rx.button('Green', color_scheme='green', min_width='unset'),
-        rx.button('Teal', color_scheme='teal', min_width='unset'),
-        rx.button('Blue', color_scheme='blue', min_width='unset'),
-        rx.button('Cyan', color_scheme='cyan', min_width='unset'),
-        rx.button('Purple', color_scheme='purple', min_width='unset'),
-        rx.button('Pink', color_scheme='pink', min_width='unset'),
-        rx.button('LinkedIn', color_scheme='linkedin', min_width='unset'),
-        rx.button('Facebook', color_scheme='facebook', min_width='unset'),
-        rx.button('Messenger', color_scheme='messenger', min_width='unset'),
-        rx.button('WhatsApp', color_scheme='whatsapp', min_width='unset'),
-        rx.button('Twitter', color_scheme='twitter', min_width='unset'),
-        rx.button('Telegram', color_scheme='telegram', min_width='unset'),
+"""rx.chakra.button_group(
+        rx.chakra.button('White Alpha', color_scheme='whiteAlpha', min_width='unset'),
+        rx.chakra.button('Black Alpha', color_scheme='blackAlpha', min_width='unset'),
+        rx.chakra.button('Gray', color_scheme='gray', min_width='unset'),
+        rx.chakra.button('Red', color_scheme='red', min_width='unset'),
+        rx.chakra.button('Orange', color_scheme='orange', min_width='unset'),
+        rx.chakra.button('Yellow', color_scheme='yellow', min_width='unset'),
+        rx.chakra.button('Green', color_scheme='green', min_width='unset'),
+        rx.chakra.button('Teal', color_scheme='teal', min_width='unset'),
+        rx.chakra.button('Blue', color_scheme='blue', min_width='unset'),
+        rx.chakra.button('Cyan', color_scheme='cyan', min_width='unset'),
+        rx.chakra.button('Purple', color_scheme='purple', min_width='unset'),
+        rx.chakra.button('Pink', color_scheme='pink', min_width='unset'),
+        rx.chakra.button('LinkedIn', color_scheme='linkedin', min_width='unset'),
+        rx.chakra.button('Facebook', color_scheme='facebook', min_width='unset'),
+        rx.chakra.button('Messenger', color_scheme='messenger', min_width='unset'),
+        rx.chakra.button('WhatsApp', color_scheme='whatsapp', min_width='unset'),
+        rx.chakra.button('Twitter', color_scheme='twitter', min_width='unset'),
+        rx.chakra.button('Telegram', color_scheme='telegram', min_width='unset'),
         width='100%',
 )
 
@@ -139,48 +139,48 @@ button_colors = (
 )
 
 button_colors_render_code = (
-"""rx.button_group(
-        rx.button('White Alpha', color_scheme='whiteAlpha'),
-        rx.button('Black Alpha', color_scheme='blackAlpha'),
-        rx.button('Gray', color_scheme='gray'),
-        rx.button('Red', color_scheme='red'),
-        rx.button('Orange', color_scheme='orange'),
-        rx.button('Yellow', color_scheme='yellow'),
-        rx.button('Green', color_scheme='green'),
-        rx.button('Teal', color_scheme='teal'),
-        rx.button('Blue', color_scheme='blue'),
-        rx.button('Cyan', color_scheme='cyan'),
-        rx.button('Purple', color_scheme='purple'),
-        rx.button('Pink', color_scheme='pink'),
-        rx.button('LinkedIn', color_scheme='linkedin'),
-        rx.button('Facebook', color_scheme='facebook'),
-        rx.button('Messenger', color_scheme='messenger'),
-        rx.button('WhatsApp', color_scheme='whatsapp'),
-        rx.button('Twitter', color_scheme='twitter'),
-        rx.button('Telegram', color_scheme='telegram'),
+"""rx.chakra.button_group(
+        rx.chakra.button('White Alpha', color_scheme='whiteAlpha'),
+        rx.chakra.button('Black Alpha', color_scheme='blackAlpha'),
+        rx.chakra.button('Gray', color_scheme='gray'),
+        rx.chakra.button('Red', color_scheme='red'),
+        rx.chakra.button('Orange', color_scheme='orange'),
+        rx.chakra.button('Yellow', color_scheme='yellow'),
+        rx.chakra.button('Green', color_scheme='green'),
+        rx.chakra.button('Teal', color_scheme='teal'),
+        rx.chakra.button('Blue', color_scheme='blue'),
+        rx.chakra.button('Cyan', color_scheme='cyan'),
+        rx.chakra.button('Purple', color_scheme='purple'),
+        rx.chakra.button('Pink', color_scheme='pink'),
+        rx.chakra.button('LinkedIn', color_scheme='linkedin'),
+        rx.chakra.button('Facebook', color_scheme='facebook'),
+        rx.chakra.button('Messenger', color_scheme='messenger'),
+        rx.chakra.button('WhatsApp', color_scheme='whatsapp'),
+        rx.chakra.button('Twitter', color_scheme='twitter'),
+        rx.chakra.button('Telegram', color_scheme='telegram'),
 )
 
 """ 
 )
 
 button_variants = (
-"""rx.button_group(
-        rx.button('Ghost Button', variant='ghost'),
-        rx.button('Outline Button', variant='outline'),
-        rx.button('Solid Button', variant='solid'),
-        rx.button('Link Button', variant='link'),
-        rx.button('Unstyled Button', variant='unstyled'),
+"""rx.chakra.button_group(
+        rx.chakra.button('Ghost Button', variant='ghost'),
+        rx.chakra.button('Outline Button', variant='outline'),
+        rx.chakra.button('Solid Button', variant='solid'),
+        rx.chakra.button('Link Button', variant='link'),
+        rx.chakra.button('Unstyled Button', variant='unstyled'),
     )
 """  
 
 )
 
 button_disable = (
-"""rx.button('Inactive button', is_disabled=True)"""  
+"""rx.chakra.button('Inactive button', is_disabled=True)"""  
 )
   
 loading_states = (
-"""rx.button(
+"""rx.chakra.button(
             'Random button',
             is_loading=True,
             loading_text='Loading...',
@@ -190,10 +190,10 @@ loading_states = (
 )
 
 stack_buttons_vertical = (
-"""rx.stack(
-        rx.button('Button 1'),
-        rx.button('Button 2'),
-        rx.button('Button 3'),
+"""rx.chakra.stack(
+        rx.chakra.button('Button 1'),
+        rx.chakra.button('Button 2'),
+        rx.chakra.button('Button 3'),
         direction='column',
 )
 
@@ -201,20 +201,20 @@ stack_buttons_vertical = (
 )
 
 stack_buttons_horizontal = (
-"""rx.stack(
-        rx.button('Button 1'),
-        rx.button('Button 2'),
-        rx.button('Button 3'),
+"""rx.chakra.stack(
+        rx.chakra.button('Button 1'),
+        rx.chakra.button('Button 2'),
+        rx.chakra.button('Button 3'),
         direction='row',
 )
 """  
 )
 
 button_group = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
             variant='outline',
 	        is_attached=True,
         )
@@ -229,7 +229,7 @@ Buttons are essential elements in your application's user interface that users c
 This documentation will help you understand how to use button components effectively in your Reflex application.
 
 ## Basic Usage
-A basic button component is created using the `rx.button` method:
+A basic button component is created using the `rx.chakra.button` method:
 
 ```python eval
 docdemo(basic_button)
@@ -344,7 +344,7 @@ docdemo(stack_buttons_horizontal)
 ```
 With the `stack` component, you can easily create both vertical and horizontal button arrangements.
 
-## Using the `rx.button_group` Component
+## Using the `rx.chakra.button_group` Component
 The `ButtonGroup` component is designed specifically for grouping buttons. It allows you to:
 - Set the `size` and `variant` of all buttons within it.
 - Add `spacing` between the buttons.

@@ -17,16 +17,16 @@ Tab components allow you display content in multiple pages within a container.
 These page are organized by a tab list and the corresponding tab panel can take in children components if needed.
 
 ```python demo
-rx.tabs(
-    rx.tab_list(
-        rx.tab("Tab 1"),
-        rx.tab("Tab 2"),
-        rx.tab("Tab 3"),
+rx.chakra.tabs(
+    rx.chakra.tab_list(
+        rx.chakra.tab("Tab 1"),
+        rx.chakra.tab("Tab 2"),
+        rx.chakra.tab("Tab 3"),
     ),
-    rx.tab_panels(
-        rx.tab_panel(rx.text("Text from tab 1.")),
-        rx.tab_panel(rx.checkbox("Text from tab 2.")),
-        rx.tab_panel(rx.button("Text from tab 3.", color="black")),
+    rx.chakra.tab_panels(
+        rx.chakra.tab_panel(rx.chakra.text("Text from tab 1.")),
+        rx.chakra.tab_panel(rx.chakra.checkbox("Text from tab 2.")),
+        rx.chakra.tab_panel(rx.chakra.button("Text from tab 3.", color="black")),
     ),
     bg="black",
     color="white",
@@ -39,8 +39,8 @@ Pass a list of tuples to the `items` prop.
 Each tuple should contain a label and a panel.
 
 ```python demo
-rx.tabs(
-    items = [("Tab 1", rx.text("Text from tab 1.")), ("Tab 2", rx.checkbox("Text from tab 2.")), ("Tab 3", rx.button("Text from tab 3.", color="black"))],
+rx.chakra.tabs(
+    items = [("Tab 1", rx.chakra.text("Text from tab 1.")), ("Tab 2", rx.chakra.checkbox("Text from tab 2.")), ("Tab 3", rx.chakra.button("Text from tab 3.", color="black"))],
     bg="black",
     color="white",
     shadow="lg",

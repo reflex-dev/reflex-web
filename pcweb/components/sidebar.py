@@ -68,9 +68,9 @@ class SidebarState(rx.State):
 
 def sidebar_section(name):
     return rx.heading(
-        rx.span("[ ", color="#DACEEE"),
+        rx.chakra.span("[ ", color="#DACEEE"),
         name,
-        rx.span(" ]", color="#DACEEE"),
+        rx.chakra.span(" ]", color="#DACEEE"),
         style=heading_style3,
         margin_top="1em",
         margin_left="0em",
@@ -405,7 +405,7 @@ def sidebar_leaf(
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
-    return rx.accordion_item(
+    return rx.chakra.accordion_item(
         rx.cond(
             item.link == url,
             sidebar_link(
@@ -416,9 +416,9 @@ def sidebar_leaf(
             rx.cond(
                 item.link == "",
                 rx.heading(
-                    rx.span("[ ", color="#DACEEE"),
+                    rx.chakra.span("[ ", color="#DACEEE"),
                     item.names,
-                    rx.span(" ]", color="#DACEEE"),
+                    rx.chakra.span(" ]", color="#DACEEE"),
                     style=heading_style3,
                     margin_left="0em",
                     margin_top="0.5em",
@@ -455,8 +455,8 @@ def sidebar_item_comp(
     return rx.cond(
         item.children.length() == 0,
         sidebar_leaf(item=item, url=url),
-        rx.accordion_item(
-            rx.accordion_button(
+        rx.chakra.accordion_item(
+            rx.chakra.accordion_button(
                 rx.text(
                     item.names,
                     font_family=styles.SANS,
@@ -476,7 +476,7 @@ def sidebar_item_comp(
                     ),
                 ),
                 rx.spacer(),
-                rx.accordion_icon(),
+                rx.chakra.accordion_icon(),
                 _hover={
                     "color": styles.ACCENT_COLOR,
                 },
@@ -484,8 +484,8 @@ def sidebar_item_comp(
                 width="100%",
                 min_width="10em",
             ),
-            rx.accordion_panel(
-                rx.accordion(
+            rx.chakra.accordion_panel(
+                rx.chakra.accordion(
                     rx.vstack(
                         rx.foreach(
                             item.children,
@@ -616,12 +616,12 @@ def sidebar_comp(
             border="2px solid #F4F3F6",
             width="100%",
         ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.cond(
             SidebarState.sidebar_index == 0,
             rx.vstack(
                 sidebar_section("Onboarding"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(
                             item=item,
@@ -635,7 +635,7 @@ def sidebar_comp(
                     width="100%",
                 ),
                 sidebar_section("UI"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(
                             item=item,
@@ -649,7 +649,7 @@ def sidebar_comp(
                     width="100%",
                 ),
                 sidebar_section("State"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(
                             item=item,
@@ -663,7 +663,7 @@ def sidebar_comp(
                     width="100%",
                 ),
                 sidebar_section("Hosting"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(
                             item=item,
@@ -682,7 +682,7 @@ def sidebar_comp(
             ),
             rx.vstack(
                 sidebar_section("Core"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(item=item, url=url, index=reference_index)
                         for item in reference
@@ -694,7 +694,7 @@ def sidebar_comp(
                     width="100%",
                 ),
                 sidebar_section("Other Libraries"),
-                rx.accordion(
+                rx.chakra.accordion(
                     *[
                         sidebar_item_comp(item=item, url=url, index=other_libs_index)
                         for item in other_libs

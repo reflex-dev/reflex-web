@@ -1,7 +1,6 @@
 ---
 components:
     - rx.radix.checkbox
-    - rx.radix.checkbox.root
 ---
 
 ```python exec
@@ -10,7 +9,7 @@ rdx = rx.radix
 ```
 
 
-# High Level Checkbox
+# Checkbox
 
 Checkboxes allow users to select one or more items from a set.
 
@@ -51,7 +50,7 @@ rx.hstack(
 
 ## Triggers
 
-### OnCheckedChange
+### OnChange
 
 The `on_change` trigger is called when the `checkbox` is clicked.
 

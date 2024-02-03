@@ -110,11 +110,11 @@ class OperState(rx.State):
 
 def var_operation_example():
     return rx.vstack(
-        rx.heading(f"The number: {OperState.number}", size="md"),
+        rx.chakra.heading(f"The number: {OperState.number}", size="md"),
         rx.hstack(
-            rx.text("Negated:", rx.badge(-OperState.number, variant="subtle", color_scheme="green")), 
-            rx.text(f"Absolute:", rx.badge(abs(OperState.number), variant="subtle", color_scheme="blue")),
-            rx.text(f"Numbers seen:", rx.badge(OperState.numbers_seen.length(), variant="subtle", color_scheme="red")),
+            rx.text("Negated:", rx.chakra.badge(-OperState.number, variant="subtle", color_scheme="green")), 
+            rx.text(f"Absolute:", rx.chakra.badge(abs(OperState.number), variant="subtle", color_scheme="blue")),
+            rx.text(f"Numbers seen:", rx.chakra.badge(OperState.numbers_seen.length(), variant="subtle", color_scheme="red")),
         ),
         rx.button("Update", on_click=OperState.update),
     )
@@ -124,7 +124,7 @@ def var_operation_example():
 
 All of the comparison operators are used as expected in python. These include `==`, `!=`, `>`, `>=`, `<`, `<=`. 
 
-There are operators to add two vars `+`, subract two vars `-`, multiply two vars `*` and raise a var to a power `pow()`.
+There are operators to add two vars `+`, subtract two vars `-`, multiply two vars `*` and raise a var to a power `pow()`.
 
 ```python demo exec
 import random
@@ -140,8 +140,8 @@ class CompState(rx.State):
 def var_comparison_example():
     
     return rx.vstack(
-        rx.table_container(
-            rx.table(
+        rx.chakra.table_container(
+            rx.chakra.table(
                 headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
                 rows=[
                     (CompState.number_1, CompState.number_2, "Int 1 == Int 2", f"{CompState.number_1 == CompState.number_2}"),
@@ -180,8 +180,8 @@ class DivState(rx.State):
 
 def var_div_example():
     return rx.vstack(
-        rx.table_container(
-            rx.table(
+        rx.chakra.table_container(
+            rx.chakra.table(
                 headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
                 rows=[
                     (DivState.number_1, DivState.number_2, "Int 1 / Int 2", f"{DivState.number_1 / DivState.number_2}"),
@@ -215,8 +215,8 @@ class LogicState(rx.State):
 
 def var_logical_example():
     return rx.vstack(
-        rx.table_container(
-            rx.table(
+        rx.chakra.table_container(
+            rx.chakra.table(
                 headers=["Var 1", "Var 2", "Operation", "Outcome"],
                 rows=[
                     (f"{LogicState.var_1}", f"{LogicState.var_2}", "Logical AND (&)", f"{LogicState.var_1 & LogicState.var_2}"),
@@ -249,15 +249,15 @@ class ListsState(rx.State):
 def var_list_example():
     return rx.hstack(
         rx.vstack(
-            rx.heading(f"List 1: {ListsState.list_1}", size="md"),
+            rx.chakra.heading(f"List 1: {ListsState.list_1}", size="md"),
             rx.text(f"List 1 Contains 3: {ListsState.list_1.contains(3)}"),
         ),
         rx.vstack(
-            rx.heading(f"List 2: {ListsState.list_2}", size="md"),
+            rx.chakra.heading(f"List 2: {ListsState.list_2}", size="md"),
             rx.text(f"Reverse List 2: {ListsState.list_2.reverse()}"),
         ),
         rx.vstack(
-            rx.heading(f"List 3: {ListsState.list_3}", size="md"),
+            rx.chakra.heading(f"List 3: {ListsState.list_3}", size="md"),
             rx.text(f"List 3 Joins: {ListsState.list_3.join()}"),
         ),
     )
@@ -276,11 +276,11 @@ class StringState(rx.State):
 def var_string_example():
     return rx.hstack(
         rx.vstack(
-            rx.heading(f"List 1: {StringState.string_1}", size="md"),
+            rx.chakra.heading(f"List 1: {StringState.string_1}", size="md"),
             rx.text(f"List 1 Lower Case: {StringState.string_1.lower()}"),
         ),
         rx.vstack(
-            rx.heading(f"List 2: {StringState.string_2}", size="md"),
+            rx.chakra.heading(f"List 2: {StringState.string_2}", size="md"),
             rx.text(f"List 2 Upper Case: {StringState.string_2.upper()}"),
             rx.text(f"Split String 2: {StringState.string_2.split()}"),  
         ),
@@ -297,7 +297,7 @@ class GetItemState1(rx.State):
 
 def get_item_error_1():
     return rx.vstack(
-        rx.circular_progress(value=GetItemState1.list_1[0])
+        rx.chakra.circular_progress(value=GetItemState1.list_1[0])
     )
 ```
 
@@ -310,7 +310,7 @@ class GetItemState1(rx.State):
 
 def get_item_error_1():
     return rx.vstack(
-        rx.circular_progress(value=GetItemState1.list_1[0])
+        rx.chakra.circular_progress(value=GetItemState1.list_1[0])
     )
 ```
 
@@ -330,7 +330,7 @@ class ProjectsState(rx.State):
     ]
 
 def get_badge(technology: str) -> rx.Component:
-    return rx.badge(technology, variant="subtle", color_scheme="green")
+    return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
 
 def project_item(project: dict):
 
@@ -360,7 +360,7 @@ class ProjectsState(rx.State):
 
 def projects_example() -> rx.Component:
     def get_badge(technology: str) -> rx.Component:
-        return rx.badge(technology, variant="subtle", color_scheme="green")
+        return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
 
     def project_item(project: dict) -> rx.Component:
 
@@ -437,7 +437,7 @@ class VarNumberState(rx.State):
 
 def var_number_example():
     return rx.vstack(
-        rx.heading(f"The number is {VarNumberState.number}", size="lg"),
+        rx.chakra.heading(f"The number is {VarNumberState.number}", size="lg"),
         # Var operations can be composed for more complex expressions.
         rx.cond(
             VarNumberState.number % 2 == 0,

@@ -17,9 +17,9 @@ class TextareaState(rx.State):
     text: str = "Hello World!"
 
 def textarea_example():
-    return rx.vstack(
-        rx.heading(TextareaState.text),
-        rx.text_area(value=TextareaState.text, on_change=TextareaState.set_text)
+    return rx.chakra.vstack(
+        rx.chakra.heading(TextareaState.text),
+        rx.chakra.text_area(value=TextareaState.text, on_change=TextareaState.set_text)
     )
 ```
 

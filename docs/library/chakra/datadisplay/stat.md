@@ -17,24 +17,24 @@ import reflex as rx
 The stat component is a great way to visualize statistics in a clean and concise way.
 
 ```python demo
-rx.stat(
-    rx.stat_label("Example Price"),
-    rx.stat_number("$25"),
-    rx.stat_help_text("The price of the item."),
+rx.chakra.stat(
+    rx.chakra.stat_label("Example Price"),
+    rx.chakra.stat_number("$25"),
+    rx.chakra.stat_help_text("The price of the item."),
 )
 ```
 
 Example of a stats in a group with arrow.
 
 ```python demo
-rx.stat_group(
-        rx.stat(
-            rx.stat_number("$250"),
-            rx.stat_help_text("%50", rx.stat_arrow(type_="increase")),
+rx.chakra.stat_group(
+        rx.chakra.stat(
+            rx.chakra.stat_number("$250"),
+            rx.chakra.stat_help_text("%50", rx.chakra.stat_arrow(type_="increase")),
         ),
-        rx.stat(
-            rx.stat_number("£100"),
-            rx.stat_help_text("%50", rx.stat_arrow(type_="decrease")),
+        rx.chakra.stat(
+            rx.chakra.stat_number("£100"),
+            rx.chakra.stat_help_text("%50", rx.chakra.stat_arrow(type_="decrease")),
         ),
         width="100%",
 )

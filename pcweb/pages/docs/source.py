@@ -133,24 +133,24 @@ def generate_docs(title: str, s: Source):
     return rx.box(
         h1_comp(text=title.title()),
         rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
-        rx.divider(),
+        rx.chakra.divider(),
         text_comp(text=s.get_overview()),
         h2_comp(text="Class Fields"),
         rx.box(
-            rx.table(
-                rx.thead(
-                    rx.tr(
-                        rx.th("Field"),
-                        rx.th("Description"),
+            rx.chakra.table(
+                rx.chakra.thead(
+                    rx.chakra.tr(
+                        rx.chakra.th("Field"),
+                        rx.chakra.th("Description"),
                     )
                 ),
-                rx.tbody(
+                rx.chakra.tbody(
                     *[
-                        rx.tr(
-                            rx.td(
+                        rx.chakra.tr(
+                            rx.chakra.td(
                                 rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
                             ),
-                            rx.td(field["description"]),
+                            rx.chakra.td(field["description"]),
                         )
                         for field in s.get_class_fields()
                     ],
@@ -160,20 +160,20 @@ def generate_docs(title: str, s: Source):
         ),
         h2_comp(text="Fields"),
         rx.box(
-            rx.table(
-                rx.thead(
-                    rx.tr(
-                        rx.th("Field"),
-                        rx.th("Description"),
+            rx.chakra.table(
+                rx.chakra.thead(
+                    rx.chakra.tr(
+                        rx.chakra.th("Field"),
+                        rx.chakra.th("Description"),
                     )
                 ),
-                rx.tbody(
+                rx.chakra.tbody(
                     *[
-                        rx.tr(
-                            rx.td(
+                        rx.chakra.tr(
+                            rx.chakra.td(
                                 rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
                             ),
-                            rx.td(field["description"]),
+                            rx.chakra.td(field["description"]),
                         )
                         for field in s.get_fields()
                     ],
@@ -183,24 +183,24 @@ def generate_docs(title: str, s: Source):
         ),
         h2_comp(text="Methods"),
         rx.box(
-            rx.table(
-                rx.thead(
-                    rx.tr(
-                        rx.th("Signature"),
-                        rx.th("Description"),
+            rx.chakra.table(
+                rx.chakra.thead(
+                    rx.chakra.tr(
+                        rx.chakra.th("Signature"),
+                        rx.chakra.th("Description"),
                     )
                 ),
-                rx.tbody(
+                rx.chakra.tbody(
                     *[
-                        rx.tr(
-                            rx.td(
+                        rx.chakra.tr(
+                            rx.chakra.td(
                                 rx.code(
                                     field["name"] + field["signature"],
                                     font_weight=styles.BOLD_WEIGHT,
                                 ),
                                 white_space="normal",
                             ),
-                            rx.td(field["description"], white_space="normal"),
+                            rx.chakra.td(field["description"], white_space="normal"),
                         )
                         for field in s.get_methods()
                     ],

@@ -83,7 +83,7 @@ class CollatzState(rx.State):
 def collatz_example():
     return rx.vstack(
         rx.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
-        rx.input(on_blur=CollatzState.start_collatz),
+        rx.chakra.input(on_blur=CollatzState.start_collatz),
     )
 
 ```

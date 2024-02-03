@@ -110,7 +110,7 @@ class FormSliderState(rx.State):
 
 def form_example2():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
                 slider(default_value=[40], width="100%", name="slider"),
                 rx.button("Submit", type_="submit"),
@@ -120,7 +120,7 @@ def form_example2():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.heading("Results"),
         rx.text(FormSliderState.form_data.to_string()),
         width="100%",

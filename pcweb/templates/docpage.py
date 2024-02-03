@@ -375,7 +375,7 @@ def h_comp_common(
             href=href,
             on_click=lambda: rx.set_clipboard(href),
         ),
-        rx.divider(margin_y="1em"),
+        rx.chakra.divider(margin_y="1em"),
         margin_top=margin_top,
         color=tc["docs"]["header"],
         width="100%",
@@ -676,17 +676,17 @@ def docgraphing(
             height="15em",
             style=demo_box_style,
         ),
-        rx.tabs(
-            rx.tab_list(
-                rx.tab("Code", style=tab_style),
-                rx.tab("Data", style=tab_style),
+        rx.chakra.tabs(
+            rx.chakra.tab_list(
+                rx.chakra.tab("Code", style=tab_style),
+                rx.chakra.tab("Data", style=tab_style),
                 padding_x=0,
             ),
-            rx.tab_panels(
-                rx.tab_panel(
+            rx.chakra.tab_panels(
+                rx.chakra.tab_panel(
                     doccode(code), width="100%", padding_x=0, padding_y=".25em"
                 ),
-                rx.tab_panel(
+                rx.chakra.tab_panel(
                     doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
                 ),
                 width="100%",

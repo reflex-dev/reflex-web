@@ -19,39 +19,39 @@ rdx = rx.radix
 
 An alert dialog is a modal confirmation dialog that interrupts the user and expects a response.
 
-The `alertdialog_root` contains all the parts of the dialog.
+The `alert_dialog.root` contains all the parts of the dialog.
 
-The `alertdialog_trigger` wraps the control that will open the dialog.
+The `alert_dialog.trigger` wraps the control that will open the dialog.
 
-The `alertdialog_content` contains the content of the dialog.
+The `alert_dialog.content` contains the content of the dialog.
 
-The `alertdialog_title` is the title that is announced when the dialog is opened.
+The `alert_dialog.title` is the title that is announced when the dialog is opened.
 
-The `alertdialog_description` is an optional description that is announced when the dialog is opened.
+The `alert_dialog.description` is an optional description that is announced when the dialog is opened.
 
-The `alertdialog_action` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_cancel` control.
+The `alert_dialog.action` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.cancel` control.
 
-The `alertdialog_cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alertdialog_action` control.
+The `alert_dialog.cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.action` control.
 
 
 ## Basic Example
 
 ```python demo
-alertdialog_root(
-    alertdialog_trigger(
-        button("Revoke access"),
+rx.alert_dialog.root(
+    rx.alert_dialog.trigger(
+        rx.button("Revoke access"),
     ),
-    alertdialog_content(
-        alertdialog_title("Revoke access"),
-        alertdialog_description(
+    rx.alert_dialog.content(
+        rx.alert_dialog.title("Revoke access"),
+        rx.alert_dialog.description(
             "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
         ),
-        flex(
-            alertdialog_cancel(
-                button("Cancel"),
+        rx.flex(
+            rx.alert_dialog.cancel(
+                rx.button("Cancel"),
             ),
-            alertdialog_action(
-                button("Revoke access"),
+            rx.alert_dialog.action(
+                rx.button("Revoke access"),
             ),
             gap="3",
         ),
@@ -160,25 +160,25 @@ class AlertDialogState(rx.State):
 
 
 def alert_dialog():
-    return flex(
-        heading(f"Number of times alert dialog opened or closed: {AlertDialogState.num_opens}"),
-        heading(f"Alert Dialog open: {AlertDialogState.opened}"),
-        alertdialog_root(
-            alertdialog_trigger(
-                button("Revoke access", color_scheme="red"),
+    return rx.flex(
+        rx.heading(f"Number of times alert dialog opened or closed: {AlertDialogState.num_opens}"),
+        rx.heading(f"Alert Dialog open: {AlertDialogState.opened}"),
+        rx.alert_dialog.root(
+            rx.alert_dialog.trigger(
+                rx.button("Revoke access", color_scheme="red"),
             ),
-            alertdialog_content(
-                alertdialog_title("Revoke access"),
-                alertdialog_description(
+            rx.alert_dialog.content(
+                rx.alert_dialog.title("Revoke access"),
+                rx.alert_dialog.description(
                     "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
                     size="2",
                 ),
-                flex(
-                    alertdialog_cancel(
-                        button("Cancel", variant="soft", color_scheme="gray"),
+                rx.flex(
+                    rx.alert_dialog.cancel(
+                        rx.button("Cancel", variant="soft", color_scheme="gray"),
                     ),
-                    alertdialog_action(
-                        button("Revoke access", color_scheme="red", variant="solid"),
+                    rx.alert_dialog.action(
+                        rx.button("Revoke access", color_scheme="red", variant="solid"),
                     ),
                     gap="3",
                     margin_top="16px",
@@ -197,28 +197,28 @@ def alert_dialog():
 
 ## Changing the size
 
-The `size` of `alertdialog` can be changed. The `alertdialog` on the right hand side has no `size` props set. The one on the left hand side has `size` set to `1` for all subcomponents including `alertdialog_trigger`, `alertdialog_content`, `alertdialog_title`, `alertdialog_description`, `alertdialog_cancel` and `alertdialog_action`. The `size` prop can take any value of `1, 2, 3, 4`.
+The `size` of `alert_dialog` can be changed. The `alert_dialog` on the right hand side has no `size` props set. The one on the left hand side has `size` set to `1` for all subcomponents including `alert_dialog.trigger`, `alert_dialog.content`, `alert_dialog.title`, `alert_dialog.description`, `alert_dialog.cancel` and `alert_dialog.action`. The `size` prop can take any value of `1, 2, 3, 4`.
 
 ```python demo
-flex(
-    alertdialog_root(
-        alertdialog_trigger(
-            button("Revoke access", color_scheme="red"),
+rx.flex(
+    rx.alert_dialog.root(
+        rx.alert_dialog.trigger(
+            rx.button("Revoke access", color_scheme="red"),
             size="1",
         ),
-        alertdialog_content(
-            alertdialog_title("Revoke access", size="1",),
-            alertdialog_description(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access", size="1",),
+            rx.alert_dialog.description(
                 "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
                 size="1",
             ),
-            flex(
-                alertdialog_cancel(
-                    button("Cancel", variant="soft", color_scheme="gray"),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel", variant="soft", color_scheme="gray"),
                     size="1",
                 ),
-                alertdialog_action(
-                    button("Revoke access", color_scheme="red", variant="solid"),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access", color_scheme="red", variant="solid"),
                     size="1",
                 ),
                 gap="3",
@@ -229,21 +229,21 @@ flex(
             size="1",
         ),
     ),
-    alertdialog_root(
-        alertdialog_trigger(
-            button("Revoke access", color_scheme="red"),
+    rx.alert_dialog.root(
+        rx.alert_dialog.trigger(
+            rx.button("Revoke access", color_scheme="red"),
         ),
-        alertdialog_content(
-            alertdialog_title("Revoke access"),
-            alertdialog_description(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access"),
+            rx.alert_dialog.description(
                 "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
             ),
-            flex(
-                alertdialog_cancel(
-                    button("Cancel", variant="soft", color_scheme="gray"),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel", variant="soft", color_scheme="gray"),
                 ),
-                alertdialog_action(
-                    button("Revoke access", color_scheme="red", variant="solid"),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access", color_scheme="red", variant="solid"),
                 ),
                 gap="3",
                 margin_top="16px",

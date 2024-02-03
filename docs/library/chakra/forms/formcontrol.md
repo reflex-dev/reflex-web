@@ -15,10 +15,10 @@ import reflex as rx
 ```
 
 ```python demo
-rx.form_control(
-    rx.form_label("First Name", html_for="email"),
-    rx.checkbox("Example"),
-    rx.form_helper_text("This is a help text"),
+rx.chakra.form_control(
+    rx.chakra.form_label("First Name", html_for="email"),
+    rx.chakra.checkbox("Example"),
+    rx.chakra.form_helper_text("This is a help text"),
     is_required=True,
 )
 ```
@@ -36,13 +36,13 @@ class FormErrorState(rx.State):
          return len(self.name) <= 3
 
 def form_state_example():
-    return rx.vstack(
-        rx.form_control(
-            rx.input(placeholder="name", on_blur=FormErrorState.set_name),
+    return rx.chakra.vstack(
+        rx.chakra.form_control(
+            rx.chakra.input(placeholder="name", on_blur=FormErrorState.set_name),
             rx.cond(
                 FormErrorState.is_error,
-                rx.form_error_message("Name should be more than four characters"),
-                rx.form_helper_text("Enter name"),
+                rx.chakra.form_error_message("Name should be more than four characters"),
+                rx.chakra.form_helper_text("Enter name"),
             ),
             is_invalid=FormErrorState.is_error,
             is_required=True,

@@ -29,15 +29,15 @@ class DrawerState(rx.State):
         self.show_right = not (self.show_right)
 
 def drawer_example():
-    return rx.vstack(
-        rx.button("Show Right Drawer", on_click=DrawerState.right),
-        rx.drawer(
-            rx.drawer_overlay(
-                rx.drawer_content(
-                    rx.drawer_header("Confirm"),
-                    rx.drawer_body("Do you want to confirm example?"),
-                    rx.drawer_footer(
-                        rx.button("Close", on_click=DrawerState.right)
+    return rx.chakra.vstack(
+        rx.chakra.button("Show Right Drawer", on_click=DrawerState.right),
+        rx.chakra.drawer(
+            rx.chakra.drawer_overlay(
+                rx.chakra.drawer_content(
+                    rx.chakra.drawer_header("Confirm"),
+                    rx.chakra.drawer_body("Do you want to confirm example?"),
+                    rx.chakra.drawer_footer(
+                        rx.chakra.button("Close", on_click=DrawerState.right)
                     ),
                     bg = "rgba(0, 0, 0, 0.3)"
                 )
@@ -51,15 +51,15 @@ Drawer can display from the top, bottom, left, or right.
 By defualt it displays to the right as seen above
 
 ```python demo
-rx.vstack(
-    rx.button("Show Top Drawer", on_click=DrawerState.top),
-    rx.drawer(
-        rx.drawer_overlay(
-            rx.drawer_content(
-                rx.drawer_header("Confirm"),
-                rx.drawer_body("Do you want to confirm example?"),
-                rx.drawer_footer(
-                    rx.button("Close", on_click=DrawerState.top)
+rx.chakra.vstack(
+    rx.chakra.button("Show Top Drawer", on_click=DrawerState.top),
+    rx.chakra.drawer(
+        rx.chakra.drawer_overlay(
+            rx.chakra.drawer_content(
+                rx.chakra.drawer_header("Confirm"),
+                rx.chakra.drawer_body("Do you want to confirm example?"),
+                rx.chakra.drawer_footer(
+                    rx.chakra.button("Close", on_click=DrawerState.top)
                 ),
             )
         ),

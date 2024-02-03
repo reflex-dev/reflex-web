@@ -40,11 +40,11 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             title = ""
             content = "\n".join(lines[1:-1])
 
-        return rx.alert(
-            rx.alert_icon(),
+        return rx.chakra.alert(
+            rx.chakra.alert_icon(),
             rx.box(
-                rx.alert_title(markdown(title)) if title else "",
-                rx.alert_description(markdown(content)),
+                rx.chakra.alert_title(markdown(title)) if title else "",
+                rx.chakra.alert_description(markdown(content)),
             ),
             status=status,
         )
@@ -75,7 +75,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.span(
+                            rx.chakra.span(
                                 header,
                                 font_weight="bold",
                             ),
@@ -138,9 +138,9 @@ class DefinitionBlock(flexdown.blocks.Block):
         return rx.fragment(
             rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rx.grid(
+                rx.chakra.grid(
                     *[
-                        rx.grid_item(d, row_span=1, col_span=1, width="100%")
+                        rx.chakra.grid_item(d, row_span=1, col_span=1, width="100%")
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",

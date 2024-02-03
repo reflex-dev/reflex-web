@@ -15,26 +15,26 @@ rdx = rx.radix
 
 A popover displays content, triggered by a button.
 
-The `popover_root` contains all the parts of a popover.
+The `popover.root` contains all the parts of a popover.
 
-The `popover_trigger` contains the button that toggles the popover.
+The `popover.trigger` contains the button that toggles the popover.
 
-The `popover_content` is the component that pops out when the popover is open.
+The `popover.content` is the component that pops out when the popover is open.
 
-The `popover_close` is the button that closes an open popover.
+The `popover.close` is the button that closes an open popover.
 
 ## Basic Example
 
 ```python demo
-popover_root(
-    popover_trigger(
-        button("Popover"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Popover"),
     ),
-    popover_content(
-        flex(
-            text("Simple Example"),
-            popover_close(
-                button("Close"),
+    rx.popover.content(
+        rx.flex(
+            rx.text("Simple Example"),
+            rx.popover.close(
+                rx.button("Close"),
             ),
             direction="column",
             gap="3",
@@ -62,17 +62,7 @@ rdx.popover.root(
             rdx.box(
                 rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
                 rdx.flex(
-                    rdx.flex(
-                        rdx.text(
-                            rdx.checkbox.root(),
-                            rdx.text("Send to group"),
-                            as_="label",
-                            size="2",
-                        ),
-                        align="center",
-                        gap="2",
-                        as_child=True,
-                    ),
+                    rdx.checkbox("Send to group"),
                     rdx.popover.close(
                         rdx.button("Comment", size="1")
                     ),
@@ -103,17 +93,7 @@ rdx.popover.root(
         rdx.box(
             rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
             rdx.flex(
-                rdx.flex(
-                    rdx.text(
-                        rdx.checkbox.root(),
-                        rdx.text("Send to group"),
-                        as_="label",
-                        size="2",
-                    ),
-                    align="center",
-                    gap="2",
-                    as_child=True,
-                ),
+                rdx.checkbox("Send to group"),
                 rdx.popover.close(
                     rdx.button("Comment", size="1")
                 ),

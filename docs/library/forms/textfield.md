@@ -107,7 +107,7 @@ class FormInputState(rx.State):
 
 def form_input1():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
                 rdx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
                 rdx.button("Submit", type_="submit"),

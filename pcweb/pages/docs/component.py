@@ -183,15 +183,15 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
 
     # Return the docs for the prop.
     return [
-        rx.td(
+        rx.chakra.td(
             rx.code(prop.name, color="#333"),
             padding_left="0",
         ),
-        rx.td(
+        rx.chakra.td(
             rx.badge(type_, color_scheme=color, variant="solid"),
             padding_left="0",
         ),
-        rx.td(
+        rx.chakra.td(
             markdown(prop.description),
             padding_left="0",
         ),
@@ -412,15 +412,15 @@ def generate_props(src):
         )
 
     return rx.vstack(
-        rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Prop", padding_left="0"),
-                    rx.th("Type", padding_left="0"),
-                    rx.th("Description/Values", padding_left="0"),
+        rx.chakra.table(
+            rx.chakra.thead(
+                rx.chakra.tr(
+                    rx.chakra.th("Prop", padding_left="0"),
+                    rx.chakra.th("Type", padding_left="0"),
+                    rx.chakra.th("Description/Values", padding_left="0"),
                 )
             ),
-            rx.tbody(*[rx.tr(*prop_docs(prop)) for prop in src.get_props()]),
+            rx.chakra.tbody(*[rx.chakra.tr(*prop_docs(prop)) for prop in src.get_props()]),
             width="100%",
             padding_x="0",
             size="sm",
@@ -466,18 +466,18 @@ def generate_event_triggers(comp):
 
     return rx.vstack(
         rx.heading("Event Triggers", font_size="1em"),
-        rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Trigger", padding_left="0"),
-                    rx.th("Description", padding_left="0"),
+        rx.chakra.table(
+            rx.chakra.thead(
+                rx.chakra.tr(
+                    rx.chakra.th("Trigger", padding_left="0"),
+                    rx.chakra.th("Description", padding_left="0"),
                 )
             ),
-            rx.tbody(
+            rx.chakra.tbody(
                 *[
-                    rx.tr(
-                        rx.td(rx.code(event), padding_left="0"),
-                        rx.td(rx.text(EVENTS[event]["description"])),
+                    rx.chakra.tr(
+                        rx.chakra.td(rx.code(event), padding_left="0"),
+                        rx.chakra.td(rx.text(EVENTS[event]["description"])),
                     )
                     for event in custom_events
                 ]
@@ -494,10 +494,10 @@ def generate_valid_children(comp):
     if not comp._valid_children:
         return rx.text("")
 
-    valid_children = [rx.wrap_item(rx.code(child)) for child in comp._valid_children]
+    valid_children = [rx.chakra.wrap_item(rx.code(child)) for child in comp._valid_children]
     return rx.vstack(
         rx.heading("Valid Children", font_size="1em"),
-        rx.wrap(*valid_children),
+        rx.chakra.wrap(*valid_children),
         width="100%",
         align_items="left",
         padding_y=".5em",
@@ -513,7 +513,7 @@ def component_docs(component):
 
     return rx.box(
         rx.heading(component.__name__, font_size="2em"),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.box(markdown(src.get_docs()), padding_bottom="1em"),
         props,
         children,
@@ -554,47 +554,47 @@ def multi_docs(path, comp, component_list, title):
         return rx.box(
             rx.box(
                 rx.box(
-                    rx.tabs(
-                        rx.tab_list(
+                    rx.chakra.tabs(
+                        rx.chakra.tab_list(
                             rx.spacer(),
-                            rx.tab(
+                            rx.chakra.tab(
                                 "High Level API",
                                 _selected=tab_selected_style,
                                 style=tab_style,
                             ),
-                            rx.tab(
+                            rx.chakra.tab(
                                 "Low Level API",
                                 _selected=tab_selected_style,
                                 style=tab_style,
                             )
                             if ll_doc_exists
                             else "",
-                            rx.tab(
+                            rx.chakra.tab(
                                 "Styling", _selected=tab_selected_style, style=tab_style
                             )
                             if style_doc_exists
                             else "",
-                            rx.tab(
+                            rx.chakra.tab(
                                 "Props", _selected=tab_selected_style, style=tab_style
                             ),
                             width="100%",
                             padding_bottom="1em",
                         ),
-                        rx.tab_panels(
-                            rx.tab_panel(xd.render(comp, filename=fname)),
-                            rx.tab_panel(
+                        rx.chakra.tab_panels(
+                            rx.chakra.tab_panel(xd.render(comp, filename=fname)),
+                            rx.chakra.tab_panel(
                                 xd.render_file(
                                     fname.replace("radix/", "").replace(".md", "-ll.md")
                                 )
                             )
                             if ll_doc_exists
                             else "",
-                            rx.tab_panel(
+                            rx.chakra.tab_panel(
                                 xd.render_file(fname.replace(".md", "-style.md"))
                             )
                             if style_doc_exists
                             else "",
-                            rx.tab_panel(rx.vstack(*components)),
+                            rx.chakra.tab_panel(rx.vstack(*components)),
                         ),
                         variant="unstyled",
                         default_index=1 if "only_low_level" in comp.metadata else 0,

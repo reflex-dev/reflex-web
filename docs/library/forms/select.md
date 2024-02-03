@@ -137,7 +137,7 @@ class FormSelectState1(rx.State):
 
 def form_select1():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
                 rdx.select(
                     ["apple", "grape", "pear"],

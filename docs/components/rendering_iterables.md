@@ -28,7 +28,7 @@ def colored_box(color: str):
 
 
 def simple_foreach():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(IterState.color, colored_box),
         columns=[2, 4, 6],
     )
@@ -56,7 +56,7 @@ class IterIndexState(rx.State):
 
 
 def enumerate_foreach():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             IterIndexState.color,
             lambda color, index: rx.box(rx.text(index), bg=color)
@@ -85,7 +85,7 @@ def display_color(color: list):
 
 
 def dict_foreach():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             SimpleDictIterState.color_chart,
             display_color,
@@ -111,7 +111,7 @@ class NestedStateFE(rx.State):
     ]
 
 def get_badge(technology: str) -> rx.Component:
-    return rx.badge(technology, variant="subtle", color_scheme="green")
+    return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
 
 def project_item(project: dict) -> rx.Component:
     return rx.box(
@@ -153,7 +153,7 @@ def display_colors(color: list[str, list[str]]):
 
 
 def nested_dict_foreach():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             NestedDictIterState.color_chart,
             display_colors,
@@ -185,14 +185,14 @@ class ForeachCondState(rx.State):
 def render_item(item: [str, bool]):
     return rx.cond(
         item.is_packed, 
-        rx.list_item(item.item_name + ' ✔'),
-        rx.list_item(item.item_name),
+        rx.chakra.list_item(item.item_name + ' ✔'),
+        rx.chakra.list_item(item.item_name),
         )
 
 def packing_list():
     return rx.vstack(
         rx.text("Sammy's Packing List", as_="strong"),
-        rx.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
+        rx.chakra.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
     )
 
 ```

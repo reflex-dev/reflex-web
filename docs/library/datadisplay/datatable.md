@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.DataTable
+    - rx.data_table
 ---
 
 ```python exec

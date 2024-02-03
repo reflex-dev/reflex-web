@@ -43,8 +43,8 @@ class SignupState(rx.State):
 @rx.page()
 def signup_page():
     return rx.box(
-        rx.input(value=SignupState.username),
-        rx.input(value=SignupState.password),
+        rx.chakra.input(value=SignupState.username),
+        rx.chakra.input(value=SignupState.password),
     )
 
 # login.py
@@ -61,8 +61,8 @@ class LoginState(rx.State):
 @rx.page()
 def login_page():
     return rx.box(
-        rx.input(value=LoginState.username),
-        rx.input(value=LoginState.password),
+        rx.chakra.input(value=LoginState.username),
+        rx.chakra.input(value=LoginState.password),
     )
 ```
 
@@ -80,8 +80,8 @@ from signup import SignupState
 def index():
     return rx.box(
         rx.text(IndexState.data),
-        rx.input(value=SignupState.username),
-        rx.input(value=SignupState.password),
+        rx.chakra.input(value=SignupState.username),
+        rx.chakra.input(value=SignupState.password),
     )
 ```
 

@@ -128,14 +128,14 @@ class CondRepeatState(rx.State):
 def render_item(item: [str, bool]):
     return rx.cond(
         item.is_packed, 
-        rx.list_item(item.item_name + ' ✔'),
-        rx.list_item(item.item_name),
+        rx.chakra.list_item(item.item_name + ' ✔'),
+        rx.chakra.list_item(item.item_name),
         )
 
 def packing_list():
     return rx.vstack(
         rx.text("Sammy's Packing List", as_="strong"),
-        rx.list(rx.foreach(CondRepeatState.to_do_list, render_item)),
+        rx.chakra.list(rx.foreach(CondRepeatState.to_do_list, render_item)),
     )
 
 ```

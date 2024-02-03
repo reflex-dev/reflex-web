@@ -13,11 +13,11 @@ rdx = rx.radix
 # Hovercard
 
 
-The `hovercard_root` contains all the parts of a hover card.
+The `hover_card.root` contains all the parts of a hover card.
 
-The `hovercard_trigger` wraps the link that will open the hover card.
+The `hover_card.trigger` wraps the link that will open the hover card.
 
-The `hovercard_content` contains the content of the open hover card.
+The `hover_card.content` contains the content of the open hover card.
 
 
 ```python demo
@@ -52,17 +52,7 @@ rdx.text(
                 rdx.box(
                     rdx.text_area(placeholder="Write a comment…", style={"height": 80}),
                     rdx.flex(
-                        rdx.flex(
-                            rdx.text(
-                                rdx.checkbox.root(),
-                                rdx.text("Send to group"),
-                                as_="label",
-                                size="2",
-                            ),
-                            align="center",
-                            gap="2",
-                            as_child=True,
-                        ),
+                        rdx.checkbox("Send to group"),
                         gap="3",
                         margin_top="12px",
                         justify="between",
@@ -93,17 +83,17 @@ class HovercardState(rx.State):
 
 
 def hovercard_example():
-    return flex(
-        heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
-        heading(f"Hovercard open: {HovercardState.opened}"),
+    return rx.flex(
+        rx.heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
+        rx.heading(f"Hovercard open: {HovercardState.opened}"),
         rx.text(
             "Hover over the text to see the tooltip. ",
-            hovercard_root(
-                hovercard_trigger(
-                    link("Hover over me", color_scheme="blue", underline="always"),
+            rx.hover_card.root(
+                rx.hover_card.trigger(
+                    rx.link("Hover over me", color_scheme="blue", underline="always"),
                 ),
-                hovercard_content(
-                    text("This is the tooltip content."),
+                rx.hover_card.content(
+                    rx.text("This is the tooltip content."),
                 ),
                 on_open_change=HovercardState.count_opens,
             ),

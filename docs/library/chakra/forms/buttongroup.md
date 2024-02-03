@@ -9,19 +9,19 @@ from pcweb.templates.docpage import docdemo
 
 
 basic_button_group = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
         )
 """
 )
 
 button_group_attached = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
             is_attached=True,
         )
 
@@ -29,10 +29,10 @@ button_group_attached = (
 )
 
 button_group_variant = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
             variant='ghost',
         )
 
@@ -40,20 +40,20 @@ button_group_variant = (
 )
 
 button_group_sizes = (
-"""rx.button_group(
-            rx.button('Large Button', size='lg'),
-            rx.button('Medium Button', size='md'),
-            rx.button('Small Button', size='sm'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Large Button', size='lg'),
+            rx.chakra.button('Medium Button', size='md'),
+            rx.chakra.button('Small Button', size='sm'),
         )
 
 """  
 )
 
 button_group_disable = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
             is_disabled=True,
         )
 
@@ -61,10 +61,10 @@ button_group_disable = (
 )
 
 button_group_spacing = (
-"""rx.button_group(
-            rx.button('Option 1'),
-            rx.button('Option 2'),
-            rx.button('Option 3'),
+"""rx.chakra.button_group(
+            rx.chakra.button('Option 1'),
+            rx.chakra.button('Option 2'),
+            rx.chakra.button('Option 3'),
             spacing=8,
         )
 
@@ -75,12 +75,12 @@ button_group_spacing = (
 
 # Button Group
 
-The `rx.button_group` component allows you to create a group of buttons that are visually connected and styled together.
+The `rx.chakra.button_group` component allows you to create a group of buttons that are visually connected and styled together.
 This is commonly used to group related actions or options in your application's user interface.
 
 ## Basic Usage
 
-Here's an example of how to use the `rx.button_group` component to create a simple group of buttons:
+Here's an example of how to use the `rx.chakra.button_group` component to create a simple group of buttons:
 
 ```python eval
 docdemo(basic_button_group)
@@ -91,7 +91,7 @@ is a default spacing of `2` pixels between them.
 
 ## Adjusting ButtonGroup Properties
 
-You can customize the appearance and behavior of the `rx.button_group` component by adjusting
+You can customize the appearance and behavior of the `rx.chakra.button_group` component by adjusting
 its properties. For instance, you can set `is_attached` prop to `True` to make the buttons 
 appear flushed together:
 
