@@ -397,6 +397,9 @@ EVENTS = {
     "on_clear_server_errors": {
         "description": "The on_clear_server_errors event handler is called when the form is submitted or reset and the server errors need to be cleared."
     },
+    "on_select": {
+        "description": "The on_select event handler is called when the user selects an item."
+    },
 }
 
 
