@@ -18,11 +18,11 @@ A text field is an input field that users can type into. This component uses Rad
 ## Basic Example
 
 ```python demo
-rx.text_field.root(
-    rx.text_field.slot(
+rx.radix.text_field.root(
+    rx.radix.text_field.slot(
         rx.radix.icon(tag="magnifying_glass"),
     ),
-    rx.text_field.input(
+    rx.radix.text_field.input(
         placeholder="Search here...",
     ),
 )
@@ -36,11 +36,11 @@ class TextfieldBlur1(rx.State):
 def blur_example1():
     return rx.vstack(
         rx.heading(TextfieldBlur1.text),
-        rx.text_field.root(
-            rx.text_field.slot(
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
                 rx.radix.icon(tag="magnifying_glass"),
             ),
-            rx.text_field.input(
+            rx.radix.text_field.input(
                 placeholder="Search here...",
                 on_blur=TextfieldBlur1.set_text,
             ),
@@ -58,11 +58,11 @@ class TextfieldControlled1(rx.State):
 def controlled_example1():
     return rx.vstack(
         rx.heading(TextfieldControlled1.text),
-        rx.text_field.root(
-            rx.text_field.slot(
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
                 rx.radix.icon(tag="magnifying_glass"),
             ),
-            rx.text_field.input(
+            rx.radix.text_field.input(
                 placeholder="Search here...",
                 value=TextfieldControlled1.text,
                 on_change=TextfieldControlled1.set_text,
@@ -100,11 +100,11 @@ def song(title, initials: str, genre: str):
 def search():
     return rx.card(
     rx.flex(
-        rx.text_field.root(
-            rx.text_field.slot(
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
                 rx.radix.icon(tag="magnifying_glass"),
             ),
-            rx.text_field.input(
+            rx.radix.text_field.input(
                 placeholder="Search songs...",
             ),
         ),

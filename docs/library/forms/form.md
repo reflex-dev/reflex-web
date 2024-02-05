@@ -29,7 +29,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Email"),
             rx.form.control(
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="Email Address",
                     # type attribute is required for "typeMismatch" validation
                     type="email",
@@ -145,7 +145,7 @@ def radix_form_submission_example():
                     default_value="1",
                     name="box2",
                 ),
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="box3 textfield input",
                     name="box3",
                 ),
@@ -228,7 +228,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Requires number in range [30, 100]"),
             rx.form.control(
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="Enter a number",
                     type="number",
                     max=100,
@@ -261,7 +261,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please choose a password of length >= 8 characters"),
             rx.form.control(
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="Enter your password",
                     type="password",
                     min_length=8
@@ -292,7 +292,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please enter your phone number with only digits. Let's say in your region the phone number is exactly 10 digits long."),
             rx.form.control(
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="Enter your your phone number",
                     type="text",
                     pattern="[0-9]{10}",
@@ -326,7 +326,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please enter a valid URL starting with http or https"),
             rx.form.control(
-                rx.text_field.input(
+                rx.input.input(
                     placeholder="Enter your URL",
                     type="url",
                 ),
@@ -401,7 +401,7 @@ def radix_form_example():
                     rx.flex(
                         rx.form.label("Username"),
                         rx.form.control(
-                            rx.text_field.input(
+                            rx.input.input(
                                 placeholder="Username",
                                 # workaround: `name` seems to be required when on_change is set
                                 on_change=RadixFormState.set_user_entered_username,
@@ -440,7 +440,7 @@ def radix_form_example():
                     rx.flex(
                         rx.form.label("Email"),
                         rx.form.control(
-                            rx.text_field.input(
+                            rx.input.input(
                                 placeholder="Email Address",
                                 on_change=RadixFormState.set_user_entered_email,
                                 name="email",

@@ -60,7 +60,7 @@ rx.flex(
     rx.heading("Your Team"),
     rx.text("Invite and manage your team members"),
     rx.flex(
-        rx.text_field.input(placeholder="Email Address"),
+        rx.input(placeholder="Email Address"),
         rx.button("Invite"),
         justify="center",
         gap="2",

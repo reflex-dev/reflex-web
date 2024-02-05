@@ -61,9 +61,9 @@ rx.dialog.root(
         ),
         rx.flex(
             rx.text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            rx.text_field(default_value="Freja Johnson", placeholder="Enter your name"),
+            rx.input(default_value="Freja Johnson", placeholder="Enter your name"),
             rx.text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            rx.text_field(default_value="freja@example.com", placeholder="Enter your email"),
+            rx.input(default_value="freja@example.com", placeholder="Enter your email"),
             direction="column",
             gap="3",
         ),
