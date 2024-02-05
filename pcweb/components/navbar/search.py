@@ -169,9 +169,8 @@ def search_modal():
         padding_x="1em",
     )
 
-
-def search_bar() -> rx.Component:
-    return  rdxt.dialog_root(
+def search_bar_desktop() -> rx.Component:
+    return rdxt.dialog_root(
     rdxt.dialog_trigger(
         rdxt.flex(
             rdxt.text(
@@ -183,13 +182,13 @@ def search_bar() -> rx.Component:
             rdxt.text(
                 "⌘+K",
                 color=rx.color("mauve", 9),
-                background=rx.color("mauve", 5),
+                background=rx.color("mauve", 4),
                 border_radius="5px",
-                padding="0px 3px",
             ),
             search_modal(),
             on_click=NavbarState.open_search,
-            width="15em",
+            width=["15em", "15em", "15em", "20em", "20em",],
+            padding="7px 12px 7px 12px",
             style=button_style
         )
     ),
@@ -208,3 +207,24 @@ def search_bar() -> rx.Component:
         box_shadow= "none"
     ),
 )
+
+def search_bar_mobile():
+    return rdxt.flex(
+        rdxt.icon(
+            tag="magnifying_glass",
+            style=styles.NAV_SEARCH_STYLE,
+            color=rx.color("mauve", 9),
+            height="20px",
+            width="20px",
+        ),
+        on_click=NavbarState.open_search,
+        padding="7px",
+        style=button_style,
+        border_radius="8px",
+    )
+
+
+def search_bar() -> rx.Component:
+    return  rx.fragment(
+        search_bar_desktop(),
+    )

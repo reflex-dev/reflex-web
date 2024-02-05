@@ -3,26 +3,19 @@
 from typing import Any, Callable
 
 import reflex as rx
+import os
+import string
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
-
 from .blocks import *
 
 # Docpage styles.
 link_style = {
-    "color": "#494369",
+    "color": rx.color("violet", 10),
     "font_weight": "600",
-    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
-    "background": "radial-gradient(82.06% 100% at 50% 100%, rgba(91, 77, 182, 0.04) 0%, rgba(234, 228, 253, 0.2) 100%), #FEFEFF;",
-    "_hover": {
-        "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);"
-    },
-    "padding_x": "0.5em",
-    "border_radius": "8px",
 }
-
 logo_style = {
     "height": "1em",
     "opacity": 0.2,
@@ -40,76 +33,187 @@ def doc_section(*contents):
         width="100%",
     )
 
-
-def my_form():
-    from pcweb.components.navbar import NavbarState
-
-    return rx.form(
-        rx.vstack(
-            rx.input(
-                placeholder="Email (optional)",
-                id="email",
-                type_="email",
-                width="100%",
-                font_size=".8em",
-                _active={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _focus={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _placeholder={
-                    "color": "#A9A7B1",
-                    "font_weight": "400",
-                },
-                border_radius="8px",
-                border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
+def feedback_content(icon):
+    return rdxt.flex(
+            rdxt.button(
+                icon,
+                radius="full",
+                variant="soft"
             ),
-            rx.text_area(
-                placeholder="Your Feedback...",
-                id="feedback",
-                width="100%",
-                font_size=".8em",
-                _active={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _focus={
-                    "border": "none",
-                    "box_shadow": "0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-                },
-                _placeholder={
-                    "color": "#A9A7B1",
-                    "font_weight": "400",
-                },
-                border_radius="8px",
-                border="none",
-                box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.18), 0px 1px 0px 0px rgba(255, 255, 255, 0.10) inset;",
-            ),
-            rx.hstack(
-                rx.spacer(),
-                rx.button(
-                    "Send",
-                    type_="submit",
-                    size="sm",
-                    style=styles.BUTTON_LIGHT,
+            rdxt.box(
+                rdxt.flex(
+                    rdxt.input(
+                        placeholder="Contact Info (Optional)",
+                        _type = "email",
+                    ),
+                    rdxt.textarea(
+                        placeholder="Write a comment…",
+                        style={"height": 80},
+                    ),
+                    gap="1",
+                    direction="column",
                 ),
-                width="100%",
+                rdxt.flex(
+                    rdxt.flex(
+                        rdxt.text(
+                            rdxt.checkbox(),
+                            rdxt.text("Follow up with me"),
+                            as_="label",
+                            size="2",
+                        ),
+                        align="center",
+                        gap="2",
+                        as_child=True,
+                    ),
+                    rdxt.popover_close(
+                        rdxt.button("Send Feedback", size="1")
+                    ),
+                    gap="3",
+                    margin_top="12px",
+                    justify="between",
+                ),
+                flex_grow="1",
             ),
-            padding_x=".5em",
+            gap="3",
+        )
+
+
+def feedback(text, icon):
+    return rdxt.popover_root(
+    rdxt.popover_trigger(
+        rdxt.flex(
+            icon,   
+            text,
+            color=rx.color("mauve", 9),
+            border=f"1px solid {rx.color('mauve', 9)}",
+            align="center",
+            justify="center",
+            border_radius="5px",
+            padding="0px 10px",
+            gap="2",
+        )
+    ),
+    rdxt.popover_content(
+        feedback_content(icon),
+        style={"width": 360},
+    ),
+)
+
+def docpage_footer(path):
+    return rdxt.flex(
+        rdxt.separator(size="4"),
+        rdxt.flex( 
+            rdxt.flex(
+                rdxt.text(
+                    "Did you find this useful?", 
+                    color = rx.color("mauve", 12),
+                    white_space="nowrap",
+                ),
+                rdxt.separator(size="4", orientation="vertical"),
+                feedback("No", rx.lucide.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
+                feedback("Yes", rx.lucide.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
+                align_items="center",
+                gap="2"
+            ),
+            rdxt.box(
+                grow='1',
+            ),
+            rdxt.separator(size="4", orientation="vertical"),
+            rdxt.flex(
+                rx.desktop_only(rdxt.link(rdxt.flex(
+                    "Raise an issue",
+                    color=rx.color("mauve", 9),
+                    border=f"1px solid {rx.color('mauve', 9)}",
+                    align="center",
+                    justify="center",
+                    border_radius="5px",
+                    padding="0px 10px",
+                    white_space="nowrap",
+                    
+                ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with documentation&amp;body=Path: {path}")),
+                rx.desktop_only(rdxt.link(rdxt.flex(
+                    "Edit this page",
+                    color=rx.color("mauve", 9),
+                    border=f"1px solid {rx.color('mauve', 9)}",
+                    align="center",
+                    justify="center",
+                    border_radius="5px",
+                    padding="0px 10px",
+                    white_space="nowrap",
+                    
+                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}")),
+                gap="2"
+            ),
+            align_items="center",
             width="100%",
         ),
-        on_submit=NavbarState.handle_submit,
-        padding_bottom=".2em",
-        width="100%",
+        rdxt.separator(size="4"),
+        rdxt.flex(
+            rdxt.flex(
+                rdxt.link("Home", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Gallery", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Change Log", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Introduction", color=rx.color("mauve", 11), underline="always"),
+                rdxt.link("Hosting", color=rx.color("mauve", 11), underline="always"),
+                gap="2",
+            ),
+            rdxt.box(
+                grow='1',
+            ),
+            rdxt.flex(
+                rx.image(
+                    src="/companies/light/github.svg",
+                ),
+                rx.image(
+                    src="/companies/light/twitter.svg",
+                ),
+                rx.image(
+                    src="/companies/light/discord.svg",
+                ),
+                rx.image(
+                    src="/companies/light/linkedin.svg",
+                ),
+                rx.image(
+                    src="/companies/light/yc.svg",
+                ),
+                gap="2",
+            ),
+            align_items="center",
+            width="100%",
+        ),
+        direction="column",
+        gap="2",
+        margin_bottom="2em",
     )
 
 
+def breadcrumb(path):
+    # Split the path into segments, removing 'docs' and capitalizing each segment
+    segments = [segment.capitalize() for segment in path.split('/') if segment and segment != 'docs']
+
+    # Initialize an empty list to store the breadcrumbs and their separators
+    breadcrumbs = []
+
+    # Iteratively build the href for each segment
+    for i in range(len(segments)):
+        # Construct href by joining the segments up to the current one
+        href = '/' + '/'.join(segments[:i+1]).lower()
+
+        # Create the breadcrumb item
+        breadcrumb_item = rdxt.link(segments[i], href=href, color=rx.color("mauve", 9))
+
+        # Add the breadcrumb item to the list
+        breadcrumbs.append(breadcrumb_item)
+
+        # If it's not the last segment, add a separator
+        if i < len(segments) - 1:
+            breadcrumbs.append(rdxt.text("/", color=rx.color("mauve", 9)))
+
+    # Return the list of breadcrumb items with separators
+    return rdxt.flex(*breadcrumbs, gap="2")
+
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
-    """A template that most pages on the pynecone.io site should use.
+    """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
 
@@ -132,7 +236,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         """
         # Get the path to set for the sidebar.
         path = get_path(contents) if set_path is None else set_path
-
         # Set the page title.
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
@@ -147,7 +250,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 The page with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.navbar import feedback_button, navbar
+            from pcweb.components.navbar import navbar
+            from pcweb.components.footer import footer
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -196,19 +300,28 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 links.append(rx.box())
 
             if not isinstance(contents, rx.Component):
-                comp = contents(*args, **kwargs)
+                comp = contents(*args, **kwargs)   
             else:
                 comp = contents
 
             # Return the templated page.
-            return rx.box(
+            return rdxt.box(
                 navbar(sidebar=nav_sidebar),
-                rx.flex(
+                rdxt.flex(
                     rx.desktop_only(
                             sidebar,
-                            width=["0", "0%", "25%"],
+                            margin_top="120px",
+                            margin_left="1em",
+                            margin_right="1em",
+                            height="100%",
+                            width=["none", "none", "none", "25%", "25%"],
                         ),
-                    rx.box(
+                    rdxt.box(
+                            rdxt.box(
+                                breadcrumb(path),
+                                margin_top="120px", 
+                                margin_bottom="20px"
+                            ),
                             rx.box(comp),
                             rx.hstack(
                                 *links,
@@ -216,40 +329,42 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 margin_y="3em",
                             ),
                             rx.spacer(),
-                            rx.center(
-                                feedback_button(),
-                                width="100%",
-                            ),
                             rx.box(height="2em"),
-                            rx.hstack(
-                                logo,
-                                rx.spacer(),
-                                rx.text(
-                                    "Copyright © 2023 Pynecone, Inc.", color="#CDCCD1"
-                                ),
-                                width="100%",
-                            ),
-                            padding_x=styles.PADDING_X,
+                            docpage_footer(path),
+                            border_left= ["none", "none", "none", "none",f"1px solid {rx.color('mauve', 4)};"],
+                            padding_left=styles.PADDING_X,
+                            padding_right=styles.PADDING_X,
                             width=["100%", "100%", "100%", "75%"],
                             height="100%",
                         ),
                     rx.desktop_only(
                             rx.flex(
-                                "Test",
-                                "Test",
-                                "Test",
-                                "Test",
+                                rdxt.heading("State", size="3"),
+                                rdxt.text("Props"),
+                                rdxt.text("Props"),
+                                rdxt.heading("Props", size="3"),
+                                rdxt.text("Props"),
+                                rdxt.text("Props"),
+                                rdxt.text("Props"),
+                                rdxt.heading("Events", size="3"),
+                                rdxt.text("Props"),
+                                rdxt.text("Props"),
                                 direction="column",
                                 position="fixed",
                             ),
-                            width=["0", "0%","0%", "0%","25%"],
+                            margin_top="120px",
+                            width=["none", "none", "none", "none","25%"],
                         ),
                     background = rx.color("mauve", 1),
                     max_width="110em",
-                    margin_x="auto",
-                    margin_top="100px",
+                    margin_left="auto",
+                    margin_right="auto",
+                    margin_top="0px",
                     height="100%",
-                )
+                    min_height="100vh",
+                    width="100%",
+                ),
+               background = rx.color("mauve", 1),
             )
 
         # Return the route.
