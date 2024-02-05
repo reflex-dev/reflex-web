@@ -12,6 +12,7 @@ from pcweb.templates.docpage import docpage
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
+from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 from .gallery import gallery
 from .library import library
@@ -58,10 +59,6 @@ flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
 component_list = defaultdict(list)
-from reflex.components.chakra.base import ChakraComponent
-from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.radix.themes.components.icons import RadixIconComponent
-
 docs_ns = SimpleNamespace()
 
 for doc in sorted(flexdown_docs):

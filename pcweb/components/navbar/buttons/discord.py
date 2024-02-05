@@ -8,7 +8,7 @@ from .style import button_style
 def discord() -> rx.Component:
     return rdxt.flex(
         rx.image(
-            src="/icons/discord/light.svg",
+            src="/companies/light/discord.svg",
         ),
         padding="7px",
         style=button_style,

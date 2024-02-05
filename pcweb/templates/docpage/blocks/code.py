@@ -34,9 +34,11 @@ def code_block(code: str, language: str):
             },
         ),
         border_radius=styles.DOC_BORDER_RADIUS,
-        border="2px solid #F4F3F6",
+        border=f"2px solid {rx.color('mauve', 4)}",
+        background_color=f"{rx.color('mauve', 2)}",
         position="relative",
         margin_bottom="1em",
+        margin_top="1em",
         width="100%",
     )
 
@@ -110,7 +112,7 @@ def doccmdoutput(
         direction="column",
         gap="2",
         border_radius=styles.DOC_BORDER_RADIUS,
-        border="2px solid #F4F3F6",
+        border=f"2px solid {rx.color('mauve', 4)}",
         position="relative",
         margin="1em",
         width="100%",

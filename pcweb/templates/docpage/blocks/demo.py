@@ -7,17 +7,16 @@ from .code import code_block
 import black
 
 demo_box_style = {
-    "bg": "rgba(255,255,255, 0.5)",
+    "bg": "rgba(249, 248, 249, 1)",
     "border_radius": "8px;",
-    "box_shadow": "rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;",
     "padding": 5,
     "width": "100%",
     "overflow_x": "auto",
-    "border": "2px solid #F4F3F6",
+    "border": f"2px solid {rx.color('mauve', 4)}",
     "align_items": "center",
     "justify_content": "center",
 }
-
+ 
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
