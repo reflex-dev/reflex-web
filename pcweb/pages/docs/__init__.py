@@ -2,9 +2,9 @@ import os
 from collections import defaultdict
 from types import SimpleNamespace
 
+import reflex as rx
 import flexdown
 
-import reflex as rx
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
@@ -17,7 +17,18 @@ from .gallery import gallery
 from .library import library
 from .resources import resources
 
-doc_routes = [gallery, library, resources]
+def should_skip_compile(doc, prefix=""):
+    # Check if the doc has been compiled already.
+    compiled_output = f".web/pages/{doc.replace('.md', '.js').replace('library/', f'library/{prefix}')}"
+    # Get the timestamp of the compiled file.
+    compiled_time = (
+        os.path.getmtime(compiled_output) if os.path.exists(compiled_output) else 0
+    )
+    # Get the timestamp of the source file.
+    source_time = os.path.getmtime(doc)
+    if compiled_time > source_time:
+        return True
+    return compiled_time > source_time
 
 
 def to_title_case(text: str) -> str:
@@ -63,58 +74,78 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 docs_ns = SimpleNamespace()
+os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
 
-for doc in sorted(flexdown_docs):
+
+def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
-        continue
+        return
 
     if doc.endswith("-ll.md"):
-        continue
+        return
 
     # Get the docpage component.
     doc = doc.replace("\\", "/")
     route = f"/{doc.replace('.md', '')}"
-    path = doc.split("/")[1:-1]
-    title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
-    d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
+        if should_skip_compile(doc):
+            return
+        d = flexdown.parse_file(doc)
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
-    elif doc.startswith("docs/library"):
+        return multi_docs(path=route, comp=d, component_list=clist, title=title2)
+    if doc.startswith("docs/library"):
+        d = flexdown.parse_file(doc)
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         if issubclass(
             clist[1],
             (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent),
         ):
             radix_components[category].append(clist)
-            route = route.replace("library/", "library/radix/")
+            prefix=""
         elif issubclass(clist[1], ChakraComponent):
             # Workaround for Chakra components outside of chakra directory (like Html).
             component_list[category].append(clist)
             route = route.replace("library/", "library/chakra/")
+            prefix = ""
         else:
             component_list[category].append(clist)
-        comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
-    else:
-        comp = docpage(set_path=route, t=title2)(
-            lambda d=d, doc=doc: xd.render(d, doc)
-        )
+            prefix = ""
+        if should_skip_compile(doc, prefix=prefix):
+            return
+        return multi_docs(path=route, comp=d, component_list=clist, title=title2)
 
-    # Get the namespace.
-    namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
-    # Create a namespace if it doesn't exist.
+    if should_skip_compile(doc):
+        return
+
+    d = flexdown.parse_file(doc)
+    return docpage(set_path=route, t=to_title_case(title))(
+        lambda d=d, doc=doc: xd.render(d, doc)
+    )
+
+
+doc_routes = [gallery, library, resources]
+
+
+for doc in sorted(flexdown_docs):
+    path = doc.split("/")[1:-1]
+    title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
+    title2 = to_title_case(title)
+    route = f"/{doc.replace('.md', '')}"
+    comp = get_component(doc, title)
 
     if path[0] == "library" and isinstance(library, Route):
         locals()["library_"] = library
 
     # Add the component to the nested namespaces.
-    build_nested_namespace(docs_ns, path, title, comp)
+    build_nested_namespace(docs_ns, path, title, Route(path=route, title=title2, component=lambda: ""))
 
     # Add the route to the list of routes.
-    doc_routes.append(comp)
+    if comp:
+        print("Adding route", route, "to doc_routes")
+        doc_routes.append(comp)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
