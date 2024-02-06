@@ -12,12 +12,25 @@ from pcweb.templates.docpage import docpage
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
+from reflex.components.radix.themes.components.icons import RadixIconComponent
+from reflex.compiler import compiler
 
 from .gallery import gallery
 from .library import library
 from .resources import resources
 
-def should_skip_compile(doc, prefix=""):
+
+if "REFLEX_PERSIST_WEB_DIR" in os.environ:
+    os.environ.pop("REFLEX_PERSIST_WEB_DIR")
+if compiler._is_dev_mode():
+    os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
+
+
+def should_skip_compile(doc: flexdown.Document, prefix: str=""):
+    """Skip compilation if the markdown file has not been modified since the last compilation."""
+    if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
+        return False
+    os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
     # Check if the doc has been compiled already.
     compiled_output = f".web/pages/{doc.replace('.md', '.js').replace('library/', f'library/{prefix}')}"
     # Get the timestamp of the compiled file.
@@ -26,8 +39,6 @@ def should_skip_compile(doc, prefix=""):
     )
     # Get the timestamp of the source file.
     source_time = os.path.getmtime(doc)
-    if compiled_time > source_time:
-        return True
     return compiled_time > source_time
 
 
@@ -69,13 +80,24 @@ flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
 chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
 component_list = defaultdict(list)
-from reflex.components.chakra.base import ChakraComponent
-from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 docs_ns = SimpleNamespace()
-os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
+# os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
 
+
+def exec_blocks(doc, href):
+    """Execute the exec and demo blocks in the document."""
+    source = doc.content
+    env = doc.metadata.copy()
+    env["__xd"] = xd
+    env["__exec"] = True
+    blocks = xd.get_blocks(source, href)
+    # Get only the exec and demo blocks.
+    blocks = [b for b in blocks if b.__class__.__name__ in ["ExecBlock", "DemoBlock"]]
+    for block in blocks:
+        block.render(env)
+
+outblocks = []
 
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
@@ -89,15 +111,15 @@ def get_component(doc: str, title: str):
     route = f"/{doc.replace('.md', '')}"
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
+    d = flexdown.parse_file(doc)
     if doc.startswith("docs/library/chakra"):
         if should_skip_compile(doc):
+            outblocks.append((d, route))
             return
-        d = flexdown.parse_file(doc)
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         component_list[category].append(clist)
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
-        d = flexdown.parse_file(doc)
         clist = [title, *[eval(c) for c in d.metadata["components"]]]
         if issubclass(
             clist[1],
@@ -114,13 +136,14 @@ def get_component(doc: str, title: str):
             component_list[category].append(clist)
             prefix = ""
         if should_skip_compile(doc, prefix=prefix):
+            outblocks.append((d, route))
             return
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
 
     if should_skip_compile(doc):
+        outblocks.append((d, route))
         return
 
-    d = flexdown.parse_file(doc)
     return docpage(set_path=route, t=to_title_case(title))(
         lambda d=d, doc=doc: xd.render(d, doc)
     )
@@ -144,7 +167,6 @@ for doc in sorted(flexdown_docs):
 
     # Add the route to the list of routes.
     if comp:
-        print("Adding route", route, "to doc_routes")
         doc_routes.append(comp)
 
 for name, ns in docs_ns.__dict__.items():
