@@ -1,6 +1,10 @@
 ---
 components:
     - rx.radix.themes.Slider
+
+Slider: |
+    lambda **props: rx.radix.themes.slider(default_value=[40], width="100%", height="50%", **props)
+
 ---
 
 

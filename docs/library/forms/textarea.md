@@ -1,6 +1,9 @@
 ---
 components:
     - rx.radix.themes.TextArea
+
+TextArea: |
+    lambda **props: rx.radix.themes.textarea(**props)
 ---
 
 ```python exec

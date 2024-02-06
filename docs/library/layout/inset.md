@@ -1,6 +1,15 @@
 ---
 components:
     - rx.radix.themes.Inset
+
+Inset: |
+    lambda **props: rx.radix.themes.card(
+        rx.radix.themes.inset(
+            rx.image(src="/reflex_banner.png", width="50%", height="auto"),
+            **props
+        ),
+        rx.radix.themes.text("Reflex is a web framework that allows developers to build their app in pure Python."),
+    )
 ---
 
 ```python exec

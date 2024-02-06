@@ -1,6 +1,9 @@
 ---
 components:
   - rx.radix.themes.Card
+
+Card: |
+    lambda **props: rx.radix.themes.card("Basic Card ", **props)
 ---
 
 ```python exec

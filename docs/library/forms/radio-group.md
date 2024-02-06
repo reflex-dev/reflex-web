@@ -3,6 +3,28 @@ components:
     - rx.radix.themes.HighLevelRadioGroup
     - rx.radix.themes.RadioGroupRoot
     - rx.radix.themes.RadioGroupItem
+
+HighLevelRadioGroup: |
+    lambda **props: rx.radix.themes.radio_group(["1", "2", "3", "4", "5"], **props)
+
+RadioGroupRoot: |
+    lambda **props: rx.radix.themes.radio_group_root(
+        rx.radix.themes.radio_group_item(value="1"),
+        rx.radix.themes.radio_group_item(value="2"),
+        rx.radix.themes.radio_group_item(value="3"),
+        rx.radix.themes.radio_group_item(value="4"),
+        rx.radix.themes.radio_group_item(value="5"),
+        **props
+    )
+
+RadioGroupItem: |
+    lambda **props: rx.radix.themes.radio_group_root(
+        rx.radix.themes.radio_group_item(value="1", **props),
+        rx.radix.themes.radio_group_item(value="2", **props),
+        rx.radix.themes.radio_group_item(value="3",),
+        rx.radix.themes.radio_group_item(value="4",),
+        rx.radix.themes.radio_group_item(value="5",),
+    )
 ---
 
 

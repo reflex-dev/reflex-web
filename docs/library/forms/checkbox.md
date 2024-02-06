@@ -1,7 +1,9 @@
 ---
 components:
     - rx.radix.themes.HighLevelCheckbox
-    - rx.radix.themes.Checkbox
+
+HighLevelCheckbox: |
+    lambda **props: rx.radix.themes.checkbox("Basic Checkbox", **props)
 ---
 
 ```python exec

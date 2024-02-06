@@ -10,8 +10,62 @@ components:
     - rx.radix.themes.SelectSeparator
     
 
-prototype: |
+HighLevelSelect: |
     lambda **props: rx.radix.themes.select(["apple", "grape", "pear"], default_value="pear", **props)
+
+SelectRoot: |
+    lambda **props: rx.radix.themes.select_root(
+        rx.radix.themes.select_trigger(),
+        rx.radix.themes.select_content(
+            rx.radix.themes.select_group(
+                rx.radix.themes.select_item("apple"),
+                rx.radix.themes.select_item("grape"),
+                rx.radix.themes.select_item("pear"),
+            ),
+        ),
+        default_value="pear",
+        **props
+    )
+
+SelectTrigger: |
+    lambda **props: rx.radix.themes.select_root(
+        rx.radix.themes.select_trigger(**props),
+        rx.radix.themes.select_content(
+            rx.radix.themes.select_group(
+                rx.radix.themes.select_item("apple"),
+                rx.radix.themes.select_item("grape"),
+                rx.radix.themes.select_item("pear"),
+            ),
+        ),
+        default_value="pear",
+    )
+
+SelectContent: |
+    lambda **props: rx.radix.themes.select_root(
+        rx.radix.themes.select_trigger(),
+        rx.radix.themes.select_content(
+            rx.radix.themes.select_group(
+                rx.radix.themes.select_item("apple"),
+                rx.radix.themes.select_item("grape"),
+                rx.radix.themes.select_item("pear"),
+            ),
+            **props,
+        ),
+        default_value="pear",
+    )
+
+SelectItem: |
+    lambda **props: rx.radix.themes.select_root(
+        rx.radix.themes.select_trigger(),
+        rx.radix.themes.select_content(
+            rx.radix.themes.select_group(
+                rx.radix.themes.select_item("apple", **props),
+                rx.radix.themes.select_item("grape"),
+                rx.radix.themes.select_item("pear"),
+            ),
+        ),
+        default_value="pear",
+    )
 ---
 
 

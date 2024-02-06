@@ -1,6 +1,9 @@
 ---
 components:
     - rx.radix.themes.Button
+
+Button: |
+    lambda **props: rx.radix.themes.button("Basic Button", **props)
 ---
 
 

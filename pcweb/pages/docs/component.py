@@ -205,7 +205,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             return rx.fragment()
 
         try:
-            if issubclass(type_, bool):
+            if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child"]:
                 name = get_id(f"{component.__qualname__}_{prop.name}")
                 rx.State.add_var(name, bool, False)
                 var = getattr(rx.State, name)
@@ -477,8 +477,13 @@ def generate_props(src, component, comp):
         ]
     )
     try:
-        if "prototype" in comp.metadata:
-            comp = eval(comp.metadata["prototype"])(**prop_dict)
+        # if component.__name__ == "Input":
+        #     breakpoint()
+        if f"{component.__name__}" in comp.metadata:
+            comp = eval(comp.metadata[component.__name__])(**prop_dict)
+            
+            # if component.__name__ == "Input":
+            #     print(comp)
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
@@ -486,8 +491,8 @@ def generate_props(src, component, comp):
                 comp = rx.fragment()
             if "data" in component.__name__.lower():
                 raise Exception("Data components cannot be created")
-    except:
-        print(f"Failed to create component {component.__name__}")
+    except Exception as e:
+        print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
     return rx.vstack(

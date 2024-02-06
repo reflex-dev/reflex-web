@@ -4,6 +4,36 @@ components:
     - rx.radix.themes.TextFieldRoot
     - rx.radix.themes.TextFieldInput
     - rx.radix.themes.TextFieldSlot
+
+
+Input: |
+    lambda **props: rx.radix.themes.input(icon="magnifying_glass", placeholder="Search the docs", **props)
+
+TextFieldRoot: |
+    lambda **props: rx.radix.themes.textfield_root(
+        rx.radix.themes.textfield_slot(
+            rx.radix.themes.icon(tag="magnifying_glass", height="16", width="16"),
+        ),
+        rx.radix.themes.textfield_input(placeholder="Search the docs"),
+        **props,
+    )
+
+TextFieldInput: |
+    lambda **props: rx.radix.themes.textfield_root(
+        rx.radix.themes.textfield_slot(
+            rx.radix.themes.icon(tag="magnifying_glass", height="16", width="16"),
+        ),
+        rx.radix.themes.textfield_input(placeholder="Search the docs", **props,),
+    )
+
+TextFieldSlot: |
+    lambda **props: rx.radix.themes.textfield_root(
+        rx.radix.themes.textfield_slot(
+            rx.radix.themes.icon(tag="magnifying_glass", height="16", width="16"),
+            **props,
+        ),
+        rx.radix.themes.textfield_input(placeholder="Search the docs"),
+    )
 ---
 
 ```python exec

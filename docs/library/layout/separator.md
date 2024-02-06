@@ -1,6 +1,10 @@
 ---
 components:
     - rx.radix.themes.Separator
+
+Separator: |
+    lambda **props: rx.radix.themes.separator(**props)
+
 ---
 
 ```python exec
