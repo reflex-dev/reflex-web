@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.themes.TabsRoot
-    - rx.radix.themes.TabsList
-    - rx.radix.themes.TabsTrigger
-    - rx.radix.themes.TabsContent
+    - rx.radix.tabs.root
+    - rx.radix.tabs.list
+    - rx.radix.tabs.trigger
+    - rx.radix.tabs.content
 
 only_low_level:
     - True

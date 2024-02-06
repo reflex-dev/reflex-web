@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.TextArea
+    - rx.radix.text_area
 ---
 
 # Low Level Docs Coming Soon!

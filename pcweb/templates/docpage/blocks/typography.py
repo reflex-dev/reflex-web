@@ -1,7 +1,6 @@
 """Typography blocks for doc pages."""
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.styles import colors as c
 
@@ -15,8 +14,8 @@ def definition(title: str, *children) -> rx.Component:
     Returns:
         The styled definition.
     """
-    return rdxt.flex(
-        rdxt.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
+    return rx.flex(
+        rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
         *children,
         padding="1em",
         border=styles.DOC_BORDER,
@@ -29,12 +28,12 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rdxt.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
+    return rx.text(text, margin_bottom="1em", font_size=styles.TEXT_FONT_SIZE)
 
 
 @rx.memo
 def code_comp(text: rx.Var[str]) -> rx.Component:
-    return rdxt.code(text)
+    return rx.code(text)
 
 
 def doclink(text: str, href: str, **props) -> rx.Component:
@@ -48,7 +47,7 @@ def doclink(text: str, href: str, **props) -> rx.Component:
     Returns:
         The styled link.
     """
-    return rdxt.link(text, underline="always", href=href, **props)
+    return rx.link(text, underline="always", href=href, **props)
 
 
 def doclink2(text: str, **props) -> rx.Component:
@@ -62,4 +61,4 @@ def doclink2(text: str, **props) -> rx.Component:
     Returns:
         The styled link.
     """
-    return rdxt.link(text, underline="always", **props)
+    return rx.link(text, underline="always", **props)

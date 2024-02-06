@@ -1,6 +1,4 @@
 import reflex as rx
-from typing import Any, Optional, Set
-import reflex.components.radix.themes as rdxt
 from .style import button_style
 
 
@@ -10,15 +8,15 @@ def shorten_to_k(number):
     else:
         return str(number)
 def github_desktop() -> rx.Component:
-    return rdxt.flex(
+    return rx.flex(
             rx.image(
                 src="/companies/light/github.svg",
             ),
-            rdxt.text(
+            rx.text(
                 "Github",
                 color=rx.color("mauve", 12),
             ),
-            rdxt.text(
+            rx.text(
                 "14k",
                 color=rx.color("violet", 9),
                 background=rx.color("violet", 4),
@@ -30,7 +28,7 @@ def github_desktop() -> rx.Component:
         )
 
 def github_mobile() -> rx.Component:
-    return rdxt.flex(
+    return rx.flex(
             rx.image(
                 src="/companies/light/github.svg",
             ),

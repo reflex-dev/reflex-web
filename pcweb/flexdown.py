@@ -1,7 +1,6 @@
 import flexdown
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.templates.docpage import (
     code_block_markdown,
@@ -50,26 +49,26 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
         color = colors.get(status, "blue")
 
-        return rdxt.callout_root(
-    rdxt.callout_icon(
-        rx.match(
-            status,
-            ("info", rdxt.icon(tag="info_circled")),
-            ("success", rdxt.icon(tag="check_circled")),
-            ("warning", rdxt.icon(tag="exclamation_triangle")),
-            ("error", rdxt.icon(tag="cross_circled")),
-        ),
-    ),
-    rdxt.callout_text(
-        markdown(title + " ") if title else "",
-        markdown(content),
-    ),
-    color_scheme=color,
-    background_color = f"{rx.color(color, 3)}",
-    variant="soft",
-    margin_top="1em",
-    margin_bottom="1em",
-)
+        return rx.callout.root(
+            rx.callout.icon(
+                rx.match(
+                    status,
+                     ("info", rx.icon(tag="info")),
+                    ("success", rx.icon(tag="check-circle-2")),
+                    ("warning", rx.icon(tag="alert-triangle")),
+                    ("error", rx.icon(tag="ban")),
+                ),
+            ),
+            rx.callout.text(
+                markdown(title + " ") if title else "",
+                markdown(content),
+            ),
+            color_scheme=color,
+            background_color = f"{rx.color(color, 3)}",
+            variant="soft",
+            margin_top="1em",
+            margin_bottom="1em",
+        )
 
 
 class SectionBlock(flexdown.blocks.Block):
@@ -97,7 +96,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.span(
+                            rx.chakra.span(
                                 header,
                                 font_weight="bold",
                             ),
@@ -141,8 +140,8 @@ class DefinitionBlock(flexdown.blocks.Block):
         ]
 
         def single_def(title, content):
-            return rdxt.box(
-                rdxt.heading(
+            return rx.box(
+                rx.heading(
                     title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
                 ),
                 markdown(content),
@@ -160,9 +159,9 @@ class DefinitionBlock(flexdown.blocks.Block):
         return rx.fragment(
             rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rx.grid(
+                rx.chakra.grid(
                     *[
-                        rx.grid_item(d, row_span=1, col_span=1, width="100%")
+                        rx.chakra.grid_item(d, row_span=1, col_span=1, width="100%")
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",

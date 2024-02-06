@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Script
+    - rx.script
 ---
 
 ```python exec

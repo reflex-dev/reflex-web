@@ -1,36 +1,33 @@
 ---
 components:
-    - rx.radix.themes.HoverCardRoot
-    - rx.radix.themes.HoverCardContent
-    - rx.radix.themes.HoverCardTrigger
+    - rx.radix.hover_card.root
+    - rx.radix.hover_card.content
+    - rx.radix.hover_card.trigger
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 # Hovercard
 
 
-The `hovercard_root` contains all the parts of a hover card.
+The `hover_card.root` contains all the parts of a hover card.
 
-The `hovercard_trigger` wraps the link that will open the hover card.
+The `hover_card.trigger` wraps the link that will open the hover card.
 
-The `hovercard_content` contains the content of the open hover card.
+The `hover_card.content` contains the content of the open hover card.
 
 
 ```python demo
 rx.text(
     "Hover over the text to see the tooltip. ",
-    hovercard_root(
-        hovercard_trigger(
-            link("Hover over me", color_scheme="blue", underline="always"),
+    rx.hover_card.root(
+        rx.hover_card.trigger(
+            rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        hovercard_content(
-            text("This is the tooltip content."),
+        rx.hover_card.content(
+            rx.text("This is the tooltip content."),
         ),
     ),
 )
@@ -39,32 +36,22 @@ rx.text(
 ```python demo
 rx.text(
     "Hover over the text to see the tooltip. ",
-    hovercard_root(
-        hovercard_trigger(
-            link("Hover over me", color_scheme="blue", underline="always"),
+    rx.hover_card.root(
+        rx.hover_card.trigger(
+            rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
-        hovercard_content(
-            grid(
-                inset(
+        rx.hover_card.content(
+            rx.grid(
+                rx.inset(
                     side="left",
                     pr="current",
                     background="url('https://source.unsplash.com/random/800x600') center/cover",
                     height="full",
                 ),
-                box(
-                    textarea(placeholder="Write a comment…", style={"height": 80}),
-                    flex(
-                        flex(
-                            text(
-                                checkbox(),
-                                text("Send to group"),
-                                as_="label",
-                                size="2",
-                            ),
-                            align="center",
-                            gap="2",
-                            as_child=True,
-                        ),
+                rx.box(
+                    rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                    rx.flex(
+                        rx.checkbox("Send to group"),
                         gap="3",
                         margin_top="12px",
                         justify="between",
@@ -95,17 +82,17 @@ class HovercardState(rx.State):
 
 
 def hovercard_example():
-    return flex(
-        heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
-        heading(f"Hovercard open: {HovercardState.opened}"),
+    return rx.flex(
+        rx.heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
+        rx.heading(f"Hovercard open: {HovercardState.opened}"),
         rx.text(
             "Hover over the text to see the tooltip. ",
-            hovercard_root(
-                hovercard_trigger(
-                    link("Hover over me", color_scheme="blue", underline="always"),
+            rx.hover_card.root(
+                rx.hover_card.trigger(
+                    rx.link("Hover over me", color_scheme="blue", underline="always"),
                 ),
-                hovercard_content(
-                    text("This is the tooltip content."),
+                rx.hover_card.content(
+                    rx.text("This is the tooltip content."),
                 ),
                 on_open_change=HovercardState.count_opens,
             ),

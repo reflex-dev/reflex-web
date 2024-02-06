@@ -1,7 +1,6 @@
 """Code block components for documentation pages."""
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb.styles import text_colors as tc
 from pcweb import styles
 
@@ -61,9 +60,9 @@ def doccmdoutput(
     Returns:
         The styled command and its example output.
     """
-    return rdxt.flex(
-        rdxt.flex(
-            rdxt.icon(tag="double_arrow_right", color="white", width=18, height=18),
+    return rx.flex(
+        rx.flex(
+            rx.radix.icon(tag="double_arrow_right", color="white", width=18, height=18),
             rx.code_block(
                 command,
                 border_radius=styles.DOC_BORDER_RADIUS,
@@ -94,8 +93,8 @@ def doccmdoutput(
             gap="1",
             margin_left="1em",
         ),
-        rdxt.separator(size="4", color_scheme="green"),
-        rdxt.flex(
+        rx.separator(size="4", color_scheme="green"),
+        rx.flex(
             rx.code_block(
                 output,
                 border_radius=styles.DOC_BORDER_RADIUS,

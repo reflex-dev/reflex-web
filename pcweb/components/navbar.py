@@ -277,9 +277,9 @@ Feedback: {feedback}
 
 
 def search_bar():
-    return rx.hstack(
+    return rx.chakra.hstack(
         rx.fragment(
-            rx.icon(tag="search2", style=styles.NAV_SEARCH_STYLE),
+            rx.icon(tag="search", style=styles.NAV_SEARCH_STYLE),
             rx.text(
                 "Search documentation...",
                 style=styles.NAV_SEARCH_STYLE,
@@ -369,7 +369,7 @@ def format_search_results(result):
 def ai_button():
     return rx.center(
         rx.icon(
-            tag="chat",
+            tag="message-circle-question",
             color=rx.cond(
                 NavbarState.ai_chat,
                 "#342E5C",
@@ -394,21 +394,21 @@ def search_bar_categories(categories):
 
 
 def search_modal():
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header(
+    return rx.chakra.modal(
+        rx.chakra.modal_overlay(
+            rx.chakra.modal_content(
+                rx.chakra.modal_header(
                     # add in filter tabs here categories
                     search_bar_categories(
                         ["All", "Learn", "Component", "API Reference", "Blog"]
                     ),
                     rx.hstack(
                         rx.icon(
-                            tag="search2",
+                            tag="search",
                             style=styles.NAV_SEARCH_STYLE,
                             height="1em",
                         ),
-                        rx.input(
+                        rx.chakra.input(
                             placeholder="Search the docs...",
                             on_change=NavbarState.set_search_input,
                             focus_border_color="transparent",
@@ -421,7 +421,7 @@ def search_modal():
                         border_bottom="1px solid #F4F3F6",
                     ),
                 ),
-                rx.modal_body(
+                rx.chakra.modal_body(
                     rx.vstack(
                         rx.cond(
                             NavbarState.ai_chat,
@@ -474,7 +474,7 @@ hover_button_style = {
 
 def github_button():
     return rx.link(
-        rx.hstack(
+        rx.chakra.hstack(
             rx.image(src="/companies/dark/github.svg", height="1.25em"),
             # rx.text("Star", style=styles.NAV_TEXT_STYLE),
             rx.text(
@@ -499,7 +499,7 @@ def github_button():
 
 def discord_button():
     return rx.link(
-        rx.center(
+        rx.chakra.center(
             rx.image(src="/companies/dark/discord.svg", height="1.25em"),
             box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
             display=["none", "none", "none", "flex", "flex", "flex"],
@@ -532,7 +532,7 @@ def my_form():
     }
 
     # Create input and text area elements
-    email_input = rx.input(
+    email_input = rx.chakra.input(
         placeholder="Email (optional)", id="email", type_="email", **common_input_style
     )
     feedback_text_area = rx.text_area(
@@ -542,7 +542,7 @@ def my_form():
     # Create button element
     submit_button = rx.hstack(
         rx.spacer(),
-        rx.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT),
+        rx.chakra.button("Send", type_="submit", size="sm", style=styles.BUTTON_LIGHT),
         width="100%",
     )
 
@@ -552,7 +552,7 @@ def my_form():
     )
 
     # Return the complete form
-    return rx.form(
+    return rx.form.root(
         form_container,
         on_submit=NavbarState.handle_submit,
         padding_bottom=".2em",
@@ -645,7 +645,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     ),
                     rx.spacer(),
                     rx.icon(
-                        tag="close",
+                        tag="x-square",
                         z_index=1000,
                         style={
                             "color": "#FFFFFF",
@@ -685,9 +685,9 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                         style=styles.NAV_TEXT_STYLE,
                         display=["none", "none", "none", "none", "flex", "flex"],
                     ),
-                    rx.menu(
-                        rx.menu_button(
-                            rx.hstack(
+                    rx.chakra.menu(
+                        rx.chakra.menu_button(
+                            rx.chakra.hstack(
                                 rx.text("Resources", style=styles.NAV_TEXT_STYLE),
                                 rx.icon(
                                     tag="chevron_down", style=styles.NAV_TEXT_STYLE
@@ -703,33 +703,33 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 ],
                             )
                         ),
-                        rx.menu_list(
+                        rx.chakra.menu_list(
                             rx.link(
-                                rx.menu_item(
+                                rx.chakra.menu_item(
                                     "Changelog", style=styles.NAV_DROPDOWN_STYLE
                                 ),
                                 href=changelog.path,
                             ),
                             rx.link(
-                                rx.menu_item(
+                                rx.chakra.menu_item(
                                     "Roadmap", style=styles.NAV_DROPDOWN_STYLE
                                 ),
                                 href=constants.ROADMAP_URL,
                             ),
                             rx.link(
-                                rx.menu_item("FAQ", style=styles.NAV_DROPDOWN_STYLE),
+                                rx.chakra.menu_item("FAQ", style=styles.NAV_DROPDOWN_STYLE),
                                 href=faq.path,
                             ),
-                            rx.menu_divider(),
+                            rx.chakra.menu_divider(),
                             rx.link(
-                                rx.menu_item(
+                                rx.chakra.menu_item(
                                     "Contribute to Open Source",
                                     style=styles.NAV_DROPDOWN_STYLE,
                                 ),
                                 href=constants.CONTRIBUTING_URL,
                             ),
                             rx.link(
-                                rx.menu_item(
+                                rx.chakra.menu_item(
                                     "Report A Bug",
                                     style=styles.NAV_DROPDOWN_STYLE,
                                 ),
@@ -744,7 +744,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     github_button(),
                     discord_button(),
                     rx.icon(
-                        tag="hamburger",
+                        tag="menu",
                         on_click=NavbarState.toggle_sidebar,
                         width="1.5em",
                         height="1.5em",
@@ -765,13 +765,13 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             border_bottom="1px solid #F4F3F6",
             width="100%",
         ),
-        rx.drawer(
-            rx.drawer_overlay(
-                rx.drawer_content(
+        rx.chakra.drawer(
+            rx.chakra.drawer_overlay(
+                rx.chakra.drawer_content(
                     rx.hstack(
                         logo,
                         rx.icon(
-                            tag="close",
+                            tag="x-square",
                             on_click=NavbarState.set_sidebar_open(False),
                             width="4em",
                             _hover={

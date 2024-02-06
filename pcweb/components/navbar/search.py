@@ -1,11 +1,10 @@
 """Search bar component for the navbar."""
 
 import reflex as rx
-from pcweb import constants, styles
+from pcweb import styles
 from .inkeep import inkeep
 from .state import NavbarState
 
-import reflex.components.radix.themes as rdxt
 from .buttons.style import button_style
 
 
@@ -79,7 +78,7 @@ def format_search_results(result):
 
 def ai_button():
     return rx.center(
-        rx.icon(
+        rx.chakra.icon(
             tag="chat",
             color=rx.cond(
                 NavbarState.ai_chat,
@@ -105,16 +104,16 @@ def search_bar_categories(categories):
 
 
 def search_modal():
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header(
+    return rx.chakra.modal(
+        rx.chakra.modal_overlay(
+            rx.chakra.modal_content(
+                rx.chakra.modal_header(
                     # add in filter tabs here categories
                     search_bar_categories(
                         ["All", "Learn", "Component", "API Reference", "Blog"]
                     ),
                     rx.hstack(
-                        rx.icon(
+                        rx.chakra.icon(
                             tag="search2",
                             style=styles.NAV_SEARCH_STYLE,
                             height="1em",
@@ -132,7 +131,7 @@ def search_modal():
                         border_bottom="1px solid #F4F3F6",
                     ),
                 ),
-                rx.modal_body(
+                rx.chakra.modal_body(
                     rx.vstack(
                         rx.cond(
                             NavbarState.ai_chat,
@@ -170,16 +169,16 @@ def search_modal():
     )
 
 def search_bar_desktop() -> rx.Component:
-    return rdxt.dialog_root(
-    rdxt.dialog_trigger(
-        rdxt.flex(
-            rdxt.text(
+    return rx.dialog.root(
+    rx.dialog.trigger(
+        rx.flex(
+            rx.text(
                 "Search",
             ),
-            rdxt.box(
+            rx.box(
                 flex_grow='1',
             ),
-            rdxt.text(
+            rx.text(
                 "⌘+K",
                 color=rx.color("mauve", 9),
                 background=rx.color("mauve", 4),
@@ -193,10 +192,10 @@ def search_bar_desktop() -> rx.Component:
             style=button_style
         )
     ),
-    rdxt.dialog_content(
-        rdxt.flex(
-            rdxt.icon(tag="magnifying_glass"),
-            rdxt.text(
+    rx.dialog.content(
+        rx.flex(
+            rx.chakra.icon(tag="search2"),
+            rx.text(
                 "search docs",
             ),
             align_items= "center;",
@@ -210,9 +209,9 @@ def search_bar_desktop() -> rx.Component:
 )
 
 def search_bar_mobile():
-    return rdxt.flex(
-        rdxt.icon(
-            tag="magnifying_glass",
+    return rx.flex(
+        rx.chakra.icon(
+            tag="search2",
             style=styles.NAV_SEARCH_STYLE,
             color=rx.color("mauve", 9),
             height="20px",

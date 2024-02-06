@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb import styles
-from pcweb.components.navbar import NavbarState
+from pcweb.components.navbar.state import NavbarState
 from pcweb.route import Route
 from pcweb.styles import font_weights as fw
 from .state import SidebarState, SidebarItem
@@ -51,12 +50,12 @@ def sidebar_leaf(
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
-    return rx.accordion_item(
+    return rx.chakra.accordion_item(
         rx.cond(
             item.link == url,
             sidebar_link(
-                rdxt.flex(rdxt.flex(
-                    rdxt.text(
+                rx.flex(rx.flex(
+                    rx.text(
                             item.names, 
                             font_size=styles.TEXT_FONT_SIZE, 
                             color="#644FC1", 
@@ -74,8 +73,8 @@ def sidebar_leaf(
                 href=item.link,
             ),
             sidebar_link(
-                    rdxt.flex(
-                        rdxt.text(
+                    rx.flex(
+                        rx.text(
                             item.names,
                             color=rx.color("mauve", 11),
                             _hover={
@@ -121,7 +120,7 @@ def sidebar_icon(name):
     }
 
     if name in mappings:
-        return rx.lucide.icon(
+        return rx.icon(
                 tag=mappings[name], 
                 color=rx.color("mauve", 11), 
                 size=18, 
@@ -139,8 +138,8 @@ def sidebar_item_comp(
     return rx.cond(
         len(item.children) == 0,
         sidebar_leaf(item=item, url=url),
-        rx.accordion_item(
-            rx.accordion_button(
+        rx.chakra.accordion_item(
+            rx.chakra.accordion_button(
                 sidebar_icon(item.names),
                 rx.text(
                     item.names,
@@ -162,7 +161,7 @@ def sidebar_item_comp(
                     ),
                 ),
                 rx.spacer(),
-                rx.accordion_icon(),
+                rx.chakra.accordion_icon(),
                 align_items="center",
                 _hover={
                     "color": styles.ACCENT_COLOR,
@@ -173,8 +172,8 @@ def sidebar_item_comp(
                 padding_left="10px",
                 padding_right="0px",
             ),
-            rx.accordion_panel(
-                rx.accordion(
+            rx.chakra.accordion_panel(
+                rx.chakra.accordion(
                     rx.flex(
                         *[sidebar_item_comp(item=child, index=index, url=url) for child in item.children],
                         align_items="start",
@@ -232,9 +231,9 @@ def get_prev_next(url):
 
 
 def sidebar_category(name, icon, color, index):
-    return rdxt.flex(
-            rdxt.button(
-                rx.lucide.icon(
+    return rx.flex(
+            rx.button(
+                rx.icon(
                     tag=icon,
                     color = rx.color(color, 1),
                     size=20,
@@ -249,7 +248,7 @@ def sidebar_category(name, icon, color, index):
                 align_items="center",
                 justify="center",
             ),
-            rdxt.text(
+            rx.text(
                 name,
                 color= rx.color("mauve", 11),
                 padding="0px 0px 0px 5px",
@@ -268,7 +267,7 @@ def sidebar_category(name, icon, color, index):
         )
 
 def sidebar_section(name):
-    return rdxt.text(
+    return rx.text(
         name,
         color = rx.color("mauve", 12),
         font_weight = "500",
@@ -276,9 +275,9 @@ def sidebar_section(name):
     )
 
 def create_sidebar_section(section_title, items, index, url):
-    return rdxt.flex(
+    return rx.flex(
         sidebar_section(section_title),
-        rx.accordion(
+        rx.chakra.accordion(
             *[
                 sidebar_item_comp(
                     item=item,
@@ -313,26 +312,26 @@ def sidebar_comp(
     recipes_index: list[int],
     tutorials_index: list[int],
 ):
-    return rdxt.flex(
+    return rx.flex(
         sidebar_category("Learn", "graduation-cap", "purple", 0),
         sidebar_category("Components", "layout-panel-left", "sky", 1),
         sidebar_category("API Reference", "book-text","crimson", 2),
-        rdxt.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
+        rx.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
-            (0, rdxt.flex(
+            (0, rx.flex(
                 create_sidebar_section("Onboarding", learn, learn_index, url),
                 create_sidebar_section("UI", frontend, frontend_index, url),
                 create_sidebar_section("State", backend, backend_index, url),
                 create_sidebar_section("Hosting", hosting, hosting_index, url),
                 direction="column",
             )),
-            (1, rdxt.flex(
+            (1, rx.flex(
                 create_sidebar_section("Core Components", component_lib, component_lib_index, url),
                 create_sidebar_section("Other Libraries", other_libs, other_libs_index, url),
                 direction="column",       
             )),
-            (2, rdxt.flex(
+            (2, rx.flex(
                 create_sidebar_section("API Reference", api_reference, api_reference_index, url),
                 create_sidebar_section("Recipes", recipes, recipes_index, url),
                 create_sidebar_section("Tutorials", tutorials, tutorials_index, url),
@@ -370,7 +369,7 @@ def sidebar(url=None) -> rx.Component:
     recipes_index = calculate_index(recipes, url)
     tutorials_index = calculate_index(tutorials, url)
 
-    return rdxt.box(
+    return rx.box(
         sidebar_comp(
             url=url,
             learn_index=learn_index,

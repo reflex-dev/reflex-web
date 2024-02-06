@@ -35,7 +35,7 @@ class FilteredTableState(rx.State):
         # Use this generated filtered data view in the `rx.foreach` of
         #  the table renderer of rows
         # It is dependent on `filter_expr`
-        # This `filter_expr` is set by an rx.input
+        # This `filter_expr` is set by an rx.chakra.input
         return [
             row
             for row in self.data
@@ -51,13 +51,13 @@ class FilteredTableState(rx.State):
 
 
 def render_row(row):
-    return rx.tr(rx.td(row["name"]), rx.td(row["tags"]))
+    return rx.chakra.tr(rx.chakra.td(row["name"]), rx.chakra.td(row["tags"]))
 
 
 def render_rows():
     return [
         rx.foreach(
-            # use data filtered by `filter_expr` as update by rx.input
+            # use data filtered by `filter_expr` as update by rx.chakra.input
             FilteredTableState.filtered_data,
             render_row,
         )
@@ -65,10 +65,10 @@ def render_rows():
 
 
 def render_table():
-    return rx.table_container(
-        rx.table(
-            rx.thead(rx.tr(*[rx.th(column) for column in RAW_DATA_COLUMNS])),
-            rx.tbody(*render_rows()),
+    return rx.chakra.table_container(
+        rx.chakra.table(
+            rx.chakra.thead(rx.chakra.tr(*[rx.chakra.th(column) for column in RAW_DATA_COLUMNS])),
+            rx.chakra.tbody(*render_rows()),
         )
     )
 
@@ -80,7 +80,7 @@ def index() -> rx.Component:
                 "Filter by tags:",
                 size="sm",
             ),
-            rx.input(
+            rx.chakra.input(
                 on_change=FilteredTableState.input_filter_on_change,
                 value=FilteredTableState.filter_expr,
                 debounce_timeout=1000,

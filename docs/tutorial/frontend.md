@@ -128,7 +128,7 @@ Now we want a way for the user to input a question. For this, we will use the [i
 ```python exec
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question"),
+        rx.chakra.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
 ```
@@ -143,7 +143,7 @@ rx.container(
 ```python
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question"),
+        rx.chakra.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
 
@@ -212,7 +212,7 @@ def chat4() -> rx.Component:
 
 def action_bar4() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
         rx.button("Ask", style=style.button_style),
     )
 ```
@@ -248,7 +248,7 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
         rx.button("Ask", style=style.button_style),
     )
 

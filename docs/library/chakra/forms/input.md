@@ -17,9 +17,9 @@ class InputState(rx.State):
     text: str = "Type something..."
 
 def basic_input_example():
-    return rx.vstack(
-        rx.text(InputState.text, color_scheme="green"),
-        rx.input(value=InputState.text, on_change=InputState.set_text)
+    return rx.chakra.vstack(
+        rx.chakra.text(InputState.text, color_scheme="green"),
+        rx.chakra.input(value=InputState.text, on_change=InputState.set_text)
     )
 ```
 
@@ -38,13 +38,13 @@ class ClearInputState(rx.State):
 
 
 def clear_input_example():
-    return rx.vstack(
-        rx.text(ClearInputState.text),
-        rx.input(
+    return rx.chakra.vstack(
+        rx.chakra.text(ClearInputState.text),
+        rx.chakra.input(
             on_change=ClearInputState.set_text,
             value=ClearInputState.text,
         ),
-        rx.button("Clear", on_click=ClearInputState.clear_text),
+        rx.chakra.button("Clear", on_click=ClearInputState.clear_text),
     )
 ```
 
@@ -61,9 +61,9 @@ class InputBlurState(rx.State):
 
 
 def input_blur_example():
-    return rx.vstack(
-        rx.text(InputBlurState.text),
-        rx.input(placeholder="Type something...", on_blur=InputBlurState.set_text)
+    return rx.chakra.vstack(
+        rx.chakra.text(InputBlurState.text),
+        rx.chakra.input(placeholder="Type something...", on_blur=InputBlurState.set_text)
     )
 ```
 
@@ -71,16 +71,16 @@ You can change the type of input by using the `type_` prop.
 For example you can create a password input or a date picker.
 
 ```python demo
-rx.vstack(
-    rx.input(type_="password"),
-    rx.input(type_="date"),
+rx.chakra.vstack(
+    rx.chakra.input(type_="password"),
+    rx.chakra.input(type_="date"),
 )
 ```
 
-We also provide a `rx.password` component as a shorthand for the password input.
+We also provide a `rx.chakra.password` component as a shorthand for the password input.
 
 ```python demo
-rx.password()
+rx.chakra.password()
 ```
 
  You can also use forms in combination with inputs.
@@ -95,21 +95,21 @@ rx.password()
     def handle_submit(self, form_data: dict):
         \"""Handle the form submit.\"""
         self.form_data = form_data
-        return [rx.set_value(field_id, "") for field_id in form_data]
+        return [rx.chakra.set_value(field_id, "") for field_id in form_data]
 
 
 def input_form_example():
-    return rx.vstack(
-        rx.form(
-            rx.vstack(
-                rx.input(placeholder="First Name", id="first_name"),
-                rx.input(placeholder="Last Name", id="last_name"),
-                rx.button("Submit", type_="submit"),
+    return rx.chakra.vstack(
+        rx.chakra.form(
+            rx.chakra.vstack(
+                rx.chakra.input(placeholder="First Name", id="first_name"),
+                rx.chakra.input(placeholder="Last Name", id="last_name"),
+                rx.chakra.button("Submit", type_="submit"),
             ),
             on_submit=InputFormState.handle_submit,
         ),
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(InputFormState.form_data.to_string()),
+        rx.chakra.divider(),
+        rx.chakra.heading("Results"),
+        rx.chakra.text(InputFormState.form_data.to_string()),
     )
  ```

@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Span
+    - rx.chakra.span
 ---
 
 ```python exec
@@ -12,10 +12,10 @@ import reflex as rx
 The span component can be used to style inline text without creating a new line.
 
 ```python demo
-rx.box(
+rx.chakra.box(
     "Write some ",
-    rx.span("stylized ", color="red"),    
-    rx.span("text ", color="blue"),
-    rx.span("using spans.", font_weight="bold")
+    rx.chakra.span("stylized ", color="red"),    
+    rx.chakra.span("text ", color="blue"),
+    rx.chakra.span("using spans.", font_weight="bold")
 )
 ```

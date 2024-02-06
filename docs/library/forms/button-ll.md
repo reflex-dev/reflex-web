@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Button
+    - rx.radix.button
 ---
 
 

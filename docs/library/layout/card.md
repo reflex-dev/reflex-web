@@ -1,11 +1,10 @@
 ---
 components:
-  - rx.radix.themes.Card
+  - rx.radix.card
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 # Card
@@ -20,12 +19,12 @@ themes.
 ## Basic Example
 
 ```python demo
-rdxt.flex(
-    rdxt.card("Card 1", size="1"),
-    rdxt.card("Card 2", size="2"),
-    rdxt.card("Card 3", size="3"),
-    rdxt.card("Card 4", size="4"),
-    rdxt.card("Card 5", size="5"),
+rx.flex(
+    rx.card("Card 1", size="1"),
+    rx.card("Card 2", size="2"),
+    rx.card("Card 3", size="3"),
+    rx.card("Card 4", size="4"),
+    rx.card("Card 5", size="5"),
     gap="2",
     align_items="flex-start",
     flex_wrap="wrap",
@@ -38,13 +37,13 @@ The `as_child` prop may be used to render the Card as a different element. Link 
 commonly used to make a Card clickable.
 
 ```python demo
-rdxt.card(
-    rdxt.link(
-        rdxt.flex(
-            rdxt.avatar(src="/reflex_banner.png"),
-            rdxt.box(
-                rdxt.heading("Quick Start"),
-                rdxt.text("Get started with Reflex in 5 minutes."),
+rx.card(
+    rx.link(
+        rx.flex(
+            rx.avatar(src="/reflex_banner.png"),
+            rx.box(
+                rx.heading("Quick Start"),
+                rx.text("Get started with Reflex in 5 minutes."),
             ),
             gap="2",
         ),

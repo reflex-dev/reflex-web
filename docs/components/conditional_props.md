@@ -12,7 +12,7 @@ class PropCondState(rx.State):
 
 
 def cond_prop():
-    return rx.slider(
+    return rx.chakra.slider(
         on_change_end=PropCondState.set_value,
         color_scheme=rx.cond(PropCondState.value > 50, "green", "pink"),
     )

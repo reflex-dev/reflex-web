@@ -5,8 +5,6 @@ from typing import Any, Callable
 import reflex as rx
 import flexdown
 import mistletoe
-import reflex.components.radix.themes as rdxt
-from pcweb import styles
 from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
 from .blocks import *
@@ -34,30 +32,30 @@ def doc_section(*contents):
     )
 
 def feedback_content(icon):
-    return rdxt.flex(
-            rdxt.button(
+    return rx.flex(
+            rx.button(
                 icon,
                 radius="full",
                 variant="soft"
             ),
-            rdxt.box(
-                rdxt.flex(
-                    rdxt.input(
+            rx.box(
+                rx.flex(
+                    rx.input(
                         placeholder="Contact Info (Optional)",
                         _type = "email",
                     ),
-                    rdxt.textarea(
+                    rx.text_area(
                         placeholder="Write a comment…",
                         style={"height": 80},
                     ),
                     gap="1",
                     direction="column",
                 ),
-                rdxt.flex(
-                    rdxt.flex(
-                        rdxt.text(
-                            rdxt.checkbox(),
-                            rdxt.text("Follow up with me"),
+                rx.flex(
+                    rx.flex(
+                        rx.text(
+                            rx.checkbox(),
+                            rx.text("Follow up with me"),
                             as_="label",
                             size="2",
                         ),
@@ -65,8 +63,8 @@ def feedback_content(icon):
                         gap="2",
                         as_child=True,
                     ),
-                    rdxt.popover_close(
-                        rdxt.button("Send Feedback", size="1")
+                    rx.popover.close(
+                        rx.button("Send Feedback", size="1")
                     ),
                     gap="3",
                     margin_top="12px",
@@ -79,9 +77,9 @@ def feedback_content(icon):
 
 
 def feedback(text, icon):
-    return rdxt.popover_root(
-    rdxt.popover_trigger(
-        rdxt.flex(
+    return rx.popover.root(
+    rx.popover.trigger(
+        rx.flex(
             icon,   
             text,
             color=rx.color("mauve", 9),
@@ -93,34 +91,34 @@ def feedback(text, icon):
             gap="2",
         )
     ),
-    rdxt.popover_content(
+    rx.popover.content(
         feedback_content(icon),
         style={"width": 360},
     ),
 )
 
 def docpage_footer(path):
-    return rdxt.flex(
-        rdxt.separator(size="4"),
-        rdxt.flex( 
-            rdxt.flex(
-                rdxt.text(
+    return rx.flex(
+        rx.separator(size="4"),
+        rx.flex( 
+            rx.flex(
+                rx.text(
                     "Did you find this useful?", 
                     color = rx.color("mauve", 12),
                     white_space="nowrap",
                 ),
-                rdxt.separator(size="4", orientation="vertical"),
-                feedback("No", rx.lucide.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
-                feedback("Yes", rx.lucide.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
+                rx.separator(size="4", orientation="vertical"),
+                feedback("No", rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
+                feedback("Yes", rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
                 align_items="center",
                 gap="2"
             ),
-            rdxt.box(
+            rx.box(
                 flex_grow='1',
             ),
-            rdxt.separator(size="4", orientation="vertical"),
-            rdxt.flex(
-                rx.desktop_only(rdxt.link(rdxt.flex(
+            rx.separator(size="4", orientation="vertical"),
+            rx.flex(
+                rx.desktop_only(rx.link(rx.flex(
                     "Raise an issue",
                     color=rx.color("mauve", 9),
                     border=f"1px solid {rx.color('mauve', 9)}",
@@ -131,7 +129,7 @@ def docpage_footer(path):
                     white_space="nowrap",
                     
                 ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with documentation&amp;body=Path: {path}")),
-                rx.desktop_only(rdxt.link(rdxt.flex(
+                rx.desktop_only(rx.link(rx.flex(
                     "Edit this page",
                     color=rx.color("mauve", 9),
                     border=f"1px solid {rx.color('mauve', 9)}",
@@ -147,20 +145,20 @@ def docpage_footer(path):
             align_items="center",
             width="100%",
         ),
-        rdxt.separator(size="4"),
-        rdxt.flex(
-            rdxt.flex(
-                rdxt.link("Home", color=rx.color("mauve", 11), underline="always"),
-                rdxt.link("Gallery", color=rx.color("mauve", 11), underline="always"),
-                rdxt.link("Change Log", color=rx.color("mauve", 11), underline="always"),
-                rdxt.link("Introduction", color=rx.color("mauve", 11), underline="always"),
-                rdxt.link("Hosting", color=rx.color("mauve", 11), underline="always"),
+        rx.separator(size="4"),
+        rx.flex(
+            rx.flex(
+                rx.link("Home", color=rx.color("mauve", 11), underline="always"),
+                rx.link("Gallery", color=rx.color("mauve", 11), underline="always"),
+                rx.link("Change Log", color=rx.color("mauve", 11), underline="always"),
+                rx.link("Introduction", color=rx.color("mauve", 11), underline="always"),
+                rx.link("Hosting", color=rx.color("mauve", 11), underline="always"),
                 gap="2",
             ),
-            rdxt.box(
+            rx.box(
                 flex_grow='1',
             ),
-            rdxt.flex(
+            rx.flex(
                 rx.image(
                     src="/companies/light/github.svg",
                 ),
@@ -200,17 +198,17 @@ def breadcrumb(path):
         href = '/' + '/'.join(segments[:i+1]).lower()
 
         # Create the breadcrumb item
-        breadcrumb_item = rdxt.link(segments[i], href=href, color=rx.color("mauve", 9))
+        breadcrumb_item = rx.link(segments[i], href=href, color=rx.color("mauve", 9))
 
         # Add the breadcrumb item to the list
         breadcrumbs.append(breadcrumb_item)
 
         # If it's not the last segment, add a separator
         if i < len(segments) - 1:
-            breadcrumbs.append(rdxt.text("/", color=rx.color("mauve", 9)))
+            breadcrumbs.append(rx.text("/", color=rx.color("mauve", 9)))
 
     # Return the list of breadcrumb items with separators
-    return rdxt.flex(*breadcrumbs, gap="2")
+    return rx.flex(*breadcrumbs, gap="2")
 
 def get_headings(comp):
      """Get the strings from markdown component."""
@@ -361,9 +359,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                  comp = xd.render(*comp)
 
             # Return the templated page.
-            return rdxt.box(
+            return rx.box(
                 navbar(sidebar=nav_sidebar),
-                rdxt.flex(
+                rx.flex(
                     rx.desktop_only(
                             sidebar,
                             margin_top="120px",
@@ -372,8 +370,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             height="100%",
                             width=["none", "none", "none", "25%", "25%"],
                         ),
-                    rdxt.box(
-                            rdxt.box(
+                    rx.box(
+                            rx.box(
                                 breadcrumb(path),
                                 margin_top="120px", 
                                 margin_bottom="20px"
@@ -394,11 +392,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             height="100%",
                         ),
                     rx.desktop_only(
-                            rdxt.flex(
+                            rx.flex(
                                 *[
-                                    rdxt.link(rx.text(text, color=rx.color("mauve", 12), font_weight="500"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 1
-                                    else rdxt.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 2
-                                    else rdxt.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"),href=path+"#"+text.lower().replace(" ", "-") )
+                                    rx.link(rx.text(text, color=rx.color("mauve", 12), font_weight="500"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 1
+                                    else rx.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 2
+                                    else rx.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"),href=path+"#"+text.lower().replace(" ", "-") )
                                     for level, text in toc
                                 ],
                                 direction="column",
@@ -440,9 +438,9 @@ class RadixDocState(rx.State):
 
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
-    return rdxt.hovercard_root(
-        rdxt.hovercard_trigger(rdxt.flex(component)),
-        rdxt.hovercard_content(
+    return rx.hover_card.root(
+        rx.hover_card.trigger(rx.flex(component)),
+        rx.hover_card.content(
             rx.code_block(f"{component_str}", can_copy=True, language="python"),
         ),
     )
@@ -522,10 +520,10 @@ def style_grid(
     **kwargs,
 ) -> rx.Component:
     return rx.vstack(
-        rdxt.grid(
-            rdxt.text("", size="5"),
-            *[rdxt.text(variant, size="5") for variant in variants],
-            rdxt.text("Accent", size="5"),
+        rx.grid(
+            rx.text("", size="5"),
+            *[rx.text(variant, size="5") for variant in variants],
+            rx.text("Accent", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -540,7 +538,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            rdxt.text("", size="5"),
+            rx.text("", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -555,7 +553,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            rdxt.text("Gray", size="5"),
+            rx.text("Gray", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -570,7 +568,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            rdxt.text("", size="5"),
+            rx.text("", size="5"),
             *[
                 hover_item(
                     component=used_component(
@@ -587,7 +585,7 @@ def style_grid(
             ],
             (
                 rx.fragment(
-                    rdxt.text("Disabled", size="5"),
+                    rx.text("Disabled", size="5"),
                     *[
                         hover_item(
                             component=used_component(
@@ -612,13 +610,13 @@ def style_grid(
             rows=str(len(variants) + 1),
             gap="3",
         ),
-        rdxt.select_root(
-            rdxt.select_trigger(rdxt.button(size="2", on_click=RadixDocState.change_color())),
-            rdxt.select_content(
-                rdxt.select_group(
-                    rdxt.select_label("Colors"),
+        rx.select.root(
+            rx.select.trigger(rx.button(size="2", on_click=RadixDocState.change_color())),
+            rx.select.content(
+                rx.select.group(
+                    rx.select.label("Colors"),
                     *[
-                        rdxt.select_item(
+                        rx.select.item(
                             color,
                             value=color,
                             _hover={"background": f"var(--{color}-9)"},
@@ -664,29 +662,29 @@ def style_grid(
 def icon_grid(
     category_name: str, icon_tags: list[str], columns: str = "4"
 ) -> rx.Component:
-    return rdxt.flex(
-        rdxt.callout_root(
-            rdxt.callout_icon(
-                rdxt.icon(
+    return rx.flex(
+        rx.callout.root(
+            rx.callout.icon(
+                rx.icon(
                     tag="check_circled",
                     width=18,
                     height=18,
                 )
             ),
-            rdxt.callout_text(
+            rx.callout.text(
                 f"Below is a list of all available ",
-                rdxt.text(category_name, weight="bold"),
+                rx.text(category_name, weight="bold"),
                 " icons.",
                 color="black",
             ),
             color="green",
         ),
-        rdxt.separator(size="4"),
-        rdxt.grid(
+        rx.separator(size="4"),
+        rx.grid(
             *[
-                rdxt.flex(
-                    rdxt.icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
-                    rdxt.text(icon_tag),
+                rx.flex(
+                    rx.icon(tag=icon_tag, alias="Radix" + icon_tag.title()),
+                    rx.text(icon_tag),
                     direction="column",
                     align="center",
                     bg="white",

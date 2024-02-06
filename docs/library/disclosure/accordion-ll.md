@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.components.radix.primitives.AccordionRoot
-    - rx.components.radix.primitives.AccordionHeader
-    - rx.components.radix.primitives.AccordionContent
+    - rx.radix.accordion.root
+    - rx.radix.accordion.header
+    - rx.radix.accordion.content
 ---
 
 # Low Level Docs Coming Soon!

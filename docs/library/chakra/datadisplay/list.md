@@ -18,7 +18,7 @@ The shorthand syntax used to create a list is by passing in a list of items.
 These items can be components or Python primitives.
 
 ```python demo
-rx.list(
+rx.chakra.list(
     items=["Example 1", "Example 2", "Example 3"],
     spacing=".25em"
 )
@@ -29,40 +29,40 @@ Regular lists are used to display a list of items.
 They have no bullet points or numbers and stack the list items vertically.
 
 ```python demo
-rx.list(
-    rx.list_item("Example 1"),
-    rx.list_item("Example 2"),
-    rx.list_item("Example 3"),
+rx.chakra.list(
+    rx.chakra.list_item("Example 1"),
+    rx.chakra.list_item("Example 2"),
+    rx.chakra.list_item("Example 3"),
 )
 ```
 
 Unordered have bullet points to display the list items.
 
 ```python demo
-rx.unordered_list(
-    rx.list_item("Example 1"),
-    rx.list_item("Example 2"),
-    rx.list_item("Example 3"),
+rx.chakra.unordered_list(
+    rx.chakra.list_item("Example 1"),
+    rx.chakra.list_item("Example 2"),
+    rx.chakra.list_item("Example 3"),
 )
 ```
 
 Ordered lists have numbers to display the list items.
 
 ```python demo
-rx.ordered_list(
-    rx.list_item("Example 1"),
-    rx.list_item("Example 2"),
-    rx.list_item("Example 3"),
+rx.chakra.ordered_list(
+    rx.chakra.list_item("Example 1"),
+    rx.chakra.list_item("Example 2"),
+    rx.chakra.list_item("Example 3"),
 )
 ```
 
 Lists can also be used with icons.
 
 ```python demo
-rx.list(
-    rx.list_item(rx.icon(tag="check_circle", color = "green"), "Allowed"),
-    rx.list_item(rx.icon(tag="not_allowed", color = "red"), "Not"),
-    rx.list_item(rx.icon(tag="settings", color = "grey"), "Settings"),
+rx.chakra.list(
+    rx.chakra.list_item(rx.chakra.icon(tag="check_circle", color = "green"), "Allowed"),
+    rx.chakra.list_item(rx.chakra.icon(tag="not_allowed", color = "red"), "Not"),
+    rx.chakra.list_item(rx.chakra.icon(tag="settings", color = "grey"), "Settings"),
     spacing = ".25em"
 )
 ```

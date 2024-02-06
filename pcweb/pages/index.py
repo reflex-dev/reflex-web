@@ -136,15 +136,15 @@ def landing():
             rx.center(
                 rx.vstack(
                     rx.text(
-                        rx.span("[", color="#DACEEE"),
-                        rx.span("Frontend", color="#696287"),
-                        rx.span("]", color="#DACEEE"),
-                        rx.span("[", color="#DACEEE"),
-                        rx.span("Backend", color="#696287"),
-                        rx.span("]", color="#DACEEE"),
-                        rx.span("[", color="#DACEEE"),
-                        rx.span("Hosting", color="#696287"),
-                        rx.span("]", color="#DACEEE"),
+                        rx.chakra.span("[", color="#DACEEE"),
+                        rx.chakra.span("Frontend", color="#696287"),
+                        rx.chakra.span("]", color="#DACEEE"),
+                        rx.chakra.span("[", color="#DACEEE"),
+                        rx.chakra.span("Backend", color="#696287"),
+                        rx.chakra.span("]", color="#DACEEE"),
+                        rx.chakra.span("[", color="#DACEEE"),
+                        rx.chakra.span("Hosting", color="#696287"),
+                        rx.chakra.span("]", color="#DACEEE"),
                         font_family=styles.MONO,
                         mb=2,
                     ),
@@ -166,15 +166,15 @@ def landing():
                     ),
                     rx.cond(
                         ~IndexState.signed_up,
-                        rx.wrap(
-                            rx.input_group(
-                                rx.input_left_element(
+                        rx.chakra.wrap(
+                            rx.chakra.input_group(
+                                rx.chakra.input_left_element(
                                     rx.image(
                                         src="/landing_icons/custom_icons/email.png",
                                         height="1.2em",
                                     ),
                                 ),
-                                rx.input(
+                                rx.chakra.input(
                                     placeholder="Your email address...",
                                     on_blur=IndexState.set_email,
                                     style=styles.INPUT_STYLE,
@@ -236,7 +236,7 @@ def example_card(title, tags, href, image):
         *[tag(t) for t in tags],
         rx.link(
             rx.center(
-                rx.icon(tag="arrow_forward", color="#494369"),
+                rx.icon(tag="move_right", color="#494369"),
                 border_radius="6px",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 min_width="2em",
@@ -284,12 +284,12 @@ def intro():
                         mb=4,
                     ),
                     rx.text(
-                        rx.span('"""', color="#AA9EC3"),
-                        rx.span(
+                        rx.chakra.span('"""', color="#AA9EC3"),
+                        rx.chakra.span(
                             "This entire website is made in Reflex!",
                             color="#494369",
                         ),
-                        rx.span('"""', color="#AA9EC3"),
+                        rx.chakra.span('"""', color="#AA9EC3"),
                         bg="#FAF8FB",
                         font_family=styles.MONO,
                         p=4,
@@ -377,7 +377,7 @@ compbox = rx.hstack(
             rx.link(
                 rx.button(
                     "Check out the full library",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=library.path,
@@ -412,7 +412,7 @@ stylebox = rx.hstack(
             rx.link(
                 rx.button(
                     "Styling Guide",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=styling.overview.path,
@@ -447,7 +447,7 @@ reactbox = rx.hstack(
             rx.link(
                 rx.button(
                     "Wrapping React guide",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=wrapping_react.overview.path,
@@ -502,7 +502,7 @@ def frontend():
                 rx.box(
                     rx.text(
                         "[",
-                        rx.span("Frontend", bg="#F5EFFE", color="#5646ED"),
+                        rx.chakra.span("Frontend", bg="#F5EFFE", color="#5646ED"),
                         "]",
                         color="#5646ED",
                         font_family=styles.MONO,
@@ -579,7 +579,7 @@ battery_icon = rx.hstack(
             rx.link(
                 rx.button(
                     "State docs",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=state.overview.path,
@@ -614,7 +614,7 @@ orm_icon = rx.hstack(
             rx.link(
                 rx.button(
                     "Database docs",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=database.overview.path,
@@ -669,7 +669,7 @@ def backend():
                 rx.box(
                     rx.text(
                         "[",
-                        rx.span("Backend", color="#2B199C", bg="#F3F7FE"),
+                        rx.chakra.span("Backend", color="#2B199C", bg="#F3F7FE"),
                         "]",
                         color="#2B199C",
                         font_family=styles.MONO,
@@ -746,7 +746,7 @@ deploy_icon = rx.hstack(
             rx.link(
                 rx.button(
                     "Deploy your app",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=hosting.deploy_quick_start.path,
@@ -781,7 +781,7 @@ host_icon = rx.hstack(
             rx.link(
                 rx.button(
                     "Self-host your app",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=hosting.self_hosting.path,
@@ -811,7 +811,7 @@ def hosting():
                 rx.box(
                     rx.text(
                         "[",
-                        rx.span("Hosting", color="#342E5C", bg="#FAF8FB"),
+                        rx.chakra.span("Hosting", color="#342E5C", bg="#FAF8FB"),
                         "]",
                         color="#342E5C",
                         font_family=styles.MONO,
@@ -892,7 +892,7 @@ def gallery():
                 rx.center(
                     rx.text(
                         "Join the growing ",
-                        rx.span(
+                        rx.chakra.span(
                             "open-source ",
                             color="#DACEEE",
                         ),
@@ -1000,7 +1000,7 @@ def prompt_sign():
 
 
 def installation():
-    return rx.vstack(
+    return rx.chakra.vstack(
         container(
             rx.flex(
                 rx.center(
@@ -1035,7 +1035,7 @@ def installation():
                         padding_x="1em",
                         padding_top=".5em",
                     ),
-                    rx.divider(),
+                    rx.chakra.divider(),
                     rx.vstack(
                         rx.hstack(
                             rx.text("1", color="#494369"),
@@ -1068,7 +1068,7 @@ def installation():
                         align_items="left",
                         padding_x="1em",
                     ),
-                    rx.divider(),
+                    rx.chakra.divider(),
                     rx.hstack(
                         rx.text(
                             "And you should see your first Reflex app!",
@@ -1120,7 +1120,7 @@ def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(
         landing(),
-        container(rx.divider(border_color="#F4F3F6")),
+        container(rx.chakra.divider(border_color="#F4F3F6")),
         intro(),
         frontend(),
         backend(),

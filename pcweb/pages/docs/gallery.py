@@ -368,7 +368,7 @@ def add_item(category):
             background="linear-gradient(transparent .5em, white)",
         ),
         rx.spacer(),
-        rx.wrap(
+        rx.chakra.wrap(
             rx.badge(
                 category["difficulty"],
                 border_radius="15px",
@@ -394,7 +394,7 @@ def add_item(category):
 
 def component_grid():
     return rx.box(
-        rx.responsive_grid(
+        rx.chakra.responsive_grid(
             rx.foreach(SideBarState.data_to_return, add_item),
             columns=[1, 2, 2, 2, 3],
             gap=4,
@@ -404,7 +404,7 @@ def component_grid():
 
 def community_component_grid():
     return rx.box(
-        rx.responsive_grid(
+        rx.chakra.responsive_grid(
             rx.foreach(SideBarState.community_apps_list, add_item),
             columns=[1, 2, 2, 2, 3],
             gap=4,
@@ -413,7 +413,7 @@ def community_component_grid():
 
 
 def sidebar_component_grid(tags):
-    return rx.wrap(
+    return rx.chakra.wrap(
         *[
             rx.button(
                 tag,
@@ -443,7 +443,7 @@ heading_style3 = {}
 
 def sidebar():
     return rx.box(
-        rx.vstack(
+        rx.chakra.vstack(
             rx.vstack(
                 rx.heading(
                     "Filters",
@@ -470,15 +470,15 @@ def gallery_with_no_sidebar():
             component_grid(),
             rx.box(
                 rx.heading("Community Gallery"),
-                rx.divider(),
+                rx.chakra.divider(),
                 rx.text(
                     "Here are some examples of what the community has made with Reflex. ",
                     margin_bottom="1em",
                 ),
                 community_component_grid(),
-                rx.alert(
-                    rx.alert_icon(),
-                    rx.alert_title(
+                rx.chakra.alert(
+                    rx.chakra.alert_icon(),
+                    rx.chakra.alert_title(
                         "If you have an app you'd like to share, please fill out this ",
                         rx.link(
                             rx.text("form", as_="b"),
@@ -516,7 +516,7 @@ def gallery() -> rx.Component:
                 font_family=styles.SANS,
                 text_align="center",
             ),
-            rx.divider(),
+            rx.chakra.divider(),
             width="100%",
             align_items="center",
             padding_x="4em",

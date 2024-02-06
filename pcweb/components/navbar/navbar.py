@@ -1,20 +1,18 @@
 """UI and logic for the navbar component."""
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from .buttons.github import github
 from .buttons.discord import discord
-from .state import NavbarState
 from .search import search_bar
 
 
 def resource_header(text):
-    return rdxt.text(text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600")
+    return rx.text(text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600")
 
 def resources_item(text, url, icon):
-    return rdxt.link(
-            rdxt.flex(
-                rx.lucide.icon(icon, size=20, color=rx.color("mauve", 9)),
-                rdxt.text(text, color=rx.color("mauve", 9)),
+    return rx.link(
+            rx.flex(
+                rx.icon(icon, size=20, color=rx.color("mauve", 9)),
+                rx.text(text, color=rx.color("mauve", 9)),
                 wrap="nowrap",
                 gap="2",
             ),
@@ -23,18 +21,18 @@ def resources_item(text, url, icon):
 
 
 def resources_section():
-    return rdxt.hovercard_root(
-            rdxt.hovercard_trigger(
-                rdxt.flex(
-                    rdxt.text("Resources", color=rx.color("mauve", 11)),
-                    rdxt.icon(tag="chevron_down", color=rx.color("mauve", 11)),
+    return rx.hover_card.root(
+            rx.hover_card.trigger(
+                rx.flex(
+                    rx.text("Resources", color=rx.color("mauve", 11)),
+                    rx.icon(tag="chevron_down", color=rx.color("mauve", 11)),
                     align_items="center",
                     gap="2",
                 )
             ),
-            rdxt.hovercard_content(
-                rdxt.flex(
-                        rdxt.flex(
+            rx.hover_card.content(
+                rx.flex(
+                        rx.flex(
                             resource_header("Open Source"),
                             resources_item("Github", "https://github.com/reflex-dev", "github"),
                             resources_item("Github Discussions","https://github.com/orgs/reflex-dev/discussions", "message-circle-question"),
@@ -47,7 +45,7 @@ def resources_section():
                             padding_bottom="20px",
                             gap="2",
                         ),
-                        rdxt.flex(
+                        rx.flex(
                             resource_header("Resources"),
                             resources_item("Component Library", "/docs/library", "layout-panel-left"),
                             resources_item("Roadmap", "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37", "map-pinned"),
@@ -59,7 +57,7 @@ def resources_section():
                             padding_bottom="20px",
                             gap="2",
                         ),
-                        rdxt.flex(
+                        rx.flex(
                             resource_header("Hosting"),
                             resources_item("Deployment", "/docs/hosting/deploy-quick-start/", "globe"),
                             resources_item("Self-Hosting", "/docs/hosting/self-hosting/", "server"),
@@ -86,29 +84,29 @@ def resources_section():
 
 def navigation_section():
     return rx.desktop_only(
-        rdxt.flex(
-            rdxt.text("Docs", color=rx.color("mauve", 11)),
-            rdxt.text("Blog",color=rx.color("mauve", 11)),
-            rdxt.text("Gallery", color=rx.color("mauve", 11)),
+        rx.flex(
+            rx.text("Docs", color=rx.color("mauve", 11)),
+            rx.text("Blog",color=rx.color("mauve", 11)),
+            rx.text("Gallery", color=rx.color("mauve", 11)),
             resources_section(),
             gap="5",
         )
     )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
-    return rdxt.flex(
+    return rx.flex(
         rx.image(
             src="/logos/light/reflex.svg",
             height="20px",
         ),
         navigation_section(),
-        rdxt.box(
+        rx.box(
                 flex_grow='1',
         ),
-        rdxt.flex(
+        rx.flex(
             search_bar(),
             github(),
-            rdxt.separator(size="2", color='mauve', orientation="vertical"), 
+            rx.separator(size="2", color='mauve', orientation="vertical"), 
             discord(),
             gap="3",
             align_items="center",

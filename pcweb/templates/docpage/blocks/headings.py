@@ -1,7 +1,6 @@
 """Template for documentation pages."""
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.styles import font_weights as fw
 
@@ -16,10 +15,10 @@ def h_comp_common(
     id_ = text.to(list[str])[0].lower().split().join("-")
     href = rx.State.router.page.full_path + "#" + id_
 
-    return rdxt.box(
-        rdxt.link(
-            rdxt.flex(
-                rdxt.heading(
+    return rx.box(
+        rx.link(
+            rx.flex(
+                rx.heading(
                     text,
                     id=id_,
                     as_=heading,
@@ -28,7 +27,7 @@ def h_comp_common(
                     font_weight=font_weight,
                     scroll_margin=scroll_margin,
                 ),
-                rdxt.icon(
+                rx.icon(
                     tag="link_2",
                     color="#696287",
                     _hover={
@@ -45,8 +44,8 @@ def h_comp_common(
             on_click=lambda: rx.set_clipboard(href),
             margin_bottom="0.5em",
         ),
-        rdxt.flex(
-            rdxt.separator(size="4"),
+        rx.flex(
+            rx.separator(size="4"),
             margin_top=".5em",
             margin_bottom="1em",
             width="100%"

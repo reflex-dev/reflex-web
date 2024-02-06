@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Upload
+    - rx.upload
 ---
 
 ```python exec
@@ -143,7 +143,7 @@ def index():
             "Upload",
             on_click=lambda: State.handle_upload(rx.upload_files()),
         ),
-        rx.responsive_grid(
+        rx.chakra.responsive_grid(
             rx.foreach(
                 State.img,
                 lambda img: rx.vstack(
