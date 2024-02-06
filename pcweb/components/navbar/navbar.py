@@ -7,15 +7,20 @@ from .state import NavbarState
 from .search import search_bar
 
 
+def resource_header(text):
+    return rdxt.text(text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600")
+
 def resources_item(text, url, icon):
-    return rdxt.flex(
-        rx.lucide.icon(icon, size=20, color=rx.color("mauve", 9)),
-        rdxt.link(
-            rdxt.text(text, color=rx.color("mauve", 9)),
+    return rdxt.link(
+            rdxt.flex(
+                rx.lucide.icon(icon, size=20, color=rx.color("mauve", 9)),
+                rdxt.text(text, color=rx.color("mauve", 9)),
+                wrap="nowrap",
+                gap="2",
+            ),
             href=url,
-        ),
-        gap="2",
-    )
+        )
+
 
 def resources_section():
     return rdxt.hovercard_root(
@@ -30,11 +35,11 @@ def resources_section():
             rdxt.hovercard_content(
                 rdxt.flex(
                         rdxt.flex(
-                            rdxt.text("Open Source", color=rx.color("mauve", 12)),
-                            resources_item("Github", "", "github"),
-                            resources_item("Github Discussions","", "message-circle-question"),
-                            resources_item("Contribute to Reflex", "", "file-json-2"),
-                            resources_item("Changelog", "", "list-checks"),
+                            resource_header("Open Source"),
+                            resources_item("Github", "https://github.com/reflex-dev", "github"),
+                            resources_item("Github Discussions","https://github.com/orgs/reflex-dev/discussions", "message-circle-question"),
+                            resources_item("Contribute to Reflex", "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md", "file-json-2"),
+                            resources_item("Changelog", "/changelog", "list-checks"),
                             direction="column",
                             align_items = "start",
                             padding_left="20px",
@@ -43,11 +48,11 @@ def resources_section():
                             gap="2",
                         ),
                         rdxt.flex(
-                            rdxt.text("Resources", color=rx.color("mauve", 12)),
-                            resources_item("Component Library", "", "layout-panel-left"),
-                            resources_item("Roadmap", "", "map-pinned"),
-                            resources_item("Blog", "", "text"),
-                            resources_item("FAQ", "", "list-todo"),
+                            resource_header("Resources"),
+                            resources_item("Component Library", "/docs/library", "layout-panel-left"),
+                            resources_item("Roadmap", "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37", "map-pinned"),
+                            resources_item("Blog", "/blog", "text"),
+                            resources_item("FAQ", "/faq", "list-todo"),
                             direction="column",
                             align_items = "start",
                             padding_top="20px",
@@ -55,25 +60,26 @@ def resources_section():
                             gap="2",
                         ),
                         rdxt.flex(
-                            rdxt.text("Hosting", color=rx.color("mauve", 11)),
-                            resources_item("Deployment", "", "globe"),
-                            resources_item("Self-Hosting", "", "server"),
+                            resource_header("Hosting"),
+                            resources_item("Deployment", "/docs/hosting/deploy-quick-start/", "globe"),
+                            resources_item("Self-Hosting", "/docs/hosting/self-hosting/", "server"),
                             direction="column",
-                            background_color = rx.color("mauve", 4),
+                            background_color = rx.color("mauve", 3),
+                            border_left = f"1px solid {rx.color('mauve', 4)}",
                             align_items = "start",
-                            height="100%",
+                            height="250",
                             padding_top="20px",
+                            padding_left="20px",
                             padding_bottom="20px",
                             padding_right="20px",
                             gap="2",
                         ),
-                        gap="3",
-                        height="100%",
+                        gap="5",
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
                 background_color = rx.color("mauve", 2),
-                width = "500",
-                height = "200",
+                width = "1000",
+                height = "250",
                 padding="0"
             ),
         )

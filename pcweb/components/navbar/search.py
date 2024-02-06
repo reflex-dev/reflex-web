@@ -183,6 +183,7 @@ def search_bar_desktop() -> rx.Component:
                 "⌘+K",
                 color=rx.color("mauve", 9),
                 background=rx.color("mauve", 4),
+                padding="0px 3px",
                 border_radius="5px",
             ),
             search_modal(),

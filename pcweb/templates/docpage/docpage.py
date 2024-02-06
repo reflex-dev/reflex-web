@@ -396,9 +396,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     rx.desktop_only(
                             rdxt.flex(
                                 *[
-                                    rx.text(text, color=rx.color("mauve", 12), font_weight="500") if level == 1
-                                    else rx.text(text, color=rx.color("mauve", 11),font_size=styles.TEXT_FONT_SIZE, font_weight="400") if level == 2
-                                    else rx.text(text, padding_left="1em", color=rx.color("mauve", 11), font_size=styles.TEXT_FONT_SIZE, font_weight="400")
+                                    rdxt.link(rx.text(text, color=rx.color("mauve", 12), font_weight="500"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 1
+                                    else rdxt.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 2
+                                    else rdxt.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"),href=path+"#"+text.lower().replace(" ", "-") )
                                     for level, text in toc
                                 ],
                                 direction="column",
