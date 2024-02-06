@@ -177,7 +177,7 @@ def search_bar_desktop() -> rx.Component:
                 "Search",
             ),
             rdxt.box(
-                grow='1',
+                flex_grow='1',
             ),
             rdxt.text(
                 "⌘+K",

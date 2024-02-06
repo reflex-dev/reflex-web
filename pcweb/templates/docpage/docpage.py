@@ -3,8 +3,8 @@
 from typing import Any, Callable
 
 import reflex as rx
-import os
-import string
+import flexdown
+import mistletoe
 import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.components.logo import navbar_logo
@@ -116,7 +116,7 @@ def docpage_footer(path):
                 gap="2"
             ),
             rdxt.box(
-                grow='1',
+                flex_grow='1',
             ),
             rdxt.separator(size="4", orientation="vertical"),
             rdxt.flex(
@@ -158,7 +158,7 @@ def docpage_footer(path):
                 gap="2",
             ),
             rdxt.box(
-                grow='1',
+                flex_grow='1',
             ),
             rdxt.flex(
                 rx.image(
@@ -211,6 +211,56 @@ def breadcrumb(path):
 
     # Return the list of breadcrumb items with separators
     return rdxt.flex(*breadcrumbs, gap="2")
+
+def get_headings(comp):
+     """Get the strings from markdown component."""
+     if isinstance(comp, mistletoe.block_token.Heading):
+         heading_text = "".join(token.content for token in comp.children if hasattr(token, "content"))
+         return [(comp.level, heading_text)]
+
+     # Recursively get the strings from the children.
+     if not hasattr(comp, "children"):
+         return []
+
+     headings = []
+     for child in comp.children:
+         headings.extend(get_headings(child))
+     return headings
+
+def get_toc(source, href):
+    from pcweb.flexdown import xd
+
+    # Generate the TOC
+    # The environment used for execing and evaling code.
+    env = source.metadata
+    env["__xd"] = xd
+
+    # Get the content of the document.
+    source = source.content
+
+    # Get the blocks in the source code.
+    # Note: we must use reflex-web's special flexdown instance xd here - it knows about all custom block types (like DemoBlock)
+    blocks = xd.get_blocks(source, href)
+
+    content_pieces = []
+    for block in blocks:
+        # Render all blocks for their side effect of env augmentation
+        # Unexpected, but hey!
+        # TODO Probably better to return env as part of return
+        try:
+            _ = block.render(env=env)
+        except:
+            continue
+        if isinstance(block, flexdown.blocks.MarkdownBlock):
+            # Now we should have all the env entries we need
+            content = block.get_content(env)
+            content_pieces.append(content)
+
+    content = "\n".join(content_pieces)
+    doc = mistletoe.Document(content)
+
+    # Parse the markdown headers.
+    return get_headings(doc)
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
@@ -299,10 +349,16 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             else:
                 links.append(rx.box())
 
+            toc = []
             if not isinstance(contents, rx.Component):
                 comp = contents(*args, **kwargs)   
             else:
                 comp = contents
+
+            if isinstance(comp, tuple):
+                 from pcweb.flexdown import xd
+                 toc = get_toc(*comp)
+                 comp = xd.render(*comp)
 
             # Return the templated page.
             return rdxt.box(
@@ -338,22 +394,19 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             height="100%",
                         ),
                     rx.desktop_only(
-                            rx.flex(
-                                rdxt.heading("State", size="3"),
-                                rdxt.text("Props"),
-                                rdxt.text("Props"),
-                                rdxt.heading("Props", size="3"),
-                                rdxt.text("Props"),
-                                rdxt.text("Props"),
-                                rdxt.text("Props"),
-                                rdxt.heading("Events", size="3"),
-                                rdxt.text("Props"),
-                                rdxt.text("Props"),
+                            rdxt.flex(
+                                *[
+                                    rx.text(text, color=rx.color("mauve", 12), font_weight="500") if level == 1
+                                    else rx.text(text, color=rx.color("mauve", 11),font_size=styles.TEXT_FONT_SIZE, font_weight="400") if level == 2
+                                    else rx.text(text, padding_left="1em", color=rx.color("mauve", 11), font_size=styles.TEXT_FONT_SIZE, font_weight="400")
+                                    for level, text in toc
+                                ],
                                 direction="column",
                                 position="fixed",
+                                gap="2",
                             ),
                             margin_top="120px",
-                            width=["none", "none", "none", "none","25%"],
+                            width="25%",
                         ),
                     background = rx.color("mauve", 1),
                     max_width="110em",

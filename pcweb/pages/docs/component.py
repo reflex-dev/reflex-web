@@ -7,7 +7,7 @@ from typing import Any, Type, get_args
 
 import reflex as rx
 from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import docpage, get_toc
 from reflex.base import Base
 from reflex.components.component import Component
 
@@ -397,6 +397,9 @@ EVENTS = {
     "on_clear_server_errors": {
         "description": "The on_clear_server_errors event handler is called when the form is submitted or reset and the server errors need to be cleared."
     },
+    "on_select": {
+        "description": "The on_select event handler is called when the user selects an item."
+    },
 }
 
 
@@ -596,6 +599,7 @@ def multi_docs(path, comp, component_list, title):
                             else "",
                             rx.tab_panel(rx.vstack(*components)),
                         ),
+                        get_toc(comp, path),
                         variant="unstyled",
                         default_index=1 if "only_low_level" in comp.metadata else 0,
                     ),

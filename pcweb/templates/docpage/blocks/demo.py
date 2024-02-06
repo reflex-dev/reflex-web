@@ -12,7 +12,7 @@ demo_box_style = {
     "padding": 5,
     "width": "100%",
     "overflow_x": "auto",
-    "border": f"2px solid {rx.color('mauve', 4)}",
+    "border": f"2px solid {rx.color('mauve', 3)}",
     "align_items": "center",
     "justify_content": "center",
 }
@@ -107,6 +107,7 @@ def docdemo(
         docdemobox(comp, **(demobox_props or {})),
         doccode(code),
         width="100%",
+        padding_top="2em",
         padding_bottom="2em",
         spacing="1em",
         **props,

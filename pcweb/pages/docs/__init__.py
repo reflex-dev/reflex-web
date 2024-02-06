@@ -97,7 +97,7 @@ for doc in sorted(flexdown_docs):
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     else:
         comp = docpage(set_path=route, t=title2)(
-            lambda d=d, doc=doc: xd.render(d, doc)
+            lambda d=d, doc=doc: (d, doc)
         )
 
     # Get the namespace.

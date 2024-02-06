@@ -41,7 +41,14 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             title = ""
             content = "\n".join(lines[1:-1])
 
+        colors = {
+            "info": "violet",
+            "success": "grass",
+            "warning": "amber",
+            "error": "red",
+        }    
 
+        color = colors.get(status, "blue")
 
         return rdxt.callout_root(
     rdxt.callout_icon(
@@ -51,20 +58,15 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             ("success", rdxt.icon(tag="check_circled")),
             ("warning", rdxt.icon(tag="exclamation_triangle")),
             ("error", rdxt.icon(tag="cross_circled")),
-        )
+        ),
     ),
     rdxt.callout_text(
-        markdown(title) if title else "",
+        markdown(title + " ") if title else "",
         markdown(content),
     ),
-    color_scheme=rx.match(
-        status,
-        ("info", "violet"),
-        ("success", "green"),
-        ("warning", "yellow"),
-        ("error", "red"),
-        "blue"
-    ),
+    color_scheme=color,
+    background_color = f"{rx.color(color, 3)}",
+    variant="soft",
     margin_top="1em",
     margin_bottom="1em",
 )
