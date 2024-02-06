@@ -25,8 +25,11 @@ def resources_section():
             rx.hover_card.trigger(
                 rx.flex(
                     rx.text("Resources", color=rx.color("mauve", 11)),
-                    rx.icon(tag="chevron_down", color=rx.color("mauve", 11)),
+                    rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
                     align_items="center",
+                    _hover={
+                        "cursor": "pointer",
+                    },
                     gap="2",
                 )
             ),
@@ -85,9 +88,9 @@ def resources_section():
 def navigation_section():
     return rx.desktop_only(
         rx.flex(
-            rx.text("Docs", color=rx.color("mauve", 11)),
-            rx.text("Blog",color=rx.color("mauve", 11)),
-            rx.text("Gallery", color=rx.color("mauve", 11)),
+            rx.link(rx.text("Docs", color=rx.color("mauve", 11)), href="/docs/getting-started/introduction/"),
+            rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
+            rx.link(rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"),
             resources_section(),
             gap="5",
         )
@@ -95,9 +98,12 @@ def navigation_section():
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
-        rx.image(
-            src="/logos/light/reflex.svg",
-            height="20px",
+        rx.box(
+            rx.image(
+                src="/logos/light/reflex.svg",
+                height="20px",
+                justify="start",
+            )
         ),
         navigation_section(),
         rx.box(
@@ -117,8 +123,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         position="fixed",
         width="100%",
         top="0px",
-        z_index="5",
-        align_items= "center;",
+        z_index="5", 
+        align_items= "center",
         gap="6",
         padding= "7px 20px 7px 20px;",
     )

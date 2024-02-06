@@ -416,6 +416,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     width="100%",
                 ),
                background = rx.color("mauve", 1),
+               width = "100%",
             )
 
         # Return the route.
@@ -490,7 +491,7 @@ def used_component(
             high_contrast=high_contrast,
             **kwargs,
         )
-
+  
     elif components_passed is None and disabled is True:
         return component_used(
             color_scheme=color_scheme,
@@ -499,7 +500,7 @@ def used_component(
             disabled=True,
             **kwargs,
         )
-
+   
     else:
         return component_used(
             components_passed,

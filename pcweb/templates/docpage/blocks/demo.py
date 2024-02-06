@@ -9,10 +9,11 @@ import black
 demo_box_style = {
     "bg": "rgba(249, 248, 249, 1)",
     "border_radius": "8px;",
-    "padding": 5,
+    "padding": "2em",
     "width": "100%",
     "overflow_x": "auto",
-    "border": f"2px solid {rx.color('mauve', 3)}",
+    "border":f"2px solid {rx.color('mauve', 3)}",
+    "background_color":f"{rx.color('mauve', 2)}",
     "align_items": "center",
     "justify_content": "center",
 }
@@ -155,7 +156,9 @@ def docgraphing(
             color_scheme="purple",
             align="end",
             width="100%",
-            padding_top=".5em",
+            
         ),
         width="100%",
+        padding_top="2em",
+        padding_bottom="2em",
     )

@@ -8,12 +8,18 @@ Sometimes you want to set a prop based on a condition. You can use the `rx.cond`
 
 ```python demo exec
 class PropCondState(rx.State):
-    value: int
+
+    value: int = 50
+    
+    def set_end(self, value: int):
+        self.value = value
 
 
 def cond_prop():
-    return rx.chakra.slider(
-        on_change_end=PropCondState.set_value,
+    return rx.slider(
+        default_value=[50],
+        on_value_commit=PropCondState.set_end,
         color_scheme=rx.cond(PropCondState.value > 50, "green", "pink"),
+        width="100%",
     )
 ```

@@ -321,13 +321,10 @@ accent_color = "#F5EFFE"
 
 def add_item(category):
     return rx.vstack(
-        rx.box(
-            height="10em",
-            background_image=category["img"],
-            background_size="cover",
-            background_position="center",
-            background_repeat="no-repeat",
-            rounded="lg",
+        rx.inset(
+            rx.image(
+                src=category["img"],
+            ),
         ),
         rx.hstack(
             rx.heading(category["name"], style={"fontSize": "1em"}),
@@ -382,10 +379,10 @@ def add_item(category):
         align_items="left",
         row_span=3,
         col_span=1,
-        box_shadow="lg",
         border_radius="1em",
         bg_color="white",
         padding="1em",
+        box_shadow= "rgba(38, 57, 77, .1) 0px 20px 30px -10px",
         _hover={
             "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
         },
@@ -430,6 +427,10 @@ def sidebar_component_grid(tags):
                     "color": "white",
                     "bg": "#5646ED",
                 },
+                _checked={
+                    "color": "white",
+                    "bg": "#5646ED",
+                }
             )
             for tag in tags
         ],

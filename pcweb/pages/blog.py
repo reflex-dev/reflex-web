@@ -85,6 +85,7 @@ def component_grid():
                     rx.text(
                         meta["description"],
                         font_size="0.8rem",
+
                     ),
                     rx.chakra.divider(),
                     rx.spacer(),
@@ -133,26 +134,31 @@ def component_grid():
 
 @webpage(path="/blog", title="Blog")
 def blg():
-    return rx.container(
+    return rx.center(
         rx.vstack(
-            rx.box(
+            rx.vstack(
                 rx.heading("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
                 rx.text(
                     "The latest news from the Reflex team. ",
                     color=tc["docs"]["body"],
                 ),
-                rx.chakra.divider(),
+                rx.separator(size="4"),
+                align_items="left",
                 text_align="left",
                 width="100%",
+                gap="4",
             ),
             component_grid(),
             align_items="stretch",
             min_height="80vh",
             margin_bottom="4em",
-            padding_y="2em",
+            padding_top="95px",
+            padding_bottom="2em",
+            padding_left = "2em",
+            padding_right = "2em",
         ),
         flex_direction="column",
-        max_width="960px",
+        width="100%",
     )
 
 

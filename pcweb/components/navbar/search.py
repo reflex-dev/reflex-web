@@ -100,8 +100,8 @@ def search_bar_categories(categories):
     return rx.hstack(
         *[search_badge(category) for category in categories],
         padding_bottom=".25em",
-    )
-
+    ) 
+ 
 
 def search_modal():
     return rx.chakra.modal(
@@ -130,7 +130,7 @@ def search_modal():
                         ai_button(),
                         border_bottom="1px solid #F4F3F6",
                     ),
-                ),
+                ), 
                 rx.chakra.modal_body(
                     rx.vstack(
                         rx.cond(

@@ -29,12 +29,15 @@ def h_comp_common(
                 ),
                 rx.icon(
                     tag="link_2",
-                    color="#696287",
+                    color=rx.color("mauve", 11),
                     _hover={
-                        "color": styles.ACCENT_COLOR,
+                        "color": rx.color("violet", 9),
+                        "transition": "transform 0.25s ease;",
+                        "transform": "rotate(180deg);"
                     },
                 ),
                 align_items="center",
+                gap="3"
             ),
             _hover={
                 "cursor": "pointer",
