@@ -75,11 +75,11 @@ def resources_section():
                             padding_right="20px",
                             gap="2",
                         ),
-                        gap="5",
+                        gap="6",
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
                 background_color = rx.color("mauve", 2),
-                width = "1000",
+                width = "1200",
                 height = "250",
                 padding="0"
             ),

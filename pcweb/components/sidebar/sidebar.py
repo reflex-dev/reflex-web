@@ -160,7 +160,9 @@ def sidebar_item_comp(
                         margin_left="0.5em",
                     ),
                 ),
-                rx.spacer(),
+                rx.box(
+                    flex_grow=1,
+                ),
                 rx.chakra.accordion_icon(),
                 align_items="center",
                 _hover={
@@ -168,7 +170,6 @@ def sidebar_item_comp(
                 },
                 color="#494369",
                 width="100%",
-                min_width="10em",
                 padding_left="10px",
                 padding_right="0px",
             ),

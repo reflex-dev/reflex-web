@@ -101,7 +101,7 @@ def doccmdoutput(
                 output,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                theme="a11y-dark",
+                # theme="a11y-dark",
                 language="log",
                 code_tag_props={
                     "style": {

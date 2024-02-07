@@ -380,7 +380,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.hstack(
                                 *links,
                                 justify="space-between",
-                                margin_y="3em",
+                                margin_top="2em",
+                                margin_bottom="4em",
                             ),
                             rx.spacer(),
                             rx.box(height="2em"),
