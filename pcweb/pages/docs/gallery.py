@@ -224,6 +224,16 @@ community_apps_list = [
         "url": "https://fynesse.reflex.run",
         "source": "https://github.com/wightwick/fynesse",
     },
+    {
+        "name": "User Landing Page",
+        "difficulty": "Intermediate",
+        "tags": [],
+        "description": "Site for representing user links of interest and social networks.",
+        "img": "/gallery/mouredev.jpg",
+        "gif": "",
+        "url": "https://moure.dev",
+        "source": "https://github.com/mouredev/python-web",
+    },
 ]
 
 

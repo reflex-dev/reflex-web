@@ -5,7 +5,7 @@ Queries are used to retrieve data from a database.
 A query is a request for information from a database table or combination of
 tables. A query can be used to retrieve data from a single table or multiple
 tables. A query can also be used to insert, update, or delete data from a table.
-        
+
 ## Session
 
 To execute a query you must first create a `rx.session`. You can use the session
@@ -18,7 +18,7 @@ rollback without closing the session via `session.rollback()`.
 
 The following example shows how to create a session and query the database.
 First we create a table called `User`.
-            
+
 ```python
 class User(rx.Model, table=True):
     username: str
@@ -36,7 +36,9 @@ class QueryUser(rx.State):
 
     def get_users(self):
         with rx.session() as session:
-            self.users = session.exec(User.select.where(User.username.contains(self.name)).all()
+            self.users = session.exec(
+                User.select.where(
+                    User.username.contains(self.name)).all())
 ```
 
 The `get_users` method will query the database for all users that contain the
@@ -73,7 +75,8 @@ class ChangeEmail(rx.State):
 
     def modify_user(self):
         with rx.session() as session:
-            user = session.exec(User.select.where((User.username == self.username).first()
+            user = session.exec(User.select.where(
+                (User.username == self.username).first()))
             user.email = self.email
             session.add(user)
             session.commit()
@@ -90,7 +93,8 @@ class RemoveUser(rx.State):
 
     def delete_user(self):
         with rx.session() as session:
-            user = session.exec(User.select.where(User.username == self.username).first()
+            user = session.exec(User.select.where(
+                User.username == self.username).first())
             session.delete(user)
             session.commit()
 ```

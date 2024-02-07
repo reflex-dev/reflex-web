@@ -63,6 +63,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.vstack(
         change(
+            "2024-02-05",
+            "v0.3.10",
+            "Lucide Icons now available at rx.lucide.icon",
+            [
+                "Custom Reflex support directory (REFLEX_DIR)",
+                "Better support for native SQLAlchemy models",
+                "Avoid exposing unused _upload and _event endpoints",
+
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.10",
+        ),
+        change(
             "2024-01-22",
             "v0.3.9",
             "Improve hot-reload times in dev mode",
