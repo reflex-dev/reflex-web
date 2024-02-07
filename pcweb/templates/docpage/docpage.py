@@ -139,7 +139,7 @@ def docpage_footer(path):
                     padding="0px 10px",
                     white_space="nowrap",
                     
-                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}")),
+                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}.md")),
                 gap="2"
             ),
             align_items="center",
@@ -148,31 +148,46 @@ def docpage_footer(path):
         rx.separator(size="4"),
         rx.flex(
             rx.flex(
-                rx.link("Home", color=rx.color("mauve", 11), underline="always"),
-                rx.link("Gallery", color=rx.color("mauve", 11), underline="always"),
-                rx.link("Change Log", color=rx.color("mauve", 11), underline="always"),
-                rx.link("Introduction", color=rx.color("mauve", 11), underline="always"),
-                rx.link("Hosting", color=rx.color("mauve", 11), underline="always"),
+                rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
+                rx.link("Gallery", color=rx.color("mauve", 11), underline="always", href="/gallery"),
+                rx.link("Change Log", color=rx.color("mauve", 11), underline="always", href="/changelog"),
+                rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
+                rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),
                 gap="2",
             ),
             rx.box(
                 flex_grow='1',
             ),
             rx.flex(
-                rx.image(
-                    src="/companies/light/github.svg",
+                rx.link(
+                    rx.image(
+                        src="/companies/light/github.svg",
+                    ),
+                    href="https://github.com/reflex-dev/reflex"
                 ),
+                rx.link(
                 rx.image(
                     src="/companies/light/twitter.svg",
                 ),
+                href="https://twitter.com/getreflex"
+                ),
+                rx.link(
                 rx.image(
                     src="/companies/light/discord.svg",
                 ),
+                href="https://discord.gg/T5WSbC2YtQ"
+                ),
+                rx.link(
                 rx.image(
                     src="/companies/light/linkedin.svg",
                 ),
+                href="https://www.linkedin.com/company/reflex-dev"
+                ),
+                rx.link(
                 rx.image(
                     src="/companies/light/yc.svg",
+                ),
+                href="https://www.ycombinator.com/companies/reflex"
                 ),
                 gap="2",
             ),
