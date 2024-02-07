@@ -49,7 +49,7 @@ TableRow: |
             rx.radix.themes.table_body(
                 rx.radix.themes.table_row(
                     rx.radix.themes.table_row_header_cell("Danilo Rosa"),
-                    rx.radix.themes.table_cell("danilo@example.com"),
+                    rx.radix.themes.table_cell(rx.radix.themes.text("danilo@example.com", as_="p"), rx.radix.themes.text("danilo@yahoo.com", as_="p"), rx.radix.themes.text("danilo@gmail.com", as_="p"),),
                     rx.radix.themes.table_cell("Developer"),
                     **props,
                 ),

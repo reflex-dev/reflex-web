@@ -25,6 +25,7 @@ class Prop(Base):
     description: str
 
 
+
 from reflex.components.el.elements.base import BaseHTML
 
 
@@ -183,21 +184,15 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
 
-    # if the type if leteral show all the options
+    # if the type if literal show all the options
     if type_ == "Literal":
         output = get_args(prop.type_)
-        prop.description = (
-            str(output)
-            .replace("typing.Literal[", "")
-            .replace("']", "")
-            .replace("(", "")
-            .replace(")", "")
-            .replace(",", " | ")
-        )
 
     from typing import Literal, _GenericAlias
 
     def render_select(prop):
+        if rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+            return rx.fragment()
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
         except:
@@ -205,7 +200,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             return rx.fragment()
 
         try:
-            if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child"]:
+            if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child", "default_open", "default_checked"]:
                 name = get_id(f"{component.__qualname__}_{prop.name}")
                 rx.State.add_var(name, bool, False)
                 var = getattr(rx.State, name)
@@ -238,17 +233,26 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         rdxt.table_cell(
             rdxt.code(prop.name, color="#333"),
             padding_left="0",
+            justify="center"
         ),
         rdxt.table_cell(
             rdxt.badge(type_, color_scheme=color, variant="solid"),
             padding_left="0",
+            justify="center"
         ),
         rdxt.table_cell(
             rx.vstack(
                 markdown(prop.description),
+            ),
+            padding_left="0",
+            justify="center"
+        ),
+        rdxt.table_cell(
+            rx.vstack(
                 render_select(prop),
             ),
             padding_left="0",
+            justify="center"
         ),
     ]
 
@@ -480,13 +484,12 @@ def generate_props(src, component, comp):
         ]
     )
     try:
-        # if component.__name__ == "Input":
-        #     breakpoint()
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
+
+        elif rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+            comp = rx.fragment()
             
-            # if component.__name__ == "Input":
-            #     print(comp)
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
@@ -504,11 +507,10 @@ def generate_props(src, component, comp):
             rdxt.table_root(
                 rdxt.table_header(
                     rdxt.table_row(
-                        rdxt.table_column_header_cell("Prop", padding_left="0"),
-                        rdxt.table_column_header_cell("Type", padding_left="0"),
-                        rdxt.table_column_header_cell(
-                            "Description/Values", padding_left="0"
-                        ),
+                        rdxt.table_column_header_cell("Prop", padding_left="0", justify="center"),
+                        rdxt.table_column_header_cell("Type", padding_left="0", justify="center"),
+                        rdxt.table_column_header_cell("Description", padding_left="0", justify="center", width="40%"),
+                        rdxt.table_column_header_cell("Values", padding_left="0", justify="center"),
                     )
                 ),
                 body,

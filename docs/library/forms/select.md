@@ -18,9 +18,9 @@ SelectRoot: |
         rx.radix.themes.select_trigger(),
         rx.radix.themes.select_content(
             rx.radix.themes.select_group(
-                rx.radix.themes.select_item("apple"),
-                rx.radix.themes.select_item("grape"),
-                rx.radix.themes.select_item("pear"),
+                rx.radix.themes.select_item("apple", value="apple"),
+                rx.radix.themes.select_item("grape", value="grape"),
+                rx.radix.themes.select_item("pear", value="pear"),
             ),
         ),
         default_value="pear",
@@ -32,9 +32,9 @@ SelectTrigger: |
         rx.radix.themes.select_trigger(**props),
         rx.radix.themes.select_content(
             rx.radix.themes.select_group(
-                rx.radix.themes.select_item("apple"),
-                rx.radix.themes.select_item("grape"),
-                rx.radix.themes.select_item("pear"),
+                rx.radix.themes.select_item("apple", value="apple"),
+                rx.radix.themes.select_item("grape", value="grape"),
+                rx.radix.themes.select_item("pear", value="pear"),
             ),
         ),
         default_value="pear",
@@ -45,9 +45,9 @@ SelectContent: |
         rx.radix.themes.select_trigger(),
         rx.radix.themes.select_content(
             rx.radix.themes.select_group(
-                rx.radix.themes.select_item("apple"),
-                rx.radix.themes.select_item("grape"),
-                rx.radix.themes.select_item("pear"),
+                rx.radix.themes.select_item("apple", value="apple"),
+                rx.radix.themes.select_item("grape", value="grape"),
+                rx.radix.themes.select_item("pear", value="pear"),
             ),
             **props,
         ),
@@ -59,9 +59,9 @@ SelectItem: |
         rx.radix.themes.select_trigger(),
         rx.radix.themes.select_content(
             rx.radix.themes.select_group(
-                rx.radix.themes.select_item("apple", **props),
-                rx.radix.themes.select_item("grape"),
-                rx.radix.themes.select_item("pear"),
+                rx.radix.themes.select_item("apple", value="apple", **props),
+                rx.radix.themes.select_item("grape", value="grape"),
+                rx.radix.themes.select_item("pear", value="pear"),
             ),
         ),
         default_value="pear",
