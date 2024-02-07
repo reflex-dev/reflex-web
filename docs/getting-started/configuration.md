@@ -76,3 +76,16 @@ config = rx.Config(
 ```
 
 Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `False`.
+
+
+## Customizable App Data Directory
+
+The `REFLEX_DIR` environment variable can be set, which allows users to set the location where Reflex writes helper tools like Bun and NodeJS.
+
+By default we use Platform specific directories: 
+
+On windows, `C:/Users/<username>/AppData/Local/reflex` is used.
+
+On macOS, `~/Library/Application Support/reflex` is used.
+
+On linux, `~/.local/share/reflex` is used.
