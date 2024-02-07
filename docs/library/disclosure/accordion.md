@@ -216,8 +216,7 @@ rx.flex(
 
 ### Color Scheme
 
-We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme. There
-are two color schemes for the accordion: `primary` and `accent`. The default color scheme is `primary`
+We use the `color_scheme` prop to assign a specific color to the accordion background, ignoring the global theme.
 
 ```python demo
 rx.flex(
@@ -229,7 +228,7 @@ rx.flex(
         rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         width="300px",
-        color_scheme="primary",
+        color_scheme="grass",
     ),
     rx.accordion.root(
         rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
@@ -239,7 +238,7 @@ rx.flex(
         rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
         collapsible=True,
         width="300px",
-        color_scheme="accent",
+        color_scheme="green",
     ),
     direction="row",
     gap="2"
@@ -352,7 +351,7 @@ rx.accordion.root(
     rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
-    color_scheme="primary",
+    color_scheme="blue",
 )
 ```
 
