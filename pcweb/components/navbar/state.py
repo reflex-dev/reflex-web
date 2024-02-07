@@ -23,8 +23,6 @@ class NavbarState(rx.State):
     # Whether the sidebar is open.
     sidebar_open: bool = False
 
-    search_modal: bool = False
-
     search_input: str = ""
 
     enter: bool = False
@@ -90,12 +88,6 @@ Feedback: {feedback}
 
     def toggle_banner(self):
         self.banner = not self.banner
-
-    def open_search(self):
-        self.search_modal = True
-
-    def close_search(self):
-        self.search_modal = False
 
     def toggle_sidebar(self):
         self.sidebar_open = not self.sidebar_open
