@@ -62,7 +62,7 @@ def doccmdoutput(
     """
     return rx.flex(
         rx.flex(
-            rx.radix.icon(tag="double_arrow_right", color="white", width=18, height=18),
+            rx.lucide.icon(tag="chevrons-right", color="white", width=18, height=18),
             rx.code_block(
                 command,
                 border_radius=styles.DOC_BORDER_RADIUS,

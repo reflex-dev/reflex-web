@@ -12,7 +12,6 @@ from pcweb.templates.docpage import docpage
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.radix.themes.components.icons import RadixIconComponent
 
 from .gallery import gallery
 from .library import library
@@ -97,7 +96,7 @@ for doc in sorted(flexdown_docs):
         clist = [title, *get_components_from_metadata(d)]
         if issubclass(
             clist[1],
-            (RadixIconComponent, RadixThemesComponent, RadixPrimitiveComponent),
+            (RadixThemesComponent, RadixPrimitiveComponent),
         ):
             radix_components[category].append(clist)
             route = route.replace("library/", "library/radix/")

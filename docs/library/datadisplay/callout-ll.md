@@ -17,7 +17,7 @@ A `callout` is a short message to attract user's attention.
 
 ```python demo
 rx.callout.root(
-    rx.callout.icon(rx.radix.icon(tag="info_circled")),
+    rx.callout.icon(rx.icon(tag="info")),
     rx.callout.text("You will need admin privileges to install and access this application."),
 )
 ```
@@ -34,7 +34,7 @@ The `callout.text` renders the callout text. This component is based on the `p` 
 
 ```python demo
 rx.callout.root(
-    rx.callout.icon(rx.radix.icon(tag="exclamation_triangle")),
+    rx.callout.icon(rx.icon(tag="alert_triangle")),
     rx.callout.text("Access denied. Please contact the network administrator to view this page."),
     color_scheme="red",
     role="alert",
@@ -57,17 +57,17 @@ Use the `size` prop to control the size.
 ```python demo
 rx.flex(
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         size="3",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         size="2",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         size="1",
     ),
@@ -84,17 +84,17 @@ Use the `variant` prop to control the visual style. It is set to `soft` by defau
 ```python demo
 rx.flex(
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         variant="soft",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         variant="surface",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         variant="outline",
     ),
@@ -112,17 +112,17 @@ Use the `color_scheme` prop to assign a specific color, ignoring the global them
 ```python demo
 rx.flex(
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         color_scheme="blue",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         color_scheme="green",
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         color_scheme="red",
     ),
@@ -142,11 +142,11 @@ Use the `high_contrast` prop to add additional contrast.
 ```python demo
 rx.flex(
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
     ),
     rx.callout.root(
-        rx.callout.icon(rx.radix.icon(tag="info_circled")),
+        rx.callout.icon(rx.icon(tag="info")),
         rx.callout.text("You will need admin privileges to install and access this application."),
         high_contrast=True,
     ),

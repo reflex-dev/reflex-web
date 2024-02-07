@@ -20,7 +20,7 @@ A text field is an input field that users can type into. This component uses Rad
 ```python demo
 rx.radix.text_field.root(
     rx.radix.text_field.slot(
-        rx.radix.icon(tag="magnifying_glass"),
+        rx.icon(tag="search"),
     ),
     rx.radix.text_field.input(
         placeholder="Search here...",
@@ -38,7 +38,7 @@ def blur_example1():
         rx.heading(TextfieldBlur1.text),
         rx.radix.text_field.root(
             rx.radix.text_field.slot(
-                rx.radix.icon(tag="magnifying_glass"),
+                rx.icon(tag="search"),
             ),
             rx.radix.text_field.input(
                 placeholder="Search here...",
@@ -60,7 +60,7 @@ def controlled_example1():
         rx.heading(TextfieldControlled1.text),
         rx.radix.text_field.root(
             rx.radix.text_field.slot(
-                rx.radix.icon(tag="magnifying_glass"),
+                rx.icon(tag="search"),
             ),
             rx.radix.text_field.input(
                 placeholder="Search here...",
@@ -91,7 +91,7 @@ def song(title, initials: str, genre: str):
             gap="1",
         ),
         rx.flex(
-            rx.radix.icon(tag="chevron_right"),
+            rx.icon(tag="chevron_right"),
             align_items="center",
         ),
         justify="between",
@@ -102,7 +102,7 @@ def search():
     rx.flex(
         rx.radix.text_field.root(
             rx.radix.text_field.slot(
-                rx.radix.icon(tag="magnifying_glass"),
+                rx.icon(tag="search"),
             ),
             rx.radix.text_field.input(
                 placeholder="Search songs...",
