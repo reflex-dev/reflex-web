@@ -12,7 +12,7 @@ from pcweb.pages.docs import outblocks, exec_blocks
 # higher and the prod build fails with EMFILE error.
 WINDOWS_MAX_ROUTES = 125
 
-
+   
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
     exec_blocks(doc, href)

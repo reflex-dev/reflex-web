@@ -59,7 +59,7 @@ class CondNegativeState(rx.State):
 
 def cond_negative_example():
     return rx.vstack(
-        rx.text(f"Value of state var show: {CondNegativeState.show}", as_="strong"),
+        rx.text(f"Value of state var show: {CondNegativeState.show}"),
         rx.button("Toggle", on_click=CondNegativeState.change),
         rx.cond(
             CondNegativeState.show,
@@ -134,7 +134,7 @@ def render_item(item: [str, bool]):
 
 def packing_list():
     return rx.vstack(
-        rx.text("Sammy's Packing List", as_="strong"),
+        rx.text("Sammy's Packing List"),
         rx.chakra.list(rx.foreach(CondRepeatState.to_do_list, render_item)),
     )
 
