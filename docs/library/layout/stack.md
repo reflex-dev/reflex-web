@@ -21,6 +21,59 @@ import reflex as rx
 
 These components are based on the `flex` component and therefore inherit all of its props.
 
+The `stack` component can be used with the `flex_direction` prop to set to either `row` or `column` to set the direction.
+
+```python demo
+rx.flex(
+    rx.stack(
+        rx.box(
+            "Example",
+            bg="orange",
+            border_radius="3px",
+            width="20%",
+        ),
+        rx.box(
+            "Example",
+            bg="lightblue",
+            border_radius="3px",
+            width="30%",
+        ),
+        rx.box(
+            "Example",
+            bg="lightgreen",
+            border_radius="3px",
+            width="50%",
+        ),
+        flex_direction="row",
+        width="100%",
+    ),
+    rx.stack(
+        rx.box(
+            "Example",
+            bg="orange",
+            border_radius="3px",
+            width="20%",
+        ),
+        rx.box(
+            "Example",
+            bg="lightblue",
+            border_radius="3px",
+            width="30%",
+        ),
+        rx.box(
+            "Example",
+            bg="lightgreen",
+            border_radius="3px",
+            width="50%",
+        ),
+        flex_direction="column",
+        width="100%",
+    ),
+    width="100%",
+)
+```
+
+## Hstack
 
 ```python demo
 rx.hstack(
@@ -56,6 +109,7 @@ rx.hstack(
 ```
 
 
+## Vstack
 
 ```python demo
 rx.vstack(
@@ -88,4 +142,26 @@ rx.vstack(
     ),
     width="100%",
 )
+```
+
+
+## Real World Example
+
+```python demo
+rx.hstack(
+    rx.box(
+        rx.heading("Saving Money"),
+        rx.text("Saving money is an art that combines discipline, strategic planning, and the wisdom to foresee future needs and emergencies. It begins with the simple act of setting aside a portion of one's income, creating a buffer that can grow over time through interest or investments.", margin_top="0.5em"),
+        padding="1em",
+        border_width="1px",
+    ),
+    rx.box(
+        rx.heading("Spending Money"),
+        rx.text("Spending money is a balancing act between fulfilling immediate desires and maintaining long-term financial health. It's about making choices, sometimes indulging in the pleasures of the moment, and at other times, prioritizing essential expenses.", margin_top="0.5em"),
+        padding="1em",
+        border_width="1px",
+    ),
+    spacing="2em",
+)
+
 ```
