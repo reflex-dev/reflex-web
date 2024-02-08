@@ -1,42 +1,39 @@
 ---
 components:
-    - rx.radix.themes.PopoverRoot
-    - rx.radix.themes.PopoverContent
-    - rx.radix.themes.PopoverTrigger
-    - rx.radix.themes.PopoverClose
+    - rx.radix.popover.root
+    - rx.radix.popover.content
+    - rx.radix.popover.trigger
+    - rx.radix.popover.close
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 # Popover
 
 A popover displays content, triggered by a button.
 
-The `popover_root` contains all the parts of a popover.
+The `popover.root` contains all the parts of a popover.
 
-The `popover_trigger` contains the button that toggles the popover.
+The `popover.trigger` contains the button that toggles the popover.
 
-The `popover_content` is the component that pops out when the popover is open.
+The `popover.content` is the component that pops out when the popover is open.
 
-The `popover_close` is the button that closes an open popover.
+The `popover.close` is the button that closes an open popover.
 
 ## Basic Example
 
 ```python demo
-popover_root(
-    popover_trigger(
-        button("Popover"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Popover"),
     ),
-    popover_content(
-        flex(
-            text("Simple Example"),
-            popover_close(
-                button("Close"),
+    rx.popover.content(
+        rx.flex(
+            rx.text("Simple Example"),
+            rx.popover.close(
+                rx.button("Close"),
             ),
             direction="column",
             gap="3",
@@ -50,33 +47,23 @@ popover_root(
 
 ```python demo
 
-popover_root(
-    popover_trigger(
-        button("Comment", variant="soft"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Comment", variant="soft"),
     ),
-    popover_content(
-        flex(
-            avatar(
+    rx.popover.content(
+        rx.flex(
+            rx.avatar(
                 "2",
                 fallback="RX",
                 radius="full"
             ),
-            box(
-                textarea(placeholder="Write a comment…", style={"height": 80}),
-                flex(
-                    flex(
-                        text(
-                            checkbox(),
-                            text("Send to group"),
-                            as_="label",
-                            size="2",
-                        ),
-                        align="center",
-                        gap="2",
-                        as_child=True,
-                    ),
-                    popover_close(
-                        button("Comment", size="1")
+            rx.box(
+                rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+                rx.flex(
+                    rx.checkbox("Send to group"),
+                    rx.popover.close(
+                        rx.button("Comment", size="1")
                     ),
                     gap="3",
                     margin_top="12px",
@@ -92,32 +79,22 @@ popover_root(
 ```
 
 ```python demo
-popover_root(
-    popover_trigger(
-        button("Feedback", variant="classic"),
+rx.popover.root(
+    rx.popover.trigger(
+        rx.button("Feedback", variant="classic"),
     ),
-    popover_content(
-        inset(
+    rx.popover.content(
+        rx.inset(
             side="top",
             background="url('https://source.unsplash.com/random/800x600') center/cover",
             height="100px",
         ),
-        box(
-            textarea(placeholder="Write a comment…", style={"height": 80}),
-            flex(
-                flex(
-                    text(
-                        checkbox(),
-                        text("Send to group"),
-                        as_="label",
-                        size="2",
-                    ),
-                    align="center",
-                    gap="2",
-                    as_child=True,
-                ),
-                popover_close(
-                    button("Comment", size="1")
+        rx.box(
+            rx.text_area(placeholder="Write a comment…", style={"height": 80}),
+            rx.flex(
+                rx.checkbox("Send to group"),
+                rx.popover.close(
+                    rx.button("Comment", size="1")
                 ),
                 gap="3",
                 margin_top="12px",

@@ -128,7 +128,7 @@ Now we want a way for the user to input a question. For this, we will use the [i
 ```python exec
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question"),
+        rx.chakra.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
 ```
@@ -143,7 +143,7 @@ rx.container(
 ```python
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question"),
+        rx.chakra.input(placeholder="Ask a question"),
         rx.button("Ask"),
     )
 
@@ -174,15 +174,15 @@ message_style = dict(
 )
 
 # Set specific styles for questions and answers.
-question_style = message_style | dict(bg="#F5EFFE", margin_left=chat_margin)
-answer_style = message_style | dict(bg="#DEEAFD", margin_right=chat_margin)
+question_style = message_style | dict(margin_left=chat_margin)
+answer_style = message_style | dict(margin_right=chat_margin)
 
 # Styles for the action bar.
 input_style = dict(
     border_width="1px", padding="1em", box_shadow=shadow
 )
 button_style = dict(
-    bg="#CEFFEE", box_shadow=shadow
+    background_color="#CEFFEE", box_shadow=shadow
 )
 ```
 
@@ -192,8 +192,8 @@ We will import the styles in `chatapp.py` and use them in the components. At thi
 ```python exec
 def qa4(question: str, answer: str) -> rx.Component:
     return rx.box(
-        rx.box(rx.text(question, style=style.question_style), text_align="right"),
-        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
+        rx.box(rx.text(question, style=style.question_style), background_color="#F5EFFE", text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style), background_color="#DEEAFD", text_align="left"),
         margin_y="1em",
         width="100%",
     )
@@ -212,7 +212,7 @@ def chat4() -> rx.Component:
 
 def action_bar4() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
         rx.button("Ask", style=style.button_style),
     )
 ```
@@ -248,7 +248,7 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.input(placeholder="Ask a question", style=style.input_style),
+        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
         rx.button("Ask", style=style.button_style),
     )
 

@@ -1,13 +1,10 @@
 ---
 components:
-    - rx.radix.themes.Switch
+    - rx.radix.switch
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
 from pcweb.pages.docs import vars
 ```
@@ -20,9 +17,9 @@ A toggle switch alternative to the checkbox.
 ## Basic Example
 
 ```python demo
-text(
-    flex(
-        switch(default_checked=True),
+rx.text(
+    rx.flex(
+        rx.switch(default_checked=True),
         "Sync Settings",
         gap="2",
     )
@@ -54,11 +51,11 @@ class FormSwitchState(rx.State):
 
 def form_switch():
     return rx.vstack(
-        rx.form(
+        rx.form.root(
             rx.vstack(
-                switch(name="s1"),
-                switch(name="s2"),
-                switch(name="s3", required=True),
+                rx.switch(name="s1"),
+                rx.switch(name="s2"),
+                rx.switch(name="s3", required=True),
                 rx.button("Submit", type_="submit"),
                 width="100%",
             ),
@@ -66,7 +63,7 @@ def form_switch():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.heading("Results"),
         rx.text(FormSwitchState.form_data.to_string()),
         width="100%",
@@ -98,15 +95,15 @@ class SwitchState2(rx.State):
 
 def switch_example2():
     return rx.hstack(
-        switch(
+        rx.switch(
             checked=SwitchState2.checked,
             on_change=SwitchState2.change_checked,
         ),
-        switch(
+        rx.switch(
             checked=~SwitchState2.checked,
             on_change=lambda v: SwitchState2.change_checked(~v),
         ),
-        switch(
+        rx.switch(
             checked=SwitchState2.checked,
             on_change=SwitchState2.change_checked,
             disabled=True,
@@ -121,7 +118,7 @@ In this example we use the `~` operator, which is used to invert a var. To learn
 ## Styling
 
 ```python eval
-style_grid(component_used=switch, component_used_str="switch", variants=["classic", "surface", "soft"], disabled=True, default_checked=True)
+style_grid(component_used=rx.switch, component_used_str="switch", variants=["classic", "surface", "soft"], disabled=True, default_checked=True)
 ```
 
 
@@ -144,39 +141,39 @@ class FormSwitchState2(rx.State):
 
 def form_switch2():
     return rx.vstack(
-            dialog_root(
-                dialog_trigger(
-                    button("View Cookie Settings", size="4", variant="outline")
+            rx.dialog.root(
+                rx.dialog.trigger(
+                    rx.button("View Cookie Settings", size="4", variant="outline")
                 ),
-                dialog_content(
-                    rx.form(
-                        dialog_title("Your Cookie Preferences"),
-                        dialog_description(
+                rx.dialog.content(
+                    rx.form.root(
+                        rx.dialog.title("Your Cookie Preferences"),
+                        rx.dialog.description(
                             "Change your cookie preferences.",
                             size="2",
                             margin_bottom="16px",
                         ),
-                        flex(
-                            text(
-                                flex(
+                        rx.flex(
+                            rx.text(
+                                rx.flex(
                                     "Required",
-                                    switch(default_checked=True, disabled=True, name="required"),
+                                    rx.switch(default_checked=True, disabled=True, name="required"),
                                     gap="2",
                                     justify="between",
                                 ),
                                 as_="div", size="2", margin_bottom="4px", weight="bold",
                             ),
 
-                            *[flex(
-                                text(cookie_type.capitalize(), as_="div", size="2", margin_bottom="4px", weight="bold"),
-                                text(
-                                    flex(
+                            *[rx.flex(
+                                rx.text(cookie_type.capitalize(), as_="div", size="2", margin_bottom="4px", weight="bold"),
+                                rx.text(
+                                    rx.flex(
                                         rx.cond(
                                             FormSwitchState2.cookie_types[cookie_type],
                                             "Enabled",
                                             "Disabled",
                                         ),
-                                        switch(
+                                        rx.switch(
                                             name=cookie_type, 
                                             checked=FormSwitchState2.cookie_types[cookie_type], 
                                             on_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
@@ -193,10 +190,10 @@ def form_switch2():
                             direction="column",
                             gap="3",
                         ),
-                        flex(
-                            button("Save & Accept", type_="submit"),
-                            dialog_close(
-                                button("Exit"),
+                        rx.flex(
+                            rx.button("Save & Accept", type_="submit"),
+                            rx.dialog.close(
+                                rx.button("Exit"),
                             ),
                             gap="3",
                             margin_top="16px",
@@ -208,7 +205,7 @@ def form_switch2():
                     ),
                 ),
             ),
-        rx.divider(),
+        rx.chakra.divider(),
         rx.heading("Results"),
         rx.text(FormSwitchState2.form_data.to_string()),
         width="100%",

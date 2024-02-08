@@ -1,11 +1,10 @@
 ---
 components:
-    - rx.Match
+    - rx.match
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 # Match
 
@@ -42,7 +41,6 @@ Example
 from typing import List
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 
 
 class MatchState(rx.State):
@@ -51,20 +49,20 @@ class MatchState(rx.State):
 
 
 def match_demo():
-    return rdxt.flex(
+    return rx.flex(
         rx.match(
             MatchState.cat_breed,
-            ("persian", rdxt.text("Persian cat selected.")),
-            ("siamese", rdxt.text("Siamese cat selected.")),
-            ("maine coon", rdxt.text("Maine Coon cat selected.")),
-            ("ragdoll", rdxt.text("Ragdoll cat selected.")),
-            rdxt.text("Unknown cat breed selected.")
+            ("persian", rx.text("Persian cat selected.")),
+            ("siamese", rx.text("Siamese cat selected.")),
+            ("maine coon", rx.text("Maine Coon cat selected.")),
+            ("ragdoll", rx.text("Ragdoll cat selected.")),
+            rx.text("Unknown cat breed selected.")
         ),
-        rdxt.select_root(
-            rdxt.select_trigger(),
-            rdxt.select_content(
-                rdxt.select_group(
-                    rx.foreach(MatchState.animal_options, lambda x: rdxt.select_item(x, value=x))
+        rx.select.root(
+            rx.select.trigger(),
+            rx.select.content(
+                rx.select.group(
+                    rx.foreach(MatchState.animal_options, lambda x: rx.select.item(x, value=x))
                 ),
             ),
             value=MatchState.cat_breed,
@@ -87,9 +85,9 @@ All match cases should be enclosed in tuples; any non-tuple value is automatical
  ```python
 rx.match(
             MatchState.cat_breed,
-            ("persian", rdxt.text("persian cat selected")),
-            rdxt.text("Unknown cat breed selected."),
-            ("siamese", rdxt.text("siamese cat selected")),
+            ("persian", rx.text("persian cat selected")),
+            rx.text("Unknown cat breed selected."),
+            ("siamese", rx.text("siamese cat selected")),
         )
 ```
 The above code snippet will result in an error due to the misplaced default case.
@@ -100,10 +98,10 @@ Attempting to specify multiple default cases will lead to an error. For instance
  ```python
 rx.match(
             MatchState.cat_breed,
-            ("persian", rdxt.text("persian cat selected")),
-            ("siamese", rdxt.text("siamese cat selected")),
-            rdxt.text("Unknown cat breed selected."),
-            rdxt.text("Another unknown cat breed selected.")
+            ("persian", rx.text("persian cat selected")),
+            ("siamese", rx.text("siamese cat selected")),
+            rx.text("Unknown cat breed selected."),
+            rx.text("Another unknown cat breed selected.")
         )
 ```
 
@@ -114,8 +112,8 @@ not provided, `rx.fragment` will be implicitly assigned as the default. For exam
  ```python
 rx.match(
             MatchState.cat_breed,
-            ("persian", rdxt.text("persian cat selected")),
-            ("siamese", rdxt.text("siamese cat selected")),
+            ("persian", rx.text("persian cat selected")),
+            ("siamese", rx.text("siamese cat selected")),
         )
 ```
 In this case, `rx.fragment` is the default case. However, not providing a default case for non-component 
@@ -141,7 +139,6 @@ Consider the following example:
 from typing import List
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 
 
 class MultiMatchState(rx.State):
@@ -149,19 +146,19 @@ class MultiMatchState(rx.State):
     animal_options: List[str] = ["persian", "siamese", "maine coon", "pug", "corgi", "mustang", "rahvan", "football", "golf"]
     
 def multi_match_demo():
-    return rdxt.flex(
+    return rx.flex(
         rx.match(
             MultiMatchState.animal_breed,
-            ("persian", "siamese", "maine coon", rdxt.text("Breeds of cats.")),
-            ("pug", "corgi", rdxt.text("Breeds of dogs.")),
-            ("mustang", "rahvan", rdxt.text("Breeds of horses.")),
-            rdxt.text("Unknown animal breed")
+            ("persian", "siamese", "maine coon", rx.text("Breeds of cats.")),
+            ("pug", "corgi", rx.text("Breeds of dogs.")),
+            ("mustang", "rahvan", rx.text("Breeds of horses.")),
+            rx.text("Unknown animal breed")
         ),
-        rdxt.select_root(
-            rdxt.select_trigger(),
-            rdxt.select_content(
-                rdxt.select_group(
-                    rx.foreach(MultiMatchState.animal_options, lambda x: rdxt.select_item(x, value=x))
+        rx.select.root(
+            rx.select.trigger(),
+            rx.select.content(
+                rx.select.group(
+                    rx.foreach(MultiMatchState.animal_options, lambda x: rx.select.item(x, value=x))
                 ),
             ),
             value=MultiMatchState.animal_breed,
@@ -182,7 +179,7 @@ The following code snippet will result in an error:
 rx.match(
             MatchState.cat_breed,
             ("persian",),
-            ("maine coon", rdxt.text("Maine Coon cat selected")),
+            ("maine coon", rx.text("Maine Coon cat selected")),
         )
 ```
 
@@ -191,7 +188,6 @@ Similar to `rx.cond`, `rx.match` can be used as prop values, allowing dynamic be
 
 ```python demo exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 
 
 class MatchPropState(rx.State):
@@ -205,9 +201,9 @@ class MatchPropState(rx.State):
 
 
 def match_prop_demo_():
-    return rdxt.flex(
-        rdxt.button("decrement", on_click=MatchPropState.decr, background_color="red"),
-        rdxt.badge(
+    return rx.flex(
+        rx.button("decrement", on_click=MatchPropState.decr, background_color="red"),
+        rx.badge(
             MatchPropState.value, 
             color_scheme= rx.match(
                     MatchPropState.value,
@@ -219,7 +215,7 @@ def match_prop_demo_():
                 ),
                 size="2",
         ),
-        rdxt.button("increment", on_click=MatchPropState.incr),
+        rx.button("increment", on_click=MatchPropState.incr),
         align_items="center",
         direction= "row",
         gap= "3"
@@ -233,7 +229,6 @@ The example below also shows handling multiple conditions with the match compone
 
 ```python demo exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 
 
 class MatchMultiPropState(rx.State):
@@ -247,9 +242,9 @@ class MatchMultiPropState(rx.State):
 
 
 def match_multi_prop_demo_():
-    return rdxt.flex(
-        rdxt.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
-        rdxt.badge(
+    return rx.flex(
+        rx.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
+        rx.badge(
             MatchMultiPropState.value, 
             color_scheme= rx.match(
                     MatchMultiPropState.value,
@@ -261,7 +256,7 @@ def match_multi_prop_demo_():
                 ),
                 size="2",
         ),
-        rdxt.button("increment", on_click=MatchMultiPropState.incr),
+        rx.button("increment", on_click=MatchMultiPropState.incr),
         align_items="center",
         direction= "row",
         gap= "3"

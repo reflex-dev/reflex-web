@@ -1,14 +1,13 @@
 ---
 components:
-    - rx.radix.themes.Input
-    - rx.radix.themes.TextFieldRoot
-    - rx.radix.themes.TextFieldInput
-    - rx.radix.themes.TextFieldSlot
+    - rx.radix.text_field
+    - rx.radix.text_field.root
+    - rx.radix.text_field.input
+    - rx.radix.text_field.slot
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 
@@ -19,11 +18,11 @@ A text field is an input field that users can type into. This component uses Rad
 ## Basic Example
 
 ```python demo
-rdxt.textfield_root(
-    rdxt.textfield_slot(
-        rdxt.icon(tag="magnifying_glass"),
+rx.radix.text_field.root(
+    rx.radix.text_field.slot(
+        rx.icon(tag="search"),
     ),
-    rdxt.textfield_input(
+    rx.radix.text_field.input(
         placeholder="Search here...",
     ),
 )
@@ -36,12 +35,12 @@ class TextfieldBlur1(rx.State):
 
 def blur_example1():
     return rx.vstack(
-        rdxt.heading(TextfieldBlur1.text),
-        rdxt.textfield_root(
-            rdxt.textfield_slot(
-                rdxt.icon(tag="magnifying_glass"),
+        rx.heading(TextfieldBlur1.text),
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
+                rx.icon(tag="search"),
             ),
-            rdxt.textfield_input(
+            rx.radix.text_field.input(
                 placeholder="Search here...",
                 on_blur=TextfieldBlur1.set_text,
             ),
@@ -58,12 +57,12 @@ class TextfieldControlled1(rx.State):
 
 def controlled_example1():
     return rx.vstack(
-        rdxt.heading(TextfieldControlled1.text),
-        rdxt.textfield_root(
-            rdxt.textfield_slot(
-                rdxt.icon(tag="magnifying_glass"),
+        rx.heading(TextfieldControlled1.text),
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
+                rx.icon(tag="search"),
             ),
-            rdxt.textfield_input(
+            rx.radix.text_field.input(
                 placeholder="Search here...",
                 value=TextfieldControlled1.text,
                 on_change=TextfieldControlled1.set_text,
@@ -78,12 +77,12 @@ def controlled_example1():
 ```python demo exec
 
 def song(title, initials: str, genre: str):
-    return rdxt.card(rdxt.flex(
-        rdxt.flex(
-            rdxt.avatar(fallback=initials),
-            rdxt.flex(
-                rdxt.text(title, size="2", weight="bold"),
-                rdxt.text(genre, size="1", color_scheme="gray"),
+    return rx.card(rx.flex(
+        rx.flex(
+            rx.avatar(fallback=initials),
+            rx.flex(
+                rx.text(title, size="2", weight="bold"),
+                rx.text(genre, size="1", color_scheme="gray"),
                 direction="column",
                 gap="1",
             ),
@@ -91,25 +90,25 @@ def song(title, initials: str, genre: str):
             align_items="left",
             gap="1",
         ),
-        rdxt.flex(
-            rdxt.icon(tag="chevron_right"),
+        rx.flex(
+            rx.icon(tag="chevron_right"),
             align_items="center",
         ),
         justify="between",
     ))
 
 def search():
-    return rdxt.card(
-    rdxt.flex(
-        rdxt.textfield_root(
-            rdxt.textfield_slot(
-                rdxt.icon(tag="magnifying_glass"),
+    return rx.card(
+    rx.flex(
+        rx.radix.text_field.root(
+            rx.radix.text_field.slot(
+                rx.icon(tag="search"),
             ),
-            rdxt.textfield_input(
+            rx.radix.text_field.input(
                 placeholder="Search songs...",
             ),
         ),
-        rdxt.flex(
+        rx.flex(
             song("The Less I Know", "T", "Rock"),
             song("Breathe Deeper", "ZB", "Rock"),
             song("Let It Happen", "TF", "Rock"),

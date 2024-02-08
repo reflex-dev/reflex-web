@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Fragment
+    - rx.fragment
 ---
 
 # Fragment

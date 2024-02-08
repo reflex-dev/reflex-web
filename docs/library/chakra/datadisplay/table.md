@@ -28,8 +28,8 @@ Let's start with the shorthand syntax.
 The shorthand syntax has `headers`, `rows`, and `footers` props.
 
 ```python demo
-rx.table_container(
-    rx.table(
+rx.chakra.table_container(
+    rx.chakra.table(
         headers=["Name", "Age", "Location"],
         rows=[
             ("John", 30, "New York"),
@@ -45,17 +45,17 @@ rx.table_container(
 Let's create a simple table explicitly. In this example we will make a table with 2 columns: `Name` and `Age`.
 
 ```python demo
-rx.table(
-    rx.thead(
-        rx.tr(
-            rx.th("Name"),
-            rx.th("Age"),
+rx.chakra.table(
+    rx.chakra.thead(
+        rx.chakra.tr(
+            rx.chakra.th("Name"),
+            rx.chakra.th("Age"),
         )
     ),
-    rx.tbody(
-        rx.tr(
-            rx.td("John"),
-            rx.td(30),
+    rx.chakra.tbody(
+        rx.chakra.tr(
+            rx.chakra.td("John"),
+            rx.chakra.td(30),
         )
     ),
 )
@@ -84,21 +84,21 @@ footer = ["Footer 1", "Footer 2", "Footer 3"]
 Now lets create a table with the data we created.
 
 ```python eval
-rx.center(
-    rx.table_container(
-        rx.table(
-            rx.table_caption("Example Table"),
-            rx.thead(
-                rx.tr(
-                    *[rx.th(column) for column in columns]
+rx.chakra.center(
+    rx.chakra.table_container(
+        rx.chakra.table(
+            rx.chakra.table_caption("Example Table"),
+            rx.chakra.thead(
+                rx.chakra.tr(
+                    *[rx.chakra.th(column) for column in columns]
                 )
             ),
-            rx.tbody(
-                *[rx.tr(*[rx.td(item) for item in row]) for row in data]
+            rx.chakra.tbody(
+                *[rx.chakra.tr(*[rx.chakra.td(item) for item in row]) for row in data]
             ),
-            rx.tfoot(
-                rx.tr(
-                    *[rx.th(item) for item in footer]
+            rx.chakra.tfoot(
+                rx.chakra.tr(
+                    *[rx.chakra.th(item) for item in footer]
                 )
             ),
         )
@@ -109,30 +109,30 @@ rx.center(
 Tables can also be styled with the variant and color_scheme arguments.
 
 ```python demo
-rx.table_container(
-    rx.table(
-        rx.thead(
-        rx.tr(
-            rx.th("Name"),
-            rx.th("Age"),
-            rx.th("Location"),
+rx.chakra.table_container(
+    rx.chakra.table(
+        rx.chakra.thead(
+        rx.chakra.tr(
+            rx.chakra.th("Name"),
+            rx.chakra.th("Age"),
+            rx.chakra.th("Location"),
             )
         ),
-        rx.tbody(
-            rx.tr(
-                rx.td("John"),
-                rx.td(30),
-                rx.td("New York"),
+        rx.chakra.tbody(
+            rx.chakra.tr(
+                rx.chakra.td("John"),
+                rx.chakra.td(30),
+                rx.chakra.td("New York"),
             ),
-            rx.tr(
-                rx.td("Jane"), 
-                rx.td(31),
-                rx.td("San Francisco"),
+            rx.chakra.tr(
+                rx.chakra.td("Jane"), 
+                rx.chakra.td(31),
+                rx.chakra.td("San Francisco"),
             ),
-            rx.tr(
-                rx.td("Joe"),
-                rx.td(32),
-                rx.td("Los Angeles"),
+            rx.chakra.tr(
+                rx.chakra.td("Joe"),
+                rx.chakra.td(32),
+                rx.chakra.td("Los Angeles"),
             )
         ),
         variant='striped',

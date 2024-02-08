@@ -26,9 +26,9 @@ class EditableState(rx.State):
 
 
 def editable_example():
-    return rx.editable(
-        rx.editable_preview(),
-        rx.editable_input(),
+    return rx.chakra.editable(
+        rx.chakra.editable_preview(),
+        rx.chakra.editable_input(),
         placeholder="An input example...",
         on_submit=EditableState.set_uppertext,
         width="100%",
@@ -38,9 +38,9 @@ def editable_example():
 Another variant of editable can be made with a textarea instead of an input.
 
 ```python demo
-rx.editable(
-    rx.editable_preview(),
-    rx.editable_textarea(),
+rx.chakra.editable(
+    rx.chakra.editable_preview(),
+    rx.chakra.editable_textarea(),
     placeholder="A textarea example...",
     on_submit=EditableState.set_example_textarea,
     width="100%",

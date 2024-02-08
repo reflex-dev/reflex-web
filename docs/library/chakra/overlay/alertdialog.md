@@ -26,15 +26,15 @@ class AlertDialogState(rx.State):
 
 
 def alertdialog_example():
-    return rx.vstack(
-        rx.button("Show Alert Dialog", on_click=AlertDialogState.change),
-        rx.alert_dialog(
-            rx.alert_dialog_overlay(
-                rx.alert_dialog_content(
-                    rx.alert_dialog_header("Confirm"),
-                    rx.alert_dialog_body("Do you want to confirm example?"),
-                    rx.alert_dialog_footer(
-                        rx.button("Close", on_click=AlertDialogState.change)
+    return rx.chakra.vstack(
+        rx.chakra.button("Show Alert Dialog", on_click=AlertDialogState.change),
+        rx.chakra.alert_dialog(
+            rx.chakra.alert_dialog_overlay(
+                rx.chakra.alert_dialog_content(
+                    rx.chakra.alert_dialog_header("Confirm"),
+                    rx.chakra.alert_dialog_body("Do you want to confirm example?"),
+                    rx.chakra.alert_dialog_footer(
+                        rx.chakra.button("Close", on_click=AlertDialogState.change)
                     ),
                 )
             ),

@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Cond
+    - rx.components.core.Cond
 ---
 
 ```python exec

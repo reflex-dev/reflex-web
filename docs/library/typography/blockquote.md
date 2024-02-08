@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Blockquote
+    - rx.radix.blockquote
 ---
 
 ```python exec

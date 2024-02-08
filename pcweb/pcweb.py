@@ -4,7 +4,6 @@ import os
 import sys
 
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb import styles
 from pcweb.pages import page404, routes
 
@@ -17,8 +16,8 @@ WINDOWS_MAX_ROUTES = 125
 app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
-    theme=rdxt.theme(
-        appearance="light", has_background=True, radius="large", accent_color="teal"
+    theme=rx.theme(
+        appearance="light", has_background=True, radius="large", accent_color="violet"
     ),
     head_components=[
         rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),

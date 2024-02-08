@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.CodeBlock
+    - rx.code_block
 ---
 
 ```python exec

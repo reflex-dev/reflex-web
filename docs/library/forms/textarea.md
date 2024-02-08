@@ -1,11 +1,10 @@
 ---
 components:
-    - rx.radix.themes.TextArea
+    - rx.radix.text_area
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 # TextArea
@@ -15,7 +14,7 @@ A text area is a multi-line text input field. This component uses Radix's [text 
 ## Basic Example
 
 ```python demo
-rdxt.textarea(
+rx.text_area(
     placeholder="Type here...",
 )
 ```
@@ -27,8 +26,8 @@ class TextAreaBlur(rx.State):
 
 def blur_example():
     return rx.vstack(
-        rdxt.heading(TextAreaBlur.text),
-        rdxt.textarea(
+        rx.heading(TextAreaBlur.text),
+        rx.text_area(
             on_blur=TextAreaBlur.set_text,
         ),
     )
@@ -42,12 +41,12 @@ class TextAreaControlled(rx.State):
 
 def controlled_example():
     return rx.vstack(
-        rdxt.heading(TextAreaControlled.text),
-        rdxt.textarea(
+        rx.heading(TextAreaControlled.text),
+        rx.text_area(
             value=TextAreaControlled.text,
             on_change=TextAreaControlled.set_text,
         ),
-        rdxt.textarea(
+        rx.text_area(
             value="Simon says: " + TextAreaControlled.text,
         ),
     )
@@ -56,18 +55,18 @@ def controlled_example():
 # Real World Example
 
 ```python demo
-rdxt.card(
-    rdxt.flex(
-        rdxt.text("Are you enjoying Reflex?"),
-        rdxt.textarea(placeholder="Write your feedback…"),
-        rdxt.flex(
-            rdxt.text("Attach screenshot?", size="2"),
-            rdxt.switch(size="1", default_checked=True),
+rx.card(
+    rx.flex(
+        rx.text("Are you enjoying Reflex?"),
+        rx.text_area(placeholder="Write your feedback…"),
+        rx.flex(
+            rx.text("Attach screenshot?", size="2"),
+            rx.switch(size="1", default_checked=True),
             justify="between",
         ),
-        rdxt.grid(
-            rdxt.button("Back", variant="surface"),
-            rdxt.button("Send"),
+        rx.grid(
+            rx.button("Back", variant="surface"),
+            rx.button("Send"),
             columns="2",
             gap="2",
         ),

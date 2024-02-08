@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Video
+    - rx.video
 ---
 
 # Video

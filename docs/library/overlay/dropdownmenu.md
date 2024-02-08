@@ -1,12 +1,12 @@
 ---
 components:
-    - rx.radix.themes.DropdownMenuRoot
-    - rx.radix.themes.DropdownMenuContent
-    - rx.radix.themes.DropdownMenuTrigger
-    - rx.radix.themes.DropdownMenuItem
-    - rx.radix.themes.DropdownMenuSeparator
-    - rx.radix.themes.DropdownMenuSubContent
-
+    - rx.radix.dropdown_menu.root
+    - rx.radix.dropdown_menu.content
+    - rx.radix.dropdown_menu.trigger
+    - rx.radix.dropdown_menu.item
+    - rx.radix.dropdown_menu.separator
+    - rx.radix.dropdown_menu.sub_content
+    
 only_low_level:
     - True
 ---

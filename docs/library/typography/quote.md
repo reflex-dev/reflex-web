@@ -1,12 +1,10 @@
 ---
 components:
-    - rx.radix.themes.Quote
+    - rx.radix.quote
 ---
 
 ```python exec
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+import reflex as rx
 ```
 
 # Quote
@@ -14,8 +12,8 @@ from reflex.components.radix.themes.typography import *
 A short inline quotation.
 
 ```python demo
-text("His famous quote, ",
-  quote("Styles come and go. Good design is a language, not a style"),
+rx.text("His famous quote, ",
+  rx.quote("Styles come and go. Good design is a language, not a style"),
   ", elegantly sums up Massimo’s philosophy of design."
   )
 ```

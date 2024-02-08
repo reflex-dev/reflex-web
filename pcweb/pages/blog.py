@@ -30,7 +30,7 @@ def page(document) -> rx.Component:
     return rx.container(
         rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
         rx.hstack(
-            rx.avatar(name=meta["author"], size="xs"),
+            rx.chakra.avatar(name=meta["author"], size="xs"),
             rx.text(meta["author"], font_size="0.9rem"),
             rx.text(" · "),
             rx.text(str(meta["date"]), font_size="0.9rem"),
@@ -70,7 +70,7 @@ def component_grid():
             rx.link(
                 rx.box(
                     height="10rem",
-                    background_image=meta["image"],
+                    background_image=f'url({meta["image"]})',
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
@@ -85,14 +85,15 @@ def component_grid():
                     rx.text(
                         meta["description"],
                         font_size="0.8rem",
+
                     ),
-                    rx.divider(),
+                    rx.chakra.divider(),
                     rx.spacer(),
                     rx.hstack(
                         rx.vstack(
                             rx.text("Written by", font_size="0.6rem"),
                             rx.hstack(
-                                rx.avatar(
+                                rx.chakra.avatar(
                                     name=meta["author"],
                                     size="sm",
                                     bg=c["indigo"][800],
@@ -127,32 +128,37 @@ def component_grid():
             ),
         )
     return rx.box(
-        rx.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
+        rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
 @webpage(path="/blog", title="Blog")
 def blg():
-    return rx.container(
+    return rx.center(
         rx.vstack(
-            rx.box(
+            rx.vstack(
                 rx.heading("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
                 rx.text(
                     "The latest news from the Reflex team. ",
                     color=tc["docs"]["body"],
                 ),
-                rx.divider(),
+                rx.separator(size="4"),
+                align_items="left",
                 text_align="left",
                 width="100%",
+                gap="4",
             ),
             component_grid(),
             align_items="stretch",
             min_height="80vh",
             margin_bottom="4em",
-            padding_y="2em",
+            padding_top="95px",
+            padding_bottom="2em",
+            padding_left = "2em",
+            padding_right = "2em",
         ),
         flex_direction="column",
-        max_width="960px",
+        width="100%",
     )
 
 

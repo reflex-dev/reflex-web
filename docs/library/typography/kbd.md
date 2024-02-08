@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Kbd
+    - rx.radix.kbd
 ---
 
 ```python exec
