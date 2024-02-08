@@ -186,8 +186,6 @@ flex(
 flex(
     slider(default_value=[25], radius="none"),
     slider(default_value=[25], radius="small"),
-    slider(default_value=[25], radius="medium"),
-    slider(default_value=[25], radius="large"),
     slider(default_value=[25], radius="full"),
     direction="column",
     gap="4",
