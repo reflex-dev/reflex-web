@@ -1,6 +1,26 @@
 ---
 components:
     - rx.radix.scroll_area
+
+ScrollArea: |
+    lambda **props: rx.radix.themes.scroll_area(
+        rx.radix.themes.flex(
+            rx.radix.themes.text(
+                """Three fundamental aspects of typography are legibility, readability, and aesthetics. Although in a non-technical sense "legible" and "readable"are often used synonymously, typographically they are separate but related concepts.""",
+                size="5",
+            ),
+            rx.radix.themes.text(
+                """Legibility describes how easily individual characters can be distinguished from one another. It is described by Walter Tracy as "the quality of being decipherable and recognisable". For instance, if a "b" and an "h", or a "3" and an "8", are difficult to distinguish at small sizes, this is a problem of legibility.""",
+                size="5",
+            ),
+            direction="column",
+            gap="4",
+            height="100px",
+            width="50%",
+        ),
+        **props
+    )
+
 ---
 
 

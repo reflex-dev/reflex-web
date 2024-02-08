@@ -8,6 +8,63 @@ components:
     - rx.radix.select.item
     - rx.radix.select.label
     - rx.radix.select.separator
+
+HighLevelSelect: |
+    lambda **props: rx.radix.themes.select(["apple", "grape", "pear"], default_value="pear", **props)
+
+SelectRoot: |
+    lambda **props: rx.radix.themes.select.root(
+        rx.radix.themes.select.trigger(),
+        rx.radix.themes.select.content(
+            rx.radix.themes.select.group(
+                rx.radix.themes.select.item("apple", value="apple"),
+                rx.radix.themes.select.item("grape", value="grape"),
+                rx.radix.themes.select.item("pear", value="pear"),
+            ),
+        ),
+        default_value="pear",
+        **props
+    )
+
+SelectTrigger: |
+    lambda **props: rx.radix.themes.select.root(
+        rx.radix.themes.select.trigger(**props),
+        rx.radix.themes.select.content(
+            rx.radix.themes.select.group(
+                rx.radix.themes.select.item("apple", value="apple"),
+                rx.radix.themes.select.item("grape", value="grape"),
+                rx.radix.themes.select.item("pear", value="pear"),
+            ),
+        ),
+        default_value="pear",
+    )
+
+SelectContent: |
+    lambda **props: rx.radix.themes.select.root(
+        rx.radix.themes.select.trigger(),
+        rx.radix.themes.select.content(
+            rx.radix.themes.select.group(
+                rx.radix.themes.select.item("apple", value="apple"),
+                rx.radix.themes.select.item("grape", value="grape"),
+                rx.radix.themes.select.item("pear", value="pear"),
+            ),
+            **props,
+        ),
+        default_value="pear",
+    )
+
+SelectItem: |
+    lambda **props: rx.radix.themes.select.root(
+        rx.radix.themes.select.trigger(),
+        rx.radix.themes.select.content(
+            rx.radix.themes.select.group(
+                rx.radix.themes.select.item("apple", value="apple", **props),
+                rx.radix.themes.select.item("grape", value="grape"),
+                rx.radix.themes.select.item("pear", value="pear"),
+            ),
+        ),
+        default_value="pear",
+    )
 ---
 
 

@@ -25,6 +25,7 @@ class Prop(Base):
     description: str
 
 
+
 from reflex.components.el.elements.base import BaseHTML
 
 
@@ -151,10 +152,24 @@ TYPE_COLORS = {
     "Tuple": "blue",
     "None": "gray",
     "Figure": "green",
+    "Literal": "ruby",
 }
 
+count = 0
 
-def prop_docs(prop: Prop) -> list[rx.Component]:
+import hashlib
+
+
+def get_id(s):
+    global count
+    count += 1
+    s = str(count)
+    hash_object = hashlib.sha256(s.encode())
+    hex_dig = hash_object.hexdigest()
+    return "a_" + hex_dig[:8]
+
+
+def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
@@ -169,31 +184,75 @@ def prop_docs(prop: Prop) -> list[rx.Component]:
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
 
-    # if the type if leteral show all the options
+    # if the type if literal show all the options
     if type_ == "Literal":
         output = get_args(prop.type_)
-        prop.description = (
-            str(output)
-            .replace("typing.Literal[", "")
-            .replace("']", "")
-            .replace("(", "")
-            .replace(")", "")
-            .replace(",", " | ")
+
+    from typing import Literal, _GenericAlias
+
+    def render_select(prop):
+        if rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+            return rx.fragment()
+        try:
+            type_ = rx.utils.types.get_args(prop.type_)[0]
+        except:
+            print(f"Failed to get args for {prop.type_}")
+            return rx.fragment()
+
+        try:
+            if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child", "default_open", "default_checked"]:
+                name = get_id(f"{component.__qualname__}_{prop.name}")
+                rx.State.add_var(name, bool, False)
+                var = getattr(rx.State, name)
+                setter = getattr(rx.State, f"set_{name}")
+                prop_dict[prop.name] = var
+                return rdxt.checkbox(
+                    var,
+                    on_change=setter,
+                )
+        except TypeError:
+            pass
+
+        if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
+            return rx.fragment()
+        # Get the first option.
+        option = type_.__args__[0]
+        name = get_id(f"{component.__qualname__}_{prop.name}")
+        rx.State.add_var(name, str, option)
+        var = getattr(rx.State, name)
+        setter = getattr(rx.State, f"set_{name}")
+        prop_dict[prop.name] = var
+        return rdxt.radio_group(
+            list(map(str, type_.__args__)),
+            value=var,
+            on_change=setter,
         )
 
     # Return the docs for the prop.
     return [
-        rx.chakra.td(
-            rx.code(prop.name, color="#333"),
+        rdxt.table.cell(
+            rdxt.code(prop.name, color="#333"),
             padding_left="0",
+            justify="center"
         ),
-        rx.chakra.td(
-            rx.badge(type_, color_scheme=color, variant="solid"),
+        rdxt.table.cell(
+            rdxt.badge(type_, color_scheme=color, variant="solid"),
             padding_left="0",
+            justify="center"
         ),
-        rx.chakra.td(
-            markdown(prop.description),
+        rdxt.table.cell(
+            rx.vstack(
+                markdown(prop.description),
+            ),
             padding_left="0",
+            justify="center"
+        ),
+        rdxt.table.cell(
+            rx.vstack(
+                render_select(prop),
+            ),
+            padding_left="0",
+            justify="center"
         ),
     ]
 
@@ -403,7 +462,10 @@ EVENTS = {
 }
 
 
-def generate_props(src):
+from reflex.components.radix import themes as rdxt
+
+
+def generate_props(src, component, comp):
     if len(src.get_props()) == 0:
         return rx.vstack(
             rx.heading("Props", font_size="1em"),
@@ -414,22 +476,52 @@ def generate_props(src):
             padding_y=".5em",
         )
 
+    prop_dict = {}
+    body = rdxt.table.body(
+        *[
+            rdxt.table.row(*prop_docs(prop, prop_dict, component))
+            for prop in src.get_props()
+        ]
+    )
+    try:
+        if f"{component.__name__}" in comp.metadata:
+            comp = eval(comp.metadata[component.__name__])(**prop_dict)
+
+        elif rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+            comp = rx.fragment()
+            
+        else:
+            try:
+                comp = rx.vstack(component.create("Test", **prop_dict))
+            except:
+                comp = rx.fragment()
+            if "data" in component.__name__.lower():
+                raise Exception("Data components cannot be created")
+    except Exception as e:
+        print(f"Failed to create component {component.__name__}, error: {e}")
+        comp = rx.fragment()
+
     return rx.vstack(
-        rx.chakra.table(
-            rx.chakra.thead(
-                rx.chakra.tr(
-                    rx.chakra.th("Prop", padding_left="0"),
-                    rx.chakra.th("Type", padding_left="0"),
-                    rx.chakra.th("Description/Values", padding_left="0"),
-                )
+        comp,
+        rdxt.scroll_area(
+            rdxt.table.root(
+                rdxt.table.header(
+                    rdxt.table.row(
+                        rdxt.table.column_header_cell("Prop", padding_left="0", justify="center"),
+                        rdxt.table.column_header_cell("Type", padding_left="0", justify="center"),
+                        rdxt.table.column_header_cell("Description", padding_left="0", justify="center", width="40%"),
+                        rdxt.table.column_header_cell("Values", padding_left="0", justify="center"),
+                    )
+                ),
+                body,
+                width="100%",
+                padding_x="0",
+                size="1",
             ),
-            rx.chakra.tbody(*[rx.chakra.tr(*prop_docs(prop)) for prop in src.get_props()]),
-            width="100%",
-            padding_x="0",
-            size="sm",
+            align_items="left",
+            padding_bottom="2em",
         ),
-        align_items="left",
-        padding_bottom="2em",
+        height="30em",
     )
 
 
@@ -507,10 +599,10 @@ def generate_valid_children(comp):
     )
 
 
-def component_docs(component):
+def component_docs(component, comp):
     """Generates documentation for a given component."""
     src = Source(component=component)
-    props = generate_props(src)
+    props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component)
     children = generate_valid_children(component)
 
@@ -547,7 +639,7 @@ tab_selected_style = {
 def multi_docs(path, comp, component_list, title):
     @docpage(set_path=path, t=title)
     def out():
-        components = [component_docs(component) for component in component_list[1:]]
+        components = [component_docs(component, comp) for component in component_list[1:]]
         fname = path.strip("/") + ".md"
         style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
         ll_doc_exists = os.path.exists(

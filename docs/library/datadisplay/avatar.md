@@ -1,6 +1,8 @@
 ---
 components:
     - rx.radix.avatar
+Avatar: |
+    lambda **props: rx.hstack(rx.avatar(src="/logo.jpg", **props), rx.avatar(fallback="RX", **props), gap="3")
 ---
 # Avatar
 

@@ -1,6 +1,10 @@
 ---
 components:
-    - rx.radix.switch
+     - rx.radix.switch
+
+Switch: |
+    lambda **props: rx.radix.themes.switch(**props)
+
 ---
 
 ```python exec
