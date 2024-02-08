@@ -12,7 +12,6 @@ from pcweb.templates.docpage import docpage
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.radix.themes.components.icons import RadixIconComponent
 from reflex.compiler import compiler
 
 from .gallery import gallery
@@ -94,7 +93,6 @@ chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
 component_list = defaultdict(list)
 docs_ns = SimpleNamespace()
-# os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
 
 
 def exec_blocks(doc, href):
@@ -128,11 +126,11 @@ def get_component(doc: str, title: str):
         if should_skip_compile(doc):
             outblocks.append((d, route))
             return
-        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        clist = [title, *get_components_from_metadata(d)]
         component_list[category].append(clist)
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
-        clist = [title, *[eval(c) for c in d.metadata["components"]]]
+        clist = [title, *get_components_from_metadata(d)]
         if issubclass(
             clist[1],
             (RadixThemesComponent, RadixPrimitiveComponent),
