@@ -26,7 +26,7 @@ The state has a var called `clicked_cell` that will store a message about which 
 
 
 ```python demo
-rx.text(DataTableState.clicked_cell, as_="strong")
+rx.text(DataTableState.clicked_cell)
 ```
 
 ```python demo
@@ -66,7 +66,7 @@ The `on_cell_edited` event trigger is called when the user modifies the content 
 
 
 ```python demo
-rx.text(DataTableState.edited_cell, as_="strong")
+rx.text(DataTableState.edited_cell)
 ```
 
 ```python demo
@@ -164,7 +164,7 @@ class DataTableState2(rx.State):
 ```
 
 ```python demo
-rx.text(DataTableState2.right_clicked_group_header, as_="strong")
+rx.text(DataTableState2.right_clicked_group_header)
 ```
 
 ```python demo
@@ -211,11 +211,11 @@ class DataTableState2(rx.State):
 
 
 ```python demo
-rx.text(DataTableState2.item_hovered, as_="strong")
+rx.text(DataTableState2.item_hovered)
 ```
 
 ```python demo
-rx.text(DataTableState2.deleted, as_="strong")
+rx.text(DataTableState2.deleted)
 ```
 
 ```python demo
