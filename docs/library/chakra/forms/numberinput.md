@@ -22,7 +22,7 @@ class NumberInputState(rx.State):
 
 
 def number_input_example():
-    return rx.number_input(
+    return rx.chakra.number_input(
         value=NumberInputState.number,
         on_change=NumberInputState.set_number,
     )

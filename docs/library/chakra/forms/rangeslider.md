@@ -22,9 +22,9 @@ class RangeSliderState(rx.State):
 
 
 def range_slider_example():
-    return rx.vstack(
-        rx.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
-        rx.range_slider(
+    return rx.chakra.vstack(
+        rx.chakra.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
+        rx.chakra.range_slider(
             on_change_end=RangeSliderState.set_value
         ),
         width="100%",
@@ -35,9 +35,9 @@ If you want to trigger state change on every slider movement, you can use the `o
 This is not recommended for performance reasons and should only be used if you need to perform an event on every slider movement.
 
 ```python demo
-rx.vstack(
-    rx.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
-    rx.range_slider(
+rx.chakra.vstack(
+    rx.chakra.heading(f"{RangeSliderState.value[0]} : {RangeSliderState.value[1]}"),
+    rx.chakra.range_slider(
         on_change=RangeSliderState.set_value
     ),
     width="100%",

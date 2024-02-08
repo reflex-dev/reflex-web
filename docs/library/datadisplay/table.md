@@ -1,12 +1,12 @@
 ---
 components:
-    - rx.radix.themes.TableRoot
-    - rx.radix.themes.TableHeader
-    - rx.radix.themes.TableRow
-    - rx.radix.themes.TableColumnHeaderCell
-    - rx.radix.themes.TableBody
-    - rx.radix.themes.TableCell
-    - rx.radix.themes.TableRowHeaderCell
+    - rx.radix.table.root
+    - rx.radix.table.header
+    - rx.radix.table.row
+    - rx.radix.table.column_header_cell
+    - rx.radix.table.body
+    - rx.radix.table.cell
+    - rx.radix.table.row_header_cell
    
 only_low_level:
     - True

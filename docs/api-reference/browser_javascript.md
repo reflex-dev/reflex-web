@@ -161,6 +161,14 @@ class GlobalKeyWatcher(rx.Fragment):
     # List of keys to trigger on
     keys: rx.vars.Var[list[str]] = []
 
+    def _get_imports(self) -> rx.utils.imports.ImportDict:
+        return rx.utils.imports.merge_imports(
+            super()._get_imports(),
+            {
+                "react": {rx.utils.imports.ImportVar(tag="useEffect")}
+            },
+        )
+
     def _get_hooks(self) -> str | None:
         return """
             useEffect(() => {

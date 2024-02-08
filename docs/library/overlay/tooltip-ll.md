@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.themes.Tooltip
+    - rx.radix.tooltip
 ---
 
 # Low Level Docs Coming Soon!

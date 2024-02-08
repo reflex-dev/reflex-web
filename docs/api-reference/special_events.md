@@ -52,7 +52,7 @@ Set the value of a specified reference element.
 
 ```python demo
 rx.hstack(
-    rx.input(id='input1'),
+    rx.chakra.input(id='input1'),
     rx.button(
         'Erase', on_click=rx.set_value('input1', '')
     ),

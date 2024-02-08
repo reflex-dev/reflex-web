@@ -1,6 +1,6 @@
 ---
  components:
-     - rx.radix.themes.Theme
+     - rx.theme
 ---
 
  # Theme

@@ -9,9 +9,9 @@ import reflex as rx
 
 # Form
 
-Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
+Forms are used to collect user input. The `rx.chakra.form` component is used to group inputs and submit them together.
 
-The form component's children can be form controls such as `rx.input`, `rx.checkbox`, or `rx.switch`. The controls should have an `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.
+The form component's children can be form controls such as `rx.chakra.input`, `rx.chakra.checkbox`, or `rx.chakra.switch`. The controls should have an `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.
 
 The form is submitted when the user clicks the submit button or presses enter on the form controls.
 
@@ -25,23 +25,23 @@ class FormState(rx.State):
 
 
 def form_example():
-    return rx.vstack(
-        rx.form(
-            rx.vstack(
-                rx.input(placeholder="First Name", name="first_name"),
-                rx.input(placeholder="Last Name", name="last_name"),
-                rx.hstack(
-                    rx.checkbox("Checked", name="check"),
-                    rx.switch("Switched", name="switch"),
+    return rx.chakra.vstack(
+        rx.chakra.form(
+            rx.chakra.vstack(
+                rx.chakra.input(placeholder="First Name", name="first_name"),
+                rx.chakra.input(placeholder="Last Name", name="last_name"),
+                rx.chakra.hstack(
+                    rx.chakra.checkbox("Checked", name="check"),
+                    rx.chakra.switch("Switched", name="switch"),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.chakra.button("Submit", type_="submit"),
             ),
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
         ),
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(FormState.form_data.to_string()),
+        rx.chakra.divider(),
+        rx.chakra.heading("Results"),
+        rx.chakra.text(FormState.form_data.to_string()),
     )
 ```
 
@@ -80,31 +80,31 @@ class DynamicFormState(rx.State):
 
 
 def dynamic_form():
-    return rx.vstack(
-        rx.form(
-            rx.vstack(
+    return rx.chakra.vstack(
+        rx.chakra.form(
+            rx.chakra.vstack(
                 rx.foreach(
                     DynamicFormState.form_fields,
-                    lambda field, idx: rx.input(
+                    lambda field, idx: rx.chakra.input(
                         placeholder=DynamicFormState.form_field_placeholders[idx],
                         name=field,
                     ),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.chakra.button("Submit", type_="submit"),
             ),
             on_submit=DynamicFormState.handle_submit,
             reset_on_submit=True,
         ),
-        rx.form(
-            rx.hstack(
-                rx.input(placeholder="New Field", name="new_field"),
-                rx.button("+", type_="submit"),
+        rx.chakra.form(
+            rx.chakra.hstack(
+                rx.chakra.input(placeholder="New Field", name="new_field"),
+                rx.chakra.button("+", type_="submit"),
             ),
             on_submit=DynamicFormState.add_field,
             reset_on_submit=True,
         ),
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(DynamicFormState.form_data.to_string()),
+        rx.chakra.divider(),
+        rx.chakra.heading("Results"),
+        rx.chakra.text(DynamicFormState.form_data.to_string()),
     )
 ```

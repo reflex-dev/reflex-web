@@ -20,13 +20,13 @@ Popover is a non-modal dialog that floats around a trigger.
 It is used to display contextual information to the user, and should be paired with a clickable trigger element.
 
 ```python demo
-rx.popover(
-    rx.popover_trigger(rx.button("Popover Example")),
-    rx.popover_content(
-        rx.popover_header("Confirm"),
-        rx.popover_body("Do you want to confirm example?"),
-        rx.popover_footer(rx.text("Footer text.")),
-        rx.popover_close_button(),
+rx.chakra.popover(
+    rx.chakra.popover_trigger(rx.chakra.button("Popover Example")),
+    rx.chakra.popover_content(
+        rx.chakra.popover_header("Confirm"),
+        rx.chakra.popover_body("Do you want to confirm example?"),
+        rx.chakra.popover_footer(rx.chakra.text("Footer text.")),
+        rx.chakra.popover_close_button(),
     ),
 )
 ```

@@ -1,11 +1,10 @@
 ---
 components:
-  - rx.radix.themes.Flex
+  - rx.radix.flex
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 # Flex
@@ -20,12 +19,12 @@ By default, children are arranged horizontally (`direction="row"`) without wrapp
 ## Basic Example
 
 ```python demo
-rdxt.flex(
-    rdxt.card("Card 1"),
-    rdxt.card("Card 2"),
-    rdxt.card("Card 3"),
-    rdxt.card("Card 4"),
-    rdxt.card("Card 5"),
+rx.flex(
+    rx.card("Card 1"),
+    rx.card("Card 2"),
+    rx.card("Card 3"),
+    rx.card("Card 4"),
+    rx.card("Card 5"),
     gap="2",
     width="100%",
 )
@@ -36,10 +35,10 @@ rdxt.flex(
 With `flex_wrap="wrap"`, the children will wrap to the next line instead of being resized.
 
 ```python demo
-rdxt.flex(
+rx.flex(
     rx.foreach(
         rx.Var.range(10),
-        lambda i: rdxt.card(f"Card {i + 1}", width="16%"),
+        lambda i: rx.card(f"Card {i + 1}", width="16%"),
     ),
     gap="2",
     flex_wrap="wrap",
@@ -52,11 +51,11 @@ rdxt.flex(
 With `direction="column"`, the children will be arranged vertically.
 
 ```python demo
-rdxt.flex(
-    rdxt.card("Card 1"),
-    rdxt.card("Card 2"),
-    rdxt.card("Card 3"),
-    rdxt.card("Card 4"),
+rx.flex(
+    rx.card("Card 1"),
+    rx.card("Card 2"),
+    rx.card("Card 3"),
+    rx.card("Card 4"),
     gap="2",
     direction="column",
 )
@@ -80,13 +79,13 @@ class FlexPlaygroundState(rx.State):
     
     
 def select(label, items, value, on_change):
-    return rdxt.flex(
-        rdxt.text(label),
-        rdxt.select_root(
-            rdxt.select_trigger(),
-            rdxt.select_content(
+    return rx.flex(
+        rx.text(label),
+        rx.select.root(
+            rx.select.trigger(),
+            rx.select.content(
                 *[
-                    rdxt.select_item(item, value=item)
+                    rx.select.item(item, value=item)
                     for item in items
                 ]
             ),
@@ -100,7 +99,7 @@ def select(label, items, value, on_change):
 
 
 def selectors():
-    return rdxt.flex(
+    return rx.flex(
         select("Wrap", ["nowrap", "wrap", "wrap-reverse"], FlexPlaygroundState.wrap, FlexPlaygroundState.set_wrap),
         select("Direction", ["row", "column", "row-reverse", "column-reverse"], FlexPlaygroundState.direction, FlexPlaygroundState.set_direction),
         select("Align", ["start", "center", "end", "baseline", "stretch"], FlexPlaygroundState.align, FlexPlaygroundState.set_align),
@@ -112,12 +111,12 @@ def selectors():
 
 
 def example1():
-    return rdxt.box(
+    return rx.box(
         selectors(),
-        rdxt.flex(
+        rx.flex(
             rx.foreach(
                 rx.Var.range(10),
-                lambda i: rdxt.card(f"Card {i + 1}", width="16%"),
+                lambda i: rx.card(f"Card {i + 1}", width="16%"),
             ),
             gap="2",
             direction=FlexPlaygroundState.direction,
@@ -160,7 +159,7 @@ class FlexGrowShrinkState(rx.State):
     
     
 def border_box(*children, **props):
-    return rdxt.box(
+    return rx.box(
         *children,
         border="1px solid var(--gray-10)",
         border_radius="2px",
@@ -169,8 +168,8 @@ def border_box(*children, **props):
 
     
 def example2():
-    return rdxt.box(
-        rdxt.flex(
+    return rx.box(
+        rx.flex(
             border_box("flex_shrink=0", flex_shrink="0", width="100px"),
             border_box("flex_shrink=1", flex_shrink="1", width="200px"),
             border_box("flex_grow=0", flex_grow="0"),
@@ -179,7 +178,7 @@ def example2():
             margin_bottom="16px",
             gap="2",
         ),
-        rdxt.slider(
+        rx.slider(
             min=0,
             max=100,
             value=FlexGrowShrinkState.width_pct,

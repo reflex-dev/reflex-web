@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Html
+    - rx.html
 ---
 
 ```python exec

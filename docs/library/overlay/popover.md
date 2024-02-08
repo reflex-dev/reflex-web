@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.themes.PopoverRoot
-    - rx.radix.themes.PopoverContent
-    - rx.radix.themes.PopoverTrigger
-    - rx.radix.themes.PopoverClose
+    - rx.radix.popover.root
+    - rx.radix.popover.content
+    - rx.radix.popover.trigger
+    - rx.radix.popover.close
 
 only_low_level:
     - True

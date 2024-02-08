@@ -19,14 +19,14 @@ Accordion consist of an outer accordion component and inner accordion items.
 Each item has a optional button and panel. The button is used to toggle the panel's visibility.
 
 ```python demo
-rx.accordion(
-    rx.accordion_item(
-        rx.accordion_button(
-            rx.heading("Example"),
-            rx.accordion_icon(),
+rx.chakra.accordion(
+    rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
+            rx.chakra.heading("Example"),
+            rx.chakra.accordion_icon(),
         ),
-        rx.accordion_panel(
-            rx.text("This is an example of an accordion component.")
+        rx.chakra.accordion_panel(
+            rx.chakra.text("This is an example of an accordion component.")
         )
     ),
     allow_toggle = True,
@@ -37,23 +37,23 @@ rx.accordion(
 An accordion can have multiple items.
 
 ```python demo
-rx.accordion(
-    rx.accordion_item(
-        rx.accordion_button(
-            rx.heading("Example 1"),
-            rx.accordion_icon(),
+rx.chakra.accordion(
+    rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
+            rx.chakra.heading("Example 1"),
+            rx.chakra.accordion_icon(),
         ),
-        rx.accordion_panel(
-            rx.text("This is an example of an accordion component.")
+        rx.chakra.accordion_panel(
+            rx.chakra.text("This is an example of an accordion component.")
         ),
     ),
-    rx.accordion_item(
-        rx.accordion_button(
-            rx.heading("Example 2"),
-            rx.accordion_icon(),
+    rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
+            rx.chakra.heading("Example 2"),
+            rx.chakra.accordion_icon(),
         ),
-        rx.accordion_panel(
-            rx.text("This is an example of an accordion component.")
+        rx.chakra.accordion_panel(
+            rx.chakra.text("This is an example of an accordion component.")
         ),
     ),
     allow_multiple = True,
@@ -66,22 +66,22 @@ rx.accordion(
 You can create multilevel accordions by nesting accordions within the outer accordion panel.
 
 ```python demo
-rx.accordion(
-    rx.accordion_item(
-        rx.accordion_button(
-            rx.accordion_icon(),
-            rx.heading("Outer"),
+rx.chakra.accordion(
+    rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
+            rx.chakra.accordion_icon(),
+            rx.chakra.heading("Outer"),
             
         ),
-        rx.accordion_panel(
-            rx.accordion(
-            rx.accordion_item(
-                rx.accordion_button(
-                    rx.accordion_icon(),
-                    rx.heading("Inner"),    
+        rx.chakra.accordion_panel(
+            rx.chakra.accordion(
+            rx.chakra.accordion_item(
+                rx.chakra.accordion_button(
+                    rx.chakra.accordion_icon(),
+                    rx.chakra.heading("Inner"),    
                 ),
-                rx.accordion_panel(
-                    rx.badge("Inner Panel", variant="solid", color_scheme="green"),
+                rx.chakra.accordion_panel(
+                    rx.chakra.badge("Inner Panel", variant="solid", color_scheme="green"),
                 )
             )
             ),
@@ -96,8 +96,8 @@ Pass a list of tuples to the `items` prop.
 Each tuple should contain a label and a panel.
 
 ```python demo
-rx.accordion(
-   items=[("Label 1", rx.center("Panel 1")), ("Label 2", rx.center("Panel 2"))],
+rx.chakra.accordion(
+   items=[("Label 1", rx.chakra.center("Panel 1")), ("Label 2", rx.chakra.center("Panel 2"))],
    width="100%"
 )
 ```

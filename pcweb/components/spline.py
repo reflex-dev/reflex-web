@@ -17,7 +17,7 @@ spline = Spline.create
 
 
 def spline_component():
-    return rx.center(
+    return rx.chakra.center(
         rx.center(
             spline(),
             overflow="hidden",

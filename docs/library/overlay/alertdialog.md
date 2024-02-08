@@ -1,12 +1,12 @@
 ---
 components:
-    - rx.radix.themes.AlertDialogRoot
-    - rx.radix.themes.AlertDialogContent
-    - rx.radix.themes.AlertDialogTrigger
-    - rx.radix.themes.AlertDialogTitle
-    - rx.radix.themes.AlertDialogDescription
-    - rx.radix.themes.AlertDialogAction
-    - rx.radix.themes.AlertDialogCancel
+    - rx.radix.alert_dialog.root
+    - rx.radix.alert_dialog.content
+    - rx.radix.alert_dialog.trigger
+    - rx.radix.alert_dialog.title
+    - rx.radix.alert_dialog.description
+    - rx.radix.alert_dialog.action
+    - rx.radix.alert_dialog.cancel
 
 only_low_level:
     - True

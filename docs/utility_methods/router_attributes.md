@@ -38,7 +38,7 @@ class RouterState(rx.State):
 
 
 def router_values():
-    return rx.table(
+    return rx.chakra.table(
         headers=["Name", "Value"],
         rows=[
             [rx.text("router.page.host"), rx.code(RouterState.router.page.host)],

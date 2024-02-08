@@ -1,21 +1,18 @@
 ---
 components:
-    - rx.radix.themes.ContextMenuRoot
-    - rx.radix.themes.ContextMenuItem
-    - rx.radix.themes.ContextMenuSeparator
-    - rx.radix.themes.ContextMenuTrigger
-    - rx.radix.themes.ContextMenuContent
-    - rx.radix.themes.ContextMenuSub
-    - rx.radix.themes.ContextMenuSubTrigger
-    - rx.radix.themes.ContextMenuSubContent
+    - rx.radix.context_menu.root
+    - rx.radix.context_menu.item
+    - rx.radix.context_menu.separator
+    - rx.radix.context_menu.trigger
+    - rx.radix.context_menu.content
+    - rx.radix.context_menu.sub
+    - rx.radix.context_menu.sub_trigger
+    - rx.radix.context_menu.sub_content
 ---
 
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 # ContextMenu
@@ -34,62 +31,62 @@ The `contextmenu_separator` is used to visually separate items in a context menu
 
 
 ```python demo
-contextmenu_root(
-    contextmenu_trigger(
-       button("Right click me"),
+rx.context_menu.root(
+    rx.context_menu.trigger(
+       rx.button("Right click me"),
     ),
-    contextmenu_content(
-        contextmenu_item("Edit", shortcut="⌘ E"),
-        contextmenu_item("Duplicate", shortcut="⌘ D"),
-        contextmenu_separator(),
-        contextmenu_item("Archive", shortcut="⌘ N"),
-        contextmenu_sub(
-            contextmenu_sub_trigger("More"),
-            contextmenu_sub_content(
-                contextmenu_item("Move to project…"),
-                contextmenu_item("Move to folder…"),
-                contextmenu_separator(),
-                contextmenu_item("Advanced options…"),
+    rx.context_menu.content(
+        rx.context_menu.item("Edit", shortcut="⌘ E"),
+        rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Archive", shortcut="⌘ N"),
+        rx.context_menu.sub(
+            rx.context_menu.sub_trigger("More"),
+            rx.context_menu.sub_content(
+                rx.context_menu.item("Move to project…"),
+                rx.context_menu.item("Move to folder…"),
+                rx.context_menu.separator(),
+                rx.context_menu.item("Advanced options…"),
             ),
         ),
-        contextmenu_separator(),
-        contextmenu_item("Share"),
-        contextmenu_item("Add to favorites"),
-        contextmenu_separator(),
-        contextmenu_item("Delete", shortcut="⌘ ⌫", color="red"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Share"),
+        rx.context_menu.item("Add to favorites"),
+        rx.context_menu.separator(),
+        rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
     ),
 )
 ```
 
 
 ```python demo
-grid(
-    contextmenu_root(
-        contextmenu_trigger(
-            button("Right click me"),
+rx.grid(
+    rx.context_menu.root(
+        rx.context_menu.trigger(
+            rx.button("Right click me"),
         ),
-        contextmenu_content(
-            contextmenu_item("Edit", shortcut="⌘ E"),
-            contextmenu_item("Duplicate", shortcut="⌘ D"),
-            contextmenu_separator(),
-            contextmenu_item("Archive", shortcut="⌘ N"),
-            contextmenu_separator(),
-            contextmenu_item("Delete", shortcut="⌘ ⌫", color="red",
+        rx.context_menu.content(
+            rx.context_menu.item("Edit", shortcut="⌘ E"),
+            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Archive", shortcut="⌘ N"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red",
             ),
             size="1",
         ),
     ),
-    contextmenu_root(
-        contextmenu_trigger(
-             button("Right click me"),
+    rx.context_menu.root(
+        rx.context_menu.trigger(
+             rx.button("Right click me"),
         ),
-        contextmenu_content(
-            contextmenu_item("Edit", shortcut="⌘ E"),
-            contextmenu_item("Duplicate", shortcut="⌘ D"),
-            contextmenu_separator(),
-            contextmenu_item("Archive", shortcut="⌘ N"),
-            contextmenu_separator(),
-            contextmenu_item("Delete", shortcut="⌘ ⌫", color="red"
+        rx.context_menu.content(
+            rx.context_menu.item("Edit", shortcut="⌘ E"),
+            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Archive", shortcut="⌘ N"),
+            rx.context_menu.separator(),
+            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"
             ),
             size="2",
         ),

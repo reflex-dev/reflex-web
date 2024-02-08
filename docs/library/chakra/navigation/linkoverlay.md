@@ -12,7 +12,7 @@ import reflex as rx
 Link overlay provides a semantic way to wrap elements (cards, blog post, articles, etc.) in a link.
 
 ```python
-rx.link_overlay(
-    rx.box("Example", bg="black", color="white", font_size=30),
+rx.chakra.link_overlay(
+    rx.chakra.box("Example", bg="black", color="white", font_size=30),
 )
 ```

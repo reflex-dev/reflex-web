@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Editor
+    - rx.editor
 ---
 
 # Editor
@@ -49,18 +49,18 @@ editor_options_source = Source(module=rx.EditorOptions)
 ```python eval
 rx.fragment(
     h2_comp(text="Fields"),
-    rx.box(rx.table(
-        rx.thead(
-            rx.tr(
-                rx.th("Field"),
-                rx.th("Description"),
+    rx.box(rx.chakra.table(
+        rx.chakra.thead(
+            rx.chakra.tr(
+                rx.chakra.th("Field"),
+                rx.chakra.th("Description"),
             )
         ),
-        rx.tbody(
+        rx.chakra.tbody(
             *[
-                rx.tr(
-                    rx.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                    rx.td(field["description"]),
+                rx.chakra.tr(
+                    rx.chakra.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
+                    rx.chakra.td(field["description"]),
                 )
                 for field in editor_options_source.get_fields()
             ],

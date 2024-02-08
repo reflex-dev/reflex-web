@@ -18,7 +18,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """rx.input(value = FocusState.text, on_focus=FocusState.change_text)""",
+        "example": """rx.chakra.input(value = FocusState.text, on_focus=FocusState.change_text)""",
     },
     {
         "name": "on_blur",
@@ -32,7 +32,7 @@ SYNTHETIC_EVENTS = [
         else:
             self.text = "Change Me!"
 """,
-        "example": """rx.input(value = BlurState.text, on_blur=BlurState.change_text)""",
+        "example": """rx.chakra.input(value = BlurState.text, on_blur=BlurState.change_text)""",
     },
     {
         "name": "on_change",
@@ -257,7 +257,7 @@ Event triggers are component specific and are listed in the documentation for ea
 
 ```python eval
 rx.box(
-     rx.divider(),
+     rx.chakra.divider(),
     component_grid(),
 )
 ```

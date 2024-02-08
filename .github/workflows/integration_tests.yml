@@ -2,12 +2,13 @@ name: integration-tests
 
 env:
   TELEMETRY_ENABLED: false
-  REFLEX_DEP: "git+https://github.com/reflex-dev/reflex@main"
+  # REFLEX_DEP: "git+https://github.com/reflex-dev/reflex@main"
+  REFLEX_DEP: "git+https://github.com/reflex-dev/reflex@reflex-0.4.0"
 on:
   push:
-    branches: [ main ]
+    branches: [ main, "reflex-0.4.0" ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, "reflex-0.4.0" ]
   workflow_dispatch:
     inputs:
       reflex_dep:

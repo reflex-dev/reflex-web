@@ -12,16 +12,16 @@ import reflex as rx
 The text component displays a paragraph of text.
 
 ```python demo
-rx.text("Hello World!", font_size="2em")
+rx.chakra.text("Hello World!", font_size="2em")
 ```
 
 The text element can be visually modified using the `as_` prop.
 
 ```python demo
-rx.vstack(
-    rx.text("Hello World!", as_="i"),
-    rx.text("Hello World!", as_="s"),
-    rx.text("Hello World!", as_="mark"),
-    rx.text("Hello World!", as_="sub"),
+rx.chakra.vstack(
+    rx.chakra.text("Hello World!", as_="i"),
+    rx.chakra.text("Hello World!", as_="s"),
+    rx.chakra.text("Hello World!", as_="mark"),
+    rx.chakra.text("Hello World!", as_="sub"),
 )
 ```

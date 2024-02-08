@@ -19,13 +19,13 @@ import reflex as rx
 An accessible dropdown menu for the common dropdown menu button design pattern.
 
 ```python demo
-rx.menu(
-    rx.menu_button("Menu"),
-    rx.menu_list(
-        rx.menu_item("Example"),
-        rx.menu_divider(),
-        rx.menu_item("Example"),
-        rx.menu_item("Example"),
+rx.chakra.menu(
+    rx.chakra.menu_button("Menu"),
+    rx.chakra.menu_list(
+        rx.chakra.menu_item("Example"),
+        rx.chakra.menu_divider(),
+        rx.chakra.menu_item("Example"),
+        rx.chakra.menu_item("Example"),
     ),
 )
 ```

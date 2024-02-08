@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Audio
+    - rx.audio
 ---
 
 # Audio
