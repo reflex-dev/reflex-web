@@ -191,7 +191,7 @@ def render_item(item: [str, bool]):
 
 def packing_list():
     return rx.vstack(
-        rx.text("Sammy's Packing List", as_="strong"),
+        rx.text("Sammy's Packing List"),
         rx.chakra.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
     )
 
