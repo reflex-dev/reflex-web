@@ -139,7 +139,7 @@ def docpage_footer(path):
                     padding="0px 10px",
                     white_space="nowrap",
                     
-                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}.md")),
+                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md")),
                 gap="2"
             ),
             align_items="center",
