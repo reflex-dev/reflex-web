@@ -482,7 +482,7 @@ def gallery_with_no_sidebar():
                     rx.chakra.alert_title(
                         "If you have an app you'd like to share, please fill out this ",
                         rx.link(
-                            rx.text("form", as_="b"),
+                            "form",
                             href=constants.GALLERY_FORM_URL,
                             color="rgb(107,99,246)",
                         ),
