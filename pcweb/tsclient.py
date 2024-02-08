@@ -18,5 +18,4 @@ try:
         }
     )
 except:
-    print("baddd")
     client = None
