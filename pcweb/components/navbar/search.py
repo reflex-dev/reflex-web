@@ -8,35 +8,46 @@ from .state import NavbarState
 from .buttons.style import button_style
 
 
+icon_style = {
+    "stroke_width": "1px",
+}
+
+
 def search_badge(category, stateful=True):
-    if stateful:
-        return rx.badge(
-            category,
+    icon = rx.icon(tag="file-text", size=20, style = icon_style)
+    match category:
+        case "Component":
+            icon =  rx.icon(tag="component", size=20, style = icon_style)
+        case "Blog":
+            icon = rx.icon(tag="file-text", size=16, style = icon_style)
+        case "Learn":
+            icon = rx.icon(tag="graduation-cap", size=18, style = icon_style)
+        case "API Reference":
+            icon = rx.icon(tag="file-text", size=20, style = icon_style)
+                    
+    return rx.flex(
+            icon,
+            rx.text(category),
             border_radius="8px",
-            padding_x=".5em",
+            padding_left=".5em",
+            padding_right=".5em",
+            gap="2",
+            align_items = "center",
+            justify = "center",
             on_click=NavbarState.update_category(category),
-            color=rx.cond(
-                NavbarState.current_category == category,
-                styles.c["violet"][500],
-                styles.c["gray"][500],
-            ),
-            bg=rx.cond(
-                NavbarState.current_category == category,
-                styles.c["violet"][50],
-                styles.c["gray"][50],
-            ),
+            # color=rx.cond(
+            #     NavbarState.current_category == category,
+            #     styles.c["violet"][500],
+            #     styles.c["gray"][500],
+            # ),
+            color = rx.color("mauve", 11),
             _hover={
-                "color": styles.c["violet"][500],
+                "color": rx.color("violet", 12),
+                "bg":  rx.color("violet", 7),
+                "box_shadow": "0px 0px 0px 1px #4935A5, 0px 4px 4px -3px rgba(86, 70, 237, 0.60), 0px 1px 4px -1px rgba(86, 70, 237, 0.40);"
             },
             transition="all 0.2s ease-in-out",
-        )
-    else:
-        return rx.badge(
-            category,
-            border_radius="8px",
-            color=styles.c["violet"][500],
-            bg=styles.c["violet"][50],
-            padding_x=".5em",
+            box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
         )
 
 
@@ -46,14 +57,15 @@ def format_search_results(result):
             rx.flex(
                 rx.match(
                         result["document"]["category"],
-                        ("Component", rx.icon(tag="component", color = rx.color('mauve', 10), stroke_width="1px", size=20)),
-                        ("Blog", rx.icon(tag="file-text", color = rx.color('mauve', 10), stroke_width="1px", size=20)),
-                        ("Learn", rx.icon(tag="graduation-cap", color = rx.color('mauve', 10), stroke_width="1px", size=20)),
-                        ("API Reference", rx.icon(tag="file-code", color = rx.color('mauve', 10), stroke_width="1px", size=20)),
-                        rx.icon(tag="file-text", color = rx.color('mauve', 10), stroke_width="1px", size=20)
+                        ("Component", rx.icon(tag="component", size=20, style = icon_style)),
+                        ("Blog", rx.icon(tag="file-text", size=20, style = icon_style)),
+                        ("Learn", rx.icon(tag="graduation-cap", size=20, style = icon_style)),
+                        ("API Reference", rx.icon(tag="file-code", size=20, style = icon_style)),
+                        rx.icon(tag="file-text", size=20, style = icon_style)
                 ), 
-                width="2em",
-                height="2em",
+                color=rx.color("mauve", 11),
+                width="1.5em",
+                height="1.5em",
                 border_radius="6px",
                 box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
                 align_items="center",
@@ -74,11 +86,12 @@ def format_search_results(result):
             ),
             width="100%",
             align_items="center",
+            border_radius = "8px",
             _hover={
-                "bg": "#F5EFFE",
+                "bg": rx.color("mauve", 3),
             },
-            padding_left="1em",
-            padding_right="1em",
+            padding = ".5em"
+           
         ),
         href=result["document"]["href"],
         style={"text_decoration": "none"},
