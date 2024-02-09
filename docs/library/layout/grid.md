@@ -1,11 +1,10 @@
 ---
 components:
-  - rx.radix.themes.Grid
+  - rx.radix.grid
 ---
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 # Grid
@@ -15,10 +14,10 @@ Component for creating grid layouts. Either `rows` or `columns` may be specified
 ## Basic Example
 
 ```python demo
-rdxt.grid(
+rx.grid(
     rx.foreach(
         rx.Var.range(12),
-        lambda i: rdxt.card(f"Card {i + 1}", height="10vh"),
+        lambda i: rx.card(f"Card {i + 1}", height="10vh"),
     ),
     columns="3",
     gap="4",
@@ -27,10 +26,10 @@ rdxt.grid(
 ```
 
 ```python demo
-rdxt.grid(
+rx.grid(
     rx.foreach(
         rx.Var.range(12),
-        lambda i: rdxt.card(f"Card {i + 1}", height="10vh"),
+        lambda i: rx.card(f"Card {i + 1}", height="10vh"),
     ),
     rows="3",
     flow="column",

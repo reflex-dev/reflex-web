@@ -15,10 +15,10 @@ import reflex as rx
 Card is a flexible component used to group and display content in a clear and concise format.
 
 ```python demo
-rx.card(
-    rx.text("Body of the Card Component"), 
-    header=rx.heading("Header", size="lg"), 
-    footer=rx.heading("Footer",size="sm"),
+rx.chakra.card(
+    rx.chakra.text("Body of the Card Component"), 
+    header=rx.chakra.heading("Header", size="lg"), 
+    footer=rx.chakra.heading("Footer",size="sm"),
 )
 ```
 

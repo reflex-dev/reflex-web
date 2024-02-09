@@ -1,46 +1,43 @@
 ---
 components:
-    - rx.radix.themes.DialogRoot
-    - rx.radix.themes.DialogTrigger
-    - rx.radix.themes.DialogTitle
-    - rx.radix.themes.DialogContent
-    - rx.radix.themes.DialogDescription
-    - rx.radix.themes.DialogClose
+    - rx.radix.dialog.root
+    - rx.radix.dialog.trigger
+    - rx.radix.dialog.title
+    - rx.radix.dialog.content
+    - rx.radix.dialog.description
+    - rx.radix.dialog.close
 ---
 
 ```python exec
 import reflex as rx
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 # Dialog
 
 
-The `dialog_root` contains all the parts of a dialog. 
+The `dialog.root` contains all the parts of a dialog. 
 
-The `dialog_trigger` wraps the control that will open the dialog.
+The `dialog.trigger` wraps the control that will open the dialog.
 
-The `dialog_content` contains the content of the dialog.
+The `dialog.content` contains the content of the dialog.
 
-The `dialog_title` is a title that is announced when the dialog is opened.
+The `dialog.title` is a title that is announced when the dialog is opened.
 
-The `dialog_description` is a description that is announced when the dialog is opened.
+The `dialog.description` is a description that is announced when the dialog is opened.
 
-The `dialog_close` wraps the control that will close the dialog.
+The `dialog.close` wraps the control that will close the dialog.
 
 
 ```python demo
-dialog_root(
-    dialog_trigger(button("Open Dialog")),
-    dialog_content(
-        dialog_title("Welcome to Reflex!"),
-        dialog_description(
+rx.dialog.root(
+    rx.dialog.trigger(rx.button("Open Dialog")),
+    rx.dialog.content(
+        rx.dialog.title("Welcome to Reflex!"),
+        rx.dialog.description(
             "This is a dialog component. You can render anything you want in here.",
         ),
-        dialog_close(
-            button("Close Dialog", size="3"),
+        rx.dialog.close(
+            rx.button("Close Dialog", size="3"),
         ),
     ),
 )
@@ -51,31 +48,31 @@ dialog_root(
 ## In context examples 
 
 ```python demo
-dialog_root(
-    dialog_trigger(
-        button("Edit Profile", size="4")
+rx.dialog.root(
+    rx.dialog.trigger(
+        rx.button("Edit Profile", size="4")
     ),
-    dialog_content(
-        dialog_title("Edit Profile"),
-        dialog_description(
+    rx.dialog.content(
+        rx.dialog.title("Edit Profile"),
+        rx.dialog.description(
             "Change your profile details and preferences.",
             size="2",
             margin_bottom="16px",
         ),
-        flex(
-            text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            textfield_input(default_value="Freja Johnson", placeholder="Enter your name"),
-            text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
-            textfield_input(default_value="freja@example.com", placeholder="Enter your email"),
+        rx.flex(
+            rx.text("Name", as_="div", size="2", margin_bottom="4px", weight="bold"),
+            rx.input(default_value="Freja Johnson", placeholder="Enter your name"),
+            rx.text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
+            rx.input(default_value="freja@example.com", placeholder="Enter your email"),
             direction="column",
             gap="3",
         ),
-        flex(
-            dialog_close(
-                button("Cancel", color_scheme="gray", variant="soft"),
+        rx.flex(
+            rx.dialog.close(
+                rx.button("Cancel", color_scheme="gray", variant="soft"),
             ),
-            dialog_close(
-                button("Save"),
+            rx.dialog.close(
+                rx.button("Save"),
             ),
             gap="3",
             margin_top="16px",
@@ -87,31 +84,31 @@ dialog_root(
 
 
 ```python demo
-dialog_root(
-    dialog_trigger(button("View users", size="4")),
-    dialog_content(
-        dialog_title("Users"),
-        dialog_description("The following users have access to this project."),
+rx.dialog.root(
+    rx.dialog.trigger(rx.button("View users", size="4")),
+    rx.dialog.content(
+        rx.dialog.title("Users"),
+        rx.dialog.description("The following users have access to this project."),
 
-        inset(
-            table_root(
-                table_header(
-                    table_row(
-                        table_column_header_cell("Full Name"),
-                        table_column_header_cell("Email"),
-                        table_column_header_cell("Group"),
+        rx.inset(
+            rx.table.root(
+                rx.table.header(
+                    rx.table.row(
+                        rx.table.column_header_cell("Full Name"),
+                        rx.table.column_header_cell("Email"),
+                        rx.table.column_header_cell("Group"),
                     ),
                 ),
-                table_body(
-                    table_row(
-                        table_row_header_cell("Danilo Rosa"),
-                        table_cell("danilo@example.com"),
-                        table_cell("Developer"),
+                rx.table.body(
+                    rx.table.row(
+                        rx.table.row_header_cell("Danilo Rosa"),
+                        rx.table.cell("danilo@example.com"),
+                        rx.table.cell("Developer"),
                     ),
-                    table_row(
-                        table_row_header_cell("Zahra Ambessa"),
-                        table_cell("zahra@example.com"),
-                        table_cell("Admin"),
+                    rx.table.row(
+                        rx.table.row_header_cell("Zahra Ambessa"),
+                        rx.table.cell("zahra@example.com"),
+                        rx.table.cell("Admin"),
                     ),
                 ),
             ),
@@ -119,9 +116,9 @@ dialog_root(
             margin_top="24px",
             margin_bottom="24px",
         ),
-        flex(
-            dialog_close(
-                button("Close", variant="soft", color_scheme="gray"),
+        rx.flex(
+            rx.dialog.close(
+                rx.button("Close", variant="soft", color_scheme="gray"),
             ),
             gap="3",
             justify="end",
@@ -146,18 +143,18 @@ class DialogState(rx.State):
 
 
 def dialog_example():
-    return flex(
-        heading(f"Number of times dialog opened or closed: {DialogState.num_opens}"),
-        heading(f"Dialog open: {DialogState.opened}"),
-        dialog_root(
-            dialog_trigger(button("Open Dialog")),
-            dialog_content(
-                dialog_title("Welcome to Reflex!"),
-                dialog_description(
+    return rx.flex(
+        rx.heading(f"Number of times dialog opened or closed: {DialogState.num_opens}"),
+        rx.heading(f"Dialog open: {DialogState.opened}"),
+        rx.dialog.root(
+            rx.dialog.trigger(rx.button("Open Dialog")),
+            rx.dialog.content(
+                rx.dialog.title("Welcome to Reflex!"),
+                rx.dialog.description(
                     "This is a dialog component. You can render anything you want in here.",
                 ),
-                dialog_close(
-                    button("Close Dialog", size="3"),
+                rx.dialog.close(
+                    rx.button("Close Dialog", size="3"),
                 ),
             ),
             on_open_change=DialogState.count_opens,

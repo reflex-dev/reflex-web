@@ -22,9 +22,9 @@ class RadioState(rx.State):
 
 
 def basic_radio_example():
-    return rx.vstack(
-        rx.badge(RadioState.text, color_scheme="green"),
-        rx.radio_group(
+    return rx.chakra.vstack(
+        rx.chakra.badge(RadioState.text, color_scheme="green"),
+        rx.chakra.radio_group(
             options,
             on_change=RadioState.set_text,
         ),
@@ -34,8 +34,8 @@ def basic_radio_example():
 The `default_value` and `default_checked` arguments can be used to set the default value of the radio group.
 
 ```python demo
-rx.vstack(
-    rx.radio_group(
+rx.chakra.vstack(
+    rx.chakra.radio_group(
         options,
         default_value="Option 2",
         default_checked=True,
@@ -46,12 +46,12 @@ rx.vstack(
 A hstack with the `spacing` argument can be used to set the spacing between the radio buttons.
 
 ```python demo
-rx.radio_group(
-    rx.radio_group(
-        rx.hstack(
+rx.chakra.radio_group(
+    rx.chakra.radio_group(
+        rx.chakra.hstack(
             rx.foreach(
                 options,
-                lambda option: rx.radio(option),
+                lambda option: rx.chakra.radio(option),
             ),
         spacing="2em",
         ),
@@ -62,12 +62,12 @@ rx.radio_group(
 A vstack can be used to stack the radio buttons vertically.
 
 ```python demo
-rx.radio_group(
-    rx.radio_group(
-        rx.vstack(
+rx.chakra.radio_group(
+    rx.chakra.radio_group(
+        rx.chakra.vstack(
             rx.foreach(
                 options,
-                lambda option: rx.radio(option),
+                lambda option: rx.chakra.radio(option),
             ),
         ),
     ),

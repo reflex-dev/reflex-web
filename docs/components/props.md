@@ -14,7 +14,7 @@ Each component has props that are specific to that component. For example, the `
 
 ```python demo
 rx.avatar(
-    name="John Doe"
+    fallback="JD"
 )
 ```
 

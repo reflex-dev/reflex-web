@@ -15,12 +15,12 @@ Determinate progress: fills the circular track with color, as the indicator move
 Indeterminate progress: grows and shrinks the indicator while moving along the circular track.
 
 ```python demo
-rx.hstack(
-    rx.circular_progress(value=0),
-    rx.circular_progress(value=25),
-    rx.circular_progress(rx.circular_progress_label(50), value=50),
-    rx.circular_progress(value=75),
-    rx.circular_progress(value=100),
-    rx.circular_progress(is_indeterminate=True),
+rx.chakra.hstack(
+    rx.chakra.circular_progress(value=0),
+    rx.chakra.circular_progress(value=25),
+    rx.chakra.circular_progress(rx.chakra.circular_progress_label(50), value=50),
+    rx.chakra.circular_progress(value=75),
+    rx.chakra.circular_progress(value=100),
+    rx.chakra.circular_progress(is_indeterminate=True),
 )
 ```

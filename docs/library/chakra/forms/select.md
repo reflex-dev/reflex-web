@@ -20,9 +20,9 @@ class SelectState(rx.State):
 
 
 def basic_select_example():
-    return rx.vstack(
-        rx.heading(SelectState.option),
-        rx.select(
+    return rx.chakra.vstack(
+        rx.chakra.heading(SelectState.option),
+        rx.chakra.select(
             options,
             placeholder="Select an example.",
             on_change=SelectState.set_option,
@@ -42,9 +42,9 @@ class MultiSelectState(rx.State):
 
 
 def multiselect_example():
-    return rx.vstack(
-        rx.heading(MultiSelectState.option),
-        rx.select(
+    return rx.chakra.vstack(
+        rx.chakra.heading(MultiSelectState.option),
+        rx.chakra.select(
             options, 
             placeholder="Select examples", 
             is_multi=True,
@@ -58,25 +58,25 @@ def multiselect_example():
 The component can also be customized and styled as seen in the next examples.
 
 ```python demo
-rx.vstack(
-    rx.select(options, placeholder="Select an example.", size="xs"),
-    rx.select(options, placeholder="Select an example.", size="sm"),
-    rx.select(options, placeholder="Select an example.", size="md"),
-    rx.select(options, placeholder="Select an example.", size="lg"),
+rx.chakra.vstack(
+    rx.chakra.select(options, placeholder="Select an example.", size="xs"),
+    rx.chakra.select(options, placeholder="Select an example.", size="sm"),
+    rx.chakra.select(options, placeholder="Select an example.", size="md"),
+    rx.chakra.select(options, placeholder="Select an example.", size="lg"),
 )
 ```
 
 ```python demo
-rx.vstack(
-    rx.select(options, placeholder="Select an example.", variant="outline"),
-    rx.select(options, placeholder="Select an example.", variant="filled"),
-    rx.select(options, placeholder="Select an example.", variant="flushed"),
-    rx.select(options, placeholder="Select an example.", variant="unstyled"),
+rx.chakra.vstack(
+    rx.chakra.select(options, placeholder="Select an example.", variant="outline"),
+    rx.chakra.select(options, placeholder="Select an example.", variant="filled"),
+    rx.chakra.select(options, placeholder="Select an example.", variant="flushed"),
+    rx.chakra.select(options, placeholder="Select an example.", variant="unstyled"),
 )
 ```
 
 ```python demo
-rx.select(
+rx.chakra.select(
     options,
     placeholder="Select an example.",
     color="white",

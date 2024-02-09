@@ -16,11 +16,11 @@ It wraps its children automatically if there isn't enough space to fit any more 
 
 
 ```python demo
-rx.wrap(
-    rx.wrap_item(rx.box("Example", bg="lightgreen", w="100px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="lightblue", w="200px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="red", w="300px", h="80px")),
-    rx.wrap_item(rx.box("Example", bg="orange", w="400px", h="80px")),
+rx.chakra.wrap(
+    rx.chakra.wrap_item(rx.chakra.box("Example", bg="lightgreen", w="100px", h="80px")),
+    rx.chakra.wrap_item(rx.chakra.box("Example", bg="lightblue", w="200px", h="80px")),
+    rx.chakra.wrap_item(rx.chakra.box("Example", bg="red", w="300px", h="80px")),
+    rx.chakra.wrap_item(rx.chakra.box("Example", bg="orange", w="400px", h="80px")),
     width="100%",
     spacing="2em",
     align="center",

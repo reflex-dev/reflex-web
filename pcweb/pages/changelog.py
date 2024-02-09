@@ -22,9 +22,9 @@ def change(date, title, description, points, link):
             padding_y="1em",
         ),
         rx.text(description, color="#494369", font_family=styles.MONO),
-        rx.unordered_list(
+        rx.chakra.unordered_list(
             *[
-                rx.list_item(
+                rx.chakra.list_item(
                     d, font_size=".8em", color="#494369", font_family=styles.MONO
                 )
                 for d in points
@@ -41,11 +41,11 @@ def change(date, title, description, points, link):
                 ),
                 padding_right="1em",
             ),
-            rx.divider(margin_x="1em"),
+            rx.chakra.divider(margin_x="1em"),
             rx.link(
                 rx.button(
                     "Full changelog",
-                    rx.icon(tag="arrow_forward"),
+                    rx.icon(tag="move_right"),
                     padding_x="2em",
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
@@ -62,6 +62,18 @@ def change(date, title, description, points, link):
 
 def changelog_content():
     return rx.vstack(
+        change(
+            "2024-02-05",
+            "v0.3.10",
+            "Lucide Icons now available at rx.lucide.icon",
+            [
+                "Custom Reflex support directory (REFLEX_DIR)",
+                "Better support for native SQLAlchemy models",
+                "Avoid exposing unused _upload and _event endpoints",
+
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.3.10",
+        ),
         change(
             "2024-01-22",
             "v0.3.9",
@@ -216,7 +228,7 @@ def changelog():
                     color=tc["docs"]["body"],
                 ),
                 rx.center(
-                    rx.span(
+                    rx.chakra.span(
                         "Reflex has new releases and features coming every week! Make sure to star and watch on ",
                         rx.link("GitHub", href=constants.GITHUB_URL),
                         " to stay up to date.",

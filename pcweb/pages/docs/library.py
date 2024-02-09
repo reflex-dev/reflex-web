@@ -11,7 +11,7 @@ def component_grid():
         sidebar.append(
             rx.box(
                 rx.heading(category, style={"fontSize": "1.5em"}),
-                rx.divider(),
+                rx.chakra.divider(),
                 rx.vstack(
                     *[
                         rx.link(
@@ -36,7 +36,7 @@ def component_grid():
         )
 
     return rx.box(
-        rx.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
+        rx.chakra.responsive_grid(*sidebar, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
 
@@ -49,7 +49,7 @@ def library():
                 text_comp(
                     text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
                 ),
-                rx.divider(),
+                rx.chakra.divider(),
                 component_grid(),
                 text_align="left",
             ),

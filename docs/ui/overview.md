@@ -43,19 +43,19 @@ Now let's take a look at a more complex component, which has other components ne
 ```python demo
 rx.hstack(
     # Static 50% progress
-    rx.circular_progress(
-        rx.circular_progress_label("50", color="green"),
+    rx.chakra.circular_progress(
+        rx.chakra.circular_progress_label("50", color="green"),
         value=50,
     ),
     # "Spinning" progress
-    rx.circular_progress(
-        rx.circular_progress_label("∞", color="rgb(107,99,246)"),
+    rx.chakra.circular_progress(
+        rx.chakra.circular_progress_label("∞", color="rgb(107,99,246)"),
         is_indeterminate=True,
     ),
 )
 ```
 
-Some props are specific to a component. For example, the `value` prop of the `rx.circular_progress` component controls the progress bar's value.
+Some props are specific to a component. For example, the `value` prop of the `rx.chakra.circular_progress` component controls the progress bar's value.
 
 Styling props like `color` are shared across many components.
 

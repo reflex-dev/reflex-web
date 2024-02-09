@@ -1,11 +1,11 @@
 ---
 components:
-    - rx.radix.themes.Badge
+    - rx.radix.badge
 ---
 # Badge
 
 ```python exec
-import reflex.components.radix.themes as rdxt
+import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
@@ -16,13 +16,13 @@ Badges are used to highlight an item's status for quick recognition.
 To create a badge component with only text inside, pass the text as an argument.
 
 ```python demo
-rdxt.badge("New")
+rx.badge("New")
 ```
 
 ## Styling
 
 ```python eval
-style_grid(component_used=rdxt.badge, component_used_str="rdxt.badge", variants=["solid", "soft", "surface", "outline"], components_passed="England!",)
+style_grid(component_used=rx.badge, component_used_str="rx.badge", variants=["solid", "soft", "surface", "outline"], components_passed="England!",)
 ```
 
 ### Size
@@ -30,10 +30,10 @@ style_grid(component_used=rdxt.badge, component_used_str="rdxt.badge", variants=
 The `size` prop controls the size and padding of a badge. It can take values of `"1" | "2"`, with default being `"1"`.
 
 ```python demo
-rdxt.flex(
-    rdxt.badge("New"),
-    rdxt.badge("New", size="1"),
-    rdxt.badge("New", size="2"),
+rx.flex(
+    rx.badge("New"),
+    rx.badge("New", size="1"),
+    rx.badge("New", size="2"),
     align="center",
     gap="2",
 )
@@ -44,12 +44,12 @@ rdxt.flex(
 The `variant` prop controls the visual style of the badge. The supported variant types are `"solid" | "soft" | "surface" | "outline"`. The variant default is `"soft"`.
 
 ```python demo
-rdxt.flex(
-    rdxt.badge("New", variant="solid"),
-    rdxt.badge("New", variant="soft"),
-    rdxt.badge("New"),
-    rdxt.badge("New", variant="surface"),
-    rdxt.badge("New", variant="outline"),
+rx.flex(
+    rx.badge("New", variant="solid"),
+    rx.badge("New", variant="soft"),
+    rx.badge("New"),
+    rx.badge("New", variant="surface"),
+    rx.badge("New", variant="outline"),
     gap="2",
 )
 ```
@@ -59,11 +59,11 @@ rdxt.flex(
 The `color_scheme` prop sets a specific color, ignoring the global theme.
 
 ```python demo
-rdxt.flex(
-    rdxt.badge("New", color_scheme="indigo"),
-    rdxt.badge("New", color_scheme="cyan"),
-    rdxt.badge("New", color_scheme="orange"),
-    rdxt.badge("New", color_scheme="crimson"),
+rx.flex(
+    rx.badge("New", color_scheme="indigo"),
+    rx.badge("New", color_scheme="cyan"),
+    rx.badge("New", color_scheme="orange"),
+    rx.badge("New", color_scheme="crimson"),
     gap="2",
 )
 ```
@@ -73,19 +73,19 @@ rdxt.flex(
 The `high_contrast` prop increases color contrast of the fallback text with the background.
 
 ```python demo
-rdxt.flex(
-    rdxt.flex(
-        rdxt.badge("New", variant="solid"),
-        rdxt.badge("New", variant="soft"),
-        rdxt.badge("New", variant="surface"),
-        rdxt.badge("New", variant="outline"),
+rx.flex(
+    rx.flex(
+        rx.badge("New", variant="solid"),
+        rx.badge("New", variant="soft"),
+        rx.badge("New", variant="surface"),
+        rx.badge("New", variant="outline"),
         gap="2",
     ),
-    rdxt.flex(
-        rdxt.badge("New", variant="solid", high_contrast=True),
-        rdxt.badge("New", variant="soft", high_contrast=True),
-        rdxt.badge("New", variant="surface", high_contrast=True),
-        rdxt.badge("New", variant="outline", high_contrast=True),
+    rx.flex(
+        rx.badge("New", variant="solid", high_contrast=True),
+        rx.badge("New", variant="soft", high_contrast=True),
+        rx.badge("New", variant="surface", high_contrast=True),
+        rx.badge("New", variant="outline", high_contrast=True),
         gap="2",
     ),
     direction="column",
@@ -98,12 +98,12 @@ rdxt.flex(
 The `radius` prop sets specific radius value, ignoring the global theme. It can take values `"none" | "small" | "medium" | "large" | "full"`.
 
 ```python demo
-rdxt.flex(
-    rdxt.badge("New", radius="none"),
-    rdxt.badge("New", radius="small"),
-    rdxt.badge("New", radius="medium"),
-    rdxt.badge("New", radius="large"),
-    rdxt.badge("New", radius="full"),
+rx.flex(
+    rx.badge("New", radius="none"),
+    rx.badge("New", radius="small"),
+    rx.badge("New", radius="medium"),
+    rx.badge("New", radius="large"),
+    rx.badge("New", radius="full"),
     gap="3",
 )
 ```
@@ -114,10 +114,10 @@ A badge may contain more complex elements within it. This example uses a `flex` 
 ensure a comfortable spacing between the two.
 
 ```python demo
-rdxt.badge(
-    rdxt.flex(
-        rdxt.icon(tag="arrow_up"),
-        rdxt.text("8.8%"),
+rx.badge(
+    rx.flex(
+        rx.icon(tag="arrow_up"),
+        rx.text("8.8%"),
         gap="1",
     ),
     color_scheme="grass",

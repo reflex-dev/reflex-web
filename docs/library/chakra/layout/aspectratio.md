@@ -12,12 +12,12 @@ import reflex as rx
 Preserve the ratio of the components contained within a region.
 
 ```python demo
-rx.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")
+rx.chakra.box(element="iframe", src="https://bit.ly/naruto-sage", border_color="red")
 ```
 
 ```python demo
-rx.aspect_ratio(
-    rx.box(
+rx.chakra.aspect_ratio(
+    rx.chakra.box(
         element="iframe",
         src="https://bit.ly/naruto-sage",
         border_color="red"

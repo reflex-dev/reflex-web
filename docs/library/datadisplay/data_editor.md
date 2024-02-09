@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.DataEditor
+    - rx.data_editor
 ---
 
 # Data Editor

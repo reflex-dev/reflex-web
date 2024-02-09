@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Foreach
+    - rx.foreach
 ---
 
 ```python exec
@@ -11,6 +11,12 @@ import reflex as rx
 
 The `rx.foreach` component takes an iterable(list, tuple or dict) and a function that renders each item in the list.
 This is useful for dynamically rendering a list of items defined in a state.
+
+
+```md alert warning
+# `rx.foreach` is specialized for usecases where the iterable is defined in a state var.
+For an iterable where the content doesn't change at runtime, i.e a constant, using a list/dict comprehension instead of `rx.foreach` is preferred.
+```
 
 ```python demo exec
 from typing import List
@@ -24,7 +30,7 @@ def colored_box(color: str):
     )
 
 def foreach_example():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             ForeachState.color,
             colored_box
@@ -43,7 +49,7 @@ def colored_box_index(color: str, index: int):
     )
 
 def foreach_example_index():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             ForeachState.color,
             lambda color, index: colored_box_index(color, index)
@@ -100,7 +106,7 @@ class ListState(rx.State):
         self.items = [i for i in self.items if i != item]
 
 def get_item(item):
-    return rx.list_item(
+    return rx.chakra.list_item(
         rx.hstack(
             rx.button(
                 on_click=lambda: ListState.finish_item(item),
@@ -115,10 +121,10 @@ def get_item(item):
 def todo_example():
     return rx.vstack(
         rx.heading("Todos"),
-        rx.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
+        rx.chakra.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
         rx.button("Add", on_click=ListState.add_item, bg = "white"),
-        rx.divider(),
-        rx.ordered_list(
+        rx.chakra.divider(),
+        rx.chakra.ordered_list(
             rx.foreach(
                 ListState.items,
                 get_item,
@@ -151,7 +157,7 @@ def display_color(color: List):
 
 
 def foreach_dict_example():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             SimpleDictForeachState.color_chart,
             display_color
@@ -184,7 +190,7 @@ def display_colors(color: List):
         )
 
 def foreach_complex_dict_example():
-    return rx.responsive_grid(
+    return rx.chakra.responsive_grid(
         rx.foreach(
             ComplexDictForeachState.color_chart,
             display_colors

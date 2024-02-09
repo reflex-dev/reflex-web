@@ -1,13 +1,12 @@
 ---
 components:
-    - rx.radix.themes.ScrollArea
+    - rx.radix.scroll_area
 ---
 
 
 ```python exec
 import random
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb.templates.docpage import style_grid
 ```
 
@@ -20,16 +19,16 @@ Custom styled, cross-browser scrollable area using native functionality.
 ## Basic Example
 
 ```python demo
-rdxt.scroll_area(
-    rdxt.flex(
-        rdxt.text(
+rx.scroll_area(
+    rx.flex(
+        rx.text(
             """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense “legible” and “readable”
         are often used synonymously, typographically they are separate but
         related concepts.""",
             as_="p",
         ),
-        rdxt.text(
+        rx.text(
             """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as “the
         quality of being decipherable and recognisable”. For instance, if a “b”
@@ -37,7 +36,7 @@ rdxt.scroll_area(
         sizes, this is a problem of legibility.""",
             as_="p",
         ),
-        rdxt.text(
+        rx.text(
             """Typographers are concerned with legibility insofar as it is their job to
         select the correct font to use. Brush Script is an example of a font
         containing many characters that might be difficult to distinguish. The
@@ -63,17 +62,17 @@ Use the `scrollbars` prop to limit scrollable axes. This prop can take values `"
 
 
 ```python demo
-rdxt.grid(
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text(
+rx.grid(
+    rx.scroll_area(
+        rx.flex(
+            rx.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            rdxt.text(
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -87,16 +86,16 @@ rdxt.grid(
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text(
+    rx.scroll_area(
+        rx.flex(
+            rx.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            rdxt.text(
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -110,16 +109,16 @@ rdxt.grid(
         scrollbars="horizontal",
         style={"height": 150}, 
     ),
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text(
+    rx.scroll_area(
+        rx.flex(
+            rx.text(
                 """Three fundamental aspects of typography are legibility, readability, and
         aesthetics. Although in a non-technical sense "legible" and "readable"
         are often used synonymously, typographically they are separate but
         related concepts.""",
                 size="2", trim="both",
             ),
-            rdxt.text(
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -153,11 +152,11 @@ The `type_` prop describes the nature of scrollbar visibility.
 
 
 ```python demo
-rdxt.grid(
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text("type_= 'auto'",  weight="bold"),
-            rdxt.text(
+rx.grid(
+    rx.scroll_area(
+        rx.flex(
+            rx.text("type_= 'auto'",  weight="bold"),
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -171,10 +170,10 @@ rdxt.grid(
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text("type_= 'always'",  weight="bold"),
-            rdxt.text(
+    rx.scroll_area(
+        rx.flex(
+            rx.text("type_= 'always'",  weight="bold"),
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -188,10 +187,10 @@ rdxt.grid(
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text("type_= 'scroll'",  weight="bold"),
-            rdxt.text(
+    rx.scroll_area(
+        rx.flex(
+            rx.text("type_= 'scroll'",  weight="bold"),
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"
@@ -205,10 +204,10 @@ rdxt.grid(
         scrollbars="vertical",
         style={"height": 150}, 
     ),
-    rdxt.scroll_area(
-        rdxt.flex(
-            rdxt.text("type_= 'hover'",  weight="bold"),
-            rdxt.text(
+    rx.scroll_area(
+        rx.flex(
+            rx.text("type_= 'hover'",  weight="bold"),
+            rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
         quality of being decipherable and recognisable". For instance, if a "b"

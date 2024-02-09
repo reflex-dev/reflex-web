@@ -40,13 +40,34 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             title = ""
             content = "\n".join(lines[1:-1])
 
-        return rx.alert(
-            rx.alert_icon(),
-            rx.box(
-                rx.alert_title(markdown(title)) if title else "",
-                rx.alert_description(markdown(content)),
+        colors = {
+            "info": "violet",
+            "success": "grass",
+            "warning": "amber",
+            "error": "red",
+        }    
+
+        color = colors.get(status, "blue")
+
+        return rx.callout.root(
+            rx.callout.icon(
+                rx.match(
+                    status,
+                     ("info", rx.icon(tag="info")),
+                    ("success", rx.icon(tag="check-circle-2")),
+                    ("warning", rx.icon(tag="alert-triangle")),
+                    ("error", rx.icon(tag="ban")),
+                ),
             ),
-            status=status,
+            rx.callout.text(
+                markdown(title + " ") if title else "",
+                markdown(content),
+            ),
+            color_scheme=color,
+            background_color = f"{rx.color(color, 3)}",
+            variant="soft",
+            margin_top="1em",
+            margin_bottom="1em",
         )
 
 
@@ -75,7 +96,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.span(
+                            rx.chakra.span(
                                 header,
                                 font_weight="bold",
                             ),
@@ -138,9 +159,9 @@ class DefinitionBlock(flexdown.blocks.Block):
         return rx.fragment(
             rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rx.grid(
+                rx.chakra.grid(
                     *[
-                        rx.grid_item(d, row_span=1, col_span=1, width="100%")
+                        rx.chakra.grid_item(d, row_span=1, col_span=1, width="100%")
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",
@@ -166,16 +187,23 @@ class DemoBlock(flexdown.blocks.Block):
 
         args = lines[0].removeprefix(self.starting_indicator).split()
 
+        exec_mode = env.get("__exec", False)
+        comp = ""
+
         if "exec" in args:
             env["__xd"].exec(code, env, self.filename)
-            comp = env[list(env.keys())[-1]]()
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
         elif "graphing" in args:
             env["__xd"].exec(code, env, self.filename)
-            comp = env[list(env.keys())[-1]]()
-            # Get all the code before the final "def".
-            parts = code.rpartition("def")
-            data, code = parts[0], parts[1] + parts[2]
-            comp = docgraphing(code, comp=comp, data=data)
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
+                # Get all the code before the final "def".
+                parts = code.rpartition("def")
+                data, code = parts[0], parts[1] + parts[2]
+                comp = docgraphing(code, comp=comp, data=data)
+        elif not exec_mode:
+            return comp
         elif "box" in args:
             comp = eval(code, env, env)
             return rx.box(docdemobox(comp), margin_bottom="1em")

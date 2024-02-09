@@ -5,7 +5,7 @@ from pcweb.templates.docpage import docpage, h1_comp, h2_comp, text_comp
 
 def video(title, author, url):
     return rx.link(
-        rx.list_item(
+        rx.chakra.list_item(
             rx.hstack(
                 rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
                 rx.badge(author, color_scheme="green", margin_left="1em"),
@@ -20,7 +20,7 @@ colors = {"Reddit": "red", "Hacker News": "orange"}
 
 def launch(title, platform, url):
     return rx.link(
-        rx.list_item(
+        rx.chakra.list_item(
             rx.hstack(
                 rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
                 rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
@@ -151,25 +151,25 @@ def resources():
                     text="All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at alek@pynecone.io "
                     "and we will be happy to add it.",
                 ),
-                rx.divider(),
+                rx.chakra.divider(),
                 rx.vstack(
                     h2_comp(text="Launches"),
-                    rx.unordered_list(
+                    rx.chakra.unordered_list(
                         *[launch(**v) for v in launches],
                         padding_left="2em",
                     ),
                     h2_comp(text="Introduction Videos"),
-                    rx.unordered_list(
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in intro_videos],
                         padding_left="2em",
                     ),
                     h2_comp(text="Tutorial Videos"),
-                    rx.unordered_list(
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in tutorial_videos],
                         padding_left="2em",
                     ),
                     h2_comp(text="Blog Posts"),
-                    rx.unordered_list(
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in blog_posts],
                         padding_left="2em",
                     ),

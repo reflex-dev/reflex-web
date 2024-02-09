@@ -27,13 +27,13 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.menu(
-            rx.menu_button("Menu"),
-            rx.menu_list(
-                rx.menu_item("Item 1"),
-                rx.menu_divider(),
-                rx.menu_item("Item 2"),
-                rx.menu_item("Item 3"),
+        rx.chakra.menu(
+            rx.chakra.menu_button("Menu"),
+            rx.chakra.menu_list(
+                rx.chakra.menu_item("Item 1"),
+                rx.chakra.menu_divider(),
+                rx.chakra.menu_item("Item 2"),
+                rx.chakra.menu_item("Item 3"),
             ),
         ),
         # position="fixed",
@@ -58,13 +58,13 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.menu(
-            rx.menu_button("Menu"),
-            rx.menu_list(
-                rx.menu_item("Item 1"),
-                rx.menu_divider(),
-                rx.menu_item("Item 2"),
-                rx.menu_item("Item 3"),
+        rx.chakra.menu(
+            rx.chakra.menu_button("Menu"),
+            rx.chakra.menu_list(
+                rx.chakra.menu_item("Item 1"),
+                rx.chakra.menu_divider(),
+                rx.chakra.menu_item("Item 2"),
+                rx.chakra.menu_item("Item 3"),
             ),
         ),
         position="fixed",
@@ -121,13 +121,13 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.menu(
-            rx.menu_button("Menu"),
-            rx.menu_list(
-                rx.menu_item("Item 1"),
-                rx.menu_divider(),
-                rx.menu_item("Item 2"),
-                rx.menu_item("Item 3"),
+        rx.chakra.menu(
+            rx.chakra.menu_button("Menu"),
+            rx.chakra.menu_list(
+                rx.chakra.menu_item("Item 1"),
+                rx.chakra.menu_divider(),
+                rx.chakra.menu_item("Item 2"),
+                rx.chakra.menu_item("Item 3"),
             ),
         ),
         position="fixed",

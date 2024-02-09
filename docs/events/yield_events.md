@@ -52,7 +52,7 @@ class ProgressExampleState(rx.State):
 def progress_example():
     return rx.cond(
         ProgressExampleState.show_progress,
-        rx.circular_progress(is_indeterminate=True),
+        rx.chakra.circular_progress(is_indeterminate=True),
         rx.heading(
             ProgressExampleState.count,
             on_click=ProgressExampleState.increment,

@@ -26,9 +26,9 @@ class SwitchState1(rx.State):
 
 
 def switch_example():
-    return rx.vstack(
-        rx.heading(SwitchState1.is_checked),
-        rx.switch(
+    return rx.chakra.vstack(
+        rx.chakra.heading(SwitchState1.is_checked),
+        rx.chakra.switch(
             is_checked=SwitchState1.checked, on_change=SwitchState1.change_check
         ),
     )
@@ -38,11 +38,11 @@ You can also change the color scheme of the Switch component by passing the `col
 The default color scheme is blue.
 
 ```python demo
-rx.hstack(
-    rx.switch(color_scheme="red"),
-    rx.switch(color_scheme="green"),
-    rx.switch(color_scheme="yellow"),
-    rx.switch(color_scheme="blue"),
-    rx.switch(color_scheme="purple"),
+rx.chakra.hstack(
+    rx.chakra.switch(color_scheme="red"),
+    rx.chakra.switch(color_scheme="green"),
+    rx.chakra.switch(color_scheme="yellow"),
+    rx.chakra.switch(color_scheme="blue"),
+    rx.chakra.switch(color_scheme="purple"),
 )
 ```

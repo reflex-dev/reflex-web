@@ -27,14 +27,14 @@ class ModalState(rx.State):
 
 
 def modal_example():
-    return rx.vstack(
-    rx.button("Confirm", on_click=ModalState.change),
-    rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header("Confirm"),
-                rx.modal_body("Do you want to confirm example?"),
-                rx.modal_footer(rx.button("Close", on_click=ModalState.change)),
+    return rx.chakra.vstack(
+    rx.chakra.button("Confirm", on_click=ModalState.change),
+    rx.chakra.modal(
+        rx.chakra.modal_overlay(
+            rx.chakra.modal_content(
+                rx.chakra.modal_header("Confirm"),
+                rx.chakra.modal_body("Do you want to confirm example?"),
+                rx.chakra.modal_footer(rx.chakra.button("Close", on_click=ModalState.change)),
             )
         ),
         is_open=ModalState.show,

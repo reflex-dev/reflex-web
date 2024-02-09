@@ -49,7 +49,7 @@ style = {
     rx.Text: {
         "font_family": styles.SANS,
     },
-    rx.Divider: {
+    rx.chakra.divider: {
         "margin_bottom": "1em",
         "margin_top": "0.5em",
     },

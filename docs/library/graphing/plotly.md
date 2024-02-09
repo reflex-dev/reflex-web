@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.Plotly
+    - rx.plotly
 ---
 
 # Plotly

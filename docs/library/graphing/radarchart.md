@@ -149,7 +149,7 @@ rx.hstack(
             RadarChartState.trait_names,
             lambda trait_name, i: rx.hstack(
                 rx.text(trait_name, width="7em"),
-                rx.slider(
+                rx.chakra.slider(
                     value=RadarChartState.traits[i]["value"].to(int),
                     on_change=lambda value: RadarChartState.set_trait(trait_name, value),
                     width="25vw",

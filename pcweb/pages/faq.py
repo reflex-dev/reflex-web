@@ -22,7 +22,7 @@ faq_items = [
             ),
             rx.text(
                 "Check out our ",
-                rx.span(doclink("gallery", href=gallery.path)),
+                rx.chakra.span(doclink("gallery", href=gallery.path)),
                 " to see what ur community has already built with Reflex.",
             ),
             align_items="flex-start",
@@ -35,7 +35,7 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.span(doclink("deployment guide", href=hosting.deploy_quick_start.path)),
+            rx.chakra.span(doclink("deployment guide", href=hosting.deploy_quick_start.path)),
             ".",
         ),
     },
@@ -46,7 +46,7 @@ faq_items = [
             We're always looking for contributors to help us build Reflex.
             If you're interested in contributing, check out our page on
             """,
-            rx.span(
+            rx.chakra.span(
                 doclink(
                     " contributing to Reflex Open Source",
                     href=constants.CONTRIBUTING_URL,
@@ -77,7 +77,7 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.span(doclink("wrapping React", href=wrapping_react.overview.path)),
+            rx.chakra.span(doclink("wrapping React", href=wrapping_react.overview.path)),
             " to learn more.",
         ),
     },
@@ -93,18 +93,18 @@ faq_items = [
 
 
 def faq_item(question, answer, index):
-    return rx.accordion_item(
-        rx.accordion_button(
+    return rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
             rx.heading(
                 question, color=tc["docs"]["body"], font_size=styles.H3_FONT_SIZE
             ),
             rx.spacer(),
-            rx.accordion_icon(color=tc["docs"]["body"]),
+            rx.chakra.accordion_icon(color=tc["docs"]["body"]),
             border_bottom="none" if index == len(faq_items) - 1 else styles.DOC_BORDER,
             _hover={},
             padding_y="1em",
         ),
-        rx.accordion_panel(answer),
+        rx.chakra.accordion_panel(answer),
         border="none",
     )
 
@@ -125,8 +125,8 @@ def faq():
                     "Frequently asked questions about Reflex.",
                     color=tc["docs"]["body"],
                 ),
-                rx.divider(),
-                rx.accordion(
+                rx.chakra.divider(),
+                rx.chakra.accordion(
                     *[
                         faq_item(item["Q"], item["A"], index)
                         for index, item in enumerate(faq_items)
