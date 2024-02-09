@@ -13,10 +13,12 @@ class ProgressState(rx.State):
 
     @rx.background
     async def start_progress(self):
-        self.value = 0
+        async with self:
+            self.value = 0
         while self.value < 100:
             await asyncio.sleep(0.1)
-            self.value += 1
+            async with self:
+                self.value += 1
 ```
 
 # Progress
