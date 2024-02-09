@@ -367,16 +367,17 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents(*args, **kwargs)   
             else:
                 comp = contents
-
+            print(type(comp))
             if isinstance(comp, tuple):
                  from pcweb.flexdown import xd
                  toc = get_toc(*comp)
                  comp = xd.render(*comp)
 
+            print(toc) 
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),
-                rx.flex(
+                rx.flex( 
                     rx.desktop_only(
                             sidebar,
                             margin_top="120px",

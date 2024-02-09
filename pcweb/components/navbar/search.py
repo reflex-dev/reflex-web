@@ -12,61 +12,64 @@ icon_style = {
     "stroke_width": "1px",
 }
 
+search_badge_style={
+    "border_radius":"6px",
+    "padding_x":".5em",
+    "font_size":"14px",
+    "gap":"2",
+    "align_items":"center",
+    "justify":"center"
+}
+
 
 def search_badge(category, stateful=True):
-    icon = rx.icon(tag="file-text", size=20, style = icon_style)
+    icon = ""
     match category:
         case "Component":
-            icon =  rx.icon(tag="component", size=20, style = icon_style)
+            icon =  rx.icon(tag="component", size=16, style = icon_style)
         case "Blog":
             icon = rx.icon(tag="file-text", size=16, style = icon_style)
         case "Learn":
-            icon = rx.icon(tag="graduation-cap", size=18, style = icon_style)
+            icon = rx.icon(tag="graduation-cap", size=16, style = icon_style)
         case "API Reference":
-            icon = rx.icon(tag="file-text", size=20, style = icon_style)
+            icon = rx.icon(tag="file-text", size=16, style = icon_style)
                     
     return rx.flex(
             icon,
             rx.text(category),
-            border_radius="8px",
-            padding_left=".5em",
-            padding_right=".5em",
-            gap="2",
-            align_items = "center",
-            justify = "center",
             on_click=NavbarState.update_category(category),
-            # color=rx.cond(
-            #     NavbarState.current_category == category,
-            #     styles.c["violet"][500],
-            #     styles.c["gray"][500],
-            # ),
-            color = rx.color("mauve", 11),
-            _hover={
-                "color": rx.color("violet", 12),
-                "bg":  rx.color("violet", 7),
-                "box_shadow": "0px 0px 0px 1px #4935A5, 0px 4px 4px -3px rgba(86, 70, 237, 0.60), 0px 1px 4px -1px rgba(86, 70, 237, 0.40);"
-            },
-            transition="all 0.2s ease-in-out",
+            background=rx.cond(
+                NavbarState.current_category == category,
+                rx.color("violet", 9),
+                rx.color("mauve", 1),
+            ),
+            color=rx.cond(
+                NavbarState.current_category == category,
+                rx.color("violet", 1),
+                rx.color("mauve", 11),
+            ),
             box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
+            style=search_badge_style
         )
 
 
 def format_search_results(result):
     return rx.link(
-        rx.hstack(
+        rx.flex(
             rx.flex(
                 rx.match(
                         result["document"]["category"],
-                        ("Component", rx.icon(tag="component", size=20, style = icon_style)),
-                        ("Blog", rx.icon(tag="file-text", size=20, style = icon_style)),
-                        ("Learn", rx.icon(tag="graduation-cap", size=20, style = icon_style)),
-                        ("API Reference", rx.icon(tag="file-code", size=20, style = icon_style)),
-                        rx.icon(tag="file-text", size=20, style = icon_style)
+                        ("Component", rx.icon(tag="component", size=16, style = icon_style)),
+                        ("Blog", rx.icon(tag="file-text", size=16, style = icon_style)),
+                        ("Learn", rx.icon(tag="graduation-cap", size=16, style = icon_style)),
+                        ("API Reference", rx.icon(tag="file-code", size=16, style = icon_style)),
+                        rx.icon(tag="file-text", size=16, style = icon_style)
                 ), 
                 color=rx.color("mauve", 11),
-                width="1.5em",
-                height="1.5em",
+                width="2em",
+                height="2em",
                 border_radius="6px",
+                bg= rx.color("mauve", 1),
                 box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
                 align_items="center",
                 justify="center"
@@ -90,8 +93,8 @@ def format_search_results(result):
             _hover={
                 "bg": rx.color("mauve", 3),
             },
-            padding = ".5em"
-           
+            gap="2",
+            padding=".4em"
         ),
         href=result["document"]["href"],
         style={"text_decoration": "none"},
@@ -113,13 +116,22 @@ def ai_button():
 
 
 def search_bar_categories(categories):
-    return rx.hstack(
+    return rx.flex(
         *[search_badge(category) for category in categories],
         rx.box(flex_grow="1"),
-        rx.button("Sort"),
-        padding_bottom=".25em",
-        width="100%"
-    ) 
+        rx.flex(
+            rx.icon(tag="arrow-up-down", size=16, style = icon_style),
+            rx.text("Sort"),
+            background=rx.color("violet", 9),
+            color=rx.color("violet", 1),
+            gap="1",
+            style=search_badge_style
+        ),
+        width="100%",
+        align_items="center",
+        gap="2",
+        padding=".4em"
+    )  
  
 def search_input():
     return rx.flex(
@@ -141,7 +153,8 @@ def search_input():
                 border_bottom="1px solid #F4F3F6",
             ),
             gap="2",
-            direction="column"
+            direction="column",
+            padding=".4em"
         )
 
 def search_results():
@@ -158,13 +171,10 @@ def search_results():
                             format_search_results,
                         ),
                         width="100%",
-                        max_height="30em",
                         align_items="start",
-                        overflow_y="auto",
-                        padding_top="1em",
-                        padding_botton="1em",
+                        # overflow_y="auto",
                         direction = "column",
-                        gap="2"
+                        gap="3",
                     ),
                     inkeep(
                         width="100%",
@@ -189,7 +199,7 @@ def search_bar_desktop() -> rx.Component:
                 flex_grow='1',
             ),
             rx.text(
-                "⌘+K",
+                "/",
                 color=rx.color("mauve", 9),
                 background=rx.color("mauve", 4),
                 padding="0px 3px",
@@ -201,8 +211,12 @@ def search_bar_desktop() -> rx.Component:
         )
     ),
     rx.dialog.content(
-                search_input(),
-                search_results(),
+                rx.flex(
+                    search_input(),
+                    search_results(),
+                    direction="column",
+                ),
+                padding ="1em",
                 bg="#FFFFFF",
                 max_width="50em",
                 top="150px",
@@ -213,4 +227,4 @@ def search_bar_desktop() -> rx.Component:
 def search_bar() -> rx.Component:
     return  rx.fragment(
         search_bar_desktop(),
-    )
+    ) 
