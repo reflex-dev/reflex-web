@@ -484,7 +484,6 @@ def generate_props(src, component, comp):
         ]
     )
     try:
-        print(f"Creating component {component.__name__}")
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
         
