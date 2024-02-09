@@ -484,10 +484,11 @@ def generate_props(src, component, comp):
         ]
     )
     try:
+        print(f"Creating component {component.__name__}")
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
-
-        elif rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+        
+        elif rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent) or component.__name__ in ["Theme", "ThemePanel"]:
             comp = rx.fragment()
             
         else:
