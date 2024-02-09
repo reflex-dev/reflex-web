@@ -79,7 +79,7 @@ def resources_section():
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
                 background_color = rx.color("mauve", 2),
-                width = "1200",
+                max_width = "1000",
                 height = "250",
                 padding="0"
             ),

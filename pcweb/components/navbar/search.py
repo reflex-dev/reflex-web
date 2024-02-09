@@ -101,7 +101,7 @@ def format_search_results(result):
         width="100%",
     )
 
-
+ 
 def ai_button():
     return rx.radix.text_field.slot(
         rx.icon(
@@ -218,7 +218,7 @@ def search_bar_desktop() -> rx.Component:
                 ),
                 padding ="1em",
                 bg="#FFFFFF",
-                max_width="50em",
+                max_width="40em",
                 top="150px",
                 position="fixed"
         ),
