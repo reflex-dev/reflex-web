@@ -11,11 +11,11 @@
 
 
  ```python
- rdxt.theme_panel()
+ rx.theme_panel()
  ```
 
  The theme panel is closed by default. You can set it open `default_open=True`.
 
  ```python
- rdxt.theme_panel(default_open=True)
+ rx.theme_panel(default_open=True)
  ```

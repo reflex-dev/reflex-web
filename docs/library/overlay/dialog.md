@@ -10,6 +10,21 @@ components:
 only_low_level:
     - True
 
+DialogRoot: |
+    lambda **props: rx.dialog.root(
+        rx.dialog.trigger(rx.button("Open Dialog")),
+        rx.dialog.content(
+            rx.dialog.title("Welcome to Reflex!"),
+            rx.dialog.description(
+                "This is a dialog component. You can render anything you want in here.",
+            ),
+            rx.dialog.close(
+                rx.button("Close Dialog"),
+            ),
+        ),
+        **props,
+    )
+
 DialogContent: |
     lambda **props: rx.dialog.root(
         rx.dialog.trigger(rx.button("Open Dialog")),
@@ -21,7 +36,7 @@ DialogContent: |
             rx.dialog.close(
                 rx.button("Close Dialog"),
             ),
-            **props
+            **props,
         ),
     )
 ---

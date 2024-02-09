@@ -1,11 +1,11 @@
 ---
 components:
     - rx.radix.form.root
-    - rx.radix.form.field
-    - rx.radix.form.control
-    - rx.radix.form.label
-    - rx.radix.form.message
-    - rx.radix.form.submit
+    # - rx.radix.form.field
+    # - rx.radix.form.control
+    # - rx.radix.form.label
+    # - rx.radix.form.message
+    # - rx.radix.form.submit
 ---
 
 # Form
