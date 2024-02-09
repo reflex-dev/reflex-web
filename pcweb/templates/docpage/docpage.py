@@ -314,7 +314,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.navbar import navbar
-            from pcweb.components.footer import footer
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
