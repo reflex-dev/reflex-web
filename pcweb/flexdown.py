@@ -202,7 +202,7 @@ class DemoBlock(flexdown.blocks.Block):
                 parts = code.rpartition("def")
                 data, code = parts[0], parts[1] + parts[2]
                 comp = docgraphing(code, comp=comp, data=data)
-        elif not exec_mode:
+        elif exec_mode:
             return comp
         elif "box" in args:
             comp = eval(code, env, env)

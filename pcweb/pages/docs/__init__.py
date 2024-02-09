@@ -19,12 +19,6 @@ from .library import library
 from .resources import resources
 
 
-if "REFLEX_PERSIST_WEB_DIR" in os.environ:
-    os.environ.pop("REFLEX_PERSIST_WEB_DIR")
-if compiler._is_dev_mode():
-    os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
-
-
 def should_skip_compile(doc: flexdown.Document, prefix: str=""):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
@@ -155,7 +149,7 @@ def get_component(doc: str, title: str):
         return
 
     return docpage(set_path=route, t=to_title_case(title))(
-        lambda d=d, doc=doc: xd.render(d, doc)
+        lambda d=d, doc=doc: (d, doc)
     )
 
 
