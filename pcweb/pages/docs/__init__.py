@@ -74,7 +74,7 @@ for doc in sorted(flexdown_docs):
     # Get the docpage component.
     doc = doc.replace("\\", "/")
     route = f"/{doc.replace('.md', '')}"
-    path = doc.split("/")[1:-1]
+    path = doc.split(os.sep)[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
@@ -99,9 +99,7 @@ for doc in sorted(flexdown_docs):
             component_list[category].append(clist)
         comp = multi_docs(path=route, comp=d, component_list=clist, title=title2)
     else:
-        comp = docpage(set_path=route, t=title2)(
-            lambda d=d, doc=doc: xd.render(d, doc)
-        )
+        comp = docpage(set_path=route, t=title2)(lambda d=d, doc=doc: xd.render(d, doc))
 
     # Get the namespace.
     namespace = rx.utils.format.to_snake_case(doc.split("/")[1])
