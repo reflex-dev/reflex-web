@@ -68,7 +68,7 @@ def resources_section():
                             background_color = rx.color("mauve", 3),
                             border_left = f"1px solid {rx.color('mauve', 4)}",
                             align_items = "start",
-                            height="250",
+                            height="200px",
                             padding_top="20px",
                             padding_left="20px",
                             padding_bottom="20px",
@@ -79,8 +79,8 @@ def resources_section():
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
                 background_color = rx.color("mauve", 2),
-                max_width = "1000",
-                height = "250",
+                max_width = "1000px",
+                height = "200px",
                 padding="0"
             ),
         )
