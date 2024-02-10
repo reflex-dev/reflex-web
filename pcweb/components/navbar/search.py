@@ -16,7 +16,6 @@ search_badge_style={
     "border_radius":"6px",
     "padding_x":".5em",
     "font_size":"14px",
-    "gap":"2",
     "align_items":"center",
     "justify":"center"
 }
@@ -26,13 +25,13 @@ def search_badge(category, stateful=True):
     icon = ""
     match category:
         case "Component":
-            icon =  rx.icon(tag="component", size=16, style = icon_style)
+            icon =  rx.icon("component", size=16, style = icon_style)
         case "Blog":
-            icon = rx.icon(tag="file-text", size=16, style = icon_style)
+            icon = rx.icon("file-text", size=16, style = icon_style)
         case "Learn":
-            icon = rx.icon(tag="graduation-cap", size=16, style = icon_style)
+            icon = rx.icon("graduation-cap", size=16, style = icon_style)
         case "API Reference":
-            icon = rx.icon(tag="file-text", size=16, style = icon_style)
+            icon = rx.icon("file-text", size=16, style = icon_style)
                     
     return rx.flex(
             icon,
@@ -49,7 +48,8 @@ def search_badge(category, stateful=True):
                 rx.color("mauve", 11),
             ),
             box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
-            style=search_badge_style
+            style=search_badge_style,
+            gap="2"
         )
 
 
@@ -59,11 +59,11 @@ def format_search_results(result):
             rx.flex(
                 rx.match(
                         result["document"]["category"],
-                        ("Component", rx.icon(tag="component", size=16, style = icon_style)),
-                        ("Blog", rx.icon(tag="file-text", size=16, style = icon_style)),
-                        ("Learn", rx.icon(tag="graduation-cap", size=16, style = icon_style)),
-                        ("API Reference", rx.icon(tag="file-code", size=16, style = icon_style)),
-                        rx.icon(tag="file-text", size=16, style = icon_style)
+                        ("Component", rx.icon("component", size=16, style = icon_style)),
+                        ("Blog", rx.icon("file-text", size=16, style = icon_style)),
+                        ("Learn", rx.icon("graduation-cap", size=16, style = icon_style)),
+                        ("API Reference", rx.icon("file-code", size=16, style = icon_style)),
+                        rx.icon("file-text", size=16, style = icon_style)
                 ), 
                 color=rx.color("mauve", 11),
                 width="2em",
@@ -72,7 +72,8 @@ def format_search_results(result):
                 bg= rx.color("mauve", 1),
                 box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
                 align_items="center",
-                justify="center"
+                justify="center",
+                ga="2"
             ),
             rx.text(
                 result["document"]["heading"],
@@ -105,7 +106,7 @@ def format_search_results(result):
 def ai_button():
     return rx.radix.text_field.slot(
         rx.icon(
-            tag="messages-square",
+            "messages-square",
             on_click=NavbarState.toggle_ai_chat,
              _hover={
                 "cursor": "pointer",
@@ -120,11 +121,11 @@ def search_bar_categories(categories):
         *[search_badge(category) for category in categories],
         rx.box(flex_grow="1"),
         rx.flex(
-            rx.icon(tag="arrow-up-down", size=16, style = icon_style),
+            rx.icon("arrow-up-down", size=16, style = icon_style),
             rx.text("Sort"),
             background=rx.color("violet", 9),
             color=rx.color("violet", 1),
-            gap="1",
+            gap="2",
             style=search_badge_style
         ),
         width="100%",
@@ -138,7 +139,7 @@ def search_input():
             rx.radix.text_field.root(
                 rx.radix.text_field.slot(
                     rx.icon(
-                    tag="search",
+                    "search",
                     style=styles.NAV_SEARCH_STYLE,
                     height="1em",
                     )
@@ -174,7 +175,7 @@ def search_results():
                         align_items="start",
                         # overflow_y="auto",
                         direction = "column",
-                        gap="3",
+                        gap="1",
                     ),
                     inkeep(
                         width="100%",

@@ -388,6 +388,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.box(
                                 breadcrumb(path),
                                 margin_top="120px", 
+                                margin_bottom="20px"
                             ),
                             rx.box(comp),
                             rx.hstack(

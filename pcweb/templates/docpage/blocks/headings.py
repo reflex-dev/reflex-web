@@ -66,7 +66,7 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
         heading="h1",
         font_size=styles.H1_FONT_SIZE,
         font_weight=fw["heading"],
-        margin_top="0",
+        margin_top="1.5em",
         scroll_margin="4em",
     )
 
