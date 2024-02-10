@@ -187,16 +187,23 @@ class DemoBlock(flexdown.blocks.Block):
 
         args = lines[0].removeprefix(self.starting_indicator).split()
 
+        exec_mode = env.get("__exec", False)
+        comp = ""
+
         if "exec" in args:
             env["__xd"].exec(code, env, self.filename)
-            comp = env[list(env.keys())[-1]]()
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
         elif "graphing" in args:
             env["__xd"].exec(code, env, self.filename)
-            comp = env[list(env.keys())[-1]]()
-            # Get all the code before the final "def".
-            parts = code.rpartition("def")
-            data, code = parts[0], parts[1] + parts[2]
-            comp = docgraphing(code, comp=comp, data=data)
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
+                # Get all the code before the final "def".
+                parts = code.rpartition("def")
+                data, code = parts[0], parts[1] + parts[2]
+                comp = docgraphing(code, comp=comp, data=data)
+        elif exec_mode:
+            return comp
         elif "box" in args:
             comp = eval(code, env, env)
             return rx.box(docdemobox(comp), margin_bottom="1em")

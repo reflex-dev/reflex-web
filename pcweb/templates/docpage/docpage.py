@@ -139,7 +139,7 @@ def docpage_footer(path):
                     padding="0px 10px",
                     white_space="nowrap",
                     
-                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main/{path}.md")),
+                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md")),
                 gap="2"
             ),
             align_items="center",
@@ -314,7 +314,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             """
             # Import here to avoid circular imports.
             from pcweb.components.navbar import navbar
-            from pcweb.components.footer import footer
             from pcweb.components.sidebar import get_prev_next
             from pcweb.components.sidebar import sidebar as sb
 
@@ -376,7 +375,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),
-                rx.flex(
+                rx.flex( 
                     rx.desktop_only(
                             sidebar,
                             margin_top="120px",
@@ -422,7 +421,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             margin_top="120px",
                             width="25%",
                         ),
-                    background = rx.color("mauve", 1),
+                    background = "#FFF",
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -431,7 +430,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-               background = rx.color("mauve", 1),
+               background = "#FFF",
                width = "100%",
             )
 
