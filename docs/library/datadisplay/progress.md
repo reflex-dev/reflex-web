@@ -1,7 +1,9 @@
 ---
 components:
     - rx.radix.primitives.progress.root
-    - rx.radix.primitives.progress.indicator
+
+Progress: |
+    lambda **props: rx.progress(value=50, width="100%", **props)
 ---
 
 ```python exec
@@ -42,6 +44,10 @@ rx.vstack(
 For a dynamic progress, you can assign a state variable to the `value` prop instead of a constant value.
 
 ```python demo
-rx.hstack(rx.progress(value=ProgressState.value, width="100%"), rx.button("Start", on_click=ProgressState.start_progress))
+rx.hstack(
+    rx.progress(value=ProgressState.value, width="100%"), 
+    rx.button("Start", on_click=ProgressState.start_progress),
+    width="10em"
+)
 ```
 

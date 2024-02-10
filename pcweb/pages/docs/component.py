@@ -637,8 +637,7 @@ tab_selected_style = {
 
 
 def multi_docs(path, comp, component_list, title):
-
-    components = [component_docs(component) for component in component_list[1:]]
+    components = [component_docs(component, comp) for component in component_list[1:]]
         
     fname = path.strip("/") + ".md"
     style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
