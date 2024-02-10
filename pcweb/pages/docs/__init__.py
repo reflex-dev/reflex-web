@@ -87,7 +87,10 @@ def get_components_from_metadata(current_doc):
     return components
 
 
-flexdown_docs = flexdown.utils.get_flexdown_files("docs/")
+flexdown_docs = [
+    doc.replace("\\", "/")
+    for doc in flexdown.utils.get_flexdown_files("docs/")
+]
 
 chakra_components = defaultdict(list)
 radix_components = defaultdict(list)
