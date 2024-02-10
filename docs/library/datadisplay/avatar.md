@@ -4,7 +4,7 @@ components:
 ---
 # Avatar
 
-```python exec
+```python exec 
 import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```

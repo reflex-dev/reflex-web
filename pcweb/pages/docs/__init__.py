@@ -19,12 +19,6 @@ from .library import library
 from .resources import resources
 
 
-if "REFLEX_PERSIST_WEB_DIR" in os.environ:
-    os.environ.pop("REFLEX_PERSIST_WEB_DIR")
-if compiler._is_dev_mode():
-    os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
-
-
 def should_skip_compile(doc: flexdown.Document, prefix: str=""):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
@@ -154,9 +148,9 @@ def get_component(doc: str, title: str):
         outblocks.append((d, route))
         return
 
-    return docpage(set_path=route, t=to_title_case(title))(
-        lambda d=d, doc=doc: xd.render(d, doc)
-    )
+    return (docpage(set_path=route, t=to_title_case(title))(
+        lambda d=d, doc=doc: (d, doc)
+    ))
 
 
 doc_routes = [gallery, library, resources]
@@ -176,8 +170,13 @@ for doc in sorted(flexdown_docs):
     build_nested_namespace(docs_ns, path, title, Route(path=route, title=title2, component=lambda: ""))
 
     # Add the route to the list of routes.
-    if comp:
-        doc_routes.append(comp)
+
+    if comp is not None:
+        if isinstance(comp, tuple):
+            for c in comp:
+                doc_routes.append(c)
+        else:
+             doc_routes.append(comp)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
