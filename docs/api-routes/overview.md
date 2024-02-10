@@ -15,7 +15,7 @@ async def api_test(item_id: int):
 
 app = rx.App()
 app.api.add_api_route("/items/\{item_id}", api_test)
-```
+``` 
 
 Now you can access the endpoint at `localhost:8000/items/23` and get the result.
 
@@ -40,5 +40,5 @@ The expected return is `"pong"`.
 ```
 
 ## Upload
-
-`localhost:8000/_upload`: This route is used for the upload of file when using `rx.upload()`.
+ 
+`localhost:8000/_upload`: This route is used for the upload of file when using `rx.upload()`.   
