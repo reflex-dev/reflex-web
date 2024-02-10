@@ -545,67 +545,85 @@ tab_selected_style = {
 
 
 def multi_docs(path, comp, component_list, title):
+
+    components = [component_docs(component) for component in component_list[1:]]
+        
+    fname = path.strip("/") + ".md"
+    style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
+    ll_doc_exists = os.path.exists(
+        fname.replace("radix/", "").replace(".md", "-ll.md")
+    )
+
+    non_active_style = {
+        "padding":".5em",
+        "color":rx.color("mauve", 9),
+        "width": "7em"
+    }
+
+    active_style = {
+        "padding":".5em",
+        "background":rx.color("mauve", 1),
+        "color":rx.color("mauve", 12),
+        "box_shadow":"0px 4px 4px -4px rgba(194, 198, 215, 0.30), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
+        "border_radius":"8px",
+        "width": "7em"
+    }
+
+    def links(current_page, ll_doc_exists, path):
+        if ll_doc_exists:
+            if current_page == "hl":
+                return rx.flex(
+                        rx.box(flex_grow='1'),
+                        rx.flex(
+                            rx.link(rx.center(rx.text("Core"), style=active_style)),
+                            rx.link(rx.center(rx.text("Internal"), style=non_active_style), href=path+"/internal"),
+                            gap="2",
+                            padding=".5em",
+                            background=rx.color("mauve", 2),
+                            border_radius="8px",
+                            align_items="center",
+                            justify_items="center"
+                        ),
+                        margin_bottom=".5em"
+                    )
+            else:
+                return rx.flex(
+                        rx.box(flex_grow='1'),
+                        rx.flex(
+                            rx.link(rx.center(rx.text("Core"), style=non_active_style), href=path),
+                            rx.link(rx.center(rx.text("Internal"), style=active_style)),
+                            gap="2",
+                            padding=".5em",
+                            background=rx.color("mauve", 2),
+                            border_radius="8px",
+                            align_items="center",
+                            justify_items="center"
+                        ),
+                        margin_bottom=".5em"
+                    )
+        return rx.fragment()
+
     @docpage(set_path=path, t=title)
     def out():
-        components = [component_docs(component) for component in component_list[1:]]
-        fname = path.strip("/") + ".md"
-        style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
-        ll_doc_exists = os.path.exists(
-            fname.replace("radix/", "").replace(".md", "-ll.md")
+        return rx.flex(
+            links("hl", ll_doc_exists, path),
+            xd.render(comp, filename=fname),
+            rx.vstack(*components),
+            direction="column",
+            width="100%"
         )
 
-        return rx.box(
-            rx.box(
-                rx.box(
-                    rx.chakra.tabs(
-                        rx.chakra.tab_list(
-                            rx.spacer(),
-                            rx.chakra.tab(
-                                "High Level API",
-                                _selected=tab_selected_style,
-                                style=tab_style,
-                            ),
-                            rx.chakra.tab(
-                                "Low Level API",
-                                _selected=tab_selected_style,
-                                style=tab_style,
-                            )
-                            if ll_doc_exists
-                            else "",
-                            rx.chakra.tab(
-                                "Styling", _selected=tab_selected_style, style=tab_style
-                            )
-                            if style_doc_exists
-                            else "",
-                            rx.chakra.tab(
-                                "Props", _selected=tab_selected_style, style=tab_style
-                            ),
-                            width="100%",
-                            padding_bottom="1em",
-                        ),
-                        rx.chakra.tab_panels(
-                            rx.chakra.tab_panel(xd.render(comp, filename=fname)),
-                            rx.chakra.tab_panel(
-                                xd.render_file(
-                                    fname.replace("radix/", "").replace(".md", "-ll.md")
-                                )
-                            )
-                            if ll_doc_exists
-                            else "",
-                            rx.chakra.tab_panel(
-                                xd.render_file(fname.replace(".md", "-style.md"))
-                            )
-                            if style_doc_exists
-                            else "",
-                            rx.chakra.tab_panel(rx.vstack(*components)),
-                        ),
-                        get_toc(comp, path),
-                        variant="unstyled",
-                        default_index=1 if "only_low_level" in comp.metadata else 0,
-                    ),
-                    padding_y="1em",
-                ),
-            ),
+    @docpage(set_path=path+"/internal", t=title)
+    def ll():
+        return rx.flex(
+            links("ll", ll_doc_exists, path),
+            xd.render_file(fname.replace("radix/", "").replace(".md", "-ll.md")),
+            rx.vstack(*components),
+            direction="column",
+            width="100%"
         )
 
-    return out
+    if ll_doc_exists:
+        return (out, ll)
+    else: 
+        return (out)

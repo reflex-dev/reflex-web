@@ -366,13 +366,12 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents(*args, **kwargs)   
             else:
                 comp = contents
-            print(type(comp))
+
             if isinstance(comp, tuple):
                  from pcweb.flexdown import xd
                  toc = get_toc(*comp)
                  comp = xd.render(*comp)
 
-            print(toc) 
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),
@@ -389,7 +388,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.box(
                                 breadcrumb(path),
                                 margin_top="120px", 
-                                margin_bottom="20px"
                             ),
                             rx.box(comp),
                             rx.hstack(
@@ -422,7 +420,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             margin_top="120px",
                             width="25%",
                         ),
-                    background = rx.color("mauve", 1),
+                    background = "#FFF",
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -431,7 +429,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-               background = rx.color("mauve", 1),
+               background = "#FFF",
                width = "100%",
             )
 
