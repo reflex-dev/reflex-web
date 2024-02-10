@@ -7,7 +7,7 @@ from typing import Any, Type, get_args
 
 import reflex as rx
 from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage, get_toc
+from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
 
@@ -643,7 +643,7 @@ def multi_docs(path, comp, component_list, title):
     fname = path.strip("/") + ".md"
     style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
     ll_doc_exists = os.path.exists(
-        fname.replace("radix/", "").replace(".md", "-ll.md")
+        fname.replace(".md", "-ll.md")
     )
 
     non_active_style = {
@@ -709,7 +709,7 @@ def multi_docs(path, comp, component_list, title):
     def ll():
         return rx.flex(
             links("ll", ll_doc_exists, path),
-            xd.render_file(fname.replace("radix/", "").replace(".md", "-ll.md")),
+            xd.render_file(fname.replace(".md", "-ll.md")),
             rx.vstack(*components),
             direction="column",
             width="100%"
