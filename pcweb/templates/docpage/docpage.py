@@ -1,6 +1,6 @@
 """Template for documentation pages."""
 
-from typing import Any, Callable
+from typing import Callable
 
 import reflex as rx
 import flexdown
@@ -240,8 +240,10 @@ def get_headings(comp):
          headings.extend(get_headings(child))
      return headings
 
-def get_toc(source, href):
+def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+    component_list = component_list or []
+    component_list = component_list[1:]
 
     # Generate the TOC
     # The environment used for execing and evaling code.
@@ -257,23 +259,23 @@ def get_toc(source, href):
 
     content_pieces = []
     for block in blocks:
-        # Render all blocks for their side effect of env augmentation
-        # Unexpected, but hey!
-        # TODO Probably better to return env as part of return
-        try:
-            _ = block.render(env=env)
-        except:
+        if not isinstance(block, flexdown.blocks.MarkdownBlock) or len(block.lines) == 0 or not block.lines[0].startswith("#"):
             continue
-        if isinstance(block, flexdown.blocks.MarkdownBlock):
-            # Now we should have all the env entries we need
-            content = block.get_content(env)
-            content_pieces.append(content)
+        # Now we should have all the env entries we need
+        content = block.get_content(env)
+        content_pieces.append(content)
 
     content = "\n".join(content_pieces)
     doc = mistletoe.Document(content)
 
     # Parse the markdown headers.
-    return get_headings(doc)
+    headings = get_headings(doc)
+
+    if len(component_list):
+        headings.append((1, "API Reference"))
+    for component in component_list:
+        headings.append((2, component.__name__))
+    return headings
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
@@ -368,9 +370,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents
 
             if isinstance(comp, tuple):
-                 from pcweb.flexdown import xd
-                 toc = get_toc(*comp)
-                 comp = xd.render(*comp)
+                 toc, comp = comp
 
             # Return the templated page.
             return rx.box(
