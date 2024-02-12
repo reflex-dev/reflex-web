@@ -320,16 +320,16 @@ accent_color = "#F5EFFE"
 
 
 def add_item(category):
-    return rx.vstack(
+    return rx.chakra.vstack(
         rx.inset(
             rx.image(
                 src=category["img"],
             ),
         ),
-        rx.hstack(
-            rx.heading(category["name"], style={"fontSize": "1em"}),
-            rx.spacer(),
-            rx.hstack(
+        rx.chakra.hstack(
+            rx.chakra.heading(category["name"], style={"fontSize": "1em"}),
+            rx.chakra.spacer(),
+            rx.chakra.hstack(
                 rx.link(
                     rx.box(
                         rx.image(src="/icons/code.svg", width="1em"),
@@ -358,13 +358,13 @@ def add_item(category):
             border_top="1px solid #e2e8f0",
             padding_y="0.5em",
         ),
-        rx.box(
+        rx.chakra.box(
             category["description"],
             color=tc["docs"]["body"],
             height="2.5em",
             background="linear-gradient(transparent .5em, white)",
         ),
-        rx.spacer(),
+        rx.chakra.spacer(),
         rx.chakra.wrap(
             rx.badge(
                 category["difficulty"],
@@ -390,7 +390,7 @@ def add_item(category):
 
 
 def component_grid():
-    return rx.box(
+    return rx.chakra.box(
         rx.chakra.responsive_grid(
             rx.foreach(SideBarState.data_to_return, add_item),
             columns=[1, 2, 2, 2, 3],
@@ -400,7 +400,7 @@ def component_grid():
 
 
 def community_component_grid():
-    return rx.box(
+    return rx.chakra.box(
         rx.chakra.responsive_grid(
             rx.foreach(SideBarState.community_apps_list, add_item),
             columns=[1, 2, 2, 2, 3],
@@ -412,7 +412,7 @@ def community_component_grid():
 def sidebar_component_grid(tags):
     return rx.chakra.wrap(
         *[
-            rx.button(
+            rx.chakra.button(
                 tag,
                 border_radius="15px",
                 padding_x=".5em",
@@ -443,10 +443,10 @@ heading_style3 = {}
 
 
 def sidebar():
-    return rx.box(
+    return rx.chakra.box(
         rx.chakra.vstack(
-            rx.vstack(
-                rx.heading(
+            rx.chakra.vstack(
+                rx.chakra.heading(
                     "Filters",
                     padding_left=".5em",
                 ),
@@ -454,7 +454,7 @@ def sidebar():
                 width="100%",
                 align_items="left",
             ),
-            rx.spacer(),
+            rx.chakra.spacer(),
             height="100vh",
         ),
         min_width="20em",
@@ -466,8 +466,8 @@ def sidebar():
 
 
 def gallery_with_no_sidebar():
-    return rx.container(
-        rx.vstack(
+    return rx.chakra.container(
+        rx.chakra.vstack(
             component_grid(),
             rx.box(
                 rx.heading("Community Gallery"),
@@ -507,10 +507,10 @@ def gallery_with_no_sidebar():
 
 @webpage(path="/docs/gallery", title="Gallery")
 def gallery() -> rx.Component:
-    return rx.vstack(
-        rx.vstack(
-            rx.heading("Gallery", font_size="2em"),
-            rx.text(
+    return rx.chakra.vstack(
+        rx.chakra.vstack(
+            rx.chakra.heading("Gallery", font_size="2em"),
+            rx.chakra.text(
                 "Browse our growing library of example apps. Use them as they are, right out of the box, or customize them to suit your needs.",
                 color="#342E5C",
                 font_size="1.2em",
@@ -522,8 +522,8 @@ def gallery() -> rx.Component:
             align_items="center",
             padding_x="4em",
         ),
-        rx.hstack(
-            rx.spacer(),
+        rx.chakra.hstack(
+            rx.chakra.spacer(),
             sidebar(),
             gallery_with_no_sidebar(),
             rx.spacer(),
@@ -531,6 +531,6 @@ def gallery() -> rx.Component:
         ),
         max_width="80em",
         margin_x="auto",
-        margin_top="2em",
+        margin_top="80px",
         height="100%",
     )

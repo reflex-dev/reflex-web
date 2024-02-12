@@ -159,6 +159,7 @@ def blg():
         ),
         flex_direction="column",
         width="100%",
+        margin_top="80px"
     )
 
 

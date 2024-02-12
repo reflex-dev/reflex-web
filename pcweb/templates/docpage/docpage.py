@@ -128,7 +128,7 @@ def docpage_footer(path):
                     padding="0px 10px",
                     white_space="nowrap",
                     
-                ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with documentation&amp;body=Path: {path}")),
+                ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}")),
                 rx.desktop_only(rx.link(rx.flex(
                     "Edit this page",
                     color=rx.color("mauve", 9),

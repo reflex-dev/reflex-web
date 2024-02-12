@@ -1128,4 +1128,5 @@ def index() -> rx.Component:
         gallery(),
         installation(),
         width="100%",
+        margin_top="80px"
     )
