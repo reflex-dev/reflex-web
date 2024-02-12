@@ -240,8 +240,10 @@ def get_headings(comp):
          headings.extend(get_headings(child))
      return headings
 
-def get_toc(source, href):
+def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+    component_list = component_list or []
+    component_list = component_list[1:]
 
     # Generate the TOC
     # The environment used for execing and evaling code.
@@ -267,7 +269,13 @@ def get_toc(source, href):
     doc = mistletoe.Document(content)
 
     # Parse the markdown headers.
-    return get_headings(doc)
+    headings = get_headings(doc)
+
+    if len(component_list):
+        headings.append((1, "API Reference"))
+    for component in component_list:
+        headings.append((2, component.__name__))
+    return headings
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.

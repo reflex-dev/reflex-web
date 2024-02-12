@@ -9,10 +9,10 @@ from pcweb.templates.docpage import (
     docdemobox,
     docgraphing,
     doclink2,
-    h1_comp,
-    h2_comp,
-    h3_comp,
-    h4_comp,
+    h1_comp_xd,
+    h2_comp_xd,
+    h3_comp_xd,
+    h4_comp_xd,
     text_comp,
 )
 
@@ -221,10 +221,10 @@ class DemoBlock(flexdown.blocks.Block):
 
 
 component_map = {
-    "h1": lambda text: h1_comp(text=text),
-    "h2": lambda text: h2_comp(text=text),
-    "h3": lambda text: h3_comp(text=text),
-    "h4": lambda text: h4_comp(text=text),
+    "h1": lambda text: h1_comp_xd(text=text),
+    "h2": lambda text: h2_comp_xd(text=text),
+    "h3": lambda text: h3_comp_xd(text=text),
+    "h4": lambda text: h4_comp_xd(text=text),
     "p": lambda text: text_comp(text=text),
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
