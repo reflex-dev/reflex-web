@@ -38,17 +38,15 @@ import reflex as rx
 
 def render_checkboxes(values, limit, handler):
     return rx.vstack(
-        rx.checkbox_group(
             rx.foreach(
                 values,
                 lambda choice: rx.checkbox(
                     choice[0],
-                    is_checked=choice[1],
-                    is_disabled=~choice[1] & limit,
+                    checked=choice[1],
+                    disabled=~choice[1] & limit,
                     on_change=lambda val: handler(val, choice[0]),
                 ),
             )
-        )
     )
 
 
