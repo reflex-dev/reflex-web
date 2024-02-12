@@ -331,7 +331,7 @@ def add_item(category):
             rx.chakra.spacer(),
             rx.chakra.hstack(
                 rx.link(
-                    rx.box(
+                    rx.chakra.box(
                         rx.image(src="/icons/code.svg", width="1em"),
                         padding_x="0.5em",
                         border_radius="15px",
@@ -342,7 +342,7 @@ def add_item(category):
                 rx.cond(
                     category["url"],
                     rx.link(
-                        rx.box(
+                        rx.chakra.box(
                             rx.image(src="/icons/eye.svg", width="1em"),
                             padding_x="0.5em",
                             border_radius="15px",
@@ -469,7 +469,7 @@ def gallery_with_no_sidebar():
     return rx.chakra.container(
         rx.chakra.vstack(
             component_grid(),
-            rx.box(
+            rx.chakra.box(
                 rx.heading("Community Gallery"),
                 rx.chakra.divider(),
                 rx.text(
