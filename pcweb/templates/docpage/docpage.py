@@ -257,17 +257,11 @@ def get_toc(source, href):
 
     content_pieces = []
     for block in blocks:
-        # Render all blocks for their side effect of env augmentation
-        # Unexpected, but hey!
-        # TODO Probably better to return env as part of return
-        try:
-            _ = block.render(env=env)
-        except:
+        if not isinstance(block, flexdown.blocks.MarkdownBlock) or len(block.lines) == 0 or not block.lines[0].startswith("#"):
             continue
-        if isinstance(block, flexdown.blocks.MarkdownBlock):
-            # Now we should have all the env entries we need
-            content = block.get_content(env)
-            content_pieces.append(content)
+        # Now we should have all the env entries we need
+        content = block.get_content(env)
+        content_pieces.append(content)
 
     content = "\n".join(content_pieces)
     doc = mistletoe.Document(content)

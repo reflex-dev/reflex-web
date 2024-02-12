@@ -18,13 +18,13 @@ from .library import library
 from .resources import resources
 
 
-def should_skip_compile(doc: flexdown.Document, prefix: str=""):
+def should_skip_compile(doc: flexdown.Document):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
         return False
     os.environ["REFLEX_PERSIST_WEB_DIR"] = "1"
     # Check if the doc has been compiled already.
-    compiled_output = f".web/pages/{doc.replace('.md', '.js').replace('library/', f'library/{prefix}')}"
+    compiled_output = f".web/pages/{doc.replace('.md', '.js')}"
     # Get the timestamp of the compiled file.
     compiled_time = (
         os.path.getmtime(compiled_output) if os.path.exists(compiled_output) else 0
@@ -132,16 +132,13 @@ def get_component(doc: str, title: str):
             (RadixThemesComponent, RadixPrimitiveComponent),
         ):
             component_list[category].append(clist)
-            prefix=""
         elif issubclass(clist[1], ChakraComponent):
             # Workaround for Chakra components outside of chakra directory (like Html).
             component_list[category].append(clist)
             route = route.replace("library/", "library/chakra/")
-            prefix = ""
         else:
             component_list[category].append(clist)
-            prefix = ""
-        if should_skip_compile(doc, prefix=prefix):
+        if should_skip_compile(doc):
             outblocks.append((d, route))
             return
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
