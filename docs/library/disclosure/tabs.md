@@ -113,7 +113,7 @@ import reflex as rx
 
 
 # Tabs
-Tabs are a set of layered sections of content—known as tab panels—that are displayed one at a time.
+Tabs are a set of layered sections of content—known as tab panels that are displayed one at a time.
 They facilitate the organization and navigation between sets of content that share a connection and exist at a similar level of hierarchy.
 
 ## Basic Example
