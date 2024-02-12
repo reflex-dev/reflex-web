@@ -78,7 +78,8 @@ def resources_section():
                         gap="6",
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
-                background_color = rx.color("mauve", 2),
+                #background_color = rx.color("mauve", 2),
+                background="#FFF",
                 max_width = "1000px",
                 height = "200px",
                 padding="0"
@@ -98,12 +99,15 @@ def navigation_section():
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
-        rx.box(
-            rx.image(
-                src="/logos/light/reflex.svg",
-                height="20px",
-                justify="start",
-            )
+        rx.link(
+            rx.box(
+                rx.image(
+                    src="/logos/light/reflex.svg",
+                    height="20px",
+                    justify="start",
+                )
+            ),
+            href="/"
         ),
         navigation_section(),
         rx.box(
@@ -117,7 +121,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             gap="3",
             align_items="center",
         ),
-        background = rx.color("mauve", 1),
+        #background = rx.color("mauve", 1),
+        background = "#FFF",
         border_bottom= f"1px solid {rx.color('mauve', 4)};",
         height="80px",
         position="fixed",

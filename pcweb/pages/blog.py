@@ -28,12 +28,12 @@ def page(document) -> rx.Component:
     """Create a page."""
     meta = document.metadata
     return rx.container(
-        rx.heading(meta["title"], mt=12, mb=4, font_weight="semibold"),
-        rx.hstack(
+        rx.chakra.text(meta["title"], mt=12, mb=4, font_weight="semibold"),
+        rx.chakra.hstack(
             rx.chakra.avatar(name=meta["author"], size="xs"),
-            rx.text(meta["author"], font_size="0.9rem"),
-            rx.text(" · "),
-            rx.text(str(meta["date"]), font_size="0.9rem"),
+            rx.chakra.text(meta["author"], font_size="0.9rem"),
+            rx.chakra.text(" · "),
+            rx.chakra.text(str(meta["date"]), font_size="0.9rem"),
         ),
         rx.image(
             src=f"{meta['image']}",
@@ -68,7 +68,7 @@ def component_grid():
         meta = document.metadata
         posts.append(
             rx.link(
-                rx.box(
+                rx.chakra.box(
                     height="10rem",
                     background_image=f'url({meta["image"]})',
                     background_size="cover",
@@ -76,37 +76,37 @@ def component_grid():
                     background_repeat="no-repeat",
                     w="100%",
                 ),
-                rx.box(
-                    rx.heading(
+                rx.chakra.box(
+                    rx.chakra.text(
                         meta["title"],
                         font_size="1.2rem",
                         mb="0.5em",
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         meta["description"],
                         font_size="0.8rem",
 
                     ),
                     rx.chakra.divider(),
                     rx.spacer(),
-                    rx.hstack(
-                        rx.vstack(
-                            rx.text("Written by", font_size="0.6rem"),
-                            rx.hstack(
+                    rx.chakra.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.text("Written by", font_size="0.6rem"),
+                            rx.chakra.hstack(
                                 rx.chakra.avatar(
                                     name=meta["author"],
                                     size="sm",
                                     bg=c["indigo"][800],
                                     color="#DACEEE",
                                 ),
-                                rx.text(meta["author"], font_size="0.8rem"),
+                                rx.chakra.text(meta["author"], font_size="0.8rem"),
                             ),
                             align_items="left",
                         ),
                         rx.spacer(),
-                        rx.vstack(
-                            rx.text("Published on", font_size="0.6rem"),
-                            rx.text(str(meta["date"]), font_size="0.8em"),
+                        rx.chakra.vstack(
+                            rx.chakra.text("Published on", font_size="0.6rem"),
+                            rx.chakra.text(str(meta["date"]), font_size="0.8em"),
                             align_items="left",
                         ),
                         color=tc["docs"]["body"],
@@ -127,7 +127,7 @@ def component_grid():
                 href=path,
             ),
         )
-    return rx.box(
+    return rx.chakra.box(
         rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
     )
 
@@ -135,10 +135,10 @@ def component_grid():
 @webpage(path="/blog", title="Blog")
 def blg():
     return rx.center(
-        rx.vstack(
-            rx.vstack(
-                rx.heading("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
-                rx.text(
+        rx.chakra.vstack(
+            rx.chakra.vstack(
+                rx.chakra.text("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
+                rx.chakra.text(
                     "The latest news from the Reflex team. ",
                     color=tc["docs"]["body"],
                 ),
@@ -159,6 +159,7 @@ def blg():
         ),
         flex_direction="column",
         width="100%",
+        margin_top="80px"
     )
 
 
