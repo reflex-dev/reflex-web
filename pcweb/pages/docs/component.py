@@ -705,6 +705,7 @@ def multi_docs(path, comp, component_list, title):
 
     @docpage(set_path=path+"/internal", t=title)
     def ll():
+        nonlocal fname
         fname = fname.replace(".md", "-ll.md")
         d2 = flexdown.parse_file(fname)
         toc = get_toc(d2, fname)
