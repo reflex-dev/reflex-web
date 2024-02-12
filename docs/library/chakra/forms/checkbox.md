@@ -67,18 +67,3 @@ def checkbox_state_example():
         )
     )
 ```
-
-## Checkbox Group
-
-You can group checkboxes together using checkbox group.
-
-```python demo
-rx.chakra.checkbox_group(
-    rx.chakra.checkbox("Example", color_scheme="green"),
-    rx.chakra.checkbox("Example", color_scheme="blue"),
-    rx.chakra.checkbox("Example", color_scheme="yellow"),
-    rx.chakra.checkbox("Example", color_scheme="orange"),
-    rx.chakra.checkbox("Example", color_scheme="red"),
-    space="1em",
-)
-```
