@@ -8,11 +8,10 @@ import flexdown
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
-from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import docpage, get_toc
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.compiler import compiler
 
 from .gallery import gallery
 from .library import library
@@ -152,7 +151,7 @@ def get_component(doc: str, title: str):
         return
 
     return (docpage(set_path=route, t=to_title_case(title))(
-        lambda d=d, doc=doc: (d, doc)
+        lambda d=d, doc=doc: (get_toc(d, doc), xd.render(d, doc))
     ))
 
 

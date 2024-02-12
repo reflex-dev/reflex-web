@@ -1,6 +1,6 @@
 """Template for documentation pages."""
 
-from typing import Any, Callable
+from typing import Callable
 
 import reflex as rx
 import flexdown
@@ -368,9 +368,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents
 
             if isinstance(comp, tuple):
-                 from pcweb.flexdown import xd
-                 toc = get_toc(*comp)
-                 comp = xd.render(*comp)
+                 toc, comp = comp
 
             # Return the templated page.
             return rx.box(
