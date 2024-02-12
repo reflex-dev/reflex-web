@@ -4,6 +4,36 @@ components:
     - rx.radix.text_field.root
     - rx.radix.text_field.input
     - rx.radix.text_field.slot
+
+
+Input: |
+    lambda **props: rx.radix.themes.input(icon="search", placeholder="Search the docs", **props)
+
+TextFieldRoot: |
+    lambda **props: rx.radix.themes.text_field.root(
+        rx.radix.themes.text_field.slot(
+            rx.icon(tag="search", height="16", width="16"),
+        ),
+        rx.radix.themes.text_field.input(placeholder="Search the docs"),
+        **props,
+    )
+
+TextFieldInput: |
+    lambda **props: rx.radix.themes.text_field.root(
+        rx.radix.themes.text_field.slot(
+            rx.icon(tag="search", height="16", width="16"),
+        ),
+        rx.radix.themes.text_field.input(placeholder="Search the docs", **props,),
+    )
+
+TextFieldSlot: |
+    lambda **props: rx.radix.themes.text_field.root(
+        rx.radix.themes.text_field.slot(
+            rx.icon(tag="search", height="16", width="16"),
+            **props,
+        ),
+        rx.radix.themes.text_field.input(placeholder="Search the docs"),
+    )
 ---
 
 ```python exec
