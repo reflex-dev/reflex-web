@@ -10,6 +10,8 @@ from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage
 from reflex.base import Base
 from reflex.components.component import Component
+from reflex.components.radix.primitives.base import RadixPrimitiveComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 
 class Prop(Base):
@@ -23,7 +25,6 @@ class Prop(Base):
 
     # The description of the prop.
     description: str
-
 
 
 from reflex.components.el.elements.base import BaseHTML
@@ -176,10 +177,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     if rx.utils.types._issubclass(prop.type_, rx.Var):
         # For vars, get the type of the var.
         type_ = rx.utils.types.get_args(type_)[0]
-    try:
-        type_ = type_.__name__
-    except AttributeError:
-        print(type_)
+    type_ = type_.__name__
 
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
@@ -196,7 +194,6 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
         except:
-            print(f"Failed to get args for {prop.type_}")
             return rx.fragment()
 
         try:
@@ -487,9 +484,9 @@ def generate_props(src, component, comp):
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
         
-        elif rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent) or component.__name__ in ["Theme", "ThemePanel"]:
+        elif not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel"]:
             comp = rx.fragment()
-            
+
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
