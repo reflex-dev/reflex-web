@@ -1,6 +1,16 @@
 ---
 components:
     - rx.radix.inset
+
+Inset: |
+    lambda **props: rx.radix.themes.card(
+        rx.radix.themes.inset(
+            rx.image(src="/reflex_banner.png", height="auto"),
+            **props,
+        ),
+        width="500px",
+    )
+    
 ---
 
 ```python exec

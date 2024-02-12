@@ -3,9 +3,95 @@ components:
     - rx.radix.form.root
     - rx.radix.form.field
     - rx.radix.form.control
-    - rx.radix.form.label
+    #- rx.radix.form.label
     - rx.radix.form.message
     - rx.radix.form.submit
+
+FormRoot: |
+    lambda **props: rx.form.root(
+        rx.form.field(
+            rx.flex(
+                rx.form.label("Email"),
+                rx.form.control(
+                    rx.input.input(
+                        placeholder="Email Address",
+                        # type attribute is required for "typeMismatch" validation
+                        type="email",
+                    ),
+                    as_child=True,
+                ),
+                rx.form.message("Please enter a valid email"),
+                rx.form.submit(
+                    rx.button("Submit"),
+                    as_child=True,
+                ),
+                direction="column",
+                gap="2",
+                align="stretch",
+            ),
+            name="email",
+        ),
+        **props,
+    )
+
+
+FormField: |
+    lambda **props: rx.form.root(
+        rx.form.field(
+            rx.flex(
+                rx.form.label("Email"),
+                rx.form.control(
+                    rx.input.input(
+                        placeholder="Email Address",
+                        # type attribute is required for "typeMismatch" validation
+                        type="email",
+                    ),
+                    as_child=True,
+                ),
+                rx.form.message("Please enter a valid email", match="typeMismatch"),
+                rx.form.submit(
+                    rx.button("Submit"),
+                    as_child=True,
+                ),
+                direction="column",
+                gap="2",
+                align="stretch",
+            ),
+            **props,
+        ),
+        reset_on_submit=True,
+    )
+
+
+FormMessage: |
+    lambda **props: rx.form.root(
+                rx.form.field(
+                    rx.flex(
+                        rx.form.label("Email"),
+                        rx.form.control(
+                            rx.input.input(
+                                placeholder="Email Address",
+                                # type attribute is required for "typeMismatch" validation
+                                type="email",
+                            ),
+                            as_child=True,
+                        ),
+                        rx.form.message("Please enter a valid email", **props,),
+                        rx.form.submit(
+                            rx.button("Submit"),
+                            as_child=True,
+                        ),
+                        direction="column",
+                        gap="2",
+                        align="stretch",
+                    ),
+                    name="email",
+                ),
+                on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
+                reset_on_submit=True,
+            )
+
+
 ---
 
 # Form

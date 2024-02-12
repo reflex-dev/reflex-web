@@ -2,8 +2,29 @@
 components:
     - rx.radix.accordion.root
     - rx.radix.accordion.item
-    - rx.radix.accordion.header
-    - rx.radix.accordion.content
+
+AccordionRoot: |
+    lambda **props: rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em"),
+        rx.accordion.item(
+            "Second Item", "The second accordion item's content", font_size="3em"
+        ),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em"),
+        width="300px",
+        **props,
+    )
+
+
+AccordionItem: |
+    lambda **props: rx.accordion.root(
+        rx.accordion.item("First Item", "The first accordion item's content", font_size="3em", **props,),
+        rx.accordion.item(
+            "Second Item", "The second accordion item's content", font_size="3em", **props,
+        ),
+        rx.accordion.item("Third item", "The third accordion item's content", font_size="3em", **props,),
+        width="300px",
+    )
+
 ---
 
 ```python exec

@@ -118,6 +118,7 @@ def get_component(doc: str, title: str):
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
+
     if doc.startswith("docs/library/chakra"):
         clist = [title, *get_components_from_metadata(d)]
         chakra_components[category].append(clist)

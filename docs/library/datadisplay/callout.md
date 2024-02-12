@@ -4,6 +4,16 @@ components:
     - rx.radix.callout.root
     - rx.radix.callout.icon
     - rx.radix.callout.text
+
+Callout: |
+    lambda **props: rx.callout("Basic Callout", icon="search", **props)
+
+CalloutRoot: |
+    lambda **props: rx.callout.root(
+        rx.callout.icon(rx.icon(tag="info")),
+        rx.callout.text("You will need admin privileges to install and access this application."),
+        **props
+    )
 ---
 
 
