@@ -2,6 +2,7 @@
 import reflex as rx
 from .buttons.github import github
 from .buttons.discord import discord
+from .buttons.sidebar import sidebar_button
 from .search import search_bar
 
 
@@ -117,7 +118,12 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             search_bar(),
             github(),
             rx.separator(size="2", color='mauve', orientation="vertical"), 
-            discord(),
+            rx.desktop_only(
+                discord(),
+            ),
+            rx.mobile_and_tablet(
+                sidebar_button(),
+            ),
             gap="3",
             align_items="center",
         ),
