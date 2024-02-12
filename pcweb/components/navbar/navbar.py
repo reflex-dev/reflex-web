@@ -98,12 +98,15 @@ def navigation_section():
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
-        rx.box(
-            rx.image(
-                src="/logos/light/reflex.svg",
-                height="20px",
-                justify="start",
-            )
+        rx.link(
+            rx.box(
+                rx.image(
+                    src="/logos/light/reflex.svg",
+                    height="20px",
+                    justify="start",
+                )
+            ),
+            href="/"
         ),
         navigation_section(),
         rx.box(

@@ -108,14 +108,14 @@ class IndexState(rx.State):
 
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
-    return rx.container(
+    return rx.chakra.container(
         *children,
         **kwargs,
     )
 
 
 def tag(text):
-    return rx.text(
+    return rx.chakra.text(
         text,
         color="#5646ED",
         bg="#F5EFFE",
@@ -132,10 +132,10 @@ def landing():
             IndexState.show_confetti,
             confetti(),
         ),
-        rx.hstack(
+        rx.chakra.hstack(
             rx.center(
-                rx.vstack(
-                    rx.text(
+                rx.chakra.vstack(
+                    rx.chakra.text(
                         rx.chakra.span("[", color="#DACEEE"),
                         rx.chakra.span("Frontend", color="#696287"),
                         rx.chakra.span("]", color="#DACEEE"),
@@ -148,7 +148,7 @@ def landing():
                         font_family=styles.MONO,
                         mb=2,
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         "Web apps in pure Python.",
                         font_family=styles.MONO,
                         font_style="normal",
@@ -157,7 +157,7 @@ def landing():
                         line_height="1.2",
                         letter_spacing="-0.02em",
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         "Build web apps in minutes. Deploy with a single command.",
                         color="#342E5C",
                         font_size="1.1em",
@@ -182,7 +182,7 @@ def landing():
                                 ),
                                 style=styles.INPUT_STYLE,
                             ),
-                            rx.button(
+                            rx.chakra.button(
                                 "Join Hosting Waitlist",
                                 on_click=IndexState.signup,
                                 style=styles.ACCENT_BUTTON,
@@ -193,8 +193,8 @@ def landing():
                             padding_x=".25em",
                             padding_y="1em",
                         ),
-                        rx.text(
-                            rx.icon(
+                        rx.chakra.text(
+                            rx.chakra.icon(
                                 tag="check",
                             ),
                             " You're on the waitlist!",
@@ -216,7 +216,7 @@ def landing():
 
 def list_circle(text):
     return rx.flex(
-        rx.text(text),
+        rx.chakra.text(text),
         width="2em",
         height="2em",
         border_radius="6px",
@@ -229,14 +229,14 @@ def list_circle(text):
 
 
 def example_card(title, tags, href, image):
-    return rx.hstack(
+    return rx.chakra.hstack(
         rx.image(src=image, height="1em", width="1em"),
-        rx.text(title, color="#494369", font_weight="400"),
-        rx.spacer(),
+        rx.chakra.text(title, color="#494369", font_weight="400"),
+        rx.chakra.spacer(),
         *[tag(t) for t in tags],
         rx.link(
             rx.center(
-                rx.icon(tag="move_right", color="#494369"),
+                rx.chakra.icon(tag="arrow_forward", color="#494369"),
                 border_radius="6px",
                 box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14);",
                 min_width="2em",
@@ -252,9 +252,9 @@ def example_card(title, tags, href, image):
 
 
 def intro():
-    return rx.box(
+    return rx.chakra.box(
         container(
-            rx.text(
+            rx.chakra.text(
                 "Build anything, faster.",
                 font_size="4xl",
                 font_family=styles.MONO,
@@ -264,7 +264,7 @@ def intro():
                 letter_spacing="-0.02em",
                 mb=4,
             ),
-            rx.text(
+            rx.chakra.text(
                 "Create your whole app in a single language. ",
                 "Don't worry about writing APIs to connect your frontend and backend. ",
                 color="#666",
@@ -272,18 +272,18 @@ def intro():
                 max_width="50%",
             ),
             rx.flex(
-                rx.box(
-                    rx.hstack(
+                rx.chakra.box(
+                    rx.chakra.hstack(
                         list_circle("1"),
-                        rx.text("Any use case.", font_weight="600"),
+                        rx.chakra.text("Any use case.", font_weight="600"),
                         mb=4,
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         "With Reflex you can build anything from internal tools and data apps to complex multi-page apps.",
                         color="#666",
                         mb=4,
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         rx.chakra.span('"""', color="#AA9EC3"),
                         rx.chakra.span(
                             "This entire website is made in Reflex!",
@@ -297,12 +297,12 @@ def intro():
                         mb=8,
                         border_radius="lg",
                     ),
-                    rx.hstack(
+                    rx.chakra.hstack(
                         list_circle("2"),
-                        rx.text("It’s just Python.", font_weight="600"),
+                        rx.chakra.text("It’s just Python.", font_weight="600"),
                         mb=4,
                     ),
-                    rx.text(
+                    rx.chakra.text(
                         "The app state is just a class. ",
                         "State updates are methods in the class. ",
                         "And the UI is a reflection of the state. ",
@@ -312,7 +312,7 @@ def intro():
                     margin_right=[0, 0, "1em"],
                     margin_bottom=["2em", "2em", 0],
                 ),
-                rx.vstack(
+                rx.chakra.vstack(
                     example_card(
                         "Chat GPT",
                         ["LLM", "Chatbot"],
@@ -357,27 +357,27 @@ def intro():
 
 boxstyles = {}
 
-compbox = rx.hstack(
+compbox = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/icon1.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "60+ built-in UI Components",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Reflex comes with a large library of UI components ranging from simple buttons to complex graphs and tables.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Check out the full library",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=library.path,
@@ -392,27 +392,27 @@ compbox = rx.hstack(
     width="100%",
 )
 
-stylebox = rx.hstack(
+stylebox = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/icon2.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Completely customizable",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "All Reflex components are fully customizable. Change the colors, fonts, and styles to match your project.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Styling Guide",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=styling.overview.path,
@@ -427,27 +427,27 @@ stylebox = rx.hstack(
     width="100%",
 )
 
-reactbox = rx.hstack(
+reactbox = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/icon3.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Custom Components",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Create your own components in a few lines of code. Simply wrap the React component of your choice.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Wrapping React guide",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=wrapping_react.overview.path,
@@ -462,19 +462,19 @@ reactbox = rx.hstack(
     width="100%",
 )
 
-powerful = rx.hstack(
+powerful = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/icon4.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Now everyone can work across the full-stack",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "With Reflex every engineer can work across the whole stack allowing for a more efficient and productive workflow.",
             color="#342E5C",
         ),
@@ -489,7 +489,7 @@ powerful = rx.hstack(
 
 
 def frontend():
-    return rx.box(
+    return rx.chakra.box(
         container(
             height="8em",
             width="100%",
@@ -498,9 +498,9 @@ def frontend():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            rx.vstack(
-                rx.box(
-                    rx.text(
+            rx.chakra.vstack(
+                rx.chakra.box(
+                    rx.chakra.text(
                         "[",
                         rx.chakra.span("Frontend", bg="#F5EFFE", color="#5646ED"),
                         "]",
@@ -513,21 +513,21 @@ def frontend():
                     font_size=styles.H3_FONT_SIZE,
                     font_family=styles.MONO,
                 ),
-                rx.text(
+                rx.chakra.text(
                     "No more switching between languages and frameworks. Use one language for your whole stack.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                rx.hstack(
+                rx.chakra.hstack(
                     rx.desktop_only(
-                        rx.vstack(
-                            rx.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.hstack(
                                 compbox,
                                 stylebox,
                                 spacing="2em",
                                 height="100%",
                             ),
-                            rx.hstack(
+                            rx.chakra.hstack(
                                 reactbox,
                                 powerful,
                                 height="100%",
@@ -539,7 +539,7 @@ def frontend():
                         )
                     ),
                     rx.mobile_and_tablet(
-                        rx.vstack(
+                        rx.chakra.vstack(
                             compbox,
                             stylebox,
                             reactbox,
@@ -559,27 +559,27 @@ def frontend():
     )
 
 
-battery_icon = rx.hstack(
+battery_icon = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/battery-icon.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Batteries included",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Skip the boilerplate and get started faster. Reflex integrates the frontend and backend so there is no need to write API endpoints.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "State docs",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=state.overview.path,
@@ -594,27 +594,27 @@ battery_icon = rx.hstack(
     width="100%",
 )
 
-orm_icon = rx.hstack(
+orm_icon = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/orm-icon.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Built in database ORM",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Integrate with existing databases with a single line of code. Or use our built in SQLite database.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Database docs",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=database.overview.path,
@@ -629,19 +629,19 @@ orm_icon = rx.hstack(
     width="100%",
 )
 
-python_icon = rx.hstack(
+python_icon = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/python-icon.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Seamlessly integrate with any Python library",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Never get locked into a framework that doesn't support your existing tech stack.",
             color="#342E5C",
         ),
@@ -656,7 +656,7 @@ python_icon = rx.hstack(
 
 
 def backend():
-    return rx.box(
+    return rx.chakra.box(
         container(
             height="8em",
             width="100%",
@@ -665,9 +665,9 @@ def backend():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            rx.vstack(
-                rx.box(
-                    rx.text(
+            rx.chakra.vstack(
+                rx.chakra.box(
+                    rx.chakra.text(
                         "[",
                         rx.chakra.span("Backend", color="#2B199C", bg="#F3F7FE"),
                         "]",
@@ -680,21 +680,21 @@ def backend():
                     font_size=styles.H3_FONT_SIZE,
                     font_family=styles.MONO,
                 ),
-                rx.text(
+                rx.chakra.text(
                     "Reflex comes with a powerful backend built with FastAPI and SQLAlchemy.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                rx.hstack(
+                rx.chakra.hstack(
                     rx.desktop_only(
-                        rx.vstack(
-                            rx.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.hstack(
                                 battery_icon,
                                 orm_icon,
                                 spacing="2em",
                                 height="100%",
                             ),
-                            rx.hstack(
+                            rx.chakra.hstack(
                                 python_icon,
                                 spacing="2em",
                                 height="100%",
@@ -707,7 +707,7 @@ def backend():
                         )
                     ),
                     rx.mobile_and_tablet(
-                        rx.vstack(
+                        rx.chakra.vstack(
                             battery_icon,
                             orm_icon,
                             python_icon,
@@ -726,27 +726,27 @@ def backend():
     )
 
 
-deploy_icon = rx.hstack(
+deploy_icon = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/deploy-icon.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Deploy your app with a single command",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Autoconfigured CDN, HTTPS, SSL, and more to make sure your app is performant and secure.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Deploy your app",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=hosting.deploy_quick_start.path,
@@ -761,27 +761,27 @@ deploy_icon = rx.hstack(
     width="100%",
 )
 
-host_icon = rx.hstack(
+host_icon = rx.chakra.hstack(
     rx.image(
         src="/landing_icons/host-icon.svg",
         height="4em",
         width="4em",
     ),
-    rx.vstack(
-        rx.text(
+    rx.chakra.vstack(
+        rx.chakra.text(
             "Self-host your app",
             font_size=styles.TEXT_FONT_SIZE,
             font_weight=styles.BOLD_WEIGHT,
         ),
-        rx.text(
+        rx.chakra.text(
             "Learn how to configure your own server and deploy your app on your own infrastructure. With Reflex you are not locked into a specific hosting provider.",
             color="#342E5C",
         ),
-        rx.box(
+        rx.chakra.box(
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Self-host your app",
-                    rx.icon(tag="move_right"),
+                    rx.chakra.icon(tag="arrow_forward"),
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=hosting.self_hosting.path,
@@ -798,7 +798,7 @@ host_icon = rx.hstack(
 
 
 def hosting():
-    return rx.box(
+    return rx.chakra.box(
         container(
             height="8em",
             width="100%",
@@ -807,9 +807,9 @@ def hosting():
             transform="matrix(1, 0, 0, -1, 0, 0);",
         ),
         container(
-            rx.vstack(
-                rx.box(
-                    rx.text(
+            rx.chakra.vstack(
+                rx.chakra.box(
+                    rx.chakra.text(
                         "[",
                         rx.chakra.span("Hosting", color="#342E5C", bg="#FAF8FB"),
                         "]",
@@ -822,15 +822,15 @@ def hosting():
                     font_size=styles.H3_FONT_SIZE,
                     font_family=styles.MONO,
                 ),
-                rx.text(
+                rx.chakra.text(
                     "Simplify the process of deploying your app with Reflex.",
                     color="#342E5C",
                     max_width="50%",
                 ),
-                rx.hstack(
+                rx.chakra.hstack(
                     rx.desktop_only(
-                        rx.vstack(
-                            rx.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.hstack(
                                 deploy_icon,
                                 host_icon,
                                 spacing="2em",
@@ -842,7 +842,7 @@ def hosting():
                         )
                     ),
                     rx.mobile_and_tablet(
-                        rx.vstack(
+                        rx.chakra.vstack(
                             deploy_icon,
                             host_icon,
                             padding_bottom="2em",
@@ -864,14 +864,14 @@ def hosting():
 
 def stat(number, icon, metric):
     """A statistic."""
-    return rx.vstack(
+    return rx.chakra.vstack(
         rx.heading(number, color="#DACEEE"),
-        rx.hstack(
+        rx.chakra.hstack(
             rx.image(
                 src=f"/landing_icons/stats_icons/{icon}.svg",
                 height="1em",
             ),
-            rx.text(
+            rx.chakra.text(
                 metric,
                 color="#82799E",
                 text_align="center",
@@ -888,9 +888,9 @@ def format_with_commas(number):
 def gallery():
     return rx.center(
         container(
-            rx.vstack(
+            rx.chakra.vstack(
                 rx.center(
-                    rx.text(
+                    rx.chakra.text(
                         "Join the growing ",
                         rx.chakra.span(
                             "open-source ",
@@ -909,7 +909,7 @@ def gallery():
                 ),
                 rx.desktop_only(
                     rx.flex(
-                        rx.spacer(),
+                        rx.chakra.spacer(),
                         stat(
                             format_with_commas(constants.MONTHLY_USERS),
                             "project",
@@ -925,7 +925,7 @@ def gallery():
                             "discord",
                             "Discord members",
                         ),
-                        rx.spacer(),
+                        rx.chakra.spacer(),
                         height="100%",
                         min_height="10em",
                         width="100%",
@@ -933,8 +933,8 @@ def gallery():
                     ),
                 ),
                 rx.mobile_and_tablet(
-                    rx.vstack(
-                        rx.vstack(
+                    rx.chakra.vstack(
+                        rx.chakra.vstack(
                             rx.heading(
                                 format_with_commas(constants.MONTHLY_USERS),
                                 color="#DACEEE",
@@ -943,13 +943,13 @@ def gallery():
                                 src="/landing_icons/stats_icons/project.svg",
                                 height="1em",
                             ),
-                            rx.text(
+                            rx.chakra.text(
                                 "Projects created per month",
                                 color="#82799E",
                                 text_align="center",
                             ),
                         ),
-                        rx.vstack(
+                        rx.chakra.vstack(
                             rx.heading(
                                 format_with_commas(constants.GITHUB_STARS),
                                 color="#DACEEE",
@@ -958,11 +958,11 @@ def gallery():
                                 src="/landing_icons/stats_icons/github.svg",
                                 height="1em",
                             ),
-                            rx.text(
+                            rx.chakra.text(
                                 "GitHub stars", color="#82799E", text_align="center"
                             ),
                         ),
-                        rx.vstack(
+                        rx.chakra.vstack(
                             rx.heading(
                                 format_with_commas(constants.DISCORD), color="#DACEEE"
                             ),
@@ -970,7 +970,7 @@ def gallery():
                                 src="/landing_icons/stats_icons/discord.svg",
                                 height="1em",
                             ),
-                            rx.text(
+                            rx.chakra.text(
                                 "Discord members",
                                 color="#82799E",
                                 text_align="center",
@@ -991,7 +991,7 @@ def gallery():
 
 
 def prompt_sign():
-    return rx.text(
+    return rx.chakra.text(
         "$",
         color=styles.ACCENT_COLOR,
         font_family=styles.SANS,
@@ -1004,15 +1004,15 @@ def installation():
         container(
             rx.flex(
                 rx.center(
-                    rx.vstack(
+                    rx.chakra.vstack(
                         rx.heading(
                             "Get up and running in seconds!",
                             font_family=styles.MONO,
                             font_weight=styles.BOLD_WEIGHT,
                             font_size=styles.H3_FONT_SIZE,
                         ),
-                        rx.box(
-                            rx.text(
+                        rx.chakra.box(
+                            rx.chakra.text(
                                 "Reflex requires Python 3.7+",
                             ),
                             color="#82799E",
@@ -1028,37 +1028,37 @@ def installation():
                     width="100%",
                     mb=8,
                 ),
-                rx.vstack(
-                    rx.text(
+                rx.chakra.vstack(
+                    rx.chakra.text(
                         "Install our library to get started:",
                         font_family=styles.MONO,
                         padding_x="1em",
                         padding_top=".5em",
                     ),
                     rx.chakra.divider(),
-                    rx.vstack(
-                        rx.hstack(
-                            rx.text("1", color="#494369"),
+                    rx.chakra.vstack(
+                        rx.chakra.hstack(
+                            rx.chakra.text("1", color="#494369"),
                             prompt_sign(),
-                            rx.text(
+                            rx.chakra.text(
                                 "pip install reflex",
                                 font_family=styles.MONO,
                                 font_weight="500",
                             ),
                         ),
-                        rx.hstack(
-                            rx.text("2", color="#494369"),
+                        rx.chakra.hstack(
+                            rx.chakra.text("2", color="#494369"),
                             prompt_sign(),
-                            rx.text(
+                            rx.chakra.text(
                                 "reflex init",
                                 font_family=styles.MONO,
                                 font_weight="500",
                             ),
                         ),
-                        rx.hstack(
-                            rx.text("3", color="#494369"),
+                        rx.chakra.hstack(
+                            rx.chakra.text("3", color="#494369"),
                             prompt_sign(),
-                            rx.text(
+                            rx.chakra.text(
                                 "reflex run",
                                 font_family=styles.MONO,
                                 font_weight="500",
@@ -1069,13 +1069,13 @@ def installation():
                         padding_x="1em",
                     ),
                     rx.chakra.divider(),
-                    rx.hstack(
-                        rx.text(
+                    rx.chakra.hstack(
+                        rx.chakra.text(
                             "And you should see your first Reflex app!",
                         ),
-                        rx.spacer(),
+                        rx.chakra.spacer(),
                         rx.link(
-                            rx.button(
+                            rx.chakra.button(
                                 "View Docs",
                                 style=styles.ACCENT_BUTTON,
                                 padding_x="1em",
@@ -1100,7 +1100,7 @@ def installation():
             ),
             width="100%",
         ),
-        rx.box(
+        rx.chakra.box(
             height="5em",
             width="100%",
             background="radial-gradient(55.39% 67.5% at 50% 100%, rgba(188, 136, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);",
@@ -1118,7 +1118,7 @@ def installation():
 @webpage(path="/", title="Reflex: Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
-    return rx.box(
+    return rx.chakra.box(
         landing(),
         container(rx.chakra.divider(border_color="#F4F3F6")),
         intro(),
