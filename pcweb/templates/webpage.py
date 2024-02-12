@@ -47,7 +47,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             from pcweb.components.navbar import navbar
 
             # Wrap the component in the template.
-            return rx.box(
+            return rx.chakra.box(
                 navbar(),
                 contents(*children, **props),
                 footer(),
