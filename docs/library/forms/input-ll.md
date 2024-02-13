@@ -10,7 +10,6 @@ components:
 import reflex as rx
 ```
 
-
 # TextField
 
 A text field is an input field that users can type into. This component uses Radix's [text field](https://radix-ui.com/primitives/docs/components/text-field) component.
@@ -49,7 +48,6 @@ def blur_example1():
     )
 ```
 
-
 ```python demo exec
 class TextfieldControlled1(rx.State):
     text: str = "Hello World!"
@@ -70,7 +68,6 @@ def controlled_example1():
         ),
     )
 ```
-
 
 # Real World Example
 

@@ -7,11 +7,9 @@ components:
 import reflex as rx
 ```
 
- 
 # Center
 
 `Center` is a component that centers its children within itself. It is based on the `flex` component and therefore inherits all of its props.
-
 
 ```python demo
 rx.center(

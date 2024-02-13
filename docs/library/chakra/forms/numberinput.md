@@ -15,7 +15,6 @@ import reflex as rx
 
 The NumberInput component is similar to the Input component, but it has controls for incrementing or decrementing numeric values.
 
-
 ```python demo exec
 class NumberInputState(rx.State):
     number: int

@@ -39,7 +39,6 @@ This is useful for passing in text, numbers, and other simple data types.
 
 Now let's take a look at a more complex component, which has other components nested inside it. The `rx.hstack` component is a container that arranges its children horizontally.
 
-
 ```python demo
 rx.hstack(
     # Static 50% progress
@@ -83,6 +82,6 @@ app.add_page(index, route="/")
 app.add_page(about, route="/about")
 ```
 
-In this example we add a page called `index` at the root route. 
+In this example we add a page called `index` at the root route.
 If you `reflex run` the app, you will see the `index` page at `http://localhost:3000`.
 Similarly, the `about` page will be available at `http://localhost:3000/about`.

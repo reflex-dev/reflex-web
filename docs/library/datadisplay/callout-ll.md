@@ -14,7 +14,6 @@ import reflex as rx
 
 A `callout` is a short message to attract user's attention.
 
-
 ```python demo
 rx.callout.root(
     rx.callout.icon(rx.icon(tag="info")),
@@ -28,9 +27,7 @@ The `callout.icon` provides width and height for the `icon` associated with the 
 
 The `callout.text` renders the callout text. This component is based on the `p` element.
 
-
 ## As alert
-
 
 ```python demo
 rx.callout.root(
@@ -41,14 +38,7 @@ rx.callout.root(
 )
 ```
 
-
-
-
-
-
 ## Style
-
-
 
 ### Size
 
@@ -77,7 +67,7 @@ rx.flex(
 )
 ```
 
-### Variant 
+### Variant
 
 Use the `variant` prop to control the visual style. It is set to `soft` by default.
 
@@ -103,11 +93,9 @@ rx.flex(
 )
 ```
 
-
 ### Color
 
 Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
-
 
 ```python demo
 rx.flex(
@@ -131,13 +119,9 @@ rx.flex(
 )
 ```
 
-
-
-
 ### High Contrast
 
 Use the `high_contrast` prop to add additional contrast.
-
 
 ```python demo
 rx.flex(

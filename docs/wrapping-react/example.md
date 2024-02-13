@@ -2,6 +2,7 @@
 import reflex as rx
 from typing import Any
 ```
+
 # Complex Example
 
 In this more complex example we will be wrapping `reactflow` a library for building node based applications like flow charts, diagrams, graphs, etc.
@@ -10,7 +11,7 @@ In this more complex example we will be wrapping `reactflow` a library for build
 
 Lets start by importing the library [reactflow](https://www.npmjs.com/package/reactflow). Lets make a seperate file called `reactflow.py` and add the following code:
 
-```python 
+```python
 from reflex.components.component import Component
 from typing import Any, Dict, List, Union
 from reflex.vars import Var
@@ -27,9 +28,9 @@ class ReactFlowLib(Component):
 
 Notice we also use the `_get_custom_code` method to import the css file that is needed for the styling of the library.
 
-## Components 
+## Components
 
-For this tutorial we will wrap three components from Reactflow: `ReactFlow`, `Background`, and `Controls`. Lets start with the `ReactFlow` component. 
+For this tutorial we will wrap three components from Reactflow: `ReactFlow`, `Background`, and `Controls`. Lets start with the `ReactFlow` component.
 
 Here we will define the `tag` and the `vars` that we will need to use the component.
 
@@ -68,7 +69,6 @@ class ReactFlow(ReactFlowLib):
 ```
 
 Now lets add the `Background` and `Controls` components. We will also create the components using the `create` method so that we can use them in our app.
-
 
 ```python
 from reflex.components.component import Component
@@ -141,7 +141,6 @@ initial_edges = [
 ]
 ```
 
-
 Next we will define the state of our app. We have three event handlers: `add_random_node`, `clear_graph`, and `on_edges_change`.
 
 The `on_edges_change` event handler will be called when an edge is changed. In this case we will use it to delete an edge if it already exists, and add the new edge. It takes in a single argument `new_edge` which is a dictionary containing the `source` and `target` of the edge.
@@ -192,9 +191,7 @@ class State(rx.State):
         })
 ```
 
-
 Now lets define the UI of our app. We will use the `react_flow` component and pass in the `nodes` and `edges` from our state. We will also add the `on_connect` event handler to the `react_flow` component to handle when an edge is connected.
-
 
 ```python
 def index() -> rx.Component:
@@ -223,7 +220,6 @@ def index() -> rx.Component:
 app = rx.App()
 app.add_page(index)
 ```
-
 
 ```python exec
 import reflex as rx

@@ -14,8 +14,7 @@ import reflex.components.radix.themes as rdxt
 
 A `list` is a component that is used to display a list of items, stacked vertically by default. A `list` which can be either `ordered` or `unordered`. It is based on the `flex` component and therefore inherits all of its props.
 
-
-An `unordered_list` has bullet points to display the list items. The `list_item` component 
+An `unordered_list` has bullet points to display the list items. The `list_item` component
 
 ```python demo
 rx.unordered_list(
@@ -35,7 +34,6 @@ rx.ordered_list(
 )
 ```
 
-
 An `unordered_list` or an `ordered_list` can have no bullet points or numbers by setting the `list_style_type` prop to `none`.
 
 ```python demo
@@ -46,8 +44,6 @@ rx.unordered_list(
     list_style_type="none",
 )
 ```
-
-
 
 Lists can also be used with icons.
 

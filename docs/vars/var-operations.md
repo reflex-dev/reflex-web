@@ -27,9 +27,9 @@ def index():
     # Since `float` is not a valid var operation, this will throw an error.
     rx.text(float(State.number))
 ```
+
 This is because we compile the frontend to Javascript, but the value of `State.number`
 is only known at runtime.
-
 
 In this example below we use a var operation to concatenate a `string` with a `var`, meaning we do not have to do in within state as a computed var.
 
@@ -57,9 +57,6 @@ def var_operations_example():
 # Vars support many common operations.
 They can be used for arithmetic, string concatenation, inequalities, indexing, and more. See the [full list of supported operations](/docs/api-reference/var).
 ```
-
-
-
 
 ## Supported Operations
 
@@ -97,7 +94,6 @@ def var_equals_example():
 
 The `-` operator is used to get the negative version of the var. The `abs()` operator is used to get the absolute value of the var. The `.length()` operator is used to get the length of a list var.
 
-
 ```python demo exec
 import random
 
@@ -122,7 +118,7 @@ def var_operation_example():
 
 ### Comparisons and Mathematical Operators
 
-All of the comparison operators are used as expected in python. These include `==`, `!=`, `>`, `>=`, `<`, `<=`. 
+All of the comparison operators are used as expected in python. These include `==`, `!=`, `>`, `>=`, `<`, `<=`.
 
 There are operators to add two vars `+`, subtract two vars `-`, multiply two vars `*` and raise a var to a power `pow()`.
 
@@ -198,7 +194,7 @@ def var_div_example():
 
 ### And, Or and Not
 
-In Reflex the `&` operator represents the logical AND when used in the front end. This means that it returns true only when both conditions are true simultaneously. 
+In Reflex the `&` operator represents the logical AND when used in the front end. This means that it returns true only when both conditions are true simultaneously.
 The `|` operator represents the logical OR when used in the front end. This means that it returns true when either one or both conditions are true.
 The `~` operator is used to invert a var. It is used on a var of type `bool` and is equivalent to the `not` operator.
 
@@ -233,12 +229,12 @@ def var_logical_example():
 
 ### Contains, Reverse and Join
 
-The 'in' operator is not supported for Var types, we must use the `Var.contains()` instead. When we use `contains`, the var must be of type: `dict`, `list`, `tuple` or `str`. 
+The 'in' operator is not supported for Var types, we must use the `Var.contains()` instead. When we use `contains`, the var must be of type: `dict`, `list`, `tuple` or `str`.
 `contains` checks if a var contains the object that we pass to it as an argument.
 
 We use the `reverse` operation to reverse a list var. The var must be of type `list`.
 
-Finally we use the `join` operation to join a list var into a string. 
+Finally we use the `join` operation to join a list var into a string.
 
 ```python demo exec
 class ListsState(rx.State):
@@ -301,7 +297,6 @@ def get_item_error_1():
     )
 ```
 
-
 In the code above you would expect to index into the first index of the list_1 state var. In fact the code above throws the error: `Invalid var passed for prop value, expected type <class 'int'>, got value of type typing.Any.` This is because the type of the items inside the list have not been clearly defined in the state. To fix this you change the list_1 defintion to `list_1: list[int] = [50, 10, 20]`
 
 ```python demo exec
@@ -316,7 +311,7 @@ def get_item_error_1():
 
 ### Using with Foreach
 
-Errors frequently occur when using indexing and `foreach`. 
+Errors frequently occur when using indexing and `foreach`.
 
 ```python
 class ProjectsState(rx.State):
@@ -340,11 +335,10 @@ def project_item(project: dict):
         ),
     )
 ```
+
 The code above throws the error `TypeError: Could not foreach over var of type Any. (If you are trying to foreach over a state var, add a type annotation to the var.)`
 
 We must change `projects: list[dict]` => `projects: list[dict[str, list]]` because while projects is annotated, the item in project["technologies"] is not.
-
-
 
 ```python demo exec
 class ProjectsState(rx.State):
@@ -418,9 +412,6 @@ def actresses_example() -> rx.Component:
 ```
 
 Setting the type of `actresses` to be `actresses: list[dict[str,str]]` would fail as it cannot be understood that the `value` for the `pages key` is actually a `list`.
-
-
-
 
 ## Combine Multiple Var Operations
 

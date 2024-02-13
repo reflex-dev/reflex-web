@@ -6,11 +6,10 @@ from pcweb.pages.docs.library import library
 
 # Events Overview
 
-Events are how we modify the state and make the app interactive. 
+Events are how we modify the state and make the app interactive.
 
 Event triggers are component props that create an event to be sent to an event handler.
 Each component supports a set of events triggers. They are described in each [component's documentation]({library.path}) in the event trigger section.
-
 
 Lets take a look at an example below. Try mousing over the heading to change the word.
 

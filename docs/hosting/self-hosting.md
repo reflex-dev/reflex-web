@@ -12,6 +12,7 @@ apps yourself in the meantime.
 Clone your code to a server and install the [requirements]({getting_started.installation.path}).
 
 ## API URL
+
 Edit your `rxconfig.py` file and set `api_url` to the publicly accessible IP
 address or hostname of your server, with the port `:8000` at the end. Setting
 this correctly is essential for the frontend to interact with the backend state.
@@ -24,6 +25,7 @@ config = rx.Config(
     api_url="http://app.example.com:8000",
 )
 ```
+
 It is also possible to set the environment variable `API_URL` at run time or
 export time to retain the default for local development.
 
@@ -64,7 +66,7 @@ You can export only the frontend or backend by passing in the `--frontend-only`
 or `--backend-only` flags.
 
 It is also possible to export the components without zipping. To do
-this, use the `--no-zip` parameter. This provides the frontend in the 
+this, use the `--no-zip` parameter. This provides the frontend in the
 `.web/_static/` directory and the backend can be found in the root directory of
 the project.
 
@@ -107,13 +109,13 @@ hello
 ```
 
 After all changes have been made, the container image can now be created as follows.
-            
+
 ```bash
 docker build -t reflex-project:latest .
 ```
 
 Finally, you can start your Reflex container service as follows.
-            
+
 ```bash
 docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
 ```

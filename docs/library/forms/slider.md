@@ -16,7 +16,6 @@ from reflex.components.radix.themes.typography import *
 from pcweb.templates.docpage import style_grid
 ```
 
-
 # Slider
 
 Provides user selection from a range of values.
@@ -27,10 +26,9 @@ Provides user selection from a range of values.
 slider(default_value=40)
 ```
 
-
 ### Setting slider defaults
 
-We can set the `min` and `max` values for the range of the slider. The defaults for `min` and `max` are 0 and 100. 
+We can set the `min` and `max` values for the range of the slider. The defaults for `min` and `max` are 0 and 100.
 
 The stepping interval can also be adjusted by using the `step` prop. It defaults to 1.
 
@@ -56,7 +54,6 @@ def slider_max_min_step():
     )
 ```
 
-
 ### Disabling
 
 When the `disabled` prop is set to `True`, it prevents the user from interacting with the slider.
@@ -64,7 +61,6 @@ When the `disabled` prop is set to `True`, it prevents the user from interacting
 ```python demo
 slider(default_value=40, disabled=True)
 ```
-
 
 ### Control the value
 
@@ -78,9 +74,7 @@ slider(default_value=45.5)
 slider(default_value=[40, 60])
 ```
 
-
-The `on_change` event is called when the `value` of the slider changes. 
-
+The `on_change` event is called when the `value` of the slider changes.
 
 ```python demo exec
 class SliderVariationState2(rx.State):
@@ -98,13 +92,9 @@ def slider_on_change():
     )
 ```
 
-
-
-
 ### Submitting a form using slider
 
 The `name` of the slider. Submitted with its owning form as part of a name/value pair.
-
 
 ```python demo exec
 class FormSliderState(rx.State):
@@ -134,8 +124,6 @@ def form_example2():
     )
 ```
 
-
-
 ### Orientation
 
 Use the `orientation` prop to change the orientation of the slider.
@@ -147,11 +135,6 @@ slider(default_value=40, orientation="horizontal")
 ```python demo
 slider(default_value=40, height="4em", orientation="vertical")
 ```
-
-
-
-
-
 
 ## Styling
 
@@ -172,8 +155,6 @@ flex(
 )
 ```
 
-
-
 ### high contrast
 
 ```python demo
@@ -185,7 +166,6 @@ flex(
     width="100%",
 )
 ```
-
 
 ### radius
 
@@ -199,4 +179,3 @@ flex(
     width="100%",
 )
 ```
-

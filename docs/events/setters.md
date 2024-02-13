@@ -2,11 +2,9 @@
 import reflex as rx
 ```
 
-
 # Setters
 
 Every base var has a built-in event handler to set it's value for convenience, called `set_VARNAME`.
-
 
 Say you wanted to change the value of the select component. You could write your own event handler to do this:
 

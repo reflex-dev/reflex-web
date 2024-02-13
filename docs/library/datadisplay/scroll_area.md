@@ -30,8 +30,6 @@ import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
-
-
 # Scroll Area
 
 Custom styled, cross-browser scrollable area using native functionality.
@@ -75,11 +73,9 @@ rx.scroll_area(
 
 ```
 
-
 ## Control the scrollable axes
 
 Use the `scrollbars` prop to limit scrollable axes. This prop can take values `"vertical" | "horizontal" | "both"`.
-
 
 ```python demo
 rx.grid(
@@ -157,7 +153,6 @@ rx.grid(
 )
 ```
 
-
 ## Setting the type of the Scrollbars
 
 The `type_` prop describes the nature of scrollbar visibility.
@@ -169,7 +164,6 @@ The `type_` prop describes the nature of scrollbar visibility.
 `scroll` means that scrollbars are visible when the user is scrolling along its corresponding orientation.
 
 `hover` when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
-
 
 ```python demo
 rx.grid(

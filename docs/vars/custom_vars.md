@@ -3,6 +3,7 @@ import reflex as rx
 
 from pcweb.pages.docs import vars
 ```
+
 # Custom Vars
 
 As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
