@@ -85,7 +85,6 @@ flexdown_docs = [
 ]
 
 chakra_components = defaultdict(list)
-radix_components = defaultdict(list)
 component_list = defaultdict(list)
 docs_ns = SimpleNamespace()
 
@@ -123,7 +122,7 @@ def get_component(doc: str, title: str):
             outblocks.append((d, route))
             return
         clist = [title, *get_components_from_metadata(d)]
-        component_list[category].append(clist)
+        chakra_components[category].append(clist)
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
