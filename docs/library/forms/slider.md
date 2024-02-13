@@ -3,7 +3,7 @@ components:
     - rx.radix.slider
 
 Slider: |
-    lambda **props: rx.radix.themes.slider(default_value=[40], width="100%", height="50%", **props)
+    lambda **props: rx.radix.themes.slider(default_value=40, height="50%", **props)
 
 ---
 
@@ -24,7 +24,7 @@ Provides user selection from a range of values.
 ## Basic Example
 
 ```python demo
-slider(default_value=[40], width="100%")
+slider(default_value=40)
 ```
 
 
@@ -47,11 +47,11 @@ def slider_max_min_step():
     return rx.vstack(
         heading(SliderVariationState.value),
         text("Min=20 Max=240"),
-        slider(default_value=[40], min=20, max=240, width="100%", on_value_commit=SliderVariationState.set_end),
+        slider(default_value=40, min=20, max=240, on_value_commit=SliderVariationState.set_end),
         text("Step=5"),
-        slider(default_value=[40], step=5, width="100%", on_value_commit=SliderVariationState.set_end),
+        slider(default_value=40, step=5, on_value_commit=SliderVariationState.set_end),
         text("Step=0.5"),
-        slider(default_value=[40], step=0.5, width="100%", on_value_commit=SliderVariationState.set_end),
+        slider(default_value=40, step=0.5, on_value_commit=SliderVariationState.set_end),
         width="100%",
     )
 ```
@@ -62,17 +62,20 @@ def slider_max_min_step():
 When the `disabled` prop is set to `True`, it prevents the user from interacting with the slider.
 
 ```python demo
-slider(default_value=[40], width="100%", disabled=True)
+slider(default_value=40, disabled=True)
 ```
 
 
 ### Control the value
 
-The `default_value` is the value of the slider when initially rendered. It must be passed as a `List[float]`. You can pass in more than one `float` value and this renders multiple thumbs to drag. Providing multiple values creates a range slider.
-
+The `default_value` is the value of the slider when initially rendered. It can be a `float` or if multiple thumbs to drag are required then it can be passed as a `List[float]`. Providing multiple values creates a range slider.
 
 ```python demo
-slider(default_value=[40, 60], width="100%")
+slider(default_value=45.5)
+```
+
+```python demo
+slider(default_value=[40, 60])
 ```
 
 
@@ -90,7 +93,7 @@ class SliderVariationState2(rx.State):
 def slider_on_change():
     return rx.vstack(
         heading(SliderVariationState2.value),
-        slider(default_value=[40], width="100%", on_change=SliderVariationState2.set_end),
+        slider(default_value=40, on_change=SliderVariationState2.set_end),
         width="100%",
     )
 ```
@@ -116,7 +119,7 @@ def form_example2():
     return rx.vstack(
         rx.form.root(
             rx.vstack(
-                slider(default_value=[40], width="100%", name="slider"),
+                slider(default_value=40, name="slider"),
                 rx.button("Submit", type_="submit"),
                 width="100%",
             ),
@@ -138,11 +141,11 @@ def form_example2():
 Use the `orientation` prop to change the orientation of the slider.
 
 ```python demo
-slider(default_value=[40], width="100%", orientation="horizontal")
+slider(default_value=40, orientation="horizontal")
 ```
 
 ```python demo
-slider(default_value=[40], height="4em", orientation="vertical")
+slider(default_value=40, height="4em", orientation="vertical")
 ```
 
 
@@ -153,16 +156,16 @@ slider(default_value=[40], height="4em", orientation="vertical")
 ## Styling
 
 ```python eval
-style_grid(component_used=slider, component_used_str="slider", variants=["classic", "surface", "soft"], disabled=True, default_value=[40], width="100%",)
+style_grid(component_used=slider, component_used_str="slider", variants=["classic", "surface", "soft"], disabled=True, default_value=40)
 ```
 
 ### size
 
 ```python demo
 flex(
-    slider(default_value=[25], size="1"),
-    slider(default_value=[25], size="2"),
-    slider(default_value=[25], size="3"),
+    slider(default_value=25, size="1"),
+    slider(default_value=25, size="2"),
+    slider(default_value=25, size="3"),
     direction="column",
     spacing="4",
     width="100%",
@@ -175,8 +178,8 @@ flex(
 
 ```python demo
 flex(
-    slider(default_value=[25]),
-    slider(default_value=[25], high_contrast=True),
+    slider(default_value=25),
+    slider(default_value=25, high_contrast=True),
     direction="column",
     spacing="4",
     width="100%",
@@ -188,16 +191,12 @@ flex(
 
 ```python demo
 flex(
-    slider(default_value=[25], radius="none"),
-    slider(default_value=[25], radius="small"),
-    slider(default_value=[25], radius="full"),
+    slider(default_value=25, radius="none"),
+    slider(default_value=25, radius="small"),
+    slider(default_value=25, radius="full"),
     direction="column",
     spacing="4",
     width="100%",
 )
 ```
-
-
-
-## Real World Example
 
