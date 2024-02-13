@@ -35,7 +35,7 @@ flex(
     code("console.log()", size="8"),
     code("console.log()", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
     align="start",
 )
 ```
@@ -54,7 +54,7 @@ flex(
     code("console.log()", weight="medium"),
     code("console.log()", weight="bold"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -69,7 +69,7 @@ flex(
     code("console.log()", variant="outline"),
     code("console.log()", variant="ghost"),
     direction="column",
-    gap="2",
+    spacing="2",
     align="start",
 )
 ```
@@ -88,7 +88,7 @@ flex(
     code("console.log()", color_scheme="orange"),
     code("console.log()", color_scheme="cyan"),
     direction="column",
-    gap="2",
+    spacing="2",
     align="start",
 )
 ```
@@ -108,7 +108,7 @@ flex(
         code("console.log()", variant="ghost"),
         direction="column",
         align="start",
-        gap="2",
+        spacing="2",
     ),
     flex(
         code("console.log()", variant="solid", high_contrast=True),
@@ -117,9 +117,9 @@ flex(
         code("console.log()", variant="ghost", high_contrast=True),
         direction="column",
         align="start",
-        gap="2",
+        spacing="2",
     ),
-    gap="3",
+    spacing="3",
 )
 ```
 

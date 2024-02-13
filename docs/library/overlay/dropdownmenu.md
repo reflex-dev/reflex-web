@@ -202,7 +202,7 @@ rx.flex(
             size="1",
         ),
     ),
-    gap="3", 
+    spacing="3", 
     align="center",
 )
 ```
@@ -243,7 +243,7 @@ def dropdown_menu_example():
             on_open_change=DropdownMenuState.count_opens,
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     )
 ```
 

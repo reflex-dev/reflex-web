@@ -28,7 +28,7 @@ The `default_checked` prop defines whether the `checkbox` is checked by default.
 The `gap` prop determines the space between the `checkbox` and the `text` label.
 
 ```python demo
-rx.checkbox("Agree to Terms and Conditios", default_checked=True, gap="2")
+rx.checkbox("Agree to Terms and Conditios", default_checked=True, spacing="2")
 
 ```
 
@@ -76,14 +76,14 @@ rx.flex(
     rx.heading("Terms and Conditions"),
     rx.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut  sem nec arcu 'pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.",
     ),
-    rx.checkbox("I certify that I have read and agree to the terms and conditions for this reservation.", gap="2", size="2", default_checked=True, color_scheme="indigo"),
+    rx.checkbox("I certify that I have read and agree to the terms and conditions for this reservation.", spacing="2", size="2", default_checked=True, color_scheme="indigo"),
     rx.button("Book Reservation", color_scheme="indigo", width="100%"),
     direction="column",
     align_items="start",
     border="1px solid #e2e8f0",
     background_color="#f7fafc",
     border_radius="15px",
-    gap="3",
+    spacing="3",
     p="3",
 )
 ```

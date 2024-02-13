@@ -72,7 +72,7 @@ rx.flex(
         size="1",
     ),
     direction="column",
-    gap="3",
+    spacing="3",
     align="start",
 )
 ```
@@ -99,7 +99,7 @@ rx.flex(
         variant="outline",
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -127,7 +127,7 @@ rx.flex(
         color_scheme="red",
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -151,6 +151,6 @@ rx.flex(
         high_contrast=True,
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```

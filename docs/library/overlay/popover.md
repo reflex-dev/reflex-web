@@ -20,7 +20,7 @@ PopoverRoot: |
                     rx.radix.themes.button("Close"),
                 ),
                 direction="column",
-                gap="3",
+                spacing="3",
             ),
         ),
         **props
@@ -38,7 +38,7 @@ PopoverContent: |
                     rx.radix.themes.button("Close"),
                 ),
                 direction="column",
-                gap="3",
+                spacing="3",
             ),
             **props
         ),
@@ -75,7 +75,7 @@ rx.popover.root(
                 rx.button("Close"),
             ),
             direction="column",
-            gap="3",
+            spacing="3",
         ),
     ),
 )
@@ -104,13 +104,13 @@ rx.popover.root(
                     rx.popover.close(
                         rx.button("Comment", size="1")
                     ),
-                    gap="3",
+                    spacing="3",
                     margin_top="12px",
                     justify="between",
                 ),
                 flex_grow="1",
             ),
-            gap="3"
+            spacing="3"
         ),
         style={"width": 360},
     )
@@ -135,7 +135,7 @@ rx.popover.root(
                 rx.popover.close(
                     rx.button("Comment", size="1")
                 ),
-                gap="3",
+                spacing="3",
                 margin_top="12px",
                 justify="between",
             ),

@@ -25,7 +25,7 @@ rx.text(
     rx.flex(
         rx.switch(default_checked=True),
         "Sync Settings",
-        gap="2",
+        spacing="2",
     )
 )
 
@@ -162,7 +162,7 @@ def form_switch2():
                                 rx.flex(
                                     "Required",
                                     rx.switch(default_checked=True, disabled=True, name="required"),
-                                    gap="2",
+                                    spacing="2",
                                     justify="between",
                                 ),
                                 as_="div", size="2", margin_bottom="4px", weight="bold",
@@ -181,7 +181,7 @@ def form_switch2():
                                             name=cookie_type, 
                                             checked=FormSwitchState2.cookie_types[cookie_type], 
                                             on_change=lambda checked: FormSwitchState2.update_cookies(cookie_type, checked)),
-                                        gap="2",
+                                        spacing="2",
                                     ),
                                     as_="div", size="2", margin_bottom="4px", weight="bold",
                                 ),
@@ -192,14 +192,14 @@ def form_switch2():
 
                             
                             direction="column",
-                            gap="3",
+                            spacing="3",
                         ),
                         rx.flex(
                             rx.button("Save & Accept", type_="submit"),
                             rx.dialog.close(
                                 rx.button("Exit"),
                             ),
-                            gap="3",
+                            spacing="3",
                             margin_top="16px",
                             justify="end",
                         ),

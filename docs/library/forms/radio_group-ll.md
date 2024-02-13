@@ -74,7 +74,7 @@ def radio_state_example():
         align="center",
         justify="center",
         direction="column",
-        gap="2",
+        spacing="2",
     )
 ```
 
@@ -91,7 +91,7 @@ rx.flex(
         rx.radio.item(value="2"),
         disabled=True,
     ),
-    gap="2",
+    spacing="2",
 )
 
 ```
@@ -126,7 +126,7 @@ def form_example():
                 ),
                 rx.button("Submit", type_="submit"),
                 direction="column",
-                gap="2",
+                spacing="2",
             ),
             on_submit=FormRadioState.handle_submit,
             reset_on_submit=True,
@@ -135,7 +135,7 @@ def form_example():
         rx.heading("Results"),
         rx.text(FormRadioState.form_data.to_string()),
         direction="column",
-        gap="2",
+        spacing="2",
     )
 ```
 
@@ -159,7 +159,7 @@ rx.flex(
                 rx.flex(
                     rx.radio.item(value="1"),
                     "Off",
-                    gap="2",
+                    spacing="2",
                 ),
                 as_="label",
                 size="2",
@@ -168,13 +168,13 @@ rx.flex(
                 rx.flex(
                     rx.radio.item(value="2"),
                     "On",
-                    gap="2",
+                    spacing="2",
                 ),
                 as_="label",
                 size="2",
             ),
             direction="column",
-            gap="2",
+            spacing="2",
         ),
     ),
     rx.radio.root(
@@ -183,7 +183,7 @@ rx.flex(
                 rx.flex(
                     rx.radio.item(value="1", disabled=True),
                     "Off",
-                    gap="2",
+                    spacing="2",
                 ),
                 as_="label",
                 size="2",
@@ -193,18 +193,18 @@ rx.flex(
                 rx.flex(
                     rx.radio.item(value="2"),
                     "On",
-                    gap="2",
+                    spacing="2",
                 ),
                 as_="label",
                 size="2",
                 color="gray",
             ),
             direction="column",
-            gap="2",
+            spacing="2",
         ),
     ),
     direction="column",
-    gap="2",
+    spacing="2",
 
 )
 ```
@@ -234,7 +234,7 @@ def form_example2():
                 ),
                 rx.button("Submit", type_="submit"),
                 direction="column",
-                gap="2",
+                spacing="2",
             ),
             on_submit=FormRadioState2.handle_submit,
             reset_on_submit=True,
@@ -243,7 +243,7 @@ def form_example2():
         rx.heading("Results"),
         rx.text(FormRadioState2.form_data.to_string()),
         direction="column",
-        gap="2",
+        spacing="2",
     )
 ```
 
@@ -268,7 +268,7 @@ rx.flex(
         rx.radio.item(value="1"),
         size="3",
     ),
-    gap="2",
+    spacing="2",
 )
 
 ```
@@ -285,7 +285,7 @@ rx.flex(
             default_value="1",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         as_child=True,
     ),
     rx.flex(
@@ -296,7 +296,7 @@ rx.flex(
             default_value="1",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         as_child=True,
     ),
     rx.flex(
@@ -307,10 +307,10 @@ rx.flex(
             default_value="1",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         as_child=True,
     ),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -339,7 +339,7 @@ rx.flex(
         color_scheme="crimson",
         default_value="1",
     ),
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -394,7 +394,7 @@ rx.grid(
         high_contrast=True,
     ),
     rows="2",
-    gap="2",
+    spacing="2",
     display="inline-grid",
     flow="column"
 )
@@ -414,7 +414,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="1"),
                 "Default",
-                gap="2",
+                spacing="2",
             ),
             size="2",
             as_="label",
@@ -423,7 +423,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="2"),
                 "Compact",
-                gap="2",
+                spacing="2",
             ),
             size="2",
             as_="label",
@@ -436,7 +436,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="1"),
                 "Default",
-                gap="2",
+                spacing="2",
             ),
             size="3",
             as_="label",
@@ -445,7 +445,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="2"),
                 "Compact",
-                gap="2",
+                spacing="2",
             ),
             size="3",
             as_="label",
@@ -458,7 +458,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="1"),
                 "Default",
-                gap="2",
+                spacing="2",
             ),
             size="4",
             as_="label",
@@ -467,7 +467,7 @@ rx.flex(
             rx.flex(
                 rx.radio.item(value="2"),
                 "Compact",
-                gap="2",
+                spacing="2",
             ),
             size="4",
             as_="label",
@@ -475,7 +475,7 @@ rx.flex(
         default_value="1",
         size="3",
     ),
-    gap="3",
+    spacing="3",
     direction="column",
 )
 ```
@@ -497,7 +497,7 @@ rx.radio.root(
             rx.flex(
                 rx.radio.item(value="1"),
                 "Default",
-                gap="2",
+                spacing="2",
             ),
             size="2",
             as_="label",

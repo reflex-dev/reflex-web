@@ -28,7 +28,7 @@ AlertDialogRoot: |
                 rx.radix.themes.alert_dialog.action(
                     rx.radix.themes.button("Revoke access"),
                 ),
-                gap="3",
+                spacing="3",
             ),
         ),
         **props
@@ -51,7 +51,7 @@ AlertDialogContent: |
                 rx.radix.themes.alert_dialog.action(
                     rx.radix.themes.button("Revoke access"),
                 ),
-                gap="3",
+                spacing="3",
             ),
             **props
         ),
@@ -102,7 +102,7 @@ rx.alert_dialog.root(
             rx.alert_dialog.action(
                 rx.button("Revoke access"),
             ),
-            gap="3",
+            spacing="3",
         ),
     ),
 )
@@ -130,7 +130,7 @@ rx.alert_dialog.root(
             rx.alert_dialog.action(
                 rx.button("Revoke access", color_scheme="red", variant="solid"),
             ),
-            gap="3",
+            spacing="3",
             margin_top="16px",
             justify="end",
         ),
@@ -186,7 +186,7 @@ rx.alert_dialog.root(
             rx.alert_dialog.action(
                 rx.button("Delete users", color_scheme="red"),
             ),
-            gap="3",
+            spacing="3",
             justify="end",
         ),
         style={"max_width": 500},
@@ -229,7 +229,7 @@ def alert_dialog():
                     rx.alert_dialog.action(
                         rx.button("Revoke access", color_scheme="red", variant="solid"),
                     ),
-                    gap="3",
+                    spacing="3",
                     margin_top="16px",
                     justify="end",
                 ),
@@ -238,7 +238,7 @@ def alert_dialog():
             on_open_change=AlertDialogState.count_opens,
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     )
 ```
 
@@ -270,7 +270,7 @@ rx.flex(
                     rx.button("Revoke access", color_scheme="red", variant="solid"),
                     size="1",
                 ),
-                gap="3",
+                spacing="3",
                 margin_top="16px",
                 justify="end",
             ),
@@ -294,14 +294,14 @@ rx.flex(
                 rx.alert_dialog.action(
                     rx.button("Revoke access", color_scheme="red", variant="solid"),
                 ),
-                gap="3",
+                spacing="3",
                 margin_top="16px",
                 justify="end",
             ),
             style={"max_width": 450},
         ),
     ),
-    gap="3",
+    spacing="3",
 )
 ```
 

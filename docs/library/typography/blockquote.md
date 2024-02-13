@@ -34,7 +34,7 @@ flex(
     blockquote("Perfect typography is certainly the most elusive of all arts.", size="8"),
     blockquote("Perfect typography is certainly the most elusive of all arts.", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -50,7 +50,7 @@ flex(
     blockquote("Perfect typography is certainly the most elusive of all arts.", weight="medium"),
     blockquote("Perfect typography is certainly the most elusive of all arts.", weight="bold"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -68,7 +68,7 @@ flex(
     blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="crimson"),
     blockquote("Perfect typography is certainly the most elusive of all arts.", color_scheme="orange"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -82,6 +82,6 @@ flex(
     blockquote("Perfect typography is certainly the most elusive of all arts."),
     blockquote("Perfect typography is certainly the most elusive of all arts.", high_contrast=True),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```

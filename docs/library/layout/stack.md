@@ -15,7 +15,7 @@ import reflex as rx
 
 `vstack` is used to stack elements in the vertical direction.
 
-`vstack` is used to stack elements in the horizontal direction.
+`hstack` is used to stack elements in the horizontal direction.
 
 `stack` is used to stack elements in the vertical or horizontal direction.
 
@@ -161,7 +161,7 @@ rx.hstack(
         padding="1em",
         border_width="1px",
     ),
-    spacing="2em",
+    gap="2em",
 )
 
 ```

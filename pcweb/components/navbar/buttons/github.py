@@ -25,7 +25,7 @@ def github_desktop() -> rx.Component:
                 border_radius="5px",
                 padding="0px 3px",
             ),
-            gap="2",
+            spacing="2",
         style=button_style
         ),
         href="https://github.com/reflex-dev/reflex"

@@ -26,7 +26,7 @@ rx.flex(
     rx.text("This is a ", rx.text.strong("div"), " element.", as_="div"),
     rx.text("This is a ", rx.text.strong("span"), " element.", as_="span"),
     direction="column",
-    gap="3",
+    spacing="3",
 )             
 ```
 
@@ -47,7 +47,7 @@ rx.flex(
     rx.text("The quick brown fox jumps over the lazy dog.", size="8"),
     rx.text("The quick brown fox jumps over the lazy dog.", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -65,7 +65,7 @@ rx.flex(
     rx.text("The quick brown fox jumps over the lazy dog.", weight="medium", as_="div"),
     rx.text("The quick brown fox jumps over the lazy dog.", weight="bold", as_="div"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -81,7 +81,7 @@ rx.flex(
     rx.text("Center-aligned", align="center", as_="div"),
     rx.text("Right-aligned", align="right", as_="div"),
     direction="column",
-    gap="3",
+    spacing="3",
     width="100%",
 )
 ```
@@ -107,7 +107,7 @@ rx.flex(
                 "border_bottom": "1px dashed var(--gray-a7)",}
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -132,7 +132,7 @@ rx.flex(
         padding="16px",
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 

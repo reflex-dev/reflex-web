@@ -220,6 +220,6 @@ rx.grid(
         ),
     ),
     columns="2", 
-    gap="3",
+    spacing="3",
 )
 ```

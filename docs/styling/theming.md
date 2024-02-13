@@ -41,7 +41,7 @@ rdxt.flex(
         "Hello World",
         color_scheme="teal",
     ),
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -66,7 +66,7 @@ rdxt.flex(
         background_color=rx.color("grass", 12, True),
         border_color=f"1px solid {rx.color('grass', 1, True)}",
     ),
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -88,6 +88,6 @@ rdxt.flex(
         background_color="rgba(0, 0, 255, 0.5)",
         border_color="1px solid #ff0000",
     ),
-    gap="2"
+    spacing="2"
 )
 ```
