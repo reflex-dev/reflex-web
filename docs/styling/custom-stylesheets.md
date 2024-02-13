@@ -27,7 +27,7 @@ app = rx.App(
 )
 ```
 
-## Fonts 
+## Fonts
 
 You can take advantage of Reflex's support for custom stylesheets to add custom fonts to your app.
 

@@ -144,7 +144,7 @@ class AddUserForm(rx.State):
 ```
 
 If an ORM object will be referenced and accessed outside of a session, you
-should call `.refresh()` on it to avoid stale object exceptions. 
+should call `.refresh()` on it to avoid stale object exceptions.
 
 ## Using SQL Directly
 

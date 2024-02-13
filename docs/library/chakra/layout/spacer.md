@@ -21,4 +21,3 @@ rx.chakra.flex(
     width="100%",
 )
 ```
-

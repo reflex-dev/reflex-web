@@ -10,7 +10,6 @@ HighLevelCheckbox: |
 import reflex as rx
 ```
 
-
 # Checkbox
 
 Checkboxes allow users to select one or more items from a set.
@@ -23,7 +22,7 @@ rx.checkbox()
 
 The `checkbox` component takes a `text` prop, which is the text label associated with the checkbox.
 
-The `default_checked` prop defines whether the `checkbox` is checked by default. 
+The `default_checked` prop defines whether the `checkbox` is checked by default.
 
 The `gap` prop determines the space between the `checkbox` and the `text` label.
 
@@ -37,7 +36,6 @@ The `size` prop determines the size of the `checkbox` and the associated `text` 
 ```python demo
 rx.checkbox("Agree to Terms and Conditios", size="3")
 ```
-
 
 ### Disabled
 
@@ -60,16 +58,13 @@ The `on_change` trigger is called when the `checkbox` is clicked.
 rx.checkbox("Agree to Terms and Conditios", default_checked=True, on_change=rx.window_alert("Checked!"))
 ```
 
-
-The `checkbox` can also take other styling props such as `color_scheme` and `variant`. 
+The `checkbox` can also take other styling props such as `color_scheme` and `variant`.
 
 ```python demo
 rx.checkbox("Agree to Terms and Conditios", size="3", color_scheme="red", variant="soft")
 ```
 
-
 ## Real World Example
-
 
 ```python demo
 rx.flex(

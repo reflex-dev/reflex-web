@@ -18,15 +18,11 @@ import reflex.components.radix.primitives as rdxp
 from pcweb.templates.docpage import style_grid
 ```
 
-
-
 # Select
 
 Displays a list of options for the user to pick from, triggered by a button.
 
-
 ## Basic Example
-
 
 ```python demo
 rx.select.root(
@@ -49,12 +45,9 @@ rx.select.root(
 )
 ```
 
-
 ## Usage
 
-
-## Disabling 
-
+## Disabling
 
 It is possible to disable individual items in a `select` using the `disabled` prop associated with the `rx.select.item`.
 
@@ -86,15 +79,11 @@ rx.select.root(
 )
 ```
 
+## Setting Defaults
 
-## Setting Defaults 
-
-
-It is possible to set several default values when constructing a `select`. 
-
+It is possible to set several default values when constructing a `select`.
 
 The `placeholder` prop in the `rx.select.trigger` specifies the content that will be rendered when `value` or `default_value` is empty or not set.
-
 
 ```python demo
 rx.select.root(
@@ -111,7 +100,6 @@ rx.select.root(
 The `default_value` in the `rx.select.root` specifies the value of the `select` when initially rendered.
 The `default_value` should correspond to the `value` of a child `rx.select.item`.
 
-
 ```python demo
 rx.select.root(
     rx.select.trigger(),
@@ -125,13 +113,10 @@ rx.select.root(
 )
 ```
 
-
-
 ## Fully controlled
 
-
 The `on_change` event trigger is fired when the value of the select changes.
-In this example the `rx.select_root` `value` prop specifies which item is selected, and this 
+In this example the `rx.select_root` `value` prop specifies which item is selected, and this
 can also be controlled using state and a button without direct interaction with the select component.
 
 ```python demo exec
@@ -166,12 +151,9 @@ def select_example2():
     )
 ```
 
-
-
 The `open` prop and `on_open_change` event trigger work similarly to `value` and `on_change` to control the open state of the select.
 If `on_open_change` handler does not alter the `open` prop, the select will not be able to be opened or closed by clicking on the
 `select_trigger`.
-
 
  ```python demo exec
 class SelectState8(rx.State):
@@ -194,8 +176,6 @@ def select_example8():
         spacing="2",
     )
 ```
-
-
 
 ### Submitting a Form with Select
 

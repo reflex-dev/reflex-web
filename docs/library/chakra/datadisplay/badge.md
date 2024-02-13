@@ -11,7 +11,7 @@ import reflex as rx
 
 Badges are used to highlight an item's status for quick recognition.
 
-There are 3 variants of badges: `solid`, `subtle`, and `outline`. 
+There are 3 variants of badges: `solid`, `subtle`, and `outline`.
 
 ```python demo
 rx.chakra.hstack(

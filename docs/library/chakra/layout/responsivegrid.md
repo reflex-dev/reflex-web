@@ -26,7 +26,6 @@ rx.chakra.responsive_grid(
 )
 ```
 
-
 ```python demo
 rx.chakra.responsive_grid(
     rx.chakra.box(height="5em", width="5em", bg="lightgreen"),

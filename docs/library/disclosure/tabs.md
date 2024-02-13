@@ -111,14 +111,14 @@ TabsContent: |
 import reflex as rx
 ```
 
-
 # Tabs
+
 Tabs are a set of layered sections of content—known as tab panels that are displayed one at a time.
 They facilitate the organization and navigation between sets of content that share a connection and exist at a similar level of hierarchy.
 
 ## Basic Example
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"), 
@@ -141,9 +141,10 @@ The `tabs` component is made up of a `rx.tabs.root` which groups `rx.tabs.list` 
 ## Styling
 
 ### Default value
+
 We use the `default_value` prop to set a default active tab, this will select the specified tab by default.
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"),
@@ -162,12 +163,13 @@ rx.tabs.root(
 ```
 
 ### Orientation
+
 We use `orientation` prop to set the orientation of the tabs component to `vertical` or `horizontal`. By default, the orientation
-will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but the 
+will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but the
 functional orientation. This means for vertical orientation, the up and down arrow keys moves focus between the next or previous tab,
 while for horizontal orientation, the left and right arrow keys moves focus between tabs.
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"),
@@ -186,7 +188,7 @@ rx.tabs.root(
 )
 ```
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"),
@@ -204,7 +206,9 @@ rx.tabs.root(
     orientation="horizontal",
 )
 ```
+
 ### Value
+
 We use the `value` prop to specify the controlled value of the tab that we want to activate. This property should be used in conjunction with the `on_change` event argument.
 
 ```python demo exec
@@ -251,20 +255,21 @@ def index() -> rx.Component:
     )
 ```
 
+## Tablist
 
-## Tablist 
 The Tablist is used to list the respective tabs to the tab component
 
-
 ## Tab Trigger
+
 This is the button that activates the tab's associated content. It is typically used in the `Tablist`
 
 ## Styling
 
 ### Value
+
 We use the `value` prop to assign a unique value that associates the trigger with content.
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"),
@@ -275,9 +280,10 @@ rx.tabs.root(
 ```
 
 ### Disable
+
 We use the `disabled` prop to disable the tab.
 
-```python demo 
+```python demo
 rx.tabs.root(
     rx.tabs.list(
         rx.tabs.trigger("Tab 1", value="tab1"),
@@ -288,11 +294,13 @@ rx.tabs.root(
 ```
 
 ## Tabs Content
+
 Contains the content associated with each trigger.
 
-## Styling 
+## Styling
 
 ### Value
+
 We use the `value` prop to assign a unique value that associates the content with a trigger.
 
 ```python

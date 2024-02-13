@@ -2,13 +2,11 @@
 import reflex as rx
 ```
 
-
 # Chaining events
 
 ## Calling Event Handlers From Event Handlers
 
 You can call other event handlers from event handlers to keep your code modular. Just use the `self.call_handler` syntax to run another event handler. As always, you can yield within your function to send incremental updates to the frontend.
-
 
 ```python demo exec
 import asyncio
@@ -55,7 +53,6 @@ Be sure to use the class name `State` (or any substate) rather than `self` when 
 
 Try entering an integer in the input below then clicking out.
 
-
 ```python demo exec
 class CollatzState(rx.State):
     count: int = 0
@@ -91,4 +88,3 @@ def collatz_example():
 In this example, we run the [Collatz Conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) on a number entered by the user.
 
 When the `on_blur` event is triggered, the event handler `start_collatz` is called. It sets the initial count, then calls `run_step` which runs until the count reaches `1`.
-

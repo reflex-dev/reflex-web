@@ -28,7 +28,6 @@ This allows a state var to directly control the `value` prop from the backend wi
 For advanced use cases, you can tune the debounce delay by setting the `debounce_timeout` when creating the Input component.
 You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
 
-
 ```python demo exec
 class ClearInputState(rx.State):
     text: str
@@ -50,7 +49,6 @@ def clear_input_example():
 
 The input component can also use the `on_blur` event handler to only change the state when the user clicks away from the input.
 This is useful for performance reasons, as the state will only be updated when the user is done typing.
-
 
 ```python demo exec
 class InputBlurState(rx.State):
@@ -85,7 +83,6 @@ rx.chakra.password()
 
  You can also use forms in combination with inputs.
  This is useful for collecting multiple values with a single event handler and automatically supporting `Enter` key submit functionality that desktop users expect.
-
 
  ```python demo exec
  class InputFormState(rx.State):

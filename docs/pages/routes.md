@@ -96,10 +96,12 @@ class State(rx.State):
 ```
 
 # Pages
-Pages in Reflex allow you to define components for different URLs. This section covers creating pages, handling URL 
+
+Pages in Reflex allow you to define components for different URLs. This section covers creating pages, handling URL
 arguments, accessing query parameters, managing page metadata, and handling page load events.
 
 ## Adding a Page
+
 You can create a page by defining a function that returns a component.
 By default, the function name will be used as the route, but you can also specify a route.
 
@@ -107,12 +109,14 @@ By default, the function name will be used as the route, but you can also specif
 {route.strip()}
 ```
 
-In this example we create three pages: 
+In this example we create three pages:
+
 - `index` - The root route, available at `/`
 - `about` - available at `/about`
 - `/custom` - available at `/custom-route`
 
 ## Page Decorator
+
 You can also use the `@rx.page` decorator to add a page.
 
 ```python
@@ -126,16 +130,17 @@ This is equivalent to calling `app.add_page` with the same arguments.
 ```
 
 ## Nested Routes
+
 Pages can also have nested routes.
 
 ```python
 {nested_routes}
 ```
+
 This component will be available at `/nested/page`.
 
-
-
 ## Getting the Current Page Link
+
 The `router.page.path` attribute allows you to obtain the path of the current page from the router data,
 for dynamic pages this will contain the slug rather than the actual value used to load the page.
 
@@ -145,6 +150,7 @@ will contain all query parameters and dynamic path segments.
 ```python
 {current_page_info}
 ```
+
 In the above example, `current_page_route` will contain the route pattern (e.g., `/posts/[id]`), while `current_page_url`
 will contain the actual URL (e.g., `http://example.com/posts/123`).
 
@@ -155,16 +161,14 @@ Example:
 ```python
 {current_page_link}
 ```
+
 In this example, running on `localhost` should display `http://localhost:3000/user/hey/posts/3/`
 
-
 ## Getting Client IP
-You can use the `router.session.client_ip` attribute to obtain the IP address of the client associated 
+
+You can use the `router.session.client_ip` attribute to obtain the IP address of the client associated
 with the current state.
 
 ```python
 {client_ip}
 ```
-
-
-

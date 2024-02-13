@@ -36,8 +36,6 @@ Lastly let's add in an API so we can live stream data into our datatable.
 
 Here we use a [Background Task](https://reflex.dev/docs/advanced-guide/background-tasks) to stream the data into the table without blocking UI interactivity. We call an advice API using `httpx` and then append that data to the `self.table_data` state var. We also create a button that allows us to start and pause the streaming of the data by changing the value of the boolean state var `running` using the event handler `toggle_pause`. If the `running` state var is set to `True` we stream the API data, when it is set to `False` we break out of the `while` loop and end the background event.
 
-
-
 ```python
 class DataTableLiveState(BaseState):
     "The app state."
@@ -82,8 +80,6 @@ class DataTableLiveState(BaseState):
         if self.running:
             return DataTableLiveState.live_stream
 ```
-
-
 
 ```python demo
 rx.vstack(
