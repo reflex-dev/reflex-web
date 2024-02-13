@@ -383,7 +383,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             margin_right="1em",
                             height="100%",
                             width=["none", "none", "none", "25%", "25%"],
-                            display=["none", "none", "none", "none", "none", "flex"],
+                            display=["none", "none", "none", "none", "flex", "flex"],
                         ),
                     rx.box(
                             rx.box(
