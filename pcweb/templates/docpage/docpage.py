@@ -383,7 +383,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             margin_right="1em",
                             height="100%",
                             width=["none", "none", "none", "25%", "25%"],
-                            display=["none", "none", "none", "none", "flex"],
+                            display=["none", "none", "none", "none", "flex", "flex"],
                         ),
                     rx.box(
                             rx.box(
@@ -401,10 +401,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.spacer(),
                             rx.box(height="2em"),
                             docpage_footer(path),
-                            border_left= ["none", "none", "none", "none",f"1px solid {rx.color('mauve', 4)};"],
+                            border_left= ["none", "none", "none", "none", "none", f"1px solid {rx.color('mauve', 4)};"],
                             padding_left=styles.PADDING_X,
                             padding_right=styles.PADDING_X,
-                            width=["100%", "100%", "100%", "100%", "75%"],
+                            width=["100%", "100%", "100%", "100%", "100%", "75%"],
                             height="100%",
                         ),
                     rx.box(

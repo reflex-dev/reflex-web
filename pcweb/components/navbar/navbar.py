@@ -88,14 +88,15 @@ def resources_section():
         )
 
 def navigation_section():
-    return rx.desktop_only(
+    return rx.box(
         rx.flex(
             rx.link(rx.text("Docs", color=rx.color("mauve", 11)), href="/docs/getting-started/introduction/"),
             rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
             rx.link(rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"),
             resources_section(),
             gap="5",
-        )
+        ),
+        display=["none", "none", "none", "none", "flex", "flex"]
     )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
@@ -118,11 +119,14 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             search_bar(),
             github(),
             rx.separator(size="2", color='mauve', orientation="vertical"), 
-            rx.desktop_only(
+            rx.box(
                 discord(),
+                display=["none", "none", "none", "none", "none", "flex"],
+                
             ),
-            rx.mobile_and_tablet(
+            rx.box(
                 sidebar_button(),
+                display=["flex", "flex", "flex", "flex", "flex", "none"],
             ),
             gap="3",
             align_items="center",
