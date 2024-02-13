@@ -142,7 +142,7 @@ def blg():
                     "The latest news from the Reflex team. ",
                     color=tc["docs"]["body"],
                 ),
-                rx.separator(size="4"),
+                rx.divider(size="4"),
                 align_items="left",
                 text_align="left",
                 width="100%",

@@ -19,7 +19,7 @@ Visually or semantically separates content.
 ```python demo
 rx.flex(
     rx.card("Section 1"),
-    rx.separator(),
+    rx.divider(),
     rx.card("Section 2"),
     gap="4",
     direction="column",
@@ -36,7 +36,7 @@ can also achieve this effect, but `size` works the same regardless of the orient
 ```python demo
 rx.flex(
     rx.card("Section 1"),
-    rx.separator(size="4"),
+    rx.divider(size="4"),
     rx.card("Section 2"),
     gap="4",
     direction="column",
@@ -50,7 +50,7 @@ Setting the orientation prop to `vertical` will make the separator appear vertic
 ```python demo
 rx.flex(
     rx.card("Section 1"),
-    rx.separator(orientation="vertical", size="4"),
+    rx.divider(orientation="vertical", size="4"),
     rx.card("Section 2"),
     gap="4",
     width="100%",

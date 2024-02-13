@@ -95,7 +95,7 @@ def doccmdoutput(
             gap="1",
             margin_left="1em",
         ),
-        rx.separator(size="4", color_scheme="green"),
+        rx.divider(size="4", color_scheme="green"),
         rx.flex(
             rx.code_block(
                 output,

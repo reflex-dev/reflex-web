@@ -207,7 +207,7 @@ def form_select1():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.separator(width="100%"),
+        rx.divider(width="100%"),
         rx.heading("Results"),
         rx.text(FormSelectState1.form_data.to_string()),
         width="100%",
@@ -232,7 +232,7 @@ rx.card(
             width="100%",
         ),
         rx.text("Reflex swag with a sense of nostalgia, as if they carry whispered tales of past adventures", size="2", mb="1"),
-        rx.separator(width="100%"),
+        rx.divider(width="100%"),
         rx.flex(
             rx.flex(
                 rx.text("Color", size="2", mb="1", color_scheme="gray"),

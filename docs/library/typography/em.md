@@ -1,12 +1,10 @@
 ---
 components:
-    - rx.radix.em
+    - rx.radix.text.em
 ---
 
 ```python exec
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+import reflex as rx
 ```
 
 # Em (Emphasis)
@@ -14,5 +12,5 @@ from reflex.components.radix.themes.typography import *
 Marks text to stress emphasis.
 
 ```python demo
-text("We ", em("had"), " to do something about it.")
+rx.text("We ", rx.text.em("had"), " to do something about it.")
 ```
