@@ -1,7 +1,6 @@
 ---
 components:
     - rx.radix.input
-    - rx.radix.text_field
     - rx.radix.text_field.root
     - rx.radix.text_field.input
     - rx.radix.text_field.slot
