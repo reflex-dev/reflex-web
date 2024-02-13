@@ -206,23 +206,23 @@ def radix_form_submission_example():
                     gap="2",
                     align="center",
                 ),
-                rx.radio_group.root(
+                rx.radio.root(
                     rx.flex(
-                        rx.radio_group.item(value="1"),
+                        rx.radio.item(value="1"),
                         "1",
                         direction="row",
                         align="center",
                         gap="2",
                     ),
                     rx.flex(
-                        rx.radio_group.item(value="2"),
+                        rx.radio.item(value="2"),
                         "2",
                         direction="row",
                         align="center",
                         gap="2",
                     ),
                     rx.flex(
-                        rx.radio_group.item(value="3"),
+                        rx.radio.item(value="3"),
                         "3",
                         direction="row",
                         align="center",
@@ -287,7 +287,7 @@ def radix_form_submission_example():
             ),
             on_submit=RadixFormSubmissionState.handle_submit,
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.text(
             "Results",
             weight="bold",
@@ -560,7 +560,7 @@ def radix_form_example():
             on_submit=RadixFormState.handle_submit,
             reset_on_submit=True,
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.text(
             "Username submitted: ",
             rx.text(

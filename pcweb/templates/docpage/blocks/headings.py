@@ -52,7 +52,7 @@ def h_comp_common(
             margin_bottom="0.5em",
         ),
         rx.flex(
-            rx.separator(size="4"),
+            rx.divider(size="4"),
             margin_top=".5em",
             margin_bottom="1em",
             width="100%"

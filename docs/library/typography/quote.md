@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.quote
+    - rx.radix.text.quote
 ---
 
 ```python exec
@@ -13,7 +13,7 @@ A short inline quotation.
 
 ```python demo
 rx.text("His famous quote, ",
-  rx.quote("Styles come and go. Good design is a language, not a style"),
+  rx.text.quote("Styles come and go. Good design is a language, not a style"),
   ", elegantly sums up Massimo’s philosophy of design."
   )
 ```
