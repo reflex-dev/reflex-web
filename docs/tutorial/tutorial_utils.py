@@ -4,33 +4,21 @@ import reflex as rx
 
 
 class ChatappState(rx.State):
-    # The current question being asked.
-    question: str
-
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def answer(self):
+    def answer(self, data):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
-        self.chat_history.append((self.question, answer))
+        self.chat_history.append((data["message"], answer))
 
-    def answer2(self):
-        # Our chatbot is not very smart right now...
-        answer = "I don't know!"
-        self.chat_history.append((self.question, answer))
-        # Clear the question input.
-        self.question = ""
-
-    async def answer3(self):
+    async def answer3(self, data):
         import asyncio
 
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
-        self.chat_history.append((self.question, ""))
+        self.chat_history.append((data["message"], ""))
 
-        # Clear the question input.
-        self.question = ""
         # Yield here to clear the frontend input before continuing.
         yield
 
@@ -39,11 +27,11 @@ class ChatappState(rx.State):
             self.chat_history[-1] = (self.chat_history[-1][0], answer[: i + 1])
             yield
 
-    def answer4(self):
+    def answer4(self, data):
         # Our chatbot has some brains now!
         session = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": self.question}],
+            messages=[{"role": "user", "content": data["message"]}],
             stop=None,
             temperature=0.7,
             stream=True,
@@ -51,10 +39,8 @@ class ChatappState(rx.State):
 
         # Add to the answer as the chatbot responds.
         answer = ""
-        self.chat_history.append((self.question, answer))
+        self.chat_history.append((data["message"], answer))
 
-        # Clear the question input.
-        self.question = ""
         # Yield here to clear the frontend input before continuing.
         yield
 

@@ -122,14 +122,18 @@ def index() -> rx.Component:
 
 ## Chat Input
 
-Now we want a way for the user to input a question. For this, we will use the [input]({library.chakra.forms.input.path}) component to have the user add text and a [button]({library.chakra.forms.button.path}) component to submit the question.
+Now we want a way for the user to input a question. For this, we will use a [form]({library.forms.form.path}) to wrap an [input]({library.forms.textfield.path}) to have the user add text and a [button]({library.forms.button.path}) component to submit the question.
 
 
 ```python exec
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question"),
-        rx.button("Ask"),
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message"),
+            rx.button("Ask", _type="submit"),
+            width="100%"
+        ),
+        width="100%"
     )
 ```
 
@@ -142,9 +146,13 @@ rx.container(
 
 ```python
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question"),
-        rx.button("Ask"),
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message"),
+            rx.button("Ask", _type="submit"),
+            width="100%",
+        ),
+        width="100%"
     )
 
 def index() -> rx.Component:
@@ -211,9 +219,13 @@ def chat4() -> rx.Component:
 
 
 def action_bar4() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
-        rx.button("Ask", style=style.button_style),
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
+        ),
+        width="100%"
     )
 ```
 
@@ -247,9 +259,13 @@ def chat() -> rx.Component:
 
 
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question", style=style.input_style),
-        rx.button("Ask", style=style.button_style),
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
+        ),
+        width="100%"
     )
 
 

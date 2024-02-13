@@ -32,14 +32,15 @@ def chat1() -> rx.Component:
 
 
 def action_bar3() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            value=ChatappState.question,
-            placeholder="Ask a question",
-            on_change=ChatappState.set_question,
-            style=style.input_style,
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
         ),
-        rx.button("Ask", on_click=ChatappState.answer4, style=style.button_style),
+        reset_on_submit=True,
+        on_submit=ChatappState.answer4,
+        width="100%"
     )
 ```
 
@@ -64,9 +65,7 @@ def answer(self):
     client = OpenAI()
     session = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[
-            \{"role": "user", "content": self.question}
-        ],
+        messages=[\{"role": "user", "content": data["message"]}],
         stop=None,
         temperature=0.7,
         stream=True,
@@ -74,10 +73,8 @@ def answer(self):
 
     # Add to the answer as the chatbot responds.
     answer = ""
-    self.chat_history.append((self.question, answer))
+    self.chat_history.append((data["message"], answer))
 
-    # Clear the question input.
-    self.question = ""
     # Yield here to clear the frontend input before continuing.
     yield
 
@@ -122,14 +119,15 @@ def chat() -> rx.Component:
 
 
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            value=State.question,
-            placeholder="Ask a question",
-            on_change=State.set_question,
-            style=style.input_style,
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
         ),
-        rx.button("Ask", on_click=State.answer, style=style.button_style),
+        reset_on_submit=True,
+        on_submit=ChatappState.answer,
+        width="100%"
     )
 
 
@@ -161,13 +159,13 @@ class State(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def answer(self):
+    def answer(self, data):
         # Our chatbot has some brains now!
         client = OpenAI()
         session = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                \{"role": "user", "content": self.question}
+                \{"role": "user", "content": data["message"]}
             ],
             stop=None,
             temperature=0.7,
@@ -176,10 +174,8 @@ class State(rx.State):
 
         # Add to the answer as the chatbot responds.
         answer = ""
-        self.chat_history.append((self.question, answer))
+        self.chat_history.append((data["message"], answer))
 
-        # Clear the question input.
-        self.question = ""
         # Yield here to clear the frontend input before continuing.
         yield
 

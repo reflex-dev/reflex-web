@@ -23,7 +23,7 @@ Now let’s make the chat app interactive by adding state. The state is where we
 
 ## Defining State
 
-We will create a new file called `state.py` in the `chatapp` directory. Our state will keep track of the current question being asked and the chat history. We will also define an event handler `answer` which will process the current question and add the answer to the chat history.
+We will create a new file called `state.py` in the `chatapp` directory. Our state will keep track of the chat history. We will also define an event handler `answer` which will handle the form `on_submit` event, process the current question and add the answer to the chat history.
 
 ```python
 # state.py
@@ -31,17 +31,13 @@ import reflex as rx
 
 
 class State(rx.State):
-
-    # The current question being asked.
-    question: str
-
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def answer(self):
+    def answer(self, data):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
-        self.chat_history.append((self.question, answer))
+        self.chat_history.append((data["message"], answer))
 
 ```
 
@@ -68,13 +64,13 @@ def chat1() -> rx.Component:
 
 
 def action_bar1() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            placeholder="Ask a question",
-            on_change=ChatappState.set_question,
-            style=style.input_style,
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
         ),
-        rx.button("Ask", on_click=ChatappState.answer, style=style.button_style),
+        width="100%",
     )
 ```
 
@@ -97,14 +93,6 @@ def chat() -> rx.Component:
             lambda messages: qa(messages[0], messages[1])
         )
     )
-
-...
-
-def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
-        rx.button("Ask", on_click=State.answer, style=style.button_style),
-    )
 ```
 
 Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({library.layout.foreach.path}) component to iterate over the chat history.
@@ -114,19 +102,20 @@ We also bind the input's `on_change` event to the `set_question` event handler, 
 
 ## Clearing the Input
 
-Currently the input doesn't clear after the user clicks the button. We can fix this by binding the value of the input to `question`, with `value=State.question`, and clear it when we run the event handler for `answer`, with `self.question = ''`.
+Currently the input doesn't clear after the user clicks the button. We can fix this by passing the `reset_on_submit` to `rx.form`.
 
 
 ```python exec
 def action_bar2() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            value=ChatappState.question,
-            placeholder="Ask a question",
-            on_change=ChatappState.set_question,
-            style=style.input_style,
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
         ),
-        rx.button("Ask", on_click=ChatappState.answer2, style=style.button_style),
+        reset_on_submit=True,
+        on_submit=ChatappState.answer,
+        width="100%"
     )
 ```
 
@@ -140,27 +129,26 @@ rx.container(
 ```python
 # chatapp.py
 def action_bar() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            value=State.question,
-            placeholder="Ask a question",
-            on_change=State.set_question,
-            style=style.input_style),
-        rx.button("Ask", on_click=State.answer, style=style.button_style),
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
+        ),
+        reset_on_submit=True,
+        on_submit=State.answer,
+        width="100%"
     )
+```
 
 ```python
 # state.py
 
-def answer(self):
+def answer(self, data):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
-    self.chat_history.append((self.question, answer))
-    self.question = ""
+    self.chat_history.append((data["message"], answer))
 ```
-        
-
-
 
 ## Streaming Text
 
@@ -169,14 +157,14 @@ Normally state updates are sent to the frontend when an event handler returns. H
 
 ```python exec
 def action_bar3() -> rx.Component:
-    return rx.hstack(
-        rx.chakra.input(
-            value=ChatappState.question,
-            placeholder="Ask a question",
-            on_change=ChatappState.set_question,
-            style=style.input_style,
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
         ),
-        rx.button("Ask", on_click=ChatappState.answer3, style=style.button_style),
+        on_submit=ChatappState.answer3,
+        width="100%"
     )
 ```
 
@@ -192,13 +180,11 @@ rx.container(
 import asyncio
 
 ...
-async def answer(self):
+async def answer(self, data):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
-    self.chat_history.append((self.question, ""))
+    self.chat_history.append((data["message"], ""))
 
-    # Clear the question input.
-    self.question = ""
     # Yield here to clear the frontend input before continuing.
     yield
 
