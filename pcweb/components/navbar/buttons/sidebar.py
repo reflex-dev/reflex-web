@@ -22,7 +22,6 @@ def sidebar_drawer(sidebar: rx.Component, trigger):
                         as_child=True,
                     ),
                     sidebar,
-                    justify_content = "left",
                     width="100%",
                 ),
                 top="80px",
