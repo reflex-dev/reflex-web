@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 import reflex.components.radix.themes as rdxt
+from pcweb.pages.docs import library
 ```
 
 # Theming
@@ -19,7 +20,7 @@ app = rx.App(
 )
 ```
 
-Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme docs](/docs/library/radix/theming/theme-panel/).
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
 
 ## Colors
 

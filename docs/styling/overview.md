@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs import styling
+from pcweb.pages.docs import styling, library
 ```
 
 # Styling
@@ -102,6 +102,26 @@ rx.box(
     color="blue",
 )
 ```
+
+
+## Theming 
+
+As of Reflex 'v0.4.0', you can now theme your Reflex web apps. To learn more checkout the [Theme docs]({styling.theming.path}).
+
+The `Theme` component is used to change the theme of the application. The `Theme` can be set directly in your rx.App.
+
+```python
+app = rx.App(
+    theme=rx.theme(
+        appearance="light", has_background=True, radius="large", accent_color="teal"
+    )
+)
+```
+
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
+
+
+
 
 ## Tailwind
 
