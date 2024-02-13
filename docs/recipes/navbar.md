@@ -6,7 +6,6 @@ It typically provides links or buttons to the main sections of a website or appl
 Navigation bars are useful for web apps because they provide a consistent and intuitive way for users to navigate through the app.
 Having a clear and consistent navigation structure can greatly improve the user experience by making it easy for users to find the information they need and access the different features of the app.
 
-
 ## Basic Navbar
 
 In this recipe, we will create a navbar component that can be used to create a navigation bar for a web app.

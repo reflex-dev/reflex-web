@@ -4,7 +4,6 @@ from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
 ```
 
-
 # Files
 
 In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share medias, allow user to import their data, or export some backend data.
@@ -55,6 +54,7 @@ Uploading files to your server let your users interact with your app in a differ
 The component `rx.upload` let your users upload files on the server.
 
 Here is a basic example of how it is used:
+
 ```python
 def index():
     return rx.fragment(

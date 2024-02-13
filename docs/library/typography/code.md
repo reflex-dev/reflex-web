@@ -16,12 +16,9 @@ from reflex.components.radix.themes.typography import *
 code("console.log()")
 ```
 
-
-
 ## Size
 
 Use the `size` prop to control text size. This prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
-
 
 ```python demo
 flex(
@@ -39,9 +36,6 @@ flex(
     align="start",
 )
 ```
-
-
-
 
 ## Weight
 
@@ -74,12 +68,9 @@ flex(
 )
 ```
 
-
-
 ## Color
 
 Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
-
 
 ```python demo
 flex(
@@ -93,11 +84,9 @@ flex(
 )
 ```
 
-
 ## High Contrast
 
 Use the `high_contrast` prop to increase color contrast with the background.
-
 
 ```python demo
 flex(
@@ -122,4 +111,3 @@ flex(
     spacing="3",
 )
 ```
-

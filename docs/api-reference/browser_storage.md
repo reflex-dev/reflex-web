@@ -5,6 +5,7 @@
 Represents a state Var that is stored as a cookie in the browser. Currently only supports string values.
 
  Parameters
+
 - `name` : The name of the cookie on the client side.
 - `path`: The cookie path. Use `/` to make the cookie accessible on all pages.
 - `max_age` : Relative max age of the cookie in seconds from when the client receives it.
@@ -25,10 +26,11 @@ class CookieState(rx.State):
 ```
 
 ## rx.remove_cookies
+
 Remove a cookie from the client's browser.
 
-
 Parameters:
+
 - `key`: The name of cookie to remove.
 
 ```python
@@ -47,9 +49,11 @@ class CookieState(rx.State):
 ```
 
 ## rx.LocalStorage
+
 Represents a state Var that is stored in localStorage in the browser. Currently only supports string values.
 
 Parameters
+
 - `name`: The name of the storage key on the client side.
 
 ```python
@@ -63,10 +67,11 @@ class LocalStorageState(rx.State):
 ```
 
 ## rx.remove_local_storage
+
 Remove a local storage item from the client's browser.
 
-
 Parameters
+
 - `key`: The key to remove from local storage.
 
 ```python
@@ -91,7 +96,6 @@ Clear all local storage items from the client's browser. This may affect other
 apps running in the same domain or libraries within your app that use local
 storage.
 
-
 ```python
 rx.button(
     'Clear all Local Storage',
@@ -104,7 +108,6 @@ rx.button(
 If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage` var it needs to
 be serialized before and after storing it. It is recommended to use `rx.Base` for the data
 which provides simple serialization helpers and works recursively in complex object structures.
-
 
 ```python demo exec
 import reflex as rx

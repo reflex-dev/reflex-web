@@ -12,7 +12,6 @@ import reflex as rx
 The `rx.foreach` component takes an iterable(list, tuple or dict) and a function that renders each item in the list.
 This is useful for dynamically rendering a list of items defined in a state.
 
-
 ```md alert warning
 # `rx.foreach` is specialized for usecases where the iterable is defined in a state var.
 For an iterable where the content doesn't change at runtime, i.e a constant, using a list/dict comprehension instead of `rx.foreach` is preferred.
@@ -62,7 +61,6 @@ Nested foreach components can be used to render nested lists.
 
 When indexing into a nested list, it's important to declare the list's type as Reflex requires it for type checking.
 This ensures that any potential frontend JS errors are caught before the user can encounter them.
-
 
 ```python demo exec
 from typing import List

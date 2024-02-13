@@ -41,4 +41,3 @@ rx.chakra.hstack(
     spacing="2em",
 )
 ```
-

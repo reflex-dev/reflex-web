@@ -16,7 +16,6 @@ In this example we will read data from a csv file, convert it to a pandas datafr
 
 We will also add a search, pagination, sorting to the data_table to make it more accessible.
 
-
 ```python demo box
 rx.data_table(
     data=[

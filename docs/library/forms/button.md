@@ -11,10 +11,9 @@ Button: |
 import reflex as rx
 ```
 
- 
 # Button
 
-Buttons are essential elements in your application's user interface that users can click to trigger events. This component uses Radix's [button](https://radix-ui.com/primitives/docs/components/button) component. 
+Buttons are essential elements in your application's user interface that users can click to trigger events. This component uses Radix's [button](https://radix-ui.com/primitives/docs/components/button) component.
 
 ## Basic Example
 

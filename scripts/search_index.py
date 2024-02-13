@@ -1,4 +1,5 @@
 """Script to index docs to Typesense."""
+
 import argparse
 import json
 import os
@@ -7,6 +8,8 @@ from collections import defaultdict
 import mistletoe
 import reflex as rx
 from reflex.components.base.bare import Bare
+from reflex.components.radix.themes.typography import Heading
+from reflex.components.radix.themes.typography.text import Text
 
 from pcweb.pages import routes
 from pcweb.tsclient import client
@@ -118,7 +121,6 @@ def postprocess(
     headings = defaultdict(list)
     current_heading = None
 
-    dud = "Copyright © 2023 Pynecone, Inc."
     # Group the texts by heading.
     for typ, text, href in texts:
         # If the text is a heading, set the current heading.
@@ -165,9 +167,9 @@ def index_component(comp: rx.Component, href: str) -> list[tuple[str, str, str]]
     """
     text = []
     for child in comp.children:
-        if isinstance(child, rx.Heading):
+        if isinstance(child, Heading):
             text.append(("heading", get_strings(child), href))
-        if isinstance(child, rx.Text):
+        if isinstance(child, Text):
             text.append(("text", get_strings(child), href))
         else:
             text += index_component(child, href)
@@ -203,6 +205,9 @@ def index_routes():
     """Index the routes."""
     out = {}
     for route in routes:
+        # We do not want to index the docs for Chakra based components.
+        if route.path.startswith("/docs/library/chakra/"):
+            continue
         flexdown_path = f"{route.path.strip('/')}.md"
         if os.path.exists(flexdown_path):
             out |= index_flexdown_file(flexdown_path)

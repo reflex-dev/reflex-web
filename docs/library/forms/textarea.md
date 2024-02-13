@@ -36,7 +36,6 @@ def blur_example():
     )
 ```
 
-
 ```python demo exec
 class TextAreaControlled(rx.State):
     text: str = "Hello World!"

@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 ```
+
 # Responsive
 
 Reflex apps can be made responsive to look good on mobile, tablet, and desktop.

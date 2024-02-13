@@ -11,13 +11,9 @@ import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
-
-
-
 # Radio Group
 
 A set of interactive radio buttons where only one can be selected at a time.
-
 
 ## Basic example
 
@@ -33,17 +29,13 @@ rx.radio.root(
 
 ```
 
-
 The `default_value` prop is used to set the value of the radio item that should be checked when initially rendered.
 
-
-
-## Radio Group Root 
-
+## Radio Group Root
 
 ### Control the value
 
-The state can specify which item in a radio group is checked by setting the `value` prop, 
+The state can specify which item in a radio group is checked by setting the `value` prop,
 making the radio group a fully-controlled input. To allow the user to change the selected
 value by clicking, the `on_change` event handler must be defined to update
 the Var representing the current `value`.
@@ -96,7 +88,6 @@ rx.flex(
 
 ```
 
-
 ### Submitting a form using Radio Group
 
 The `name` prop is used to name the group. It is submitted with its owning form as part of a name/value pair.
@@ -139,13 +130,11 @@ def form_example():
     )
 ```
 
-
-## Radio Group Item 
-
+## Radio Group Item
 
 ### value
-The `value` given as data when submitted with a `name` on `rx.radio.root`.
 
+The `value` given as data when submitted with a `name` on `rx.radio.root`.
 
 ### disabled
 
@@ -211,9 +200,7 @@ rx.flex(
 
 ### required
 
-
 When `True`, indicates that the user must check the `radio_item_group` before the owning form can be submitted. This can only be used when a single `rx.radio.item` is used.
-
 
 ```python demo exec
 class FormRadioState2(rx.State):
@@ -246,9 +233,6 @@ def form_example2():
         spacing="2",
     )
 ```
-
-
-
 
 ## Styling
 
@@ -313,7 +297,6 @@ rx.flex(
     spacing="2",
 )
 ```
-
 
 ### color
 
@@ -400,12 +383,9 @@ rx.grid(
 )
 ```
 
-
-### alignment 
-
+### alignment
 
 Composing `rx.radio.item` within `text` automatically centers it with the first line of text.
-
 
 ```python demo
 rx.flex(
@@ -480,13 +460,9 @@ rx.flex(
 )
 ```
 
-
 ```python eval
 style_grid(component_used=rx.radio.root, component_used_str="radiogrouproot", variants=["classic", "surface", "soft"], components_passed=rx.radio.item(), disabled=True,)
 ```
-
-
-
 
 ## Real World Example
 

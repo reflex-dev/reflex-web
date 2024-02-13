@@ -17,4 +17,3 @@ rx.text("His famous quote, ",
   ", elegantly sums up Massimo’s philosophy of design."
   )
 ```
-

@@ -11,6 +11,7 @@ Static files such as images and stylesheets can be placed in `"assets/"` folder 
 To reference an image in the `"assets/"` simply pass the relative path as a prop.
 
 For example, you can store your logo in your assets folder:
+
 ```bash
 assets
 └── Reflex.svg

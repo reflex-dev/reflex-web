@@ -100,4 +100,3 @@ scatter_chart_simple_example = """rx.recharts.scatter_chart(
 ```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
 ```
-

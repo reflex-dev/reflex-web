@@ -41,12 +41,9 @@ import reflex as rx
 from pcweb.pages.docs import library
 ```
 
-
 # Input (High Level API for TextField)
 
-
-The `input` component is an input field that users can type into. 
-
+The `input` component is an input field that users can type into.
 
 ## Basic Example
 
@@ -63,7 +60,6 @@ Can limit the `max_length` allowed as input into the `input` box.
 ```python demo
 rx.input(placeholder="Search here...", max_length="20")
 ```
-
 
 ### Using Event Handlers
 
@@ -84,7 +80,6 @@ def blur_example():
     )
 ```
 
-
 The `on_change` event handler is called when the `value` of `input` has changed.
 
 ```python demo exec
@@ -103,11 +98,7 @@ def controlled_example():
     )
 ```
 
-
-
 Behind the scene, the input component is implemented using debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state var to directly control the `value` prop from the backend without the user experiencing input lag. For advanced use cases, you can tune the debounce delay by setting the `debounce_timeout` when creating the Input component. You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
-
-
 
 ### Submitting a form using input
 
@@ -144,7 +135,6 @@ def form_input1():
         width="100%",
     )
 ```
-
 
 To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
 

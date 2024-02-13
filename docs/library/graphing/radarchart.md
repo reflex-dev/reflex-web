@@ -79,10 +79,9 @@ radar_chart_complex_example = """rx.recharts.radar_chart(
 
 ```
 
-A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis. 
+A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis.
 
-For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.recharts.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.recharts.polar_angle_axis`. 
-
+For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.recharts.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.recharts.polar_angle_axis`.
 
 ```python eval
 docgraphing(radar_chart_simple_example, comp=eval(radar_chart_simple_example),  data =  "data=" + str(data))
