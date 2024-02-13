@@ -2,6 +2,7 @@
 import reflex as rx
 from .buttons.github import github
 from .buttons.discord import discord
+from .buttons.sidebar import sidebar_button
 from .search import search_bar
 
 
@@ -87,14 +88,15 @@ def resources_section():
         )
 
 def navigation_section():
-    return rx.desktop_only(
+    return rx.box(
         rx.flex(
             rx.link(rx.text("Docs", color=rx.color("mauve", 11)), href="/docs/getting-started/introduction/"),
             rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
             rx.link(rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"),
             resources_section(),
             gap="5",
-        )
+        ),
+        display=["none", "none", "none", "none", "flex", "flex"]
     )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
@@ -117,7 +119,15 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             search_bar(),
             github(),
             rx.divider(size="2", color='mauve', orientation="vertical"), 
-            discord(),
+            rx.box(
+                discord(),
+                display=["none", "none", "none", "none", "flex", "flex"],
+                
+            ),
+            rx.box(
+                sidebar_button(sidebar),
+                display=["flex", "flex", "flex", "flex", "none", "none"],
+            ),
             gap="3",
             align_items="center",
         ),

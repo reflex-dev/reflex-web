@@ -8,9 +8,11 @@ def shorten_to_k(number):
     else:
         return str(number)
 def github_desktop() -> rx.Component:
-    return rx.flex(
+    return rx.link(
+        rx.flex(
             rx.image(
                 src="/companies/light/github.svg",
+                height="24px"
             ),
             rx.text(
                 "Github",
@@ -25,17 +27,22 @@ def github_desktop() -> rx.Component:
             ),
             gap="2",
         style=button_style
-        )
+        ),
+        href="https://github.com/reflex-dev/reflex"
+    )
 
 def github_mobile() -> rx.Component:
-    return rx.flex(
-            rx.image(
-                src="/companies/light/github.svg",
+    return rx.link(rx.flex(
+            rx.icon(
+                "github",
+                color=rx.color("mauve", 9),
             ),
             padding="7px",
             style=button_style,
             border_radius="8px",
-        )
+        ),
+        href="https://github.com/reflex-dev/reflex"
+    )
 
 def github() -> rx.Component:
     return rx.fragment(
