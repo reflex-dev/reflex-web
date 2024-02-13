@@ -146,7 +146,7 @@ def form_input1():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.separator(width="100%"),
+        rx.divider(width="100%"),
         rx.heading("Results"),
         rx.text(FormInputState.form_data.to_string()),
         width="100%",

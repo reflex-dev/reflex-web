@@ -99,7 +99,7 @@ def feedback(text, icon):
 
 def docpage_footer(path):
     return rx.flex(
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.flex( 
             rx.flex(
                 rx.text(
@@ -107,7 +107,7 @@ def docpage_footer(path):
                     color = rx.color("mauve", 12),
                     white_space="nowrap",
                 ),
-                rx.separator(size="4", orientation="vertical"),
+                rx.divider(size="4", orientation="vertical"),
                 feedback("No", rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
                 feedback("Yes", rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
                 align_items="center",
@@ -116,7 +116,7 @@ def docpage_footer(path):
             rx.box(
                 flex_grow='1',
             ),
-            rx.separator(size="4", orientation="vertical"),
+            rx.divider(size="4", orientation="vertical"),
             rx.flex(
                 rx.desktop_only(rx.link(rx.flex(
                     "Raise an issue",
@@ -145,7 +145,7 @@ def docpage_footer(path):
             align_items="center",
             width="100%",
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.flex(
             rx.flex(
                 rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
@@ -695,7 +695,7 @@ def icon_grid(
             ),
             color="green",
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.grid(
             *[
                 rx.flex(

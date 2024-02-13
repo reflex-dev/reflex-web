@@ -116,7 +116,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         rx.flex(
             search_bar(),
             github(),
-            rx.separator(size="2", color='mauve', orientation="vertical"), 
+            rx.divider(size="2", color='mauve', orientation="vertical"), 
             discord(),
             gap="3",
             align_items="center",

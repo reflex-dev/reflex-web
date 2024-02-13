@@ -317,7 +317,7 @@ def sidebar_comp(
         sidebar_category("Learn", "graduation-cap", "purple", 0),
         sidebar_category("Components", "layout-panel-left", "sky", 1),
         sidebar_category("API Reference", "book-text","crimson", 2),
-        rx.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
+        rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
             (0, rx.flex(
