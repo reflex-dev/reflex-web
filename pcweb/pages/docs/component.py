@@ -191,7 +191,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     from typing import Literal, _GenericAlias
 
     def render_select(prop):
-        if rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+        if not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel"]:
             return rx.fragment()
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
@@ -221,7 +221,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
         prop_dict[prop.name] = var
-        return rdxt.radio_group(
+        return rx.select(
             list(map(str, type_.__args__)),
             value=var,
             on_change=setter,
