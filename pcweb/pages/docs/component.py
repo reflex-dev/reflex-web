@@ -221,7 +221,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
         prop_dict[prop.name] = var
-        return rdxt.radio_group(
+        return rx.select(
             list(map(str, type_.__args__)),
             value=var,
             on_change=setter,
