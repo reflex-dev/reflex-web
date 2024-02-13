@@ -113,11 +113,9 @@ Normal Python `for` loops don't work for iterating over state vars because these
 
 We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({events.setters.path}) under the Setters section.
 
-
 ## Streaming Text
 
 Normally state updates are sent to the frontend when an event handler returns. However, we want to stream the text from the chatbot as it is generated. We can do this by yielding from the event handler. See the [yield events docs]({events.yield_events.path}) for more info.
-
 
 ```python exec
 def action_bar3() -> rx.Component:
@@ -162,4 +160,3 @@ async def answer(self, data):
 ```
 
 In the next section, we will finish our chatbot by adding AI!
-

@@ -3,11 +3,12 @@ import reflex as rx
 from pcweb.pages.docs import styling
 ```
 
-# Styling 
+# Styling
 
 Reflex components can be styled using the full power of [CSS]({"https://www.w3schools.com/css/"}).
 
 There are three main ways to add style to your app and they take precedence in the following order:
+
 1. **Inline:** Styles applied to a single component instance.
 2. **Component:** Styles applied to components of a specific type.
 3. **Global:** Styles applied to all components.
@@ -157,7 +158,6 @@ config = rx.Config(app_name="app", tailwind=None)
 
 With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application.
 
-
 ## Special Styles
 
 We support all of Chakra UI's [pseudo styles]({"https://chakra-ui.com/docs/features/style-props#pseudo"}).
@@ -169,7 +169,6 @@ rx.box(
     rx.text("Hover Me", _hover={"color": "red"}),
 )
 ```
-
 
 ## Style Prop
 
@@ -223,4 +222,3 @@ rx.box(
 ```
 
 The style dictionaries are applied in the order they are passed in. This means that styles defined later will override styles defined earlier.
-

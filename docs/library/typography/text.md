@@ -34,7 +34,6 @@ rx.flex(
 
 Use the `size` prop to control text size. This prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
 
-
 ```python demo
 rx.flex(
     rx.text("The quick brown fox jumps over the lazy dog.", size="1"),
@@ -53,7 +52,6 @@ rx.flex(
 
 Sizes 2–4 are designed to work well for long-form content. Sizes 1–3 are designed to work well for UI labels.
 
-
 ## Weight
 
 Use the `weight` prop to set the text weight.
@@ -69,11 +67,9 @@ rx.flex(
 )
 ```
 
-
 ## Align
 
 Use the `align` prop to set text alignment.
-
 
 ```python demo
 rx.flex(
@@ -86,11 +82,9 @@ rx.flex(
 )
 ```
 
-
 ## Trim
 
 Use the `trim` prop to trim the leading space at the start, end, or both sides of the text box.
-
 
 ```python demo
 rx.flex(
@@ -111,9 +105,7 @@ rx.flex(
 )
 ```
 
-
 Trimming the leading is useful when dialing in vertical spacing in cards or other “boxy” components. Otherwise, padding looks larger on top and bottom than on the sides.
-
 
 ```python demo
 rx.flex(
@@ -140,7 +132,6 @@ rx.flex(
 
 Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
 
-
 ```python demo
 rx.flex(
     rx.text("The quick brown fox jumps over the lazy dog.", color_scheme="indigo"),
@@ -155,7 +146,6 @@ rx.flex(
 
 Use the `high_contrast` prop to increase color contrast with the background.
 
-
 ```python demo
 rx.flex(
     rx.text("The quick brown fox jumps over the lazy dog.", color_scheme="indigo", high_contrast=True),
@@ -165,7 +155,6 @@ rx.flex(
     direction="column",
 )
 ```
-
 
 ## With formatting
 
@@ -186,11 +175,9 @@ rx.text(
 )
 ```
 
-
 ## With form controls
 
 Composing `text` with a form control like `checkbox`, `radiogroup`, or `switch` automatically centers the control with the first line of text, even when the text is multi-line.
-
 
 ```python demo
 rx.box(

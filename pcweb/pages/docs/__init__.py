@@ -16,6 +16,7 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 from .gallery import gallery
 from .library import library
 from .resources import resources
+from .apiref import pages as apiref_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -151,7 +152,7 @@ def get_component(doc: str, title: str):
     ))
 
 
-doc_routes = [gallery, library, resources]
+doc_routes = [gallery, library, resources] + apiref_pages
 
 
 

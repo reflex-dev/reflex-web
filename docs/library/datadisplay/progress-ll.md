@@ -53,4 +53,3 @@ For a dynamic progress, you can assign a state variable to the `value` prop inst
 ```python demo
 rx.hstack(rx.progress(value=ProgressState.value, width="100%"), rx.button("Start", on_click=ProgressState.start_progress))
 ```
-

@@ -85,9 +85,6 @@ Displays a list of options for the user to pick from—triggered by a button.
 rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"])
 ```
 
-
-
-
 ## Disabling
 
 To prevent the user from interacting with select, set the `disabled` prop to `True`.
@@ -96,16 +93,13 @@ To prevent the user from interacting with select, set the `disabled` prop to `Tr
 rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], disabled=True)
 ```
 
+## Setting Defaults
 
-## Setting Defaults 
-
-
-It is possible to set several default values when constructing a `select`. 
+It is possible to set several default values when constructing a `select`.
 
 Can set the `placeholder` prop, which is the content that will be rendered when no value or no default_value is set.
 
 Can set the `label` prop, which is a label in the `select`.
-
 
 ```python demo
 rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], placeholder="Selection of Fruits", label="Fruits")
@@ -113,29 +107,21 @@ rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], placeholder="Selection
 
 Can set the `default_value` prop, which is the value of the `select` when initially rendered.
 
-
 ```python demo
 rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], default_value="Orange")
 ```
-
-
 
 ## Simple Styling
 
 Can set the `color`, `variant` and `radius` to easily style the `select`.
 
-
 ```python demo
 rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%")
 ```
 
-
-
-
 ## High control of select component (value and open changes)
 
-
-The `on_change` event is called when the value of the `select` changes. In this example we set the `value` prop to change the select `value` using a button in this case. 
+The `on_change` event is called when the value of the `select` changes. In this example we set the `value` prop to change the select `value` using a button in this case.
 
 ```python demo exec
 class SelectState3(rx.State):
@@ -161,7 +147,6 @@ def select_example3():
     )
 ```
 
-
 The `on_open_change` event handler acts in a similar way to the `on_change` and is called when the open state of the select changes.
 
 ```python demo
@@ -171,16 +156,12 @@ rx.select(
 )
 
 ```
- 
-
-
 
 ### Submitting a form using select
 
 The `name` prop is needed to submit with its owning form as part of a name/value pair.
 
 When the `required` prop is `True`, it indicates that the user must select a value before the owning form can be submitted.
-
 
 ```python demo exec
 class FormSelectState1(rx.State):
@@ -214,12 +195,7 @@ def form_select1():
     )
 ```
 
-
-
-
-
 ## Real World Example
-
 
 ```python demo
 rx.card(

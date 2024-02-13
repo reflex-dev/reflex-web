@@ -14,7 +14,6 @@ Wrap is a layout component that adds a defined space between its children.
 
 It wraps its children automatically if there isn't enough space to fit any more in the same row. Think of it as a smarter flex-wrap with spacing support.
 
-
 ```python demo
 rx.chakra.wrap(
     rx.chakra.wrap_item(rx.chakra.box("Example", bg="lightgreen", w="100px", h="80px")),

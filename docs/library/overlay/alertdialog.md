@@ -63,7 +63,6 @@ AlertDialogContent: |
 import reflex as rx
 ```
 
-
 # Alert Dialog
 
 An alert dialog is a modal confirmation dialog that interrupts the user and expects a response.
@@ -81,7 +80,6 @@ The `alert_dialog.description` is an optional description that is announced when
 The `alert_dialog.action` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.cancel` control.
 
 The `alert_dialog.cancel` wraps the control that will close the dialog. This should be distinguished visually from the `alert_dialog.action` control.
-
 
 ## Basic Example
 
@@ -107,10 +105,6 @@ rx.alert_dialog.root(
     ),
 )
 ```
-
-
-
-
 
 ```python demo
 rx.alert_dialog.root(
@@ -140,7 +134,6 @@ rx.alert_dialog.root(
 ```
 
 Use the `inset` component to align content flush with the sides of the dialog.
-
 
 ```python demo
 rx.alert_dialog.root(
@@ -242,8 +235,6 @@ def alert_dialog():
     )
 ```
 
-
-
 ## Changing the size
 
 The `size` of `alert_dialog` can be changed. The `alert_dialog` on the right hand side has no `size` props set. The one on the left hand side has `size` set to `1` for all subcomponents including `alert_dialog.trigger`, `alert_dialog.content`, `alert_dialog.title`, `alert_dialog.description`, `alert_dialog.cancel` and `alert_dialog.action`. The `size` prop can take any value of `1, 2, 3, 4`.
@@ -304,4 +295,3 @@ rx.flex(
     spacing="3",
 )
 ```
-

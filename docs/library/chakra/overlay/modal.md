@@ -17,7 +17,6 @@ import reflex as rx
 A modal dialog is a window overlaid on either the primary window or another dialog window.
 Content behind a modal dialog is inert, meaning that users cannot interact with it.
 
-
 ```python demo exec
 class ModalState(rx.State):
     show: bool = False

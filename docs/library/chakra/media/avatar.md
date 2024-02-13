@@ -60,4 +60,3 @@ rx.chakra.avatar_group(
     max_=3,
 )
 ```
-

@@ -4,8 +4,8 @@ import time
 
 import reflex as rx
 ```
-# Computed Vars
 
+# Computed Vars
 
 Computed vars have values derived from other properties on the backend. They are
 defined as methods in your State class with the `@rx.var` decorator. A computed
@@ -33,8 +33,6 @@ def uppercase_example():
 Here, `upper_text` is a computed var that always holds the upper case version of `text`.
 
 We recommend always using type annotations for computed vars.
-
-
 
 ## Cached Vars
 

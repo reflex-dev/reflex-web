@@ -129,7 +129,6 @@ DropdownMenuSubContent: |
 import reflex as rx
 ```
 
-
 # Dropdown Menu
 
 A Dropdown Menu is a menu that offers a list of options that a user can select from. They are typically positioned near a button that will control their appearance and disappearance.
@@ -138,7 +137,7 @@ A Dropdown Menu is composed of a `dropdown_menu.root`, a `dropdown_menu.trigger`
 
 The `dropdown_menu.item` contains the actual dropdown menu items and sits under the `dropdown_menu.content`. The `shortcut` prop is an optional shortcut command displayed next to the item text.
 
-The `dropdown_menu.sub` contains all the parts of a submenu. There is a `dropdown_menu.sub_trigger`, which is an item that opens a submenu. It must be rendered inside a `dropdown_menu.sub` component. The `dropdown_menu.sub_component` is the component that pops out when a submenu is open. It must also be rendered inside a `dropdown_menu.sub` component. 
+The `dropdown_menu.sub` contains all the parts of a submenu. There is a `dropdown_menu.sub_trigger`, which is an item that opens a submenu. It must be rendered inside a `dropdown_menu.sub` component. The `dropdown_menu.sub_component` is the component that pops out when a submenu is open. It must also be rendered inside a `dropdown_menu.sub` component.
 
 The `dropdown_menu.separator` is used to visually separate items in a dropdown menu.
 
@@ -207,12 +206,9 @@ rx.flex(
 )
 ```
 
-
-
 ## Events when the Dropdown Menu opens or closes
 
 The `on_open_change` event, from the `dropdown_menu.root`, is called when the `open` state of the dropdown menu changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
-
 
 ```python demo exec
 class DropdownMenuState(rx.State):
@@ -246,6 +242,3 @@ def dropdown_menu_example():
         spacing="3",
     )
 ```
-
-
-

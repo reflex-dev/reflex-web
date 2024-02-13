@@ -8,7 +8,6 @@ from pcweb.pages.docs import vars, library
 
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
-
 ```md alert
 Check out the API reference for [cond docs]({library.layout.cond.path}).
 ```
@@ -17,11 +16,11 @@ Check out the API reference for [cond docs]({library.layout.cond.path}).
 rx.box(height="2em")
 ```
 
-Here is a simple example to show how by checking the value of the state var `show` we can render either `blue` text or `red` text. 
+Here is a simple example to show how by checking the value of the state var `show` we can render either `blue` text or `red` text.
 
-The first argument to the `cond` component is the condition we are checking. Here the condition is the value of the state var boolean `show`. 
+The first argument to the `cond` component is the condition we are checking. Here the condition is the value of the state var boolean `show`.
 
-If `show` is `True` then the 2nd argument to the `cond` component is rendered, in this case that is `rx.text("Text 1", color="blue")`. 
+If `show` is `True` then the 2nd argument to the `cond` component is rendered, in this case that is `rx.text("Text 1", color="blue")`.
 
 If `show` is `False` then the 3rd argument to the `cond` component is rendered, in this case that is `rx.text("Text 2", color="red")`.
 
@@ -47,7 +46,6 @@ def cond_simple_example():
 ## Var Operations (negation)
 
 You can use var operations with the `cond` component. To learn more generally about var operators check out [these docs]({vars.var_operations.path}). The logical operator `~` can be used to negate a condition. In this example we show that by negating the condition `~CondNegativeState.show` within the cond, we then render the `rx.text("Text 1", color="blue")` component when the state var `show` is negative.
-
 
 ```python demo exec
 class CondNegativeState(rx.State):
@@ -76,12 +74,11 @@ def cond_negative_example():
 
 ## Multiple Conditions
 
-It is also possible to make up complex conditions using the `logical or` (|) and `logical and` (&) operators. 
+It is also possible to make up complex conditions using the `logical or` (|) and `logical and` (&) operators.
 
-Here we have an example using the var operators `>=`, `<=`, `&`. We define a condition that if a person has an age between 18 and 65, including those ages, they are able to work, otherwise they cannot. 
+Here we have an example using the var operators `>=`, `<=`, `&`. We define a condition that if a person has an age between 18 and 65, including those ages, they are able to work, otherwise they cannot.
 
 We could equally use the operator `|` to represent a `logical or` in one of our conditions.
-
 
 ```python demo exec
 import random
@@ -108,7 +105,7 @@ def cond_complex_example():
 
 ## Reusing Cond
 
-We can also reuse a `cond` component several times by defining it within a function that returns a `cond`. 
+We can also reuse a `cond` component several times by defining it within a function that returns a `cond`.
 
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`.
 
@@ -140,7 +137,7 @@ def packing_list():
 
 ```
 
-## Nested Conditional 
+## Nested Conditional
 
 We can also nest `cond` components within each other to create more complex logic. In python we can have an `if` statement that then has several `elif` statements before finishing with an `else`. This is also possible in reflex using nested `cond` components. In this example we check whether a number is positive, negative or zero.
 
@@ -188,7 +185,7 @@ def cond_nested_example():
 
 ```
 
-Here is a more advanced example where we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`. 
+Here is a more advanced example where we have three numbers and we are checking which of the three is the largest. If any two of them are equal then we return that `Some of the numbers are equal!`.
 
 The reflex code that follows is logically identical to doing the following in python:
 
@@ -198,15 +195,14 @@ b = 10
 c = 2
 
 if((a>b and a>c) and (a != b and a != c)): 
-	print(a, " is the largest!") 
+ print(a, " is the largest!") 
 elif((b>a and b>c) and (b != a and b != c)): 
-	print(b, " is the largest!") 
+ print(b, " is the largest!") 
 elif((c>a and c>b) and (c != a and c != b)): 
-	print(c, " is the largest!") 
+ print(c, " is the largest!") 
 else: 
-	print("Some of the numbers are equal!") 
+ print("Some of the numbers are equal!") 
 ```
-
 
 ```python demo exec
 import random

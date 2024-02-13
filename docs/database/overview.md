@@ -9,16 +9,16 @@ below, but you can refer to the
 for more examples and information, just replace `SQLModel` with `rx.Model` and
 `Session(engine)` with `rx.session()`
 
-For advanced use cases, please see the 
+For advanced use cases, please see the
 [SQLAlchemy docs](https://docs.sqlalchemy.org/en/14/orm/quickstart.html) (v1.4).
-        
+
 ## Connecting
 
 Reflex provides a built-in SQLite database for storing and retrieving data.
 
-You can connect to your own SQL compatible database by modifying the 
+You can connect to your own SQL compatible database by modifying the
 `rxconfig.py` file with your database url.
-            
+
 ```python
 config = rx.Config(
     app_name="my_app",
@@ -35,6 +35,7 @@ use.
 
 To create a table make a class that inherits from `rx.Model` with and specify
 that it is a table.
+
 ```python
 class User(rx.Model, table=True):
     username: str
@@ -57,7 +58,7 @@ database schema. It is recommended that scripts be inspected before applying
 them.
 
 The `reflex db migrate` command is used to apply migration scripts to bring the
-database up to date. During app startup, if Reflex detects that the current 
+database up to date. During app startup, if Reflex detects that the current
 database schema is not up to date, a warning will be displayed on the console.
 
 ## Queries

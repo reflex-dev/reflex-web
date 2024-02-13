@@ -31,8 +31,8 @@ app = rx.App()
 
 ```
 
-
 # Page Metadata
+
 You can add page metadata such as:
 
 - The title to be shown in the browser tab
