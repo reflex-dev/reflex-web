@@ -70,6 +70,7 @@ def action_bar1() -> rx.Component:
             rx.button("Ask", _type="submit", style=style.button_style),
             width="100%",
         ),
+        reset_on_submit=True,
         on_submit=ChatappState.answer,
         width="100%",
     )
@@ -102,6 +103,7 @@ def action_bar() -> rx.Component:
             rx.button("Ask", _type="submit", style=style.button_style),
             width="100%",
         ),
+        reset_on_submit=True,
         on_submit=State.answer,
         width="100%",
     )
@@ -111,47 +113,6 @@ Normal Python `for` loops don't work for iterating over state vars because these
 
 We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({events.setters.path}) under the Setters section.
 
-
-## Clearing the Input
-
-Currently the input doesn't clear after the user clicks the button. We can fix this by passing the `reset_on_submit` to `rx.form`.
-
-
-```python exec
-def action_bar2() -> rx.Component:
-    return rx.form(
-        rx.hstack(
-            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
-            rx.button("Ask", _type="submit", style=style.button_style),
-            width="100%",
-        ),
-        reset_on_submit=True,
-        on_submit=ChatappState.answer,
-        width="100%"
-    )
-```
-
-```python demo box
-rx.container(
-    chat1(),
-    action_bar2(),
-)
-```
-
-```python
-# chatapp.py
-def action_bar() -> rx.Component:
-    return rx.form(
-        rx.hstack(
-            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
-            rx.button("Ask", _type="submit", style=style.button_style),
-            width="100%",
-        ),
-        reset_on_submit=True,
-        on_submit=State.answer,
-        width="100%"
-    )
-```
 
 ## Streaming Text
 
@@ -166,6 +127,7 @@ def action_bar3() -> rx.Component:
             rx.button("Ask", _type="submit", style=style.button_style),
             width="100%",
         ),
+        reset_on_submit=True,
         on_submit=ChatappState.answer3,
         width="100%"
     )

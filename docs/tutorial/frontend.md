@@ -122,7 +122,7 @@ def index() -> rx.Component:
 
 ## Chat Input
 
-Now we want a way for the user to input a question. For this, we will use an [input]({library.forms.textfield.path}) to have the user add text and a [button]({library.forms.button.path}) component to submit the question. We'll also wrap these elements in a [form]({library.forms.form.path}).
+Now we want a way for the user to input a question. For this, we will use an [input]({library.forms.input.path}) to have the user add text and a [button]({library.forms.button.path}) component to submit the question. We'll also wrap these elements in a [form]({library.forms.form.path}).
 
 
 ```python exec
