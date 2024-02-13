@@ -20,7 +20,7 @@ app = rx.App(
 )
 ```
 
-Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the (Theme docs)[/docs/library/radix/theming/theme-panel/].
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme docs](/docs/library/theming/theme_panel/).
 
 ## Colors
 
