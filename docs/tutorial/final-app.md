@@ -54,16 +54,16 @@ rx.container(
 ```python
 # state.py
 import os
-from openai import OpenAI
+import openai
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
+openai_client = openai.OpenAI()
 
 ...
 
 def answer(self):
     # Our chatbot has some brains now!
-    client = OpenAI()
-    session = client.chat.completions.create(
+    session = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[\{"role": "user", "content": data["message"]}],
         stop=None,
@@ -148,11 +148,11 @@ import reflex as rx
 import os
 import openai
 
-
 openai.api_key = os.environ["OPENAI_API_KEY"]
+openai_client = openai.OpenAI()
+
 
 class State(rx.State):
-
     # The current question being asked.
     question: str
 
@@ -161,12 +161,9 @@ class State(rx.State):
 
     def answer(self, data):
         # Our chatbot has some brains now!
-        client = OpenAI()
-        session = client.chat.completions.create(
+        session = openai_client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[
-                \{"role": "user", "content": data["message"]}
-            ],
+            messages=[\{"role": "user", "content": data["message"]}],
             stop=None,
             temperature=0.7,
             stream=True,

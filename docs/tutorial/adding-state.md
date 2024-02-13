@@ -70,6 +70,7 @@ def action_bar1() -> rx.Component:
             rx.button("Ask", _type="submit", style=style.button_style),
             width="100%",
         ),
+        on_submit=ChatappState.answer,
         width="100%",
     )
 ```
@@ -92,6 +93,17 @@ def chat() -> rx.Component:
             State.chat_history,
             lambda messages: qa(messages[0], messages[1])
         )
+    )
+
+def action_bar() -> rx.Component:
+    return rx.form(
+        rx.hstack(
+            rx.input(placeholder="Ask a question", name="message", style=style.input_style),
+            rx.button("Ask", _type="submit", style=style.button_style),
+            width="100%",
+        ),
+        on_submit=State.answer,
+        width="100%",
     )
 ```
 
@@ -139,15 +151,6 @@ def action_bar() -> rx.Component:
         on_submit=State.answer,
         width="100%"
     )
-```
-
-```python
-# state.py
-
-def answer(self, data):
-    # Our chatbot is not very smart right now...
-    answer = "I don't know!"
-    self.chat_history.append((data["message"], answer))
 ```
 
 ## Streaming Text

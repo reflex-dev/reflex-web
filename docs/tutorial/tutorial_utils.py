@@ -46,6 +46,9 @@ class ChatappState(rx.State):
 
         for item in session:
             if hasattr(item.choices[0].delta, "content"):
+                if item.choices[0].delta.content is None:
+                    # presence of 'None' indicates the end of the response
+                    break
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
