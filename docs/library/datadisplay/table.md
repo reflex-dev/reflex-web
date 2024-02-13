@@ -190,7 +190,7 @@ rx.flex(
         rx.input(placeholder="Email Address"),
         rx.button("Invite"),
         justify="center",
-        gap="2",
+        spacing="2",
     ),
     rx.table.root(
         rx.table.body(
@@ -218,7 +218,7 @@ rx.flex(
         ),
     ),
     direction="column",
-    gap="2",
+    spacing="2",
 )
 ```
  

@@ -59,7 +59,7 @@ The gap between the `radio_group` items can also be set using the `gap` prop, wh
 The size of the `radio_group` items and the associated text can be set with the `size` prop, which can take values `1' | '2' | '3' |`
 
 ```python demo
-rx.radio(["1", "2", "3", "4", "5"], direction="row", gap="8", size="3")
+rx.radio(["1", "2", "3", "4", "5"], direction="row", spacing="8", size="3")
 ```
 
 
@@ -74,7 +74,7 @@ class RadioState_HL1(rx.State):
     items: list[str] = ["1", "2", "3"]
 
 def radio_state_example_HL1():
-    return rx.radio(RadioState_HL1.items, direction="row", gap="9")
+    return rx.radio(RadioState_HL1.items, direction="row", spacing="9")
 ```
 
 
@@ -101,7 +101,7 @@ When the `disabled` prop is set to `True`, it prevents the user from interacting
 rx.flex(
     rx.radio(["1", "2"]),
     rx.radio(["1", "2"], disabled=True),
-    gap="2",
+    spacing="2",
 )
 
 ```

@@ -246,7 +246,7 @@ def changelog():
                 changelog_content(),
                 text_align="left",
                 width="100%",
-                spacing="2em",
+                gap="2em",
             ),
             align_items="stretch",
             min_height="80vh",

@@ -15,7 +15,7 @@ def resources_item(text, url, icon):
                 rx.icon(icon, size=20, color=rx.color("mauve", 9)),
                 rx.text(text, color=rx.color("mauve", 9)),
                 wrap="nowrap",
-                gap="2",
+                spacing="2",
             ),
             href=url,
         )
@@ -31,7 +31,7 @@ def resources_section():
                     _hover={
                         "cursor": "pointer",
                     },
-                    gap="2",
+                    spacing="2",
                 )
             ),
             rx.hover_card.content(
@@ -47,7 +47,7 @@ def resources_section():
                             padding_left="20px",
                             padding_top="20px",
                             padding_bottom="20px",
-                            gap="2",
+                            spacing="2",
                         ),
                         rx.flex(
                             resource_header("Resources"),
@@ -59,7 +59,7 @@ def resources_section():
                             align_items = "start",
                             padding_top="20px",
                             padding_bottom="20px",
-                            gap="2",
+                            spacing="2",
                         ),
                         rx.flex(
                             resource_header("Hosting"),
@@ -74,9 +74,9 @@ def resources_section():
                             padding_left="20px",
                             padding_bottom="20px",
                             padding_right="20px",
-                            gap="2",
+                            spacing="2",
                         ),
-                        gap="6",
+                        spacing="6",
                 ),
                 border=f"1px solid {rx.color('mauve', 4)}",
                 #background_color = rx.color("mauve", 2),
@@ -94,7 +94,7 @@ def navigation_section():
             rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
             rx.link(rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"),
             resources_section(),
-            gap="5",
+            spacing="5",
         ),
         display=["none", "none", "none", "none", "flex", "flex"]
     )
@@ -118,7 +118,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         rx.flex(
             search_bar(),
             github(),
-            rx.divider(size="2", color='mauve', orientation="vertical"), 
+            rx.divider(size="2", color='mauve', orientation="vertical"),
             rx.box(
                 discord(),
                 display=["none", "none", "none", "none", "flex", "flex"],
@@ -128,7 +128,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
                 sidebar_button(sidebar),
                 display=["flex", "flex", "flex", "flex", "none", "none"],
             ),
-            gap="3",
+            spacing="3",
             align_items="center",
         ),
         #background = rx.color("mauve", 1),
@@ -140,6 +140,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         top="0px",
         z_index="5", 
         align_items= "center",
-        gap="6",
+        spacing="6",
         padding= "7px 20px 7px 20px;",
     )

@@ -41,7 +41,7 @@ def h_comp_common(
                     },
                 ),
                 align_items="center",
-                gap="3"
+                spacing="3"
             ),
             _hover={
                 "cursor": "pointer",

@@ -25,7 +25,7 @@ rx.flex(
     rx.card("Card 3"),
     rx.card("Card 4"),
     rx.card("Card 5"),
-    gap="2",
+    spacing="2",
     width="100%",
 )
 ```
@@ -40,7 +40,7 @@ rx.flex(
         rx.Var.range(10),
         lambda i: rx.card(f"Card {i + 1}", width="16%"),
     ),
-    gap="2",
+    spacing="2",
     flex_wrap="wrap",
     width="100%",
 )
@@ -56,7 +56,7 @@ rx.flex(
     rx.card("Card 2"),
     rx.card("Card 3"),
     rx.card("Card 4"),
-    gap="2",
+    spacing="2",
     direction="column",
 )
 ```
@@ -105,7 +105,7 @@ def selectors():
         select("Align", ["start", "center", "end", "baseline", "stretch"], FlexPlaygroundState.align, FlexPlaygroundState.set_align),
         select("Justify", ["start", "center", "end", "between"], FlexPlaygroundState.justify, FlexPlaygroundState.set_justify),
         width="100%",
-        gap="2",
+        spacing="2",
         justify="between",
     )
 
@@ -118,7 +118,7 @@ def example1():
                 rx.Var.range(10),
                 lambda i: rx.card(f"Card {i + 1}", width="16%"),
             ),
-            gap="2",
+            spacing="2",
             direction=FlexPlaygroundState.direction,
             align=FlexPlaygroundState.align,
             justify=FlexPlaygroundState.justify,
@@ -176,7 +176,7 @@ def example2():
             border_box("flex_grow=1", flex_grow="1"),
             width=f"{FlexGrowShrinkState.width_pct}%",
             margin_bottom="16px",
-            gap="2",
+            spacing="2",
         ),
         rx.slider(
             min=0,

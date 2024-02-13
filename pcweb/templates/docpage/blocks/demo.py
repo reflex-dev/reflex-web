@@ -110,7 +110,7 @@ def docdemo(
         width="100%",
         padding_top="2em",
         padding_bottom="2em",
-        spacing="1em",
+        gap="1em",
         **props,
     )
 
