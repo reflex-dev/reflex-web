@@ -125,7 +125,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
                 
             ),
             rx.box(
-                sidebar_button(),
+                sidebar_button(sidebar),
                 display=["flex", "flex", "flex", "flex", "flex", "none"],
             ),
             gap="3",

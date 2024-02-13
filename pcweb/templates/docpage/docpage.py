@@ -318,10 +318,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path)
+            sidebar = sb(url=path, width="17em")
 
             # Set the sidebar path for the navbar sidebar.
-            nav_sidebar = sb(url=path)
+            nav_sidebar = sb(url=path, width="100%")
 
             # Get the previous and next sidebar links.
             prev, next = get_prev_next(path)
