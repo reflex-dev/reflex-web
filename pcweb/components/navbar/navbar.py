@@ -121,12 +121,12 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             rx.separator(size="2", color='mauve', orientation="vertical"), 
             rx.box(
                 discord(),
-                display=["none", "none", "none", "none", "none", "flex"],
+                display=["none", "none", "none", "none", "flex", "flex"],
                 
             ),
             rx.box(
                 sidebar_button(sidebar),
-                display=["flex", "flex", "flex", "flex", "flex", "none"],
+                display=["flex", "flex", "flex", "flex", "none", "none"],
             ),
             gap="3",
             align_items="center",
