@@ -15,7 +15,6 @@ from pcweb.pages.docs import vars
 
 # Switch
 
-
 A toggle switch alternative to the checkbox.
 
 ## Basic Example
@@ -34,7 +33,6 @@ rx.text(
 Here we set the `default_checked` prop to be `True` which sets the state of the switch when it is initially rendered.
 
 ## Usage
-
 
 ### Submitting a form using switch
 
@@ -74,18 +72,15 @@ def form_switch():
     )
 ```
 
-
-
 ### Control the value
 
-The `checked` prop is used to control the state of the switch. 
+The `checked` prop is used to control the state of the switch.
 
 The event `on_change` is called when the state of the switch changes, when the `change_checked` event handler is called.
 
 The `disabled` prop when `True`, prevents the user from interacting with the switch.
 
-In our example below, even though the third switch is `disabled` we are still able to change whether it is checked or not using the `checked` prop. 
-
+In our example below, even though the third switch is `disabled` we are still able to change whether it is checked or not using the `checked` prop.
 
 ```python demo exec
 class SwitchState2(rx.State):
@@ -117,17 +112,13 @@ def switch_example2():
 
 In this example we use the `~` operator, which is used to invert a var. To learn more check out [var operators]({vars.var_operations.path}).
 
-
-
 ## Styling
 
 ```python eval
 style_grid(component_used=rx.switch, component_used_str="switch", variants=["classic", "surface", "soft"], disabled=True, default_checked=True)
 ```
 
-
 ## Real World Example
-
 
 ```python demo exec
 class FormSwitchState2(rx.State):

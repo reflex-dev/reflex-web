@@ -43,4 +43,3 @@ rx.chakra.center(
     )
 )
 ```
-

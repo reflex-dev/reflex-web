@@ -8,5 +8,3 @@ components:
 # Axis
 
 The X-, Y-, Z-axes.
-
-

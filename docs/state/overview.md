@@ -22,7 +22,7 @@ class State(rx.State):
 
 A state class is made up of two parts: vars and event handlers.
 
-**Vars** are variables in your app that can change over time. 
+**Vars** are variables in your app that can change over time.
 
 **Event handlers** are functions that modify these vars in response to events.
 
@@ -142,9 +142,9 @@ All interactions between the frontend and backend are handled through events.
 
 ## Client States
 
-Each user who opens your app has a unique ID and their own copy of the state. 
-This means that each user can interact with the app and modify the state 
-independently of other users. 
+Each user who opens your app has a unique ID and their own copy of the state.
+This means that each user can interact with the app and modify the state
+independently of other users.
 
 ```md alert
 Try opening an app in multiple tabs to see how the state changes independently.
@@ -152,4 +152,4 @@ Try opening an app in multiple tabs to see how the state changes independently.
 
 All user state is stored on the server, and all event handlers are executed on
 the server.  Reflex uses websockets to send events to the server, and to send
-state updates back to the client. 
+state updates back to the client.

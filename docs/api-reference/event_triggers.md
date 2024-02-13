@@ -250,7 +250,7 @@ def component_grid():
 
 # Event Triggers
 
-Components can modify the state based on user events such as clicking a button or entering text in a field. 
+Components can modify the state based on user events such as clicking a button or entering text in a field.
 These events are triggered by event triggers.
 
 Event triggers are component specific and are listed in the documentation for each component.

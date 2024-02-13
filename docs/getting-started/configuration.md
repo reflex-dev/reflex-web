@@ -9,7 +9,7 @@ Reflex apps can be configured using a configuration file, environment variables,
 
 ## Configuration File
 
-Running `reflex init` will create an `rxconfig.py` file in your root directory. 
+Running `reflex init` will create an `rxconfig.py` file in your root directory.
 You can pass keyword arguments to the `Config` class to configure your app.
 
 For example:
@@ -58,6 +58,7 @@ Participation in this anonymous program is optional, and you may opt-out if you'
 Telemetry allows us to understand how Reflex is used, what features are most important, and how we can improve the product.
 
 The following information is collected:
+
 * Operating system
 * CPU count
 * Memoryd
@@ -77,12 +78,11 @@ config = rx.Config(
 
 Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `False`.
 
-
 ## Customizable App Data Directory
 
 The `REFLEX_DIR` environment variable can be set, which allows users to set the location where Reflex writes helper tools like Bun and NodeJS.
 
-By default we use Platform specific directories: 
+By default we use Platform specific directories:
 
 On windows, `C:/Users/<username>/AppData/Local/reflex` is used.
 

@@ -54,7 +54,8 @@ rx.accordion.root(
 ## Styling
 
 ### Type
-We use the `type_` prop to determine whether multiple items can be opened at once. The allowed values for this prop are 
+
+We use the `type_` prop to determine whether multiple items can be opened at once. The allowed values for this prop are
 `single` and `multiple` where `single` will only open one item at a time. The default value for this prop is `single`.
 
 ```python demo
@@ -72,7 +73,7 @@ rx.accordion.root(
 
 ### Default Value
 
-We use the `default_value` prop to specify which item should open by default. The value for this prop should be any of the 
+We use the `default_value` prop to specify which item should open by default. The value for this prop should be any of the
 unique values set by an `accordion.item`.
 
 ```python demo
@@ -144,12 +145,10 @@ rx.accordion.root(
 )
 ```
 
-
-
 ### Orientation
 
 We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
-will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but the 
+will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but the
 functional orientation of the accordion. This means that for vertical orientation, the up and down arrow keys moves focus between the next or previous item,
 while for horizontal orientation, the left or right arrow keys moves focus between items.
 
@@ -178,7 +177,6 @@ rx.accordion.root(
     orientation="horizontal",
 )
 ```
-
 
 ### Variant
 
@@ -265,7 +263,6 @@ rx.flex(
     spacing="2"
 )
 ```
-
 
 ### Value
 
@@ -375,6 +372,3 @@ rx.accordion.root(
     color_scheme="blue",
 )
 ```
-
-
-

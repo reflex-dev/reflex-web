@@ -2,10 +2,9 @@
 import reflex as rx
 ```
 
-
 # Client-storage
 
-You can use the browser's local storage to persist state between sessions. 
+You can use the browser's local storage to persist state between sessions.
 This allows user preferences, authentication cookies, other bits of information
 to be stored on the client and accessed from different browser tabs.
 
@@ -16,8 +15,8 @@ can be overridden by passing `name="my_custom_name"` as a keyword argument.
 
 For more information see [Browser Storage](/docs/api-reference/browser/).
 
-Try entering some values in the text boxes below and then load the page in a separate 
-tab or check the storage section of browser devtools to see the values saved in the browser. 
+Try entering some values in the text boxes below and then load the page in a separate
+tab or check the storage section of browser devtools to see the values saved in the browser.
 
 ```python demo exec
 class ClientStorageState(rx.State):

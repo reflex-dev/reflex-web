@@ -6,8 +6,8 @@ import reflex as rx
 
 from pcweb.pages.docs import vars
 ```
-# Base Vars
 
+# Base Vars
 
 Vars are any fields in your app that may change over time. A Var is directly
 rendered into the frontend of the app.
@@ -61,7 +61,7 @@ not directly renderable on the frontend, and may be used to store sensitive
 values that should not be sent to the client.
 
 For example, a backend-only var is used to store a large data structure which is
-then paged to the frontend using cached vars. 
+then paged to the frontend using cached vars.
 
 ```python demo exec
 import numpy as np

@@ -23,4 +23,3 @@ rx.chakra.card(
 ```
 
 You can pass a header with `header=` and/or a footer with `footer=`.
-

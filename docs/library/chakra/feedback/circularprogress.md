@@ -10,8 +10,8 @@ import reflex as rx
 
 # CircularProgress
 
-The CircularProgress component is used to indicate the progress for determinate and indeterminate processes. 
-Determinate progress: fills the circular track with color, as the indicator moves from 0 to 360 degrees. 
+The CircularProgress component is used to indicate the progress for determinate and indeterminate processes.
+Determinate progress: fills the circular track with color, as the indicator moves from 0 to 360 degrees.
 Indeterminate progress: grows and shrinks the indicator while moving along the circular track.
 
 ```python demo

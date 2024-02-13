@@ -146,7 +146,6 @@ composed_chart_example = """rx.recharts.composed_chart(
                 data=data)"""
 ```
 
-
 A legend tells what each plot represents. Just like on a map, the legend helps the reader understand what they are looking at. For a line graph for example it tells us what each line represents.
 
 ```python eval

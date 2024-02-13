@@ -24,7 +24,6 @@ Check the docs for the component you are using to see what props are available.
 # Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly {library.path}.
 ```
 
-
 ## HTML Props
 
 Components support many standard HTML properties as props. For example: the HTML [id]({"https://www.w3schools.com/html/html_id.asp"}) property is exposed directly as the prop `id`. The HTML [className]({"https://www.w3schools.com/jsref/prop_html_classname.asp"}) property is exposed as the prop `class_name` (note the Pythonic snake_casing!).

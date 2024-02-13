@@ -131,7 +131,6 @@ def example1():
     )
 ```
 
-
 ## Size Hinting
 
 When a child component is included in a flex container,

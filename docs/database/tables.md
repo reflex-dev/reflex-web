@@ -11,7 +11,7 @@ field in the record.
 To create a table make a class that inherits from `rx.Model`.
 
 The following example shows how to create a table called `User`.
-            
+
 ```python
 class User(rx.Model, table=True):
     username: str

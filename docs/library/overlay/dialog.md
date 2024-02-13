@@ -48,8 +48,7 @@ import reflex as rx
 
 # Dialog
 
-
-The `dialog.root` contains all the parts of a dialog. 
+The `dialog.root` contains all the parts of a dialog.
 
 The `dialog.trigger` wraps the control that will open the dialog.
 
@@ -60,7 +59,6 @@ The `dialog.title` is a title that is announced when the dialog is opened.
 The `dialog.description` is a description that is announced when the dialog is opened.
 
 The `dialog.close` wraps the control that will close the dialog.
-
 
 ```python demo
 rx.dialog.root(
@@ -77,9 +75,7 @@ rx.dialog.root(
 )
 ```
 
-
-
-## In context examples 
+## In context examples
 
 ```python demo
 rx.dialog.root(
@@ -115,7 +111,6 @@ rx.dialog.root(
     ),
 )
 ```
-
 
 ```python demo
 rx.dialog.root(
@@ -161,7 +156,6 @@ rx.dialog.root(
 )
 ```
 
-
 ## Events when the Dialog opens or closes
 
 The `on_open_change` event is called when the `open` state of the dialog changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
@@ -197,4 +191,3 @@ def dialog_example():
         spacing="3",
     )
 ```
-

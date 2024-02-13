@@ -3,7 +3,6 @@ import reflex as rx
 from pcweb import constants, styles
 ```
 
-
 # Background Tasks
 
 A background task is a special type of `EventHandler` that may run

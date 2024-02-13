@@ -1,4 +1,4 @@
-# CLI 
+# CLI
 
 The `reflex` command line interface (CLI) is a tool for creating and managing Reflex apps.
 
@@ -31,7 +31,6 @@ Commands:
 
 The `reflex init` command creates a new Reflex app in the current directory.
 If an `rxconfig.py` file already exists already, it will re-initialize the app with the latest template.
-
 
 ```bash
 $ reflex init --help

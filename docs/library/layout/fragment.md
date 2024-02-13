@@ -20,4 +20,3 @@ rx.fragment(
     rx.text("Component2")
 )
 ```
-

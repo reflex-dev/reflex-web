@@ -8,9 +8,9 @@ import reflex as rx
 from pcweb.pages.docs import styling
 ```
 
-# HTML 
+# HTML
 
-The HTML component can be used to render raw HTML code. 
+The HTML component can be used to render raw HTML code.
 
 Before you reach for this component, consider using Reflex's raw HTML element support instead.
 

@@ -83,7 +83,6 @@ rx.popover.root(
 
 ## Examples in Context
 
-
 ```python demo
 
 rx.popover.root(
@@ -145,6 +144,3 @@ rx.popover.root(
     )
 )
 ```
-
-
-
