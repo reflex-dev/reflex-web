@@ -7,14 +7,8 @@ default_url = "http://localhost:3000"
 
 # Installation
 
-## Prerequisites
 Reflex requires Python 3.8+.
 
-For Windows users, we recommend using [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) for optimal performance.
-
-macOS (Apple Silicon) users should install [Rosetta 2](https://support.apple.com/en-us/HT211861). Run this command:
-    
-`/usr/sbin/softwareupdate --install-rosetta --agree-to-license`
 
 ## Virtual Environment
 
@@ -24,6 +18,11 @@ We **highly recommend** creating a virtual environment for your project.
 
 ## Install on macOS/Linux
 We will go with [venv]({constants.VENV_URL}) here. 
+
+### Prerequisites
+macOS (Apple Silicon) users should install [Rosetta 2](https://support.apple.com/en-us/HT211861). Run this command:
+    
+`/usr/sbin/softwareupdate --install-rosetta --agree-to-license`
 
 ### Create the project directory 
 Replace `{app_name}` with your project name. Switch to the new directory.
@@ -68,7 +67,11 @@ If you install Reflex with no virtual environment and get this error it means yo
 A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
 ```
 
+
 ## Install on Windows
+
+### Prerequisites
+For Windows users, we recommend using [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) for optimal performance.
 
 WSL users should refer to instructions for Linux above.
 
