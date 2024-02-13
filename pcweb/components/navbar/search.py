@@ -193,22 +193,40 @@ def search_bar_desktop() -> rx.Component:
     return rx.dialog.root(
     rx.dialog.trigger(
         rx.flex(
-            rx.text(
-                "Search",
+            rx.box(
+                rx.flex(
+                    rx.text(
+                        "Search",
+                    ),
+                    rx.box(
+                        flex_grow='1',
+                    ),
+                    rx.text(
+                        "/",
+                        color=rx.color("mauve", 9),
+                        background=rx.color("mauve", 4),
+                        padding="0px 3px",
+                        border_radius="5px",
+                    ),
+                    width=["15em", "15em", "15em", "20em", "20em",],
+                    
+                    padding="7px 12px 7px 12px",
+                    style=button_style
+                ),
+                display=["none", "none", "none", "none", "none", "flex"],
             ),
             rx.box(
-                flex_grow='1',
-            ),
-            rx.text(
-                "/",
-                color=rx.color("mauve", 9),
-                background=rx.color("mauve", 4),
-                padding="0px 3px",
-                border_radius="5px",
-            ),
-            width=["15em", "15em", "15em", "20em", "20em",],
-            padding="7px 12px 7px 12px",
-            style=button_style
+                rx.flex(
+                    rx.icon(
+                        "search",
+                        color=rx.color("mauve", 9),
+                    ),
+                    padding="7px",
+                    border_radius="8px",
+                    style=button_style
+                ),
+                display=["flex", "flex", "flex", "flex", "flex", "none"],
+            )
         )
     ),
     rx.dialog.content(
