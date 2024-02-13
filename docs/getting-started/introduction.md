@@ -66,7 +66,7 @@ rx.hstack(
         color_scheme="grass",
         on_click=CounterExampleState.increment,
     ),
-    spacing="1em",
+    spacing="4",
 )
 ```
 
@@ -98,7 +98,7 @@ def index():
             color_scheme="grass",
             on_click=State.increment,
         ),
-        gap="1em",
+        spacing="4",
     )
 
 
@@ -165,7 +165,7 @@ def index():
             color_scheme="grass",
             on_click=State.increment,
         ),
-        spacing="1em",
+        spacing="4",
     )
 ```
 
