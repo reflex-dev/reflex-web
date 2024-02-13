@@ -1,8 +1,9 @@
-from .item import create_item
+from .item import create_item, SidebarItem
 
 def get_sidebar_items_api_reference():
     from pcweb.pages.docs import (
         api_reference,
+        apiref
     )
 
     return [
@@ -14,7 +15,7 @@ def get_sidebar_items_api_reference():
                 api_reference.special_events,
                 api_reference.browser_storage,
                 api_reference.browser_javascript,
-            ],
+            ] + apiref.pages
         )
     ]
 
