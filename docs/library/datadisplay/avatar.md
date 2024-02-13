@@ -2,7 +2,7 @@
 components:
     - rx.radix.avatar
 Avatar: |
-    lambda **props: rx.hstack(rx.avatar(src="/logo.jpg", **props), rx.avatar(fallback="RX", **props), gap="3")
+    lambda **props: rx.hstack(rx.avatar(src="/logo.jpg", **props), rx.avatar(fallback="RX", **props), spacing="3")
 ---
 # Avatar
 
@@ -48,7 +48,7 @@ rx.flex(
     rx.avatar(src="/logo.jpg", fallback="RX", size="6"),
     rx.avatar(src="/logo.jpg", fallback="RX", size="7"),
     rx.avatar(src="/logo.jpg", fallback="RX", size="8"),
-    gap="1",
+    spacing="1",
 )
 ```
 
@@ -61,7 +61,7 @@ rx.flex(
     rx.avatar(fallback="RX", variant="solid"),
     rx.avatar(fallback="RX", variant="soft"),
     rx.avatar(fallback="RX"),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -75,7 +75,7 @@ rx.flex(
     rx.avatar(fallback="RX", color_scheme="cyan"),
     rx.avatar(fallback="RX", color_scheme="orange"),
     rx.avatar(fallback="RX", color_scheme="crimson"),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -90,7 +90,7 @@ rx.grid(
     rx.avatar(fallback="RX", variant="soft"),
     rx.avatar(fallback="RX", variant="soft", high_contrast=True),
     rows="2",
-    gap="2",
+    spacing="2",
     flow="column",
 )
 ```
@@ -112,7 +112,7 @@ rx.grid(
     rx.avatar(src="/logo.jpg", fallback="RX", radius="full"),
     rx.avatar(fallback="RX", radius="full"),
     rows="2",
-    gap="2",
+    spacing="2",
     flow="column",
 )
 ```
@@ -125,7 +125,7 @@ The `fallback` prop indicates the rendered text when the `src` cannot be loaded.
 rx.flex(
     rx.avatar(fallback="RX"),
     rx.avatar(fallback="PC"),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -140,6 +140,6 @@ rx.flex(
     rx.text("@reflexuser", color_scheme="gray"),
     rx.button("Edit Profile", color_scheme="indigo", variant="solid"),
     direction="column",
-    gap="1",
+    spacing="1",
 )
 ```

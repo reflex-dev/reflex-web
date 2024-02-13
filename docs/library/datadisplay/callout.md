@@ -51,7 +51,7 @@ rx.flex(
     rx.callout("You will need admin privileges to install and access this application.", icon="info", size="2",),
     rx.callout("You will need admin privileges to install and access this application.", icon="info", size="1",),
     direction="column",
-    gap="3",
+    spacing="3",
     align="start",
 )
 ```
@@ -66,7 +66,7 @@ rx.flex(
     rx.callout("You will need admin privileges to install and access this application.", icon="info", variant="surface",),
     rx.callout("You will need admin privileges to install and access this application.", icon="info", variant="outline",),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -81,7 +81,7 @@ rx.flex(
     rx.callout("You will need admin privileges to install and access this application.", icon="info", color_scheme="green",),
     rx.callout("You will need admin privileges to install and access this application.", icon="info", color_scheme="red",),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -96,7 +96,7 @@ rx.flex(
     rx.callout("You will need admin privileges to install and access this application.", icon="info",),
     rx.callout("You will need admin privileges to install and access this application.", icon="info", high_contrast=True,),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 

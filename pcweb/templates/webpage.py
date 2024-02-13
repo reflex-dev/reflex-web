@@ -45,10 +45,11 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
             from pcweb.components.navbar import navbar
+            from pcweb.components.sidebar import sb
 
             # Wrap the component in the template.
             return rx.chakra.box(
-                navbar(),
+                navbar(sidebar=sb),
                 contents(*children, **props),
                 footer(),
                 font_family=styles.SANS,

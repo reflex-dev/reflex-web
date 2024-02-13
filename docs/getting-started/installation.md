@@ -23,15 +23,18 @@ We **highly recommend** creating a virtual environment for your project.
 [venv]({constants.VENV_URL}) is the standard option. [conda]({constants.CONDA_URL}) and [poetry]({constants.POETRY_URL}) are some alternatives.
 
 ## Install on macOS/Linux
+
 We will go with [venv]({constants.VENV_URL}) here. 
 
 ### Create the project directory 
+
 Replace `{app_name}` with your project name. Switch to the new directory.
 ```bash
 mkdir {app_name}
 cd {app_name}
 ```
 ### Setup virtual environment
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -45,6 +48,7 @@ If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get insta
 ```
 
 ### Install Reflex package
+
 Reflex is available as a [pip](constants.PIP_URL) package.
 ```bash
 pip install reflex
@@ -58,6 +62,7 @@ You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install 
 ```
 
 ### Initialize the project
+
 ```bash
 reflex init
 ```
@@ -77,20 +82,24 @@ For the rest of this section we will work with native Windows (non-WSL).
 We will go with [venv]({constants.VENV_URL}) here, for virtual environments.
 
 ### Create a new project directory
+
 ```bash
 mkdir {app_name}
 cd {app_name}
 ```
 ### Setup virtual environment
+
 ```bash
 py -3 -m venv .venv
 .venv\\Scripts\\activate
 ```
 ### Install Reflex package
+
 ```bash
 pip install reflex
 ```
 ### Initialize the project
+
 ```bash
 reflex init
 ```
@@ -102,6 +111,7 @@ The Reflex framework includes the `reflex` command line (CLI) tool. Using a virt
 ```
 
 ## Run the App
+
 Run it in development mode:
 ```bash
 reflex run
@@ -115,6 +125,7 @@ reflex run --loglevel debug
 Reflex will *hot reload* any code changes in real time when running in development mode. Your code edits will show up on [http://localhost:3000](http://localhost:3000) automatically.
 
 ## (Optional) Run the demo app
+
 The demo app showcases some of Reflex's features.
 ```bash
 reflex demo

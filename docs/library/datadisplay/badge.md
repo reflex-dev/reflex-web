@@ -38,7 +38,7 @@ rx.flex(
     rx.badge("New", size="1"),
     rx.badge("New", size="2"),
     align="center",
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -53,7 +53,7 @@ rx.flex(
     rx.badge("New"),
     rx.badge("New", variant="surface"),
     rx.badge("New", variant="outline"),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -67,7 +67,7 @@ rx.flex(
     rx.badge("New", color_scheme="cyan"),
     rx.badge("New", color_scheme="orange"),
     rx.badge("New", color_scheme="crimson"),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -82,17 +82,17 @@ rx.flex(
         rx.badge("New", variant="soft"),
         rx.badge("New", variant="surface"),
         rx.badge("New", variant="outline"),
-        gap="2",
+        spacing="2",
     ),
     rx.flex(
         rx.badge("New", variant="solid", high_contrast=True),
         rx.badge("New", variant="soft", high_contrast=True),
         rx.badge("New", variant="surface", high_contrast=True),
         rx.badge("New", variant="outline", high_contrast=True),
-        gap="2",
+        spacing="2",
     ),
     direction="column",
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -107,7 +107,7 @@ rx.flex(
     rx.badge("New", radius="medium"),
     rx.badge("New", radius="large"),
     rx.badge("New", radius="full"),
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -121,7 +121,7 @@ rx.badge(
     rx.flex(
         rx.icon(tag="arrow_up"),
         rx.text("8.8%"),
-        gap="1",
+        spacing="1",
     ),
     color_scheme="grass",
 )

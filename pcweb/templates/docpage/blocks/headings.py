@@ -11,8 +11,12 @@ def h_comp_common(
     font_weight: str,
     margin_top: str,
     scroll_margin: str,
+    convert_to_str: bool = False
 ) -> rx.Component:
-    id_ = text.to(list[str])[0].lower().split().join("-")
+    if convert_to_str:
+        id_ = text.to(list[str])[0].lower().split().join("-")
+    else:
+        id_ = text.lower().split().join("-")
     href = rx.State.router.page.full_path + "#" + id_
 
     return rx.box(
@@ -37,7 +41,7 @@ def h_comp_common(
                     },
                 ),
                 align_items="center",
-                gap="3"
+                spacing="3"
             ),
             _hover={
                 "cursor": "pointer",
@@ -48,7 +52,7 @@ def h_comp_common(
             margin_bottom="0.5em",
         ),
         rx.flex(
-            rx.separator(size="4"),
+            rx.divider(size="4"),
             margin_top=".5em",
             margin_bottom="1em",
             width="100%"
@@ -70,6 +74,18 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
         scroll_margin="4em",
     )
 
+@rx.memo
+def h1_comp_xd(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h1",
+        font_size=styles.H1_FONT_SIZE,
+        font_weight=fw["heading"],
+        margin_top="1.5em",
+        scroll_margin="4em",
+        convert_to_str=True,
+    )
+
 
 @rx.memo
 def h2_comp(text: rx.Var[str]) -> rx.Component:
@@ -80,6 +96,19 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
         font_weight=fw["subheading"],
         margin_top="1.5em",
         scroll_margin="5em",
+    )
+
+
+@rx.memo
+def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h2",
+        font_size=styles.H3_FONT_SIZE,
+        font_weight=fw["subheading"],
+        margin_top="1.5em",
+        scroll_margin="5em",
+        convert_to_str=True,
     )
 
 
@@ -96,6 +125,19 @@ def h3_comp(text: rx.Var[str]) -> rx.Component:
 
 
 @rx.memo
+def h3_comp_xd(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h3",
+        font_size=styles.H4_FONT_SIZE,
+        font_weight=fw["subheading"],
+        margin_top="1.5em",
+        scroll_margin="5em",
+        convert_to_str=True,
+    )
+
+
+@rx.memo
 def h4_comp(text: rx.Var[str]) -> rx.Component:
     return h_comp_common(
         text=text,
@@ -104,4 +146,17 @@ def h4_comp(text: rx.Var[str]) -> rx.Component:
         font_weight=fw["subheading"],
         margin_top="1.5em",
         scroll_margin="6em",
+    )
+
+
+@rx.memo
+def h4_comp_xd(text: rx.Var[str]) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h4",
+        font_size=styles.H4_FONT_SIZE,
+        font_weight=fw["subheading"],
+        margin_top="1.5em",
+        scroll_margin="6em",
+        convert_to_str=True,
     )

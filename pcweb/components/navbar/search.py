@@ -49,7 +49,7 @@ def search_badge(category, stateful=True):
             ),
             box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
             style=search_badge_style,
-            gap="2"
+            spacing="2"
         )
 
 
@@ -94,7 +94,7 @@ def format_search_results(result):
             _hover={
                 "bg": rx.color("mauve", 3),
             },
-            gap="2",
+            spacing="2",
             padding=".4em"
         ),
         href=result["document"]["href"],
@@ -125,12 +125,12 @@ def search_bar_categories(categories):
             rx.text("Sort"),
             background=rx.color("violet", 9),
             color=rx.color("violet", 1),
-            gap="2",
+            spacing="2",
             style=search_badge_style
         ),
         width="100%",
         align_items="center",
-        gap="2",
+        spacing="2",
         padding=".4em"
     )  
  
@@ -153,7 +153,7 @@ def search_input():
                 ai_button(),
                 border_bottom="1px solid #F4F3F6",
             ),
-            gap="2",
+            spacing="2",
             direction="column",
             padding=".4em"
         )
@@ -175,7 +175,7 @@ def search_results():
                         align_items="start",
                         # overflow_y="auto",
                         direction = "column",
-                        gap="1",
+                        spacing="1",
                     ),
                     inkeep(
                         width="100%",
@@ -193,22 +193,40 @@ def search_bar_desktop() -> rx.Component:
     return rx.dialog.root(
     rx.dialog.trigger(
         rx.flex(
-            rx.text(
-                "Search",
+            rx.box(
+                rx.flex(
+                    rx.text(
+                        "Search",
+                    ),
+                    rx.box(
+                        flex_grow='1',
+                    ),
+                    rx.text(
+                        "/",
+                        color=rx.color("mauve", 9),
+                        background=rx.color("mauve", 4),
+                        padding="0px 3px",
+                        border_radius="5px",
+                    ),
+                    width=["15em", "15em", "15em", "20em", "20em",],
+                    
+                    padding="7px 12px 7px 12px",
+                    style=button_style
+                ),
+                display=["none", "none", "none", "none", "none", "flex"],
             ),
             rx.box(
-                flex_grow='1',
-            ),
-            rx.text(
-                "/",
-                color=rx.color("mauve", 9),
-                background=rx.color("mauve", 4),
-                padding="0px 3px",
-                border_radius="5px",
-            ),
-            width=["15em", "15em", "15em", "20em", "20em",],
-            padding="7px 12px 7px 12px",
-            style=button_style
+                rx.flex(
+                    rx.icon(
+                        "search",
+                        color=rx.color("mauve", 9),
+                    ),
+                    padding="7px",
+                    border_radius="8px",
+                    style=button_style
+                ),
+                display=["flex", "flex", "flex", "flex", "flex", "none"],
+            )
         )
     ),
     rx.dialog.content(

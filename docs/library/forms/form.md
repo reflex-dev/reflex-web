@@ -39,7 +39,7 @@ def form_example():
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
         ),
-        rx.separator(),
+        rx.divider(),
         rx.heading("Results"),
         rx.text(FormState.form_data.to_string()),
     )
@@ -103,7 +103,7 @@ def dynamic_form():
             on_submit=DynamicFormState.add_field,
             reset_on_submit=True,
         ),
-        rx.separator(),
+        rx.divider(),
         rx.heading("Results"),
         rx.text(DynamicFormState.form_data.to_string()),
     )

@@ -70,7 +70,7 @@ flex(
     link("The quick brown fox jumps over the lazy dog.", size="8"),
     link("The quick brown fox jumps over the lazy dog.", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -86,7 +86,7 @@ flex(
     link("The quick brown fox jumps over the lazy dog.", weight="medium"),
     link("The quick brown fox jumps over the lazy dog.", weight="bold"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -112,7 +112,7 @@ flex(
                 "border_bottom": "1px dashed var(--gray-a7)",}
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -127,7 +127,7 @@ flex(
     link("The quick brown fox jumps over the lazy dog.", underline="hover"),
     link("The quick brown fox jumps over the lazy dog.", underline="always"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 

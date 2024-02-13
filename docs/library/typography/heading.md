@@ -26,7 +26,7 @@ flex(
     heading("Level 2", as_="h2"),
     heading("Level 3", as_="h3"),
     direction="column",
-    gap="3",
+    spacing="3",
 )             
 ```
 
@@ -47,7 +47,7 @@ flex(
     heading("The quick brown fox jumps over the lazy dog.", size="8"),
     heading("The quick brown fox jumps over the lazy dog.", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -64,7 +64,7 @@ flex(
     heading("The quick brown fox jumps over the lazy dog.", weight="medium"),
     heading("The quick brown fox jumps over the lazy dog.", weight="bold"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -80,7 +80,7 @@ flex(
     heading("Center-aligned", align="center"),
     heading("Right-aligned", align="right"),
     direction="column",
-    gap="3",
+    spacing="3",
     width="100%",
 )
 ```
@@ -106,7 +106,7 @@ flex(
                 "border_bottom": "1px dashed var(--gray-a7)",}
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 
@@ -131,7 +131,7 @@ flex(
         padding="16px",
     ),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```
 

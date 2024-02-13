@@ -28,7 +28,7 @@ rx.flex(
     rx.card("Card 3", size="3"),
     rx.card("Card 4", size="4"),
     rx.card("Card 5", size="5"),
-    gap="2",
+    spacing="2",
     align_items="flex-start",
     flex_wrap="wrap",
 )
@@ -48,7 +48,7 @@ rx.card(
                 rx.heading("Quick Start"),
                 rx.text("Get started with Reflex in 5 minutes."),
             ),
-            gap="2",
+            spacing="2",
         ),
     ),
     as_child=True,

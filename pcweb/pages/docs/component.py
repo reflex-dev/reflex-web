@@ -6,8 +6,10 @@ import re
 from typing import Any, Type, get_args
 
 import reflex as rx
+import flexdown
+
 from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp
 from reflex.base import Base
 from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
@@ -604,8 +606,7 @@ def component_docs(component, comp):
     children = generate_valid_children(component)
 
     return rx.box(
-        rx.heading(component.__name__, font_size="2em"),
-        rx.chakra.divider(),
+        h2_comp(text=component.__name__),
         rx.box(markdown(src.get_docs()), padding_bottom="1em"),
         props,
         children,
@@ -635,9 +636,8 @@ tab_selected_style = {
 
 def multi_docs(path, comp, component_list, title):
     components = [component_docs(component, comp) for component in component_list[1:]]
-        
+
     fname = path.strip("/") + ".md"
-    style_doc_exists = os.path.exists(fname.replace(".md", "-style.md"))
     ll_doc_exists = os.path.exists(
         fname.replace(".md", "-ll.md")
     )
@@ -665,7 +665,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=active_style)),
                             rx.link(rx.center(rx.text("Internal"), style=non_active_style), href=path+"/internal"),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",
@@ -680,7 +680,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=non_active_style), href=path),
                             rx.link(rx.center(rx.text("Internal"), style=active_style)),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",
@@ -693,9 +693,11 @@ def multi_docs(path, comp, component_list, title):
 
     @docpage(set_path=path, t=title)
     def out():
-        return rx.flex(
+        toc = get_toc(comp, fname, component_list)
+        return toc, rx.flex(
             links("hl", ll_doc_exists, path),
             xd.render(comp, filename=fname),
+            h1_comp(text="API Reference"),
             rx.vstack(*components),
             direction="column",
             width="100%"
@@ -703,9 +705,14 @@ def multi_docs(path, comp, component_list, title):
 
     @docpage(set_path=path+"/internal", t=title)
     def ll():
-        return rx.flex(
+        nonlocal fname
+        fname = fname.replace(".md", "-ll.md")
+        d2 = flexdown.parse_file(fname)
+        toc = get_toc(d2, fname, component_list)
+        return toc, rx.flex(
             links("ll", ll_doc_exists, path),
-            xd.render_file(fname.replace(".md", "-ll.md")),
+            xd.render_file(fname),
+            h1_comp(text="API Reference"),
             rx.vstack(*components),
             direction="column",
             width="100%"
