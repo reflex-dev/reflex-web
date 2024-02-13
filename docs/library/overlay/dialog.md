@@ -99,7 +99,7 @@ rx.dialog.root(
             rx.text("Email", as_="div", size="2", margin_bottom="4px", weight="bold"),
             rx.input(default_value="freja@example.com", placeholder="Enter your email"),
             direction="column",
-            gap="3",
+            spacing="3",
         ),
         rx.flex(
             rx.dialog.close(
@@ -108,7 +108,7 @@ rx.dialog.root(
             rx.dialog.close(
                 rx.button("Save"),
             ),
-            gap="3",
+            spacing="3",
             margin_top="16px",
             justify="end",
         ),
@@ -154,7 +154,7 @@ rx.dialog.root(
             rx.dialog.close(
                 rx.button("Close", variant="soft", color_scheme="gray"),
             ),
-            gap="3",
+            spacing="3",
             justify="end",
         ),
     ),
@@ -194,7 +194,7 @@ def dialog_example():
             on_open_change=DialogState.count_opens,
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     )
 ```
 

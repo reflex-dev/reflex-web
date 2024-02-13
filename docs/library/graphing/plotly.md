@@ -74,7 +74,7 @@ Now pass the plotly figure to the Plotly component.
 rx.plotly(data=fig, height="400px")
 ```
 
-Not lets take a look at a more compex example.
+Now lets take a look at a more complex example.
 Let's create a 3D surface plot of Mount Bruno.
 
 ```python eval

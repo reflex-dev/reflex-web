@@ -42,7 +42,7 @@ The `disabled` prop disables the button, by default it is `False`.  A disabled b
 rx.flex(
     rx.button("Enabled"),
     rx.button("Disabled", disabled=True),
-    gap="2",
+    spacing="2",
 )
 ```
 
@@ -81,6 +81,6 @@ def counter():
             color_scheme="grass",
             on_click=CountState.increment,
         ),
-        gap="3",
+        spacing="3",
     )
 ```

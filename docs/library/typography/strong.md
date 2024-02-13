@@ -1,12 +1,10 @@
 ---
 components:
-    - rx.radix.strong
+    - rx.radix.text.strong
 ---
 
 ```python exec
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
+import reflex as rx
 ```
 
 # Strong
@@ -14,5 +12,5 @@ from reflex.components.radix.themes.typography import *
 Marks text to signify strong importance.
 
 ```python demo
-text("The most important thing to remember is, ", strong("stay positive"), ".")
+rx.text("The most important thing to remember is, ", rx.text.strong("stay positive"), ".")
 ```

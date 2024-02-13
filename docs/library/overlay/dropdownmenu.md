@@ -11,18 +11,18 @@ only_low_level:
     - True
 
 DropdownMenuRoot: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Share"),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More"),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate"),
-                    rx.dropdown_menu.item("Duplicate"),
-                    rx.dropdown_menu.item("Archive"),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Share"),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate"),
+                    rx.menu.item("Duplicate"),
+                    rx.menu.item("Archive"),
                 ),
             ),
         ),
@@ -30,18 +30,18 @@ DropdownMenuRoot: |
     )
 
 DropdownMenuContent: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Share"),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More"),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate"),
-                    rx.dropdown_menu.item("Duplicate"),
-                    rx.dropdown_menu.item("Archive"),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Share"),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate"),
+                    rx.menu.item("Duplicate"),
+                    rx.menu.item("Archive"),
                 ),
             ),
             **props,
@@ -49,36 +49,36 @@ DropdownMenuContent: |
     )
 
 DropdownMenuItem: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E", **props),
-            rx.dropdown_menu.item("Share", **props),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More"),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate", **props),
-                    rx.dropdown_menu.item("Duplicate", **props),
-                    rx.dropdown_menu.item("Archive", **props),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E", **props),
+            rx.menu.item("Share", **props),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate", **props),
+                    rx.menu.item("Duplicate", **props),
+                    rx.menu.item("Archive", **props),
                 ),
             ),
         ),
     )
 
 DropdownMenuSub: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Share"),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More"),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate"),
-                    rx.dropdown_menu.item("Duplicate"),
-                    rx.dropdown_menu.item("Archive"),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Share"),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate"),
+                    rx.menu.item("Duplicate"),
+                    rx.menu.item("Archive"),
                 ),
                 **props,
             ),
@@ -86,36 +86,36 @@ DropdownMenuSub: |
     )
 
 DropdownMenuSubTrigger: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Share"),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More", **props),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate"),
-                    rx.dropdown_menu.item("Duplicate"),
-                    rx.dropdown_menu.item("Archive"),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Share"),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More", **props),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate"),
+                    rx.menu.item("Duplicate"),
+                    rx.menu.item("Archive"),
                 ),
             ),
         ),
     )
 
 DropdownMenuSubContent: |
-    lambda **props: rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(rx.radix.themes.button("drop down menu")),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Share"),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.dropdown_menu.sub(
-                rx.dropdown_menu.sub_trigger("More"),
-                rx.dropdown_menu.sub_content(
-                    rx.dropdown_menu.item("Eradicate"),
-                    rx.dropdown_menu.item("Duplicate"),
-                    rx.dropdown_menu.item("Archive"),
+    lambda **props: rx.menu.root(
+        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Share"),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Eradicate"),
+                    rx.menu.item("Duplicate"),
+                    rx.menu.item("Archive"),
                     **props,
                 ),
             ),
@@ -143,29 +143,29 @@ The `dropdown_menu.sub` contains all the parts of a submenu. There is a `dropdow
 The `dropdown_menu.separator` is used to visually separate items in a dropdown menu.
 
 ```python demo
-rx.dropdown_menu.root(
-    rx.dropdown_menu.trigger(
+rx.menu.root(
+    rx.menu.trigger(
         rx.button("Options", variant="soft"),
     ),
-    rx.dropdown_menu.content(
-        rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-        rx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
-        rx.dropdown_menu.separator(),
-        rx.dropdown_menu.item("Archive", shortcut="⌘ N"),
-        rx.dropdown_menu.sub(
-            rx.dropdown_menu.sub_trigger("More"),
-            rx.dropdown_menu.sub_content(
-                rx.dropdown_menu.item("Move to project…"),
-                rx.dropdown_menu.item("Move to folder…"),
-                rx.dropdown_menu.separator(),
-                rx.dropdown_menu.item("Advanced options…"),
+    rx.menu.content(
+        rx.menu.item("Edit", shortcut="⌘ E"),
+        rx.menu.item("Duplicate", shortcut="⌘ D"),
+        rx.menu.separator(),
+        rx.menu.item("Archive", shortcut="⌘ N"),
+        rx.menu.sub(
+            rx.menu.sub_trigger("More"),
+            rx.menu.sub_content(
+                rx.menu.item("Move to project…"),
+                rx.menu.item("Move to folder…"),
+                rx.menu.separator(),
+                rx.menu.item("Advanced options…"),
             ),
         ),
-        rx.dropdown_menu.separator(),
-        rx.dropdown_menu.item("Share"),
-        rx.dropdown_menu.item("Add to favorites"),
-        rx.dropdown_menu.separator(),
-        rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+        rx.menu.separator(),
+        rx.menu.item("Share"),
+        rx.menu.item("Add to favorites"),
+        rx.menu.separator(),
+        rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
     ),
 )
 ```
@@ -174,35 +174,35 @@ rx.dropdown_menu.root(
 
 ```python demo
 rx.flex(
-    rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(
+    rx.menu.root(
+        rx.menu.trigger(
             rx.button("Options", variant="soft", size="2"),
         ),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
-            rx.dropdown_menu.separator(),
-            rx.dropdown_menu.item("Archive", shortcut="⌘ N"),
-            rx.dropdown_menu.separator(),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Duplicate", shortcut="⌘ D"),
+            rx.menu.separator(),
+            rx.menu.item("Archive", shortcut="⌘ N"),
+            rx.menu.separator(),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
             size="2",
         ),
     ),
-    rx.dropdown_menu.root(
-        rx.dropdown_menu.trigger(
+    rx.menu.root(
+        rx.menu.trigger(
             rx.button("Options", variant="soft", size="1"),
         ),
-        rx.dropdown_menu.content(
-            rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-            rx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
-            rx.dropdown_menu.separator(),
-            rx.dropdown_menu.item("Archive", shortcut="⌘ N"),
-            rx.dropdown_menu.separator(),
-            rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+        rx.menu.content(
+            rx.menu.item("Edit", shortcut="⌘ E"),
+            rx.menu.item("Duplicate", shortcut="⌘ D"),
+            rx.menu.separator(),
+            rx.menu.item("Archive", shortcut="⌘ N"),
+            rx.menu.separator(),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
             size="1",
         ),
     ),
-    gap="3", 
+    spacing="3", 
     align="center",
 )
 ```
@@ -228,22 +228,22 @@ def dropdown_menu_example():
     return rx.flex(
         rx.heading(f"Number of times Dropdown Menu opened or closed: {DropdownMenuState.num_opens}"),
         rx.heading(f"Dropdown Menu open: {DropdownMenuState.opened}"),
-        rx.dropdown_menu.root(
-            rx.dropdown_menu.trigger(
+        rx.menu.root(
+            rx.menu.trigger(
                 rx.button("Options", variant="soft", size="2"),
             ),
-            rx.dropdown_menu.content(
-                rx.dropdown_menu.item("Edit", shortcut="⌘ E"),
-                rx.dropdown_menu.item("Duplicate", shortcut="⌘ D"),
-                rx.dropdown_menu.separator(),
-                rx.dropdown_menu.item("Archive", shortcut="⌘ N"),
-                rx.dropdown_menu.separator(),
-                rx.dropdown_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+            rx.menu.content(
+                rx.menu.item("Edit", shortcut="⌘ E"),
+                rx.menu.item("Duplicate", shortcut="⌘ D"),
+                rx.menu.separator(),
+                rx.menu.item("Archive", shortcut="⌘ N"),
+                rx.menu.separator(),
+                rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
             ),
             on_open_change=DropdownMenuState.count_opens,
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     )
 ```
 

@@ -1,5 +1,6 @@
 ---
 components:
+    - rx.radix.input
     - rx.radix.text_field
     - rx.radix.text_field.root
     - rx.radix.text_field.input
@@ -7,7 +8,7 @@ components:
 
 
 Input: |
-    lambda **props: rx.radix.themes.input(icon="search", placeholder="Search the docs", **props)
+    lambda **props: rx.input(placeholder="Search the docs", **props)
 
 TextFieldRoot: |
     lambda **props: rx.radix.themes.text_field.root(
@@ -51,11 +52,8 @@ The `input` component is an input field that users can type into.
 ## Basic Example
 
 ```python demo
-rx.input(icon="search")
+rx.input()
 ```
-
-Can set an `icon` for the `input` component using the `icon` prop. 
-
 
 ### Setting Defaults
 
@@ -64,14 +62,11 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rx.input(icon="search", placeholder="Search here...", max_length="20")
+rx.input(placeholder="Search here...", max_length="20")
 ```
 
 
-
-
 ### Using Event Handlers
-
 
 The `on_blur` event handler is called when focus has left the `input` for example, it’s called when the user clicks outside of a focused text input.
 
@@ -146,7 +141,7 @@ def form_input1():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.separator(width="100%"),
+        rx.divider(width="100%"),
         rx.heading("Results"),
         rx.text(FormInputState.form_data.to_string()),
         width="100%",
@@ -168,11 +163,11 @@ def song(title, initials: str, genre: str):
                 rx.text(title, size="2", weight="bold"),
                 rx.text(genre, size="1", color_scheme="gray"),
                 direction="column",
-                gap="1",
+                spacing="1",
             ),
             direction="row",
             align_items="left",
-            gap="1",
+            spacing="1",
         ),
         rx.flex(
             rx.icon(tag="chevron_right"),
@@ -194,18 +189,11 @@ def search():
             song("Lost In Yesterday", "TO", "Rock"),
             song("Is It True", "TO", "Rock"),
             direction="column",
-            gap="1",
+            spacing="1",
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     ),
     style={"maxWidth": 500},
 )
 ```
-
-
-
-
-
-
-

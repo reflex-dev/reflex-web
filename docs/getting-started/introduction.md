@@ -72,7 +72,7 @@ def index():
             color_scheme="grass",
             on_click=CounterExampleState.increment,
         ),
-        spacing="1em",
+        gap="1em",
     )
 
 index_code = """
@@ -89,7 +89,7 @@ def index():
             color_scheme="grass",
             on_click=State.increment,
         ),
-        spacing="1em",
+        gap="1em",
     )
 """
 

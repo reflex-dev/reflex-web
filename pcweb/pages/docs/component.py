@@ -191,7 +191,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     from typing import Literal, _GenericAlias
 
     def render_select(prop):
-        if rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+        if not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel"]:
             return rx.fragment()
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
@@ -221,7 +221,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
         prop_dict[prop.name] = var
-        return rdxt.radio_group(
+        return rx.select(
             list(map(str, type_.__args__)),
             value=var,
             on_change=setter,
@@ -665,7 +665,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=active_style)),
                             rx.link(rx.center(rx.text("Internal"), style=non_active_style), href=path+"/internal"),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",
@@ -680,7 +680,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=non_active_style), href=path),
                             rx.link(rx.center(rx.text("Internal"), style=active_style)),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",

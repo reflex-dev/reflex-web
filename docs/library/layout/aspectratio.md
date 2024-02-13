@@ -55,7 +55,7 @@ rx.grid(
         ),
         ratio=5 / 7,
     ),
-    gap="2",
+    spacing="2",
     width="25%",
 )
 ```
