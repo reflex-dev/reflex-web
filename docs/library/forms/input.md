@@ -79,7 +79,6 @@ def blur_example():
     return rx.vstack(
         rx.heading(TextfieldBlur.text),
         rx.input(
-            icon="search", 
             placeholder="Search here...", 
             on_blur=TextfieldBlur.set_text,
         ),
@@ -98,7 +97,6 @@ def controlled_example():
     return rx.vstack(
         rx.heading(TextfieldControlled.text),
         rx.input(
-            icon="search", 
             placeholder="Search here...", 
             value=TextfieldControlled.text,
             on_change=TextfieldControlled.set_text,
@@ -180,7 +178,7 @@ def song(title, initials: str, genre: str):
 def search():
     return rx.card(
     rx.flex(
-        rx.input(icon="search", placeholder="Search songs...", ),
+        rx.input(placeholder="Search songs...", ),
         rx.flex(
             song("The Less I Know", "T", "Rock"),
             song("Breathe Deeper", "ZB", "Rock"),
