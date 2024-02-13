@@ -191,7 +191,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     from typing import Literal, _GenericAlias
 
     def render_select(prop):
-        if rx.utils.types._issubclass(component, rx.components.chakra.ChakraComponent):
+        if not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel"]:
             return rx.fragment()
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
