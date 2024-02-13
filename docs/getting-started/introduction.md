@@ -53,7 +53,6 @@ class CounterExampleState(rx.State):
 ```
 
 
-
 ```python demo box
 rx.hstack(
     rx.button(
@@ -86,7 +85,6 @@ class State(rx.State):
     def decrement(self):
         self.count -= 1
 
-
 def index():
     return rx.hstack(
         rx.button(
@@ -100,7 +98,7 @@ def index():
             color_scheme="grass",
             on_click=State.increment,
         ),
-        spacing="1em",
+        gap="1em",
     )
 
 

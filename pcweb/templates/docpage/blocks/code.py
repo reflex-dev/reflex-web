@@ -92,10 +92,10 @@ def doccmdoutput(
             ),
             direction="row",
             align="center",
-            gap="1",
+            spacing="1",
             margin_left="1em",
         ),
-        rx.separator(size="4", color_scheme="green"),
+        rx.divider(size="4", color_scheme="green"),
         rx.flex(
             rx.code_block(
                 output,
@@ -111,7 +111,7 @@ def doccmdoutput(
             ),
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
         position="relative",

@@ -312,12 +312,13 @@ def sidebar_comp(
     api_reference_index: list[int],
     recipes_index: list[int],
     tutorials_index: list[int],
+    width: str = "100%"
 ):
     return rx.flex(
         sidebar_category("Learn", "graduation-cap", "purple", 0),
         sidebar_category("Components", "layout-panel-left", "sky", 1),
         sidebar_category("API Reference", "book-text","crimson", 2),
-        rx.separator(size="4", margin_top="0.5em", margin_bottom="0.5em"),
+        rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
             (0, rx.flex(
@@ -343,7 +344,7 @@ def sidebar_comp(
         align_items="left",
         overflow_y="scroll",
         max_height="90%",
-        width="17em",
+        width=width,
         padding_bottom="6em",
         position="fixed",
         scroll_padding="1em",
@@ -358,7 +359,7 @@ def sidebar_comp(
     )
 
 
-def sidebar(url=None) -> rx.Component:
+def sidebar(url=None, width: str = "100%") -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
     component_lib_index = calculate_index(component_lib, url)
@@ -382,10 +383,11 @@ def sidebar(url=None) -> rx.Component:
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
             tutorials_index=tutorials_index,
+            width=width
         ),
         width="100%",
         height="100%",
     )
 
 
-sb = sidebar()
+sb = sidebar(width="100%")

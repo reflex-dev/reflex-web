@@ -164,7 +164,7 @@ flex(
     slider(default_value=[25], size="2"),
     slider(default_value=[25], size="3"),
     direction="column",
-    gap="4",
+    spacing="4",
     width="100%",
 )
 ```
@@ -178,7 +178,7 @@ flex(
     slider(default_value=[25]),
     slider(default_value=[25], high_contrast=True),
     direction="column",
-    gap="4",
+    spacing="4",
     width="100%",
 )
 ```
@@ -192,7 +192,7 @@ flex(
     slider(default_value=[25], radius="small"),
     slider(default_value=[25], radius="full"),
     direction="column",
-    gap="4",
+    spacing="4",
     width="100%",
 )
 ```

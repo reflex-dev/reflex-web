@@ -1,6 +1,6 @@
 """Template for documentation pages."""
 
-from typing import Any, Callable
+from typing import Callable
 
 import reflex as rx
 import flexdown
@@ -48,7 +48,7 @@ def feedback_content(icon):
                         placeholder="Write a comment…",
                         style={"height": 80},
                     ),
-                    gap="1",
+                    spacing="1",
                     direction="column",
                 ),
                 rx.flex(
@@ -60,19 +60,19 @@ def feedback_content(icon):
                             size="2",
                         ),
                         align="center",
-                        gap="2",
+                        spacing="2",
                         as_child=True,
                     ),
                     rx.popover.close(
                         rx.button("Send Feedback", size="1")
                     ),
-                    gap="3",
+                    spacing="3",
                     margin_top="12px",
                     justify="between",
                 ),
                 flex_grow="1",
             ),
-            gap="3",
+            spacing="3",
         )
 
 
@@ -88,7 +88,7 @@ def feedback(text, icon):
             justify="center",
             border_radius="5px",
             padding="0px 10px",
-            gap="2",
+            spacing="2",
         )
     ),
     rx.popover.content(
@@ -99,7 +99,7 @@ def feedback(text, icon):
 
 def docpage_footer(path):
     return rx.flex(
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.flex( 
             rx.flex(
                 rx.text(
@@ -107,16 +107,16 @@ def docpage_footer(path):
                     color = rx.color("mauve", 12),
                     white_space="nowrap",
                 ),
-                rx.separator(size="4", orientation="vertical"),
+                rx.divider(size="4", orientation="vertical"),
                 feedback("No", rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
                 feedback("Yes", rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
                 align_items="center",
-                gap="2"
+                spacing="2"
             ),
             rx.box(
                 flex_grow='1',
             ),
-            rx.separator(size="4", orientation="vertical"),
+            rx.divider(size="4", orientation="vertical"),
             rx.flex(
                 rx.desktop_only(rx.link(rx.flex(
                     "Raise an issue",
@@ -140,12 +140,12 @@ def docpage_footer(path):
                     white_space="nowrap",
                     
                 ), href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md")),
-                gap="2"
+                spacing="2"
             ),
             align_items="center",
             width="100%",
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.flex(
             rx.flex(
                 rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
@@ -153,7 +153,7 @@ def docpage_footer(path):
                 rx.link("Change Log", color=rx.color("mauve", 11), underline="always", href="/changelog"),
                 rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
                 rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),
-                gap="2",
+                spacing="2",
             ),
             rx.box(
                 flex_grow='1',
@@ -189,13 +189,13 @@ def docpage_footer(path):
                 ),
                 href="https://www.ycombinator.com/companies/reflex"
                 ),
-                gap="2",
+                spacing="2",
             ),
             align_items="center",
             width="100%",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         margin_bottom="2em",
     )
 
@@ -223,7 +223,7 @@ def breadcrumb(path):
             breadcrumbs.append(rx.text("/", color=rx.color("mauve", 9)))
 
     # Return the list of breadcrumb items with separators
-    return rx.flex(*breadcrumbs, gap="2")
+    return rx.flex(*breadcrumbs, spacing="2")
 
 def get_headings(comp):
      """Get the strings from markdown component."""
@@ -240,8 +240,10 @@ def get_headings(comp):
          headings.extend(get_headings(child))
      return headings
 
-def get_toc(source, href):
+def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+    component_list = component_list or []
+    component_list = component_list[1:]
 
     # Generate the TOC
     # The environment used for execing and evaling code.
@@ -257,23 +259,23 @@ def get_toc(source, href):
 
     content_pieces = []
     for block in blocks:
-        # Render all blocks for their side effect of env augmentation
-        # Unexpected, but hey!
-        # TODO Probably better to return env as part of return
-        try:
-            _ = block.render(env=env)
-        except:
+        if not isinstance(block, flexdown.blocks.MarkdownBlock) or len(block.lines) == 0 or not block.lines[0].startswith("#"):
             continue
-        if isinstance(block, flexdown.blocks.MarkdownBlock):
-            # Now we should have all the env entries we need
-            content = block.get_content(env)
-            content_pieces.append(content)
+        # Now we should have all the env entries we need
+        content = block.get_content(env)
+        content_pieces.append(content)
 
     content = "\n".join(content_pieces)
     doc = mistletoe.Document(content)
 
     # Parse the markdown headers.
-    return get_headings(doc)
+    headings = get_headings(doc)
+
+    if len(component_list):
+        headings.append((1, "API Reference"))
+    for component in component_list:
+        headings.append((2, component.__name__))
+    return headings
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
@@ -318,10 +320,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path)
+            sidebar = sb(url=path, width="17em")
 
             # Set the sidebar path for the navbar sidebar.
-            nav_sidebar = sb(url=path)
+            nav_sidebar = sb(url=path, width="100%")
 
             # Get the previous and next sidebar links.
             prev, next = get_prev_next(path)
@@ -368,21 +370,20 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents
 
             if isinstance(comp, tuple):
-                 from pcweb.flexdown import xd
-                 toc = get_toc(*comp)
-                 comp = xd.render(*comp)
+                 toc, comp = comp
 
             # Return the templated page.
             return rx.box(
                 navbar(sidebar=nav_sidebar),
                 rx.flex( 
-                    rx.desktop_only(
+                    rx.box(
                             sidebar,
                             margin_top="120px",
                             margin_left="1em",
                             margin_right="1em",
                             height="100%",
                             width=["none", "none", "none", "25%", "25%"],
+                            display=["none", "none", "none", "none", "flex", "flex"],
                         ),
                     rx.box(
                             rx.box(
@@ -393,20 +394,20 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.box(comp),
                             rx.hstack(
                                 *links,
-                                justify="space-between",
+                                justify="between",
                                 margin_top="2em",
                                 margin_bottom="4em",
                             ),
                             rx.spacer(),
                             rx.box(height="2em"),
                             docpage_footer(path),
-                            border_left= ["none", "none", "none", "none",f"1px solid {rx.color('mauve', 4)};"],
+                            border_left= ["none", "none", "none", "none", "none", f"1px solid {rx.color('mauve', 4)};"],
                             padding_left=styles.PADDING_X,
                             padding_right=styles.PADDING_X,
-                            width=["100%", "100%", "100%", "75%"],
+                            width=["100%", "100%", "100%", "100%", "100%", "75%"],
                             height="100%",
                         ),
-                    rx.desktop_only(
+                    rx.box(
                             rx.flex(
                                 *[
                                     rx.link(rx.text(text, color=rx.color("mauve", 12), font_weight="500"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 1
@@ -416,10 +417,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ],
                                 direction="column",
                                 position="fixed",
-                                gap="2",
+                                spacing="2",
                             ),
                             margin_top="120px",
                             width="25%",
+                            display=["none", "none", "none", "none", "none", "flex"],
                         ),
                     background = "#FFF",
                     max_width="110em",
@@ -624,7 +626,7 @@ def style_grid(
             flow="column",
             columns="5",
             rows=str(len(variants) + 1),
-            gap="3",
+            spacing="3",
         ),
         rx.select.root(
             rx.select.trigger(rx.button(size="2", on_click=RadixDocState.change_color())),
@@ -695,7 +697,7 @@ def icon_grid(
             ),
             color="green",
         ),
-        rx.separator(size="4"),
+        rx.divider(size="4"),
         rx.grid(
             *[
                 rx.flex(
@@ -711,8 +713,8 @@ def icon_grid(
                 for icon_tag in icon_tags
             ],
             columns=columns,
-            gap="1",
+            spacing="1",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
     )

@@ -20,7 +20,7 @@ rx.grid(
         lambda i: rx.card(f"Card {i + 1}", height="10vh"),
     ),
     columns="3",
-    gap="4",
+    spacing="4",
     width="100%",
 )
 ```
@@ -34,7 +34,7 @@ rx.grid(
     rows="3",
     flow="column",
     justify="between",
-    gap="4",
+    spacing="4",
     width="100%",
 )
 ```
