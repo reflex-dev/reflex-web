@@ -77,7 +77,7 @@ rx.text(
                     rx.text_area(placeholder="Write a comment…", style={"height": 80}),
                     rx.flex(
                         rx.checkbox("Send to group"),
-                        gap="3",
+                        spacing="3",
                         margin_top="12px",
                         justify="between",
                     ),
@@ -123,7 +123,7 @@ def hovercard_example():
             ),
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     )
 ```
 

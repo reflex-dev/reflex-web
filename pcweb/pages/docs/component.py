@@ -665,7 +665,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=active_style)),
                             rx.link(rx.center(rx.text("Internal"), style=non_active_style), href=path+"/internal"),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",
@@ -680,7 +680,7 @@ def multi_docs(path, comp, component_list, title):
                         rx.flex(
                             rx.link(rx.center(rx.text("Core"), style=non_active_style), href=path),
                             rx.link(rx.center(rx.text("Internal"), style=active_style)),
-                            gap="2",
+                            spacing="2",
                             padding=".5em",
                             background=rx.color("mauve", 2),
                             border_radius="8px",

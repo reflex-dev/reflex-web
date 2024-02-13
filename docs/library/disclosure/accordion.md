@@ -100,7 +100,7 @@ rx.flex(
         default_value="item_2",
     ),
     direction="row",
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -125,7 +125,7 @@ rx.flex(
         width="300px",
     ),
     direction="row",
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -230,7 +230,7 @@ rx.flex(
         variant="ghost",
     ),
     direction="row",
-    gap="2"
+    spacing="2"
     
 )
 ```
@@ -262,7 +262,7 @@ rx.flex(
         color_scheme="green",
     ),
     direction="row",
-    gap="2"
+    spacing="2"
 )
 ```
 
@@ -312,7 +312,7 @@ def index() -> rx.Component:
                     on_value_change=lambda value: AccordionState.change_value(value),
                 ),
                 direction="column",
-                gap="2",
+                spacing="2",
             ),
             padding="2em",
             font_size="2em",

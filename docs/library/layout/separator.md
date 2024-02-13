@@ -21,7 +21,7 @@ rx.flex(
     rx.card("Section 1"),
     rx.divider(),
     rx.card("Section 2"),
-    gap="4",
+    spacing="4",
     direction="column",
     align="center",
 )
@@ -38,7 +38,7 @@ rx.flex(
     rx.card("Section 1"),
     rx.divider(size="4"),
     rx.card("Section 2"),
-    gap="4",
+    spacing="4",
     direction="column",
 )
 ```
@@ -52,7 +52,7 @@ rx.flex(
     rx.card("Section 1"),
     rx.divider(orientation="vertical", size="4"),
     rx.card("Section 2"),
-    gap="4",
+    spacing="4",
     width="100%",
     height="10vh",
 )

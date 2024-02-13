@@ -191,7 +191,7 @@ def select_example8():
             on_open_change=SelectState8.set_is_open,
         ),
         rx.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
-        gap="2",
+        spacing="2",
     )
 ```
 
@@ -240,7 +240,7 @@ def form_select():
                 rx.button("Submit"),
                 width="100%",
                 direction="column",
-                gap="2",
+                spacing="2",
             ),
             on_submit=FormSelectState.handle_submit,
             reset_on_submit=True,
@@ -250,7 +250,7 @@ def form_select():
         rx.text(FormSelectState.form_data.to_string()),
         width="100%",
         direction="column",
-        gap="2",
+        spacing="2",
     )
 ```
 
@@ -305,12 +305,12 @@ rx.card(
             rx.button(rx.icon(tag="plus"), "Add"),
             align="end",
             justify="between",
-            gap="2",
+            spacing="2",
             width="100%",
         ),
         width="15em",
         direction="column",
-        gap="2",
+        spacing="2",
     ),
 )
 ```

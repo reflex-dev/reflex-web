@@ -48,7 +48,7 @@ def feedback_content(icon):
                         placeholder="Write a comment…",
                         style={"height": 80},
                     ),
-                    gap="1",
+                    spacing="1",
                     direction="column",
                 ),
                 rx.flex(
@@ -60,19 +60,19 @@ def feedback_content(icon):
                             size="2",
                         ),
                         align="center",
-                        gap="2",
+                        spacing="2",
                         as_child=True,
                     ),
                     rx.popover.close(
                         rx.button("Send Feedback", size="1")
                     ),
-                    gap="3",
+                    spacing="3",
                     margin_top="12px",
                     justify="between",
                 ),
                 flex_grow="1",
             ),
-            gap="3",
+            spacing="3",
         )
 
 
@@ -88,7 +88,7 @@ def feedback(text, icon):
             justify="center",
             border_radius="5px",
             padding="0px 10px",
-            gap="2",
+            spacing="2",
         )
     ),
     rx.popover.content(
@@ -111,7 +111,7 @@ def docpage_footer(path):
                 feedback("No", rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
                 feedback("Yes", rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
                 align_items="center",
-                gap="2"
+                spacing="2"
             ),
             rx.box(
                 flex_grow='1',
@@ -140,7 +140,7 @@ def docpage_footer(path):
                     white_space="nowrap",
                     
                 ), href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md")),
-                gap="2"
+                spacing="2"
             ),
             align_items="center",
             width="100%",
@@ -153,7 +153,7 @@ def docpage_footer(path):
                 rx.link("Change Log", color=rx.color("mauve", 11), underline="always", href="/changelog"),
                 rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
                 rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),
-                gap="2",
+                spacing="2",
             ),
             rx.box(
                 flex_grow='1',
@@ -189,13 +189,13 @@ def docpage_footer(path):
                 ),
                 href="https://www.ycombinator.com/companies/reflex"
                 ),
-                gap="2",
+                spacing="2",
             ),
             align_items="center",
             width="100%",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
         margin_bottom="2em",
     )
 
@@ -223,7 +223,7 @@ def breadcrumb(path):
             breadcrumbs.append(rx.text("/", color=rx.color("mauve", 9)))
 
     # Return the list of breadcrumb items with separators
-    return rx.flex(*breadcrumbs, gap="2")
+    return rx.flex(*breadcrumbs, spacing="2")
 
 def get_headings(comp):
      """Get the strings from markdown component."""
@@ -394,7 +394,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             rx.box(comp),
                             rx.hstack(
                                 *links,
-                                justify="space-between",
+                                justify="between",
                                 margin_top="2em",
                                 margin_bottom="4em",
                             ),
@@ -417,7 +417,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                 ],
                                 direction="column",
                                 position="fixed",
-                                gap="2",
+                                spacing="2",
                             ),
                             margin_top="120px",
                             width="25%",
@@ -626,7 +626,7 @@ def style_grid(
             flow="column",
             columns="5",
             rows=str(len(variants) + 1),
-            gap="3",
+            spacing="3",
         ),
         rx.select.root(
             rx.select.trigger(rx.button(size="2", on_click=RadixDocState.change_color())),
@@ -713,8 +713,8 @@ def icon_grid(
                 for icon_tag in icon_tags
             ],
             columns=columns,
-            gap="1",
+            spacing="1",
         ),
         direction="column",
-        gap="2",
+        spacing="2",
     )

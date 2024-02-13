@@ -31,6 +31,6 @@ rx.flex(
     rx.text.kbd("Shift + Tab", size="8"),
     rx.text.kbd("Shift + Tab", size="9"),
     direction="column",
-    gap="3",
+    spacing="3",
 )
 ```

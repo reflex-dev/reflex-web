@@ -43,7 +43,7 @@ rx.vstack(
     rx.progress(value=0, width="100%"),
     rx.progress(value=50, width="100%"),
     rx.progress(value=100, width="100%"),
-    spacing="1em",
+    gap="1em",
     min_width=["10em", "20em"],
 )
 ```

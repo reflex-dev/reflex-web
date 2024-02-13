@@ -146,7 +146,7 @@ def blg():
                 align_items="left",
                 text_align="left",
                 width="100%",
-                gap="4",
+                spacing="4",
             ),
             component_grid(),
             align_items="stretch",

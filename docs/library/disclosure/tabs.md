@@ -242,7 +242,7 @@ def index() -> rx.Component:
                     on_change=lambda x: TabsState.change_value(x),
                 ),
                 direction="column",
-                gap="2",
+                spacing="2",
             ),
             padding="2em",
             font_size="2em",

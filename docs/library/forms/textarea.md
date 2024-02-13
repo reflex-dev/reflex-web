@@ -71,10 +71,10 @@ rx.card(
             rx.button("Back", variant="surface"),
             rx.button("Send"),
             columns="2",
-            gap="2",
+            spacing="2",
         ),
         direction="column",
-        gap="3",
+        spacing="3",
     ),
     style={"maxWidth": 500},
 )
