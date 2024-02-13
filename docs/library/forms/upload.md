@@ -47,7 +47,7 @@ class State(rx.State):
         \"""
         for file in files:
             upload_data = await file.read()
-            outfile = rx.get_asset_path(file.filename)
+            outfile = os.path.join(rx.get_upload_dir(), file.filename)
 
             # Save the file.
             with open(outfile, "wb") as file_object:
@@ -80,7 +80,7 @@ def index():
             "Clear",
             on_click=rx.clear_selected_files,
         ),
-        rx.foreach(State.img, lambda img: rx.image(src=img)),
+        rx.foreach(State.img, lambda img: rx.image(src=rx.get_upload_url(img))),
         padding="5em",
     )
 ```
@@ -103,7 +103,7 @@ class State(rx.State):
         \"""
         for file in files:
             upload_data = await file.read()
-            outfile = f".web/public/\{file.filename}"
+            outfile = os.path.join(rx.get_upload_dir(), file.filename)
 
             # Save the file.
             with open(outfile, "wb") as file_object:
@@ -147,7 +147,7 @@ def index():
             rx.foreach(
                 State.img,
                 lambda img: rx.vstack(
-                    rx.image(src=img),
+                    rx.image(src=rx.get_upload_url(img)),
                     rx.text(img),
                 ),
             ),
@@ -163,3 +163,7 @@ Your event handler should be an async function that accepts a single argument,
 You can read the files and save them anywhere as shown in the example.
 
 In your UI, you can bind the event handler to a trigger, such as a button `on_click` event, and pass in the files using `rx.upload_files()`.
+
+Note on upload storage: The uploaded files are stored in the directory configured by the environment variable `REFLEX_UPLOADED_FILES_DIR` (defaults to `./uploaded_files` within your project directory).
+
+In a production scenario, it is important to ensure that the directory is fully accessible by Reflex, and that it persists across server restarts or redeployments.
