@@ -327,7 +327,7 @@ def add_item(category):
             ),
         ),
         rx.chakra.hstack(
-            rx.chakra.heading(category["name"], style={"fontSize": "1em"}),
+            rx.heading(category["name"], style={"fontSize": "1em"}),
             rx.chakra.spacer(),
             rx.chakra.hstack(
                 rx.link(
@@ -446,7 +446,7 @@ def sidebar():
     return rx.chakra.box(
         rx.chakra.vstack(
             rx.chakra.vstack(
-                rx.chakra.heading(
+                rx.heading(
                     "Filters",
                     padding_left=".5em",
                 ),
@@ -509,8 +509,8 @@ def gallery_with_no_sidebar():
 def gallery() -> rx.Component:
     return rx.chakra.vstack(
         rx.chakra.vstack(
-            rx.chakra.heading("Gallery", font_size="2em"),
-            rx.chakra.text(
+            rx.heading("Gallery", font_size="2em"),
+            rx.text(
                 "Browse our growing library of example apps. Use them as they are, right out of the box, or customize them to suit your needs.",
                 color="#342E5C",
                 font_size="1.2em",

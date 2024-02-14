@@ -12,7 +12,7 @@ only_low_level:
 
 DropdownMenuRoot: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E"),
             rx.menu.item("Share"),
@@ -31,7 +31,7 @@ DropdownMenuRoot: |
 
 DropdownMenuContent: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E"),
             rx.menu.item("Share"),
@@ -50,7 +50,7 @@ DropdownMenuContent: |
 
 DropdownMenuItem: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E", **props),
             rx.menu.item("Share", **props),
@@ -68,7 +68,7 @@ DropdownMenuItem: |
 
 DropdownMenuSub: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E"),
             rx.menu.item("Share"),
@@ -87,7 +87,7 @@ DropdownMenuSub: |
 
 DropdownMenuSubTrigger: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E"),
             rx.menu.item("Share"),
@@ -105,7 +105,7 @@ DropdownMenuSubTrigger: |
 
 DropdownMenuSubContent: |
     lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.radix.themes.button("drop down menu")),
+        rx.menu.trigger(rx.button("drop down menu")),
         rx.menu.content(
             rx.menu.item("Edit", shortcut="⌘ E"),
             rx.menu.item("Share"),
