@@ -1,6 +1,5 @@
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 from pcweb.pages.docs import library
 ```
 
@@ -14,7 +13,7 @@ The `Theme` component is used to change the theme of the application. The `Theme
 
 ```python
 app = rx.App(
-    theme=rdxt.theme(
+    theme=rx.theme(
         appearance="light", has_background=True, radius="large", accent_color="teal"
     )
 )
@@ -31,12 +30,12 @@ ON a high level components `color_scheme` inherits from the color specified in t
 You can also specifiy the `color_scheme` prop.
 
 ```python demo
-rdxt.flex(
-    rdxt.button(
+rx.flex(
+    rx.button(
         "Hello World",
         color_scheme="tomato",
     ),
-    rdxt.button(
+    rx.button(
         "Hello World",
         color_scheme="teal",
     ),
@@ -51,14 +50,14 @@ To access a specific shade of color from the theme, you can use the `rx.color'. 
 Shades can be accessed by using the color name and the shade number. The shade number ranges from 1 to 12. Additionally, they can have their alpha value set by using the `True` parameter it defaults to `False`.
 
 ```python demo
-rdxt.flex(
-    rdxt.button(
+rx.flex(
+    rx.button(
         "Hello World",
         color=rx.color("grass", 1),
         background_color=rx.color("grass", 12),
         border_color=f"1px solid {rx.color('grass', 1)}",
     ),
-    rdxt.button(
+    rx.button(
         "Hello World",
         color=rx.color("grass", 1, True),
         background_color=rx.color("grass", 12, True),
@@ -73,14 +72,14 @@ rdxt.flex(
 You can also use standard hex, rgb, and rgba colors.
 
 ```python demo
-rdxt.flex(
-    rdxt.button(
+rx.flex(
+    rx.button(
         "Hello World",
         color="white",
         background_color="blue",
         border_color="1px solid red",
     ),
-    rdxt.button(
+    rx.button(
         "Hello World",
         color="#ff0000",
         background_color="rgba(0, 0, 255, 0.5)",

@@ -7,7 +7,6 @@ components:
 
 ```python exec
 import reflex as rx
-import reflex.components.radix.themes as rdxt
 ```
 
 # List
