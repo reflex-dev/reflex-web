@@ -10,6 +10,7 @@ footer_item_style = {
     "font_family": styles.SANS,
     "font_weight": "500",
     "_hover": {"color": "#82799E"},
+    "color": "#AA9EC3"
 }
 
 footer_style = {
@@ -94,7 +95,7 @@ def footer(style=footer_style):
             ),
             rx.hstack(
                 rx.text(
-                    "Copyright © 2023 Pynecone, Inc.",
+                    "Copyright © 2024 Pynecone, Inc.",
                     style=footer_item_style,
                 ),
                 rx.hstack(
