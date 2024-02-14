@@ -138,7 +138,7 @@ def component_grid():
 
 @webpage(path="/blog", title="Blog")
 def blg():
-    return rx.chakra.center(
+    return rx.chakra.container(
         rx.chakra.vstack(
             rx.chakra.vstack(
                 rx.chakra.text("Reflex Blog", font_size=styles.H1_FONT_SIZE),
@@ -153,6 +153,7 @@ def blg():
                 spacing="4",
             ),
             component_grid(),
+            max_width="110em",
             align_items="stretch",
             min_height="80vh",
             margin_bottom="4em",
@@ -162,7 +163,8 @@ def blg():
             padding_right = "2em",
         ),
         flex_direction="column",
-        width="100%",
+        max_width="960px",
+        margin_top="120px"
     )
 
 
