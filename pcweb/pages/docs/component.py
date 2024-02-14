@@ -7,6 +7,7 @@ from typing import Any, Type, get_args
 
 import reflex as rx
 import flexdown
+import textwrap
 
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp
@@ -14,7 +15,7 @@ from reflex.base import Base
 from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-
+from ...templates.docpage import docdemobox 
 
 class Prop(Base):
     """Hold information about a prop."""
@@ -205,7 +206,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 var = getattr(rx.State, name)
                 setter = getattr(rx.State, f"set_{name}")
                 prop_dict[prop.name] = var
-                return rdxt.checkbox(
+                return rx.checkbox(
                     var,
                     on_change=setter,
                 )
@@ -221,37 +222,39 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         var = getattr(rx.State, name)
         setter = getattr(rx.State, f"set_{name}")
         prop_dict[prop.name] = var
-        return rx.select(
-            list(map(str, type_.__args__)),
-            value=var,
-            on_change=setter,
-        )
+
+        return rx.select.root(
+                rx.select.trigger(width="8em"),
+                rx.select.content(
+                    rx.select.group(
+                        *[rx.select.item(item, value=item) for item in list(map(str, type_.__args__))],
+                    ),
+                ),
+                value=var,
+                on_change=setter,
+            )
 
     # Return the docs for the prop.
     return [
-        rdxt.table.cell(
-            rdxt.code(prop.name, color="#333"),
-            padding_left="0",
-            justify="center"
+        rx.table.cell(
+            rx.code(prop.name),
+            padding_left="1em",
+            justify="start"
         ),
-        rdxt.table.cell(
-            rdxt.badge(type_, color_scheme=color, variant="solid"),
-            padding_left="0",
-            justify="center"
+        rx.table.cell(
+            rx.badge(type_, color_scheme=color, variant="solid"),
+            padding_left="1em",
+            justify="start"
         ),
-        rdxt.table.cell(
-            rx.vstack(
-                markdown(prop.description),
-            ),
-            padding_left="0",
-            justify="center"
+        rx.table.cell(
+            markdown(prop.description),
+            padding_left="1em",
+            justify="start"
         ),
-        rdxt.table.cell(
-            rx.vstack(
-                render_select(prop),
-            ),
-            padding_left="0",
-            justify="center"
+        rx.table.cell(
+            render_select(prop),
+            padding_left="1em",
+            justify="start"
         ),
     ]
 
@@ -471,14 +474,17 @@ def generate_props(src, component, comp):
             rx.text("No component specific props"),
             width="100%",
             overflow_x="auto",
-            align_items="left",
+            align_items="start",
             padding_y=".5em",
         )
 
+
+    padding_left = "1em"
+
     prop_dict = {}
-    body = rdxt.table.body(
+    body = rx.table.body(
         *[
-            rdxt.table.row(*prop_docs(prop, prop_dict, component))
+            rx.table.row(*prop_docs(prop, prop_dict, component), align="center")
             for prop in src.get_props()
         ]
     )
@@ -500,16 +506,17 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
+    
     return rx.vstack(
-        comp,
-        rdxt.scroll_area(
-            rdxt.table.root(
-                rdxt.table.header(
-                    rdxt.table.row(
-                        rdxt.table.column_header_cell("Prop", padding_left="0", justify="center"),
-                        rdxt.table.column_header_cell("Type", padding_left="0", justify="center"),
-                        rdxt.table.column_header_cell("Description", padding_left="0", justify="center", width="40%"),
-                        rdxt.table.column_header_cell("Values", padding_left="0", justify="center"),
+        docdemobox(comp),
+        rx.scroll_area(
+            rx.table.root(
+                rx.table.header(
+                    rx.table.row(
+                        rx.table.column_header_cell("Prop", padding_left=padding_left, justify="start"),
+                        rx.table.column_header_cell("Type", padding_left=padding_left, justify="start"),
+                        rx.table.column_header_cell("Description", padding_left=padding_left, justify="start", width="40%"),
+                        rx.table.column_header_cell("Values", padding_left=padding_left, justify="start"),
                     )
                 ),
                 body,
@@ -517,10 +524,9 @@ def generate_props(src, component, comp):
                 padding_x="0",
                 size="1",
             ),
-            align_items="left",
-            padding_bottom="2em",
-        ),
-        height="30em",
+            max_height="20em",
+            padding_top="2em"
+        )
     )
 
 
@@ -554,24 +560,26 @@ def generate_event_triggers(comp):
             rx.text("No component specific event triggers"),
             width="100%",
             overflow_x="auto",
-            align_items="left",
+            align_items="start",
             padding_y=".5em",
         )
 
+    padding_left = "1em"
+
     return rx.vstack(
         rx.heading("Event Triggers", font_size="1em"),
-        rx.chakra.table(
-            rx.chakra.thead(
-                rx.chakra.tr(
-                    rx.chakra.th("Trigger", padding_left="0"),
-                    rx.chakra.th("Description", padding_left="0"),
-                )
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                        rx.table.column_header_cell("Trigger", padding_left=padding_left, justify="start"),
+                        rx.table.column_header_cell("Description", padding_left=padding_left, justify="start"),
+                ),
             ),
-            rx.chakra.tbody(
+            rx.table.body(
                 *[
-                    rx.chakra.tr(
-                        rx.chakra.td(rx.code(event), padding_left="0"),
-                        rx.chakra.td(rx.text(EVENTS[event]["description"])),
+                    rx.table.row(
+                        rx.table.cell(rx.code(event), padding_left=padding_left, justify="start"),
+                        rx.table.cell(rx.text(EVENTS[event]["description"]), padding_left=padding_left, justify="start"),
                     )
                     for event in custom_events
                 ]
@@ -580,7 +588,8 @@ def generate_event_triggers(comp):
         ),
         width="100%",
         overflow_x="auto",
-        align_items="left",
+        align_items="start",
+        padding_top="2em",
     )
 
 
@@ -593,7 +602,7 @@ def generate_valid_children(comp):
         rx.heading("Valid Children", font_size="1em"),
         rx.chakra.wrap(*valid_children),
         width="100%",
-        align_items="left",
+        align_items="start",
         padding_y=".5em",
     )
 
@@ -607,7 +616,7 @@ def component_docs(component, comp):
 
     return rx.box(
         h2_comp(text=component.__name__),
-        rx.box(markdown(src.get_docs()), padding_bottom="1em"),
+        rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom="1em"),
         props,
         children,
         triggers,
