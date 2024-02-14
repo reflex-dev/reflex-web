@@ -95,10 +95,10 @@ faq_items = [
 def faq_item(question, answer, index):
     return rx.chakra.accordion_item(
         rx.chakra.accordion_button(
-            rx.heading(
+            rx.chakra.heading(
                 question, color=tc["docs"]["body"], font_size=styles.H3_FONT_SIZE
             ),
-            rx.spacer(),
+            rx.chakra.spacer(),
             rx.chakra.accordion_icon(color=tc["docs"]["body"]),
             border_bottom="none" if index == len(faq_items) - 1 else styles.DOC_BORDER,
             _hover={},
@@ -111,17 +111,17 @@ def faq_item(question, answer, index):
 
 @webpage(path="/faq", title="FAQ")
 def faq():
-    return rx.container(
-        rx.vstack(
-            rx.box(
-                rx.heading(
+    return rx.chakra.container(
+        rx.chakra.vstack(
+            rx.chakra.box(
+                rx.chakra.heading(
                     "Reflex FAQ",
                     font_size=styles.H1_FONT_SIZE,
                     mt=12,
                     mb=4,
                     color=tc["docs"]["body"],
                 ),
-                rx.text(
+                rx.chakra.text(
                     "Frequently asked questions about Reflex.",
                     color=tc["docs"]["body"],
                 ),
@@ -146,7 +146,8 @@ def faq():
             padding_y="2em",
         ),
         flex_direction="column",
-        max_width="960px",
+        width="100%",
+        margin_top="120px"
     )
 
 

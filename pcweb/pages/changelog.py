@@ -5,8 +5,8 @@ from pcweb.templates.webpage import webpage
 
 
 def change(date, title, description, points, link):
-    return rx.vstack(
-        rx.vstack(
+    return rx.chakra.vstack(
+        rx.chakra.vstack(
             rx.image(src="/changelog_icon.svg", width="5em", height="5em", opacity=1),
             rx.heading(
                 "Reflex " + title,
@@ -24,15 +24,15 @@ def change(date, title, description, points, link):
         rx.text(description, color="#494369", font_family=styles.MONO),
         rx.chakra.unordered_list(
             *[
-                rx.chakra.list_item(
+                rx.list_item(
                     d, font_size=".8em", color="#494369", font_family=styles.MONO
                 )
                 for d in points
             ],
             padding_left="1.5em",
         ),
-        rx.hstack(
-            rx.hstack(
+        rx.chakra.hstack(
+            rx.chakra.hstack(
                 rx.image(src="/icons/copy.svg", width="1em", height="1em"),
                 rx.text(
                     title,
@@ -43,10 +43,11 @@ def change(date, title, description, points, link):
             ),
             rx.chakra.divider(margin_x="1em"),
             rx.link(
-                rx.button(
+                rx.chakra.button(
                     "Full changelog",
-                    rx.icon(tag="move_right"),
+                    rx.icon(tag="move-right"),
                     padding_x="2em",
+                    color=tc["docs"]["body"],
                     style=styles.BUTTON_LIGHT_NO_BACKGROUND,
                 ),
                 href=link,
@@ -61,7 +62,7 @@ def change(date, title, description, points, link):
 
 
 def changelog_content():
-    return rx.vstack(
+    return rx.chakra.vstack(
         change(
             "2024-02-05",
             "v0.3.10",
@@ -219,15 +220,15 @@ def changelog_content():
 
 @webpage(path="/changelog", title="Changelog")
 def changelog():
-    return rx.container(
-        rx.vstack(
-            rx.box(
-                rx.heading("Changelog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
+    return rx.center(
+        rx.chakra.vstack(
+            rx.chakra.box(
+                rx.heading("Changelog", font_size=styles.H1_FONT_SIZE, margin_bottom=".5em"),
                 rx.text(
                     "Keep up to date with the latest Reflex news.",
                     color=tc["docs"]["body"],
                 ),
-                rx.center(
+                rx.chakra.center(
                     rx.chakra.span(
                         "Reflex has new releases and features coming every week! Make sure to star and watch on ",
                         rx.link("GitHub", href=constants.GITHUB_URL),
@@ -246,13 +247,13 @@ def changelog():
                 changelog_content(),
                 text_align="left",
                 width="100%",
-                gap="2em",
+                spacing="2em",
             ),
             align_items="stretch",
             min_height="80vh",
             margin_bottom="4em",
             padding_y="2em",
         ),
-        flex_direction="column",
-        max_width="960px",
+        width="100%",
+        margin_top="120px"
     )
