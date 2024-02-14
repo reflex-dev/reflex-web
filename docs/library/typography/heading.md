@@ -34,7 +34,6 @@ flex(
 
 Use the `size` prop to control the size of the heading. The prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease
 
-
 ```python demo
 flex(
     heading("The quick brown fox jumps over the lazy dog.", size="1"),
@@ -51,8 +50,6 @@ flex(
 )
 ```
 
-
-
 ## Weight
 
 Use the `weight` prop to set the text weight.
@@ -68,11 +65,9 @@ flex(
 )
 ```
 
-
 ## Align
 
 Use the `align` prop to set text alignment.
-
 
 ```python demo
 flex(
@@ -85,11 +80,9 @@ flex(
 )
 ```
 
-
 ## Trim
 
 Use the `trim` prop to trim the leading space at the start, end, or both sides of the text.
-
 
 ```python demo
 flex(
@@ -110,9 +103,7 @@ flex(
 )
 ```
 
-
 Trimming the leading is useful when dialing in vertical spacing in cards or other “boxy” components. Otherwise, padding looks larger on top and bottom than on the sides.
-
 
 ```python demo
 flex(
@@ -139,7 +130,6 @@ flex(
 
 Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
 
-
 ```python demo
 flex(
     heading("The quick brown fox jumps over the lazy dog.", color_scheme="indigo"),
@@ -154,7 +144,6 @@ flex(
 
 Use the `high_contrast` prop to increase color contrast with the background.
 
-
 ```python demo
 flex(
     heading("The quick brown fox jumps over the lazy dog.", color_scheme="indigo", high_contrast=True),
@@ -164,4 +153,3 @@ flex(
     direction="column",
 )
 ```
-

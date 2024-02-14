@@ -8,7 +8,6 @@ from pcweb.pages.docs import vars
 
 You will often want to display multiple similar components from a collection of data. The `rx.foreach` component takes an `iterable` (list, tuple or dict) and a `function` that renders each item in the list. This is useful for dynamically rendering a list of items defined in a state.
 
-
 In this first simple example we iterate through a `list` of colors and render the name of the color and use this color as the background for that `rx.box`. As we can see we have a function `colored_box` that we pass to the `rx.foreach` component. This function renders each item from the `list` that we have defined as a state var `color`.
 
 ```python demo exec

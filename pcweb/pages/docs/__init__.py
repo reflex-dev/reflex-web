@@ -16,6 +16,7 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 from .gallery import gallery
 from .library import library
 from .resources import resources
+from .apiref import pages as apiref_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -85,7 +86,6 @@ flexdown_docs = [
 ]
 
 chakra_components = defaultdict(list)
-radix_components = defaultdict(list)
 component_list = defaultdict(list)
 docs_ns = SimpleNamespace()
 
@@ -123,7 +123,7 @@ def get_component(doc: str, title: str):
             outblocks.append((d, route))
             return
         clist = [title, *get_components_from_metadata(d)]
-        component_list[category].append(clist)
+        chakra_components[category].append(clist)
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
@@ -152,7 +152,7 @@ def get_component(doc: str, title: str):
     ))
 
 
-doc_routes = [gallery, library, resources]
+doc_routes = [gallery, library, resources] + apiref_pages
 
 
 

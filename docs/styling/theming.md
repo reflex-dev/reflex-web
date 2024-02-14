@@ -1,12 +1,12 @@
 ```python exec
 import reflex as rx
 import reflex.components.radix.themes as rdxt
+from pcweb.pages.docs import library
 ```
 
 # Theming
 
 As of Reflex 'v0.4.0', you can now theme your Reflex applications. The core of our theming system is directly based on the [Radix Themes](https://radix-ui.com/docs/themes) library. This allows you to easily change the theme of your application along with providding a default light and dark theme.
-
 
 ## Theme
 
@@ -20,10 +20,9 @@ app = rx.App(
 )
 ```
 
-Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the (Theme docs)[/docs/library/radix/theming/theme-panel/].
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
 
 ## Colors
-
 
 ### Color Scheme
 
@@ -50,7 +49,6 @@ rdxt.flex(
 To access a specific shade of color from the theme, you can use the `rx.color'. When switching to light and dark themes, the color will automatically change.
 
 Shades can be accessed by using the color name and the shade number. The shade number ranges from 1 to 12. Additionally, they can have their alpha value set by using the `True` parameter it defaults to `False`.
-
 
 ```python demo
 rdxt.flex(

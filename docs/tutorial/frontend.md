@@ -14,7 +14,6 @@ Let's start with defining the frontend for our chat app. In Reflex, the frontend
 
 We will modify the `index` function in `chatapp/chatapp.py` file to return a component that displays a single question and answer.
 
-
 ```python demo box
 rx.fragment(
     rx.box(
@@ -58,13 +57,11 @@ app.add_page(index)
 
 Components can be nested inside each other to create complex layouts. Here we create a parent container that contains two boxes for the question and answer.
 
-
 We also add some basic styling to the components. Components take in keyword arguments, called [props]({components.style_props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
 
 ## Reusing Components
 
 Now that we have a component that displays a single question and answer, we can reuse it to display multiple questions and answers. We will move the component to a separate function `question_answer` and call it from the `index` function.
-
 
 ```python exec
 def qa(question: str, answer: str) -> rx.Component:
@@ -123,7 +120,6 @@ def index() -> rx.Component:
 ## Chat Input
 
 Now we want a way for the user to input a question. For this, we will use the [input]({library.chakra.forms.input.path}) component to have the user add text and a [button]({library.forms.button.path}) component to submit the question.
-
 
 ```python exec
 def action_bar() -> rx.Component:
@@ -187,7 +183,6 @@ button_style = dict(
 ```
 
 We will import the styles in `chatapp.py` and use them in the components. At this point, the app should look like this:
-
 
 ```python exec
 def qa4(question: str, answer: str) -> rx.Component:

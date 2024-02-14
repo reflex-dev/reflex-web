@@ -6,7 +6,6 @@ import reflex as rx
 
 Substates allow you to break up your state into multiple classes to make it more manageable. This is useful as your app grows, as it allows you to think about each page as a separate entity. Substates also allow you to share common state resources, such as variables or event handlers.
 
-
 ## Multiple States
 
 One common pattern is to create a substate for each page in your app.
@@ -88,7 +87,6 @@ def index():
 ## State Inheritance
 
 A substate can also inherit from another substate other than `rx.State`, allowing you to create a hierarchy of states.
-
 
 For example, you can create a base state that defines variables and event handlers that are common to all pages in your app, such as the current logged in user.
 

@@ -33,13 +33,11 @@ import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
-
 # High Level Radio Group
 
 A set of interactive radio buttons where only one can be selected at a time.
 
 ## Basic example
-
 
 ```python demo
 rx.radio(["1", "2", "3"], default_value="1")
@@ -47,12 +45,9 @@ rx.radio(["1", "2", "3"], default_value="1")
 
 The `default_value` prop can be used to set the value of the radio item that should be checked when initially rendered.
 
-
-
 ## Setting direction, spacing and size
 
-
-The direction of the `radio_group` can be set using the `direction` prop which takes values `'row' | 'column' | 'row-reverse' | 'column-reverse' |`. 
+The direction of the `radio_group` can be set using the `direction` prop which takes values `'row' | 'column' | 'row-reverse' | 'column-reverse' |`.
 
 The gap between the `radio_group` items can also be set using the `gap` prop, which takes values `'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' |`.
 
@@ -62,12 +57,9 @@ The size of the `radio_group` items and the associated text can be set with the 
 rx.radio(["1", "2", "3", "4", "5"], direction="row", spacing="8", size="3")
 ```
 
-
 ## Using State Vars in the RadioGroup
 
-
 State vars can also be passed in as the `items` to the `radiogroup`.
-
 
 ```python demo exec
 class RadioState_HL1(rx.State):
@@ -77,10 +69,9 @@ def radio_state_example_HL1():
     return rx.radio(RadioState_HL1.items, direction="row", spacing="9")
 ```
 
-
 ### Control the value
-The controlled `value` of the radio item to check. Should be used in conjunction with `on_change` event handler.
 
+The controlled `value` of the radio item to check. Should be used in conjunction with `on_change` event handler.
 
 ```python demo exec
 class RadioState_HL(rx.State):
@@ -94,7 +85,6 @@ def radio_state_example_HL():
     )
 ```
 
-
 When the `disabled` prop is set to `True`, it prevents the user from interacting with radio items.
 
 ```python demo
@@ -105,7 +95,6 @@ rx.flex(
 )
 
 ```
-
 
 ### Submitting a form using Radio Group
 
@@ -137,7 +126,3 @@ def form_example_HL():
         rx.text(FormRadioState_HL.form_data.to_string()),
     )
 ```
-
-
-
-

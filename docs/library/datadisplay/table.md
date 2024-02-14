@@ -143,9 +143,7 @@ import reflex as rx
 
 # Table
 
-
 A semantic table for presenting tabular data.
-
 
 ## Basic Example
 
@@ -176,9 +174,6 @@ rx.table.root(
     ),
 )
 ```
-
-
-
 
 ## Real World Example
 
@@ -221,4 +216,3 @@ rx.flex(
     spacing="2",
 )
 ```
- 

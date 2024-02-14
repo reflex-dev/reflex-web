@@ -32,7 +32,7 @@ Build anything from small data science apps to large, multi-page websites. **Thi
 No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.
 ```
 
-## An example: Make it count!
+## An example: Make it count
 
 Here, we go over a simple counter app that lets the user count up or down.
 
@@ -198,6 +198,7 @@ For example, `on_click` is an event that is triggered when a user clicks a compo
 The first button in our app binds its `on_click` event to the `State.decrement` event handler.  Similarly the second button binds `on_click` to `State.increment`.
 
 In other words, the sequence goes like this:
+
 * User clicks "increment" on the UI.
 * `on_click` event is triggered.
 * Event handler `State.increment` is called.
@@ -207,6 +208,7 @@ In other words, the sequence goes like this:
 ## Add pages
 
 Next we define our app and add the counter component to the base route.
+
 ```python
 app = rx.App()
 app.add_page(index)

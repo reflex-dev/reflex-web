@@ -1,13 +1,13 @@
 ---
 components:
-    - rx.radix.text_field
+    - rx.radix.input
     - rx.radix.text_field.root
     - rx.radix.text_field.input
     - rx.radix.text_field.slot
 
 
 Input: |
-    lambda **props: rx.radix.themes.input(icon="search", placeholder="Search the docs", **props)
+    lambda **props: rx.input(placeholder="Search the docs", **props)
 
 TextFieldRoot: |
     lambda **props: rx.radix.themes.text_field.root(
@@ -41,21 +41,15 @@ import reflex as rx
 from pcweb.pages.docs import library
 ```
 
-
 # Input (High Level API for TextField)
 
-
-The `input` component is an input field that users can type into. 
-
+The `input` component is an input field that users can type into.
 
 ## Basic Example
 
 ```python demo
-rx.input(icon="search")
+rx.input()
 ```
-
-Can set an `icon` for the `input` component using the `icon` prop. 
-
 
 ### Setting Defaults
 
@@ -64,14 +58,10 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rx.input(icon="search", placeholder="Search here...", max_length="20")
+rx.input(placeholder="Search here...", max_length="20")
 ```
 
-
-
-
 ### Using Event Handlers
-
 
 The `on_blur` event handler is called when focus has left the `input` for example, it’s called when the user clicks outside of a focused text input.
 
@@ -84,13 +74,11 @@ def blur_example():
     return rx.vstack(
         rx.heading(TextfieldBlur.text),
         rx.input(
-            icon="search", 
             placeholder="Search here...", 
             on_blur=TextfieldBlur.set_text,
         ),
     )
 ```
-
 
 The `on_change` event handler is called when the `value` of `input` has changed.
 
@@ -103,7 +91,6 @@ def controlled_example():
     return rx.vstack(
         rx.heading(TextfieldControlled.text),
         rx.input(
-            icon="search", 
             placeholder="Search here...", 
             value=TextfieldControlled.text,
             on_change=TextfieldControlled.set_text,
@@ -111,11 +98,7 @@ def controlled_example():
     )
 ```
 
-
-
 Behind the scene, the input component is implemented using debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state var to directly control the `value` prop from the backend without the user experiencing input lag. For advanced use cases, you can tune the debounce delay by setting the `debounce_timeout` when creating the Input component. You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
-
-
 
 ### Submitting a form using input
 
@@ -153,7 +136,6 @@ def form_input1():
     )
 ```
 
-
 To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
 
 ## Real World Example
@@ -185,7 +167,7 @@ def song(title, initials: str, genre: str):
 def search():
     return rx.card(
     rx.flex(
-        rx.input(icon="search", placeholder="Search songs...", ),
+        rx.input(placeholder="Search songs...", ),
         rx.flex(
             song("The Less I Know", "T", "Rock"),
             song("Breathe Deeper", "ZB", "Rock"),
@@ -202,10 +184,3 @@ def search():
     style={"maxWidth": 500},
 )
 ```
-
-
-
-
-
-
-

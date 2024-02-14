@@ -86,38 +86,41 @@ Here's an example of how to use the `rx.chakra.button_group` component to create
 docdemo(basic_button_group)
 ```
 
-In this example, a button group is created with three buttons. The buttons are visually connected, and there 
+In this example, a button group is created with three buttons. The buttons are visually connected, and there
 is a default spacing of `2` pixels between them.
 
 ## Adjusting ButtonGroup Properties
 
 You can customize the appearance and behavior of the `rx.chakra.button_group` component by adjusting
-its properties. For instance, you can set `is_attached` prop to `True` to make the buttons 
+its properties. For instance, you can set `is_attached` prop to `True` to make the buttons
 appear flushed together:
 
 ```python eval
 docdemo(button_group_attached)
 ```
+
 In this example, the `is_attached` property is set to `True`, resulting in the buttons having a seamless appearance.
 
 ## ButtonGroup Variants
 
-Just like the `button` component, you can customize the visual style of your buttons using the `variant` prop. 
+Just like the `button` component, you can customize the visual style of your buttons using the `variant` prop.
 This will apply to all buttons in the group.
 
 ```python eval
 docdemo(button_group_variant)
 ```
+
 In this example, the `variant` prop is set to `ghost`, applying the variant style to all buttons in the group.
 
 ## ButtonGroup Sizes
 
-Similarly, you can adjust the size of buttons within a button group using the `size` prop. 
+Similarly, you can adjust the size of buttons within a button group using the `size` prop.
 This prop allows you to choose from different size options, affecting all buttons within the group.
 
 ```python eval
 docdemo(button_group_sizes)
 ```
+
 In this example, the `size` prop is used to set the size of all buttons within the group, with options such as `"lg"` (large), `"md"` (medium), and `"sm"` (small).
 
 ## Disabling ButtonGroup
@@ -127,6 +130,7 @@ You can also disable all the buttons within a button group by setting the `is_di
 ```python eval
 docdemo(button_group_disable)
 ```
+
 In this case, all the buttons within the group will be disabled and unclickable.
 
 ## Customizing Spacing
@@ -136,6 +140,7 @@ The `spacing` prop allows you to control the gap between buttons within the grou
 ```python eval
 docdemo(button_group_spacing)
 ```
+
 By setting `spacing` to `8`, the buttons will have a larger gap between them.
 
 ```md alert info

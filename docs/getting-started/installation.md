@@ -9,7 +9,6 @@ default_url = "http://localhost:3000"
 
 Reflex requires Python 3.8+.
 
-
 ## Virtual Environment
 
 We **highly recommend** creating a virtual environment for your project.
@@ -18,20 +17,24 @@ We **highly recommend** creating a virtual environment for your project.
 
 ## Install on macOS/Linux
 
-We will go with [venv]({constants.VENV_URL}) here. 
+We will go with [venv]({constants.VENV_URL}) here.
+
 
 ### Prerequisites
 macOS (Apple Silicon) users should install [Rosetta 2](https://support.apple.com/en-us/HT211861). Run this command:
     
 `/usr/sbin/softwareupdate --install-rosetta --agree-to-license`
 
+
 ### Create the project directory 
 
 Replace `{app_name}` with your project name. Switch to the new directory.
+
 ```bash
 mkdir {app_name}
 cd {app_name}
 ```
+
 ### Setup virtual environment
 
 ```bash
@@ -49,6 +52,7 @@ If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get insta
 ### Install Reflex package
 
 Reflex is available as a [pip](constants.PIP_URL) package.
+
 ```bash
 pip install reflex
 ```
@@ -90,17 +94,20 @@ We will go with [venv]({constants.VENV_URL}) here, for virtual environments.
 mkdir {app_name}
 cd {app_name}
 ```
+
 ### Setup virtual environment
 
 ```bash
 py -3 -m venv .venv
 .venv\\Scripts\\activate
 ```
+
 ### Install Reflex package
 
 ```bash
 pip install reflex
 ```
+
 ### Initialize the project
 
 ```bash
@@ -116,20 +123,25 @@ The Reflex framework includes the `reflex` command line (CLI) tool. Using a virt
 ## Run the App
 
 Run it in development mode:
+
 ```bash
 reflex run
 ```
+
 Your app runs at [http://localhost:3000](http://localhost:3000).
 
 Reflex prints logs to the terminal. To increase log verbosity to help with debugging, use the `--loglevel` flag:
+
 ```bash
 reflex run --loglevel debug
 ```
+
 Reflex will *hot reload* any code changes in real time when running in development mode. Your code edits will show up on [http://localhost:3000](http://localhost:3000) automatically.
 
 ## (Optional) Run the demo app
 
 The demo app showcases some of Reflex's features.
+
 ```bash
 reflex demo
 ```

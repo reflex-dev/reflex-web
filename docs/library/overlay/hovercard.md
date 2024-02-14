@@ -36,13 +36,11 @@ import reflex as rx
 
 # Hovercard
 
-
 The `hover_card.root` contains all the parts of a hover card.
 
 The `hover_card.trigger` wraps the link that will open the hover card.
 
 The `hover_card.content` contains the content of the open hover card.
-
 
 ```python demo
 rx.text(
@@ -91,7 +89,6 @@ rx.text(
 )
 ```
 
-
 ## Events when the Hovercard opens or closes
 
 The `on_open_change` event is called when the `open` state of the hovercard changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
@@ -126,5 +123,3 @@ def hovercard_example():
         spacing="3",
     )
 ```
-
-

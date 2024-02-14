@@ -1,13 +1,14 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs import styling
+from pcweb.pages.docs import styling, library
 ```
 
-# Styling 
+# Styling
 
 Reflex components can be styled using the full power of [CSS]({"https://www.w3schools.com/css/"}).
 
 There are three main ways to add style to your app and they take precedence in the following order:
+
 1. **Inline:** Styles applied to a single component instance.
 2. **Component:** Styles applied to components of a specific type.
 3. **Global:** Styles applied to all components.
@@ -102,6 +103,26 @@ rx.box(
 )
 ```
 
+
+## Theming 
+
+As of Reflex 'v0.4.0', you can now theme your Reflex web apps. To learn more checkout the [Theme docs]({styling.theming.path}).
+
+The `Theme` component is used to change the theme of the application. The `Theme` can be set directly in your rx.App.
+
+```python
+app = rx.App(
+    theme=rx.theme(
+        appearance="light", has_background=True, radius="large", accent_color="teal"
+    )
+)
+```
+
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
+
+
+
+
 ## Tailwind
 
 Reflex supports [Tailwind CSS]({"https://tailwindcss.com/"}) out of the box. To enable it, pass in a dictionary for the `tailwind` argument of your `rxconfig.py`:
@@ -157,7 +178,6 @@ config = rx.Config(app_name="app", tailwind=None)
 
 With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application.
 
-
 ## Special Styles
 
 We support all of Chakra UI's [pseudo styles]({"https://chakra-ui.com/docs/features/style-props#pseudo"}).
@@ -169,7 +189,6 @@ rx.box(
     rx.text("Hover Me", _hover={"color": "red"}),
 )
 ```
-
 
 ## Style Prop
 
@@ -223,4 +242,3 @@ rx.box(
 ```
 
 The style dictionaries are applied in the order they are passed in. This means that styles defined later will override styles defined earlier.
-

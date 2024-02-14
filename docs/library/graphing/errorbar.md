@@ -103,4 +103,3 @@ An error bar is a line through a point on a graph, parallel to one of the axes, 
 ```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
 ```
-

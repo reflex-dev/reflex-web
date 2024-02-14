@@ -16,11 +16,9 @@ from reflex.components.radix.themes.typography import *
 blockquote("Perfect typography is certainly the most elusive of all arts.")
 ```
 
-
 ## Size
 
 Use the `size` prop to control the size of the blockquote. The prop also provides correct line height and corrective letter spacing—as text size increases, the relative line height and letter spacing decrease.
-
 
 ```python demo
 flex(
@@ -38,7 +36,6 @@ flex(
 )
 ```
 
-
 ## Weight
 
 Use the `weight` prop to set the blockquote weight.
@@ -54,12 +51,9 @@ flex(
 )
 ```
 
-
-
 ## Color
 
 Use the `color_scheme` prop to assign a specific color, ignoring the global theme.
-
 
 ```python demo
 flex(
@@ -75,7 +69,6 @@ flex(
 ## High Contrast
 
 Use the `high_contrast` prop to increase color contrast with the background.
-
 
 ```python demo
 flex(

@@ -108,7 +108,6 @@ rx.hstack(
 )
 ```
 
-
 ## Vstack
 
 ```python demo
@@ -143,7 +142,6 @@ rx.vstack(
     width="100%",
 )
 ```
-
 
 ## Real World Example
 

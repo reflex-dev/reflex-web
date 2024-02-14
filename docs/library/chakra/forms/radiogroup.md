@@ -12,7 +12,6 @@ import reflex as rx
 
 Radios are used when only one choice may be selected in a series of options.
 
-
 ```python demo exec
 from typing import List
 options: List[str] = ["Option 1", "Option 2", "Option 3"]
