@@ -174,19 +174,6 @@ def get_id(s):
     return "a_" + hex_dig[:8]
 
 
-excluded_interactive_components = [
-    "Theme", 
-    "ThemePanel", 
-    "DrawerRoot", 
-    "DrawerTrigger",
-    "DrawerOverlay", 
-    "DrawerPortal", 
-    "DrawerContent", 
-    "DrawerClose",
-    "DataTable", 
-    "DataEditor"
-]
-
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
