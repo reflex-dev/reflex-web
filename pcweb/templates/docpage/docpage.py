@@ -209,14 +209,8 @@ def breadcrumb(path):
 
     # Iteratively build the href for each segment
     for i in range(len(segments)):
-        # Construct href by joining the segments up to the current one
-        href = '/' + '/'.join(segments[:i+1]).lower()
-
-        # Create the breadcrumb item
-        breadcrumb_item = rx.link(segments[i], href=href, color=rx.color("mauve", 9))
-
         # Add the breadcrumb item to the list
-        breadcrumbs.append(breadcrumb_item)
+        breadcrumbs.append(rx.text(segments[i], color=rx.color("mauve", 9)))
 
         # If it's not the last segment, add a separator
         if i < len(segments) - 1:
@@ -224,6 +218,7 @@ def breadcrumb(path):
 
     # Return the list of breadcrumb items with separators
     return rx.flex(*breadcrumbs, spacing="2")
+
 
 def get_headings(comp):
      """Get the strings from markdown component."""
