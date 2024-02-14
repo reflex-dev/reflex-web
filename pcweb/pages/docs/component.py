@@ -16,6 +16,7 @@ from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from ...templates.docpage import docdemobox 
+from reflex.components.base.fragment import Fragment
 
 class Prop(Base):
     """Hold information about a prop."""
@@ -171,6 +172,20 @@ def get_id(s):
     hash_object = hashlib.sha256(s.encode())
     hex_dig = hash_object.hexdigest()
     return "a_" + hex_dig[:8]
+
+
+excluded_interactive_components = [
+    "Theme", 
+    "ThemePanel", 
+    "DrawerRoot", 
+    "DrawerTrigger",
+    "DrawerOverlay", 
+    "DrawerPortal", 
+    "DrawerContent", 
+    "DrawerClose",
+    "DataTable", 
+    "DataEditor"
+]
 
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
@@ -506,9 +521,8 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
-    
     return rx.vstack(
-        docdemobox(comp),
+        docdemobox(comp) if not isinstance(comp, Fragment)  else "",
         rx.scroll_area(
             rx.table.root(
                 rx.table.header(
@@ -525,7 +539,6 @@ def generate_props(src, component, comp):
                 size="1",
             ),
             max_height="20em",
-            padding_top="2em"
         )
     )
 
@@ -616,7 +629,7 @@ def component_docs(component, comp):
 
     return rx.box(
         h2_comp(text=component.__name__),
-        rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom="1em"),
+        rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom=".5em"),
         props,
         children,
         triggers,
