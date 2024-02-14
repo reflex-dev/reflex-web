@@ -174,6 +174,9 @@ def get_id(s):
     return "a_" + hex_dig[:8]
 
 
+class PropDocsState(rx.State):
+    """Container for dynamic vars used by the prop docs."""
+
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
@@ -204,9 +207,9 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         try:
             if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child", "default_open", "default_checked"]:
                 name = get_id(f"{component.__qualname__}_{prop.name}")
-                rx.State.add_var(name, bool, False)
-                var = getattr(rx.State, name)
-                setter = getattr(rx.State, f"set_{name}")
+                PropDocsState.add_var(name, bool, False)
+                var = getattr(PropDocsState, name)
+                setter = getattr(PropDocsState, f"set_{name}")
                 prop_dict[prop.name] = var
                 return rx.checkbox(
                     var,
@@ -220,9 +223,9 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         # Get the first option.
         option = type_.__args__[0]
         name = get_id(f"{component.__qualname__}_{prop.name}")
-        rx.State.add_var(name, str, option)
-        var = getattr(rx.State, name)
-        setter = getattr(rx.State, f"set_{name}")
+        PropDocsState.add_var(name, str, option)
+        var = getattr(PropDocsState, name)
+        setter = getattr(PropDocsState, f"set_{name}")
         prop_dict[prop.name] = var
 
         return rx.select.root(
