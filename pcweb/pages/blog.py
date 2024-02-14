@@ -27,13 +27,14 @@ def get_route(path: str):
 def page(document) -> rx.Component:
     """Create a page."""
     meta = document.metadata
-    return rx.container(
-        rx.chakra.text(meta["title"], mt=12, mb=4, font_weight="semibold"),
+    return rx.chakra.container(
+        rx.chakra.heading(meta["title"], padding_bottom="1em", font_weight="semibold"),
         rx.chakra.hstack(
             rx.chakra.avatar(name=meta["author"], size="xs"),
             rx.chakra.text(meta["author"], font_size="0.9rem"),
             rx.chakra.text(" · "),
             rx.chakra.text(str(meta["date"]), font_size="0.9rem"),
+            padding_bottom="1em"
         ),
         rx.image(
             src=f"{meta['image']}",
@@ -44,6 +45,7 @@ def page(document) -> rx.Component:
         ),
         xd.render(document, "blog.md"),
         padding_bottom="8em",
+        margin_top="120px"
     )
 
 
@@ -81,10 +83,12 @@ def component_grid():
                         meta["title"],
                         font_size="1.2rem",
                         mb="0.5em",
+                        color=tc["docs"]["body"]
                     ),
                     rx.chakra.text(
                         meta["description"],
                         font_size="0.8rem",
+                        color=tc["docs"]["body"]
 
                     ),
                     rx.chakra.divider(),
@@ -134,10 +138,10 @@ def component_grid():
 
 @webpage(path="/blog", title="Blog")
 def blg():
-    return rx.center(
+    return rx.chakra.center(
         rx.chakra.vstack(
             rx.chakra.vstack(
-                rx.chakra.text("Reflex Blog", font_size=styles.H1_FONT_SIZE, mt=12, mb=4),
+                rx.chakra.text("Reflex Blog", font_size=styles.H1_FONT_SIZE),
                 rx.chakra.text(
                     "The latest news from the Reflex team. ",
                     color=tc["docs"]["body"],
@@ -159,7 +163,6 @@ def blg():
         ),
         flex_direction="column",
         width="100%",
-        margin_top="80px"
     )
 
 
