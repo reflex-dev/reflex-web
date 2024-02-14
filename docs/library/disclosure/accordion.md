@@ -29,7 +29,6 @@ AccordionItem: |
 
 ```python exec
 import reflex as rx
-from reflex.components.core import *
 ```
 
 # Accordion
