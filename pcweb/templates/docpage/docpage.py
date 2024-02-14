@@ -326,7 +326,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             nav_sidebar = sb(url=path, width="100%")
 
             # Get the previous and next sidebar links.
-            prev, next = get_prev_next(path)
+            prev, next = get_prev_next(path.replace("/internal", ""))
             links = []
 
             # Create the previous component link.
@@ -370,7 +370,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 comp = contents
 
             if isinstance(comp, tuple):
-                 toc, comp = comp
+                toc, comp = comp
 
             # Return the templated page.
             return rx.flex(

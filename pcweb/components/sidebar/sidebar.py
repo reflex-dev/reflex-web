@@ -52,7 +52,7 @@ def sidebar_leaf(
     """Get the leaf node of the sidebar."""
     return rx.chakra.accordion_item(
         rx.cond(
-            item.link == url,
+            item.link == url.to(str).replace("/internal", ""),
             sidebar_link(
                 rx.flex(rx.flex(
                     rx.text(
@@ -192,6 +192,8 @@ def sidebar_item_comp(
 
 
 def calculate_index(sidebar_items, url):
+    if url is not None:
+        url = url.replace("/internal", "")
     if not isinstance(sidebar_items, list):
         sidebar_items = [sidebar_items]
 
