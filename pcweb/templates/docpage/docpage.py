@@ -320,7 +320,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="17em")
+            sidebar = sb(url=path, width="18em")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -373,18 +373,18 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                  toc, comp = comp
 
             # Return the templated page.
-            return rx.box(
+            return rx.flex(
                 navbar(sidebar=nav_sidebar),
                 rx.flex( 
                     rx.box(
                             sidebar,
                             margin_top="120px",
-                            margin_left="1em",
-                            margin_right="1em",
+                            margin_x="2em",
                             height="100%",
-                            width=["none", "none", "none", "25%", "25%"],
+                            width="25%",
                             display=["none", "none", "none", "none", "flex", "flex"],
-                        ),
+                            flex_shrink=0,
+                    ),
                     rx.box(
                             rx.box(
                                 breadcrumb(path),
@@ -404,7 +404,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             border_left= ["none", "none", "none", "none", "none", f"1px solid {rx.color('mauve', 4)};"],
                             padding_left=styles.PADDING_X,
                             padding_right=styles.PADDING_X,
-                            width=["100%", "100%", "100%", "100%", "100%", "75%"],
+                            width=["100%", "100%", "100%", "100%", "75%", "60%"],
                             height="100%",
                         ),
                     rx.box(
@@ -416,12 +416,16 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                     for level, text in toc
                                 ],
                                 direction="column",
+                                width="100%",
                                 position="fixed",
                                 spacing="2",
+                                justify="start"
                             ),
                             margin_top="120px",
-                            width="25%",
+                            width="15%",
+                            height="100%",
                             display=["none", "none", "none", "none", "none", "flex"],
+                            flex_shrink=0
                         ),
                     background = "#FFF",
                     max_width="110em",
@@ -434,6 +438,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 ),
                background = "#FFF",
                width = "100%",
+               justify="center"
             )
 
         # Return the route.
