@@ -7,6 +7,7 @@ from typing import Any, Type, get_args
 
 import reflex as rx
 import flexdown
+import textwrap
 
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp
@@ -232,11 +233,6 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 value=var,
                 on_change=setter,
             )
-
-        return rx.select(
-            value=var,
-            on_change=setter,
-        )
 
     # Return the docs for the prop.
     return [
@@ -478,7 +474,7 @@ def generate_props(src, component, comp):
             rx.text("No component specific props"),
             width="100%",
             overflow_x="auto",
-            align_items="left",
+            align_items="start",
             padding_y=".5em",
         )
 
@@ -528,7 +524,8 @@ def generate_props(src, component, comp):
                 padding_x="0",
                 size="1",
             ),
-            max_height="20em"
+            max_height="20em",
+            padding_top="2em"
         )
     )
 
@@ -605,7 +602,7 @@ def generate_valid_children(comp):
         rx.heading("Valid Children", font_size="1em"),
         rx.chakra.wrap(*valid_children),
         width="100%",
-        align_items="left",
+        align_items="start",
         padding_y=".5em",
     )
 
@@ -619,7 +616,7 @@ def component_docs(component, comp):
 
     return rx.box(
         h2_comp(text=component.__name__),
-        rx.box(markdown(src.get_docs()), padding_bottom="1em"),
+        rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom="1em"),
         props,
         children,
         triggers,

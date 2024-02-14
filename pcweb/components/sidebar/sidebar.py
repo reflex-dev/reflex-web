@@ -371,7 +371,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     recipes_index = calculate_index(recipes, url)
     tutorials_index = calculate_index(tutorials, url)
 
-    return rx.box(
+    return rx.flex(
         sidebar_comp(
             url=url,
             learn_index=learn_index,
@@ -387,6 +387,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         ),
         width="100%",
         height="100%",
+        justify="end"
     )
 
 
