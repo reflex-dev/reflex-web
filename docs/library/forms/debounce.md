@@ -9,9 +9,9 @@ import reflex as rx
 
 # Debounce
 
-Reflex is a backend-centric framework, which can create negative performance impacts for apps taht need to provide interactive feedback to the user in real time. For example, if you have a search bar that sends a request to the backend on every keystroke, you will likely experience a laggy UI. This is because the backend is doing a lot of work to process each keystroke, and the frontend is waiting for the backend to respond before updating the UI.
+Reflex is a backend-centric framework, which can create negative performance impacts for apps that need to provide interactive feedback to the user in real time. For example, if a search bar sends a request to the backend on every keystroke, it may result in a laggy UI. This is because the backend is doing a lot of work to process each keystroke, and the frontend is waiting for the backend to respond before updating the UI.
 
-Using the `rx.debounce_input`  component allows the frontend to remain responsive while receiving user input and send the value to the backend after some delay, on blur, or when `Enter` is pressed.
+Using the `rx.debounce_input`  component allows the frontend to remain responsive while receiving user input and sends the value to the backend after some delay, on blur, or when `Enter` is pressed.
 
 "Typically, this component is used to wrap a child `rx.chakra.input` or `rx.text_area`, however, most child components that accept the `value` prop and `on_change` event handler can be used with `rx.debounce_input`."
 

@@ -5,9 +5,6 @@ import reflex as rx
 from pcweb import constants
 from pcweb.pages import docs
 from pcweb.templates.docpage import doccmdoutput
-from reflex.components.radix.themes.components import *
-from reflex.components.radix.themes.layout import *
-from reflex.components.radix.themes.typography import *
 ```
 
 So far, we have been running our apps locally on our own machines.
