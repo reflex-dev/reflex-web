@@ -209,19 +209,8 @@ def breadcrumb(path):
 
     # Iteratively build the href for each segment
     for i in range(len(segments)):
-        # Check if the current segment is the last one
-        is_last_segment = i == len(segments) - 1
-
-        # Construct href by joining the segments up to the current one, only for the last segment
-        if is_last_segment:
-            href = '/' + '/'.join(segments[:i+1]).lower()
-            breadcrumb_item = rx.link(segments[i], href=href, color=rx.color("mauve", 9))
-        else:
-            # For non-last segments, create text items instead of links
-            breadcrumb_item = rx.text(segments[i], color=rx.color("mauve", 9))
-
         # Add the breadcrumb item to the list
-        breadcrumbs.append(breadcrumb_item)
+        breadcrumbs.append(rx.text(segments[i], color=rx.color("mauve", 9)))
 
         # If it's not the last segment, add a separator
         if i < len(segments) - 1:
