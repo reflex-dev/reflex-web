@@ -38,6 +38,8 @@ Here, we go over a simple counter app that lets the user count up or down.
 
 <!-- TODO use radix components, to allow more concise styling - e.g. all them props -->
 
+
+
 ```python exec
 class CounterExampleState(rx.State):
     count: int = 0
@@ -48,7 +50,32 @@ class CounterExampleState(rx.State):
     def decrement(self):
         self.count -= 1
 
-state_code = """
+```
+
+
+```python demo box
+rx.hstack(
+    rx.button(
+        "Decrement",
+        color_scheme="ruby",
+        on_click=CounterExampleState.decrement,
+    ),
+    rx.heading(CounterExampleState.count, font_size="2em"),
+    rx.button(
+        "Increment",
+        color_scheme="grass",
+        on_click=CounterExampleState.increment,
+    ),
+    spacing="4",
+)
+```
+
+Here is the full code for this example:
+
+```python
+import reflex as rx
+
+
 class State(rx.State):
     count: int = 0
 
@@ -57,25 +84,7 @@ class State(rx.State):
 
     def decrement(self):
         self.count -= 1
-"""
 
-def index():
-    return rx.hstack(
-        rx.button(
-            "Decrement",
-            color_scheme="ruby",
-            on_click=CounterExampleState.decrement,
-        ),
-        rx.heading(CounterExampleState.count, font_size="2em"),
-        rx.button(
-            "Increment",
-            color_scheme="grass",
-            on_click=CounterExampleState.increment,
-        ),
-        gap="1em",
-    )
-
-index_code = """
 def index():
     return rx.hstack(
         rx.button(
@@ -89,31 +98,15 @@ def index():
             color_scheme="grass",
             on_click=State.increment,
         ),
-        gap="1em",
+        spacing="4",
     )
-"""
 
-counter_code = f"""
-import reflex as rx
-
-{state_code}
-
-{index_code}
 
 app = rx.App()
 app.add_page(index)
-""".strip()
+
 ```
 
-```python demo box
-index()
-```
-
-Here is the full code for this example:
-
-```python
-{counter_code}
-```
 
 ## The Structure of a Reflex App
 
@@ -121,16 +114,17 @@ Let's break this example down.
 
 ## Import
 
-```python eval
-doccode(counter_code, lines=(0, 1))
+```python
+import reflex as rx
 ```
 
 We begin by importing the `reflex` package (aliased to `rx`). We reference Reflex objects as `rx.*` by convention.
 
 ## State
 
-```python eval
-doccode(counter_code, lines=(2, 5))
+```python
+class State(rx.State):
+    count: int = 0
 ```
 
 The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event_handlers](#event-handlers)**) that change them.
@@ -139,8 +133,12 @@ Here our state has a single var, `count`, which holds the current value of the c
 
 ## Event Handlers
 
-```python eval
-doccode(counter_code, lines=(5, 13))
+```python
+def increment(self):
+    self.count += 1
+
+def decrement(self):
+    self.count -= 1
 ```
 
 Within the state, we define functions, called **event handlers**, that change the state vars.
@@ -153,8 +151,22 @@ Our counter app has two event handlers, `increment` and `decrement`.
 
 ## User Interface (UI)
 
-```python eval
-doccode(counter_code, lines=(13, 33))
+```python
+def index():
+    return rx.hstack(
+        rx.button(
+            "Decrement",
+            color_scheme="ruby",
+            on_click=State.decrement,
+        ),
+        rx.heading(State.count, font_size="2em"),
+        rx.button(
+            "Increment",
+            color_scheme="grass",
+            on_click=State.increment,
+        ),
+        spacing="4",
+    )
 ```
 
 This function defines the app's user interface.
@@ -164,16 +176,20 @@ We use different components such as `rx.hstack`, `rx.button`, and `rx.heading` t
 Reflex comes with [50+ built-in components]({library.path}) to help you get started.
 We are actively adding more components. Also, it's easy to [wrap your own React components]({wrapping_react.overview.path}).
 
-```python eval
-doccode(counter_code, lines=(22, 23))
+```python
+rx.heading(State.count, font_size="2em"),
 ```
 
 Components can reference the app's state vars.
 The `rx.heading` component displays the current value of the counter by referencing `State.count`.
 All components that reference state will reactively update whenever the state changes.
 
-```python eval
-doccode(counter_code, lines=(15, 22))
+```python
+rx.button(
+    "Decrement",
+    color_scheme="ruby",
+    on_click=State.decrement,
+),
 ```
 
 Components interact with the state by binding events triggers to event handlers.
@@ -209,4 +225,3 @@ By continuing with our documentation, you will learn how to building awesome app
 For a glimpse of the possibilities, check out these resources:
 
 * For a more real-world example, check out the [tutorial]({tutorial.intro.path}).
-* The [demo](https://demo.reflex.run) showcases more of Reflex's capabilities.

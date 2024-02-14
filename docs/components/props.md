@@ -10,7 +10,7 @@ Props modify the behavior and appearance of a component. They are passed in as k
 
 ## Component Props
 
-Each component has props that are specific to that component. For example, the `rx.avatar` component has a name prop that sets the `name` of the avatar.
+Each component has props that are specific to that component. For example, the `rx.avatar` component has a fallback prop that sets the `fallback` of the avatar.
 
 ```python demo
 rx.avatar(
@@ -21,7 +21,7 @@ rx.avatar(
 Check the docs for the component you are using to see what props are available.
 
 ```md alert success
-# Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly {library.path}.
+# Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly.
 ```
 
 ## HTML Props
@@ -45,7 +45,7 @@ State may be modified in response to things like user input like clicking a butt
 State vars can be bound to component props, so that the UI always reflects the current state of the app.
 
 ```md alert warning
-Optional: Learn all about [State](state.overview.path) first.
+Optional: Learn all about [State]({state.overview.path}) first.
 ```
 
 You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.
