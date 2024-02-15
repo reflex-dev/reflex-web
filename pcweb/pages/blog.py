@@ -32,15 +32,13 @@ def page(document) -> rx.Component:
         h1_comp(text=meta["title"]),
         rx.hstack(
             rx.chakra.avatar(name=meta["author"], size="xs"),
-            rx.text(meta["author"], font_size="0.9rem"),
+            rx.text(meta["author"], size="3"),
             rx.text(" · "),
-            rx.text(str(meta["date"]), font_size="0.9rem"),
+            rx.text(str(meta["date"]), size="3"),
             padding_bottom="1em"
         ),
         rx.image(
             src=f"{meta['image']}",
-            object_fit="contain",
-            shadow="sm",
             margin_y="1em",
             border_radius="8px",
         ),
@@ -85,12 +83,11 @@ def component_grid():
                     rx.vstack(
                         rx.heading(
                             meta["title"],
-                            font_size="1.2rem",
-                            margin_bottom="0.5em",
+                            size="5",
                         ),
                         rx.text(
                             meta["description"],
-                            font_size="0.8rem",
+                            size="2"
                         ),
                         rx.divider(),
                         rx.hstack(
@@ -125,7 +122,7 @@ def component_grid():
                     _hover={
                         "box_shadow": "0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02)"
                     },
-                    href=path,
+                    href=f"/{path}",
                 ),
                 as_child=True,
             ),
@@ -140,10 +137,9 @@ def blg():
     return rx.container(
         rx.vstack(
             rx.vstack(
-                rx.heading("Reflex Blog", size="7"),
+                rx.heading("Reflex Blog", size="8"),
                 rx.text("The latest news from the Reflex team."),
                 rx.divider(),
-                text_align="left",
                 width="100%",
                 spacing="4",
             ),
