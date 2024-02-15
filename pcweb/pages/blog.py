@@ -6,6 +6,7 @@ from pcweb.flexdown import xd
 from pcweb.styles import colors as c
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
+from pcweb.templates.docpage import h1_comp
 
 PAGES_PATH = "blog/"
 
@@ -27,25 +28,27 @@ def get_route(path: str):
 def page(document) -> rx.Component:
     """Create a page."""
     meta = document.metadata
-    return rx.chakra.container(
-        rx.chakra.heading(meta["title"], padding_bottom="1em", font_weight="semibold"),
-        rx.chakra.hstack(
+    return rx.container(
+        h1_comp(text=meta["title"]),
+        rx.hstack(
             rx.chakra.avatar(name=meta["author"], size="xs"),
-            rx.chakra.text(meta["author"], font_size="0.9rem"),
-            rx.chakra.text(" · "),
-            rx.chakra.text(str(meta["date"]), font_size="0.9rem"),
+            rx.text(meta["author"], font_size="0.9rem"),
+            rx.text(" · "),
+            rx.text(str(meta["date"]), font_size="0.9rem"),
             padding_bottom="1em"
         ),
         rx.image(
             src=f"{meta['image']}",
             object_fit="contain",
             shadow="sm",
-            my=8,
+            margin_y="1em",
             border_radius="8px",
         ),
         xd.render(document, "blog.md"),
         padding_bottom="8em",
-        margin_top="120px"
+        margin_top="120px",
+        margin_x="auto",
+        size="2",
     )
 
 
