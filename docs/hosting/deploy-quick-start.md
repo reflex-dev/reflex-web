@@ -11,10 +11,6 @@ So far, we have been running our apps locally on our own machines.
 But what if we want to share our apps with the world? This is where
 the hosting service comes in.
 
-```md alert info
-Hosting is in Alpha. Please reach out to us on Discord if you are ready to deploy and we will give you an invitation code.
-```
-
 ## Quick Start
 
 Reflex’s hosting service makes it easy to deploy your apps without worrying about configuring the infrastructure.
