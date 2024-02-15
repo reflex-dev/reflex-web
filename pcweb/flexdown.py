@@ -140,7 +140,7 @@ class DefinitionBlock(flexdown.blocks.Block):
         ]
 
         def single_def(title, content):
-            return rx.box(
+            return rx.chakra.vstack(
                 rx.heading(
                     title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
                 ),
@@ -157,7 +157,7 @@ class DefinitionBlock(flexdown.blocks.Block):
         defs = [single_def(title, content) for title, content in sections]
 
         return rx.fragment(
-            rx.mobile_only(rx.vstack(*defs)),
+            rx.mobile_only(rx.chakra.vstack(*defs)),
             rx.tablet_and_desktop(
                 rx.chakra.grid(
                     *[
