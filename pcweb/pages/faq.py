@@ -95,7 +95,7 @@ faq_items = [
 def faq_item(question, answer, index):
     return rx.chakra.accordion_item(
         rx.chakra.accordion_button(
-            rx.chakra.heading(
+            rx.heading(
                 question, color=tc["docs"]["body"], font_size=styles.H3_FONT_SIZE
             ),
             rx.chakra.spacer(),
@@ -114,7 +114,7 @@ def faq():
     return rx.chakra.container(
         rx.chakra.vstack(
             rx.chakra.box(
-                rx.chakra.heading(
+                rx.heading(
                     "Reflex FAQ",
                     font_size=styles.H1_FONT_SIZE,
                     mt=12,

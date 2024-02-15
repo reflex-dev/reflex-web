@@ -38,27 +38,30 @@ app = rx.App(style=style)
 In your style dictionary, you can also specify default styles for specific component types or arbitrary CSS classes and IDs.
 
 ```python
-accent_color = "#f81ce5"
 style = {
+    # Set the selection highlight color globally.
     "::selection": {
         "background_color": accent_color,
     },
+    # Apply global css class styles.
     ".some-css-class": {
         "text_decoration": "underline",
     },
+    # Apply global css id styles.
     "#special-input": \{"width": "20vw"},
-    rx.Text: {
-        "font_family": styles.SANS,
+    # Apply styles to specific components.
+    rx.text: {
+        "font_family": "Comic Sans MS",
     },
-    rx.chakra.divider: {
+    rx.divider: {
         "margin_bottom": "1em",
         "margin_top": "0.5em",
     },
-    rx.Heading: {
+    rx.heading: {
         "font_weight": "500",
     },
-    rx.Code: {
-        "color": accent_color,
+    rx.code: {
+        "color": "green",
     },
 }
 

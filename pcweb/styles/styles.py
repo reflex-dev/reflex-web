@@ -50,13 +50,19 @@ BASE_STYLE = {
     "::selection": {
         "background_color": ACCENT_COLOR_LIGHT,
     },
+    "font_family": SANS,
+    rx.text: {
+        "font_family": "Comic Sans MS",
+    },
     rx.chakra.text: {
         "font_family": SANS,
         "font_size": 16,
     },
-    rx.chakra.heading: {
+    rx.heading: {
         "font_family": SANS,
     },
+    rx.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
+    rx.link: {"text_decoration": "none", "_hover": {}},
     rx.chakra.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
     rx.chakra.code: {"color": "#1F1944", "bg": "#EAE4FD"},
     rx.chakra.alert: {
