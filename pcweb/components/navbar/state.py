@@ -8,15 +8,6 @@ import requests
 from sqlmodel import Field
 
 
-
-class Feedback(rx.Model, table=True):
-    email: Optional[str]
-    feedback: str
-    score: Optional[int]
-    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-    page: str
-
-
 class NavbarState(rx.State):
     """The state for the navbar component."""
 
@@ -31,60 +22,7 @@ class NavbarState(rx.State):
 
     ai_chat: bool = True
 
-    email: str = ""
-
-    feedback: str = ""
-
-    page_score: int = 0
-
-    show_form = False
-    form_submitted = False
-
     current_category = "All"
-
-    def handle_submit(self, form_data: dict):
-        feedback = form_data["feedback"]
-
-        # Check if the email is valid.
-        if "email" in form_data:
-            self.email = form_data["email"]
-
-        if len(feedback) < 10 or len(feedback) > 500:
-            return rx.window_alert(
-                "Please enter your feedback. Between 10 and 500 characters."
-            )
-
-        current_page_route = self.get_current_page()
-
-        discord_message = f"""
-Contact: {self.email}
-Page: {current_page_route}
-Score: {"?" if  self.page_score==0 else "👍" if self.page_score > 1 else "👎"}
-Feedback: {feedback}
-"""
-
-        DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
-        payload = {"content": discord_message}
-        try:
-            requests.post(DISCORD_WEBHOOK_URL, json=payload)
-        except:
-            pass
-
-        self.show_form = False
-        self.form_submitted = True
-        self.page_score = 0
-
-    def update_score(self, score):
-        if self.show_form is True:
-            if self.page_score == score:
-                self.show_form = not self.show_form
-        else:
-            self.show_form = not self.show_form
-
-        self.page_score = score
-
-    def display_form(self):
-        self.show_form = True
 
     def toggle_banner(self):
         self.banner = not self.banner

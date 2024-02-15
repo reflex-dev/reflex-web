@@ -8,6 +8,7 @@ import mistletoe
 from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
 from .blocks import *
+from .state import FeedbackState
 
 # Docpage styles.
 link_style = {
@@ -31,7 +32,7 @@ def doc_section(*contents):
         width="100%",
     )
 
-def feedback_content(icon):
+def feedback_content(icon, score):
     return rx.flex(
             rx.button(
                 icon,
@@ -39,36 +40,35 @@ def feedback_content(icon):
                 variant="soft"
             ),
             rx.box(
-                rx.flex(
-                    rx.input(
-                        placeholder="Contact Info (Optional)",
-                        _type = "email",
-                    ),
-                    rx.text_area(
-                        placeholder="Write a comment…",
-                        style={"height": 80},
-                    ),
-                    spacing="1",
-                    direction="column",
-                ),
-                rx.flex(
+                rx.form(
                     rx.flex(
-                        rx.text(
-                            rx.checkbox(),
-                            rx.text("Follow up with me"),
-                            as_="label",
-                            size="2",
+                        rx.input(
+                            placeholder="Contact Info (Optional)",
+                            _type = "email",
+                            name = "email"
                         ),
-                        align="center",
-                        spacing="2",
-                        as_child=True,
+                        rx.text_area(
+                            placeholder="Write a comment…",
+                            style={"height": 80},
+                            name = "feedback"
+                        ),
+                        spacing="1",
+                        direction="column",
                     ),
                     rx.popover.close(
-                        rx.button("Send Feedback", size="1")
+                        rx.flex(
+                            rx.button(
+                                    "Send Feedback", 
+                                    size="1",
+                                    width="100%",
+                                    type_="submit"
+                            ),
+                            spacing="3",
+                            margin_top="12px",
+                            justify="between",
+                        )
                     ),
-                    spacing="3",
-                    margin_top="12px",
-                    justify="between",
+                    on_submit=lambda feedback: FeedbackState.handle_submit(feedback, score),
                 ),
                 flex_grow="1",
             ),
@@ -76,7 +76,7 @@ def feedback_content(icon):
         )
 
 
-def feedback(text, icon):
+def feedback(text, icon, score):
     return rx.popover.root(
     rx.popover.trigger(
         rx.flex(
@@ -92,9 +92,11 @@ def feedback(text, icon):
         )
     ),
     rx.popover.content(
-        feedback_content(icon),
+        feedback_content(icon, score),
         style={"width": 360},
     ),
+    on_open_change=lambda change: FeedbackState.feedback_change(change, score),
+    open=FeedbackState.feedback_open[score]
 )
 
 def docpage_footer(path):
@@ -108,8 +110,16 @@ def docpage_footer(path):
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
-                feedback("No", rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=16)),
-                feedback("Yes", rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=16)),
+                feedback(
+                    text="No", 
+                    icon=rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=12), 
+                    score=0,
+                ),
+                feedback(
+                    text="Yes", 
+                    icon=rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=12), 
+                    score=1,
+                ),
                 align_items="center",
                 spacing="2"
             ),
@@ -150,10 +160,11 @@ def docpage_footer(path):
             rx.flex(
                 rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
                 rx.link("Gallery", color=rx.color("mauve", 11), underline="always", href="/gallery"),
-                rx.link("Change Log", color=rx.color("mauve", 11), underline="always", href="/changelog"),
+                rx.link("Changelog", color=rx.color("mauve", 11), underline="always", href="/changelog"),
                 rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
                 rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),
                 spacing="2",
+                flex_shrink=0
             ),
             rx.box(
                 flex_grow='1',
