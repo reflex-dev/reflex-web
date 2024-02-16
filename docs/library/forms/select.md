@@ -180,7 +180,7 @@ def form_select1():
                     default_value="apple",
                     name="select",
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
                 width="100%",
             ),
             on_submit=FormSelectState1.handle_submit,

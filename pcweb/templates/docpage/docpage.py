@@ -58,10 +58,10 @@ def feedback_content(icon, score):
                     rx.popover.close(
                         rx.flex(
                             rx.button(
-                                    "Send Feedback", 
-                                    size="1",
-                                    width="100%",
-                                    type_="submit"
+                                "Send Feedback",
+                                size="1",
+                                width="100%",
+                                type="submit"
                             ),
                             spacing="3",
                             margin_top="12px",

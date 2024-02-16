@@ -133,7 +133,7 @@ class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
     def compute_collatz(self, form_data: dict) -> int:
-        n = int(form_data["start"])
+        n = int(form_data.get("start") or 1)
         yield rx.set_value("start", "")
         self.data = []
         for ix in range(400):
@@ -158,7 +158,7 @@ def index():
         ),
         rx.form.root(
             rx.chakra.input(placeholder="Enter a number", id="start"),
-            rx.button("Compute", type_="submit"),
+            rx.button("Compute", type="submit"),
             on_submit=ScatterChartState.compute_collatz,
         ),
         width="100%",

@@ -122,7 +122,7 @@ def form_input1():
         rx.form.root(
             rx.vstack(
                 rx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
                 width="100%",
             ),
             on_submit=FormInputState.handle_submit,
