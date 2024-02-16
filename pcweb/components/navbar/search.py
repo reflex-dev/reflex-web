@@ -35,7 +35,7 @@ def search_badge(category, stateful=True):
                     
     return rx.flex(
             icon,
-            rx.text(category),
+            rx.text.span(category),
             on_click=NavbarState.update_category(category),
             background=rx.cond(
                 NavbarState.current_category == category,
@@ -49,7 +49,8 @@ def search_badge(category, stateful=True):
             ),
             box_shadow="0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.40), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
             style=search_badge_style,
-            spacing="2"
+            spacing="2",
+            flex_shrink=0
         )
 
 

@@ -103,6 +103,59 @@ rx.box(
 )
 ```
 
+### Style Prop
+
+Inline styles can also be set with a `style` prop. This is useful for reusing styles betweeen multiple components.
+
+```python exec
+text_style = {
+    "color": "green",
+    "font_family": "Comic Sans MS",
+    "font_size": "1.2em",
+    "font_weight": "bold",
+    "box_shadow": "rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px",
+}
+```
+
+```python
+text_style={text_style}
+```
+
+```python demo
+rx.vstack(
+    rx.text("Hello", style=text_style),
+    rx.text("World", style=text_style),
+)
+```
+
+```python exec
+style1 = {
+    "color": "green",
+    "font_family": "Comic Sans MS",
+    "border_radius": "10px",
+    "background_color": "rgb(107,99,246)",
+}
+style2 = {
+    "color": "white",
+    "border": "5px solid #EE756A",
+    "padding": "10px",
+}
+```
+
+```python
+style1={style1}
+style2={style2}
+```
+
+```python demo
+rx.box(
+    "Multiple Styles",
+    style=[style1, style2],
+)
+```
+
+The style dictionaries are applied in the order they are passed in. This means that styles defined later will override styles defined earlier.
+
 
 ## Theming 
 
@@ -168,7 +221,7 @@ rx.box(
 )
 ```
 
-## Disabling Tailwind
+### Disabling Tailwind
 
 If you want to disable Tailwind in your configuration, you can do so by setting the `tailwind` config to `None`. This can be useful if you need to temporarily turn off Tailwind for your project:
 
@@ -189,56 +242,3 @@ rx.box(
     rx.text("Hover Me", _hover={"color": "red"}),
 )
 ```
-
-## Style Prop
-
-Inline styles can also be set with a `style` prop. This is useful for reusing styles betweeen multiple components.
-
-```python exec
-text_style = {
-    "color": "green",
-    "font_family": "Comic Sans MS",
-    "font_size": "1.2em",
-    "font_weight": "bold",
-    "box_shadow": "rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px",
-}
-```
-
-```python
-text_style={text_style}
-```
-
-```python demo
-rx.vstack(
-    rx.text("Hello", style=text_style),
-    rx.text("World", style=text_style),
-)
-```
-
-```python exec
-style1 = {
-    "color": "green",
-    "font_family": "Comic Sans MS",
-    "border_radius": "10px",
-    "background_color": "rgb(107,99,246)",
-}
-style2 = {
-    "color": "white",
-    "border": "5px solid #EE756A",
-    "padding": "10px",
-}
-```
-
-```python
-style1={style1}
-style2={style2}
-```
-
-```python demo
-rx.box(
-    "Multiple Styles",
-    style=[style1, style2],
-)
-```
-
-The style dictionaries are applied in the order they are passed in. This means that styles defined later will override styles defined earlier.
