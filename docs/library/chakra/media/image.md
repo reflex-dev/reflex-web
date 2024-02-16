@@ -13,14 +13,14 @@ The Image component can display an image given a `src` path as an argument.
 This could either be a local path from the assets folder or an external link.
 
 ```python demo
-rx.chakra.image(src="/reflex_logo.png", width="100px", height="auto")
+rx.chakra.image(src="/reflex_banner.png", width="100px", height="auto")
 ```
 
 Image composes a box and can be styled simlarly.
 
 ```python demo
 rx.chakra.image(
-    src="/reflex_logo.png",
+    src="/reflex_banner.png",
     width="100px",
     height="auto",
     border_radius="15px 50px",
