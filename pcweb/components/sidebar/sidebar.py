@@ -265,6 +265,7 @@ def sidebar_category(name, icon, color, index):
             padding="10px 10px 10px 10px",
             border_radius="0.5em",
             width="100%",
+            cursor="pointer"
         )
 
 def sidebar_section(name):
