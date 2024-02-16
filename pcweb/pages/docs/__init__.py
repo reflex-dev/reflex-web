@@ -180,5 +180,3 @@ for doc in sorted(flexdown_docs):
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
-
-doc_routes = []
