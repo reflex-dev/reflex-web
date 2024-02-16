@@ -58,7 +58,7 @@ def form_switch():
                 rx.switch(name="s1"),
                 rx.switch(name="s2"),
                 rx.switch(name="s3", required=True),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
                 width="100%",
             ),
             on_submit=FormSwitchState.handle_submit,
@@ -186,7 +186,7 @@ def form_switch2():
                             spacing="3",
                         ),
                         rx.flex(
-                            rx.button("Save & Accept", type_="submit"),
+                            rx.button("Save & Accept", type="submit"),
                             rx.dialog.close(
                                 rx.button("Exit"),
                             ),

@@ -116,7 +116,7 @@ def form_example_HL():
         rx.form.root(
             rx.vstack(
                 rx.radio(["1", "2", "3"], name="radio", required=True,),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
             ),
             on_submit=FormRadioState_HL.handle_submit,
             reset_on_submit=True,

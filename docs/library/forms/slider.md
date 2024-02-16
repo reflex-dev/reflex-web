@@ -107,7 +107,7 @@ def form_example2():
         rx.form.root(
             rx.vstack(
                 rx.slider(default_value=40, name="slider"),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
                 width="100%",
             ),
             on_submit=FormSliderState.handle_submit,

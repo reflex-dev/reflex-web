@@ -36,7 +36,7 @@ class CallHandlerState(rx.State):
 def call_handler_example():
     return rx.vstack(
         rx.badge(CallHandlerState.count, font_size="1.5em", color_scheme="green"),
-        rx.progress(value=CallHandlerState.progress, max_=10, width="100%"),
+        rx.progress(value=CallHandlerState.progress, max=10, width="100%"),
         rx.button("Run", on_click=CallHandlerState.run),
     )
 ```
