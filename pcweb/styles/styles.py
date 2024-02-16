@@ -51,9 +51,6 @@ BASE_STYLE = {
         "background_color": ACCENT_COLOR_LIGHT,
     },
     "font_family": SANS,
-    rx.text: {
-        "font_family": "Comic Sans MS",
-    },
     rx.chakra.text: {
         "font_family": SANS,
         "font_size": 16,

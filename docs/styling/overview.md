@@ -70,10 +70,6 @@ app = rx.App(style=style)
 
 Using style dictionaries like this, you can easily create a consistent theme for your app.
 
-```md alert
-# Note the use of the uppercase component names.
-We specify the component classes as keys, rather than their constructors.
-```
 
 ```md alert warning
 # Watch out for underscores in class names and IDs
