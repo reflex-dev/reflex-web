@@ -54,7 +54,7 @@ rx.accordion.root(
 
 ### Type
 
-We use the `type_` prop to determine whether multiple items can be opened at once. The allowed values for this prop are
+We use the `type` prop to determine whether multiple items can be opened at once. The allowed values for this prop are
 `single` and `multiple` where `single` will only open one item at a time. The default value for this prop is `single`.
 
 ```python demo
@@ -66,7 +66,7 @@ rx.accordion.root(
     rx.accordion.item(header="Third item", content="The third accordion item's content", font_size="3em"),
     collapsible=True,
     width="300px",
-    type_="multiple",
+    type="multiple",
 )
 ```
 

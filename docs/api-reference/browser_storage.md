@@ -170,7 +170,7 @@ def app_settings():
                 ),
             ),
         ),
-        rx.button("Save", type_="submit"),
+        rx.button("Save", type="submit"),
         on_submit=lambda _: ComplexLocalStorageState.save_settings(),
     )
 

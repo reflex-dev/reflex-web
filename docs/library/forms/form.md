@@ -152,7 +152,7 @@ def form_example():
                     rx.checkbox("Checked", name="check"),
                     rx.switch("Switched", name="switch"),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
             ),
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
@@ -164,7 +164,7 @@ def form_example():
 ```
 
 ```md alert warning
-# When using the form you must include a button or input with `type_='submit'`.
+# When using the form you must include a button or input with `type='submit'`.
 ```
 
 ## Dynamic Forms
@@ -208,7 +208,7 @@ def dynamic_form():
                         name=field,
                     ),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
             ),
             on_submit=DynamicFormState.handle_submit,
             reset_on_submit=True,
@@ -216,7 +216,7 @@ def dynamic_form():
         rx.form(
             rx.hstack(
                 rx.input(placeholder="New Field", name="new_field"),
-                rx.button("+", type_="submit"),
+                rx.button("+", type="submit"),
             ),
             on_submit=DynamicFormState.add_field,
             reset_on_submit=True,

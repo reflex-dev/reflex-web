@@ -44,7 +44,6 @@ rx.scroll_area(
         aesthetics. Although in a non-technical sense “legible” and “readable”
         are often used synonymously, typographically they are separate but
         related concepts.""",
-            as_="p",
         ),
         rx.text(
             """Legibility describes how easily individual characters can be
@@ -52,7 +51,6 @@ rx.scroll_area(
         quality of being decipherable and recognisable”. For instance, if a “b”
         and an “h”, or a “3” and an “8”, are difficult to distinguish at small
         sizes, this is a problem of legibility.""",
-            as_="p",
         ),
         rx.text(
             """Typographers are concerned with legibility insofar as it is their job to
@@ -60,12 +58,11 @@ rx.scroll_area(
         containing many characters that might be difficult to distinguish. The
         selection of cases influences the legibility of typography because using
         only uppercase letters (all-caps) reduces legibility.""",
-            as_="p",
         ),
         direction="column",
         spacing="4",
     ),
-    type_="always",
+    type="always",
     scrollbars="vertical",
     style={"height": 180},
 
@@ -98,7 +95,7 @@ rx.grid(
             ),
             padding="8px", padding_right="48px", direction="column", spacing="4",
         ),
-        type_="always",
+        type="always",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
@@ -121,7 +118,7 @@ rx.grid(
             ),
             padding="8px", spacing="4", style={"width": 700},
         ),
-        type_="always",
+        type="always",
         scrollbars="horizontal",
         style={"height": 150}, 
     ),
@@ -144,7 +141,7 @@ rx.grid(
             ),
             padding="8px", spacing="4", style={"width": 400},
         ),
-        type_="always",
+        type="always",
         scrollbars="both",
         style={"height": 150}, 
     ),
@@ -155,7 +152,7 @@ rx.grid(
 
 ## Setting the type of the Scrollbars
 
-The `type_` prop describes the nature of scrollbar visibility.
+The `type` prop describes the nature of scrollbar visibility.
 
 `auto` means that scrollbars are visible when content is overflowing on the corresponding orientation.
 
@@ -169,7 +166,7 @@ The `type_` prop describes the nature of scrollbar visibility.
 rx.grid(
     rx.scroll_area(
         rx.flex(
-            rx.text("type_= 'auto'",  weight="bold"),
+            rx.text("type = 'auto'",  weight="bold"),
             rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
@@ -180,13 +177,13 @@ rx.grid(
             ),
             padding="8px", direction="column", spacing="4",
         ),
-        type_="auto",
+        type="auto",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
     rx.scroll_area(
         rx.flex(
-            rx.text("type_= 'always'",  weight="bold"),
+            rx.text("type = 'always'",  weight="bold"),
             rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
@@ -197,13 +194,13 @@ rx.grid(
             ),
             padding="8px", direction="column", spacing="4",
         ),
-        type_="always",
+        type="always",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
     rx.scroll_area(
         rx.flex(
-            rx.text("type_= 'scroll'",  weight="bold"),
+            rx.text("type = 'scroll'",  weight="bold"),
             rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
@@ -214,13 +211,13 @@ rx.grid(
             ),
             padding="8px", direction="column", spacing="4",
         ),
-        type_="scroll",
+        type="scroll",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
     rx.scroll_area(
         rx.flex(
-            rx.text("type_= 'hover'",  weight="bold"),
+            rx.text("type = 'hover'",  weight="bold"),
             rx.text(
                 """Legibility describes how easily individual characters can be
         distinguished from one another. It is described by Walter Tracy as "the
@@ -231,7 +228,7 @@ rx.grid(
             ),
             padding="8px", direction="column", spacing="4",
         ),
-        type_="hover",
+        type="hover",
         scrollbars="vertical",
         style={"height": 150}, 
     ),
