@@ -15,7 +15,7 @@ PADDING_X = ["1em", "2em", "2em", "2em", "5em"]
 PADDING_X2 = ["1em", "2em", "10em"]
 HERO_FONT_SIZE = ["2em", "3em", "3em", "4em"]
 H1_FONT_SIZE = ["2.2em", "2.4em", "2.5em"]
-H2_FONT_SIZE = ["1.8em", "1.9em", "2em"]
+H2_FONT_SIZE = "1.5em"
 H3_FONT_SIZE = "1.35em"
 H4_FONT_SIZE = "1.15em"
 TEXT_FONT_SIZE = "1em"
@@ -50,13 +50,16 @@ BASE_STYLE = {
     "::selection": {
         "background_color": ACCENT_COLOR_LIGHT,
     },
+    "font_family": SANS,
     rx.chakra.text: {
         "font_family": SANS,
         "font_size": 16,
     },
-    rx.chakra.heading: {
+    rx.heading: {
         "font_family": SANS,
     },
+    rx.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
+    rx.link: {"text_decoration": "none", "_hover": {}},
     rx.chakra.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
     rx.chakra.code: {"color": "#1F1944", "bg": "#EAE4FD"},
     rx.chakra.alert: {

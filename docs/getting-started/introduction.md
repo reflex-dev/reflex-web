@@ -104,7 +104,6 @@ def index():
 
 app = rx.App()
 app.add_page(index)
-
 ```
 
 
@@ -112,7 +111,7 @@ app.add_page(index)
 
 Let's break this example down.
 
-## Import
+### Import
 
 ```python
 import reflex as rx
@@ -120,7 +119,7 @@ import reflex as rx
 
 We begin by importing the `reflex` package (aliased to `rx`). We reference Reflex objects as `rx.*` by convention.
 
-## State
+### State
 
 ```python
 class State(rx.State):
@@ -131,7 +130,7 @@ The state defines all the variables (called **[vars]({vars.base_vars.path})**) i
 
 Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
 
-## Event Handlers
+### Event Handlers
 
 ```python
 def increment(self):
@@ -149,7 +148,7 @@ These actions are called **events**.
 
 Our counter app has two event handlers, `increment` and `decrement`.
 
-## User Interface (UI)
+### User Interface (UI)
 
 ```python
 def index():
@@ -205,7 +204,7 @@ In other words, the sequence goes like this:
 * `State.count` is incremented.
 * UI updates to reflect the new value of `State.count`.
 
-## Add pages
+### Add pages
 
 Next we define our app and add the counter component to the base route.
 
