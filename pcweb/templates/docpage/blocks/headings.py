@@ -92,7 +92,7 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
-        font_size=styles.H3_FONT_SIZE,
+        font_size=styles.H2_FONT_SIZE,
         font_weight=fw["subheading"],
         margin_top="1.5em",
         scroll_margin="5em",
@@ -104,7 +104,7 @@ def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
-        font_size=styles.H3_FONT_SIZE,
+        font_size=styles.H2_FONT_SIZE,
         font_weight=fw["subheading"],
         margin_top="1.5em",
         scroll_margin="5em",
