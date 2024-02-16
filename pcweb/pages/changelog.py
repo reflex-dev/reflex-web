@@ -64,6 +64,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-02-16",
+            "v0.4.0",
+            "Replace Chakra with Radix components",
+            [
+                "Entirely new core component library based on radix-ui",
+                "App-wide theming system",
+                "Enhanced support for upload and download",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.0",
+        ),
+        change(
             "2024-02-05",
             "v0.3.10",
             "Lucide Icons now available at rx.lucide.icon",
