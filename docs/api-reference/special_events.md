@@ -81,7 +81,12 @@ Download a file at a given path.
 Parameters:
 
 - `url`: The URL of the file to be downloaded.
+- `data`: The data to be downloaded. Should be `str` or `bytes`, `data:` URI, `PIL.Image`, or any state Var (to be converted to JSON).
 - `filename`: The desired filename of the downloaded file.
+
+```md alert
+`url` and `data` args are mutually exclusive, and at least one of them must be provided.
+```
 
 ```python demo
 rx.button("Download", on_click=rx.download(url="/reflex_logo.png", filename="different_name_logo.png"))

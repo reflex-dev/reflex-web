@@ -59,9 +59,11 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                     ("error", rx.icon(tag="ban")),
                 ),
             ),
-            rx.callout.text(
+            # This is a div to avoid <p> in a <p> issues.
+            rx.el.div(
                 markdown(title + " ") if title else "",
                 markdown(content),
+                class_name="rt-CalloutText",
             ),
             color_scheme=color,
             background_color = f"{rx.color(color, 3)}",
