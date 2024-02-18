@@ -19,7 +19,7 @@ If you want to let the users of your app download files from your server to thei
 For some basic usage, simply providing the path to your resource in a `rx.link` will work, and clicking the link will download or display the resource.
 
 ```python demo
-rx.link("Download", href="/reflex_logo.png")
+rx.link("Download", href="/reflex_banner.png")
 ```
 
 ### With `rx.download` event
@@ -31,7 +31,7 @@ The `rx.download` event also allows the download to be triggered from another ba
 ```python demo
 rx.button(
     "Download", 
-    on_click=rx.download(url="/reflex_logo.png"),
+    on_click=rx.download(url="/reflex_banner.png"),
 )
 ```
 
@@ -41,7 +41,7 @@ rx.button(
 rx.button(
     "Download and Rename", 
     on_click=rx.download(
-        url="/reflex_logo.png", 
+        url="/reflex_banner.png", 
         filename="different_name_logo.png"
     ),
 )

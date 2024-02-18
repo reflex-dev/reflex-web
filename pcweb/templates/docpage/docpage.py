@@ -159,7 +159,7 @@ def docpage_footer(path):
         rx.flex(
             rx.flex(
                 rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
-                rx.link("Gallery", color=rx.color("mauve", 11), underline="always", href="/gallery"),
+                rx.link("Gallery", color=rx.color("mauve", 11), underline="always", href="/docs/gallery"),
                 rx.link("Changelog", color=rx.color("mauve", 11), underline="always", href="/changelog"),
                 rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
                 rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),

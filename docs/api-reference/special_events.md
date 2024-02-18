@@ -89,5 +89,5 @@ Parameters:
 ```
 
 ```python demo
-rx.button("Download", on_click=rx.download(url="/reflex_logo.png", filename="different_name_logo.png"))
+rx.button("Download", on_click=rx.download(url="/reflex_banner.png", filename="different_name_logo.png"))
 ```

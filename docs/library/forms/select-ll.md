@@ -239,7 +239,7 @@ def form_select():
 ```python demo
 rx.card(
     rx.flex(
-        rx.image(src="/reflex_logo.png", width="100%", height="auto"),
+        rx.image(src="/reflex_banner.png", width="100%", height="auto"),
         rx.flex(
             rx.heading("Reflex Swag", size="4", margin_bottom="4px"),
             rx.heading("$99", size="6", margin_bottom="4px"),
