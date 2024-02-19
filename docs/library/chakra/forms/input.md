@@ -87,10 +87,10 @@ rx.chakra.password()
  ```python demo exec
  class InputFormState(rx.State):
 
-    form_data: dict = \{}
+    form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
-        \"""Handle the form submit.\"""
+        """Handle the form submit."""
         self.form_data = form_data
         return [rx.chakra.set_value(field_id, "") for field_id in form_data]
 
