@@ -81,20 +81,17 @@ We also provide a `rx.chakra.password` component as a shorthand for the password
 rx.chakra.password()
 ```
 
- You can also use forms in combination with inputs.
- This is useful for collecting multiple values with a single event handler and automatically supporting `Enter` key submit functionality that desktop users expect.
+You can also use forms in combination with inputs.
+This is useful for collecting multiple values with a single event handler and automatically supporting `Enter` key submit functionality that desktop users expect.
 
- ```python demo exec
- class InputFormState(rx.State):
-
+```python demo exec
+class InputFormState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
-        return [rx.chakra.set_value(field_id, "") for field_id in form_data]
-
-
+    
 def input_form_example():
     return rx.chakra.vstack(
         rx.chakra.form(
@@ -109,4 +106,5 @@ def input_form_example():
         rx.chakra.heading("Results"),
         rx.chakra.text(InputFormState.form_data.to_string()),
     )
- ```
+```
+
