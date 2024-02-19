@@ -94,7 +94,7 @@ rx.flex(
 Here is another example using the `accent` color with scales. The `accent` is the most dominant color in your theme.
 
 ```python demo
-rdxt.flex(
+rx.flex(
     rx.icon("zoom_in", size=18, color="var(--accent-1)"),
     rx.icon("zoom_in", size=18, color="var(--accent-2)"),
     rx.icon("zoom_in", size=18, color="var(--accent-3)"),
