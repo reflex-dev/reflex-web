@@ -6,7 +6,6 @@ from pcweb import constants, styles
 
 route = (
 """
-
 def index():
     return rx.text('Root Page')
 
