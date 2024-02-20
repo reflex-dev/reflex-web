@@ -7,32 +7,33 @@ def shorten_to_k(number):
         return "{:.0f}k+".format(number / 1000)
     else:
         return str(number)
+
+
 def github_desktop() -> rx.Component:
     return rx.link(
         rx.flex(
-            rx.image(
-                src="/companies/light/github.svg",
-                height="24px"
-            ),
+            rx.image(src="/companies/light/github.svg", height="24px"),
             rx.text(
                 "Github",
                 color=rx.color("mauve", 12),
             ),
             rx.text(
-                "14k",
+                "15k",
                 color=rx.color("violet", 9),
                 background=rx.color("violet", 4),
                 border_radius="5px",
                 padding="0px 3px",
             ),
             spacing="2",
-        style=button_style
+            style=button_style,
         ),
-        href="https://github.com/reflex-dev/reflex"
+        href="https://github.com/reflex-dev/reflex",
     )
 
+
 def github_mobile() -> rx.Component:
-    return rx.link(rx.flex(
+    return rx.link(
+        rx.flex(
             rx.icon(
                 "github",
                 color=rx.color("mauve", 9),
@@ -41,11 +42,11 @@ def github_mobile() -> rx.Component:
             style=button_style,
             border_radius="8px",
         ),
-        href="https://github.com/reflex-dev/reflex"
+        href="https://github.com/reflex-dev/reflex",
     )
+
 
 def github() -> rx.Component:
     return rx.fragment(
-        rx.desktop_only(github_desktop()),
-        rx.mobile_and_tablet(github_mobile())
+        rx.desktop_only(github_desktop()), rx.mobile_and_tablet(github_mobile())
     )
