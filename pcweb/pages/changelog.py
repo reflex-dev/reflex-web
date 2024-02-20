@@ -64,6 +64,16 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-02-19",
+            "v0.4.1",
+            "Fix Windows Hot-reload Issues",
+            [
+                "Fix browser error when triggering upload with no files selected",
+                "Fix regression: rx.link with is_external",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.1",
+        ),
+        change(
             "2024-02-16",
             "v0.4.0",
             "Replace Chakra with Radix components",
