@@ -26,17 +26,20 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.chakra.menu(
-            rx.chakra.menu_button("Menu"),
-            rx.chakra.menu_list(
-                rx.chakra.menu_item("Item 1"),
-                rx.chakra.menu_divider(),
-                rx.chakra.menu_item("Item 2"),
-                rx.chakra.menu_item("Item 3"),
+        rx.menu.root(
+            rx.menu.trigger(
+                rx.button("Menu"),
             ),
+            rx.menu.content(
+                rx.menu.item("item 1"),
+                rx.menu.separator(),
+                rx.menu.item("Item 2"),
+
+                rx.menu.item("Item 3"),
+                width="10rem"
+            ),
+
         ),
-        # position="fixed",
-        # top="0px",
         background_color="lightgray",
         padding="1em",
         height="4em",
@@ -57,14 +60,19 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.chakra.menu(
-            rx.chakra.menu_button("Menu"),
-            rx.chakra.menu_list(
-                rx.chakra.menu_item("Item 1"),
-                rx.chakra.menu_divider(),
-                rx.chakra.menu_item("Item 2"),
-                rx.chakra.menu_item("Item 3"),
+        rx.menu.root(
+            rx.menu.trigger(
+                rx.button("Menu"),
             ),
+            rx.menu.content(
+                rx.menu.item("item 1"),
+                rx.menu.separator(),
+                rx.menu.item("Item 2"),
+
+                rx.menu.item("Item 3"),
+                width="10rem"
+            ),
+
         ),
         position="fixed",
         top="0px",
@@ -120,14 +128,18 @@ def navbar():
             rx.heading("My App", font_size="2em"),
         ),
         rx.spacer(),
-        rx.chakra.menu(
-            rx.chakra.menu_button("Menu"),
-            rx.chakra.menu_list(
-                rx.chakra.menu_item("Item 1"),
-                rx.chakra.menu_divider(),
-                rx.chakra.menu_item("Item 2"),
-                rx.chakra.menu_item("Item 3"),
+        rx.menu.root(
+            rx.menu.trigger(
+                rx.button("Menu"),
             ),
+            rx.menu.content(
+                rx.menu.item("item 1"),
+                rx.menu.separator(),
+                rx.menu.item("Item 2"),
+
+                rx.menu.item("Item 3"),
+            ),
+
         ),
         position="fixed",
         top="0px",

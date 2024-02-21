@@ -50,10 +50,6 @@ class FilteredTableState(rx.State):
         yield rx.console_log(f"Filter set to: \{self.filter_expr}")
 
 
-def render_row(row):
-    return rx.chakra.tr(rx.chakra.td(row["name"]), rx.chakra.td(row["tags"]))
-
-
 def render_rows():
     return [
         rx.foreach(
@@ -64,11 +60,21 @@ def render_rows():
     ]
 
 
+def render_row(row):
+    return rx.table.row(rx.table.cell(row["name"]), rx.table.cell(row["tags"]))
+
+
 def render_table():
-    return rx.chakra.table_container(
-        rx.chakra.table(
-            rx.chakra.thead(rx.chakra.tr(*[rx.chakra.th(column) for column in RAW_DATA_COLUMNS])),
-            rx.chakra.tbody(*render_rows()),
+    return rx.container(
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    *[rx.table.column_header_cell(column) for column in RAW_DATA_COLUMNS]
+                )
+            ),
+            rx.table.body(
+                *render_rows()
+            )
         )
     )
 
@@ -78,9 +84,8 @@ def index() -> rx.Component:
         rx.box(
             rx.heading(
                 "Filter by tags:",
-                size="sm",
             ),
-            rx.chakra.input(
+            rx.input(
                 on_change=FilteredTableState.input_filter_on_change,
                 value=FilteredTableState.filter_expr,
                 debounce_timeout=1000,
@@ -90,6 +95,7 @@ def index() -> rx.Component:
             render_table(),
         ),
     )
+
 
 
 app = rx.App()
