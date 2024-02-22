@@ -138,39 +138,47 @@ class ComplexLocalStorageState(rx.State):
 
 
 def app_settings():
-    return rx.chakra.form(
+    return rx.form(
         rx.foreach(
             ComplexLocalStorageState.data.error_messages,
             rx.text,
         ),
-        rx.chakra.form_label(
-            "Theme",
-            rx.chakra.input(
-                value=ComplexLocalStorageState.data.theme,
-                on_change=lambda v: ComplexLocalStorageState.set_field("theme", v),
-            ),
-        ),
-        rx.chakra.form_label(
-            "Sidebar Visible",
-            rx.chakra.switch(
-                is_checked=ComplexLocalStorageState.data.sidebar_visible,
-                on_change=lambda v: ComplexLocalStorageState.set_field(
-                    "sidebar_visible",
-                    v,
+        rx.form.field(
+            rx.flex(
+                rx.form.label(
+                    "Theme",
+                    rx.input(
+                        value=ComplexLocalStorageState.data.theme,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "theme", v
+                        ),
+                    ),
                 ),
-            ),
-        ),
-        rx.chakra.form_label(
-            "Update Frequency (seconds)",
-            rx.chakra.number_input(
-                value=ComplexLocalStorageState.data.update_frequency,
-                on_change=lambda v: ComplexLocalStorageState.set_field(
-                    "update_frequency",
-                    v,
+                rx.form.label(
+                    "Sidebar Visible",
+                    rx.switch(
+                        is_checked=ComplexLocalStorageState.data.sidebar_visible,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "sidebar_visible",
+                            v,
+                        ),
+                    ),
                 ),
-            ),
+                rx.form.label(
+                    "Update Frequency (seconds)",
+                    rx.chakra.number_input(
+                        value=ComplexLocalStorageState.data.update_frequency,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "update_frequency",
+                            v,
+                        ),
+                    ),
+                ),
+                rx.button("Save", type="submit"),
+                gap=2,
+                direction="column",
+            )
         ),
-        rx.button("Save", type="submit"),
         on_submit=lambda _: ComplexLocalStorageState.save_settings(),
     )
 
