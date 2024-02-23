@@ -20,14 +20,11 @@ A toggle switch alternative to the checkbox.
 ## Basic Example
 
 ```python demo
-rx.text(
-    rx.flex(
-        rx.switch(default_checked=True),
-        "Sync Settings",
-        spacing="2",
-    )
+rx.flex(
+    rx.switch(default_checked=True),
+    rx.text("Sync Settings"),
+    spacing="2",
 )
-
 ```
 
 Here we set the `default_checked` prop to be `True` which sets the state of the switch when it is initially rendered.
