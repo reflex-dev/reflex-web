@@ -64,6 +64,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-02-26",
+            "v0.4.2",
+            "Syncronize local storage between tabs",
+            [
+                "Tuple type annotations are now respected index-wise",
+                "Substates are serialized individually",
+                "Better Image Serialization",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.2",
+        ),
+        change(
             "2024-02-19",
             "v0.4.1",
             "Fix Windows Hot-reload Issues",
