@@ -150,7 +150,7 @@ class State(rx.State):
     """The app state."""
     nodes: List[Dict[str, Any]] = initial_nodes
     edges: List[Dict[str, Any]] = initial_edges
-    
+
     def add_random_node(self):
         new_node_id = f'\{len(self.nodes) + 1\}'
         node_type = random.choice(['default'])
@@ -311,7 +311,7 @@ class ReactFlowState(rx.State):
     """The app state."""
     nodes: List[Dict[str, Any]] = initial_nodes
     edges: List[Dict[str, Any]] = initial_edges
-    
+
     def add_random_node(self):
         new_node_id = f'{len(self.nodes) + 1}'
         node_type = random.choice(['default'])
@@ -327,7 +327,6 @@ class ReactFlowState(rx.State):
             'position': {'x': x, 'y': y},
             'draggable': True,
         }
-        print(new_node)
         self.nodes.append(new_node)
 
     def clear_graph(self):
