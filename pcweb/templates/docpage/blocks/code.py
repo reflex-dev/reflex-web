@@ -4,6 +4,7 @@ import reflex as rx
 from pcweb.styles import text_colors as tc
 from pcweb import styles
 
+
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
@@ -46,6 +47,7 @@ def code_block_markdown(*children, **props):
     language = props.get("language", "none")
     return code_block(code=children[0], language=language)
 
+
 def doccmdoutput(
     command: str,
     output: str,
@@ -83,11 +85,11 @@ def doccmdoutput(
                 position="absolute",
                 top="0.5em",
                 right="0.5em",
-                color=rx.color('mauve', 4),
+                color=rx.color("mauve", 4),
                 background="transparent",
                 _hover={
                     "background": "transparent",
-                    "color": rx.color('violet', 4),
+                    "color": rx.color("violet", 4),
                 },
             ),
             direction="row",
@@ -101,7 +103,7 @@ def doccmdoutput(
                 output,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                # theme="a11y-dark",
+                theme="nord",
                 language="log",
                 code_tag_props={
                     "style": {
