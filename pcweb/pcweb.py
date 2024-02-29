@@ -54,7 +54,6 @@ for route in routes:
         route.component,
         route.path,
         route.title,
-        description="Performant, customizable web apps in pure Python. Deploy in seconds.",
         image="/previews/index_preview.png",
     )
 
