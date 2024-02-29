@@ -103,7 +103,6 @@ def changelog_content():
                 "Custom Reflex support directory (REFLEX_DIR)",
                 "Better support for native SQLAlchemy models",
                 "Avoid exposing unused _upload and _event endpoints",
-
             ],
             "https://github.com/reflex-dev/reflex/releases/tag/v0.3.10",
         ),
@@ -255,7 +254,9 @@ def changelog():
     return rx.center(
         rx.chakra.vstack(
             rx.chakra.box(
-                rx.heading("Changelog", font_size=styles.H1_FONT_SIZE, margin_bottom=".5em"),
+                rx.heading(
+                    "Changelog", font_size=styles.H1_FONT_SIZE, margin_bottom=".5em"
+                ),
                 rx.text(
                     "Keep up to date with the latest Reflex news.",
                     color=tc["docs"]["body"],
@@ -287,5 +288,5 @@ def changelog():
             padding_y="2em",
         ),
         width="100%",
-        margin_top="120px"
+        margin_top="120px",
     )

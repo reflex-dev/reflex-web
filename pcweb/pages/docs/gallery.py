@@ -382,7 +382,7 @@ def add_item(category):
         border_radius="1em",
         bg_color="white",
         padding="1em",
-        box_shadow= "rgba(38, 57, 77, .1) 0px 20px 30px -10px",
+        box_shadow="rgba(38, 57, 77, .1) 0px 20px 30px -10px",
         _hover={
             "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
         },
@@ -430,7 +430,7 @@ def sidebar_component_grid(tags):
                 _checked={
                     "color": "white",
                     "bg": "#5646ED",
-                }
+                },
             )
             for tag in tags
         ],

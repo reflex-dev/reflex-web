@@ -81,8 +81,7 @@ def get_components_from_metadata(current_doc):
 
 
 flexdown_docs = [
-    doc.replace("\\", "/")
-    for doc in flexdown.utils.get_flexdown_files("docs/")
+    doc.replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
 
 chakra_components = defaultdict(list)
@@ -102,7 +101,9 @@ def exec_blocks(doc, href):
     for block in blocks:
         block.render(env)
 
+
 outblocks = []
+
 
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
@@ -147,13 +148,12 @@ def get_component(doc: str, title: str):
         outblocks.append((d, route))
         return
 
-    return (docpage(set_path=route, t=to_title_case(title))(
+    return docpage(set_path=route, t=to_title_case(title))(
         lambda d=d, doc=doc: (get_toc(d, doc), xd.render(d, doc))
-    ))
+    )
 
 
 doc_routes = [gallery, library, resources] + apiref_pages
-
 
 
 for doc in sorted(flexdown_docs):
@@ -167,7 +167,9 @@ for doc in sorted(flexdown_docs):
         locals()["library_"] = library
 
     # Add the component to the nested namespaces.
-    build_nested_namespace(docs_ns, path, title, Route(path=route, title=title2, component=lambda: ""))
+    build_nested_namespace(
+        docs_ns, path, title, Route(path=route, title=title2, component=lambda: "")
+    )
 
     # Add the route to the list of routes.
 
@@ -176,7 +178,7 @@ for doc in sorted(flexdown_docs):
             for c in comp:
                 doc_routes.append(c)
         else:
-             doc_routes.append(comp)
+            doc_routes.append(comp)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns

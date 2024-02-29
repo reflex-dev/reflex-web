@@ -6,6 +6,7 @@ from __future__ import annotations
 import reflex as rx
 from reflex.base import Base
 
+
 class SidebarItem(Base):
     """A single item in the sidebar."""
 
@@ -36,4 +37,3 @@ class SidebarState(rx.State):
             else:
                 return 0
         return self._sidebar_index
-

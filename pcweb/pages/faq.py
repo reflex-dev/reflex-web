@@ -35,7 +35,9 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.chakra.span(doclink("deployment guide", href=hosting.deploy_quick_start.path)),
+            rx.chakra.span(
+                doclink("deployment guide", href=hosting.deploy_quick_start.path)
+            ),
             ".",
         ),
     },
@@ -77,7 +79,9 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.chakra.span(doclink("wrapping React", href=wrapping_react.overview.path)),
+            rx.chakra.span(
+                doclink("wrapping React", href=wrapping_react.overview.path)
+            ),
             " to learn more.",
         ),
     },
@@ -147,7 +151,7 @@ def faq():
         ),
         flex_direction="column",
         width="100%",
-        margin_top="120px"
+        margin_top="120px",
     )
 
 

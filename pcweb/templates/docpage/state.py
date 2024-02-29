@@ -15,6 +15,7 @@ class Feedback(rx.Model, table=True):
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     page: str
 
+
 class FeedbackState(rx.State):
     """The state for feedback components"""
 

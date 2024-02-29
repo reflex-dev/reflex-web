@@ -45,7 +45,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             "success": "grass",
             "warning": "amber",
             "error": "red",
-        }    
+        }
 
         color = colors.get(status, "blue")
 
@@ -53,7 +53,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             rx.callout.icon(
                 rx.match(
                     status,
-                     ("info", rx.icon(tag="info")),
+                    ("info", rx.icon(tag="info")),
                     ("success", rx.icon(tag="check-circle-2")),
                     ("warning", rx.icon(tag="alert-triangle")),
                     ("error", rx.icon(tag="ban")),
@@ -66,7 +66,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 class_name="rt-CalloutText",
             ),
             color_scheme=color,
-            background_color = f"{rx.color(color, 3)}",
+            background_color=f"{rx.color(color, 3)}",
             variant="soft",
             margin_top="1em",
             margin_bottom="1em",

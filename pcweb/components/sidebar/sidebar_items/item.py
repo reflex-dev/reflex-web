@@ -1,6 +1,6 @@
-
 from pcweb.route import Route
 from ..state import SidebarState, SidebarItem
+
 
 def create_item(route: Route, children=None):
     """Create a sidebar item from a route."""
@@ -20,4 +20,3 @@ def create_item(route: Route, children=None):
         names=route,
         children=list(map(create_item, children)),
     )
-

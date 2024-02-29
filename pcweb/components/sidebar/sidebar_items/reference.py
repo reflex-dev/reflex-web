@@ -1,13 +1,11 @@
 from .item import create_item, SidebarItem
 
+
 def get_sidebar_items_api_reference():
-    from pcweb.pages.docs import (
-        api_reference,
-        apiref
-    )
+    from pcweb.pages.docs import api_reference, apiref
 
     return [
-            create_item(
+        create_item(
             "API Reference",
             children=[
                 api_reference.cli,
@@ -15,9 +13,11 @@ def get_sidebar_items_api_reference():
                 api_reference.special_events,
                 api_reference.browser_storage,
                 api_reference.browser_javascript,
-            ] + apiref.pages
+            ]
+            + apiref.pages,
         )
     ]
+
 
 def get_sidebar_items_recipes():
     from pcweb.pages.docs import (
@@ -35,6 +35,7 @@ def get_sidebar_items_recipes():
             ],
         )
     ]
+
 
 def get_sidebar_items_tutorials():
     from pcweb.pages.docs import (

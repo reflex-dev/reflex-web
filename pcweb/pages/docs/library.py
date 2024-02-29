@@ -18,7 +18,7 @@ def component_grid():
                             rx.utils.format.to_title_case(c[0]),
                             href=get_component_link(category, c),
                             font_size="1em",
-                            color=rx.color("mauve", 12)
+                            color=rx.color("mauve", 12),
                         )
                         for c in component_list[category]
                     ],

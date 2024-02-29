@@ -717,7 +717,9 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                                 href=constants.ROADMAP_URL,
                             ),
                             rx.link(
-                                rx.chakra.menu_item("FAQ", style=styles.NAV_DROPDOWN_STYLE),
+                                rx.chakra.menu_item(
+                                    "FAQ", style=styles.NAV_DROPDOWN_STYLE
+                                ),
                                 href=faq.path,
                             ),
                             rx.chakra.menu_divider(),

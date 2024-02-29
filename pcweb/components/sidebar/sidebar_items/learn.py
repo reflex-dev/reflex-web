@@ -1,5 +1,5 @@
-
 from .item import create_item
+
 
 def get_sidebar_items_learn():
     from pcweb.pages.docs import (
@@ -29,6 +29,7 @@ def get_sidebar_items_learn():
         ),
     ]
     return items
+
 
 def get_sidebar_items_frontend():
     from pcweb.pages.docs import (
@@ -182,6 +183,7 @@ def get_sidebar_items_hosting():
         ),
     ]
     return items
+
 
 learn = get_sidebar_items_learn()
 frontend = get_sidebar_items_frontend()

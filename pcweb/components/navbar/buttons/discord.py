@@ -2,7 +2,6 @@ import reflex as rx
 from .style import button_style
 
 
-
 def discord() -> rx.Component:
     return rx.link(
         rx.flex(
@@ -13,5 +12,5 @@ def discord() -> rx.Component:
             style=button_style,
             border_radius="8px",
         ),
-        href="https://discord.gg/T5WSbC2YtQ"
+        href="https://discord.gg/T5WSbC2YtQ",
     )
