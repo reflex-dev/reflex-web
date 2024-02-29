@@ -12,12 +12,13 @@ demo_box_style = {
     "padding": "2em",
     "width": "100%",
     "overflow_x": "auto",
-    "border":f"2px solid {rx.color('mauve', 3)}",
-    "background_color":f"{rx.color('mauve', 2)}",
+    "border": f"2px solid {rx.color('mauve', 3)}",
+    "background_color": f"{rx.color('mauve', 2)}",
     "align_items": "center",
     "justify_content": "center",
 }
- 
+
+
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
@@ -32,6 +33,7 @@ def docdemobox(*children, **props) -> rx.Component:
         style=demo_box_style,
         **props,
     )
+
 
 def doccode(
     code: str,
@@ -68,6 +70,7 @@ def doccode(
         code=code,
         language=language,
     )
+
 
 def docdemo(
     code: str,
@@ -114,6 +117,7 @@ def docdemo(
         **props,
     )
 
+
 tab_style = {
     "color": "#494369",
     "font_weight": 600,
@@ -125,6 +129,7 @@ tab_style = {
         "border_radius": "8px",
     },
 }
+
 
 def docgraphing(
     code: str,
@@ -156,7 +161,6 @@ def docgraphing(
             color_scheme="purple",
             align="end",
             width="100%",
-            
         ),
         width="100%",
         padding_top="2em",

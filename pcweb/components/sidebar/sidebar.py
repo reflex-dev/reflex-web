@@ -54,45 +54,46 @@ def sidebar_leaf(
         rx.cond(
             item.link == url,
             sidebar_link(
-                rx.flex(rx.flex(
-                    rx.text(
-                            item.names, 
-                            font_size=styles.TEXT_FONT_SIZE, 
-                            color="#644FC1", 
-                            font_weight="500", 
-                            margin_left="0.25em"
-                        ), 
+                rx.flex(
+                    rx.flex(
+                        rx.text(
+                            item.names,
+                            font_size=styles.TEXT_FONT_SIZE,
+                            color="#644FC1",
+                            font_weight="500",
+                            margin_left="0.25em",
+                        ),
                         style=heading_style2,
                         margin_top="0.2em",
                         margin_bottom="0.2em",
                     ),
-                        padding_left= "0.5em",
-                        border_left="1.5px solid #644FC1",
+                    padding_left="0.5em",
+                    border_left="1.5px solid #644FC1",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
             ),
             sidebar_link(
-                    rx.flex(
-                        rx.text(
-                            item.names,
-                            color=rx.color("mauve", 11),
-                            _hover={
-                                "color": styles.ACCENT_COLOR,
-                                "text_decoration": "none",
-                            },
-                            transition="color 0.4s ease-in-out",
-                            margin_left="0.25em",
-                            margin_top="0.2em",
-                            margin_bottom="0.2em",
-                            width="100%",
-                        ),
-                        padding_left= "1em",
-                        border_left="1.5px solid #EEEDEF",
+                rx.flex(
+                    rx.text(
+                        item.names,
+                        color=rx.color("mauve", 11),
+                        _hover={
+                            "color": styles.ACCENT_COLOR,
+                            "text_decoration": "none",
+                        },
+                        transition="color 0.4s ease-in-out",
+                        margin_left="0.25em",
+                        margin_top="0.2em",
+                        margin_bottom="0.2em",
+                        width="100%",
                     ),
-                    _hover={"text_decoration": "none"},
-                    href=item.link,
+                    padding_left="1em",
+                    border_left="1.5px solid #EEEDEF",
                 ),
+                _hover={"text_decoration": "none"},
+                href=item.link,
+            ),
         ),
         border="none",
         width="100%",
@@ -121,11 +122,11 @@ def sidebar_icon(name):
 
     if name in mappings:
         return rx.icon(
-                tag=mappings[name], 
-                color=rx.color("mauve", 11), 
-                size=18, 
-                margin_right="0.5em"
-            )
+            tag=mappings[name],
+            color=rx.color("mauve", 11),
+            size=18,
+            margin_right="0.5em",
+        )
     else:
         return rx.fragment()
 
@@ -145,7 +146,7 @@ def sidebar_item_comp(
                     item.names,
                     color=rx.color("mauve", 11),
                     font_family=styles.SANS,
-                    font_weight="500", 
+                    font_weight="500",
                 ),
                 rx.cond(
                     item.names == "Radix UI",
@@ -176,7 +177,10 @@ def sidebar_item_comp(
             rx.chakra.accordion_panel(
                 rx.chakra.accordion(
                     rx.flex(
-                        *[sidebar_item_comp(item=child, index=index, url=url) for child in item.children],
+                        *[
+                            sidebar_item_comp(item=child, index=index, url=url)
+                            for child in item.children
+                        ],
                         align_items="start",
                         direction="column",
                     ),
@@ -233,48 +237,49 @@ def get_prev_next(url):
 
 def sidebar_category(name, icon, color, index):
     return rx.flex(
-            rx.button(
-                rx.icon(
-                    tag=icon,
-                    color = rx.color(color, 1),
-                    size=20,
-                    
-                ),
-                height="30px",
-                width="30px",
-                padding="0px",
-                border_radius= "6px",
-                color_scheme=color,
-                variant="classic",
-                align_items="center",
-                justify="center",
+        rx.button(
+            rx.icon(
+                tag=icon,
+                color=rx.color(color, 1),
+                size=20,
             ),
-            rx.text(
-                name,
-                color= rx.color("mauve", 11),
-                padding="0px 0px 0px 5px",
-            ),    
-            on_click=lambda: SidebarState.set_sidebar_index(index),
-            background=rx.cond(
-                SidebarState.sidebar_index == index,
-                "#F5EFFE",
-                "transparent",
-            ),
+            height="30px",
+            width="30px",
+            padding="0px",
+            border_radius="6px",
+            color_scheme=color,
+            variant="classic",
             align_items="center",
-            justify="start",
-            padding="10px 10px 10px 10px",
-            border_radius="0.5em",
-            width="100%",
-            cursor="pointer"
-        )
+            justify="center",
+        ),
+        rx.text(
+            name,
+            color=rx.color("mauve", 11),
+            padding="0px 0px 0px 5px",
+        ),
+        on_click=lambda: SidebarState.set_sidebar_index(index),
+        background=rx.cond(
+            SidebarState.sidebar_index == index,
+            "#F5EFFE",
+            "transparent",
+        ),
+        align_items="center",
+        justify="start",
+        padding="10px 10px 10px 10px",
+        border_radius="0.5em",
+        width="100%",
+        cursor="pointer",
+    )
+
 
 def sidebar_section(name):
     return rx.text(
         name,
-        color = rx.color("mauve", 12),
-        font_weight = "500",
+        color=rx.color("mauve", 12),
+        font_weight="500",
         padding="10px 10px 10px 10px",
     )
+
 
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
@@ -313,33 +318,50 @@ def sidebar_comp(
     api_reference_index: list[int],
     recipes_index: list[int],
     tutorials_index: list[int],
-    width: str = "100%"
+    width: str = "100%",
 ):
     return rx.flex(
         sidebar_category("Learn", "graduation-cap", "purple", 0),
         sidebar_category("Components", "layout-panel-left", "sky", 1),
-        sidebar_category("API Reference", "book-text","crimson", 2),
+        sidebar_category("API Reference", "book-text", "crimson", 2),
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
-            (0, rx.flex(
-                create_sidebar_section("Onboarding", learn, learn_index, url),
-                create_sidebar_section("UI", frontend, frontend_index, url),
-                create_sidebar_section("State", backend, backend_index, url),
-                create_sidebar_section("Hosting", hosting, hosting_index, url),
-                direction="column",
-            )),
-            (1, rx.flex(
-                create_sidebar_section("Core Components", component_lib, component_lib_index, url),
-                create_sidebar_section("Other Libraries", other_libs, other_libs_index, url),
-                direction="column",       
-            )),
-            (2, rx.flex(
-                create_sidebar_section("API Reference", api_reference, api_reference_index, url),
-                create_sidebar_section("Recipes", recipes, recipes_index, url),
-                create_sidebar_section("Tutorials", tutorials, tutorials_index, url),
-                direction="column",       
-            )),
+            (
+                0,
+                rx.flex(
+                    create_sidebar_section("Onboarding", learn, learn_index, url),
+                    create_sidebar_section("UI", frontend, frontend_index, url),
+                    create_sidebar_section("State", backend, backend_index, url),
+                    create_sidebar_section("Hosting", hosting, hosting_index, url),
+                    direction="column",
+                ),
+            ),
+            (
+                1,
+                rx.flex(
+                    create_sidebar_section(
+                        "Core Components", component_lib, component_lib_index, url
+                    ),
+                    create_sidebar_section(
+                        "Other Libraries", other_libs, other_libs_index, url
+                    ),
+                    direction="column",
+                ),
+            ),
+            (
+                2,
+                rx.flex(
+                    create_sidebar_section(
+                        "API Reference", api_reference, api_reference_index, url
+                    ),
+                    create_sidebar_section("Recipes", recipes, recipes_index, url),
+                    create_sidebar_section(
+                        "Tutorials", tutorials, tutorials_index, url
+                    ),
+                    direction="column",
+                ),
+            ),
         ),
         direction="column",
         align_items="left",
@@ -384,11 +406,11 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
             tutorials_index=tutorials_index,
-            width=width
+            width=width,
         ),
         width="100%",
         height="100%",
-        justify="end"
+        justify="end",
     )
 
 

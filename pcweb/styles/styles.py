@@ -150,7 +150,7 @@ BUTTON_LIGHT_NO_BACKGROUND = {
     "bg": "#FFFFFF",
     "padding_x": ".75em",
     "border_radius": "8px",
-    "color":tc["docs"]["body"],
+    "color": tc["docs"]["body"],
     "_hover": {
         "box_shadow": "0px 0px 0px 2px rgba(149, 128, 247, 0.60), 0px 2px 3px 0px rgba(3, 3, 11, 0.01), 0px 1px 2px 0px rgba(84, 82, 95, 0.12), 0px 0px 0px 1px rgba(32, 17, 126, 0.40) inset;",
     },

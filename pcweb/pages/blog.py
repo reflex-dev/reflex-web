@@ -35,7 +35,7 @@ def page(document) -> rx.Component:
             rx.text(meta["author"], size="3"),
             rx.text(" · "),
             rx.text(str(meta["date"]), size="3"),
-            padding_bottom="1em"
+            padding_bottom="1em",
         ),
         rx.image(
             src=f"{meta['image']}",
@@ -85,10 +85,7 @@ def component_grid():
                             meta["title"],
                             size="5",
                         ),
-                        rx.text(
-                            meta["description"],
-                            size="2"
-                        ),
+                        rx.text(meta["description"], size="2"),
                         rx.divider(),
                         rx.hstack(
                             rx.vstack(

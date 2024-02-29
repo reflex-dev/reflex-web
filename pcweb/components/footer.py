@@ -10,7 +10,7 @@ footer_item_style = {
     "font_family": styles.SANS,
     "font_weight": "500",
     "_hover": {"color": "#82799E"},
-    "color": "#AA9EC3"
+    "color": "#AA9EC3",
 }
 
 footer_style = {

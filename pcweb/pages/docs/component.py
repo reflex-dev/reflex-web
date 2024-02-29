@@ -15,8 +15,9 @@ from reflex.base import Base
 from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from ...templates.docpage import docdemobox 
+from ...templates.docpage import docdemobox
 from reflex.components.base.fragment import Fragment
+
 
 class Prop(Base):
     """Hold information about a prop."""
@@ -197,7 +198,18 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     from typing import Literal, _GenericAlias
 
     def render_select(prop):
-        if not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel", "DrawerRoot", "DrawerTrigger", "DrawerOverlay", "DrawerPortal", "DrawerContent", "DrawerClose"]:
+        if not rx.utils.types._issubclass(
+            component, (RadixThemesComponent, RadixPrimitiveComponent)
+        ) or component.__name__ in [
+            "Theme",
+            "ThemePanel",
+            "DrawerRoot",
+            "DrawerTrigger",
+            "DrawerOverlay",
+            "DrawerPortal",
+            "DrawerContent",
+            "DrawerClose",
+        ]:
             return rx.fragment()
         try:
             type_ = rx.utils.types.get_args(prop.type_)[0]
@@ -205,7 +217,13 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             return rx.fragment()
 
         try:
-            if issubclass(type_, bool) and prop.name not in ["open", "checked", "as_child", "default_open", "default_checked"]:
+            if issubclass(type_, bool) and prop.name not in [
+                "open",
+                "checked",
+                "as_child",
+                "default_open",
+                "default_checked",
+            ]:
                 name = get_id(f"{component.__qualname__}_{prop.name}")
                 PropDocsState.add_var(name, bool, False)
                 var = getattr(PropDocsState, name)
@@ -229,38 +247,35 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         prop_dict[prop.name] = var
 
         return rx.select.root(
-                rx.select.trigger(width="8em"),
-                rx.select.content(
-                    rx.select.group(
-                        *[rx.select.item(item, value=item, _hover={"background": f"var(--{item}-9)"} if prop.name == "color_scheme" else None) for item in list(map(str, type_.__args__))]
-                    ),
+            rx.select.trigger(width="8em"),
+            rx.select.content(
+                rx.select.group(
+                    *[
+                        rx.select.item(
+                            item,
+                            value=item,
+                            _hover={"background": f"var(--{item}-9)"}
+                            if prop.name == "color_scheme"
+                            else None,
+                        )
+                        for item in list(map(str, type_.__args__))
+                    ]
                 ),
-                value=var,
-                on_change=setter,
-            )
+            ),
+            value=var,
+            on_change=setter,
+        )
 
     # Return the docs for the prop.
     return [
-        rx.table.cell(
-            rx.code(prop.name),
-            padding_left="1em",
-            justify="start"
-        ),
+        rx.table.cell(rx.code(prop.name), padding_left="1em", justify="start"),
         rx.table.cell(
             rx.badge(type_, color_scheme=color, variant="solid"),
             padding_left="1em",
-            justify="start"
+            justify="start",
         ),
-        rx.table.cell(
-            markdown(prop.description),
-            padding_left="1em",
-            justify="start"
-        ),
-        rx.table.cell(
-            render_select(prop),
-            padding_left="1em",
-            justify="start"
-        ),
+        rx.table.cell(markdown(prop.description), padding_left="1em", justify="start"),
+        rx.table.cell(render_select(prop), padding_left="1em", justify="start"),
     ]
 
 
@@ -483,7 +498,6 @@ def generate_props(src, component, comp):
             padding_y=".5em",
         )
 
-
     padding_left = "1em"
 
     prop_dict = {}
@@ -496,8 +510,19 @@ def generate_props(src, component, comp):
     try:
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
-        
-        elif not rx.utils.types._issubclass(component, (RadixThemesComponent, RadixPrimitiveComponent)) or component.__name__ in ["Theme", "ThemePanel",  "DrawerRoot", "DrawerTrigger", "DrawerOverlay", "DrawerPortal", "DrawerContent", "DrawerClose"]:
+
+        elif not rx.utils.types._issubclass(
+            component, (RadixThemesComponent, RadixPrimitiveComponent)
+        ) or component.__name__ in [
+            "Theme",
+            "ThemePanel",
+            "DrawerRoot",
+            "DrawerTrigger",
+            "DrawerOverlay",
+            "DrawerPortal",
+            "DrawerContent",
+            "DrawerClose",
+        ]:
             comp = rx.fragment()
 
         else:
@@ -512,15 +537,26 @@ def generate_props(src, component, comp):
         comp = rx.fragment()
 
     return rx.vstack(
-        docdemobox(comp) if not isinstance(comp, Fragment)  else "",
+        docdemobox(comp) if not isinstance(comp, Fragment) else "",
         rx.scroll_area(
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        rx.table.column_header_cell("Prop", padding_left=padding_left, justify="start"),
-                        rx.table.column_header_cell("Type", padding_left=padding_left, justify="start"),
-                        rx.table.column_header_cell("Description", padding_left=padding_left, justify="start", width="40%"),
-                        rx.table.column_header_cell("Values", padding_left=padding_left, justify="start"),
+                        rx.table.column_header_cell(
+                            "Prop", padding_left=padding_left, justify="start"
+                        ),
+                        rx.table.column_header_cell(
+                            "Type", padding_left=padding_left, justify="start"
+                        ),
+                        rx.table.column_header_cell(
+                            "Description",
+                            padding_left=padding_left,
+                            justify="start",
+                            width="40%",
+                        ),
+                        rx.table.column_header_cell(
+                            "Values", padding_left=padding_left, justify="start"
+                        ),
                     )
                 ),
                 body,
@@ -529,7 +565,7 @@ def generate_props(src, component, comp):
                 size="1",
             ),
             max_height="20em",
-        )
+        ),
     )
 
 
@@ -574,15 +610,25 @@ def generate_event_triggers(comp):
         rx.table.root(
             rx.table.header(
                 rx.table.row(
-                        rx.table.column_header_cell("Trigger", padding_left=padding_left, justify="start"),
-                        rx.table.column_header_cell("Description", padding_left=padding_left, justify="start"),
+                    rx.table.column_header_cell(
+                        "Trigger", padding_left=padding_left, justify="start"
+                    ),
+                    rx.table.column_header_cell(
+                        "Description", padding_left=padding_left, justify="start"
+                    ),
                 ),
             ),
             rx.table.body(
                 *[
                     rx.table.row(
-                        rx.table.cell(rx.code(event), padding_left=padding_left, justify="start"),
-                        rx.table.cell(rx.text(EVENTS[event]["description"]), padding_left=padding_left, justify="start"),
+                        rx.table.cell(
+                            rx.code(event), padding_left=padding_left, justify="start"
+                        ),
+                        rx.table.cell(
+                            rx.text(EVENTS[event]["description"]),
+                            padding_left=padding_left,
+                            justify="start",
+                        ),
                     )
                     for event in custom_events
                 ]
@@ -600,7 +646,9 @@ def generate_valid_children(comp):
     if not comp._valid_children:
         return rx.text("")
 
-    valid_children = [rx.chakra.wrap_item(rx.code(child)) for child in comp._valid_children]
+    valid_children = [
+        rx.chakra.wrap_item(rx.code(child)) for child in comp._valid_children
+    ]
     return rx.vstack(
         rx.heading("Valid Children", font_size="1em"),
         rx.chakra.wrap(*valid_children),
@@ -650,57 +698,61 @@ def multi_docs(path, comp, component_list, title):
     components = [component_docs(component, comp) for component in component_list[1:]]
 
     fname = path.strip("/") + ".md"
-    ll_doc_exists = os.path.exists(
-        fname.replace(".md", "-ll.md")
-    )
+    ll_doc_exists = os.path.exists(fname.replace(".md", "-ll.md"))
 
     non_active_style = {
-        "padding":".5em",
-        "color":rx.color("mauve", 9),
-        "width": "7em"
+        "padding": ".5em",
+        "color": rx.color("mauve", 9),
+        "width": "7em",
     }
 
     active_style = {
-        "padding":".5em",
-        "background":rx.color("mauve", 1),
-        "color":rx.color("mauve", 12),
-        "box_shadow":"0px 4px 4px -4px rgba(194, 198, 215, 0.30), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
-        "border_radius":"8px",
-        "width": "7em"
+        "padding": ".5em",
+        "background": rx.color("mauve", 1),
+        "color": rx.color("mauve", 12),
+        "box_shadow": "0px 4px 4px -4px rgba(194, 198, 215, 0.30), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
+        "border_radius": "8px",
+        "width": "7em",
     }
 
     def links(current_page, ll_doc_exists, path):
         if ll_doc_exists:
             if current_page == "hl":
                 return rx.flex(
-                        rx.box(flex_grow='1'),
-                        rx.flex(
-                            rx.link(rx.center(rx.text("Core"), style=active_style)),
-                            rx.link(rx.center(rx.text("Internal"), style=non_active_style), href=path+"/internal"),
-                            spacing="2",
-                            padding=".5em",
-                            background=rx.color("mauve", 2),
-                            border_radius="8px",
-                            align_items="center",
-                            justify_items="center"
+                    rx.box(flex_grow="1"),
+                    rx.flex(
+                        rx.link(rx.center(rx.text("Core"), style=active_style)),
+                        rx.link(
+                            rx.center(rx.text("Internal"), style=non_active_style),
+                            href=path + "/internal",
                         ),
-                        margin_bottom=".5em"
-                    )
+                        spacing="2",
+                        padding=".5em",
+                        background=rx.color("mauve", 2),
+                        border_radius="8px",
+                        align_items="center",
+                        justify_items="center",
+                    ),
+                    margin_bottom=".5em",
+                )
             else:
                 return rx.flex(
-                        rx.box(flex_grow='1'),
-                        rx.flex(
-                            rx.link(rx.center(rx.text("Core"), style=non_active_style), href=path),
-                            rx.link(rx.center(rx.text("Internal"), style=active_style)),
-                            spacing="2",
-                            padding=".5em",
-                            background=rx.color("mauve", 2),
-                            border_radius="8px",
-                            align_items="center",
-                            justify_items="center"
+                    rx.box(flex_grow="1"),
+                    rx.flex(
+                        rx.link(
+                            rx.center(rx.text("Core"), style=non_active_style),
+                            href=path,
                         ),
-                        margin_bottom=".5em"
-                    )
+                        rx.link(rx.center(rx.text("Internal"), style=active_style)),
+                        spacing="2",
+                        padding=".5em",
+                        background=rx.color("mauve", 2),
+                        border_radius="8px",
+                        align_items="center",
+                        justify_items="center",
+                    ),
+                    margin_bottom=".5em",
+                )
         return rx.fragment()
 
     @docpage(set_path=path, t=title)
@@ -712,10 +764,10 @@ def multi_docs(path, comp, component_list, title):
             h1_comp(text="API Reference"),
             rx.vstack(*components),
             direction="column",
-            width="100%"
+            width="100%",
         )
 
-    @docpage(set_path=path+"/internal", t=title)
+    @docpage(set_path=path + "/internal", t=title)
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
@@ -727,10 +779,10 @@ def multi_docs(path, comp, component_list, title):
             h1_comp(text="API Reference"),
             rx.vstack(*components),
             direction="column",
-            width="100%"
+            width="100%",
         )
 
     if ll_doc_exists:
         return (out, ll)
-    else: 
-        return (out)
+    else:
+        return out

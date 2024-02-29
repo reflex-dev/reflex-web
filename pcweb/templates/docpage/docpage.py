@@ -32,125 +32,130 @@ def doc_section(*contents):
         width="100%",
     )
 
+
 def feedback_content(icon, score):
     return rx.flex(
-            rx.button(
-                icon,
-                radius="full",
-                variant="soft"
-            ),
-            rx.box(
-                rx.form(
-                    rx.flex(
-                        rx.input(
-                            placeholder="Contact Info (Optional)",
-                            _type = "email",
-                            name = "email"
-                        ),
-                        rx.text_area(
-                            placeholder="Write a comment…",
-                            style={"height": 80},
-                            name = "feedback"
-                        ),
-                        spacing="1",
-                        direction="column",
+        rx.button(icon, radius="full", variant="soft"),
+        rx.box(
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="Contact Info (Optional)",
+                        _type="email",
+                        name="email",
                     ),
-                    rx.popover.close(
-                        rx.flex(
-                            rx.button(
-                                "Send Feedback",
-                                size="1",
-                                width="100%",
-                                type="submit"
-                            ),
-                            spacing="3",
-                            margin_top="12px",
-                            justify="between",
-                        )
+                    rx.text_area(
+                        placeholder="Write a comment…",
+                        style={"height": 80},
+                        name="feedback",
                     ),
-                    on_submit=lambda feedback: FeedbackState.handle_submit(feedback, score),
+                    spacing="1",
+                    direction="column",
                 ),
-                flex_grow="1",
+                rx.popover.close(
+                    rx.flex(
+                        rx.button(
+                            "Send Feedback", size="1", width="100%", type="submit"
+                        ),
+                        spacing="3",
+                        margin_top="12px",
+                        justify="between",
+                    )
+                ),
+                on_submit=lambda feedback: FeedbackState.handle_submit(feedback, score),
             ),
-            spacing="3",
-        )
+            flex_grow="1",
+        ),
+        spacing="3",
+    )
 
 
 def feedback(text, icon, score):
     return rx.popover.root(
-    rx.popover.trigger(
-        rx.flex(
-            icon,   
-            text,
-            color=rx.color("mauve", 9),
-            border=f"1px solid {rx.color('mauve', 9)}",
-            align="center",
-            justify="center",
-            border_radius="5px",
-            padding="0px 10px",
-            spacing="2",
-        )
-    ),
-    rx.popover.content(
-        feedback_content(icon, score),
-        style={"width": 360},
-    ),
-    on_open_change=lambda change: FeedbackState.feedback_change(change, score),
-    open=FeedbackState.feedback_open[score]
-)
+        rx.popover.trigger(
+            rx.flex(
+                icon,
+                text,
+                color=rx.color("mauve", 9),
+                border=f"1px solid {rx.color('mauve', 9)}",
+                align="center",
+                justify="center",
+                border_radius="5px",
+                padding="0px 10px",
+                spacing="2",
+            )
+        ),
+        rx.popover.content(
+            feedback_content(icon, score),
+            style={"width": 360},
+        ),
+        on_open_change=lambda change: FeedbackState.feedback_change(change, score),
+        open=FeedbackState.feedback_open[score],
+    )
+
 
 def docpage_footer(path):
     return rx.flex(
         rx.divider(size="4"),
-        rx.flex( 
+        rx.flex(
             rx.flex(
                 rx.text(
-                    "Did you find this useful?", 
-                    color = rx.color("mauve", 12),
+                    "Did you find this useful?",
+                    color=rx.color("mauve", 12),
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
                 feedback(
-                    text="No", 
-                    icon=rx.icon(tag="thumbs_down", color=rx.color("mauve", 9), size=12), 
+                    text="No",
+                    icon=rx.icon(
+                        tag="thumbs_down", color=rx.color("mauve", 9), size=12
+                    ),
                     score=0,
                 ),
                 feedback(
-                    text="Yes", 
-                    icon=rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=12), 
+                    text="Yes",
+                    icon=rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=12),
                     score=1,
                 ),
                 align_items="center",
-                spacing="2"
+                spacing="2",
             ),
             rx.box(
-                flex_grow='1',
+                flex_grow="1",
             ),
             rx.divider(size="4", orientation="vertical"),
             rx.flex(
-                rx.desktop_only(rx.link(rx.flex(
-                    "Raise an issue",
-                    color=rx.color("mauve", 9),
-                    border=f"1px solid {rx.color('mauve', 9)}",
-                    align="center",
-                    justify="center",
-                    border_radius="5px",
-                    padding="0px 10px",
-                    white_space="nowrap",
-                    
-                ), href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}")),
-                rx.desktop_only(rx.link(rx.flex(
-                    "Edit this page",
-                    color=rx.color("mauve", 9),
-                    border=f"1px solid {rx.color('mauve', 9)}",
-                    align="center",
-                    justify="center",
-                    border_radius="5px",
-                    padding="0px 10px",
-                    white_space="nowrap",
-                    
-                ), href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md")),
-                spacing="2"
+                rx.desktop_only(
+                    rx.link(
+                        rx.flex(
+                            "Raise an issue",
+                            color=rx.color("mauve", 9),
+                            border=f"1px solid {rx.color('mauve', 9)}",
+                            align="center",
+                            justify="center",
+                            border_radius="5px",
+                            padding="0px 10px",
+                            white_space="nowrap",
+                        ),
+                        href=f"https://github.com/reflex-dev/reflex/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}",
+                    )
+                ),
+                rx.desktop_only(
+                    rx.link(
+                        rx.flex(
+                            "Edit this page",
+                            color=rx.color("mauve", 9),
+                            border=f"1px solid {rx.color('mauve', 9)}",
+                            align="center",
+                            justify="center",
+                            border_radius="5px",
+                            padding="0px 10px",
+                            white_space="nowrap",
+                        ),
+                        href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    )
+                ),
+                spacing="2",
             ),
             align_items="center",
             width="100%",
@@ -158,47 +163,69 @@ def docpage_footer(path):
         rx.divider(size="4"),
         rx.flex(
             rx.flex(
-                rx.link("Home", color=rx.color("mauve", 11), underline="always", href="/"),
-                rx.link("Gallery", color=rx.color("mauve", 11), underline="always", href="/docs/gallery"),
-                rx.link("Changelog", color=rx.color("mauve", 11), underline="always", href="/changelog"),
-                rx.link("Introduction", color=rx.color("mauve", 11), underline="always", href="/docs/getting-started/introduction"),
-                rx.link("Hosting", color=rx.color("mauve", 11), underline="always", href="/docs/hosting/deploy-quick-start/"),
+                rx.link(
+                    "Home", color=rx.color("mauve", 11), underline="always", href="/"
+                ),
+                rx.link(
+                    "Gallery",
+                    color=rx.color("mauve", 11),
+                    underline="always",
+                    href="/docs/gallery",
+                ),
+                rx.link(
+                    "Changelog",
+                    color=rx.color("mauve", 11),
+                    underline="always",
+                    href="/changelog",
+                ),
+                rx.link(
+                    "Introduction",
+                    color=rx.color("mauve", 11),
+                    underline="always",
+                    href="/docs/getting-started/introduction",
+                ),
+                rx.link(
+                    "Hosting",
+                    color=rx.color("mauve", 11),
+                    underline="always",
+                    href="/docs/hosting/deploy-quick-start/",
+                ),
                 spacing="2",
-                flex_shrink=0
+                flex_shrink=0,
             ),
             rx.box(
-                flex_grow='1',
+                flex_grow="1",
             ),
             rx.flex(
                 rx.link(
                     rx.image(
                         src="/companies/light/github.svg",
                     ),
-                    href="https://github.com/reflex-dev/reflex"
+                    href="https://github.com/reflex-dev/reflex",
                 ),
                 rx.link(
-                rx.image(
-                    src="/companies/light/twitter.svg",
-                ),
-                href="https://twitter.com/getreflex"
-                ),
-                rx.link(
-                rx.image(
-                    src="/companies/light/discord.svg",
-                ),
-                href="https://discord.gg/T5WSbC2YtQ"
+                    rx.image(
+                        src="/companies/light/twitter.svg",
+                    ),
+                    href="https://twitter.com/getreflex",
                 ),
                 rx.link(
-                rx.image(
-                    src="/companies/light/linkedin.svg",
-                ),
-                href="https://www.linkedin.com/company/reflex-dev"
+                    rx.image(
+                        src="/companies/light/discord.svg",
+                    ),
+                    href="https://discord.gg/T5WSbC2YtQ",
                 ),
                 rx.link(
-                rx.image(
-                    src="/companies/light/yc.svg",
+                    rx.image(
+                        src="/companies/light/linkedin.svg",
+                    ),
+                    href="https://www.linkedin.com/company/reflex-dev",
                 ),
-                href="https://www.ycombinator.com/companies/reflex"
+                rx.link(
+                    rx.image(
+                        src="/companies/light/yc.svg",
+                    ),
+                    href="https://www.ycombinator.com/companies/reflex",
                 ),
                 spacing="2",
             ),
@@ -213,7 +240,11 @@ def docpage_footer(path):
 
 def breadcrumb(path):
     # Split the path into segments, removing 'docs' and capitalizing each segment
-    segments = [segment.capitalize() for segment in path.split('/') if segment and segment != 'docs']
+    segments = [
+        segment.capitalize()
+        for segment in path.split("/")
+        if segment and segment != "docs"
+    ]
 
     # Initialize an empty list to store the breadcrumbs and their separators
     breadcrumbs = []
@@ -232,22 +263,26 @@ def breadcrumb(path):
 
 
 def get_headings(comp):
-     """Get the strings from markdown component."""
-     if isinstance(comp, mistletoe.block_token.Heading):
-         heading_text = "".join(token.content for token in comp.children if hasattr(token, "content"))
-         return [(comp.level, heading_text)]
+    """Get the strings from markdown component."""
+    if isinstance(comp, mistletoe.block_token.Heading):
+        heading_text = "".join(
+            token.content for token in comp.children if hasattr(token, "content")
+        )
+        return [(comp.level, heading_text)]
 
-     # Recursively get the strings from the children.
-     if not hasattr(comp, "children"):
-         return []
+    # Recursively get the strings from the children.
+    if not hasattr(comp, "children"):
+        return []
 
-     headings = []
-     for child in comp.children:
-         headings.extend(get_headings(child))
-     return headings
+    headings = []
+    for child in comp.children:
+        headings.extend(get_headings(child))
+    return headings
+
 
 def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+
     component_list = component_list or []
     component_list = component_list[1:]
 
@@ -265,7 +300,11 @@ def get_toc(source, href, component_list=None):
 
     content_pieces = []
     for block in blocks:
-        if not isinstance(block, flexdown.blocks.MarkdownBlock) or len(block.lines) == 0 or not block.lines[0].startswith("#"):
+        if (
+            not isinstance(block, flexdown.blocks.MarkdownBlock)
+            or len(block.lines) == 0
+            or not block.lines[0].startswith("#")
+        ):
             continue
         # Now we should have all the env entries we need
         content = block.get_content(env)
@@ -282,6 +321,7 @@ def get_toc(source, href, component_list=None):
     for component in component_list:
         headings.append((2, component.__name__))
     return headings
+
 
 def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
@@ -371,69 +411,97 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
 
             toc = []
             if not isinstance(contents, rx.Component):
-                comp = contents(*args, **kwargs)   
+                comp = contents(*args, **kwargs)
             else:
                 comp = contents
 
             if isinstance(comp, tuple):
-                 toc, comp = comp
+                toc, comp = comp
 
             # Return the templated page.
             return rx.flex(
                 navbar(sidebar=nav_sidebar),
-                rx.flex( 
+                rx.flex(
                     rx.box(
-                            sidebar,
-                            margin_top="120px",
-                            margin_x="2em",
-                            height="100%",
-                            width="25%",
-                            display=["none", "none", "none", "none", "flex", "flex"],
-                            flex_shrink=0,
+                        sidebar,
+                        margin_top="120px",
+                        margin_x="2em",
+                        height="100%",
+                        width="25%",
+                        display=["none", "none", "none", "none", "flex", "flex"],
+                        flex_shrink=0,
                     ),
                     rx.box(
-                            rx.box(
-                                breadcrumb(path),
-                                margin_top="120px", 
-                                margin_bottom="20px"
-                            ),
-                            rx.box(comp),
-                            rx.hstack(
-                                *links,
-                                justify="between",
-                                margin_top="2em",
-                                margin_bottom="4em",
-                            ),
-                            rx.spacer(),
-                            rx.box(height="2em"),
-                            docpage_footer(path),
-                            border_left= ["none", "none", "none", "none", "none", f"1px solid {rx.color('mauve', 4)};"],
-                            padding_left=styles.PADDING_X,
-                            padding_right=styles.PADDING_X,
-                            width=["100%", "100%", "100%", "100%", "75%", "60%"],
-                            height="100%",
+                        rx.box(
+                            breadcrumb(path), margin_top="120px", margin_bottom="20px"
                         ),
+                        rx.box(comp),
+                        rx.hstack(
+                            *links,
+                            justify="between",
+                            margin_top="2em",
+                            margin_bottom="4em",
+                        ),
+                        rx.spacer(),
+                        rx.box(height="2em"),
+                        docpage_footer(path),
+                        border_left=[
+                            "none",
+                            "none",
+                            "none",
+                            "none",
+                            "none",
+                            f"1px solid {rx.color('mauve', 4)};",
+                        ],
+                        padding_left=styles.PADDING_X,
+                        padding_right=styles.PADDING_X,
+                        width=["100%", "100%", "100%", "100%", "75%", "60%"],
+                        height="100%",
+                    ),
                     rx.box(
-                            rx.flex(
-                                *[
-                                    rx.link(rx.text(text, color=rx.color("mauve", 12), font_weight="500"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 1
-                                    else rx.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"), href=path+"#"+text.lower().replace(" ", "-") ) if level == 2
-                                    else rx.link(rx.text(text, color=rx.color("mauve", 11), font_weight="400"),href=path+"#"+text.lower().replace(" ", "-") )
-                                    for level, text in toc
-                                ],
-                                direction="column",
-                                width="100%",
-                                position="fixed",
-                                spacing="2",
-                                justify="start"
-                            ),
-                            margin_top="120px",
-                            width="15%",
-                            height="100%",
-                            display=["none", "none", "none", "none", "none", "flex"],
-                            flex_shrink=0
+                        rx.flex(
+                            *[
+                                rx.link(
+                                    rx.text(
+                                        text,
+                                        color=rx.color("mauve", 12),
+                                        font_weight="500",
+                                    ),
+                                    href=path + "#" + text.lower().replace(" ", "-"),
+                                )
+                                if level == 1
+                                else rx.link(
+                                    rx.text(
+                                        text,
+                                        color=rx.color("mauve", 11),
+                                        font_weight="400",
+                                    ),
+                                    href=path + "#" + text.lower().replace(" ", "-"),
+                                )
+                                if level == 2
+                                else rx.link(
+                                    rx.text(
+                                        text,
+                                        color=rx.color("mauve", 11),
+                                        font_weight="400",
+                                    ),
+                                    href=path + "#" + text.lower().replace(" ", "-"),
+                                )
+                                for level, text in toc
+                            ],
+                            direction="column",
+                            width="100%",
+                            position="fixed",
+                            spacing="2",
+                            justify="start",
                         ),
-                    background = "#FFF",
+                        margin_top="120px",
+                        width="15%",
+                        height="100%",
+                        display=["none", "none", "none", "none", "none", "flex"],
+                        flex_shrink=0,
+                    ),
+                    background="#FFF",
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -442,9 +510,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-               background = "#FFF",
-               width = "100%",
-               justify="center"
+                background="#FFF",
+                width="100%",
+                justify="center",
             )
 
         # Return the route.
@@ -519,7 +587,7 @@ def used_component(
             high_contrast=high_contrast,
             **kwargs,
         )
-  
+
     elif components_passed is None and disabled is True:
         return component_used(
             color_scheme=color_scheme,
@@ -528,7 +596,7 @@ def used_component(
             disabled=True,
             **kwargs,
         )
-   
+
     else:
         return component_used(
             components_passed,
@@ -640,7 +708,9 @@ def style_grid(
             spacing="3",
         ),
         rx.select.root(
-            rx.select.trigger(rx.button(size="2", on_click=RadixDocState.change_color())),
+            rx.select.trigger(
+                rx.button(size="2", on_click=RadixDocState.change_color())
+            ),
             rx.select.content(
                 rx.select.group(
                     rx.select.label("Colors"),

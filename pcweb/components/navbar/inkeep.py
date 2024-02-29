@@ -11,6 +11,7 @@ from pcweb import constants, styles
 from pcweb.components.logo import navbar_logo
 from reflex.vars import ImportVar, Var
 
+
 class Search(rx.Component):
     tag = "InkeepEmbeddedChat"
 
@@ -138,4 +139,3 @@ const inkeepEmbeddedChatProps = {
 
 
 inkeep = Search.create
-

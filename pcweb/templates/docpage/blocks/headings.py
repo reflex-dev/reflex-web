@@ -4,6 +4,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.styles import font_weights as fw
 
+
 def h_comp_common(
     text: rx.Var[str],
     heading: str,
@@ -11,7 +12,7 @@ def h_comp_common(
     font_weight: str,
     margin_top: str,
     scroll_margin: str,
-    convert_to_str: bool = False
+    convert_to_str: bool = False,
 ) -> rx.Component:
     if convert_to_str:
         id_ = text.to(list[str])[0].lower().split().join("-")
@@ -37,11 +38,11 @@ def h_comp_common(
                     _hover={
                         "color": rx.color("violet", 9),
                         "transition": "transform 0.25s ease;",
-                        "transform": "rotate(180deg);"
+                        "transform": "rotate(180deg);",
                     },
                 ),
                 align_items="center",
-                spacing="3"
+                spacing="3",
             ),
             _hover={
                 "cursor": "pointer",
@@ -52,10 +53,7 @@ def h_comp_common(
             margin_bottom="0.5em",
         ),
         rx.flex(
-            rx.divider(size="4"),
-            margin_top=".5em",
-            margin_bottom="1em",
-            width="100%"
+            rx.divider(size="4"), margin_top=".5em", margin_bottom="1em", width="100%"
         ),
         margin_top=margin_top,
         margin_bottom=margin_top,
@@ -73,6 +71,7 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
         margin_top="1.5em",
         scroll_margin="4em",
     )
+
 
 @rx.memo
 def h1_comp_xd(text: rx.Var[str]) -> rx.Component:

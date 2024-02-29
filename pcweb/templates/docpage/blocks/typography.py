@@ -4,6 +4,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.styles import colors as c
 
+
 def definition(title: str, *children) -> rx.Component:
     """Create a definition for a doc page.
 
@@ -25,6 +26,7 @@ def definition(title: str, *children) -> rx.Component:
             "border": f"2px solid {c['violet'][200]}",
         },
     )
+
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
