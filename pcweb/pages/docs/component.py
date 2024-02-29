@@ -232,7 +232,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 rx.select.trigger(width="8em"),
                 rx.select.content(
                     rx.select.group(
-                        *[rx.select.item(item, value=item) for item in list(map(str, type_.__args__))],
+                        *[rx.select.item(item, value=item, _hover={"background": f"var(--{item}-9)"} if prop.name == "color_scheme" else None) for item in list(map(str, type_.__args__))]
                     ),
                 ),
                 value=var,
