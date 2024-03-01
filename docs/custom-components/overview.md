@@ -16,7 +16,7 @@ It is straightforward to create accounts and API tokens with PyPI. There is offi
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_register.png", width="400px"),
+  rx.image(src="/custom_components/pypi_register.png", width="400px", border_radius="15px", border="1px solid"),
 )
 ```
 
@@ -24,7 +24,7 @@ A user can use username and password to authenticate with PyPI when publishing. 
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_account_settings.png", width="400px"),
+  rx.image(src="/custom_components/pypi_account_settings.png", width="400px", border_radius="15px", border="1px solid"),
 )
 ```
 
@@ -32,7 +32,7 @@ Scroll down to the API tokens section and click on the "Add API token" button. F
 
 ```python eval
 rx.center(
-  rx.image(src="/custom_components/pypi_api_tokens.png", width="700px"),
+  rx.image(src="/custom_components/pypi_api_tokens.png", width="700px", border_radius="15px", border="1px solid"),
 )
 ```
 
