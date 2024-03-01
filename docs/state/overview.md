@@ -140,11 +140,21 @@ The heading component links its `on_click` event to the
 All interactions between the frontend and backend are handled through events. 
 ```
 
+```md alert info
+# State vs. Instance?
+When building the UI of your app, reference vars and event handlers via the state class (`ExampleState`).
+
+When writing backend event handlers, access and set vars via the instance (`self`).
+```
+
 ## Client States
 
 Each user who opens your app has a unique ID and their own copy of the state.
 This means that each user can interact with the app and modify the state
 independently of other users.
+
+Because Reflex internally creates a new instance of the state for each user, your code should
+never directly initialize a state class.
 
 ```md alert
 Try opening an app in multiple tabs to see how the state changes independently.
