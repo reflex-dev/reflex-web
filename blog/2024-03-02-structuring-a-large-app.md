@@ -45,7 +45,7 @@ import reflex as rx
 config = rx.Config(app_name="example_big_app")
 ```
 
-## `{app_name}/{app_name}.py`
+## `\{app_name}/\{app_name}.py`
 
 After loading the config, Reflex imports the main app module based on the
 `app_name`, which **must define a module-level global named `app` as an instance
