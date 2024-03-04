@@ -29,7 +29,7 @@ Commands:
 
 ## reflex component init
 
-Below is an example of running the init command.
+Below is an example of running the `init` command.
 
 ```python eval
 doccmdoutput(
@@ -56,9 +56,9 @@ Demo app created in google_auth_demo. Use this app to test your custom component
 )
 ```
 
-The init command uses the current enclosing folder name to construct a python package name, typically in the kebab case. For example, if running init in folder `google_auth`, the package name will be `reflex-google-auth`. The added prefix reduces the chance of name collision on PyPI (the Python Package Index), and it indicates that the package is a Reflex custom component. The user can override the package name by providing the `--package-name` option.
+The `init` command uses the current enclosing folder name to construct a python package name, typically in the kebab case. For example, if running init in folder `google_auth`, the package name will be `reflex-google-auth`. The added prefix reduces the chance of name collision on PyPI (the Python Package Index), and it indicates that the package is a Reflex custom component. The user can override the package name by providing the `--package-name` option.
 
-The init command creates a set of files and folders prefilled with the package name and other details. During the init, the `custom_component` folder is installed locally in editable mode, so a developer can incrementally develop and test with ease. The changes in component implementation is automatically reflected where it is used. Below is the folder structure after the init command.
+The `init` command creates a set of files and folders prefilled with the package name and other details. During the init, the `custom_component` folder is installed locally in editable mode, so a developer can incrementally develop and test with ease. The changes in component implementation is automatically reflected where it is used. Below is the folder structure after the `init` command.
 
 ```python eval
 rx.code_block("""
@@ -132,7 +132,7 @@ Options:
 
 ## reflex component build
 
-The build command generates the `.tar.gz` and `.whl` distribution files to be uploaded to the desired package index, for example, PyPI. This command must be run at the top level of the project where the `pyproject.toml` file is. As a result of a successful build, there is a new `dist` folder with the distribution files.
+The `build` command generates the `.tar.gz` and `.whl` distribution files to be uploaded to the desired package index, for example, PyPI. This command must be run at the top level of the project where the `pyproject.toml` file is. As a result of a successful build, there is a new `dist` folder with the distribution files.
 
 ```python eval
 doccmdoutput(

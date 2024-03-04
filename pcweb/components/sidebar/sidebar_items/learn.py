@@ -93,7 +93,8 @@ def get_sidebar_items_frontend():
             "Custom Components",
             children=[
                 custom_components.overview,
-                custom_components.custom_components_command_reference,
+                custom_components.prerequisites_for_publishing,
+                custom_components.command_reference,
             ],
         ),
     ]
