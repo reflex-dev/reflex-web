@@ -1,4 +1,6 @@
 """UI and logic for the navbar component."""
+from functools import lru_cache
+
 import reflex as rx
 from .buttons.github import github
 from .buttons.discord import discord
@@ -24,6 +26,7 @@ def resources_item(text, url, icon):
     )
 
 
+@lru_cache
 def resources_section():
     return rx.hover_card.root(
         rx.hover_card.trigger(
@@ -109,6 +112,7 @@ def resources_section():
     )
 
 
+@lru_cache
 def navigation_section():
     return rx.box(
         rx.flex(
@@ -127,7 +131,7 @@ def navigation_section():
     )
 
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
         rx.link(
             rx.box(

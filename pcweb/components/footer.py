@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.components.logo import logo
@@ -24,6 +26,7 @@ footer_style = {
 }
 
 
+@lru_cache
 def footer(style=footer_style):
     from pcweb.pages.blog import blg
     from pcweb.pages.changelog import changelog

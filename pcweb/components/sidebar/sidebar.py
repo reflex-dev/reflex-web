@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar.state import NavbarState
@@ -383,6 +385,7 @@ def sidebar_comp(
     )
 
 
+@lru_cache
 def sidebar(url=None, width: str = "100%") -> rx.Component:
     """Render the sidebar."""
     learn_index = calculate_index(learn, url)
