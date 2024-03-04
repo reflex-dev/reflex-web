@@ -64,6 +64,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-03-04",
+            "v0.4.3",
+            "CLI for Creating and Publishing 3rd Party Components",
+            [
+                "get_state() API for accessing arbitrary states",
+                "Set initial_value for computed vars",
+                "Less invasive backend disconnected notification",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.3",
+        ),
+        change(
             "2024-02-26",
             "v0.4.2",
             "Syncronize local storage between tabs",
