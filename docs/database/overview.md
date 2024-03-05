@@ -70,6 +70,6 @@ You can use normal SQLAlchemy queries to query the database.
 
 ```python
 with rx.session() as session:
-    session.add(User(username="test", email="admin@pynecone.io", password="admin"))
+    session.add(User(username="test", email="admin@reflex.dev", password="admin"))
     session.commit()
 ```
