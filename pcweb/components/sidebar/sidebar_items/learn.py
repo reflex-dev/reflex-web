@@ -40,7 +40,6 @@ def get_sidebar_items_frontend():
         styling,
         ui,
         wrapping_react,
-        custom_components,
     )
 
     items = [
@@ -87,14 +86,6 @@ def get_sidebar_items_frontend():
                 wrapping_react.imports,
                 wrapping_react.logic,
                 wrapping_react.example,
-            ],
-        ),
-        create_item(
-            "Custom Components",
-            children=[
-                custom_components.overview,
-                custom_components.prerequisites_for_publishing,
-                custom_components.command_reference,
             ],
         ),
     ]
