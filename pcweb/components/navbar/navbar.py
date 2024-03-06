@@ -127,7 +127,7 @@ def navigation_section():
     )
 
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
         rx.link(
             rx.box(
@@ -158,10 +158,9 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             spacing="3",
             align_items="center",
         ),
-        # background = rx.color("mauve", 1),
-        background="#FFF",
+        background="rgba(255,255,255, 0.8)",
+        backdrop_filter="blur(10px)",
         border_bottom=f"1px solid {rx.color('mauve', 4)};",
-        height="80px",
         position="fixed",
         width="100%",
         top="0px",

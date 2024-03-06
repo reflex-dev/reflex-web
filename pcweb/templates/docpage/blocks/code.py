@@ -5,6 +5,20 @@ from pcweb.styles import text_colors as tc
 from pcweb import styles
 
 
+def copy_icon(code: str) -> rx.Component:
+    return rx.icon(
+        tag="copy",
+        size=18,
+        _hover={"cursor": "pointer", "color": rx.color("accent", 7)},
+        on_click=rx.set_clipboard(code),
+        position="absolute",
+        top="0.5em",
+        right="0.5em",
+        color=f"2px solid {rx.color('mauve', 4)}",
+        background="transparent",
+    )
+
+
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
@@ -20,19 +34,7 @@ def code_block(code: str, language: str):
                 }
             },
         ),
-        rx.button(
-            rx.icon(tag="copy", size=18),
-            on_click=rx.set_clipboard(code),
-            position="absolute",
-            top="0.5em",
-            right="0.5em",
-            color=f"2px solid {rx.color('mauve', 4)}",
-            background="transparent",
-            _hover={
-                "background": "transparent",
-                "color": f"2px solid {rx.color('violet', 4)}",
-            },
-        ),
+        copy_icon(code),
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
         background_color=f"{rx.color('mauve', 2)}",
@@ -77,21 +79,7 @@ def doccmdoutput(
                     }
                 },
             ),
-            rx.button(
-                rx.icon(
-                    tag="copy",
-                ),
-                on_click=rx.set_clipboard(command),
-                position="absolute",
-                top="0.5em",
-                right="0.5em",
-                color=rx.color("mauve", 4),
-                background="transparent",
-                _hover={
-                    "background": "transparent",
-                    "color": rx.color("violet", 4),
-                },
-            ),
+            copy_icon(command),
             direction="row",
             align="center",
             spacing="1",

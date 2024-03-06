@@ -98,7 +98,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.chakra.span(
+                            rx.text.span(
                                 header,
                                 font_weight="bold",
                             ),
@@ -142,34 +142,28 @@ class DefinitionBlock(flexdown.blocks.Block):
         ]
 
         def single_def(title, content):
-            return rx.chakra.vstack(
-                rx.heading(
-                    title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
-                ),
+            return rx.vstack(
+                rx.heading(title),
                 markdown(content),
                 padding="1em",
                 border=styles.DOC_BORDER,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 _hover={
                     "box_shadow": styles.DOC_SHADOW_LIGHT,
-                    "border": f"2px solid {styles.colors['violet'][200]}",
+                    "border": f"2px solid {rx.color("violet", 7)}",
                 },
             )
-
+ 
         defs = [single_def(title, content) for title, content in sections]
 
         return rx.fragment(
-            rx.mobile_only(rx.chakra.vstack(*defs)),
+            rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rx.chakra.grid(
-                    *[
-                        rx.chakra.grid_item(d, row_span=1, col_span=1, width="100%")
-                        for d in defs
-                    ],
-                    template_columns="repeat(2, 1fr)",
-                    h="10em",
+                rx.grid(
+                    *defs,
+                    columns="2",
                     width="100%",
-                    gap=4,
+                    spacing="4",
                     margin_bottom="1em",
                 )
             ),
