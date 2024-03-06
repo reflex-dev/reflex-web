@@ -32,6 +32,7 @@ const SearchBar = dynamic(
 );
 
 const searchBarProps = {
+  stylesheetUrls: ['/inkeepstyle.css'],
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
@@ -46,7 +47,7 @@ const searchBarProps = {
             partialUrl: 'reflex.dev/blog',
           },
           breadcrumbName: 'Blogs',
-        },
+        }, 
         {
           matchingRule: {
             ruleType: 'PartialUrl',
@@ -72,6 +73,15 @@ const searchBarProps = {
         },
       ],
     },
+    theme: {
+      components: {
+        SearchBarTrigger: {
+          defaultProps: {
+            variant: 'emphasized', // 'emphasized' 'subtle'
+          },
+        },
+      }
+    }
   },
   modalSettings: {
     // optional typeof InkeepModalSettings
@@ -80,6 +90,7 @@ const searchBarProps = {
     tabSettings: {
       isAllTabEnabled: true,
       useAllRootBreadcrumbsAsTabs: true,
+      rootBreadcrumbsToUseAsTabs: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
       tabOrderByLabel: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
     },
     placeholder: 'Search...',
