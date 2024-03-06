@@ -150,10 +150,10 @@ class DefinitionBlock(flexdown.blocks.Block):
                 border_radius=styles.DOC_BORDER_RADIUS,
                 _hover={
                     "box_shadow": styles.DOC_SHADOW_LIGHT,
-                    "border": f"2px solid {rx.color("violet", 7)}",
+                    "border": f"2px solid {rx.color('violet', 7)}",
                 },
             )
- 
+
         defs = [single_def(title, content) for title, content in sections]
 
         return rx.fragment(
