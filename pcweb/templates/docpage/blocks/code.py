@@ -117,7 +117,6 @@ def doccmdoutput(
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
         position="relative",
-        margin="1em",
         width="100%",
         background_color="black",
     )
