@@ -118,7 +118,6 @@ def sidebar_icon(name):
         "Utility Methods": "cog",
         "Reflex Deploy": "globe-2",
         "Self Hosting": "server",
-        "Custom Components": "blocks",
     }
 
     if name in mappings:
