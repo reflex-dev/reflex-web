@@ -2,17 +2,15 @@
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.templates.docpage import doccode
-from pcweb.pages.docs import tutorial
-from pcweb.pages.docs import getting_started
-from pcweb.pages.docs import wrapping_react
+from pcweb.pages.docs import tutorial, getting_started, wrapping_react
 from pcweb.pages.docs.library import library
+from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs import vars
 ```
 
-<!-- TODO how do we consistently rename page title? -->
 # Introduction
 
-**Reflex** is an open-source framework for quickly building beautiful, interactive web applications in **pure Python**.
+**Reflex** is an open-source framework for building interactive web apps in **pure Python**.
 
 ## Goals
 
@@ -126,9 +124,10 @@ class State(rx.State):
     count: int = 0
 ```
 
-The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event_handlers](#event-handlers)**) that change them.
+The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event handlers](#event-handlers)**) that change them.
 
-Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
+Here our state has a single var, `count`, which holds the current value of the counter.
+We initialize it to `0`.
 
 ### Event Handlers
 
@@ -141,12 +140,14 @@ def decrement(self):
 ```
 
 Within the state, we define functions, called **event handlers**, that change the state vars.
+Our counter app has two event handlers, `increment` and `decrement`.
 
 Event handlers are the only way that we can modify the state in Reflex.
 They can be called in response to user actions, such as clicking a button or typing in a text box.
 These actions are called **events**.
 
-Our counter app has two event handlers, `increment` and `decrement`.
+Event handlers run on the server, so you can use any Python code and libraries you want within them.
+
 
 ### User Interface (UI)
 
@@ -216,7 +217,6 @@ app.add_page(index)
 ## Next Steps
 
 🎉 And that's it!
-
 We've created a simple, yet fully interactive web app in pure Python.
 
 By continuing with our documentation, you will learn how to building awesome apps with Reflex.
@@ -224,3 +224,5 @@ By continuing with our documentation, you will learn how to building awesome app
 For a glimpse of the possibilities, check out these resources:
 
 * For a more real-world example, check out the [tutorial]({tutorial.intro.path}).
+* See our [app gallery]({gallery.path}).
+* See our [library of components]({library.path}).
