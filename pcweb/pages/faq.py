@@ -5,6 +5,7 @@ from pcweb.pages.docs.gallery import gallery
 from pcweb.styles import text_colors as tc
 from pcweb.templates.docpage import doclink
 from pcweb.templates.webpage import webpage
+from pcweb.flexdown import markdown
 
 faq_items = [
     {
@@ -95,7 +96,7 @@ faq_items = [
     },
     {
         "Q": "What usage data is collected?",
-        "A": rx.markdown(
+        "A": markdown(
             """
 Anonymous usage data allows us to understand how Reflex is used, what features are most important, and how we can improve the product.
 

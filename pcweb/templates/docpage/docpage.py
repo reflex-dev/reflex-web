@@ -443,7 +443,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             margin_bottom="4em",
                         ),
                         rx.spacer(),
-                        rx.box(height="2em"),
                         docpage_footer(path),
                         border_left=[
                             "none",
