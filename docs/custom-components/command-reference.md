@@ -1,4 +1,4 @@
-# Custom Components Command Reference
+# Command Reference
 
 ```python exec
 import reflex as rx
@@ -35,23 +35,22 @@ Below is an example of running the `init` command.
 doccmdoutput(
     command="reflex component init",
     output="""reflex component init
-Info: Component class name: GoogleAuth
-Info: Package name: reflex-google-auth
-Info: Custom component source directory: reflex_google_auth
-Info: Demo app directory: google_auth_demo
+─────────────────────────────────────── Initializing reflex-google-auth project ───────────────────────────────────────
 Info: Populating pyproject.toml with package name: reflex-google-auth
 Info: Initializing the component directory: custom_components/reflex_google_auth
 Info: Creating app for testing: google_auth_demo
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Initializing google_auth_demo ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-[12:07:32] Initializing the app directory.
+──────────────────────────────────────────── Initializing google_auth_demo ────────────────────────────────────────────
+[07:58:16] Initializing the app directory.                                                                console.py:85
+           Initializing the web directory.                                                                console.py:85
 Success: Initialized google_auth_demo
-Info: Installing reflex-google-auth in editable mode.
+─────────────────────────────────── Installing reflex-google-auth in editable mode. ───────────────────────────────────
 Info: Package reflex-google-auth installed!
 Custom component initialized successfully!
-Here's the summary:
-pyproject.toml and README.md created. Please fill in details such as your name, email, homepage URL.
-Source code template is in custom_components. Start by editing it with your component implementation.
-Demo app created in google_auth_demo. Use this app to test your custom component.
+─────────────────────────────────────────────────── Project Summary ───────────────────────────────────────────────────
+[ README.md ]: Package description. Please add usage examples.
+[ pyproject.toml ]: Project configuration file. Please fill in details such as your name, email, homepage URL.
+[ custom_components/ ]: Custom component code template. Start by editing it with your component implementation.
+[ google_auth_demo/ ]: Demo App. Add more code to this app and test.
 """,
 )
 ```
@@ -130,34 +129,11 @@ Options:
 """)
 ```
 
-## reflex component build
-
-The `build` command generates the `.tar.gz` and `.whl` distribution files to be uploaded to the desired package index, for example, PyPI. This command must be run at the top level of the project where the `pyproject.toml` file is. As a result of a successful build, there is a new `dist` folder with the distribution files.
-
-```python eval
-doccmdoutput(
-    command="reflex component build --help",
-    output="""reflex component build --help
-Usage: reflex component build [OPTIONS]
-
-  Build a custom component. Must be run from the project root directory where
-  the pyproject.toml is.
-
-  Args:     loglevel: The log level to use.
-
-  Raises:     Exit: If the build fails.
-
-Options:
-  --loglevel [debug|info|warning|error|critical]
-                                  The log level to use.  [default:
-                                  LogLevel.INFO]
-  --help                          Show this message and exit.
-""")
-```
-
 ## reflex component publish
 
 To publish to a package index, a user is required to already have an account with them. As of **0.4.3**, Reflex only supports uploading to PyPI and TestPyPI. Those indices are separate PyPI and TestPyPI should have sufficient documentation on the account creation and how to generate API tokens. We also have a [short guide]({custom_components.overview.path}) covering this topic.
+
+The publish process starts with a build if needed. If the distribution files for the version specified in pyproject.toml file already exist, the command prompts the user to confirm rebuilding the files nor not. After making sure the distribution files are ready, the command proceeds to upload them to the specified python package index.
 
 ```python eval
 doccmdoutput(
@@ -194,6 +170,36 @@ Options:
   -p, --password TEXT             The password to use for authentication on
                                   python package repository. Username and
                                   password must both be provided.
+  --build / --no-build            Whether to build the package before
+                                  publishing. If the package is already built,
+                                  set this to False.  [default: build]
+  --loglevel [debug|info|warning|error|critical]
+                                  The log level to use.  [default:
+                                  LogLevel.INFO]
+  --help                          Show this message and exit.
+""")
+```
+
+## reflex component build
+
+It is not required to run the `build` command separately before publishing. The `publish` command will build the package if it is not already built. The `build` command is provided for the user's convenience.
+
+The `build` command generates the `.tar.gz` and `.whl` distribution files to be uploaded to the desired package index, for example, PyPI. This command must be run at the top level of the project where the `pyproject.toml` file is. As a result of a successful build, there is a new `dist` folder with the distribution files.
+
+```python eval
+doccmdoutput(
+    command="reflex component build --help",
+    output="""reflex component build --help
+Usage: reflex component build [OPTIONS]
+
+  Build a custom component. Must be run from the project root directory where
+  the pyproject.toml is.
+
+  Args:     loglevel: The log level to use.
+
+  Raises:     Exit: If the build fails.
+
+Options:
   --loglevel [debug|info|warning|error|critical]
                                   The log level to use.  [default:
                                   LogLevel.INFO]
