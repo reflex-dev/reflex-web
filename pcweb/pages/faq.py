@@ -98,14 +98,12 @@ faq_items = [
         "Q": "What usage data is collected?",
         "A": markdown(
             """
-Anonymous usage data allows us to understand how Reflex is used, what features are most important, and how we can improve the product.
+Anonymous usage data allows us to understand how Reflex is used and how we can improve the product.
 
 The following information is collected:
-* Operating system
-* CPU count
-* Memory
-* Python version
-* Reflex version
+* Anonymous user / app ID
+* Operating System, CPU Count, Memory
+* Python / Reflex Version
 
 ### How to Opt-Out
 
