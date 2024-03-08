@@ -61,7 +61,7 @@ and models MUST be imported by the main app module or package** for Reflex to be
 
 The following tree is a recommended structure for breaking a Reflex app up into logic pieces.
 
-```console
+```text
 example-big-app/
 ├─ assets/
 ├─ example_big_app/
