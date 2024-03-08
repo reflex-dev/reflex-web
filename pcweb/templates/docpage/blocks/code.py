@@ -9,13 +9,14 @@ def copy_icon(code: str) -> rx.Component:
     return rx.icon(
         tag="copy",
         size=18,
-        _hover={"cursor": "pointer", "color": rx.color("accent", 9)},
+        _hover={"cursor": "pointer", "color": rx.color("accent", 8)},
         on_click=rx.set_clipboard(code),
         position="absolute",
         top="0.5em",
         right="0.5em",
-        color=f"2px solid {rx.color('mauve', 4)}",
+        color=rx.color('mauve', 8),
         background="transparent",
+        _active={"color": rx.color("accent", 9), "transform": "scale(1.2)"},
     )
 
 
