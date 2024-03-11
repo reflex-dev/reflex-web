@@ -2727,7 +2727,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             """
             # Import here to avoid circular imports.
             from pcweb.components.footer import footer
-            from pcweb.components_webpage.navbar import navbar
+            from pcweb.components.navbar import navbar
             from pcweb.components.sidebar import sb
 
             # Wrap the component in the template.

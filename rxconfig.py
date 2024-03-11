@@ -4,6 +4,7 @@ config = rx.Config(
     port=3000,
     app_name="pcweb",
     deploy_url="https://reflex.dev",
+    redis_url="redis://localhost:6379",
     frontend_packages=[
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",

@@ -59,13 +59,20 @@ class CollatzState(rx.State):
 
     def start_collatz(self, count: str):
         """Run the collatz conjecture on the given number."""
-        self.count = abs(int(count))
+        
+        try:
+            self.count = abs(int(count))
+        except ValueError:
+            self.count = 0
+            return rx.alert("Please enter a valid number.")
+
         return CollatzState.run_step
 
     async def run_step(self):
         """Run a single step of the collatz conjecture."""
-
+    
         while self.count > 1:
+            
             await asyncio.sleep(0.5)
 
             if self.count % 2 == 0:
