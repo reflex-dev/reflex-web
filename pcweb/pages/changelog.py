@@ -64,6 +64,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-04-11",
+            "v0.4.4",
+            "Fix missing on_load and /_upload in prod deployments",
+            [
+                "rx.upload exposes on_drop event trigger",
+                "rx.el.form supports on_submit event trigger",
+                "Improve 'Stateless' app detection",
+                "Expose lang and other attributes on <html> tag",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.4",
+        ),
+        change(
             "2024-03-04",
             "v0.4.3",
             "CLI for Creating and Publishing 3rd Party Components",
