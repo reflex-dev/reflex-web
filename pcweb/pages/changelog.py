@@ -64,7 +64,7 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
-            "2024-04-11",
+            "2024-03-11",
             "v0.4.4",
             "Fix missing on_load and /_upload in prod deployments",
             [
