@@ -19,7 +19,6 @@ def qa(question: str, answer: str) -> rx.Component:
         rx.box(rx.text(question, style=style.question_style), text_align="right"),
         rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
         margin_y="1em",
-        width="100%",
     )
 
 
@@ -44,25 +43,27 @@ def action_bar3() -> rx.Component:
 ```
 
 ```python demo box
-rx.container(
-    chat1(),
-    action_bar3(),
+rx.center(
+    rx.vstack(
+        chat1(),
+        action_bar3(),
+        align="center",
+        width="100%",
+    )
 )
 ```
 
 ```python
 # state.py
 import os
-from openai import OpenAI
 
-openai.api_key = os.environ["OPENAI_API_KEY"]
+from openai import AsyncOpenAI
 
-...
-
-def answer(self):
+async def answer(self):
     # Our chatbot has some brains now!
-    client = OpenAI()
-    session = client.chat.completions.create(
+    client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+    session = await client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             \{"role": "user", "content": self.question}
@@ -81,7 +82,7 @@ def answer(self):
     # Yield here to clear the frontend input before continuing.
     yield
 
-    for item in session:
+    async for item in session:
         if hasattr(item.choices[0].delta, "content"):
             if item.choices[0].delta.content is None:
                 # presence of 'None' indicates the end of the response
@@ -102,20 +103,19 @@ We wrote all our code in three files, which you can find below.
 import reflex as rx
 
 from chatapp import style
-from chatapp.state import State
+from chatapp.state import TutorialState
 
 
 def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
         rx.box(rx.text(question, text_align="right"), style=style.question_style),
         rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
-        margin_y="1em",
     )
 
 def chat() -> rx.Component:
     return rx.box(
         rx.foreach(
-            State.chat_history,
+            TutorialState.chat_history,
             lambda messages: qa(messages[0], messages[1])
         )
     )
@@ -123,20 +123,23 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
-            value=State.question,
+        rx.input(
             placeholder="Ask a question",
-            on_change=State.set_question,
+            value=TutorialState.question,
+            on_change=TutorialState.set_question,
             style=style.input_style,
         ),
-        rx.button("Ask", on_click=State.answer, style=style.button_style),
+        rx.button("Ask", on_click=TutorialState.answer, style=style.button_style),
     )
 
 
 def index() -> rx.Component:
-    return rx.container(
-        chat(),
-        action_bar(),
+    return rx.center(
+        rx.vstack(
+            chat(),
+            action_bar(),
+            align="center",
+        )
     )
 
 
@@ -146,14 +149,13 @@ app.add_page(index)
 
 ```python
 # state.py
-import reflex as rx
 import os
-import openai
 
+from openai import AsyncOpenAI
 
-openai.api_key = os.environ["OPENAI_API_KEY"]
+import reflex as rx
 
-class State(rx.State):
+class TutorialState(rx.State):
 
     # The current question being asked.
     question: str
@@ -161,14 +163,12 @@ class State(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def answer(self):
+    async def answer(self):
         # Our chatbot has some brains now!
-        client = OpenAI()
-        session = client.chat.completions.create(
+        client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
+        session = await client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[
-                \{"role": "user", "content": self.question}
-            ],
+            messages[\{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,
             stream=True,
@@ -183,7 +183,7 @@ class State(rx.State):
         # Yield here to clear the frontend input before continuing.
         yield
 
-        for item in session:
+        async for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 if item.choices[0].delta.content is None:
                     # presence of 'None' indicates the end of the response
@@ -191,11 +191,11 @@ class State(rx.State):
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
-
 ```
 
 ```python
 # style.py
+import reflex as rx
 
 # Common styles for questions and answers.
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
@@ -205,11 +205,22 @@ message_style = dict(
     border_radius="5px",
     margin_y="0.5em",
     box_shadow=shadow,
+    max_width="30em",
+    display="inline-block",
 )
 
 # Set specific styles for questions and answers.
-question_style = message_style | dict(bg="#F5EFFE", margin_left=chat_margin)
-answer_style = message_style | dict(bg="#DEEAFD", margin_right=chat_margin)
+question_style = message_style | dict(
+    background_color=rx.color("crimson", 9), margin_left=chat_margin
+)
+answer_style = message_style | dict(
+    background_color=rx.color("teal", 8), margin_right=chat_margin
+)
+
+# Styles for the action bar.
+input_style = dict(border_width="1px", padding="1em", box_shadow=shadow, width="350px")
+button_style = dict(bg=rx.color("accent", 10), box_shadow=shadow)
+
 ```
 
 ## Next Steps
