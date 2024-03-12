@@ -32,7 +32,7 @@ def chat1() -> rx.Component:
 
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
+        rx.input(
             value=ChatappState.question,
             placeholder="Ask a question",
             on_change=ChatappState.set_question,
