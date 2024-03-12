@@ -7,6 +7,7 @@ from pcweb.styles import colors as c
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 from pcweb.templates.docpage import h1_comp
+from pcweb import constants, styles
 
 PAGES_PATH = "blog/"
 
@@ -23,6 +24,105 @@ def get_blog_data(paths):
 def get_route(path: str):
     """Get the route for a page."""
     return path.replace(PAGES_PATH, "").replace(".md", "")
+
+
+def back():
+    return rx.box(
+       rx.text("<- Back to Blog", color="#6C6C81"),
+        rx.flex(
+            rx.flex(
+                rx.link(
+                    rx.image(src="/companies/dark/linkedin.svg", height="2em"),
+                    href=constants.LINKEDIN_URL,
+                ),
+                rx.link(
+                    rx.image(src="/companies/dark/twitter.svg", height="2em"),
+                    href=constants.TWITTER_URL,
+                ),
+                rx.link(
+                    rx.image(src="/companies/dark/yc.svg", height="2em"),
+                    href=constants.TWITTER_URL,
+                ),
+                rx.link(
+                    rx.image(src="/companies/dark/reddit.svg", height="2em"),
+                    href=constants.LINKEDIN_URL,
+                ),
+                direction="column",
+                spacing="2",
+            ),
+            direction="column",
+            width="100%",
+            position="fixed",
+            margin_top="5em",
+            justify="start",
+        ),
+        padding_left="2em",
+        display=["none", "none", "none", "none", "flex", "flex"],
+        width="10em",
+        z_index=-1,
+        position="absolute"
+    )
+
+def content(document, meta):
+    return rx.vstack(
+        rx.box(
+            rx.center(
+                rx.flex(
+                    rx.flex(
+                        rx.flex(
+                            rx.chakra.text(
+                                "Blog posts", 
+                                background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                                text_align="center",
+                                background_clip="text",
+                                padding_x="1em"
+                            ),
+                            border_radius= "15px;",
+                            border= "1px solid #4435D4;",
+                            background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                            box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                        ),
+                        rx.text(str(meta["date"]),color="#6C6C81",  size="3"),
+                        spacing="2",
+                        justify_content="center",
+                    ),
+                    rx.flex(
+                        rx.chakra.text(
+                                meta["title"],
+                                font_size="64px;",
+                                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                                text_align="center",
+                                width="650px",
+                                background_clip="text",
+                                font_weight="bold",
+                                letter_spacing= "-1.28px;",
+                        ),
+                        justify_content="center",
+                    ),
+                    direction="column",
+                    justify_content="center",
+                    width="100%"
+                )
+            ),
+            rx.image(
+                src=f"{meta['image']}",
+                border_radius="8px",
+            ),
+            border_radius= "40px;",
+            background= "linear-gradient(180deg, #131217 0.5%, rgba(0, 0, 0, 0.00) 122.33%);",
+            mix_blend_mode= "plus-lighter;",
+            width="60%",
+            padding= "80px 80px 0px 80px;"
+        ),
+        rx.container(
+            xd.render(document, "blog.md"),
+            margin_x="auto",
+            size="2",
+        ),
+        padding_bottom="8em",
+        size="3",
+        width="100%",
+    )
 
 
 def page(document) -> rx.Component:
@@ -70,126 +170,71 @@ def component_grid():
     for path, document in blogs.items():
         meta = document.metadata
         posts.append(
-<<<<<<< HEAD
-            rx.card(
-                rx.el.a(
+            rx.link(
+                rx.flex(
                     rx.box(
-                        height="10rem",
+                        height="12rem",
+                        width="100%",
                         background_image=f'url({meta["image"]})',
                         background_size="cover",
                         background_position="center",
                         background_repeat="no-repeat",
-                        width="100%",
+                        border_radius="12px"
                     ),
                     rx.vstack(
-                        rx.heading(
-                            meta["title"],
-                            size="5",
+                        rx.vstack(
+                            rx.heading(
+                                meta["title"],
+                                size="5",
+                                color="#D6D6ED"
+                            ),
+                            rx.text(meta["description"], size="2", color="#8E8EA8"),
+                            align_items="start",
                         ),
-                        rx.text(meta["description"], size="2"),
-                        rx.divider(),
+                        rx.box(
+                            flex_grow=1,
+                        ),
                         rx.hstack(
-                            rx.vstack(
-                                rx.text("Written by", font_size="0.6rem"),
-                                rx.hstack(
-                                    rx.chakra.avatar(
-                                        name=meta["author"],
-                                        size="sm",
-                                        bg=c["indigo"][800],
-                                        color="#DACEEE",
+                            rx.hstack(
+                                    rx.avatar(
+                                        fallback=meta["author"][0],
+                                        background_color="rgba(68, 53, 212, .2)",
+                                        color="#867BF1",
                                     ),
-                                    rx.text(meta["author"], font_size="0.8rem"),
-                                ),
+                                    rx.text(meta["author"], font_size="0.8rem", color="#8E8EA8"),
                             ),
                             rx.spacer(),
-                            rx.vstack(
-                                rx.text("Published on", font_size="0.6rem"),
-                                rx.text(str(meta["date"]), font_size="0.8em"),
-                            ),
+                            rx.text(str(meta["date"]), font_size="0.8em"),
+                            color="#8E8EA8",
                             padding_bottom="0.5em",
                             width="100%",
                         ),
-                        padding="1em",
-                        height="100%",
                         width="100%",
+                        padding_top="1em",
+                        align_items="start",
+                        height="12em",
                     ),
-                    border="1px solid #eee",
-                    border_radius="8px",
-                    overflow="hidden",
-                    bg_color="white",
-                    _hover={
-                        "box_shadow": "0px 0px 0px 1px rgba(52, 46, 92, 0.12), 0px 2px 3px rgba(3, 3, 11, 0.1), 0px 12px 8px rgba(3, 3, 11, 0.04), 0px 8px 12px -4px rgba(3, 3, 11, 0.02)"
-                    },
-                    href=f"/{path}",
-                ),
-                as_child=True,
-=======
-            rx.link(
-                rx.chakra.box(
-                    height="10rem",
-                    background_image=f'url({meta["image"]})',
-                    background_size="cover",
-                    background_position="center",
-                    background_repeat="no-repeat",
-                    border_radius="12px",
-                    w="100%",
-                ),
-                rx.chakra.box(
-                    rx.chakra.text(
-                        meta["title"],
-                        font_size="1.2rem",
-                        mb="0.5em",
-                        color="#D6D6ED"
-                    ),
-                    rx.chakra.text(
-                        meta["description"],
-                        font_size="0.8rem",
-                        color="#8E8EA8"
-
-                    ),
-                    rx.divider(color="#6C6C81", margin_y="1em"),
-                    rx.chakra.hstack(
-                        rx.chakra.hstack(
-                                rx.chakra.avatar(
-                                    name=meta["author"],
-                                    size="sm",
-                                    bg=c["indigo"][800],
-                                    color="#DACEEE",
-                                ),
-                                rx.chakra.text(meta["author"], font_size="0.8rem"),
-                        ),
-                        rx.spacer(),
-                        rx.chakra.text(str(meta["date"]), font_size="0.8em"),
-                        color="#8E8EA8",
-                        padding_bottom="0.5em",
-                        width="100%",
-                    ),
-                    height="100%",
-                    width="100%",
-                    padding_top="1em"
+                    direction="column",
                 ),
                 overflow="hidden",
                 href=path,
->>>>>>> 49e2ee8 (tbd for later)
             ),
         )
-    return rx.chakra.box(
-        rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
+    return rx.flex(
+        rx.grid(
+            *posts, 
+            columns="3",
+            spacing="4",
+            width="80%"
+        ),
+        justify_content="center",
         padding_top="4em"
     )
 
 
 @webpage(path="/blog", title="Blog")
 def blg():
-<<<<<<< HEAD
-    return rx.container(
-        rx.vstack(
-            rx.vstack(
-                rx.heading("Reflex Blog", size="8"),
-                rx.text("The latest news from the Reflex team."),
-                rx.divider(),
-=======
-    return rx.chakra.container(
+    return rx.center(
         rx.vstack(
             rx.vstack(
                 rx.flex(
@@ -221,24 +266,20 @@ def blg():
                 ),
                 align_items="center",
                 text_align="left",
->>>>>>> 49e2ee8 (tbd for later)
                 width="100%",
                 spacing="1",
             ),
             component_grid(),
-<<<<<<< HEAD
-            align="stretch",
-=======
             max_width="110em",
             align_items="center",
->>>>>>> 49e2ee8 (tbd for later)
             min_height="80vh",
             margin_bottom="4em",
             padding_y="2em",
+            width="100%"
         ),
-        size="3",
         flex_direction="column",
-        margin_top="120px",
+        width="100%",
+        overflow="hidden",
     )
 
 
