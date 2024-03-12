@@ -88,3 +88,39 @@ rx.flex(
     spacing="2"
 )
 ```
+
+### Color Mode
+
+```python
+rx.color_mode_cond(
+    rx.image(src="/logos/light/reflex.svg", height="4em"),
+    rx.image(src="/logos/dark/reflex.svg", height="4em"),
+)
+```
+
+`rx.color_mode_cond` can be used to render a different component depending on whether the app is in `light` mode or `dark` mode. 
+
+The first argument to the `color_mode_cond` component is the component to render when the app is in `light` mode. 
+
+The second argument is the component to render when the app is in `dark` mode.
+
+
+```python
+rx.color_mode.switch()
+```
+
+`rx.color_mode.switch` is used to add a switch to your app to allow the user to easily switch the app between `light` mode and `dark` mode.
+
+
+```python
+rx.color_mode.button()
+```
+
+`rx.color_mode.button` is very similar to the `switch` above and is used to add a button to your app to allow the user to easily switch the app between `light` mode and `dark` mode.
+
+
+```python
+rx.color_mode.icon()
+```
+
+`rx.color_mode.icon` creates an `icon` component based on `color_mode`. By default it has the sun and moon icon for `light` and `dark` mode. You can change these by passing the icon for `light` mode as `light_component=` and `dark` mode as `dark_component=` to the `rx.color_mode.icon` component.
