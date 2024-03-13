@@ -347,6 +347,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         """
         # Get the path to set for the sidebar.
         path = get_path(contents) if set_path is None else set_path
+
         # Set the page title.
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
