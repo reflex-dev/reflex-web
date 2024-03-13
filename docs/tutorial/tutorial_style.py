@@ -14,12 +14,12 @@ message_style = dict(
 
 # Set specific styles for questions and answers.
 question_style = message_style | dict(
-    background_color=rx.color("crimson", 9), margin_left=chat_margin
+    background_color=rx.color("gray", 4), margin_left=chat_margin
 )
 answer_style = message_style | dict(
-    background_color=rx.color("teal", 8), margin_right=chat_margin
+    background_color=rx.color("accent", 8), margin_right=chat_margin
 )
 
 # Styles for the action bar.
 input_style = dict(border_width="1px", padding="1em", box_shadow=shadow, width="350px")
-button_style = dict(bg=rx.color("accent", 10), box_shadow=shadow)
+button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)

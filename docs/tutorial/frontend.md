@@ -169,16 +169,14 @@ message_style = dict(
 )
 
 # Set specific styles for questions and answers.
-question_style = message_style | dict(margin_left=chat_margin, background_color=rx.color("crimson", 8))
-answer_style = message_style | dict(margin_right=chat_margin, background_color=rx.color("teal", 8)
+question_style = message_style | dict(margin_left=chat_margin, background_color=rx.color("gray", 4))
+answer_style = message_style | dict(margin_right=chat_margin, background_color=rx.color("accent", 8)
 
 # Styles for the action bar.
 input_style = dict(
     border_width="1px", padding="1em", box_shadow=shadow
 )
-button_style = dict(
-    background_color=rx.color("accent", 10), box_shadow=shadow
-)
+button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)
 ```
 
 We will import the styles in `chatapp.py` and use them in the components. At this point, the app should look like this:
