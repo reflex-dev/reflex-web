@@ -272,7 +272,7 @@ def changelog_content():
     )
 
 
-@webpage(path="/changelog", title="Changelog")
+@webpage(path="/changelog", title="Changelog · Reflex")
 def changelog():
     return rx.center(
         rx.chakra.vstack(
