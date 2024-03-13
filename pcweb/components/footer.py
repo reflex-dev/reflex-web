@@ -100,23 +100,23 @@ def footer(style=footer_style):
                 ),
                 rx.hstack(
                     rx.link(
-                        rx.image(src="/companies/light/github.svg", height="1.75em"),
+                        rx.image(src="/companies/light/github.svg", alt="A link to Reflex's Github", height="1.75em"),
                         href=constants.GITHUB_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/linkedin.svg", height="1.75em"),
+                        rx.image(src="/companies/light/linkedin.svg", alt="A link to Reflex's Linkedin", height="1.75em"),
                         href=constants.LINKEDIN_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/yc.svg", height="1.75em"),
+                        rx.image(src="/companies/light/yc.svg", alt="A link to Reflex's YC profile", height="1.75em"),
                         href=constants.YC_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/twitter.svg", height="1.75em"),
+                        rx.image(src="/companies/light/twitter.svg", alt="A link to Reflex's Twitter", height="1.75em"),
                         href=constants.TWITTER_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/discord.svg", height="1.75em"),
+                        rx.image(src="/companies/light/discord.svg", alt="A link to Reflex's Discord", height="1.75em"),
                         href=constants.DISCORD_URL,
                     ),
                     gap="1em",
