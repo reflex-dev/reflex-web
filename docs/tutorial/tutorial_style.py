@@ -1,4 +1,6 @@
 # Common styles for questions and answers.
+import reflex as rx
+
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
 chat_margin = "20%"
 message_style = dict(
@@ -11,9 +13,13 @@ message_style = dict(
 )
 
 # Set specific styles for questions and answers.
-question_style = message_style | dict(bg="#F5EFFE", margin_left=chat_margin)
-answer_style = message_style | dict(bg="#DEEAFD", margin_right=chat_margin)
+question_style = message_style | dict(
+    background_color=rx.color("gray", 4), margin_left=chat_margin
+)
+answer_style = message_style | dict(
+    background_color=rx.color("accent", 8), margin_right=chat_margin
+)
 
 # Styles for the action bar.
-input_style = dict(border_width="1px", padding="1em", box_shadow=shadow)
-button_style = dict(bg="#CEFFEE", box_shadow=shadow)
+input_style = dict(border_width="1px", padding="1em", box_shadow=shadow, width="350px")
+button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)

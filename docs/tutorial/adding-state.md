@@ -69,7 +69,7 @@ def chat1() -> rx.Component:
 
 def action_bar1() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
+        rx.input(
             placeholder="Ask a question",
             on_change=ChatappState.set_question,
             style=style.input_style,
@@ -102,7 +102,7 @@ def chat() -> rx.Component:
 
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
+        rx.input(placeholder="Ask a question", on_change=State.set_question, style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
 ```
@@ -118,7 +118,7 @@ Currently the input doesn't clear after the user clicks the button. We can fix t
 ```python exec
 def action_bar2() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
+        rx.input(
             value=ChatappState.question,
             placeholder="Ask a question",
             on_change=ChatappState.set_question,
@@ -139,7 +139,7 @@ rx.container(
 # chatapp.py
 def action_bar() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
+        rx.input(
             value=State.question,
             placeholder="Ask a question",
             on_change=State.set_question,
@@ -164,7 +164,7 @@ Normally state updates are sent to the frontend when an event handler returns. H
 ```python exec
 def action_bar3() -> rx.Component:
     return rx.hstack(
-        rx.chakra.input(
+        rx.input(
             value=ChatappState.question,
             placeholder="Ask a question",
             on_change=ChatappState.set_question,
