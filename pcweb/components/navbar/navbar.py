@@ -133,6 +133,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             rx.box(
                 rx.image(
                     src="/logos/light/reflex.svg",
+                    alt="Reflex Logo",
                     height="20px",
                     justify="start",
                 )
