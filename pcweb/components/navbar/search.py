@@ -105,7 +105,7 @@ def format_search_results(result):
 
 
 def ai_button():
-    return rx.radix.text_field.slot(
+    return rx.text_field.slot(
         rx.icon(
             "messages-square",
             on_click=NavbarState.toggle_ai_chat,

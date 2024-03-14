@@ -119,7 +119,7 @@ def faq_item(question, answer, index):
 )
 
 
-@webpage(path="/faq", title="FAQ")
+@webpage(path="/faq", title="Frequently Asked Questions · Reflex")
 def faq():
     return rx.chakra.container(
         rx.chakra.vstack(

@@ -114,7 +114,7 @@ def get_component(doc: str, title: str):
 
     # Get the docpage component.
     doc = doc.replace("\\", "/")
-    route = f"/{doc.replace('.md', '')}"
+    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '')}")
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
     d = flexdown.parse_file(doc)
@@ -153,14 +153,18 @@ def get_component(doc: str, title: str):
     )
 
 
+<<<<<<< HEAD
 # doc_routes = [gallery, library, resources] + apiref_pages
 doc_routes = []
+=======
+doc_routes = [gallery, library, resources] + apiref_pages
+>>>>>>> main
 
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
-    route = f"/{doc.replace('.md', '')}"
+    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
     comp = get_component(doc, title)
 
     if path[0] == "library" and isinstance(library, Route):

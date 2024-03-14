@@ -505,7 +505,7 @@ def gallery_with_no_sidebar():
     )
 
 
-@webpage(path="/docs/gallery", title="Gallery")
+@webpage(path="/docs/gallery", title="Gallery · Reflex")
 def gallery() -> rx.Component:
     return rx.chakra.vstack(
         rx.chakra.vstack(

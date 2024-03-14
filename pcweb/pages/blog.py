@@ -232,7 +232,7 @@ def component_grid():
     )
 
 
-@webpage(path="/blog", title="Blog")
+@webpage(path="/blog", title="Reflex Blog")
 def blg():
     return rx.center(
         rx.vstack(
@@ -288,7 +288,7 @@ for path, document in blogs.items():
     # Get the docpage component.
     route = f"/{path.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    comp = webpage(path=route, title=document.metadata["title"])(
+    comp = webpage(path=route, title=document.metadata["title"]+ " · Reflex Blog")(
         lambda doc=document: page(doc)
     )
 

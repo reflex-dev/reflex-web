@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.text_field
-    - rx.radix.text_field.root
-    - rx.radix.text_field.input
-    - rx.radix.text_field.slot
+    - rx.radix.input
+    - rx.radix.input.root
+    - rx.radix.input.input
+    - rx.radix.input.slot
 ---
 
 ```python exec
@@ -17,11 +17,11 @@ A text field is an input field that users can type into. This component uses Rad
 ## Basic Example
 
 ```python demo
-rx.radix.text_field.root(
-    rx.radix.text_field.slot(
+rx.input.root(
+    rx.input.slot(
         rx.icon(tag="search"),
     ),
-    rx.radix.text_field.input(
+    rx.input.input(
         placeholder="Search here...",
     ),
 )
@@ -35,11 +35,11 @@ class TextfieldBlur1(rx.State):
 def blur_example1():
     return rx.vstack(
         rx.heading(TextfieldBlur1.text),
-        rx.radix.text_field.root(
-            rx.radix.text_field.slot(
+        rx.input.root(
+            rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.radix.text_field.input(
+            rx.input.input(
                 placeholder="Search here...",
                 on_blur=TextfieldBlur1.set_text,
             ),
@@ -56,11 +56,11 @@ class TextfieldControlled1(rx.State):
 def controlled_example1():
     return rx.vstack(
         rx.heading(TextfieldControlled1.text),
-        rx.radix.text_field.root(
-            rx.radix.text_field.slot(
+        rx.input.root(
+            rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.radix.text_field.input(
+            rx.input.input(
                 placeholder="Search here...",
                 value=TextfieldControlled1.text,
                 on_change=TextfieldControlled1.set_text,
@@ -97,11 +97,11 @@ def song(title, initials: str, genre: str):
 def search():
     return rx.card(
     rx.flex(
-        rx.radix.text_field.root(
-            rx.radix.text_field.slot(
+        rx.input.root(
+            rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.radix.text_field.input(
+            rx.input.input(
                 placeholder="Search songs...",
             ),
         ),

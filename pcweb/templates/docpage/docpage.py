@@ -516,9 +516,12 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             )
 
         # Return the route.
+        components = path.split("/")
+        category = " ".join(word.capitalize() for word in components[2].replace("-", " ").split()) if len(components) > 2 else None
+
         return Route(
             path=path,
-            title=title,
+            title=f"{title} · Reflex Docs" if category is None else  f"{title} · Reflex {category} Docs",
             component=wrapper,
         )
 

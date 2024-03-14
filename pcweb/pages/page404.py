@@ -8,7 +8,7 @@ The page at `{rx.State.router.page.raw_path}` doesn't exist.
 """
 
 
-@webpage(path="/404", title="Page Not Found")
+@webpage(path="/404", title="Page Not Found · Reflex.dev")
 def page404():
     return rx.center(
         rx.vstack(
