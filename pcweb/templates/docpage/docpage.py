@@ -94,7 +94,8 @@ def feedback(text, icon, score):
     )
 
 
-def docpage_footer(path):
+@rx.memo
+def docpage_footer(path: str):
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
@@ -444,7 +445,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         ),
                         rx.spacer(),
                         rx.box(height="2em"),
-                        docpage_footer(path),
+                        docpage_footer(path=path),
                         border_left=[
                             "none",
                             "none",

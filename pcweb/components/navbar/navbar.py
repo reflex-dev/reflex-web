@@ -127,6 +127,7 @@ def navigation_section():
     )
 
 
+@rx.memo
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
         rx.link(
