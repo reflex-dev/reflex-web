@@ -153,12 +153,7 @@ def get_component(doc: str, title: str):
     )
 
 
-<<<<<<< HEAD
-# doc_routes = [gallery, library, resources] + apiref_pages
-doc_routes = []
-=======
 doc_routes = [gallery, library, resources] + apiref_pages
->>>>>>> main
 
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
