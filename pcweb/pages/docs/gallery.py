@@ -152,18 +152,7 @@ apps_list = [
     },
 ]
 
-
 community_apps_list = [
-    # {
-    #     "name": "Reflex",
-    #     "difficulty": "Advanced",
-    #     "tags": ["Multi-Page", "Graphs", "Forms", "Data Table", "Database"],
-    #     "description": "This website!",
-    #     "img": "/gallery/pcweb.png",
-    #     "gif": "",
-    #     "url": "https://pynecone.io/",
-    #     "source": "https://github.com/pynecone-io/pcweb",
-    # },
     {
         "name": "Half Truth",
         "difficulty": "Intermediate",
@@ -320,94 +309,69 @@ accent_color = "#F5EFFE"
 
 
 def add_item(category):
-    return rx.chakra.vstack(
-        rx.inset(
-            rx.image(
-                src=category["img"],
-            ),
+    return rx.flex(
+        rx.box(
+            height="12rem",
+            width="100%",
+            background_image='url('+category["img"]+')',
+            background_size="cover",
+            background_position="center",
+            background_repeat="no-repeat",
+            border_radius="12px"
         ),
-        rx.chakra.hstack(
-            rx.heading(category["name"], style={"fontSize": "1em"}),
-            rx.chakra.spacer(),
-            rx.chakra.hstack(
-                rx.link(
-                    rx.chakra.box(
-                        rx.image(src="/icons/code.svg", width="1em"),
-                        padding_x="0.5em",
-                        border_radius="15px",
-                        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
-                    ),
-                    href=category["source"],
+        rx.vstack(
+            rx.vstack(
+                rx.heading(
+                    category["name"],
+                    size="5",
+                    color="#D6D6ED"
                 ),
-                rx.cond(
-                    category["url"],
-                    rx.link(
-                        rx.chakra.box(
-                            rx.image(src="/icons/eye.svg", width="1em"),
-                            padding_x="0.5em",
-                            border_radius="15px",
-                            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
-                        ),
-                        href=category["url"],
-                    ),
+                rx.text(category["description"], size="2", color="#8E8EA8"),
+                align_items="start",
+            ),
+            rx.box(
+                flex_grow=1,
+            ),
+            rx.hstack(
+                rx.hstack(
+                        rx.badge(category["difficulty"]),
                 ),
-                align_items="left",
+                rx.spacer(),
+                rx.foreach(
+                    category["tags"],
+                    lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
+                ),
+                color="#8E8EA8",
+                padding_bottom="0.5em",
+                width="100%",
             ),
             width="100%",
-            border_bottom="1px solid #e2e8f0",
-            border_top="1px solid #e2e8f0",
-            padding_y="0.5em",
+            padding_top="1em",
+            align_items="start",
+            height="6em",
         ),
-        rx.chakra.box(
-            category["description"],
-            color=tc["docs"]["body"],
-            height="2.5em",
-            background="linear-gradient(transparent .5em, white)",
-        ),
-        rx.chakra.spacer(),
-        rx.chakra.wrap(
-            rx.badge(
-                category["difficulty"],
-                border_radius="15px",
-            ),
-            rx.foreach(
-                category["tags"],
-                lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
-            ),
-            padding_bottom=".5em",
-        ),
-        align_items="left",
-        row_span=3,
-        col_span=1,
-        border_radius="1em",
-        bg_color="white",
-        padding="1em",
-        box_shadow="rgba(38, 57, 77, .1) 0px 20px 30px -10px",
-        _hover={
-            "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
-        },
+        direction="column",
     )
 
+
+
+grid_layout=[1, 2, 2, 3, 3, 4]
 
 def component_grid():
-    return rx.chakra.box(
-        rx.chakra.responsive_grid(
+    return rx.chakra.responsive_grid(
             rx.foreach(SideBarState.data_to_return, add_item),
-            columns=[1, 2, 2, 2, 3],
+            columns=grid_layout,
             gap=4,
         ),
-    )
+
 
 
 def community_component_grid():
-    return rx.chakra.box(
-        rx.chakra.responsive_grid(
+    return rx.chakra.responsive_grid(
             rx.foreach(SideBarState.community_apps_list, add_item),
-            columns=[1, 2, 2, 2, 3],
+            columns=grid_layout,
             gap=4,
-        ),
-    )
-
+        )
 
 def sidebar_component_grid(tags):
     return rx.chakra.wrap(
@@ -418,18 +382,12 @@ def sidebar_component_grid(tags):
                 padding_x=".5em",
                 is_active=SideBarState.chosen_tags_dict[tag],
                 on_click=SideBarState.update_tag(tag),
-                color="#5646ED",
-                bg="#F5EFFE",
-                _hover={
-                    "boxShadow": "0px 0px 0px 3px rgba(149, 128, 247, 0.6), 0px 2px 3px rgba(3, 3, 11, 0.2), 0px 4px 8px rgba(3, 3, 11, 0.04), 0px 4px 10px -2px rgba(3, 3, 11, 0.02), inset 0px 2px 0px rgba(255, 255, 255, 0.01), inset 0px 0px 0px 1px rgba(32, 17, 126, 0.4), inset 0px -20px 12px -4px rgba(234, 228, 253, 0.36);",
-                },
+                color="#6C6C81",
+                background="rgba(161, 157, 213, 0.05);",
                 _active={
                     "color": "white",
-                    "bg": "#5646ED",
-                },
-                _checked={
-                    "color": "white",
-                    "bg": "#5646ED",
+                    "background": "#5B4BF0",
+                    "border": "1px solid rgba(186, 199, 247, 0.12);"
                 },
             )
             for tag in tags
@@ -439,97 +397,65 @@ def sidebar_component_grid(tags):
     )
 
 
-heading_style3 = {}
-
-
-def sidebar():
-    return rx.chakra.box(
-        rx.chakra.vstack(
-            rx.chakra.vstack(
-                rx.heading(
-                    "Filters",
-                    padding_left=".5em",
+def gallery_heading():
+    return rx.vstack(
+            rx.flex(
+                rx.chakra.text(
+                    "Apps made in Reflex", 
+                    background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                    text_align="center",
+                    background_clip="text",
+                    padding_x="1em"
                 ),
-                sidebar_component_grid(list_of_tags),
-                width="100%",
-                align_items="left",
+                border_radius= "15px;",
+                border= "1px solid #4435D4;",
+                background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
             ),
-            rx.chakra.spacer(),
-            height="100vh",
-        ),
-        min_width="20em",
-        width="25%",
-        height="100%",
-        padding_y="2em",
-        display=["none", "none", "none", "none", "flex"],
-    )
-
-
-def gallery_with_no_sidebar():
-    return rx.chakra.container(
-        rx.chakra.vstack(
-            component_grid(),
-            rx.chakra.box(
-                rx.heading("Community Gallery"),
-                rx.chakra.divider(),
-                rx.text(
-                    "Here are some examples of what the community has made with Reflex. ",
-                    margin_bottom="1em",
-                ),
-                community_component_grid(),
-                rx.chakra.alert(
-                    rx.chakra.alert_icon(),
-                    rx.chakra.alert_title(
-                        "If you have an app you'd like to share, please fill out this ",
-                        rx.link(
-                            "form",
-                            href=constants.GALLERY_FORM_URL,
-                            color="rgb(107,99,246)",
-                        ),
-                        ".",
-                    ),
-                    status="info",
-                    margin_top="2em",
-                ),
-                padding_top="2em",
+            rx.chakra.text(
+                "Reflex Gallery", 
+                font_size="64px;",
+                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                text_align="center",
+                width="650px",
+                background_clip="text",
+                font_weight="bold",
+                letter_spacing= "-1.28px;",
             ),
-            align_items="stretch",
-            min_height="80vh",
-            margin_bottom="4em",
-            padding_y="2em",
-        ),
-        flex_direction="column",
-        max_width="1260px",
-        # height="100%",
-        # margin_bottom="4em",
-    )
+            rx.text(
+                "Here are some examples of what the team and community has made with Reflex. ",
+                color="#6C6C81",
+            ),
+            align_items="center",
+            text_align="left",
+            width="100%",
+            spacing="1",
+        )
 
 
 @webpage(path="/docs/gallery", title="Gallery · Reflex")
 def gallery() -> rx.Component:
     return rx.chakra.vstack(
-        rx.chakra.vstack(
-            rx.heading("Gallery", font_size="2em"),
-            rx.text(
-                "Browse our growing library of example apps. Use them as they are, right out of the box, or customize them to suit your needs.",
-                color="#342E5C",
-                font_size="1.2em",
-                font_family=styles.SANS,
+        gallery_heading(),
+        rx.vstack(
+            sidebar_component_grid(list_of_tags),
+            component_grid(),
+            rx.chakra.text(
+                "Community Gallery", 
+                font_size="64px;",
+                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                 text_align="center",
+                width="650px",
+                background_clip="text",
+                font_weight="bold",
+                letter_spacing= "-1.28px;",
             ),
-            rx.chakra.divider(),
-            width="100%",
-            align_items="center",
-            padding_x="4em",
-        ),
-        rx.chakra.hstack(
-            rx.chakra.spacer(),
-            sidebar(),
-            gallery_with_no_sidebar(),
+            community_component_grid(),
             rx.spacer(),
-            align_items="flex-start",
+            align_items="center",
+            padding_x="1em",
         ),
-        max_width="80em",
+        max_width="110em",
         margin_x="auto",
         margin_top="80px",
         height="100%",

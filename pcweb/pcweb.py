@@ -14,8 +14,9 @@ WINDOWS_MAX_ROUTES = 125
 
 
 # Execute all the exec blocks in the documents.
-# for doc, href in outblocks:
-#     exec_blocks(doc, href)
+for doc, href in outblocks:
+    print(f"Executing {href}")
+    exec_blocks(doc, href)
 
 # Create the app.
 app = rx.App(

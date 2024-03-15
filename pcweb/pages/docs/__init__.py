@@ -179,7 +179,6 @@ for doc in sorted(flexdown_docs):
         else:
             doc_routes.append(comp)
 
-doc_routes = []
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
