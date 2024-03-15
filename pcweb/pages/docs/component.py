@@ -481,6 +481,9 @@ EVENTS = {
     "on_select": {
         "description": "The on_select event handler is called when the user selects an item."
     },
+    "on_drop": {
+        "description": "The on_drop event handler is called when the user drops an item."
+    },
 }
 
 
@@ -589,8 +592,7 @@ def generate_event_triggers(comp):
     custom_events = [
         event
         for event in triggers
-        if event != "on_drop"
-        and not same_trigger(triggers.get(event), default_triggers.get(event))
+        if not same_trigger(triggers.get(event), default_triggers.get(event))
     ]
 
     if not custom_events:
