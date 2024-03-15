@@ -1,14 +1,14 @@
 ---
 author: Masen Furer
-date: 2024-03-08
+date: 2024-03-15
 title: "Structuring a Large App"
 description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
-image: /blog/structure-large-app.jpg
+image: /blog/alek99_squares_abstract_animated._dark_purple_with_yellow_highl_976e3d65-b044-48e6-880e-b7983b5e0b42.webp
 ---
 
-# First Steps
+## First Steps
 
-Reflex makes it easy to get a simple web app running from a single python file:
+Reflex makes it easy to create a simple Web UI running from a single Python file:
 
 ```python
 import reflex as rx
@@ -25,15 +25,16 @@ app = rx.App()
 ```
 
 However, as the app grows, keeping everything in a single module can quickly
-become messy and unmanageable. Because a Reflex app is just a python project,
-it can be organized into modules and packages (directory with `__init__.py`)
-and use the python import machinery you're likely already familiar with.
+become messy and unmanageable.
 
-# What Makes a Reflex App?
+Because a Reflex app is just a Python project, it can be organized into modules
+and packages (directory with `__init__.py`) and imported like any other Python objects.
+
+## What Makes a Reflex App?
 
 When executing `reflex init` or `reflex run`, the framework will import **two** modules automatically.
 
-## rxconfig.py
+### rxconfig.py
 
 Reflex first looks for an `rxconfig.py` in the current working directory and
 imports it.  At minimum, it **must define a module-level global named `config` as
@@ -45,72 +46,29 @@ import reflex as rx
 config = rx.Config(app_name="example_big_app")
 ```
 
-## \{app_name}/\{app_name}.py
+### \{app_name}/\{app_name}.py
 
 After loading the config, Reflex imports the main app module based on the
 `app_name`, which **must define a module-level global named `app` as an instance
-of `rx.App`**.  In the example above, this would be
+of `rx.App`**.
+
+If the app_name is `example_big_app`, then the main module would be 
 `example_big_app/example_big_app.py`.
 
 The main app module is responsible for importing all other modules that make up the
 app and defining `app = rx.App()`. **All other modules containing pages, state,
-and models MUST be imported by the main app module or package** for Reflex to be able to
-"see" these parts of the app.
+and models MUST be imported by the main app module or package** for Reflex to include
+them in the compiled output.
 
-# How to Split Up the App
+## Breaking the App into Modules
 
-The following tree is a recommended structure for breaking a Reflex app up into logic pieces.
+The key to good organization as the app grows is to break down all parts of the app into
+smaller, more manageable pieces, and organize them into logical packages that avoid circular
+dependencies.
 
-```text
-example-big-app/
-├─ assets/
-├─ example_big_app/
-│  ├─ components/
-│  │  ├─ __init__.py
-│  │  ├─ auth.py
-│  │  ├─ footer.py
-│  │  ├─ menu.py
-│  │  ├─ navbar.py
-│  ├─ pages/
-│  │  ├─ __init__.py
-│  │  ├─ index.py
-│  │  ├─ login.py
-│  │  ├─ posts.py
-│  │  ├─ product.py
-│  │  ├─ profile.py
-│  │  ├─ schedule.py
-│  ├─ __init__.py
-│  ├─ example_big_app.py
-│  ├─ models.py
-│  ├─ state.py
-│  ├─ template.py
-├─ uploaded_files/
-├─ requirements.txt
-├─ rxconfig.py
-```
+### Pages
 
-## example_big_app/models.py
-
-I prefer to implement all database models in a single file to make it easier to
-define relationships and understand the entire schema. However, if the schema is
-very large, it might make sense to have a `models` package with individual
-models defined in their own modules. At any rate, defining the models separately
-allows any page or component to import and use them without circular imports.
-
-## example_big_app/state.py
-
-_Common_ substates should be implemented in a separate module to avoid circular
-imports. This module should not import other modules in the app.
-
-## example_big_app/components
-
-This package contains reusable parts of the app, for example headers, footers,
-and menus. If a particular component requires state, the substate may be defined
-in the same module for locality. Any substate defined in a component module
-should only contain fields and event handlers pertaining to that individual
-component. 
-
-## example_big_app/template.py
+#### example_big_app/template.py
 
 Most apps consist of a common page layout and structure which wraps the content
 for each page. It is helpful to define that layout in a separate module so it
@@ -140,7 +98,10 @@ def template(page: Callable[[], rx.Component]) -> rx.Component:
     )
 ```
 
-## example_big_app/pages
+#### example_big_app/pages
+
+All complex apps will have multiple pages, so it is recommended to create `example_big_app/pages`
+as a package.
 
 This package contains one module per page in the app. If a particular page depends on the state, the substate should
 be defined in the same module as the page. The page-returning function should be decorated with `rx.page()` and `template`.
@@ -183,66 +144,13 @@ def login():
     )
 ```
 
-## example_big_app/\__init\__.py
+## State Management
 
-The `__init__.py` file defines the top-level package. This is a great place to import all state, models, and
-pages that should be part of the app. Typically, components and helpers
-do not need to imported, because they will be imported by pages that use them (or they would be unused).
+Most pages will use State in some capacity. You should avoid adding vars to a
+shared state that will only be used in a single page. Instead, define a new
+subclass of `rx.State` and keep it in the same module as the page.
 
-```python
-from . import state, models
-from .pages import index, login, post, product, profile, schedule
-
-__all__ = [
-    "state",
-    "models",
-    "index",
-    "login",
-    "post",
-    "product",
-    "profile",
-    "schedule",
-]
-```
-
-If any pages are not imported here, they will not be compiled as part of the app.
-
-## example_big_app/example_big_app.py
-
-This is the main app module. Since everything else is defined in other modules, this file becomes very simple.
-
-```python
-import reflex as rx
-
-app = rx.App()
-```
-
-# File Management
-
-There are two categories of non-code assets (media, fonts, stylesheets,
-documents) typically used in a Reflex app.
-
-## assets
-
-The `assets` directory is used for **static** files that should be accessible
-relative to the root of the frontend (default port 3000). When an app is deployed in
-production mode, changes to the assets directory will NOT be available at runtime!
-
-When referencing a asset, always prefer to use a leading forward slash, so the
-asset can be resolved regardless of the page route where it may appear.
-
-## uploaded_files
-
-If an app needs to make files available dynamically at runtime, it is
-recommended to set the target directory via `REFLEX_UPLOADED_FILES_DIR`
-environment variable (default `./uploaded_files`), write files relative to the
-path returned by `rx.get_upload_dir()`, and create working links via
-`rx.get_upload_url(relative_path)`.
-
-Uploaded files are served from the backend (default port 8000) via
-`/_upload/<relative_path>`
-
-# State Management
+### Accessing other States
 
 As of Reflex 0.4.3, any event handler can get access to an instance of any other
 substate via the `get_state` API. From a practical perspective, this means that
@@ -259,7 +167,7 @@ access them.
 A better strategy is to load the desired state on demand from only the event
 handler which needs access to the substate.
 
-## example_big_app/components/settings.py
+#### example_big_app/components/settings.py
 
 ```python
 import reflex as rx
@@ -276,7 +184,7 @@ def settings_dialog():
     return rx.dialog(...)
 ```
 
-## example_big_app/pages/posts.py
+#### example_big_app/pages/posts.py
 
 ```python
 import reflex as rx
@@ -328,7 +236,13 @@ def posts():
     )
 ```
 
-# Component Reusability
+### example_big_app/state.py
+
+_Common_ states and substates that are shared by multiple pages or components
+should be implemented in a separate module to avoid circular imports. This
+module should not import other modules in the app.
+
+## Component Reusability
 
 The primary mechanism for reusing components in Reflex is to define a function that returns
 the component, then simply call it where that functionality is needed.
@@ -336,53 +250,118 @@ the component, then simply call it where that functionality is needed.
 Component functions typically should not take any State classes as arguments, but prefer
 to import the needed state and access the vars on the class directly.
 
-## functools.lru_cache
+### example_big_app/components
 
-In a large app, if a component has many subcomponents or is used in a large number of places,
-it can improve compile and runtime performance to memoize the function with the `@lru_cache`
-decorator.
+This package contains reusable parts of the app, for example headers, footers,
+and menus. If a particular component requires state, the substate may be defined
+in the same module for locality. Any substate defined in a component module
+should only contain fields and event handlers pertaining to that individual
+component. 
 
-For example, say want to memoize the `foo` component to avoid re-creating it many times? Simply
-add `@lru_cache` to the function definition, and the component will only be created once per unique set of arguments.
+
+## example_big_app/models.py
+
+I prefer to implement all database models in a single file to make it easier to
+define relationships and understand the entire schema. However, if the schema is
+very large, it might make sense to have a `models` package with individual
+models defined in their own modules. At any rate, defining the models separately
+allows any page or component to import and use them without circular imports.
+
+
+## example_big_app/\\_\\_init\\_\\_.py
+
+The `__init__.py` file defines the top-level package. This is a great place to import all state, models, and
+pages that should be part of the app. Typically, components and helpers
+do not need to imported, because they will be imported by pages that use them (or they would be unused).
 
 ```python
-from functools import lru_cache
+from . import state, models
+from .pages import index, login, post, product, profile, schedule
 
-import reflex as rx
-
-class State(rx.State):
-    v: str = "foo"
-
-
-@lru_cache
-def foo():
-    return rx.text(State.v)
-
-
-def index():
-    return rx.flex(
-        rx.button("Change", on_click=State.set_v(rx.cond(State.v != "bar", "bar", "foo"))),
-        *[
-            foo()
-            for _ in range(100)
-        ],
-        direction="row",
-        wrap="wrap",
-    )
+__all__ = [
+    "state",
+    "models",
+    "index",
+    "login",
+    "post",
+    "product",
+    "profile",
+    "schedule",
+]
 ```
 
-## External Components
+If any pages are not imported here, they will not be compiled as part of the app.
 
-Reflex 0.4.3 introduced support for the `reflex component` CLI commands, which makes it easy
-to bundle up common functionality to publish on PyPI as a standalone python package
-that can be installed and used in any Reflex app.
+## example_big_app/example_big_app.py
 
-When wrapping npm components or other self-contained bits of functionality, it can be helpful
-to move this complexity outside the app itself for easier maintenance and reuse in other apps.
+This is the main app module. Since everything else is defined in other modules, this file becomes very simple.
 
-# Takeaways
+```python
+import reflex as rx
 
-- Like any other python project, **split up the app into modules and packages** to keep the codebase organized and manageable.
+app = rx.App()
+```
+
+## File Management
+
+There are two categories of non-code assets (media, fonts, stylesheets,
+documents) typically used in a Reflex app.
+
+### assets
+
+The `assets` directory is used for **static** files that should be accessible
+relative to the root of the frontend (default port 3000). When an app is deployed in
+production mode, changes to the assets directory will NOT be available at runtime!
+
+When referencing a asset, always prefer to use a leading forward slash, so the
+asset can be resolved regardless of the page route where it may appear.
+
+### uploaded_files
+
+If an app needs to make files available dynamically at runtime, it is
+recommended to set the target directory via `REFLEX_UPLOADED_FILES_DIR`
+environment variable (default `./uploaded_files`), write files relative to the
+path returned by `rx.get_upload_dir()`, and create working links via
+`rx.get_upload_url(relative_path)`.
+
+Uploaded files are served from the backend (default port 8000) via
+`/_upload/<relative_path>`
+
+## Putting it all together
+
+Based on the previous discussion, we recommend a project layout that might look like this.
+
+```text
+example-big-app/
+├─ assets/
+├─ example_big_app/
+│  ├─ components/
+│  │  ├─ __init__.py
+│  │  ├─ auth.py
+│  │  ├─ footer.py
+│  │  ├─ menu.py
+│  │  ├─ navbar.py
+│  ├─ pages/
+│  │  ├─ __init__.py
+│  │  ├─ index.py
+│  │  ├─ login.py
+│  │  ├─ posts.py
+│  │  ├─ product.py
+│  │  ├─ profile.py
+│  │  ├─ schedule.py
+│  ├─ __init__.py
+│  ├─ example_big_app.py
+│  ├─ models.py
+│  ├─ state.py
+│  ├─ template.py
+├─ uploaded_files/
+├─ requirements.txt
+├─ rxconfig.py
+```
+
+## Takeaways
+
+- Like any other Python project, **split up the app into modules and packages** to keep the codebase organized and manageable.
 - Using smaller modules and packages makes it easier to **reuse components and state** across the app
   without introducing circular dependencies.
 - Create **individual functions** to encapsulate units of functionality and **reuse them** where needed.
