@@ -64,5 +64,16 @@ def get_sidebar_items_other_libraries():
     return [chakra_item]
 
 
+def get_sidebar_items_custom_components():
+
+    return [
+        SidebarItem(
+            names="Custom Components",
+            alt_name_for_next_prev="Components Reference: Overview",
+            link="/docs/custom-components",
+        )
+    ]
+
 component_lib = get_sidebar_items_component_lib()
+custom_components = get_sidebar_items_custom_components()
 other_libs = get_sidebar_items_other_libraries()
