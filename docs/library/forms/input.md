@@ -41,7 +41,7 @@ import reflex as rx
 from pcweb.pages.docs import library
 ```
 
-# Input (High Level API for TextField)
+# Input
 
 The `input` component is an input field that users can type into.
 
