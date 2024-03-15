@@ -2,7 +2,14 @@
 import reflex as rx
 ```
 
-# Architecture
+# Building a Pure Python Web Framework
+
+
+
+Reflex is a framework to build full-stack web apps and user interfaces in pure Python. This blog
+
+## Differences From Existing Frameworks
+
 
 This page provides an technical overview of the Reflex internals. You don't need to understand this to use Reflex, but it can be helpful if you want to contribute to Reflex development, or if you're just interested in how Reflex works under the hood.
 
