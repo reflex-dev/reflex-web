@@ -127,12 +127,14 @@ def navigation_section():
     )
 
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+@rx.memo
+def navbar(sidebar: rx.Component) -> rx.Component:
     return rx.flex(
         rx.link(
             rx.box(
                 rx.image(
                     src="/logos/light/reflex.svg",
+                    alt="Reflex Logo",
                     height="20px",
                     justify="start",
                 )

@@ -12,6 +12,7 @@ def logo(**style_props):
     """
     return rx.image(
         src=styles.LOGO_URL,
+        alt = "The Reflex logo.",
         **style_props,
     )
 

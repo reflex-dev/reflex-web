@@ -50,6 +50,7 @@ def sidebar_leaf(
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
+    item.link= item.link.replace("_", "-")
     return rx.chakra.accordion_item(
         rx.cond(
             item.link == url,
@@ -118,6 +119,7 @@ def sidebar_icon(name):
         "Utility Methods": "cog",
         "Reflex Deploy": "globe-2",
         "Self Hosting": "server",
+        "Custom Components": "blocks",
     }
 
     if name in mappings:
@@ -135,7 +137,8 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):
+):  
+
     return rx.cond(
         len(item.children) == 0,
         sidebar_leaf(item=item, url=url),
