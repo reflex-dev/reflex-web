@@ -14,8 +14,8 @@ apps_list = [
         "description": "This website!",
         "img": "/gallery/pcweb.png",
         "gif": "",
-        "url": "https://pynecone.io/",
-        "source": "https://github.com/pynecone-io/pcweb",
+        "url": "https://reflex.dev/",
+        "source": "https://github.com/reflex-dev/reflex-web",
     },
     {
         "name": "Chat App",
@@ -24,7 +24,7 @@ apps_list = [
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
-        "url": "https://webui-teal-star.reflex.run",
+        "url": "https://chat.reflex.run/",
         "source": "https://github.com/reflex-dev/reflex-chat",
     },
     {
@@ -55,7 +55,7 @@ apps_list = [
         "img": "/gallery/traversal.png",
         "gif": "",
         "url": "https://traversal.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/traversal",
     },
     {
         "name": "Counter",
@@ -64,8 +64,8 @@ apps_list = [
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
-        "url": "https://counter.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/counter",
+        "url": "https://counter-radix.reflex.run",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/counter",
     },
     {
         "name": "GPT Q&A",
