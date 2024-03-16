@@ -721,10 +721,10 @@ def multi_docs(path, comp, component_list, title):
                 return rx.flex(
                     rx.box(flex_grow="1"),
                     rx.flex(
-                        rx.link(rx.center(rx.text("Core"), style=active_style)),
+                        rx.link(rx.center(rx.text("High Level"), style=active_style)),
                         rx.link(
-                            rx.center(rx.text("Internal"), style=non_active_style),
-                            href=path + "/internal",
+                            rx.center(rx.text("Low Level"), style=non_active_style),
+                            href=path + "/low",
                         ),
                         spacing="2",
                         padding=".5em",
@@ -740,10 +740,10 @@ def multi_docs(path, comp, component_list, title):
                     rx.box(flex_grow="1"),
                     rx.flex(
                         rx.link(
-                            rx.center(rx.text("Core"), style=non_active_style),
+                            rx.center(rx.text("High Level"), style=non_active_style),
                             href=path,
                         ),
-                        rx.link(rx.center(rx.text("Internal"), style=active_style)),
+                        rx.link(rx.center(rx.text("Low Level"), style=active_style)),
                         spacing="2",
                         padding=".5em",
                         background=rx.color("mauve", 2),
@@ -767,7 +767,7 @@ def multi_docs(path, comp, component_list, title):
             width="100%",
         )
 
-    @docpage(set_path=path + "/internal", t=title)
+    @docpage(set_path=path + "/low", t=title)
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
