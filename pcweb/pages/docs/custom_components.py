@@ -157,10 +157,6 @@ def add_item(category):
             padding_x=".25em",
         ),
         rx.hstack(
-            rx.text(
-                "Author: " + package_info.get("info", {}).get("author", "Unknown"),
-                font_size="0.75em",
-            ),
             rx.spacer(),
             rx.link(
                 rx.icon(
