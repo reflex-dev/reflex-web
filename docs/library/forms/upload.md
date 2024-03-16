@@ -23,9 +23,13 @@ rx.upload(
 )
 ```
 
-Selecting a file will add it to the browser's file list, which can be rendered on the frontend using the `rx.selected_files(id)` special Var.
-To clear the selected files, you can use another special Var `rx.clear_selected_files(id)` as an event handler.
-To upload the file, you need to bind an event handler and pass the file list.
+Selecting a file will add it to the browser's file list, which can be rendered
+on the frontend using the `rx.selected_files(id)` special Var.  To clear the
+selected files, you can use another special Var `rx.clear_selected_files(id)` as
+an event handler.
+
+To upload the file(s), you need to bind an event handler and pass the special
+`rx.upload_files(upload_id=id)` event arg to it.
 
 A full example is shown below.
 
@@ -90,6 +94,9 @@ def index():
 In the example below, the upload component accepts a maximum number of 5 files of specific types.
 It also disables the use of the space or enter key in uploading files.
 
+To use a one-step upload, bind the event handler to the `rx.upload` component's
+`on_drop` trigger.
+
 ```python
 class State(rx.State):
     \"""The app state.\"""
@@ -139,12 +146,9 @@ def index():
             max_files=5,
             disabled=False,
             on_keyboard=True,
+            on_drop=State.handle_upload(rx.upload_files(upload_id="upload2")),
             border=f"1px dotted \{color}",
             padding="5em",
-        ),
-        rx.button(
-            "Upload",
-            on_click=State.handle_upload(rx.upload_files(upload_id="upload2")),
         ),
         rx.chakra.responsive_grid(
             rx.foreach(
@@ -167,7 +171,9 @@ Your event handler should be an async function that accepts a single argument,
 `files: list[UploadFile]`, which will contain [FastAPI UploadFile](https://fastapi.tiangolo.com/tutorial/request-files) instances.
 You can read the files and save them anywhere as shown in the example.
 
-In your UI, you can bind the event handler to a trigger, such as a button `on_click` event, and pass in the files using `rx.upload_files()`.
+In your UI, you can bind the event handler to a trigger, such as a button
+`on_click` event or upload `on_drop` event, and pass in the files using
+`rx.upload_files()`.
 
 ### Saving the File
 
