@@ -79,9 +79,8 @@ def get_downloads(package_name):
     today = datetime.date.today()
     first_day_of_current_month = datetime.date(today.year, today.month, 1)
     last_day_of_last_month = first_day_of_current_month - datetime.timedelta(days=1)
-    first_day_of_last_month = datetime.date(last_day_of_last_month.year, last_day_of_last_month.month, 1)
 
-    start_date = first_day_of_last_month.strftime('%Y-%m-%d')
+    start_date = "2024-01-01"
     end_date = last_day_of_last_month.strftime('%Y-%m-%d')
 
     url = f"https://pypistats.org/api/packages/{package_name}/recent?start_date={start_date}&end_date={end_date}"
@@ -106,17 +105,8 @@ def add_item(category):
 
     package_info = get_package_info(category["package_name"])
     name = ' '.join(word.title() for word in category["package_name"].split('-')[1:])
-    print(package_info.get("info", {}).get("author", "Unknown"))
+
     return rx.flex(
-        # rx.box(
-        #     height="12rem",
-        #     width="100%",
-        #     background_image='url('+category["img"]+')',
-        #     background_size="cover",
-        #     background_position="center",
-        #     background_repeat="no-repeat",
-        #     border_radius= "8px 8px 0 0"
-        # ),
         rx.vstack(
             rx.vstack(
                 rx.hstack(
@@ -191,7 +181,7 @@ def add_item(category):
         padding=".75em",
     )
 
-grid_layout=[1, 2, 2, 3, 3, 4]
+grid_layout=[1, 2, 2, 3, 3]
 
 def component_grid(): 
     return rx.chakra.responsive_grid(
