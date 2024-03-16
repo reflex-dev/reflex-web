@@ -13,7 +13,7 @@ default value is either `rx.Cookie` or `rx.LocalStorage` depending on where the
 value should be stored.  The key name will be based on the var name, but this
 can be overridden by passing `name="my_custom_name"` as a keyword argument.
 
-For more information see [Browser Storage](/docs/api-reference/browser_storage/).
+For more information see [Browser Storage](/docs/api-reference/browser-storage/).
 
 Try entering some values in the text boxes below and then load the page in a separate
 tab or check the storage section of browser devtools to see the values saved in the browser.

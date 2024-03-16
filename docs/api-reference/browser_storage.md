@@ -25,6 +25,33 @@ class CookieState(rx.State):
     c6: str = rx.Cookie(name='c6-custom-name')
 ```
 
+```md alert warning
+# **The default value of a Cookie is never set in the browser!**
+
+The Cookie value is only set when the Var is assigned. If you need to set a
+default value, you can assign a value to the cookie in an `on_load` event
+handler.
+```
+
+## Accessing Cookies
+
+Cookies are accessed like any other Var in the state. If another state needs access
+to the value of a cookie, the state should be a substate of the state that defines
+the cookie. Alternatively the `get_state` API can be used to access the other state.
+
+For rendering cookies in the frontend, import the state that defines the cookie and
+reference it directly.
+
+```md alert warning
+# **Two separate states should _avoid_ defining `rx.Cookie` with the same name.**
+
+Although it is technically possible, the cookie options may differ, leading to
+unexpected results.
+
+Additionally, updating the cookie value in one state will not automatically
+update the value in the other state without a page refresh or navigation event.
+```
+
 ## rx.remove_cookies
 
 Remove a cookie from the client's browser.
@@ -55,6 +82,7 @@ Represents a state Var that is stored in localStorage in the browser. Currently 
 Parameters
 
 - `name`: The name of the storage key on the client side.
+- `sync`: Boolean indicates if the state should be kept in sync across tabs of the same browser.
 
 ```python
 class LocalStorageState(rx.State):
@@ -64,7 +92,18 @@ class LocalStorageState(rx.State):
     # local storage with custom settings
     l2: str = rx.LocalStorage("l2 default")
     l3: str = rx.LocalStorage(name="l3")
+
+    # local storage that automatically updates in other states across tabs
+    l4: str = rx.LocalStorage(sync=True)
 ```
+
+### Syncing Vars
+
+Because LocalStorage applies to the entire browser, all LocalStorage Vars are
+automatically shared across tabs.
+
+The `sync` parameter controls whether an update in one tab should be actively
+propagated to other tabs without requiring a navigation or page refresh event.
 
 ## rx.remove_local_storage
 
@@ -138,7 +177,7 @@ class ComplexLocalStorageState(rx.State):
 
 
 def app_settings():
-    return rx.form(
+    return rx.form.root(
         rx.foreach(
             ComplexLocalStorageState.data.error_messages,
             rx.text,
@@ -157,7 +196,7 @@ def app_settings():
                 rx.form.label(
                     "Sidebar Visible",
                     rx.switch(
-                        is_checked=ComplexLocalStorageState.data.sidebar_visible,
+                        checked=ComplexLocalStorageState.data.sidebar_visible,
                         on_change=lambda v: ComplexLocalStorageState.set_field(
                             "sidebar_visible",
                             v,
@@ -174,7 +213,7 @@ def app_settings():
                         ),
                     ),
                 ),
-                rx.button("Save", type="submit"),
+                rx.dialog.close(rx.button("Save", type="submit")),
                 gap=2,
                 direction="column",
             )
@@ -183,17 +222,13 @@ def app_settings():
     )
 
 def app_settings_example():
-    return rx.fragment(
-        rx.chakra.modal(
-            rx.chakra.modal_overlay(
-                rx.chakra.modal_content(
-                    rx.chakra.modal_header("App Settings"),
-                    rx.chakra.modal_body(app_settings()),
-                ),
-            ),
-            is_open=ComplexLocalStorageState.settings_open,
-            on_close=ComplexLocalStorageState.set_settings_open(False),
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
         ),
-        rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
+        rx.dialog.content(
+            rx.dialog.title("App Settings"),
+            rx.dialog.description(app_settings()),
+        ),
     )
 ```
