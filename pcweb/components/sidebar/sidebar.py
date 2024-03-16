@@ -11,7 +11,7 @@ from .state import SidebarState, SidebarItem
 from .style import heading_style2, heading_style3
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
-from .sidebar_items.component_lib import get_component_link, component_lib, other_libs, custom_components
+from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
 from .sidebar_items.reference import api_reference, recipes, tutorials
 
 
@@ -318,7 +318,6 @@ def sidebar_comp(
     backend_index: list[int],
     hosting_index: list[int],
     other_libs_index: list[int],
-    custom_components_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
     tutorials_index: list[int],
@@ -346,12 +345,6 @@ def sidebar_comp(
                 rx.flex(
                     create_sidebar_section(
                         "Core Components", component_lib, component_lib_index, url
-                    ),
-                    create_sidebar_section(
-                        "Custom Components",
-                        custom_components,
-                        custom_components_index,
-                        url,
                     ),
                     create_sidebar_section(
                         "Other Libraries", other_libs, other_libs_index, url
@@ -400,7 +393,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
     other_libs_index = calculate_index(other_libs, url)
-    custom_components_index = calculate_index(custom_components, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
     tutorials_index = calculate_index(tutorials, url)
@@ -414,7 +406,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             backend_index=backend_index,
             hosting_index=hosting_index,
             other_libs_index=other_libs_index,
-            custom_components_index=custom_components_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
             tutorials_index=tutorials_index,
