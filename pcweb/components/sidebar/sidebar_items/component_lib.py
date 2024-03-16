@@ -32,6 +32,7 @@ def get_category_children(category, category_list, prefix=""):
 
 def get_sidebar_items_component_lib():
     from pcweb.pages.docs import component_list
+    from pcweb.pages.docs.library import library
 
     library_item_children = []
 
@@ -43,7 +44,7 @@ def get_sidebar_items_component_lib():
         SidebarItem(
             names="Overview",
             alt_name_for_next_prev="Components Reference: Overview",
-            link="/docs/library",
+            link=library.path,
         ),
         *library_item_children,
     ]
@@ -51,6 +52,7 @@ def get_sidebar_items_component_lib():
 
 def get_sidebar_items_other_libraries():
     from pcweb.pages.docs import chakra_components
+    from pcweb.pages.docs.custom_components import custom_components
 
     chakra_children = []
     for category in chakra_components:
@@ -61,8 +63,14 @@ def get_sidebar_items_other_libraries():
 
     chakra_item = SidebarItem(names="Chakra", children=chakra_children)
 
-    return [chakra_item]
-
+    return [
+        SidebarItem(
+            names="Custom Components",
+            alt_name_for_next_prev="Components Reference: Overview",
+            link=custom_components.path,
+        ),
+        chakra_item
+        ]
 
 component_lib = get_sidebar_items_component_lib()
 other_libs = get_sidebar_items_other_libraries()
