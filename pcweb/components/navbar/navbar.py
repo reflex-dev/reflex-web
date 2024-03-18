@@ -4,6 +4,7 @@ from .buttons.github import github
 from .buttons.discord import discord
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
+from .buttons.product_hunt import product_hunt
 
 
 def resource_header(text):
@@ -148,6 +149,7 @@ def navbar(sidebar: rx.Component) -> rx.Component:
         rx.flex(
             search_bar(),
             github(),
+            product_hunt(),
             rx.divider(size="2", color="mauve", orientation="vertical"),
             rx.box(
                 discord(),
