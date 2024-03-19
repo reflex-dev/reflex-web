@@ -45,6 +45,7 @@ def page(document) -> rx.Component:
         xd.render(document, "blog.md"),
         padding_bottom="8em",
         margin_top="120px",
+        padding_x="1em",
         margin_x="auto",
         size="2",
     )

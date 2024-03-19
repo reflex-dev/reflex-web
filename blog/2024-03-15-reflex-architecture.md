@@ -1,14 +1,14 @@
 ---
 author: Nikhil Rao
 date: 2024-03-14
-title: "Building a Pure Python Web Framework"
-description: "A look at how Reflex works under the hood."
+title: Building a Pure Python Web Framework
+description: A look at how Reflex works under the hood.
 image: /auth_blog.png
 ---
 
 We started Reflex a year ago so that anyone who knows Python can easily build web apps and share them with the world, without needing to learn a new language and piecing together a bunch of different tools.
 
-In this post, I wanted to share more about why we built Reflex, and how it works under the hood.
+In this post, I'll share more about why we built Reflex, and how it works under the hood.
 
 We'll use the following basic app that displays Github profile images as an example to explain the different parts of the architecture.
 
@@ -34,7 +34,7 @@ def index():
 
 ## The Starting Point
 
-Before working on Reflex, I was at a startup and then at a big tech company working on AI projects. On these teams, we used Python for everything from data analysis to machine learning to backend services. But when it came to visualizing our work or building apps so that others could use our work, there wasn't a good option to stay in Python. Suddenly, we had to switch to JavaScript and learn a whole new ecosystem.
+Before working on Reflex, I worked on AI projects at a startup and then at a big tech company. On these teams, we used Python for everything from data analysis to machine learning to backend services. But when it came to visualizing our work or building apps so that others could use our work, there wasn't a good option to stay in Python. Suddenly, we had to switch to JavaScript and learn a whole new ecosystem.
 
 Making a UI for your project should be simple, but even though we had great engineers on our team, the overhead of learning a new language and tools was a huge barrier. Often making a UI was harder than the actual work we were doing!
 
@@ -50,13 +50,23 @@ On the other hand, there are pure Python libraries like [Dash](https://dash.plot
 
 We wanted to build to bridge this gap by creating a framework that is easy and intuitive, while remaining flexible and powerful to support any app.
 
-## What about existing solutions?
+## The Reflex Architecture
 
-## Motivation
+Reflex apps compile down to a [Next.js](https://github.com/vercel/next.js) frontend app and a [FastAPI](https://github.com/tiangolo/fastapi) backend app. Only the UI is compiled to Javascript; all the app logic and state management stays in Python and is run on the server. Reflex uses websockets to send events from the frontend to the backend, and to send state updates from the backend to the frontend.
 
-## Core Concepts
+When building Reflex, we wanted the final app to be as close to a traditional web app as possible so that it ca
+
+The diagram below shows a detailed overview of how a Reflex app works.
+We'll go through each part in more detail in the following sections.
+
+![Reflex Architecture](/architecture.png)
+
+```python eval
+rx.box(height="1em")
+```
 
 ### Frontend (Components)
+
 - keep sections on how we leverage
 We chose React because it is a popular library with a huge ecosystem - our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
 
