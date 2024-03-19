@@ -54,7 +54,7 @@ We wanted to build to bridge this gap by creating a framework that is easy and i
 
 Reflex apps compile down to a [Next.js](https://github.com/vercel/next.js) frontend app and a [FastAPI](https://github.com/tiangolo/fastapi) backend app. Only the UI is compiled to Javascript; all the app logic and state management stays in Python and is run on the server. Reflex uses websockets to send events from the frontend to the backend, and to send state updates from the backend to the frontend.
 
-When building Reflex, we wanted the final app to be as close to a traditional web app as possible so that it ca
+When building Reflex, we wanted the final product to look and feel like a traditional web app to the end user, while still being easy to build and maintain for the developer. We chose to leverage the existing web ecosy
 
 The diagram below shows a detailed overview of how a Reflex app works.
 We'll go through each part in more detail in the following sections.
@@ -67,20 +67,94 @@ rx.box(height="1em")
 
 ### Frontend (Components)
 
-- keep sections on how we leverage
-We chose React because it is a popular library with a huge ecosystem - our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
+Reflex frontends are built using components that can be composed together to create complex UIs.
+
+```python
+def index():
+    return rx.hstack(
+        rx.avatar(src=f"https://github.com/{GithubState.username}.png"),
+        rx.input(
+            placeholder="Enter your username",
+            on_blur=GithubState.set_username,
+        ),
+    )
+```
+
+In our example app, we have components such as `rx.hstack`, `rx.avatar`, and `rx.input`. Under the hood, these components compile down to React components.
+
+For example, the above code compiles down to the following React code:
+
+```jsx
+<HStack>
+    <Avatar src="https://github.com/{GithubState.username}.png">
+    <Input
+        placeholder="Enter your username"
+        onBlur={GithubState.set_username}
+    >
+</HStack>
+```
+
+We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
+
+This also let's our users bring their own components if we don't have a component they need.
 
 ### Backend (State)
 
-### Events
+In Reflex only the frontend compiles to Javascript, while all the state and logic stays in Python and is run on the server.
+
+```python
+import reflex as rx
+
+class GithubState(rx.State):
+    username: str = "reflex-dev"
+
+    def set_username(self, username: str):
+        self.username = username
+```
+
+Normally when writing web apps, you have to write a lot of boilerplate code to connect the frontend and backend. With Reflex, you don't have to worry about that. We handle the communication between the frontend and backend for you.
+
+We follow a reactive approach to state. All the variables that change over time are defined in a `State` class. When a variable changes, the frontend is automatically updated to reflect the new state.
+
+
+## Event Processing
+
+Now we get into the interesting part - how we handle events and state updates. Let's walk through it with our Github profile image example.
+
+### Event Trigger
+
+Events are initiated when the user interacts with the UI. In our example, when the user types in the input field and then clicks away, the `on_blur` event is triggered.
 
 ### Event Queue
 
+On the frontend, we maintain an event queue of all pending events. When an event is triggered, it is added to the queue. We have a `processing` flag to make sure only one event is processed at a time. This ensures that the state is always consistent and there aren't any race conditions with two event handlers modifying the state at the same time.
+
+Once the event is ready to be processed, it is sent to the backend through a websocket connection.
+
 ### State Manager
+
+The event contains information including the token of the client, the event handler to run, and the arguments to pass to the event handler. The backend processes the event and updates the state.
+
+The first step is to get the user's state. This is where the state manager comes in. It is essentially a mapping from a user's token to their state. When the backend receives an event, it looks up the user's state and runs the event handler on that state.
+
+By default the state manager is just an in-memory dictionary, but it can be extended to use a database or cache. In production we use Redis to store the state.
 
 ### Event Handling
 
+Once we have the user's state, the next step is to run the event handler.
+
+```python
+def set_username(self, username: str):
+    self.username = username
+```
+
+In our example, the `set_username` event handler is run on the user's state. This updates the user's state with the new username.
+
 ### State Updates
+
+After the event handler runs, it updates the state's vars. Whenever a state var updates it, Reflex marks it as "dirty". When the event handler is done processing, we find all the dirty vars and send them to the frontend to update the UI. This allows our apps to scale as the state grows.
+
+The state delta is sent to the frontend through a websocket connection. The frontend then updates the UI to reflect the new state. In this case, the new Github profile image is displayed.
 
 ## Extendability
 
