@@ -48,13 +48,13 @@ On the one hand, there are frameworks like [Django](https://www.djangoproject.co
 
 On the other hand, there are pure Python libraries like [Dash](https://dash.plotly.com/) and [Streamlit](https://streamlit.io/) that are great for building data visualization apps. These can be great for small projects, but they are limited to a specific use case and don't have the features and performance to build a full web app.
 
-We wanted to build to bridge this gap by creating a framework that is easy and intuitive, while remaining flexible and powerful to support any app.
+We wanted to bridge this gap by creating a framework that is easy and intuitive, while remaining flexible and powerful to support any app.
 
 ## The Reflex Architecture
 
 Reflex apps compile down to a [Next.js](https://github.com/vercel/next.js) frontend app and a [FastAPI](https://github.com/tiangolo/fastapi) backend app. Only the UI is compiled to Javascript; all the app logic and state management stays in Python and is run on the server. Reflex uses websockets to send events from the frontend to the backend, and to send state updates from the backend to the frontend.
 
-When building Reflex, we wanted the final product to look and feel like a traditional web app to the end user, while still being easy to build and maintain for the developer. We chose to leverage the existing web ecosy
+When building Reflex, we wanted the final product to look and feel like a traditional web app to the end user, while still being easy to build and maintain for the developer. We chose to leverage the existing web ecosystem.
 
 The diagram below shows a detailed overview of how a Reflex app works.
 We'll go through each part in more detail in the following sections.
@@ -86,9 +86,10 @@ For example, the above code compiles down to the following React code:
 
 ```jsx
 <HStack>
-    <Avatar src="https://github.com/{GithubState.username}.png">
+    <Avatar src={`https://github.com/${GithubState.username}.png`}>
     <Input
         placeholder="Enter your username"
+        // This would actually be a websocket call to the backend.
         onBlur={GithubState.set_username}
     >
 </HStack>
@@ -100,7 +101,7 @@ This also let's our users bring their own components if we don't have a componen
 
 ### Backend (State)
 
-In Reflex only the frontend compiles to Javascript, while all the state and logic stays in Python and is run on the server.
+In Reflex only the frontend compiles to Javascript and runs on the user's browser, while all the state and logic stays in Python and is run on the server.
 
 ```python
 import reflex as rx
@@ -114,8 +115,9 @@ class GithubState(rx.State):
 
 Normally when writing web apps, you have to write a lot of boilerplate code to connect the frontend and backend. With Reflex, you don't have to worry about that. We handle the communication between the frontend and backend for you.
 
-We follow a reactive approach to state. All the variables that change over time are defined in a `State` class. When a variable changes, the frontend is automatically updated to reflect the new state.
+All the variables that change over time (called **vars** in Reflex) are defined in a `State` class. When a variable changes, the frontend is automatically updated to reflect the new state.
 
+The state also contains **event handlers** that are called when the user interacts with the UI and update the state vars. In our example, the `set_username` event handler is called when the user types in the input field and then clicks away.
 
 ## Event Processing
 
@@ -129,7 +131,7 @@ Events are initiated when the user interacts with the UI. In our example, when t
 
 On the frontend, we maintain an event queue of all pending events. When an event is triggered, it is added to the queue. We have a `processing` flag to make sure only one event is processed at a time. This ensures that the state is always consistent and there aren't any race conditions with two event handlers modifying the state at the same time.
 
-Once the event is ready to be processed, it is sent to the backend through a websocket connection.
+Once the event is ready to be processed, it is sent to the backend through a [websocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) connection.
 
 ### State Manager
 
@@ -152,9 +154,9 @@ In our example, the `set_username` event handler is run on the user's state. Thi
 
 ### State Updates
 
-After the event handler runs, it updates the state's vars. Whenever a state var updates it, Reflex marks it as "dirty". When the event handler is done processing, we find all the dirty vars and send them to the frontend to update the UI. This allows our apps to scale as the state grows.
+After the event handler runs, it updates the state's vars. Whenever a state var is updated, Reflex marks it as "dirty". When the event handler is done processing, we find all the dirty vars and send them to the frontend to update the UI. This allows our apps to scale as the state grows.
 
-The state delta is sent to the frontend through a websocket connection. The frontend then updates the UI to reflect the new state. In this case, the new Github profile image is displayed.
+All the dirty vars are collected and sent to the frontend as a "state delta". The frontend then updates the UI to reflect the new state. In our example, the new Github profile image is displayed.
 
 ## Extendability
 
