@@ -221,7 +221,6 @@ class DemoBlock(flexdown.blocks.Block):
 
         return docdemo(code, comp=comp, demobox_props=demobox_props)
 
-
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
     "h2": lambda text: h2_comp_xd(text=text),

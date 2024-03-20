@@ -1,105 +1,173 @@
 ---
 author: Nikhil Rao
-date: 2024-03-14
+date: 2024-03-20
 title: Building a Pure Python Web Framework
 description: A look at how Reflex works under the hood.
-image: /auth_blog.png
+image: /blog/python.png
 ---
+
+```python exec
+# from pcweb.pages.docs import wrapping_react
+```
 
 We started Reflex a year ago so that anyone who knows Python can easily build web apps and share them with the world, without needing to learn a new language and piecing together a bunch of different tools.
 
-In this post, I'll share more about why we built Reflex, and how it works under the hood.
+In this post, I'll share more about what makes Reflex different, and how it works under the hood.
 
 We'll use the following basic app that displays Github profile images as an example to explain the different parts of the architecture.
 
 ```python demo exec
+import requests
 import reflex as rx
 
 class GithubState(rx.State):
-    username: str = "reflex-dev"
+    url: str = "https://github.com/reflex-dev"
+    profile_image: str = "https://avatars.githubusercontent.com/u/104714959"
 
-    def set_username(self, username: str):
-        self.username = username
+    def set_profile(self, username: str):
+        github_data = requests.get(f"https://api.github.com/users/{username}").json()
+        self.url = github_data["url"]
+        self.profile_image = github_data["avatar_url"]
 
 
 def index():
     return rx.hstack(
-        rx.avatar(src=f"https://github.com/{GithubState.username}.png"),
-        rx.input(
-            placeholder="Enter your username",
-            on_blur=GithubState.set_username,
+        rx.link(
+            rx.avatar(src=GithubState.profile_image),
+            href=GithubState.url,
         ),
+        rx.input(
+            placeholder="Your Github username",
+            on_blur=GithubState.set_profile,
+        ),
+        background_color="lightgreen",
+        padding="2em",
+        border_radius="1em",
     )
 ```
 
 ## The Starting Point
 
-Before working on Reflex, I worked on AI projects at a startup and then at a big tech company. On these teams, we used Python for everything from data analysis to machine learning to backend services. But when it came to visualizing our work or building apps so that others could use our work, there wasn't a good option to stay in Python. Suddenly, we had to switch to JavaScript and learn a whole new ecosystem.
+Python is one of the most popular programming languages in the world. Web development is one of the most popular use cases for programming. So why can't we build web apps in Python?
 
-Making a UI for your project should be simple, but even though we had great engineers on our team, the overhead of learning a new language and tools was a huge barrier. Often making a UI was harder than the actual work we were doing!
+Before working on Reflex, I worked on AI projects at a startup and then at a big tech company. On these teams, we used Python for everything from data analysis to machine learning to backend services. But when it came to building user interfaces or apps so that others could use our work, there wasn't a good option to stay in Python. Suddenly, we had to switch to JavaScript and learn a whole new ecosystem.
 
-Python is used for everything except web apps, and we wanted to fill that gap.
+Making a UI should be simple, but even though we had great engineers on our team, the overhead of learning a new language and tools was a huge barrier. Often making a UI was harder than the actual work we were doing!
 
 ## Existing Python Solutions
 
-Before building Reflex we looked for existing Python solutions, but none of them fit our needs.
+There were a few ways already to build apps in Python, but none of them fit our needs.
 
-On the one hand, there are frameworks like [Django](https://www.djangoproject.com/) and [Flask](https://flask.palletsprojects.com/) that are great for building web apps, but they only handle the backend. You still need to learn JavaScript and a frontend framework, as well as writing a lot of boilerplate code to connect the frontend and backend. 
+On the one hand, there are frameworks like [Django](https://www.djangoproject.com/) and [Flask](https://flask.palletsprojects.com/) that are great for building production-grade web apps. But they only handle the backend - you still need to use JavaScript and a frontend framework, as well as writing a lot of boilerplate code to connect the frontend and backend.
 
-On the other hand, there are pure Python libraries like [Dash](https://dash.plotly.com/) and [Streamlit](https://streamlit.io/) that are great for building data visualization apps. These can be great for small projects, but they are limited to a specific use case and don't have the features and performance to build a full web app.
+On the other hand, there are pure Python libraries like [Dash](https://dash.plotly.com/) and [Streamlit](https://streamlit.io/) can be great for small projects, but they are limited to a specific use case and don't have the features and performance to build a full web app. As your app grows in features and complexity, you may find yourself hitting the limits of the framework, at which point you either have to limit your idea to fit the framework, or scrap your project and rebuild it using a "real web framework".
 
-We wanted to bridge this gap by creating a framework that is easy and intuitive, while remaining flexible and powerful to support any app.
+We wanted to bridge this gap by creating a framework that is easy and intuitive to get started with, while remaining flexible and powerful to support any app.
+
+## Goals of Reflex
+
+* **Pure Python**: Use one language for everything.
+* **Easy to get started**: Build your ideas easily without needing web development experience.
+* **Full Flexibility**: Web apps should match the customizability and performance of traditional web frameworks.
+* **Batteries Included**: Handle the full-stack from the frontend, backend, to deployment.
+
+Now let's dive into how we built Reflex to meet these goals.
 
 ## The Reflex Architecture
 
-Reflex apps compile down to a [Next.js](https://github.com/vercel/next.js) frontend app and a [FastAPI](https://github.com/tiangolo/fastapi) backend app. Only the UI is compiled to Javascript; all the app logic and state management stays in Python and is run on the server. Reflex uses websockets to send events from the frontend to the backend, and to send state updates from the backend to the frontend.
+Full-stack web apps are made up of a frontend and a backend. The frontend the user interface, and is served as a web page that runs on the user's browser. The backend handles the logic and state management (such as databases and APIs), and is run on a server.
 
-When building Reflex, we wanted the final product to look and feel like a traditional web app to the end user, while still being easy to build and maintain for the developer. We chose to leverage the existing web ecosystem.
+In traditional web development, these are usually two separate apps, and are often written in different frameworks or languages. For example, you may combine a Flask backend with a React frontend. With this approach, you have to maintain two separate apps and end up writing a lot of boilerplate code to connect the frontend and backend.
 
-The diagram below shows a detailed overview of how a Reflex app works.
-We'll go through each part in more detail in the following sections.
+We wanted to simplify this proces in Reflex by defining both the frontend and backend in a single codebase, while using Python for everything. Developers should only worry about their app's logic and not about the low-level implementation details.
 
-![Reflex Architecture](/architecture.png)
+### TLDR
+
+Under the hood, Reflex apps compile down to a [React](https://react.dev) frontend app that and a [FastAPI](https://github.com/tiangolo/fastapi) backend app. Only the UI is compiled to Javascript; all the app logic and state management stays in Python and is run on the server. Reflex uses websockets to send events from the frontend to the backend, and to send state updates from the backend to the frontend.
+
+The diagram below shows a detailed overview of how a Reflex app works. We'll go through each part in more detail in the following sections.
+
+```python exec
+from reflex_image_zoom import image_zoom
+```
+
+```python eval
+image_zoom(rx.image(src="/architecture.png"))
+```
 
 ```python eval
 rx.box(height="1em")
 ```
 
-### Frontend (Components)
+## Frontend
 
-Reflex frontends are built using components that can be composed together to create complex UIs.
+We wanted Reflex apps to look and feel like a traditional web app to the end user, while still being easy to build and maintain for the developer.
+
+To do this we built Reflex on top of [React](https://react.dev), a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
+
+When you `reflex run` your app, Reflex compiles frontends compile down to a single-page [Next.js](https://nextjs.org) app and serves it on a port (by default `3000`) that you can access in your browser.
+
+The frontend's job is to reflect the app's state, and send events to the backend when the user interacts with the UI. No actual logic is run on the frontend.
+
+In production mode, the frontend can be statically exported using [static site generation](https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation), and can be hosted on any static hosting service such as [Github Pages](https://pages.github.com). However to work, we must also host the backend separately for the app interactivity to work.
+
+### Components 
+
+Reflex frontends are built using components that can be composed together to create complex UIs. Instead of using a templating language that mixes HTML and Python, we just use Python functions to define the UI.
 
 ```python
 def index():
     return rx.hstack(
-        rx.avatar(src=f"https://github.com/{GithubState.username}.png"),
-        rx.input(
-            placeholder="Enter your username",
-            on_blur=GithubState.set_username,
+        rx.link(
+            rx.avatar(src=GithubState.profile_image),
+            href=GithubState.url,
         ),
+        rx.input(
+            placeholder="Your Github username",
+            on_blur=GithubState.set_profile,
+        ),
+        background_color="lightgreen",
+        padding="2em",
+        border_radius="1em",
     )
 ```
 
-In our example app, we have components such as `rx.hstack`, `rx.avatar`, and `rx.input`. Under the hood, these components compile down to React components.
+In our example app, we have components such as `rx.hstack`, `rx.avatar`, and `rx.input`. These components can have different **props** that affect their appearance and functionality - for example the `rx.input` component has a `placeholder` prop to display the default text. Components can also be hooked up to the state through event triggers such as `on_blur` which we will discuss more below.
 
-For example, the above code compiles down to the following React code:
+Under the hood, these components compile down to React components. For example, the above code compiles down to the following React code:
 
 ```jsx
 <HStack>
-    <Avatar src={`https://github.com/${GithubState.username}.png`}>
+    <Link href=\{GithubState.url}>
+        <Avatar src=\{GithubState.profile_image}/>
+    </Link>
     <Input
-        placeholder="Enter your username"
+        placeholder="Your Github username"
         // This would actually be a websocket call to the backend.
-        onBlur={GithubState.set_username}
+        onBlur=\{GithubState.set_username}
     >
 </HStack>
 ```
 
-We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
+We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers. This also let's our users bring their own components if we don't have a component they need.
 
-This also let's our users bring their own components if we don't have a component they need.
+Many of our core components are based on [Radix](https://radix-ui.com/), but we also have many other components for graphing, datatables, and more.
 
-### Backend (State)
+### Pages
+
+
+
+### Styling
+
+Reflex components can be styled using the full power of CSS.
+
+In addition to component-specific props, all components can take in CSS props through keyword arguments.
+
+We leverage the [Emotion](https://emotion.sh/docs/introduction) library to allow 
+
+
+
+## Backend
 
 In Reflex only the frontend compiles to Javascript and runs on the user's browser, while all the state and logic stays in Python and is run on the server.
 

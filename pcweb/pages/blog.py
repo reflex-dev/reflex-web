@@ -41,13 +41,15 @@ def page(document) -> rx.Component:
             src=f"{meta['image']}",
             margin_y="1em",
             border_radius="8px",
+            height="300px",
+            width="100%",
         ),
         xd.render(document, "blog.md"),
         padding_bottom="8em",
         margin_top="120px",
         padding_x="1em",
         margin_x="auto",
-        size="2",
+        size="3",
     )
 
 
