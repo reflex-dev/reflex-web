@@ -25,6 +25,7 @@ app = rx.App(
         appearance="light", has_background=True, radius="large", accent_color="violet"
     ),
     head_components=[
+        rx.el.script(src="https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js", referrer_policy="strict-origin-when-cross-origin"),
         rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),
         rx.script(
             """
