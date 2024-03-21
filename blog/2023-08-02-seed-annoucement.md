@@ -1,9 +1,9 @@
 ---
 author: Reflex Team
 date: 2023-08-02
-title: "Announcing our Seed Round"
-description: "Reflex has raised a $5M seed led by Lux Capital."
-image: /fundraise_dark.png
+title: Announcing our Seed Round
+description: Reflex has raised a $5M seed led by Lux Capital.
+image: /blog/fundraise_dark.png
 ---
 
 ```python exec

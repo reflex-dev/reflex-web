@@ -11,3 +11,4 @@ pyyaml==6.0.1
 flexdown==0.1.5a6
 reflex>=0.3.8
 mistletoe>=1.2.1
+reflex-image-zoom>=0.0.2

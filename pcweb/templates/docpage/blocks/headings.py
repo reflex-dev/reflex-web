@@ -31,6 +31,7 @@ def h_comp_common(
                     font_size=font_size,
                     font_weight=font_weight,
                     scroll_margin=scroll_margin,
+                    line_height="1.2",
                 ),
                 rx.icon(
                     tag="link_2",
