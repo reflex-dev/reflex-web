@@ -37,19 +37,19 @@ def page(document) -> rx.Component:
             rx.text(str(meta["date"]), size="3"),
             padding_bottom="1em",
         ),
-        rx.image(
-            src=f"{meta['image']}",
-            margin_y="1em",
-            border_radius="8px",
-            height="300px",
-            width="100%",
+        rx.center(
+            rx.image(
+                src=f"{meta['image']}",
+                margin_y="1em",
+                border_radius="8px",
+            ),
         ),
         xd.render(document, "blog.md"),
         padding_bottom="8em",
         margin_top="120px",
         padding_x="1em",
         margin_x="auto",
-        size="3",
+        size="2",
     )
 
 
