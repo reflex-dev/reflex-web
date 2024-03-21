@@ -1,14 +1,15 @@
 ---
 author: Nikhil Rao
-date: 2024-03-20
+date: 2024-03-21
 title: Building a Pure Python Web Framework
 description: A look at how Reflex works under the hood.
 image: /blog/python.png
 ---
 
 ```python exec
+from pcweb import constants
 from pcweb.pages.docs import wrapping_react, custom_components, styling, events
-from pcweb.pages.
+from pcweb.pages.docs.custom_components import custom_components as cc
 ```
 
 We started Reflex a year ago so that anyone who knows Python can easily build web apps and share them with the world, without needing to learn a new language and piecing together a bunch of different tools.
@@ -146,7 +147,7 @@ Many of our core components are based on [Radix](https://radix-ui.com/), but we 
 
 We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers. 
 
-This also let's our users bring their own components if we don't have a component they need. Users can [wrap their own React components]({wrapping_react.overview.path}) and then [publish them]({custom_components.overview.path}) for others to use. Over time we're trying to build out our [third party component ecosystem](/docs/custom-components) so that users can easily find and use components that others have built.
+This also let's our users bring their own components if we don't have a component they need. Users can [wrap their own React components]({wrapping_react.overview.path}) and then [publish them]({custom_components.overview.path}) for others to use. Over time we're trying to build out our [third party component ecosystem]({cc.path}) so that users can easily find and use components that others have built.
 
 
 ### Styling
