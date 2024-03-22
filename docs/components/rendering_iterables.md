@@ -27,9 +27,9 @@ def colored_box(color: str):
 
 
 def simple_foreach():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(IterState.color, colored_box),
-        columns=[2, 4, 6],
+        columns="6",
     )
 
 ```
@@ -55,12 +55,12 @@ class IterIndexState(rx.State):
 
 
 def enumerate_foreach():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             IterIndexState.color,
             lambda color, index: rx.box(rx.text(index), bg=color)
         ),
-        columns=[2, 4, 6],
+        columns="6",
     )
 
 ```
@@ -84,12 +84,12 @@ def display_color(color: list):
 
 
 def dict_foreach():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             SimpleDictIterState.color_chart,
             display_color,
         ),
-        columns=[2, 4, 6],
+        columns="3",
     )
 
 ```
@@ -110,7 +110,7 @@ class NestedStateFE(rx.State):
     ]
 
 def get_badge(technology: str) -> rx.Component:
-    return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
+    return rx.badge(technology, variant="soft", color_scheme="green")
 
 def project_item(project: dict) -> rx.Component:
     return rx.box(
@@ -152,12 +152,12 @@ def display_colors(color: list[str, list[str]]):
 
 
 def nested_dict_foreach():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             NestedDictIterState.color_chart,
             display_colors,
         ),
-        columns=[2, 4, 6],
+        columns="3",
     )
 
 ```
@@ -184,14 +184,14 @@ class ForeachCondState(rx.State):
 def render_item(item: [str, bool]):
     return rx.cond(
         item.is_packed, 
-        rx.chakra.list_item(item.item_name + ' ✔'),
-        rx.chakra.list_item(item.item_name),
+        rx.list.item(item.item_name + ' ✔'),
+        rx.list.item(item.item_name),
         )
 
 def packing_list():
     return rx.vstack(
         rx.text("Sammy's Packing List"),
-        rx.chakra.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
+        rx.list(rx.foreach(ForeachCondState.to_do_list, render_item)),
     )
 
 ```

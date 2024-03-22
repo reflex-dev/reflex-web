@@ -118,7 +118,7 @@ def backend_var_example():
             ),
             rx.button("Generate More", on_click=BackendVarState.generate_more),
         ),
-        rx.chakra.list(
+        rx.list(
             rx.foreach(
                 BackendVarState.page,
                 lambda x, ix: rx.text(f"_backend[{ix + BackendVarState.offset}] = {x}"),

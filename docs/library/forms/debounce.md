@@ -13,7 +13,7 @@ Reflex is a backend-centric framework, which can create negative performance imp
 
 Using the `rx.debounce_input`  component allows the frontend to remain responsive while receiving user input and sends the value to the backend after some delay, on blur, or when `Enter` is pressed.
 
-"Typically, this component is used to wrap a child `rx.chakra.input` or `rx.text_area`, however, most child components that accept the `value` prop and `on_change` event handler can be used with `rx.debounce_input`."
+"Typically, this component is used to wrap a child `rx.input` or `rx.text_area`, however, most child components that accept the `value` prop and `on_change` event handler can be used with `rx.debounce_input`."
 
 This example only sends the final checkbox state to the backend after a 1 second delay.
 

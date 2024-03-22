@@ -49,23 +49,26 @@ editor_options_source = Source(module=rx.EditorOptions)
 ```python eval
 rx.fragment(
     h2_comp(text="Fields"),
-    rx.box(rx.chakra.table(
-        rx.chakra.thead(
-            rx.chakra.tr(
-                rx.chakra.th("Field"),
-                rx.chakra.th("Description"),
-            )
-        ),
-        rx.chakra.tbody(
-            *[
-                rx.chakra.tr(
-                    rx.chakra.td(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
-                    rx.chakra.td(field["description"]),
+    rx.box(
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Field"),
+                    rx.table.column_header_cell("Description"),
                 )
-                for field in editor_options_source.get_fields()
-            ],
-        ),
-    ), style={"overflow": "auto"}),
+            ),
+            rx.table.body(
+                *[
+                    rx.table.row(
+                        rx.table.cell(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
+                        rx.table.cell(field["description"]),
+                    )
+                    for field in editor_options_source.get_fields()
+                ],
+            ),
+        ), 
+        style={"overflow": "auto"},
+    ),
 )
 ```
 

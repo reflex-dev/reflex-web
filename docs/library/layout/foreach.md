@@ -29,12 +29,12 @@ def colored_box(color: str):
     )
 
 def foreach_example():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             ForeachState.color,
             colored_box
         ),
-        columns=[2, 4, 6],
+        columns="2",
     )
 ```
 
@@ -48,12 +48,12 @@ def colored_box_index(color: str, index: int):
     )
 
 def foreach_example_index():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             ForeachState.color,
             lambda color, index: colored_box_index(color, index)
         ),
-        columns=[2, 4, 6],
+        columns="2",
     )
 ```
 
@@ -104,7 +104,7 @@ class ListState(rx.State):
         self.items = [i for i in self.items if i != item]
 
 def get_item(item):
-    return rx.chakra.list_item(
+    return rx.list.item(
         rx.hstack(
             rx.button(
                 on_click=lambda: ListState.finish_item(item),
@@ -119,10 +119,10 @@ def get_item(item):
 def todo_example():
     return rx.vstack(
         rx.heading("Todos"),
-        rx.chakra.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
+        rx.input(on_blur=ListState.set_new_item, placeholder="Add a todo...", bg  = "white"),
         rx.button("Add", on_click=ListState.add_item, bg = "white"),
-        rx.chakra.divider(),
-        rx.chakra.ordered_list(
+        rx.divider(),
+        rx.list.ordered(
             rx.foreach(
                 ListState.items,
                 get_item,
@@ -155,12 +155,12 @@ def display_color(color: List):
 
 
 def foreach_dict_example():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             SimpleDictForeachState.color_chart,
             display_color
         ),
-        columns = [2, 4, 6]
+        columns = "2"
     )
 ```
 
@@ -188,11 +188,11 @@ def display_colors(color: List):
         )
 
 def foreach_complex_dict_example():
-    return rx.chakra.responsive_grid(
+    return rx.grid(
         rx.foreach(
             ComplexDictForeachState.color_chart,
             display_colors
         ),
-        columns=[2, 4, 6]
+        columns="2"
     )
 ```

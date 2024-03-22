@@ -106,11 +106,11 @@ class OperState(rx.State):
 
 def var_operation_example():
     return rx.vstack(
-        rx.chakra.heading(f"The number: {OperState.number}", size="md"),
+        rx.heading(f"The number: {OperState.number}", size="3"),
         rx.hstack(
-            rx.text("Negated:", rx.chakra.badge(-OperState.number, variant="subtle", color_scheme="green")), 
-            rx.text(f"Absolute:", rx.chakra.badge(abs(OperState.number), variant="subtle", color_scheme="blue")),
-            rx.text(f"Numbers seen:", rx.chakra.badge(OperState.numbers_seen.length(), variant="subtle", color_scheme="red")),
+            rx.text("Negated:", rx.badge(-OperState.number, variant="soft", color_scheme="green")), 
+            rx.text(f"Absolute:", rx.badge(abs(OperState.number), variant="soft", color_scheme="blue")),
+            rx.text(f"Numbers seen:", rx.badge(OperState.numbers_seen.length(), variant="soft", color_scheme="red")),
         ),
         rx.button("Update", on_click=OperState.update),
     )
@@ -245,15 +245,15 @@ class ListsState(rx.State):
 def var_list_example():
     return rx.hstack(
         rx.vstack(
-            rx.chakra.heading(f"List 1: {ListsState.list_1}", size="md"),
+            rx.heading(f"List 1: {ListsState.list_1}", size="3"),
             rx.text(f"List 1 Contains 3: {ListsState.list_1.contains(3)}"),
         ),
         rx.vstack(
-            rx.chakra.heading(f"List 2: {ListsState.list_2}", size="md"),
+            rx.heading(f"List 2: {ListsState.list_2}", size="3"),
             rx.text(f"Reverse List 2: {ListsState.list_2.reverse()}"),
         ),
         rx.vstack(
-            rx.chakra.heading(f"List 3: {ListsState.list_3}", size="md"),
+            rx.heading(f"List 3: {ListsState.list_3}", size="3"),
             rx.text(f"List 3 Joins: {ListsState.list_3.join()}"),
         ),
     )
@@ -272,11 +272,11 @@ class StringState(rx.State):
 def var_string_example():
     return rx.hstack(
         rx.vstack(
-            rx.chakra.heading(f"List 1: {StringState.string_1}", size="md"),
+            rx.heading(f"List 1: {StringState.string_1}", size="3"),
             rx.text(f"List 1 Lower Case: {StringState.string_1.lower()}"),
         ),
         rx.vstack(
-            rx.chakra.heading(f"List 2: {StringState.string_2}", size="md"),
+            rx.heading(f"List 2: {StringState.string_2}", size="3"),
             rx.text(f"List 2 Upper Case: {StringState.string_2.upper()}"),
             rx.text(f"Split String 2: {StringState.string_2.split()}"),  
         ),
@@ -325,7 +325,7 @@ class ProjectsState(rx.State):
     ]
 
 def get_badge(technology: str) -> rx.Component:
-    return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
+    return rx.badge(technology, variant="soft", color_scheme="green")
 
 def project_item(project: dict):
 
@@ -354,7 +354,7 @@ class ProjectsState(rx.State):
 
 def projects_example() -> rx.Component:
     def get_badge(technology: str) -> rx.Component:
-        return rx.chakra.badge(technology, variant="subtle", color_scheme="green")
+        return rx.badge(technology, variant="soft", color_scheme="green")
 
     def project_item(project: dict) -> rx.Component:
 
@@ -428,7 +428,7 @@ class VarNumberState(rx.State):
 
 def var_number_example():
     return rx.vstack(
-        rx.chakra.heading(f"The number is {VarNumberState.number}", size="lg"),
+        rx.heading(f"The number is {VarNumberState.number}", size="5"),
         # Var operations can be composed for more complex expressions.
         rx.cond(
             VarNumberState.number % 2 == 0,
