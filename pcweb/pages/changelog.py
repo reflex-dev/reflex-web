@@ -64,6 +64,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-03-20",
+            "v0.4.5",
+            "Support SQLAlchemy Models Directly",
+            [
+                "Experimental Multi-process Compilation",
+                "Better default titles for SEO",
+                "router.session.client_ip more likely to be correct now",
+                "Allow rx.download to resolve rx.get_upload_url links",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.5"
+        ),
+        change(
             "2024-03-11",
             "v0.4.4",
             "Fix missing on_load and /_upload in prod deployments",
