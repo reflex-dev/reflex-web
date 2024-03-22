@@ -221,6 +221,4 @@ def navbar(sidebar: rx.Component) -> rx.Component:
         top="0px",
         position="fixed",
         align_items="center",
-        spacing="6",
-        padding="1em",
     )
