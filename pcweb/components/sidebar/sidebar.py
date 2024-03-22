@@ -83,7 +83,6 @@ def sidebar_leaf(
                             "color": styles.ACCENT_COLOR,
                             "text_decoration": "none",
                         },
-                        transition="color 0.4s ease-in-out",
                         margin_left="0.25em",
                         margin_top="0.2em",
                         margin_bottom="0.2em",

@@ -48,36 +48,6 @@ reflex run --frontend-port 3001
 
 See the [CLI reference]({cli_api_ref_url}) for all the arguments available.
 
-## Anonymous Usage Statistics
-
-Reflex collects completely anonymous telemetry data about general usage.
-Participation in this anonymous program is optional, and you may opt-out if you'd not like to share any information.
-
-### What's Being Collected
-
-Telemetry allows us to understand how Reflex is used, what features are most important, and how we can improve the product.
-
-The following information is collected:
-
-* Operating system
-* CPU count
-* Memoryd
-* Python version
-* Reflex version
-
-### How to Opt-Out
-
-To disable telemetry, set `telemetry_enabled=False` in your `rxconfig.py` file.
-
-```python
-config = rx.Config(
-    app_name="hello",
-    telemetry_enabled=False,
-)
-```
-
-Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `False`.
-
 ## Customizable App Data Directory
 
 The `REFLEX_DIR` environment variable can be set, which allows users to set the location where Reflex writes helper tools like Bun and NodeJS.
