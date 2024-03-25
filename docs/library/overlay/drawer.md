@@ -23,7 +23,9 @@ rx.drawer.root(
         rx.drawer.trigger(
             rx.button("Open Drawer")    
         ),
-        rx.drawer.overlay(),
+        rx.drawer.overlay(
+            z_index="5"
+        ),
         rx.drawer.portal(
             rx.drawer.content(
                 rx.flex(
