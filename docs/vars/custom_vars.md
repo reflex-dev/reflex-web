@@ -34,7 +34,7 @@ class TranslationState(rx.State):
 
 def translation_example():
     return rx.vstack(
-        rx.chakra.input(on_blur=TranslationState.set_input_text, default_value=TranslationState.input_text, placeholder="Text to translate..."),
+        rx.input(on_blur=TranslationState.set_input_text, default_value=TranslationState.input_text, placeholder="Text to translate..."),
         rx.button("Translate", on_click=TranslationState.translate),
         rx.text(TranslationState.current_translation.translated_text),
     )

@@ -150,7 +150,7 @@ def index():
             border=f"1px dotted \{color}",
             padding="5em",
         ),
-        rx.chakra.responsive_grid(
+        rx.grid(
             rx.foreach(
                 State.img,
                 lambda img: rx.vstack(
@@ -159,7 +159,7 @@ def index():
                 ),
             ),
             columns=[2],
-            spacing="5px",
+            spacing="1",
         ),
         padding="5em",
     )

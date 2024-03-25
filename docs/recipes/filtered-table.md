@@ -35,7 +35,7 @@ class FilteredTableState(rx.State):
         # Use this generated filtered data view in the `rx.foreach` of
         #  the table renderer of rows
         # It is dependent on `filter_expr`
-        # This `filter_expr` is set by an rx.chakra.input
+        # This `filter_expr` is set by an rx.input
         return [
             row
             for row in self.data
@@ -53,7 +53,7 @@ class FilteredTableState(rx.State):
 def render_rows():
     return [
         rx.foreach(
-            # use data filtered by `filter_expr` as update by rx.chakra.input
+            # use data filtered by `filter_expr` as update by rx.input
             FilteredTableState.filtered_data,
             render_row,
         )
