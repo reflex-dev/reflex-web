@@ -13,7 +13,7 @@ default value is either `rx.Cookie` or `rx.LocalStorage` depending on where the
 value should be stored.  The key name will be based on the var name, but this
 can be overridden by passing `name="my_custom_name"` as a keyword argument.
 
-For more information see [Browser Storage](/docs/api-reference/browser_storage/).
+For more information see [Browser Storage](/docs/api-reference/browser-storage/).
 
 Try entering some values in the text boxes below and then load the page in a separate
 tab or check the storage section of browser devtools to see the values saved in the browser.
@@ -27,8 +27,8 @@ class ClientStorageState(rx.State):
 
 def client_storage_example():
     return rx.vstack(
-        rx.hstack(rx.text("my_cookie"), rx.chakra.input(value=ClientStorageState.my_cookie, on_change=ClientStorageState.set_my_cookie)),
-        rx.hstack(rx.text("my_local_storage"), rx.chakra.input(value=ClientStorageState.my_local_storage, on_change=ClientStorageState.set_my_local_storage)),
-        rx.hstack(rx.text("custom_cookie"), rx.chakra.input(value=ClientStorageState.custom_cookie, on_change=ClientStorageState.set_custom_cookie)),
+        rx.hstack(rx.text("my_cookie"), rx.input(value=ClientStorageState.my_cookie, on_change=ClientStorageState.set_my_cookie)),
+        rx.hstack(rx.text("my_local_storage"), rx.input(value=ClientStorageState.my_local_storage, on_change=ClientStorageState.set_my_local_storage)),
+        rx.hstack(rx.text("custom_cookie"), rx.input(value=ClientStorageState.custom_cookie, on_change=ClientStorageState.set_custom_cookie)),
     )
 ```

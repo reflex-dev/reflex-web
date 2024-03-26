@@ -78,9 +78,9 @@ The `codeblock` and `a` tags are special cases. In addition to the `text`, they 
 
 ```python demo exec
 component_map = {
-    "h1": lambda text: rx.chakra.heading(text, size="lg", margin_y="1em"),
-    "h2": lambda text: rx.chakra.heading(text, size="md", margin_y="1em"),
-    "h3": lambda text: rx.chakra.heading(text, size="sm", margin_y="1em"),
+    "h1": lambda text: rx.heading(text, size="5", margin_y="1em"),
+    "h2": lambda text: rx.heading(text, size="3", margin_y="1em"),
+    "h3": lambda text: rx.heading(text, size="1", margin_y="1em"),
     "p": lambda text: rx.text(text, color="green", margin_y="1em"),
     "code": lambda text: rx.code(text, color="purple"),
     "codeblock": lambda text, **props: rx.code_block(text, **props, theme="dark", margin_y="1em"),

@@ -29,62 +29,62 @@ A state class is made up of two parts: vars and event handlers.
 These are the main concepts to understand how state works in Reflex:
 
 ```python eval
-rx.chakra.responsive_grid(
+rx.grid(
     definition(
         "Base Var",
-        rx.chakra.unordered_list(
-            rx.chakra.list_item("Any variable in your app that can change over time."),
-            rx.chakra.list_item(
+        rx.list.unordered(
+            rx.list.item("Any variable in your app that can change over time."),
+            rx.list.item(
                 "Defined as a field in a ", rx.code("State"), " class"
             ),
-            rx.chakra.list_item("Can only be modified by event handlers."),
+            rx.list.item("Can only be modified by event handlers."),
         ),
     ),
     definition(
         "Computed Var",
-        rx.chakra.unordered_list(
-            rx.chakra.list_item("Vars that change automatically based on other vars."),
-            rx.chakra.list_item(
+        rx.list.unordered(
+            rx.list.item("Vars that change automatically based on other vars."),
+            rx.list.item(
                 "Defined as functions using the ",
                 rx.code("@rx.var"),
                 " decorator.",
             ),
-            rx.chakra.list_item(
+            rx.list.item(
                 "Cannot be set by event handlers, are always recomputed when the state changes."
             ),
         ),
     ),
     definition(
         "Event Trigger",
-        rx.chakra.unordered_list(
-            rx.chakra.list_item(
+        rx.list.unordered(
+            rx.list.item(
                 "A user interaction that triggers an event, such as a button click."
             ),
-            rx.chakra.list_item(
+            rx.list.item(
                 "Defined as special component props, such as ",
                 rx.code("on_click"),
                 ".",
             ),
-            rx.chakra.list_item("Can be used to trigger event handlers."),
+            rx.list.item("Can be used to trigger event handlers."),
         ),
     ),
     definition(
         "Event Handlers",
-        rx.chakra.unordered_list(
-            rx.chakra.list_item(
+        rx.list.unordered(
+            rx.list.item(
                 "Functions that update the state in response to events."
             ),
-            rx.chakra.list_item(
+            rx.list.item(
                 "Defined as methods in the ", rx.code("State"), " class."
             ),
-            rx.chakra.list_item(
+            rx.list.item(
                 "Can be called by event triggers, or by other event handlers."
             ),
         ),
     ),
     margin_bottom="1em",
-    spacing="1em",
-    columns=[1, 1, 2, 2, 2],
+    spacing="2",
+    columns="2",
 )
 ```
 
