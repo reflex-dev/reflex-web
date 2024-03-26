@@ -155,6 +155,7 @@ Let's add some styling to the app. More information on styling can be found in t
 
 ```python
 # style.py
+import reflex as rx
 
 # Common styles for questions and answers.
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
