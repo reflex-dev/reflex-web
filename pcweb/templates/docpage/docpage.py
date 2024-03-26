@@ -769,7 +769,7 @@ def icon_grid(
         rx.callout.root(
             rx.callout.icon(
                 rx.icon(
-                    tag="check_circled",
+                    tag="circle_check_big",
                     width=18,
                     height=18,
                 )

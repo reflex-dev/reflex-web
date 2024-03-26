@@ -54,8 +54,8 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 rx.match(
                     status,
                     ("info", rx.icon(tag="info")),
-                    ("success", rx.icon(tag="check-circle-2")),
-                    ("warning", rx.icon(tag="alert-triangle")),
+                    ("success", rx.icon(tag="circle_check")),
+                    ("warning", rx.icon(tag="triangle_alert")),
                     ("error", rx.icon(tag="ban")),
                 ),
             ),
