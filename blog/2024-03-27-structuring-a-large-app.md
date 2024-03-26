@@ -1,6 +1,6 @@
 ---
 author: Masen Furer
-date: 2024-03-15
+date: 2024-03-27
 title: "Structuring a Large App"
 description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
 image: /blog/alek99_squares_abstract_animated._dark_purple_with_yellow_highl_976e3d65-b044-48e6-880e-b7983b5e0b42.webp
@@ -68,6 +68,50 @@ dependencies.
 
 ### Pages
 
+#### example_big_app/pages
+
+All complex apps will have multiple pages, so it is recommended to create `example_big_app/pages`
+as a package.
+
+This package contains one module per page in the app. If a particular page depends on the state, the substate should
+be defined in the same module as the page. The page-returning function should be decorated with `rx.page()`.
+
+```python
+import reflex as rx
+
+from ..state import AuthState
+
+
+class LoginState(AuthState):
+    def handle_submit(self, form_data):
+        self.logged_in = authenticate(form_data["username"], form_data["password"])
+
+
+def login_field(name: str, **input_props):
+    return rx.hstack(
+        rx.text(name.capitalize()),
+        rx.input(name=name, **input_props),
+        width="100%",
+        justify="between",
+    )
+
+
+@rx.page(route="/login")
+def login():
+    return rx.card(
+        rx.form(
+            rx.vstack(
+                login_field("username"),
+                login_field("password", type="password"),
+                rx.button("Login"),
+                width="100%",
+                justify="center",
+            ),
+            on_submit=LoginState.handle_submit,
+        ),
+    )
+```
+
 #### example_big_app/template.py
 
 Most apps consist of a common page layout and structure which wraps the content
@@ -98,51 +142,7 @@ def template(page: Callable[[], rx.Component]) -> rx.Component:
     )
 ```
 
-#### example_big_app/pages
-
-All complex apps will have multiple pages, so it is recommended to create `example_big_app/pages`
-as a package.
-
-This package contains one module per page in the app. If a particular page depends on the state, the substate should
-be defined in the same module as the page. The page-returning function should be decorated with `rx.page()` and `template`.
-
-```python
-import reflex as rx
-
-from ..state import AuthState
-from ..template import template
-
-
-class LoginState(AuthState):
-    def handle_submit(self, form_data):
-        self.logged_in = authenticate(form_data["username"], form_data["password"])
-
-
-def login_field(name: str, **input_props):
-    return rx.hstack(
-        rx.text(name.capitalize()),
-        rx.input(name=name, **input_props),
-        width="100%",
-        justify="between",
-    )
-
-
-@rx.page(route="/login")
-@template
-def login():
-    return rx.card(
-        rx.form(
-            rx.vstack(
-                login_field("username"),
-                login_field("password", type="password"),
-                rx.button("Login"),
-                width="100%",
-                justify="center",
-            ),
-            on_submit=LoginState.handle_submit,
-        ),
-    )
-```
+The `@template` decorator should appear below the `@rx.page` decorator and above the page-returning function.
 
 ## State Management
 
