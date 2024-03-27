@@ -57,10 +57,10 @@ Lists can also be used with icons.
 ```python demo
 rx.list(
     rx.list.item(
-        rx.icon("check_circle", color="green"), " Allowed",
+        rx.icon("circle_check_big", color="green"), " Allowed",
     ),
     rx.list.item(
-        rx.icon("x-octagon", color="red"), " Not",
+        rx.icon("octagon_x", color="red"), " Not",
     ),
     rx.list.item(
         rx.icon("settings", color="grey"), " Settings"

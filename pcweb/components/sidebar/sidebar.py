@@ -116,7 +116,7 @@ def sidebar_icon(name):
         "Client Storage": "package-open",
         "Database": "database",
         "Utility Methods": "cog",
-        "Reflex Deploy": "globe-2",
+        "Reflex Deploy": "earth",
         "Self Hosting": "server",
         "Custom Components": "blocks",
     }
