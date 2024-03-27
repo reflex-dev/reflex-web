@@ -157,7 +157,7 @@ def index():
             rx.recharts.y_axis(data_key="y", type_="number"),
         ),
         rx.form.root(
-            rx.chakra.input(placeholder="Enter a number", id="start"),
+            rx.input(placeholder="Enter a number", id="start"),
             rx.button("Compute", type="submit"),
             on_submit=ScatterChartState.compute_collatz,
         ),

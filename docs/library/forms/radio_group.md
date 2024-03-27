@@ -33,7 +33,7 @@ import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
-# High Level Radio Group
+# Radio Group
 
 A set of interactive radio buttons where only one can be selected at a time.
 

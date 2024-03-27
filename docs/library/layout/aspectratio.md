@@ -60,31 +60,10 @@ rx.grid(
 )
 ```
 
-```python eval
-rx.chakra.alert(
-    rx.chakra.alert_icon(),
-    rx.box(
-        rx.chakra.alert_title(
-            "Never set ",
-            rx.code("height"),
-            " or ",
-            rx.code("width"),
-            " directly on an ",
-            rx.code("aspect_ratio"),
-            " component or its contents.",
-        ),
-        rx.chakra.alert_description(
-            "Instead, wrap the ",
-            rx.code("aspect_ratio"),
-            " in a ",
-            rx.code("box"),
-            " that constrains either the width or the height, then set the content width and height to ",
-            rx.code('"100%"'),
-            ".",
-        ),
-    ),
-    status="warning",
-)
+```md alert warning
+# Never set `height` or `width` directly on an `aspect_ratio` component or its contents.
+
+Instead, wrap the `aspect_ratio` in a `box` that constrains either the width or the height, then set the content width and height to `"100%"`.
 ```
 
 ```python demo

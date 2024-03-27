@@ -37,14 +37,17 @@ def page(document) -> rx.Component:
             rx.text(str(meta["date"]), size="3"),
             padding_bottom="1em",
         ),
-        rx.image(
-            src=f"{meta['image']}",
-            margin_y="1em",
-            border_radius="8px",
+        rx.center(
+            rx.image(
+                src=f"{meta['image']}",
+                margin_y="1em",
+                border_radius="8px",
+            ),
         ),
         xd.render(document, "blog.md"),
         padding_bottom="8em",
         margin_top="120px",
+        padding_x="1em",
         margin_x="auto",
         size="2",
     )
@@ -129,7 +132,7 @@ def component_grid():
     )
 
 
-@webpage(path="/blog", title="Blog")
+@webpage(path="/blog", title="Reflex Blog")
 def blg():
     return rx.container(
         rx.vstack(
@@ -157,7 +160,7 @@ for path, document in blogs.items():
     # Get the docpage component.
     route = f"/{path.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    comp = webpage(path=route, title=document.metadata["title"])(
+    comp = webpage(path=route, title=document.metadata["title"]+ " · Reflex Blog")(
         lambda doc=document: page(doc)
     )
 

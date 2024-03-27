@@ -50,6 +50,7 @@ def sidebar_leaf(
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
+    item.link= item.link.replace("_", "-")
     return rx.chakra.accordion_item(
         rx.cond(
             item.link == url,
@@ -82,7 +83,6 @@ def sidebar_leaf(
                             "color": styles.ACCENT_COLOR,
                             "text_decoration": "none",
                         },
-                        transition="color 0.4s ease-in-out",
                         margin_left="0.25em",
                         margin_top="0.2em",
                         margin_bottom="0.2em",
@@ -136,7 +136,8 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):
+):  
+
     return rx.cond(
         len(item.children) == 0,
         sidebar_leaf(item=item, url=url),
@@ -212,21 +213,22 @@ def calculate_index(sidebar_items, url):
     return None
 
 
+sidebar_items = learn + frontend + backend + hosting + component_lib
+# Flatten the list of sidebar items
+flat_items = []
+
+def append_to_items(items):
+    for item in items:
+        if len(item.children) == 0:
+            flat_items.append(item)
+        append_to_items(item.children)
+append_to_items(sidebar_items)
+
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
-    sidebar_items = learn + frontend + backend + hosting + component_lib
-    # Flatten the list of sidebar items
-    flat_items = []
-
-    def append_to_items(items):
-        for item in items:
-            if len(item.children) == 0:
-                flat_items.append(item)
-            append_to_items(item.children)
-
-    append_to_items(sidebar_items)
+    url = url.strip("/")
     for i, item in enumerate(flat_items):
-        if item.link == url:
+        if item.link.strip("/") == url:
             if i == 0:
                 return None, flat_items[i + 1]
             elif i == len(flat_items) - 1:

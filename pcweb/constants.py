@@ -32,7 +32,7 @@ PIPENV_URL = "https://pipenv.pypa.io/en/latest/"
 PIP_URL = "https://pypi.org/project/pip/"
 VENV_URL = "https://docs.python.org/3/library/venv.html"
 VIRTUALENV_URL = "https://virtualenv.pypa.io/en/latest/"
-CONDA_URL = "https://docs.anaconda.com/free/anaconda/getting-started/"
+CONDA_URL = "https://conda.io/"
 FASTAPI_URL = "https://fastapi.tiangolo.com"
 PYTHON_STANDARD_LIBRARY = "https://docs.python.org/3/library/index.html"
 PIP_DOCS = "https://pip.pypa.io/en/stable/installation/#supported-methods"
@@ -42,6 +42,6 @@ ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows
 ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
 # Stats
-GITHUB_STARS = 14100
+GITHUB_STARS = 15400
 MONTHLY_USERS = 3000
-DISCORD = 2400
+DISCORD = 3500

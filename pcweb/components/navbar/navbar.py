@@ -4,7 +4,8 @@ from .buttons.github import github
 from .buttons.discord import discord
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
-
+from .buttons.product_hunt import product_hunt
+from .state import NavbarState
 
 def resource_header(text):
     return rx.text(
@@ -22,6 +23,50 @@ def resources_item(text, url, icon):
         ),
         href=url,
     )
+
+
+def banner():
+    return rx.cond(
+        NavbarState.banner,
+        rx.box(
+            rx.hstack(
+                rx.text(
+                    " 🚀 Reflex is launching on Product Hunt on April 17th! Learn more ", 
+                    rx.link(
+                        "here",
+                        href="https://www.producthunt.com/products/reflex-5",
+                        style={
+                            "color": "#FFFFFF",
+                            "text_decoration": "underline",
+                            "_hover": {"color": "#AD9BF8"},
+                        },
+                        is_external=True,
+                    ),
+                    ". 🎉",
+                    color="#FFFFFF",
+                    font_weight=600,
+                    text_align="center",
+                    width="100%",
+                ),
+                rx.icon(
+                    tag="x",
+                    z_index=1000,
+                    style={
+                        "color": "#FFFFFF",
+                        "text_decoration": "underline",
+                        "_hover": {"color": "#AD9BF8"},
+                    },
+                    on_click=NavbarState.toggle_banner,
+                ),
+                width="100%",
+                align_items="center",
+            ),
+            background_color="#110F1F",
+            padding_y=["0.8em", "0.8em", "0.5em"],
+            width="100%",
+        ),
+    )
+
 
 
 def resources_section():
@@ -127,46 +172,53 @@ def navigation_section():
     )
 
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
-    return rx.flex(
-        rx.link(
-            rx.box(
-                rx.image(
-                    src="/logos/light/reflex.svg",
-                    height="20px",
-                    justify="start",
-                )
-            ),
-            href="/",
-        ),
-        navigation_section(),
-        rx.box(
-            flex_grow="1",
-        ),
+@rx.memo
+def navbar(sidebar: rx.Component) -> rx.Component:
+    return rx.vstack(
+        banner(),
         rx.flex(
-            search_bar(),
-            github(),
-            rx.divider(size="2", color="mauve", orientation="vertical"),
-            rx.box(
-                discord(),
-                display=["none", "none", "none", "none", "flex", "flex"],
+            rx.link(
+                rx.box(
+                    rx.image(
+                        src="/logos/light/reflex.svg",
+                        alt="Reflex Logo",
+                        height="20px",
+                        justify="start",
+                    )
+                ),
+                href="/",
             ),
+            navigation_section(),
             rx.box(
-                sidebar_button(sidebar),
-                display=["flex", "flex", "flex", "flex", "none", "none"],
+                flex_grow="1",
             ),
-            spacing="3",
+            rx.flex(
+                search_bar(),
+                github(),
+                #product_hunt(),
+                rx.divider(size="2", color="mauve", orientation="vertical"),
+                rx.box(
+                    discord(),
+                    display=["none", "none", "none", "none", "flex", "flex"],
+                ),
+                rx.box(
+                    sidebar_button(sidebar),
+                    display=["flex", "flex", "flex", "flex", "none", "none"],
+                ),
+                spacing="3",
+                align_items="center",
+            ),
+            background="rgba(255,255,255, 0.8)",
+            backdrop_filter="blur(10px)",
+            border_bottom=f"1px solid {rx.color('mauve', 4)};",
+            width="100%",
             align_items="center",
+            spacing="6",
+            padding="7px 20px 7px 20px;",
         ),
-        # background = rx.color("mauve", 1),
-        background="#FFF",
-        border_bottom=f"1px solid {rx.color('mauve', 4)};",
-        height="80px",
-        position="fixed",
         width="100%",
-        top="0px",
         z_index="5",
+        top="0px",
+        position="fixed",
         align_items="center",
-        spacing="6",
-        padding="7px 20px 7px 20px;",
     )

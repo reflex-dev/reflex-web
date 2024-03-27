@@ -16,6 +16,7 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 from .gallery import gallery
 from .library import library
 from .resources import resources
+from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 
 
@@ -153,13 +154,13 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [gallery, library, resources] + apiref_pages
+doc_routes = [gallery, library, resources, custom_components] + apiref_pages
 
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
-    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '')}")
+    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
     comp = get_component(doc, title)
 
     if path[0] == "library" and isinstance(library, Route):

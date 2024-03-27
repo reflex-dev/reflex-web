@@ -91,9 +91,9 @@ except ImportError:
 
 ## Event Triggers
 
-As seen in our [events section](https://reflex.dev/docs/state/events/), we can use event triggers to handle events in our Reflex apps. When wrapping your own react components, you can use the `get_event_triggers` method to define event triggers for your component.
+As seen in our [events section](https://reflex.dev/docs/events/events_overview/), we can use event triggers to handle events in our Reflex apps. When wrapping your own react components, you can use the `get_event_triggers` method to define event triggers for your component.
 
-Sometimes these event trigger may take in arguments, for example, the `on_change` event trigger for the `HexColorPicker` component we saw in the [wrapping react section](https://reflex.dev/docs/wrapping-react/wrapping-react/). In this case, we can use a lambda function to pass in the event argument to the event trigger. The function associated with a trigger maps args for the javascript trigger to args that will be passed to the backend event handler function.
+Sometimes these event trigger may take in arguments, for example, the `on_change` event trigger for the `HexColorPicker` component we saw in the [wrapping react section](https://reflex.dev/docs/wrapping-react/overview/). In this case, we can use a lambda function to pass in the event argument to the event trigger. The function associated with a trigger maps args for the javascript trigger to args that will be passed to the backend event handler function.
 
 ```python
 class ColorPicker(rx.Component):
