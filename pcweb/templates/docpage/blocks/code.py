@@ -29,6 +29,8 @@ def code_block(code: str, language: str):
             color=f"2px solid {rx.color('mauve', 4)}",
             background="transparent",
             _hover={
+                "opacity": 0.5,
+                "cursor": "pointer",
                 "background": "transparent",
                 "color": f"2px solid {rx.color('violet', 4)}",
             },
@@ -88,6 +90,8 @@ def doccmdoutput(
                 color=rx.color("mauve", 4),
                 background="transparent",
                 _hover={
+                    "opacity": 0.5,
+                    "cursor": "pointer",
                     "background": "transparent",
                     "color": rx.color("violet", 4),
                 },
