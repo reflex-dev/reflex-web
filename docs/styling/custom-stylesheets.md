@@ -22,9 +22,15 @@ You can also add local stylesheets. Just put the stylesheet under [`assets/`]({a
 ```python
 app = rx.App(
     stylesheets=[
-        "styles.css",  # This path is relative to assets/
+        "/styles.css",  # This path is relative to assets/
     ],
 )
+```
+
+```md alert warning
+# Always use a leading slash (/) when referencing files in the assets directory.
+Without a leading slash the path is considered relative to the current page route and may
+not work for routes containing more than one path component, like `/blog/my-cool-post`.
 ```
 
 ## Fonts
@@ -54,13 +60,13 @@ Now we have the font ready, let's create the stylesheet `myfont.css`.
 ```css
 @font-face {
     font-family: MyFont;
-    src: url("MyFont.otf") format("opentype");
+    src: url("/fonts/MyFont.otf") format("opentype");
 }
 
 @font-face {
     font-family: MyFont;
     font-weight: bold;
-    src: url("MyFont.otf") format("opentype");
+    src: url("/fonts/MyFont.otf") format("opentype");
 }
 ```
 
@@ -69,7 +75,7 @@ Add the reference to your new Stylesheet in your App.
 ```python
 app = rx.App(
     stylesheets=[
-        "fonts/myfont.css",  # This path is relative to assets/
+        "/fonts/myfont.css",  # This path is relative to assets/
     ],
 )
 ```
