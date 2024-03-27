@@ -7,7 +7,10 @@ def get_component_link(category, clist, prefix="") -> str:
     if issubclass(clist[1], ChakraComponent):
         prefix = "chakra/"
     component_name = rx.utils.format.to_snake_case(clist[0])
-    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+    # construct the component link. The component name points to the name of the md file.
+    # Also make sure to convert underscores to hyphens in the component name.
+    # Eg. /docs/library/datadisplay/data_editor should be /docs/library/datadisplay/data-editor
+    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower().replace('_', '-')}"
 
 
 def get_category_children(category, category_list, prefix=""):
