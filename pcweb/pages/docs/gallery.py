@@ -531,8 +531,6 @@ def gallery() -> rx.Component:
         ),
         max_width="80em",
         margin_x="auto",
-        margin_top="120px",
+        margin_top="115px",
         height="100%",
     )
-
-# fixme
