@@ -9,7 +9,7 @@ from .state import NavbarState
 
 def resource_header(text):
     return rx.text(
-        text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600"
+        text, color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)), padding_bottom="10px", font_weight="600"
     )
 
 
@@ -133,7 +133,8 @@ def resources_section():
                     ),
                     direction="column",
                     background_color=rx.color("mauve", 3),
-                    border_left=f"1px solid {rx.color('mauve', 4)}",
+
+                    border_left=rx.color_mode_cond(f"1px solid {rx.color('mauve', 4)};",f"1px solid {rx.color('mauve', 3)};"),
                     align_items="start",
                     height="200px",
                     padding_top="20px",
@@ -145,8 +146,7 @@ def resources_section():
                 spacing="6",
             ),
             border=f"1px solid {rx.color('mauve', 4)}",
-            # background_color = rx.color("mauve", 2),
-            background="#FFF",
+            background=rx.color_mode_cond("#FFF", rx.color("mauve", 3)),
             max_width="1000px",
             height="200px",
             padding="0",
@@ -196,7 +196,7 @@ def navbar(sidebar: rx.Component) -> rx.Component:
                 search_bar(),
                 github(),
                 #product_hunt(),
-                rx.divider(size="2", color="mauve", orientation="vertical"),
+                rx.divider(size="2", color=rx.color("mauve"), orientation="vertical"),
                 rx.box(
                     discord(),
                     display=["none", "none", "none", "none", "flex", "flex"],
@@ -208,7 +208,9 @@ def navbar(sidebar: rx.Component) -> rx.Component:
                 spacing="3",
                 align_items="center",
             ),
-            background="rgba(255,255,255, 0.8)",
+            # color cond
+            background=rx.color_mode_cond(rx.color("mauve", 3), rx.color("mauve", 9)),
+            opacity=0.9,
             backdrop_filter="blur(10px)",
             border_bottom=f"1px solid {rx.color('mauve', 4)};",
             width="100%",
