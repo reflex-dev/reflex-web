@@ -102,7 +102,8 @@ def docpage_footer(path: str):
             rx.flex(
                 rx.text(
                     "Did you find this useful?",
-                    color=rx.color("mauve", 12),
+                    color=rx.color("mauve", 10),
+                    weight="bold",
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
