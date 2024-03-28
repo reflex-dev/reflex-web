@@ -6,7 +6,8 @@ from reflex.components.chakra.base import ChakraComponent
 def get_component_link(category, clist, prefix="") -> str:
     if issubclass(clist[1], ChakraComponent):
         prefix = "chakra/"
-    component_name = rx.utils.format.to_snake_case(clist[0])
+    component_name = rx.utils.format.to_kebab_case(clist[0])
+    # construct the component link. The component name points to the name of the md file.
     return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
 
 
