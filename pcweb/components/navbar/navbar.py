@@ -73,7 +73,7 @@ def resources_section():
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
-                rx.text("Resources", color=rx.color("mauve", 11)),
+                rx.text("Resources", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
                 rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
                 align_items="center",
                 _hover={
@@ -158,13 +158,13 @@ def navigation_section():
     return rx.box(
         rx.flex(
             rx.link(
-                rx.text("Docs", color=rx.color("mauve", 11)),
-                href="/docs/getting-started/introduction/",
-            ),
-            rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
-            rx.link(
-                rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"
-            ),
+                rx.text("Docs", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
+                    href="/docs/getting-started/introduction/",
+                ),
+                rx.link(rx.text("Blog", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/blog"),
+                rx.link(
+                    rx.text("Gallery", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/docs/gallery"
+                    ),
             resources_section(),
             spacing="5",
         ),
@@ -179,11 +179,19 @@ def navbar(sidebar: rx.Component) -> rx.Component:
         rx.flex(
             rx.link(
                 rx.box(
-                    rx.image(
-                        src="/logos/light/reflex.svg",
-                        alt="Reflex Logo",
-                        height="20px",
-                        justify="start",
+                    rx.color_mode_cond(
+                        rx.image(
+                            src="/logos/light/reflex.svg",
+                            alt="Reflex Logo",
+                            height="20px",
+                            justify="start",
+                        ),
+                        rx.image(
+                            src="/logos/dark/reflex.svg",
+                            alt="Reflex Logo",
+                            height="20px",
+                            justify="start",
+                        )
                     )
                 ),
                 href="/",
@@ -195,7 +203,6 @@ def navbar(sidebar: rx.Component) -> rx.Component:
             rx.flex(
                 search_bar(),
                 github(),
-                #product_hunt(),
                 rx.divider(size="2", color=rx.color("mauve"), orientation="vertical"),
                 rx.box(
                     discord(),
@@ -208,8 +215,7 @@ def navbar(sidebar: rx.Component) -> rx.Component:
                 spacing="3",
                 align_items="center",
             ),
-            # color cond
-            background=rx.color_mode_cond(rx.color("mauve", 3), rx.color("mauve", 9)),
+            background=rx.color("mauve", 3),
             opacity=0.9,
             backdrop_filter="blur(10px)",
             border_bottom=f"1px solid {rx.color('mauve', 4)};",

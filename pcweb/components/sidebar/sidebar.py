@@ -243,7 +243,7 @@ def sidebar_category(name, icon, color, index):
         rx.button(
             rx.icon(
                 tag=icon,
-                color=rx.color(color, 1),
+                color="#FFFFFF",
                 size=20,
             ),
             height="30px",
@@ -263,7 +263,7 @@ def sidebar_category(name, icon, color, index):
         on_click=lambda: SidebarState.set_sidebar_index(index),
         background=rx.cond(
             SidebarState.sidebar_index == index,
-            "#F5EFFE",
+            rx.color_mode_cond(rx.color("accent", 3), "#440150"), #dark mode color is hard-coded for now
             "transparent",
         ),
         align_items="center",

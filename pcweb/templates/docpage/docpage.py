@@ -502,7 +502,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         display=["none", "none", "none", "none", "none", "flex"],
                         flex_shrink=0,
                     ),
-                    background=rx.color("mauve", 2),
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -511,7 +510,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-                background=rx.color("mauve", 2),
+                background=rx.color("mauve", 1),
                 width="100%",
                 justify="center",
             )

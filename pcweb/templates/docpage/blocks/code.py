@@ -37,7 +37,7 @@ def code_block(code: str, language: str):
         ),
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
-        background_color=f"{rx.color('mauve', 2)}",
+        background_color=rx.color('mauve', 2),
         position="relative",
         margin_bottom="1em",
         margin_top="1em",
