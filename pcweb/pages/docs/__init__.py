@@ -160,7 +160,7 @@ for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
-    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+    route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '')}")
     comp = get_component(doc, title)
 
     if path[0] == "library" and isinstance(library, Route):
