@@ -179,8 +179,9 @@ def footer(style=footer_style):
                     ),
                     align_items="start",
                 ),
+                rx.tablet_and_desktop(
                 rx.vstack(
-                    rx.text("Subcribe to newsletter", color="#DACEEE"),
+                    rx.text("Subscribe to newsletter", color="#DACEEE"),
                     rx.chakra.input_group(
                         rx.chakra.input_right_element(
                                 rx.chakra.button(
@@ -204,6 +205,7 @@ def footer(style=footer_style):
                         ),
                     ),
                     align_items="left",
+                )
                 ),
                 justify="between",
                 color=styles.LIGHT_TEXT_COLOR,
