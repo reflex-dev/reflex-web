@@ -12,6 +12,8 @@ for more examples and information, just replace `SQLModel` with `rx.Model` and
 For advanced use cases, please see the
 [SQLAlchemy docs](https://docs.sqlalchemy.org/en/14/orm/quickstart.html) (v1.4).
 
+For other no sql databases, even though there is no direct support, Reflex is a python framework so you can use any python client and bring in the database of your choice. 
+
 ## Connecting
 
 Reflex provides a built-in SQLite database for storing and retrieving data.
