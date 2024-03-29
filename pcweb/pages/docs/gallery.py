@@ -244,6 +244,16 @@ community_apps_list = [
         "url": "https://moure.dev",
         "source": "https://github.com/mouredev/python-web",
     },
+    {
+        "name": "rx_shout",
+        "difficulty": "Intermediate",
+        "tags": ["Auth", "Database", "Widget", "Forms"],
+        "description": "An embeddable shoutbox widget using Sign-in with Google.",
+        "img": "/gallery/rx_shout.png",
+        "gif": "/gallery/rx_shout.gif",
+        "url": "https://rx-shout.mooo.com",
+        "source": "https://github.com/masenf/rx_shout",
+    },
 ]
 
 
