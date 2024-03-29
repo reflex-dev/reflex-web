@@ -24,6 +24,20 @@ def index():
 app = rx.App()
 ```
 
+```python exec
+import reflex as rx
+```
+
+```python eval
+rx.card(
+    rx.center(
+        rx.heading("Hello Reflex! 👋")
+    ),
+    width="100%",
+    margin_y="5em",
+)
+```
+
 However, as the app grows, keeping everything in a single module can quickly
 become messy and unmanageable.
 
@@ -34,11 +48,11 @@ and packages (directory with `__init__.py`) and imported like any other Python o
 
 When executing `reflex init` or `reflex run`, the framework will import **two** modules automatically.
 
-### rxconfig.py
+### Config: `rxconfig.py`
 
 Reflex first looks for an `rxconfig.py` in the current working directory and
-imports it.  At minimum, it **must define a module-level global named `config` as
-an instance of `rx.Config`**, of which the only required setting is `app_name`.
+imports it.  At minimum, it defines a module-level global named `config` as
+an instance of `rx.Config`, of which the only required setting is `app_name`.
 
 ```python
 import reflex as rx
@@ -46,35 +60,36 @@ import reflex as rx
 config = rx.Config(app_name="example_big_app")
 ```
 
-### \{app_name}/\{app_name}.py
+### App Module: `\{app_name}/\{app_name}.py`
 
 After loading the config, Reflex imports the main app module based on the
-`app_name`, which **must define a module-level global named `app` as an instance
-of `rx.App`**.
+`app_name`, which defines a module-level global named `app` as an instance
+of `rx.App`.
 
 If the app_name is `example_big_app`, then the main module would be 
 `example_big_app/example_big_app.py`.
 
 The main app module is responsible for importing all other modules that make up the
 app and defining `app = rx.App()`. **All other modules containing pages, state,
-and models MUST be imported by the main app module or package** for Reflex to include
-them in the compiled output.
+and models MUST be imported (directly or indirectly) by the main app module**
+for Reflex to include them in the compiled output.
 
-## Breaking the App into Modules
+## Breaking the App into Smaller Pieces
 
 The key to good organization as the app grows is to break down all parts of the app into
-smaller, more manageable pieces, and organize them into logical packages that avoid circular
+smaller, more manageable modules, and organize them into logical packages that avoid circular
 dependencies.
 
 ### Pages
 
-#### example_big_app/pages
+#### Pages Package: `example_big_app/pages`
 
 All complex apps will have multiple pages, so it is recommended to create `example_big_app/pages`
 as a package.
 
 This package contains one module per page in the app. If a particular page depends on the state, the substate should
-be defined in the same module as the page. The page-returning function should be decorated with `rx.page()`.
+be defined in the same module as the page. The page-returning function should be decorated with `rx.page()`
+to have it added as a route in the app.
 
 ```python
 import reflex as rx
@@ -112,7 +127,7 @@ def login():
     )
 ```
 
-#### example_big_app/template.py
+#### Templating: `example_big_app/template.py`
 
 Most apps consist of a common page layout and structure which wraps the content
 for each page. It is helpful to define that layout in a separate module so it
@@ -167,7 +182,7 @@ access them.
 A better strategy is to load the desired state on demand from only the event
 handler which needs access to the substate.
 
-#### example_big_app/components/settings.py
+#### A Settings Component: `example_big_app/components/settings.py`
 
 ```python
 import reflex as rx
@@ -184,7 +199,10 @@ def settings_dialog():
     return rx.dialog(...)
 ```
 
-#### example_big_app/pages/posts.py
+#### A Post Page: `example_big_app/pages/posts.py`
+
+This page loads the `SettingsState` to determine how many posts to display per page
+and how often to refresh.
 
 ```python
 import reflex as rx
@@ -236,7 +254,7 @@ def posts():
     )
 ```
 
-### example_big_app/state.py
+### Common State: `example_big_app/state.py`
 
 _Common_ states and substates that are shared by multiple pages or components
 should be implemented in a separate module to avoid circular imports. This
@@ -259,7 +277,7 @@ should only contain fields and event handlers pertaining to that individual
 component. 
 
 
-## example_big_app/models.py
+## Database Models: `example_big_app/models.py`
 
 I prefer to implement all database models in a single file to make it easier to
 define relationships and understand the entire schema. However, if the schema is
@@ -268,11 +286,11 @@ models defined in their own modules. At any rate, defining the models separately
 allows any page or component to import and use them without circular imports.
 
 
-## example_big_app/\\_\\_init\\_\\_.py
+## Top-level Package: `example_big_app/__init__.py`
 
-The `__init__.py` file defines the top-level package. This is a great place to import all state, models, and
-pages that should be part of the app. Typically, components and helpers
-do not need to imported, because they will be imported by pages that use them (or they would be unused).
+This is a great place to import all state, models, and pages that should be part of the app.
+Typically, components and helpers do not need to imported, because they will be imported by
+pages that use them (or they would be unused).
 
 ```python
 from . import state, models
@@ -313,7 +331,7 @@ The `assets` directory is used for **static** files that should be accessible
 relative to the root of the frontend (default port 3000). When an app is deployed in
 production mode, changes to the assets directory will NOT be available at runtime!
 
-When referencing a asset, always prefer to use a leading forward slash, so the
+When referencing an asset, always prefer to use a leading forward slash, so the
 asset can be resolved regardless of the page route where it may appear.
 
 ### uploaded_files
