@@ -48,6 +48,36 @@ In this example `ticker` and `price` are base vars in the app, which can be modi
 Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
 ```
 
+## Accessing state variables on different pages
+
+State is just a python class and so can be defined on one page and then imported and used on another. Below we define `TickerState` class on the page `state.py` and then import it and use it on the page `index.py`.
+
+```python
+# state.py
+
+class TickerState(rx.State):
+    ticker: str = "AAPL"
+    price: str = "$150"
+```
+
+```python
+# index.py
+from .state import TickerState
+
+def ticker_example():
+    return rx.chakra.stat_group(
+        rx.chakra.stat(
+            rx.chakra.stat_label(TickerState.ticker),
+            rx.chakra.stat_number(TickerState.price),
+            rx.chakra.stat_help_text(
+                rx.chakra.stat_arrow(type_="increase"),
+                "4%",
+            ),
+        ),
+    )
+```
+
+
 ## Backend-only Vars
 
 Any Var in a state class that starts with an underscore is considered backend

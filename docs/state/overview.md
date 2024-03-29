@@ -147,6 +147,12 @@ When building the UI of your app, reference vars and event handlers via the stat
 When writing backend event handlers, access and set vars via the instance (`self`).
 ```
 
+```md alert warning
+# Cannot print a State var.
+The code `print(ExampleState.index)` will not work because the State var values are only known at compile time.
+```
+
+
 ## Client States
 
 Each user who opens your app has a unique ID and their own copy of the state.
