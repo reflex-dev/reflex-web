@@ -174,7 +174,7 @@ def navigation_section():
 
 @rx.memo
 def navbar(sidebar: rx.Component) -> rx.Component:
-    return rx.vstack(
+    return rx.flex(
         banner(),
         rx.flex(
             rx.link(
@@ -221,4 +221,5 @@ def navbar(sidebar: rx.Component) -> rx.Component:
         top="0px",
         position="fixed",
         align_items="center",
+        direction="column",
     )
