@@ -183,13 +183,14 @@ def footer(style=footer_style):
                     rx.text("Subcribe to newsletter", color="#DACEEE"),
                     rx.chakra.input_group(
                         rx.chakra.input_right_element(
-                                rx.chakra.box(
+                                rx.chakra.button(
                                 "->",
                                 color="#FFF",
                                 on_click=IndexState.signup,
                                 background="#82799E",
                                 border_top_left_radius="0px",
                                 border_bottom_left_radius="0px",
+                                _hover={"background": "#82799E"},
                                 )           
                         ),
                         rx.chakra.input(
