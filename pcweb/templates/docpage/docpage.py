@@ -222,12 +222,6 @@ def docpage_footer(path: str):
                     ),
                     href="https://www.linkedin.com/company/reflex-dev",
                 ),
-                rx.link(
-                    rx.image(
-                        src="/companies/light/yc.svg",
-                    ),
-                    href="https://www.ycombinator.com/companies/reflex",
-                ),
                 spacing="2",
             ),
             align_items="center",

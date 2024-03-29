@@ -143,13 +143,13 @@ def resources_section():
                     spacing="2",
                 ),
                 spacing="6",
+                max_width="1000px",
+                height="200px",
             ),
             border=f"1px solid {rx.color('mauve', 4)}",
-            # background_color = rx.color("mauve", 2),
             background="#FFF",
-            max_width="1000px",
-            height="200px",
             padding="0",
+            overflow="hidden",
         ),
     )
 
@@ -174,7 +174,7 @@ def navigation_section():
 
 @rx.memo
 def navbar(sidebar: rx.Component) -> rx.Component:
-    return rx.vstack(
+    return rx.flex(
         banner(),
         rx.flex(
             rx.link(
@@ -221,4 +221,5 @@ def navbar(sidebar: rx.Component) -> rx.Component:
         top="0px",
         position="fixed",
         align_items="center",
+        direction="column",
     )

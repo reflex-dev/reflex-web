@@ -1,12 +1,3 @@
-import asyncio
-import json
-import os
-from datetime import datetime
-
-import httpx
-from email_validator import EmailNotValidError, validate_email
-from sqlmodel import Field
-
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.components.spline import spline_component
@@ -26,84 +17,6 @@ link_style = {
     "font_weight": styles.BOLD_WEIGHT,
     "_hover": {"color": styles.ACCENT_COLOR},
 }
-
-
-class Confetti(rx.Component):
-    """Confetti component."""
-
-    library = "react-confetti"
-    tag = "ReactConfetti"
-    is_default = True
-
-
-confetti = Confetti.create
-
-
-class Waitlist(rx.Model, table=True):
-    email: str
-    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-
-
-class IndexState(rx.State):
-    """Hold the state for the home page."""
-
-    # The waitlist email.
-    email: str
-
-    # Whether the user signed up for the waitlist.
-    signed_up: bool = False
-
-    # Whether to show the confetti.
-    show_confetti: bool = False
-
-    def add_contact_to_loops(self, contact_data):
-        url = "https://app.loops.so/api/v1/contacts/create"
-        loops_api_key = os.getenv("LOOPS_API_KEY")
-        if loops_api_key is None:
-            print("Loops API key does not exist")
-        headers = {
-            "Accept": "application/json",
-            "Authorization": f"Bearer {loops_api_key}",
-        }
-
-        try:
-            with httpx.Client() as client:
-                response = client.post(url, headers=headers, json=contact_data)
-                response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
-
-        except httpx.RequestError as e:
-            print(f"An error occurred: {e}")
-
-    def signup(self):
-        """Sign the user up for the waitlist."""
-        # Check if the email is valid.
-        try:
-            validation = validate_email(self.email, check_deliverability=True)
-            self.email = validation.email
-        except EmailNotValidError as e:
-            # Alert the error message.
-            return rx.window_alert(str(e))
-
-        # Check if the user is already on the waitlist.
-        with rx.session() as session:
-            user = session.query(Waitlist).filter(Waitlist.email == self.email).first()
-            if user is None:
-                # Add the user to the waitlist.
-                session.add(Waitlist(email=self.email))
-                session.commit()
-                contact_data = json.dumps({"email": self.email})
-                self.add_contact_to_loops(contact_data)
-
-        self.signed_up = True
-        return IndexState.play_confetti
-
-    async def play_confetti(self):
-        """Play confetti for 5sec then stop."""
-        self.show_confetti = True
-        yield
-        await asyncio.sleep(5)
-        self.show_confetti = False
-        yield
 
 
 def container(*children, **kwargs):
@@ -128,10 +41,6 @@ def tag(text):
 
 def landing():
     return container(
-        rx.cond(
-            IndexState.show_confetti,
-            confetti(),
-        ),
         rx.chakra.hstack(
             rx.center(
                 rx.chakra.vstack(
@@ -164,42 +73,29 @@ def landing():
                         font_family=styles.SANS,
                         padding_top="1em",
                     ),
-                    rx.cond(
-                        ~IndexState.signed_up,
-                        rx.chakra.wrap(
-                            rx.chakra.input_group(
-                                rx.chakra.input_left_element(
-                                    rx.image(
-                                        src="/landing_icons/custom_icons/email.png",
-                                        height="1.2em",
-                                    ),
+                    rx.chakra.wrap(
+                        rx.center(
+                            rx.link(
+                                rx.chakra.button(
+                                    "Get started",
+                                    style=styles.ACCENT_BUTTON,
+                                    padding_x="2em",
                                 ),
-                                rx.chakra.input(
-                                    placeholder="Your email address...",
-                                    on_blur=IndexState.set_email,
-                                    style=styles.INPUT_STYLE,
-                                    type="email",
+                                href="/docs/getting-started/introduction/",
+                            )
+                        ),
+                        rx.center(
+                            rx.link(
+                                rx.chakra.button(
+                                    "Hosting ->",   
+                                    style=styles.BUTTON_LIGHT,
                                 ),
-                                style=styles.INPUT_STYLE,
-                            ),
-                            rx.chakra.button(
-                                "Join Hosting Waitlist",
-                                on_click=IndexState.signup,
-                                style=styles.ACCENT_BUTTON,
-                            ),
-                            justify="left",
-                            should_wrap_children=True,
-                            spacing="1em",
-                            padding_x=".25em",
-                            padding_y="1em",
+                                href="/docs/hosting/deploy-quick-start/",
+                            )
                         ),
-                        rx.chakra.text(
-                            rx.chakra.icon(
-                                tag="check",
-                            ),
-                            " You're on the waitlist!",
-                            color=styles.ACCENT_COLOR,
-                        ),
+                        justify_content="center",
+                        padding_y="1em",
+                        padding_x=".4em",
                     ),
                     align_items="left",
                     padding="1em",
