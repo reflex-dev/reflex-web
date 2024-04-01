@@ -159,6 +159,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             spacing="3",
             align_items="center",
         ),
+        # background="rgba(19, 18, 23, 0.1)",
+        # backdrop_filter="blur(5px)",
         #background = rx.color("mauve", 1),
         #background = "#FFF",
         #border_bottom= f"1px solid {rx.color('mauve', 4)};",
@@ -170,4 +172,5 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         align_items="center",
         spacing="6",
         padding="7px 20px 7px 20px;",
+        
     )
