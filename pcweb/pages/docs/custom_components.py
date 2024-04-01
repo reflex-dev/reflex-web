@@ -25,7 +25,12 @@ class CustomComponentGalleryState(rx.State):
 
         for c in component_list:
             c["downloads_last_month"] = c["downloads"]["last_month"]
-            c["keywords"] = c["keywords"] or []
+            # Filters out the keywords that says "reflex", "reflex-custom-component".
+            c["keywords"] = [
+                keyword
+                for keyword in c["keywords"] or []
+                if "reflex" not in keyword.lower()
+            ]
 
         return component_list
 
