@@ -79,12 +79,7 @@ class AnotherColorPicker(rx.Component):
     tag = "HexColorPicker"
     alias = "OtherHexColorPicker"
     color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return \{
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
+    on_change: rx.EventHandler[lambda e0: [e0]]
 ```
 
 ## Dynamic Imports

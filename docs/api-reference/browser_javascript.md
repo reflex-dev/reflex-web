@@ -159,7 +159,10 @@ class GlobalKeyState(rx.State):
 
 class GlobalKeyWatcher(rx.Fragment):
     # List of keys to trigger on
-    keys: rx.vars.Var[list[str]] = []
+    keys: rx.Var[list[str]] = []
+
+    # The event handler that will be called
+    on_key_down: rx.EventHandler[lambda ev: [ev.key]]
 
     def _get_imports(self) -> rx.utils.imports.ImportDict:
         return rx.utils.imports.merge_imports(
@@ -172,8 +175,8 @@ class GlobalKeyWatcher(rx.Fragment):
     def _get_hooks(self) -> str | None:
         return """
             useEffect(() => {
-                const handle_key = (_e0) => {
-                    if (%s.includes(_e0.key))
+                const handle_key = (_ev) => {
+                    if (%s.includes(_ev.key))
                         %s
                 }
                 document.addEventListener("keydown", handle_key, false);
@@ -185,11 +188,6 @@ class GlobalKeyWatcher(rx.Fragment):
                 self.keys,
                 rx.utils.format.format_event_chain(self.event_triggers["on_key_down"]),
             )
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            "on_key_down": lambda e0: [e0.key],
-        }
 
     def render(self):
         return ""  # No visual element, hooks only
@@ -209,6 +207,6 @@ def global_key_demo():
 ```md alert
 # rx.utils.format.format_event_chain?
 
-The `format_event_chain` function is used to format an event trigger defined on the component via `get_event_triggers` into a Javascript expression that can be used to actually trigger the event.
+The `format_event_chain` function is used to format an event trigger defined on the component via `rx.EventHandler` annotation into a Javascript expression that can be used to actually trigger the event.
 The Javascript code should do minimal work, preferring to hand off execution to a user-supplied python `EventHandler` for processing on the backend.
 ```

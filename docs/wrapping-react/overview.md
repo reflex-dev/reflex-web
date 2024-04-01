@@ -94,19 +94,14 @@ Similar to the Spline example we start with defining the library and tag. In thi
 
 We also have a var `color` which is the current color of the color picker.
 
-Since this component has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color. Here `super().get_event_triggers()` is used to get the default event triggers for all components.
+Since this component has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color.
 
 ```python exec
 class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
+    on_change: rx.EventHandler[lambda e0: [e0]]
 
 color_picker = ColorPicker.create
 
@@ -135,12 +130,7 @@ class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return \{
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        \}
+    on_change: rx.EventHandler[lambda e0: [e0]]
 
 color_picker = ColorPicker.create
 
