@@ -190,6 +190,6 @@ def footer(style=footer_style):
         ),
         background="#131217",
         width="100%",
-        z_index=-2,
+        z_index=1,
     )
 
