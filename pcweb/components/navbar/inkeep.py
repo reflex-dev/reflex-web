@@ -73,6 +73,9 @@ const searchBarProps = {
         },
       ],
     },
+    colorMode: {
+      enableSystem: true,
+    },
     theme: {
       components: {
         SearchBarTrigger: {
