@@ -95,8 +95,7 @@ class GoogleLogin(rx.Component):
     library = "@react-oauth/google"
     tag = "GoogleLogin"
 
-    def get_event_triggers(self):
-        return \{"on_success": lambda data: [data]}
+    on_success: rx.EventHandler[lambda data: [data]]
 ```
 
 The `on_success` trigger is defined to pass its argument directly to the Reflex
@@ -366,8 +365,7 @@ class GoogleLogin(rx.Component):
     library = "@react-oauth/google"
     tag = "GoogleLogin"
 
-    def get_event_triggers(self):
-        return \{"on_success": lambda data: [data]}
+    on_success: rx.EventHandler[lambda data: [data]]
 ```
 
 ### google_auth.py

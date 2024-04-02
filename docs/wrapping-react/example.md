@@ -34,12 +34,11 @@ For this tutorial we will wrap three components from Reactflow: `ReactFlow`, `Ba
 
 Here we will define the `tag` and the `vars` that we will need to use the component.
 
-We will also define the `get_event_triggers` method to specify the events that the component will trigger. For this tutorial we will use `on_edges_change` and `on_connect`, but you can find all the events that the component triggers in the [reactflow docs](https://reactflow.dev/docs/api/react-flow-props/#onnodeschange).
+For this tutorial we will define `EventHandler` props `on_edges_change` and `on_connect`, but you can find all the events that the component triggers in the [reactflow docs](https://reactflow.dev/docs/api/react-flow-props/#onnodeschange).
 
 ```python
-from reflex.components.component import Component
+from reflex import Component, EventHandler, Var
 from typing import Any, Dict, List, Union
-from reflex.vars import Var
 
 class ReactFlowLib(Component):
     ...
@@ -60,12 +59,9 @@ class ReactFlow(ReactFlowLib):
 
     nodes_focusable: Var[bool]
 
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_edges_change": lambda e0: [e0],
-            "on_connect": lambda e0: [e0],
-        }
+    on_edges_change: EventHandler[lambda e0: [e0]]
+
+    on_connect: EventHandler[lambda e0: [e0]]
 ```
 
 Now lets add the `Background` and `Controls` components. We will also create the components using the `create` method so that we can use them in our app.
@@ -223,9 +219,8 @@ app.add_page(index)
 
 ```python exec
 import reflex as rx
-from reflex.components.component import Component
+from reflex import Component, EventHandler, Var
 from typing import Any, Dict, List, Union
-from reflex.vars import Var
 import random
 
 class ReactFlowLib(Component):
@@ -253,12 +248,9 @@ class ReactFlow(ReactFlowLib):
 
     nodes_focusable: Var[bool]
 
-    def get_event_triggers(self) -> dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_edges_change": lambda e0: [e0],
-            "on_connect": lambda e0: [e0],
-        }
+    on_edges_change: EventHandler[lambda e0: [e0]]
+
+    on_connect: EventHandler[lambda e0: [e0]]
 
 
 class Background(ReactFlowLib):
