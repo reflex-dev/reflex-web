@@ -112,6 +112,40 @@ button_style_landing= {
     "color": "#848496;"
 }
 
+
+def example_button(text):
+    return rx.button(
+    text,
+    border_radius="8px;",
+    border="1px solid rgba(186, 199, 247, 0.12);",
+    background= "rgba(161, 157, 213, 0.03);",
+    backdrop_filter= "blur(2px);"
+)
+
+def demos():
+    return rx.vstack(
+        rx.hstack(
+            example_button("Chat"),
+            example_button("Image Gen"),
+            example_button("Forms"),
+            example_button("Dashboard"),
+            example_button("Auth"),
+            width="100%",
+            align_items="left"
+        ),
+        rx.box(
+            height="20em",
+            width="100%",
+            border_radius= "10px;",
+            border= "1px solid #2F2B37;",
+            background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+            
+        ),
+        padding="2em",
+        width="100%",
+    )
+
+
 def landing():
     return rx.html("""
                    <svg width="837" height="250" viewBox="0 0 837 250" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -414,8 +448,11 @@ def index() -> rx.Component:
                         _hover={}
                     ),
                     rx.button(
-                        "Get a demo",
-                        color="white",
+                        rx.link(
+                            "Get a demo",
+                            href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+                            color="white"
+                        ),
                         border_radius="8px;",
                         border="1px solid rgba(186, 199, 247, 0.12);",
                         background= "rgba(161, 157, 213, 0.03);",
@@ -430,5 +467,6 @@ def index() -> rx.Component:
             padding_top="5em",
             padding_bottom="10em",
         ),
+        demos(),
         width="100%",
     )
