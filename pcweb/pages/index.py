@@ -27,6 +27,14 @@ link_style = {
     "_hover": {"color": styles.ACCENT_COLOR},
 }
 
+text_style = {
+    "color": "#6C6C81",
+}
+
+features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
+contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
+github_url = "https://github.com/reflex-dev"
+
 class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
@@ -139,10 +147,147 @@ def demos():
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            
         ),
         padding="2em",
         width="100%",
+    )
+
+def user_count_item(count, platform) -> rx.Component:
+    return rx.vstack(
+        rx.text(f"{count}+", color="#E8E8F4", font_size="32"),
+        rx.text(platform, style=text_style),
+    )
+
+def user_count_comp() -> rx.Component:
+    return rx.center(
+        user_count_item(110, "Contributors"),
+        rx.divider(size="4", orientation="vertical"),
+        user_count_item(5000, "Project created per month"),
+        rx.divider(size="4", orientation="vertical"),
+        user_count_item(3700, "Discord Members"),
+        spacing="4",
+    )
+
+def open_source_badge() -> rx.Component:
+    return rx.center(
+        "Open Source",
+        color="#A6A1DF",
+        background_color="rgba(97, 81, 243, 0.2)",
+        border="1px solid #A6A1DF",
+        width="108px",
+        height="32px",
+        border_radius="15px",
+    )
+
+def github_button() -> rx.Component:
+    return rx.center(
+        rx.flex(
+            rx.image(src="/companies/light/github.svg", height="20px", width="20px"),
+            rx.center(
+                "Github",
+                font_size=12,
+                color="#FFFFFF",
+            ),
+            rx.center(
+                "15.7k",
+                font_size=12,
+                width="35px",
+                height="18px",
+                border_radius="5px",
+                background_color="#6151F3",
+            ),
+            spacing="1",
+        ),
+        width="151px",
+        height="42px",
+        border_radius="70px",
+        border="1px solid #2F2B37",
+        background="linear-gradient(218deg, hsl(240, 10%, 15%) -35.66%, hsl(240, 10%, 20%) 100.84%);",
+    )
+
+def invite_message() -> rx.Component:
+    return rx.box(
+        rx.text(
+            "Contribute to our open-source community.",
+            color="#D6D6ED",
+            font_size="38px",
+            weight="bold",
+            align="center",
+            line_height="1",
+        ),
+        width="30em",
+    )
+
+def request_button() -> rx.Component:
+    return rx.hstack(
+        rx.button(
+            "Feature Request",
+            color="#2BCEEA",
+            weight="bold",
+            height="22px",
+            width="138px",
+            border="1px solid #2BCEEA",
+            background_color="rgba(43, 206, 234, 0.25)",
+            on_click=rx.redirect(
+                features_url,
+                external=True,
+            ),
+            _hover={
+                "cursor": "pointer",
+            },
+        ),
+        rx.button(
+            "Good First Issues",
+            color="#2BEA8E",
+            weight="bold",
+            height="24px",
+            width="138px",
+            border="1px solid #2BEA8E",
+            background_color="rgba(43, 234, 142, 0.25)",
+            on_click=rx.redirect(
+                contribution_url,
+                external=True,
+            ),
+            _hover={
+                "cursor": "pointer",
+            },
+        ),
+    )
+
+def invite_card_comp() -> rx.Component:
+    return rx.box(
+        rx.flex(
+            rx.text(
+                "Contribute to Reflex!", 
+                color="#D6D6ED",
+            ),
+            request_button(),
+            rx.text(
+                "Start contributing today, checkout our Github for Details",
+                color="#6C6C81",
+            ),
+            justify="start",
+            direction="column",
+            spacing="1",
+        ),
+        border_radius="10px",
+        padding="1em",
+        padding_buttom="20px",
+        width="30em",
+        border= "1px solid #2F2B37;",
+        background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+        box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+    )
+
+def stats() -> rx.Component:
+    return rx.vstack(
+        open_source_badge(),
+        invite_message(),
+        github_button(),
+        invite_card_comp(),
+        user_count_comp(),
+        padding_top="25px",
+        padding_bottom="25px",
     )
 
 
@@ -468,5 +613,6 @@ def index() -> rx.Component:
             padding_bottom="10em",
         ),
         demos(),
+        stats(),
         width="100%",
     )
