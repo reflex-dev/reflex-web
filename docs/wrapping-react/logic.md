@@ -17,7 +17,7 @@ class ColorPicker(rx.Component):
     color: rx.Var[str]
 ```
 
-However, vars can be more than just a sigle type. You var can be any combination of primitive types.
+However, vars can be more than just a single type. You var can be any combination of primitive types.
 
 ```python
 class SomeComponent(rx.Component):
@@ -91,7 +91,7 @@ except ImportError:
 
 ## Event Triggers
 
-As seen in our [events section](https://reflex.dev/docs/events/events_overview/), we can use event triggers to handle events in our Reflex apps. When wrapping your own react components, you can use the `get_event_triggers` method to define event triggers for your component.
+As seen in our [events section](https://reflex.dev/docs/events/events_overview/), we can use event triggers to handle events in our Reflex apps. When wrapping your own react components, you can annotate props as `rx.EventHandler` to define event triggers for your component.
 
 Sometimes these event trigger may take in arguments, for example, the `on_change` event trigger for the `HexColorPicker` component we saw in the [wrapping react section](https://reflex.dev/docs/wrapping-react/overview/). In this case, we can use a lambda function to pass in the event argument to the event trigger. The function associated with a trigger maps args for the javascript trigger to args that will be passed to the backend event handler function.
 
@@ -100,10 +100,5 @@ class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return \{
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
+    on_change: rx.EventHandler[lambda e0: [e0]]
 ```
