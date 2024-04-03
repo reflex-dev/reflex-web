@@ -43,6 +43,7 @@ button_style_landing= {
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
 github_url = "https://github.com/reflex-dev"
+bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
 class Waitlist(rx.Model, table=True):
@@ -278,7 +279,7 @@ def invite_message() -> rx.Component:
 def request_buttons() -> rx.Component:
     return rx.hstack(
         rx.button(
-            "Feature Request",
+            "Bugs",
             color="#2BCEEA",
             weight="Medium",
             height="22px",
@@ -286,7 +287,7 @@ def request_buttons() -> rx.Component:
             border="1px solid #2BCEEA",
             background_color="rgba(43, 206, 234, 0.25)",
             on_click=rx.redirect(
-                features_url,
+                bugs_url,
                 external=True,
             ),
             _hover={
