@@ -35,6 +35,7 @@ features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
 github_url = "https://github.com/reflex-dev"
 
+
 class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
@@ -153,9 +154,11 @@ def demos():
     )
 
 def user_count_item(count, platform) -> rx.Component:
-    return rx.vstack(
-        rx.text(f"{count}+", color="#E8E8F4", font_size="32"),
+    return rx.flex(
+        rx.text(f"{count}+", color="#E8E8F4", font_size="32px"),
         rx.text(platform, style=text_style),
+        direction="column",
+        align="center",
     )
 
 def user_count_comp() -> rx.Component:
@@ -165,44 +168,89 @@ def user_count_comp() -> rx.Component:
         user_count_item(5000, "Project created per month"),
         rx.divider(size="4", orientation="vertical"),
         user_count_item(3700, "Discord Members"),
-        spacing="4",
+        spacing="5",
+        padding="1em",
     )
 
 def open_source_badge() -> rx.Component:
-    return rx.center(
-        "Open Source",
-        color="#A6A1DF",
-        background_color="rgba(97, 81, 243, 0.2)",
-        border="1px solid #A6A1DF",
-        width="108px",
-        height="32px",
-        border_radius="15px",
+    return rx.button(
+        rx.flex(
+            rx.text(
+                "Open Source",
+                color="transparent",
+                font_size="14px",
+                font_style="normal",
+                font_weight="400",
+                line_height="normal",
+                letter_spacing="-0.28px",
+                background="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                background_clip="text",
+                _webkit_background_clip="text",
+            ),
+            height="31px",
+            padding="0px 10px",
+            justify="center",
+            align="center",
+            gap="10px",
+            border_radius="15px",
+            border="1px solid #4435D4",
+            background="linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+            box_shadow="0px 0px 4px -1px rgba(27, 21, 90, 0.40), 0px 3px 6px -3px rgba(34, 25, 121, 0.60);",
+        ),
+        background="transparent",
+        on_click=rx.redirect(
+            github_url,
+            external=True,
+        ),
+        _hover={
+            "cursor": "pointer",
+        },
     )
 
 def github_button() -> rx.Component:
-    return rx.center(
+    return rx.button(
         rx.flex(
             rx.image(src="/companies/light/github.svg", height="20px", width="20px"),
             rx.center(
                 "Github",
-                font_size=12,
                 color="#FFFFFF",
+                font_size="14px",
+                font_style="normal",
+                font_weight="400",
+                line_height="normal",
+                letter_spacing="-0.28px",
             ),
             rx.center(
                 "15.7k",
-                font_size=12,
-                width="35px",
-                height="18px",
-                border_radius="5px",
-                background_color="#6151F3",
+                color="#6151F3",
+                font_size="12px",
+                font_style="normal",
+                font_weight="400",
+                line_height="normal",
+                letter_spacing="-0.24px",
             ),
-            spacing="1",
+            spacing="2",
         ),
+
+        position="relative",
+        top="32px",
+        right="-140px",
+        z_index="999",
+        padding="var(--Space-4, 16px);",
+        align="center",
         width="151px",
         height="42px",
         border_radius="70px",
-        border="1px solid #2F2B37",
-        background="linear-gradient(218deg, hsl(240, 10%, 15%) -35.66%, hsl(240, 10%, 20%) 100.84%);",
+        border="1px solid #3C3646",
+        background="linear-gradient(243deg, #16141A -74.32%, #222029 69.37%);",
+        box_shadow="0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+        on_click=rx.redirect(
+            github_url,
+            external=True,
+        ),
+        _hover={
+            "cursor": "pointer",
+        },
     )
 
 def invite_message() -> rx.Component:
@@ -218,12 +266,12 @@ def invite_message() -> rx.Component:
         width="30em",
     )
 
-def request_button() -> rx.Component:
+def request_buttons() -> rx.Component:
     return rx.hstack(
         rx.button(
             "Feature Request",
             color="#2BCEEA",
-            weight="bold",
+            weight="Medium",
             height="22px",
             width="138px",
             border="1px solid #2BCEEA",
@@ -239,7 +287,7 @@ def request_button() -> rx.Component:
         rx.button(
             "Good First Issues",
             color="#2BEA8E",
-            weight="bold",
+            weight="Medium",
             height="24px",
             width="138px",
             border="1px solid #2BEA8E",
@@ -260,21 +308,22 @@ def invite_card_comp() -> rx.Component:
             rx.text(
                 "Contribute to Reflex!", 
                 color="#D6D6ED",
+                weight="medium",
             ),
-            request_button(),
+            request_buttons(),
             rx.text(
                 "Start contributing today, checkout our Github for Details",
                 color="#6C6C81",
+                weight="medium",
             ),
             justify="start",
             direction="column",
-            spacing="1",
+            spacing="2",
         ),
         border_radius="10px",
         padding="1em",
-        padding_buttom="20px",
         width="30em",
-        border= "1px solid #2F2B37;",
+        border="1px solid #3C3646;",
         background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
         box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
     )
@@ -288,6 +337,8 @@ def stats() -> rx.Component:
         user_count_comp(),
         padding_top="25px",
         padding_bottom="25px",
+        padding_left="25px",
+        padding_right="25px",
     )
 
 
