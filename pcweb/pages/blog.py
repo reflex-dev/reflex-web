@@ -35,7 +35,13 @@ def back(title, url):
         
 
     return rx.flex(
-        rx.text("<- Back to Blog", color="#6C6C81", margin_bottom="2em"),
+        rx.link(
+            "<- Back to Blog", 
+            color="#6C6C81", 
+            margin_bottom="2em",
+            underline="hover",
+            href="/blog",
+        ),
         rx.link(
             rx.image(src="/companies/dark/twitter.svg", height="2em"),
             href=f"https://twitter.com/intent/tweet?text={title}&url=https://reflex.dev{url}&via=getreflex",        
