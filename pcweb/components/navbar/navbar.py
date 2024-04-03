@@ -8,7 +8,7 @@ from .search import search_bar
 
 def resource_header(text):
     return rx.text(
-        text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600"
+        text, color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)), padding_bottom="10px", font_weight="600"
     )
 
 
@@ -28,7 +28,7 @@ def resources_section():
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
-                rx.text("Resources", color=rx.color("mauve", 11)),
+                rx.text("Resources", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
                 rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
                 align_items="center",
                 _hover={
@@ -88,7 +88,7 @@ def resources_section():
                     ),
                     direction="column",
                     background_color=rx.color("mauve", 3),
-                    border_left=f"1px solid {rx.color('mauve', 4)}",
+                    border_left=rx.color_mode_cond(f"1px solid {rx.color('mauve', 4)};",f"1px solid {rx.color('mauve', 3)};"),
                     align_items="start",
                     height="200px",
                     padding_top="20px",
@@ -101,7 +101,7 @@ def resources_section():
             ),
             border=f"1px solid {rx.color('mauve', 4)}",
             # background_color = rx.color("mauve", 2),
-            background="#FFF",
+            background=rx.color_mode_cond("#FFF", rx.color("mauve", 3)),
             max_width="1000px",
             height="200px",
             padding="0",
@@ -113,13 +113,13 @@ def navigation_section():
     return rx.box(
         rx.flex(
             rx.link(
-                rx.text("Docs", color=rx.color("mauve", 11)),
+                rx.text("Docs", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
                 href="/docs/getting-started/introduction/",
             ),
-            rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
+            rx.link(rx.text("Blog", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/blog"),
             rx.link(
-                rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"
-            ),
+                rx.text("Gallery", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/docs/gallery"
+                ),
             resources_section(),
             spacing="5",
         ),
@@ -131,12 +131,20 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
         rx.link(
             rx.box(
-                rx.image(
-                    src="/logos/light/reflex.svg",
-                    alt="Reflex Logo",
-                    height="20px",
-                    justify="start",
-                )
+                rx.color_mode_cond(
+                    rx.image(
+                        src="/logos/light/reflex.svg",
+                        alt="Reflex Logo",
+                        height="20px",
+                        justify="start",
+                    ),
+                    rx.image(
+                        src="/logos/dark/reflex.svg",
+                        alt="Reflex Logo",
+                        height="20px",
+                        justify="start",
+                    ),
+                ),
             ),
             href="/",
         ),
@@ -147,7 +155,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         rx.flex(
             search_bar(),
             github(),
-            rx.divider(size="2", color="mauve", orientation="vertical"),
+            rx.divider(size="2", color=rx.color("mauve"), orientation="vertical"),
             rx.box(
                 discord(),
                 display=["none", "none", "none", "none", "flex", "flex"],
@@ -159,11 +167,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             spacing="3",
             align_items="center",
         ),
-        # background="rgba(19, 18, 23, 0.1)",
-        # backdrop_filter="blur(5px)",
-        #background = rx.color("mauve", 1),
-        #background = "#FFF",
-        #border_bottom= f"1px solid {rx.color('mauve', 4)};",
+        background=rx.color("mauve", 3),
+        opacity=0.9,
         height="80px",
         position="fixed",
         width="100%",
@@ -171,6 +176,5 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         z_index="5",
         align_items="center",
         spacing="6",
-        padding="7px 20px 7px 20px;",
-        
+        padding="7px 20px 7px 20px;",  
     )
