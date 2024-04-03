@@ -27,14 +27,14 @@ The `default_checked` prop defines whether the `checkbox` is checked by default.
 The `gap` prop determines the space between the `checkbox` and the `text` label.
 
 ```python demo
-rx.checkbox("Agree to Terms and Conditios", default_checked=True, spacing="2")
+rx.checkbox("Agree to Terms and Conditions", default_checked=True, spacing="2")
 
 ```
 
 The `size` prop determines the size of the `checkbox` and the associated `text` label.
 
 ```python demo
-rx.checkbox("Agree to Terms and Conditios", size="3")
+rx.checkbox("Agree to Terms and Conditions", size="3")
 ```
 
 ### Disabled
