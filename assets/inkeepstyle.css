@@ -1,24 +1,49 @@
 .ikp-search-bar-trigger__container {
   border-radius: 50px; /* Adjust as needed */
-  border: 1px solid #eae7ec; /* Your desired border color */
-  box-shadow: 0px 3px 7px -4px rgba(21, 18, 44, 0.15);
+  border: 2px solid #211F26; /* dark mode */
+  background: #1a191b;
+  color: #1a191b;
+  box-shadow: 0px 3px 7px -4px rgba(21, 18, 44, 0.30);
 }
 
 @media (max-width: 767px) {
   .ikp-search-bar-trigger__container {
     border-radius: 8px; /* Adjust as needed */
-    border: 1px solid #eae7ec; /* Your desired border color */
-    box-shadow: 0px 3px 7px -4px rgba(21, 18, 44, 0.15);
+    border: 2px solid #211F26;
+    background: #1a191b;
+    box-shadow: 0px 3px 7px -4px rgba(21, 18, 44, 0.30);
     width: 5em;
     padding-left: .25em;
     padding-right: 0em;
   }
 
-  .ikp-search-bar-trigger__kbd{
-    display: none;
+  .ikp-search-bar-trigger__icon svg {
+    fill: #211F26; /* Set the SVG fill color to match the border color */
   }
 }
 
-.ikp-search-bar-trigger__icon {
-    display: none;
+.ikp-search-bar-trigger__icon svg {
+  fill: #211F26; /* Set the SVG fill color to match the border color */
+}
+
+.ikp-kbd-shortcut-icon  {
+  fill: #211F26;
+  color:#211F26;
+  stroke: #889096;
+}
+
+.ikp-search-bar-trigger__kbd {
+  display: flex;
+  align-items: center;
+  background: var(--ikp-colors-transparent) !important;
+  padding-inline: var(--ikp-spacing-2);
+  padding-block: var(--ikp-spacing-1);
+  box-shadow: var(--ikp-shadows-none);
+  border-color: #6f6d78;
+  color: #6f6d78
+}
+
+.ikp-kbd-shortcut-icon {
+  color: #6f6d78;
+  stroke: #6f6d78;
 }
