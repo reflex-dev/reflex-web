@@ -27,9 +27,6 @@ link_style = {
     "_hover": {"color": styles.ACCENT_COLOR},
 }
 
-text_style = {
-    "color": "#6C6C81",
-}
 
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
@@ -156,7 +153,7 @@ def demos():
 def user_count_item(count, platform) -> rx.Component:
     return rx.flex(
         rx.text(f"{count}+", color="#E8E8F4", font_size="32px"),
-        rx.text(platform, style=text_style),
+        rx.text(platform, color="#6C6C81"),
         direction="column",
         align="center",
     )
