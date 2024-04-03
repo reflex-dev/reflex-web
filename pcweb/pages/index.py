@@ -18,6 +18,7 @@ from pcweb.pages.docs import (
     styling,
     wrapping_react,
 )
+from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
 
 link_style = {
@@ -25,6 +26,9 @@ link_style = {
     "font_weight": styles.BOLD_WEIGHT,
     "_hover": {"color": styles.ACCENT_COLOR},
 }
+
+
+
 button_style_landing= {
     "border_radius": "50px;",
     "border": "1px solid rgba(186, 199, 247, 0.12);",
@@ -36,7 +40,6 @@ button_style_landing= {
 }
 
 
-
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
 github_url = "https://github.com/reflex-dev"
@@ -45,6 +48,7 @@ github_url = "https://github.com/reflex-dev"
 class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
 
 class IndexState(rx.State):
     """Hold the state for the home page."""
@@ -107,129 +111,24 @@ class IndexState(rx.State):
         self.show_confetti = False
         yield
 
-class DemoState(rx.State):
 
-    demo = "Chat"
-
-    def set_demo(self, demo):
-        self.demo = demo
-
-def image_gen():
-    return rx.hstack(
-        rx.vstack(
-            rx.hstack(
-                rx.menu.root(
-                    rx.menu.trigger(
-                        rx.button(
-                            rx.icon("ellipsis"),
-                            variant="soft"
-                        ),
-                    ),
-                    rx.menu.content(
-                        rx.menu.item("Share", shortcut="⌘ E"),
-                        rx.menu.item("Duplicate", shortcut="⌘ D"),
-                        rx.menu.separator(),
-                        rx.menu.item("Archive", shortcut="⌘ N"),
-                        rx.menu.sub(
-                            rx.menu.sub_trigger("More"),
-                            rx.menu.sub_content(
-                                rx.menu.item("Move to project…"),
-                                rx.menu.item("Move to folder…"),
-                                rx.menu.separator(),
-                                rx.menu.item("Advanced options…"),
-                            ),
-                        ),
-                        rx.menu.separator(),
-                        rx.menu.item("Add to favorites"),
-                        rx.menu.separator(),
-                        rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                    ),
-                ),
-                width="100%", 
-                justify_content="space-between",    
-            ),
-            rx.center(
-                rx.vstack(
-                    rx.input(placeholder="Enter description", width="100%"),
-                    rx.button("Generate Image ->", width="100%"),
-                    align_items="center",
-                ),
-                width="100%",
-                height="100%",
-            ),
-            width="60%",
-            height="100%",
-            padding_top="1em",
-        ),
-        rx.vstack(
-            "Settings",
-            rx.radix.input.root(
-                rx.input(placeholder="Seed"),
-                width="100%"
-            ),
-            rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
-            rx.text("Temperature"),
-            rx.slider(default_value=25, width="100%"),
-            rx.text("Width"),
-            rx.slider(default_value=50, width="100%"),
-            rx.text("Height"),
-            rx.slider(default_value=75, width="100%"),
-            rx.text("Share Results"),
-            rx.switch(),
-            rx.button("Save", width="100%", variant="outline"),
-            width="40%",
-            height="100%",
-            border_left="1px solid #2F2B37;",
-            padding_left="1em",
-            align_items="start",
-            justify_content="center"
-        ),
-        padding_x="1em",
-        height="100%",
+def container(*children, **kwargs):
+    kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
+    return rx.chakra.container(
+        *children,
+        **kwargs,
     )
 
-def forms():
-    return rx.hstack(
-        rx.vstack(
-            rx.text("Settings"),
-            rx.text("Button", width="100%", bg=rx.color("mauve", 7), opacity=0.5, padding=".25em", border_radius="8px;"),
-            rx.text("Button", width="100%", padding=".25em"),
-            rx.text("Profile"),
-            rx.text("Button"),
-            rx.text("Button"),
-            width="30%",
-            height="100%",
-            padding_top="1em",
-            padding_right="1em",
-            align_items="start",
-        ),
-        rx.vstack(
-            "Settings",
-            rx.radix.input.root(
-                rx.input(placeholder="Seed"),
-                width="50%"
-            ),
-            rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="50%"),
-            rx.text("Temperature"),
-            rx.slider(default_value=25, width="50%"),
-            rx.text("Width"),
-            rx.slider(default_value=50, width="50%"),
-            rx.text("Height"),
-            rx.slider(default_value=75, width="50%"),
-            rx.text("Update"),
-            rx.switch(),
-            rx.button("Save", width="50%", variant="outline"),
-            width="70%",
-            height="100%",
-            border_left="1px solid #2F2B37;",
-            padding_left="1em",
-            align_items="start",
-            justify_content="start",
-            padding_top="1em",
-        ),
-        padding_x="1em",
-        height="100%",
-    )
+
+button_style_landing= {
+    "border_radius": "50px;",
+    "border": "1px solid rgba(186, 199, 247, 0.12);",
+    "background": "rgba(161, 157, 213, 0.03);",
+    "backdrop_filter": "blur(2px);",
+    "padding": "7px 12px;",
+    "align_items": "center;",
+    "color": "#848496;"
+}
 
 
 def example_button(text):
@@ -238,63 +137,28 @@ def example_button(text):
     border_radius="8px;",
     border="1px solid rgba(186, 199, 247, 0.12);",
     background= "rgba(161, 157, 213, 0.03);",
-    backdrop_filter= "blur(2px);",
-    on_click= lambda: DemoState.set_demo(text)
+    backdrop_filter= "blur(2px);"
 )
 
 def demos():
     return rx.vstack(
-        rx.vstack(
-            rx.text(
-                "Build web apps, faster.",
-                font_size="54px;",
-                text_align="left",
-                color="#D6D6ED",
-                font_weight="bold",
-                line_height="1",
-            ),
-            rx.text("Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", color="#6C6C81"),
-            padding_y="2em",
-        ),
         rx.hstack(
             example_button("Chat"),
             example_button("Image Gen"),
             example_button("Forms"),
             example_button("Dashboard"),
             example_button("Auth"),
-            rx.spacer(),
-            rx.button(
-                "View Code",
-                border_radius="8px;",
-                border="1px solid rgba(186, 199, 247, 0.12);",
-                background= "rgba(161, 157, 213, 0.03);",
-                backdrop_filter= "blur(2px);"
-            ),
             width="100%",
             align_items="left"
         ),
         rx.box(
-            rx.match(
-                DemoState.demo,
-                ("Chat", forms()),
-                ("Image Gen", image_gen()),
-                ("Forms", forms()),
-                ("Dashboard", forms()),
-                ("Auth", forms()),
-                forms()
-            ),
-            height="30em",
+            height="20em",
             width="100%",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
         ),
-        # background_image="url(/grid.svg)",
-        # background_position="top center;",
-        # background_repeat="no-repeat;",
-        # background_size="cover;",
         padding="2em",
-        padding_top="12em",
         width="100%",
     )
 
@@ -786,11 +650,12 @@ def index() -> rx.Component:
                         padding_x="2em",
                         background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
                         box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset;",
+                        _hover={}
                     ),
                     rx.button(
                         rx.link(
                             "Get a demo",
-                            href="https://5dha7vttyp3.typeform.com/reflex",
+                            href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
                             color="white"
                         ),
                         border_radius="8px;",
@@ -805,15 +670,15 @@ def index() -> rx.Component:
             ),
             align_items="left",
             padding_top="5em",
-            padding_bottom="5em",
+            padding_bottom="10em",
         ),
-        rx.container(
-            demos()
-        ),
-<<<<<<< HEAD
         demos(),
         stats(),
-=======
->>>>>>> origin/alek/dark
+
         width="100%",
     )
+
+
+
+
+
