@@ -74,7 +74,7 @@ const searchBarProps = {
       ],
     },
     colorMode: {
-      enableSystem: true,
+      forcedColorMode: 'dark', // options: 'light' or dark'
     },
     theme: {
       components: {

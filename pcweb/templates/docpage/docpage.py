@@ -101,7 +101,8 @@ def docpage_footer(path):
             rx.flex(
                 rx.text(
                     "Did you find this useful?",
-                    color=rx.color("mauve", 12),
+                    color=rx.color("mauve", 10),
+                    weight="bold",
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
@@ -501,7 +502,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         display=["none", "none", "none", "none", "none", "flex"],
                         flex_shrink=0,
                     ),
-                    background="#FFF",
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -510,7 +510,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-                background="#FFF",
+                background=rx.color("mauve", 1),
                 width="100%",
                 justify="center",
             )
