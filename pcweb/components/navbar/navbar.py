@@ -126,6 +126,34 @@ def navigation_section():
         display=["none", "none", "none", "none", "flex", "flex"],
     )
 
+def blur_background():
+    return rx.fragment(
+        rx.script(
+            """
+            window.onscroll = function() {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var scrollThreshold = 100;
+                var navbar = document.getElementById('navbar');
+
+                if (scrollTop > scrollThreshold) {
+                    navbar.classList.add('blur-navbar');
+                } else {
+                    navbar.classList.remove('blur-navbar');
+                }
+            };
+            """
+        ),
+        rx.html(
+            """
+            <style>
+            .blur-navbar {
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px); /* For Safari compatibility */
+            }
+            </style>
+            """
+        )
+    )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
@@ -167,8 +195,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             spacing="3",
             align_items="center",
         ),
-        background=rx.color("mauve", 3),
-        opacity=0.9,
+        blur_background(),
+        id="navbar",
         height="80px",
         position="fixed",
         width="100%",

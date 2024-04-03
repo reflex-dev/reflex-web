@@ -16,7 +16,7 @@ def spotlight():
     <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
     <link rel="stylesheet" type="text/css" href="/css/globals.css" />
   </head>
-  <body style="margin: 0; background: #131217">
+  <body style="margin: 0; background: none">
     <input type="hidden" id="anPageName" name="page" value="landing-page" />
     <div class="container-center-horizontal">
       <div class="landing-page screen">
@@ -60,7 +60,6 @@ def spotlight():
     height="100%",
     align_items="start",
     justify_content="center",
-    background="#131217",
     opacity=0.99,
 )
 
