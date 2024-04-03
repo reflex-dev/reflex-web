@@ -26,41 +26,52 @@ def get_route(path: str):
     return path.replace(PAGES_PATH, "").replace(".md", "")
 
 
-def back():
+def back(title, url):
+    def create_linkedin_share_url(path):
+        """Create a LinkedIn share URL."""
+        encoded_url = "https://reflex.dev" + (path if path.startswith('/') else '/' + path)
+        encoded_url = encoded_url.replace(':', '%3A').replace('/', '%2F') + ('' if encoded_url.endswith('%2F') else '%2F')
+        return f"https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}"
+        
+
     return rx.flex(
         rx.text("<- Back to Blog", color="#6C6C81", margin_bottom="2em"),
         rx.link(
-            rx.image(src="/companies/dark/linkedin.svg", height="2em"),
-            href=constants.LINKEDIN_URL,
+            rx.image(src="/companies/dark/twitter.svg", height="2em"),
+            href=f"https://twitter.com/intent/tweet?text={title}&url=https://reflex.dev{url}&via=getreflex",        
         ),
         rx.link(
-            rx.image(src="/companies/dark/twitter.svg", height="2em"),
-            href=constants.TWITTER_URL,
+            rx.image(src="/companies/dark/linkedin.svg", height="2em"),
+            href=create_linkedin_share_url(url),
+            is_external=True,
         ),
         rx.link(
             rx.image(src="/companies/dark/yc.svg", height="2em"),
-            href=constants.TWITTER_URL,
+            href=f"https://news.ycombinator.com/submitlink?u=https://reflex.dev{url}&t={title}",            is_external=True,
         ),
         rx.link(
             rx.image(src="/companies/dark/reddit.svg", height="2em"),
-            href=constants.LINKEDIN_URL,
+            href=f"https://www.reddit.com/submit?url=https://reflex.dev{url}&title={title}",
+            is_external=True,
         ),
         display=["none", "none", "none", "none", "flex", "flex"],
         spacing = "2",
         direction="column",
         z_index=1,
         position="fixed",
-        top="280px",
+        top="300px",
         left="15px",
         margin=0,
         width="auto",
     )
 
-def page(document) -> rx.Component:
+
+
+def page(document, route) -> rx.Component:
     """Create a page."""
     meta = document.metadata
     return rx.vstack(
-    back(),
+    back(meta["title"], route),
     rx.container(
         rx.vstack(
                 rx.hstack(
@@ -260,7 +271,7 @@ for path, document in blogs.items():
     route = f"/{path.replace('.md', '')}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(path=route, title=document.metadata["title"]+ " · Reflex Blog")(
-        lambda doc=document: page(doc)
+        lambda doc=document: page(doc, route)
     )
 
     # Add the route to the list of routes.
