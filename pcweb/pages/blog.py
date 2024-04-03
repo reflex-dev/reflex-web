@@ -27,126 +27,97 @@ def get_route(path: str):
 
 
 def back():
-    return rx.box(
-       rx.text("<- Back to Blog", color="#6C6C81"),
-        rx.flex(
-            rx.flex(
-                rx.link(
-                    rx.image(src="/companies/dark/linkedin.svg", height="2em"),
-                    href=constants.LINKEDIN_URL,
-                ),
-                rx.link(
-                    rx.image(src="/companies/dark/twitter.svg", height="2em"),
-                    href=constants.TWITTER_URL,
-                ),
-                rx.link(
-                    rx.image(src="/companies/dark/yc.svg", height="2em"),
-                    href=constants.TWITTER_URL,
-                ),
-                rx.link(
-                    rx.image(src="/companies/dark/reddit.svg", height="2em"),
-                    href=constants.LINKEDIN_URL,
-                ),
-                direction="column",
-                spacing="2",
-            ),
-            direction="column",
-            width="100%",
-            position="fixed",
-            margin_top="5em",
-            justify="start",
+    return rx.flex(
+        rx.text("<- Back to Blog", color="#6C6C81", margin_bottom="2em"),
+        rx.link(
+            rx.image(src="/companies/dark/linkedin.svg", height="2em"),
+            href=constants.LINKEDIN_URL,
         ),
-        padding_left="2em",
+        rx.link(
+            rx.image(src="/companies/dark/twitter.svg", height="2em"),
+            href=constants.TWITTER_URL,
+        ),
+        rx.link(
+            rx.image(src="/companies/dark/yc.svg", height="2em"),
+            href=constants.TWITTER_URL,
+        ),
+        rx.link(
+            rx.image(src="/companies/dark/reddit.svg", height="2em"),
+            href=constants.LINKEDIN_URL,
+        ),
         display=["none", "none", "none", "none", "flex", "flex"],
-        width="10em",
-        z_index=-1,
-        position="absolute"
+        spacing = "2",
+        direction="column",
+        z_index=1,
+        position="fixed",
+        top="280px",
+        left="15px",
+        margin=0,
+        width="auto",
     )
-
-def content(document, meta):
-    return rx.vstack(
-        rx.box(
-            rx.center(
-                rx.flex(
-                    rx.flex(
-                        rx.flex(
-                            rx.chakra.text(
-                                "Blog posts", 
-                                background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
-                                text_align="center",
-                                background_clip="text",
-                                padding_x="1em"
-                            ),
-                            border_radius= "15px;",
-                            border= "1px solid #4435D4;",
-                            background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
-                            box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
-                        ),
-                        rx.text(str(meta["date"]),color="#6C6C81",  size="3"),
-                        spacing="2",
-                        justify_content="center",
-                    ),
-                    rx.flex(
-                        rx.chakra.text(
-                                meta["title"],
-                                font_size="64px;",
-                                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
-                                text_align="center",
-                                width="650px",
-                                background_clip="text",
-                                font_weight="bold",
-                                letter_spacing= "-1.28px;",
-                        ),
-                        justify_content="center",
-                    ),
-                    direction="column",
-                    justify_content="center",
-                    width="100%"
-                )
-            ),
-            rx.image(
-                src=f"{meta['image']}",
-                border_radius="8px",
-            ),
-            border_radius= "40px;",
-            background= "linear-gradient(180deg, #131217 0.5%, rgba(0, 0, 0, 0.00) 122.33%);",
-            mix_blend_mode= "plus-lighter;",
-            width="60%",
-            padding= "80px 80px 0px 80px;"
-        ),
-        rx.container(
-            xd.render(document, "blog.md"),
-            margin_x="auto",
-            size="2",
-        ),
-        padding_bottom="8em",
-        size="3",
-        width="100%",
-    )
-
 
 def page(document) -> rx.Component:
     """Create a page."""
     meta = document.metadata
-    return rx.container(
-        h1_comp(text=meta["title"]),
-        rx.hstack(
-            rx.chakra.avatar(name=meta["author"], size="xs"),
-            rx.text(meta["author"], size="3"),
-            rx.text(" · "),
-            rx.text(str(meta["date"]), size="3"),
-            padding_bottom="1em",
+    return rx.vstack(
+    back(),
+    rx.container(
+        rx.vstack(
+                rx.hstack(
+                    rx.flex(
+                        rx.chakra.text(
+                            "Blog posts", 
+                            background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                            text_align="center",
+                            background_clip="text",
+                            padding_x="1em"
+                        ),
+                        border_radius= "15px;",
+                        border= "1px solid #4435D4;",
+                        background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                        box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                    ),
+                    rx.text(str(meta["date"]), color="#6C6C81")
+                ),
+                rx.chakra.text(
+                    meta["title"], 
+                    font_size="64px;",
+                    background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                    text_align="center",
+                    width="650px",
+                    background_clip="text",
+                    font_weight="bold",
+                    letter_spacing= "-1.28px;",
+                ),
+                rx.text(
+                    "Stay current with all the relevant details for Reflex",
+                    color="#6C6C81",
+                ),
+                align_items="center",
+                text_align="left",
+                width="100%",
+                spacing="1",
         ),
         rx.image(
             src=f"{meta['image']}",
-            margin_y="1em",
+            margin_top="1em",
             border_radius="8px",
+            padding_bottom="1em",
         ),
-        xd.render(document, "blog.md"),
-        padding_bottom="8em",
-        margin_top="120px",
+        border_radius= "40px 40px 0px 0px;",
+        background= "linear-gradient(180deg, #0F0E12 0%, rgba(0, 0, 0, 0.00) 100%);",
+        mix_blend_mode="plus-lighter;",
+        padding="4em 4em 0px 4em",
+        margin_top="80px",
         margin_x="auto",
         size="2",
+    ),
+    rx.container(
+        xd.render(document, "blog.md"),
+        padding_bottom="8em",
+        margin_x="auto",
+        size="2",
+    ),
     )
 
 
