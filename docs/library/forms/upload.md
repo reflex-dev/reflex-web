@@ -158,7 +158,7 @@ def index():
                     rx.text(img),
                 ),
             ),
-            columns=[2],
+            columns="2",
             spacing="1",
         ),
         padding="5em",
