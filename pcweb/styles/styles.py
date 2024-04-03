@@ -59,7 +59,6 @@ BASE_STYLE = {
         "font_family": SANS,
     },
     rx.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    rx.link: {"text_decoration": "none", "_hover": {}},
     rx.vstack: {"align_items": "center"},
     rx.hstack: {"align_items": "center"},
     rx.chakra.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},

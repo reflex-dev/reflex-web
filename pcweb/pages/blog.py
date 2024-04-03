@@ -134,6 +134,7 @@ def page(document, route) -> rx.Component:
         padding_bottom="8em",
         margin_x="auto",
         size="2",
+        overflow="hidden",
     ),
     )
 
