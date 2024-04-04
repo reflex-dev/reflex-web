@@ -172,7 +172,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             ),
             href="/",
         ),
-        navigation_section(),
+        navigation_section(), 
         rx.box(
             flex_grow="1",
         ),
