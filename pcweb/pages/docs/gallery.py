@@ -160,6 +160,16 @@ apps_list = [
         "url": "https://simple-background-tasks.reflex.run",
         "source": "https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream",
     },
+    {
+        "name": "E-commerce Landing Page",
+        "difficulty": "Intermediate",
+        "tags": ["ecommerce", "landing page"],
+        "description": "Landing page for a skin care ecommerce site.",
+        "img": "/gallery/ecommerce_blemish.png",
+        "gif": "",
+        "url": "https://blemish.reflex.run/",
+        "source": "",
+    }
 ]
 
 
