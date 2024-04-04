@@ -4,7 +4,6 @@ from .buttons.github import github
 from .buttons.discord import discord
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
-from .buttons.product_hunt import product_hunt
 from .state import NavbarState
 
 def resource_header(text):
@@ -197,38 +196,16 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         rx.flex(
             search_bar(),
             github(),
-            rx.divider(size="2", color=rx.color("mauve"), orientation="vertical"),
             rx.box(
                 discord(),
                 display=["none", "none", "none", "none", "flex", "flex"],
             ),
-            navigation_section(),
             rx.box(
-                flex_grow="1",
+                sidebar_button(sidebar),
+                display=["flex", "flex", "flex", "flex", "none", "none"],
             ),
-            rx.flex(
-                search_bar(),
-                github(),
-                #product_hunt(),
-                rx.divider(size="2", color="mauve", orientation="vertical"),
-                rx.box(
-                    discord(),
-                    display=["none", "none", "none", "none", "flex", "flex"],
-                ),
-                rx.box(
-                    sidebar_button(sidebar),
-                    display=["flex", "flex", "flex", "flex", "none", "none"],
-                ),
-                spacing="3",
-                align_items="center",
-            ),
-            background="rgba(255,255,255, 0.8)",
-            backdrop_filter="blur(10px)",
-            border_bottom=f"1px solid {rx.color('mauve', 4)};",
-            width="100%",
+            spacing="3",
             align_items="center",
-            spacing="6",
-            padding="7px 20px 7px 20px;",
         ),
         background_color=rx.color("mauve", 1),
         height="80px",
@@ -236,7 +213,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
         width="100%",
         z_index="5",
         top="0px",
-        position="fixed",
         align_items="center",
         spacing="6",
         padding="7px 20px 7px 20px;",  

@@ -30,11 +30,7 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-<<<<<<< HEAD
     return rx.text(text, size="3", line_height="1.7", margin_bottom="1em", color=rx.color("mauve", 10))
-=======
-    return rx.text(text, size="3", line_height="1.7", margin_bottom="1em")
->>>>>>> main
 
 
 @rx.memo
