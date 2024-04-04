@@ -9,6 +9,7 @@ from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage, get_toc
+from pcweb.whitelist import _check_whitelisted_path
 from reflex.components.chakra.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
@@ -24,6 +25,10 @@ def should_skip_compile(doc: flexdown.Document):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
         return False
+
+    if _check_whitelisted_path(doc.path):
+        return False
+
     # Check if the doc has been compiled already.
     compiled_output = f".web/pages/{doc.replace('.md', '.js')}"
     # Get the timestamp of the compiled file.
@@ -118,6 +123,10 @@ def get_component(doc: str, title: str):
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '')}")
     title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
+
+    if not _check_whitelisted_path(route):
+        return
+
     d = flexdown.parse_file(doc)
 
     if doc.startswith("docs/library/chakra"):
