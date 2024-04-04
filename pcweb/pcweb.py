@@ -7,6 +7,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
+from pcweb.whitelist import _check_whitelisted_path
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -25,7 +26,10 @@ app = rx.App(
         appearance="light", has_background=True, radius="large", accent_color="violet"
     ),
     head_components=[
-        rx.el.script(src="https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js", referrer_policy="strict-origin-when-cross-origin"),
+        rx.el.script(
+            src="https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js",
+            referrer_policy="strict-origin-when-cross-origin",
+        ),
         rx.script(src="https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"),
         rx.script(
             """
@@ -35,8 +39,10 @@ gtag('js', new Date());
 gtag('config', 'G-4T7C8ZD9TR');
 """
         ),
-        rx.script("""!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_JoMo0fOyi0GQAooY3UyO9k0hebGkMyFJrrCw1Gt5SGb',{api_host:'https://app.posthog.com'})"""),
+        rx.script(
+            """!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_JoMo0fOyi0GQAooY3UyO9k0hebGkMyFJrrCw1Gt5SGb',{api_host:'https://app.posthog.com'})"""
+        ),
     ],
 )
 
@@ -53,12 +59,13 @@ if sys.platform == "win32":
 
 # Add the pages to the app.
 for route in routes:
-    app.add_page(
-        route.component,
-        route.path,
-        route.title,
-        image="/previews/index_preview.png",
-    )
+    if _check_whitelisted_path(route.path):
+        app.add_page(
+            route.component,
+            route.path,
+            route.title,
+            image="/previews/index_preview.png",
+        )
 
 # Add redirects
 redirects = [
