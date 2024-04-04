@@ -24,12 +24,12 @@ def resources_item(text, url, icon):
     )
 
 
-def resources_section():
+def resources_section(style):
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
-                rx.text("Resources", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
-                rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
+                rx.text("Resources", style=style),
+                rx.icon(tag="chevron_down", size=18, style=style),
                 align_items="center",
                 _hover={
                     "cursor": "pointer",
@@ -87,9 +87,10 @@ def resources_section():
                         "Self-Hosting", "/docs/hosting/self-hosting/", "server"
                     ),
                     direction="column",
-                    background_color=rx.color("mauve", 3),
+                    background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+                    border_left="1px solid rgba(29, 29, 32, 0.08);",
                     align_items="start",
-                    height="200px",
+                    height="210px",
                     padding_top="20px",
                     padding_left="20px",
                     padding_bottom="20px",
@@ -98,30 +99,64 @@ def resources_section():
                 ),
                 spacing="6",
             ),
-            border=f"1px solid {rx.color('mauve', 4)}",
-            background=rx.color("mauve", 1),
+            border="1px solid rgba(29, 29, 32, 0.08);",
+            background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
+            box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
             max_width="1000px",
-            height="200px",
+            height="210px",
             padding="0",
+            overflow="hidden",
         ),
     )
 
 
 def navigation_section():
+
+    section_style={
+        "color": "#6C6C81",
+        "font-weight": "400",
+    }
+
     return rx.box(
         rx.flex(
-            rx.link(
-                rx.text("Docs", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
-                href="/docs/getting-started/introduction/",
-            ),
-            rx.link(rx.text("Blog", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/blog"),
-            rx.link(
-                rx.text("Gallery", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/docs/gallery"
-                ),
-            resources_section(),
+            rx.link(rx.text("Docs", href="/docs/getting-started/introduction/", style=section_style)),
+            rx.link(rx.text("Blog", href="/blog", style=section_style)),
+            rx.link(rx.text("Gallery", href="/docs/gallery", style=section_style)),
+            resources_section(style=section_style),
             spacing="5",
         ),
         display=["none", "none", "none", "none", "flex", "flex"],
+    )
+
+def blur_background():
+    return rx.fragment(
+        rx.script(
+            """
+            window.onscroll = function() {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var scrollThreshold = 100;
+                var navbar = document.getElementById('navbar');
+
+                if (scrollTop > scrollThreshold) {
+                    navbar.classList.add('blur-navbar');
+                } else {
+                    navbar.classList.remove('blur-navbar');
+                }
+            };
+            """
+        ),
+        rx.html(
+            """
+            <style>
+            .blur-navbar {
+                border: 1px solid rgba(29, 29, 32, 0.08);
+                background: linear-gradient(180deg, rgba(29, 27, 33, 0.98) 0%, rgba(20, 19, 24, 0.98) 100%);
+                box-shadow: 0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;
+                backdrop-filter: blur(20px);
+            }
+            </style>
+            """
+        )
     )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
@@ -164,7 +199,8 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             spacing="3",
             align_items="center",
         ),
-        background_color=rx.color("mauve", 1),
+        blur_background(),
+        id="navbar",
         height="80px",
         position="fixed",
         width="100%",

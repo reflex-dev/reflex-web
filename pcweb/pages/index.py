@@ -9,7 +9,6 @@ from sqlmodel import Field
 
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.components.spline import spline_component
 from pcweb.pages.docs import (
     database,
     getting_started,
@@ -18,7 +17,6 @@ from pcweb.pages.docs import (
     styling,
     wrapping_react,
 )
-from pcweb.pages.docs.library import library
 from pcweb.templates import webpage
 
 link_style = {
