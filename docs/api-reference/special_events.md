@@ -19,6 +19,20 @@ rx.button('Log', on_click=rx.console_log('Hello World!'))
 When triggered, this event logs a specified message to the browser's developer console.
 It's useful for debugging and monitoring the behavior of your application.
 
+## rx.scroll_to
+
+scroll to an element in the page
+
+```python demo
+rx.button(
+    "Scroll to download button",
+    on_click=rx.scroll_to("download button")
+    
+)
+```
+
+When this is triggered, it scrolls to an element passed by id as parameter. Click on button to scroll to download button (rx.download section) at the bottom of the page
+
 ## rx.redirect
 
 Redirect the user to a new path within the application.
@@ -89,5 +103,5 @@ Parameters:
 ```
 
 ```python demo
-rx.button("Download", on_click=rx.download(url="/reflex_banner.png", filename="different_name_logo.png"))
+rx.button("Download", on_click=rx.download(url="/reflex_banner.png", filename="different_name_logo.png"), id="download button")
 ```

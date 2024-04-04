@@ -141,12 +141,15 @@ def resources_section():
                     spacing="2",
                 ),
                 spacing="6",
+                max_width="1000px",
+                height="200px",
             ),
             border=f"1px solid {rx.color('mauve', 4)}",
             background=rx.color("mauve", 1),
             max_width="1000px",
             height="200px",
             padding="0",
+            overflow="hidden",
         ),
     )
 

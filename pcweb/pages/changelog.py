@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-04-01",
+            "v0.4.6",
+            "rx.ComponentState provides simple per-component state",
+            [
+                "Use dill instead of cloudpickle",
+                "More compatible package pins",
+                "rx.EventHandler annotation",
+                "Automatic pyi generation for published components",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.6",
+        ),
+        change(
             "2024-03-20",
             "v0.4.5",
             "Support SQLAlchemy Models Directly",
@@ -77,7 +89,7 @@ def changelog_content():
                 "router.session.client_ip more likely to be correct now",
                 "Allow rx.download to resolve rx.get_upload_url links",
             ],
-            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.5"
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.5",
         ),
         change(
             "2024-03-11",

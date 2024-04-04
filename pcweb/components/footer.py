@@ -6,6 +6,14 @@ from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.library import library
 from pcweb.pages.index import index
 
+import asyncio
+import json
+import os
+from datetime import datetime
+import httpx
+from email_validator import EmailNotValidError, validate_email
+from sqlmodel import Field
+
 footer_item_style = {
     "font_family": styles.SANS,
     "font_weight": "500",
@@ -81,6 +89,83 @@ def installation():
         width="100%",
         border_bottom="1px solid #3C3646;"
     )
+class Confetti(rx.Component):
+    """Confetti component."""
+
+    library = "react-confetti"
+    tag = "ReactConfetti"
+    is_default = True
+
+
+confetti = Confetti.create
+
+
+class Waitlist(rx.Model, table=True):
+    email: str
+    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+
+class IndexState(rx.State):
+    """Hold the state for the home page."""
+
+    # The waitlist email.
+    email: str
+
+    # Whether the user signed up for the waitlist.
+    signed_up: bool = False
+
+    # Whether to show the confetti.
+    show_confetti: bool = False
+
+    def add_contact_to_loops(self, contact_data):
+        url = "https://app.loops.so/api/v1/contacts/create"
+        loops_api_key = os.getenv("LOOPS_API_KEY")
+        if loops_api_key is None:
+            print("Loops API key does not exist")
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"Bearer {loops_api_key}",
+        }
+
+        try:
+            with httpx.Client() as client:
+                response = client.post(url, headers=headers, json=contact_data)
+                response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
+
+        except httpx.RequestError as e:
+            print(f"An error occurred: {e}")
+
+    def signup(self):
+        """Sign the user up for the waitlist."""
+        # Check if the email is valid.
+        try:
+            validation = validate_email(self.email, check_deliverability=True)
+            self.email = validation.email
+        except EmailNotValidError as e:
+            # Alert the error message.
+            return rx.window_alert(str(e))
+
+        # Check if the user is already on the waitlist.
+        with rx.session() as session:
+            user = session.query(Waitlist).filter(Waitlist.email == self.email).first()
+            if user is None:
+                # Add the user to the waitlist.
+                session.add(Waitlist(email=self.email))
+                session.commit()
+                contact_data = json.dumps({"email": self.email})
+                self.add_contact_to_loops(contact_data)
+
+        self.signed_up = True
+        return IndexState.play_confetti
+
+    async def play_confetti(self):
+        """Play confetti for 5sec then stop."""
+        self.show_confetti = True
+        yield
+        await asyncio.sleep(5)
+        self.show_confetti = False
+        yield
+
 
 def footer(style=footer_style):
     from pcweb.pages.blog import blg
@@ -92,9 +177,12 @@ def footer(style=footer_style):
             installation(),
             rx.hstack(
                 rx.desktop_only(
-                    logo(
-                        width=["5em", "6em", "7em"],
-                    ),
+                    rx.vstack(
+                        logo(
+                            width=["5em", "6em", "7em"],
+                        ),
+                        align_items="left",
+                    )
                 ),
                 rx.vstack(
                     rx.text("Site", color="#E8E8F4"),
@@ -146,6 +234,34 @@ def footer(style=footer_style):
                     ),
                     align_items="start",
                 ),
+                rx.tablet_and_desktop(
+                rx.vstack(
+                    rx.text("Subscribe to newsletter", color="#DACEEE"),
+                    rx.chakra.input_group(
+                        rx.chakra.input_right_element(
+                                rx.chakra.button(
+                                "->",
+                                color="#FFF",
+                                on_click=IndexState.signup,
+                                background="#82799E",
+                                border_top_left_radius="0px",
+                                border_bottom_left_radius="0px",
+                                _hover={"background": "#82799E"},
+                                )           
+                        ),
+                        rx.chakra.input(
+                            placeholder="Email...",
+                            on_blur=IndexState.set_email,
+                            color="#82799E",
+                            type="email",
+                            border="1px solid #82799E",
+                            _focus={"border": "1px solid #82799E"},
+                            border_radius="8px",
+                        ),
+                    ),
+                    align_items="left",
+                )
+                ),
                 justify="between",
                 align_items="top",
                 padding_bottom="3em",
@@ -155,7 +271,7 @@ def footer(style=footer_style):
             rx.hstack(
                 rx.text(
                     "Copyright © 2024 Pynecone, Inc.",
-                    style=footer_item_style,
+                    color="#86848D"
                 ),
                 rx.hstack(
                     rx.link(
