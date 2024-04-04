@@ -266,6 +266,99 @@ def example_button(text):
     on_click= lambda: DemoState.set_demo(text)
 )
 
+def auth():
+    return rx.flex(
+        rx.flex(
+            rx.text(
+                "Create an account",
+                font_size="24px",
+                line_height="2em",
+                weight="bold",
+                color="#FFFFFF",
+                align="center",
+            ),
+            rx.text(
+                "Enter your email below to create your account",
+                font_size="14px",
+                line_height="2em",
+                color=rx.color("mauve", 8),
+                align="center",
+            ),
+            border="1px solid Gold",
+            direction="column",
+            width="350px",
+            height="85px",
+        ),
+        rx.flex(
+            rx.input(
+                placeholder="name@example.com",
+                font_size="14px",
+                line_height="2em",
+                color=rx.color("mauve", 8),
+                background=rx.color("mauve", 2),
+                border="1px solid blue",
+                width="350px",
+                height="36px",
+            ),
+            rx.button(
+                "Sign in with Email",
+                color=rx.color("mauve", 2),
+                background=rx.color("mauve", 4),
+                font_size="14px",
+                line_height="2em",
+                border="1px solid aqua",
+                width="350px",
+                height="36px",
+            ),
+            rx.flex(
+                rx.text("  ----  "),
+                rx.text(
+                    "OR CONTIUNE WITH",
+                    font_size="14px",
+                ),
+                rx.text("  ----  "),
+                align="center",
+                border="1px solid blue",
+                width="350px",
+                height="36px",
+            ),
+            rx.button(
+                "GitHub",
+                font_size="14px",
+                line_height="2em",
+                color=rx.color("mauve", 11),
+                align="center",
+                border="1px solid aqua",
+                width="350px",
+                height="36px",
+            ),
+            direction="column",
+            spacing="2",
+            border="1px solid red",
+            height="180px",
+            width="350px",
+            padding="10px 10px 15px 10px",
+            align="center",
+            justify="center",
+        ),
+        rx.text(
+            "By clicking continue, you agree to our Term of Service and Privacy Policy.",
+            font_size="14px",
+            line_height="2em",
+            color=rx.color("mauve", 8),
+            align="center",
+            width="350px",
+            height="85px",
+            border="1px solid Gold",
+        ),
+        direction="column",
+        align="center",
+        justify="center",
+        width="350px",
+        height="328px",
+        border="1px solid green",
+    )
+# 350 * 180 grid
 
 def demos():
     return rx.vstack(
@@ -305,7 +398,7 @@ def demos():
                 ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", forms()),
-                ("Auth", forms()),
+                ("Auth", auth()),
                 forms()
             ),
             height="30em",
