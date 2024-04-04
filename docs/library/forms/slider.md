@@ -114,7 +114,7 @@ def form_example2():
             reset_on_submit=True,
             width="100%",
         ),
-        rx.chakra.divider(),
+        rx.divider(),
         rx.heading("Results"),
         rx.text(FormSliderState.form_data.to_string()),
         width="100%",

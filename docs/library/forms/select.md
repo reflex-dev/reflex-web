@@ -74,7 +74,7 @@ import reflex as rx
 from pcweb.templates.docpage import style_grid
 ```
 
-# High Level Select
+# Select
 
 Displays a list of options for the user to pick from—triggered by a button.
 

@@ -26,7 +26,7 @@ class UppercaseState(rx.State):
 def uppercase_example():
     return rx.vstack(
         rx.heading(UppercaseState.upper_text),
-        rx.chakra.input(on_blur=UppercaseState.set_text, placeholder="Type here..."),
+        rx.input(on_blur=UppercaseState.set_text, placeholder="Type here..."),
     )
 ```
 

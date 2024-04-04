@@ -93,6 +93,32 @@ faq_items = [
             """
         ),
     },
+    {
+        "Q": "What usage data is collected?",
+        "A": rx.markdown(
+            """
+Anonymous usage data allows us to understand how Reflex is used and how we can improve the product.
+
+The following information is collected:
+* Anonymous user / app ID
+* Operating System, CPU Count, Memory
+* Python / Reflex Version
+
+### How to Opt-Out
+
+To disable telemetry, set `telemetry_enabled=False` in your `rxconfig.py` file.
+
+```python
+config = rx.Config(
+    app_name="hello",
+    telemetry_enabled=False,
+)
+```
+
+Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `False`.
+"""
+        ),
+    },
 ]
 
 

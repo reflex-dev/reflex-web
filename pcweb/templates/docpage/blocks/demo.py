@@ -111,8 +111,7 @@ def docdemo(
         docdemobox(comp, **(demobox_props or {})),
         doccode(code),
         width="100%",
-        padding_top="2em",
-        padding_bottom="2em",
+        padding_y="1em",
         gap="1em",
         **props,
     )

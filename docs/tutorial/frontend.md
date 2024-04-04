@@ -155,6 +155,7 @@ Let's add some styling to the app. More information on styling can be found in t
 
 ```python
 # style.py
+import reflex as rx
 
 # Common styles for questions and answers.
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
@@ -170,7 +171,7 @@ message_style = dict(
 
 # Set specific styles for questions and answers.
 question_style = message_style | dict(margin_left=chat_margin, background_color=rx.color("gray", 4))
-answer_style = message_style | dict(margin_right=chat_margin, background_color=rx.color("accent", 8)
+answer_style = message_style | dict(margin_right=chat_margin, background_color=rx.color("accent", 8))
 
 # Styles for the action bar.
 input_style = dict(

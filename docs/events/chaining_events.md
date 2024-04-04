@@ -55,17 +55,11 @@ Try entering an integer in the input below then clicking out.
 
 ```python demo exec
 class CollatzState(rx.State):
-    count: int = 0
+    count: int = 1
 
     def start_collatz(self, count: str):
         """Run the collatz conjecture on the given number."""
-        
-        try:
-            self.count = abs(int(count))
-        except ValueError:
-            self.count = 0
-            return rx.alert("Please enter a valid number.")
-
+        self.count = abs(int(count if count else 1))
         return CollatzState.run_step
 
     async def run_step(self):
@@ -87,7 +81,7 @@ class CollatzState(rx.State):
 def collatz_example():
     return rx.vstack(
         rx.badge(CollatzState.count, font_size="1.5em", color_scheme="green"),
-        rx.chakra.input(on_blur=CollatzState.start_collatz),
+        rx.input(on_blur=CollatzState.start_collatz),
     )
 
 ```

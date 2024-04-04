@@ -54,8 +54,8 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 rx.match(
                     status,
                     ("info", rx.icon(tag="info")),
-                    ("success", rx.icon(tag="check-circle-2")),
-                    ("warning", rx.icon(tag="alert-triangle")),
+                    ("success", rx.icon(tag="circle_check")),
+                    ("warning", rx.icon(tag="triangle_alert")),
                     ("error", rx.icon(tag="ban")),
                 ),
             ),
@@ -220,7 +220,6 @@ class DemoBlock(flexdown.blocks.Block):
                 demobox_props[prop] = value
 
         return docdemo(code, comp=comp, demobox_props=demobox_props)
-
 
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
