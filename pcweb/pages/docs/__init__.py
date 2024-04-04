@@ -26,9 +26,6 @@ def should_skip_compile(doc: flexdown.Document):
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
         return False
 
-    if _check_whitelisted_path(doc.path):
-        return False
-
     # Check if the doc has been compiled already.
     compiled_output = f".web/pages/{doc.replace('.md', '.js')}"
     # Get the timestamp of the compiled file.
