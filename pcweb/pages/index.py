@@ -270,95 +270,114 @@ def auth():
     return rx.flex(
         rx.flex(
             rx.text(
-                "Create an account",
+                 "Create an account",
                 font_size="24px",
                 line_height="2em",
                 weight="bold",
                 color="#FFFFFF",
                 align="center",
+                height="32px",
+                width="350px",
+            ),
+            rx.box(
+                height="8px",
+                wdith="350px",
             ),
             rx.text(
                 "Enter your email below to create your account",
                 font_size="14px",
                 line_height="2em",
-                color=rx.color("mauve", 8),
+                color="#A1A1AA",
                 align="center",
+                height="20px",
+                width="350px",
             ),
-            border="1px solid Gold",
             direction="column",
-            width="350px",
-            height="85px",
         ),
         rx.flex(
-            rx.input(
-                placeholder="name@example.com",
-                font_size="14px",
-                line_height="2em",
-                color=rx.color("mauve", 8),
-                background=rx.color("mauve", 2),
-                border="1px solid blue",
-                width="350px",
-                height="36px",
-            ),
-            rx.button(
-                "Sign in with Email",
-                color=rx.color("mauve", 2),
-                background=rx.color("mauve", 4),
-                font_size="14px",
-                line_height="2em",
-                border="1px solid aqua",
-                width="350px",
-                height="36px",
-            ),
+            rx.box(
+                height="24px",
+            ), # margin 24px
             rx.flex(
-                rx.text("  ----  "),
-                rx.text(
-                    "OR CONTIUNE WITH",
+                rx.input(
+                    placeholder="name@example.com",
                     font_size="14px",
+                    line_height="2em",
+                    color="#A1A1AA",
+                    background="transparent",
+                    border="1px solid #A1A1AA",
+                    height="36px",
+                    focus_border_color="#404040",
                 ),
-                rx.text("  ----  "),
-                align="center",
-                border="1px solid blue",
-                width="350px",
-                height="36px",
+                rx.box(
+                    height="8px",
+                ),
+                rx.button(
+                    "Sign in with Email",
+                    color="#000000",
+                    background="#FFFFFF",
+                    font_size="14px",
+                    line_height="2em",
+                    width="350px",
+                    height="36px",
+                    _hover={
+                        "background_color": "#e6e3e3",
+                    }
+                ),
+                direction="column",
+            ),
+            rx.flex( 
+                rx.box(
+                    height="24px",
+                ),
+                rx.text(
+                    "--------  OR CONTINUE WITH  --------",
+                    color="#A1A1AA",
+                    font_size="14px",
+                    height="16px",
+                    align="center",
+                    justify="center",
+                ),
+                rx.box(
+                    height="24px",
+                ),
+                direction="column",
             ),
             rx.button(
                 "GitHub",
+                height="36px",
+                width="350px",
+                background="transparent",
+                border="1px solid #A1A1AA",
+                _hover={
+                    "background_color": "#A1A1AA",
+                },
+            ), #github
+            direction="column",
+        ),
+        rx.flex(
+            rx.box(
+                height="24px",
+            ),
+            rx.text(
+                "By clicking continue, you agree to our Term of Service and Privacy Policy.",
+                color="#A1A1AA",
                 font_size="14px",
                 line_height="2em",
-                color=rx.color("mauve", 11),
+                height="40px",
                 align="center",
-                border="1px solid aqua",
-                width="350px",
-                height="36px",
+                justify="center",
             ),
             direction="column",
-            spacing="2",
-            border="1px solid red",
-            height="180px",
-            width="350px",
-            padding="10px 10px 15px 10px",
-            align="center",
-            justify="center",
-        ),
-        rx.text(
-            "By clicking continue, you agree to our Term of Service and Privacy Policy.",
-            font_size="14px",
-            line_height="2em",
-            color=rx.color("mauve", 8),
-            align="center",
-            width="350px",
-            height="85px",
-            border="1px solid Gold",
         ),
         direction="column",
         align="center",
         justify="center",
         width="350px",
-        height="328px",
-        border="1px solid green",
+        height="348px",
+        padding_top="60px",
+        padding_left="60px",
     )
-# 350 * 180 grid
 
 def demos():
     return rx.vstack(
@@ -406,7 +425,6 @@ def demos():
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            
         ),
         # background_image="url(/grid.svg)",
         # background_position="top center;",
