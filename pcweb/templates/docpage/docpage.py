@@ -12,8 +12,9 @@ from .state import FeedbackState
 
 # Docpage styles.
 link_style = {
-    "color": rx.color("violet", 10),
-    "font_weight": "600",
+    "color": rx.color("mauve", 10),
+    "font_weight": "500",
+    "font_size": ".9em",
 }
 logo_style = {
     "height": "1em",
@@ -103,7 +104,7 @@ def docpage_footer(path: str):
                 rx.text(
                     "Did you find this useful?",
                     color=rx.color("mauve", 10),
-                    weight="bold",
+                    font_weight="400",
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
@@ -166,29 +167,29 @@ def docpage_footer(path: str):
         rx.flex(
             rx.flex(
                 rx.link(
-                    "Home", color=rx.color("mauve", 11), underline="always", href="/"
+                    "Home", color=rx.color("mauve", 9), underline="always", href="/"
                 ),
                 rx.link(
                     "Gallery",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
                     href="/docs/gallery",
                 ),
                 rx.link(
                     "Changelog",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
                     href="/changelog",
                 ),
                 rx.link(
                     "Introduction",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
                     href="/docs/getting-started/introduction",
                 ),
                 rx.link(
                     "Hosting",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
                     href="/docs/hosting/deploy-quick-start/",
                 ),

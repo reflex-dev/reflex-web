@@ -66,11 +66,11 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 10),
+                            "color": rx.color("violet", 9),
                             "text_decoration": "none",
                         },
                         font_weight="500",
-                        margin_left="0.6em",
+                        margin_left="0.75em",
                         margin_top="0.2em",
                         margin_bottom="0.2em",
                         width="100%",
@@ -88,7 +88,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             font_size=styles.TEXT_FONT_SIZE,
-                            color=rx.color("violet", 10),
+                            color=rx.color("violet", 9),
                             font_weight="500",
                             margin_left="0.25em",
                         ),
@@ -97,7 +97,7 @@ def sidebar_leaf(
                         margin_bottom="0.2em",
                     ),
                     padding_left="0.5em",
-                    border_left=f"1.5px solid {rx.color('violet', 10)}",
+                    border_left=f"1.5px solid {rx.color('violet', 9)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -108,7 +108,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 10),
+                            "color": rx.color("violet", 9),
                             "text_decoration": "none",
                         },
                         margin_left="0.25em",
@@ -177,19 +177,6 @@ def sidebar_item_comp(
                     color=rx.color("mauve", 11),
                     font_family=styles.SANS,
                     font_weight="500",
-                ),
-                rx.cond(
-                    item.names == "Radix UI",
-                    rx.text(
-                        "Experimental",
-                        color="#5646ED",
-                        bg="#F5EFFE",
-                        padding_x="0.5em",
-                        border_radius="4px",
-                        font_weight=600,
-                        font_size=".8em",
-                        margin_left="0.5em",
-                    ),
                 ),
                 rx.box(
                     flex_grow=1,
@@ -272,6 +259,7 @@ def sidebar_category(name, icon, color, index):
             rx.icon(
                 tag=icon,
                 color="#fff",
+                fill="rgba(255, 255, 255, 0.25)",
                 size=20,
             ),
             height="35px",
