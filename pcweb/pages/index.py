@@ -43,7 +43,6 @@ def container(*children, **kwargs):
         **kwargs,
     )
 
-
 button_style_landing= {
     "border_radius": "50px;",
     "border": "1px solid rgba(186, 199, 247, 0.12);",
@@ -361,14 +360,14 @@ def sample_bar_chart(input_data):
         fill="#8884d8",
     )
 
-def sample_pie_chart(input_data):
-    return rx.recharts.pie_chart(
-        data=input_data,
-        data_key="ravenue",
-        name_key="name",
-        fill="#8884d8",
-        label=True,
-    )
+# def sample_pie_chart(input_data):
+#     return rx.recharts.pie_chart(
+#         data=input_data,
+#         data_key="ravenue",
+#         name_key="name",
+#         fill="#8884d8",
+#         label=True,
+#     )
 
 def recent_sale_item(first_name, last_name, sale_amount):
     fullname = first_name.capitalize() + " " + last_name.capitalize()
