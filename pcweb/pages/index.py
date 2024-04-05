@@ -1,12 +1,3 @@
-import asyncio
-import json
-import os
-from datetime import datetime
-
-import httpx
-from email_validator import EmailNotValidError, validate_email
-from sqlmodel import Field
-
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.pages.docs import (
@@ -43,72 +34,6 @@ contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3
 github_url = "https://github.com/reflex-dev"
 bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
-
-class Waitlist(rx.Model, table=True):
-    email: str
-    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-
-
-class IndexState(rx.State):
-    """Hold the state for the home page."""
-
-    # The waitlist email.
-    email: str
-
-    # Whether the user signed up for the waitlist.
-    signed_up: bool = False
-
-    # Whether to show the confetti.
-    show_confetti: bool = False
-
-    def add_contact_to_loops(self, contact_data):
-        url = "https://app.loops.so/api/v1/contacts/create"
-        loops_api_key = os.getenv("LOOPS_API_KEY")
-        if loops_api_key is None:
-            print("Loops API key does not exist")
-        headers = {
-            "Accept": "application/json",
-            "Authorization": f"Bearer {loops_api_key}",
-        }
-
-        try:
-            with httpx.Client() as client:
-                response = client.post(url, headers=headers, json=contact_data)
-                response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
-
-        except httpx.RequestError as e:
-            print(f"An error occurred: {e}")
-
-    def signup(self):
-        """Sign the user up for the waitlist."""
-        # Check if the email is valid.
-        try:
-            validation = validate_email(self.email, check_deliverability=True)
-            self.email = validation.email
-        except EmailNotValidError as e:
-            # Alert the error message.
-            return rx.window_alert(str(e))
-
-        # Check if the user is already on the waitlist.
-        with rx.session() as session:
-            user = session.query(Waitlist).filter(Waitlist.email == self.email).first()
-            if user is None:
-                # Add the user to the waitlist.
-                session.add(Waitlist(email=self.email))
-                session.commit()
-                contact_data = json.dumps({"email": self.email})
-                self.add_contact_to_loops(contact_data)
-
-        self.signed_up = True
-        return IndexState.play_confetti
-
-    async def play_confetti(self):
-        """Play confetti for 5sec then stop."""
-        self.show_confetti = True
-        yield
-        await asyncio.sleep(5)
-        self.show_confetti = False
-        yield
 
 
 def container(*children, **kwargs):
@@ -377,6 +302,163 @@ def auth():
         padding_left="60px",
     )
 
+def category_items(categroyName: str, count: str, change: str, clicked: bool):
+    return rx.vstack(
+        rx.text(
+            categroyName,
+            line_height="1",
+            font_size="18px",
+            weigh="bold",
+            color="#FFFFFF"
+        ),
+        rx.text(
+            count,
+            line_height="1",
+            font_size="12px",
+            weigh="bold",
+            color="#FFFFFF",
+        ),
+        rx.text(
+            change,
+            line_height="1",
+            font_size="12px",
+            color="#A1A1AA"
+        ),
+        height="4.5em",
+        width="10em",
+        border="1px solid blue",
+        border_radius="0.5em",
+        align="center",
+        justify="center",
+        background_color=rx.cond(clicked, "#2e2e2e", "transparent"),
+    )
+
+data = [
+    {"name": "Jul", "ravenue": 2300},
+    {"name": "Aug", "ravenue": 2540},
+    {"name": "Sep", "ravenue": 2240},
+    {"name": "Dec", "ravenue": 2100},
+    {"name": "Jan", "ravenue": 2660},
+    {"name": "Feb", "ravenue": 2800},
+    {"name": "Mar", "ravenue": 3200},
+    {"name": "Apr", "ravenue": 4000},
+]
+
+
+def sample_bar_chart(input_data):
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="ravenue", stroke="#FFFFFF", fill="#FFFFFF",
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=input_data,
+        padding="8px 8px 8px 8px",
+        align="center",
+        adjust="center",
+        cx="50%",
+        cy="50%",
+        fill="#8884d8",
+    )
+
+def sample_pie_chart(input_data):
+    return rx.recharts.pie_chart(
+        data=input_data,
+        data_key="ravenue",
+        name_key="name",
+        fill="#8884d8",
+        label=True,
+    )
+
+def recent_sale_item(first_name, last_name, sale_amount):
+    fullname = first_name.capitalize() + " " + last_name.capitalize()
+    email = first_name.lower() + "." + last_name.lower() + "@email.com",
+    formatted_sale_amount = "+${:,.2f}".format(sale_amount)
+    return rx.flex(
+        rx.vstack(
+            rx.text(fullname, color="#FFFFFF", line_height="1"),
+            rx.text(email[0], color="#FFFFFF", line_height="1"),
+            align="start",
+            justify="center",
+        ),
+        rx.spacer(),
+        rx.text(
+            formatted_sale_amount,
+        ),
+        padding_right="10px",
+        padding_left="10px",
+        padding_top="10px",
+        padding_buttom="10px",
+    )
+
+def dashboard():
+    return rx.flex(
+        rx.hstack(
+            rx.center(
+                "Dashboard",
+                font_size="24px",
+                color="#FFFFFF",
+            ),
+            rx.spacer(),
+            rx.button(
+                "Download",
+                color="#000000",
+                background="#FFFFFF",
+            ),
+            justify_content="flex-end",
+            height="3em",
+            width="100%",
+            padding_left="20px",
+            padding_right="20px",
+        ),
+        rx.flex(
+            rx.flex(
+                category_items("Revenue", "$32,450", "+20.1% from last month", True),
+                rx.spacer(),
+                category_items("Active Users", "+1230", "+18.1% from last month", False),
+                rx.spacer(),
+                category_items("Followers", "+930", "+19% from last month", False),
+                rx.spacer(),
+                category_items("Contributors", "+90", "+20 from last month", False),
+                height="5em",
+                padding_left="10px",
+                padding_right="10px",
+                align="center",
+                justify="center",
+            ),
+            rx.flex(
+                rx.box(
+                    sample_bar_chart(data),
+                    height="20em",
+                    width="60%",
+                    border="1px solid #FFFFFF",
+                ),
+                rx.flex(
+                    rx.text("Recent Sales"),
+                    rx.text("You made 265 sales this month."),
+                    recent_sale_item("jason", "mars", 1999),
+                    recent_sale_item("Sofia", "Kim", 499),
+                    recent_sale_item("angela", "baby", 799),
+                    recent_sale_item("jack", "dawson", 1099),
+                    direction="column",
+                    height="20em",
+                    width="40%",
+                    border="1px solid #FFFFFF",
+                ),
+                direction="row",
+                height="22em",
+                align="center",
+                justify="center",
+            ),
+            direction="column",
+            height="27em",
+            width="100%",
+        ),
+        direction="column",
+        justify="center",
+        align="center",
+    )
+
 def demos():
     return rx.vstack(
         rx.vstack(
@@ -406,7 +488,7 @@ def demos():
                 backdrop_filter= "blur(2px);"
             ),
             width="100%",
-            align_items="left"
+            align="center"
         ),
         rx.box(
             rx.match(
@@ -414,12 +496,12 @@ def demos():
                 ("Chat", forms()),
                 ("Image Gen", image_gen()),
                 ("Forms", forms()),
-                ("Dashboard", forms()),
+                ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 forms()
             ),
             height="30em",
-            width="100%",
+            width="70em",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
@@ -948,8 +1030,5 @@ def index() -> rx.Component:
 
         width="100%",
     )
-
-
-
 
 
