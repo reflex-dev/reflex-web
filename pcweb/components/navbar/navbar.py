@@ -8,14 +8,14 @@ from .state import NavbarState
 
 def resource_header(text):
     return rx.text(
-        text, color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)), padding_bottom="10px", font_weight="600"
+        text, color=rx.color("mauve", 12), padding_bottom="10px", font_weight="600"
     )
 
 
 def resources_item(text, url, icon):
     return rx.link(
         rx.flex(
-            rx.icon(icon, size=20, color=rx.color("mauve", 9)),
+            rx.icon(icon, size=20, color=rx.color("mauve", 10)),
             rx.text(text, color=rx.color("mauve", 9)),
             wrap="nowrap",
             spacing="2",
@@ -72,8 +72,8 @@ def resources_section():
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
-                rx.text("Resources", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
-                rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
+                rx.text("Resources", color=rx.color("mauve", 11)),
+                rx.icon(tag="chevron_down", color=rx.color("mauve", 9), size=18),
                 align_items="center",
                 _hover={
                     "cursor": "pointer",
@@ -158,12 +158,12 @@ def navigation_section():
     return rx.box(
         rx.flex(
             rx.link(
-                rx.text("Docs", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))),
+                rx.text("Docs", color=rx.color("mauve", 11)),
                 href="/docs/getting-started/introduction/",
             ),
-            rx.link(rx.text("Blog", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/blog"),
+            rx.link(rx.text("Blog", color=rx.color("mauve", 11)), href="/blog"),
             rx.link(
-                rx.text("Gallery", color=rx.color_mode_cond(rx.color("mauve", 11), rx.color("mauve", 10))), href="/docs/gallery"
+                rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery"
                 ),
             resources_section(),
             spacing="5",
@@ -211,6 +211,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component():
             align_items="center",
         ),
         background_color=rx.color("mauve", 1),
+        border_bottom=f"1px solid {rx.color('mauve', 4)}",
         height="80px",
         position="fixed",
         width="100%",

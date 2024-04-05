@@ -6,13 +6,20 @@ import reflex as rx
 from pcweb import styles
 from pcweb.components.navbar.state import NavbarState
 from pcweb.route import Route
-from pcweb.styles import font_weights as fw
 from .state import SidebarState, SidebarItem
-from .style import heading_style2, heading_style3
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
 from .sidebar_items.reference import api_reference, recipes, tutorials
+
+
+heading_style2 = {
+    "background_color": rx.color("violet", 3),
+    "border_radius": "0.5em",
+    "width": "100%",
+    "padding_left": "0.5em",
+    "padding_right": "0.5em",
+}
 
 
 def sidebar_link(*children, **props):
@@ -51,6 +58,27 @@ def sidebar_leaf(
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
     item.link= item.link.replace("_", "-")
+    
+    if item.names == "Overview":
+        return sidebar_link(
+            rx.flex(
+                    rx.text(
+                        item.names,
+                        color=rx.color("mauve", 11),
+                        _hover={
+                            "color": rx.color("violet", 10),
+                            "text_decoration": "none",
+                        },
+                        font_weight="500",
+                        margin_left="0.6em",
+                        margin_top="0.2em",
+                        margin_bottom="0.2em",
+                        width="100%",
+                    ),
+                ),
+                href=item.link,
+        )
+
     return rx.chakra.accordion_item(
         rx.cond(
             item.link == url,
@@ -60,7 +88,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             font_size=styles.TEXT_FONT_SIZE,
-                            color="#644FC1",
+                            color=rx.color("violet", 10),
                             font_weight="500",
                             margin_left="0.25em",
                         ),
@@ -69,7 +97,7 @@ def sidebar_leaf(
                         margin_bottom="0.2em",
                     ),
                     padding_left="0.5em",
-                    border_left="1.5px solid #644FC1",
+                    border_left=f"1.5px solid {rx.color('violet', 10)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -80,7 +108,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": styles.ACCENT_COLOR,
+                            "color": rx.color("violet", 10),
                             "text_decoration": "none",
                         },
                         margin_left="0.25em",
@@ -89,7 +117,7 @@ def sidebar_leaf(
                         width="100%",
                     ),
                     padding_left="1em",
-                    border_left="1.5px solid #EEEDEF",
+                    border_left=f"1.5px solid {rx.color('mauve', 3)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -169,9 +197,9 @@ def sidebar_item_comp(
                 rx.chakra.accordion_icon(),
                 align_items="center",
                 _hover={
-                    "color": styles.ACCENT_COLOR,
+                    "color": rx.color("violet", 10),
                 },
-                color="#494369",
+                color=rx.color("mauve", 11),
                 width="100%",
                 padding_left="10px",
                 padding_right="0px",
@@ -243,11 +271,11 @@ def sidebar_category(name, icon, color, index):
         rx.button(
             rx.icon(
                 tag=icon,
-                color="#FFFFFF",
+                color="#fff",
                 size=20,
             ),
-            height="30px",
-            width="30px",
+            height="35px",
+            width="35px",
             padding="0px",
             border_radius="6px",
             color_scheme=color,
@@ -257,18 +285,15 @@ def sidebar_category(name, icon, color, index):
         ),
         rx.text(
             name,
-            color=rx.color("mauve", 11),
-            padding="0px 0px 0px 5px",
+            color=rx.color("mauve", 12),
+            font_size="16px",
+            font_weight="500",
+            padding="0px 0px 0px 14px",
         ),
         on_click=lambda: SidebarState.set_sidebar_index(index),
-        background=rx.cond(
-            SidebarState.sidebar_index == index,
-            rx.color_mode_cond(rx.color("accent", 3), "#440150"), #dark mode color is hard-coded for now
-            "transparent",
-        ),
         align_items="center",
         justify="start",
-        padding="10px 10px 10px 10px",
+        padding="0 10px 15px 10px",
         border_radius="0.5em",
         width="100%",
         cursor="pointer",
@@ -324,7 +349,7 @@ def sidebar_comp(
     width: str = "100%",
 ):
     return rx.flex(
-        sidebar_category("Learn", "graduation-cap", "purple", 0),
+        sidebar_category("Learn", "graduation-cap", "violet", 0),
         sidebar_category("Components", "layout-panel-left", "sky", 1),
         sidebar_category("API Reference", "book-text", "crimson", 2),
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
@@ -356,7 +381,7 @@ def sidebar_comp(
                 2,
                 rx.flex(
                     create_sidebar_section(
-                        "API Reference", api_reference, api_reference_index, url
+                        "Reference", api_reference, api_reference_index, url
                     ),
                     create_sidebar_section("Recipes", recipes, recipes_index, url),
                     create_sidebar_section(

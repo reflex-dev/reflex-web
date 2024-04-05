@@ -42,8 +42,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-```md alert warning
-# Error `No module named venv`
+```md alert info
+# Getting `No module named venv`?
 
 While Python typically ships with `venv` it is not installed by default on some systems.
 If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get install python3-venv`.
@@ -57,8 +57,8 @@ Reflex is available as a [pip](constants.PIP_URL) package.
 pip install reflex
 ```
 
-```md alert warning
-# Error `command not found: pip`
+```md alert info
+# Getting `command not found: pip`?
 
 While Python typically ships with `pip` as the standard package management tool, it is not installed by default on some systems.
 You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install python3-pip`
@@ -70,8 +70,8 @@ You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install 
 reflex init
 ```
 
-```md alert warning
-# Error `command not found: reflex`
+```md alert info
+# Getting `command not found: reflex`?
 If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
 A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
 ```
@@ -114,8 +114,8 @@ pip install reflex
 reflex init
 ```
 
-```md alert warning
-# Error `command not found: reflex`
+```md alert info
+# Getting `command not found: reflex`?
 
 The Reflex framework includes the `reflex` command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience (see below).",
 ```

@@ -451,7 +451,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         ],
                         padding_left=styles.PADDING_X,
                         padding_right=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "75%", "60%"],
+                        width=["100%", "100%", "100%", "100%", "60%", "60%"],
                         height="100%",
                     ),
                     rx.box(
@@ -462,6 +462,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                         text,
                                         color=rx.color("mauve", 12),
                                         font_weight="500",
+                                        font_size="1em",
                                     ),
                                     href=path + "#" + text.lower().replace(" ", "-"),
                                 )
@@ -471,6 +472,8 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                         text,
                                         color=rx.color("mauve", 11),
                                         font_weight="400",
+                                        font_size="0.9em",
+                                        _hover={"color": rx.color("mauve", 12)},
                                     ),
                                     href=path + "#" + text.lower().replace(" ", "-"),
                                 )
@@ -479,7 +482,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                                     rx.text(
                                         text,
                                         color=rx.color("mauve", 11),
+                                        _hover={"color": rx.color("mauve", 12)},
                                         font_weight="400",
+                                        font_size="0.9em",
+                                        padding_left="1em",
                                     ),
                                     href=path + "#" + text.lower().replace(" ", "-"),
                                 )
@@ -490,6 +496,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             position="fixed",
                             spacing="2",
                             justify="start",
+                            overflow="hidden",
                         ),
                         margin_top="120px",
                         width="15%",
@@ -505,7 +512,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-                background=rx.color("mauve", 1),
+                background=rx.color('mauve', 1),
                 width="100%",
                 justify="center",
             )
@@ -513,10 +520,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
         # Return the route.
         components = path.split("/")
         category = " ".join(word.capitalize() for word in components[2].replace("-", " ").split()) if len(components) > 2 else None
-
         return Route(
             path=path,
-            title=f"{title} · Reflex Docs" if category is None else  f"{title} · Reflex {category} Docs",
+            title=f"{title} · Reflex Docs" if category is None else title,
             component=wrapper,
         )
 

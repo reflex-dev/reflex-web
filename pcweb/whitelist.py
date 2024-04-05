@@ -1,6 +1,6 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-WHITELISTED_PAGES = ["/blog"]
+WHITELISTED_PAGES = ["/docs/hosting"]
 
 
 def _check_whitelisted_path(path):

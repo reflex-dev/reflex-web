@@ -1,7 +1,6 @@
 import flexdown
 
 import reflex as rx
-from pcweb import styles
 from pcweb.templates.docpage import (
     code_block_markdown,
     code_comp,
@@ -14,6 +13,7 @@ from pcweb.templates.docpage import (
     h3_comp_xd,
     h4_comp_xd,
     text_comp,
+    definition,
 )
 
 
@@ -49,29 +49,42 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
         color = colors.get(status, "blue")
 
-        return rx.callout.root(
-            rx.callout.icon(
-                rx.match(
-                    status,
-                    ("info", rx.icon(tag="info")),
-                    ("success", rx.icon(tag="circle_check")),
-                    ("warning", rx.icon(tag="triangle_alert")),
-                    ("error", rx.icon(tag="ban")),
-                ),
-            ),
-            # This is a div to avoid <p> in a <p> issues.
-            rx.el.div(
-                markdown(title + " ") if title else "",
-                markdown(content),
-                class_name="rt-CalloutText",
-            ),
-            color_scheme=color,
-            background_color=f"{rx.color(color, 3)}",
-            variant="soft",
-            margin_top="1em",
-            margin_bottom="1em",
-        )
 
+        return rx.chakra.accordion(
+            rx.chakra.accordion_item(
+                rx.chakra.accordion_button(
+                    rx.flex(
+                        rx.box(
+                            rx.match(
+                                status,
+                                ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
+                                ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
+                                ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
+                                ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
+                            )
+                        ),
+                        rx.markdown(title + " ", align_items="center") if title else rx.markdown(content),
+                        rx.spacer(),
+                        rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
+                        align_items="center",
+                        justify_content="left",
+                        spacing="2",
+                        width="100%",
+                    ),
+                    padding_y="0em",
+                    color=f"{rx.color(color, 11)}", 
+                    border_radius="8px",
+                    _hover={},
+                ),
+                rx.chakra.accordion_panel(markdown(content)) if title else rx.fragment(),
+                border_radius="8px",
+                background_color=f"{rx.color(color, 3)}",
+                border="none"
+            ),
+            allow_toggle=True,
+            width="100%",
+            margin_y=".5em"
+        )
 
 class SectionBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
@@ -112,14 +125,13 @@ class SectionBlock(flexdown.blocks.Block):
                     for header, section in sections
                 ],
                 text_align="left",
-                margin_bottom="2em",
+                margin_y="1em",
                 width="100%",
             ),
-            margin_top="1em",
-            margin_left=".5em",
-            border_left="1px #F4F3F6 solid",
+            border_left=f"2.5px {rx.color('mauve', 4)} solid",
             padding_left="1em",
             width="100%",
+            align_items="center",
         )
 
 
@@ -141,22 +153,7 @@ class DefinitionBlock(flexdown.blocks.Block):
             for i in range(len(header_indices) - 1)
         ]
 
-        def single_def(title, content):
-            return rx.chakra.vstack(
-                rx.heading(
-                    title, font_size="1em", margin_bottom="0.5em", font_weight="bold"
-                ),
-                markdown(content),
-                padding="1em",
-                border=styles.DOC_BORDER,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                _hover={
-                    "box_shadow": styles.DOC_SHADOW_LIGHT,
-                    "border": f"2px solid {styles.colors['violet'][200]}",
-                },
-            )
-
-        defs = [single_def(title, content) for title, content in sections]
+        defs = [definition(title, content) for title, content in sections]
 
         return rx.fragment(
             rx.mobile_only(rx.chakra.vstack(*defs)),

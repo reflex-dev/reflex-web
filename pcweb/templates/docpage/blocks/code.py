@@ -11,7 +11,7 @@ def code_block(code: str, language: str):
         rx.code_block(
             code,
             border_radius=styles.DOC_BORDER_RADIUS,
-            theme="light",
+            theme="dark",
             background="transparent",
             language=language,
             code_tag_props={

@@ -59,3 +59,11 @@
   color: #6f6d78;
   stroke: #6f6d78;
 }
+
+.ikp-search-result-tabs__list	{
+  border-bottom: 1px solid rgba(186, 199, 247, 0.12);
+}
+
+.ikp-message__divider-wrapper		{
+  border-color: rgba(186, 199, 247, 0.12);
+}

@@ -32,7 +32,6 @@ const SearchBar = dynamic(
 );
 
 const searchBarProps = {
-  stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
