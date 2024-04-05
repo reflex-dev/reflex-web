@@ -22,5 +22,4 @@ for module in modules:
     name = module.__name__.lower()
     docs = generate_docs(name, s)
     title = name.replace("_", " ").title()
-    print(title)
     pages.append(docpage(f"/docs/api-reference/{name}", title)(docs))
