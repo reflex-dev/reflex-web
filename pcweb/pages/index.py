@@ -10,6 +10,13 @@ from pcweb.pages.docs import (
 )
 from pcweb.templates import webpage
 
+from .demos_on_landing_page.chatbox.chat_demo import chat_box
+from .demos_on_landing_page.dashboard.dashboard import dashboard
+from .demos_on_landing_page.forms.forms import forms
+from .demos_on_landing_page.auth.auth import auth
+from .demos_on_landing_page.image_gen.image_gen import image_gen
+
+
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
@@ -55,7 +62,7 @@ button_style_landing= {
 
 class DemoState(rx.State):
 
-    demo = "Chat"
+    demo = "Forms"
 
     def set_demo(self, demo):
         self.demo = demo
@@ -134,49 +141,48 @@ def image_gen():
         height="100%",
     )
 
-def forms():
-    return rx.hstack(
-        rx.vstack(
-            rx.text("Settings"),
-            rx.text("Button", width="100%", bg=rx.color("mauve", 7), opacity=0.5, padding=".25em", border_radius="8px;"),
-            rx.text("Button", width="100%", padding=".25em"),
-            rx.text("Profile"),
-            rx.text("Button"),
-            rx.text("Button"),
-            width="30%",
-            height="100%",
-            padding_top="1em",
-            padding_right="1em",
-            align_items="start",
-        ),
-        rx.vstack(
-            "Settings",
-            rx.radix.input.root(
-                rx.input(placeholder="Seed"),
-                width="50%"
-            ),
-            rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="50%"),
-            rx.text("Temperature"),
-            rx.slider(default_value=25, width="50%"),
-            rx.text("Width"),
-            rx.slider(default_value=50, width="50%"),
-            rx.text("Height"),
-            rx.slider(default_value=75, width="50%"),
-            rx.text("Update"),
-            rx.switch(),
-            rx.button("Save", width="50%", variant="outline"),
-            width="70%",
-            height="100%",
-            border_left="1px solid #2F2B37;",
-            padding_left="1em",
-            align_items="start",
-            justify_content="start",
-            padding_top="1em",
-        ),
-        padding_x="1em",
-        height="100%",
-    )
-
+# def forms():
+#     return rx.hstack(
+#         rx.vstack(
+#             rx.text("Settings"),
+#             rx.text("Button", width="100%", bg=rx.color("mauve", 7), opacity=0.5, padding=".25em", border_radius="8px;"),
+#             rx.text("Button", width="100%", padding=".25em"),
+#             rx.text("Profile"),
+#             rx.text("Button"),
+#             rx.text("Button"),
+#             width="30%",
+#             height="100%",
+#             padding_top="1em",
+#             padding_right="1em",
+#             align_items="start",
+#         ),
+#         rx.vstack(
+#             "Settings",
+#             rx.radix.input.root(
+#                 rx.input(placeholder="Seed"),
+#                 width="50%"
+#             ),
+#             rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="50%"),
+#             rx.text("Temperature"),
+#             rx.slider(default_value=25, width="50%"),
+#             rx.text("Width"),
+#             rx.slider(default_value=50, width="50%"),
+#             rx.text("Height"),
+#             rx.slider(default_value=75, width="50%"),
+#             rx.text("Update"),
+#             rx.switch(),
+#             rx.button("Save", width="50%", variant="outline"),
+#             width="70%",
+#             height="100%",
+#             border_left="1px solid #2F2B37;",
+#             padding_left="1em",
+#             align_items="start",
+#             justify_content="start",
+#             padding_top="1em",
+#         ),
+#         padding_x="1em",
+#         height="100%",
+#     )
 
 def example_button(text):
     return rx.button(
@@ -187,276 +193,6 @@ def example_button(text):
     backdrop_filter= "blur(2px);",
     on_click= lambda: DemoState.set_demo(text)
 )
-
-def auth():
-    return rx.flex(
-        rx.flex(
-            rx.text(
-                 "Create an account",
-                font_size="24px",
-                line_height="2em",
-                weight="bold",
-                color="#FFFFFF",
-                align="center",
-                height="32px",
-                width="350px",
-            ),
-            rx.box(
-                height="8px",
-                wdith="350px",
-            ),
-            rx.text(
-                "Enter your email below to create your account",
-                font_size="14px",
-                line_height="2em",
-                color="#A1A1AA",
-                align="center",
-                height="20px",
-                width="350px",
-            ),
-            direction="column",
-        ),
-        rx.flex(
-            rx.box(
-                height="24px",
-            ), # margin 24px
-            rx.flex(
-                rx.input(
-                    placeholder="name@example.com",
-                    font_size="14px",
-                    line_height="2em",
-                    color="#A1A1AA",
-                    background="transparent",
-                    border="1px solid #A1A1AA",
-                    height="36px",
-                    focus_border_color="#404040",
-                ),
-                rx.box(
-                    height="8px",
-                ),
-                rx.button(
-                    "Sign in with Email",
-                    color="#000000",
-                    background="#FFFFFF",
-                    font_size="14px",
-                    line_height="2em",
-                    width="350px",
-                    height="36px",
-                    _hover={
-                        "background_color": "#e6e3e3",
-                    }
-                ),
-                direction="column",
-            ),
-            rx.flex( 
-                rx.box(
-                    height="24px",
-                ),
-                rx.text(
-                    "--------  OR CONTINUE WITH  --------",
-                    color="#A1A1AA",
-                    font_size="14px",
-                    height="16px",
-                    align="center",
-                    justify="center",
-                ),
-                rx.box(
-                    height="24px",
-                ),
-                direction="column",
-            ),
-            rx.button(
-                "GitHub",
-                height="36px",
-                width="350px",
-                background="transparent",
-                border="1px solid #A1A1AA",
-                _hover={
-                    "background_color": "#A1A1AA",
-                },
-            ), #github
-            direction="column",
-        ),
-        rx.flex(
-            rx.box(
-                height="24px",
-            ),
-            rx.text(
-                "By clicking continue, you agree to our Term of Service and Privacy Policy.",
-                color="#A1A1AA",
-                font_size="14px",
-                line_height="2em",
-                height="40px",
-                align="center",
-                justify="center",
-            ),
-            direction="column",
-        ),
-        direction="column",
-        align="center",
-        justify="center",
-        width="350px",
-        height="348px",
-        padding_top="60px",
-        padding_left="60px",
-    )
-
-def category_items(categroyName: str, count: str, change: str, clicked: bool):
-    return rx.vstack(
-        rx.text(
-            categroyName,
-            line_height="1",
-            font_size="18px",
-            weigh="bold",
-            color="#FFFFFF"
-        ),
-        rx.text(
-            count,
-            line_height="1",
-            font_size="12px",
-            weigh="bold",
-            color="#FFFFFF",
-        ),
-        rx.text(
-            change,
-            line_height="1",
-            font_size="12px",
-            color="#A1A1AA"
-        ),
-        height="4.5em",
-        width="10em",
-        border="1px solid blue",
-        border_radius="0.5em",
-        align="center",
-        justify="center",
-        background_color=rx.cond(clicked, "#2e2e2e", "transparent"),
-    )
-
-data = [
-    {"name": "Jul", "ravenue": 2300},
-    {"name": "Aug", "ravenue": 2540},
-    {"name": "Sep", "ravenue": 2240},
-    {"name": "Dec", "ravenue": 2100},
-    {"name": "Jan", "ravenue": 2660},
-    {"name": "Feb", "ravenue": 2800},
-    {"name": "Mar", "ravenue": 3200},
-    {"name": "Apr", "ravenue": 4000},
-]
-
-
-def sample_bar_chart(input_data):
-    return rx.recharts.bar_chart(
-        rx.recharts.bar(
-            data_key="ravenue", stroke="#FFFFFF", fill="#FFFFFF",
-        ),
-        rx.recharts.x_axis(data_key="name"),
-        rx.recharts.y_axis(),
-        data=input_data,
-        padding="8px 8px 8px 8px",
-        align="center",
-        adjust="center",
-        cx="50%",
-        cy="50%",
-        fill="#8884d8",
-    )
-
-# def sample_pie_chart(input_data):
-#     return rx.recharts.pie_chart(
-#         data=input_data,
-#         data_key="ravenue",
-#         name_key="name",
-#         fill="#8884d8",
-#         label=True,
-#     )
-
-def recent_sale_item(first_name, last_name, sale_amount):
-    fullname = first_name.capitalize() + " " + last_name.capitalize()
-    email = first_name.lower() + "." + last_name.lower() + "@email.com",
-    formatted_sale_amount = "+${:,.2f}".format(sale_amount)
-    return rx.flex(
-        rx.vstack(
-            rx.text(fullname, color="#FFFFFF", line_height="1"),
-            rx.text(email[0], color="#FFFFFF", line_height="1"),
-            align="start",
-            justify="center",
-        ),
-        rx.spacer(),
-        rx.text(
-            formatted_sale_amount,
-        ),
-        padding_right="10px",
-        padding_left="10px",
-        padding_top="10px",
-        padding_buttom="10px",
-    )
-
-def dashboard():
-    return rx.flex(
-        rx.hstack(
-            rx.center(
-                "Dashboard",
-                font_size="24px",
-                color="#FFFFFF",
-            ),
-            rx.spacer(),
-            rx.button(
-                "Download",
-                color="#000000",
-                background="#FFFFFF",
-            ),
-            justify_content="flex-end",
-            height="3em",
-            width="100%",
-            padding_left="20px",
-            padding_right="20px",
-        ),
-        rx.flex(
-            rx.flex(
-                category_items("Revenue", "$32,450", "+20.1% from last month", True),
-                rx.spacer(),
-                category_items("Active Users", "+1230", "+18.1% from last month", False),
-                rx.spacer(),
-                category_items("Followers", "+930", "+19% from last month", False),
-                rx.spacer(),
-                category_items("Contributors", "+90", "+20 from last month", False),
-                height="5em",
-                padding_left="10px",
-                padding_right="10px",
-                align="center",
-                justify="center",
-            ),
-            rx.flex(
-                rx.box(
-                    sample_bar_chart(data),
-                    height="20em",
-                    width="60%",
-                    border="1px solid #FFFFFF",
-                ),
-                rx.flex(
-                    rx.text("Recent Sales"),
-                    rx.text("You made 265 sales this month."),
-                    recent_sale_item("jason", "mars", 1999),
-                    recent_sale_item("Sofia", "Kim", 499),
-                    recent_sale_item("angela", "baby", 799),
-                    recent_sale_item("jack", "dawson", 1099),
-                    direction="column",
-                    height="20em",
-                    width="40%",
-                    border="1px solid #FFFFFF",
-                ),
-                direction="row",
-                height="22em",
-                align="center",
-                justify="center",
-            ),
-            direction="column",
-            height="27em",
-            width="100%",
-        ),
-        direction="column",
-        justify="center",
-        align="center",
-    )
 
 def demos():
     return rx.vstack(
@@ -492,12 +228,12 @@ def demos():
         rx.box(
             rx.match(
                 DemoState.demo,
-                ("Chat", forms()),
+                ("Chat", chat_box()),
                 ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
-                forms()
+                forms(),
             ),
             height="30em",
             width="70em",
