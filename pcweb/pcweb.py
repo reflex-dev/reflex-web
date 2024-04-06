@@ -2,7 +2,7 @@
 
 import os
 import sys
-
+ 
 import reflex as rx
 from pcweb import styles
 from pcweb.pages import page404, routes
@@ -16,7 +16,6 @@ WINDOWS_MAX_ROUTES = 125
 
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
-    print(f"Executing {href}")
     exec_blocks(doc, href)
 
 # Create the app.
@@ -24,7 +23,7 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
-        appearance="dark", has_background=True, radius="large", accent_color="violet"
+        appearance="light", has_background=True, radius="large", accent_color="violet"
     ),
     head_components=[
         rx.el.script(

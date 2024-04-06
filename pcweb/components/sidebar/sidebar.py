@@ -7,7 +7,7 @@ from pcweb import styles
 from pcweb.components.navbar.state import NavbarState
 from pcweb.route import Route
 from .state import SidebarState, SidebarItem
-
+ 
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
 from .sidebar_items.reference import api_reference, recipes, tutorials
@@ -66,7 +66,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 9),
+                            "color": rx.color("violet", 10),
                             "text_decoration": "none",
                         },
                         font_weight="500",
@@ -88,7 +88,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             font_size=styles.TEXT_FONT_SIZE,
-                            color=rx.color("violet", 9),
+                            color=rx.color("violet", 10),
                             font_weight="500",
                             margin_left="0.25em",
                         ),
@@ -97,7 +97,7 @@ def sidebar_leaf(
                         margin_bottom="0.2em",
                     ),
                     padding_left="0.5em",
-                    border_left=f"1.5px solid {rx.color('violet', 9)}",
+                    border_left=f"1.5px solid {rx.color('violet', 10)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -273,7 +273,11 @@ def sidebar_category(name, icon, color, index):
         ),
         rx.text(
             name,
-            color=rx.color("mauve", 12),
+            color=rx.cond(
+                SidebarState.sidebar_index == index,
+                rx.color("mauve", 12),
+                rx.color("mauve", 11),
+            ),
             font_size="16px",
             font_weight="500",
             padding="0px 0px 0px 14px",
@@ -338,7 +342,7 @@ def sidebar_comp(
 ):
     return rx.flex(
         sidebar_category("Learn", "graduation-cap", "violet", 0),
-        sidebar_category("Components", "layout-panel-left", "sky", 1),
+        sidebar_category("Components", "layout-panel-left", "blue", 1),
         sidebar_category("API Reference", "book-text", "crimson", 2),
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(

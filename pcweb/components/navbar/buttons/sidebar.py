@@ -1,7 +1,7 @@
 import reflex as rx
 from .style import button_style
 from ...sidebar import sidebar
-
+ 
 
 def sidebar_drawer(sidebar: rx.Component, trigger):
     return rx.drawer.root(
@@ -27,7 +27,7 @@ def sidebar_drawer(sidebar: rx.Component, trigger):
                 height="100%",
                 width="100%",
                 flex_direction="column",
-                background_color="#FFF",
+                background_color=rx.color("mauve", 1),
             ),
         ),
     )
@@ -46,3 +46,4 @@ def sidebar_button(sidebar) -> rx.Component:
         style=button_style,
         border_radius="8px",
     )
+   

@@ -1,8 +1,8 @@
 """UI and logic inkeep chat component."""
 
 from typing import Set
-import reflex as rx
-from reflex.vars import ImportVar, Var
+import reflex as rx 
+from reflex.vars import ImportVar, Var  
 
 class Search(rx.Component):
     tag = "SearchBar"
@@ -24,6 +24,8 @@ class Search(rx.Component):
 
     def _get_custom_code(self) -> str:
         return """ 
+import { defaultColorMode } from "/utils/context.js";
+
 const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
@@ -32,6 +34,7 @@ const SearchBar = dynamic(
 );
 
 const searchBarProps = {
+  stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
@@ -73,7 +76,7 @@ const searchBarProps = {
       ],
     },
     colorMode: {
-      forcedColorMode: 'dark', // options: 'light' or dark'
+      forcedColorMode: defaultColorMode,
     },
     theme: {
       components: {

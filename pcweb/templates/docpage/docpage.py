@@ -36,7 +36,14 @@ def doc_section(*contents):
 
 def feedback_content(icon, score):
     return rx.flex(
-        rx.button(icon, radius="full", variant="soft"),
+        rx.button(
+            rx.icon(
+                    tag=icon,
+                    color=rx.color("mauve", 1),
+                    size=20
+                ),
+            variant="solid"
+        ),
         rx.box(
             rx.form(
                 rx.flex(
@@ -75,10 +82,14 @@ def feedback(text, icon, score):
     return rx.popover.root(
         rx.popover.trigger(
             rx.flex(
-                icon,
+                rx.icon(
+                    tag=icon,
+                    color=rx.color("mauve", 9),
+                    size=12
+                ),
                 text,
                 color=rx.color("mauve", 9),
-                border=f"1px solid {rx.color('mauve', 9)}",
+                border=f"1px solid {rx.color('mauve', 10)}",
                 align="center",
                 justify="center",
                 border_radius="5px",
@@ -110,14 +121,12 @@ def docpage_footer(path: str):
                 rx.divider(size="4", orientation="vertical"),
                 feedback(
                     text="No",
-                    icon=rx.icon(
-                        tag="thumbs_down", color=rx.color("mauve", 9), size=12
-                    ),
+                    icon="thumbs_down",
                     score=0,
                 ),
                 feedback(
                     text="Yes",
-                    icon=rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=12),
+                    icon="thumbs_up",
                     score=1,
                 ),
                 align_items="center",

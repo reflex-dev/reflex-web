@@ -116,9 +116,9 @@ def components_section():
                     align_items="start",
                     height="200px",
                     padding_top="20px",
-                    padding_left="20px",
+                    padding_left="10px",
                     padding_bottom="20px",
-                    padding_right="20px",
+                    padding_right="40px",
                     spacing="3",
                 ),
                 spacing="6",
@@ -149,7 +149,7 @@ def navigation_section():
             
             spacing="5",
         ),
-        display=["none", "none", "none", "none", "flex", "flex"],
+        display=["none", "none", "none", "flex", "flex", "flex"],
     )
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():

@@ -20,4 +20,4 @@ def github_mobile() -> rx.Component:
 def github() -> rx.Component:
     return rx.fragment(
         github_mobile()
-    )
+    )                             
