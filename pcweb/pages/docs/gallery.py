@@ -564,6 +564,13 @@ def gallery() -> rx.Component:
                 font_family=styles.SANS,
                 text_align="center",
             ),
+            rx.text(
+                "Use the command `reflex init --template {app_url}` to run a gallery app locally.",
+                color="#342E5C",
+                font_size="0.9em",
+                font_family=styles.SANS,
+                text_align="center",
+            ),
             rx.chakra.divider(),
             width="100%",
             align_items="center",
