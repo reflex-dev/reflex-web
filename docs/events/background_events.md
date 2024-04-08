@@ -25,6 +25,10 @@ In the following example, the `my_task` event handler is decorated with
 long as certain conditions are met. While it is running, the UI remains
 interactive and continues to process events normally.
 
+```md alert info
+# Background events are similar to simple Task Queues like [Celery](https://www.fullstackpython.com/celery.html) allowing asynchronous events.
+```
+
 ```python demo exec
 import asyncio
 import reflex as rx

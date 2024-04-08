@@ -115,6 +115,7 @@ def sidebar_icon(name):
         "API Routes": "route",
         "Client Storage": "package-open",
         "Database": "database",
+        "Authentication": "lock-keyhole",
         "Utility Methods": "cog",
         "Reflex Deploy": "earth",
         "Self Hosting": "server",

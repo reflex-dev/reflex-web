@@ -69,9 +69,9 @@ def get_sidebar_items_frontend():
             "Styling",
             children=[
                 styling.overview,
+                styling.theming,
                 styling.responsive,
                 styling.custom_stylesheets,
-                styling.theming,
             ],
         ),
         create_item(
@@ -105,6 +105,7 @@ def get_sidebar_items_frontend():
 def get_sidebar_items_backend():
     from pcweb.pages.docs import (
         api_routes,
+        authentication,
         client_storage,
         database,
         events,
@@ -163,6 +164,12 @@ def get_sidebar_items_backend():
                 database.tables,
                 database.queries,
                 database.relationships,
+            ],
+        ),
+        create_item(
+            "Authentication",
+            children=[
+                authentication.authentication_overview,
             ],
         ),
         create_item(
