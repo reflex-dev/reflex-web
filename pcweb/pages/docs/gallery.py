@@ -370,14 +370,17 @@ def add_item(category):
             rx.heading(category["name"], style={"fontSize": "1em"}),
             rx.chakra.spacer(),
             rx.chakra.hstack(
-                rx.link(
-                    rx.chakra.box(
-                        rx.image(src="/icons/code.svg", width="1em"),
-                        padding_x="0.5em",
-                        border_radius="15px",
-                        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+                rx.cond(
+                    category["source"],
+                    rx.link(
+                        rx.chakra.box(
+                            rx.image(src="/icons/code.svg", width="1em"),
+                            padding_x="0.5em",
+                            border_radius="15px",
+                            box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+                        ),
+                        href=category["source"],
                     ),
-                    href=category["source"],
                 ),
                 rx.cond(
                     category["url"],
@@ -405,6 +408,10 @@ def add_item(category):
             background="linear-gradient(transparent .5em, white)",
         ),
         rx.chakra.spacer(),
+        rx.cond(
+            category["source"],
+            rx.code_block("reflex init --template " + category["source"], can_copy=True, language="python", custom_style={"fontSize": "0.7em"}),
+        ),
         rx.chakra.wrap(
             rx.badge(
                 category["difficulty"],
