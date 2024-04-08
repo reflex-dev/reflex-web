@@ -1,8 +1,8 @@
 """UI and logic inkeep chat component."""
 
 from typing import Set
-import reflex as rx 
-from reflex.vars import ImportVar, Var  
+import reflex as rx
+from reflex.vars import ImportVar, Var
 
 class Search(rx.Component):
     tag = "SearchBar"
@@ -22,11 +22,16 @@ class Search(rx.Component):
         """
         return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
 
-    def _get_custom_code(self) -> str:
-        return """ 
-import { defaultColorMode } from "/utils/context.js";
+    def _get_all_hooks(self) -> dict[str, None]:
+        """Get the React hooks for this component and its children.
 
-const SearchBar = dynamic(
+        Returns:
+            The code that should appear just before returning the rendered component.
+        """
+        # Add the hook code for this component.
+        code = {
+            "const [ colorMode, toggleColorMode ] = useContext(ColorModeContext)": None,
+            """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
     ssr: false,
@@ -72,13 +77,13 @@ const searchBarProps = {
           },
           replaceLeading: true,
           breadcrumbName: 'Components',
-        }, 
+        },
       ],
     },
     colorMode: {
-      forcedColorMode: 'dark',
-    },   
-    theme: { 
+      forcedColorMode: colorMode, // options: 'light' or dark'
+    },
+    theme: {
       components: {
         SearchBarTrigger: {
           defaultProps: {
@@ -86,7 +91,7 @@ const searchBarProps = {
           },
         },
       }
-    }  
+    }
   },
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {
@@ -104,8 +109,21 @@ const searchBarProps = {
       'Where can I deploy my apps?',
     ],
   },
-};
-"""
+};""": None,
+        }
+        # Add the hook code for the children.
+        for child in self.children:
+            code = {**code, **child._get_all_hooks()}
+
+        return code
+
+    def _get_custom_code(self) -> str:
+        return """const SearchBar = dynamic(
+  () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
+  {
+    ssr: false,
+  },
+);"""
 
 
 inkeep = Search.create
