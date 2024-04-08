@@ -5,7 +5,7 @@ from pcweb.pages.docs import library
 
 # Theming
 
-As of Reflex `v0.4.0`, you can now theme your Reflex applications. The core of our theming system is directly based on the [Radix Themes](https://www.radix-ui.com) library. This allows you to easily change the theme of your application along with providing a default light and dark theme.
+As of Reflex `v0.4.0`, you can now theme your Reflex applications. The core of our theming system is directly based on the [Radix Themes](https://www.radix-ui.com) library. This allows you to easily change the theme of your application along with providing a default light and dark theme. Themes cause all the components to have a unified color appearance.
 
 ## Theme
 
@@ -25,7 +25,7 @@ Additionally you can modify the theme of your app through using the `Theme Panel
 
 ### Color Scheme
 
-On a high-level, component `color_scheme` inherits from the color specified in the theme. This means that if you change the theme, the color of the component will also change. The selection of available colors can be found [here](https://www.radix-ui.com/colors).
+On a high-level, component `color_scheme` inherits from the color specified in the theme. This means that if you change the theme, the color of the component will also change. Available colors can be found [here](https://www.radix-ui.com/colors).
 
 You can also specifiy the `color_scheme` prop.
 
