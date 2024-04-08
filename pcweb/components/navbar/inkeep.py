@@ -72,13 +72,13 @@ const searchBarProps = {
           },
           replaceLeading: true,
           breadcrumbName: 'Components',
-        },
+        }, 
       ],
     },
     colorMode: {
-      forcedColorMode: defaultColorMode,
-    },
-    theme: {
+      forcedColorMode: 'dark',
+    },   
+    theme: { 
       components: {
         SearchBarTrigger: {
           defaultProps: {
@@ -86,7 +86,7 @@ const searchBarProps = {
           },
         },
       }
-    }
+    }  
   },
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {

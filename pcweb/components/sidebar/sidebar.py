@@ -88,7 +88,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             font_size=styles.TEXT_FONT_SIZE,
-                            color=rx.color("violet", 10),
+                            color=rx.color("violet", 11),
                             font_weight="500",
                             margin_left="0.25em",
                         ),
@@ -97,7 +97,7 @@ def sidebar_leaf(
                         margin_bottom="0.2em",
                     ),
                     padding_left="0.5em",
-                    border_left=f"1.5px solid {rx.color('violet', 10)}",
+                    border_left=f"1.5px solid {rx.color('violet', 11)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -108,7 +108,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 9),
+                            "color": rx.color("violet", 11),
                             "text_decoration": "none",
                         },
                         margin_left="0.25em",

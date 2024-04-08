@@ -54,7 +54,7 @@ def h_comp_common(
             on_click=lambda: rx.set_clipboard(href),
             margin_bottom="0.5em",
         ),
-        border_top=f"1px solid {rx.color('mauve', 4)}" if heading == "h2" else None,
+        border_top=f"1px solid {rx.color('mauve', 3)}" if heading == "h2" else None,
         padding_top=margin_top, 
         margin_top=margin_top,
         margin_bottom=margin_bottom if margin_bottom else margin_top,

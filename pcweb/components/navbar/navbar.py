@@ -35,14 +35,12 @@ def banner():
                         "here",
                         href="https://www.producthunt.com/products/reflex-5",
                         style={
-                            "color": "#FFFFFF",
                             "text_decoration": "underline",
-                            "_hover": {"color": "#AD9BF8"},
                         },
                         is_external=True,
                     ),
                     ". 🎉",
-                    color="#FFFFFF",
+                    color=rx.color("mauve", 12),
                     font_weight=600,
                     text_align="center",
                     width="100%",
@@ -50,17 +48,14 @@ def banner():
                 rx.icon(
                     tag="x",
                     z_index=1000,
-                    style={
-                        "color": "#FFFFFF",
-                        "text_decoration": "underline",
-                        "_hover": {"color": "#AD9BF8"},
-                    },
+                    color=rx.color("mauve", 9),
                     on_click=NavbarState.toggle_banner,
                 ),
                 width="100%",
                 align_items="center",
             ),
-            background_color="#110F1F",
+            background_color=rx.color("mauve", 1),
+            border_bottom=f"1px solid {rx.color('mauve', 4)}",
             padding_y=["0.8em", "0.8em", "0.5em"],
             width="100%",
         ),
@@ -154,51 +149,57 @@ def navigation_section():
 
 def navbar(sidebar: rx.Component = None) -> rx.Component():
     return rx.flex(
-        rx.link(
-            rx.box(
-                rx.color_mode_cond(
-                    rx.image(
-                        src="/logos/light/reflex.svg",
-                        alt="Reflex Logo",
-                        height="20px",
-                        justify="start",
-                    ),
-                    rx.image(
-                        src="/logos/dark/reflex.svg",
-                        alt="Reflex Logo",
-                        height="20px",
-                        justify="start",
+        #banner(),
+        rx.flex(
+            rx.link(
+                rx.box(
+                    rx.color_mode_cond(
+                        rx.image(
+                            src="/logos/light/reflex.svg",
+                            alt="Reflex Logo",
+                            height="20px",
+                            justify="start",
+                        ),
+                        rx.image(
+                            src="/logos/dark/reflex.svg",
+                            alt="Reflex Logo",
+                            height="20px",
+                            justify="start",
+                        ),
                     ),
                 ),
+                href="/",
             ),
-            href="/",
-        ),
-        navigation_section(),
-        rx.box(
-            flex_grow="1",
-        ),
-        rx.flex(
-            search_bar(),
-            github(),
+            navigation_section(),
             rx.box(
-                color(),
-                display=["none", "none", "none", "none", "flex", "flex"],
+                flex_grow="1",
             ),
-            rx.box(
-                sidebar_button(sidebar),
-                display=["flex", "flex", "flex", "flex", "none", "none"],
+            rx.flex(
+                search_bar(),
+                github(),
+                rx.box(
+                    color(),
+                    display=["none", "none", "none", "none", "flex", "flex"],
+                ),
+                rx.box(
+                    sidebar_button(sidebar),
+                    display=["flex", "flex", "flex", "flex", "none", "none"],
+                ),
+                spacing="3",
+                align_items="center",
             ),
-            spacing="3",
+            background_color=rx.color("mauve", 1),
+            border_bottom=f"1px solid {rx.color('mauve', 4)}",
+            height="80px",
+            width="100%",
             align_items="center",
+            spacing="6",
+            padding="7px 20px 7px 20px;",  
         ),
-        background_color=rx.color("mauve", 1),
-        border_bottom=f"1px solid {rx.color('mauve', 4)}",
-        height="80px",
-        position="fixed",
         width="100%",
         z_index="5",
         top="0px",
+        position="fixed",
         align_items="center",
-        spacing="6",
-        padding="7px 20px 7px 20px;",  
+        direction="column",
     )

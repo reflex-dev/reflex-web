@@ -20,7 +20,12 @@
 }
 
 [data-theme='dark'] .ikp-search-bar-trigger__text {
-  color: #FFF;
+  color: #6F6D78;
+}
+
+[data-theme='dark'] .ikp-modal__backdrop {
+  background: rgba(18, 17, 19, 0.50);
+  backdrop-filter: blur(20px);
 }
 
 @media (max-width: 767px) {

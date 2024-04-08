@@ -35,19 +35,21 @@ def code_block(code: str, language: str):
             ),
         ),
         rx.button(
-            rx.icon(tag="copy", size=18),
+            rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
             on_click=rx.set_clipboard(code),
             position="absolute",
             top="0.5em",
             right="0.5em",
-            color=f"2px solid {rx.color('mauve', 4)}",
             background="transparent",
             _hover={
                 "opacity": 0.5,
                 "cursor": "pointer",
                 "background": "transparent",
-                "color": f"2px solid {rx.color('violet', 4)}",
             },
+            _active={
+                "size": "0.8em",
+                "transform": "scale(0.8)",
+            }
         ),
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
