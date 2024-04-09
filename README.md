@@ -25,7 +25,7 @@ Reflex is a full-stack web framework that allows developers to build their app i
 
 ## Requirements
 
-The only requirement is that you have installed `Python 3.8` or higher in your local machine.
+The only requirement is that you have installed `Python 3.9` or higher in your local machine.
 
 ## Setup Locally
 
