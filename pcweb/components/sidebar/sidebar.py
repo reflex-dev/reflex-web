@@ -151,6 +151,7 @@ def sidebar_item_comp(
                     font_family=styles.SANS,
                     font_weight="500",
                 ),
+                rx.text(item.names),
                 rx.cond(
                     item.names == "Radix UI",
                     rx.text(

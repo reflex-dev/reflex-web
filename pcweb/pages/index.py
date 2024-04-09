@@ -10,11 +10,11 @@ from pcweb.pages.docs import (
 )
 from pcweb.templates import webpage
 
-from .demos_on_landing_page.chatbox.chat_demo import chat_box
+# from .demos_on_landing_page.chatbox.chat_demo import chat_box
 from .demos_on_landing_page.dashboard.dashboard import dashboard
 from .demos_on_landing_page.forms.forms import forms
 from .demos_on_landing_page.auth.auth import auth
-from .demos_on_landing_page.image_gen.image_gen import image_gen
+# from .demos_on_landing_page.image_gen.image_gen import image_gen
 
 
 link_style = {
@@ -228,7 +228,7 @@ def demos():
         rx.box(
             rx.match(
                 DemoState.demo,
-                ("Chat", chat_box()),
+                ("Chat", forms()),
                 ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),
