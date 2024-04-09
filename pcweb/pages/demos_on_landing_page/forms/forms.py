@@ -12,13 +12,17 @@ class State(rx.State):
 
 def sidebar_button(name, is_selected):
     return rx.button(
-        name,
+        rx.text(
+            name,
+            width="100%",
+            padding_left="10px",
+        ),
         background=rx.cond(
             is_selected,
             "#909090",
             "transparent",
         ),
-        style={"text_align": "left"},
+        text_align="left",
         on_click=lambda: State.set_clicked(name),
         width="100%",
     )
