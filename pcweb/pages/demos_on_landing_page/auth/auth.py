@@ -12,11 +12,9 @@ def auth_form():
                 align="center",
                 height="32px",
                 width="350px",
+                margin_buttom="8px",
             ),
-            rx.box(
-                height="8px",
-                wdith="350px",
-            ),
+            rx.box(height="8px"),
             rx.text(
                 "Enter your email below to create your account",
                 font_size="14px",
@@ -29,9 +27,7 @@ def auth_form():
             direction="column",
         ),
         rx.flex(
-            rx.box(
-                height="24px",
-            ), # margin 24px
+            rx.box(height="24px"),
             rx.flex(
                 rx.input(
                     placeholder="name@example.com",
@@ -43,9 +39,7 @@ def auth_form():
                     height="36px",
                     focus_border_color="#404040",
                 ),
-                rx.box(
-                    height="8px",
-                ),
+                rx.box(height="8px"),
                 rx.button(
                     "Sign in with Email",
                     color="#000000",
@@ -61,9 +55,7 @@ def auth_form():
                 direction="column",
             ),
             rx.flex( 
-                rx.box(
-                    height="24px",
-                ),
+                rx.box(height="24px"),
                 rx.text(
                     "--------  OR CONTINUE WITH  --------",
                     color="#A1A1AA",
