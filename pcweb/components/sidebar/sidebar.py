@@ -259,7 +259,7 @@ def sidebar_category(name, icon, color, index):
         rx.button(
             rx.icon(
                 tag=icon,
-                color="#fff",
+                color="white",
                 fill="rgba(255, 255, 255, 0.25)",
                 size=20,
             ),

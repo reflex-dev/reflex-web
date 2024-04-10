@@ -1,13 +1,5 @@
 import reflex as rx
-from pcweb import constants, styles
-from pcweb.pages.docs import (
-    database,
-    getting_started,
-    hosting,
-    state,
-    styling,
-    wrapping_react,
-)
+from pcweb import styles
 from pcweb.templates import webpage
 
 link_style = {
@@ -43,16 +35,6 @@ def container(*children, **kwargs):
         **kwargs,
     )
 
-
-button_style_landing= {
-    "border_radius": "50px;",
-    "border": "1px solid rgba(186, 199, 247, 0.12);",
-    "background": "rgba(161, 157, 213, 0.03);",
-    "backdrop_filter": "blur(2px);",
-    "padding": "7px 12px;",
-    "align_items": "center;",
-    "color": "#848496;"
-}
 
 class DemoState(rx.State):
 
@@ -731,7 +713,7 @@ def index() -> rx.Component:
                 rx.hstack(
                     rx.button(
                         "Get Started", 
-                        border_radius= "8px);",
+                        border_radius= "8px",
                         padding_x="2em",
                         background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
                         box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset;",

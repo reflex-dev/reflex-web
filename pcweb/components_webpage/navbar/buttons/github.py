@@ -18,7 +18,7 @@ def github_desktop() -> rx.Component:
             ),
             rx.text(
                 "Github",
-                color="#FFF",
+                color="white",
             ),
             rx.text(
                 "15k",
