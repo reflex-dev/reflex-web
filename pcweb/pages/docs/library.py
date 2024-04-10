@@ -11,7 +11,7 @@ def component_grid():
         sidebar.append(
             rx.box(
                 rx.heading(category, style={"fontSize": "1.5em"}),
-                rx.chakra.divider(),
+                rx.divider(),
                 rx.vstack(
                     *[
                         rx.link(
@@ -19,6 +19,7 @@ def component_grid():
                             href=get_component_link(category, c),
                             font_size="1em",
                             color=rx.color("mauve", 12),
+                            _hover={"color": rx.color("violet", 9)},
                         )
                         for c in component_list[category]
                     ],
@@ -26,13 +27,10 @@ def component_grid():
                 ),
                 row_span=3,
                 col_span=1,
-                box_shadow="rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
-                border_radius="1em",
-                bg_color="white",
+                border_radius="8px",
+                background_color=rx.color("mauve", 2),
+                border=f"1px solid {rx.color('mauve', 4)}",
                 padding="2em",
-                _hover={
-                    "box_shadow": "rgba(38, 57, 77, .3) 0px 20px 30px -10px",
-                },
             )
         )
 

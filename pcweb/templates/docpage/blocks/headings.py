@@ -10,8 +10,9 @@ def h_comp_common(
     heading: str,
     font_size: list[str] | str,
     font_weight: str,
-    margin_top: str,
     scroll_margin: str,
+    margin_top: str,
+    margin_bottom: str = "",
     convert_to_str: bool = False,
 ) -> rx.Component:
     if convert_to_str:
@@ -53,11 +54,10 @@ def h_comp_common(
             on_click=lambda: rx.set_clipboard(href),
             margin_bottom="0.5em",
         ),
-        rx.flex(
-            rx.divider(size="4"), margin_top=".5em", margin_bottom="1em", width="100%"
-        ),
+        border_top=f"1px solid {rx.color('mauve', 3)}" if heading == "h2" else None,
+        padding_top=margin_top, 
         margin_top=margin_top,
-        margin_bottom=margin_top,
+        margin_bottom=margin_bottom if margin_bottom else margin_top,
         width="100%",
     )
 
@@ -95,6 +95,7 @@ def h2_comp(text: rx.Var[str]) -> rx.Component:
         font_size=styles.H2_FONT_SIZE,
         font_weight=fw["subheading"],
         margin_top="1.5em",
+        margin_bottom="1em",
         scroll_margin="5em",
     )
 
@@ -107,6 +108,7 @@ def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
         font_size=styles.H2_FONT_SIZE,
         font_weight=fw["subheading"],
         margin_top="1.5em",
+        margin_bottom="1em",
         scroll_margin="5em",
         convert_to_str=True,
     )
@@ -119,7 +121,8 @@ def h3_comp(text: rx.Var[str]) -> rx.Component:
         heading="h3",
         font_size=styles.H4_FONT_SIZE,
         font_weight=fw["subheading"],
-        margin_top="1.5em",
+        margin_top="1em",
+        margin_bottom="0em",
         scroll_margin="5em",
     )
 
@@ -131,7 +134,8 @@ def h3_comp_xd(text: rx.Var[str]) -> rx.Component:
         heading="h3",
         font_size=styles.H4_FONT_SIZE,
         font_weight=fw["subheading"],
-        margin_top="1.5em",
+        margin_top="1em",
+        margin_bottom=".5em",
         scroll_margin="5em",
         convert_to_str=True,
     )
@@ -144,7 +148,7 @@ def h4_comp(text: rx.Var[str]) -> rx.Component:
         heading="h4",
         font_size=styles.H4_FONT_SIZE,
         font_weight=fw["subheading"],
-        margin_top="1.5em",
+        margin_top="1em",
         scroll_margin="6em",
     )
 
@@ -156,7 +160,7 @@ def h4_comp_xd(text: rx.Var[str]) -> rx.Component:
         heading="h4",
         font_size=styles.H4_FONT_SIZE,
         font_weight=fw["subheading"],
-        margin_top="1.5em",
+        margin_top="1em",
         scroll_margin="6em",
         convert_to_str=True,
     )

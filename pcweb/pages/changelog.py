@@ -2,62 +2,65 @@ import reflex as rx
 from pcweb import constants, styles
 from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
-
+from pcweb.components.logo import logo
 
 def change(date, title, description, points, link):
-    return rx.chakra.vstack(
-        rx.chakra.vstack(
-            rx.image(src="/changelog_icon.svg", width="5em", height="5em", opacity=1),
-            rx.heading(
-                "Reflex " + title,
-                font_family=styles.MONO,
-                font_size=styles.H3_FONT_SIZE,
-                opacity=1,
+    return rx.vstack(
+        rx.vstack(
+            logo(
+                width=["10em", "12em", "14em"],
             ),
-            background="radial-gradient(55.39% 67.50% at 50.00% 0%, rgba(32, 17, 126, 0.05) 0%, rgba(255, 255, 255, 0.00) 100%);",
-            box_shadow=" 0px 8px 12px -4px rgba(3, 3, 11, 0.02), 0px 12px 8px 0px rgba(3, 3, 11, 0.04), 0px 2px 3px 0px rgba(3, 3, 11, 0.10), 0px 0px 0px 1px rgba(52, 46, 92, 0.12);",
-            align_items="center",
+            rx.hstack(
+                rx.hstack(
+                    rx.icon(tag="copy", size=18, color="#6C6C81"),
+                    rx.text(
+                        title,
+                        font_weight=styles.BOLD_WEIGHT,
+                        color="#D6D6ED"
+                    ),
+                ),
+                rx.divider(margin_x="1em"),
+                rx.link(
+                    rx.button(
+                        rx.icon(tag="github", size=18),
+                        "Full Changelog",
+                        color="#A2A2B9",   
+                        width="15em",
+                        padding_x="2em",
+                        border_radius= "7px;",
+                        border= "1px solid rgba(107, 107, 127, 0.50);",
+                        background= "rgba(107, 107, 127, 0.10);",
+                        box_shadow= "0px 3px 4px -1px rgba(23, 26, 43, 0.40);",
+                        backdrop_filter= "blur(2px);"
+                    ),
+                    href=link,
+                ),
+                width="100%",
+            ),
+            padding_right="1em",
+            border_radius= "10px",
+            border= "1px solid #3C3646",
+            background= "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%)",
+            box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+            padding="1em",
+            padding_top="2em",
             width="100%",
-            border_radius="lg",
-            padding_y="1em",
         ),
-        rx.text(description, color="#494369", font_family=styles.MONO),
+        rx.text(description, color="#D6D6ED", font_family=styles.MONO),
         rx.chakra.unordered_list(
             *[
                 rx.list_item(
-                    d, font_size=".8em", color="#494369", font_family=styles.MONO
+                    d, font_size=".8em", color="#6C6C81", font_family=styles.MONO
                 )
                 for d in points
             ],
             padding_left="1.5em",
         ),
-        rx.chakra.hstack(
-            rx.chakra.hstack(
-                rx.image(src="/icons/copy.svg", width="1em", height="1em"),
-                rx.text(
-                    title,
-                    font_size=styles.TEXT_FONT_SIZE,
-                    font_weight=styles.BOLD_WEIGHT,
-                ),
-                padding_right="1em",
-            ),
-            rx.chakra.divider(margin_x="1em"),
-            rx.link(
-                rx.chakra.button(
-                    "Full changelog",
-                    rx.icon(tag="move-right"),
-                    padding_x="2em",
-                    color=tc["docs"]["body"],
-                    style=styles.BUTTON_LIGHT_NO_BACKGROUND,
-                ),
-                href=link,
-            ),
-            width="100%",
-        ),
         align_items="flex-start",
         width="100%",
         padding_bottom="3em",
-        bg="#FFFFFF",
+        padding_left="1em",
+        border_left="1px solid #23222B",
     )
 
 
@@ -311,41 +314,54 @@ def changelog_content():
 @webpage(path="/changelog", title="Changelog · Reflex")
 def changelog():
     return rx.center(
-        rx.chakra.vstack(
-            rx.chakra.box(
-                rx.heading(
-                    "Changelog", font_size=styles.H1_FONT_SIZE, margin_bottom=".5em"
+        rx.vstack(
+            rx.flex(
+                rx.chakra.text(
+                    "Timeline", 
+                    background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                    text_align="center",
+                    background_clip="text",
+                    padding_x="1em"
                 ),
-                rx.text(
-                    "Keep up to date with the latest Reflex news.",
-                    color=tc["docs"]["body"],
-                ),
-                rx.chakra.center(
-                    rx.chakra.span(
-                        "Reflex has new releases and features coming every week! Make sure to star and watch on ",
-                        rx.link("GitHub", href=constants.GITHUB_URL),
-                        " to stay up to date.",
-                        color="#494369",
-                    ),
-                    bg="#FAF8FB",
-                    font_family=styles.MONO,
-                    padding=4,
-                    margin_top="2em",
-                    margin_bottom="2em",
-                    border="1px solid #EAE4FD",
-                    border_radius=styles.DOC_BORDER_RADIUS,
-                    font_size=".8em",
-                ),
-                changelog_content(),
-                text_align="left",
-                width="100%",
-                spacing="2em",
+                border_radius= "15px;",
+                border= "1px solid #4435D4;",
+                background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
             ),
-            align_items="stretch",
+            rx.chakra.text(
+                "Changelog",
+                font_size="64px;",
+                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                width="650px",
+                background_clip="text",
+                font_weight="bold",
+                letter_spacing= "-1.28px;",
+            ),
+            rx.text(
+                "Keep up to date with the latest Reflex news.", color="#8E8EA8"
+            ),
+            rx.center(
+                rx.chakra.span(
+                    "Reflex has new releases and features coming every week! Make sure to star and watch on ",
+                    rx.link("GitHub", href=constants.GITHUB_URL, color="#6151F3"),
+                    " to stay up to date.",
+                    color="#A2A2B9",   
+                    width="100%",
+                ),
+                font_family=styles.MONO,
+                padding="1em",
+                margin_bottom="2em",
+                border_radius= "7px;",
+                border= "1px solid rgba(107, 107, 127, 0.50);",
+                background= "rgba(107, 107, 127, 0.10);",
+                box_shadow= "0px 3px 4px -1px rgba(23, 26, 43, 0.40);",
+                backdrop_filter= "blur(2px);"
+            ),
+            changelog_content(),
+            align_items="start",
             min_height="80vh",
             margin_bottom="4em",
-            padding_y="2em",
         ),
         width="100%",
-        margin_top="120px",
     )
+ 

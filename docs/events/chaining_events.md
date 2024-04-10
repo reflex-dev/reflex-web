@@ -64,8 +64,9 @@ class CollatzState(rx.State):
 
     async def run_step(self):
         """Run a single step of the collatz conjecture."""
-
+    
         while self.count > 1:
+            
             await asyncio.sleep(0.5)
 
             if self.count % 2 == 0:

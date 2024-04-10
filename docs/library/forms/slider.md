@@ -168,9 +168,9 @@ rx.flex(
 
 ```python demo
 rx.flex(
-    rx.slider(default_value=25, radius="none"),
-    rx.slider(default_value=25, radius="small"),
-    rx.slider(default_value=25, radius="full"),
+    rx.slider(default_value=[25], radius="none"),
+    rx.slider(default_value=[25], radius="small"),
+    rx.slider(default_value=[25], radius="full"),
     direction="column",
     spacing="4",
     width="100%",

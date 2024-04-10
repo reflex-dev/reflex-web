@@ -123,59 +123,72 @@ Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `Fals
 
 
 def faq_item(question, answer, index):
-    return rx.chakra.accordion_item(
+    return rx.chakra.accordion(rx.chakra.accordion_item(
         rx.chakra.accordion_button(
             rx.heading(
-                question, color=tc["docs"]["body"], font_size=styles.H3_FONT_SIZE
+                question, color="#D6D6ED", font_size=styles.H3_FONT_SIZE
             ),
             rx.chakra.spacer(),
-            rx.chakra.accordion_icon(color=tc["docs"]["body"]),
-            border_bottom="none" if index == len(faq_items) - 1 else styles.DOC_BORDER,
+            rx.chakra.accordion_icon(color="#6C6C81"),
             _hover={},
             padding_y="1em",
         ),
-        rx.chakra.accordion_panel(answer),
+        rx.chakra.accordion_panel(answer, color="#6C6C81"),
         border="none",
-    )
+    ),
+    allow_multiple=True,
+    border_radius= "12px;",
+    border= "1px solid #37363F;",
+    background= "rgba(47, 43, 55, 0.50);",
+    box_shadow= "0px 3px 22px -2px #0C0B0F;",
+    width="100%",
+)
 
 
 @webpage(path="/faq", title="Frequently Asked Questions · Reflex")
 def faq():
-    return rx.chakra.container(
-        rx.chakra.vstack(
-            rx.chakra.box(
-                rx.heading(
-                    "Reflex FAQ",
-                    font_size=styles.H1_FONT_SIZE,
-                    mt=12,
-                    mb=4,
+    return rx.vstack(
+            rx.vstack(
+                rx.flex(
+                    rx.chakra.text(
+                        "Common Questions", 
+                        background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                        text_align="center",
+                        background_clip="text",
+                        padding_x="1em"
+                    ),
+                    border_radius= "15px;",
+                    border= "1px solid #4435D4;",
+                    background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                    box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
                 ),
                 rx.chakra.text(
-                    "Frequently asked questions about Reflex.",
+                    "Frequently Asked Questions", 
+                    font_size="64px;",
+                    background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                    text_align="center",
+                    width="650px",
+                    background_clip="text",
+                    font_weight="bold",
+                    letter_spacing= "-1.28px;",
                 ),
-                rx.chakra.divider(),
-                rx.chakra.accordion(
-                    *[
-                        faq_item(item["Q"], item["A"], index)
-                        for index, item in enumerate(faq_items)
-                    ],
-                    border=styles.DOC_BORDER,
-                    border_radius=styles.DOC_BORDER_RADIUS,
-                    allow_multiple=True,
-                    width="100%",
-                    padding_y="1em",
+                rx.text(
+                    "We've compiled a list of the most common questions we get about Reflex. If you have a question that isn't answered here, feel free to reach out to us on our Discord.",
+                    color="#6C6C81",
                 ),
+                align_items="center",
                 text_align="left",
                 width="100%",
+                spacing="1",
+                margin_bottom="2em",
             ),
-            align_items="stretch",
-            min_height="80vh",
-            margin_bottom="4em",
-            padding_y="2em",
-        ),
-        flex_direction="column",
-        width="100%",
-        margin_top="120px",
+            *[
+                faq_item(item["Q"], item["A"], index)
+                for index, item in enumerate(faq_items)
+            ],
+        align_items="center",
+        margin_bottom="4em",
+        padding_y="2em",
     )
 
 

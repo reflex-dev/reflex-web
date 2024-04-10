@@ -1,0 +1,54 @@
+[data-theme='light'] .ikp-search-bar-trigger__container,
+[data-theme='dark'] .ikp-search-bar-trigger__container {
+  border-radius: 8px;
+  box-shadow: 0px 3px 7px -4px rgba(21, 18, 44, 0.15);
+}
+
+[data-theme='light'] .ikp-search-bar-trigger__container {
+  border: 1px solid #EAE7EC;
+  background: #FAF9FB;
+}
+
+[data-theme='dark'] .ikp-search-bar-trigger__container {
+  border: 1px solid #2B292D;
+  background: #1A191B;
+}
+
+[data-theme='light'] .ikp-search-bar-trigger__text {
+  color: #8E8C99;
+}
+
+[data-theme='dark'] .ikp-search-bar-trigger__text {
+  color: #6F6D78;
+}
+
+[data-theme='dark'] .ikp-modal__backdrop {
+  background: rgba(18, 17, 19, 0.50);
+  backdrop-filter: blur(20px);
+}
+
+@media (max-width: 767px) {
+  [data-theme='light'] .ikp-search-bar-trigger__container,
+  [data-theme='dark'] .ikp-search-bar-trigger__container {
+    padding: 7px;
+    width: 6em;
+  }
+
+  [data-theme='dark'] .ikp-search-bar-trigger__container {
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .ikp-search-bar-trigger__kbd {
+    display: none;
+  }
+}
+
+.ikp-search-bar-trigger__icon {
+  display: none;
+}
+
+.ikp-search-bar-trigger__icon svg {
+  width: auto;
+}

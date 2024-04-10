@@ -22,9 +22,16 @@ class Search(rx.Component):
         """
         return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
 
-    def _get_custom_code(self) -> str:
-        return """ 
-const SearchBar = dynamic(
+    def _get_all_hooks(self) -> dict[str, None]:
+        """Get the React hooks for this component and its children.
+
+        Returns:
+            The code that should appear just before returning the rendered component.
+        """
+        # Add the hook code for this component.
+        code = {
+            "const [ colorMode, toggleColorMode ] = useContext(ColorModeContext)": None,
+            """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
     ssr: false,
@@ -32,7 +39,7 @@ const SearchBar = dynamic(
 );
 
 const searchBarProps = {
-  stylesheetUrls: ['/inkeepstyle.css'],
+  stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
@@ -73,6 +80,9 @@ const searchBarProps = {
         },
       ],
     },
+    colorMode: {
+      forcedColorMode: colorMode, // options: 'light' or dark'
+    },
     theme: {
       components: {
         SearchBarTrigger: {
@@ -82,9 +92,6 @@ const searchBarProps = {
         },
       }
     }
-  },
-  modalSettings: {
-    // optional typeof InkeepModalSettings
   },
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {
@@ -102,8 +109,21 @@ const searchBarProps = {
       'Where can I deploy my apps?',
     ],
   },
-};
-"""
+};""": None,
+        }
+        # Add the hook code for the children.
+        for child in self.children:
+            code = {**code, **child._get_all_hooks()}
+
+        return code
+
+    def _get_custom_code(self) -> str:
+        return """const SearchBar = dynamic(
+  () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
+  {
+    ssr: false,
+  },
+);"""
 
 
 inkeep = Search.create

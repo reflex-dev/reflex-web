@@ -5,22 +5,16 @@ from typing import Callable
 import reflex as rx
 import flexdown
 import mistletoe
-from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
 from .blocks import *
 from .state import FeedbackState
 
 # Docpage styles.
 link_style = {
-    "color": rx.color("violet", 10),
-    "font_weight": "600",
+    "color": rx.color("mauve", 10),
+    "font_weight": "500",
+    "font_size": ".9em",
 }
-logo_style = {
-    "height": "1em",
-    "opacity": 0.2,
-}
-logo = navbar_logo(**logo_style)
-
 
 def doc_section(*contents):
     return rx.box(
@@ -35,7 +29,9 @@ def doc_section(*contents):
 
 def feedback_content(icon, score):
     return rx.flex(
-        rx.button(icon, radius="full", variant="soft"),
+        rx.button(
+            rx.icon(tag=icon, color=rx.color("mauve", 1), size=20), variant="solid"
+        ),
         rx.box(
             rx.form(
                 rx.flex(
@@ -74,10 +70,10 @@ def feedback(text, icon, score):
     return rx.popover.root(
         rx.popover.trigger(
             rx.flex(
-                icon,
+                rx.icon(tag=icon, color=rx.color("mauve", 9), size=12),
                 text,
                 color=rx.color("mauve", 9),
-                border=f"1px solid {rx.color('mauve', 9)}",
+                border=f"1px solid {rx.color('mauve', 10)}",
                 align="center",
                 justify="center",
                 border_radius="5px",
@@ -96,26 +92,28 @@ def feedback(text, icon, score):
 
 @rx.memo
 def docpage_footer(path: str):
+    from pcweb.pages.docs.gallery import gallery
+    from pcweb.pages.docs import getting_started, hosting
+    from pcweb.pages.changelog import changelog
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
             rx.flex(
                 rx.text(
                     "Did you find this useful?",
-                    color=rx.color("mauve", 12),
+                    color=rx.color("mauve", 10),
+                    font_weight="400",
                     white_space="nowrap",
                 ),
                 rx.divider(size="4", orientation="vertical"),
                 feedback(
                     text="No",
-                    icon=rx.icon(
-                        tag="thumbs_down", color=rx.color("mauve", 9), size=12
-                    ),
+                    icon="thumbs_down",
                     score=0,
                 ),
                 feedback(
                     text="Yes",
-                    icon=rx.icon(tag="thumbs_up", color=rx.color("mauve", 9), size=12),
+                    icon="thumbs_up",
                     score=1,
                 ),
                 align_items="center",
@@ -165,31 +163,31 @@ def docpage_footer(path: str):
         rx.flex(
             rx.flex(
                 rx.link(
-                    "Home", color=rx.color("mauve", 11), underline="always", href="/"
+                    "Home", color=rx.color("mauve", 9), underline="always", href="/"
                 ),
                 rx.link(
                     "Gallery",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
-                    href="/docs/gallery",
+                    href=gallery.path,
                 ),
                 rx.link(
                     "Changelog",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
-                    href="/changelog",
+                    href=changelog.path,
                 ),
                 rx.link(
                     "Introduction",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
-                    href="/docs/getting-started/introduction",
+                    href=getting_started.introduction.path,
                 ),
                 rx.link(
                     "Hosting",
-                    color=rx.color("mauve", 11),
+                    color=rx.color("mauve", 9),
                     underline="always",
-                    href="/docs/hosting/deploy-quick-start/",
+                    href=hosting.deploy_quick_start.path,
                 ),
                 spacing="2",
                 flex_shrink=0,
@@ -450,37 +448,53 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         ],
                         padding_left=styles.PADDING_X,
                         padding_right=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "75%", "60%"],
+                        width=["100%", "100%", "100%", "100%", "60%", "60%"],
                         height="100%",
                     ),
                     rx.box(
                         rx.flex(
                             *[
-                                rx.link(
-                                    rx.text(
-                                        text,
-                                        color=rx.color("mauve", 12),
-                                        font_weight="500",
-                                    ),
-                                    href=path + "#" + text.lower().replace(" ", "-"),
-                                )
-                                if level == 1
-                                else rx.link(
-                                    rx.text(
-                                        text,
-                                        color=rx.color("mauve", 11),
-                                        font_weight="400",
-                                    ),
-                                    href=path + "#" + text.lower().replace(" ", "-"),
-                                )
-                                if level == 2
-                                else rx.link(
-                                    rx.text(
-                                        text,
-                                        color=rx.color("mauve", 11),
-                                        font_weight="400",
-                                    ),
-                                    href=path + "#" + text.lower().replace(" ", "-"),
+                                (
+                                    rx.link(
+                                        rx.text(
+                                            text,
+                                            color=rx.color("mauve", 12),
+                                            font_weight="500",
+                                            font_size="1em",
+                                        ),
+                                        href=path
+                                        + "#"
+                                        + text.lower().replace(" ", "-"),
+                                    )
+                                    if level == 1
+                                    else (
+                                        rx.link(
+                                            rx.text(
+                                                text,
+                                                color=rx.color("mauve", 11),
+                                                font_weight="400",
+                                                font_size="0.9em",
+                                                _hover={"color": rx.color("mauve", 12)},
+                                            ),
+                                            href=path
+                                            + "#"
+                                            + text.lower().replace(" ", "-"),
+                                        )
+                                        if level == 2
+                                        else rx.link(
+                                            rx.text(
+                                                text,
+                                                color=rx.color("mauve", 11),
+                                                _hover={"color": rx.color("mauve", 12)},
+                                                font_weight="400",
+                                                font_size="0.9em",
+                                                padding_left="1em",
+                                            ),
+                                            href=path
+                                            + "#"
+                                            + text.lower().replace(" ", "-"),
+                                        )
+                                    )
                                 )
                                 for level, text in toc
                             ],
@@ -489,6 +503,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             position="fixed",
                             spacing="2",
                             justify="start",
+                            overflow="hidden",
                         ),
                         margin_top="120px",
                         width="15%",
@@ -496,7 +511,6 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         display=["none", "none", "none", "none", "none", "flex"],
                         flex_shrink=0,
                     ),
-                    background="#FFF",
                     max_width="110em",
                     margin_left="auto",
                     margin_right="auto",
@@ -505,18 +519,23 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     min_height="100vh",
                     width="100%",
                 ),
-                background="#FFF",
+                background=rx.color("mauve", 1),
                 width="100%",
                 justify="center",
             )
 
         # Return the route.
         components = path.split("/")
-        category = " ".join(word.capitalize() for word in components[2].replace("-", " ").split()) if len(components) > 2 else None
-
+        category = (
+            " ".join(
+                word.capitalize() for word in components[2].replace("-", " ").split()
+            )
+            if len(components) > 2
+            else None
+        )
         return Route(
             path=path,
-            title=f"{title} · Reflex Docs" if category is None else  f"{title} · Reflex {category} Docs",
+            title=f"{title} · Reflex Docs" if category is None else title,
             component=wrapper,
         )
 

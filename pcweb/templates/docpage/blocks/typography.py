@@ -15,17 +15,20 @@ def definition(title: str, *children) -> rx.Component:
     Returns:
         The styled definition.
     """
-    return rx.flex(
-        rx.heading(title, font_size="1em", margin_bottom="0.5em", font_weight="bold"),
+    return rx.vstack(
+        rx.heading(title, font_size="1em", font_weight="bold", color=rx.color("mauve", 12)),
         *children,
+        color=rx.color("mauve", 10),
         padding="1em",
-        border=styles.DOC_BORDER,
-        border_radius=styles.DOC_BORDER_RADIUS,
+        border=f"1px solid {rx.color('mauve', 4)}",
+        background_color=rx.color("mauve", 2),
+        border_radius="8px",
         _hover={
-            "box_shadow": styles.DOC_SHADOW_LIGHT,
-            "border": f"2px solid {c['violet'][200]}",
+            "border": f"1px solid {rx.color('mauve', 5)}",
+            "background_color": rx.color("mauve", 3),
         },
-    )
+        align_items="start"
+)
 
 
 @rx.memo

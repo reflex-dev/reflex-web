@@ -18,26 +18,6 @@ H1_FONT_SIZE = ["2.2em", "2.4em", "2.5em"]
 H2_FONT_SIZE = "1.5em"
 H3_FONT_SIZE = "1.35em"
 H4_FONT_SIZE = "1.15em"
-TEXT_FONT_SIZE = "1em"
-ACCENT_COLOR = c["violet"][500]
-ACCENT_COLOR_LIGHT = c["violet"][200]
-ACCENT_COLOR_DARK = c["violet"][800]
-
-DOC_BORDER = ("2px solid #F4F3F6",)
-
-LIGHT_TEXT_COLOR = "#94a3b8"
-LINK_STYLE = {
-    "font_weight": "bold",
-    "color": "#03030B",
-    "text_decoration": "underline",
-    "text_decoration_color": "#AD9BF8",
-    "__hover": {
-        "color": "#AD9BF8",
-        "text_decoration": "underline",
-        "text_decoration_color": "#03030B",
-    },
-}
-
 
 DOC_SHADOW = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
 DOC_SHADOW_DARK = "rgba(0, 0, 0, 0.3) 0px 2px 8px"
@@ -48,7 +28,7 @@ DOC_BORDER_RADIUS = "6px"
 # The base application style.
 BASE_STYLE = {
     "::selection": {
-        "background_color": ACCENT_COLOR_LIGHT,
+        "background_color": rx.color("accent"),
     },
     "font_family": SANS,
     rx.chakra.text: {
@@ -59,7 +39,6 @@ BASE_STYLE = {
         "font_family": SANS,
     },
     rx.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    rx.link: {"text_decoration": "none", "_hover": {}},
     rx.vstack: {"align_items": "center"},
     rx.hstack: {"align_items": "center"},
     rx.chakra.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},

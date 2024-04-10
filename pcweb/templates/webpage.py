@@ -7,6 +7,64 @@ from pcweb.route import Route
 DEFAULT_TITLE = "Web Apps in Pure Python"
 
 
+def spotlight():
+    return rx.flex(
+        rx.html("""
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/spotlight.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+  </head>
+  <body style="margin: 0; background: none">
+    <input type="hidden" id="anPageName" name="page" value="landing-page" />
+    <div class="container-center-horizontal">
+      <div class="landing-page screen">
+        <div class="flex-col">
+          <div class="overlap-group1">
+            <div class="group-9">
+              <div class="vector-container">
+                <img class="vector-2" src="/spotlight_img/vector-2.png" alt="Vector 2" />
+                <img class="vector-2-1 vector-2-3" src="/spotlight_img/vector-2.png" alt="Vector 2" />
+              </div>
+              <div class="vector-container-1">
+                <img class="vector-3" src="/spotlight_img/vector-2.png" alt="Vector 3" />
+                <img class="vector-3-1" src="/spotlight_img/vector-2.png" alt="Vector 3" />
+              </div>
+              <img class="vector-2-2 vector-2-3" src="/spotlight_img/vector-2.png" alt="Vector 2" />
+              <img class="vector-3-2" src="/spotlight_img/vector-2.png" alt="Vector 3" />
+            </div>
+            <div class="overlap-group">
+              <img class="group-6" src="/spotlight_img/group-6.png" alt="Group 6" />
+              <img class="subtract" src="/spotlight_img/subtract.png" alt="Subtract" />
+            </div>
+            <img class="rectangle-7" src="/spotlight_img/rectangle-7.png" alt="Rectangle 7" />
+            <img class="rectangle-8" src="/spotlight_img/rectangle-8.png" alt="Rectangle 8" />
+            <img class="rectangle-9" src="/spotlight_img/rectangle-9.png" alt="Rectangle 9" />
+            <div class="rectangle-13"></div>
+            <div class="rectangle-18"></div>
+            <img class="rectangle-10" src="/spotlight_img/rectangle-10.svg" alt="Rectangle 10" />
+          </div>
+          <div class="rectangle-17"></div>
+        </div>
+        <img class="vector" src="/spotlight_img/vector.png" alt="Vector" />
+      </div>
+    </div>
+  </body>
+</html>
+"""  
+    ),
+    z_index=-1,
+    position="absolute",
+    width="100%",
+    height="100%",
+    align_items="start",
+    justify_content="center",
+    opacity=0.99,
+)
+
+
+
 def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
@@ -43,15 +101,31 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.footer import footer
-            from pcweb.components.navbar import navbar
-            from pcweb.components.sidebar import sb
+            from pcweb.components_webpage.footer import footer
+            from pcweb.components_webpage.navbar import navbar
+            from pcweb.components_webpage.sidebar import sb
 
             # Wrap the component in the template.
-            return rx.chakra.box(
+            return rx.flex(
                 navbar(sidebar=sb),
+                spotlight(),
+                rx.container(  
+                    margin_top="150px",
+                ),
                 contents(*children, **props),
+                rx.box(flex_grow=1),
                 footer(),
+                font_family=styles.SANS,
+                background="#131217",
+                align_items="center",
+                justify_content="start",
+                width="100%",
+                height="100%",
+                min_height="100vh",
+                position="relative",
+                direction="column",
+                z_index=-2,
+                overflow="hidden",
                 **props,
             )
 

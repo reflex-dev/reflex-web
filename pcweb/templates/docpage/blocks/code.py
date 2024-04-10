@@ -11,7 +11,6 @@ def code_block(code: str, language: str):
         rx.code_block(
             code,
             border_radius=styles.DOC_BORDER_RADIUS,
-            theme="light",
             background="transparent",
             language=language,
             code_tag_props={
@@ -19,25 +18,29 @@ def code_block(code: str, language: str):
                     "fontFamily": "inherit",
                 }
             },
+            # TODO: use this when it's looking good
+            # can_copy=True,
         ),
         rx.button(
-            rx.icon(tag="copy", size=18),
+            rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
             on_click=rx.set_clipboard(code),
             position="absolute",
             top="0.5em",
             right="0.5em",
-            color=f"2px solid {rx.color('mauve', 4)}",
             background="transparent",
             _hover={
                 "opacity": 0.5,
                 "cursor": "pointer",
                 "background": "transparent",
-                "color": f"2px solid {rx.color('violet', 4)}",
             },
+            _active={
+                "size": "0.8em",
+                "transform": "scale(0.8)",
+            }
         ),
         border_radius=styles.DOC_BORDER_RADIUS,
         border=f"2px solid {rx.color('mauve', 3)}",
-        background_color=f"{rx.color('mauve', 2)}",
+        background_color=rx.color('mauve', 2),
         position="relative",
         margin_bottom="1em",
         margin_top="1em",
@@ -93,7 +96,7 @@ def doccmdoutput(
                     "opacity": 0.5,
                     "cursor": "pointer",
                     "background": "transparent",
-                    "color": rx.color("violet", 4),
+                    "color": rx.color("accent", 4),
                 },
             ),
             direction="row",
