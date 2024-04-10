@@ -159,7 +159,7 @@ def blur_background():
         )
     )
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
         rx.link(
             rx.box(

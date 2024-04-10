@@ -1,13 +1,15 @@
 import reflex as rx
-from ..state import SidebarItem
 from reflex.components.chakra.base import ChakraComponent
+
+from ..state import SidebarItem
+from pcweb.pages.docs.library import library
 
 
 def get_component_link(category, clist, prefix="") -> str:
     if issubclass(clist[1], ChakraComponent):
         prefix = "chakra/"
     component_name = rx.utils.format.to_snake_case(clist[0])
-    return f"/docs/library/{prefix}{category.lower()}/{component_name.lower()}"
+    return f"{library.path.strip('/')}/{prefix}{category.lower()}/{component_name.lower()}"
 
 
 def get_category_children(category, category_list, prefix=""):
@@ -43,7 +45,7 @@ def get_sidebar_items_component_lib():
         SidebarItem(
             names="Overview",
             alt_name_for_next_prev="Components Reference: Overview",
-            link="/docs/library",
+            link=library.path,
         ),
         *library_item_children,
     ]

@@ -1,5 +1,10 @@
 """UI and logic for the navbar component."""
 import reflex as rx
+
+from pcweb.pages.docs import wrapping_react, styling, custom_components as custom_c, getting_started, hosting
+from pcweb.pages.docs.library import library
+from pcweb.pages.docs.custom_components import custom_components
+from pcweb.pages.docs.gallery import gallery
 from .buttons.github import github
 from .buttons.color import color
 from .buttons.sidebar import sidebar_button
@@ -40,7 +45,6 @@ def banner():
                         is_external=True,
                     ),
                     ". 🎉",
-                    color=rx.color("mauve", 12),
                     font_weight=600,
                     text_align="center",
                     width="100%",
@@ -48,14 +52,13 @@ def banner():
                 rx.icon(
                     tag="x",
                     z_index=1000,
-                    color=rx.color("mauve", 9),
                     on_click=NavbarState.toggle_banner,
                 ),
                 width="100%",
                 align_items="center",
             ),
-            background_color=rx.color("mauve", 1),
-            border_bottom=f"1px solid {rx.color('mauve', 4)}",
+            color=rx.color("mauve", 4),
+            background_color=rx.color("mauve", 12),
             padding_y=["0.8em", "0.8em", "0.5em"],
             width="100%",
         ),
@@ -80,8 +83,8 @@ def components_section():
             rx.flex(
                 rx.flex(
                     resource_header("Core Components"),
-                    resources_item("Library", "/docs/library", "library-big"),
-                    resources_item("Theming","/docs/styling/theming/","palette"),
+                    resources_item("Library", library.path, "library-big"),
+                    resources_item("Theming", styling.theming.path,"palette"),
                     direction="column",
                     align_items="start",
                     padding="20px",
@@ -96,13 +99,13 @@ def components_section():
                         spacing="1",
                     ),
                     resources_item(
-                        "Community Library", "/docs/hosting/deploy-quick-start/", "library-big"
+                        "Community Library", custom_components.path, "library-big"
                     ),
                     resources_item(
-                        "Wrapping React", "/docs/wrapping-react/overview/", "atom"
+                        "Wrapping React", wrapping_react.overview.path, "atom"
                     ),
                     resources_item(
-                        "Publishing Components", "/docs/custom-components/overview/", "globe"
+                        "Publishing Components", custom_c.overview.path, "globe"
                     ),
                     direction="column",
                     align_items="start",
@@ -130,12 +133,12 @@ def components_section():
 def navigation_section():
     return rx.box(
         rx.flex(
-            rx.link(rx.text("Intro", color=rx.color("mauve", 11)), href="/docs/"),
+            rx.link(rx.text("Intro", color=rx.color("mauve", 11)), href=getting_started.introduction.path),
             rx.link(
-                rx.text("Gallery", color=rx.color("mauve", 11)), href="/docs/gallery/"
+                rx.text("Gallery", color=rx.color("mauve", 11)), href=gallery.path
             ),
             rx.link(
-                rx.text("Hosting", color=rx.color("mauve", 11)), href="/docs/hosting/deploy-quick-start/"
+                rx.text("Hosting", color=rx.color("mauve", 11)), href=hosting.deploy_quick_start.path
             ),
             components_section(),
             
@@ -144,9 +147,9 @@ def navigation_section():
         display=["none", "none", "none", "flex", "flex", "flex"],
     )
 
-def navbar(sidebar: rx.Component = None) -> rx.Component():
+def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
-        #banner(),
+        # banner(),
         rx.flex(
             rx.link(
                 rx.box(
