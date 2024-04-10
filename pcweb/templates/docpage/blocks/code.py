@@ -8,31 +8,18 @@ from pcweb import styles
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
-        rx.color_mode_cond(
-            rx.code_block(
-                code,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="light",
-                background="transparent",
-                language=language,
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
-            rx.code_block(
-                code,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                theme="dark",
-                background="transparent",
-                language=language,
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-            ),
+        rx.code_block(
+            code,
+            border_radius=styles.DOC_BORDER_RADIUS,
+            background="transparent",
+            language=language,
+            code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+            # TODO: use this when it's looking good
+            # can_copy=True,
         ),
         rx.button(
             rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
