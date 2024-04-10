@@ -41,7 +41,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             content = "\n".join(lines[1:-1])
 
         colors = {
-            "info": "violet",
+            "info": "accent",
             "success": "grass",
             "warning": "amber",
             "error": "red",

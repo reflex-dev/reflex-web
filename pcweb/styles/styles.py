@@ -19,9 +19,6 @@ H2_FONT_SIZE = "1.5em"
 H3_FONT_SIZE = "1.35em"
 H4_FONT_SIZE = "1.15em"
 TEXT_FONT_SIZE = "1em"
-ACCENT_COLOR = c["violet"][500]
-ACCENT_COLOR_LIGHT = c["violet"][200]
-ACCENT_COLOR_DARK = c["violet"][800]
 
 DOC_BORDER = ("2px solid #F4F3F6",)
 
@@ -48,7 +45,7 @@ DOC_BORDER_RADIUS = "6px"
 # The base application style.
 BASE_STYLE = {
     "::selection": {
-        "background_color": ACCENT_COLOR_LIGHT,
+        "background_color": rx.color("accent"),
     },
     "font_family": SANS,
     rx.chakra.text: {

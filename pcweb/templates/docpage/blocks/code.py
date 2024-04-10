@@ -96,7 +96,7 @@ def doccmdoutput(
                     "opacity": 0.5,
                     "cursor": "pointer",
                     "background": "transparent",
-                    "color": rx.color("violet", 4),
+                    "color": rx.color("accent", 4),
                 },
             ),
             direction="row",

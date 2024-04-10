@@ -13,7 +13,7 @@ from pcweb.templates import webpage
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
-    "_hover": {"color": styles.ACCENT_COLOR},
+    "_hover": {"color": rx.color("accent")},
 }
 
 

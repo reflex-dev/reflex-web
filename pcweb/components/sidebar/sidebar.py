@@ -14,7 +14,7 @@ from .sidebar_items.reference import api_reference, recipes, tutorials
 
 
 heading_style2 = {
-    "background_color": rx.color("violet", 3),
+    "background_color": rx.color("accent", 3),
     "border_radius": "0.5em",
     "width": "100%",
     "padding_left": "0.5em",
@@ -66,7 +66,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 10),
+                            "color": rx.color("accent", 10),
                             "text_decoration": "none",
                         },
                         font_weight="500",
@@ -88,7 +88,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             font_size=styles.TEXT_FONT_SIZE,
-                            color=rx.color("violet", 11),
+                            color=rx.color("accent", 11),
                             font_weight="500",
                             margin_left="0.25em",
                         ),
@@ -97,7 +97,7 @@ def sidebar_leaf(
                         margin_bottom="0.2em",
                     ),
                     padding_left="0.5em",
-                    border_left=f"1.5px solid {rx.color('violet', 11)}",
+                    border_left=f"1.5px solid {rx.color('accent', 11)}",
                 ),
                 _hover={"text_decoration": "none"},
                 href=item.link,
@@ -108,7 +108,7 @@ def sidebar_leaf(
                         item.names,
                         color=rx.color("mauve", 11),
                         _hover={
-                            "color": rx.color("violet", 11),
+                            "color": rx.color("accent", 11),
                             "text_decoration": "none",
                         },
                         margin_left="0.25em",
@@ -185,7 +185,7 @@ def sidebar_item_comp(
                 rx.chakra.accordion_icon(),
                 align_items="center",
                 _hover={
-                    "color": rx.color("violet", 10),
+                    "color": rx.color("accent", 10),
                 },
                 color=rx.color("mauve", 11),
                 width="100%",

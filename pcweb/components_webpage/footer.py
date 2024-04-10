@@ -26,7 +26,7 @@ footer_style = {
 def prompt_sign():
     return rx.chakra.text(
         "$",
-        color=styles.ACCENT_COLOR,
+        color=rx.color("accent"),
         font_family=styles.SANS,
         style={"userSelect": "none"},
     )
