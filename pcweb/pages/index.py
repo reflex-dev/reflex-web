@@ -25,7 +25,7 @@ button_style_landing= {
 
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
-github_url = "https://github.com/reflex-dev"
+github_url = "https://github.com/reflex-dev/reflex"
 bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
