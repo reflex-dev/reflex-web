@@ -1,7 +1,7 @@
 import reflex as rx
 from .form_implementations.profile_form import profile_form
 
-class State(rx.State):
+class FormsState(rx.State):
     clicked: str = "Profile"
 
     def set_clicked(self, option: str):
@@ -23,7 +23,7 @@ def sidebar_button(name, is_selected):
             "transparent",
         ),
         text_align="left",
-        on_click=lambda: State.set_clicked(name),
+        on_click=lambda: FormsState.set_clicked(name),
         width="100%",
     )
 
@@ -69,11 +69,11 @@ FORM_CONTENT = {
 
 def sidebar():
     return rx.vstack(
-        sidebar_button("Profile", State.clicked == "Profile"),
-        sidebar_button("Account", State.clicked == "Account"),
-        sidebar_button("Appearance", State.clicked == "Appearance"),
-        sidebar_button("Notifications", State.clicked == "Notifications"),
-        sidebar_button("Display", State.clicked == "Display"),
+        sidebar_button("Profile", FormsState.clicked == "Profile"),
+        sidebar_button("Account", FormsState.clicked == "Account"),
+        sidebar_button("Appearance", FormsState.clicked == "Appearance"),
+        sidebar_button("Notifications", FormsState.clicked == "Notifications"),
+        sidebar_button("Display", FormsState.clicked == "Display"),
         align_item="start",
         width="20%",
         height="100%",
@@ -81,7 +81,7 @@ def sidebar():
 
 def form_content():
     return rx.match(
-        State.clicked,
+        FormsState.clicked,
         ("Profile", profile_form()),
         ("Account", profile_form()),
         ("Appearance", profile_form()),

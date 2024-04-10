@@ -10,7 +10,7 @@ from pcweb.pages.docs import (
 )
 from pcweb.templates import webpage
 
-# from .demos_on_landing_page.chatbox.chat_demo import chat_box
+# from .demos_on_landing_page.chatapp.chatapp import chatapp
 from .demos_on_landing_page.dashboard.dashboard import dashboard
 from .demos_on_landing_page.forms.forms import forms
 from .demos_on_landing_page.auth.auth import auth
@@ -141,48 +141,7 @@ def image_gen():
         height="100%",
     )
 
-# def forms():
-#     return rx.hstack(
-#         rx.vstack(
-#             rx.text("Settings"),
-#             rx.text("Button", width="100%", bg=rx.color("mauve", 7), opacity=0.5, padding=".25em", border_radius="8px;"),
-#             rx.text("Button", width="100%", padding=".25em"),
-#             rx.text("Profile"),
-#             rx.text("Button"),
-#             rx.text("Button"),
-#             width="30%",
-#             height="100%",
-#             padding_top="1em",
-#             padding_right="1em",
-#             align_items="start",
-#         ),
-#         rx.vstack(
-#             "Settings",
-#             rx.radix.input.root(
-#                 rx.input(placeholder="Seed"),
-#                 width="50%"
-#             ),
-#             rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="50%"),
-#             rx.text("Temperature"),
-#             rx.slider(default_value=25, width="50%"),
-#             rx.text("Width"),
-#             rx.slider(default_value=50, width="50%"),
-#             rx.text("Height"),
-#             rx.slider(default_value=75, width="50%"),
-#             rx.text("Update"),
-#             rx.switch(),
-#             rx.button("Save", width="50%", variant="outline"),
-#             width="70%",
-#             height="100%",
-#             border_left="1px solid #2F2B37;",
-#             padding_left="1em",
-#             align_items="start",
-#             justify_content="start",
-#             padding_top="1em",
-#         ),
-#         padding_x="1em",
-#         height="100%",
-#     )
+
 
 def example_button(text):
     return rx.button(
@@ -209,11 +168,11 @@ def demos():
             padding_y="2em",
         ),
         rx.hstack(
-            example_button("Chat"),
-            example_button("Image Gen"),
+            # example_button("Chat"),
             example_button("Forms"),
             example_button("Dashboard"),
             example_button("Auth"),
+            example_button("Image Gen"),
             rx.spacer(),
             rx.button(
                 "View Code",
@@ -222,13 +181,13 @@ def demos():
                 background= "rgba(161, 157, 213, 0.03);",
                 backdrop_filter= "blur(2px);"
             ),
-            width="100%",
+            width="70em",
             align="center"
         ),
         rx.box(
             rx.match(
                 DemoState.demo,
-                ("Chat", forms()),
+                # ("Chat", chatapp()),
                 ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),

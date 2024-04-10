@@ -106,6 +106,7 @@ outblocks = []
 
 
 def get_component(doc: str, title: str):
+    return
     if doc.endswith("-style.md"):
         return
 
