@@ -89,6 +89,16 @@ apps_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/nba",
     },
     {
+        "name": "Customer Data",
+        "difficulty": "Intermediate",
+        "tags": ["Forms", "Database", "Data Table"],
+        "description": "An dashboard for customer data linked to an external database.",
+        "img": "/gallery/customer_data_app.png",
+        "gif": "",
+        "url": "https://customer-data-app.reflex.run/",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app",
+    },
+    {
         "name": "Quiz",
         "difficulty": "Intermediate",
         "tags": ["Forms", "Data Table", "Database"],

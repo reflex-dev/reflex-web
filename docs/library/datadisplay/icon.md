@@ -27,6 +27,37 @@ rx.flex(
 )
 ```
 
+## Dynamic Icons
+
+It is not possible to use dynamic values as the `tag` prop, because it is used to import the icon from the Lucide library.
+If you have a specific subset of icons you want to use dynamically, define an rx.match with them:
+
+```python
+def dynamic_icon(icon_name):
+    return rx.match(
+        icon_name,
+        ("plus", rx.icon("plus")),
+        ("minus", rx.icon("minus")),
+        ("equal", rx.icon("equal")),
+    )
+```
+
+```python exec
+def dynamic_icon(icon_name):
+    return rx.match(
+        icon_name,
+        ("plus", rx.icon("plus")),
+        ("minus", rx.icon("minus")),
+        ("equal", rx.icon("equal")),
+    )
+```
+
+You can then use the `dynamic_icon` function to display the icons dynamically.
+
+```python demo
+rx.foreach(["plus", "minus", "equal"], dynamic_icon)    
+```
+
 ## Styling
 
 Icon from Lucide can be customized with the following props `stroke_width`, `size` and `color`.
@@ -110,6 +141,7 @@ rx.flex(
     gap="2",
 )
 ```
+
 
 ## Final Example
 

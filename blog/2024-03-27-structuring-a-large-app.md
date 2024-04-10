@@ -227,7 +227,7 @@ class PostsState(rx.State):
     async def tick(self, _):
         settings = await self.get_state(SettingsState)
         with rx.session() as session:
-            q = Post.select.offset(self.page * settings.posts_per_page).limit(settings.posts_per_page)
+            q = Post.select().offset(self.page * settings.posts_per_page).limit(settings.posts_per_page)
             self.posts = q.all()
 
     def go_to_previous(self):

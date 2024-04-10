@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-04-09",
+            "v0.4.7",
+            "New reflex init templates",
+            [
+                "Use any Reflex app on Github as an initial template",
+                "reflex run will automatically init the app when required",
+                "Reflex Experimental Namespace: rx._x",
+                "Windows support for Python 3.12",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.7",
+        ),
+        change(
             "2024-04-01",
             "v0.4.6",
             "rx.ComponentState provides simple per-component state",
