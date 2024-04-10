@@ -87,7 +87,6 @@ def sidebar_leaf(
                     rx.flex(
                         rx.text(
                             item.names,
-                            font_size=styles.TEXT_FONT_SIZE,
                             color=rx.color("accent", 11),
                             font_weight="500",
                             margin_left="0.25em",

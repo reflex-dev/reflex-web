@@ -15,7 +15,6 @@ def change(date, title, description, points, link):
                     rx.icon(tag="copy", size=18, color="#6C6C81"),
                     rx.text(
                         title,
-                        font_size=styles.TEXT_FONT_SIZE,
                         font_weight=styles.BOLD_WEIGHT,
                         color="#D6D6ED"
                     ),

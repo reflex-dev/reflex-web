@@ -402,7 +402,7 @@ def component_grid():
             rx.foreach(SideBarState.data_to_return, add_item),
             columns=grid_layout,
             gap=4,
-        ),
+        )
 
 
 
@@ -475,7 +475,7 @@ def gallery_heading():
 
 @webpage(path="/docs/gallery", title="Gallery · Reflex")
 def gallery() -> rx.Component:
-    return rx.chakra.vstack(
+    return rx.vstack(
         gallery_heading(),
         rx.vstack(
             sidebar_component_grid(list_of_tags),
@@ -495,8 +495,5 @@ def gallery() -> rx.Component:
             align_items="center",
             padding_x="1em",
         ),
-        max_width="110em",
-        margin_x="auto",
-        margin_top="115px",
         height="100%",
     )
