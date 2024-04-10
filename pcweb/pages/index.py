@@ -2,6 +2,8 @@ import reflex as rx
 from pcweb import styles
 from pcweb.templates import webpage
 
+from .demos_on_landing_page.auth.auth import auth
+
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
@@ -187,8 +189,8 @@ def demos():
             padding_y="2em",
         ),
         rx.hstack(
-            example_button("Chat"),
-            example_button("Image Gen"),
+            # example_button("Chat"),
+            # example_button("Image Gen"),
             example_button("Forms"),
             example_button("Dashboard"),
             example_button("Auth"),
@@ -200,30 +202,26 @@ def demos():
                 background= "rgba(161, 157, 213, 0.03);",
                 backdrop_filter= "blur(2px);"
             ),
-            width="100%",
+            width="70em",
             align_items="left"
         ),
         rx.box(
             rx.match(
                 DemoState.demo,
-                ("Chat", forms()),
-                ("Image Gen", image_gen()),
+                # ("Chat", forms()),
+                # ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", forms()),
-                ("Auth", forms()),
+                ("Auth", auth()),
                 forms()
             ),
             height="30em",
-            width="100%",
+            width="70em",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
             
         ),
-        # background_image="url(/grid.svg)",
-        # background_position="top center;",
-        # background_repeat="no-repeat;",
-        # background_size="cover;",
         padding="2em",
         padding_top="12em",
         width="100%",
