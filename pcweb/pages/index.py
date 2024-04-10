@@ -3,14 +3,14 @@ from pcweb import styles
 from pcweb.templates import webpage
 
 from .demos_on_landing_page.auth.auth import auth
+from .demos_on_landing_page.forms.forms import forms
+from .demos_on_landing_page.dashboard.dashboard import dashboard
 
 link_style = {
     "color": "black",
     "font_weight": styles.BOLD_WEIGHT,
     "_hover": {"color": rx.color("accent")},
 }
-
-
 
 button_style_landing= {
     "border_radius": "50px;",
@@ -34,9 +34,8 @@ def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
         *children,
-        **kwargs,
+        **kwargs, 
     )
-
 
 class DemoState(rx.State):
 
@@ -119,50 +118,6 @@ def image_gen():
         height="100%",
     )
 
-def forms():
-    return rx.hstack(
-        rx.vstack(
-            rx.text("Settings"),
-            rx.text("Button", width="100%", bg=rx.color("mauve", 7), opacity=0.5, padding=".25em", border_radius="8px;"),
-            rx.text("Button", width="100%", padding=".25em"),
-            rx.text("Profile"),
-            rx.text("Button"),
-            rx.text("Button"),
-            width="30%",
-            height="100%",
-            padding_top="1em",
-            padding_right="1em",
-            align_items="start",
-        ),
-        rx.vstack(
-            "Settings",
-            rx.radix.input.root(
-                rx.input(placeholder="Seed"),
-                width="50%"
-            ),
-            rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="50%"),
-            rx.text("Temperature"),
-            rx.slider(default_value=25, width="50%"),
-            rx.text("Width"),
-            rx.slider(default_value=50, width="50%"),
-            rx.text("Height"),
-            rx.slider(default_value=75, width="50%"),
-            rx.text("Update"),
-            rx.switch(),
-            rx.button("Save", width="50%", variant="outline"),
-            width="70%",
-            height="100%",
-            border_left="1px solid #2F2B37;",
-            padding_left="1em",
-            align_items="start",
-            justify_content="start",
-            padding_top="1em",
-        ),
-        padding_x="1em",
-        height="100%",
-    )
-
-
 def example_button(text):
     return rx.button(
     text,
@@ -211,7 +166,7 @@ def demos():
                 # ("Chat", forms()),
                 # ("Image Gen", image_gen()),
                 ("Forms", forms()),
-                ("Dashboard", forms()),
+                ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 forms()
             ),
@@ -222,8 +177,8 @@ def demos():
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
             
         ),
-        padding="2em",
-        padding_top="12em",
+        padding_top="8em",
+        padding_buttom= "20em",
         width="100%",
     )
 
@@ -656,6 +611,8 @@ def landing():
 """
                    )
 
+def spacer_box_will_fix_later():
+    return rx.box(height="60px")
 
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
@@ -735,9 +692,10 @@ def index() -> rx.Component:
             ),
             align_items="left",
             padding_top="5em",
-            padding_bottom="10em",
+            padding_bottom="5em",
         ),
         demos(),
+        spacer_box_will_fix_later(),
         stats(),
 
         width="100%",
