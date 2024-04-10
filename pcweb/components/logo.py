@@ -15,18 +15,3 @@ def logo(**style_props):
         alt = "The Reflex logo.",
         **style_props,
     )
-
-
-def navbar_logo(**style_props):
-    """Create a Reflex logo component.
-
-    Args:
-        style_props: The style properties to apply to the component.
-    """
-    return rx.link(
-        rx.image(
-            src=styles.NAVBAR_LOGO,
-            **style_props,
-        ),
-        href="/",
-    )

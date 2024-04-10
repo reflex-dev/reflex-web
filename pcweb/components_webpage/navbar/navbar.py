@@ -56,8 +56,7 @@ def resources_section(style):
                     direction="column",
                     align_items="start",
                     padding_left="20px",
-                    padding_top="20px",
-                    padding_bottom="20px",
+                    padding_y="20px",
                     spacing="2",
                 ),
                 rx.flex(

@@ -9,13 +9,13 @@ from pcweb.pages.index import index
 footer_item_style = {
     "font_family": styles.SANS,
     "font_weight": "500",
-    "_hover": {"color": "#82799E"},
+    "_hover": {"color": rx.color("accent", 5)},
     "color": "#6C6C81"
 }
 
 footer_style = {
     "box_shadow": "medium-lg",
-    "border_top": "0.1em solid #82799E",
+    "border_top": f"0.1em solid {rx.color('accent', 5)}",
     "vertical_align": "bottom",
     "padding_top": "4em",
     "padding_bottom": "2em",
@@ -181,7 +181,7 @@ def footer(style=footer_style):
                     gap="1em",
                 ),
                 justify="between",
-                color=styles.LIGHT_TEXT_COLOR,
+                color=rx.color("mauve", 5),
                 padding_bottom="2em",
                 min_width="100%",
             ),

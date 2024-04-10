@@ -5,7 +5,6 @@ from typing import Callable
 import reflex as rx
 import flexdown
 import mistletoe
-from pcweb.components.logo import navbar_logo
 from pcweb.route import Route, get_path
 from .blocks import *
 from .state import FeedbackState
@@ -16,12 +15,6 @@ link_style = {
     "font_weight": "500",
     "font_size": ".9em",
 }
-logo_style = {
-    "height": "1em",
-    "opacity": 0.2,
-}
-logo = navbar_logo(**logo_style)
-
 
 def doc_section(*contents):
     return rx.box(
