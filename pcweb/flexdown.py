@@ -180,6 +180,7 @@ class DemoBlock(flexdown.blocks.Block):
     starting_indicator = "```python demo"
     ending_indicator = "```"
     include_indicators = True
+    theme: str = None
 
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
@@ -217,7 +218,11 @@ class DemoBlock(flexdown.blocks.Block):
             if equals:
                 demobox_props[prop] = value
 
-        return docdemo(code, comp=comp, demobox_props=demobox_props)
+        return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
+
+class DemoBlockDark(DemoBlock):
+    theme = "dark"
+
 
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
@@ -238,7 +243,7 @@ xd = flexdown.Flexdown(
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
+    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock],
     component_map=comp2,
 )
 xd2.clear_modules()
