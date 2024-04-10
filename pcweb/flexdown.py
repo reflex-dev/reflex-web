@@ -3,6 +3,7 @@ import flexdown
 import reflex as rx
 from pcweb.templates.docpage import (
     code_block_markdown,
+    code_block_markdown_dark,
     code_comp,
     docdemo,
     docdemobox,
@@ -228,13 +229,20 @@ component_map = {
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block_markdown,
 }
+comp2 = component_map.copy()
+comp2["codeblock"] = code_block_markdown_dark
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
     component_map=component_map,
 )
 xd.clear_modules()
+xd2 = flexdown.Flexdown(
+    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
+    component_map=comp2,
+)
+xd2.clear_modules()
 
 
 def markdown(text):
-    return xd.default_block_type().render_fn(content=text)
+    return xd.get_default_block().render_fn(content=text)

@@ -1,13 +1,8 @@
 import flexdown
 
 import reflex as rx
-from pcweb import styles
-from pcweb.flexdown import xd
-from pcweb.styles import colors as c
-from pcweb.styles import text_colors as tc
+from pcweb.flexdown import xd2 as xd
 from pcweb.templates.webpage import webpage
-from pcweb.templates.docpage import h1_comp
-from pcweb import constants, styles
 
 PAGES_PATH = "blog/"
 
@@ -77,65 +72,70 @@ def page(document, route) -> rx.Component:
     """Create a page."""
     meta = document.metadata
     return rx.vstack(
-    back(meta["title"], route),
-    rx.container(
-        rx.vstack(
-                rx.hstack(
-                    rx.flex(
-                        rx.chakra.text(
-                            "Blog posts", 
-                            background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
-                            text_align="center",
-                            background_clip="text",
-                            padding_x="1em"
+        back(meta["title"], route),
+        rx.container(
+            rx.vstack(
+                    rx.hstack(
+                        rx.flex(
+                            rx.chakra.text(
+                                "Blog posts", 
+                                background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                                text_align="center",
+                                background_clip="text",
+                                padding_x="1em"
+                            ),
+                            border_radius= "15px;",
+                            border= "1px solid #4435D4;",
+                            background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                            box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
                         ),
-                        border_radius= "15px;",
-                        border= "1px solid #4435D4;",
-                        background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
-                        box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                        rx.text(str(meta["date"]), color="#6C6C81")
                     ),
-                    rx.text(str(meta["date"]), color="#6C6C81")
-                ),
-                rx.chakra.text(
-                    meta["title"], 
-                    font_size="64px;",
-                    background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
-                    text_align="center",
-                    width="650px",
-                    background_clip="text",
-                    font_weight="bold",
-                    letter_spacing= "-1.28px;",
-                ),
-                rx.text(
-                    "Stay current with all the relevant details for Reflex",
-                    color="#6C6C81",
-                ),
-                align_items="center",
-                text_align="left",
-                width="100%",
-                spacing="1",
+                    rx.chakra.text(
+                        meta["title"], 
+                        font_size="64px;",
+                        background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                        text_align="center",
+                        width="650px",
+                        background_clip="text",
+                        font_weight="bold",
+                        letter_spacing= "-1.28px;",
+                    ),
+                    rx.text(
+                        "Stay current with all the relevant details for Reflex",
+                        color="#6C6C81",
+                    ),
+                    align_items="center",
+                    text_align="left",
+                    width="100%",
+                    spacing="1",
+            ),
+            rx.image(
+                src=f"{meta['image']}",
+                margin_top="1em",
+                border_radius="8px",
+                padding_bottom="1em",
+            ),
+            border_radius= "40px 40px 0px 0px;",
+            background= "linear-gradient(180deg, #0F0E12 0%, rgba(0, 0, 0, 0.00) 100%);",
+            mix_blend_mode="plus-lighter;",
+            padding="4em 4em 0px 4em",
+            margin_x="auto",
+            size="2",
         ),
-        rx.image(
-            src=f"{meta['image']}",
-            margin_top="1em",
-            border_radius="8px",
-            padding_bottom="1em",
-        ),
-        border_radius= "40px 40px 0px 0px;",
-        background= "linear-gradient(180deg, #0F0E12 0%, rgba(0, 0, 0, 0.00) 100%);",
-        mix_blend_mode="plus-lighter;",
-        padding="4em 4em 0px 4em",
-        margin_top="80px",
-        margin_x="auto",
-        size="2",
-    ),
-    rx.container(
-        xd.render(document, "blog.md"),
-        padding_bottom="8em",
-        margin_x="auto",
-        size="2",
-        overflow="hidden",
-    ),
+        rx.theme(
+            rx.container(
+                rx.box(
+                    xd.render(document, "blog.md"),
+                ),
+                padding_bottom="8em",
+                padding_x="1em",
+                margin_x="auto",
+                size="2",
+                overflow="hidden",
+            ),
+            appearance="dark",
+        )
     )
 
 
