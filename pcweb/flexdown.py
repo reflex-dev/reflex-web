@@ -3,6 +3,7 @@ import flexdown
 import reflex as rx
 from pcweb.templates.docpage import (
     code_block_markdown,
+    code_block_markdown_dark,
     code_comp,
     docdemo,
     docdemobox,
@@ -179,6 +180,7 @@ class DemoBlock(flexdown.blocks.Block):
     starting_indicator = "```python demo"
     ending_indicator = "```"
     include_indicators = True
+    theme: str = None
 
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
@@ -216,7 +218,11 @@ class DemoBlock(flexdown.blocks.Block):
             if equals:
                 demobox_props[prop] = value
 
-        return docdemo(code, comp=comp, demobox_props=demobox_props)
+        return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
+
+class DemoBlockDark(DemoBlock):
+    theme = "dark"
+
 
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
@@ -228,13 +234,20 @@ component_map = {
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block_markdown,
 }
+comp2 = component_map.copy()
+comp2["codeblock"] = code_block_markdown_dark
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
     component_map=component_map,
 )
 xd.clear_modules()
+xd2 = flexdown.Flexdown(
+    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock],
+    component_map=comp2,
+)
+xd2.clear_modules()
 
 
 def markdown(text):
-    return xd.default_block_type().render_fn(content=text)
+    return xd.get_default_block().render_fn(content=text)

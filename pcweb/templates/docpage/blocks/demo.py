@@ -3,7 +3,7 @@
 import reflex as rx
 import textwrap
 from typing import Any, Callable
-from .code import code_block
+from .code import code_block, code_block_dark
 import black
 
 demo_box_style = {
@@ -65,7 +65,7 @@ def doccode(
         ).strip()
 
     # Create the code snippet.
-    cb = code_block
+    cb = code_block_dark if theme == "dark" else code_block
     return cb(
         code=code,
         language=language,
@@ -78,6 +78,7 @@ def docdemo(
     comp: rx.Component | None = None,
     context: bool = False,
     demobox_props: dict[str, Any] | None = None,
+    theme: str | None = None,
     **props,
 ) -> rx.Component:
     """Create a documentation demo with code and output.
@@ -109,7 +110,7 @@ def docdemo(
     # Create the demo.
     return rx.vstack(
         docdemobox(comp, **(demobox_props or {})),
-        doccode(code),
+        doccode(code, theme=theme),
         width="100%",
         padding_y="1em",
         gap="1em",
