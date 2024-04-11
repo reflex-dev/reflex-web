@@ -12,6 +12,9 @@ def color() -> rx.Component:
                 dark_component=rx.icon("moon", color=rx.color("mauve", 9)),
             ),
             on_click=toggle_color_mode,
+            _hover = {
+                "cursor" : "pointer"
+            },
             padding="7px",
             style=button_style,
             border_radius="8px",
