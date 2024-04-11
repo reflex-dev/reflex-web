@@ -28,14 +28,24 @@ apps_list = [
         "source": "https://github.com/reflex-dev/reflex-chat",
     },
     {
-        "name": "Email Gen",
+        "name": "E-commerce Landing Page",
         "difficulty": "Intermediate",
-        "tags": ["AI", "Database"],
-        "description": "A sales email generator using OpenAI's GPT3 API.",
-        "img": "/gallery/sales.png",
+        "tags": ["ecommerce", "landing page"],
+        "description": "Landing page for a skin care ecommerce site.",
+        "img": "/gallery/ecommerce_blemish.png",
         "gif": "",
-        "url": "https://sales.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
+        "url": "https://blemish.reflex.run/",
+        "source": "",
+    },
+    {
+        "name": "Customer Data",
+        "difficulty": "Intermediate",
+        "tags": ["Forms", "Database", "Data Table"],
+        "description": "An dashboard for customer data linked to an external database.",
+        "img": "/gallery/customer_data_app.png",
+        "gif": "",
+        "url": "https://customer-data-app.reflex.run/",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app",
     },
     {
         "name": "AI Landing Page",
@@ -46,16 +56,6 @@ apps_list = [
         "gif": "",
         "url": "https://ai-personal-landing-page.reflex.run",
         "source": "https://github.com/tgberkeley/ai-personal-landing-page",
-    },
-    {
-        "name": "Graphing Traversal",
-        "difficulty": "Intermediate",
-        "tags": ["Graphs"],
-        "description": "A graphing traversal app.",
-        "img": "/gallery/traversal.png",
-        "gif": "",
-        "url": "https://traversal.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
     },
     {
         "name": "Counter",
@@ -87,16 +87,6 @@ apps_list = [
         "gif": "/gallery/nba.gif",
         "url": "https://nba.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/nba",
-    },
-    {
-        "name": "Customer Data",
-        "difficulty": "Intermediate",
-        "tags": ["Forms", "Database", "Data Table"],
-        "description": "An dashboard for customer data linked to an external database.",
-        "img": "/gallery/customer_data_app.png",
-        "gif": "",
-        "url": "https://customer-data-app.reflex.run/",
-        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app",
     },
     {
         "name": "Quiz",
@@ -151,6 +141,16 @@ apps_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/translator",
     },
     {
+        "name": "Email Gen",
+        "difficulty": "Intermediate",
+        "tags": ["AI", "Database"],
+        "description": "A sales email generator using OpenAI's GPT3 API.",
+        "img": "/gallery/sales.png",
+        "gif": "",
+        "url": "https://sales.reflex.run",
+        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
+    },
+    {
         "name": "Clock",
         "difficulty": "Intermediate",
         "tags": ["Intro"],
@@ -159,6 +159,16 @@ apps_list = [
         "gif": "/gallery/clock.gif",
         "url": "https://clock.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/clock",
+    },
+    {
+        "name": "Graphing Traversal",
+        "difficulty": "Intermediate",
+        "tags": ["Graphs"],
+        "description": "A graphing traversal app.",
+        "img": "/gallery/traversal.png",
+        "gif": "",
+        "url": "https://traversal.reflex.run",
+        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
     },
     {
         "name": "Simple Background Tasks",
@@ -170,16 +180,6 @@ apps_list = [
         "url": "https://simple-background-tasks.reflex.run",
         "source": "https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream",
     },
-    {
-        "name": "E-commerce Landing Page",
-        "difficulty": "Intermediate",
-        "tags": ["ecommerce", "landing page"],
-        "description": "Landing page for a skin care ecommerce site.",
-        "img": "/gallery/ecommerce_blemish.png",
-        "gif": "",
-        "url": "https://blemish.reflex.run/",
-        "source": "",
-    }
 ]
 
 community_apps_list = [
@@ -231,7 +231,7 @@ community_apps_list = [
         "img": "/gallery/reflexrave.png",
         "gif": "",
         "url": "https://reflexrave.reflex.run",
-        "source": "https://github.com/HeetVekariya/hacktoberfest/tree/heet/ReflexRave",
+        "source": "https://github.com/HeetVekariya/hacktoberfest/tree/heet/ReflexRave/submissions/ai_apps/heet_reflexrave/ReflexRave",
     },
     {
         "name": "Fynesse",
@@ -251,7 +251,7 @@ community_apps_list = [
         "img": "/gallery/mouredev.jpg",
         "gif": "",
         "url": "https://moure.dev",
-        "source": "https://github.com/mouredev/python-web",
+        "source": "https://github.com/mouredev/python-web/tree/main/link_bio",
     },
     {
         "name": "rx_shout",
@@ -360,17 +360,57 @@ def add_item(category):
             border_radius="12px"
         ),
         rx.vstack(
-            rx.vstack(
-                rx.heading(
-                    category["name"],
-                    size="5",
-                    color="#D6D6ED"
+                rx.vstack(
+                    rx.hstack(
+                        rx.heading(
+                            category["name"],
+                            size="5",
+                            color="#D6D6ED"
+                        ),
+                        rx.hstack(
+                            rx.cond(
+                                category["source"],
+                                rx.link(
+                                    rx.chakra.box(
+                                        rx.image(src="/icons/code.svg", width="1.5em", fill="red"),
+                                        padding_x="0.5em",
+                                        border_radius="15px",
+                                        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+                                    ),
+                                    href=category["source"],
+                                ),
+                            ),
+                            rx.cond(
+                                category["url"],
+                                rx.link(
+                                    rx.chakra.box(
+                                        rx.image(src="/icons/eye.svg", width="1.5em"),
+                                        padding_x="0.5em",
+                                        border_radius="15px",
+                                        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+                                    ),
+                                    href=category["url"],
+                                ),
+                            ),
+                        ),
+                        justify="between",
+                        width="100%",
+                    ),
+                    rx.text(category["description"], size="2", color="#8E8EA8"),
+                    align_items="start",
+                    width="100%",
                 ),
-                rx.text(category["description"], size="2", color="#8E8EA8"),
-                align_items="start",
-            ),
+                
+            
+            # rx.box(
+            #     flex_grow=1,
+            # ),
             rx.box(
-                flex_grow=1,
+                rx.cond(
+                    category["source"],
+                    rx.code_block("reflex init --template " + category["source"] + "   ", can_copy=True, language="python", theme="dark", custom_style={"fontSize": "0.7em"}),
+                ),
+                width="100%",
             ),
             rx.hstack(
                 rx.hstack(
@@ -388,7 +428,7 @@ def add_item(category):
             width="100%",
             padding_top="1em",
             align_items="start",
-            height="6em",
+            #height="6em",
         ),
         direction="column",
     )
@@ -463,7 +503,7 @@ def gallery_heading():
                 letter_spacing= "-1.28px;",
             ),
             rx.text(
-                "Here are some examples of what the team and community has made with Reflex. ",
+                "Use the command `reflex init --template {app_url}` to run a gallery app locally.",
                 color="#6C6C81",
             ),
             align_items="center",
