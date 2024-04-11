@@ -12,10 +12,12 @@ class Search(rx.Component):
     is_open: Var[bool] = False
 
     def _get_imports(self):
-      return rx.utils.imports.merge_imports(
+        return rx.utils.imports.merge_imports(
             super()._get_imports(),
             {
               "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
+              "react": {ImportVar(tag="useContext")},
+              "/utils/context": {ImportVar(tag="ColorModeContext")},
             },
         )
 
