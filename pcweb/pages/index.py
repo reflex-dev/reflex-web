@@ -150,13 +150,14 @@ def demos():
             example_button("Dashboard"),
             example_button("Auth"),
             rx.spacer(),
-            rx.button(
-                "View Code",
-                border_radius="8px;",
-                border="1px solid rgba(186, 199, 247, 0.12);",
-                background= "rgba(161, 157, 213, 0.03);",
-                backdrop_filter= "blur(2px);"
-            ),
+            # rx.button(
+            #     "View Code",
+            #     border_radius="8px;",
+            #     border="1px solid rgba(186, 199, 247, 0.12);",
+            #     background= "rgba(161, 157, 213, 0.03);",
+            #     backdrop_filter= "blur(2px);"
+            # ),
+            rx.box(),
             width="70em",
             align_items="left"
         ),
@@ -608,8 +609,7 @@ def landing():
 </linearGradient>
 </defs>
 </svg>
-"""
-                   )
+""")
 
 def spacer_box_will_fix_later():
     return rx.box(height="60px")
@@ -666,22 +666,28 @@ def index() -> rx.Component:
                         line_height="1",
                 ),
                 rx.hstack(
-                    rx.button(
-                        "Get Started", 
+                    rx.chakra.button(
+                        rx.text("Get Started", color="#FFFFFF"),
                         border_radius= "8px",
                         padding_x="2em",
+                        width="325px",
+                        height="80px",
+                        font_size="30px",
                         background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
                         box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset;",
                         _hover={}
                     ),
-                    rx.button(
+                    rx.chakra.button(
                         rx.link(
                             "Get a demo",
                             href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
                             color="white"
                         ),
+                        font_size="30px",
+                        width="325px",
+                        height="80px",
                         border_radius="8px;",
-                        border="1px solid rgba(186, 199, 247, 0.12);",
+                        border="2px solid rgba(186, 199, 247, 0.12);",
                         background= "rgba(161, 157, 213, 0.03);",
                         backdrop_filter= "blur(2px);"
                     ),
