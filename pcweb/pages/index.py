@@ -402,37 +402,99 @@ def feature_button_hstack():
         feature_button("Frontend"),
         feature_button("Backend"),
         feature_button("Hosting"),
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "margin-left": "5%",
+            },
+            "@media screen and (max-width: 837px)": {
+                "margin-left": "10%",
+            },
+            "@media screen and (max-width: 768px)": {
+                "margin-left": "15%",
+            },
+            "@media screen and (max-width: 627px)": {
+                "margin-left": "20%",
+            },
+            "@media screen and (max-width: 480px)": {
+                "margin-left": "25%",
+            },
+        },
+    )
+
+def hero_section_text():
+    return rx.vstack(
+        rx.chakra.text(
+            "Web apps in Pure Python.",
+            style=heading_1_style,
+            border="1px solid red",
+        ),
+        rx.chakra.text(
+            "Deploy with a single command.",
+            style=heading_2_style,
+            border="1px solid red",
+        ),
+        border="1px solid gold",
+        align_items="center",
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "transform": "scale(0.9)",
+            },
+            "@media screen and (max-width: 837px)": {
+                "transform": "scale(0.8)",
+            },
+            "@media screen and (max-width: 768px)": {
+                "transform": "scale(0.7)",
+            },
+            "@media screen and (max-width: 627px)": {
+                "transform": "scale(0.6)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "transform": "scale(0.5)",
+            },
+        },
+    )
+
+def hero_section_buttons():
+    return rx.hstack(
+        rx.chakra.button(
+            rx.text("Get Started", color="#FFFFFF"),
+            style=get_started_button_style,
+        ),
+        rx.chakra.button(
+            rx.link(
+                "Get a demo",
+                href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+                color="white"
+            ),
+            style=get_demo_button_style,
+        ),
+        padding_top="1em",
+        item_slign="center",
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "transform": "scale(0.9)",
+            },
+            "@media screen and (max-width: 837px)": {
+                "transform": "scale(0.8)",
+            },
+            "@media screen and (max-width: 768px)": {
+                "transform": "scale(0.7)",
+            },
+            "@media screen and (max-width: 627px)": {
+                "transform": "scale(0.6)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "transform": "scale(0.5)",
+            },
+        },
     )
 
 def hero_section() -> rx.Component:
     """Render the hero section of the landing page."""
     return rx.vstack(
         feature_button_hstack(),
-        rx.chakra.text(
-            "Web apps in Pure Python.",
-            style=heading_1_style,
-        ),
-        rx.chakra.text(
-            "Deploy with a single command.",
-            style=heading_2_style,
-        ),
-        rx.hstack(
-            rx.chakra.button(
-                rx.text("Get Started", color="#FFFFFF"),
-                style=get_started_button_style,
-            ),
-            rx.chakra.button(
-                rx.link(
-                    "Get a demo",
-                    href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
-                    color="white"
-                ),
-                style=get_demo_button_style,
-            ),
-            padding_top="1em",
-        ),
-        padding_left="3em",
-        align_items="left",
+        hero_section_text(),
+        hero_section_buttons(),
     )
 
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
@@ -442,7 +504,6 @@ def index() -> rx.Component:
         rx.vstack(
             landing(),
             hero_section(),
-            align_items="left",
             padding_top="5em",
             padding_bottom="5em",
         ),

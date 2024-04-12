@@ -33,7 +33,6 @@ get_started_button_style = dict(
     font_size="30px",
     background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%)",
     box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset",
-    _hover={},
 )
 
 get_demo_button_style = dict(
