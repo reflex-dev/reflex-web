@@ -155,19 +155,10 @@ def demos():
             padding_y="2em",
         ),
         rx.hstack(
-            # example_button("Chat"),
-            # example_button("Image Gen"),
             example_button("Forms"),
             example_button("Dashboard"),
             example_button("Auth"),
             rx.spacer(),
-            # rx.button(
-            #     "View Code",
-            #     border_radius="8px;",
-            #     border="1px solid rgba(186, 199, 247, 0.12);",
-            #     background= "rgba(161, 157, 213, 0.03);",
-            #     backdrop_filter= "blur(2px);"
-            # ),
             rx.box(),
             width="70em",
             align_items="left"
@@ -175,14 +166,11 @@ def demos():
         rx.box(
             rx.match(
                 DemoState.demo,
-                # ("Chat", forms()),
-                # ("Image Gen", image_gen()),
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 forms()
             ),
-            height="30em",
             width="70em",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
@@ -192,6 +180,26 @@ def demos():
         padding_top="8em",
         padding_buttom= "20em",
         width="100%",
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "transform": "scale(0.9)",
+            },
+            "@media screen and (max-width: 900px)": {
+                "transform": "scale(0.8)",
+            },
+            "@media screen and (max-width: 800px)": {
+                "transform": "scale(0.6)",
+            },
+            "@media screen and (max-width: 700px)": {
+                "transform": "scale(0.5)",
+            },
+            "@media screen and (max-width: 600px)": {
+                "transform": "scale(0.4)",
+            },
+            "@media screen and (max-width: 500px)": {
+                "transform": "scale(0.3)",
+            },
+        },
     )
 
 def user_count_item(count, platform) -> rx.Component:
@@ -402,23 +410,6 @@ def feature_button_hstack():
         feature_button("Frontend"),
         feature_button("Backend"),
         feature_button("Hosting"),
-        style={
-            "@media screen and (max-width: 1024px)": {
-                "margin-left": "5%",
-            },
-            "@media screen and (max-width: 837px)": {
-                "margin-left": "10%",
-            },
-            "@media screen and (max-width: 768px)": {
-                "margin-left": "15%",
-            },
-            "@media screen and (max-width: 627px)": {
-                "margin-left": "20%",
-            },
-            "@media screen and (max-width: 480px)": {
-                "margin-left": "25%",
-            },
-        },
     )
 
 def hero_section_text():

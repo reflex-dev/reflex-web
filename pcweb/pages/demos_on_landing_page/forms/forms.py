@@ -74,9 +74,9 @@ def sidebar():
         sidebar_button("Appearance", FormsState.clicked == "Appearance"),
         sidebar_button("Notifications", FormsState.clicked == "Notifications"),
         sidebar_button("Display", FormsState.clicked == "Display"),
-        align_item="start",
         width="20%",
-        height="100%",
+        height="880px",
+        border="1px solid blue",
     )
 
 def form_content():
@@ -106,6 +106,8 @@ def settings():
             color="#FFFFFF",
             padding_left="15px",
         ),
+        padding_top="10px",
+        padding_buttom="10px",
         height="20%",
         width="100%",
         align_items="left",
@@ -118,6 +120,7 @@ def content():
         form_content(),
         height="80%",
         width="100%",
+        border="1px solid red",
     )
 
 def forms():

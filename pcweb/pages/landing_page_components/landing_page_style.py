@@ -10,7 +10,7 @@ feature_button_style = dict(
 heading_1_style = dict(
     font_size="54px",
     background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
-    text_align="left",
+    text_align="center",
     background_clip="text",
     font_weight="bold",
     line_height="1",
@@ -20,7 +20,7 @@ heading_2_style = dict(
     font_size="54px",
     max_width="650px",
     color="#6C6C81",
-    text_align="left",
+    text_align="center",
     font_weight="bold",
     line_height="1",
 )

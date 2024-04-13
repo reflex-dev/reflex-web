@@ -2,6 +2,7 @@ import reflex as rx
 
 def auth_form():
     return rx.flex(
+        rx.box(height="24px"),
         rx.flex(
             rx.text(
                 "Create an account",
@@ -98,7 +99,7 @@ def auth_form():
         ),
         direction="column",
         width="350px",
-        height="348px",
+        height="375px",
     )
 
 def auth():
