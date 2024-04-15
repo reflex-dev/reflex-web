@@ -175,7 +175,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
                     height="20px",
                     justify="start",
                 ),
-                border="1px solid red",
             ),
             href="/",
         ),
