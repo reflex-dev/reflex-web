@@ -177,9 +177,9 @@ def demos():
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
             
         ),
-        padding_top="8em",
-        padding_buttom= "20em",
+        padding_bottom="4em",
         width="100%",
+        border="1px solid red",
         style={
             "@media screen and (max-width: 1024px)": {
                 "transform": "scale(0.9)",
@@ -190,6 +190,10 @@ def demos():
             "@media screen and (max-width: 800px)": {
                 "transform": "scale(0.6)",
             },
+            "@media screen and (max-width: 768px)": {
+                "padding_top": "3em",
+                "padding_bottom": "3em",
+            },
             "@media screen and (max-width: 700px)": {
                 "transform": "scale(0.5)",
             },
@@ -198,6 +202,10 @@ def demos():
             },
             "@media screen and (max-width: 500px)": {
                 "transform": "scale(0.3)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "padding_top": "1.5em",
+                "padding_bottom": "1.5em",
             },
         },
     )
@@ -212,11 +220,14 @@ def user_count_item(count, platform) -> rx.Component:
 
 def user_count_comp() -> rx.Component:
     return rx.center(
-        user_count_item(110, "Contributors"),
+        rx.tablet_and_desktop(user_count_item(110, "Contributors")),
+        rx.mobile_only(user_count_item(110, "Contributors")),
         rx.divider(size="4", orientation="vertical"),
-        user_count_item(5000, "Project created per month"),
+        rx.tablet_and_desktop(user_count_item(5000, "Project created per month")),
+        rx.mobile_only(user_count_item(5000, "Project")),
         rx.divider(size="4", orientation="vertical"),
-        user_count_item(3700, "Discord Members"),
+        rx.tablet_and_desktop(user_count_item(3700, "Discord Members")),
+        rx.mobile_only(user_count_item(3700, "On Discord")),
         spacing="5",
         padding="1em",
     )
@@ -379,13 +390,12 @@ def invite_card_comp() -> rx.Component:
 
 def stats() -> rx.Component:
     return rx.vstack(
-        spacer_box_will_fix_later(),
         open_source_badge(),
         invite_message(),
         github_button(),
         invite_card_comp(),
         user_count_comp(),
-        padding="25px 25px 25px 25px",
+        padding="2em",
         style={
             "@media screen and (max-width: 1024px)": {
                 "transform": "scale(0.9)",
@@ -431,14 +441,11 @@ def hero_section_text():
         rx.chakra.text(
             "Web apps in Pure Python.",
             style=heading_1_style,
-            border="1px solid red",
         ),
         rx.chakra.text(
             "Deploy with a single command.",
             style=heading_2_style,
-            border="1px solid red",
         ),
-        border="1px solid gold",
         align_items="center",
         style={
             "@media screen and (max-width: 1024px)": {
@@ -502,20 +509,41 @@ def hero_section() -> rx.Component:
         hero_section_buttons(),
     )
 
+def top() -> rx.Component:
+    return rx.vstack(
+        landing(),
+        hero_section(),
+        padding_top="3em",
+        padding_bottom="3em",
+        style={
+            "@media screen and (max-width: 768px)": {
+                "padding_top": "2em",
+                "padding_bottom": "2em",
+            },
+            "@media screen and (max-width: 480px)": {
+                "padding_top": "1em",
+                "padding_bottom": "1em",
+            },
+        },
+    )
+
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
-    return rx.vstack(
-        rx.vstack(
-            landing(),
-            hero_section(),
-            padding_top="5em",
-            padding_bottom="5em",
-        ),
-        demos(),
+    return rx.flex(
+        top(),
+        rx.tablet_and_desktop(demos()),
         stats(),
         width="100%",
-        border="3px solid red",
+        direction="column",
+        style={
+            "@media screen and (max-width: 768px)": {
+                "gap": "4em",
+            },
+            "@media screen and (max-width: 480px)": {
+                "gap": "2em",
+            },
+        },
     )
 
 
