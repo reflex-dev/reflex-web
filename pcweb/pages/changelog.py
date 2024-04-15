@@ -67,6 +67,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-04-15",
+            "v0.4.8",
+            "Support Bun on Windows for Faster Dependency Installation",
+            [
+                "Expose transpile_packages for Components that do not identify as ES6 module",
+                "Enum types are serialized to their values",
+                "Automatic tuple unpacking for Component children",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.8",
+        ),
+        change(
             "2024-04-09",
             "v0.4.7",
             "New reflex init templates",
