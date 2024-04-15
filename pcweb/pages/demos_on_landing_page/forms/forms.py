@@ -76,7 +76,6 @@ def sidebar():
         sidebar_button("Display", FormsState.clicked == "Display"),
         width="20%",
         height="880px",
-        border="1px solid blue",
     )
 
 def form_content():
@@ -120,7 +119,6 @@ def content():
         form_content(),
         height="80%",
         width="100%",
-        border="1px solid red",
     )
 
 def forms():

@@ -179,7 +179,6 @@ def demos():
         ),
         padding_bottom="4em",
         width="100%",
-        border="1px solid red",
         style={
             "@media screen and (max-width: 1024px)": {
                 "transform": "scale(0.9)",
