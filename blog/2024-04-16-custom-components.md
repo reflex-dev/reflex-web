@@ -1,6 +1,6 @@
 ---
 author: Nikhil Rao
-date: 2024-04-11
+date: 2024-04-16
 title: Custom Components
 description: Announcing our third party custom component ecosystem.
 image: /blog/python.png
@@ -11,9 +11,15 @@ from pcweb.pages.docs import wrapping_react, custom_components, styling, events,
 from pcweb.pages.docs.custom_components import custom_components as cc
 ```
 
-We are excited to announce the launch of our [custom component ecosystem]({cc.path})! Custom components allow developers to build their own reusable components and share them with the Reflex community. This includes wrapping new React components, as well as creating higher level Reflex components.
+We are excited to announce the launch of our [custom component ecosystem]({cc.path})! 
+ 
+Custom components allow developers to build their own components and share them with the Reflex community. This includes wrapping React components, as well as creating higher level Reflex components.
 
-Components can be published to Pypi and installed through `pip`. We already have some components available.
+### New Features:
+
+* A `reflex components` subcommand that allows you to create, test, and publish custom components.
+* Install third party components from PyPI with `pip`.
+* A new `rx.ComponentState` class that allows you to encapsulate state and UI for a component in a single class.
 
 ## What are Custom Components?
 
@@ -57,6 +63,7 @@ async def process(chat):
 ```python demo
 rx.box(
     chat(process=process),
+    height="500px",
     width="100%"
 )
 ```
@@ -83,7 +90,7 @@ async def process(chat):
 \```
 ```
 
-## How To Create Custom Components
+## Types Of Custom Components
 
 There are two categories of custom components: **React wrappers** and **high-level components**.
 
@@ -91,17 +98,13 @@ There are two categories of custom components: **React wrappers** and **high-lev
 
 Reflex is built on top of React, so if we don't have a component you need, you can easily [wrap your own React component]({wrapping_react.overview.path}) and use it in your Reflex app.
 
-We've
 
-## How It works
+### High-Level Component
 
-Since Reflex 0.4.6, there is a `reflex components` subcommand that allows you to create and publish your own custom components.
+You can also create custom components that don't wrap React, but instead are built on top of existing Reflex components. For example, you could create a custom `Chat` component that encapsulates the logic for a chat app.
 
-First run
+When you run `reflex components init`, you'll get a skeleton project with a `custom_components` folder where you can define your custom component. We generate a scaffold for your component that you can fill in with your own logic.
 
-```python
-reflex component init
-```
+## Creating Custom Components
 
-to create a new custom component project.
-
+In Reflex 0.4.6 we're introducing a `reflex components` subcommand that allows you to create, test, and publish custom components. See the [Custom Components]({custom_components.overview.path}) docs for full details.
