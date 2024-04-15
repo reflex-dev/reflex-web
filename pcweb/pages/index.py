@@ -385,10 +385,24 @@ def stats() -> rx.Component:
         github_button(),
         invite_card_comp(),
         user_count_comp(),
-        padding_top="25px",
-        padding_bottom="25px",
-        padding_left="25px",
-        padding_right="25px",
+        padding="25px 25px 25px 25px",
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "transform": "scale(0.9)",
+            },
+            "@media screen and (max-width: 837px)": {
+                "transform": "scale(0.85)",
+            },
+            "@media screen and (max-width: 768px)": {
+                "transform": "scale(0.8)",
+            },
+            "@media screen and (max-width: 627px)": {
+                "transform": "scale(0.75)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "transform": "scale(0.65)",
+            },
+        },
     )
 
 def spacer_box_will_fix_later():
