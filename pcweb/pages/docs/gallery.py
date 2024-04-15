@@ -406,6 +406,7 @@ def add_item(category):
             rx.text(category["description"], size="2", color="#8E8EA8"),
             align_items="start",
             width="100%",
+            padding_top="1em",
         ),
         rx.spacer(),
         rx.vstack(
@@ -433,28 +434,27 @@ def add_item(category):
                 ),
                 width="100%",
             ),
-            rx.hstack(
-                rx.hstack(
-                        rx.badge(category["difficulty"]),
-                ),
-                rx.spacer(),
-                rx.foreach(
-                    category["tags"],
-                    lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
-                ),
-                color="#8E8EA8",
-                padding_bottom="0.5em",
-                width="100%",
-                overflow_x="scroll",
-                style={
-                    "&::-webkit-scrollbar-thumb": {
-                        "background_color": "transparent",
-                    },
-                    "&::-webkit-scrollbar": {
-                        "background_color": "transparent",
-                    },
-                },
-            ),
+            # rx.hstack(
+            #     rx.hstack(
+            #             rx.badge(category["difficulty"]),
+            #     ),
+            #     rx.spacer(),
+            #     rx.foreach(
+            #         category["tags"],
+            #         lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
+            #     ),
+            #     color="#8E8EA8",
+            #     width="100%",
+            #     overflow_x="scroll",
+            #     style={
+            #         "&::-webkit-scrollbar-thumb": {
+            #             "background_color": "transparent",
+            #         },
+            #         "&::-webkit-scrollbar": {
+            #             "background_color": "transparent",
+            #         },
+            #     },
+            # ),
             width="100%",
             padding_top="1em",
             align_items="start",
