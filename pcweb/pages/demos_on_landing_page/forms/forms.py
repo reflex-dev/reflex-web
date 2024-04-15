@@ -99,6 +99,7 @@ def settings():
         rx.text(
             "Settings", 
             color="#FFFFFF",
+            font_size="24px",
             padding_left="15px",
         ),
         rx.text(
