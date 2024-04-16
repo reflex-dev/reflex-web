@@ -243,31 +243,17 @@ def logo():
 def landing():
     return rx.flex(
         logo(),
+        width="100%",
+        align_items="left",
+    )
+
+def landing_mobile():
+    return rx.center(
+        logo(),
+        width="100%",
         style={
-            "@media screen and (max-width: 1024px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.9)",
-                },
-            },
-            "@media screen and (max-width: 837px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.8)",
-                },
-            },
-            "@media screen and (max-width: 768px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.7)",
-                },
-            },
-            "@media screen and (max-width: 627px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.6)",
-                },
-            },
-            "@media screen and (max-width: 480px)": {
-                "#landing-logo": {
+            "#landing-logo": {
                     "transform": "scale(0.5)",
                 },
-            },
         }
     )
