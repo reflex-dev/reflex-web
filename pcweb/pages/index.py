@@ -50,7 +50,7 @@ def container(*children, **kwargs):
 
 class DemoState(rx.State):
 
-    demo = "Chat"
+    demo = "Forms"
 
     def set_demo(self, demo):
         self.demo = demo
@@ -134,7 +134,11 @@ def example_button(text):
     text,
     border_radius="8px;",
     border="1px solid rgba(186, 199, 247, 0.12);",
-    background= "rgba(161, 157, 213, 0.03);",
+    background= rx.cond(
+        DemoState.demo == text,
+        "#282828",
+        "rgba(161, 157, 213, 0.03);",
+    ),
     backdrop_filter= "blur(2px);",
     on_click= lambda: DemoState.set_demo(text)
 )
