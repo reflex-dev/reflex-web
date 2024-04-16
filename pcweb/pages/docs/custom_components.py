@@ -29,6 +29,7 @@ class CustomComponentGalleryState(rx.State):
                 for keyword in c["keywords"] or []
                 if "reflex" not in keyword.lower()
             ]
+            c["download_url"] = package_url(c["package_name"])
 
         self.components_list = component_list
 
@@ -61,7 +62,7 @@ def demo_modal_if_present(demo_url: str) -> rx.Component:
 
 
 def package_url(package_name: str) -> str:
-    return f"https://pypi.org/pypi/{package_name}/json"
+    return f"https://pypi.org/pypi/{package_name}/"
 
 
 def author_card_if_present(author: str) -> rx.Component:
@@ -81,14 +82,14 @@ def updated_on_pypi_if_present(updated_on_pypi: str) -> rx.Component:
 def demo_url_if_present(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
-        info_icon(tag="external-link"),
+        rx.link(info_icon(tag="eye"), href=demo_url),
     )
 
 
 def download_url_if_present(download_url: str) -> rx.Component:
     return rx.cond(
         download_url,
-        rx.link(info_icon(tag="download"), href=download_url),
+        rx.link(info_icon(tag="external-link"), href=download_url),
     )
 
 
@@ -132,7 +133,7 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
         rx.tooltip(
             rx.badge(
                 downloads,
-                rx.icon(tag="download", size=12),
+                rx.icon(tag="external-link", size=12),
                 padding_x=".5em",
                 font_size="0.75em",
                 border_radius="6px",
@@ -186,7 +187,7 @@ def add_item(category: dict) -> rx.Component:
             updated_on_pypi_if_present(category["updated_on_pypi"]),
             source_if_present(category["source"]),
             demo_url_if_present(category["demo_url"]),
-            demo_modal_if_present(category["demo_url"]),
+            # demo_modal_if_present(category["demo_url"]),
             download_url_if_present(category["download_url"]),
             width="100%",
             justify="center",
