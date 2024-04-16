@@ -61,7 +61,7 @@ def resources_section(style):
                     ),
                     resources_item(
                         "Contribute to Reflex",
-                        "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+                        constants.CONTRIBUTING_URL,
                         "file-json-2",
                     ),
                     resources_item("Changelog", changelog.path, "list-checks"),

@@ -38,7 +38,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         rx.link("Self-Hosting", href=hosting.self_hosting.path, style=section_style),
         rx.link(
             "Contribute",
-            href="https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+            href=constants.CONTRIBUTING_URL,
             style=section_style,
         ),
         rx.link("FAQ", href=faq.path, style=section_style),
