@@ -7,7 +7,7 @@ image: /blog/custom_components.webp
 ---
 
 ```python exec
-from pcweb.pages.docs import wrapping_react, custom_components, styling, events, tutorial, getting_started
+from pcweb.pages.docs import wrapping_react, custom_components, styling, events, tutorial, getting_started, substates
 from pcweb.pages.docs.custom_components import custom_components as cc
 ```
 
@@ -187,7 +187,7 @@ def counter_sum():
     )
 ```
 
-See the [Component State]({"todo"}) page for more details on how to use this class.
+See the [Component State]({substates.component_state.path}) page for more details on how to use this class.
 
 ## Testing and Publishing
 
