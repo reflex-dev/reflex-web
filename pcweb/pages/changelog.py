@@ -412,13 +412,14 @@ def changelog():
                     "Keep up to date with the latest Reflex news.", color="#8E8EA8"
                 ),
                 rx.center(
-
-                    rx.chakra.span(
-                        "Reflex has new releases and features coming every week! Make sure to star and watch on ",
-                        rx.link("GitHub", href=constants.GITHUB_URL, color="#6151F3"),
-                        " to stay up to date.",
-                        color="#A2A2B9",   
-                        width="100%",
+                    rx.tablet_and_desktop(
+                        rx.chakra.span(
+                            "Reflex has new releases and features coming every week! Make sure to star and watch on ",
+                            rx.link("GitHub", href=constants.GITHUB_URL, color="#6151F3"),
+                            " to stay up to date.",
+                            color="#A2A2B9",   
+                            width="100%",
+                        ),
                     ),
                     font_family=styles.MONO,
                     padding="1em",
