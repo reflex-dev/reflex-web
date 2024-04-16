@@ -82,15 +82,12 @@ def updated_on_pypi_if_present(updated_on_pypi: str) -> rx.Component:
 def demo_url_if_present(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
-        rx.link(info_icon(tag="eye"), href=demo_url),
+        rx.link(info_icon(tag="eye"), href=demo_url, is_external=True),
     )
 
 
-def download_url_if_present(download_url: str) -> rx.Component:
-    return rx.cond(
-        download_url,
-        rx.link(info_icon(tag="external-link"), href=download_url),
-    )
+def download_url(download_url: str) -> rx.Component:
+    return rx.link(info_icon(tag="external-link"), href=download_url, is_external=True)
 
 
 def source_if_present(source: str) -> rx.Component:
@@ -99,6 +96,7 @@ def source_if_present(source: str) -> rx.Component:
         rx.link(
             info_icon(tag="github"),
             href=source,
+            is_external=True,
         ),
     )
 
@@ -118,6 +116,15 @@ def pypi_summary(summary: str) -> rx.Component:
         summary,
         color=rx.color("mauve", 11),
         size="1",
+    )
+
+
+def pip_install_command_copy_button(package_name: str) -> rx.Component:
+    return rx.link(
+        info_icon(
+            tag="clipboard-copy",
+            on_click=rx.set_clipboard(f"pip install "),
+        )
     )
 
 
@@ -188,7 +195,8 @@ def add_item(category: dict) -> rx.Component:
             source_if_present(category["source"]),
             demo_url_if_present(category["demo_url"]),
             # demo_modal_if_present(category["demo_url"]),
-            download_url_if_present(category["download_url"]),
+            download_url(category["download_url"]),
+            pip_install_command_copy_button(category["package_name"]),
             width="100%",
             justify="center",
             padding_top=".5em",
@@ -216,12 +224,14 @@ def text_comp(text: rx.Var[str]) -> rx.Component:
 
 def info_icon(
     tag: str,
+    **kwargs,
 ) -> rx.Component:
     return rx.box(
         rx.icon(tag=tag, width="1em", height="1em"),
         padding_x="0.5em",
         border_radius="15px",
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+        **kwargs,
     )
 
 
