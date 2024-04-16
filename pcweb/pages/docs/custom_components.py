@@ -123,7 +123,7 @@ def pip_install_command_copy_button(package_name: str) -> rx.Component:
     return rx.link(
         info_icon(
             tag="clipboard-copy",
-            on_click=rx.set_clipboard(f"pip install "),
+            on_click=rx.set_clipboard(f"pip install {package_name}"),
         )
     )
 
