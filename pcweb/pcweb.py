@@ -23,7 +23,7 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
-        appearance="light", has_background=True, radius="large", accent_color="violet"
+        appearance="dark", has_background=True, radius="large", accent_color="violet"
     ),
     head_components=[
         rx.el.script(
