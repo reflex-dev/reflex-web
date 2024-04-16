@@ -331,7 +331,7 @@ def request_buttons() -> rx.Component:
             "Bugs",
             color="#2BCEEA",
             weight="Medium",
-            height="22px",
+            height="24px",
             width="138px",
             border="1px solid #2BCEEA",
             background_color="rgba(43, 206, 234, 0.25)",
@@ -348,7 +348,6 @@ def request_buttons() -> rx.Component:
             color="#2BEA8E",
             weight="Medium",
             height="24px",
-            width="138px",
             border="1px solid #2BEA8E",
             background_color="rgba(43, 234, 142, 0.25)",
             on_click=rx.redirect(
