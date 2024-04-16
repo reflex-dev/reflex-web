@@ -6,7 +6,7 @@ from .demos_on_landing_page.auth.auth import auth
 from .demos_on_landing_page.forms.forms import forms
 from .demos_on_landing_page.dashboard.dashboard import dashboard
 
-from .landing_page_components.logo import landing, landing_mobile
+from .landing_page_components.logo import landing
 
 
 link_style = {
@@ -508,14 +508,13 @@ def hero_section_mobile() -> rx.Component:
     """Render the hero section of the landing page."""
     return rx.center(
         rx.vstack(
-            landing_mobile(),
+            landing(),
             rx.vstack(
                 feature_button_hstack(mobile=True),
                 hero_section_text(mobile=True),
                 hero_section_buttons(mobile=True),
                 spacing="4",
             ),
-            spacing="0",
             align_items="center",
             width="100%",
         ),

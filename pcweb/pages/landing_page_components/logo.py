@@ -243,17 +243,16 @@ def logo():
 def landing():
     return rx.flex(
         logo(),
-        width="100%",
-        align_items="left",
-    )
-
-def landing_mobile():
-    return rx.center(
-        logo(),
-        width="100%",
         style={
-            "#landing-logo": {
+            "@media screen and (max-width: 627px)": {
+                "#landing-logo": {
+                    "transform": "scale(0.6)",
+                },
+            },
+            "@media screen and (max-width: 480px)": {
+                "#landing-logo": {
                     "transform": "scale(0.5)",
                 },
+            },
         }
     )
