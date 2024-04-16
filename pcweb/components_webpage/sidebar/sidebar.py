@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import reflex as rx
 
+from pcweb import constants
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
 from pcweb.pages.docs.library import library
@@ -28,7 +29,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         rx.link("Changelog", href=changelog.path, style=section_style),
         rx.link(
             "Roadmap",
-            href="https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+            href=constants.ROADMAP_URL,
             style=section_style,
         ),
         rx.link(

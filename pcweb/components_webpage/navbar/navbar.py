@@ -1,10 +1,12 @@
 """UI and logic for the navbar component."""
+
 import reflex as rx
 from .buttons.github import github
 from .buttons.discord import discord
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
 
+from pcweb import constants
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
 from pcweb.pages.docs.library import library
@@ -15,7 +17,10 @@ from pcweb.pages.docs.gallery import gallery
 
 def resource_header(text):
     return rx.text(
-        text, color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)), padding_bottom="10px", font_weight="600"
+        text,
+        color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)),
+        padding_bottom="10px",
+        font_weight="600",
     )
 
 
@@ -73,7 +78,7 @@ def resources_section(style):
                     ),
                     resources_item(
                         "Roadmap",
-                        "https://reflex-dev.notion.site/d1b60926ced14914bdbb42547ac84e50?v=723e0afc57294e40961d177aa691ee37",
+                        constants.ROADMAP_URL,
                         "map-pinned",
                     ),
                     resources_item("Blog", blg.path, "text"),
@@ -89,9 +94,7 @@ def resources_section(style):
                     resources_item(
                         "Deployment", hosting.deploy_quick_start.path, "globe"
                     ),
-                    resources_item(
-                        "Self-Hosting", hosting.self_hosting.path, "server"
-                    ),
+                    resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
                     direction="column",
                     background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
                     border_left="1px solid rgba(29, 29, 32, 0.08);",
@@ -118,14 +121,16 @@ def resources_section(style):
 
 def navigation_section():
 
-    section_style={
+    section_style = {
         "color": "#6C6C81",
         "font-weight": "400",
     }
 
     return rx.box(
         rx.flex(
-            rx.link("Docs", href=getting_started.introduction.path, style=section_style),
+            rx.link(
+                "Docs", href=getting_started.introduction.path, style=section_style
+            ),
             rx.link("Blog", href=blg.path, style=section_style),
             rx.link("Gallery", href=gallery.path, style=section_style),
             resources_section(style=section_style),
@@ -133,6 +138,7 @@ def navigation_section():
         ),
         display=["none", "none", "none", "none", "flex", "flex"],
     )
+
 
 def blur_background():
     return rx.fragment(
@@ -162,8 +168,9 @@ def blur_background():
             }
             </style>
             """
-        )
+        ),
     )
+
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
@@ -178,7 +185,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             ),
             href="/",
         ),
-        navigation_section(), 
+        navigation_section(),
         rx.box(
             flex_grow="1",
         ),
@@ -205,5 +212,5 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         z_index="5",
         align_items="center",
         spacing="5",
-        padding="7px 20px 7px 20px;",  
+        padding="7px 20px 7px 20px;",
     )
