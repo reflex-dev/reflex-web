@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2024-04-16
 title: Custom Components
 description: Announcing our custom component ecosystem.
-image: /blog/custom-components.png
+image: /blog/custom_components.webp
 ---
 
 ```python exec
@@ -33,7 +33,7 @@ There are two categories of custom components: **React wrappers** and **high-lev
 
 Since Reflex is built on top of React, you can easily [wrap any existing React component]({wrapping_react.overview.path}) from NPM and use it in your Reflex app. This has always been possible, but now we have a standard way to package and share these components. Over time we hope to grow the ecosystem so you can easily install the components you need instead of having to wrap them yourself.
 
-For example, if you wanted to use an [image zoom](https://www.npmjs.com/package/react-medium-image-zoom) component, rather than figuring out how to wrap it, you can now run
+For example, say you wanted to use an [image zoom](https://www.npmjs.com/package/react-medium-image-zoom) component that lets you click on an image to zoom in. Rather than figuring out how to wrap it, you can now run
 
 ```bash
 pip install reflex-image-zoom
@@ -46,8 +46,19 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 
 def zoom():
-    return image_zoom(
-        rx.image(src="/architecture.png")
+    src = "/blog/custom_components.webp"
+    return rx.hstack(
+        rx.vstack(
+            rx.text("Original Image"),
+            rx.image(src=src),
+        ),
+        rx.vstack(
+            rx.text("Click to Zoom Image"),
+            image_zoom(
+                rx.image(src=src),
+                width="50%",
+            )
+        ),
     )
 ```
 
