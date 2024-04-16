@@ -17,7 +17,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     """Render the sidebar."""
 
     section_style = {
-        "color": "#6C6C81",
+        "color": "#ffffff",
         "font-weight": "400",
     }
 
