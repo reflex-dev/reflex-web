@@ -1,0 +1,12 @@
+name: whitelist check
+
+on:
+  pull_request:
+
+jobs:
+  reflex-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert whitelist is empty
+        run:  echo -e "\nassert not WHITELISTED_PAGES, f'WHITELISTED_PAGES includes {WHITELISTED_PAGES}'" | cat "pcweb/whitelist.py" - | python3
