@@ -10,18 +10,16 @@ from pcweb.templates.docpage import docpage, h1_comp, text_comp
 class CustomComponentGalleryState(rx.State):
     tags: list[str] = []
 
-    @rx.var
-    def components_list(self) -> list[dict[str, str]]:
+    components_list: list[dict[str, str]] = []
+
+    def fetch_components_list(self):
         try:
             response = httpx.get(f"{config.cp_backend_url}/custom-components/gallery")
             response.raise_for_status()
             component_list = response.json()
-        except httpx.HTTPError:
-            # TODO
-            return []
-        except json.JSONDecodeError:
-            # TODO:
-            return []
+        except (httpx.HTTPError, json.JSONDecodeError) as ex:
+            print(f"Internal error: failed to fetch components list due to: {ex}")
+            return
 
         for c in component_list:
             c["downloads_last_month"] = c["downloads"]["last_month"]
@@ -32,7 +30,7 @@ class CustomComponentGalleryState(rx.State):
                 if "reflex" not in keyword.lower()
             ]
 
-        return component_list
+        self.components_list = component_list
 
 
 grid_layout = [1, 2, 2, 3, 3]
@@ -237,4 +235,5 @@ def custom_components() -> rx.Component:
         flex_direction="column",
         height="100%",
         margin_bottom="4em",
+        on_mount=CustomComponentGalleryState.fetch_components_list,
     )
