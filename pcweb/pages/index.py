@@ -179,34 +179,6 @@ def demos():
         ),
         padding_bottom="4em",
         width="100%",
-        style={
-            "@media screen and (max-width: 1024px)": {
-                "transform": "scale(0.9)",
-            },
-            "@media screen and (max-width: 900px)": {
-                "transform": "scale(0.8)",
-            },
-            "@media screen and (max-width: 800px)": {
-                "transform": "scale(0.6)",
-            },
-            "@media screen and (max-width: 768px)": {
-                "padding_top": "3em",
-                "padding_bottom": "3em",
-            },
-            "@media screen and (max-width: 700px)": {
-                "transform": "scale(0.5)",
-            },
-            "@media screen and (max-width: 600px)": {
-                "transform": "scale(0.4)",
-            },
-            "@media screen and (max-width: 500px)": {
-                "transform": "scale(0.3)",
-            },
-            "@media screen and (max-width: 480px)": {
-                "padding_top": "1.5em",
-                "padding_bottom": "1.5em",
-            },
-        },
     )
 
 def user_count_item(count, platform) -> rx.Component:
