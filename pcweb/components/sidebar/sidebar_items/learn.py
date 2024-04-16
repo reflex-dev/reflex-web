@@ -143,6 +143,7 @@ def get_sidebar_items_backend():
             "Substates",
             children=[
                 substates.overview,
+                substates.component_state,
             ],
         ),
         create_item(
