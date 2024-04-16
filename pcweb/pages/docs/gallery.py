@@ -10,7 +10,7 @@ apps_list = [
     {
         "name": "Reflex",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "Graphs", "Forms", "Data Table", "Database"],
+        "tags": ["Multi-Page", "Graphs",  "Data Table", "DB"],
         "description": "This website!",
         "img": "/gallery/pcweb.png",
         "gif": "",
@@ -20,7 +20,7 @@ apps_list = [
     {
         "name": "Chat App",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "AI", "React Components"],
+        "tags": ["Multi-Page", "AI", "Custom Components"],
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
@@ -30,7 +30,7 @@ apps_list = [
     {
         "name": "E-commerce Landing Page",
         "difficulty": "Intermediate",
-        "tags": ["ecommerce", "landing page"],
+        "tags": ["Ecommerce"],
         "description": "Landing page for a skin care ecommerce site.",
         "img": "/gallery/ecommerce_blemish.png",
         "gif": "",
@@ -40,7 +40,7 @@ apps_list = [
     {
         "name": "Customer Data",
         "difficulty": "Intermediate",
-        "tags": ["Forms", "Database", "Data Table"],
+        "tags": [ "DB", "Data Table"],
         "description": "An dashboard for customer data linked to an external database.",
         "img": "/gallery/customer_data_app.png",
         "gif": "",
@@ -60,7 +60,7 @@ apps_list = [
     {
         "name": "Counter",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
@@ -70,7 +70,7 @@ apps_list = [
     {
         "name": "GPT Q&A",
         "difficulty": "Advanced",
-        "tags": ["AI", "Auth", "Database"],
+        "tags": ["AI", "Auth", "DB"],
         "description": "An UI around Open AI's GPT3 API.",
         "img": "/gallery/gpt.png",
         "gif": "/gallery/gpt.gif",
@@ -81,7 +81,7 @@ apps_list = [
     {
         "name": "NBA",
         "difficulty": "Intermediate",
-        "tags": ["Graphs", "Database", "Data Table"],
+        "tags": ["Graphs", "DB", "Data Table"],
         "description": "An interactive dashboard for NBA data.",
         "img": "/gallery/nba.png",
         "gif": "/gallery/nba.gif",
@@ -91,7 +91,7 @@ apps_list = [
     {
         "name": "Quiz",
         "difficulty": "Intermediate",
-        "tags": ["Forms", "Data Table", "Database"],
+        "tags": [ "Data Table", "DB"],
         "description": "A quiz app that will test your Python knowledge.",
         "img": "/gallery/quiz.png",
         "gif": "/gallery/quiz.gif",
@@ -101,7 +101,7 @@ apps_list = [
     {
         "name": "Todo",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A todo list app.",
         "img": "/gallery/todo.png",
         "gif": "/gallery/todo.gif",
@@ -112,7 +112,7 @@ apps_list = [
     {
         "name": "Twitter Clone",
         "difficulty": "Beginner",
-        "tags": ["Auth", "Database", "Multi-Page"],
+        "tags": ["Auth", "DB", "Multi-Page"],
         "description": "A twitter clone with a login system and database.",
         "img": "/gallery/twitter.png",
         "gif": "/gallery/twitter.gif",
@@ -133,7 +133,7 @@ apps_list = [
     {
         "name": "Translator",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A translator app.",
         "img": "/gallery/translator.png",
         "gif": "/gallery/translator.gif",
@@ -143,7 +143,7 @@ apps_list = [
     {
         "name": "Email Gen",
         "difficulty": "Intermediate",
-        "tags": ["AI", "Database"],
+        "tags": ["AI", "DB"],
         "description": "A sales email generator using OpenAI's GPT3 API.",
         "img": "/gallery/sales.png",
         "gif": "",
@@ -153,7 +153,7 @@ apps_list = [
     {
         "name": "Clock",
         "difficulty": "Intermediate",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "An analog clock with different time zones.",
         "img": "/gallery/clock.png",
         "gif": "/gallery/clock.gif",
@@ -256,7 +256,7 @@ community_apps_list = [
     {
         "name": "rx_shout",
         "difficulty": "Intermediate",
-        "tags": ["Auth", "Database", "Widget", "Forms"],
+        "tags": ["Auth", "DB", "Widget", "Forms"],
         "description": "An embeddable shoutbox widget using Sign-in with Google.",
         "img": "/gallery/rx_shout.png",
         "gif": "/gallery/rx_shout.gif",
@@ -469,13 +469,14 @@ def add_item(category):
 
 
 
-grid_layout=[1, 2, 2, 2, 3, 3]
+grid_layout=[1, 1, 2, 2, 3, 3]
 
 def component_grid():
     return rx.chakra.responsive_grid(
             rx.foreach(SideBarState.data_to_return, add_item),
             columns=grid_layout,
             gap=4,
+            padding_x="1em",
         )
 
 
@@ -485,6 +486,7 @@ def community_component_grid():
             rx.foreach(SideBarState.community_apps_list, add_item),
             columns=grid_layout,
             gap=4,
+            padding_x="1em",
         )
 
 def sidebar_component_grid(tags):
@@ -508,6 +510,7 @@ def sidebar_component_grid(tags):
         ],
         padding_y="1em",
         padding_x=".5em",
+        justify="center"
     )
 
 
@@ -524,26 +527,30 @@ def gallery_heading():
                 border_radius= "15px;",
                 border= "1px solid #4435D4;",
                 background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
-                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);",
+                maargin_bottom="1em",
             ),
             rx.chakra.text(
                 "Reflex Gallery", 
-                font_size="64px;",
+                font_size="48px;",
                 background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                 text_align="center",
-                width="650px",
                 background_clip="text",
                 font_weight="bold",
                 letter_spacing= "-1.28px;",
+                line_height="1.2",
             ),
             rx.text(
                 "Use the command `reflex init --template {app_url}` to run a gallery app locally.",
                 color="#6C6C81",
+                text_align="center",
             ),
             align_items="center",
             text_align="left",
             width="100%",
-            spacing="1",
+            spacing="2",
+            padding_x=".5em",
+            justify="center"
         )
 
 
@@ -556,10 +563,9 @@ def gallery() -> rx.Component:
             component_grid(),
             rx.chakra.text(
                 "Community Gallery", 
-                font_size="64px;",
+                font_size="48px;",
                 background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                 text_align="center",
-                width="650px",
                 background_clip="text",
                 font_weight="bold",
                 letter_spacing= "-1.28px;",
@@ -571,4 +577,5 @@ def gallery() -> rx.Component:
             padding_x="1em",
         ),
         height="100%",
+        width=["90%", "90%", "90%", "90%", "90%", "90%"]
     )
