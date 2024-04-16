@@ -161,7 +161,7 @@ def news_letter():
                     "->",
                     color="#FFF",
                     on_click=IndexState.signup,
-                    background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
+                    background="#3C3646",
                     border_top_left_radius="0px",
                     border_bottom_left_radius="0px",
                     _hover={"linear-gradient(180deg, #6151F3 0%, #5646ED 100%);"},
@@ -170,9 +170,9 @@ def news_letter():
             rx.chakra.input(
                 placeholder="Email...",
                 on_blur=IndexState.set_email,
-                color="#6C6C81",
+                color="#3C3646",
                 type="email",
-                border="1px solid #3455eb",
+                border="1px solid #3C3646",
                 _focus={"border": "1px solid #82799E"},
                 border_radius="8px",
             ),
@@ -243,7 +243,7 @@ def links():
             ),
             align_items="start",
         ),
-        rx.desktop_only(
+        rx.tablet_and_desktop(
             news_letter(),
         ),
         justify="between",
