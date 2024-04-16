@@ -10,7 +10,7 @@ apps_list = [
     {
         "name": "Reflex",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "Graphs", "Forms", "Data Table", "Database"],
+        "tags": ["Multi-Page", "Graphs",  "Data Table", "DB"],
         "description": "This website!",
         "img": "/gallery/pcweb.png",
         "gif": "",
@@ -20,7 +20,7 @@ apps_list = [
     {
         "name": "Chat App",
         "difficulty": "Advanced",
-        "tags": ["Multi-Page", "AI", "React Components"],
+        "tags": ["Multi-Page", "AI", "Custom Components"],
         "description": "An AI chat app.",
         "img": "/gallery/chat.gif",
         "gif": "",
@@ -28,14 +28,24 @@ apps_list = [
         "source": "https://github.com/reflex-dev/reflex-chat",
     },
     {
-        "name": "Email Gen",
+        "name": "E-commerce Landing Page",
         "difficulty": "Intermediate",
-        "tags": ["AI", "Database"],
-        "description": "A sales email generator using OpenAI's GPT3 API.",
-        "img": "/gallery/sales.png",
+        "tags": ["Ecommerce"],
+        "description": "Landing page for a skin care ecommerce site.",
+        "img": "/gallery/ecommerce_blemish.png",
         "gif": "",
-        "url": "https://sales.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
+        "url": "https://blemish.reflex.run/",
+        "source": "",
+    },
+    {
+        "name": "Customer Data",
+        "difficulty": "Intermediate",
+        "tags": [ "DB", "Data Table"],
+        "description": "An dashboard for customer data linked to an external database.",
+        "img": "/gallery/customer_data_app.png",
+        "gif": "",
+        "url": "https://customer-data-app.reflex.run/",
+        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app",
     },
     {
         "name": "AI Landing Page",
@@ -48,19 +58,9 @@ apps_list = [
         "source": "https://github.com/tgberkeley/ai-personal-landing-page",
     },
     {
-        "name": "Graphing Traversal",
-        "difficulty": "Intermediate",
-        "tags": ["Graphs"],
-        "description": "A graphing traversal app.",
-        "img": "/gallery/traversal.png",
-        "gif": "",
-        "url": "https://traversal.reflex.run",
-        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
-    },
-    {
         "name": "Counter",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A counter app.",
         "img": "/gallery/counter.png",
         "gif": "/gallery/counter.gif",
@@ -70,7 +70,7 @@ apps_list = [
     {
         "name": "GPT Q&A",
         "difficulty": "Advanced",
-        "tags": ["AI", "Auth", "Database"],
+        "tags": ["AI", "Auth", "DB"],
         "description": "An UI around Open AI's GPT3 API.",
         "img": "/gallery/gpt.png",
         "gif": "/gallery/gpt.gif",
@@ -81,7 +81,7 @@ apps_list = [
     {
         "name": "NBA",
         "difficulty": "Intermediate",
-        "tags": ["Graphs", "Database", "Data Table"],
+        "tags": ["Graphs", "DB", "Data Table"],
         "description": "An interactive dashboard for NBA data.",
         "img": "/gallery/nba.png",
         "gif": "/gallery/nba.gif",
@@ -89,19 +89,9 @@ apps_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/nba",
     },
     {
-        "name": "Customer Data",
-        "difficulty": "Intermediate",
-        "tags": ["Forms", "Database", "Data Table"],
-        "description": "An dashboard for customer data linked to an external database.",
-        "img": "/gallery/customer_data_app.png",
-        "gif": "",
-        "url": "https://customer-data-app.reflex.run/",
-        "source": "https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app",
-    },
-    {
         "name": "Quiz",
         "difficulty": "Intermediate",
-        "tags": ["Forms", "Data Table", "Database"],
+        "tags": [ "Data Table", "DB"],
         "description": "A quiz app that will test your Python knowledge.",
         "img": "/gallery/quiz.png",
         "gif": "/gallery/quiz.gif",
@@ -111,7 +101,7 @@ apps_list = [
     {
         "name": "Todo",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A todo list app.",
         "img": "/gallery/todo.png",
         "gif": "/gallery/todo.gif",
@@ -122,7 +112,7 @@ apps_list = [
     {
         "name": "Twitter Clone",
         "difficulty": "Beginner",
-        "tags": ["Auth", "Database", "Multi-Page"],
+        "tags": ["Auth", "DB", "Multi-Page"],
         "description": "A twitter clone with a login system and database.",
         "img": "/gallery/twitter.png",
         "gif": "/gallery/twitter.gif",
@@ -143,7 +133,7 @@ apps_list = [
     {
         "name": "Translator",
         "difficulty": "Beginner",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "A translator app.",
         "img": "/gallery/translator.png",
         "gif": "/gallery/translator.gif",
@@ -151,14 +141,34 @@ apps_list = [
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/translator",
     },
     {
+        "name": "Email Gen",
+        "difficulty": "Intermediate",
+        "tags": ["AI", "DB"],
+        "description": "A sales email generator using OpenAI's GPT3 API.",
+        "img": "/gallery/sales.png",
+        "gif": "",
+        "url": "https://sales.reflex.run",
+        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/sales",
+    },
+    {
         "name": "Clock",
         "difficulty": "Intermediate",
-        "tags": ["Intro"],
+        "tags": [],
         "description": "An analog clock with different time zones.",
         "img": "/gallery/clock.png",
         "gif": "/gallery/clock.gif",
         "url": "https://clock.dev.reflexcorp.run",
         "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/clock",
+    },
+    {
+        "name": "Graphing Traversal",
+        "difficulty": "Intermediate",
+        "tags": ["Graphs"],
+        "description": "A graphing traversal app.",
+        "img": "/gallery/traversal.png",
+        "gif": "",
+        "url": "https://traversal.reflex.run",
+        "source": "https://github.com/pynecone-io/pynecone-examples/tree/main/traversal",
     },
     {
         "name": "Simple Background Tasks",
@@ -170,16 +180,6 @@ apps_list = [
         "url": "https://simple-background-tasks.reflex.run",
         "source": "https://github.com/reflex-dev/reflex-examples/tree/main/lorem-stream",
     },
-    {
-        "name": "E-commerce Landing Page",
-        "difficulty": "Intermediate",
-        "tags": ["ecommerce", "landing page"],
-        "description": "Landing page for a skin care ecommerce site.",
-        "img": "/gallery/ecommerce_blemish.png",
-        "gif": "",
-        "url": "https://blemish.reflex.run/",
-        "source": "",
-    }
 ]
 
 community_apps_list = [
@@ -231,7 +231,7 @@ community_apps_list = [
         "img": "/gallery/reflexrave.png",
         "gif": "",
         "url": "https://reflexrave.reflex.run",
-        "source": "https://github.com/HeetVekariya/hacktoberfest/tree/heet/ReflexRave",
+        "source": "https://github.com/HeetVekariya/hacktoberfest/tree/heet/ReflexRave/submissions/ai_apps/heet_reflexrave/ReflexRave",
     },
     {
         "name": "Fynesse",
@@ -251,12 +251,12 @@ community_apps_list = [
         "img": "/gallery/mouredev.jpg",
         "gif": "",
         "url": "https://moure.dev",
-        "source": "https://github.com/mouredev/python-web",
+        "source": "https://github.com/mouredev/python-web/tree/main/link_bio",
     },
     {
         "name": "rx_shout",
         "difficulty": "Intermediate",
-        "tags": ["Auth", "Database", "Widget", "Forms"],
+        "tags": ["Auth", "DB", "Widget", "Forms"],
         "description": "An embeddable shoutbox widget using Sign-in with Google.",
         "img": "/gallery/rx_shout.png",
         "gif": "/gallery/rx_shout.gif",
@@ -351,57 +351,132 @@ accent_color = "#F5EFFE"
 def add_item(category):
     return rx.flex(
         rx.box(
+            rx.box(
+                position= 'absolute',
+                top= 0,
+                left= 0,
+                height= '100%',
+                width= '100%',
+                background_color= 'rgba(19, 18, 23, 0.2)',
+                _hover= {
+                    "background_color": "rgba(19, 18, 23, 0)"
+                },
+            ),
+            rx.box(
+                background_image='url('+category["img"]+')',
+                background_size="cover",
+                background_position="center",
+                background_repeat="no-repeat",
+                height="100%",
+                width="100%",
+            ),
+            position="relative",
             height="12rem",
             width="100%",
-            background_image='url('+category["img"]+')',
-            background_size="cover",
-            background_position="center",
-            background_repeat="no-repeat",
-            border_radius="12px"
+            border_radius="12px",
+            overflow="hidden",
+            
         ),
         rx.vstack(
-            rx.vstack(
+            rx.hstack(
                 rx.heading(
                     category["name"],
                     size="5",
                     color="#D6D6ED"
                 ),
-                rx.text(category["description"], size="2", color="#8E8EA8"),
-                align_items="start",
-            ),
-            rx.box(
-                flex_grow=1,
-            ),
-            rx.hstack(
                 rx.hstack(
-                        rx.badge(category["difficulty"]),
+                    rx.cond(
+                        category["source"],
+                        rx.link(
+                            rx.icon("code", color="#8E8EA8"),
+                            href=category["source"],
+                        ),
+                    ),
+                    rx.cond(
+                        category["url"],
+                        rx.link(
+                            rx.icon("eye", color="#8E8EA8"),
+                            href=category["url"],
+                        ),
+                    ),
                 ),
-                rx.spacer(),
-                rx.foreach(
-                    category["tags"],
-                    lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
-                ),
-                color="#8E8EA8",
-                padding_bottom="0.5em",
+                justify="between",
                 width="100%",
             ),
+            rx.text(category["description"], size="2", color="#8E8EA8"),
+            align_items="start",
+            width="100%",
+            padding_top="1em",
+        ),
+        rx.spacer(),
+        rx.vstack(
+            rx.box(
+                rx.cond(
+                    category["source"],
+                    rx.code_block(
+                            "reflex init --template " + category["source"], 
+                            theme="dark", 
+                            custom_style={"fontSize": "0.7em"}, 
+                            border_radius="4px",
+                            overflow_x="scroll",
+                            #can_copy=True,
+                            style={
+                                "&::-webkit-scrollbar-thumb": {
+                                    "background_color": "transparent",
+                                },
+                                "&::-webkit-scrollbar": {
+                                    "background_color": "transparent",
+                                    "height": "0px",
+                                },
+                                
+                            },
+                    ),
+                ),
+                width="100%",
+            ),
+            # rx.hstack(
+            #     rx.hstack(
+            #             rx.badge(category["difficulty"]),
+            #     ),
+            #     rx.spacer(),
+            #     rx.foreach(
+            #         category["tags"],
+            #         lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
+            #     ),
+            #     color="#8E8EA8",
+            #     width="100%",
+            #     overflow_x="scroll",
+            #     style={
+            #         "&::-webkit-scrollbar-thumb": {
+            #             "background_color": "transparent",
+            #         },
+            #         "&::-webkit-scrollbar": {
+            #             "background_color": "transparent",
+            #         },
+            #     },
+            # ),
             width="100%",
             padding_top="1em",
             align_items="start",
-            height="6em",
         ),
         direction="column",
+        border_radius= "14px;",
+        border= "1px solid #3C3646;",
+        background= "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%);",
+        box_shadow= "0px 0px 27px -4px rgba(0, 0, 0, 0.30), 0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset;",
+        padding="1em",
     )
 
 
 
-grid_layout=[1, 2, 2, 3, 3, 4]
+grid_layout=[1, 1, 2, 2, 3, 3]
 
 def component_grid():
     return rx.chakra.responsive_grid(
             rx.foreach(SideBarState.data_to_return, add_item),
             columns=grid_layout,
             gap=4,
+            padding_x="1em",
         )
 
 
@@ -411,6 +486,7 @@ def community_component_grid():
             rx.foreach(SideBarState.community_apps_list, add_item),
             columns=grid_layout,
             gap=4,
+            padding_x="1em",
         )
 
 def sidebar_component_grid(tags):
@@ -434,6 +510,7 @@ def sidebar_component_grid(tags):
         ],
         padding_y="1em",
         padding_x=".5em",
+        justify="center"
     )
 
 
@@ -450,45 +527,49 @@ def gallery_heading():
                 border_radius= "15px;",
                 border= "1px solid #4435D4;",
                 background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
-                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);",
+                maargin_bottom="1em",
             ),
             rx.chakra.text(
                 "Reflex Gallery", 
-                font_size="64px;",
+                font_size="48px;",
                 background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                 text_align="center",
-                width="650px",
                 background_clip="text",
                 font_weight="bold",
                 letter_spacing= "-1.28px;",
+                line_height="1.2",
             ),
             rx.text(
-                "Here are some examples of what the team and community has made with Reflex. ",
+                "Use the command `reflex init --template {app_url}` to run a gallery app locally.",
                 color="#6C6C81",
+                text_align="center",
             ),
             align_items="center",
             text_align="left",
             width="100%",
-            spacing="1",
+            spacing="2",
+            padding_x=".5em",
+            justify="center"
         )
 
 
 @webpage(path="/docs/gallery", title="Gallery · Reflex")
 def gallery() -> rx.Component:
-    return rx.vstack(
+    return rx.container(
         gallery_heading(),
         rx.vstack(
             sidebar_component_grid(list_of_tags),
             component_grid(),
             rx.chakra.text(
                 "Community Gallery", 
-                font_size="64px;",
+                font_size="48px;",
                 background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                 text_align="center",
-                width="650px",
                 background_clip="text",
                 font_weight="bold",
                 letter_spacing= "-1.28px;",
+                padding_top="1em",
             ),
             community_component_grid(),
             rx.spacer(),
@@ -496,4 +577,5 @@ def gallery() -> rx.Component:
             padding_x="1em",
         ),
         height="100%",
+        width=["90%", "90%", "90%", "90%", "90%", "90%"]
     )

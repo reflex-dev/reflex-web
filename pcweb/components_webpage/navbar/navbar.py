@@ -170,11 +170,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         rx.link(
             rx.box(
                 rx.image(
-                        src="/logos/dark/reflex.svg",
-                        alt="Reflex Logo",
-                        height="20px",
-                        justify="start",
-                    ),
+                    src="/logos/dark/reflex.svg",
+                    alt="Reflex Logo",
+                    height="20px",
+                    justify="start",
+                ),
             ),
             href="/",
         ),
@@ -182,10 +182,10 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         rx.box(
             flex_grow="1",
         ),
+        blur_background(),
         rx.flex(
             search_bar(),
             github(),
-            rx.divider(size="2", color=rx.color("mauve"), orientation="vertical"),
             rx.box(
                 discord(),
                 display=["none", "none", "none", "none", "flex", "flex"],
@@ -197,7 +197,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             spacing="3",
             align_items="center",
         ),
-        blur_background(),
         id="navbar",
         height="80px",
         position="fixed",
@@ -205,6 +204,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         top="0px",
         z_index="5",
         align_items="center",
-        spacing="6",
+        spacing="5",
         padding="7px 20px 7px 20px;",  
     )

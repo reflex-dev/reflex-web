@@ -76,7 +76,6 @@ def sidebar():
         sidebar_button("Display", FormsState.clicked == "Display"),
         width="20%",
         height="880px",
-        border="1px solid blue",
     )
 
 def form_content():
@@ -97,7 +96,7 @@ def form_content():
 def settings():
     return rx.vstack(
         rx.text(
-            "Settings", 
+            "Settings",
             color="#FFFFFF",
             padding_left="15px",
         ),

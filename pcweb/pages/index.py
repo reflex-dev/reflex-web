@@ -36,7 +36,7 @@ button_style_landing= {
 
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
-github_url = "https://github.com/reflex-dev"
+github_url = "https://github.com/reflex-dev/reflex"
 bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
@@ -45,7 +45,7 @@ def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
         *children,
-        **kwargs, 
+        **kwargs,
     )
 
 class DemoState(rx.State):
@@ -86,8 +86,8 @@ def image_gen():
                         rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
                     ),
                 ),
-                width="100%", 
-                justify_content="space-between",    
+                width="100%",
+                justify_content="space-between",
             ),
             rx.center(
                 rx.vstack(
@@ -175,10 +175,9 @@ def demos():
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            
+
         ),
-        padding_top="8em",
-        padding_buttom= "20em",
+        padding_bottom="4em",
         width="100%",
         style={
             "@media screen and (max-width: 1024px)": {
@@ -190,6 +189,10 @@ def demos():
             "@media screen and (max-width: 800px)": {
                 "transform": "scale(0.6)",
             },
+            "@media screen and (max-width: 768px)": {
+                "padding_top": "3em",
+                "padding_bottom": "3em",
+            },
             "@media screen and (max-width: 700px)": {
                 "transform": "scale(0.5)",
             },
@@ -198,6 +201,10 @@ def demos():
             },
             "@media screen and (max-width: 500px)": {
                 "transform": "scale(0.3)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "padding_top": "1.5em",
+                "padding_bottom": "1.5em",
             },
         },
     )
@@ -212,11 +219,14 @@ def user_count_item(count, platform) -> rx.Component:
 
 def user_count_comp() -> rx.Component:
     return rx.center(
-        user_count_item(110, "Contributors"),
+        rx.tablet_and_desktop(user_count_item(110, "Contributors")),
+        rx.mobile_only(user_count_item(110, "Contributors")),
         rx.divider(size="4", orientation="vertical"),
-        user_count_item(5000, "Project created per month"),
+        rx.tablet_and_desktop(user_count_item(5000, "Project created per month")),
+        rx.mobile_only(user_count_item(5000, "Project")),
         rx.divider(size="4", orientation="vertical"),
-        user_count_item(3700, "Discord Members"),
+        rx.tablet_and_desktop(user_count_item(3700, "Discord Members")),
+        rx.mobile_only(user_count_item(3700, "On Discord")),
         spacing="5",
         padding="1em",
     )
@@ -355,7 +365,7 @@ def invite_card_comp() -> rx.Component:
     return rx.box(
         rx.flex(
             rx.text(
-                "Contribute to Reflex!", 
+                "Contribute to Reflex!",
                 color="#D6D6ED",
                 weight="medium",
             ),
@@ -385,10 +395,24 @@ def stats() -> rx.Component:
         github_button(),
         invite_card_comp(),
         user_count_comp(),
-        padding_top="25px",
-        padding_bottom="25px",
-        padding_left="25px",
-        padding_right="25px",
+        padding="2em",
+        style={
+            "@media screen and (max-width: 1024px)": {
+                "transform": "scale(0.9)",
+            },
+            "@media screen and (max-width: 837px)": {
+                "transform": "scale(0.85)",
+            },
+            "@media screen and (max-width: 768px)": {
+                "transform": "scale(0.8)",
+            },
+            "@media screen and (max-width: 627px)": {
+                "transform": "scale(0.75)",
+            },
+            "@media screen and (max-width: 480px)": {
+                "transform": "scale(0.65)",
+            },
+        },
     )
 
 def spacer_box_will_fix_later():
@@ -417,14 +441,11 @@ def hero_section_text():
         rx.chakra.text(
             "Web apps in Pure Python.",
             style=heading_1_style,
-            border="1px solid red",
         ),
         rx.chakra.text(
             "Deploy with a single command.",
             style=heading_2_style,
-            border="1px solid red",
         ),
-        border="1px solid gold",
         align_items="center",
         style={
             "@media screen and (max-width: 1024px)": {
@@ -488,20 +509,41 @@ def hero_section() -> rx.Component:
         hero_section_buttons(),
     )
 
+def top() -> rx.Component:
+    return rx.vstack(
+        landing(),
+        hero_section(),
+        padding_top="3em",
+        padding_bottom="3em",
+        style={
+            "@media screen and (max-width: 768px)": {
+                "padding_top": "2em",
+                "padding_bottom": "2em",
+            },
+            "@media screen and (max-width: 480px)": {
+                "padding_top": "1em",
+                "padding_bottom": "1em",
+            },
+        },
+    )
+
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
-    return rx.vstack(
-        rx.vstack(
-            landing(),
-            hero_section(),
-            padding_top="5em",
-            padding_bottom="5em",
-        ),
-        demos(),
+    return rx.flex(
+        top(),
+        rx.tablet_and_desktop(demos()),
         stats(),
         width="100%",
-        border="3px solid red",
+        direction="column",
+        style={
+            "@media screen and (max-width: 768px)": {
+                "gap": "4em",
+            },
+            "@media screen and (max-width: 480px)": {
+                "gap": "2em",
+            },
+        },
     )
 
 

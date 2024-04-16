@@ -116,6 +116,49 @@ def categories():
         justify="center",
     )
 
+def sale_list():
+    return rx.vstack(
+        rx.vstack(
+            rx.flex(
+                "Recent Sales",
+                color="#FFFFFF",
+                width="100%",
+                line_height="1",
+                height="1em",
+                align="center",
+                justify="start",
+                padding_left="25px",
+                weight="bold",
+                font_size="14",
+            ),
+            rx.flex(
+                "You made 265 sales this month.",
+                color="#FFFFFF",
+                width="100%",
+                line_height="1",
+                height="1em",
+                align="center",
+                justify="start",
+                padding_left="25px",
+                font_size="14",
+            ),
+        ),
+        rx.vstack(
+            rx.box(height="10px"),
+            recent_sale_item("jason", "mars", 1999),
+            recent_sale_item("Sofia", "Kim", 499),
+            recent_sale_item("Michael", "jackson", 799),
+            recent_sale_item("jack", "dawson", 1099),
+            height="18em",
+            padding_buttom="5px",
+        ),
+        direction="column",
+        height="21em",
+        width="40%",
+        padding_top="10px",
+        border="1px solid red",
+    )
+
 def dashboard():
     return rx.flex(
         dashboard_and_download(),
@@ -130,46 +173,7 @@ def dashboard():
                     align="center",
                     justify="center",
                 ),
-                rx.flex(
-                    rx.vstack(
-                        rx.flex(
-                            "Recent Sales", 
-                            color="#FFFFFF", 
-                            width="100%",
-                            line_height="1",
-                            height="1em",
-                            align="center",
-                            justify="start",
-                            padding_left="25px",
-                            weight="bold",
-                            font_size="14",
-                        ),
-                        rx.flex(
-                            "You made 265 sales this month.",
-                            color="#FFFFFF", 
-                            width="100%",
-                            line_height="1",
-                            height="1em",
-                            align="center",
-                            justify="start",
-                            padding_left="25px",
-                            font_size="14",
-                        ),
-                    ),
-                    rx.vstack(
-                        rx.box(height="10px"),
-                        recent_sale_item("jason", "mars", 1999),
-                        recent_sale_item("Sofia", "Kim", 499),
-                        recent_sale_item("Michael", "jackson", 799),
-                        recent_sale_item("jack", "dawson", 1099),
-                        height="18em",
-                        padding_buttom="5px",
-                    ),
-                    direction="column",
-                    height="21em",
-                    width="40%",
-                    padding_top="10px",
-                ),
+                sale_list(),
                 direction="row",
                 height="22em",
                 align="center",

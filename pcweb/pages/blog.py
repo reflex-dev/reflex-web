@@ -210,12 +210,7 @@ def component_grid():
             ),
         )
     return rx.flex(
-        rx.grid(
-            *posts, 
-            columns="3",
-            spacing="4",
-            width="80%"
-        ),
+        rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
         justify_content="center",
         padding_top="4em"
     )

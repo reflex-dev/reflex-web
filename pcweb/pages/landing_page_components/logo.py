@@ -1,6 +1,4 @@
 import reflex as rx
-#import tkinter as tk
-
 
 def logo():
     return rx.html(
