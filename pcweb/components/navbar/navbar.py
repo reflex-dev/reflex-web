@@ -192,7 +192,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             height="80px",
             width="100%",
             align_items="center",
-            spacing="6",
+            spacing="5",
             padding="7px 20px 7px 20px;",  
         ),
         width="100%",

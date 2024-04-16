@@ -34,7 +34,7 @@
     width: 6em;
   }
 
-  [data-theme='dark'] .ikp-search-bar-trigger__container {
+  .ikp-search-bar-trigger__container {
     align-items: center;
     justify-content: center;
   }
