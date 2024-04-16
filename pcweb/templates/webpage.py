@@ -9,8 +9,7 @@ DEFAULT_TITLE = "Web Apps in Pure Python"
 
 def spotlight():
     return rx.flex(
-        rx.html(
-            """
+        rx.html("""
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/css/spotlight.css" />
@@ -53,16 +52,17 @@ def spotlight():
     </div>
   </body>
 </html>
-"""
-        ),
-        z_index=-1,
-        position="absolute",
-        width="100%",
-        height="100%",
-        align_items="start",
-        justify_content="center",
-        opacity=0.99,
-    )
+"""  
+    ),
+    z_index=-1,
+    position="absolute",
+    width="100%",
+    height="100%",
+    align_items="start",
+    justify_content="center",
+    opacity=0.99,
+)
+
 
 
 def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
@@ -109,7 +109,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             return rx.flex(
                 navbar(sidebar=sb),
                 spotlight(),
-                rx.container(
+                rx.container(  
                     margin_top="150px",
                 ),
                 contents(*children, **props),

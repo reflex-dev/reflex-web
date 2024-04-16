@@ -45,7 +45,7 @@ def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
         *children,
-        **kwargs,
+        **kwargs, 
     )
 
 class DemoState(rx.State):
@@ -86,8 +86,8 @@ def image_gen():
                         rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
                     ),
                 ),
-                width="100%",
-                justify_content="space-between",
+                width="100%", 
+                justify_content="space-between",    
             ),
             rx.center(
                 rx.vstack(
@@ -175,7 +175,7 @@ def demos():
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-
+            
         ),
         padding_bottom="4em",
         width="100%",
@@ -365,7 +365,7 @@ def invite_card_comp() -> rx.Component:
     return rx.box(
         rx.flex(
             rx.text(
-                "Contribute to Reflex!",
+                "Contribute to Reflex!", 
                 color="#D6D6ED",
                 weight="medium",
             ),
@@ -389,7 +389,6 @@ def invite_card_comp() -> rx.Component:
 
 def stats() -> rx.Component:
     return rx.vstack(
-        spacer_box_will_fix_later(),
         open_source_badge(),
         invite_message(),
         github_button(),

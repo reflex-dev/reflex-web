@@ -96,7 +96,7 @@ def form_content():
 def settings():
     return rx.vstack(
         rx.text(
-            "Settings",
+            "Settings", 
             color="#FFFFFF",
             padding_left="15px",
         ),
@@ -119,7 +119,6 @@ def content():
         form_content(),
         height="80%",
         width="100%",
-        border="1px solid red",
     )
 
 def forms():
