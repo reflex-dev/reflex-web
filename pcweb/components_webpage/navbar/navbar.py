@@ -170,11 +170,11 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         rx.link(
             rx.box(
                 rx.image(
-                        src="/logos/dark/reflex.svg",
-                        alt="Reflex Logo",
-                        height="20px",
-                        justify="start",
-                    ),
+                    src="/logos/dark/reflex.svg",
+                    alt="Reflex Logo",
+                    height="20px",
+                    justify="start",
+                ),
             ),
             href="/",
         ),
