@@ -32,7 +32,6 @@ github_url = "https://github.com/reflex-dev/reflex"
 bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
-
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
@@ -46,6 +45,32 @@ class DemoState(rx.State):
 
     def set_demo(self, demo):
         self.demo = demo
+
+import openai
+openai_client = openai.OpenAI()
+
+
+class ImageGenState(rx.State):
+    """The app state."""
+
+    image_url = ""
+    processing = False
+    complete = False
+
+    def get_image(self, form_data):
+        """Get the image from the prompt."""
+        prompt = form_data["prompt"]
+        if prompt == "":
+            return rx.window_alert("Prompt Empty")
+
+        self.processing, self.complete = True, False
+        yield
+        response = openai_client.images.generate(
+            prompt=prompt, n=1, size="256x256"
+        )
+        self.image_url = response.data[0].url
+        self.processing, self.complete = False, True
+
 
 def image_gen():
     return rx.hstack(
@@ -82,10 +107,17 @@ def image_gen():
                 justify_content="space-between",    
             ),
             rx.center(
-                rx.vstack(
-                    rx.input(placeholder="Enter description", width="100%"),
-                    rx.button("Generate Image ->", width="100%"),
-                    align_items="center",
+                rx.form(
+                    rx.cond(
+                        ImageGenState.processing,
+                        rx.chakra.circular_progress(is_indeterminate=True),
+                        rx.image(src=ImageGenState.image_url, width="100%"),
+                    ),
+                    rx.vstack(
+                        rx.input(placeholder="Enter description", name="prompt", width="100%"),
+                        rx.button("Generate Image ->", width="100%"),
+                    ),
+                    on_submit=ImageGenState.get_image,
                 ),
                 width="100%",
                 height="100%",
@@ -154,6 +186,7 @@ def demos():
             example_button("Forms"),
             example_button("Dashboard"),
             example_button("Auth"),
+            example_button("Image Generator"),
             rx.spacer(),
             rx.box(),
             align_items="left"
@@ -164,12 +197,13 @@ def demos():
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
+                ("Image Generator", image_gen()),
                 forms()
             ),
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            
+            width="100%", 
         ),
         padding_bottom="4em",
         width="100%",
