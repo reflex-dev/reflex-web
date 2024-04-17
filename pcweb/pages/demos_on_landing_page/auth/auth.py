@@ -5,7 +5,7 @@ def auth_form():
         rx.box(height="24px"),
         rx.flex(
             rx.text(
-                "Create an account",
+                "Login",
                 font_size="24px",
                 line_height="2em",
                 weight="bold",
@@ -17,7 +17,7 @@ def auth_form():
             ),
             rx.box(height="8px"),
             rx.text(
-                "Enter your email below to create your account",
+                "Example authentication form.",
                 font_size="14px",
                 line_height="2em",
                 color="#A1A1AA",
@@ -34,64 +34,49 @@ def auth_form():
                     placeholder="name@example.com",
                     font_size="14px",
                     line_height="2em",
-                    color="#A1A1AA",
-                    background="transparent",
-                    border="1px solid #A1A1AA",
                     height="36px",
-                    focus_border_color="#404040",
+                    variant="surface"
                 ),
                 rx.box(height="8px"),
                 rx.button(
                     "Sign in with Email",
-                    color="#000000",
-                    background="#FFFFFF",
                     font_size="14px",
                     line_height="2em",
                     width="350px",
                     height="36px",
-                    _hover={
-                        "background_color": "#e6e3e3",
-                    }
                 ),
                 direction="column",
             ),
-            rx.flex( 
-                rx.box(height="24px"),
-                rx.text(
-                    "--------  OR CONTINUE WITH  --------",
-                    color="#A1A1AA",
-                    font_size="14px",
-                    height="16px",
-                    align="center",
-                    justify="center",
-                ),
-                rx.box(
-                    height="24px",
-                ),
-                direction="column",
+            rx.divider(
+                color="#A1A1AA",
             ),
             rx.button(
-                "GitHub",
+                "Google",
                 height="36px",
                 width="350px",
-                background="transparent",
-                border="1px solid #A1A1AA",
+                variant="outline",
                 _hover={
                     "background_color": "#A1A1AA",
                 },
-            ), #github
+            ),
+            rx.button(
+                "Facebook",
+                height="36px",
+                width="350px",
+                variant="outline",
+                _hover={
+                    "background_color": "#A1A1AA",
+                },
+            ),
             direction="column",
+            spacing="2",
         ),
         rx.flex(
-            rx.box(
-                height="24px",
-            ),
             rx.text(
-                "By clicking continue, you agree to our Term of Service and Privacy Policy.",
-                color="#A1A1AA",
-                font_size="14px",
+                "Get started with a free account.",
+                color=rx.color("mauve", 7),
+                font_size=".8em",
                 line_height="2em",
-                height="40px",
                 align="center",
                 justify="center",
             ),
@@ -103,8 +88,10 @@ def auth_form():
     )
 
 def auth():
-    return rx.center(
+    return rx.theme(rx.center(
         auth_form(),
         width="100%",
         height="100%",
+    ),
+    appearance="dark",
     )

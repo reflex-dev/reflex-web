@@ -72,14 +72,13 @@ def recent_sale_item(first_name, last_name, sale_amount):
 
 def dashboard_and_download():
     return rx.hstack(
-        rx.center(
-            "Dashboard",
+        rx.heading(
+            "Monthly Overview",
             font_size="24px",
-            color=rx.color("mauve", 12)
         ),
         rx.spacer(),
         rx.button(
-            "Download",
+            "Export Data ->",
             color="#000000",
             background="#FFFFFF",
         ),
@@ -92,13 +91,11 @@ def dashboard_and_download():
 
 def categories():
     return rx.flex(
-        category_items("Revenue", "$32,450", "+20.1% from last month", False),
+        category_items("MRR", "$32,450", "+20.1% from last month", False),
         rx.spacer(),
         category_items("Active Users", "+1230", "+18.1% from last month", False),
         rx.spacer(),
         category_items("Followers", "+930", "+19% from last month", False),
-        rx.spacer(),
-        category_items("Contributors", "+90", "+20 from last month", False),
         direction="row",
         height="5em",
         width="100%",
