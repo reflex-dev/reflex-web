@@ -102,55 +102,63 @@ def categories():
     )
 
 def dashboard():
-    return rx.theme(rx.flex(
-        dashboard_and_download(),
-        rx.hstack(
-            rx.flex(
-                categories(),
-                rx.spacer(),
-                sample_bar_chart(data),
-                direction="column",
-                height="100%",
-                width="60%",
+    return rx.fragment(
+        rx.box(
+            rx.image(src="/landing/dashboard.png"),
+            display=["flex", "flex", "none", "none"],
+        ),
+        rx.box(
+            rx.theme(rx.flex(
+            dashboard_and_download(),
+            rx.hstack(
+                rx.flex(
+                    categories(),
+                    rx.spacer(),
+                    sample_bar_chart(data),
+                    direction="column",
+                    height="100%",
+                    width="60%",
+                    align="center",
+                    justify="center",
+                    spacing="4",
+                ),
+                rx.flex(
+                    rx.table.root(
+                        rx.table.header(
+                            rx.table.row(
+                                rx.table.column_header_cell("Full name"),
+                                rx.table.column_header_cell("Email"),
+                                rx.table.column_header_cell("Sale"),
+                            ),
+                        ),
+                        rx.table.body(
+                        recent_sale_item("Paul", "Atreides", 1999),
+                        recent_sale_item("Duncan", "Idaho", 2999),
+                        recent_sale_item("Leto", "Atreides", 3999),
+                        recent_sale_item("Gurney", "Halleck", 4999),
+                        recent_sale_item("Jessica", "Atreides", 5999),
+                        recent_sale_item("Chani", "Kynes", 1999),
+                        recent_sale_item("Stilgar", "Kynes", 1999),
+                        recent_sale_item("Duke", "Leto", 8999),
+                        )
+                    ),
+                    direction="column",
+                    height="100%",
+                    width="40%",
+                ),
+                direction="row",
+                height="26em",
                 align="center",
                 justify="center",
                 spacing="4",
+                width="100%",   
             ),
-            rx.flex(
-                rx.table.root(
-                    rx.table.header(
-                        rx.table.row(
-                            rx.table.column_header_cell("Full name"),
-                            rx.table.column_header_cell("Email"),
-                            rx.table.column_header_cell("Sale"),
-                        ),
-                    ),
-                    rx.table.body(
-                    recent_sale_item("Paul", "Atreides", 1999),
-                    recent_sale_item("Duncan", "Idaho", 2999),
-                    recent_sale_item("Leto", "Atreides", 3999),
-                    recent_sale_item("Gurney", "Halleck", 4999),
-                    recent_sale_item("Jessica", "Atreides", 5999),
-                    recent_sale_item("Chani", "Kynes", 1999),
-                    recent_sale_item("Stilgar", "Kynes", 1999),
-                    recent_sale_item("Duke", "Leto", 8999),
-                    )
-                ),
-                direction="column",
-                height="100%",
-                width="40%",
-            ),
-            direction="row",
-            height="26em",
-            align="center",
+            direction="column",
             justify="center",
-            spacing="4",
-            width="100%",   
+            align="center",
+            padding="1em"
         ),
-        direction="column",
-        justify="center",
-        align="center",
-        padding="1em"
-    ),
-    appearance="dark",
-    )
+        appearance="dark",
+        ),
+        display=["none", "none", "flex", "flex"],
+    ))
