@@ -488,34 +488,27 @@ def hero_section_buttons(mobile=False):
 def hero_section() -> rx.Component:
     """Render the hero section of the landing page."""
     return rx.center(
-        rx.vstack(
+        rx.chakra.vstack(
             landing(),
-            rx.vstack(
+            rx.desktop_only(rx.vstack(
                 feature_button_hstack(),
                 hero_section_text(),
                 hero_section_buttons(),
                 padding_left="3em",
                 spacing="3",
+                align_items="left",
+            )),
+            rx.mobile_and_tablet(
+                rx.vstack(
+                    feature_button_hstack(mobile=True),
+                    hero_section_text(mobile=True),
+                    hero_section_buttons(mobile=True),
+                    spacing="3",
+                ),
             ),
             spacing="4",
-            align_items="left",
-        ),
-        width="100%",
-    )
-
-def hero_section_mobile() -> rx.Component:
-    """Render the hero section of the landing page."""
-    return rx.center(
-        rx.vstack(
-            landing(),
-            rx.vstack(
-                feature_button_hstack(mobile=True),
-                hero_section_text(mobile=True),
-                hero_section_buttons(mobile=True),
-                spacing="4",
-            ),
-            align_items="center",
-            width="100%",
+            direction="column",
+            align_items="left", # align_items=["center","center", "center","center", "left" ,"left"],
         ),
         width="100%",
     )
@@ -523,8 +516,7 @@ def hero_section_mobile() -> rx.Component:
 
 def top() -> rx.Component:
     return rx.container(
-        rx.desktop_only(hero_section()),
-        rx.mobile_and_tablet(hero_section_mobile()),
+        hero_section(),
         padding_top="3em",
         padding_bottom="3em",
     )
