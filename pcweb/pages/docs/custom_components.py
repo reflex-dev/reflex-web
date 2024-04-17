@@ -29,6 +29,7 @@ class CustomComponentGalleryState(rx.State):
                 for keyword in c["keywords"] or []
                 if "reflex" not in keyword.lower()
             ]
+            c["download_url"] = package_url(c["package_name"])
 
         self.components_list = component_list
 
@@ -61,7 +62,7 @@ def demo_modal_if_present(demo_url: str) -> rx.Component:
 
 
 def package_url(package_name: str) -> str:
-    return f"https://pypi.org/pypi/{package_name}/json"
+    return f"https://pypi.org/pypi/{package_name}/"
 
 
 def author_card_if_present(author: str) -> rx.Component:
@@ -81,15 +82,12 @@ def updated_on_pypi_if_present(updated_on_pypi: str) -> rx.Component:
 def demo_url_if_present(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
-        info_icon(tag="external-link"),
+        rx.link(info_icon(tag="eye"), href=demo_url, is_external=True),
     )
 
 
-def download_url_if_present(download_url: str) -> rx.Component:
-    return rx.cond(
-        download_url,
-        rx.link(info_icon(tag="download"), href=download_url),
-    )
+def download_url(download_url: str) -> rx.Component:
+    return rx.link(info_icon(tag="external-link"), href=download_url, is_external=True)
 
 
 def source_if_present(source: str) -> rx.Component:
@@ -98,6 +96,7 @@ def source_if_present(source: str) -> rx.Component:
         rx.link(
             info_icon(tag="github"),
             href=source,
+            is_external=True,
         ),
     )
 
@@ -120,6 +119,26 @@ def pypi_summary(summary: str) -> rx.Component:
     )
 
 
+def pip_install_command_copy_button(package_name: str) -> rx.Component:
+    return rx.code_block(
+        "pip install " + package_name, 
+        custom_style={"fontSize": "0.7em"}, 
+        border_radius="4px",
+        overflow_x="scroll",
+        # can_copy=True,
+        style={
+            "&::-webkit-scrollbar-thumb": {
+                "background_color": "transparent",
+            },
+            "&::-webkit-scrollbar": {
+                "background_color": "transparent",
+                "height": "0px",
+            },
+            
+        },
+    )
+
+
 def pypi_download_box(name: str, downloads: str) -> rx.Component:
     return rx.hstack(
         rx.heading(
@@ -132,7 +151,7 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
         rx.tooltip(
             rx.badge(
                 downloads,
-                rx.icon(tag="download", size=12),
+                rx.icon(tag="external-link", size=12),
                 padding_x=".5em",
                 font_size="0.75em",
                 border_radius="6px",
@@ -147,8 +166,9 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
 
 
 def add_item(category: dict) -> rx.Component:
-    name = rx.cond(
-        category["display_name"], category["display_name"], category["package_name"]
+    # Format the package name to be more human readable
+    name = rx.Var.create(
+        f"{{{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}}"
     )
     return rx.flex(
         rx.cond(
@@ -177,17 +197,16 @@ def add_item(category: dict) -> rx.Component:
             align_items="start",
         ),
         rx.divider(),
-        rx.box(
-            flex_grow=1,
-        ),
+        rx.spacer(),
+        pip_install_command_copy_button(category["package_name"]),
         rx.hstack(
             rx.spacer(),
             author_card_if_present(category["author"]),
             updated_on_pypi_if_present(category["updated_on_pypi"]),
             source_if_present(category["source"]),
             demo_url_if_present(category["demo_url"]),
-            demo_modal_if_present(category["demo_url"]),
-            download_url_if_present(category["download_url"]),
+            # demo_modal_if_present(category["demo_url"]),
+            download_url(category["download_url"]),
             width="100%",
             justify="center",
             padding_top=".5em",
@@ -215,12 +234,14 @@ def text_comp(text: rx.Var[str]) -> rx.Component:
 
 def info_icon(
     tag: str,
+    **kwargs,
 ) -> rx.Component:
     return rx.box(
         rx.icon(tag=tag, width="1em", height="1em"),
         padding_x="0.5em",
         border_radius="15px",
         box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
+        **kwargs,
     )
 
 
