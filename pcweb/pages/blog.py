@@ -122,6 +122,7 @@ def page(document, route) -> rx.Component:
             padding="4em 4em 0px 4em",
             margin_x="auto",
             size="2",
+            max_width=["25em", "30em","100%","100%","100%","100%"]
         ),
         rx.theme(
             rx.container(
@@ -130,7 +131,7 @@ def page(document, route) -> rx.Component:
                 margin_x="auto",
                 size="2",
                 overflow="hidden",
-                max_width=["25em", "100%","100%","100%","100%","100%"]
+                max_width=["25em", "30em","100%","100%","100%","100%"]
             ),
             appearance="dark",
         )
