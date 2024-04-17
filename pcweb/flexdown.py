@@ -64,7 +64,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
                             )
                         ),
-                        rx.markdown(title + " ", align_items="center") if title else rx.markdown(content),
+                        self.render_fn(content=title) if title else self.render_fn(content=content),
                         rx.spacer(),
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
