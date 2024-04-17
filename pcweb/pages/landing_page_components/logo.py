@@ -244,11 +244,6 @@ def landing():
     return rx.flex(
         logo(),
         style={
-            "@media screen and (max-width: 1024px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.9)",
-                },
-            },
             "@media screen and (max-width: 837px)": {
                 "#landing-logo": {
                     "transform": "scale(0.8)",
