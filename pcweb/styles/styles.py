@@ -47,6 +47,9 @@ BASE_STYLE = {
         "border_radius": "8px",
     },
     rx.chakra.link: {"text_decoration": "none", "_hover": {}},
+    rx.markdown: {
+        "background": "transparent",
+    }
 }
 
 # Fonts to include.

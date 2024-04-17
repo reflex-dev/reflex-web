@@ -119,7 +119,8 @@ def page(document, route) -> rx.Component:
             border_radius= "40px 40px 0px 0px;",
             background= "linear-gradient(180deg, #0F0E12 0%, rgba(0, 0, 0, 0.00) 100%);",
             mix_blend_mode="plus-lighter;",
-            padding="4em 4em 0px 4em",
+            padding_x=["1em", "1em", "4em", "4em", "4em", "4em"],
+            padding_top="4em",
             margin_x="auto",
             size="2",
             max_width=["25em", "30em","100%","100%","100%","100%"]
@@ -127,10 +128,11 @@ def page(document, route) -> rx.Component:
         rx.theme(
             rx.container(
                 xd.render(document, "blog.md"),
-                padding_x="1em",
                 margin_x="auto",
+                padding_bottom="4em",
                 size="2",
                 overflow="hidden",
+                background="#131217",
                 max_width=["25em", "30em","100%","100%","100%","100%"]
             ),
             appearance="dark",
