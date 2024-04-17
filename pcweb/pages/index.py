@@ -521,7 +521,7 @@ def top() -> rx.Component:
         padding_bottom="3em",
     )
 
-@webpage(path="/testindex", title="Reflex · Web apps in Pure Python")
+@webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
