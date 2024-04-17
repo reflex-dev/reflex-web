@@ -73,7 +73,7 @@ def installation():
                                 "border": "1px solid rgba(94, 78, 242, 0.15);"
                             }
                         ),
-                        href="/docs/getting-started/installation/"
+                        href=getting_started.installation.path,
                     )
                 ),
                 direction="column",
