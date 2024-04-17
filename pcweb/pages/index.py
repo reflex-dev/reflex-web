@@ -205,7 +205,7 @@ def demos():
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 ("Image Generator", image_gen()),
-                forms()
+                image_gen()
             ),
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
