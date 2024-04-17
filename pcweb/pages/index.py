@@ -1,6 +1,7 @@
 import reflex as rx
 from pcweb import styles
 from pcweb.templates import webpage
+from reflex_chat import chat
 
 from .demos_on_landing_page.auth.auth import auth
 from .demos_on_landing_page.forms.forms import forms
@@ -127,7 +128,7 @@ def image_gen():
             padding_top="1em",
         ),
         rx.vstack(
-            "Settings",
+            rx.heading("Settings"),
             rx.radix.input.root(
                 rx.input(placeholder="Seed"),
                 width="100%"
@@ -185,10 +186,10 @@ def demos():
             padding_y="2em",
         ),
         rx.hstack(
-            example_button("Forms"),
-            example_button("Dashboard"),
-            example_button("Auth"),
             example_button("Image Generator"),
+            example_button("Forms"),
+            example_button("Auth"),
+            example_button("Dashboard"),
             rx.spacer(),
             rx.box(),
             align_items="left"
