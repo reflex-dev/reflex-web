@@ -410,51 +410,27 @@ def add_item(category):
         ),
         rx.spacer(),
         rx.vstack(
-            rx.box(
-                rx.cond(
-                    category["source"],
-                    rx.code_block(
-                            "reflex init --template " + category["source"], 
-                            theme="dark", 
-                            custom_style={"fontSize": "0.7em"}, 
-                            border_radius="4px",
-                            overflow_x="scroll",
-                            #can_copy=True,
-                            style={
-                                "&::-webkit-scrollbar-thumb": {
-                                    "background_color": "transparent",
-                                },
-                                "&::-webkit-scrollbar": {
-                                    "background_color": "transparent",
-                                    "height": "0px",
-                                },
-                                
-                            },
-                    ),
+            rx.hstack(
+                rx.hstack(
+                        rx.badge(category["difficulty"]),
                 ),
+                rx.spacer(),
+                rx.foreach(
+                    category["tags"],
+                    lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
+                ),
+                color="#8E8EA8",
                 width="100%",
+                overflow_x="scroll",
+                style={
+                    "&::-webkit-scrollbar-thumb": {
+                        "background_color": "transparent",
+                    },
+                    "&::-webkit-scrollbar": {
+                        "background_color": "transparent",
+                    },
+                },
             ),
-            # rx.hstack(
-            #     rx.hstack(
-            #             rx.badge(category["difficulty"]),
-            #     ),
-            #     rx.spacer(),
-            #     rx.foreach(
-            #         category["tags"],
-            #         lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
-            #     ),
-            #     color="#8E8EA8",
-            #     width="100%",
-            #     overflow_x="scroll",
-            #     style={
-            #         "&::-webkit-scrollbar-thumb": {
-            #             "background_color": "transparent",
-            #         },
-            #         "&::-webkit-scrollbar": {
-            #             "background_color": "transparent",
-            #         },
-            #     },
-            # ),
             width="100%",
             padding_top="1em",
             align_items="start",
