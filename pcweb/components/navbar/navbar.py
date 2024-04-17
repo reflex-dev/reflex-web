@@ -35,10 +35,10 @@ def banner():
         rx.box(
             rx.hstack(
                 rx.text(
-                    " 🚀 Reflex is launching on Product Hunt on April 17th! Learn more ", 
+                    " 🚀 Reflex live on Product Hunt! Check out our launch ", 
                     rx.link(
                         "here",
-                        href="https://www.producthunt.com/products/reflex-5",
+                        href="https://www.producthunt.com/posts/reflex-6",
                         style={
                             "text_decoration": "underline",
                         },

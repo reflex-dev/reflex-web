@@ -462,7 +462,7 @@ def hero_section_text(mobile=False):
             font_size="54px" if not mobile else "30px",
             font_weight="bold",
             line_height="1",
-            max_width="650px",
+            max_width=["300px", "350px","650px", "650px", "650px","650px"],
         ),
         align_items="center",
         
