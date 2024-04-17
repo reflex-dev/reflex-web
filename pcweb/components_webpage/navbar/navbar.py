@@ -148,6 +148,9 @@ def blur_background():
                 var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 var scrollThreshold = 100;
                 var navbar = document.getElementById('navbar');
+                if (!navbar) {
+                    return;
+                }
 
                 if (scrollTop > scrollThreshold) {
                     navbar.classList.add('blur-navbar');
@@ -205,7 +208,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             align_items="center",
         ),
         id="navbar",
-        height="80px",
         position="fixed",
         width="100%",
         top="0px",

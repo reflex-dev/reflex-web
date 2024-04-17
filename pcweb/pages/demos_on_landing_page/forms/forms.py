@@ -70,13 +70,22 @@ def content():
     )
 
 def forms():
-    return rx.theme(
-    rx.vstack(
-        settings(),
-        content(),
-        height="100%",
-        width="100%",
-        padding_x="15px",
-    ),
-    appearance="dark",
+    return rx.fragment(
+        rx.box(
+            rx.image(src="/landing/form.png"),
+            display=["flex", "flex", "none", "none"],
+        ),
+        rx.box(
+            rx.theme(
+                rx.vstack(
+                    settings(),
+                    content(),
+                    height="100%",
+                    width="100%",
+                    padding_x="15px",
+                ),
+                appearance="dark",
+            ),
+            display=["none", "none", "flex", "flex"],
+        ),
     )

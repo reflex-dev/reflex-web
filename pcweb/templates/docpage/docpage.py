@@ -13,7 +13,6 @@ from .state import FeedbackState
 link_style = {
     "color": rx.color("mauve", 10),
     "font_weight": "500",
-    "font_size": ".9em",
 }
 
 def doc_section(*contents):
@@ -446,8 +445,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             "none",
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
-                        padding_left=styles.PADDING_X,
-                        padding_right=styles.PADDING_X,
+                        padding_x=styles.PADDING_X,
                         width=["100%", "100%", "100%", "100%", "60%", "60%"],
                         height="100%",
                     ),
@@ -508,7 +506,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         margin_top="130px",
                         width="15%",
                         height="100%",
-                        display=["none", "none", "none", "none", "none", "flex"],
+                        display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,
                     ),
                     max_width="110em",

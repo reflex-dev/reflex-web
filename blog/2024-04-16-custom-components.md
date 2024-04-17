@@ -89,7 +89,6 @@ except:
 # Only define your logic, the chat component handles the rest.
 async def run_llm(chat_state):
     # Start a new session to answer the question.
-    print(chat_state.messages)
     session = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=chat_state.messages,

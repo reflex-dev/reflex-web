@@ -1,6 +1,7 @@
 import reflex as rx
 from pcweb import styles
 from pcweb.templates import webpage
+from reflex_chat import chat
 
 from .demos_on_landing_page.auth.auth import auth
 from .demos_on_landing_page.forms.forms import forms
@@ -32,7 +33,6 @@ github_url = "https://github.com/reflex-dev/reflex"
 bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
-
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
@@ -42,13 +42,43 @@ def container(*children, **kwargs):
 
 class DemoState(rx.State):
 
-    demo = "Forms"
+    demo = "Image Generator"
 
     def set_demo(self, demo):
         self.demo = demo
 
+
+try:
+    import openai
+    openai_client = openai.OpenAI()
+except:
+    openai_client = None
+
+
+class ImageGenState(rx.State):
+    """The app state."""
+
+    image_url = ""
+    processing = False
+    complete = False
+
+    def get_image(self, form_data):
+        """Get the image from the prompt."""
+        prompt = form_data["prompt"]
+        if prompt == "":
+            return rx.window_alert("Prompt Empty")
+
+        self.processing, self.complete = True, False
+        yield
+        response = openai_client.images.generate(
+            prompt=prompt, n=1, size="512x512"
+        )
+        self.image_url = response.data[0].url
+        self.processing, self.complete = False, True
+
+
 def image_gen():
-    return rx.hstack(
+    return rx.theme(rx.hstack(
         rx.vstack(
             rx.hstack(
                 rx.menu.root(
@@ -82,10 +112,17 @@ def image_gen():
                 justify_content="space-between",    
             ),
             rx.center(
-                rx.vstack(
-                    rx.input(placeholder="Enter description", width="100%"),
-                    rx.button("Generate Image ->", width="100%"),
-                    align_items="center",
+                rx.form(
+                    rx.cond(
+                        ImageGenState.processing,
+                        rx.text("Processing..."),
+                        rx.image(src=ImageGenState.image_url, width="100%"),
+                    ),
+                    rx.vstack(
+                        rx.input(placeholder="Enter description", name="prompt", width="100%"),
+                        rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+                    ),
+                    on_submit=ImageGenState.get_image,
                 ),
                 width="100%",
                 height="100%",
@@ -95,7 +132,7 @@ def image_gen():
             padding_top="1em",
         ),
         rx.vstack(
-            "Settings",
+            rx.heading("Settings"),
             rx.radix.input.root(
                 rx.input(placeholder="Seed"),
                 width="100%"
@@ -119,6 +156,8 @@ def image_gen():
         ),
         padding_x="1em",
         height="100%",
+    ),
+    appearance="dark",
     )
 
 def example_button(text):
@@ -151,12 +190,12 @@ def demos():
             padding_y="2em",
         ),
         rx.hstack(
+            example_button("Image Generator"),
             example_button("Forms"),
-            example_button("Dashboard"),
             example_button("Auth"),
+            example_button("Dashboard"),
             rx.spacer(),
             rx.box(),
-            width="70em",
             align_items="left"
         ),
         rx.box(
@@ -165,13 +204,13 @@ def demos():
                 ("Forms", forms()),
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
+                ("Image Generator", image_gen()),
                 forms()
             ),
-            width="70em",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            
+            width="100%", 
         ),
         padding_bottom="4em",
         width="100%",
@@ -503,22 +542,10 @@ def index() -> rx.Component:
     return rx.flex(
         top(),
         rx.container(
-        rx.tablet_and_desktop(demos()),
+            demos(),
+            stats(),
+            padding_x="1em",
         ),
-        stats(),
         width="100%",
         direction="column",
-        style={
-            "@media screen and (max-width: 768px)": {
-                "gap": "4em",
-            },
-            "@media screen and (max-width: 480px)": {
-                "gap": "2em",
-            },
-        },
     )
-
-
-
-
-

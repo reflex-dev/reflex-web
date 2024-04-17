@@ -102,7 +102,12 @@ def categories():
     )
 
 def dashboard():
-    return rx.theme(rx.flex(
+    return rx.fragment(
+        rx.box(
+            rx.image(src="/landing/dashboard.png"),
+            display=["flex", "flex", "none", "none"],
+        ),
+        rx.theme(rx.flex(
         dashboard_and_download(),
         rx.hstack(
             rx.flex(
@@ -150,7 +155,8 @@ def dashboard():
         direction="column",
         justify="center",
         align="center",
-        padding="1em"
+        padding="1em",
+        display=["none", "none", "flex", "flex"],
     ),
     appearance="dark",
-    )
+    ))

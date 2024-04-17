@@ -64,7 +64,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
                             )
                         ),
-                        self.render_fn(content=title) if title else self.render_fn(content=content),
+                        rx.markdown(title) if title else self.render_fn(content=content),
                         rx.spacer(),
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
@@ -72,7 +72,6 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         spacing="2",
                         width="100%",
                     ),
-                    padding_y="0em",
                     color=f"{rx.color(color, 11)}", 
                     border_radius="8px",
                     _hover={},
