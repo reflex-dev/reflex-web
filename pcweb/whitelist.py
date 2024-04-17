@@ -11,6 +11,9 @@ def _check_whitelisted_path(path):
     if path == "/":
         return True
 
+    if len(WHITELISTED_PAGES) == 1 and WHITELISTED_PAGES[0] == "/":
+        return False
+
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):
             return True
