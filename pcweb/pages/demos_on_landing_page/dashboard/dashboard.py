@@ -33,8 +33,8 @@ def category_items(categroyName: str, count: str, change: str, clicked: bool):
             font_size="12px",
             color="#A1A1AA"
         ),
-        height="4.5em",
-        width="10em",
+        height="5em",
+        width="9em",
         border="1px solid rgba(186, 199, 247, 0.12);",
         border_radius="0.5em",
         align="center",
@@ -53,117 +53,104 @@ def sample_bar_chart(input_data):
         cx="50%",
         cy="50%",
         fill="#8884d8",
-        height="90%",
-        width="90%",
-        padding_right="20px",
+        height="100%",
+        width="100%",
     )
 
 def recent_sale_item(first_name, last_name, sale_amount):
     fullname = first_name.capitalize() + " " + last_name.capitalize()
     email = first_name.lower() + "." + last_name.lower() + "@email.com",
     formatted_sale_amount = "+${:,.2f}".format(sale_amount)
-    return rx.flex(
-        rx.vstack(
-            rx.text(fullname, color="#FFFFFF", line_height="1", font_size="16px"),
-            rx.text(email[0], color="#FFFFFF", line_height="1", font_size="12px"),
-            align="center",
-        ),
-        rx.spacer(),
-        rx.text(formatted_sale_amount, color="#FFFFFF", line_height="1", font_size="16px", align="right"),
-        width="100%",
-        direction="row",
+    return rx.table.row(
+        rx.table.cell(rx.text(fullname, color=rx.color("mauve", 12), line_height="1", font_size="12px")),
+        rx.table.cell(rx.text(email[0], color=rx.color("mauve", 12), line_height="1", font_size="12px")),
+        rx.table.cell(formatted_sale_amount, color=rx.color("mauve", 12), line_height="1", font_size="12px", align="right"),
+        width="92%",
         align="center",
         justify="center",
-        padding="5px 5px 5px 5px",
     )
 
 def dashboard_and_download():
     return rx.hstack(
-        rx.center(
-            "Dashboard",
+        rx.heading(
+            "Monthly Overview",
             font_size="24px",
-            color="#FFFFFF",
         ),
         rx.spacer(),
         rx.button(
-            "Download",
+            "Export Data ->",
             color="#000000",
             background="#FFFFFF",
         ),
         justify_content="flex-end",
         height="3em",
         width="100%",
-        padding_left="20px",
-        padding_right="20px",
+        padding_x="15px",
+        padding_bottom="10px",
     )
 
 def categories():
     return rx.flex(
-        rx.box(width="20px"),
-        category_items("Revenue", "$32,450", "+20.1% from last month", True),
+        category_items("MRR", "$32,450", "+20.1% from last month", False),
         rx.spacer(),
         category_items("Active Users", "+1230", "+18.1% from last month", False),
         rx.spacer(),
         category_items("Followers", "+930", "+19% from last month", False),
-        rx.spacer(),
-        category_items("Contributors", "+90", "+20 from last month", False),
-        rx.box(width="20px"),
         direction="row",
         height="5em",
-        padding_left="10px",
-        padding_right="10px",
-        align="center",
-        justify="center",
-    )
-
-def sale_list():
-    return rx.center(
-        rx.vstack(
-            rx.text("Recent Sales", color="#FFFFFF", line_height="1", align="left", width="100%"),
-            rx.text("You made 265 sales this month.", color="#FFFFFF", line_height="1", align="left", width="100%"),
-            width="80%",
-        ),
-        rx.vstack(
-            rx.box(height="10px"),
-            recent_sale_item("jason", "mars", 1999),
-            recent_sale_item("Sofia", "Kim", 499),
-            recent_sale_item("Michael", "jackson", 799),
-            recent_sale_item("jack", "dawson", 1099),
-            width="92%",
-        ),
-        direction="column",
-        height="21em",
-        width="40%",
-        padding_top="15px",
-        background="#202020",
-        border_radius="10px",
+        width="100%",
     )
 
 def dashboard():
-    return rx.flex(
+    return rx.theme(rx.flex(
         dashboard_and_download(),
-        rx.flex(
-            categories(),
+        rx.hstack(
             rx.flex(
-                rx.flex(
-                    sample_bar_chart(data),
-                    direction="row",
-                    height="21em",
-                    width="60%",
-                    align="center",
-                    justify="center",
-                ),
-                sale_list(),
-                direction="row",
-                height="22em",
+                categories(),
+                rx.spacer(),
+                sample_bar_chart(data),
+                direction="column",
+                height="100%",
+                width="60%",
                 align="center",
                 justify="center",
+                spacing="4",
             ),
-            direction="column",
-            height="27em",
-            width="100%",
+            rx.flex(
+                rx.table.root(
+                    rx.table.header(
+                        rx.table.row(
+                            rx.table.column_header_cell("Full name"),
+                            rx.table.column_header_cell("Email"),
+                            rx.table.column_header_cell("Sale"),
+                        ),
+                    ),
+                    rx.table.body(
+                    recent_sale_item("Paul", "Atreides", 1999),
+                    recent_sale_item("Duncan", "Idaho", 2999),
+                    recent_sale_item("Leto", "Atreides", 3999),
+                    recent_sale_item("Gurney", "Halleck", 4999),
+                    recent_sale_item("Jessica", "Atreides", 5999),
+                    recent_sale_item("Chani", "Kynes", 1999),
+                    recent_sale_item("Stilgar", "Kynes", 1999),
+                    recent_sale_item("Duke", "Leto", 8999),
+                    )
+                ),
+                direction="column",
+                height="100%",
+                width="40%",
+            ),
+            direction="row",
+            height="26em",
+            align="center",
+            justify="center",
+            spacing="4",
+            width="100%",   
         ),
         direction="column",
         justify="center",
         align="center",
+        padding="1em"
+    ),
+    appearance="dark",
     )

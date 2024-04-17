@@ -502,7 +502,9 @@ def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
         top(),
-        #rx.tablet_and_desktop(demos()),
+        rx.container(
+        rx.tablet_and_desktop(demos()),
+        ),
         stats(),
         width="100%",
         direction="column",
