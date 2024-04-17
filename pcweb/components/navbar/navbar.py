@@ -35,7 +35,7 @@ def banner():
         rx.box(
             rx.hstack(
                 rx.text(
-                    " 🚀 Reflex live on Product Hunt! Check it out", 
+                    " 🚀 Reflex live on Product Hunt! Check out our launch ", 
                     rx.link(
                         "here",
                         href="https://www.producthunt.com/posts/reflex-6",
