@@ -13,7 +13,6 @@ from .state import FeedbackState
 link_style = {
     "color": rx.color("mauve", 10),
     "font_weight": "500",
-    "font_size": ".9em",
 }
 
 def doc_section(*contents):
@@ -508,7 +507,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                         margin_top="130px",
                         width="15%",
                         height="100%",
-                        display=["none", "none", "none", "none", "none", "flex"],
+                        display=["none", "none", "none", "flex", "flex", "flex"],
                         flex_shrink=0,
                     ),
                     max_width="110em",
