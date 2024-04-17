@@ -128,7 +128,6 @@ def page(document, route) -> rx.Component:
                 rx.box(
                     xd.render(document, "blog.md"),
                 ),
-                padding_bottom="8em",
                 padding_x="1em",
                 margin_x="auto",
                 size="2",

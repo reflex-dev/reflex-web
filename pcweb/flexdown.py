@@ -72,6 +72,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         spacing="2",
                         width="100%",
                     ),
+                    padding_y="0em",
                     color=f"{rx.color(color, 11)}", 
                     border_radius="8px",
                     _hover={},
