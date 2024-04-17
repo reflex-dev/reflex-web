@@ -50,7 +50,7 @@ def container(*children, **kwargs):
 
 class DemoState(rx.State):
 
-    demo = "Chat"
+    demo = "Forms"
 
     def set_demo(self, demo):
         self.demo = demo
@@ -134,7 +134,11 @@ def example_button(text):
     text,
     border_radius="8px;",
     border="1px solid rgba(186, 199, 247, 0.12);",
-    background= "rgba(161, 157, 213, 0.03);",
+    background= rx.cond(
+        DemoState.demo == text,
+        "#282828",
+        "rgba(161, 157, 213, 0.03);",
+    ),
     backdrop_filter= "blur(2px);",
     on_click= lambda: DemoState.set_demo(text)
 )
@@ -179,34 +183,6 @@ def demos():
         ),
         padding_bottom="4em",
         width="100%",
-        style={
-            "@media screen and (max-width: 1024px)": {
-                "transform": "scale(0.9)",
-            },
-            "@media screen and (max-width: 900px)": {
-                "transform": "scale(0.8)",
-            },
-            "@media screen and (max-width: 800px)": {
-                "transform": "scale(0.6)",
-            },
-            "@media screen and (max-width: 768px)": {
-                "padding_top": "3em",
-                "padding_bottom": "3em",
-            },
-            "@media screen and (max-width: 700px)": {
-                "transform": "scale(0.5)",
-            },
-            "@media screen and (max-width: 600px)": {
-                "transform": "scale(0.4)",
-            },
-            "@media screen and (max-width: 500px)": {
-                "transform": "scale(0.3)",
-            },
-            "@media screen and (max-width: 480px)": {
-                "padding_top": "1.5em",
-                "padding_bottom": "1.5em",
-            },
-        },
     )
 
 def user_count_item(count, platform) -> rx.Component:
