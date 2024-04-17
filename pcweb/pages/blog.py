@@ -201,7 +201,7 @@ def component_grid():
                         width="100%",
                         padding_top="1em",
                         align_items="start",
-                        height="12em",
+                        height="10em",
                     ),
                     direction="column",
                 ),

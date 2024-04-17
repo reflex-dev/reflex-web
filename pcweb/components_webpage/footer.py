@@ -63,14 +63,17 @@ def installation():
                 rx.flex(
                     rx.text("You should see your first app", color=bottom_color),
                     rx.box(flex_grow=1),
-                    rx.button(
-                        "View Docs",
-                        border_radius= "8px;",
-                        background= "linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
-                        box_shadow= "0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset, 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 2px 24px -1px #080525, 0px 3px 9px -2px #4033C0;",
-                        _hover= {
-                            "border": "1px solid rgba(94, 78, 242, 0.15);"
-                        }
+                    rx.link(
+                        rx.button(
+                            "View Docs",
+                            border_radius= "8px;",
+                            background= "linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
+                            box_shadow= "0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset, 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 2px 24px -1px #080525, 0px 3px 9px -2px #4033C0;",
+                            _hover= {
+                                "border": "1px solid rgba(94, 78, 242, 0.15);"
+                            }
+                        ),
+                        href="/docs/getting-started/installation/"
                     )
                 ),
                 direction="column",

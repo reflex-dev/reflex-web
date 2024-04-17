@@ -3,7 +3,7 @@ author: Masen Furer
 date: 2024-03-27
 title: "Structuring a Large App"
 description: "So your Reflex app is getting large? Here's some advice on how to lay it out."
-image: /blog/alek99_squares_abstract_animated._dark_purple_with_yellow_highl_976e3d65-b044-48e6-880e-b7983b5e0b42.webp
+image: /blog/structuring_large_app.png
 ---
 
 ## First Steps
