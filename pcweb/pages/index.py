@@ -523,8 +523,8 @@ def hero_section_mobile() -> rx.Component:
 
 def top() -> rx.Component:
     return rx.container(
-        rx.tablet_and_desktop(hero_section()),
-        rx.mobile_only(hero_section_mobile()),
+        rx.desktop_only(hero_section()),
+        rx.mobile_and_tablet(hero_section_mobile()),
         padding_top="3em",
         padding_bottom="3em",
     )
