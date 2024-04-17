@@ -120,11 +120,22 @@ def pypi_summary(summary: str) -> rx.Component:
 
 
 def pip_install_command_copy_button(package_name: str) -> rx.Component:
-    return rx.link(
-        info_icon(
-            tag="clipboard-copy",
-            on_click=rx.set_clipboard(f"pip install {package_name}"),
-        )
+    return rx.code_block(
+        "pip install " + package_name, 
+        custom_style={"fontSize": "0.7em"}, 
+        border_radius="4px",
+        overflow_x="scroll",
+        # can_copy=True,
+        style={
+            "&::-webkit-scrollbar-thumb": {
+                "background_color": "transparent",
+            },
+            "&::-webkit-scrollbar": {
+                "background_color": "transparent",
+                "height": "0px",
+            },
+            
+        },
     )
 
 
@@ -155,8 +166,9 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
 
 
 def add_item(category: dict) -> rx.Component:
-    name = rx.cond(
-        category["display_name"], category["display_name"], category["package_name"]
+    # Format the package name to be more human readable
+    name = rx.Var.create(
+        f"{{{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}}"
     )
     return rx.flex(
         rx.cond(
@@ -185,9 +197,8 @@ def add_item(category: dict) -> rx.Component:
             align_items="start",
         ),
         rx.divider(),
-        rx.box(
-            flex_grow=1,
-        ),
+        rx.spacer(),
+        pip_install_command_copy_button(category["package_name"]),
         rx.hstack(
             rx.spacer(),
             author_card_if_present(category["author"]),
@@ -196,7 +207,6 @@ def add_item(category: dict) -> rx.Component:
             demo_url_if_present(category["demo_url"]),
             # demo_modal_if_present(category["demo_url"]),
             download_url(category["download_url"]),
-            pip_install_command_copy_button(category["package_name"]),
             width="100%",
             justify="center",
             padding_top=".5em",
