@@ -156,7 +156,6 @@ def demos():
             example_button("Auth"),
             rx.spacer(),
             rx.box(),
-            width="70em",
             align_items="left"
         ),
         rx.box(
@@ -167,7 +166,6 @@ def demos():
                 ("Auth", auth()),
                 forms()
             ),
-            width="70em",
             border_radius= "10px;",
             border= "1px solid #2F2B37;",
             background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
@@ -503,22 +501,10 @@ def index() -> rx.Component:
     return rx.flex(
         top(),
         rx.container(
-            demos()
+            demos(),
             stats(),
+            padding_x="1em",
         ),
         width="100%",
         direction="column",
-        style={
-            "@media screen and (max-width: 768px)": {
-                "gap": "4em",
-            },
-            "@media screen and (max-width: 480px)": {
-                "gap": "2em",
-            },
-        },
     )
-
-
-
-
-

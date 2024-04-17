@@ -219,48 +219,51 @@ def blg():
     return rx.container(
         rx.vstack(
             rx.vstack(
-                rx.flex(
+                rx.vstack(
+                    rx.flex(
+                        rx.chakra.text(
+                            "Blog posts", 
+                            background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                            text_align="center",
+                            background_clip="text",
+                            padding_x="1em"
+                        ),
+                        border_radius= "15px;",
+                        border= "1px solid #4435D4;",
+                        background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                        box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                    ),
                     rx.chakra.text(
-                        "Blog posts", 
-                        background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                        "Reflex Blog", 
+                        font_size="3em",
+                        background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                         text_align="center",
                         background_clip="text",
-                        padding_x="1em"
+                        font_weight="bold",
+                        letter_spacing= "-1.28px;",
                     ),
-                    border_radius= "15px;",
-                    border= "1px solid #4435D4;",
-                    background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
-                    box_shadow= "0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+                    rx.text(
+                        "Stay current with the latest news from Reflex",
+                        color="#6C6C81",
+                    ),
+                    align_items="center",
+                    text_align="left",
+                    width="100%",
+                    spacing="1",
                 ),
-                rx.chakra.text(
-                    "Reflex Blog Latest News and Updates", 
-                    font_size="3em",
-                    background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
-                    text_align="center",
-                    background_clip="text",
-                    font_weight="bold",
-                    letter_spacing= "-1.28px;",
-                ),
-                rx.text(
-                    "Stay current with all the relevant details for Reflex",
-                    color="#6C6C81",
-                ),
+                component_grid(),
+                max_width="110em",
                 align_items="center",
-                text_align="left",
-                width="100%",
-                spacing="1",
+                min_height="80vh",
+                margin_bottom="4em",
+                padding_y="2em",
+                width="100%"
             ),
-            component_grid(),
-            max_width="110em",
-            align_items="center",
-            min_height="80vh",
-            margin_bottom="4em",
-            padding_y="2em",
-            width="100%"
+            flex_direction="column",
+            width="100%",
+            overflow="hidden",
         ),
-        flex_direction="column",
-        width="100%",
-        overflow="hidden",
+        padding_x="1em",
     )
 
 
