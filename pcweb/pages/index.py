@@ -42,13 +42,17 @@ def container(*children, **kwargs):
 
 class DemoState(rx.State):
 
-    demo = "Forms"
+    demo = "Image Generator"
 
     def set_demo(self, demo):
         self.demo = demo
 
-import openai
-openai_client = openai.OpenAI()
+
+try:
+    import openai
+    openai_client = openai.OpenAI()
+except:
+    openai_client = None
 
 
 class ImageGenState(rx.State):
