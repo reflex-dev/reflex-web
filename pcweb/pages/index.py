@@ -462,7 +462,7 @@ def hero_section_text(mobile=False):
             font_size="54px" if not mobile else "30px",
             font_weight="bold",
             line_height="1",
-            max_width="650px",
+            max_width=["300px", "350px","650px", "650px", "650px","650px"],
         ),
         align_items="center",
         
@@ -536,7 +536,7 @@ def top() -> rx.Component:
         padding_bottom="3em",
     )
 
-@webpage(path="/", title="Reflex · Web apps in Pure Python")
+@webpage(path="/testapp", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
