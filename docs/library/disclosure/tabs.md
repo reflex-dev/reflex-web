@@ -224,34 +224,32 @@ class TabsState(rx.State):
 
 
 def index() -> rx.Component:
-    return rx.theme(
-        rx.container(
-            rx.flex(
-                rx.text(f"{TabsState.value}  clicked !"),
-                rx.tabs.root(
-                    rx.tabs.list(
-                        rx.tabs.trigger("Tab 1", value="tab1"),
-                        rx.tabs.trigger("Tab 2", value="tab2"),
-                    ),
-                    rx.tabs.content(
-                         rx.text("items on tab 1"),
-                        value="tab1",
-                    ),
-                    rx.tabs.content(
-                        rx.text("items on tab 2"),
-                        value="tab2",
-                    ),
-                    default_value="tab1",
-                    value=TabsState.value,
-                    on_change=lambda x: TabsState.change_value(x),
+    return rx.container(
+        rx.flex(
+            rx.text(f"{TabsState.value}  clicked !"),
+            rx.tabs.root(
+                rx.tabs.list(
+                    rx.tabs.trigger("Tab 1", value="tab1"),
+                    rx.tabs.trigger("Tab 2", value="tab2"),
                 ),
-                direction="column",
-                spacing="2",
+                rx.tabs.content(
+                        rx.text("items on tab 1"),
+                    value="tab1",
+                ),
+                rx.tabs.content(
+                    rx.text("items on tab 2"),
+                    value="tab2",
+                ),
+                default_value="tab1",
+                value=TabsState.value,
+                on_change=lambda x: TabsState.change_value(x),
             ),
-            padding="2em",
-            font_size="2em",
-            text_align="center",
-        )
+            direction="column",
+            spacing="2",
+        ),
+        padding="2em",
+        font_size="2em",
+        text_align="center",
     )
 ```
 
