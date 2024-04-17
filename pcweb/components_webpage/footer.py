@@ -91,6 +91,10 @@ def installation():
         border_bottom="1px solid #3C3646;"
     )
 
+class Waitlist(rx.Model, table=True):
+    email: str
+    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
 class IndexState(rx.State):
     """Hold the state for the home page."""
 
@@ -142,17 +146,7 @@ class IndexState(rx.State):
                 self.add_contact_to_loops(contact_data)
 
         self.signed_up = True
-        return IndexState.play_confetti
-
-    async def play_confetti(self):
-        """Play confetti for 5sec then stop."""
-        self.show_confetti = True
-        yield
-        await asyncio.sleep(5)
-        self.show_confetti = False
-        yield
-
-
+        
 button_style = {
     "border_radius": "50px",
     "": "",
@@ -185,7 +179,7 @@ def news_letter():
             rx.chakra.input(
                 placeholder="you@email.com",
                 on_blur=IndexState.set_email,
-                color="#3C3646",
+                color="#fff",
                 background="rgba(161, 157, 213, 0.03)",
                 border="1px solid rgba(186, 199, 247, 0.12)",
                 type="email",
