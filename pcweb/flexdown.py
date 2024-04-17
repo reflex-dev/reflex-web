@@ -54,7 +54,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         return rx.chakra.accordion(
             rx.chakra.accordion_item(
                 rx.chakra.accordion_button(
-                    rx.flex(
+                    rx.hstack(
                         rx.box(
                             rx.match(
                                 status,
@@ -84,7 +84,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
             ),
             allow_toggle=True,
             width="100%",
-            margin_y=".5em"
+            margin_y="1em"
         )
 
 class SectionBlock(flexdown.blocks.Block):

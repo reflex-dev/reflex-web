@@ -217,7 +217,7 @@ def component_grid():
 
 @webpage(path="/blog", title="Reflex Blog")
 def blg():
-    return rx.center(
+    return rx.container(
         rx.vstack(
             rx.vstack(
                 rx.flex(

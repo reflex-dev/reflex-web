@@ -18,7 +18,7 @@ from pcweb.pages.docs.gallery import gallery
 def resource_header(text):
     return rx.text(
         text,
-        color=rx.color_mode_cond(rx.color("mauve", 12), rx.color("mauve", 10)),
+        color="#fff",
         padding_bottom="10px",
         font_weight="600",
     )
