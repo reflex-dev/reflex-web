@@ -66,14 +66,14 @@ class ImageGenState(rx.State):
         self.processing, self.complete = True, False
         yield
         response = openai_client.images.generate(
-            prompt=prompt, n=1, size="256x256"
+            prompt=prompt, n=1, size="512x512"
         )
         self.image_url = response.data[0].url
         self.processing, self.complete = False, True
 
 
 def image_gen():
-    return rx.hstack(
+    return rx.theme(rx.hstack(
         rx.vstack(
             rx.hstack(
                 rx.menu.root(
@@ -110,12 +110,12 @@ def image_gen():
                 rx.form(
                     rx.cond(
                         ImageGenState.processing,
-                        rx.chakra.circular_progress(is_indeterminate=True),
+                        rx.text("Processing..."),
                         rx.image(src=ImageGenState.image_url, width="100%"),
                     ),
                     rx.vstack(
                         rx.input(placeholder="Enter description", name="prompt", width="100%"),
-                        rx.button("Generate Image ->", width="100%"),
+                        rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
                     ),
                     on_submit=ImageGenState.get_image,
                 ),
@@ -151,6 +151,8 @@ def image_gen():
         ),
         padding_x="1em",
         height="100%",
+    ),
+    appearance="dark",
     )
 
 def example_button(text):
