@@ -93,13 +93,13 @@ def page(document, route) -> rx.Component:
                     ),
                     rx.chakra.text(
                         meta["title"], 
-                        font_size="3em",
+                        font_size="2em",
                         background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
                         text_align="center",
-                        width="650px",
                         background_clip="text",
                         font_weight="bold",
                         letter_spacing= "-1.28px;",
+                        line_height="1.2",
                     ),
                     align_items="center",
                     text_align="left",
@@ -125,13 +125,12 @@ def page(document, route) -> rx.Component:
         ),
         rx.theme(
             rx.container(
-                rx.box(
-                    xd.render(document, "blog.md"),
-                ),
+                xd.render(document, "blog.md"),
                 padding_x="1em",
                 margin_x="auto",
                 size="2",
                 overflow="hidden",
+                max_width=["25em", "100%","100%","100%","100%","100%"]
             ),
             appearance="dark",
         )
