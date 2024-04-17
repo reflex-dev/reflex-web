@@ -152,32 +152,49 @@ class IndexState(rx.State):
         self.show_confetti = False
         yield
 
+
+button_style = {
+    "border_radius": "50px",
+    "": "",
+    "padding": "7px 12px 7px 12px",
+    "align_items": "center",
+}
+
+
 def news_letter():
     return rx.vstack(
-        rx.text("Subscribe to newsletter", color="#6C6C81"),
+        rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
+        rx.text(
+            "Get the latest updates and news about Reflex.",
+            color="#6C6C81",
+            font_size="0.8em",
+        ),
         rx.chakra.input_group(
             rx.chakra.input_right_element(
                 rx.chakra.button(
                     "->",
                     color="#FFF",
                     on_click=IndexState.signup,
-                    background="#3C3646",
+                    background="rgba(161, 157, 213, 0.03)",
+                    border_left="1px solid rgba(186, 199, 247, 0.12)",
                     border_top_left_radius="0px",
                     border_bottom_left_radius="0px",
                     _hover={"linear-gradient(180deg, #6151F3 0%, #5646ED 100%);"},
                 )           
             ),
             rx.chakra.input(
-                placeholder="Email...",
+                placeholder="you@email.com",
                 on_blur=IndexState.set_email,
                 color="#3C3646",
+                background="rgba(161, 157, 213, 0.03)",
+                border="1px solid rgba(186, 199, 247, 0.12)",
                 type="email",
-                border="1px solid #3C3646",
-                _focus={"border": "1px solid #82799E"},
                 border_radius="8px",
             ),
+            width="100%"
         ),
         align_items="left",
+        width="100%",
     )
 
 
@@ -224,7 +241,7 @@ def links():
             ),
             align_items="start",
         ),
-        rx.vstack(
+        rx.desktop_only(rx.vstack(
             rx.text("Resources", color="#E8E8F4"),
             rx.link(
                 "FAQ",
@@ -242,7 +259,7 @@ def links():
                 style=footer_item_style,
             ),
             align_items="start",
-        ),
+        )),
         rx.tablet_and_desktop(
             news_letter(),
         ),
@@ -260,11 +277,15 @@ def footer(style=footer_style):
         rx.vstack(
             installation(),
             links(),
-            rx.mobile_only(news_letter()),
+            rx.mobile_only(
+                news_letter(),
+                width="100%",
+            ),
             rx.hstack(
                 rx.text(
                     "Copyright © 2024 Pynecone, Inc.",
                     style=footer_item_style,
+                    font_size="0.8em",
                 ),
                 rx.hstack(
                     rx.link(
@@ -295,8 +316,9 @@ def footer(style=footer_style):
                 padding_bottom="2em",
                 min_width="100%",
             ),
-            padding_x="2em",
-            padding_y="2em"
+            padding_x=[".5em", ".5em", ".5em", "2em", "2em", "2em"],
+            padding_y=[".5em", ".5em", ".5em", "2em", "2em", "2em"],
+            width="100%",
         ),
         background="#131217",
         width="100%",
