@@ -17,4 +17,5 @@ def page404():
         ),
         height="80vh",
         width="100%",
+        color="white",
     )

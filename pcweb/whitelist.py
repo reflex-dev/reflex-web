@@ -1,6 +1,6 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-WHITELISTED_PAGES = []
+WHITELISTED_PAGES = ["/faq"]
 
 
 def _check_whitelisted_path(path):
@@ -10,6 +10,9 @@ def _check_whitelisted_path(path):
     # If the path is the root, always build it.
     if path == "/":
         return True
+
+    if len(WHITELISTED_PAGES) == 1 and WHITELISTED_PAGES[0] == "/":
+        return False
 
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):

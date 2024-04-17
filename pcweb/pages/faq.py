@@ -265,9 +265,11 @@ def mobile_view():
 
 @webpage(path="/faq", title="Frequently Asked Questions · Reflex")
 def faq():
-    return rx.vstack(
-        rx.mobile_only(mobile_view()),
-        rx.tablet_and_desktop(desktop_view()),
+    return rx.container(
+        rx.vstack(
+            rx.mobile_only(mobile_view()),
+            rx.tablet_and_desktop(desktop_view()),
+        )
     )
 
 faq_routes = [faq]

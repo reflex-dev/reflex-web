@@ -503,9 +503,9 @@ def index() -> rx.Component:
     return rx.flex(
         top(),
         rx.container(
-        rx.tablet_and_desktop(demos()),
+            demos()
+            stats(),
         ),
-        stats(),
         width="100%",
         direction="column",
         style={
