@@ -76,84 +76,94 @@ class ImageGenState(rx.State):
         self.image_url = response.data[0].url
         self.processing, self.complete = False, True
 
+def config_button():
+    return rx.menu.root(
+        rx.menu.trigger(
+            rx.button(
+                rx.icon("ellipsis"),
+                variant="soft"
+            ),
+        ),
+        rx.menu.content(
+            rx.menu.item("Share", shortcut="⌘ E"),
+            rx.menu.item("Duplicate", shortcut="⌘ D"),
+            rx.menu.separator(),
+            rx.menu.item("Archive", shortcut="⌘ N"),
+            rx.menu.sub(
+                rx.menu.sub_trigger("More"),
+                rx.menu.sub_content(
+                    rx.menu.item("Move to project…"),
+                    rx.menu.item("Move to folder…"),
+                    rx.menu.separator(),
+                    rx.menu.item("Advanced options…"),
+                ),
+            ),
+            rx.menu.separator(),
+            rx.menu.item("Add to favorites"),
+            rx.menu.separator(),
+            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+        ),
+    )
+
+def setting_section():
+    return rx.vstack(
+        rx.heading("Settings"),
+        rx.radix.input.root(
+            rx.input(placeholder="Seed"),
+            width="100%"
+        ),
+        rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
+        rx.text("Temperature"),
+        rx.slider(default_value=25, width="100%"),
+        rx.text("Width"),
+        rx.slider(default_value=50, width="100%"),
+        rx.text("Height"),
+        rx.slider(default_value=75, width="100%"),
+        rx.text("Share Results"),
+        rx.switch(),
+        rx.button("Save", width="100%", variant="outline"),
+        width="40%",
+        height="100%",
+        border_left="1px solid #2F2B37;",
+        padding="1.25em",
+        align_items="start",
+        justify_content="center"
+    )
+
+def generator():
+    return rx.form(
+        rx.cond(
+            ImageGenState.processing,
+            rx.text("Processing..."),
+            rx.image(src=ImageGenState.image_url, width="100%"),
+        ),
+        rx.vstack(
+            rx.input(placeholder="Enter description", name="prompt", width="100%"),
+            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+        ),
+        on_submit=ImageGenState.get_image,
+    )
 
 def image_gen():
-    return rx.theme(rx.hstack(
-        rx.vstack(
+    return rx.theme(
+        rx.hstack(
+        rx.flex(
             rx.hstack(
-                rx.menu.root(
-                    rx.menu.trigger(
-                        rx.button(
-                            rx.icon("ellipsis"),
-                            variant="soft"
-                        ),
-                    ),
-                    rx.menu.content(
-                        rx.menu.item("Share", shortcut="⌘ E"),
-                        rx.menu.item("Duplicate", shortcut="⌘ D"),
-                        rx.menu.separator(),
-                        rx.menu.item("Archive", shortcut="⌘ N"),
-                        rx.menu.sub(
-                            rx.menu.sub_trigger("More"),
-                            rx.menu.sub_content(
-                                rx.menu.item("Move to project…"),
-                                rx.menu.item("Move to folder…"),
-                                rx.menu.separator(),
-                                rx.menu.item("Advanced options…"),
-                            ),
-                        ),
-                        rx.menu.separator(),
-                        rx.menu.item("Add to favorites"),
-                        rx.menu.separator(),
-                        rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                    ),
-                ),
+                config_button(),
                 width="100%", 
-                justify_content="space-between",    
+                justify_content="right", 
             ),
             rx.center(
-                rx.form(
-                    rx.cond(
-                        ImageGenState.processing,
-                        rx.text("Processing..."),
-                        rx.image(src=ImageGenState.image_url, width="100%"),
-                    ),
-                    rx.vstack(
-                        rx.input(placeholder="Enter description", name="prompt", width="100%"),
-                        rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
-                    ),
-                    on_submit=ImageGenState.get_image,
-                ),
+                generator(),
                 width="100%",
                 height="100%",
             ),
+            direction="column",
             width="60%",
-            height="100%",
-            padding_top="1em",
+            height="24em",
+            padding_top="0.5em",
         ),
-        rx.vstack(
-            rx.heading("Settings"),
-            rx.radix.input.root(
-                rx.input(placeholder="Seed"),
-                width="100%"
-            ),
-            rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
-            rx.text("Temperature"),
-            rx.slider(default_value=25, width="100%"),
-            rx.text("Width"),
-            rx.slider(default_value=50, width="100%"),
-            rx.text("Height"),
-            rx.slider(default_value=75, width="100%"),
-            rx.text("Share Results"),
-            rx.switch(),
-            rx.button("Save", width="100%", variant="outline"),
-            width="40%",
-            height="100%",
-            border_left="1px solid #2F2B37;",
-            padding_left="1em",
-            align_items="start",
-            justify_content="center"
-        ),
+        setting_section(),
         padding_x="1em",
         height="100%",
     ),
