@@ -150,7 +150,7 @@ def navigation_section():
 
 def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
-        banner(),
+        #banner(),
         rx.flex(
             rx.link(
                 rx.box(

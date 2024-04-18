@@ -1,6 +1,6 @@
 import reflex as rx
 
-def logo():
+def landing():
     return rx.html(
 """<svg id="landing-logo" width=837 height= 250 viewBox="0 0 837 250" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_b_5217_1511)">
@@ -237,32 +237,29 @@ def logo():
 </linearGradient>
 </defs>
 </svg>
-""")
+""",
+    style={
+        "@media screen and (max-width: 837px)": {
+            "#landing-logo": {
+                "transform": "scale(0.8)",
+            },
+        },
+        "@media screen and (max-width: 768px)": {
+            "#landing-logo": {
+                "transform": "scale(0.7)",
+            },
+        },
+        "@media screen and (max-width: 627px)": {
+            "#landing-logo": {
+                "transform": "scale(0.55)",
+            },
+        },
+        "@media screen and (max-width: 480px)": {
+            "#landing-logo": {
+                "transform": "scale(0.45)",
+            },
+        },
+    },
+    height="auo"
+)
 
-
-def landing():
-    return rx.flex(
-        logo(),
-        style={
-            "@media screen and (max-width: 837px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.8)",
-                },
-            },
-            "@media screen and (max-width: 768px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.7)",
-                },
-            },
-            "@media screen and (max-width: 627px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.6)",
-                },
-            },
-            "@media screen and (max-width: 480px)": {
-                "#landing-logo": {
-                    "transform": "scale(0.5)",
-                },
-            },
-        }
-    )

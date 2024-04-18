@@ -188,15 +188,20 @@ def example_button(text):
 def demos():
     return rx.vstack(
         rx.vstack(
-            rx.text(
+            rx.chakra.text(
                 "Build web apps, faster.",
-                font_size="54px;",
+                font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
                 text_align="left",
                 color="#D6D6ED",
                 font_weight="bold",
                 line_height="1",
             ),
-            rx.text("Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", color="#6C6C81"),
+            rx.chakra.text(
+                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", 
+                color="#6C6C81",
+                font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
+                text_align="center",
+            ),
             padding_y="2em",
         ),
         rx.hstack(
@@ -441,7 +446,7 @@ def feature_button(name: str):
         border="1px solid rgba(186, 199, 247, 0.12);",
         background= "rgba(161, 157, 213, 0.03);",
         backdrop_filter= "blur(2px);",
-        size="1"
+        size="2"
     )
 
 def feature_button_hstack(mobile=False):
@@ -459,7 +464,7 @@ def hero_section_text(mobile=False):
             "Web apps in Pure Python.",
             text_align="left" if not mobile else "center",
             background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
-            font_size="54px" if not mobile else "30px",
+            font_size=["30px", "40px", "54px", "54px", "54px", "54px"],
             background_clip="text",
             font_weight="bold",
             line_height="1",
@@ -469,7 +474,7 @@ def hero_section_text(mobile=False):
             "Deploy with a single command.",
             text_align="left" if not mobile else "center",
             color="#6C6C81",
-            font_size="54px" if not mobile else "30px",
+            font_size=["30px", "40px", "54px", "54px", "54px", "54px"],
             font_weight="bold",
             line_height="1",
             max_width=["300px", "350px","650px", "650px", "650px","650px"],
@@ -529,11 +534,13 @@ def hero_section() -> rx.Component:
                     hero_section_text(mobile=True),
                     hero_section_buttons(mobile=True),
                     spacing="3",
+                    margin_top=["-4em", "-2em", "-2em", "-2em", "0", "0"],
                 ),
             ),
-            spacing="4",
             direction="column",
-            align_items="left", # align_items=["center","center", "center","center", "left" ,"left"],
+            align_items="left",
+            margin_top=["-6em", "-4em", "0", "0", "0", "0"],
+            padding_bottom=["4em", "4em", "14em", "14em", "14em", "14em"],
         ),
         width="100%",
     )
