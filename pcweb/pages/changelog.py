@@ -4,7 +4,7 @@ from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 from pcweb.components.logo import logo
 
-def change_mobile(date, title, description, points, link):
+def change(date, title, description, points, link):
     return rx.vstack(
         rx.vstack(
             logo(
@@ -19,23 +19,28 @@ def change_mobile(date, title, description, points, link):
                         color="#D6D6ED"
                     ),
                 ),
-                rx.divider(margin_x="1em"),
+                rx.tablet_and_desktop(
+                    rx.divider(margin_x="1em", size="4"),
+                    width="100%",
+                ),
                 rx.link(
                     rx.button(
                         rx.icon(tag="github", size=18),
-                        "Full Changelog",
+                        "Full Notes ->",
                         color="#A2A2B9",   
-                        width="15em",
-                        padding_x="2em",
+                        padding_x="1em",
                         border_radius= "7px;",
                         border= "1px solid rgba(107, 107, 127, 0.50);",
                         background= "rgba(107, 107, 127, 0.10);",
                         box_shadow= "0px 3px 4px -1px rgba(23, 26, 43, 0.40);",
-                        backdrop_filter= "blur(2px);"
+                        backdrop_filter= "blur(2px);",
+                        text_wrap="nowrap",
                     ),
                     href=link,
                 ),
                 width="100%",
+                padding_top=["1em", "1em", "0", "0", "0", "0"],
+                justify="between",
             ),
             padding_right="1em",
             border_radius= "10px",
@@ -59,75 +64,8 @@ def change_mobile(date, title, description, points, link):
         align_items="flex-start",
         width="100%",
         padding_bottom="3em",
-        padding_left="1em",
+        padding_left=["0", "0", "1em", "1em", "1em", "1em"],
         border_left="1px solid #23222B",
-    )
-
-def change_desktop(date, title, description, points, link):
-    return rx.vstack(
-        rx.vstack(
-            logo(
-                width=["10em", "12em", "14em"],
-            ),
-            rx.hstack(
-                rx.hstack(
-                    rx.icon(tag="copy", size=18, color="#6C6C81"),
-                    rx.text(
-                        title,
-                        font_weight=styles.BOLD_WEIGHT,
-                        color="#D6D6ED"
-                    ),
-                ),
-                rx.divider(margin_x="1em"),
-                rx.link(
-                    rx.button(
-                        rx.icon(tag="github", size=18),
-                        "Full Changelog",
-                        color="#A2A2B9",   
-                        width="15em",
-                        padding_x="2em",
-                        border_radius= "7px;",
-                        border= "1px solid rgba(107, 107, 127, 0.50);",
-                        background= "rgba(107, 107, 127, 0.10);",
-                        box_shadow= "0px 3px 4px -1px rgba(23, 26, 43, 0.40);",
-                        backdrop_filter= "blur(2px);"
-                    ),
-                    href=link,
-                ),
-                width="100%",
-            ),
-            padding_right="1em",
-            border_radius= "10px",
-            border= "1px solid #3C3646",
-            background= "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%)",
-            box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
-            padding="1em",
-            padding_top="2em",
-            width="900px",
-        ),
-        rx.text(description, color="#D6D6ED", font_family=styles.MONO),
-        rx.chakra.unordered_list(
-            *[
-                rx.list_item(
-                    d, font_size=".8em", color="#6C6C81", font_family=styles.MONO
-                )
-                for d in points
-            ],
-            padding_left="1.5em",
-        ),
-        align_items="flex-start",
-        width="100%",
-        padding_bottom="3em",
-        padding_left="1em",
-        border_left="1px solid #23222B",
-    )
-
-
-
-def change(date, title, description, points, link):
-    return rx.vstack(
-        rx.mobile_only(change_mobile(date, title, description, points, link)),
-        rx.tablet_and_desktop(change_desktop(date, title, description, points, link)),
     )
     
 
@@ -393,8 +331,7 @@ def changelog_content():
 @webpage(path="/changelog", title="Changelog · Reflex")
 def changelog():
     return rx.center(
-        rx.vstack(
-            rx.box(
+        rx.box(
                 rx.flex(
                     rx.chakra.text(
                         "Timeline", 
@@ -403,7 +340,7 @@ def changelog():
                         background_clip="text",
                         padding_x="1em",
                     ),
-                    width="25%",
+                    width="7em",
                     justify="center",
                     border_radius= "15px;",
                     border= "1px solid #4435D4;",
@@ -412,25 +349,19 @@ def changelog():
                 ),
                 rx.chakra.text(
                     "Changelog",
-                    font_size="64px;",
+                    font_size="44px",
                     background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
-                    width="650px",
                     background_clip="text",
                     font_weight="bold",
                     letter_spacing= "-1.28px;",
                 ),
-                rx.text(
-                    "Keep up to date with the latest Reflex news.", color="#8E8EA8"
-                ),
                 rx.center(
-                    rx.tablet_and_desktop(
-                        rx.chakra.span(
+                    rx.chakra.span(
                             "Reflex has new releases and features coming every week! Make sure to star and watch on ",
                             rx.link("GitHub", href=constants.GITHUB_URL, color="#6151F3"),
                             " to stay up to date.",
                             color="#A2A2B9",   
                             width="100%",
-                        ),
                     ),
                     font_family=styles.MONO,
                     padding="1em",
@@ -439,15 +370,11 @@ def changelog():
                     border= "1px solid rgba(107, 107, 127, 0.50);",
                     background= "rgba(107, 107, 127, 0.10);",
                     box_shadow= "0px 3px 4px -1px rgba(23, 26, 43, 0.40);",
-                    backdrop_filter= "blur(2px);"
+                    backdrop_filter= "blur(2px);",
+                    width="100%",
                 ),
-                padding_left="2em",
-            ),
-            changelog_content(),
-            align_items="start",
-            min_height="80vh",
-            margin_bottom="4em",
-            width="100%",
+                changelog_content(),
+                max_width=["95vw", "95vw", "100vw", "100vw", "100vw", "100vw"],
         ),
         width="100%",
     )
