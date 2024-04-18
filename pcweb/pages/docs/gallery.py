@@ -16,30 +16,21 @@ class SideBarState(rx.State):
     example_apps_list: list[dict[str, str]]
 
     tags_list: list[str]
-    chosen_tags_dict: dict[str, bool]
+    chosen_tags: set[str]
 
     def update_tag(self, name: str):
-        self.chosen_tags_dict[name] = not self.chosen_tags_dict[name]
-
-    @rx.cached_var
-    def chosen_tags(self) -> list:
-        """This function returns a list of the tags selected in the UI, if no tags
-        are selected then it returns all the tags."""
-        chosen_tags = [
-            tag for tag, is_chosen in self.chosen_tags_dict.items() if is_chosen
-        ]
-        if not chosen_tags:
-            return list(self.chosen_tags_dict)
-        return chosen_tags
+        self.chosen_tags.symmetric_difference_update({name})
 
     def _filter_by_tag(self, apps_list: list[dict[str, str]]) -> list[dict[str, str]]:
         """This function iterates over all the apps we have and if the app has one of the
         tags we have selected in true_tags then it will render this app in the UI."""
-        selected_apps = []
-        for app in apps_list:
-            if set(app["keywords"] or []).intersection(self.chosen_tags):
-                selected_apps.append(app)
-        return selected_apps
+        if not self.chosen_tags:
+            return apps_list
+        return [
+            app
+            for app in apps_list
+            if set(app["keywords"] or []).intersection(self.chosen_tags)
+        ]
 
     @rx.cached_var
     def example_apps_to_return(self) -> list[dict[str, str]]:
@@ -62,6 +53,9 @@ class SideBarState(rx.State):
             )
             return
 
+        # Make sure all apps have a keywords field.
+        for app in all_apps:
+            app["keywords"] = app.get("keywords") or []
         # Make sure reflex web is the first app in the list.
         self.example_apps_list = [
             app for app in all_apps if app.get("demo_url") == "https://reflex.dev/"
@@ -71,7 +65,6 @@ class SideBarState(rx.State):
             if app.get("is_example_app")
             and app.get("demo_url") != "https://reflex.dev/"
         ]
-
         self.community_apps_list = [
             app for app in all_apps if not app.get("is_example_app")
         ]
@@ -210,7 +203,7 @@ def sidebar_component_grid(tags):
                 tag,
                 border_radius="15px",
                 padding_x=".5em",
-                is_active=SideBarState.chosen_tags_dict[tag],
+                is_active=SideBarState.chosen_tags.contains(tag),
                 on_click=SideBarState.update_tag(tag),
                 color="#6C6C81",
                 background="rgba(161, 157, 213, 0.05);",
