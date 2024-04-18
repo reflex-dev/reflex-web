@@ -56,6 +56,18 @@ class SideBarState(rx.State):
         # Make sure all apps have a keywords field.
         for app in all_apps:
             app["keywords"] = app.get("keywords") or []
+            # If the app does not have a display name, use the first part of the domain name: e.g. https://test.reflex.run -> test
+            subdomain_name = app["demo_url"].replace("https://", "").split(".")[0]
+            app["display_name"] = app.get("display_name") or subdomain_name
+            app["image_url_dark"] = (
+                app.get("image_url")
+                or f"https://placehold.co/600x400/000000/FFFFFF/?text={subdomain_name}"
+            )
+            app["image_url_light"] = (
+                app.get("image_url")
+                or f"https://placehold.co/600x400/FFFFFF/000000/?text={subdomain_name}"
+            )
+
         # Make sure reflex web is the first app in the list.
         self.example_apps_list = [
             app for app in all_apps if app.get("demo_url") == "https://reflex.dev/"
@@ -95,13 +107,23 @@ def add_item(category):
                 background_color="rgba(19, 18, 23, 0.2)",
                 _hover={"background_color": "rgba(19, 18, 23, 0)"},
             ),
-            rx.box(
-                background_image="url(" + category["image_url"] + ")",
-                background_size="cover",
-                background_position="center",
-                background_repeat="no-repeat",
-                height="100%",
-                width="100%",
+            rx.color_mode_cond(
+                rx.box(
+                    background_image="url(" + category["image_url_light"] + ")",
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    height="100%",
+                    width="100%",
+                ),
+                rx.box(
+                    background_image="url(" + category["image_url_dark"] + ")",
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    height="100%",
+                    width="100%",
+                ),
             ),
             position="relative",
             height="12rem",
@@ -141,10 +163,13 @@ def add_item(category):
         rx.spacer(),
         rx.vstack(
             rx.hstack(
-                rx.hstack(
-                    rx.badge(category["difficulty"]),
+                rx.cond(
+                    category["difficulty"],
+                    rx.hstack(
+                        rx.badge(category["difficulty"]),
+                    ),
+                    rx.spacer(),
                 ),
-                rx.spacer(),
                 rx.foreach(
                     category["keywords"],
                     lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
