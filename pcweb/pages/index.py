@@ -135,7 +135,7 @@ def image_gen():
             rx.heading("Settings"),
             rx.radix.input.root(
                 rx.input(placeholder="Seed"),
-                width="100%"
+                width="96%"
             ),
             rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
             rx.text("Temperature"),
@@ -148,9 +148,10 @@ def image_gen():
             rx.switch(),
             rx.button("Save", width="100%", variant="outline"),
             width="40%",
-            height="100%",
+            height="96%",
             border_left="1px solid #2F2B37;",
             padding_left="1em",
+            padding_right="1em",
             align_items="start",
             justify_content="center"
         ),
