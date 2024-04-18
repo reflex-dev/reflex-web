@@ -416,7 +416,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 rx.flex(
                     rx.box(
                         sidebar,
-                        margin_top="130px",
+                        margin_top="120px",
                         margin_x="2em",
                         height="100%",
                         width="25%",
@@ -425,7 +425,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     ),
                     rx.box(
                         rx.box(
-                            breadcrumb(path), margin_top="130px", margin_bottom="20px"
+                            breadcrumb(path), margin_top="120px", margin_bottom="20px"
                         ),
                         rx.box(comp),
                         rx.hstack(
@@ -503,7 +503,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             justify="start",
                             overflow="hidden",
                         ),
-                        margin_top="130px",
+                        margin_top="120px",
                         width="15%",
                         height="100%",
                         display=["none", "none", "none", "none", "flex", "flex"],
