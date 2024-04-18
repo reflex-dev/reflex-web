@@ -125,7 +125,7 @@ def pip_install_command_copy_button(package_name: str) -> rx.Component:
         custom_style={"fontSize": "0.7em"}, 
         border_radius="4px",
         overflow_x="scroll",
-        # can_copy=True,
+        width="100%",
         style={
             "&::-webkit-scrollbar-thumb": {
                 "background_color": "transparent",
@@ -143,7 +143,7 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
     return rx.hstack(
         rx.heading(
             name,
-            size="3",
+            size="2",
         ),
         rx.box(
             flex_grow=1,
@@ -156,7 +156,7 @@ def pypi_download_box(name: str, downloads: str) -> rx.Component:
                 font_size="0.75em",
                 border_radius="6px",
                 justify="center",
-                background_color="white",
+                align_items="center",
             ),
             content="PyPI downloads last month",
         ),
@@ -171,16 +171,32 @@ def add_item(category: dict) -> rx.Component:
         f"{{{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}}"
     )
     return rx.flex(
-        rx.cond(
-            category["image_url"],
-            rx.image(src=category["image_url"], width="300px", height="200px"),
-            rx.image(
-                src="/custom_components/default.svg",
-                width="300px",
-                height="200px",
+        rx.box(
+            rx.box(
+                position= 'absolute',
+                top= 0,
+                left= 0,
+                height= '100%',
+                width= '100%',
+                background_color= 'rgba(19, 18, 23, 0.2)',
+                _hover= {
+                    "background_color": "rgba(19, 18, 23, 0)"
+                },
             ),
+            rx.box(
+                background_image='url('+category["image_url"]+')',
+                background_size="cover",
+                background_position="center",
+                background_repeat="no-repeat",
+                height="100%",
+                width="100%",
+            ),
+            position="relative",
+            height="12rem",
+            width="100%",
+            border_radius="8px 8px 0 0",
+            overflow="hidden",
         ),
-        rx.divider(),
         rx.vstack(
             rx.vstack(
                 pypi_download_box(
@@ -188,34 +204,29 @@ def add_item(category: dict) -> rx.Component:
                     category["downloads_last_month"],
                 ),
                 pypi_summary(category["summary"]),
-                pypi_keywords(category["keywords"]),
                 align_items="start",
                 width="100%",
             ),
-            width="100%",
-            height="5em",
-            align_items="start",
-        ),
-        rx.divider(),
-        rx.spacer(),
-        pip_install_command_copy_button(category["package_name"]),
-        rx.hstack(
             rx.spacer(),
-            author_card_if_present(category["author"]),
-            updated_on_pypi_if_present(category["updated_on_pypi"]),
-            source_if_present(category["source"]),
-            demo_url_if_present(category["demo_url"]),
-            # demo_modal_if_present(category["demo_url"]),
-            download_url(category["download_url"]),
+            pip_install_command_copy_button(category["package_name"]),
+            rx.hstack(
+                rx.spacer(),
+                author_card_if_present(category["author"]),
+                source_if_present(category["source"]),
+                demo_url_if_present(category["demo_url"]),
+                download_url(category["download_url"]),
+                width="100%",
+                justify="center",
+            ),
+            spacing="1",
             width="100%",
-            justify="center",
-            padding_top=".5em",
+            height="11em",
+            padding=".25em"
         ),
-        spacing="3",
         direction="column",
         border_radius="8px",
-        box_shadow=" 0px 0px 0px 1px #E8E9EB, 0px 4px 4px -4px rgba(194, 198, 215, 0.30), 0px 1px 4px -1px rgba(135, 144, 181, 0.40); #FFFFFF",
-        padding=".75em",
+        border=f"1px solid {rx.color('mauve', 4)}",
+        height="21em",
     )
 
 
@@ -236,12 +247,10 @@ def info_icon(
     tag: str,
     **kwargs,
 ) -> rx.Component:
-    return rx.box(
+    return rx.badge(
         rx.icon(tag=tag, width="1em", height="1em"),
         padding_x="0.5em",
         border_radius="15px",
-        box_shadow="0px 0px 0px 1px rgba(84, 82, 95, 0.14), 0px 1px 2px rgba(31, 25, 68, 0.14)",
-        **kwargs,
     )
 
 
