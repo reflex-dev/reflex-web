@@ -64,7 +64,7 @@ def change(date, title, description, points, link):
         align_items="flex-start",
         width="100%",
         padding_bottom="3em",
-        padding_left="1em",
+        padding_left=["0", "0", "1em", "1em", "1em", "1em"],
         border_left="1px solid #23222B",
     )
     
