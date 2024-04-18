@@ -49,6 +49,35 @@ class CounterExampleState(rx.State):
     def decrement(self):
         self.count -= 1
 
+class IntroTabsState(rx.State):
+    """The app state."""
+
+    value = "tab1"
+    tab_selected = ""
+
+    def change_value(self, val):
+        self.tab_selected = f"{val} clicked!"
+        self.value = val
+
+def tabs():
+    return rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger(
+                "Frontend", value="tab1"
+            ),
+            rx.tabs.trigger(
+                "Backend", value="tab2"
+            ),
+            rx.tabs.trigger(
+                "Page", value="tab3"
+            ),
+        ),
+        default_value="tab1",
+        value=IntroTabsState.value,
+        on_change=lambda x: IntroTabsState.change_value(
+            x
+        ),
+    )
 ```
 
 
@@ -71,20 +100,51 @@ rx.hstack(
 
 Here is the full code for this example:
 
-```python
-import reflex as rx
+```python eval
+tabs()
+```
 
 
-class State(rx.State):
+```python demo box
+rx.vstack(
+    rx.code_block(
+        """import reflex as rx """,
+        background="transparent",
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+    ),
+    rx.code_block(
+        """class State(rx.State):
     count: int = 0
 
     def increment(self):
         self.count += 1
 
     def decrement(self):
-        self.count -= 1
-
-def index():
+        self.count -= 1""",
+        background=rx.cond(
+            IntroTabsState.value == "tab1",
+            rx.color('violet', 3),
+            "transparent",              
+        ),
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab1",
+            f"2px solid {rx.color('violet', 9)}",
+            "none"
+        ),
+    ),
+    rx.code_block(
+        """def index():
     return rx.hstack(
         rx.button(
             "Decrement",
@@ -98,12 +158,49 @@ def index():
             on_click=State.increment,
         ),
         spacing="4",
-    )
-
-
-app = rx.App()
-app.add_page(index)
+    )""",
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab2",
+            f"2px solid {rx.color('violet', 9)}",
+            "none",              
+        ),
+        background=rx.cond(
+            IntroTabsState.value == "tab2",
+            rx.color('violet', 3),
+            "transparent",              
+        )
+    ),
+    rx.code_block(
+        """app = rx.App()
+app.add_page(index)""",
+        background=rx.cond(
+            IntroTabsState.value == "tab3",
+            rx.color('violet', 3),
+            "transparent",              
+        ),
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab3",
+            f"2px solid {rx.color('violet', 9)}",
+            "none",              
+        ),
+    ),
+    align_items="start",
+    width="100%",
+)
 ```
+
 
 
 ## The Structure of a Reflex App

@@ -5,7 +5,7 @@ from .buttons.github import github
 from .buttons.discord import discord
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
-
+ 
 from pcweb import constants
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
@@ -14,16 +14,16 @@ from pcweb.pages.blog import blg
 from pcweb.pages.changelog import changelog
 from pcweb.pages.docs.gallery import gallery
 
-
+ 
 def resource_header(text):
     return rx.text(
         text,
         color="#fff",
         padding_bottom="10px",
         font_weight="600",
-    )
-
-
+    )   
+         
+   
 def resources_item(text, url, icon):
     return rx.link(
         rx.flex(
@@ -32,11 +32,11 @@ def resources_item(text, url, icon):
             wrap="nowrap",
             spacing="2",
         ),
-        href=url,
-    )
-
-
-def resources_section(style):
+        href=url,  
+    )   
+              
+       
+def resources_section(style): 
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
