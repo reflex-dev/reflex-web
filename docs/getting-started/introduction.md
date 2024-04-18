@@ -72,6 +72,40 @@ def tabs():
                 "Page", value="tab3"
             ),
         ),
+        rx.tabs.content(
+            rx.markdown(
+                """- Use Reflex components and var operations
+
+- Use `rx.cond` and `rx.foreach` (replaces if and for loops)
+
+- Use State. when referring to state class variables (do not use self.)
+                """
+            ),
+            value="tab1",
+            padding_top="1em",
+        ),
+        rx.tabs.content(
+            rx.markdown(
+                """- Use any Python function or Library
+
+- Use if statements and for loops
+
+- Use self. to call state class variables 
+
+                """
+            ),
+            value="tab2",
+            padding_top="1em",
+        ),
+        rx.tabs.content(
+            rx.markdown(
+                """
+                - Start with a single page and scale to 100s of pages
+                """
+            ),
+            value="tab3",
+            padding_top="1em",
+        ),
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(

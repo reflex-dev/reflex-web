@@ -35,7 +35,7 @@ def resources_item(text, url, icon):
         href=url,  
     )   
               
-       
+        
 def resources_section(style): 
     return rx.hover_card.root(
         rx.hover_card.trigger(
