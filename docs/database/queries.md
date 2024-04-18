@@ -38,7 +38,7 @@ class QueryUser(rx.State):
         with rx.session() as session:
             self.users = session.exec(
                 User.select().where(
-                    User.username.contains(self.name)).all())
+                    User.username.contains(self.name))).all()
 ```
 
 The `get_users` method will query the database for all users that contain the
@@ -73,7 +73,7 @@ class ChangeEmail(rx.State):
     def modify_user(self):
         with rx.session() as session:
             user = session.exec(User.select().where(
-                (User.username == self.username).first()))
+                (User.username == self.username))).first()
             user.email = self.email
             session.add(user)
             session.commit()
@@ -91,7 +91,7 @@ class RemoveUser(rx.State):
     def delete_user(self):
         with rx.session() as session:
             user = session.exec(User.select().where(
-                User.username == self.username).first())
+                User.username == self.username)).first()
             session.delete(user)
             session.commit()
 ```
