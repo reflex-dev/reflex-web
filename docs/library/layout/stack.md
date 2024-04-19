@@ -3,6 +3,21 @@ components:
     - rx.radix.stack
     - rx.radix.hstack
     - rx.radix.vstack
+HStack: |
+    lambda **props: rx.hstack(
+        rx.card("Card 1", size="2"), rx.card("Card 2", size="2"), rx.card("Card 3", size="2"),
+        width="100%",
+        height="20vh",
+        **props,
+    )
+
+VStack: |
+    lambda **props: rx.vstack(
+        rx.card("Card 1", size="2"), rx.card("Card 2", size="2"), rx.card("Card 3", size="2"),
+        width="100%",
+        height="40vh",
+        **props,
+    )
 ---
 
 ```python exec
