@@ -138,6 +138,18 @@ def form_input1():
 
 To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
 
+
+### Setting a value without using a State var
+
+Set the value of the specified reference element, without needing to link it up to a State var. This is an alternate way to modify the value of the `input`.
+
+```python demo
+rx.hstack(
+    rx.input(id="input1"),
+    rx.button("Erase", on_click=rx.set_value("input1", "")),
+)
+```
+
 ## Real World Example
 
 ```python demo exec
