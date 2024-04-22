@@ -66,18 +66,31 @@ def banner():
         ),
     )
 
+class HovercardState(rx.State):
+    is_open: bool = False
+
+    def set_open(self, value: bool):
+        self.is_open = value
+
+    def click_open(self):
+        self.is_open = True
 
 def components_section():
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.flex(
                 rx.text("Components", color=rx.color("mauve", 11)),
-                rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
+                rx.cond(
+                    HovercardState.is_open,
+                    rx.icon(tag="chevron_up", color=rx.color("mauve", 11), size=18),
+                    rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
+                ),
                 rx.badge("New", variant="solid"),
                 align_items="center",
                 _hover={
                     "cursor": "pointer",
                 },
+                on_click = HovercardState.click_open,
                 spacing="1",
             )
         ),
@@ -128,6 +141,8 @@ def components_section():
             padding="0",
             overflow="hidden",
         ),
+        open=HovercardState.is_open,
+        on_open_change=HovercardState.set_open,
     )
 
 
