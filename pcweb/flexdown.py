@@ -69,6 +69,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
                         justify_content="left",
+                        text_align="left",
                         spacing="2",
                         width="100%",
                     ),
