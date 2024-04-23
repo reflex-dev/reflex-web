@@ -1,5 +1,5 @@
 import reflex as rx
-
+import pprint
 import httpx
 import json
 from rxconfig import config
@@ -121,35 +121,35 @@ def pip_install_command_copy_button(package_name: str) -> rx.Component:
     )
 
 
-# def pypi_download_box(name: str, downloads: str) -> rx.Component:
-#     return rx.hstack(
-#         rx.heading(
-#             name,
-#             size="2",
-#         ),
-#         rx.box(
-#             flex_grow=1,
-#         ),
-#         rx.tooltip(
-#             rx.badge(
-#                 downloads,
-#                 rx.icon(tag="external-link", size=12),
-#                 padding_x=".5em",
-#                 font_size="0.75em",
-#                 border_radius="6px",
-#                 justify="center",
-#                 align_items="center",
-#             ),
-#             content="PyPI downloads last month",
-#         ),
-#         width="100%",
-#         justify_content="center",
-#     )
-
 def download_count(downloads: str) -> rx.Component:
     return rx.box(
-        rx.text("Download"),
-    ),
+        rx.tooltip(
+            rx.chakra.badge(
+                rx.hstack(
+                    downloads,
+                    rx.icon(tag="arrow-down-to-line", size=15),
+                    align="center",
+                    justify="center",
+                ),
+                # color looks cheap, fix later
+                padding_x=".5em",
+                font_size="1em",
+                bg="#D6D6ED",
+                color="#af3ab5",
+                border_color="#af3ab5",
+                border_radius="6px",
+                justify="center",
+                align_items="center",
+                variant="solid",
+                color_scheme="purple",
+            ),
+            content="PyPI downloads last month",
+        ),
+        position= 'absolute',
+        top= 0.2,
+        right= 0.2,
+        z_index=4
+    )
 
 def component_name(name: str) -> rx.Component:
     return rx.hstack(
@@ -178,18 +178,19 @@ def add_item(category: dict) -> rx.Component:
         f"{{{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}}"
     )
     return rx.flex(
-        rx.box(
+        rx.link(
             rx.box(
                 position= 'absolute',
                 top= 0,
                 left= 0,
                 height= '100%',
                 width= '100%',
-                background_color= 'rgba(19, 18, 23, 0.2)',
+                background_color= 'rgba(19, 18, 23, 0.1)',
                 _hover= {
                     "background_color": "rgba(19, 18, 23, 0)"
                 },
             ),
+            download_count(category["downloads_last_month"]),
             rx.box(
                 background_image='url('+category["image_url"]+')',
                 background_size="cover",
@@ -197,14 +198,12 @@ def add_item(category: dict) -> rx.Component:
                 background_repeat="no-repeat",
                 height="100%",
                 width="100%",
-                border="2px solid gold",
             ),
             position="relative",
             height="16rem",
             width="100%",
             border_radius="8px 8px 0 0",
             overflow="hidden",
-            border="1px solid blue",
         ),
         rx.vstack(
             rx.vstack(
@@ -212,7 +211,6 @@ def add_item(category: dict) -> rx.Component:
                 component_description(category["summary"]),
                 # align_items="start",
                 width="100%",
-                border="1px solid blue",
                 padding_left="0.4em",
             ),
             pip_install_command_copy_button(category["package_name"]),
@@ -230,7 +228,6 @@ def add_item(category: dict) -> rx.Component:
             width="100%",
             height="10em",
             padding=".25em",
-            border="1px solid red"
         ),
         direction="column",
         border_radius="8px",
