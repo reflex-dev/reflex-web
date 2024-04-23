@@ -73,6 +73,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-04-22",
+            "v0.4.9",
+            "Bug Fixes and Various Improvements",
+            [
+                "Fix for UnicodeDecodeError on Windows",
+                "Use npm fallback when bun does not work",
+                "Allow set in Var.contains",
+                "Fix for light/dark dialogs not matching current theme appearance",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.4.9",
+        ),
+        change(
             "2024-04-15",
             "v0.4.8",
             "Support Bun on Windows for Faster Dependency Installation",

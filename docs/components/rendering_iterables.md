@@ -35,7 +35,9 @@ def simple_foreach():
 ```
 
 ```md alert warning
-# The type signature of the functions does not matter to the `foreach` component. It's the type annotation on the `state var` that determines what operations are available (e.g. when nesting).
+# The type signature of the functions does not matter to the `foreach` component.
+
+Rather the type annotation on the `state var` determines what operations are available (e.g. when nesting).
 ```
 
 ## Enumeration

@@ -34,7 +34,7 @@ The `icon` prop allows an icon to be passed to the `callout` component. See the 
 ## As alert
 
 ```python demo
-rx.callout("Access denied. Please contact the network administrator to view this page.", icon="alert_triangle", color_scheme="red", role="alert")
+rx.callout("Access denied. Please contact the network administrator to view this page.", icon="triangle_alert", color_scheme="red", role="alert")
 ```
 
 ## Style

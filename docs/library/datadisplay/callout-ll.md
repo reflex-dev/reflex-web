@@ -31,7 +31,7 @@ The `callout.text` renders the callout text. This component is based on the `p` 
 
 ```python demo
 rx.callout.root(
-    rx.callout.icon(rx.icon(tag="alert_triangle")),
+    rx.callout.icon(rx.icon(tag="triangle_alert")),
     rx.callout.text("Access denied. Please contact the network administrator to view this page."),
     color_scheme="red",
     role="alert",
