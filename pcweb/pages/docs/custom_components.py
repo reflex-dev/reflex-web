@@ -34,9 +34,6 @@ class CustomComponentGalleryState(rx.State):
         self.components_list = component_list
 
 
-grid_layout = [1, 2, 2, 3, 3]
-
-
 def demo_modal_if_present(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
@@ -190,12 +187,14 @@ def add_item(category: dict) -> rx.Component:
                 background_repeat="no-repeat",
                 height="100%",
                 width="100%",
+                border="2px solid gold",
             ),
             position="relative",
             height="12rem",
             width="100%",
             border_radius="8px 8px 0 0",
             overflow="hidden",
+            border="1px solid blue",
         ),
         rx.vstack(
             rx.vstack(
@@ -221,20 +220,23 @@ def add_item(category: dict) -> rx.Component:
             spacing="1",
             width="100%",
             height="11em",
-            padding=".25em"
+            padding=".25em",
+            border="1px solid red"
         ),
         direction="column",
         border_radius="8px",
-        border=f"1px solid {rx.color('mauve', 4)}",
-        height="21em",
+        # border=f"1px solid {rx.color('mauve', 4)}",
+        border="1px solid red",
+        width="16em",
+        height="20em",
     )
 
 
 def component_grid():
     return rx.chakra.responsive_grid(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
-        columns=grid_layout,
-        gap=4,
+        columns=[1,1,2,2,3,3],
+        spacing_x="4em",
     )
 
 
