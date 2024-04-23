@@ -410,6 +410,13 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             if isinstance(comp, tuple):
                 toc, comp = comp
 
+            new_section_placeholder = rx.box(
+                rx.text("This is the new section placeholder."),
+                padding="1em",
+                margin_y="2em",
+                background=rx.color("gray", 2)
+            )
+
             # Return the templated page.
             return rx.flex(
                 navbar(sidebar=nav_sidebar),
@@ -428,6 +435,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             breadcrumb(path), margin_top="120px", margin_bottom="20px"
                         ),
                         rx.box(comp),
+
+                        new_section_placeholder,
+
                         rx.hstack(
                             *links,
                             justify="between",
