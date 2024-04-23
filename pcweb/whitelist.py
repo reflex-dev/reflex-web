@@ -1,6 +1,6 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-WHITELISTED_PAGES = []
+WHITELISTED_PAGES = ['/docs/styling/']
 
 
 def _check_whitelisted_path(path):
@@ -18,4 +18,4 @@ def _check_whitelisted_path(path):
         if path.startswith(whitelisted_path):
             return True
     return False
- 
+                          
