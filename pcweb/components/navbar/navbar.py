@@ -66,6 +66,7 @@ def banner():
         ),
     )
 
+
 class HovercardState(rx.State):
     is_open: bool = False
 
