@@ -91,7 +91,7 @@ async def run_llm(chat_state):
     # Start a new session to answer the question.
     session = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=chat_state.messages,
+        messages=chat_state.get_messages(),
         stream=True,
     )
 
@@ -120,7 +120,7 @@ async def run_llm(chat_state):
     # Start a new session to answer the question.
     session = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=chat_state.messages,
+        messages=chat_state.get_messages(),
         stream=True,
     )
 
