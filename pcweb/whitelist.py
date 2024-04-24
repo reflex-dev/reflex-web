@@ -18,3 +18,4 @@ def _check_whitelisted_path(path):
         if path.startswith(whitelisted_path):
             return True
     return False
+  
