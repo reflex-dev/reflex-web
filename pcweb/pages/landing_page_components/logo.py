@@ -260,6 +260,7 @@ def landing():
             },
         },
     },
-    height="auo"
+    # height="auo"
+    height="auto"
 )
 
