@@ -27,8 +27,8 @@ def profileBar():
 def username_field():
     return rx.vstack(
         rx.text("Username", color="#FAFAFA"),
-        rx.radix.text_field.root(rx.radix.text_field.input(
-            placeholder="JohnDoe123",),
+        rx.input(
+            placeholder="JohnDoe123",
             width="100%",
         ),
         rx.text(
@@ -67,7 +67,7 @@ def notifiction_field():
 def location_field():
     return rx.vstack(
         rx.text("Location", color="#FAFAFA"),
-        rx.radix.text_field.root(rx.radix.text_field.input(placeholder="Enter your location"), width="100%"),
+        rx.input(placeholder="Enter your location", width="100%"),
         rx.text(
             "Let others know where you are based. You can provide your city, state, or country.",
             color="#A1A1AA",

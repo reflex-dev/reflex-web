@@ -14,7 +14,7 @@ FormRoot: |
             rx.flex(
                 rx.form.label("Email"),
                 rx.form.control(
-                    rx.input.input(
+                    rx.input(
                         placeholder="Email Address",
                         # type attribute is required for "typeMismatch" validation
                         type="email",
@@ -42,7 +42,7 @@ FormField: |
             rx.flex(
                 rx.form.label("Email"),
                 rx.form.control(
-                    rx.input.input(
+                    rx.input(
                         placeholder="Email Address",
                         # type attribute is required for "typeMismatch" validation
                         type="email",
@@ -70,7 +70,7 @@ FormLabel: |
             rx.flex(
                 rx.form.label("Email", **props,),
                 rx.form.control(
-                    rx.input.input(
+                    rx.input(
                         placeholder="Email Address",
                         # type attribute is required for "typeMismatch" validation
                         type="email",
@@ -96,7 +96,7 @@ FormMessage: |
                     rx.flex(
                         rx.form.label("Email"),
                         rx.form.control(
-                            rx.input.input(
+                            rx.input(
                                 placeholder="Email Address",
                                 # type attribute is required for "typeMismatch" validation
                                 type="email",

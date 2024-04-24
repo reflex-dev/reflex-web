@@ -2,7 +2,6 @@
 components:
     - rx.radix.input
     - rx.radix.text_field.root
-    - rx.radix.text_field.input
     - rx.radix.text_field.slot
 
 
@@ -14,16 +13,7 @@ TextFieldRoot: |
         rx.radix.themes.text_field.slot(
             rx.icon(tag="search", height="16", width="16"),
         ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs"),
         **props,
-    )
-
-TextFieldInput: |
-    lambda **props: rx.radix.themes.text_field.root(
-        rx.radix.themes.text_field.slot(
-            rx.icon(tag="search", height="16", width="16"),
-        ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs", **props,),
     )
 
 TextFieldSlot: |
@@ -32,7 +22,7 @@ TextFieldSlot: |
             rx.icon(tag="search", height="16", width="16"),
             **props,
         ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs"),
+        placeholder="Search the docs",
     )
 ---
 
