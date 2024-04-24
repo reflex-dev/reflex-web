@@ -9,15 +9,27 @@ props = {
         "values": ["stretch", "center", "start", "end", "flex-start", "baseline"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/align-items",
     },
+    "backdrop_filter": {
+        "description": "lets you apply graphical effects such as blurring or color shifting to the area behind an element",
+        "values": ["url(commonfilters.svg#filter)", "blur(2px)", "hue-rotate(120deg)", "drop-shadow(4px 4px 10px blue)"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
+    },
+    "background": {
+        "description": "sets all background style properties at once, such as color, image, origin and size, or repeat method (equivalent to bg)",
+        "values": ["green", "content-box radial-gradient(crimson, skyblue)", "no-repeat url('../../media/examples/lizard.png')"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background",
+    },
+
+
     "background_color": {
         "description": "sets the background color of an element",
         "values": ["brown", "rgb(255, 255, 128)", "#7499ee"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-color",
     },
-    "backdrop_filter": {
-        "description": "lets you apply graphical effects such as blurring or color shifting to the area behind an element",
-        "values": ["url(commonfilters.svg#filter)", "blur(2px)", "hue-rotate(120deg)", "drop-shadow(4px 4px 10px blue)"],
-        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
+    "background_image": {
+        "description": "sets one or more background images on an element",
+        "values": ["url('../../media/examples/lizard.png')", "linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-image",
     },
     "border": {
         "description": "sets an element's border, which sets the values of border_width, border_style, and border_color.",
@@ -44,6 +56,11 @@ props = {
         "values": ["thick", "1em", "4px 1.25em", "0 4px 8px 12px"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-width",
     },
+    "box_shadow": {
+        "description": "adds shadow effects around an element's frame. You can set multiple effects separated by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread radius, and color",
+        "values": ["10px 5px 5px red", "60px -16px teal", "12px 12px 2px 1px rgba(0, 0, 255, .2)", "3px 3px red, -1em 0 .4em olive;"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow",
+    },
 
     "color": {
         "description": "sets the foreground color value of an element's text",
@@ -54,6 +71,11 @@ props = {
         "description": "sets whether an element is treated as a block or inline box and the layout used for its children, such as flow layout, grid or flex",
         "values": ["block", "inline", "inline-block", "flex", "inline-flex", "grid", "inline-grid", "flow-root"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/display",
+    },
+    "flex_grow": {
+        "description": " sets the flex grow factor, which specifies how much of the flex container's remaining space should be assigned to the flex item's main size",
+        "values": ["1", "2", "3"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow",
     },
     "height": {
         "description": "sets an element's height",
@@ -119,6 +141,11 @@ props = {
         "values": ["start", "end", "center", "justify", "left", "right"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-align",
     },
+    "text_wrap": {
+        "description": "controls how text inside an element is wrapped",
+        "values": ["wrap", "nowrap", "balance", "pretty"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap",
+    },
 
     "top / bottom / right / left": {
         "description": "sets the vertical / horizontal position of a positioned element. It does not effect non-positioned elements.",
@@ -130,6 +157,16 @@ props = {
         "values": ["150px", "20em", "75%", "auto"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/width",
     },
+    "white_space": {
+        "description": "sets how white space inside an element is handled",
+        "values": ["normal", "nowrap", "pre", "break-spaces"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/white-space",
+    },
+    "word_break": {
+        "description": "sets whether line breaks appear wherever the text would otherwise overflow its content box",
+        "values": ["normal", "break-all", "keep-all", "break-word"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/word-break",
+    },
     "z_index": {
         "description": "sets the z-order of a positioned element and its descendants or flex and grid items, and overlapping elements with a larger z-index cover those with a smaller one",
         "values": ["auto", "1", "5", "200"],
@@ -139,17 +176,16 @@ props = {
 
 }
 
-# 22. box_shadow, 23. background_image, 
-# 25. flex_grow, 26. background (bg) 27. text_wrap, 28. whitespace, 29. word-break
+#  28. whitespace, 29. word-break
 
 
 def show_props(key, props_dict):
     prop_details = props_dict[key]
     return rx.table.row(
         rx.table.cell(rx.code(key)),
-        rx.table.cell(prop_details["description"]),
-        rx.table.cell(rx.vstack(*[rx.badge(value) for value in prop_details["values"]])),
-        rx.table.cell(rx.link("More Info", href=prop_details["link"], is_external=True)),
+        rx.table.cell(prop_details["description"],),
+        rx.table.cell(rx.hstack(*[rx.badge(value) for value in prop_details["values"]], flex_wrap="wrap")),
+        rx.table.cell(rx.link(rx.icon("square_arrow_out_up_right", color_scheme), href=prop_details["link"], is_external=True)),
         align="center",
     )
 
@@ -166,6 +202,7 @@ rx.table.root(
             rx.table.column_header_cell(
                 "Description",
                 justify="start",
+                
             ),
             rx.table.column_header_cell(
                 "Potential Values",
