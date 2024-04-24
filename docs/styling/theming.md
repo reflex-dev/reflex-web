@@ -139,7 +139,7 @@ rx.table.root(
         rx.table.row(
             rx.table.row_header_cell(rx.code("alpha")),
             rx.table.cell("Bool"),
-            rx.table.cell("Whether tp use the alpha value of the color. Defaults to False."),
+            rx.table.cell("Whether to use the alpha value of the color. Defaults to False."),
         )
     ), 
     variant="surface",
