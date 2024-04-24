@@ -6,13 +6,18 @@ import reflex as rx
 props = {
     "align": {
         "description": "in a flex, it controls the alignment of items on the cross axis and in a grid layout, it controls the alignment of items on the block axis within their grid area (equivalent to align_items)",
-        "values": ["brown", "rgb(255, 255, 128)", "#7499ee"],
-        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-color",
+        "values": ["stretch", "center", "start", "end", "flex-start", "baseline"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/align-items",
     },
     "background_color": {
         "description": "sets the background color of an element",
         "values": ["brown", "rgb(255, 255, 128)", "#7499ee"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-color",
+    },
+    "backdrop_filter": {
+        "description": "lets you apply graphical effects such as blurring or color shifting to the area behind an element",
+        "values": ["url(commonfilters.svg#filter)", "blur(2px)", "hue-rotate(120deg)", "drop-shadow(4px 4px 10px blue)"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
     },
     "border": {
         "description": "sets an element's border, which sets the values of border_width, border_style, and border_color.",
@@ -24,6 +29,22 @@ props = {
         "values": ["solid", "dashed red", "thick double #32a1ce", "4mm ridge rgba(211, 220, 50, .6)"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom",
     },
+    "border_color": {
+        "description": "sets the color of an element's border (each side can be set individually using border_top_color, border_right_color, border_bottom_color, and border_left_color)",
+        "values": ["red", "red #32a1ce", "red rgba(170, 50, 220, .6) green", "red yellow green transparent"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-color",
+    },
+    "border_radius": {
+        "description": "rounds the corners of an element's outer border edge and you can set a single radius to make circular corners, or two radii to make elliptical corners",
+        "values": ["30px", "25% 10%", "10% 30% 50% 70%", "10% / 50%"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius",
+    },
+    "border_width": {
+        "description": "sets the width of an element's border",
+        "values": ["thick", "1em", "4px 1.25em", "0 4px 8px 12px"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/border-width",
+    },
+
     "color": {
         "description": "sets the foreground color value of an element's text",
         "values": ["rebeccapurple", "rgb(255, 255, 128)", "#00a400"],
@@ -38,6 +59,11 @@ props = {
         "description": "sets an element's height",
         "values": ["150px", "20em", "75%", "auto"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/height",
+    },
+    "justify": {
+        "description": "defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container (equivalent to justify_content)",
+        "values": ["start", "center", "flex-start", "space-between", "space-around", "space-evenly", "stretch"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content",
     },
 
     "margin": {
@@ -89,9 +115,9 @@ props = {
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/position",
     },
     "text_align": {
-        "description": "sets an element's width",
-        "values": ["150px", "20em", "75%", "auto"],
-        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/width",
+        "description": "sets the horizontal alignment of the inline-level content inside a block element or table-cell box",
+        "values": ["start", "end", "center", "justify", "left", "right"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-align",
     },
 
     "top / bottom / right / left": {
@@ -104,12 +130,16 @@ props = {
         "values": ["150px", "20em", "75%", "auto"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/width",
     },
+    "z_index": {
+        "description": "sets the z-order of a positioned element and its descendants or flex and grid items, and overlapping elements with a larger z-index cover those with a smaller one",
+        "values": ["auto", "1", "5", "200"],
+        "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/z-index",
+    },
     
 
 }
 
-# 12. text_align 15. align (align items) 16. justify (justify_content),
-# 17. z_index, 18. backdrop_filter, 19. backdrop_blur, 20. border_color, 21. border_radius,  21a. border_width, 22. box_shadow, 23. background_image, 
+# 22. box_shadow, 23. background_image, 
 # 25. flex_grow, 26. background (bg) 27. text_wrap, 28. whitespace, 29. word-break
 
 
