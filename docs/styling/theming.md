@@ -58,7 +58,7 @@ rx.table.root(
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("radius")),
-            rx.table.cell('"small" | "medium" | "large"'),
+            rx.table.cell('"none" | "small" | "medium" | "large" | "full"'),
             rx.table.cell("The radius of the theme. Can be 'small', 'medium', or 'large'. Defaults to 'medium'."),
         ),
         rx.table.row(
