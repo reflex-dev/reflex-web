@@ -129,7 +129,7 @@ rx.table.root(
         rx.table.row(
             rx.table.row_header_cell(rx.code("color")),
             rx.table.cell("Str"),
-            rx.table.cell("The color to use. Can be any color from the theme."),
+            rx.table.cell("The color to use. Can be any valid accent color or 'accent' to reference the current theme color."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("shade")),
