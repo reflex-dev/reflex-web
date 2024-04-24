@@ -25,7 +25,7 @@ Here are the props that can be passed to the `rx.theme` component:
 rx.table.root(
     rx.table.header(
         rx.table.row(
-            rx.table.column_header_cell(rx.code("Name")),
+            rx.table.column_header_cell("Name"),
             rx.table.column_header_cell("Type"),
             rx.table.column_header_cell("Description"),
         ),
@@ -33,43 +33,44 @@ rx.table.root(
     rx.table.body(
         rx.table.row(
             rx.table.row_header_cell(rx.code("has_background")),
-            rx.table.cell("Bool"),
+            rx.table.cell(rx.code("Bool", color_scheme="gray")),
             rx.table.cell("Whether to apply the themes background color to the theme node. Defaults to True."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("appearance")),
-            rx.table.cell('"inherit" | "light" | "dark"'),
+            rx.table.cell(rx.code('"inherit" | "light" | "dark"', color_scheme="gray")),
             rx.table.cell("The appearance of the theme. Can be 'light' or 'dark'. Defaults to 'light'."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("accent_color")),
-            rx.table.cell("Str"),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
             rx.table.cell("The primary color used for default buttons, typography, backgrounds, etc."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("gray_color")),
-            rx.table.cell("Str"),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
             rx.table.cell("The secondary color used for default buttons, typography, backgrounds, etc."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("panel_background")),
-            rx.table.cell('"solid" | "translucent"'),
+            rx.table.cell(rx.code('"solid" | "translucent"', color_scheme="gray")),
             rx.table.cell('Whether panel backgrounds are translucent: "solid" | "translucent" (default).'),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("radius")),
-            rx.table.cell('"none" | "small" | "medium" | "large" | "full"'),
+            rx.table.cell(rx.code('"none" | "small" | "medium" | "large" | "full"', color_scheme="gray")),
             rx.table.cell("The radius of the theme. Can be 'small', 'medium', or 'large'. Defaults to 'medium'."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("scaling")),
-            rx.table.cell('"90%" | "95%" | "100%" | "105%" | "110%"'),
+            rx.table.cell(rx.code('"90%" | "95%" | "100%" | "105%" | "110%"', color_scheme="gray")),
             rx.table.cell("Scale of all theme items."),
         ),
     ), 
     variant="surface",
     margin_y="1em",
 )
+
 ```
 
 Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
@@ -120,7 +121,7 @@ rx.flex(
 rx.table.root(
     rx.table.header(
         rx.table.row(
-            rx.table.column_header_cell(rx.code("Name")),
+            rx.table.column_header_cell("Name"),
             rx.table.column_header_cell("Type"),
             rx.table.column_header_cell("Description"),
         ),
@@ -128,23 +129,24 @@ rx.table.root(
     rx.table.body(
         rx.table.row(
             rx.table.row_header_cell(rx.code("color")),
-            rx.table.cell("Str"),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
             rx.table.cell("The color to use. Can be any valid accent color or 'accent' to reference the current theme color."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("shade")),
-            rx.table.cell('1 - 12'),
+            rx.table.cell(rx.link(rx.code('1 - 12', color_scheme="gray"), href="https://www.radix-ui.com/colors")),
             rx.table.cell("The shade of the color to use. Defaults to 7."),
         ),
         rx.table.row(
             rx.table.row_header_cell(rx.code("alpha")),
-            rx.table.cell("Bool"),
+            rx.table.cell(rx.code("Bool", color_scheme="gray")),
             rx.table.cell("Whether to use the alpha value of the color. Defaults to False."),
         )
     ), 
     variant="surface",
     margin_y="1em",
 )
+
 ```
 
 ### Regular Colors
@@ -186,8 +188,8 @@ To render a different component depending on whether the app is in `light` mode 
 
 ```python demo
 rx.color_mode_cond(
-    rx.image(src="/logos/light/reflex.svg", height="4em"),
-    rx.image(src="/logos/dark/reflex.svg", height="4em"),
+    light=rx.image(src="/logos/light/reflex.svg", height="4em"),
+    dark=rx.image(src="/logos/dark/reflex.svg", height="4em"),
 )
 ```
 
@@ -196,7 +198,7 @@ This can also be applied to props.
 ```python demo
 rx.button(
     "Hello World",
-    color=rx.color_mode_cond("black", "white"),
-    background_color=rx.color_mode_cond("white", "black"),
+    color=rx.color_mode_cond(light="black", dark="white"),
+    background_color=rx.color_mode_cond(light="white", dark="black"),
 )
 ```
