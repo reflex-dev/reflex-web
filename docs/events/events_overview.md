@@ -6,11 +6,15 @@ from pcweb.pages.docs.library import library
 
 # Events Overview
 
-Events are how we modify the state and make the app interactive.
+Events are composed of two parts: Event Triggers and Event Handlers.
 
-Event triggers are component props that create an event to be sent to an event handler.
+- **Events Handlers** are how the State of a Reflex application is updated. They are triggered by user interactions with the UI, such as clicking a button or hovering over an element. Events can also be triggered by the page loading or by other events.
+
+- **Event triggers** are component props that create an event to be sent to an event handler.
 Each component supports a set of events triggers. They are described in each [component's documentation]({library.path}) in the event trigger section.
 
+
+## Example 
 Lets take a look at an example below. Try mousing over the heading to change the word.
 
 ```python demo exec
@@ -37,5 +41,9 @@ def event_triggers_example():
 
 ```
 
-In this example, the heading component has the event trigger, `on_mouse_over`.
-Whenever the user hovers over the heading, the `next_word` handler will be called to cycle the word. Once the handler returns, the UI will be updated to reflect the new state.
+In this example, the heading component has the **event trigger**, `on_mouse_over`.
+Whenever the user hovers over the heading, the `next_word` **event handler** will be called to cycle the word. Once the handler returns, the UI will be updated to reflect the new state.
+
+# What in this section?
+
+In the event section of the documentation, you will explore the different types of events supported by Reflex, along with the different ways to call them.

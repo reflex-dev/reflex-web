@@ -18,3 +18,11 @@ class SpecialEventsState(rx.State):
 def special_events_example():
     return rx.button("Alert", on_click=SpecialEventsState.alert)
 ```
+
+
+Special events can also be triggered directly in the UI by attaching them to an event trigger.
+
+```python 
+def special_events_example():
+    return rx.button("Alert", on_click=rx.window_alert("Hello World!"))
+```

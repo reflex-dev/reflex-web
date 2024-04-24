@@ -3,22 +3,21 @@ import reflex as rx
 
 ```
 
-# Yielding Multiple Updates
+# Yielding Updates
 
 A regular event handler will send a `StateUpdate` when it has finished running. This works fine for basic event, but sometimes we need more complex logic. To update the UI multiple times in an event handler, we can `yield` when we want to send an update.
 
 To do so, we can use the Python keyword `yield`. For every yield inside the function, a `StateUpdate` will be sent to the frontend with the changes up to this point in the execution of the event handler.
 
-```python demo exec
+This example below shows how to yield a 100 updates to the UI.
 
-import asyncio
+```python demo exec
 
 class MultiUpdateState(rx.State):
     count: int = 0
 
-    async def timed_update(self):
-        for i in range(5):
-            await asyncio.sleep(0.5)
+    def timed_update(self):
+        for i in range(100):
             self.count += 1
             yield
 
@@ -56,6 +55,45 @@ def progress_example():
         rx.heading(
             ProgressExampleState.count,
             on_click=ProgressExampleState.increment,
+            _hover={"cursor": "pointer"},
+        )
+    )
+
+```
+
+## Yielding Other Events
+
+Events can also yield other events. This is useful when you want to chain events together. To do this, you can yield the event handler function itself.
+
+```python demo exec
+
+import asyncio
+
+class YieldEventsState(rx.State):
+    count: int = 0
+    show_progress: bool = False
+
+    async def add_five(self):
+        self.show_progress = True
+        yield
+        # Think really hard.
+        await asyncio.sleep(1)
+        self.count += 5
+        self.show_progress = False
+
+    async def increment(self):
+        yield YieldEventsState.add_five
+        yield YieldEventsState.add_five
+        yield YieldEventsState.add_five 
+
+
+def multiple_yield_example():
+    return rx.cond(
+        YieldEventsState.show_progress,
+        rx.chakra.circular_progress(is_indeterminate=True),
+        rx.heading(
+            YieldEventsState.count,
+            on_click=YieldEventsState.increment,
             _hover={"cursor": "pointer"},
         )
     )
