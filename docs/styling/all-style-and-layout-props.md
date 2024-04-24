@@ -16,7 +16,7 @@ props = {
     },
     "background": {
         "description": "sets all background style properties at once, such as color, image, origin and size, or repeat method (equivalent to bg)",
-        "values": ["green", "content-box radial-gradient(crimson, skyblue)", "no-repeat url('../../media/examples/lizard.png')"],
+        "values": ["green", "radial-gradient(crimson, skyblue)", "no-repeat url('../lizard.png')"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background",
     },
 
@@ -28,7 +28,7 @@ props = {
     },
     "background_image": {
         "description": "sets one or more background images on an element",
-        "values": ["url('../../media/examples/lizard.png')", "linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)"],
+        "values": ["url('../lizard.png')", "linear-gradient(#e66465, #9198e5)"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background-image",
     },
     "border": {
@@ -182,10 +182,10 @@ props = {
 def show_props(key, props_dict):
     prop_details = props_dict[key]
     return rx.table.row(
-        rx.table.cell(rx.code(key)),
-        rx.table.cell(prop_details["description"],),
-        rx.table.cell(rx.hstack(*[rx.badge(value) for value in prop_details["values"]], flex_wrap="wrap")),
-        rx.table.cell(rx.link(rx.icon("square_arrow_out_up_right", color_scheme), href=prop_details["link"], is_external=True)),
+        rx.table.cell(rx.code(key), justify="center",),
+        rx.table.cell(prop_details["description"], justify="center",),
+        rx.table.cell(rx.hstack(*[rx.badge(value) for value in prop_details["values"]], flex_wrap="wrap"), justify="center",),
+        rx.table.cell(rx.link(rx.icon("square_arrow_out_up_right", color=rx.color("mauve", 11), size=18,), href=prop_details["link"], is_external=True), justify="center",),
         align="center",
     )
 
@@ -197,20 +197,20 @@ rx.table.root(
     rx.table.header(
         rx.table.row(
             rx.table.column_header_cell(
-                "Prop", justify="start"
+                "Prop", justify="center"
             ),
             rx.table.column_header_cell(
                 "Description",
-                justify="start",
+                justify="center",
                 
             ),
             rx.table.column_header_cell(
                 "Potential Values",
-                justify="start",
+                justify="center",
             ),
             rx.table.column_header_cell(
                 "Extra Information",
-                justify="start",
+                justify="center",
             ),
             rx.table.column_header_cell(justify="start"),
         )
