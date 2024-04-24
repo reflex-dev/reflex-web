@@ -1,5 +1,4 @@
 import reflex as rx
-import pprint
 import httpx
 import json
 from rxconfig import config
@@ -60,16 +59,16 @@ def demo_modal_if_present(demo_url: str) -> rx.Component:
     )
 
 
-
-def author(author: str) -> rx.Component:
-    is_valid = isinstance(author, str) and author.strip() != ""
-    return rx.hstack(
-        rx.text("By: "),
-        rx.cond(
-            is_valid,
-            rx.text(author),
-            rx.text("unknown"),
-        )
+def last_update(time: str) -> rx.Component:
+    return rx.vstack(
+        rx.text(
+            "Last update",
+            line_height="0.5em",
+            color=rx.color("mauve", 11),
+            size="1",
+            padding_left="0.25em",
+        ),
+        rx.moment(time, from_now=True, size="10px",),
     )
 
 def demo(demo_url: str) -> rx.Component:
@@ -102,22 +101,45 @@ def pypi_keywords(keywords: rx.Var[list[str]]) -> rx.Component:
         padding_bottom=".5em",
     )
 
-def pip_install_command_copy_button(package_name: str) -> rx.Component:
-    return rx.code_block(
-        "pip install " + package_name, 
-        custom_style={"fontSize": "0.7em"}, 
-        border_radius="4px",
-        overflow_x="scroll",
+        # rx.button(
+        #     rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
+        #     on_click=rx.set_clipboard(code),
+
+def install_command(command: str) -> rx.Component:
+    return rx.hstack(
+        rx.button(
+            rx.icon(tag="copy", size=15, color=rx.color("mauve", 9)),
+            on_click=rx.set_clipboard(command),
+            background="transparent",
+            _hover={
+                "opacity": 0.5,
+                "cursor": "pointer",
+                "background": "transparent",
+            },
+            _active={
+                "size": "0.8em",
+                "transform": "scale(0.8)",
+            },
+        ),
+        rx.code_block(
+            command, 
+            custom_style={"fontSize": "0.8em"}, 
+            border_radius="4px",
+            overflow_x="scroll",
+            width="100%",
+            style={
+                "&::-webkit-scrollbar-thumb": {
+                    "background_color": "transparent",
+                },
+                "&::-webkit-scrollbar": {
+                    "background_color": "transparent",
+                    "height": "0px",
+                },
+            },
+        ),
         width="100%",
-        style={
-            "&::-webkit-scrollbar-thumb": {
-                "background_color": "transparent",
-            },
-            "&::-webkit-scrollbar": {
-                "background_color": "transparent",
-                "height": "0px",
-            },
-        },
+        align="center",
+        justify="center",
     )
 
 
@@ -134,9 +156,9 @@ def download_count(downloads: str) -> rx.Component:
                 # color looks cheap, fix later
                 padding_x=".5em",
                 font_size="1em",
-                bg="#D6D6ED",
-                color="#af3ab5",
-                border_color="#af3ab5",
+                bg=rx.color("accent", 3),
+                color=rx.color("accent", 9),
+                border=f"2px solid {rx.color('accent', 9)}",
                 border_radius="6px",
                 justify="center",
                 align_items="center",
@@ -178,26 +200,30 @@ def add_item(category: dict) -> rx.Component:
         f"{{{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}}"
     )
     return rx.flex(
-        rx.link(
-            rx.box(
-                position= 'absolute',
-                top= 0,
-                left= 0,
-                height= '100%',
-                width= '100%',
-                background_color= 'rgba(19, 18, 23, 0.1)',
-                _hover= {
-                    "background_color": "rgba(19, 18, 23, 0)"
-                },
-            ),
+        rx.box(
             download_count(category["downloads_last_month"]),
-            rx.box(
-                background_image='url('+category["image_url"]+')',
-                background_size="cover",
-                background_position="center",
-                background_repeat="no-repeat",
-                height="100%",
-                width="100%",
+            rx.cond(
+                category["demo_url"],
+                rx.link(
+                    rx.box(
+                        background_image='url('+category["image_url"]+')',
+                        background_size="cover",
+                        background_position="center",
+                        background_repeat="no-repeat",
+                        height="100%",
+                        width="100%",
+                    ),
+                    href=category["demo_url"],
+                    is_external=True,
+                ),
+                rx.box(
+                    background_image='url('+category["image_url"]+')',
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    height="100%",
+                    width="100%",
+                ),
             ),
             position="relative",
             height="16rem",
@@ -209,16 +235,15 @@ def add_item(category: dict) -> rx.Component:
             rx.vstack(
                 component_name(name),
                 component_description(category["summary"]),
-                # align_items="start",
                 width="100%",
                 padding_left="0.4em",
             ),
-            pip_install_command_copy_button(category["package_name"]),
+            install_command("pip install " + category["package_name"]),
             rx.hstack(
                 demo(category["demo_url"]),
                 download(category["download_url"]),
                 rx.spacer(),
-                author(category["author"]),
+                last_update(category["updated_at"]),
                 width="100%",
                 padding_left="0.25em",
                 padding_right="0.25em",
@@ -231,7 +256,11 @@ def add_item(category: dict) -> rx.Component:
         ),
         direction="column",
         border_radius="8px",
-        border=f"1px solid {rx.color('mauve', 4)}",
+        border=f"2px solid {rx.color('mauve', 4)}",
+        _hover={
+            "border": f"4px solid {rx.color('mauve', 4)}",
+            "cursor": "pointer",
+        },
         width="19em",
         height="23em",
     )
