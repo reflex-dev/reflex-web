@@ -81,7 +81,7 @@ def config_button():
         rx.menu.trigger(
             rx.button(
                 rx.icon("ellipsis"),
-                variant="soft"
+                variant="soft",
             ),
         ),
         rx.menu.content(
@@ -132,13 +132,20 @@ def setting_section():
 
 def generator():
     return rx.form(
-        rx.cond(
-            ImageGenState.processing,
-            rx.text("Processing..."),
-            rx.image(src=ImageGenState.image_url, width="100%"),
-        ),
         rx.vstack(
-            rx.input(placeholder="Enter description", name="prompt", width="100%"),
+            rx.cond(
+                ImageGenState.processing,
+                rx.center("Processing...", width="15em", height="15em"),
+                rx.cond(
+                    ImageGenState.image_url,
+                    rx.image(src=ImageGenState.image_url, width="15em", height="15em"),
+                    rx.center(rx.icon("images"), width="15em", height="15em"),
+                ),
+            ),
+            rx.input.root(
+                rx.input(placeholder="Enter description", name="prompt"),
+                width="100%",
+            ),
             rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
         ),
         on_submit=ImageGenState.get_image,
@@ -157,6 +164,7 @@ def image_gen():
                 generator(),
                 width="100%",
                 height="100%",
+                overflow="hidden",
             ),
             direction="column",
             width="60%",
