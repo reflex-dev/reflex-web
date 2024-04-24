@@ -40,11 +40,11 @@ class FeedbackState(rx.State):
         current_page_route = self.get_current_page()
 
         discord_message = f"""
-            Contact: {email}
-            Page: {current_page_route}
-            Score: {"👍" if score == 1 else "👎"}
-            Feedback: {feedback}
-        """
+Contact: {email}
+Page: {current_page_route}
+Score: {"👍" if score == 1 else "👎"}
+Feedback: {feedback}
+"""
 
         DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
         payload = {"content": discord_message}
