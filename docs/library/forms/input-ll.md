@@ -21,9 +21,7 @@ rx.input.root(
     rx.input.slot(
         rx.icon(tag="search"),
     ),
-    rx.input.input(
-        placeholder="Search here...",
-    ),
+    placeholder="Search here...",
 )
 ```
 
@@ -39,11 +37,8 @@ def blur_example1():
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search here...",
-                on_blur=TextfieldBlur1.set_text,
-            ),
-            
+            placeholder="Search here...",
+            on_blur=TextfieldBlur1.set_text,
         )
     )
 ```
@@ -60,11 +55,9 @@ def controlled_example1():
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search here...",
-                value=TextfieldControlled1.text,
-                on_change=TextfieldControlled1.set_text,
-            ),
+            placeholder="Search here...",
+            value=TextfieldControlled1.text,
+            on_change=TextfieldControlled1.set_text,
         ),
     )
 ```
@@ -101,9 +94,7 @@ def search():
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search songs...",
-            ),
+            placeholder="Search songs...",
         ),
         rx.flex(
             song("The Less I Know", "T", "Rock"),
