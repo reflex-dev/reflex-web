@@ -48,7 +48,7 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rx.input(placeholder="Search here...", max_length="20")
+rx.input(placeholder="Search here...", max_length=20)
 ```
 
 ### Using Event Handlers
