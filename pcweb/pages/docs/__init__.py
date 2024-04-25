@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import reflex as rx
 import flexdown
+from flexdown.utils import get_flexdown_files
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
@@ -86,6 +87,18 @@ def get_components_from_metadata(current_doc):
 flexdown_docs = [
     doc.replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
+
+root_dir = "quizzes/"
+quiz_files = []
+for dirpath, dirnames, filenames in os.walk(root_dir):
+    for filename in filenames:
+        if filename.endswith("_quiz.py"):
+            file_path = os.path.join(dirpath, filename)
+            file_path = file_path.replace("\\", "/")
+            quiz_files.append(file_path)
+
+for path in quiz_files:
+    print(path)
 
 chakra_components = defaultdict(list)
 component_list = defaultdict(list)
