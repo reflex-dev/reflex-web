@@ -53,6 +53,25 @@ When this event is triggered, it navigates the user to a different page or locat
 By default, the redirection occurs in the same tab. However, if you set the external parameter to True, the redirection
 will open in a new tab or window, providing a seamless user experience.
 
+
+This event can also be run from an event handler in State. It is necessary to `return` the `rx.direct()`.
+
+```python demo exec
+class State(rx.State):
+    """The app state."""
+
+    def change_page(self):
+        return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
+
+def redirect_example():
+    return rx.vstack(
+        rx.button("Change page in State", on_click=State.change_page),
+    )
+
+
+```
+
+
 ## rx.set_clipboard
 
 Set the specified text content to the clipboard.
