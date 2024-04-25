@@ -60,21 +60,32 @@ def demo_modal_if_present(demo_url: str) -> rx.Component:
 
 
 def last_update(time: str) -> rx.Component:
-    return rx.vstack(
+    return rx.hstack(
         rx.text(
-            "Last update",
+            "Last update:",
             line_height="0.5em",
             color=rx.color("mauve", 11),
             size="1",
-            padding_left="0.25em",
         ),
-        rx.moment(time, from_now=True, size="10px",),
+        rx.text(
+            rx.moment(
+                time,
+                from_now=True,
+            ),
+            size="1",
+            line_height="0.5em",
+            color=rx.color("mauve", 11),
+        ),
     )
 
 def demo(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
-        rx.link(info_icon(tag="eye"), href=demo_url, is_external=True),
+        rx.link(
+            info_icon(tag="eye"), 
+            href=demo_url, 
+            is_external=True,
+        ),
     )
 
 def download(download_url: str) -> rx.Component:
@@ -153,23 +164,22 @@ def download_count(downloads: str) -> rx.Component:
                     align="center",
                     justify="center",
                 ),
-                # color looks cheap, fix later
                 padding_x=".5em",
                 font_size="1em",
                 bg=rx.color("accent", 3),
                 color=rx.color("accent", 9),
                 border=f"2px solid {rx.color('accent', 9)}",
-                border_radius="6px",
+                border_radius="8px",
                 justify="center",
                 align_items="center",
                 variant="solid",
-                color_scheme="purple",
             ),
             content="PyPI downloads last month",
         ),
+        padding_right="0.175em",
+        padding_top="0.175em",
         position= 'absolute',
-        top= 0.2,
-        right= 0.2,
+        right= 0,
         z_index=4
     )
 
@@ -248,6 +258,7 @@ def add_item(category: dict) -> rx.Component:
                 padding_left="0.25em",
                 padding_right="0.25em",
                 justify="center",
+                align="center",
             ),
             spacing="1",
             width="100%",
@@ -286,7 +297,7 @@ def info_icon(
     **kwargs,
 ) -> rx.Component:
     return rx.badge(
-        rx.icon(tag=tag, width="1em", height="1em"),
+        rx.icon(tag=tag, width="1.4em", height="1.4em"),
         padding_x="0.5em",
         border_radius="15px",
     )
