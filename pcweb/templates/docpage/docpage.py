@@ -358,7 +358,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="18em")
+            sidebar = sb(url=path, width="16em")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -417,7 +417,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     rx.box(
                         sidebar,
                         margin_top="120px",
-                        margin_x="2em",
+                        # margin_x="2em",
                         height="100%",
                         width="25%",
                         display=["none", "none", "none", "none", "flex", "flex"],
@@ -442,11 +442,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             "none",
                             "none",
                             "none",
-                            "none",
+                            f"1px solid {rx.color('mauve', 4)};",
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
                         padding_x=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "60%", "60%"],
+                        width=["100%", "100%", "95%", "90%", "70%", "60%"],
                         height="100%",
                     ),
                     rx.box(
@@ -504,9 +504,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             overflow="hidden",
                         ),
                         margin_top="120px",
-                        width="15%",
+                        width="16em",
                         height="100%",
-                        display=["none", "none", "none", "none", "flex", "flex"],
+                        display=["none", "none", "none", "none", "none", "flex"],
                         flex_shrink=0,
                     ),
                     max_width="110em",
