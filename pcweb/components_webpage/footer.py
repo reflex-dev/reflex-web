@@ -11,7 +11,7 @@ import json
 import os
 from datetime import datetime
 import httpx
-# from email_validator import EmailNotValidError, validate_email
+from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 
 
@@ -19,7 +19,7 @@ footer_item_style = {
     "font_family": styles.SANS,
     "font_weight": "500",
     "_hover": {"color": rx.color("accent", 5)},
-    "color": "#6C6C81"
+    "color": "#6C6C81",
 }
 
 footer_style = {
@@ -32,6 +32,7 @@ footer_style = {
     "bg": "#110F1F",
 }
 
+
 def prompt_sign():
     return rx.chakra.text(
         "$",
@@ -39,6 +40,7 @@ def prompt_sign():
         font_family=styles.SANS,
         style={"userSelect": "none"},
     )
+
 
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
@@ -49,54 +51,70 @@ def container(*children, **kwargs):
 
 
 number_color = "#4E5A6A"
-text_color="#A9ABD8"
-other_color ="#5646ED"
+text_color = "#A9ABD8"
+other_color = "#5646ED"
 bottom_color = "#6C6C81"
+
 
 def installation():
     return rx.center(
-        rx.flex( 
+        rx.flex(
             rx.flex(
-                rx.flex(rx.text("1", color=number_color),rx.text("$", color=other_color), rx.text("pip install reflex", color=text_color), spacing ="2"),
-                rx.flex(rx.text("2", color=number_color),rx.text("$",  color=other_color), rx.text("reflex init", color=text_color), spacing ="2"),
-                rx.flex(rx.text("3", color=number_color),rx.text("$",  color=other_color), rx.text("reflex run", color=text_color), spacing ="2"),
+                rx.flex(
+                    rx.text("1", color=number_color),
+                    rx.text("$", color=other_color),
+                    rx.text("pip install reflex", color=text_color),
+                    spacing="2",
+                ),
+                rx.flex(
+                    rx.text("2", color=number_color),
+                    rx.text("$", color=other_color),
+                    rx.text("reflex init", color=text_color),
+                    spacing="2",
+                ),
+                rx.flex(
+                    rx.text("3", color=number_color),
+                    rx.text("$", color=other_color),
+                    rx.text("reflex run", color=text_color),
+                    spacing="2",
+                ),
                 rx.flex(
                     rx.text("You should see your first app", color=bottom_color),
                     rx.box(flex_grow=1),
                     rx.link(
                         rx.button(
                             "View Docs",
-                            border_radius= "8px;",
-                            background= "linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
-                            box_shadow= "0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset, 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 2px 24px -1px #080525, 0px 3px 9px -2px #4033C0;",
-                            _hover= {
-                                "border": "1px solid rgba(94, 78, 242, 0.15);"
-                            }
+                            border_radius="8px;",
+                            background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
+                            box_shadow="0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset, 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 2px 24px -1px #080525, 0px 3px 9px -2px #4033C0;",
+                            _hover={"border": "1px solid rgba(94, 78, 242, 0.15);"},
                         ),
                         href=getting_started.installation.path,
-                    )
+                    ),
                 ),
                 direction="column",
-                spacing="2"
+                spacing="2",
             ),
             direction="column",
-            border_radius= "10px 10px 0px 0px;",
-            border_top= "1px solid #3C3646;",
-            border_right= "1px solid #3C3646;",
-            border_left= "1px solid #3C3646;",
-            background= "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%);",
-            box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+            border_radius="10px 10px 0px 0px;",
+            border_top="1px solid #3C3646;",
+            border_right="1px solid #3C3646;",
+            border_left="1px solid #3C3646;",
+            background="linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%);",
+            box_shadow="0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
             padding="1em",
             width="30em",
-            spacing="3"
-        ), 
+            spacing="3",
+        ),
         width="100%",
-        border_bottom="1px solid #3C3646;"
+        border_bottom="1px solid #3C3646;",
     )
+
 
 class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
 
 class IndexState(rx.State):
     """Hold the state for the home page."""
@@ -127,7 +145,7 @@ class IndexState(rx.State):
 
         except httpx.RequestError as e:
             print(f"An error occurred: {e}")
-    
+
     def signup(self):
         """Sign the user up for the waitlist."""
         # Check if the email is valid.
@@ -149,7 +167,8 @@ class IndexState(rx.State):
                 self.add_contact_to_loops(contact_data)
 
         self.signed_up = True
-        
+
+
 button_style = {
     "border_radius": "50px",
     "": "",
@@ -177,7 +196,7 @@ def news_letter():
                     border_top_left_radius="0px",
                     border_bottom_left_radius="0px",
                     _hover={"linear-gradient(180deg, #6151F3 0%, #5646ED 100%);"},
-                )           
+                )
             ),
             rx.chakra.input(
                 placeholder="you@email.com",
@@ -188,19 +207,18 @@ def news_letter():
                 type="email",
                 border_radius="8px",
             ),
-            width="100%"
+            width="100%",
         ),
         align_items="left",
         width="100%",
     )
 
 
-
-
 def links():
     from pcweb.pages.blog import blg
     from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
+
     return rx.hstack(
         rx.desktop_only(
             logo(
@@ -238,25 +256,27 @@ def links():
             ),
             align_items="start",
         ),
-        rx.desktop_only(rx.vstack(
-            rx.text("Resources", color="#E8E8F4"),
-            rx.link(
-                "FAQ",
-                href=faq.path,
-                style=footer_item_style,
-            ),
-            rx.link(
-                "Roadmap",
-                href=constants.ROADMAP_URL,
-                style=footer_item_style,
-            ),
-            rx.link(
-                "Forum",
-                href=constants.GITHUB_DISCUSSIONS_URL,
-                style=footer_item_style,
-            ),
-            align_items="start",
-        )),
+        rx.desktop_only(
+            rx.vstack(
+                rx.text("Resources", color="#E8E8F4"),
+                rx.link(
+                    "FAQ",
+                    href=faq.path,
+                    style=footer_item_style,
+                ),
+                rx.link(
+                    "Roadmap",
+                    href=constants.ROADMAP_URL,
+                    style=footer_item_style,
+                ),
+                rx.link(
+                    "Forum",
+                    href=constants.GITHUB_DISCUSSIONS_URL,
+                    style=footer_item_style,
+                ),
+                align_items="start",
+            )
+        ),
         rx.tablet_and_desktop(
             news_letter(),
         ),
@@ -264,9 +284,8 @@ def links():
         align_items="top",
         padding_bottom="2em",
         min_width="100%",
-        padding_top="2em"
+        padding_top="2em",
     )
-
 
 
 def footer(style=footer_style):
@@ -286,23 +305,43 @@ def footer(style=footer_style):
                 ),
                 rx.hstack(
                     rx.link(
-                        rx.image(src="/companies/light/github.svg", alt="A link to Reflex's Github", height="1.5em"),
+                        rx.image(
+                            src="/companies/light/github.svg",
+                            alt="A link to Reflex's Github",
+                            height="1.5em",
+                        ),
                         href=constants.GITHUB_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/linkedin.svg", alt="A link to Reflex's Linkedin", height="1.5em"),
+                        rx.image(
+                            src="/companies/light/linkedin.svg",
+                            alt="A link to Reflex's Linkedin",
+                            height="1.5em",
+                        ),
                         href=constants.LINKEDIN_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/yc.svg", alt="A link to Reflex's YC profile", height="1.5em"),
+                        rx.image(
+                            src="/companies/light/yc.svg",
+                            alt="A link to Reflex's YC profile",
+                            height="1.5em",
+                        ),
                         href=constants.YC_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/twitter.svg", alt="A link to Reflex's Twitter", height="1.5em"),
+                        rx.image(
+                            src="/companies/light/twitter.svg",
+                            alt="A link to Reflex's Twitter",
+                            height="1.5em",
+                        ),
                         href=constants.TWITTER_URL,
                     ),
                     rx.link(
-                        rx.image(src="/companies/light/discord.svg", alt="A link to Reflex's Discord", height="1.5em"),
+                        rx.image(
+                            src="/companies/light/discord.svg",
+                            alt="A link to Reflex's Discord",
+                            height="1.5em",
+                        ),
                         href=constants.DISCORD_URL,
                     ),
                     gap="1em",
@@ -321,4 +360,3 @@ def footer(style=footer_style):
         width="100%",
         z_index=1,
     )
-

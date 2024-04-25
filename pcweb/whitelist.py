@@ -1,8 +1,6 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-WHITELISTED_PAGES = [
-    "index.py"
-]
+WHITELISTED_PAGES = []
 
 
 def _check_whitelisted_path(path):
@@ -19,4 +17,4 @@ def _check_whitelisted_path(path):
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):
             return True
-    return False      
+    return False
