@@ -16,32 +16,32 @@ link_style = {
     "_hover": {"color": rx.color("accent")},
 }
 
-button_style_landing= {
+button_style_landing = {
     "border_radius": "50px;",
     "border": "1px solid rgba(186, 199, 247, 0.12);",
     "background": "rgba(161, 157, 213, 0.03);",
     "backdrop_filter": "blur(2px);",
     "padding": "7px 12px;",
     "align_items": "center;",
-    "color": "#848496;"
+    "color": "#848496;",
 }
 
 
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
 github_url = "https://github.com/reflex-dev/reflex"
-bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+bugs_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
 def container(*children, **kwargs):
     kwargs = {"max_width": "1440px", "padding_x": ["1em", "2em", "3em"], **kwargs}
     return rx.chakra.container(
         *children,
-        **kwargs, 
+        **kwargs,
     )
 
-class DemoState(rx.State):
 
+class DemoState(rx.State):
     demo = "Image Generator"
 
     def set_demo(self, demo):
@@ -50,6 +50,7 @@ class DemoState(rx.State):
 
 try:
     import openai
+
     openai_client = openai.OpenAI()
 except:
     openai_client = None
@@ -70,19 +71,15 @@ class ImageGenState(rx.State):
 
         self.processing, self.complete = True, False
         yield
-        response = openai_client.images.generate(
-            prompt=prompt, n=1, size="512x512"
-        )
+        response = openai_client.images.generate(prompt=prompt, n=1, size="512x512")
         self.image_url = response.data[0].url
         self.processing, self.complete = False, True
+
 
 def config_button():
     return rx.menu.root(
         rx.menu.trigger(
-            rx.button(
-                rx.icon("ellipsis"),
-                variant="soft"
-            ),
+            rx.button(rx.icon("ellipsis"), variant="soft"),
         ),
         rx.menu.content(
             rx.menu.item("Share", shortcut="⌘ E"),
@@ -105,14 +102,14 @@ def config_button():
         ),
     )
 
+
 def setting_section():
     return rx.vstack(
         rx.heading("Settings"),
-        rx.radix.input.root(
-            rx.input(placeholder="Seed"),
-            width="100%"
+        rx.radix.input.root(rx.input(placeholder="Seed"), width="100%"),
+        rx.select(
+            ["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"
         ),
-        rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
         rx.text("Temperature"),
         rx.slider(default_value=25, width="100%"),
         rx.text("Width"),
@@ -127,8 +124,9 @@ def setting_section():
         border_left="1px solid #2F2B37;",
         padding="1.25em",
         align_items="start",
-        justify_content="center"
+        justify_content="center",
     )
+
 
 def generator():
     return rx.form(
@@ -139,50 +137,54 @@ def generator():
         ),
         rx.vstack(
             rx.input(placeholder="Enter description", name="prompt", width="100%"),
-            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+            rx.button(
+                "Generate Image ->", width="100%", disabled=ImageGenState.processing
+            ),
         ),
         on_submit=ImageGenState.get_image,
     )
 
+
 def image_gen():
     return rx.theme(
         rx.hstack(
-        rx.flex(
-            rx.hstack(
-                config_button(),
-                width="100%", 
-                justify_content="right", 
+            rx.flex(
+                rx.hstack(
+                    config_button(),
+                    width="100%",
+                    justify_content="right",
+                ),
+                rx.center(
+                    generator(),
+                    width="100%",
+                    height="100%",
+                ),
+                direction="column",
+                width="60%",
+                height="24em",
+                padding_top="0.5em",
             ),
-            rx.center(
-                generator(),
-                width="100%",
-                height="100%",
-            ),
-            direction="column",
-            width="60%",
-            height="24em",
-            padding_top="0.5em",
+            setting_section(),
+            padding_x="1em",
+            height="100%",
         ),
-        setting_section(),
-        padding_x="1em",
-        height="100%",
-    ),
-    appearance="dark",
+        appearance="dark",
     )
+
 
 def example_button(text):
     return rx.button(
-    text,
-    border_radius="8px;",
-    border="1px solid rgba(186, 199, 247, 0.12);",
-    background= rx.cond(
-        DemoState.demo == text,
-        "#282828",
-        "rgba(161, 157, 213, 0.03);",
-    ),
-    backdrop_filter= "blur(2px);",
-    on_click= lambda: DemoState.set_demo(text)
-)
+        text,
+        border_radius="8px;",
+        border="1px solid rgba(186, 199, 247, 0.12);",
+        background=rx.cond(
+            DemoState.demo == text,
+            "#282828",
+            "rgba(161, 157, 213, 0.03);",
+        ),
+        backdrop_filter="blur(2px);",
+        on_click=lambda: DemoState.set_demo(text),
+    )
 
 
 def demos():
@@ -197,7 +199,7 @@ def demos():
                 line_height="1",
             ),
             rx.chakra.text(
-                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", 
+                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
                 color="#6C6C81",
                 font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
                 text_align="center",
@@ -211,7 +213,7 @@ def demos():
             example_button("Dashboard"),
             rx.spacer(),
             rx.box(),
-            align_items="left"
+            align_items="left",
         ),
         rx.box(
             rx.match(
@@ -220,16 +222,17 @@ def demos():
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 ("Image Generator", image_gen()),
-                image_gen()
+                image_gen(),
             ),
-            border_radius= "10px;",
-            border= "1px solid #2F2B37;",
-            background= "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-            width="100%", 
+            border_radius="10px;",
+            border="1px solid #2F2B37;",
+            background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+            width="100%",
         ),
         padding_bottom="4em",
         width="100%",
     )
+
 
 def user_count_item(count, platform) -> rx.Component:
     return rx.flex(
@@ -238,6 +241,7 @@ def user_count_item(count, platform) -> rx.Component:
         direction="column",
         align="center",
     )
+
 
 def user_count_comp() -> rx.Component:
     return rx.center(
@@ -252,6 +256,7 @@ def user_count_comp() -> rx.Component:
         spacing="5",
         padding="1em",
     )
+
 
 def open_source_badge() -> rx.Component:
     return rx.button(
@@ -288,6 +293,7 @@ def open_source_badge() -> rx.Component:
         },
     )
 
+
 def github_button() -> rx.Component:
     return rx.button(
         rx.flex(
@@ -312,7 +318,6 @@ def github_button() -> rx.Component:
             ),
             spacing="2",
         ),
-
         position="relative",
         top="32px",
         right="-140px",
@@ -334,6 +339,7 @@ def github_button() -> rx.Component:
         },
     )
 
+
 def invite_message() -> rx.Component:
     return rx.box(
         rx.text(
@@ -346,6 +352,7 @@ def invite_message() -> rx.Component:
         ),
         width="30em",
     )
+
 
 def request_buttons() -> rx.Component:
     return rx.hstack(
@@ -382,11 +389,12 @@ def request_buttons() -> rx.Component:
         ),
     )
 
+
 def invite_card_comp() -> rx.Component:
     return rx.box(
         rx.flex(
             rx.text(
-                "Contribute to Reflex!", 
+                "Contribute to Reflex!",
                 color="#D6D6ED",
                 weight="medium",
             ),
@@ -405,8 +413,9 @@ def invite_card_comp() -> rx.Component:
         width="30em",
         border="1px solid #3C3646;",
         background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-        box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+        box_shadow="0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
     )
+
 
 def stats() -> rx.Component:
     return rx.vstack(
@@ -435,8 +444,10 @@ def stats() -> rx.Component:
         },
     )
 
+
 def spacer_box_will_fix_later():
     return rx.box(height="60px")
+
 
 def feature_button(name: str):
     return rx.button(
@@ -444,10 +455,11 @@ def feature_button(name: str):
         color="848496",
         border_radius="50px;",
         border="1px solid rgba(186, 199, 247, 0.12);",
-        background= "rgba(161, 157, 213, 0.03);",
-        backdrop_filter= "blur(2px);",
-        size="2"
+        background="rgba(161, 157, 213, 0.03);",
+        backdrop_filter="blur(2px);",
+        size="2",
     )
+
 
 def feature_button_hstack(mobile=False):
     return rx.hstack(
@@ -458,30 +470,33 @@ def feature_button_hstack(mobile=False):
         width="100%",
     )
 
+
 def hero_section_text(mobile=False):
     return rx.vstack(
         rx.chakra.text(
             "Web apps in Pure Python.",
             text_align="left" if not mobile else "center",
-            background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
+            background="linear-gradient(to top right, #d6d6eb, #6b6b7f)",
             font_size=["30px", "40px", "54px", "54px", "54px", "54px"],
             background_clip="text",
             font_weight="bold",
             line_height="1",
-            
+            text_fill_color="transparent",
         ),
         rx.chakra.text(
             "Deploy with a single command.",
             text_align="left" if not mobile else "center",
-            color="#6C6C81",
+            # color="#6C6C81",
+            background="linear-gradient(to top right, #d6d6eb, #6b6b7f)",
+            background_clip="text",
             font_size=["30px", "40px", "54px", "54px", "54px", "54px"],
             font_weight="bold",
             line_height="1",
-            max_width=["300px", "350px","650px", "650px", "650px","650px"],
+            max_width=["300px", "350px", "650px", "650px", "650px", "650px"],
         ),
         align_items="center",
-        
     )
+
 
 def hero_section_buttons(mobile=False):
     return rx.hstack(
@@ -491,9 +506,9 @@ def hero_section_buttons(mobile=False):
                 color="#FFFFFF",
                 background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%)",
                 box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset",
-                size="4"
+                size="4",
             ),
-            href="/docs/getting-started",        
+            href="/docs/getting-started",
         ),
         rx.link(
             rx.button(
@@ -504,10 +519,10 @@ def hero_section_buttons(mobile=False):
                 background="rgba(161, 157, 213, 0.03)",
                 backdrop_filter="blur(2px)",
                 color="white",
-                size="4"
+                size="4",
             ),
-            href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX", 
-            margin_left="1em",        
+            href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+            margin_left="1em",
         ),
         padding_top="1em",
         align_items="center",
@@ -515,19 +530,22 @@ def hero_section_buttons(mobile=False):
         width="100%",
     )
 
+
 def hero_section() -> rx.Component:
     """Render the hero section of the landing page."""
     return rx.center(
         rx.chakra.vstack(
             landing(),
-            rx.desktop_only(rx.vstack(
-                feature_button_hstack(),
-                hero_section_text(),
-                hero_section_buttons(),
-                padding_left="3em",
-                spacing="3",
-                align_items="left",
-            )),
+            rx.desktop_only(
+                rx.vstack(
+                    feature_button_hstack(),
+                    hero_section_text(),
+                    hero_section_buttons(),
+                    padding_left="3em",
+                    spacing="3",
+                    align_items="left",
+                )
+            ),
             rx.mobile_and_tablet(
                 rx.vstack(
                     feature_button_hstack(mobile=True),
@@ -553,11 +571,126 @@ def top() -> rx.Component:
         padding_bottom="3em",
     )
 
+
+# landing page, second section ...
+def inner_frame(path: str, radius: str):
+    return rx.box(
+        rx.image(src=path),
+        width="44px",
+        height="44px",
+        border_radius=radius,
+        background="linear-gradient(204.46deg, rgba(189, 183, 255, 0.24) 6.84%, rgba(165, 156, 255, 0.24) 84.37%)",
+        justify_content="center",
+        align_items="center",
+        display="flex",
+        box_shadow="0px 2px 4px 0px rgba(0, 0, 0, 0.30)",
+        border="0.75px solid #69678a",
+    )
+
+
+def inner_frame_to_do():
+    return rx.box(
+        rx.box(
+            rx.image(
+                src="checkmark.svg",
+                transform="translatex(4px) translatey(-1px)",
+            ),
+            width="32px",
+            height="32px",
+            border_radius="50%",
+            border="0.75px solid #534f7a",
+            background="linear-gradient(215.71deg, #322F49 -18.26%, #1F1C32 142.17%)",
+            box_shadow="0px 2px 4px 0px rgba(0, 0, 0, 0.60)",
+            justify_content="center",
+            align_items="center",
+            display="flex",
+        ),
+        width="44px",
+        height="44px",
+        border_radius="50%",
+        background="linear-gradient(204.46deg, rgba(189, 183, 255, 0.24) 6.84%, rgba(165, 156, 255, 0.24) 84.37%)",
+        justify_content="center",
+        align_items="center",
+        display="flex",
+        box_shadow="0px 2px 4px 0px rgba(0, 0, 0, 0.30)",
+        border="0.75px solid #69678a",
+    )
+
+
+def frame(component: rx.box):
+    return rx.box(
+        component,
+        width="62px",
+        height="62px",
+        border_radius="10px",
+        border="1px solid #37345a",
+        background="linear-gradient(205.84deg, #322F49 -2.17%, #1F1C32 83.68%)",
+        justify_content="center",
+        align_items="center",
+        display="flex",
+    )
+
+
+def wrap_frame(frame_: rx.box, title: str):
+    return rx.vstack(
+        frame_,
+        rx.text(title, color="#D6D6ED"),
+        rx.hstack(
+            rx.badge("LLM", size="1", color_scheme="violet", variant="solid"),
+            rx.badge("Chat Bot", size="1", color_scheme="violet", variant="solid"),
+        ),
+    )
+
+
+def landing_page_second_section():
+    return rx.vstack(
+        rx.vstack(
+            rx.heading(
+                "Build web apps. Faster.",
+                size="9",
+                weight="bold",
+                color="#D6D6ED",
+                text_align="center",
+            ),
+            rx.heading(
+                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
+                size="5",
+                width=["100%", "100%", "75%", "65%", "50%"],
+                color="#6C6C81",
+                text_align="center",
+                weight="medium",
+            ),
+            width="100%",
+            justify_content="center",
+            padding="0em 1em",
+            spacing="5",
+        ),
+        # add flex properties and wrap properties to the below hstack for responsive layout...
+        rx.hstack(
+            wrap_frame(
+                frame(inner_frame("chatgpt.svg", "10px 10px 0px 10px")), "Chat GPT"
+            ),
+            wrap_frame(frame(inner_frame("mail.svg", "50%")), "Sales Email Generator"),
+            wrap_frame(frame(inner_frame_to_do()), "Todo App"),
+            width="100%",
+            justify_content="center",
+            align_items="center",
+            spacing="6",
+            padding="3em 0em 10em 0em",
+        ),
+        width="100%",
+        display="flex",
+        justify_content="center",
+        align_items="center",
+    )
+
+
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
         top(),
+        landing_page_second_section(),
         rx.container(
             demos(),
             stats(),

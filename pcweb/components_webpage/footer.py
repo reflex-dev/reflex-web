@@ -11,7 +11,7 @@ import json
 import os
 from datetime import datetime
 import httpx
-from email_validator import EmailNotValidError, validate_email
+# from email_validator import EmailNotValidError, validate_email
 from sqlmodel import Field
 
 
