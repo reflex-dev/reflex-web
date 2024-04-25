@@ -598,7 +598,12 @@ def generate_event_triggers(comp):
     if not custom_events:
         return rx.vstack(
             rx.heading("Event Triggers", font_size="1em"),
-            rx.text("No component specific event triggers"),
+            rx.link(
+                "See the full list of default event triggers",
+                href="https://reflex.dev/docs/api-reference/event-triggers/",
+                underline="hover",
+                is_external=True,
+            ),
             width="100%",
             overflow_x="auto",
             align_items="start",
