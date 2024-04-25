@@ -1,17 +1,10 @@
 ---
 components:
     - rx.progress
-    - rx.progress.root
-    - rx.progress.indicator
+    # - rx.progress.ndicator
 
 Progress: |
     lambda **props: rx.progress(value=50, **props)
-
-ProgressRoot: |
-    lambda **props: rx.progress.root(rx.progress.indicator(value=50, max=100), **props)
-
-ProgressIndicator: |
-    lambda **props: rx.progress.root(rx.progress.indicator(value=50, max=100, **props))
 ---
 
 ```python exec

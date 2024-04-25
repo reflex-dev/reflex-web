@@ -7,7 +7,7 @@ from pcweb.pages.docs import library
 
 As of Reflex `v0.4.0`, you can now theme your Reflex applications. The core of our theming system is directly based on the [Radix Themes](https://www.radix-ui.com) library. This allows you to easily change the theme of your application along with providing a default light and dark theme. Themes cause all the components to have a unified color appearance.
 
-## Theme
+## Overview
 
 The `Theme` component is used to change the theme of the application. The `Theme` can be set directly in your rx.App.
 
@@ -19,7 +19,62 @@ app = rx.App(
 )
 ```
 
+Here are the props that can be passed to the `rx.theme` component:
+
+```python eval
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Name"),
+            rx.table.column_header_cell("Type"),
+            rx.table.column_header_cell("Description"),
+        ),
+    ),
+    rx.table.body(
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("has_background")),
+            rx.table.cell(rx.code("Bool", color_scheme="gray")),
+            rx.table.cell("Whether to apply the themes background color to the theme node. Defaults to True."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("appearance")),
+            rx.table.cell(rx.code('"inherit" | "light" | "dark"', color_scheme="gray")),
+            rx.table.cell("The appearance of the theme. Can be 'light' or 'dark'. Defaults to 'light'."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("accent_color")),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
+            rx.table.cell("The primary color used for default buttons, typography, backgrounds, etc."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("gray_color")),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
+            rx.table.cell("The secondary color used for default buttons, typography, backgrounds, etc."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("panel_background")),
+            rx.table.cell(rx.code('"solid" | "translucent"', color_scheme="gray")),
+            rx.table.cell('Whether panel backgrounds are translucent: "solid" | "translucent" (default).'),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("radius")),
+            rx.table.cell(rx.code('"none" | "small" | "medium" | "large" | "full"', color_scheme="gray")),
+            rx.table.cell("The radius of the theme. Can be 'small', 'medium', or 'large'. Defaults to 'medium'."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("scaling")),
+            rx.table.cell(rx.code('"90%" | "95%" | "100%" | "105%" | "110%"', color_scheme="gray")),
+            rx.table.cell("Scale of all theme items."),
+        ),
+    ), 
+    variant="surface",
+    margin_y="1em",
+)
+
+```
+
 Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
+ 
 
 ## Colors
 
@@ -43,28 +98,55 @@ rx.flex(
 )
 ```
 
-### Specific Shades of Palettes
+### Shades
 
-To access a specific shade of color from the theme, you can use the `rx.color`. When switching to light and dark themes, the color will automatically change.
+Sometime you may want to use a specific shade of a color from the theme. This is recommended vs using a hex color directly as it will automatically change when the theme changes appearance change from light/dark.
 
-Shades can be accessed by using the color name and the shade number. The shade number ranges from 1 to 12. Additionally, they can have their alpha value set by using the `True` parameter it defaults to `False`.
+
+To access a specific shade of color from the theme, you can use the `rx.color`. When switching to light and dark themes, the color will automatically change. Shades can be accessed by using the color name and the shade number. The shade number ranges from 1 to 12. Additionally, they can have their alpha value set by using the `True` parameter it defaults to `False`. A full list of colors can be found [here](https://www.radix-ui.com/colors).
 
 ```python demo
 rx.flex(
     rx.button(
         "Hello World",
         color=rx.color("grass", 1),
-        background_color=rx.color("grass", 12),
+        background_color=rx.color("grass", 7),
         border_color=f"1px solid {rx.color('grass', 1)}",
-    ),
-    rx.button(
-        "Hello World",
-        color=rx.color("grass", 1, True),
-        background_color=rx.color("grass", 12, True),
-        border_color=f"1px solid {rx.color('grass', 1, True)}",
     ),
     spacing="2"
 )
+```
+
+```python eval
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Name"),
+            rx.table.column_header_cell("Type"),
+            rx.table.column_header_cell("Description"),
+        ),
+    ),
+    rx.table.body(
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("color")),
+            rx.table.cell(rx.code("Str", color_scheme="gray")),
+            rx.table.cell("The color to use. Can be any valid accent color or 'accent' to reference the current theme color."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("shade")),
+            rx.table.cell(rx.link(rx.code('1 - 12', color_scheme="gray"), href="https://www.radix-ui.com/colors")),
+            rx.table.cell("The shade of the color to use. Defaults to 7."),
+        ),
+        rx.table.row(
+            rx.table.row_header_cell(rx.code("alpha")),
+            rx.table.cell(rx.code("Bool", color_scheme="gray")),
+            rx.table.cell("Whether to use the alpha value of the color. Defaults to False."),
+        )
+    ), 
+    variant="surface",
+    margin_y="1em",
+)
+
 ```
 
 ### Regular Colors
@@ -76,51 +158,47 @@ rx.flex(
     rx.button(
         "Hello World",
         color="white",
-        background_color="blue",
-        border_color="1px solid red",
-    ),
-    rx.button(
-        "Hello World",
-        color="#ff0000",
-        background_color="rgba(0, 0, 255, 0.5)",
-        border_color="1px solid #ff0000",
+        background_color="#87CEFA",
+        border="1px solid rgb(176,196,222)",
     ),
     spacing="2"
 )
 ```
 
-### Color Mode
+## Toggle Appearance
 
-```python
+To toggle between the light and dark mode manually, you can use the `toggle_color_mode` with the desired event trigger of your choice. 
+
+```python 
+
+from reflex.style import toggle_color_mode
+
+
+
+def index():
+    return rx.button(
+        "Toggle Color Mode",
+        on_click=toggle_color_mode,
+    )
+```
+
+## Appearance Conditional Rendering
+
+To render a different component depending on whether the app is in `light` mode or `dark` mode, you can use the `rx.color_mode_cond` component. The first component will be rendered if the app is in `light` mode and the second component will be rendered if the app is in `dark` mode.
+
+```python demo
 rx.color_mode_cond(
-    rx.image(src="/logos/light/reflex.svg", height="4em"),
-    rx.image(src="/logos/dark/reflex.svg", height="4em"),
+    light=rx.image(src="/logos/light/reflex.svg", height="4em"),
+    dark=rx.image(src="/logos/dark/reflex.svg", height="4em"),
 )
 ```
 
-`rx.color_mode_cond` can be used to render a different component depending on whether the app is in `light` mode or `dark` mode. 
+This can also be applied to props.
 
-The first argument to the `color_mode_cond` component is the component to render when the app is in `light` mode. 
-
-The second argument is the component to render when the app is in `dark` mode.
-
-
-```python
-rx.color_mode.switch()
+```python demo
+rx.button(
+    "Hello World",
+    color=rx.color_mode_cond(light="black", dark="white"),
+    background_color=rx.color_mode_cond(light="white", dark="black"),
+)
 ```
-
-`rx.color_mode.switch` is used to add a switch to your app to allow the user to easily switch the app between `light` mode and `dark` mode.
-
-
-```python
-rx.color_mode.button()
-```
-
-`rx.color_mode.button` is very similar to the `switch` above and is used to add a button to your app to allow the user to easily switch the app between `light` mode and `dark` mode.
-
-
-```python
-rx.color_mode.icon()
-```
-
-`rx.color_mode.icon` creates an `icon` component based on `color_mode`. By default it has the sun and moon icon for `light` and `dark` mode. You can change these by passing the icon for `light` mode as `light_component=` and `dark` mode as `dark_component=` to the `rx.color_mode.icon` component.
