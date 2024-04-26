@@ -19,6 +19,11 @@ class Route(Base):
     # The component to render for the route.
     component: Callable[[], rx.Component]
 
+    # whether to add the route to the app's pages. This is typically used
+    # to delay adding the 404 page(which is explicitly added in pcweb.py).
+    # https://github.com/reflex-dev/reflex-web/pull/659#pullrequestreview-2021171902
+    add_as_page: bool = True
+
 
 def get_path(component_fn: Callable):
     """Get the path for a page based on the file location.
