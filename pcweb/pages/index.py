@@ -82,7 +82,14 @@ class ImageGenState(rx.State):
 def config_button():
     return rx.menu.root(
         rx.menu.trigger(
+
             rx.button(rx.icon("ellipsis"), variant="soft"),
+
+            rx.button(
+                rx.icon("ellipsis"),
+                variant="soft",
+            ),
+
         ),
         rx.menu.content(
             rx.menu.item("Share", shortcut="⌘ E"),
@@ -133,16 +140,28 @@ def setting_section():
 
 def generator():
     return rx.form(
-        rx.cond(
-            ImageGenState.processing,
-            rx.text("Processing..."),
-            rx.image(src=ImageGenState.image_url, width="100%"),
-        ),
         rx.vstack(
+
             rx.input(placeholder="Enter description", name="prompt", width="100%"),
             rx.button(
                 "Generate Image ->", width="100%", disabled=ImageGenState.processing
             ),
+
+            rx.cond(
+                ImageGenState.processing,
+                rx.center("Processing...", width="15em", height="15em"),
+                rx.cond(
+                    ImageGenState.image_url,
+                    rx.image(src=ImageGenState.image_url, width="15em", height="15em"),
+                    rx.center(rx.icon("images"), width="15em", height="15em"),
+                ),
+            ),
+            rx.input.root(
+                rx.input(placeholder="Enter description", name="prompt"),
+                width="100%",
+            ),
+            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+
         ),
         on_submit=ImageGenState.get_image,
     )
@@ -151,6 +170,7 @@ def generator():
 def image_gen():
     return rx.theme(
         rx.hstack(
+
             rx.flex(
                 rx.hstack(
                     config_button(),
@@ -166,6 +186,19 @@ def image_gen():
                 width="60%",
                 height="24em",
                 padding_top="0.5em",
+
+        rx.flex(
+            rx.hstack(
+                config_button(),
+                width="100%", 
+                justify_content="right", 
+            ),
+            rx.center(
+                generator(),
+                width="100%",
+                height="100%",
+                overflow="hidden",
+
             ),
             setting_section(),
             padding_x="1em",
