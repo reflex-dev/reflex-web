@@ -2,7 +2,7 @@
 
 import os
 import sys
- 
+
 import reflex as rx
 from pcweb import styles
 from pcweb.pages import page404, routes
@@ -23,7 +23,9 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
-        has_background=True, radius="large", accent_color="violet"
+        has_background=True,
+        radius="large",
+        accent_color="violet",
     ),
     head_components=[
         rx.el.script(

@@ -6,8 +6,11 @@ from reflex_chat import chat
 from .demos_on_landing_page.auth.auth import auth
 from .demos_on_landing_page.forms.forms import forms
 from .demos_on_landing_page.dashboard.dashboard import dashboard
+from .demos_on_landing_page.tasks.tasks import task
 
 from .landing_page_components.logo import landing
+
+from .demos_on_landing_page.tasks.tasks import TaskState
 
 
 link_style = {
@@ -190,30 +193,54 @@ def example_button(text):
 def demos():
     return rx.vstack(
         rx.vstack(
-            rx.chakra.text(
-                "Build web apps, faster.",
-                font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
-                text_align="left",
+            rx.heading(
+                "Build web apps. Faster.",
+                size="9",
+                weight="bold",
                 color="#D6D6ED",
-                font_weight="bold",
-                line_height="1",
-            ),
-            rx.chakra.text(
-                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
-                color="#6C6C81",
-                font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
                 text_align="center",
             ),
-            padding_y="2em",
+            rx.heading(
+                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
+                size="5",
+                width=["100%", "100%", "75%", "65%", "55%"],
+                color="#6C6C81",
+                text_align="center",
+                weight="medium",
+            ),
+            width="100%",
+            justify_content="center",
+            padding="1em 1em",
+            spacing="5",
         ),
+        # rx.vstack(
+        #     rx.chakra.text(
+        #         "Build web apps, faster.",
+        #         font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
+        #         text_align="left",
+        #         color="#D6D6ED",
+        #         font_weight="bold",
+        #         line_height="1",
+        #     ),
+        #     rx.chakra.text(
+        #         "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
+        #         color="#6C6C81",
+        #         font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
+        #         text_align="center",
+        #     ),
+        #     padding_y="2em",
+        # ),
         rx.hstack(
             example_button("Image Generator"),
             example_button("Forms"),
             example_button("Auth"),
             example_button("Dashboard"),
+            example_button("Tasks"),
             rx.spacer(),
             rx.box(),
             align_items="left",
+            width="100%",
+            padding="0.75em 0em",
         ),
         rx.box(
             rx.match(
@@ -222,6 +249,7 @@ def demos():
                 ("Dashboard", dashboard()),
                 ("Auth", auth()),
                 ("Image Generator", image_gen()),
+                ("Tasks", task()),
                 image_gen(),
             ),
             border_radius="10px;",
@@ -690,7 +718,6 @@ def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
         top(),
-        landing_page_second_section(),
         rx.container(
             demos(),
             stats(),
