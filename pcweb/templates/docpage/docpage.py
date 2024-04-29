@@ -446,7 +446,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
                         padding_x=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "60%", "60%"] if right_sidebar else "1005",
+                        width=["100%", "100%", "100%", "100%", "60%", "60%"] if right_sidebar else "100%",
                         height="100%",
                     ),
                     rx.box(
