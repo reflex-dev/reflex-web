@@ -87,6 +87,7 @@ def get_sidebar_items_frontend():
             "Wrapping React",
             children=[
                 wrapping_react.overview,
+                wrapping_react.guide,
                 wrapping_react.imports,
                 wrapping_react.logic,
                 wrapping_react.example,
