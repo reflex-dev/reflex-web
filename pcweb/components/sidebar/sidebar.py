@@ -206,7 +206,6 @@ def sidebar_item_comp(
                 ),
                 width="100%",
             ),
-            border="none",
             width="100%",
         ),
     )
@@ -297,7 +296,6 @@ def sidebar_section(name):
         name,
         color=rx.color("mauve", 12),
         font_weight="500",
-        padding="10px 10px 10px 10px",
     )
 
 
@@ -430,7 +428,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         ),
         width="100%",
         height="100%",
-        justify="end",
+        justify="center",
     )
 
 

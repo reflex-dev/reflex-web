@@ -358,7 +358,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="16em")
+            sidebar = sb(url=path, width="14em")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -419,7 +419,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                         margin_top="120px",
                         margin_right="2em",
                         height="100%",
-                        width="25%",
+                        width="21%",
                         display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,
                     ),
@@ -444,7 +444,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
                         padding_x=styles.PADDING_X,
-                        width=["100%", "100%", "95%", "90%", "70%", "60%"] if right_sidebar else "100%",
+                        width=["100%", "97%", "94%", "90%", "70%", "60%"] if right_sidebar else "100%",
                         height="100%",
                     ),
                     rx.box(
@@ -502,9 +502,10 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                             overflow="hidden",
                         ),
                         margin_top="120px",
-                        width="16em",
+                        width="18%",
                         height="100%",
                         display=["none", "none", "none", "none", "none", "flex"] if right_sidebar else "none",
+
                         flex_shrink=0,
                     ),
                     max_width="110em",
