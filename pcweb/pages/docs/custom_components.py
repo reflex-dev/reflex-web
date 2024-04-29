@@ -272,7 +272,7 @@ def add_item(category: dict) -> rx.Component:
             "border": f"4px solid {rx.color('mauve', 4)}",
             "cursor": "pointer",
         },
-        width="19em",
+        width="100%",
         height="23em",
     )
 
@@ -281,8 +281,8 @@ def component_grid():
     return rx.chakra.responsive_grid(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         columns=[1,2,2,2,3,3],
+        gap="4",
         min_child_width="20em",
-        spacing_x="2em",
         spacing_y="2em",
     )
 

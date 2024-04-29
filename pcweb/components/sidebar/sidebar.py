@@ -206,6 +206,7 @@ def sidebar_item_comp(
                 ),
                 width="100%",
             ),
+            border="none",
             width="100%",
         ),
     )

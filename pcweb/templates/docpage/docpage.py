@@ -358,7 +358,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
             from pcweb.components.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="14em")
+            sidebar = sb(url=path, width="18em")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -419,7 +419,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                         margin_top="120px",
                         margin_right="2em",
                         height="100%",
-                        width="21%",
+                        width="24%",
                         display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,
                     ),
