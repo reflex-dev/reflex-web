@@ -1,5 +1,4 @@
 import reflex as rx
-
 import httpx
 import json
 from rxconfig import config
@@ -33,9 +32,8 @@ class CustomComponentGalleryState(rx.State):
 
         self.components_list = component_list
 
-
-grid_layout = [1, 2, 2, 3, 3]
-
+def package_url(package_name: str) -> str:
+    return f"https://pypi.org/pypi/{package_name}/"
 
 def demo_modal_if_present(demo_url: str) -> rx.Component:
     return rx.cond(
@@ -61,33 +59,37 @@ def demo_modal_if_present(demo_url: str) -> rx.Component:
     )
 
 
-def package_url(package_name: str) -> str:
-    return f"https://pypi.org/pypi/{package_name}/"
-
-
-def author_card_if_present(author: str) -> rx.Component:
-    return rx.cond(
-        author,
-        info_icon(tag="user"),
+def last_update(time: str) -> rx.Component:
+    return rx.hstack(
+        rx.text(
+            "Last update:",
+            line_height="0.5em",
+            color=rx.color("mauve", 11),
+            size="1",
+        ),
+        rx.text(
+            rx.moment(
+                time,
+                from_now=True,
+            ),
+            size="1",
+            line_height="0.5em",
+            color=rx.color("mauve", 11),
+        ),
     )
 
-
-def updated_on_pypi_if_present(updated_on_pypi: str) -> rx.Component:
-    return rx.cond(
-        updated_on_pypi,
-        info_icon(tag="pencil-line"),
-    )
-
-
-def demo_url_if_present(demo_url: str) -> rx.Component:
+def demo(demo_url: str) -> rx.Component:
     return rx.cond(
         demo_url,
-        rx.link(info_icon(tag="eye"), href=demo_url, is_external=True),
+        rx.link(
+            info_icon(tag="eye"), 
+            href=demo_url, 
+            is_external=True,
+        ),
     )
 
-
-def download_url(download_url: str) -> rx.Component:
-    return rx.link(info_icon(tag="external-link"), href=download_url, is_external=True)
+def download(download_url: str) -> rx.Component:
+    return rx.link(info_icon(tag="chevrons-left-right"), href=download_url, is_external=True)
 
 
 def source_if_present(source: str) -> rx.Component:
@@ -110,60 +112,97 @@ def pypi_keywords(keywords: rx.Var[list[str]]) -> rx.Component:
         padding_bottom=".5em",
     )
 
+        # rx.button(
+        #     rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
+        #     on_click=rx.set_clipboard(code),
 
-def pypi_summary(summary: str) -> rx.Component:
-    return rx.text(
-        summary,
-        color=rx.color("mauve", 11),
-        size="1",
-    )
-
-
-def pip_install_command_copy_button(package_name: str) -> rx.Component:
-    return rx.code_block(
-        "pip install " + package_name, 
-        custom_style={"fontSize": "0.7em"}, 
-        border_radius="4px",
-        overflow_x="scroll",
-        width="100%",
-        style={
-            "&::-webkit-scrollbar-thumb": {
-                "background_color": "transparent",
-            },
-            "&::-webkit-scrollbar": {
-                "background_color": "transparent",
-                "height": "0px",
-            },
-            
-        },
-    )
-
-
-def pypi_download_box(name: str, downloads: str) -> rx.Component:
+def install_command(command: str) -> rx.Component:
     return rx.hstack(
-        rx.heading(
-            name,
-            size="2",
+        rx.button(
+            rx.icon(tag="copy", size=15, color=rx.color("mauve", 9)),
+            on_click=rx.set_clipboard(command),
+            background="transparent",
+            _hover={
+                "opacity": 0.5,
+                "cursor": "pointer",
+                "background": "transparent",
+            },
+            _active={
+                "size": "0.8em",
+                "transform": "scale(0.8)",
+            },
         ),
-        rx.box(
-            flex_grow=1,
+        rx.code_block(
+            command, 
+            custom_style={"fontSize": "0.8em"}, 
+            border_radius="4px",
+            overflow_x="scroll",
+            width="100%",
+            style={
+                "&::-webkit-scrollbar-thumb": {
+                    "background_color": "transparent",
+                },
+                "&::-webkit-scrollbar": {
+                    "background_color": "transparent",
+                    "height": "0px",
+                },
+            },
         ),
+        width="100%",
+        align="center",
+        justify="center",
+    )
+
+
+def download_count(downloads: str) -> rx.Component:
+    return rx.box(
         rx.tooltip(
-            rx.badge(
-                downloads,
-                rx.icon(tag="external-link", size=12),
+            rx.chakra.badge(
+                rx.hstack(
+                    downloads,
+                    rx.icon(tag="arrow-down-to-line", size=15),
+                    align="center",
+                    justify="center",
+                ),
                 padding_x=".5em",
-                font_size="0.75em",
-                border_radius="6px",
+                font_size="1em",
+                bg=rx.color("accent", 3),
+                color=rx.color("accent", 9),
+                border=f"2px solid {rx.color('accent', 9)}",
+                border_radius="8px",
                 justify="center",
                 align_items="center",
+                variant="solid",
             ),
             content="PyPI downloads last month",
         ),
-        width="100%",
-        justify_content="center",
+        padding_right="0.175em",
+        padding_top="0.175em",
+        position= 'absolute',
+        right= 0,
+        z_index=4
     )
 
+def component_name(name: str) -> rx.Component:
+    return rx.hstack(
+        rx.text(
+            name,
+            size="3",
+            weight="bold",
+            line_height="1em",
+        ),
+        width="100%",
+    )
+
+def component_description(summary: str) -> rx.Component:
+    return rx.hstack(
+        rx.text(
+            summary,
+            color=rx.color("mauve", 11),
+            size="1",
+        ),
+        width="100%",
+    )
 
 def add_item(category: dict) -> rx.Component:
     # Format the package name to be more human readable
@@ -172,69 +211,79 @@ def add_item(category: dict) -> rx.Component:
     )
     return rx.flex(
         rx.box(
-            rx.box(
-                position= 'absolute',
-                top= 0,
-                left= 0,
-                height= '100%',
-                width= '100%',
-                background_color= 'rgba(19, 18, 23, 0.2)',
-                _hover= {
-                    "background_color": "rgba(19, 18, 23, 0)"
-                },
-            ),
-            rx.box(
-                background_image='url('+category["image_url"]+')',
-                background_size="cover",
-                background_position="center",
-                background_repeat="no-repeat",
-                height="100%",
-                width="100%",
+            download_count(category["downloads_last_month"]),
+            rx.cond(
+                category["demo_url"],
+                rx.link(
+                    rx.box(
+                        background_image='url('+category["image_url"]+')',
+                        background_size="cover",
+                        background_position="center",
+                        background_repeat="no-repeat",
+                        height="100%",
+                        width="100%",
+                    ),
+                    href=category["demo_url"],
+                    is_external=True,
+                ),
+                rx.box(
+                    background_image='url('+category["image_url"]+')',
+                    background_size="cover",
+                    background_position="center",
+                    background_repeat="no-repeat",
+                    height="100%",
+                    width="100%",
+                ),
             ),
             position="relative",
-            height="12rem",
+            height="16rem",
             width="100%",
             border_radius="8px 8px 0 0",
             overflow="hidden",
         ),
         rx.vstack(
             rx.vstack(
-                pypi_download_box(
-                    name,
-                    category["downloads_last_month"],
-                ),
-                pypi_summary(category["summary"]),
-                align_items="start",
+                component_name(name),
+                component_description(category["summary"]),
                 width="100%",
+                padding_left="0.4em",
             ),
-            rx.spacer(),
-            pip_install_command_copy_button(category["package_name"]),
+            install_command("pip install " + category["package_name"]),
             rx.hstack(
+                demo(category["demo_url"]),
+                download(category["download_url"]),
                 rx.spacer(),
-                author_card_if_present(category["author"]),
-                source_if_present(category["source"]),
-                demo_url_if_present(category["demo_url"]),
-                download_url(category["download_url"]),
+                last_update(category["updated_at"]),
                 width="100%",
+                padding_left="0.25em",
+                padding_right="0.25em",
                 justify="center",
+                align="center",
             ),
             spacing="1",
             width="100%",
-            height="11em",
-            padding=".25em"
+            height="10em",
+            padding=".25em",
         ),
         direction="column",
         border_radius="8px",
-        border=f"1px solid {rx.color('mauve', 4)}",
-        height="21em",
+        border=f"2px solid {rx.color('mauve', 4)}",
+        _hover={
+            "border": f"4px solid {rx.color('mauve', 4)}",
+            "cursor": "pointer",
+        },
+        width="19em",
+        height="23em",
     )
 
 
 def component_grid():
     return rx.chakra.responsive_grid(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
-        columns=grid_layout,
-        gap=4,
+        columns=[1,2,2,2,3,3],
+        min_child_width="20em",
+        spacing_x="2em",
+        spacing_y="2em",
     )
 
 
@@ -248,7 +297,7 @@ def info_icon(
     **kwargs,
 ) -> rx.Component:
     return rx.badge(
-        rx.icon(tag=tag, width="1em", height="1em"),
+        rx.icon(tag=tag, width="1.4em", height="1.4em"),
         padding_x="0.5em",
         border_radius="15px",
     )
