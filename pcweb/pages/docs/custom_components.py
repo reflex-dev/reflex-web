@@ -254,7 +254,7 @@ def info_icon(
     )
 
 
-@docpage()
+@docpage(right_sidebar=False)
 def custom_components() -> rx.Component:
     return rx.flex(
         h1_comp(text="Custom Components"),

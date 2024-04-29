@@ -315,7 +315,7 @@ def get_toc(source, href, component_list=None):
     return headings
 
 
-def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
+def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bool = True) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -417,7 +417,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     rx.box(
                         sidebar,
                         margin_top="120px",
-                        margin_x="2em",
+                        margin_right="2em",
                         height="100%",
                         width="25%",
                         display=["none", "none", "none", "none", "flex", "flex"],
@@ -446,7 +446,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
                         padding_x=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "60%", "60%"],
+                        width=["100%", "100%", "100%", "100%", "60%", "60%"] if right_sidebar else "1005",
                         height="100%",
                     ),
                     rx.box(
@@ -504,7 +504,7 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             overflow="hidden",
                         ),
                         margin_top="120px",
-                        width="15%",
+                        width="15%" if right_sidebar else "none",
                         height="100%",
                         display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,

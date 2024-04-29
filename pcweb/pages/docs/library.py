@@ -39,7 +39,7 @@ def component_grid():
     )
 
 
-@docpage()
+@docpage(right_sidebar=False)
 def library():
     return rx.flex(
         rx.hstack(
