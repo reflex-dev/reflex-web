@@ -4,13 +4,14 @@ on:
     branches: ['main']
   # TODO: remove PR below, only for testing
   pull_request:
+    branches: ['main']
 jobs:
   test:
     name: reflex-web-repository-dispatch
 
     uses: peter-evans/repository-dispatch@v3
     with:
-      token: ${{ secrets.PAT }}
+      # token: ${{ secrets.PAT }}
       repository: reflex-dev/reflex-hosting
       event-type: push
       client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
