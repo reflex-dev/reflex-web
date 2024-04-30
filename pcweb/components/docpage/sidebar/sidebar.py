@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import reflex as rx
 from pcweb import styles
-from pcweb.components.navbar.state import NavbarState
+from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.route import Route
 from .state import SidebarState, SidebarItem
  

@@ -353,9 +353,9 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                 The page with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.navbar import navbar
-            from pcweb.components.sidebar import get_prev_next
-            from pcweb.components.sidebar import sidebar as sb
+            from pcweb.components.docpage.navbar import navbar
+            from pcweb.components.docpage.sidebar import get_prev_next
+            from pcweb.components.docpage.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
             sidebar = sb(url=path, width="18em")
