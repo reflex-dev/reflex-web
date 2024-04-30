@@ -2,9 +2,6 @@ name: reflex-web-repository-dispatch
 on:
   push:
     branches: ['main']
-  # TODO: remove PR below, only for testing
-  pull_request:
-    branches: ['main']
 jobs:
   test:
     name: reflex-web-repository-dispatch
