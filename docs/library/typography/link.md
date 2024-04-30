@@ -24,7 +24,7 @@ rx.link("Example", href="/docs/library",)
 
 ```md alert info
 # Redirect the user
-It is also possible to redirect the user to a new path within the application, using `rx.direct()`. Check out the docs [here]({api_reference.special_events.path}).
+It is also possible to redirect the user to a new path within the application, using `rx.redirect()`. Check out the docs [here]({api_reference.special_events.path}).
 ```
 
 

@@ -54,10 +54,10 @@ By default, the redirection occurs in the same tab. However, if you set the exte
 will open in a new tab or window, providing a seamless user experience.
 
 
-This event can also be run from an event handler in State. It is necessary to `return` the `rx.direct()`.
+This event can also be run from an event handler in State. It is necessary to `return` the `rx.redirect()`.
 
 ```python demo exec
-class State(rx.State):
+class RedirectExampleState(rx.State):
     """The app state."""
 
     def change_page(self):
