@@ -1,5 +1,6 @@
 import inspect
 import re
+import textwrap
 
 # Get the comment for a specific field.
 from typing import Callable, Type
@@ -8,6 +9,7 @@ import reflex as rx
 from pcweb import styles
 from pcweb.styles import font_weights as fw
 from pcweb.templates.docpage import h1_comp, h2_comp, text_comp
+from pcweb.flexdown import markdown
 
 
 class Source(rx.Base):
@@ -46,17 +48,21 @@ class Source(rx.Base):
         return ".".join((self.module.__module__, self.module.__qualname__))
 
     def get_overview(self) -> str:
-        return self.module.__doc__
+        return inspect.cleandoc(self.module.__doc__ or "")
 
     def get_class_fields(self) -> list[dict]:
         if not issubclass(self.module, rx.Base):
             return []
-        return self.get_annotations(self.module.__class_vars__)
+        out = self.get_annotations(self.module.__class_vars__)
+        print(out)
+        return out
 
     def get_fields(self) -> list[dict]:
         if not issubclass(self.module, rx.Base):
             return []
-        return self.get_annotations(self.module.__fields__)
+        out = self.get_annotations(self.module.__fields__)
+        print(out)
+        return out
 
     def get_methods(self):
         return [
@@ -107,6 +113,7 @@ class Source(rx.Base):
                 comments.clear()
                 continue
 
+            prop = props[prop]
             # redundant check just to double-check line above prop is a comment
             assert (
                 self.code[i - 1].strip().startswith("#")
@@ -120,7 +127,7 @@ class Source(rx.Base):
             # Add the prop to the output.
             out.append(
                 dict(
-                    name=prop,
+                    prop=prop,
                     description=comment,
                 )
             )
@@ -128,15 +135,28 @@ class Source(rx.Base):
         # Return the output.
         return out
 
+def format_field(field):
+    type_ = field["prop"].type_
+    default = field["prop"].default
+    type_str = type_.__name__  if hasattr(type_, "__name__") else str(type_)
+    if default:
+        type_str += f" = {default}"
+    return rx.code(
+        field["prop"].name, 
+        ": ",
+        type_str,
+        font_weight=styles.BOLD_WEIGHT,
+    )
 
 def generate_docs(title: str, s: Source):
+    class_fields = s.get_class_fields()
     return rx.box(
         h1_comp(text=title.title()),
         rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
         rx.chakra.divider(),
-        text_comp(text=s.get_overview()),
-        h2_comp(text="Class Fields"),
+        markdown(s.get_overview()),
         rx.box(
+            h2_comp(text="Class Fields"),
             rx.chakra.table(
                 rx.chakra.thead(
                     rx.chakra.tr(
@@ -148,16 +168,16 @@ def generate_docs(title: str, s: Source):
                     *[
                         rx.chakra.tr(
                             rx.chakra.td(
-                                rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
+                                format_field(field),
                             ),
                             rx.chakra.td(field["description"]),
                         )
-                        for field in s.get_class_fields()
+                        for field in class_fields
                     ],
-                ),
+                )
             ),
             style={"overflow": "auto"},
-        ),
+        ) if class_fields else rx.fragment(),
         h2_comp(text="Fields"),
         rx.box(
             rx.chakra.table(
@@ -171,7 +191,7 @@ def generate_docs(title: str, s: Source):
                     *[
                         rx.chakra.tr(
                             rx.chakra.td(
-                                rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)
+                                format_field(field),
                             ),
                             rx.chakra.td(field["description"]),
                         )
