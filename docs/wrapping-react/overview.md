@@ -50,19 +50,6 @@ def index():
     return spline(scene="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode")
 ```
 
-To create a new component, first create a class that inherits from `rx.Component`.
-
-In general the steps to wrap a React component are:
-
-1. Create a class that inherits from `rx.Component`.
-2. Specify the `library` and `lib_dependencies` 
-
-3. Specify the `tag` which is the name of the React component from the package that you want to wrap. In this case it is `Spline`. If you want to wrap multiple components from the same library, you can create a separate class for each one. If the component is a default export (doesn't require curly braces in the ) from the module, set `is_default = True`.
-4. Specify any props that the component takes. In this case, the `Spline` component takes a `scene` prop, which is the URL of the Spline scene.
-5. Add interactivity to the component by defining event handlers and state variables. This component has no event handlers, but we will cover this in the next section.
-6. Create a convenience function to create the component. This is optional but makes it easier to use the component in your app. You can then use your component like any other Reflex component.
-
-In the next page, we will go step by step through a more complex example of wrapping a React component.
 
 ## ColorPicker Example
 
@@ -77,7 +64,7 @@ class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-    on_change: rx.EventHandler[lambda e0: [e0]]
+    on_change: rx.EventHandler[lambda color: [color]]
 
 color_picker = ColorPicker.create
 
@@ -106,7 +93,7 @@ class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-    on_change: rx.EventHandler[lambda e0: [e0]]
+    on_change: rx.EventHandler[lambda color: [color]]
 
 color_picker = ColorPicker.create
 
@@ -125,5 +112,6 @@ def index():
         padding="5em",
         border_radius="1em",
     )
-
 ```
+
+In the next page, we will go step by step through a more complex example of wrapping a React component.
