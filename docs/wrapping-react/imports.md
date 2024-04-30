@@ -8,7 +8,7 @@ class ColorPicker(rx.Component):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
-    on_change: rx.EventHandler[lambda e0: [e0]]
+    on_change: rx.EventHandler[lambda event: [event]]
 
 color_picker = ColorPicker.create
 
@@ -19,7 +19,7 @@ class ColorPickerState(rx.State):
 
 # Full Guide
 
-Let's walk step by step through how to wrap a React component in Reflex by wrapping a color picker component.
+Let's walk step by step through how to wrap a React component in Reflex, using the color picker as our primary example.
 
 ```python eval
 rx.box(
@@ -38,9 +38,11 @@ rx.box(
 
 ## Find The Component
 
-Before deciding to extend Reflex by wrapping a component, check to see if there is a corresponding, well-maintained React library. Search for your library on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app. Make sure to include `react` in your search query to find React components.
+There are two ways to find a component to wrap:
+1. Write the component yourself locally.
+2. Find a well-maintained React library on [npm](https://www.npmjs.com/) that contains the component you need.
 
-In this example we are wrapping the `HexPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library.
+In this guide we are wrapping the `HexPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library. We will cover local components on the next page.
 
 ## Define the Component
 
@@ -52,8 +54,6 @@ class ColorPicker(rx.Component):
 ```
 
 ## Set the Library and Tag
-
-When wrapping a React component, the first tings to determine are the library and the tag.
 
 The library is just the name of the `npm` package, and the tag is the name of the React component from the package that you want to wrap. Some packages have multiple components, and you can wrap each one as a separate Reflex component.
 
@@ -78,7 +78,7 @@ When you create your component, Reflex will automatically install the library fo
 
 ### Import Types
 
-Sometimes the component is a default export from the module. For example in the `react-spline` library the `Spline` component is the default export, since there are no curly braces around the import.
+Sometimes the component is a default export from the module (meaning it doesn't require curly braces in the import statement).
 
 ```javascript
 import Spline from '@splinetool/react-spline';
@@ -107,31 +107,16 @@ class Spline(rx.Component):
 
     library = "@splinetool/react-spline"
     tag = "Spline"
-    scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+    scene: Var[str]
     is_default = True
     lib_dependencies: list[str] = ["@splinetool/runtime"]  # Specify extra npm packages to install.
-```
-
-### Aliases
-
-If you are wrapping another component with the same tag as a component in your project you can use aliases to differentiate between them and avoid naming conflicts.
-
-Lets check out the code below, in this case if we needed to wrap another color picker library with the same tag we use an alias to avoid a conflict.
-
-```python
-class AnotherColorPicker(rx.Component):
-    library = "some-other-colorpicker"
-    tag = "HexColorPicker"
-    alias = "OtherHexColorPicker"
-    color: rx.Var[str]
-    on_change: rx.EventHandler[lambda e0: [e0]]
 ```
 
 ### Dynamic Imports
 
 Some libraries you may want to wrap may require dynamic imports. This is because they they may not be compatible with Server-Side Rendering (SSR).
 
-To handle this in Reflex all you need to do is subclass `NoSSRComponent` when defining your component.
+To handle this in Reflex, subclass `NoSSRComponent` when defining your component.
 
 Often times when you see an import something like this:
 
@@ -154,6 +139,39 @@ class PlotlyLib(NoSSRComponent):
     library = "react-plotly.js@2.6.0"
 
     lib_dependencies: List[str] = ["plotly.js@2.22.0"]
+```
+
+### Additional Imports
+
+Sometimes you may need to import additional files or stylesheets to use a component. You can do this by overriding the `add_imports` method in your component class. The method returns a dictionary where the key is the library and the values are a list of imports.
+
+```python
+class ReactFlowLib(Component):
+    """A component that wraps a react flow lib."""
+
+    library = "reactflow"
+
+    def add_imports(self):
+        return {
+            "": ['reactflow/dist/style.css']
+        }
+```
+
+You can use the empty string as the key to import files that are not part of a library.
+
+### Aliases
+
+If you are wrapping another component with the same tag as a component in your project you can use aliases to differentiate between them and avoid naming conflicts.
+
+Lets check out the code below, in this case if we needed to wrap another color picker library with the same tag we use an alias to avoid a conflict.
+
+```python
+class AnotherColorPicker(rx.Component):
+    library = "some-other-colorpicker"
+    tag = "HexColorPicker"
+    alias = "OtherHexColorPicker"
+    color: rx.Var[str]
+    on_change: rx.EventHandler[lambda e0: [e0]]
 ```
 
 ## Custom Code

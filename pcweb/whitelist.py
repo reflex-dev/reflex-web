@@ -1,6 +1,5 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-WHITELISTED_PAGES = ["/docs/wrapping-react/"]
 
 # Tips:
 # - Ensure that the path starts with a forward slash '/'.
@@ -10,7 +9,7 @@ WHITELISTED_PAGES = ["/docs/wrapping-react/"]
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = []
+WHITELISTED_PAGES = ["/docs/wrapping-react", "/docs/api-reference"]
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:

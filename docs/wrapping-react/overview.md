@@ -3,6 +3,7 @@ import reflex as rx
 from typing import Any
 from pcweb.components.spline import spline
 from pcweb.templates.docpage import demo_box_style
+from pcweb.pages.docs import custom_components
 from pcweb import constants
 ```
 
@@ -11,6 +12,8 @@ from pcweb import constants
 One of Reflex's most powerful features is the ability to wrap React components and take advantage of the vast ecosystem of React libraries.
 
 If you want a specific component for your app but Reflex doesn't provide it, there's a good chance it's available as a React component. Search for it on [npm]({constants.NPMJS_URL}), and if it's there, you can use it in your Reflex app. You can also create your own local React components and wrap them in Reflex.
+
+Once you wrap your component, you [publish it]({custom_components.overview.path}) to the Reflex library so that others can use it.
 
 ## Simple Example
 
@@ -37,18 +40,15 @@ class Spline(rx.Component):
     is_default = True
 
     # Any props that the component takes.
-    scene: rx.Var[str] ="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode"
+    scene: rx.Var[str]
 
 # Convenience function to create the Spline component.
 spline = Spline.create
 
 # Use the Spline component in your app.
 def index():
-    return spline()
+    return spline(scene="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode")
 ```
-
-
-
 
 To create a new component, first create a class that inherits from `rx.Component`.
 
@@ -88,17 +88,17 @@ class ColorPickerState(rx.State):
 
 ```python eval
 rx.box(
-        rx.vstack(
-            rx.heading(ColorPickerState.color, color="white"),
-            color_picker(
-                on_change=ColorPickerState.set_color
-            ),
+    rx.vstack(
+        rx.heading(ColorPickerState.color, color="white"),
+        color_picker(
+            on_change=ColorPickerState.set_color
         ),
-        background_color=ColorPickerState.color,
-        padding="5em",
-        border_radius="1em",
-        margin_bottom="1em",
-    )
+    ),
+    background_color=ColorPickerState.color,
+    padding="5em",
+    border_radius="1em",
+    margin_bottom="1em",
+)
 ```
 
 ```python
