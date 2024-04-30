@@ -5,7 +5,6 @@ import reflex as rx
 
 from rxconfig import config
 
-from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 
 

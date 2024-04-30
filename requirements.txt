@@ -12,4 +12,4 @@ flexdown==0.1.5a8
 reflex>=0.3.8
 mistletoe>=1.2.1
 reflex-image-zoom>=0.0.2
-reflex-chat>=0.0.1a4
+reflex-chat==0.0.2a1

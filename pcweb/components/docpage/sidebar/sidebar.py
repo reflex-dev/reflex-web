@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import reflex as rx
 from pcweb import styles
-from pcweb.components.navbar.state import NavbarState
+from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.route import Route
 from .state import SidebarState, SidebarItem
  
@@ -297,7 +297,6 @@ def sidebar_section(name):
         name,
         color=rx.color("mauve", 12),
         font_weight="500",
-        padding="10px 10px 10px 10px",
     )
 
 
@@ -430,7 +429,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         ),
         width="100%",
         height="100%",
-        justify="end",
+        justify="center",
     )
 
 

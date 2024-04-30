@@ -2,7 +2,6 @@ import reflex as rx
 from pcweb import constants, styles
 from pcweb.pages.docs import hosting, wrapping_react
 from pcweb.pages.docs.gallery import gallery
-from pcweb.styles import text_colors as tc
 from pcweb.templates.docpage import doclink
 from pcweb.templates.webpage import webpage
 

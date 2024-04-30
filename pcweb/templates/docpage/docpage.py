@@ -315,7 +315,7 @@ def get_toc(source, href, component_list=None):
     return headings
 
 
-def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
+def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bool = True) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -353,9 +353,9 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                 The page with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.navbar import navbar
-            from pcweb.components.sidebar import get_prev_next
-            from pcweb.components.sidebar import sidebar as sb
+            from pcweb.components.docpage.navbar import navbar
+            from pcweb.components.docpage.sidebar import get_prev_next
+            from pcweb.components.docpage.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
             sidebar = sb(url=path, width="18em")
@@ -417,16 +417,14 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                     rx.box(
                         sidebar,
                         margin_top="120px",
-                        margin_x="2em",
+                        margin_right="2em",
                         height="100%",
-                        width="25%",
+                        width="24%",
                         display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,
                     ),
                     rx.box(
-                        rx.box(
-                            breadcrumb(path), margin_top="120px", margin_bottom="20px"
-                        ),
+                        rx.box(breadcrumb(path), margin_top="120px"),
                         rx.box(comp),
                         rx.hstack(
                             *links,
@@ -442,11 +440,11 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             "none",
                             "none",
                             "none",
-                            "none",
+                            f"1px solid {rx.color('mauve', 4)};",
                             f"1px solid {rx.color('mauve', 4)};",
                         ],
                         padding_x=styles.PADDING_X,
-                        width=["100%", "100%", "100%", "100%", "60%", "60%"],
+                        width=["100%", "97%", "94%", "90%", "70%", "60%"] if right_sidebar else "100%",
                         height="100%",
                     ),
                     rx.box(
@@ -504,9 +502,10 @@ def docpage(set_path: str | None = None, t: str | None = None) -> rx.Component:
                             overflow="hidden",
                         ),
                         margin_top="120px",
-                        width="15%",
+                        width="18%",
                         height="100%",
-                        display=["none", "none", "none", "none", "flex", "flex"],
+                        display=["none", "none", "none", "none", "none", "flex"] if right_sidebar else "none",
+
                         flex_shrink=0,
                     ),
                     max_width="110em",
