@@ -1,6 +1,5 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 from pcweb.components.logo import logo
 

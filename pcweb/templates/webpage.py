@@ -102,9 +102,9 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True)
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components_webpage.footer import footer
-            from pcweb.components_webpage.navbar import navbar
-            from pcweb.components_webpage.sidebar import sb
+            from pcweb.components.webpage.footer import footer
+            from pcweb.components.webpage.navbar import navbar
+            from pcweb.components.webpage.sidebar import sb
 
             # Wrap the component in the template.
             return rx.flex(

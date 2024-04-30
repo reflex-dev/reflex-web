@@ -10,7 +10,7 @@ from pcweb import constants
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
 from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blg
+from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
 from pcweb.pages.docs.gallery import gallery
 
@@ -81,7 +81,7 @@ def resources_section(style):
                         constants.ROADMAP_URL,
                         "map-pinned",
                     ),
-                    resources_item("Blog", blg.path, "text"),
+                    resources_item("Blog", blogs.path, "text"),
                     resources_item("FAQ", faq.path, "list-todo"),
                     direction="column",
                     align_items="start",
@@ -131,7 +131,7 @@ def navigation_section():
             rx.link(
                 "Docs", href=getting_started.introduction.path, style=section_style
             ),
-            rx.link("Blog", href=blg.path, style=section_style),
+            rx.link("Blog", href=blogs.path, style=section_style),
             rx.link("Gallery", href=gallery.path, style=section_style),
             resources_section(style=section_style),
             spacing="5",

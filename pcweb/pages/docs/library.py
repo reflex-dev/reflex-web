@@ -3,7 +3,7 @@ from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
-    from pcweb.components.sidebar import get_component_link
+    from pcweb.components.docpage.sidebar import get_component_link
     from pcweb.pages.docs import component_list
 
     sidebar = []
