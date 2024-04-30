@@ -19,8 +19,6 @@ props = {
         "values": ["green", "radial-gradient(crimson, skyblue)", "no-repeat url('../lizard.png')"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/background",
     },
-
-
     "background_color": {
         "description": "Sets the background color of an element",
         "values": ["brown", "rgb(255, 255, 128)", "#7499ee"],
@@ -87,7 +85,6 @@ props = {
         "values": ["start", "center", "flex-start", "space-between", "space-around", "space-evenly", "stretch"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content",
     },
-
     "margin": {
         "description": "Sets the margin area (creates extra space around an element) on all four sides of an element",
         "values": ["1em", "5% 0", "10px 50px 20px", "10px 50px 20px 0"],
@@ -143,7 +140,6 @@ props = {
         "values": ["wrap", "nowrap", "balance", "pretty"],
         "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap",
     },
-
     "top / bottom / right / left": {
         "description": "Sets the vertical / horizontal position of a positioned element. It does not effect non-positioned elements.",
         "values": ["0", "4em", "10%", "20px"],
@@ -190,14 +186,6 @@ def show_props(key, props_dict):
             justify="start",),
         rx.table.cell(prop_details["description"], justify="start",),
         rx.table.cell(rx.hstack(*[rx.code(value) for value in prop_details["values"]], flex_wrap="wrap"), justify="start",),
-        # rx.table.cell(
-        #     rx.center(
-        #         rx.link(
-        #             rx.icon("square_arrow_out_up_right", color=rx.color("mauve", 11), size=18,), href=prop_details["link"], is_external=True,
-        #         ),
-        #         width="100%",
-        #     ),
-        # ),
         justify="center",
         align="center",
         
@@ -205,9 +193,9 @@ def show_props(key, props_dict):
 
 ```
 
+Any [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) prop can be used in a component in Reflex. This is a short list of the most commonly used props. To see all CSS props that can be used check out this [documentation](https://developer.mozilla.org/en-US/docs/Web/CSS). 
 
-Any [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) prop can be used in a component in Reflex. This is a short list of the most commonly used props. To see all CSS props that can be used check out this [documentation](https://developer.mozilla.org/en-US/docs/Web/CSS).
-
+Hyphens in CSS property names may be replaced by underscores to use as valid python identifiers, i.e. the CSS prop `z-index` would be used as `z_index` in Reflex.
 
 ```python eval
 rx.table.root(
@@ -225,10 +213,6 @@ rx.table.root(
                 "Potential Values",
                 justify="center",
             ),
-            # rx.table.column_header_cell(
-            #     "Extra Information",
-            #     justify="center",
-            # ),
         )
     ),
     rx.table.body(
