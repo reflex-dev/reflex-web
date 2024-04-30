@@ -1,7 +1,6 @@
 """Code block components for documentation pages."""
 
 import reflex as rx
-from pcweb.styles import text_colors as tc
 from pcweb import styles
 
 

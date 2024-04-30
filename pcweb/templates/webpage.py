@@ -65,7 +65,7 @@ def spotlight():
     )
 
 
-def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
+def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -74,6 +74,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
         path: The path of the page.
         title: The title of the page.
         props: Props to apply to the template.
+        add_as_page: whether to add the route to the app pages.
 
     Returns:
         A wrapper function that returns the full webpage.
@@ -101,9 +102,9 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components_webpage.footer import footer
-            from pcweb.components_webpage.navbar import navbar
-            from pcweb.components_webpage.sidebar import sb
+            from pcweb.components.webpage.footer import footer
+            from pcweb.components.webpage.navbar import navbar
+            from pcweb.components.webpage.sidebar import sb
 
             # Wrap the component in the template.
             return rx.flex(
@@ -133,6 +134,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None) -> Callable:
             path=path,
             title=title,
             component=wrapper,
+            add_as_page=add_as_page
         )
 
     return webpage

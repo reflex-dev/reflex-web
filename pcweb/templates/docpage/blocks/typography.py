@@ -1,8 +1,6 @@
 """Typography blocks for doc pages."""
 
 import reflex as rx
-from pcweb import styles
-from pcweb.styles import colors as c
 
 
 def definition(title: str, *children) -> rx.Component:

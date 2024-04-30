@@ -25,4 +25,4 @@ def _check_whitelisted_path(path):
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):
             return True
-    return False      
+    return False

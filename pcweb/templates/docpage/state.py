@@ -42,7 +42,7 @@ class FeedbackState(rx.State):
         discord_message = f"""
 Contact: {email}
 Page: {current_page_route}
-Score: {"?" if  score==0 else "👍" if score > 1 else "👎"}
+Score: {"👍" if score == 1 else "👎"}
 Feedback: {feedback}
 """
 

@@ -198,7 +198,7 @@ def news_letter():
 
 
 def links():
-    from pcweb.pages.blog import blg
+    from pcweb.pages.blog import blogs
     from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
     return rx.hstack(
@@ -211,7 +211,7 @@ def links():
             rx.text("Site", color="#E8E8F4"),
             rx.link("Home", href=index.path, style=footer_item_style),
             rx.link("Gallery", href=gallery.path, style=footer_item_style),
-            rx.link("Blog", href=blg.path, style=footer_item_style),
+            rx.link("Blog", href=blogs.path, style=footer_item_style),
             rx.link(
                 "Changelog",
                 href=changelog.path,
