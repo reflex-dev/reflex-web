@@ -8,10 +8,12 @@ on:
 jobs:
   test:
     name: reflex-web-repository-dispatch
-
-    uses: peter-evans/repository-dispatch@v3
-    with:
-      # token: ${{ secrets.PAT }}
-      repository: reflex-dev/reflex-hosting
-      event-type: push
-      client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.HOSTING_REPOSITORY_DISPATCH }}
+          repository: reflex-dev/reflex-hosting
+          event-type: push
+          client-payload: '{"repo": "${{ github.repository }}", "sha": "${{ github.sha }}"}'
