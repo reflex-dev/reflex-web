@@ -65,7 +65,7 @@ class RedirectExampleState(rx.State):
 
 def redirect_example():
     return rx.vstack(
-        rx.button("Change page in State", on_click=State.change_page),
+        rx.button("Change page in State", on_click=RedirectExampleState.change_page),
     )
 
 
