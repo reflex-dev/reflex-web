@@ -116,7 +116,6 @@ def config_button():
 def setting_section():
     return rx.vstack(
         rx.heading("Settings"),
-        rx.box(rx.input(placeholder="Seed", width="100%"), width="100%"),
         rx.select(
             ["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"
         ),
