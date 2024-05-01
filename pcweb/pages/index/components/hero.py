@@ -51,18 +51,19 @@ def hero_section_text(mobile=False):
 
 def hero_section_buttons(mobile=False):
     button_size={
-        "padding_y": ".75em",
+        "padding_y": "1.5em",
         "padding_x": "2em",
         "border_radius": "8px",
         "color":"#FFFFFF",
         "align_items":"center",
         "justify_content":"center",
         "font_weight":"400",
+        "font_size":"1em",
     }
     return rx.hstack(
         rx.link(
             rx.flex(
-                rx.flex(
+                rx.button(
                     "Get Started",
                     rx.icon(
                     tag="chevron-right",
@@ -86,7 +87,7 @@ def hero_section_buttons(mobile=False):
             href=getting_started.introduction.path,        
         ),
         rx.link(
-            rx.flex(
+            rx.button(
                 "Get a demo ",
                 rx.icon(
                     tag="chevron-right",
@@ -94,6 +95,7 @@ def hero_section_buttons(mobile=False):
                     stroke_width="1px",
                     padding_left=".1em",
                 ),
+                bg="none",
                 _hover={
                     "background": "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%)",
                     "box-shadow": "0px 0px 27px -4px rgba(0, 0, 0, 0.30), 0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset;"

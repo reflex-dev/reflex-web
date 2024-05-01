@@ -29,8 +29,8 @@ def sidebar_button(name, is_selected):
 
 def sidebar():
     return rx.vstack(
+        sidebar_button("General", FormsState.clicked == "General"),
         sidebar_button("Account", FormsState.clicked == "Account"),
-        sidebar_button("Privacy", FormsState.clicked == "Privacy"),
         sidebar_button("Payments", FormsState.clicked == "Payments"),
         sidebar_button("Advanced", FormsState.clicked == "Advanced"),
         width="20%",
@@ -45,20 +45,20 @@ def settings():
     return rx.vstack(
         rx.heading(
             "Platform Settings", 
-            color="#FFFFFF",
+            color=rx.color("mauve", 12),
             font_weight="600",
+            size="5"
         ),
         rx.text(
-            "All of your settings in one place.",
-            color="#FFFFFF",
+            "All of your settings and preferences in one place.",
+            color=rx.color("mauve", 11),
+            size="1",
         ),
-        rx.divider(),
-        padding_top="10px",
-        padding_bottom="10px",
         height="20%",
         width="100%",
         align_items="left",
-        justify_content="center",
+        padding_bottom="1em",
+        border_bottom=f"1px solid {rx.color('mauve', 4)}",
     )
 
 def content():

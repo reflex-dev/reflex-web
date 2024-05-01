@@ -5,7 +5,7 @@ from .components.hero import hero_section
 from .components.stats import stats
 from .demos.demos import demos
 
-@webpage(path="/", title="Reflex · Web apps in Pure Python")
+@webpage(path="/testapp", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.flex(
