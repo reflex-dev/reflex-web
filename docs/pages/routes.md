@@ -164,7 +164,21 @@ rx.vstack(
 )
 ```
 
-Check out the docs [here]({api_reference.special_events.path}) to learn more.
+Redirect can also be run from an event handler in State, meaning logic can be added behind it. It is necessary to `return` the `rx.redirect()`.
+
+```python demo exec
+class Redirect2ExampleState(rx.State):
+    """The app state."""
+
+    def change_page(self):
+        return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
+
+def redirect_example():
+    return rx.vstack(
+        rx.button("Change page in State", on_click=Redirect2ExampleState.change_page),
+    )
+```
+
 
 
 

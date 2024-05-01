@@ -51,6 +51,6 @@ def image_pil_example():
 ```
 
 ```md alert info
-# Using a cv2 image?
+# rx.image only accepts URLs and Pillow Images
 A cv2 image must be covnerted to a PIL image to be passed directly to `rx.image` as a State variable, or saved to the `assets` folder and then passed to the `rx.image` component.
 ```
