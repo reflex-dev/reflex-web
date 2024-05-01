@@ -6,6 +6,7 @@ from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import vars
+from reflex_image_zoom import image_zoom
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -109,6 +110,10 @@ app.add_page(index)
 ## The Structure of a Reflex App
 
 Let's break this example down.
+
+```python eval
+image_zoom(rx.image(src="/counter_example_color_coded.png"))
+```
 
 ### Import
 
