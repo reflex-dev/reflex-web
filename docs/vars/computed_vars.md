@@ -9,7 +9,7 @@ import reflex as rx
 
 Computed vars have values derived from other properties on the backend. They are
 defined as methods in your State class with the `@rx.var` decorator. A computed
-var is recomputed whenever an event is processed against the state.
+var is recomputed every time an event is processed in your app.
 
 Try typing in the input box and clicking out.
 
