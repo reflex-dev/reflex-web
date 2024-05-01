@@ -384,7 +384,6 @@ def render_task_data(data: dict[str, str]):
                 display="flex",
             ),
             rx.hstack(
-                # create_priority(data["priority"]),
                 rx.match(
                     data["priority"],
                     ("High", create_priority(data["priority"], "square-arrow-up")),

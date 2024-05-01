@@ -82,14 +82,11 @@ class ImageGenState(rx.State):
 def config_button():
     return rx.menu.root(
         rx.menu.trigger(
-
             rx.button(rx.icon("ellipsis"), variant="soft"),
-
             rx.button(
                 rx.icon("ellipsis"),
                 variant="soft",
             ),
-
         ),
         rx.menu.content(
             rx.menu.item("Share", shortcut="⌘ E"),
@@ -140,12 +137,10 @@ def setting_section():
 def generator():
     return rx.form(
         rx.vstack(
-
             rx.input(placeholder="Enter description", name="prompt", width="100%"),
             rx.button(
                 "Generate Image ->", width="100%", disabled=ImageGenState.processing
             ),
-
             rx.cond(
                 ImageGenState.processing,
                 rx.center("Processing...", width="15em", height="15em"),
@@ -159,8 +154,9 @@ def generator():
                 rx.input(placeholder="Enter description", name="prompt"),
                 width="100%",
             ),
-            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
-
+            rx.button(
+                "Generate Image ->", width="100%", disabled=ImageGenState.processing
+            ),
         ),
         on_submit=ImageGenState.get_image,
     )
@@ -169,7 +165,6 @@ def generator():
 def image_gen():
     return rx.theme(
         rx.hstack(
-
             rx.flex(
                 rx.hstack(
                     config_button(),
@@ -185,25 +180,25 @@ def image_gen():
                 width="60%",
                 height="24em",
                 padding_top="0.5em",
-
-        rx.flex(
-            rx.hstack(
-                config_button(),
-                width="100%", 
-                justify_content="right", 
             ),
-            rx.center(
-                generator(),
-                width="100%",
+            rx.flex(
+                rx.hstack(
+                    config_button(),
+                    width="100%",
+                    justify_content="right",
+                ),
+                rx.center(
+                    generator(),
+                    width="100%",
+                    height="100%",
+                    overflow="hidden",
+                ),
+                setting_section(),
+                padding_x="1em",
                 height="100%",
-                overflow="hidden",
-
             ),
-            setting_section(),
-            padding_x="1em",
-            height="100%",
+            appearance="dark",
         ),
-        appearance="dark",
     )
 
 
@@ -245,23 +240,6 @@ def demos():
             padding="1em 1em",
             spacing="5",
         ),
-        # rx.vstack(
-        #     rx.chakra.text(
-        #         "Build web apps, faster.",
-        #         font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
-        #         text_align="left",
-        #         color="#D6D6ED",
-        #         font_weight="bold",
-        #         line_height="1",
-        #     ),
-        #     rx.chakra.text(
-        #         "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.",
-        #         color="#6C6C81",
-        #         font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
-        #         text_align="center",
-        #     ),
-        #     padding_y="2em",
-        # ),
         rx.hstack(
             example_button("Image Generator"),
             example_button("Forms"),
