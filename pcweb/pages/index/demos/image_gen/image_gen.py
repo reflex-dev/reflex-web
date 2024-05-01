@@ -79,6 +79,7 @@ def setting_section():
         align_items="start",
         justify_content="center",
         spacing="2",
+        display=["none", "none", "flex", "flex", "flex", "flex"],
     )
 
 def content():
@@ -95,7 +96,7 @@ def content():
             overflow="hidden",
         ),
         direction="column",
-        width="60%",
+        width=["100%", "100%", "60%", "60%", "60%", "60%"],
         height="100%",
         padding="1.25em",
     )

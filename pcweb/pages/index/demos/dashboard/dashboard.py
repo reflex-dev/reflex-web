@@ -77,7 +77,7 @@ def recent_sale_item(first_name, last_name, sale_amount):
 def dashboard_and_download():
     return rx.hstack(
         rx.heading(
-            "Monthly Overview",
+            "Dashboard",
             font_size="24px",
         ),
         rx.spacer(),
@@ -97,7 +97,7 @@ def categories():
     return rx.flex(
         category_items("MRR", "$32,450", "+20.1%", False),
         rx.spacer(),
-        category_items("Active Users", "+1230", "+18.1%", False),
+        rx.tablet_and_desktop(category_items("Active Users", "+1230", "+18.1%", False)),
         rx.spacer(),
         category_items("Followers", "+930", "+19%", False),
         direction="row",
@@ -107,10 +107,6 @@ def categories():
 
 def dashboard():
     return rx.fragment(
-        rx.box(
-            rx.image(src="/landing/dashboard.png"),
-            display=["flex", "flex", "none", "none"],
-        ),
         rx.theme(rx.flex(
         dashboard_and_download(),
         rx.hstack(
@@ -120,7 +116,7 @@ def dashboard():
                 sample_bar_chart(data),
                 direction="column",
                 height="100%",
-                width="60%",
+                width=["100%", "100%", "60%", "60%", "60%", "60%"],
                 align="center",
                 justify="center",
                 spacing="4",
@@ -146,6 +142,7 @@ def dashboard():
                     ),
                     height="100%",
                     width="40%",
+                    display=["none", "none", "flex", "flex"],
             ),
             direction="row",
             height="26em",
@@ -154,11 +151,12 @@ def dashboard():
             spacing="4",
             width="100%",   
         ),
+        display="flex",
         direction="column",
         justify="center",
         align="center",
         padding="1em",
-        display=["none", "none", "flex", "flex"],
+        
         height=demo_height,
     ),
     appearance="dark",

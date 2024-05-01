@@ -30,10 +30,6 @@ def content():
 def auth_form():
     return rx.fragment(
         rx.box(
-            rx.image(src="/landing/auth.png"),
-            display=["flex", "flex", "none", "none"],
-        ),
-        rx.box(
             rx.card(
                 rx.flex(
                     rx.text(
@@ -57,7 +53,7 @@ def auth_form():
                 ),
                 width="20em",
             ),
-            display=["none", "none", "flex", "flex"],
+            display="flex",
             height=demo_height,
             align_items="center",
             justify_content="center",

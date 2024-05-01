@@ -36,6 +36,7 @@ def sidebar():
         width="20%",
         height="100%",
         align_items="start",
+        display=["none", "none", "flex", "flex", "flex", "flex"],
     )
 
 def form_content():
@@ -73,10 +74,6 @@ def content():
 def forms():
     return rx.fragment(
         rx.box(
-            rx.image(src="/landing/form.png"),
-            display=["flex", "flex", "none", "none"],
-        ),
-        rx.box(
             rx.theme(
                 rx.vstack(
                     settings(),
@@ -89,6 +86,6 @@ def forms():
                 ),
                 appearance="dark",
             ),
-            display=["none", "none", "flex", "flex"],
+            display="flex",
         ),
     )
