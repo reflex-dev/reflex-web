@@ -13,3 +13,4 @@ reflex>=0.3.8
 mistletoe>=1.2.1
 reflex-image-zoom>=0.0.2
 reflex-chat==0.0.2a1
+reflex_type_animation==0.0.1
