@@ -17,7 +17,7 @@ Layout components such as `rx.flex`, `rx.container`, `rx.box`, etc. are used to 
 rx.box(
     rx.box(
         "CSS color",
-        background_color="yellow",
+        background_color="red",
         border_radius="2px",
         width="50%",
         margin="4px",
@@ -25,7 +25,7 @@ rx.box(
     ),
     rx.box(
         "Radix Color",
-        background_color="var(--tomato-3)",
+        background_color=rx.color("tomato", 3),
         border_radius="5px",
         width="80%",
         margin="12px",
