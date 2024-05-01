@@ -36,7 +36,7 @@ const SearchBar = dynamic(
   {
     ssr: false,
   },
-);
+); 
 
 const searchBarProps = {
   stylesheetUrls: ['/inkeepstyle.css'],
@@ -46,22 +46,23 @@ const searchBarProps = {
     organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#5646ED',
-    breadcrumbRules: {
-      urlToBreadcrumbMapper: [
-        {
+    customIcons: {search: {custom: "/search.svg"}},
+    breadcrumbRules: { 
+      urlToBreadcrumbMapper: [ 
+        { 
           matchingRule: {
             ruleType: 'PartialUrl',
             partialUrl: 'reflex.dev/blog',
           },
           breadcrumbName: 'Blogs',
-        }, 
-        {
+        },  
+        { 
           matchingRule: {
             ruleType: 'PartialUrl',
             partialUrl: 'reflex.dev/docs',
           },
           breadcrumbName: 'Docs',
-        },
+        }, 
         {
           matchingRule: {
             ruleType: 'PartialUrl',
@@ -82,7 +83,7 @@ const searchBarProps = {
     },
     colorMode: {
       forcedColorMode: 'dark', // options: 'light' or dark'
-    },
+    }, 
     theme: {
       components: {
         SearchBarTrigger: {
@@ -91,8 +92,8 @@ const searchBarProps = {
           },
         },
       }
-    }
-  },
+    } 
+  },  
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {
       isAllTabEnabled: true,

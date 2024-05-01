@@ -297,6 +297,8 @@ def sidebar_section(name):
         name,
         color=rx.color("mauve", 12),
         font_weight="500",
+        padding_top="1em",
+        padding_left="10px",
     )
 
 
@@ -324,7 +326,7 @@ def create_sidebar_section(section_title, items, index, url):
         align_items="left",
     )
 
-
+  
 @rx.memo
 def sidebar_comp(
     url: str,

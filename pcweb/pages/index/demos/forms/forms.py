@@ -1,5 +1,6 @@
 import reflex as rx
 from .form_implementations.profile_form import profile_form
+from ..style import demo_height
 
 class FormsState(rx.State):
     clicked: str = "Account"
@@ -80,9 +81,11 @@ def forms():
                 rx.vstack(
                     settings(),
                     content(),
-                    height="100%",
                     width="100%",
                     padding_x="15px",
+                    padding_top="15px",
+                    height=demo_height,
+                    overflow_y="hidden",
                 ),
                 appearance="dark",
             ),

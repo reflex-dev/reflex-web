@@ -15,25 +15,26 @@ def github_desktop() -> rx.Component:
             rx.icon(
                 "github",
                 color="#6f6d78",
+                stroke_width="1.5px",
             ),
             rx.text(
                 "Github",
                 color="white",
-            ),
+            ),   
             rx.text(
                 "15k",
                 color="#6151F3",
                 background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
                 border_radius="5px",
                 padding="0px 3px",
-            ),
+            ), 
             spacing="2",
             style=button_style,
         ),
         href="https://github.com/reflex-dev/reflex",
-    )
-
-
+    )   
+      
+         
 def github_mobile() -> rx.Component:
     return rx.link(
         rx.flex(

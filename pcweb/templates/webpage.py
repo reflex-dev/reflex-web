@@ -61,7 +61,7 @@ def spotlight():
         height="100%",
         align_items="start",
         justify_content="center",
-        opacity=0.99,
+        opacity=0.97,
     )
 
 
@@ -133,6 +133,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True)
         return Route(
             path=path,
             title=title,
+            background_color="#131217",
             component=wrapper,
             add_as_page=add_as_page
         )

@@ -136,7 +136,7 @@ def navigation_section():
             resources_section(style=section_style),
             spacing="5",
         ),
-        display=["none", "none", "none", "none", "flex", "flex"],
+        display=["none", "none", "none", "flex", "flex", "flex"],
     )
 
 
@@ -202,7 +202,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             ),
             rx.box(
                 sidebar_button(sidebar),
-                display=["flex", "flex", "flex", "flex", "none", "none"],
+                display=["flex", "flex", "flex", "none", "none", "none"],
             ),
             spacing="3",
             align_items="center",
@@ -214,5 +214,6 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         z_index="5",
         align_items="center",
         spacing="5",
-        padding="7px 20px 7px 20px;",
+        padding="15px",
     )
+   

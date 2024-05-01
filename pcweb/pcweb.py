@@ -65,6 +65,9 @@ for route in routes:
             route.path,
             route.title,
             image="/previews/index_preview.png",
+            meta= [
+                {"name": "theme-color", "content": route.background_color},
+            ]
         )
 
 # Add redirects

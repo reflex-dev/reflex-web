@@ -1,4 +1,5 @@
 import reflex as rx
+from ..style import demo_height
 
 try:
     import openai
@@ -125,7 +126,7 @@ def image_gen():
         ),
         setting_section(),
         padding_x="1em",
-        height="100%",
+        height=demo_height,
     ),
     appearance="dark",
     )

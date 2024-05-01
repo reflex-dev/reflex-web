@@ -28,6 +28,7 @@ DOC_BORDER_RADIUS = "6px"
 
 # The base application style.
 BASE_STYLE = {
+    "background_color": rx.color("mauve", 1),
     "::selection": {
         "background_color": rx.color("accent"),
     },
@@ -51,7 +52,7 @@ BASE_STYLE = {
     rx.markdown: {
         "background": "transparent",
     }
-}
+} 
 
 # Fonts to include.
 STYLESHEETS = [

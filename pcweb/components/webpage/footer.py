@@ -69,9 +69,6 @@ def installation():
                             border_radius= "8px;",
                             background= "linear-gradient(180deg, #6151F3 0%, #5646ED 100%);",
                             box_shadow= "0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset, 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 2px 24px -1px #080525, 0px 3px 9px -2px #4033C0;",
-                            _hover= {
-                                "border": "1px solid rgba(94, 78, 242, 0.15);"
-                            }
                         ),
                         href=getting_started.installation.path,
                     )
@@ -158,7 +155,7 @@ button_style = {
 }
 
 
-def news_letter():
+def news_letter(align="left"):
     return rx.vstack(
         rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
         rx.text(
@@ -190,7 +187,7 @@ def news_letter():
             ),
             width="100%"
         ),
-        align_items="left",
+        align_items=align,
         width="100%",
     )
 
@@ -313,7 +310,7 @@ def footer(style=footer_style):
                 padding_bottom="2em",
                 min_width="100%",
             ),
-            padding_x=[".5em", ".5em", ".5em", "2em", "2em", "2em"],
+            padding_x=["1em", "1em", "1em", "2em", "4em", "4em"],
             padding_y=[".5em", ".5em", ".5em", "2em", "2em", "2em"],
             width="100%",
         ),

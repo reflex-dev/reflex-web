@@ -5,6 +5,7 @@ from .auth.auth import auth
 from .forms.forms import forms
 from .dashboard.dashboard import dashboard
 from .image_gen.image_gen import image_gen
+from reflex_type_animation import type_animation
 
 class DemoState(rx.State):
 
@@ -20,40 +21,75 @@ def example_button(text):
     border="1px solid rgba(186, 199, 247, 0.12);",
     background= rx.cond(
         DemoState.demo == text,
-        "#282828",
-        "rgba(161, 157, 213, 0.03);",
+        "rgba(161, 157, 213, 0.2);",
+        "rgba(161, 157, 213, 0.05);",
     ),
     backdrop_filter= "blur(2px);",
     on_click= lambda: DemoState.set_demo(text)
 )
 
-def demos():
+def heading():
     return rx.vstack(
-        rx.vstack(
-            rx.chakra.text(
+        type_animation(
+            sequence=[
                 "Build web apps, faster.",
-                font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
-                text_align="left",
-                color="#D6D6ED",
-                font_weight="bold",
-                line_height="1",
-            ),
-            rx.chakra.text(
-                "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", 
-                color="#6C6C81",
-                font_size=[".8em", "1em", "1.2em", "1.2em", "1.2em", "1.2em"],
-                text_align="center",
-            ),
-            padding_y="2em",
+                1000,
+                "Build internal tools, faster.",
+                1000,
+                "Build AI apps, faster.",
+                1000,
+                "Build web apps, faster.",
+            ],
+            font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
+            text_align="left",
+            color="#D6D6ED",
+            font_weight="bold",
+            line_height="1",
         ),
+        rx.chakra.text(
+            "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", 
+            color="#6C6C81",
+            font_size=[".8em", ".8em", "1em", "1em", "1em", "1em"],
+            text_align="center",
+        ),
+        padding_y="1em",
+    )
+ 
+def more_examples():
+    return rx.link(
+                rx.button(
+                    "More Examples", 
+                    rx.icon(
+                        "chevron-right", 
+                        size=18,
+                        stroke_width="1px",
+                        padding_left=".1em",
+                    ),   
+                    background="rgba(161, 157, 213, 0.05);", 
+                    border_radius="8px;",
+                    border="1px solid rgba(186, 199, 247, 0.12);",
+                    text_wrap="nowrap",
+                ),
+                href="/gallery",
+            )
+
+def demos():
+    return rx.flex(
+        heading(),
         rx.hstack(
-            example_button("Image Generator"),
-            example_button("Forms"),
-            example_button("Auth"),
-            example_button("Dashboard"),
+            rx.hstack(
+                example_button("Image Gen"),
+                example_button("Forms"),
+                example_button("Auth"),
+                example_button("Dashboard"),
+                max_width="35em", 
+                overflow_x="scroll",
+                scrollbar_width= "none"
+            ),
             rx.spacer(),
-            rx.box(),
-            align_items="left"
+            more_examples(),
+            align_items="left",
+            width="100%",
         ),
         rx.box(
             rx.match(
@@ -71,5 +107,13 @@ def demos():
         ),
         padding_bottom="4em",
         width="100%",
+        direction="column",
+        background_image="url(/grid.png)",
+        background_position= "50% 70%;",
+        background_repeat= "no-repeat;",
+        background_size= "auto;",
+        padding_top="5em",
+        gap="1em",
     )
 
+ 

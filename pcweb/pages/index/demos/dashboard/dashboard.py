@@ -1,4 +1,5 @@
 import reflex as rx
+from ..style import demo_height
 
 data = [
     {"name": "Jul", "ravenue": 2300},
@@ -157,6 +158,7 @@ def dashboard():
         align="center",
         padding="1em",
         display=["none", "none", "flex", "flex"],
+        height=demo_height,
     ),
     appearance="dark",
     ))

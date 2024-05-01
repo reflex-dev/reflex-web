@@ -1,4 +1,5 @@
 import reflex as rx
+from ..style import demo_height
 
 def auth_form():
     return rx.fragment(
@@ -93,6 +94,7 @@ def auth_form():
                 height="375px",
             ),
             display=["none", "none", "flex", "flex"],
+            height=demo_height,
         ),
     )
 

@@ -16,6 +16,9 @@ def index() -> rx.Component:
         ),
         rx.container(
             demos(),
+            padding_x="1em",
+        ),
+        rx.container(
             stats(),
             padding_x="1em",
         ),
