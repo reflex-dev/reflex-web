@@ -1,51 +1,55 @@
 import reflex as rx
+from ..style import demo_height
 
 data = [
-    {"name": "Jul", "ravenue": 2300},
-    {"name": "Aug", "ravenue": 2540},
-    {"name": "Sep", "ravenue": 2240},
-    {"name": "Dec", "ravenue": 2100},
-    {"name": "Jan", "ravenue": 2660},
-    {"name": "Feb", "ravenue": 2800},
-    {"name": "Mar", "ravenue": 3200},
-    {"name": "Apr", "ravenue": 4000},
+    {"name": "Jul", "revenue": 2300},
+    {"name": "Aug", "revenue": 2540},
+    {"name": "Sep", "revenue": 2240},
+    {"name": "Dec", "revenue": 2100},
+    {"name": "Jan", "revenue": 2660},
+    {"name": "Feb", "revenue": 2800},
+    {"name": "Mar", "revenue": 3200},
+    {"name": "Apr", "revenue": 4000},
 ]
 
-def category_items(categroyName: str, count: str, change: str, clicked: bool):
-    return rx.vstack(
-        rx.text(
-            categroyName,
-            line_height="1",
-            font_size="12px",
-            weight="bold",
-            color="#FFFFFF"
+def category_items(name: str, count: str, change: str, clicked: bool):
+    return  rx.flex(
+        rx.card(
+            rx.text(
+                name,
+                font_weight="400",
+                color="#FFFFFF",
+                size="2"
+            ),
+            rx.text(
+                count,
+                font_weight="bold",
+                color="#FFFFFF",
+                size="3"
+            ),
+            rx.flex(
+                rx.text(
+                    change,
+                    color_scheme="lime",
+                    size="1"
+                ),
+                rx.text(
+                    "since last month",
+                    text_wrap="nowrap",
+                    size="1"
+                ),
+                wrap="nowrap",
+                direction="row",
+                spacing="1",
+            ),
         ),
-        rx.text(
-            count,
-            line_height="1",
-            font_size="18px",
-            weight="bold",
-            color="#FFFFFF",
-        ),
-        rx.text(
-            change,
-            line_height="1",
-            font_size="12px",
-            color="#A1A1AA"
-        ),
-        height="5em",
-        width="9em",
-        border="1px solid rgba(186, 199, 247, 0.12);",
-        border_radius="0.5em",
-        align="center",
-        justify="center",
-        background_color=rx.cond(clicked, "#2e2e2e", "transparent"),
+        direction="column",
     )
-
+ 
 def sample_bar_chart(input_data):
     return rx.recharts.bar_chart(
         rx.recharts.bar(
-            data_key="ravenue", stroke="#FFFFFF", fill="#FFFFFF",
+            data_key="revenue", stroke="#FFFFFF", fill="#FFFFFF",
         ),
         rx.recharts.x_axis(data_key="name", axis_line=False, tick_line=False),
         rx.recharts.y_axis(axis_line=False, tick_line=False),
@@ -73,29 +77,29 @@ def recent_sale_item(first_name, last_name, sale_amount):
 def dashboard_and_download():
     return rx.hstack(
         rx.heading(
-            "Monthly Overview",
+            "Dashboard",
             font_size="24px",
         ),
         rx.spacer(),
         rx.button(
-            "Export Data ->",
+            "Export Data",
+            rx.icon("download", size=18, stroke_width="1.5px", padding_left=".1em"),
             color="#000000",
             background="#FFFFFF",
         ),
         justify_content="flex-end",
         height="3em",
         width="100%",
-        padding_x="15px",
         padding_bottom="10px",
     )
 
 def categories():
     return rx.flex(
-        category_items("MRR", "$32,450", "+20.1% from last month", False),
+        category_items("MRR", "$32,450", "+20.1%", False),
         rx.spacer(),
-        category_items("Active Users", "+1230", "+18.1% from last month", False),
+        rx.tablet_and_desktop(category_items("Active Users", "+1230", "+18.1%", False)),
         rx.spacer(),
-        category_items("Followers", "+930", "+19% from last month", False),
+        category_items("Followers", "+930", "+19%", False),
         direction="row",
         height="5em",
         width="100%",
@@ -103,10 +107,6 @@ def categories():
 
 def dashboard():
     return rx.fragment(
-        rx.box(
-            rx.image(src="/landing/dashboard.png"),
-            display=["flex", "flex", "none", "none"],
-        ),
         rx.theme(rx.flex(
         dashboard_and_download(),
         rx.hstack(
@@ -116,34 +116,33 @@ def dashboard():
                 sample_bar_chart(data),
                 direction="column",
                 height="100%",
-                width="60%",
+                width=["100%", "100%", "60%", "60%", "60%", "60%"],
                 align="center",
                 justify="center",
                 spacing="4",
             ),
-            rx.flex(
-                rx.table.root(
-                    rx.table.header(
-                        rx.table.row(
-                            rx.table.column_header_cell("Full name"),
-                            rx.table.column_header_cell("Email"),
-                            rx.table.column_header_cell("Sale"),
+            rx.card(
+                    rx.table.root(
+                        rx.table.header(
+                            rx.table.row(
+                                rx.table.column_header_cell("Name"),
+                                rx.table.column_header_cell("Email"),
+                                rx.table.column_header_cell("Sale"),
+                            ),
                         ),
+                        rx.table.body(
+                        recent_sale_item("Paul", "Atreides", 1999),
+                        recent_sale_item("Duncan", "Idaho", 2999),
+                        recent_sale_item("Leto", "Atreides", 3999),
+                        recent_sale_item("Gurney", "Halleck", 4999),
+                        recent_sale_item("Jessica", "Atreides", 5999),
+                        recent_sale_item("Chani", "Kynes", 1999),
+                        recent_sale_item("Stilgar", "Kynes", 1999),
+                        )
                     ),
-                    rx.table.body(
-                    recent_sale_item("Paul", "Atreides", 1999),
-                    recent_sale_item("Duncan", "Idaho", 2999),
-                    recent_sale_item("Leto", "Atreides", 3999),
-                    recent_sale_item("Gurney", "Halleck", 4999),
-                    recent_sale_item("Jessica", "Atreides", 5999),
-                    recent_sale_item("Chani", "Kynes", 1999),
-                    recent_sale_item("Stilgar", "Kynes", 1999),
-                    recent_sale_item("Duke", "Leto", 8999),
-                    )
-                ),
-                direction="column",
-                height="100%",
-                width="40%",
+                    height="100%",
+                    width="40%",
+                    display=["none", "none", "flex", "flex"],
             ),
             direction="row",
             height="26em",
@@ -152,11 +151,13 @@ def dashboard():
             spacing="4",
             width="100%",   
         ),
+        display="flex",
         direction="column",
         justify="center",
         align="center",
         padding="1em",
-        display=["none", "none", "flex", "flex"],
+        
+        height=demo_height,
     ),
     appearance="dark",
     ))

@@ -16,6 +16,9 @@ class Route(Base):
     # The page title.
     title: str | None = None
 
+    # Background color for the page.
+    background_color: str | None = None
+
     # The component to render for the route.
     component: Callable[[], rx.Component]
 

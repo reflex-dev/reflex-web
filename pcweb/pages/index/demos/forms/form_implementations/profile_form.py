@@ -3,7 +3,6 @@ import reflex as rx
 common_style = dict(
     width="100%",
     align_items="start",
-    padding="5px 10px",
 )
 
 
@@ -127,7 +126,7 @@ def profile_form():
             height="100%",
             align_items="left",
         ),
-        width="80%",
-        max_height="30em",
+        width=["100%", "100%", "80%", "80%", "80%", "80%"],
+        max_height="30em", 
 
     )

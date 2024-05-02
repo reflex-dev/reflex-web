@@ -10,7 +10,7 @@ def sidebar_drawer(sidebar: rx.Component, trigger):
                 rx.vstack(
                     rx.drawer.close(
                         rx.box(
-                            height="1em",
+                            height=".25em",
                             width="6em",
                             border_radius="8px",
                             background_color="#6f6d78",
@@ -21,16 +21,16 @@ def sidebar_drawer(sidebar: rx.Component, trigger):
                     sidebar,
                     width="100%",
                 ),
-                top="80px",
                 height="100%",
                 width="100%",
                 flex_direction="column",
-                background_color="rgba(19, 18, 23, 0.85)",
+                background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
                 backdrop_filter="blur(20px)",
             ),
         ),
+        direction="top", 
     )
-
+ 
 
 def sidebar_button(sidebar) -> rx.Component:
     return rx.flex(

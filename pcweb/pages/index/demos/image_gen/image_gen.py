@@ -1,4 +1,5 @@
 import reflex as rx
+from ..style import demo_height
 
 try:
     import openai
@@ -60,10 +61,7 @@ def config_button():
 def setting_section():
     return rx.vstack(
         rx.heading("Settings"),
-        rx.radix.input.root(
-            rx.input(placeholder="Seed"),
-            width="100%"
-        ),
+        rx.input(placeholder="Seed", width="100%"),
         rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
         rx.text("Temperature"),
         rx.slider(default_value=25, width="100%"),
@@ -79,7 +77,28 @@ def setting_section():
         border_left="1px solid #2F2B37;",
         padding="1.25em",
         align_items="start",
-        justify_content="center"
+        justify_content="center",
+        spacing="2",
+        display=["none", "none", "flex", "flex", "flex", "flex"],
+    )
+
+def content():
+    return rx.flex(
+        rx.hstack(
+            config_button(),
+            width="100%", 
+            justify_content="right", 
+        ),
+        rx.center(
+            generator(),
+            width="100%",
+            height="100%",
+            overflow="hidden",
+        ),
+        direction="column",
+        width=["100%", "100%", "60%", "60%", "60%", "60%"],
+        height="100%",
+        padding="1.25em",
     )
 
 def generator():
@@ -94,10 +113,7 @@ def generator():
                     rx.center(rx.icon("images"), width="15em", height="15em"),
                 ),
             ),
-            rx.input.root(
-                rx.input(placeholder="Enter description", name="prompt"),
-                width="100%",
-            ),
+            rx.input(placeholder="Enter description", name="prompt", width="100%"),
             rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
         ),
         on_submit=ImageGenState.get_image,
@@ -106,26 +122,10 @@ def generator():
 def image_gen():
     return rx.theme(
         rx.hstack(
-        rx.flex(
-            rx.hstack(
-                config_button(),
-                width="100%", 
-                justify_content="right", 
-            ),
-            rx.center(
-                generator(),
-                width="100%",
-                height="100%",
-                overflow="hidden",
-            ),
-            direction="column",
-            width="60%",
-            height="24em",
-            padding_top="0.5em",
-        ),
+        content(),
         setting_section(),
         padding_x="1em",
-        height="100%",
+        height=demo_height,
     ),
     appearance="dark",
     )
