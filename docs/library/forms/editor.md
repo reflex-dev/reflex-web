@@ -144,7 +144,3 @@ rx.editor(
 
 See the [Suneditor README.md](https://github.com/JiHong88/suneditor/blob/master/README.md) for more
 details on buttons and options.
-
-```python eval
-rx.box(height="5em")
-```

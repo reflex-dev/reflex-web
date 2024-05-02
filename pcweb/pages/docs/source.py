@@ -54,7 +54,6 @@ class Source(rx.Base):
         if not issubclass(self.module, rx.Base):
             return []
         out = self.get_annotations(self.module.__class_vars__)
-        print("class fields", out)
         return out
 
     def get_fields(self) -> list[dict]:
@@ -63,7 +62,6 @@ class Source(rx.Base):
         return self.get_annotations(self.module.__fields__)
 
     def get_methods(self):
-        print(self.module)
         return [
             dict(
                 name=name,
@@ -117,7 +115,6 @@ class Source(rx.Base):
                 comments.clear()
                 continue
 
-            print(props)
             prop = props[prop]
             # redundant check just to double-check line above prop is a comment
             assert (
