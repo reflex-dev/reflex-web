@@ -1,3 +1,8 @@
+---
+components:
+    - rx.moment
+
+---
 Displaying date and relative time to now sometimes can be more complicated than necessary.
 
 To make it easy, Reflex is wrapping [react-moment](https://www.npmjs.com/package/react-moment)  under `rx.moment`.
@@ -6,11 +11,10 @@ To make it easy, Reflex is wrapping [react-moment](https://www.npmjs.com/package
 ```python exec
 import reflex as rx
 from reflex.utils.serializers import serialize_datetime
-from pcweb.base_state import State
 from datetime import datetime
 from pcweb.templates.docpage import docdemo, docdemobox, doccode, docgraphing
 
-class MomentState(State):
+class MomentState(rx.State):
     date_now: datetime = datetime.now()
 ```
 
@@ -19,7 +23,7 @@ class MomentState(State):
 Using the same date as a value, we will display it in a few different way using `rx.moment`
 
 ```python
-class MomentState(State):
+class MomentState(rx.State):
     date_now: datetime = datetime.now()
 ```
 
@@ -53,7 +57,7 @@ docdemo(from_now_example, comp=eval(from_now_example))
 ```python eval
 docdemo(to_now_example, comp=eval(to_now_example))
 ```
-You can also set a duration (in milliseconds) with `from_now_during` where the date while display as relative, then after that, it will be displayed as defined in `format`.
+You can also set a duration (in milliseconds) with `from_now_during` where the date will display as relative, then after that, it will be displayed as defined in `format`.
 
 ```python eval
 docdemo(from_now_during_example, comp=eval(from_now_during_example))
@@ -81,43 +85,41 @@ With the props `add` and `substract`, you can pass an `rx.MomentDelta` object to
 
 ```python exec
 add_example = """rx.vstack(
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(years=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(quarters=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(weeks=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(days=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(hours=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(minutes=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(seconds=2), format="YYYY-MM-DDTHH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:SS"),
 )
 """
 subtract_example = """rx.vstack(
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(years=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(quarters=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(weeks=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(days=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(hours=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(minutes=2), format="YYYY-MM-DDTHH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(seconds=2), format="YYYY-MM-DDTHH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:SS"),
 )
 """
 ```
 
 ```python eval
 rx.tabs(
-    rx.tab_list(
-        rx.tab("Add"), 
-        rx.tab("Substract")
+    rx.tabs.list(
+        rx.tabs.trigger("Add", value="add"), 
+        rx.tabs.trigger("Substract", value="substract")
     ),
-    rx.tab_panels(
-        rx.tab_panel(docdemo(add_example, comp=eval(add_example))),
-        rx.tab_panel(docdemo(subtract_example, comp=eval(subtract_example))),
-    ),
+    rx.tabs.content(docdemo(add_example, comp=eval(add_example)), value="add"),
+    rx.tabs.content(docdemo(subtract_example, comp=eval(subtract_example)), value="substract"),
 )
 ```
 
