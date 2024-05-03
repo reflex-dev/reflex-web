@@ -44,7 +44,9 @@ There are two ways to find a component to wrap:
 1. Write the component yourself locally.
 2. Find a well-maintained React library on [npm](https://www.npmjs.com/) that contains the component you need.
 
-In this guide we are wrapping the `HexPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library. We will cover local components on the next page.
+In both cases, the process of wrapping the component is the same.
+
+In this guide we are wrapping the `HexPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library.
 
 ## Define the Component
 
@@ -77,6 +79,36 @@ class ColorPicker(rx.Component):
 ```
 
 When you create your component, Reflex will automatically install the library for you.
+
+### Local Components
+
+You can also wrap components that you have written yourself. Local components should be stored in your `assets` directory. For example, you could define a basic `Hello` component like this:
+
+```javascript
+// assets/hello.js
+import React from 'react';
+
+export function Hello() {
+  return (
+    <div>
+      <h1>Hello!</h1>
+    </div>
+  )
+}
+```
+
+Then specify the library as following (note: we use the `public` directory here instead of `assets` as this is the directory that is served by the web server):
+
+```python
+import reflex as rx
+
+class Hello(rx.Component):
+    # Use an absolute path starting with /public
+    library = "/public/hello"
+
+    # Define everything else as normal.
+    tag = "Test"
+```
 
 ### Import Types
 
