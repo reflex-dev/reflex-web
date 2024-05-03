@@ -120,6 +120,7 @@ rx.tabs(
     ),
     rx.tabs.content(docdemo(add_example, comp=eval(add_example)), value="add"),
     rx.tabs.content(docdemo(subtract_example, comp=eval(subtract_example)), value="substract"),
+    default_value="add",
 )
 ```
 
@@ -138,4 +139,34 @@ timezone_example1 = """rx.vstack(
 
 ```python eval
 docdemo(timezone_example1, comp=eval(timezone_example1))
+```
+
+### Client-side periodic update
+
+If you want to update the date every second, you can use the `interval` prop:
+
+```python exec
+interval_example = "rx.moment(MomentState.date_now, interval=1000)"
+```
+
+```python eval
+docdemo(interval_example, comp=eval(interval_example))
+```
+
+Even better, you can actually link an event handler to the `on_change` prop that will be called every time the date is updated:
+
+```python exec
+interval_update_example = """rx.box(
+    rx.toast.provider(),
+    rx.moment(
+        MomentState.date_now, 
+        interval=5000, 
+        on_change=lambda value: rx.toast("Date updated")
+    )
+)
+"""
+```
+
+```python eval
+docdemo(interval_update_example, comp=eval(interval_update_example))
 ```
