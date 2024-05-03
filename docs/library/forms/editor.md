@@ -60,7 +60,7 @@ rx.fragment(
             rx.table.body(
                 *[
                     rx.table.row(
-                        rx.table.cell(rx.code(field["name"], font_weight=styles.BOLD_WEIGHT)),
+                        rx.table.cell(rx.code(field["prop"].name, font_weight=styles.BOLD_WEIGHT)),
                         rx.table.cell(field["description"]),
                     )
                     for field in editor_options_source.get_fields()
