@@ -78,16 +78,7 @@ class SideBarState(rx.State):
             # If the app does not have a display name, use the first part of the domain name: e.g. https://test.reflex.run -> test
             subdomain_name = app["demo_url"].replace("https://", "").split(".")[0]
             app["display_name"] = app.get("display_name") or subdomain_name
-            app["image_url_dark"] = (
-                app.get("image_url")
-                or f"https://placehold.co/600x400/000000/FFFFFF/?text={subdomain_name}"
-            )
-            app["image_url_light"] = (
-                app.get("image_url")
-                or f"https://placehold.co/600x400/FFFFFF/000000/?text={subdomain_name}"
-            )
 
-                    
         # Sorting
         if self.sort_by == 'page_views':
             all_apps.sort(key=lambda x: x.get('site_visits', {}).get('monthly', 0), reverse=not ascending)

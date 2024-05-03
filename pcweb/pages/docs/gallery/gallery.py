@@ -1,5 +1,3 @@
-
-
 import reflex as rx
 
 from pcweb.templates.webpage import webpage
@@ -181,11 +179,13 @@ def gallery_heading():
 
 def sort_by():
     return rx.hstack(
+        rx.spacer(),
         rx.select(
             ["page_views", "updated_at", "created_at"],
             value=SideBarState.sort_by,
             on_change=SideBarState.set_sort_by,
         ),
+        width="100%",  
     )
 
 @webpage(path="/docs/gallery", title="Gallery · Reflex")
