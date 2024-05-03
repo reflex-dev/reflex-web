@@ -1,14 +1,12 @@
 ```python exec
 import reflex as rx
 
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo_from
-from pcweb.pages.docs.vars.base_vars import base_vars
+from pcweb.pages.docs import vars
 ```
 
 # Custom Vars
 
-As mentioned in the [vars page]({base_vars.path}), Reflex vars must be JSON serializable.
+As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
 
 This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types by inheriting from `rx.Base`.
 
@@ -18,14 +16,14 @@ In this example, we will create a custom var type for storing translations.
 
 Once defined, we can use it as a state var, and reference it from within a component.
 
-```python exec
+```python demo exec
 import googletrans
 
 class Translation(rx.Base):
     original_text: str
     translated_text: str
 
-class TranslationState(State):
+class TranslationState(rx.State):
     input_text: str = "Hola Mundo"
     current_translation: Translation = Translation(original_text="", translated_text="")
 
@@ -40,8 +38,4 @@ def translation_example():
         rx.button("Translate", on_click=TranslationState.translate),
         rx.text(TranslationState.current_translation.translated_text),
     )
-```
-
-```python eval
-docdemo_from(Translation, TranslationState, component=translation_example, imports=["import googletrans"])
 ```

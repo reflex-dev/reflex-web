@@ -1,21 +1,13 @@
 ```python exec
-import inspect
 import random
 import time
 
-import numpy as np
-
 import reflex as rx
 
-from pcweb.base_state import State
-from pcweb.pages.docs.vars.custom_vars import custom_vars
-from pcweb.templates.docpage import docdemo_from, doclink
+from pcweb.pages.docs import vars
 ```
 
-
-
 # Base Vars
-
 
 Vars are any fields in your app that may change over time. A Var is directly
 rendered into the frontend of the app.
@@ -25,62 +17,64 @@ Base vars are defined as fields in your State class.
 They can have a preset default value. If you don't provide a default value, you
 must provide a type annotation.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("State Vars should provide type annotations."),
-        rx.alert_description(
-            "Reflex relies on type annotations to determine the type of state vars during the "
-            "compilation process. ",
-            ".",
-        ),
-    ),
-    status="warning",
-    margin_bottom="3em",
-)
+```md alert warning
+# State Vars should provide type annotations.
+Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
-```python exec
-class TickerState(State):
+```python demo exec
+class TickerState(rx.State):
     ticker: str ="AAPL"
     price: str = "$150"
 
 
 def ticker_example():
-    return rx.stat_group(
-        rx.stat(
-            rx.stat_label(TickerState.ticker),
-            rx.stat_number(TickerState.price),
-            rx.stat_help_text(
-                rx.stat_arrow(type_="increase"),
+    return rx.chakra.stat_group(
+        rx.chakra.stat(
+            rx.chakra.stat_label(TickerState.ticker),
+            rx.chakra.stat_number(TickerState.price),
+            rx.chakra.stat_help_text(
+                rx.chakra.stat_arrow(type_="increase"),
                 "4%",
             ),
         ),
     )
 ```
 
-```python eval
-docdemo_from(TickerState, component=ticker_example)
-```
-
 In this example `ticker` and `price` are base vars in the app, which can be modified at runtime.
 
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.box(
-        rx.alert_title("Vars must be JSON serializable."),
-        rx.alert_description(
-            "Vars are used to communicate between the frontend and backend. ",
-            "They must be primitive Python types, ",
-            "Plotly figures, Pandas dataframes, or ",
-            doclink("a custom defined type", custom_vars.path),
-            ".",
+```md alert warning
+# Vars must be JSON serializable.
+Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
+```
+
+## Accessing state variables on different pages
+
+State is just a python class and so can be defined on one page and then imported and used on another. Below we define `TickerState` class on the page `state.py` and then import it and use it on the page `index.py`.
+
+```python
+# state.py
+
+class TickerState(rx.State):
+    ticker: str = "AAPL"
+    price: str = "$150"
+```
+
+```python
+# index.py
+from .state import TickerState
+
+def ticker_example():
+    return rx.chakra.stat_group(
+        rx.chakra.stat(
+            rx.chakra.stat_label(TickerState.ticker),
+            rx.chakra.stat_number(TickerState.price),
+            rx.chakra.stat_help_text(
+                rx.chakra.stat_arrow(type_="increase"),
+                "4%",
+            ),
         ),
-    ),
-    status="warning",
-)
+    )
 ```
 
 
@@ -97,10 +91,13 @@ not directly renderable on the frontend, and may be used to store sensitive
 values that should not be sent to the client.
 
 For example, a backend-only var is used to store a large data structure which is
-then paged to the frontend using cached vars. 
+then paged to the frontend using cached vars.
 
-```python exec
-class BackendVarState(State):
+```python demo exec
+import numpy as np
+
+
+class BackendVarState(rx.State):
     _backend: np.ndarray = np.array([random.randint(0, 100) for _ in range(100)])
     offset: int = 0
     limit: int = 10
@@ -144,7 +141,7 @@ def backend_var_example():
                 on_click=BackendVarState.next_page,
             ),
             rx.text("Page Size"),
-            rx.number_input(
+            rx.chakra.number_input(
                 width="5em",
                 value=BackendVarState.limit,
                 on_change=BackendVarState.set_limit,
@@ -158,7 +155,4 @@ def backend_var_example():
             ),
         ),
     )
-```
-```python eval
-docdemo_from(BackendVarState, component=backend_var_example, imports=["import numpy as np"])
 ```

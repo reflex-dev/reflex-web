@@ -1,15 +1,12 @@
 import reflex as rx
-
-from pcweb import constants, styles
-from pcweb.templates.docpage import docheader, docpage, doctext, subheader
-from pcweb.styles import text_colors as tc
+from pcweb.templates.docpage import docpage, h1_comp, h2_comp, text_comp
 
 
 def video(title, author, url):
     return rx.link(
-        rx.list_item(
+        rx.chakra.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
+                rx.text(title, font_size="1.2em"),
                 rx.badge(author, color_scheme="green", margin_left="1em"),
             )
         ),
@@ -22,9 +19,9 @@ colors = {"Reddit": "red", "Hacker News": "orange"}
 
 def launch(title, platform, url):
     return rx.link(
-        rx.list_item(
+        rx.chakra.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
+                rx.text(title, font_size="1.2em"),
                 rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
             )
         ),
@@ -145,32 +142,33 @@ def resources():
     return rx.flex(
         rx.hstack(
             rx.box(
-                docheader("Resources", first=True),
-                doctext("Here are some resources to help you get started with Reflex."),
-                doctext(
-                    "All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at ",
-                    rx.code("alek@pynecone.io"),
-                    " and we will be happy to add it.",
+                h1_comp(text="Resources"),
+                text_comp(
+                    text="Here are some resources to help you get started with Reflex."
                 ),
-                rx.divider(),
+                text_comp(
+                    text="All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at alek@pynecone.io "
+                    "and we will be happy to add it.",
+                ),
+                rx.chakra.divider(),
                 rx.vstack(
-                    subheader("Launches"),
-                    rx.unordered_list(
+                    h2_comp(text="Launches"),
+                    rx.chakra.unordered_list(
                         *[launch(**v) for v in launches],
                         padding_left="2em",
                     ),
-                    subheader("Introduction Videos"),
-                    rx.unordered_list(
+                    h2_comp(text="Introduction Videos"),
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in intro_videos],
                         padding_left="2em",
                     ),
-                    subheader("Tutorial Videos"),
-                    rx.unordered_list(
+                    h2_comp(text="Tutorial Videos"),
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in tutorial_videos],
                         padding_left="2em",
                     ),
-                    subheader("Blog Posts"),
-                    rx.unordered_list(
+                    h2_comp(text="Blog Posts"),
+                    rx.chakra.unordered_list(
                         *[video(**v) for v in blog_posts],
                         padding_left="2em",
                     ),

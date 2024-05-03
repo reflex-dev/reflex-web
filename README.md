@@ -8,7 +8,7 @@
 [![PyPI version](https://badge.fury.io/py/reflex.svg)](https://badge.fury.io/py/reflex)
 ![tests](https://github.com/pynecone-io/pynecone/actions/workflows/integration.yml/badge.svg)
 ![versions](https://img.shields.io/pypi/pyversions/reflex.svg)
-[![Documentation](https://img.shields.io/badge/Documentation%20-Introduction%20-%20%23007ec6)](https://reflex.dev/docs/getting-started/introduction)
+[![Documentation](https://img.shields.io/badge/Documentation%20-Introduction%20-%20%23007ec6)](https://reflex.dev/docs/getting-started/introduction/)
 [![Discord](https://img.shields.io/discord/1029853095527727165?color=%237289da&label=Discord)](https://discord.gg/T5WSbC2YtQ)
 </div>
 
@@ -25,7 +25,7 @@ Reflex is a full-stack web framework that allows developers to build their app i
 
 ## Requirements
 
-The only requirement is that you have installed `Python 3.8` or higher in your local machine.
+The only requirement is that you have installed `Python 3.9` or higher in your local machine.
 
 ## Setup Locally
 
@@ -83,7 +83,7 @@ We welcome contributions of any size! Below are some good ways to get started in
 -   **GitHub Discussions**: A great way to talk about features you want added or things that are confusing/need clarification.
 -   **GitHub Issues**: [Issues](https://github.com/reflex-dev/reflex/issues) are an excellent way to report bugs. Additionally, you can try and solve an existing issue and submit a PR.
 
-We are actively looking for contributors, no matter your skill level or experience. To contribute check out [CONTIBUTING.md](https://github.com/reflex-dev/reflex-web/blob/main/CONTRIBUTING.md)
+We are actively looking for contributors, no matter your skill level or experience. To contribute check out [CONTIBUTING.md](https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md)
 
 ## License
 

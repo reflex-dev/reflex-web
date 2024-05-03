@@ -1,8 +1,7 @@
 ```python exec
-from pcweb.templates.docpage import docdemo, doclink
-from pcweb.base_state import State
 import reflex as rx
 ```
+
 # Responsive
 
 Reflex apps can be made responsive to look good on mobile, tablet, and desktop.

@@ -1,9 +1,6 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.base_state import State
-from pcweb.templates.docpage import docalert, doccode, docheader, subheader, docdemobox
-from pcweb.pages.docs.events.background_events import LowLevelState, low_level_code, low_level_render_code, MyTaskState, my_task_code, my_task_render_code
 ```
 
 # Background Tasks
@@ -28,14 +25,72 @@ In the following example, the `my_task` event handler is decorated with
 long as certain conditions are met. While it is running, the UI remains
 interactive and continues to process events normally.
 
-```python eval
-docdemobox(
-    eval(my_task_render_code)
-)
+```md alert info
+# Background events are similar to simple Task Queues like [Celery](https://www.fullstackpython.com/celery.html) allowing asynchronous events.
 ```
 
-```python
-{my_task_code.strip()}
+```python demo exec
+import asyncio
+import reflex as rx
+
+
+class MyTaskState(rx.State):
+    counter: int = 0
+    max_counter: int = 10
+    running: bool = False
+    _n_tasks: int = 0
+
+    @rx.background
+    async def my_task(self):
+        async with self:
+            # The latest state values are always available inside the context
+            if self._n_tasks > 0:
+                # only allow 1 concurrent task
+                return
+            
+            # State mutation is only allowed inside context block
+            self._n_tasks += 1
+
+        while True:
+            async with self:
+                # Check for stopping conditions inside context
+                if self.counter >= self.max_counter:
+                    self.running = False
+                if not self.running:
+                    self._n_tasks -= 1
+                    return
+
+                self.counter += 1
+
+            # Await long operations outside the context to avoid blocking UI
+            await asyncio.sleep(0.5)
+
+    def toggle_running(self):
+        self.running = not self.running
+        if self.running:
+            return MyTaskState.my_task
+
+    def clear_counter(self):
+        self.counter = 0
+
+
+def background_task_example():
+    return rx.hstack(
+        rx.heading(MyTaskState.counter, " /"),
+        rx.chakra.number_input(
+            value=MyTaskState.max_counter,
+            on_change=MyTaskState.set_max_counter,
+            width="8em",
+        ),
+        rx.button(
+            rx.cond(~MyTaskState.running, "Start", "Stop"),
+            on_click=MyTaskState.toggle_running,
+        ),
+        rx.button(
+            "Reset",
+            on_click=MyTaskState.clear_counter,
+        ),
+    )
 ```
 
 ## Task Lifecycle
@@ -60,31 +115,3 @@ Background tasks mostly work like normal `EventHandler` methods, with certain ex
 * Background tasks cannot modify the state outside of an `async with self` context block.
 * Background tasks may read the state outside of an `async with self` context block, but the value may be stale.
 * Background tasks may not be directly called from other event handlers or background tasks. Instead use `yield` or `return` to trigger the background task.
-
-## Low-level API
-
-The `@rx.background` decorator is a convenience wrapper around the lower-level
-`App.modify_state` async contextmanager. If more control over task lifecycle is
-needed, arbitrary async tasks may safely manipulate the state using an
-`async with app.modify_state(token) as state` context block. In this case the
-`token` for a state is retrieved from `state.get_token()` and identifies a
-single instance of the state (i.e. the state for an individual browser tab).
-
-Care must be taken to **never directly modify the state outside of the
-`modify_state` contextmanager**. If the code that creates the task passes a
-direct reference to the state instance, this can introduce subtle bugs or not
-work at all (if redis is used for state storage).
-
-The following example creates an arbitrary `asyncio.Task` to fetch data and then
-uses the low-level API to safely update the state and send the changes to the
-frontend.
-
-```python eval
-docdemobox(
-    eval(low_level_render_code)
-)
-```
-
-```python
-{low_level_code.strip()}
-```

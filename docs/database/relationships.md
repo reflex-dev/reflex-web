@@ -63,7 +63,7 @@ The following example assumes that the flagging user is stored in the state as a
 form.
 
 ```python
-class FlagPostForm(State):
+class FlagPostForm(rx.State):
     user: User
 
     def flag_post(self, form_data: dict[str, str]):
@@ -113,7 +113,7 @@ rendering in frontend code without additional steps.
 import sqlalchemy
 
 
-class PostState(State):
+class PostState(rx.State):
     posts: List[Post]
 
     def load_posts(self):

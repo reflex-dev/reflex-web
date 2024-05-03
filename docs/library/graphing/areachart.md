@@ -1,6 +1,13 @@
+---
+components:
+    - rx.recharts.AreaChart
+    - rx.recharts.Area
+---
+
+# Area Chart
+
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
 import random
 
@@ -116,7 +123,7 @@ range_data = [
 ]
 
 
-area_chart_state = """class AreaState(State):
+area_chart_state = """class AreaState(rx.State):
     data=data
 
     def randomize_data(self):
@@ -195,7 +202,6 @@ area_chart_example_with_state = """rx.recharts.area_chart(
             height=400,
         ) 
 """
-
 ```
 
 An area chart combines the line chart and bar chart to show how one or more groups’ numeric values change over the progression of a second variable, typically that of time. An area chart is distinguished from a line chart by the addition of shading between lines and a baseline, like in a bar chart.

@@ -1,6 +1,14 @@
+---
+components:
+    - rx.recharts.ScatterChart
+    - rx.recharts.Scatter
+---
+
+# Scatter Chart
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data01 = [
   {
@@ -114,24 +122,18 @@ docgraphing(scatter_chart_simple_complex, comp=eval(scatter_chart_simple_complex
 
 # Dynamic Data
 
-
 Chart data tied to a State var causes the chart to automatically update when the
 state changes, providing a nice way to visualize data in response to user
 interface elements. View the "Data" tab to see the substate driving this
 calculation of iterations in the Collatz Conjecture for a given starting number.
 Enter a starting number in the box below the chart to recalculate.
 
-```python exec
-import inspect
-
-from pcweb.base_state import State
-
-
-class ScatterChartState(State):
+```python demo graphing
+class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
     def compute_collatz(self, form_data: dict) -> int:
-        n = int(form_data["start"])
+        n = int(form_data.get("start") or 1)
         yield rx.set_value("start", "")
         self.data = []
         for ix in range(400):
@@ -144,32 +146,23 @@ class ScatterChartState(State):
                 n = 3 * n + 1
 
 
-scatter_chart_state_example = """
-rx.vstack(
-    rx.recharts.scatter_chart(
-        rx.recharts.scatter(
-            data=ScatterChartState.data,
-            fill="#8884d8",
+def index():
+    return rx.vstack(
+        rx.recharts.scatter_chart(
+            rx.recharts.scatter(
+                data=ScatterChartState.data,
+                fill="#8884d8",
+            ),
+            rx.recharts.x_axis(data_key="x", type_="number"),
+            rx.recharts.y_axis(data_key="y", type_="number"),
         ),
-        rx.recharts.x_axis(data_key="x", type_="number"),
-        rx.recharts.y_axis(data_key="y", type_="number"),
-    ),
-    rx.form(
-        rx.input(placeholder="Enter a number", id="start"),
-        rx.button("Compute", type_="submit"),
-        on_submit=ScatterChartState.compute_collatz,
-    ),
-    width="100%",
-    height="15em",
-    on_mount=ScatterChartState.compute_collatz({"start": "15"}),
-)
-"""
-```
-
-```python eval
-docgraphing(
-    scatter_chart_state_example,
-    comp=eval(scatter_chart_state_example),
-    data=inspect.getsource(ScatterChartState).replace("(State)", "(rx.State)"),
-)
+        rx.form.root(
+            rx.input(placeholder="Enter a number", id="start"),
+            rx.button("Compute", type="submit"),
+            on_submit=ScatterChartState.compute_collatz,
+        ),
+        width="100%",
+        height="15em",
+        on_mount=ScatterChartState.compute_collatz({"start": "15"}),
+    )
 ```

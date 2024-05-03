@@ -1,13 +1,9 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.templates.docpage import doccode, docheader, doclink, doctext, subheader
-from pcweb.templates.webpage import webpage
-from pcweb.route import Route
-from pcweb.styles import text_colors as tc
-from pcweb.styles import colors as c
-from pcweb.pages.docs.wrapping_react.overview import overview as wrapping_react_overview
+from pcweb.pages.docs import hosting, wrapping_react
 from pcweb.pages.docs.gallery import gallery
-from pcweb.pages.docs.hosting.deploy import deploy
+from pcweb.templates.docpage import doclink
+from pcweb.templates.webpage import webpage
 
 faq_items = [
     {
@@ -25,7 +21,7 @@ faq_items = [
             ),
             rx.text(
                 "Check out our ",
-                rx.span(doclink("gallery", href=gallery.path)),
+                rx.chakra.span(doclink("gallery", href=gallery.path)),
                 " to see what ur community has already built with Reflex.",
             ),
             align_items="flex-start",
@@ -38,7 +34,9 @@ faq_items = [
             """
             Our hosting service is in alpha! See more details in our
             """,
-            rx.span(doclink("deployment guide", href=deploy.path)),
+            rx.chakra.span(
+                doclink("deployment guide", href=hosting.deploy_quick_start.path)
+            ),
             ".",
         ),
     },
@@ -46,10 +44,10 @@ faq_items = [
         "Q": "How can I contribute?",
         "A": rx.text(
             """
-            We're always looking for contributors to help us build Reflex. 
-            If you're interested in contributing, check out our page on 
+            We're always looking for contributors to help us build Reflex.
+            If you're interested in contributing, check out our page on
             """,
-            rx.span(
+            rx.chakra.span(
                 doclink(
                     " contributing to Reflex Open Source",
                     href=constants.CONTRIBUTING_URL,
@@ -80,7 +78,9 @@ faq_items = [
             """
             One of Reflex's most powerful features is the ability to wrap existing third-party React components. A few lines of code can provide a Python interface on top the rich, well-supported React ecosystem. Check out our section on
             """,
-            rx.span(doclink("wrapping React", href=wrapping_react_overview.path)),
+            rx.chakra.span(
+                doclink("wrapping React", href=wrapping_react.overview.path)
+            ),
             " to learn more.",
         ),
     },
@@ -92,65 +92,183 @@ faq_items = [
             """
         ),
     },
+    {
+        "Q": "What usage data is collected?",
+        "A": rx.markdown(
+            """
+Anonymous usage data allows us to understand how Reflex is used and how we can improve the product.
+
+The following information is collected:
+* Anonymous user / app ID
+* Operating System, CPU Count, Memory
+* Python / Reflex Version
+
+### How to Opt-Out
+
+To disable telemetry, set `telemetry_enabled=False` in your `rxconfig.py` file.
+
+```python
+config = rx.Config(
+    app_name="hello",
+    telemetry_enabled=False,
+)
+```
+
+Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `False`.
+"""
+        ),
+    },
 ]
 
 
 def faq_item(question, answer, index):
-    return rx.accordion_item(
-        rx.accordion_button(
+    return rx.chakra.accordion(rx.chakra.accordion_item(
+        rx.chakra.accordion_button(
             rx.heading(
-                question, color=tc["docs"]["body"], font_size=styles.H3_FONT_SIZE
+                question, color="#D6D6ED", font_size=styles.H3_FONT_SIZE
             ),
-            rx.spacer(),
-            rx.accordion_icon(color=tc["docs"]["body"]),
-            border_bottom="none" if index == len(faq_items) - 1 else styles.DOC_BORDER,
+            rx.chakra.spacer(),
+            rx.chakra.accordion_icon(color="#6C6C81"),
             _hover={},
             padding_y="1em",
         ),
-        rx.accordion_panel(answer),
+        rx.chakra.accordion_panel(answer, color="#6C6C81"),
         border="none",
+    ),
+    allow_multiple=True,
+    border_radius= "12px;",
+    border= "1px solid #37363F;",
+    background= "rgba(47, 43, 55, 0.50);",
+    box_shadow= "0px 3px 22px -2px #0C0B0F;",
+    width="100%",
+)
+
+def faq_item_mobile(question, answer, index):
+    return rx.chakra.accordion(
+        rx.chakra.accordion_item(
+            rx.chakra.accordion_button(
+                rx.heading(
+                    question, color="#D6D6ED", font_size="1em",
+                ),
+                rx.chakra.spacer(),
+                rx.chakra.accordion_icon(color="#6C6C81"),
+                padding_y="1em",
+            ),
+            rx.chakra.accordion_panel(answer, color="#6C6C81"),
+            border="none",
+        ),
+        allow_multiple=True,
+        border_radius="12px",
+        border="1px solid #37363F",
+        background="rgba(47, 43, 55, 0.50)",
+        box_shadow="0px 3px 22px -2px #0C0B0F",
+        width="90%",  # Adjust the width to a smaller value, e.g., 90%
+        max_width="375px",  # Set a maximum width for the accordion
+        margin="0 auto",  # Center the accordion horizontally
     )
 
+def desktop_view():
+    return rx.vstack(
+        rx.vstack(
+            rx.flex(
+                rx.chakra.text(
+                    "Common Questions",
+                    background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                    text_align="center",
+                    background_clip="text",
+                    padding_x="1em"
+                ),
+                border_radius="15px;",
+                border="1px solid #4435D4;",
+                background="linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                box_shadow="0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+            ),
+            rx.chakra.text(
+                "Frequently Asked Questions",
+                font_size="64px;",
+                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                text_align="center",
+                width="650px",
+                background_clip="text",
+                font_weight="bold",
+                letter_spacing="-1.28px;",
+            ),
+            rx.text(
+                "We've compiled a list of the most common questions we get about Reflex. If you have a question that isn't answered here, feel free to reach out to us on our Discord.",
+                color="#6C6C81",
+            ),
+            align_items="center",
+            text_align="left",
+            width="100%",
+            spacing="1",
+            margin_bottom="2em",
+        ),
+        *[
+            faq_item(item["Q"], item["A"], index)
+            for index, item in enumerate(faq_items)
+        ],
+        align_items="center",
+        margin_bottom="4em",
+        padding_y="2em",
+    )
 
-@webpage(path="/faq", title="FAQ")
+def mobile_view():
+    return rx.vstack(
+        rx.vstack(
+            rx.flex(
+                rx.chakra.text(
+                    "Common Questions",
+                    background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
+                    text_align="center",
+                    background_clip="text",
+                    padding_x="1em",
+                ),
+                padding_buttom="1em",
+                border_radius="15px;",
+                border="1px solid #4435D4;",
+                background="linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                box_shadow="0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);"
+            ),
+            rx.chakra.text(
+                "Frequently Asked Questions",
+                font_size="28px;",
+                background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
+                text_align="center",
+                width="650px",
+                background_clip="text",
+                font_weight="medium",
+                letter_spacing="-1.28px;",
+            ),
+            rx.box(
+                rx.text(
+                    "We've compiled a list of the most common questions we get about Reflex. If you have a question that isn't answered here, feel free to reach out to us on our Discord.",
+                    color="#6C6C81",
+                    width="360px",
+                    align="center",
+                ),
+            ),
+            align_items="center",
+            text_align="left",
+            width="100%",
+            spacing="1",
+            margin_bottom="2em",
+        ),
+        *[
+            faq_item_mobile(item["Q"], item["A"], index)
+            for index, item in enumerate(faq_items)
+        ],
+        align_items="center",
+        margin_bottom="4em",
+        padding_y="2em",
+    )
+
+@webpage(path="/faq", title="Frequently Asked Questions · Reflex")
 def faq():
     return rx.container(
         rx.vstack(
-            rx.box(
-                rx.heading(
-                    "Reflex FAQ",
-                    font_size=styles.H1_FONT_SIZE,
-                    mt=12,
-                    mb=4,
-                    color=tc["docs"]["body"],
-                ),
-                rx.text(
-                    "Frequently asked questions about Reflex.",
-                    color=tc["docs"]["body"],
-                ),
-                rx.divider(),
-                rx.accordion(
-                    *[
-                        faq_item(item["Q"], item["A"], index)
-                        for index, item in enumerate(faq_items)
-                    ],
-                    border=styles.DOC_BORDER,
-                    border_radius=styles.DOC_BORDER_RADIUS,
-                    allow_multiple=True,
-                    width="100%",
-                    padding_y="1em",
-                ),
-                text_align="left",
-                width="100%",
-            ),
-            align_items="stretch",
-            min_height="80vh",
-            margin_bottom="4em",
-            padding_y="2em",
-        ),
-        flex_direction="column",
-        max_width="960px",
+            rx.mobile_only(mobile_view()),
+            rx.tablet_and_desktop(desktop_view()),
+        )
     )
-
 
 faq_routes = [faq]

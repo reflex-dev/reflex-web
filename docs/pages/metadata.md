@@ -1,7 +1,6 @@
 ```python exec
 
 import reflex as rx
-from pcweb.base_state import State
 
 meta_data = (
 """
@@ -32,8 +31,8 @@ app = rx.App()
 
 ```
 
-
 # Page Metadata
+
 You can add page metadata such as:
 
 - The title to be shown in the browser tab

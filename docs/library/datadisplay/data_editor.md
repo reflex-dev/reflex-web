@@ -1,10 +1,16 @@
+---
+components:
+    - rx.data_editor
+---
+
+# Data Editor
+
 A datagrid editor based on [Glide Data Grid](https://grid.glideapps.com/)
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 from typing import Any
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemobox, doccode, docgraphing
 
 columns: list[dict[str, str]] = [
     {
@@ -31,14 +37,13 @@ data: list[list[Any]] = [
 
 ```
 
-This component is introduced as an alternative to the [datatable](docs/library/datadisplay/datatable) to support editing the displayed data.
-
-
+This component is introduced as an alternative to the [datatable]({library.datadisplay.datatable.path}) to support editing the displayed data.
 
 ## Columns
 
 The columns definition should be a `list` of `dict`, each `dict` describing the associated columns.
 Property of a column dict:
+
 - `title`: The text to display in the header of the column.
 - `id`: An id for the column, if not defined, will default to a lower case of `title`
 - `width`: The width of the column.
@@ -48,16 +53,15 @@ Property of a column dict:
 
 The `data` props of `rx.data_editor` accept a `list` of `list`, where each `list` represent a row of data to display in the table.
 
-
 ## Simple Example
 
 Here is a basic example of using the data_editor representing data with no interaction and no styling. Below we define the `columns` and the `data` which are taken in by the `rx.data_editor` component. When we define the `columns` we must define a `title` and a `type` for each column we create. The columns in the `data` must then match the defined `type` or errors will be thrown.
 
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=columns,
     data=data,
-))
+)
 ```
 
 ```python
@@ -95,7 +99,7 @@ rx.data_editor(
 ## Interactive Example
 
 ```python exec
-class DataEditorState_HP(State):
+class DataEditorState_HP(rx.State):
 
     clicked_data: str = "Cell clicked: "
     cols: list[Any] = [
@@ -148,10 +152,10 @@ class DataEditorState_HP(State):
     ]
 
     data = [
-        ["1", "Harry James Potter",	"31 July 1980", True, "Gryffindor", "11'  Holly  phoenix feather", "Stag", "Half-blood"],
+        ["1", "Harry James Potter", "31 July 1980", True, "Gryffindor", "11'  Holly  phoenix feather", "Stag", "Half-blood"],
         ["2", "Ronald Bilius Weasley", "1 March 1980", True,"Gryffindor", "12' Ash unicorn tail hair", "Jack Russell terrier", "Pure-blood"],
-        ["3", "Hermione Jean Granger", "19 September, 1979", True, "Gryffindor", "10¾'  vine wood dragon heartstring", "Otter", "Muggle-born"],	
-        ["4", "Albus Percival Wulfric Brian Dumbledore", "Late August 1881", True, "Gryffindor", "15' Elder Thestral tail hair core", "Phoenix", "Half-blood"],	
+        ["3", "Hermione Jean Granger", "19 September, 1979", True, "Gryffindor", "10¾'  vine wood dragon heartstring", "Otter", "Muggle-born"], 
+        ["4", "Albus Percival Wulfric Brian Dumbledore", "Late August 1881", True, "Gryffindor", "15' Elder Thestral tail hair core", "Phoenix", "Half-blood"], 
         ["5", "Rubeus Hagrid", "6 December 1928", False, "Gryffindor", "16'  Oak unknown core", "None", "Part-Human (Half-giant)"], 
         ["6", "Fred Weasley", "1 April, 1978", True, "Gryffindor", "Unknown", "Unknown", "Pure-blood"], 
     ]
@@ -166,23 +170,22 @@ class DataEditorState_HP(State):
         
 ```
 
-
 Here we define a State, as shown below, that allows us to print the location of the cell as a heading when we click on it, using the `on_cell_clicked` `event trigger`. Check out all the other `event triggers` that you can use with datatable at the bottom of this page. We also define a `group` with a label `Data`. This groups all the columns with this `group` label under a larger group `Data` as seen in the table below.
 
-```python eval
-docdemobox(rx.heading(DataEditorState_HP.clicked_data))
+```python demo box
+rx.heading(DataEditorState_HP.clicked_data)
 ```
 
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=DataEditorState_HP.cols,
     data=DataEditorState_HP.data,
     on_cell_clicked=DataEditorState_HP.click_cell,
-))
+)
 ```
 
 ```python
-class DataEditorState_HP(State):
+class DataEditorState_HP(rx.State):
     
     clicked_data: str = "Cell clicked: "
 
@@ -234,10 +237,10 @@ class DataEditorState_HP(State):
     ]
 
     data = [
-        ["1", "Harry James Potter",	"31 July 1980", True, "Gryffindor", "11'  Holly  phoenix feather", "Stag", "Half-blood"],
+        ["1", "Harry James Potter", "31 July 1980", True, "Gryffindor", "11'  Holly  phoenix feather", "Stag", "Half-blood"],
         ["2", "Ronald Bilius Weasley", "1 March 1980", True,"Gryffindor", "12' Ash unicorn tail hair", "Jack Russell terrier", "Pure-blood"],
-        ["3", "Hermione Jean Granger", "19 September, 1979", True, "Gryffindor", "10¾'  vine wood dragon heartstring", "Otter", "Muggle-born"],	
-        ["4", "Albus Percival Wulfric Brian Dumbledore", "Late August 1881", True, "Gryffindor", "15' Elder Thestral tail hair core", "Phoenix", "Half-blood"],	
+        ["3", "Hermione Jean Granger", "19 September, 1979", True, "Gryffindor", "10¾'  vine wood dragon heartstring", "Otter", "Muggle-born"], 
+        ["4", "Albus Percival Wulfric Brian Dumbledore", "Late August 1881", True, "Gryffindor", "15' Elder Thestral tail hair core", "Phoenix", "Half-blood"], 
         ["5", "Rubeus Hagrid", "6 December 1928", False, "Gryffindor", "16'  Oak unknown core", "None", "Part-Human (Half-giant)"], 
         ["6", "Fred Weasley", "1 April, 1978", True, "Gryffindor", "Unknown", "Unknown", "Pure-blood"], 
     ]
@@ -259,7 +262,6 @@ rx.data_editor(
     on_cell_clicked=DataEditorState_HP.click_cell,
 )
 ```
-
 
 ## Styling Example
 
@@ -297,10 +299,8 @@ dark_theme = {
 }
 ```
 
-
-
-```python eval
-docdemobox(rx.data_editor(
+```python demo box
+rx.data_editor(
     columns=DataEditorState_HP.cols,
     data=DataEditorState_HP.data,
     row_height=80,
@@ -309,7 +309,7 @@ docdemobox(rx.data_editor(
     column_select="single",
     theme=DataEditorTheme(**dark_theme),
     height="30vh",
-))
+)
 ```
 
 ```python
@@ -341,7 +341,6 @@ dark_theme_snake_case = {
     "font_family": "Inter, Roboto, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif",
 }
 ```
-
 
 ```python
 rx.data_editor(

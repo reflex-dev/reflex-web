@@ -1,6 +1,13 @@
+---
+components:
+    - rx.recharts.Brush
+---
+
+# Brush
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   { "name": '1', "uv": 300, "pv": 456 },
@@ -64,7 +71,6 @@ brush_example = """rx.recharts.bar_chart(
 ```
 
 The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
-
 
 ```python eval
 docgraphing(

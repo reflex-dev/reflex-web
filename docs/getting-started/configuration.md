@@ -9,7 +9,7 @@ Reflex apps can be configured using a configuration file, environment variables,
 
 ## Configuration File
 
-Running `reflex init` will create an `rxconfig.py` file in your root directory. 
+Running `reflex init` will create an `rxconfig.py` file in your root directory.
 You can pass keyword arguments to the `Config` class to configure your app.
 
 For example:
@@ -47,3 +47,15 @@ reflex run --frontend-port 3001
 ```
 
 See the [CLI reference]({cli_api_ref_url}) for all the arguments available.
+
+## Customizable App Data Directory
+
+The `REFLEX_DIR` environment variable can be set, which allows users to set the location where Reflex writes helper tools like Bun and NodeJS.
+
+By default we use Platform specific directories:
+
+On windows, `C:/Users/<username>/AppData/Local/reflex` is used.
+
+On macOS, `~/Library/Application Support/reflex` is used.
+
+On linux, `~/.local/share/reflex` is used.

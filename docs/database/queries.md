@@ -5,7 +5,7 @@ Queries are used to retrieve data from a database.
 A query is a request for information from a database table or combination of
 tables. A query can be used to retrieve data from a single table or multiple
 tables. A query can also be used to insert, update, or delete data from a table.
-        
+
 ## Session
 
 To execute a query you must first create a `rx.session`. You can use the session
@@ -18,7 +18,7 @@ rollback without closing the session via `session.rollback()`.
 
 The following example shows how to create a session and query the database.
 First we create a table called `User`.
-            
+
 ```python
 class User(rx.Model, table=True):
     username: str
@@ -30,20 +30,19 @@ class User(rx.Model, table=True):
 Then we create a session and query the User table.
 
 ```python
-class QueryUser(State):
+class QueryUser(rx.State):
     name: str
     users: list[User]
 
     def get_users(self):
         with rx.session() as session:
-            self.users = session.exec(User.select.where(User.username.contains(self.name)).all()
+            self.users = session.exec(
+                User.select().where(
+                    User.username.contains(self.name))).all()
 ```
 
 The `get_users` method will query the database for all users that contain the
 value of the state var `name`.
-
-On older python versions, the `.select` attribute on model objects does not work, but
-you may use `sqlmodel.select(User)` instead.
 
 ### Insert
 
@@ -51,7 +50,7 @@ Similarly, the `session.add()` method to add a new record to the
 database or persist an existing object.
 
 ```python
-class AddUser(State):
+class AddUser(rx.State):
     username: str
     email: str
     
@@ -67,13 +66,14 @@ To update the user, first query the database for the object, make the desired
 modifications, `.add` the object to the session and finally call `.commit()`.
 
 ```python
-class ChangeEmail(State):
+class ChangeEmail(rx.State):
     username: str
     email: str
 
     def modify_user(self):
         with rx.session() as session:
-            user = session.exec(User.select.where((User.username == self.username).first()
+            user = session.exec(User.select().where(
+                (User.username == self.username))).first()
             user.email = self.email
             session.add(user)
             session.commit()
@@ -85,12 +85,13 @@ To delete a user, first query the database for the object, then call
 `.delete()` on the session and finally call `.commit()`.
 
 ```python
-class RemoveUser(State):
+class RemoveUser(rx.State):
     username: str
 
     def delete_user(self):
         with rx.session() as session:
-            user = session.exec(User.select.where(User.username == self.username).first()
+            user = session.exec(User.select().where(
+                User.username == self.username)).first()
             session.delete(user)
             session.commit()
 ```
@@ -105,7 +106,7 @@ To avoid this, the `session.refresh()` method can be used to update the object e
 ensure all fields are up to date before exiting the session.
 
 ```python
-class AddUserForm(State):
+class AddUserForm(rx.State):
     user: User | None = None
     
     def add_user(self, form_data: dict[str, str]):
@@ -126,7 +127,7 @@ necessarily create the object, but rather associates it with a session where it
 may either be created or updated accordingly.
 
 ```python
-class AddUserForm(State):
+class AddUserForm(rx.State):
     ...
     
     def update_user(self, form_data: dict[str, str]):
@@ -140,7 +141,7 @@ class AddUserForm(State):
 ```
 
 If an ORM object will be referenced and accessed outside of a session, you
-should call `.refresh()` on it to avoid stale object exceptions. 
+should call `.refresh()` on it to avoid stale object exceptions.
 
 ## Using SQL Directly
 
@@ -153,12 +154,8 @@ SQL strings.  If parameter binding is needed, the query may be wrapped in
 [`sqlalchemy.text`](https://docs.sqlalchemy.org/en/14/core/sqlelement.html#sqlalchemy.sql.expression.text),
 which allows colon-prefix names to be used as placeholders.
 
-```python exec
-from pcweb.templates.docpage import docalert
-```
-
-```python eval
-docalert("Never use string formatting to construct SQL queries, as this may lead to SQL injection vulnerabilities in the app.")
+```md alert
+Never use string formatting to construct SQL queries, as this may lead to SQL injection vulnerabilities in the app.
 ```
 
 ```python

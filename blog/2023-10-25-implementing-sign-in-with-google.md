@@ -3,14 +3,12 @@ author: Masen Furer
 date: 2023-10-25
 title: "Implementing Sign In with Google"
 description: "How to wrap a third-party auth component and integrate it into a Reflex app."
-image: /auth_blog.png
+image: /blog/auth_blog.png
 ---
 
 ```python exec
 import reflex as rx
-import pcweb.pages.docs.api_reference
-from pcweb.pages.docs.state_overview import state_overview
-from pcweb.templates.docpage import docalert
+from pcweb.pages.docs import api_reference, state
 ```
 
 Almost any non-trivial web app needs a way to identify and authenticate users,
@@ -77,13 +75,10 @@ class GoogleOAuthProvider(rx.Component):
     client_id: rx.Var[str]
 ```
 
-```python eval
-docalert(
-    "Why client_id and not clientID",
-    "When Reflex compiles the component to Javascript, `snake_case` property names "
-    "are automatically formatted as `camelCase`, although the names may be defined "
-    "in `camelCase` as well",
-)
+```md alert
+# Why client_id and not clientID
+
+When Reflex compiles the component to Javascript, `snake_case` property names are automatically formatted as `camelCase`, although the names may be defined in `camelCase` as well.
 ```
 ### GoogleLogin
 
@@ -100,8 +95,7 @@ class GoogleLogin(rx.Component):
     library = "@react-oauth/google"
     tag = "GoogleLogin"
 
-    def get_event_triggers(self):
-        return \{"on_success": lambda data: [data]}
+    on_success: rx.EventHandler[lambda data: [data]]
 ```
 
 The `on_success` trigger is defined to pass its argument directly to the Reflex
@@ -109,12 +103,10 @@ event handler.
 
 ## Handling the Token
 
-```python eval
-docalert(
-    "Always use TLS in production",
-    "The user's token may be compromised if sent over an insecure websocket!",
-    status="warning",
-)
+```md alert warning
+# Always use TLS in production",
+
+The user's token may be compromised if sent over an insecure websocket!
 ```
 
 An event handler will be used to receive the token after a successful login.
@@ -176,7 +168,6 @@ def index():
 
 app = rx.App()
 app.add_page(index)
-app.compile()
 ```
 
 After a successful login, you will see the decoded [JSON Web Token
@@ -187,8 +178,8 @@ After a successful login, you will see the decoded [JSON Web Token
 The `GoogleLogin` component does NOT store the token in any way, so it is up to
 our app to store and manage the credential after login. For this purpose, we
 will use an
-[`rx.LocalStorage`]({pcweb.pages.docs.api_reference.browser_storage.path}) `Var` in the
-[`State`]({state_overview.path}) that is set in the
+[`rx.LocalStorage`]({api_reference.browser_storage.path}) `Var` in the
+[`State`]({state.overview.path}) that is set in the
 `on_success` event handler.
 
 Additionally, an `rx.cached_var` will be used to verify and return the decoded
@@ -304,14 +295,11 @@ def require_google_login(page) -> rx.Component:
     return _auth_wrapper
 ```
 
-```python eval
-docalert(
-    "Why two rx.cond?",
-    "The first rx.cond checks if the State is hydrated, meaning the frontend has "
-    "access to the latest state values from the backend. Before hydration, we show a "
-    "loading spinner instead of flashing a login button "
-    "to users that may already logged in without the frontend being aware of it yet."
-)
+```md alert
+# Why two rx.cond?
+
+The first rx.cond checks if the State is hydrated, meaning the frontend has access to the latest state values from the backend.
+Before hydration, we show a loading spinner instead of flashing a login button to users that may already logged in without the frontend being aware of it yet.
 ```
 
 ### Protecting Content
@@ -329,18 +317,13 @@ class State(rx.State):
         return "Not logged in."
 ```
 
-```python eval
-docalert(
-    "Private data must come from the State",
-    "Reflex compiles the page function and makes its content publicly "
-    "accessible! Although conditional rendering is used to show the "
-    "login button to unauthenticated users, the source code of the "
-    "page will also be available to unauthenticated users. "
-    "Because of this, all private content must originate from the State "
-    "and only be returned after verifying the user's token is valid on "
-    "the backend.",
-    status="warning",
-)
+```md alert warning
+# Private data must come from the State
+
+Reflex compiles the page function and makes its content publicly accessible!
+Although conditional rendering is used to show the login button to unauthenticated users, the source code of the page will also be available to unauthenticated users.
+
+Because of this, all private content must originate from the State and only be returned after verifying the user's token is valid on the backend.
 ```
 
 ### Show Login Button
@@ -382,8 +365,7 @@ class GoogleLogin(rx.Component):
     library = "@react-oauth/google"
     tag = "GoogleLogin"
 
-    def get_event_triggers(self):
-        return \{"on_success": lambda data: [data]}
+    on_success: rx.EventHandler[lambda data: [data]]
 ```
 
 ### google_auth.py
@@ -499,7 +481,6 @@ def protected() -> rx.Component:
 
 app = rx.App()
 app.add_page(index)
-app.compile()
 ```
 
 ### Demo

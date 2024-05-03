@@ -1,26 +1,20 @@
 ```python exec
-import inspect
 import random
 import time
 
 import reflex as rx
-
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo_from
 ```
-
 
 # Computed Vars
 
-
 Computed vars have values derived from other properties on the backend. They are
 defined as methods in your State class with the `@rx.var` decorator. A computed
-var is recomputed whenever an event is processed against the state.
+var is recomputed every time an event is processed in your app.
 
 Try typing in the input box and clicking out.
 
-```python exec
-class UppercaseState(State):
+```python demo exec
+class UppercaseState(rx.State):
     text: str = "hello"
 
     @rx.var
@@ -36,15 +30,9 @@ def uppercase_example():
     )
 ```
 
-```python eval
-docdemo_from(UppercaseState, component=uppercase_example)
-```
-
 Here, `upper_text` is a computed var that always holds the upper case version of `text`.
 
 We recommend always using type annotations for computed vars.
-
-
 
 ## Cached Vars
 
@@ -53,8 +41,8 @@ that is only recomputed when the other state vars it depends on change. This is
 useful for expensive computations, but in some cases it may not update when you
 expect it to.
 
-```python exec
-class CachedVarState(State):
+```python demo exec
+class CachedVarState(rx.State):
     counter_a: int = 0
     counter_b: int = 0
 
@@ -90,10 +78,6 @@ def cached_var_example():
             rx.button("Increment B", on_click=CachedVarState.increment_b),
         ),
     )
-```
-
-```python eval
-docdemo_from(CachedVarState, component=cached_var_example)
 ```
 
 In this example `last_touch_time` is a normal computed var, which updates any

@@ -1,13 +1,13 @@
 ```python exec
 import reflex as rx
 from typing import Any
-from pcweb.base_state import State
 ```
+
 ## Basics of Imports
 
 Before deciding to extend Reflex by wrapping a component, check to see if there is a corresponding, well maintained React library. Search for it on [npm](https://www.npmjs.com/), and if it's there, you can use it in your Reflex app.
 
-```javascript 
+```javascript
 import \{ HexColorPicker } from "react-colorful"
 ```
 
@@ -53,7 +53,6 @@ class Spline(rx.Component):
 
 By default Reflex will install the library you have specified in the library property. However, sometimes you may need to install other libraries to use a component. In this case you can use the `lib_dependencies` property to specify other libraries to install.
 
-
 As seen in the Spline example in the overview section, we need to import the `@splinetool/runtime` library to use the `Spline` component. We can specify this in our component class like this:
 
 ```python
@@ -68,7 +67,6 @@ class Spline(rx.Component):
     lib_dependencies: list[str] = ["@splinetool/runtime"]
 ```
 
-
 ## Aliases
 
 If you are wrapping another components with the same tag as a component in your project you can use aliases to differentiate between them and avoid naming conflicts.
@@ -81,21 +79,14 @@ class AnotherColorPicker(rx.Component):
     tag = "HexColorPicker"
     alias = "OtherHexColorPicker"
     color: rx.Var[str]
-
-    def get_event_triggers(self) -> dict[str, Any]:
-        return \{
-            **super().get_event_triggers(),
-            "on_change": lambda e0: [e0],
-        }
+    on_change: rx.EventHandler[lambda e0: [e0]]
 ```
 
 ## Dynamic Imports
 
 Some libraries you may want to wrap may require dynamic imports. This is because they they may not be compatible with Server-Side Rendering (SSR).
 
-
 To handle this in Reflex all you need to do is subclass `NoSSRComponent` when defining your component.
-
 
 Often times when you see an import something like this:
 
@@ -108,7 +99,6 @@ const MyLibraryComponent = dynamic(() => import('./MyLibraryComponent'), {
 ```
 
 You can wrap it in Reflex like this, here we are wrapping the `react-plotly.js` library which requires dynamic imports:
-
 
 ```python
 from reflex.components.component import NoSSRComponent

@@ -1,6 +1,15 @@
+---
+components:
+    - rx.recharts.ReferenceLine
+    - rx.recharts.ReferenceDot
+    - rx.recharts.ReferenceArea
+---
+
+# Reference
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -91,4 +100,3 @@ scatter_chart_simple_example = """rx.recharts.scatter_chart(
 ```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
 ```
-

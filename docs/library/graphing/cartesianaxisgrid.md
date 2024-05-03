@@ -1,6 +1,14 @@
+---
+components:
+    - rx.recharts.CartesianGrid
+    - rx.recharts.CartesianAxis
+---
+
+# Cartesian Grid
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {

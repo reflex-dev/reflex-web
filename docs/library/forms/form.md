@@ -1,17 +1,140 @@
+---
+components:
+    - rx.radix.form
+    - rx.radix.form.root
+    - rx.radix.form.field
+    - rx.radix.form.control
+    - rx.radix.form.label
+    - rx.radix.form.message
+    - rx.radix.form.submit
+
+FormRoot: |
+    lambda **props: rx.form.root(
+        rx.form.field(
+            rx.flex(
+                rx.form.label("Email"),
+                rx.form.control(
+                    rx.input(
+                        placeholder="Email Address",
+                        # type attribute is required for "typeMismatch" validation
+                        type="email",
+                    ),
+                    as_child=True,
+                ),
+                rx.form.message("Please enter a valid email"),
+                rx.form.submit(
+                    rx.button("Submit"),
+                    as_child=True,
+                ),
+                direction="column",
+                spacing="2",
+                align="stretch",
+            ),
+            name="email",
+        ),
+        **props,
+    )
+
+
+FormField: |
+    lambda **props: rx.form.root(
+        rx.form.field(
+            rx.flex(
+                rx.form.label("Email"),
+                rx.form.control(
+                    rx.input(
+                        placeholder="Email Address",
+                        # type attribute is required for "typeMismatch" validation
+                        type="email",
+                    ),
+                    as_child=True,
+                ),
+                rx.form.message("Please enter a valid email", match="typeMismatch"),
+                rx.form.submit(
+                    rx.button("Submit"),
+                    as_child=True,
+                ),
+                direction="column",
+                spacing="2",
+                align="stretch",
+            ),
+            **props,
+        ),
+        reset_on_submit=True,
+    )
+
+
+FormLabel: |
+    lambda **props: rx.form.root(
+        rx.form.field(
+            rx.flex(
+                rx.form.label("Email", **props,),
+                rx.form.control(
+                    rx.input(
+                        placeholder="Email Address",
+                        # type attribute is required for "typeMismatch" validation
+                        type="email",
+                    ),
+                    as_child=True,
+                ),
+                rx.form.message("Please enter a valid email", match="typeMismatch"),
+                rx.form.submit(
+                    rx.button("Submit"),
+                    as_child=True,
+                ),
+                direction="column",
+                spacing="2",
+                align="stretch",
+            ),
+        ),
+        reset_on_submit=True,
+    )
+
+FormMessage: |
+    lambda **props: rx.form.root(
+                rx.form.field(
+                    rx.flex(
+                        rx.form.label("Email"),
+                        rx.form.control(
+                            rx.input(
+                                placeholder="Email Address",
+                                # type attribute is required for "typeMismatch" validation
+                                type="email",
+                            ),
+                            as_child=True,
+                        ),
+                        rx.form.message("Please enter a valid email", **props,),
+                        rx.form.submit(
+                            rx.button("Submit"),
+                            as_child=True,
+                        ),
+                        direction="column",
+                        spacing="2",
+                        align="stretch",
+                    ),
+                    name="email",
+                ),
+                on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
+                reset_on_submit=True,
+            )
+
+
+---
+
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo_from
 ```
+
+# Form
 
 Forms are used to collect user input. The `rx.form` component is used to group inputs and submit them together.
 
-The form component's children can be form controls such as `rx.input`, `rx.checkbox`, or `rx.switch`. The controls should have an `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.
+The form component's children can be form controls such as `rx.input`, `rx.checkbox`, `rx.slider`, `rx.textarea`, `rx.radio_group`, `rx.select` or `rx.switch`. The controls should have a `name` attribute that is used to identify the control in the form data. The `on_submit` event trigger submits the form data as a dictionary to the `handle_submit` event handler.
 
 The form is submitted when the user clicks the submit button or presses enter on the form controls.
 
-```python exec
-class FormState(State):
+```python demo exec
+class FormState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
@@ -29,7 +152,7 @@ def form_example():
                     rx.checkbox("Checked", name="check"),
                     rx.switch("Switched", name="switch"),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
             ),
             on_submit=FormState.handle_submit,
             reset_on_submit=True,
@@ -40,21 +163,8 @@ def form_example():
     )
 ```
 
-
-```python eval
-docdemo_from(FormState, component=form_example)
-```
-
-```python eval
-rx.alert(
-    rx.alert_icon(),
-    rx.alert_title(
-        "When using the form you must include a button or input with ",
-        rx.code("type_='submit'"),
-        ".",
-    ),
-    status="warning",
-)
+```md alert warning
+# When using the form you must include a button or input with `type='submit'`.
 ```
 
 ## Dynamic Forms
@@ -64,8 +174,8 @@ Forms can be dynamically created by iterating through state vars using `rx.forea
 This example allows the user to add new fields to the form prior to submit, and all
 fields will be included in the form data passed to the `handle_submit` function.
 
-```python exec
-class DynamicFormState(State):
+```python demo exec
+class DynamicFormState(rx.State):
     form_data: dict = {}
     form_fields: list[str] = ["first_name", "last_name", "email"]
 
@@ -98,7 +208,7 @@ def dynamic_form():
                         name=field,
                     ),
                 ),
-                rx.button("Submit", type_="submit"),
+                rx.button("Submit", type="submit"),
             ),
             on_submit=DynamicFormState.handle_submit,
             reset_on_submit=True,
@@ -106,7 +216,7 @@ def dynamic_form():
         rx.form(
             rx.hstack(
                 rx.input(placeholder="New Field", name="new_field"),
-                rx.button("+", type_="submit"),
+                rx.button("+", type="submit"),
             ),
             on_submit=DynamicFormState.add_field,
             reset_on_submit=True,
@@ -115,8 +225,4 @@ def dynamic_form():
         rx.heading("Results"),
         rx.text(DynamicFormState.form_data.to_string()),
     )
-```
-
-```python eval
-docdemo_from(DynamicFormState, component=dynamic_form)
 ```

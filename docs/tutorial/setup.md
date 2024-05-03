@@ -29,9 +29,11 @@ Success: Initialized chatapp
 chatapp $ ls
 assets          chatapp         rxconfig.py     venv
 ```
+
 ```python eval
 rx.box(height="20px")
 ```
+
 You can run the template app to make sure everything is working.
 
 ```bash
@@ -51,4 +53,3 @@ You should see your app running at [http://localhost:3000]({"http://localhost:30
 Reflex also starts the backend server which handles all the state management and communication with the frontend. You can test the backend server is running by navigating to [http://localhost:8000/ping]({"http://localhost:8000/ping"}).
 
 Now that we have our project set up, in the next section we will start building our app!
-

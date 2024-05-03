@@ -5,6 +5,7 @@
 Represents a state Var that is stored as a cookie in the browser. Currently only supports string values.
 
  Parameters
+
 - `name` : The name of the cookie on the client side.
 - `path`: The cookie path. Use `/` to make the cookie accessible on all pages.
 - `max_age` : Relative max age of the cookie in seconds from when the client receives it.
@@ -24,11 +25,39 @@ class CookieState(rx.State):
     c6: str = rx.Cookie(name='c6-custom-name')
 ```
 
+```md alert warning
+# **The default value of a Cookie is never set in the browser!**
+
+The Cookie value is only set when the Var is assigned. If you need to set a
+default value, you can assign a value to the cookie in an `on_load` event
+handler.
+```
+
+## Accessing Cookies
+
+Cookies are accessed like any other Var in the state. If another state needs access
+to the value of a cookie, the state should be a substate of the state that defines
+the cookie. Alternatively the `get_state` API can be used to access the other state.
+
+For rendering cookies in the frontend, import the state that defines the cookie and
+reference it directly.
+
+```md alert warning
+# **Two separate states should _avoid_ defining `rx.Cookie` with the same name.**
+
+Although it is technically possible, the cookie options may differ, leading to
+unexpected results.
+
+Additionally, updating the cookie value in one state will not automatically
+update the value in the other state without a page refresh or navigation event.
+```
+
 ## rx.remove_cookies
+
 Remove a cookie from the client's browser.
 
-
 Parameters:
+
 - `key`: The name of cookie to remove.
 
 ```python
@@ -47,10 +76,13 @@ class CookieState(rx.State):
 ```
 
 ## rx.LocalStorage
+
 Represents a state Var that is stored in localStorage in the browser. Currently only supports string values.
 
 Parameters
+
 - `name`: The name of the storage key on the client side.
+- `sync`: Boolean indicates if the state should be kept in sync across tabs of the same browser.
 
 ```python
 class LocalStorageState(rx.State):
@@ -60,13 +92,25 @@ class LocalStorageState(rx.State):
     # local storage with custom settings
     l2: str = rx.LocalStorage("l2 default")
     l3: str = rx.LocalStorage(name="l3")
+
+    # local storage that automatically updates in other states across tabs
+    l4: str = rx.LocalStorage(sync=True)
 ```
 
+### Syncing Vars
+
+Because LocalStorage applies to the entire browser, all LocalStorage Vars are
+automatically shared across tabs.
+
+The `sync` parameter controls whether an update in one tab should be actively
+propagated to other tabs without requiring a navigation or page refresh event.
+
 ## rx.remove_local_storage
+
 Remove a local storage item from the client's browser.
 
-
 Parameters
+
 - `key`: The key to remove from local storage.
 
 ```python
@@ -91,7 +135,6 @@ Clear all local storage items from the client's browser. This may affect other
 apps running in the same domain or libraries within your app that use local
 storage.
 
-
 ```python
 rx.button(
     'Clear all Local Storage',
@@ -105,13 +148,8 @@ If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage`
 be serialized before and after storing it. It is recommended to use `rx.Base` for the data
 which provides simple serialization helpers and works recursively in complex object structures.
 
-```python exec
-import inspect
-
+```python demo exec
 import reflex as rx
-
-from pcweb.base_state import State
-from pcweb.templates.docpage import docdemo_from
 
 
 class AppSettings(rx.Base):
@@ -121,7 +159,7 @@ class AppSettings(rx.Base):
     error_messages: list[str] = []
 
 
-class ComplexLocalStorageState(State):
+class ComplexLocalStorageState(rx.State):
     data_raw: str = rx.LocalStorage("{}")
     data: AppSettings = AppSettings()
     settings_open: bool = False
@@ -139,63 +177,58 @@ class ComplexLocalStorageState(State):
 
 
 def app_settings():
-    return rx.form(
+    return rx.form.root(
         rx.foreach(
             ComplexLocalStorageState.data.error_messages,
             rx.text,
         ),
-        rx.form_label(
-            "Theme",
-            rx.input(
-                value=ComplexLocalStorageState.data.theme,
-                on_change=lambda v: ComplexLocalStorageState.set_field("theme", v),
-            ),
-        ),
-        rx.form_label(
-            "Sidebar Visible",
-            rx.switch(
-                is_checked=ComplexLocalStorageState.data.sidebar_visible,
-                on_change=lambda v: ComplexLocalStorageState.set_field(
-                    "sidebar_visible",
-                    v,
+        rx.form.field(
+            rx.flex(
+                rx.form.label(
+                    "Theme",
+                    rx.input(
+                        value=ComplexLocalStorageState.data.theme,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "theme", v
+                        ),
+                    ),
                 ),
-            ),
-        ),
-        rx.form_label(
-            "Update Frequency (seconds)",
-            rx.number_input(
-                value=ComplexLocalStorageState.data.update_frequency,
-                on_change=lambda v: ComplexLocalStorageState.set_field(
-                    "update_frequency",
-                    v,
+                rx.form.label(
+                    "Sidebar Visible",
+                    rx.switch(
+                        checked=ComplexLocalStorageState.data.sidebar_visible,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "sidebar_visible",
+                            v,
+                        ),
+                    ),
                 ),
-            ),
+                rx.form.label(
+                    "Update Frequency (seconds)",
+                    rx.chakra.number_input(
+                        value=ComplexLocalStorageState.data.update_frequency,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "update_frequency",
+                            v,
+                        ),
+                    ),
+                ),
+                rx.dialog.close(rx.button("Save", type="submit")),
+                gap=2,
+                direction="column",
+            )
         ),
-        rx.button("Save", type_="submit"),
         on_submit=lambda _: ComplexLocalStorageState.save_settings(),
     )
 
 def app_settings_example():
-    return rx.fragment(
-        rx.modal(
-            rx.modal_overlay(
-                rx.modal_content(
-                    rx.modal_header("App Settings"),
-                    rx.modal_body(app_settings()),
-                ),
-            ),
-            is_open=ComplexLocalStorageState.settings_open,
-            on_close=ComplexLocalStorageState.set_settings_open(False),
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
         ),
-        rx.button("App Settings", on_click=ComplexLocalStorageState.open_settings),
+        rx.dialog.content(
+            rx.dialog.title("App Settings"),
+            rx.dialog.description(app_settings()),
+        ),
     )
-```
-
-```python eval
-docdemo_from(
-    AppSettings,
-    ComplexLocalStorageState,
-    app_settings,
-    component=app_settings_example
-)
 ```

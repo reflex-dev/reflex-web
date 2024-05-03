@@ -1,6 +1,14 @@
+---
+components:
+    - rx.recharts.BarChart
+    - rx.recharts.RadialBarChart
+    - rx.recharts.Bar
+---
+
+# Bar Chart
+
 ```python exec
 import reflex as rx
-from pcweb.base_state import State
 from pcweb.templates.docpage import docdemo, docgraphing
 import random
 
@@ -115,7 +123,7 @@ range_data = [
   }
 ]
 
-bar_chart_state = """class BarState(State):
+bar_chart_state = """class BarState(rx.State):
     data=data
 
     def randomize_data(self):
@@ -194,11 +202,9 @@ bar_chart_example_with_state = """rx.recharts.bar_chart(
 """
 ```
 
-
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
 
 For a bar chart we must define an `rx.recharts.bar()` component for each set of values we wish to plot. Each `rx.recharts.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
-
 
 ```python eval
 docgraphing(

@@ -1,14 +1,40 @@
+---
+components:
+  - rx.radix.container
+---
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo
 ```
 
-Containers are used to constrain a content's width to the current breakpoint, while keeping it fluid.
+# Container
 
-```python eval
-docdemo("""rx.container(
-    rx.box("Example", bg="blue", color="white", width="50%"),
-    center_content=True,
-    bg="lightblue",
-)""")
+Constrains the maximum width of page content, while keeping flexible margins
+for responsive layouts.
+
+A Container is generally used to wrap the main content for a page.
+
+## Basic Example
+
+```python demo
+rx.box(
+    rx.container(
+        rx.card("This content is constrained to a max width of 448px.", width="100%"),
+        size="1",
+    ),
+    rx.container(
+        rx.card("This content is constrained to a max width of 688px.", width="100%"),
+        size="2",
+    ),
+    rx.container(
+        rx.card("This content is constrained to a max width of 880px.", width="100%"),
+        size="3",
+    ),
+    rx.container(
+        rx.card("This content is constrained to a max width of 1136px.", width="100%"),
+        size="4",
+    ),
+    background_color="var(--gray-3)",
+    width="100%",
+)
 ```

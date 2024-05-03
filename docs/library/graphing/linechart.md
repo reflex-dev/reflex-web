@@ -1,11 +1,17 @@
+---
+components:
+    - rx.recharts.LineChart
+    - rx.recharts.Line
+---
+
+# Line Chart
+
 ```python exec
-import inspect
 import random
 from typing import Any
 
 import reflex as rx
-from pcweb.base_state import State
-from pcweb.templates.docpage import doccode, docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -105,7 +111,7 @@ docgraphing(line_chart_complex_example, comp=eval(line_chart_complex_example), d
 initial_data = data
 
 
-class LineChartState(State):
+class LineChartState(rx.State):
     data: list[dict[str, Any]] = initial_data
     pv_type: str = "monotone"
     uv_type: str = "monotone"
@@ -158,6 +164,6 @@ in the per-browser-tab State, the changes will not be visible to other visitors.
 docgraphing(
     line_chart_state_example,
     comp=eval(line_chart_state_example),
-    data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState).replace("(State)", "(rx.State)"),
+    # data="initial_data=" + str(data) + "\n\n" + inspect.getsource(LineChartState),
 )
 ```

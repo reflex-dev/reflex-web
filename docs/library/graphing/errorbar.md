@@ -1,6 +1,13 @@
+---
+components:
+    - rx.recharts.ErrorBar
+---
+
+# Error Bar
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -96,4 +103,3 @@ An error bar is a line through a point on a graph, parallel to one of the axes, 
 ```python eval
 docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
 ```
-

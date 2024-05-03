@@ -1,6 +1,13 @@
+---
+components:
+    - rx.recharts.RadarChart
+---
+
+# Radar Chart
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -72,10 +79,9 @@ radar_chart_complex_example = """rx.recharts.radar_chart(
 
 ```
 
-A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis. 
+A radar chart shows multivariate data of three or more quantitative variables mapped onto an axis.
 
-For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.recharts.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.recharts.polar_angle_axis`. 
-
+For a radar chart we must define an `rx.recharts.radar()` component for each set of values we wish to plot. Each `rx.recharts.radar()` component has a `data_key` which clearly states which variable in our data we are plotting. In this simple example we plot the `A` column of our data against the `subject` column which we set as the `data_key` in `rx.recharts.polar_angle_axis`.
 
 ```python eval
 docgraphing(radar_chart_simple_example, comp=eval(radar_chart_simple_example),  data =  "data=" + str(data))
@@ -95,13 +101,10 @@ interface elements. View the "Data" tab to see the substate driving this
 radar chart of character traits.
 
 ```python exec
-import inspect
 from typing import Any
 
-from pcweb.base_state import State
 
-
-class RadarChartState(State):
+class RadarChartState(rx.State):
     total_points: int = 100
     traits: list[dict[str, Any]] = [
         dict(trait="Strength", value=15),
@@ -145,7 +148,7 @@ rx.hstack(
             RadarChartState.trait_names,
             lambda trait_name, i: rx.hstack(
                 rx.text(trait_name, width="7em"),
-                rx.slider(
+                rx.chakra.slider(
                     value=RadarChartState.traits[i]["value"].to(int),
                     on_change=lambda value: RadarChartState.set_trait(trait_name, value),
                     width="25vw",
@@ -165,6 +168,6 @@ rx.hstack(
 docgraphing(
     radar_chart_state_example,
     comp=eval(radar_chart_state_example),
-    data=inspect.getsource(RadarChartState).replace("(State)", "(rx.State)"),
+    # data=inspect.getsource(RadarChartState),
 )
 ```

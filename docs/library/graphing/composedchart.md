@@ -1,6 +1,13 @@
+---
+components:
+    - rx.recharts.ComposedChart
+---
+
+# Composed Chart
+
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docdemo, docgraphing
+from pcweb.templates.docpage import docgraphing
 
 data = [
   {
@@ -138,9 +145,7 @@ composed_chart_example = """rx.recharts.composed_chart(
                 data=data)"""
 ```
 
-
 A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
-
 
 ```python eval
 docgraphing(

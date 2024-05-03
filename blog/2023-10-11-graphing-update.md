@@ -3,14 +3,14 @@ author: Alek Petuskey
 date: 2023-10-11
 title: "New Core Graphing Components"
 description: "Using Reflex's new core graphing feature to build a live streaming graphing app."
-image: /graphing.png
+image: /blog/graphing.png
 ---
 
 ```python exec
 import reflex as rx
 import random
-from pcweb.base_state import State
 import asyncio
+from pcweb.pages.docs import library
 # hacks because curly braces always evaluate python code
 pid = "{pid}"
 class self(object):
@@ -25,7 +25,7 @@ In this post we'll walk through the new components and show how to build a live 
 
 With our new graphing components we are aiming to strike a balance between flexibility and ease of use. We want to make it easy to build a graph, but we also want to make it easy to customize the graph to your needs.
 
-Check our the our [graphing docs](https://reflex.dev/docs/library/graphing/areachart/) for more details on the new components.
+Check out our [graphing docs]({library.graphing.areachart.path}) for more details on the new components.
 
 
 ## Livestreaming Example
@@ -93,7 +93,7 @@ data = [
     {"name": "G", "uv": 50, "pv": 190, "amt": 260},
 ]
 
-class StreamingState(State):
+class StreamingState(rx.State):
     data = data
     stream = False
 
