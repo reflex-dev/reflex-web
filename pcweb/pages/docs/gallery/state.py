@@ -78,6 +78,14 @@ class SideBarState(rx.State):
             # If the app does not have a display name, use the first part of the domain name: e.g. https://test.reflex.run -> test
             subdomain_name = app["demo_url"].replace("https://", "").split(".")[0]
             app["display_name"] = app.get("display_name") or subdomain_name
+            app["image_url_dark"] = (
+                app.get("image_url")
+                or f"https://placehold.co/600x400/000000/FFFFFF/?text={subdomain_name}"
+            )
+            app["image_url_light"] = (
+                app.get("image_url")
+                or f"https://placehold.co/600x400/FFFFFF/000000/?text={subdomain_name}"
+            )
 
                     
         # Sorting
@@ -102,7 +110,6 @@ class SideBarState(rx.State):
         self.community_apps_list = [
             app for app in all_apps if not app.get("is_example_app")
         ]
-        
         unique_tags = set() 
         for app in self.example_apps_list:
             unique_tags.update(app["keywords"] or [])
