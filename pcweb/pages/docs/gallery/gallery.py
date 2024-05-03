@@ -1,89 +1,9 @@
-import json
-import httpx
+
 
 import reflex as rx
 
-from rxconfig import config
-
 from pcweb.templates.webpage import webpage
-
-
-class SideBarState(rx.State):
-    """Side Bar State."""
-
-    community_apps_list: list[dict[str, str]]
-    example_apps_list: list[dict[str, str]]
-
-    tags_list: list[str]
-    chosen_tags: set[str]
-
-    def update_tag(self, name: str):
-        self.chosen_tags.symmetric_difference_update({name})
-
-    def _filter_by_tag(self, apps_list: list[dict[str, str]]) -> list[dict[str, str]]:
-        """This function iterates over all the apps we have and if the app has one of the
-        tags we have selected in true_tags then it will render this app in the UI."""
-        if not self.chosen_tags:
-            return apps_list
-        return [
-            app
-            for app in apps_list
-            if set(app["keywords"] or []).intersection(self.chosen_tags)
-        ]
-
-    @rx.cached_var
-    def example_apps_to_return(self) -> list[dict[str, str]]:
-        """This function returns the examples apps filtered by selected tags."""
-        return self._filter_by_tag(self.example_apps_list)
-
-    @rx.cached_var
-    def community_apps_to_return(self) -> list[dict[str, str]]:
-        """This function returns the community apps filtered by selected tags."""
-        return self._filter_by_tag(self.community_apps_list)
-
-    def fetch_apps_list(self):
-        try:
-            response = httpx.get(f"{config.cp_backend_url}/deployments/gallery")
-            response.raise_for_status()
-            all_apps = response.json()
-        except (httpx.HTTPError, json.JSONDecodeError) as ex:
-            print(
-                f"Internal error: failed to fetch the complete list of apps due to: {ex}"
-            )
-            return
-
-        # Make sure all apps have a keywords field.
-        for app in all_apps:
-            app["keywords"] = app.get("keywords") or []
-            # If the app does not have a display name, use the first part of the domain name: e.g. https://test.reflex.run -> test
-            subdomain_name = app["demo_url"].replace("https://", "").split(".")[0]
-            app["display_name"] = app.get("display_name") or subdomain_name
-            app["image_url_dark"] = (
-                app.get("image_url")
-                or f"https://placehold.co/600x400/000000/FFFFFF/?text={subdomain_name}"
-            )
-            app["image_url_light"] = (
-                app.get("image_url")
-                or f"https://placehold.co/600x400/FFFFFF/000000/?text={subdomain_name}"
-            )
-
-        # Make sure reflex web is the first app in the list.
-        self.example_apps_list = [
-            app for app in all_apps if app.get("demo_url") == "https://reflex.dev/"
-        ] + [
-            app
-            for app in all_apps
-            if app.get("is_example_app")
-            and app.get("demo_url") != "https://reflex.dev/"
-        ]
-        self.community_apps_list = [
-            app for app in all_apps if not app.get("is_example_app")
-        ]
-        unique_tags = set()
-        for app in all_apps:
-            unique_tags.update(app["keywords"] or [])
-        self.tags_list = list(unique_tags)
-        self.chosen_tags_dict = {key: False for key in self.tags_list}
+from .state import SideBarState
 
 
 border_radius = ("0.375rem",)
@@ -106,23 +26,13 @@ def add_item(category):
                 background_color="rgba(19, 18, 23, 0.2)",
                 _hover={"background_color": "rgba(19, 18, 23, 0)"},
             ),
-            rx.color_mode_cond(
-                rx.box(
-                    background_image="url(" + category["image_url_light"] + ")",
-                    background_size="cover",
-                    background_position="center",
-                    background_repeat="no-repeat",
-                    height="100%",
-                    width="100%",
-                ),
-                rx.box(
-                    background_image="url(" + category["image_url_dark"] + ")",
-                    background_size="cover",
-                    background_position="center",
-                    background_repeat="no-repeat",
-                    height="100%",
-                    width="100%",
-                ),
+            rx.box(
+                background_image="url(" + category["image_url"] + ")",
+                background_size="cover",
+                background_position="center",
+                background_repeat="no-repeat",
+                height="100%",
+                width="100%",
             ),
             position="relative",
             height="12rem",
@@ -154,40 +64,10 @@ def add_item(category):
                 justify="between",
                 width="100%",
             ),
-            rx.text(category["summary"], size="2", color="#8E8EA8"),
+            #rx.text(category["summary"], size="2", color="#8E8EA8"),
             align_items="start",
             width="100%",
             padding_top="1em",
-        ),
-        rx.spacer(),
-        rx.vstack(
-            rx.hstack(
-                rx.cond(
-                    category["difficulty"],
-                    rx.hstack(
-                        rx.badge(category["difficulty"]),
-                    ),
-                    rx.spacer(),
-                ),
-                rx.foreach(
-                    category["keywords"],
-                    lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
-                ),
-                color="#8E8EA8",
-                width="100%",
-                overflow_x="scroll",
-                style={
-                    "&::-webkit-scrollbar-thumb": {
-                        "background_color": "transparent",
-                    },
-                    "&::-webkit-scrollbar": {
-                        "background_color": "transparent",
-                    },
-                },
-            ),
-            width="100%",
-            padding_top="1em",
-            align_items="start",
         ),
         direction="column",
         border_radius="14px;",
@@ -198,7 +78,7 @@ def add_item(category):
     )
 
 
-grid_layout = [1, 1, 2, 2, 3, 3]
+grid_layout = [1, 1, 2, 2, 3, 4]
 
 
 def component_grid():
@@ -206,7 +86,7 @@ def component_grid():
         rx.foreach(SideBarState.example_apps_to_return, add_item),
         columns=grid_layout,
         gap=4,
-        padding_x="1em",
+        width="100%",
     )
 
 
@@ -215,9 +95,24 @@ def community_component_grid():
         rx.foreach(SideBarState.community_apps_to_return, add_item),
         columns=grid_layout,
         gap=4,
-        padding_x="1em",
+        width="100%",
     )
 
+
+def pagination():
+    return rx.hstack(
+        rx.button(
+            "Previous",
+            on_click=SideBarState.set_page(SideBarState.page - 1),
+        ),
+        rx.spacer(),
+        rx.button(
+            "Next",
+            on_click=SideBarState.set_page(SideBarState.page + 1),
+        ),
+        width="100%",
+        padding_x="1em",
+    )
 
 def sidebar_component_grid(tags):
     return rx.chakra.wrap(
@@ -284,9 +179,18 @@ def gallery_heading():
     )
 
 
+def sort_by():
+    return rx.hstack(
+        rx.select(
+            ["page_views", "updated_at", "created_at"],
+            value=SideBarState.sort_by,
+            on_change=SideBarState.set_sort_by,
+        ),
+    )
+
 @webpage(path="/docs/gallery", title="Gallery · Reflex")
 def gallery() -> rx.Component:
-    return rx.container(
+    return rx.vstack(
         gallery_heading(),
         rx.vstack(
             sidebar_component_grid(SideBarState.tags_list),
@@ -301,12 +205,15 @@ def gallery() -> rx.Component:
                 letter_spacing="-1.28px;",
                 padding_top="1em",
             ),
+            sort_by(),
             community_component_grid(),
+            pagination(),
             rx.spacer(),
             align_items="center",
             padding_x="1em",
+            width="100%",
         ),
         height="100%",
-        width=["90%", "90%", "90%", "90%", "90%", "90%"],
+        width=["100%", "100%", "100%", "100%", "90%", "90%"],
         on_mount=SideBarState.fetch_apps_list,
     )
