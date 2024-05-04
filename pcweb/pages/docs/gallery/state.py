@@ -57,6 +57,7 @@ class SideBarState(rx.State):
             response = httpx.get(f"{config.cp_backend_url}/deployments/gallery")
             response.raise_for_status()
             all_apps = response.json()
+            
         except (httpx.HTTPError, json.JSONDecodeError) as ex:
             print(
                 f"Internal error: failed to fetch the complete list of apps due to: {ex}"
@@ -65,10 +66,13 @@ class SideBarState(rx.State):
 
         all_apps = [
             app for app in all_apps 
-            if not app.get('hidden', False) and 
+            if app is not None and
+            not any(k is None or v is None for k, v in app.items()) and
+            not app.get('hidden', False) and 
             app.get('health_status', {}).get('frontend_reachable', False) and
             app.get('health_status', {}).get('backend_reachable', False)
         ]
+
 
         # Make sure all apps have a keywords field.
         for app in all_apps:
