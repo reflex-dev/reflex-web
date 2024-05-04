@@ -24,16 +24,12 @@ def add_item(category):
                 background_color="rgba(19, 18, 23, 0.2)",
                 _hover={"background_color": "rgba(19, 18, 23, 0)"},
             ),
-            rx.box(
-                background_image="url(" + category["image_url"] + ")",
-                background_size="cover",
-                background_position="center",
-                background_repeat="no-repeat",
-                height="100%",
+            rx.image(
+                src=category["image_url"],
                 width="100%",
             ),
             position="relative",
-            height="12rem",
+            height="12em",
             width="100%",
             border_radius="12px",
             overflow="hidden",
@@ -214,6 +210,6 @@ def gallery() -> rx.Component:
             width="100%",
         ),
         height="100%",
-        width=["100%", "100%", "100%", "100%", "90%", "90%"],
+        width=["100%", "100%", "90%", "90%", "90%", "90%"],
         on_mount=SideBarState.fetch_apps_list,
     )
