@@ -66,12 +66,13 @@ class SideBarState(rx.State):
         remaining_apps = []
         for app in all_apps:
             if not app.get("is_example_app"):  # Apply the checks only for community apps
-                if not app.get('hidden', False) or \
-                    app.get('health_status', {}).get('frontend_reachable', False) or \
+                if not app.get('hidden', False) and \
+                    app.get('health_status', False) and \
+                    app.get('health_status', {}).get('frontend_reachable', False) and \
                     app.get('health_status', {}).get('backend_reachable', False):
-                    continue  # This app passes all checks, so do not add to remaining_apps
+                    remaining_apps.append(app)
                 else:
-                    remaining_apps.append(app)  # Add app if it does not meet all filter criteria
+                    continue
             else:
                 remaining_apps.append(app)  # Add non-community apps without checks
 
