@@ -65,22 +65,16 @@ class SideBarState(rx.State):
 
         remaining_apps = []
         for app in all_apps:
-            if app is not None:
-                # Determine if this app belongs to the community gallery
-                # (for example, you might check `not app.get("is_example_app")`)
-                is_community_app = not app.get("is_example_app")
-
-                if is_community_app:  # Apply the checks only for community apps
-                    if app.get('health_status')is None:
-                        continue
-                    elif not app.get('hidden', False) and \
-                        app.get('health_status', {}).get('frontend_reachable', False) and \
-                        app.get('health_status', {}).get('backend_reachable', False):
-                        continue  # This app passes all checks, so do not add to remaining_apps
-                    else:
-                        remaining_apps.append(app)  # Add app if it does not meet all filter criteria
+            if not app.get("is_example_app"):  # Apply the checks only for community apps
+                if not app.get('hidden', False) and \
+                    app.get('health_status', False) and \
+                    app.get('health_status', {}).get('frontend_reachable', False) and \
+                    app.get('health_status', {}).get('backend_reachable', False):
+                    remaining_apps.append(app)
                 else:
-                    remaining_apps.append(app)  # Add non-community apps without checks
+                    continue
+            else:
+                remaining_apps.append(app)  # Add non-community apps without checks
 
         all_apps = remaining_apps
 
