@@ -56,19 +56,36 @@ class SideBarState(rx.State):
         try:
             response = httpx.get(f"{config.cp_backend_url}/deployments/gallery")
             response.raise_for_status()
-            all_apps = response.json()
+            all_apps = response.json()      
         except (httpx.HTTPError, json.JSONDecodeError) as ex:
             print(
                 f"Internal error: failed to fetch the complete list of apps due to: {ex}"
             )
             return
 
-        all_apps = [
-            app for app in all_apps 
-            if not app.get('hidden', False) and 
-            app.get('health_status', {}).get('frontend_reachable', False) and
-            app.get('health_status', {}).get('backend_reachable', False)
-        ]
+        remaining_apps = []
+        for app in all_apps:
+            if app is not None:
+                # Determine if this app belongs to the community gallery
+                # (for example, you might check `not app.get("is_example_app")`)
+                is_community_app = not app.get("is_example_app")
+
+                if is_community_app:  # Apply the checks only for community apps
+                    if app.get('health_status')is None:
+                        continue
+                    elif not app.get('hidden', False) and \
+                        app.get('health_status', {}).get('frontend_reachable', False) and \
+                        app.get('health_status', {}).get('backend_reachable', False):
+                        continue  # This app passes all checks, so do not add to remaining_apps
+                    else:
+                        remaining_apps.append(app)  # Add app if it does not meet all filter criteria
+                else:
+                    remaining_apps.append(app)  # Add non-community apps without checks
+
+        all_apps = remaining_apps
+
+
+
 
         # Make sure all apps have a keywords field.
         for app in all_apps:
@@ -77,14 +94,12 @@ class SideBarState(rx.State):
             subdomain_name = app["demo_url"].replace("https://", "").split(".")[0]
             app["display_name"] = app.get("display_name") or subdomain_name
 
-        # Sorting
         if self.sort_by == 'page_views':
-            all_apps.sort(key=lambda x: x.get('site_visits', {}).get('monthly', 0), reverse=not ascending)
+            all_apps.sort(key=lambda x: (x.get('site_visits') or {}).get('monthly', 0), reverse=not ascending)
         elif self.sort_by == 'updated_at':
-            all_apps.sort(key=lambda x: x.get('updated_at'), reverse=not ascending)
+            all_apps.sort(key=lambda x: x.get('updated_at') or float('-inf'), reverse=not ascending)
         elif self.sort_by == 'created_at':
-            all_apps.sort(key=lambda x: x.get('created_at'), reverse=not ascending)
-
+            all_apps.sort(key=lambda x: x.get('created_at') or float('-inf'), reverse=not ascending)
 
         # Make sure reflex web is the first app in the list.
         self.example_apps_list = [
