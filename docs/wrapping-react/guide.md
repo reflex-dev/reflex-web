@@ -2,7 +2,7 @@
 import reflex as rx
 from typing import Any
 
-from pcweb.pages.docs import events
+from pcweb.pages.docs import events, api_reference
 ```
 
 ```python exec
@@ -21,7 +21,7 @@ class ColorPickerState(rx.State):
 
 # Full Guide
 
-Let's walk step by step through how to wrap a React component in Reflex, using the color picker as our primary example.
+Let's walk step by step through how to wrap a React component in Reflex, using the color picker as our primary example. You can also see the full [API reference]({api_reference.component.path}).
 
 ```python eval
 rx.box(
@@ -44,9 +44,9 @@ There are two ways to find a component to wrap:
 1. Write the component yourself locally.
 2. Find a well-maintained React library on [npm](https://www.npmjs.com/) that contains the component you need.
 
-In both cases, the process of wrapping the component is the same.
+In both cases, the process of wrapping the component is the same except for the `library` field.
 
-In this guide we are wrapping the `HexPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library.
+In this guide we are wrapping the `HexColorPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library.
 
 ## Define the Component
 
@@ -107,7 +107,7 @@ class Hello(rx.Component):
     library = "/public/hello"
 
     # Define everything else as normal.
-    tag = "Test"
+    tag = "Hello"
 ```
 
 ### Import Types
@@ -229,7 +229,7 @@ import React from "react";
 const customCode = "const customCode = 'customCode';";
 ```
 
-To add custom code to your component you can use the `_get_custom_code` method in your component class.
+To add custom code to your component you can use the `add_custom_code` method in your component class.
 
 ```python
 from reflex.components.component import NoSSRComponent
@@ -241,7 +241,7 @@ class PlotlyLib(NoSSRComponent):
 
     lib_dependencies: List[str] = ["plotly.js@2.22.0"]
 
-    def _get_custom_code(self) -> str:
+    def add_custom_code(self) -> str:
         return "const customCode = 'customCode';"
 ```
 

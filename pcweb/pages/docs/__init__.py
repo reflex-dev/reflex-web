@@ -162,6 +162,10 @@ def get_component(doc: str, title: str):
 
 doc_routes = [gallery, library, resources, custom_components] + apiref_pages
 
+for api_route in apiref_pages:
+    title = rx.utils.format.to_snake_case(api_route.title)
+    build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
+
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
