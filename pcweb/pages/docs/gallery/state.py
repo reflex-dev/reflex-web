@@ -23,10 +23,8 @@ class SideBarState(rx.State):
     def set_page(self, page: int):
         if page < 1:
             page = 1
-        elif page > len(self.community_apps_list):
-            page = len(self.community_apps_list)
-            
-        self.page = page
+        elif page <= (len(self.community_apps_list)//16)+1:
+            self.page = page
 
     def update_tag(self, name: str):
         self.chosen_tags.symmetric_difference_update({name})
