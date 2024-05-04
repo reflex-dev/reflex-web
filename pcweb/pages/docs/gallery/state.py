@@ -71,9 +71,8 @@ class SideBarState(rx.State):
                 is_community_app = not app.get("is_example_app")
 
                 if is_community_app:  # Apply the checks only for community apps
-                    none_keys = [k for k, v in app.items() if v is None]
-                    if none_keys:
-                        remaining_apps.append(app)
+                    if app.get('health_status')is None:
+                        continue
                     elif not app.get('hidden', False) and \
                         app.get('health_status', {}).get('frontend_reachable', False) and \
                         app.get('health_status', {}).get('backend_reachable', False):
