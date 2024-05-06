@@ -11,7 +11,6 @@ To make it easy, Reflex is wrapping [react-moment](https://www.npmjs.com/package
 ```python exec
 import reflex as rx
 from reflex.utils.serializers import serialize_datetime
-from datetime import datetime
 from pcweb.templates.docpage import docdemo, docdemobox, doccode, docgraphing
 ```
 
@@ -20,16 +19,18 @@ from pcweb.templates.docpage import docdemo, docdemobox, doccode, docgraphing
 Using a date from a state var as a value, we will display it in a few different
 way using `rx.moment`. 
 
-The `date_now` state var is initialized when the site was first loaded. The
+The `date_now` state var is initialized when the site was deployed. The
 button below can be used to update the var to the current datetime, which will
 be reflected in the subsequent examples.
 
 ```python demo exec
+from datetime import datetime, timezone
+
 class MomentState(rx.State):
-    date_now: datetime = datetime.now()
+    date_now: datetime = datetime.now(timezone.utc)
 
     def update(self):
-        self.date_now = datetime.now()
+        self.date_now = datetime.now(timezone.utc)
 
 
 def moment_update_example():
