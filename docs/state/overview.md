@@ -162,8 +162,8 @@ independently of other users.
 Because Reflex internally creates a new instance of the state for each user, your code should
 never directly initialize a state class.
 
-```md alert
-Try opening an app in multiple tabs to see how the state changes independently.
+```md alert info
+# Try opening an app in multiple tabs to see how the state changes independently.
 ```
 
 All user state is stored on the server, and all event handlers are executed on

@@ -11,8 +11,8 @@ def get_sidebar_items_learn():
         create_item(
             "Getting Started",
             children=[
-                getting_started.introduction,
                 getting_started.installation,
+                getting_started.introduction,
                 getting_started.project_structure,
                 getting_started.configuration,
                 getting_started.how_reflex_works,

@@ -47,8 +47,8 @@ So far, we have only seen events that are triggered by components. However, an e
 
 In Reflex, event handlers run synchronously, so only one event handler can run at a time, and the events in the queue will be blocked until the current event handler finishes.The difference between returning an event and calling an event handler is that returning an event will send the event to the frontend and unblock the queue.
 
-```md alert
-Be sure to use the class name `State` (or any substate) rather than `self` when returning events.
+```md alert info
+# Be sure to use the class name `State` (or any substate) rather than `self` when returning events.
 ```
 
 Try entering an integer in the input below then clicking out.

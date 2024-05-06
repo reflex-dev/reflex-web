@@ -115,7 +115,7 @@ rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], default_value="Orange"
 Can set the `color`, `variant` and `radius` to easily style the `select`.
 
 ```python demo
-rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%")
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%", default_value="apple")
 ```
 
 ## High control of select component (value and open changes)
