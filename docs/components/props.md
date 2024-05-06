@@ -45,7 +45,7 @@ State may be modified in response to things like user input like clicking a butt
 State vars can be bound to component props, so that the UI always reflects the current state of the app.
 
 ```md alert warning
-Optional: Learn all about [State]({state.overview.path}) first.
+# Optional: Learn all about [State]({state.overview.path}) first.
 ```
 
 You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.

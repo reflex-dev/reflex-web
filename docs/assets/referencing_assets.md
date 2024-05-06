@@ -31,8 +31,7 @@ rx.image(src="/Reflex.svg", width="5em")
 ```
 
 ```md alert
-Always prefix the asset path with a forward slash `/` to reference the asset from the root of the project,
-or it may not display correctly on non-root pages.
+# Always prefix the asset path with a forward slash `/` to reference the asset from the root of the project, or it may not display correctly on non-root pages.
 ```
 
 ## Favicon
