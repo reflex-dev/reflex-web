@@ -13,70 +13,60 @@ import reflex as rx
 from reflex.utils.serializers import serialize_datetime
 from datetime import datetime
 from pcweb.templates.docpage import docdemo, docdemobox, doccode, docgraphing
-
-class MomentState(rx.State):
-    date_now: datetime = datetime.now()
 ```
 
 ## Examples
 
-Using the same date as a value, we will display it in a few different way using `rx.moment`
+Using a date from a state var as a value, we will display it in a few different
+way using `rx.moment`. 
 
-```python
+The `date_now` state var is initialized when the site was first loaded. The
+button below can be used to update the var to the current datetime, which will
+be reflected in the subsequent examples.
+
+```python demo exec
 class MomentState(rx.State):
     date_now: datetime = datetime.now()
+
+    def update(self):
+        self.date_now = datetime.now()
+
+
+def moment_update_example():
+    return rx.button("Update", rx.moment(MomentState.date_now), on_click=MomentState.update)
 ```
 
 ### Display the date as-is:
 
-```python exec
-as_is_example="rx.moment(MomentState.date_now)"
-```
-
-```python eval
-docdemo(
-    as_is_example,
-    comp=eval(as_is_example)
-)
+```python demo
+rx.moment(MomentState.date_now)
 ```
 
 ### Humanized interval
 
-```python exec
-from_now_example = "rx.moment(MomentState.date_now, from_now=True)"
-to_now_example = "rx.moment(MomentState.date_now, to_now=True)"
-from_now_during_example = "rx.moment(MomentState.date_now, from_now_during=100000)  # after 100 seconds, date will display normally"
-```
-
 Sometimes we don't want to display just a raw date, but we want something more instinctive to read. That's when we can use `from_now` and `to_now`.
 
-```python eval
-docdemo(from_now_example, comp=eval(from_now_example))
+```python demo
+rx.moment(MomentState.date_now, from_now=True)
 ```
 
-```python eval
-docdemo(to_now_example, comp=eval(to_now_example))
+```python demo
+rx.moment(MomentState.date_now, to_now=True)
 ```
 You can also set a duration (in milliseconds) with `from_now_during` where the date will display as relative, then after that, it will be displayed as defined in `format`.
 
-```python eval
-docdemo(from_now_during_example, comp=eval(from_now_during_example))
+```python demo
+rx.moment(MomentState.date_now, from_now_during=100000)  # after 100 seconds, date will display normally
 ```
 
 ### Formatting dates
 
-```python exec
-format_example_1 = 'rx.moment(MomentState.date_now, format="YYYY-MM-DD")'
-format_example_2 = 'rx.moment(MomentState.date_now, format="HH:mm:SS")'
+```python demo
+rx.moment(MomentState.date_now, format="YYYY-MM-DD")
 ```
 
-```python eval
-docdemo(format_example_1, comp=eval(format_example_1))
-```
-
-```python eval
-docdemo(format_example_2, comp=eval(format_example_2)
-)
+```python demo
+rx.moment(MomentState.date_now, format="HH:mm:ss")
 ```
 
 ### Offset Date
@@ -85,29 +75,29 @@ With the props `add` and `substract`, you can pass an `rx.MomentDelta` object to
 
 ```python exec
 add_example = """rx.vstack(
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, add=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, add=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:ss"),
 )
 """
 subtract_example = """rx.vstack(
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:SS"),
-    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:SS"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(years=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(quarters=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(months=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(weeks=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(days=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(hours=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(minutes=2), format="YYYY-MM-DD - HH:mm:ss"),
+    rx.moment(MomentState.date_now, subtract=rx.MomentDelta(seconds=2), format="YYYY-MM-DD - HH:mm:ss"),
 )
 """
 ```
@@ -128,45 +118,48 @@ rx.tabs(
 
 You can also set dates to display in a specific timezone:
 
-```python exec
-timezone_example1 = """rx.vstack(
+```python demo
+rx.vstack(
     rx.moment(MomentState.date_now, tz="America/Los_Angeles"),
     rx.moment(MomentState.date_now, tz="Europe/Paris"),
     rx.moment(MomentState.date_now, tz="Asia/Tokyo"),
 )
-"""
-```
-
-```python eval
-docdemo(timezone_example1, comp=eval(timezone_example1))
 ```
 
 ### Client-side periodic update
 
-If you want to update the date every second, you can use the `interval` prop:
+If a date is not passed to `rx.moment`, it will use the client's current time.
 
-```python exec
-interval_example = "rx.moment(MomentState.date_now, interval=1000)"
-```
+If you want to update the date every second, you can use the `interval` prop.
 
-```python eval
-docdemo(interval_example, comp=eval(interval_example))
+```python demo
+rx.moment(interval=1000, format="HH:mm:ss")
 ```
 
 Even better, you can actually link an event handler to the `on_change` prop that will be called every time the date is updated:
 
-```python exec
-interval_update_example = """rx.box(
-    rx.toast.provider(),
-    rx.moment(
-        MomentState.date_now, 
-        interval=5000, 
-        on_change=lambda value: rx.toast("Date updated")
+```python demo exec
+class MomentLiveState(rx.State):
+    updating: bool = False
+
+    def on_update(self, date):
+        return rx.toast(f"Date updated: {date}")
+
+
+def moment_live_example():
+    return rx.hstack(
+        rx.moment(
+            format="HH:mm:ss",
+            interval=rx.cond(MomentLiveState.updating, 5000, 0),
+            on_change=MomentLiveState.on_update,
+        ),
+        rx.switch(
+            is_checked=MomentLiveState.updating,
+            on_change=MomentLiveState.set_updating,
+        ),
     )
-)
-"""
 ```
 
 ```python eval
-docdemo(interval_update_example, comp=eval(interval_update_example))
+rx.toast.provider()
 ```
