@@ -44,7 +44,7 @@ Redirect the user to a new path within the application.
 
 ```python demo
 rx.vstack(
-    rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special_events")),
+    rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special-events")),
     rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', external=True))
 )
 ```
