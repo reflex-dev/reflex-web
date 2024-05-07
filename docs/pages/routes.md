@@ -168,14 +168,22 @@ Redirect can also be run from an event handler in State, meaning logic can be ad
 
 ```python demo exec
 class Redirect2ExampleState(rx.State):
-    """The app state."""
+    redirect_to_org: bool = False
+
+    def change_redirect(self):
+        self.redirect_to_org = not self.redirect_to_org
 
     def change_page(self):
-        return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
+        if self.redirect_to_org:
+            return rx.redirect('https://github.com/reflex-dev/', external=True)
+        else:
+            return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
 
 def redirect_example():
     return rx.vstack(
-        rx.button("Change page in State", on_click=Redirect2ExampleState.change_page),
+        rx.text(f"{Redirect2ExampleState.redirect_to_org}"),
+        rx.button("Change redirect location", on_click=Redirect2ExampleState.change_redirect),
+        rx.button("Redirect to new page in State", on_click=Redirect2ExampleState.change_page),
     )
 ```
 
