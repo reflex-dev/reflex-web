@@ -245,10 +245,6 @@ class PlotlyLib(NoSSRComponent):
         return "const customCode = 'customCode';"
 ```
 
-## Hooks
-
-To be filled in.
-
 ## Props
 
 Props are the variables that you can pass to the component. In the case of our color picker, we have a single prop `color`. Props are defined using `rx.Var` with the type of the prop. Specifying the type helps the compiler catch errors and provides better intellisense.
