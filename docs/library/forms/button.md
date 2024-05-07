@@ -45,6 +45,17 @@ rx.flex(
 )
 ```
 
+### Loading
+The `loading` prop is used to indicate that the action triggered by the button is currently in progress. When set to `True`, the button displays a loading state, typically a spinning loader or a text change. This provides visual feedback to the user that the action is being processed and prevents multiple clicks while loading. By default, `loading` is set to `False`.
+
+```python demo
+rx.flex(
+    rx.button("Not loading"),
+    rx.button("Loading", loading=True),
+    spacing="2",
+)
+```
+
 ## Triggers
 
 ### On Click
