@@ -1,8 +1,7 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-
-
+from pcweb.pages.docs import api_reference, library
 
 route = (
 """
@@ -132,6 +131,64 @@ This is equivalent to calling `app.add_page` with the same arguments.
 ```md alert
 # Index is a special exception where it is available at both `/` and `/index`. All other pages are only available at their specified route.
 ```
+
+
+## Navigating Between Pages
+
+### Links
+
+Links are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
+
+```python demo
+rx.link("Reflex Home Page.", href="https://reflex.dev")
+```
+
+You can also provide local links to other pages in your project without writing the full url.
+
+```python demo
+rx.link("Example", href="/docs/library",)
+```
+Check out the docs [here]({library.typography.link.path}) to learn more.
+
+### Redirect
+
+Redirect the user to a new path within the application using `rx.redirect()`.
+
+- `path`: The destination path or URL to which the user should be redirected.
+- `external`: If set to True, the redirection will open in a new tab. Defaults to `False`.
+
+```python demo
+rx.vstack(
+    rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special_events")),
+    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', external=True))
+)
+```
+
+Redirect can also be run from an event handler in State, meaning logic can be added behind it. It is necessary to `return` the `rx.redirect()`.
+
+```python demo exec
+class Redirect2ExampleState(rx.State):
+    redirect_to_org: bool = False
+
+    def change_redirect(self):
+        self.redirect_to_org = not self.redirect_to_org
+
+    def change_page(self):
+        if self.redirect_to_org:
+            return rx.redirect('https://github.com/reflex-dev/', external=True)
+        else:
+            return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
+
+def redirect_example():
+    return rx.vstack(
+        rx.text(f"{Redirect2ExampleState.redirect_to_org}"),
+        rx.button("Change redirect location", on_click=Redirect2ExampleState.change_redirect),
+        rx.button("Redirect to new page in State", on_click=Redirect2ExampleState.change_page),
+    )
+```
+
+
+
 
 ## Nested Routes
 
