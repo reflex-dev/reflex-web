@@ -144,7 +144,7 @@ class MomentLiveState(rx.State):
     updating: bool = False
 
     def on_update(self, date):
-        return rx.toast(f"Date updated: {date}")
+        return rx._x.toast(f"Date updated: {date}")
 
 
 def moment_live_example():
@@ -162,5 +162,5 @@ def moment_live_example():
 ```
 
 ```python eval
-rx.toast.provider()
+rx._x.toast.provider()
 ```
