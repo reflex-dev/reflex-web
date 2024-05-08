@@ -1,7 +1,6 @@
 ---
 components:
     - rx.spinner
-    - rx.button
 ---
 
 # Spinner
@@ -17,6 +16,8 @@ rx.spinner()
 ```
 
 ## Basic Examples
+
+Spinner can have different sizes
 
 ```python demo
 rx.vstack(
@@ -35,15 +36,23 @@ rx.vstack(
 Buttons have their own loading prop that automatically composes a spinner.
 
 ```python demo
-rx.button(
-        rx.spinner(
-            rx.icon("bookmark"),
-            loading=True
-        ),
-        "Bookmark",
-        disabled=True
-    )
+rx.button("Bookmark", loading=True)
 ```
 
+## Spinner inside a button
+
+
 If you have an icon inside the button, you can use the button's disabled state and wrap the icon in a standalone rx.spinner to achieve a more sophisticated design.
+
+```python demo
+rx.button(
+    rx.spinner(
+        rx.icon("bookmark"),
+        loading=True
+    ),
+    "Bookmark",
+    disabled=True
+)
+```
+
 

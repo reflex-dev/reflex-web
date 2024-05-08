@@ -8,7 +8,7 @@ components:
 import reflex as rx
 ```
 
-# TextField
+# Input
 
 A text field is an input field that users can type into. This component uses Radix's [text field](https://www.radix-ui.com/themes/docs/components/text-field) component.
 
