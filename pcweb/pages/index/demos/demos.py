@@ -70,7 +70,7 @@ def more_examples():
                     border="1px solid rgba(186, 199, 247, 0.12);",
                     text_wrap="nowrap",
                 ),
-                href="/gallery",
+                href="/docs/gallery",
             )
 
 def demos():
