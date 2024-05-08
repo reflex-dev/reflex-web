@@ -19,7 +19,7 @@ import reflex as rx
 
 ```python demo
 rx.vstack(
-    rx.progress(value=0, width="50%"),
+    rx.progress(value=0, wdith="50%"),
     rx.progress(value=50, width="50%"),
     rx.progress(value=100, width="50%"),
     width="100%",
