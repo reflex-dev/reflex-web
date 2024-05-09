@@ -138,6 +138,7 @@ def get_sidebar_items_backend():
                 events.special_events,
                 events.page_load_events,
                 events.background_events,
+                events.event_actions,
             ],
         ),
         create_item(
