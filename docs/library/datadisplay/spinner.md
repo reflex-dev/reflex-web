@@ -47,7 +47,6 @@ If you have an icon inside the button, you can use the button's disabled state a
 ```python demo
 rx.button(
     rx.spinner(
-        rx.icon("bookmark"),
         loading=True
     ),
     "Bookmark",
