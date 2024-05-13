@@ -134,6 +134,8 @@ The state defines all the variables (called **[vars]({vars.base_vars.path})**) i
 
 Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
 
+Anything defined in state is created per user that uses the app. Anything that is global, i.e. instantiating an API key, that must only be done once for the whole app should not be done inside the state class.
+
 ### Event Handlers
 
 ```python
