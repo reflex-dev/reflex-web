@@ -55,6 +55,8 @@ That’s it! You should receive some feedback on the progress of your deployment
 # Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
 ```
 
+The hosting service does not currently handle database or file upload operations. It is necessary to set up an external database use it within your app.
+
 ## See it in Action
 
 Below is a video of deploying the [AI chat app]({docs.tutorial.intro.path}) to our hosting service.
