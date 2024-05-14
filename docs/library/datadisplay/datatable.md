@@ -39,7 +39,7 @@ rx.data_table(
 
 ```python
 import pandas as pd
-nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")"""
+nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")
 ...
 rx.data_table(
     data = nba_data[["Name", "Height", "Age"]],
