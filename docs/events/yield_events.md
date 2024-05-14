@@ -64,7 +64,10 @@ def progress_example():
 ## Yielding Other Events
 
 Events can also yield other events. This is useful when you want to chain events together. To do this, you can yield the event handler function itself.
+```md alert
+# Reference other Event Handler via class
 
+When chaining another event handler with `yield`, access it via the state class, not `self`.
 ```python demo exec
 
 import asyncio
