@@ -132,6 +132,7 @@ def menu_content():
         height="200px",
         padding="0",
         overflow="hidden",
+        border_radius="8px",
     )
 
 def components_section():
@@ -146,46 +147,31 @@ def components_section():
                     menu_content(),
                 ),
             ),
+            background_color = "transparent",
         ),
         nav_menu.indicator(className="Arrow"),
         nav_menu.viewport(),
     )
 
-# instrument sans
+
+def link_item(name: str, url: str):
+    return rx.link(
+        rx.center(
+            rx.text(
+                name, 
+                color=rx.color("mauve", 11),
+            ), 
+            height="100%",
+        ),
+        href=url,
+    )
 
 def navigation_section():
     return rx.box(
         rx.flex(
-            rx.link(
-                rx.center(
-                    rx.text(
-                        "Intro", 
-                        color=rx.color("mauve", 11),
-                    ), 
-                    height="100%",
-                ),
-                href=getting_started.introduction.path,
-            ),
-            rx.link(
-                rx.center(
-                    rx.text(
-                        "Gallery",
-                        color=rx.color("mauve", 11),
-                    ), 
-                    height="100%",
-                ),
-                href=gallery.path
-            ),
-            rx.link(
-                rx.center(
-                    rx.text(
-                        "Hosting",
-                        color=rx.color("mauve", 11),
-                    ), 
-                    height="100%",
-                ),
-                href=hosting.deploy_quick_start.path
-            ),
+            link_item("Intro", getting_started.introduction.path),
+            link_item("Gallery", gallery.path),
+            link_item("Hosting", hosting.deploy_quick_start.path),
             components_section(),
             spacing="5",
         ),
@@ -237,7 +223,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             width="100%",
             align_items="center",
             spacing="5",
-            padding="15px",  
+            padding="15px",
         ),
         width="100%",
         z_index="5",
