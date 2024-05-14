@@ -119,7 +119,7 @@ The Reflex framework includes the `reflex` command line (CLI) tool. Using a virt
 
 ```md alert warning
 # Error `Install Failed - You are missing a DLL required to run bun.exe` Windows
-Bun requires DLL run-time components of Visual C++ libraries to run on windows and fixing this issue requires installing Microsoft Visual C++ 2015 Redistributable. 
+Bun requires runtime components of Visual C++ libraries to run on windows. This issue is fixed by installing Microsoft Visual C++ 2015 Redistributable. 
 click [here](https://aka.ms/vs/17/release/vc_redist.x64.exe) for a direct download
 ```
 
