@@ -22,10 +22,12 @@ def index() -> rx.Component:
         rx.container(
             news_letter_section(),
             padding_x="3em",
+            padding_y="10em",
         ),
         rx.container(
             stats(),
             padding_x="1em",
+            padding_y="3em",
         ),
         width="100%",
         direction="column",
