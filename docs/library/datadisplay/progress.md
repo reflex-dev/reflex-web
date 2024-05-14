@@ -16,13 +16,14 @@ import reflex as rx
 ## Basic Example
 
 `rx.progress` expects the `value` prop to set the progress value.
+`width` is default to 100%, the width of its parent component.
 
 ```python demo
 rx.vstack(
-    rx.progress(value=0, wdith="50%"),
-    rx.progress(value=50, width="50%"),
-    rx.progress(value=100, width="50%"),
-    width="100%",
+    rx.progress(value=0),
+    rx.progress(value=50),
+    rx.progress(value=100),
+    width="50%",
 )
 ```
 
@@ -48,6 +49,6 @@ def live_progress():
     return rx.hstack(
         rx.progress(value=ProgressState.value), 
         rx.button("Start", on_click=ProgressState.start_progress),
-        width="10em"
+        width="50%"
     )
 ```
