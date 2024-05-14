@@ -17,7 +17,7 @@ rx.spinner()
 
 ## Basic Examples
 
-Spinner can have different sizes
+Spinner can have different sizes.
 
 ```python demo
 rx.vstack(
