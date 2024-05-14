@@ -198,6 +198,7 @@ def links():
     from pcweb.pages.blog import blogs
     from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
+    from pcweb.pages.errors import errors
     return rx.hstack(
         rx.desktop_only(
             logo(
@@ -240,6 +241,11 @@ def links():
             rx.link(
                 "FAQ",
                 href=faq.path,
+                style=footer_item_style,
+            ),
+            rx.link(
+                "Common Errors",
+                href=errors.path,
                 style=footer_item_style,
             ),
             rx.link(
