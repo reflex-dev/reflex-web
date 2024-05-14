@@ -9,7 +9,7 @@ A regular event handler will send a `StateUpdate` when it has finished running. 
 
 To do so, we can use the Python keyword `yield`. For every yield inside the function, a `StateUpdate` will be sent to the frontend with the changes up to this point in the execution of the event handler.
 
-This example below shows how to yield a 100 updates to the UI.
+This example below shows how to yield 100 updates to the UI.
 
 ```python demo exec
 
