@@ -117,6 +117,12 @@ A virtual environment should solve this problem, or you can try running `python3
 The Reflex framework includes the `reflex` command line (CLI) tool. Using a virtual environment is highly recommended for a seamless experience.",
 ```
 
+```md alert warning
+# Error `Install Failed - You are missing a DLL required to run bun.exe` Windows
+Bun requires DLL run-time components of Visual C++ libraries to run on windows and fixing this issue requires installing Microsoft Visual C++ 2015 Redistributable. 
+click [here](https://aka.ms/vs/17/release/vc_redist.x64.exe) for a direct download
+```
+
 The command will return four template options to choose from as shown below.
 
 ```bash
