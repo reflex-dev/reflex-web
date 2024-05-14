@@ -145,6 +145,7 @@ class IndexState(rx.State):
                 contact_data = json.dumps({"email": self.email})
                 self.add_contact_to_loops(contact_data)
 
+        self.email = ""
         self.signed_up = True
         
 button_style = {
