@@ -12,9 +12,14 @@ from .search import search_bar
 from .state import NavbarState
 from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
 
-def resource_header(text):
-    return rx.text(
-        text, color=rx.color("mauve", 12), font_weight="600"
+def resource_header(text, url):
+    return rx.link(
+        rx.text(
+            text,
+            color=rx.color("mauve", 12),
+            font_weight="600",
+        ),
+        href=url,
     )
 
 
@@ -74,6 +79,7 @@ def menu_trigger():
             "Components", 
             color=rx.color("mauve", 11),
             font="Instrument Sans",
+            weight="medium",
             style={"font-size":"16px"},
         ),
         rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
@@ -89,7 +95,7 @@ def menu_content():
     return rx.flex(
         rx.flex(
             rx.flex(
-                resource_header("Core Components"),
+                resource_header("Core Components", library.path),
                 resources_item("Library", library.path, "library-big"),
                 resources_item("Theming", styling.theming.path,"palette"),
                 direction="column",
@@ -100,7 +106,7 @@ def menu_content():
             ),
             rx.flex(
                 rx.flex(
-                    resource_header("Custom Components"),
+                    resource_header("Custom Components", custom_components.path),
                     rx.badge("New", variant="solid"),
                     align_items="center",
                     spacing="1",
@@ -160,6 +166,9 @@ def link_item(name: str, url: str):
             rx.text(
                 name, 
                 color=rx.color("mauve", 11),
+                font="Instrument Sans",
+                style={"font-size":"16px"},
+                weight="medium",
             ), 
             height="100%",
         ),
@@ -174,6 +183,7 @@ def navigation_section():
             link_item("Hosting", hosting.deploy_quick_start.path),
             components_section(),
             spacing="5",
+            padding_left="1.25em",
         ),
         display=["none", "none", "none", "flex", "flex", "flex"],
     )
