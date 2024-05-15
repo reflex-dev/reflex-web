@@ -5,7 +5,7 @@ from pcweb.pages.docs import getting_started
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs.library import library
 from pcweb.pages.index import index
-
+from pcweb.signup import IndexState
 import asyncio
 import json
 import os
@@ -91,62 +91,6 @@ def installation():
         border_bottom="1px solid #3C3646;"
     )
 
-class Waitlist(rx.Model, table=True):
-    email: str
-    date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-
-class IndexState(rx.State):
-    """Hold the state for the home page."""
-
-    # The waitlist email.
-    email: str
-
-    # Whether the user signed up for the waitlist.
-    signed_up: bool = False
-
-    # Whether to show the confetti.
-    show_confetti: bool = False
-
-    def add_contact_to_loops(self, contact_data):
-        url = "https://app.loops.so/api/v1/contacts/create"
-        loops_api_key = os.getenv("LOOPS_API_KEY")
-        if loops_api_key is None:
-            print("Loops API key does not exist")
-        headers = {
-            "Accept": "application/json",
-            "Authorization": f"Bearer {loops_api_key}",
-        }
-
-        try:
-            with httpx.Client() as client:
-                response = client.post(url, headers=headers, json=contact_data)
-                response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
-
-        except httpx.RequestError as e:
-            print(f"An error occurred: {e}")
-    
-    def signup(self):
-        """Sign the user up for the waitlist."""
-        # Check if the email is valid.
-        try:
-            validation = validate_email(self.email, check_deliverability=True)
-            self.email = validation.email
-        except EmailNotValidError as e:
-            # Alert the error message.
-            return rx.window_alert(str(e))
-
-        # Check if the user is already on the waitlist.
-        with rx.session() as session:
-            user = session.query(Waitlist).filter(Waitlist.email == self.email).first()
-            if user is None:
-                # Add the user to the waitlist.
-                session.add(Waitlist(email=self.email))
-                session.commit()
-                contact_data = json.dumps({"email": self.email})
-                self.add_contact_to_loops(contact_data)
-
-        self.signed_up = True
-        
 button_style = {
     "border_radius": "50px",
     "": "",
@@ -154,15 +98,8 @@ button_style = {
     "align_items": "center",
 }
 
-
-def news_letter(align="left"):
-    return rx.vstack(
-        rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
-        rx.text(
-            "Get the latest updates and news about Reflex.",
-            color="#6C6C81",
-            font_size="0.8em",
-        ),
+def news_letter_form():
+    return rx.chakra.form(
         rx.chakra.input_group(
             rx.chakra.input_right_element(
                 rx.chakra.button(
@@ -177,7 +114,7 @@ def news_letter(align="left"):
                 )           
             ),
             rx.chakra.input(
-                placeholder="you@email.com",
+                placeholder="Your email...",
                 on_blur=IndexState.set_email,
                 color="#fff",
                 background="rgba(161, 157, 213, 0.03)",
@@ -185,7 +122,35 @@ def news_letter(align="left"):
                 type="email",
                 border_radius="8px",
             ),
-            width="100%"
+            width="100%",
+        ),
+        on_submit = IndexState.signup()
+    )
+
+def message_group():
+    return rx.vstack(
+        rx.text("You have successfully signed up!", color="#6C6C81"),
+        rx.text(
+            "Sign up for another email",
+            size='2',
+            color="#FFFFFF",
+            style={"text-decoration": "underline"},
+            on_click=IndexState.signup_for_another_user(),
+        )
+    )
+
+def news_letter(align="left"):
+    return rx.vstack(
+        rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
+        rx.text(
+            "Get the latest updates and news about Reflex.",
+            color="#6C6C81",
+            font_size="0.8em",
+        ),
+        rx.cond(  
+            IndexState.signed_up,
+            message_group(),
+            news_letter_form(),
         ),
         align_items=align,
         width="100%",

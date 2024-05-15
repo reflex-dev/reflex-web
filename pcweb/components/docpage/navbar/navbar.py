@@ -10,6 +10,7 @@ from .buttons.color import color
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
 from .state import NavbarState
+from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
 
 def resource_header(text):
     return rx.text(
@@ -67,82 +68,111 @@ def banner():
     )
 
 
-def components_section():
-    return rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.flex(
-                rx.text("Components", color=rx.color("mauve", 11)),
-                rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
-                rx.badge("New", variant="solid"),
-                align_items="center",
-                _hover={
-                    "cursor": "pointer",
-                },
-                spacing="1",
-            )
+def menu_trigger():
+    return rx.flex(
+        rx.text(
+            "Components", 
+            color=rx.color("mauve", 11),
+            font="Instrument Sans",
+            style={"font-size":"16px"},
         ),
-        rx.hover_card.content(
-            rx.flex(
-                rx.flex(
-                    resource_header("Core Components"),
-                    resources_item("Library", library.path, "library-big"),
-                    resources_item("Theming", styling.theming.path,"palette"),
-                    direction="column",
-                    align_items="start",
-                    padding="20px",
-                    spacing="3",
-                    background_color=rx.color("mauve", 3),
-                ),
-                rx.flex(
-                    rx.flex(
-                        resource_header("Custom Components"),
-                        rx.badge("New", variant="solid"),
-                        align_items="center",
-                        spacing="1",
-                    ),
-                    resources_item(
-                        "Community Library", custom_components.path, "library-big"
-                    ),
-                    resources_item(
-                        "Wrapping React", wrapping_react.overview.path, "atom"
-                    ),
-                    resources_item(
-                        "Publishing Components", custom_c.overview.path, "globe"
-                    ),
-                    direction="column",
-                    align_items="start",
-                    height="200px",
-                    padding_y="20px",
-                    padding_left="10px",
-                    padding_right="40px",
-                    spacing="3",
-                ),
-                spacing="6",
-                max_width="1000px",
-                height="200px",
-            ),
-            border=f"1px solid {rx.color('mauve', 4)}",
-            background=rx.color("mauve", 1),
-            max_width="1000px",
-            height="200px",
-            padding="0",
-            overflow="hidden",
-        ),
+        rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
+        rx.badge("New", variant="solid"),
+        align_items="center",
+        _hover={
+            "cursor": "pointer",
+        },
+        spacing="1",
     )
 
+def menu_content():
+    return rx.flex(
+        rx.flex(
+            rx.flex(
+                resource_header("Core Components"),
+                resources_item("Library", library.path, "library-big"),
+                resources_item("Theming", styling.theming.path,"palette"),
+                direction="column",
+                align_items="start",
+                padding="20px",
+                spacing="3",
+                background_color=rx.color("mauve", 3),
+            ),
+            rx.flex(
+                rx.flex(
+                    resource_header("Custom Components"),
+                    rx.badge("New", variant="solid"),
+                    align_items="center",
+                    spacing="1",
+                ),
+                resources_item(
+                    "Community Library", custom_components.path, "library-big"
+                ),
+                resources_item(
+                    "Wrapping React", wrapping_react.overview.path, "atom"
+                ),
+                resources_item(
+                    "Publishing Components", custom_c.overview.path, "globe"
+                ),
+                direction="column",
+                align_items="start",
+                height="200px",
+                padding_y="20px",
+                padding_left="10px",
+                padding_right="40px",
+                spacing="3",
+            ),
+            spacing="6",
+            max_width="1000px",
+            height="200px",
+        ),
+        border=f"1px solid {rx.color('mauve', 4)}",
+        background=rx.color("mauve", 1),
+        max_width="1000px",
+        height="200px",
+        padding="0",
+        overflow="hidden",
+        border_radius="8px",
+    )
+
+def components_section():
+    return nav_menu.root(
+        nav_menu.list(
+            nav_menu.item(
+                nav_menu.trigger(
+                    menu_trigger(),
+                    style=None,
+                ),
+                nav_menu.content(
+                    menu_content(),
+                ),
+            ),
+            background_color = "transparent",
+        ),
+        nav_menu.indicator(className="Arrow"),
+        nav_menu.viewport(),
+    )
+
+
+def link_item(name: str, url: str):
+    return rx.link(
+        rx.center(
+            rx.text(
+                name, 
+                color=rx.color("mauve", 11),
+            ), 
+            height="100%",
+        ),
+        href=url,
+    )
 
 def navigation_section():
     return rx.box(
         rx.flex(
-            rx.link(rx.text("Intro", color=rx.color("mauve", 11)), href=getting_started.introduction.path),
-            rx.link(
-                rx.text("Gallery", color=rx.color("mauve", 11)), href=gallery.path
-            ),
-            rx.link(
-                rx.text("Hosting", color=rx.color("mauve", 11)), href=hosting.deploy_quick_start.path
-            ),
+            link_item("Intro", getting_started.introduction.path),
+            link_item("Gallery", gallery.path),
+            link_item("Hosting", hosting.deploy_quick_start.path),
             components_section(),
-            
             spacing="5",
         ),
         display=["none", "none", "none", "flex", "flex", "flex"],
@@ -193,7 +223,7 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
             width="100%",
             align_items="center",
             spacing="5",
-            padding="15px",  
+            padding="15px",
         ),
         width="100%",
         z_index="5",
