@@ -32,36 +32,47 @@ def sidebar_link(*children, **props):
     )
 
 
-def create_item(route: Route, children=None):
-    """Create a sidebar item from a route."""
-    if children is None:
-        name = route.title
-        if name.endswith("Overview"):
-            # For "Overview", we want to keep the qualifier prefix ("Components overview")
-            alt_name_for_next_prev = name
-            name = "Overview"
-        else:
-            alt_name_for_next_prev = ""
-        name = name.replace("Api", "API").replace("Cli", "CLI")
-        return SidebarItem(
-            names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
-        )
-    return SidebarItem(
-        names=route,
-        children=list(map(create_item, children)),
-    )
-
-
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
-    item.link= item.link.replace("_", "-")
+    item.link=item.link.replace("_", "-")
+    outer=False
     
-    if item.names == "Overview":
-        return sidebar_link(
-            rx.flex(
+    if item.names.endswith("Overview"):
+        url_parts = item.link.split("/")
+        if len(url_parts) >= 4:
+            section_name = url_parts[2].replace("-", " ").title()
+            if section_name == "Ui" or section_name == "State":
+                outer=True
+                if section_name == "Ui":
+                    section_name = section_name.upper()
+        else:
+            section_name = item.names
+
+        return rx.cond(
+            outer, 
+            sidebar_link(
+                rx.flex(
+                    rx.text(
+                        section_name,
+                        color=rx.color("mauve", 11),
+                        _hover={
+                            "color": rx.color("accent", 10),
+                            "text_decoration": "none",
+                        },
+                        font_weight="bold",
+                        margin_left="1.25em",
+                        margin_top="0.5em",
+                        margin_bottom="0.2em",
+                        width="100%",
+                    ),
+                ),
+                href=item.link,
+            ),
+            sidebar_link(
+                rx.flex(
                     rx.text(
                         item.names,
                         color=rx.color("mauve", 11),
@@ -77,6 +88,7 @@ def sidebar_leaf(
                     ),
                 ),
                 href=item.link,
+            )
         )
 
     return rx.chakra.accordion_item(
@@ -301,10 +313,10 @@ def sidebar_section(name):
         padding_left="10px",
     )
 
-
+# TODO
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
-        sidebar_section(section_title),
+        # sidebar_section(section_title),
         rx.chakra.accordion(
             *[
                 sidebar_item_comp(
@@ -326,7 +338,7 @@ def create_sidebar_section(section_title, items, index, url):
         align_items="left",
     )
 
-  
+
 @rx.memo
 def sidebar_comp(
     url: str,
@@ -352,8 +364,8 @@ def sidebar_comp(
                 0,
                 rx.flex(
                     create_sidebar_section("Onboarding", learn, learn_index, url),
-                    create_sidebar_section("UI", frontend, frontend_index, url),
-                    create_sidebar_section("State", backend, backend_index, url),
+                    create_sidebar_section("UI Overview", frontend, frontend_index, url),
+                    create_sidebar_section("State Overview", backend, backend_index, url),
                     create_sidebar_section("Hosting", hosting, hosting_index, url),
                     direction="column",
                 ),
