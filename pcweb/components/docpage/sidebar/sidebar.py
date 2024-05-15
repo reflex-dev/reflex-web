@@ -98,7 +98,7 @@ def sidebar_leaf(
                 rx.flex(
                     rx.flex(
                         rx.text(
-                            item.names,
+                            item.names + item.link + url,
                             color=rx.color("accent", 11),
                             font_weight="500",
                             margin_left="0.25em",
@@ -116,7 +116,7 @@ def sidebar_leaf(
             sidebar_link(
                 rx.flex(
                     rx.text(
-                        item.names,
+                        item.names + item.link + url,
                         color=rx.color("mauve", 11),
                         _hover={
                             "color": rx.color("accent", 11),
@@ -313,10 +313,8 @@ def sidebar_section(name):
         padding_left="10px",
     )
 
-# TODO
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
-        # sidebar_section(section_title),
         rx.chakra.accordion(
             *[
                 sidebar_item_comp(
@@ -364,8 +362,8 @@ def sidebar_comp(
                 0,
                 rx.flex(
                     create_sidebar_section("Onboarding", learn, learn_index, url),
-                    create_sidebar_section("UI Overview", frontend, frontend_index, url),
-                    create_sidebar_section("State Overview", backend, backend_index, url),
+                    create_sidebar_section("UI", frontend, frontend_index, url),
+                    create_sidebar_section("State", backend, backend_index, url),
                     create_sidebar_section("Hosting", hosting, hosting_index, url),
                     direction="column",
                 ),
