@@ -19,10 +19,12 @@ def index() -> rx.Component:
             demos(),
             padding_x="1em",
         ),
-        rx.container(
-            news_letter_section(),
-            padding_x="3em",
-            padding_y="10em",
+        rx.tablet_and_desktop(
+            rx.container(
+                news_letter_section(),
+                padding_x="3em",
+                padding_y="10em",
+            ),
         ),
         rx.container(
             stats(),

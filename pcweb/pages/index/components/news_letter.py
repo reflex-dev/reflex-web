@@ -8,7 +8,7 @@ def news_letter_text() -> rx.Component:
             "Join Our Newsletter!",
             text_align="left",
             background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
-            font_size=["16px", "20px", "28px", "42px", "42px", "42px"],
+            font_size=["20px", "20px", "28px", "42px", "42px", "42px"],
             background_clip="text",
             font_weight="bold",
             line_height="1",            
