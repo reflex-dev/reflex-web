@@ -57,13 +57,13 @@ def sidebar_leaf(
                 rx.flex(
                     rx.text(
                         section_name,
-                        color=rx.color("mauve", 11),
+                        color=rx.color("mauve", 12),
                         _hover={
                             "color": rx.color("accent", 10),
                             "text_decoration": "none",
                         },
-                        font_weight="bold",
-                        margin_left="1.25em",
+                        font_weight="600",
+                        margin_left="0.75em",
                         margin_top="0.5em",
                         margin_bottom="0.2em",
                         width="100%",
@@ -75,12 +75,12 @@ def sidebar_leaf(
                 rx.flex(
                     rx.text(
                         item.names,
-                        color=rx.color("mauve", 11),
+                        color=rx.color("mauve", 12),
                         _hover={
                             "color": rx.color("accent", 10),
                             "text_decoration": "none",
                         },
-                        font_weight="500",
+                        font_weight="600",
                         margin_left="0.75em",
                         margin_top="0.2em",
                         margin_bottom="0.2em",
@@ -100,7 +100,7 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             color=rx.color("accent", 11),
-                            font_weight="500",
+                            font_weight="600",
                             margin_left="0.25em",
                         ),
                         style=heading_style2,
@@ -308,13 +308,17 @@ def sidebar_section(name):
     return rx.text(
         name,
         color=rx.color("mauve", 12),
-        font_weight="500",
+        font_weight="600",
         padding_top="1em",
-        padding_left="10px",
+        padding_left="0.75em",
     )
 
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
+        rx.cond(
+            section_title == "Onboarding",
+            sidebar_section(section_title),
+        ),
         rx.chakra.accordion(
             *[
                 sidebar_item_comp(
