@@ -137,16 +137,15 @@ rx.vstack(
             "Start Stream",
             on_click=StreamingState.start_stream,
             is_disabled=StreamingState.stream,
-            width="100%",
+            width="50%",
             color_scheme="green",
         ),
         rx.button(
             "Stop Stream",
             on_click=StreamingState.stop_stream,
             is_disabled=StreamingState.stream == False,
-            width="100%",
+            width="50%",
             color_scheme="red",
-
         ),
         width="100%",
     )
@@ -177,10 +176,12 @@ def index():
             "Start Stream",
             on_click=StreamingState.start_stream,
             disabled=StreamingState.stream,
+            width="50%",
         ),
         rx.button(
             "Stop Stream",
             on_click=StreamingState.stop_stream,
+            width="50%",
         ),
         width="100%",
     ),
@@ -230,14 +231,14 @@ rx.vstack(
             "Start Stream",
             on_click=StreamingState.start_stream,
             is_disabled=StreamingState.stream,
-            width="100%",
+            width="50%",
             color_scheme="green",
         ),
         rx.button(
             "Stop Stream",
             on_click=StreamingState.stop_stream,
             is_disabled=StreamingState.stream == False,
-            width="100%",
+            width="50%",
             color_scheme="red",
 
         ),
@@ -280,16 +281,15 @@ rx.vstack(
             "Start Stream",
             on_click=StreamingState.start_stream,
             is_disabled=StreamingState.stream,
-            width="100%",
+            width="50%",
             color_scheme="green",
         ),
         rx.button(
             "Stop Stream",
             on_click=StreamingState.stop_stream,
             is_disabled=StreamingState.stream == False,
-            width="100%",
+            width="50%",
             color_scheme="red",
-
         ),
         width="100%",
     )
