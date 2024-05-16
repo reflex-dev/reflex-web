@@ -98,7 +98,7 @@ def sidebar_leaf(
                 rx.flex(
                     rx.flex(
                         rx.text(
-                            item.names + item.link + url,
+                            item.names,
                             color=rx.color("accent", 11),
                             font_weight="500",
                             margin_left="0.25em",
@@ -116,7 +116,7 @@ def sidebar_leaf(
             sidebar_link(
                 rx.flex(
                     rx.text(
-                        item.names + item.link + url,
+                        item.names,
                         color=rx.color("mauve", 11),
                         _hover={
                             "color": rx.color("accent", 11),
