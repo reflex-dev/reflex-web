@@ -2,63 +2,86 @@ import reflex as rx
 from pcweb.templates.webpage import webpage
 from .paths import blog_data
 
+def card_content(meta, path):
+    return rx.link(
+        rx.flex(
+            rx.box(
+                height="12rem",
+                width="100%",
+                background_image=f'url({meta["image"]})',
+                background_size="cover",
+                background_position="center",
+                background_repeat="no-repeat",
+                border_radius="12px"
+            ),
+            rx.vstack(
+                rx.vstack(
+                    rx.heading(
+                        meta["title"],
+                        size="5",
+                        color="#D6D6ED"
+                    ),
+                    rx.text(meta["description"], size="2", color="#8E8EA8"),
+                    align_items="start",
+                ),
+                rx.box(
+                    flex_grow=1,
+                ),
+                rx.hstack(
+                    rx.hstack(
+                            rx.avatar(
+                                fallback=meta["author"][0],
+                                background_color="rgba(68, 53, 212, .2)",
+                                color="#9085ff",
+                            ),
+                            rx.text(
+                                meta["author"], 
+                                font_size="0.85rem", 
+                                color="#8E8EA8", 
+                                weight="medium",
+                            ),
+                    ),
+                    rx.spacer(),
+                    rx.text(
+                        str(meta["date"]),
+                        font_size="0.85em",
+                        weight="medium",
+                        padding_right="0.75em",
+                    ),
+                    color="#8E8EA8",
+                    padding_bottom="0.5em",
+                    width="100%",
+                ),
+                width="100%",
+                padding_top="1em",
+                align_items="start",
+                height="13.5em",
+            ),
+            direction="column",
+        ),
+        overflow="hidden",
+        href=path,
+    )
+
+def blog_card(meta, path):
+    return rx.flex(
+        card_content(meta, path),
+        padding="15px",
+        align_items="center",
+        justify_content="center",
+        border_radius="12px",
+        bg="#211F26",
+    )
+
 def component_grid():
     posts = []
     for path, document in blog_data.items():
         meta = document.metadata
         posts.append(
-            rx.link(
-                rx.flex(
-                    rx.box(
-                        height="12rem",
-                        width="100%",
-                        background_image=f'url({meta["image"]})',
-                        background_size="cover",
-                        background_position="center",
-                        background_repeat="no-repeat",
-                        border_radius="12px"
-                    ),
-                    rx.vstack(
-                        rx.vstack(
-                            rx.heading(
-                                meta["title"],
-                                size="5",
-                                color="#D6D6ED"
-                            ),
-                            rx.text(meta["description"], size="2", color="#8E8EA8"),
-                            align_items="start",
-                        ),
-                        rx.box(
-                            flex_grow=1,
-                        ),
-                        rx.hstack(
-                            rx.hstack(
-                                    rx.avatar(
-                                        fallback=meta["author"][0],
-                                        background_color="rgba(68, 53, 212, .2)",
-                                        color="#867BF1",
-                                    ),
-                                    rx.text(meta["author"], font_size="0.8rem", color="#8E8EA8"),
-                            ),
-                            rx.spacer(),
-                            rx.text(str(meta["date"]), font_size="0.8em"),
-                            color="#8E8EA8",
-                            padding_bottom="0.5em",
-                            width="100%",
-                        ),
-                        width="100%",
-                        padding_top="1em",
-                        align_items="start",
-                        height="10em",
-                    ),
-                    direction="column",
-                ),
-                overflow="hidden",
-                href=path,
-            ),
+            blog_card(meta, path)
         )
     return rx.flex(
-        rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 2, 3], gap=4),
+        rx.chakra.responsive_grid(*posts, columns=[1, 2, 2, 3, 3], gap=4),
         justify_content="center",
     )
 
