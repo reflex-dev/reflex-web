@@ -51,7 +51,6 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         color = colors.get(status, "blue")
 
         has_content = bool(content.strip())
-        print(has_content)
 
         return rx.cond(
             has_content,
