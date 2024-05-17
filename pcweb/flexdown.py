@@ -23,6 +23,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
     starting_indicator = "```md alert"
     ending_indicator = "```"
+
     include_indicators = True
 
     def render(self, env) -> rx.Component:
