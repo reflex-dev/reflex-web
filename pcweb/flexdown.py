@@ -23,6 +23,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
     starting_indicator = "```md alert"
     ending_indicator = "```"
+
     include_indicators = True
 
     def render(self, env) -> rx.Component:
@@ -50,42 +51,71 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
         color = colors.get(status, "blue")
 
+        has_content = bool(content.strip())
 
-        return rx.chakra.accordion(
-            rx.chakra.accordion_item(
-                rx.chakra.accordion_button(
-                    rx.hstack(
-                        rx.box(
-                            rx.match(
-                                status,
-                                ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
-                                ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
-                                ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
-                                ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
-                            )
+        if has_content:
+            return rx.chakra.accordion(
+                rx.chakra.accordion_item(
+                    rx.chakra.accordion_button(
+                        rx.hstack(
+                            rx.box(
+                                rx.match(
+                                    status,
+                                    ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
+                                    ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
+                                    ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
+                                    ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
+                                )
+                            ),
+                            rx.markdown(title) if title else self.render_fn(content=content),
+                            rx.spacer(),
+                            rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
+                            align_items="center",
+                            justify_content="left",
+                            text_align="left",
+                            spacing="2",
+                            width="100%",
                         ),
-                        rx.markdown(title) if title else self.render_fn(content=content),
-                        rx.spacer(),
-                        rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
-                        align_items="center",
-                        justify_content="left",
-                        text_align="left",
-                        spacing="2",
-                        width="100%",
+                        color=f"{rx.color(color, 11)}", 
+                        border_radius="8px",
+                        _hover={},
                     ),
-                    color=f"{rx.color(color, 11)}", 
+                    rx.chakra.accordion_panel(markdown(content)) if title else rx.fragment(),
                     border_radius="8px",
-                    _hover={},
+                    background_color=f"{rx.color(color, 3)}",
+                    border="none",
+                    allow_toggle=True,
                 ),
-                rx.chakra.accordion_panel(markdown(content)) if title else rx.fragment(),
-                border_radius="8px",
+                is_disabled = True,
+                allow_toggle=True,
+                width="100%",
+                margin_y="1em"
+            )
+        else:
+            return rx.vstack(
+                rx.hstack(
+                    rx.box(
+                        rx.match(
+                            status,
+                            ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
+                            ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
+                            ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
+                            ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
+                        )
+                    ),
+                    rx.markdown(
+                        title,
+                        color=f"{rx.color(color, 11)}"
+                    ),
+                    align_items="center",
+                    spacing="1",
+                    padding_left = "1em",
+                    padding_right = "1em",
+                ),
                 background_color=f"{rx.color(color, 3)}",
-                border="none"
-            ),
-            allow_toggle=True,
-            width="100%",
-            margin_y="1em"
-        )
+                border_radius="8px",
+                margin_y="1em",
+            )
 
 class SectionBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
