@@ -53,9 +53,8 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
         has_content = bool(content.strip())
 
-        return rx.cond(
-            has_content,
-            rx.chakra.accordion(
+        if has_content:
+            return rx.chakra.accordion(
                 rx.chakra.accordion_item(
                     rx.chakra.accordion_button(
                         rx.hstack(
@@ -91,8 +90,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 allow_toggle=True,
                 width="100%",
                 margin_y="1em"
-            ),
-            rx.vstack(
+            )
+        else:
+            return rx.vstack(
                 rx.hstack(
                     rx.box(
                         rx.match(
@@ -116,7 +116,6 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 border_radius="8px",
                 margin_y="1em",
             )
-        )
 
 class SectionBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
