@@ -175,6 +175,17 @@ rx.text(
 )
 ```
 
+## Preformmatting
+By Default, the browser renders multiple white spaces into one. To preserve whitespace, use `white_space = "pre"` CSS prop.
+
+```python demo
+rx.flex(
+    rx.text("This is not pre     formatted"),
+    rx.text("This is pre     formatted", white_space="pre"),
+    direction="column"
+)
+```
+
 ## With form controls
 
 Composing `text` with a form control like `checkbox`, `radiogroup`, or `switch` automatically centers the control with the first line of text, even when the text is multi-line.
