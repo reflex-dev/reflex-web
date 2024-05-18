@@ -6,64 +6,153 @@ from pcweb.templates.webpage import webpage
 
 error_items = [
     {
-        "E": "Add an error message here",
-        "S": rx.text(
-            "Add a solution here"
+        "error": "object null is not iterable",
+        "error_explanation": rx.stack(
+            rx.code("Server Error"),
+            rx.code("TypeError: object null is not iterable (cannot read property Symbol(Symbol.iterator))"),
+            direction="column",
+            align="start",
+        ),
+        "solution": rx.stack(
+            rx.heading("This is caused by using an older version of nodejs.", size="4"),
+            rx.text("👉 Ensure the latest version of reflex is being used."),
+            rx.text("👉 Remove the .web and ~/.reflex directories and re-run reflex init."),
+            direction="column",
+            align="start",
         ),
     },
     {
-        "E": "What can I build with Reflex?",
-        "S": rx.vstack(
-            rx.text(
+        "error": "Hydration failed because the initial UI does not match",
+        "error_explanation": rx.stack(
+            rx.code("Unhandled Runtime Error"),
+            rx.code("Error: Hydration failed because the initial UI does not match what was rendered on the server."),
+            direction="column",
+            align="start",
+        ),
+        "solution": rx.stack(
+            rx.heading("Often caused by incorrect nesting of components", size="4"),
+            rx.text("Particularly <p> and <div>, but may also occur with tables."),
+            rx.text("👉 Ensure there are no nested rx.text or layout components within rx.text."),
+            rx.text("👉 Ensure that all tables are using rx.thead and rx.tbody to wrap the rx.tr rows."),
+            rx.text.strong("No ❌"),
+            rx.markdown(
+                    r"""
+                ```python
+                rx.text(rx.text("foo"))
+                rx.text(rx.box("foo"))
+                rx.text(rx.center("foo"))
+                ```
                 """
-            With Reflex, data scientists and software engineers can create high-quality web applications quickly and easily without needing to learn specific web development technologies. Whether you want to build a single purpose user interface for a data science project/internal app, or a large multi-page web app, Reflex has the tools and features to handle both and scale up as your project grows.            """
+                ),
+            rx.markdown(
+                    r"""
+                ```python
+                rx.table(
+                    rx.tr(
+                        rx.td("foo"),
+                    )
+                )
+                ```
+                """
+                ),
+            rx.text.strong("Yes ✅"),
+            rx.markdown(
+                    r"""
+                ```python
+                rx.text("foo")
+                rx.box(rx.text("foo"))
+                rx.center(rx.text("foo"))
+                ```
+                """
             ),
-            rx.text(
-                "Check out our ",
-                rx.chakra.span(doclink("gallery", href=gallery.path)),
-                " to see what ur community has already built with Reflex.",
+            rx.markdown(
+                    r"""
+                ```python
+                rx.table(
+                    rx.tbody(
+                        rx.tr(
+                            rx.td("foo"),
+                        ),
+                    )
+                )
+                ```
+                """
             ),
-            align_items="flex-start",
-            width="100%",
+            rx.text(f"See upstream docs: {rx.link("here.", href="https://nextjs.org/docs/messages/react-hydration-error")}"),
+            direction="column",
+            align="start",
         ),
     },
+    {
+        "error": "Invalid var passed for prop",
+        "error_explanation": rx.code("TypeError: Invalid var passed for prop href, expected type <class 'str'>, got value \${state.my_list.at(i)} of type typing.Any."),
+        "solution": rx.stack(
+            rx.heading("Add a type annotation for list Vars", size="4"),
+            rx.text("For certain props, reflex validates type correctness of the variable. Expecially when de-referencing lists and dicts, it is important to supply the correct annotation."),
+            rx.markdown(
+                    r"""
+                ```python
+                class State(rx.State):
+                    # NO
+                    my_list = ["a", "b", "c"]
+
+                    # YES
+                    my_indexable_list: list[str] = ["a", "b", "c"]
+                ```
+                """
+            ),
+            rx.text("👉 Add type annotations to all state Vars."),
+            direction="column",
+            align="start",
+        ),
+    },
+    
 ]
 
 
-def error_item(question, answer, index):
-    return rx.chakra.accordion(rx.chakra.accordion_item(
-        rx.chakra.accordion_button(
-            rx.heading(
-                question, color="#D6D6ED", font_size=styles.H3_FONT_SIZE
-            ),
-            rx.chakra.spacer(),
-            rx.chakra.accordion_icon(color="#6C6C81"),
-            _hover={},
-            padding_y="1em",
-        ),
-        rx.chakra.accordion_panel(answer, color="#6C6C81"),
-        border="none",
-    ),
-    allow_multiple=True,
-    border_radius= "12px;",
-    border= "1px solid #37363F;",
-    background= "rgba(47, 43, 55, 0.50);",
-    box_shadow= "0px 3px 22px -2px #0C0B0F;",
-    width="100%",
-)
-
-def error_item_mobile(question, answer, index):
+def error_item(error, error_explanation, solution, index):
     return rx.chakra.accordion(
         rx.chakra.accordion_item(
             rx.chakra.accordion_button(
-                rx.heading(
-                    question, color="#D6D6ED", font_size="1em",
+                rx.vstack(
+                    rx.heading(
+                        error, color="#D6D6ED", font_size=styles.H3_FONT_SIZE
+                    ),
+                    rx.code(error_explanation, color="#D6D6ED"),
+                    align_items="start",
+                ),
+                rx.chakra.spacer(),
+                rx.chakra.accordion_icon(color="#6C6C81"),
+                _hover={},
+                padding_y="1em",
+            ),
+            rx.chakra.accordion_panel(solution, color="#6C6C81"),
+            border="none",
+        ),
+        allow_multiple=True,
+        border_radius= "12px;",
+        border= "1px solid #37363F;",
+        background= "rgba(47, 43, 55, 0.50);",
+        box_shadow= "0px 3px 22px -2px #0C0B0F;",
+        width="100%",
+    )
+
+def error_item_mobile(error, error_explanation, solution, index):
+    return rx.chakra.accordion(
+        rx.chakra.accordion_item(
+            rx.chakra.accordion_button(
+                rx.vstack(
+                    rx.heading(
+                        error, color="#D6D6ED", font_size="1em",
+                    ),
+                    rx.code(error_explanation, color="#D6D6ED"),
+                    align_items="start",
                 ),
                 rx.chakra.spacer(),
                 rx.chakra.accordion_icon(color="#6C6C81"),
                 padding_y="1em",
             ),
-            rx.chakra.accordion_panel(answer, color="#6C6C81"),
+            rx.chakra.accordion_panel(solution, color="#6C6C81"),
             border="none",
         ),
         allow_multiple=True,
@@ -113,7 +202,7 @@ def desktop_view():
             margin_bottom="2em",
         ),
         *[
-            error_item(item["E"], item["S"], index)
+            error_item(item["error"], item["error_explanation"], item["solution"], index)
             for index, item in enumerate(error_items)
         ],
         align_items="center",
@@ -163,7 +252,7 @@ def mobile_view():
             margin_bottom="2em",
         ),
         *[
-            error_item_mobile(item["E"], item["S"], index)
+            error_item(item["error"], item["error_explanation"], item["solution"], index)
             for index, item in enumerate(error_items)
         ],
         align_items="center",
