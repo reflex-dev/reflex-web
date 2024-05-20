@@ -176,13 +176,12 @@ rx.text(
 ```
 
 ## Preformmatting
-By Default, the browser renders multiple white spaces into one. To preserve whitespace, use `white_space = "pre"` CSS prop.
+By Default, the browser renders multiple white spaces into one. To preserve whitespace, use the `white_space = "pre"` css prop.
 
 ```python demo
-rx.flex(
+rx.hstack(
     rx.text("This is not pre     formatted"),
     rx.text("This is pre     formatted", white_space="pre"),
-    direction="column"
 )
 ```
 
