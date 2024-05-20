@@ -10,7 +10,8 @@ from .state import SidebarState, SidebarItem
  
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
-from .sidebar_items.reference import api_reference, recipes, tutorials
+from .sidebar_items.reference import api_reference, tutorials
+from .sidebar_items.recipes import recipes
 
 
 heading_style2 = {
@@ -356,9 +357,11 @@ def sidebar_comp(
     width: str = "100%",
 ):
     return rx.flex(
-        sidebar_category("Learn", "graduation-cap", "violet", 0),
+        sidebar_category("Learn", "graduation-cap", "jade", 0),
         sidebar_category("Components", "layout-panel-left", "blue", 1),
-        sidebar_category("API Reference", "book-text", "crimson", 2),
+        sidebar_category("Recipes", "layout-template", "indigo", 2),
+        sidebar_category("API Reference", "book-text", "violet", 3),
+        
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
@@ -385,12 +388,11 @@ def sidebar_comp(
                 ),
             ),
             (
-                2,
+                3,
                 rx.flex(
                     create_sidebar_section(
                         "Reference", api_reference, api_reference_index, url
                     ),
-                    create_sidebar_section("Recipes", recipes, recipes_index, url),
                     create_sidebar_section(
                         "Tutorials", tutorials, tutorials_index, url
                     ),
