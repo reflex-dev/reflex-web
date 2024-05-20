@@ -404,6 +404,15 @@ def sidebar_comp(
                 ),
             ),
             (
+                2, 
+                rx.flex(
+                    create_sidebar_section(
+                        "Recipes", recipes, recipes_index, url
+                    ),
+                    direction="column",
+                )
+            ),
+            (
                 3,
                 rx.flex(
                     create_sidebar_section(

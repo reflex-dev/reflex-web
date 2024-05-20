@@ -16,6 +16,7 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 
 from .gallery import gallery
 from .library import library
+from .recipes_overview import overview
 from .resources import resources
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
@@ -160,7 +161,7 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [gallery, library, resources, custom_components] + apiref_pages
+doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
 
 for api_route in apiref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)
