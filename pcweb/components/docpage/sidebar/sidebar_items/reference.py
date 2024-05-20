@@ -19,23 +19,6 @@ def get_sidebar_items_api_reference():
     ]
 
 
-def get_sidebar_items_recipes():
-    from pcweb.pages.docs import (
-        recipes,
-    )
-
-    return [
-        create_item(
-            "Recipes",
-            children=[
-                recipes.navbar,
-                recipes.sidebar,
-                recipes.checkboxes,
-                recipes.filtered_table,
-            ],
-        )
-    ]
-
 
 def get_sidebar_items_tutorials():
     from pcweb.pages.docs import (
@@ -56,5 +39,4 @@ def get_sidebar_items_tutorials():
 
 
 api_reference = get_sidebar_items_api_reference()
-recipes = get_sidebar_items_recipes()
 tutorials = get_sidebar_items_tutorials()
