@@ -5,10 +5,14 @@ def get_sidebar_items_recipes():
     from pcweb.pages.docs import (
         recipes,
     )
+    from pcweb.pages.docs.recipes_overview import (
+        overview,
+    )
 
     return [
+        create_item(overview),
         create_item(
-            "Overview",
+            "Example",
             children=[
                 recipes.navbar,
                 recipes.sidebar,
