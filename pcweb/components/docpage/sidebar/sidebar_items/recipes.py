@@ -12,14 +12,18 @@ def get_sidebar_items_recipes():
     return [
         create_item(overview),
         create_item(
-            "Example",
+            "Layout",
             children=[
-                recipes.navbar,
-                recipes.sidebar,
-                recipes.checkboxes,
-                recipes.filtered_table,
+                recipes.layout.navbar,
+                recipes.layout.sidebar,
             ],
-        )
+        ),
+        create_item(
+            "interactive",
+            children=[
+                recipes.interactive.checkboxes,
+            ],
+        ),
     ]
 
 
