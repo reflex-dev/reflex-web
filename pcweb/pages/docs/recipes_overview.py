@@ -1,5 +1,6 @@
 
 import reflex as rx
+
 from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
@@ -28,14 +29,16 @@ items = [
 ]
 
 def component_grid():
+    from pcweb.pages.docs import recipes_list
     sidebar = []
-    for item in items:
+    for item in recipes_list:
+        category = item.split('/')[-1]
         sidebar.append(
             rx.box(
                 rx.icon("layout-template"),
                 rx.heading(
                     rx.link(
-                        item, 
+                        category,
                         href="https://www.miffy.com/",
                         color=rx.color("mauve", 11),
                     ),
