@@ -146,6 +146,7 @@ def action_bar() -> rx.Component:
             style=style.input_style),
         rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
+```
 
 ```python
 # state.py
