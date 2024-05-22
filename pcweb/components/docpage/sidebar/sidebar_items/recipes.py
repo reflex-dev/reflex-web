@@ -21,24 +21,24 @@ def get_sidebar_items_recipes():
         create_item(
             "interactive",
             children=[
-                recipes.interactive.checkboxes,
-                recipes.interactive.search_bar,
+                recipes.content.checkboxes,
+                recipes.content.search_bar,
             ],
         ),
         create_item(
             "user-profiles",
             children=[
-                recipes.user_profiles.account_setting,
-                recipes.user_profiles.login_form,
-                recipes.user_profiles.portfolio,
+                recipes.auth.account_setting,
+                recipes.auth.login_form,
+                recipes.auth.portfolio,
             ]
         ),
         create_item(
             "e-commerce",
             children=[
-                recipes.e_commerce.order_summary,
-                recipes.e_commerce.payment_integration,
-                recipes.e_commerce.product_card,
+                recipes.others.order_summary,
+                recipes.others.payment_integration,
+                recipes.others.product_card,
             ]
         )
     ]

@@ -198,7 +198,6 @@ for doc in flexdown_docs:
         category = '/'.join(doc.split('/')[:3])
         if category not in recipes_list:
             recipes_list.append(category)
-print(recipes_list)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
