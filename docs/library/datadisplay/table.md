@@ -145,6 +145,7 @@ import reflex as rx
 
 A semantic table for presenting tabular data.
 
+
 ## Basic Example
 
 ```python demo
@@ -167,13 +168,70 @@ rx.table.root(
             rx.table.cell("zahra@example.com"),
             rx.table.cell("Admin"),
         ),rx.table.row(
-            rx.table.row_header_cell("Jasper Eriksson"),
+            rx.table.row_header_cell("Jasper Eriks"),
             rx.table.cell("jasper@example.com"),
             rx.table.cell("Developer"),
         ),
     ),
 )
 ```
+
+If you just want to represent static data then the `rx.datatable` (give link here) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
+
+
+## Showing State data (using foreach)
+
+Many times there is a need for the data we represent in our table to be dynamic. Dynamic data must be in `State`. Later we will show an example of how to access data from a database and how to load data from a source file.
+
+In this example there is a `people` data structure in `State` that is iterated through using `rx.foreach` (link to foreach docs). 
+
+```python demo exec
+class TableForEachState(rx.State):
+    people: list[list] = [
+        ["Danilo Sousa", "danilo@example.com", "Developer"], 
+        ["Zahra Ambessa", "zahra@example.com", "Admin"], 
+        ["Jasper Eriks", "jasper@example.com", "Developer"],
+    ]
+
+def show_person(person: list):
+    """Show a person in a table row."""
+    return rx.table.row(
+        rx.table.cell(person[0]),
+        rx.table.cell(person[1]),
+        rx.table.cell(person[2]),
+    )
+
+def foreach_table_example():
+    return rx.hstack(
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Group"),
+                ),
+            ),
+            rx.table.body(rx.foreach(TableForEachState.people, show_person)),
+        ),
+    )
+```
+
+
+It is also possible to define a `class` such as `People` below and then iterate through this data structure, as a `list[People]`.
+
+```python
+class People(rx.Base):
+    full_name: str
+    email: str
+    group: str
+```
+
+
+
+
+
+
+
 
 ## Real World Example
 
