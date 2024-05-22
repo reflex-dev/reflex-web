@@ -72,6 +72,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-05-21",
+            "v0.5.1",
+            "Connection Error is now a Toast",
+            [
+                "rx._x.toast supports action buttons and on_dismiss/on_auto_close",
+                "Improved typing for ConnectionState and State mixins",
+                "Faster CLI launch time",
+                "Better customizability for rx.accordion",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.1",
+        ),
+        change(
             "2024-05-13",
             "v0.5.0",
             "Radix Themes 3.0",
