@@ -35,7 +35,10 @@ def component_grid():
         category = item.split('/')[-1]
         sidebar.append(
             rx.box(
-                rx.icon("layout-template"),
+                rx.card(
+                    rx.icon("layout-template", stroke_width=2.5),
+                    width="48px",
+                ),
                 rx.heading(
                     rx.link(
                         category,
