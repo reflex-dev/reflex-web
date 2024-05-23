@@ -2,7 +2,7 @@
 components:
     - rx.radix.separator
 Separator: |
-    lambda **props: rx.radix.themes.separator(**props)
+    lambda **props: rx.radix.separator(**props)
 
 ---
 

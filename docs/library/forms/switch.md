@@ -3,7 +3,7 @@ components:
      - rx.radix.switch
 
 Switch: |
-    lambda **props: rx.radix.themes.switch(**props)
+    lambda **props: rx.radix.switch(**props)
 
 ---
 

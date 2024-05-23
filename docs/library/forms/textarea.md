@@ -3,7 +3,7 @@ components:
     - rx.radix.text_area
 
 TextArea: |
-    lambda **props: rx.radix.themes.text_area(**props)
+    lambda **props: rx.radix.text_area(**props)
 ---
 
 ```python exec
