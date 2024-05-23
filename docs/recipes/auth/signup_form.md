@@ -5,7 +5,6 @@ import reflex as rx
 # Sign up Form
 
 The sign up form is a common component in web applications. It allows users to create an account and access the application's features. This page provides a few examples of sign up forms that you can use in your application.
-
 ## Default
 
 ```python exec
@@ -213,6 +212,7 @@ def signup_default_icons() -> rx.Component:
 
 ## Third-party auth
 
+
 ```python exec
 def signup_single_thirdparty() -> rx.Component:
 	return rx.card(
@@ -339,7 +339,6 @@ def signup_single_thirdparty() -> rx.Component:
 		width="100%"
 	)
 ```
-
 ## Multiple third-party auth
 
 ```python exec

@@ -1,3 +1,7 @@
+```python exec
+import reflex as rx
+```
+
 # Navigation Bar
 
 A navigation bar, also known as a navbar, is a common UI element found at the top of a webpage or application.
@@ -9,38 +13,6 @@ Having a clear and consistent navigation structure can greatly improve the user 
 ## Basic
 
 ```python exec
-<<<<<<< HEAD
-import reflex as rx
-
-
-def navbar():
-    return rx.hstack(
-        rx.hstack(
-            rx.image(src="/favicon.ico", width="2em"),
-            rx.heading("My App", font_size="2em"),
-        ),
-        rx.spacer(),
-        rx.menu.root(
-            rx.menu.trigger(
-                rx.button("Menu"),
-            ),
-            rx.menu.content(
-                rx.menu.item("item 1"),
-                rx.menu.separator(),
-                rx.menu.item("Item 2"),
-
-                rx.menu.item("Item 3"),
-                width="10rem"
-            ),
-
-        ),
-        background_color="lightgray",
-        padding="1em",
-        height="4em",
-        width="100%",
-        z_index="5",
-    )
-=======
 def navbar() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
@@ -87,7 +59,6 @@ def navbar() -> rx.Component:
 		# z_index="5",
 		width="100%"
 	)
->>>>>>> 2f29272 (update code blocks helper functions order, shorten titles + minor adjustments)
 ```
 
 ```python demo box
@@ -95,120 +66,6 @@ navbar()
 ```
 
 ```python
-<<<<<<< HEAD
-def navbar():
-    return rx.hstack(
-        rx.hstack(
-            rx.image(src="/favicon.ico", width="2em"),
-            rx.heading("My App", font_size="2em"),
-        ),
-        rx.spacer(),
-        rx.menu.root(
-            rx.menu.trigger(
-                rx.button("Menu"),
-            ),
-            rx.menu.content(
-                rx.menu.item("item 1"),
-                rx.menu.separator(),
-                rx.menu.item("Item 2"),
-
-                rx.menu.item("Item 3"),
-                width="10rem"
-            ),
-
-        ),
-        position="fixed",
-        top="0px",
-        background_color="lightgray",
-        padding="1em",
-        height="4em",
-        width="100%",
-        z_index="5",
-    )
-```
-
-## Adding Main Content
-
-Now that we have a navbar, we can add some content to the page.
-
-We wrap both the navbar and the main content in a `rx.fragment` component so that they are rendered together as a single page.
-We add some padding to the top of the main content so that it is not hidden behind the navbar.
-You can adjust the amount of padding to suit your needs.
-
-```python demo exec
-def content():
-    return rx.box(
-        rx.heading("Welcome to My App"),
-        rx.text("This is the main content of the page."),
-    )
-
-def index():
-    return rx.fragment(
-        navbar(),
-        rx.container(
-            content(),
-            padding_top="6em",
-            max_width="60em",
-        ),
-    )
-```
-
-Here is the full code for a basic navbar with main content:
-
-```python
-import reflex as rx
-
-def content():
-    return rx.box(
-        rx.heading("Welcome to My App"),
-        rx.text("This is the main content of the page."),
-    )
-
-def navbar():
-    return rx.hstack(
-        rx.hstack(
-            rx.image(src="/favicon.ico", width="2em"),
-            rx.heading("My App", font_size="2em"),
-        ),
-        rx.spacer(),
-        rx.menu.root(
-            rx.menu.trigger(
-                rx.button("Menu"),
-            ),
-            rx.menu.content(
-                rx.menu.item("item 1"),
-                rx.menu.separator(),
-                rx.menu.item("Item 2"),
-
-                rx.menu.item("Item 3"),
-            ),
-
-        ),
-        position="fixed",
-        top="0px",
-        background_color="lightgray",
-        padding="1em",
-        height="4em",
-        width="100%",
-        z_index="5",
-    )
-
-
-def index():
-    return rx.fragment(
-        navbar(),
-        rx.container(
-            content(),
-            padding_top="6em",
-            max_width="60em",
-        ),
-    )
-
-
-app = rx.App()
-app.add_page(index)
-```
-=======
 def navbar() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
@@ -845,4 +702,3 @@ def navbar_user() -> rx.Component:
 		width="100%"
 	)
 ```
->>>>>>> 2f29272 (update code blocks helper functions order, shorten titles + minor adjustments)
