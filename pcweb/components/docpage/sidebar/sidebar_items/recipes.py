@@ -16,6 +16,9 @@ def get_sidebar_items_recipes():
             children=[
                 recipes.layout.navbar,
                 recipes.layout.sidebar,
+                recipes.layout.footer,
+                recipes.layout.grid,
+                recipes.layout.multi_column_row,
             ],
         ),
         create_item(
@@ -28,21 +31,11 @@ def get_sidebar_items_recipes():
         create_item(
             "Auth",
             children=[
-                recipes.auth.account_setting,
                 recipes.auth.login_form,
-                recipes.auth.portfolio,
+                recipes.auth.signup_form,
             ]
         ),
-        create_item(
-            "Others",
-            children=[
-                recipes.others.order_summary,
-                recipes.others.payment_integration,
-                recipes.others.product_card,
-            ]
-        )
     ]
-
 
 
 recipes = get_sidebar_items_recipes()

@@ -103,7 +103,6 @@ def login_default() -> rx.Component:
 		width="100%"
 	)
 ```
-
 ## Icons
 
 ```python exec
@@ -201,7 +200,6 @@ def login_default_icons() -> rx.Component:
 		width="100%"
 	)
 ```
-
 ## Third-party auth
 
 ```python exec
@@ -326,7 +324,6 @@ def login_single_thirdparty() -> rx.Component:
 		width="100%"
 	)
 ```
-
 ## Multiple third-party auth
 
 ```python exec
