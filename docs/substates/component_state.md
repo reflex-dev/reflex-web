@@ -96,8 +96,9 @@ class EditableText(rx.ComponentState):
 
         # Form elements for editing, saving and reverting the text.
         edit_controls = rx.hstack(
-            rx.input.root(
-                rx.input(value=value, on_change=on_change, **props),
+            rx.input(
+                value=value,
+                on_change=on_change,
                 **props,
             ),
             rx.icon_button(

@@ -138,7 +138,7 @@ rx.form.root(
 )
 ```
 
-In this example, the `text_field.root` has an attribute `type="email"` and the `form.message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `text_field.root` to construct the Form Control and `button` the Form Submit.
+In this example, the `rx.input` has an attribute `type="email"` and the `form.message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `rx.input` to construct the Form Control and `button` the Form Submit.
 
 ## Form Anatomy
 
@@ -306,7 +306,7 @@ def radix_form_submission_example():
 
 Client side validation is achieved by examining the property of an interface of HTML elements called **ValidityState**. The `match` prop of the Form Message determines when the message should be displayed. The valid `match` prop values can be found in the **props** tab at the top of this page. For example, `"typeMismatch"` is set to `True` when an input element has a `type` attribute and the entered value is not valid for the `type`. If the input is specified as `type="url"`, it is expected to start with `http://` or `https://`. For the list of supported types, please refer to [HTML input element docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type). The above references are all part of the HTML standards. For more details, please refer to [ValidityState docs](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) and further more the reference links on that page.
 
-Below is an example of a form that collects a **number** from a `text_field.root`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `text_field.root` and `match="rangeUnderflow"` on the `form.message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `text_field.root` and `match="rangeOverflow"` on the `form.message`.
+Below is an example of a form that collects a **number** from a `rx.input`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `rx.input` and `match="rangeUnderflow"` on the `form.message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `rx.input` and `match="rangeOverflow"` on the `form.message`.
 
 ```python demo
 rx.form.root(
