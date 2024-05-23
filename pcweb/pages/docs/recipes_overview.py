@@ -4,30 +4,6 @@ import reflex as rx
 from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
-
-items = [
-    "navbar",
-    "footer",
-    "header",
-    "hero section",
-    "CTA buttons",
-    "forms",
-    "image gallery",
-    "testimonials",
-    "blog posts",
-    "social media icons",
-    "search bar",
-    "breadcrumbs",
-    "pagination",
-    "modal windows",
-    "accordion",
-    "tabs",
-    "progress bars",
-    "timeline",
-    "pricing tables",
-    "FAQ section"
-]
-
 def component_grid():
     from pcweb.pages.docs import recipes_list
     sidebar = []

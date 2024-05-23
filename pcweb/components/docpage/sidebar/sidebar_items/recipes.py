@@ -17,32 +17,20 @@ def get_sidebar_items_recipes():
                 recipes.layout.navbar,
                 recipes.layout.sidebar,
                 recipes.layout.footer,
-                recipes.layout.grid,
-                recipes.layout.multi_column_row,
             ],
         ),
         create_item(
-            "interactive",
+            "Content",
             children=[
-                recipes.content.checkboxes,
-                recipes.content.search_bar,
+                recipes.content.grid,
+                recipes.content.multi_column_row,
             ],
         ),
         create_item(
-            "user-profiles",
+            "Auth",
             children=[
-                recipes.auth.account_setting,
                 recipes.auth.login_form,
                 recipes.auth.signup_form,
-                recipes.auth.portfolio,
-            ]
-        ),
-        create_item(
-            "e-commerce",
-            children=[
-                recipes.others.order_summary,
-                recipes.others.payment_integration,
-                recipes.others.product_card,
             ]
         )
     ]
