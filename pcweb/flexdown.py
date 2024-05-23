@@ -221,6 +221,7 @@ class DemoBlock(flexdown.blocks.Block):
         exec_mode = env.get("__exec", False)
         comp = ""
 
+
         if "exec" in args:
             env["__xd"].exec(code, env, self.filename)
             if not exec_mode:
@@ -237,7 +238,7 @@ class DemoBlock(flexdown.blocks.Block):
             return comp
         elif "box" in args:
             comp = eval(code, env, env)
-            return rx.box(docdemobox(comp), margin_bottom="1em")
+            return rx.box(docdemobox(comp), margin_bottom="1em")           
         else:
             comp = eval(code, env, env)
 
@@ -247,7 +248,8 @@ class DemoBlock(flexdown.blocks.Block):
             prop, equals, value = arg.partition("=")
             if equals:
                 demobox_props[prop] = value
-
+        if "toggle" in args:
+            demobox_props["toggle"] = True
         return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
 
 class DemoBlockDark(DemoBlock):

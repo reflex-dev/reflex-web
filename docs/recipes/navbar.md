@@ -48,7 +48,7 @@ def navbar():
     )
 ```
 
-```python demo box
+```python demo box toggle
 navbar()
 ```
 
@@ -92,7 +92,7 @@ We wrap both the navbar and the main content in a `rx.fragment` component so tha
 We add some padding to the top of the main content so that it is not hidden behind the navbar.
 You can adjust the amount of padding to suit your needs.
 
-```python demo exec
+```python demo exec toggle
 def content():
     return rx.box(
         rx.heading("Welcome to My App"),

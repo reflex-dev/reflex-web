@@ -106,7 +106,39 @@ def docdemo(
     # Add the state code
     if state is not None:
         code = state + code
-
+ 
+    if toggle := props.pop("toggle", True):
+        return rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger(
+                rx.hstack(
+                    rx.icon("panels-top-left", size=18), 
+                    "UI", 
+                ),
+                value="tab1"
+            ),
+            rx.tabs.trigger(
+                rx.hstack(
+                    rx.icon("code", size=18), 
+                    "Code", 
+                ),
+                value="tab2"
+            ),
+        ),
+        rx.tabs.content(
+            rx.box(
+                docdemobox(comp, **(demobox_props or {})),
+                margin_bottom="1em",
+                margin_top="1em",
+            ),
+            value="tab1",
+        ),
+        rx.tabs.content(
+            doccode(code, theme=theme),
+            value="tab2",
+        ),
+        default_value="tab1",
+    )
     # Create the demo.
     return rx.vstack(
         docdemobox(comp, **(demobox_props or {})),
@@ -116,6 +148,7 @@ def docdemo(
         gap="1em",
         **props,
     )
+
 
 
 tab_style = {
