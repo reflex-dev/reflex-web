@@ -304,20 +304,36 @@ def sidebar_category(name, icon, color, index):
     )
 
 
-def sidebar_section(name):
-    return rx.text(
-        name,
+def onboarding_section():
+    return rx.link(
+        "Onboarding",
         color=rx.color("mauve", 12),
         font_weight="600",
         padding_top="1em",
         padding_left="0.75em",
+        href="/docs/getting-started/introduction",
+    )
+
+def hosting_section():
+    return rx.link(
+        "Hosting",
+        color=rx.color("mauve", 12),
+        font_weight="600",
+        padding_top="0.5em",
+        margin_buttom="1em",
+        padding_left="0.75em",
+        href="/docs/hosting/deploy-quick-start",
     )
 
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
         rx.cond(
             section_title == "Onboarding",
-            sidebar_section(section_title),
+            onboarding_section(),
+        ),
+        rx.cond(
+            section_title == "Hosting",
+            hosting_section(),
         ),
         rx.chakra.accordion(
             *[
