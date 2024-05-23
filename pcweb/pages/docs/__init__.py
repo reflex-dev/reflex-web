@@ -90,8 +90,9 @@ flexdown_docs = [
 
 chakra_components = defaultdict(list)
 component_list = defaultdict(list)
-recipes_list = []
+recipes_list = defaultdict(list)
 docs_ns = SimpleNamespace()
+
 
 
 def exec_blocks(doc, href):
@@ -195,9 +196,10 @@ for doc in sorted(flexdown_docs):
 
 for doc in flexdown_docs:
     if 'recipes' in doc:
-        category = '/'.join(doc.split('/')[:3])
-        if category not in recipes_list:
-            recipes_list.append(category)
+        category = doc.split('/')[2]
+        recipes_list[category].append(doc)
+
+print(recipes_list)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
