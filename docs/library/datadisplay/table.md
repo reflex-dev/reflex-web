@@ -139,6 +139,7 @@ TableRowHeaderCell: |
 
 ```python exec
 import reflex as rx
+from pcweb.models import Customer
 ```
 
 # Table
@@ -327,9 +328,7 @@ The code below shows how to load data from a database and place it in an `rx.tab
 
 ## Loading data into table
 
-```python demo exec
-from sqlmodel import select
-
+```python
 class Customer(rx.Model, table=True):
     """The customer model."""
 
@@ -337,7 +336,11 @@ class Customer(rx.Model, table=True):
     email: str
     phone: str
     address: str
+```
 
+
+```python demo exec
+from sqlmodel import select
 
 class DatabaseTableState(rx.State):
 
@@ -369,6 +372,7 @@ def loading_data_table_example():
             ),
         ),
         rx.table.body(rx.foreach(DatabaseTableState.users, show_customer)),
+        on_mount=DatabaseTableState.load_entries,
     )
 
 ```
@@ -378,14 +382,22 @@ If you want to load the data when the page in the app loads you can set `on_load
 
 
 
-## Sorting 
+## Sorting and Filtering (Searching)
 
 
+```python
+class Customer(rx.Model, table=True):
+    """The customer model."""
 
+    name: str
+    email: str
+    phone: str
+    address: str
+```
 
 
 ```python demo exec
-from sqlmodel import select
+from sqlmodel import select, asc, or_
 
 
 class DatabaseTableState2(rx.State):
@@ -393,23 +405,49 @@ class DatabaseTableState2(rx.State):
     users: list[Customer] = []
 
     sort_value = ""
+    search_value = ""
 
-    @rx.cached_var
     def load_entries(self) -> list[Customer]:
         """Get all users from the database."""
+        with rx.session() as session:
+            query = select(Customer)
+
+            if self.search_value != "":
+                search_value = f"%{self.search_value.lower()}%"
+                query = query.where(
+                    or_(
+                        Customer.name.ilike(search_value),
+                        Customer.email.ilike(search_value),
+                        Customer.phone.ilike(search_value),
+                        Customer.address.ilike(search_value),
+                    )
+                )
+
+            if self.sort_value != "":
+                sort_column = getattr(Customer, self.sort_value)
+                order = asc(sort_column)
+                query = query.order_by(order)
+
+            self.users = session.exec(query).all()
+
         
-        if self.sort_value == "":
-            with rx.session() as session:
-                self.users = session.exec(select(Customer)).all()
 
-        if self.sort_value != "":
-            sort_column = getattr(Customer, sort_value)
-            order = asc(sort_column)
-            with rx.session() as session:
-                users = session.exec(select(Customer).order_by(order)).all()
+    def sort_values(self, sort_value):
+        self.sort_value = sort_value
+        self.load_entries()
 
+    def filter_values(self, search_value):
+        self.search_value = search_value
+        self.load_entries()
 
-
+def show_customer(user: Customer):
+    """Show a customer in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.phone),
+        rx.table.cell(user.address),
+    )
 
 
 def loading_data_table_example2():
@@ -417,7 +455,11 @@ def loading_data_table_example2():
         rx.select(
             ["name", "email", "phone", "address"],
             placeholder="Sort By: Name",
-            on_change=lambda sort_value: State.sort_values(sort_value),
+            on_change= lambda value: DatabaseTableState2.sort_values(value),
+        ),
+        rx.input(
+            placeholder="Search here...",
+            on_change= lambda value: DatabaseTableState2.filter_values(value),
         ),
         rx.table.root(
             rx.table.header(
@@ -429,10 +471,15 @@ def loading_data_table_example2():
                 ),
             ),
             rx.table.body(rx.foreach(DatabaseTableState2.users, show_customer)),
+            on_mount=DatabaseTableState2.load_entries,
         ),
     )
 
 ```
+
+
+
+
 
 
 
