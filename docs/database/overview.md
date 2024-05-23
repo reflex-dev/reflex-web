@@ -15,7 +15,7 @@ For advanced use cases, please see the
 ```md alert info
 # Using NoSQL Databases
 
-If you are using a NoSQL database (e.g. MongoDB), you work with it with Reflex by installing the appropriate Python client library. In this case, Reflex will not provide any ORM features.
+If you are using a NoSQL database (e.g. MongoDB), you work with it in Reflex by installing the appropriate Python client library. In this case, Reflex will not provide any ORM features.
 ```
 
 ## Connecting
