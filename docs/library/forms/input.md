@@ -1,7 +1,6 @@
 ---
 components:
     - rx.radix.input
-    - rx.radix.input.root
     - rx.radix.input.slot
 
 
