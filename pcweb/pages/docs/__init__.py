@@ -184,8 +184,6 @@ for doc in sorted(flexdown_docs):
         docs_ns, path, title, Route(path=route, title=title2, component=lambda: "")
     )
 
-    # Add the route to the list of routes.
-
     if comp is not None:
         if isinstance(comp, tuple):
             for c in comp:
@@ -198,8 +196,6 @@ for doc in flexdown_docs:
     if 'recipes' in doc:
         category = doc.split('/')[2]
         recipes_list[category].append(doc)
-
-print(recipes_list)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns
