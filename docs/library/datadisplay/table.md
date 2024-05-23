@@ -140,6 +140,7 @@ TableRowHeaderCell: |
 ```python exec
 import reflex as rx
 from pcweb.models import Customer
+from pcweb.pages.docs import vars, events, database, library, components
 ```
 
 # Table
@@ -177,14 +178,14 @@ rx.table.root(
 )
 ```
 
-If you just want to represent static data then the `rx.datatable` (give link here) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
+If you just want to [represent static data]({library.datadisplay.datatable.path}) then the `rx.data_table` might be a better fit for your use case as it comes with in-built pagination, search and sorting.
 
 
 ## Showing State data (using foreach)
 
 Many times there is a need for the data we represent in our table to be dynamic. Dynamic data must be in `State`. Later we will show an example of how to access data from a database and how to load data from a source file.
 
-In this example there is a `people` data structure in `State` that is iterated through using `rx.foreach` (link to foreach docs). 
+In this example there is a `people` data structure in `State` that is [iterated through using `rx.foreach`]({components.rendering_iterables.path}).
 
 ```python demo exec
 class TableForEachState(rx.State):
@@ -232,13 +233,13 @@ class Person(rx.Base):
 
 In this example we sort and filter the data. 
 
-The state variable `_people` is set to be a backend-only variable. This is done incase the variable is very large in order to reduce network traffic and improve performance. (link to https://reflex.dev/docs/vars/base-vars/#backend-only-vars)
+The state variable `_people` is set to be a [backend-only variable]({vars.base_vars.path}). This is done incase the variable is very large in order to reduce network traffic and improve performance.
 
-For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Person` class. When a `select` item is selected, as the `on_change` event trigger is hooked up to the `set_sort_value` event handler, the data is sorted based on the state variable `sort_value` attribute selected. (Every base var has a built-in event handler to set it's value for convenience, called `set_VARNAME`. link to https://reflex.dev/docs/events/setters/) 
+For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Person` class. When a `select` item is selected, as the `on_change` event trigger is hooked up to the `set_sort_value` event handler, the data is sorted based on the state variable `sort_value` attribute selected. (Every base var has a [built-in event handler to set]({events.setters.path}) it's value for convenience, called `set_VARNAME`.)
 
 For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `set_search_value` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Person`.
 
-`current_people` is a `rx.cached_var` (link to https://reflex.dev/docs/vars/computed-vars/#cached-vars). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
+`current_people` is an [`rx.cached_var`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
 
 
 ```python demo exec
@@ -325,8 +326,14 @@ The more common use case for building an `rx.table` is to use data from a databa
 
 The code below shows how to load data from a database and place it in an `rx.table`.
 
-
 ## Loading data into table
+
+A `Customer` [model]({database.tables.path}) is defined that inherits from `rx.Model`.
+
+The `load_entries` event handler executes a [query]({database.queries.path}) that is used to request information from a database table. This `load_entries` event handler is called on the `on_mount` event trigger of the `rx.table.root`. 
+
+If you want to load the data when the page in the app loads you can set `on_load` in `app.add_page()` to equal this event handler, like `app.add_page(page_name, on_load=State.load_entries)`.
+
 
 ```python
 class Customer(rx.Model, table=True):
@@ -378,11 +385,19 @@ def loading_data_table_example():
 ```
 
 
-If you want to load the data when the page in the app loads you can set `on_load` in `app.add_page()` to equal this event handler, like `app.add_page(page_name, on_load=State.load_entries)`.
 
+## Filtering (Searching) and Sorting
 
+In this example we sort and filter the data.
 
-## Sorting and Filtering (Searching)
+For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Customer` class. When a select item is selected, as the `on_change` event trigger is hooked up to the `sort_values` event handler, the data is sorted based on the state variable `sort_value` attribute selected. 
+
+The sorting query gets the `sort_column` based on the state variable `sort_value`, it gets the order using the `asc` function from sql and finally uses the `order_by` function.
+
+For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `filter_values` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Customer`. 
+
+The `%` character before and after `search_value` makes it a wildcard pattern that matches any sequence of characters before or after the `search_value`. `query.where(...)` modifies the existing query to include a filtering condition. The `or_` operator is a logical OR operator that combines multiple conditions. The query will return results that match any of these conditions. `Customer.name.ilike(search_value)` checks if the `name` column of the `Customer` table matches the `search_value` pattern in a case-insensitive manner (`ilike` stands for "case-insensitive like").
+
 
 
 ```python
@@ -430,8 +445,7 @@ class DatabaseTableState2(rx.State):
 
             self.users = session.exec(query).all()
 
-        
-
+    
     def sort_values(self, sort_value):
         self.sort_value = sort_value
         self.load_entries()
@@ -439,6 +453,7 @@ class DatabaseTableState2(rx.State):
     def filter_values(self, search_value):
         self.search_value = search_value
         self.load_entries()
+
 
 def show_customer(user: Customer):
     """Show a customer in a table row."""
@@ -480,22 +495,121 @@ def loading_data_table_example2():
 
 
 
+## Pagination
+
+
+Pagination is an important part of database management, especially when working with large datasets. It helps in enabling efficient data retrieval by breaking down results into manageable loads.
+
+The purpose of this code is to retrieve a specific subset of rows from the `Customer` table based on the specified pagination parameters `offset` and `limit`.
+
+`query.offset(self.offset)` modifies the query to skip a certain number of rows before returning the results. The number of rows to skip is specified by `self.offset`.
+
+`query.limit(self.limit)` modifies the query to limit the number of rows returned. The maximum number of rows to return is specified by `self.limit`.
 
 
 
+```python demo exec
+from sqlmodel import select, func
+
+
+class DatabaseTableState3(rx.State):
+
+    users: list[Customer] = []
+    
+    total_items: int
+    offset: int = 0
+    limit: int = 3
+
+    @rx.cached_var
+    def page_number(self) -> int:
+        return (
+            (self.offset // self.limit)
+            + 1
+            + (1 if self.offset % self.limit else 0)
+        )
+
+    @rx.cached_var
+    def total_pages(self) -> int:
+        return self.total_items // self.limit + (
+            1 if self.total_items % self.limit else 0
+        )
+
+    def prev_page(self):
+        self.offset = max(self.offset - self.limit, 0)
+        self.load_entries()
+
+    def next_page(self):
+        if self.offset + self.limit < self.total_items:
+            self.offset += self.limit
+        self.load_entries()
+
+    def _get_total_items(self) -> int:
+        """Return the total number of items in the Customer table."""
+        
+        with rx.session() as session:
+            self.total_items = session.exec(select(func.count(Customer.id))).one()
+
+
+    def load_entries(self) -> list[Customer]:
+        """Get all users from the database."""
+        with rx.session() as session:
+            query = select(Customer)
+
+            # Apply pagination
+            query = query.offset(self.offset).limit(self.limit)
+
+            self.users = session.exec(query).all()
+            self._get_total_items()
+        
+
+def show_customer(user: Customer):
+    """Show a customer in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.phone),
+        rx.table.cell(user.address),
+    )
+
+
+def loading_data_table_example3():
+    return rx.vstack(
+        rx.hstack(
+            rx.button(
+                "Prev",
+                on_click=DatabaseTableState3.prev_page,
+            ),
+            rx.text(
+                f"Page {DatabaseTableState3.page_number} / {DatabaseTableState3.total_pages}"
+            ),
+            rx.button(
+                "Next",
+                on_click=DatabaseTableState3.next_page,
+            ),
+        ),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(DatabaseTableState3.users, show_customer)),
+            on_mount=DatabaseTableState3.load_entries,
+        ),
+    )
+
+```
+
+## More advanced examples
+
+The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app and code: https://github.com/reflex-dev/data-viewer. 
 
 
 
-
-
-
-
-
-
-The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: https://customer-data-app.reflex.run and ...
-
-
-## Real World Example
+## Real World Example UI
 
 ```python demo
 rx.flex(
