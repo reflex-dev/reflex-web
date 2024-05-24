@@ -147,6 +147,7 @@ from pcweb.pages.docs import vars, events, database, library, components
 
 A semantic table for presenting tabular data.
 
+If you just want to [represent static data]({library.datadisplay.datatable.path}) then the [`rx.data_table`]({library.datadisplay.datatable.path}) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
 
 ## Basic Example
 
@@ -177,8 +178,6 @@ rx.table.root(
     ),
 )
 ```
-
-If you just want to [represent static data]({library.datadisplay.datatable.path}) then the `rx.data_table` might be a better fit for your use case as it comes with in-built pagination, search and sorting.
 
 
 ## Showing State data (using foreach)
@@ -616,6 +615,15 @@ The real power of the `rx.table` comes where you are able to visualise, add and 
 
 
 # Download 
+
+Most users will want to download their data after they have got the subset that they would like in their table. 
+
+In this example there are buttons to download the data as a `json` and as a `csv`.
+
+For the `json` download the `rx.download` is in the frontend code attached to the `on_click` event trigger for the button. This works because if the `Var` is not already a string, it will be converted to a string using `JSON.stringify`.
+
+For the `csv` download the `rx.download` is in the backend code as an event_handler `download_csv_data`. There is also a helper function `_convert_to_csv` that converts the data in `self.users` to `csv` format.
+
 
 ```python demo exec
 import io
