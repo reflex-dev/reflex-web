@@ -542,7 +542,7 @@ class DatabaseTableState3(rx.State):
             self.offset += self.limit
         self.load_entries()
 
-    def _get_total_items(self, session) -> int:
+    def _get_total_items(self, session):
         """Return the total number of items in the Customer table."""
         self.total_items = session.exec(select(func.count(Customer.id))).one()
 
