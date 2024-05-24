@@ -53,7 +53,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2.5",
+        spacing="2",
         justify="end",
         width="100%"
     )
@@ -150,7 +150,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2.5",
+        spacing="2",
         justify="end",
         width="100%"
     )
@@ -285,7 +285,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2.5",
+        spacing="2",
         justify="end",
         width="100%"
     )
@@ -427,7 +427,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2.5",
+        spacing="2",
         justify="end",
         width="100%"
     )

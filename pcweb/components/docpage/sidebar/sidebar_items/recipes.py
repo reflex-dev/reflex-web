@@ -25,7 +25,6 @@ def get_sidebar_items_recipes():
             "Content",
             children=[
                 recipes.content.checkboxes,
-                # recipes.content.search_bar,
             ],
         ),
         create_item(
