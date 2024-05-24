@@ -34,6 +34,12 @@ def get_sidebar_items_recipes():
                 recipes.auth.signup_form,
             ]
         ),
+        create_item(
+            "Others",
+            children=[
+                recipes.others.stats,
+            ]
+        )
     ]
 
 
