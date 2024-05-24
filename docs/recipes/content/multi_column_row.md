@@ -9,7 +9,7 @@ A simple responsive multi-column and row layout. We specify the number of column
 
 For details, see the [responsive docs page]({styling.responsive.path}).
 
-## Multi-column layout
+## Column
 
 ```python demo
 rx.flex(
@@ -40,32 +40,24 @@ rx.flex(
 )
 ```
 
-## Multi-row layout
+## Row
 
 ```python demo
 rx.flex(
-	rx.box(bg=rx.color("accent", 3), width="100%", height="100%"),
-	rx.box(bg=rx.color("accent", 5), width="100%", height="100%"),
-	rx.box(bg=rx.color("accent", 7), width="100%", height="100%"),
+	rx.flex(
+		rx.box(bg=rx.color("accent", 3), width=["100%", "100%", "50%"], height="100%"),
+		rx.box(bg=rx.color("accent", 5), width=["100%", "100%", "50%"], height="100%"),
+		width="100%",
+		height="100%",
+		spacing="4",
+		flex_direction=["column", "column", "row"],
+	),
+	rx.box(bg=rx.color("accent", 7), width="100%", height="50%"),
+	rx.box(bg=rx.color("accent", 9), width="100%", height="50%"),
 	bg=rx.color("accent", 10),
 	spacing="4",
 	padding="1em",
-	flex_direction=["row", "row", "column"],
-	height="600px",
-	width="100%",
-)
-```
-
-```python demo
-rx.flex(
-	rx.box(bg=rx.color("accent", 3), width=["50%", "50%", "100%"], height=["100%", "100%", "50%"]),
-	rx.box(bg=rx.color("accent", 5), width="100%", height="100%"),
-	rx.box(bg=rx.color("accent", 7), width=["50%", "50%", "100%"], height=["100%", "100%", "50%"]),
-	rx.box(bg=rx.color("accent", 9), width="100%", height="100%"),
-	bg=rx.color("accent", 10),
-	spacing="4",
-	padding="1em",
-	flex_direction=["row", "row", "column"],
+	flex_direction="column",
 	height="600px",
 	width="100%",
 )

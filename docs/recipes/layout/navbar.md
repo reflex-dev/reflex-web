@@ -10,171 +10,11 @@ It typically provides links or buttons to the main sections of a website or appl
 Navigation bars are useful for web apps because they provide a consistent and intuitive way for users to navigate through the app.
 Having a clear and consistent navigation structure can greatly improve the user experience by making it easy for users to find the information they need and access the different features of the app.
 
-## Basic Navbar
-
-In this recipe, we will create a navbar component that can be used to create a navigation bar for a web app.
-The navbar will be a simple horizontal bar that contains a logo and a list of links to the different pages of the app.
-
-The navbar will be created using the `rx.hstack` component, which is used to create a horizontal layout.
-Since we want the navbar to be fixed to the top of the page, we set the `position` prop to `fixed` and the `top` prop to `0px`.
-We also set the `z_index` prop to `5` to make sure the navbar is always on top of the screen and above the other components on the page.
+## Basic
 
 ```python exec
-import reflex as rx
-
-
-def navbar():
-	return rx.hstack(
-		rx.hstack(
-			rx.image(src="/favicon.ico", width="2em"),
-			rx.heading("My App", font_size="2em"),
-		),
-		rx.spacer(),
-		rx.menu.root(
-			rx.menu.trigger(
-				rx.button("Menu"),
-			),
-			rx.menu.content(
-				rx.menu.item("item 1"),
-				rx.menu.separator(),
-				rx.menu.item("Item 2"),
-
-				rx.menu.item("Item 3"),
-				width="10rem"
-			),
-
-		),
-		background_color="lightgray",
-		padding="1em",
-		height="4em",
-		width="100%",
-		#z_index="5",
-	)
-```
-
-```python demo box
-navbar()
-```
-
-```python
-def navbar():
-	return rx.hstack(
-		rx.hstack(
-			rx.image(src="/favicon.ico", width="2em"),
-			rx.heading("My App", font_size="2em"),
-		),
-		rx.spacer(),
-		rx.menu.root(
-			rx.menu.trigger(
-				rx.button("Menu"),
-			),
-			rx.menu.content(
-				rx.menu.item("item 1"),
-				rx.menu.separator(),
-				rx.menu.item("Item 2"),
-
-				rx.menu.item("Item 3"),
-				width="10rem"
-			),
-
-		),
-		position="fixed",
-		top="0px",
-		background_color="lightgray",
-		padding="1em",
-		height="4em",
-		width="100%",
-		z_index="5",
-	)
-```
-
-## Adding Main Content
-
-Now that we have a navbar, we can add some content to the page.
-
-We wrap both the navbar and the main content in a `rx.fragment` component so that they are rendered together as a single page.
-We add some padding to the top of the main content so that it is not hidden behind the navbar.
-You can adjust the amount of padding to suit your needs.
-
-```python demo exec
-def content():
+def navbar() -> rx.Component:
 	return rx.box(
-		rx.heading("Welcome to My App"),
-		rx.text("This is the main content of the page."),
-	)
-
-def index():
-	return rx.fragment(
-		navbar(),
-		rx.container(
-			content(),
-			padding_top="6em",
-			max_width="60em",
-		),
-	)
-```
-
-Here is the full code for a basic navbar with main content:
-
-```python
-import reflex as rx
-
-def content():
-	return rx.box(
-		rx.heading("Welcome to My App"),
-		rx.text("This is the main content of the page."),
-	)
-
-def navbar():
-	return rx.hstack(
-		rx.hstack(
-			rx.image(src="/favicon.ico", width="2em"),
-			rx.heading("My App", font_size="2em"),
-		),
-		rx.spacer(),
-		rx.menu.root(
-			rx.menu.trigger(
-				rx.button("Menu"),
-			),
-			rx.menu.content(
-				rx.menu.item("item 1"),
-				rx.menu.separator(),
-				rx.menu.item("Item 2"),
-
-				rx.menu.item("Item 3"),
-			),
-
-		),
-		position="fixed",
-		top="0px",
-		background_color="lightgray",
-		padding="1em",
-		height="4em",
-		width="100%",
-		z_index="5",
-	)
-
-
-def index():
-	return rx.fragment(
-		navbar(),
-		rx.container(
-			content(),
-			padding_top="6em",
-			max_width="60em",
-		),
-	)
-
-
-app = rx.App()
-app.add_page(index)
-```
-
-## Navbar with navigation links
-
-```python exec
-def navbar_links() -> rx.Component:
-	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
@@ -222,11 +62,11 @@ def navbar_links() -> rx.Component:
 ```
 
 ```python demo box
-navbar_links()
+navbar()
 ```
 
 ```python
-def navbar_links() -> rx.Component:
+def navbar() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
@@ -274,11 +114,11 @@ def navbar_links() -> rx.Component:
 	)
 ```
 
-## Navbar with dropdown
+## Dropdown
 
 ```python exec
 def navbar_dropdown() -> rx.Component:
-	return rx.el.nav(
+	return rx.box(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
@@ -419,11 +259,11 @@ def navbar_dropdown() -> rx.Component:
 	)
 ```
 
-## Navbar with search bar
+## Search bar
 
 ```python exec
 def navbar_searchbar() -> rx.Component:
-	return rx.el.nav(
+	return rx.box(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
@@ -509,27 +349,27 @@ def navbar_searchbar() -> rx.Component:
 	)
 ```
 
-## Navbar with icons
+## Icons
 
 ```python exec
-def navbar_icons_item(text: str, url: str, icon: str) -> rx.Component:
+def navbar_icons_item(text: str, icon: str, url: str) -> rx.Component:
 	return rx.link(rx.hstack(rx.icon(icon), rx.text(text, size="4", weight="medium")), href=url)
 
 def navbar_icons_menu_item(text: str, icon: str, url: str) -> rx.Component:
 	return rx.link(rx.hstack(rx.icon(icon, size=16), rx.text(text, size="3", weight="medium")), href=url)
 
 def navbar_icons() -> rx.Component:
-	return rx.el.nav(
+	return rx.box(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
 					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					navbar_icons_item("Home", "/#", "home"),
-					navbar_icons_item("Pricing", "/#", "coins"),
-					navbar_icons_item("Contact", "/#", "mail"),
-					navbar_icons_item("Services", "/#", "layers"),
+					navbar_icons_item("Home", "home", "/#"),
+					navbar_icons_item("Pricing", "coins", "/#"),
+					navbar_icons_item("Contact", "mail", "/#"),
+					navbar_icons_item("Services", "layers", "/#"),
 					spacing="6",
 				),
 				justify="between",
@@ -569,6 +409,12 @@ navbar_icons()
 ```
 
 ```python
+def navbar_icons_item(text: str, icon: str, url: str) -> rx.Component:
+	return rx.link(rx.hstack(rx.icon(icon), rx.text(text, size="4", weight="medium")), href=url)
+
+def navbar_icons_menu_item(text: str, icon: str, url: str) -> rx.Component:
+	return rx.link(rx.hstack(rx.icon(icon, size=16), rx.text(text, size="3", weight="medium")), href=url)
+
 def navbar_icons() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
@@ -577,10 +423,10 @@ def navbar_icons() -> rx.Component:
 					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					navbar_icons_item("Home", "/#", "home"),
-					navbar_icons_item("Pricing", "/#", "coins"),
-					navbar_icons_item("Contact", "/#", "mail"),
-					navbar_icons_item("Services", "/#", "layers"),
+					navbar_icons_item("Home", "home", "/#"),
+					navbar_icons_item("Pricing", "coins", "/#"),
+					navbar_icons_item("Contact", "mail", "/#"),
+					navbar_icons_item("Services", "layers", "/#"),
 					spacing="6",
 				),
 				justify="between",
@@ -613,19 +459,13 @@ def navbar_icons() -> rx.Component:
 		z_index="5",
 		width="100%"
 	)
-
-def navbar_icons_item(text: str, url: str, icon: str) -> rx.Component:
-	return rx.link(rx.hstack(rx.icon(icon), rx.text(text, size="4", weight="medium")), href=url)
-
-def navbar_icons_menu_item(text: str, icon: str, url: str) -> rx.Component:
-	return rx.link(rx.hstack(rx.icon(icon, size=16), rx.text(text, size="3", weight="medium")), href=url)
 ```
 
-## Navbar with buttons
+## Buttons
 
 ```python exec
 def navbar_buttons() -> rx.Component:
-	return rx.el.nav(
+	return rx.box(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
@@ -739,11 +579,11 @@ def navbar_buttons() -> rx.Component:
 	)
 ```
 
-## Navbar with user profile
+## User profile
 
 ```python exec
 def navbar_user() -> rx.Component:
-	return rx.el.nav(
+	return rx.box(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(

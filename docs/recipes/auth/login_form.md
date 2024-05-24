@@ -6,7 +6,7 @@ import reflex as rx
 
 The login form is a common component in web applications. It allows users to authenticate themselves and access their accounts. This recipe provides examples of login forms with different elements, such as third-party authentication providers.
 
-## Default login card
+## Default
 
 ```python exec
 def login_default() -> rx.Component:
@@ -104,7 +104,7 @@ def login_default() -> rx.Component:
 	)
 ```
 
-## Default login card with icons
+## Icons
 
 ```python exec
 def login_default_icons() -> rx.Component:
@@ -202,7 +202,7 @@ def login_default_icons() -> rx.Component:
 	)
 ```
 
-## Login card with third-party auth provider
+## Third-party auth
 
 ```python exec
 def login_single_thirdparty() -> rx.Component:
@@ -327,7 +327,7 @@ def login_single_thirdparty() -> rx.Component:
 	)
 ```
 
-## Login card with multiple third-party auth providers
+## Multiple third-party auth
 
 ```python exec
 def login_multiple_thirdparty() -> rx.Component:

@@ -1,5 +1,20 @@
 ```python exec
 import reflex as rx
+from pcweb.templates.docpage import demo_box_style
+
+# Custom styles for sidebar.
+box_style = demo_box_style.copy()
+del box_style["padding"]
+del box_style["align_items"]
+del box_style["justify_content"]
+box_style["height"] = "650px"
+box_style["position"] = "relative"
+
+# Custom styles for sidebar mobile and tablet.
+box_style_sm = demo_box_style.copy()
+del box_style_sm["padding"]
+del box_style_sm["align_items"]
+del box_style_sm["justify_content"]
 
 def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
 	return rx.link(
@@ -37,174 +52,12 @@ def sidebar_items() -> rx.Component:
 
 # Sidebar
 
-Similar to a navigation bar, a sidebar is a common UI element found on the side of a webpage or application.
+Similar to a navigation bar, a sidebar is a common UI element found on the side of a webpage or application. It typically contains links to different sections of the site or app.
 
-## Recipe
-
-In this recipe, we will create a sidebar component than can help with navigation in a web app.
-
-In this example we want the sidebar to stick to the left side of the page, so we will use the `position="fixed"` prop to make the sidebar fixed to the left side of the page.
-We use `left=0` and `top=0` props to specify the position of the sidebar, and the `z_index=5` props to make sure the sidebar stays above the other components on the page.
+## Basic
 
 ```python exec
-import reflex as rx
-from pcweb.templates.docpage import demo_box_style
-
-# Custom styles for sidebar.
-box_style = demo_box_style.copy()
-del box_style["padding"]
-del box_style["align_items"]
-del box_style["justify_content"]
-box_style["height"] = "650px"
-box_style["position"] = "relative"
-
-# Custom styles for sidebar mobile and tablet.
-box_style_sm = demo_box_style.copy()
-del box_style_sm["padding"]
-del box_style_sm["align_items"]
-del box_style_sm["justify_content"]
-
-def sidebar():
-	return rx.vstack(
-		rx.image(src="/favicon.ico",width="3em"),
-		rx.heading("Sidebar", margin_bottom="1em"),
-		position="absolute",
-		height="100%",
-		# left="0px",
-		# top="0px",
-		# z_index="5",
-		padding_x="2em",
-		padding_y="1em",
-		background_color="lightgray",
-		align_items="left",
-		width="250px",
-	)
-```
-
-```python eval
-rx.box(
-	sidebar(),
-	style=box_style,
-)
-```
-
-```python
-def sidebar():
-	return rx.vstack(
-		rx.image(src="/favicon.ico",width="3em"),
-		rx.heading("Sidebar", margin_bottom="1em"),
-		position="fixed",
-		height="100%",
-		left="0px",
-		top="0px",
-		z_index="5",
-		padding_x="2em",
-		padding_y="1em",
-		background_color="lightgray",
-		align_items="left",
-		width="250px",
-	)
-```
-
-## Adding Main Content
-
-Now that we have a sidebar, we can add some content to the main part of the page.
-
-We wrap both the sidebar and content in an `rx.fragment`.
-We also make sure the content is aligned to the right of the sidebar by setting the `margin_left` prop to `250px` (the same as the width of the sidebar).
-
-```python exec
-
-def content():
-	return rx.box(
-		rx.heading("Welcome to My App"),
-		rx.text("This is the main content of the page."),
-	)
-
-
-def index():
-	return rx.fragment(
-		sidebar(),
-		rx.container(
-			content(),
-			max_width="60em",
-			margin_left="250px",
-			padding="2em"
-		),
-	)
-
-```
-
-```python eval
-rx.box(
-	index(),
-	style=box_style,
-)
-```
-
-```python
-def content():
-	return rx.box(
-		rx.heading("Welcome to My App"),
-		rx.text("This is the main content of the page."),
-	)
-
-
-def index():
-	return rx.fragment(
-		sidebar(),
-		rx.container(
-			content(),
-			max_width="60em",
-			margin_left="250px",
-			padding="2em"
-		),
-	)
-```
-
-Here is the full code for a basic sidebar with main content:
-
-```python
-import reflex as rx
-
-
-def content():
-	return rx.box(
-		rx.heading("Welcome to My App"),
-		rx.text("This is the main content of the page."),
-	)
-
-
-def sidebar():
-	return rx.vstack(
-		rx.image(src="/favicon.ico", width="3em"),
-		rx.heading("Sidebar", margin_bottom="1em"),
-		position="fixed",
-		height="100%",
-		left="0px",
-		top="0px",
-		z_index="5",
-		padding_x="2em",
-		padding_y="1em",
-		background_color="lightgray",
-		align_items="left",
-		width="250px",
-	)
-
-def index():
-	return rx.fragment(
-		sidebar(),
-		rx.container(content(), max_width="60em", margin_left="250px", padding="2em"),
-	)
-
-app = rx.App()
-app.add_page(index)
-```
-
-## Sidebar with navigation links
-
-```python exec
-def sidebar_links() -> rx.Component:
+def sidebar() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
 			rx.vstack(
@@ -234,15 +87,15 @@ def sidebar_links() -> rx.Component:
 		),
 		rx.mobile_and_tablet(
 			rx.drawer.root(
-				rx.box(
-					rx.drawer.close(rx.icon("x", size=30)),
-					width="100%",
-				),
+				rx.drawer.trigger(rx.icon("align-justify", size=30)),
 				rx.drawer.overlay(z_index="5"),
 				rx.drawer.portal(
 					rx.drawer.content(
 						rx.vstack(
-							rx.drawer.close(rx.icon("x", size=30)),
+							rx.box(
+								rx.drawer.close(rx.icon("x", size=30)),
+								width="100%",
+							),
 							sidebar_items(),
 							spacing="5",
 							width="100%",
@@ -265,11 +118,44 @@ def sidebar_links() -> rx.Component:
 ```
 
 ```python eval
-sidebar_links()
+sidebar()
 ```
 
 ```python
-def sidebar_links() -> rx.Component:
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
+def sidebar() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
 			rx.vstack(
@@ -319,42 +205,9 @@ def sidebar_links() -> rx.Component:
 			)
 		)
 	)
-
-def sidebar_items() -> rx.Component:
-	return rx.vstack(
-		sidebar_item("Dashboard", "layout-dashboard", "/#"),
-		sidebar_item("Projects", "square-library", "/#"),
-		sidebar_item("Analytics", "bar-chart-4", "/#"),
-		sidebar_item("Messages", "mail", "/#"),
-		spacing="1",
-		width="100%"
-	)
-
-def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
-	return rx.link(
-		rx.hstack(
-			rx.icon(icon),
-			rx.text(text, size="4"),
-			width="100%",
-			padding_x="0.5rem",
-			padding_y="0.75rem",
-			align="center",
-			style={
-				"_hover": {
-					"bg": rx.color("accent", 4),
-					"color": rx.color("accent", 11),
-				},
-				"border-radius": "0.5em",
-			},
-		),
-		href=href,
-		underline="none",
-		weight="medium",
-		width="100%"
-	)
 ```
 
-## Sidebar with bottom user profile
+## Bottom user profile
 
 ```python exec
 def sidebar_bottom_profile() -> rx.Component:
@@ -481,6 +334,39 @@ sidebar_bottom_profile()
 ```
 
 ```python
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
 def sidebar_bottom_profile() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
@@ -582,42 +468,9 @@ def sidebar_bottom_profile() -> rx.Component:
 			)
 		)
 	)
-
-def sidebar_items() -> rx.Component:
-	return rx.vstack(
-		sidebar_item("Dashboard", "layout-dashboard", "/#"),
-		sidebar_item("Projects", "square-library", "/#"),
-		sidebar_item("Analytics", "bar-chart-4", "/#"),
-		sidebar_item("Messages", "mail", "/#"),
-		spacing="1",
-		width="100%"
-	)
-
-def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
-	return rx.link(
-		rx.hstack(
-			rx.icon(icon),
-			rx.text(text, size="4"),
-			width="100%",
-			padding_x="0.5rem",
-			padding_y="0.75rem",
-			align="center",
-			style={
-				"_hover": {
-					"bg": rx.color("accent", 4),
-					"color": rx.color("accent", 11),
-				},
-				"border-radius": "0.5em",
-			},
-		),
-		href=href,
-		underline="none",
-		weight="medium",
-		width="100%"
-	)
 ```
 
-## Sidebar with top user profile
+## Top user profile
 
 ```python exec
 def sidebar_top_profile() -> rx.Component:
@@ -721,6 +574,39 @@ sidebar_top_profile()
 ```
 
 ```python
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
 def sidebar_top_profile() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
@@ -802,39 +688,6 @@ def sidebar_top_profile() -> rx.Component:
 				direction="left"
 			)
 		)
-	)
-
-def sidebar_items() -> rx.Component:
-	return rx.vstack(
-		sidebar_item("Dashboard", "layout-dashboard", "/#"),
-		sidebar_item("Projects", "square-library", "/#"),
-		sidebar_item("Analytics", "bar-chart-4", "/#"),
-		sidebar_item("Messages", "mail", "/#"),
-		spacing="1",
-		width="100%"
-	)
-
-def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
-	return rx.link(
-		rx.hstack(
-			rx.icon(icon),
-			rx.text(text, size="4"),
-			width="100%",
-			padding_x="0.5rem",
-			padding_y="0.75rem",
-			align="center",
-			style={
-				"_hover": {
-					"bg": rx.color("accent", 4),
-					"color": rx.color("accent", 11),
-				},
-				"border-radius": "0.5em",
-			},
-		),
-		href=href,
-		underline="none",
-		weight="medium",
-		width="100%"
 	)
 ```
 

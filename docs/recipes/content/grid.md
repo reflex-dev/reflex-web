@@ -9,7 +9,7 @@ A simple responsive grid layout. We specify the number of columns to the `grid_t
 
 For details, see the [responsive docs page]({styling.responsive.path}).
 
-## Grid with cards
+## Cards
 
 ```python demo
 rx.grid(
@@ -23,7 +23,7 @@ rx.grid(
 )
 ```
 
-## Grid with inset cards
+## Inset cards
 
 ```python demo
 rx.grid(
