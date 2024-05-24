@@ -19,14 +19,14 @@ def get_sidebar_items_recipes():
             ],
         ),
         create_item(
-            "interactive",
+            "Content",
             children=[
                 recipes.content.checkboxes,
                 recipes.content.search_bar,
             ],
         ),
         create_item(
-            "user-profiles",
+            "Auth",
             children=[
                 recipes.auth.account_setting,
                 recipes.auth.login_form,
@@ -34,7 +34,7 @@ def get_sidebar_items_recipes():
             ]
         ),
         create_item(
-            "e-commerce",
+            "Others",
             children=[
                 recipes.others.order_summary,
                 recipes.others.payment_integration,
