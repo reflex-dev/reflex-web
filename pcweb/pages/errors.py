@@ -78,7 +78,7 @@ error_items = [
                 ```
                 """
             ),
-            rx.text(f"See upstream docs: {rx.link("here.", href="https://nextjs.org/docs/messages/react-hydration-error")}"),
+            rx.text(f"See upstream docs: {rx.link('here.', href='https://nextjs.org/docs/messages/react-hydration-error')}"),
             direction="column",
             align="start",
         ),
