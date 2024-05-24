@@ -609,7 +609,104 @@ The real power of the `rx.table` comes where you are able to visualise, add and 
 
 
 
-## Real World Example UI
+
+
+
+
+
+
+# Download 
+
+```python demo exec
+import io
+import csv
+from sqlmodel import select
+
+class TableDownloadState(rx.State):
+
+    users: list[Customer] = []
+
+    def load_entries(self) -> list[Customer]:
+        """Get all users from the database."""
+        with rx.session() as session:
+            self.users = session.exec(select(Customer)).all()
+
+
+    def _convert_to_csv(self) -> str:
+        """Convert the users data to CSV format."""
+        
+        # Make sure to load the entries first
+        if not self.users:
+            self.load_entries()
+
+        # Define the CSV file header based on the Customer model's attributes
+        fieldnames = list(Customer.__fields__)
+
+        # Create a string buffer to hold the CSV data
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=fieldnames)
+        writer.writeheader()
+        for user in self.users:
+            writer.writerow(user.dict())
+
+        # Get the CSV data as a string
+        csv_data = output.getvalue()
+        output.close()
+        return csv_data
+
+
+    def download_csv_data(self):
+        csv_data = self._convert_to_csv()
+        return rx.download(
+            data=csv_data,
+            filename="data.csv",
+        )
+
+
+def show_customer(user: Customer):
+    """Show a customer in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.phone),
+        rx.table.cell(user.address),
+    )
+
+def download_data_table_example():
+    return rx.vstack(
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(TableDownloadState.users, show_customer)),
+            on_mount=TableDownloadState.load_entries,
+        ),
+        rx.hstack(
+            rx.button(
+                "Download as JSON",
+                on_click=rx.download(
+                    data=TableDownloadState.users,
+                    filename="data.json",
+                ),
+            ),
+            rx.button(
+                "Download as CSV",
+                on_click=TableDownloadState.download_csv_data,
+            ),
+            spacing="7",
+        ),
+        spacing="5",
+    )
+
+```
+
+
+# Real World Example UI
 
 ```python demo
 rx.flex(
