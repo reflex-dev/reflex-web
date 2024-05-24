@@ -106,7 +106,6 @@ def docdemo(
     # Add the state code
     if state is not None:
         code = state + code
-
     # Create the demo.
     return rx.vstack(
         docdemobox(comp, **(demobox_props or {})),
