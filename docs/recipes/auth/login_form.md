@@ -8,7 +8,7 @@ The login form is a common component in web applications. It allows users to aut
 
 ## Default
 
-```python exec
+```python demo exec toggle
 def login_default() -> rx.Component:
 	return rx.card(
 		rx.vstack(
@@ -54,58 +54,9 @@ def login_default() -> rx.Component:
 	)
 ```
 
-```python demo box
-login_default()
-```
-
-```python
-def login_default() -> rx.Component:
-	return rx.card(
-		rx.vstack(
-			rx.center(
-				rx.image(src="/favicon.ico", width="2.5em", height="auto", border_radius="50%"),
-				rx.heading("Sign in to your account", size="6", as_="h2", text_align="center", width="100%"),
-				direction="column",
-				spacing="5",
-				width="100%"
-			),
-			rx.vstack(
-				rx.text("Email address", size="3", weight="medium", text_align="left", width="100%"),
-				rx.input(placeholder="user@reflex.dev", type="email", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.vstack(
-				rx.hstack(
-					rx.text("Password", size="3", weight="medium"),
-					rx.link("Forgot password?", href="#", size="3"),
-					justify="between",
-					width="100%"
-				),
-				rx.input(placeholder="Enter your password", type="password", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.button("Sign in", size="3", width="100%"),
-			rx.center(
-				rx.text("New here?", size="3"),
-				rx.link("Sign up", href="#", size="3"),
-				opacity="0.8",
-				spacing="2",
-				direction="row",
-				width="100%"
-			),
-			spacing="6",
-			width="100%"
-		),
-		size="4",
-		max_width="28em",
-		width="100%"
-	)
-```
 ## Icons
 
-```python exec
+```python dmeo exec toggle
 def login_default_icons() -> rx.Component:
 	return rx.card(
 		rx.vstack(
@@ -151,58 +102,9 @@ def login_default_icons() -> rx.Component:
 	)
 ```
 
-```python demo box
-login_default_icons()
-```
-
-```python
-def login_default_icons() -> rx.Component:
-	return rx.card(
-		rx.vstack(
-			rx.center(
-				rx.image(src="/favicon.ico", width="2.5em", height="auto", border_radius="50%"),
-				rx.heading("Sign in to your account", size="6", as_="h2"),
-				direction="column",
-				spacing="5",
-				width="100%"
-			),
-			rx.vstack(
-				rx.text("Email address", size="3", weight="medium"),
-				rx.input(rx.input.slot(rx.icon("user")), placeholder="user@reflex.dev", type="email", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.vstack(
-				rx.hstack(
-					rx.text("Password", size="3", weight="medium"),
-					rx.link("Forgot password?", href="#", size="3"),
-					justify="between",
-					width="100%"
-				),
-				rx.input(rx.input.slot(rx.icon("lock")), placeholder="Enter your password", type="password", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.button("Sign in", size="3", width="100%"),
-			rx.center(
-				rx.text("New here?", size="3"),
-				rx.link("Sign up", href="#", size="3"),
-				opacity="0.8",
-				spacing="2",
-				direction="row",
-				width="100%"
-			),
-			spacing="6",
-			width="100%"
-		),
-		size="4",
-		max_width="28em",
-		width="100%"
-	)
-```
 ## Third-party auth
 
-```python exec
+```python demo exec toggle
 def login_single_thirdparty() -> rx.Component:
 	return rx.card(
 		rx.vstack(
@@ -263,70 +165,9 @@ def login_single_thirdparty() -> rx.Component:
 	)
 ```
 
-```python demo box
-login_single_thirdparty()
-```
-
-```python
-def login_single_thirdparty() -> rx.Component:
-	return rx.card(
-		rx.vstack(
-			rx.vstack(
-				rx.image(src="/favicon.ico", width="2.5em", height="auto", border_radius="50%"),
-				rx.heading("Sign in to your account", size="6", as_="h2"),
-				rx.hstack(
-					rx.text("New here?", size="3"),
-					rx.link("Sign up", href="#", size="3"),
-					spacing="2",
-					opacity="0.8",
-					width="100%"
-				),
-				spacing="4",
-				width="100%"
-			),
-			rx.vstack(
-				rx.text("Email address", size="3", weight="medium"),
-				rx.input(rx.input.slot(rx.icon("user")), placeholder="user@reflex.dev", type="email", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.vstack(
-				rx.hstack(
-					rx.text("Password", size="3", weight="medium"),
-					rx.link("Forgot password?", href="#", size="3"),
-					justify="between",
-					width="100%"
-				),
-				rx.input(rx.input.slot(rx.icon("lock")), placeholder="Enter your password", type="password", size="3", width="100%"),
-				spacing="2",
-				width="100%"
-			),
-			rx.button("Sign in", size="3", width="100%"),
-			rx.hstack(
-				rx.divider(),
-				rx.text("Or continue with", white_space="nowrap", weight="medium"),
-				rx.divider(),
-				align="center",
-				width="100%"
-			),
-			rx.button(
-				rx.icon(tag="github"),
-				"Sign in with Github",
-				size="3",
-				variant="outline",
-				width="100%"
-			),
-			spacing="6",
-			width="100%"
-		),
-		size="4",
-		max_width="28em",
-		width="100%"
-	)
-```
 ## Multiple third-party auth
 
-```python exec
+```python demo exec toggle
 def login_multiple_thirdparty() -> rx.Component:
 	return rx.card(
 		rx.vstack(
@@ -398,79 +239,4 @@ def login_multiple_thirdparty() -> rx.Component:
 		max_width="28em",
 		width="100%"
 	)
-```
-
-```python demo box
-login_multiple_thirdparty()
-```
-
-```python
-def login_multiple_thirdparty() -> rx.Component:
-    return rx.card(
-        rx.vstack(
-            rx.vstack(
-                rx.image(src="/favicon.ico", width="2.5em", height="auto", border_radius="50%"),
-                rx.heading("Sign in to your account", size="6", as_="h2"),
-                rx.hstack(
-                    rx.text("New here?", size="3"),
-                    rx.link("Sign up", href="#", size="3"),
-                    spacing="2",
-                    opacity="0.8",
-                    width="100%"
-                ),
-                spacing="4",
-                width="100%"
-            ),
-            rx.vstack(
-                rx.text("Email address", size="3", weight="medium"),
-                rx.input(rx.input.slot(rx.icon("user")), placeholder="user@reflex.dev", type="email", size="3", width="100%"),
-                spacing="2",
-                width="100%"
-            ),
-            rx.vstack(
-                rx.hstack(
-                    rx.text("Password", size="3", weight="medium"),
-                    rx.link("Forgot password?", href="#", size="3"),
-                    justify="between",
-                    width="100%"
-                ),
-                rx.input(rx.input.slot(rx.icon("lock")), placeholder="Enter your password", type="password", size="3", width="100%"),
-                spacing="2",
-                width="100%"
-            ),
-            rx.button("Sign in", size="3", width="100%"),
-            rx.hstack(
-                rx.divider(),
-                rx.text("Or continue with", white_space="nowrap", weight="medium"),
-                rx.divider(),
-                align="center",
-                width="100%"
-            ),
-            rx.center(
-                rx.icon_button(
-                    rx.icon(tag="github"),
-                    variant="soft",
-                    size="3",
-                ),
-                rx.icon_button(
-                    rx.icon(tag="facebook"),
-                    variant="soft",
-                    size="3",
-                ),
-                rx.icon_button(
-                    rx.icon(tag="twitter"),
-                    variant="soft",
-                    size="3",
-                ),
-                spacing="4",
-                direction="row",
-                width="100%"
-            ),
-            spacing="6",
-            width="100%"
-        ),
-        max_width="28em",
-        size="4",
-        width="100%"
-    )
 ```

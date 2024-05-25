@@ -17,13 +17,13 @@ def get_sidebar_items_recipes():
                 recipes.layout.navbar,
                 recipes.layout.sidebar,
                 recipes.layout.footer,
-                recipes.layout.grid,
-                recipes.layout.multi_column_row,
             ],
         ),
         create_item(
             "Content",
             children=[
+                recipes.content.grid,
+                recipes.content.multi_column_row,
                 recipes.content.checkboxes,
                 # recipes.content.search_bar,
             ],

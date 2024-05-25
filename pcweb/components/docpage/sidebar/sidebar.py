@@ -375,7 +375,7 @@ def sidebar_comp(
     return rx.flex(
         sidebar_category("Learn", "graduation-cap", "jade", 0),
         sidebar_category("Components", "layout-panel-left", "blue", 1),
-        sidebar_category("Recipes", "layout-template", "indigo", 2),
+        sidebar_category("Recipes", "scan-text", "indigo", 2),
         sidebar_category("API Reference", "book-text", "violet", 3),
         
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),

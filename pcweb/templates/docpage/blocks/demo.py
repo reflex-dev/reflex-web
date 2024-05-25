@@ -5,7 +5,7 @@ import textwrap
 from typing import Any, Callable
 from .code import code_block, code_block_dark
 import black
-
+  
 demo_box_style = {
     "bg": "rgba(249, 248, 249, 1)",
     "border_radius": "8px;",
@@ -18,7 +18,7 @@ demo_box_style = {
     "justify_content": "center",
 }
 
-
+ 
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
@@ -33,8 +33,8 @@ def docdemobox(*children, **props) -> rx.Component:
         style=demo_box_style,
         **props,
     )
-
-
+  
+   
 def doccode(
     code: str,
     language: str = "python",
@@ -106,7 +106,40 @@ def docdemo(
     # Add the state code
     if state is not None:
         code = state + code
-
+    
+    if demobox_props.pop("toggle", True):
+        return rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger(
+                rx.hstack(
+                    rx.icon("panels-top-left", size=18), 
+                    "UI", 
+                ),
+                value="tab1"
+            ),
+            rx.tabs.trigger(
+                rx.hstack(
+                    rx.icon("code", size=18), 
+                    "Code", 
+                ),
+                value="tab2"
+            ),
+            justify_content="end",
+        ),
+        rx.tabs.content(
+            rx.box(
+                docdemobox(comp, **(demobox_props or {})),
+                margin_bottom="1em",
+                margin_top="1em",
+            ),
+            value="tab1",
+        ),
+        rx.tabs.content(
+            doccode(code, theme=theme),
+            value="tab2",
+        ),
+        default_value="tab1",
+    )
     # Create the demo.
     return rx.vstack(
         docdemobox(comp, **(demobox_props or {})),
@@ -116,6 +149,7 @@ def docdemo(
         gap="1em",
         **props,
     )
+
 
 
 tab_style = {
