@@ -38,24 +38,26 @@ def feedback_content(icon, score):
                         placeholder="Contact Info (Optional)",
                         _type="email",
                         name="email",
+                        custom_attrs={"auto_focus": True},
                     ),
                     rx.text_area(
                         placeholder="Write a comment…",
-                        style={"height": 80},
                         name="feedback",
+                        auto_height=True,
+                        enter_key_submit=True,
+                        min_height="0px",
+                        rows="1",
                     ),
                     spacing="1",
                     direction="column",
                 ),
-                rx.popover.close(
-                    rx.flex(
-                        rx.button(
-                            "Send Feedback", size="1", width="100%", type="submit"
-                        ),
-                        spacing="3",
-                        margin_top="12px",
-                        justify="between",
-                    )
+                rx.flex(
+                    rx.button(
+                        "Send Feedback", size="1", width="100%", type="submit"
+                    ),
+                    spacing="3",
+                    margin_top="12px",
+                    justify="between",
                 ),
                 on_submit=lambda feedback: FeedbackState.handle_submit(feedback, score),
             ),
@@ -78,6 +80,7 @@ def feedback(text, icon, score):
                 border_radius="5px",
                 padding="0px 10px",
                 spacing="2",
+                cursor="pointer",
             )
         ),
         rx.popover.content(
