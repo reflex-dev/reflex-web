@@ -99,13 +99,13 @@ button_style = {
 }
 
 def news_letter_form():
-    return rx.chakra.form(
+    return rx.el.form(
         rx.chakra.input_group(
             rx.chakra.input_right_element(
                 rx.chakra.button(
                     "->",
+                    type_="submit",
                     color="#FFF",
-                    on_click=IndexState.signup,
                     background="rgba(161, 157, 213, 0.03)",
                     border_left="1px solid rgba(186, 199, 247, 0.12)",
                     border_top_left_radius="0px",
@@ -114,28 +114,28 @@ def news_letter_form():
                 )           
             ),
             rx.chakra.input(
+                name="input_email",
                 placeholder="Your email...",
-                on_blur=IndexState.set_email,
                 color="#fff",
                 background="rgba(161, 157, 213, 0.03)",
                 border="1px solid rgba(186, 199, 247, 0.12)",
-                type="email",
                 border_radius="8px",
             ),
             width="100%",
         ),
-        on_submit = IndexState.signup()
+        on_submit=IndexState.signup,
     )
 
 def message_group():
     return rx.vstack(
         rx.text("You have successfully signed up!", color="#6C6C81"),
-        rx.text(
+        rx.link(
             "Sign up for another email",
+            href="#",
             size='2',
             color="#FFFFFF",
-            style={"text-decoration": "underline"},
-            on_click=IndexState.signup_for_another_user(),
+            underline="always",
+            on_click=IndexState.signup_for_another_user().prevent_default,
         )
     )
 
