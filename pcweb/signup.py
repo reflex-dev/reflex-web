@@ -40,7 +40,7 @@ class IndexState(rx.State):
                 response = client.post(url, headers=headers, json=contact_data)
                 response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
 
-        except httpx.RequestError as e:
+        except httpx.HTTPError as e:
             print(f"An error occurred: {e}")
     
     def signup_for_another_user(self):
