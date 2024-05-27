@@ -9,8 +9,8 @@ def footer_items_1() -> rx.Component:
         rx.heading("PRODUCTS", size="4", weight="bold", as_="h3"),
         footer_item("Web Design", "/#"),
         footer_item("Web Development", "/#"),
-        footer_item("E-commerce Platforms", "/#"),
-        footer_item("Content Management Systems", "/#"),
+        footer_item("E-commerce", "/#"),
+        footer_item("Content Management", "/#"),
         footer_item("Mobile Apps", "/#"),
         spacing="4",
         text_align=["center", "center", "start"],
@@ -53,7 +53,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2",
+        spacing="3",
         justify="end",
         width="100%"
     )
@@ -72,7 +72,7 @@ def footer() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+                        rx.avatar(src="/logo.jpg", size="2"),
                         rx.heading("Reflex", size="7", weight="bold"),
                         align_items="center"
                     ),
@@ -120,8 +120,8 @@ def footer_items_1() -> rx.Component:
         rx.heading("PRODUCTS", size="4", weight="bold", as_="h3"),
         footer_item("Web Design", "/#"),
         footer_item("Web Development", "/#"),
-        footer_item("E-commerce Platforms", "/#"),
-        footer_item("Content Management Systems", "/#"),
+        footer_item("E-commerce", "/#"),
+        footer_item("Content Management", "/#"),
         footer_item("Mobile Apps", "/#"),
         spacing="4",
         text_align=["center", "center", "start"],
@@ -150,7 +150,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2",
+        spacing="3",
         justify="end",
         width="100%"
     )
@@ -161,7 +161,7 @@ def footer() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+                        rx.image(src="/favicon.ico", width="2.25em", height="auto"),
                         rx.heading("Reflex", size="7", weight="bold"),
                         align_items="center"
                     ),
@@ -209,7 +209,8 @@ def footer_newsletter() -> rx.Component:
                     rx.text("JOIN OUR NEWSLETTER", size="4", weight="bold"),
                     rx.hstack(
                         rx.input(placeholder="Your email address", type="email", size="3"),
-                        rx.button("Subscribe", rx.icon("arrow-right"), size="3"),
+                        rx.icon_button(rx.icon("arrow-right", padding="0.15em"), size="3"),
+                        spacing="1",
                         justify="center",
                         width="100%"
                     ),
@@ -225,7 +226,7 @@ def footer_newsletter() -> rx.Component:
             rx.divider(margin="0"),
             rx.hstack(
                 rx.hstack(
-                    rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+                    rx.avatar(src="/logo.jpg", size="2"),
                     rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
@@ -255,8 +256,8 @@ def footer_items_1() -> rx.Component:
         rx.heading("PRODUCTS", size="4", weight="bold", as_="h3"),
         footer_item("Web Design", "/#"),
         footer_item("Web Development", "/#"),
-        footer_item("E-commerce Platforms", "/#"),
-        footer_item("Content Management Systems", "/#"),
+        footer_item("E-commerce", "/#"),
+        footer_item("Content Management", "/#"),
         footer_item("Mobile Apps", "/#"),
         spacing="4",
         text_align=["center", "center", "start"],
@@ -285,7 +286,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2",
+        spacing="3",
         justify="end",
         width="100%"
     )
@@ -301,7 +302,8 @@ def footer_newsletter() -> rx.Component:
                             weight="bold"),
                     rx.hstack(
                         rx.input(placeholder="Your email address", type="email", size="3"),
-                        rx.button("Subscribe", rx.icon("arrow-right"), size="3"),
+                        rx.icon_button(rx.icon("arrow-right", padding="0.15em"), size="3"),
+                        spacing="1",
                         justify="center",
                         width="100%"
                     ),
@@ -317,7 +319,7 @@ def footer_newsletter() -> rx.Component:
             rx.divider(),
             rx.hstack(
                 rx.hstack(
-                    rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+                    rx.image(src="/favicon.ico", width="2em", height="auto"),
                     rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
@@ -352,10 +354,8 @@ def footer_three_columns() -> rx.Component:
             rx.divider(margin="0"),
             rx.hstack(
                 rx.hstack(
-                    rx.image(src="/favicon.ico", width="2em",
-                             height="auto", border_radius="50%"),
-                    rx.text("© 2024 Reflex, Inc", size="3",
-                            white_space="nowrap", weight="medium"),
+                    rx.avatar(src="/logo.jpg", size="2"),
+                    rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
                     width="100%"
@@ -384,8 +384,8 @@ def footer_items_1() -> rx.Component:
         rx.heading("PRODUCTS", size="4", weight="bold", as_="h3"),
         footer_item("Web Design", "/#"),
         footer_item("Web Development", "/#"),
-        footer_item("E-commerce Platforms", "/#"),
-        footer_item("Content Management Systems", "/#"),
+        footer_item("E-commerce", "/#"),
+        footer_item("Content Management", "/#"),
         footer_item("Mobile Apps", "/#"),
         spacing="4",
         text_align=["center", "center", "start"],
@@ -427,7 +427,7 @@ def socials() -> rx.Component:
         social_link("twitter", "/#"),
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
-        spacing="2",
+        spacing="3",
         justify="end",
         width="100%"
     )
@@ -447,8 +447,7 @@ def footer_three_columns() -> rx.Component:
             rx.divider(),
             rx.hstack(
                 rx.hstack(
-                    rx.image(src="/favicon.ico", width="2em",
-                             height="auto", border_radius="50%"),
+                    rx.image(src="/favicon.ico", width="2em", height="auto"),
                     rx.text("© 2024 Reflex, Inc", size="3",
                             white_space="nowrap", weight="medium"),
                     spacing="2",

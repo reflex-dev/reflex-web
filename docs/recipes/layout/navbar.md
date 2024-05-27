@@ -1,5 +1,8 @@
 ```python exec
 import reflex as rx
+
+def navbar_link(text: str, url: str) -> rx.Component:
+	return rx.link(rx.text(text, size="4", weight="medium"), href=url)
 ```
 
 # Navigation Bar
@@ -18,13 +21,13 @@ def navbar() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					justify="end",
 					spacing="5"
 				),
@@ -35,8 +38,7 @@ def navbar() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em",
-							 height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg", size="2"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -66,18 +68,21 @@ navbar()
 ```
 
 ```python
+def navbar_link(text: str, url: str) -> rx.Component:
+	return rx.link(rx.text(text, size="4", weight="medium"), href=url)
+
 def navbar() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					justify="end",
 					spacing="5"
 				),
@@ -88,8 +93,7 @@ def navbar() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em",
-							 height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -122,10 +126,10 @@ def navbar_dropdown() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
 					rx.menu.root(
 						rx.menu.trigger(
 							rx.button(rx.text("Services", size="4", weight="medium"), rx.icon(
@@ -137,8 +141,8 @@ def navbar_dropdown() -> rx.Component:
 							rx.menu.item("Service 3"),
 						),
 					),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
 					justify="end",
 					spacing="5"
 				),
@@ -149,7 +153,7 @@ def navbar_dropdown() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg", size="2"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -187,15 +191,18 @@ navbar_dropdown()
 ```
 
 ```python
+def navbar_link(text: str, url: str) -> rx.Component:
+	return rx.link(rx.text(text, size="4", weight="medium"), href=url)
+
 def navbar_dropdown() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
 					rx.menu.root(
 						rx.menu.trigger(rx.icon("menu", size=30)),
 						rx.menu.content(
@@ -214,8 +221,8 @@ def navbar_dropdown() -> rx.Component:
 						),
 						justify="end",
 					),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
 					justify="end",
 					spacing="5"
 				),
@@ -226,7 +233,7 @@ def navbar_dropdown() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -267,7 +274,7 @@ def navbar_searchbar() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.input(
 					rx.input.slot(rx.icon("search")),
@@ -282,7 +289,7 @@ def navbar_searchbar() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg", size="2"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.input(
 					rx.input.slot(rx.icon("search")),
@@ -313,7 +320,7 @@ def navbar_searchbar() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.input(
 					rx.input.slot(rx.icon("search")),
@@ -328,7 +335,7 @@ def navbar_searchbar() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.input(
 					rx.input.slot(rx.icon("search")),
@@ -363,7 +370,7 @@ def navbar_icons() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
 					navbar_icons_item("Home", "home", "/#"),
@@ -379,7 +386,7 @@ def navbar_icons() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -420,7 +427,7 @@ def navbar_icons() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
 					navbar_icons_item("Home", "home", "/#"),
@@ -436,7 +443,7 @@ def navbar_icons() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -469,13 +476,13 @@ def navbar_buttons() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					spacing="5",
 				),
 				rx.hstack(
@@ -491,7 +498,7 @@ def navbar_buttons() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg", size="2"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -524,18 +531,21 @@ navbar_buttons()
 ```
 
 ```python
+def navbar_link(text: str, url: str) -> rx.Component:
+	return rx.link(rx.text(text, size="4", weight="medium"), href=url)
+
 def navbar_buttons() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					spacing="5",
 				),
 				rx.hstack(
@@ -551,7 +561,7 @@ def navbar_buttons() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon("menu", size=30)),
@@ -587,13 +597,13 @@ def navbar_user() -> rx.Component:
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					spacing="5",
 				),
 				rx.menu.root(
@@ -614,7 +624,7 @@ def navbar_user() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg", size="2"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon_button(
@@ -645,18 +655,21 @@ navbar_user()
 ```
 
 ```python
+def navbar_link(text: str, url: str) -> rx.Component:
+	return rx.link(rx.text(text, size="4", weight="medium"), href=url)
+
 def navbar_user() -> rx.Component:
 	return rx.el.nav(
 		rx.desktop_only(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"), align_items="center"),
 				rx.hstack(
-					rx.link(rx.text("Home", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("About", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Pricing", size="4", weight="medium"), href="/#"),
-					rx.link(rx.text("Contact", size="4", weight="medium"), href="/#"),
+					navbar_link("Home", "/#"),
+					navbar_link("About", "/#"),
+					navbar_link("Pricing", "/#"),
+					navbar_link("Contact", "/#"),
 					spacing="5",
 				),
 				rx.menu.root(
@@ -677,7 +690,7 @@ def navbar_user() -> rx.Component:
 		rx.mobile_and_tablet(
 			rx.hstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2em", height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2em", height="auto"),
 					rx.heading("Reflex", size="6", weight="bold"), align_items="center"),
 				rx.menu.root(
 					rx.menu.trigger(rx.icon_button(

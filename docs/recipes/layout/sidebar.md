@@ -62,8 +62,7 @@ def sidebar() -> rx.Component:
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align="center",
 					justify="start",
@@ -160,8 +159,7 @@ def sidebar() -> rx.Component:
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align_items="center",
 					padding_x="0.5rem"
@@ -215,8 +213,7 @@ def sidebar_bottom_profile() -> rx.Component:
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.avatar(src="/logo.jpg"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align="center",
 					justify="start",
@@ -372,8 +369,7 @@ def sidebar_bottom_profile() -> rx.Component:
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.image(src="/favicon.ico", width="2.25em", height="auto"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align="center",
 					justify="start",
