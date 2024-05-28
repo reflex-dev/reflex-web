@@ -266,42 +266,49 @@ def get_prev_next(url):
     return None, None
 
 
-def sidebar_category(name, icon, color, index):
-    return rx.flex(
-        rx.button(
-            rx.icon(
-                tag=icon,
-                color="white",
-                fill="rgba(255, 255, 255, 0.25)",
-                size=20,
+def sidebar_category(name, url, icon, color, index):
+    return rx.link(
+        rx.flex(
+            rx.button(
+                rx.icon(
+                    tag=icon,
+                    color="white",
+                    fill="rgba(255, 255, 255, 0.25)",
+                    size=20,
+                ),
+                height="35px",
+                width="35px",
+                padding="0px",
+                border_radius="6px",
+                color_scheme=color,
+                variant="classic",
+                align_items="center",
+                justify="center",
             ),
-            height="35px",
-            width="35px",
-            padding="0px",
-            border_radius="6px",
-            color_scheme=color,
-            variant="classic",
+            rx.text(
+                name,
+                color=rx.cond(
+                    SidebarState.sidebar_index == index,
+                    rx.color("mauve", 12),
+                    rx.color("mauve", 11),
+                ),
+                font_size="16px",
+                font_weight="500",
+                padding="0px 0px 0px 14px",
+            ),
+            on_click=lambda: SidebarState.set_sidebar_index(index),
+            _hover={
+                "background_color": rx.color("mauve", 2),   
+            },
             align_items="center",
-            justify="center",
+            justify="start",
+            padding_y="0.5em",
+            padding_x="0.5em",
+            border_radius="0.5em",
+            width="100%",
+            cursor="pointer",
         ),
-        rx.text(
-            name,
-            color=rx.cond(
-                SidebarState.sidebar_index == index,
-                rx.color("mauve", 12),
-                rx.color("mauve", 11),
-            ),
-            font_size="16px",
-            font_weight="500",
-            padding="0px 0px 0px 14px",
-        ),
-        on_click=lambda: SidebarState.set_sidebar_index(index),
-        align_items="center",
-        justify="start",
-        padding="0 10px 15px 10px",
-        border_radius="0.5em",
-        width="100%",
-        cursor="pointer",
+        href=url,
     )
 
 
@@ -373,10 +380,10 @@ def sidebar_comp(
     width: str = "100%",
 ):
     return rx.flex(
-        sidebar_category("Learn", "graduation-cap", "jade", 0),
-        sidebar_category("Components", "layout-panel-left", "blue", 1),
-        sidebar_category("Recipes", "scan-text", "indigo", 2),
-        sidebar_category("API Reference", "book-text", "violet", 3),
+        sidebar_category("Learn", "/docs/getting-started/introduction/", "graduation-cap", "jade", 0),
+        sidebar_category("Components", "/docs/library/",  "layout-panel-left", "blue", 1),
+        sidebar_category("Recipes", "/docs/recipes-overview/", "scan-text", "indigo", 2),
+        sidebar_category("API Reference", "/docs/api-reference/cli/", "book-text", "violet", 3),
         
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
