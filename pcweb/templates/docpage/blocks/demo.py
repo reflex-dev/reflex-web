@@ -92,7 +92,8 @@ def docdemo(
 
     Returns:
         The styled demo.
-    """
+    """ 
+    demobox_props = demobox_props or {}
     # Render the component if necessary.
     if comp is None:
         comp = eval(code)
@@ -107,7 +108,7 @@ def docdemo(
     if state is not None:
         code = state + code
     
-    if demobox_props.pop("toggle", True):
+    if demobox_props.pop("toggle", False):
         return rx.tabs.root(
         rx.tabs.list(
             rx.tabs.trigger(
@@ -135,7 +136,7 @@ def docdemo(
             value="tab1",
         ),
         rx.tabs.content(
-            doccode(code, theme=theme),
+            doccode(code, theme=theme), 
             value="tab2",
         ),
         default_value="tab1",

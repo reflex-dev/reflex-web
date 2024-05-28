@@ -245,9 +245,11 @@ class DemoBlock(flexdown.blocks.Block):
         demobox_props = {}
         for arg in args:
             prop, equals, value = arg.partition("=")
-            print(prop, equals, value)
             if equals:
                 demobox_props[prop] = value
+
+        if "toggle" in args:
+            demobox_props["toggle"] = True
 
         return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
 
