@@ -379,11 +379,18 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
+    
+    from pcweb.pages.docs.recipes_overview import overview
+    from pcweb.pages.docs.library import library
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs.apiref import pages
+
+
     return rx.flex(
-        sidebar_category("Learn", "/docs/getting-started/introduction/", "graduation-cap", "jade", 0),
-        sidebar_category("Components", "/docs/library/",  "layout-panel-left", "blue", 1),
-        sidebar_category("Recipes", "/docs/recipes-overview/", "scan-text", "indigo", 2),
-        sidebar_category("API Reference", "/docs/api-reference/cli/", "book-text", "violet", 3),
+        sidebar_category("Learn", getting_started.introduction.path, "graduation-cap", "jade", 0),
+        sidebar_category("Components", library.path,  "layout-panel-left", "blue", 1),
+        sidebar_category("Recipes", overview.path, "scan-text", "indigo", 2),
+        sidebar_category("API Reference", pages[0].path, "book-text", "violet", 3),
         
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
