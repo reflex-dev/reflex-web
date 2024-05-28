@@ -124,7 +124,7 @@ In these cases you must set `is_default = True` in your component class, as we d
 class Spline(rx.Component):
     """Spline component."""
  
-    library = "@splinetool/react-spline"
+    library = "@splinetool/react-spline@^2.2.6"
     tag = "Spline"
     is_default = True  # Needed for default imports
 ```
@@ -139,7 +139,7 @@ As seen in the Spline example in the overview section, we need to import the `@s
 class Spline(rx.Component):
     """Spline component."""
 
-    library = "@splinetool/react-spline" # This is installed by default
+    library = "@splinetool/react-spline@^2.2.6"  # This is installed by default
     lib_dependencies: list[str] = ["@splinetool/runtime"]  # Specify extra npm packages to install.
 ```
 

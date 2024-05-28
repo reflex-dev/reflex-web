@@ -28,7 +28,7 @@ class Spline(rx.Component):
     """Spline component."""
 
     # The name of the npm package.
-    library = "@splinetool/react-spline"
+    library = "@splinetool/react-spline@^2.2.6"
 
     # Any additional libraries needed to use the component.
     lib_dependencies: list[str] = ["@splinetool/runtime"]
