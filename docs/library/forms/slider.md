@@ -3,7 +3,7 @@ components:
     - rx.radix.slider
 
 Slider: |
-    lambda **props: rx.radix.themes.slider(default_value=40, height="50%", **props)
+    lambda **props: rx.radix.slider(default_value=40, height="50%", **props)
 
 ---
 

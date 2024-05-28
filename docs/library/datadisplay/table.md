@@ -12,24 +12,24 @@ only_low_level:
     - True
 
 TableRoot: |
-    lambda **props: rx.radix.themes.table.root(
-            rx.radix.themes.table.header(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.column_header_cell("Full Name"),
-                    rx.radix.themes.table.column_header_cell("Email"),
-                    rx.radix.themes.table.column_header_cell("Group"),
+    lambda **props: rx.radix.table.root(
+            rx.radix.table.header(
+                rx.radix.table.row(
+                    rx.radix.table.column_header_cell("Full Name"),
+                    rx.radix.table.column_header_cell("Email"),
+                    rx.radix.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.themes.table.body(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.themes.table.cell("danilo@example.com"),
-                    rx.radix.themes.table.cell("Developer"),
+            rx.radix.table.body(
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Danilo Rosa"),
+                    rx.radix.table.cell("danilo@example.com"),
+                    rx.radix.table.cell("Developer"),
                 ),
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.themes.table.cell("zahra@example.com"),
-                    rx.radix.themes.table.cell("Admin"),
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Zahra Ambessa"),
+                    rx.radix.table.cell("zahra@example.com"),
+                    rx.radix.table.cell("Admin"),
                 ),
             ),
             width="80%",
@@ -37,26 +37,26 @@ TableRoot: |
         )
 
 TableRow: |
-    lambda **props: rx.radix.themes.table.root(
-            rx.radix.themes.table.header(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.column_header_cell("Full Name"),
-                    rx.radix.themes.table.column_header_cell("Email"),
-                    rx.radix.themes.table.column_header_cell("Group"),
+    lambda **props: rx.radix.table.root(
+            rx.radix.table.header(
+                rx.radix.table.row(
+                    rx.radix.table.column_header_cell("Full Name"),
+                    rx.radix.table.column_header_cell("Email"),
+                    rx.radix.table.column_header_cell("Group"),
                     **props,
                 ),
             ),
-            rx.radix.themes.table.body(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.themes.table.cell(rx.radix.themes.text("danilo@example.com", as_="p"), rx.radix.themes.text("danilo@yahoo.com", as_="p"), rx.radix.themes.text("danilo@gmail.com", as_="p"),),
-                    rx.radix.themes.table.cell("Developer"),
+            rx.radix.table.body(
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Danilo Rosa"),
+                    rx.radix.table.cell(rx.radix.text("danilo@example.com", as_="p"), rx.radix.text("danilo@yahoo.com", as_="p"), rx.radix.text("danilo@gmail.com", as_="p"),),
+                    rx.radix.table.cell("Developer"),
                     **props,
                 ),
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.themes.table.cell("zahra@example.com"),
-                    rx.radix.themes.table.cell("Admin"),
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Zahra Ambessa"),
+                    rx.radix.table.cell("zahra@example.com"),
+                    rx.radix.table.cell("Admin"),
                     **props,
                 ),
             ),
@@ -64,72 +64,72 @@ TableRow: |
         )
 
 TableColumnHeaderCell: |
-    lambda **props: rx.radix.themes.table.root(
-            rx.radix.themes.table.header(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.column_header_cell("Full Name", **props,),
-                    rx.radix.themes.table.column_header_cell("Email", **props,),
-                    rx.radix.themes.table.column_header_cell("Group", **props,),
+    lambda **props: rx.radix.table.root(
+            rx.radix.table.header(
+                rx.radix.table.row(
+                    rx.radix.table.column_header_cell("Full Name", **props,),
+                    rx.radix.table.column_header_cell("Email", **props,),
+                    rx.radix.table.column_header_cell("Group", **props,),
                 ),
             ),
-            rx.radix.themes.table.body(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.themes.table.cell("danilo@example.com"),
-                    rx.radix.themes.table.cell("Developer"),
+            rx.radix.table.body(
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Danilo Rosa"),
+                    rx.radix.table.cell("danilo@example.com"),
+                    rx.radix.table.cell("Developer"),
                 ),
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.themes.table.cell("zahra@example.com"),
-                    rx.radix.themes.table.cell("Admin"),
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Zahra Ambessa"),
+                    rx.radix.table.cell("zahra@example.com"),
+                    rx.radix.table.cell("Admin"),
                 ),
             ),
             width="80%",
         )
     
 TableCell: |
-    lambda **props: rx.radix.themes.table.root(
-            rx.radix.themes.table.header(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.column_header_cell("Full Name"),
-                    rx.radix.themes.table.column_header_cell("Email"),
-                    rx.radix.themes.table.column_header_cell("Group"),
+    lambda **props: rx.radix.table.root(
+            rx.radix.table.header(
+                rx.radix.table.row(
+                    rx.radix.table.column_header_cell("Full Name"),
+                    rx.radix.table.column_header_cell("Email"),
+                    rx.radix.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.themes.table.body(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.themes.table.cell("danilo@example.com", **props,),
-                    rx.radix.themes.table.cell("Developer", **props,),
+            rx.radix.table.body(
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Danilo Rosa"),
+                    rx.radix.table.cell("danilo@example.com", **props,),
+                    rx.radix.table.cell("Developer", **props,),
                 ),
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.themes.table.cell("zahra@example.com", **props,),
-                    rx.radix.themes.table.cell("Admin", **props,),
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Zahra Ambessa"),
+                    rx.radix.table.cell("zahra@example.com", **props,),
+                    rx.radix.table.cell("Admin", **props,),
                 ),
             ),
             width="80%",
         )
 
 TableRowHeaderCell: |
-    lambda **props: rx.radix.themes.table.root(
-            rx.radix.themes.table.header(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.column_header_cell("Full Name"),
-                    rx.radix.themes.table.column_header_cell("Email"),
-                    rx.radix.themes.table.column_header_cell("Group"),
+    lambda **props: rx.radix.table.root(
+            rx.radix.table.header(
+                rx.radix.table.row(
+                    rx.radix.table.column_header_cell("Full Name"),
+                    rx.radix.table.column_header_cell("Email"),
+                    rx.radix.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.themes.table.body(
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Danilo Rosa", **props,),
-                    rx.radix.themes.table.cell("danilo@example.com"),
-                    rx.radix.themes.table.cell("Developer"),
+            rx.radix.table.body(
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Danilo Rosa", **props,),
+                    rx.radix.table.cell("danilo@example.com"),
+                    rx.radix.table.cell("Developer"),
                 ),
-                rx.radix.themes.table.row(
-                    rx.radix.themes.table.row_header_cell("Zahra Ambessa", **props,),
-                    rx.radix.themes.table.cell("zahra@example.com"),
-                    rx.radix.themes.table.cell("Admin"),
+                rx.radix.table.row(
+                    rx.radix.table.row_header_cell("Zahra Ambessa", **props,),
+                    rx.radix.table.cell("zahra@example.com"),
+                    rx.radix.table.cell("Admin"),
                 ),
             ),
             width="80%",

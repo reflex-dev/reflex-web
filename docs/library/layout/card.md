@@ -3,7 +3,7 @@ components:
   - rx.radix.card
 
 Card: |
-    lambda **props: rx.radix.themes.card("Basic Card ", **props)
+    lambda **props: rx.radix.card("Basic Card ", **props)
 ---
 
 ```python exec

@@ -3,7 +3,7 @@ components:
     - rx.radix.button
 
 Button: |
-    lambda **props: rx.radix.themes.button("Basic Button", **props)
+    lambda **props: rx.radix.button("Basic Button", **props)
 ---
 
 

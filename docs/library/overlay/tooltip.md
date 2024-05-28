@@ -3,8 +3,8 @@ components:
     - rx.radix.tooltip
 
 Tooltip: |
-    lambda **props: rx.radix.themes.tooltip(
-        rx.radix.themes.button("Hover over me"),
+    lambda **props: rx.radix.tooltip(
+        rx.radix.button("Hover over me"),
         content="This is the tooltip content.",
         **props,
     )
