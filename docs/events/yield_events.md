@@ -52,10 +52,9 @@ def progress_example():
     return rx.cond(
         ProgressExampleState.show_progress,
         rx.chakra.circular_progress(is_indeterminate=True),
-        rx.heading(
+        rx.button(
             ProgressExampleState.count,
             on_click=ProgressExampleState.increment,
-            _hover={"cursor": "pointer"},
         )
     )
 
@@ -64,10 +63,12 @@ def progress_example():
 ## Yielding Other Events
 
 Events can also yield other events. This is useful when you want to chain events together. To do this, you can yield the event handler function itself.
+
 ```md alert
 # Reference other Event Handler via class
 
 When chaining another event handler with `yield`, access it via the state class, not `self`.
+
 ```python demo exec
 
 import asyncio
@@ -94,10 +95,9 @@ def multiple_yield_example():
     return rx.cond(
         YieldEventsState.show_progress,
         rx.chakra.circular_progress(is_indeterminate=True),
-        rx.heading(
+        rx.button(
             YieldEventsState.count,
             on_click=YieldEventsState.increment,
-            _hover={"cursor": "pointer"},
         )
     )
 
