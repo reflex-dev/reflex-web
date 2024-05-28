@@ -49,13 +49,10 @@ class ProgressExampleState(rx.State):
         self.show_progress = False
 
 def progress_example():
-    return rx.cond(
-        ProgressExampleState.show_progress,
-        rx.chakra.circular_progress(is_indeterminate=True),
-        rx.button(
-            ProgressExampleState.count,
-            on_click=ProgressExampleState.increment,
-        )
+    return rx.button(
+        ProgressExampleState.count,
+        on_click=ProgressExampleState.increment,
+        loading=ProgressExampleState.show_progress,
     )
 
 ```
@@ -68,6 +65,7 @@ Events can also yield other events. This is useful when you want to chain events
 # Reference other Event Handler via class
 
 When chaining another event handler with `yield`, access it via the state class, not `self`.
+```
 
 ```python demo exec
 
@@ -92,13 +90,10 @@ class YieldEventsState(rx.State):
 
 
 def multiple_yield_example():
-    return rx.cond(
-        YieldEventsState.show_progress,
-        rx.chakra.circular_progress(is_indeterminate=True),
-        rx.button(
-            YieldEventsState.count,
-            on_click=YieldEventsState.increment,
-        )
+    return rx.button(
+        YieldEventsState.count,
+        on_click=YieldEventsState.increment,
+        loading=YieldEventsState.show_progress,
     )
 
 ```

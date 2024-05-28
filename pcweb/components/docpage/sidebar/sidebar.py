@@ -32,7 +32,7 @@ def sidebar_link(*children, **props):
         **props,
     )
 
-
+  
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
