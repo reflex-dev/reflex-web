@@ -22,10 +22,10 @@ def get_sidebar_items_recipes():
         create_item(
             "Content",
             children=[
-                recipes.content.grid,
+                recipes.content.forms,
                 recipes.content.multi_column_row,
-                recipes.content.checkboxes,
-                # recipes.content.search_bar,
+                recipes.content.grid,
+                recipes.content.stats,
             ],
         ),
         create_item(
@@ -38,8 +38,7 @@ def get_sidebar_items_recipes():
         create_item(
             "Other",
             children=[
-                recipes.others.stats,
-                recipes.others.forms,
+                recipes.others.checkboxes,
             ]
         ),
     ]
