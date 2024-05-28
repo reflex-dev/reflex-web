@@ -168,7 +168,7 @@ class TutorialState(rx.State):
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
         session = await client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages[\{"role": "user", "content": self.question}],
+            messages=[\{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,
             stream=True,

@@ -10,16 +10,16 @@ components:
     - rx.radix.select.separator
 
 HighLevelSelect: |
-    lambda **props: rx.radix.themes.select(["apple", "grape", "pear"], default_value="pear", **props)
+    lambda **props: rx.radix.select(["apple", "grape", "pear"], default_value="pear", **props)
 
 SelectRoot: |
-    lambda **props: rx.radix.themes.select.root(
-        rx.radix.themes.select.trigger(),
-        rx.radix.themes.select.content(
-            rx.radix.themes.select.group(
-                rx.radix.themes.select.item("apple", value="apple"),
-                rx.radix.themes.select.item("grape", value="grape"),
-                rx.radix.themes.select.item("pear", value="pear"),
+    lambda **props: rx.radix.select.root(
+        rx.radix.select.trigger(),
+        rx.radix.select.content(
+            rx.radix.select.group(
+                rx.radix.select.item("apple", value="apple"),
+                rx.radix.select.item("grape", value="grape"),
+                rx.radix.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",
@@ -27,26 +27,26 @@ SelectRoot: |
     )
 
 SelectTrigger: |
-    lambda **props: rx.radix.themes.select.root(
-        rx.radix.themes.select.trigger(**props),
-        rx.radix.themes.select.content(
-            rx.radix.themes.select.group(
-                rx.radix.themes.select.item("apple", value="apple"),
-                rx.radix.themes.select.item("grape", value="grape"),
-                rx.radix.themes.select.item("pear", value="pear"),
+    lambda **props: rx.radix.select.root(
+        rx.radix.select.trigger(**props),
+        rx.radix.select.content(
+            rx.radix.select.group(
+                rx.radix.select.item("apple", value="apple"),
+                rx.radix.select.item("grape", value="grape"),
+                rx.radix.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",
     )
 
 SelectContent: |
-    lambda **props: rx.radix.themes.select.root(
-        rx.radix.themes.select.trigger(),
-        rx.radix.themes.select.content(
-            rx.radix.themes.select.group(
-                rx.radix.themes.select.item("apple", value="apple"),
-                rx.radix.themes.select.item("grape", value="grape"),
-                rx.radix.themes.select.item("pear", value="pear"),
+    lambda **props: rx.radix.select.root(
+        rx.radix.select.trigger(),
+        rx.radix.select.content(
+            rx.radix.select.group(
+                rx.radix.select.item("apple", value="apple"),
+                rx.radix.select.item("grape", value="grape"),
+                rx.radix.select.item("pear", value="pear"),
             ),
             **props,
         ),
@@ -54,13 +54,13 @@ SelectContent: |
     )
 
 SelectItem: |
-    lambda **props: rx.radix.themes.select.root(
-        rx.radix.themes.select.trigger(),
-        rx.radix.themes.select.content(
-            rx.radix.themes.select.group(
-                rx.radix.themes.select.item("apple", value="apple", **props),
-                rx.radix.themes.select.item("grape", value="grape"),
-                rx.radix.themes.select.item("pear", value="pear"),
+    lambda **props: rx.radix.select.root(
+        rx.radix.select.trigger(),
+        rx.radix.select.content(
+            rx.radix.select.group(
+                rx.radix.select.item("apple", value="apple", **props),
+                rx.radix.select.item("grape", value="grape"),
+                rx.radix.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",
@@ -115,7 +115,7 @@ rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], default_value="Orange"
 Can set the `color`, `variant` and `radius` to easily style the `select`.
 
 ```python demo
-rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%")
+rx.select(["Apple", "Orange", "Banana", "Grape", "Pear"], color="pink", variant="soft", radius="full", width="100%", default_value="apple")
 ```
 
 ## High control of select component (value and open changes)

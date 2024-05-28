@@ -1,6 +1,5 @@
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.styles import text_colors as tc
 from pcweb.templates.webpage import webpage
 from pcweb.components.logo import logo
 
@@ -72,6 +71,30 @@ def change(date, title, description, points, link):
 
 def changelog_content():
     return rx.chakra.vstack(
+        change(
+            "2024-05-21",
+            "v0.5.1",
+            "Connection Error is now a Toast",
+            [
+                "rx._x.toast supports action buttons and on_dismiss/on_auto_close",
+                "Improved typing for ConnectionState and State mixins",
+                "Faster CLI launch time",
+                "Better customizability for rx.accordion",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.1",
+        ),
+        change(
+            "2024-05-13",
+            "v0.5.0",
+            "Radix Themes 3.0",
+            [
+                "New public API methods for wrapping 3rd-Party Components",
+                "Generic throttle and debounce for all event handlers",
+                "Use Alembic batch mode for db makemigrations",
+                "Experimental toast component in rx._x.toast",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.0",
+        ),
         change(
             "2024-04-22",
             "v0.4.9",

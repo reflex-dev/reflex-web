@@ -6,6 +6,7 @@ from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import vars
+from reflex_image_zoom import image_zoom
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -110,6 +111,10 @@ app.add_page(index)
 
 Let's break this example down.
 
+```python eval
+image_zoom(rx.image(src="/counter_example_color_coded.png"))
+```
+
 ### Import
 
 ```python
@@ -128,6 +133,8 @@ class State(rx.State):
 The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event_handlers](#event-handlers)**) that change them.
 
 Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
+
+Anything defined in state is created per user that uses the app. Anything that is global, i.e. instantiating an API key, that must only be done once for the whole app should not be done inside the state class.
 
 ### Event Handlers
 

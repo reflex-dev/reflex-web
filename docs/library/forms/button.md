@@ -3,7 +3,7 @@ components:
     - rx.radix.button
 
 Button: |
-    lambda **props: rx.radix.themes.button("Basic Button", **props)
+    lambda **props: rx.radix.button("Basic Button", **props)
 ---
 
 
@@ -41,6 +41,18 @@ The `disabled` prop disables the button, by default it is `False`.  A disabled b
 rx.flex(
     rx.button("Enabled"),
     rx.button("Disabled", disabled=True),
+    spacing="2",
+)
+```
+
+### Loading
+
+The `loading` prop is used to indicate that the action triggered by the button is currently in progress. When set to `True`, the button displays a loading spinner, providing visual feedback to the user that the action is being processed. This also prevents multiple clicks while the button is in the loading state. By default, `loading` is set to `False`.
+
+```python demo
+rx.flex(
+    rx.button("Not loading"),
+    rx.button("Loading", loading=True),
     spacing="2",
 )
 ```

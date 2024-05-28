@@ -13,7 +13,7 @@ FormRoot: |
             rx.flex(
                 rx.form.label("Email"),
                 rx.form.control(
-                    rx.input.input(
+                    rx.input(
                         placeholder="Email Address",
                         # type attribute is required for "typeMismatch" validation
                         type="email",
@@ -41,7 +41,7 @@ FormField: |
             rx.flex(
                 rx.form.label("Email"),
                 rx.form.control(
-                    rx.input.input(
+                    rx.input(
                         placeholder="Email Address",
                         # type attribute is required for "typeMismatch" validation
                         type="email",
@@ -69,7 +69,7 @@ FormMessage: |
                     rx.flex(
                         rx.form.label("Email"),
                         rx.form.control(
-                            rx.input.input(
+                            rx.input(
                                 placeholder="Email Address",
                                 # type attribute is required for "typeMismatch" validation
                                 type="email",
@@ -115,7 +115,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Email"),
             rx.form.control(
-                rx.input.input(
+                rx.input(
                     placeholder="Email Address",
                     # type attribute is required for "typeMismatch" validation
                     type="email",
@@ -138,7 +138,7 @@ rx.form.root(
 )
 ```
 
-In this example, the `text_field.input` has an attribute `type="email"` and the `form.message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `text_field.input` to construct the Form Control and `button` the Form Submit.
+In this example, the `rx.input` has an attribute `type="email"` and the `form.message` has the attribute `match="typeMismatch"`. Those are required for the form to validate the input by its type. The prop `as_child="True"` is required when using other components to construct a Form component. This example has used `rx.input` to construct the Form Control and `button` the Form Submit.
 
 ## Form Anatomy
 
@@ -231,7 +231,7 @@ def radix_form_submission_example():
                     default_value="1",
                     name="box2",
                 ),
-                rx.input.input(
+                rx.input(
                     placeholder="box3 textfield input",
                     name="box3",
                 ),
@@ -306,7 +306,7 @@ def radix_form_submission_example():
 
 Client side validation is achieved by examining the property of an interface of HTML elements called **ValidityState**. The `match` prop of the Form Message determines when the message should be displayed. The valid `match` prop values can be found in the **props** tab at the top of this page. For example, `"typeMismatch"` is set to `True` when an input element has a `type` attribute and the entered value is not valid for the `type`. If the input is specified as `type="url"`, it is expected to start with `http://` or `https://`. For the list of supported types, please refer to [HTML input element docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type). The above references are all part of the HTML standards. For more details, please refer to [ValidityState docs](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) and further more the reference links on that page.
 
-Below is an example of a form that collects a **number** from a `text_field.input`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `text_field.input` and `match="rangeUnderflow"` on the `form.message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `text_field.input` and `match="rangeOverflow"` on the `form.message`.
+Below is an example of a form that collects a **number** from a `rx.input`. The number is in the range of **[30, 100]** (both ends of the range are inclusive: **30** and **100** are valid). When a number smaller than **30** is entered, a message below the input field is printed: **Please enter a number >= 30**. This is because `min=30` is set on the `rx.input` and `match="rangeUnderflow"` on the `form.message`. Similarly, when a number larger than **100** is entered, this message **Please enter a number <= 100** is displayed. Note the `max=100` attribute on the `rx.input` and `match="rangeOverflow"` on the `form.message`.
 
 ```python demo
 rx.form.root(
@@ -314,7 +314,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Requires number in range [30, 100]"),
             rx.form.control(
-                rx.input.input(
+                rx.input(
                     placeholder="Enter a number",
                     type="number",
                     max=100,
@@ -347,7 +347,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please choose a password of length >= 8 characters"),
             rx.form.control(
-                rx.input.input(
+                rx.input(
                     placeholder="Enter your password",
                     type="password",
                     min_length=8
@@ -378,7 +378,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please enter your phone number with only digits. Let's say in your region the phone number is exactly 10 digits long."),
             rx.form.control(
-                rx.input.input(
+                rx.input(
                     placeholder="Enter your your phone number",
                     type="text",
                     pattern="[0-9]{10}",
@@ -412,7 +412,7 @@ rx.form.root(
         rx.flex(
             rx.form.label("Please enter a valid URL starting with http or https"),
             rx.form.control(
-                rx.input.input(
+                rx.input(
                     placeholder="Enter your URL",
                     type="url",
                 ),
@@ -487,7 +487,7 @@ def radix_form_example():
                     rx.flex(
                         rx.form.label("Username"),
                         rx.form.control(
-                            rx.input.input(
+                            rx.input(
                                 placeholder="Username",
                                 # workaround: `name` seems to be required when on_change is set
                                 on_change=RadixFormState.set_user_entered_username,
@@ -526,7 +526,7 @@ def radix_form_example():
                     rx.flex(
                         rx.form.label("Email"),
                         rx.form.control(
-                            rx.input.input(
+                            rx.input(
                                 placeholder="Email Address",
                                 on_change=RadixFormState.set_user_entered_email,
                                 name="email",

@@ -3,7 +3,7 @@ from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
-    from pcweb.components.sidebar import get_component_link
+    from pcweb.components.docpage.sidebar import get_component_link
     from pcweb.pages.docs import component_list
 
     sidebar = []
@@ -39,21 +39,15 @@ def component_grid():
     )
 
 
-@docpage()
+@docpage(right_sidebar=False)
 def library():
     return rx.flex(
-        rx.hstack(
-            rx.box(
-                h1_comp(text="Component Library"),
-                text_comp(
-                    text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
-                ),
-                rx.chakra.divider(),
-                component_grid(),
-                text_align="left",
-            ),
-            align_items="start",
+        h1_comp(text="Component Library"),
+        text_comp(
+            text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components. "
         ),
+        component_grid(),
+        text_align="left",
         flex_direction="column",
         height="100%",
         margin_bottom="4em",

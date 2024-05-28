@@ -1,38 +1,19 @@
 ---
 components:
     - rx.radix.input
-    - rx.radix.text_field.root
-    - rx.radix.text_field.input
-    - rx.radix.text_field.slot
+    - rx.radix.input.slot
 
 
 Input: |
     lambda **props: rx.input(placeholder="Search the docs", **props)
 
-TextFieldRoot: |
-    lambda **props: rx.radix.themes.text_field.root(
-        rx.radix.themes.text_field.slot(
-            rx.icon(tag="search", height="16", width="16"),
-        ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs"),
-        **props,
-    )
-
-TextFieldInput: |
-    lambda **props: rx.radix.themes.text_field.root(
-        rx.radix.themes.text_field.slot(
-            rx.icon(tag="search", height="16", width="16"),
-        ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs", **props,),
-    )
-
 TextFieldSlot: |
-    lambda **props: rx.radix.themes.text_field.root(
-        rx.radix.themes.text_field.slot(
+    lambda **props: rx.input(
+        rx.input.slot(
             rx.icon(tag="search", height="16", width="16"),
             **props,
         ),
-        rx.radix.themes.text_field.input(placeholder="Search the docs"),
+        placeholder="Search the docs",
     )
 ---
 
@@ -58,7 +39,7 @@ Can set defaults for a `placeholder` for text to show in the `input` box before 
 Can limit the `max_length` allowed as input into the `input` box.
 
 ```python demo
-rx.input(placeholder="Search here...", max_length="20")
+rx.input(placeholder="Search here...", max_length=20)
 ```
 
 ### Using Event Handlers

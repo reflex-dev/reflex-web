@@ -359,8 +359,8 @@ rx.vstack(
             fit_view=True,
         ),
         rx.hstack(
-            rx.button("Clear graph", on_click=ReactFlowState.clear_graph, width="100%"),
-            rx.button("Add node", on_click=ReactFlowState.add_random_node, width="100%"),
+            rx.button("Clear graph", on_click=ReactFlowState.clear_graph, width="50%"),
+            rx.button("Add node", on_click=ReactFlowState.add_random_node, width="50%"),
             width="100%",
         ),
         height="30em",

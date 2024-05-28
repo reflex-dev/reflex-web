@@ -52,7 +52,13 @@ The command is by default interactive. It asks you a few questions for informati
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
 ```md alert info
-Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
+# Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
+```
+
+The hosting service does not currently handle database or file upload operations. It is necessary to set up an external database use it within your app.
+
+```md alert info
+# If you want to deploy on a custom URL we recommend using https://redirect.pizza
 ```
 
 ## See it in Action

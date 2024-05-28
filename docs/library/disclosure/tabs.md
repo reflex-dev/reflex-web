@@ -9,23 +9,23 @@ only_low_level:
     - True
 
 TabsRoot: |
-    lambda **props: rx.radix.themes.tabs.root(
-        rx.radix.themes.tabs.list(
-            rx.radix.themes.tabs.trigger("Account", value="account"),
-            rx.radix.themes.tabs.trigger("Documents", value="documents"),
-            rx.radix.themes.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.radix.tabs.root(
+        rx.radix.tabs.list(
+            rx.radix.tabs.trigger("Account", value="account"),
+            rx.radix.tabs.trigger("Documents", value="documents"),
+            rx.radix.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.themes.box(
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Make changes to your account"),
+        rx.radix.box(
+            rx.radix.tabs.content(
+                rx.radix.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Update your documents"),
+            rx.radix.tabs.content(
+                rx.radix.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Edit your personal profile"),
+            rx.radix.tabs.content(
+                rx.radix.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
@@ -33,72 +33,72 @@ TabsRoot: |
     )
 
 TabsList: |
-    lambda **props: rx.radix.themes.tabs.root(
-        rx.radix.themes.tabs.list(
-            rx.radix.themes.tabs.trigger("Account", value="account"),
-            rx.radix.themes.tabs.trigger("Documents", value="documents"),
-            rx.radix.themes.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.radix.tabs.root(
+        rx.radix.tabs.list(
+            rx.radix.tabs.trigger("Account", value="account"),
+            rx.radix.tabs.trigger("Documents", value="documents"),
+            rx.radix.tabs.trigger("Settings", value="settings"),
             **props,
         ),
-        rx.radix.themes.box(
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Make changes to your account"),
+        rx.radix.box(
+            rx.radix.tabs.content(
+                rx.radix.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Update your documents"),
+            rx.radix.tabs.content(
+                rx.radix.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Edit your personal profile"),
+            rx.radix.tabs.content(
+                rx.radix.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
     )
 
 TabsTrigger: |
-    lambda **props: rx.radix.themes.tabs.root(
-        rx.radix.themes.tabs.list(
-            rx.radix.themes.tabs.trigger("Account", value="account", **props,),
-            rx.radix.themes.tabs.trigger("Documents", value="documents"),
-            rx.radix.themes.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.radix.tabs.root(
+        rx.radix.tabs.list(
+            rx.radix.tabs.trigger("Account", value="account", **props,),
+            rx.radix.tabs.trigger("Documents", value="documents"),
+            rx.radix.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.themes.box(
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Make changes to your account"),
+        rx.radix.box(
+            rx.radix.tabs.content(
+                rx.radix.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Update your documents"),
+            rx.radix.tabs.content(
+                rx.radix.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Edit your personal profile"),
+            rx.radix.tabs.content(
+                rx.radix.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
     )
 
 TabsContent: |
-    lambda **props: rx.radix.themes.tabs.root(
-        rx.radix.themes.tabs.list(
-            rx.radix.themes.tabs.trigger("Account", value="account"),
-            rx.radix.themes.tabs.trigger("Documents", value="documents"),
-            rx.radix.themes.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.radix.tabs.root(
+        rx.radix.tabs.list(
+            rx.radix.tabs.trigger("Account", value="account"),
+            rx.radix.tabs.trigger("Documents", value="documents"),
+            rx.radix.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.themes.box(
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Make changes to your account"),
+        rx.radix.box(
+            rx.radix.tabs.content(
+                rx.radix.text("Make changes to your account"),
                 value="account",
                 **props,
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Update your documents"),
+            rx.radix.tabs.content(
+                rx.radix.text("Update your documents"),
                 value="documents",
                 **props,
             ),
-            rx.radix.themes.tabs.content(
-                rx.radix.themes.text("Edit your personal profile"),
+            rx.radix.tabs.content(
+                rx.radix.text("Edit your personal profile"),
                 value="settings",
                 **props,
             ),
@@ -165,9 +165,17 @@ rx.tabs.root(
 ### Orientation
 
 We use `orientation` prop to set the orientation of the tabs component to `vertical` or `horizontal`. By default, the orientation
-will be set to `horizontal`. Note that, the orientation prop wont change the visual orientation but the
-functional orientation. This means for vertical orientation, the up and down arrow keys moves focus between the next or previous tab,
-while for horizontal orientation, the left and right arrow keys moves focus between tabs.
+will be set to `horizontal`. Setting this value will change both the visual orientation and the functional orientation. 
+
+```md alert info
+The functional orientation means for `vertical`, the `up` and `down` arrow keys moves focus between the next or previous tab,
+while for `horizontal`, the `left` and `right` arrow keys moves focus between tabs.
+```
+
+```md alert warning
+# When using vertical orientation, make sure to assign a tabs.content for each trigger.
+Defining triggers without content will result in a visual bug where the width of the triggers list isn't constant.
+```
 
 ```python demo
 rx.tabs.root(

@@ -3,19 +3,18 @@
 import inspect
 import os
 import re
-from typing import Any, Type, get_args
+from typing import Any, Type, get_args, Literal, _GenericAlias
 
 import reflex as rx
 import flexdown
 import textwrap
 
 from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp
+from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
 from reflex.base import Base
 from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from ...templates.docpage import docdemobox
 from reflex.components.base.fragment import Fragment
 
 
@@ -178,6 +177,77 @@ def get_id(s):
 class PropDocsState(rx.State):
     """Container for dynamic vars used by the prop docs."""
 
+EXCLUDED_COMPONENTS = [
+    "Theme",
+    "ThemePanel",
+    "DrawerRoot",
+    "DrawerTrigger",
+    "DrawerOverlay",
+    "DrawerPortal",
+    "DrawerContent",
+    "DrawerClose",
+]
+
+def render_select(prop, component, prop_dict):
+    if not rx.utils.types._issubclass(
+        component, (RadixThemesComponent, RadixPrimitiveComponent)
+    ) or component.__name__ in EXCLUDED_COMPONENTS:
+        return rx.fragment()
+    try:
+        type_ = rx.utils.types.get_args(prop.type_)[0]
+    except:
+        return rx.fragment()
+
+    try:
+        if issubclass(type_, bool) and prop.name not in [
+            "open",
+            "checked",
+            "as_child",
+            "default_open",
+            "default_checked",
+        ]:
+            name = get_id(f"{component.__qualname__}_{prop.name}")
+            PropDocsState.add_var(name, bool, False)
+            var = getattr(PropDocsState, name)
+            setter = getattr(PropDocsState, f"set_{name}")
+            prop_dict[prop.name] = var
+            return rx.checkbox(
+                var,
+                on_change=setter,
+            )
+    except TypeError:
+        pass
+
+    if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
+        return rx.fragment()
+    # Get the first option.
+    option = type_.__args__[0]
+    name = get_id(f"{component.__qualname__}_{prop.name}")
+    PropDocsState.add_var(name, str, option)
+    var = getattr(PropDocsState, name)
+    setter = getattr(PropDocsState, f"set_{name}")
+    prop_dict[prop.name] = var
+
+    return rx.select.root(
+        rx.select.trigger(width="8em"),
+        rx.select.content(
+            rx.select.group(
+                *[
+                    rx.select.item(
+                        item,
+                        value=item,
+                        _hover={"background": f"var(--{item}-9)"}
+                        if prop.name == "color_scheme"
+                        else None,
+                    )
+                    for item in list(map(str, type_.__args__))
+                ]
+            ),
+        ),
+        value=var,
+        on_change=setter,
+    )
+
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
@@ -191,81 +261,6 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_, "gray")
 
-    # if the type if literal show all the options
-    if type_ == "Literal":
-        output = get_args(prop.type_)
-
-    from typing import Literal, _GenericAlias
-
-    def render_select(prop):
-        if not rx.utils.types._issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
-        ) or component.__name__ in [
-            "Theme",
-            "ThemePanel",
-            "DrawerRoot",
-            "DrawerTrigger",
-            "DrawerOverlay",
-            "DrawerPortal",
-            "DrawerContent",
-            "DrawerClose",
-        ]:
-            return rx.fragment()
-        try:
-            type_ = rx.utils.types.get_args(prop.type_)[0]
-        except:
-            return rx.fragment()
-
-        try:
-            if issubclass(type_, bool) and prop.name not in [
-                "open",
-                "checked",
-                "as_child",
-                "default_open",
-                "default_checked",
-            ]:
-                name = get_id(f"{component.__qualname__}_{prop.name}")
-                PropDocsState.add_var(name, bool, False)
-                var = getattr(PropDocsState, name)
-                setter = getattr(PropDocsState, f"set_{name}")
-                prop_dict[prop.name] = var
-                return rx.checkbox(
-                    var,
-                    on_change=setter,
-                )
-        except TypeError:
-            pass
-
-        if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
-            return rx.fragment()
-        # Get the first option.
-        option = type_.__args__[0]
-        name = get_id(f"{component.__qualname__}_{prop.name}")
-        PropDocsState.add_var(name, str, option)
-        var = getattr(PropDocsState, name)
-        setter = getattr(PropDocsState, f"set_{name}")
-        prop_dict[prop.name] = var
-
-        return rx.select.root(
-            rx.select.trigger(width="8em"),
-            rx.select.content(
-                rx.select.group(
-                    *[
-                        rx.select.item(
-                            item,
-                            value=item,
-                            _hover={"background": f"var(--{item}-9)"}
-                            if prop.name == "color_scheme"
-                            else None,
-                        )
-                        for item in list(map(str, type_.__args__))
-                    ]
-                ),
-            ),
-            value=var,
-            on_change=setter,
-        )
-
     # Return the docs for the prop.
     return [
         rx.table.cell(rx.code(prop.name), padding_left="1em", justify="start"),
@@ -275,7 +270,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             justify="start",
         ),
         rx.table.cell(markdown(prop.description), padding_left="1em", justify="start"),
-        rx.table.cell(render_select(prop), padding_left="1em", justify="start"),
+        rx.table.cell(render_select(prop, component, prop_dict), padding_left="1em", justify="start"),
     ]
 
 
@@ -598,7 +593,12 @@ def generate_event_triggers(comp):
     if not custom_events:
         return rx.vstack(
             rx.heading("Event Triggers", font_size="1em"),
-            rx.text("No component specific event triggers"),
+            rx.link(
+                "See the full list of default event triggers",
+                href="https://reflex.dev/docs/api-reference/event-triggers/",
+                underline="hover",
+                is_external=True,
+            ),
             width="100%",
             overflow_x="auto",
             align_items="start",

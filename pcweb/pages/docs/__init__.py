@@ -16,6 +16,7 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 
 from .gallery import gallery
 from .library import library
+from .recipes_overview import overview
 from .resources import resources
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
@@ -89,7 +90,9 @@ flexdown_docs = [
 
 chakra_components = defaultdict(list)
 component_list = defaultdict(list)
+recipes_list = defaultdict(list)
 docs_ns = SimpleNamespace()
+
 
 
 def exec_blocks(doc, href):
@@ -160,7 +163,11 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [gallery, library, resources, custom_components] + apiref_pages
+doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
+
+for api_route in apiref_pages:
+    title = rx.utils.format.to_snake_case(api_route.title)
+    build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
@@ -177,8 +184,6 @@ for doc in sorted(flexdown_docs):
         docs_ns, path, title, Route(path=route, title=title2, component=lambda: "")
     )
 
-    # Add the route to the list of routes.
-
     if comp is not None:
         if isinstance(comp, tuple):
             for c in comp:
@@ -186,6 +191,11 @@ for doc in sorted(flexdown_docs):
         else:
             doc_routes.append(comp)
 
+
+for doc in flexdown_docs:
+    if 'recipes' in doc:
+        category = doc.split('/')[2]
+        recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():
     locals()[name] = ns

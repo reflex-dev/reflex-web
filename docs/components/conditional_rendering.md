@@ -9,7 +9,7 @@ from pcweb.pages.docs import vars, library
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
 ```md alert
-Check out the API reference for [cond docs]({library.layout.cond.path}).
+# Check out the API reference for [cond docs]({library.layout.cond.path}).
 ```
 
 ```python eval

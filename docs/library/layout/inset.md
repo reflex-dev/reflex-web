@@ -3,8 +3,8 @@ components:
     - rx.radix.inset
 
 Inset: |
-    lambda **props: rx.radix.themes.card(
-        rx.radix.themes.inset(
+    lambda **props: rx.radix.card(
+        rx.radix.inset(
             rx.image(src="/reflex_banner.png", height="auto"),
             **props,
         ),

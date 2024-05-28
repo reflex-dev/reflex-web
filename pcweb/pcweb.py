@@ -1,8 +1,8 @@
 """The main Reflex website."""
 
 import os
-import sys
- 
+import sys 
+  
 import reflex as rx
 from pcweb import styles
 from pcweb.pages import page404, routes
@@ -12,8 +12,8 @@ from pcweb.whitelist import _check_whitelisted_path
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
 WINDOWS_MAX_ROUTES = 125
-
-
+ 
+  
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
     exec_blocks(doc, href)
@@ -65,6 +65,9 @@ for route in routes:
             route.path,
             route.title,
             image="/previews/index_preview.png",
+            meta= [
+                {"name": "theme-color", "content": route.background_color},
+            ]
         )
 
 # Add redirects

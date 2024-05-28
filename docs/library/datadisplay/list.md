@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.radix.themes.list.item
-    - rx.radix.themes.list.ordered
-    - rx.radix.themes.list.unordered
+    - rx.radix.list.item
+    - rx.radix.list.ordered
+    - rx.radix.list.unordered
 ---
 
 ```python exec

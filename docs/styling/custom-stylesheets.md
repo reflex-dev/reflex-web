@@ -37,9 +37,17 @@ not work for routes containing more than one path component, like `/blog/my-cool
 
 You can take advantage of Reflex's support for custom stylesheets to add custom fonts to your app.
 
-Then you can use the font in your app by setting the `font_family` prop.
+In this example, we will use the [IBM Plex Mono]({"https://fonts.google.com/specimen/IBM+Plex+Mono"}) font from Google Fonts. First, add the stylesheet with the font to your app. You can get this link from the "Get embed code" section of the Google font page.
 
-In this example, we will use the [IBM Plex Mono]({"https://fonts.google.com/specimen/IBM+Plex+Mono"}) font from Google Fonts.
+```python
+app = rx.App(
+    stylesheets=[
+        "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap",
+    ],
+)
+```
+
+Then you can use the font in your component by setting the `font_family` prop.
 
 ```python demo
 rx.text(

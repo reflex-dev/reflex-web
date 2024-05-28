@@ -181,10 +181,8 @@ By convention, Reflex provides the function `rx.get_upload_dir()` to get the dir
 
 The backend of your app will mount this uploaded files directory on `/_upload` without restriction. Any files uploaded via this mechanism will automatically be publicly accessible. To get the URL for a file inside the upload dir, use the `rx.get_upload_url(filename)` function in a frontend component.
 
-```md alert
-When using the Reflex hosting service, the uploaded files directory is not persistent and will be cleared on every deployment.
-
-For persistent storage of uploaded files, it is recommended to use an external service, such as S3.
+```md alert info
+# When using the Reflex hosting service, the uploaded files directory is not persistent and will be cleared on every deployment. For persistent storage of uploaded files, it is recommended to use an external service, such as S3.
 ```
 
 ## Cancellation

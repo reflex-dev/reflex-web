@@ -1,5 +1,4 @@
 import reflex as rx
-from pcweb.styles import text_colors as tc
 from pcweb.templates.docpage import docpage, h1_comp, h2_comp, text_comp
 
 
@@ -7,7 +6,7 @@ def video(title, author, url):
     return rx.link(
         rx.chakra.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
+                rx.text(title, font_size="1.2em"),
                 rx.badge(author, color_scheme="green", margin_left="1em"),
             )
         ),
@@ -22,7 +21,7 @@ def launch(title, platform, url):
     return rx.link(
         rx.chakra.list_item(
             rx.hstack(
-                rx.text(title, font_size="1.2em", color=tc["docs"]["body"]),
+                rx.text(title, font_size="1.2em"),
                 rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
             )
         ),

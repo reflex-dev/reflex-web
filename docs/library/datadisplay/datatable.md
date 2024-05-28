@@ -5,16 +5,20 @@ components:
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 ```
 
 # DataTable
 
-The datatable component is a great way to display data in a table format.
+The datatable component is a great way to display static data in a table format.
 You can pass in a pandas dataframe to the data prop to create the table.
 
 In this example we will read data from a csv file, convert it to a pandas dataframe and display it in a data_table.
 
 We will also add a search, pagination, sorting to the data_table to make it more accessible.
+
+If you want to [add, edit or remove data]({library.datadisplay.table.path}) in your app or deal with anything but static data then the [`rx.table`]({library.datadisplay.table.path}) might be a better fit for your use case.
+
 
 ```python demo box
 rx.data_table(
@@ -39,7 +43,7 @@ rx.data_table(
 
 ```python
 import pandas as pd
-nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")"""
+nba_data = pd.read_csv("https://media.geeksforgeeks.org/wp-content/uploads/nba.csv")
 ...
 rx.data_table(
     data = nba_data[["Name", "Height", "Age"]],

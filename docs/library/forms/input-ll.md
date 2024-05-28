@@ -1,8 +1,6 @@
 ---
 components:
     - rx.radix.input
-    - rx.radix.input.root
-    - rx.radix.input.input
     - rx.radix.input.slot
 ---
 
@@ -10,22 +8,28 @@ components:
 import reflex as rx
 ```
 
-# TextField
+# Input
 
-A text field is an input field that users can type into. This component uses Radix's [text field](https://radix-ui.com/primitives/docs/components/text-field) component.
+A text field is an input field that users can type into. This component uses Radix's [text field](https://www.radix-ui.com/themes/docs/components/text-field) component.
+
+
+## Overview
+
+The TextField component is used to capture user input and can include an optional slot for buttons and icons. It is based on the <div> element and supports common margin props.
 
 ## Basic Example
 
 ```python demo
-rx.input.root(
+rx.input(
     rx.input.slot(
         rx.icon(tag="search"),
+
     ),
-    rx.input.input(
-        placeholder="Search here...",
-    ),
+    placeholder="Search here...",
 )
 ```
+
+## Stateful Example with Blur Event
 
 ```python demo exec
 class TextfieldBlur1(rx.State):
@@ -35,18 +39,17 @@ class TextfieldBlur1(rx.State):
 def blur_example1():
     return rx.vstack(
         rx.heading(TextfieldBlur1.text),
-        rx.input.root(
+        rx.input(
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search here...",
-                on_blur=TextfieldBlur1.set_text,
-            ),
-            
+            placeholder="Search here...",
+            on_blur=TextfieldBlur1.set_text,
         )
     )
 ```
+
+## Controlled Example
 
 ```python demo exec
 class TextfieldControlled1(rx.State):
@@ -56,15 +59,13 @@ class TextfieldControlled1(rx.State):
 def controlled_example1():
     return rx.vstack(
         rx.heading(TextfieldControlled1.text),
-        rx.input.root(
+        rx.input(
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search here...",
-                value=TextfieldControlled1.text,
-                on_change=TextfieldControlled1.set_text,
-            ),
+            placeholder="Search here...",
+            value=TextfieldControlled1.text,
+            on_change=TextfieldControlled1.set_text,
         ),
     )
 ```
@@ -97,13 +98,11 @@ def song(title, initials: str, genre: str):
 def search():
     return rx.card(
     rx.flex(
-        rx.input.root(
+        rx.input(
             rx.input.slot(
                 rx.icon(tag="search"),
             ),
-            rx.input.input(
-                placeholder="Search songs...",
-            ),
+            placeholder="Search songs...",
         ),
         rx.flex(
             song("The Less I Know", "T", "Rock"),

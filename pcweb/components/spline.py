@@ -5,7 +5,7 @@ from reflex.vars import Var
 class Spline(rx.Component):
     """Spline component."""
 
-    library = "@splinetool/react-spline"
+    library = "@splinetool/react-spline@^2.2.6"
     tag = "Spline"
     scene: Var[str] = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
     is_default = True
