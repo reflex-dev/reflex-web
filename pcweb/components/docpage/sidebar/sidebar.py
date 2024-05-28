@@ -10,7 +10,8 @@ from .state import SidebarState, SidebarItem
  
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
-from .sidebar_items.reference import api_reference, recipes, tutorials
+from .sidebar_items.reference import api_reference, tutorials
+from .sidebar_items.recipes import recipes
 
 
 heading_style2 = {
@@ -265,42 +266,49 @@ def get_prev_next(url):
     return None, None
 
 
-def sidebar_category(name, icon, color, index):
-    return rx.flex(
-        rx.button(
-            rx.icon(
-                tag=icon,
-                color="white",
-                fill="rgba(255, 255, 255, 0.25)",
-                size=20,
+def sidebar_category(name, url, icon, color, index):
+    return rx.link(
+        rx.flex(
+            rx.button(
+                rx.icon(
+                    tag=icon,
+                    color="white",
+                    fill="rgba(255, 255, 255, 0.25)",
+                    size=20,
+                ),
+                height="35px",
+                width="35px",
+                padding="0px",
+                border_radius="6px",
+                color_scheme=color,
+                variant="classic",
+                align_items="center",
+                justify="center",
             ),
-            height="35px",
-            width="35px",
-            padding="0px",
-            border_radius="6px",
-            color_scheme=color,
-            variant="classic",
+            rx.text(
+                name,
+                color=rx.cond(
+                    SidebarState.sidebar_index == index,
+                    rx.color("mauve", 12),
+                    rx.color("mauve", 11),
+                ),
+                font_size="16px",
+                font_weight="500",
+                padding="0px 0px 0px 14px",
+            ),
+            on_click=lambda: SidebarState.set_sidebar_index(index),
+            _hover={
+                "background_color": rx.color("mauve", 2),   
+            },
             align_items="center",
-            justify="center",
+            justify="start",
+            padding_y="0.5em",
+            padding_x="0.5em",
+            border_radius="0.5em",
+            width="100%",
+            cursor="pointer",
         ),
-        rx.text(
-            name,
-            color=rx.cond(
-                SidebarState.sidebar_index == index,
-                rx.color("mauve", 12),
-                rx.color("mauve", 11),
-            ),
-            font_size="16px",
-            font_weight="500",
-            padding="0px 0px 0px 14px",
-        ),
-        on_click=lambda: SidebarState.set_sidebar_index(index),
-        align_items="center",
-        justify="start",
-        padding="0 10px 15px 10px",
-        border_radius="0.5em",
-        width="100%",
-        cursor="pointer",
+        href=url,
     )
 
 
@@ -371,10 +379,19 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
+    
+    from pcweb.pages.docs.recipes_overview import overview
+    from pcweb.pages.docs.library import library
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs.apiref import pages
+
+
     return rx.flex(
-        sidebar_category("Learn", "graduation-cap", "violet", 0),
-        sidebar_category("Components", "layout-panel-left", "blue", 1),
-        sidebar_category("API Reference", "book-text", "crimson", 2),
+        sidebar_category("Learn", getting_started.introduction.path, "graduation-cap", "jade", 0),
+        sidebar_category("Components", library.path,  "layout-panel-left", "blue", 1),
+        sidebar_category("Recipes", overview.path, "scan-text", "indigo", 2),
+        sidebar_category("API Reference", pages[0].path, "book-text", "violet", 3),
+        
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
@@ -401,12 +418,20 @@ def sidebar_comp(
                 ),
             ),
             (
-                2,
+                2, 
+                rx.flex(
+                    create_sidebar_section(
+                        "Recipes", recipes, recipes_index, url
+                    ),
+                    direction="column",
+                )
+            ),
+            (
+                3,
                 rx.flex(
                     create_sidebar_section(
                         "Reference", api_reference, api_reference_index, url
                     ),
-                    create_sidebar_section("Recipes", recipes, recipes_index, url),
                     create_sidebar_section(
                         "Tutorials", tutorials, tutorials_index, url
                     ),

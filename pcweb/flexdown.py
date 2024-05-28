@@ -16,8 +16,8 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
 )
-
-
+   
+     
 class AlertBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a component along with its code."""
 
@@ -202,8 +202,8 @@ class DefinitionBlock(flexdown.blocks.Block):
                 )
             ),
         )
-
-
+   
+ 
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -247,6 +247,9 @@ class DemoBlock(flexdown.blocks.Block):
             prop, equals, value = arg.partition("=")
             if equals:
                 demobox_props[prop] = value
+
+        if "toggle" in args:
+            demobox_props["toggle"] = True
 
         return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
 
