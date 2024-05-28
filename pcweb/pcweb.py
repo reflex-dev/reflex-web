@@ -25,7 +25,6 @@ app = rx.App(
     theme=rx.theme(
         has_background=True, radius="large", accent_color="violet"
     ),
-    overlay_component=None,
     head_components=[
         rx.el.script(
             src="https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js",

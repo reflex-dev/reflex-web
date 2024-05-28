@@ -36,23 +36,23 @@ def message_group():
             font_weight="bold",
             line_height="1",            
         ),
-        rx.text(
+        rx.link(
             "Sign up for another email",
-            size='2',
+            href="#",
             color="#FFFFFF",
-            style={"text-decoration": "underline"},
-            on_click=IndexState.signup_for_another_user(),
+            underline="always",
+            on_click=IndexState.signup_for_another_user().prevent_default,
         )
     )
 
 def news_letter_form() -> rx.Component:
-    return rx.chakra.form(            
+    return rx.el.form(
         rx.chakra.input_group(
             rx.chakra.input_right_element(
                 rx.chakra.button(
                     "Subscribe ->",
+                    type_="submit",
                     color="#FFF",
-                    on_click=IndexState.signup,
                     background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%)",
                     box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset",
                     border_left="2px solid rgba(186, 199, 247, 0.12)",
@@ -66,19 +66,18 @@ def news_letter_form() -> rx.Component:
                 align="left",
             ),
             rx.chakra.input(
+                name="input_email",
                 placeholder="Enter your email address here",
-                on_blur=IndexState.set_email,
                 color="#fff",
                 background="rgba(161, 157, 213, 0.03)",
                 border="2px solid rgba(186, 199, 247, 0.12)",
-                type="email",
                 border_radius="8px",
                 height="48px",
             ),
         ),
         width="100%",
         height="48px",
-        on_submit=IndexState.signup(),
+        on_submit=IndexState.signup,
     )
 
 def news_letter_section() -> rx.Component:
