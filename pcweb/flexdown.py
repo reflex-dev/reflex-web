@@ -16,8 +16,8 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
 )
-  
    
+     
 class AlertBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a component along with its code."""
 

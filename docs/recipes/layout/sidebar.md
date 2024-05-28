@@ -1,20 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import demo_box_style
-
-# Custom styles for sidebar.
-box_style = demo_box_style.copy()
-del box_style["padding"]
-del box_style["align_items"]
-del box_style["justify_content"]
-box_style["height"] = "650px"
-box_style["position"] = "relative"
-
-# Custom styles for sidebar mobile and tablet.
-box_style_sm = demo_box_style.copy()
-del box_style_sm["padding"]
-del box_style_sm["align_items"]
-del box_style_sm["justify_content"]
 
 def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
 	return rx.link(
@@ -57,13 +42,46 @@ Similar to a navigation bar, a sidebar is a common UI element found on the side 
 ## Basic
 
 ```python demo exec toggle
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
 def sidebar() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.image(src="/logo.jpg", width="2.25em",
+								height="auto", border_radius="25%"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align="center",
 					justify="start",
@@ -80,10 +98,10 @@ def sidebar() -> rx.Component:
 				padding_y="1.5em",
 				bg=rx.color("accent", 3),
 				align="start",
-				height="100%",
+				#height="100%",
+				height="650px",
 				width="16em",
 			),
-			style=box_style
 		),
 		rx.mobile_and_tablet(
 			rx.drawer.root(
@@ -112,7 +130,6 @@ def sidebar() -> rx.Component:
 				direction="left"
 			),
 			padding="1em",
-			style=box_style_sm
 		),
 	)
 ```
@@ -120,13 +137,46 @@ def sidebar() -> rx.Component:
 ## Bottom user profile
 
 ```python demo exec toggle
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
 def sidebar_bottom_profile() -> rx.Component:
 	return rx.box(
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
-					rx.image(src="/favicon.ico", width="2.25em",
-								height="auto", border_radius="50%"),
+					rx.image(src="/logo.jpg", width="2.25em",
+								height="auto", border_radius="25%"),
 					rx.heading("Reflex", size="7", weight="bold"),
 					align="center",
 					justify="start",
@@ -173,10 +223,10 @@ def sidebar_bottom_profile() -> rx.Component:
 				padding_y="1.5em",
 				bg=rx.color("accent", 3),
 				align="start",
-				height="100%",
+				#height="100%",
+				height="650px",
 				width="16em",
 			),
-			style=box_style
 		),
 		rx.mobile_and_tablet(
 			rx.drawer.root(
@@ -234,7 +284,6 @@ def sidebar_bottom_profile() -> rx.Component:
 				direction="left"
 			),
 			padding="1em",
-			style=box_style_sm
 		),
 	)
 ```
@@ -242,8 +291,41 @@ def sidebar_bottom_profile() -> rx.Component:
 ## Top user profile
 
 ```python demo exec toggle
+def sidebar_item(text: str, icon: str, href: str) -> rx.Component:
+	return rx.link(
+		rx.hstack(
+			rx.icon(icon),
+			rx.text(text, size="4"),
+			width="100%",
+			padding_x="0.5rem",
+			padding_y="0.75rem",
+			align="center",
+			style={
+				"_hover": {
+					"bg": rx.color("accent", 4),
+					"color": rx.color("accent", 11),
+				},
+				"border-radius": "0.5em",
+			},
+		),
+		href=href,
+		underline="none",
+		weight="medium",
+		width="100%"
+	)
+
+def sidebar_items() -> rx.Component:
+	return rx.vstack(
+		sidebar_item("Dashboard", "layout-dashboard", "/#"),
+		sidebar_item("Projects", "square-library", "/#"),
+		sidebar_item("Analytics", "bar-chart-4", "/#"),
+		sidebar_item("Messages", "mail", "/#"),
+		spacing="1",
+		width="100%"
+	)
+
 def sidebar_top_profile() -> rx.Component:
-		return rx.box(
+	return rx.box(
 		rx.desktop_only(
 			rx.vstack(
 				rx.hstack(
@@ -277,10 +359,10 @@ def sidebar_top_profile() -> rx.Component:
 				padding_y="1.5em",
 				bg=rx.color("accent", 3),
 				align="start",
-				height="100%",
+				#height="100%",
+				height="650px",
 				width="16em",
 			),
-			style=box_style
 		),
 		rx.mobile_and_tablet(
 			rx.drawer.root(
@@ -333,7 +415,6 @@ def sidebar_top_profile() -> rx.Component:
 				direction="left"
 			),
 			padding="1em",
-			style=box_style_sm
 		),
 	)
 ```

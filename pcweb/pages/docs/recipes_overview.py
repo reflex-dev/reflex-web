@@ -13,7 +13,7 @@ def format_titles(path):
     last_part = parts[-1]
     capitalized_last_part = last_part.replace('_', '-').title()
     return capitalized_last_part
-
+  
 def component_grid():
     from pcweb.pages.docs import recipes_list
     icons = {
