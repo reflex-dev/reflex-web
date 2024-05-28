@@ -302,18 +302,15 @@ def match_demo():
             ("ragdoll", rx.text("Ragdoll cat selected.")),
             rx.text("Unknown cat breed selected."),
         ),
-        rx.select.root(
-            rx.select.trigger(),
-            rx.select.content(
-                rx.select.group(
-                    rx.foreach(
-                        MatchState.animal_options,
-                        lambda x: rx.select.item(
-                            x, value=x
-                        ),
-                    )
-                ),
-            ),
+        rx.select(
+            [
+                "persian",
+                "siamese",
+                "maine coon",
+                "ragdoll",
+                "pug",
+                "corgi",
+            ],
             value=MatchState.cat_breed,
             on_change=MatchState.set_cat_breed,
         ),
