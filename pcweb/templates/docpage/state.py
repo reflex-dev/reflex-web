@@ -33,11 +33,12 @@ class FeedbackState(rx.State):
             email = form_data["email"]
 
         if len(feedback) < 10 or len(feedback) > 500:
-            return rx.window_alert(
-                "Please enter your feedback. Between 10 and 500 characters."
+            return rx._x.toast.warning(
+                "Please enter your feedback. Between 10 and 500 characters.",
+                close_button=True,
             )
 
-        current_page_route = self.get_current_page()
+        current_page_route = self.router.page.raw_path
 
         discord_message = f"""
 Contact: {email}
@@ -51,6 +52,15 @@ Feedback: {feedback}
         try:
             requests.post(DISCORD_WEBHOOK_URL, json=payload)
         except:
-            pass
+            return rx._x.toast.error(
+                "An error occurred while submitting your feedback. If the issue persists, "
+                "please file a Github issue or stop by our discord.",
+                close_button=True,
+            )
+        else:
+            yield rx._x.toast.success(
+                "Thank you for your feedback!",
+                close_button=True,
+            )
 
         self.feedback_open[score] = False
