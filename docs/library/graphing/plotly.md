@@ -40,7 +40,7 @@ style = {
         "borderRadius": "1em",
         "bg": "white",
         "boxShadow": "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
-        "padding": 5,
+        "padding": 4,
         "width": "100%",
         "overflow_x": "auto",
     }
@@ -54,10 +54,10 @@ Let's create a line graph of life expectancy in Canada as an example.
 ```python eval
 rx.center(
     rx.plotly(data=line()),
-    height="400px",
     style=style["box"],
 )
 ```
+
 
 First create a plotly figure. In this example we use plotly express to do so.
 
@@ -71,7 +71,7 @@ fig = px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')
 Now pass the plotly figure to the Plotly component.
 
 ```python
-rx.plotly(data=fig, height="400px")
+rx.plotly(data=fig)
 ```
 
 Now lets take a look at a more complex example.
