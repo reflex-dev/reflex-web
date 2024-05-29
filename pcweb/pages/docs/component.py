@@ -503,6 +503,7 @@ def generate_props(src, component, comp):
         *[
             rx.table.row(*prop_docs(prop, prop_dict, component), align="center")
             for prop in src.get_props()
+            if not prop.name.startswith("on_")  # ignore event trigger props
         ]
     )
     try:
@@ -582,7 +583,10 @@ def same_trigger(t1, t2):
     return args1 == args2
 
 
-def generate_event_triggers(comp):
+def generate_event_triggers(comp, src):
+    prop_name_to_description = {
+        prop.name: prop.description for prop in src.get_props()
+    }
     triggers = comp().get_event_triggers()
     custom_events = [
         event
@@ -627,7 +631,7 @@ def generate_event_triggers(comp):
                             rx.code(event), padding_left=padding_left, justify="start"
                         ),
                         rx.table.cell(
-                            rx.text(EVENTS[event]["description"]),
+                            rx.text(prop_name_to_description.get(event) or EVENTS[event]["description"]),
                             padding_left=padding_left,
                             justify="start",
                         ),
@@ -664,7 +668,7 @@ def component_docs(component, comp):
     """Generates documentation for a given component."""
     src = Source(component=component)
     props = generate_props(src, component, comp)
-    triggers = generate_event_triggers(component)
+    triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
 
     return rx.box(
