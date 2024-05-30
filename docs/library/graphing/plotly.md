@@ -34,7 +34,6 @@ def mount():
     )
     return mount
 
-
 style = {
     "box": {
         "borderRadius": "1em",
@@ -114,6 +113,39 @@ Now pass the plotly figure again to the plotly component.
 rx.plotly(data=fig)
 ```
 
-## Styles of the plot
-Instead of using width and height as porp of a component, we need to use the update_layout method to update the style and layout. 
+## Plot as State Var
+Set plot as a State var when the plot need to be updated during run time. 
+
+```python demo exec
+class PlotlyState(rx.State):
+    df = px.data.gapminder().query(f"country=='Canada'")
+    figure = px.line(
+        df,
+        x="year",
+        y="lifeExp",
+        title="Life expectancy in Canada",
+    )
+
+    def set_selected_country(self, country):
+        self.df = px.data.gapminder().query(f"country=='{country}'")
+        self.figure = px.line(
+            self.df,
+            x="year",
+            y="lifeExp",
+            title=f"Life expectancy in {country}",
+        )
+
+
+def line_with_state():
+    return rx.vstack(
+        rx.select(
+            ['China', 'France', 'United Kingdom', 'United States', 'Canada'],
+            default_value="United States",
+            on_change=PlotlyState.set_selected_country,
+        ),
+        rx.plotly(data=PlotlyState.figure),
+    )
+```
+
+
 
