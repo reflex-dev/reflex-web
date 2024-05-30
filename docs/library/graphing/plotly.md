@@ -49,7 +49,8 @@ style = {
 
 Plotly is a graphing library that can be used to create interactive graphs.
 
-Let's create a line graph of life expectancy in Canada as an example.
+## Basic Example
+Let's create a line graph of life expectancy in Canada.
 
 ```python eval
 rx.center(
@@ -73,8 +74,10 @@ Now pass the plotly figure to the Plotly component.
 ```python
 rx.plotly(data=fig)
 ```
-
-Now lets take a look at a more complex example.
+```md alert info
+# When integrating Plotly graphs into your UI code, note that the method for displaying the graph differs from a regular Python script. Instead of using `fig.show()`, use `rx.plotly(data=fig)` within your UI code to ensure the graph is properly rendered and displayed within the user interface
+```
+## A More Complex Example
 Let's create a 3D surface plot of Mount Bruno.
 
 ```python eval
@@ -82,7 +85,6 @@ rx.center(
   rx.vstack(
       rx.plotly(data=mount()),
   ),
-  height="400px",
   style=style["box"],
 )
 ```
@@ -91,7 +93,6 @@ Read in the Mount Bruno data as a csv and create a plotly figure.
 
 ```python
 import plotly.graph_objects as go
-
 import pandas as pd
 
 # Read data from a csv
@@ -108,31 +109,11 @@ fig.update_layout(scene_camera_eye=dict(x=1.87, y=0.88, z=-0.64),
 
 Now pass the plotly figure again to the plotly component.
 
+
 ```python
-rx.plotly(data=fig, height="400px")
+rx.plotly(data=fig)
 ```
 
 ## Styles of the plot
-Instead of using width and height as porp of a component, we need to use the update_layout method to update the style and layout
+Instead of using width and height as porp of a component, we need to use the update_layout method to update the style and layout. 
 
-## Plot as state Var
-
-```python
-class State(rx.State):
-    """The app state."""
-    df = px.data.gapminder().query("country=='Canada'")
-    fig_1 = px.line(
-        df,
-        x="year",
-        y="lifeExp",
-        title="Life expectancy in Canada",
-    )
-    fig_1.update_layout(
-        width=600,
-        height=600,
-    )
-def plot_one():
-    return rx.flex(
-        rx.plotly(data=State.fig_1),
-    )
-```
