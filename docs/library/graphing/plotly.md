@@ -111,3 +111,28 @@ Now pass the plotly figure again to the plotly component.
 ```python
 rx.plotly(data=fig, height="400px")
 ```
+
+## Styles of the plot
+Instead of using width and height as porp of a component, we need to use the update_layout method to update the style and layout
+
+## Plot as state Var
+
+```python
+class State(rx.State):
+    """The app state."""
+    df = px.data.gapminder().query("country=='Canada'")
+    fig_1 = px.line(
+        df,
+        x="year",
+        y="lifeExp",
+        title="Life expectancy in Canada",
+    )
+    fig_1.update_layout(
+        width=600,
+        height=600,
+    )
+def plot_one():
+    return rx.flex(
+        rx.plotly(data=State.fig_1),
+    )
+```
