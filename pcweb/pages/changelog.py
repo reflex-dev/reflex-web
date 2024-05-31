@@ -72,6 +72,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-05-30",
+            "v0.5.2",
+            "Support for Lifespan tasks",
+            [
+                "Vertical tabs",
+                "Configurable gunicorn workers in prod mode",
+                "Fix for setting global font_family style",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.2",
+        ),
+        change(
             "2024-05-21",
             "v0.5.1",
             "Connection Error is now a Toast",
