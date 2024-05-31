@@ -271,4 +271,4 @@ def faq():
         )
     )
 
-faq_routes = [faq]
+#faq_routes = [faq]
