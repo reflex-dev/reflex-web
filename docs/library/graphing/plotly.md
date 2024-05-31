@@ -93,8 +93,28 @@ def line_chart_with_state():
     )
 ```
 
-<!-- ## Adding styles to the chart
-Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props.  -->
+## Adding styles to the chart
+Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props. 
 
-<!-- in progress -->
+```python demo exec
+df = px.data.gapminder().query("country=='Canada'")
+fig_1 = px.line(
+    df,
+    x="year",
+    y="lifeExp",
+    title="Life expectancy in Canada",
+)
+fig_1.update_layout(
+    width=600,
+    height=450,
+    title_font_size = 25,
+    title_x = 0.5, # at the center",
+    plot_bgcolor = "#c3d7f7",
+    paper_bgcolor = "#e0e0e0",
+)
+def add_styles():
+    return rx.center(
+        rx.plotly(data=fig_1),
+    )
+```
 
