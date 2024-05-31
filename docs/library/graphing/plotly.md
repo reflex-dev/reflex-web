@@ -10,11 +10,13 @@ import reflex as rx
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from pcweb import constants
 ```
 
-Plotly is a graphing library that can be used to create interactive graphs.
+Plotly is a graphing library that can be used to create interactive graphs. Checkout [Plotly](https://plotly.com/graphing-libraries/) for more information. 
 
+```md alert info
+# When integrating Plotly graphs into your UI code, note that the method for displaying the graph differs from a regular Python script. Instead of using `fig.show()`, use `rx.plotly(data=fig)` within your UI code to ensure the graph is properly rendered and displayed within the user interface
+```
 ## Basic Example
 Let's create a line graph of life expectancy in Canada.
 
@@ -29,11 +31,7 @@ def line_chart():
         rx.plotly(data=fig),
     )
 ```
-
-```md alert info
-# When integrating Plotly graphs into your UI code, note that the method for displaying the graph differs from a regular Python script. Instead of using `fig.show()`, use `rx.plotly(data=fig)` within your UI code to ensure the graph is properly rendered and displayed within the user interface
-```
-## A More Complex Example
+## 3D graphing example
 Let's create a 3D surface plot of Mount Bruno. 
 
 ```python demo exec
@@ -96,6 +94,10 @@ def line_chart_with_state():
 ## Adding styles to the chart
 Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props. 
 
+```md alert info
+Note that the width and height props is currently unsupported. 
+```
+
 ```python demo exec
 df = px.data.gapminder().query("country=='Canada'")
 fig_1 = px.line(
@@ -105,8 +107,6 @@ fig_1 = px.line(
     title="Life expectancy in Canada",
 )
 fig_1.update_layout(
-    width=600,
-    height=450,
     title_font_size = 25,
     title_x = 0.5, # at the center",
     plot_bgcolor = "#c3d7f7",
@@ -117,4 +117,6 @@ def add_styles():
         rx.plotly(data=fig_1),
     )
 ```
+
+
 
