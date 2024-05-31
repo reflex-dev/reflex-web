@@ -91,7 +91,7 @@ def line_chart_with_state():
     )
 ```
 
-## Adding styles to the chart
+## Adding Styles and Layouts
 Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props. 
 
 ```md alert info
@@ -118,5 +118,36 @@ def add_styles():
     )
 ```
 
+## Dimension and Resizing
+The auto-resizing is enabled by default (set to True). The size of the plot will be responsive according to the screen size. To disable auto-resizing, you need to set `use_resize_handler` to False. You can size your Plotly chart using the width and height props, just like any other Reflex component.
 
+```md alert info
+It is recommended to set the width and height in the `rx.plotly` component instead of using the `update_layout()` method. The latter will disable auto-resizing.
+```
+
+```python demo exec
+df = px.data.gapminder().query("country=='Canada'")
+fig_1 = px.line(
+    df,
+    x="year",
+    y="lifeExp",
+    title="Life expectancy in Canada",
+)
+fig_1.update_layout(
+    title_font_size = 25,
+    title_x = 0.5,
+    plot_bgcolor = "#c3d7f7",
+    paper_bgcolor = "#e0e0e0",
+)
+def resizing():
+    return rx.center(
+        rx.plotly(
+            data=fig_1,
+            width="75%",
+            height="100%",
+        ),
+        width = "1000px",
+        border = "1px solid red",
+    )
+```
 
