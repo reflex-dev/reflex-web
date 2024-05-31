@@ -9,6 +9,7 @@ from .search import search_bar
 from pcweb import constants
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
+from pcweb.pages.errors import errors
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
@@ -83,6 +84,7 @@ def resources__section(style):
                     ),
                     resources_item("Blog", blogs.path, "text"),
                     resources_item("FAQ", faq.path, "list-todo"),
+                    resources_item("Common Errors", errors.path, "octagon-alert"),
                     direction="column",
                     align_items="start",
                     padding_top="20px",
@@ -99,7 +101,7 @@ def resources__section(style):
                     background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
                     border_left="1px solid rgba(29, 29, 32, 0.08);",
                     align_items="start",
-                    height="210px",
+                    height="230px",
                     padding_top="20px",
                     padding_left="20px",
                     padding_bottom="20px",
@@ -112,7 +114,7 @@ def resources__section(style):
             background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
             box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
             max_width="1000px",
-            height="210px",
+            height="230px",
             padding="0",
             overflow="hidden",
         ),
