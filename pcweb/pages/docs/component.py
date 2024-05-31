@@ -586,6 +586,7 @@ def same_trigger(t1, t2):
 def generate_event_triggers(comp, src):
     prop_name_to_description = {
         prop.name: prop.description for prop in src.get_props()
+        if prop.name.startswith("on_")
     }
     triggers = comp().get_event_triggers()
     custom_events = [
