@@ -95,7 +95,7 @@ def line_chart_with_state():
 Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props. 
 
 ```md alert info
-Note that the width and height props is currently unsupported. 
+Note that the width and height props are not recommended to ensure the plot remains size responsive to its container. 
 ```
 
 ```python demo exec
