@@ -86,7 +86,7 @@ def footer() -> rx.Component:
                 justify="between",
                 width="100%"
             ),
-            spacing="6",
+            spacing="5",
             width="100%"
         ),
         width="100%"
@@ -135,7 +135,7 @@ def socials() -> rx.Component:
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
         spacing="3",
-        justify="end",
+        justify_content=["center", "center", "end"],
         width="100%"
     )
 
@@ -165,19 +165,21 @@ def footer_newsletter() -> rx.Component:
                 width="100%"
             ),
             rx.divider(),
-            rx.hstack(
+            rx.flex(
                 rx.hstack(
                     rx.image(src="/logo.jpg", width="2em", height="auto", border_radius="25%"),
                     rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
+                    justify_content=["center", "center", "start"],
                     width="100%"
                 ),
                 socials(),
-                justify="between",
+                spacing="4",
+                flex_direction=["column", "column", "row"],
                 width="100%"
             ),
-            spacing="6",
+            spacing="5",
             width="100%"
         ),
         width="100%"
@@ -239,7 +241,7 @@ def socials() -> rx.Component:
         social_link("facebook", "/#"),
         social_link("linkedin", "/#"),
         spacing="3",
-        justify="end",
+        justify_content=["center", "center", "end"],
         width="100%"
     )
 
@@ -256,21 +258,21 @@ def footer_three_columns() -> rx.Component:
                 width="100%"
             ),
             rx.divider(),
-            rx.hstack(
+            rx.flex(
                 rx.hstack(
-                    rx.image(src="/logo.jpg", width="2em",
-                             height="auto", border_radius="25%"),
-                    rx.text("© 2024 Reflex, Inc", size="3",
-                            white_space="nowrap", weight="medium"),
+                    rx.image(src="/logo.jpg", width="2em", height="auto", border_radius="25%"),
+                    rx.text("© 2024 Reflex, Inc", size="3", white_space="nowrap", weight="medium"),
                     spacing="2",
                     align="center",
+                    justify_content=["center", "center", "start"],
                     width="100%"
                 ),
                 socials(),
-                justify="between",
+                spacing="4",
+                flex_direction=["column", "column", "row"],
                 width="100%"
             ),
-            spacing="6",
+            spacing="5",
             width="100%"
         ),
         width="100%"
