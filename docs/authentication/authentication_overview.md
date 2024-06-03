@@ -9,7 +9,7 @@ We have solutions here:
 2. Google Auth: Uses sign in with Google: https://reflex.dev/blog/2023-10-25-implementing-sign-in-with-google/
 3. Captcha: Generates tests that humans can pass but automated systems cannot: https://github.com/masenf/reflex-google-recaptcha-v2
 4. Magic Link Auth: A passwordless login method that sends a unique, one-time-use URL to a user's email: https://github.com/masenf/reflex-magic-link-auth
-5. Clerk Auth: A community member wrapped this component and hooked it up in this app: https://github.com/dentro-innovation/reflex_template/blob/main/reflex_template/utils/clerk_wrapper.py
+5. Clerk Auth: A community member wrapped this component and hooked it up in this app: https://github.com/kroo/reflex-clerk 
 
 
 More auth documentation on the way. Check back soon!
