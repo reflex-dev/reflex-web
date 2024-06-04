@@ -118,6 +118,24 @@ Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `Fals
 """
         ),
     },
+    {
+        "Q": "How can I integrate payments into my Reflex App?",
+        "A": rx.text(
+            """
+            There is currently no in-built way to integrate payments into Reflex. However, you can check out this implementation of a Stripe integration in Reflex by one of our community members. Check out the code 
+            """,
+            rx.chakra.span(
+                doclink("here", href="https://github.com/joyhchen/reflex-embedded-checkout")
+            ),
+            """
+            and a tweet thread about it
+            """,
+            rx.chakra.span(
+                doclink("here", href="https://x.com/jhzc_/status/1780857772852314596")
+            ),
+            ".",
+        ),
+    },
 ]
 
 
