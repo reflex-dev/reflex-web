@@ -72,6 +72,17 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-06-05",
+            "v0.5.3",
+            "Plotly Improvements",
+            [
+                "More granular lazy imports",
+                "External asset support",
+                "Numerous bug fixes (see release notes)",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.3",
+        ),
+        change(
             "2024-05-30",
             "v0.5.2",
             "Support for Lifespan tasks",
