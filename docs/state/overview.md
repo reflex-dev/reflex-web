@@ -169,3 +169,15 @@ never directly initialize a state class.
 All user state is stored on the server, and all event handlers are executed on
 the server.  Reflex uses websockets to send events to the server, and to send
 state updates back to the client.
+
+
+## Helper Methods
+
+Similar to backend vars, any method defined in a State class that begins with an
+underscore `_` is considered a helper method. Such methods are not usable as 
+event triggers, but may be called from other event handler methods within the
+state.
+
+Functionality that should only be available on the backend, such as an
+authenticated action, should use helper methods to ensure it is not accidentally
+or maliciously triggered by the client.
