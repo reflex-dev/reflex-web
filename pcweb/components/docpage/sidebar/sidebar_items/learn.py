@@ -179,6 +179,7 @@ def get_sidebar_items_backend():
             "Utility Methods",
             children=[
                 utility_methods.router_attributes,
+                utility_methods.lifespan_tasks,
                 utility_methods.other_methods,
             ],
         ),
