@@ -197,50 +197,141 @@ def area_simple():
 Multiple areas can be placed on the same `area_chart`.
 ## Example with Sync ID
 
-```python demo
-rx.vstack(
-  rx.recharts.bar_chart(
-    rx.recharts.bar(
-        data_key="uv", stroke="#8884d8", fill="#8884d8"
+```python demo graphing
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
+def area_sync():
+  return rx.vstack(
+    rx.recharts.bar_chart(
+      rx.recharts.bar(
+          data_key="uv", stroke="#8884d8", fill="#8884d8"
+      ),
+      rx.recharts.bar(
+          data_key="pv", stroke="#82ca9d", fill="#82ca9d",
+      ),
+      rx.recharts.x_axis(data_key="name"),
+      rx.recharts.y_axis(),
+      rx.recharts.graphing_tooltip(),
+      data=data,
+      sync_id="1",
+      width = 600,
+      height = 200,
     ),
-    rx.recharts.bar(
-        data_key="pv", stroke="#82ca9d", fill="#82ca9d",
-    ),
-    rx.recharts.x_axis(data_key="name"),
-    rx.recharts.y_axis(),
-    rx.recharts.graphing_tooltip(),
-    data=data,
-    sync_id="1",
-    width = 600,
-    height = 200,
-  ),
-  rx.recharts.composed_chart(
-    rx.recharts.area(
-        data_key="uv", stroke="#8884d8", fill="#8884d8"
-    ),
-    rx.recharts.line(
-        data_key="pv", type_="monotone", stroke="#ff7300",
-    ),
-    
-    rx.recharts.x_axis(data_key="name"),
-    rx.recharts.y_axis(),
-    rx.recharts.graphing_tooltip(),
-    rx.recharts.brush(
-        data_key="name", height=30, stroke="#8884d8"
-    ),
-    data=data,
-    sync_id="1",
-    width = 600,
-    height = 250,
+    rx.recharts.composed_chart(
+      rx.recharts.area(
+          data_key="uv", stroke="#8884d8", fill="#8884d8"
+      ),
+      rx.recharts.line(
+          data_key="pv", type_="monotone", stroke="#ff7300",
+      ),
+      
+      rx.recharts.x_axis(data_key="name"),
+      rx.recharts.y_axis(),
+      rx.recharts.graphing_tooltip(),
+      rx.recharts.brush(
+          data_key="name", height=30, stroke="#8884d8"
+      ),
+      data=data,
+      sync_id="1",
+      width = 600,
+      height = 250,
+    )
   )
-)
 ```
 
 You can also assign a range in the area by assiging the data_key in the `rx.recharts.area` to a list with two elements, i.e. here a range of two temperatures for each date.
 
 ## Example with StackID
 
-```python demo
+```python demo graphing
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
 rx.recharts.area_chart(
   rx.recharts.area(
       data_key="uv", stroke="#8884d8", fill="#8884d8", stack_id="1", 
@@ -259,8 +350,54 @@ rx.recharts.area_chart(
 ```
 ## Example with Multiple Axis
 
-```python demo
-rx.recharts.area_chart(
+```python demo graphing
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
+def area_multi_axis():
+  return rx.recharts.area_chart(
     rx.recharts.area(
         data_key="uv", stroke="#8884d8", fill="#8884d8", x_axis_id="primary", y_axis_id="left",
     ),
@@ -269,14 +406,14 @@ rx.recharts.area_chart(
     ),
     rx.recharts.x_axis(data_key="name", x_axis_id="primary"),
     rx.recharts.x_axis(data_key="name", x_axis_id="secondary", orientation="top"),
-    rx.recharts.y_axis(y_axis_id="left"),
-    rx.recharts.y_axis(y_axis_id="right", orientation="right"),
+    rx.recharts.y_axis(data_key="uv", y_axis_id="left"),
+    rx.recharts.y_axis(data_key="pv", y_axis_id="right", orientation="right"),
     rx.recharts.graphing_tooltip(),
     rx.recharts.legend(),
     data=data,
     width = 600,
-    height = 250,
-)
+    height = 300,
+  )
 ```
 
 
@@ -297,27 +434,30 @@ class AreaState(rx.State):
 
 def area_4():
     return rx.vstack(
+      rx.hstack(
+        rx.text("Select Curve Type"),
         rx.select(
-            [
-                'basis',
-                'basisClosed',
-                'basisOpen',
-                'bumpX',
-                'bumpY',
-                'bump',
-                'linear',
-                'linearClosed',
-                'natural',
-                'monotoneX',
-                'monotoneY',
-                'monotone',
-                'step',
-                'stepBefore',
-                'stepAfter'
-            ],
-            on_change = AreaState.change_curve_type,
-            default = 'basis',
+          [
+            'basis',
+            'basisClosed',
+            'basisOpen',
+            'bumpX',
+            'bumpY',
+            'bump',
+            'linear',
+            'linearClosed',
+            'natural',
+            'monotoneX',
+            'monotoneY',
+            'monotone',
+            'step',
+            'stepBefore',
+            'stepAfter'
+          ],
+          on_change = AreaState.change_curve_type,
+          default_value = 'basis',
         ),
+      ),
         rx.recharts.area_chart(
             rx.recharts.area(
                 data_key="uv",

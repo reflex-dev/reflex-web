@@ -16,8 +16,7 @@ from pcweb.templates.docpage import (
     text_comp,
     definition,
 )
-   
-     
+
 class AlertBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a component along with its code."""
 
@@ -233,6 +232,7 @@ class DemoBlock(flexdown.blocks.Block):
                 parts = code.rpartition("def")
                 data, code = parts[0], parts[1] + parts[2]
                 comp = docgraphing(code, comp=comp, data=data)
+                return comp
         elif exec_mode:
             return comp
         elif "box" in args:
