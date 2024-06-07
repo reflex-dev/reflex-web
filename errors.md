@@ -60,7 +60,7 @@ def error_message(heading: str, error_code: str, solution: rx.Component, error_t
 
 ```python eval
 error_message(
-    heading="Error 1: object null is not iterable",
+    heading="Object null is not iterable",
     error_code="TypeError: object null is not iterable (cannot read property Symbol(Symbol.iterator))",
     solution=[
                 rx.heading("This is caused by using an older version of nodejs."),
@@ -74,7 +74,7 @@ error_message(
 
 ```python eval
 error_message(
-    heading="Error 2: Hydration failed because the initial UI does not match",
+    heading="Hydration failed because the initial UI does not match",
     error_code="Error: Hydration failed because the initial UI does not match what was rendered on the server.",
     solution=[
                 rx.heading("Often caused by incorrect nesting of components"),
@@ -127,7 +127,7 @@ rx.table.header(
 
 ```python eval
 error_message(
-    heading="Error 3: Invalid var passed for prop",
+    heading="Invalid var passed for prop",
     error_code="TypeError: Invalid var passed for prop href, expected type <class 'str'>, got value {state.my_list.at(i)} of type typing.Any.",
     solution=[
                 rx.heading("Add a type annotation for list Vars"),

@@ -37,88 +37,88 @@ def resources_item(text, url, icon):
     )
 
 
-def resources__section(style):
-    return rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.flex(
-                rx.text("Resources", style=style),
-                rx.icon(tag="chevron_down", size=18, style=style),
-                align_items="center",
-                _hover={
-                    "cursor": "pointer",
-                },
-                spacing="2",
-            )
-        ),
-        rx.hover_card.content(
-            rx.flex(
-                rx.flex(
-                    resource_header("Open Source"),
-                    resources_item("Github", "https://github.com/reflex-dev", "github"),
-                    resources_item(
-                        "Github Discussions",
-                        "https://github.com/orgs/reflex-dev/discussions",
-                        "message-circle-question",
-                    ),
-                    resources_item(
-                        "Contribute to Reflex",
-                        constants.CONTRIBUTING_URL,
-                        "file-json-2",
-                    ),
-                    resources_item("Changelog", changelog.path, "list-checks"),
-                    direction="column",
-                    align_items="start",
-                    padding_left="20px",
-                    padding_y="20px",
-                    spacing="2",
-                ),
-                rx.flex(
-                    resource_header("Resources"),
-                    resources_item(
-                        "Component Library", library.path, "layout-panel-left"
-                    ),
-                    resources_item(
-                        "Roadmap",
-                        constants.ROADMAP_URL,
-                        "map-pinned",
-                    ),
-                    resources_item("Blog", blogs.path, "text"),
-                    resources_item("FAQ", faq.path, "list-todo"),
-                    resources_item("Common Errors", errors.path, "octagon-alert"),
-                    direction="column",
-                    align_items="start",
-                    padding_top="20px",
-                    padding_bottom="20px",
-                    spacing="2",
-                ),
-                rx.flex(
-                    resource_header("Hosting"),
-                    resources_item(
-                        "Deployment", hosting.deploy_quick_start.path, "globe"
-                    ),
-                    resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
-                    direction="column",
-                    background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-                    border_left="1px solid rgba(29, 29, 32, 0.08);",
-                    align_items="start",
-                    height="230px",
-                    padding_top="20px",
-                    padding_left="20px",
-                    padding_bottom="20px",
-                    padding_right="20px",
-                    spacing="2",
-                ),
-                spacing="6",
-            ),
-            border="1px solid rgba(29, 29, 32, 0.08);",
-            background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
-            box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
-            max_width="1000px",
-            height="230px",
-            padding="0",
-            overflow="hidden",
-        ),
-    )
+# def resources__section(style):
+#     return rx.hover_card.root(
+#         rx.hover_card.trigger(
+#             rx.flex(
+#                 rx.text("Resources", style=style),
+#                 rx.icon(tag="chevron_down", size=18, style=style),
+#                 align_items="center",
+#                 _hover={
+#                     "cursor": "pointer",
+#                 },
+#                 spacing="2",
+#             )
+#         ),
+#         rx.hover_card.content(
+#             rx.flex(
+#                 rx.flex(
+#                     resource_header("Open Source"),
+#                     resources_item("Github", "https://github.com/reflex-dev", "github"),
+#                     resources_item(
+#                         "Github Discussions",
+#                         "https://github.com/orgs/reflex-dev/discussions",
+#                         "message-circle-question",
+#                     ),
+#                     resources_item(
+#                         "Contribute to Reflex",
+#                         constants.CONTRIBUTING_URL,
+#                         "file-json-2",
+#                     ),
+#                     resources_item("Changelog", changelog.path, "list-checks"),
+#                     direction="column",
+#                     align_items="start",
+#                     padding_left="20px",
+#                     padding_y="20px",
+#                     spacing="2",
+#                 ),
+#                 rx.flex(
+#                     resource_header("Resources"),
+#                     resources_item(
+#                         "Component Library", library.path, "layout-panel-left"
+#                     ),
+#                     resources_item(
+#                         "Roadmap",
+#                         constants.ROADMAP_URL,
+#                         "map-pinned",
+#                     ),
+#                     resources_item("Blog", blogs.path, "text"),
+#                     resources_item("FAQ", faq.path, "list-todo"),
+#                     resources_item("Common Errors", errors.path, "octagon-alert"),
+#                     direction="column",
+#                     align_items="start",
+#                     padding_top="20px",
+#                     padding_bottom="20px",
+#                     spacing="2",
+#                 ),
+#                 rx.flex(
+#                     resource_header("Hosting"),
+#                     resources_item(
+#                         "Deployment", hosting.deploy_quick_start.path, "globe"
+#                     ),
+#                     resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
+#                     direction="column",
+#                     background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+#                     border_left="1px solid rgba(29, 29, 32, 0.08);",
+#                     align_items="start",
+#                     height="230px",
+#                     padding_top="20px",
+#                     padding_left="20px",
+#                     padding_bottom="20px",
+#                     padding_right="20px",
+#                     spacing="2",
+#                 ),
+#                 spacing="6",
+#             ),
+#             border="1px solid rgba(29, 29, 32, 0.08);",
+#             background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
+#             box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
+#             max_width="1000px",
+#             height="230px",
+#             padding="0",
+#             overflow="hidden",
+#         ),
+#     )
 def resources_trigger(style):
     return rx.flex(
         rx.text("Resources", style=style),
@@ -167,6 +167,7 @@ def resources_content(style):
                 ),
                 resources_item("Blog", blogs.path, "text"),
                 resources_item("FAQ", faq.path, "list-todo"),
+                resources_item("Common Errors", errors.path, "octagon-alert"),
                 direction="column",
                 align_items="start",
                 padding_top="20px",
@@ -183,7 +184,7 @@ def resources_content(style):
                 background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
                 border_left="1px solid rgba(29, 29, 32, 0.08);",
                 align_items="start",
-                height="210px",
+                height="220px",
                 padding_top="20px",
                 padding_left="20px",
                 padding_bottom="20px",
@@ -198,7 +199,7 @@ def resources_content(style):
         background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
         box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
         max_width="1000px",
-        height="210px",
+        height="220px",
         padding="0",
         overflow="hidden",
     )
