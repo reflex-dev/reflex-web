@@ -123,7 +123,7 @@ def funnel_dynamic():
       on_click=FunnelState.randomize_data,
     ),
     rx.recharts.graphing_tooltip(),
-    width=600,
+    width=730,
     height=250,
   )
 ```
