@@ -108,6 +108,8 @@ def axis_1():
 
 ## Example with Ticks
 
+You can also customize the ticks on the axises using `tick_count`, `min_tick_gap`, `tick_line`, and `ticks` props.
+
 ```python demo graphing
 
 data2 = [
@@ -145,6 +147,29 @@ def axis_2():
             ticks = [200, 300, 500, 800],
         ),
         data=data2,
+        width = 500,
+        height = 400,
+    )
+```
+
+## Example with EventTriggers
+
+The x-axis and y-axis has their own event triggers, `on_click` and `on_mouse_over` are included in this example. Try click the X and Y axis. 
+
+```python demo graphing
+def axis_1():
+    return rx.recharts.area_chart(
+        rx.recharts.area(
+            data_key="uv", stroke="#8884d8", fill="#8884d8"
+        ),
+        rx.recharts.x_axis(
+            data_key="name",
+            on_click=rx._x.toast("X axis clicked"),
+        ),
+        rx.recharts.y_axis(
+            on_mouse_over=rx.window_alert("mouse over Y"),
+        ),
+        data=data,
         width = 500,
         height = 400,
     )
