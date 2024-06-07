@@ -110,6 +110,48 @@ class Hello(rx.Component):
     tag = "Hello"
 ```
 
+### Local Packages
+
+If the component is part of a local package, available on Github, or
+downloadable via a web URL, it can also be wrapped in Reflex. Specify the path
+or URL after an `@` following the package name.
+
+Any local paths are relative to the `.web` folder, so you can use `../` prefix
+to reference the Reflex project root.
+
+Some examples of valid specifiers for a package called 
+[`@masenf/hello-react`](https://github.com/masenf/hello-react) are:
+
+* GitHub: `@masenf/hello-react@github:masenf/hello-react`
+* URL: `@masenf/hello-react@https://github.com/masenf/hello-react/archive/refs/heads/main.tar.gz`
+* Local Archive: `@masenf/hello-react@../hello-react.tgz`
+* Local Directory: `@masenf/hello-react@../hello-react`
+
+It is important that the package name matches the name in `package.json` so
+Reflex can generate the correct import statement in the generated javascript
+code.
+
+These package specifiers can be used for `library` or `lib_dependencies`.
+
+```python demo exec
+class GithubComponent(rx.Component):
+    library = "@masenf/hello-react@github:masenf/hello-react"
+    tag = "Counter"
+
+def github_component_example():
+    return GithubComponent.create()
+```
+
+Although more complicated, this approach is useful when the local components
+have additional dependencies or build steps required to prepare the component
+for use.
+
+Some important notes regarding this approach:
+
+* The repo or archive must contain a `package.json` file.
+* `prepare` or `build` scripts will NOT be executed. The distribution archive,
+  directory, or repo must already contain the built javascript files (this is common).
+
 ### Import Types
 
 Sometimes the component is a default export from the module (meaning it doesn't require curly braces in the import statement).
