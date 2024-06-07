@@ -6,8 +6,7 @@ from pcweb.pages.docs import getting_started
 
 # Self Hosting
 
-When available, we recommend using `reflex deploy`, but you can also host your
-apps yourself in the meantime.
+We recommend using `reflex deploy`, but if this does not fit your use case then you can also host your apps yourself.
 
 Clone your code to a server and install the [requirements]({getting_started.installation.path}).
 
