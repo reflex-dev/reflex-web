@@ -194,7 +194,7 @@ def area_simple():
   )
 ```
 
-Multiple areas can be placed on the same `area_chart`.
+Multiple areas can be placed on the same `area_chart`. `Tooltips` are the little boxes that pop up when you hover over something that shows it's value.
 ## Example with Sync ID
 
 ```python demo graphing
@@ -282,7 +282,7 @@ def area_sync():
   )
 ```
 
-You can also assign a range in the area by assiging the data_key in the `rx.recharts.area` to a list with two elements, i.e. here a range of two temperatures for each date.
+You can also assign a range in the area by assiging the data_key in the `rx.recharts.area` to a list with two elements, i.e. here a range of two temperatures for each date. Using `layout` prop to specify whether the graph is `horizontal` or `vertical`.
 
 ## Example with StackID
 
@@ -335,15 +335,18 @@ data = [
 rx.recharts.area_chart(
   rx.recharts.area(
       data_key="uv", stroke="#8884d8", fill="#8884d8", stack_id="1", 
+      base_value=1000,
   ),
   rx.recharts.area(
       data_key="pv", stroke="#82ca9d", fill="#82ca9d", stack_id="1",
+      base_value=1000,
   ),
   rx.recharts.x_axis(data_key="name"),
   rx.recharts.y_axis(),
   data=data,
   stack_offset="none",
   margin={"top": 5, "right": 5, "bottom": 5, "left": 5},
+  layout="horizontal",
   width = 600,
   height = 250,
 )
