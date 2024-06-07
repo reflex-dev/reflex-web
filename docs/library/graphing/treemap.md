@@ -7,8 +7,11 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docgraphing
+```
 
+Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension of the data.
+
+```python demo graphing
 data = [
   {
     "name": "axis",
@@ -352,18 +355,14 @@ data = [
   }
 ]
 
-
-treemap_example = """rx.recharts.treemap(
-                rx.recharts.graphing_tooltip(),
-                data=data,
-                data_key="size",
-                stroke="#fff",
-                fill="#8884d8")"""
-
-```
-
-Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches. A leaf node's rectangle has an area proportional to a specified dimension of the data.
-
-```python eval
-docgraphing(treemap_example, comp=eval(treemap_example), data =  "data=" + str(data))
+def treemap():
+  return rx.recharts.treemap(
+    rx.recharts.graphing_tooltip(),
+    data=data,
+    data_key="size",
+    stroke="#fff",
+    fill="#8884d8",
+    width="100%",
+    height=300,
+  )
 ```
