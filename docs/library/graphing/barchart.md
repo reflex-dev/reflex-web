@@ -397,26 +397,26 @@ class BarState(rx.State):
             self.data[i]["amt"] = random.randint(0, 10000)
 
 def bar_with_state():
-    return rx.recharts.bar_chart(
-        rx.recharts.bar(
-            data_key="uv", 
-            stroke="#8884d8", 
-            fill="#8884d8", 
-        ),
-        rx.recharts.bar(
-            data_key="pv",
-            stroke="#82ca9d", 
-            fill="#82ca9d", 
-        ),
-        rx.recharts.x_axis(data_key="name"),
-        rx.recharts.y_axis(),
-        rx.recharts.legend(),
-        rx.recharts.cartesian_grid(
-            stroke_dasharray="3 3",
-        ),
-        on_click=BarState.randomize_data,
-        data=BarState.data,
-        width = 600,
-        height = 300,
-    )
+  return rx.recharts.bar_chart(
+    rx.recharts.bar(
+      data_key="uv", 
+      stroke="#8884d8", 
+      fill="#8884d8", 
+    ),
+    rx.recharts.bar(
+      data_key="pv",
+      stroke="#82ca9d", 
+      fill="#82ca9d", 
+    ),
+    rx.recharts.x_axis(data_key="name"),
+    rx.recharts.y_axis(),
+    rx.recharts.legend(),
+    rx.recharts.cartesian_grid(
+      stroke_dasharray="3 3",
+    ),
+    on_click=BarState.randomize_data,
+    data=BarState.data,
+    width = 600,
+    height = 300,
+  )
 ```

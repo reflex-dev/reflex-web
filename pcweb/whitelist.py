@@ -10,10 +10,7 @@
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
 WHITELISTED_PAGES = [
-    "/docs/library/graphing/areachart",
-    "/docs/library/graphing/axis",
-    "/docs/library/graphing/barchart",
-    "/docs/library/graphing/cartesianaxisgrid",
+    "/docs/library/graphing",
     ]
 
 def _check_whitelisted_path(path):

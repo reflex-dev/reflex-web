@@ -3,12 +3,15 @@ components:
     - rx.recharts.ErrorBar
 ---
 
-# Error Bar
-
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docgraphing
+```
 
+# Error Bar
+
+An error bar is a line through a point on a graph, parallel to one of the axes, which represents the uncertainty or variation of the corresponding coordinate of the point.
+
+```python demo graphing
 data = [
   {
     "x": 45,
@@ -82,24 +85,17 @@ data = [
   }
 ]
 
-
-
-scatter_chart_simple_example = """rx.recharts.scatter_chart(
-                rx.recharts.scatter(
-                    rx.recharts.error_bar(data_key="errorY", direction="y", width=4, stroke_width=2, stroke="red"),
-                    rx.recharts.error_bar(data_key="errorX", direction="x", width=4, stroke_width=2),
-                    data=data,
-                    fill="#8884d8",
-                    name="A"),
-                rx.recharts.x_axis(data_key="x", name="x"), 
-                rx.recharts.y_axis(data_key="y", name="y"),
-                rx.recharts.graphing_tooltip(),
-                rx.recharts.legend(),
-                )"""
-```
-
-An error bar is a line through a point on a graph, parallel to one of the axes, which represents the uncertainty or variation of the corresponding coordinate of the point.
-
-```python eval
-docgraphing(scatter_chart_simple_example, comp=eval(scatter_chart_simple_example), data =  "data=" + str(data))
+def error():
+  return rx.recharts.scatter_chart(
+    rx.recharts.scatter(
+        rx.recharts.error_bar(data_key="errorY", direction="y", width=4, stroke_width=2, stroke="red"),
+        rx.recharts.error_bar(data_key="errorX", direction="x", width=4, stroke_width=2),
+        data=data,
+        fill="#8884d8",
+        name="A"),
+    rx.recharts.x_axis(data_key="x", name="x"), 
+    rx.recharts.y_axis(data_key="y", name="y"),
+    width = 600,
+    height = 300,
+  )
 ```

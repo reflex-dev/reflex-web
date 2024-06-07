@@ -7,8 +7,11 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docgraphing
+```
 
+The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
+
+```python demo graphing
 data = [
   { "name": '1', "uv": 300, "pv": 456 },
   { "name": '2', "uv": -145, "pv": 230 },
@@ -51,31 +54,23 @@ data = [
   { "name": '40', "uv": -50, "pv": 186 },
 ]
 
-
-
-brush_example = """rx.recharts.bar_chart(
-                rx.recharts.bar(
-                    data_key="uv",
-                    stroke="#8884d8",
-                    fill="#8884d8"
-                ), 
-                rx.recharts.bar(
-                    data_key="pv",
-                    stroke="#82ca9d",
-                    fill="#82ca9d" 
-                ), 
-                rx.recharts.brush(data_key="name", height=30, stroke="#8884d8"),
-                rx.recharts.x_axis(data_key="name"), 
-                rx.recharts.y_axis(),
-                data=data)"""
-```
-
-The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
-
-```python eval
-docgraphing(
-  brush_example, 
-  comp = eval(brush_example),
-  data =  "data=" + str(data)
-)
+def brush_simple():
+  return rx.recharts.bar_chart(
+    rx.recharts.bar(
+        data_key="uv",
+        stroke="#8884d8",
+        fill="#8884d8"
+    ), 
+    rx.recharts.bar(
+        data_key="pv",
+        stroke="#82ca9d",
+        fill="#82ca9d" 
+    ), 
+    rx.recharts.brush(data_key="name", height=30, stroke="#8884d8"),
+    rx.recharts.x_axis(data_key="name"), 
+    rx.recharts.y_axis(),
+    data=data,
+    width="100%",
+    height=300,
+  )
 ```
