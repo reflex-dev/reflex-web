@@ -183,6 +183,5 @@ rx.hstack(
 docgraphing(
     pie_chart_state_example,
     comp=eval(pie_chart_state_example),
-    # data=inspect.getsource(PieChartState),
 )
 ```
