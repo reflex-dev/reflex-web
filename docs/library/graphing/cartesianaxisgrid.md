@@ -10,7 +10,9 @@ components:
 import reflex as rx
 ```
 
-A cartesian axis adds in reference axes to the cartesian graphs.
+## Simple Example
+
+A cartesian axis adds in reference axes to the cartesian graphs. Prop `stroke_dasharray` is used to specify the pattern of dashes and gaps for the grid line, it accepts a string value that represents the dash pattern.  `stroke_dasharray = "4"` will create a grid with dashes of length 4 and no gaps. `stroke_dasharray = "4 1"` will create a grid with dashes of length 4 and gaps of length 1. `stroke_dasharray = "4 1"` will create a grid with a repeating pattern of dashes and gaps. dash (length 4), gap (length 1), dash (length 2); dash (length 4), gap (length 1), dash (length 2), etc. 
 
 ```python demo graphing
 data = [
@@ -77,7 +79,7 @@ def cartesian_simple():
     ), 
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
-    rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+    rx.recharts.cartesian_grid(stroke_dasharray="4 1"),
     rx.recharts.graphing_tooltip(),
     data=data,
     width = 600,
