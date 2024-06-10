@@ -1,7 +1,7 @@
 ---
 components:
     - rx.recharts.CartesianGrid
-    - rx.recharts.CartesianAxis
+    # - rx.recharts.CartesianAxis
 ---
 
 # Cartesian Grid
@@ -60,7 +60,7 @@ data = [
   }
 ]
 
-def cartesian_simple():
+def cgrid_1():
   return rx.recharts.composed_chart(
     rx.recharts.area(
         data_key="uv",
@@ -85,4 +85,50 @@ def cartesian_simple():
     width = 600,
     height = 300,
   )
+```
+
+## Example with Custom Grid Lines
+
+`horizontal_points` and `vertical_points` props are used to specify custom grid lines on the chart. The `horizontal_points` prop defines the positions of horizontal grid lines along the y-axis, while the `vertical_points` prop defines the positions of vertical grid lines along the x-axis. 
+
+```md alert info
+Note that the values provided to these props are not directly related to the axis values but rather represent pixel offsets from the top and right edges of the chart, respectively.
+```
+
+```python demo graphing
+
+data2 = [
+    {"x": 100, "y": 200, "z": 200},
+    {"x": 120, "y": 100, "z": 260},
+    {"x": 170, "y": 300, "z": 400},
+    {"x": 170, "y": 250, "z": 280},
+    {"x": 150, "y": 400, "z": 500},
+    {"x": 110, "y": 280, "z": 200},
+    {"x": 200, "y": 150, "z": 300},
+    {"x": 130, "y": 350, "z": 450},
+    {"x": 90, "y": 220, "z": 180},
+    {"x": 180, "y": 320, "z": 350},
+    {"x": 140, "y": 230, "z": 320},
+    {"x": 160, "y": 180, "z": 240},
+]
+
+
+def cgrid_2():
+    return rx.recharts.scatter_chart(
+        rx.recharts.scatter(
+            data=data2,
+            fill="#8884d8",
+        ),
+        rx.recharts.x_axis(data_key="x", type_="number"),
+        rx.recharts.y_axis(data_key="y"),
+        rx.recharts.cartesian_grid(
+            stroke_dasharray="3 3",
+            horizontal_points=[0, 25, 50],
+            vertical_points=[65, 90, 115],
+        ),
+        height = 200,
+        width = 500,
+    )
+
+
 ```
