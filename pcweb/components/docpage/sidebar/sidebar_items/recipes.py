@@ -39,6 +39,7 @@ def get_sidebar_items_recipes():
             "Other",
             children=[
                 recipes.others.checkboxes,
+                recipes.others.pricing_cards
             ]
         ),
     ]
