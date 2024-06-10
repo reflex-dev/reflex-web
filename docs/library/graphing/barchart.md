@@ -68,8 +68,8 @@ def bar_simple():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         data_key="uv",
-        stroke="#8884d8",
-        fill="#8884d8"
+        stroke=rx.color("accent", 9),
+        fill=rx.color("accent", 8),
     ), 
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
@@ -132,13 +132,13 @@ def bar_double():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         data_key="uv",
-        stroke="#8884d8",
-        fill="#8884d8"
+        stroke=rx.color("accent", 9),
+        fill=rx.color("accent", 8),
     ), 
     rx.recharts.bar(
         data_key="pv",
-        stroke="#82ca9d",
-        fill="#82ca9d"
+        stroke=rx.color("green", 9),
+        fill=rx.color("green", 8),
     ), 
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
@@ -222,8 +222,8 @@ def bar_range():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         data_key="temperature",
-        stroke="#8884d8",
-        fill="#8884d8"
+        stroke=rx.color("accent", 9),
+        fill=rx.color("accent", 8),
     ), 
     rx.recharts.x_axis(data_key="day"), 
     rx.recharts.y_axis(),
@@ -251,13 +251,13 @@ def bar_with_state():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
       data_key="uv", 
-      stroke="#8884d8", 
-      fill="#8884d8", 
+      stroke=rx.color("accent", 9),
+      fill=rx.color("accent", 8),
     ),
     rx.recharts.bar(
       data_key="pv",
-      stroke="#82ca9d", 
-      fill="#82ca9d", 
+      stroke=rx.color("green", 9),
+      fill=rx.color("green", 8),
     ),
     rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),

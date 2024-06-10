@@ -9,7 +9,7 @@ import reflex as rx
 
 # Error Bar
 
-An error bar is a line through a point on a graph, parallel to one of the axes, which represents the uncertainty or variation of the corresponding coordinate of the point.
+An error bar is a graphical representation of the uncertainty or variability of a data point in a chart, depicted as a line extending from the data point parallel to one of the axes. The `dataKey`, `width`, `strokeWidth`, `stroke`, and `direction` props can be used to customize the appearance and behavior of the error bars, specifying the data source, dimensions, color, and orientation of the error bars.
 
 ```python demo graphing
 data = [
@@ -93,8 +93,8 @@ def error():
         data=data,
         fill="#8884d8",
         name="A"),
-    rx.recharts.x_axis(data_key="x", name="x"), 
-    rx.recharts.y_axis(data_key="y", name="y"),
+    rx.recharts.x_axis(data_key="x", name="x", type_="number"), 
+    rx.recharts.y_axis(data_key="y", name="y", type_="number"),
     width = 600,
     height = 300,
   )
