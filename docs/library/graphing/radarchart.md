@@ -1,6 +1,7 @@
 ---
 components:
     - rx.recharts.RadarChart
+    - rx.recharts.Radar
 ---
 
 # Radar Chart
@@ -56,7 +57,9 @@ radar_chart_simple_example = """rx.recharts.radar_chart(
                     ),
                     rx.recharts.polar_grid(),
                     rx.recharts.polar_angle_axis(data_key="subject"),
-                    data=data
+                    data=data,
+                    width=400,
+                    height=300,
                     )"""
 
 radar_chart_complex_example = """rx.recharts.radar_chart(
@@ -74,7 +77,9 @@ radar_chart_complex_example = """rx.recharts.radar_chart(
                     rx.recharts.polar_grid(),
                     rx.recharts.polar_angle_axis(data_key="subject"),
                     rx.recharts.legend(),
-                    data=data
+                    data=data,
+                    width=400,
+                    height=300,
                     )"""
 
 ```

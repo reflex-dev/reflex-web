@@ -1,6 +1,7 @@
 ---
 components:
     - rx.recharts.PieChart
+    - rx.recharts.Pie
 ---
 
 # Pie Chart
