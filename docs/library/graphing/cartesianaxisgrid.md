@@ -130,5 +130,44 @@ def cgrid_2():
         width = 500,
     )
 
+```
+
+## Example with Color Filling
+
+The `fill` prop specifies the color of the grid area, and the `fill_opacity` prop specifies the opacity of the grid color.
+
+```python demo graphing
+
+data3 = [
+    {"x": 100, "y": 200, "z": 200},
+    {"x": 120, "y": 100, "z": 260},
+    {"x": 170, "y": 300, "z": 400},
+    {"x": 170, "y": 250, "z": 280},
+    {"x": 150, "y": 400, "z": 500},
+    {"x": 110, "y": 280, "z": 200},
+    {"x": 200, "y": 150, "z": 300},
+    {"x": 130, "y": 350, "z": 450},
+    {"x": 90, "y": 220, "z": 180},
+    {"x": 180, "y": 320, "z": 350},
+    {"x": 140, "y": 230, "z": 320},
+    {"x": 160, "y": 180, "z": 240},
+]
+
+def cgrid_3():
+    return rx.recharts.scatter_chart(
+        rx.recharts.scatter(
+            data=data3,
+            fill="#8884d8",
+        ),
+        rx.recharts.x_axis(data_key="x", type_="number"),
+        rx.recharts.y_axis(data_key="y"),
+        rx.recharts.cartesian_grid(
+            stroke_dasharray="3 3",
+            fill="red",
+            fill_opacity=0.25,
+        ),
+        height = 200,
+        width = 500,
+    )
 
 ```
