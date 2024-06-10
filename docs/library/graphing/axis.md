@@ -6,29 +6,6 @@ components:
 ---
 ```python exec
 import reflex as rx
-
-data = [
-    {"name": "Page A", "uv": 4000, "pv": 2400, "amt": 2400},
-    {"name": "Page B", "uv": 3000, "pv": 1398, "amt": 2210},
-    {"name": "Page C", "uv": 2000, "pv": 3800, "amt": 2290},
-    {"name": "Page D", "uv": 2780, "pv": 3908, "amt": 2000},
-    {"name": "Page E", "uv": 1890, "pv": 4800, "amt": 2181},
-    {"name": "Page F", "uv": 2390, "pv": 3800, "amt": 2500},
-    {"name": "Page G", "uv": 3490, "pv": 4300, "amt": 2100},
-]
-
-data2 = [
-    {"day": "05-01", "temperature": [-1, 10]},
-    {"day": "05-02", "temperature": [2, 15]},
-    {"day": "05-03", "temperature": [3, 12]},
-    {"day": "05-04", "temperature": [4, 12]},
-    {"day": "05-05", "temperature": [12, 17]},
-    {"day": "05-06", "temperature": [5, 16]},
-    {"day": "05-07", "temperature": [3, 12]},
-    {"day": "05-08", "temperature": [0, 8]},
-    {"day": "05-09", "temperature": [-3, 5]},
-]
-
 ```
 
 # Axis
@@ -37,8 +14,7 @@ The Axis component in Recharts is a powerful tool for customizing and configurin
 
 ## Basic Example
 
-Setting `hide` to true will hide the axis, `datakey` allows you to specify a unique identifier for the axis. The `width` and `height` props give you control over the dimensions of the axis. By default, the width is calculated internally based on the chart's layout. The height prop allows you to set a specific height for the axis. This is useful when you want to allocate more or less space for the axis depending on your chart's requirements.
-
+Setting `hide` to true will hide the axis, `datakey` allows you to specify a unique identifier for the axis.
 
 ```python demo graphing
 
@@ -90,18 +66,19 @@ data = [
 def axis_1():
     return rx.recharts.area_chart(
         rx.recharts.area(
-            data_key="uv", stroke="#8884d8", fill="#8884d8"
+            data_key="uv",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
         ),
         rx.recharts.x_axis(
             data_key="name",
-            height = 50,
         ),
         rx.recharts.y_axis(
-            width = 50,
+            hide=True,
         ),
         data=data,
-        width = 500,
-        height = 400,
+        width = "100%",
+        height = 300,
     )
 ```
 
@@ -147,29 +124,6 @@ def axis_2():
             ticks = [200, 300, 500, 800],
         ),
         data=data2,
-        width = 500,
-        height = 400,
-    )
-```
-
-## Example with EventTriggers
-
-The x-axis and y-axis has their own event triggers, `on_click` and `on_mouse_over` are included in this example. Try click the X and Y axis. 
-
-```python demo graphing
-def axis_1():
-    return rx.recharts.area_chart(
-        rx.recharts.area(
-            data_key="uv", stroke="#8884d8", fill="#8884d8"
-        ),
-        rx.recharts.x_axis(
-            data_key="name",
-            on_click=rx._x.toast("X axis clicked"),
-        ),
-        rx.recharts.y_axis(
-            on_mouse_over=rx.window_alert("mouse over Y"),
-        ),
-        data=data,
         width = 500,
         height = 400,
     )
