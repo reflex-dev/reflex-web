@@ -7,17 +7,18 @@ image:
 ---
 
 ```python exec
-from pcweb.pages.docs import library
+from pcweb.pages.docs import library, database
 ```
 
-The table component is one of the most useful components for visualizing, editing and working with data.
+The table component is one of the most useful components for visualizing, editing and working with data. In Reflex we have a built in `rx.table` component. This table efficiently displays data and allows embedding of various Reflex components, such as buttons, dropdowns, checkboxes, or forms, directly within table cells.
 
+In this blog we will link the data in our `rx.table` to an external database. The live version of the app we create in this blog can be found here: https://customer-data-app.reflex.run. The first thing that it is necessary to understand are `Tables`. 
 
+## Defining the Customer Table
 
+`Tables` are database objects that contain all the data in a database. To [create a table]({database.tables.path}) in Reflex make a class that inherits from `rx.Model`.
 
-## Defining the customer model
-
-A `Customer` model is defined that inherits from `rx.Model`.
+A `Customer` table is defined below that inherits from `rx.Model`. It has fields such as `name` and `email`.
 
 ```python
 class Customer(rx.Model, table=True):
@@ -32,15 +33,13 @@ class Customer(rx.Model, table=True):
     status: str
 ```
 
-more to add here .....!!!!!!!!!
-
+To learn more about databases in Reflex check out the documentation [here]({database.overview.path}).
 
 ## Loading Data into the Table
-2. loading customers from the db (State.load_entries, show_customer used in rx.foreach(State.users, show_customer))
 
-First it is necessary to load our data from a database. The `load_entries` event handler in `State` does a database query and returns all the date in the database to the `State` variable `self.users`.
+Now that we have our database created it is necessary to load our data from the database. The `load_entries` event handler in `State` does a database query and returns all the data in the database to the `State` variable `self.users`.
 
-The `show_customer` function takes in a `user` and renders it in a `rx.table.row`. All the attributes of the `Customer` class are rendered out as `rx.table.cell` in the row. The `user.status` uses an `rx.match` to handle multiple conditions and their corresponding components. Learn more about `rx.match` [here]({library.layout.match.path}). The `status_badge` function takes in a status and renders it out in an `rx.badge`.
+The `show_customer` function takes in a `user` and renders it in a `rx.table.row`. All the attributes of the `Customer` class are rendered out as `rx.table.cell` components in the row. The `user.status` uses an `rx.match` to handle multiple conditions and their corresponding components. Learn more about `rx.match` [here]({library.layout.match.path}). The `status_badge` function takes in a status and renders it out in an `rx.badge`.
 
 
 The `main_table` function renders an `rx.table` component. The `_header_cell` function renders a `text` and an `icon` in an `rx.table.column_header_cell`. This renders out the names of the `Customer` model fields as the titles of the table columns. 
@@ -113,17 +112,14 @@ app.add_page(main_table)
 
 
 ## Adding a New Customer 
-3. adding a new customer (State.handle_add_submit, State.add_customer, add_fields, add_customer)
-
 
 Next let's explore how to add a user to our database and therefore to our table. We have a function `add_customer_button`, which is a UI element that is rendered in the `main_table` function defined in the section above. 
 
-In this `add_customer_button` function there is a `rx.dialog` which opens when the `rx.button` "Add New Customer" is pressed. When the dialog is opened there is an `rx.form.root` with several `form_field` functions called inside. The `form_field` function returns an `rx.form.field`. It takes in several arguments, but most importantly takes in a `name` argument. The `name` prop is needed to submit with its owning form as part of a `name/value` pair. The content typed into the `rx.input` is submitted as the `value` in that `name/value` pair when the `rx.form` is submitted.
-
-come back to the bit about rx.radio, and explain why it is different!!!!!!
+In this `add_customer_button` function there is an `rx.dialog` which opens when the `rx.button` "Add New Customer" is pressed. When the dialog is opened there is an `rx.form.root` with several `form_field` functions called inside. The `form_field` function returns an `rx.form.field`. It takes in several arguments, but most importantly takes in a `name` argument. The `name` prop is needed to submit with its owning form as part of a `name/value` pair. The content typed into the `rx.input` is submitted as the `value` in that `name/value` pair when the `rx.form` is submitted. The same is done for the `rx.radio` component, where the `name` is set and the radio item selected is passed as the `value` when the `rx.form` is submitted.
 
 
-To submit the `rx.form` with all the `name/value` pairs added, the "Submit Customer" button is pressed which is inside of an `rx.dialog.close` and an `rx.form.submit`, so it closes the dialog and it submits the form. When the form is submitted it runs the code `on_submit=State.add_customer_to_db,` running the event handler `add_customer_to_db,`. This event handler sets the `State` var `current_user` to equal the form data just submitted in the `rx.form`. This event handler also does a database query to add the current `self.current_user`, which we just set to be the form response. Before this a check is done to see if the `email` the user has added is already an `email` in the database, and if it is then an `rx.window_alert` is thrown. 
+
+To submit the `rx.form` with all the `name/value` pairs added, the "Submit Customer" button is pressed which is inside of an `rx.dialog.close` and an `rx.form.submit`, so it closes the dialog and it submits the form. When the form is submitted it runs the code `on_submit=State.add_customer_to_db,` running the event handler `add_customer_to_db`. This event handler sets the `State` var `current_user` to equal the form data just submitted in the `rx.form`. This event handler also does a database query to add the current `self.current_user`, which we just set to be the form response, to the database. Before this a check is done to see if the `email` the user has added is already an `email` in the database, and if it is then an `rx.window_alert` is thrown. 
 
 Finally once the new user is added to the database, the `load_entries` event handler is run again which loads all the data from the database and fills the table.
 
@@ -260,18 +256,16 @@ def add_customer_button() -> rx.Component:
 
 
 ## Updating and Deleting a Customer 
-(State.update_customer, State.get_user, update_customer, update in show_customer)
-(State.delete_customer, delete in show_customer)
 
 ### Updating 
 
 Let's now explore how to update and delete customers from our table. To update a customer is very similar to adding a customer. We have a function `update_customer_dialog`, which is a UI element that is rendered in the `show_customer` function. 
 
-In this `update_customer_dialog` function there is a `rx.dialog` which opens when the `rx.button` "Edit" is pressed. In addition to opening the `rx.dialog`, the `on_click=lambda: State.get_user(user)` runs the event handler `get_user` which sets the `self.current_user` as the `user` passed through.
+In this `update_customer_dialog` function there is an `rx.dialog` which opens when the `rx.button` "Edit" is pressed. In addition to opening the `rx.dialog`, the `on_click=lambda: State.get_user(user)` runs the event handler `get_user` which sets the `self.current_user` as the `user` clicked on.
 
-You might be wondering how the `user` is actually being passed through to be edited. All our users are in our state var `users`. This is being passed to `rx.table.body(rx.foreach(State.users, show_customer))` in the `main_table` function. So the `show_customer` function is taking in each `user` separately renders an edit button from the code `update_customer_dialog(user)` in `show_customer`.
+You might be wondering how the `user` is actually being passed through to be edited. All our users are in our state var `users`. This is being passed to `rx.table.body(rx.foreach(State.users, show_customer))` in the `main_table` function. So the `show_customer` function is taking in each `user` separately and it renders an edit button for each user from the code `update_customer_dialog(user)` in `show_customer`.
 
-The rest of the `update_customer_dialog` function is the same as the `add_customer_button`, except that now we also pass through a `default_value` to the `form_field`, such as `user.email` in the example code below.
+The rest of the `update_customer_dialog` function is the same as the `add_customer_button`, except that now we also pass through a `default_value` to the `form_field`, such as `user.email` in the example code below. This shows the current value for that user that we are now able to edit.
 
 The `update_customer_to_db` event handler is run when the form is submitted which updates the `self.current_user` and updates that user in the database.
 
@@ -387,14 +381,14 @@ def main_table():
 
 
 ## Sorting and Filtering
-(State.sort_values, State.load_entries, rx.select in content)
-(State.filter_values, State.load_entries, rx.input in content)
+
+Now that we are able to add, edit and delete data from our table, let's explore how to sort and filter this data as needed.
 
 ### Sorting
 
 For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Customer` class. When a select item is selected, as the `on_change` event trigger is hooked up to the `sort_values` event handler, the data is sorted based on the state variable `sort_value` attribute selected. This works by setting the state var `sort_value` and then running `self.load_entries`.
 
-The sorting query gets the `sort_column` based on the state variable `sort_value`, it gets the order using the `asc` function from sql and finally uses the `order_by` function. If the `sort_value` is not `payments`, as this is a `float` type, then the items in the sort column are also put to lower case using `func.lower`, so capitalisation of words will not affect the sorting.
+The sorting query gets the `sort_column` based on the state variable `sort_value`. It gets the order using the `asc` function from sql and finally uses the `order_by` function. If the `sort_value` is not `payments`, as this is a `float` type, then the items in the sort column are also put to lower case using `func.lower`, so capitalisation of words will not affect the sorting.
 
 
 ### Filtering
@@ -403,7 +397,7 @@ For filtering the `rx.input` component is used. The data is filtered based on th
 
 The `filter_values` event handler sets the state var `search_value` and then runs `self.load_entries`.
 
-The `%` character before and after `search_value` makes it a wildcard pattern that matches any sequence of characters before or after the `search_value` `query.where(...)` modifies the existing query to include a filtering condition. The `or_` operator is a logical OR operator that combines multiple conditions. The query will return results that match any of these conditions dynamically generated by iterating over the fields returned by `Customer.get_fields()`, excluding the `id` and `payments` fields.
+In the `self.load_entries` event handler the `%` character before and after `search_value` makes it a wildcard pattern that matches any sequence of characters before or after the `search_value`. `query.where(...)` modifies the existing query to include a filtering condition. The `or_` operator is a logical OR operator that combines multiple conditions. The query will return results that match any of these conditions dynamically generated by iterating over the fields returned by `Customer.get_fields()`, excluding the `id` and `payments` fields.
 
 The output for the `name` field is `Customer.name.ilike(search_value)`, which checks if the `name` column of the `Customer` table matches the `search_value` pattern in a case-insensitive manner (`ilike` stands for "case-insensitive like").
 
@@ -484,3 +478,9 @@ def main_table():
     )
 ```
 
+
+## Conclusion
+
+And that is it. We have set up our table in a database, learnt how to add, edit and delete users, and finally how to sort and filter them. This is just a basic use case for the `rx.table` and there are many more advanced use cases like setting up Machine Learning job workflows etc. 
+
+The live app can be found here: https://customer-data-app.reflex.run and the full code can be found here: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app. 
