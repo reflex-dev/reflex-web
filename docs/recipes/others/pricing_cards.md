@@ -19,8 +19,8 @@ def features() -> rx.Component:
         feature_item("Advanced analytics"),
         feature_item("Customizable templates"),
         feature_item("Priority email support"),
-		width="100%",
-		align_items="start",
+        width="100%",
+        align_items="start",
     )
 
 def pricing_card_beginner() -> rx.Component:
@@ -45,7 +45,7 @@ def pricing_card_beginner() -> rx.Component:
         border=f"1.5px solid {rx.color('gray', 5)}",
         background=rx.color("gray", 1),
         padding="28px",
-		width="100%",
+        width="100%",
         max_width="400px",
         justify="center",
         border_radius="0.5rem",
@@ -113,7 +113,7 @@ def pricing_card_standard() -> rx.Component:
             "40 Image Credits",
             weight="bold",
             size="7",
-			width="100%",
+            width="100%",
             text_align="left",
         ),
         standard_features(),
@@ -169,7 +169,7 @@ def pricing_card_popular() -> rx.Component:
             "250 Image Credits",
             weight="bold",
             size="7",
-			width="100%",
+            width="100%",
             text_align="left",
         ),
         popular_features(),
