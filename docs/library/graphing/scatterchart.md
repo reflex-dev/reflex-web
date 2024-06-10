@@ -13,6 +13,8 @@ from pcweb.templates.docpage import docgraphing
 
 A scatter chart always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
 
+## Simple Example
+
 For a scatter chart we must define an `rx.recharts.scatter()` component for each set of values we wish to plot. Each `rx.recharts.scatter()` component has a `data` prop which clearly states which data source we plot. We also must define `rx.recharts.x_axis()` and `rx.recharts.y_axis()` so that the graph knows what data to plot on each axis.
 
 ```python demo graphing
@@ -61,6 +63,8 @@ def scatter():
   )
 ```
 
+## Example with Multiple Charts
+
 We can also add two scatters on one chart by using two `rx.recharts.scatter()` components, and we can define an `rx.recharts.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
 
 ```python demo graphing
@@ -87,7 +91,7 @@ data01 = [
   },
   {
     "x": 150,
-    "y": 400,
+    "y": 350,
     "z": 500
   },
   {
@@ -153,7 +157,7 @@ def scatter_double():
   )
 ```
 
-# Dynamic Data
+## Dynamic Data
 
 Chart data tied to a State var causes the chart to automatically update when the
 state changes, providing a nice way to visualize data in response to user

@@ -13,6 +13,8 @@ import random
 
 A funnel chart is a graphical representation used to visualize how data moves through a process. In a funnel chart, the dependent variable’s value diminishes in the subsequent stages of the process. It can be used to demonstrate the flow of users through for example a business or sales process.
 
+## Simple Example
+
 ```python demo graphing
 data = [
   {
@@ -65,6 +67,8 @@ def funnel_simple():
     height=250,
   )
 ```
+
+## Example with State
 
 Here is an example of a funnel chart with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data when the graph is clicked on using `on_click=FunnelState.randomize_data`.
 
