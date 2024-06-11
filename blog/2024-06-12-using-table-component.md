@@ -1,6 +1,6 @@
 ---
 author: Tom Gotsman
-date: 2024-06-04
+date: 2024-06-12
 title: Using Table Component
 description: Describing main uses of the Table component with a Database
 image: 

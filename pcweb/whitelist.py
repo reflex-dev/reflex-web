@@ -9,7 +9,7 @@
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = []
+WHITELISTED_PAGES = ["/blog/2024-06-04-using-table-component"]
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
