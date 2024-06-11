@@ -72,6 +72,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-06-11",
+            "v0.5.4",
+            "Better support for serializing datetime, Color, Path, and others to string",
+            [
+                "Default theme appearance to system light/dark setting",
+                "Toast component is now promoted to `rx.toast`",
+                "Recharts props accept `rx.color` values",
+                "Avoid hang when backend disconnects while processing an event",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.4",
+        ),
+        change(
             "2024-06-05",
             "v0.5.3",
             "Plotly Improvements",
