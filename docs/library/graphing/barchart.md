@@ -373,6 +373,6 @@ def radial_bar():
       start_angle=180,
       end_angle=0,
       width = 600,
-      height = 600,
+      height = 300,
   )
 ```

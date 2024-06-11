@@ -78,53 +78,8 @@ def axis_1():
         ),
         data=data,
         width = "100%",
+        padding_left = 40,
         height = 300,
     )
 ```
 
-
-## Example with Ticks
-
-You can also customize the ticks on the axises using `tick_count`, `min_tick_gap`, `tick_line`, and `ticks` props.
-
-```python demo graphing
-
-data2 = [
-    {'x': 0, 'y': 0},
-    {'x': 50, 'y': 50},
-    {'x': 100, 'y': 110},
-    {'x': 150, 'y': 160},
-    {'x': 200, 'y': 200},
-    {'x': 250, 'y': 250},
-    {'x': 350, 'y': 390},
-    {'x': 400, 'y': 400},
-    {'x': 450, 'y': 440},
-    {'x': 500, 'y': 490},
-    {'x': 550, 'y': 550},
-    {'x': 600, 'y': 600},
-    {'x': 650, 'y': 640},
-    {'x': 700, 'y': 680},
-    {'x': 750, 'y': 700},
-    {'x': 800, 'y': 720},
-]
-
-def axis_2():
-    return rx.recharts.line_chart(
-        rx.recharts.line(
-            data_key="y",
-            stroke="#8884d8",
-        ),
-        rx.recharts.x_axis(
-            data_key="x", 
-            tick_count = 7, 
-            min_tick_gap = 30
-        ),
-        rx.recharts.y_axis(
-            tick_line = False,
-            ticks = [200, 300, 500, 800],
-        ),
-        data=data2,
-        width = 500,
-        height = 400,
-    )
-```

@@ -78,6 +78,8 @@ def area_simple():
 
 ## Example with Sync ID
 
+The `sync_id` prop allows you to sync two graphs. In the example, it is set to "1" for both charts, indicating that they should be synchronized. This means that any interactions (such as brushing) performed on one chart will be reflected in the other chart.
+
 ```python demo graphing
 data = [
   {
@@ -165,7 +167,7 @@ def area_sync():
 
 ## Example with StackID
 
-The `sync_id` prop allows you to sync two graphs. In the example, it is set to "1" for both charts, indicating that they should be synchronized. This means that any interactions (such as brushing) performed on one chart will be reflected in the other chart.
+The `stack_id`prop allows you to stack multiple graphs on top of each other. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the bars or areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas or bars.
 
 ```python demo graphing
 
@@ -239,6 +241,8 @@ def area_stack():
 ```
 ## Example with Multiple Axis
 
+Multiple axes can be used for displaying different data series with varying scales or units on the same chart. This allows for a more comprehensive comparison and analysis of the data.
+
 ```python demo graphing
 
 data = [
@@ -292,7 +296,7 @@ def area_multi_axis():
         data_key="uv", stroke="#8884d8", fill="#8884d8", x_axis_id="primary", y_axis_id="left",
     ),
     rx.recharts.area(
-        data_key="pv", x_axis_id="secondary", y_axis_id="right", type="monotone", stroke="#82ca9d", fill="#82ca9d"
+        data_key="pv", x_axis_id="secondary", y_axis_id="right", type_="monotone", stroke="#82ca9d", fill="#82ca9d"
     ),
     rx.recharts.x_axis(data_key="name", x_axis_id="primary"),
     rx.recharts.x_axis(data_key="name", x_axis_id="secondary", orientation="top"),
