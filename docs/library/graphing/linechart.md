@@ -268,7 +268,7 @@ def line_dynamic():
         data_key="uv",
         type_=LineChartState.uv_type,
         stroke="#82ca9d",
-      ), git 
+      ),
       rx.recharts.x_axis(data_key="name"), 
       rx.recharts.y_axis(),
       data=LineChartState.data,
@@ -293,7 +293,7 @@ def line_dynamic():
           value=LineChartState.uv_type,
           on_change=LineChartState.set_uv_type
       ),
-    )
+    ),
     width="100%",
   )
 ```

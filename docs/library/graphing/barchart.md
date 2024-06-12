@@ -305,6 +305,85 @@ def bar_3():
     )
 ```
 
+## Vertical Example
+
+The `layout` prop allows you to set the orientation of the graph to be vertical or horizontal, it is set horizontally by default.
+
+```md alert info
+# Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
+```
+
+```python demo graphing
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
+def bar_vertical():
+    """
+    usage: weight, height, area.stroke, area.fill, area.type_, GraphingToolTip"""
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="uv",
+            stroke=rx.color("accent", 8), 
+            fill=rx.color("accent", 3),
+        ),
+        rx.recharts.x_axis(type_="number"),
+        rx.recharts.y_axis(data_key="name", type_="category"),
+        data=data,
+        layout="vertical",
+        margin={
+            "top": 20,
+            "right": 20,
+            "left": 20,
+            "bottom": 20
+        },
+        base_value=500,
+        height = 300,
+        width = 500,
+    )
+```
+
 
 ## Radial Bar chart example
 
