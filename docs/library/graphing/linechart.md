@@ -11,54 +11,11 @@ import random
 from typing import Any
 
 import reflex as rx
-
-data = [
-  {
-    "name": "Page A",
-    "uv": 4000,
-    "pv": 2400,
-    "amt": 2400
-  },
-  {
-    "name": "Page B",
-    "uv": 3000,
-    "pv": 1398,
-    "amt": 2210
-  },
-  {
-    "name": "Page C",
-    "uv": 2000,
-    "pv": 9800,
-    "amt": 2290
-  },
-  {
-    "name": "Page D",
-    "uv": 2780,
-    "pv": 3908,
-    "amt": 2000
-  },
-  {
-    "name": "Page E",
-    "uv": 1890,
-    "pv": 4800,
-    "amt": 2181
-  },
-  {
-    "name": "Page F",
-    "uv": 2390,
-    "pv": 3800,
-    "amt": 2500
-  },
-  {
-    "name": "Page G",
-    "uv": 3490,
-    "pv": 4300,
-    "amt": 2100
-  }
-]
 ```
 
 A line chart is a type of chart used to show information that changes over time. Line charts are created by plotting a series of several points and connecting them with a straight line.
+
+## Simple Line Chart
 
 For a line chart we must define an `rx.recharts.line()` component for each set of values we wish to plot. Each `rx.recharts.line()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `pv` and `uv` as separate lines against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
 
@@ -112,19 +69,19 @@ def line_simple():
   return rx.recharts.line_chart(
     rx.recharts.line(
         data_key="pv",
-        stroke="#8884d8",),
+    ),
     rx.recharts.line(
         data_key="uv",
-        stroke="#82ca9d",), 
+    ),
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
     data=data,
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```
 
-## Chart Features
+## Example with Features
 
 Our second example uses exactly the same data as our first example, except now we add some extra features to our line graphs. We add a `type_` prop to `rx.recharts.line` to style the lines differently. In addition, we add an `rx.recharts.cartesian_grid` to get a grid in the background, an `rx.recharts.legend` to give us a legend for our graphs and an `rx.recharts.graphing_tooltip` to add a box with text that appears when you pause the mouse pointer on an element in the graph.
 
@@ -191,12 +148,93 @@ def line_2():
     rx.recharts.graphing_tooltip(),
     rx.recharts.legend(),
     data=data,
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```
 
-## Dynamic Data and Style
+## Example with layout
+
+The `layout` prop allows you to set the orientation of the graph to be vertical or horizontal. The `margin` prop defines the spacing around the graph,
+
+```md alert info
+# Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
+```
+
+```python demo graphing
+
+data = [
+  {
+    "name": "Page A",
+    "uv": 4000,
+    "pv": 2400,
+    "amt": 2400
+  },
+  {
+    "name": "Page B",
+    "uv": 3000,
+    "pv": 1398,
+    "amt": 2210
+  },
+  {
+    "name": "Page C",
+    "uv": 2000,
+    "pv": 9800,
+    "amt": 2290
+  },
+  {
+    "name": "Page D",
+    "uv": 2780,
+    "pv": 3908,
+    "amt": 2000
+  },
+  {
+    "name": "Page E",
+    "uv": 1890,
+    "pv": 4800,
+    "amt": 2181
+  },
+  {
+    "name": "Page F",
+    "uv": 2390,
+    "pv": 3800,
+    "amt": 2500
+  },
+  {
+    "name": "Page G",
+    "uv": 3490,
+    "pv": 4300,
+    "amt": 2100
+  }
+]
+
+def vertical():
+    return rx.recharts.line_chart(
+        rx.recharts.line(
+            data_key="pv",
+            stroke=rx.color("accent", 9),
+        ),
+        rx.recharts.line(
+            data_key="uv",
+            stroke=rx.color("green", 9),
+        ),
+        rx.recharts.x_axis(type_="number"),
+        rx.recharts.y_axis(data_key="name", type_="category"),
+        layout="vertical",
+        margin={
+            "top": 20,
+            "right": 20,
+            "left": 20,
+            "bottom": 20
+        },
+        data = data,
+        height = 300,
+        width = "100%",
+    )
+```
+
+
+## Example with Dynamic Data
 
 Chart data can be modified by tying the `data` prop to a State var. Most other
 props, such as `type_`, can be controlled dynamically as well. In the following
@@ -218,7 +256,6 @@ class LineChartState(rx.State):
             row["uv"] += random.randint(-500, 500)
             row["pv"] += random.randint(-1000, 1000)
 
-
 def line_dynamic():
   return rx.vstack(
     rx.recharts.line_chart(
@@ -235,57 +272,28 @@ def line_dynamic():
       rx.recharts.x_axis(data_key="name"), 
       rx.recharts.y_axis(),
       data=LineChartState.data,
-      width = 600,
+      margin={
+        "top": 20,
+        "right": 20,
+        "left": 20,
+        "bottom": 20
+      },
+      width = "100%",
       height = 300,
     ),
-    rx.button("Munge Data", on_click=LineChartState.munge_data),
-    rx.select(
+    rx.hstack(
+      rx.button("Munge Data", on_click=LineChartState.munge_data),
+      rx.select(
         ["monotone", "linear", "step", "stepBefore", "stepAfter"],
         value=LineChartState.pv_type,
         on_change=LineChartState.set_pv_type
-    ),
-    rx.select(
-        ["monotone", "linear", "step", "stepBefore", "stepAfter"],
-        value=LineChartState.uv_type,
-        on_change=LineChartState.set_uv_type
-    ),
-)
-```
-
-
-```python demo graphing
-data2 = [
-    {'x': 0, 'y': 0},
-    {'x': 50, 'y': 50},
-    {'x': 100, 'y': 110},
-    {'x': 150, 'y': 160},
-    {'x': 200, 'y': 200},
-    {'x': 250, 'y': 250},
-    {'x': 350, 'y': 390},
-    {'x': 400, 'y': 400},
-    {'x': 450, 'y': 440},
-    {'x': 500, 'y': 490},
-    {'x': 550, 'y': 550},
-    {'x': 600, 'y': 600},
-    {'x': 650, 'y': 640},
-    {'x': 700, 'y': 680},
-    {'x': 750, 'y': 700},
-    {'x': 800, 'y': 720},
-]
-
-def line_change_base():
-  return rx.recharts.line_chart(
-    rx.recharts.line(
-      data_key="y",
-      stroke="#8884d8",
-    ),
-    rx.recharts.x_axis(
-      data_key="x", 
-    ),
-    rx.recharts.y_axis(
-      tick_line = True,
-    ),
-    data=data2,
-    width = "100%",
-    height = 400,
+      ),
+      rx.select(
+          ["monotone", "linear", "step", "stepBefore", "stepAfter"],
+          value=LineChartState.uv_type,
+          on_change=LineChartState.set_uv_type
+      ),
+    )
+    width="100%",
   )
+```
