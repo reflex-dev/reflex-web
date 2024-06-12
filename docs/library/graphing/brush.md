@@ -8,7 +8,7 @@ components:
 ```python exec
 import reflex as rx
 ```
-# Simple Brush Example
+## Simple Brush Example
 
 The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
 
@@ -78,7 +78,7 @@ def brush_1():
 
 ## Brush Position, Size, and Range
 
-Here's an example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop indicates the gap between the refreshing of the chart. The `start_index` and `end_index` props defines the default range of the brush.
+Here's an example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop indicates the gap between the refreshing of the chart. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of the brush traveller.
 
 ```python demo graphing
 data = [
