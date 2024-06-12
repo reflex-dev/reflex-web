@@ -13,6 +13,7 @@ class Waitlist(rx.Model, table=True):
     email: str
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
+
 class IndexState(rx.State):
     """Hold the state for the home page."""
 
@@ -39,7 +40,7 @@ class IndexState(rx.State):
 
         except httpx.HTTPError as e:
             print(f"An error occurred: {e}")
-    
+
     def signup_for_another_user(self):
         self.signed_up = False
 
@@ -55,12 +56,12 @@ class IndexState(rx.State):
             email = validation.email
         except EmailNotValidError as e:
             # Alert the error message.
-            return rx._x.toast.warning(
+            return rx.toast.warning(
                 str(e),
                 style={
                     "border": "1px solid #3C3646",
                     "background": "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%)",
-                }
+                },
             )
 
         # Check if the user is already on the waitlist.
