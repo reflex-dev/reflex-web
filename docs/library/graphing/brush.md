@@ -78,7 +78,7 @@ def brush_1():
 
 ## Brush Position, Size, and Range
 
-Here's an example showcase ways to set the Position, Size, and Range. `x` and `y` props is use for position the brush. `width` and `height` props set the dimension of the brush. The `gap` prop indicates the gap between the refreshing of the chart. The `start_index` and `end_index` props defines the default range of the brush.
+Here's an example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop indicates the gap between the refreshing of the chart. The `start_index` and `end_index` props defines the default range of the brush.
 
 ```python demo graphing
 data = [
