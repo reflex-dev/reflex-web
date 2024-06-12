@@ -65,8 +65,6 @@ def area_simple():
   return rx.recharts.area_chart(
     rx.recharts.area(
         data_key="uv",
-        stroke=rx.color("accent", 9),
-        fill=rx.color("accent", 8),
     ),
     rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
