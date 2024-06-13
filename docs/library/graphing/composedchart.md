@@ -8,7 +8,12 @@ import reflex as rx
 ```
 # Composed Chart
 
-A `composed_chart` is a chart that is composed of multiple charts. The charts are placed on top of each other. The charts are placed in the order they are given in the `composed_chart` function.
+A `composed_chart` is a higher-level component chart that is composed of multiple charts, where other charts are the children of the `composed_chart`. The charts are placed on top of each other in the order they are provided in the `composed_chart` function.
+
+
+```md alert info
+To learn more about individual charts, checkout: **[area_chart](/docs/library/graphing/areachart)**, **[line_chart](/docs/library/graphing/line)**, or **[bar_chart](/docs/library/graphing/barchart)**. 
+```
 
 ```python demo graphing
 data = [
