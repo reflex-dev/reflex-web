@@ -21,6 +21,9 @@ $ source venv/bin/activate
 
 Now, we will install Reflex and create a new project. This will create a new directory structure in our project directory.
 
+> **Note:** When prompted to select a template, choose option 0 for a blank project.
+
+
 ```bash
 chatapp $ pip install reflex
 chatapp $ reflex init
@@ -33,7 +36,6 @@ assets          chatapp         rxconfig.py     venv
 ```python eval
 rx.box(height="20px")
 ```
-
 You can run the template app to make sure everything is working.
 
 ```bash
