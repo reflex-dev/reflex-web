@@ -76,8 +76,6 @@ def legend():
     ), 
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
-    rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
-    rx.recharts.graphing_tooltip(),
     rx.recharts.legend(),
     data=data,
     width = 600,
