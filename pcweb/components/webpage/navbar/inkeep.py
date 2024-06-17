@@ -7,7 +7,7 @@ from reflex.vars import ImportVar, Var
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}")}
+    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}", _var_is_string=False)}
 
     is_open: Var[bool] = False
 
