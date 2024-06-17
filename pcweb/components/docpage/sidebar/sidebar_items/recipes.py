@@ -26,6 +26,7 @@ def get_sidebar_items_recipes():
                 recipes.content.multi_column_row,
                 recipes.content.grid,
                 recipes.content.stats,
+                recipes.content.top_banner,
             ],
         ),
         create_item(
