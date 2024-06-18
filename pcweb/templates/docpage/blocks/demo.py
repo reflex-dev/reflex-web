@@ -174,7 +174,6 @@ def docgraphing(
     return rx.vstack(
         rx.flex(
             comp,
-            height="15em",
             style=demo_box_style,
         ),
         rx.chakra.tabs(

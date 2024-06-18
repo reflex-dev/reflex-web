@@ -7,8 +7,11 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.templates.docpage import docgraphing
+```
 
+Tooltips are the little boxes that pop up when you hover over something. Tooltips are always attached to something, like a dot on a scatter chart, or a bar on a bar chart.
+
+```python demo graphing
 data = [
   {
     "name": "Page A",
@@ -54,103 +57,29 @@ data = [
   }
 ]
 
-range_data = [
-  {
-    "day": "05-01",
-    "temperature": [
-      -1,
-      10
-    ]
-  },
-  {
-    "day": "05-02",
-    "temperature": [
-      2,
-      15
-    ]
-  },
-  {
-    "day": "05-03",
-    "temperature": [
-      3,
-      12
-    ]
-  },
-  {
-    "day": "05-04",
-    "temperature": [
-      4,
-      12
-    ]
-  },
-  {
-    "day": "05-05",
-    "temperature": [
-      12,
-      16
-    ]
-  },
-  {
-    "day": "05-06",
-    "temperature": [
-      5,
-      16
-    ]
-  },
-  {
-    "day": "05-07",
-    "temperature": [
-      3,
-      12
-    ]
-  },
-  {
-    "day": "05-08",
-    "temperature": [
-      0,
-      8
-    ]
-  },
-  {
-    "day": "05-09",
-    "temperature": [
-      -3,
-      5
-    ]
-  }
-]
-
-
-
-composed_chart_example = """rx.recharts.composed_chart(
-                rx.recharts.area(
-                    data_key="uv",
-                    stroke="#8884d8",
-                    fill="#8884d8"
-                ), 
-                rx.recharts.bar(
-                    data_key="amt",
-                    bar_size=20,
-                    fill="#413ea0"
-                ),
-                rx.recharts.line(
-                    data_key="pv",
-                    type_="monotone",
-                    stroke="#ff7300"
-                ), 
-                rx.recharts.x_axis(data_key="name"), 
-                rx.recharts.y_axis(),
-                rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
-                rx.recharts.graphing_tooltip(),
-                data=data)"""
-```
-
-Tooltips are the little boxes that pop up when you hover over something. Tooltips are always attached to something, like a dot on a scatter chart, or a bar on a bar chart.
-
-```python eval
-docgraphing(
-  composed_chart_example, 
-  comp = eval(composed_chart_example),
-  data =  "data=" + str(data)
-)
+def composed():
+  return rx.recharts.composed_chart(
+    rx.recharts.area(
+        data_key="uv",
+        stroke="#8884d8",
+        fill="#8884d8"
+    ), 
+    rx.recharts.bar(
+        data_key="amt",
+        bar_size=20,
+        fill="#413ea0"
+    ),
+    rx.recharts.line(
+        data_key="pv",
+        type_="monotone",
+        stroke="#ff7300"
+    ), 
+    rx.recharts.x_axis(data_key="name"), 
+    rx.recharts.y_axis(),
+    rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
+    rx.recharts.graphing_tooltip(),
+    data=data,
+    width = "100%",
+    height = 300,
+  )
 ```
