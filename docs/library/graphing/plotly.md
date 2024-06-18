@@ -57,7 +57,7 @@ def mountain_surface():
 
 ## Plot as State Var
 
-The figure need to be set as a state var if it needs to be updated during run time. 
+If the figure is set as a state var, it can be updated during run time. 
 
 ```python demo exec
 import plotly.express as px
