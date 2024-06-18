@@ -165,7 +165,7 @@ def area_sync():
 
 ## Example with StackID
 
-The `stack_id`prop allows you to stack multiple graphs on top of each other. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the bars or areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas or bars.
+The `stack_id` prop allows you to stack multiple graphs on top of each other. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the bars or areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas or bars.
 
 ```python demo graphing
 
@@ -310,7 +310,7 @@ def area_multi_axis():
 
 ## Example with Layout
 
-Using `layout` prop to set the orientation, the default is horizontal, can by set to vertical. The `base_value` prop to specify the starting point of the area fill. 
+Use the `layout` prop to set the orientation to either `"horizontal"` (default) or `"vertical"`. The `base_value` prop is used to specify the starting point of the area fill along the data axis. 
 
 ```md alert info
 # Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.

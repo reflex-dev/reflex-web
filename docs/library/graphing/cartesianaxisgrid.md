@@ -87,9 +87,9 @@ def cgrid_1():
   )
 ```
 
-## Example with Hidden Axises
+## Example with Hidden Axes
 
-Axises can be set show or hidden using `horizontal` and `vertical` props. If set to `False`, no horizontal/vertical grid will be drawn. 
+An axis can be set show or hidden using `horizontal` and `vertical` props. If set to `False`, no horizontal/vertical grid will be drawn. 
 
 ```python demo graphing
 data = [
