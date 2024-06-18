@@ -76,6 +76,7 @@ def legend():
     ), 
     rx.recharts.x_axis(data_key="name"), 
     rx.recharts.y_axis(),
+    rx.recharts.legend(),
     data=data,
     width = "100%",
     height = 300,
