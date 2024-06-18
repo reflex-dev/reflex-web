@@ -4,6 +4,7 @@ from typing import Set
 import reflex as rx
 from reflex.vars import ImportVar, Var
 
+
 class Search(rx.Component):
     tag = "SearchBar"
 
@@ -15,9 +16,9 @@ class Search(rx.Component):
         return rx.utils.imports.merge_imports(
             super()._get_imports(),
             {
-              "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
-              "react": {ImportVar(tag="useContext")},
-              "/utils/context": {ImportVar(tag="ColorModeContext")},
+                "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
+                "react": {ImportVar(tag="useContext")},
+                "/utils/context": {ImportVar(tag="ColorModeContext")},
             },
         )
 
@@ -37,7 +38,7 @@ class Search(rx.Component):
         """
         # Add the hook code for this component.
         code = {
-            "const [ colorMode, toggleColorMode ] = useContext(ColorModeContext)": None,
+            f"const {{ colorMode, toggleColorMode }} = useContext(ColorModeContext)": None,
             """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
