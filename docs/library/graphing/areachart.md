@@ -127,6 +127,7 @@ data = [
 def area_sync():
   return rx.vstack(
     rx.recharts.bar_chart(
+      rx.recharts.graphing_tooltip(),
       rx.recharts.bar(
           data_key="uv", stroke="#8884d8", fill="#8884d8"
       ),
@@ -135,7 +136,6 @@ def area_sync():
       ),
       rx.recharts.x_axis(data_key="name"),
       rx.recharts.y_axis(),
-      rx.recharts.graphing_tooltip(),
       data=data,
       sync_id="1",
       width = 600,
