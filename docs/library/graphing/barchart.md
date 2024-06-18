@@ -249,6 +249,9 @@ class BarState(rx.State):
 
 def bar_with_state():
   return rx.recharts.bar_chart(
+    rx.recharts.cartesian_grid(
+      stroke_dasharray="3 3",
+    ),
     rx.recharts.bar(
       data_key="uv", 
       stroke=rx.color("accent", 9),
@@ -262,9 +265,6 @@ def bar_with_state():
     rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     rx.recharts.legend(),
-    rx.recharts.cartesian_grid(
-      stroke_dasharray="3 3",
-    ),
     on_click=BarState.randomize_data,
     data=BarState.data,
     width = 600,
@@ -274,7 +274,7 @@ def bar_with_state():
 
 ## Example with Bar Features
 
-Here's an example demonstrates how to customize the appearance and layout of a bars using the `bar_category_gap`, `bar_gap`, `bar_size`, and `max_bar_size` props. 
+Here's an example demonstrates how to customize the appearance and layout of bars using the `bar_category_gap`, `bar_gap`, `bar_size`, and `max_bar_size` props. These props accept values in pixels to control the spacing and size of the bars.
 
 ```python demo graphing
 
