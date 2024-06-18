@@ -10,7 +10,7 @@ import reflex as rx
 ```
 ## Simple Brush Example
 
-The brush component allows us to view charts that have a large number of data points. So to view and analyze them efficiently, there is a slider down them that helps the viewer to select some data points that the viewer needs to be displayed.
+The brush component allows us to view charts that have a large number of data points. To view and analyze them efficiently, the brush provides a slider with two handles that helps the viewer to select some range of data points to be displayed.
 
 ```python demo graphing
 data = [
