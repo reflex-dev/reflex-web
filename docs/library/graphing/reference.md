@@ -101,7 +101,7 @@ def reference():
     rx.recharts.x_axis(data_key="x", name="x", type_="number"), 
     rx.recharts.y_axis(data_key="y", name="y", type_="number"),
     rx.recharts.graphing_tooltip(),
-    width = 600,
+    width = "100%", 
     height = 300,
   )
 ```
@@ -145,7 +145,114 @@ def reference_line():
         rx.recharts.y_axis(),
         data=data_2,
         height = 300,
-        width = 500,
+        width = "100%",
+    )
+
+```
+
+## Reference Dot
+
+The `rx.recharts.reference_dot` component in Recharts is used to mark a specific data point on the chart with a customizable dot. It allows you to highlight important values, outliers, or thresholds by providing a visual reference marker at the specified coordinates (x, y) on the chart.
+
+```python demo graphing
+
+data_3 = [
+    {
+        "x": 45,
+        "y": 100,
+        "z": 150,
+    },
+    {
+        "x": 100,
+        "y": 200,
+        "z": 200,
+    },
+    {
+        "x": 120,
+        "y": 100,
+        "z": 260,
+    },
+    {
+        "x": 170,
+        "y": 300,
+        "z": 400,
+    },
+    {
+        "x": 140,
+        "y": 250,
+        "z": 280,
+    },
+    {
+        "x": 150,
+        "y": 400,
+        "z": 500,
+    },
+    {
+        "x": 110,
+        "y": 280,
+        "z": 200,
+    },
+    {
+        "x": 80,
+        "y": 150,
+        "z": 180,
+    },
+    {
+        "x": 200,
+        "y": 350,
+        "z": 450,
+    },
+    {
+        "x": 90,
+        "y": 220,
+        "z": 240,
+    },
+    {
+        "x": 130,
+        "y": 320,
+        "z": 380,
+    },
+    {
+        "x": 180,
+        "y": 120,
+        "z": 300,
+    },
+]
+
+def reference_dot():
+    return rx.recharts.scatter_chart(
+        rx.recharts.scatter(
+            data=data_3, 
+            fill=rx.color("accent", 9), 
+            name="A",
+        ),
+        rx.recharts.x_axis(
+            data_key="x", name="x", type_="number"
+        ),
+        rx.recharts.y_axis(
+            data_key="y", name="y", type_="number"
+        ),
+        rx.recharts.reference_dot(
+            x = 160,
+            y = 350,
+            r = 15,
+            fill = rx.color("accent", 5),
+            stroke = rx.color("accent", 10),
+        ),
+        rx.recharts.reference_dot(
+            x = 170,
+            y = 300,
+            r = 20,
+            fill = rx.color("accent", 7),
+        ),
+        rx.recharts.reference_dot(
+            x = 90,
+            y = 220,
+            r = 18,
+            fill = rx.color("green", 7),
+        ),
+        height = 200,
+        width = "100%",
     )
 
 ```
