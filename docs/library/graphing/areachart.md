@@ -310,7 +310,7 @@ def area_multi_axis():
 
 ## Example with Layout
 
-Using `layout` prop to set the orientation, the default is horizontal, can by set to vertical. The `base_value` prop to specify the starting point of the area fill. 
+Use the `layout` prop to set the orientation to either `"horizontal"` (default) or `"vertical"`. The `base_value` prop is used to specify the starting point of the area fill along the data axis. 
 
 ```md alert info
 # Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
