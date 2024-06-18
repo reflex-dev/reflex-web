@@ -78,7 +78,7 @@ def brush_1():
 
 ## Brush Position, Size, and Range
 
-Here's an example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop indicates the gap between the refreshing of the chart. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of the brush traveller.
+This example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop provides the spacing between stops on the brush when the graph will refresh. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of each handle ("traveller" in recharts lingo).
 
 ```python demo graphing
 data = [
