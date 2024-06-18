@@ -84,7 +84,7 @@ def line_chart_with_state():
     return rx.vstack(
         rx.select(
             ['China', 'France', 'United Kingdom', 'United States', 'Canada'],
-            default_value="United States",
+            default_value="Canada",
             on_change=PlotlyState.set_selected_country,
         ),
         rx.plotly(data=PlotlyState.figure),
