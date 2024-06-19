@@ -51,9 +51,9 @@ class SpeedDialVertical(rx.ComponentState):
 					rx.icon(
 						"plus",
 						style={
+							"transform": rx.cond(cls.is_open, "rotate(45deg)", "rotate(0)"),
 							"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 						},
-						class_name="dial",
 					),
 					variant="solid",
 					color_scheme="blue",
@@ -67,15 +67,10 @@ class SpeedDialVertical(rx.ComponentState):
 					menu(),
 				),
 				position="relative",
-				style={
-					"&:hover .dial": {
-						"transform": "rotate(45deg)",
-						"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
-					},
-				},
 			),
-			on_mouse_over=cls.toggle(True),
+			on_mouse_enter=cls.toggle(True),
 			on_mouse_leave=cls.toggle(False),
+			on_click=cls.toggle(~cls.is_open),
 			style={"bottom": "15px", "right": "15px"},
 			position="absolute",
 			# z_index="50",
@@ -138,6 +133,7 @@ class SpeedDialHorizontal(rx.ComponentState):
 					rx.icon(
 						"plus",
 						style={
+							"transform": rx.cond(cls.is_open, "rotate(45deg)", "rotate(0)"),
 							"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 						},
 						class_name="dial",
@@ -154,15 +150,10 @@ class SpeedDialHorizontal(rx.ComponentState):
 					menu(),
 				),
 				position="relative",
-				style={
-					"&:hover .dial": {
-						"transform": "rotate(45deg)",
-						"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
-					},
-				},
 			),
-			on_mouse_over=cls.toggle(True),
+			on_mouse_enter=cls.toggle(True),
 			on_mouse_leave=cls.toggle(False),
+			on_click=cls.toggle(~cls.is_open),
 			style={"bottom": "15px", "right": "15px"},
 			position="absolute",
 			# z_index="50",
@@ -231,6 +222,7 @@ class SpeedDialVerticalText(rx.ComponentState):
 					rx.icon(
 						"plus",
 						style={
+							"transform": rx.cond(cls.is_open, "rotate(45deg)", "rotate(0)"),
 							"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 						},
 						class_name="dial",
@@ -247,15 +239,10 @@ class SpeedDialVerticalText(rx.ComponentState):
 					menu(),
 				),
 				position="relative",
-				style={
-					"&:hover .dial": {
-						"transform": "rotate(45deg)",
-						"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
-					},
-				},
 			),
-			on_mouse_over=cls.toggle(True),
+			on_mouse_enter=cls.toggle(True),
 			on_mouse_leave=cls.toggle(False),
+			on_click=cls.toggle(~cls.is_open),
 			style={"bottom": "15px", "right": "15px"},
 			position="absolute",
 			# z_index="50",
@@ -293,7 +280,19 @@ class SpeedDialReveal(rx.ComponentState):
 					size="3",
 					cursor="pointer",
 					radius="full",
-					class_name="menu-item",
+					style={
+						"animation": rx.cond(cls.is_open, "reveal 0.3s ease both", "none"),
+						"@keyframes reveal": {
+							"0%": {
+								"opacity": "0",
+								"transform": "scale(0)",
+							},
+							"100%": {
+								"opacity": "1",
+								"transform": "scale(1)",
+							},
+						},
+					},
 				),
 				side="left",
 				content=text,
@@ -319,6 +318,7 @@ class SpeedDialReveal(rx.ComponentState):
 					rx.icon(
 						"plus",
 						style={
+							"transform": rx.cond(cls.is_open, "rotate(45deg)", "rotate(0)"),
 							"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 						},
 						class_name="dial",
@@ -335,28 +335,10 @@ class SpeedDialReveal(rx.ComponentState):
 					menu(),
 				),
 				position="relative",
-				style={
-					"&:hover .dial": {
-						"transform": "rotate(45deg)",
-						"transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
-					},
-					"&:hover .menu-item": {
-						"animation": "reveal 0.3s ease both",
-					},
-					"@keyframes reveal": {
-						"0%": {
-							"opacity": "0",
-							"transform": "scale(0)",
-						},
-						"100%": {
-							"opacity": "1",
-							"transform": "scale(1)",
-						},
-					},
-				},
 			),
-			on_mouse_over=cls.toggle(True),
+			on_mouse_enter=cls.toggle(True),
 			on_mouse_leave=cls.toggle(False),
+			on_click=cls.toggle(~cls.is_open),
 			style={"bottom": "15px", "right": "15px"},
 			position="absolute",
 			# z_index="50",
@@ -427,6 +409,7 @@ class SpeedDialMenu(rx.ComponentState):
                     rx.icon(
                         "plus",
                         style={
+                            "transform": rx.cond(cls.is_open, "rotate(45deg)", "rotate(0)"),
                             "transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
                         },
                         class_name="dial",
@@ -443,15 +426,10 @@ class SpeedDialMenu(rx.ComponentState):
                     menu(),
                 ),
                 position="relative",
-                style={
-                    "&:hover .dial": {
-                        "transform": "rotate(45deg)",
-                        "transition": "transform 150ms cubic-bezier(0.4, 0, 0.2, 1)",
-                    },
-                },
             ),
-            on_mouse_over=cls.toggle(True),
-            on_mouse_leave=cls.toggle(False),
+			on_mouse_enter=cls.toggle(True),
+			on_mouse_leave=cls.toggle(False),
+			on_click=cls.toggle(~cls.is_open),
             style={"bottom": "15px", "right": "15px"},
             position="absolute",
             # z_index="50",
