@@ -3,6 +3,9 @@ components:
     - rx.moment
 
 ---
+
+# Moment
+
 Displaying date and relative time to now sometimes can be more complicated than necessary.
 
 To make it easy, Reflex is wrapping [react-moment](https://www.npmjs.com/package/react-moment)  under `rx.moment`.
