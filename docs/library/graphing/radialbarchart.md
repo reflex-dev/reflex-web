@@ -3,15 +3,45 @@ components:
     - rx.recharts.RadialBarChart
 ---
 
-# Bar Chart
+# Radial Bar Chart
 
 ```python exec
 import reflex as rx
 ```
+## Radial Bar Chart Simple
+
+A radial bar chart is a circular visualization where data categories are represented by bars extending outward from a central point, with the length of each bar proportional to its value.
+
+```md alert info
+# Fill color supports `rx.color()`, which automatically adapts to dark/light mode changes.
+```
+
+```python demo graphing
+data = [
+    {"name": "C", "x": 3, "fill": rx.color("cyan", 9)},
+    {"name": "D", "x": 4, "fill": rx.color("blue", 9)},
+    {"name": "E", "x": 5, "fill": rx.color("orange", 9)},
+    {"name": "F", "x": 6, "fill": rx.color("red", 9)},
+    {"name": "G", "x": 7, "fill": rx.color("gray", 9)},
+    {"name": "H", "x": 8, "fill": rx.color("green", 9)},
+    {"name": "I", "x": 9, "fill": rx.color("accent", 6)},
+]
+
+def radial_bar_1():
+    return rx.recharts.radial_bar_chart(
+        rx.recharts.radial_bar(
+            data_key="x",
+            min_angle=15,
+        ),
+        data=data,
+        width = 500,
+        height = 500,
+    )
+```
+
 ## Radial Bar chart example
 
-This example demonstrates how to use a `radial_bar_chart` with a `radial_bar`. The `radial_bar_chart` takes in `data` and then the `radial_bar` takes in a `data_key`.
-
+This example demonstrates how to use a `radial_bar_chart` with a `radial_bar`. The `radial_bar_chart` takes in `data` and then the `radial_bar` takes in a `data_key`. 
 
 ```python demo graphing
 
@@ -60,7 +90,7 @@ data_radial_bar = [
     }
 ]
 
-def radial_bar():
+def radial_bar_2():
     return rx.recharts.radial_bar_chart(
         rx.recharts.radial_bar(
             data_key="uv",
@@ -69,12 +99,11 @@ def radial_bar():
             label={"fill": '#666', "position": 'insideStart'},
         ),
         data=data_radial_bar,
-
         inner_radius="10%",
         outer_radius="80%",
         start_angle=180,
         end_angle=0,
-        width = 600,
-        height = 300,
+        width=500,
+        height=500,
     )
 ```
