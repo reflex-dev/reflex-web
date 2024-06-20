@@ -44,28 +44,90 @@ data = [
   }
 ]
 
-def funnel_simple():
-  return rx.recharts.funnel_chart(
-    rx.recharts.funnel(
-      rx.recharts.label_list(
-        position="right",
-        data_key="name",
-        fill="#000",
-        stroke="none",
-      ),
-      rx.recharts.label_list(
-        position="right",
-        data_key="name",
-        fill="#000",
-        stroke="none",
-      ),
-      data_key="value",
-      data=data,
-    ),
-    rx.recharts.graphing_tooltip(),
-    width=730,
-    height=250,
-  )
+def funnel_1():
+    return rx.recharts.funnel_chart(
+        rx.recharts.funnel(
+            rx.recharts.label_list(
+                position="right",
+                data_key="name",
+                fill="#000",
+                stroke="none",
+            ),
+            rx.recharts.label_list(
+                position="right",
+                data_key="name",
+                fill="#000",
+                stroke="none",
+            ),
+            data_key="value",
+            data=data,
+        ),
+        on_click=rx.toast("Clicked on funnel chart"),
+        on_mouse_enter=rx.toast("Mouse entered"),
+        on_mouse_leave=rx.toast("Mouse left"),
+        on_mouse_move=rx.toast("Mouse moved"),
+        width=730,
+        height=250,
+    )
+```
+## Example with Event Triggers
+
+Funnel chart supports `on_click`, `on_mouse_enter`, `on_mouse_leave` and `on_mouse_move` event triggers, allows you to interact with the funnel chart and perform specific actions based on user interactions.
+
+```python demo graphing
+data = [
+  {
+    "value": 100,
+    "name": "Sent",
+    "fill": "#8884d8"
+  },
+  {
+    "value": 80,
+    "name": "Viewed",
+    "fill": "#83a6ed"
+  },
+  {
+    "value": 50,
+    "name": "Clicked",
+    "fill": "#8dd1e1"
+  },
+  {
+    "value": 40,
+    "name": "Add to Cart",
+    "fill": "#82ca9d"
+  },
+  {
+    "value": 26,
+    "name": "Purchased",
+    "fill": "#a4de6c"
+  }
+]
+
+def funnel_2():
+    return rx.recharts.funnel_chart(
+        rx.recharts.funnel(
+            rx.recharts.label_list(
+                position="right",
+                data_key="name",
+                fill="#000",
+                stroke="none",
+            ),
+            rx.recharts.label_list(
+                position="right",
+                data_key="name",
+                fill="#000",
+                stroke="none",
+            ),
+            data_key="value",
+            data=data,
+        ),
+        on_click=rx.toast("Clicked on funnel chart"),
+        on_mouse_enter=rx.toast("Mouse entered"),
+        on_mouse_leave=rx.toast("Mouse left"),
+        on_mouse_move=rx.toast("Mouse moved"),
+        width=730,
+        height=250,
+    )
 ```
 
 ## Example with State
@@ -113,7 +175,7 @@ class FunnelState(rx.State):
             ] - random.randint(0, 20)
 
 
-def funnel_dynamic():
+def funnel_3():
   return rx.recharts.funnel_chart(
     rx.recharts.funnel(
       rx.recharts.label_list(
@@ -127,7 +189,7 @@ def funnel_dynamic():
       on_click=FunnelState.randomize_data,
     ),
     rx.recharts.graphing_tooltip(),
-    width=730,
+    width="100%",
     height=250,
   )
 ```
