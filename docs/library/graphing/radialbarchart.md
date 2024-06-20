@@ -41,7 +41,7 @@ def radial_bar_1():
 
 ## Radial Bar chart example
 
-This example demonstrates how to use a `radial_bar_chart` with a `radial_bar`. The `radial_bar_chart` takes in `data` and then the `radial_bar` takes in a `data_key`. 
+This example demonstrates how to use a `radial_bar_chart` with a `radial_bar`. The `radial_bar_chart` takes in `data` and then the `radial_bar` takes in a `data_key`. The `start_angle` and `end_angle` define the circular arc over which the bars are distributed, while `inner_radius` and `outer_radius` determine the radial extent of the bars from the center. 
 
 ```python demo graphing
 
@@ -104,6 +104,6 @@ def radial_bar_2():
         start_angle=180,
         end_angle=0,
         width=500,
-        height=500,
+        height=300,
     )
 ```
