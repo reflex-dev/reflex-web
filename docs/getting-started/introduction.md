@@ -71,6 +71,7 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
+<<<<<<< HEAD
                 """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.
 
 - Use Reflex components and var operations
@@ -80,6 +81,13 @@ def tabs():
 - Use State. when to render state vars and reference event handlers (do not use self.)
 
 - Code translated to React/JS runs in the user's browser
+=======
+                """The frontend is built decratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.- Use Reflex components and var operations
+
+- Use `rx.cond` and `rx.foreach` (replaces if and for loops)
+
+- Use State. when referring to state class variables (do not use self.)
+>>>>>>> 34432ae (Interactive into)
                 """
             ),
             value="tab1",
@@ -93,9 +101,13 @@ def tabs():
 
 - Use if statements and for loops
 
+<<<<<<< HEAD
 - Use self. to access state variables for the current session
 
 - Code runs directly on the server
+=======
+- Use self. to call state class variables
+>>>>>>> 34432ae (Interactive into)
 
                 """
             ),
@@ -104,7 +116,12 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
+<<<<<<< HEAD
                 """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+=======
+                """
+                Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+>>>>>>> 34432ae (Interactive into)
 
 - Start with a single page and scale to 100s of pages
                 """
@@ -167,7 +184,11 @@ rx.vstack(
     def decrement(self):
         self.count -= 1""",
         background=rx.cond(
+<<<<<<< HEAD
             IntroTabsState.value == "tab2",
+=======
+            IntroTabsState.value == "tab1",
+>>>>>>> 34432ae (Interactive into)
             rx.color('violet', 3),
             "transparent",
         ),
@@ -178,7 +199,11 @@ rx.vstack(
                 }
             },
         border=rx.cond(
+<<<<<<< HEAD
             IntroTabsState.value == "tab2",
+=======
+            IntroTabsState.value == "tab1",
+>>>>>>> 34432ae (Interactive into)
             f"2px solid {rx.color('violet', 9)}",
             "none"
         ),
@@ -206,12 +231,20 @@ rx.vstack(
                 }
             },
         border=rx.cond(
+<<<<<<< HEAD
             IntroTabsState.value == "tab1",
+=======
+            IntroTabsState.value == "tab2",
+>>>>>>> 34432ae (Interactive into)
             f"2px solid {rx.color('violet', 9)}",
             "none",
         ),
         background=rx.cond(
+<<<<<<< HEAD
             IntroTabsState.value == "tab1",
+=======
+            IntroTabsState.value == "tab2",
+>>>>>>> 34432ae (Interactive into)
             rx.color('violet', 3),
             "transparent",
         )
