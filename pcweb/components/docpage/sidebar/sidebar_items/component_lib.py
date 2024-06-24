@@ -42,11 +42,6 @@ def get_sidebar_items_component_lib():
         library_item_children.append(category_item)
 
     return [
-        SidebarItem(
-            names="Overview",
-            alt_name_for_next_prev="Components Reference: Overview",
-            link=library.path,
-        ),
         *library_item_children,
     ]
 
@@ -69,6 +64,7 @@ def get_sidebar_items_other_libraries():
             names="Custom Components",
             alt_name_for_next_prev="Components Reference: Overview",
             link=custom_components.path,
+            outer=True,
         ),
         chakra_item
         ]

@@ -7,7 +7,7 @@ from pcweb import styles
 from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.route import Route
 from .state import SidebarState, SidebarItem
- 
+
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
 from .sidebar_items.reference import api_reference, tutorials
@@ -32,64 +32,35 @@ def sidebar_link(*children, **props):
         **props,
     )
 
-  
+
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
     item.link=item.link.replace("_", "-")
-    outer=False
-    
-    if item.names.endswith("Overview"):
-        url_parts = item.link.split("/")
-        if len(url_parts) >= 4:
-            section_name = url_parts[2].replace("-", " ").title()
-            if section_name == "Ui" or section_name == "State":
-                outer=True
-                if section_name == "Ui":
-                    section_name = section_name.upper()
-        else:
-            section_name = item.names
 
-        return rx.cond(
-            outer, 
-            sidebar_link(
-                rx.flex(
-                    rx.text(
-                        section_name,
-                        color=rx.color("mauve", 12),
-                        _hover={
-                            "color": rx.color("accent", 10),
-                            "text_decoration": "none",
-                        },
-                        font_weight="600",
-                        margin_left="0.75em",
-                        margin_top="0.5em",
-                        margin_bottom="0.2em",
-                        width="100%",
+    if item.outer:
+        return sidebar_link(
+            rx.flex(
+                rx.text(
+                    item.names,
+                    color= rx.cond(
+                        item.link == url,
+                        rx.color("accent", 11),
+                        rx.color("mauve", 11),
                     ),
+                    _hover={
+                        "color": rx.color("accent", 10),
+                        "text_decoration": "none",
+                    },
+                    margin_left="0.5em",
+                    margin_top="0.5em",
+                    margin_bottom="0.2em",
+                    width="100%",
                 ),
-                href=item.link,
             ),
-            sidebar_link(
-                rx.flex(
-                    rx.text(
-                        item.names,
-                        color=rx.color("mauve", 12),
-                        _hover={
-                            "color": rx.color("accent", 10),
-                            "text_decoration": "none",
-                        },
-                        font_weight="600",
-                        margin_left="0.75em",
-                        margin_top="0.2em",
-                        margin_bottom="0.2em",
-                        width="100%",
-                    ),
-                ),
-                href=item.link,
-            )
+            href=item.link,
         )
 
     return rx.chakra.accordion_item(
@@ -177,7 +148,7 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):  
+):
 
     return rx.cond(
         len(item.children) == 0,
@@ -298,7 +269,7 @@ def sidebar_category(name, url, icon, color, index):
             ),
             on_click=lambda: SidebarState.set_sidebar_index(index),
             _hover={
-                "background_color": rx.color("mauve", 2),   
+                "background_color": rx.color("mauve", 2),
             },
             align_items="center",
             justify="start",
@@ -312,36 +283,15 @@ def sidebar_category(name, url, icon, color, index):
     )
 
 
-def onboarding_section():
-    return rx.link(
-        "Onboarding",
-        color=rx.color("mauve", 12),
-        font_weight="600",
-        padding_top="1em",
-        padding_left="0.75em",
-        href="/docs/getting-started/introduction",
-    )
-
-def hosting_section():
-    return rx.link(
-        "Hosting",
-        color=rx.color("mauve", 12),
-        font_weight="600",
-        padding_top="0.5em",
-        margin_buttom="1em",
-        padding_left="0.75em",
-        href="/docs/hosting/deploy-quick-start",
-    )
-
 def create_sidebar_section(section_title, items, index, url):
     return rx.flex(
-        rx.cond(
-            section_title == "Onboarding",
-            onboarding_section(),
-        ),
-        rx.cond(
-            section_title == "Hosting",
-            hosting_section(),
+        rx.link(
+            section_title,
+            color=rx.color("mauve", 12),
+            font_weight="600",
+            padding_top="1em",
+            padding_left="0.5em",
+            href=url,
         ),
         rx.chakra.accordion(
             *[
@@ -379,10 +329,10 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-    
+
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
-    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page
     from pcweb.pages.docs.apiref import pages
 
 
@@ -391,17 +341,17 @@ def sidebar_comp(
         sidebar_category("Components", library.path,  "layout-panel-left", "blue", 1),
         sidebar_category("Recipes", overview.path, "scan-text", "indigo", 2),
         sidebar_category("API Reference", pages[0].path, "book-text", "violet", 3),
-        
+
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
             (
                 0,
                 rx.flex(
-                    create_sidebar_section("Onboarding", learn, learn_index, url),
-                    create_sidebar_section("UI", frontend, frontend_index, url),
-                    create_sidebar_section("State", backend, backend_index, url),
-                    create_sidebar_section("Hosting", hosting, hosting_index, url),
+                    create_sidebar_section("Onboarding", learn, learn_index, getting_started.introduction.path),
+                    create_sidebar_section("UI", frontend, frontend_index, ui.overview.path),
+                    create_sidebar_section("State", backend, backend_index, state.overview.path),
+                    create_sidebar_section("Hosting", hosting, hosting_index, hosting_page.deploy_quick_start.path),
                     direction="column",
                 ),
             ),
@@ -418,7 +368,7 @@ def sidebar_comp(
                 ),
             ),
             (
-                2, 
+                2,
                 rx.flex(
                     create_sidebar_section(
                         "Recipes", recipes, recipes_index, url
