@@ -7,7 +7,7 @@ from pcweb import styles
 from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.route import Route
 from .state import SidebarState, SidebarItem
- 
+
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
 from .sidebar_items.reference import api_reference, tutorials
@@ -32,7 +32,7 @@ def sidebar_link(*children, **props):
         **props,
     )
 
-  
+
 def sidebar_leaf(
     item: SidebarItem,
     url: str,
@@ -40,7 +40,7 @@ def sidebar_leaf(
     """Get the leaf node of the sidebar."""
     item.link=item.link.replace("_", "-")
     outer=False
-    
+
     if item.names.endswith("Overview"):
         url_parts = item.link.split("/")
         if len(url_parts) >= 4:
@@ -53,7 +53,7 @@ def sidebar_leaf(
             section_name = item.names
 
         return rx.cond(
-            outer, 
+            outer,
             sidebar_link(
                 rx.flex(
                     rx.text(
@@ -177,7 +177,7 @@ def sidebar_item_comp(
     item: SidebarItem,
     index: list[int],
     url: str,
-):  
+):
 
     return rx.cond(
         len(item.children) == 0,
@@ -298,7 +298,7 @@ def sidebar_category(name, url, icon, color, index):
             ),
             on_click=lambda: SidebarState.set_sidebar_index(index),
             _hover={
-                "background_color": rx.color("mauve", 2),   
+                "background_color": rx.color("mauve", 2),
             },
             align_items="center",
             justify="start",
@@ -379,7 +379,7 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-    
+
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs import getting_started
@@ -391,7 +391,7 @@ def sidebar_comp(
         sidebar_category("Components", library.path,  "layout-panel-left", "blue", 1),
         sidebar_category("Recipes", overview.path, "scan-text", "indigo", 2),
         sidebar_category("API Reference", pages[0].path, "book-text", "violet", 3),
-        
+
         rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
         rx.match(
             SidebarState.sidebar_index,
@@ -418,7 +418,7 @@ def sidebar_comp(
                 ),
             ),
             (
-                2, 
+                2,
                 rx.flex(
                     create_sidebar_section(
                         "Recipes", recipes, recipes_index, url
