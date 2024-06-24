@@ -41,63 +41,13 @@ def code_block(code: str, language: str):
         border=f"2px solid {rx.color('mauve', 3)}",
         background_color=rx.color('mauve', 2),
         position="relative",
-        margin_bottom="1em",
-        margin_top="1em",
-        width="100%",
-    )
-
-@rx.memo
-def code_block_dark(code: str, language: str):
-    return rx.box(
-        rx.code_block(
-            code,
-            border_radius=styles.DOC_BORDER_RADIUS,
-            theme="dark",
-            background="transparent",
-            language=language,
-            code_tag_props={
-                "style": {
-                    "fontFamily": "inherit",
-                }
-            },
-            # TODO: use this when it's looking good
-            # can_copy=True,
-        ),
-        rx.button(
-            rx.icon(tag="copy", size=18, color=rx.color("mauve", 9)),
-            on_click=rx.set_clipboard(code),
-            position="absolute",
-            top="0.5em",
-            right="0.5em",
-            background="transparent",
-            _hover={
-                "opacity": 0.5,
-                "cursor": "pointer",
-                "background": "transparent",
-            },
-            _active={
-                "size": "0.8em",
-                "transform": "scale(0.8)",
-            }
-        ),
-        border_radius=styles.DOC_BORDER_RADIUS,
-        border=f"2px solid {rx.color('mauve', 3)}",
-        background_color=rx.color('mauve', 2),
-        position="relative",
-        margin_bottom="1em",
-        margin_top="1em",
+        margin_y=".5em",
         width="100%",
     )
 
 def code_block_markdown(*children, **props):
     language = props.get("language", "none")
     return code_block(code=children[0], language=language)
-
-
-def code_block_markdown_dark(*children, **props):
-    language = props.get("language", "none")
-    return code_block_dark(code=children[0], language=language)
-
 
 def doccmdoutput(
     command: str,

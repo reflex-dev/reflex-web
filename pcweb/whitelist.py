@@ -3,13 +3,13 @@
 
 # Tips:
 # - Ensure that the path starts with a forward slash '/'.
-# - Do not include a trailing slash '/' at the end of the path. 
+# - Do not include a trailing slash '/' at the end of the path.
 
 # Examples:
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = []
+WHITELISTED_PAGES = ["/docs/library/graphing"]
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
