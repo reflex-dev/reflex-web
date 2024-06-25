@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-06-24",
+            "v0.5.5",
+            "Support rx.SessionStorage as State Var",
+            [
+                "More Recharts improvements",
+                "Better support for interactive stateless apps",
+                "Fix websocket disconnect when navigating to another domain",
+                "Make .web folder location configurable with REFLEX_WEB_WORKDIR",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.5",
+        ),
+        change(
             "2024-06-11",
             "v0.5.4",
             "Better support for serializing datetime, Color, Path, and others to string",
