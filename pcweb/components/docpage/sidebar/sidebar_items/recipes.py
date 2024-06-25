@@ -10,7 +10,6 @@ def get_sidebar_items_recipes():
     )
 
     return [
-        create_item(overview),
         create_item(
             "Layout",
             children=[

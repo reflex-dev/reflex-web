@@ -21,6 +21,9 @@ class SidebarItem(Base):
     # The children items.
     children: list[SidebarItem] = []
 
+    # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for asthetics.
+    outer = False
+
 
 class SidebarState(rx.State):
     _sidebar_index: int = -1
