@@ -61,14 +61,14 @@ def brush_1():
         data_key="uv",
         stroke="#8884d8",
         fill="#8884d8"
-    ), 
+    ),
     rx.recharts.bar(
         data_key="pv",
         stroke="#82ca9d",
-        fill="#82ca9d" 
-    ), 
+        fill="#82ca9d"
+    ),
     rx.recharts.brush(data_key="name", height=30, stroke="#8884d8"),
-    rx.recharts.x_axis(data_key="name"), 
+    rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     data=data,
     width="100%",
@@ -78,7 +78,7 @@ def brush_1():
 
 ## Brush Position, Size, and Range
 
-This example showcase ways to set the Position, Size, and Range. `width` and `height` props set the dimension of the brush. The `gap` prop provides the spacing between stops on the brush when the graph will refresh. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of each handle ("traveller" in recharts lingo).
+This example showcases ways to set the Position, Size, and Range. The `gap` prop provides the spacing between stops on the brush when the graph will refresh. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of each handle ("traveller" in recharts lingo).
 
 ```python demo graphing
 data = [
@@ -124,26 +124,24 @@ data = [
 ]
 
 def brush_2():
-    return rx.recharts.bar_chart(
-        rx.recharts.bar(
+    return rx.recharts.area_chart(
+        rx.recharts.area(
             data_key="uv",
             stroke="#8884d8",
             fill="#8884d8",
         ),
-        rx.recharts.bar(
+        rx.recharts.area(
             data_key="pv",
             stroke="#82ca9d",
             fill="#82ca9d",
         ),
         rx.recharts.brush(
             data_key="name",
-            height=30,
-            stroke="#8884d8",
-            width=400,
             traveller_width=15,
-            gap=5,
             start_index=3,
             end_index=10,
+            stroke=rx.color("mauve", 10),
+            fill=rx.color("mauve", 3),
         ),
         rx.recharts.x_axis(data_key="name"),
         rx.recharts.y_axis(),

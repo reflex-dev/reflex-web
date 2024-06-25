@@ -1,7 +1,6 @@
 ---
 components:
     - rx.recharts.BarChart
-    - rx.recharts.RadialBarChart
     - rx.recharts.Bar
 ---
 
@@ -16,7 +15,7 @@ A bar chart presents categorical data with rectangular bars with heights or leng
 
 For a bar chart we must define an `rx.recharts.bar()` component for each set of values we wish to plot. Each `rx.recharts.bar()` component has a `data_key` which clearly states which variable in our data we are tracking. In this simple example we plot `uv` as a bar against the `name` column which we set as the `data_key` in `rx.recharts.x_axis`.
 
-# Simple Example
+## Simple Example
 
 ```python demo graphing
 data = [
@@ -70,15 +69,15 @@ def bar_simple():
         data_key="uv",
         stroke=rx.color("accent", 9),
         fill=rx.color("accent", 8),
-    ), 
-    rx.recharts.x_axis(data_key="name"), 
+    ),
+    rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     data=data,
-    width = 600,
+    width = "100%",
     height = 250,
   )
 ```
-## Example with Multiple Bars
+## Multiple Bars Charts
 
 Multiple bars can be placed on the same `bar_chart`, using multiple `rx.recharts.bar()` components.
 
@@ -134,20 +133,20 @@ def bar_double():
         data_key="uv",
         stroke=rx.color("accent", 9),
         fill=rx.color("accent", 8),
-    ), 
+    ),
     rx.recharts.bar(
         data_key="pv",
         stroke=rx.color("green", 9),
         fill=rx.color("green", 8),
-    ), 
-    rx.recharts.x_axis(data_key="name"), 
+    ),
+    rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     data=data,
-    width = 600,
+    width = "100%",
     height = 250,
   )
 ```
-## Example with Range
+## Ranged Bar Charts
 
 You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
@@ -224,16 +223,16 @@ def bar_range():
         data_key="temperature",
         stroke=rx.color("accent", 9),
         fill=rx.color("accent", 8),
-    ), 
-    rx.recharts.x_axis(data_key="day"), 
+    ),
+    rx.recharts.x_axis(data_key="day"),
     rx.recharts.y_axis(),
     data=range_data,
-    width = 600,
+    width = "100%",
     height = 250,
   )
 ```
 
-## Example with State
+## Stateful Bar Charts
 
 Here is an example of a bar graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `bar` is clicked on using `on_click=BarState.randomize_data`.
 
@@ -253,7 +252,7 @@ def bar_with_state():
       stroke_dasharray="3 3",
     ),
     rx.recharts.bar(
-      data_key="uv", 
+      data_key="uv",
       stroke=rx.color("accent", 9),
       fill=rx.color("accent", 8),
     ),
@@ -267,7 +266,7 @@ def bar_with_state():
     rx.recharts.legend(),
     on_click=BarState.randomize_data,
     data=BarState.data,
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```
@@ -298,9 +297,9 @@ def bar_3():
         data=data,
         bar_category_gap="15%",
         bar_gap=6,
-        bar_size=24,
+        bar_size=100,
         max_bar_size=40,
-        width=500,
+        width="100%",
         height=300,
     )
 ```
@@ -360,12 +359,10 @@ data = [
 ]
 
 def bar_vertical():
-    """
-    usage: weight, height, area.stroke, area.fill, area.type_, GraphingToolTip"""
     return rx.recharts.bar_chart(
         rx.recharts.bar(
             data_key="uv",
-            stroke=rx.color("accent", 8), 
+            stroke=rx.color("accent", 8),
             fill=rx.color("accent", 3),
         ),
         rx.recharts.x_axis(type_="number"),
@@ -378,8 +375,8 @@ def bar_vertical():
             "left": 20,
             "bottom": 20
         },
-        base_value=500,
+        width = "100%",
         height = 300,
-        width = 500,
+
     )
 ```
