@@ -56,8 +56,6 @@ def get_sidebar_items_graphings():
         )
         graphing_children.append(category_item)
 
-    graphing_item = SidebarItem(names="Chakra", children=graphing_children)
-
     return [
         *graphing_children
         ]
