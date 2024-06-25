@@ -11,9 +11,9 @@ import reflex as rx
 import random
 ```
 
-## Simple Example
+A Recharts area chart displays quantitative data using filled areas between a line connecting data points and the axis.
 
-A Recharts area chart is a type of chart that displays quantitative data using filled areas between a line connecting data points and the axis.
+## Basic Example
 
 ```python demo graphing
 data = [
@@ -74,7 +74,7 @@ def area_simple():
   )
 ```
 
-## Example with Sync ID
+## Syncing Charts
 
 The `sync_id` prop allows you to sync two graphs. In the example, it is set to "1" for both charts, indicating that they should be synchronized. This means that any interactions (such as brushing) performed on one chart will be reflected in the other chart.
 
@@ -163,9 +163,11 @@ def area_sync():
   )
 ```
 
-## Example with StackID
+## Stacking Charts
 
 The `stack_id` prop allows you to stack multiple graphs on top of each other. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the bars or areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas or bars.
+
+This is similar to the `sync_id` prop, but instead of synchronizing the interaction between the charts, it just stacks the charts on top of each other.
 
 ```python demo graphing
 
@@ -217,13 +219,13 @@ data = [
 def area_stack():
     return rx.recharts.area_chart(
         rx.recharts.area(
-            data_key="uv", 
+            data_key="uv",
             stroke=rx.color("accent", 9),
             fill=rx.color("accent", 8),
-            stack_id="1", 
+            stack_id="1",
         ),
         rx.recharts.area(
-            data_key="pv", 
+            data_key="pv",
             stroke=rx.color("green", 9),
             fill=rx.color("green", 8),
             stack_id="1",
@@ -237,7 +239,7 @@ def area_stack():
         height = 300,
     )
 ```
-## Example with Multiple Axis
+## Multiple Axis
 
 Multiple axes can be used for displaying different data series with varying scales or units on the same chart. This allows for a more comprehensive comparison and analysis of the data.
 
@@ -308,9 +310,9 @@ def area_multi_axis():
   )
 ```
 
-## Example with Layout
+## Layout
 
-Use the `layout` prop to set the orientation to either `"horizontal"` (default) or `"vertical"`. The `base_value` prop is used to specify the starting point of the area fill along the data axis. 
+Use the `layout` prop to set the orientation to either `"horizontal"` (default) or `"vertical"`.
 
 ```md alert info
 # Include margins around your graph to ensure proper spacing and enhance readability. By default, provide margins on all sides of the chart to create a visually appealing and functional representation of your data.
@@ -364,31 +366,22 @@ data = [
 ]
 
 def area_vertical():
-    """
-    usage: weight, height, area.stroke, area.fill, area.type_, GraphingToolTip"""
     return rx.recharts.area_chart(
         rx.recharts.area(
             data_key="uv",
-            stroke=rx.color("accent", 8), 
+            stroke=rx.color("accent", 8),
             fill=rx.color("accent", 3),
         ),
         rx.recharts.x_axis(type_="number"),
         rx.recharts.y_axis(data_key="name", type_="category"),
         data=data,
         layout="vertical",
-        margin={
-            "top": 20,
-            "right": 20,
-            "left": 20,
-            "bottom": 20
-        },
-        base_value=800,
         height = 300,
         width = 500,
     )
 ```
 
-## Example with State
+## Stateful Example
 
 Here is an example of an area graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `area` is clicked on using `on_click=AreaState.randomize_data`.
 
@@ -405,27 +398,15 @@ class AreaState(rx.State):
     def change_curve_type(self, type_input):
         self.curve_type = type_input
 
-def area_4():
+def area_stateful():
     return rx.vstack(
       rx.hstack(
-        rx.text("Select Curve Type"),
+        rx.text("Curve Type:"),
         rx.select(
           [
             'basis',
-            'basisClosed',
-            'basisOpen',
-            'bumpX',
-            'bumpY',
-            'bump',
-            'linear',
-            'linearClosed',
             'natural',
-            'monotoneX',
-            'monotoneY',
-            'monotone',
-            'step',
-            'stepBefore',
-            'stepAfter'
+            'step'
           ],
           on_change = AreaState.change_curve_type,
           default_value = 'basis',
@@ -434,8 +415,6 @@ def area_4():
       rx.recharts.area_chart(
         rx.recharts.area(
             data_key="uv",
-            stroke="#8884d8",
-            fill="#8884d8",
             on_click=AreaState.randomize_data,
             type_ = AreaState.curve_type,
         ),
@@ -451,9 +430,7 @@ def area_4():
         ),
         rx.recharts.y_axis(),
         rx.recharts.legend(),
-        rx.recharts.cartesian_grid(
-            stroke_dasharray="3 3",
-        ),
+        rx.recharts.cartesian_grid(),
         data=AreaState.data,
         width = "100%",
         height=400,
