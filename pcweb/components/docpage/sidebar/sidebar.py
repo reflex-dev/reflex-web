@@ -45,7 +45,7 @@ def sidebar_leaf(
             rx.flex(
                 rx.text(
                     item.names,
-                    color= rx.cond(
+                    color=rx.cond(
                         item.link == url,
                         rx.color("accent", 11),
                         rx.color("mauve", 11),
