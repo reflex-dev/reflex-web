@@ -167,7 +167,7 @@ def area_sync():
 
 The `stack_id` prop allows you to stack multiple graphs on top of each other. In the example, it is set to "1" for both charts, indicating that they should be stacked together. This means that the bars or areas of the charts will be vertically stacked, with the values of each chart contributing to the total height of the stacked areas or bars.
 
-This is similar to the `sync_id` prop, but instead of synchronizing the interaction between the charts, it juststacks the charts on top of each other.
+This is similar to the `sync_id` prop, but instead of synchronizing the interaction between the charts, it just stacks the charts on top of each other.
 
 ```python demo graphing
 
