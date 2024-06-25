@@ -45,7 +45,6 @@ def get_sidebar_items_frontend():
     )
 
     items = [
-        create_item(ui.overview),
         create_item(
             "Components",
             children=[
@@ -117,7 +116,6 @@ def get_sidebar_items_backend():
     )
 
     items = [
-        create_item(state.overview),
         create_item(
             "Vars",
             children=[
