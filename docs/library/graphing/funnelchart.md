@@ -53,23 +53,14 @@ def funnel_1():
                 fill="#000",
                 stroke="none",
             ),
-            rx.recharts.label_list(
-                position="right",
-                data_key="name",
-                fill="#000",
-                stroke="none",
-            ),
             data_key="value",
             data=data,
         ),
-        on_click=rx.toast("Clicked on funnel chart"),
-        on_mouse_enter=rx.toast("Mouse entered"),
-        on_mouse_leave=rx.toast("Mouse left"),
-        on_mouse_move=rx.toast("Mouse moved"),
         width=730,
         height=250,
     )
 ```
+
 ## Example with Event Triggers
 
 Funnel chart supports `on_click`, `on_mouse_enter`, `on_mouse_leave` and `on_mouse_move` event triggers, allows you to interact with the funnel chart and perform specific actions based on user interactions.
@@ -112,12 +103,6 @@ def funnel_2():
                 fill="#000",
                 stroke="none",
             ),
-            rx.recharts.label_list(
-                position="right",
-                data_key="name",
-                fill="#000",
-                stroke="none",
-            ),
             data_key="value",
             data=data,
         ),
@@ -129,6 +114,7 @@ def funnel_2():
         height=250,
     )
 ```
+
 
 ## Example with State
 
@@ -192,4 +178,33 @@ def funnel_3():
     width="100%",
     height=250,
   )
+```
+
+
+## Changing the chart animation
+
+The `is_animation_active` prop can be used to turn off the animation, but defaults to `True`. `animation_begin` sets the delay before animation starts, `animation_duration` determines how long the animation lasts, and `animation_easing` defines the speed curve of the animation for smooth transitions.
+
+```python demo graphing
+data = [
+        {"name": "Visits", "value": 5000, "fill": "#8884d8"},
+        {"name": "Cart", "value": 3000, "fill": "#83a6ed"},
+        {"name": "Checkout", "value": 2500, "fill": "#8dd1e1"},
+        {"name": "Purchase", "value": 1000, "fill": "#82ca9d"},
+    ]
+
+def funnel_4():
+    return rx.recharts.funnel_chart(
+        rx.recharts.funnel(
+            data_key="value",
+            data=data,
+            animation_begin=300,
+            animation_duration=9000,
+            animation_easing="ease-in-out",
+        ),
+        rx.recharts.graphing_tooltip(),
+        rx.recharts.legend(),
+        width="100%",
+        height=300,
+    )
 ```
