@@ -38,7 +38,7 @@ class Search(rx.Component):
         """
         # Add the hook code for this component.
         code = {
-            f"const {{ colorMode, toggleColorMode }} = useContext(ColorModeContext)": None,
+            f"const {{ resolvedColorMode, toggleColorMode }} = useContext(ColorModeContext)": None,
             """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
@@ -89,7 +89,7 @@ const searchBarProps = {
       ],
     },
     colorMode: {
-      forcedColorMode: colorMode, // options: 'light' or dark'
+      forcedColorMode: resolvedColorMode, // options: 'light' or dark'
     },
     theme: {
       components: {
