@@ -74,7 +74,9 @@ def radar_1():
 
 ## Multiple Radar Chart
 
-We can also add two radars on one chart by using two `rx.recharts.radar` components.
+We can also add two radars on one chart by using two `rx.recharts.radar` components. 
+
+In this plot an `inner_radius` and an `outer_radius` are set which determine the chart's size and shape. The `inner_radius` sets the distance from the center to the innermost part of the chart (creating a hollow center if greater than zero), while the `outer_radius` defines the chart's overall size by setting the distance from the center to the outermost edge of the radar plot.
 
 ```python demo graphing
 
@@ -134,11 +136,88 @@ def radar_2():
         rx.recharts.polar_angle_axis(data_key="subject"),
         rx.recharts.legend(),
         data=data,
+        inner_radius="15%",
+        outer_radius="80%",
         width=400,
         height=300,
     )
 
 ```
+
+
+## Using more props
+
+
+The `dot` prop shows points at each data vertex when true. `legend_type="line"` displays a line in the chart legend. `animation_begin=0` starts the animation immediately, `animation_duration=8000` sets an 8-second animation, and `animation_easing="ease-in"` makes the animation start slowly and speed up. These props control the chart's appearance and animation behavior.
+
+
+```python demo graphing
+
+data = [
+    {
+        "subject": "Math",
+        "A": 120,
+        "B": 110,
+        "fullMark": 150
+    },
+    {
+        "subject": "Chinese",
+        "A": 98,
+        "B": 130,
+        "fullMark": 150
+    },
+    {
+        "subject": "English",
+        "A": 86,
+        "B": 130,
+        "fullMark": 150
+    },
+    {
+        "subject": "Geography",
+        "A": 99,
+        "B": 100,
+        "fullMark": 150
+    },
+    {
+        "subject": "Physics",
+        "A": 85,
+        "B": 90,
+        "fullMark": 150
+    },
+    {
+        "subject": "History",
+        "A": 65,
+        "B": 85,
+        "fullMark": 150
+    }
+    ]
+    
+
+def radar_start_end():
+    return rx.recharts.radar_chart(
+            rx.recharts.radar(
+                data_key="A",
+                dot=True,
+                stroke="#8884d8",
+                fill="#8884d8",
+                fill_opacity=0.6,
+                legend_type="line",
+                animation_begin=0,
+                animation_duration=8000,
+                animation_easing="ease-in",
+            ),
+            rx.recharts.polar_grid(),
+            rx.recharts.polar_angle_axis(data_key="subject"),
+            rx.recharts.legend(),
+            data=data,
+            width=400,
+            height=300,
+        )
+
+```
+
+
+
 # Dynamic Data
 
 Chart data tied to a State var causes the chart to automatically update when the
