@@ -386,7 +386,7 @@ rx.vstack(
             controls(),
             nodes_draggable=True,
             nodes_connectable=True,
-            on_connect=lambda e0: ReactFlowState.on_connect(e0)
+            on_connect=lambda e0: ReactFlowState.on_connect(e0),
             on_nodes_change=lambda e0: ReactFlowState.on_nodes_change(e0),
             nodes=ReactFlowState.nodes,
             edges=ReactFlowState.edges,
