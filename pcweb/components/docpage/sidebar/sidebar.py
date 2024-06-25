@@ -333,6 +333,7 @@ def sidebar_comp(
 
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
+    from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page
     from pcweb.pages.docs.apiref import pages
 
@@ -368,7 +369,35 @@ def sidebar_comp(
                     create_sidebar_section(
                         "Other Libraries", other_libs, other_libs_index, url
                     ),
+                    rx.link(
+                        rx.vstack(
+                            rx.hstack(
+                                rx.icon("atom", size=20),
+                                rx.heading(
+                                    "Custom Components",
+                                    style={"fontSize": "1em"}
+                                ),
+                                align_items="center",
+                            ),
+                            rx.text(
+                                "See what components people have made with Reflex!",
+                                font_size=".8em"
+                            ),
+                            margin_left=".5em",
+                            padding=".5em",
+                            color=rx.color("mauve", 12),
+                            border_radius="8px",
+                            background_color=rx.color("mauve", 2),
+                            border=f"1px solid {rx.color('mauve', 4)}",
+                            margin_top="1em",
+                            _hover={
+                                "background_color": rx.color("mauve", 3),
+                            },
+                        ),
+                        href=custom_components.path,
+                    ),
                     direction="column",
+                    height="100%",
                 ),
             ),
             (
