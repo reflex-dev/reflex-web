@@ -66,15 +66,15 @@ rx.table.root(
             rx.table.cell(rx.code('"90%" | "95%" | "100%" | "105%" | "110%"', color_scheme="gray")),
             rx.table.cell("Scale of all theme items."),
         ),
-    ), 
+    ),
     variant="surface",
     margin_y="1em",
 )
 
 ```
 
-Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
- 
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.other.theme.path}).
+
 
 ## Colors
 
@@ -142,7 +142,7 @@ rx.table.root(
             rx.table.cell(rx.code("Bool", color_scheme="gray")),
             rx.table.cell("Whether to use the alpha value of the color. Defaults to False."),
         )
-    ), 
+    ),
     variant="surface",
     margin_y="1em",
 )
@@ -167,9 +167,9 @@ rx.flex(
 
 ## Toggle Appearance
 
-To toggle between the light and dark mode manually, you can use the `toggle_color_mode` with the desired event trigger of your choice. 
+To toggle between the light and dark mode manually, you can use the `toggle_color_mode` with the desired event trigger of your choice.
 
-```python 
+```python
 
 from reflex.style import toggle_color_mode
 

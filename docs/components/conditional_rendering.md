@@ -9,7 +9,7 @@ from pcweb.pages.docs import vars, library
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
 ```md alert
-# Check out the API reference for [cond docs]({library.layout.cond.path}).
+# Check out the API reference for [cond docs]({library.dynamic_rendering.cond.path}).
 ```
 
 ```python eval
@@ -116,7 +116,7 @@ class ToDoListItem(rx.Base):
 
 class CondRepeatState(rx.State):
     to_do_list: list[ToDoListItem] = [
-        ToDoListItem(item_name="Space suit", is_packed=True), 
+        ToDoListItem(item_name="Space suit", is_packed=True),
         ToDoListItem(item_name="Helmet", is_packed=True),
         ToDoListItem(item_name="Back Pack", is_packed=False),
         ]
@@ -124,7 +124,7 @@ class CondRepeatState(rx.State):
 
 def render_item(item: [str, bool]):
     return rx.cond(
-        item.is_packed, 
+        item.is_packed,
         rx.list_item(item.item_name + ' ✔'),
         rx.list_item(item.item_name),
         )
@@ -162,7 +162,7 @@ import random
 
 
 class NestedState(rx.State):
-    
+
     num: int = 0
 
     def change(self):
@@ -194,14 +194,14 @@ a = 8
 b = 10
 c = 2
 
-if((a>b and a>c) and (a != b and a != c)): 
- print(a, " is the largest!") 
-elif((b>a and b>c) and (b != a and b != c)): 
- print(b, " is the largest!") 
-elif((c>a and c>b) and (c != a and c != b)): 
- print(c, " is the largest!") 
-else: 
- print("Some of the numbers are equal!") 
+if((a>b and a>c) and (a != b and a != c)):
+ print(a, " is the largest!")
+elif((b>a and b>c) and (b != a and b != c)):
+ print(b, " is the largest!")
+elif((c>a and c>b) and (c != a and c != b)):
+ print(c, " is the largest!")
+else:
+ print("Some of the numbers are equal!")
 ```
 
 ```python demo exec
@@ -213,7 +213,7 @@ class CNS(rx.State):
     a: int = 8
     b: int = 10
     c: int = 2
-    
+
 
     def change(self):
         self.a = random.randint(0, 10)
@@ -267,7 +267,7 @@ def cond_style_example():
         ),
     )
 ```
-## Multiple Conditional Statements 
+## Multiple Conditional Statements
 
 The `rx.match` component in Reflex provides a powerful alternative to`rx.cond` for handling multiple conditional statements and structural pattern matching. This component allows you to handle multiple conditions and their associated components in a cleaner and more readable way compared to nested `rx.cond` structures.
 

@@ -46,6 +46,22 @@ def get_sidebar_items_component_lib():
     ]
 
 
+def get_sidebar_items_graphings():
+    from pcweb.pages.docs import graphing_components
+
+    graphing_children = []
+    for category in graphing_components:
+        category_item = get_category_children(
+            category, graphing_components[category], prefix="graphing/"
+        )
+        graphing_children.append(category_item)
+
+    graphing_item = SidebarItem(names="Chakra", children=graphing_children)
+
+    return [
+        *graphing_children
+        ]
+
 def get_sidebar_items_other_libraries():
     from pcweb.pages.docs import chakra_components
     from pcweb.pages.docs.custom_components import custom_components
@@ -70,4 +86,5 @@ def get_sidebar_items_other_libraries():
         ]
 
 component_lib = get_sidebar_items_component_lib()
+graphing_libs = get_sidebar_items_graphings()
 other_libs = get_sidebar_items_other_libraries()
