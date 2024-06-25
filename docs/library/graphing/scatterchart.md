@@ -9,6 +9,7 @@ components:
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing
+from pcweb.pages.docs import library
 ```
 
 A scatter chart always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
@@ -157,6 +158,10 @@ def scatter_double():
   )
 ```
 
+
+To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation]({library.graphing.areachart.path}).
+
+
 ## Dynamic Data
 
 Chart data tied to a State var causes the chart to automatically update when the
@@ -203,3 +208,80 @@ def index():
         on_mount=ScatterChartState.compute_collatz({"start": "15"}),
     )
 ```
+
+
+```python demo graphing
+class ScatterChartState2(rx.State):
+
+    legend_types: list[str] = ["square", "circle", "cross", "diamond", "star", "triangle", "wye"]
+
+    legend_type: str = "circle"
+
+    shapes: list[str] = ["square", "circle", "cross", "diamond", "star", "triangle", "wye"]
+
+    shape: str = "circle"
+
+    data01 = [
+    {
+      "x": 100,
+      "y": 200,
+      "z": 200
+    },
+    {
+      "x": 120,
+      "y": 100,
+      "z": 260
+    },
+    {
+      "x": 170,
+      "y": 300,
+      "z": 400
+    },
+    {
+      "x": 170,
+      "y": 250,
+      "z": 280
+    },
+    {
+      "x": 150,
+      "y": 400,
+      "z": 500
+    },
+    {
+      "x": 110,
+      "y": 280,
+      "z": 200
+    }
+  ]
+
+
+def scatter_shape():
+  return rx.vstack(
+      rx.recharts.scatter_chart(
+          rx.recharts.scatter(
+              data=data01,
+              fill="#8884d8",
+              legend_type=ScatterChartState2.legend_type,
+              shape=ScatterChartState2.shape,
+          ),
+          rx.recharts.x_axis(data_key="x", type_="number"), 
+          rx.recharts.y_axis(data_key="y"),
+          rx.recharts.legend(),
+          width = 600,
+          height = 300,
+        ),
+      rx.hstack(
+          rx.text("Legend Type: "),
+          rx.select(
+              ScatterChartState2.legend_types,
+              value=ScatterChartState2.legend_type,
+              on_change=ScatterChartState2.set_legend_type,
+          ),
+          rx.text("Shape: "),
+          rx.select(
+            ScatterChartState2.shapes,
+            value=ScatterChartState2.shape,
+            on_change=ScatterChartState2.set_shape,
+          ),
+      ),
+  )
