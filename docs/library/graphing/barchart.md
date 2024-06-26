@@ -9,6 +9,7 @@ components:
 ```python exec
 import reflex as rx
 import random
+from pcweb.pages.docs import library
 ```
 
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
@@ -146,6 +147,8 @@ def bar_double():
     height = 250,
   )
 ```
+
+
 ## Ranged Bar Charts
 
 You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
@@ -380,3 +383,6 @@ def bar_vertical():
 
     )
 ```
+
+
+To learn how to use the `sync_id`, `stack_id`,`x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.areachart.path}), where these props are all described with examples.
