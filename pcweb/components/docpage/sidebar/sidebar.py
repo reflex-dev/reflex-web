@@ -348,10 +348,10 @@ def sidebar_comp(
             (
                 0,
                 rx.flex(
-                    create_sidebar_section("Onboarding", learn, learn_index, getting_started.introduction.path),
-                    create_sidebar_section("UI", frontend, frontend_index, ui.overview.path),
-                    create_sidebar_section("State", backend, backend_index, state.overview.path),
-                    create_sidebar_section("Hosting", hosting, hosting_index, hosting_page.deploy_quick_start.path),
+                    create_sidebar_section("Onboarding", learn, learn_index, url),
+                    create_sidebar_section("UI", frontend, frontend_index, url),
+                    create_sidebar_section("State", backend, backend_index, url),
+                    create_sidebar_section("Hosting", hosting, hosting_index, url),
                     direction="column",
                 ),
             ),
