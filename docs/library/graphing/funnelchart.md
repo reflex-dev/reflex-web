@@ -44,7 +44,7 @@ data = [
   }
 ]
 
-def funnel_1():
+def funnel_simple():
     return rx.recharts.funnel_chart(
         rx.recharts.funnel(
             rx.recharts.label_list(
@@ -94,7 +94,7 @@ data = [
   }
 ]
 
-def funnel_2():
+def funnel_events():
     return rx.recharts.funnel_chart(
         rx.recharts.funnel(
             rx.recharts.label_list(
@@ -160,7 +160,7 @@ class FunnelState(rx.State):
             ] - random.randint(0, 20)
 
 
-def funnel_3():
+def funnel_state():
   return rx.recharts.funnel_chart(
     rx.recharts.funnel(
       rx.recharts.label_list(
@@ -192,7 +192,7 @@ data = [
         {"name": "Purchase", "value": 1000, "fill": "#82ca9d"},
     ]
 
-def funnel_4():
+def funnel_animation():
     return rx.recharts.funnel_chart(
         rx.recharts.funnel(
             data_key="value",

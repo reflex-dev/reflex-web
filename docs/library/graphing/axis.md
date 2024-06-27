@@ -61,7 +61,7 @@ data = [
   }
 ]
 
-def axis_1():
+def axis_simple():
     return rx.recharts.area_chart(
         rx.recharts.area(
             data_key="uv",
@@ -138,7 +138,7 @@ data = [
   }
 ]
 
-def area_multi_axis():
+def multi_axis():
   return rx.recharts.area_chart(
     rx.recharts.area(
         data_key="uv", stroke="#8884d8", fill="#8884d8", y_axis_id="left",
@@ -228,7 +228,7 @@ data = [
   }
 ]
 
-def axis_3():
+def axis_labels():
     return rx.vstack(
         rx.recharts.area_chart(
             rx.recharts.area(

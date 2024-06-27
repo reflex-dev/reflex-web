@@ -57,7 +57,7 @@ data = [
   }
 ]
 
-def radar_1():
+def radar_simple():
     return rx.recharts.radar_chart(
         rx.recharts.radar(
             data_key="A",
@@ -120,7 +120,7 @@ data = [
   }
 ]
 
-def radar_2():
+def radar_multiple():
     return rx.recharts.radar_chart(
         rx.recharts.radar(
             data_key="A",
@@ -256,7 +256,7 @@ class RadarChartState(rx.State):
                 t["value"] = value
                 break
 
-def radar_3():
+def radar_dynamic():
     return rx.hstack(
         rx.recharts.radar_chart(
             rx.recharts.radar(

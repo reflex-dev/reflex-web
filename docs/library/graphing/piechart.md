@@ -122,7 +122,7 @@ data02 = [
 ]
 
 
-def pie_2():
+def pie_double():
   return rx.recharts.pie_chart(
             rx.recharts.pie(
                 data=data01,

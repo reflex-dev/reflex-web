@@ -55,7 +55,7 @@ data = [
   { "name": '40', "uv": -50, "pv": 186 },
 ]
 
-def brush_1():
+def brush_simple():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         data_key="uv",
@@ -123,7 +123,7 @@ data = [
   { "name": '40', "uv": -50, "pv": 186 },
 ]
 
-def brush_2():
+def brush_pos_size_range():
     return rx.recharts.area_chart(
         rx.recharts.area(
             data_key="uv",

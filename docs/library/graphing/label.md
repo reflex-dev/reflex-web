@@ -62,7 +62,7 @@ data = [
   }
 ]
 
-def label_2():
+def label_simple():
     return rx.recharts.bar_chart(
         rx.recharts.cartesian_grid(
             stroke_dasharray="3 3"
@@ -154,7 +154,7 @@ data = [
   }
 ]
 
-def label_1():
+def label_list():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         rx.recharts.label_list(data_key="uv", position="top"),

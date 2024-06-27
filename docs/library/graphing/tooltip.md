@@ -57,7 +57,7 @@ data = [
   }
 ]
 
-def composed():
+def tooltip_simple():
   return rx.recharts.composed_chart(
     rx.recharts.area(
         data_key="uv",
@@ -135,7 +135,7 @@ data = [
   }
 ]
 
-def tooltip_2():
+def tooltip_custom_styling():
   return rx.recharts.composed_chart(
     rx.recharts.area(
       data_key="uv", stroke="#8884d8", fill="#8884d8"

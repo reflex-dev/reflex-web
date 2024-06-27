@@ -52,7 +52,7 @@ data01 = [
   }
 ]
 
-def scatter():
+def scatter_simple():
   return rx.recharts.scatter_chart(
     rx.recharts.scatter(
         data=data01,
@@ -188,7 +188,7 @@ class ScatterChartState(rx.State):
                 n = 3 * n + 1
 
 
-def index():
+def scatter_dynamic():
     return rx.vstack(
         rx.recharts.scatter_chart(
             rx.recharts.scatter(

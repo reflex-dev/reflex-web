@@ -132,7 +132,7 @@ data = [
   }
 ]
 
-def line_2():
+def line_features():
   return rx.recharts.line_chart(
     rx.recharts.line(
         data_key="pv",
@@ -208,7 +208,7 @@ data = [
   }
 ]
 
-def vertical():
+def line_vertical():
     return rx.recharts.line_chart(
         rx.recharts.line(
             data_key="pv",

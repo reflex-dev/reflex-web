@@ -289,7 +289,7 @@ data = [
     {'name': 'Page F', 'value': 3800},
 ]
 
-def bar_3():
+def bar_features():
     return rx.recharts.bar_chart(
         rx.recharts.bar(
             data_key="value",
