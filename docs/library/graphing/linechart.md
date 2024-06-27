@@ -9,7 +9,7 @@ components:
 ```python exec
 import random
 from typing import Any
-
+from pcweb.pages.docs import library
 import reflex as rx
 ```
 
@@ -297,3 +297,5 @@ def line_dynamic():
     width="100%",
   )
 ```
+
+To learn how to use the `sync_id`, `x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.areachart.path}), where these props are all described with examples.
