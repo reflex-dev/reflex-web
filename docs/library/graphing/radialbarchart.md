@@ -34,7 +34,7 @@ def radial_bar_simple():
             min_angle=15,
         ),
         data=data,
-        width = 500,
+        width = "100%",
         height = 500,
     )
 ```
@@ -103,7 +103,7 @@ def radial_bar_advanced():
         outer_radius="80%",
         start_angle=180,
         end_angle=0,
-        width=500,
+        width="100%",
         height=300,
     )
 ```

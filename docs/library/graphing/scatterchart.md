@@ -59,7 +59,7 @@ def scatter_simple():
         fill="#8884d8",),
     rx.recharts.x_axis(data_key="x", type_="number"), 
     rx.recharts.y_axis(data_key="y"),
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```
@@ -153,7 +153,7 @@ def scatter_double():
     rx.recharts.z_axis(data_key="z", range=[60, 400], name="score"),
     rx.recharts.legend(),
     rx.recharts.graphing_tooltip(),
-    width=600,
+    width="100%",
     height=300,
   )
 ```
@@ -268,7 +268,7 @@ def scatter_shape():
           rx.recharts.x_axis(data_key="x", type_="number"), 
           rx.recharts.y_axis(data_key="y"),
           rx.recharts.legend(),
-          width = 600,
+          width = "100%",
           height = 300,
         ),
       rx.hstack(
@@ -285,4 +285,5 @@ def scatter_shape():
             on_change=ScatterChartState2.set_shape,
           ),
       ),
+      width="100%",
   )

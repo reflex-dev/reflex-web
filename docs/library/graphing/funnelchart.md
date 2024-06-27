@@ -56,7 +56,7 @@ def funnel_simple():
             data_key="value",
             data=data,
         ),
-        width=730,
+        width="100%",
         height=250,
     )
 ```
@@ -109,7 +109,7 @@ def funnel_events():
         on_click=rx.toast("Clicked on funnel chart"),
         on_mouse_enter=rx.toast("Mouse entered"),
         on_mouse_leave=rx.toast("Mouse left"),
-        width=730,
+        width="100%",
         height=250,
     )
 ```

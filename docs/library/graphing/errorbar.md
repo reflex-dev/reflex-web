@@ -95,7 +95,7 @@ def error():
         name="A"),
     rx.recharts.x_axis(data_key="x", name="x", type_="number"), 
     rx.recharts.y_axis(data_key="y", name="y", type_="number"),
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```

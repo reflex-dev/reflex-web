@@ -245,7 +245,7 @@ def axis_labels():
                 label={"value": 'Views', "angle": -90, "position": AxisState.y_axis_postion, "offset": AxisState.y_axis_offset},
             ),
             data=data,
-            width=800,
+            width="100%",
             height=300,
             margin={
                 "bottom": 40,
@@ -279,6 +279,7 @@ def axis_labels():
               on_change=AxisState.set_y_axis_offset,
             ),
         ),
+        width="100%",
     )
 ```
 

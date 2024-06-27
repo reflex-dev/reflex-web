@@ -68,7 +68,7 @@ def radar_simple():
         rx.recharts.polar_angle_axis(data_key="subject"),
         rx.recharts.polar_radius_axis(angle=90, domain=[0, 150]),
         data=data,
-        width=400,
+        width="100%",
         height=300,
     )
 ```
@@ -140,7 +140,7 @@ def radar_multiple():
         data=data,
         inner_radius="15%",
         outer_radius="80%",
-        width=400,
+        width="100%",
         height=300,
     )
 
@@ -213,7 +213,7 @@ def radar_start_end():
             rx.recharts.polar_radius_axis(angle=90, domain=[0, 150]),
             rx.recharts.legend(),
             data=data,
-            width=400,
+            width="100%",
             height=300,
         )
 

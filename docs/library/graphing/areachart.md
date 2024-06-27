@@ -138,7 +138,7 @@ def area_sync():
       rx.recharts.y_axis(),
       data=data,
       sync_id="1",
-      width = 600,
+      width = "100%",
       height = 200,
     ),
     rx.recharts.composed_chart(
@@ -157,9 +157,10 @@ def area_sync():
       ),
       data=data,
       sync_id="1",
-      width = 600,
+      width = "100%",
       height = 250,
-    )
+    ),
+    width="100%",
   )
 ```
 
@@ -377,7 +378,7 @@ def area_vertical():
         data=data,
         layout="vertical",
         height = 300,
-        width = 500,
+        width = "100%",
     )
 ```
 

@@ -167,6 +167,6 @@ def tooltip_custom_styling():
     ),
     data=data,
     height = 300,
-    width = 600,
+    width = "100%",
   )
 ```

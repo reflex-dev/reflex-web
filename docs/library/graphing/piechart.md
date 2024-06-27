@@ -55,7 +55,7 @@ def pie_simple():
                 fill="#8884d8",
                 label=True,
             ),
-            width=400,
+            width="100%",
             height=300,
         )
 ```
@@ -140,7 +140,7 @@ def pie_double():
                 outer_radius="50%",
             ),
             rx.recharts.graphing_tooltip(),
-            width=400,
+            width="100%",
             height=300,
         )
 ```
