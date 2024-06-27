@@ -22,7 +22,7 @@ We'll use the following basic app that displays Github profile images as an exam
 import requests
 import reflex as rx
 
-class GithubState(rx.State):
+class GithubState1(rx.State):
     url: str = "https://github.com/reflex-dev"
     profile_image: str = "https://avatars.githubusercontent.com/u/104714959"
 
@@ -36,12 +36,12 @@ class GithubState(rx.State):
 def index():
     return rx.hstack(
         rx.link(
-            rx.avatar(src=GithubState.profile_image),
-            href=GithubState.url,
+            rx.avatar(src=GithubState1.profile_image),
+            href=GithubState1.url,
         ),
         rx.input(
             placeholder="Your Github username",
-            on_blur=GithubState.set_profile,
+            on_blur=GithubState1.set_profile,
         ),
     )
 ```
@@ -115,12 +115,12 @@ Reflex frontends are built using components that can be composed together to cre
 def index():
     return rx.hstack(
         rx.link(
-            rx.avatar(src=GithubState.profile_image),
-            href=GithubState.url,
+            rx.avatar(src=GithubState1.profile_image),
+            href=GithubState1.url,
         ),
         rx.input(
             placeholder="Your Github username",
-            on_blur=GithubState.set_profile,
+            on_blur=GithubState1.set_profile,
         ),
     )
 ```
@@ -133,13 +133,13 @@ Under the hood, these components compile down to React components. For example, 
 
 ```jsx
 <HStack>
-    <Link href=\{GithubState.url}>
-        <Avatar src=\{GithubState.profile_image}/>
+    <Link href=\{GithubState1.url}>
+        <Avatar src=\{GithubState1.profile_image}/>
     </Link>
     <Input
         placeholder="Your Github username"
         // This would actually be a websocket call to the backend.
-        onBlur=\{GithubState.set_profile}
+        onBlur=\{GithubState1.set_profile}
     >
 </HStack>
 ```
@@ -167,7 +167,7 @@ In Reflex only the frontend compiles to Javascript and runs on the user's browse
 All the state and logic are defined within a `State` class.
 
 ```python
-class GithubState(rx.State):
+class GithubState1(rx.State):
     url: str = "https://github.com/reflex-dev"
     profile_image: str = "https://avatars.githubusercontent.com/u/104714959"
 
@@ -202,7 +202,7 @@ The user can interact with the UI in many ways, such as clicking a button, typin
 ```python
 rx.input(
     placeholder="Your Github username",
-    on_blur=GithubState.set_profile,
+    on_blur=GithubState1.set_profile,
 )
 ```
 
@@ -221,7 +221,7 @@ Let's assume I type my username "picklelo" into the input. In this example, our 
 ```json
 \{
     client_token: "abc123",
-    event_handler: "GithubState.set_profile",
+    event_handler: "GithubState1.set_profile",
     arguments: ["picklelo"]
 }
 ```

@@ -69,19 +69,19 @@ class ColorPicker(rx.Component):
 color_picker = ColorPicker.create
 
 
-class ColorPickerState(rx.State):
+class ColorPickerState1(rx.State):
     color: str = "#db114b"
 ```
 
 ```python eval
 rx.box(
     rx.vstack(
-        rx.heading(ColorPickerState.color, color="white"),
+        rx.heading(ColorPickerState1.color, color="white"),
         color_picker(
-            on_change=ColorPickerState.set_color
+            on_change=ColorPickerState1.set_color
         ),
     ),
-    background_color=ColorPickerState.color,
+    background_color=ColorPickerState1.color,
     padding="5em",
     border_radius="1em",
     margin_bottom="1em",
