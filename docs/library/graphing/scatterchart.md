@@ -170,7 +170,7 @@ interface elements. View the "Data" tab to see the substate driving this
 calculation of iterations in the Collatz Conjecture for a given starting number.
 Enter a starting number in the box below the chart to recalculate.
 
-```python demo graphing
+```python demo exec
 class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
@@ -209,8 +209,9 @@ def index():
     )
 ```
 
+## Legend Type and Shape
 
-```python demo graphing
+```python demo exec
 class ScatterChartState2(rx.State):
 
     legend_types: list[str] = ["square", "circle", "cross", "diamond", "star", "triangle", "wye"]
