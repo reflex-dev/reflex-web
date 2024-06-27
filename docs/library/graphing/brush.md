@@ -8,7 +8,7 @@ components:
 ```python exec
 import reflex as rx
 ```
-## Simple Brush Example
+## Simple Example
 
 The brush component allows us to view charts that have a large number of data points. To view and analyze them efficiently, the brush provides a slider with two handles that helps the viewer to select some range of data points to be displayed.
 
@@ -76,7 +76,7 @@ def brush_simple():
   )
 ```
 
-## Brush Position, Size, and Range
+## Position, Size, and Range
 
 This example showcases ways to set the Position, Size, and Range. The `gap` prop provides the spacing between stops on the brush when the graph will refresh. The `start_index` and `end_index` props defines the default range of the brush. `traveller_width` prop specifies the width of each handle ("traveller" in recharts lingo).
 

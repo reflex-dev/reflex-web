@@ -73,7 +73,7 @@ def radar_simple():
     )
 ```
 
-## Multiple Radar Chart
+## Multiple Radars
 
 We can also add two radars on one chart by using two `rx.recharts.radar` components. 
 
@@ -147,7 +147,7 @@ def radar_multiple():
 ```
 
 
-## Using more props
+## Using More Props
 
 
 The `dot` prop shows points at each data vertex when true. `legend_type="line"` displays a line in the chart legend. `animation_begin=0` starts the animation immediately, `animation_duration=8000` sets an 8-second animation, and `animation_easing="ease-in"` makes the animation start slowly and speed up. These props control the chart's appearance and animation behavior.

@@ -78,7 +78,8 @@ def bar_simple():
     height = 250,
   )
 ```
-## Multiple Bars Charts
+
+## Multiple Bars
 
 Multiple bars can be placed on the same `bar_chart`, using multiple `rx.recharts.bar()` components.
 
@@ -149,7 +150,7 @@ def bar_double():
 ```
 
 
-## Ranged Bar Charts
+## Ranged Charts
 
 You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
@@ -235,7 +236,7 @@ def bar_range():
   )
 ```
 
-## Stateful Bar Charts
+## Stateful Charts
 
 Here is an example of a bar graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `bar` is clicked on using `on_click=BarState.randomize_data`.
 
@@ -274,7 +275,7 @@ def bar_with_state():
   )
 ```
 
-## Example with Bar Features
+## Example with Props
 
 Here's an example demonstrates how to customize the appearance and layout of bars using the `bar_category_gap`, `bar_gap`, `bar_size`, and `max_bar_size` props. These props accept values in pixels to control the spacing and size of the bars.
 

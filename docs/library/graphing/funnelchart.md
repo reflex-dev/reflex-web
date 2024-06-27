@@ -61,7 +61,7 @@ def funnel_simple():
     )
 ```
 
-## Example with Event Triggers
+## Event Triggers
 
 Funnel chart supports `on_click`, `on_mouse_enter`, `on_mouse_leave` and `on_mouse_move` event triggers, allows you to interact with the funnel chart and perform specific actions based on user interactions.
 
@@ -115,7 +115,7 @@ def funnel_events():
 ```
 
 
-## Example with State
+## Dynamic Data
 
 Here is an example of a funnel chart with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data when the graph is clicked on using `on_click=FunnelState.randomize_data`.
 
@@ -180,7 +180,7 @@ def funnel_state():
 ```
 
 
-## Changing the chart animation
+## Changing the Chart Animation
 
 The `is_animation_active` prop can be used to turn off the animation, but defaults to `True`. `animation_begin` sets the delay before animation starts, `animation_duration` determines how long the animation lasts, and `animation_easing` defines the speed curve of the animation for smooth transitions.
 

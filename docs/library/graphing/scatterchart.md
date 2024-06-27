@@ -64,7 +64,7 @@ def scatter_simple():
   )
 ```
 
-## Example with Multiple Charts
+## Multiple Scatters
 
 We can also add two scatters on one chart by using two `rx.recharts.scatter()` components, and we can define an `rx.recharts.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
 
