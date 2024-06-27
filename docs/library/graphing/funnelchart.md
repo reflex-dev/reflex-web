@@ -109,7 +109,6 @@ def funnel_2():
         on_click=rx.toast("Clicked on funnel chart"),
         on_mouse_enter=rx.toast("Mouse entered"),
         on_mouse_leave=rx.toast("Mouse left"),
-        on_mouse_move=rx.toast("Mouse moved"),
         width=730,
         height=250,
     )
