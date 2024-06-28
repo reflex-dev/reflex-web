@@ -59,7 +59,7 @@ data = [
   }
 ]
 
-def legend_1():
+def legend_simple():
   return rx.recharts.composed_chart(
     rx.recharts.area(
         data_key="uv",
@@ -135,7 +135,7 @@ data = [
   }
 ]
 
-def legend_2():
+def legend_props():
   return rx.recharts.composed_chart(
     rx.recharts.line(
       data_key="pv",

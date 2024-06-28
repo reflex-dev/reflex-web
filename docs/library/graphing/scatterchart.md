@@ -9,6 +9,7 @@ components:
 ```python exec
 import reflex as rx
 from pcweb.templates.docpage import docgraphing
+from pcweb.pages.docs import library
 ```
 
 A scatter chart always has two value axes to show one set of numerical data along a horizontal (value) axis and another set of numerical values along a vertical (value) axis. The chart displays points at the intersection of an x and y numerical value, combining these values into single data points.
@@ -51,19 +52,19 @@ data01 = [
   }
 ]
 
-def scatter():
+def scatter_simple():
   return rx.recharts.scatter_chart(
     rx.recharts.scatter(
         data=data01,
         fill="#8884d8",),
     rx.recharts.x_axis(data_key="x", type_="number"), 
     rx.recharts.y_axis(data_key="y"),
-    width = 600,
+    width = "100%",
     height = 300,
   )
 ```
 
-## Example with Multiple Charts
+## Multiple Scatters
 
 We can also add two scatters on one chart by using two `rx.recharts.scatter()` components, and we can define an `rx.recharts.z_axis()` which represents a third column of data and is represented by the size of the dots in the scatter plot.
 
@@ -152,10 +153,14 @@ def scatter_double():
     rx.recharts.z_axis(data_key="z", range=[60, 400], name="score"),
     rx.recharts.legend(),
     rx.recharts.graphing_tooltip(),
-    width=600,
+    width="100%",
     height=300,
   )
 ```
+
+
+To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation]({library.graphing.areachart.path}).
+
 
 ## Dynamic Data
 
@@ -165,7 +170,7 @@ interface elements. View the "Data" tab to see the substate driving this
 calculation of iterations in the Collatz Conjecture for a given starting number.
 Enter a starting number in the box below the chart to recalculate.
 
-```python demo graphing
+```python demo exec
 class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
@@ -183,7 +188,7 @@ class ScatterChartState(rx.State):
                 n = 3 * n + 1
 
 
-def index():
+def scatter_dynamic():
     return rx.vstack(
         rx.recharts.scatter_chart(
             rx.recharts.scatter(
@@ -203,3 +208,82 @@ def index():
         on_mount=ScatterChartState.compute_collatz({"start": "15"}),
     )
 ```
+
+## Legend Type and Shape
+
+```python demo exec
+class ScatterChartState2(rx.State):
+
+    legend_types: list[str] = ["square", "circle", "cross", "diamond", "star", "triangle", "wye"]
+
+    legend_type: str = "circle"
+
+    shapes: list[str] = ["square", "circle", "cross", "diamond", "star", "triangle", "wye"]
+
+    shape: str = "circle"
+
+    data01 = [
+    {
+      "x": 100,
+      "y": 200,
+      "z": 200
+    },
+    {
+      "x": 120,
+      "y": 100,
+      "z": 260
+    },
+    {
+      "x": 170,
+      "y": 300,
+      "z": 400
+    },
+    {
+      "x": 170,
+      "y": 250,
+      "z": 280
+    },
+    {
+      "x": 150,
+      "y": 400,
+      "z": 500
+    },
+    {
+      "x": 110,
+      "y": 280,
+      "z": 200
+    }
+  ]
+
+
+def scatter_shape():
+  return rx.vstack(
+      rx.recharts.scatter_chart(
+          rx.recharts.scatter(
+              data=data01,
+              fill="#8884d8",
+              legend_type=ScatterChartState2.legend_type,
+              shape=ScatterChartState2.shape,
+          ),
+          rx.recharts.x_axis(data_key="x", type_="number"), 
+          rx.recharts.y_axis(data_key="y"),
+          rx.recharts.legend(),
+          width = "100%",
+          height = 300,
+        ),
+      rx.hstack(
+          rx.text("Legend Type: "),
+          rx.select(
+              ScatterChartState2.legend_types,
+              value=ScatterChartState2.legend_type,
+              on_change=ScatterChartState2.set_legend_type,
+          ),
+          rx.text("Shape: "),
+          rx.select(
+            ScatterChartState2.shapes,
+            value=ScatterChartState2.shape,
+            on_change=ScatterChartState2.set_shape,
+          ),
+      ),
+      width="100%",
+  )
