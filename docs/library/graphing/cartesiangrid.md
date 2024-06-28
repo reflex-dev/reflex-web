@@ -67,7 +67,7 @@ data = [
   }
 ]
 
-def cgrid_1():
+def cgrid_simple():
   return rx.recharts.line_chart(
     rx.recharts.line(
         data_key="pv",
@@ -131,7 +131,7 @@ data = [
   }
 ]
 
-def cgrid_1():
+def cgrid_hidden():
   return rx.recharts.area_chart(
     rx.recharts.area(
         data_key="uv",
@@ -182,7 +182,7 @@ data2 = [
     {"x": 160, "y": 180, "z": 240},
 ]
 
-def cgrid_2():
+def cgrid_custom():
     return rx.recharts.scatter_chart(
         rx.recharts.scatter(
             data=data2,

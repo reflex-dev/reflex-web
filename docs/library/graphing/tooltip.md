@@ -57,7 +57,7 @@ data = [
   }
 ]
 
-def composed():
+def tooltip_simple():
   return rx.recharts.composed_chart(
     rx.recharts.area(
         data_key="uv",
@@ -84,7 +84,7 @@ def composed():
   )
 ```
 
-## Example with Custom Styling
+## Custom Styling
 
 The `rx.recharts.graphing_tooltip` component allows for customization of the tooltip's style, position, and layout. `separator` sets the separator between the data key and value. `view_box` prop defines the dimensions of the chart's viewbox while `allow_escape_view_box` determines whether the tooltip can extend beyond the viewBox horizontally (x) or vertically (y). `wrapper_style` prop allows you to style the outer container or wrapper of the tooltip. `content_style` prop allows you to style the inner content area of the tooltip. `is_animation_active` prop determines if the tooltip animation is active or not.
 
@@ -135,7 +135,7 @@ data = [
   }
 ]
 
-def tooltip_2():
+def tooltip_custom_styling():
   return rx.recharts.composed_chart(
     rx.recharts.area(
       data_key="uv", stroke="#8884d8", fill="#8884d8"
@@ -167,6 +167,6 @@ def tooltip_2():
     ),
     data=data,
     height = 300,
-    width = 600,
+    width = "100%",
   )
 ```

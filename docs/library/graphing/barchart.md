@@ -9,6 +9,7 @@ components:
 ```python exec
 import reflex as rx
 import random
+from pcweb.pages.docs import library
 ```
 
 A bar chart presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent.
@@ -77,7 +78,8 @@ def bar_simple():
     height = 250,
   )
 ```
-## Multiple Bars Charts
+
+## Multiple Bars
 
 Multiple bars can be placed on the same `bar_chart`, using multiple `rx.recharts.bar()` components.
 
@@ -146,7 +148,9 @@ def bar_double():
     height = 250,
   )
 ```
-## Ranged Bar Charts
+
+
+## Ranged Charts
 
 You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
@@ -232,7 +236,7 @@ def bar_range():
   )
 ```
 
-## Stateful Bar Charts
+## Stateful Charts
 
 Here is an example of a bar graph with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data for both graphs when the first defined `bar` is clicked on using `on_click=BarState.randomize_data`.
 
@@ -271,7 +275,7 @@ def bar_with_state():
   )
 ```
 
-## Example with Bar Features
+## Example with Props
 
 Here's an example demonstrates how to customize the appearance and layout of bars using the `bar_category_gap`, `bar_gap`, `bar_size`, and `max_bar_size` props. These props accept values in pixels to control the spacing and size of the bars.
 
@@ -286,7 +290,7 @@ data = [
     {'name': 'Page F', 'value': 3800},
 ]
 
-def bar_3():
+def bar_features():
     return rx.recharts.bar_chart(
         rx.recharts.bar(
             data_key="value",
@@ -380,3 +384,6 @@ def bar_vertical():
 
     )
 ```
+
+
+To learn how to use the `sync_id`, `stack_id`,`x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.areachart.path}), where these props are all described with examples.

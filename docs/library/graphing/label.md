@@ -12,7 +12,7 @@ import reflex as rx
 
 Label is a component used to display a single label at a specific position within a chart or axis, while LabelList is a component that automatically renders a list of labels for each data point in a chart series, providing a convenient way to display multiple labels without manually positioning each one.
 
-## Label Example
+## Simple Example
 
 Here's a simple example that demonstrates how you can customize the label of your axis using `rx.recharts.label`. The `value` prop represents the actual text of the label, the `position` prop specifies where the label is positioned within the axis component, and the `offset` prop is used to fine-tune the label's position.
 
@@ -62,7 +62,7 @@ data = [
   }
 ]
 
-def label_2():
+def label_simple():
     return rx.recharts.bar_chart(
         rx.recharts.cartesian_grid(
             stroke_dasharray="3 3"
@@ -154,7 +154,7 @@ data = [
   }
 ]
 
-def label_1():
+def label_list():
   return rx.recharts.bar_chart(
     rx.recharts.bar(
         rx.recharts.label_list(data_key="uv", position="top"),
