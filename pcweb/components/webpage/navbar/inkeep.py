@@ -2,41 +2,41 @@
 
 from typing import Set
 import reflex as rx
+from reflex.event import EventHandler
 from reflex.vars import ImportVar, Var
+
 
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}", _var_is_string=False)}
+    special_props: Set[Var] = {
+        Var.create_safe("{...searchBarProps}", _var_is_string=False)
+    }
 
     is_open: Var[bool] = False
 
-    def _get_imports(self):
-        return rx.utils.imports.merge_imports(
-            super()._get_imports(),
-            {
-              "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
-              "react": {ImportVar(tag="useContext")},
-              "/utils/context": {ImportVar(tag="ColorModeContext")},
-            },
-        )
+    on_close: EventHandler[lambda: []]
 
-    def get_triggers(self) -> Set[str]:
-        """Get the event triggers for the component.
+    on_shortcut_key_pressed: EventHandler[lambda: []]
 
-        Returns:
-            The event triggers.
-        """
-        return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
+    def add_imports(self):
+        """Add the imports for the component."""
+        return {
+            "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
+            "react": {ImportVar(tag="useContext")},
+            "/utils/context": {ImportVar(tag="ColorModeContext")},
+        }
 
-    def _get_custom_code(self) -> str:
-        return """ 
-const SearchBar = dynamic(
+    def add_hooks(self):
+        """Add the hooks for the component."""
+        return [
+            "const { resolvedColorMode, toggleColorMode } = useContext(ColorModeContext)",
+            """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
     ssr: false,
   },
-); 
+);
 
 const searchBarProps = {
   stylesheetUrls: ['/inkeepstyle.css'],
@@ -47,22 +47,22 @@ const searchBarProps = {
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#5646ED',
     customIcons: {search: {custom: "/search.svg"}},
-    breadcrumbRules: { 
-      urlToBreadcrumbMapper: [ 
-        { 
+    breadcrumbRules: {
+      urlToBreadcrumbMapper: [
+        {
           matchingRule: {
             ruleType: 'PartialUrl',
             partialUrl: 'reflex.dev/blog',
           },
           breadcrumbName: 'Blogs',
-        },  
-        { 
+        },
+        {
           matchingRule: {
             ruleType: 'PartialUrl',
             partialUrl: 'reflex.dev/docs',
           },
           breadcrumbName: 'Docs',
-        }, 
+        },
         {
           matchingRule: {
             ruleType: 'PartialUrl',
@@ -92,8 +92,8 @@ const searchBarProps = {
           },
         },
       }
-    } 
-  },  
+    }
+  },
   searchSettings: { // optional InkeepSearchSettings
     tabSettings: {
       isAllTabEnabled: true,
@@ -110,8 +110,8 @@ const searchBarProps = {
       'Where can I deploy my apps?',
     ],
   },
-};
-"""
+};""",
+        ]
 
 
 inkeep = Search.create
