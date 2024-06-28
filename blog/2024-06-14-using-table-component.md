@@ -277,7 +277,7 @@ def add_customer_button() -> rx.Component:
 ```
 
 
-When the form is submitted it runs the code `on_submit=State.add_customer_to_db`, running the event handler `add_customer_to_db`. This event handler sets the `State` var `current_user` to equal the form data just submitted in the `rx.form`. 
+When the form is submitted it runs the code `on_submit=State.add_customer_to_db`, running the event handler `add_customer_to_db`. This event handler sets the `State` var `current_user` to equal the form data just submitted in the `rx.form`, as a type `Customer`. 
 
 This event handler also does a database query to add the current `self.current_user`, which we just set to be the form response, to the database. 
 
@@ -297,14 +297,14 @@ class State(rx.State):
 
     def add_customer_to_db(self, form_data):
         """Add a customer to the database."""
-        self.current_user = form_data
-        self.current_user["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        form_data["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with rx.session() as session:
             if session.exec(
                 select(Customer).where(Customer.email == self.current_user["email"])
             ).first():
                 return rx.window_alert("User with this email already exists")
-            session.add(Customer(**self.current_user))
+            self.current_user = Customer(**form_data)
+            session.add(self.current_user)
             session.commit()
             session.refresh(self.current_user)
         self.load_entries()
@@ -329,14 +329,14 @@ class State(rx.State):
 
     def add_customer_to_db(self, form_data):
         """Add a customer to the database."""
-        self.current_user = form_data
-        self.current_user["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        form_data["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with rx.session() as session:
             if session.exec(
                 select(Customer).where(Customer.email == self.current_user["email"])
             ).first():
                 return rx.window_alert("User with this email already exists")
-            session.add(Customer(**self.current_user))
+            self.current_user = Customer(**form_data)
+            session.add(self.current_user)
             session.commit()
             session.refresh(self.current_user)
         self.load_entries()
