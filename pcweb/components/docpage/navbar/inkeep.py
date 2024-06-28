@@ -2,50 +2,41 @@
 
 from typing import Set
 import reflex as rx
+from reflex.event import EventHandler
 from reflex.vars import ImportVar, Var
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {Var.create_safe("{...searchBarProps}", _var_is_string=False)}
+    special_props: Set[Var] = {
+        Var.create_safe("{...searchBarProps}", _var_is_string=False)
+    }
 
     is_open: Var[bool] = False
 
-    def _get_imports(self):
-        return rx.utils.imports.merge_imports(
-            super()._get_imports(),
-            {
-                "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
-                "react": {ImportVar(tag="useContext")},
-                "/utils/context": {ImportVar(tag="ColorModeContext")},
-            },
-        )
+    on_close: EventHandler[lambda: []]
 
-    def get_triggers(self) -> Set[str]:
-        """Get the event triggers for the component.
+    on_shortcut_key_pressed: EventHandler[lambda: []]
 
-        Returns:
-            The event triggers.
-        """
-        return super().get_triggers() | {"on_close", "on_shortcutKey_pressed"}
+    def add_imports(self):
+        """Add the imports for the component."""
+        return {
+            "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
+            "react": {ImportVar(tag="useContext")},
+            "/utils/context": {ImportVar(tag="ColorModeContext")},
+        }
 
-    def _get_all_hooks(self) -> dict[str, None]:
-        """Get the React hooks for this component and its children.
-
-        Returns:
-            The code that should appear just before returning the rendered component.
-        """
-        # Add the hook code for this component.
-        code = {
-            f"const {{ resolvedColorMode, toggleColorMode }} = useContext(ColorModeContext)": None,
+    def add_hooks(self):
+        """Add the hooks for the component."""
+        return [
+            "const { resolvedColorMode, toggleColorMode } = useContext(ColorModeContext)",
             """const SearchBar = dynamic(
   () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
   {
     ssr: false,
   },
 );
-
 const searchBarProps = {
   stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
@@ -62,7 +53,7 @@ const searchBarProps = {
             partialUrl: 'reflex.dev/blog',
           },
           breadcrumbName: 'Blogs',
-        }, 
+        },
         {
           matchingRule: {
             ruleType: 'PartialUrl',
@@ -117,21 +108,8 @@ const searchBarProps = {
       'Where can I deploy my apps?',
     ],
   },
-};""": None,
-        }
-        # Add the hook code for the children.
-        for child in self.children:
-            code = {**code, **child._get_all_hooks()}
-
-        return code
-
-    def _get_custom_code(self) -> str:
-        return """const SearchBar = dynamic(
-  () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
-  {
-    ssr: false,
-  },
-);"""
+};""",
+        ]
 
 
 inkeep = Search.create
