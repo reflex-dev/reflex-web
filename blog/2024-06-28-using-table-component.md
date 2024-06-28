@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2024-06-28
 title: Using Table Component
 description: Describing main uses of the Table component with a Database
-image: 
+image: /blog/table.jpg
 ---
 
 ```python exec
