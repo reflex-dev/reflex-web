@@ -3,7 +3,6 @@ import flexdown
 import reflex as rx
 from pcweb.templates.docpage import (
     code_block_markdown,
-    code_block_markdown_dark,
     code_comp,
     docdemo,
     docdemobox,
@@ -75,7 +74,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                             spacing="2",
                             width="100%",
                         ),
-                        color=f"{rx.color(color, 11)}", 
+                        color=f"{rx.color(color, 11)}",
                         border_radius="8px",
                         _hover={},
                     ),
@@ -201,8 +200,8 @@ class DefinitionBlock(flexdown.blocks.Block):
                 )
             ),
         )
-   
- 
+
+
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -268,7 +267,7 @@ component_map = {
     "codeblock": code_block_markdown,
 }
 comp2 = component_map.copy()
-comp2["codeblock"] = code_block_markdown_dark
+comp2["codeblock"] = code_block_markdown
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],

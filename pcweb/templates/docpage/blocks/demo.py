@@ -3,13 +3,12 @@
 import reflex as rx
 import textwrap
 from typing import Any, Callable
-from .code import code_block, code_block_dark
+from .code import code_block
 import black
-  
+
 demo_box_style = {
-    "bg": "rgba(249, 248, 249, 1)",
     "border_radius": "8px;",
-    "padding": "2em",
+    "padding": "1em",
     "width": "100%",
     "overflow_x": "auto",
     "border": f"2px solid {rx.color('mauve', 3)}",
@@ -18,7 +17,7 @@ demo_box_style = {
     "justify_content": "center",
 }
 
- 
+
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
@@ -33,8 +32,8 @@ def docdemobox(*children, **props) -> rx.Component:
         style=demo_box_style,
         **props,
     )
-  
-   
+
+
 def doccode(
     code: str,
     language: str = "python",
@@ -65,7 +64,7 @@ def doccode(
         ).strip()
 
     # Create the code snippet.
-    cb = code_block_dark if theme == "dark" else code_block
+    cb = code_block
     return cb(
         code=code,
         language=language,
@@ -92,7 +91,7 @@ def docdemo(
 
     Returns:
         The styled demo.
-    """ 
+    """
     demobox_props = demobox_props or {}
     # Render the component if necessary.
     if comp is None:
@@ -107,21 +106,21 @@ def docdemo(
     # Add the state code
     if state is not None:
         code = state + code
-    
+
     if demobox_props.pop("toggle", False):
         return rx.tabs.root(
         rx.tabs.list(
             rx.tabs.trigger(
                 rx.hstack(
-                    rx.icon("panels-top-left", size=18), 
-                    "UI", 
+                    rx.icon("panels-top-left", size=18),
+                    "UI",
                 ),
                 value="tab1"
             ),
             rx.tabs.trigger(
                 rx.hstack(
-                    rx.icon("code", size=18), 
-                    "Code", 
+                    rx.icon("code", size=18),
+                    "Code",
                 ),
                 value="tab2"
             ),
@@ -136,7 +135,7 @@ def docdemo(
             value="tab1",
         ),
         rx.tabs.content(
-            doccode(code, theme=theme), 
+            doccode(code, theme=theme),
             value="tab2",
         ),
         default_value="tab1",
@@ -154,15 +153,12 @@ def docdemo(
 
 
 tab_style = {
-    "color": "#494369",
+    "color": rx.color('mauve', 9),
+    "border": f"1px solid {rx.color('mauve', 4)}",
+    "bg": rx.color('mauve', 2),
     "font_weight": 600,
-    "_selected": {
-        "color": "#5646ED",
-        "bg": "#F5EFFE",
-        "padding_x": "0.5em",
-        "padding_y": "0.25em",
-        "border_radius": "8px",
-    },
+    "padding_x": "0.5em",
+    "padding_y": "0.25em",
 }
 
 
@@ -176,27 +172,39 @@ def docgraphing(
             comp,
             style=demo_box_style,
         ),
-        rx.chakra.tabs(
-            rx.chakra.tab_list(
-                rx.chakra.tab("Code", style=tab_style),
-                rx.chakra.tab("Data", style=tab_style),
-                padding_x=0,
-            ),
-            rx.chakra.tab_panels(
-                rx.chakra.tab_panel(
-                    doccode(code), width="100%", padding_x=0, padding_y=".25em"
+        rx.segmented_control.root(
+        ),
+        rx.tabs.root(
+            rx.tabs.list(
+                rx.tabs.trigger(
+                    "Code",
+                    value="code",
+                    border_right="none",
+                    border_radius= "8px 0px 0 0",
+                    style=tab_style
                 ),
-                rx.chakra.tab_panel(
-                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
+                rx.tabs.trigger(
+                    "Data",
+                    value="data",
+                    border_radius= "0px 8px 0 0",
+                    style=tab_style
+                ),
+                justify_content="end",
+            ),
+            rx.box(
+                rx.tabs.content(
+                    doccode(code), width="100%", padding_x=0, padding_y=".25em", value="code"
+                ),
+                rx.tabs.content(
+                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em", value="data"
                 ),
                 width="100%",
             ),
-            variant="unstyled",
-            color_scheme="purple",
+            default_value="code",
             align="end",
             width="100%",
         ),
         width="100%",
-        padding_top="2em",
-        padding_bottom="2em",
+        padding_y="1em",
+        spacing="0",
     )
