@@ -277,7 +277,7 @@ from typing import List
 import reflex as rx
 
 
-class MatchState(rx.State):
+class CondMatchState(rx.State):
     cat_breed: str = ""
     animal_options: List[str] = [
         "persian",
@@ -292,7 +292,7 @@ class MatchState(rx.State):
 def match_demo():
     return rx.flex(
         rx.match(
-            MatchState.cat_breed,
+            CondMatchState.cat_breed,
             ("persian", rx.text("Persian cat selected.")),
             ("siamese", rx.text("Siamese cat selected.")),
             (
@@ -311,8 +311,8 @@ def match_demo():
                 "pug",
                 "corgi",
             ],
-            value=MatchState.cat_breed,
-            on_change=MatchState.set_cat_breed,
+            value=CondMatchState.cat_breed,
+            on_change=CondMatchState.set_cat_breed,
         ),
         direction="column",
         gap="2",
