@@ -159,11 +159,7 @@ def scatter_double():
 ```
 
 
-<<<<<<< HEAD:docs/library/graphing/charts/scatterchart.md
 To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation]({library.graphing.charts.areachart.path}).
-=======
-To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation]({library.graphing.areachart.path}).
->>>>>>> 6b571d0 (Update graphing docs tom (#783)):docs/library/graphing/scatterchart.md
 
 
 ## Dynamic Data
