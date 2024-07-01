@@ -91,7 +91,7 @@ redirects = [
     ("/docs/library/media", "/docs/library/media/image"),
     ("/docs/library/overlay", "/docs/library/overlay/alertdialog"),
     ("/docs/library/other", "/docs/library/other/html"),
-    ("/docs/library/theming/theme", "/docs/library/other/theme")
+    ("/docs/library/theming/theme", "/docs/library/other/theme"),
     ("/docs/library/theming/theme-panel", "/docs/library/other/theme"),
 ]
 
