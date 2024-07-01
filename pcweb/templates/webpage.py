@@ -25,30 +25,30 @@ def spotlight():
           <div class="overlap-group1">
             <div class="group-9">
               <div class="vector-container">
-                <img class="vector-2" src="/spotlight_img/vector-2.png" alt="Vector 2" />
-                <img class="vector-2-1 vector-2-3" src="/spotlight_img/vector-2.png" alt="Vector 2" />
+                <img class="vector-2" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
+                <img class="vector-2-1 vector-2-3" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
               </div>
               <div class="vector-container-1">
-                <img class="vector-3" src="/spotlight_img/vector-2.png" alt="Vector 3" />
-                <img class="vector-3-1" src="/spotlight_img/vector-2.png" alt="Vector 3" />
+                <img class="vector-3" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
+                <img class="vector-3-1" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
               </div>
-              <img class="vector-2-2 vector-2-3" src="/spotlight_img/vector-2.png" alt="Vector 2" />
-              <img class="vector-3-2" src="/spotlight_img/vector-2.png" alt="Vector 3" />
+              <img class="vector-2-2 vector-2-3" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
+              <img class="vector-3-2" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
             </div>
             <div class="overlap-group">
-              <img class="group-6" src="/spotlight_img/group-6.png" alt="Group 6" />
-              <img class="subtract" src="/spotlight_img/subtract.png" alt="Subtract" />
+              <img class="group-6" src="/spotlight_img/group-6.webp" alt="Group 6" />
+              <img class="subtract" src="/spotlight_img/subtract.webp" alt="Subtract" />
             </div>
-            <img class="rectangle-7" src="/spotlight_img/rectangle-7.png" alt="Rectangle 7" />
-            <img class="rectangle-8" src="/spotlight_img/rectangle-8.png" alt="Rectangle 8" />
-            <img class="rectangle-9" src="/spotlight_img/rectangle-9.png" alt="Rectangle 9" />
+            <img class="rectangle-7" src="/spotlight_img/rectangle-7.webp" alt="Rectangle 7" />
+            <img class="rectangle-8" src="/spotlight_img/rectangle-8.webp" alt="Rectangle 8" />
+            <img class="rectangle-9" src="/spotlight_img/rectangle-9.webp" alt="Rectangle 9" />
             <div class="rectangle-13"></div>
             <div class="rectangle-18"></div>
             <img class="rectangle-10" src="/spotlight_img/rectangle-10.svg" alt="Rectangle 10" />
           </div>
           <div class="rectangle-17"></div>
         </div>
-        <img class="vector" src="/spotlight_img/vector.png" alt="Vector" />
+        <img class="vector" src="/spotlight_img/vector.webp" alt="Vector" />
       </div>
     </div>
   </body>

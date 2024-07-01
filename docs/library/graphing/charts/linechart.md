@@ -298,4 +298,4 @@ def line_dynamic():
   )
 ```
 
-To learn how to use the `sync_id`, `x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.areachart.path}), where these props are all described with examples.
+To learn how to use the `sync_id`, `x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.charts.areachart.path}), where these props are all described with examples.
