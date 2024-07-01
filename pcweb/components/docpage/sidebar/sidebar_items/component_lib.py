@@ -12,6 +12,7 @@ def get_component_link(category, clist, prefix="") -> str:
 
 
 def get_category_children(category, category_list, prefix=""):
+    category = category.replace("-", " ")
     if isinstance(category_list, dict):
         return SidebarItem(
             names=category,
@@ -46,6 +47,20 @@ def get_sidebar_items_component_lib():
     ]
 
 
+def get_sidebar_items_graphings():
+    from pcweb.pages.docs import graphing_components
+
+    graphing_children = []
+    for category in graphing_components:
+        category_item = get_category_children(
+            category, graphing_components[category], prefix="graphing/"
+        )
+        graphing_children.append(category_item)
+
+    return [
+        *graphing_children
+        ]
+
 def get_sidebar_items_other_libraries():
     from pcweb.pages.docs import chakra_components
     from pcweb.pages.docs.custom_components import custom_components
@@ -60,14 +75,9 @@ def get_sidebar_items_other_libraries():
     chakra_item = SidebarItem(names="Chakra", children=chakra_children)
 
     return [
-        SidebarItem(
-            names="Custom Components",
-            alt_name_for_next_prev="Components Reference: Overview",
-            link=custom_components.path,
-            outer=True,
-        ),
         chakra_item
         ]
 
 component_lib = get_sidebar_items_component_lib()
+graphing_libs = get_sidebar_items_graphings()
 other_libs = get_sidebar_items_other_libraries()

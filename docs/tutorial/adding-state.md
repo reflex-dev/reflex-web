@@ -107,7 +107,7 @@ def action_bar() -> rx.Component:
     )
 ```
 
-Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({library.layout.foreach.path}) component to iterate over the chat history.
+Normal Python `for` loops don't work for iterating over state vars because these values can change and aren't known at compile time. Instead, we use the [foreach]({library.dynamic_rendering.foreach.path}) component to iterate over the chat history.
 
 We also bind the input's `on_change` event to the `set_question` event handler, which will update the `question` state var while the user types in the input. We bind the button's `on_click` event to the `answer` event handler, which will process the question and add the answer to the chat history. The `set_question` event handler is a built-in implicitly defined event handler. Every base var has one. Learn more in the [events docs]({events.setters.path}) under the Setters section.
 

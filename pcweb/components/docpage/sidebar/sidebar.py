@@ -9,7 +9,7 @@ from pcweb.route import Route
 from .state import SidebarState, SidebarItem
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
-from .sidebar_items.component_lib import get_component_link, component_lib, other_libs
+from .sidebar_items.component_lib import get_component_link, component_lib, graphing_libs, other_libs
 from .sidebar_items.reference import api_reference, tutorials
 from .sidebar_items.recipes import recipes
 
@@ -323,6 +323,7 @@ def sidebar_comp(
     frontend_index: list[int],
     backend_index: list[int],
     hosting_index: list[int],
+    graphing_libs_index: list[int],
     other_libs_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
@@ -332,6 +333,7 @@ def sidebar_comp(
 
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
+    from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page
     from pcweb.pages.docs.apiref import pages
 
@@ -359,12 +361,43 @@ def sidebar_comp(
                 1,
                 rx.flex(
                     create_sidebar_section(
-                        "Core Components", component_lib, component_lib_index, url
+                        "Core", component_lib, component_lib_index, url
+                    ),
+                    create_sidebar_section(
+                        "Graphing", graphing_libs, graphing_libs_index, url
                     ),
                     create_sidebar_section(
                         "Other Libraries", other_libs, other_libs_index, url
                     ),
+                    rx.link(
+                        rx.vstack(
+                            rx.hstack(
+                                rx.icon("atom", size=20),
+                                rx.heading(
+                                    "Custom Components",
+                                    style={"fontSize": "1em"}
+                                ),
+                                align_items="center",
+                            ),
+                            rx.text(
+                                "See what components people have made with Reflex!",
+                                font_size=".8em"
+                            ),
+                            margin_left=".5em",
+                            padding=".5em",
+                            color=rx.color("mauve", 12),
+                            border_radius="8px",
+                            background_color=rx.color("mauve", 2),
+                            border=f"1px solid {rx.color('mauve', 4)}",
+                            margin_top="1em",
+                            _hover={
+                                "background_color": rx.color("mauve", 3),
+                            },
+                        ),
+                        href=custom_components.path,
+                    ),
                     direction="column",
+                    height="100%",
                 ),
             ),
             (
@@ -415,6 +448,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     frontend_index = calculate_index(frontend, url)
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
+    graphing_libs_index = calculate_index(graphing_libs, url)
     other_libs_index = calculate_index(other_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
@@ -428,6 +462,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             frontend_index=frontend_index,
             backend_index=backend_index,
             hosting_index=hosting_index,
+            graphing_libs_index=graphing_libs_index,
             other_libs_index=other_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
