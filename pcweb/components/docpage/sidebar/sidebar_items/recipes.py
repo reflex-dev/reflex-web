@@ -41,6 +41,7 @@ def get_sidebar_items_recipes():
                 recipes.others.checkboxes,
                 recipes.others.pricing_cards,
                 recipes.others.chips,
+                recipes.others.speed_dial,
             ]
         ),
     ]
