@@ -52,16 +52,12 @@ def get_sidebar_items_graphings():
 
     graphing_children = []
     for category in graphing_components:
+        print(category)
         category_item = get_category_children(
             category, graphing_components[category], prefix="graphing/"
         )
         graphing_children.append(category_item)
 
-<<<<<<< HEAD
-=======
-    graphing_item = SidebarItem(names="Chakra", children=graphing_children)
-
->>>>>>> 347947a (Re arrange sidebar)
     return [
         *graphing_children
         ]
