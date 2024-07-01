@@ -25,7 +25,7 @@ In this post we'll walk through the new components and show how to build a live 
 
 With our new graphing components we are aiming to strike a balance between flexibility and ease of use. We want to make it easy to build a graph, but we also want to make it easy to customize the graph to your needs.
 
-Check out our [graphing docs]({library.graphing.areachart.path}) for more details on the new components.
+Check out our [graphing docs]({library.graphing.charts.areachart.path}) for more details on the new components.
 
 
 ## Livestreaming Example

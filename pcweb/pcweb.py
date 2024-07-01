@@ -1,8 +1,8 @@
 """The main Reflex website."""
 
 import os
-import sys 
-  
+import sys
+
 import reflex as rx
 from pcweb import styles
 from pcweb.pages import page404, routes
@@ -12,8 +12,8 @@ from pcweb.whitelist import _check_whitelisted_path
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
 WINDOWS_MAX_ROUTES = 125
- 
-  
+
+
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
     exec_blocks(doc, href)
@@ -23,7 +23,7 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
-        has_background=True, radius="large", accent_color="violet"
+        has_background=True, radius="large", accent_color="violet",
     ),
     head_components=[
         rx.el.script(
@@ -91,6 +91,8 @@ redirects = [
     ("/docs/library/media", "/docs/library/media/image"),
     ("/docs/library/overlay", "/docs/library/overlay/alertdialog"),
     ("/docs/library/other", "/docs/library/other/html"),
+    ("/docs/library/theming/theme", "/docs/library/other/theme"),
+    ("/docs/library/theming/theme-panel", "/docs/library/other/theme"),
 ]
 
 for source, target in redirects:

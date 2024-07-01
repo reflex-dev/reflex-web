@@ -156,7 +156,7 @@ rx.box(
 The style dictionaries are applied in the order they are passed in. This means that styles defined later will override styles defined earlier.
 
 
-## Theming 
+## Theming
 
 As of Reflex 'v0.4.0', you can now theme your Reflex web apps. To learn more checkout the [Theme docs]({styling.theming.path}).
 
@@ -170,7 +170,7 @@ app = rx.App(
 )
 ```
 
-Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.theming.theme_panel.path}).
+Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.other.theme.path}).
 
 
 
