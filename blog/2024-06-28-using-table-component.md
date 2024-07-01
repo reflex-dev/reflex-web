@@ -53,7 +53,7 @@ class State(rx.State):
             self.users = session.exec(query).all()
 ```
 
-The `show_customer` function takes in a `user` and renders it in a `rx.table.row`. All the attributes of the `Customer` class are rendered out as `rx.table.cell` components in the row. The `user.status` uses an `rx.match` to handle multiple conditions and their corresponding components. Learn more about `rx.match` [here]({library.layout.match.path}). The `status_badge` function takes in a status and renders it out in an `rx.badge`.
+The `show_customer` function takes in a `user` and renders it in a `rx.table.row`. All the attributes of the `Customer` class are rendered out as `rx.table.cell` components in the row. The `user.status` uses an `rx.match` to handle multiple conditions and their corresponding components. Learn more about `rx.match` [here]({library.dynamic_rendering.match.path}). The `status_badge` function takes in a status and renders it out in an `rx.badge`.
 
 ```python
 def show_customer(user: Customer):
