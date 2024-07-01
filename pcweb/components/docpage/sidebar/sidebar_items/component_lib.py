@@ -52,7 +52,6 @@ def get_sidebar_items_graphings():
 
     graphing_children = []
     for category in graphing_components:
-        print(category)
         category_item = get_category_children(
             category, graphing_components[category], prefix="graphing/"
         )
