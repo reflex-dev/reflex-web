@@ -17,7 +17,9 @@ rx.text(
 
 The text will change color based on your screen size. If you are on desktop, try changing the size of your browser window to see the color change.
 
-You can also use `rx.breakpoints`. Each size maps to a corresponding key, the value of each will be applied when the screen size is greater than or equal to the named breakpoint.
+_New in 0.5.6_
+
+Responsive values can also be specified using `rx.breakpoints`. Each size maps to a corresponding key, the value of which will be applied when the screen size is greater than or equal to the named breakpoint.
 
 ```python demo
 rx.text(
