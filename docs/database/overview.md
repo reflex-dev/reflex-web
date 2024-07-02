@@ -79,3 +79,7 @@ with rx.session() as session:
     session.add(User(username="test", email="admin@reflex.dev", password="admin"))
     session.commit()
 ```
+
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=6835&end=8225
+Video Tutorial of Database Model with Forms, Model Field Changes and Migrations, and adding a DateTime Field
+```

@@ -257,6 +257,60 @@ class DemoBlockDark(DemoBlock):
     theme = "dark"
 
 
+class VideoBlock(flexdown.blocks.MarkdownBlock):
+    """A block that displays a video."""
+
+    starting_indicator = "```md video"
+    ending_indicator = "```"
+
+    include_indicators = True
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        args = lines[0].removeprefix(self.starting_indicator).split()
+
+        if len(args) == 0:
+            args = ["info"]
+        url = args[0]
+
+        if lines[1].startswith("#"):
+            title = lines[1].strip("#").strip()
+        else:
+            title = ""
+
+        color="blue"
+
+        return rx.chakra.accordion(
+            rx.chakra.accordion_item(
+                rx.chakra.accordion_button(
+                    rx.hstack(
+                        rx.markdown(title) if title else rx.markdown("Video Description"),
+                        rx.spacer(),
+                        rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
+                        align_items="center",
+                        justify_content="left",
+                        text_align="left",
+                        spacing="2",
+                        width="100%",
+                    ),
+                    color=f"{rx.color(color, 11)}", 
+                    border_radius="8px",
+                    _hover={},
+                ),
+                rx.chakra.accordion_panel(rx.video(url=url, width="100%", height="500px")),
+                border_radius="8px",
+                background_color=f"{rx.color(color, 3)}",
+                border="none",
+                allow_toggle=True,
+            ),
+            is_disabled = True,
+            allow_toggle=True,
+            width="100%",
+            margin_y="1em"
+        )
+
+
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
     "h2": lambda text: h2_comp_xd(text=text),
@@ -271,12 +325,12 @@ comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
 
 xd = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock],
+    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock],
     component_map=component_map,
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock],
+    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock],
     component_map=comp2,
 )
 xd2.clear_modules()

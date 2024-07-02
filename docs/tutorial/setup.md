@@ -5,6 +5,10 @@ import reflex as rx
 
 # Setting up Your Project
 
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=175&end=445
+# Video Example of Setting up the Chat App
+```
+
 We will start by creating a new project and setting up our development environment. First, create a new directory for your project and navigate to it.
 
 ```bash

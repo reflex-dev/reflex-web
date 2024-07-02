@@ -8,6 +8,9 @@ from pcweb.pages.docs import vars, library
 
 We use the `cond` component to conditionally render components. The `cond` component acts in a similar way to a conditional (ternary) operator in python, acting in a similar fashion to an `if-else` statement.
 
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=6040&end=6463
+```
+
 ```md alert
 # Check out the API reference for [cond docs]({library.dynamic_rendering.cond.path}).
 ```

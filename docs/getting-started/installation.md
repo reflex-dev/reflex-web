@@ -10,6 +10,11 @@ default_url = "http://localhost:3000"
 
 Reflex requires Python 3.8+.
 
+
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=758&end=1206
+```
+
+
 ## Virtual Environment
 
 We **highly recommend** creating a virtual environment for your project.
