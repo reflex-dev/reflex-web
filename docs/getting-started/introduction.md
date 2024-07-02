@@ -71,14 +71,18 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.- Use Reflex components and var operations
+                """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.
+
+- Use Reflex components and var operations
 
 - Use `rx.cond` and `rx.foreach` (replaces if and for loops)
 
-- Use State. when referring to state class variables (do not use self.)
+- Use State. when to render state vars and reference event handlers (do not use self.)
+
+- Code translated to React/JS runs in the user's browser
                 """
             ),
-            value="tab2",
+            value="tab1",
             padding_top="1em",
         ),
         rx.tabs.content(
@@ -89,11 +93,13 @@ def tabs():
 
 - Use if statements and for loops
 
-- Use self. to call state class variables
+- Use self. to access state variables for the current session
+
+- Code runs directly on the server
 
                 """
             ),
-            value="tab1",
+            value="tab2",
             padding_top="1em",
         ),
         rx.tabs.content(
@@ -161,7 +167,7 @@ rx.vstack(
     def decrement(self):
         self.count -= 1""",
         background=rx.cond(
-            IntroTabsState.value == "tab1",
+            IntroTabsState.value == "tab2",
             rx.color('violet', 3),
             "transparent",
         ),
@@ -172,7 +178,7 @@ rx.vstack(
                 }
             },
         border=rx.cond(
-            IntroTabsState.value == "tab1",
+            IntroTabsState.value == "tab2",
             f"2px solid {rx.color('violet', 9)}",
             "none"
         ),
@@ -200,12 +206,12 @@ rx.vstack(
                 }
             },
         border=rx.cond(
-            IntroTabsState.value == "tab2",
+            IntroTabsState.value == "tab1",
             f"2px solid {rx.color('violet', 9)}",
             "none",
         ),
         background=rx.cond(
-            IntroTabsState.value == "tab2",
+            IntroTabsState.value == "tab1",
             rx.color('violet', 3),
             "transparent",
         )
