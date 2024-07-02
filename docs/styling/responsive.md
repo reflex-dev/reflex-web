@@ -32,7 +32,7 @@ rx.text(
 )
 ```
 
-You can also specify custom values per component using a dictionary instead of named parameters.
+Custom breakpoints in CSS units can be mapped to values per component using a dictionary instead of named parameters.
 
 ```python
 rx.text(
