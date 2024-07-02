@@ -93,6 +93,10 @@ redirects = [
     ("/docs/library/other", "/docs/library/other/html"),
     ("/docs/library/theming/theme", "/docs/library/other/theme"),
     ("/docs/library/theming/theme-panel", "/docs/library/other/theme"),
+    ("/docs/library/layout/foreach", "/docs/library/dynamic-rendering/foreach"),
+    ("/docs/library/layout/match", "/docs/library/dynamic-rendering/match"),
+    ("/docs/library/layout/cond", "/docs/library/dynamic-rendering/cond"),
+
 ]
 
 for source, target in redirects:
