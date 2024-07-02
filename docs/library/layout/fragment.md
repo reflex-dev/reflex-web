@@ -20,3 +20,7 @@ rx.fragment(
     rx.text("Component2")
 )
 ```
+
+
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=3196&end=3340
+```

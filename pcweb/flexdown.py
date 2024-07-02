@@ -300,7 +300,8 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                 rx.chakra.accordion_button(
                     rx.hstack(
                         #rx.markdown(title) if title else self.render_fn(content=content),
-                        rx.markdown("Video Description"),
+                        #rx.markdown("Video Description"),
+                        rx.markdown(title) if title else rx.markdown("Video Description"),
                         rx.spacer(),
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",

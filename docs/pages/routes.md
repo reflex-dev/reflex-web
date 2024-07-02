@@ -42,6 +42,9 @@ In this example we create three pages:
 # Index is a special exception where it is available at both `/` and `/index`. All other pages are only available at their specified route.
 ```
 
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=3853&end=4083
+```
+
 ## Page Decorator
 
 You can also use the `@rx.page` decorator to add a page.
@@ -78,6 +81,9 @@ You can also provide local links to other pages in your project without writing 
 rx.link("Example", href="/docs/library",)
 ```
 Check out the docs [here]({library.typography.link.path}) to learn more.
+
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=4083&end=4423
+```
 
 ### Redirect
 
@@ -118,6 +124,9 @@ def redirect_example():
     )
 ```
 
+
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=4423&end=4903
+```
 
 
 

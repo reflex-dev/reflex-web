@@ -167,6 +167,9 @@ def form_example():
 # When using the form you must include a button or input with `type='submit'`.
 ```
 
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=5287&end=6040
+```
+
 ## Dynamic Forms
 
 Forms can be dynamically created by iterating through state vars using `rx.foreach`.
