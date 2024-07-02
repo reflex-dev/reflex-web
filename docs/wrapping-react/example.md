@@ -34,7 +34,7 @@ For this tutorial we will wrap three components from Reactflow: `ReactFlow`, `Ba
 
 Here we will define the `tag` and the `vars` that we will need to use the component.
 
-For this tutorial we will define `EventHandler` props `on_edges_change` and `on_connect`, but you can find all the events that the component triggers in the [reactflow docs](https://reactflow.dev/docs/api/react-flow-props/#onnodeschange).
+For this tutorial we will define `EventHandler` props `on_nodes_change` and `on_connect`, but you can find all the events that the component triggers in the [reactflow docs](https://reactflow.dev/docs/api/react-flow-props/#onnodeschange).
 
 ```python
 from reflex import Component, EventHandler, Var
@@ -59,7 +59,7 @@ class ReactFlow(ReactFlowLib):
 
     nodes_focusable: Var[bool]
 
-    on_edges_change: EventHandler[lambda e0: [e0]]
+    on_nodes_change: EventHandler[lambda e0: [e0]]
 
     on_connect: EventHandler[lambda e0: [e0]]
 ```
@@ -108,6 +108,7 @@ Lets start by defining the initial nodes and edges that we will use in our app.
 import reflex as rx
 from .react_flow import react_flow, background, controls
 import random
+from collections import defaultdict
 from typing import Any, Dict, List
 
 
@@ -137,9 +138,9 @@ initial_edges = [
 ]
 ```
 
-Next we will define the state of our app. We have three event handlers: `add_random_node`, `clear_graph`, and `on_edges_change`.
+Next we will define the state of our app. We have four event handlers: `add_random_node`, `clear_graph`, `on_connect` and `on_nodes_change`.
 
-The `on_edges_change` event handler will be called when an edge is changed. In this case we will use it to delete an edge if it already exists, and add the new edge. It takes in a single argument `new_edge` which is a dictionary containing the `source` and `target` of the edge.
+The `on_nodes_change` event handler is triggered when a node is selected and dragged. This function is used to update the position of a node during dragging. It takes a single argument `node_changes`, which is a list of dictionaries containing various types of metadata. For updating positions, the function specifically processes changes of type `position`.
 
 ```python
 class State(rx.State):
@@ -168,7 +169,7 @@ class State(rx.State):
         self.nodes = []  # Clear the nodes list
         self.edges = []  # Clear the edges list
 
-    def on_edges_change(self, new_edge):
+    def on_connect(self, new_edge):
         # Iterate over the existing edges
         for i, edge in enumerate(self.edges):
             # If we find an edge with the same ID as the new edge
@@ -185,6 +186,21 @@ class State(rx.State):
             "label": random.choice(["+", "-", "*", "/"]),
             "animated": True,
         })
+
+    def on_nodes_change(self, node_changes: List[Dict[str, Any]]):
+        # Receives a list of Nodes in case of events like dragging
+        map_id_to_new_position = defaultdict(dict)
+
+        # Loop over the changes and store the new position
+        for change in node_changes:
+            if change["type"] == "position" and change.get("dragging") == True:
+                map_id_to_new_position[change["id"]] = change["position"]
+
+        # Loop over the nodes and update the position
+        for i, node in enumerate(self.nodes):
+            if node["id"] in map_id_to_new_position:
+                new_position = map_id_to_new_position[node["id"]]
+                self.nodes[i]["position"] = new_position
 ```
 
 Now lets define the UI of our app. We will use the `react_flow` component and pass in the `nodes` and `edges` from our state. We will also add the `on_connect` event handler to the `react_flow` component to handle when an edge is connected.
@@ -197,7 +213,8 @@ def index() -> rx.Component:
             controls(),
             nodes_draggable=True,
             nodes_connectable=True,
-            on_connect=lambda e0: State.on_edges_change(e0),
+            on_connect=lambda e0: State.on_connect(e0),
+            on_nodes_change=lambda e0: State.on_nodes_change(e0),
             nodes=State.nodes,
             edges=State.edges,
             fit_view=True,
@@ -221,6 +238,7 @@ app.add_page(index)
 import reflex as rx
 from reflex import Component, EventHandler, Var
 from typing import Any, Dict, List, Union
+from collections import defaultdict
 import random
 
 class ReactFlowLib(Component):
@@ -248,7 +266,7 @@ class ReactFlow(ReactFlowLib):
 
     nodes_focusable: Var[bool]
 
-    on_edges_change: EventHandler[lambda e0: [e0]]
+    on_nodes_change: EventHandler[lambda e0: [e0]]
 
     on_connect: EventHandler[lambda e0: [e0]]
 
@@ -325,7 +343,7 @@ class ReactFlowState(rx.State):
         self.nodes = []  # Clear the nodes list
         self.edges = []  # Clear the edges list
 
-    def on_edges_change(self, new_edge):
+    def on_connect(self, new_edge):
         # Iterate over the existing edges
         for i, edge in enumerate(self.edges):
             # If we find an edge with the same ID as the new edge
@@ -342,6 +360,21 @@ class ReactFlowState(rx.State):
             "label": random.choice(["+", "-", "*", "/"]),
             "animated": True,
         })
+
+    def on_nodes_change(self, node_changes: List[Dict[str, Any]]):
+        # Receives a list of Nodes in case of events like dragging
+        map_id_to_new_position = defaultdict(dict)
+
+        # Loop over the changes and store the new position
+        for change in node_changes:
+            if change["type"] == "position" and change.get("dragging") == True:
+                map_id_to_new_position[change["id"]] = change["position"]
+
+        # Loop over the nodes and update the position
+        for i, node in enumerate(self.nodes):
+            if node["id"] in map_id_to_new_position:
+                new_position = map_id_to_new_position[node["id"]]
+                self.nodes[i]["position"] = new_position
 ```
 
 Here is an example of the app running:
@@ -353,7 +386,8 @@ rx.vstack(
             controls(),
             nodes_draggable=True,
             nodes_connectable=True,
-            on_connect=lambda e0: ReactFlowState.on_edges_change(e0),
+            on_connect=lambda e0: ReactFlowState.on_connect(e0),
+            on_nodes_change=lambda e0: ReactFlowState.on_nodes_change(e0),
             nodes=ReactFlowState.nodes,
             edges=ReactFlowState.edges,
             fit_view=True,
