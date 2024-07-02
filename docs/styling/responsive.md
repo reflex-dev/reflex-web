@@ -6,7 +6,7 @@ import reflex as rx
 
 Reflex apps can be made responsive to look good on mobile, tablet, and desktop.
 
-You can pass a list of values to any style property to specify it's value on different screen sizes.
+You can pass a list of values to any style property to specify its value on different screen sizes.
 
 ```python demo
 rx.text(
@@ -17,14 +17,94 @@ rx.text(
 
 The text will change color based on your screen size. If you are on desktop, try changing the size of your browser window to see the color change.
 
+You can also use `rx.breakpoints`. Each size maps to a corresponding key, the value of each will be applied when the screen size is greater than or equal to the named breakpoint.
+
+```python demo
+rx.text(
+    "Hello World",
+    color=rx.breakpoints(
+        initial="orange",
+        sm="purple",
+        lg="green",
+    ),
+)
+```
+
+You can also specify custom values per component using a dictionary instead of named parameters.
+
+```python
+rx.text(
+    "Hello World",
+    color=rx.breakpoints({
+        "0px": "orange",
+        "48em": "purple",
+        "80em": "green",
+    }),
+)
+```
+
+For the Radix UI components' fields that supports responsive value, you can also use `rx.breakpoints` (note that custom breakpoints and list syntax aren't supported).
+
+```python demo
+rx.grid(
+    rx.foreach(
+        list(range(6)),
+        lambda _: rx.box(bg_color="#a7db76", height="100px", width="100px")
+    ),
+    columns=rx.breakpoints(
+        initial="2",
+        sm="4",
+        lg="6"
+    ),
+    spacing="4"
+)
+```
+
+## Setting Defaults
+
 The default breakpoints are shown below.
 
-```json
-"sm": '30em',
-"md": '48em',
-"lg": '62em',
-"xl": '80em',
-"2xl": '96em',
+```python eval
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Size"),
+            rx.table.column_header_cell("Width"),
+        ),
+    ),
+    rx.table.body(
+        rx.table.row(
+            rx.table.cell("initial"),
+            rx.table.cell("0px"),
+        ),
+        rx.table.row(
+            rx.table.cell("xs"),
+            rx.table.cell("30em"),
+        ),
+        rx.table.row(
+            rx.table.cell("sm"),
+            rx.table.cell("48em"),
+        ),
+        rx.table.row(
+            rx.table.cell("md"),
+            rx.table.cell("62em"),
+        ),
+        rx.table.row(
+            rx.table.cell("lg"),
+            rx.table.cell("80em"),
+        ),
+        rx.table.row(
+            rx.table.cell("xl"),
+            rx.table.cell("96em"),
+        ),
+    ),
+)
+```
+
+You can cusomize them using the style property.
+
+```python
+app = rx.App(style=\{"breakpoints": ["520px", "768px", "1024px", "1280px", "1640px"]\})
 ```
 
 ## Showing Components Based on Display
