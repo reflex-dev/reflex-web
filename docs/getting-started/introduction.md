@@ -35,9 +35,6 @@ No need to reach for a bunch of different tools. Reflex handles the user interfa
 
 Here, we go over a simple counter app that lets the user count up or down.
 
-<!-- TODO use radix components, to allow more concise styling - e.g. all them props -->
-
-
 
 ```python exec
 class CounterExampleState(rx.State):
@@ -74,14 +71,14 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """The frontend is built decratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.- Use Reflex components and var operations
+                """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.- Use Reflex components and var operations
 
 - Use `rx.cond` and `rx.foreach` (replaces if and for loops)
 
 - Use State. when referring to state class variables (do not use self.)
                 """
             ),
-            value="tab1",
+            value="tab2",
             padding_top="1em",
         ),
         rx.tabs.content(
@@ -96,13 +93,12 @@ def tabs():
 
                 """
             ),
-            value="tab2",
+            value="tab1",
             padding_top="1em",
         ),
         rx.tabs.content(
             rx.markdown(
-                """
-                Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
 
 - Start with a single page and scale to 100s of pages
                 """
