@@ -43,6 +43,7 @@ In this example we create three pages:
 ```
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=3853&end=4083
+# Video: Pages and URL Routes
 ```
 
 ## Page Decorator
@@ -84,6 +85,7 @@ Check out the docs [here]({library.typography.link.path}) to learn more.
 
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=4083&end=4423
+# Video: Link-based Navigation
 ```
 
 
@@ -127,6 +129,7 @@ def redirect_example():
 ```
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=4423&end=4903
+# Video: Redirecting to a New Page
 ```
 
 

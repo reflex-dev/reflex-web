@@ -7,7 +7,7 @@ import reflex as rx
 Layout components such as `rx.flex`, `rx.container`, `rx.box`, etc. are used to organize and structure the visual presentation of your application. This page gives a breakdown of when and how each of these components might be used.
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=3311&end=3853
-# Video Example of Laying Out the Main Content of a Page
+# Video: Example of Laying Out the Main Content of a Page
 ```
 
 ## Box

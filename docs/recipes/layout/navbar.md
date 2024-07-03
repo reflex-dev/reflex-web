@@ -12,7 +12,7 @@ Having a clear and consistent navigation structure can greatly improve the user 
 
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=2365&end=2627
-# Video Example of Using the Navbar Recipe
+# Video: Example of Using the Navbar Recipe
 ```
 
 ## Basic
