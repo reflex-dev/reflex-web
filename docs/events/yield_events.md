@@ -57,6 +57,10 @@ def progress_example():
 
 ```
 
+```md video https://youtube.com/embed/ITOZkzjtjUA?start=6463&end=6835
+# Video: Asyncio with Yield
+```
+
 ## Yielding Other Events
 
 Events can also yield other events. This is useful when you want to chain events together. To do this, you can yield the event handler function itself.
