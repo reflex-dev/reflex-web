@@ -36,7 +36,7 @@ We recommend always using type annotations for computed vars.
 
 ## Cached Vars
 
-A cached var, decorated as `@rx.cached_var` is a special type of computed var
+A cached var, decorated as `@rx.var(cache=True)` is a special type of computed var
 that is only recomputed when the other state vars it depends on change. This is
 useful for expensive computations, but in some cases it may not update when you
 expect it to.
@@ -54,7 +54,7 @@ class CachedVarState(rx.State):
     def increment_a(self):
         self.counter_a += 1
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def last_counter_a_update(self) -> str:
         # This is updated only when `counter_a` changes.
         return f"{self.counter_a} at {time.strftime('%H:%M:%S')}"
@@ -62,7 +62,7 @@ class CachedVarState(rx.State):
     def increment_b(self):
         self.counter_b += 1
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def last_counter_b_update(self) -> str:
         # This is updated only when `counter_b` changes.
         return f"{self.counter_b} at {time.strftime('%H:%M:%S')}"
