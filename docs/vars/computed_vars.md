@@ -40,6 +40,8 @@ A cached var, decorated as `@rx.var(cache=True)` is a special type of computed v
 that is only recomputed when the other state vars it depends on change. This is
 useful for expensive computations, but in some cases it may not update when you
 expect it to.
+Previous versions of Reflex had a `@rx.cached_var` decorator, which is now replaced
+by the new `cache` argument of `@rx.var`.
 
 ```python demo exec
 class CachedVarState(rx.State):
