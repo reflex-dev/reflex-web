@@ -3,8 +3,17 @@
 import inspect
 import os
 import re
-from typing import Any, Type, get_args, Literal, _GenericAlias
-
+from typing import (
+    Any,
+    Type,
+    get_args,
+    Literal,
+    _GenericAlias,
+    Union,
+    get_args,
+    get_origin,
+)
+from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
@@ -256,21 +265,50 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     if rx.utils.types._issubclass(prop.type_, rx.Var):
         # For vars, get the type of the var.
         type_ = rx.utils.types.get_args(type_)[0]
-    type_ = type_.__name__
+
+    type_name = type_.__name__
+    # Handle Union types.
+    if get_origin(type_) is Union:
+        type_name = f"Union[{', '.join(arg.__name__ for arg in get_args(type_))}]"
+
+    # Get the default value.
+    field = component.get_fields()[prop.name]
+    default_value = field.default if field.default is not None else "-"
 
     # Get the color of the prop.
-    color = TYPE_COLORS.get(type_, "gray")
+    color = TYPE_COLORS.get(type_name, "gray")
 
     # Return the docs for the prop.
     return [
-        rx.table.cell(rx.code(prop.name), padding_left="1em", justify="start"),
         rx.table.cell(
-            rx.badge(type_, color_scheme=color, variant="solid"),
+            rx.hstack(
+                rx.code(prop.name),
+                rx.tooltip(
+                    rx.icon(tag="info", size=15, color=rx.color("mauve", 11)),
+                    content=prop.description,
+                    side="top",
+                ),
+                spacing="2",
+                align="center",
+            ),
             padding_left="1em",
             justify="start",
         ),
-        rx.table.cell(markdown(prop.description), padding_left="1em", justify="start"),
-        rx.table.cell(render_select(prop, component, prop_dict), padding_left="1em", justify="start"),
+        rx.table.cell(
+            rx.badge(type_name, color_scheme=color, variant="solid"),
+            padding_left="1em",
+            justify="start",
+        ),
+        rx.table.cell(
+            rx.text(default_value),
+            padding_left="1em",
+            justify="start",
+        ),
+        rx.table.cell(
+            render_select(prop, component, prop_dict),
+            padding_left="1em",
+            justify="start",
+        ),
     ]
 
 
@@ -548,10 +586,8 @@ def generate_props(src, component, comp):
                             "Type", padding_left=padding_left, justify="start"
                         ),
                         rx.table.column_header_cell(
-                            "Description",
-                            padding_left=padding_left,
-                            justify="start",
-                            width="40%",
+                            "Default Value", 
+                            padding_left=padding_left, justify="start"
                         ),
                         rx.table.column_header_cell(
                             "Values", padding_left=padding_left, justify="start"
@@ -566,7 +602,6 @@ def generate_props(src, component, comp):
             max_height="20em",
         ),
     )
-
 
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
