@@ -40,7 +40,7 @@ def signup_default() -> rx.Component:
 				),
 				width="100%"
 			),
-			rx.button("Sign in", size="3", width="100%"),
+			rx.button("Register", size="3", width="100%"),
 			rx.center(
 				rx.text("Already registered?", size="3"),
 				rx.link("Sign in", href="#", size="3"),
@@ -92,7 +92,7 @@ def signup_default_icons() -> rx.Component:
 				),
 				width="100%"
 			),
-			rx.button("Sign in", size="3", width="100%"),
+			rx.button("Register", size="3", width="100%"),
 			rx.center(
 				rx.text("Already registered?", size="3"),
 				rx.link("Sign in", href="#", size="3"),
@@ -154,7 +154,7 @@ def signup_single_thirdparty() -> rx.Component:
 				),
 				width="100%"
 			),
-			rx.button("Sign in", size="3", width="100%"),
+			rx.button("Register", size="3", width="100%"),
 			rx.hstack(
 				rx.divider(margin="0"),
 				rx.text("Or continue with", white_space="nowrap", weight="medium"),
@@ -221,7 +221,7 @@ def signup_multiple_thirdparty() -> rx.Component:
 				),
 				width="100%"
 			),
-			rx.button("Sign in", size="3", width="100%"),
+			rx.button("Register", size="3", width="100%"),
 			rx.hstack(
 				rx.divider(margin="0"),
 				rx.text("Or continue with", white_space="nowrap", weight="medium"),
