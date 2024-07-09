@@ -271,13 +271,27 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     if get_origin(type_) is Union:
         type_name = f"Union[{', '.join(arg.__name__ for arg in get_args(type_))}]"
 
+    # Handle Dict types.
+    if get_origin(type_) is dict:
+        args = get_args(type_)
+        if args:
+            key_type = args[0].__name__ if len(args) > 0 else 'Any'
+            value_type = args[1].__name__ if len(args) > 1 else 'Any'
+            type_name = f"Dict[{key_type}, {value_type}]"
+        else:
+            type_name = "Dict"
     # Get the default value.
     field = component.get_fields()[prop.name]
     default_value = field.default if field.default is not None else "-"
 
+    # Format the default value if not a string.
+    if not isinstance(default_value, str):
+        default_value = str(default_value)
+        # Remove surrounding {` `} if present and replace with double quotes.
+        default_value = default_value.replace('{`', '"').replace('`}', '"')
+
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_name, "gray")
-
     # Return the docs for the prop.
     return [
         rx.table.cell(
@@ -310,7 +324,6 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             justify="start",
         ),
     ]
-
 
 EVENTS = {
     "on_focus": {
