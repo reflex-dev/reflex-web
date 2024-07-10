@@ -6,7 +6,7 @@ def component_grid():
     from pcweb.components.docpage.sidebar import get_component_link
     from pcweb.pages.docs import component_list, graphing_components
 
-    def generate_gallery(components):
+    def generate_gallery(components, prefix=""):
         sidebar = []
         for category in components:
             sidebar.append(
@@ -17,7 +17,7 @@ def component_grid():
                         *[
                             rx.link(
                                 rx.utils.format.to_title_case(c[0]),
-                                href=get_component_link(category, c),
+                                href=get_component_link(category, c, prefix=prefix),
                                 font_size="1em",
                                 color=rx.color("mauve", 12),
                                 _hover={"color": rx.color("violet", 9)},
@@ -37,7 +37,8 @@ def component_grid():
         return sidebar
     
     core = generate_gallery(component_list)
-    graphs = generate_gallery(graphing_components)
+    # add `graphing/` prefix when generating graphing components to assume the url `/docs/library/graphing/<category>/<component>`.
+    graphs = generate_gallery(graphing_components, prefix="graphing/")
 
     return rx.box(
         rx.chakra.responsive_grid(*core, columns=[1, 2, 2, 2, 3], gap=4),
