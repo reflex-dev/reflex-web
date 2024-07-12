@@ -283,7 +283,7 @@ def sidebar_category(name, url, icon, color, index):
     )
 
 
-def create_sidebar_section(section_title, items, index, url):
+def create_sidebar_section(section_title, section_url, items, index, url):
     return rx.flex(
         rx.link(
             section_title,
@@ -291,7 +291,7 @@ def create_sidebar_section(section_title, items, index, url):
             font_weight="600",
             padding_top="1em",
             padding_left="0.5em",
-            href=url,
+            href=section_url,
         ),
         rx.chakra.accordion(
             *[
@@ -350,10 +350,10 @@ def sidebar_comp(
             (
                 0,
                 rx.flex(
-                    create_sidebar_section("Onboarding", learn, learn_index, url),
-                    create_sidebar_section("UI", frontend, frontend_index, url),
-                    create_sidebar_section("State", backend, backend_index, url),
-                    create_sidebar_section("Hosting", hosting, hosting_index, url),
+                    create_sidebar_section("Onboarding", getting_started.introduction.path, learn, learn_index, url),
+                    create_sidebar_section("UI", ui.overview.path,  frontend, frontend_index, url),
+                    create_sidebar_section("State", state.overview.path, backend, backend_index, url),
+                    create_sidebar_section("Hosting", hosting_page.deploy_quick_start.path, hosting, hosting_index, url),
                     direction="column",
                 ),
             ),
@@ -361,13 +361,13 @@ def sidebar_comp(
                 1,
                 rx.flex(
                     create_sidebar_section(
-                        "Core", component_lib, component_lib_index, url
+                        "Core", library.path, component_lib, component_lib_index, url
                     ),
                     create_sidebar_section(
-                        "Graphing", graphing_libs, graphing_libs_index, url
+                        "Graphing", library.path, graphing_libs, graphing_libs_index, url
                     ),
                     create_sidebar_section(
-                        "Other Libraries", other_libs, other_libs_index, url
+                        "Other Libraries", library.path, other_libs, other_libs_index, url
                     ),
                     rx.link(
                         rx.vstack(
@@ -404,7 +404,7 @@ def sidebar_comp(
                 2,
                 rx.flex(
                     create_sidebar_section(
-                        "Recipes", recipes, recipes_index, url
+                        "Recipes", overview.path, recipes, recipes_index, url
                     ),
                     direction="column",
                 )
@@ -413,10 +413,10 @@ def sidebar_comp(
                 3,
                 rx.flex(
                     create_sidebar_section(
-                        "Reference", api_reference, api_reference_index, url
+                        "Reference", pages[0].path, api_reference, api_reference_index, url
                     ),
                     create_sidebar_section(
-                        "Tutorials", tutorials, tutorials_index, url
+                        "Tutorials", pages[0].path, tutorials, tutorials_index, url
                     ),
                     direction="column",
                 ),
