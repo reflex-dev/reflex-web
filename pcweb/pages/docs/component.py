@@ -77,13 +77,15 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     # Remove any trailing comments
     value = re.split(r'\s+#', value)[0].strip()
     
-    # Extract only the first argument of Var.create_safe
-    var_create_safe_match = re.search(r'Var\.create_safe\((.*?)(,|\))', value)
-    if var_create_safe_match:
-        value = var_create_safe_match.group(1).strip()
-    
-    return value.strip()
+    # Process Var.create_safe within dictionary
+    def process_var_create_safe(match):
+        content = match.group(1)
+        # Extract only the first argument
+        first_arg = re.split(r',', content)[0].strip()
+        return first_arg
 
+    value = re.sub(r'Var\.create_safe\((.*?)\)', process_var_create_safe, value)
+    
     return value.strip()
  
 class Source(Base):
@@ -133,8 +135,7 @@ class Source(Base):
         props = self.component.get_props()
         comments = []
 
-        i = 0
-        while i < len(self.code):
+        for i, line in enumerate(self.code):
             line = self.code[i]
 
             if re.search("def ", line):
@@ -174,8 +175,6 @@ class Source(Base):
                     description=comment,
                 )
             )
-            
-            i += 1
 
         return out
      
