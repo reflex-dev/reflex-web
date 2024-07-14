@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-07-08",
+            "v0.5.6",
+            "Fix hot-reload issues on Windows",
+            [
+                "rx.clipboard component for handling on_paste event",
+                "rx.breakpoints API for passing responsive CSS props",
+                "Fix ComponentState with backend vars issue",
+                "Fix sqlmodel metaclass conflict issue",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.6",
+        ),
+        change(
             "2024-06-24",
             "v0.5.5",
             "Support rx.SessionStorage as State Var",

@@ -147,3 +147,14 @@ error_message(
 )
 ```
 
+```python eval
+error_message(
+    heading="TypeError: metaclass conflict (SQLModel)",
+    error_code="TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases",
+    solution=[
+        rx.heading("This is caused by importing sqlmodel earlier than reflex."),
+        rx.text("👉 Ensure that reflex is imported before sqlmodel."),
+    ],
+    error_type="Python Error",
+)
+```
