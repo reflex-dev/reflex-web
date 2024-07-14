@@ -334,7 +334,7 @@ def sidebar_comp(
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.custom_components import custom_components
-    from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page
+    from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page, datatable_tutorial
     from pcweb.pages.docs.apiref import pages
 
 
@@ -416,7 +416,7 @@ def sidebar_comp(
                         "Reference", pages[0].path, api_reference, api_reference_index, url
                     ),
                     create_sidebar_section(
-                        "Tutorials", pages[0].path, tutorials, tutorials_index, url
+                        "Tutorials", datatable_tutorial.simple_table.path, tutorials, tutorials_index, url
                     ),
                     direction="column",
                 ),
