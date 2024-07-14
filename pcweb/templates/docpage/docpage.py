@@ -266,7 +266,7 @@ def get_headings(comp):
         return [(comp.level, heading_text)]
 
     # Recursively get the strings from the children.
-    if not hasattr(comp, "children"):
+    if not hasattr(comp, "children") or comp.children is None:
         return []
 
     headings = []
