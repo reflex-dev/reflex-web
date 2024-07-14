@@ -60,11 +60,11 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     if len(parts) != 2:
         return ''
     value = parts[1].strip()
-
+    
     # Check if the value is complete
     open_brackets = value.count('{') - value.count('}')
     open_parentheses = value.count('(') - value.count(')')
-
+    
     # If brackets or parentheses are not balanced, collect more lines
     current_index = start_index + 1
     while (open_brackets > 0 or open_parentheses > 0) and current_index < len(lines):
@@ -73,12 +73,16 @@ def get_default_value(lines: list[str], start_index: int) -> str:
         open_brackets += next_line.count('{') - next_line.count('}')
         open_parentheses += next_line.count('(') - next_line.count(')')
         current_index += 1
-
+    
     # Remove any trailing comments
     value = re.split(r'\s+#', value)[0].strip()
-
-    # Remove Var.create_safe
-    value = re.sub(r'Var\.create_safe\((.*?)\)', r'\1', value)
+    
+    # Extract only the first argument of Var.create_safe
+    var_create_safe_match = re.search(r'Var\.create_safe\((.*?)(,|\))', value)
+    if var_create_safe_match:
+        value = var_create_safe_match.group(1).strip()
+    
+    return value.strip()
 
     return value.strip()
  
