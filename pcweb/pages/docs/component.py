@@ -39,10 +39,49 @@ class Prop(Base):
     # The description of the prop.
     description: str
 
+    # The default value of the prop.
+    default_value: str
+
 
 from reflex.components.el.elements.base import BaseHTML
+import re
 
+def get_default_value(lines: list[str], start_index: int) -> str:
+    """Process lines of code to get the value of a prop, handling multi-line values.
+    Args:
+    lines: The lines of code to process.
+    start_index: The index of the line where the prop is defined.
+    Returns:
+    The default value of the prop.
+    """
+    # Get the initial line
+    line = lines[start_index]
+    parts = line.split('=', 1)
+    if len(parts) != 2:
+        return ''
+    value = parts[1].strip()
 
+    # Check if the value is complete
+    open_brackets = value.count('{') - value.count('}')
+    open_parentheses = value.count('(') - value.count(')')
+
+    # If brackets or parentheses are not balanced, collect more lines
+    current_index = start_index + 1
+    while (open_brackets > 0 or open_parentheses > 0) and current_index < len(lines):
+        next_line = lines[current_index].strip()
+        value += ' ' + next_line
+        open_brackets += next_line.count('{') - next_line.count('}')
+        open_parentheses += next_line.count('(') - next_line.count(')')
+        current_index += 1
+
+    # Remove any trailing comments
+    value = re.split(r'\s+#', value)[0].strip()
+
+    # Remove Var.create_safe
+    value = re.sub(r'Var\.create_safe\((.*?)\)', r'\1', value)
+
+    return value.strip()
+ 
 class Source(Base):
     """Parse the source code of a component."""
 
@@ -83,71 +122,59 @@ class Source(Base):
         if parent_cls != rx.Component and parent_cls != BaseHTML:
             props += Source(component=parent_cls).get_props()
 
-        return props
+        return props 
 
     def _get_props(self) -> list[Prop]:
-        """Get a dictionary of the props and their descriptions.
-
-        Returns:
-            A dictionary of the props and their descriptions.
-        """
-        # The output.
         out = []
-
-        # Get the props for this component.
         props = self.component.get_props()
-
         comments = []
-        # Loop through the source code.
-        for i, line in enumerate(self.code):
-            # Check if we've reached the functions.
-            reached_functions = re.search("def ", line)
-            if reached_functions:
-                # We've reached the functions, so stop.
+
+        i = 0
+        while i < len(self.code):
+            line = self.code[i]
+
+            if re.search("def ", line):
                 break
 
-            # Get comments for prop
             if line.strip().startswith("#"):
                 comments.append(line)
+                i += 1
                 continue
 
-            # Check if this line has a prop.
             match = re.search(r"\w+:", line)
             if match is None:
-                # This line doesn't have a var, so continue.
+                i += 1
                 continue
 
-            # Get the prop.
             prop = match.group(0).strip(":")
             if prop not in props:
-                # This isn't a prop, so continue.
+                i += 1
                 continue
 
-            # redundant check just to double-check line above prop is a comment
-            comment_above = self.code[i - 1].strip()
-            assert comment_above.startswith(
-                "#"
-            ), f"Expected comment, got {comment_above}"
+            default_value = get_default_value(self.code, i)
 
-            # Get the comment for this prop.
+            if i > 0:
+                comment_above = self.code[i - 1].strip()
+                assert comment_above.startswith("#"), f"Expected comment, got {comment_above}"
+
             comment = Source.get_comment(comments)
-            # reset comments
             comments.clear()
 
-            # Get the type of the prop.
             type_ = self.component.get_fields()[prop].outer_type_
-
-            # Add the prop to the output.
+            
             out.append(
                 Prop(
                     name=prop,
                     type_=type_,
+                    default_value=default_value,
                     description=comment,
                 )
             )
+            
+            i += 1
 
-        # Return the output.
         return out
+     
 
     @staticmethod
     def get_comment(comments: list[str]):
@@ -280,15 +307,9 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             type_name = f"Dict[{key_type}, {value_type}]"
         else:
             type_name = "Dict"
-    # Get the default value.
-    field = component.get_fields()[prop.name]
-    default_value = field.default if field.default is not None else "-"
 
-    # Format the default value if not a string.
-    if not isinstance(default_value, str):
-        default_value = str(default_value)
-        # Remove surrounding {` `} if present and replace with double quotes.
-        default_value = default_value.replace('{`', '"').replace('`}', '"')
+    # Get the default value.
+    default_value = prop.default_value if prop.default_value is not None else "-"
 
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_name, "gray")
@@ -309,12 +330,18 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             justify="start",
         ),
         rx.table.cell(
-            rx.badge(type_name, color_scheme=color, variant="solid"),
+            rx.badge(type_name, color_scheme=color, variant="soft"),
             padding_left="1em",
             justify="start",
         ),
         rx.table.cell(
-            rx.text(default_value),
+            rx.flex(
+                rx.badge(
+                    default_value, 
+                    bg=rx.color("gray", 3),
+                    color=rx.color("gray", 11),
+                )
+            ),
             padding_left="1em",
             justify="start",
         ),

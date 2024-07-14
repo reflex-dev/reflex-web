@@ -40,3 +40,4 @@ class SidebarState(rx.State):
             else:
                 return 0
         return self._sidebar_index
+ 
