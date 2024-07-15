@@ -6,7 +6,6 @@ from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import vars
-from reflex_image_zoom import image_zoom
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -36,9 +35,6 @@ No need to reach for a bunch of different tools. Reflex handles the user interfa
 
 Here, we go over a simple counter app that lets the user count up or down.
 
-<!-- TODO use radix components, to allow more concise styling - e.g. all them props -->
-
-
 
 ```python exec
 class CounterExampleState(rx.State):
@@ -50,6 +46,74 @@ class CounterExampleState(rx.State):
     def decrement(self):
         self.count -= 1
 
+class IntroTabsState(rx.State):
+    """The app state."""
+
+    value = "tab1"
+    tab_selected = ""
+
+    def change_value(self, val):
+        self.tab_selected = f"{val} clicked!"
+        self.value = val
+
+def tabs():
+    return rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger(
+                "Frontend", value="tab1"
+            ),
+            rx.tabs.trigger(
+                "Backend", value="tab2"
+            ),
+            rx.tabs.trigger(
+                "Page", value="tab3"
+            ),
+        ),
+        rx.tabs.content(
+            rx.markdown(
+                """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.
+                
+- Use Reflex components and var operations
+
+- Use `rx.cond` and `rx.foreach` (replaces if and for loops)
+
+- Use State. when referring to state class variables (do not use self.)
+                """
+            ),
+            value="tab1",
+            padding_top="1em",
+        ),
+        rx.tabs.content(
+            rx.markdown(
+                """Write your backend in Python. In the State class, you can define functions and variables that can be referenced in the frontend.
+
+- Use any Python function or Library
+
+- Use if statements and for loops
+
+- Use self. to call state class variables
+
+                """
+            ),
+            value="tab2",
+            padding_top="1em",
+        ),
+        rx.tabs.content(
+            rx.markdown(
+                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+
+- Start with a single page and scale to 100s of pages
+                """
+            ),
+            value="tab3",
+            padding_top="1em",
+        ),
+        default_value="tab1",
+        value=IntroTabsState.value,
+        on_change=lambda x: IntroTabsState.change_value(
+            x
+        ),
+    )
 ```
 
 
@@ -72,20 +136,51 @@ rx.hstack(
 
 Here is the full code for this example:
 
-```python
-import reflex as rx
+```python eval
+tabs()
+```
 
 
-class State(rx.State):
+```python demo box
+rx.vstack(
+    rx.code_block(
+        """import reflex as rx """,
+        background="transparent",
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+    ),
+    rx.code_block(
+        """class State(rx.State):
     count: int = 0
 
     def increment(self):
         self.count += 1
 
     def decrement(self):
-        self.count -= 1
-
-def index():
+        self.count -= 1""",
+        background=rx.cond(
+            IntroTabsState.value == "tab2",
+            rx.color('violet', 3),
+            "transparent",
+        ),
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab2",
+            f"2px solid {rx.color('violet', 9)}",
+            "none"
+        ),
+    ),
+    rx.code_block(
+        """def index():
     return rx.hstack(
         rx.button(
             "Decrement",
@@ -99,21 +194,54 @@ def index():
             on_click=State.increment,
         ),
         spacing="4",
-    )
-
-
-app = rx.App()
-app.add_page(index)
+    )""",
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab1",
+            f"2px solid {rx.color('violet', 9)}",
+            "none",
+        ),
+        background=rx.cond(
+            IntroTabsState.value == "tab1",
+            rx.color('violet', 3),
+            "transparent",
+        )
+    ),
+    rx.code_block(
+        """app = rx.App()
+app.add_page(index)""",
+        background=rx.cond(
+            IntroTabsState.value == "tab3",
+            rx.color('violet', 3),
+            "transparent",
+        ),
+        width="100%",
+        code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+        border=rx.cond(
+            IntroTabsState.value == "tab3",
+            f"2px solid {rx.color('violet', 9)}",
+            "none",
+        ),
+    ),
+    align_items="start",
+    width="100%",
+)
 ```
+
 
 
 ## The Structure of a Reflex App
 
 Let's break this example down.
-
-```python eval
-image_zoom(rx.image(src="/counter_example_color_coded.png"))
-```
 
 ### Import
 
@@ -133,8 +261,6 @@ class State(rx.State):
 The state defines all the variables (called **[vars]({vars.base_vars.path})**) in an app that can change, as well as the functions (called **[event_handlers](#event-handlers)**) that change them.
 
 Here our state has a single var, `count`, which holds the current value of the counter. We initialize it to `0`.
-
-Anything defined in state is created per user that uses the app. Anything that is global, i.e. instantiating an API key, that must only be done once for the whole app should not be done inside the state class.
 
 ### Event Handlers
 
@@ -230,4 +356,4 @@ By continuing with our documentation, you will learn how to building awesome app
 For a glimpse of the possibilities, check out these resources:
 
 * For a more real-world example, check out the [tutorial]({tutorial.intro.path}).
-* We have bots that can answer questions and generate Reflex code for you, check them out in #ask-ui and #ask-ai in our [Discord]({constants.DISCORD_URL})! 
+* We have bots that can answer questions and generate Reflex code for you, check them out in #ask-ui and #ask-ai in our [Discord]({constants.DISCORD_URL})!
