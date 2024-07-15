@@ -5,6 +5,7 @@ from pcweb.pages.docs import tutorial
 from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
+from pcweb.pages.docs import  pages
 from pcweb.pages.docs import vars
 ```
 
@@ -91,7 +92,7 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+                f"""Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing]({pages.routes.path}) section for more information.
 
 - Start with a single page and scale to 100s of pages.
                 """
