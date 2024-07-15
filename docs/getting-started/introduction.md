@@ -71,13 +71,11 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """The frontend is built declaratively using Reflex components. These component can be nested and customized to create complex layouts and interactions. More information can be found in the [Reflex Components](/docs/components) section.
-                
-- Use Reflex components and var operations
+                """The frontend is built declaratively using Reflex components. Components are compiled down to JS and served to the users browser, therefore:
 
-- Use `rx.cond` and `rx.foreach` (replaces if and for loops)
+- Only use Reflex components, vars, and var operations when building your UI. Any other logic should be put in your `State` (backend).
 
-- Use State. when referring to state class variables (do not use self.)
+- Use `rx.cond` and `rx.foreach` (replaces if statements and for loops), for creating dynamic UIs.
                 """
             ),
             value="tab1",
@@ -85,14 +83,7 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """Write your backend in Python. In the State class, you can define functions and variables that can be referenced in the frontend.
-
-- Use any Python function or Library
-
-- Use if statements and for loops
-
-- Use self. to call state class variables
-
+                """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caviots. Here you can use any Python external library and call any method/function.
                 """
             ),
             value="tab2",
@@ -100,7 +91,7 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
+                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them.
 
 - Start with a single page and scale to 100s of pages
                 """
