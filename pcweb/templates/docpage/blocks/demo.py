@@ -154,15 +154,12 @@ def docdemo(
 
 
 tab_style = {
-    "color": "#494369",
+    "color": rx.color('mauve', 10),
+    "border": f"1px solid {rx.color('mauve', 4)}",
+    "bg": rx.color('mauve', 2),
     "font_weight": 600,
-    "_selected": {
-        "color": "#5646ED",
-        "bg": "#F5EFFE",
-        "padding_x": "0.5em",
-        "padding_y": "0.25em",
-        "border_radius": "8px",
-    },
+    "padding_x": "0.5em",
+    "padding_y": "0.25em",
 }
 
 
@@ -172,31 +169,39 @@ def docgraphing(
     data: str | None = None,
 ):
     return rx.vstack(
-        rx.flex(
-            comp,
-            style=demo_box_style,
-        ),
-        rx.chakra.tabs(
-            rx.chakra.tab_list(
-                rx.chakra.tab("Code", style=tab_style),
-                rx.chakra.tab("Data", style=tab_style),
-                padding_x=0,
-            ),
-            rx.chakra.tab_panels(
-                rx.chakra.tab_panel(
-                    doccode(code), width="100%", padding_x=0, padding_y=".25em"
-                ),
-                rx.chakra.tab_panel(
-                    doccode(data or ""), width="100%", padding_x=0, padding_y=".25em"
-                ),
-                width="100%",
-            ),
-            variant="unstyled",
-            color_scheme="purple",
-            align="end",
-            width="100%",
-        ),
-        width="100%",
-        padding_top="2em",
-        padding_bottom="2em",
-    )
+        rx.segmented_control.root(
+         ),
+         rx.tabs.root(
+             rx.tabs.list(
+                 rx.tabs.trigger(
+                     "Code",
+                     value="code",
+                     border_right="none",
+                     border_radius= "8px 0px 0 0",
+                     style=tab_style
+                 ),
+                 rx.tabs.trigger(
+                     "Data",
+                     value="data",
+                     border_radius= "0px 8px 0 0",
+                     style=tab_style
+                 ),
+                 justify_content="end",
+             ),
+             rx.box(
+                 rx.tabs.content(
+                     doccode(code), width="100%", padding_x=0, padding_y=".25em", value="code"
+                 ),
+                 rx.tabs.content(
+                     doccode(data or ""), width="100%", padding_x=0, padding_y=".25em", value="data"
+                 ),
+                 width="100%",
+             ),
+             default_value="code",
+             align="end",
+             width="100%",
+         ),
+         width="100%",
+         padding_y="1em",
+         spacing="0",
+     )
