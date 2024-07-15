@@ -91,9 +91,9 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them.
+                """Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing](/docs/routing) section for more information.
 
-- Start with a single page and scale to 100s of pages
+- Start with a single page and scale to 100s of pages.
                 """
             ),
             value="tab3",
