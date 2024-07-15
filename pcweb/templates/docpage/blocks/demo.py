@@ -154,7 +154,7 @@ def docdemo(
 
 
 tab_style = {
-    "color": rx.color('mauve', 10),
+    "color": rx.color('mauve', 9),
     "border": f"1px solid {rx.color('mauve', 4)}",
     "bg": rx.color('mauve', 2),
     "font_weight": 600,
