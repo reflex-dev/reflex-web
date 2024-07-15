@@ -169,8 +169,6 @@ def docgraphing(
     data: str | None = None,
 ):
     return rx.vstack(
-        rx.segmented_control.root(
-         ),
          rx.tabs.root(
              rx.tabs.list(
                  rx.tabs.trigger(
