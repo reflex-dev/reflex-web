@@ -169,6 +169,10 @@ def docgraphing(
     data: str | None = None,
 ):
     return rx.vstack(
+        rx.flex(
+            comp,
+            style=demo_box_style,
+        ),
          rx.tabs.root(
              rx.tabs.list(
                  rx.tabs.trigger(
