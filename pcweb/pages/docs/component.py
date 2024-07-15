@@ -48,11 +48,13 @@ import re
 
 def get_default_value(lines: list[str], start_index: int) -> str:
     """Process lines of code to get the value of a prop, handling multi-line values.
+
     Args:
-    lines: The lines of code to process.
-    start_index: The index of the line where the prop is defined.
+        lines: The lines of code to process.
+        start_index: The index of the line where the prop is defined.
+        
     Returns:
-    The default value of the prop.
+        The default value of the prop.
     """
     # Get the initial line
     line = lines[start_index]
@@ -85,6 +87,7 @@ def get_default_value(lines: list[str], start_index: int) -> str:
         return first_arg
 
     value = re.sub(r'Var\.create_safe\((.*?)\)', process_var_create_safe, value)
+    value= re.sub(r'\bColor\s*\(', 'rx.color(', value)
     
     return value.strip()
  
@@ -131,6 +134,11 @@ class Source(Base):
         return props 
 
     def _get_props(self) -> list[Prop]:
+        """Get a dictionary of the props and their descriptions.
+
+        Returns:
+            A dictionary of the props and their descriptions.
+        """
         out = []
         props = self.component.get_props()
         comments = []
@@ -143,17 +151,14 @@ class Source(Base):
 
             if line.strip().startswith("#"):
                 comments.append(line)
-                i += 1
                 continue
 
             match = re.search(r"\w+:", line)
             if match is None:
-                i += 1
                 continue
 
             prop = match.group(0).strip(":")
             if prop not in props:
-                i += 1
                 continue
 
             default_value = get_default_value(self.code, i)
