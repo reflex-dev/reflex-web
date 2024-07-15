@@ -3,8 +3,17 @@
 import inspect
 import os
 import re
-from typing import Any, Type, get_args, Literal, _GenericAlias
-
+from typing import (
+    Any,
+    Type,
+    get_args,
+    Literal,
+    _GenericAlias,
+    Union,
+    get_args,
+    get_origin,
+)
+from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
@@ -30,10 +39,58 @@ class Prop(Base):
     # The description of the prop.
     description: str
 
+    # The default value of the prop.
+    default_value: str
+
 
 from reflex.components.el.elements.base import BaseHTML
+import re
 
+def get_default_value(lines: list[str], start_index: int) -> str:
+    """Process lines of code to get the value of a prop, handling multi-line values.
 
+    Args:
+        lines: The lines of code to process.
+        start_index: The index of the line where the prop is defined.
+        
+    Returns:
+        The default value of the prop.
+    """
+    # Get the initial line
+    line = lines[start_index]
+    parts = line.split('=', 1)
+    if len(parts) != 2:
+        return ''
+    value = parts[1].strip()
+    
+    # Check if the value is complete
+    open_brackets = value.count('{') - value.count('}')
+    open_parentheses = value.count('(') - value.count(')')
+    
+    # If brackets or parentheses are not balanced, collect more lines
+    current_index = start_index + 1
+    while (open_brackets > 0 or open_parentheses > 0) and current_index < len(lines):
+        next_line = lines[current_index].strip()
+        value += ' ' + next_line
+        open_brackets += next_line.count('{') - next_line.count('}')
+        open_parentheses += next_line.count('(') - next_line.count(')')
+        current_index += 1
+    
+    # Remove any trailing comments
+    value = re.split(r'\s+#', value)[0].strip()
+    
+    # Process Var.create_safe within dictionary
+    def process_var_create_safe(match):
+        content = match.group(1)
+        # Extract only the first argument
+        first_arg = re.split(r',', content)[0].strip()
+        return first_arg
+
+    value = re.sub(r'Var\.create_safe\((.*?)\)', process_var_create_safe, value)
+    value= re.sub(r'\bColor\s*\(', 'rx.color(', value)
+    
+    return value.strip()
+ 
 class Source(Base):
     """Parse the source code of a component."""
 
@@ -74,7 +131,7 @@ class Source(Base):
         if parent_cls != rx.Component and parent_cls != BaseHTML:
             props += Source(component=parent_cls).get_props()
 
-        return props
+        return props 
 
     def _get_props(self) -> list[Prop]:
         """Get a dictionary of the props and their descriptions.
@@ -82,63 +139,50 @@ class Source(Base):
         Returns:
             A dictionary of the props and their descriptions.
         """
-        # The output.
         out = []
-
-        # Get the props for this component.
         props = self.component.get_props()
-
         comments = []
-        # Loop through the source code.
+
         for i, line in enumerate(self.code):
-            # Check if we've reached the functions.
-            reached_functions = re.search("def ", line)
-            if reached_functions:
-                # We've reached the functions, so stop.
+            line = self.code[i]
+
+            if re.search("def ", line):
                 break
 
-            # Get comments for prop
             if line.strip().startswith("#"):
                 comments.append(line)
                 continue
 
-            # Check if this line has a prop.
             match = re.search(r"\w+:", line)
             if match is None:
-                # This line doesn't have a var, so continue.
                 continue
 
-            # Get the prop.
             prop = match.group(0).strip(":")
             if prop not in props:
-                # This isn't a prop, so continue.
                 continue
 
-            # redundant check just to double-check line above prop is a comment
-            comment_above = self.code[i - 1].strip()
-            assert comment_above.startswith(
-                "#"
-            ), f"Expected comment, got {comment_above}"
+            default_value = get_default_value(self.code, i)
 
-            # Get the comment for this prop.
+            if i > 0:
+                comment_above = self.code[i - 1].strip()
+                assert comment_above.startswith("#"), f"Expected comment, got {comment_above}"
+
             comment = Source.get_comment(comments)
-            # reset comments
             comments.clear()
 
-            # Get the type of the prop.
             type_ = self.component.get_fields()[prop].outer_type_
-
-            # Add the prop to the output.
+            
             out.append(
                 Prop(
                     name=prop,
                     type_=type_,
+                    default_value=default_value,
                     description=comment,
                 )
             )
 
-        # Return the output.
         return out
+     
 
     @staticmethod
     def get_comment(comments: list[str]):
@@ -256,23 +300,65 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     if rx.utils.types._issubclass(prop.type_, rx.Var):
         # For vars, get the type of the var.
         type_ = rx.utils.types.get_args(type_)[0]
-    type_ = type_.__name__
+
+    type_name = type_.__name__
+    # Handle Union types.
+    if get_origin(type_) is Union:
+        type_name = f"Union[{', '.join(arg.__name__ for arg in get_args(type_))}]"
+
+    # Handle Dict types.
+    if get_origin(type_) is dict:
+        args = get_args(type_)
+        if args:
+            key_type = args[0].__name__ if len(args) > 0 else 'Any'
+            value_type = args[1].__name__ if len(args) > 1 else 'Any'
+            type_name = f"Dict[{key_type}, {value_type}]"
+        else:
+            type_name = "Dict"
+
+    # Get the default value.
+    default_value = prop.default_value if prop.default_value is not None else "-"
 
     # Get the color of the prop.
-    color = TYPE_COLORS.get(type_, "gray")
-
+    color = TYPE_COLORS.get(type_name, "gray")
     # Return the docs for the prop.
     return [
-        rx.table.cell(rx.code(prop.name), padding_left="1em", justify="start"),
         rx.table.cell(
-            rx.badge(type_, color_scheme=color, variant="solid"),
+            rx.hstack(
+                rx.code(prop.name),
+                rx.tooltip(
+                    rx.icon(tag="info", size=15, color=rx.color("mauve", 11)),
+                    content=prop.description,
+                    side="top",
+                ),
+                spacing="2",
+                align="center",
+            ),
             padding_left="1em",
             justify="start",
         ),
-        rx.table.cell(markdown(prop.description), padding_left="1em", justify="start"),
-        rx.table.cell(render_select(prop, component, prop_dict), padding_left="1em", justify="start"),
+        rx.table.cell(
+            rx.badge(type_name, color_scheme=color, variant="soft"),
+            padding_left="1em",
+            justify="start",
+        ),
+        rx.table.cell(
+            rx.flex(
+                rx.badge(
+                    default_value, 
+                    bg=rx.color("gray", 3),
+                    color=rx.color("gray", 11),
+                )
+            ),
+            padding_left="1em",
+            justify="start",
+        ),
+        rx.table.cell(
+            render_select(prop, component, prop_dict),
+            padding_left="1em",
+            justify="start",
+        ),
     ]
-
 
 EVENTS = {
     "on_focus": {
@@ -548,10 +634,8 @@ def generate_props(src, component, comp):
                             "Type", padding_left=padding_left, justify="start"
                         ),
                         rx.table.column_header_cell(
-                            "Description",
-                            padding_left=padding_left,
-                            justify="start",
-                            width="40%",
+                            "Default Value", 
+                            padding_left=padding_left, justify="start"
                         ),
                         rx.table.column_header_cell(
                             "Values", padding_left=padding_left, justify="start"
@@ -566,7 +650,6 @@ def generate_props(src, component, comp):
             max_height="20em",
         ),
     )
-
 
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
