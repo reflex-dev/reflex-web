@@ -347,4 +347,4 @@ By continuing with our documentation, you will learn how to building awesome app
 For a glimpse of the possibilities, check out these resources:
 
 * For a more real-world example, check out the [tutorial]({tutorial.intro.path}).
-* We have bots that can answer questions and generate Reflex code for you, check them out in #ask-ui and #ask-ai in our [Discord]({constants.DISCORD_URL})!
+* We have bots that can answer questions and generate Reflex code for you. Check them out in #ask-ui and #ask-ai in our [Discord]({constants.DISCORD_URL})!
