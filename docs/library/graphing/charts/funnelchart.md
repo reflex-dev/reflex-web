@@ -7,6 +7,7 @@ components:
 ```python exec
 import reflex as rx
 import random
+rx.toast.provider()
 ```
 
 # Funnel Chart
