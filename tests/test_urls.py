@@ -45,7 +45,6 @@ def check_urls(repo_dir):
                                     f"Found insecure HTTP URL: {url} in {file_path}"
                                 )
                             url = url.strip('"\n\'')
-                            print(url)
                             try:
                                 response = requests.head(
                                     url, allow_redirects=False, timeout=5
