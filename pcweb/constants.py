@@ -1,7 +1,7 @@
 # pcweb constants.
 
 # pcweb urls.
-REFLEX_URL = "https://reflex.dev"
+REFLEX_URL = "https://reflex.dev/"
 PYNECONE_URL = "https://pynecone.io"
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"

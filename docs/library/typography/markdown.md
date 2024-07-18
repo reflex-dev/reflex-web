@@ -105,7 +105,7 @@ import reflex as rx
 component = rx.text("Hello World!")
 \```
 
-And then some more text here, followed by a link to [Reflex](https://reflex.dev).
+And then some more text here, followed by a link to [Reflex](https://reflex.dev/).
 """,
     component_map=component_map,
 )
