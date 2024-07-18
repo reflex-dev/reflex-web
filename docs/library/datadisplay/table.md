@@ -181,7 +181,7 @@ rx.table.root(
 ```
 
 ```md alert info
-# Set the table `width` to fit within its container.
+# Set the table `width` to fit within its container and prevent it from overflowing.
 ```
 
 
