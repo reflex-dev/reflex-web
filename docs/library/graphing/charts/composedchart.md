@@ -12,7 +12,7 @@ A `composed_chart` is a higher-level component chart that is composed of multipl
 
 
 ```md alert info
-# To learn more about individual charts, checkout: **[area_chart](/docs/library/graphing/areachart)**, **[line_chart](/docs/library/graphing/line)**, or **[bar_chart](/docs/library/graphing/barchart)**. 
+# To learn more about individual charts, checkout: **[area_chart](/docs/library/graphing/areachart/)**, **[line_chart](/docs/library/graphing/line/)**, or **[bar_chart](/docs/library/graphing/barchart/)**. 
 ```
 
 ```python demo graphing
