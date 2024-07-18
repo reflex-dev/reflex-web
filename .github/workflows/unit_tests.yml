@@ -12,12 +12,8 @@ env:
 on:
   push:
     branches: ['main']
-    paths-ignore:
-      - '**/*.md'
   pull_request:
     branches: ['main']
-    paths-ignore:
-      - '**/*.md'
   workflow_dispatch:
     inputs:
       reflex_dep:
