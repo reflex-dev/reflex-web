@@ -8,7 +8,7 @@ def get_blog_data(paths):
     blogs = {}
     for path in reversed(sorted(paths)):
         document = flexdown.parse_file(path)
-        path = path.replace(".md", "")
+        path = path.replace(".md", "/")
         blogs[path] = document
     return blogs
 

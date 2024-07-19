@@ -1,6 +1,6 @@
 ```python exec
-config_api_ref_url = "/docs/api-reference/config"
-cli_api_ref_url = "/docs/api-reference/cli"
+config_api_ref_url = "/docs/api-reference/config/"
+cli_api_ref_url = "/docs/api-reference/cli/"
 ```
 
 # Configuration
