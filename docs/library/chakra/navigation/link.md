@@ -12,7 +12,7 @@ import reflex as rx
 Links are accessible elements used primarily for navigation.
 
 ```python demo
-rx.chakra.link("Example", href="https://reflex.dev", color="rgb(107,99,246)")
+rx.chakra.link("Example", href="https://reflex.dev/", color="rgb(107,99,246)")
 ```
 
 You can also provide local links to other pages in your project without writing the full url.
@@ -24,7 +24,7 @@ rx.chakra.link("Example", href="/docs/library", color="rgb(107,99,246)")
 The link component can be used to wrap other components to make them link to other pages.
 
 ```python demo
-rx.chakra.link(rx.chakra.button("Example"), href="https://reflex.dev", color="rgb(107,99,246)", button=True)
+rx.chakra.link(rx.chakra.button("Example"), href="https://reflex.dev/", color="rgb(107,99,246)", button=True)
 ```
 
 You can also create anchors to link to specific parts of a page using the id prop.

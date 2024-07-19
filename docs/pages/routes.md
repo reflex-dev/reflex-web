@@ -73,7 +73,7 @@ You can directly import the module or import another module that imports the dec
 Links are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
 
 ```python demo
-rx.link("Reflex Home Page.", href="https://reflex.dev")
+rx.link("Reflex Home Page.", href="https://reflex.dev/")
 ```
 
 You can also provide local links to other pages in your project without writing the full url.

@@ -27,7 +27,7 @@ specifying `rx.prevent_default` as an event handler.
 A common use case for this is to prevent navigation when clicking a link.
 
 ```python demo
-rx.link("This Link Does Nothing", href="https://reflex.dev", on_click=rx.prevent_default)
+rx.link("This Link Does Nothing", href="https://reflex.dev/", on_click=rx.prevent_default)
 ```
 
 ```python demo exec
@@ -42,7 +42,7 @@ def prevent_default_example():
         rx.heading(f"The value is {LinkPreventDefaultState.status}"),
         rx.link(
             "Toggle Value",
-            href="https://reflex.dev",
+            href="https://reflex.dev/",
             on_click=LinkPreventDefaultState.toggle_status.prevent_default,
         ),
     )

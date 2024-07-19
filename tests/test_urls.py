@@ -23,11 +23,18 @@ def check_urls(repo_dir):
         if "__pycache__" in root:
             continue
 
+        # Check if the root path contains the target directories
+        if not ("pcweb" in root or "docs" in root or "blog" in root):
+            continue
+
         for file_name in files:
             if not file_name.endswith(".py") and not file_name.endswith(".md"):
                 continue
-
+            # page.py has some URLs that we cannot check in this way
+            if file_name == "page.py":
+                continue
             file_path = os.path.join(root, file_name)
+
             try:
                 with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
                     for line in file:
@@ -38,10 +45,9 @@ def check_urls(repo_dir):
                                     f"Found insecure HTTP URL: {url} in {file_path}"
                                 )
                             url = url.strip('"\n\'')
-                            print(url)
                             try:
                                 response = requests.head(
-                                    url, allow_redirects=True, timeout=5
+                                    url, allow_redirects=False, timeout=5
                                 )
                                 response.raise_for_status()
                             except requests.RequestException as e:

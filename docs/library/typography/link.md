@@ -13,7 +13,7 @@ from pcweb.pages.docs import api_reference
 Links are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
 
 ```python demo
-rx.link("Reflex Home Page.", href="https://reflex.dev")
+rx.link("Reflex Home Page.", href="https://reflex.dev/")
 ```
 
 You can also provide local links to other pages in your project without writing the full url.
@@ -26,7 +26,7 @@ rx.link("Example", href="/docs/library",)
 The `link` component can be used to wrap other components to make them link to other pages.
 
 ```python demo
-rx.link(rx.button("Example"), href="https://reflex.dev")
+rx.link(rx.button("Example"), href="https://reflex.dev/")
 ```
 
 You can also create anchors to link to specific parts of a page using the `id` prop.
