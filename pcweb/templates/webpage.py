@@ -14,8 +14,6 @@ def spotlight():
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/css/spotlight.css" />
-    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
   </head>
   <body style="margin: 0; background: none">
     <input type="hidden" id="anPageName" name="page" value="landing-page" />
