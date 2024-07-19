@@ -53,6 +53,7 @@ def get_sidebar_items_frontend():
                 components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
+                components.html_to_reflex,
                 library_,
             ],
         ),
