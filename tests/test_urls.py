@@ -18,7 +18,7 @@ def check_urls(repo_dir):
     """
     url_pattern = re.compile(r'http[s]?://reflex\.dev[^\s")]*')
     errors = []
-    print(repo_dir)
+
     for root, _dirs, files in os.walk(repo_dir):
         if "__pycache__" in root:
             continue
