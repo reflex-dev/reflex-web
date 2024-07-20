@@ -54,7 +54,7 @@ rx.vstack(
 
 ### Customization
 
-If the presets don't fit your needs, you can customize the toast by passing to `rx.toast` some kwargs.
+If the presets don't fit your needs, you can customize the toasts by passing to `rx.toast` or to `rx.toast.options` some kwargs.
 
 ```python demo
 rx.button(
@@ -67,3 +67,20 @@ rx.button(
     )
 )
 ```
+
+The following props are available for customization:
+
+- `description`: `str | Var`: Toast's description, renders underneath the title.
+- `close_button`: `bool`: Whether to show the close button.    
+- `invert`: `bool`: Dark toast in light mode and vice versa.
+- `important`: `bool`: Control the sensitivity of the toast for screen readers.
+- `duration`: `int`: Time in milliseconds that should elapse before automatically closing the toast.
+- `position`: `LiteralPosition`: Position of the toast.
+- `dismissible`: `bool`: If false, it'll prevent the user from dismissing the toast.
+- `action`: `ToastAction`: Renders a primary button, clicking it will close the toast.
+- `cancel`: `ToastAction`: Renders a secondary button, clicking it will close the toast.
+- `id`: `str | Var`: Custom id for the toast.
+- `unstyled`: `bool`: Removes the default styling, which allows for easier customization.
+- `style`: `Style`: Custom style for the toast.
+- `on_dismiss`: `Any`: The function gets called when either the close button is clicked, or the toast is swiped.
+- `on_auto_close`: `Any`: Function that gets called when the toast disappears automatically after it's timeout (`duration` prop).
