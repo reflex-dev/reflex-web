@@ -59,6 +59,7 @@ if sys.platform == "win32":
 
 # Add the pages to the app.
 for route in routes:
+    print(route.title)
     if _check_whitelisted_path(route.path):
         app.add_page(
             route.component,
