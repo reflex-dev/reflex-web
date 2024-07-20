@@ -114,7 +114,6 @@ outblocks = []
 
 
 manual_titles = {
-    "docs/library/datadisplay/callout-ll.md": "Callout Low",
     "docs/database/overview.md": "Database Overview",
     "docs/custom-components/overview.md": "Custom Components Overview",
     "docs/api-routes/overview.md": "API Routes Overview",
@@ -125,7 +124,6 @@ manual_titles = {
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
     "docs/events/special_events.md": "Special Events",
-    "docs/library/forms/input-ll.md": "Input Low",
 }
 
 def get_component(doc: str, title: str):
@@ -140,7 +138,6 @@ def get_component(doc: str, title: str):
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
     if doc in manual_titles.keys():
         title2 = manual_titles[doc]
-        print(title2)
     else:
         title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()

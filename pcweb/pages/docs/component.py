@@ -857,7 +857,7 @@ def multi_docs(path, comp, component_list, title):
             width="100%",
         )
 
-    @docpage(set_path=path + "/low/", t=title)
+    @docpage(set_path=path + "/low/", t=title + " (Low Level)")
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
