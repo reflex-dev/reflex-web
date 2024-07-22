@@ -22,6 +22,7 @@ from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 
 
+
 def should_skip_compile(doc: flexdown.Document):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
     if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
@@ -112,6 +113,19 @@ def exec_blocks(doc, href):
 outblocks = []
 
 
+manual_titles = {
+    "docs/database/overview.md": "Database Overview",
+    "docs/custom-components/overview.md": "Custom Components Overview",
+    "docs/api-routes/overview.md": "API Routes Overview",
+    "docs/client_storage/overview.md": "Client Storage Overview",
+    "docs/state/overview.md": "State Overview",
+    "docs/styling/overview.md": "Styling Overview",
+    "docs/substates/overview.md": "Substates Overview",
+    "docs/ui/overview.md": "UI Overview",
+    "docs/wrapping-react/overview.md": "Wrapping React Overview",
+    "docs/events/special_events.md": "Special Events",
+}
+
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
         return
@@ -122,7 +136,10 @@ def get_component(doc: str, title: str):
     # Get the docpage component.
     doc = doc.replace("\\", "/")
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
-    title2 = to_title_case(title)
+    if doc in manual_titles.keys():
+        title2 = manual_titles[doc]
+    else:
+        title2 = to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
 
     if not _check_whitelisted_path(route):
@@ -166,19 +183,21 @@ def get_component(doc: str, title: str):
         outblocks.append((d, route))
         return
 
-    return docpage(set_path=route, t=to_title_case(title))(
+    return docpage(set_path=route, t=title2)(
         lambda d=d, doc=doc: (get_toc(d, doc), xd.render(d, doc))
     )
 
 
 doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
 
+
 for api_route in apiref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
 for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1]
+    path = doc.split("/")[1:-1] 
+
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
