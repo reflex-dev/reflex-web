@@ -2,14 +2,16 @@
 
 _Added in v0.5.7_
 
-Exceptions handlers are function that can be assigned to your app to handle exceptions that occur during the application runtime.
+Exceptions handlers are functions that can be assigned to your app to handle exceptions that occur during the application runtime.
 They are useful for customizing the response when an error occurs, logging errors, and performing cleanup tasks.
 
 ## Types
 
-Reflex support two type of exception handler `frontend_exception_handler` and `backend_exception_handler`.
+Reflex support two type of exception handlers `frontend_exception_handler` and `backend_exception_handler`.
 
-They are both used to handle exceptions that occur in the `frontend` and `backend` respectively.
+They are used to handle exceptions that occur in the `frontend` and `backend` respectively.
+
+The `frontend` errors are coming from the JavaScript side of the application, while `backend` errors are coming from the the event handlers on the Python side.
 
 ## Register an Exception Handler
 
