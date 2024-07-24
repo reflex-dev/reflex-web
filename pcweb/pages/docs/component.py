@@ -480,7 +480,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                     len(literal_values) > 10,
                     hovercard(
                         rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
-                        rx.text(f"{' | '.join([f'"{value}"' for value in literal_values])}", size="2"),
+                        rx.text(' | '.join([f'"{value}"' for value in literal_values]), size="2"),
                     ),
                 ),
                 rx.cond(
