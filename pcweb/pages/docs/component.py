@@ -449,7 +449,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
 
     elif origin is Literal:
         literal_values = list(map(str, args))
-        type_name = "Literal" if len(literal_values) > 10 else f"{' | '.join([f'"{value}"' for value in literal_values])}"
+        type_name = "Literal" if len(literal_values) > 10 else " | ".join([f'"{value}"' for value in literal_values])
 
     else:
         type_name = type_.__name__
