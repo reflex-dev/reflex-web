@@ -212,7 +212,7 @@ TYPE_COLORS = {
     "None": "gray",
     "Figure": "green",
     "Literal": "gray",
-    "Union": "gray",
+    "Union": "indigo",
 }
 
 count = 0
@@ -425,6 +425,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     literal_values = [] # Literal values of the prop
     all_types = [] # List for all the prop types
 
+    COMMON_TYPES = {"size", "variant"}
     if origin is Union:
         non_literal_types = [] # List for all the non-literal types
         
@@ -434,7 +435,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 literal_values.extend(str(lit_arg) for lit_arg in arg.__args__)
             elif arg.__name__ != 'Breakpoints': # Don't include Breakpoints
                 non_literal_types.append(arg.__name__)
-        
+
         if len(literal_values) < 10:
             literal_str = " | ".join(f'"{value}"' for value in literal_values)
             type_components = ([literal_str] if literal_str else []) + non_literal_types
@@ -449,7 +450,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
 
     elif origin is Literal:
         literal_values = list(map(str, args))
-        if len(literal_values) > 5 and prop.name != "size":
+        if len(literal_values) > 5 and prop.name not in COMMON_TYPES:
             type_name = "Literal"
         else:
             type_name = " | ".join([f'"{value}"' for value in literal_values])
@@ -460,7 +461,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     # Get the default value.
     default_value = prop.default_value if prop.default_value is not None else "-"
     # Get the color of the prop.
-    color = TYPE_COLORS.get(type_name, "gray")
+    color = TYPE_COLORS.get(type_.__name__, "gray")
     # Return the docs for the prop.
     return [
         rx.table.cell(
@@ -478,16 +479,24 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         ),
         rx.table.cell(
             rx.hstack(
-                rx.code(type_name, color_scheme=color, text_wrap="nowrap"),
                 rx.cond(
-                    len(literal_values) > 9,
+                    (len(literal_values) > 0) & (prop.name not in COMMON_TYPES),
+                    rx.code(
+                        " | ".join([f'"{v}"' for v in literal_values[:5]] + ["..."]) if len(literal_values) > 5 else type_name,
+                        color_scheme=color,
+                        text_wrap="nowrap"
+                    ),
+                    rx.code(type_name, color_scheme=color, text_wrap="nowrap"),
+                ),
+                rx.cond(
+                    len(literal_values) > 5 and prop.name not in COMMON_TYPES,
                     hovercard(
-                        rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
-                        rx.text(' | '.join([f'"{value}"' for value in literal_values]), size="2"),
+                        rx.icon(tag="circle-ellipsis", size=15, color=rx.color("mauve", 10)),
+                        rx.text(" | ".join([f'"{v}"' for v in literal_values]), size="2"),
                     ),
                 ),
                 rx.cond(
-                    (origin == Union) & ("Breakpoints" in all_types), # Display that the Union with Breakpoints
+                    (origin == Union) & ("Breakpoints" in all_types), # Display that the type is Union with Breakpoints
                     hovercard(
                         rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
                         rx.text(f"Union[{', '.join(all_types)}]", size="2"),
@@ -507,8 +516,12 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             rx.flex(
                 rx.code(
                     default_value,
-                    color_scheme="red" if default_value == "False" else "green" if default_value == "True" else "gray",
-                    text_wrap="nowrap"
+                    color_scheme=(
+                        "red"
+                        if default_value == "False"
+                        else "green" if default_value == "True" else "gray"
+                    ),
+                    text_wrap="nowrap",
                 )
             ),
             padding_left="1em",
