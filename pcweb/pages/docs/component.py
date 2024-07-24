@@ -212,7 +212,7 @@ TYPE_COLORS = {
     "None": "gray",
     "Figure": "green",
     "Literal": "gray",
-    "Union": "indigo",
+    "Union": "gray",
 }
 
 count = 0
