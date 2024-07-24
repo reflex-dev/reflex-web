@@ -56,6 +56,16 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     Returns:
         The default value of the prop.
     """
+    # Check for the default value in the prop comment (Default: )
+    # Need to update the components comments in order to get the default value
+    if start_index > 0:
+        comment_line = lines[start_index - 1].strip()
+        if comment_line.startswith('#'):
+            default_match = re.search(r'Default:\s*(["\']?\w+["\']?|\w+)', comment_line)
+            if default_match:
+                default_value = default_match.group(1)
+                return default_value
+
     # Get the initial line
     line = lines[start_index]
     parts = line.split('=', 1)
@@ -201,7 +211,8 @@ TYPE_COLORS = {
     "Tuple": "blue",
     "None": "gray",
     "Figure": "green",
-    "Literal": "ruby",
+    "Literal": "gray",
+    "Union": "gray",
 }
 
 count = 0
@@ -262,8 +273,31 @@ def render_select(prop, component, prop_dict):
     except TypeError:
         pass
 
-    if not isinstance(type_, _GenericAlias) or type_.__origin__ is not Literal:
+    if not isinstance(type_, _GenericAlias) or (type_.__origin__ not in (Literal, Union)):
         return rx.fragment()
+    # For the Union[Literal, Breakpoints] type
+    if type_.__origin__ is Union:
+        if not all(arg.__name__ in ['Literal', 'Breakpoints'] for arg in type_.__args__):
+            return rx.fragment()
+        else:
+            # Get the literal values
+            literal_values = [str(lit_arg) for arg in type_.__args__ if get_origin(arg) is Literal for lit_arg in arg.__args__]
+            option = literal_values[0]
+            name = get_id(f"{component.__qualname__}_{prop.name}")
+            PropDocsState.add_var(name, str, option)
+            var = getattr(PropDocsState, name)
+            setter = getattr(PropDocsState, f"set_{name}")
+            prop_dict[prop.name] = var
+            return rx.select.root(
+                rx.select.trigger(width="8em"),
+                rx.select.content(
+                    rx.select.group(
+                        *[rx.select.item(item, value=item) for item in literal_values]
+                    )
+                ),
+                value=var,
+                on_change=setter,
+            )
     # Get the first option.
     option = type_.__args__[0]
     name = get_id(f"{component.__qualname__}_{prop.name}")
@@ -272,6 +306,56 @@ def render_select(prop, component, prop_dict):
     setter = getattr(PropDocsState, f"set_{name}")
     prop_dict[prop.name] = var
 
+    if prop.name == "color_scheme":
+        return rx.popover.root(
+            rx.popover.trigger(
+                rx.box(
+                    rx.button(
+                        rx.text(var, weight="regular"),
+                        # Match the select.trigger svg icon
+                        rx.html(
+                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
+                        ),
+                        color_scheme=var,
+                        width="8em",
+                        variant="surface",
+                        justify_content="space-between",
+                    ),
+                ),
+            ),
+            rx.popover.content(
+                rx.grid(
+                    *[
+                        rx.box(
+                            rx.icon(
+                                "check",
+                                color=rx.color("gray", 12),
+                                size=15,
+                                position="absolute",
+                                top="50%",
+                                left="50%",
+                                transform="translate(-50%, -50%)",
+                                display=rx.cond(var == color, "block", "none"),
+                            ),
+                            width="30px",
+                            height="30px",
+                            border_radius="max(var(--radius-2), var(--radius-full))",
+                            bg=f"var(--{color}-9)",
+                            cursor="pointer",
+                            position="relative",
+                            flex_shrink=0,
+                            on_click=PropDocsState.setvar(f"{name}", color),
+                            border=rx.cond(
+                                var == color, "2px solid var(--gray-12)", ""
+                            ),
+                        )
+                        for color in list(map(str, type_.__args__))
+                    ],
+                    columns="6",
+                    spacing="3",
+                ),
+            ),
+        )
     return rx.select.root(
         rx.select.trigger(width="8em"),
         rx.select.content(
@@ -292,6 +376,40 @@ def render_select(prop, component, prop_dict):
         on_change=setter,
     )
 
+def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
+    return rx.hover_card.root(
+        rx.hover_card.trigger(
+            trigger,
+        ),
+        rx.hover_card.content(
+            content,
+            side="top",
+            align="center",
+        ),
+    )
+
+def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
+    return hovercard(
+        rx.icon(tag="palette", size=15, color=rx.color("mauve", 10)),
+        rx.grid(
+            *[
+                rx.tooltip(
+                    rx.box(
+                        width="30px",
+                        height="30px",
+                        border_radius="max(var(--radius-2), var(--radius-full))",
+                        flex_shrink=0,
+                        bg=f"var(--{color}-9)",
+                    ),
+                    content=color,
+                    delay_duration=0,
+                )
+                for color in literal_values
+            ],
+            columns="6",
+            spacing="3",
+        ),
+    )
 
 def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
     """Generate the docs for a prop."""
@@ -301,35 +419,53 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
         # For vars, get the type of the var.
         type_ = rx.utils.types.get_args(type_)[0]
 
-    type_name = type_.__name__
-    # Handle Union types.
-    if get_origin(type_) is Union:
-        type_name = f"Union[{', '.join(arg.__name__ for arg in get_args(type_))}]"
+    origin = get_origin(type_)
+    args = get_args(type_)
 
-    # Handle Dict types.
-    if get_origin(type_) is dict:
-        args = get_args(type_)
-        if args:
-            key_type = args[0].__name__ if len(args) > 0 else 'Any'
-            value_type = args[1].__name__ if len(args) > 1 else 'Any'
-            type_name = f"Dict[{key_type}, {value_type}]"
+    literal_values = [] # Literal values of the prop
+    all_types = [] # List for all the prop types
+
+    if origin is Union:
+        non_literal_types = [] # List for all the non-literal types
+        
+        for arg in args:
+            all_types.append(arg.__name__)
+            if get_origin(arg) is Literal:
+                literal_values.extend(str(lit_arg) for lit_arg in arg.__args__)
+            elif arg.__name__ != 'Breakpoints': # Don't include Breakpoints
+                non_literal_types.append(arg.__name__)
+        
+        if len(literal_values) < 10:
+            literal_str = " | ".join(f'"{value}"' for value in literal_values)
+            type_components = ([literal_str] if literal_str else []) + non_literal_types
+            type_name = " | ".join(type_components) if len(type_components) == 1 else f"Union[{', '.join(type_components)}]"
         else:
-            type_name = "Dict"
+            type_name = "Literal" if not non_literal_types else f"Union[Literal, {', '.join(non_literal_types)}]"
+
+    elif origin is dict:
+        key_type = args[0].__name__ if args else 'Any'
+        value_type = args[1].__name__ if len(args) > 1 else 'Any'
+        type_name = f"Dict[{key_type}, {value_type}]"
+
+    elif origin is Literal:
+        literal_values = list(map(str, args))
+        type_name = "Literal" if len(literal_values) > 10 else f"{' | '.join([f'"{value}"' for value in literal_values])}"
+
+    else:
+        type_name = type_.__name__
 
     # Get the default value.
     default_value = prop.default_value if prop.default_value is not None else "-"
-
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_name, "gray")
     # Return the docs for the prop.
     return [
         rx.table.cell(
             rx.hstack(
-                rx.code(prop.name),
-                rx.tooltip(
-                    rx.icon(tag="info", size=15, color=rx.color("mauve", 11)),
-                    content=prop.description,
-                    side="top",
+                rx.code(prop.name, text_wrap="nowrap"),
+                hovercard(
+                    rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
+                    rx.text(prop.description, size="2"),
                 ),
                 spacing="2",
                 align="center",
@@ -338,16 +474,38 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             justify="start",
         ),
         rx.table.cell(
-            rx.badge(type_name, color_scheme=color, variant="soft"),
+            rx.hstack(
+                rx.code(type_name, color_scheme=color, text_wrap="nowrap"),
+                rx.cond(
+                    len(literal_values) > 10,
+                    hovercard(
+                        rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
+                        rx.text(f"{' | '.join([f'"{value}"' for value in literal_values])}", size="2"),
+                    ),
+                ),
+                rx.cond(
+                    (origin == Union) & ("Breakpoints" in all_types), # Display that the Union with Breakpoints
+                    hovercard(
+                        rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
+                        rx.text(f"Union[{', '.join(all_types)}]", size="2"),
+                    ),
+                ),
+                rx.cond(
+                    (prop.name == "color_scheme") | (prop.name == "accent_color"),
+                    color_scheme_hovercard(literal_values),
+                ),
+                spacing="2",
+                align="center",
+            ),
             padding_left="1em",
             justify="start",
         ),
         rx.table.cell(
             rx.flex(
-                rx.badge(
-                    default_value, 
-                    bg=rx.color("gray", 3),
-                    color=rx.color("gray", 11),
+                rx.code(
+                    default_value,
+                    color_scheme="red" if default_value == "False" else "green" if default_value == "True" else "gray",
+                    text_wrap="nowrap"
                 )
             ),
             padding_left="1em",
@@ -628,23 +786,24 @@ def generate_props(src, component, comp):
                 rx.table.header(
                     rx.table.row(
                         rx.table.column_header_cell(
-                            "Prop", padding_left=padding_left, justify="start"
+                            "Prop", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
                         ),
                         rx.table.column_header_cell(
-                            "Type", padding_left=padding_left, justify="start"
+                            "Type | Values", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
                         ),
                         rx.table.column_header_cell(
-                            "Default Value", 
-                            padding_left=padding_left, justify="start"
+                            "Default", 
+                            padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
                         ),
                         rx.table.column_header_cell(
-                            "Values", padding_left=padding_left, justify="start"
+                            "Interactive", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
                         ),
                     )
                 ),
                 body,
                 width="100%",
                 padding_x="0",
+                variant="surface",
                 size="1",
             ),
             max_height="20em",
