@@ -449,7 +449,10 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
 
     elif origin is Literal:
         literal_values = list(map(str, args))
-        type_name = "Literal" if len(literal_values) > 10 else " | ".join([f'"{value}"' for value in literal_values])
+        if len(literal_values) > 5 and prop.name != "size":
+            type_name = "Literal"
+        else:
+            type_name = " | ".join([f'"{value}"' for value in literal_values])
 
     else:
         type_name = type_.__name__
@@ -477,7 +480,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             rx.hstack(
                 rx.code(type_name, color_scheme=color, text_wrap="nowrap"),
                 rx.cond(
-                    len(literal_values) > 10,
+                    len(literal_values) > 9,
                     hovercard(
                         rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
                         rx.text(' | '.join([f'"{value}"' for value in literal_values]), size="2"),
