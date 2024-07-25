@@ -390,7 +390,7 @@ def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
 
 def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
     return hovercard(
-        rx.icon(tag="palette", size=15, color=rx.color("mauve", 10)),
+        rx.icon(tag="palette", size=15, color=rx.color("mauve", 10), flex_shrink=0),
         rx.grid(
             *[
                 rx.tooltip(
@@ -411,7 +411,7 @@ def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
         ),
     )
 
-def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
+def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
@@ -424,8 +424,9 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
 
     literal_values = [] # Literal values of the prop
     all_types = [] # List for all the prop types
+    MAX_PROP_VALUES = 3
 
-    COMMON_TYPES = {"size", "variant"}
+    COMMON_TYPES = {} # Used to exclude common types from the MAX_PROP_VALUES
     if origin is Union:
         non_literal_types = [] # List for all the non-literal types
         
@@ -450,7 +451,7 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
 
     elif origin is Literal:
         literal_values = list(map(str, args))
-        if len(literal_values) > 5 and prop.name not in COMMON_TYPES:
+        if len(literal_values) > MAX_PROP_VALUES and prop.name not in COMMON_TYPES:
             type_name = "Literal"
         else:
             type_name = " | ".join([f'"{value}"' for value in literal_values])
@@ -468,7 +469,9 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             rx.hstack(
                 rx.code(prop.name, text_wrap="nowrap"),
                 hovercard(
-                    rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
+                    rx.icon(
+                        tag="info", size=15, color=rx.color("mauve", 10), flex_shrink=0
+                    ),
                     rx.text(prop.description, size="2"),
                 ),
                 spacing="2",
@@ -482,23 +485,50 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
                 rx.cond(
                     (len(literal_values) > 0) & (prop.name not in COMMON_TYPES),
                     rx.code(
-                        " | ".join([f'"{v}"' for v in literal_values[:5]] + ["..."]) if len(literal_values) > 5 else type_name,
+                        (
+                            " | ".join(
+                                [f'"{v}"' for v in literal_values[:MAX_PROP_VALUES]]
+                                + ["..."]
+                            )
+                            if len(literal_values) > MAX_PROP_VALUES
+                            else type_name
+                        ),
                         color_scheme=color,
-                        text_wrap="nowrap"
+                        text_wrap="nowrap",
                     ),
-                    rx.code(type_name, color_scheme=color, text_wrap="nowrap"),
-                ),
-                rx.cond(
-                    len(literal_values) > 5 and prop.name not in COMMON_TYPES,
-                    hovercard(
-                        rx.icon(tag="circle-ellipsis", size=15, color=rx.color("mauve", 10)),
-                        rx.text(" | ".join([f'"{v}"' for v in literal_values]), size="2"),
+                    rx.code(
+                        type_name,
+                        color_scheme=color,
+                        text_wrap="nowrap",
                     ),
                 ),
                 rx.cond(
-                    (origin == Union) & ("Breakpoints" in all_types), # Display that the type is Union with Breakpoints
+                    len(literal_values) > MAX_PROP_VALUES
+                    and prop.name not in COMMON_TYPES,
                     hovercard(
-                        rx.icon(tag="info", size=15, color=rx.color("mauve", 10)),
+                        rx.icon(
+                            tag="circle-ellipsis",
+                            size=15,
+                            color=rx.color("mauve", 10),
+                            flex_shrink=0,
+                        ),
+                        rx.text(
+                            " | ".join([f'"{v}"' for v in literal_values]), size="2"
+                        ),
+                    ),
+                ),
+                rx.cond(
+                    (origin == Union)
+                    & (
+                        "Breakpoints" in all_types
+                    ),  # Display that the type is Union with Breakpoints
+                    hovercard(
+                        rx.icon(
+                            tag="info",
+                            size=15,
+                            color=rx.color("mauve", 10),
+                            flex_shrink=0,
+                        ),
                         rx.text(f"Union[{', '.join(all_types)}]", size="2"),
                     ),
                 ),
@@ -527,11 +557,16 @@ def prop_docs(prop: Prop, prop_dict, component) -> list[rx.Component]:
             padding_left="1em",
             justify="start",
         ),
-        rx.table.cell(
-            render_select(prop, component, prop_dict),
-            padding_left="1em",
-            justify="start",
+        rx.cond(
+            is_interactive,
+            rx.table.cell(
+                render_select(prop, component, prop_dict),
+                padding_left="1em",
+                justify="start",
+            ),
+            rx.fragment(),
         ),
+
     ]
 
 EVENTS = {
@@ -759,13 +794,6 @@ def generate_props(src, component, comp):
     padding_left = "1em"
 
     prop_dict = {}
-    body = rx.table.body(
-        *[
-            rx.table.row(*prop_docs(prop, prop_dict, component), align="center")
-            for prop in src.get_props()
-            if not prop.name.startswith("on_")  # ignore event trigger props
-        ]
-    )
     try:
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
@@ -795,6 +823,17 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
+    is_interactive = True
+    if isinstance(comp, Fragment):
+        is_interactive = False
+
+    body = rx.table.body(
+        *[
+            rx.table.row(*prop_docs(prop, prop_dict, component, is_interactive), align="center")
+            for prop in src.get_props()
+            if not prop.name.startswith("on_")  # ignore event trigger props
+        ]
+    )
     return rx.vstack(
         docdemobox(comp) if not isinstance(comp, Fragment) else "",
         rx.scroll_area(
@@ -802,17 +841,36 @@ def generate_props(src, component, comp):
                 rx.table.header(
                     rx.table.row(
                         rx.table.column_header_cell(
-                            "Prop", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
+                            "Prop",
+                            padding_left=padding_left,
+                            justify="start",
+                            text_wrap="nowrap",
+                            width="auto",
                         ),
                         rx.table.column_header_cell(
-                            "Type | Values", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
+                            "Type | Values",
+                            padding_left=padding_left,
+                            justify="start",
+                            text_wrap="nowrap",
+                            width="auto",
                         ),
                         rx.table.column_header_cell(
-                            "Default", 
-                            padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
+                            "Default",
+                            padding_left=padding_left,
+                            justify="start",
+                            text_wrap="nowrap",
+                            width="auto",
                         ),
-                        rx.table.column_header_cell(
-                            "Interactive", padding_left=padding_left, justify="start", text_wrap="nowrap", width="auto"
+                        rx.cond(
+                            is_interactive,
+                            rx.table.column_header_cell(
+                                "Interactive",
+                                padding_left=padding_left,
+                                justify="start",
+                                text_wrap="nowrap",
+                                width="auto",
+                            ),
+                            rx.fragment(),
                         ),
                     )
                 ),
