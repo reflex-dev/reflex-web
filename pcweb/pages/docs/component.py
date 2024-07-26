@@ -845,7 +845,7 @@ def multi_docs(path, comp, component_list, title):
                 )
         return rx.fragment()
 
-    @docpage(set_path=path + "/", t=title)
+    @docpage(set_path=path, t=title)
     def out():
         toc = get_toc(comp, fname, component_list)
         return toc, rx.flex(
@@ -857,7 +857,7 @@ def multi_docs(path, comp, component_list, title):
             width="100%",
         )
 
-    @docpage(set_path=path + "/low/", t=title + " (Low Level)")
+    @docpage(set_path=path + "low/", t=title + " (Low Level)")
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
