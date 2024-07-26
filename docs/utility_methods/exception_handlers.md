@@ -30,13 +30,14 @@ import reflex as rx
 
 def custom_frontend_handler(exception: Exception) -> None:
     # My custom logic for frontend errors
-    pass
+    print("Frontend Error: " + str(exception))
 
-def custom_backend_handler(exception: Exception) -> rx.event.EventSpec:
+def custom_backend_handler(exception: Exception) -> Optional[rx.event.EventSpec]:
     # My custom logic for backend errors
-    pass
+    print("Backend Error: " + str(exception))
 
-app = rx.App()
-app.frontend_exception_handler = custom_frontend_handler
-app.backend_exception_handler = custom_backend_handler
+app = rx.App(
+    frontend_exception_handler = custom_frontend_handler,
+    backend_exception_handler = custom_backend_handler
+    )
 ```
