@@ -824,18 +824,7 @@ def generate_props(src, component, comp):
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
 
-        elif not rx.utils.types._issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
-        ) or component.__name__ in [
-            "Theme",
-            "ThemePanel",
-            "DrawerRoot",
-            "DrawerTrigger",
-            "DrawerOverlay",
-            "DrawerPortal",
-            "DrawerContent",
-            "DrawerClose",
-        ]:
+        elif not is_interactive:
             comp = rx.fragment()
 
         else:
