@@ -291,7 +291,7 @@ def sidebar_category(name, url, icon, color, index):
 
 
 def create_sidebar_section(section_title, section_url, items, index, url):
-    # Check if the section has any nested sections (Like the Other Libraries section)
+    # Check if the section has any nested sections (Like the Other Libraries Section)
     nested = any(len(child.children) > 0 for item in items for child in item.children)
     # Make sure the index is a list
     index = index.to(list)
