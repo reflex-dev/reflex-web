@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 from docs.datatable_tutorial.datatable_tutorial_utils import DataTableLiveState
+from pcweb.pages.docs import events
 
 darkTheme = {
     "accentColor": "#8c96ff",
@@ -34,7 +35,7 @@ darkTheme = {
 
 Lastly let's add in an API so we can live stream data into our datatable.
 
-Here we use a [Background Task](https://reflex.dev/docs/events/background_events/) to stream the data into the table without blocking UI interactivity. We call an advice API using `httpx` and then append that data to the `self.table_data` state var. We also create a button that allows us to start and pause the streaming of the data by changing the value of the boolean state var `running` using the event handler `toggle_pause`. If the `running` state var is set to `True` we stream the API data, when it is set to `False` we break out of the `while` loop and end the background event.
+Here we use a [Background Task]({events.background_events.path}) to stream the data into the table without blocking UI interactivity. We call an advice API using `httpx` and then append that data to the `self.table_data` state var. We also create a button that allows us to start and pause the streaming of the data by changing the value of the boolean state var `running` using the event handler `toggle_pause`. If the `running` state var is set to `True` we stream the API data, when it is set to `False` we break out of the `while` loop and end the background event.
 
 ```python
 class DataTableLiveState(BaseState):

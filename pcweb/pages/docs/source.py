@@ -1,6 +1,5 @@
 import inspect
 import re
-import textwrap
 
 # Get the comment for a specific field.
 from typing import Callable, Type
@@ -8,7 +7,7 @@ from typing import Callable, Type
 import reflex as rx
 from pcweb import styles
 from pcweb.styles import font_weights as fw
-from pcweb.templates.docpage import h1_comp, h2_comp, text_comp
+from pcweb.templates.docpage import h1_comp, h2_comp
 from pcweb.flexdown import markdown
 
 
@@ -119,7 +118,7 @@ class Source(rx.Base):
             # redundant check just to double-check line above prop is a comment
             assert (
                 self.code[i - 1].strip().startswith("#")
-            ), f"Expected comment, got {comment}"
+            ), f"Expected comment, got {self.code[i - 1]}"
 
             # Get the comment for this prop.
             comment = Source.get_comment(comments)

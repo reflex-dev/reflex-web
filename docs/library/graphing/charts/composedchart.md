@@ -5,6 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 ```
 # Composed Chart
 
@@ -12,7 +13,7 @@ A `composed_chart` is a higher-level component chart that is composed of multipl
 
 
 ```md alert info
-# To learn more about individual charts, checkout: **[area_chart](/docs/library/graphing/areachart)**, **[line_chart](/docs/library/graphing/line)**, or **[bar_chart](/docs/library/graphing/barchart)**. 
+# To learn more about individual charts, checkout: **[area_chart]({library.graphing.charts.areachart.path})**, **[line_chart]({library.graphing.charts.linechart.path})**, or **[bar_chart]({library.graphing.charts.barchart.path})**. 
 ```
 
 ```python demo graphing

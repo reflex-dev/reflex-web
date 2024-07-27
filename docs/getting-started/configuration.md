@@ -1,6 +1,5 @@
 ```python exec
-config_api_ref_url = "/docs/api-reference/config"
-cli_api_ref_url = "/docs/api-reference/cli"
+from pcweb.pages.docs import api_reference
 ```
 
 # Configuration
@@ -27,7 +26,7 @@ config = rx.Config(
 )
 ```
 
-See the [config reference]({config_api_ref_url}) for all the parameters available.
+See the [config reference]({api_reference.cli.path}) for all the parameters available.
 
 ## Environment Variables
 
@@ -46,7 +45,7 @@ Finally, you can override the configuration file and environment variables by pa
 reflex run --frontend-port 3001
 ```
 
-See the [CLI reference]({cli_api_ref_url}) for all the arguments available.
+See the [CLI reference]({api_reference.config.path}) for all the arguments available.
 
 ## Customizable App Data Directory
 

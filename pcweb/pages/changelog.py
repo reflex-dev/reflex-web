@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-07-16",
+            "v0.5.7",
+            "Specify frontend and backend exception handlers",
+            [
+                "Recharts improvements",
+                "Fix for 404 error on dynamic route after hot reload",
+                "Fix deprecation warnings",
+                "Support mutation tracking for SQLAlchemy models",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.7",
+        ),
+        change(
             "2024-07-08",
             "v0.5.6",
             "Fix hot-reload issues on Windows",

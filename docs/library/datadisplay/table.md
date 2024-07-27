@@ -176,7 +176,12 @@ rx.table.root(
             rx.table.cell("Developer"),
         ),
     ),
+    width="100%",
 )
+```
+
+```md alert info
+# Set the table `width` to fit within its container and prevent it from overflowing.
 ```
 
 
@@ -212,6 +217,7 @@ def foreach_table_example():
             ),
         ),
         rx.table.body(rx.foreach(TableForEachState.people, show_person)),
+        width="100%",
     )
 ```
 
@@ -308,7 +314,9 @@ def sorting_table_example():
                 ),
             ),
             rx.table.body(rx.foreach(TableSortingState.current_people, show_person)),
+            width="100%",
         ),
+        width="100%",
     )
 ```
 
@@ -379,6 +387,7 @@ def loading_data_table_example():
         ),
         rx.table.body(rx.foreach(DatabaseTableState.users, show_customer)),
         on_mount=DatabaseTableState.load_entries,
+        width="100%",
     )
 
 ```
@@ -486,7 +495,9 @@ def loading_data_table_example2():
             ),
             rx.table.body(rx.foreach(DatabaseTableState2.users, show_customer)),
             on_mount=DatabaseTableState2.load_entries,
+            width="100%",
         ),
+        width="100%",
     )
 
 ```
@@ -595,7 +606,9 @@ def loading_data_table_example3():
             ),
             rx.table.body(rx.foreach(DatabaseTableState3.users, show_customer)),
             on_mount=DatabaseTableState3.load_entries,
+            width="100%",
         ),
+        width="100%",
     )
 
 ```
@@ -690,6 +703,7 @@ def download_data_table_example():
                 ),
             ),
             rx.table.body(rx.foreach(TableDownloadState.users, show_customer)),
+            width="100%",
             on_mount=TableDownloadState.load_entries,
         ),
         rx.hstack(
@@ -706,6 +720,7 @@ def download_data_table_example():
             ),
             spacing="7",
         ),
+        width="100%",
         spacing="5",
     )
 
@@ -748,7 +763,9 @@ rx.flex(
                 align="center",
             ),
         ),
+        width="100%",
     ),
+    width="100%",
     direction="column",
     spacing="2",
 )
