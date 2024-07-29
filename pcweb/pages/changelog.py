@@ -68,6 +68,18 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-07-29",
+            "v0.5.8",
+            "Use templates from reflex-dev/templates",
+            [
+                "Nicer looking default style for charts and graphs",
+                "Support rx.svg circle, polygon and rect components",
+                "Bug fixes for background tasks, class_name prop, fully controlled inputs and more",
+                "Progress on Var Operations refactor",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.8",
+        ),
+        change(
             "2024-07-16",
             "v0.5.7",
             "Specify frontend and backend exception handlers",
