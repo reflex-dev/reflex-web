@@ -39,7 +39,8 @@ def sidebar_leaf(
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
     item.link=item.link.replace("_", "-")
-
+    if not item.link.endswith("/"):
+        item.link += "/"
     if item.outer:
         return sidebar_link(
             rx.flex(
@@ -196,10 +197,16 @@ def sidebar_item_comp(
     )
 
 
-def calculate_index(sidebar_items, url):
+def calculate_index(sidebar_items, url: str):
     if not isinstance(sidebar_items, list):
         sidebar_items = [sidebar_items]
-
+    if url is None:
+        return None
+    for item in sidebar_items:
+        if not item.link.endswith("/"):
+            item.link = item.link + "/"
+    if not url.endswith("/"):
+        url = url + "/"
     sub = 0
     for i, item in enumerate(sidebar_items):
         if len(item.children) == 0:
@@ -284,6 +291,10 @@ def sidebar_category(name, url, icon, color, index):
 
 
 def create_sidebar_section(section_title, section_url, items, index, url):
+    # Check if the section has any nested sections (Like the Other Libraries Section)
+    nested = any(len(child.children) > 0 for item in items for child in item.children)
+    # Make sure the index is a list
+    index = index.to(list)
     return rx.flex(
         rx.link(
             section_title,
@@ -297,7 +308,7 @@ def create_sidebar_section(section_title, section_url, items, index, url):
             *[
                 sidebar_item_comp(
                     item=item,
-                    index=[-1],
+                    index=index if nested else [-1],
                     url=url,
                 )
                 for item in items
