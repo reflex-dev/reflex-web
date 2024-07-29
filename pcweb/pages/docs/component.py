@@ -794,11 +794,9 @@ def generate_props(src, component, comp):
     padding_left = "1em"
 
     prop_dict = {}
-    try:
-        if f"{component.__name__}" in comp.metadata:
-            comp = eval(comp.metadata[component.__name__])(**prop_dict)
 
-        elif not rx.utils.types._issubclass(
+    is_interactive = True
+    if not rx.utils.types._issubclass(
             component, (RadixThemesComponent, RadixPrimitiveComponent)
         ) or component.__name__ in [
             "Theme",
@@ -810,6 +808,23 @@ def generate_props(src, component, comp):
             "DrawerContent",
             "DrawerClose",
         ]:
+            is_interactive = False
+
+    body = rx.table.body(
+        *[
+            rx.table.row(
+                *prop_docs(prop, prop_dict, component, is_interactive), align="center"
+            )
+            for prop in src.get_props()
+            if not prop.name.startswith("on_")  # ignore event trigger props
+        ]
+    )
+
+    try:
+        if f"{component.__name__}" in comp.metadata:
+            comp = eval(comp.metadata[component.__name__])(**prop_dict)
+
+        elif not is_interactive:
             comp = rx.fragment()
 
         else:
@@ -823,17 +838,6 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
-    is_interactive = True
-    if isinstance(comp, Fragment):
-        is_interactive = False
-
-    body = rx.table.body(
-        *[
-            rx.table.row(*prop_docs(prop, prop_dict, component, is_interactive), align="center")
-            for prop in src.get_props()
-            if not prop.name.startswith("on_")  # ignore event trigger props
-        ]
-    )
     return rx.vstack(
         docdemobox(comp) if not isinstance(comp, Fragment) else "",
         rx.scroll_area(
