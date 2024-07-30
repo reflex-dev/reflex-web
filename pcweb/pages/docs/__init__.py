@@ -123,7 +123,9 @@ manual_titles = {
     "docs/substates/overview.md": "Substates Overview",
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
-    "docs/events/special_events.md": "Special Events",
+    "docs/events/special_events.md": "Special Events Docs",
+    "docs/library/graphing/general/tooltip.md": "Graphing Tooltip",
+    "docs/recipes/content/grid.md": "Grid Recipe",
 }
 
 def get_component(doc: str, title: str):
@@ -137,6 +139,7 @@ def get_component(doc: str, title: str):
     doc = doc.replace("\\", "/")
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
     if doc in manual_titles.keys():
+        print(f"Manual title found for {doc}")
         title2 = manual_titles[doc]
     else:
         title2 = to_title_case(title)
