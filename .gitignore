@@ -10,6 +10,7 @@
 .venv/
 .web
 __pycache__/
+assets/external/
 pcconfig2.py
 pynecone.db
 reflex.db
