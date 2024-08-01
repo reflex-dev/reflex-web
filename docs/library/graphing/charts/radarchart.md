@@ -244,7 +244,7 @@ class RadarChartState(rx.State):
     def remaining_points(self) -> int:
         return self.total_points - sum(t["value"] for t in self.traits)
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def trait_names(self) -> list[str]:
         return [t["trait"] for t in self.traits]
 
