@@ -503,6 +503,8 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                             spacing="2",
                             justify="start",
                             overflow="hidden",
+                            max_height="80vh",
+                            overflow_y="scroll",
                         ),
                         margin_top="110px",
                         width="18%",
