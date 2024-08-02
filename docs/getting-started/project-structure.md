@@ -1,5 +1,9 @@
 # Project Structure
 
+```python exec
+from pcweb.pages.docs import custom_components
+```
+
 ## Directory Structure
 
 ```python exec
@@ -310,17 +314,6 @@ def index():
     )
 ```
 
-
-## External Components
-
-Reflex 0.4.3 introduced support for the `reflex component` CLI commands, which makes it easy
-to bundle up common functionality to publish on PyPI as a standalone Python package
-that can be installed and used in any Reflex app.
-
-When wrapping npm components or other self-contained bits of functionality, it can be helpful
-to move this complexity outside the app itself for easier maintenance and reuse in other apps.
-
-
 ### example_big_app/components
 
 This package contains reusable parts of the app, for example headers, footers,
@@ -328,6 +321,16 @@ and menus. If a particular component requires state, the substate may be defined
 in the same module for locality. Any substate defined in a component module
 should only contain fields and event handlers pertaining to that individual
 component. 
+
+
+### External Components
+
+Reflex 0.4.3 introduced support for the [`reflex component` CLI commands]({custom_components.overview.path}), which makes it easy
+to bundle up common functionality to publish on PyPI as a standalone Python package
+that can be installed and used in any Reflex app.
+
+When wrapping npm components or other self-contained bits of functionality, it can be helpful
+to move this complexity outside the app itself for easier maintenance and reuse in other apps.
 
 
 
