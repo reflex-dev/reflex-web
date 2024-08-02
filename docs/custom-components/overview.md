@@ -3,11 +3,15 @@
 ```python exec
 import reflex as rx
 from pcweb.pages.docs import custom_components
+from pcweb.pages.docs.custom_components import custom_components as custom_components_gallery
 ```
 
 Reflex users create many components of their own: ready to use high level components, or nicely wrapped React components. With **Custom Components**, the community can easily share these components now.
 
-Release **0.4.3** introduces a series of `reflex component` commands that help developers wrap react components, test, and publish them as python packages. As shown in the image below, there are already a few custom components published on PyPI, such as `reflex-spline`, `reflex-webcam`.
+Release **0.4.3** introduces a series of `reflex component` commands that help developers wrap react components, test, and publish them as python packages. As shown in the image below, there are already a few custom components published on PyPI, such as `reflex-spline`, `reflex-webcam`. 
+
+Check out the custom components gallery [here]({custom_components_gallery.path}).
+
 
 ```python eval
 rx.center(
