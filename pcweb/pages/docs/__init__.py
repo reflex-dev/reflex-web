@@ -123,8 +123,11 @@ manual_titles = {
     "docs/substates/overview.md": "Substates Overview",
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
-    "docs/events/special_events.md": "Special Events",
     "docs/library/html/html.md": "Html API Reference",
+    "docs/recipes-overview.md": "Recipes Overview",
+    "docs/events/special_events.md": "Special Events Docs",
+    "docs/library/graphing/general/tooltip.md": "Graphing Tooltip",
+    "docs/recipes/content/grid.md": "Grid Recipe",
 }
 
 def get_component(doc: str, title: str):
@@ -154,6 +157,7 @@ def get_component(doc: str, title: str):
             return
         clist = [title, *get_components_from_metadata(d)]
         chakra_components[category].append(clist)
+        title2 = "Chakra " + title2
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library/graphing"):
         if should_skip_compile(doc):

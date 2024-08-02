@@ -244,7 +244,7 @@ For sorting the `rx.select` component is used. The data is sorted based on the a
 
 For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `set_search_value` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Person`.
 
-`current_people` is an [`rx.cached_var`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
+`current_people` is an [`rx.var(cache=True)`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
 
 
 ```python demo exec
@@ -266,7 +266,7 @@ class TableSortingState(rx.State):
     sort_value = ""
     search_value = ""
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def current_people(self) -> list[Person]:
         people = self._people
 
@@ -530,7 +530,7 @@ class DatabaseTableState3(rx.State):
     offset: int = 0
     limit: int = 3
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def page_number(self) -> int:
         return (
             (self.offset // self.limit)
@@ -538,7 +538,7 @@ class DatabaseTableState3(rx.State):
             + (1 if self.offset % self.limit else 0)
         )
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def total_pages(self) -> int:
         return self.total_items // self.limit + (
             1 if self.total_items % self.limit else 0

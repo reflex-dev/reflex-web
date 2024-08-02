@@ -66,10 +66,21 @@ The hosting service does not currently handle database or file upload operations
 Below is a video of deploying the [AI chat app]({docs.tutorial.intro.path}) to our hosting service.
 
 ```python eval
-rx.center(
-    rx.video(url="https://www.youtube.com/embed/pf3FKE26hx4"),
-    rx.box(height="3em"),
-    width="100%",
-    padding_y="2em"
+rx.box(
+    rx.el.iframe(
+        src="https://www.loom.com/embed/bee928924a454a8098e741e1d19b2857?sid=38523a3f-4c7d-4ee2-9a51-4ca1a36828dc",
+        frameborder="0",
+        webkitallowfullscreen=True,
+        mozallowfullscreen=True,
+        allowfullscreen=True,
+        position="absolute",
+        top="0",
+        left="0",
+        width="100%",
+        height="100%",
+    ),
+    position="relative",
+    padding_bottom="64.94708994708994%",
+    height="0",
 )
 ```

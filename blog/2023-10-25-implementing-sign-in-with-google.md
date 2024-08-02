@@ -182,7 +182,7 @@ will use an
 [`State`]({state.overview.path}) that is set in the
 `on_success` event handler.
 
-Additionally, an `rx.cached_var` will be used to verify and return the decoded
+Additionally, an `rx.var` will be used to verify and return the decoded
 token info for the frontend to use.
 
 Finally, a new `logout` event handler will be defined to clear out the saved token
@@ -197,7 +197,7 @@ class State(rx.State):
     def on_success(self, id_token: dict):
         self.id_token_json = json.dumps(id_token)
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def tokeninfo(self) -> dict[str, str]:
         try:
             return verify_oauth2_token(
@@ -218,7 +218,7 @@ class State(rx.State):
 
 For convenience, a `token_is_valid` computed var can be defined to return a
 simple `bool` if the token is valid or not. This is specifically not a
-`cached_var` because it should be re-evaluated every time it is accessed, in
+cached var because it should be re-evaluated every time it is accessed, in
 case the expiry time has passed.
 
 ```python
@@ -310,7 +310,7 @@ returned from a computed var that checks token validity.
 ```python
 class State(rx.State):
     ...
-    @rx.cached_var
+    @rx.var(cache=True)
     def protected_content(self) -> str:
         if self.token_is_valid:
             return f"This content can only be viewed by a logged in User. Nice to see you \{self.tokeninfo['name']}"
@@ -392,7 +392,7 @@ class State(rx.State):
     def on_success(self, id_token: dict):
         self.id_token_json = json.dumps(id_token)
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def tokeninfo(self) -> dict[str, str]:
         try:
             return verify_oauth2_token(
@@ -418,7 +418,7 @@ class State(rx.State):
         except Exception:
             return False
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def protected_content(self) -> str:
         if self.token_is_valid:
             return f"This content can only be viewed by a logged in User. Nice to see you \{self.tokeninfo['name']}"

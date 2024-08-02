@@ -61,7 +61,7 @@ class DynamicFormState(rx.State):
     form_data: dict = {}
     form_fields: list[str] = ["first_name", "last_name", "email"]
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def form_field_placeholders(self) -> list[str]:
         return [
             " ".join(w.capitalize() for w in field.split("_"))
