@@ -124,6 +124,7 @@ manual_titles = {
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
     "docs/events/special_events.md": "Special Events",
+    "docs/library/html/html.md": "Html API Reference",
 }
 
 def get_component(doc: str, title: str):
