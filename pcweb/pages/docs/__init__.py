@@ -123,7 +123,7 @@ manual_titles = {
     "docs/substates/overview.md": "Substates Overview",
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
-    "docs/library/html/html.md": "Html API Reference",
+    "docs/library/html/html.md": "HTML Elements",
     "docs/recipes-overview.md": "Recipes Overview",
     "docs/events/special_events.md": "Special Events Docs",
     "docs/library/graphing/general/tooltip.md": "Graphing Tooltip",
