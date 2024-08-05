@@ -74,14 +74,16 @@ def build_nested_namespace(
 
 def get_components_from_metadata(current_doc):
     components = []
+   
     for comp_str in current_doc.metadata.get("components", []):
         component = eval(comp_str)
         if isinstance(component, type):
-            components.append(component)
+            components.append((component, comp_str))
         elif hasattr(component, "__self__"):
-            components.append(component.__self__)
+            components.append((component.__self__, comp_str))
         elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
-            components.append(component.__call__.__self__)
+            components.append((component.__call__.__self__, comp_str))
+    
     return components
 
 
@@ -169,11 +171,11 @@ def get_component(doc: str, title: str):
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
         if issubclass(
-            clist[1],
+            clist[1][0],
             (RadixThemesComponent, RadixPrimitiveComponent),
         ):
             component_list[category].append(clist)
-        elif issubclass(clist[1], ChakraComponent):
+        elif issubclass(clist[1][0], ChakraComponent):
             # Workaround for Chakra components outside of chakra directory (like Html).
             component_list[category].append(clist)
             route = route.replace("library/", "library/chakra/")

@@ -313,8 +313,8 @@ def get_toc(source, href, component_list=None):
 
     if len(component_list):
         headings.append((1, "API Reference"))
-    for component in component_list:
-        headings.append((2, component.__name__))
+    for component_tuple in component_list:
+        headings.append((2, component_tuple[0].__name__))
     return headings
 
 
