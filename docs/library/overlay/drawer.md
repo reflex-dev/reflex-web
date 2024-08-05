@@ -1,11 +1,11 @@
 ---
 components:
-    - rx.radix.drawer.root
-    - rx.radix.drawer.trigger
-    - rx.radix.drawer.overlay
-    - rx.radix.drawer.portal
-    - rx.radix.drawer.content
-    - rx.radix.drawer.close
+    - rx.drawer.root
+    - rx.drawer.trigger
+    - rx.drawer.overlay
+    - rx.drawer.portal
+    - rx.drawer.content
+    - rx.drawer.close
 
 only_low_level:
     - True

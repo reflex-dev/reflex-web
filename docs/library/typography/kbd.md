@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.text.kbd
+    - rx.text.kbd
 ---
 
 ```python exec

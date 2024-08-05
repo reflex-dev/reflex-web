@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.button
+    - rx.button
 
 Button: |
-    lambda **props: rx.radix.button("Basic Button", **props)
+    lambda **props: rx.button("Basic Button", **props)
 ---
 
 

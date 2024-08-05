@@ -1,32 +1,32 @@
 ---
 components:
-    - rx.radix.alert_dialog.root
-    - rx.radix.alert_dialog.content
-    - rx.radix.alert_dialog.trigger
-    - rx.radix.alert_dialog.title
-    - rx.radix.alert_dialog.description
-    - rx.radix.alert_dialog.action
-    - rx.radix.alert_dialog.cancel
+    - rx.alert_dialog.root
+    - rx.alert_dialog.content
+    - rx.alert_dialog.trigger
+    - rx.alert_dialog.title
+    - rx.alert_dialog.description
+    - rx.alert_dialog.action
+    - rx.alert_dialog.cancel
 
 only_low_level:
     - True
 
 AlertDialogRoot: |
-    lambda **props: rx.radix.alert_dialog.root(
-        rx.radix.alert_dialog.trigger(
-            rx.radix.button("Revoke access"),
+    lambda **props: rx.alert_dialog.root(
+        rx.alert_dialog.trigger(
+            rx.button("Revoke access"),
         ),
-        rx.radix.alert_dialog.content(
-            rx.radix.alert_dialog.title("Revoke access"),
-            rx.radix.alert_dialog.description(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access"),
+            rx.alert_dialog.description(
                 "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
             ),
-            rx.radix.flex(
-                rx.radix.alert_dialog.cancel(
-                    rx.radix.button("Cancel"),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel"),
                 ),
-                rx.radix.alert_dialog.action(
-                    rx.radix.button("Revoke access"),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access"),
                 ),
                 spacing="3",
             ),
@@ -35,21 +35,21 @@ AlertDialogRoot: |
     )
 
 AlertDialogContent: |
-    lambda **props: rx.radix.alert_dialog.root(
-        rx.radix.alert_dialog.trigger(
-            rx.radix.button("Revoke access"),
+    lambda **props: rx.alert_dialog.root(
+        rx.alert_dialog.trigger(
+            rx.button("Revoke access"),
         ),
-        rx.radix.alert_dialog.content(
-            rx.radix.alert_dialog.title("Revoke access"),
-            rx.radix.alert_dialog.description(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access"),
+            rx.alert_dialog.description(
                 "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
             ),
-            rx.radix.flex(
-                rx.radix.alert_dialog.cancel(
-                    rx.radix.button("Cancel"),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel"),
                 ),
-                rx.radix.alert_dialog.action(
-                    rx.radix.button("Revoke access"),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access"),
                 ),
                 spacing="3",
             ),

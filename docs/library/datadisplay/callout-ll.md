@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.radix.callout.root
-    - rx.radix.callout.icon
-    - rx.radix.callout.text
+    - rx.callout.root
+    - rx.callout.icon
+    - rx.callout.text
 ---
 
 

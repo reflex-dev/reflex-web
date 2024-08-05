@@ -1,31 +1,31 @@
 ---
 components:
-    - rx.radix.tabs.root
-    - rx.radix.tabs.list
-    - rx.radix.tabs.trigger
-    - rx.radix.tabs.content
+    - rx.tabs.root
+    - rx.tabs.list
+    - rx.tabs.trigger
+    - rx.tabs.content
 
 only_low_level:
     - True
 
 TabsRoot: |
-    lambda **props: rx.radix.tabs.root(
-        rx.radix.tabs.list(
-            rx.radix.tabs.trigger("Account", value="account"),
-            rx.radix.tabs.trigger("Documents", value="documents"),
-            rx.radix.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger("Account", value="account"),
+            rx.tabs.trigger("Documents", value="documents"),
+            rx.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.box(
-            rx.radix.tabs.content(
-                rx.radix.text("Make changes to your account"),
+        rx.box(
+            rx.tabs.content(
+                rx.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Update your documents"),
+            rx.tabs.content(
+                rx.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Edit your personal profile"),
+            rx.tabs.content(
+                rx.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
@@ -33,72 +33,72 @@ TabsRoot: |
     )
 
 TabsList: |
-    lambda **props: rx.radix.tabs.root(
-        rx.radix.tabs.list(
-            rx.radix.tabs.trigger("Account", value="account"),
-            rx.radix.tabs.trigger("Documents", value="documents"),
-            rx.radix.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger("Account", value="account"),
+            rx.tabs.trigger("Documents", value="documents"),
+            rx.tabs.trigger("Settings", value="settings"),
             **props,
         ),
-        rx.radix.box(
-            rx.radix.tabs.content(
-                rx.radix.text("Make changes to your account"),
+        rx.box(
+            rx.tabs.content(
+                rx.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Update your documents"),
+            rx.tabs.content(
+                rx.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Edit your personal profile"),
+            rx.tabs.content(
+                rx.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
     )
 
 TabsTrigger: |
-    lambda **props: rx.radix.tabs.root(
-        rx.radix.tabs.list(
-            rx.radix.tabs.trigger("Account", value="account", **props,),
-            rx.radix.tabs.trigger("Documents", value="documents"),
-            rx.radix.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger("Account", value="account", **props,),
+            rx.tabs.trigger("Documents", value="documents"),
+            rx.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.box(
-            rx.radix.tabs.content(
-                rx.radix.text("Make changes to your account"),
+        rx.box(
+            rx.tabs.content(
+                rx.text("Make changes to your account"),
                 value="account",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Update your documents"),
+            rx.tabs.content(
+                rx.text("Update your documents"),
                 value="documents",
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Edit your personal profile"),
+            rx.tabs.content(
+                rx.text("Edit your personal profile"),
                 value="settings",
             ),
         ),
     )
 
 TabsContent: |
-    lambda **props: rx.radix.tabs.root(
-        rx.radix.tabs.list(
-            rx.radix.tabs.trigger("Account", value="account"),
-            rx.radix.tabs.trigger("Documents", value="documents"),
-            rx.radix.tabs.trigger("Settings", value="settings"),
+    lambda **props: rx.tabs.root(
+        rx.tabs.list(
+            rx.tabs.trigger("Account", value="account"),
+            rx.tabs.trigger("Documents", value="documents"),
+            rx.tabs.trigger("Settings", value="settings"),
         ),
-        rx.radix.box(
-            rx.radix.tabs.content(
-                rx.radix.text("Make changes to your account"),
+        rx.box(
+            rx.tabs.content(
+                rx.text("Make changes to your account"),
                 value="account",
                 **props,
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Update your documents"),
+            rx.tabs.content(
+                rx.text("Update your documents"),
                 value="documents",
                 **props,
             ),
-            rx.radix.tabs.content(
-                rx.radix.text("Edit your personal profile"),
+            rx.tabs.content(
+                rx.text("Edit your personal profile"),
                 value="settings",
                 **props,
             ),

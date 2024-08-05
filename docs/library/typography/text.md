@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.radix.text
-    - rx.radix.text.em
+    - rx.text
+    - rx.text.em
 
 ---
 

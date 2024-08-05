@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.checkbox
+    - rx.checkbox
 
 HighLevelCheckbox: |
-    lambda **props: rx.radix.checkbox("Basic Checkbox", **props)
+    lambda **props: rx.checkbox("Basic Checkbox", **props)
 ---
 
 ```python exec

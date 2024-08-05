@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.radix.separator
+    - rx.separator
 Separator: |
-    lambda **props: rx.radix.separator(**props)
+    lambda **props: rx.separator(**props)
 
 ---
 

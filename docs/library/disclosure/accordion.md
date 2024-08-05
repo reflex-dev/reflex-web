@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.radix.accordion.root
-    - rx.radix.accordion.item
+    - rx.accordion.root
+    - rx.accordion.item
 
 AccordionRoot: |
     lambda **props: rx.accordion.root(

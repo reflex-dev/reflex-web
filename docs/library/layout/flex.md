@@ -1,6 +1,6 @@
 ---
 components:
-  - rx.radix.flex
+  - rx.flex
 ---
 
 ```python exec

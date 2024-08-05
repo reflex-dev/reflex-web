@@ -1,23 +1,23 @@
 ---
 components:
-    - rx.radix.popover.root
-    - rx.radix.popover.content
-    - rx.radix.popover.trigger
-    - rx.radix.popover.close
+    - rx.popover.root
+    - rx.popover.content
+    - rx.popover.trigger
+    - rx.popover.close
 
 only_low_level:
     - True
 
 PopoverRoot: |
-    lambda **props: rx.radix.popover.root(
-        rx.radix.popover.trigger(
-            rx.radix.button("Popover"),
+    lambda **props: rx.popover.root(
+        rx.popover.trigger(
+            rx.button("Popover"),
         ),
-        rx.radix.popover.content(
-            rx.radix.flex(
-                rx.radix.text("Simple Example"),
-                rx.radix.popover.close(
-                    rx.radix.button("Close"),
+        rx.popover.content(
+            rx.flex(
+                rx.text("Simple Example"),
+                rx.popover.close(
+                    rx.button("Close"),
                 ),
                 direction="column",
                 spacing="3",
@@ -27,15 +27,15 @@ PopoverRoot: |
     )
 
 PopoverContent: |
-    lambda **props: rx.radix.popover.root(
-        rx.radix.popover.trigger(
-            rx.radix.button("Popover"),
+    lambda **props: rx.popover.root(
+        rx.popover.trigger(
+            rx.button("Popover"),
         ),
-        rx.radix.popover.content(
-            rx.radix.flex(
-                rx.radix.text("Simple Example"),
-                rx.radix.popover.close(
-                    rx.radix.button("Close"),
+        rx.popover.content(
+            rx.flex(
+                rx.text("Simple Example"),
+                rx.popover.close(
+                    rx.button("Close"),
                 ),
                 direction="column",
                 spacing="3",

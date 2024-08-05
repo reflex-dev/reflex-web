@@ -1,6 +1,6 @@
 ---
 components:
-  - rx.radix.section
+  - rx.section
 ---
 
 ```python exec

@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.callout
-    - rx.radix.callout.root
-    - rx.radix.callout.icon
-    - rx.radix.callout.text
+    - rx.callout
+    - rx.callout.root
+    - rx.callout.icon
+    - rx.callout.text
 
 Callout: |
     lambda **props: rx.callout("Basic Callout", icon="search", **props)

@@ -1,9 +1,9 @@
 ---
 components:
-  - rx.radix.card
+  - rx.card
 
 Card: |
-    lambda **props: rx.radix.card("Basic Card ", **props)
+    lambda **props: rx.card("Basic Card ", **props)
 ---
 
 ```python exec

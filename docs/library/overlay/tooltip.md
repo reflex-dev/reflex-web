@@ -1,10 +1,10 @@
 ---
 components:
-    - rx.radix.tooltip
+    - rx.tooltip
 
 Tooltip: |
-    lambda **props: rx.radix.tooltip(
-        rx.radix.button("Hover over me"),
+    lambda **props: rx.tooltip(
+        rx.button("Hover over me"),
         content="This is the tooltip content.",
         **props,
     )

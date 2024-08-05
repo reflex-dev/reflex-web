@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.text.strong
+    - rx.text.strong
 ---
 
 ```python exec
