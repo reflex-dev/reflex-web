@@ -314,7 +314,7 @@ def get_toc(source, href, component_list=None):
     if len(component_list):
         headings.append((1, "API Reference"))
     for component_tuple in component_list:
-        headings.append((2, component_tuple[0].__name__))
+        headings.append((2, component_tuple[1]))
     return headings
 
 
@@ -409,7 +409,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
-
+                
             if isinstance(comp, tuple):
                 toc, comp = comp
 

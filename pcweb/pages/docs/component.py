@@ -984,19 +984,16 @@ def generate_valid_children(comp):
         padding_y=".5em",
     )
 
-# import difflib
-# def find_most_similar(target, options):
-#     return difflib.get_close_matches(target, options, n=1, cutoff=0)[0]
 
 def component_docs(component_tuple, comp):
     """Generates documentation for a given component."""
-    print(component_tuple)
+    
     component = component_tuple[0]
     src = Source(component=component)
     props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
-    print(component.__name__)
+    
 
     return rx.box(
         h2_comp(text=component_tuple[1]),
@@ -1028,7 +1025,6 @@ tab_selected_style = {
 
 
 def multi_docs(path, comp, component_list, title):
-    print(component_list)
     components = [component_docs(component_tuple, comp) for component_tuple in component_list[1:]]
     fname = path.strip("/") + ".md"
     ll_doc_exists = os.path.exists(fname.replace(".md", "-ll.md"))
