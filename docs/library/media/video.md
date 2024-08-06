@@ -19,4 +19,4 @@ rx.video(
 )
 ```
 
-If we had a local file in the `assets` folder named `test.mp4` we could set `url="/test.mp3"` to view the video.
+If we had a local file in the `assets` folder named `test.mp4` we could set `url="/test.mp4"` to view the video.
