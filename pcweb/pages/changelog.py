@@ -68,6 +68,19 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-08-06",
+            "v0.5.9",
+            "Bug Fixes",
+            [
+                "Properly set `is_hydrated` to `false` on page navigation events",
+                "@rx.var(cache=True) now correctly gets the initial value",
+                "Accessing /404 now shows the 404 page content",
+                "Fix event actions for Recharts event triggers",
+                "Allow setting `rx.breakpoints` in the `style` prop",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.9",
+        ),
+        change(
             "2024-07-29",
             "v0.5.8",
             "Use templates from reflex-dev/templates",
