@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.text.quote
+    - rx.text.quote
 ---
 
 ```python exec

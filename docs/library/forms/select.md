@@ -1,25 +1,25 @@
 ---
 components:
-    - rx.radix.select
-    - rx.radix.select.root
-    - rx.radix.select.trigger
-    - rx.radix.select.content
-    - rx.radix.select.group
-    - rx.radix.select.item
-    - rx.radix.select.label
-    - rx.radix.select.separator
+    - rx.select
+    - rx.select.root
+    - rx.select.trigger
+    - rx.select.content
+    - rx.select.group
+    - rx.select.item
+    - rx.select.label
+    - rx.select.separator
 
 HighLevelSelect: |
-    lambda **props: rx.radix.select(["apple", "grape", "pear"], default_value="pear", **props)
+    lambda **props: rx.select(["apple", "grape", "pear"], default_value="pear", **props)
 
 SelectRoot: |
-    lambda **props: rx.radix.select.root(
-        rx.radix.select.trigger(),
-        rx.radix.select.content(
-            rx.radix.select.group(
-                rx.radix.select.item("apple", value="apple"),
-                rx.radix.select.item("grape", value="grape"),
-                rx.radix.select.item("pear", value="pear"),
+    lambda **props: rx.select.root(
+        rx.select.trigger(),
+        rx.select.content(
+            rx.select.group(
+                rx.select.item("apple", value="apple"),
+                rx.select.item("grape", value="grape"),
+                rx.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",
@@ -27,26 +27,26 @@ SelectRoot: |
     )
 
 SelectTrigger: |
-    lambda **props: rx.radix.select.root(
-        rx.radix.select.trigger(**props),
-        rx.radix.select.content(
-            rx.radix.select.group(
-                rx.radix.select.item("apple", value="apple"),
-                rx.radix.select.item("grape", value="grape"),
-                rx.radix.select.item("pear", value="pear"),
+    lambda **props: rx.select.root(
+        rx.select.trigger(**props),
+        rx.select.content(
+            rx.select.group(
+                rx.select.item("apple", value="apple"),
+                rx.select.item("grape", value="grape"),
+                rx.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",
     )
 
 SelectContent: |
-    lambda **props: rx.radix.select.root(
-        rx.radix.select.trigger(),
-        rx.radix.select.content(
-            rx.radix.select.group(
-                rx.radix.select.item("apple", value="apple"),
-                rx.radix.select.item("grape", value="grape"),
-                rx.radix.select.item("pear", value="pear"),
+    lambda **props: rx.select.root(
+        rx.select.trigger(),
+        rx.select.content(
+            rx.select.group(
+                rx.select.item("apple", value="apple"),
+                rx.select.item("grape", value="grape"),
+                rx.select.item("pear", value="pear"),
             ),
             **props,
         ),
@@ -54,13 +54,13 @@ SelectContent: |
     )
 
 SelectItem: |
-    lambda **props: rx.radix.select.root(
-        rx.radix.select.trigger(),
-        rx.radix.select.content(
-            rx.radix.select.group(
-                rx.radix.select.item("apple", value="apple", **props),
-                rx.radix.select.item("grape", value="grape"),
-                rx.radix.select.item("pear", value="pear"),
+    lambda **props: rx.select.root(
+        rx.select.trigger(),
+        rx.select.content(
+            rx.select.group(
+                rx.select.item("apple", value="apple", **props),
+                rx.select.item("grape", value="grape"),
+                rx.select.item("pear", value="pear"),
             ),
         ),
         default_value="pear",

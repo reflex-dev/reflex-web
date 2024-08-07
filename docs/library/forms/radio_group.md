@@ -1,29 +1,29 @@
 ---
 components:
-    - rx.radix.radio_group
-    - rx.radix.radio_group.root
-    - rx.radix.radio_group.item
+    - rx.radio_group
+    - rx.radio_group.root
+    - rx.radio_group.item
 
 HighLevelRadioGroup: |
-    lambda **props: rx.radix.radio_group(["1", "2", "3", "4", "5"], **props)
+    lambda **props: rx.radio_group(["1", "2", "3", "4", "5"], **props)
 
 RadioGroupRoot: |
-    lambda **props: rx.radix.radio_group.root(
-        rx.radix.radio_group.item(value="1"),
-        rx.radix.radio_group.item(value="2"),
-        rx.radix.radio_group.item(value="3"),
-        rx.radix.radio_group.item(value="4"),
-        rx.radix.radio_group.item(value="5"),
+    lambda **props: rx.radio_group.root(
+        rx.radio_group.item(value="1"),
+        rx.radio_group.item(value="2"),
+        rx.radio_group.item(value="3"),
+        rx.radio_group.item(value="4"),
+        rx.radio_group.item(value="5"),
         **props
     )
 
 RadioGroupItem: |
-    lambda **props: rx.radix.radio_group.root(
-        rx.radix.radio_group.item(value="1", **props),
-        rx.radix.radio_group.item(value="2", **props),
-        rx.radix.radio_group.item(value="3",),
-        rx.radix.radio_group.item(value="4",),
-        rx.radix.radio_group.item(value="5",),
+    lambda **props: rx.radio_group.root(
+        rx.radio_group.item(value="1", **props),
+        rx.radio_group.item(value="2", **props),
+        rx.radio_group.item(value="3",),
+        rx.radio_group.item(value="4",),
+        rx.radio_group.item(value="5",),
     )
 ---
 

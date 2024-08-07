@@ -1,6 +1,6 @@
 ---
 components:
-  - rx.radix.grid
+  - rx.grid
 ---
 
 ```python exec

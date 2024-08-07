@@ -1,6 +1,6 @@
 ---
 components:
-  - rx.radix.container
+  - rx.container
 ---
 
 ```python exec

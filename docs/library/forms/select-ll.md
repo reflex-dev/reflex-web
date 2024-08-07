@@ -1,13 +1,13 @@
 ---
 components:
-    - rx.radix.select
-    - rx.radix.select.root
-    - rx.radix.select.trigger
-    - rx.radix.select.content
-    - rx.radix.select.group
-    - rx.radix.select.item
-    - rx.radix.select.label
-    - rx.radix.select.separator
+    - rx.select
+    - rx.select.root
+    - rx.select.trigger
+    - rx.select.content
+    - rx.select.group
+    - rx.select.item
+    - rx.select.label
+    - rx.select.separator
 ---
 
 

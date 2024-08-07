@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.radix.radio_group
-    - rx.radix.radio_group.root
-    - rx.radix.radio_group.item
+    - rx.radio_group
+    - rx.radio_group.root
+    - rx.radio_group.item
 ---
 
 

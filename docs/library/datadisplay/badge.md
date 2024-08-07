@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.radix.badge
+    - rx.badge
 
 Badge: |
     lambda **props: rx.badge("Basic Badge", **props)
