@@ -1,6 +1,6 @@
 ```python exec
 import reflex as rx
-from docs.datatable_tutorial.datatable_tutorial_utils import DataTableState, DataTableState2
+from docs.datatable_tutorial.datatable_tutorial_utils import DataTableState, DataTableState
 ```
 
 # Adding Interactivity to our DataTable
@@ -79,7 +79,7 @@ rx.data_editor(
 We can define group headers which are headers that encompass a group of columns. We define these in the `columns` using the `group` property such as `"group": "Data"`. The `columns` would now be defined as below. Only the `Title` does not fall under a group header, all the rest fall under the `Data` group header.
 
 ```python
-class DataTableState2(rx.State):
+class DataTableState(rx.State):
     """The app state."""
 
     ...
@@ -135,17 +135,17 @@ The table now has a header as below.
 
 ```python demo
 rx.data_editor(
-    columns=DataTableState2.cols,
-    data=DataTableState2.data,
-    on_cell_clicked=DataTableState2.get_clicked_data,
-    on_cell_edited=DataTableState2.get_edited_data,
+    columns=DataTableState.cols,
+    data=DataTableState.data,
+    on_cell_clicked=DataTableState.get_clicked_data,
+    on_cell_edited=DataTableState.get_edited_data,
 )
 ```
 
 There are several event triggers we can apply to the group header.
 
 ```python
-class DataTableState2(rx.State):
+class DataTableState(rx.State):
     """The app state."""
 
     right_clicked_group_header : str = "Group header right clicked: "
@@ -158,16 +158,16 @@ class DataTableState2(rx.State):
 ```
 
 ```python demo
-rx.text(DataTableState2.right_clicked_group_header)
+rx.text(DataTableState.right_clicked_group_header)
 ```
 
 ```python demo
 rx.data_editor(
-    columns=DataTableState2.cols,
-    data=DataTableState2.data,
-    on_cell_clicked=DataTableState2.get_clicked_data,
-    on_cell_edited=DataTableState2.get_edited_data,
-    on_group_header_context_menu=DataTableState2.get_group_header_right_click,
+    columns=DataTableState.cols,
+    data=DataTableState.data,
+    on_cell_clicked=DataTableState.get_clicked_data,
+    on_cell_edited=DataTableState.get_edited_data,
+    on_group_header_context_menu=DataTableState.get_group_header_right_click,
 )
 ```
 
@@ -180,7 +180,7 @@ There are several other event triggers that are worth exploring. The `on_item_ho
 The final event trigger to check out is `on_column_resize`. `on_column_resize` allows us to respond to the user dragging the handle between columns. The event trigger returns the `col` we are adjusting and the new `width` we have defined. The `col` that is returned is a dictionary for example: `\{'title': 'Name', 'type': 'str', 'group': 'Data', 'width': 198, 'pos': 1}`. We then index into `self.cols` defined in our state and change the `width` of that column using this code: `self.cols[col['pos']]['width'] = width`.
 
 ```python
-class DataTableState2(rx.State):
+class DataTableState(rx.State):
     """The app state."""
 
     ...
@@ -202,22 +202,22 @@ class DataTableState2(rx.State):
 ```
 
 ```python demo
-rx.text(DataTableState2.item_hovered)
+rx.text(DataTableState.item_hovered)
 ```
 
 ```python demo
-rx.text(DataTableState2.deleted)
+rx.text(DataTableState.deleted)
 ```
 
 ```python demo
 rx.data_editor(
-    columns=DataTableState2.cols,
-    data=DataTableState2.data,
-    on_cell_clicked=DataTableState2.get_clicked_data,
-    on_cell_edited=DataTableState2.get_edited_data,
-    on_group_header_context_menu=DataTableState2.get_group_header_right_click,
-    on_item_hovered=DataTableState2.get_item_hovered,
-    on_delete=DataTableState2.get_deleted_item,
-    on_column_resize=DataTableState2.column_resize,
+    columns=DataTableState.cols,
+    data=DataTableState.data,
+    on_cell_clicked=DataTableState.get_clicked_data,
+    on_cell_edited=DataTableState.get_edited_data,
+    on_group_header_context_menu=DataTableState.get_group_header_right_click,
+    on_item_hovered=DataTableState.get_item_hovered,
+    on_delete=DataTableState.get_deleted_item,
+    on_column_resize=DataTableState.column_resize,
 )
 ```
