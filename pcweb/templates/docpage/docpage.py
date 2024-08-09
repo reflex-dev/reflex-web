@@ -97,6 +97,7 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
+    normalised_path = normalised_path(path)
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
@@ -138,7 +139,7 @@ def docpage_footer(path: str):
                             padding="0px 10px",
                             white_space="nowrap",
                         ),
-                        href=f"https://github.com/reflex-dev/reflex-web/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}",
+                        href=f"https://github.com/reflex-dev/reflex-web/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {normalised_path}",
                     )
                 ),
                 rx.desktop_only(
@@ -153,7 +154,7 @@ def docpage_footer(path: str):
                             padding="0px 10px",
                             white_space="nowrap",
                         ),
-                        href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                        href=f"https://github.com/reflex-dev/reflex-web/blob/main/docs/getting-started/introduction.md",
                     )
                 ),
                 spacing="2",
@@ -231,6 +232,16 @@ def docpage_footer(path: str):
         spacing="2",
         margin_bottom="2em",
     )
+def normalize_path(path: str) -> str:
+    # Ensure there's no trailing slash, and the path is correctly formatted
+    if path.endswith('/'):
+        path = path[:-1]
+    
+    # Combine path with .md only if it doesn't already have one
+    if not path.endswith('.md'):
+        path += '.md'
+    
+    return path
 
 
 def breadcrumb(path):
