@@ -97,6 +97,7 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
+    print(f"Received path: {path}")
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
