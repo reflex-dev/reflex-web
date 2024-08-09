@@ -97,7 +97,7 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
-    normalised_path = normalised_path(path)
+    normalised_path = normalize_path(path)
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
@@ -154,7 +154,7 @@ def docpage_footer(path: str):
                             padding="0px 10px",
                             white_space="nowrap",
                         ),
-                        href=f"https://github.com/reflex-dev/reflex-web/blob/main/docs/getting-started/introduction.md",
+                        href=f"https://github.com/reflex-dev/reflex-web/blob/main{normalised_path}.md",
                     )
                 ),
                 spacing="2",
