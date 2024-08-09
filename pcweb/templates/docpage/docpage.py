@@ -98,7 +98,7 @@ def docpage_footer(path: str):
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
     # Directly normalize and strip the path in the href assignment
-    normalised_path = path.rstrip('/').replace("{path}", "resolved-path")  # Adjust this as necessary
+    normalised_path = path.strip("/") # Adjust this as necessary
 
     # Ensure it ends with .md
     if not href_path.endswith('.md'):
@@ -241,20 +241,6 @@ def docpage_footer(path: str):
         spacing="2",
         margin_bottom="2em",
     )
-def normalize_path(path: str) -> str:
-    # Ensure the path is treated as a string
-    if hasattr(path, "get"):
-        path = path.get()
-    
-    # Remove trailing slash if present
-    if path.endswith('/'):
-        path = path[:-1]
-    
-    # Ensure the path ends with .md
-    if not path.endswith('.md'):
-        path += '.md'
-    
-    return path
 
 
 def breadcrumb(path):
