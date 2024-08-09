@@ -100,12 +100,7 @@ def docpage_footer(path: str):
     # Directly normalize and strip the path in the href assignment
     normalised_path = path.strip("/") # Adjust this as necessary
 
-    # Ensure it ends with .md
-    if not href_path.endswith('.md'):
-        href_path += '.md'
-
-    # Print href_path to the console for debugging
-    print(f"href_path: {href_path}")
+   
 
     return rx.flex(
         rx.divider(size="4"),
