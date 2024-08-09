@@ -233,11 +233,15 @@ def docpage_footer(path: str):
         margin_bottom="2em",
     )
 def normalize_path(path: str) -> str:
-    # Ensure there's no trailing slash, and the path is correctly formatted
+    # Ensure the path is treated as a string
+    if hasattr(path, "get"):
+        path = path.get()
+    
+    # Remove trailing slash if present
     if path.endswith('/'):
         path = path[:-1]
     
-    # Combine path with .md only if it doesn't already have one
+    # Ensure the path ends with .md
     if not path.endswith('.md'):
         path += '.md'
     
