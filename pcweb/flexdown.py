@@ -17,6 +17,7 @@ from pcweb.templates.docpage import (
     definition,
 )
 
+
 class AlertBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a component along with its code."""
 
@@ -60,13 +61,39 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                             rx.box(
                                 rx.match(
                                     status,
-                                    ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
-                                    ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
-                                    ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
-                                    ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
+                                    (
+                                        "info",
+                                        rx.icon(
+                                            tag="info", size=18, margin_right=".5em"
+                                        ),
+                                    ),
+                                    (
+                                        "success",
+                                        rx.icon(
+                                            tag="circle_check",
+                                            size=18,
+                                            margin_right=".5em",
+                                        ),
+                                    ),
+                                    (
+                                        "warning",
+                                        rx.icon(
+                                            tag="triangle_alert",
+                                            size=18,
+                                            margin_right=".5em",
+                                        ),
+                                    ),
+                                    (
+                                        "error",
+                                        rx.icon(
+                                            tag="ban", size=18, margin_right=".5em"
+                                        ),
+                                    ),
                                 )
                             ),
-                            rx.markdown(title) if title else self.render_fn(content=content),
+                            rx.markdown(title)
+                            if title
+                            else self.render_fn(content=content),
                             rx.spacer(),
                             rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                             align_items="center",
@@ -75,20 +102,22 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                             spacing="2",
                             width="100%",
                         ),
-                        color=f"{rx.color(color, 11)}", 
+                        color=f"{rx.color(color, 11)}",
                         border_radius="8px",
                         _hover={},
                     ),
-                    rx.chakra.accordion_panel(markdown(content)) if title else rx.fragment(),
+                    rx.chakra.accordion_panel(markdown(content))
+                    if title
+                    else rx.fragment(),
                     border_radius="8px",
                     background_color=f"{rx.color(color, 3)}",
                     border="none",
                     allow_toggle=True,
                 ),
-                is_disabled = True,
+                is_disabled=True,
                 allow_toggle=True,
                 width="100%",
-                margin_y="1em"
+                margin_y="1em",
             )
         else:
             return rx.vstack(
@@ -97,24 +126,32 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         rx.match(
                             status,
                             ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
-                            ("success", rx.icon(tag="circle_check", size=18, margin_right=".5em")),
-                            ("warning", rx.icon(tag="triangle_alert", size=18, margin_right=".5em")),
+                            (
+                                "success",
+                                rx.icon(
+                                    tag="circle_check", size=18, margin_right=".5em"
+                                ),
+                            ),
+                            (
+                                "warning",
+                                rx.icon(
+                                    tag="triangle_alert", size=18, margin_right=".5em"
+                                ),
+                            ),
                             ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
                         )
                     ),
-                    rx.markdown(
-                        title,
-                        color=f"{rx.color(color, 11)}"
-                    ),
+                    rx.markdown(title, color=f"{rx.color(color, 11)}"),
                     align_items="center",
                     spacing="1",
-                    padding_left = "1em",
-                    padding_right = "1em",
+                    padding_left="1em",
+                    padding_right="1em",
                 ),
                 background_color=f"{rx.color(color, 3)}",
                 border_radius="8px",
                 margin_y="1em",
             )
+
 
 class SectionBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
@@ -201,8 +238,8 @@ class DefinitionBlock(flexdown.blocks.Block):
                 )
             ),
         )
-   
- 
+
+
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -219,6 +256,13 @@ class DemoBlock(flexdown.blocks.Block):
 
         exec_mode = env.get("__exec", False)
         comp = ""
+
+        for arg in args:
+            if arg.startswith("id="):
+                comp_id = arg.rsplit("id=")[-1]
+                break
+        else:
+            comp_id = None
 
         if "exec" in args:
             env["__xd"].exec(code, env, self.filename)
@@ -237,7 +281,7 @@ class DemoBlock(flexdown.blocks.Block):
             return comp
         elif "box" in args:
             comp = eval(code, env, env)
-            return rx.box(docdemobox(comp), margin_bottom="1em")
+            return rx.box(docdemobox(comp), margin_bottom="1em", id=comp_id)
         else:
             comp = eval(code, env, env)
 
@@ -251,7 +295,10 @@ class DemoBlock(flexdown.blocks.Block):
         if "toggle" in args:
             demobox_props["toggle"] = True
 
-        return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
+        return docdemo(
+            code, comp=comp, demobox_props=demobox_props, theme=self.theme, id=comp_id
+        )
+
 
 class DemoBlockDark(DemoBlock):
     theme = "dark"
@@ -279,13 +326,15 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
         else:
             title = ""
 
-        color="blue"
+        color = "blue"
 
         return rx.chakra.accordion(
             rx.chakra.accordion_item(
                 rx.chakra.accordion_button(
                     rx.hstack(
-                        rx.markdown(title) if title else rx.markdown("Video Description"),
+                        rx.markdown(title)
+                        if title
+                        else rx.markdown("Video Description"),
                         rx.spacer(),
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
@@ -294,20 +343,22 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                         spacing="2",
                         width="100%",
                     ),
-                    color=f"{rx.color(color, 11)}", 
+                    color=f"{rx.color(color, 11)}",
                     border_radius="8px",
                     _hover={},
                 ),
-                rx.chakra.accordion_panel(rx.video(url=url, width="100%", height="500px")),
+                rx.chakra.accordion_panel(
+                    rx.video(url=url, width="100%", height="500px")
+                ),
                 border_radius="8px",
                 background_color=f"{rx.color(color, 3)}",
                 border="none",
                 allow_toggle=True,
             ),
-            is_disabled = True,
+            is_disabled=True,
             allow_toggle=True,
             width="100%",
-            margin_y="1em"
+            margin_y="1em",
         )
 
 

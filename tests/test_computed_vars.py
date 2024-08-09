@@ -1,0 +1,26 @@
+import re
+
+import pytest
+from playwright.sync_api import Page, expect
+
+from reflex.testing import AppHarness
+import time
+
+
+@pytest.fixture
+def computed_vars_url():
+    from pcweb.pages import docs
+
+    return docs.vars.computed_vars.path
+
+
+def test_computed_vars(reflex_web_app: AppHarness, page: Page, computed_vars_url):
+    assert reflex_web_app.frontend_url is not None
+
+    page.goto(reflex_web_app.frontend_url + computed_vars_url)
+    expect(page).to_have_url(re.compile(computed_vars_url))
+
+    input = page.get_by_role("textbox")
+    input.fill("upper")
+    input.blur()
+    expect(page.locator('[id="\\"upper\\""] > .rt-Flex > span')).to_have_text("UPPER")
