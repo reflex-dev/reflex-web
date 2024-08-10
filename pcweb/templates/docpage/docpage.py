@@ -97,6 +97,8 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
+
+    path = str(path)
     if len(path) > 0 and path[-1] == '/':
         path = path[:-1]
     return rx.flex(
