@@ -97,7 +97,8 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
-    print(f"Received path: {path}")
+    if len(path) > 0 and path[-1] == '/':
+        path = path[:-1]
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
@@ -154,7 +155,7 @@ def docpage_footer(path: str):
                             padding="0px 10px",
                             white_space="nowrap",
                         ),
-                        href=f"https://github.com/reflex-dev/reflex-web/blob/main/docs/getting-started/introduction.md",
+                        href=f"https://github.com/reflex-dev/reflex-web/blob/main{path}.md",
                     )
                 ),
                 spacing="2",
