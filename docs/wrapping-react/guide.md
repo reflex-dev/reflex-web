@@ -15,7 +15,7 @@ class ColorPicker(rx.Component):
 color_picker = ColorPicker.create
 
 
-class ColorPickerState(rx.State):
+class ColorPickerState2(rx.State):
     color: str = "#db114b"
 ```
 
@@ -26,12 +26,12 @@ Let's walk step by step through how to wrap a React component in Reflex, using t
 ```python eval
 rx.box(
     rx.vstack(
-        rx.heading(ColorPickerState.color, color="white"),
+        rx.heading(ColorPickerState2.color, color="white"),
         color_picker(
-            on_change=ColorPickerState.set_color
+            on_change=ColorPickerState2.set_color
         ),
     ),
-    background_color=ColorPickerState.color,
+    background_color=ColorPickerState2.color,
     padding="5em",
     border_radius="1em",
     margin_bottom="1em",
