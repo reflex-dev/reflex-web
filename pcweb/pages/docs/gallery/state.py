@@ -40,12 +40,12 @@ class SideBarState(rx.State):
             if set(app["keywords"] or []).intersection(self.chosen_tags)
         ]
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def example_apps_to_return(self) -> list[dict[str, str]]:
         """This function returns the examples apps filtered by selected tags."""
         return self._filter_by_tag(self.example_apps_list)
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def community_apps_to_return(self) -> list[dict[str, str]]:
         """This function returns the community apps filtered by selected tags."""
         return self.community_apps_list[(self.page-1)*16:self.page * 16]

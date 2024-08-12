@@ -165,7 +165,7 @@ class PieChartState(rx.State):
         dict(type_="🧱", count=1),
     ]
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def resource_types(self) -> list[str]:
         return [r["type_"] for r in self.resources]
 

@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.radix.text_area
+    - rx.text_area
 
 TextArea: |
-    lambda **props: rx.radix.text_area(**props)
+    lambda **props: rx.text_area(**props)
 ---
 
 ```python exec

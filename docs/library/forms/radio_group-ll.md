@@ -1,8 +1,8 @@
 ---
 components:
-    - rx.radix.radio_group
-    - rx.radix.radio_group.root
-    - rx.radix.radio_group.item
+    - rx.radio_group
+    - rx.radio_group.root
+    - rx.radio_group.item
 ---
 
 
@@ -44,7 +44,7 @@ the Var representing the current `value`.
 class RadioState1(rx.State):
     val: str = ""
     
-    @rx.cached_var
+    @rx.var(cache=True)
     def display_value(self):
         return self.val or "No Selection"
 

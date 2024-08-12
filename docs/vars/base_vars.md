@@ -81,7 +81,7 @@ def ticker_example():
 ## Backend-only Vars
 
 Any Var in a state class that starts with an underscore is considered backend
-only and will not be syncronized with the frontend. Data associated with a
+only and will not be synchronized with the frontend. Data associated with a
 specific session that is not directly rendered on the frontend should be stored
 in a backend-only var to reduce network traffic and improve performance.
 
@@ -102,18 +102,18 @@ class BackendVarState(rx.State):
     offset: int = 0
     limit: int = 10
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def page(self) -> list[int]:
         return [
             int(x)  # explicit cast to int
             for x in self._backend[self.offset : self.offset + self.limit]
         ]
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def page_number(self) -> int:
         return (self.offset // self.limit) + 1 + (1 if self.offset % self.limit else 0)
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def total_pages(self) -> int:
         return len(self._backend) // self.limit + (1 if len(self._backend) % self.limit else 0)
 

@@ -1,9 +1,9 @@
 ---
 components:
-     - rx.radix.switch
+     - rx.switch
 
 Switch: |
-    lambda **props: rx.radix.switch(**props)
+    lambda **props: rx.switch(**props)
 
 ---
 

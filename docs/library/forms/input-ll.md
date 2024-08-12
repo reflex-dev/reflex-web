@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.radix.input
-    - rx.radix.input.slot
+    - rx.input
+    - rx.input.slot
 ---
 
 ```python exec

@@ -8,7 +8,6 @@ blog_routes = [blogs]
 for path, document in blog_data.items():
     # Get the docpage component.
     route = f"/{path}"
-    # print(route)
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(path=route, title=document.metadata["title"]+ " · Reflex Blog")(
         lambda doc=document: page(doc, route)

@@ -1,6 +1,6 @@
 ---
 components:
-  - rx.radix.aspect_ratio
+  - rx.aspect_ratio
 ---
 
 ```python exec

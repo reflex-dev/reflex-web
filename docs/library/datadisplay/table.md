@@ -12,24 +12,24 @@ only_low_level:
     - True
 
 TableRoot: |
-    lambda **props: rx.radix.table.root(
-            rx.radix.table.header(
-                rx.radix.table.row(
-                    rx.radix.table.column_header_cell("Full Name"),
-                    rx.radix.table.column_header_cell("Email"),
-                    rx.radix.table.column_header_cell("Group"),
+    lambda **props: rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.table.body(
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.table.cell("danilo@example.com"),
-                    rx.radix.table.cell("Developer"),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Danilo Rosa"),
+                    rx.table.cell("danilo@example.com"),
+                    rx.table.cell("Developer"),
                 ),
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.table.cell("zahra@example.com"),
-                    rx.radix.table.cell("Admin"),
+                rx.table.row(
+                    rx.table.row_header_cell("Zahra Ambessa"),
+                    rx.table.cell("zahra@example.com"),
+                    rx.table.cell("Admin"),
                 ),
             ),
             width="80%",
@@ -37,26 +37,26 @@ TableRoot: |
         )
 
 TableRow: |
-    lambda **props: rx.radix.table.root(
-            rx.radix.table.header(
-                rx.radix.table.row(
-                    rx.radix.table.column_header_cell("Full Name"),
-                    rx.radix.table.column_header_cell("Email"),
-                    rx.radix.table.column_header_cell("Group"),
+    lambda **props: rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Group"),
                     **props,
                 ),
             ),
-            rx.radix.table.body(
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.table.cell(rx.radix.text("danilo@example.com", as_="p"), rx.radix.text("danilo@yahoo.com", as_="p"), rx.radix.text("danilo@gmail.com", as_="p"),),
-                    rx.radix.table.cell("Developer"),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Danilo Rosa"),
+                    rx.table.cell(rx.text("danilo@example.com", as_="p"), rx.text("danilo@yahoo.com", as_="p"), rx.text("danilo@gmail.com", as_="p"),),
+                    rx.table.cell("Developer"),
                     **props,
                 ),
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.table.cell("zahra@example.com"),
-                    rx.radix.table.cell("Admin"),
+                rx.table.row(
+                    rx.table.row_header_cell("Zahra Ambessa"),
+                    rx.table.cell("zahra@example.com"),
+                    rx.table.cell("Admin"),
                     **props,
                 ),
             ),
@@ -64,72 +64,72 @@ TableRow: |
         )
 
 TableColumnHeaderCell: |
-    lambda **props: rx.radix.table.root(
-            rx.radix.table.header(
-                rx.radix.table.row(
-                    rx.radix.table.column_header_cell("Full Name", **props,),
-                    rx.radix.table.column_header_cell("Email", **props,),
-                    rx.radix.table.column_header_cell("Group", **props,),
+    lambda **props: rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full Name", **props,),
+                    rx.table.column_header_cell("Email", **props,),
+                    rx.table.column_header_cell("Group", **props,),
                 ),
             ),
-            rx.radix.table.body(
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.table.cell("danilo@example.com"),
-                    rx.radix.table.cell("Developer"),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Danilo Rosa"),
+                    rx.table.cell("danilo@example.com"),
+                    rx.table.cell("Developer"),
                 ),
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.table.cell("zahra@example.com"),
-                    rx.radix.table.cell("Admin"),
+                rx.table.row(
+                    rx.table.row_header_cell("Zahra Ambessa"),
+                    rx.table.cell("zahra@example.com"),
+                    rx.table.cell("Admin"),
                 ),
             ),
             width="80%",
         )
     
 TableCell: |
-    lambda **props: rx.radix.table.root(
-            rx.radix.table.header(
-                rx.radix.table.row(
-                    rx.radix.table.column_header_cell("Full Name"),
-                    rx.radix.table.column_header_cell("Email"),
-                    rx.radix.table.column_header_cell("Group"),
+    lambda **props: rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.table.body(
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Danilo Rosa"),
-                    rx.radix.table.cell("danilo@example.com", **props,),
-                    rx.radix.table.cell("Developer", **props,),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Danilo Rosa"),
+                    rx.table.cell("danilo@example.com", **props,),
+                    rx.table.cell("Developer", **props,),
                 ),
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Zahra Ambessa"),
-                    rx.radix.table.cell("zahra@example.com", **props,),
-                    rx.radix.table.cell("Admin", **props,),
+                rx.table.row(
+                    rx.table.row_header_cell("Zahra Ambessa"),
+                    rx.table.cell("zahra@example.com", **props,),
+                    rx.table.cell("Admin", **props,),
                 ),
             ),
             width="80%",
         )
 
 TableRowHeaderCell: |
-    lambda **props: rx.radix.table.root(
-            rx.radix.table.header(
-                rx.radix.table.row(
-                    rx.radix.table.column_header_cell("Full Name"),
-                    rx.radix.table.column_header_cell("Email"),
-                    rx.radix.table.column_header_cell("Group"),
+    lambda **props: rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Full Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Group"),
                 ),
             ),
-            rx.radix.table.body(
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Danilo Rosa", **props,),
-                    rx.radix.table.cell("danilo@example.com"),
-                    rx.radix.table.cell("Developer"),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Danilo Rosa", **props,),
+                    rx.table.cell("danilo@example.com"),
+                    rx.table.cell("Developer"),
                 ),
-                rx.radix.table.row(
-                    rx.radix.table.row_header_cell("Zahra Ambessa", **props,),
-                    rx.radix.table.cell("zahra@example.com"),
-                    rx.radix.table.cell("Admin"),
+                rx.table.row(
+                    rx.table.row_header_cell("Zahra Ambessa", **props,),
+                    rx.table.cell("zahra@example.com"),
+                    rx.table.cell("Admin"),
                 ),
             ),
             width="80%",
@@ -244,7 +244,7 @@ For sorting the `rx.select` component is used. The data is sorted based on the a
 
 For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `set_search_value` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Person`.
 
-`current_people` is an [`rx.cached_var`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
+`current_people` is an [`rx.var(cache=True)`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
 
 
 ```python demo exec
@@ -266,7 +266,7 @@ class TableSortingState(rx.State):
     sort_value = ""
     search_value = ""
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def current_people(self) -> list[Person]:
         people = self._people
 
@@ -530,7 +530,7 @@ class DatabaseTableState3(rx.State):
     offset: int = 0
     limit: int = 3
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def page_number(self) -> int:
         return (
             (self.offset // self.limit)
@@ -538,7 +538,7 @@ class DatabaseTableState3(rx.State):
             + (1 if self.offset % self.limit else 0)
         )
 
-    @rx.cached_var
+    @rx.var(cache=True)
     def total_pages(self) -> int:
         return self.total_items // self.limit + (
             1 if self.total_items % self.limit else 0

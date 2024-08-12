@@ -1,10 +1,10 @@
 ---
 components:
-    - rx.radix.inset
+    - rx.inset
 
 Inset: |
-    lambda **props: rx.radix.card(
-        rx.radix.inset(
+    lambda **props: rx.card(
+        rx.inset(
             rx.image(src="/reflex_banner.png", height="auto"),
             **props,
         ),
