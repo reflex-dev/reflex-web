@@ -8,13 +8,17 @@ import time
 
 
 @pytest.fixture
-def event_argument_url():
+def event_argument_url() -> str:
     from pcweb.pages import docs
 
     return docs.events.event_arguments.path
 
 
-def test_lambdas(reflex_web_app: AppHarness, page: Page, event_argument_url):
+def test_lambdas(
+    reflex_web_app: AppHarness,
+    page: Page,
+    event_argument_url: str,
+):
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + event_argument_url)

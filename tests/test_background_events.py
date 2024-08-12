@@ -8,14 +8,16 @@ import time
 
 
 @pytest.fixture
-def background_events_url():
+def background_events_url() -> str:
     from pcweb.pages import docs
 
     return docs.events.background_events.path
 
 
 def test_background_events(
-    reflex_web_app: AppHarness, page: Page, background_events_url
+    reflex_web_app: AppHarness,
+    page: Page,
+    background_events_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
 

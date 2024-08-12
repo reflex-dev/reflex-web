@@ -29,7 +29,7 @@ interactive and continues to process events normally.
 # Background events are similar to simple Task Queues like [Celery](https://www.fullstackpython.com/celery.html) allowing asynchronous events.
 ```
 
-```python demo exec id="background_demo"
+```python demo exec id=background_demo
 import asyncio
 import reflex as rx
 

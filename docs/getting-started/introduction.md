@@ -109,7 +109,7 @@ def tabs():
 ```
 
 
-```python demo box id="counter"
+```python demo box id=counter
 rx.hstack(
     rx.button(
         "Decrement",

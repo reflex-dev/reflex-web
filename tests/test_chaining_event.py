@@ -8,14 +8,16 @@ import time
 
 
 @pytest.fixture
-def chaining_event_url():
+def chaining_event_url() -> str:
     from pcweb.pages import docs
 
     return docs.events.chaining_events.path
 
 
 def test_handler_from_handler(
-    reflex_web_app: AppHarness, page: Page, chaining_event_url
+    reflex_web_app: AppHarness,
+    page: Page,
+    chaining_event_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
 

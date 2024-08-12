@@ -8,13 +8,17 @@ import time
 
 
 @pytest.fixture
-def computed_vars_url():
+def computed_vars_url() -> str:
     from pcweb.pages import docs
 
     return docs.vars.computed_vars.path
 
 
-def test_computed_vars(reflex_web_app: AppHarness, page: Page, computed_vars_url):
+def test_computed_vars(
+    reflex_web_app: AppHarness,
+    page: Page,
+    computed_vars_url: str,
+):
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + computed_vars_url)
