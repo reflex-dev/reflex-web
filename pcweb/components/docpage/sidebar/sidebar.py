@@ -9,9 +9,17 @@ from pcweb.route import Route
 from .state import SidebarState, SidebarItem
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
-from .sidebar_items.component_lib import get_component_link, component_lib, graphing_libs, other_libs
+from .sidebar_items.component_lib import (
+    get_component_link,
+    component_lib,
+    graphing_libs,
+    other_libs,
+)
 from .sidebar_items.reference import api_reference, tutorials
 from .sidebar_items.recipes import recipes
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import small
+from pcweb.styles.shadows import shadows
 
 
 heading_style2 = {
@@ -29,6 +37,7 @@ def sidebar_link(*children, **props):
     return rx.link(
         *children,
         on_click=on_click,
+        underline="none",
         **props,
     )
 
@@ -38,7 +47,7 @@ def sidebar_leaf(
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
-    item.link=item.link.replace("_", "-")
+    item.link = item.link.replace("_", "-")
     if not item.link.endswith("/"):
         item.link += "/"
     if item.outer:
@@ -48,13 +57,14 @@ def sidebar_leaf(
                     item.names,
                     color=rx.cond(
                         item.link == url,
-                        rx.color("accent", 11),
-                        rx.color("mauve", 11),
+                        c_color("violet", 9),
+                        c_color("slate", 9),
                     ),
                     _hover={
-                        "color": rx.color("accent", 10),
+                        "color": c_color("slate", 11),
                         "text_decoration": "none",
                     },
+                    transition="color 0.035s ease-out",
                     margin_left="0.5em",
                     margin_top="0.5em",
                     margin_bottom="0.2em",
@@ -64,50 +74,50 @@ def sidebar_leaf(
             href=item.link,
         )
 
-    return rx.chakra.accordion_item(
-        rx.cond(
-            item.link == url,
-            sidebar_link(
-                rx.flex(
+    return rx.list_item(
+        rx.chakra.accordion_item(
+            rx.cond(
+                item.link == url,
+                sidebar_link(
+                    rx.flex(
+                        rx.flex(
+                            rx.text(
+                                item.names,
+                                color=c_color("violet", 9),
+                                style={**small},
+                                transition="color 0.035s ease-out",
+                            ),
+                        ),
+                        padding="0px 8px 0px 28px",
+                        border_left=f"1.5px solid {c_color('violet', 9)}",
+                    ),
+                    _hover={"text_decoration": "none"},
+                    href=item.link,
+                ),
+                sidebar_link(
                     rx.flex(
                         rx.text(
                             item.names,
-                            color=rx.color("accent", 11),
-                            font_weight="600",
-                            margin_left="0.25em",
+                            color=c_color("slate", 9),
+                            _hover={
+                                "color": c_color("slate", 11),
+                                "text_decoration": "none",
+                            },
+                            transition="color 0.035s ease-out",
+                            style={**small},
+                            width="100%",
                         ),
-                        style=heading_style2,
-                        margin_top="0.2em",
-                        margin_bottom="0.2em",
+                        padding="0px 8px 0px 28px",
+                        border_left=f"1.5px solid {c_color('slate', 4)}",
+                        _hover={"border_left": f"1.5px solid {c_color('slate', 8)}"},
                     ),
-                    padding_left="0.5em",
-                    border_left=f"1.5px solid {rx.color('accent', 11)}",
+                    _hover={"text_decoration": "none"},
+                    href=item.link,
                 ),
-                _hover={"text_decoration": "none"},
-                href=item.link,
             ),
-            sidebar_link(
-                rx.flex(
-                    rx.text(
-                        item.names,
-                        color=rx.color("mauve", 11),
-                        _hover={
-                            "color": rx.color("accent", 11),
-                            "text_decoration": "none",
-                        },
-                        margin_left="0.25em",
-                        margin_top="0.2em",
-                        margin_bottom="0.2em",
-                        width="100%",
-                    ),
-                    padding_left="1em",
-                    border_left=f"1.5px solid {rx.color('mauve', 3)}",
-                ),
-                _hover={"text_decoration": "none"},
-                href=item.link,
-            ),
+            border="none",
+            width="100%",
         ),
-        border="none",
         width="100%",
     )
 
@@ -137,9 +147,8 @@ def sidebar_icon(name):
     if name in mappings:
         return rx.icon(
             tag=mappings[name],
-            color=rx.color("mauve", 11),
-            size=18,
-            margin_right="0.5em",
+            size=16,
+            margin_right="20px",
         )
     else:
         return rx.fragment()
@@ -150,7 +159,6 @@ def sidebar_item_comp(
     index: list[int],
     url: str,
 ):
-
     return rx.cond(
         len(item.children) == 0,
         sidebar_leaf(item=item, url=url),
@@ -159,36 +167,52 @@ def sidebar_item_comp(
                 sidebar_icon(item.names),
                 rx.text(
                     item.names,
-                    color=rx.color("mauve", 11),
-                    font_family=styles.SANS,
-                    font_weight="500",
+                    style=small,
                 ),
                 rx.box(
                     flex_grow=1,
                 ),
-                rx.chakra.accordion_icon(),
+                rx.chakra.accordion_icon(width="16px", height="16px"),
                 align_items="center",
+                transition="color 0.035s ease-out",
                 _hover={
-                    "color": rx.color("accent", 10),
+                    "color": c_color("slate", 11),
                 },
-                color=rx.color("mauve", 11),
+                style={
+                    "&[aria-expanded='true']": {
+                        "color": c_color("slate", 11),
+                    },
+                },
+                color=c_color("slate", 9),
                 width="100%",
-                padding_left="10px",
+                padding_y="8px",
+                padding_left="8px",
                 padding_right="0px",
             ),
             rx.chakra.accordion_panel(
                 rx.chakra.accordion(
-                    rx.flex(
+                    rx.unordered_list(
                         *[
                             sidebar_item_comp(item=child, index=index, url=url)
                             for child in item.children
                         ],
-                        align_items="start",
-                        direction="column",
+                        align_items="flex-start",
+                        flex_direction="column",
+                        gap="16px",
+                        display="flex",
+                        margin_left="15px !important",
+                        box_shadow=rx.cond(
+                            item in other_libs,
+                            "none",
+                            f"inset 1px 0 0 0 {c_color('slate', 4)}",
+                        ),
+                        list_style_type="none",
                     ),
+                    margin_y="8px",
                     allow_multiple=True,
                     default_index=rx.cond(index, index[1:2], []),
                 ),
+                padding="0px",
                 width="100%",
             ),
             border="none",
@@ -219,7 +243,18 @@ def calculate_index(sidebar_items, url: str):
     return None
 
 
-sidebar_items = learn + frontend + backend + hosting + component_lib
+sidebar_items = (
+    learn
+    + frontend
+    + backend
+    + hosting
+    + component_lib
+    + graphing_libs
+    + other_libs
+    + recipes
+    + api_reference
+    + tutorials
+)
 # Flatten the list of sidebar items
 flat_items = []
 
@@ -244,49 +279,78 @@ def get_prev_next(url):
     return None, None
 
 
-def sidebar_category(name, url, icon, color, index):
-    return rx.link(
-        rx.flex(
-            rx.button(
-                rx.icon(
-                    tag=icon,
-                    color="white",
-                    fill="rgba(255, 255, 255, 0.25)",
-                    size=20,
+def sidebar_category(name: str, url: str, icon: str, index: int):
+    return rx.list_item(
+        rx.link(
+            rx.hstack(
+                rx.hstack(
+                    rx.box(
+                        rx.icon(
+                            tag=icon,
+                            color=c_color("slate", 9),
+                            size=16,
+                        ),
+                        height="32px",
+                        width="32px",
+                        padding="8px",
+                        border_radius="8px",
+                        align_items="center",
+                        display="flex",
+                        justify_content="center",
+                        border=f"1px solid {c_color('slate', 4)}",
+                        background_color=c_color("white", 1),
+                        box_shadow=shadows["medium"],
+                    ),
+                    rx.heading(
+                        name,
+                        color=rx.cond(
+                            SidebarState.sidebar_index == index,
+                            c_color("slate", 11),
+                            c_color("slate", 9),
+                        ),
+                        as_="h3",
+                        style={**small},
+                    ),
+                    width="100%",
+                    justify="start",
+                    align_items="center",
+                    gap="12px",
                 ),
-                height="35px",
-                width="35px",
-                padding="0px",
-                border_radius="6px",
-                color_scheme=color,
-                variant="classic",
-                align_items="center",
-                justify="center",
-            ),
-            rx.text(
-                name,
-                color=rx.cond(
+                rx.box(
+                    width="7px",
+                    height="7px",
+                    flex_shrink=0,
+                    background_color=c_color("violet", 9),
+                    border_radius="50%",
+                    visibility=rx.cond(
+                        SidebarState.sidebar_index == index,
+                        "visible",
+                        "hidden",
+                    ),
+                ),
+                _hover={
+                    "background_color": c_color("slate", 3),
+                },
+                background_color=rx.cond(
                     SidebarState.sidebar_index == index,
-                    rx.color("mauve", 12),
-                    rx.color("mauve", 11),
+                    c_color("slate", 3),
+                    "transparent",
                 ),
-                font_size="16px",
-                font_weight="500",
-                padding="0px 0px 0px 14px",
+                transition="background-color 0.075s ease-out",
+                align_items="center",
+                justify="start",
+                padding="8px 16px 8px 8px",
+                justify_content="space-between",
+                border_radius="16px",
+                align_self="stretch",
+                width="100%",
             ),
             on_click=lambda: SidebarState.set_sidebar_index(index),
-            _hover={
-                "background_color": rx.color("mauve", 2),
-            },
-            align_items="center",
-            justify="start",
-            padding_y="0.5em",
-            padding_x="0.5em",
-            border_radius="0.5em",
             width="100%",
-            cursor="pointer",
+            underline="none",
+            href=url,
         ),
-        href=url,
+        width="100%",
     )
 
 
@@ -295,13 +359,27 @@ def create_sidebar_section(section_title, section_url, items, index, url):
     nested = any(len(child.children) > 0 for item in items for child in item.children)
     # Make sure the index is a list
     index = index.to(list)
-    return rx.flex(
+    return rx.list_item(
         rx.link(
-            section_title,
-            color=rx.color("mauve", 12),
-            font_weight="600",
-            padding_top="1em",
-            padding_left="0.5em",
+            rx.heading(
+                section_title,
+                as_="h5",
+                style={
+                    "color": c_color("slate", 12),
+                    "font-family": "Instrument Sans",
+                    "font-size": "14px",
+                    "font-style": "normal",
+                    "font-weight": "600",
+                    "line-height": "20px",
+                    "letter-spacing": "-0.21px",
+                    "transition": "color 0.035s ease-out",
+                    "_hover": {
+                        "color": c_color("violet", 9),
+                    },
+                },
+            ),
+            underline="none",
+            padding_y="12px",
             href=section_url,
         ),
         rx.chakra.accordion(
@@ -322,6 +400,8 @@ def create_sidebar_section(section_title, section_url, items, index, url):
         margin_left="0em",
         direction="column",
         width="100%",
+        flex_direction="column",
+        display="flex",
         align_items="left",
     )
 
@@ -345,91 +425,172 @@ def sidebar_comp(
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.custom_components import custom_components
-    from pcweb.pages.docs import getting_started, state, ui, hosting as hosting_page, datatable_tutorial
+    from pcweb.pages.docs import (
+        getting_started,
+        state,
+        ui,
+        hosting as hosting_page,
+        datatable_tutorial,
+    )
     from pcweb.pages.docs.apiref import pages
 
+    ul_style = {
+        "display": "flex",
+        "flex_direction": "column",
+        "align_items": "flex-start",
+    }
 
     return rx.flex(
-        sidebar_category("Learn", getting_started.introduction.path, "graduation-cap", "jade", 0),
-        sidebar_category("Components", library.path,  "layout-panel-left", "blue", 1),
-        sidebar_category("Recipes", overview.path, "scan-text", "indigo", 2),
-        sidebar_category("API Reference", pages[0].path, "book-text", "violet", 3),
-
-        rx.divider(size="4", margin_top="0.5em", margin_bottom="0.5em"),
+        rx.unordered_list(
+            sidebar_category(
+                "Learn", getting_started.introduction.path, "graduation-cap", 0
+            ),
+            sidebar_category("Components", library.path, "layout-panel-left", 1),
+            sidebar_category("Recipes", overview.path, "scan-text", 2),
+            sidebar_category("API Reference", pages[0].path, "book-text", 3),
+            style=ul_style,
+            margin_left="0px !important",
+            list_style_type="none",
+            gap="4px",
+        ),
         rx.match(
             SidebarState.sidebar_index,
             (
                 0,
-                rx.flex(
-                    create_sidebar_section("Onboarding", getting_started.introduction.path, learn, learn_index, url),
-                    create_sidebar_section("UI", ui.overview.path,  frontend, frontend_index, url),
-                    create_sidebar_section("State", state.overview.path, backend, backend_index, url),
-                    create_sidebar_section("Hosting", hosting_page.deploy_quick_start.path, hosting, hosting_index, url),
-                    direction="column",
+                rx.unordered_list(
+                    create_sidebar_section(
+                        "Onboarding",
+                        getting_started.introduction.path,
+                        learn,
+                        learn_index,
+                        url,
+                    ),
+                    create_sidebar_section(
+                        "User Interface",
+                        ui.overview.path,
+                        frontend,
+                        frontend_index,
+                        url,
+                    ),
+                    create_sidebar_section(
+                        "State", state.overview.path, backend, backend_index, url
+                    ),
+                    create_sidebar_section(
+                        "Hosting",
+                        hosting_page.deploy_quick_start.path,
+                        hosting,
+                        hosting_index,
+                        url,
+                    ),
+                    style=ul_style,
+                    margin_left="0px !important",
+                    list_style_type="none",
+                    padding="0px 16px 0px 8px",
+                    gap="24px",
                 ),
             ),
             (
                 1,
-                rx.flex(
+                rx.unordered_list(
                     create_sidebar_section(
                         "Core", library.path, component_lib, component_lib_index, url
                     ),
                     create_sidebar_section(
-                        "Graphing", library.path, graphing_libs, graphing_libs_index, url
+                        "Graphing",
+                        library.path,
+                        graphing_libs,
+                        graphing_libs_index,
+                        url,
                     ),
                     create_sidebar_section(
-                        "Other Libraries", library.path, other_libs, other_libs_index, url
+                        "Other Libraries",
+                        library.path,
+                        other_libs,
+                        other_libs_index,
+                        url,
                     ),
                     rx.link(
                         rx.vstack(
                             rx.hstack(
-                                rx.icon("atom", size=20),
+                                rx.icon("atom", size=16),
                                 rx.heading(
                                     "Custom Components",
-                                    style={"fontSize": "1em"}
+                                    as_="h5",
+                                    style={
+                                        "font-family": "Instrument Sans",
+                                        "font-size": "14px",
+                                        "font-style": "normal",
+                                        "font-weight": "600",
+                                        "line-height": "20px",
+                                        "letter-spacing": "-0.21px",
+                                    },
                                 ),
                                 align_items="center",
+                                gap="12px",
+                                color=c_color("slate", 12),
                             ),
                             rx.text(
                                 "See what components people have made with Reflex!",
-                                font_size=".8em"
+                                style=small,
+                                color=c_color("slate", 9),
                             ),
-                            margin_left=".5em",
-                            padding=".5em",
-                            color=rx.color("mauve", 12),
-                            border_radius="8px",
-                            background_color=rx.color("mauve", 2),
-                            border=f"1px solid {rx.color('mauve', 4)}",
-                            margin_top="1em",
+                            gap="8px",
+                            padding="8px 16px",
+                            border_radius="12px",
+                            margin_top="12px",
+                            border=f"1px solid {c_color('slate', 5)}",
+                            background_color=c_color("slate", 1),
                             _hover={
-                                "background_color": rx.color("mauve", 3),
+                                "background_color": c_color("slate", 3),
                             },
+                            transition="background-color 0.075s ease-out",
+                            box_shadow=shadows["large"],
                         ),
+                        underline="none",
                         href=custom_components.path,
                     ),
-                    direction="column",
-                    height="100%",
+                    style=ul_style,
+                    margin_left="0px !important",
+                    list_style_type="none",
+                    padding="0px 16px 0px 8px",
+                    gap="24px",
                 ),
             ),
             (
                 2,
-                rx.flex(
+                rx.unordered_list(
                     create_sidebar_section(
                         "Recipes", overview.path, recipes, recipes_index, url
                     ),
-                    direction="column",
-                )
+                    style=ul_style,
+                    margin_left="0px !important",
+                    list_style_type="none",
+                    padding="0px 16px 0px 8px",
+                    gap="24px",
+                ),
             ),
             (
                 3,
-                rx.flex(
+                rx.unordered_list(
                     create_sidebar_section(
-                        "Reference", pages[0].path, api_reference, api_reference_index, url
+                        "Reference",
+                        pages[0].path,
+                        api_reference,
+                        api_reference_index,
+                        url,
                     ),
                     create_sidebar_section(
-                        "Tutorials", datatable_tutorial.simple_table.path, tutorials, tutorials_index, url
+                        "Tutorials",
+                        datatable_tutorial.simple_table.path,
+                        tutorials,
+                        tutorials_index,
+                        url,
                     ),
-                    direction="column",
+                    style=ul_style,
+                    margin_left="0px !important",
+                    list_style_type="none",
+                    padding="0px 16px 0px 8px",
+                    gap="24px",
                 ),
             ),
         ),
@@ -438,8 +599,11 @@ def sidebar_comp(
         overflow_y="scroll",
         max_height="90%",
         width=width,
-        padding_bottom="6em",
+        gap="24px",
+        padding=["8px", "8px", "8px", "0px", "0px"],
+        padding_bottom="6em !important",
         position="fixed",
+        scrollbar_width="none",
         scroll_padding="1em",
         style={
             "&::-webkit-scrollbar-thumb": {
@@ -482,7 +646,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
         ),
         width="100%",
         height="100%",
-        justify="center",
+        justify="end",
     )
 
 

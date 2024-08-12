@@ -17,7 +17,9 @@ from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
-
+from pcweb.styles.fonts import base, small, large
+from pcweb.styles.colors import c_color
+from pcweb.styles.shadows import shadows
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
 from reflex.base import Base
@@ -25,6 +27,15 @@ from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.base.fragment import Fragment
+
+
+def get_code_style(color: str):
+    return {
+        "color": rx.color(color, 11),
+        "border_radius": "4px",
+        "border": f"1px solid {rx.color(color, 5)}",
+        "background": rx.color(color, 3),
+    }
 
 
 class Prop(Base):
@@ -46,13 +57,14 @@ class Prop(Base):
 from reflex.components.el.elements.base import BaseHTML
 import re
 
+
 def get_default_value(lines: list[str], start_index: int) -> str:
     """Process lines of code to get the value of a prop, handling multi-line values.
 
     Args:
         lines: The lines of code to process.
         start_index: The index of the line where the prop is defined.
-        
+
     Returns:
         The default value of the prop.
     """
@@ -60,7 +72,7 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     # Need to update the components comments in order to get the default value
     if start_index > 0:
         comment_line = lines[start_index - 1].strip()
-        if comment_line.startswith('#'):
+        if comment_line.startswith("#"):
             default_match = re.search(r'Default:\s*(["\']?\w+["\']?|\w+)', comment_line)
             if default_match:
                 default_value = default_match.group(1)
@@ -68,39 +80,40 @@ def get_default_value(lines: list[str], start_index: int) -> str:
 
     # Get the initial line
     line = lines[start_index]
-    parts = line.split('=', 1)
+    parts = line.split("=", 1)
     if len(parts) != 2:
-        return ''
+        return ""
     value = parts[1].strip()
-    
+
     # Check if the value is complete
-    open_brackets = value.count('{') - value.count('}')
-    open_parentheses = value.count('(') - value.count(')')
-    
+    open_brackets = value.count("{") - value.count("}")
+    open_parentheses = value.count("(") - value.count(")")
+
     # If brackets or parentheses are not balanced, collect more lines
     current_index = start_index + 1
     while (open_brackets > 0 or open_parentheses > 0) and current_index < len(lines):
         next_line = lines[current_index].strip()
-        value += ' ' + next_line
-        open_brackets += next_line.count('{') - next_line.count('}')
-        open_parentheses += next_line.count('(') - next_line.count(')')
+        value += " " + next_line
+        open_brackets += next_line.count("{") - next_line.count("}")
+        open_parentheses += next_line.count("(") - next_line.count(")")
         current_index += 1
-    
+
     # Remove any trailing comments
-    value = re.split(r'\s+#', value)[0].strip()
-    
+    value = re.split(r"\s+#", value)[0].strip()
+
     # Process Var.create_safe within dictionary
     def process_var_create_safe(match):
         content = match.group(1)
         # Extract only the first argument
-        first_arg = re.split(r',', content)[0].strip()
+        first_arg = re.split(r",", content)[0].strip()
         return first_arg
 
-    value = re.sub(r'Var\.create_safe\((.*?)\)', process_var_create_safe, value)
-    value= re.sub(r'\bColor\s*\(', 'rx.color(', value)
-    
+    value = re.sub(r"Var\.create_safe\((.*?)\)", process_var_create_safe, value)
+    value = re.sub(r"\bColor\s*\(", "rx.color(", value)
+
     return value.strip()
- 
+
+
 class Source(Base):
     """Parse the source code of a component."""
 
@@ -141,7 +154,7 @@ class Source(Base):
         if parent_cls != rx.Component and parent_cls != BaseHTML:
             props += Source(component=parent_cls).get_props()
 
-        return props 
+        return props
 
     def _get_props(self) -> list[Prop]:
         """Get a dictionary of the props and their descriptions.
@@ -175,13 +188,15 @@ class Source(Base):
 
             if i > 0:
                 comment_above = self.code[i - 1].strip()
-                assert comment_above.startswith("#"), f"Expected comment, got {comment_above}"
+                assert comment_above.startswith(
+                    "#"
+                ), f"Expected comment, got {comment_above}"
 
             comment = Source.get_comment(comments)
             comments.clear()
 
             type_ = self.component.get_fields()[prop].outer_type_
-            
+
             out.append(
                 Prop(
                     name=prop,
@@ -192,7 +207,6 @@ class Source(Base):
             )
 
         return out
-     
 
     @staticmethod
     def get_comment(comments: list[str]):
@@ -232,6 +246,7 @@ def get_id(s):
 class PropDocsState(rx.State):
     """Container for dynamic vars used by the prop docs."""
 
+
 EXCLUDED_COMPONENTS = [
     "Theme",
     "ThemePanel",
@@ -243,10 +258,14 @@ EXCLUDED_COMPONENTS = [
     "DrawerClose",
 ]
 
+
 def render_select(prop, component, prop_dict):
-    if not rx.utils.types._issubclass(
-        component, (RadixThemesComponent, RadixPrimitiveComponent)
-    ) or component.__name__ in EXCLUDED_COMPONENTS:
+    if (
+        not rx.utils.types._issubclass(
+            component, (RadixThemesComponent, RadixPrimitiveComponent)
+        )
+        or component.__name__ in EXCLUDED_COMPONENTS
+    ):
         return rx.fragment()
     try:
         type_ = rx.utils.types.get_args(prop.type_)[0]
@@ -273,15 +292,24 @@ def render_select(prop, component, prop_dict):
     except TypeError:
         pass
 
-    if not isinstance(type_, _GenericAlias) or (type_.__origin__ not in (Literal, Union)):
+    if not isinstance(type_, _GenericAlias) or (
+        type_.__origin__ not in (Literal, Union)
+    ):
         return rx.fragment()
     # For the Union[Literal, Breakpoints] type
     if type_.__origin__ is Union:
-        if not all(arg.__name__ in ['Literal', 'Breakpoints'] for arg in type_.__args__):
+        if not all(
+            arg.__name__ in ["Literal", "Breakpoints"] for arg in type_.__args__
+        ):
             return rx.fragment()
         else:
             # Get the literal values
-            literal_values = [str(lit_arg) for arg in type_.__args__ if get_origin(arg) is Literal for lit_arg in arg.__args__]
+            literal_values = [
+                str(lit_arg)
+                for arg in type_.__args__
+                if get_origin(arg) is Literal
+                for lit_arg in arg.__args__
+            ]
             option = literal_values[0]
             name = get_id(f"{component.__qualname__}_{prop.name}")
             PropDocsState.add_var(name, str, option)
@@ -289,10 +317,13 @@ def render_select(prop, component, prop_dict):
             setter = getattr(PropDocsState, f"set_{name}")
             prop_dict[prop.name] = var
             return rx.select.root(
-                rx.select.trigger(width="8em"),
+                rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
                 rx.select.content(
                     rx.select.group(
-                        *[rx.select.item(item, value=item) for item in literal_values]
+                        *[
+                            rx.select.item(item, value=item, style=small)
+                            for item in literal_values
+                        ]
                     )
                 ),
                 value=var,
@@ -311,7 +342,7 @@ def render_select(prop, component, prop_dict):
             rx.popover.trigger(
                 rx.box(
                     rx.button(
-                        rx.text(var, weight="regular"),
+                        rx.text(var, style=small),
                         # Match the select.trigger svg icon
                         rx.html(
                             """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
@@ -357,16 +388,19 @@ def render_select(prop, component, prop_dict):
             ),
         )
     return rx.select.root(
-        rx.select.trigger(width="8em"),
+        rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
         rx.select.content(
             rx.select.group(
                 *[
                     rx.select.item(
                         item,
                         value=item,
-                        _hover={"background": f"var(--{item}-9)"}
-                        if prop.name == "color_scheme"
-                        else None,
+                        style=small,
+                        _hover=(
+                            {"background": f"var(--{item}-9)"}
+                            if prop.name == "color_scheme"
+                            else None
+                        ),
                     )
                     for item in list(map(str, type_.__args__))
                 ]
@@ -375,6 +409,7 @@ def render_select(prop, component, prop_dict):
         value=var,
         on_change=setter,
     )
+
 
 def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
     return rx.hover_card.root(
@@ -385,12 +420,15 @@ def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
             content,
             side="top",
             align="center",
+            color=c_color("slate", 9),
+            style=small,
         ),
     )
 
+
 def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
     return hovercard(
-        rx.icon(tag="palette", size=15, color=rx.color("mauve", 10), flex_shrink=0),
+        rx.icon(tag="palette", size=15, color=c_color("slate", 9), flex_shrink=0),
         rx.grid(
             *[
                 rx.tooltip(
@@ -411,7 +449,10 @@ def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
         ),
     )
 
-def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx.Component]:
+
+def prop_docs(
+    prop: Prop, prop_dict, component, is_interactive: bool
+) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
     type_ = prop.type_
@@ -422,31 +463,39 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
     origin = get_origin(type_)
     args = get_args(type_)
 
-    literal_values = [] # Literal values of the prop
-    all_types = [] # List for all the prop types
+    literal_values = []  # Literal values of the prop
+    all_types = []  # List for all the prop types
     MAX_PROP_VALUES = 3
 
-    COMMON_TYPES = {} # Used to exclude common types from the MAX_PROP_VALUES
+    COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
     if origin is Union:
-        non_literal_types = [] # List for all the non-literal types
-        
+        non_literal_types = []  # List for all the non-literal types
+
         for arg in args:
             all_types.append(arg.__name__)
             if get_origin(arg) is Literal:
                 literal_values.extend(str(lit_arg) for lit_arg in arg.__args__)
-            elif arg.__name__ != 'Breakpoints': # Don't include Breakpoints
+            elif arg.__name__ != "Breakpoints":  # Don't include Breakpoints
                 non_literal_types.append(arg.__name__)
 
         if len(literal_values) < 10:
             literal_str = " | ".join(f'"{value}"' for value in literal_values)
             type_components = ([literal_str] if literal_str else []) + non_literal_types
-            type_name = " | ".join(type_components) if len(type_components) == 1 else f"Union[{', '.join(type_components)}]"
+            type_name = (
+                " | ".join(type_components)
+                if len(type_components) == 1
+                else f"Union[{', '.join(type_components)}]"
+            )
         else:
-            type_name = "Literal" if not non_literal_types else f"Union[Literal, {', '.join(non_literal_types)}]"
+            type_name = (
+                "Literal"
+                if not non_literal_types
+                else f"Union[Literal, {', '.join(non_literal_types)}]"
+            )
 
     elif origin is dict:
-        key_type = args[0].__name__ if args else 'Any'
-        value_type = args[1].__name__ if len(args) > 1 else 'Any'
+        key_type = args[0].__name__ if args else "Any"
+        value_type = args[1].__name__ if len(args) > 1 else "Any"
         type_name = f"Dict[{key_type}, {value_type}]"
 
     elif origin is Literal:
@@ -467,10 +516,10 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
     return [
         rx.table.cell(
             rx.hstack(
-                rx.code(prop.name, text_wrap="nowrap"),
+                rx.code(prop.name, text_wrap="nowrap", style=get_code_style("violet")),
                 hovercard(
                     rx.icon(
-                        tag="info", size=15, color=rx.color("mauve", 10), flex_shrink=0
+                        tag="info", size=15, color=c_color("slate", 9), flex_shrink=0
                     ),
                     rx.text(prop.description, size="2"),
                 ),
@@ -493,12 +542,14 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
                             if len(literal_values) > MAX_PROP_VALUES
                             else type_name
                         ),
-                        color_scheme=color,
+                        # color_scheme=color,
+                        style=get_code_style(color),
                         text_wrap="nowrap",
                     ),
                     rx.code(
                         type_name,
-                        color_scheme=color,
+                        # color_scheme=color,
+                        style=get_code_style(color),
                         text_wrap="nowrap",
                     ),
                 ),
@@ -509,7 +560,7 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
                         rx.icon(
                             tag="circle-ellipsis",
                             size=15,
-                            color=rx.color("mauve", 10),
+                            color=c_color("slate", 9),
                             flex_shrink=0,
                         ),
                         rx.text(
@@ -526,7 +577,7 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
                         rx.icon(
                             tag="info",
                             size=15,
-                            color=rx.color("mauve", 10),
+                            color=c_color("slate", 9),
                             flex_shrink=0,
                         ),
                         rx.text(f"Union[{', '.join(all_types)}]", size="2"),
@@ -546,7 +597,7 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
             rx.flex(
                 rx.code(
                     default_value,
-                    color_scheme=(
+                    style=get_code_style(
                         "red"
                         if default_value == "False"
                         else "green" if default_value == "True" else "gray"
@@ -566,8 +617,8 @@ def prop_docs(prop: Prop, prop_dict, component, is_interactive: bool) -> list[rx
             ),
             rx.fragment(),
         ),
-
     ]
+
 
 EVENTS = {
     "on_focus": {
@@ -783,7 +834,7 @@ from reflex.components.radix import themes as rdxt
 def generate_props(src, component, comp):
     if len(src.get_props()) == 0:
         return rx.vstack(
-            rx.heading("Props", font_size="1em"),
+            rx.heading("Props", as_="h3", style=large),
             rx.text("No component specific props"),
             width="100%",
             overflow_x="auto",
@@ -797,18 +848,18 @@ def generate_props(src, component, comp):
 
     is_interactive = True
     if not rx.utils.types._issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
-        ) or component.__name__ in [
-            "Theme",
-            "ThemePanel",
-            "DrawerRoot",
-            "DrawerTrigger",
-            "DrawerOverlay",
-            "DrawerPortal",
-            "DrawerContent",
-            "DrawerClose",
-        ]:
-            is_interactive = False
+        component, (RadixThemesComponent, RadixPrimitiveComponent)
+    ) or component.__name__ in [
+        "Theme",
+        "ThemePanel",
+        "DrawerRoot",
+        "DrawerTrigger",
+        "DrawerOverlay",
+        "DrawerPortal",
+        "DrawerContent",
+        "DrawerClose",
+    ]:
+        is_interactive = False
 
     body = rx.table.body(
         *[
@@ -817,7 +868,8 @@ def generate_props(src, component, comp):
             )
             for prop in src.get_props()
             if not prop.name.startswith("on_")  # ignore event trigger props
-        ]
+        ],
+        background=c_color("slate", 2),
     )
 
     try:
@@ -842,6 +894,13 @@ def generate_props(src, component, comp):
         docdemobox(comp) if not isinstance(comp, Fragment) else "",
         rx.scroll_area(
             rx.table.root(
+                rx.el.style(
+                    """
+                    .rt-TableRoot:where(.rt-variant-surface) :where(.rt-TableRootTable) :where(.rt-TableHeader) {
+                    --table-row-background-color: "transparent"
+                    }
+                    """
+                ),
                 rx.table.header(
                     rx.table.row(
                         rx.table.column_header_cell(
@@ -876,17 +935,21 @@ def generate_props(src, component, comp):
                             ),
                             rx.fragment(),
                         ),
-                    )
+                    ),
+                    background=c_color("slate", 3),
                 ),
                 body,
                 width="100%",
                 padding_x="0",
                 variant="surface",
                 size="1",
+                border=f"1px solid {c_color('slate', 4)}",
             ),
-            max_height="20em",
+            max_height="25em",
+            margin_bottom="16px",
         ),
     )
+
 
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
@@ -905,7 +968,8 @@ def same_trigger(t1, t2):
 
 def generate_event_triggers(comp, src):
     prop_name_to_description = {
-        prop.name: prop.description for prop in src.get_props()
+        prop.name: prop.description
+        for prop in src.get_props()
         if prop.name.startswith("on_")
     }
     triggers = comp().get_event_triggers()
@@ -917,11 +981,12 @@ def generate_event_triggers(comp, src):
 
     if not custom_events:
         return rx.vstack(
-            rx.heading("Event Triggers", font_size="1em"),
+            rx.heading("Event Triggers", as_="h3", style=large),
             rx.link(
                 "See the full list of default event triggers",
                 href="https://reflex.dev/docs/api-reference/event-triggers/",
-                underline="hover",
+                color=c_color("violet", 11),
+                style=base,
                 is_external=True,
             ),
             width="100%",
@@ -929,43 +994,70 @@ def generate_event_triggers(comp, src):
             align_items="start",
             padding_y=".5em",
         )
-
     padding_left = "1em"
 
     return rx.vstack(
-        rx.heading("Event Triggers", font_size="1em"),
-        rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell(
-                        "Trigger", padding_left=padding_left, justify="start"
-                    ),
-                    rx.table.column_header_cell(
-                        "Description", padding_left=padding_left, justify="start"
-                    ),
+        rx.heading("Event Triggers", as_="h3", style=large),
+        rx.link(
+            "See the full list of default event triggers",
+            href="https://reflex.dev/docs/api-reference/event-triggers/",
+            color=c_color("violet", 11),
+            style=base,
+            is_external=True,
+        ),
+        rx.scroll_area(
+            rx.table.root(
+                rx.el.style(
+                    """
+                    .rt-TableRoot:where(.rt-variant-surface) :where(.rt-TableRootTable) :where(.rt-TableHeader) {
+                        --table-row-background-color: "transparent"
+                    }
+                """
                 ),
-            ),
-            rx.table.body(
-                *[
+                rx.table.header(
                     rx.table.row(
-                        rx.table.cell(
-                            rx.code(event), padding_left=padding_left, justify="start"
+                        rx.table.column_header_cell(
+                            "Trigger", padding_left=padding_left, justify="start"
                         ),
-                        rx.table.cell(
-                            rx.text(prop_name_to_description.get(event) or EVENTS[event]["description"]),
-                            padding_left=padding_left,
-                            justify="start",
+                        rx.table.column_header_cell(
+                            "Description", padding_left=padding_left, justify="start"
                         ),
-                    )
-                    for event in custom_events
-                ]
+                    ),
+                    background_color=c_color("slate", 3),
+                ),
+                rx.table.body(
+                    *[
+                        rx.table.row(
+                            rx.table.cell(
+                                rx.code(event, style=get_code_style("violet")),
+                                padding_left=padding_left,
+                                justify="start",
+                            ),
+                            rx.table.cell(
+                                prop_name_to_description.get(event)
+                                or EVENTS[event]["description"],
+                                color=c_color("slate", 11),
+                                style=small,
+                                padding_left=padding_left,
+                                justify="start",
+                            ),
+                        )
+                        for event in custom_events
+                    ],
+                    background_color=c_color("slate", 2),
+                ),
+                width="100%",
+                variant="surface",
+                size="1",
+                border=f"1px solid {c_color('slate', 4)}",
             ),
             width="100%",
+            overflow="hidden",
+            align_items="start",
         ),
-        width="100%",
-        overflow_x="auto",
+        gap="24px",
+        max_height="40em",
         align_items="start",
-        padding_top="2em",
     )
 
 
@@ -974,14 +1066,15 @@ def generate_valid_children(comp):
         return rx.text("")
 
     valid_children = [
-        rx.chakra.wrap_item(rx.code(child)) for child in comp._valid_children
+        rx.chakra.wrap_item(rx.code(child, style=get_code_style("violet")))
+        for child in comp._valid_children
     ]
     return rx.vstack(
-        rx.heading("Valid Children", font_size="1em"),
+        rx.heading("Valid Children", as_="h3", style=large),
         rx.chakra.wrap(*valid_children),
         width="100%",
         align_items="start",
-        padding_y=".5em",
+        padding_bottom="24px",
     )
 
 
@@ -1028,18 +1121,26 @@ def multi_docs(path, comp, component_list, title):
     ll_doc_exists = os.path.exists(fname.replace(".md", "-ll.md"))
 
     non_active_style = {
-        "padding": ".5em",
-        "color": rx.color("mauve", 9),
+        "padding": "8px",
+        "color": c_color("slate", 9),
         "width": "7em",
+        "transition": "color 0.035s ease-out",
+        "_hover": {
+            "color": c_color("slate", 11),
+        },
+        **small,
     }
 
     active_style = {
-        "padding": ".5em",
-        "background": rx.color("mauve", 1),
-        "color": rx.color("mauve", 12),
-        "box_shadow": "0px 4px 4px -4px rgba(194, 198, 215, 0.30), 0px 1px 4px -1px rgba(135, 144, 181, 0.40);",
+        "padding": "8px",
+        "background": c_color("slate", 2),
+        "color": c_color("slate", 11),
+        "box_shadow": shadows["large"],
         "border_radius": "8px",
         "width": "7em",
+        "cursor": "default",
+        "border": f"1px solid {c_color('slate', 4)}",
+        **small,
     }
 
     def links(current_page, ll_doc_exists, path):
@@ -1048,15 +1149,19 @@ def multi_docs(path, comp, component_list, title):
                 return rx.flex(
                     rx.box(flex_grow="1"),
                     rx.flex(
-                        rx.link(rx.center(rx.text("High Level"), style=active_style)),
+                        rx.link(
+                            rx.center(rx.text("High Level"), style=active_style),
+                            underline="none",
+                        ),
                         rx.link(
                             rx.center(rx.text("Low Level"), style=non_active_style),
                             href=path + "/low",
+                            underline="none",
                         ),
                         spacing="2",
-                        padding=".5em",
-                        background=rx.color("mauve", 2),
-                        border_radius="8px",
+                        padding="8px",
+                        background=c_color("slate", 3),
+                        border_radius="16px",
                         align_items="center",
                         justify_items="center",
                     ),
@@ -1069,12 +1174,17 @@ def multi_docs(path, comp, component_list, title):
                         rx.link(
                             rx.center(rx.text("High Level"), style=non_active_style),
                             href=path,
+                            underline="none",
                         ),
-                        rx.link(rx.center(rx.text("Low Level"), style=active_style)),
+                        rx.link(
+                            rx.center(rx.text("Low Level"), style=active_style),
+                            href=path + "/low",
+                            underline="none",
+                        ),
                         spacing="2",
-                        padding=".5em",
-                        background=rx.color("mauve", 2),
-                        border_radius="8px",
+                        padding="8px",
+                        background=c_color("slate", 3),
+                        border_radius="16px",
                         align_items="center",
                         justify_items="center",
                     ),

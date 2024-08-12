@@ -9,6 +9,15 @@ from pcweb import styles
 from pcweb.styles import font_weights as fw
 from pcweb.templates.docpage import h1_comp, h2_comp
 from pcweb.flexdown import markdown
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import small
+
+code_style = {
+    "border_radius": "4px",
+    "border": f"1px solid {c_color('violet', 5)}",
+    "background": f"{c_color('violet', 4)}",
+    "color": rx.color("violet", 9),
+}
 
 
 class Source(rx.Base):
@@ -64,13 +73,43 @@ class Source(rx.Base):
         return [
             dict(
                 name=name,
-                signature=str(inspect.signature(fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn)),
-                description=(fn.__func__.__doc__ if isinstance(fn, (classmethod, staticmethod)) else fn.__doc__).split("Args:")[0].split("Returns:")[0].strip(),
-                params=dict(inspect.signature(fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn).parameters),
-                ret=inspect.signature(fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn).return_annotation,
+                signature=str(
+                    inspect.signature(
+                        fn.__func__
+                        if isinstance(fn, (classmethod, staticmethod))
+                        else fn
+                    )
+                ),
+                description=(
+                    fn.__func__.__doc__
+                    if isinstance(fn, (classmethod, staticmethod))
+                    else fn.__doc__
+                )
+                .split("Args:")[0]
+                .split("Returns:")[0]
+                .strip(),
+                params=dict(
+                    inspect.signature(
+                        fn.__func__
+                        if isinstance(fn, (classmethod, staticmethod))
+                        else fn
+                    ).parameters
+                ),
+                ret=inspect.signature(
+                    fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn
+                ).return_annotation,
             )
             for name, fn in self.module.__dict__.items()
-            if (fn.__func__.__doc__ if isinstance(fn, (classmethod, staticmethod)) else fn.__doc__) and (isinstance(fn, Callable) or isinstance(fn, (classmethod, staticmethod))) and not name.startswith("_") and name != "Config"
+            if (
+                fn.__func__.__doc__
+                if isinstance(fn, (classmethod, staticmethod))
+                else fn.__doc__
+            )
+            and (
+                isinstance(fn, Callable) or isinstance(fn, (classmethod, staticmethod))
+            )
+            and not name.startswith("_")
+            and name != "Config"
         ]
 
     def get_annotations(self, props) -> list[dict]:
@@ -140,85 +179,110 @@ class Source(rx.Base):
         # Return the output.
         return out
 
+
 def format_field(field):
     type_ = field["prop"].type_
     default = field["prop"].default
-    type_str = type_.__name__  if hasattr(type_, "__name__") else str(type_)
+    type_str = type_.__name__ if hasattr(type_, "__name__") else str(type_)
     if default:
         type_str += f" = {default}"
     return rx.code(
-        field["prop"].name, 
+        field["prop"].name,
         ": ",
         type_str,
-        font_weight=styles.BOLD_WEIGHT,
+        style=code_style,
     )
 
-def format_fields(headers, fields):
-    return rx.table.root(
-        rx.table.header(
-            rx.table.row(
-                *[
-                    rx.table.column_header_cell(header)
-                    for header in headers
-                ]
-            )
-        ),
-        rx.table.body(
-            *[
-                rx.table.row(
-                    rx.table.cell(
-                        format_field(field),
-                    ),
-                    rx.table.cell(markdown(field["description"])),
-                )
-                for field in fields
-            ],
-        ),
-    ),
 
-def generate_docs(title: str, s: Source):
-    fields = s.get_fields()
-    class_fields = s.get_class_fields()
-    return rx.box(
-        h1_comp(text=title.title()),
-        rx.code(s.get_name(), font_size=styles.H3_FONT_SIZE, font_weight=fw["section"]),
-        rx.divider(),
-        markdown(s.get_overview()),
-        rx.box(
-            h2_comp(text="Class Fields"),
-            format_fields(["Prop", "Description"], class_fields),
-            oveflow="auto",
-        ) if class_fields else rx.fragment(),
-        rx.box(
-            h2_comp(text="Fields"),
-            format_fields(["Prop", "Description"], fields),
-            overflow="auto",
-        ) if fields else rx.fragment(),
-        rx.box(
-            h2_comp(text="Methods"),
+def format_fields(headers, fields):
+    return (
+        rx.scroll_area(
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        rx.table.row_header_cell("Signature"),
-                        rx.table.row_header_cell("Description"),
+                        *[rx.table.column_header_cell(header) for header in headers]
                     )
                 ),
                 rx.table.body(
                     *[
                         rx.table.row(
                             rx.table.cell(
-                                rx.code(
-                                    field["name"] + field["signature"],
-                                    font_weight=styles.BOLD_WEIGHT,
-                                ),
-                                white_space="normal",
+                                format_field(field),
                             ),
-                            rx.table.cell(field["description"], white_space="normal"),
+                            rx.table.cell(markdown(field["description"])),
                         )
-                        for field in s.get_methods()
+                        for field in fields
                     ],
                 ),
             ),
-            overflow="auto",
+            max_height="35em",
+        ),
+    )
+
+
+def generate_docs(title: str, s: Source):
+    fields = s.get_fields()
+    class_fields = s.get_class_fields()
+    return rx.box(
+        h1_comp(text=title.title()),
+        rx.code(
+            s.get_name(),
+            font_size="18px",
+            style=code_style,
+            border_radius="6px",
+        ),
+        rx.divider(),
+        markdown(s.get_overview()),
+        (
+            rx.box(
+                h2_comp(text="Class Fields"),
+                format_fields(["Prop", "Description"], class_fields),
+                oveflow="auto",
+            )
+            if class_fields
+            else rx.fragment()
+        ),
+        (
+            rx.box(
+                h2_comp(text="Fields"),
+                format_fields(["Prop", "Description"], fields),
+                overflow="auto",
+            )
+            if fields
+            else rx.fragment()
+        ),
+        rx.box(
+            h2_comp(text="Methods"),
+            rx.scroll_area(
+                rx.table.root(
+                    rx.table.header(
+                        rx.table.row(
+                            rx.table.column_header_cell("Signature"),
+                            rx.table.column_header_cell("Description"),
+                        )
+                    ),
+                    rx.table.body(
+                        *[
+                            rx.table.row(
+                                rx.table.cell(
+                                    rx.code(
+                                        field["name"] + field["signature"],
+                                        style=code_style,
+                                    ),
+                                    white_space="normal",
+                                ),
+                                rx.table.cell(
+                                    field["description"],
+                                    white_space="normal",
+                                    color=c_color("slate", 11),
+                                    style=small,
+                                ),
+                            )
+                            for field in s.get_methods()
+                        ],
+                    ),
+                ),
+                max_height="35em",
+            ),
         ),
     )

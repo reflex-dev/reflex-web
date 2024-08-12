@@ -19,12 +19,9 @@ class Feedback(rx.Model, table=True):
 class FeedbackState(rx.State):
     """The state for feedback components"""
 
-    feedback_open: list[bool] = [False, False]
+    score: Optional[int] = None
 
-    def feedback_change(self, change, score):
-        self.feedback_open[score] = change
-
-    def handle_submit(self, form_data: dict, score):
+    def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
 
         # Check if the email is valid.
@@ -42,7 +39,7 @@ class FeedbackState(rx.State):
         discord_message = f"""
 Contact: {email}
 Page: {current_page_route}
-Score: {"👍" if score == 1 else "👎"}
+Score: {"👍" if self.score == 1 else "👎"}
 Feedback: {feedback}
 """
 
@@ -61,5 +58,3 @@ Feedback: {feedback}
                 "Thank you for your feedback!",
                 close_button=True,
             )
-
-        self.feedback_open[score] = False

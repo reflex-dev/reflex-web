@@ -116,7 +116,7 @@ Parameters:
 - `filename`: The desired filename of the downloaded file.
 
 ```md alert
-`url` and `data` args are mutually exclusive, and at least one of them must be provided.
+# `url` and `data` args are mutually exclusive, and at least one of them must be provided.
 ```
 
 ```python demo

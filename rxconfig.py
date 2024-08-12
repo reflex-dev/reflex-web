@@ -8,6 +8,7 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
         "@inkeep/widgets@latest",
+        "@inkeep/uikit",
     ],
     telemetry_enabled=False,
     tailwind={

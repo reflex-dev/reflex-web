@@ -5,20 +5,21 @@ import textwrap
 from typing import Any, Callable
 from .code import code_block, code_block_dark
 import black
-  
+from pcweb.styles.colors import c_color
+from pcweb.styles.styles import tab_style
+
 demo_box_style = {
-    "bg": "rgba(249, 248, 249, 1)",
-    "border_radius": "8px;",
-    "padding": "2em",
+    "padding": "24px",
     "width": "100%",
     "overflow_x": "auto",
-    "border": f"2px solid {rx.color('mauve', 3)}",
-    "background_color": f"{rx.color('mauve', 2)}",
+    "border-radius": "12px",
+    "border": f"1px solid {c_color('slate', 4)}",
+    "background": f"{c_color('slate', 2)}",
     "align_items": "center",
     "justify_content": "center",
 }
 
- 
+
 def docdemobox(*children, **props) -> rx.Component:
     """Create a documentation demo box with the output of the code.
 
@@ -112,17 +113,17 @@ def docdemo(
         return rx.tabs.root(
         rx.tabs.list(
             rx.tabs.trigger(
-                rx.hstack(
-                    rx.icon("panels-top-left", size=18), 
-                    "UI", 
+                rx.hstack( 
+                    "UI",
                 ),
+                style=tab_style,
                 value="tab1"
             ),
             rx.tabs.trigger(
                 rx.hstack(
-                    rx.icon("code", size=18), 
                     "Code", 
                 ),
+                style=tab_style,
                 value="tab2"
             ),
             justify_content="end",
@@ -151,18 +152,6 @@ def docdemo(
         **props,
     )
 
-
-
-tab_style = {
-    "color": rx.color('mauve', 9),
-    "border": f"1px solid {rx.color('mauve', 4)}",
-    "bg": rx.color('mauve', 2),
-    "font_weight": 600,
-    "padding_x": "0.5em",
-    "padding_y": "0.25em",
-}
-
-
 def docgraphing(
     code: str,
     comp: rx.Component | None = None,
@@ -178,14 +167,11 @@ def docgraphing(
                  rx.tabs.trigger(
                      "Code",
                      value="code",
-                     border_right="none",
-                     border_radius= "8px 0px 0 0",
                      style=tab_style
                  ),
                  rx.tabs.trigger(
                      "Data",
                      value="data",
-                     border_radius= "0px 8px 0 0",
                      style=tab_style
                  ),
                  justify_content="end",
@@ -199,6 +185,7 @@ def docgraphing(
                  ),
                  width="100%",
              ),
+             margin_top="23px",
              default_value="code",
              align="end",
              width="100%",
