@@ -11,13 +11,10 @@ from pcweb.templates.docpage import h1_comp, h2_comp
 from pcweb.flexdown import markdown
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import small
+from pcweb.styles.styles import get_code_style
 
-code_style = {
-    "border_radius": "4px",
-    "border": f"1px solid {c_color('violet', 5)}",
-    "background": f"{c_color('violet', 4)}",
-    "color": rx.color("violet", 9),
-}
+
+
 
 
 class Source(rx.Base):
@@ -190,7 +187,7 @@ def format_field(field):
         field["prop"].name,
         ": ",
         type_str,
-        style=code_style,
+        style=get_code_style("violet"),
     )
 
 
@@ -228,7 +225,7 @@ def generate_docs(title: str, s: Source):
         rx.code(
             s.get_name(),
             font_size="18px",
-            style=code_style,
+            style=get_code_style("violet"),
             border_radius="6px",
         ),
         rx.divider(),
@@ -267,7 +264,7 @@ def generate_docs(title: str, s: Source):
                                 rx.table.cell(
                                     rx.code(
                                         field["name"] + field["signature"],
-                                        style=code_style,
+                                        style=get_code_style("violet"),
                                     ),
                                     white_space="normal",
                                 ),
