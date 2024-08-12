@@ -74,9 +74,7 @@ button_common_style = {
     "border-radius": "10px",
 }
 
-bg_color = (
-    f"linear-gradient(180deg, {c_color('violet', 9)} 0%, {c_color('violet', 10)} 100%)"
-)
+bg_color = f"linear-gradient(180deg, #6E56CF 0%, #654DC4 100%)"
 hover_bg = c_color("violet", 9)
 
 send_button_style = {
