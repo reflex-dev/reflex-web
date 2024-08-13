@@ -44,4 +44,5 @@ jobs:
       - name: Run unit tests
         run: |
           export PYTHONUNBUFFERED=1
+          reflex init
           pytest tests
