@@ -100,8 +100,7 @@ def docpage_footer(path: str):
 
     is_path_end_slash = rx.cond((path[-1]) == "/", True, False)
 
-    if is_path_end_slash:
-        path = rx.call("strip", path)
+    path = rx.cond(is_path_end_slash,rx.call("strip", path, "/"), path)
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
