@@ -14,6 +14,14 @@ def server_side_events_url() -> str:
     return docs.api_reference.special_events.path
 
 
+def _predicate_console_message(msg):
+    return msg.text == "Hello World!"
+
+
+def _predicate_download(download):
+    return download.suggested_filename == "different_name_logo.png"
+
+
 def test_server_side_events(
     reflex_web_app: AppHarness,
     page: Page,
@@ -24,12 +32,10 @@ def test_server_side_events(
     page.goto(reflex_web_app.frontend_url + server_side_events_url)
     expect(page).to_have_url(re.compile(server_side_events_url))
 
-    with page.expect_console_message() as msg_info:
+    with page.expect_console_message(_predicate_console_message):
         page.get_by_role("button", name="Log", exact=True).click()
-        assert msg_info.value.text == "Hello World!"
 
     page.get_by_role("button", name="Scroll").click()
 
-    with page.expect_download() as download_info:
+    with page.expect_download(_predicate_download):
         page.get_by_role("button", name="Download", exact=True).click()
-        assert download_info.value.suggested_filename == "different_name_logo.png"
