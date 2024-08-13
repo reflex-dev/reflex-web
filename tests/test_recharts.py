@@ -30,7 +30,7 @@ def tests_recharts(
 
     expect(input).to_be_visible()
 
-    assert symbols.count() == 45
+    expect(symbols).to_have_count(45)
     input.fill("27")
     button.click()
-    assert symbols.count() == 139
+    expect(symbols).to_have_count(139)
