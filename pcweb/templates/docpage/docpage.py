@@ -99,8 +99,7 @@ def docpage_footer(path: str):
     from pcweb.pages.changelog import changelog
 
     is_path_end_slash = rx.cond((path[-1]) == "/", True, False)
-    processed_path = path.rstrip("/") if path.endswith("/") else path
-    path = rx.cond(is_path_end_slash,processed_path,path)
+    path = rx.cond(is_path_end_slash, path[:-1], path)
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
