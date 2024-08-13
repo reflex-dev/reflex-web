@@ -26,6 +26,7 @@ def navbar_logo(**style_props):
     return rx.link(
         rx.image(
             src=styles.NAVBAR_LOGO,
+            alt="The Reflex logo.",
             **style_props,
         ),
         href="/",

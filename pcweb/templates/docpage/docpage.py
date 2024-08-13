@@ -201,24 +201,28 @@ def docpage_footer(path: str):
                 rx.link(
                     rx.image(
                         src="/companies/light/github.svg",
+                        alt="Github",
                     ),
                     href="https://github.com/reflex-dev/reflex",
                 ),
                 rx.link(
                     rx.image(
                         src="/companies/light/twitter.svg",
+                        alt="Twitter",
                     ),
                     href="https://twitter.com/getreflex",
                 ),
                 rx.link(
                     rx.image(
                         src="/companies/light/discord.svg",
+                        alt="Discord",
                     ),
                     href="https://discord.gg/T5WSbC2YtQ",
                 ),
                 rx.link(
                     rx.image(
                         src="/companies/light/linkedin.svg",
+                        alt="LinkedIn",
                     ),
                     href="https://www.linkedin.com/company/reflex-dev",
                 ),

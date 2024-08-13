@@ -67,7 +67,7 @@ def open_source_badge() -> rx.Component:
 def github_button() -> rx.Component:
     return rx.button(
         rx.flex(
-            rx.image(src="/companies/light/github.svg", height="20px", width="20px"),
+            rx.image(src="/companies/light/github.svg", alt="Github", height="20px", width="20px"),
             rx.center(
                 "Github",
                 color="#FFFFFF",

@@ -188,8 +188,8 @@ To render a different component depending on whether the app is in `light` mode 
 
 ```python demo
 rx.color_mode_cond(
-    light=rx.image(src="/logos/light/reflex.svg", height="4em"),
-    dark=rx.image(src="/logos/dark/reflex.svg", height="4em"),
+    light=rx.image(src="/logos/light/reflex.svg", alt="Reflex Logo light", height="4em"),
+    dark=rx.image(src="/logos/dark/reflex.svg", alt="Reflex Logo dark", height="4em"),
 )
 ```
 
