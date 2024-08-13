@@ -87,6 +87,7 @@ def page(document, route) -> rx.Component:
             rx.center(
                 rx.image(
                     src=f"{meta['image']}",
+                    alt="Blog Image",
                     margin_top="1em",
                     border_radius="8px",
                     padding_bottom="1em",
