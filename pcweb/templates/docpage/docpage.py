@@ -98,7 +98,7 @@ def docpage_footer(path: str):
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.changelog import changelog
 
-    is_path_end_slash = rx.cond((path.at(-1)) == "/", True, False)
+    is_path_end_slash = rx.cond((path[-1]) == "/", True, False)
 
     if is_path_end_slash:
         path = rx.call("strip", path)
