@@ -99,8 +99,8 @@ def docpage_footer(path: str):
     from pcweb.pages.changelog import changelog
 
     
-    
-    path = path.strip('/')
+    if path[-1] == '/':
+        path = path.strip('/')
     return rx.flex(
         rx.divider(size="4"),
         rx.flex(
