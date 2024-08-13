@@ -5,20 +5,32 @@ from playwright.sync_api import Page, expect
 import pytest
 from reflex.testing import AppHarness
 
+import time
+
 
 @pytest.fixture
-def intro_page_url() -> str:
+def scatterchart_page_url() -> str:
     from pcweb.pages import docs
 
-    return docs.charts.introduction.path
+    return docs.library.graphing.charts.scatterchart.path
 
 
 def tests_recharts(
     reflex_web_app: AppHarness,
     page: Page,
-    intro_page_url: str,
+    scatterchart_page_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
-    page.goto(intro_page_url)
+    page.goto(reflex_web_app.frontend_url + scatterchart_page_url)
+    expect(page).to_have_url(re.compile(scatterchart_page_url))
 
-    page.get_by_placeholder("Enter a number")
+    input = page.get_by_placeholder("Enter a number")
+    symbols = page.locator(".recharts-symbols")
+    button = page.get_by_role("button", name="Compute")
+
+    expect(input).to_be_visible()
+
+    assert symbols.count() == 45
+    input.fill("27")
+    button.click()
+    assert symbols.count() == 139

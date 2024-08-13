@@ -28,7 +28,7 @@ def test_background_events(
     reset_button = page.get_by_role("button", name="Reset")
     expect(start_button).to_be_visible()
 
-    demo_block = page.locator('[id="\\"background_demo\\""]').nth(1)
+    demo_block = page.locator('[id="background_demo"]').nth(1)
     heading = demo_block.get_by_role("heading")
     expect(heading).to_have_text("0 /")
 

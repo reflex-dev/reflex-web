@@ -13,7 +13,7 @@ var is recomputed every time an event is processed in your app.
 
 Try typing in the input box and clicking out.
 
-```python demo exec
+```python demo exec id=upper
 class UppercaseState(rx.State):
     text: str = "hello"
 

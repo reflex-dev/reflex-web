@@ -24,7 +24,9 @@ def test_computed_vars(
     page.goto(reflex_web_app.frontend_url + computed_vars_url)
     expect(page).to_have_url(re.compile(computed_vars_url))
 
-    input = page.get_by_role("textbox")
+    upper_box = page.locator('[id="upper"]')
+
+    input = upper_box.get_by_role("textbox")
     input.fill("upper")
     input.blur()
-    expect(page.locator('[id="\\"upper\\""] > .rt-Flex > span')).to_have_text("UPPER")
+    expect(upper_box.get_by_role("heading")).to_have_text("UPPER")
