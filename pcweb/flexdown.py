@@ -1,4 +1,5 @@
 import flexdown
+from pcweb.styles.colors import c_color
 
 import reflex as rx
 from pcweb.templates.docpage import (
@@ -14,8 +15,25 @@ from pcweb.templates.docpage import (
     h3_comp_xd,
     h4_comp_xd,
     text_comp,
+    list_comp,
     definition,
 )
+
+from pcweb.styles.fonts import base, code
+
+
+def get_code_style(color: str):
+    return {
+        "p": {"margin_y": "0px"},
+        "code": {
+            "color": rx.color(color, 11),
+            "border_radius": "4px",
+            "border": f"1px solid {rx.color(color, 5)}",
+            "background": rx.color(color, 4),
+            **code,
+        },
+        **base,
+    }
 
 
 class AlertBlock(flexdown.blocks.MarkdownBlock):
@@ -89,11 +107,16 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                             tag="ban", size=18, margin_right=".5em"
                                         ),
                                     ),
-                                )
+                                ),
+                                color=f"{rx.color(color, 11)}",
                             ),
-                            rx.markdown(title)
-                            if title
-                            else self.render_fn(content=content),
+                            (
+                                rx.markdown(
+                                    title, margin_y="0px", style=get_code_style(color)
+                                )
+                                if title
+                                else self.render_fn(content=content)
+                            ),
                             rx.spacer(),
                             rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                             align_items="center",
@@ -102,22 +125,28 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                             spacing="2",
                             width="100%",
                         ),
+                        padding="0px",
                         color=f"{rx.color(color, 11)}",
-                        border_radius="8px",
+                        border_radius="12px",
                         _hover={},
                     ),
-                    rx.chakra.accordion_panel(markdown(content))
-                    if title
-                    else rx.fragment(),
-                    border_radius="8px",
+                    (
+                        rx.chakra.accordion_panel(
+                            markdown(content), padding="0px", margin_top="16px"
+                        )
+                        if title
+                        else rx.fragment()
+                    ),
+                    border_radius="12px",
+                    padding=["16px", "24px"],
                     background_color=f"{rx.color(color, 3)}",
-                    border="none",
+                    border=f"1px solid {rx.color(color, 4)}",
                     allow_toggle=True,
                 ),
                 is_disabled=True,
                 allow_toggle=True,
                 width="100%",
-                margin_y="1em",
+                margin_bottom="16px",
             )
         else:
             return rx.vstack(
@@ -139,17 +168,24 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 ),
                             ),
                             ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
-                        )
+                        ),
+                        color=f"{rx.color(color, 11)}",
                     ),
-                    rx.markdown(title, color=f"{rx.color(color, 11)}"),
+                    rx.markdown(
+                        title,
+                        color=f"{rx.color(color, 11)}",
+                        margin_y="0px",
+                        style=get_code_style(color),
+                    ),
                     align_items="center",
+                    width="100%",
                     spacing="1",
-                    padding_left="1em",
-                    padding_right="1em",
+                    padding=["16px", "24px"],
                 ),
+                border=f"1px solid {rx.color(color, 4)}",
                 background_color=f"{rx.color(color, 3)}",
-                border_radius="8px",
-                margin_y="1em",
+                border_radius="12px",
+                margin_bottom="16px",
             )
 
 
@@ -195,7 +231,7 @@ class SectionBlock(flexdown.blocks.Block):
                 margin_y="1em",
                 width="100%",
             ),
-            border_left=f"2.5px {rx.color('mauve', 4)} solid",
+            border_left=f"1.5px {c_color('slate', 4)} solid",
             padding_left="1em",
             width="100%",
             align_items="center",
@@ -332,9 +368,15 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
             rx.chakra.accordion_item(
                 rx.chakra.accordion_button(
                     rx.hstack(
-                        rx.markdown(title)
-                        if title
-                        else rx.markdown("Video Description"),
+                        (
+                            rx.markdown(
+                                title,
+                                margin_y="0px",
+                                style=get_code_style(color),
+                            )
+                            if title
+                            else rx.markdown("Video Description")
+                        ),
                         rx.spacer(),
                         rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
@@ -343,22 +385,31 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                         spacing="2",
                         width="100%",
                     ),
+                    padding="0px",
                     color=f"{rx.color(color, 11)}",
-                    border_radius="8px",
                     _hover={},
                 ),
                 rx.chakra.accordion_panel(
-                    rx.video(url=url, width="100%", height="500px")
+                    rx.video(
+                        url=url,
+                        width="100%",
+                        height="500px",
+                        border_radius="10px",
+                        overflow="hidden",
+                    ),
+                    margin_top="16px",
+                    padding="0px",
                 ),
-                border_radius="8px",
+                border_radius="12px",
+                border=f"1px solid {rx.color(color, 4)}",
                 background_color=f"{rx.color(color, 3)}",
-                border="none",
                 allow_toggle=True,
+                padding=["16px", "24px"],
             ),
+            margin_bottom="16px",
             is_disabled=True,
             allow_toggle=True,
             width="100%",
-            margin_y="1em",
         )
 
 
@@ -368,6 +419,7 @@ component_map = {
     "h3": lambda text: h3_comp_xd(text=text),
     "h4": lambda text: h4_comp_xd(text=text),
     "p": lambda text: text_comp(text=text),
+    "li": lambda text: list_comp(text=text),
     "a": doclink2,
     "code": lambda text: code_comp(text=text),
     "codeblock": code_block_markdown,

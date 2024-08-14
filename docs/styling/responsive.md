@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.styles.styles import get_code_style, cell_style
 ```
 
 # Responsive
@@ -76,30 +77,31 @@ rx.table.root(
     ),
     rx.table.body(
         rx.table.row(
-            rx.table.cell("initial"),
-            rx.table.cell("0px"),
+            rx.table.cell(rx.code("initial", style=get_code_style("violet"))),
+            rx.table.cell("0px", style=cell_style),
         ),
         rx.table.row(
-            rx.table.cell("xs"),
-            rx.table.cell("30em"),
+            rx.table.cell(rx.code("xs", style=get_code_style("violet"))),
+            rx.table.cell("30em", style=cell_style),
         ),
         rx.table.row(
-            rx.table.cell("sm"),
-            rx.table.cell("48em"),
+            rx.table.cell(rx.code("sm", style=get_code_style("violet"))),
+            rx.table.cell("48em", style=cell_style),
         ),
         rx.table.row(
-            rx.table.cell("md"),
-            rx.table.cell("62em"),
+            rx.table.cell(rx.code("md", style=get_code_style("violet"))),
+            rx.table.cell("62em", style=cell_style),
         ),
         rx.table.row(
-            rx.table.cell("lg"),
-            rx.table.cell("80em"),
+            rx.table.cell(rx.code("lg", style=get_code_style("violet"))),
+            rx.table.cell("80em", style=cell_style),
         ),
         rx.table.row(
-            rx.table.cell("xl"),
-            rx.table.cell("96em"),
+            rx.table.cell(rx.code("xl", style=get_code_style("violet"))),
+            rx.table.cell("96em", style=cell_style),
         ),
     ),
+    margin_bottom="1em",
 )
 ```
 

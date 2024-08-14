@@ -7,6 +7,9 @@ from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs import  pages
 from pcweb.pages.docs import vars
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.styles import get_code_style, tab_style
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -58,16 +61,24 @@ class IntroTabsState(rx.State):
         self.value = val
 
 def tabs():
+    code_style = {
+        "code": {
+            **get_code_style("violet")
+        }
+    }
     return rx.tabs.root(
         rx.tabs.list(
             rx.tabs.trigger(
-                "Frontend", value="tab1"
+                "Frontend", value="tab1",
+                style=tab_style,
             ),
             rx.tabs.trigger(
-                "Backend", value="tab2"
+                "Backend", value="tab2",
+                style=tab_style,
             ),
             rx.tabs.trigger(
-                "Page", value="tab3"
+                "Page", value="tab3",
+                style=tab_style,
             ),
         ),
         rx.tabs.content(
@@ -77,7 +88,8 @@ def tabs():
 - Only use Reflex components, vars, and var operations when building your UI. Any other logic should be put in your `State` (backend).
 
 - Use `rx.cond` and `rx.foreach` (replaces if statements and for loops), for creating dynamic UIs.
-                """
+                """,
+                style=code_style
             ),
             value="tab1",
             padding_top="1em",
@@ -85,7 +97,8 @@ def tabs():
         rx.tabs.content(
             rx.markdown(
                 """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caviots. Here you can use any Python external library and call any method/function.
-                """
+                """,
+                style=code_style
             ),
             value="tab2",
             padding_top="1em",
@@ -95,11 +108,16 @@ def tabs():
                 f"""Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing]({pages.routes.path}) section for more information.
 
 - Start with a single page and scale to 100s of pages.
-                """
+                """,
+                style=code_style
             ),
             value="tab3",
             padding_top="1em",
         ),
+        style={
+            "color": c_color("slate", 11),
+            **base,
+        },
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(
@@ -156,7 +174,7 @@ rx.vstack(
         self.count -= 1""",
         background=rx.cond(
             IntroTabsState.value == "tab2",
-            rx.color('violet', 3),
+            c_color('violet', 3),
             "transparent",
         ),
         width="100%",
@@ -167,7 +185,7 @@ rx.vstack(
             },
         border=rx.cond(
             IntroTabsState.value == "tab2",
-            f"2px solid {rx.color('violet', 9)}",
+            f"1px solid {c_color('violet', 5)}",
             "none"
         ),
     ),
@@ -195,12 +213,12 @@ rx.vstack(
             },
         border=rx.cond(
             IntroTabsState.value == "tab1",
-            f"2px solid {rx.color('violet', 9)}",
+            f"1px solid {c_color('violet', 5)}",
             "none",
         ),
         background=rx.cond(
             IntroTabsState.value == "tab1",
-            rx.color('violet', 3),
+            c_color('violet', 3),
             "transparent",
         )
     ),
@@ -209,7 +227,7 @@ rx.vstack(
 app.add_page(index)""",
         background=rx.cond(
             IntroTabsState.value == "tab3",
-            rx.color('violet', 3),
+            c_color('violet', 3),
             "transparent",
         ),
         width="100%",
@@ -220,10 +238,11 @@ app.add_page(index)""",
             },
         border=rx.cond(
             IntroTabsState.value == "tab3",
-            f"2px solid {rx.color('violet', 9)}",
+            f"1px solid {c_color('violet', 5)}",
             "none",
         ),
     ),
+    gap="0px",
     align_items="start",
     width="100%",
 )

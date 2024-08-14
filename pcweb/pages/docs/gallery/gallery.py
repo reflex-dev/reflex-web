@@ -184,7 +184,7 @@ def sort_by():
         width="100%",  
     )
 
-@webpage(path="/docs/gallery", title="Gallery · Reflex")
+@webpage(path="/docs/gallery/", title="Gallery · Reflex")
 def gallery() -> rx.Component:
     return rx.vstack(
         gallery_heading(),

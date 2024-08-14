@@ -1,5 +1,26 @@
 ```python exec
 import reflex as rx
+from pcweb.styles.styles import get_code_style, cell_style
+
+class RouterState(rx.State):
+    pass
+
+
+router_data = [
+      {"name": "rx.State.router.page.host", "value": RouterState.router.page.host},
+      {"name": "rx.State.router.page.path", "value": RouterState.router.page.path},
+      {"name": "rx.State.router.page.raw_path", "value": RouterState.router.page.raw_path},
+      {"name": "rx.State.router.page.full_path", "value": RouterState.router.page.full_path},
+      {"name": "rx.State.router.page.full_raw_path", "value": RouterState.router.page.full_raw_path},
+      {"name": "rx.State.router.page.params", "value": RouterState.router.page.params.to_string()},
+      {"name": "rx.State.router.session.client_token", "value": RouterState.router.session.client_token},
+      {"name": "rx.State.router.session.session_id", "value": RouterState.router.session.session_id},
+      {"name": "rx.State.router.session.client_ip", "value": RouterState.router.session.client_ip},
+      {"name": "rx.State.router.headers.host", "value": RouterState.router.headers.host},
+      {"name": "rx.State.router.headers.user_agent", "value": RouterState.router.headers.user_agent},
+      {"name": "rx.State.router.headers.to_string()", "value": RouterState.router.headers.to_string()},
+  ]
+
 ```
 
 # State Utility Methods
@@ -32,28 +53,24 @@ The `self.router` attribute has several sub-attributes that provide various info
 
 ### Example Values on this Page
 
-```python demo exec alignItems=start
-class RouterState(rx.State):
-    pass
-
-
-def router_values():
-    return rx.chakra.table(
-        headers=["Name", "Value"],
-        rows=[
-            [rx.text("router.page.host"), rx.code(RouterState.router.page.host)],
-            [rx.text("router.page.path"), rx.code(RouterState.router.page.path)],
-            [rx.text("router.page.raw_path"), rx.code(RouterState.router.page.raw_path)],
-            [rx.text("router.page.full_path"), rx.code(RouterState.router.page.full_path)],
-            [rx.text("router.page.full_raw_path"), rx.code(RouterState.router.page.full_raw_path)],
-            [rx.text("router.page.params"), rx.code(RouterState.router.page.params.to_string())],
-            [rx.text("router.session.client_token"), rx.code(RouterState.router.session.client_token)],
-            [rx.text("router.session.session_id"), rx.code(RouterState.router.session.session_id)],
-            [rx.text("router.session.client_ip"), rx.code(RouterState.router.session.client_ip)],
-            [rx.text("router.headers.host"), rx.code(RouterState.router.headers.host)],
-            [rx.text("router.headers.user_agent"), rx.code(RouterState.router.headers.user_agent)],
-            [rx.text("router.headers.to_string()"), rx.code(RouterState.router.headers.to_string())],
-        ],
-        overflow_x="auto",
+```python eval
+rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Name"),
+                rx.table.column_header_cell("Value"),
+            ),
+        ),
+        rx.table.body(
+            *[
+                rx.table.row(
+                    rx.table.cell(item["name"], style=cell_style),
+                    rx.table.cell(rx.code(item["value"], style=get_code_style("violet"))),
+                )
+                for item in router_data
+            ]
+        ),
+        variant="surface",
+        margin_y="1em",
     )
 ```
