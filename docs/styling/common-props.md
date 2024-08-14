@@ -2,6 +2,8 @@
 
 ```python exec
 import reflex as rx
+from pcweb.styles.styles import get_code_style, cell_style
+from pcweb.styles.colors import c_color
 
 props = {
     "align": {
@@ -176,16 +178,16 @@ def show_props(key, props_dict):
         rx.table.cell(
             rx.link(
                 rx.hstack(
-                    rx.code(key),
-                    rx.icon("square_arrow_out_up_right", color=rx.color("mauve", 11), size=13, flex_shrink="0"),
+                    rx.code(key, style=get_code_style("violet")),
+                    rx.icon("square_arrow_out_up_right", color=c_color("slate", 9), size=15, flex_shrink="0"),
                     align="center"
                 ),
                 href=prop_details["link"],
                 is_external=True,
             ), 
             justify="start",),
-        rx.table.cell(prop_details["description"], justify="start",),
-        rx.table.cell(rx.hstack(*[rx.code(value) for value in prop_details["values"]], flex_wrap="wrap"), justify="start",),
+        rx.table.cell(prop_details["description"], justify="start", style=cell_style),
+        rx.table.cell(rx.hstack(*[rx.code(value, style=get_code_style("violet")) for value in prop_details["values"]], flex_wrap="wrap"), justify="start",),
         justify="center",
         align="center",
         

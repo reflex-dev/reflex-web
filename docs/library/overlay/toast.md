@@ -18,7 +18,7 @@ Using the `rx.toast` function require to have a toast provider in your app.
 `rx.toast.provider` is a component that provides a context for displaying toasts. It should be placed at the root of your app.
 
 ```md alert warning
-In most case you will not need to include this component directly, as it is already included in `rx.app` as the `overlay_component` for displaying connections errors.
+# In most case you will not need to include this component directly, as it is already included in `rx.app` as the `overlay_component` for displaying connections errors.
 ```
 
 ## Usage
@@ -44,11 +44,11 @@ rx.button("Show Toast", on_click=rx.toast("Hello, World!", timeout=5000, close_o
 `rx.toast` has some presets that you can use to show different types of toasts.
 
 ```python demo
-rx.vstack(
-    rx.button("Success", on_click=rx.toast.success("Success!")),
-    rx.button("Error", on_click=rx.toast.error("Error!")),
-    rx.button("Warning", on_click=rx.toast.warning("Warning!")),
-    rx.button("Info", on_click=rx.toast.info("Info!")),
+rx.hstack(
+    rx.button("Success", on_click=rx.toast.success("Success!"), color_scheme="green"),
+    rx.button("Error", on_click=rx.toast.error("Error!"), color_scheme="red"),
+    rx.button("Warning", on_click=rx.toast.warning("Warning!"), color_scheme="orange"),
+    rx.button("Info", on_click=rx.toast.info("Info!"), color_scheme="blue"),
 )
 ```
 

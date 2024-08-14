@@ -6,6 +6,7 @@ from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.gallery import gallery
 from pcweb.pages.docs import custom_components
 from pcweb.templates.docpage import doccmdoutput
+from pcweb.styles.fonts import code
 ```
 
 The custom component commands are under `reflex component` subcommand. To see the list of available commands, run `reflex component --help`. To see the manual on a specific command, run `reflex component <command> --help`, for example, `reflex component init --help`.
@@ -75,6 +76,14 @@ google_auth/
         rxconfig.py
 """,
   language="bash",
+  style={
+    "border-radius": "12px",
+    "border": "1px solid var(--c-slate-4)",
+    "background": "var(--c-slate-2)",
+    "color": "var(--c-slate-12)",
+    "font-family": "Source Code Pro",
+    **code
+  }
 )
 ```
 

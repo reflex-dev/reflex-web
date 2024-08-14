@@ -1,4 +1,6 @@
 """App styling."""
+from pcweb.styles.colors import c_color
+import pcweb.styles.fonts as fonts
 
 import reflex as rx
 
@@ -7,6 +9,50 @@ font_weights = {
     "heading": "700",
     "subheading": "600",
     "section": "600",
+}
+
+
+def get_code_style(color: str):
+    return {
+        "color": c_color(color, 9),
+        "border_radius": "4px",
+        "border": f"1px solid {c_color(color, 4)}",
+        "background": c_color(color, 3),
+        **fonts.code,
+        "line_height": "1.5",
+    }
+
+def get_code_style_rdx(color: str):
+    return {
+        "color": rx.color(color, 11),
+        "border_radius": "4px",
+        "border": f"1px solid {rx.color(color, 5)}",
+        "background": rx.color(color, 3),
+        **fonts.code,
+        "line_height": "1.5",
+    }
+
+cell_style = {
+    **fonts.small,
+    "color": c_color("slate", 11),
+    "line_height": "1.5",
+}
+
+tab_style = {
+    "color": c_color("slate", 9),
+    "cursor": "pointer",
+    "_hover": {
+        "color": c_color("slate", 11),
+    },
+    **fonts.small,
+    "padding_x": "0.5em",
+    "padding_y": "0.25em",
+    "&[data-state='active']": {
+        "color": c_color("violet", 9),
+    },
+    "not:&[data-state='active']": {
+        "color": c_color("slate", 11),
+    }
 }
 
 
@@ -56,5 +102,6 @@ BASE_STYLE = {
 
 # Fonts to include.
 STYLESHEETS = [
-    "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&family=Source+Code+Pro:wght@500&display=swap",
+    "https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,500;0,600;1,600&family=Source+Code+Pro:wght@400;500&display=swap",
+    "custom-colors.css",
 ]
