@@ -36,7 +36,7 @@ If you want to interact with a toast, a few props are available to customize the
 By passing a `ToastAction` to the `action` or `cancel` prop, you can trigger an action when the toast is clicked or when it is closed.
 
 ```python demo
-rx.button("Show Toast", on_click=rx.toast("Hello, World!", timeout=5000, close_on_click=True))
+rx.button("Show Toast", on_click=rx.toast("Hello, World!", duration=5000, close_button=True))
 ```
 
 ### Presets
@@ -62,8 +62,7 @@ rx.button(
     on_click=rx.toast(
         "Custom Toast!",
         position="top-right",
-        border_radius="0.5em",
-        style={"background-color": "green", "color": "white", "border": "1px solid green"}
+        style={"background-color": "green", "color": "white", "border": "1px solid green", "border-radius": "0.53m"}
     )
 )
 ```
