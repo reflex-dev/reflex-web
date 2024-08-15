@@ -18,20 +18,20 @@ def back(title, url):
             href="/blog",
         ),
         rx.link(
-            rx.image(src="/companies/dark/twitter.svg", height="2em"),
+            rx.image(src="/companies/dark/twitter.svg", alt="Twitter", height="2em"),
             href=f"https://twitter.com/intent/tweet?text={title}&url=https://reflex.dev{url}&via=getreflex",        
         ),
         rx.link(
-            rx.image(src="/companies/dark/linkedin.svg", height="2em"),
+            rx.image(src="/companies/dark/linkedin.svg", alt="LinkedIn", height="2em"),
             href=create_linkedin_share_url(url),
             is_external=True,
         ),
         rx.link(
-            rx.image(src="/companies/dark/yc.svg", height="2em"),
+            rx.image(src="/companies/dark/yc.svg", alt="Y Combinator", height="2em"),
             href=f"https://news.ycombinator.com/submitlink?u=https://reflex.dev{url}&t={title}",            is_external=True,
         ),
         rx.link(
-            rx.image(src="/companies/dark/reddit.svg", height="2em"),
+            rx.image(src="/companies/dark/reddit.svg", alt="Reddit", height="2em"),
             href=f"https://www.reddit.com/submit?url=https://reflex.dev{url}&title={title}",
             is_external=True,
         ),
@@ -87,6 +87,7 @@ def page(document, route) -> rx.Component:
             rx.center(
                 rx.image(
                     src=f"{meta['image']}",
+                    alt="Blog Image",
                     margin_top="1em",
                     border_radius="8px",
                     padding_bottom="1em",

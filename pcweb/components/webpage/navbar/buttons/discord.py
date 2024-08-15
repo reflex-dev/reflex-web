@@ -7,6 +7,7 @@ def discord() -> rx.Component:
         rx.flex(
             rx.image(
                 src="/companies/light/discord.svg",
+                alt="Discord",
             ),
             padding="7px",
             style=button_style,
