@@ -10,7 +10,7 @@ from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage, get_toc
 from pcweb.whitelist import _check_whitelisted_path
-from reflex.components.chakra.base import ChakraComponent
+from reflex_chakra.components.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 

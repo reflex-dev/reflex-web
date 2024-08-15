@@ -1,6 +1,6 @@
 import reflex as rx
 from ..state import SidebarItem
-from reflex.components.chakra.base import ChakraComponent
+from reflex_chakra.components.base import ChakraComponent
 
 
 def get_component_link(category, clist, prefix="") -> str:

@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from reflex.components.media.icon import ICON_LIST
+from reflex_chakra.components.media.icon import ICON_LIST
 ```
 
 # Icon
