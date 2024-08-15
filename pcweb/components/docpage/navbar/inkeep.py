@@ -32,7 +32,7 @@ class Search(rx.Component):
         return [
             "const { resolvedColorMode, toggleColorMode } = useContext(ColorModeContext)",
             """const SearchBar = dynamic(
-  () => import('@inkeep/widgets').then((mod) => mod.InkeepSearchBar),
+  () => import('@inkeep/uikit').then((mod) => mod.InkeepSearchBar),
   {
     ssr: false,
   },
@@ -42,9 +42,10 @@ const searchBarProps = {
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
+    customIcons: {search: {custom: "/icons/search.svg"}},
     organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
-    primaryBrandColor: '#5646ED',
+    primaryBrandColor: '#6E56CF',
     breadcrumbRules: {
       urlToBreadcrumbMapper: [
         {
@@ -83,13 +84,14 @@ const searchBarProps = {
       forcedColorMode: resolvedColorMode, // options: 'light' or dark'
     },
     theme: {
+      stylesheetUrls: ['/inkeepstyle-docs.css'],
       components: {
         SearchBarTrigger: {
           defaultProps: {
-            variant: 'emphasized', // 'emphasized' 'subtle'
+            variant: 'subtle', // 'emphasized' 'subtle'
           },
         },
-      }
+      },
     }
   },
   searchSettings: { // optional InkeepSearchSettings
@@ -99,7 +101,7 @@ const searchBarProps = {
       rootBreadcrumbsToUseAsTabs: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
       tabOrderByLabel: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
     },
-    placeholder: 'Search...',
+    placeholder: 'Search',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
     quickQuestions: [

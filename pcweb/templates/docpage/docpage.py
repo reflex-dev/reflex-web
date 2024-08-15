@@ -8,12 +8,30 @@ import mistletoe
 from pcweb.route import Route, get_path
 from .blocks import *
 from .state import FeedbackState
+from pcweb.components.icons.icons import get_icon
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import small, medium, small_semibold
+from pcweb.styles.shadows import shadows
+import pcweb.templates.docpage.styles as st
+from reflex.components.radix.themes.base import LiteralAccentColor
+from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
 
 # Docpage styles.
 link_style = {
     "color": rx.color("mauve", 10),
     "font_weight": "500",
 }
+
+footer_h4_style = {
+    "color": c_color("slate", 12),
+    "font-family": "Instrument Sans",
+    "font-size": "14px",
+    "font-style": "normal",
+    "font-weight": "600",
+    "line-height": "20px",
+    "letter-spacing": "-0.21px",
+}
+
 
 def doc_section(*contents):
     return rx.box(
@@ -26,69 +44,288 @@ def doc_section(*contents):
     )
 
 
-def feedback_content(icon, score):
-    return rx.flex(
-        rx.button(
-            rx.icon(tag=icon, color=rx.color("mauve", 1), size=20), variant="solid"
-        ),
-        rx.box(
-            rx.form(
-                rx.flex(
-                    rx.input(
-                        placeholder="Contact Info (Optional)",
-                        _type="email",
-                        name="email",
-                        custom_attrs={"auto_focus": True},
-                    ),
-                    rx.text_area(
-                        placeholder="Write a comment…",
-                        name="feedback",
-                        auto_height=True,
-                        enter_key_submit=True,
-                        min_height="0px",
-                        rows="1",
-                    ),
-                    spacing="1",
-                    direction="column",
-                ),
-                rx.flex(
-                    rx.button(
-                        "Send Feedback", size="1", width="100%", type="submit"
-                    ),
-                    spacing="3",
-                    margin_top="12px",
-                    justify="between",
-                ),
-                on_submit=lambda feedback: FeedbackState.handle_submit(feedback, score),
-            ),
-            flex_grow="1",
-        ),
-        spacing="3",
+def footer_link(text: str, href: str):
+    return rx.link(
+        text,
+        **small,
+        color=c_color("slate", 9),
+        _hover={
+            "color": c_color("slate", 11),
+        },
+        style={
+            ":hover": {
+                "color": c_color("slate", 11),
+            }
+        },
+        transition="color 0.075s ease-out",
+        href=href,
+        underline="none",
     )
 
 
-def feedback(text, icon, score):
+def footer_link_flex(heading: str, links):
+    return rx.flex(
+        rx.heading(heading, as_="h4", style=footer_h4_style),
+        *links,
+        gap="16px",
+        flex_direction="column",
+    )
+
+
+def thumb_card(score: int, icon: str) -> rx.Component:
+    return rx.box(
+        rx.icon(
+            tag=icon,
+            color=rx.cond(
+                FeedbackState.score == score, c_color("slate", 11), c_color("slate", 9)
+            ),
+            size=16,
+        ),
+        height="36px",
+        width="36px",
+        padding="8px",
+        border_radius="8px",
+        align_items="center",
+        display="flex",
+        cursor="pointer",
+        justify_content="center",
+        border=f"1px solid {c_color('slate', 4)}",
+        background_color=rx.cond(
+            FeedbackState.score == score, c_color("slate", 3), c_color("white", 1)
+        ),
+        _hover={
+            "background_color": c_color("slate", 3),
+        },
+        box_shadow=shadows["medium"],
+        on_click=FeedbackState.set_score(score),
+    )
+
+
+def thumbs_cards() -> rx.Component:
+    return rx.hstack(
+        thumb_card(1, "thumbs-up"),
+        thumb_card(0, "thumbs-down"),
+        gap="8px",
+    )
+
+
+def feedback_content() -> rx.Component:
+    return rx.box(
+        rx.vstack(
+            rx.text(
+                "Send feedback",
+                style={
+                    "font-style": "normal",
+                    "font-weight": "500",
+                    "font-size": "16px",
+                    "line-height": "28px",
+                    "letter-spacing": "-0.015em",
+                    "color": c_color("slate", 11),
+                },
+            ),
+            rx.form(
+                rx.vstack(
+                    rx.el.textarea(
+                        name="feedback",
+                        placeholder="Write a comment…",
+                        type="text",
+                        max_length=500,
+                        enter_key_submit=True,
+                        resize="vertical",
+                        style=st.text_area_style,
+                        required=True,
+                    ),
+                    thumbs_cards(),
+                    rx.el.input(
+                        name="email",
+                        type="email",
+                        placeholder="Contact email (optional)",
+                        style=st.input_style,
+                        max_length=100,
+                    ),
+                    rx.hstack(
+                        rx.popover.close(
+                            rx.el.button(
+                                rx.box(
+                                    style=st.rectangle_style,
+                                ),
+                                "Send",
+                                style=st.send_button_style,
+                                type="submit",
+                            ),
+                        ),
+                        rx.popover.close(
+                            rx.el.button("Cancel", style=st.cancel_button_style)
+                        ),
+                        align="center",
+                        justify="between",
+                        width="100%",
+                    ),
+                    gap="16px",
+                    align="start",
+                    width="100%",
+                ),
+                width="100%",
+                reset_on_submit=True,
+                on_submit=FeedbackState.handle_submit,
+            ),
+            gap="16px",
+            align="start",
+            width="100%",
+        ),
+        style=st.feedback_box_style,
+    )
+
+
+def feedback_button() -> rx.Component:
     return rx.popover.root(
-        rx.popover.trigger(
-            rx.flex(
-                rx.icon(tag=icon, color=rx.color("mauve", 9), size=12),
-                text,
-                color=rx.color("mauve", 9),
-                border=f"1px solid {rx.color('mauve', 10)}",
-                align="center",
-                justify="center",
-                border_radius="5px",
-                padding="0px 10px",
-                spacing="2",
-                cursor="pointer",
-            )
+        rx.hstack(
+            rx.popover.trigger(
+                rx.hstack(
+                    rx.icon(tag="thumbs-up", size=15, color=c_color("slate", 9)),
+                    rx.text(
+                        "Yes",
+                    ),
+                    style=st.thumb_pill_style,
+                    border_radius="20px 0 0 20px",
+                    padding="2px 12px",
+                    gap="8px",
+                    border_right="none",
+                    width="100%",
+                ),
+                on_click=FeedbackState.set_score(1),
+            ),
+            rx.popover.trigger(
+                rx.hstack(
+                    rx.icon(tag="thumbs-down", size=15, color=c_color("slate", 9)),
+                    rx.text(
+                        "No",
+                    ),
+                    style=st.thumb_pill_style,
+                    gap="8px",
+                    padding="2px 12px",
+                    border_radius="0 20px 20px 0",
+                    width="100%",
+                ),
+                on_click=FeedbackState.set_score(0),
+            ),
+            align_items="center",
+            gap="0px",
+            width=["100%", "100%", "auto", "auto", "auto"],
         ),
         rx.popover.content(
-            feedback_content(icon, score),
-            style={"width": 360},
+            feedback_content(),
+            bg="transparent",
+            box_shadow="None",
+            overflow="visible",
+            left=["0px", "0px", "-255px", "-255px", "-255px"],
+            padding="0px",
+            border="none",
+            align="start",
+            transform_origin=[
+                "bottom",
+                "bottom",
+                "bottom right",
+                "bottom right",
+                "bottom right",
+            ],
+            avoid_collisions=True,
         ),
-        on_open_change=lambda change: FeedbackState.feedback_change(change, score),
-        open=FeedbackState.feedback_open[score],
+    )
+
+
+def link_pill(text, href):
+    return rx.link(
+        text,
+        style=st.pill_style,
+        href=href,
+        underline="none",
+        _hover={
+            "background-color": c_color("slate", 3),
+            "color": c_color("slate", 9),
+        },
+    )
+
+
+def social_menu_item(
+    icon: str,
+    url="/",
+    border: bool = False,
+    border_color: list = [
+        f"1px solid {c_color('slate', 1)}",
+        f"1px solid {c_color('slate', 1)}",
+        f"1px solid {c_color('slate', 5)}",
+        f"1px solid {c_color('slate', 5)}",
+        f"1px solid {c_color('slate', 5)}",
+    ],
+    **props,
+) -> rx.Component:
+    return rx.link(
+        rx.box(
+            get_icon(icon, color=c_color("slate", 9)),
+            style={
+                "display": "flex",
+                "padding": "4px 12px",
+                "justify-content": "center",
+                "align-items": "center",
+                "gap": "8px",
+                "align-self": "stretch",
+                "cursor": "pointer",
+                ":hover": {"background_color": c_color("slate", 3)},
+                "transition": "background 0.075s ease-out",
+                "overflow": "hidden",
+            },
+            _hover={
+                "background_color": c_color("slate", 3),
+            },
+            **props,
+            overflow="hidden",
+            border_left=border_color if border else "none",
+            border_right=border_color if border else "none",
+        ),
+        width="100%",
+        href=url,
+        is_external=True,
+    )
+
+
+def menu_socials() -> rx.Component:
+    return rx.box(
+        rx.hstack(
+            social_menu_item("github", GITHUB_URL),
+            social_menu_item("twitter", TWITTER_URL, border=True),
+            social_menu_item("discord", DISCORD_URL),
+            gap="0px",
+            width="auto",
+            align="center",
+        ),
+        style={
+            "border-radius": ["8px", "8px", "20px", "20px", "20px"],
+            "overflow": "hidden",
+            "height": "auto",
+            "border": [
+                "none",
+                "none",
+                f"1px solid {c_color('slate', 5)}",
+                f"1px solid {c_color('slate', 5)}",
+                f"1px solid {c_color('slate', 5)}",
+            ],
+            "background": [
+                c_color("slate", 3),
+                c_color("slate", 3),
+                c_color("slate", 1),
+                c_color("slate", 1),
+                c_color("slate", 1),
+            ],
+            "box-shadow": [
+                "none",
+                "none",
+                shadows["large"],
+                shadows["large"],
+                shadows["large"],
+            ],
+        },
+        width=["100%", "100%", "auto", "auto", "auto"],
     )
 
 
@@ -96,148 +333,297 @@ def feedback(text, icon, score):
 def docpage_footer(path: str):
     from pcweb.pages.docs.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
+    from pcweb.pages.docs.library import library
     from pcweb.pages.changelog import changelog
-    return rx.flex(
-        rx.divider(size="4"),
+    from pcweb.pages.blog import blogs
+    from pcweb.pages.changelog import changelog
+    from pcweb.pages.faq import faq
+    from pcweb.pages.errors import errors
+    from pcweb.signup import IndexState
+    from pcweb.constants import ROADMAP_URL, GITHUB_DISCUSSIONS_URL
+
+    return rx.el.footer(
         rx.flex(
             rx.flex(
                 rx.text(
                     "Did you find this useful?",
-                    color=rx.color("mauve", 10),
-                    font_weight="400",
+                    color=[
+                        c_color("slate", 11),
+                        c_color("slate", 11),
+                        c_color("slate", 9),
+                        c_color("slate", 9),
+                        c_color("slate", 9),
+                    ],
+                    style={**small},
                     white_space="nowrap",
                 ),
-                rx.divider(size="4", orientation="vertical"),
-                feedback(
-                    text="No",
-                    icon="thumbs_down",
-                    score=0,
-                ),
-                feedback(
-                    text="Yes",
-                    icon="thumbs_up",
-                    score=1,
-                ),
+                feedback_button(),
+                width="100%",
+                padding=["16px", "16px", "0px", "0px", "0px"],
                 align_items="center",
-                spacing="2",
+                border_radius="8px",
+                gap=["12px", "12px", "16px", "16px", "16px"],
+                background_color=[
+                    c_color("slate", 3),
+                    c_color("slate", 3),
+                    "transparent",
+                    "transparent",
+                    "transparent",
+                ],
+                flex_direction=["column", "column", "row", "row", "row"],
             ),
-            rx.box(
-                flex_grow="1",
-            ),
-            rx.divider(size="4", orientation="vertical"),
             rx.flex(
                 rx.desktop_only(
-                    rx.link(
-                        rx.flex(
-                            "Raise an issue",
-                            color=rx.color("mauve", 9),
-                            border=f"1px solid {rx.color('mauve', 9)}",
-                            align="center",
-                            justify="center",
-                            border_radius="5px",
-                            padding="0px 10px",
-                            white_space="nowrap",
-                        ),
+                    link_pill(
+                        "Raise an issue",
                         href=f"https://github.com/reflex-dev/reflex-web/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}",
                     )
                 ),
                 rx.desktop_only(
-                    rx.link(
-                        rx.flex(
-                            "Edit this page",
-                            color=rx.color("mauve", 9),
-                            border=f"1px solid {rx.color('mauve', 9)}",
-                            align="center",
-                            justify="center",
-                            border_radius="5px",
-                            padding="0px 10px",
-                            white_space="nowrap",
-                        ),
-                        href=f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
-                    )
+                    link_pill(
+                        "Edit this page",
+                        f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    ),
                 ),
-                spacing="2",
+                display=["none", "none", "flex", "flex", "flex"],
+                gap="8px",
             ),
+            padding_top=["0px", "0px", "32px", "32px"],
+            padding_bottom=["24px", "24px", "32px", "32px"],
+            justify_content=["center", "center", "center", "space-between"],
             align_items="center",
             width="100%",
         ),
-        rx.divider(size="4"),
         rx.flex(
             rx.flex(
-                rx.link(
-                    "Home", color=rx.color("mauve", 9), underline="always", href="/"
-                ),
-                rx.link(
-                    "Gallery",
-                    color=rx.color("mauve", 9),
-                    underline="always",
-                    href=gallery.path,
-                ),
-                rx.link(
-                    "Changelog",
-                    color=rx.color("mauve", 9),
-                    underline="always",
-                    href=changelog.path,
-                ),
-                rx.link(
-                    "Introduction",
-                    color=rx.color("mauve", 9),
-                    underline="always",
-                    href=getting_started.introduction.path,
-                ),
-                rx.link(
-                    "Hosting",
-                    color=rx.color("mauve", 9),
-                    underline="always",
-                    href=hosting.deploy_quick_start.path,
-                ),
-                spacing="2",
-                flex_shrink=0,
+                menu_socials(),
+                gap="8px",
+                width=["100%", "100%", "auto", "auto", "auto"],
+                margin_bottom=["24px", "24px", "0px", "0px", "0px"],
+                display=["flex", "flex", "none", "none", "none"],
             ),
-            rx.box(
-                flex_grow="1",
-            ),
-            rx.flex(
-                rx.link(
-                    rx.image(
-                        src="/companies/light/github.svg",
-                        alt="Github",
-                    ),
-                    href="https://github.com/reflex-dev/reflex",
-                ),
-                rx.link(
-                    rx.image(
-                        src="/companies/light/twitter.svg",
-                        alt="Twitter",
-                    ),
-                    href="https://twitter.com/getreflex",
-                ),
-                rx.link(
-                    rx.image(
-                        src="/companies/light/discord.svg",
-                        alt="Discord",
-                    ),
-                    href="https://discord.gg/T5WSbC2YtQ",
-                ),
-                rx.link(
-                    rx.image(
-                        src="/companies/light/linkedin.svg",
-                        alt="LinkedIn",
-                    ),
-                    href="https://www.linkedin.com/company/reflex-dev",
-                ),
-                spacing="2",
-            ),
+            # rx.flex(
+            #     link_pill("Home", "/"),
+            #     link_pill("Gallery", gallery.path),
+            #     link_pill("Changelog", changelog.path),
+            #     link_pill("Introduction", getting_started.introduction.path),
+            #     link_pill("Hosting", hosting.deploy_quick_start.path),
+            #     gap="8px",
+            #     flex_direction=["column", "column", "row", "row", "row"],
+            #     flex_shrink=0,
+            #     width=["100%", "100%", "auto", "auto", "auto"],
+            #     display=["none", "none", "none", "none", "none"], # Replaced for the new footer layout
+            # ),
+            justify="between",
+            padding_y="0px",
             align_items="center",
             width="100%",
+            flex_direction=["column", "column", "row", "row", "row"],
         ),
-        direction="column",
-        spacing="2",
-        margin_bottom="2em",
+        rx.flex(
+            rx.flex(
+                footer_link_flex(
+                    "Links",
+                    [
+                        footer_link("Home", "/"),
+                        footer_link("Showcase", gallery.path),
+                        footer_link("Blog", blogs.path),
+                        footer_link("Changelog", changelog.path),
+                    ],
+                ),
+                footer_link_flex(
+                    "Documentation",
+                    [
+                        footer_link("Introduction", getting_started.introduction.path),
+                        footer_link("Installation", getting_started.installation.path),
+                        footer_link("Components", library.path),
+                        footer_link("Hosting", hosting.deploy_quick_start.path),
+                    ],
+                ),
+                footer_link_flex(
+                    "Resources",
+                    [
+                        footer_link("FAQ", faq.path),
+                        footer_link("Common Errors", errors.path),
+                        footer_link("Roadmap", ROADMAP_URL),
+                        footer_link("Forum", GITHUB_DISCUSSIONS_URL),
+                    ],
+                ),
+                flex_wrap="wrap",
+                gap="48px",
+                width="100%",
+                justify_content="space-between",
+            ),
+            rx.flex(
+                rx.heading("Join Newsletter", as_="h4", style=footer_h4_style),
+                rx.text(
+                    "Get the latest updates and news about Reflex.",
+                    style=small,
+                    color=c_color("slate", 9),
+                ),
+                rx.cond(
+                    IndexState.signed_up,
+                    rx.flex(
+                        rx.hstack(
+                            rx.icon(
+                                tag="circle-check",
+                                size=14,
+                                color=c_color("violet", 9),
+                            ),
+                            rx.text(
+                                "Thanks for subscribing!",
+                                style=small_semibold,
+                                color=c_color("slate", 11),
+                            ),
+                            gap="8px",
+                            align_items="center",
+                        ),
+                        rx.el.button(
+                            "Sign up for another email.",
+                            style=small,
+                            color=c_color("slate", 9),
+                            background_color=c_color("slate", 3),
+                            border_radius="10px",
+                            padding="8px 14px",
+                            cursor="pointer",
+                            _hover={"background_color": c_color("slate", 4)},
+                            on_click=IndexState.signup_for_another_user,
+                        ),
+                        gap="8px",
+                        flex_wrap="wrap",
+                        flex_direction="column",
+                    ),
+                    rx.form(
+                        rx.flex(
+                            rx.el.input(
+                                placeholder="Your email",
+                                name="input_email",
+                                type="email",
+                                padding="8px 12px",
+                                color=c_color("slate", 11),
+                                background_color=c_color("white", 1),
+                                border_radius="10px",
+                                border=f"1px solid {c_color('slate', 5)}",
+                                box_sizing="border-box",
+                                outline="none",
+                                style={
+                                    "&::placeholder": {"color": c_color("slate", 9)},
+                                },
+                                _focus={
+                                    "outline": f"2px solid {c_color('violet', 9)}",
+                                },
+                                **small,
+                            ),
+                            rx.form.submit(
+                                rx.el.button(
+                                    "Subscribe",
+                                    display="flex",
+                                    padding="8px 14px",
+                                    justify_content="center",
+                                    background_color=c_color("slate", 4),
+                                    border_radius="10px",
+                                    align_items="center",
+                                    color=c_color("slate", 9),
+                                    cursor="pointer",
+                                    _hover={"background_color": c_color("slate", 5)},
+                                    transition="background 0.075s ease-out",
+                                    **small_semibold,
+                                ),
+                                as_child=True,
+                            ),
+                            gap="8px",
+                            align_items="center",
+                        ),
+                        on_submit=IndexState.signup,
+                    ),
+                ),
+                flex_direction="column",
+                align_items="start",
+                gap="16px",
+            ),
+            rx.flex(
+                rx.text(
+                    "Copyright © 2024 Pynecone, Inc.",
+                    style=small,
+                    color=c_color("slate", 9),
+                ),
+                rx.flex(
+                    menu_socials(),
+                    gap="8px",
+                    width=["100%", "100%", "auto", "auto", "auto"],
+                    margin_bottom=["0px", "0px", "8px", "8px", "8px"],
+                    display=["none", "none", "flex", "flex", "flex"],
+                ),
+                justify_content="space-between",
+                flex_direction="row",
+                align_items="center",
+                width="100%",
+            ),
+            justify_content="space-between",
+            flex_direction="column",
+            width="100%",
+            gap="40px",
+            border_top=f"1px solid {c_color('slate', 4)}",
+            padding_y=["24px", "24px", "32px", "32px", "32px"],
+            display="flex",
+        ),
+        display="flex",
+        max_width=["100%", "auto"],
+        padding_bottom=["16px", "16px", "32px", "32px", "32px"],
+        flex_direction="column",
     )
 
 
-def breadcrumb(path):
+def drawer_item(text: str, href: str):
+    return rx.link(
+        text,
+        href=href,
+        display="flex",
+        underline="none",
+        justify_content="center",
+        align_items="center",
+        padding="14px 16px",
+        width="100%",
+        color=c_color("slate", 9),
+        _hover={
+            "color": c_color("slate", 9),
+        },
+        style={
+            ":hover": {
+                "color": c_color("slate", 9),
+            },
+            **small,
+        },
+        border_bottom=f"1px solid {c_color('slate', 4)}",
+    )
+
+
+def drawer_socials():
+    return rx.hstack(
+        social_menu_item("github", GITHUB_URL, height="47px"),
+        social_menu_item(
+            "twitter",
+            TWITTER_URL,
+            border=True,
+            border_color=[f"1px solid {c_color('slate', 4)}"],
+            height="47px",
+        ),
+        social_menu_item("discord", DISCORD_URL, height="47px"),
+        border_bottom=f"1px solid {c_color('slate', 4)}",
+        gap="0px",
+        width="100%",
+        align="center",
+    )
+
+
+def breadcrumb(path, nav_sidebar):
+    from pcweb.components.docpage.navbar.buttons.sidebar import docs_sidebar_drawer
+
+    overflow_style = {
+        "overflow": "hidden",
+        "text_overflow": "ellipsis",
+        "white_space": "nowrap",
+    }
     # Split the path into segments, removing 'docs' and capitalizing each segment
     segments = [
         segment.capitalize()
@@ -251,14 +637,74 @@ def breadcrumb(path):
     # Iteratively build the href for each segment
     for i in range(len(segments)):
         # Add the breadcrumb item to the list
-        breadcrumbs.append(rx.text(segments[i], color=rx.color("mauve", 9)))
+        breadcrumbs.append(
+            rx.text(
+                segments[i],
+                color=c_color("slate", 9),
+                style=small,
+                **(overflow_style if i == len(segments) - 1 else {}),
+            )
+        )
 
         # If it's not the last segment, add a separator
         if i < len(segments) - 1:
-            breadcrumbs.append(rx.text("/", color=rx.color("mauve", 9)))
+            breadcrumbs.append(
+                rx.icon(
+                    tag="chevron-right",
+                    size=14,
+                    color=c_color("slate", 8),
+                    display=["none", "none", "none", "flex", "flex"],
+                ),
+            )
+            breadcrumbs.append(
+                rx.text(
+                    "/",
+                    display=["flex", "flex", "flex", "none", "none"],
+                    style=small,
+                    color=c_color("slate", 8),
+                )
+            )
 
     # Return the list of breadcrumb items with separators
-    return rx.flex(*breadcrumbs, spacing="2")
+    return rx.flex(
+        rx.hstack(
+            *breadcrumbs,
+            align_items="center",
+            gap=["5px", "16px"],
+            overflow="hidden",
+        ),
+        docs_sidebar_drawer(
+            nav_sidebar,
+            trigger=rx.el.button(
+                rx.icon(tag="chevron-down", size=14, color=c_color("slate", 9)),
+                padding="9px",
+                display=["flex", "flex", "flex", "none", "none"],
+            ),
+        ),
+        padding=[
+            "8px 12px 8px 16px",
+            "8px 19.5px 8px 24px",
+            "8px 19.5px 8px 24px",
+            "0px",
+            "0px",
+        ],
+        gap=["16px", "0px"],
+        align_items="center",
+        margin_bottom=["24px", "24px", "24px", "48px"],
+        margin_top=["48px", "64px", "64px", "119px"],
+        border_bottom=[
+            f"1px solid {c_color('slate', 4)}",
+            f"1px solid {c_color('slate', 4)}",
+            f"1px solid {c_color('slate', 4)}",
+            "none",
+            "none",
+        ],
+        justify_content="space-between",
+        width="100%",
+        z_index="10",
+        position="relative",
+        background_color=c_color("slate", 1),
+    )
 
 
 def get_headings(comp):
@@ -322,7 +768,9 @@ def get_toc(source, href, component_list=None):
     return headings
 
 
-def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bool = True) -> rx.Component:
+def docpage(
+    set_path: str | None = None, t: str | None = None, right_sidebar: bool = True
+) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -365,7 +813,7 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
             from pcweb.components.docpage.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="18em")
+            sidebar = sb(url=path, width="280px")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -383,9 +831,40 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                 )
                 links.append(
                     rx.link(
-                        "← " + next_prev_name,
+                        rx.hstack(
+                            get_icon(icon="arrow_right", transform="rotate(180deg)"),
+                            next_prev_name,
+                            align_items="center",
+                            gap="8px",
+                            width="100%",
+                            justify_content=[
+                                "center",
+                                "center",
+                                "flex-start",
+                                "flex-start",
+                                "flex-start",
+                            ],
+                            border_radius="8px",
+                        ),
+                        underline="none",
                         href=prev.link,
-                        style=link_style,
+                        _hover={"color": c_color("slate", 11)},
+                        transition="color 0.035s ease-out",
+                        background_color=[
+                            c_color("slate", 3),
+                            c_color("slate", 3),
+                            "transparent",
+                            "transparent",
+                            "transparent",
+                        ],
+                        border_radius="8px",
+                        padding=["2px 6px", "2px 6px", "0px", "0px", "0px"],
+                        style={
+                            "color": c_color("slate", 9),
+                            **small,
+                            ":hover": {"color": c_color("slate", 11)},
+                        },
+                        width=["100%", "100%", "auto", "auto", "auto"],
                     )
                 )
             else:
@@ -400,10 +879,40 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                 )
                 links.append(
                     rx.link(
-                        next_prev_name + " →",
+                        rx.hstack(
+                            next_prev_name,
+                            get_icon(icon="arrow_right"),
+                            align_items="center",
+                            gap="8px",
+                            width="100%",
+                            justify_content=[
+                                "center",
+                                "center",
+                                "flex-end",
+                                "flex-end",
+                                "flex-end",
+                            ],
+                            background_color=[
+                                c_color("slate", 3),
+                                c_color("slate", 3),
+                                "transparent",
+                                "transparent",
+                                "transparent",
+                            ],
+                            padding=["2px 6px", "2px 6px", "0px", "0px", "0px"],
+                            border_radius="8px",
+                        ),
+                        underline="none",
                         href=next.link,
-                        style=link_style,
-                    )
+                        _hover={"color": c_color("slate", 11)},
+                        transition="color 0.035s ease-out",
+                        style={
+                            "color": c_color("slate", 9),
+                            **small,
+                            ":hover": {"color": c_color("slate", 11)},
+                        },
+                        width=["100%", "100%", "auto", "auto", "auto"],
+                    ),
                 )
             else:
                 links.append(rx.box())
@@ -419,102 +928,180 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
 
             # Return the templated page.
             return rx.flex(
-                navbar(sidebar=nav_sidebar),
-                rx.flex(
+                navbar(),
+                rx.el.main(
                     rx.box(
                         sidebar,
-                        margin_top="110px",
-                        margin_right="2em",
+                        margin_top="105px",
                         height="100%",
                         width="24%",
                         display=["none", "none", "none", "none", "flex", "flex"],
                         flex_shrink=0,
                     ),
                     rx.box(
-                        rx.box(breadcrumb(path), margin_top="110px"),
-                        rx.box(comp),
-                        rx.hstack(
-                            *links,
-                            justify="between",
-                            margin_top="2em",
-                            margin_bottom="4em",
+                        rx.box(
+                            breadcrumb(path, nav_sidebar),
+                            padding_x=[
+                                "0px",
+                                "0px",
+                                "0px",
+                                "48px",
+                                "96px",
+                            ],
                         ),
-                        rx.spacer(),
-                        rx.box(height="2em"),
-                        docpage_footer(path=path),
-                        border_left=[
-                            "none",
-                            "none",
-                            "none",
-                            "none",
-                            f"1px solid {rx.color('mauve', 4)};",
-                            f"1px solid {rx.color('mauve', 4)};",
-                        ],
-                        padding_x=styles.PADDING_X,
-                        width=["100%", "97%", "94%", "90%", "70%", "60%"] if right_sidebar else "100%",
+                        rx.box(
+                            rx.el.article(comp),
+                            rx.el.nav(
+                                *links,
+                                justify="between",
+                                margin_top=["32px", "32px", "40px", "40px", "40px"],
+                                margin_bottom=[
+                                    "24px",
+                                    "24px",
+                                    "24pxpx",
+                                    "48px",
+                                    "48px",
+                                ],
+                                gap="8px",
+                                display="flex",
+                                flex_direction="row",
+                                justify_content="space-between",
+                            ),
+                            docpage_footer(path=path),
+                            padding_x=["16px", "24px", "24px", "48px", "96px"],
+                            margin_top=["105px", "145px", "0px", "0px", "0px"],
+                        ),
+                        width=(
+                            ["100%", "100%", "100%", "90%", "70%", "60%"]
+                            if right_sidebar
+                            else "100%"
+                        ),
                         height="100%",
                     ),
-                    rx.box(
+                    rx.el.nav(
                         rx.flex(
-                            *[
-                                (
-                                    rx.link(
-                                        rx.text(
-                                            text,
-                                            color=rx.color("mauve", 12),
-                                            font_weight="500",
-                                            font_size="1em",
-                                        ),
-                                        href=path
-                                        + "#"
-                                        + text.lower().replace(" ", "-"),
-                                    )
-                                    if level == 1
-                                    else (
-                                        rx.link(
-                                            rx.text(
+                            rx.heading(
+                                "On this page",
+                                as_="h5",
+                                style={
+                                    "color": c_color("slate", 12),
+                                    "font-family": "Instrument Sans",
+                                    "font-size": "14px",
+                                    "font-style": "normal",
+                                    "font-weight": "600",
+                                    "line-height": "20px",
+                                    "letter-spacing": "-0.21px",
+                                },
+                            ),
+                            rx.unordered_list(
+                                *[
+                                    (
+                                        rx.list_item(
+                                            rx.link(
                                                 text,
-                                                color=rx.color("mauve", 11),
-                                                font_weight="400",
-                                                font_size="0.9em",
-                                                _hover={"color": rx.color("mauve", 12)},
-                                            ),
-                                            href=path
-                                            + "#"
-                                            + text.lower().replace(" ", "-"),
+                                                style={
+                                                    "transition": "color 0.035s ease-out",
+                                                    "color": c_color("slate", 9),
+                                                    "overflow": "hidden",
+                                                    "text-overflow": "ellipsis",
+                                                    "white-space": "nowrap",
+                                                    **small,
+                                                    ":hover": {
+                                                        "color": c_color("slate", 11),
+                                                    },
+                                                },
+                                                _hover={
+                                                    "color": c_color("slate", 11),
+                                                },
+                                                underline="none",
+                                                href=path
+                                                + "#"
+                                                + text.lower().replace(" ", "-"),
+                                            )
                                         )
-                                        if level == 2
-                                        else rx.link(
-                                            rx.text(
-                                                text,
-                                                color=rx.color("mauve", 11),
-                                                _hover={"color": rx.color("mauve", 12)},
-                                                font_weight="400",
-                                                font_size="0.9em",
-                                                padding_left="1em",
-                                            ),
-                                            href=path
-                                            + "#"
-                                            + text.lower().replace(" ", "-"),
+                                        if level == 1
+                                        else (
+                                            rx.list_item(
+                                                rx.link(
+                                                    text,
+                                                    style={
+                                                        "transition": "color 0.035s ease-out",
+                                                        "overflow": "hidden",
+                                                        "text-overflow": "ellipsis",
+                                                        "white-space": "nowrap",
+                                                        "color": c_color("slate", 9),
+                                                        **small,
+                                                        ":hover": {
+                                                            "color": c_color(
+                                                                "slate", 11
+                                                            ),
+                                                        },
+                                                    },
+                                                    _hover={
+                                                        "color": c_color("slate", 11),
+                                                    },
+                                                    underline="none",
+                                                    href=path
+                                                    + "#"
+                                                    + text.lower().replace(" ", "-"),
+                                                )
+                                            )
+                                            if level == 2
+                                            else rx.list_item(
+                                                rx.link(
+                                                    text,
+                                                    style={
+                                                        "transition": "color 0.035s ease-out",
+                                                        "overflow": "hidden",
+                                                        "text-overflow": "ellipsis",
+                                                        "white-space": "nowrap",
+                                                        "color": c_color("slate", 9),
+                                                        **small,
+                                                        ":hover": {
+                                                            "color": c_color(
+                                                                "slate", 11
+                                                            ),
+                                                        },
+                                                    },
+                                                    _hover={
+                                                        "color": c_color("slate", 11),
+                                                    },
+                                                    underline="none",
+                                                    padding_left="24px",
+                                                    href=path
+                                                    + "#"
+                                                    + text.lower().replace(" ", "-"),
+                                                )
+                                            )
                                         )
                                     )
-                                )
-                                for level, text in toc
-                            ],
+                                    for level, text in toc
+                                ],
+                                list_style_type="none",
+                                display="flex",
+                                gap="16px",
+                                flex_direction="column",
+                                margin_left="0px !important",
+                            ),
                             direction="column",
                             width="100%",
                             position="fixed",
-                            spacing="2",
+                            gap="16px",
+                            padding="14px 8px 0px 8px",
+                            max_width="280px",
                             justify="start",
                             overflow="hidden",
                             max_height="80vh",
                             overflow_y="scroll",
                         ),
-                        margin_top="110px",
+                        margin_top="105px",
                         width="18%",
                         height="100%",
-                        display=["none", "none", "none", "none", "none", "flex"] if right_sidebar else "none",
-
+                        display=(
+                            ["none", "none", "none", "none", "none", "flex"]
+                            if right_sidebar
+                            else "none"
+                        ),
                         flex_shrink=0,
                     ),
                     max_width="110em",
@@ -524,10 +1111,13 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
                     height="100%",
                     min_height="100vh",
                     width="100%",
+                    display="flex",
+                    flex_direction="row",
                 ),
-                background=rx.color("mauve", 1),
+                background=c_color("slate", 1),
                 width="100%",
                 justify="center",
+                flex_direction="column",
             )
 
         # Return the route.
@@ -551,17 +1141,46 @@ def docpage(set_path: str | None = None, t: str | None = None, right_sidebar: bo
 class RadixDocState(rx.State):
     """The app state."""
 
-    color: str = "red"
-
-    def change_color(self, color: str) -> None:
-        self.color = color
+    color: str = "tomato"
 
 
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
     return rx.hover_card.root(
         rx.hover_card.trigger(rx.flex(component)),
         rx.hover_card.content(
-            rx.code_block(f"{component_str}", can_copy=True, language="python"),
+            # rx.code_block(f"{component_str}", can_copy=True, language="python"),
+            rx.el.button(
+                get_icon(icon="copy", padding="5px"),
+                rx.text(
+                    component_str,
+                    as_="p",
+                    overflow="hidden",
+                    white_space="nowrap",
+                    style=small,
+                    text_overflow="ellipsis",
+                    flex_grow=1,
+                    flex_shrink=1,
+                    min_width=0,
+                ),
+                gap="6px",
+                color=c_color("slate", 9),
+                width="100%",
+                padding_right="6px",
+                align_items="center",
+                background=c_color("slate", 1),
+                border_radius="6px",
+                box_shadow=shadows["small"],
+                on_click=rx.set_clipboard(component_str),
+                cursor="pointer",
+                _hover={
+                    "transition": "background 0.075s ease-out",
+                    "background": c_color("slate", 3),
+                },
+                border=f"1px solid {c_color('slate', 5)}",
+                display="flex",
+                flex_direction="row",
+                max_width="300px",
+            ),
         ),
     )
 
@@ -639,11 +1258,17 @@ def style_grid(
     disabled: bool = False,
     **kwargs,
 ) -> rx.Component:
+    text_style = {"color": c_color("slate", 11), "text-wrap": "nowrap", **medium}
     return rx.vstack(
         rx.grid(
             rx.text("", size="5"),
-            *[rx.text(variant, size="5") for variant in variants],
-            rx.text("Accent", size="5"),
+            *[
+                rx.text(variant, style=text_style, color=c_color("slate", 11))
+                for variant in variants
+            ],
+            rx.text(
+                "Accent", style=text_style, color=f"var(--{RadixDocState.color}-10)"
+            ),
             *[
                 hover_item(
                     component=used_component(
@@ -673,7 +1298,7 @@ def style_grid(
                 )
                 for variant in variants
             ],
-            rx.text("Gray", size="5"),
+            rx.text("Gray", style=text_style, color=c_color("slate", 11)),
             *[
                 hover_item(
                     component=used_component(
@@ -705,7 +1330,7 @@ def style_grid(
             ],
             (
                 rx.fragment(
-                    rx.text("Disabled", size="5"),
+                    rx.text("Disabled", style=text_style, color=c_color("slate", 11)),
                     *[
                         hover_item(
                             component=used_component(
@@ -730,54 +1355,64 @@ def style_grid(
             rows=str(len(variants) + 1),
             spacing="3",
         ),
-        rx.select.root(
-            rx.select.trigger(
-                rx.button(size="2", on_click=RadixDocState.change_color())
-            ),
-            rx.select.content(
-                rx.select.group(
-                    rx.select.label("Colors"),
-                    *[
-                        rx.select.item(
-                            color,
-                            value=color,
-                            _hover={"background": f"var(--{color}-9)"},
-                        )
-                        for color in [
-                            "tomato",
-                            "red",
-                            "ruby",
-                            "crimson",
-                            "pink",
-                            "plum",
-                            "purple",
-                            "violet",
-                            "iris",
-                            "indigo",
-                            "blue",
-                            "cyan",
-                            "teal",
-                            "jade",
-                            "green",
-                            "grass",
-                            "brown",
-                            "orange",
-                            "sky",
-                            "mint",
-                            "lime",
-                            "yellow",
-                            "amber",
-                            "gold",
-                            "bronze",
-                            "gray",
-                        ]
-                    ],
+        rx.popover.root(
+            rx.popover.trigger(
+                rx.box(
+                    rx.button(
+                        rx.text(RadixDocState.color, style=small),
+                        # Match the select.trigger svg icon
+                        rx.html(
+                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
+                        ),
+                        color_scheme=RadixDocState.color,
+                        width="8em",
+                        variant="surface",
+                        justify_content="space-between",
+                    ),
+                    margin_top="18px",
                 ),
             ),
-            ## we need to clearly document how the on_change works as it is not obvious at all
-            default_value=RadixDocState.color,
-            on_change=RadixDocState.change_color,
+            rx.popover.content(
+                rx.grid(
+                    *[
+                        rx.box(
+                            rx.icon(
+                                "check",
+                                color=rx.color("gray", 12),
+                                size=15,
+                                position="absolute",
+                                top="50%",
+                                left="50%",
+                                transform="translate(-50%, -50%)",
+                                display=rx.cond(
+                                    RadixDocState.color == color, "block", "none"
+                                ),
+                            ),
+                            width="30px",
+                            height="30px",
+                            border_radius="max(var(--radius-2), var(--radius-full))",
+                            bg=f"var(--{color}-9)",
+                            cursor="pointer",
+                            position="relative",
+                            flex_shrink=0,
+                            on_click=RadixDocState.setvar("color", color),
+                            border=rx.cond(
+                                RadixDocState.color == color,
+                                "2px solid var(--gray-12)",
+                                "",
+                            ),
+                        )
+                        for color in list(map(str, LiteralAccentColor.__args__))
+                    ],
+                    columns="6",
+                    spacing="3",
+                ),
+            ),
         ),
+        padding="24px",
+        border_radius="12px",
+        border=f"1px solid {c_color('slate', 4)}",
+        background=c_color("slate", 2),
     )
 
 

@@ -1,21 +1,19 @@
 import reflex as rx
-from .style import button_style
+from .style import new_button_style
+from pcweb.styles.colors import c_color
 
 
 from reflex.style import toggle_color_mode
 
 
 def color() -> rx.Component:
-    return rx.flex(
-            rx.color_mode.icon(
-                light_component=rx.icon("sun", color=rx.color("mauve", 9)),
-                dark_component=rx.icon("moon", color=rx.color("mauve", 9)),
-            ),
-            on_click=toggle_color_mode,
-            _hover = {
-                "cursor" : "pointer"
-            },
-            padding="7px",
-            style=button_style,
-            border_radius="8px",
-        )
+    return rx.el.button(
+        rx.color_mode.icon(
+            light_component=rx.icon("sun", color=c_color("slate", 9), size=16),
+            dark_component=rx.icon("moon", color=c_color("slate", 9), size=16),
+        ),
+        style=new_button_style,
+        width="32px",
+        padding="0px",
+        on_click=toggle_color_mode,
+    )

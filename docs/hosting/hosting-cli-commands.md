@@ -4,6 +4,34 @@
 import reflex as rx
 from pcweb import constants
 from pcweb.templates.docpage import doccmdoutput
+from pcweb.styles.styles import get_code_style, cell_style
+
+
+regions = {
+    "alt": "Atlanta, Georgia (US)",
+    "bog": "Bogotá, Colombia",
+    "bos": "Boston, Massachusetts (US)",
+    "cdg": "Paris, France",
+    "den": "Denver, Colorado (US)",
+    "dfw": "Dallas, Texas (US)",
+    "eze": "Ezeiza, Argentina",
+    "fra": "Frankfurt, Germany",
+    "hkg": "Hong Kong, Hong Kong",
+    "iad": "Ashburn, Virginia (US)",
+    "lax": "Los Angeles, California (US)",
+    "lhr": "London, United Kingdom",
+    "mad": "Madrid, Spain",
+    "mia": "Miami, Florida (US)",
+    "ord": "Chicago, Illinois (US)",
+    "scl": "Santiago, Chile",
+    "sea": "Seattle, Washington (US)",
+    "sin": "Singapore, Singapore",
+    "sjc": "San Jose, California (US)",
+    "syd": "Sydney, Australia",
+    "waw": "Warsaw, Poland",
+    "yul": "Montreal, Canada",
+    "yyz": "Toronto, Canada"
+}
 ```
 
 ## Concepts
@@ -22,7 +50,7 @@ You access the values of `envs` by referencing `os.environ` with their names as 
 
 ### Updating Deployment
 
-To redeploy or update your app, navigate to the project directory and type `reflex deploy` again. This command communicates with the hosting service to automatically detects your existing app by the same name. This time the deploy command overwrites the app. You should see a prompt similar to `Overwrite deployment [ app-name ] ...`. This operation is a complete overwrite and not an incremental update.
+To redeploy or update your app, navigate to the project directory and type `reflex deploy` again. This command communicates with the hosting service to automatically detect your existing app with the same name. This time the deploy command overwrites the app. You should see a prompt similar to `Overwrite deployment [ app-name ] ...`. This operation is a complete overwrite and not an incremental update.
 
 ## CLI Command Reference
 
@@ -256,98 +284,13 @@ rx.table.root(
         ),
     ),
     rx.table.body(
-        rx.table.row(
-            rx.table.row_header_cell("alt"),
-            rx.table.cell("Atlanta, Georgia (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("bog"),
-            rx.table.cell("Bogotá, Colombia"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("bos"),
-            rx.table.cell("Boston, Massachusetts (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("cdg"),
-            rx.table.cell("Paris, France"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("den"),
-            rx.table.cell("Denver, Colorado (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("dfw"),
-            rx.table.cell("Dallas, Texas (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("eze"),
-            rx.table.cell("Ezeiza, Argentina"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("fra"),
-            rx.table.cell("Frankfurt, Germany"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("hkg"),
-            rx.table.cell("Hong Kong, Hong Kong"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("iad"),
-            rx.table.cell("Ashburn, Virginia (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("lax"),
-            rx.table.cell("Los Angeles, California (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("lhr"),
-            rx.table.cell("London, United Kingdom"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("mad"),
-            rx.table.cell("Madrid, Spain"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("mia"),
-            rx.table.cell("Miami, Florida (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("ord"),
-            rx.table.cell("Chicago, Illinois (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("scl"),
-            rx.table.cell("Santiago, Chile"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("sea"),
-            rx.table.cell("Seattle, Washington (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("sin"),
-            rx.table.cell("Singapore, Singapore"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("sjc"),
-            rx.table.cell("San Jose, California (US)"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("syd"),
-            rx.table.cell("Sydney, Australia"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("waw"),
-            rx.table.cell("Warsaw, Poland"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("yul"),
-            rx.table.cell("Montréal, Canada"),
-        ),
-        rx.table.row(
-            rx.table.row_header_cell("yyz"),
-            rx.table.cell("Toronto, Canada"),
-        ),
+        *[
+            rx.table.row(
+                rx.table.cell(rx.code(region_code, style=get_code_style("violet"))),
+                rx.table.cell(region_name, style=cell_style),
+            )
+            for region_code, region_name in regions.items()
+        ]
     ),
     variant="surface",
 )

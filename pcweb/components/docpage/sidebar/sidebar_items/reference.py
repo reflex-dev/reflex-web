@@ -7,14 +7,13 @@ def get_sidebar_items_api_reference():
     return [
         create_item(
             "API Reference",
-            children=[
+            children=apiref.pages + [
                 api_reference.cli,
                 api_reference.event_triggers,
                 api_reference.special_events,
                 api_reference.browser_storage,
                 api_reference.browser_javascript,
-            ]
-            + apiref.pages,
+            ],
         )
     ]
 

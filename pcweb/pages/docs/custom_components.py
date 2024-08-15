@@ -3,13 +3,20 @@ import httpx
 import json
 from rxconfig import config
 
-from pcweb.templates.docpage import docpage, h1_comp, text_comp
+from pcweb.templates.docpage import docpage, h1_comp
+from pcweb.styles.colors import c_color
+from pcweb.styles.shadows import shadows
+from pcweb.styles.fonts import base_semibold, small, base
+from pcweb.components.icons.icons import get_icon
 
 
 class CustomComponentGalleryState(rx.State):
     tags: list[str] = []
 
     components_list: list[dict[str, str]] = []
+
+    selected_filter: str = ""
+    original_components_list: list[dict[str, str]] = []
 
     def fetch_components_list(self):
         try:
@@ -31,6 +38,184 @@ class CustomComponentGalleryState(rx.State):
             c["download_url"] = package_url(c["package_name"])
 
         self.components_list = component_list
+        self.original_components_list = component_list
+
+    def set_selected_filter(self, filter):
+        if self.selected_filter == filter:
+            self.selected_filter = ""
+            self.components_list = self.original_components_list
+        else:
+            self.selected_filter = filter
+            self.sort_by_filter(filter)
+
+    def sort_by_filter(self, filter):
+        if filter == "Recent":
+            self.components_list = sorted(
+                self.components_list, key=lambda x: x["created_at"], reverse=True
+            )
+        elif filter == "Downloads":
+            self.components_list = sorted(
+                self.components_list,
+                key=lambda x: x["downloads"]["last_month"],
+                reverse=True,
+            )
+
+
+def filter_item(
+    icon: str, text: str, border: bool = False, on_click=None
+) -> rx.Component:
+    is_selected = CustomComponentGalleryState.selected_filter == text
+    return rx.hstack(
+        get_icon(icon, padding_y="2px", opacity=rx.cond(is_selected, 0.64, 1)),
+        rx.text(text, opacity=rx.cond(is_selected, 0.64, 1), style=small),
+        rx.spacer(),
+        rx.cond(
+            is_selected,
+            rx.box(
+                width="8px",
+                height="8px",
+                justify="end",
+                background=c_color("violet", 9),
+                border_radius="50%",
+            ),
+        ),
+        gap="14px",
+        align="center",
+        justify="start",
+        width="100%",
+        cursor="pointer",
+        _hover={"background_color": c_color("slate", 3)},
+        padding="8px 14px",
+        overflow="hidden",
+        text_wrap="nowrap",
+        border_top=f"1px solid {c_color('slate', 5)}" if border else "none",
+        border_bottom=f"1px solid {c_color('slate', 5)}" if border else "none",
+        on_click=CustomComponentGalleryState.set_selected_filter(text),
+    )
+
+
+chips_box_style = {
+    "width": ["100%", "100%", "auto"],
+    "box-sizing": "border-box",
+    "display": "flex",
+    "flex-direction": "row",
+    "align_items": "center",
+    "padding": "6px 12px",
+    "cursor": "pointer",
+    "box-shadow": shadows["large"],
+    "border-radius": "1000px",
+    "transition": "background 0.075s ease-out, color 0.075s ease-out, border 0.075s ease-out",
+}
+
+# Sorting
+sorting_box_style = {
+    "gap": "12px",
+    "outline": "none",
+    "_focus": {
+        "outline": "none",
+    },
+    **chips_box_style,
+}
+
+menu_item_style = {
+    "box-sizing": "border-box",
+    "width": "191px",
+    "height": "auto",
+    "overflow": "hidden",
+    "padding": "0px",
+    "cursor": "default",
+    "background_color": c_color("slate", 2),
+    "border": f"1px solid {c_color('slate', 5)}",
+    "box-shadow": "0px 2px 4px rgba(0, 0, 0, 0.05)",
+    "border-radius": "12px",
+    "color": c_color("slate", 9),
+    **base,
+}
+
+
+def sorting_filters() -> rx.Component:
+    return rx.vstack(
+        filter_item(
+            "history",
+            "Recent",
+        ),
+        filter_item(
+            "arrow_down_big",
+            "Downloads",
+            border=True,
+        ),
+        gap="0px",
+        width="100%",
+    )
+
+
+def sorting_filters_dropdown_menu() -> rx.Component:
+    condition = CustomComponentGalleryState.selected_filter != ""
+    conditional_style = {
+        "background": rx.cond(
+            condition,
+            c_color("violet", 9),
+            c_color("slate", 1),
+        ),
+        "color": rx.cond(
+            condition,
+            "white",
+            c_color("slate", 9),
+        ),
+        "border": rx.cond(
+            condition,
+            f"1px solid {c_color('violet', 9)}",
+            f"1px solid {c_color('slate', 5)}",
+        ),
+        "&[data-state='open']": {
+            "background": rx.cond(
+                condition,
+                c_color("violet", 9),
+                c_color("slate", 3),
+            ),
+        },
+        "_hover": {
+            "background": rx.cond(
+                condition,
+                c_color("violet", 9),
+                c_color("slate", 3),
+            ),
+        },
+    }
+    return rx.menu.root(
+        rx.menu.trigger(
+            rx.el.button(
+                rx.text(
+                    "Sort",
+                    rx.cond(
+                        condition,
+                        rx.text(
+                            f": {CustomComponentGalleryState.selected_filter}",
+                            as_="span",
+                            text_wrap="nowrap",
+                        ),
+                    ),
+                    as_="span",
+                    style=small,
+                ),
+                get_icon(
+                    "select",
+                ),
+                justify_content="space-between",
+            ),
+            style=sorting_box_style | conditional_style,
+        ),
+        rx.menu.content(
+            rx.menu.item(sorting_filters(), style=menu_item_style),
+            bg="transparent",
+            box_shadow="None",
+            padding="0px",
+            overflow="visible",
+            border="none",
+            align="center",
+        ),
+        width="100%",
+    )
 
 
 def package_url(package_name: str) -> str:
@@ -86,29 +271,46 @@ def demo(category: dict) -> rx.Component:
         category["demo_url"],
         rx.dialog.root(
             rx.dialog.trigger(
-                rx.icon(
-                    tag="eye",
-                    size=17,
-                    color=rx.color("mauve", 11),
+                rx.box(
+                    get_icon(
+                        icon="eye",
+                    ),
+                    color=c_color("slate", 9),
+                    border_radius="6px",
+                    box_shadow=shadows["small"],
+                    border=f"1px solid {c_color('slate', 5)}",
                     _hover={
-                        "color": rx.color("mauve", 12),
+                        "background": c_color("slate", 3),
+                        "transition": "background 0.075s ease-out",
                     },
-                )
+                    padding="5px",
+                ),
             ),
             rx.dialog.content(
                 rx.vstack(
                     rx.flex(
                         install_command("pip install " + category["package_name"]),
                         rx.dialog.close(
-                            rx.icon_button(
+                            rx.el.button(
                                 rx.icon(
                                     tag="x",
-                                    color=rx.color("mauve", 2),
-                                    _hover={"color": rx.color("mauve", 3)},
+                                    color=c_color("slate", 9),
+                                    _hover={"color": c_color("slate", 10)},
+                                    padding="5px",
                                 ),
-                                size="2",
+                                background=c_color("slate", 1),
+                                border=f"1px solid {c_color('slate', 5)}",
+                                _hover={
+                                    "background": c_color("slate", 3),
+                                    "transition": "background 0.075s ease-out",
+                                },
+                                outline="none",
+                                border_radius="6px",
+                                box_shadow=shadows["small"],
+                                height="auto",
                                 cursor="pointer",
                             ),
+                            outline="none",
                         ),
                         flex_direction=["column-reverse", "column-reverse", "row"],
                         justify="end",
@@ -125,10 +327,15 @@ def demo(category: dict) -> rx.Component:
                     ),
                     height="100%",
                     width="100%",
+                    gap="16px",
                 ),
                 style={
                     "max_width": "calc(100vw - 20%)",
                     "height": "75vh",
+                    "outline": "none",
+                    "border": f"1px solid {c_color('slate', 5)}",
+                    "background": c_color("slate", 1),
+                    "box_shadow": shadows["large"],
                 },
             ),
         ),
@@ -137,29 +344,22 @@ def demo(category: dict) -> rx.Component:
 
 def download(download_url: str) -> rx.Component:
     return rx.link(
-        rx.hstack(
-            rx.text(
-                "Source",
-                color=rx.color("mauve", 11),
-                font_size="14px",
-                line_height="20px",
-                as_="p",
-            ),
-            rx.icon(
-                tag="arrow-right",
-                size=16,
-                color=rx.color("mauve", 11),
-                stroke_width="1.5px",
-            ),
-            align="center",
-            gap="4px",
-            transition="all 0.2s ease",
-            _hover={
-                "& *": {
-                    "color": rx.color("mauve", 12),
-                },
+        get_icon(icon="new_tab", padding="5px"),
+        background=c_color("slate", 1),
+        border_radius="6px",
+        border=f"1px solid {c_color('slate', 5)}",
+        box_shadow=shadows["small"],
+        _hover={
+            "background": c_color("slate", 3),
+            "transition": "background 0.075s ease-out",
+            "color": c_color("slate", 9),
+        },
+        style={
+            ":hover": {
+                "color": c_color("slate", 9),
             },
-        ),
+        },
+        color=c_color("slate", 9),
         underline="none",
         href=download_url,
         is_external=True,
@@ -189,91 +389,64 @@ def pypi_keywords(keywords: rx.Var[list[str]]) -> rx.Component:
 
 def install_command(command: str) -> rx.Component:
     return rx.hstack(
+        get_icon(icon="copy", padding="5px"),
         rx.text(
-            "$ " + command,
+            "$" + command,
             as_="p",
-            color=rx.color("accent", 11),
-            weight="medium",
             overflow="hidden",
             white_space="nowrap",
-            font_family="Source Code Pro",
-            font_size="13px",
+            style=small,
             text_overflow="ellipsis",
             flex_grow=1,
             flex_shrink=1,
             min_width=0,
         ),
-        rx.icon(
-            tag="copy",
-            size=17,
-            color=rx.color("mauve", 11),
-            cursor="pointer",
-            on_click=rx.set_clipboard(command),
-            flex_shrink=0,
-            _hover={
-                "color": rx.color("mauve", 12),
-            },
-            _active={
-                "transform": "scale(0.8)",
-            },
-        ),
+        gap="6px",
+        color=c_color("slate", 9),
         width="100%",
-        padding="8px",
+        padding_right="6px",
         align_items="center",
-        background=rx.color("accent", 3),
+        background=c_color("slate", 1),
         border_radius="6px",
+        box_shadow=shadows["small"],
+        on_click=rx.set_clipboard(command),
         max_width="100%",
+        cursor="pointer",
+        _hover={
+            "transition": "background 0.075s ease-out",
+            "background": c_color("slate", 3),
+        },
+        border=f"1px solid {c_color('slate', 5)}",
         overflow="hidden",
     )
 
 
 def download_count(downloads: str) -> rx.Component:
-    return rx.box(
-        rx.tooltip(
-            rx.badge(
-                rx.hstack(
-                    rx.icon(
-                        tag="download",
-                        size=17,
-                        color=rx.color("accent", 9),
-                    ),
-                    downloads,
-                    gap="5px",
-                    align="center",
-                    justify="center",
-                ),
-                padding="8px",
-                font_size="1em",
-                font_weight="400",
-                bg=rx.color("mauve", 2),
-                color=rx.color("accent", 9),
-                border=f"1.75px solid {rx.color('accent', 9)}",
-                border_radius="8px",
-                justify="center",
-                align_items="center",
-                variant="soft",
-            ),
-            content="Downloads last month",
+    return rx.hstack(
+        get_icon(icon="arrow_down", padding="3px"),
+        rx.text(
+            downloads,
+            overflow="hidden",
+            white_space="nowrap",
+            text_overflow="ellipsis",
+            style=small,
         ),
-        position="absolute",
-        bottom="8px",
-        left="8px",
-        z_index=4,
+        gap="6px",
+        color=c_color("slate", 9),
+        align_items="center",
+        justify_content="center",
     )
 
 
 def component_name(name: str) -> rx.Component:
-    return rx.hstack(
-        rx.text(
-            name,
-            font_size="18px",
-            line_height="20px",
-            weight="bold",
-            white_space="nowrap",
-            overflow="hidden",
-            text_overflow="ellipsis",
-        ),
-        width="100%",
+    return rx.heading(
+        name,
+        color=c_color("slate", 12),
+        style=base_semibold,
+        white_space="nowrap",
+        overflow="hidden",
+        text_overflow="ellipsis",
+        as_="h4",
     )
 
 
@@ -297,7 +470,6 @@ def add_item(category: dict) -> rx.Component:
     )
     return rx.flex(
         rx.box(
-            download_count(category["downloads_last_month"]),
             rx.cond(
                 category["demo_url"],
                 rx.link(
@@ -323,42 +495,42 @@ def add_item(category: dict) -> rx.Component:
             ),
             position="relative",
             width="100%",
-            height="14rem",
-            border_radius="8px 8px 0 0",
+            height="100%",
             overflow="hidden",
         ),
         rx.vstack(
-            rx.vstack(
-                component_name(name),
-                # component_description(category["summary"]),
-                gap="12px",
-                width="100%",
-            ),
-            install_command("pip install " + category["package_name"]),
             rx.hstack(
+                component_name(name),
+                download_count(category["downloads_last_month"]),
+                gap="12px",
+                align_items="center",
+                justify_content="space-between",
+                width="100%",
+                padding="10px 12px 0px 12px",
+            ),
+            rx.hstack(
+                install_command("pip install " + category["package_name"]),
                 download(category["download_url"]),
                 demo(category),
+                gap="6px",
+                align_items="center",
+                padding="0px 6px 6px 6px",
                 width="100%",
-                justify="between",
-                align="center",
             ),
-            padding="16px",
-            gap="12px",
+            gap="10px",
             width="100%",
         ),
-        background=rx.color("mauve", 2),
+        background=c_color("slate", 2),
         direction="column",
-        border_radius="8px",
-        border=f"1.75px solid {rx.color('mauve', 4)}",
-        _hover={
-            "border": f"1.75px solid {rx.color('accent', 9)}",
-            "cursor": "pointer",
-        },
+        border_radius="12px",
+        border=f"1px solid {c_color('slate', 5)}",
+        cursor="pointer",
+        box_shadow=shadows["large"],
         overflow="hidden",
         box_sizing="border-box",
-        transition="border 0.2s ease",
         width="100%",
-        height="22em",
+        flex_shrink=0,
+        height="280px",
     )
 
 
@@ -366,15 +538,10 @@ def component_grid():
     return rx.chakra.responsive_grid(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         columns=[1, 2, 2, 2, 3, 3],
-        gap="3.5rem",
-        min_child_width="20em",
-        spacing_y="3.5rem",
+        gap="24px",
+        min_child_width="320px",
+        spacing_y="24px",
     )
-
-
-@rx.memo
-def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, size="3", line_height="1.7", margin_bottom="1em")
 
 
 def info_icon(
@@ -392,12 +559,29 @@ def info_icon(
 def custom_components() -> rx.Component:
     return rx.flex(
         h1_comp(text="Custom Components"),
-        text_comp(
-            text="Reflex has a growing ecosystem of custom components that you can use to build your apps. Below is a list of some of the custom components available for Reflex."
+        rx.hstack(
+            rx.text(
+                "Reflex has a growing ecosystem of custom components that you can use to build your apps. Below is a list of some of the custom components available for Reflex.",
+                as_="p",
+                style={
+                    "color": c_color("slate", 11),
+                    "font-size": "16px",
+                    "font-style": "normal",
+                    "font-weight": "500",
+                    "line-height": "24px",
+                    "letter-spacing": "-0.24px",
+                    "max-width": "75%",
+                },
+            ),
+            sorting_filters_dropdown_menu(),
+            align_items="center",
+            justify_content="space-between",
+            gap="48px",
         ),
         component_grid(),
         flex_direction="column",
         height="100%",
+        gap="24px",
         margin_bottom="4em",
         on_mount=CustomComponentGalleryState.fetch_components_list,
     )

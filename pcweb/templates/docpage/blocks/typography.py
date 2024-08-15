@@ -1,6 +1,8 @@
 """Typography blocks for doc pages."""
 
 import reflex as rx
+from pcweb.styles import fonts
+from pcweb.styles.colors import c_color
 
 
 def definition(title: str, *children) -> rx.Component:
@@ -31,12 +33,23 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, size="3", line_height="1.7", margin_bottom="1em")
+    return rx.text(text, style=fonts.base | {"margin_bottom": "1em", "color": c_color("slate", 11)})
+
+@rx.memo
+def list_comp(text: rx.Var[str]) -> rx.Component:
+    return rx.list_item(text, style=fonts.base | {"margin_bottom": "1em", "color": c_color("slate", 11)})
 
 
 @rx.memo
 def code_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.code(text)
+    style = {
+        "color": c_color("violet", 9),
+        "border_radius": "4px",
+        "border": f"1px solid {c_color('violet', 4)}",
+        "background": c_color("violet", 3),
+        **fonts.code,
+    }
+    return rx.code(text, style=style)
 
 
 def doclink(text: str, href: str, **props) -> rx.Component:
@@ -64,4 +77,4 @@ def doclink2(text: str, **props) -> rx.Component:
     Returns:
         The styled link.
     """
-    return rx.link(text, underline="always", **props)
+    return rx.link(text, underline="always", **props, style=fonts.base)
