@@ -11,7 +11,7 @@ def feature_button(name: str):
         background= "linear-gradient(#131217, #131217) padding-box, linear-gradient(to bottom right, #8F93BC 5%, #656484 15%, #232329) border-box;",
         border= "1px solid transparent;",
         font_size=".8em",
-        border_radius="50px", 
+        border_radius="50px",
     )
 
 def feature_button_hstack(mobile=False):
@@ -34,7 +34,7 @@ def hero_section_text(mobile=False):
             background_clip="text",
             font_weight="bold",
             line_height="1",
-            
+
         ),
         rx.chakra.text(
             "Deploy with a single command.",
@@ -46,7 +46,7 @@ def hero_section_text(mobile=False):
             max_width=["200px", "300px", "400px", "650px", "650px", "650px"],
         ),
         align_items="center" if mobile else "start",
-        
+
     )
 
 def hero_section_buttons(mobile=False):
@@ -73,8 +73,8 @@ def hero_section_buttons(mobile=False):
                     ),
                     background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%)",
                     box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset",
-                    display= "inline-flex;",   
-                    border= "1px solid transparent;", 
+                    display= "inline-flex;",
+                    border= "1px solid transparent;",
                     style=button_size,
                 ),
                 _hover={
@@ -84,7 +84,7 @@ def hero_section_buttons(mobile=False):
                 padding="3px",
                 border_radius="8px",
             ),
-            href=getting_started.introduction.path,        
+            href=getting_started.introduction.path,
         ),
         rx.link(
             rx.button(
@@ -104,7 +104,7 @@ def hero_section_buttons(mobile=False):
             ),
             href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX", 
             is_external=True,
-            margin_left=".25em",        
+            margin_left=".25em",
         ),
         align_items="center",
         justify="start" if not mobile else "center",
