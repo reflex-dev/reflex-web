@@ -38,8 +38,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Requirements for reflex-web and reflex
-        run: pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt pytest
+        run: |
+          pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt pytest playwright pytest-playwright
+          playwright install --with-deps
       - name: Run unit tests
         run: |
           export PYTHONUNBUFFERED=1
+          reflex init
           pytest tests

@@ -111,7 +111,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 color=f"{rx.color(color, 11)}",
                             ),
                             (
-                                rx.markdown(title, margin_y="0px", style=get_code_style(color))
+                                rx.markdown(
+                                    title, margin_y="0px", style=get_code_style(color)
+                                )
                                 if title
                                 else self.render_fn(content=content)
                             ),
@@ -291,6 +293,13 @@ class DemoBlock(flexdown.blocks.Block):
         exec_mode = env.get("__exec", False)
         comp = ""
 
+        for arg in args:
+            if arg.startswith("id="):
+                comp_id = arg.rsplit("id=")[-1]
+                break
+        else:
+            comp_id = None
+
         if "exec" in args:
             env["__xd"].exec(code, env, self.filename)
             if not exec_mode:
@@ -308,7 +317,7 @@ class DemoBlock(flexdown.blocks.Block):
             return comp
         elif "box" in args:
             comp = eval(code, env, env)
-            return rx.box(docdemobox(comp), margin_bottom="1em")
+            return rx.box(docdemobox(comp), margin_bottom="1em", id=comp_id)
         else:
             comp = eval(code, env, env)
 
@@ -322,7 +331,9 @@ class DemoBlock(flexdown.blocks.Block):
         if "toggle" in args:
             demobox_props["toggle"] = True
 
-        return docdemo(code, comp=comp, demobox_props=demobox_props, theme=self.theme)
+        return docdemo(
+            code, comp=comp, demobox_props=demobox_props, theme=self.theme, id=comp_id
+        )
 
 
 class DemoBlockDark(DemoBlock):
