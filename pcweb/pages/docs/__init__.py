@@ -10,7 +10,6 @@ from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage, get_toc
 from pcweb.whitelist import _check_whitelisted_path
-from reflex_chakra.components.base import ChakraComponent
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 
@@ -175,7 +174,7 @@ def get_component(doc: str, title: str):
             (RadixThemesComponent, RadixPrimitiveComponent),
         ):
             component_list[category].append(clist)
-        elif issubclass(clist[1][0], ChakraComponent):
+        elif issubclass(clist[1][0], rx.chakra.ChakraComponent):
             # Workaround for Chakra components outside of chakra directory (like Html).
             component_list[category].append(clist)
             route = route.replace("library/", "library/chakra/")
