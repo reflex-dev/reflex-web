@@ -5,7 +5,6 @@ components:
 
 ```python exec
 import reflex as rx
-from reflex.components.media.icon import ICON_LIST
 ```
 
 # Icon
@@ -35,7 +34,7 @@ rx.chakra.box(
                 border_radius="0.5em",
                 padding=".75em",
             )
-            for icon in ICON_LIST
+            for icon in rx.chakra.media.icon.ICON_LIST
         ],
         columns=[2, 2, 3, 3, 4],
         spacing="1em",
