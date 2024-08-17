@@ -33,4 +33,10 @@ def index() -> rx.Component:
         ),
         width="100%",
         direction="column",
+        style={
+            "::selection":{
+                "color":"inherit",
+                "background":"inherit"
+            }
+        }
     )
