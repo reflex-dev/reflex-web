@@ -8,7 +8,7 @@ typesense==0.14.0
 Pillow==9.5.0
 openai==1.13.3
 pyyaml==6.0.1
-flexdown==0.1.5a8
+flexdown==0.1.5a10
 reflex>=0.3.8
 mistletoe>=1.2.1
 reflex-image-zoom>=0.0.2
