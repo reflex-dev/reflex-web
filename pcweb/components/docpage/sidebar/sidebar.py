@@ -26,72 +26,62 @@ heading_style2 = {
     "background_color": rx.color("accent", 3),
     "border_radius": "0.5em",
     "width": "100%",
-    "padding_left": "0.5em",
-    "padding_right": "0.5em",
+    "padding": "0.5em",
 }
 
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
-    on_click = props.pop("on_click", NavbarState.set_sidebar_open(False))
     return rx.link(
         *children,
-        on_click=on_click,
+        on_click=props.pop("on_click", NavbarState.set_sidebar_open(False)),
         underline="none",
         **props,
     )
 
 
-def sidebar_leaf(
-    item: SidebarItem,
-    url: str,
-) -> rx.Component:
-    """Get the leaf node of the sidebar."""
-    item.link = item.link.replace("_", "-")
-    if not item.link.endswith("/"):
-        item.link += "/"
-    if item.outer:
-        return sidebar_link(
-            rx.flex(
-                rx.text(
-                    item.names,
-                    color=rx.cond(
-                        item.link == url,
-                        c_color("violet", 9),
-                        c_color("slate", 9),
-                    ),
-                    _hover={
-                        "color": c_color("slate", 11),
-                        "text_decoration": "none",
-                    },
-                    transition="color 0.035s ease-out",
-                    margin_left="0.5em",
-                    margin_top="0.5em",
-                    margin_bottom="0.2em",
-                    width="100%",
-                ),
-            ),
-            href=item.link,
-        )
-
+def sidebar_leaf(item: SidebarItem, url: str) -> rx.Component:
+    """Render a leaf node in the sidebar."""
+    item.link = item.link.replace("_", "-").rstrip("/") + "/"
     return rx.list_item(
+        rx.chakra.accordion_item(
+            sidebar_link(
+                rx.flex(
+                    rx.text(
+                        item.names,
+                        color=rx.cond(
+                            item.link == url,
+                            c_color("violet", 9),
+                            c_color("slate", 9),
+                        ),
+                        _hover={
+                            "color": c_color("slate", 11),
+                        },
+                        transition="color 0.035s ease-out",
+                        margin="0.5em 0.5em 0.2em 0.5em",
+                        width="100%",
+                    ),
+                ),
+                href=item.link,
+            ),
+            border="none",
+            width="100%",
+        )
+    ) if item.outer else rx.list_item(
         rx.chakra.accordion_item(
             rx.cond(
                 item.link == url,
                 sidebar_link(
                     rx.flex(
-                        rx.flex(
-                            rx.text(
-                                item.names,
-                                color=c_color("violet", 9),
-                                style={**small},
-                                transition="color 0.035s ease-out",
-                            ),
+                        rx.text(
+                            item.names,
+                            color=c_color("violet", 9),
+                            style=small,
+                            transition="color 0.035s ease-out",
                         ),
                         padding="0px 8px 0px 28px",
                         border_left=f"1.5px solid {c_color('violet', 9)}",
                     ),
-                    _hover={"text_decoration": "none"},
                     href=item.link,
                 ),
                 sidebar_link(
@@ -99,31 +89,26 @@ def sidebar_leaf(
                         rx.text(
                             item.names,
                             color=c_color("slate", 9),
-                            _hover={
-                                "color": c_color("slate", 11),
-                                "text_decoration": "none",
-                            },
+                            style=small,
+                            _hover={"color": c_color("slate", 11)},
                             transition="color 0.035s ease-out",
-                            style={**small},
                             width="100%",
                         ),
                         padding="0px 8px 0px 28px",
                         border_left=f"1.5px solid {c_color('slate', 4)}",
                         _hover={"border_left": f"1.5px solid {c_color('slate', 8)}"},
                     ),
-                    _hover={"text_decoration": "none"},
                     href=item.link,
                 ),
             ),
             border="none",
             width="100%",
-        ),
-        width="100%",
+        )
     )
 
 
 def sidebar_icon(name):
-    mappings = {
+    icon_map = {
         "Getting Started": "rocket",
         "Tutorial": "life-buoy",
         "Components": "layers",
@@ -143,48 +128,27 @@ def sidebar_icon(name):
         "Self Hosting": "server",
         "Custom Components": "blocks",
     }
-
-    if name in mappings:
-        return rx.icon(
-            tag=mappings[name],
-            size=16,
-            margin_right="20px",
-        )
-    else:
-        return rx.fragment()
+    return rx.icon(tag=icon_map.get(name), size=16, margin_right="20px") if name in icon_map else rx.fragment()
 
 
-def sidebar_item_comp(
-    item: SidebarItem,
-    index: list[int],
-    url: str,
-):
+
+def sidebar_item_comp(item: SidebarItem, index: list[int], url: str):
     return rx.cond(
-        len(item.children) == 0,
+        not item.children,
         sidebar_leaf(item=item, url=url),
         rx.chakra.accordion_item(
             rx.chakra.accordion_button(
                 sidebar_icon(item.names),
-                rx.text(
-                    item.names,
-                    style=small,
-                ),
-                rx.box(
-                    flex_grow=1,
-                ),
+                rx.text(item.names, style=small),
+                rx.box(flex_grow=1),
                 rx.chakra.accordion_icon(width="16px", height="16px"),
                 align_items="center",
                 transition="color 0.035s ease-out",
-                _hover={
-                    "color": c_color("slate", 11),
-                },
+                _hover={"color": c_color("slate", 11)},
                 style={
-                    "&[aria-expanded='true']": {
-                        "color": c_color("slate", 11),
-                    },
+                    "&[aria-expanded='true']": {"color": c_color("slate", 11)},
                 },
                 color=c_color("slate", 9),
-                width="100%",
                 padding_y="8px",
                 padding_left="8px",
                 padding_right="0px",
@@ -192,19 +156,14 @@ def sidebar_item_comp(
             rx.chakra.accordion_panel(
                 rx.chakra.accordion(
                     rx.unordered_list(
-                        *[
-                            sidebar_item_comp(item=child, index=index, url=url)
-                            for child in item.children
-                        ],
+                        *[sidebar_item_comp(child, index, url) for child in item.children],
                         align_items="flex-start",
                         flex_direction="column",
                         gap="16px",
                         display="flex",
                         margin_left="15px !important",
                         box_shadow=rx.cond(
-                            item in other_libs,
-                            "none",
-                            f"inset 1px 0 0 0 {c_color('slate', 4)}",
+                            item in other_libs, "none", f"inset 1px 0 0 0 {c_color('slate', 4)}"
                         ),
                         list_style_type="none",
                     ),
@@ -221,63 +180,52 @@ def sidebar_item_comp(
     )
 
 
-def calculate_index(sidebar_items, url: str):
-    if not isinstance(sidebar_items, list):
-        sidebar_items = [sidebar_items]
-    if url is None:
-        return None
+def calculate_index(sidebar_items, url: str) -> list[int]:
+    sidebar_items = sidebar_items if isinstance(sidebar_items, list) else [sidebar_items]
+    index_list = []
+
+    if not url:
+        return index_list
+
+    url = url.rstrip("/") + "/"
     for item in sidebar_items:
-        if not item.link.endswith("/"):
-            item.link = item.link + "/"
-    if not url.endswith("/"):
-        url = url + "/"
+        item.link = item.link.rstrip("/") + "/"
     sub = 0
     for i, item in enumerate(sidebar_items):
-        if len(item.children) == 0:
+        if not item.children:
             sub += 1
         if item.link == url:
             return [i - sub]
         index = calculate_index(item.children, url)
-        if index is not None:
+        if index:
             return [i - sub] + index
-    return None
+
+    return index_list
 
 
-sidebar_items = (
-    learn
-    + frontend
-    + backend
-    + hosting
-    + component_lib
-    + graphing_libs
-    + other_libs
-    + recipes
-    + api_reference
-    + tutorials
-)
-# Flatten the list of sidebar items
-flat_items = []
-
-def append_to_items(items):
+def append_to_items(items, flat_items):
     for item in items:
-        if len(item.children) == 0:
+        if not item.children:
             flat_items.append(item)
-        append_to_items(item.children)
-append_to_items(sidebar_items)
+        append_to_items(item.children, flat_items)
+
+
+flat_items = []
+append_to_items(
+    learn + frontend + backend + hosting + component_lib + graphing_libs + other_libs + recipes + api_reference + tutorials,
+    flat_items
+)
+
 
 def get_prev_next(url):
     """Get the previous and next links in the sidebar."""
     url = url.strip("/")
     for i, item in enumerate(flat_items):
         if item.link.strip("/") == url:
-            if i == 0:
-                return None, flat_items[i + 1]
-            elif i == len(flat_items) - 1:
-                return flat_items[i - 1], None
-            else:
-                return flat_items[i - 1], flat_items[i + 1]
+            prev_link = flat_items[i - 1] if i > 0 else None
+            next_link = flat_items[i + 1] if i < len(flat_items) - 1 else None
+            return prev_link, next_link
     return None, None
-
 
 def sidebar_category(name: str, url: str, icon: str, index: int):
     return rx.list_item(
@@ -285,11 +233,7 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
             rx.hstack(
                 rx.hstack(
                     rx.box(
-                        rx.icon(
-                            tag=icon,
-                            color=c_color("slate", 9),
-                            size=16,
-                        ),
+                        rx.icon(tag=icon, color=c_color("slate", 9), size=16),
                         height="32px",
                         width="32px",
                         padding="8px",
@@ -309,7 +253,7 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                             c_color("slate", 9),
                         ),
                         as_="h3",
-                        style={**small},
+                        style=small,
                     ),
                     width="100%",
                     justify="start",
@@ -323,18 +267,12 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                     background_color=c_color("violet", 9),
                     border_radius="50%",
                     visibility=rx.cond(
-                        SidebarState.sidebar_index == index,
-                        "visible",
-                        "hidden",
+                        SidebarState.sidebar_index == index, "visible", "hidden"
                     ),
                 ),
-                _hover={
-                    "background_color": c_color("slate", 3),
-                },
+                _hover={"background_color": c_color("slate", 3)},
                 background_color=rx.cond(
-                    SidebarState.sidebar_index == index,
-                    c_color("slate", 3),
-                    "transparent",
+                    SidebarState.sidebar_index == index, c_color("slate", 3), "transparent"
                 ),
                 transition="background-color 0.075s ease-out",
                 align_items="center",
@@ -392,7 +330,7 @@ def create_sidebar_section(section_title, section_url, items, index, url):
                 for item in items
             ],
             allow_multiple=True,
-            default_index=index if index is not None else [],
+            default_index=rx.cond(index, index, []),
             width="100%",
             padding_left="0em",
             margin_left="0em",
