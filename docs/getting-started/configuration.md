@@ -26,7 +26,7 @@ config = rx.Config(
 )
 ```
 
-See the [config reference]({api_reference.cli.path}) for all the parameters available.
+See the [config reference]({api_reference.config.path}) for all the parameters available.
 
 ## Environment Variables
 
