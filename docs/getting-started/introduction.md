@@ -159,7 +159,7 @@ rx.vstack(
         width="100%",
         code_tag_props={
                 "style": {
-                    "fontFamily": "inherit",
+                    "fontFamily": "Source Code Pro",
                 }
             },
     ),
@@ -180,7 +180,7 @@ rx.vstack(
         width="100%",
         code_tag_props={
                 "style": {
-                    "fontFamily": "inherit",
+                    "fontFamily": "Source Code Pro",
                 }
             },
         border=rx.cond(
@@ -208,7 +208,7 @@ rx.vstack(
         width="100%",
         code_tag_props={
                 "style": {
-                    "fontFamily": "inherit",
+                    "fontFamily": "Source Code Pro",
                 }
             },
         border=rx.cond(
@@ -233,7 +233,7 @@ app.add_page(index)""",
         width="100%",
         code_tag_props={
                 "style": {
-                    "fontFamily": "inherit",
+                    "fontFamily": "Source Code Pro",
                 }
             },
         border=rx.cond(
