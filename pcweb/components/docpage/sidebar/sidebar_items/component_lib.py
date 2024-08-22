@@ -3,8 +3,6 @@ from ..state import SidebarItem
 
 
 def get_component_link(category, clist, prefix="") -> str:
-    if issubclass(clist[1][0], rx.chakra.ChakraComponent):
-        prefix = "chakra/"
     component_name = rx.utils.format.to_kebab_case(clist[0])
     # construct the component link. The component name points to the name of the md file.
     return f"/docs/library/{prefix}{category.lower().replace(' ', '-')}/{component_name.lower()}"
@@ -60,23 +58,5 @@ def get_sidebar_items_graphings():
         *graphing_children
         ]
 
-def get_sidebar_items_other_libraries():
-    from pcweb.pages.docs import chakra_components
-    from pcweb.pages.docs.custom_components import custom_components
-
-    chakra_children = []
-    for category in chakra_components:
-        category_item = get_category_children(
-            category, chakra_components[category], prefix="chakra/"
-        )
-        chakra_children.append(category_item)
-
-    chakra_item = SidebarItem(names="Chakra", children=chakra_children)
-
-    return [
-        chakra_item
-        ]
-
 component_lib = get_sidebar_items_component_lib()
 graphing_libs = get_sidebar_items_graphings()
-other_libs = get_sidebar_items_other_libraries()

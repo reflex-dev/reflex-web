@@ -90,7 +90,6 @@ flexdown_docs = [
     doc.replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
 
-chakra_components = defaultdict(list)
 graphing_components = defaultdict(list)
 component_list = defaultdict(list)
 recipes_list = defaultdict(list)
@@ -152,14 +151,6 @@ def get_component(doc: str, title: str):
 
     d = flexdown.parse_file(doc)
 
-    if doc.startswith("docs/library/chakra"):
-        if should_skip_compile(doc):
-            outblocks.append((d, route))
-            return
-        clist = [title, *get_components_from_metadata(d)]
-        chakra_components[category].append(clist)
-        title2 = "Chakra " + title2
-        return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library/graphing"):
         if should_skip_compile(doc):
             outblocks.append((d, route))
@@ -174,10 +165,6 @@ def get_component(doc: str, title: str):
             (RadixThemesComponent, RadixPrimitiveComponent),
         ):
             component_list[category].append(clist)
-        elif issubclass(clist[1][0], rx.chakra.ChakraComponent):
-            # Workaround for Chakra components outside of chakra directory (like Html).
-            component_list[category].append(clist)
-            route = route.replace("library/", "library/chakra/")
         else:
             component_list[category].append(clist)
         if should_skip_compile(doc):

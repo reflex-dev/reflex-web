@@ -13,7 +13,6 @@ from .sidebar_items.component_lib import (
     get_component_link,
     component_lib,
     graphing_libs,
-    other_libs,
 )
 from .sidebar_items.reference import api_reference, tutorials
 from .sidebar_items.recipes import recipes
@@ -174,11 +173,7 @@ def sidebar_item_comp(item: SidebarItem, index: list[int], url: str):
                         gap="16px",
                         display="flex",
                         margin_left="15px !important",
-                        box_shadow=rx.cond(
-                            item in other_libs,
-                            "none",
-                            f"inset 1px 0 0 0 {c_color('slate', 4)}",
-                        ),
+                        box_shadow=f"inset 1px 0 0 0 {c_color('slate', 4)}",
                         list_style_type="none",
                     ),
                     margin_y="8px",
@@ -234,7 +229,6 @@ append_to_items(
     + hosting
     + component_lib
     + graphing_libs
-    + other_libs
     + recipes
     + api_reference
     + tutorials,
@@ -381,7 +375,6 @@ def sidebar_comp(
     backend_index: list[int],
     hosting_index: list[int],
     graphing_libs_index: list[int],
-    other_libs_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
     tutorials_index: list[int],
@@ -466,13 +459,6 @@ def sidebar_comp(
                         library.path,
                         graphing_libs,
                         graphing_libs_index,
-                        url,
-                    ),
-                    create_sidebar_section(
-                        "Other Libraries",
-                        library.path,
-                        other_libs,
-                        other_libs_index,
                         url,
                     ),
                     rx.link(
@@ -590,7 +576,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     backend_index = calculate_index(backend, url)
     hosting_index = calculate_index(hosting, url)
     graphing_libs_index = calculate_index(graphing_libs, url)
-    other_libs_index = calculate_index(other_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
     tutorials_index = calculate_index(tutorials, url)
@@ -604,7 +589,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             backend_index=backend_index,
             hosting_index=hosting_index,
             graphing_libs_index=graphing_libs_index,
-            other_libs_index=other_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
             tutorials_index=tutorials_index,

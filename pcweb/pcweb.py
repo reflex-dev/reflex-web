@@ -97,6 +97,8 @@ redirects = [
     ("/docs/library/layout/foreach", "/docs/library/dynamic-rendering/foreach"),
     ("/docs/library/layout/match", "/docs/library/dynamic-rendering/match"),
     ("/docs/library/layout/cond", "/docs/library/dynamic-rendering/cond"),
+    # redirect previous chakra links to the new chakra docs
+    ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/")
 
 ]
 
