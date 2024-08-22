@@ -828,8 +828,6 @@ EVENTS = {
 }
 
 
-from reflex.components.radix import themes as rdxt
-
 
 def generate_props(src, component, comp):
     if len(src.get_props()) == 0:
