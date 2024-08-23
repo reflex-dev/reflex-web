@@ -1,14 +1,11 @@
 import reflex as rx
 
-from pcweb.templates.docpage import docpage
-from pcweb.templates.docpage import h1_comp
-from pcweb.templates.docpage import text_comp
+from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
 def component_grid():
     from pcweb.components.docpage.sidebar import get_component_link
-    from pcweb.pages.docs import component_list
-    from pcweb.pages.docs import graphing_components
+    from pcweb.pages.docs import component_list, graphing_components
 
     def generate_gallery(
         components,
