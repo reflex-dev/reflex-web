@@ -544,7 +544,7 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
         rx.text(
             title,
             style=text_style,
-            display=["none", "none", "none", "flex", "flex"],
+            display=["none", "none", "none", "none", "flex", "flex"],
         )
     )
 
@@ -620,14 +620,14 @@ def new_component_section() -> rx.Component:
             ),
             new_nav_menu.item(
                 new_discord(),
-                display=["none", "none", "none", "flex", "flex"],
+                display=["none", "none", "none", "none", "flex", "flex"],
             ),
             new_nav_menu.item(
-                color(), display=["none", "none", "none", "flex", "flex"]
+                color(), display=["none", "none", "none", "none", "flex", "flex"]
             ),
             new_nav_menu.item(
                 navbar_sidebar_button(),
-                display=["flex", "flex", "flex", "none", "none"],
+                display=["flex", "flex", "flex", "flex", "none", "none"],
             ),
             gap=["16px", "16px", "16px", "8px", "8px"],
         ),
@@ -683,7 +683,7 @@ def link_item(name: str, url: str, active_str: str = ""):
         },
         align_items="center",
         justify_content="center",
-        display=["none", "none", "none", "flex", "flex"],
+        display=["none", "none", "none", "none", "flex", "flex"],
     )
 
 

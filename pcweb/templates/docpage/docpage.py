@@ -678,7 +678,7 @@ def breadcrumb(path, nav_sidebar):
             trigger=rx.el.button(
                 rx.icon(tag="chevron-down", size=14, color=c_color("slate", 9)),
                 padding="9px",
-                display=["flex", "flex", "flex", "none", "none"],
+                display=["flex", "flex", "flex", "flex", "none", "none"],
             ),
         ),
         padding=[
@@ -693,6 +693,7 @@ def breadcrumb(path, nav_sidebar):
         margin_bottom=["24px", "24px", "24px", "48px"],
         margin_top=["48px", "64px", "64px", "119px"],
         border_bottom=[
+            f"1px solid {c_color('slate', 4)}",
             f"1px solid {c_color('slate', 4)}",
             f"1px solid {c_color('slate', 4)}",
             f"1px solid {c_color('slate', 4)}",
@@ -922,7 +923,7 @@ def docpage(
                 comp = contents(*args, **kwargs)
             else:
                 comp = contents
-                
+
             if isinstance(comp, tuple):
                 toc, comp = comp
 
@@ -958,7 +959,7 @@ def docpage(
                                 margin_bottom=[
                                     "24px",
                                     "24px",
-                                    "24pxpx",
+                                    "24px",
                                     "48px",
                                     "48px",
                                 ],
@@ -972,7 +973,7 @@ def docpage(
                             margin_top=["105px", "145px", "0px", "0px", "0px"],
                         ),
                         width=(
-                            ["100%", "100%", "100%", "90%", "70%", "60%"]
+                            ["100%", "100%", "100%", "100%", "70%", "60%"]
                             if right_sidebar
                             else "100%"
                         ),
