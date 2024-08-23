@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.data_list
+    - rx.data_list.root
 ---
 
 ```python exec
