@@ -22,6 +22,6 @@ rx.vstack(
 ),
 ```
 
-When using `Skeleton` with text, wrap the text itself instead of the element instead of the parent element to have a placeholder of the same size.
+When using `Skeleton` with text, wrap the text itself instead of the parent element to have a placeholder of the same size.
 
 Use the loading prop to control whether the skeleton or its children are displayed. Skeleton preserves the dimensions of children when they are hidden and disables interactive elements.
