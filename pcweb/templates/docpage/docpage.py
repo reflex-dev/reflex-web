@@ -653,13 +653,13 @@ def breadcrumb(path, nav_sidebar):
                     tag="chevron-right",
                     size=14,
                     color=c_color("slate", 8),
-                    display=["none", "none", "none", "flex", "flex"],
+                    display=["none", "none", "none", "none", "flex", "flex"],
                 ),
             )
             breadcrumbs.append(
                 rx.text(
                     "/",
-                    display=["flex", "flex", "flex", "none", "none"],
+                    display=["flex", "flex", "flex", "flex", "none", "none"],
                     style=small,
                     color=c_color("slate", 8),
                 )
@@ -685,13 +685,14 @@ def breadcrumb(path, nav_sidebar):
             "8px 12px 8px 16px",
             "8px 19.5px 8px 24px",
             "8px 19.5px 8px 24px",
+            "8px 0px 8px 0px",
             "0px",
             "0px",
         ],
         gap=["16px", "0px"],
         align_items="center",
-        margin_bottom=["24px", "24px", "24px", "48px"],
-        margin_top=["48px", "64px", "64px", "119px"],
+        margin_bottom=["24px", "24px", "24px", "24px", "48px", "48px"],
+        margin_top=["48px", "48px", "64px", "64px", "119px", "119px"],
         border_bottom=[
             f"1px solid {c_color('slate', 4)}",
             f"1px solid {c_color('slate', 4)}",

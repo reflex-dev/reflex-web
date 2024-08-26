@@ -59,45 +59,6 @@ def resources_item(text, url, icon):
         href=url,
     )
 
-
-def banner():
-    return rx.cond(
-        NavbarState.banner,
-        rx.box(
-            rx.hstack(
-                rx.text(
-                    " 🚀 Reflex live on Product Hunt! Check out our launch ",
-                    rx.link(
-                        "here",
-                        href="https://www.producthunt.com/posts/reflex-6",
-                        style={
-                            "text_decoration": "underline",
-                        },
-                        color="#fff",
-                        is_external=True,
-                    ),
-                    ". 🎉",
-                    font_weight=600,
-                    text_align="center",
-                    width="100%",
-                ),
-                rx.icon(
-                    tag="x",
-                    z_index=1000,
-                    on_click=NavbarState.toggle_banner,
-                ),
-                width="100%",
-                align_items="center",
-            ),
-            color="#fff",
-            background_color=rx.color("violet", 9),
-            border_bottom=f"1px solid {rx.color('mauve', 4)}",
-            padding_y=["0.8em", "0.8em", "0.5em"],
-            width="100%",
-        ),
-    )
-
-
 def menu_trigger():
     return rx.flex(
         rx.text(
