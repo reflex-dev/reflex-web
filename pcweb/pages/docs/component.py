@@ -1078,16 +1078,16 @@ def generate_valid_children(comp):
 
 def component_docs(component_tuple, comp):
     """Generates documentation for a given component."""
-    
+
     component = component_tuple[0]
     src = Source(component=component)
     props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
-    
+
 
     return rx.box(
-        h2_comp(text=component_tuple[1]),
+        h2_comp(text=component_tuple[1].lower()),
         rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom=".5em"),
         props,
         children,
