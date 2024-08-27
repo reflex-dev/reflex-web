@@ -870,6 +870,20 @@ def generate_props(src, component, comp):
         background=c_color("slate", 2),
     )
 
+    def is_ineligble_data_component(
+        component,
+    ) -> bool:
+        component_name: str = component.__name__.lower()
+        match component_name:
+            case "datalistroot":
+                return False
+
+            case component_name if "data" in component_name:
+                return True
+
+            case _:
+                return False
+
     try:
         if f"{component.__name__}" in comp.metadata:
             comp = eval(comp.metadata[component.__name__])(**prop_dict)
@@ -880,10 +894,13 @@ def generate_props(src, component, comp):
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
+
             except:
                 comp = rx.fragment()
-            if "data" in component.__name__.lower():
+
+            if is_ineligble_data_component(component):
                 raise Exception("Data components cannot be created")
+
     except Exception as e:
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
