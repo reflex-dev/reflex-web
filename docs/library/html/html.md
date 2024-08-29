@@ -68,7 +68,6 @@ components:
     - rx.el.Option
     - rx.el.Output
     - rx.el.P
-    - rx.el.Path
     - rx.el.Picture
     - rx.el.Portal
     - rx.el.Pre
@@ -92,6 +91,7 @@ components:
     - rx.el.svg.defs
     - rx.el.svg.linear_gradient
     - rx.el.svg.polygon
+    - rx.el.svg.path
     - rx.el.svg.rect
     - rx.el.svg.stop
     - rx.el.Table
