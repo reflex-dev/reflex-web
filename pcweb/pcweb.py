@@ -23,7 +23,9 @@ app = rx.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
-        has_background=True, radius="large", accent_color="violet",
+        has_background=True,
+        radius="large",
+        accent_color="violet",
     ),
     head_components=[
         rx.el.script(
@@ -66,9 +68,9 @@ for route in routes:
             route.path,
             route.title,
             image="/previews/index_preview.png",
-            meta= [
+            meta=[
                 {"name": "theme-color", "content": route.background_color},
-            ]
+            ],
         )
 
 # Add redirects
@@ -98,8 +100,7 @@ redirects = [
     ("/docs/library/layout/match", "/docs/library/dynamic-rendering/match"),
     ("/docs/library/layout/cond", "/docs/library/dynamic-rendering/cond"),
     # redirect previous chakra links to the new chakra docs
-    ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/")
-
+    ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/"),
 ]
 
 for source, target in redirects:
