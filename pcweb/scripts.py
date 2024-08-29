@@ -55,6 +55,9 @@ posthog.init('phc_JoMo0fOyi0GQAooY3UyO9k0hebGkMyFJrrCw1Gt5SGb', {
     person_profiles: 'identified_only'
 })
 """
+PIXEL_INSTANTLY_SCRIPT: str = """
+<script id="vtag-ai-js" async src="https://r2.leadsy.ai/tag.js" data-pid="1lyr4f7pDa9XKwTjr" data-version="062024"></script>
+"""
 PIXEL_CLEARBIT_SCRIPT_URL: str = (
     "https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js"
 )
@@ -80,5 +83,8 @@ def get_pixel_website_trackers() -> list[rx.Component]:
         ),
         rx.el.script(
             PIXEL_COMMON_ROOM_SCRIPT,
+        ),
+        rx.el.script(
+            PIXEL_INSTANTLY_SCRIPT,
         ),
     ]
