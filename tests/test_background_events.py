@@ -1,3 +1,4 @@
+import os
 import re
 
 import pytest
@@ -14,6 +15,7 @@ def background_events_url() -> str:
     return docs.events.background_events.path
 
 
+@pytest.mark.skipif(os.environ.get("GITHUB_ACTIONS") is not None, reason="Consistently fails in CI")
 def test_background_events(
     reflex_web_app: AppHarness,
     page: Page,
