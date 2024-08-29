@@ -64,6 +64,16 @@ PIXEL_CLEARBIT_SCRIPT_URL: str = (
 PIXEL_GOOGLE_TAG_MANAGER_SCRIPT_URL: str = (
     "https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"
 )
+PIXEL_SCARF_IMAGE_URL: str = (
+    "https://static.scarf.sh/a.png?x-pxid=764c09bd-f62a-4799-a735-fe715e450b3f"
+)
+
+def get_pixel_scarf_image() -> rx.Component:
+    return rx.image(
+        PIXEL_SCARF_IMAGE_URL,
+        referrerpolicy="no-referrer-when-downgrade",
+        hidden=True,
+    )
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:

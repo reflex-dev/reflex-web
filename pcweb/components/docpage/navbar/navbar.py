@@ -35,6 +35,7 @@ from pcweb.styles.colors import c_color
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
 from pcweb.styles.shadows import shadows
 from pcweb.constants import CONTRIBUTING_URL, GITHUB_DISCUSSIONS_URL, ROADMAP_URL
+from pcweb.scripts import get_pixel_scarf_image
 
 
 def resource_header(text, url):
@@ -511,7 +512,7 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
 
 
 def logo() -> rx.Component:
-    return rx.link(
+    reflex_logo: rx.Component = rx.link(
         rx.color_mode_cond(
             rx.image(
                 src="/logos/light/reflex.svg",
@@ -529,6 +530,10 @@ def logo() -> rx.Component:
         flex_shrink="0",
         display="flex",
         href="/",
+    )
+    return rx.hstack(
+        reflex_logo,
+        get_pixel_scarf_image(),
     )
 
 

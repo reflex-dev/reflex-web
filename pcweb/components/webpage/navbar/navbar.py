@@ -15,6 +15,8 @@ from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
 from pcweb.pages.docs.gallery import gallery
 from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
+from pcweb.scripts import get_pixel_scarf_image
+
 
 def resource_header(text):
     return rx.text(
@@ -292,11 +294,14 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
     return rx.flex(
         rx.link(
             rx.box(
-                rx.image(
-                    src="/logos/dark/reflex.svg",
-                    alt="Reflex Logo",
-                    height="20px",
-                    justify="start",
+                rx.hstack(
+                    rx.image(
+                        src="/logos/dark/reflex.svg",
+                        alt="Reflex Logo",
+                        height="20px",
+                        justify="start",
+                    ),
+                    get_pixel_scarf_image(),
                 ),
             ),
             href="/",
