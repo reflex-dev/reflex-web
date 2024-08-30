@@ -105,7 +105,7 @@ def hero_section_buttons(mobile=False):
                 },
                 style=button_size,
             ),
-            href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+            href="https://5dha7vttyp3.typeform.com/to/O7kG4RQu",
             is_external=True,
             margin_left=".25em",
         ),
