@@ -1,7 +1,6 @@
 import reflex as rx
 
 PIXEL_COMMON_ROOM_SCRIPT: str = """
-<script>
   (function() {
     if (typeof window === 'undefined') return;
     if (typeof window.signals !== 'undefined') return;
@@ -20,7 +19,6 @@ PIXEL_COMMON_ROOM_SCRIPT: str = """
     );
     document.head.appendChild(script);
   })();
-</script>
 """
 PIXEL_GOOGLE_TAG_MANAGER_RUNNER_SCRIPT: str = """
 window.dataLayer = window.dataLayer || [];
@@ -55,18 +53,17 @@ posthog.init('phc_JoMo0fOyi0GQAooY3UyO9k0hebGkMyFJrrCw1Gt5SGb', {
     person_profiles: 'identified_only'
 })
 """
-PIXEL_INSTANTLY_SCRIPT: str = """
-<script id="vtag-ai-js" async src="https://r2.leadsy.ai/tag.js" data-pid="1lyr4f7pDa9XKwTjr" data-version="062024"></script>
-"""
 PIXEL_CLEARBIT_SCRIPT_URL: str = (
     "https://tag.clearbitscripts.com/v1/pk_3d711a6e26de5ddb47443d8db170d506/tags.js"
 )
 PIXEL_GOOGLE_TAG_MANAGER_SCRIPT_URL: str = (
     "https://www.googletagmanager.com/gtag/js?id=G-4T7C8ZD9TR"
 )
+PIXEL_INSTANTLY_SCRIPT_URL: str = "https://r2.leadsy.ai/tag.js"
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:
+
     return [
         rx.el.script(
             src=PIXEL_CLEARBIT_SCRIPT_URL,
@@ -81,10 +78,15 @@ def get_pixel_website_trackers() -> list[rx.Component]:
         rx.script(
             PIXEL_POSTHOG_SCRIPT,
         ),
-        rx.el.script(
+        rx.script(
             PIXEL_COMMON_ROOM_SCRIPT,
         ),
-        rx.el.script(
-            PIXEL_INSTANTLY_SCRIPT,
+        rx.script(
+            src=PIXEL_INSTANTLY_SCRIPT_URL,
+            custom_attrs={
+                "id": "vtag-ai-js",
+                "data-pid": "1lyr4f7pDa9XKwTjr",
+                "data-version": "062024",
+            },
         ),
     ]
