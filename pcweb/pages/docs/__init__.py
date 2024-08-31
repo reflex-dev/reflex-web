@@ -2,24 +2,24 @@ import os
 from collections import defaultdict
 from types import SimpleNamespace
 
-import reflex as rx
 import flexdown
+import reflex as rx
+from reflex.components.radix.primitives.base import RadixPrimitiveComponent
+from reflex.components.radix.themes.base import RadixThemesComponent
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
 from pcweb.route import Route
-from pcweb.templates.docpage import docpage, get_toc
+from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import get_toc
 from pcweb.whitelist import _check_whitelisted_path
-from reflex.components.radix.primitives.base import RadixPrimitiveComponent
-from reflex.components.radix.themes.base import RadixThemesComponent
 
+from .apiref import pages as apiref_pages
+from .custom_components import custom_components
 from .gallery import gallery
 from .library import library
 from .recipes_overview import overview
 from .resources import resources
-from .custom_components import custom_components
-from .apiref import pages as apiref_pages
-
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -43,7 +43,10 @@ def to_title_case(text: str) -> str:
 
 
 def build_nested_namespace(
-    parent_namespace: SimpleNamespace, path: list, title: str, comp
+    parent_namespace: SimpleNamespace,
+    path: list,
+    title: str,
+    comp,
 ):
     namespace = rx.utils.format.to_snake_case(path[0])
 
@@ -73,16 +76,16 @@ def build_nested_namespace(
 
 def get_components_from_metadata(current_doc):
     components = []
-   
+
     for comp_str in current_doc.metadata.get("components", []):
         component = eval(comp_str)
         if isinstance(component, type):
             components.append((component, comp_str))
         elif hasattr(component, "__self__"):
             components.append((component.__self__, comp_str))
-        elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
+        elif isinstance(component, SimpleNamespace) and callable(component):
             components.append((component.__call__.__self__, comp_str))
-    
+
     return components
 
 
@@ -96,8 +99,10 @@ recipes_list = defaultdict(list)
 docs_ns = SimpleNamespace()
 
 
-
-def exec_blocks(doc, href):
+def exec_blocks(
+    doc,
+    href,
+) -> None:
     """Execute the exec and demo blocks in the document."""
     source = doc.content
     env = doc.metadata.copy()
@@ -130,31 +135,29 @@ manual_titles = {
     "docs/recipes/content/grid.md": "Grid Recipe",
 }
 
+
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
-        return
+        return None
 
     if doc.endswith("-ll.md"):
-        return
+        return None
 
     # Get the docpage component.
     doc = doc.replace("\\", "/")
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
-    if doc in manual_titles.keys():
-        title2 = manual_titles[doc]
-    else:
-        title2 = to_title_case(title)
+    title2 = manual_titles[doc] if doc in manual_titles else to_title_case(title)
     category = os.path.basename(os.path.dirname(doc)).title()
 
     if not _check_whitelisted_path(route):
-        return
+        return None
 
     d = flexdown.parse_file(doc)
 
     if doc.startswith("docs/library/graphing"):
         if should_skip_compile(doc):
             outblocks.append((d, route))
-            return
+            return None
         clist = [title, *get_components_from_metadata(d)]
         graphing_components[category].append(clist)
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
@@ -162,26 +165,26 @@ def get_component(doc: str, title: str):
         clist = [title, *get_components_from_metadata(d)]
         if issubclass(
             clist[1][0],
-            (RadixThemesComponent, RadixPrimitiveComponent),
+            RadixThemesComponent | RadixPrimitiveComponent,
         ):
             component_list[category].append(clist)
         else:
             component_list[category].append(clist)
         if should_skip_compile(doc):
             outblocks.append((d, route))
-            return
+            return None
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
 
     if should_skip_compile(doc):
         outblocks.append((d, route))
-        return
+        return None
 
     return docpage(set_path=route, t=title2)(
-        lambda d=d, doc=doc: (get_toc(d, doc), xd.render(d, doc))
+        lambda d=d, doc=doc: (get_toc(d, doc), xd.render(d, doc)),
     )
 
 
-doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
+doc_routes = [gallery, library, resources, custom_components, overview, *apiref_pages]
 
 
 for api_route in apiref_pages:
@@ -189,7 +192,7 @@ for api_route in apiref_pages:
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
 for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1] 
+    path = doc.split("/")[1:-1]
 
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
@@ -201,7 +204,10 @@ for doc in sorted(flexdown_docs):
 
     # Add the component to the nested namespaces.
     build_nested_namespace(
-        docs_ns, path, title, Route(path=route, title=title2, component=lambda: "")
+        docs_ns,
+        path,
+        title,
+        Route(path=route, title=title2, component=lambda: ""),
     )
 
     if comp is not None:
@@ -213,8 +219,8 @@ for doc in sorted(flexdown_docs):
 
 
 for doc in flexdown_docs:
-    if 'recipes' in doc:
-        category = doc.split('/')[2]
+    if "recipes" in doc:
+        category = doc.split("/")[2]
         recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():

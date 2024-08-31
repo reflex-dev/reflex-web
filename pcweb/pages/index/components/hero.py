@@ -132,7 +132,6 @@ def hero_section() -> rx.Component:
             ),
             rx.mobile_and_tablet(
                 rx.vstack(
-                    # feature_button_hstack(mobile=True),
                     hero_section_text(mobile=True),
                     hero_section_buttons(mobile=True),
                     spacing="5",

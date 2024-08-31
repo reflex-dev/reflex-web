@@ -1,10 +1,11 @@
 """Template for documentation pages."""
 
 import reflex as rx
+
 from pcweb import styles
 from pcweb.styles import font_weights as fw
-from pcweb.styles.colors import c_color
 from pcweb.styles import fonts
+from pcweb.styles.colors import c_color
 
 icon_margins = {
     "h1": "10px",
@@ -73,7 +74,6 @@ def h_comp_common(
             on_click=lambda: rx.set_clipboard(href),
             margin_bottom="0.5em",
         ),
-        # border_top=f"1px solid {rx.color('mauve', 3)}" if heading == "h2" else None,
         _hover={
             "color": c_color("violet", 9),
         },
@@ -89,7 +89,6 @@ def h1_comp(text: rx.Var[str]) -> rx.Component:
         text=text,
         heading="h1",
         style={
-            # "color": c_color("slate", 12),
             "font-size": ["32px", "48px"],
             "font-style": "normal",
             "font-weight": "600",
@@ -108,7 +107,6 @@ def h1_comp_xd(text: rx.Var[str]) -> rx.Component:
         heading="h1",
         style=fonts.xx_large,
         margin_bottom="24px",
-        # margin_top="1.5em",
         scroll_margin="4em",
         convert_to_str=True,
     )

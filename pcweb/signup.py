@@ -1,11 +1,11 @@
-import reflex as rx
-
-from datetime import datetime
-from sqlmodel import Field
-import os
 import json
+import os
+from datetime import datetime
+
 import httpx
-from email_validator import EmailNotValidError, validate_email
+import reflex as rx
+from email_validator import EmailNotValidError
+from email_validator import validate_email
 from sqlmodel import Field
 
 
@@ -23,7 +23,10 @@ class IndexState(rx.State):
     # Whether to show the confetti.
     show_confetti: bool = False
 
-    def add_contact_to_loops(self, contact_data):
+    def add_contact_to_loops(
+        self,
+        contact_data,
+    ) -> None:
         url = "https://app.loops.so/api/v1/contacts/create"
         loops_api_key = os.getenv("LOOPS_API_KEY")
         if loops_api_key is None:
@@ -41,15 +44,14 @@ class IndexState(rx.State):
         except httpx.HTTPError as e:
             print(f"An error occurred: {e}")
 
-    def signup_for_another_user(self):
+    def signup_for_another_user(self) -> None:
         self.signed_up = False
 
     def signup(self, form_data: dict[str, str]):
         """Sign the user up for the waitlist."""
-
-        email = form_data.get("input_email", None)
+        email = form_data.get("input_email")
         if not email:
-            return
+            return None
 
         try:
             validation = validate_email(email, check_deliverability=True)
@@ -71,7 +73,10 @@ class IndexState(rx.State):
                 # Add the user to the waitlist.
                 session.add(Waitlist(email=email))
                 session.commit()
-                contact_data = json.dumps({"email": email})
+                contact_data = json.dumps(
+                    {"email": email},
+                )
                 self.add_contact_to_loops(contact_data)
 
         self.signed_up = True
+        return None

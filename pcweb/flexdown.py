@@ -1,25 +1,23 @@
 import flexdown
-from pcweb.styles.colors import c_color
-
 import reflex as rx
-from pcweb.templates.docpage import (
-    code_block_markdown,
-    code_block_markdown_dark,
-    code_comp,
-    docdemo,
-    docdemobox,
-    docgraphing,
-    doclink2,
-    h1_comp_xd,
-    h2_comp_xd,
-    h3_comp_xd,
-    h4_comp_xd,
-    text_comp,
-    list_comp,
-    definition,
-)
 
-from pcweb.styles.fonts import base, code
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.fonts import code
+from pcweb.templates.docpage import code_block_markdown
+from pcweb.templates.docpage import code_block_markdown_dark
+from pcweb.templates.docpage import code_comp
+from pcweb.templates.docpage import definition
+from pcweb.templates.docpage import docdemo
+from pcweb.templates.docpage import docdemobox
+from pcweb.templates.docpage import docgraphing
+from pcweb.templates.docpage import doclink2
+from pcweb.templates.docpage import h1_comp_xd
+from pcweb.templates.docpage import h2_comp_xd
+from pcweb.templates.docpage import h3_comp_xd
+from pcweb.templates.docpage import h4_comp_xd
+from pcweb.templates.docpage import list_comp
+from pcweb.templates.docpage import text_comp
 
 
 def get_code_style(color: str):
@@ -44,7 +42,10 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
 
     include_indicators = True
 
-    def render(self, env) -> rx.Component:
+    def render(
+        self,
+        env,
+    ) -> rx.Component:
         lines = self.get_lines(env)
 
         args = lines[0].removeprefix(self.starting_indicator).split()
@@ -82,7 +83,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                     (
                                         "info",
                                         rx.icon(
-                                            tag="info", size=18, margin_right=".5em"
+                                            tag="info",
+                                            size=18,
+                                            margin_right=".5em",
                                         ),
                                     ),
                                     (
@@ -104,7 +107,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                     (
                                         "error",
                                         rx.icon(
-                                            tag="ban", size=18, margin_right=".5em"
+                                            tag="ban",
+                                            size=18,
+                                            margin_right=".5em",
                                         ),
                                     ),
                                 ),
@@ -112,7 +117,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                             ),
                             (
                                 rx.markdown(
-                                    title, margin_y="0px", style=get_code_style(color)
+                                    title,
+                                    margin_y="0px",
+                                    style=get_code_style(color),
                                 )
                                 if title
                                 else self.render_fn(content=content)
@@ -132,7 +139,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                     ),
                     (
                         rx.chakra.accordion_panel(
-                            markdown(content), padding="0px", margin_top="16px"
+                            markdown(content),
+                            padding="0px",
+                            margin_top="16px",
                         )
                         if title
                         else rx.fragment()
@@ -148,45 +157,40 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                 width="100%",
                 margin_bottom="16px",
             )
-        else:
-            return rx.vstack(
-                rx.hstack(
-                    rx.box(
-                        rx.match(
-                            status,
-                            ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
-                            (
-                                "success",
-                                rx.icon(
-                                    tag="circle_check", size=18, margin_right=".5em"
-                                ),
-                            ),
-                            (
-                                "warning",
-                                rx.icon(
-                                    tag="triangle_alert", size=18, margin_right=".5em"
-                                ),
-                            ),
-                            ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
+        return rx.vstack(
+            rx.hstack(
+                rx.box(
+                    rx.match(
+                        status,
+                        ("info", rx.icon(tag="info", size=18, margin_right=".5em")),
+                        (
+                            "success",
+                            rx.icon(tag="circle_check", size=18, margin_right=".5em"),
                         ),
-                        color=f"{rx.color(color, 11)}",
+                        (
+                            "warning",
+                            rx.icon(tag="triangle_alert", size=18, margin_right=".5em"),
+                        ),
+                        ("error", rx.icon(tag="ban", size=18, margin_right=".5em")),
                     ),
-                    rx.markdown(
-                        title,
-                        color=f"{rx.color(color, 11)}",
-                        margin_y="0px",
-                        style=get_code_style(color),
-                    ),
-                    align_items="center",
-                    width="100%",
-                    spacing="1",
-                    padding=["16px", "24px"],
+                    color=f"{rx.color(color, 11)}",
                 ),
-                border=f"1px solid {rx.color(color, 4)}",
-                background_color=f"{rx.color(color, 3)}",
-                border_radius="12px",
-                margin_bottom="16px",
-            )
+                rx.markdown(
+                    title,
+                    color=f"{rx.color(color, 11)}",
+                    margin_y="0px",
+                    style=get_code_style(color),
+                ),
+                align_items="center",
+                width="100%",
+                spacing="1",
+                padding=["16px", "24px"],
+            ),
+            border=f"1px solid {rx.color(color, 4)}",
+            background_color=f"{rx.color(color, 3)}",
+            border_radius="12px",
+            margin_bottom="16px",
+        )
 
 
 class SectionBlock(flexdown.blocks.Block):
@@ -195,7 +199,10 @@ class SectionBlock(flexdown.blocks.Block):
     starting_indicator = "```md section"
     ending_indicator = "```"
 
-    def render(self, env) -> rx.Component:
+    def render(
+        self,
+        env,
+    ) -> rx.Component:
         lines = self.get_lines(env)
 
         # Split up content into sections based on markdown headers.
@@ -242,7 +249,10 @@ class DefinitionBlock(flexdown.blocks.Block):
     starting_indicator = "```md definition"
     ending_indicator = "```"
 
-    def render(self, env) -> rx.Component:
+    def render(
+        self,
+        env,
+    ) -> rx.Component:
         lines = self.get_lines(env)
 
         # Split up content into sections based on markdown headers.
@@ -271,7 +281,7 @@ class DefinitionBlock(flexdown.blocks.Block):
                     width="100%",
                     gap=4,
                     margin_bottom="1em",
-                )
+                ),
             ),
         )
 
@@ -284,7 +294,10 @@ class DemoBlock(flexdown.blocks.Block):
     include_indicators = True
     theme: str = None
 
-    def render(self, env) -> rx.Component:
+    def render(
+        self,
+        env,
+    ) -> rx.Component:
         lines = self.get_lines(env)
         code = "\n".join(lines[1:-1])
 
@@ -332,7 +345,11 @@ class DemoBlock(flexdown.blocks.Block):
             demobox_props["toggle"] = True
 
         return docdemo(
-            code, comp=comp, demobox_props=demobox_props, theme=self.theme, id=comp_id
+            code,
+            comp=comp,
+            demobox_props=demobox_props,
+            theme=self.theme,
+            id=comp_id,
         )
 
 
@@ -348,7 +365,10 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
 
     include_indicators = True
 
-    def render(self, env) -> rx.Component:
+    def render(
+        self,
+        env,
+    ) -> rx.Component:
         lines = self.get_lines(env)
 
         args = lines[0].removeprefix(self.starting_indicator).split()
@@ -357,10 +377,7 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
             args = ["info"]
         url = args[0]
 
-        if lines[1].startswith("#"):
-            title = lines[1].strip("#").strip()
-        else:
-            title = ""
+        title = lines[1].strip("#").strip() if lines[1].startswith("#") else ""
 
         color = "blue"
 

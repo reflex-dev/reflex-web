@@ -1,7 +1,7 @@
 """The state for the navbar component."""
+
 import os
 from datetime import datetime
-from typing import Any, Optional, Set
 
 import reflex as rx
 import requests
@@ -9,17 +9,17 @@ from sqlmodel import Field
 
 
 class Feedback(rx.Model, table=True):
-    email: Optional[str]
+    email: str | None
     feedback: str
-    score: Optional[int]
+    score: int | None
     date_created: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     page: str
 
 
 class FeedbackState(rx.State):
-    """The state for feedback components"""
+    """The state for feedback components."""
 
-    score: Optional[int] = None
+    score: int | None = None
 
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]

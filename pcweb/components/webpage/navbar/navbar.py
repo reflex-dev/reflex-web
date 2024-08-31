@@ -1,20 +1,22 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
-from .buttons.github import github
+from pcweb import constants
+from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
+from pcweb.pages.blog import blogs
+from pcweb.pages.changelog import changelog
+from pcweb.pages.docs import getting_started
+from pcweb.pages.docs import hosting
+from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.docs.library import library
+from pcweb.pages.errors import errors
+from pcweb.pages.faq import faq
+
 from .buttons.discord import discord
+from .buttons.github import github
 from .buttons.sidebar import sidebar_button
 from .search import search_bar
 
-from pcweb import constants
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
-from pcweb.pages.docs.gallery import gallery
-from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
 
 def resource_header(text):
     return rx.text(
@@ -41,23 +43,13 @@ def resources_item(text, url, icon):
 #     return rx.hover_card.root(
 #         rx.hover_card.trigger(
 #             rx.flex(
-#                 rx.text("Resources", style=style),
-#                 rx.icon(tag="chevron_down", size=18, style=style),
-#                 align_items="center",
-#                 _hover={
-#                     "cursor": "pointer",
 #                 },
-#                 spacing="2",
-#             )
 #         ),
 #         rx.hover_card.content(
 #             rx.flex(
 #                 rx.flex(
-#                     resource_header("Open Source"),
-#                     resources_item("Github", "https://github.com/reflex-dev", "github"),
 #                     resources_item(
 #                         "Github Discussions",
-#                         "https://github.com/orgs/reflex-dev/discussions",
 #                         "message-circle-question",
 #                     ),
 #                     resources_item(
@@ -65,15 +57,8 @@ def resources_item(text, url, icon):
 #                         constants.CONTRIBUTING_URL,
 #                         "file-json-2",
 #                     ),
-#                     resources_item("Changelog", changelog.path, "list-checks"),
-#                     direction="column",
-#                     align_items="start",
-#                     padding_left="20px",
-#                     padding_y="20px",
-#                     spacing="2",
 #                 ),
 #                 rx.flex(
-#                     resource_header("Resources"),
 #                     resources_item(
 #                         "Component Library", library.path, "layout-panel-left"
 #                     ),
@@ -82,43 +67,15 @@ def resources_item(text, url, icon):
 #                         constants.ROADMAP_URL,
 #                         "map-pinned",
 #                     ),
-#                     resources_item("Blog", blogs.path, "text"),
-#                     resources_item("FAQ", faq.path, "list-todo"),
-#                     resources_item("Common Errors", errors.path, "octagon-alert"),
-#                     direction="column",
-#                     align_items="start",
-#                     padding_top="20px",
-#                     padding_bottom="20px",
-#                     spacing="2",
 #                 ),
 #                 rx.flex(
-#                     resource_header("Hosting"),
 #                     resources_item(
 #                         "Deployment", hosting.deploy_quick_start.path, "globe"
 #                     ),
-#                     resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
-#                     direction="column",
 #                     background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-#                     border_left="1px solid rgba(29, 29, 32, 0.08);",
-#                     align_items="start",
-#                     height="230px",
-#                     padding_top="20px",
-#                     padding_left="20px",
-#                     padding_bottom="20px",
-#                     padding_right="20px",
-#                     spacing="2",
 #                 ),
-#                 spacing="6",
 #             ),
-#             border="1px solid rgba(29, 29, 32, 0.08);",
-#             background="linear-gradient(180deg, rgba(29, 27, 33, 0.95) 0%, rgba(20, 19, 24, 0.95) 100%);",
-#             box_shadow="0px 24px 54px -17px rgba(13, 12, 16, 0.30), 0px 0px 0px 1px rgba(93, 93, 107, 0.29), 0px 0px 64px 5px rgba(53, 51, 60, 0.30) inset;",
-#             max_width="1000px",
-#             height="230px",
-#             padding="0",
-#             overflow="hidden",
 #         ),
-#     )
 def resources_trigger(style):
     return rx.flex(
         rx.text("Resources", style=style),
@@ -128,9 +85,10 @@ def resources_trigger(style):
             "cursor": "pointer",
         },
         font="Instrument Sans",
-        style={"font-size":"16px"},
+        style={"font-size": "16px"},
         spacing="2",
     )
+
 
 def resources_content(style):
     return rx.flex(
@@ -158,7 +116,9 @@ def resources_content(style):
             rx.flex(
                 resource_header("Resources"),
                 resources_item(
-                    "Component Library", library.path, "layout-panel-left"
+                    "Component Library",
+                    library.path,
+                    "layout-panel-left",
                 ),
                 resources_item(
                     "Roadmap",
@@ -177,7 +137,9 @@ def resources_content(style):
             rx.flex(
                 resource_header("Hosting"),
                 resources_item(
-                    "Deployment", hosting.deploy_quick_start.path, "globe"
+                    "Deployment",
+                    hosting.deploy_quick_start.path,
+                    "globe",
                 ),
                 resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
                 direction="column",
@@ -204,6 +166,7 @@ def resources_content(style):
         overflow="hidden",
     )
 
+
 def resources_section(style):
     return nav_menu.root(
         nav_menu.list(
@@ -215,18 +178,19 @@ def resources_section(style):
                     resources_content(style),
                 ),
             ),
-            background_color = "transparent",
+            background_color="transparent",
         ),
         nav_menu.viewport(),
     )
+
 
 def link_item(name: str, url: str):
     return rx.link(
         rx.center(
             rx.text(
                 name,
-                color = "#6C6C81",
-                font_weight = "400",
+                color="#6C6C81",
+                font_weight="400",
             ),
             height="100%",
         ),
@@ -235,7 +199,6 @@ def link_item(name: str, url: str):
 
 
 def navigation_section():
-
     section_style = {
         "color": "#6C6C81",
         "font-weight": "400",
@@ -271,7 +234,7 @@ def blur_background():
                     navbar.classList.remove('blur-navbar');
                 }
             };
-            """
+            """,
         ),
         rx.html(
             """
@@ -283,7 +246,7 @@ def blur_background():
                 backdrop-filter: blur(20px);
             }
             </style>
-            """
+            """,
         ),
     )
 
@@ -329,4 +292,3 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         spacing="5",
         padding="15px",
     )
-   

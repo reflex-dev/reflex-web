@@ -1,12 +1,15 @@
 import reflex as rx
+from pcweb.components.icons.icons import get_icon
+from pcweb.constants import DISCORD_URL
+from pcweb.constants import GITHUB_URL
+from pcweb.constants import TWITTER_URL
+from pcweb.pages.blog import blogs
+from pcweb.pages.docs import getting_started
+from pcweb.pages.docs import hosting
+from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.docs.library import library
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import small
-from pcweb.components.icons.icons import get_icon
-from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blogs
-from pcweb.pages.docs.gallery import gallery
 from reflex.style import toggle_color_mode
 
 
@@ -122,16 +125,22 @@ def navbar_sidebar_drawer(trigger):
                         drawer_item("Blog", blogs.path, "blog"),
                         drawer_item("Components", library.path, "library"),
                         drawer_item(
-                            "Hosting", hosting.deploy_quick_start.path, "hosting"
+                            "Hosting",
+                            hosting.deploy_quick_start.path,
+                            "hosting",
                         ),
                         drawer_socials(),
                         rx.el.button(
                             rx.color_mode.icon(
                                 light_component=rx.icon(
-                                    "sun", color=c_color("slate", 9), size=16
+                                    "sun",
+                                    color=c_color("slate", 9),
+                                    size=16,
                                 ),
                                 dark_component=rx.icon(
-                                    "moon", color=c_color("slate", 9), size=16
+                                    "moon",
+                                    color=c_color("slate", 9),
+                                    size=16,
                                 ),
                             ),
                             display="flex",
@@ -163,7 +172,7 @@ def navbar_sidebar_drawer(trigger):
                     width="100%",
                     background_color="transparent",
                     outline="none",
-                )
+                ),
             ),
             direction="bottom",
         ),
@@ -207,6 +216,7 @@ def docs_sidebar_drawer(sidebar: rx.Component, trigger):
             ),
         ),
     )
+
 
 def navbar_sidebar_button() -> rx.Component:
     return rx.flex(

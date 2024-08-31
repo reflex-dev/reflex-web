@@ -3,16 +3,20 @@ import reflex as rx
 github_url = "https://github.com/reflex-dev/reflex"
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
-bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+bugs_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
-def user_count_item(count, platform) -> rx.Component:
+def user_count_item(
+    count,
+    platform,
+) -> rx.Component:
     return rx.flex(
         rx.text(f"{count}+", color="#E8E8F4", font_size="32px"),
         rx.text(platform, color="#6C6C81"),
         direction="column",
         align="center",
     )
+
 
 def user_count_comp() -> rx.Component:
     return rx.center(
@@ -64,10 +68,16 @@ def open_source_badge() -> rx.Component:
         },
     )
 
+
 def github_button() -> rx.Component:
     return rx.button(
         rx.flex(
-            rx.image(src="/companies/light/github.svg", alt="Github", height="20px", width="20px"),
+            rx.image(
+                src="/companies/light/github.svg",
+                alt="Github",
+                height="20px",
+                width="20px",
+            ),
             rx.center(
                 "Github",
                 color="#FFFFFF",
@@ -88,7 +98,6 @@ def github_button() -> rx.Component:
             ),
             spacing="2",
         ),
-
         position="relative",
         top="32px",
         right="-140px",
@@ -110,6 +119,7 @@ def github_button() -> rx.Component:
         },
     )
 
+
 def invite_message() -> rx.Component:
     return rx.box(
         rx.text(
@@ -122,6 +132,7 @@ def invite_message() -> rx.Component:
         ),
         width="30em",
     )
+
 
 def request_buttons() -> rx.Component:
     return rx.hstack(
@@ -158,11 +169,12 @@ def request_buttons() -> rx.Component:
         ),
     )
 
+
 def invite_card_comp() -> rx.Component:
     return rx.box(
         rx.flex(
             rx.text(
-                "Contribute to Reflex!", 
+                "Contribute to Reflex!",
                 color="#D6D6ED",
                 weight="medium",
             ),
@@ -181,8 +193,9 @@ def invite_card_comp() -> rx.Component:
         width="30em",
         border="1px solid #3C3646;",
         background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-        box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+        box_shadow="0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
     )
+
 
 def stats() -> rx.Component:
     return rx.vstack(

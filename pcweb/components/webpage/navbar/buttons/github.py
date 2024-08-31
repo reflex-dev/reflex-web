@@ -1,12 +1,12 @@
 import reflex as rx
+
 from .style import button_style
 
 
 def shorten_to_k(number):
     if number >= 1000:
-        return "{:.0f}k+".format(number / 1000)
-    else:
-        return str(number)
+        return f"{number / 1000:.0f}k+"
+    return str(number)
 
 
 def github_desktop() -> rx.Component:
@@ -20,21 +20,21 @@ def github_desktop() -> rx.Component:
             rx.text(
                 "Github",
                 color="white",
-            ),   
+            ),
             rx.text(
                 "15k",
                 color="#6151F3",
-                background= "linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
+                background="linear-gradient(180deg, rgba(97, 81, 243, 0.20) 0%, rgba(86, 70, 237, 0.20) 100%);",
                 border_radius="5px",
                 padding="0px 3px",
-            ), 
+            ),
             spacing="2",
             style=button_style,
         ),
         href="https://github.com/reflex-dev/reflex",
-    )   
-      
-         
+    )
+
+
 def github_mobile() -> rx.Component:
     return rx.link(
         rx.flex(
@@ -52,5 +52,6 @@ def github_mobile() -> rx.Component:
 
 def github() -> rx.Component:
     return rx.fragment(
-        rx.desktop_only(github_desktop()), rx.mobile_and_tablet(github_mobile())
+        rx.desktop_only(github_desktop()),
+        rx.mobile_and_tablet(github_mobile()),
     )

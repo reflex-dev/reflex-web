@@ -1,8 +1,10 @@
 import reflex as rx
-from .style import button_style, new_button_style
 from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
 from pcweb.constants import DISCORD_URL
+from pcweb.styles.colors import c_color
+
+from .style import button_style
+from .style import new_button_style
 
 
 def discord() -> rx.Component:

@@ -1,7 +1,9 @@
 import reflex as rx
+
 from pcweb.templates.docpage import docpage
 
-from .source import Source, generate_docs
+from .source import Source
+from .source import generate_docs
 
 modules = [
     rx.App,
@@ -27,5 +29,5 @@ for module in modules:
     docs = generate_docs(name, s)
     title = name.replace("_", " ").title()
     page_data = docpage(f"/docs/api-reference/{name}/", title)(docs)
-    page_data.title = page_data.title.split('·')[0].strip()
+    page_data.title = page_data.title.split("·")[0].strip()
     pages.append(page_data)

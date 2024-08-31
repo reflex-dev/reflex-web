@@ -1,13 +1,8 @@
-from .item import create_item, SidebarItem
+from .item import create_item
 
 
 def get_sidebar_items_recipes():
-    from pcweb.pages.docs import (
-        recipes,
-    )
-    from pcweb.pages.docs.recipes_overview import (
-        overview,
-    )
+    from pcweb.pages.docs import recipes
 
     return [
         create_item(
@@ -33,7 +28,7 @@ def get_sidebar_items_recipes():
             children=[
                 recipes.auth.login_form,
                 recipes.auth.signup_form,
-            ]
+            ],
         ),
         create_item(
             "Other",
@@ -42,7 +37,7 @@ def get_sidebar_items_recipes():
                 recipes.others.pricing_cards,
                 recipes.others.chips,
                 recipes.others.speed_dial,
-            ]
+            ],
         ),
     ]
 

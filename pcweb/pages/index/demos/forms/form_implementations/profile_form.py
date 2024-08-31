@@ -1,10 +1,9 @@
 import reflex as rx
 
-common_style = dict(
-    width="100%",
-    align_items="start",
-)
-
+common_style = {
+    "width": "100%",
+    "align_items": "start",
+}
 
 
 def profileBar():
@@ -38,6 +37,7 @@ def username_field():
         **common_style,
     )
 
+
 def notifiction_field():
     return rx.vstack(
         rx.text("Notifications", color="#FAFAFA"),
@@ -60,8 +60,9 @@ def notifiction_field():
             "You can manage verified email addresses in your email settings.",
             color="#A1A1AA",
         ),
-        **common_style
+        **common_style,
     )
+
 
 def location_field():
     return rx.vstack(
@@ -71,8 +72,9 @@ def location_field():
             "Let others know where you are based. You can provide your city, state, or country.",
             color="#A1A1AA",
         ),
-        **common_style
+        **common_style,
     )
+
 
 def bio_field():
     return rx.vstack(
@@ -82,8 +84,9 @@ def bio_field():
             "You can @mention other users and organizations to link to them.",
             color="#A1A1AA",
         ),
-        **common_style
+        **common_style,
     )
+
 
 def skill_level():
     return rx.vstack(
@@ -96,10 +99,11 @@ def skill_level():
         ),
         rx.text(
             "Rate your skill level in the technology you are most comfortable with. This will help others understand your expertise.",
-            color="#A1A1AA"
+            color="#A1A1AA",
         ),
-        **common_style
+        **common_style,
     )
+
 
 def update_profile_button():
     return rx.box(
@@ -110,6 +114,7 @@ def update_profile_button():
         padding_left="10px",
         padding_buttom="20px",
     )
+
 
 def profile_form():
     return rx.scroll_area(
@@ -127,6 +132,5 @@ def profile_form():
             align_items="left",
         ),
         width=["100%", "100%", "80%", "80%", "80%", "80%"],
-        max_height="30em", 
-
+        max_height="30em",
     )

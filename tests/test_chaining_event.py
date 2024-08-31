@@ -1,10 +1,10 @@
 import re
+import time
 
 import pytest
-from playwright.sync_api import Page, expect
-
+from playwright.sync_api import Page
+from playwright.sync_api import expect
 from reflex.testing import AppHarness
-import time
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def test_handler_from_handler(
     reflex_web_app: AppHarness,
     page: Page,
     chaining_event_url: str,
-):
+) -> None:
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + chaining_event_url)
@@ -43,7 +43,7 @@ def test_handler_from_handler(
     expect(chain_heading).to_have_text("10")
 
 
-def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
+def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url) -> None:
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + chaining_event_url)

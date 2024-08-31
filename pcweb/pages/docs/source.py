@@ -2,31 +2,28 @@ import inspect
 import re
 
 # Get the comment for a specific field.
-from typing import Callable, Type
+from collections.abc import Callable
 
 import reflex as rx
-from pcweb import styles
-from pcweb.styles import font_weights as fw
-from pcweb.templates.docpage import h1_comp, h2_comp
+
 from pcweb.flexdown import markdown
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import small
 from pcweb.styles.styles import get_code_style
-
-
-
+from pcweb.templates.docpage import h1_comp
+from pcweb.templates.docpage import h2_comp
 
 
 class Source(rx.Base):
     """Parse the source code of a component."""
 
     # The component to parse.
-    module: Type
+    module: type
 
     # The source code.
     code: list[str] = []
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize the source code parser."""
         super().__init__(*args, **kwargs)
 
@@ -50,7 +47,7 @@ class Source(rx.Base):
         return "".join([comment.strip().strip("#") for comment in comments])
 
     def get_name(self) -> str:
-        return ".".join((self.module.__module__, self.module.__qualname__))
+        return f"{self.module.__module__}.{self.module.__qualname__}"
 
     def get_overview(self) -> str:
         return inspect.cleandoc(self.module.__doc__ or "")
@@ -68,48 +65,53 @@ class Source(rx.Base):
 
     def get_methods(self):
         return [
-            dict(
-                name=name,
-                signature=str(
+            {
+                "name": name,
+                "signature": str(
                     inspect.signature(
-                        fn.__func__
-                        if isinstance(fn, (classmethod, staticmethod))
-                        else fn
-                    )
+                        (
+                            fn.__func__
+                            if isinstance(fn, classmethod | staticmethod)
+                            else fn
+                        ),
+                    ),
                 ),
-                description=(
+                "description": (
                     fn.__func__.__doc__
-                    if isinstance(fn, (classmethod, staticmethod))
+                    if isinstance(fn, classmethod | staticmethod)
                     else fn.__doc__
                 )
                 .split("Args:")[0]
                 .split("Returns:")[0]
                 .strip(),
-                params=dict(
+                "params": dict(
                     inspect.signature(
-                        fn.__func__
-                        if isinstance(fn, (classmethod, staticmethod))
-                        else fn
-                    ).parameters
+                        (
+                            fn.__func__
+                            if isinstance(fn, classmethod | staticmethod)
+                            else fn
+                        ),
+                    ).parameters,
                 ),
-                ret=inspect.signature(
-                    fn.__func__ if isinstance(fn, (classmethod, staticmethod)) else fn
+                "ret": inspect.signature(
+                    fn.__func__ if isinstance(fn, classmethod | staticmethod) else fn,
                 ).return_annotation,
-            )
+            }
             for name, fn in self.module.__dict__.items()
             if (
                 fn.__func__.__doc__
-                if isinstance(fn, (classmethod, staticmethod))
+                if isinstance(fn, classmethod | staticmethod)
                 else fn.__doc__
             )
-            and (
-                isinstance(fn, Callable) or isinstance(fn, (classmethod, staticmethod))
-            )
+            and (isinstance(fn, Callable | classmethod | staticmethod))
             and not name.startswith("_")
             and name != "Config"
         ]
 
-    def get_annotations(self, props) -> list[dict]:
+    def get_annotations(
+        self,
+        props,
+    ) -> list[dict]:
         """Get a dictionary of the props and their descriptions.
 
         Returns:
@@ -128,7 +130,7 @@ class Source(rx.Base):
                 break
 
             # If we've reached a docstring, clear the comments.
-            if '"""' == line.strip():
+            if line.strip() == '"""':
                 comments.clear()
                 continue
 
@@ -167,10 +169,10 @@ class Source(rx.Base):
 
             # Add the prop to the output.
             out.append(
-                dict(
-                    prop=prop,
-                    description=comment,
-                )
+                {
+                    "prop": prop,
+                    "description": comment,
+                },
             )
 
         # Return the output.
@@ -197,8 +199,8 @@ def format_fields(headers, fields):
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        *[rx.table.column_header_cell(header) for header in headers]
-                    )
+                        *[rx.table.column_header_cell(header) for header in headers],
+                    ),
                 ),
                 rx.table.body(
                     *[
@@ -256,7 +258,7 @@ def generate_docs(title: str, s: Source):
                         rx.table.row(
                             rx.table.column_header_cell("Signature"),
                             rx.table.column_header_cell("Description"),
-                        )
+                        ),
                     ),
                     rx.table.body(
                         *[

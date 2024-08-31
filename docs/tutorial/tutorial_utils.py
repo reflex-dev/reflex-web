@@ -1,6 +1,6 @@
 import os
-import openai
 
+import openai
 import reflex as rx
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
@@ -13,12 +13,12 @@ class ChatappState(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
-    def answer(self):
+    def answer(self) -> None:
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, answer))
 
-    def answer2(self):
+    def answer2(self) -> None:
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
         self.chat_history.append((self.question, answer))

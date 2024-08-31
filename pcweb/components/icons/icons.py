@@ -1,5 +1,6 @@
-import reflex as rx
 from typing import Literal
+
+import reflex as rx
 
 github = """<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_8358_8381)">
@@ -103,13 +104,28 @@ ICONS = {
     "clipboard": clipboard,
 }
 
-LiteralIcon = Literal["github", "discord", "twitter", "sun", "moon", "arrow_right", "copy", "arrow_down", "arrow_down_big", "new_tab", "eye", "select", "history", "clipboard"]
+LiteralIcon = Literal[
+    "github",
+    "discord",
+    "twitter",
+    "sun",
+    "moon",
+    "arrow_right",
+    "copy",
+    "arrow_down",
+    "arrow_down_big",
+    "new_tab",
+    "eye",
+    "select",
+    "history",
+    "clipboard",
+]
 
 
 def get_icon(icon: LiteralIcon, **props) -> rx.Component:
     if icon not in ICONS:
         raise ValueError(
-            f"Icon '{icon}' not found. Available icons: {list(ICONS.keys())}"
+            f"Icon '{icon}' not found. Available icons: {list(ICONS.keys())}",
         )
     return rx.html(
         ICONS[icon],

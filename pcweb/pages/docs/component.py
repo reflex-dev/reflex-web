@@ -3,30 +3,34 @@
 import inspect
 import os
 import re
-from typing import (
-    Any,
-    Type,
-    get_args,
-    Literal,
-    _GenericAlias,
-    Union,
-    get_args,
-    get_origin,
-)
-from pydantic import Field
-import reflex as rx
-import flexdown
 import textwrap
-from pcweb.styles.fonts import base, small, large
-from pcweb.styles.colors import c_color
-from pcweb.styles.shadows import shadows
-from pcweb.flexdown import markdown, xd
-from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
+from typing import Any
+from typing import Literal
+from typing import Union
+from typing import _GenericAlias
+from typing import get_args
+from typing import get_origin
+
+import flexdown
+import reflex as rx
 from reflex.base import Base
+from reflex.components.base.fragment import Fragment
 from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
-from reflex.components.base.fragment import Fragment
+
+from pcweb.flexdown import markdown
+from pcweb.flexdown import xd
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.fonts import large
+from pcweb.styles.fonts import small
+from pcweb.styles.shadows import shadows
+from pcweb.templates.docpage import docdemobox
+from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import get_toc
+from pcweb.templates.docpage import h1_comp
+from pcweb.templates.docpage import h2_comp
 
 
 def get_code_style(color: str):
@@ -55,7 +59,6 @@ class Prop(Base):
 
 
 from reflex.components.el.elements.base import BaseHTML
-import re
 
 
 def get_default_value(lines: list[str], start_index: int) -> str:
@@ -118,12 +121,12 @@ class Source(Base):
     """Parse the source code of a component."""
 
     # The component to parse.
-    component: Type[Component]
+    component: type[Component]
 
     # The source code.
     code: list[str] = []
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize the source code parser."""
         super().__init__(*args, **kwargs)
 
@@ -151,7 +154,7 @@ class Source(Base):
         props = self._get_props()
 
         parent_cls = self.component.__bases__[0]
-        if parent_cls != rx.Component and parent_cls != BaseHTML:
+        if parent_cls not in (rx.Component, BaseHTML):
             props += Source(component=parent_cls).get_props()
 
         return props
@@ -189,7 +192,7 @@ class Source(Base):
             if i > 0:
                 comment_above = self.code[i - 1].strip()
                 assert comment_above.startswith(
-                    "#"
+                    "#",
                 ), f"Expected comment, got {comment_above}"
 
             comment = Source.get_comment(comments)
@@ -203,7 +206,7 @@ class Source(Base):
                     type_=type_,
                     default_value=default_value,
                     description=comment,
-                )
+                ),
             )
 
         return out
@@ -262,7 +265,8 @@ EXCLUDED_COMPONENTS = [
 def render_select(prop, component, prop_dict):
     if (
         not rx.utils.types._issubclass(
-            component, (RadixThemesComponent, RadixPrimitiveComponent)
+            component,
+            (RadixThemesComponent, RadixPrimitiveComponent),
         )
         or component.__name__ in EXCLUDED_COMPONENTS
     ):
@@ -302,33 +306,32 @@ def render_select(prop, component, prop_dict):
             arg.__name__ in ["Literal", "Breakpoints"] for arg in type_.__args__
         ):
             return rx.fragment()
-        else:
-            # Get the literal values
-            literal_values = [
-                str(lit_arg)
-                for arg in type_.__args__
-                if get_origin(arg) is Literal
-                for lit_arg in arg.__args__
-            ]
-            option = literal_values[0]
-            name = get_id(f"{component.__qualname__}_{prop.name}")
-            PropDocsState.add_var(name, str, option)
-            var = getattr(PropDocsState, name)
-            setter = getattr(PropDocsState, f"set_{name}")
-            prop_dict[prop.name] = var
-            return rx.select.root(
-                rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
-                rx.select.content(
-                    rx.select.group(
-                        *[
-                            rx.select.item(item, value=item, style=small)
-                            for item in literal_values
-                        ]
-                    )
+        # Get the literal values
+        literal_values = [
+            str(lit_arg)
+            for arg in type_.__args__
+            if get_origin(arg) is Literal
+            for lit_arg in arg.__args__
+        ]
+        option = literal_values[0]
+        name = get_id(f"{component.__qualname__}_{prop.name}")
+        PropDocsState.add_var(name, str, option)
+        var = getattr(PropDocsState, name)
+        setter = getattr(PropDocsState, f"set_{name}")
+        prop_dict[prop.name] = var
+        return rx.select.root(
+            rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
+            rx.select.content(
+                rx.select.group(
+                    *[
+                        rx.select.item(item, value=item, style=small)
+                        for item in literal_values
+                    ],
                 ),
-                value=var,
-                on_change=setter,
-            )
+            ),
+            value=var,
+            on_change=setter,
+        )
     # Get the first option.
     option = type_.__args__[0]
     name = get_id(f"{component.__qualname__}_{prop.name}")
@@ -345,7 +348,7 @@ def render_select(prop, component, prop_dict):
                         rx.text(var, style=small),
                         # Match the select.trigger svg icon
                         rx.html(
-                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
+                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>""",
                         ),
                         color_scheme=var,
                         width="8em",
@@ -377,7 +380,9 @@ def render_select(prop, component, prop_dict):
                             flex_shrink=0,
                             on_click=PropDocsState.setvar(f"{name}", color),
                             border=rx.cond(
-                                var == color, "2px solid var(--gray-12)", ""
+                                var == color,
+                                "2px solid var(--gray-12)",
+                                "",
                             ),
                         )
                         for color in list(map(str, type_.__args__))
@@ -403,7 +408,7 @@ def render_select(prop, component, prop_dict):
                         ),
                     )
                     for item in list(map(str, type_.__args__))
-                ]
+                ],
             ),
         ),
         value=var,
@@ -451,7 +456,10 @@ def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
 
 
 def prop_docs(
-    prop: Prop, prop_dict, component, is_interactive: bool
+    prop: Prop,
+    prop_dict,
+    component,
+    is_interactive: bool,
 ) -> list[rx.Component]:
     """Generate the docs for a prop."""
     # Get the type of the prop.
@@ -519,7 +527,10 @@ def prop_docs(
                 rx.code(prop.name, text_wrap="nowrap", style=get_code_style("violet")),
                 hovercard(
                     rx.icon(
-                        tag="info", size=15, color=c_color("slate", 9), flex_shrink=0
+                        tag="info",
+                        size=15,
+                        color=c_color("slate", 9),
+                        flex_shrink=0,
                     ),
                     rx.text(prop.description, size="2"),
                 ),
@@ -537,18 +548,16 @@ def prop_docs(
                         (
                             " | ".join(
                                 [f'"{v}"' for v in literal_values[:MAX_PROP_VALUES]]
-                                + ["..."]
+                                + ["..."],
                             )
                             if len(literal_values) > MAX_PROP_VALUES
                             else type_name
                         ),
-                        # color_scheme=color,
                         style=get_code_style(color),
                         text_wrap="nowrap",
                     ),
                     rx.code(
                         type_name,
-                        # color_scheme=color,
                         style=get_code_style(color),
                         text_wrap="nowrap",
                     ),
@@ -564,7 +573,8 @@ def prop_docs(
                             flex_shrink=0,
                         ),
                         rx.text(
-                            " | ".join([f'"{v}"' for v in literal_values]), size="2"
+                            " | ".join([f'"{v}"' for v in literal_values]),
+                            size="2",
                         ),
                     ),
                 ),
@@ -598,12 +608,14 @@ def prop_docs(
                 rx.code(
                     default_value,
                     style=get_code_style(
-                        "red"
-                        if default_value == "False"
-                        else "green" if default_value == "True" else "gray"
+                        (
+                            "red"
+                            if default_value == "False"
+                            else "green" if default_value == "True" else "gray"
+                        ),
                     ),
                     text_wrap="nowrap",
-                )
+                ),
             ),
             padding_left="1em",
             justify="start",
@@ -622,100 +634,100 @@ def prop_docs(
 
 EVENTS = {
     "on_focus": {
-        "description": "Function or event handler called when the element (or some element inside of it) receives focus. For example, it is called when the user clicks on a text input."
+        "description": "Function or event handler called when the element (or some element inside of it) receives focus. For example, it is called when the user clicks on a text input.",
     },
     "on_blur": {
-        "description": "Function or event handler called when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input."
+        "description": "Function or event handler called when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input.",
     },
     "on_change": {
-        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystoke triggers the on change."
+        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystoke triggers the on change.",
     },
     "on_click": {
-        "description": "Function or event handler called when the user clicks on an element. For example, it’s called when the user clicks on a button."
+        "description": "Function or event handler called when the user clicks on an element. For example, it’s called when the user clicks on a button.",
     },
     "on_context_menu": {
-        "description": "Function or event handler called when the user right-clicks on an element. For example, it is called when the user right-clicks on a button."
+        "description": "Function or event handler called when the user right-clicks on an element. For example, it is called when the user right-clicks on a button.",
     },
     "on_double_click": {
-        "description": "Function or event handler called when the user double-clicks on an element. For example, it is called when the user double-clicks on a button."
+        "description": "Function or event handler called when the user double-clicks on an element. For example, it is called when the user double-clicks on a button.",
     },
     "on_mouse_up": {
-        "description": "Function or event handler called when the user releases a mouse button on an element. For example, it is called when the user releases the left mouse button on a button."
+        "description": "Function or event handler called when the user releases a mouse button on an element. For example, it is called when the user releases the left mouse button on a button.",
     },
     "on_mouse_down": {
-        "description": "Function or event handler called when the user presses a mouse button on an element. For example, it is called when the user presses the left mouse button on a button."
+        "description": "Function or event handler called when the user presses a mouse button on an element. For example, it is called when the user presses the left mouse button on a button.",
     },
     "on_mouse_enter": {
-        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button."
+        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button.",
     },
     "on_mouse_leave": {
-        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button."
+        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button.",
     },
     "on_mouse_move": {
-        "description": "Function or event handler called when the user moves the mouse over an element. For example, it’s called when the user moves the mouse over a button."
+        "description": "Function or event handler called when the user moves the mouse over an element. For example, it’s called when the user moves the mouse over a button.",
     },
     "on_mouse_out": {
-        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button."
+        "description": "Function or event handler called when the user’s mouse leaves an element. For example, it is called when the user’s mouse leaves a button.",
     },
     "on_mouse_over": {
-        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button."
+        "description": "Function or event handler called when the user’s mouse enters an element. For example, it is called when the user’s mouse enters a button.",
     },
     "on_scroll": {
-        "description": "Function or event handler called when the user scrolls the page. For example, it is called when the user scrolls the page down."
+        "description": "Function or event handler called when the user scrolls the page. For example, it is called when the user scrolls the page down.",
     },
     "on_submit": {
-        "description": "Function or event handler called when the user submits a form. For example, it is called when the user clicks on a submit button."
+        "description": "Function or event handler called when the user submits a form. For example, it is called when the user clicks on a submit button.",
     },
     "on_cancel": {
-        "description": "Function or event handler called when the user cancels a form. For example, it is called when the user clicks on a cancel button."
+        "description": "Function or event handler called when the user cancels a form. For example, it is called when the user clicks on a cancel button.",
     },
     "on_edit": {
-        "description": "Function or event handler called when the user edits a form. For example, it is called when the user clicks on a edit button."
+        "description": "Function or event handler called when the user edits a form. For example, it is called when the user clicks on a edit button.",
     },
     "on_change_start": {
-        "description": "Function or event handler called when the user starts selecting a new value(By dragging or clicking)."
+        "description": "Function or event handler called when the user starts selecting a new value(By dragging or clicking).",
     },
     "on_change_end": {
-        "description": "Function or event handler called when the user is done selecting a new value(By dragging or clicking)."
+        "description": "Function or event handler called when the user is done selecting a new value(By dragging or clicking).",
     },
     "on_complete": {
-        "description": "Called when the user completes a form. For example, it’s called when the user clicks on a complete button."
+        "description": "Called when the user completes a form. For example, it’s called when the user clicks on a complete button.",
     },
     "on_error": {
-        "description": "The on_error event handler is called when the user encounters an error in a form. For example, it’s called when the user clicks on a error button."
+        "description": "The on_error event handler is called when the user encounters an error in a form. For example, it’s called when the user clicks on a error button.",
     },
     "on_load": {
-        "description": "The on_load event handler is called when the user loads a form. For example, it is called when the user clicks on a load button."
+        "description": "The on_load event handler is called when the user loads a form. For example, it is called when the user clicks on a load button.",
     },
     "on_esc": {
-        "description": "The on_esc event handler is called when the user presses the escape key. For example, it is called when the user presses the escape key."
+        "description": "The on_esc event handler is called when the user presses the escape key. For example, it is called when the user presses the escape key.",
     },
     "on_open": {
-        "description": "The on_open event handler is called when the user opens a form. For example, it is called when the user clicks on a open button."
+        "description": "The on_open event handler is called when the user opens a form. For example, it is called when the user clicks on a open button.",
     },
     "on_close": {
-        "description": "The on_close event handler is called when the user closes a form. For example, it is called when the user clicks on a close button."
+        "description": "The on_close event handler is called when the user closes a form. For example, it is called when the user clicks on a close button.",
     },
     "on_close_complete": {
-        "description": "The on_close_complete event handler is called when the user closes a form. For example, it is called when the user clicks on a close complete button."
+        "description": "The on_close_complete event handler is called when the user closes a form. For example, it is called when the user clicks on a close complete button.",
     },
     "on_overlay_click": {
-        "description": "The on_overlay_click event handler is called when the user clicks on an overlay. For example, it is called when the user clicks on a overlay button."
+        "description": "The on_overlay_click event handler is called when the user clicks on an overlay. For example, it is called when the user clicks on a overlay button.",
     },
     "on_key_down": {
-        "description": "The on_key_down event handler is called when the user presses a key."
+        "description": "The on_key_down event handler is called when the user presses a key.",
     },
     "on_key_up": {
-        "description": "The on_key_up event handler is called when the user releases a key."
+        "description": "The on_key_up event handler is called when the user releases a key.",
     },
     "on_ready": {
-        "description": "The on_ready event handler is called when the script is ready to be executed."
+        "description": "The on_ready event handler is called when the script is ready to be executed.",
     },
     "on_mount": {
-        "description": "The on_mount event handler is called when the component is loaded on the page."
+        "description": "The on_mount event handler is called when the component is loaded on the page.",
     },
     "on_unmount": {
-        "description": "The on_unmount event handler is called when the component is removed from the page. This handler is only called during navigation, not when the page is refreshed."
+        "description": "The on_unmount event handler is called when the component is removed from the page. This handler is only called during navigation, not when the page is refreshed.",
     },
     "on_input": {
         "description": "The on_input event handler is called when the editor receives input from the user. It receives the raw browser event as an argument.",
@@ -784,49 +796,48 @@ EVENTS = {
         "description": "The on_selection_cleared event handler is called when the user unselect a region of the data editor.",
     },
     "on_column_resize": {
-        "description": "The on_column_resize event handler is called when the user try to resize a column from the data editor."
+        "description": "The on_column_resize event handler is called when the user try to resize a column from the data editor.",
     },
     "on_open_change": {
-        "description": "The on_open_change event handler is called when the open state of the component changes."
+        "description": "The on_open_change event handler is called when the open state of the component changes.",
     },
     "on_focus_outside": {
-        "description": "The on_focus_outside event handler is called when the user focuses outside the component."
+        "description": "The on_focus_outside event handler is called when the user focuses outside the component.",
     },
     "on_interact_outside": {
-        "description": "The on_interact_outside event handler is called when the user interacts outside the component."
+        "description": "The on_interact_outside event handler is called when the user interacts outside the component.",
     },
     "on_open_auto_focus": {
-        "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
+        "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item.",
     },
     "on_change": {
-        "description": "The on_change event handler is called when the value or checked state of the component changes."
+        "description": "The on_change event handler is called when the value or checked state of the component changes.",
     },
     "on_value_change": {
-        "description": "The on_change event handler is called when the value state of the component changes."
+        "description": "The on_change event handler is called when the value state of the component changes.",
     },
     "on_close_auto_focus": {
-        "description": "The on_close_auto_focus event handler is called when focus moves to the trigger after closing. It can be prevented by calling event.preventDefault."
+        "description": "The on_close_auto_focus event handler is called when focus moves to the trigger after closing. It can be prevented by calling event.preventDefault.",
     },
     "on_escape_key_down": {
-        "description": "The on_escape_key_down event handler is called when the escape key is down. It can be prevented by calling event.preventDefault."
+        "description": "The on_escape_key_down event handler is called when the escape key is down. It can be prevented by calling event.preventDefault.",
     },
     "on_pointer_down_outside": {
-        "description": "The on_pointer_down_outside event handler is called when a pointer event occurs outside the bounds of the component. It can be prevented by calling event.preventDefault."
+        "description": "The on_pointer_down_outside event handler is called when a pointer event occurs outside the bounds of the component. It can be prevented by calling event.preventDefault.",
     },
     "on_value_commit": {
-        "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service."
+        "description": "The on_value_commit event handler is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.",
     },
     "on_clear_server_errors": {
-        "description": "The on_clear_server_errors event handler is called when the form is submitted or reset and the server errors need to be cleared."
+        "description": "The on_clear_server_errors event handler is called when the form is submitted or reset and the server errors need to be cleared.",
     },
     "on_select": {
-        "description": "The on_select event handler is called when the user selects an item."
+        "description": "The on_select event handler is called when the user selects an item.",
     },
     "on_drop": {
-        "description": "The on_drop event handler is called when the user drops an item."
+        "description": "The on_drop event handler is called when the user drops an item.",
     },
 }
-
 
 
 def generate_props(src, component, comp):
@@ -846,7 +857,8 @@ def generate_props(src, component, comp):
 
     is_interactive = True
     if not rx.utils.types._issubclass(
-        component, (RadixThemesComponent, RadixPrimitiveComponent)
+        component,
+        (RadixThemesComponent, RadixPrimitiveComponent),
     ) or component.__name__ in [
         "Theme",
         "ThemePanel",
@@ -862,7 +874,8 @@ def generate_props(src, component, comp):
     body = rx.table.body(
         *[
             rx.table.row(
-                *prop_docs(prop, prop_dict, component, is_interactive), align="center"
+                *prop_docs(prop, prop_dict, component, is_interactive),
+                align="center",
             )
             for prop in src.get_props()
             if not prop.name.startswith("on_")  # ignore event trigger props
@@ -914,7 +927,7 @@ def generate_props(src, component, comp):
                     .rt-TableRoot:where(.rt-variant-surface) :where(.rt-TableRootTable) :where(.rt-TableHeader) {
                     --table-row-background-color: "transparent"
                     }
-                    """
+                    """,
                 ),
                 rx.table.header(
                     rx.table.row(
@@ -968,9 +981,6 @@ def generate_props(src, component, comp):
 
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
-
-
-import inspect
 
 
 def same_trigger(t1, t2):
@@ -1027,15 +1037,19 @@ def generate_event_triggers(comp, src):
                     .rt-TableRoot:where(.rt-variant-surface) :where(.rt-TableRootTable) :where(.rt-TableHeader) {
                         --table-row-background-color: "transparent"
                     }
-                """
+                """,
                 ),
                 rx.table.header(
                     rx.table.row(
                         rx.table.column_header_cell(
-                            "Trigger", padding_left=padding_left, justify="start"
+                            "Trigger",
+                            padding_left=padding_left,
+                            justify="start",
                         ),
                         rx.table.column_header_cell(
-                            "Description", padding_left=padding_left, justify="start"
+                            "Description",
+                            padding_left=padding_left,
+                            justify="start",
                         ),
                     ),
                     background_color=c_color("slate", 3),
@@ -1095,13 +1109,11 @@ def generate_valid_children(comp):
 
 def component_docs(component_tuple, comp):
     """Generates documentation for a given component."""
-
     component = component_tuple[0]
     src = Source(component=component)
     props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
-
 
     return rx.box(
         h2_comp(text=component_tuple[1].lower()),
@@ -1133,7 +1145,9 @@ tab_selected_style = {
 
 
 def multi_docs(path, comp, component_list, title):
-    components = [component_docs(component_tuple, comp) for component_tuple in component_list[1:]]
+    components = [
+        component_docs(component_tuple, comp) for component_tuple in component_list[1:]
+    ]
     fname = path.strip("/") + ".md"
     ll_doc_exists = os.path.exists(fname.replace(".md", "-ll.md"))
 
@@ -1184,29 +1198,28 @@ def multi_docs(path, comp, component_list, title):
                     ),
                     margin_bottom=".5em",
                 )
-            else:
-                return rx.flex(
-                    rx.box(flex_grow="1"),
-                    rx.flex(
-                        rx.link(
-                            rx.center(rx.text("High Level"), style=non_active_style),
-                            href=path,
-                            underline="none",
-                        ),
-                        rx.link(
-                            rx.center(rx.text("Low Level"), style=active_style),
-                            href=path + "/low",
-                            underline="none",
-                        ),
-                        spacing="2",
-                        padding="8px",
-                        background=c_color("slate", 3),
-                        border_radius="16px",
-                        align_items="center",
-                        justify_items="center",
+            return rx.flex(
+                rx.box(flex_grow="1"),
+                rx.flex(
+                    rx.link(
+                        rx.center(rx.text("High Level"), style=non_active_style),
+                        href=path,
+                        underline="none",
                     ),
-                    margin_bottom=".5em",
-                )
+                    rx.link(
+                        rx.center(rx.text("Low Level"), style=active_style),
+                        href=path + "/low",
+                        underline="none",
+                    ),
+                    spacing="2",
+                    padding="8px",
+                    background=c_color("slate", 3),
+                    border_radius="16px",
+                    align_items="center",
+                    justify_items="center",
+                ),
+                margin_bottom=".5em",
+            )
         return rx.fragment()
 
     @docpage(set_path=path, t=title)
@@ -1238,5 +1251,4 @@ def multi_docs(path, comp, component_list, title):
 
     if ll_doc_exists:
         return (out, ll)
-    else:
-        return out
+    return out

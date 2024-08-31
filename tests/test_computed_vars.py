@@ -1,10 +1,9 @@
 import re
 
 import pytest
-from playwright.sync_api import Page, expect
-
+from playwright.sync_api import Page
+from playwright.sync_api import expect
 from reflex.testing import AppHarness
-import time
 
 
 @pytest.fixture
@@ -18,7 +17,7 @@ def test_computed_vars(
     reflex_web_app: AppHarness,
     page: Page,
     computed_vars_url: str,
-):
+) -> None:
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + computed_vars_url)

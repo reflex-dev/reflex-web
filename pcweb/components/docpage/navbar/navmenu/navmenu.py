@@ -1,14 +1,13 @@
 """Reflex custom component NavMenu."""
 
+from typing import Any
+from typing import Literal
+
 import reflex as rx
-
-from reflex.style import Style
-from pcweb.styles.shadows import shadows
 from pcweb.styles.colors import c_color
-
-from typing import Any, Dict, List, Literal, Optional, Union
+from pcweb.styles.shadows import shadows
+from reflex.style import Style
 from reflex.vars import Var
-
 
 LiteralMenuComponentDir = Literal["ltr", "rtl"]
 LiteralMenuComponentOrientation = Literal["vertical", "horizontal"]
@@ -21,7 +20,7 @@ class NavMenu(rx.Component):
 
 
 class NavMenuRoot(NavMenu):
-    """Navigation menu root component"""
+    """Navigation menu root component."""
 
     tag = "Root"
     alias = "RadixNavigationMenuRoot"
@@ -33,7 +32,7 @@ class NavMenuRoot(NavMenu):
     orientation: Var[LiteralMenuComponentOrientation] = "horizontal"
     dir: Var[LiteralMenuComponentDir]
 
-    def get_event_triggers(self) -> Dict[str, Any]:
+    def get_event_triggers(self) -> dict[str, Any]:
         return {
             **super().get_event_triggers(),
             "on_value_change": lambda e0: [e0],
@@ -55,7 +54,7 @@ class NavMenuRoot(NavMenu):
 
 
 class NavMenuSub(NavMenu):
-    """Navigation menu sub component"""
+    """Navigation menu sub component."""
 
     tag = "Sub"
     alias = "RadixNavigationMenuSub"
@@ -64,7 +63,7 @@ class NavMenuSub(NavMenu):
     default_value: Var[str]
     orientation: Var[LiteralMenuComponentOrientation] = "horizontal"
 
-    def get_event_triggers(self) -> Dict[str, Any]:
+    def get_event_triggers(self) -> dict[str, Any]:
         return {
             **super().get_event_triggers(),
             "on_value_change": lambda e0: [e0],
@@ -106,6 +105,7 @@ class NavMenuItem(NavMenu):
             "align_items": "center",
             "justify_content": "center",
         }
+
 
 class NavMenuTrigger(NavMenu):
     """The button that toggles the content."""

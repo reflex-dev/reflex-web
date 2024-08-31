@@ -1,10 +1,12 @@
 import reflex as rx
+
 from pcweb.templates import webpage
 
 from .components.hero import hero_section
-from .components.stats import stats
 from .components.news_letter import news_letter_section
+from .components.stats import stats
 from .demos.demos import demos
+
 
 @webpage(path="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
@@ -34,9 +36,9 @@ def index() -> rx.Component:
         width="100%",
         direction="column",
         style={
-            "::selection":{
-                "color":"inherit",
-                "background":"inherit"
-            }
-        }
+            "::selection": {
+                "color": "inherit",
+                "background": "inherit",
+            },
+        },
     )

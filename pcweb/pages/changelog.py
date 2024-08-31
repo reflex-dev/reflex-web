@@ -1,7 +1,9 @@
 import reflex as rx
-from pcweb import constants, styles
-from pcweb.templates.webpage import webpage
+
+from pcweb import constants
+from pcweb import styles
 from pcweb.components.logo import logo
+from pcweb.templates.webpage import webpage
 
 
 def change(date, title, description, points, link):
@@ -51,7 +53,10 @@ def change(date, title, description, points, link):
         rx.chakra.unordered_list(
             *[
                 rx.list_item(
-                    d, font_size=".8em", color="#6C6C81", font_family=styles.MONO
+                    d,
+                    font_size=".8em",
+                    color="#6C6C81",
+                    font_family=styles.MONO,
                 )
                 for d in points
             ],

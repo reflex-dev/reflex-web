@@ -2,9 +2,9 @@
 
 import re
 
-from playwright.sync_api import Page, expect
-
 import pytest
+from playwright.sync_api import Page
+from playwright.sync_api import expect
 from reflex.testing import AppHarness
 
 
@@ -15,7 +15,7 @@ def intro_page_url() -> str:
     return docs.getting_started.introduction.path
 
 
-def test_counter(reflex_web_app: AppHarness, page: Page, intro_page_url):
+def test_counter(reflex_web_app: AppHarness, page: Page, intro_page_url) -> None:
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url)

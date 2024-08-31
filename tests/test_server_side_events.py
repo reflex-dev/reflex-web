@@ -1,10 +1,9 @@
 import re
 
 import pytest
-from playwright.sync_api import Page, expect
-
+from playwright.sync_api import Page
+from playwright.sync_api import expect
 from reflex.testing import AppHarness
-import time
 
 
 @pytest.fixture
@@ -26,7 +25,7 @@ def test_server_side_events(
     reflex_web_app: AppHarness,
     page: Page,
     server_side_events_url: str,
-):
+) -> None:
     assert reflex_web_app.frontend_url is not None
 
     page.goto(reflex_web_app.frontend_url + server_side_events_url)

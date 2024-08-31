@@ -1,10 +1,11 @@
 """Code block components for documentation pages."""
 
 import reflex as rx
+
 from pcweb import styles
 from pcweb.components.icons.icons import get_icon
+from pcweb.styles import fonts
 from pcweb.styles.colors import c_color
-import pcweb.styles.fonts as fonts
 
 
 @rx.memo
@@ -18,7 +19,7 @@ def code_block(code: str, language: str):
             code_tag_props={
                 "style": {
                     "fontFamily": "inherit",
-                }
+                },
             },
             font_family="Source Code Pro",
             color=c_color("slate", 12),
@@ -26,12 +27,16 @@ def code_block(code: str, language: str):
             style=fonts.code,
             margin="0",
             # TODO: use this when it's looking good
-            # can_copy=True,
         ),
         rx.button(
-            get_icon("clipboard", color=c_color("slate", 9), transition="color 0.035s ease-out", _hover={
-                "color": c_color("slate", 11),
-            }),
+            get_icon(
+                "clipboard",
+                color=c_color("slate", 9),
+                transition="color 0.035s ease-out",
+                _hover={
+                    "color": c_color("slate", 11),
+                },
+            ),
             on_click=rx.set_clipboard(code),
             position="absolute",
             top="30px",
@@ -58,6 +63,7 @@ def code_block(code: str, language: str):
         width="100%",
     )
 
+
 @rx.memo
 def code_block_dark(code: str, language: str):
     return rx.box(
@@ -70,12 +76,11 @@ def code_block_dark(code: str, language: str):
             code_tag_props={
                 "style": {
                     "fontFamily": "inherit",
-                }
+                },
             },
             padding="20px",
             margin="0",
             # TODO: use this when it's looking good
-            # can_copy=True,
         ),
         rx.button(
             get_icon(
@@ -111,6 +116,7 @@ def code_block_dark(code: str, language: str):
         margin_top="1em",
         width="100%",
     )
+
 
 def code_block_markdown(*children, **props):
     language = props.get("language", "none")
@@ -148,7 +154,7 @@ def doccmdoutput(
                 code_tag_props={
                     "style": {
                         "fontFamily": "inherit",
-                    }
+                    },
                 },
                 style=fonts.code,
                 font_family="Source Code Pro",
@@ -193,7 +199,7 @@ def doccmdoutput(
                 code_tag_props={
                     "style": {
                         "fontFamily": "inherit",
-                    }
+                    },
                 },
                 style=fonts.code,
                 font_family="Source Code Pro",

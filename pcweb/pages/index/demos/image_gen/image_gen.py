@@ -1,8 +1,10 @@
 import reflex as rx
+
 from ..style import demo_height
 
 try:
     import openai
+
     openai_client = openai.OpenAI()
 except:
     openai_client = None
@@ -24,10 +26,13 @@ class ImageGenState(rx.State):
         self.processing, self.complete = True, False
         yield
         response = openai_client.images.generate(
-            prompt=prompt, n=1, size="512x512"
+            prompt=prompt,
+            n=1,
+            size="512x512",
         )
         self.image_url = response.data[0].url
         self.processing, self.complete = False, True
+
 
 def config_button():
     return rx.menu.root(
@@ -58,11 +63,16 @@ def config_button():
         ),
     )
 
+
 def setting_section():
     return rx.vstack(
         rx.heading("Settings"),
         rx.input(placeholder="Seed", width="100%"),
-        rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
+        rx.select(
+            ["Model 1", "Model 2", "Model 3"],
+            default_value="Model 1",
+            width="100%",
+        ),
         rx.text("Temperature"),
         rx.slider(default_value=25, width="100%"),
         rx.text("Width"),
@@ -82,12 +92,13 @@ def setting_section():
         display=["none", "none", "flex", "flex", "flex", "flex"],
     )
 
+
 def content():
     return rx.flex(
         rx.hstack(
             config_button(),
-            width="100%", 
-            justify_content="right", 
+            width="100%",
+            justify_content="right",
         ),
         rx.center(
             generator(),
@@ -100,6 +111,7 @@ def content():
         height="100%",
         padding="1.25em",
     )
+
 
 def generator():
     return rx.form(
@@ -114,18 +126,23 @@ def generator():
                 ),
             ),
             rx.input(placeholder="Enter description", name="prompt", width="100%"),
-            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+            rx.button(
+                "Generate Image ->",
+                width="100%",
+                disabled=ImageGenState.processing,
+            ),
         ),
         on_submit=ImageGenState.get_image,
     )
 
+
 def image_gen():
     return rx.theme(
         rx.hstack(
-        content(),
-        setting_section(),
-        padding_x="1em",
-        height=demo_height,
-    ),
-    appearance="dark",
+            content(),
+            setting_section(),
+            padding_x="1em",
+            height=demo_height,
+        ),
+        appearance="dark",
     )

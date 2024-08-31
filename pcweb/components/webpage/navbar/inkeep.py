@@ -1,23 +1,23 @@
 """UI and logic inkeep chat component."""
 
-from typing import Set
 import reflex as rx
 from reflex.event import EventHandler
-from reflex.vars import ImportVar, Var
+from reflex.vars import ImportVar
+from reflex.vars import Var
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {
-        Var.create_safe("{...searchBarProps}", _var_is_string=False)
+    special_props: set[Var] = {
+        Var.create_safe("{...searchBarProps}", _var_is_string=False),
     }
 
     is_open: Var[bool] = False
 
-    on_close: EventHandler[lambda: []]
+    on_close: EventHandler[list]
 
-    on_shortcut_key_pressed: EventHandler[lambda: []]
+    on_shortcut_key_pressed: EventHandler[list]
 
     def add_imports(self):
         """Add the imports for the component."""
@@ -83,7 +83,7 @@ const searchBarProps = {
     },
     colorMode: {
       forcedColorMode: 'dark', // options: 'light' or dark'
-    }, 
+    },
     theme: {
       components: {
         SearchBarTrigger: {

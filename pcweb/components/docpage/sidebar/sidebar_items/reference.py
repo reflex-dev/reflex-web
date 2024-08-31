@@ -1,28 +1,27 @@
-from .item import create_item, SidebarItem
+from .item import create_item
 
 
 def get_sidebar_items_api_reference():
-    from pcweb.pages.docs import api_reference, apiref
+    from pcweb.pages.docs import api_reference
+    from pcweb.pages.docs import apiref
 
     return [
         create_item(
             "API Reference",
-            children=apiref.pages + [
+            children=[
+                *apiref.pages,
                 api_reference.cli,
                 api_reference.event_triggers,
                 api_reference.special_events,
                 api_reference.browser_storage,
                 api_reference.browser_javascript,
             ],
-        )
+        ),
     ]
 
 
-
 def get_sidebar_items_tutorials():
-    from pcweb.pages.docs import (
-        datatable_tutorial,
-    )
+    from pcweb.pages.docs import datatable_tutorial
 
     return [
         create_item(
@@ -33,7 +32,7 @@ def get_sidebar_items_tutorials():
                 datatable_tutorial.add_styling,
                 datatable_tutorial.live_stream,
             ],
-        )
+        ),
     ]
 
 

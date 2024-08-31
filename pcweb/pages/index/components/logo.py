@@ -1,8 +1,9 @@
 import reflex as rx
 
+
 def landing():
     return rx.html(
-"""<svg id="landing-logo" width=837 height= 250 viewBox="0 0 837 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+        """<svg id="landing-logo" width=837 height= 250 viewBox="0 0 837 250" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_b_5217_1511)">
 <path d="M553.48 199C552.375 199 551.48 198.105 551.48 197V53C551.48 51.8954 552.375 51 553.48 51H637.8C638.904 51 639.8 51.8954 639.8 53V78.6C639.8 79.7046 638.904 80.6 637.8 80.6H582.92C581.815 80.6 580.92 81.4954 580.92 82.6V108.2C580.92 109.305 581.815 110.2 582.92 110.2H637.8C638.904 110.2 639.8 111.096 639.8 112.2V137.8C639.8 138.905 638.904 139.8 637.8 139.8H582.92C581.815 139.8 580.92 140.696 580.92 141.8V167.4C580.92 168.505 581.815 169.4 582.92 169.4H637.8C638.904 169.4 639.8 170.296 639.8 171.4V197C639.8 198.105 638.904 199 637.8 199H553.48Z" fill="#BDB4E1" fill-opacity="0.03"/>
 <path d="M553.48 198.5C552.652 198.5 551.98 197.828 551.98 197V53C551.98 52.1716 552.652 51.5 553.48 51.5H637.8C638.628 51.5 639.3 52.1716 639.3 53V78.6C639.3 79.4284 638.628 80.1 637.8 80.1H582.92C581.539 80.1 580.42 81.2193 580.42 82.6V108.2C580.42 109.581 581.539 110.7 582.92 110.7H637.8C638.628 110.7 639.3 111.372 639.3 112.2V137.8C639.3 138.629 638.628 139.3 637.8 139.3H582.92C581.539 139.3 580.42 140.419 580.42 141.8V167.4C580.42 168.781 581.539 169.9 582.92 169.9H637.8C638.628 169.9 639.3 170.572 639.3 171.4V197C639.3 197.828 638.628 198.5 637.8 198.5H553.48Z" stroke="#BAC7F7" stroke-opacity="0.32"/>
@@ -238,28 +239,27 @@ def landing():
 </defs>
 </svg>
 """,
-    style={
-        "@media screen and (max-width: 837px)": {
-            "#landing-logo": {
-                "transform": "scale(0.8)",
+        style={
+            "@media screen and (max-width: 837px)": {
+                "#landing-logo": {
+                    "transform": "scale(0.8)",
+                },
+            },
+            "@media screen and (max-width: 768px)": {
+                "#landing-logo": {
+                    "transform": "scale(0.7)",
+                },
+            },
+            "@media screen and (max-width: 627px)": {
+                "#landing-logo": {
+                    "transform": "scale(0.55)",
+                },
+            },
+            "@media screen and (max-width: 480px)": {
+                "#landing-logo": {
+                    "transform": "scale(0.45)",
+                },
             },
         },
-        "@media screen and (max-width: 768px)": {
-            "#landing-logo": {
-                "transform": "scale(0.7)",
-            },
-        },
-        "@media screen and (max-width: 627px)": {
-            "#landing-logo": {
-                "transform": "scale(0.55)",
-            },
-        },
-        "@media screen and (max-width: 480px)": {
-            "#landing-logo": {
-                "transform": "scale(0.45)",
-            },
-        },
-    },
-    height="auo"
-)
-
+        height="auo",
+    )

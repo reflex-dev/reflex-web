@@ -2,6 +2,7 @@ import reflex as rx
 
 from pcweb.signup import IndexState
 
+
 def news_letter_text() -> rx.Component:
     return rx.vstack(
         rx.chakra.text(
@@ -11,7 +12,7 @@ def news_letter_text() -> rx.Component:
             font_size=["20px", "20px", "28px", "42px", "42px", "42px"],
             background_clip="text",
             font_weight="bold",
-            line_height="1",            
+            line_height="1",
         ),
         rx.chakra.text(
             " Get the latest updates and news about Reflex.",
@@ -25,6 +26,7 @@ def news_letter_text() -> rx.Component:
         width="100%",
     )
 
+
 def message_group():
     return rx.vstack(
         rx.chakra.text(
@@ -34,7 +36,7 @@ def message_group():
             font_size=["12px", "15px", "22px", "28px", "35px", "35px"],
             background_clip="text",
             font_weight="bold",
-            line_height="1",            
+            line_height="1",
         ),
         rx.link(
             "Sign up for another email",
@@ -42,8 +44,9 @@ def message_group():
             color="#FFFFFF",
             underline="always",
             on_click=IndexState.signup_for_another_user().prevent_default,
-        )
+        ),
     )
+
 
 def news_letter_form() -> rx.Component:
     return rx.el.form(
@@ -80,6 +83,7 @@ def news_letter_form() -> rx.Component:
         on_submit=IndexState.signup,
     )
 
+
 def news_letter_section() -> rx.Component:
     return rx.center(
         rx.cond(
@@ -92,5 +96,5 @@ def news_letter_section() -> rx.Component:
             ),
         ),
         width="100%",
-        padding = "3em",
+        padding="3em",
     )

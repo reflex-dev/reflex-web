@@ -1,4 +1,5 @@
 """Integration tests for all urls in Reflex."""
+
 import os
 import re
 from pathlib import Path
@@ -36,23 +37,25 @@ def check_urls(repo_dir):
             file_path = os.path.join(root, file_name)
 
             try:
-                with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
+                with open(file_path, encoding="utf-8", errors="ignore") as file:
                     for line in file:
                         urls = url_pattern.findall(line)
                         for url in set(urls):
                             if url.startswith("http://"):
                                 errors.append(
-                                    f"Found insecure HTTP URL: {url} in {file_path}"
+                                    f"Found insecure HTTP URL: {url} in {file_path}",
                                 )
-                            url = url.strip('"\n\'')
+                            url = url.strip("\"\n'")
                             try:
                                 response = requests.head(
-                                    url, allow_redirects=False, timeout=5
+                                    url,
+                                    allow_redirects=False,
+                                    timeout=5,
                                 )
                                 response.raise_for_status()
                             except requests.RequestException as e:
                                 errors.append(
-                                    f"Error accessing URL: {url} in {file_path} | Error: {e}, , Check your path ends with a /"
+                                    f"Error accessing URL: {url} in {file_path} | Error: {e}, , Check your path ends with a /",
                                 )
             except Exception as e:
                 errors.append(f"Error reading file: {file_path} | Error: {e}")
@@ -64,7 +67,7 @@ def check_urls(repo_dir):
     "repo_dir",
     [Path(__file__).resolve().parent.parent],
 )
-def test_find_and_check_urls(repo_dir):
+def test_find_and_check_urls(repo_dir) -> None:
     """Test that all URLs in the repo are valid and secure.
 
     Args:

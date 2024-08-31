@@ -63,7 +63,6 @@ PIXEL_INSTANTLY_SCRIPT_URL: str = "https://r2.leadsy.ai/tag.js"
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:
-
     return [
         rx.el.script(
             src=PIXEL_CLEARBIT_SCRIPT_URL,

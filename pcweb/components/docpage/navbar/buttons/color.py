@@ -1,9 +1,8 @@
 import reflex as rx
-from .style import new_button_style
 from pcweb.styles.colors import c_color
-
-
 from reflex.style import toggle_color_mode
+
+from .style import new_button_style
 
 
 def color() -> rx.Component:

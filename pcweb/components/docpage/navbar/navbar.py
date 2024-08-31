@@ -1,40 +1,33 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
-
-from pcweb.pages.docs import (
-    wrapping_react,
-    styling,
-    custom_components as custom_c,
-    getting_started,
-    hosting,
-)
-from pcweb.pages.docs.library import library
+from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
+from pcweb.constants import CONTRIBUTING_URL
+from pcweb.constants import GITHUB_DISCUSSIONS_URL
+from pcweb.constants import ROADMAP_URL
+from pcweb.pages.blog import blogs
+from pcweb.pages.blog.paths import blog_data
+from pcweb.pages.changelog import changelog
+from pcweb.pages.docs import custom_components as custom_c
+from pcweb.pages.docs import getting_started
+from pcweb.pages.docs import hosting
+from pcweb.pages.docs import styling
+from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.custom_components import custom_components
 from pcweb.pages.docs.gallery import gallery
-from .buttons.github import github
-from .buttons.discord import new_discord
+from pcweb.pages.docs.library import library
+from pcweb.pages.errors import errors
+from pcweb.pages.faq import faq
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.fonts import small
+from pcweb.styles.fonts import small_semibold
+
 from .buttons.color import color
+from .buttons.discord import new_discord
+from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-from .state import NavbarState
-
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.pages.docs.library import library
-from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
-from pcweb.pages.docs.gallery import gallery
-
-from pcweb.pages.blog.paths import blog_data
-
-# from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
-from pcweb.styles.fonts import small, small_semibold, base
-from pcweb.styles.colors import c_color
-from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
-from pcweb.styles.shadows import shadows
-from pcweb.constants import CONTRIBUTING_URL, GITHUB_DISCUSSIONS_URL, ROADMAP_URL
 
 
 def resource_header(text, url):
@@ -58,6 +51,7 @@ def resources_item(text, url, icon):
         ),
         href=url,
     )
+
 
 def menu_trigger():
     return rx.flex(
@@ -99,11 +93,15 @@ def menu_content():
                     spacing="1",
                 ),
                 resources_item(
-                    "Community Library", custom_components.path, "library-big"
+                    "Community Library",
+                    custom_components.path,
+                    "library-big",
                 ),
                 resources_item("Wrapping React", wrapping_react.overview.path, "atom"),
                 resources_item(
-                    "Publishing Components", custom_c.overview.path, "globe"
+                    "Publishing Components",
+                    custom_c.overview.path,
+                    "globe",
                 ),
                 direction="column",
                 align_items="start",
@@ -132,18 +130,11 @@ def menu_content():
 #         nav_menu.list(
 #             nav_menu.item(
 #                 nav_menu.trigger(
-#                     menu_trigger(),
-#                     style=None,
 #                 ),
 #                 nav_menu.content(
-#                     menu_content(),
 #                 ),
 #             ),
-#             background_color="transparent",
 #         ),
-#         nav_menu.indicator(className="Arrow"),
-#         nav_menu.viewport(),
-#     )
 
 
 def resource_item(text: str, url: str, icon: str, width: str = "236px"):
@@ -254,7 +245,7 @@ def blog_section() -> rx.Component:
         rx.hstack(
             rx.link(
                 rx.moment(
-                    str(list(blog_data.values())[0].metadata["date"]),
+                    str(next(iter(blog_data.values())).metadata["date"]),
                     format="MMM DD, YYYY",
                     style={
                         "overflow": "hidden",
@@ -275,7 +266,7 @@ def blog_section() -> rx.Component:
                 rx.spacer(),
                 rx.hstack(
                     rx.text(
-                        list(blog_data.values())[0].metadata["title"],
+                        next(iter(blog_data.values())).metadata["title"],
                         color="white",
                         **base,
                         style={
@@ -303,7 +294,7 @@ def blog_section() -> rx.Component:
                 rx.box(
                     position="absolute",
                     inset="0",
-                    background_image=f'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 25%), url({list(blog_data.values())[0].metadata["image"]})',
+                    background_image=f'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 25%), url({next(iter(blog_data.values())).metadata["image"]})',
                     background_size="cover",
                     background_position="center",
                     background_repeat="no-repeat",
@@ -327,7 +318,7 @@ def blog_section() -> rx.Component:
                 gap="6px",
                 flex_direction="column",
                 justify_content="start",
-                href="/" + list(blog_data.keys())[0],
+                href="/" + next(iter(blog_data.keys())),
                 underline="none",
             ),
             rx.vstack(
@@ -450,7 +441,10 @@ def components_section() -> rx.Component:
             rx.heading("Custom Components", as_="h3", style=h3_style),
             rx.unordered_list(
                 resource_item(
-                    "Community Library", custom_components.path, "blocks", width="280px"
+                    "Community Library",
+                    custom_components.path,
+                    "blocks",
+                    width="280px",
                 ),
                 resource_item(
                     "Wrapping React",
@@ -489,7 +483,11 @@ def components_section() -> rx.Component:
     )
 
 
-def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
+def new_menu_trigger(
+    title: str,
+    url: str | None = None,
+    active_str: str = "",
+) -> rx.Component:
     text_style = {
         "transition": "color 0.035s ease-out",
         "padding": "22.5px 0px",
@@ -506,7 +504,7 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
             title,
             style=text_style,
             display=["none", "none", "none", "none", "flex", "flex"],
-        )
+        ),
     )
 
 
@@ -584,7 +582,8 @@ def new_component_section() -> rx.Component:
                 display=["none", "none", "none", "none", "flex", "flex"],
             ),
             new_nav_menu.item(
-                color(), display=["none", "none", "none", "none", "flex", "flex"]
+                color(),
+                display=["none", "none", "none", "none", "flex", "flex"],
             ),
             new_nav_menu.item(
                 navbar_sidebar_button(),
@@ -626,7 +625,9 @@ def link_item(name: str, url: str, active_str: str = ""):
         "text-decoration": "none !important",
         "transition": "color 0.035s ease-out",
         "box_shadow": rx.cond(
-            active, f"inset 0 -1px 0 0 {c_color('violet', 9)}", "none"
+            active,
+            f"inset 0 -1px 0 0 {c_color('violet', 9)}",
+            "none",
         ),
         "padding": "22.5px 0px",
         ":hover": {

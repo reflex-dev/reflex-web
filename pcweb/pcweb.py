@@ -4,11 +4,14 @@ import os
 import sys
 
 import reflex as rx
+
 from pcweb import styles
-from pcweb.pages import page404, routes
-from pcweb.pages.docs import outblocks, exec_blocks
-from pcweb.whitelist import _check_whitelisted_path
+from pcweb.pages import page404
+from pcweb.pages import routes
+from pcweb.pages.docs import exec_blocks
+from pcweb.pages.docs import outblocks
 from pcweb.scripts import get_pixel_website_trackers
+from pcweb.whitelist import _check_whitelisted_path
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -37,7 +40,7 @@ if sys.platform == "win32":
     if not os.environ.get("REFLEX_WEB_WINDOWS_OVERRIDE"):
         raise RuntimeError(
             "reflex-web cannot be built on Windows due to EMFILE error. To build a "
-            "subset of pages for testing, set environment variable REFLEX_WEB_WINDOWS_OVERRIDE."
+            "subset of pages for testing, set environment variable REFLEX_WEB_WINDOWS_OVERRIDE.",
         )
     routes = routes[:WINDOWS_MAX_ROUTES]
 
@@ -95,14 +98,15 @@ import sys
 import threading
 import traceback
 
-def dump_stacks(signal_number, frame):
+
+def dump_stacks(signal_number, frame) -> None:
     print(f"Signal {signal_number} received! Dumping all thread stacks...\n")
     for thread_id, thread in threading._active.items():
         print(f"\nThread ID: {thread_id} Name: {thread.name}")
         stack = sys._current_frames()[thread_id]
         traceback.print_stack(stack)
 
-def setup_signal_handler():
+def setup_signal_handler() -> None:
     print("Setting up USR1 signal")
     signal.signal(signal.SIGUSR1, dump_stacks)
 

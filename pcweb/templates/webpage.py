@@ -1,6 +1,7 @@
-from typing import Callable
+from collections.abc import Callable
 
 import reflex as rx
+
 from pcweb import styles
 from pcweb.route import Route
 
@@ -51,7 +52,7 @@ def spotlight():
     </div>
   </body>
 </html>
-"""
+""",
         ),
         z_index=-1,
         position="absolute",
@@ -63,7 +64,12 @@ def spotlight():
     )
 
 
-def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True) -> Callable:
+def webpage(
+    path: str,
+    title: str = DEFAULT_TITLE,
+    props=None,
+    add_as_page=True,
+) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -133,7 +139,7 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True)
             title=title,
             background_color="#131217",
             component=wrapper,
-            add_as_page=add_as_page
+            add_as_page=add_as_page,
         )
 
     return webpage

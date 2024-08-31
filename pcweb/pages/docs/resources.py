@@ -1,5 +1,9 @@
 import reflex as rx
-from pcweb.templates.docpage import docpage, h1_comp, h2_comp, text_comp
+
+from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import h1_comp
+from pcweb.templates.docpage import h2_comp
+from pcweb.templates.docpage import text_comp
 
 
 def video(title, author, url):
@@ -8,7 +12,7 @@ def video(title, author, url):
             rx.hstack(
                 rx.text(title, font_size="1.2em"),
                 rx.badge(author, color_scheme="green", margin_left="1em"),
-            )
+            ),
         ),
         href=url,
     )
@@ -23,7 +27,7 @@ def launch(title, platform, url):
             rx.hstack(
                 rx.text(title, font_size="1.2em"),
                 rx.badge(platform, color_scheme=colors[platform], margin_left="1em"),
-            )
+            ),
         ),
         href=url,
     )
@@ -144,7 +148,7 @@ def resources():
             rx.box(
                 h1_comp(text="Resources"),
                 text_comp(
-                    text="Here are some resources to help you get started with Reflex."
+                    text="Here are some resources to help you get started with Reflex.",
                 ),
                 text_comp(
                     text="All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at alek@pynecone.io "

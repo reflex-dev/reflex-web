@@ -3,23 +3,22 @@
 from __future__ import annotations
 
 import reflex as rx
-from pcweb import styles
 from pcweb.components.docpage.navbar.state import NavbarState
-from pcweb.route import Route
-from .state import SidebarState, SidebarItem
-
-from .sidebar_items.learn import learn, frontend, backend, hosting
-from .sidebar_items.component_lib import (
-    get_component_link,
-    component_lib,
-    graphing_libs,
-)
-from .sidebar_items.reference import api_reference, tutorials
-from .sidebar_items.recipes import recipes
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import small
 from pcweb.styles.shadows import shadows
 
+from .sidebar_items.component_lib import component_lib
+from .sidebar_items.component_lib import graphing_libs
+from .sidebar_items.learn import backend
+from .sidebar_items.learn import frontend
+from .sidebar_items.learn import hosting
+from .sidebar_items.learn import learn
+from .sidebar_items.recipes import recipes
+from .sidebar_items.reference import api_reference
+from .sidebar_items.reference import tutorials
+from .state import SidebarItem
+from .state import SidebarState
 
 heading_style2 = {
     "background_color": rx.color("accent", 3),
@@ -66,7 +65,7 @@ def sidebar_leaf(item: SidebarItem, url: str) -> rx.Component:
                 ),
                 border="none",
                 width="100%",
-            )
+            ),
         )
         if item.outer
         else rx.list_item(
@@ -99,7 +98,7 @@ def sidebar_leaf(item: SidebarItem, url: str) -> rx.Component:
                             padding="0px 8px 0px 28px",
                             border_left=f"1.5px solid {c_color('slate', 4)}",
                             _hover={
-                                "border_left": f"1.5px solid {c_color('slate', 8)}"
+                                "border_left": f"1.5px solid {c_color('slate', 8)}",
                             },
                         ),
                         href=item.link,
@@ -107,7 +106,7 @@ def sidebar_leaf(item: SidebarItem, url: str) -> rx.Component:
                 ),
                 border="none",
                 width="100%",
-            )
+            ),
         )
     )
 
@@ -209,12 +208,15 @@ def calculate_index(sidebar_items, url: str) -> list[int]:
             return [i - sub]
         index = calculate_index(item.children, url)
         if index:
-            return [i - sub] + index
+            return [i - sub, *index]
 
     return index_list
 
 
-def append_to_items(items, flat_items):
+def append_to_items(
+    items,
+    flat_items,
+) -> None:
     for item in items:
         if not item.children:
             flat_items.append(item)
@@ -287,7 +289,9 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                     background_color=c_color("violet", 9),
                     border_radius="50%",
                     visibility=rx.cond(
-                        SidebarState.sidebar_index == index, "visible", "hidden"
+                        SidebarState.sidebar_index == index,
+                        "visible",
+                        "hidden",
                     ),
                 ),
                 _hover={"background_color": c_color("slate", 3)},
@@ -380,18 +384,15 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-
-    from pcweb.pages.docs.recipes_overview import overview
-    from pcweb.pages.docs.library import library
-    from pcweb.pages.docs.custom_components import custom_components
-    from pcweb.pages.docs import (
-        getting_started,
-        state,
-        ui,
-        hosting as hosting_page,
-        datatable_tutorial,
-    )
+    from pcweb.pages.docs import datatable_tutorial
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs import hosting as hosting_page
+    from pcweb.pages.docs import state
+    from pcweb.pages.docs import ui
     from pcweb.pages.docs.apiref import pages
+    from pcweb.pages.docs.custom_components import custom_components
+    from pcweb.pages.docs.library import library
+    from pcweb.pages.docs.recipes_overview import overview
 
     ul_style = {
         "display": "flex",
@@ -402,7 +403,10 @@ def sidebar_comp(
     return rx.flex(
         rx.unordered_list(
             sidebar_category(
-                "Learn", getting_started.introduction.path, "graduation-cap", 0
+                "Learn",
+                getting_started.introduction.path,
+                "graduation-cap",
+                0,
             ),
             sidebar_category("Components", library.path, "layout-panel-left", 1),
             sidebar_category("Recipes", overview.path, "scan-text", 2),
@@ -432,7 +436,11 @@ def sidebar_comp(
                         url,
                     ),
                     create_sidebar_section(
-                        "State", state.overview.path, backend, backend_index, url
+                        "State",
+                        state.overview.path,
+                        backend,
+                        backend_index,
+                        url,
                     ),
                     create_sidebar_section(
                         "Hosting",
@@ -452,7 +460,11 @@ def sidebar_comp(
                 1,
                 rx.unordered_list(
                     create_sidebar_section(
-                        "Core", library.path, component_lib, component_lib_index, url
+                        "Core",
+                        library.path,
+                        component_lib,
+                        component_lib_index,
+                        url,
                     ),
                     create_sidebar_section(
                         "Graphing",
@@ -512,7 +524,11 @@ def sidebar_comp(
                 2,
                 rx.unordered_list(
                     create_sidebar_section(
-                        "Recipes", overview.path, recipes, recipes_index, url
+                        "Recipes",
+                        overview.path,
+                        recipes,
+                        recipes_index,
+                        url,
                     ),
                     style=ul_style,
                     margin_left="0px !important",

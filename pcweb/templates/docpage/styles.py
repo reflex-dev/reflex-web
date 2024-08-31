@@ -1,6 +1,6 @@
+from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import small
 from pcweb.styles.shadows import shadows
-from pcweb.styles.colors import c_color
 
 thumb_pill_style = {
     "display": "flex",
@@ -117,7 +117,6 @@ feedback_box_style = {
     "height": "auto",
     "max-height": "564px",
     "background-color": c_color("white", 1),
-    # "border": f"1px solid {stroke_color}",
     "box-shadow": shadows["large"],
     "border-radius": "26px",
 }

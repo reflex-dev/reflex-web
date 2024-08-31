@@ -2,10 +2,8 @@ from .item import create_item
 
 
 def get_sidebar_items_learn():
-    from pcweb.pages.docs import (
-        getting_started,
-        tutorial,
-    )
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs import tutorial
 
     items = [
         create_item(
@@ -33,16 +31,13 @@ def get_sidebar_items_learn():
 
 
 def get_sidebar_items_frontend():
-    from pcweb.pages.docs import (
-        assets,
-        components,
-        library_,
-        pages,
-        styling,
-        ui,
-        wrapping_react,
-        custom_components,
-    )
+    from pcweb.pages.docs import assets
+    from pcweb.pages.docs import components
+    from pcweb.pages.docs import custom_components
+    from pcweb.pages.docs import library_
+    from pcweb.pages.docs import pages
+    from pcweb.pages.docs import styling
+    from pcweb.pages.docs import wrapping_react
 
     items = [
         create_item(
@@ -104,17 +99,14 @@ def get_sidebar_items_frontend():
 
 
 def get_sidebar_items_backend():
-    from pcweb.pages.docs import (
-        api_routes,
-        authentication,
-        client_storage,
-        database,
-        events,
-        state,
-        substates,
-        utility_methods,
-        vars,
-    )
+    from pcweb.pages.docs import api_routes
+    from pcweb.pages.docs import authentication
+    from pcweb.pages.docs import client_storage
+    from pcweb.pages.docs import database
+    from pcweb.pages.docs import events
+    from pcweb.pages.docs import substates
+    from pcweb.pages.docs import utility_methods
+    from pcweb.pages.docs import vars
 
     items = [
         create_item(

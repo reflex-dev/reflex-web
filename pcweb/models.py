@@ -1,5 +1,6 @@
 import reflex as rx
 
+
 class Customer(rx.Model, table=True):
     """The customer model."""
 

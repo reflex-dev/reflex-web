@@ -1,4 +1,5 @@
 import reflex as rx
+
 from .style import button_style
 
 
@@ -28,9 +29,9 @@ def sidebar_drawer(sidebar: rx.Component, trigger):
                 backdrop_filter="blur(20px)",
             ),
         ),
-        direction="top", 
+        direction="top",
     )
- 
+
 
 def sidebar_button(sidebar) -> rx.Component:
     return rx.flex(

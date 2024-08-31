@@ -1,4 +1,5 @@
 import reflex as rx
+
 from ..state import SidebarItem
 
 
@@ -31,7 +32,6 @@ def get_category_children(category, category_list, prefix=""):
 
 def get_sidebar_items_component_lib():
     from pcweb.pages.docs import component_list
-    from pcweb.pages.docs.library import library
 
     library_item_children = []
 
@@ -50,13 +50,16 @@ def get_sidebar_items_graphings():
     graphing_children = []
     for category in graphing_components:
         category_item = get_category_children(
-            category, graphing_components[category], prefix="graphing/"
+            category,
+            graphing_components[category],
+            prefix="graphing/",
         )
         graphing_children.append(category_item)
 
     return [
-        *graphing_children
-        ]
+        *graphing_children,
+    ]
+
 
 component_lib = get_sidebar_items_component_lib()
 graphing_libs = get_sidebar_items_graphings()

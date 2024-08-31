@@ -1,20 +1,27 @@
 """Template for documentation pages."""
 
-from typing import Callable
+from collections.abc import Callable
 
-import reflex as rx
 import flexdown
 import mistletoe
-from pcweb.route import Route, get_path
+import reflex as rx
+from reflex.components.radix.themes.base import LiteralAccentColor
+
+import pcweb.templates.docpage.styles as st
+from pcweb.components.icons.icons import get_icon
+from pcweb.constants import DISCORD_URL
+from pcweb.constants import GITHUB_URL
+from pcweb.constants import TWITTER_URL
+from pcweb.route import Route
+from pcweb.route import get_path
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import medium
+from pcweb.styles.fonts import small
+from pcweb.styles.fonts import small_semibold
+from pcweb.styles.shadows import shadows
+
 from .blocks import *
 from .state import FeedbackState
-from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
-from pcweb.styles.fonts import small, medium, small_semibold
-from pcweb.styles.shadows import shadows
-import pcweb.templates.docpage.styles as st
-from reflex.components.radix.themes.base import LiteralAccentColor
-from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
 
 # Docpage styles.
 link_style = {
@@ -55,7 +62,7 @@ def footer_link(text: str, href: str):
         style={
             ":hover": {
                 "color": c_color("slate", 11),
-            }
+            },
         },
         transition="color 0.075s ease-out",
         href=href,
@@ -77,7 +84,9 @@ def thumb_card(score: int, icon: str) -> rx.Component:
         rx.icon(
             tag=icon,
             color=rx.cond(
-                FeedbackState.score == score, c_color("slate", 11), c_color("slate", 9)
+                FeedbackState.score == score,
+                c_color("slate", 11),
+                c_color("slate", 9),
             ),
             size=16,
         ),
@@ -91,7 +100,9 @@ def thumb_card(score: int, icon: str) -> rx.Component:
         justify_content="center",
         border=f"1px solid {c_color('slate', 4)}",
         background_color=rx.cond(
-            FeedbackState.score == score, c_color("slate", 3), c_color("white", 1)
+            FeedbackState.score == score,
+            c_color("slate", 3),
+            c_color("white", 1),
         ),
         _hover={
             "background_color": c_color("slate", 3),
@@ -155,7 +166,7 @@ def feedback_content() -> rx.Component:
                             ),
                         ),
                         rx.popover.close(
-                            rx.el.button("Cancel", style=st.cancel_button_style)
+                            rx.el.button("Cancel", style=st.cancel_button_style),
                         ),
                         align="center",
                         justify="between",
@@ -331,16 +342,17 @@ def menu_socials() -> rx.Component:
 
 @rx.memo
 def docpage_footer(path: str):
-    from pcweb.pages.docs.gallery import gallery
-    from pcweb.pages.docs import getting_started, hosting
-    from pcweb.pages.docs.library import library
-    from pcweb.pages.changelog import changelog
+    from pcweb.constants import GITHUB_DISCUSSIONS_URL
+    from pcweb.constants import ROADMAP_URL
     from pcweb.pages.blog import blogs
     from pcweb.pages.changelog import changelog
-    from pcweb.pages.faq import faq
+    from pcweb.pages.docs import getting_started
+    from pcweb.pages.docs import hosting
+    from pcweb.pages.docs.gallery import gallery
+    from pcweb.pages.docs.library import library
     from pcweb.pages.errors import errors
+    from pcweb.pages.faq import faq
     from pcweb.signup import IndexState
-    from pcweb.constants import ROADMAP_URL, GITHUB_DISCUSSIONS_URL
 
     return rx.el.footer(
         rx.flex(
@@ -377,7 +389,7 @@ def docpage_footer(path: str):
                     link_pill(
                         "Raise an issue",
                         href=f"https://github.com/reflex-dev/reflex-web/issues/new?title=Issue with reflex.dev documentation&amp;body=Path: {path}",
-                    )
+                    ),
                 ),
                 rx.desktop_only(
                     link_pill(
@@ -403,16 +415,6 @@ def docpage_footer(path: str):
                 display=["flex", "flex", "none", "none", "none"],
             ),
             # rx.flex(
-            #     link_pill("Home", "/"),
-            #     link_pill("Gallery", gallery.path),
-            #     link_pill("Changelog", changelog.path),
-            #     link_pill("Introduction", getting_started.introduction.path),
-            #     link_pill("Hosting", hosting.deploy_quick_start.path),
-            #     gap="8px",
-            #     flex_direction=["column", "column", "row", "row", "row"],
-            #     flex_shrink=0,
-            #     width=["100%", "100%", "auto", "auto", "auto"],
-            #     display=["none", "none", "none", "none", "none"], # Replaced for the new footer layout
             # ),
             justify="between",
             padding_y="0px",
@@ -643,7 +645,7 @@ def breadcrumb(path, nav_sidebar):
                 color=c_color("slate", 9),
                 style=small,
                 **(overflow_style if i == len(segments) - 1 else {}),
-            )
+            ),
         )
 
         # If it's not the last segment, add a separator
@@ -662,7 +664,7 @@ def breadcrumb(path, nav_sidebar):
                     display=["flex", "flex", "flex", "flex", "none", "none"],
                     style=small,
                     color=c_color("slate", 8),
-                )
+                ),
             )
 
     # Return the list of breadcrumb items with separators
@@ -771,7 +773,9 @@ def get_toc(source, href, component_list=None):
 
 
 def docpage(
-    set_path: str | None = None, t: str | None = None, right_sidebar: bool = True
+    set_path: str | None = None,
+    t: str | None = None,
+    right_sidebar: bool = True,
 ) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
@@ -867,7 +871,7 @@ def docpage(
                             ":hover": {"color": c_color("slate", 11)},
                         },
                         width=["100%", "100%", "auto", "auto", "auto"],
-                    )
+                    ),
                 )
             else:
                 links.append(rx.box())
@@ -1019,7 +1023,7 @@ def docpage(
                                                 href=path
                                                 + "#"
                                                 + text.lower().replace(" ", "-"),
-                                            )
+                                            ),
                                         )
                                         if level == 1
                                         else (
@@ -1035,7 +1039,8 @@ def docpage(
                                                         **small,
                                                         ":hover": {
                                                             "color": c_color(
-                                                                "slate", 11
+                                                                "slate",
+                                                                11,
                                                             ),
                                                         },
                                                     },
@@ -1046,7 +1051,7 @@ def docpage(
                                                     href=path
                                                     + "#"
                                                     + text.lower().replace(" ", "-"),
-                                                )
+                                                ),
                                             )
                                             if level == 2
                                             else rx.list_item(
@@ -1061,7 +1066,8 @@ def docpage(
                                                         **small,
                                                         ":hover": {
                                                             "color": c_color(
-                                                                "slate", 11
+                                                                "slate",
+                                                                11,
                                                             ),
                                                         },
                                                     },
@@ -1073,7 +1079,7 @@ def docpage(
                                                     href=path
                                                     + "#"
                                                     + text.lower().replace(" ", "-"),
-                                                )
+                                                ),
                                             )
                                         )
                                     )
@@ -1150,7 +1156,6 @@ def hover_item(component: rx.Component, component_str: str) -> rx.Component:
     return rx.hover_card.root(
         rx.hover_card.trigger(rx.flex(component)),
         rx.hover_card.content(
-            # rx.code_block(f"{component_str}", can_copy=True, language="python"),
             rx.el.button(
                 get_icon(icon="copy", padding="5px"),
                 rx.text(
@@ -1223,7 +1228,7 @@ def used_component(
             **kwargs,
         )
 
-    elif components_passed is not None and disabled is False:
+    if components_passed is not None and disabled is False:
         return component_used(
             components_passed,
             color_scheme=color_scheme,
@@ -1232,7 +1237,7 @@ def used_component(
             **kwargs,
         )
 
-    elif components_passed is None and disabled is True:
+    if components_passed is None and disabled is True:
         return component_used(
             color_scheme=color_scheme,
             variant=variant,
@@ -1241,15 +1246,14 @@ def used_component(
             **kwargs,
         )
 
-    else:
-        return component_used(
-            components_passed,
-            color_scheme=color_scheme,
-            variant=variant,
-            high_contrast=high_contrast,
-            disabled=True,
-            **kwargs,
-        )
+    return component_used(
+        components_passed,
+        color_scheme=color_scheme,
+        variant=variant,
+        high_contrast=high_contrast,
+        disabled=True,
+        **kwargs,
+    )
 
 
 def style_grid(
@@ -1269,7 +1273,9 @@ def style_grid(
                 for variant in variants
             ],
             rx.text(
-                "Accent", style=text_style, color=f"var(--{RadixDocState.color}-10)"
+                "Accent",
+                style=text_style,
+                color=f"var(--{RadixDocState.color}-10)",
             ),
             *[
                 hover_item(
@@ -1364,7 +1370,7 @@ def style_grid(
                         rx.text(RadixDocState.color, style=small),
                         # Match the select.trigger svg icon
                         rx.html(
-                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
+                            """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>""",
                         ),
                         color_scheme=RadixDocState.color,
                         width="8em",
@@ -1387,7 +1393,9 @@ def style_grid(
                                 left="50%",
                                 transform="translate(-50%, -50%)",
                                 display=rx.cond(
-                                    RadixDocState.color == color, "block", "none"
+                                    RadixDocState.color == color,
+                                    "block",
+                                    "none",
                                 ),
                             ),
                             width="30px",
@@ -1419,7 +1427,9 @@ def style_grid(
 
 
 def icon_grid(
-    category_name: str, icon_tags: list[str], columns: str = "4"
+    category_name: str,
+    icon_tags: list[str],
+    columns: str = "4",
 ) -> rx.Component:
     return rx.flex(
         rx.callout.root(
@@ -1428,7 +1438,7 @@ def icon_grid(
                     tag="circle_check_big",
                     width=18,
                     height=18,
-                )
+                ),
             ),
             rx.callout.text(
                 f"Below is a list of all available ",

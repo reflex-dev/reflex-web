@@ -1,8 +1,9 @@
 """App styling."""
-from pcweb.styles.colors import c_color
-import pcweb.styles.fonts as fonts
 
 import reflex as rx
+
+from pcweb.styles import fonts
+from pcweb.styles.colors import c_color
 
 font_weights = {
     "bold": "800",
@@ -22,6 +23,7 @@ def get_code_style(color: str):
         "line_height": "1.5",
     }
 
+
 def get_code_style_rdx(color: str):
     return {
         "color": rx.color(color, 11),
@@ -31,6 +33,7 @@ def get_code_style_rdx(color: str):
         **fonts.code,
         "line_height": "1.5",
     }
+
 
 cell_style = {
     **fonts.small,
@@ -52,7 +55,7 @@ tab_style = {
     },
     "not:&[data-state='active']": {
         "color": c_color("slate", 11),
-    }
+    },
 }
 
 
@@ -97,8 +100,8 @@ BASE_STYLE = {
     rx.chakra.link: {"text_decoration": "none", "_hover": {}},
     rx.markdown: {
         "background": "transparent",
-    }
-} 
+    },
+}
 
 # Fonts to include.
 STYLESHEETS = [

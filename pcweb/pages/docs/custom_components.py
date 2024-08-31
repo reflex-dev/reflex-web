@@ -1,13 +1,17 @@
-import reflex as rx
-import httpx
 import json
+
+import httpx
+import reflex as rx
 from rxconfig import config
 
-from pcweb.templates.docpage import docpage, h1_comp
-from pcweb.styles.colors import c_color
-from pcweb.styles.shadows import shadows
-from pcweb.styles.fonts import base_semibold, small, base
 from pcweb.components.icons.icons import get_icon
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.fonts import base_semibold
+from pcweb.styles.fonts import small
+from pcweb.styles.shadows import shadows
+from pcweb.templates.docpage import docpage
+from pcweb.templates.docpage import h1_comp
 
 
 class CustomComponentGalleryState(rx.State):
@@ -18,7 +22,7 @@ class CustomComponentGalleryState(rx.State):
     selected_filter: str = ""
     original_components_list: list[dict[str, str]] = []
 
-    def fetch_components_list(self):
+    def fetch_components_list(self) -> None:
         try:
             response = httpx.get(f"{config.cp_backend_url}/custom-components/gallery")
             response.raise_for_status()
@@ -40,7 +44,10 @@ class CustomComponentGalleryState(rx.State):
         self.components_list = component_list
         self.original_components_list = component_list
 
-    def set_selected_filter(self, filter):
+    def set_selected_filter(
+        self,
+        filter,
+    ) -> None:
         if self.selected_filter == filter:
             self.selected_filter = ""
             self.components_list = self.original_components_list
@@ -48,10 +55,15 @@ class CustomComponentGalleryState(rx.State):
             self.selected_filter = filter
             self.sort_by_filter(filter)
 
-    def sort_by_filter(self, filter):
+    def sort_by_filter(
+        self,
+        filter,
+    ) -> None:
         if filter == "Recent":
             self.components_list = sorted(
-                self.components_list, key=lambda x: x["created_at"], reverse=True
+                self.components_list,
+                key=lambda x: x["created_at"],
+                reverse=True,
             )
         elif filter == "Downloads":
             self.components_list = sorted(
@@ -62,7 +74,10 @@ class CustomComponentGalleryState(rx.State):
 
 
 def filter_item(
-    icon: str, text: str, border: bool = False, on_click=None
+    icon: str,
+    text: str,
+    border: bool = False,
+    on_click=None,
 ) -> rx.Component:
     is_selected = CustomComponentGalleryState.selected_filter == text
     return rx.hstack(

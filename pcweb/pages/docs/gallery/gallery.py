@@ -1,8 +1,8 @@
 import reflex as rx
 
 from pcweb.templates.webpage import webpage
-from .state import SideBarState
 
+from .state import SideBarState
 
 border_radius = ("0.375rem",)
 box_shadow = ("0px 0px 0px 1px rgba(84, 82, 95, 0.14)",)
@@ -58,7 +58,7 @@ def add_item(category):
                 justify="between",
                 width="100%",
             ),
-            #rx.text(category["summary"], size="2", color="#8E8EA8"),
+            # rx.text(category["summary"], size="2", color="#8E8EA8"),
             align_items="start",
             width="100%",
             padding_top="1em",
@@ -107,6 +107,7 @@ def pagination():
         width="100%",
         padding_x="1em",
     )
+
 
 def sidebar_component_grid(tags):
     return rx.chakra.wrap(
@@ -181,8 +182,9 @@ def sort_by():
             value=SideBarState.sort_by,
             on_change=SideBarState.set_sort_by,
         ),
-        width="100%",  
+        width="100%",
     )
+
 
 @webpage(path="/docs/gallery/", title="Gallery · Reflex")
 def gallery() -> rx.Component:

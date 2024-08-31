@@ -1,5 +1,4 @@
 """The state for the navbar component."""
-import os
 
 import reflex as rx
 
@@ -20,14 +19,17 @@ class NavbarState(rx.State):
 
     current_category = "All"
 
-    def toggle_banner(self):
+    def toggle_banner(self) -> None:
         self.banner = not self.banner
 
-    def toggle_sidebar(self):
+    def toggle_sidebar(self) -> None:
         self.sidebar_open = not self.sidebar_open
 
-    def toggle_ai_chat(self):
+    def toggle_ai_chat(self) -> None:
         self.ai_chat = not self.ai_chat
 
-    def update_category(self, tag):
+    def update_category(
+        self,
+        tag,
+    ) -> None:
         self.current_category = tag

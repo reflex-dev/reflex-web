@@ -1,15 +1,18 @@
 import reflex as rx
-from .form_implementations.profile_form import profile_form
+
 from ..style import demo_height
+from .form_implementations.profile_form import profile_form
+
 
 class FormsState(rx.State):
     clicked: str = "Account"
 
-    def set_clicked(self, option: str):
+    def set_clicked(self, option: str) -> None:
         self.clicked = option
 
     def get_clicked(self):
         return self.clicked
+
 
 def sidebar_button(name, is_selected):
     return rx.button(
@@ -27,6 +30,7 @@ def sidebar_button(name, is_selected):
         width="100%",
     )
 
+
 def sidebar():
     return rx.vstack(
         sidebar_button("General", FormsState.clicked == "General"),
@@ -39,16 +43,18 @@ def sidebar():
         display=["none", "none", "flex", "flex", "flex", "flex"],
     )
 
+
 def form_content():
     return profile_form()
+
 
 def settings():
     return rx.vstack(
         rx.heading(
-            "Platform Settings", 
+            "Platform Settings",
             color=rx.color("mauve", 12),
             font_weight="600",
-            size="5"
+            size="5",
         ),
         rx.text(
             "All of your settings and preferences in one place.",
@@ -62,6 +68,7 @@ def settings():
         border_bottom=f"1px solid {rx.color('mauve', 4)}",
     )
 
+
 def content():
     return rx.hstack(
         sidebar(),
@@ -70,6 +77,7 @@ def content():
         width="100%",
         align_items="start",
     )
+
 
 def forms():
     return rx.fragment(
