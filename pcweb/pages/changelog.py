@@ -68,6 +68,19 @@ def change(date, title, description, points, link):
 def changelog_content():
     return rx.chakra.vstack(
         change(
+            "2024-08-27",
+            "v0.5.10",
+            "Bug Fixes",
+            [
+                "Move chakra components into its repo (reflex-chakra)",
+                "Fix import clash between connectionToaster and hooks.useState",
+                "Fix various line_chart issues",
+                "Validate Toast Props",
+                "Use different registry when in china",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.5.10",
+        ),
+        change(
             "2024-08-06",
             "v0.5.9",
             "Bug Fixes",
