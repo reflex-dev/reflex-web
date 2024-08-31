@@ -25,7 +25,6 @@ lint:
   enabled:
     - actionlint@1.7.1
     - bandit@1.7.9
-    - black@24.8.0
     - checkov@3.2.239
     - git-diff-check
     - markdownlint@0.41.0
@@ -42,6 +41,7 @@ lint:
     - yamllint@1.35.1
 
   disabled:
+    - black
     - flake8
     - isort
     - markdown-link-check
