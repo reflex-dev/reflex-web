@@ -107,4 +107,7 @@ def setup_signal_handler():
     signal.signal(signal.SIGUSR1, dump_stacks)
 
 
-setup_signal_handler()
+try:
+    setup_signal_handler()
+except AttributeError:
+    print("Signal handling not supported on this platform")
