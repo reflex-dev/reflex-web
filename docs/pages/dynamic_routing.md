@@ -115,7 +115,7 @@ Each optional catch-all pattern should be independent and not nested within anot
 | Route Pattern                                         | Example URl                                            |    valid |
 |:------------------------------------------------------|:-------------------------------------------------------|---------:|
 | `/users/posts`                                        | `/users/posts`                                         |    valid |
-| `/products/[category]`                                | `/products/electronics`                                |    valid |                                                  |         |
+| `/products/[category]`                                | `/products/electronics`                                |    valid |
 | `/users/[username]/posts/[id]`                       | `/users/john/posts/5`                                  |    valid |
 | `/users/[...username]/posts`                          | `/users/john/posts`                                    |  invalid |
 |                                                       | `/users/john/doe/posts`                                |  invalid |
