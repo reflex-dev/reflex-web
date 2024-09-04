@@ -16,6 +16,10 @@ class Route(Base):
     # The page title.
     title: str | None = None
 
+    description: str | None = None
+
+    meta: dict | None = None
+
     # Background color for the page.
     background_color: str | None = None
 

@@ -4,6 +4,9 @@ date: 2024-04-16
 title: Custom Components
 description: Announcing our custom component ecosystem.
 image: /blog/custom_components.webp
+meta: [
+    {"name": "keywords", "content": ""},
+]
 ---
 
 ```python exec

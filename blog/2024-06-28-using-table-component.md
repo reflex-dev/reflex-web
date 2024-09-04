@@ -4,6 +4,9 @@ date: 2024-06-28
 title: Using Table Component
 description: Describing main uses of the Table component with a Database
 image: /blog/table.webp
+meta: [
+    {"name": "keywords", "content": "data table, table data, data tables, data table example, python data table, python table"},
+]
 ---
 
 ```python exec

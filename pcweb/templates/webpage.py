@@ -63,7 +63,7 @@ def spotlight():
     )
 
 
-def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True) -> Callable:
+def webpage(path: str, title: str = DEFAULT_TITLE, description: str=None, meta: dict={}, props=None, add_as_page=True) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -131,6 +131,8 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True)
         return Route(
             path=path,
             title=title,
+            description=description,
+            meta=meta,
             background_color="#131217",
             component=wrapper,
             add_as_page=add_as_page
