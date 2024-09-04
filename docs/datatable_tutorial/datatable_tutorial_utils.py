@@ -1,9 +1,9 @@
 from __future__ import annotations
+
 import asyncio
 from typing import Any
 
 import httpx
-
 import reflex as rx
 
 
@@ -270,7 +270,7 @@ class DataTableState2(rx.State):
         self.data[row][col] = val["data"]
         self.edited_cell = f"Cell edited: {pos}, Cell value: {val['data']}"
 
-    def get_group_header_right_click(self, index, val):
+    def get_group_header_right_click(self, index, val) -> None:
         self.right_clicked_group_header = f"Group header right clicked at index: {index}, Group header value: {val['group']}"
 
     def get_item_hovered(self, pos) -> str:
@@ -278,15 +278,15 @@ class DataTableState2(rx.State):
             f"Item Hovered type: {pos['kind']}, Location: {pos['location']}"
         )
 
-    def get_deleted_item(self, selection):
+    def get_deleted_item(self, selection) -> None:
         self.deleted = f"Deleted cell: {selection['current']['cell']}"
 
-    def column_resize(self, col, width):
+    def column_resize(self, col, width) -> None:
         self.cols[col["pos"]]["width"] = width
 
 
 class DataTableLiveState(rx.State):
-    "The app state."
+    """The app state."""
 
     running: bool = False
     table_data: list[dict[str, Any]] = []
@@ -307,7 +307,7 @@ class DataTableLiveState(rx.State):
     ]
 
     @rx.background
-    async def live_stream(self):
+    async def live_stream(self) -> None:
         while True:
             await asyncio.sleep(1 / self.rate)
             if not self.running:
@@ -320,10 +320,15 @@ class DataTableLiveState(rx.State):
                 res = httpx.get("https://api.adviceslip.com/advice")
                 data = res.json()
                 self.table_data.append(
-                    {"v1": data["slip"]["id"], "v2": data["slip"]["advice"]}
+                    {
+                        "v1": data["slip"]["id"],
+                        "v2": data["slip"]["advice"],
+                    },
                 )
 
     def toggle_pause(self):
         self.running = not self.running
         if self.running:
             return DataTableLiveState.live_stream
+
+        return None
