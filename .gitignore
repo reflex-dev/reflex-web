@@ -7,6 +7,7 @@
 *.py[cod]
 *.zip
 .idea
+.markdownlint.json
 .venv/
 .web
 __pycache__/

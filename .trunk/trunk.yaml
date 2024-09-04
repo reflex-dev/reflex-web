@@ -11,36 +11,41 @@ plugins:
     - id: trunk
       ref: v1.6.2
       uri: https://github.com/trunk-io/plugins
+
     - id: oss-linter-trunk
-      ref: v0.2024.08.30.18.05
+      ref: v0.2024.09.03.12.59
       uri: https://github.com/reflex-dev/oss-linter-trunk
 
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
   enabled:
-    - python@3.10.8
+    - python@>3.10.0
+
+  definitions:
+    - type: python
+      system_version: allowed
 
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
     - actionlint@1.7.1
-    - bandit@1.7.9
-    - checkov@3.2.239
+    - checkov@3.2.242
     - git-diff-check
     - markdownlint@0.41.0
     - osv-scanner@1.8.4
     - oxipng@9.1.2
-    - pyright@1.1.376
-    - ruff@0.6.2
+    - pyright@1.1.378
+    - ruff@0.6.3
     - shellcheck@0.10.0
     - shfmt@3.6.0
     - svgo@3.3.2
     - taplo@0.9.3
     - trivy@0.54.1
-    - trufflehog@3.81.9
+    - trufflehog@3.81.10
     - yamllint@1.35.1
 
   disabled:
+    - bandit
     - black
     - flake8
     - isort
@@ -51,6 +56,17 @@ lint:
     - remark-lint
     - stylelint
     - trunk-toolbox
+
+  ignore:
+    - linters: [ALL]
+      paths:
+        - alembic/**
+        - docs/tutorial/**
+        - docs/datatable_tutorial/**
+
+    - linters: [ruff]
+      paths:
+        - integration/benchmarks/**
 
   exported_configs:
     - plugin_id: oss-linter-trunk
