@@ -4,13 +4,16 @@ from typing import Set
 import reflex as rx
 from reflex.event import EventHandler
 from reflex.vars import ImportVar, Var
+from reflex.ivars import ImmutableVar
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
     special_props: Set[Var] = {
-        Var.create_safe("{...searchBarProps}", _var_is_string=False)
+        ImmutableVar.create_safe(
+            "...searchBarProps"
+        )
     }
 
     is_open: Var[bool] = False
