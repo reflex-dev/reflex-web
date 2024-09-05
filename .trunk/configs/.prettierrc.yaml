@@ -1,0 +1,10 @@
+printWidth: 1000
+proseWrap: never
+quoteProps: consistent
+trailingComma: all
+bracketSameLine: true
+singleAttributePerLine: true
+overrides:
+  - files: "*.json"
+    options:
+      printWidth: 1

@@ -1,0 +1,4 @@
+# prettier, css or scss compatible, stylelint config
+extends:
+  - stylelint-config-standard-scss
+  - stylelint-config-prettier

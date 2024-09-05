@@ -1,0 +1,22 @@
+[MASTER]
+[MESSAGES CONTROL]
+disable=
+    format, # Handled by Black autoformatter
+    duplicate-code,
+    import-error,
+    fixme,
+    global-statement,
+    import-error,
+    line-too-long,
+    missing-module-docstring,
+    wrong-import-order,
+    missing-function-docstring,
+    too-many-statements,
+    missing-class-docstring,
+    too-few-public-methods,
+    too-many-locals,
+    too-many-instance-attributes,
+    too-many-return-statements,
+    import-outside-toplevel,
+    too-many-arguments
+

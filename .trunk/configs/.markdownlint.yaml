@@ -1,0 +1,17 @@
+# Autoformatter friendly markdownlint config (all formatting rules disabled)
+default: true
+bullet: false
+first-line-heading: false
+html: false
+indentation: false
+line_length: false
+no-duplicate-header: false
+no-duplicate-heading: false
+no-emphasis-as-header: false
+no-emphasis-as-heading: false
+no-hard-tabs: false
+no-trailing-punctuation: false
+single-h1: false
+single-title: false
+spaces: false
+url: false
