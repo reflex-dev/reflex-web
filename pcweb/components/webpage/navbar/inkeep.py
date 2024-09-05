@@ -10,9 +10,7 @@ from reflex.ivars import ImmutableVar
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {
-        ImmutableVar.create_safe("...searchBarProps")
-    }
+    special_props: Set[Var] = {ImmutableVar.create_safe("...searchBarProps")}
 
     is_open: Var[bool] = False
 
