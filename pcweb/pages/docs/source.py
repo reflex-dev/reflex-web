@@ -14,9 +14,6 @@ from pcweb.styles.fonts import small
 from pcweb.styles.styles import get_code_style
 
 
-
-
-
 class Source(rx.Base):
     """Parse the source code of a component."""
 

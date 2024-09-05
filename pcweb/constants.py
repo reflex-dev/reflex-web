@@ -9,7 +9,7 @@ OLD_GITHUB_URL = "https://github.com/pynecone-io/pynecone"
 GITHUB_DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
-CONTACT_URL = "mailto:contact@reflex.dev"
+CONTACT_URL = "mailto:contact@pynecone.io"
 CHAT_APP_URL = "https://github.com/reflex-dev/reflex-chat"
 LINKEDIN_URL = "https://www.linkedin.com/company/reflex-dev"
 YC_URL = "https://www.ycombinator.com/companies/reflex"
@@ -42,6 +42,6 @@ ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows
 ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
 # Stats
-GITHUB_STARS = 18350
+GITHUB_STARS = 19000
 MONTHLY_USERS = 5000
 DISCORD = 3500

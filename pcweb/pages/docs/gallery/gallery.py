@@ -2,7 +2,7 @@ import reflex as rx
 
 from pcweb.templates.webpage import webpage
 from .state import SideBarState
-
+import reflex_chakra as rc
 
 border_radius = ("0.375rem",)
 box_shadow = ("0px 0px 0px 1px rgba(84, 82, 95, 0.14)",)
@@ -76,7 +76,7 @@ grid_layout = [1, 1, 2, 2, 3, 4]
 
 
 def component_grid():
-    return rx.chakra.responsive_grid(
+    return rc.responsive_grid(
         rx.foreach(SideBarState.example_apps_to_return, add_item),
         columns=grid_layout,
         gap=4,
@@ -85,7 +85,7 @@ def component_grid():
 
 
 def community_component_grid():
-    return rx.chakra.responsive_grid(
+    return rc.responsive_grid(
         rx.foreach(SideBarState.community_apps_to_return, add_item),
         columns=grid_layout,
         gap=4,
@@ -109,10 +109,10 @@ def pagination():
     )
 
 def sidebar_component_grid(tags):
-    return rx.chakra.wrap(
+    return rc.wrap(
         rx.foreach(
             tags,
-            lambda tag: rx.chakra.button(
+            lambda tag: rc.button(
                 tag,
                 border_radius="15px",
                 padding_x=".5em",
@@ -136,7 +136,7 @@ def sidebar_component_grid(tags):
 def gallery_heading():
     return rx.vstack(
         rx.flex(
-            rx.chakra.text(
+            rc.text(
                 "Apps made in Reflex",
                 background_image="linear-gradient(95deg, #B1A9FB 25.71%, #867BF1 83.81%);",
                 text_align="center",
@@ -149,7 +149,7 @@ def gallery_heading():
             box_shadow="0px 3px 6px -3px rgba(34, 25, 121, 0.60), 0px 0px 4px -1px rgba(27, 21, 90, 0.40);",
             maargin_bottom="1em",
         ),
-        rx.chakra.text(
+        rc.text(
             "Reflex Gallery",
             font_size="48px;",
             background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",
@@ -191,7 +191,7 @@ def gallery() -> rx.Component:
         rx.vstack(
             sidebar_component_grid(SideBarState.tags_list),
             component_grid(),
-            rx.chakra.text(
+            rc.text(
                 "Community Gallery",
                 font_size="48px;",
                 background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%);",

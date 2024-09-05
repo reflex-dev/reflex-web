@@ -2,7 +2,7 @@ import reflex as rx
 import httpx
 import json
 from rxconfig import config
-
+import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp
 from pcweb.styles.colors import c_color
 from pcweb.styles.shadows import shadows
@@ -199,7 +199,7 @@ def sorting_filters_dropdown_menu() -> rx.Component:
                     style=small,
                 ),
                 get_icon(
-                    "select",
+                    icon="select",
                 ),
                 justify_content="space-between",
             ),
@@ -378,7 +378,7 @@ def source_if_present(source: str) -> rx.Component:
 
 
 def pypi_keywords(keywords: rx.Var[list[str]]) -> rx.Component:
-    return rx.chakra.wrap(
+    return rc.wrap(
         rx.foreach(
             keywords,
             lambda tag: rx.badge(tag, border_radius="15px", padding_x=".5em"),
@@ -534,7 +534,7 @@ def add_item(category: dict) -> rx.Component:
 
 
 def component_grid():
-    return rx.chakra.responsive_grid(
+    return rc.responsive_grid(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         columns=[1, 2, 2, 2, 3, 3],
         gap="24px",

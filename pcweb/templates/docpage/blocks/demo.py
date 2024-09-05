@@ -5,19 +5,6 @@ import textwrap
 from typing import Any, Callable
 from .code import code_block, code_block_dark
 import black
-from pcweb.styles.colors import c_color
-from pcweb.styles.styles import tab_style
-
-demo_box_style = {
-    "padding": "24px",
-    "width": "100%",
-    "overflow_x": "auto",
-    "border-radius": "12px",
-    "border": f"1px solid {c_color('slate', 4)}",
-    "background": f"{c_color('slate', 2)}",
-    "align_items": "center",
-    "justify_content": "center",
-}
 
 
 def docdemobox(*children, **props) -> rx.Component:
@@ -29,13 +16,13 @@ def docdemobox(*children, **props) -> rx.Component:
     Returns:
         The styled demo box.
     """
-    return rx.vstack(
+    return rx.box(
         *children,
-        style=demo_box_style,
         **props,
+        class_name="flex flex-col p-6 rounded-xl overflow-x-auto border border-slate-4 bg-slate-2 items-center justify-center w-full",
     )
-  
-   
+
+
 def doccode(
     code: str,
     language: str = "python",
@@ -93,7 +80,7 @@ def docdemo(
 
     Returns:
         The styled demo.
-    """ 
+    """
     demobox_props = demobox_props or {}
     # Render the component if necessary.
     if comp is None:
@@ -108,89 +95,72 @@ def docdemo(
     # Add the state code
     if state is not None:
         code = state + code
-    
+
     if demobox_props.pop("toggle", False):
         return rx.tabs.root(
-        rx.tabs.list(
-            rx.tabs.trigger(
-                rx.hstack( 
-                    "UI",
+            rx.tabs.list(
+                rx.tabs.trigger(
+                    rx.box(
+                        "UI",
+                    ),
+                    value="tab1",
+                    class_name="tab-style",
                 ),
-                style=tab_style,
-                value="tab1"
-            ),
-            rx.tabs.trigger(
-                rx.hstack(
-                    "Code", 
+                rx.tabs.trigger(
+                    rx.box(
+                        "Code",
+                    ),
+                    value="tab2",
+                    class_name="tab-style",
                 ),
-                style=tab_style,
-                value="tab2"
+                class_name="justify-end",
             ),
-            justify_content="end",
-        ),
-        rx.tabs.content(
-            rx.box(
-                docdemobox(comp, **(demobox_props or {})),
-                margin_bottom="1em",
-                margin_top="1em",
+            rx.tabs.content(
+                rx.box(docdemobox(comp, **(demobox_props or {})), class_name="my-4"),
+                value="tab1",
             ),
-            value="tab1",
-        ),
-        rx.tabs.content(
-            doccode(code, theme=theme), 
-            value="tab2",
-        ),
-        default_value="tab1",
-    )
+            rx.tabs.content(
+                doccode(code, theme=theme),
+                value="tab2",
+            ),
+            default_value="tab1",
+        )
     # Create the demo.
-    return rx.vstack(
+    return rx.box(
         docdemobox(comp, **(demobox_props or {})),
         doccode(code, theme=theme),
-        width="100%",
-        padding_y="1em",
-        gap="1em",
+        class_name="py-4 gap-4 flex flex-col w-full",
         **props,
     )
+
 
 def docgraphing(
     code: str,
     comp: rx.Component | None = None,
     data: str | None = None,
 ):
-    return rx.vstack(
+    return rx.box(
         rx.flex(
             comp,
-            style=demo_box_style,
+            class_name="w-full flex flex-col p-6 rounded-xl overflow-x-auto border border-slate-4 bg-slate-2 items-center justify-center",
         ),
-         rx.tabs.root(
-             rx.tabs.list(
-                 rx.tabs.trigger(
-                     "Code",
-                     value="code",
-                     style=tab_style
-                 ),
-                 rx.tabs.trigger(
-                     "Data",
-                     value="data",
-                     style=tab_style
-                 ),
-                 justify_content="end",
-             ),
-             rx.box(
-                 rx.tabs.content(
-                     doccode(code), width="100%", padding_x=0, padding_y=".25em", value="code"
-                 ),
-                 rx.tabs.content(
-                     doccode(data or ""), width="100%", padding_x=0, padding_y=".25em", value="data"
-                 ),
-                 width="100%",
-             ),
-             margin_top="23px",
-             default_value="code",
-             align="end",
-             width="100%",
-         ),
-         width="100%",
-         padding_y="1em",
-         spacing="0",
-     )
+        rx.tabs.root(
+            rx.tabs.list(
+                rx.tabs.trigger("Code", value="code", class_name="tab-style"),
+                rx.tabs.trigger("Data", value="data", class_name="tab-style"),
+                justify_content="end",
+            ),
+            rx.box(
+                rx.tabs.content(
+                    doccode(code), value="code", class_name="w-full px-0 py-1"
+                ),
+                rx.tabs.content(
+                    doccode(data or ""), value="data", class_name="w-full px-0 py-1"
+                ),
+                class_name="w-full",
+            ),
+            default_value="code",
+            class_name="w-full mt-6 justify-end",
+        ),
+        class_name="w-full py-4 flex flex-col",
+    )

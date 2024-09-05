@@ -2,6 +2,7 @@
 import reflex as rx
 
 from pcweb.templates.docpage import docpage, h1_comp, h2_comp, h3_comp, h4_comp, text_comp
+import reflex_chakra as rc
 
 def get_component_link(category, clist) -> str:
     file_name_without_extension = clist.split('/')[-1].split('.')[0].replace('_', '-')
@@ -64,7 +65,7 @@ def component_grid():
         )
 
     return rx.box(
-        rx.chakra.responsive_grid(*sidebar, columns=[1, 2, 2, 3, 3], gap=4),
+        rc.responsive_grid(*sidebar, columns=[1, 2, 2, 3, 3], gap=4),
     )
 
 def info_card(icon, color, title, content):
@@ -107,7 +108,7 @@ def info_card(icon, color, title, content):
 
 def card_section():
     return rx.box(
-        rx.chakra.responsive_grid(
+        rc.responsive_grid(
             info_card("box", "violet", "Portable", "Easy to copy and integrate into your your next Reflex project."),
             info_card("palette", "violet", "Themed", "Automatically adapts to the theme of your Reflex project."),
             info_card("settings", "violet",  "Customizable", "Every aspect of the components can be customized to fit your needs."),

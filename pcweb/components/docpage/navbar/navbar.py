@@ -9,9 +9,10 @@ from pcweb.pages.docs import (
     getting_started,
     hosting,
 )
+from pcweb.components.button import button
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs.custom_components import custom_components
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 from .buttons.github import github
 from .buttons.discord import new_discord
 from .buttons.color import color
@@ -25,350 +26,152 @@ from pcweb.pages.errors import errors
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 
 from pcweb.pages.blog.paths import blog_data
 
 # from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
-from pcweb.styles.fonts import small, small_semibold, base
-from pcweb.styles.colors import c_color
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
-from pcweb.styles.shadows import shadows
 from pcweb.constants import CONTRIBUTING_URL, GITHUB_DISCUSSIONS_URL, ROADMAP_URL
 
 
-def resource_header(text, url):
-    return rx.link(
-        rx.text(
-            text,
-            color=rx.color("mauve", 12),
-            font_weight="600",
+def resource_item(text: str, url: str, icon: str):
+    return rx.el.li(
+        rx.link(
+            rx.box(
+                rx.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+                rx.text(
+                    text,
+                    class_name="font-small text-slate-9 truncate",
+                ),
+                rx.spacer(),
+                rx.icon(
+                    tag="chevron_right",
+                    size=14,
+                    class_name="flex-shrink-0 text-slate-12",
+                ),
+                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-slate-3 px-[1.125rem] py-2 rounded-md w-full transition-bg",
+            ),
+            class_name="w-full text-slate-9 hover:!text-slate-9",
+            underline="none",
+            href=url,
         ),
+        class_name="w-full",
+    )
+
+
+def link_item(name: str, url: str, active_str: str = ""):
+    # If URL doesnt end with a slash, add one
+    router_path = rx.State.router.page.path
+    url = url.rstrip("/") + "/"
+    active = router_path.contains(active_str)
+    if active_str == "docs":
+        active = rx.cond(
+            router_path.contains("hosting") | router_path.contains("library"),
+            False,
+            active,
+        )
+    if active_str == "":
+        active = False
+
+    common_cn = "transition-color p-[1.406rem_0px] font-small desktop-only items-center justify-center "
+    active_cn = "shadow-[inset_0_-1px_0_0_var(--c-violet-9)] text-violet-9"
+    unactive_cn = "shadow-none text-slate-9"
+    return rx.link(
+        name,
         href=url,
-    )
-
-
-def resources_item(text, url, icon):
-    return rx.link(
-        rx.flex(
-            rx.icon(icon, size=20, color=rx.color("mauve", 10)),
-            rx.text(text, color=rx.color("mauve", 10)),
-            wrap="nowrap",
-            spacing="2",
-        ),
-        href=url,
-    )
-
-def menu_trigger():
-    return rx.flex(
-        rx.text(
-            "Components",
-            color=rx.color("mauve", 11),
-            font="Instrument Sans",
-            weight="medium",
-            style={"font-size": "16px"},
-        ),
-        rx.icon(tag="chevron_down", color=rx.color("mauve", 11), size=18),
-        rx.badge("New", variant="solid"),
-        align_items="center",
-        _hover={
-            "cursor": "pointer",
-        },
-        spacing="1",
-    )
-
-
-def menu_content():
-    return rx.flex(
-        rx.flex(
-            rx.flex(
-                resource_header("Core Components", library.path),
-                resources_item("Library", library.path, "library-big"),
-                resources_item("Theming", styling.theming.path, "palette"),
-                direction="column",
-                align_items="start",
-                padding="20px",
-                spacing="3",
-                background_color=rx.color("mauve", 3),
-            ),
-            rx.flex(
-                rx.flex(
-                    resource_header("Custom Components", custom_components.path),
-                    rx.badge("New", variant="solid"),
-                    align_items="center",
-                    spacing="1",
-                ),
-                resources_item(
-                    "Community Library", custom_components.path, "library-big"
-                ),
-                resources_item("Wrapping React", wrapping_react.overview.path, "atom"),
-                resources_item(
-                    "Publishing Components", custom_c.overview.path, "globe"
-                ),
-                direction="column",
-                align_items="start",
-                height="200px",
-                padding_y="20px",
-                padding_left="10px",
-                padding_right="40px",
-                spacing="3",
-            ),
-            spacing="6",
-            max_width="1000px",
-            height="200px",
-        ),
-        border=f"1px solid {rx.color('mauve', 4)}",
-        background=rx.color("mauve", 1),
-        max_width="1000px",
-        height="200px",
-        padding="0",
-        overflow="hidden",
-        border_radius="8px",
-    )
-
-
-# def components_section():
-#     return nav_menu.root(
-#         nav_menu.list(
-#             nav_menu.item(
-#                 nav_menu.trigger(
-#                     menu_trigger(),
-#                     style=None,
-#                 ),
-#                 nav_menu.content(
-#                     menu_content(),
-#                 ),
-#             ),
-#             background_color="transparent",
-#         ),
-#         nav_menu.indicator(className="Arrow"),
-#         nav_menu.viewport(),
-#     )
-
-
-def resource_item(text: str, url: str, icon: str, width: str = "236px"):
-    return rx.link(
-        rx.hstack(
-            rx.icon(icon, size=16, color=c_color("slate", 9), flex_shrink="0"),
-            rx.text(
-                text,
-                style={
-                    "color": c_color("slate", 9),
-                    "overflow": "hidden",
-                    "text-overflow": "ellipsis",
-                    "white-space": "nowrap",
-                    **small,
-                },
-            ),
-            rx.spacer(),
-            rx.icon(
-                tag="chevron_right",
-                size=14,
-                color=c_color("slate", 12),
-                flex_shrink="0",
-            ),
-            style={
-                "transition": "background 0.035s ease-out",
-                "gap": "12px",
-                "padding": "8px 18px",
-                "border-radius": "6px",
-                "align_items": "center",
-                "width": "100%",
-                "_hover": {
-                    "background": c_color("slate", 3),
-                },
-                "wrap": "nowrap",
-            },
-        ),
-        width=width,
         underline="none",
-        href=url,
+        _hover={"color": rx.cond(active, "var(--c-violet-9)", "var(--c-slate-11)")},
+        style={
+            ":hover": {
+                "color": rx.cond(active, "var(--c-violet-9)", "var(--c-slate-11)")
+            }
+        },
+        class_name=common_cn + rx.cond(active, active_cn, unactive_cn),
     )
 
 
 def blog_section_item(date: str, title: str, url: str) -> rx.Component:
-    moment_style = {
-        "overflow": "hidden",
-        "text-wrap": "nowrap",
-        "color": c_color("slate", 9),
-        "text-overflow": "ellipsis",
-        "font-family": "Instrument Sans",
-        "font-size": "13px",
-        "font-style": "normal",
-        "font-weight": "500",
-        "line-height": "20px",
-        "letter-spacing": "-0.162px",
-    }
     return rx.link(
-        rx.vstack(
-            rx.text(rx.moment(date, format="MMM DD, YYYY"), **moment_style),
-            rx.hstack(
+        rx.box(
+            rx.moment(
+                date,
+                format="MMM DD, YYYY",
+                class_name="font-medium font-size-[0.8125rem] text-slate-9 truncate leading-[1.25rem] tracking-[-0.01013rem]",
+            ),
+            rx.box(
                 rx.text(
                     title,
-                    color=c_color("slate", 11),
-                    style={
-                        "overflow": "hidden",
-                        "text-overflow": "ellipsis",
-                        "white-space": "nowrap",
-                        **base,
-                    },
+                    class_name="font-base text-slate-11 truncate",
                 ),
-                rx.icon(tag="chevron-right", color=c_color("slate", 8), size=14),
-                align_items="center",
-                justify="between",
-                width="100%",
+                rx.icon(tag="chevron-right", size=14, class_name="!text-slate-8"),
+                class_name="flex flex-row justify-between items-center w-full",
             ),
-            gap="4px",
-            align="start",
-            padding="14px 18px",
-            flex_direction="column",
-            align_items="flex-start",
-            align_self="stretch",
-            width="100%",
-            border_radius="6px",
-            style={
-                "transition": "background 0.035s ease-out",
-                "_hover": {
-                    "background": c_color("slate", 3),
-                },
-            },
+            class_name="flex flex-col items-start gap-1 hover:bg-slate-3 px-3.5 py-[1.125rem] rounded-md w-full transition-bg self-stretch",
         ),
-        width="100%",
+        class_name="w-full",
         underline="none",
         href=url,
     )
 
 
 def blog_section() -> rx.Component:
-    h3_style = {
-        "overflow": "hidden",
-        "color": c_color("slate", 12),
-        "text-overflow": "ellipsis",
-        "white-space": "nowrap",
-        "display": "flex",
-        "align-items": "flex-start",
-        "align-self": "stretch",
-        **small_semibold,
-    }
     return new_nav_menu.content(
-        rx.hstack(
+        rx.box(
             rx.link(
                 rx.moment(
                     str(list(blog_data.values())[0].metadata["date"]),
                     format="MMM DD, YYYY",
-                    style={
-                        "overflow": "hidden",
-                        "color": "white",
-                        "text-overflow": "ellipsis",
-                        "white-space": "nowrap",
-                        "font-family": "Instrument Sans",
-                        "font-size": "13px",
-                        "font-style": "normal",
-                        "font-weight": "500",
-                        "line-height": "20px",
-                        "letter-spacing": "-0.162px",
-                        "padding-top": "14px",
-                        "padding-left": "18px",
-                        "z_index": "1",
-                    },
+                    class_name="z-[2] pt-[0.875rem] pl-[1.125rem] font-instrument-sans font-medium text-[0.8125rem] text-white truncate leading-[1.25rem] tracking-[-0.01013rem]",
                 ),
                 rx.spacer(),
-                rx.hstack(
+                rx.box(
                     rx.text(
                         list(blog_data.values())[0].metadata["title"],
-                        color="white",
-                        **base,
-                        style={
-                            "text-overflow": "ellipsis",
-                            "white-space": "nowrap",
-                            "overflow": "hidden",
-                            "align_self": "flex-start",
-                        },
+                        class_name="font-base text-white truncate self-start",
                     ),
-                    rx.hstack(
+                    rx.box(
                         rx.icon(
                             tag="chevron-right",
-                            color="white",
                             size=14,
+                            class_name="text-white",
                         ),
                         align_items="center",
                         justify="start",
+                        class_name="flex flex-row justify-start",
                     ),
-                    z_index="1",
-                    padding_bottom="14px",
-                    padding_x="18px",
-                    width="100%",
-                    justify="between",
+                    class_name="z-[2] flex flex-row justify-between px-[1.125rem] pb-[0.875rem] w-full",
                 ),
                 rx.box(
-                    position="absolute",
-                    inset="0",
                     background_image=f'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 25%), url({list(blog_data.values())[0].metadata["image"]})',
-                    background_size="cover",
-                    background_position="center",
-                    background_repeat="no-repeat",
-                    transition="transform 0.150s ease-out",
-                    class_name="blog-cover",
-                    border_radius="6px",
+                    class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-transform duration-150 ease-out",
                 ),
-                style={
-                    "&:hover > .blog-cover": {
-                        "transform": "scale(1.05)",
-                    },
-                },
-                width="295px",
-                height="236px",
-                flex_shrink="0",
-                border_radius="6px",
-                position="relative",
-                display="flex",
-                overflow="hidden",
-                align_items="start",
-                gap="6px",
-                flex_direction="column",
-                justify_content="start",
                 href="/" + list(blog_data.keys())[0],
                 underline="none",
+                class_name="relative flex flex-col flex-shrink-0 justify-start items-start gap-[6px] rounded-md w-[295px] h-[236px] text-white hover:text-white overflow-hidden group",
             ),
-            rx.vstack(
+            rx.box(
                 rx.link(
-                    rx.hstack(
-                        rx.heading("Latest in Blog", as_="h3", style=h3_style),
-                        rx.hstack(
+                    rx.box(
+                        rx.el.h3(
+                            "Latest in Blog",
+                            class_name="flex items-start font-smbold text-slate-12 truncate self-stretch",
+                        ),
+                        rx.box(
                             rx.text(
                                 "View all",
-                                style={
-                                    "overflow": "hidden",
-                                    "color": c_color("slate", 9),
-                                    "text-overflow": "ellipsis",
-                                    "white-space": "nowrap",
-                                    **small,
-                                },
+                                class_name="font-small text-slate-9 truncate",
                             ),
                             rx.icon(
                                 tag="chevron-right",
-                                color=c_color("slate", 8),
                                 size=14,
+                                class_name="!text-slate-8",
                             ),
-                            align_items="center",
-                            gap="8px",
+                            class_name="flex flex-row items-center gap-2",
                         ),
-                        style={
-                            "transition": "background 0.035s ease-out",
-                            "gap": "12px",
-                            "padding": "8px 18px",
-                            "border-radius": "6px",
-                            "align-items": "center",
-                            "align-self": "stretch",
-                            "justify-content": "space-between",
-                            "width": "100%",
-                            "_hover": {
-                                "background": c_color("slate", 3),
-                            },
-                            "wrap": "nowrap",
-                        },
+                        class_name="flex flex-row justify-between gap-3 hover:bg-slate-3 px-[1.125rem] py-3 rounded-md w-full text-nowrap transition-bg self-stretch",
                     ),
-                    width="100%",
+                    class_name="w-full",
                     underline="none",
                     href=blogs.path,
                 ),
@@ -382,130 +185,81 @@ def blog_section() -> rx.Component:
                     title=list(blog_data.values())[2].metadata["title"],
                     url="/" + list(blog_data.keys())[2],
                 ),
-                gap="6px",
-                width="100%",
-                align_items="flex-start",
+                class_name="flex flex-col items-start gap-1.5 w-full",
             ),
-            width="100%",
-            padding="6px",
-            align_items="flex-start",
-            gap="6px",
+            class_name="flex flex-row items-start gap-1.5 p-1.5 w-[610px]",
         ),
     )
 
 
 def resources_section() -> rx.Component:
     return new_nav_menu.content(
-        rx.unordered_list(
+        rx.el.ul(
             resource_item("Changelog", changelog.path, "list"),
             resource_item("Debugging Guide", errors.path, "bug"),
             resource_item("FAQ", faq.path, "circle-help"),
             resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
             resource_item("Roadmap", ROADMAP_URL, "route"),
             resource_item("Github Discussions", GITHUB_DISCUSSIONS_URL, "github"),
-            style={
-                "display": "grid",
-                "margin": "0",
-                "column-gap": "6px",
-                "width": "100%",
-                "grid-template-columns": "repeat(2, 1fr)",
-                "align-items": "flex-start",
-                "gap": "6px",
-                "padding": "6px",
-            },
-            margin_left="0px !important",
+            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
         ),
     )
 
 
 def components_section() -> rx.Component:
-    h3_style = {
-        "overflow": "hidden",
-        "color": c_color("slate", 12),
-        "text-overflow": "ellipsis",
-        "white-space": "nowrap",
-        "display": "flex",
-        "padding": "14px 18px",
-        "align-items": "flex-start",
-        "align-self": "stretch",
-        **small_semibold,
-    }
     return new_nav_menu.content(
-        rx.vstack(
-            rx.heading("Core Components", as_="h3", style=h3_style),
-            rx.unordered_list(
-                resource_item("Component Library", library.path, "layout-panel-left"),
-                resource_item("Theming", styling.theming.path, "palette"),
-                margin_left="0px !important",
-                display="flex",
-                flex_direction="column",
-                gap="6px",
+        rx.box(
+            rx.box(
+                rx.el.h3(
+                    "Core Components",
+                    class_name="px-[1.125rem] py-3.5 font-smbold text-slate-12 truncate self-stretch",
+                ),
+                rx.el.ul(
+                    resource_item(
+                        "Component Library", library.path, "layout-panel-left"
+                    ),
+                    resource_item("Theming", styling.theming.path, "palette"),
+                    class_name="flex flex-col items-start gap-1.5 w-full",
+                ),
+                class_name="flex flex-col items-start gap-1.5 p-1.5 w-[248px]",
             ),
-            width="100%",
-            padding="6px",
-            align="start",
-            gap="6px",
-        ),
-        rx.vstack(
-            rx.heading("Custom Components", as_="h3", style=h3_style),
-            rx.unordered_list(
-                resource_item(
-                    "Community Library", custom_components.path, "blocks", width="280px"
+            rx.box(
+                rx.el.h3(
+                    "Custom Components",
+                    class_name="px-[1.125rem] py-3.5 font-smbold text-slate-12 truncate self-stretch",
                 ),
-                resource_item(
-                    "Wrapping React",
-                    wrapping_react.overview.path,
-                    "atom",
-                    width="280px",
+                rx.el.ul(
+                    resource_item(
+                        "Community Library",
+                        custom_components.path,
+                        "blocks",
+                    ),
+                    resource_item(
+                        "Wrapping React",
+                        wrapping_react.overview.path,
+                        "atom",
+                    ),
+                    resource_item(
+                        "Publishing Components",
+                        custom_c.overview.path,
+                        "git-fork",
+                    ),
+                    class_name="flex flex-col items-start gap-1.5 w-full",
                 ),
-                resource_item(
-                    "Publishing Components",
-                    custom_c.overview.path,
-                    "git-fork",
-                    width="280px",
-                ),
-                display="flex",
-                flex_direction="column",
-                gap="6px",
-                margin_left="0px !important",
-                align_items="flex-start",
+                class_name="flex flex-col items-start gap-1.5 border-slate-5 bg-slate-1 p-1.5 border-l w-[280px]",
             ),
-            border_left=f"1px solid {rx.color('slate', 5)}",
-            background_color=rx.color("slate", 1),
-            width="100%",
-            padding="6px",
-            align="start",
-            gap="6px",
+            class_name="flex flex-row items-start m-0 w-full min-w-max",
         ),
-        style={
-            "display": "grid",
-            "margin": "0",
-            "column-gap": "6px",
-            "width": "100%",
-            "grid-template-columns": "repeat(2, 1fr)",
-            "align-items": "flex-start",
-            "gap": "6px",
-        },
     )
 
 
 def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
-    text_style = {
-        "transition": "color 0.035s ease-out",
-        "padding": "22.5px 0px",
-        "color": c_color("slate", 9),
-        "_hover": {
-            "color": c_color("slate", 11),
-        },
-        **small,
-    }
     if url:
         return new_nav_menu.trigger(link_item(title, url, active_str))
     return new_nav_menu.trigger(
         rx.text(
             title,
-            style=text_style,
-            display=["none", "none", "none", "none", "flex", "flex"],
+            class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-color desktop-only",
         )
     )
 
@@ -514,20 +268,13 @@ def logo() -> rx.Component:
     return rx.link(
         rx.color_mode_cond(
             rx.image(
-                src="/logos/light/reflex.svg",
-                alt="Reflex Logo",
-                justify="start",
-                flex_shrink="0",
+                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
             ),
             rx.image(
-                src="/logos/dark/reflex.svg",
-                alt="Reflex Logo",
-                justify="start",
-                flex_shrink="0",
+                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
             ),
         ),
-        flex_shrink="0",
-        display="flex",
+        class_name="flex shrink-0 mr-5",
         href="/",
     )
 
@@ -559,106 +306,53 @@ def new_component_section() -> rx.Component:
             new_nav_menu.item(
                 link_item("Hosting", hosting.deploy_quick_start.path, "hosting"),
             ),
-            gap=["0px", "0px", "0px", "24px", "24px"],
+            class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
         new_nav_menu.list(
-            rx.flex(
+            rx.box(
                 new_nav_menu.item(
                     search_bar(),
                 ),
                 new_nav_menu.item(
                     github(),
                 ),
-                gap="8px",
-                flex_direction=[
-                    "row-reverse",
-                    "row-reverse",
-                    "row-reverse",
-                    "row",
-                    "row",
-                ],
                 align_items="center",
+                class_name="flex lg:flex-row flex-row-reverse items-center gap-2 m-0 h-full",
             ),
             new_nav_menu.item(
                 new_discord(),
-                display=["none", "none", "none", "none", "flex", "flex"],
+                class_name="desktop-only",
             ),
             new_nav_menu.item(
-                color(), display=["none", "none", "none", "none", "flex", "flex"]
+                color(),
+                class_name="desktop-only",
+            ),
+            new_nav_menu.item(
+                rx.link(
+                    button(
+                        "Get Started",
+                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                    ),
+                    underline="none",
+                    href=getting_started.introduction.path,
+                ),
+                class_name="desktop-only",
             ),
             new_nav_menu.item(
                 navbar_sidebar_button(),
-                display=["flex", "flex", "flex", "flex", "none", "none"],
+                class_name="mobile-only",
             ),
-            gap=["16px", "16px", "16px", "8px", "8px"],
+            class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
         ),
         rx.box(
             new_nav_menu.viewport(),
-            style={
-                "position": "absolute",
-                "display": "flex",
-                "justify-content": "flex-start",
-                "width": "100%",
-                "top": "80%",
-                "left": "250px",
-            },
+            class_name="top-[80%] left-[250px] absolute flex justify-start w-full",
         ),
-    )
-
-
-def link_item(name: str, url: str, active_str: str = ""):
-    # If URL doesnt end with a slash, add one
-    router_path = rx.State.router.page.path
-    if not url.endswith("/"):
-        url += "/"
-    active = router_path.contains(active_str)
-    if active_str == "docs":
-        active = rx.cond(
-            router_path.contains("hosting")
-            | router_path.contains("library")
-            | router_path.contains("gallery"),
-            False,
-            active,
-        )
-    if active_str == "":
-        active = False
-    link_style = {
-        "text-decoration": "none !important",
-        "transition": "color 0.035s ease-out",
-        "box_shadow": rx.cond(
-            active, f"inset 0 -1px 0 0 {c_color('violet', 9)}", "none"
-        ),
-        "padding": "22.5px 0px",
-        ":hover": {
-            "color": rx.cond(active, c_color("violet", 9), c_color("slate", 11)),
-        },
-        **small,
-    }
-    return rx.link(
-        name,
-        color=rx.cond(active, c_color("violet", 9), c_color("slate", 9)),
-        style=link_style,
-        href=url,
-        _hover={
-            "color": rx.cond(active, c_color("violet", 9), c_color("slate", 11)),
-        },
-        align_items="center",
-        justify_content="center",
-        display=["none", "none", "none", "none", "flex", "flex"],
     )
 
 
 def navbar() -> rx.Component:
     return rx.el.header(
-        new_component_section(),
-        background_color=c_color("slate", 1),
-        box_shadow=f"inset 0 -1px 0 0 {c_color('slate', 4)}",
-        width="100%",
-        align_items="center",
-        gap="48px",
-        height=["48px", "65px"],
-        flex_direction="row",
-        z_index="15",
-        top="0px",
-        position="fixed",
+        # new_component_section(),
+        class_name="top-0 z-[9999] fixed flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-4)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
     )

@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp, text_comp
 
 
@@ -69,7 +70,7 @@ def component_grid():
         prefix="graphing/",
     )
     return rx.box(
-        rx.chakra.responsive_grid(
+        rc.responsive_grid(
             *core,
             columns=[1, 2, 2, 2, 3],
             gap=4,
@@ -82,7 +83,7 @@ def component_grid():
             },
         ),
         rx.separator(),
-        rx.chakra.responsive_grid(
+        rc.responsive_grid(
             *graphs,
             columns=[1, 2, 2, 2, 3],
             gap=4,

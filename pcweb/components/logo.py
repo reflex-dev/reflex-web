@@ -1,17 +1,20 @@
-"""The Reflex logo component."""
-
 import reflex as rx
-from pcweb import styles
 
 
-def logo(**style_props):
-    """Create a Reflex logo component.
-
-    Args:
-        style_props: The style properties to apply to the component.
-    """
-    return rx.image(
-        src=styles.LOGO_URL,
-        alt = "The Reflex logo.",
-        **style_props,
+def logo(class_name: str = "") -> rx.Component:
+    return rx.link(
+        rx.color_mode_cond(
+            rx.image(
+                src="/logos/light/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0" + class_name,
+            ),
+            rx.image(
+                src="/logos/dark/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0" + class_name,
+            ),
+        ),
+        class_name="flex items-start shrink-0",
+        href="/",
     )
