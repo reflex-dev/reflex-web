@@ -311,7 +311,7 @@ def new_component_section() -> rx.Component:
         new_nav_menu.list(
             rx.box(
                 new_nav_menu.item(
-                    # search_bar(),
+                    search_bar(),
                 ),
                 new_nav_menu.item(
                     github(),

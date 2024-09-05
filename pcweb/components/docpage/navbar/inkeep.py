@@ -30,7 +30,7 @@ class Search(rx.Component):
     def add_hooks(self):
         """Add the hooks for the component."""
         return [
-            "const { resolvedColorMode, toggleColorMode } = useContext(ColorModeContext)",
+            "const { resolvedColorMode } = useContext(ColorModeContext)",
             """const SearchBar = dynamic(
   () => import('@inkeep/uikit').then((mod) => mod.InkeepSearchBar),
   {
