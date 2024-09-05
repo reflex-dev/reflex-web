@@ -15,24 +15,22 @@ Using the `rx.debounce_input`  component allows the frontend to remain responsiv
 
 "Typically, this component is used to wrap a child `rx.input` or `rx.text_area`, however, most child components that accept the `value` prop and `on_change` event handler can be used with `rx.debounce_input`."
 
-This example only sends the final checkbox state to the backend after a 1 second delay.
+This example only sends the final radio state to the backend after a 1 second delay.
 
 ```python demo exec
-class DebounceCheckboxState(rx.State):
-    checked: bool = False
+class DebounceRadioState(rx.State):
+    text: bool = "no selection"
 
 def debounce_checkbox_example():
-    return rx.hstack(
-        rx.cond(
-            DebounceCheckboxState.checked,
-            rx.text("Checked", color="green"),
-            rx.text("Unchecked", color="red"),
-        ),
+    return rx.vstack(
+        rx.badge(DebounceRadioState.text, color_scheme="green"),
         rx.debounce_input(
-            rx.checkbox(
-                on_change=DebounceCheckboxState.set_checked,
+            rx.radio(
+                ["1", "2", "3"],
+                on_change=DebounceRadioState.set_text,
             ),
             debounce_timeout=1000,
         ),
+
     )
 ```

@@ -41,7 +41,7 @@ Now let's take a look at a more complex component, which has other components ne
 
 ```python demo
 rx.vstack(
-    rx.header("Accordion"),
+    rx.heading("Accordion"),
     rx.accordion.root(
     rx.accordion.item(
         header="First Item",
