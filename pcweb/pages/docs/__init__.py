@@ -13,7 +13,6 @@ from pcweb.whitelist import _check_whitelisted_path
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 
-from .gallery import gallery
 from .library import library
 from .recipes_overview import overview
 from .resources import resources
@@ -181,7 +180,7 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
+doc_routes = [library, resources, custom_components, overview] + apiref_pages
 
 
 for api_route in apiref_pages:
