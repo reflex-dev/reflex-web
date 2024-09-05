@@ -1,4 +1,5 @@
 """Reflex custom component NavMenu."""
+
 import reflex as rx
 
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
@@ -17,6 +18,7 @@ LiteralAccordionRootVariant = Literal["classic", "soft", "surface", "outline", "
 DEFAULT_ANIMATION_DURATION = 250
 
 cubic_bezier = "cubic-bezier(0.87, 0, 0.13, 1)"
+
 
 class NavMenu(rx.Component):
     """NavMenu component."""
@@ -47,7 +49,7 @@ class NavMenuRoot(NavMenu):
     # The orientation of the menu.
     orientation: Var[LiteralMenuComponentOrientation] = "horizontal"
 
-    # The reading direction of the menu when applicable. 
+    # The reading direction of the menu when applicable.
     # If omitted, inherits globally from DirectionProvider or assumes LTR (left-to-right) reading mode.
     dir: Var[LiteralMenuComponentDir]
 
@@ -71,7 +73,6 @@ class NavMenuRoot(NavMenu):
         }
 
 
-
 class NavMenuSub(NavMenu):
     """Signifies a submenu. Use it in place of the root part when nested to create a submenu."""
 
@@ -88,7 +89,7 @@ class NavMenuSub(NavMenu):
 
 class NavMenuList(NavMenu):
     """Contains the top level menu items."""
-    
+
     tag = "List"
 
     alias = "RadixNavigationMenuList"
@@ -111,12 +112,14 @@ class NavMenuList(NavMenu):
             "margin": "0",
         }
 
+
 class NavMenuLink(NavMenu):
     tag = "Link"
     alias = "RadixNavigationMenuLink"
     as_child = Var[bool]
     active = Var[bool]
-    onSelect : rx.EventHandler[lambda e: [e]] = None
+    onSelect: rx.EventHandler[lambda e: [e]] = None
+
 
 class NavMenuItem(NavMenu):
     """A top level menu item, contains a link or trigger with content combination."""
@@ -129,12 +132,18 @@ class NavMenuItem(NavMenu):
 
     value: Var[str]
 
-    _valid_children: List[str] = ["NavMenuTrigger", "NavMenuLink", "NavMenuContent", "NavMenuSub"]
+    _valid_children: List[str] = [
+        "NavMenuTrigger",
+        "NavMenuLink",
+        "NavMenuContent",
+        "NavMenuSub",
+    ]
 
     _valid_parents: List[str] = ["NavMenuRoot", "NavMenuList"]
 
     def add_style(self) -> Style | None:
         return None
+
 
 class NavMenuTrigger(NavMenu):
     """The button that toggles the content."""
@@ -185,9 +194,10 @@ class NavMenuContent(NavMenu):
             "margin-left": "10px",
         }
 
+
 class NavMenuIndicator(NavMenu):
     """
-    An optional indicator element that renders below the list, 
+    An optional indicator element that renders below the list,
     is used to highlight the currently active trigger.
     """
 
@@ -207,8 +217,9 @@ class NavMenuIndicator(NavMenu):
             "height": "10px",
             "top": "100%",
             "overflow": "hidden",
-            "z-index": "1"
+            "z-index": "1",
         }
+
 
 # Viewport
 class NavMenuViewport(NavMenu):
@@ -226,16 +237,14 @@ class NavMenuViewport(NavMenu):
         return {
             "position": "absolute",
             "transform-origin": "top center",
-            "left":"20%",
-            "top":"60px",
+            "left": "20%",
+            "top": "60px",
         }
-
-
-
 
 
 class NavMenu(rx.Component):
     """NavMenu component."""
+
     root = staticmethod(NavMenuRoot.create)
     sub = staticmethod(NavMenuSub.create)
     list = staticmethod(NavMenuList.create)
@@ -246,6 +255,3 @@ class NavMenu(rx.Component):
     viewport = staticmethod(NavMenuViewport.create)
 
 nav_menu = NavMenu()
-
-
-

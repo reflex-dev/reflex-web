@@ -10,7 +10,6 @@ def discord() -> rx.Component:
         rx.flex(
             rx.image(
                 src="/companies/light/discord.svg",
-                alt="Discord",
             ),
             padding="7px",
             style=button_style,
@@ -22,15 +21,9 @@ def discord() -> rx.Component:
 
 def new_discord() -> rx.Component:
     return rx.link(
-        rx.box(
-            get_icon("discord", color=c_color("slate", 9)),
-            height="32px",
-            width="32px",
-            style=new_button_style,
-            _hover={
-                "background-color": c_color("slate", 3),
-            },
-        ),
+        get_icon(icon="discord"),
+        # style=new_button_style,
+        class_name="hover:bg-slate-3 size-8 text-slate-9 flex justify-center items-center rounded-[10px] border border-solid border-slate-5 bg-slate-1 transition-bg cursor-pointer shadow-large py-0.5 px-3 hover:!text-slate-9",
         underline="none",
         href=DISCORD_URL,
     )

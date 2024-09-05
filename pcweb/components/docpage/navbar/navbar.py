@@ -353,6 +353,6 @@ def new_component_section() -> rx.Component:
 
 def navbar() -> rx.Component:
     return rx.el.header(
-        # new_component_section(),
+        new_component_section(),
         class_name="top-0 z-[9999] fixed flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-4)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
     )
