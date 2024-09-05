@@ -4,6 +4,9 @@ date: 2023-10-25
 title: "Implementing Sign In with Google"
 description: "How to wrap a third-party auth component and integrate it into a Reflex app."
 image: /blog/auth_blog.png
+meta: [
+    {"name": "keywords", "content": ""},
+]
 ---
 
 ```python exec

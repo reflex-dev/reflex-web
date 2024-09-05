@@ -4,6 +4,9 @@ date: 2024-03-21
 title: Designing a Pure Python Web Framework
 description: A look at how Reflex works under the hood.
 image: /blog/python.png
+meta: [
+    {"name": "keywords", "content": "python web app, python web app framework, web app framework python, python web apps, web app python, react python websocket, python react, react python, react with python, python and react js, react js with python, python and react, react js python"},
+]
 ---
 
 ```python exec
