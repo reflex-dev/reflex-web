@@ -13,8 +13,9 @@ from pcweb.pages.errors import errors
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
+
 
 def resource_header(text):
     return rx.text(
@@ -128,9 +129,10 @@ def resources_trigger(style):
             "cursor": "pointer",
         },
         font="Instrument Sans",
-        style={"font-size":"16px"},
+        style={"font-size": "16px"},
         spacing="2",
     )
+
 
 def resources_content(style):
     return rx.flex(
@@ -157,9 +159,7 @@ def resources_content(style):
             ),
             rx.flex(
                 resource_header("Resources"),
-                resources_item(
-                    "Component Library", library.path, "layout-panel-left"
-                ),
+                resources_item("Component Library", library.path, "layout-panel-left"),
                 resources_item(
                     "Roadmap",
                     constants.ROADMAP_URL,
@@ -176,9 +176,7 @@ def resources_content(style):
             ),
             rx.flex(
                 resource_header("Hosting"),
-                resources_item(
-                    "Deployment", hosting.deploy_quick_start.path, "globe"
-                ),
+                resources_item("Deployment", hosting.deploy_quick_start.path, "globe"),
                 resources_item("Self-Hosting", hosting.self_hosting.path, "server"),
                 direction="column",
                 background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
@@ -204,6 +202,7 @@ def resources_content(style):
         overflow="hidden",
     )
 
+
 def resources_section(style):
     return nav_menu.root(
         nav_menu.list(
@@ -215,18 +214,19 @@ def resources_section(style):
                     resources_content(style),
                 ),
             ),
-            background_color = "transparent",
+            background_color="transparent",
         ),
         nav_menu.viewport(),
     )
+
 
 def link_item(name: str, url: str):
     return rx.link(
         rx.center(
             rx.text(
                 name,
-                color = "#6C6C81",
-                font_weight = "400",
+                color="#6C6C81",
+                font_weight="400",
             ),
             height="100%",
         ),
@@ -329,4 +329,3 @@ def navbar(sidebar: rx.Component = None) -> rx.Component:
         spacing="5",
         padding="15px",
     )
-   
