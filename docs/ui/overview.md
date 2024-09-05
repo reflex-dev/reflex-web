@@ -37,24 +37,30 @@ This is useful for passing in text, numbers, and other simple data types.
 
 ## Another Example
 
-Now let's take a look at a more complex component, which has other components nested inside it. The `rx.hstack` component is a container that arranges its children horizontally.
+Now let's take a look at a more complex component, which has other components nested inside it. The `rx.vstack` component is a container that arranges its children vertically.
 
 ```python demo
-rx.hstack(
-    # Static 50% progress
-    rx.chakra.circular_progress(
-        rx.chakra.circular_progress_label("50", color="green"),
-        value=50,
+rx.vstack(
+    rx.header("Accordion"),
+    rx.accordion.root(
+    rx.accordion.item(
+        header="First Item",
+        content="The first accordion item's content",
     ),
-    # "Spinning" progress
-    rx.chakra.circular_progress(
-        rx.chakra.circular_progress_label("∞", color="rgb(107,99,246)"),
-        is_indeterminate=True,
+    rx.accordion.item(
+        header="Second Item",
+        content="The second accordion item's content",
     ),
+    rx.accordion.item(
+        header="Third item",
+        content="The third accordion item's content",
+    ),
+    width="300px",
+)
 )
 ```
 
-Some props are specific to a component. For example, the `value` prop of the `rx.chakra.circular_progress` component controls the progress bar's value.
+Some props are specific to a component. For example, the `header` and `content` props of the `rx.accordion.item` component show the heading and accordion content details of the accordion respectively.
 
 Styling props like `color` are shared across many components.
 

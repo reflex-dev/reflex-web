@@ -29,7 +29,7 @@ def debounce_checkbox_example():
             rx.text("Unchecked", color="red"),
         ),
         rx.debounce_input(
-            rx.chakra.checkbox(
+            rx.checkbox(
                 on_change=DebounceCheckboxState.set_checked,
             ),
             debounce_timeout=1000,
