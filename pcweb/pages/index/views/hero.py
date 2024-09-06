@@ -12,7 +12,7 @@ def hero() -> rx.Component:
         rx.box(
             rx.el.h1(
                 "Build web apps in pure Python",
-                class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xxx-large text-balance text-center text-transparent",
+                class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large lg:font-xxx-large text-balance text-center text-transparent",
             ),
             rx.el.h2(
                 rx.el.span("An open-source framework to ship beautiful apps fast."),
@@ -55,5 +55,5 @@ def hero() -> rx.Component:
         ),
         # Demo section
         demo_section(),
-        class_name="flex flex-col justify-center items-center gap-8 mx-auto px-4 lg:px-6 w-full max-w-6xl",
+        class_name="flex flex-col justify-center items-center gap-8 mx-auto w-full max-w-6xl",
     )

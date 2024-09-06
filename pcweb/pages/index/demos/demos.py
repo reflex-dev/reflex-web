@@ -43,101 +43,6 @@ def preview_block() -> rx.Component:
         class_name="flex justify-center items-center p-8 w-full h-full",
     )
 
-
-text_code = """def form_field(
-    label: str, placeholder: str, type: str, name: str
-) -> rx.Component:
-    return rx.form.field(
-        rx.flex(
-            rx.form.label(label),
-            rx.form.control(
-                rx.input(
-                    placeholder=placeholder, type=type
-                ),
-                as_child=True,
-            ),
-            direction="column",
-            spacing="1",
-        ),
-        name=name,
-        width="100%",
-    )
-
-def event_form() -> rx.Component:
-    return rx.card(
-        rx.flex(
-            rx.hstack(
-                rx.badge(
-                    rx.icon(tag="calendar-plus", size=32),
-                    color_scheme="mint",
-                    radius="full",
-                    padding="0.65rem",
-                ),
-                rx.vstack(
-                    rx.heading(
-                        "Create an event",
-                        size="4",
-                        weight="bold",
-                    ),
-                    rx.text(
-                        "Fill the form to create a custom event",
-                        size="2",
-                    ),
-                    spacing="1",
-                    height="100%",
-                    align_items="start",
-                ),
-                height="100%",
-                spacing="4",
-                align_items="center",
-                width="100%",
-            ),
-            rx.form.root(
-                rx.flex(
-                    form_field(
-                        "Event Name",
-                        "Event Name",
-                        "text",
-                        "event_name",
-                    ),
-                    rx.flex(
-                        form_field(
-                            "Date", "", "date", "event_date"
-                        ),
-                        form_field(
-                            "Time", "", "time", "event_time"
-                        ),
-                        spacing="3",
-                        flex_direction="row",
-                    ),
-                    form_field(
-                        "Description",
-                        "Optional",
-                        "text",
-                        "description",
-                    ),
-                    direction="column",
-                    spacing="2",
-                ),
-                rx.form.submit(
-                    rx.button("Create"),
-                    as_child=True,
-                    width="100%",
-                ),
-                on_submit=lambda form_data: rx.window_alert(
-                    form_data.to_string()
-                ),
-                reset_on_submit=False,
-            ),
-            width="100%",
-            direction="column",
-            spacing="4",
-        ),
-        size="3",
-    )
-"""
-
-
 def demo_section() -> rx.Component:
     return rx.box(
         # Tabs
@@ -145,7 +50,7 @@ def demo_section() -> rx.Component:
             tab("Image Gen", "wand-sparkles"),
             tab("Forms", "scan-text"),
             tab("Charts", "area-chart"),
-            tab("Chatbot", "bot-message-square"),
+            # tab("Chatbot", "bot-message-square"),
             tab("Custom", "atom"),
             rx.link(
                 rx.box(
@@ -156,7 +61,7 @@ def demo_section() -> rx.Component:
                 href=gallery.path,
                 underline="none",
             ),
-            class_name="flex flex-row items-center gap-2 border-slate-4 p-2 border-b",
+            class_name="flex flex-row items-center gap-2 border-slate-4 p-2 border-b flex-wrap",
         ),
         # Previews
         rx.box(
@@ -166,11 +71,11 @@ def demo_section() -> rx.Component:
                     ("Image Gen", image_gen()),
                     ("Forms", form()),
                     ("Charts", charts()),
-                    ("Chatbot", charts()),
+                    # ("Chatbot", charts()),
                     ("Custom", react()),
                     image_gen(),
                 ),
-                class_name="w-1/2 h-auto border-slate-4 border-r",
+                class_name="border-slate-4 border-r w-full lg:w-1/2 h-auto",
             ),
             rx.box(
                 rx.match(
@@ -182,7 +87,7 @@ def demo_section() -> rx.Component:
                     ("Custom", code_block(react_code)),
                     image_gen(),
                 ),
-                class_name="w-1/2 overflow-auto",
+                class_name="desktop-only w-1/2 overflow-auto",
             ),
             class_name="flex flex-row w-full h-full max-h-[34rem] overflow-hidden",
         ),

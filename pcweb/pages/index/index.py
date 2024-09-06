@@ -21,5 +21,5 @@ def index() -> rx.Component:
         stat(stat="5,000+", text="projects created monthly"),
         deploy(),
         open_source(),
-        class_name="flex flex-col gap-32 w-full max-w-[67rem] justify-center items-center mx-auto",
+        class_name="flex flex-col gap-32 w-full max-w-[67rem] justify-center items-center mx-auto px-4 lg:px-5",
     )

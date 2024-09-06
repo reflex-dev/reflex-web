@@ -53,5 +53,5 @@ def get_started() -> rx.Component:
         ),
         code_block(),
         id="get-started",
-        class_name="flex flex-col justify-center items-center gap-10 pb-2 w-[25rem]",
+        class_name="flex flex-col justify-center items-center gap-10 pb-2 max-w-[25rem] w-full",
     )

@@ -25,7 +25,6 @@ def repo(repo_url: str) -> rx.Component:
     )
 
 
-@rx.memo
 def code_card(app: dict) -> rx.Component:
     return rx.flex(
         rx.box(
@@ -34,7 +33,7 @@ def code_card(app: dict) -> rx.Component:
                     src=app["image_url"],
                     loading="lazy",
                     alt="Image preview for app: " + app["name"],
-                    class_name="w-full h-full duration-150 object-center object-cover hover:scale-105 transition-transform ease-out",
+                    class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
                 ),
                 href=app["demo_url"],
                 is_external=True,
@@ -73,7 +72,6 @@ def code_card(app: dict) -> rx.Component:
     )
 
 
-@rx.memo
 def community_code_card(app: dict) -> rx.Component:
     return rx.flex(
         rx.box(
@@ -82,7 +80,7 @@ def community_code_card(app: dict) -> rx.Component:
                     src=app["image_url"],
                     loading="lazy",
                     alt="Image preview for app: " + app["name"],
-                    class_name="w-full h-full duration-150 object-center object-cover hover:scale-105 transition-transform ease-out",
+                    class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
                 ),
                 href=app["demo_url"],
                 is_external=True,

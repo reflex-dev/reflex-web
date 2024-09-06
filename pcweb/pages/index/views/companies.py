@@ -46,7 +46,7 @@ def companies() -> rx.Component:
             logo("accenture", "29px"),
             logo("rappi", "29px"),
             logo("nike", "27px"),
-            class_name="flex flex-row flex-wrap justify-center items-center gap-10 h-8",
+            class_name="flex flex-row flex-wrap justify-center items-center gap-10 h-auto",
         ),
         class_name="flex flex-col justify-center gap-6 pt-4 w-full h-auto",
     )
