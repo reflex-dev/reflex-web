@@ -465,7 +465,7 @@ def component_description(summary: str) -> rx.Component:
 def add_item(category: dict) -> rx.Component:
     # Format the package name to be more human readable
     name = rx.ivars.ImmutableVar.create(
-        f"{category['package_name']._var_name}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')",
+        f"{str(category['package_name'])}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')",
     )
     return rx.flex(
         rx.box(
