@@ -16,6 +16,12 @@ class Route(Base):
     # The page title.
     title: str | None = None
 
+    # The page description.
+    description: str | None = None
+
+    # The page extra meta data.
+    meta: list[dict[str, str]] | None = None
+
     # Background color for the page.
     background_color: str | None = None
 

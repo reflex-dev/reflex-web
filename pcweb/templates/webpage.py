@@ -3,6 +3,7 @@ from typing import Callable
 import reflex as rx
 from pcweb import styles
 from pcweb.route import Route
+from typing import List, Dict
 
 DEFAULT_TITLE = "Web Apps in Pure Python"
 
@@ -63,7 +64,7 @@ def spotlight():
     )
 
 
-def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True) -> Callable:
+def webpage(path: str, title: str = DEFAULT_TITLE, description: str=None, meta: list[dict[str, str]]=None, props=None, add_as_page=True) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -131,6 +132,8 @@ def webpage(path: str, title: str = DEFAULT_TITLE, props=None, add_as_page=True)
         return Route(
             path=path,
             title=title,
+            description=description,
+            meta=meta,
             background_color="#131217",
             component=wrapper,
             add_as_page=add_as_page
