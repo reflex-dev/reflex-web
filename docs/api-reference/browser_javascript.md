@@ -25,11 +25,11 @@ Prefer to use the Python API whenever possible and file an issue if you need add
 
 There are four ways to execute custom Javascript code into your Reflex app:
 
-* `rx.script` - Injects the script via `next/script` for efficient loading of inline and external Javascript code. Described further in the [component library]({library.other.script.path}).
-  * These components can be directly included in the body of a page, or they may
+- `rx.script` - Injects the script via `next/script` for efficient loading of inline and external Javascript code. Described further in the [component library]({library.other.script.path}).
+  - These components can be directly included in the body of a page, or they may
     be passed to `rx.App(head_components=[rx.script(...)])` to be included in
     the `<Head>` tag of all pages.
-* `rx.call_script` - An event handler that evaluates arbitrary Javascript code,
+- `rx.call_script` - An event handler that evaluates arbitrary Javascript code,
   and optionally returns the result to another event handler.
 
 These previous two methods can work in tandem to load external scripts and then
@@ -39,8 +39,8 @@ The following two methods are geared towards wrapping components and are
 described with examples in the [Wrapping React]({wrapping_react.overview.path})
 section.
 
-* `_get_hooks` and `_get_custom_code` in an `rx.Component` subclass
-* `Var.create` with `_var_is_local=False`
+- `_get_hooks` and `_get_custom_code` in an `rx.Component` subclass
+- `Var.create` with `_var_is_local=False`
 
 ## Inline Scripts
 
@@ -62,7 +62,7 @@ def sound_effect_demo():
     return rx.hstack(
         rx.script("""
             var button_sfx = new Audio("/vintage-button-sound-effect.mp3")
-            function playFromStart (sfx) {sfx.load(); sfx.play()}"""), 
+            function playFromStart (sfx) {sfx.load(); sfx.play()}"""),
         rx.button("Play Immediately", on_click=rx.call_script("playFromStart(button_sfx)")),
         rx.button("Play Later", on_click=SoundEffectState.delayed_play),
     )
@@ -186,7 +186,7 @@ class GlobalKeyWatcher(rx.Fragment):
             })
             """ % (
                 self.keys,
-                rx.utils.format.format_event_chain(self.event_triggers["on_key_down"]),
+                str(rx.ivars.LiteralVar.create(self.event_triggers["on_key_down"])) + "(_ev)"
             )
 
     def render(self):
@@ -202,11 +202,4 @@ def global_key_demo():
         rx.text("Press a, s, d or w to trigger an event"),
         rx.heading(f"Last watched key pressed: {GlobalKeyState.key}"),
     )
-```
-
-```md alert
-# rx.utils.format.format_event_chain?
-
-The `format_event_chain` function is used to format an event trigger defined on the component via `rx.EventHandler` annotation into a Javascript expression that can be used to actually trigger the event.
-The Javascript code should do minimal work, preferring to hand off execution to a user-supplied python `EventHandler` for processing on the backend.
 ```
