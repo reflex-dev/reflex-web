@@ -55,6 +55,7 @@ You can also define custom `Var` operations with the following:
 
 ```python
 from reflex.ivars.base import var_operation, var_operation_return
+from reflex.ivars.number import NumberVar
 
 @var_operation
 def factorial(value: NumberVar):
@@ -71,6 +72,18 @@ def index():
 
 You can also compose existing operations:
 
-```
+```python
 @var_operation
-def multipl
+def multiply_array_values(a: ArrayVar):
+    return var_operation_return(
+        js_expression=f"{a}.reduce((p, c) => p * c, 1)",
+        var_type=int
+    )
+
+def factorial(value: NumberVar):
+    return rx.cond(
+        value <= 1,
+        1,
+        multiply_array_values(rx.Var.range(1, value+1))
+    )
+```
