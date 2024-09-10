@@ -26,14 +26,14 @@ To put it in simple terms, a `Var` in Reflex represents a Javascript expression.
 - `BooleanVar` represents a boolean expression. For example: `false`, `3 > 2`.
 - `StringVar` represents an expression that evaluates to a string. For example: `'hello'`, `(2).toString()`.
 - `ArrayVar` represents an expression that evalues to an array object. For example: `[1, 2, 3]`, `'words'.split()`.
-- `ObjectVar` represents an expression that evalues to an object. For example: `{a: 2, b: 3}`, `{deeply: {nested: {value: false}}}`.
+- `ObjectVar` represents an expression that evalues to an object. For example: `\{a: 2, b: 3\}`, `\{deeply: \{nested: \{value: false\}\}\}`.
 - `NoneVar` represents a null value. This can be either `undefiend` or `null`.
 
 ## Creating Vars
 
 State fields are converted to `Var` by default. Additionally, you can create a `Var` from python values using `rx.Var.create()`:
 
-```python
+```py
 rx.Var.create(4) # NumberVar
 rx.Var.create("hello") # StringVar
 rx.Var.create([1, 2, 3]) # ArrayVar
@@ -41,7 +41,7 @@ rx.Var.create([1, 2, 3]) # ArrayVar
 
 If you want to create a `Var` from a raw Javascript string, you can pass `_var_is_string=False`:
 
-```python
+```py
 rx.Var.create("2", _var_is_string=False).to(int) # NumberVar
 ```
 
@@ -73,6 +73,9 @@ def index():
 You can also compose existing operations:
 
 ```python
+from reflex.ivars.base import var_operation, var_operation_return
+from reflex.ivars import ArrayVar, NumberVar
+
 @var_operation
 def multiply_array_values(a: ArrayVar):
     return var_operation_return(
