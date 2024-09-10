@@ -333,13 +333,58 @@ Explore how to customise a theme and customise cell and row style!
 
 
 
+## Using AG Grid with State
+
+You can use State to update the grid based on a users input. In this example, we update the `column_defs` of the grid when a user clicks a button.
 
 
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+class AgGridState(rx.State):
+    """The app state."""
+    all_columns = [
+        { 'field': 'country' },
+        { 'field': 'pop'},
+        { 'field': 'continent' },
+        { 'field': 'lifeExp'},
+        { 'field': 'gdpPercap'},
+    ]
+
+    two_columns = [
+        { 'field': 'country' },
+        { 'field': 'pop'},
+    ]
+    column_defs = all_columns
+    n_clicks = 0
+
+    def update_columns(self):
+        self.n_clicks += 1
+        if self.n_clicks % 2 != 0:
+            self.column_defs = self.two_columns
+        else:
+            self.column_defs = self.all_columns
 
 
+df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 
-## With Callbacks
+def ag_grid_simple_with_state():
+    return rx.box(
+        rx.button("Toggle Columns", on_click=AgGridState.update_columns),
+        ag_grid(
+            id="ag_grid_basic_with_state",
+            row_data=df.to_dict("records"),
+            column_defs=AgGridState.column_defs,
+        ),
+        width="45vw",
+        height="40vh",
+    )
+```
+
+
 
 
 ## Using AG Grid Enterprise
