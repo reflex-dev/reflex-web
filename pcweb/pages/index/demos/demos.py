@@ -7,6 +7,7 @@ from .charts.charts import charts, charts_code
 
 # from .auth.auth import auth, auth_code
 from .react.react import react, react_code
+from pcweb.components.icons.icons import get_icon
 
 
 class DemoState(rx.State):
@@ -20,10 +21,11 @@ class DemoState(rx.State):
 def tab(name: str, icon: str) -> rx.Component:
     is_selected = DemoState.demo == name
     return rx.box(
-        rx.icon(tag=icon, size=16),
+        # rx.icon(tag=icon, size=16),
+        get_icon(icon, class_name="!text-slate-9 shrink-0"),
         name,
-        class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-0.5 rounded-[0.625rem] h-8 font-small text-slate-9 transition-bg cursor-pointer"
-        + rx.cond(is_selected, " border border-slate-5 bg-slate-1", ""),
+        class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-2 h-full font-small text-slate-9 transition-bg cursor-pointer"
+        + rx.cond(is_selected, " bg-slate-1 shadow-large", ""),
         on_click=DemoState.set_demo(name),
     )
 
@@ -33,7 +35,7 @@ def code_block(code: str) -> rx.Component:
         code,
         language="python",
         # wrap_long_lines=True,
-        class_name="demo-code-block border-slate-4 !p-8 border-r !rounded-none",
+        class_name="demo-code-block !px-10 !py-12 !rounded-none",
     )
 
 
@@ -43,25 +45,17 @@ def preview_block() -> rx.Component:
         class_name="flex justify-center items-center p-8 w-full h-full",
     )
 
+
 def demo_section() -> rx.Component:
     return rx.box(
         # Tabs
         rx.box(
-            tab("Image Gen", "wand-sparkles"),
-            tab("Forms", "scan-text"),
-            tab("Charts", "area-chart"),
-            # tab("Chatbot", "bot-message-square"),
-            tab("Custom", "atom"),
-            rx.link(
-                rx.box(
-                    rx.icon(tag="layers", size=16),
-                    "More",
-                    class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-0.5 rounded-[0.625rem] h-8 font-small text-slate-9 transition-bg cursor-pointer",
-                ),
-                href=gallery.path,
-                underline="none",
-            ),
-            class_name="flex flex-row items-center gap-2 border-slate-4 p-2 border-b flex-wrap",
+            tab("Forms", "send"),
+            tab("Chatbot", "chat_bubble"),
+            tab("Image Gen", "image_ai_small"),
+            tab("Charts", "chart"),
+            tab("Custom", "code_custom"),
+            class_name="flex flex-row items-center overflow-hidden border-slate-4 border-b flex-wrap justify-center divide-x divide-slate-4 [&>:first-child]:border-l-slate-4 [&>:last-child]:!border-r-slate-4 [&>:first-child]:!border-l [&>:last-child]:!border-r",
         ),
         # Previews
         rx.box(
@@ -87,9 +81,15 @@ def demo_section() -> rx.Component:
                     ("Custom", code_block(react_code)),
                     image_gen(),
                 ),
-                class_name="desktop-only w-1/2 overflow-auto",
+                rx.box(
+                    class_name="absolute bottom-0 left-0 right-0 h-20 pointer-events-none",
+                    style={
+                        "background": "linear-gradient(180deg, rgba(26, 27, 29, 0.00) 0%, #1A1B1D 79.62%)",
+                    },
+                ),
+                class_name="desktop-only w-1/2 overflow-auto relative",
             ),
             class_name="flex flex-row w-full h-full max-h-[34rem] overflow-hidden",
         ),
-        class_name="flex flex-col border-slate-4 bg-slate-2 shadow-large border rounded-[1.125rem] w-full max-w-[67rem] h-full overflow-hidden",
+        class_name="flex flex-col border-slate-3 bg-slate-2 border-t rounded-[1.125rem] w-full max-w-[69.25rem] h-full overflow-hidden",
     )

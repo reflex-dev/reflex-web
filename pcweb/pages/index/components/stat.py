@@ -9,10 +9,10 @@ def stat(stat: str, text: str) -> rx.Component:
         rx.box(
             rx.text(
                 stat,
-                class_name="font-semibold text-[3rem] text-slate-9 leading-[3.5rem] tracking-[-0.09rem]",
+                class_name="font-semibold text-[2.5rem] leading-[3rem] tracking-[-0.075rem] inline-block bg-clip-text bg-gradient-to-r from-slate-8 via-slate-9 to-slate-8 w-full text-balance text-center text-transparent",
             ),
             rx.text(text, class_name="font-small text-slate-9"),
-            class_name="flex flex-col justify-center items-center text-center",
+            class_name="flex flex-col justify-center items-center text-center text-nowrap",
         ),
         get_icon("feather", class_name="scale-x-[-1]"),
         class_name="flex flex-row items-center gap-6 justify-center",

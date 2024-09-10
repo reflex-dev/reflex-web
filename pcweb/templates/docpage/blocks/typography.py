@@ -37,6 +37,9 @@ def definition(title: str, *children) -> rx.Component:
 def text_comp(text: rx.Var[str]) -> rx.Component:
     return rx.text(text, class_name="font-base text-slate-11 mb-4")
 
+@rx.memo
+def text_comp_2(text: rx.Var[str]) -> rx.Component:
+    return rx.text(text, class_name="font-base text-slate-11 max-w-[80%] mb-10")
 
 @rx.memo
 def list_comp(text: rx.Var[str]) -> rx.Component:

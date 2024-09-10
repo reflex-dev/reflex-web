@@ -26,7 +26,7 @@ def stats() -> rx.Component:
     return rx.box(
         stat("star", f"{GITHUB_STARS:,}+", "stars"),
         stat("fork", "1,100+", "forks"),
-        stat("eye_big", "145+", "watch"),
+        stat("contributors", "150+", "contributors"),
         class_name="justify-center gap-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3",
     )
 

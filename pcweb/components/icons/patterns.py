@@ -8,11 +8,10 @@ def create_pattern(
 ) -> rx.Component:
     return get_icon(
         pattern,
-        class_name="z-0 absolute w-[1111.528px] h-[1094.945px] overflow-hidden pointer-events-none shrink-0"
+        class_name="z-[-1] absolute w-[1111.528px] h-[1094.945px] overflow-hidden pointer-events-none shrink-0"
         + " "
         + class_name,
     )
-
 
 def landing_patterns() -> rx.Component:
     return [
@@ -36,6 +35,22 @@ def landing_patterns() -> rx.Component:
         ),
         # Glowing
         rx.box(
-            class_name="top-[715px] z-0 absolute bg-violet-3 opacity-[0.36] blur-[80px] rounded-[768px] w-[768px] h-[768px] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            class_name="top-[715px] z-[-1] absolute bg-violet-3 opacity-[0.36] blur-[80px] rounded-[768px] w-[768px] h-[768px] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        ),
+    ]
+
+def new_patterns() -> rx.Component:
+    return [
+        rx.box(
+            get_icon("wave_pattern", class_name=""),
+            get_icon("wave_pattern", class_name="scale-x-[-1]"),
+            class_name="flex flex-row gap-[4.125rem] absolute top-0 left-1/2 transform -translate-x-1/2 mt-[65px] z-[-1] w-[64.15rem] overflow-hidden",
+        ),
+        # Glowing
+        rx.box(
+            rx.box(
+                class_name="bg-[linear-gradient(180deg,_var(--c-slate-1)_0%,_var(--c-violet-3)_100%)] blur-[80px] rounded-[46rem] w-[46rem] h-[35.5rem] overflow-hidden pointer-events-none shrink-0"
+            ),
+            class_name="p-[97.5rem_24.25rem_23.625rem_24.25rem] absolute top-0 flex justify-center items-center w-[94.5rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1]",
         ),
     ]

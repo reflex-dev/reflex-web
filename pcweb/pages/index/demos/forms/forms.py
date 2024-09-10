@@ -1,5 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button, icon_button
+from pcweb.components.icons import get_icon
 
 
 class FormState(rx.State):
@@ -12,65 +13,74 @@ def form() -> rx.Component:
     return rx.box(
         rx.form(
             rx.box(
-                rx.image(
-                    src="/logo.jpg",
-                    loading="lazy",
-                    class_name="rounded-[25%] w-9 h-auto",
+                rx.box(
+                    get_icon("message_form", class_name="text-violet-9"),
+                    class_name="size-14 rounded-full bg-slate-5 flex items-center justify-center shrin-0",
                 ),
-                rx.el.h2(
-                    "Create an account",
-                    class_name="font-base font-semibold text-[1.5rem] text-center text-slate-12",
-                ),
-                class_name="flex flex-col items-center gap-4",
-            ),
-            rx.box(
-                rx.text(
-                    "Email address", class_name="font-medium font-small text-slate-11"
-                ),
-                rx.el.input(
-                    placeholder="user@reflex.dev",
-                    name="email",
-                    type="email",
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 shadow-small p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
-                ),
-                class_name="flex flex-col gap-2",
-            ),
-            rx.box(
                 rx.box(
                     rx.text(
-                        "Password", class_name="font-medium font-small text-slate-11"
+                        "Send us a message",
+                        class_name="font-md text-slate-12 font-bold leading-6",
                     ),
-                    rx.link(
-                        "Forgot password?",
-                        href="#",
-                        underline="none",
-                        class_name="font-small text-violet-9",
+                    rx.text(
+                        "Fill the form and we’ll back to you shortly.",
+                        class_name="font-small text-slate-9",
                     ),
-                    class_name="flex flex-row justify-between w-full",
+                    class_name="flex flex-col gap-1",
+                ),
+                class_name="flex flex-row gap-5 items-center",
+            ),
+            rx.box(
+                rx.text(
+                    "Name ",
+                    rx.text.span("*", class_name="text-red-10 font-smbold"),
+                    class_name="font-smbold text-slate-12",
                 ),
                 rx.el.input(
-                    placeholder="Enter your password",
-                    name="password",
-                    type="password",
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 shadow-small p-[0.5rem_0.75rem] border rounded-[10px] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                    name="name",
+                    type="text",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
                 ),
                 class_name="flex flex-col gap-2",
             ),
-            button("Sign In", type="submit", class_name="-mt-2"),
             rx.box(
-                rx.divider(margin="0", class_name="bg-slate-4"),
                 rx.text(
-                    "OR CONTINUE WITH",
-                    class_name="text-slate-9 font-small !text-xs whitespace-nowrap",
+                    "Email ",
+                    rx.text.span("*", class_name="text-red-10 font-smbold"),
+                    class_name="font-smbold text-slate-12",
                 ),
-                rx.divider(margin="0", class_name="bg-slate-4"),
-                class_name="flex flex-row gap-2 items-center",
+                rx.el.input(
+                    # placeholder="Enter your password",
+                    name="Email",
+                    type="email",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                ),
+                class_name="flex flex-col gap-2",
             ),
-            icon_button("GitHub", "github", variant="secondary"),
+            rx.box(
+                rx.text(
+                    "Message ",
+                    class_name="font-smbold text-slate-12",
+                ),
+                rx.el.textarea(
+                    name="message",
+                    type="text",
+                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            button(
+                "Send",
+                variant="muted",
+                type="submit",
+                class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
+            ),
             on_submit=FormState.submit,
-            class_name="flex flex-col gap-6 border-slate-5 bg-white-1 shadow-small p-8 border rounded-[1.125rem] w-full",
+            class_name="flex flex-col gap-4 border-slate-4 bg-slate-3 p-6 border rounded-[1rem] w-full",
         ),
-        class_name="flex items-center px-12 py-8 h-full overflow-hidden",
+        class_name="flex items-center px-20 py-12 h-full overflow-hidden",
     )
 
 

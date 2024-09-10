@@ -9,24 +9,23 @@ def hero() -> rx.Component:
     """Render the hero section of the landing page."""
     return rx.el.section(
         # Headings
-        rx.box(
-            rx.el.h1(
-                "Build web apps in pure Python",
-                class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large lg:font-xxx-large text-balance text-center text-transparent",
-            ),
-            rx.el.h2(
-                rx.el.span("An open-source framework to ship beautiful apps fast."),
-                rx.el.span("Deploy with a single command."),
-                class_name="flex flex-col font-md text-center text-slate-9",
-            ),
-            class_name="flex flex-col gap-6",
+        rx.el.h1(
+            """Build web apps in pure Python. 
+An open-source framework
+to ship beautiful and fast""",
+            class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large text-balance text-center text-transparent whitespace-pre",
         ),
+        # rx.el.h2(
+        #     rx.el.span("An open-source framework to ship beautiful apps fast."),
+        #     rx.el.span("Deploy with a single command."),
+        #     class_name="flex flex-col font-md text-center text-slate-9",
+        # ),
         # Buttons
         rx.box(
             rx.link(
                 button(
-                    "Get Started",
-                    class_name="!px-5 !py-2 !h-12 !font-smbold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem]",
+                    "Start building",
+                    class_name="!px-[1.125rem] !py-2 !h-12 !font-smbold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem]",
                 ),
                 underline="none",
                 href=getting_started.introduction.path,
@@ -34,8 +33,8 @@ def hero() -> rx.Component:
             rx.link(
                 button(
                     "Get a demo",
-                    variant="secondary",
-                    class_name="!px-5 !py-2 !h-12 !font-semibold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg",
+                    variant="muted",
+                    class_name="!px-[1.125ren] !py-2 !h-12 !font-semibold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem] !w-[9.3125rem]",
                 ),
                 href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
                 is_external=True,
@@ -53,7 +52,5 @@ def hero() -> rx.Component:
             on_click=rx.set_clipboard("pip install reflex"),
             class_name="flex flex-row items-center gap-3 hover:bg-slate-3 px-3 py-2 rounded-xl cursor-pointer transition-bg",
         ),
-        # Demo section
-        demo_section(),
-        class_name="flex flex-col justify-center items-center gap-8 mx-auto w-full max-w-6xl",
+        class_name="flex flex-col justify-center items-center gap-8 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-8 pt-24 lg:pt-48",
     )

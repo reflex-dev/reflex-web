@@ -701,7 +701,6 @@ class RadixDocState(rx.State):
     color: str = "tomato"
 
 
-@rx.memo
 def hover_item(component: rx.Component, component_str: str) -> rx.Component:
     return rx.hover_card.root(
         rx.hover_card.trigger(rx.flex(component)),

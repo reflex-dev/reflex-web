@@ -96,14 +96,15 @@ def sidebar_leaf(
                     rx.flex(
                         rx.text(
                             item.names,
-                            color=c_color("slate", 9),
+                            # color=c_color("slate", 9),
                             _hover={
-                                "color": c_color("slate", 11),
+                                # "color": c_color("slate", 11),
                                 "text_decoration": "none",
                             },
-                            transition="color 0.035s ease-out",
-                            style={**small},
-                            width="100%",
+                            # transition="color 0.035s ease-out",
+                            # style={**small},
+                            # width="100%",
+                            class_name="font-small text-slate-9 hover:text-slate-11 transition-color w-full "
                         ),
                         padding="0px 8px 0px 28px",
                         border_left=f"1.5px solid {c_color('slate', 4)}",
@@ -166,6 +167,7 @@ def sidebar_item_comp(
                 ),
                 rx.box(class_name="flex-grow"),
                 rc.accordion_icon(class_name="size-4"),
+                on_click=rx.redirect("/docs/library/" + item.names.lower().replace(" ", "-")),
                 class_name="items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
             ),
             rc.accordion_panel(
@@ -175,9 +177,7 @@ def sidebar_item_comp(
                             sidebar_item_comp(item=child, index=index, url=url)
                             for child in item.children
                         ],
-                        class_name="flex flex-col items-start gap-4 !ml-[15px] list-none",
-                        align_items="flex-start",
-                        box_shadow=f"inset 1px 0 0 0 {c_color('slate', 4)}",
+                        class_name="flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1px_0_0_0_var(--c-slate-4)]",
                     ),
                     allow_multiple=True,
                     default_index=rx.cond(index, index[1:2], []),

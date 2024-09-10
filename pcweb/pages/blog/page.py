@@ -3,6 +3,7 @@ from pcweb.components.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
 from pcweb.flexdown import xd2 as xd
 from .paths import blog_data
+from pcweb.components.icons.patterns import landing_patterns
 
 
 def back(title, url):
@@ -105,7 +106,7 @@ def page(document, route) -> rx.Component:
     """Create a page."""
     meta = document.metadata
     return rx.el.section(
-        # back(meta["title"], route),
+        *landing_patterns(),
         rx.el.article(
             rx.link(
                 rx.box(

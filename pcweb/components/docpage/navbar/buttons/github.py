@@ -9,7 +9,7 @@ from pcweb.styles.colors import c_color
 def github() -> rx.Component:
     return rx.link(
         rx.flex(
-            get_icon(icon="github"),
+            get_icon(icon="github_navbar", class_name="shrink-0 !text-slate-9"),
             rx.text(
                 f"{GITHUB_STARS/1000:.1f}K",
                 class_name="font-small",

@@ -1,6 +1,6 @@
 import reflex as rx
-import reflex_chakra as rc
-from pcweb.templates.docpage import docpage, h1_comp, text_comp
+from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
+from pcweb.components.icons import get_icon
 
 
 def component_grid():
@@ -15,14 +15,14 @@ def component_grid():
         for category in components:
             sidebar.append(
                 rx.box(
-                    rx.heading(
-                        category,
-                        style={
-                            "fontSize": "1.5em",
-                        },
+                    rx.link(
+                        rx.el.h1(category, class_name="font-large text-slate-12"),
+                        get_icon("new_tab", class_name="text-slate-11 [&>svg]:size-4"),
+                        href=f"/docs/library{prefix}/{category.lower()}",
+                        underline="none",
+                        class_name="px-4 py-2 bg-slate-1 hover:bg-slate-3 transition-bg flex flex-row justify-between items-center !text-slate-12",
                     ),
-                    rx.divider(),
-                    rx.vstack(
+                    rx.box(
                         *[
                             rx.link(
                                 rx.utils.format.to_title_case(c[0]),
@@ -31,31 +31,13 @@ def component_grid():
                                     clist=c,
                                     prefix=prefix,
                                 ),
-                                font_size="1em",
-                                color=rx.color(
-                                    color="mauve",
-                                    shade=12,
-                                ),
-                                _hover={
-                                    "color": rx.color(
-                                        color="violet",
-                                        shade=9,
-                                    ),
-                                },
+                                class_name="font-small text-slate-11 hover:!text-violet-9 transition-color",
                             )
                             for c in components[category]
                         ],
-                        align_items="start",
+                        class_name="flex flex-col gap-2.5 px-4 py-2 border-t border-slate-5",
                     ),
-                    row_span=3,
-                    col_span=1,
-                    border_radius="8px",
-                    background_color=rx.color(
-                        color="mauve",
-                        shade=2,
-                    ),
-                    border=f"1px solid {rx.color(color='mauve', shade=4,)}",
-                    padding="2em",
+                    class_name="flex flex-col border border-slate-5 rounded-xl bg-slate-2 shadow-large overflow-hidden",
                 ),
             )
 
@@ -67,28 +49,27 @@ def component_grid():
     # add `graphing/` prefix when generating graphing components to assume the url `/docs/library/graphing/<category>/<component>`.
     graphs = generate_gallery(
         components=graphing_components,
-        prefix="graphing/",
+        prefix="graphing",
     )
     return rx.box(
-        rc.responsive_grid(
+        rx.box(
             *core,
-            columns=[1, 2, 2, 2, 3],
-            gap=4,
+            class_name="grid grid-cols-2 lg:grid-cols-3 gap-6",
         ),
-        rx.heading(
-            "Graphing Components",
-            margin_top="1em",
-            style={
-                "fontSize": "2em",
-            },
+        rx.box(
+            h1_comp(
+                text="Graphing Components",
+            ),
+            text_comp_2(
+                text="Discover our range of components for building interactive charts and data visualizations. Create clear, informative, and visually engaging representations of your data with ease.",
+            ),
+            rx.box(
+                *graphs,
+                class_name="grid grid-cols-2 lg:grid-cols-3 gap-6",
+            ),
+            class_name="flex flex-col",
         ),
-        rx.separator(),
-        rc.responsive_grid(
-            *graphs,
-            columns=[1, 2, 2, 2, 3],
-            gap=4,
-        ),
-        width="100%",
+        class_name="w-full flex flex-col gap-16",
     )
 
 
@@ -96,16 +77,13 @@ def component_grid():
     right_sidebar=False,
 )
 def library():
-    return rx.flex(
+    return rx.box(
         h1_comp(
             text="Component Library",
         ),
-        text_comp(
+        text_comp_2(
             text="Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page contains a list of all builtin components.",
         ),
         component_grid(),
-        text_align="left",
-        flex_direction="column",
-        height="100%",
-        margin_bottom="4em",
+        class_name="flex flex-col h-full mb-12",
     )

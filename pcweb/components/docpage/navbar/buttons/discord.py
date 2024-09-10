@@ -21,7 +21,7 @@ def discord() -> rx.Component:
 
 def new_discord() -> rx.Component:
     return rx.link(
-        get_icon(icon="discord"),
+        get_icon(icon="discord_navbar", class_name="shrink-0 !text-slate-9"),
         # style=new_button_style,
         class_name="hover:bg-slate-3 size-8 text-slate-9 flex justify-center items-center rounded-[10px] border border-solid border-slate-5 bg-slate-1 transition-bg cursor-pointer shadow-large py-0.5 px-3 hover:!text-slate-9",
         underline="none",

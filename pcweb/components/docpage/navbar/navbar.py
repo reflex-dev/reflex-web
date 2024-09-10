@@ -274,7 +274,7 @@ def logo() -> rx.Component:
                 src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
             ),
         ),
-        class_name="flex shrink-0 mr-5",
+        class_name="flex shrink-0 mr-3",
         href="/",
     )
 
@@ -354,5 +354,5 @@ def new_component_section() -> rx.Component:
 def navbar() -> rx.Component:
     return rx.el.header(
         new_component_section(),
-        class_name="top-0 z-[9999] fixed flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-4)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
+        class_name="top-0 z-[9999] fixed flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
     )
