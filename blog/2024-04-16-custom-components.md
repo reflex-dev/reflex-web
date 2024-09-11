@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2024-04-16
 title: Custom Components
 description: Announcing our custom component ecosystem.
-image: /blog/custom_components.webp
+image: /blog/custom_components.jpeg
 meta: [
     {"name": "keywords", "content": ""},
 ]

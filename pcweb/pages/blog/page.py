@@ -142,7 +142,7 @@ def page(document, route) -> rx.Component:
                 src=f"{meta['image']}",
                 alt=f"Image for blog post: {meta['title']}",
                 loading="lazy",
-                class_name="rounded-[1.125rem] w-auto h-[22.5rem] object-center object-cover",
+                class_name="rounded-[1.125rem] w-auto h-[25rem] object-cover",
             ),
             rx.box(
                 xd.render(document, "blog.md"),
@@ -153,3 +153,4 @@ def page(document, route) -> rx.Component:
         ),
         class_name="section-content",
     )
+ 

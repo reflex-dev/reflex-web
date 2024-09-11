@@ -50,7 +50,7 @@ for route in routes:
             "component": route.component,
             "route": route.path,
             "title": route.title,
-            "image": "/previews/index_preview.png",
+            "image": "/previews/index_preview.png" if route.image is None else route.image,
             "meta": [
                 {"name": "theme-color", "content": route.background_color},
             ]
