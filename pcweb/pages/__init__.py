@@ -5,6 +5,7 @@ from .changelog import changelog
 from .docs import doc_routes
 from .faq import faq
 from .index import index
+from .pricing import pricing
 from .page404 import page404
 from .errors import errors
 from .gallery import gallery
