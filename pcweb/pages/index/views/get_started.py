@@ -59,7 +59,7 @@ def code_block() -> rx.Component:
             class_name="flex flex-row justify-between items-center gap-2",
         ),
         box_shadow="0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00))",
-        class_name="relative flex flex-col gap-4 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px] p-4 rounded-2xl max-w-[24.5rem] self-center w-full border border-slate-3",
+        class_name="relative flex flex-col gap-4 border-slate-3 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px] p-4 border rounded-2xl max-w-[24.5rem] self-center w-full",
     )
 
 
@@ -81,5 +81,5 @@ def get_started() -> rx.Component:
             "bottom_logo",
             class_name="absolute left-1/2 bottom-0 transform -translate-x-1/2 z-[-1]",
         ),
-        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full relative pb-[5.5rem]",
+        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full lg:border border-slate-3 relative pt-20 pb-[5.5rem]",
     )

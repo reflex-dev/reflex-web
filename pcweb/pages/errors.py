@@ -3,7 +3,6 @@ from pcweb.templates.webpage import webpage
 from pcweb.flexdown import xd2 as xd
 from pcweb import constants
 from pcweb.components.webpage.comps import h1_title
-from pcweb.components.icons.patterns import landing_patterns
 
 
 def errors_content() -> rx.Component:
@@ -16,7 +15,6 @@ def errors_content() -> rx.Component:
 @webpage(path="/errors", title="Common Errors · Reflex")
 def errors() -> rx.Component:
     return rx.el.section(
-        *landing_patterns(),
         rx.box(
             h1_title(title="Common Errors"),
             rx.box(

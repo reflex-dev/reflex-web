@@ -144,7 +144,7 @@ def blog_section() -> rx.Component:
                     class_name="z-[2] flex flex-row justify-between px-[1.125rem] pb-[0.875rem] w-full",
                 ),
                 rx.box(
-                    background_image=f'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 25%), url({list(blog_data.values())[0].metadata["image"]})',
+                    background_image=f'linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({list(blog_data.values())[0].metadata["image"]})',
                     class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-transform duration-150 ease-out",
                 ),
                 href="/" + list(blog_data.keys())[0],

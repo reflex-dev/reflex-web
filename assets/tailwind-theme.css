@@ -6,6 +6,7 @@
     --font-instrument-sans: 'Instrument Sans', sans-serif;
     --font-source-code-pro: 'Source Code Pro', monospace;
     --font-jetbrains: "JetBrains Mono", monospace;
+    color-scheme: light dark;
 }
 
 @layer components {
@@ -154,9 +155,9 @@
         font-family: "JetBrains Mono" !important;
         font-size: 0.8125rem !important;
         font-style: normal !important;
-        font-weight: 400 !important;
-        line-height: 1.21875rem !important;
-        letter-spacing: -0.01313rem !important;
+        font-weight: 500 !important;
+        line-height: 150% !important;
+        letter-spacing: -0.01219rem !important;
     }
 
     .font-small {
@@ -186,6 +187,7 @@
         line-height: 1.5rem;
         /* 150% */
         letter-spacing: -0.015rem;
+        
     }
 
     .font-md-smbold {

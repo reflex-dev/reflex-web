@@ -35,15 +35,15 @@ def image_gen() -> rx.Component:
                     ImageGenState.image_url,
                     rx.image(
                         src=ImageGenState.image_url,
-                        class_name="w-auto h-auto object-contain object-center rounded-[1.125rem]",
+                        class_name="w-auto h-auto object-contain object-center rounded-2xl",
                     ),
                     rx.box(
                         get_icon("image_ai"),
                         # rx.icon("image", size=26, class_name="!text-slate-7"),
-                        class_name="flex justify-center items-center border-slate-4 border bg-slate-1 w-full h-full rounded-[1.125rem]",
+                        class_name="flex justify-center items-center border-slate-4 border bg-slate-3 w-full h-full rounded-2xl",
                     ),
                 ),
-                class_name="h-full w-full flex justify-center items-center overflow-hidden rounded-[1.125rem] aspect-square shadow-small",
+                class_name="h-full w-full flex justify-center items-center overflow-hidden rounded-2xl aspect-square",
             ),
             loading=ImageGenState.processing,
             class_name="rounded-xl w-full h-full",
@@ -53,7 +53,8 @@ def image_gen() -> rx.Component:
                 placeholder="What do you want to see?",
                 name="prompt",
                 type="text",
-                class_name="shadow-small box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 p-[0.5rem_0.75rem] border rounded-[10px] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                required=True,
+                class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
             ),
             button(
                 text=rx.cond(ImageGenState.processing, "Generating...", "Generate"),
@@ -62,19 +63,21 @@ def image_gen() -> rx.Component:
                         "opacity": "0.65",
                         "cursor": "default",
                         "_hover": {
-                            "background": "linear-gradient(180deg, var(--violet-9) 0%, var(--violet-9) 100%)"
+                            "background": "var(--c-slate-5)"
                         },
                     },
                     "cursor": rx.cond(ImageGenState.processing, "default", "pointer"),
                     "opacity": rx.cond(ImageGenState.processing, "0.65", "1"),
                 },
+                variant="muted",
+                class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
                 type="submit",
             ),
             class_name="flex flex-row gap-2 align-center",
             reset_on_submit=True,
             on_submit=ImageGenState.get_image,
         ),
-        class_name="flex flex-col items-center gap-4 p-8 h-full overflow-hidden",
+        class_name="flex flex-col items-center gap-4 px-10 py-12 h-full overflow-hidden",
     )
 
 image_gen_code = """class ImageGenState(rx.State):

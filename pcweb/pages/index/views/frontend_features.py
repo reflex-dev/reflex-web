@@ -26,7 +26,7 @@ def frontend_card(
             height=height,
             loading="lazy",
         ),
-        class_name=f"col-span-{cols} h-96 rounded-[1.125rem] bg-slate-2 border-t border-slate-3 overflow-hidden relative",
+        class_name=f"col-span-{cols} h-96 rounded-[1.125rem] bg-slate-2 border border-slate-3 overflow-hidden relative shadow-large max-h-full pointer-events-none",
     )
 
 
@@ -69,19 +69,19 @@ def frontend_grid() -> rx.Component:
             top="5rem",
         ),
         frontend_card(
-            title="Ship with 60+ components",
-            description="Build your project faster with Reflex UI library.",
-            image="components.svg",
+            title="Build once, use everywhere",
+            description="Create reusable components to use across your project.",
+            image="reusable.svg",
             cols="2",
-            height="17.5rem",
-            top="6.5rem",
+            height="20rem",
+            top="4rem",
         ),
         class_name="grid grid-cols-2 lg:grid-cols-4 gap-4 grid-rows-2 max-w-[84.5rem]",
     )
 
 
 def frontend_features() -> rx.Component:
-    return rx.box(
+    return rx.el.section(
         rx.box(
             rx.box(
                 rx.el.h2(
@@ -92,13 +92,13 @@ def frontend_features() -> rx.Component:
                     "Turn your ideas into apps lightning fast",
                     class_name="font-x-large text-slate-9 z-[1]",
                 ),
-                class_name="lg:flex flex-col border-r border-slate-3 p-[6rem_6.5rem_6rem_2.5rem] text-nowrap hidden",
+                class_name="lg:flex flex-col lg:border-r border-slate-3 p-[5rem_6.5rem_5rem_2.5rem] text-nowrap hidden",
             ),
             rx.box(
                 stat(stat="100K+", text="Apps built with Reflex"),
-                class_name="px-10 py-24",
+                class_name="px-10 py-[5.5rem] w-auto",
             ),
-            class_name="flex flex-row lg:border-t border-slate-3 max-w-[64.19rem] justify-center lg:border-x",
+            class_name="flex flex-row lg:border-t border-slate-3 max-w-[64.19rem] justify-center lg:border-x w-full",
         ),
         frontend_grid(),
         class_name="flex flex-col justify-center items-center",

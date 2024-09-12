@@ -522,7 +522,7 @@ def docpage(
             from pcweb.components.docpage.sidebar import sidebar as sb
 
             # Create the docpage sidebar.
-            sidebar = sb(url=path, width="280px")
+            sidebar = sb(url=path, width="300px")
 
             # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
@@ -667,7 +667,7 @@ def docpage(
                                 ],
                                 class_name="flex flex-col gap-4 list-none",
                             ),
-                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[280px] max-h-[80vh] overflow-hidden",
+                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[300px] max-h-[80vh] overflow-hidden",
                         ),
                         class_name="mt-[90px] h-full shrink-0 w-[16%]"
                         + (" hidden 2xl:flex" if right_sidebar else " hidden"),

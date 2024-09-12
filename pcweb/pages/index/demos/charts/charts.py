@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.components.button import icon_button
+from pcweb.components.button import button_with_icon
 import random
 
 data = [
@@ -79,7 +79,13 @@ def charts():
 }
 """
         ),
-        icon_button("Randomize", "dice", variant="secondary", on_click=ChartsState.randomize_data),
+        button_with_icon(
+            "Randomize",
+            "dice",
+            variant="muted",
+            on_click=ChartsState.randomize_data,
+            class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
+        ),
         rx.recharts.area_chart(
             rx.el.svg.defs(
                 rx.el.svg.linear_gradient(
@@ -187,7 +193,7 @@ def charts():
             data=ChartsState.data,
             class_name="w-full h-full overflow-visible",
         ),
-        class_name="flex flex-col items-end gap-6 p-8 h-full overflow-hidden",
+        class_name="flex flex-col items-end gap-6 px-10 py-12 h-full overflow-hidden",
     )
 
 

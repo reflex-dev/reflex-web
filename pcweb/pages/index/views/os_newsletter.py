@@ -1,6 +1,34 @@
 import reflex as rx
 from pcweb.components.button import button
+from pcweb.constants import GITHUB_URL
 from pcweb.signup import IndexState
+
+
+def os_card() -> rx.Component:
+    return rx.box(
+        rx.box(
+            rx.el.h2(
+                "We’re open source and free.", class_name="font-large text-slate-12"
+            ),
+            rx.el.p(
+                """Get help and contribute 
+on GitHub""",
+                class_name="font-large text-slate-9 whitespace-pre",
+            ),
+            class_name="flex flex-col",
+        ),
+        rx.link(
+            # Glow
+            rx.html(
+                """<svg xmlns="http://www.w3.org/2000/svg" width="205" height="89" viewBox="0 0 205 89" fill="none"><path d="M205 44.5C205 69.077 159.109 89 102.5 89S0 69.077 0 44.5 45.89 0 102.5 0 205 19.923 205 44.5" fill="url(#a)"/><defs><radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(102.5 44.5)rotate(90 0 1)"><stop stop-color="var(--c-violet-3)"/><stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/></radialGradient></defs></svg>""",
+                class_name="shrink-0 absolute w-[12.8125rem] h-[5.5625rem] -translate-y-1/2 left-[-2.5rem] top-1/2",
+            ),
+            button("Open GitHub", variant="muted", class_name="self-start shrink-0"),
+            href=GITHUB_URL,
+            class_name="relative",
+        ),
+        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-l !border-slate-3 lg:!border-t",
+    )
 
 
 def newletter_input() -> rx.Component:
@@ -91,11 +119,23 @@ latest news about Reflex""",
             class_name="flex flex-col",
         ),
         newletter_input(),
-        class_name="flex flex-col gap-8 w-full",
+        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3",
     )
 
-def newsletter() -> rx.Component:
-    return rx.el.section(
+
+def os_newsletter_grid() -> rx.Component:
+    return rx.box(
+        os_card(),
         newsletter_card(),
-        class_name="flex items-center justify-center w-full",
+        class_name="grid grid-cols-1 lg:grid-cols-2 gap-0 grid-rows-1 w-full lg:divide-y divide-slate-3 lg:divide-x",
+    )
+
+
+def os_newsletter() -> rx.Component:
+    return rx.el.section(
+        rx.box(
+            os_newsletter_grid(),
+            class_name="flex flex-row max-w-[64.19rem] justify-center w-full",
+        ),
+        class_name="flex flex-col justify-center items-center w-full",
     )

@@ -19,7 +19,7 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
                     name.capitalize(),
                     class_name="truncate font-base text-slate-12",
                 ),
-                rx.icon("chevron-right", size=14, class_name="text-slate-9"),
+                rx.icon("chevron-right", size=14, class_name="!text-slate-9"),
                 class_name="bottom-0 absolute flex flex-row justify-between w-full px-4 py-2 items-center",
             ),
             class_name="rounded-xl border overflow-hidden relative box-border shadow-large bg-slate-2 hover:bg-slate-3 transition-bg border-slate-5",
@@ -46,7 +46,7 @@ def create_previews(
     prefix: str = "",
     type: str = "core",
 ):
-    @docpage(right_sidebar=False, set_path=f"/docs/library/{prefix}" + path)
+    @docpage(right_sidebar=False, set_path=f"/docs/library/{prefix.strip('/')}/" + path.strip('/'))
     def page() -> rx.Component:
         from pcweb.components.docpage.sidebar.sidebar_items import get_component_link
 

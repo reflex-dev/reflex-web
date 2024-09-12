@@ -3,7 +3,6 @@ from pcweb import constants
 from pcweb.templates.webpage import webpage
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
-from pcweb.components.icons.patterns import landing_patterns
 
 
 def change(
@@ -451,7 +450,6 @@ def changelog_content():
 @webpage(path="/changelog", title="Changelog · Reflex")
 def changelog():
     return rx.el.section(
-        *landing_patterns(),
         rx.box(
             h1_title(title="Changelog"),
             rx.box(

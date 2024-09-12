@@ -10,7 +10,7 @@ def hint(
     **props
 ) -> rx.Component:
     return rx.hover_card.root(
-        rx.hover_card.trigger(content),
+        rx.hover_card.trigger(content, height="fit-content"),
         rx.hover_card.content(
             rx.text(text),
             side=side,

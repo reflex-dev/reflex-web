@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.components.button import button, icon_button
+from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 
 
@@ -20,7 +20,7 @@ def form() -> rx.Component:
                 rx.box(
                     rx.text(
                         "Send us a message",
-                        class_name="font-md text-slate-12 font-bold leading-6",
+                        class_name="font-md-smbold text-slate-12 leading-6",
                     ),
                     rx.text(
                         "Fill the form and we’ll back to you shortly.",
@@ -40,7 +40,7 @@ def form() -> rx.Component:
                     name="name",
                     type="text",
                     required=True,
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -55,7 +55,7 @@ def form() -> rx.Component:
                     name="Email",
                     type="email",
                     required=True,
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -67,7 +67,7 @@ def form() -> rx.Component:
                 rx.el.textarea(
                     name="message",
                     type="text",
-                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
+                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -78,7 +78,7 @@ def form() -> rx.Component:
                 class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
             ),
             on_submit=FormState.submit,
-            class_name="flex flex-col gap-4 border-slate-4 bg-slate-3 p-6 border rounded-[1rem] w-full",
+            class_name="flex flex-col gap-4 border-slate-4 bg-slate-3 p-6 border rounded-2xl w-full",
         ),
         class_name="flex items-center px-20 py-12 h-full overflow-hidden",
     )
@@ -92,66 +92,62 @@ form_code = """class FormState(rx.State):
 def form() -> rx.Component:
     return rx.card(
         rx.form(
-            rx.vstack(
-                rx.image(
-                    src="/logo.jpg",
-                    class_name="image",
+            rx.hstack(
+                rx.image(src="/envelope.png", class_name="envelope"),
+                rx.vstack(
+                    rx.heading(
+                        "Send us a message",
+                        class_name="heading",
+                    ),
+                    rx.text(
+                        "Fill the form and we’ll back to you shortly.",
+                        class_name="text",
+                    ),
+                    class_name="vstack",
                 ),
-                rx.heading(
-                    "Create an account",
-                    class_name="heading",
-                ),
-                class_name="vstack",
+                class_name="hstack",
             ),
             rx.vstack(
                 rx.text(
-                    "Email address",
+                    "Name ",
+                    rx.text.span("*", class_name="span"),
                     class_name="text",
                 ),
                 rx.input(
-                    placeholder="user@reflex.dev",
-                    name="email",
-                    type="email",
+                    name="name",
+                    type="text",
+                    required=True,
                     class_name="input",
                 ),
                 class_name="vstack",
             ),
             rx.vstack(
-                rx.hstack(
-                    rx.text(
-                        "Password",
-                        class_name="text",
-                    ),
-                    rx.link(
-                        "Forgot password?",
-                        href="#",
-                        class_name="link",
-                    ),
-                    class_name="hstack-password",
+                rx.text(
+                    "Email ",
+                    rx.text.span("*", class_name="span"),
+                    class_name="text",
                 ),
                 rx.input(
-                    placeholder="Enter your password",
-                    name="password",
-                    type="password",
+                    name="email",
+                    type="email",
+                    required=True,
                     class_name="input",
                 ),
                 class_name="vstack",
             ),
-            rx.button("Sign In", type="submit", class_name="button"),
-            rx.hstack(
-                rx.divider(),
+            rx.vstack(
                 rx.text(
-                    "OR CONTINUE WITH",
-                    class_name="text-small",
+                    "Message ",
+                    class_name="text",
                 ),
-                rx.divider(),
-                class_name="hstack",
+                rx.textarea(
+                    name="message",
+                    type="text",
+                    class_name="textarea",
+                ),
+                class_name="vstack",
             ),
-            rx.button(
-                rx.icon(tag="github"),
-                "GitHub",
-                class_name="button-secondary",
-            ),
+            rx.button("Send", type="submit", class_name="button"),
             class_name="form",
             on_submit=FormState.submit,
         ),

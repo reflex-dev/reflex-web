@@ -5,6 +5,7 @@ from pcweb import styles
 from pcweb.styles import font_weights as fw
 from pcweb.styles.colors import c_color
 from pcweb.styles import fonts
+from urllib.parse import urlencode
 
 icon_margins = {
     "h1": "10px",
@@ -15,7 +16,7 @@ icon_margins = {
 
 
 def h_comp_common(
-    text: rx.Var[str],
+    text: str,
     heading: str,
     convert_to_str: bool = False,
     style: dict = {},
@@ -49,16 +50,7 @@ def h_comp_common(
 
 
 @rx.memo
-def h1_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h1",
-        class_name="font-x-large lg:font-xx-large",
-    )
-
-
-@rx.memo
-def h1_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h1_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h1",
@@ -68,10 +60,21 @@ def h1_comp_xd(text: rx.Var[str]) -> rx.Component:
 
 
 @rx.memo
-def h2_comp(text: rx.Var[str]) -> rx.Component:
+def h1_comp_xd(text: str) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h1",
+        convert_to_str=True,
+        class_name="font-x-large lg:font-xx-large",
+    )
+
+
+@rx.memo
+def h2_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
+        convert_to_str=True,
         class_name="font-large lg:font-x-large",
     )
 
@@ -87,16 +90,7 @@ def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
 
 
 @rx.memo
-def h3_comp(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h3",
-        class_name="font-large",
-    )
-
-
-@rx.memo
-def h3_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h3_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h3",
@@ -106,17 +100,28 @@ def h3_comp_xd(text: rx.Var[str]) -> rx.Component:
 
 
 @rx.memo
-def h4_comp(text: rx.Var[str]) -> rx.Component:
+def h3_comp_xd(text: str) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h3",
+        convert_to_str=True,
+        class_name="font-large",
+    )
+
+
+@rx.memo
+def h4_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",
+        convert_to_str=True,
         scroll_margin="6em",
         class_name="font-md-smbold",
     )
 
 
 @rx.memo
-def h4_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h4_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",

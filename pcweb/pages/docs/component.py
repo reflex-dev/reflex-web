@@ -1057,9 +1057,8 @@ def multi_docs(path, comp, component_list, title):
     active_class_name = "font-small bg-slate-2 p-2 text-slate-11 rounded-xl shadow-large w-28 cursor-default border border-slate-4 text-center"
 
     non_active_class_name = "font-small w-28 transition-color hover:text-slate-11 text-slate-9 p-2 text-center"
-
     def links(current_page, ll_doc_exists, path):
-        path = str(path).strip("/")
+        path = str(path).rstrip("/")
         if ll_doc_exists:
             if current_page == "hl":
                 return rx.box(
@@ -1113,7 +1112,7 @@ def multi_docs(path, comp, component_list, title):
             class_name="flex flex-col w-full",
         )
 
-    @docpage(set_path=path + "/low", t=title + " (Low Level)")
+    @docpage(set_path=path + "low", t=title + " (Low Level)")
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")

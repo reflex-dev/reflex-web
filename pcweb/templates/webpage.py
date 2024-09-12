@@ -57,11 +57,13 @@ def webpage(
             from pcweb.views.bottom_section.bottom_logo import bottom_logo
             from pcweb.views.bottom_section.bottom_section import bottom_section
             from pcweb.components.webpage.badge import badge
+            from pcweb.components.icons.patterns import default_patterns
 
             # from pcweb.components.webpage.sidebar import sb
 
             # Wrap the component in the template.
             return rx.box(
+                *default_patterns(),
                 navbar(),
                 rx.el.main(
                     contents(*children, **props),
@@ -69,7 +71,7 @@ def webpage(
                     class_name="w-full z-[1]",
                 ),
                 bottom_section(),
-                bottom_logo(),
+                # bottom_logo(),
                 footer(),
                 badge(),
                 class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans overflow-hidden",

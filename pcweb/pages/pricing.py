@@ -2,7 +2,6 @@ import reflex as rx
 import httpx
 from pcweb.templates.webpage import webpage
 from pcweb.components.webpage.comps import h1_title
-from pcweb.components.icons.patterns import landing_patterns
 from pcweb.components.button import button, variant_styles, default_class_name
 from pcweb.pages.docs import getting_started, hosting
 
@@ -268,7 +267,6 @@ def enterprise_tier() -> rx.Component:
 @webpage(path="/pricing", title="Pricing · Reflex")
 def pricing():
     return rx.el.section(
-        *landing_patterns(),
         rx.box(
             h1_title(
                 title="Find a plan that's right for you", 

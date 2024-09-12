@@ -4,7 +4,6 @@ from .page import page
 from .paths import blog_data
 from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
-from pcweb.components.icons.patterns import landing_patterns
 
 
 def first_post_card(meta: dict, path: str) -> rx.Component:
@@ -16,7 +15,7 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                 alt="Image preview for blog post: " + str(meta["title"]),
                 class_name="group-hover:scale-105 w-full h-full transition-transform duration-150 ease-out object-center object-cover",
             ),
-            class_name="relative flex-shrink-0 w-1/2 h-[18rem] overflow-hidden",
+            class_name="relative flex-shrink-0 w-1/2 h-[18rem] overflow-hidden border-r border-solid border-slate-5",
         ),
         rx.box(
             rx.box(
@@ -137,7 +136,6 @@ def component_grid() -> rx.Component:
 @webpage(path="/blog", title="Reflex Blog")
 def blogs():
     return rx.el.section(
-        *landing_patterns(),
         rx.el.header(
             # pill(text="Blog posts"),
             h1_title(title="Blog"),

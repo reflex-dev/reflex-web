@@ -48,76 +48,73 @@ def sidebar_leaf(
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
     item.link = item.link.replace("_", "-").rstrip("/") + "/"
-    if item.outer:
-        return sidebar_link(
-            rx.flex(
-                rx.text(
-                    item.names,
-                    color=rx.cond(
-                        item.link == url,
-                        c_color("violet", 9),
-                        c_color("slate", 9),
-                    ),
-                    _hover={
-                        "color": c_color("slate", 11),
-                        "text_decoration": "none",
-                    },
-                    transition="color 0.035s ease-out",
-                    margin_left="0.5em",
-                    margin_top="0.5em",
-                    margin_bottom="0.2em",
-                    width="100%",
-                ),
-            ),
-            href=item.link,
-        )
-
-    return rx.list_item(
-        rc.accordion_item(
-            rx.cond(
-                item.link == url,
-                sidebar_link(
-                    rx.flex(
-                        rx.flex(
-                            rx.text(
-                                item.names,
-                                color=c_color("violet", 9),
-                                style={**small},
-                                transition="color 0.035s ease-out",
-                            ),
-                        ),
-                        padding="0px 8px 0px 28px",
-                        border_left=f"1.5px solid {c_color('violet', 9)}",
-                    ),
-                    _hover={"text_decoration": "none"},
-                    href=item.link,
-                ),
+    return (
+        rx.el.li(
+            rc.accordion_item(
                 sidebar_link(
                     rx.flex(
                         rx.text(
                             item.names,
-                            # color=c_color("slate", 9),
+                            color=rx.cond(
+                                item.link == url,
+                                c_color("violet", 9),
+                                c_color("slate", 9),
+                            ),
                             _hover={
-                                # "color": c_color("slate", 11),
-                                "text_decoration": "none",
+                                "color": c_color("slate", 11),
                             },
-                            # transition="color 0.035s ease-out",
-                            # style={**small},
-                            # width="100%",
-                            class_name="font-small text-slate-9 hover:text-slate-11 transition-color w-full "
+                            transition="color 0.035s ease-out",
+                            margin="0.5em 0.5em 0.2em 0.5em",
+                            width="100%",
                         ),
-                        padding="0px 8px 0px 28px",
-                        border_left=f"1.5px solid {c_color('slate', 4)}",
-                        _hover={"border_left": f"1.5px solid {c_color('slate', 8)}"},
                     ),
-                    _hover={"text_decoration": "none"},
                     href=item.link,
                 ),
-            ),
-            border="none",
-            width="100%",
-        ),
-        width="100%",
+                border="none",
+                width="100%",
+            )
+        )
+        if item.outer
+        else rx.el.li(
+            rc.accordion_item(
+                rx.cond(
+                    item.link == url,
+                    sidebar_link(
+                        rx.flex(
+                            rx.text(
+                                item.names,
+                                color=c_color("violet", 9),
+                                style=small,
+                                transition="color 0.035s ease-out",
+                            ),
+                            padding="0px 8px 0px 28px",
+                            border_left=f"1.5px solid {c_color('violet', 9)}",
+                        ),
+                        href=item.link,
+                    ),
+                    sidebar_link(
+                        rx.flex(
+                            rx.text(
+                                item.names,
+                                color=c_color("slate", 9),
+                                style=small,
+                                _hover={"color": c_color("slate", 11)},
+                                transition="color 0.035s ease-out",
+                                width="100%",
+                            ),
+                            padding="0px 8px 0px 28px",
+                            border_left=f"1.5px solid {c_color('slate', 4)}",
+                            _hover={
+                                "border_left": f"1.5px solid {c_color('slate', 8)}"
+                            },
+                        ),
+                        href=item.link,
+                    ),
+                ),
+                border="none",
+                width="100%",
+            )
+        )
     )
 
 
@@ -155,6 +152,7 @@ def sidebar_item_comp(
     index: list[int],
     url: str,
 ):
+    # print(index)
     return rx.cond(
         not item.children,
         sidebar_leaf(item=item, url=url),
@@ -167,20 +165,20 @@ def sidebar_item_comp(
                 ),
                 rx.box(class_name="flex-grow"),
                 rc.accordion_icon(class_name="size-4"),
-                on_click=rx.redirect("/docs/library/" + item.names.lower().replace(" ", "-")),
+                # on_click=rx.redirect("/docs/library/" + item.names.lower().replace(" ", "-")),
                 class_name="items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
             ),
             rc.accordion_panel(
                 rc.accordion(
                     rx.el.ul(
                         *[
-                            sidebar_item_comp(item=child, index=index, url=url)
+                            sidebar_item_comp(child, index, url)
                             for child in item.children
                         ],
                         class_name="flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1px_0_0_0_var(--c-slate-4)]",
                     ),
                     allow_multiple=True,
-                    default_index=rx.cond(index, index[1:2], []),
+                    default_index=index[1:2] if index else [],
                     class_name="!my-2",
                 ),
                 class_name="!p-0 w-full",
@@ -285,7 +283,7 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
                     " bg-transparent",
                 ),
             ),
-            on_click=lambda: SidebarState.set_sidebar_index(index),
+            on_click=SidebarState.set_sidebar_index(index),
             class_name="w-full text-slate-9 hover:!text-slate-9",
             underline="none",
             href=url,
@@ -297,8 +295,10 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
 def create_sidebar_section(section_title, section_url, items, index, url):
     # Check if the section has any nested sections (Like the Other Libraries Section)
     nested = any(len(child.children) > 0 for item in items for child in item.children)
+    # print(nested)
     # Make sure the index is a list
     index = index.to(list)
+    # print(index)
     return rx.el.li(
         rx.link(
             rx.el.h5(
@@ -319,8 +319,9 @@ def create_sidebar_section(section_title, section_url, items, index, url):
                 for item in items
             ],
             allow_multiple=True,
-            default_index=index if index is not None else [],
+            default_index=rx.cond(index, index, []),
             class_name="ml-0 pl-0 w-full",
+            on_mount=SidebarState.load_sidebar_index,
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -468,7 +469,8 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[280px]",
+        on_mount=SidebarState.load_sidebar_index,
+        class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px]",
     )
 
 

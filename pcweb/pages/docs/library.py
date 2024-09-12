@@ -18,7 +18,7 @@ def component_grid():
                     rx.link(
                         rx.el.h1(category, class_name="font-large text-slate-12"),
                         get_icon("new_tab", class_name="text-slate-11 [&>svg]:size-4"),
-                        href=f"/docs/library{prefix}/{category.lower()}",
+                        href=f"/docs/library/{prefix.strip('/')}/{category.lower()}",
                         underline="none",
                         class_name="px-4 py-2 bg-slate-1 hover:bg-slate-3 transition-bg flex flex-row justify-between items-center !text-slate-12",
                     ),
@@ -49,12 +49,12 @@ def component_grid():
     # add `graphing/` prefix when generating graphing components to assume the url `/docs/library/graphing/<category>/<component>`.
     graphs = generate_gallery(
         components=graphing_components,
-        prefix="graphing",
+        prefix="/graphing",
     )
     return rx.box(
         rx.box(
             *core,
-            class_name="grid grid-cols-2 lg:grid-cols-3 gap-6",
+            class_name="grid grid-cols-1 lg:grid-cols-3 gap-6",
         ),
         rx.box(
             h1_comp(
@@ -65,7 +65,7 @@ def component_grid():
             ),
             rx.box(
                 *graphs,
-                class_name="grid grid-cols-2 lg:grid-cols-3 gap-6",
+                class_name="grid grid-cols-1 lg:grid-cols-3 gap-6",
             ),
             class_name="flex flex-col",
         ),

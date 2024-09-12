@@ -1,13 +1,19 @@
 import reflex as rx
 from typing import Literal, Callable
-from pcweb.components.icons import get_icon
 
-LiteralButtonVariant = Literal[
-    "primary", "success", "destructive", "secondary", "muted"
-]
+LiteralButtonVariant = Literal["primary", "success", "destructive", "secondary", "muted"]
 
-default_class_name = "font-smbold rounded-xl cursor-pointer inline-flex items-center justify-center px-[0.875rem] py-2 relative transition-bg border-t border-[rgba(255,255,255,0.21)]"
+default_button_style = {
+    # "input:placeholder-shown + &": {
+    #     "opacity": "0.80",
+    #     "cursor": "not-allowed",
+    #     "_hover": {
+    #         "background": "linear-gradient(180deg, var(--c-violet-9) 0%, var(--c-violet-10) 100%)"
+    #     },
+    # },
+}
 
+default_class_name = "rounded-full w-8 h-8 inline-flex items-center justify-center cursor-pointer relative border-t border-[rgba(255,255,255,0.21)] shrink-0"
 after_class_name = "after:absolute after:inset-[1px] after:border-t after:rounded-[11px] after:border-white after:opacity-[0.22]"
 
 
@@ -30,39 +36,15 @@ variant_styles = {
         "class_name": get_variant_class("red"),
     },
     "muted": {
-        "class_name": "bg-slate-3 hover:bg-slate-5 text-slate-9 border-t !border-slate-5",
+        "class_name": "bg-slate-3 hover:bg-slate-6 text-slate-9 border-t !border-slate-5",
     },
     "secondary": {
-        "class_name": "bg-slate-4 hover:bg-slate-5 text-slate-10 !border-none",
+        "class_name": "bg-slate-4 hover:bg-slate-6 text-slate-10 !border-none",
     },
 }
 
 
-def button(
-    text: str,
-    variant: LiteralButtonVariant = "primary",
-    onclick: Callable = None,
-    style: dict = {},
-    class_name: str = "",
-    *children,
-    **props,
-) -> rx.Component:
-    return rx.el.button(
-        text,
-        onclick=onclick,
-        style=style,
-        class_name=default_class_name
-        + " "
-        + variant_styles[variant]["class_name"]
-        + " "
-        + class_name,
-        *children,
-        **props,
-    )
-
-
-def button_with_icon(
-    text: str,
+def icon_button(
     icon: str,
     variant: LiteralButtonVariant = "primary",
     onclick: Callable = None,
@@ -72,10 +54,9 @@ def button_with_icon(
     **props,
 ) -> rx.Component:
     return rx.el.button(
-        get_icon(icon, class_name="mr-2 [&>svg]:size-5"),
-        text,
+        rx.icon(icon, size=16, class_name="shrink-0"),
         onclick=onclick,
-        style=style,
+        style=default_button_style | style,
         class_name=default_class_name
         + " "
         + variant_styles[variant]["class_name"]

@@ -1,6 +1,5 @@
 import reflex as rx
 from pcweb.templates.webpage import webpage
-from pcweb.components.icons.patterns import landing_patterns
 
 contents = f"""
 # Page Not Found
@@ -12,7 +11,6 @@ The page at `{rx.State.router.page.raw_path}` doesn't exist.
 @webpage(path="/404", title="Page Not Found · Reflex.dev", add_as_page=False)
 def page404():
     return rx.center(
-        *landing_patterns(),
         rx.vstack(
             rx.markdown(contents),
             rx.spacer(),

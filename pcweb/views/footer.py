@@ -39,11 +39,12 @@ def footer_link_flex(heading: str, links: list[rx.Component]) -> rx.Component:
     )
 
 
-def social_menu_item(icon: str, url: str = "/", border: bool = False) -> rx.Component:
+def social_menu_item(icon: str, url: str = "/", class_name: str = "") -> rx.Component:
     return rx.link(
         get_icon(icon=icon),
         class_name="flex justify-center items-center gap-2 bg-slate-1 hover:bg-slate-3 p-[0.125rem_0.75rem] text-slate-9 hover:!text-slate-9 transition-bg cursor-pointer overflow-hidden"
-        + (" border-slate-5 border-x border-solid border-y-0" if border else ""),
+        + " "
+        + class_name,
         href=url,
         is_external=True,
     )
@@ -53,12 +54,12 @@ def menu_socials() -> rx.Component:
     return rx.box(
         rx.box(
             social_menu_item("github", GITHUB_URL),
-            social_menu_item("twitter", TWITTER_URL, border=True),
-            social_menu_item("chat_bubble", FORUM_URL),
+            social_menu_item("twitter", TWITTER_URL, class_name="border-l border-slate-5 border-solid border-y-0 border-r-0"),
+            social_menu_item("chat_bubble", FORUM_URL, class_name="!border-l !border-r border-slate-5 border-solid border-y-0"),
             social_menu_item("discord", DISCORD_URL),
-            class_name="flex flex-row h-full align-center",
+            class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),
-        class_name="border-slate-5 bg-slate-1 shadow-large shadow-none border rounded-full h-6 overflow-hidden",
+        class_name="border-slate-5 bg-slate-1 shadow-large border rounded-full h-6 overflow-hidden",
     )
 
 
@@ -156,7 +157,7 @@ def footer() -> rx.Component:
                     footer_link("FAQ", faq.path),
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
-                    footer_link("Forum", GITHUB_DISCUSSIONS_URL),
+                    footer_link("Forum", FORUM_URL),
                 ],
             ),
             newsletter_form(),

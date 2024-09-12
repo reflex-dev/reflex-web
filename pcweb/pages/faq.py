@@ -6,7 +6,6 @@ from pcweb.templates.webpage import webpage
 from pcweb.constants import DISCORD_URL, CONTRIBUTING_URL
 from pcweb.components.webpage.comps import h1_title
 import reflex_chakra as rc
-from pcweb.components.icons.patterns import landing_patterns
 
 faq_items = [
     {
@@ -154,7 +153,6 @@ def faq_item(question: str, answer: str, index: int):
 @webpage(path="/faq", title="Frequently Asked Questions · Reflex")
 def faq():
     return rx.el.section(
-        *landing_patterns(),
         rx.box(
             # pill(text="Common Questions"),
             h1_title(title="Frequently Asked Questions"),

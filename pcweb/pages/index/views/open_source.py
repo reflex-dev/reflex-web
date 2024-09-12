@@ -74,6 +74,6 @@ def open_source() -> rx.Component:
         # Stats
         stats(),
         # Github links
-        github_links(),
+        # github_links(),
         class_name="flex flex-col gap-10 w-full",
     )
