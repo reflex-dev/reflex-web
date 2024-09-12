@@ -16,6 +16,7 @@ from pcweb.constants import (
     GITHUB_URL,
     TWITTER_URL,
     DISCORD_URL,
+    FORUM_URL,
 )
 
 
@@ -53,6 +54,7 @@ def menu_socials() -> rx.Component:
         rx.box(
             social_menu_item("github", GITHUB_URL),
             social_menu_item("twitter", TWITTER_URL, border=True),
+            social_menu_item("chat_bubble", FORUM_URL),
             social_menu_item("discord", DISCORD_URL),
             class_name="flex flex-row h-full align-center",
         ),

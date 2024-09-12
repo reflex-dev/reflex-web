@@ -33,7 +33,7 @@ from pcweb.pages.blog.paths import blog_data
 
 # from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
-from pcweb.constants import CONTRIBUTING_URL, GITHUB_DISCUSSIONS_URL, ROADMAP_URL
+from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL
 
 
 def resource_item(text: str, url: str, icon: str):
@@ -201,7 +201,7 @@ def resources_section() -> rx.Component:
             resource_item("FAQ", faq.path, "circle-help"),
             resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
             resource_item("Roadmap", ROADMAP_URL, "route"),
-            resource_item("Github Discussions", GITHUB_DISCUSSIONS_URL, "github"),
+            resource_item("Forum", FORUM_URL, "github"),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
         ),
     )
