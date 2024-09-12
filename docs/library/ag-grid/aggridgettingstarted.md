@@ -14,7 +14,7 @@ pip install reflex-ag-grid
 
 ## Your First Reflex AG Grid
 
-A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid.
+A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid. Each grid also requires a unique `id`.
 
 ```python demo exec
 import reflex as rx
@@ -25,9 +25,10 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv")
 
 column_defs = [
-    {'field': 'direction'},
-    {'field': 'strength'},
-    {'field': 'frequency'},
+    ag_grid.column_def(field="direction"),
+    ag_grid.column_def(field="strength"),
+    ag_grid.column_def(field="frequency"),
+
 ]
 
 def ag_grid_simple():
@@ -42,7 +43,7 @@ def ag_grid_simple():
     )
 ```
 
-The previous example showed the column_defs written out in full. You can also extract the required information from the dataframe's column names:
+The previous example showed the `column_defs` written out in full. You can also extract the required information from the dataframe's column names:
 
 ```python demo exec
 import reflex as rx
@@ -68,7 +69,7 @@ def ag_grid_simple_2():
 
 
 
-## Headers  (still need to fix this)
+## Headers
 
 In the above example, the first letter of the field names provided are capitalized when displaying the header name. You can customize the header names by providing a `header_name` key in the column definition. In this example, the `header_name` is customized for the second and third columns.
 
@@ -83,9 +84,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs = [
-    {'field': 'country'},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'lifeExp', 'header_name': 'Life Expectancy'},
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
 ]
 
 def ag_grid_simple_headers():
@@ -116,9 +117,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs =  [
-    {'field': 'country', 'filter': True},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'lifeExp', 'header_name': 'Life Expectancy', 'filter': True},
+    ag_grid.column_def(field="country", header_name="Country", filter=True),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy", filter=True),
 ]
 
 def ag_grid_simple_column_filtering():
@@ -133,7 +134,47 @@ def ag_grid_simple_column_filtering():
     )
 ```
 
-### Floating Filters
+
+
+### Filter Types
+
+
+You can set `filter=True` to enable the default filter for a column. 
+
+You can also set the filter type using the `filter` key. The following filter types are available: `ag_grid.filters.date`, `ag_grid.filters.number` and `ag_grid.filters.text`. These ensure that the input you enter to the filter is of the correct type. 
+
+(`ag_grid.filters.set` and `ag_grid.filters.multi` are available with AG Grid Enterprise)
+
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+
+df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/GanttChart-updated.csv")
+
+column_defs =  [
+    ag_grid.column_def(field="Task", filter=True),
+    ag_grid.column_def(field="Start", filter=ag_grid.filters.date),
+    ag_grid.column_def(field="Duration", filter=ag_grid.filters.number),
+    ag_grid.column_def(field="Resource", filter=ag_grid.filters.text),
+]
+
+def ag_grid_simple_column_filtering():
+    return rx.box(
+        ag_grid(
+            id="ag_grid_basic_column_filtering",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+        ),
+        width="45vw",
+        height="40vh",
+    )
+```
+
+
+### Floating Filters  (Doesn't work yet)
 
 Floating Filters embed the Column Filter into the header for ease of access. Set the `floating_filter` key to `True`. For this example we enable floating filters for just the first column.
 
@@ -146,9 +187,12 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs =  [
-    {'field': 'country', 'filter': True, 'floating_filter': True},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'lifeExp', 'header_name': 'Life Expectancy', 'filter': True},
+    ag_grid.column_def(field="country", filter=True, floating_filter=True),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy", filter=True),
+    # {'field': 'country', 'filter': True, 'floating_filter': True},
+    # {'field': 'pop', 'header_name': 'Population'},
+    # {'field': 'lifeExp', 'header_name': 'Life Expectancy', 'filter': True},
 ]
 
 def ag_grid_simple_floating_filters():
@@ -166,9 +210,12 @@ def ag_grid_simple_floating_filters():
 
 
 
+
 ## Row Sorting
 
-By default, the rows can be sorted by any column by clicking on the column header. You can disable sorting of the rows for a column by setting the `sortable` key to `False` in the column definition. In this example, we disable sorting for the first column.
+By default, the rows can be sorted by any column by clicking on the column header. You can disable sorting of the rows for a column by setting the `sortable` key to `False` in the column definition. 
+
+In this example, we disable sorting for the first column.
 
 ```python demo exec
 import reflex as rx
@@ -179,9 +226,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs =  [
-    {'field': 'country', 'sortable': False},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'lifeExp', 'header_name': 'Life Expectancy'},
+    ag_grid.column_def(field="country", sortable=False),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
 ]
 
 def ag_grid_simple_row_sorting():
@@ -201,7 +248,7 @@ def ag_grid_simple_row_sorting():
 
 ## Row Selection
 
-Row Selection is enabled using the `row_selection` attribute. You can use the `checkbox_selection` column definition attribute to render checkboxes for selection.
+Row Selection is enabled using the `row_selection` attribute. Setting it to `multiple` allows users to select multiple rows at a time. You can use the `checkbox_selection` column definition attribute to render checkboxes for selection.
 
 
 ```python demo exec
@@ -213,9 +260,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs = [
-    {'field': 'country', 'checkbox_selection': True},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'continent'},
+    ag_grid.column_def(field="country", checkbox_selection=True),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="continent"),
 ]
 
 def ag_grid_simple_row_selection():
@@ -237,7 +284,16 @@ def ag_grid_simple_row_selection():
 
 Enable Editing by setting the `editable` attribute to `True`. The cell editor is inferred from the cell data type. Set the cell editor type using the `cell_editor` attribute. 
 
-There are 7 provided cell editors in AG Grid: `agTextCellEditor`, `agLargeTextCellEditor`, `agSelectCellEditor`, `agRichSelectCellEditor`, `agNumberCellEditor`, `agDateCellEditor`, `agCheckboxCellEditor`.
+There are 7 provided cell editors in AG Grid: 
+1. `ag_grid.editors.text` 
+2. `ag_grid.editors.large_text`
+3. `ag_grid.editors.select`
+4. `ag_grid.editors.rich_select`
+5. `ag_grid.editors.number`
+6. `ag_grid.editors.date`
+7. `ag_grid.editors.checkbox`
+
+In this example, we enable editing for the second and third columns. The second column uses the `number` cell editor, and the third column uses the `select` cell editor.
 
 ```python demo exec
 import reflex as rx
@@ -248,12 +304,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs = [
-    {'field': 'country'},
-    {'field': 'pop', 'header_name': 'Population', 'editable': True, "cell_editor": 'agNumberCellEditor',},
-    {'field': 'continent', 'editable': True, "cell_editor": 'agSelectCellEditor', "cell_editor_params": {
-            "values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania'],
-        },
-    },
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="pop", header_name="Population", editable=True, cell_editor=ag_grid.editors.number),
+    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={"values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']}),
 ]
 
 def ag_grid_simple_editing():
@@ -284,9 +337,9 @@ import pandas as pd
 df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
 column_defs = [
-    {'field': 'country'},
-    {'field': 'pop', 'header_name': 'Population'},
-    {'field': 'lifeExp', 'header_name': 'Life Expectancy'},
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
 ]
 
 def ag_grid_simple_pagination():
@@ -312,21 +365,53 @@ def ag_grid_simple_pagination():
 
 ## Themes 
 
-You can style your grid with a theme. AG Grid includes the following themes: `ag-theme-quartz`, `ag-theme-quartz-dark`, `ag-theme-alpine`, `ag-theme-alpine-dark`, `ag-theme-balham`, `ag-theme-balham-dark,` `ag-theme-material`.
+You can style your grid with a theme. AG Grid includes the following themes: 
 
-The grid uses `ag-theme-alpine` by default. To use any other theme, set it using `class_name`. For example, `class_name="ag-theme-alpine-dark"`, like in the following example.
+1. `quartz`
+2. `alpine`
+3. `balham`
+4. `material`
 
-!!!!!!!!! Come back to this when the themes work !!!!!!!!!!!
-
-
-Explore how to customise a theme and customise cell and row style!
-
-
+The grid uses `quartz` by default. To use any other theme, set it using the `theme` prop, i.e. `theme="alpine"`.
 
 
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
 
+class AGGridThemeState(rx.State):
+    """The app state."""
 
+    theme: str = "quartz"
+    themes: list[str] = ["quartz", "balham", "alpine", "material"]
 
+df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+
+column_defs = [
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy"),
+]
+
+def ag_grid_simple_themes():
+    return rx.vstack(
+        rx.hstack(
+            rx.text("Theme:"),
+            rx.select(AGGridThemeState.themes, value=AGGridThemeState.theme, on_change=AGGridThemeState.set_theme),
+        ),
+        rx.box(
+            ag_grid(
+                id="ag_grid_basic_themes",
+                row_data=df.to_dict("records"),
+                column_defs=column_defs,
+                theme=AGGridThemeState.theme,
+            ),
+            width="45vw",
+            height="40vh",
+        ),
+    )
+```
 
 
 
@@ -346,16 +431,16 @@ import pandas as pd
 class AgGridState(rx.State):
     """The app state."""
     all_columns = [
-        { 'field': 'country' },
-        { 'field': 'pop'},
-        { 'field': 'continent' },
-        { 'field': 'lifeExp'},
-        { 'field': 'gdpPercap'},
+        ag_grid.column_def(field="country"),
+        ag_grid.column_def(field="pop"),
+        ag_grid.column_def(field="continent"),
+        ag_grid.column_def(field="lifeExp"),
+        ag_grid.column_def(field="gdpPercap"),
     ]
 
     two_columns = [
-        { 'field': 'country' },
-        { 'field': 'pop'},
+        ag_grid.column_def(field="country"),
+        ag_grid.column_def(field="pop"),
     ]
     column_defs = all_columns
     n_clicks = 0
