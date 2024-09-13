@@ -24,7 +24,12 @@ scrollToBottom();
 class TutorialState(rx.State):
 
     # Keep track of the chat history as a list of (question, answer) tuples.
-    chat_history: list[tuple[str, str]] = [("What is Reflex?","Reflex is the open-source framework empowering Python developers to build web apps faster.")]
+    chat_history: list[tuple[str, str]] = [
+        (
+            "What is Reflex?",
+            "Reflex is the open-source framework empowering Python developers to build web apps faster.",
+        )
+    ]
 
     async def submit(self, form_data: dict):
         self.question = form_data["question"]
@@ -131,7 +136,7 @@ async def answer(self, form_data: dict):
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     session = await client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "user", "content": self.question}
         ],

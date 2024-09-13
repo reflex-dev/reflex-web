@@ -94,69 +94,64 @@ class FormState(rx.State):
 def form() -> rx.Component:
     return rx.card(
         rx.form(
-            rx.vstack(
-                rx.image(
-                    src="/logo.jpg",
-                    class_name="image",
+            rx.hstack(
+                rx.image(src="/envelope.png", class_name="envelope"),
+                rx.vstack(
+                    rx.heading(
+                        "Send us a message",
+                        class_name="heading",
+                    ),
+                    rx.text(
+                        "Fill the form and we’ll back to you shortly.",
+                        class_name="text",
+                    ),
+                    class_name="vstack",
                 ),
-                rx.heading(
-                    "Create an account",
-                    class_name="heading",
-                ),
-                class_name="vstack",
+                class_name="hstack",
             ),
             rx.vstack(
                 rx.text(
-                    "Email address",
+                    "Name ",
+                    rx.text.span("*", class_name="span"),
                     class_name="text",
                 ),
                 rx.input(
-                    placeholder="user@reflex.dev",
-                    name="email",
-                    type="email",
+                    name="name",
+                    type="text",
+                    required=True,
                     class_name="input",
                 ),
                 class_name="vstack",
             ),
             rx.vstack(
-                rx.hstack(
-                    rx.text(
-                        "Password",
-                        class_name="text",
-                    ),
-                    rx.link(
-                        "Forgot password?",
-                        href="#",
-                        class_name="link",
-                    ),
-                    class_name="hstack-password",
+                rx.text(
+                    "Email ",
+                    rx.text.span("*", class_name="span"),
+                    class_name="text",
                 ),
                 rx.input(
-                    placeholder="Enter your password",
-                    name="password",
-                    type="password",
+                    name="email",
+                    type="email",
+                    required=True,
                     class_name="input",
                 ),
                 class_name="vstack",
             ),
-            rx.button("Sign In", type="submit", class_name="button"),
-            rx.hstack(
-                rx.divider(),
+            rx.vstack(
                 rx.text(
-                    "OR CONTINUE WITH",
-                    class_name="text-small",
+                    "Message ",
+                    class_name="text",
                 ),
-                rx.divider(),
-                class_name="hstack",
+                rx.textarea(
+                    name="message",
+                    type="text",
+                    class_name="textarea",
+                ),
+                class_name="vstack",
             ),
-            rx.button(
-                rx.icon(tag="github"),
-                "GitHub",
-                class_name="button-secondary",
-            ),
+            rx.button("Send", type="submit", class_name="button"),
             class_name="form",
             on_submit=FormState.submit,
-        ),
-        class_name="card",
+        )
     )
 """

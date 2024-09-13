@@ -28,11 +28,9 @@ def get_code_style(color: str):
 def get_code_style_rdx(color: str):
     return {
         "color": rx.color(color, 11),
-        "border_radius": "4px",
+        "border_radius": "0.25rem",
         "border": f"1px solid {rx.color(color, 5)}",
         "background": rx.color(color, 3),
-        **fonts.code,
-        "line_height": "1.5",
     }
 
 

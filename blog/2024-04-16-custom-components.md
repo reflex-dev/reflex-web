@@ -93,7 +93,7 @@ except:
 async def run_llm(chat_state):
     # Start a new session to answer the question.
     session = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=chat_state.get_messages(),
         stream=True,
     )
@@ -122,7 +122,7 @@ rx.box(
 async def run_llm(chat_state):
     # Start a new session to answer the question.
     session = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=chat_state.get_messages(),
         stream=True,
     )

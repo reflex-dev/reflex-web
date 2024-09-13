@@ -305,7 +305,11 @@
     }
 
     .gradient-heading {
-        @apply inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-balance text-center text-transparent
+        @apply inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-balance text-center text-transparent;
+    }
+
+    .table-header {
+        @apply font-small text-slate-12 w-auto justify-start pl-4 font-bold;
     }
 
     /* .tab-style {
