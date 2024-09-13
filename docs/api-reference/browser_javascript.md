@@ -186,7 +186,7 @@ class GlobalKeyWatcher(rx.Fragment):
             })
             """ % (
                 self.keys,
-                str(rx.ivars.LiteralVar.create(self.event_triggers["on_key_down"])) + "(_ev)"
+                str(rx.vars.LiteralVar.create(self.event_triggers["on_key_down"])) + "(_ev)"
             )
 
     def render(self):
