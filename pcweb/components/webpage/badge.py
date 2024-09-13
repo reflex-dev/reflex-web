@@ -7,7 +7,7 @@ from pcweb.constants import GITHUB_URL
 @rx.memo
 def badge() -> rx.Component:
     return hint(
-        text="This entire web was made with Reflex!",
+        text="This entire website was made with Reflex!",
         content=rx.link(
             get_icon("badge_logo"),
             rx.text(
