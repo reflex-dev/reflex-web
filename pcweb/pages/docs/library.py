@@ -49,7 +49,7 @@ def component_grid():
     # add `graphing/` prefix when generating graphing components to assume the url `/docs/library/graphing/<category>/<component>`.
     graphs = generate_gallery(
         components=graphing_components,
-        prefix="/graphing",
+        prefix="/graphing/",
     )
     return rx.box(
         rx.box(

@@ -65,7 +65,7 @@ def create_previews(
                     component_card(
                         name=rx.utils.format.to_title_case(component[0]),
                         link=get_component_link(
-                            component_category, component, prefix.strip("/")
+                            component_category, component, prefix.strip("/") + "/"
                         ),
                         section=component_category,
                     )
