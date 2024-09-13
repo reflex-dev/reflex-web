@@ -128,7 +128,7 @@ def footer_index() -> rx.Component:
                     footer_link("Blog", blogs.path),
                     footer_link("Changelog", changelog.path),
                 ],
-                class_name="!border-l !border-slate-3 !row-span-2",
+                class_name="lg:!border-l !border-slate-3 !row-span-2",
             ),
             footer_link_flex(
                 "Documentation",

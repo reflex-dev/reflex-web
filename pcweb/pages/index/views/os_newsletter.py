@@ -8,20 +8,20 @@ def os_card() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "Open source", class_name="font-large text-slate-12"
+                "Open source.", class_name="font-large text-slate-12"
             ),
             rx.el.p(
                 """Apache 2.0 license--view the source code, contribute,
 and self-host""",
-                class_name="font-medium text-slate-9 whitespace-pre",
+                class_name="font-base text-slate-9 whitespace-pre",
             ),
-            class_name="flex flex-col",
+            class_name="flex flex-col gap-2",
         ),
         rx.link(
             # Glow
             rx.html(
-                """<svg xmlns="http://www.w3.org/2000/svg" width="205" height="89" viewBox="0 0 205 89" fill="none"><path d="M205 44.5C205 69.077 159.109 89 102.5 89S0 69.077 0 44.5 45.89 0 102.5 0 205 19.923 205 44.5" fill="url(#a)"/><defs><radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(102.5 44.5)rotate(90 0 1)"><stop stop-color="var(--c-violet-3)"/><stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/></radialGradient></defs></svg>""",
-                class_name="shrink-0 absolute w-[12.8125rem] h-[5.5625rem] -translate-y-1/2 left-[-2.5rem] top-1/2",
+                """<svg xmlns="http://www.w3.org/2000/svg" width="300" height="89" viewBox="0 0 300 89" fill="none"><path d="M300 44.5C300 69.077 232.978 89 150 89S0 69.077 0 44.5 67.022 0 150 0s150 19.923 150 44.5" fill="url(#a)"/><defs><radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(150 44.5)rotate(90 0 1)"><stop stop-color="var(--c-violet-3)"/><stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/></radialGradient></defs></svg>""",
+                class_name="shrink-0 absolute w-[18.75rem] h-[5.5625rem] -translate-y-1/2 left-[-3.5rem] top-1/2",
             ),
             button("Contribute on GitHub", variant="muted", class_name="self-start shrink-0"),
             href=GITHUB_URL,
@@ -110,13 +110,13 @@ def newletter_input() -> rx.Component:
 def newsletter_card() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
+            rx.el.h2("Newsletter.", class_name="font-large text-slate-12"),
             rx.el.p(
                 """Stay up to date with the latest Reflex news
 and updates""",
                 class_name="font-medium text-slate-9 whitespace-pre",
             ),
-            class_name="flex flex-col",
+            class_name="flex flex-col gap-2",
         ),
         newletter_input(),
         class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3",

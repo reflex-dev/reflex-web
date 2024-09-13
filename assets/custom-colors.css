@@ -36,6 +36,7 @@
   --c-red-10: #DC3E42;
   /* White */
   --c-white-1: #FFFFFF;
+  --glow: #EBE4FF;
 }
 
 .dark,
@@ -86,4 +87,5 @@
   --c-red-10: #DC3E42;
   /* White */
   --c-white-1: #0E0F10;
+  --glow: #261958;
 }

@@ -20,7 +20,7 @@ def form() -> rx.Component:
                 rx.box(
                     rx.text(
                         "Send us a message",
-                        class_name="font-md text-slate-12 font-bold leading-6",
+                        class_name="font-md-smbold text-slate-12 leading-6",
                     ),
                     rx.text(
                         "Fill the form and we’ll back to you shortly.",
@@ -40,7 +40,7 @@ def form() -> rx.Component:
                     name="name",
                     type="text",
                     required=True,
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -55,7 +55,7 @@ def form() -> rx.Component:
                     name="Email",
                     type="email",
                     required=True,
-                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -67,7 +67,7 @@ def form() -> rx.Component:
                 rx.el.textarea(
                     name="message",
                     type="text",
-                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
+                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
                 ),
                 class_name="flex flex-col gap-2",
             ),
@@ -75,10 +75,10 @@ def form() -> rx.Component:
                 "Send",
                 variant="muted",
                 type="submit",
-                class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
+                class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
             ),
             on_submit=FormState.submit,
-            class_name="flex flex-col gap-4 border-slate-4 bg-slate-3 p-6 border rounded-[1rem] w-full",
+            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
         ),
         class_name="flex items-center px-20 py-12 h-full overflow-hidden",
     )

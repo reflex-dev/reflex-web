@@ -32,10 +32,10 @@ def newletter_input() -> rx.Component:
                 rx.box(
                     # Glow
                     rx.html(
-                        """<svg xmlns="http://www.w3.org/2000/svg" width="403" height="89" viewBox="0 0 403 89" fill="none">
-  <path d="M0 44.5C0 69.0767 90.2146 89 201.5 89C312.785 89 403 69.0767 403 44.5C403 19.9233 312.785 0 201.5 0C90.2146 0 0 19.9233 0 44.5Z" fill="url(#paint0_radial_10744_8734)"/>
+                        """<svg xmlns="http://www.w3.org/2000/svg" width="320" height="89" viewBox="0 0 320 89" fill="none">
+  <path d="M0 44.5C0 69.0767 71.6418 89 160 89C248.358 89 320 69.0767 320 44.5C320 19.9233 248.358 0 160 0C71.6418 0 0 19.9233 0 44.5Z" fill="url(#paint0_radial_10744_8734)"/>
   <defs>
-    <radialGradient id="paint0_radial_10744_8734" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(201.5 44.5) rotate(90) scale(44.5 201.5)">
+    <radialGradient id="paint0_radial_10744_8734" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(160 44.5) rotate(90) scale(44.5 160)">
       <stop stop-color="var(--c-violet-3)"/>
       <stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/>
     </radialGradient>
@@ -85,9 +85,9 @@ def newsletter_card() -> rx.Component:
             rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
             rx.el.p(
                 """Get the latest updates and news about Reflex""",
-                class_name="font-m text-slate-10 whitespace-pre",
+                class_name="font-base text-slate-10 whitespace-pre",
             ),
-            class_name="flex flex-col items-center text-center",
+            class_name="flex flex-col items-center text-center gap-2",
         ),
         newletter_input(),
         class_name="flex flex-col gap-4 w-full items-center",

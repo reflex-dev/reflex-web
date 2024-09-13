@@ -113,4 +113,5 @@
 .ikp-search-bar-trigger__text,
 .ikp-search-bar-trigger__search-icon {
   color: var(--c-slate-9, #8B8D98);
+  font-weight: 500;
 }

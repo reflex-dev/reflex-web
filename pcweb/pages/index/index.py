@@ -14,6 +14,7 @@ from .views.os_newsletter import os_newsletter
 from .views.get_started import get_started
 from .views.footer_index import footer_index
 from pcweb.components.webpage.badge import badge
+from .index_colors import index_colors
 
 
 
@@ -21,6 +22,7 @@ from pcweb.components.webpage.badge import badge
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(
+        index_colors(),
         *index_patterns(),
         navbar(),
         rx.el.main(

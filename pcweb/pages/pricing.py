@@ -37,7 +37,7 @@ def form() -> rx.Component:
                     "Get a custom demo and discover the value of Reflex for your enterprise. Explore our custom plans and pricing.",
                     class_name="font-small text-slate-9 text-right",
                 ),
-                class_name="flex flex-col gap-1 mb-4 items-start",
+                class_name="flex flex-col gap-2 mb-4 items-start",
             ),
             rx.box(
                 rx.hstack(
@@ -268,13 +268,13 @@ def enterprise_tier() -> rx.Component:
 def pricing():
     return rx.el.section(
         rx.box(
-            h1_title(
-                title="Find a plan that's right for you", 
-                class_name="mb-4"
-            ),
-            rx.el.h2(
-                "Start for free using the open-source and scale as you grow.",
-                class_name="font-md text-balance text-slate-10 mb-12",
+            rx.box(
+                h1_title(title="Find a plan that's right for you", class_name="mb-4"),
+                rx.el.h2(
+                    "Start for free using the open-source and scale as you grow.",
+                    class_name="font-md text-balance text-slate-10 mb-10",
+                ),
+                class_name="section-header",
             ),
             rx.grid(
                 rx.box(

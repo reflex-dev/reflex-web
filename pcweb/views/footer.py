@@ -55,7 +55,7 @@ def menu_socials() -> rx.Component:
         rx.box(
             social_menu_item("github", GITHUB_URL),
             social_menu_item("twitter", TWITTER_URL, class_name="border-l border-slate-5 border-solid border-y-0 border-r-0"),
-            social_menu_item("chat_bubble", FORUM_URL, class_name="!border-l !border-r border-slate-5 border-solid border-y-0"),
+            social_menu_item("forum", FORUM_URL, class_name="!border-l !border-r border-slate-5 border-solid border-y-0"),
             social_menu_item("discord", DISCORD_URL),
             class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),

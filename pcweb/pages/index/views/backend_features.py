@@ -59,7 +59,7 @@ def backend_grid() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "Skip the boilerplate",
+                "Skip the boilerplate.",
                 class_name="font-x-large text-slate-12",
             ),
             rx.el.p(
@@ -71,29 +71,29 @@ def backend_grid() -> rx.Component:
         pip_install_card(),
         backend_card(
             title="It's just Python",
-            description="Define and manage state with Python classes and functions",
+            description="Define and manage state with Python classes and functions.",
             icon="backend_db",
         ),
         backend_card(
             title="PyPI",
-            description="Use any Python library with Reflex",
+            description="Use any Python library with Reflex.",
             icon="backend_async",
         ),
         backend_card(
             title="Database management",
-            description="Use our built-in database or connect your own with a single line",
+            description="Use our built-in database or connect your own with a single line.",
             icon="backend_db",
         ),
         backend_card(
             title="Auth",
-            description="Secure your app with any auth provider - no vendor lock-in",
+            description="Secure your app with any auth provider - no vendor lock-in.",
             icon="backend_auth",
-            class_name="lg:!border-r !border-slate-3",
         ),
         backend_card(
             title="Check out the docs",
             description="API routes, background jobs, shared state, file uploads, cookies and more...",
             icon="backend_compatible",
+            class_name="lg:!border-r !border-slate-3",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-3 w-full lg:divide-y divide-slate-3 lg:divide-x",
     )

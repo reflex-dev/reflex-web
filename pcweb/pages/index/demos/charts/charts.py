@@ -84,7 +84,7 @@ def charts():
             "dice",
             variant="muted",
             on_click=ChartsState.randomize_data,
-            class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-12",
+            class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
         ),
         rx.recharts.area_chart(
             rx.el.svg.defs(
