@@ -34,7 +34,7 @@ def frontend_grid() -> rx.Component:
     return rx.box(
         frontend_card(
             title="60+ built-in components",
-            description="Exensible by design. Wrap and use any React component",
+            description="Extensible by design. Wrap and use any React component",
             image="components.svg",
             cols="2",
             height="17.5rem",
@@ -61,7 +61,7 @@ def frontend_grid() -> rx.Component:
             height="19.5rem",
             top="5rem",
         ),
-        frontend_card( 
+        frontend_card(
             title="Fully responsive",
             description="Your app looks good on every device",
             image="responsive.svg",
