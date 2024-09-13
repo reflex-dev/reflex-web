@@ -35,33 +35,41 @@ def graphic_card() -> rx.Component:
     )
 
 
+def reflex_deploy_card() -> rx.Component:
+    return rx.box(
+        # Pip install
+        rx.el.button(
+            get_icon("copy_pip", class_name="!text-violet-9"),
+            rx.el.p(
+                "$ reflex deploy",
+                class_name="font-['JetBrains_Mono'] font-bold text-[0.8125rem] text-center text-slate-9 leading-5 tracking-[-0.01219rem]",
+            ),
+            on_click=rx.set_clipboard("reflex deploy"),
+            class_name="flex flex-row items-end gap-1.5 px-1.5 py-1 rounded-lg cursor-pointer transition-bg border border-solid border-slate-4 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] hover:bg-[rgba(249,249,251,0.48)] dark:hover:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px]",
+        ),
+        class_name="flex h-full w-full justify-end items-end relative overflow-hidden row-span-2 lg:!border-r !border-slate-3 !border-t-0",
+    )
+
 def hosting_grid() -> rx.Component:
     return rx.box(
         graphic_card(),
         rx.box(
             rx.box(
                 rx.el.h3(
-                    "Deploy your app fast with Reflex.",
-                    class_name="font-x-large text-slate-12",
+                    "Deploy your app with a single command",
+                    class_name="font-x-large text-slate-12 text-right",
                 ),
                 rx.el.p(
-                    "Performant and secure",
-                    class_name="font-x-large text-slate-9",
+                    "Performant, secure, and scalable",
+                    class_name="font-x-large text-slate-9 text-right",
                 ),
-                class_name="flex flex-col",
+                class_name="flex flex-col items-end",
             ),
-            rx.link(
-                button(
-                    "Start deploying",
-                    class_name="!px-[1.125rem] !py-2 !h-12 !font-smbold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem] self-start",
-                ),
-                href=hosting.deploy_quick_start.path,
-            ),
-            class_name="lg:flex flex-col p-[5rem_6.5rem_5rem_2.5rem] text-nowrap hidden col-span-2 gap-8 lg:!border-r !border-slate-3",
+            reflex_deploy_card(),
+            class_name="lg:flex flex-col p-[5rem_2.5rem_5rem_6.5rem] text-nowrap hidden col-span-2 gap-6 lg:!border-r !border-slate-3 items-end",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full lg:divide-y divide-slate-3 lg:divide-x",
     )
-
 
 def hosting_features() -> rx.Component:
     return rx.el.section(

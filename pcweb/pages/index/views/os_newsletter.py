@@ -8,12 +8,12 @@ def os_card() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "We’re open source and free.", class_name="font-large text-slate-12"
+                "Open source", class_name="font-large text-slate-12"
             ),
             rx.el.p(
-                """Get help and contribute 
-on GitHub""",
-                class_name="font-large text-slate-9 whitespace-pre",
+                """Apache 2.0 licensed--view the source code, contribute, 
+and self-host""",
+                class_name="font-medium text-slate-9 whitespace-pre",
             ),
             class_name="flex flex-col",
         ),
@@ -23,7 +23,7 @@ on GitHub""",
                 """<svg xmlns="http://www.w3.org/2000/svg" width="205" height="89" viewBox="0 0 205 89" fill="none"><path d="M205 44.5C205 69.077 159.109 89 102.5 89S0 69.077 0 44.5 45.89 0 102.5 0 205 19.923 205 44.5" fill="url(#a)"/><defs><radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(102.5 44.5)rotate(90 0 1)"><stop stop-color="var(--c-violet-3)"/><stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/></radialGradient></defs></svg>""",
                 class_name="shrink-0 absolute w-[12.8125rem] h-[5.5625rem] -translate-y-1/2 left-[-2.5rem] top-1/2",
             ),
-            button("Open GitHub", variant="muted", class_name="self-start shrink-0"),
+            button("Contribute on GitHub", variant="muted", class_name="self-start shrink-0"),
             href=GITHUB_URL,
             class_name="relative",
         ),
@@ -110,11 +110,11 @@ def newletter_input() -> rx.Component:
 def newsletter_card() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.el.h2("Subscribe.", class_name="font-large text-slate-12"),
+            rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
             rx.el.p(
-                """Join our newsletter to get 
-latest news about Reflex""",
-                class_name="font-large text-slate-9 whitespace-pre",
+                """Stay up to date with the latest Reflex news 
+and updates""",
+                class_name="font-medium text-slate-9 whitespace-pre",
             ),
             class_name="flex flex-col",
         ),

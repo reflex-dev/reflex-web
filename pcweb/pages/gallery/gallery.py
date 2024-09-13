@@ -72,13 +72,8 @@ def gallery_heading() -> rx.Component:
         # pill(text="Apps made in Reflex"),
         h1_title(title="Reflex Showcase"),
         rx.el.h2(
-            "Use the command ",
-            rx.code(
-                "reflex init --template {app_url}",
-                class_name="code-style",
-            ),
-            " to run a showcase app locally.",
-            class_name="font-md text-balance text-slate-10",
+            "Check out what the community is building with Reflex.",
+            class_name="font-md text-balance text-slate-9",
         ),
         class_name="section-header",
     )
@@ -192,7 +187,7 @@ def gallery() -> rx.Component:
             h1_title(title="Community Showcase"),
             rx.el.h2(
                 "Check out what the community is building with Reflex.",
-                class_name="font-md text-balance text-slate-10",
+                class_name="font-md text-balance text-slate-9",
             ),
             class_name="section-header",
         ),
@@ -200,7 +195,7 @@ def gallery() -> rx.Component:
             sorting_menu(),
             community_component_grid(),
             pagination(),
-            class_name="flex flex-col gap-10",
+            class_name="flex flex-col gap-8",
         ),
         id="gallery",
         class_name="section-content",

@@ -33,44 +33,44 @@ def frontend_card(
 def frontend_grid() -> rx.Component:
     return rx.box(
         frontend_card(
-            title="Ship with 60+ components",
-            description="Build your project faster with Reflex UI library.",
+            title="60+ built-in components",
+            description="Exensible by design. Wrap and use any React component",
             image="components.svg",
             cols="2",
             height="17.5rem",
             top="6.5rem",
         ),
         frontend_card(
-            title="Get right colors",
-            description="Design with built-in themes.",
+            title="Theming system",
+            description="Give your app a unified look and feel",
             image="colors.svg",
             height="15rem",
             top="9rem",
         ),
         frontend_card(
-            title="Customize UI",
-            description="Style components with props.",
+            title="Customizable UI",
+            description="Tweak and style components to your liking",
             image="ui.svg",
             height="17.5rem",
             top="6.5rem",
         ),
         frontend_card(
-            title="Turn on the lights",
-            description="Auto dark/light mode included.",
+            title="Turn off the lights",
+            description="Toggle between light and dark mode",
             image="dark_light_mode.svg",
             height="19.5rem",
             top="5rem",
         ),
-        frontend_card(
-            title="Adapt with ease",
-            description="Enjoy responsive components.",
+        frontend_card( 
+            title="Fully responsive",
+            description="Your app looks good on every device",
             image="responsive.svg",
             height="19.5rem",
             top="5rem",
         ),
         frontend_card(
-            title="Build once, use everywhere",
-            description="Create reusable components to use across your project.",
+            title="Reusable components",
+            description="Keep your code clean as your app grows",
             image="reusable.svg",
             cols="2",
             height="20rem",
@@ -85,7 +85,7 @@ def frontend_features() -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h2(
-                    "Save time on the front-end.",
+                    "Build your entire app in Python",
                     class_name="font-x-large text-slate-12",
                 ),
                 rx.el.p(

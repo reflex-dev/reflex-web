@@ -56,5 +56,5 @@ Follow installation instructions.""",
             ),
             class_name="gap-4 grid grid-cols-1 lg:grid-cols-2",
         ),
-        class_name="flex flex-col justify-center gap-10 w-full",
+        class_name="flex flex-col justify-center gap-10 w-full py-40",
     )

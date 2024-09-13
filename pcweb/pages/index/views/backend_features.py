@@ -59,41 +59,41 @@ def backend_grid() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "Get server-side logic of your app.",
+                "Skip the boilerplate",
                 class_name="font-x-large text-slate-12",
             ),
             rx.el.p(
-                "Back-end is handled",
+                "Seamless frontend-backend integration",
                 class_name="font-x-large text-slate-9 z-[1]",
             ),
             class_name="lg:flex flex-col p-[5rem_6.5rem_5rem_2.5rem] text-nowrap hidden col-span-2 lg:border-l border-slate-3",
         ),
         pip_install_card(),
         backend_card(
-            title="Integrated front and back-end",
-            description="Skip the boilerplate and get started faster. No need to write API endpoints.",
+            title="It's just Python",
+            description="Define and manage state with Python classes and functions",
             icon="backend_db",
         ),
         backend_card(
-            title="Jobs and async events",
-            description="Back-end jobs and asynchronous events...",
+            title="PyPI",
+            description="Use any Python library with Reflex",
             icon="backend_async",
         ),
         backend_card(
-            title="DB ORM",
-            description="Integrate with existing databases with a single line of code. Or use our built in SQLite database.",
+            title="Database management",
+            description="Use our built-in database or connect your own with a single line",
             icon="backend_db",
         ),
         backend_card(
-            title="Compatible",
-            description="Use any Python library with Reflex.",
-            icon="backend_compatible",
-        ),
-        backend_card(
-            title="Authorization",
-            description="Temporary placeholder for authorization.",
+            title="Auth",
+            description="Secure your app with any auth provider - no vendor lock-in",
             icon="backend_auth",
             class_name="lg:!border-r !border-slate-3",
+        ),
+        backend_card(
+            title="Check out the docs",
+            description="API routes, background jobs, shared state, file uploads, cookies and more...",
+            icon="backend_compatible",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-3 w-full lg:divide-y divide-slate-3 lg:divide-x",
     )

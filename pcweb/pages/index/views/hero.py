@@ -10,11 +10,12 @@ def hero() -> rx.Component:
     return rx.el.section(
         # Headings
         rx.el.h1(
-            """Build web apps in pure Python. 
-An open-source framework
-to ship beautiful and fast""",
+            """Frontend. Backend. Pure Python.""",
             class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large text-balance text-center text-transparent whitespace-pre",
         ),
+        rx.el.h1(
+            """The open-source framework to build and deploy web apps - no Javascript required.""",
+            class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-10 to-slate-9 w-full font-medium text-balance text-center text-transparent whitespace-pre font-light",        ),
         # Buttons
         rx.box(
             rx.link(
@@ -35,17 +36,16 @@ to ship beautiful and fast""",
                 is_external=True,
                 underline="none",
             ),
-            class_name="flex flex-row items-center gap-4",
+            class_name="flex flex-row items-center gap-4 mt-4",
         ),
-        # Pip install
-        # rx.box(
-        #     get_icon("copy", class_name="!text-slate-9 [&>svg]:w-4 [&>svg]:h-4"),
-        #     rx.el.p(
-        #         "$ pip install reflex",
-        #         class_name="font-['JetBrains_Mono'] font-medium font-small text-[0.8125rem] text-center text-slate-9 leading-6",
-        #     ),
-        #     on_click=rx.set_clipboard("pip install reflex"),
-        #     class_name="flex flex-row items-center gap-3 hover:bg-slate-3 px-3 py-2 rounded-xl cursor-pointer transition-bg",
-        # ),
-        class_name="flex flex-col justify-center items-center gap-8 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[5.5rem] pt-24 lg:pt-48",
+        rx.box(
+            get_icon("copy", class_name="!text-slate-9 [&>svg]:w-4 [&>svg]:h-4"),
+            rx.el.p(
+                "$ pip install reflex",
+                class_name="font-['JetBrains_Mono'] font-medium font-small text-[0.8125rem] text-center text-slate-9 leading-6",
+            ),
+            on_click=rx.set_clipboard("pip install reflex"),
+            class_name="flex flex-row items-center gap-3 hover:bg-slate-3 px-3 py-2 rounded-xl cursor-pointer transition-bg",
+        ),
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[2.5rem] pt-24 lg:pt-48",
     )

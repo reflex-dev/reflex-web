@@ -54,7 +54,7 @@ spline = Spline.create
 def react():
     return rx.box(
         spline(
-            scene="https://prod.spline.design/joLpOOYbGL-10EJ4/scene.splinecode",
+            scene="https://prod.spline.design/1eapv4LnOygEqB66/scene.splinecode",
         ),
         class_name="px-10 py-12 h-full overflow-hidden",
     )

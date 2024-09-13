@@ -125,13 +125,12 @@ def first_post() -> rx.Component:
 def component_grid() -> rx.Component:
     posts = []
     for path, document in list(blog_data.items()):
-        meta = document.metadata
-        posts.append(card_content(meta=meta, path=path))
+        posts.append(card_content(meta=document.metadata, path=path))
     return rx.box(
         *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 lg:[&>*:first-child]:hidden",
     )
-
+ 
 
 @webpage(path="/blog", title="Reflex Blog")
 def blogs():

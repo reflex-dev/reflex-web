@@ -65,21 +65,10 @@ def code_block() -> rx.Component:
 
 def get_started() -> rx.Component:
     return rx.el.section(
-        rx.box(
-            rx.el.h2(
-                "Let’s create your first app.",
-                class_name="font-x-large text-slate-12 text-nowrap",
-            ),
-            rx.el.p(
-                "Simply run this code",
-                class_name="font-x-large text-slate-9",
-            ),
-            class_name="flex flex-col items-center text-center justify-center",
-        ),
         code_block(),
         get_icon(
             "bottom_logo",
             class_name="absolute left-1/2 bottom-0 transform -translate-x-1/2 z-[-1]",
         ),
-        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full lg:border border-slate-3 relative pt-20 pb-[5.5rem]",
+        class_name="flex flex-col gap-8 max-w-[64.19rem] justify-center items-center w-full lg:border border-slate-3 relative pt-40 pb-[5.5rem]",
     )

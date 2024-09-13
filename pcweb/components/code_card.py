@@ -43,7 +43,7 @@ def code_card(app: dict) -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h4(
-                    rx.cond(app["name"], app["name"], app["display_name"]),
+                    app["name"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
                 class_name="flex flex-row justify-between items-center gap-3 p-[0.625rem_0.75rem_0rem_0.75rem] w-full",
@@ -90,7 +90,7 @@ def community_code_card(app: dict) -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h4(
-                    rx.cond(app["name"], app["name"], app["display_name"]),
+                    app["display_name"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
                 rx.box(
