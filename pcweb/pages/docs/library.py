@@ -31,7 +31,7 @@ def component_grid():
                                     clist=c,
                                     prefix=prefix,
                                 ),
-                                class_name="font-small text-slate-11 hover:!text-violet-9 transition-color",
+                                class_name="font-small text-slate-11 hover:!text-violet-9 transition-color w-fit",
                             )
                             for c in components[category]
                         ],

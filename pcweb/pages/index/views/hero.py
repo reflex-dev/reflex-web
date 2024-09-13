@@ -15,7 +15,7 @@ def hero() -> rx.Component:
         ),
         rx.el.h2(
             """The open-source framework to build and deploy web apps - no Javascript required""",
-            class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-10 to-slate-9 w-full font-x-large text-balance text-center text-transparent whitespace-pre -mt-2"),
+            class_name="w-full font-x-large text-balance text-center text-slate-11 whitespace-pre -mt-2"),
         # Buttons
         rx.box(
             rx.link(

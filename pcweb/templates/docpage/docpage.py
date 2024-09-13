@@ -40,7 +40,7 @@ def footer_link_flex(heading: str, links):
 
 
 def thumb_card(score: int, icon: str) -> rx.Component:
-    return rx.box(
+    return rx.el.button(
         rx.icon(
             tag=icon,
             color=rx.cond(
@@ -48,23 +48,11 @@ def thumb_card(score: int, icon: str) -> rx.Component:
             ),
             size=16,
         ),
-        height="36px",
-        width="36px",
-        padding="8px",
-        border_radius="8px",
-        align_items="center",
-        display="flex",
-        cursor="pointer",
-        justify_content="center",
-        border=f"1px solid {c_color('slate', 4)}",
         background_color=rx.cond(
             FeedbackState.score == score, c_color("slate", 3), c_color("white", 1)
         ),
-        _hover={
-            "background_color": c_color("slate", 3),
-        },
-        box_shadow=shadows["medium"],
         on_click=FeedbackState.set_score(score),
+        class_name="transition-bg hover:bg-slate-3 shadow-medium border border-slate-4 rounded-lg items-center justify-center cursor-pointer p-2 size-9 flex"
     )
 
 
@@ -78,20 +66,13 @@ def thumbs_cards() -> rx.Component:
 
 def feedback_content() -> rx.Component:
     return rx.box(
-        rx.vstack(
+        rx.box(
             rx.text(
                 "Send feedback",
-                style={
-                    "font-style": "normal",
-                    "font-weight": "500",
-                    "font-size": "16px",
-                    "line-height": "28px",
-                    "letter-spacing": "-0.015em",
-                    "color": c_color("slate", 11),
-                },
+                class_name="font-md text-slate-11",
             ),
             rx.form(
-                rx.vstack(
+                rx.box(
                     rx.el.textarea(
                         name="feedback",
                         placeholder="Write a comment…",
@@ -99,48 +80,41 @@ def feedback_content() -> rx.Component:
                         max_length=500,
                         enter_key_submit=True,
                         resize="vertical",
-                        style=st.text_area_style,
                         required=True,
+                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] max-h-[300px] min-h-[72px] outline-none overflow-y-auto placeholder-slate-9 focus:border-violet-9 focus:border-1",
                     ),
                     thumbs_cards(),
                     rx.el.input(
                         name="email",
                         type="email",
                         placeholder="Contact email (optional)",
-                        style=st.input_style,
                         max_length=100,
+                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] box-border outline-none placeholder-slate-9 focus:border-violet-9 focus:border-1"
                     ),
-                    rx.hstack(
+                    rx.box(
                         rx.popover.close(
-                            rx.el.button(
-                                rx.box(
-                                    style=st.rectangle_style,
-                                ),
+                            button(
                                 "Send",
-                                style=st.send_button_style,
                                 type="submit",
-                            ),
+                            )
                         ),
                         rx.popover.close(
-                            rx.el.button("Cancel", style=st.cancel_button_style)
+                            button(
+                                "Cancel",
+                                variant="secondary",
+                            )
                         ),
-                        align="center",
-                        justify="between",
-                        width="100%",
+                        class_name="flex flex-row gap-4 justify-between items-center",
                     ),
-                    gap="16px",
-                    align="start",
-                    width="100%",
+                    class_name="w-full gap-4 flex flex-col",
                 ),
-                width="100%",
+                class_name="w-full",
                 reset_on_submit=True,
                 on_submit=FeedbackState.handle_submit,
             ),
-            gap="16px",
-            align="start",
-            width="100%",
+            class_name="flex flex-col gap-4 w-full",
         ),
-        style=st.feedback_box_style,
+        class_name="rounded-[26px] bg-white-1 w-[341px] max-h-[564px] shadow-large h-auto p-4",
     )
 
 
@@ -154,7 +128,6 @@ def feedback_button() -> rx.Component:
                     rx.text(
                         "Yes",
                     ),
-                    # style=st.thumb_pill_style,
                     class_name="w-full gap-2 border-r-0 px-3 py-0.5 rounded-[20px_0_0_20px]"
                     + thumb_cn,
                 ),
@@ -166,7 +139,6 @@ def feedback_button() -> rx.Component:
                     rx.text(
                         "No",
                     ),
-                    # style=st.thumb_pill_style,
                     class_name="w-full gap-2 px-3 py-0.5 rounded-[0_20px_20px_0]"
                     + thumb_cn,
                 ),
@@ -177,7 +149,7 @@ def feedback_button() -> rx.Component:
         rx.popover.content(
             feedback_content(),
             align="start",
-            class_name="border-none left-0 lg:left-[-255px] origin-bottom lg:origin-bottom-right !p-0 overflow-visible !shadow-none !bg-transparent",
+            class_name="border-none left-0 lg:left-[-255px] origin-bottom lg:origin-bottom-right !p-0 overflow-visible !bg-transparent shadow-none",
             avoid_collisions=True,
         ),
     )
@@ -245,7 +217,7 @@ def docpage_footer(path: str):
     from pcweb.pages.faq import faq
     from pcweb.pages.errors import errors
     from pcweb.signup import IndexState
-    from pcweb.constants import ROADMAP_URL, GITHUB_DISCUSSIONS_URL
+    from pcweb.constants import ROADMAP_URL, GITHUB_DISCUSSIONS_URL, FORUM_URL
     from pcweb.views.footer import newsletter_form, menu_socials
 
     return rx.el.footer(
@@ -298,7 +270,7 @@ def docpage_footer(path: str):
                         footer_link("FAQ", faq.path),
                         footer_link("Common Errors", errors.path),
                         footer_link("Roadmap", ROADMAP_URL),
-                        footer_link("Forum", GITHUB_DISCUSSIONS_URL),
+                        footer_link("Forum", FORUM_URL),
                     ],
                 ),
                 class_name="flex flex-wrap justify-between gap-12 w-full",
@@ -894,7 +866,7 @@ def style_grid(
             rx.popover.trigger(
                 rx.box(
                     rx.button(
-                        rx.text(RadixDocState.color, style=small),
+                        rx.text(RadixDocState.color, class_name="font-small"),
                         # Match the select.trigger svg icon
                         rx.html(
                             """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
