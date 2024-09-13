@@ -11,7 +11,7 @@ def os_card() -> rx.Component:
                 "Open source", class_name="font-large text-slate-12"
             ),
             rx.el.p(
-                """Apache 2.0 licensed--view the source code, contribute, 
+                """Apache 2.0 license--view the source code, contribute,
 and self-host""",
                 class_name="font-medium text-slate-9 whitespace-pre",
             ),
@@ -112,7 +112,7 @@ def newsletter_card() -> rx.Component:
         rx.box(
             rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
             rx.el.p(
-                """Stay up to date with the latest Reflex news 
+                """Stay up to date with the latest Reflex news
 and updates""",
                 class_name="font-medium text-slate-9 whitespace-pre",
             ),
