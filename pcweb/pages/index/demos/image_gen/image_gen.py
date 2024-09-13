@@ -91,10 +91,11 @@ class ImageGenState(rx.State):
         prompt = form_data["prompt"]
         if prompt == "":
             return
+
         self.processing = True
         yield
-        input = {"prompt": prompt}
 
+        input = {"prompt": prompt}
         output = replicate.run(
             "black-forest-labs/flux-schnell",
             input=input,

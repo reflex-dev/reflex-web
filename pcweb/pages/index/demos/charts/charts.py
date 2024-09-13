@@ -223,15 +223,19 @@ class ChartsState(rx.State):
 
 def chart():
     return rx.box(
-        rx.button("Randomize", on_click=ChartsState.randomize_data, class_name="button"),
+        rx.button(
+            "Randomize",
+            on_click=ChartsState.randomize_data,
+            class_name="button",
+        ),
         rx.recharts.area_chart(
             rx.el.svg.defs(
                 rx.el.svg.linear_gradient(
                     rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="5%", stop_opacity=0.8
+                        stop_color=rx.color("violet", 7), offset="5%", stop_opacity=0.8,
                     ),
                     rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="95%", stop_opacity=0.1
+                        stop_color=rx.color("violet", 7), offset="95%", stop_opacity=0.1,
                     ),
                     x1=0,
                     x2=0,
@@ -243,10 +247,10 @@ def chart():
             rx.el.svg.defs(
                 rx.el.svg.linear_gradient(
                     rx.el.svg.stop(
-                        stop_color=rx.color("slate", 7), offset="5%", stop_opacity=0.8
+                        stop_color=rx.color("slate", 7), offset="5%", stop_opacity=0.8,
                     ),
                     rx.el.svg.stop(
-                        stop_color=rx.color("slate", 7), offset="95%", stop_opacity=0.1
+                        stop_color=rx.color("slate", 7), offset="95%", stop_opacity=0.1,
                     ),
                     x1=0,
                     x2=0,
