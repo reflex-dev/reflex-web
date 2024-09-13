@@ -126,8 +126,8 @@ def form() -> rx.Component:
                 class_name="font-small text-slate-9",
             ),
             rx.link(
-                "contact@reflex.dev",
-                href="mailto:contact@reflex.dev",
+                "sales@reflex.dev",
+                href="mailto:sales@reflex.dev",
                 underline="always",
                 class_name="text-slate-9",
             ),

@@ -82,15 +82,15 @@ def newletter_input() -> rx.Component:
 def newsletter_card() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.el.h2("Reflex Newsletter", class_name="font-large text-slate-12"),
+            rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
             rx.el.p(
-                """Get the latest updates and news about Reflex.""",
-                class_name="font-m text-slate-9 whitespace-pre",
+                """Get the latest updates and news about Reflex""",
+                class_name="font-m text-slate-10 whitespace-pre",
             ),
             class_name="flex flex-col items-center text-center",
         ),
         newletter_input(),
-        class_name="flex flex-col gap-8 w-full items-center",
+        class_name="flex flex-col gap-4 w-full items-center",
     )
 
 

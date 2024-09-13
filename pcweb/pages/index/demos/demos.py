@@ -50,10 +50,10 @@ def demo_section() -> rx.Component:
     return rx.box(
         # Tabs
         rx.box(
+            tab("Charts", "chart"),
             tab("Forms", "send"),
             tab("Chatbot", "chat_bubble"),
             tab("Image Gen", "image_ai_small"),
-            tab("Charts", "chart"),
             tab("Custom", "code_custom"),
             class_name="flex flex-row items-center overflow-hidden border-slate-4 border-b flex-wrap justify-center divide-x divide-slate-4 [&>:first-child]:border-l-slate-4 [&>:last-child]:!border-r-slate-4 [&>:first-child]:!border-l [&>:last-child]:!border-r",
         ),
@@ -62,10 +62,10 @@ def demo_section() -> rx.Component:
             rx.box(
                 rx.match(
                     DemoState.demo,
-                    ("Image Gen", image_gen()),
-                    ("Forms", form()),
                     ("Charts", charts()),
+                    ("Forms", form()),
                     ("Chatbot", chatbot()),
+                    ("Image Gen", image_gen()),
                     ("Custom", react()),
                     image_gen(),
                 ),
@@ -74,10 +74,10 @@ def demo_section() -> rx.Component:
             rx.box(
                 rx.match(
                     DemoState.demo,
-                    ("Image Gen", code_block(image_gen_code)),
-                    ("Forms", code_block(form_code)),
                     ("Charts", code_block(charts_code)),
+                    ("Forms", code_block(form_code)),
                     ("Chatbot", code_block(chatbot_code)),
+                    ("Image Gen", code_block(image_gen_code)),
                     ("Custom", code_block(react_code)),
                     image_gen(),
                 ),

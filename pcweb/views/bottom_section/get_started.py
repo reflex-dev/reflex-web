@@ -26,7 +26,7 @@ def code_block() -> rx.Component:
                 rx.el.p("$ pip install reflex"),
                 rx.el.p("$ reflex init"),
                 rx.el.p("$ reflex run"),
-                class_name="font-['JetBrains_Mono'] !font-bold text-[0.8125rem] text-slate-12 leading-6 tracking-[-0.01219rem]",
+                class_name="font-['JetBrains_Mono'] !font-semibold text-[0.8125rem] text-slate-12 leading-6 tracking-[-0.01219rem]",
             ),
             hint(
                 text="Copy",
@@ -65,17 +65,6 @@ def code_block() -> rx.Component:
 
 def get_started() -> rx.Component:
     return rx.el.section(
-        rx.box(
-            rx.el.h2(
-                "Let’s create your first app.",
-                class_name="font-x-large text-slate-12 text-nowrap",
-            ),
-            rx.el.p(
-                "Simply run this code",
-                class_name="font-x-large text-slate-9",
-            ),
-            class_name="flex flex-col items-center text-center justify-center",
-        ),
         code_block(),
         get_icon(
             "bottom_logo",

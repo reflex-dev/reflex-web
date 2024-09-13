@@ -24,8 +24,8 @@ scrollToBottom();
 class TutorialState(rx.State):
 
     # Keep track of the chat history as a list of (question, answer) tuples.
-    chat_history: list[tuple[str, str]]
-
+    chat_history: list[tuple[str, str]] = [("What is Reflex?","Reflex is the open-source framework empowering Python developers to build web apps faster.")]
+ 
     async def submit(self, form_data: dict):
         self.question = form_data["question"]
         # Our chatbot has some brains now!
@@ -65,12 +65,12 @@ def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
         rx.box(
             rx.text(question),
-            class_name="font-base text-slate-12 rounded-lg p-2 bg-slate-3 ml-[20%] text-end self-end",
+            class_name="font-base text-slate-10 rounded-lg p-2 bg-slate-3 ml-[20%] text-end self-end",
             on_mount=rx.call_script(scroll_to_bottom()),
         ),
         rx.box(
             rx.text(answer),
-            class_name="font-base text-slate-12 max-w-[60%] mr-[20%] text-start self-start",
+            class_name="font-base text-violet-10 rounded-lg p-2 bg-violet-3 max-w-[60%] mr-[20%] text-start self-start",
             on_mount=rx.call_script(scroll_to_bottom()),
         ),
         class_name="flex flex-col gap-4 w-full",
