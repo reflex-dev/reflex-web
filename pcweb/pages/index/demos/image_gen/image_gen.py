@@ -80,7 +80,9 @@ def image_gen() -> rx.Component:
         class_name="flex flex-col items-center gap-4 px-10 py-12 h-full overflow-hidden",
     )
 
-image_gen_code = """class ImageGenState(rx.State):
+image_gen_code = """import reflex as rx
+
+class ImageGenState(rx.State):
 
     image_url = ""
     processing = False

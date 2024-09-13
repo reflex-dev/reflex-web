@@ -206,6 +206,7 @@ charts_code = """data = [
     ...
 ]
 
+import reflex as rx
 
 class ChartsState(rx.State):
     data = data

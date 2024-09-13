@@ -60,7 +60,9 @@ def react():
     )
 
 
-react_code = """class Spline(rx.Component):
+react_code = """import reflex as rx
+
+class Spline(rx.Component):
     library = "@splinetool/react-spline"
     lib_dependencies: list[str] = ["@splinetool/runtime@1.5.5"]
     tag = "Spline"

@@ -84,7 +84,9 @@ def form() -> rx.Component:
     )
 
 
-form_code = """class FormState(rx.State):
+form_code = """import reflex as rx
+
+class FormState(rx.State):
 
     def submit(self, form_data):
         return rx.toast(form_data)

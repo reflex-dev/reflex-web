@@ -25,7 +25,7 @@ class TutorialState(rx.State):
 
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]] = [("What is Reflex?","Reflex is the open-source framework empowering Python developers to build web apps faster.")]
- 
+
     async def submit(self, form_data: dict):
         self.question = form_data["question"]
         # Our chatbot has some brains now!
@@ -124,7 +124,9 @@ def chatbot() -> rx.Component:
     )
 
 
-chatbot_code = """async def answer(self, form_data: dict):
+chatbot_code = """import reflex as rx
+
+async def answer(self, form_data: dict):
     self.question = form_data["question"]
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
@@ -152,7 +154,7 @@ chatbot_code = """async def answer(self, form_data: dict):
             answer += item.choices[0].delta.content
             self.chat_history[-1] = (self.chat_history[-1][0], answer)
             yield
-    
+
     def clear_chat(self):
         self.chat_history = []
 
