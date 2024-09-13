@@ -44,8 +44,8 @@ def frontend_grid() -> rx.Component:
             title="Theming system",
             description="Give your app a unified look and feel",
             image="colors.svg",
-            height="15rem",
-            top="9rem",
+            height="19.5rem",
+            top="7rem",
         ),
         frontend_card(
             title="Customizable UI",
