@@ -80,7 +80,7 @@ def form() -> rx.Component:
             on_submit=FormState.submit,
             class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
         ),
-        class_name="flex items-center px-20 py-12 h-full overflow-hidden",
+        class_name="flex items-center px-10 py-12 h-full overflow-hidden",
     )
 
 

@@ -84,7 +84,6 @@ def tabs():
 
 - Use `rx.cond` and `rx.foreach` (replaces if statements and for loops), for creating dynamic UIs.
                 """,
-                class_name="markdown-code"
             ),
             value="tab1",
             class_name="pt-4"
@@ -93,7 +92,6 @@ def tabs():
             rx.markdown(
                 """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caviots. Here you can use any Python external library and call any method/function.
                 """,
-                class_name="markdown-code"
             ),
             value="tab2",
             class_name="pt-4"
@@ -104,12 +102,11 @@ def tabs():
 
 - Start with a single page and scale to 100s of pages.
                 """,
-                class_name="markdown-code"
             ),
             value="tab3",
             class_name="pt-4"
         ),
-        class_name="text-slate-12 font-base",
+        class_name="text-slate-12 font-normal", 
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(
@@ -213,7 +210,7 @@ app.add_page(index)""",
         ),
         class_name="code-block",
     ),
-    class_name="w-full flex flex-col mt-4",
+    class_name="w-full flex flex-col",
 )
 ```
 

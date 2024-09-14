@@ -20,6 +20,7 @@ def h_comp_common(
     heading: str,
     convert_to_str: bool = False,
     style: dict = {},
+    mt: str = "4",
     class_name: str = "",
 ) -> rx.Component:
     if convert_to_str:
@@ -35,18 +36,18 @@ def h_comp_common(
             id=id_,
             as_=heading,
             style=style,
-            class_name=class_name + " scroll-m-[4rem]",
+            class_name=class_name + " scroll-m-[4rem mt-" + mt,
         ),
         rx.icon(
             tag="link",
             size=18,
-            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible",
+            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-" + mt,
         ),
         underline="none",
         href=href,
         on_click=lambda: rx.set_clipboard(href),
         # as_child=True,
-        class_name="flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-4 transition-colors group",
+        class_name=f"flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
     )
 
 
@@ -76,6 +77,7 @@ def h2_comp(text: str) -> rx.Component:
         text=text,
         heading="h2",
         convert_to_str=True,
+        mt="8",
         class_name="font-large lg:font-x-large",
     )
 
@@ -86,6 +88,7 @@ def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
         text=text,
         heading="h2",
         convert_to_str=True,
+        mt="8",
         class_name="font-large lg:font-x-large",
     )
 
@@ -95,6 +98,7 @@ def h3_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h3",
+        mt="4",
         convert_to_str=True,
         class_name="font-large",
     )
@@ -106,6 +110,7 @@ def h3_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h3",
         convert_to_str=True,
+        mt="4",
         class_name="font-large",
     )
 
@@ -117,6 +122,7 @@ def h4_comp(text: str) -> rx.Component:
         heading="h4",
         convert_to_str=True,
         scroll_margin="6em",
+        mt="2",
         class_name="font-md-smbold",
     )
 
@@ -127,5 +133,6 @@ def h4_comp_xd(text: str) -> rx.Component:
         text=text,
         heading="h4",
         convert_to_str=True,
+        mt="2",
         class_name="font-md-smbold",
     )

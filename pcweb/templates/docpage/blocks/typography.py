@@ -35,15 +35,15 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-base text-slate-12 mb-4")
+    return rx.text(text, class_name="font-normal text-slate-12 mb-4 leading-7")
 
 @rx.memo
 def text_comp_2(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-base text-slate-12 max-w-[80%] mb-10")
+    return rx.text(text, class_name="font-normal text-slate-12 max-w-[80%] mb-10")
 
 @rx.memo
 def list_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.list_item(text, class_name="font-base text-slate-12 mb-4")
+    return rx.list_item(text, class_name="font-normal text-slate-12 mb-4")
 
 
 @rx.memo
@@ -63,7 +63,7 @@ def doclink(text: str, href: str, **props) -> rx.Component:
         The styled link.
     """
     return rx.link(
-        text, underline="always", href=href, **props, class_name="text-violet-9"
+        text, underline="always", href=href, **props, class_name="text-violet-10"
     )
 
 

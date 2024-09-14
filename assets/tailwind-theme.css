@@ -27,7 +27,7 @@
         font-family: var(--font-jetbrains);
         font-size: 0.835rem;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         line-height: normal;
         letter-spacing: -0.00406rem;
         color: var(--c-violet-9);
@@ -63,8 +63,8 @@
         font-family: var(--font-jetbrains);
         font-size: 0.835rem;
         font-style: normal;
-        font-weight: 500;
-        line-height: 1.5rem;
+        font-weight: 400;
+        line-height: 1.75rem;
         letter-spacing: -0.00406rem;
         color: var(--c-violet-9);
         background-color: var(--c-violet-3);
@@ -78,8 +78,8 @@
         font-family: var(--font-jetbrains);
         font-size: 0.835rem;
         font-style: normal;
-        font-weight: 500;
-        line-height: 1.5rem;
+        font-weight: 400;
+        line-height: 1.75rem;
         letter-spacing: -0.00406rem;
         color: var(--c-violet-9);
         background-color: var(--c-violet-3);
