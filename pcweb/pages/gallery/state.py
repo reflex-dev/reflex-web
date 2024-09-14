@@ -24,22 +24,6 @@ class SideBarState(rx.State):
     tags_list: list[str]
     chosen_tags: set[str]
 
-    def set_sort_by(self, sort_by: str):
-        if sort_by == self.sort_by:
-            self.sort_by = ""
-        else:
-            self.sort_by = sort_by
-        self.sort_list(self.community_apps_list)
-
-    def toggle_sort_order(self, is_reverse: bool):
-        self.is_reverse = is_reverse
-        self.sort_list(self.community_apps_list)
-
-    def set_page(self, page: int):
-        if page < 1:
-            page = 1
-        elif page <= (len(self.community_apps_list) // 16) + 1:
-            self.page = page
 
     def update_tag(self, name: str):
         self.chosen_tags.symmetric_difference_update({name})

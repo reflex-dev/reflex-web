@@ -20,18 +20,18 @@ from pcweb.styles.fonts import base
 ## Goals
 
 ```md section
-# Pure Python
+### Pure Python
 Use Python for everything. Don't worry about learning a new language.
 
-# Easy to Learn
+### Easy to Learn
 Build and share your first app in minutes. No web development experience required.
 
-# Full Flexibility
+### Full Flexibility
 Remain as flexible as traditional web frameworks. Reflex is easy to use, yet allows for advanced use cases.
 
 Build anything from small data science apps to large, multi-page websites. **This entire site was built and deployed with Reflex!**
 
-# Batteries Included
+### Batteries Included
 No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.
 ```
 
@@ -109,7 +109,7 @@ def tabs():
             value="tab3",
             class_name="pt-4"
         ),
-        class_name="text-slate-11 font-base",
+        class_name="text-slate-12 font-base",
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(

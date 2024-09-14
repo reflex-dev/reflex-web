@@ -72,7 +72,13 @@ def gallery_heading() -> rx.Component:
         # pill(text="Apps made in Reflex"),
         h1_title(title="Reflex Showcase"),
         rx.el.h2(
-            "Check out what the community is building with Reflex.",
+            """Check out what the community is building with Reflex. See 2000+ more public projects on """,
+            rx.link(
+                "Github",
+                href="https://github.com/reflex-dev/reflex/network/dependents",
+                is_external=True,
+            ),
+            ".",  
             class_name="font-md text-balance text-slate-9",
         ),
         class_name="section-header",
@@ -183,20 +189,6 @@ def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),
         component_grid(),
-        rx.box(
-            h1_title(title="Community Showcase"),
-            rx.el.h2(
-                "Check out what the community is building with Reflex.",
-                class_name="font-md text-balance text-slate-9",
-            ),
-            class_name="section-header",
-        ),
-        rx.box(
-            sorting_menu(),
-            community_component_grid(),
-            pagination(),
-            class_name="flex flex-col gap-8",
-        ),
         id="gallery",
         class_name="section-content",
         on_mount=SideBarState.fetch_apps_list,

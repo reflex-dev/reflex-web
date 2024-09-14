@@ -164,48 +164,6 @@ def link_pill(text: str, href: str) -> rx.Component:
     )
 
 
-# def social_menu_item(
-#     icon: str,
-#     url="/",
-#     border: bool = False,
-#     border_color: list = [
-#         f"1px solid {c_color('slate', 1)}",
-#         f"1px solid {c_color('slate', 1)}",
-#         f"1px solid {c_color('slate', 5)}",
-#         f"1px solid {c_color('slate', 5)}",
-#         f"1px solid {c_color('slate', 5)}",
-#     ],
-#     **props,
-# ) -> rx.Component:
-#     return rx.link(
-#         rx.box(
-#             get_icon(icon=icon, class_name="!text-slate-9"),
-#             style={
-#                 "display": "flex",
-#                 "padding": "4px 12px",
-#                 "justify-content": "center",
-#                 "align-items": "center",
-#                 "gap": "8px",
-#                 "align-self": "stretch",
-#                 "cursor": "pointer",
-#                 ":hover": {"background_color": c_color("slate", 3)},
-#                 "transition": "background 0.075s ease-out",
-#                 "overflow": "hidden",
-#             },
-#             _hover={
-#                 "background_color": c_color("slate", 3),
-#             },
-#             **props,
-#             overflow="hidden",
-#             border_left=border_color if border else "none",
-#             border_right=border_color if border else "none",
-#         ),
-#         width="100%",
-#         href=url,
-#         is_external=True,
-#     )
-
-
 @rx.memo
 def docpage_footer(path: str):
     from pcweb.pages.gallery import gallery
@@ -287,48 +245,6 @@ def docpage_footer(path: str):
         ),
         class_name="flex flex-col max-w-full lg:max-w-auto",
     )
-
-
-# def drawer_item(text: str, href: str):
-#     return rx.link(
-#         text,
-#         href=href,
-#         display="flex",
-#         underline="none",
-#         justify_content="center",
-#         align_items="center",
-#         padding="14px 16px",
-#         width="100%",
-#         color=c_color("slate", 9),
-#         _hover={
-#             "color": c_color("slate", 9),
-#         },
-#         style={
-#             ":hover": {
-#                 "color": c_color("slate", 9),
-#             },
-#             **small,
-#         },
-#         border_bottom=f"1px solid {c_color('slate', 4)}",
-#     )
-
-
-# def drawer_socials():
-#     return rx.hstack(
-#         social_menu_item("github", GITHUB_URL, height="47px"),
-#         social_menu_item(
-#             "twitter",
-#             TWITTER_URL,
-#             border=True,
-#             border_color=[f"1px solid {c_color('slate', 4)}"],
-#             height="47px",
-#         ),
-#         social_menu_item("discord", DISCORD_URL, height="47px"),
-#         border_bottom=f"1px solid {c_color('slate', 4)}",
-#         gap="0px",
-#         width="100%",
-#         align="center",
-#     )
 
 
 def breadcrumb(path: str, nav_sidebar: rx.Component):

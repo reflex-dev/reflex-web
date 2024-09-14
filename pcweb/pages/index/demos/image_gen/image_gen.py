@@ -81,6 +81,7 @@ def image_gen() -> rx.Component:
     )
 
 image_gen_code = """import reflex as rx
+import replicate
 
 class ImageGenState(rx.State):
 
@@ -111,35 +112,26 @@ def image_gen():
                     ImageGenState.image_url,
                     rx.image(
                         src=ImageGenState.image_url,
-                        class_name="image"
                     ),
                     rx.flex(
                         rx.icon("image", size=26, color=rx.color("slate", 7)),
-                        class_name="placeholder",
                     ),
                 ),
-                class_name="container"
             ),
             loading=ImageGenState.processing,
-            class_name="skeleton"
         ),
         rx.form(
             rx.input(
                 placeholder="What do you want to see?",
-                name="prompt",
-                type="text",
-                class_name="input"
+                name="prompt"
             ),
             rx.button(
-                rx.cond(ImageGenState.processing, "Generating...", "Generate"),
+                "Generate",
                 loading=ImageGenState.processing,
                 type="submit",
-                class_name="button"
             ),
             reset_on_submit=True,
             on_submit=ImageGenState.get_image,
-            class_name="form"
-        ),
-        class_name="image-gen"
+        )
     )
 """

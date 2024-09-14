@@ -130,82 +130,16 @@ def chatbot() -> rx.Component:
 
 
 chatbot_code = """import reflex as rx
+# pip install reflex-chat
+from reflex_chat import chat, api
 
-async def answer(self, form_data: dict):
-    self.question = form_data["question"]
-    client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
-    session = await client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "user", "content": self.question}
-        ],
-        stop=None,
-        temperature=0.7,
-        stream=True,
-    )
-
-    answer = ""
-    self.chat_history.append((self.question, answer))
-
-    self.question = ""
-    # Yield here to clear the frontend input before continuing.
-    yield
-
-    async for item in session:
-        if hasattr(item.choices[0].delta, "content"):
-            if item.choices[0].delta.content is None:
-                break
-
-            answer += item.choices[0].delta.content
-            self.chat_history[-1] = (self.chat_history[-1][0], answer)
-            yield
-
-    def clear_chat(self):
-        self.chat_history = []
-
-def qa(question: str, answer: str) -> rx.Component:
-    return rx.box(
+def index() -> rx.Component:
+    return rx.container(
         rx.box(
-            rx.text(question),
-            class_name="question",
+            chat(process=api.openai()),
+            height="100vh",
         ),
-        rx.box(
-            rx.text(answer),
-            class_name="answer",
-        ),
+        size="2",
     )
 
-
-def chat() -> rx.Component:
-    return rx.box(
-        rx.foreach(
-            TutorialState.chat_history,
-            lambda messages: qa(messages[0], messages[1]),
-        )
-    )
-
-
-def chat_ui() -> rx.Component:
-    return rx.vstack(
-        rx.icon_button(
-            rx.icon("trash"),
-            on_click=TutorialState.clear_chat,
-            class_name="icon-button",
-        ),
-        rx.hstack(
-            rx.input(
-                placeholder="Ask me anything",
-                on_change=TutorialState.set_question,
-                class_name="input",
-            ),
-            rx.icon_button(
-                rx.icon("arrow-up"),
-                on_click=TutorialState.answer,
-                class_name="icon-button",
-            ),
-            class_name="hstack",
-        ),
-        class_name="vstack",
-    )
 """

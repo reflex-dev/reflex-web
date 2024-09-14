@@ -87,60 +87,30 @@ def charts():
             class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
         ),
         rx.recharts.area_chart(
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="5%", stop_opacity=0.8
-                    ),
-                    rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="95%", stop_opacity=0.1
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="gradientPurple",
-                ),
-            ),
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color="var(--c-slate-7)", offset="5%", stop_opacity=0.8
-                    ),
-                    rx.el.svg.stop(
-                        stop_color="var(--c-slate-7)", offset="95%", stop_opacity=0.1
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="gradientSlate",
-                ),
-            ),
             rx.recharts.area(
-                data_key="Mobile",
-                stroke="var(--c-violet-8)",
-                fill="url(#gradientPurple)",
+                data_key="Desktop",
+                stroke=rx.color("slate", 6),
+                fill=rx.color("slate", 3),
                 type_="natural",
                 active_dot={
-                    "stroke": "var(--c-violet-9)",
-                    "fill": "var(--c-violet-9)",
+                    "stroke": rx.color("slate", 10),
+                    "fill": rx.color("slate", 10),
                 },
             ),
             rx.recharts.area(
-                data_key="Desktop",
-                stroke="var(--c-slate-8)",
-                fill="url(#gradientSlate)",
+                data_key="Mobile",
+                stroke=rx.color("violet", 6),
+                fill=rx.color("violet", 3),
                 type_="natural",
                 active_dot={
-                    "stroke": "var(--c-slate-10)",
-                    "fill": "var(--c-slate-10)",
+                    "stroke": rx.color("violet", 6),
+                    "fill": rx.color("violet", 6),
                 },
             ),
             rx.recharts.graphing_tooltip(
                 content_style={
-                    "background": "var(--c-slate-1)",
-                    "borderColor": "var(--c-slate-5)",
+                    "background": rx.color("slate", 1),
+                    "borderColor": rx.color("slate", 5),
                     "borderRadius": "0.75rem",
                     "boxShadow": "0px 2px 4px 0px rgba(28, 32, 36, 0.05)",
                     "fontFamily": "var(--font-instrument-sans)",
@@ -160,7 +130,7 @@ def charts():
                         "top": "0",
                         "width": "4px",
                         "height": "100%",
-                        "backgroundColor": "var(--c-violet-9)",
+                        "backgroundColor": rx.color("violet", 9),
                         "borderTopLeftRadius": "0.75rem",
                         "borderBottomLeftRadius": "0.75rem",
                     },
@@ -171,11 +141,11 @@ def charts():
                     "paddingBottom": "0px",
                     "justifyContent": "space-between",
                 },
-                label_style={"color": "var(--c-slate-12)"},
+                label_style={"color": rx.color("slate", 12)},
                 cursor={
                     "strokeWidth": 1,
-                    "stroke": "var(--slate-a5)",
-                    "fill": "var(--slate-a5)",
+                    "stroke": rx.color("slate", 5),
+                    "fill": rx.color("slate", 5),
                 },
                 separator="",
             ),
@@ -197,16 +167,8 @@ def charts():
     )
 
 
-charts_code = """data = [
-    {
-        "month": "Jan",
-        "Mobile": random.randint(100, 500),
-        "Desktop": random.randint(400, 700),
-    },
-    ...
-]
-
-import reflex as rx
+charts_code = """import reflex as rx
+import random
 
 class ChartsState(rx.State):
     data = data
@@ -226,49 +188,18 @@ def chart():
         rx.button(
             "Randomize",
             on_click=ChartsState.randomize_data,
-            class_name="button",
         ),
         rx.recharts.area_chart(
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="5%", stop_opacity=0.8,
-                    ),
-                    rx.el.svg.stop(
-                        stop_color=rx.color("violet", 7), offset="95%", stop_opacity=0.1,
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="gradientPurple",
-                ),
-            ),
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color=rx.color("slate", 7), offset="5%", stop_opacity=0.8,
-                    ),
-                    rx.el.svg.stop(
-                        stop_color=rx.color("slate", 7), offset="95%", stop_opacity=0.1,
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="gradientSlate",
-                ),
-            ),
             rx.recharts.area(
                 data_key="Mobile",
-                stroke=rx.color("violet", 8),
-                fill="url(#gradientPurple)",
+                stroke=rx.color("violet", 9),
+                fill=rx.color("violet", 8),
                 type_="natural",
             ),
             rx.recharts.area(
                 data_key="Desktop",
                 stroke=rx.color("slate", 8),
-                fill="url(#gradientSlate)",
+                fill=rx.color("slate", 7),
                 type_="natural"
             ),
             rx.recharts.graphing_tooltip(),
@@ -278,8 +209,6 @@ def chart():
                 type_="category",
             ),
             data=ChartsState.data,
-            class_name="chart",
         ),
-        class_name="chart-container",
     )
 """

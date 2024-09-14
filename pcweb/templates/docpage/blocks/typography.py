@@ -35,26 +35,19 @@ def definition(title: str, *children) -> rx.Component:
 
 @rx.memo
 def text_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-base text-slate-11 mb-4")
+    return rx.text(text, class_name="font-base text-slate-12 mb-4")
 
 @rx.memo
 def text_comp_2(text: rx.Var[str]) -> rx.Component:
-    return rx.text(text, class_name="font-base text-slate-11 max-w-[80%] mb-10")
+    return rx.text(text, class_name="font-base text-slate-12 max-w-[80%] mb-10")
 
 @rx.memo
 def list_comp(text: rx.Var[str]) -> rx.Component:
-    return rx.list_item(text, class_name="font-base text-slate-11 mb-4")
+    return rx.list_item(text, class_name="font-base text-slate-12 mb-4")
 
 
 @rx.memo
 def code_comp(text: rx.Var[str]) -> rx.Component:
-    # style = {
-    #     "color": c_color("violet", 9),
-    #     "border_radius": "4px",
-    #     "border": f"1px solid {c_color('violet', 4)}",
-    #     "background": c_color("violet", 3),
-    #     **fonts.code,
-    # }
     return rx.code(text, class_name="code-style")
 
 

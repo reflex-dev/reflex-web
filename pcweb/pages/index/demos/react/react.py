@@ -71,6 +71,8 @@ class Spline(rx.Component):
 
 spline = Spline.create
 
+scene = "https://prod.spline.design/1eapv4LnOygEqB66/scene.splinecode"
+
 def spline_demo():
-    return spline(scene="https://prod.spline.design/1eapv4LnOygEqB66/scene.splinecode")
+    return spline(scene=scene)
 """

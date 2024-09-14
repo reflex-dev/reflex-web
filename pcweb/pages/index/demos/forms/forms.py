@@ -95,62 +95,42 @@ def form() -> rx.Component:
     return rx.card(
         rx.form(
             rx.hstack(
-                rx.image(src="/envelope.png", class_name="envelope"),
+                rx.image(src="/envelope.png"),
                 rx.vstack(
-                    rx.heading(
-                        "Send us a message",
-                        class_name="heading",
-                    ),
+                    rx.heading("Send us a message"),
                     rx.text(
                         "Fill the form and we’ll back to you shortly.",
-                        class_name="text",
                     ),
-                    class_name="vstack",
                 ),
-                class_name="hstack",
             ),
             rx.vstack(
                 rx.text(
                     "Name ",
-                    rx.text.span("*", class_name="span"),
-                    class_name="text",
+                    rx.text.span("*", color="red"),
                 ),
                 rx.input(
                     name="name",
-                    type="text",
                     required=True,
-                    class_name="input",
                 ),
-                class_name="vstack",
             ),
             rx.vstack(
                 rx.text(
                     "Email ",
-                    rx.text.span("*", class_name="span"),
-                    class_name="text",
+                    rx.text.span("*", color="red"),
                 ),
                 rx.input(
                     name="email",
                     type="email",
                     required=True,
-                    class_name="input",
                 ),
-                class_name="vstack",
             ),
             rx.vstack(
-                rx.text(
-                    "Message ",
-                    class_name="text",
-                ),
+                rx.text("Message "),
                 rx.textarea(
                     name="message",
-                    type="text",
-                    class_name="textarea",
                 ),
-                class_name="vstack",
             ),
-            rx.button("Send", type="submit", class_name="button"),
-            class_name="form",
+            rx.button("Send", type="submit"),
             on_submit=FormState.submit,
         )
     )

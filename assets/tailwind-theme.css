@@ -135,7 +135,7 @@
     }
 
     .tab-style:not([data-state='active']) {
-        color: var(--c-slate-11);
+        color: var(--c-slate-12);
     }
 
     .demo-code-block {
