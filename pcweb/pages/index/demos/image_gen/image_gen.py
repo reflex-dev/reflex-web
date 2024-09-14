@@ -77,7 +77,7 @@ def image_gen() -> rx.Component:
             reset_on_submit=True,
             on_submit=ImageGenState.get_image,
         ),
-        class_name="flex flex-col items-center gap-4 px-10 py-12 h-full overflow-hidden",
+        class_name="flex flex-col items-center gap-4 p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 image_gen_code = """import reflex as rx

@@ -163,7 +163,7 @@ def charts():
             data=ChartsState.data,
             class_name="w-full h-full overflow-visible",
         ),
-        class_name="flex flex-col items-end gap-6 px-10 py-12 h-full overflow-hidden",
+        class_name="flex flex-col items-end gap-6 p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 

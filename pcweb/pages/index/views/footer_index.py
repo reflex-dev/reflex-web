@@ -148,7 +148,7 @@ def footer_index() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                 ],
-                class_name="!row-span-3 !border-t-0 !border-r !border-slate-3",
+                class_name="!row-span-3 !border-t-0 lg:!border-r !border-slate-3",
             ),
             # Socials
             rx.box(

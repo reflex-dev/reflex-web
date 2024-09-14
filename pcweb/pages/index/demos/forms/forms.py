@@ -15,7 +15,7 @@ def form() -> rx.Component:
             rx.box(
                 rx.box(
                     get_icon("message_form", class_name="text-slate-9"),
-                    class_name="size-14 rounded-full bg-slate-5 flex items-center justify-center shrin-0",
+                    class_name="size-14 rounded-full bg-slate-5 flex items-center justify-center shrink-0",
                 ),
                 rx.box(
                     rx.text(
@@ -80,7 +80,7 @@ def form() -> rx.Component:
             on_submit=FormState.submit,
             class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
         ),
-        class_name="flex items-center px-10 py-12 h-full overflow-hidden",
+        class_name="flex items-center p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 

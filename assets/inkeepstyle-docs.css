@@ -43,7 +43,7 @@
   letter-spacing: -0.0125em;
   color: var(--c-slate-9, #8B8D98);
   /* Shadow/Large */
-  box-shadow: 0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02);
+  box-shadow: 0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)),0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00));
 }
 
 [data-theme='dark'] .ikp-modal__backdrop {

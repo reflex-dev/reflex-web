@@ -56,7 +56,7 @@ def react():
         spline(
             scene="https://prod.spline.design/1eapv4LnOygEqB66/scene.splinecode",
         ),
-        class_name="px-10 py-12 h-full overflow-hidden",
+        class_name="p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 
