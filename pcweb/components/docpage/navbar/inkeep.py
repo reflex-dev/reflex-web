@@ -3,15 +3,18 @@
 from typing import Set
 import reflex as rx
 from reflex.event import EventHandler
-from reflex.vars import ImportVar, Var
+from reflex.utils.imports import ImportVar
+from reflex.vars import Var
+from typing import List
+
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {
+    special_props: List[Var] = [
         Var.create_safe("{...searchBarProps}", _var_is_string=False)
-    }
+    ]
 
     is_open: Var[bool] = False
 
