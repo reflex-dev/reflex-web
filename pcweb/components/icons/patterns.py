@@ -44,7 +44,6 @@ def index_patterns() -> rx.Component:
         rx.box(
             get_icon("wave_pattern", class_name=""),
             get_icon("wave_pattern", class_name="scale-x-[-1]"),
-            display=["none", "flex", "flex", "flex", "flex", "flex"],
             class_name="flex flex-row gap-[4.125rem] absolute top-0 left-1/2 transform -translate-x-1/2 mt-[65px] z-[-1] w-[64.15rem] overflow-hidden",
         ),
         # Glowing
