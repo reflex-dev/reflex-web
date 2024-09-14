@@ -44,6 +44,7 @@ def index_patterns() -> rx.Component:
         rx.box(
             get_icon("wave_pattern", class_name=""),
             get_icon("wave_pattern", class_name="scale-x-[-1]"),
+            display=["none", "flex", "flex", "flex", "flex", "flex"],
             class_name="flex flex-row gap-[4.125rem] absolute top-0 left-1/2 transform -translate-x-1/2 mt-[65px] z-[-1] w-[64.15rem] overflow-hidden",
         ),
         # Glowing
@@ -54,10 +55,4 @@ def index_patterns() -> rx.Component:
         rx.box(
             class_name="bg-[radial-gradient(50%_50%_at_50%_50%,_var(--glow)_0%,_rgba(21,_22,_24,_0.00)_100%)] w-[56.125rem] h-[11.625rem] rounded-[56.125rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1] mt-[65.75rem] absolute top-0"
         ),
-        # rx.box(
-        #     rx.box(
-        #         class_name="bg-[radial-gradient(50%_50%_at_50%_50%,_var(--c-violet-3)_0%,_rgba(21,_22,_24,_0.00)_100%)] w-[56.0625rem] h-[35.3125rem] rounded-[56.0625rem] overflow-hidden pointer-events-none shrink-0"
-        #     ),
-        #     class_name="p-[97.5rem_24.25rem_23.625rem_24.25rem] absolute top-0 flex justify-center items-center w-[94.5rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1]",
-        # ),
     ]
