@@ -8,7 +8,6 @@ from reflex.vars import Var
 from typing import List
 
 
-
 class Search(rx.Component):
     tag = "SearchBar"
 

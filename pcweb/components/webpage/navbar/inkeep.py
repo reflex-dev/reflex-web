@@ -5,7 +5,6 @@
 # from reflex.event import EventHandler
 # from reflex.vars import ImportVar, Var
 
-
 # class Search(rx.Component):
 #     tag = "SearchBar"
 
