@@ -366,7 +366,7 @@ def get_toc(source, href, component_list=None):
 
 
 def docpage(
-    set_path: str | None = None, t: str | None = None, right_sidebar: bool = True
+    set_path: str | None = None, t: str | None = None, right_sidebar: bool = True, page_title: str | None = None
 ) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
@@ -574,6 +574,12 @@ def docpage(
             if len(components) > 2
             else None
         )
+        if page_title:
+            return Route(
+                path=path,
+                title=page_title,
+                component=wrapper,
+            )
         return Route(
             path=path,
             title=f"{title} · Reflex Docs" if category is None else title,
