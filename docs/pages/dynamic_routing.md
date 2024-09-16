@@ -1,65 +1,8 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-
-dynamic_routes = (
-"""
-class State(rx.State):
-    @rx.var
-    def post_id(self) -> str:
-        return self.router.page.params.get('pid', 'no pid')
-        
-@rx.page(route='/post/[pid]')
-def post():
-    \'''A page that updates based on the route.\'''
-    return rx.heading(State.post_id)
-
-app = rx.App()
-"""
-)
-
-
-catch_all_route = (
-"""
-class State(rx.State):
-    @rx.var
-    def user_post(self) -> str:
-        args = self.router.page.params
-        usernames = args.get('username', [])
-        return f'Posts by {', '.join(usernames)}'
-
-@rx.page(route='/users/[id]/posts/[...username]')
-def post():
-    return rx.center(
-        rx.text(State.user_post)
-    )
-
-
-app = rx.App()
-"""  
-)
-
-
-optional_catch_all_route = (
-"""
-class State(rx.State):
-    @rx.var
-    def user_post(self) -> str:
-        args = self.router.page.params
-        usernames = args.get('username', [])
-        return f'Posts by {', '.join(usernames)}'
-
-@rx.page(route='/users/[id]/posts/[[...username]]')
-def post():
-    return rx.center(
-        rx.text(State.user_post)
-    )
-
-
-app = rx.App()
-"""  
-)
 ```
+
 
 # Dynamic Routes
 
@@ -74,10 +17,48 @@ Regular dynamic routes in Reflex allow you to match specific segments in a URL d
 Example:
 
 ```python
-{dynamic_routes}
+
+class State(rx.State):
+    @rx.var
+    def post_id(self) -> str:
+        # Retrieves the value of the 'pid' parameter from the current route
+        # If 'pid' is not found, it defaults to 'no pid'
+        return self.router.page.params.get('pid', 'no pid')
+        
+@rx.page(route='/post/[pid]')
+def post():
+    '''A page that updates based on the route.'''
+    # Displays the dynamic part of the URL, the post ID
+    return rx.heading(State.post_id)
+
+app = rx.App()
 ```
 
-In this case, a route like `/user/john/posts/5` would display "Posts by john: Post 5".
+The [pid] part in the route is a dynamic segment, meaning it can match any value provided in the URL. For instance, `/post/5`, `/post/10`, or `/post/abc` would all match this route.
+
+If a user navigates to `/post/5`, `State.post_id` will return `5`, and the page will display `5` as the heading. If the URL is `/post/xyz`, it will display `xyz`. If the URL is `/post/` without any additional parameter, it will display `'no pid'`.
+
+
+### Using `app.add_page` Method
+
+If you are using the `app.add_page` method to define pages, it is necessary to add the dynamic routes first, especially if they use the same function as a non dynamic route.
+
+For example the code snippet below will:
+
+```python
+app.add_page(index, route="/page/[page_id]", on_load=DynamicState.on_load)
+app.add_page(index, route="/static/x", on_load=DynamicState.on_load)
+app.add_page(index)
+```
+
+But if we switch the order of adding the pages, like in the example below, it will not work:
+
+```python
+app.add_page(index, route="/static/x", on_load=DynamicState.on_load) 
+app.add_page(index)
+app.add_page(index, route="/page/[page_id]", on_load=DynamicState.on_load)
+```
+
 
 ## Catch-All Routes
 
@@ -86,7 +67,22 @@ Catch-all routes in Reflex allow you to match any number of segments in a URL dy
 Example:
 
 ```python
-{catch_all_route}
+class State(rx.State):
+    @rx.var
+    def user_post(self) -> str:
+        args = self.router.page.params
+        usernames = args.get('username', [])
+        return f'Posts by \{', '.join(usernames)}'
+
+@rx.page(route='/users/[id]/posts/[...username]')
+def post():
+    return rx.center(
+        rx.text(State.user_post)
+    )
+
+
+app = rx.App()
+
 ```
 
 In this case, the `...username` catch-all pattern captures any number of segments after
@@ -100,7 +96,23 @@ are optional, and the route can match URLs with or without those segments.
 Example:
 
 ```python
-{optional_catch_all_route}
+
+class State(rx.State):
+    @rx.var
+    def user_post(self) -> str:
+        args = self.router.page.params
+        usernames = args.get('username', [])
+        return f'Posts by \{', '.join(usernames)}'
+
+@rx.page(route='/users/[id]/posts/[[...username]]')
+def post():
+    return rx.center(
+        rx.text(State.user_post)
+    )
+
+
+app = rx.App()
+
 ```
 
 Optional catch-all routes allow matching URLs with or without specific segments.
