@@ -52,7 +52,7 @@ def thumb_card(score: int, icon: str) -> rx.Component:
             FeedbackState.score == score, c_color("slate", 3), c_color("white", 1)
         ),
         on_click=FeedbackState.set_score(score),
-        class_name="transition-bg hover:bg-slate-3 shadow-medium border border-slate-4 rounded-lg items-center justify-center cursor-pointer p-2 size-9 flex"
+        class_name="transition-bg hover:bg-slate-3 shadow-medium border border-slate-4 rounded-lg items-center justify-center cursor-pointer p-2 size-9 flex",
     )
 
 
@@ -89,7 +89,7 @@ def feedback_content() -> rx.Component:
                         type="email",
                         placeholder="Contact email (optional)",
                         max_length=100,
-                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] box-border outline-none placeholder-slate-9 focus:border-violet-9 focus:border-1"
+                        class_name="w-full h-full p-2 text-slate-11 font-small bg-white-1 border border-slate-4 rounded-[10px] box-border outline-none placeholder-slate-9 focus:border-violet-9 focus:border-1",
                     ),
                     rx.box(
                         rx.popover.close(
@@ -289,16 +289,19 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
 
     # Return the list of breadcrumb items with separators
     return rx.box(
+        docs_sidebar_drawer(
+            nav_sidebar,
+            trigger=rx.box(
+                class_name="absolute inset-0 bg-transparent z-[1] mobile-only",
+            ),
+        ),
         rx.box(
             *breadcrumbs,
             class_name="flex flex-row items-center gap-[5px] lg:gap-4 overflow-hidden",
         ),
-        docs_sidebar_drawer(
-            nav_sidebar,
-            trigger=rx.el.button(
-                rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
-                class_name="p-[0.563rem] mobile-only",
-            ),
+        rx.box(
+            rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
+            class_name="p-[0.563rem] mobile-only",
         ),
         class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 lg:mt-[119px] mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
     )
@@ -366,7 +369,10 @@ def get_toc(source, href, component_list=None):
 
 
 def docpage(
-    set_path: str | None = None, t: str | None = None, right_sidebar: bool = True, page_title: str | None = None
+    set_path: str | None = None,
+    t: str | None = None,
+    right_sidebar: bool = True,
+    page_title: str | None = None,
 ) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
@@ -438,7 +444,7 @@ def docpage(
                             ),
                             underline="none",
                             href=prev.link,
-                            class_name="px-1.5 lg:px-0 py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
+                            class_name="py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
                         ),
                         rx.text(next_prev_name, class_name="font-smbold text-slate-12"),
                         class_name="flex flex-col justify-start gap-1",
@@ -459,17 +465,15 @@ def docpage(
                         rx.link(
                             rx.box(
                                 "Next",
-                                get_icon(
-                                    icon="arrow_right"
-                                ),
+                                get_icon(icon="arrow_right"),
                                 class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
                             ),
                             underline="none",
                             href=next.link,
-                            class_name="px-1.5 lg:px-0 py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
+                            class_name="py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
                         ),
                         rx.text(next_prev_name, class_name="font-smbold text-slate-12"),
-                        class_name="flex flex-col justify-start gap-1",
+                        class_name="flex flex-col justify-start gap-1 items-end",
                     )
                 )
             else:
@@ -507,7 +511,11 @@ def docpage(
                             class_name="lg:mt-0 mt-6 px-4 lg:px-24",
                         ),
                         class_name="h-full w-full"
-                        + (" lg:w-[60%]" if right_sidebar else ""),
+                        + (
+                            " lg:w-[60%]"
+                            if right_sidebar
+                            else " lg:max-w-[60%] 2xl:max-w-[100%]"
+                        ),
                     ),
                     rx.el.nav(
                         rx.box(

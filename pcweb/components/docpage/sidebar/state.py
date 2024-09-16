@@ -40,7 +40,6 @@ class SidebarState(rx.State):
             else:
                 return 0
         return self._sidebar_index
-    
+
     def load_sidebar_index(self):
         self._sidebar_index = self.sidebar_index
-        # print(self._sidebar_index)

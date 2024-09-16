@@ -54,7 +54,7 @@ def component_grid():
     return rx.box(
         rx.box(
             *core,
-            class_name="grid grid-cols-1 lg:grid-cols-3 gap-6",
+            class_name="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6",
         ),
         rx.box(
             h1_comp(
@@ -65,7 +65,7 @@ def component_grid():
             ),
             rx.box(
                 *graphs,
-                class_name="grid grid-cols-1 lg:grid-cols-3 gap-6",
+                class_name="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6",
             ),
             class_name="flex flex-col",
         ),

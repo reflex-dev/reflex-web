@@ -165,7 +165,6 @@ def sidebar_item_comp(
                 ),
                 rx.box(class_name="flex-grow"),
                 rc.accordion_icon(class_name="size-4"),
-                # on_click=rx.redirect("/docs/library/" + item.names.lower().replace(" ", "-")),
                 class_name="items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
             ),
             rc.accordion_panel(
@@ -175,7 +174,7 @@ def sidebar_item_comp(
                             sidebar_item_comp(child, index, url)
                             for child in item.children
                         ],
-                        class_name="flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1px_0_0_0_var(--c-slate-4)]",
+                        class_name="flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
                     ),
                     allow_multiple=True,
                     default_index=index[1:2] if index else [],
@@ -295,10 +294,8 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
 def create_sidebar_section(section_title, section_url, items, index, url):
     # Check if the section has any nested sections (Like the Other Libraries Section)
     nested = any(len(child.children) > 0 for item in items for child in item.children)
-    # print(nested)
     # Make sure the index is a list
     index = index.to(list)
-    # print(index)
     return rx.el.li(
         rx.link(
             rx.el.h5(
@@ -321,7 +318,7 @@ def create_sidebar_section(section_title, section_url, items, index, url):
             allow_multiple=True,
             default_index=rx.cond(index, index, []),
             class_name="ml-0 pl-0 w-full",
-            on_mount=SidebarState.load_sidebar_index,
+            # on_mount=SidebarState.load_sidebar_index,
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -469,7 +466,7 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        on_mount=SidebarState.load_sidebar_index,
+        # on_mount=SidebarState.load_sidebar_index,
         class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px]",
     )
 
