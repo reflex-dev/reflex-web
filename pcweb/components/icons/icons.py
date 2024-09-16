@@ -313,7 +313,7 @@ wave_pattern = """<svg xmlns="http://www.w3.org/2000/svg" width="482" height="52
   <defs>
     <linearGradient id="paint0_linear_10583_5494" x1="183.5" y1="515.5" x2="504" y2="1.35484e-05" gradientUnits="userSpaceOnUse">
       <stop offset="0.100401" stop-color="var(--c-slate-1)"/>
-      <stop offset="0.296955" stop-color="light-dark(#D4CAFE, #2F1C78"/>
+      <stop offset="0.296955" stop-color="light-dark(#D4CAFE, #2F1C78)"/>
       <stop offset="0.5" stop-color="var(--c-slate-1)"/>
       <stop offset="0.7" stop-color="light-dark(#EBE4FF, #261958)"/>
       <stop offset="1" stop-color="var(--c-slate-1)"/>
