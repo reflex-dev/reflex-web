@@ -458,16 +458,18 @@ def docpage(
                     rx.box(
                         rx.link(
                             rx.box(
+                                get_icon(
+                                    icon="arrow_right"
+                                ),
                                 "Next",
-                                get_icon(icon="arrow_right"),
-                                class_name="flex flex-row justify-center lg:justify-end items-center gap-2 px-1.5 lg:px-0 py-0.5 lg:py-0 rounded-lg w-full lg:w-auto",
+                                class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full",
                             ),
                             underline="none",
                             href=next.link,
-                            class_name="w-full lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
+                            class_name="px-1.5 lg:px-0 py-0.5 lg:py-0 rounded-lg lg:w-auto font-small text-slate-9 hover:!text-slate-11 transition-color",
                         ),
                         rx.text(next_prev_name, class_name="font-smbold text-slate-12"),
-                        class_name="flex flex-col justify-start gap-1 px-4 py-2",
+                        class_name="flex flex-col justify-start gap-1",
                     )
                 )
             else:

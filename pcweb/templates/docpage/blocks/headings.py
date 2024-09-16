@@ -1,11 +1,6 @@
 """Template for documentation pages."""
 
 import reflex as rx
-from pcweb import styles
-from pcweb.styles import font_weights as fw
-from pcweb.styles.colors import c_color
-from pcweb.styles import fonts
-from urllib.parse import urlencode
 
 icon_margins = {
     "h1": "10px",
@@ -36,7 +31,7 @@ def h_comp_common(
             id=id_,
             as_=heading,
             style=style,
-            class_name=class_name + " scroll-m-[4rem mt-" + mt,
+            class_name=class_name + " scroll-m-[5rem] mt-" + mt,
         ),
         rx.icon(
             tag="link",
