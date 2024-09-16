@@ -19,7 +19,10 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     category_item_children.append(
-        SidebarItem(names="Overview", link=f"/docs/library/{category.lower().replace(' ', '-')}/")
+        SidebarItem(
+            names="Overview",
+            link=f"/docs/library/{prefix}{category.lower().replace(' ', '-')}/",
+        )
     )
     for c in category_list:
         component_name = rx.utils.format.to_snake_case(c[0])

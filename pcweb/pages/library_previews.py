@@ -46,7 +46,7 @@ def create_previews(
     prefix: str = "",
     type: str = "core",
 ):
-    @docpage(right_sidebar=False, set_path=f"/docs/library{prefix.strip('/')}/" + path.strip('/') + "/", page_title=component_category + " Library")
+    @docpage(right_sidebar=False, set_path=f"/docs/library{prefix.rstrip('/')}/" + path.strip('/') + "/", page_title=component_category + " Library")
     def page() -> rx.Component:
         from pcweb.components.docpage.sidebar.sidebar_items import get_component_link
 
@@ -172,7 +172,7 @@ graphing_previews = [
         path=value["path"],
         description=value["description"],
         component_category=value["component_category"],
-        prefix="graphing",
+        prefix="/graphing",
         type="graphing",
     )
     for key, value in graphing_components_dict.items()
