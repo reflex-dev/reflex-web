@@ -24,7 +24,8 @@ def component_grid() -> rx.Component:
                 lambda i: skeleton_card(),
             ),
             rx.foreach(
-                SideBarState.example_apps_to_return, lambda app: code_card(app=app)
+                SideBarState.example_apps_to_return,
+                lambda app: community_code_card(app=app),
             ),
         ),
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-[7.5rem]",

@@ -458,11 +458,11 @@ def docpage(
                     rx.box(
                         rx.link(
                             rx.box(
+                                "Next",
                                 get_icon(
                                     icon="arrow_right"
                                 ),
-                                "Next",
-                                class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full",
+                                class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
                             ),
                             underline="none",
                             href=next.link,

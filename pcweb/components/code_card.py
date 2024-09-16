@@ -90,7 +90,7 @@ def community_code_card(app: dict) -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h4(
-                    app["display_name"],
+                    app["name"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
                 rx.box(

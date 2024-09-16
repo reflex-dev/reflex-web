@@ -1,7 +1,6 @@
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.components.hint import hint
-from pcweb.constants import GITHUB_URL
 
 
 @rx.memo
@@ -16,7 +15,7 @@ def badge() -> rx.Component:
             ),
             underline="none",
             class_name="fixed bottom-4 right-4 flex flex-row gap-1.5 items-center w-auto rounded-lg dark:bg-[#FCFCFD] shadow-small p-1.5 transition-bg border border-solid dark:border-[#E0E1E6] z-[9998] bg-[#151618] border-[#27282B] cursor-pointer",
-            href=GITHUB_URL,
+            href="https://github.com/reflex-dev/reflex-web",
         ),
         align="start",
     )
