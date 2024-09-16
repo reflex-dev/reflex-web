@@ -160,10 +160,10 @@ graphing_components_dict = {
         "description": "General-purpose graphing components that provide foundational elements for creating custom visualizations. These components offer flexibility and can be combined to create more complex graphical representations.",
         "component_category": "General",
     },
-    "other": {
-        "path": "other",
+    "other-charts": {
+        "path": "other-charts",
         "description": "Other graphing components that provide additional functionality and customization options for creating custom visualizations. These components can be used to enhance the graphical representation of data and improve user experience.",
-        "component_category": "Other",
+        "component_category": "Other-Charts",
     },
 }
 
