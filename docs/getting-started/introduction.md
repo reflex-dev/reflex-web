@@ -96,7 +96,7 @@ def tabs():
         ),
         rx.tabs.content(
             rx.markdown(
-                """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caviots. Here you can use any Python external library and call any method/function.
+                """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caveats. Here you can use any Python external library and call any method/function.
                 """,
                 style=code_style
             ),
