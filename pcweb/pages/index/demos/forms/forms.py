@@ -125,7 +125,7 @@ def form() -> rx.Component:
                 ),
             ),
             rx.vstack(
-                rx.text("Message "),
+                rx.text("Message"),
                 rx.textarea(
                     name="message",
                 ),
