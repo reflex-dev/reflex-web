@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.lucide.Icon
+    - ag_grid
 ---
 
 
@@ -424,3 +424,22 @@ To use an AG Grid Enterprise license key with Reflex AG Grid set the environment
 ```bash
 export AG_GRID_LICENSE_KEY="your_license_key"
 ```
+
+
+## column_def props
+
+The following props are available for `column_defs` as well as many others that can be found here: [AG Grid Column Def Docs](https://www.ag-grid.com/react-data-grid/column-properties/). (it is necessary to use snake_case for the keys in Reflex, unlike in the AG Grid docs where camelCase is used)
+    
+- `field`: `str`: The field of the row object to get the cell's data from.
+- `col_id`: `str | None`: The unique ID to give the column. This is optional. If missing, the ID will default to the field.
+- `type`: `str | None`: The type of the column.
+- `cell_data_type`: `bool | str | None`: The data type of the cell values for this column. Can either infer the data type from the row data (true - the default behaviour), define a specific data type (string), or have no data type (false). 
+- `hide`: `bool`: Set to true for this column to be hidden.
+- `editable`: `bool | None`: Set to true if this column is editable, otherwise false.
+- `filter`: `AGFilters | str | None`: Filter component to use for this column. Set to true to use the default filter. Set to the name of a provided filter to use that filter. (Check out the Filter Types section of this page for more information)
+- `floating_filter`: `bool`: Whether to display a floating filter for this column.
+- `header_name`: `str | None`: The name to render in the column header. If not specified and field is specified, the field name will be used as the header name.
+- `header_tooltip`: `str | None`: Tooltip for the column header.
+- `checkbox_selection`: `bool | None`: Set to true to render a checkbox for row selection. 
+- `cell_editor`: `AGEditors | str | None`: Provide your own cell editor component for this column's cells. (Check out the Editing section of this page for more information)
+- `cell_editor_params`: `dict[str, list[Any]] | None`: Params to be passed to the cellEditor component.

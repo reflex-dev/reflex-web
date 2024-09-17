@@ -825,6 +825,34 @@ EVENTS = {
     "on_drop": {
         "description": "The on_drop event handler is called when the user drops an item."
     },
+    "is_server_side_group": {
+        "description": "The is_server_side_group event handler is called when the group is server-side."
+    },
+    "get_server_side_group_key": {
+        "description": "Get the server side group key."
+    },
+    "is_server_side_group_open_by_default": {
+        "description": "Event handler to check if the server-side group is open by default."
+    },
+    "get_child_count": {
+        "description": "Event handler to get the child count."
+    },
+    "on_selection_changed": {
+        "description": "The on_selection_changed event handler is called when the selection changes."
+    },
+    "on_first_data_rendered": {
+        "description": "The on_first_data_rendered event handler is called when the first data is rendered."
+    },
+    "get_row_id": {
+        "description": "The get_row_id event handler is called to get the row id."
+    },
+    "get_data_path": {
+        "description": "The get_data_path event handler is called to get the data path."
+    },
+    "is_server_side_group": {
+        "description": "The is_server_side_group event handler is called to check if the group is server-side."
+    }
+    
 }
 
 
@@ -1101,7 +1129,6 @@ def component_docs(component_tuple, comp):
     props = generate_props(src, component, comp)
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
-
 
     return rx.box(
         h2_comp(text=component_tuple[1].lower()),
