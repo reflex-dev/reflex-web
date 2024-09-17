@@ -3,7 +3,8 @@
 from typing import Set
 import reflex as rx
 from reflex.event import EventHandler
-from reflex.vars import ImportVar, Var
+from reflex.vars import Var
+from reflex.utils.imports import ImportVar
 
 
 class Search(rx.Component):
