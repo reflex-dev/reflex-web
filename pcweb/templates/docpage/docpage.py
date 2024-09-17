@@ -507,7 +507,7 @@ def docpage(
                                 *links,
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
-                            docpage_footer(path=path),
+                            docpage_footer(path=path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 lg:px-24",
                         ),
                         class_name="h-full w-full"
