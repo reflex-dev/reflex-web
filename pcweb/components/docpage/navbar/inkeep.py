@@ -12,7 +12,7 @@ class Search(rx.Component):
     tag = "SearchBar"
 
     special_props: List[Var] = [
-        Var.create_safe("{...searchBarProps}", _var_is_string=False)
+        Var.create("{...searchBarProps}", _var_is_string=False)
     ]
 
     is_open: Var[bool] = False
