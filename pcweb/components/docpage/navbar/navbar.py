@@ -310,15 +310,11 @@ def new_component_section() -> rx.Component:
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
         new_nav_menu.list(
-            rx.box(
-                new_nav_menu.item(
-                    search_bar(),
-                ),
-                new_nav_menu.item(
-                    github(),
-                ),
-                align_items="center",
-                class_name="flex lg:flex-row flex-row-reverse items-center gap-2 m-0 h-full",
+            new_nav_menu.item(
+                search_bar(),
+            ),
+            new_nav_menu.item(
+                github(),
             ),
             new_nav_menu.item(
                 new_discord(),

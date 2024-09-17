@@ -21,6 +21,8 @@ class Search(rx.Component):
 
     on_shortcut_key_pressed: EventHandler[lambda: []]
 
+    class_name: Var[str] = "max-w-[256px] max-h-[32px]"
+
     def add_imports(self):
         """Add the imports for the component."""
         return {
@@ -91,6 +93,7 @@ const searchBarProps = {
         SearchBarTrigger: {
           defaultProps: {
             variant: 'subtle', // 'emphasized' 'subtle'
+            size: 'expand',
           },
         },
       },

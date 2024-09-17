@@ -85,7 +85,7 @@ def frontend_features() -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h2(
-                    "Build your entire app in Python.",
+                    "Build your entire app in Python",
                     class_name="font-x-large text-slate-12",
                 ),
                 rx.el.p(

@@ -11,8 +11,8 @@ def os_card() -> rx.Component:
                 "Open source", class_name="font-large text-slate-12"
             ),
             rx.el.p(
-                """Apache 2.0 license--view the source code, contribute,
-and self-host""",
+                """Apache 2.0 license--view the source code, 
+contribute, and self-host""",
                 class_name="font-base text-slate-9 whitespace-pre",
             ),
             class_name="flex flex-col gap-2",

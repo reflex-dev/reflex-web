@@ -1,9 +1,10 @@
 [data-theme='light'] .ikp-search-bar-trigger__container,
 [data-theme='dark'] .ikp-search-bar-trigger__container {
   display: flex;
-  width: 256px;
-  height: 32px;
+  max-height: 32px;
+  min-height: 32px;
   padding: 6px;
+  min-width: 256px;
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
@@ -20,31 +21,9 @@
   color: var(--c-slate-9, #8B8D98);
   /* Shadow/Large */
   box-shadow: 0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02);
+  transition: width 0s;
 }
 
-[data-theme='light'] .ikp-search-bar-trigger__container--variant_subtle,
-[data-theme='dark'] .ikp-search-bar-trigger__container--variant_subtle {
-  display: flex;
-  width: 256px;
-  height: 32px;
-  padding: 6px;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid var(--c-slate-5, #E0E1E6);
-  background: var(--c-slate-1);
-  /* Small */
-  font-family: "Instrument Sans";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
-  /* 142.857% */
-  letter-spacing: -0.0125em;
-  color: var(--c-slate-9, #8B8D98);
-  /* Shadow/Large */
-  box-shadow: 0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)),0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00));
-}
 
 [data-theme='dark'] .ikp-modal__backdrop {
   background: rgba(18, 17, 19, 0.50);
@@ -58,6 +37,7 @@
     padding: 2px 12px;
     display: block;
     height: 32px;
+    min-height: 32px;
     width: 32px;
     max-width: 6em;
     min-width: 0px;

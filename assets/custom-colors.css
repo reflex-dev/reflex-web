@@ -37,6 +37,8 @@
   /* White */
   --c-white-1: #FFFFFF;
   --glow: #EBE4FF;
+  --wave-line-1: #D4CAFE;
+  --wave-line-2: #EBE4FF;
 }
 
 .dark,
@@ -88,4 +90,6 @@
   /* White */
   --c-white-1: #0E0F10;
   --glow: #261958;
+  --wave-line-1: #2F1C78;
+  --wave-line-2: #261958;
 }
