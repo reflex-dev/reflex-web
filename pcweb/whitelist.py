@@ -9,7 +9,7 @@
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = ["/docs/library/ag-grid/aggridgettingstarted", "/docs/library/datadisplay/avatar", "/docs/library/dynamic-rendering/cond"]
+WHITELISTED_PAGES = []
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
