@@ -10,7 +10,7 @@ from pcweb.pages.faq import faq
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 from ..navbar.buttons.github import github_desktop
 from ..navbar.buttons.discord import discord
 

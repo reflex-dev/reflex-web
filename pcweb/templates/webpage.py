@@ -1,70 +1,20 @@
 from typing import Callable
 
 import reflex as rx
-from pcweb import styles
 from pcweb.route import Route
-from typing import List, Dict
 
 DEFAULT_TITLE = "Web Apps in Pure Python"
 
 
-def spotlight():
-    return rx.flex(
-        rx.html(
-            """
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="/css/spotlight.css" />
-  </head>
-  <body style="margin: 0; background: none">
-    <input type="hidden" id="anPageName" name="page" value="landing-page" />
-    <div class="container-center-horizontal">
-      <div class="landing-page screen">
-        <div class="flex-col">
-          <div class="overlap-group1">
-            <div class="group-9">
-              <div class="vector-container">
-                <img class="vector-2" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
-                <img class="vector-2-1 vector-2-3" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
-              </div>
-              <div class="vector-container-1">
-                <img class="vector-3" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
-                <img class="vector-3-1" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
-              </div>
-              <img class="vector-2-2 vector-2-3" src="/spotlight_img/vector-2.webp" alt="Vector 2" />
-              <img class="vector-3-2" src="/spotlight_img/vector-2.webp" alt="Vector 3" />
-            </div>
-            <div class="overlap-group">
-              <img class="group-6" src="/spotlight_img/group-6.webp" alt="Group 6" />
-              <img class="subtract" src="/spotlight_img/subtract.webp" alt="Subtract" />
-            </div>
-            <img class="rectangle-7" src="/spotlight_img/rectangle-7.webp" alt="Rectangle 7" />
-            <img class="rectangle-8" src="/spotlight_img/rectangle-8.webp" alt="Rectangle 8" />
-            <img class="rectangle-9" src="/spotlight_img/rectangle-9.webp" alt="Rectangle 9" />
-            <div class="rectangle-13"></div>
-            <div class="rectangle-18"></div>
-            <img class="rectangle-10" src="/spotlight_img/rectangle-10.svg" alt="Rectangle 10" />
-          </div>
-          <div class="rectangle-17"></div>
-        </div>
-        <img class="vector" src="/spotlight_img/vector.webp" alt="Vector" />
-      </div>
-    </div>
-  </body>
-</html>
-"""
-        ),
-        z_index=-1,
-        position="absolute",
-        width="100%",
-        height="100%",
-        align_items="start",
-        justify_content="center",
-        opacity=0.97,
-    )
-
-
-def webpage(path: str, title: str = DEFAULT_TITLE, description: str=None, meta: list[dict[str, str]]=None, props=None, add_as_page=True) -> Callable:
+def webpage(
+    path: str,
+    title: str = DEFAULT_TITLE,
+    description: str = None,
+    image: str = None,
+    meta: list[dict[str, str]] = None,
+    props=None,
+    add_as_page=True,
+) -> Callable:
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -101,31 +51,30 @@ def webpage(path: str, title: str = DEFAULT_TITLE, description: str=None, meta: 
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            from pcweb.components.webpage.footer import footer
-            from pcweb.components.webpage.navbar import navbar
-            from pcweb.components.webpage.sidebar import sb
+            # from pcweb.components.webpage.footer import footer
+            from pcweb.components.docpage.navbar import navbar
+            from pcweb.views.footer import footer
+            from pcweb.views.bottom_section.bottom_logo import bottom_logo
+            from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.components.webpage.badge import badge
+            from pcweb.components.icons.patterns import default_patterns
+
+            # from pcweb.components.webpage.sidebar import sb
 
             # Wrap the component in the template.
-            return rx.flex(
-                navbar(sidebar=sb),
-                spotlight(),
-                rx.container(
-                    margin_top="150px",
+            return rx.box(
+                *default_patterns(),
+                navbar(),
+                rx.el.main(
+                    contents(*children, **props),
+                    rx.box(class_name="flex-grow"),
+                    class_name="w-full z-[1]",
                 ),
-                contents(*children, **props),
-                rx.box(flex_grow=1),
+                bottom_section(),
+                # bottom_logo(),
                 footer(),
-                font_family=styles.SANS,
-                background="#131217",
-                align_items="center",
-                justify_content="start",
-                width="100%",
-                height="100%",
-                min_height="100vh",
-                position="relative",
-                direction="column",
-                z_index=-2,
-                overflow="hidden",
+                badge(),
+                class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans overflow-hidden",
                 **props,
             )
 
@@ -133,10 +82,10 @@ def webpage(path: str, title: str = DEFAULT_TITLE, description: str=None, meta: 
             path=path,
             title=title,
             description=description,
+            image=image,
             meta=meta,
-            background_color="#131217",
             component=wrapper,
-            add_as_page=add_as_page
+            add_as_page=add_as_page,
         )
 
     return webpage

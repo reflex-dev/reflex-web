@@ -26,45 +26,45 @@ Here are the props that can be passed to the `rx.theme` component:
 rx.table.root(
     rx.table.header(
         rx.table.row(
-            rx.table.column_header_cell("Name"),
-            rx.table.column_header_cell("Type"),
-            rx.table.column_header_cell("Description"),
+            rx.table.column_header_cell("Name", class_name="table-header"),
+            rx.table.column_header_cell("Type", class_name="table-header"),
+            rx.table.column_header_cell("Description", class_name="table-header"),
         ),
     ),
     rx.table.body(
         rx.table.row(
-            rx.table.row_header_cell(rx.code("has_background", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code("Bool", style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("has_background", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code("Bool", style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("Whether to apply the themes background color to the theme node. Defaults to True.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("appearance", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code('"inherit" | "light" | "dark"', style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("appearance", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code('"inherit" | "light" | "dark"', style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("The appearance of the theme. Can be 'light' or 'dark'. Defaults to 'light'.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("accent_color", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("accent_color", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("The primary color used for default buttons, typography, backgrounds, etc.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("gray_color", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("gray_color", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("The secondary color used for default buttons, typography, backgrounds, etc.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("panel_background", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code('"solid" | "translucent"', style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("panel_background", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code('"solid" | "translucent"', style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell('Whether panel backgrounds are translucent: "solid" | "translucent" (default).', style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("radius", style=get_code_style_rdx("violet"))),
+            rx.table.row_header_cell(rx.code("radius", style=get_code_style_rdx("violet"), class_name="code-style")),
             rx.table.cell(rx.code('"none" | "small" | "medium" | "large" | "full"', style=get_code_style_rdx("gray"))),
             rx.table.cell("The radius of the theme. Can be 'small', 'medium', or 'large'. Defaults to 'medium'.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("scaling", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code('"90%" | "95%" | "100%" | "105%" | "110%"', style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("scaling", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code('"90%" | "95%" | "100%" | "105%" | "110%"', style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("Scale of all theme items.", style=cell_style),
         ),
     ),
@@ -129,18 +129,18 @@ rx.table.root(
     ),
     rx.table.body(
         rx.table.row(
-            rx.table.row_header_cell(rx.code("color", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("color", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code("Str", style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("The color to use. Can be any valid accent color or 'accent' to reference the current theme color.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("shade", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.link(rx.code('1 - 12', style=get_code_style_rdx("gray")), href="https://www.radix-ui.com/colors")),
+            rx.table.row_header_cell(rx.code("shade", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.link(rx.code('1 - 12', style=get_code_style_rdx("gray"), class_name="code-style"), href="https://www.radix-ui.com/colors")),
             rx.table.cell("The shade of the color to use. Defaults to 7.", style=cell_style),
         ),
         rx.table.row(
-            rx.table.row_header_cell(rx.code("alpha", style=get_code_style_rdx("violet"))),
-            rx.table.cell(rx.code("Bool", style=get_code_style_rdx("gray"))),
+            rx.table.row_header_cell(rx.code("alpha", style=get_code_style_rdx("violet"), class_name="code-style")),
+            rx.table.cell(rx.code("Bool", style=get_code_style_rdx("gray"), class_name="code-style")),
             rx.table.cell("Whether to use the alpha value of the color. Defaults to False.", style=cell_style),
         )
     ),

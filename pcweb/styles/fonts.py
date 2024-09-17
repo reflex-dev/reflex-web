@@ -84,9 +84,9 @@ xx_large = {
     "letter-spacing": ["-0.03em", "-0.05em"],
 }
 
-code = {    
+code = {
     "font-family": "Source Code Pro",
-    "font-size": "16px",
+    "font-size": "14px",
     "font-style": "normal",
     "font-weight": "400",
     "line-height": "24px",

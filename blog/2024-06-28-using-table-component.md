@@ -1,7 +1,7 @@
 ---
 author: Tom Gotsman
 date: 2024-06-28
-title: Using Table Component
+title: Creating Tables in Reflex
 description: Describing main uses of the Table component with a Database
 image: /blog/table.webp
 meta: [

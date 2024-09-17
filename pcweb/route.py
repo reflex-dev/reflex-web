@@ -19,6 +19,9 @@ class Route(Base):
     # The page description.
     description: str | None = None
 
+    # The page image.
+    image: str | None = None
+
     # The page extra meta data.
     meta: list[dict[str, str]] | None = None
 

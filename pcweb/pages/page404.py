@@ -15,7 +15,5 @@ def page404():
             rx.markdown(contents),
             rx.spacer(),
         ),
-        height="80vh",
-        width="100%",
-        color="white",
+        class_name="h-[80vh] w-full",
     )

@@ -32,7 +32,7 @@ from reflex.components.base.fragment import Fragment
 def get_code_style(color: str):
     return {
         "color": rx.color(color, 11),
-        "border_radius": "4px",
+        "border_radius": "0.25rem",
         "border": f"1px solid {rx.color(color, 5)}",
         "background": rx.color(color, 3),
     }
@@ -317,7 +317,7 @@ def render_select(prop, component, prop_dict):
             setter = getattr(PropDocsState, f"set_{name}")
             prop_dict[prop.name] = var
             return rx.select.root(
-                rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
+                rx.select.trigger(class_name="w-32 font-small text-slate-11"),
                 rx.select.content(
                     rx.select.group(
                         *[
@@ -342,15 +342,14 @@ def render_select(prop, component, prop_dict):
             rx.popover.trigger(
                 rx.box(
                     rx.button(
-                        rx.text(var, style=small),
+                        rx.text(var, class_name="font-small"),
                         # Match the select.trigger svg icon
                         rx.html(
                             """<svg width="9" height="9" viewBox="0 0 9 9" fill="currentcolor" xmlns="http://www.w3.org/2000/svg" class="rt-SelectIcon" aria-hidden="true"><path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z"></path></svg>"""
                         ),
                         color_scheme=var,
-                        width="8em",
                         variant="surface",
-                        justify_content="space-between",
+                        class_name="w-32 justify-between",
                     ),
                 ),
             ),
@@ -360,25 +359,16 @@ def render_select(prop, component, prop_dict):
                         rx.box(
                             rx.icon(
                                 "check",
-                                color=rx.color("gray", 12),
                                 size=15,
-                                position="absolute",
-                                top="50%",
-                                left="50%",
-                                transform="translate(-50%, -50%)",
                                 display=rx.cond(var == color, "block", "none"),
+                                class_name="text-gray-12 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]",
                             ),
-                            width="30px",
-                            height="30px",
-                            border_radius="max(var(--radius-2), var(--radius-full))",
                             bg=f"var(--{color}-9)",
-                            cursor="pointer",
-                            position="relative",
-                            flex_shrink=0,
                             on_click=PropDocsState.setvar(f"{name}", color),
                             border=rx.cond(
                                 var == color, "2px solid var(--gray-12)", ""
                             ),
+                            class_name="relative shrink-0 rounded-md size-8 cursor-pointer",
                         )
                         for color in list(map(str, type_.__args__))
                     ],
@@ -388,7 +378,7 @@ def render_select(prop, component, prop_dict):
             ),
         )
     return rx.select.root(
-        rx.select.trigger(width="8em", style=small, color=c_color("slate", 11)),
+        rx.select.trigger(class_name="font-small w-32 text-slate-11"),
         rx.select.content(
             rx.select.group(
                 *[
@@ -417,27 +407,19 @@ def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
             trigger,
         ),
         rx.hover_card.content(
-            content,
-            side="top",
-            align="center",
-            color=c_color("slate", 9),
-            style=small,
+            content, side="top", align="center", class_name="font-small text-slate-11"
         ),
     )
 
 
 def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
     return hovercard(
-        rx.icon(tag="palette", size=15, color=c_color("slate", 9), flex_shrink=0),
+        rx.icon(tag="palette", size=15, class_name="!text-slate-9 shrink-0"),
         rx.grid(
             *[
                 rx.tooltip(
                     rx.box(
-                        width="30px",
-                        height="30px",
-                        border_radius="max(var(--radius-2), var(--radius-full))",
-                        flex_shrink=0,
-                        bg=f"var(--{color}-9)",
+                        bg=f"var(--{color}-9)", class_name="rounded-md size-8 shrink-0"
                     ),
                     content=color,
                     delay_duration=0,
@@ -515,22 +497,22 @@ def prop_docs(
     # Return the docs for the prop.
     return [
         rx.table.cell(
-            rx.hstack(
-                rx.code(prop.name, text_wrap="nowrap", style=get_code_style("violet")),
+            rx.box(
+                rx.code(prop.name, class_name="code-style text-nowrap leading-normal"),
                 hovercard(
                     rx.icon(
-                        tag="info", size=15, color=c_color("slate", 9), flex_shrink=0
+                        tag="info",
+                        size=15,
+                        class_name="!text-slate-9 shrink-0",
                     ),
-                    rx.text(prop.description, size="2"),
+                    rx.text(prop.description, class_name="font-small text-slate-11"),
                 ),
-                spacing="2",
-                align="center",
+                class_name="flex flex-row items-center gap-2",
             ),
-            padding_left="1em",
-            justify="start",
+            class_name="justify-start pl-4",
         ),
         rx.table.cell(
-            rx.hstack(
+            rx.box(
                 rx.cond(
                     (len(literal_values) > 0) & (prop.name not in COMMON_TYPES),
                     rx.code(
@@ -542,15 +524,13 @@ def prop_docs(
                             if len(literal_values) > MAX_PROP_VALUES
                             else type_name
                         ),
-                        # color_scheme=color,
                         style=get_code_style(color),
-                        text_wrap="nowrap",
+                        class_name="code-style text-nowrap leading-normal",
                     ),
                     rx.code(
                         type_name,
-                        # color_scheme=color,
                         style=get_code_style(color),
-                        text_wrap="nowrap",
+                        class_name="code-style text-nowrap leading-normal",
                     ),
                 ),
                 rx.cond(
@@ -560,11 +540,11 @@ def prop_docs(
                         rx.icon(
                             tag="circle-ellipsis",
                             size=15,
-                            color=c_color("slate", 9),
-                            flex_shrink=0,
+                            class_name="!text-slate-9 shrink-0",
                         ),
                         rx.text(
-                            " | ".join([f'"{v}"' for v in literal_values]), size="2"
+                            " | ".join([f'"{v}"' for v in literal_values]),
+                            class_name="font-small text-slate-11",
                         ),
                     ),
                 ),
@@ -577,24 +557,24 @@ def prop_docs(
                         rx.icon(
                             tag="info",
                             size=15,
-                            color=c_color("slate", 9),
-                            flex_shrink=0,
+                            class_name="!text-slate-9 shrink-0",
                         ),
-                        rx.text(f"Union[{', '.join(all_types)}]", size="2"),
+                        rx.text(
+                            f"Union[{', '.join(all_types)}]",
+                            class_name="font-small text-slate-11",
+                        ),
                     ),
                 ),
                 rx.cond(
                     (prop.name == "color_scheme") | (prop.name == "accent_color"),
                     color_scheme_hovercard(literal_values),
                 ),
-                spacing="2",
-                align="center",
+                class_name="flex flex-row items-center gap-2",
             ),
-            padding_left="1em",
-            justify="start",
+            class_name="justify-start pl-4",
         ),
         rx.table.cell(
-            rx.flex(
+            rx.box(
                 rx.code(
                     default_value,
                     style=get_code_style(
@@ -602,18 +582,17 @@ def prop_docs(
                         if default_value == "False"
                         else "green" if default_value == "True" else "gray"
                     ),
-                    text_wrap="nowrap",
-                )
+                    class_name="code-style leading-normal text-nowrap",
+                ),
+                class_name="flex",
             ),
-            padding_left="1em",
-            justify="start",
+            class_name="justify-start pl-4",
         ),
         rx.cond(
             is_interactive,
             rx.table.cell(
                 render_select(prop, component, prop_dict),
-                padding_left="1em",
-                justify="start",
+                class_name="justify-start pl-4",
             ),
             rx.fragment(),
         ),
@@ -828,19 +807,20 @@ EVENTS = {
 }
 
 
+from reflex.components.radix import themes as rdxt
+
 
 def generate_props(src, component, comp):
     if len(src.get_props()) == 0:
-        return rx.vstack(
-            rx.heading("Props", as_="h3", style=large),
-            rx.text("No component specific props"),
-            width="100%",
-            overflow_x="auto",
-            align_items="start",
-            padding_y=".5em",
+        return rx.box(
+            rx.heading("Props", as_="h3", class_name="font-large text-slate-12"),
+            rx.text("No component specific props", class_name="text-slate-9 font-base"),
+            class_name="flex flex-col overflow-x-auto justify-start py-2 w-full",
         )
 
-    padding_left = "1em"
+    table_header_class_name = (
+        "font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"
+    )
 
     prop_dict = {}
 
@@ -867,22 +847,8 @@ def generate_props(src, component, comp):
             for prop in src.get_props()
             if not prop.name.startswith("on_")  # ignore event trigger props
         ],
-        background=c_color("slate", 2),
+        class_name="bg-slate-2",
     )
-
-    def is_ineligble_data_component(
-        component,
-    ) -> bool:
-        component_name: str = component.__name__.lower()
-        match component_name:
-            case "datalistroot":
-                return False
-
-            case component_name if "data" in component_name:
-                return True
-
-            case _:
-                return False
 
     try:
         if f"{component.__name__}" in comp.metadata:
@@ -894,13 +860,10 @@ def generate_props(src, component, comp):
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
-
             except:
                 comp = rx.fragment()
-
-            if is_ineligble_data_component(component):
+            if "data" in component.__name__.lower():
                 raise Exception("Data components cannot be created")
-
     except Exception as e:
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
@@ -920,48 +883,33 @@ def generate_props(src, component, comp):
                     rx.table.row(
                         rx.table.column_header_cell(
                             "Prop",
-                            padding_left=padding_left,
-                            justify="start",
-                            text_wrap="nowrap",
-                            width="auto",
+                            class_name=table_header_class_name,
                         ),
                         rx.table.column_header_cell(
                             "Type | Values",
-                            padding_left=padding_left,
-                            justify="start",
-                            text_wrap="nowrap",
-                            width="auto",
+                            class_name=table_header_class_name,
                         ),
                         rx.table.column_header_cell(
                             "Default",
-                            padding_left=padding_left,
-                            justify="start",
-                            text_wrap="nowrap",
-                            width="auto",
+                            class_name=table_header_class_name,
                         ),
                         rx.cond(
                             is_interactive,
                             rx.table.column_header_cell(
                                 "Interactive",
-                                padding_left=padding_left,
-                                justify="start",
-                                text_wrap="nowrap",
-                                width="auto",
+                                class_name=table_header_class_name,
                             ),
                             rx.fragment(),
                         ),
                     ),
-                    background=c_color("slate", 3),
+                    class_name="bg-slate-3",
                 ),
                 body,
-                width="100%",
-                padding_x="0",
                 variant="surface",
                 size="1",
-                border=f"1px solid {c_color('slate', 4)}",
+                class_name="px-0 w-full border border-slate-4",
             ),
-            max_height="25em",
-            margin_bottom="16px",
+            class_name="max-h-96 mb-4",
         ),
     )
 
@@ -995,29 +943,27 @@ def generate_event_triggers(comp, src):
     ]
 
     if not custom_events:
-        return rx.vstack(
-            rx.heading("Event Triggers", as_="h3", style=large),
+        return rx.box(
+            rx.heading(
+                "Event Triggers", as_="h3", class_name="font-large text-slate-12"
+            ),
             rx.link(
                 "See the full list of default event triggers",
                 href="https://reflex.dev/docs/api-reference/event-triggers/",
-                color=c_color("violet", 11),
-                style=base,
+                class_name="text-violet-11 font-base",
                 is_external=True,
             ),
-            width="100%",
-            overflow_x="auto",
-            align_items="start",
-            padding_y=".5em",
+            class_name="py-2 overflow-x-auto justify-start flex flex-col gap-4",
         )
-    padding_left = "1em"
-
-    return rx.vstack(
-        rx.heading("Event Triggers", as_="h3", style=large),
+    table_header_class_name = (
+        "font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"
+    )
+    return rx.box(
+        rx.heading("Event Triggers", as_="h3", class_name="font-large text-slate-12"),
         rx.link(
             "See the full list of default event triggers",
             href="https://reflex.dev/docs/api-reference/event-triggers/",
-            color=c_color("violet", 11),
-            style=base,
+            class_name="text-violet-11 font-base",
             is_external=True,
         ),
         rx.scroll_area(
@@ -1032,47 +978,38 @@ def generate_event_triggers(comp, src):
                 rx.table.header(
                     rx.table.row(
                         rx.table.column_header_cell(
-                            "Trigger", padding_left=padding_left, justify="start"
+                            "Trigger", class_name=table_header_class_name
                         ),
                         rx.table.column_header_cell(
-                            "Description", padding_left=padding_left, justify="start"
+                            "Description", class_name=table_header_class_name
                         ),
                     ),
-                    background_color=c_color("slate", 3),
+                    class_name="bg-slate-3",
                 ),
                 rx.table.body(
                     *[
                         rx.table.row(
                             rx.table.cell(
-                                rx.code(event, style=get_code_style("violet")),
-                                padding_left=padding_left,
-                                justify="start",
+                                rx.code(event, class_name="code-style"),
+                                class_name="justify-start p-4",
                             ),
                             rx.table.cell(
                                 prop_name_to_description.get(event)
                                 or EVENTS[event]["description"],
-                                color=c_color("slate", 11),
-                                style=small,
-                                padding_left=padding_left,
-                                justify="start",
+                                class_name="justify-start p-4 text-slate-11 font-small",
                             ),
                         )
                         for event in custom_events
                     ],
-                    background_color=c_color("slate", 2),
+                    class_name="bg-slate-2",
                 ),
-                width="100%",
                 variant="surface",
                 size="1",
-                border=f"1px solid {c_color('slate', 4)}",
+                class_name="w-full border border-slate-4",
             ),
-            width="100%",
-            overflow="hidden",
-            align_items="start",
+            class_name="w-full justify-start overflow-hidden",
         ),
-        gap="24px",
-        max_height="40em",
-        align_items="start",
+        class_name="pb-6 w-full justify-start flex flex-col gap-6 max-h-[40rem]",
     )
 
 
@@ -1081,15 +1018,13 @@ def generate_valid_children(comp):
         return rx.text("")
 
     valid_children = [
-        rx.chakra.wrap_item(rx.code(child, style=get_code_style("violet")))
+        rx.code(child, class_name="code-style leading-normal")
         for child in comp._valid_children
     ]
-    return rx.vstack(
-        rx.heading("Valid Children", as_="h3", style=large),
-        rx.chakra.wrap(*valid_children),
-        width="100%",
-        align_items="start",
-        padding_bottom="24px",
+    return rx.box(
+        rx.heading("Valid Children", as_="h3", class_name="font-large text-slate-12"),
+        rx.box(*valid_children, class_name="flex flex-row gap-2 flex-wrap"),
+        class_name="pb-6 w-full items-start flex flex-col gap-4",
     )
 
 
@@ -1102,138 +1037,93 @@ def component_docs(component_tuple, comp):
     triggers = generate_event_triggers(component, src)
     children = generate_valid_children(component)
 
-
     return rx.box(
-        h2_comp(text=component_tuple[1].lower()),
-        rx.box(markdown(textwrap.dedent(src.get_docs())), padding_bottom=".5em"),
+        h2_comp(text=component_tuple[1]),
+        rx.box(markdown(textwrap.dedent(src.get_docs())), class_name="pb-2"),
         props,
         children,
         triggers,
-        text_align="left",
-        width="100%",
-        padding_bottom="2em",
+        class_name="pb-8 w-full text-left",
     )
 
 
-tab_style = {
-    "font_size": "1em",
-    "font_weight": "500",
-    "padding_x": ".5em",
-    "color": "#696287",
-}
-tab_selected_style = {
-    "color": "#5646ED",
-    "bg": "#F5EFFE",
-    "font_size": "1em",
-    "font_weight": "500",
-    "padding_x": ".5em",
-    "padding_y": ".10em",
-    "border_radius": "8px",
-}
-
-
 def multi_docs(path, comp, component_list, title):
-    components = [component_docs(component_tuple, comp) for component_tuple in component_list[1:]]
+    components = [
+        component_docs(component_tuple, comp) for component_tuple in component_list[1:]
+    ]
     fname = path.strip("/") + ".md"
     ll_doc_exists = os.path.exists(fname.replace(".md", "-ll.md"))
 
-    non_active_style = {
-        "padding": "8px",
-        "color": c_color("slate", 9),
-        "width": "7em",
-        "transition": "color 0.035s ease-out",
-        "_hover": {
-            "color": c_color("slate", 11),
-        },
-        **small,
-    }
+    active_class_name = "font-small bg-slate-2 p-2 text-slate-11 rounded-xl shadow-large w-28 cursor-default border border-slate-4 text-center"
 
-    active_style = {
-        "padding": "8px",
-        "background": c_color("slate", 2),
-        "color": c_color("slate", 11),
-        "box_shadow": shadows["large"],
-        "border_radius": "8px",
-        "width": "7em",
-        "cursor": "default",
-        "border": f"1px solid {c_color('slate', 4)}",
-        **small,
-    }
-
+    non_active_class_name = "font-small w-28 transition-color hover:text-slate-11 text-slate-9 p-2 text-center"
     def links(current_page, ll_doc_exists, path):
+        path = str(path).rstrip("/")
         if ll_doc_exists:
             if current_page == "hl":
-                return rx.flex(
-                    rx.box(flex_grow="1"),
-                    rx.flex(
+                return rx.box(
+                    rx.box(class_name="flex-grow"),
+                    rx.box(
                         rx.link(
-                            rx.center(rx.text("High Level"), style=active_style),
+                            rx.box(rx.text("High Level"), class_name=active_class_name),
                             underline="none",
                         ),
                         rx.link(
-                            rx.center(rx.text("Low Level"), style=non_active_style),
-                            href=path + "/low",
+                            rx.box(
+                                rx.text("Low Level"), class_name=non_active_class_name
+                            ),
+                            href=path+ "/low",
                             underline="none",
                         ),
-                        spacing="2",
-                        padding="8px",
-                        background=c_color("slate", 3),
-                        border_radius="16px",
-                        align_items="center",
-                        justify_items="center",
+                        class_name="bg-slate-3 rounded-[1.125rem] p-2 gap-2 flex items-center justify-center",
                     ),
-                    margin_bottom=".5em",
+                    class_name="flex mb-2",
                 )
             else:
-                return rx.flex(
-                    rx.box(flex_grow="1"),
+                return rx.box(
+                    rx.box(class_name="flex-grow"),
                     rx.flex(
                         rx.link(
-                            rx.center(rx.text("High Level"), style=non_active_style),
+                            rx.box(
+                                rx.text("High Level"), class_name=non_active_class_name
+                            ),
                             href=path,
                             underline="none",
                         ),
                         rx.link(
-                            rx.center(rx.text("Low Level"), style=active_style),
+                            rx.box(rx.text("Low Level"), class_name=active_class_name),
                             href=path + "/low",
                             underline="none",
                         ),
-                        spacing="2",
-                        padding="8px",
-                        background=c_color("slate", 3),
-                        border_radius="16px",
-                        align_items="center",
-                        justify_items="center",
+                        class_name="bg-slate-3 rounded-[1.125rem] p-2 gap-2 flex items-center justify-center",
                     ),
-                    margin_bottom=".5em",
+                    class_name="flex mb-2",
                 )
         return rx.fragment()
 
     @docpage(set_path=path, t=title)
     def out():
         toc = get_toc(comp, fname, component_list)
-        return toc, rx.flex(
+        return toc, rx.box(
             links("hl", ll_doc_exists, path),
             xd.render(comp, filename=fname),
             h1_comp(text="API Reference"),
-            rx.vstack(*components),
-            direction="column",
-            width="100%",
+            rx.box(*components, class_name="flex flex-col"),
+            class_name="flex flex-col w-full",
         )
 
-    @docpage(set_path=path + "low/", t=title + " (Low Level)")
+    @docpage(set_path=path + "low", t=title + " (Low Level)")
     def ll():
         nonlocal fname
         fname = fname.replace(".md", "-ll.md")
         d2 = flexdown.parse_file(fname)
         toc = get_toc(d2, fname, component_list)
-        return toc, rx.flex(
+        return toc, rx.box(
             links("ll", ll_doc_exists, path),
             xd.render_file(fname),
             h1_comp(text="API Reference"),
-            rx.vstack(*components),
-            direction="column",
-            width="100%",
+            rx.box(*components, class_name="flex flex-col"),
+            class_name="flex flex-col w-full",
         )
 
     if ll_doc_exists:

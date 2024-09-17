@@ -1,11 +1,7 @@
 import reflex as rx
-from ..style import demo_height
-
-try:
-    import openai
-    openai_client = openai.OpenAI()
-except:
-    openai_client = None
+from pcweb.components.button import button
+from pcweb.components.icons import get_icon
+import replicate
 
 
 class ImageGenState(rx.State):
@@ -13,119 +9,129 @@ class ImageGenState(rx.State):
 
     image_url = ""
     processing = False
-    complete = False
 
     def get_image(self, form_data):
         """Get the image from the prompt."""
         prompt = form_data["prompt"]
         if prompt == "":
-            return rx.window_alert("Prompt Empty")
-
-        self.processing, self.complete = True, False
+            return
+        self.processing = True
         yield
-        response = openai_client.images.generate(
-            prompt=prompt, n=1, size="512x512"
+        input = {"prompt": prompt}
+
+        output = replicate.run(
+            "black-forest-labs/flux-schnell",
+            input=input,
         )
-        self.image_url = response.data[0].url
-        self.processing, self.complete = False, True
+        self.image_url = output[0]
+        self.processing = False
 
-def config_button():
-    return rx.menu.root(
-        rx.menu.trigger(
-            rx.button(
-                rx.icon("ellipsis"),
-                variant="soft",
-            ),
-        ),
-        rx.menu.content(
-            rx.menu.item("Share", shortcut="⌘ E"),
-            rx.menu.item("Duplicate", shortcut="⌘ D"),
-            rx.menu.separator(),
-            rx.menu.item("Archive", shortcut="⌘ N"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Move to project…"),
-                    rx.menu.item("Move to folder…"),
-                    rx.menu.separator(),
-                    rx.menu.item("Advanced options…"),
-                ),
-            ),
-            rx.menu.separator(),
-            rx.menu.item("Add to favorites"),
-            rx.menu.separator(),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-        ),
-    )
 
-def setting_section():
-    return rx.vstack(
-        rx.heading("Settings"),
-        rx.input(placeholder="Seed", width="100%"),
-        rx.select(["Model 1", "Model 2", "Model 3"], default_value="Model 1", width="100%"),
-        rx.text("Temperature"),
-        rx.slider(default_value=25, width="100%"),
-        rx.text("Width"),
-        rx.slider(default_value=50, width="100%"),
-        rx.text("Height"),
-        rx.slider(default_value=75, width="100%"),
-        rx.text("Share Results"),
-        rx.switch(),
-        rx.button("Save", width="100%", variant="outline"),
-        width="40%",
-        height="100%",
-        border_left="1px solid #2F2B37;",
-        padding="1.25em",
-        align_items="start",
-        justify_content="center",
-        spacing="2",
-        display=["none", "none", "flex", "flex", "flex", "flex"],
-    )
-
-def content():
-    return rx.flex(
-        rx.hstack(
-            config_button(),
-            width="100%", 
-            justify_content="right", 
-        ),
-        rx.center(
-            generator(),
-            width="100%",
-            height="100%",
-            overflow="hidden",
-        ),
-        direction="column",
-        width=["100%", "100%", "60%", "60%", "60%", "60%"],
-        height="100%",
-        padding="1.25em",
-    )
-
-def generator():
-    return rx.form(
-        rx.vstack(
-            rx.cond(
-                ImageGenState.processing,
-                rx.center("Processing...", width="15em", height="15em"),
+def image_gen() -> rx.Component:
+    return rx.box(
+        rx.skeleton(
+            rx.box(
                 rx.cond(
                     ImageGenState.image_url,
-                    rx.image(src=ImageGenState.image_url, width="15em", height="15em"),
-                    rx.center(rx.icon("images"), width="15em", height="15em"),
+                    rx.image(
+                        src=ImageGenState.image_url,
+                        class_name="w-auto h-auto object-contain object-center rounded-2xl",
+                    ),
+                    rx.box(
+                        get_icon("image_ai"),
+                        # rx.icon("image", size=26, class_name="!text-slate-7"),
+                        class_name="flex justify-center items-center border-slate-4 border bg-slate-3 w-full h-full rounded-2xl",
+                    ),
                 ),
+                class_name="h-full w-full flex justify-center items-center overflow-hidden rounded-2xl aspect-square",
             ),
-            rx.input(placeholder="Enter description", name="prompt", width="100%"),
-            rx.button("Generate Image ->", width="100%", disabled=ImageGenState.processing),
+            loading=ImageGenState.processing,
+            class_name="rounded-xl w-full h-full",
         ),
-        on_submit=ImageGenState.get_image,
+        rx.form(
+            rx.el.input(
+                placeholder="What do you want to see?",
+                name="prompt",
+                type="text",
+                required=True,
+                class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-4 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+            ),
+            button(
+                text=rx.cond(ImageGenState.processing, "Generating...", "Generate"),
+                style={
+                    "input:placeholder-shown + &": {
+                        "opacity": "0.65",
+                        "cursor": "default",
+                        "_hover": {
+                            "background": "var(--c-slate-5)"
+                        },
+                    },
+                    "cursor": rx.cond(ImageGenState.processing, "default", "pointer"),
+                    "opacity": rx.cond(ImageGenState.processing, "0.65", "1"),
+                },
+                variant="muted",
+                class_name="!bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
+                type="submit",
+            ),
+            class_name="flex flex-row gap-2 align-center",
+            reset_on_submit=True,
+            on_submit=ImageGenState.get_image,
+        ),
+        class_name="flex flex-col items-center gap-4 p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
+image_gen_code = """import reflex as rx
+import replicate
+
+class ImageGenState(rx.State):
+
+    image_url = ""
+    processing = False
+
+    def get_image(self, form_data):
+        prompt = form_data["prompt"]
+        if prompt == "":
+            return
+
+        self.processing = True
+        yield
+
+        input = {"prompt": prompt}
+        output = replicate.run(
+            "black-forest-labs/flux-schnell",
+            input=input,
+        )
+        self.image_url = output[0]
+        self.processing = False
+
 def image_gen():
-    return rx.theme(
-        rx.hstack(
-        content(),
-        setting_section(),
-        padding_x="1em",
-        height=demo_height,
-    ),
-    appearance="dark",
+    return rx.vstack(
+        rx.skeleton(
+            rx.flex(
+                rx.cond(
+                    ImageGenState.image_url,
+                    rx.image(
+                        src=ImageGenState.image_url,
+                    ),
+                    rx.flex(
+                        rx.icon("image", size=26, color=rx.color("slate", 7)),
+                    ),
+                ),
+            ),
+            loading=ImageGenState.processing,
+        ),
+        rx.form(
+            rx.input(
+                placeholder="What do you want to see?",
+                name="prompt"
+            ),
+            rx.button(
+                "Generate",
+                loading=ImageGenState.processing,
+                type="submit",
+            ),
+            reset_on_submit=True,
+            on_submit=ImageGenState.get_image,
+        )
     )
+"""

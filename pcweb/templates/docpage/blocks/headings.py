@@ -1,10 +1,6 @@
 """Template for documentation pages."""
 
 import reflex as rx
-from pcweb import styles
-from pcweb.styles import font_weights as fw
-from pcweb.styles.colors import c_color
-from pcweb.styles import fonts
 
 icon_margins = {
     "h1": "10px",
@@ -15,114 +11,69 @@ icon_margins = {
 
 
 def h_comp_common(
-    text: rx.Var[str],
+    text: str,
     heading: str,
-    font_size: list[str] | str = "",
-    font_weight: str = "",
-    scroll_margin: str = "",
-    margin_top: str = "",
-    margin_bottom: str = "",
     convert_to_str: bool = False,
     style: dict = {},
+    mt: str = "4",
+    class_name: str = "",
 ) -> rx.Component:
     if convert_to_str:
-        id_ = text.to(list[str])[0].lower().split().join("-")
+        id_ = text.to(list[str])[0].lower().split(" ").join("-")
     else:
-        id_ = text.lower().split().join("-")
+        id_ = text.lower()
+
     href = rx.State.router.page.full_path + "#" + id_
 
-    return rx.box(
-        rx.link(
-            rx.hstack(
-                rx.heading(
-                    text,
-                    id=id_,
-                    as_=heading,
-                    font_size=font_size,
-                    font_weight=font_weight,
-                    scroll_margin=scroll_margin,
-                    style=style,
-                ),
-                rx.icon(
-                    tag="link",
-                    margin_top=icon_margins.get(heading, "0px"),
-                    size=18,
-                    visibility="hidden",
-                    transition="visibility 0.075s ease-out",
-                    color=c_color("violet", 9),
-                ),
-                align_items="center",
-                gap="16px",
-            ),
-            style={
-                ":hover": {
-                    "color": c_color("violet", 9),
-                },
-                ":hover svg": {
-                    "visibility": "visible",
-                },
-                "transition": "color 0.075s ease-out",
-            },
-            _hover={
-                "color": c_color("violet", 9),
-            },
-            color=c_color("slate", 12),
-            cursor="pointer",
-            underline="none",
-            href=href,
-            on_click=lambda: rx.set_clipboard(href),
-            margin_bottom="0.5em",
+    return rx.link(
+        rx.heading(
+            text,
+            id=id_,
+            as_=heading,
+            style=style,
+            class_name=class_name + " scroll-m-[5rem] mt-" + mt,
         ),
-        # border_top=f"1px solid {rx.color('mauve', 3)}" if heading == "h2" else None,
-        _hover={
-            "color": c_color("violet", 9),
-        },
-        margin_top=margin_top,
-        margin_bottom=margin_bottom,
-        width="100%",
+        rx.icon(
+            tag="link",
+            size=18,
+            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-" + mt,
+        ),
+        underline="none",
+        href=href,
+        on_click=lambda: rx.set_clipboard(href),
+        # as_child=True,
+        class_name=f"flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
     )
 
 
 @rx.memo
-def h1_comp(text: rx.Var[str]) -> rx.Component:
+def h1_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h1",
-        style={
-            # "color": c_color("slate", 12),
-            "font-size": ["32px", "48px"],
-            "font-style": "normal",
-            "font-weight": "600",
-            "line-height": ["48px", "56px"],
-            "letter-spacing": "-2.4px",
-        },
-        margin_bottom="24px",
-        scroll_margin="4em",
-    )
-
-
-@rx.memo
-def h1_comp_xd(text: rx.Var[str]) -> rx.Component:
-    return h_comp_common(
-        text=text,
-        heading="h1",
-        style=fonts.xx_large,
-        margin_bottom="24px",
-        # margin_top="1.5em",
-        scroll_margin="4em",
         convert_to_str=True,
+        class_name="font-x-large lg:font-xx-large",
     )
 
 
 @rx.memo
-def h2_comp(text: rx.Var[str]) -> rx.Component:
+def h1_comp_xd(text: str) -> rx.Component:
+    return h_comp_common(
+        text=text,
+        heading="h1",
+        convert_to_str=True,
+        class_name="font-x-large lg:font-xx-large",
+    )
+
+
+@rx.memo
+def h2_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
-        style=fonts.x_large,
-        margin_bottom="24px",
-        margin_top=["24px", "40px"],
-        scroll_margin="5em",
+        convert_to_str=True,
+        mt="8",
+        class_name="font-large lg:font-x-large",
     )
 
 
@@ -131,59 +82,52 @@ def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
-        style=fonts.x_large,
-        margin_bottom="24px",
-        margin_top="0px",
-        scroll_margin="5em",
         convert_to_str=True,
+        mt="8",
+        class_name="font-large lg:font-x-large",
     )
 
 
 @rx.memo
-def h3_comp(text: rx.Var[str]) -> rx.Component:
+def h3_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h3",
-        font_size=styles.H4_FONT_SIZE,
-        font_weight=fw["subheading"],
-        margin_top="1em",
-        margin_bottom="0em",
-        scroll_margin="5em",
+        mt="4",
+        convert_to_str=True,
+        class_name="font-large",
     )
 
 
 @rx.memo
-def h3_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h3_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h3",
-        style=fonts.large,
-        margin_bottom="24px",
-        margin_top="24px",
-        scroll_margin="5em",
         convert_to_str=True,
+        mt="4",
+        class_name="font-large",
     )
 
 
 @rx.memo
-def h4_comp(text: rx.Var[str]) -> rx.Component:
+def h4_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",
-        font_size=styles.H4_FONT_SIZE,
-        font_weight=fw["subheading"],
-        margin_top="1em",
+        convert_to_str=True,
         scroll_margin="6em",
+        mt="2",
+        class_name="font-md-smbold",
     )
 
 
 @rx.memo
-def h4_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h4_comp_xd(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",
-        style=fonts.medium,
-        margin_bottom="24px",
-        scroll_margin="6em",
         convert_to_str=True,
+        mt="2",
+        class_name="font-md-smbold",
     )

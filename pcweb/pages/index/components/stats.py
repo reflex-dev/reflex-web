@@ -1,18 +1,21 @@
 import reflex as rx
 
+from pcweb.components.webpage.pill import pill
+
 github_url = "https://github.com/reflex-dev/reflex"
 features_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen"
 contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
-bugs_url="https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+bugs_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 
 def user_count_item(count, platform) -> rx.Component:
     return rx.flex(
-        rx.text(f"{count}+", color="#E8E8F4", font_size="32px"),
-        rx.text(platform, color="#6C6C81"),
+        rx.text(f"{count}+", color="var(--c-slate-11)", font_size="32px"),
+        rx.text(platform, color="var(--c-slate-9)"),
         direction="column",
         align="center",
     )
+
 
 def user_count_comp() -> rx.Component:
     return rx.center(
@@ -64,13 +67,14 @@ def open_source_badge() -> rx.Component:
         },
     )
 
+
 def github_button() -> rx.Component:
     return rx.button(
         rx.flex(
-            rx.image(src="/companies/light/github.svg", alt="Github", height="20px", width="20px"),
+            rx.image(src="/companies/light/github.svg", height="20px", width="20px"),
             rx.center(
                 "Github",
-                color="#FFFFFF",
+                color="var(--c-slate-11)",
                 font_size="14px",
                 font_style="normal",
                 font_weight="400",
@@ -79,7 +83,7 @@ def github_button() -> rx.Component:
             ),
             rx.center(
                 "15.7k",
-                color="#6151F3",
+                color="var(--c-violet-10)",
                 font_size="12px",
                 font_style="normal",
                 font_weight="400",
@@ -88,7 +92,6 @@ def github_button() -> rx.Component:
             ),
             spacing="2",
         ),
-
         position="relative",
         top="32px",
         right="-140px",
@@ -98,9 +101,8 @@ def github_button() -> rx.Component:
         width="151px",
         height="42px",
         border_radius="70px",
-        border="1px solid #3C3646",
-        background="linear-gradient(243deg, #16141A -74.32%, #222029 69.37%);",
-        box_shadow="0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+        border="1px solid var(--c-slate-5)",
+        class_name="bg-slate-2 shadow-small",
         on_click=rx.redirect(
             github_url,
             external=True,
@@ -110,11 +112,12 @@ def github_button() -> rx.Component:
         },
     )
 
+
 def invite_message() -> rx.Component:
     return rx.box(
         rx.text(
             "Contribute to our open-source community.",
-            color="#D6D6ED",
+            color="var(--c-slate-11)",
             font_size="38px",
             weight="bold",
             align="center",
@@ -123,16 +126,16 @@ def invite_message() -> rx.Component:
         width="30em",
     )
 
+
 def request_buttons() -> rx.Component:
     return rx.hstack(
         rx.button(
             "Bugs",
-            color="#2BCEEA",
             weight="Medium",
             height="24px",
             width="138px",
-            border="1px solid #2BCEEA",
-            background_color="rgba(43, 206, 234, 0.25)",
+            color_scheme="blue",
+            variant="surface",
             on_click=rx.redirect(
                 bugs_url,
                 external=True,
@@ -143,11 +146,10 @@ def request_buttons() -> rx.Component:
         ),
         rx.button(
             "Good First Issues",
-            color="#2BEA8E",
             weight="Medium",
             height="24px",
-            border="1px solid #2BEA8E",
-            background_color="rgba(43, 234, 142, 0.25)",
+            color_scheme="green",
+            variant="surface",
             on_click=rx.redirect(
                 contribution_url,
                 external=True,
@@ -158,18 +160,19 @@ def request_buttons() -> rx.Component:
         ),
     )
 
+
 def invite_card_comp() -> rx.Component:
     return rx.box(
         rx.flex(
             rx.text(
-                "Contribute to Reflex!", 
-                color="#D6D6ED",
+                "Contribute to Reflex!",
+                color="var(--c-slate-11)",
                 weight="medium",
             ),
             request_buttons(),
             rx.text(
                 "Start contributing today, checkout our Github for Details",
-                color="#6C6C81",
+                color="var(--c-slate-10)",
                 weight="medium",
             ),
             justify="start",
@@ -179,14 +182,16 @@ def invite_card_comp() -> rx.Component:
         border_radius="10px",
         padding="1em",
         width="30em",
-        border="1px solid #3C3646;",
-        background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
-        box_shadow= "0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset, 0px 0px 27px -4px rgba(0, 0, 0, 0.30);",
+        border="1px solid var(--c-slate-5);",
+        # background="linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%);",
+        class_name="bg-slate-2 shadow-large",
     )
+
 
 def stats() -> rx.Component:
     return rx.vstack(
-        open_source_badge(),
+        # open_source_badge(),
+        pill(text="Open Source"),
         invite_message(),
         github_button(),
         invite_card_comp(),

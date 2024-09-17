@@ -1,38 +1,119 @@
 ---
 components:
-    - rx.html
+    - rx.el.A
+    - rx.el.Abbr
+    - rx.el.Address
+    - rx.el.Area
+    - rx.el.Article
+    - rx.el.Aside
+    - rx.el.Audio
+    - rx.el.B
+    - rx.el.Bdi
+    - rx.el.Bdo
+    - rx.el.Blockquote
+    - rx.el.Body
+    - rx.el.Br
+    - rx.el.Button
+    - rx.el.Canvas
+    - rx.el.Caption
+    - rx.el.Cite
+    - rx.el.Code
+    - rx.el.Col
+    - rx.el.Colgroup
+    - rx.el.Data
+    - rx.el.Dd
+    - rx.el.Del
+    - rx.el.Details
+    - rx.el.Dfn
+    - rx.el.Dialog
+    - rx.el.Div
+    - rx.el.Dl
+    - rx.el.Dt
+    - rx.el.Em
+    - rx.el.Embed
+    - rx.el.Fieldset
+    - rx.el.Figcaption
+    - rx.el.Footer
+    - rx.el.Form
+    - rx.el.H1
+    - rx.el.H2
+    - rx.el.H3
+    - rx.el.H4
+    - rx.el.H5
+    - rx.el.H6
+    - rx.el.Head
+    - rx.el.Header
+    - rx.el.Hr
+    - rx.el.Html
+    - rx.el.I
+    - rx.el.Iframe
+    - rx.el.Img
+    - rx.el.Input
+    - rx.el.Ins
+    - rx.el.Kbd
+    - rx.el.Label
+    - rx.el.Legend
+    - rx.el.Li
+    - rx.el.Link
+    - rx.el.Main
+    - rx.el.Mark
+    - rx.el.Math
+    - rx.el.Meta
+    - rx.el.Meter
+    - rx.el.Nav
+    - rx.el.Noscript
+    - rx.el.Object
+    - rx.el.Ol
+    - rx.el.Optgroup
+    - rx.el.Option
+    - rx.el.Output
+    - rx.el.P
+    - rx.el.Picture
+    - rx.el.Portal
+    - rx.el.Pre
+    - rx.el.Progress
+    - rx.el.Q
+    - rx.el.Rp
+    - rx.el.Rt
+    - rx.el.Ruby
+    - rx.el.S
+    - rx.el.Samp
+    - rx.el.Script
+    - rx.el.Section
+    - rx.el.Select
+    - rx.el.Small
+    - rx.el.Source
+    - rx.el.Span
+    - rx.el.Strong
+    - rx.el.Sub
+    - rx.el.Sup
+    - rx.el.svg.circle
+    - rx.el.svg.defs
+    - rx.el.svg.linear_gradient
+    - rx.el.svg.polygon
+    - rx.el.svg.path
+    - rx.el.svg.rect
+    - rx.el.svg.stop
+    - rx.el.Table
+    - rx.el.Tbody
+    - rx.el.Td
+    - rx.el.Template
+    - rx.el.Textarea
+    - rx.el.Tfoot
+    - rx.el.Th
+    - rx.el.Thead
+    - rx.el.Time
+    - rx.el.Title
+    - rx.el.Tr
+    - rx.el.Track
+    - rx.el.U
+    - rx.el.Ul
+    - rx.el.Video
+    - rx.el.Wbr
 ---
-
-```python exec
-import reflex as rx
-from pcweb.pages.docs import styling
-```
 
 # HTML
 
-The HTML component can be used to render raw HTML code.
+Reflex also provides a set of HTML elements that can be used to create web pages. These elements are the same as the HTML elements that are used in web development. These elements come unstyled bhy default. You can style them using style props or tailwindcss classes.
 
-Before you reach for this component, consider using Reflex's raw HTML element support instead.
-
-```python demo
-rx.vstack(
-    rx.html("<h1>Hello World</h1>"),
-    rx.html("<h2>Hello World</h2>"),
-    rx.html("<h3>Hello World</h3>"),
-    rx.html("<h4>Hello World</h4>"),
-    rx.html("<h5>Hello World</h5>"),
-    rx.html("<h6>Hello World</h6>"),
-)
-```
-
-```md alert
-# Missing Styles?
-Reflex uses Radix-UI and tailwind for styling, both of which reset default styles for headings. 
-If you are using the html component and want pretty default styles, consider setting `class_name='prose'`, adding `@tailwindcss/typography` package to `frontend_packages` and enabling it via `tailwind` config in `rxconfig.py`. See the [Tailwind docs]({styling.overview.path}) for an example of adding this plugin.
-```
-
-In this example, we render an image.
-
-```python demo
-rx.html("<img src='https://reflex.dev/reflex_banner.png' />")
-```
+The following is a list of the HTML elements that are available in Reflex:

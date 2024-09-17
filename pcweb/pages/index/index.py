@@ -1,42 +1,43 @@
 import reflex as rx
 from pcweb.templates import webpage
 
-from .components.hero import hero_section
-from .components.stats import stats
-from .components.news_letter import news_letter_section
-from .demos.demos import demos
+from .views.hero import hero
+from .views.companies import companies
+from .demos.demos import demo_section
+from .views.frontend_features import frontend_features
+from .views.backend_features import backend_features
+from .views.hosting_features import hosting_features
+from pcweb.components.icons.patterns import index_patterns
+from .views.stats import stats
+from pcweb.components.docpage.navbar import navbar
+from .views.os_newsletter import os_newsletter
+from .views.get_started import get_started
+from .views.footer_index import footer_index
+from pcweb.components.webpage.badge import badge
+from .index_colors import index_colors
 
-@webpage(path="/", title="Reflex · Web apps in Pure Python")
+
+
+@rx.page(route="/", title="Reflex · Web apps in Pure Python")
 def index() -> rx.Component:
     """Get the main Reflex landing page."""
-    return rx.flex(
-        rx.container(
-            hero_section(),
-            padding_top="3em",
-            padding_bottom="3em",
-        ),
-        rx.container(
-            demos(),
-            padding_x="1em",
-        ),
-        rx.tablet_and_desktop(
-            rx.container(
-                news_letter_section(),
-                padding_x="3em",
-                padding_y="10em",
-            ),
-        ),
-        rx.container(
+    return rx.box(
+        index_colors(),
+        *index_patterns(),
+        navbar(),
+        rx.el.main(
+            hero(),
+            demo_section(),
+            companies(),
+            frontend_features(),
+            backend_features(),
+            hosting_features(),
             stats(),
-            padding_x="1em",
-            padding_y="3em",
+            os_newsletter(),
+            get_started(),
+            class_name="flex flex-col w-full justify-center items-center",
         ),
-        width="100%",
-        direction="column",
-        style={
-            "::selection":{
-                "color":"inherit",
-                "background":"inherit"
-            }
-        }
+        footer_index(),
+        badge(),
+        class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
     )
