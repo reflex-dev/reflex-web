@@ -18,11 +18,7 @@ def intro_page_url() -> str:
 def test_counter(reflex_web_app: AppHarness, page: Page, intro_page_url):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(reflex_web_app.frontend_url)
-    page.set_default_timeout(10000)
-
-    # Go to the docs intro page.
-    page.get_by_role("link", name="Docs", exact=True).click()
+    page.goto(reflex_web_app.frontend_url + intro_page_url)
     expect(page).to_have_url(re.compile(intro_page_url))
 
     counter_block = page.locator('[id="counter"]')
