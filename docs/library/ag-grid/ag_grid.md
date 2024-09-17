@@ -32,14 +32,10 @@ column_defs = [
 ]
 
 def ag_grid_simple():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_1",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
-        width="45vw",
-        height="40vh",
+    return ag_grid(
+        id="ag_grid_basic_1",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
     )
 ```
 
@@ -55,12 +51,10 @@ df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/wind_
 
 
 def ag_grid_simple_2():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_2",
-            row_data=df.to_dict("records"),
-            column_defs=[{"field": i} for i in df.columns],
-        ),
+    return ag_grid(
+        id="ag_grid_basic_2",
+        row_data=df.to_dict("records"),
+        column_defs=[{"field": i} for i in df.columns],
         width="45vw",
         height="40vh",
     )
@@ -90,15 +84,13 @@ column_defs = [
 ]
 
 def ag_grid_simple_headers():
-    return rx.box(
-        ag_grid(
+    return ag_grid(
             id="ag_grid_basic_headers",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
-        ),
-        width="45vw",
-        height="40vh",
-    )
+            width="45vw",
+            height="40vh",
+        )
 ```
 
 
@@ -123,12 +115,10 @@ column_defs =  [
 ]
 
 def ag_grid_simple_column_filtering():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_column_filtering",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
+    return ag_grid(
+        id="ag_grid_basic_column_filtering",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
         width="45vw",
         height="40vh",
     )
@@ -162,51 +152,14 @@ column_defs =  [
 ]
 
 def ag_grid_simple_column_filtering():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_column_filtering",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
+    return ag_grid(
+        id="ag_grid_basic_column_filtering",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
         width="45vw",
         height="40vh",
     )
 ```
-
-
-### Floating Filters  (Doesn't work yet)
-
-Floating Filters embed the Column Filter into the header for ease of access. Set the `floating_filter` key to `True`. For this example we enable floating filters for just the first column.
-
-```python demo exec
-import reflex as rx
-from reflex_ag_grid import ag_grid
-import pandas as pd
-
-
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-
-column_defs =  [
-    ag_grid.column_def(field="country", filter=True, floating_filter=True),
-    ag_grid.column_def(field="pop", header_name="Population"),
-    ag_grid.column_def(field="lifeExp", header_name="Life Expectancy", filter=True),
-    # {'field': 'country', 'filter': True, 'floating_filter': True},
-    # {'field': 'pop', 'header_name': 'Population'},
-    # {'field': 'lifeExp', 'header_name': 'Life Expectancy', 'filter': True},
-]
-
-def ag_grid_simple_floating_filters():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_floating_filters",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
-        width="45vw",
-        height="40vh",
-    )
-```
-
 
 
 
@@ -232,12 +185,10 @@ column_defs =  [
 ]
 
 def ag_grid_simple_row_sorting():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_row_sorting",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
+    return ag_grid(
+        id="ag_grid_basic_row_sorting",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
         width="45vw",
         height="40vh",
     )
@@ -266,13 +217,11 @@ column_defs = [
 ]
 
 def ag_grid_simple_row_selection():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_row_selection",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-            row_selection="multiple",
-        ),
+    return ag_grid(
+        id="ag_grid_basic_row_selection",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
+        row_selection="multiple",
         width="45vw",
         height="40vh",
     )
@@ -310,12 +259,10 @@ column_defs = [
 ]
 
 def ag_grid_simple_editing():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_editing",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-        ),
+    return ag_grid(
+        id="ag_grid_basic_editing",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
         width="45vw",
         height="40vh",
     )
@@ -343,15 +290,13 @@ column_defs = [
 ]
 
 def ag_grid_simple_pagination():
-    return rx.box(
-        ag_grid(
-            id="ag_grid_basic_pagination",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-            pagination=True,
-            pagination_page_size=10,
-            pagination_page_size_selector=[10, 40, 100],
-        ),
+    return ag_grid(
+        id="ag_grid_basic_pagination",
+        row_data=df.to_dict("records"),
+        column_defs=column_defs,
+        pagination=True,
+        pagination_page_size=10,
+        pagination_page_size_selector=[10, 40, 100],
         width="45vw",
         height="40vh",
     )
@@ -400,13 +345,11 @@ def ag_grid_simple_themes():
             rx.text("Theme:"),
             rx.select(AGGridThemeState.themes, value=AGGridThemeState.theme, on_change=AGGridThemeState.set_theme),
         ),
-        rx.box(
-            ag_grid(
-                id="ag_grid_basic_themes",
-                row_data=df.to_dict("records"),
-                column_defs=column_defs,
-                theme=AGGridThemeState.theme,
-            ),
+        ag_grid(
+            id="ag_grid_basic_themes",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+            theme=AGGridThemeState.theme,
             width="45vw",
             height="40vh",
         ),
@@ -463,9 +406,9 @@ def ag_grid_simple_with_state():
             id="ag_grid_basic_with_state",
             row_data=df.to_dict("records"),
             column_defs=AgGridState.column_defs,
+            width="45vw",
+            height="40vh",
         ),
-        width="45vw",
-        height="40vh",
     )
 ```
 
@@ -473,3 +416,11 @@ def ag_grid_simple_with_state():
 
 
 ## Using AG Grid Enterprise
+
+AG Grid offers both community and enterprise versions. See the [AG Grid docs](https://www.ag-grid.com/archive/31.2.0/react-data-grid/licensing/) for details on purchasing a license key.
+
+To use an AG Grid Enterprise license key with Reflex AG Grid set the environment variable `AG_GRID_LICENSE_KEY`: 
+
+```bash
+export AG_GRID_LICENSE_KEY="your_license_key"
+```
