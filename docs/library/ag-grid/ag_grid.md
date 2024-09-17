@@ -55,7 +55,7 @@ def ag_grid_simple_2():
         id="ag_grid_basic_2",
         row_data=df.to_dict("records"),
         column_defs=[{"field": i} for i in df.columns],
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -88,7 +88,7 @@ def ag_grid_simple_headers():
             id="ag_grid_basic_headers",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
-            width="45vw",
+            width="40vw",
             height="40vh",
         )
 ```
@@ -119,7 +119,7 @@ def ag_grid_simple_column_filtering():
         id="ag_grid_basic_column_filtering",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -156,7 +156,7 @@ def ag_grid_simple_column_filtering():
         id="ag_grid_basic_column_filtering",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -189,7 +189,7 @@ def ag_grid_simple_row_sorting():
         id="ag_grid_basic_row_sorting",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -222,7 +222,7 @@ def ag_grid_simple_row_selection():
         row_data=df.to_dict("records"),
         column_defs=column_defs,
         row_selection="multiple",
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -263,7 +263,7 @@ def ag_grid_simple_editing():
         id="ag_grid_basic_editing",
         row_data=df.to_dict("records"),
         column_defs=column_defs,
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -297,7 +297,7 @@ def ag_grid_simple_pagination():
         pagination=True,
         pagination_page_size=10,
         pagination_page_size_selector=[10, 40, 100],
-        width="45vw",
+        width="40vw",
         height="40vh",
     )
 ```
@@ -350,7 +350,7 @@ def ag_grid_simple_themes():
             row_data=df.to_dict("records"),
             column_defs=column_defs,
             theme=AGGridThemeState.theme,
-            width="45vw",
+            width="40vw",
             height="40vh",
         ),
     )
@@ -406,7 +406,7 @@ def ag_grid_simple_with_state():
             id="ag_grid_basic_with_state",
             row_data=df.to_dict("records"),
             column_defs=AgGridState.column_defs,
-            width="45vw",
+            width="40vw",
             height="40vh",
         ),
     )
