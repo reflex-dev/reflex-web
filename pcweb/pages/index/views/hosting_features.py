@@ -70,7 +70,7 @@ def hosting_grid() -> rx.Component:
         rx.box(
             rx.box(
                 rx.el.h3(
-                    "Deploy your app with a single command.",
+                    "Deploy your app with a single command",
                     class_name="font-x-large text-slate-12 text-right",
                 ),
                 rx.el.p(

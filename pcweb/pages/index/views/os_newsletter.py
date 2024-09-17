@@ -8,7 +8,7 @@ def os_card() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "Open source.", class_name="font-large text-slate-12"
+                "Open source", class_name="font-large text-slate-12"
             ),
             rx.el.p(
                 """Apache 2.0 license--view the source code, contribute,
@@ -110,7 +110,7 @@ def newletter_input() -> rx.Component:
 def newsletter_card() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.el.h2("Newsletter.", class_name="font-large text-slate-12"),
+            rx.el.h2("Newsletter", class_name="font-large text-slate-12"),
             rx.el.p(
                 """Stay up to date with the latest Reflex news
 and updates""",

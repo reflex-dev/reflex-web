@@ -145,7 +145,7 @@ def backend_grid() -> rx.Component:
     return rx.box(
         rx.box(
             rx.el.h2(
-                "Skip the boilerplate.",
+                "Skip the boilerplate",
                 class_name="font-x-large text-slate-12",
             ),
             rx.el.p(
