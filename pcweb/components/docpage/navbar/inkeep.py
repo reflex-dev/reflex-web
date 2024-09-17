@@ -3,16 +3,17 @@
 from typing import Set
 import reflex as rx
 from reflex.event import EventHandler
-from reflex.vars import Var
 from reflex.utils.imports import ImportVar
+from reflex.vars import Var
+from typing import List
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: Set[Var] = {
-        Var.create_safe("{...searchBarProps}", _var_is_string=False)
-    }
+    special_props: List[Var] = [
+        Var.create("{...searchBarProps}", _var_is_string=False)
+    ]
 
     is_open: Var[bool] = False
 
@@ -31,7 +32,7 @@ class Search(rx.Component):
     def add_hooks(self):
         """Add the hooks for the component."""
         return [
-            "const { resolvedColorMode, toggleColorMode } = useContext(ColorModeContext)",
+            "const { resolvedColorMode } = useContext(ColorModeContext)",
             """const SearchBar = dynamic(
   () => import('@inkeep/uikit').then((mod) => mod.InkeepSearchBar),
   {

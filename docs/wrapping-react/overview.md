@@ -2,7 +2,6 @@
 import reflex as rx
 from typing import Any
 from pcweb.components.spline import spline
-from pcweb.templates.docpage import demo_box_style
 from pcweb.pages.docs import custom_components
 from pcweb import constants
 ```

@@ -64,7 +64,7 @@ async def answer(self):
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     session = await client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             \{"role": "user", "content": self.question}
         ],
@@ -167,7 +167,7 @@ class TutorialState(rx.State):
         # Our chatbot has some brains now!
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
         session = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[\{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,

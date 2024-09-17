@@ -273,8 +273,8 @@ def radar_dynamic():
                 RadarChartState.trait_names,
                 lambda trait_name, i: rx.hstack(
                     rx.text(trait_name, width="7em"),
-                    rx.chakra.slider(
-                        value=RadarChartState.traits[i]["value"].to(int),
+                    rx.slider(
+                        default_value=RadarChartState.traits[i]["value"].to(int),
                         on_change=lambda value: RadarChartState.set_trait(trait_name, value),
                         width="25vw",
                     ),

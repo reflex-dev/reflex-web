@@ -12,105 +12,40 @@ def code_block(code: str, language: str):
     return rx.box(
         rx.code_block(
             code,
-            border_radius="12px",
-            background="transparent",
             language=language,
-            code_tag_props={
-                "style": {
-                    "fontFamily": "inherit",
-                }
-            },
-            font_family="Source Code Pro",
-            color=c_color("slate", 12),
-            padding="20px",
-            style=fonts.code,
-            margin="0",
-            # TODO: use this when it's looking good
-            # can_copy=True,
+            class_name="code-block",
         ),
         rx.button(
-            get_icon("clipboard", color=c_color("slate", 9), transition="color 0.035s ease-out", _hover={
-                "color": c_color("slate", 11),
-            }),
-            on_click=rx.set_clipboard(code),
-            position="absolute",
-            top="30px",
-            right="30px",
-            padding_x="0px",
-            height="auto",
-            background="transparent",
-            cursor="pointer",
-            _hover={
-                "background": "transparent",
-            },
-            _active={
-                "size": "0.8em",
-                "transform": "scale(0.8)",
-            },
+            get_icon(
+                icon="clipboard",
+                class_name="text-slate-9 hover:text-slate-11 transition-color",
+                on_click=rx.set_clipboard(code),
+            ),
+            class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
         ),
-        padding="8px",
-        border_radius="12px",
-        border=f"1px solid {c_color('slate', 4)}",
-        background_color=c_color("slate", 2),
-        position="relative",
-        margin_bottom="1em",
-        margin_top="1em",
-        width="100%",
+        class_name="relative mb-4",
     )
+
 
 @rx.memo
 def code_block_dark(code: str, language: str):
     return rx.box(
         rx.code_block(
             code,
-            border_radius="6px",
-            theme="dark",
-            background="transparent",
             language=language,
-            code_tag_props={
-                "style": {
-                    "fontFamily": "inherit",
-                }
-            },
-            padding="20px",
-            margin="0",
-            # TODO: use this when it's looking good
-            # can_copy=True,
+            class_name="code-block",
         ),
         rx.button(
             get_icon(
-                "clipboard",
-                color=c_color("slate", 9),
-                transition="color 0.035s ease-out",
-                _hover={
-                    "color": c_color("slate", 11),
-                },
+                icon="clipboard",
+                class_name="!text-slate-9 hover:!text-slate-11 transition-color",
+                on_click=rx.set_clipboard(code),
             ),
-            on_click=rx.set_clipboard(code),
-            position="absolute",
-            top="30px",
-            right="30px",
-            padding_x="0px",
-            height="auto",
-            background="transparent",
-            _hover={
-                "opacity": 0.5,
-                "cursor": "pointer",
-                "background": "transparent",
-            },
-            _active={
-                "size": "0.8em",
-                "transform": "scale(0.8)",
-            },
+            class_name="top-[30px] right-[30px] absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
         ),
-        border_radius="6px",
-        border=f"1px solid {c_color('slate', 4)}",
-        background_color=c_color("slate", 2),
-        position="relative",
-        margin_bottom="1em",
-        margin_top="1em",
-        width="100%",
+        class_name="relative",
     )
+
 
 def code_block_markdown(*children, **props):
     language = props.get("language", "none")
@@ -155,7 +90,7 @@ def doccmdoutput(
             ),
             rx.button(
                 get_icon(
-                    "clipboard",
+                    icon="clipboard",
                     color=c_color("slate", 2),
                     transition="color 0.035s ease-out",
                     _hover={

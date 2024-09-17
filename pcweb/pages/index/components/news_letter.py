@@ -1,40 +1,43 @@
 import reflex as rx
 
 from pcweb.signup import IndexState
+import reflex_chakra as rc
+
 
 def news_letter_text() -> rx.Component:
     return rx.vstack(
-        rx.chakra.text(
+        rc.text(
             "Join Our Newsletter!",
             text_align="left",
-            background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
             font_size=["20px", "20px", "28px", "42px", "42px", "42px"],
-            background_clip="text",
             font_weight="bold",
-            line_height="1",            
+            line_height="1",
+            class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-start text-transparent",
         ),
-        rx.chakra.text(
+        rc.text(
             " Get the latest updates and news about Reflex.",
             text_align="left",
-            color="#6C6C81",
+            color="var(--c-slate-10)",
             font_weight="bold",
             line_height="2",
             max_width=["200px", "300px", "400px", "650px", "650px", "650px"],
         ),
         align_items="left",
         width="100%",
+        class_name="font-small",
     )
+
 
 def message_group():
     return rx.vstack(
-        rx.chakra.text(
+        rc.text(
             "Welcome to the Reflex Community!",
             text_align="left",
             background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
             font_size=["12px", "15px", "22px", "28px", "35px", "35px"],
             background_clip="text",
             font_weight="bold",
-            line_height="1",            
+            line_height="1",
         ),
         rx.link(
             "Sign up for another email",
@@ -42,14 +45,15 @@ def message_group():
             color="#FFFFFF",
             underline="always",
             on_click=IndexState.signup_for_another_user().prevent_default,
-        )
+        ),
     )
+
 
 def news_letter_form() -> rx.Component:
     return rx.el.form(
-        rx.chakra.input_group(
-            rx.chakra.input_right_element(
-                rx.chakra.button(
+        rc.input_group(
+            rc.input_right_element(
+                rc.button(
                     "Subscribe ->",
                     type_="submit",
                     color="#FFF",
@@ -65,7 +69,7 @@ def news_letter_form() -> rx.Component:
                 width="25%",
                 align="left",
             ),
-            rx.chakra.input(
+            rc.input(
                 name="input_email",
                 placeholder="Enter your email address here",
                 color="#fff",
@@ -80,6 +84,7 @@ def news_letter_form() -> rx.Component:
         on_submit=IndexState.signup,
     )
 
+
 def news_letter_section() -> rx.Component:
     return rx.center(
         rx.cond(
@@ -92,5 +97,5 @@ def news_letter_section() -> rx.Component:
             ),
         ),
         width="100%",
-        padding = "3em",
+        padding="3em",
     )
