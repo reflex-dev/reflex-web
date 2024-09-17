@@ -35,7 +35,7 @@ def code_block(code: str) -> rx.Component:
         code,
         language="python",
         # wrap_long_lines=True,
-        class_name="demo-code-block !px-10 !py-8 !rounded-none !font-bold !text-slate-12",
+        class_name="demo-code-block !px-10 !py-8 !rounded-none !text-slate-12",
     )
 
 

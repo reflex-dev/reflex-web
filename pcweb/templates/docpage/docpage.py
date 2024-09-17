@@ -568,7 +568,7 @@ def docpage(
                             class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[300px] max-h-[80vh] overflow-hidden",
                         ),
                         class_name="mt-[90px] h-full shrink-0 w-[16%]"
-                        + (" hidden 2xl:flex" if right_sidebar else " hidden"),
+                        + (" hidden xl:flex" if right_sidebar else " hidden"),
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),
