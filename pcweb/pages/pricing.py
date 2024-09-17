@@ -201,6 +201,7 @@ def hobby_tier() -> rx.Component:
                 ),
                 href=hosting.deploy_quick_start.path,
                 width="100%",
+                underline="none",
             ),
             align_items="start",
             class_name="h-full z-10 p-8",
@@ -249,6 +250,7 @@ def pro_tier() -> rx.Component:
                     class_name="!w-full !text-slate-12"
                 ),
                 href="mailto:contact@reflex.dev",
+                underline="none",
                 width="100%",
             ),
             align_items="start",
@@ -298,6 +300,7 @@ def enterprise_tier() -> rx.Component:
                 ),
                 href="#form-title",
                 width="100%",
+                underline="none",
             ),
             align_items="start",
             class_name="h-full z-10 p-8",
