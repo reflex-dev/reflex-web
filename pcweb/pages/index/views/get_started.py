@@ -45,9 +45,11 @@ def code_block() -> rx.Component:
             class_name="flex flex-row justify-between",
         ),
         rx.box(
-            rx.text(
+            rx.link(
                 "Need help? Learn how to use Reflex.",
-                class_name="font-small text-slate-9",
+                href=getting_started.introduction.path,
+                underline="none",
+                class_name="font-small text-slate-9 hover:!text-slate-11 transition-color",
             ),
             rx.link(
                 button(

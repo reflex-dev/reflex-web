@@ -10,7 +10,7 @@ def badge() -> rx.Component:
         content=rx.link(
             get_icon("badge_logo"),
             rx.text(
-                "Built in Reflex",
+                "Built with Reflex",
                 class_name="text-slate-1 font-semibold font-['Instrument_Sans'] text-sm leading-4 tracking-[-0.00656rem]",
             ),
             underline="none",

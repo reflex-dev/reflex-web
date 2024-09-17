@@ -5,4 +5,4 @@ from .inkeep import inkeep
 
 
 def search_bar() -> rx.Component:
-    return rx.fragment(inkeep(width="100%"))
+    return rx.box(inkeep(), class_name="w-full h-full min-w-0 max-w-[256px] max-h-[32px]")
