@@ -1,70 +1,154 @@
 import reflex as rx
-from ..style import demo_height
+from pcweb.components.button import button, icon_button
 
 
-def content():
-    return rx.flex(
-            rx.input(
-                placeholder="name@example.com",
-                variant="surface"
-            ),
-            rx.button(
-                "Sign up with Email",
-            ),
-            rx.divider(
-                color="#A1A1AA",
-            ),
-            rx.button(
-                "Google",
-                variant="outline",
-            ),
-            rx.button(
-                "Facebook",
-                variant="outline",
-            ),
-            direction="column",
-            spacing="2",
-            width="100%",
-        )
+class AuthState(rx.State):
 
-def auth_form():
-    return rx.fragment(
-        rx.box(
-            rx.card(
-                rx.flex(
-                    rx.text(
-                        "Create an Account",
-                        weight="bold",
-                        size="3"
-                    ),
-                    rx.text(
-                        "Example authentication form.",
-                        size="1"
-                    ),
-                    content(),
-                    rx.text(
-                        "Get started with a free account.",
-                        size="1"
-                    ),
-                    direction="column",
-                    align_items="center",
-                    width="100%",
-                    spacing="2",
+    def submit(self, form_data):
+        return rx.toast(form_data)
+
+
+def auth() -> rx.Component:
+    return rx.box(
+        rx.form(
+            rx.box(
+                rx.image(
+                    src="/logo.jpg",
+                    loading="lazy",
+                    class_name="rounded-[25%] w-9 h-auto",
                 ),
-                width="20em",
+                rx.el.h2(
+                    "Create an account",
+                    class_name="font-base font-semibold text-[1.5rem] text-center text-slate-12",
+                ),
+                class_name="flex flex-col items-center gap-4",
             ),
-            display="flex",
-            height=demo_height,
-            align_items="center",
-            justify_content="center",
+            rx.box(
+                rx.text(
+                    "Email address", class_name="font-medium font-small text-slate-11"
+                ),
+                rx.el.input(
+                    placeholder="user@reflex.dev",
+                    name="email",
+                    type="email",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 shadow-small p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            rx.box(
+                rx.box(
+                    rx.text(
+                        "Password", class_name="font-medium font-small text-slate-11"
+                    ),
+                    rx.link(
+                        "Forgot password?",
+                        href="#",
+                        underline="none",
+                        class_name="font-small text-violet-9",
+                    ),
+                    class_name="flex flex-row justify-between w-full",
+                ),
+                rx.el.input(
+                    placeholder="Enter your password",
+                    name="password",
+                    type="password",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-white-1 shadow-small p-[0.5rem_0.75rem] border rounded-[10px] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            button("Sign In", type="submit", class_name="-mt-2"),
+            rx.box(
+                rx.divider(margin="0", class_name="bg-slate-4"),
+                rx.text(
+                    "OR CONTINUE WITH",
+                    class_name="text-slate-9 font-small !text-xs whitespace-nowrap",
+                ),
+                rx.divider(margin="0", class_name="bg-slate-4"),
+                class_name="flex flex-row gap-2 items-center",
+            ),
+            icon_button("GitHub", "github", variant="secondary"),
+            on_submit=AuthState.submit,
+            class_name="flex flex-col gap-6 border-slate-5 bg-white-1 shadow-small p-8 border rounded-[1.125rem] w-full",
         ),
+        class_name="flex items-center px-12 py-8 h-full overflow-hidden",
     )
 
-def auth():
-    return rx.theme(rx.center(
-        auth_form(),
-        width="100%",
-        height="100%",
-    ),
-    appearance="dark",
+
+auth_code = """class AuthState(rx.State):
+
+    def submit(self, form_data):
+        return rx.toast(form_data)
+
+def auth() -> rx.Component:
+    return rx.card(
+        rx.form(
+            rx.vstack(
+                rx.image(
+                    src="/logo.jpg",
+                    class_name="image",
+                ),
+                rx.heading(
+                    "Create an account",
+                    class_name="heading",
+                ),
+                class_name="vstack",
+            ),
+            rx.vstack(
+                rx.text(
+                    "Email address",
+                    class_name="text",
+                ),
+                rx.input(
+                    placeholder="user@reflex.dev",
+                    name="email",
+                    type="email",
+                    required=True,
+                    class_name="input",
+                ),
+                class_name="vstack",
+            ),
+            rx.vstack(
+                rx.hstack(
+                    rx.text(
+                        "Password",
+                        class_name="text",
+                    ),
+                    rx.link(
+                        "Forgot password?",
+                        href="#",
+                        class_name="link",
+                    ),
+                    class_name="hstack-password",
+                ),
+                rx.input(
+                    placeholder="Enter your password",
+                    name="password",
+                    type="password",
+                    required=True,
+                    class_name="input",
+                ),
+                class_name="vstack",
+            ),
+            rx.button("Sign In", type="submit", class_name="button"),
+            rx.hstack(
+                rx.divider(),
+                rx.text(
+                    "OR CONTINUE WITH",
+                    class_name="text-small",
+                ),
+                rx.divider(),
+                class_name="hstack",
+            ),
+            rx.button(
+                rx.icon(tag="github"),
+                "GitHub",
+                class_name="button-secondary",
+            ),
+            class_name="form",
+            on_submit=AuthState.submit,
+        ),
+        class_name="card",
     )
+"""

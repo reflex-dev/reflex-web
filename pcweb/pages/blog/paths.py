@@ -1,4 +1,3 @@
-
 import flexdown
 
 
@@ -15,8 +14,6 @@ def get_blog_data(paths):
 def get_route(path: str):
     """Get the route for a page."""
     return path.replace(PAGES_PATH, "").replace(".md", "")
-
-
 
 
 paths = flexdown.utils.get_flexdown_files(PAGES_PATH)

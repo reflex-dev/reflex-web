@@ -1,91 +1,137 @@
 import reflex as rx
-from .form_implementations.profile_form import profile_form
-from ..style import demo_height
+from pcweb.components.button import button
+from pcweb.components.icons import get_icon
 
-class FormsState(rx.State):
-    clicked: str = "Account"
 
-    def set_clicked(self, option: str):
-        self.clicked = option
+class FormState(rx.State):
 
-    def get_clicked(self):
-        return self.clicked
+    def submit(self, form_data):
+        return rx.toast(form_data)
 
-def sidebar_button(name, is_selected):
-    return rx.button(
-        rx.text(
-            name,
-            width="100%",
-            padding_left="5px",
-        ),
-        background=rx.cond(
-            is_selected,
-            rx.color("mauve", 2),
-            "transparent",
-        ),
-        text_align="left",
-        width="100%",
-    )
 
-def sidebar():
-    return rx.vstack(
-        sidebar_button("General", FormsState.clicked == "General"),
-        sidebar_button("Account", FormsState.clicked == "Account"),
-        sidebar_button("Payments", FormsState.clicked == "Payments"),
-        sidebar_button("Advanced", FormsState.clicked == "Advanced"),
-        width="20%",
-        height="100%",
-        align_items="start",
-        display=["none", "none", "flex", "flex", "flex", "flex"],
-    )
-
-def form_content():
-    return profile_form()
-
-def settings():
-    return rx.vstack(
-        rx.heading(
-            "Platform Settings", 
-            color=rx.color("mauve", 12),
-            font_weight="600",
-            size="5"
-        ),
-        rx.text(
-            "All of your settings and preferences in one place.",
-            color=rx.color("mauve", 11),
-            size="1",
-        ),
-        height="20%",
-        width="100%",
-        align_items="left",
-        padding_bottom="1em",
-        border_bottom=f"1px solid {rx.color('mauve', 4)}",
-    )
-
-def content():
-    return rx.hstack(
-        sidebar(),
-        form_content(),
-        height="100%",
-        width="100%",
-        align_items="start",
-    )
-
-def forms():
-    return rx.fragment(
-        rx.box(
-            rx.theme(
-                rx.vstack(
-                    settings(),
-                    content(),
-                    width="100%",
-                    padding_x="15px",
-                    padding_top="15px",
-                    height=demo_height,
-                    overflow_y="hidden",
+def form() -> rx.Component:
+    return rx.box(
+        rx.form(
+            rx.box(
+                rx.box(
+                    get_icon("message_form", class_name="text-slate-9"),
+                    class_name="size-14 rounded-full bg-slate-5 flex items-center justify-center shrink-0",
                 ),
-                appearance="dark",
+                rx.box(
+                    rx.text(
+                        "Send us a message",
+                        class_name="font-md-smbold text-slate-12 leading-6",
+                    ),
+                    rx.text(
+                        "Fill the form and we’ll back to you shortly.",
+                        class_name="font-small text-slate-9",
+                    ),
+                    class_name="flex flex-col gap-1",
+                ),
+                class_name="flex flex-row gap-5 items-center",
             ),
-            display="flex",
+            rx.box(
+                rx.text(
+                    "Name ",
+                    rx.text.span("*", class_name="text-red-10 font-smbold"),
+                    class_name="font-smbold text-slate-12",
+                ),
+                rx.el.input(
+                    name="name",
+                    type="text",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            rx.box(
+                rx.text(
+                    "Email ",
+                    rx.text.span("*", class_name="text-red-10 font-smbold"),
+                    class_name="font-smbold text-slate-12",
+                ),
+                rx.el.input(
+                    # placeholder="Enter your password",
+                    name="Email",
+                    type="email",
+                    required=True,
+                    class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            rx.box(
+                rx.text(
+                    "Message ",
+                    class_name="font-smbold text-slate-12",
+                ),
+                rx.el.textarea(
+                    name="message",
+                    type="text",
+                    class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
+                ),
+                class_name="flex flex-col gap-2",
+            ),
+            button(
+                "Send",
+                variant="muted",
+                type="submit",
+                class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
+            ),
+            on_submit=FormState.submit,
+            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
         ),
+        class_name="flex items-center p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
+
+
+form_code = """import reflex as rx
+
+class FormState(rx.State):
+
+    def submit(self, form_data):
+        return rx.toast(form_data)
+
+def form() -> rx.Component:
+    return rx.card(
+        rx.form(
+            rx.hstack(
+                rx.image(src="/envelope.png"),
+                rx.vstack(
+                    rx.heading("Send us a message"),
+                    rx.text(
+                        "Fill the form and we’ll back to you shortly.",
+                    ),
+                ),
+            ),
+            rx.vstack(
+                rx.text(
+                    "Name ",
+                    rx.text.span("*", color="red"),
+                ),
+                rx.input(
+                    name="name",
+                    required=True,
+                ),
+            ),
+            rx.vstack(
+                rx.text(
+                    "Email ",
+                    rx.text.span("*", color="red"),
+                ),
+                rx.input(
+                    name="email",
+                    type="email",
+                    required=True,
+                ),
+            ),
+            rx.vstack(
+                rx.text("Message"),
+                rx.textarea(
+                    name="message",
+                ),
+            ),
+            rx.button("Send", type="submit"),
+            on_submit=FormState.submit,
+        )
+    )
+"""

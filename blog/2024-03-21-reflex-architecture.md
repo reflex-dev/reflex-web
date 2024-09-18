@@ -3,7 +3,7 @@ author: Nikhil Rao
 date: 2024-03-21
 title: Designing a Pure Python Web Framework
 description: A look at how Reflex works under the hood.
-image: /blog/python.png
+image: /blog/web_framework.jpeg
 meta: [
     {"name": "keywords", "content": "python web app, python web app framework, web app framework python, python web apps, web app python, react python websocket, python react, react python, react with python, python and react js, react js with python, python and react, react js python"},
 ]
@@ -222,7 +222,7 @@ On the frontend, we maintain an event queue of all pending events. An event cons
 Let's assume I type my username "picklelo" into the input. In this example, our event would look something like this:
 
 ```json
-\{
+{
     client_token: "abc123",
     event_handler: "GithubState.set_profile",
     arguments: ["picklelo"]
@@ -234,7 +234,7 @@ On the frontend, we maintain an event queue of all pending events.
 When an event is triggered, it is added to the queue. We have a `processing` flag to make sure only one event is processed at a time. This ensures that the state is always consistent and there aren't any race conditions with two event handlers modifying the state at the same time.
 
 ```md alert info
-There are exceptions to this, such as [background events]({events.background_events.path}) which allow you to run events in the background without blocking the UI.
+# There are exceptions to this, such as [background events]({events.background_events.path}) which allow you to run events in the background without blocking the UI.
 ```
 
 Once the event is ready to be processed, it is sent to the backend through a WebSocket connection.

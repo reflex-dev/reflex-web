@@ -1,120 +1,95 @@
-
 import reflex as rx
 
-from .auth.auth import auth
-from .forms.forms import forms
-from .dashboard.dashboard import dashboard
-from .image_gen.image_gen import image_gen
-from reflex_type_animation import type_animation
+from .forms.forms import form, form_code
+from pcweb.pages.gallery import gallery
+from .image_gen.image_gen import image_gen, image_gen_code
+from .charts.charts import charts, charts_code
+from .chatbot.chatbot import chatbot, chatbot_code
+
+# from .auth.auth import auth, auth_code
+from .react.react import react, react_code
+from pcweb.components.icons.icons import get_icon
+
 
 class DemoState(rx.State):
 
-    demo = "Image Generator"
+    demo = "Forms"
 
     def set_demo(self, demo):
         self.demo = demo
 
-def example_button(text):
-    return rx.button(
-    text,
-    border_radius="8px;",
-    border="1px solid rgba(186, 199, 247, 0.12);",
-    background= rx.cond(
-        DemoState.demo == text,
-        "rgba(161, 157, 213, 0.2);",
-        "rgba(161, 157, 213, 0.05);",
-    ),
-    backdrop_filter= "blur(2px);",
-    on_click= lambda: DemoState.set_demo(text)
-)
 
-def heading():
-    return rx.vstack(
-        type_animation(
-            sequence=[
-                "Build web apps, faster.",
-                1000,
-                "Build internal tools, faster.",
-                1000,
-                "Build AI apps, faster.",
-                1000,
-                "Build web apps, faster.",
-            ],
-            font_size=["24px", "30px", "44px", "44px", "44px", "44px"],
-            text_align="left",
-            color="#D6D6ED",
-            font_weight="bold",
-            line_height="1",
-        ),
-        rx.chakra.text(
-            "Create your whole app in a single language. Don't worry about writing APIs to connect your frontend and backend.", 
-            color="#6C6C81",
-            font_size=[".8em", ".8em", "1em", "1em", "1em", "1em"],
-            text_align="center",
-        ),
-        padding_y="1em",
+def tab(name: str, icon: str) -> rx.Component:
+    is_selected = DemoState.demo == name
+    return rx.box(
+        # rx.icon(tag=icon, size=16),
+        get_icon(icon, class_name="!text-slate-9 shrink-0"),
+        name,
+        class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-2 h-full font-small text-slate-9 transition-bg cursor-pointer"
+        + rx.cond(is_selected, " bg-slate-1 shadow-large", ""),
+        on_click=DemoState.set_demo(name),
     )
- 
-def more_examples():
-    return rx.link(
-                rx.button(
-                    "More Examples", 
-                    rx.icon(
-                        "chevron-right", 
-                        size=18,
-                        stroke_width="1px",
-                        padding_left=".1em",
-                    ),   
-                    background="rgba(161, 157, 213, 0.05);", 
-                    border_radius="8px;",
-                    border="1px solid rgba(186, 199, 247, 0.12);",
-                    text_wrap="nowrap",
-                ),
-                href="/docs/gallery",
-            )
 
-def demos():
-    return rx.flex(
-        heading(),
-        rx.hstack(
-            rx.hstack(
-                example_button("Image Gen"),
-                example_button("Forms"),
-                example_button("Auth"),
-                example_button("Dashboard"),
-                max_width="35em", 
-                overflow_x="scroll",
-                scrollbar_width= "none"
-            ),
-            rx.spacer(),
-            more_examples(),
-            align_items="left",
-            width="100%",
-        ),
+def code_block(code: str) -> rx.Component:
+    return rx.code_block(
+        code,
+        language="python",
+        # wrap_long_lines=True,
+        class_name="demo-code-block !px-10 !py-8 !rounded-none !text-slate-12",
+    )
+
+
+def preview_block() -> rx.Component:
+    return rx.box(
+        rx.text("Preview"),
+        class_name="flex justify-center items-center p-8 w-full h-full",
+    )
+
+
+def demo_section() -> rx.Component:
+    return rx.box(
+        # Tabs
         rx.box(
-            rx.match(
-                DemoState.demo,
-                ("Forms", forms()),
-                ("Dashboard", dashboard()),
-                ("Auth", auth()),
-                ("Image Generator", image_gen()),
-                image_gen()
-            ),
-            border_radius= "10px;",
-            border= "1px solid #2F2B37;",
-            background_color= rx.color("mauve", 1),
-            overflow="hidden",
-            width="100%",  
+            tab("Forms", "send"),
+            tab("Chatbot", "chat_bubble"),
+            tab("Image Gen", "image_ai_small"),
+            tab("Charts", "chart"),
+            tab("Custom", "code_custom"),
+            class_name="flex flex-row items-center overflow-hidden border-slate-4 border-b flex-wrap justify-center divide-x divide-slate-4 [&>:first-child]:border-l-slate-4 [&>:last-child]:!border-r-slate-4 [&>:first-child]:!border-l [&>:last-child]:!border-r",
         ),
-        padding_bottom="4em",
-        width="100%",
-        direction="column",
-        background_image="url(/grid.png)",
-        background_position= ["50% 50%;", "50% 40%;", "50% 70%;", "50% 70%;", "50% 70%;", "50% 70%;"],
-        background_repeat= "no-repeat;",
-        background_size= "auto;",
-        padding_top="5em",
-        gap="1em",
+        # Previews
+        rx.box(
+            rx.box(
+                rx.match(
+                    DemoState.demo,
+                    ("Forms", form()),
+                    ("Chatbot", chatbot()),
+                    ("Image Gen", image_gen()),
+                    ("Charts", charts()),
+                    ("Custom", react()),
+                    image_gen(),
+                ),
+                class_name="border-slate-4 border-r w-full lg:w-1/2 h-auto",
+            ),
+            rx.box(
+                rx.match(
+                    DemoState.demo,
+                    ("Forms", code_block(form_code)),
+                    ("Chatbot", code_block(chatbot_code)),
+                    ("Image Gen", code_block(image_gen_code)),
+                    ("Charts", code_block(charts_code)),
+                    ("Custom", code_block(react_code)),
+                    image_gen(),
+                ),
+                rx.box(
+                    class_name="absolute bottom-0 left-0 right-0 h-24 pointer-events-none",
+                    style={
+                        "background": "linear-gradient(180deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
+                    },
+                ),
+                class_name="desktop-only w-1/2 overflow-auto relative",
+            ),
+            class_name="flex flex-row w-full max-h-full h-[34rem] overflow-hidden",
+        ),
+        class_name="flex flex-col border-slate-3 bg-slate-2 border rounded-[1.125rem] w-full max-w-[69.25rem] h-full overflow-hidden shadow-large",
     )
-
- 

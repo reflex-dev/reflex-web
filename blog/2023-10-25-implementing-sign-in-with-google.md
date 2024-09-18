@@ -3,7 +3,7 @@ author: Masen Furer
 date: 2023-10-25
 title: "Implementing Sign In with Google"
 description: "How to wrap a third-party auth component and integrate it into a Reflex app."
-image: /blog/auth_blog.png
+image: /blog/google_auth.jpeg
 meta: [
     {"name": "keywords", "content": ""},
 ]

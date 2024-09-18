@@ -48,7 +48,7 @@ class ChatappState(rx.State):
         # Our chatbot has some brains now!
         client = openai.AsyncOpenAI(api_key=OPENAI_API_KEY)
         session = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": self.question}],
             stop=None,
             temperature=0.7,

@@ -136,24 +136,79 @@ class CompState(rx.State):
 def var_comparison_example():
     
     return rx.vstack(
-        rx.chakra.table_container(
-            rx.chakra.table(
-                headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
-                rows=[
-                    (CompState.number_1, CompState.number_2, "Int 1 == Int 2", f"{CompState.number_1 == CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 != Int 2", f"{CompState.number_1 != CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 > Int 2", f"{CompState.number_1 > CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 >= Int 2", f"{CompState.number_1 >= CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 < Int 2 ", f"{CompState.number_1 < CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 <= Int 2", f"{CompState.number_1 <= CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 + Int 2", f"{CompState.number_1 + CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 - Int 2", f"{CompState.number_1 - CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "Int 1 * Int 2", f"{CompState.number_1 * CompState.number_2}"),
-                    (CompState.number_1, CompState.number_2, "pow(Int 1, Int2)", f"{pow(CompState.number_1, CompState.number_2)}"),
-                ],
-                variant="striped",
-                color_scheme="teal",
+                rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Integer 1"),
+                    rx.table.column_header_cell("Integer 2"),
+                    rx.table.column_header_cell("Operation"),
+                    rx.table.column_header_cell("Outcome"),
+                ),
             ),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 == Int 2"),
+                    rx.table.cell((CompState.number_1 == CompState.number_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 != Int 2"),
+                    rx.table.cell((CompState.number_1 != CompState.number_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 > Int 2"),
+                    rx.table.cell((CompState.number_1 > CompState.number_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 >= Int 2"),
+                    rx.table.cell((CompState.number_1 >= CompState.number_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2, ),
+                    rx.table.cell("Int 1 < Int 2 "),
+                    rx.table.cell((CompState.number_1 < CompState.number_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 <= Int 2"),
+                    rx.table.cell((CompState.number_1 <= CompState.number_2).to_string()),
+                ),
+        
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 + Int 2"),
+                    rx.table.cell(f"{(CompState.number_1 + CompState.number_2)}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 - Int 2"),
+                    rx.table.cell(f"{CompState.number_1 - CompState.number_2}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("Int 1 * Int 2"),
+                    rx.table.cell(f"{CompState.number_1 * CompState.number_2}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(CompState.number_1),
+                    rx.table.cell(CompState.number_2),
+                    rx.table.cell("pow(Int 1, Int2)"),
+                    rx.table.cell(f"{pow(CompState.number_1, CompState.number_2)}"),
+                ),
+            ),
+            width="100%",
         ),
         rx.button("Update", on_click=CompState.update),
     )
@@ -211,17 +266,37 @@ class LogicState(rx.State):
 
 def var_logical_example():
     return rx.vstack(
-        rx.chakra.table_container(
-            rx.chakra.table(
-                headers=["Var 1", "Var 2", "Operation", "Outcome"],
-                rows=[
-                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "Logical AND (&)", f"{LogicState.var_1 & LogicState.var_2}"),
-                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "Logical OR (|)", f"{LogicState.var_1 | LogicState.var_2}"),
-                    (f"{LogicState.var_1}", f"{LogicState.var_2}", "The invert of Var 1 (~)", f"{~LogicState.var_1}"),
-                    ],
-                variant="striped",
-                color_scheme="green",
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Var 1"),
+                    rx.table.column_header_cell("Var 2"),
+                    rx.table.column_header_cell("Operation"),
+                    rx.table.column_header_cell("Outcome"),
+                ),
             ),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell(LogicState.var_1.to_string()),
+                    rx.table.cell(LogicState.var_2.to_string()),
+                    rx.table.cell("Logical AND (&)"),
+                    rx.table.cell((LogicState.var_1 & LogicState.var_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(LogicState.var_1.to_string()),
+                    rx.table.cell(LogicState.var_2.to_string()),
+                    rx.table.cell("Logical OR (|)"),
+                    rx.table.cell((LogicState.var_1 | LogicState.var_2).to_string()),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(LogicState.var_1.to_string()),
+                    rx.table.cell(LogicState.var_2.to_string()),
+                    rx.table.cell("The invert of Var 1 (~)"),
+                    rx.table.cell((~LogicState.var_1).to_string()),
+                ),
+                
+            ),
+            width="100%",
         ),
         rx.button("Update", on_click=LogicState.update),
     )

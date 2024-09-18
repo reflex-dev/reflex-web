@@ -14,9 +14,6 @@ from pcweb.styles.fonts import small
 from pcweb.styles.styles import get_code_style
 
 
-
-
-
 class Source(rx.Base):
     """Parse the source code of a component."""
 
@@ -187,9 +184,12 @@ def format_field(field):
         field["prop"].name,
         ": ",
         type_str,
-        style=get_code_style("violet"),
+        class_name="code-style"
     )
 
+table_header_class_name = (
+    "font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"
+)
 
 def format_fields(headers, fields):
     return (
@@ -197,7 +197,7 @@ def format_fields(headers, fields):
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        *[rx.table.column_header_cell(header) for header in headers]
+                        *[rx.table.column_header_cell(header, class_name=table_header_class_name) for header in headers]
                     )
                 ),
                 rx.table.body(
@@ -206,7 +206,7 @@ def format_fields(headers, fields):
                             rx.table.cell(
                                 format_field(field),
                             ),
-                            rx.table.cell(markdown(field["description"])),
+                            rx.table.cell(markdown(field["description"]), class_name="font-small text-slate-11"),
                         )
                         for field in fields
                     ],
@@ -224,9 +224,7 @@ def generate_docs(title: str, s: Source):
         h1_comp(text=title.title()),
         rx.code(
             s.get_name(),
-            font_size="18px",
-            style=get_code_style("violet"),
-            border_radius="6px",
+            class_name="code-style text-[18px]"
         ),
         rx.divider(),
         markdown(s.get_overview()),
@@ -264,15 +262,14 @@ def generate_docs(title: str, s: Source):
                                 rx.table.cell(
                                     rx.code(
                                         field["name"] + field["signature"],
-                                        style=get_code_style("violet"),
+                                        class_name="code-style"
                                     ),
                                     white_space="normal",
                                 ),
                                 rx.table.cell(
                                     field["description"],
                                     white_space="normal",
-                                    color=c_color("slate", 11),
-                                    style=small,
+                                    class_name="font-small text-slate-11 text-nowrap"
                                 ),
                             )
                             for field in s.get_methods()

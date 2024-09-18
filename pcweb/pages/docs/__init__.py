@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import reflex as rx
 import flexdown
+from reflex_ag_grid import ag_grid
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
@@ -13,13 +14,12 @@ from pcweb.whitelist import _check_whitelisted_path
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 
-from .gallery import gallery
 from .library import library
 from .recipes_overview import overview
 from .resources import resources
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
-
+from pcweb.pages.library_previews import components_previews_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -94,7 +94,6 @@ graphing_components = defaultdict(list)
 component_list = defaultdict(list)
 recipes_list = defaultdict(list)
 docs_ns = SimpleNamespace()
-
 
 
 def exec_blocks(doc, href):
@@ -181,7 +180,13 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [gallery, library, resources, custom_components, overview] + apiref_pages
+doc_routes = [
+    library,
+    resources,
+    custom_components,
+    overview,
+    *components_previews_pages,
+] + apiref_pages
 
 
 for api_route in apiref_pages:

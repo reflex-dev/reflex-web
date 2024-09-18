@@ -1,148 +1,59 @@
 import reflex as rx
-
 from pcweb.pages.docs import getting_started
-
-from .logo import landing
-
-
-def feature_button(name: str):
-    return rx.flex(
-        name,
-        color="#848496",
-        size="2",
-        padding=".25em 1em",
-        background="linear-gradient(#131217, #131217) padding-box, linear-gradient(to bottom right, #8F93BC 5%, #656484 15%, #232329) border-box;",
-        border="1px solid transparent;",
-        font_size=".8em",
-        border_radius="50px",
-    )
+from pcweb.components.button import button
+from pcweb.components.icons.icons import get_icon
+from pcweb.pages.index.demos.demos import demo_section
 
 
-def feature_button_hstack(mobile=False):
-    return rx.hstack(
-        feature_button("Frontend"),
-        feature_button("Backend"),
-        feature_button("Hosting"),
-        justify="start" if not mobile else "center",
-        width="100%",
-    )
-
-
-def hero_section_text(mobile=False):
-    return rx.vstack(
-        rx.chakra.text(
-            "Web apps in pure Python.",
-            text_align="left" if not mobile else "center",
-            background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
-            font_size=["24px", "30px", "40px", "54px", "54px", "54px"],
-            background_clip="text",
-            font_weight="bold",
-            line_height="1",
-        ),
-        rx.chakra.text(
-            "Deploy with a single command.",
-            text_align="left" if not mobile else "center",
-            color="#6C6C81",
-            font_size=["24px", "30px", "40px", "54px", "54px", "54px"],
-            font_weight="bold",
-            line_height="1",
-            max_width=["200px", "300px", "400px", "650px", "650px", "650px"],
-        ),
-        align_items="center" if mobile else "start",
-    )
-
-
-def hero_section_buttons(mobile=False):
-    button_size = {
-        "padding_y": "1.5em",
-        "padding_x": "2em",
-        "border_radius": "8px",
-        "color": "#FFFFFF",
-        "align_items": "center",
-        "justify_content": "center",
-        "font_weight": "400",
-        "font_size": "1em",
-    }
-    return rx.hstack(
-        rx.link(
-            rx.flex(
-                rx.button(
-                    "Get Started",
-                    rx.icon(
-                        tag="chevron-right",
-                        size=18,
-                        stroke_width="1px",
-                        padding_left=".1em",
-                    ),
-                    background="linear-gradient(180deg, #6151F3 0%, #5646ED 100%)",
-                    box_shadow="0px 2px 9px -4px rgba(64, 51, 192, 0.70), 0px 0px 6px 2px rgba(255, 255, 255, 0.12) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.09) inset",
-                    display="inline-flex;",
-                    border="1px solid transparent;",
-                    style=button_size,
-                ),
-                _hover={
-                    "border": "1px solid rgba(94, 78, 242, .15)",
-                },
-                border="1px solid transparent;",
-                padding="3px",
-                border_radius="8px",
-            ),
-            href=getting_started.introduction.path,
-        ),
-        rx.link(
-            rx.button(
-                "Get a demo ",
-                rx.icon(
-                    tag="chevron-right",
-                    size=18,
-                    stroke_width="1px",
-                    padding_left=".1em",
-                ),
-                bg="none",
-                _hover={
-                    "background": "linear-gradient(115deg, #1D1B23 14.13%, #131217 73.41%)",
-                    "box-shadow": "0px 0px 27px -4px rgba(0, 0, 0, 0.30), 0px 27px 44px -13px rgba(214, 214, 237, 0.10) inset;",
-                },
-                style=button_size,
-            ),
-            href="https://5dha7vttyp3.typeform.com/to/O7kG4RQu",
-            is_external=True,
-            margin_left=".25em",
-        ),
-        align_items="center",
-        justify="start" if not mobile else "center",
-        width="100%",
-    )
-
-
-def hero_section() -> rx.Component:
+def hero() -> rx.Component:
     """Render the hero section of the landing page."""
-    return rx.center(
-        rx.chakra.vstack(
-            landing(),
-            rx.desktop_only(
-                rx.vstack(
-                    feature_button_hstack(),
-                    hero_section_text(),
-                    hero_section_buttons(),
-                    padding_left="3em",
-                    spacing="5",
-                    align_items="left",
-                ),
+    return rx.el.section(
+        # Headings
+        rx.box(
+            rx.el.h1(
+                "Build web apps in pure Python",
+                class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large lg:font-xxx-large text-balance text-center text-transparent",
             ),
-            rx.mobile_and_tablet(
-                rx.vstack(
-                    # feature_button_hstack(mobile=True),
-                    hero_section_text(mobile=True),
-                    hero_section_buttons(mobile=True),
-                    spacing="5",
-                    margin_top=["-4em", "-3em", "-1em", "0", "0", "0"],
-                ),
+            rx.el.h2(
+                rx.el.span("An open-source framework to ship beautiful apps fast."),
+                rx.el.span("Deploy with a single command."),
+                class_name="flex flex-col font-md text-center text-slate-9",
             ),
-            direction="column",
-            align_items="left",
-            margin_top=["-6em", "-4em", "0", "0", "0", "0"],
-            padding_bottom=["0em", "0em", "10em", "10em", "10em", "10em"],
+            class_name="flex flex-col gap-6",
         ),
-        width="100%",
+        # Buttons
+        rx.box(
+            rx.link(
+                button(
+                    "Get Started",
+                    class_name="!px-[1.125rem] !py-2 !h-12 !font-smbold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem]",
+                ),
+                underline="none",
+                href=getting_started.introduction.path,
+            ),
+            rx.link(
+                button(
+                    "Get a demo",
+                    variant="muted",
+                    class_name="!px-[1.125ren] !py-2 !h-12 !font-semibold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem]",
+                ),
+                href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+                is_external=True,
+                underline="none",
+            ),
+            class_name="flex flex-row items-center gap-4",
+        ),
+        # Pip install
+        rx.box(
+            get_icon("copy", class_name="!text-slate-9 [&>svg]:w-4 [&>svg]:h-4"),
+            rx.el.p(
+                "$ pip install reflex",
+                class_name="font-['JetBrains_Mono'] font-medium font-small text-[0.8125rem] text-center text-slate-9 leading-6",
+            ),
+            on_click=rx.set_clipboard("pip install reflex"),
+            class_name="flex flex-row items-center gap-3 hover:bg-slate-3 px-3 py-2 rounded-xl cursor-pointer transition-bg",
+        ),
+        # Demo section
+        demo_section(),
+        class_name="flex flex-col justify-center items-center gap-8 mx-auto w-full max-w-6xl",
     )

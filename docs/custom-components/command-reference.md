@@ -3,7 +3,7 @@
 ```python exec
 import reflex as rx
 from pcweb.pages.docs import wrapping_react
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 from pcweb.pages.docs import custom_components
 from pcweb.templates.docpage import doccmdoutput
 from pcweb.styles.fonts import code

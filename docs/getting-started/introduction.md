@@ -9,7 +9,7 @@ from pcweb.pages.docs import  pages
 from pcweb.pages.docs import vars
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import base
-from pcweb.styles.styles import get_code_style, tab_style
+# from pcweb.styles.styles import tab_style
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -20,18 +20,18 @@ from pcweb.styles.styles import get_code_style, tab_style
 ## Goals
 
 ```md section
-# Pure Python
+### Pure Python
 Use Python for everything. Don't worry about learning a new language.
 
-# Easy to Learn
+### Easy to Learn
 Build and share your first app in minutes. No web development experience required.
 
-# Full Flexibility
+### Full Flexibility
 Remain as flexible as traditional web frameworks. Reflex is easy to use, yet allows for advanced use cases.
 
 Build anything from small data science apps to large, multi-page websites. **This entire site was built and deployed with Reflex!**
 
-# Batteries Included
+### Batteries Included
 No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.
 ```
 
@@ -61,24 +61,19 @@ class IntroTabsState(rx.State):
         self.value = val
 
 def tabs():
-    code_style = {
-        "code": {
-            **get_code_style("violet")
-        }
-    }
     return rx.tabs.root(
         rx.tabs.list(
             rx.tabs.trigger(
                 "Frontend", value="tab1",
-                style=tab_style,
+                class_name="tab-style"
             ),
             rx.tabs.trigger(
                 "Backend", value="tab2",
-                style=tab_style,
+                class_name="tab-style"
             ),
             rx.tabs.trigger(
                 "Page", value="tab3",
-                style=tab_style,
+                class_name="tab-style"
             ),
         ),
         rx.tabs.content(
@@ -89,19 +84,17 @@ def tabs():
 
 - Use `rx.cond` and `rx.foreach` (replaces if statements and for loops), for creating dynamic UIs.
                 """,
-                style=code_style
             ),
             value="tab1",
-            padding_top="1em",
+            class_name="pt-4"
         ),
         rx.tabs.content(
             rx.markdown(
-                """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caviots. Here you can use any Python external library and call any method/function.
+                """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caveats. Here you can use any Python external library and call any method/function.
                 """,
-                style=code_style
             ),
             value="tab2",
-            padding_top="1em",
+            class_name="pt-4"
         ),
         rx.tabs.content(
             rx.markdown(
@@ -109,15 +102,11 @@ def tabs():
 
 - Start with a single page and scale to 100s of pages.
                 """,
-                style=code_style
             ),
             value="tab3",
-            padding_top="1em",
+            class_name="pt-4"
         ),
-        style={
-            "color": c_color("slate", 11),
-            **base,
-        },
+        class_name="text-slate-12 font-normal", 
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(
@@ -152,16 +141,10 @@ tabs()
 
 
 ```python demo box
-rx.vstack(
+rx.box(
     rx.code_block(
         """import reflex as rx """,
-        background="transparent",
-        width="100%",
-        code_tag_props={
-                "style": {
-                    "fontFamily": "Source Code Pro",
-                }
-            },
+        class_name="code-block !bg-transparent !border-none",
     ),
     rx.code_block(
         """class State(rx.State):
@@ -174,20 +157,15 @@ rx.vstack(
         self.count -= 1""",
         background=rx.cond(
             IntroTabsState.value == "tab2",
-            c_color('violet', 3),
+            "var(--c-violet-3) !important",
             "transparent",
         ),
-        width="100%",
-        code_tag_props={
-                "style": {
-                    "fontFamily": "Source Code Pro",
-                }
-            },
         border=rx.cond(
             IntroTabsState.value == "tab2",
-            f"1px solid {c_color('violet', 5)}",
-            "none"
+            "1px solid var(--c-violet-5)",
+            "none !important"
         ),
+        class_name="code-block",
     ),
     rx.code_block(
         """def index():
@@ -205,46 +183,34 @@ rx.vstack(
         ),
         spacing="4",
     )""",
-        width="100%",
-        code_tag_props={
-                "style": {
-                    "fontFamily": "Source Code Pro",
-                }
-            },
         border=rx.cond(
             IntroTabsState.value == "tab1",
-            f"1px solid {c_color('violet', 5)}",
-            "none",
+            "1px solid var(--c-violet-5)",
+            "none !important",
         ),
         background=rx.cond(
             IntroTabsState.value == "tab1",
-            c_color('violet', 3),
+            "var(--c-violet-3) !important",
             "transparent",
-        )
+        ),
+        class_name="code-block",
     ),
     rx.code_block(
         """app = rx.App()
 app.add_page(index)""",
         background=rx.cond(
             IntroTabsState.value == "tab3",
-            c_color('violet', 3),
+            "var(--c-violet-3) !important",
             "transparent",
         ),
-        width="100%",
-        code_tag_props={
-                "style": {
-                    "fontFamily": "Source Code Pro",
-                }
-            },
         border=rx.cond(
             IntroTabsState.value == "tab3",
-            f"1px solid {c_color('violet', 5)}",
-            "none",
+            "1px solid var(--c-violet-5)",
+            "none !important",
         ),
+        class_name="code-block",
     ),
-    gap="0px",
-    align_items="start",
-    width="100%",
+    class_name="w-full flex flex-col",
 )
 ```
 

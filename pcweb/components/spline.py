@@ -1,5 +1,6 @@
 import reflex as rx
 from reflex.vars import Var
+import reflex_chakra as rc
 
 
 class Spline(rx.Component):
@@ -17,7 +18,7 @@ spline = Spline.create
 
 
 def spline_component():
-    return rx.chakra.center(
+    return rc.center(
         rx.center(
             spline(),
             overflow="hidden",

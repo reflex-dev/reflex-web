@@ -1,7 +1,7 @@
 ```python exec
 from pcweb import constants
 import reflex as rx
-from pcweb.pages.docs.gallery import gallery
+from pcweb.pages.gallery import gallery
 app_name = "my_app_name"
 default_url = "http://localhost:3000"
 ```
