@@ -413,6 +413,66 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
         )
 
 
+class TabsBlock(flexdown.blocks.Block):
+    """A block that displays content in tabs."""
+
+    starting_indicator = "---md tabs"
+    ending_indicator = "---"
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+
+        tab_sections = []
+        current_section = []
+        current_title = ""
+
+        for line in lines[1:-1]:  # Skip the first and last lines (indicators)
+            stripped_line = line.strip()
+
+            if stripped_line.startswith("--tab "):
+                if current_title:
+                    tab_sections.append((current_title, "\n".join(current_section)))
+                current_title = stripped_line[6:].strip()
+                current_section = []
+            elif stripped_line == "--":
+                if current_title:
+                    tab_sections.append((current_title, "\n".join(current_section)))
+                    current_title = ""
+                    current_section = []
+            else:
+                current_section.append(line)
+
+        # Add the last section if there's content
+        if current_title and current_section:
+            tab_sections.append((current_title, "\n".join(current_section)))
+
+        # Create tab components
+        triggers = []
+        contents = []
+
+        for i, (title, content) in enumerate(tab_sections):
+            value = f"tab{i+1}"
+            triggers.append(rx.tabs.trigger(title, value=value, class_name="tab-style font-base font-semibold text-[1.25rem]"))
+            
+            # Render the tab content
+            tab_content = []
+            for block in env['__xd'].get_blocks(content, self.filename):
+                if isinstance(block, flexdown.blocks.MarkdownBlock):
+                    block.render_fn = env['__xd'].flexdown_memo
+                try:
+                    tab_content.append(block.render(env=env))
+                except Exception as e:
+                    print(
+                        f"Error while rendering {type(block)} on line {block.start_line_number}. "
+                        f"\n{block.get_content(env)}"
+                    )
+                    raise e
+            
+            contents.append(rx.tabs.content(rx.fragment(*tab_content), value=value))
+
+        return rx.tabs.root(rx.tabs.list(*triggers), *contents, default_value="tab1")
+
+
 component_map = {
     "h1": lambda text: h1_comp_xd(text=text),
     "h2": lambda text: h2_comp_xd(text=text),
@@ -428,12 +488,12 @@ comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
 
 xd = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock],
+    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock],
     component_map=component_map,
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock],
+    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock],
     component_map=comp2,
 )
 xd2.clear_modules()
