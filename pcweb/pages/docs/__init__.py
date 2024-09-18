@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import reflex as rx
 import flexdown
+from reflex_ag_grid import ag_grid
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
