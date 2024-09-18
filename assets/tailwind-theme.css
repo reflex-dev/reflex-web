@@ -110,7 +110,7 @@
         font-family: var(--font-jetbrains) !important;
         font-size: 0.875rem !important;
         font-style: normal !important;
-        font-weight: 500 !important;
+        font-weight: 400 !important;
         line-height: 1.5rem !important;
         /* 184.615% */
         letter-spacing: -0.00406rem !important;
@@ -155,7 +155,7 @@
         font-family: "JetBrains Mono" !important;
         font-size: 0.8125rem !important;
         font-style: normal !important;
-        font-weight: 500 !important;
+        font-weight: 400 !important;
         line-height: 150% !important;
         letter-spacing: -0.01219rem !important;
     }

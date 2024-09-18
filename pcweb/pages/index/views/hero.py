@@ -11,12 +11,13 @@ def hero() -> rx.Component:
         # Headings
         rx.el.h1(
             """Frontend. Backend. Pure Python.""",
-            class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large text-balance text-center text-transparent whitespace-pre",
+            class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large text-center text-transparent text-pretty whitespace-pre mx-auto break-words",
         ),
         rx.el.h2(
             """The open-source framework to build and deploy 
 web apps - no Javascript required.""",
-            class_name="w-full font-large text-balance text-center text-slate-11 whitespace-pre -mt-2 font-normal text-[1.25rem]"),
+            class_name="max-w-full w-full font-large text-center text-slate-11 whitespace-pre -mt-2 font-normal text-[1.25rem] mx-auto text-pretty word-wrap break-words",
+        ),
         # Buttons
         rx.box(
             rx.link(
