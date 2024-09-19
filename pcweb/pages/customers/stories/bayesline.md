@@ -5,25 +5,25 @@ domain: "https://bayesline.com/"
 founded: "New York, 2024"
 investors: "Y Combinator",
 meta: [
-{
+  {
     "name": "keywords",
     "content": "
-        plotly dash,
-        python and react,
-        python and react js,
-        python react,
-        python web app,
-        python web app framework,
-        python web apps,
-        react js python,
-        react js with python,
-        react python,
-        react python websocket,
-        react with python,
-        web app framework python,
-        web app python,
+      plotly dash,
+      python and react,
+      python and react js,
+      python react,
+      python web app,
+      python web app framework,
+      python web apps,
+      react js python,
+      react js with python,
+      react python,
+      react python websocket,
+      react with python,
+      web app framework python,
+      web app python,
     "
-}
+  }
 ]
 ---
 
