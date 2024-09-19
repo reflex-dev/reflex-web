@@ -75,7 +75,7 @@ def hosting_grid() -> rx.Component:
                 ),
                 rx.el.p(
                     "Performant, secure, and scalable",
-                    class_name="font-x-large text-slate-9 text-right",
+                    class_name="font-x-large text-slate-9 text-right z-[2]",
                 ),
                 class_name="flex flex-col items-end",
             ),
