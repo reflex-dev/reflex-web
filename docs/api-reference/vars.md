@@ -26,7 +26,7 @@ To put it in simple terms, a `Var` in Reflex represents a Javascript expression.
 - `BooleanVar` represents a boolean expression. For example: `false`, `3 > 2`.
 - `StringVar` represents an expression that evaluates to a string. For example: `'hello'`, `(2).toString()`.
 - `ArrayVar` represents an expression that evalues to an array object. For example: `[1, 2, 3]`, `'words'.split()`.
-- `ObjectVar` represents an expression that evalues to an object. For example: `\{a: 2, b: 3\}`, `\{deeply: \{nested: \{value: false\}\}\}`.
+- `ObjectVar` represents an expression that evalues to an object. For example: `\{a: 2, b: 3}`, `\{deeply: \{nested: \{value: false}}}`.
 - `NoneVar` represents a null value. This can be either `undefiend` or `null`.
 
 ## Creating Vars
@@ -39,47 +39,27 @@ rx.Var.create("hello") # StringVar
 rx.Var.create([1, 2, 3]) # ArrayVar
 ```
 
-If you want to create a `Var` from a raw Javascript string, you can pass `_var_is_string=False`:
+If you want to create a `Var` from a raw Javascript string, you can call the init function instead:
 
 ```py
-rx.Var.create("2", _var_is_string=False).to(int) # NumberVar
+rx.Var("2", _var_type=int).guess_type() # NumberVar
 ```
 
-We call `.to(int)` to inform the system about the kind of the raw Javascript expression we passed.
+We call `.guess_type()` to downcast the Var type into `NumberVar`. Calling `.to(int)` is also possible.
 
 ## Operations
 
 The `Var` system supports some basic operations. For example, `NumberVar` supports basic arithmatic operations just like in Python. It also supports comparisions that would result in `BooleanVar`.
 
-You can also define custom `Var` operations with the following:
+You can also define custom `Var` operations as such:
 
 ```python
-from reflex.ivars.base import var_operation, var_operation_return
-from reflex.ivars.number import NumberVar
-
-@var_operation
-def factorial(value: NumberVar):
-    return var_operation_return(
-        js_expression=f"{value} <= 1 ? 1 : Array.from({{length: {value}}}, (_, i) => i+1).reduce((p, c) => p * c)",
-        var_type=int
-    )
-
-def index():
-    rx.text(
-        factorial(State.int_value)
-    )
-```
-
-You can also compose existing operations:
-
-```python
-from reflex.ivars.base import var_operation, var_operation_return
-from reflex.ivars import ArrayVar, NumberVar
+from reflex.vars import var_operation, var_operation_return, ArrayVar, NumberVar
 
 @var_operation
 def multiply_array_values(a: ArrayVar):
     return var_operation_return(
-        js_expression=f"{a}.reduce((p, c) => p * c, 1)",
+        js_expression=f"\{a}.reduce((p, c) => p * c, 1)",
         var_type=int
     )
 
