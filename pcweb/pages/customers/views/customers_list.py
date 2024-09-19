@@ -149,5 +149,11 @@ def customers_list() -> rx.Component:
             customers_list_item("Bayesline", "bayesline", "AI"),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
         ),
+        # Show a text if no filters are applied
+        rx.cond(
+            CustomersState.tags.length() == 0,
+            rx.text("No filters applied", class_name="font-small text-slate-9"),
+            rx.fragment(),
+        ),
         class_name="flex flex-col max-w-[64.19rem] justify-center w-full lg:border-x border-slate-3 py-20 items-center",
     )
