@@ -166,7 +166,7 @@ def footer_index() -> rx.Component:
                 class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10",
             ),
             news_letter(),
-            class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full divide-y divide-slate-3 lg:divide-x",
+            class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full divide-y divide-slate-3 lg:divide-x border-t border-slate-3 lg:border-t-0",
         ),
         class_name="flex max-w-[64.19rem] justify-center items-center w-full",
     )
