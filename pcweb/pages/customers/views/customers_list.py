@@ -22,7 +22,7 @@ def tag_item(tag: str):
                 "var(--c-slate-9)",
             ),
         ),
-        class_name="flex items-center justify-center px-3 py-1.5 cursor-pointer transition-bg",
+        class_name="flex items-center justify-center px-3 py-1.5 cursor-pointer transition-bg shrink-0",
         background_=rx.cond(
             CustomersState.tags.contains(tag),
             "var(--c-violet-9)",
@@ -59,10 +59,10 @@ def filtering_tags():
             tag_item("All"),
             tag_item("Open Source"),
             tag_item("AI"),
-            tag_item("Developer Tools"),
+            tag_item("Dev Tools"),
             tag_item("SaaS"),
             tag_item("Fintech"),
-            class_name="shadow-large bg-slate-1 rounded-lg border border-slate-3 flex items-center divide-x divide-slate-3 mt-8 mb-12 relative overflow-hidden z-[1]",
+            class_name="shadow-large bg-slate-1 rounded-lg border border-slate-3 flex items-center divide-x divide-slate-3 mt-8 mb-12 relative overflow-hidden z-[1] overflow-x-auto",
         ),
         class_name="relative",
     )
@@ -131,22 +131,26 @@ def customers_list() -> rx.Component:
         # Title
         rx.box(
             rx.el.h2(
-                "Best of dev teams trusts us", class_name="font-x-large text-slate-12"
+                "Best of dev teams trusts us.", class_name="font-x-large text-slate-12"
             ),
             rx.el.h3(
                 "From small companies to large corps",
                 class_name="font-x-large text-slate-9",
             ),
-            class_name="flex flex-col justify-center items-center w-full text-center",
+            class_name="flex flex-col justify-center items-center w-full text-center text-balance",
         ),
         # Filtering tags
         filtering_tags(),
         # Customers list
         rx.box(
-            customers_list_item("Dell", "dell", "SaaS"),
-            customers_list_item("LlamaIndex", "llamaindex", "AI"),
-            customers_list_item("AutoDesk", "autodesk", "SaaS"),
-            customers_list_item("Bayesline", "bayesline", "AI"),
+            # Dell
+            customers_list_item("Dell", "dell", "SaaS", True),
+            # LlamaIndex
+            customers_list_item("LlamaIndex", "llamaindex", "AI", True),
+            # AutoDesk
+            customers_list_item("AutoDesk", "autodesk", "SaaS", True),
+            # Bayesline
+            customers_list_item("Bayesline", "bayesline", "AI", True),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
         ),
         # Show a text if no filters are applied
@@ -155,5 +159,5 @@ def customers_list() -> rx.Component:
             rx.text("No filters applied", class_name="font-small text-slate-9"),
             rx.fragment(),
         ),
-        class_name="flex flex-col max-w-[64.19rem] justify-center w-full lg:border-x border-slate-3 py-20 items-center",
+        class_name="flex flex-col max-w-[64.19rem] justify-center w-full lg:border-x border-slate-3 py-12 lg:py-20 items-center",
     )

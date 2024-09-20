@@ -74,7 +74,8 @@ def company_card(company: str, founded: str, investors: str, url: str) -> rx.Com
 
 
 def more_customers(current_customer: str) -> rx.Component:
-    from pcweb.pages.customers.template.customers import customer_data
+    from pcweb.pages.customers.data.customers import customer_data
+
     customer_items = list(customer_data.items())
 
     # Filter out the current company
@@ -180,7 +181,7 @@ def more_customers(current_customer: str) -> rx.Component:
     )
 
 
-def story_page(
+def storypage(
     path: str,
     description: str,
     company: str,
@@ -234,21 +235,24 @@ def story_page(
 
             # Wrap the component in the template.
             return rx.box(
-                index_colors(),
-                navbar(),
-                company_card(company, founded, investors, domain),
-                rx.el.main(
-                    hero(company, description),
-                    contents(*children, **props),
-                    more_customers(company),
-                    rx.box(class_name="flex-grow"),
-                    class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
+                rx.box(
+                    index_colors(),
+                    navbar(),
+                    company_card(company, founded, investors, domain),
+                    rx.el.main(
+                        hero(company, description),
+                        contents(*children, **props),
+                        more_customers(company),
+                        rx.box(class_name="flex-grow"),
+                        class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
+                    ),
+                    rx.box(class_name="h-[1px] bg-slate-3 w-full"),
+                    bottom_section(),
+                    footer(),
+                    badge(),
+                    class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pb-[2.5rem] pt-24 lg:pt-48",
                 ),
-                rx.box(class_name="h-[1px] bg-slate-3 w-full"),
-                bottom_section(),
-                footer(),
-                badge(),
-                class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pb-[2.5rem] pt-24 lg:pt-48",
+                class_name="relative overflow-hidden",
                 **props,
             )
 

@@ -5,7 +5,7 @@ def stat_card(stat: str, text: str, class_name: str = "") -> rx.Component:
     return rx.box(
         rx.text(stat, class_name="font-x-large text-slate-12"),
         rx.text(text, class_name="font-base text-slate-9"),
-        class_name="flex flex-col gap-2 w-full p-10",
+        class_name="flex flex-col gap-2 w-full p-10 items-center lg:items-start",
     )
 
 
@@ -14,16 +14,16 @@ def stats_grid() -> rx.Component:
         rx.box(
             rx.text(
                 "Teams that switch to Reflex create more issues and close them faster",
-                class_name="font-base text-slate-9 max-w-[12.875rem]",
+                class_name="font-base text-slate-9 max-w-[12.875rem] text-center lg:text-left",
             ),
-            class_name="p-10 lg:border-l border-slate-3",
+            class_name="p-10 lg:border-l border-slate-3 flex justify-center lg:justify-start",
         ),
         stat_card(stat="98.5%", text="Increase in filed issues"),
         stat_card(
             stat="24x",
             text="Faster to close issues",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full divide-slate-3 lg:divide-x !border-t-0 lg:border-b border-slate-3 lg:border-r",
+        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full divide-slate-3 lg:divide-x !border-t-0 lg:border-b border-slate-3 lg:border-r divide-y lg:divide-y-0 [&>:last-child]:!border-b lg:[&>:last-child]:!border-b-0",
     )
 
 

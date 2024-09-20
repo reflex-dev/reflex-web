@@ -1,7 +1,7 @@
 import reflex as rx
 import flexdown
 from pcweb.flexdown import xd2 as xd
-from pcweb.pages.customers.story_page import story_page
+from pcweb.templates.storypage import storypage
 
 
 
@@ -10,7 +10,7 @@ def content(document):
         xd.render(document, "blog.md"),
     ),
 
-CUSTOMERS_PATH = "pcweb/pages/customers/stories/"
+CUSTOMERS_PATH = "case-studies/"
 
 def get_customer_data(paths):
     customers = {}
@@ -34,7 +34,7 @@ for path, document in customer_data.items():
     # Get the docpage component.
     route = f"/customers/{document.metadata["company"].lower()}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    comp = story_page(
+    comp = storypage(
         path=route,
         company=document.metadata["company"],
         description=document.metadata["description"],
