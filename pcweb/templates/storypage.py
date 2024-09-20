@@ -6,7 +6,7 @@ from pcweb.pages.index.index_colors import index_colors
 from pcweb.components.icons.icons import get_icon
 
 
-def hero(company: str, description: str) -> rx.Component:
+def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Component:
     return rx.box(
         rx.link(
             rx.icon(
@@ -24,6 +24,17 @@ def hero(company: str, description: str) -> rx.Component:
             class_name="gradient-heading font-x-large lg:font-xx-large text-start text-transparent",
         ),
         rx.el.h2(description, class_name="text-slate-9 font-md-smbold"),
+        rx.box(
+            *[
+                rx.box(
+                    rx.text(stat["value"], class_name="text-slate-12 font-x-large"),
+                    rx.text(stat["metric"], class_name="text-slate-9 font-small"),
+                    class_name="flex flex-col gap-2 mt-4",
+                )
+                for stat in stats
+            ],
+            class_name="flex flex-row gap-10 items-center flex-wrap",
+        ),
         class_name="flex flex-col gap-4 mb-10",
     )
 
@@ -68,7 +79,7 @@ def company_card(company: str, founded: str, investors: str, url: str) -> rx.Com
             rx.text(investors, class_name="text-slate-12 font-base truncate"),
             class_name="flex flex-col",
         ),
-        class_name="flex-col gap-4 w-[13rem] p-8 rounded-[1.125rem] border border-slate-3 bg-slate-2 z-[1] justify-start absolute right-[-6.5rem] top-[8rem] hidden xl:flex",
+        class_name="flex-col gap-4 w-[13rem] p-8 rounded-[1.125rem] border border-slate-3 bg-slate-2 z-[1] justify-start absolute right-[-6.5rem] top-[12rem] hidden xl:flex",
         is_external=True,
     )
 
@@ -188,6 +199,7 @@ def storypage(
     domain: str = None,
     founded: str = None,
     investors: str = None,
+    stats: list[dict[str, str]] = None,
     meta: list[dict[str, str]] = None,
     props=None,
     add_as_page=True,
@@ -229,7 +241,7 @@ def storypage(
             """
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
-            from pcweb.views.footer import footer
+            from pcweb.pages.customers.views.footer import footer
             from pcweb.components.webpage.badge import badge
             from pcweb.views.bottom_section.bottom_section import bottom_section
 
@@ -240,7 +252,7 @@ def storypage(
                     navbar(),
                     company_card(company, founded, investors, domain),
                     rx.el.main(
-                        hero(company, description),
+                        hero(company, description, stats),
                         contents(*children, **props),
                         more_customers(company),
                         rx.box(class_name="flex-grow"),
@@ -250,7 +262,7 @@ def storypage(
                     bottom_section(),
                     footer(),
                     badge(),
-                    class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pb-[2.5rem] pt-24 lg:pt-48",
+                    class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
                 ),
                 class_name="relative overflow-hidden",
                 **props,

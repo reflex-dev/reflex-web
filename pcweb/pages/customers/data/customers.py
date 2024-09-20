@@ -41,6 +41,7 @@ for path, document in customer_data.items():
         domain=document.metadata["domain"],
         founded=document.metadata["founded"],
         investors=document.metadata["investors"],
+        stats=document.metadata["stats"],
         meta=document.metadata["meta"],
     )(lambda doc=document: content(document))
 
