@@ -1,11 +1,11 @@
 # A list of whitelist paths that should be built.
 # If the list is empty, all pages will be built.
-
+  
 # Tips:
 # - Ensure that the path starts with a forward slash '/'.
 # - Do not include a trailing slash '/' at the end of the path.
 
-# Examples:
+# Examples: 
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
