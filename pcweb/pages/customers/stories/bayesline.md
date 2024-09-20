@@ -31,21 +31,21 @@ Why Bayesline chose Reflex instead of Plotly Dash
 
 ## TLDR;
 
-Sebastian and his small team use Reflex to keep the full flexibility of a traditional ReactJS app **WITHOUT** needing to:
+Sebastian and his small team use Reflex to build a production-grade web app while still keeping the full flexibility of a traditional ReactJS app **WITHOUT** needing to:
 
 * Learn frontend: React (JavaScript), NodeJS, TailwindCSS
 
-```md quote Misha
-Reflex definitely saved us from needing to hire a frontend engineer.
+```md quote Misha and Sebastian
+Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
 ```
 
-* Write boilerplate to stitch together their frontend and backend:
+* Write boilerplate to stitch together their frontend and backend (including database management)
 
 ```md quote Sebastian
-50% less code than Dash
+50% less code than the same Dash app and easier to easier to read / write / maintain code compared to Dash
 ```
 
-* Maintain expensive, fragile, and inevitably slow Dash apps; using Reflex instead of Plotly Dash
+* Maintain expensive, fragile, and inevitably slow Dash apps
 
 ```md quote Misha
 Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
@@ -58,10 +58,17 @@ Bayesline deploys customized equity factor risk (ML) models in the cloud, which 
 Sebastian Janisch, the Bayesline co-founder, led the technical team and worked previously at Bloomberg and BlackRock, where he was a Director in their Financial Modeling Group.
 Here is a blog that further shows what Bayesline does in further detail [https://bayesline.com/blog/building-risk-models](https://bayesline.com/blog/building-risk-models) (The images and demos are all Reflex apps).
 
-## How Bayesline builds 4x faster using Reflex instead of Plotly Dash
+## How Bayesline builds faster using Reflex instead of Plotly Dash
 
-Quantitative Analysts, like Sebastian, are usually proficient in data-oriented programming languages like Python.
-They build prototypes using Dash and eventually hand them to a fully-fledged engineering team.
+Quantitative Analysts (Quants), like Sebastian, are usually proficient in data-oriented programming languages like Python.
+Quants want to spend their time building models, proving out their ideas, and not worrying about the UI.
+
+```md quote Sebastian
+"The UI is the necessary evil, that is not our bread and butter.”,
+```
+
+They used to build prototypes with Dash and eventually hand them to a fully-fledged engineering team.
+It would take months before their app ideas could be used across an organization; with Reflex you can both build and share apps in a matter of hours (`reflex deploy`).
 
 ```md quote Sebastian
 You wouldn’t want to use Dash to build a production-grade application. It’s a prototyping tool. Usually, a UX and engineering team would re-implement everything from scratch. It will take six months for anyone to get hands on it, but we want this now.
@@ -97,10 +104,11 @@ Bayesline wrapped AG Grid--a high-performance React grid--the industry standard 
 This powerful combination of out-of-the-box functionality and flexibility made Reflex an attractive choice for Bayesline.
 
 Sebastian and Misha originally started building with Reflex to create a minimum viable product that would get them through YC and their initial funding round.
-They quickly learned that Reflex was already ready for production-grade apps.
+They quickly learned that Reflex was already ready to build production grade web apps.
 
 ```md quote Sebastian
 Turns out I don’t see right now, as it stands at least, reasons to migrate from Reflex to somewhere else.
 ```
 
-Bayesline has since scaled from an MVP to a production app that investors leverage daily and continues to build intensive data apps with Reflex.
+Bayesline has since scaled from an MVP that investors leverage daily.
+The team continues to build and deploy data-intensive apps using Reflex.
