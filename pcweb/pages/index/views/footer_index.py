@@ -24,8 +24,13 @@ from pcweb.constants import (
 def footer_link(text: str, href: str) -> rx.Component:
     return rx.link(
         text,
+        rx.icon(
+            tag="chevron-right",
+            size=16,
+            class_name="shrink-0 mobile-only",
+        ),
         href=href,
-        class_name="font-small text-slate-9 hover:!text-slate-11 no-underline transition-color w-fit",
+        class_name="font-small text-slate-9 hover:!text-slate-11 no-underline transition-color w-full lg:w-fit flex flex-row justify-between items-center",
     )
 
 
@@ -38,14 +43,14 @@ def footer_link_flex(
             class_name="font-smbold text-slate-12 w-fit",
         ),
         *links,
-        class_name="flex flex-col gap-4 p-10" + " " + class_name,
+        class_name="flex flex-col gap-4 px-8 py-10 lg:p-10" + " " + class_name,
     )
 
 
 def social_menu_item(icon: str, url: str) -> rx.Component:
     return rx.link(
         get_icon(icon, class_name="!text-slate-9 shrink-0"),
-        class_name="flex size-8 border border-slate-5 rounded-lg hover:bg-slate-3 transition-bg bg-slate-1 px-3 py-1.5 justify-center items-center border-solid",
+        class_name="flex w-full h-8 lg:size-8 border border-slate-5 rounded-lg hover:bg-slate-3 transition-bg bg-slate-1 px-3 py-1.5 justify-center items-center border-solid",
         href=url,
         is_external=True,
     )
@@ -56,7 +61,7 @@ def menu_socials() -> rx.Component:
         social_menu_item("discord_navbar", DISCORD_URL),
         social_menu_item("twitter", TWITTER_URL),
         social_menu_item("github_navbar", GITHUB_URL),
-        class_name="flex flex-row h-full align-center gap-2",
+        class_name="flex flex-row h-full align-center gap-2 w-full lg:w-fit max-w-[24rem]",
     )
 
 
@@ -89,18 +94,19 @@ def newletter_input() -> rx.Component:
                     placeholder="Your email",
                     name="input_email",
                     type="email",
-                    class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-lg font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full h-8",
+                    class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-lg font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full h-8 max-w-[24rem]",
                 ),
                 button(
                     "Subscribe",
                     type="submit",
                     variant="muted",
-                    class_name="!h-8 !rounded-lg !py-2 !px-3.5 !font-small-smbold",
+                    class_name="!h-8 !rounded-lg !py-2 !px-3.5 !font-small-smbold w-full lg:w-auto lg:max-w-full max-w-[24rem]",
                 ),
-                class_name="w-full flex flex-row gap-2 items-center",
+                class_name="w-full flex flex-col lg:flex-row gap-2 items-center",
                 on_submit=IndexState.signup,
             ),
-        )
+        ),
+        class_name="w-full",
     )
 
 
@@ -112,7 +118,7 @@ def news_letter() -> rx.Component:
                 class_name="font-small text-slate-9",
             ),
             newletter_input(),
-            class_name="flex flex-col items-start gap-4 self-stretch p-10",
+            class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10",
         ),
     )
 
@@ -138,7 +144,7 @@ def footer_index() -> rx.Component:
                     footer_link("Components", library.path),
                     footer_link("Hosting", hosting.deploy_quick_start.path),
                 ],
-                class_name="!border-t-0 !row-span-2",
+                class_name="lg:!border-t-0 !row-span-2",
             ),
             footer_link_flex(
                 "Resources",
@@ -148,7 +154,7 @@ def footer_index() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                 ],
-                class_name="!row-span-3 !border-t-0 lg:!border-r !border-slate-3",
+                class_name="!row-span-3 lg:!border-t-0 lg:!border-r !border-slate-3",
             ),
             # Socials
             rx.box(
@@ -157,10 +163,10 @@ def footer_index() -> rx.Component:
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),
-                class_name="flex flex-col items-start gap-4 self-stretch p-10",
+                class_name="flex flex-col items-center lg:items-start gap-4 self-stretch p-10",
             ),
             news_letter(),
-            class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full lg:divide-y divide-slate-3 lg:divide-x",
+            class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 w-full divide-y divide-slate-3 lg:divide-x",
         ),
         class_name="flex max-w-[64.19rem] justify-center items-center w-full",
     )
