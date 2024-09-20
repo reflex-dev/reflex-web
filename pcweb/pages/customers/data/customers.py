@@ -32,7 +32,7 @@ customer_data = get_customer_data(paths)
 customers_routes = []
 for path, document in customer_data.items():
     # Get the docpage component.
-    route = f"/customers/{document.metadata["company"].lower()}"
+    route = f"/customers/{document.metadata['company'].lower()}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = storypage(
         path=route,
