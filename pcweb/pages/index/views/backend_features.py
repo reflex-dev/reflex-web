@@ -113,7 +113,7 @@ def pip_install_card() -> rx.Component:
             on_click=rx.set_clipboard("pip install reflex"),
             class_name="flex flex-row items-center gap-1.5 px-1.5 py-1 rounded-lg cursor-pointer transition-bg border border-solid border-slate-4 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] hover:bg-[rgba(249,249,251,0.48)] dark:hover:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px]",
         ),
-        class_name="flex h-full w-full justify-center items-center relative overflow-hidden row-span-2 lg:!border-r !border-slate-3 !border-t-0",
+        class_name="desktop-only h-full w-full justify-center items-center relative overflow-hidden row-span-2 lg:!border-r !border-slate-3 !border-t-0",
     )
 
 
@@ -135,7 +135,7 @@ def backend_card(
             rx.el.p(description, class_name="font-md-smbold text-slate-11"),
             class_name="flex flex-col gap-[0.875rem]",
         ),
-        class_name=f"col-span-{cols} h-[15rem] overflow-hidden p-8 w-full"
+        class_name=f"col-span-{cols} h-[11rem] lg:h-[15rem] overflow-hidden p-8 w-full"
         + " "
         + class_name,
     )
@@ -146,24 +146,24 @@ def backend_grid() -> rx.Component:
         rx.box(
             rx.el.h2(
                 "Skip the boilerplate",
-                class_name="font-x-large text-slate-12",
+                class_name="font-x-large text-slate-12 text-balance lg:text-nowrap",
             ),
             rx.el.p(
                 "Seamless frontend-backend integration",
-                class_name="font-x-large text-slate-9 z-[1]",
+                class_name="font-x-large text-slate-9 z-[1] text-balance lg:text-nowrap",
             ),
-            class_name="lg:flex flex-col p-[5rem_6.5rem_5rem_2.5rem] text-nowrap hidden col-span-2 lg:border-l border-slate-3",
+            class_name="flex flex-col lg:border-r border-slate-3 lg:p-[5rem_6.5rem_5rem_2.5rem] lg:text-nowrap text-center lg:text-start pb-8 lg:pb-0 mt-12 lg:mt-0 col-span-1 lg:col-span-2",
         ),
         pip_install_card(),
         backend_card(
             title="It's just Python",
             description="Define and manage state with Python classes and functions.",
-            icon="backend_db",
+            icon="python",
         ),
         backend_card(
             title="PyPI",
             description="Use any Python library with Reflex.",
-            icon="backend_async",
+            icon="package",
         ),
         backend_card(
             title="Database management",
@@ -178,10 +178,10 @@ def backend_grid() -> rx.Component:
         backend_card(
             title="Check out the docs",
             description="API routes, background jobs, shared state, file uploads, cookies and more...",
-            icon="backend_compatible",
+            icon="document_code",
             class_name="lg:!border-r !border-slate-3",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-3 w-full lg:divide-y divide-slate-3 lg:divide-x",
+        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-3 w-full divide-y divide-slate-3 lg:divide-x",
     )
 
 

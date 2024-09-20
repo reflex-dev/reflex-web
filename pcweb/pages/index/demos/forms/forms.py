@@ -78,9 +78,9 @@ def form() -> rx.Component:
                 class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
             ),
             on_submit=FormState.submit,
-            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
+            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full lg:shadow-large",
         ),
-        class_name="flex items-center p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
+        class_name="flex items-center p-4 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 
