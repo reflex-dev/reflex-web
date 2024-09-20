@@ -296,13 +296,34 @@ def new_component_section() -> rx.Component:
                 new_menu_trigger("Blog", blogs.path, "blog"),
                 blog_section(),
             ),
+            # Resources link is shown on docs pages
             new_nav_menu.item(
                 new_menu_trigger("Resources"),
                 resources_section(),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "block",
+                    "none",
+                ),
             ),
+            # Components link is shown on non docs pages
             new_nav_menu.item(
                 new_menu_trigger("Components", library.path, "library"),
                 components_section(),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "block",
+                    "none",
+                ),
+            ),
+            # Customers link isn't shown on docs pages
+            new_nav_menu.item(
+                link_item("Customers", "/customers", "customers"),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "none",
+                    "block",
+                ),
             ),
             new_nav_menu.item(
                 link_item("Pricing", pricing.path, "pricing"),
