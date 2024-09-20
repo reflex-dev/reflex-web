@@ -17,7 +17,7 @@ In this example we will read data from a csv file, convert it to a pandas datafr
 
 We will also add a search, pagination, sorting to the data_table to make it more accessible.
 
-If you want to [add, edit or remove data]({library.table.datatable.path}) in your app or deal with anything but static data then the [`rx.table`]({library.table.datatable.path}) might be a better fit for your use case.
+If you want to [add, edit or remove data]({library.table.table.path}) in your app or deal with anything but static data then the [`rx.table`]({library.table.table.path}) might be a better fit for your use case.
 
 
 ```python demo box
