@@ -25,16 +25,10 @@ def logo(path: str, height: str) -> rx.Component:
 def companies() -> rx.Component:
     return rx.el.section(
         rx.box(
-            # rx.box(
-            #     class_name="bg-gradient-to-r from-slate-2 to-85% to-slate-4 w-[12.5rem] h-[0.125rem]"
-            # ),
             rx.el.span(
                 "Trusted by industry leading teams",
                 class_name="px-2 py-0.5 font-small text-center text-slate-9",
             ),
-            # rx.box(
-            #     class_name="bg-gradient-to-r from-15% from-slate-4 to-slate-2 w-[12.5rem] h-[0.125rem]"
-            # ),
             class_name="flex flex-row justify-center items-center w-full",
         ),
         rx.box(
@@ -48,5 +42,5 @@ def companies() -> rx.Component:
             logo("nike", "19px"),
             class_name="flex flex-row flex-wrap justify-center items-center gap-8 h-auto",
         ),
-        class_name="flex flex-col justify-center gap-4 w-full h-auto max-w-[64.19rem] lg:border-x border-slate-3 lg:px-[8.5rem] py-16",
+        class_name="flex flex-col justify-center gap-4 w-full h-auto max-w-[64.19rem] lg:border-x border-slate-3 lg:px-[8.5rem] lg:py-16 py-12 border-b lg:border-b-0",
     )

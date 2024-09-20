@@ -31,12 +31,13 @@ def graphic_card() -> rx.Component:
             loading="lazy",
             class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2]",
         ),
-        class_name="flex justify-center items-center relative pointer-events-none h-full w-full",
+        class_name="flex justify-center items-center relative pointer-events-none h-full w-full lg:mt-0 mt-10",
     )
 
 
 def reflex_deploy_card() -> rx.Component:
     return rx.box(
+        # Glow
         rx.html(
             """<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M320 60C320 93.1371 248.366 120 160 120C71.6344 120 0 93.1371 0 60C0 26.8629 71.6344 0 160 0C248.366 0 320 26.8629 320 60Z" fill="url(#paint0_radial_10857_12655)"/>
@@ -60,7 +61,7 @@ def reflex_deploy_card() -> rx.Component:
             on_click=rx.set_clipboard("reflex deploy"),
             class_name="flex flex-row items-center gap-1.5 px-1.5 py-1 rounded-lg cursor-pointer transition-bg border border-solid border-slate-4 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] hover:bg-[rgba(249,249,251,0.48)] dark:hover:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px] z-[2]",
         ),
-        class_name="flex h-full w-full justify-end items-end relative row-span-2",
+        class_name="flex flex-col-reverse w-fit lg:w-full justify-center lg:justify-end relative row-span-2",
     )
 
 
@@ -68,21 +69,32 @@ def hosting_grid() -> rx.Component:
     return rx.box(
         graphic_card(),
         rx.box(
+            # rx.box(
+            #     rx.el.h3(
+            #         "Deploy your app with a single command",
+            #         class_name="font-x-large text-slate-12 text-right",
+            #     ),
+            #     rx.el.p(
+            #         "Performant, secure, and scalable",
+            #         class_name="font-x-large text-slate-9 text-right",
+            #     ),
+            #     class_name="flex flex-col items-end",
+            # ),
             rx.box(
                 rx.el.h3(
                     "Deploy your app with a single command",
-                    class_name="font-x-large text-slate-12 text-right",
+                    class_name="font-x-large text-slate-12 text-balance lg:text-nowrap",
                 ),
                 rx.el.p(
                     "Performant, secure, and scalable",
-                    class_name="font-x-large text-slate-9 text-right",
+                    class_name="font-x-large text-slate-9 z-[1] text-balance lg:text-nowrap",
                 ),
-                class_name="flex flex-col items-end",
+                class_name="flex flex-col lg:text-nowrap text-center col-span-1 lg:col-span-2 lg:text-right",
             ),
             reflex_deploy_card(),
-            class_name="lg:flex flex-col p-[5rem_2.5rem_5rem_6.5rem] text-nowrap hidden col-span-2 gap-6 items-end",
+            class_name="flex flex-col lg:p-[5rem_2.5rem_5rem_6.5rem] text-nowrap col-span-2 lg:gap-6 gap-8 items-center lg:items-end",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full",
+        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full [&>*]:lg:order-none [&>*:first-child]:order-last [&>*:last-child]:order-first",
     )
 
 
@@ -90,7 +102,7 @@ def hosting_features() -> rx.Component:
     return rx.el.section(
         rx.box(
             hosting_grid(),
-            class_name="flex flex-row max-w-[69.25rem] justify-center w-full p-[0.0625rem_2.5rem_0rem_2.5rem] items-center rounded-[1.125rem] lg:bg-slate-2 lg:border border-slate-3 shadow-small lg:min-w-[65.5rem]",
+            class_name="flex flex-row max-w-[69.25rem] justify-center w-full lg:p-[0.0625rem_2.5rem_0rem_2.5rem] items-center rounded-[1.125rem] lg:bg-slate-2 border border-slate-3 lg:shadow-small lg:min-w-[65.5rem] p-10",
         ),
         class_name="flex flex-col justify-center items-center w-full",
     )
