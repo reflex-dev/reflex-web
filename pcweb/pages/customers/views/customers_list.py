@@ -115,7 +115,7 @@ def customers_list_item(
                 class_name="flex flex-row items-center gap-1.5 flex-1 justify-end",
             ),
         ),
-        href=f"/customers/{link.lower()}",
+        href=link,
         underline="none",
         class_name="flex-row justify-between items-center w-full px-2.5 py-2 rounded-lg hover:bg-slate-3 transition-bg",
         display=rx.cond(
@@ -144,13 +144,13 @@ def customers_list() -> rx.Component:
         # Customers list
         rx.box(
             # Dell
-            customers_list_item("Dell", "dell", "SaaS", True),
+            customers_list_item("Dell", "https://www.dell.com/", "SaaS"),
             # LlamaIndex
-            customers_list_item("LlamaIndex", "llamaindex", "AI", True),
+            customers_list_item("LlamaIndex", "https://www.llamaindex.ai/", "AI"),
             # AutoDesk
-            customers_list_item("AutoDesk", "autodesk", "SaaS", True),
+            customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
             # Bayesline
-            customers_list_item("Bayesline", "bayesline", "AI", True),
+            customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
         ),
         # Show a text if no filters are applied

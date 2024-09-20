@@ -73,25 +73,25 @@ def card(company: str, text: str) -> rx.Component:
 
 def bento_cards() -> rx.Component:
     return rx.el.section(
-        # Dell
-        card(
-            company="dell",
-            text="Dell is the standard for frontend hosting. Reflex keeps them shipping.",
-        ),
-        # LlamaIndex
-        card(
-            company="llamaindex",
-            text="To build the fastest-growing corporate card, LlamaIndex chose the fastest tool.",
-        ),
-        # Autodesk
-        card(
-            company="autodesk",
-            text="Autodesk switched their 1,000 person team to Reflex to move faster.",
-        ),
+        # # Dell
+        # card(
+        #     company="dell",
+        #     text="Dell is the standard for frontend hosting. Reflex keeps them shipping.",
+        # ),
+        # # LlamaIndex
+        # card(
+        #     company="llamaindex",
+        #     text="To build the fastest-growing corporate card, LlamaIndex chose the fastest tool.",
+        # ),
+        # # Autodesk
+        # card(
+        #     company="autodesk",
+        #     text="Autodesk switched their 1,000 person team to Reflex to move faster.",
+        # ),
         # Bayesline
         card(
             company="bayesline",
             text="Reflex give Bayesline a source-of-truth across all their work.",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
+        class_name="grid grid-cols-1 lg:grid-cols-1 gap-4 mx-auto w-full max-w-[69.25rem]",
     )
