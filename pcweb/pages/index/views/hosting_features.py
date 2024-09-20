@@ -43,12 +43,12 @@ def reflex_deploy_card() -> rx.Component:
 <path d="M320 60C320 93.1371 248.366 120 160 120C71.6344 120 0 93.1371 0 60C0 26.8629 71.6344 0 160 0C248.366 0 320 26.8629 320 60Z" fill="url(#paint0_radial_10857_12655)"/>
 <defs>
 <radialGradient id="paint0_radial_10857_12655" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(160 60) rotate(90) scale(60 160)">
-<stop stop-color="var(--c-violet-3)"/>
-<stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/>
+<stop stop-color="var(--violet-3)"/>
+<stop offset="1" stop-color="var(--slate-2)" stop-opacity="0"/>
 </radialGradient>
 </defs>
 </svg>
-""",
+""", 
             class_name="shrink-0 absolute top-1/2 right-[-5rem] transform -translate-y-1/2 z-[1] pointer-events-none",
         ),
         # Pip install
