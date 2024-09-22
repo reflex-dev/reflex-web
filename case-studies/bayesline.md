@@ -1,6 +1,6 @@
 ---
 company: Bayesline
-description: "How Bayesline built a production grade web app in pure Python with 50% less code using Reflex instead of Plotly Dash"
+description: "Why Basyesline Chose Reflex over Dash Plotly for their production-grade python web app"
 domain: "https://bayesline.com/"
 founded: "New York, 2024"
 investors: "Y Combinator"
@@ -41,29 +41,7 @@ meta: [
 ]
 ---
 
-Why Bayesline chose Reflex instead of Plotly Dash
-
-## TLDR;
-
-Sebastian and his small team use Reflex to build a production-grade web app purely in Python while still keeping the full flexibility of a traditional ReactJS app **WITHOUT** needing to:
-
-* Learn frontend technologies: React (JavaScript), NodeJS, TailwindCSS
-
-```md quote Misha and Sebastian
-Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
-```
-
-* Write boilerplate to stitch together their frontend and backend (including database management)
-
-```md quote Sebastian CTO
-50% less code than the same Dash app and easier to read / write / maintain code compared to Dash
-```
-
-* Maintain expensive, fragile, and inevitably slow Dash apps
-
-```md quote Misha CEO
-Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
-```
+Why Bayesline chose Reflex instead of Plotly Dash.
 
 ## What Bayesline is building
 
@@ -103,7 +81,7 @@ As their app grew, it eventually became slow and difficult to maintain.
 The app was just getting painfully slow. Dash loads the entire application, the entire dom of every single page... as the application gets bigger, the performance will just go down.
 ```
 
-## How Bayesline built a production-grade web app with Reflex
+## How Reflex allowed Bayesline to build a production-grade web app faster during Y Combinator
 
 Bayesline switched from Dash to Reflex because they could build both a production-grade and an aesthetically pleasing web app quickly–without JavaScript experience.
 
@@ -131,3 +109,26 @@ Turns out I don’t see right now, as it stands at least, reasons to migrate fro
 
 Bayesline has since scaled from an MVP to a full fledged production app that investors leverage daily.
 The team continues to build and deploy data-intensive apps using Reflex.
+
+
+## What Bayesline gained from using Reflex
+
+Sebastian and his small team use Reflex to build a production-grade web app purely in Python while still keeping the full flexibility of a traditional ReactJS app **WITHOUT** needing to:
+
+* Learn frontend technologies: React (JavaScript), NodeJS, TailwindCSS
+
+```md quote Misha and Sebastian
+Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
+```
+
+* Write boilerplate to stitch together their frontend and backend (including database management)
+
+```md quote Sebastian CTO
+50% less code than the same Dash app and easier to read / write / maintain code compared to Dash
+```
+
+* Maintain expensive, fragile, and inevitably slow Dash apps
+
+```md quote Misha CEO
+Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
+```
