@@ -422,12 +422,17 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
         args = lines[0].removeprefix(self.starting_indicator).split()
-        name = args[0] if args else "CEO"
+        name = args[0] if args else ""
+        role = args[1] if len(args) > 1 else ""
         quote_content = "\n".join(lines[1:-1])
         
         return rx.box(
-            rx.text(quote_content, class_name="text-slate-11 font-base"),
-            rx.text(name, class_name="text-slate-10 font-base"),
+            rx.text(f'"{quote_content}"', class_name="text-slate-11 font-base italic"),
+            rx.box(
+                rx.text(name, class_name="text-slate-11 font-base"),
+                rx.text(role, class_name="text-slate-10 font-base"),
+                class_name="flex flex-col gap-0.5",
+            ),
             class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
         )
         
