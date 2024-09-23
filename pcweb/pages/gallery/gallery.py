@@ -185,7 +185,7 @@ def sorting_menu() -> rx.Component:
     )
 
 
-@webpage(path="/gallery", title="Gallery · Reflex")
+@webpage(path="/gallery/", title="Gallery · Reflex")
 def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),

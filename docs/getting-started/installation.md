@@ -58,7 +58,7 @@ If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get insta
 
 ### Install Reflex package
 
-Reflex is available as a [pip](constants.PIP_URL) package.
+Reflex is available as a [pip]({constants.PIP_URL}) package.
 
 ```bash
 pip install reflex
