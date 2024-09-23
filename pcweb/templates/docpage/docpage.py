@@ -261,13 +261,18 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
     breadcrumbs = []
 
     # Iteratively build the href for each segment
-    for i in range(len(segments)):
+    current_path = "/docs"
+    for i, segment in enumerate(segments):
+        current_path += f"/{segment.lower()}"
+
         # Add the breadcrumb item to the list
         breadcrumbs.append(
-            rx.text(
-                segments[i],
-                class_name="font-small text-slate-9"
+            rx.link(
+                segment,
+                class_name="font-small text-slate-9 hover:!text-slate-11 transition-color"
                 + (" truncate" if i == len(segments) - 1 else ""),
+                underline="none",
+                href=current_path,
             )
         )
 

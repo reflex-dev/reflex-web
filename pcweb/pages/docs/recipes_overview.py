@@ -66,7 +66,7 @@ def component_grid():
         )
 
     return rx.box(
-        rc.responsive_grid(*sidebar, columns=[1, 2, 2, 3, 3], gap=4),
+        rc.box(*sidebar, class_name="grid grid-cols-1 lg:grid-cols-3 gap-6"),
     )
 
 
@@ -110,7 +110,7 @@ def card_section():
     )
 
 
-@docpage(right_sidebar=False)
+@docpage(set_path="/docs/recipes", right_sidebar=False)
 def overview():
     return rx.box(
         h1_comp(text="Recipes"),
