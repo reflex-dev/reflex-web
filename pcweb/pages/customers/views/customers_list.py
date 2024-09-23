@@ -2,13 +2,16 @@ import reflex as rx
 
 
 class CustomersState(rx.State):
-    tags: list[str] = ["All"]
+    tags: list[str] = []
 
     def add_tag(self, tag: str):
         if tag not in self.tags:
             self.tags.append(tag)
         else:
             self.tags.remove(tag)
+
+    def clear_tags(self):
+        self.tags = []
 
 
 def tag_item(tag: str):
@@ -26,7 +29,7 @@ def tag_item(tag: str):
         background_=rx.cond(
             CustomersState.tags.contains(tag),
             "var(--c-violet-9)",
-            "var(--c-slate-1)",
+            "var(--c-slate-2)",
         ),
         _hover={
             "background": rx.cond(
@@ -36,6 +39,17 @@ def tag_item(tag: str):
             )
         },
         on_click=CustomersState.add_tag(tag),
+    )
+
+
+def all_tag():
+    return rx.box(
+        rx.text(
+            "All",
+            class_name="font-small shrink-0 text-slate-9",
+        ),
+        class_name="flex items-center justify-center px-3 py-1.5 cursor-pointer transition-bg shrink-0 bg-slate-1 hover:bg-slate-3",
+        on_click=CustomersState.clear_tags(),
     )
 
 
@@ -56,7 +70,7 @@ def filtering_tags():
             class_name="w-[25.25rem] h-[5.5rem] shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[0] pointer-events-none -mt-2",
         ),
         rx.box(
-            tag_item("All"),
+            all_tag(),
             tag_item("Open Source"),
             tag_item("AI"),
             tag_item("Dev Tools"),
@@ -119,7 +133,7 @@ def customers_list_item(
         underline="none",
         class_name="flex-row justify-between items-center w-full px-2.5 py-2 rounded-lg hover:bg-slate-3 transition-bg",
         display=rx.cond(
-            CustomersState.tags.contains(tag) | CustomersState.tags.contains("All"),
+            CustomersState.tags.contains(tag) | (CustomersState.tags.length() == 0),
             "flex",
             "none",
         ),
@@ -152,12 +166,6 @@ def customers_list() -> rx.Component:
             # Bayesline
             customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
-        ),
-        # Show a text if no filters are applied
-        rx.cond(
-            CustomersState.tags.length() == 0,
-            rx.text("No filters applied", class_name="font-small text-slate-9"),
-            rx.fragment(),
         ),
         class_name="flex flex-col max-w-[64.19rem] justify-center w-full lg:border-x border-slate-3 py-12 lg:py-20 items-center",
     )
