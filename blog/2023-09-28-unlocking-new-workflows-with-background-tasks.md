@@ -137,7 +137,7 @@ long-running workflows that can respond to user input in real time. We hope you
 find unique and creative ways to use them in your apps.
 
 Please see the docs for more information on [background
-tasks](/docs/advanced-guide/background-tasks/) and check out the complete
+tasks](/docs/events/background-events/) and check out the complete
 [v0.2.8](https://github.com/reflex-dev/reflex/releases/tag/v0.2.8)
 release notes for all the new features and bug fixes.
 
