@@ -470,7 +470,7 @@ class TabsBlock(flexdown.blocks.Block):
             
             contents.append(rx.tabs.content(rx.fragment(*tab_content), value=value))
 
-        return rx.tabs.root(rx.tabs.list(*triggers), *contents, default_value="tab1")
+        return rx.tabs.root(rx.tabs.list(*triggers, class_name="mt-4"), *contents, default_value="tab1")
 
 
 component_map = {
