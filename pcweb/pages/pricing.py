@@ -27,6 +27,30 @@ class FormState(rx.State):
             self.email_sent = False
             yield rx.toast.error("Failed to submit request. Please try again later.")
 
+    async def submit_pro_waitlist(self, form_data: dict):
+
+        webhook_url = "https://hkdk.events/amh01aq0hojled"
+
+        try:
+            with httpx.Client() as client:
+                response = client.post(webhook_url, json=form_data)
+                response.raise_for_status()
+            yield rx.toast.success("Thank you for joining the waitlist!")
+        except httpx.HTTPError as e:
+            yield rx.toast.error("Failed to submit request. Please try again later.")
+
+
+def dialog(trigger: rx.Component, content: rx.Component) -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            trigger,
+        ),
+        rx.dialog.content(
+            content,
+            class_name="bg-white-1 p-4 rounded-[1.625rem] w-[26rem]",
+        ),
+    )
+
 
 def form() -> rx.Component:
     input_class_name = "box-border border-slate-5 focus:border-violet-9 focus:border-1 bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none"
@@ -229,7 +253,7 @@ def pro_tier() -> rx.Component:
                 class_name="mb-2",
             ),
             rx.text(
-                "Professional developers and smallteams shipping to production.",
+                "Professional developers and small teams shipping to production.",
                 class_name="text-slate-10 mb-4",
             ),
             rx.vstack(
@@ -245,15 +269,48 @@ def pro_tier() -> rx.Component:
                 spacing="3",
                 class_name="mb-6",
             ),
-            rx.link(
-                button(
+            dialog(
+                trigger=button(
                     "Join Waitlist",
                     variant="secondary",
                     class_name="!w-full !text-slate-12",
                 ),
-                href="mailto:contact@reflex.dev",
-                underline="none",
-                width="100%",
+                content=rx.form(
+                    rx.box(
+                        rx.text(
+                            "Join Waitlist",
+                            class_name="text-slate-12 font-large",
+                        ),
+                        rx.text(
+                            "Be the first to know when Pro hosting is ready",
+                            class_name="font-medium text-slate-11",
+                        ),
+                        class_name="flex flex-col gap-2 w-full font-instrument-sans",
+                    ),
+                    rx.box(
+                        rx.el.input(
+                            placeholder="Your email",
+                            name="email",
+                            type="email",
+                            class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                        ),
+                        rx.dialog.close(
+                            button(
+                                "Submit",
+                                type="submit",
+                            ),
+                        ),
+                        class_name="flex flex-row justify-between items-center gap-4 w-full",
+                    ),
+                    rx.dialog.close(
+                        rx.icon(
+                            "x",
+                            class_name="absolute top-2 right-2 !text-slate-9 hover:!text-slate-11 cursor-pointer transition-color",
+                        ),
+                    ),
+                    on_submit=FormState.submit_pro_waitlist,
+                    class_name="flex flex-col gap-5 relative p-1",
+                ),
             ),
             align_items="start",
             class_name="h-full z-10 p-8",
