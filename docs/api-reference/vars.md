@@ -1,4 +1,4 @@
-# Reflex's `Var` system
+# Reflex's Var system
 
 ## Motivation
 
