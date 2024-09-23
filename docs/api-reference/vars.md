@@ -26,7 +26,7 @@ state.threshold >= 50 ? "Pass" : "Fail";
 Simply put, a `Var` in Reflex represents a Javascript expression.
 If the type is known, it can be any of the following:
 
-- `NumberVar` represents an expression that evaluates to a Javascript `number`. `NumberVars` support both integers and floating point values
+- `NumberVar` represents an expression that evaluates to a Javascript `number`. `NumberVar` can support both integers and floating point values
 - `BooleanVar` represents a boolean expression. For example: `false`, `3 > 2`.
 - `StringVar` represents an expression that evaluates to a string. For example: `'hello'`, `(2).toString()`.
 - `ArrayVar` represents an expression that evaluates to an array object. For example: `[1, 2, 3]`, `'words'.split()`.
