@@ -24,19 +24,17 @@ def test_lambdas(
     page.goto(reflex_web_app.frontend_url + event_argument_url)
 
     inputs = page.get_by_role("textbox")
-    inputs.nth(0).fill("rgba(4,168,152)")
-    inputs.nth(0).blur()
 
-    expect(page.locator(".rt-TextFieldRoot").nth(0)).to_have_css(
-        "background-color", "rgb(4, 168, 152)"
-    )
-    inputs.nth(1).fill("DarkBlue")
-    inputs.nth(1).blur()
-    expect(page.locator(".rt-TextFieldRoot").nth(1)).to_have_css(
-        "background-color", "rgb(0, 0, 139)"
-    )
-    inputs.nth(2).fill("#AEADE3")
-    inputs.nth(2).blur()
-    expect(page.locator(".rt-TextFieldRoot").nth(2)).to_have_css(
-        "background-color", "rgb(174, 173, 227)"
-    )
+    def check_box_color(i, initial_color, input_color, expected_color):
+        expect(page.locator(".rt-TextFieldRoot").nth(i)).to_have_css(
+            "background-color", initial_color
+        )
+        inputs.nth(i).fill(input_color)
+        inputs.nth(i).blur()
+        expect(page.locator(".rt-TextFieldRoot").nth(i)).to_have_css(
+            "background-color", expected_color
+        )
+
+    check_box_color(0, "rgb(245, 168, 152)", "rgba(4, 168, 152)", "rgb(4, 168, 152)")
+    check_box_color(1, "rgb(60, 179, 113)", "DarkBlue", "rgb(0, 0, 139)")
+    check_box_color(2, "rgb(222, 173, 227)", "#AEADE3", "rgb(174, 173, 227)")
