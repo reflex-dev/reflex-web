@@ -412,6 +412,26 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
             width="100%",
         )
 
+class QuoteBlock(flexdown.blocks.MarkdownBlock):
+    """A block that displays a quote."""
+
+    starting_indicator = "```md quote"
+    ending_indicator = "```"
+
+    include_indicators = True
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+        args = lines[0].removeprefix(self.starting_indicator).split()
+        name = args[0] if args else "CEO"
+        quote_content = "\n".join(lines[1:-1])
+        
+        return rx.box(
+            rx.text(quote_content, class_name="text-slate-11 font-base"),
+            rx.text(name, class_name="text-slate-10 font-base"),
+            class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
+        )
+        
+
 
 class TabsBlock(flexdown.blocks.Block):
     """A block that displays content in tabs."""
@@ -488,12 +508,12 @@ comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
 
 xd = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock],
+    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
     component_map=component_map,
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock],
+    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
     component_map=comp2,
 )
 xd2.clear_modules()

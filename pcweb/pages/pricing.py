@@ -8,6 +8,7 @@ from pcweb.pages.docs import getting_started, hosting
 
 class FormState(rx.State):
     is_loading: bool = False
+    email_sent: bool = False
 
     async def submit(self, form_data: dict):
         self.is_loading = True
@@ -19,9 +20,11 @@ class FormState(rx.State):
                 response = client.post(webhook_url, json=form_data)
                 response.raise_for_status()
             self.is_loading = False
+            self.email_sent = True
             yield rx.toast.success("Demo request submitted successfully!")
         except httpx.HTTPError as e:
             self.is_loading = False
+            self.email_sent = False
             yield rx.toast.error("Failed to submit request. Please try again later.")
 
 
@@ -108,13 +111,11 @@ def form() -> rx.Component:
             ),
             rx.cond(
                 FormState.is_loading,
-                rx.el.button(
-                    rx.spinner(class_name="w-4 h-4"),
-                    class_name=default_class_name
-                    + " "
-                    + variant_styles["primary"]["class_name"]
-                    + " "
-                    + "w-full bg-slate-5 text-slate-12 hover:bg-slate-6 rounded",
+                button(
+                    "Sending...",
+                    variant="muted",
+                    type="submit",
+                    class_name="opacity-80 !cursor-not-allowed pointer-events-none !w-min",
                 ),
                 button(
                     "Submit",
@@ -145,7 +146,9 @@ def form() -> rx.Component:
 def features(text: str, included: bool) -> rx.Component:
     if included:
         return rx.hstack(
-            rx.icon("circle-check", color=rx.color("green", 9), stroke_width=1.2, size=22),
+            rx.icon(
+                "circle-check", color=rx.color("green", 9), stroke_width=1.2, size=22
+            ),
             rx.text(text, class_name="font-base font-normal"),
             align_items="center",
             spacing="2",
@@ -195,9 +198,8 @@ def hobby_tier() -> rx.Component:
             rx.link(
                 button(
                     "Get Started",
-                    # class_name="w-full bg-slate-5 text-slate-12 hover:bg-slate-6 rounded py-2 cursor-pointer",
                     variant="secondary",
-                    class_name="!w-full !text-slate-12"
+                    class_name="!w-full !text-slate-12",
                 ),
                 href=hosting.deploy_quick_start.path,
                 width="100%",
@@ -247,7 +249,7 @@ def pro_tier() -> rx.Component:
                 button(
                     "Join Waitlist",
                     variant="secondary",
-                    class_name="!w-full !text-slate-12"
+                    class_name="!w-full !text-slate-12",
                 ),
                 href="mailto:contact@reflex.dev",
                 underline="none",
@@ -294,10 +296,7 @@ def enterprise_tier() -> rx.Component:
                 class_name="mb-6",
             ),
             rx.link(
-                button(
-                    "Contact",
-                    class_name="!w-full"
-                ),
+                button("Contact", class_name="!w-full"),
                 href="#form-title",
                 width="100%",
                 underline="none",
@@ -345,7 +344,26 @@ def pricing():
                 width="100%",
             ),
             rx.box(
-                form(),
+                rx.cond(
+                    FormState.email_sent,
+                    rx.box(
+                        rx.box(
+                            rx.text(
+                                """Thanks for your interest in Reflex! 
+You'll get a reply from us soon.""",
+                                class_name="font-large text-slate-12 whitespace-pre text-center",
+                            ),
+                            class_name="flex flex-row items-center gap-2",
+                        ),
+                        button(
+                            "Back",
+                            on_click=FormState.setvar("email_sent", False),
+                            class_name="mt-4",
+                        ),
+                        class_name="flex flex-col items-center gap-2",
+                    ),
+                    form(),
+                ),
                 class_name="mt-12 w-full",
             ),
             class_name="flex flex-col justify-center items-center w-full max-w-[84.5rem]",

@@ -32,16 +32,16 @@ def newletter_input() -> rx.Component:
                 rx.box(
                     # Glow
                     rx.html(
-                        """<svg xmlns="http://www.w3.org/2000/svg" width="320" height="89" viewBox="0 0 320 89" fill="none">
-  <path d="M0 44.5C0 69.0767 71.6418 89 160 89C248.358 89 320 69.0767 320 44.5C320 19.9233 248.358 0 160 0C71.6418 0 0 19.9233 0 44.5Z" fill="url(#paint0_radial_10744_8734)"/>
+                        """<svg xmlns="http://www.w3.org/2000/svg" width="400" height="89" viewBox="0 0 400 89" fill="none">
+  <path d="M0 44.5C0 69.0767 89.5522 89 200 89C310.448 89 400 69.0767 400 44.5C400 19.9233 310.448 0 200 0C89.5522 0 0 19.9233 0 44.5Z" fill="url(#paint0_radial_10744_8734)"/>
   <defs>
-    <radialGradient id="paint0_radial_10744_8734" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(160 44.5) rotate(90) scale(44.5 160)">
+    <radialGradient id="paint0_radial_10744_8734" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 44.5) rotate(90) scale(44.5 200)">
       <stop stop-color="var(--c-violet-3)"/>
       <stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/>
     </radialGradient>
   </defs>
 </svg>""",
-                        class_name="shrink-0 absolute -translate-y-1/2 left-[-2.5rem] top-1/2 h-[5.5625rem] w-[25.1875rem] z-[-1]",
+                        class_name="shrink-0 absolute -translate-y-1/2 left-[-3rem] top-1/2 h-[5.5625rem] w-[35.1875rem] z-[-1]",
                     ),
                     rx.el.input(
                         placeholder="Your email",
@@ -75,7 +75,8 @@ def newletter_input() -> rx.Component:
                 class_name="flex flex-row gap-2 align-center",
                 on_submit=IndexState.signup,
             ),
-        )
+        ),
+        class_name="w-full"
     )
 
 

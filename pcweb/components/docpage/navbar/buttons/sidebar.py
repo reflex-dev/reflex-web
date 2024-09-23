@@ -72,6 +72,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                     drawer_item("Docs", getting_started.introduction.path, "docs"),
                     drawer_item("Showcase", gallery.path, "gallery"),
                     drawer_item("Blog", blogs.path, "blog"),
+                    drawer_item("Customers", "/customers", "customers"),
                     drawer_item("Components", library.path, "library"),
                     drawer_item("Hosting", hosting.deploy_quick_start.path, "hosting"),
                     drawer_socials(),
