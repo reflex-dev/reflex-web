@@ -81,7 +81,7 @@ As their app grew, it eventually became slow and difficult to maintain.
 The app was just getting painfully slow. Dash loads the entire application, the entire dom of every single page... as the application gets bigger, the performance will just go down.
 ```
 
-## How Reflex allowed Bayesline to build a production-grade web app faster during Y Combinator
+## From Prototype to Production With Reflex
 
 Bayesline switched from Dash to Reflex because they could build both a production-grade and an aesthetically pleasing web app quickly–without JavaScript experience.
 
