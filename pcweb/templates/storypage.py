@@ -33,7 +33,7 @@ def hero(company: str, description: str, stats: list[dict[str, str]]) -> rx.Comp
                 )
                 for stat in stats
             ],
-            class_name="flex flex-row gap-10 items-center flex-wrap",
+            class_name="grid grid-cols-3 gap-4 lg:gap-10",
         ),
         class_name="flex flex-col gap-4 mb-10",
     )
