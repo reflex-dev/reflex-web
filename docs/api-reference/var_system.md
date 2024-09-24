@@ -55,7 +55,7 @@ For this example, calling the function `.to(int)` can also be used in place of `
 ## Operations
 
 The `Var` system also supports some other basic operations.
-For example, `NumberVar` supports basic arithmetic operations like `+` and `-` like in Python.
+For example, `NumberVar` supports basic arithmetic operations like `+` and `-`, as in Python.
 It also supports comparisons that return a `BooleanVar`.
 
 Custom `Var` operations can also be defined:
