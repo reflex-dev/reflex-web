@@ -6,7 +6,7 @@ from pcweb.components.hint import hint
 @rx.memo
 def badge() -> rx.Component:
     return hint(
-        text="This entire website was made with Reflex!",
+        text="pip install reflex",
         content=rx.link(
             get_icon("badge_logo"),
             rx.text(
