@@ -34,7 +34,7 @@ def code_block(code: str) -> rx.Component:
         code,
         language="python",
         # wrap_long_lines=True,
-        class_name="demo-code-block !px-10 !py-8 !rounded-none !text-slate-12",
+        class_name="demo-code-block !px-10 !py-10 !rounded-none !text-slate-12",
     )
 
 
@@ -80,10 +80,18 @@ def demo_section() -> rx.Component:
                     ("Custom", code_block(react_code)),
                     image_gen(),
                 ),
+                # Bottom fade out
                 rx.box(
-                    class_name="absolute bottom-0 left-0 right-0 h-24 pointer-events-none",
+                    class_name="absolute bottom-0 left-0 right-0 h-[5.25rem] pointer-events-none",
                     style={
                         "background": "linear-gradient(180deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
+                    },
+                ),
+                # Right fade out
+                rx.box(
+                    class_name="absolute right-0 top-0 bottom-0 w-[5.25rem] pointer-events-none",
+                    style={
+                        "background": "linear-gradient(90deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
                     },
                 ),
                 class_name="desktop-only w-1/2 overflow-auto relative",
