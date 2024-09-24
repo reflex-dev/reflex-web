@@ -157,7 +157,7 @@ def lucide_icons():
             rx.el.input(
                 placeholder="Search icons...",
                 on_change=IconState.update_search.debounce(250),
-                class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full mb-2 max-w-[350px] pl-10",
+                class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full mb-2 pl-10",
             ),
             class_name="relative flex items-center",
         ),
@@ -193,7 +193,7 @@ def lucide_icons():
                 rx.scroll_to("icons-list"),
             ],
             display=rx.cond(IconState.filtered_icons.length() > 40, "block", "none"),
-            class_name="max-w-[350px]",
+            # class_name="max-w-[350px]",
         ),
         on_mount=IconState.fetch_icons,
         class_name="flex flex-col gap-4",
