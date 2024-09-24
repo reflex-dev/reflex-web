@@ -1,4 +1,5 @@
 # pcweb constants.
+API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
 
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
