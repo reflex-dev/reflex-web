@@ -4,7 +4,7 @@
 
 <hr>
 
-### **✨ Performant, customizable web apps in pure Python. Deploy in seconds. ✨**
+### **✨ The open-source framework to build and deploy web apps - no Javascript required. ✨**
 [![PyPI version](https://badge.fury.io/py/reflex.svg)](https://badge.fury.io/py/reflex)
 ![tests](https://github.com/pynecone-io/pynecone/actions/workflows/integration.yml/badge.svg)
 ![versions](https://img.shields.io/pypi/pyversions/reflex.svg)
@@ -14,45 +14,32 @@
 
 # Overview
 
-A public repository which contains the source code of the reflex.dev website.
+Welcome to the repository for the Reflex website!
 
-- It's built with [Reflex](https://reflex.dev/), a framework to build web apps in pure Python.
-- You can find everything related to Reflex at [reflex.dev](https://reflex.dev/).
+Our website is built using our own framework: [Reflex](https://reflex.dev/).
 
-## About Reflex
-
-Reflex is a full-stack web framework that allows developers to build their app in pure Python, and deploy with a single command. Its open-source core framework ensures flexibility for projects of any scale. Explore the future of web development at [reflex.dev](https://reflex.dev/).
+Reflex is the open-source framework empowering Python developers to build web apps faster.
+Build both your frontend and backend in a single language, Python (pip install reflex), with no JavaScript or web development experience required.
 
 ## Requirements
 
-The only requirement is that you have installed `Python 3.9` or higher in your local machine.
+We recommend using a virtual environment with Python 3.10 or higher to run this project.
 
 ## Setup Locally
 
 1. Fork this repository by clicking on the `Fork` button on the top right.
-
 2. Clone the forked repository to your local machine.
-
-    ```bash 
-    git clone https://github.com/<USERNAME>/reflex-web.git
-    ```
-
 3. Navigate to the project directory.
-
-    ```bash
-    cd reflex-web
-    ```
-
 4. Create a virtual environment.
 
     ```bash
-    python3 -m venv venv
+    python3 -m venv .venv
     ```
 
 5. Activate the virtual environment.
 
     ```bash
-    source venv/bin/activate
+    source .venv/bin/activate
     ```
 
 6. Install the dependencies.
@@ -61,13 +48,7 @@ The only requirement is that you have installed `Python 3.9` or higher in your l
     python -m pip install -r requirements.txt
     ```
 
-7. Initialize the reflex project.
-
-    ```bash
-    reflex init
-    ```
-
-8. Run the project.
+7. Run the project.
 
     ```bash
     reflex run
@@ -77,11 +58,14 @@ The only requirement is that you have installed `Python 3.9` or higher in your l
 
 ## Contributing
 
-We welcome contributions of any size! Below are some good ways to get started in the Reflex community.
+We welcome contributions of any size!
+Feel free to open issues, especially for sections of the documentation that you find confusing or need clarification.
 
--   **Join Our Discord**: Our [Discord](https://discord.gg/T5WSbC2YtQ) is the best place to get help on your Reflex project and to discuss how you can contribute.
--   **GitHub Discussions**: A great way to talk about features you want added or things that are confusing/need clarification.
--   **GitHub Issues**: [Issues](https://github.com/reflex-dev/reflex/issues) are an excellent way to report bugs. Additionally, you can try and solve an existing issue and submit a PR.
+Below are some good ways to get started in the Reflex community.
+
+ - **Join our Discord**: Our [Discord](https://discord.gg/T5WSbC2YtQ) is the best place to get help on your Reflex project and to discuss how you can contribute.
+ - **Join our Discourse**: Our [forum](https://forum.reflex.dev/) is a great way to talk about features you want added or things that are confusing/need clarification.
+ - **GitHub Issues**: [Issues](https://github.com/reflex-dev/reflex/issues) are an excellent way to report bugs. Additionally, you can try and solve an existing issue and submit a PR.
 
 We are actively looking for contributors, no matter your skill level or experience. To contribute check out [CONTIBUTING.md](https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md)
 
