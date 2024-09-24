@@ -71,7 +71,7 @@ def newsletter_form() -> rx.Component:
                 class_name="font-instrument-sans font-semibold text-slate-12 text-sm leading-tight",
             ),
             rx.text(
-                "Get the latest updates and news about Reflex.",
+                "Get the latest updates and news about Reflex",
                 class_name="font-small text-slate-9",
             ),
             rx.cond(
