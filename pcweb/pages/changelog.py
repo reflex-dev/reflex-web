@@ -48,6 +48,18 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-09-24",
+            "v0.6.0",
+            "Improved Javascript Interop with updated rx.Var API",
+            [
+                "Maintain state across hot reloads",
+                "Added backend `/_health` endpoint to get server status",
+                "Better validation of dynamic route args, computed vars, and dependency tracking.",
+                "Drop support for Python 3.8",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.0",
+        ),
+        change(
             "2024-08-27",
             "v0.5.10",
             "Bug Fixes",
