@@ -41,34 +41,20 @@ meta: [
 ]
 ---
 
-Why Bayesline chose Reflex instead of Plotly Dash.
-
-## TLDR;
-
-Sebastian and his small team use Reflex to build a production-grade web app while still keeping the full flexibility of a traditional ReactJS app **WITHOUT** needing to:
-
-* Learn frontend: React (JavaScript), NodeJS, TailwindCSS
-
-```md quote
-- name: Misha and Sebastian
-Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
 ```
 
-* Write boilerplate to stitch together their frontend and backend (including database management)
-
-```md quote
-- name: Sebastian
-50% less code than the same Dash app and easier to easier to read / write / maintain code compared to Dash
+```python eval
+rx.vstack(
+    image_zoom(rx.image(src="/case_studies/bayesline_app.png", border_radius="10px", alt="Bayesline App")),
+    rx.text("Bayesline App built with Reflex"),
+    width="100%",
+)
 ```
 
-* Maintain expensive, fragile, and inevitably slow Dash apps
-
-```md quote
-- name: Misha
-Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
-```
-
-## What Baylesline is building
+## What Bayesline is building
 
 Meet Bayesline, the Y-combinator-backed GPU-powered financial analytics suite for institutional investors.
 Bayesline deploys customized equity factor risk (ML) models in the cloud, which previously could take weeks or months for investors to build.
@@ -84,7 +70,8 @@ Quants want to spend their time building models, proving out their ideas, and no
 
 ```md quote
 - name: Sebastian
-"The UI is the necessary evil, that is not our bread and butter.”,
+- role: CTO
+The UI is the necessary evil, that is not our bread and butter.
 ```
 
 They used to build prototypes with Dash and eventually hand them to a fully-fledged engineering team.
@@ -92,6 +79,7 @@ It would take months before their app ideas could be used across an organization
 
 ```md quote
 - name: Sebastian
+- role: CTO
 You wouldn’t want to use Dash to build a production-grade application. It’s a prototyping tool. Usually, a UX and engineering team would re-implement everything from scratch. It will take six months for anyone to get hands on it, but we want this now.
 ```
 
@@ -99,6 +87,7 @@ When embarking on building Bayesline, Sebastian and his co-founder wanted an ope
 
 ```md quote
 - name: Sebastian
+- role: CTO
 So we basically need the tool that gets us to the finish line fastest without having to learn (a new framework) and without a super steep learning curve.
 ```
 
@@ -107,6 +96,7 @@ As their app grew, it eventually became slow and difficult to maintain.
 
 ```md quote
 - name: Sebastian
+- role: CTO
 The app was just getting painfully slow. Dash loads the entire application, the entire dom of every single page... as the application gets bigger, the performance will just go down.
 ```
 
@@ -116,6 +106,7 @@ Bayesline switched from Dash to Reflex because they could build both a productio
 
 ```md quote
 - name: Sebastian
+- role: CTO
 We wanted to build a frontend that would be as indistinguishable as possible from one built by professional frontend developers.
 ```
 
@@ -123,6 +114,7 @@ Complicated Dash apps not only eventually hit performance limits but are also ch
 
 ```md quote
 - name: Sebastian
+- role: CTO
 When we started looking at the (Dash) code, it just got to this point where you’re scared of it because there is no object-oriented notion; the code just turns into an enormous mess because you just have this huge collection of functions.
 ```
 
@@ -136,6 +128,7 @@ They quickly learned that Reflex was already ready to build production grade web
 
 ```md quote
 - name: Sebastian
+- role: CTO
 Turns out I don’t see right now, as it stands at least, reasons to migrate from Reflex to somewhere else.
 ```
 
@@ -149,18 +142,24 @@ Sebastian and his small team use Reflex to build a production-grade web app pure
 
 * Learn frontend technologies: React (JavaScript), NodeJS, TailwindCSS
 
-```md quote Misha and Sebastian
+```md quote
+- name: Misha and Sebastian
+- role: CEO and CTO
 Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
 ```
 
 * Write boilerplate to stitch together their frontend and backend (including database management)
 
-```md quote Sebastian CTO
+```md quote
+- name: Sebastian
+- role: CTO
 50% less code than the same Dash app and easier to read / write / maintain code compared to Dash
 ```
 
 * Maintain expensive, fragile, and inevitably slow Dash apps
 
-```md quote Misha CEO
+```md quote
+- name: Misha
+- role: CEO
 Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
 ```
