@@ -1,11 +1,46 @@
+from __future__ import annotations
+
+import contextlib
+
+import httpx
 import reflex as rx
+from email_validator import EmailNotValidError, validate_email
+
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
+
+REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL = "https://hkdk.events/hiet6t6a0etc4e"
 
 
 class FormState(rx.State):
 
-    def submit(self, form_data):
+    def submit(
+        self,
+        form_data: dict[str, str],
+    ):
+        def submit_form() -> None:
+            email: str | None
+            if email := form_data.get("input_email"):
+                validated_email: str | None = None
+                with contextlib.suppress(EmailNotValidError):
+                    validated_email = validate_email(
+                        email,
+                        check_deliverability=True,
+                    )
+
+                if validated_email is None:
+                    return
+
+                with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
+                        response = client.post(
+                            REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL,
+                            json=form_data,
+                        )
+                        response.raise_for_status()
+
+                return
+
+        submit_form()
         return rx.toast(form_data)
 
 
