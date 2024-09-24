@@ -43,7 +43,7 @@ rx.Var.create("hello") # StringVar
 rx.Var.create([1, 2, 3]) # ArrayVar
 ```
 
-If you want to explicitly create a `Var` from a raw Javascript string, you can call the init function on `rx.Var`:
+If you want to explicitly create a `Var` from a raw Javascript string, you can instantiate `rx.Var` directly:
 
 ```py
 rx.Var("2", _var_type=int).guess_type() # NumberVar
