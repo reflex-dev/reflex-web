@@ -17,6 +17,7 @@ def skeleton_card() -> rx.Component:
 
 def component_grid() -> rx.Component:
     from pcweb.pages.gallery.apps import gallery_apps_data
+
     posts = []
     for path, document in list(gallery_apps_data.items()):
         posts.append(gallery_app_card(app=document.metadata))
@@ -64,8 +65,7 @@ def pagination() -> rx.Component:
 
 def gallery_heading() -> rx.Component:
     return rx.box(
-        # pill(text="Apps made in Reflex"),
-        h1_title(title="Reflex Showcase"),
+        h1_title(title="Reflex Templates"),
         rx.el.h2(
             """Check out what the community is building with Reflex. See 2000+ more public projects on """,
             rx.link(
@@ -73,7 +73,7 @@ def gallery_heading() -> rx.Component:
                 href="https://github.com/reflex-dev/reflex/network/dependents",
                 is_external=True,
             ),
-            ".",  
+            ".",
             class_name="font-md text-balance text-slate-9",
         ),
         class_name="section-header",
@@ -184,6 +184,24 @@ def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),
         component_grid(),
+        # Add your app to the gallery
+        # TODO: Create the README.md for the submission
+        rx.box(
+            rx.text(
+                "Want to add your app to the gallery?",
+                class_name="font-large text-balance text-slate-12",
+            ),
+            rx.text.span(
+                "Submit it ",
+                rx.link(
+                    "here",
+                    href="https://github.com/reflex-dev/templates",
+                    is_external=True,
+                ),
+                class_name="font-large text-balance text-slate-12",
+            ),
+            class_name="-mt-8 flex flex-col gap-2 items-center justify-center",
+        ),
         id="gallery",
         class_name="section-content",
         on_mount=SideBarState.fetch_apps_list,
