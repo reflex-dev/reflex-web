@@ -166,7 +166,7 @@ def news_letter(align="left"):
     return rx.vstack(
         rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
         rx.text(
-            "Get the latest updates and news about Reflex.",
+            "Get the latest updates and news about Reflex",
             color="#6C6C81",
             font_size="0.8em",
         ),

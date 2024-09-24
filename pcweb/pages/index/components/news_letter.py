@@ -15,7 +15,7 @@ def news_letter_text() -> rx.Component:
             class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-start text-transparent",
         ),
         rc.text(
-            " Get the latest updates and news about Reflex.",
+            " Get the latest updates and news about Reflex",
             text_align="left",
             color="var(--c-slate-10)",
             font_weight="bold",
