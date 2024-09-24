@@ -14,8 +14,7 @@ import reflex as rx
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
 
 For a pie chart we must define an `rx.recharts.pie()` component for each set of values we wish to plot. Each `rx.recharts.pie()` component has a `data`, a `data_key` and a `name_key` which clearly states which data and which variables in our data we are tracking. In this simple example we plot `value` column as our `data_key` against the `name` column which we set as our `name_key`.
-
-
+We also use the `fill` prop to set the color of the pie slices.
 
 ```python demo graphing
 
@@ -26,23 +25,28 @@ data01 = [
   },
   {
     "name": "Group B",
-    "value": 300
+    "value": 300,
+    "fill":"#D41009FF"
   },
   {
     "name": "Group C",
-    "value": 300
+    "value": 300,
+    "fill":"rgb(80,40, 190)"
   },
   {
     "name": "Group D",
-    "value": 200
+    "value": 200,
+    "fill":"yellow"
   },
   {
     "name": "Group E",
-    "value": 278
+    "value": 278,
+    "fill":"purple"
   },
   {
     "name": "Group F",
-    "value": 189
+    "value": 189,
+    "fill":"orange"
   }
 ]
 
