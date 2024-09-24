@@ -167,6 +167,8 @@ def form() -> rx.Component:
     )
 
 
+# TODO(elvis): refactor the boolean logic to use enums
+# https://linear.app/reflex-dev/issue/ENG-3837/refactor-the-included-variable-param-on-our-pricing-page-to-use-enums
 def features(text: str, included: bool) -> rx.Component:
     if included:
         return rx.hstack(
