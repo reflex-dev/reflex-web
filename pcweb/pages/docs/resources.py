@@ -148,8 +148,7 @@ def resources():
                     text="Here are some resources to help you get started with Reflex."
                 ),
                 text_comp(
-                    text="All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at alek@pynecone.io "
-                    "and we will be happy to add it.",
+                    text="All of the following content is unpaid endorsements from the Reflex community. If you have a video you would like to add to this list, please contact us at contact@reflex.dev",
                 ),
                 rc.divider(),
                 rx.vstack(
