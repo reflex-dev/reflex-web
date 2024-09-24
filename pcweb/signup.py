@@ -1,13 +1,16 @@
+import contextlib
+import json
+import os
+from datetime import datetime
+
+import httpx
 import reflex as rx
+from email_validator import EmailNotValidError, ValidatedEmail, validate_email
+from sqlmodel import Field
 
 from pcweb.constants import API_BASE_URL_LOOPS
-from datetime import datetime
-from sqlmodel import Field
-import os
-import json
-import httpx
-from email_validator import EmailNotValidError, validate_email, ValidatedEmail
-from sqlmodel import Field
+
+REFLEX_DEV_WEB_NEWSLETTER_FORM_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
 
 
 class Waitlist(rx.Model, table=True):
@@ -23,6 +26,20 @@ class IndexState(rx.State):
 
     # Whether to show the confetti.
     show_confetti: bool = False
+
+    def send_contact_to_webhook(
+        self,
+        email: str,
+    ) -> None:
+        with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
+            response = client.post(
+                REFLEX_DEV_WEB_NEWSLETTER_FORM_URL,
+                json={
+                        "email": email,
+                    },
+            )
+            response.raise_for_status()
+
 
     def add_contact_to_loops(
         self,
@@ -79,6 +96,7 @@ class IndexState(rx.State):
                     },
                 )
 
+        self.send_contact_to_webhook(email)
         self.add_contact_to_loops(email)
         # Check if the user is already on the newsletter
         with rx.session() as session:
