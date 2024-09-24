@@ -18,7 +18,7 @@ class FormState(rx.State):
         self,
         form_data: dict[str, str],
     ):
-        def submit_form() -> None:
+        def submit_form(form_data: dict[str, str]) -> None:
             email: str | None
             if email := form_data.get("input_email"):
                 validated_email: str | None = None
@@ -39,8 +39,7 @@ class FormState(rx.State):
                         response.raise_for_status()
 
                 return
-
-        submit_form()
+        submit_form(form_data)
         return rx.toast(form_data)
 
 
@@ -87,7 +86,7 @@ def form() -> rx.Component:
                 ),
                 rx.el.input(
                     # placeholder="Enter your password",
-                    name="Email",
+                    name="input_email",
                     type="email",
                     required=True,
                     class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
