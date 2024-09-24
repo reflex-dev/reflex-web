@@ -12,31 +12,29 @@ and optional catch-all routes, each with detailed examples.
 
 ## Regular Dynamic Routes
 
-Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically.
+Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically. A regular dynamic route is defined by sqaure brackets in a route string / url pattern. For example `/users/[id]` or `/products/[category]`. These dynamic route arguments can be accesed by as a state var. For the examples above they would be `rx.State.id` and `rx.State.category` respectively. 
+
+```md alert info
+# Why is the state var accessed as `rx.State.id`?
+The dynamic route arguments are accessible as `rx.State.id` and `rx.State.category` here as the var is added to the root state, so that it is accessible from any state.
+```
 
 Example:
 
 ```python
-
-class State(rx.State):
-    @rx.var
-    def post_id(self) -> str:
-        # Retrieves the value of the 'pid' parameter from the current route
-        # If 'pid' is not found, it defaults to 'no pid'
-        return self.router.page.params.get('pid', 'no pid')
-        
+   
 @rx.page(route='/post/[pid]')
 def post():
     '''A page that updates based on the route.'''
     # Displays the dynamic part of the URL, the post ID
-    return rx.heading(State.post_id)
+    return rx.heading(rx.State.pid)
 
 app = rx.App()
 ```
 
 The [pid] part in the route is a dynamic segment, meaning it can match any value provided in the URL. For instance, `/post/5`, `/post/10`, or `/post/abc` would all match this route.
 
-If a user navigates to `/post/5`, `State.post_id` will return `5`, and the page will display `5` as the heading. If the URL is `/post/xyz`, it will display `xyz`. If the URL is `/post/` without any additional parameter, it will display `'no pid'`.
+If a user navigates to `/post/5`, `State.post_id` will return `5`, and the page will display `5` as the heading. If the URL is `/post/xyz`, it will display `xyz`. If the URL is `/post/` without any additional parameter, it will display `""`.
 
 
 ### Using `app.add_page` Method
