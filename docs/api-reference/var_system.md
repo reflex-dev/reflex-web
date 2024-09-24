@@ -43,7 +43,7 @@ rx.Var.create("hello") # StringVar
 rx.Var.create([1, 2, 3]) # ArrayVar
 ```
 
-If you want to explicitly create a `Var` from a raw Javascript string, you can call the init function on `rx.Var`:
+If you want to explicitly create a `Var` from a raw Javascript string, you can instantiate `rx.Var` directly:
 
 ```py
 rx.Var("2", _var_type=int).guess_type() # NumberVar
@@ -55,7 +55,7 @@ For this example, calling the function `.to(int)` can also be used in place of `
 ## Operations
 
 The `Var` system also supports some other basic operations.
-For example, `NumberVar` supports basic arithmetic operations like `+` and `-` like in Python.
+For example, `NumberVar` supports basic arithmetic operations like `+` and `-`, as in Python.
 It also supports comparisons that return a `BooleanVar`.
 
 Custom `Var` operations can also be defined:
