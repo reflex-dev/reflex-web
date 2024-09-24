@@ -160,7 +160,7 @@ def index():
     return rx.vstack(
     rx.recharts.area_chart(
         rx.recharts.area(
-            data_key="pv", 
+            data_key="pv",
             stroke="#82ca9d",
             fill="#82ca9d",
             type_="natural",
