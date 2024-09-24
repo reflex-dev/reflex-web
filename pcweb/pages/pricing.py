@@ -58,12 +58,12 @@ def form() -> rx.Component:
         rx.form(
             rx.box(
                 rx.text(
-                    "Get an Enterprise Quote",
+                    "Get an enterprise quote",
                     class_name="text-2xl text-slate-12 font-bold leading-6 scroll-m-[7rem]",
                     id="form-title",
                 ),
                 rx.text(
-                    "Get a custom demo and discover the value of Reflex for your enterprise. Explore our custom plans and pricing.",
+                    "Explore custom plans and pricing",
                     class_name="font-base text-slate-9",
                 ),
                 class_name="flex flex-col gap-2 mb-4 items-start",
@@ -73,14 +73,14 @@ def form() -> rx.Component:
                     rx.el.input(
                         name="first_name",
                         type="text",
-                        placeholder="First Name *",
+                        placeholder="First name *",
                         required=True,
                         class_name=input_class_name,
                     ),
                     rx.el.input(
                         name="last_name",
                         type="text",
-                        placeholder="Last Name *",
+                        placeholder="Last name *",
                         required=True,
                         class_name=input_class_name,
                     ),
@@ -90,16 +90,16 @@ def form() -> rx.Component:
                 ),
                 rx.hstack(
                     rx.el.input(
-                        name="business_email",
+                        name="email",
                         type="email",
-                        placeholder="Business Email *",
+                        placeholder="Business email *",
                         required=True,
                         class_name=input_class_name,
                     ),
                     rx.el.input(
                         name="linkedin_profile",
                         type="text",
-                        placeholder="LinkedIn Profile",
+                        placeholder="LinkedIn profile",
                         required=False,
                         class_name=input_class_name,
                     ),
@@ -111,7 +111,7 @@ def form() -> rx.Component:
                     rx.el.input(
                         name="company_name",
                         type="text",
-                        placeholder="Company Name *",
+                        placeholder="Company name *",
                         required=True,
                         class_name=input_class_name,
                     ),
@@ -152,7 +152,7 @@ def form() -> rx.Component:
         ),
         rx.box(
             rx.text(
-                "If you have any questions, please contact us.",
+                "If you have any questions, feel free to contact us",
                 class_name="font-small text-slate-9",
             ),
             rx.link(
@@ -167,6 +167,8 @@ def form() -> rx.Component:
     )
 
 
+# TODO(elvis): refactor the boolean logic to use enums
+# https://linear.app/reflex-dev/issue/ENG-3837/refactor-the-included-variable-param-on-our-pricing-page-to-use-enums
 def features(text: str, included: bool) -> rx.Component:
     if included:
         return rx.hstack(
@@ -203,25 +205,25 @@ def hobby_tier() -> rx.Component:
                 class_name="mb-2",
             ),
             rx.text(
-                "Everything you need to kickstart your project.",
+                "Everything you need to kickstart your project",
                 class_name="text-slate-10 mb-4",
             ),
             rx.vstack(
-                features("Community Support", True),
+                features("Community support", True),
                 features("Single developer workspace", True),
-                features("1 Deployed App", True),
+                features("A single deployed app", True),
                 features("1024 MB Machine Size", True),
-                features("1 CPU", True),
-                features("1-day Log Retention", True),
-                features("Multi Region", False),
-                features("Custom Domain", False),
+                features("A single CPU", True),
+                features("1 day log retention", True),
+                features("Multi-region", False),
+                features("Custom domain", False),
                 align_items="start",
                 spacing="3",
                 class_name="mb-6",
             ),
             rx.link(
                 button(
-                    "Get Started",
+                    "Start building",
                     variant="secondary",
                     class_name="!w-full !text-slate-12",
                 ),
@@ -253,36 +255,36 @@ def pro_tier() -> rx.Component:
                 class_name="mb-2",
             ),
             rx.text(
-                "Professional developers and small teams shipping to production.",
+                "Professional devs and small teams shipping quickly",
                 class_name="text-slate-10 mb-4",
             ),
             rx.vstack(
-                features("Priority Support", True),
-                features("5 Team Members", True),
-                features("5 Deployed Apps", True),
-                features("2048 MB Machine Size", True),
+                features("Priority support", True),
+                features("5 Team members", True),
+                features("5 Deployed apps", True),
+                features("2048 MB machine size", True),
                 features("2 CPU", True),
-                features("30-day Log Retention", True),
-                features("Multi Region", True),
-                features("Custom Domain", True),
+                features("30 days log retention", True),
+                features("Multi-region", True),
+                features("Custom domain", True),
                 align_items="start",
                 spacing="3",
                 class_name="mb-6",
             ),
             dialog(
                 trigger=button(
-                    "Join Waitlist",
+                    "Join waitlist",
                     variant="secondary",
                     class_name="!w-full !text-slate-12",
                 ),
                 content=rx.form(
                     rx.box(
                         rx.text(
-                            "Join Waitlist",
+                            "Join waitlist",
                             class_name="text-slate-12 font-large",
                         ),
                         rx.text(
-                            "Be the first to know when Pro hosting is ready",
+                            "Be the first to know when the Pro hosting plan is ready",
                             class_name="font-medium text-slate-11",
                         ),
                         class_name="flex flex-col gap-2 w-full font-instrument-sans",
@@ -336,18 +338,18 @@ def enterprise_tier() -> rx.Component:
                 class_name="mb-2",
             ),
             rx.text(
-                "A plan based on your specific needs.",
+                "A plan based on your specific needs",
                 class_name="text-m text-slate-10 mb-4",
             ),
             rx.vstack(
-                features("Dedicated Support Channel", True),
-                features("Support SLAs available", True),
-                features("Unlimited Team Members", True),
-                features("Unlimited Apps", True),
-                features("Customized Machine Size", True),
-                features("90-day Log Retention", True),
-                features("Multi Region", True),
-                features("Custom Domain", True),
+                features("Dedicated support", True),
+                features("Support SLAs", True),
+                features("Unlimited team members", True),
+                features("Unlimited apps", True),
+                features("Customized machine size", True),
+                features("90 day log Retention", True),
+                features("Multi-region", True),
+                features("Custom domain", True),
                 align_items="start",
                 spacing="3",
                 class_name="mb-6",
@@ -406,7 +408,7 @@ def pricing():
                     rx.box(
                         rx.box(
                             rx.text(
-                                """Thanks for your interest in Reflex! 
+                                """Thanks for your interest in Reflex!
 You'll get a reply from us soon.""",
                                 class_name="font-large text-slate-12 whitespace-pre text-center",
                             ),
