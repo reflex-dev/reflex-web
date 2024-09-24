@@ -4,7 +4,7 @@ from pcweb.templates.webpage import webpage
 from .state import SideBarState
 from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
-from pcweb.components.code_card import code_card, community_code_card
+from pcweb.components.code_card import gallery_app_card
 
 
 @rx.memo
@@ -16,37 +16,31 @@ def skeleton_card() -> rx.Component:
 
 
 def component_grid() -> rx.Component:
+    from pcweb.pages.gallery.apps import gallery_apps_data
+    posts = []
+    for path, document in list(gallery_apps_data.items()):
+        posts.append(gallery_app_card(app=document.metadata))
     return rx.box(
-        rx.cond(
-            SideBarState.loading,
-            rx.foreach(
-                rx.Var.range(12),
-                lambda i: skeleton_card(),
-            ),
-            rx.foreach(
-                SideBarState.example_apps_to_return,
-                lambda app: community_code_card(app=app),
-            ),
-        ),
+        *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-[7.5rem]",
     )
 
 
-def community_component_grid() -> rx.Component:
-    return rx.box(
-        rx.cond(
-            SideBarState.loading,
-            rx.foreach(
-                rx.Var.range(12),
-                lambda i: skeleton_card(),
-            ),
-            rx.foreach(
-                SideBarState.community_apps_to_return,
-                lambda app: community_code_card(app=app),
-            ),
-        ),
-        class_name="gap-6 grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
-    )
+# def community_component_grid() -> rx.Component:
+#     return rx.box(
+#         rx.cond(
+#             SideBarState.loading,
+#             rx.foreach(
+#                 rx.Var.range(12),
+#                 lambda i: skeleton_card(),
+#             ),
+#             rx.foreach(
+#                 SideBarState.community_apps_to_return,
+#                 lambda app: community_code_card(app=app),
+#             ),
+#         ),
+#         class_name="gap-6 grid grid-cols-1 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
+#     )
 
 
 def pagination() -> rx.Component:

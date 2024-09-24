@@ -1,20 +1,20 @@
 ---
-title: Image Gen
-description: "Image Gen is a Reflex app that allows you to generate AI images."
+title: API Admin Panel
+description: "Interactive dashboard for API requests and response visualization"
 author: "Reflex"
-image: "image-gen.webp"
-demo: "https://ai-image-gen.reflex.run/"
-source: "https://github.com/reflex-dev/templates/tree/main/ai_image_gen"
+image: "api-admin-panel.webp"
+demo: "https://api-admin-panel.reflex.run/"
+source: "https://github.com/reflex-dev/gallery-apps/tree/main/api-admin-panel"
 meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
-
-# Image Gen
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+# API Admin Panel
 
 Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
 
-## Image generation
+Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+
+## API Admin Panel
 
 Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.

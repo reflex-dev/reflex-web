@@ -72,40 +72,56 @@ def code_card(app: dict) -> rx.Component:
     )
 
 
-def community_code_card(app: dict) -> rx.Component:
+def gallery_app_card(app: dict) -> rx.Component:
     return rx.flex(
         rx.box(
             rx.link(
                 rx.image(
-                    src=app["image_url"],
+                    src=app["image"],
                     loading="lazy",
-                    alt="Image preview for app: " + app["name"],
-                    class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
+                    alt="Image preview for app: " + app["title"],
+                    class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out aspect-[1500/938]",
                 ),
-                href=app["demo_url"],
-                is_external=True,
+                href=f"/gallery/{app['title'].replace(' ', '-').lower()}",
             ),
-            class_name="relative border-slate-5 border-b border-solid w-full h-full overflow-hidden",
+            class_name="relative border-slate-5 border-b border-solid w-full overflow-hidden h-[60%]",
         ),
         rx.box(
             rx.box(
                 rx.el.h4(
-                    app["name"],
+                    app["title"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
-                rx.box(
-                    rx.cond(app["source"], repo(app["source"])),
-                    rx.link(
-                        get_icon(icon="eye", class_name="p-[5px]"),
-                        href=app["demo_url"],
-                        is_external=True,
-                        class_name="border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small border border-solid rounded-md text-slate-9 hover:!text-slate-9 no-underline transition-bg cursor-pointer",
-                    ),
-                    class_name="flex flex-row items-center gap-[6px] w-auto",
+                rx.text(
+                    app["description"],
+                    class_name="text-slate-10 font-small truncate text-pretty",
                 ),
-                class_name="flex flex-row justify-between items-center gap-3 p-[0.625rem_0.75rem_0.625rem_0.75rem] w-full",
+                rx.box(
+                    rx.cond(
+                        "Reflex" in app["author"],
+                        rx.box(
+                            rx.text(
+                            "by",
+                            class_name="text-slate-9 font-small",
+                            ),
+                            get_icon(icon="badge_logo",),
+                            rx.text(
+                                app["author"],
+                                class_name="text-slate-9 font-small",
+                            ),
+                            class_name="flex flex-row items-center gap-1",
+                        ),
+                        rx.text(
+                            f"by {app["author"]}",
+                            class_name="text-slate-9 font-small",
+                        ),
+                    ),
+                    repo(app["demo"]),
+                    class_name="flex flex-row items-center gap-[6px] justify-between w-full",
+                ),
+                class_name="flex flex-col justify-between items-start gap-1 p-[0.625rem_0.75rem_0.625rem_0.75rem] w-full h-full",
             ),
-            class_name="flex flex-col gap-[10px] w-full",
+            class_name="flex flex-col gap-[10px] w-full h-full flex-1",
         ),
         style={
             "animation": "fade-in 0.35s ease-out",
@@ -114,5 +130,5 @@ def community_code_card(app: dict) -> rx.Component:
                 "100%": {"opacity": "1"},
             },
         },
-        class_name="box-border flex flex-col border-slate-5 bg-slate-1 shadow-large border rounded-xl w-full h-[280px] overflow-hidden",
+        class_name="box-border flex flex-col border-slate-5 bg-slate-1 shadow-large border rounded-xl w-full h-[320px] overflow-hidden",
     )
