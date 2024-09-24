@@ -18,7 +18,8 @@ class FormState(rx.State):
         self,
         form_data: dict[str, str],
     ):
-        def submit_form(form_data: dict[str, str]) -> None:
+        def submit_form() -> None:
+            nonlocal form_data
             email: str | None
             if email := form_data.get("input_email"):
                 validated_email: str | None = None
@@ -32,14 +33,15 @@ class FormState(rx.State):
                     return
 
                 with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
-                        response = client.post(
-                            REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL,
-                            json=form_data,
-                        )
-                        response.raise_for_status()
+                    response = client.post(
+                        REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL,
+                        json=form_data,
+                    )
+                    response.raise_for_status()
 
                 return
-        submit_form(form_data)
+
+        submit_form()
         return rx.toast(form_data)
 
 
