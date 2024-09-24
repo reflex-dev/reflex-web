@@ -316,15 +316,6 @@ def new_component_section() -> rx.Component:
                     "none",
                 ),
             ),
-            # Customers link isn't shown on docs pages
-            new_nav_menu.item(
-                link_item("Customers", "/customers", "customers"),
-                display=rx.cond(
-                    rx.State.router.page.path.contains("docs"),
-                    "none",
-                    "block",
-                ),
-            ),
             new_nav_menu.item(
                 link_item("Pricing", pricing.path, "pricing"),
             ),
