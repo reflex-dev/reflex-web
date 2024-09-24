@@ -154,7 +154,7 @@ rx.vstack(
     )
 )
 ```
-  
+
 ```python
 def index():
     return rx.vstack(
