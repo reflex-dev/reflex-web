@@ -132,7 +132,7 @@ They quickly learned that Reflex was already ready to build production grade web
 Turns out I don’t see right now, as it stands at least, reasons to migrate from Reflex to somewhere else.
 ```
 
-Bayesline has since scaled from an MVP to a full fledged production app that investors leverage daily.
+Bayesline has since scaled from a prototype to a full fledged production app with paid trials.
 The team continues to build and deploy data-intensive apps using Reflex.
 
 
