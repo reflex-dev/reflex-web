@@ -112,7 +112,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                             class_name="flex flex-row items-center gap-1",
                         ),
                         rx.text(
-                            f"by {app["author"]}",
+                            f"by {app['author']}",
                             class_name="text-slate-9 font-small",
                         ),
                     ),
