@@ -73,7 +73,7 @@ def more_posts(current_post: dict) -> rx.Component:
     return rx.el.section(
         rx.box(
             rx.el.h2(
-                "More Apps",
+                "More Templates",
                 class_name="font-large text-slate-12",
             ),
             rx.link(
@@ -113,7 +113,7 @@ def page(document) -> rx.Component:
                     rx.link(
                         rx.box(
                             get_icon("arrow_right", class_name="rotate-180"),
-                            "Back to Gallery",
+                            "Back to Templates",
                             class_name="box-border flex justify-center items-center gap-2 bg-slate-1 py-0.5 font-small text-slate-9 transition-color cursor-pointer hover:text-slate-11 mb-6",
                         ),
                         underline="none",
