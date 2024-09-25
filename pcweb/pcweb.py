@@ -89,25 +89,3 @@ for source, target in redirects:
     app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.component)
-
-import signal
-import sys
-import threading
-import traceback
-
-def dump_stacks(signal_number, frame):
-    print(f"Signal {signal_number} received! Dumping all thread stacks...\n")
-    for thread_id, thread in threading._active.items():
-        print(f"\nThread ID: {thread_id} Name: {thread.name}")
-        stack = sys._current_frames()[thread_id]
-        traceback.print_stack(stack)
-
-def setup_signal_handler():
-    print("Setting up USR1 signal")
-    signal.signal(signal.SIGUSR1, dump_stacks)
-
-
-try:
-    setup_signal_handler()
-except AttributeError:
-    print("Signal handling not supported on this platform")
