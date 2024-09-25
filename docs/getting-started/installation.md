@@ -22,6 +22,11 @@ We **highly recommend** creating a virtual environment for your project.
 
 [venv]({constants.VENV_URL}) is the standard option. [conda]({constants.CONDA_URL}) and [poetry]({constants.POETRY_URL}) are some alternatives.
 
+# Install Reflex on your system
+
+---md tabs
+
+--tab macOS/Linux
 ## Install on macOS/Linux
 
 We will go with [venv]({constants.VENV_URL}) here.
@@ -49,6 +54,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
+
 ```md alert info
 # Getting `No module named venv`?
 
@@ -58,7 +64,7 @@ If so, please install it manually. E.g. on Ubuntu Linux, run `sudo apt-get insta
 
 ### Install Reflex package
 
-Reflex is available as a [pip](constants.PIP_URL) package.
+Reflex is available as a [pip]({constants.PIP_URL}) package.
 
 ```bash
 pip install reflex
@@ -71,7 +77,20 @@ While Python typically ships with `pip` as the standard package management tool,
 You may need to install it manually. E.g. on Ubuntu Linux, run `apt-get install python3-pip`
 ```
 
+## Initialize the project
 
+```bash
+reflex init
+```
+
+```md alert warning
+# Error `command not found: reflex` Mac / Linux
+If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
+A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
+```
+
+--
+--tab Windows
 ## Install on Windows
 
 ### Prerequisites
@@ -83,7 +102,9 @@ For the rest of this section we will work with native Windows (non-WSL).
 
 We will go with [venv]({constants.VENV_URL}) here, for virtual environments.
 
-### Create a new project directory
+### Create the project directory 
+
+Replace `{app_name}` with your project name. Switch to the new directory.
 
 ```bash
 mkdir {app_name}
@@ -99,22 +120,16 @@ py -3 -m venv .venv
 
 ### Install Reflex package
 
+Reflex is available as a [pip](constants.PIP_URL) package.
+
 ```bash
 pip install reflex
 ```
-
-
 
 ## Initialize the project
 
 ```bash
 reflex init
-```
-
-```md alert warning
-# Error `command not found: reflex` Mac / Linux
-If you install Reflex with no virtual environment and get this error it means your `PATH` cannot find the reflex package. 
-A virtual environment should solve this problem, or you can try running `python3 -m` before the reflex command.
 ```
 
 ```md alert warning
@@ -127,6 +142,10 @@ The Reflex framework includes the `reflex` command line (CLI) tool. Using a virt
 # Error `Install Failed - You are missing a DLL required to run bun.exe` Windows
 Bun requires runtime components of Visual C++ libraries to run on windows. This issue is fixed by installing [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=53840).
 ```
+--
+
+---
+
 
 The command will return four template options to choose from as shown below.
 
@@ -135,31 +154,17 @@ Initializing the web directory.
 
 Get started with a template:
 (0) blank (https://blank-template.reflex.run) - A minimal template
-(1) dashboard (https://dashboard.reflex.run) - A dashboard with tables and graphs
-(2) chat (https://chat.reflex.run) - A ChatGPT clone
-(3) sidebar (https://sidebar-template.reflex.run) - A template with a sidebar to navigate pages
+(1) dashboard (https://dashboard-new.reflex.run/) - A dashboard with tables and graphs
+(2) sales (https://sales-new.reflex.run/) - An app to manage sales and customers
+(3) ai_image_gen (https://ai-image-gen.reflex.run/) - An app to generate images using AI
+(4) ci_template (https://cijob.reflex.run/) - A template for continuous integration
+(5) api_admin_panel (https://api-admin-panel.reflex.run/) - An admin panel for an api.
+(6) nba (https://nba-new.reflex.run/) - A data visualization app for NBA data.
+(7) customer_data_app (https://customer-data-app.reflex.run/) - An app to manage customer data.
 Which template would you like to use? (0): 
 ```
 
 From here select a template. 
-
-
-### Initializing from a Git repo 
-
-It is also possible to initialize your project based on a git repo. This is possible with any app in our [gallery]({gallery.path}).
-
-Run the command:
-
-```bash
-reflex init --template \{app_url}
-```
-
-Where a real example would look like this:
-
-```bash
-reflex init --template https://github.com/pynecone-io/pynecone-examples/tree/main/dalle
-```
-
 
 
 ## Run the App
@@ -179,11 +184,3 @@ reflex run --loglevel debug
 ```
 
 Reflex will *hot reload* any code changes in real time when running in development mode. Your code edits will show up on [http://localhost:3000](http://localhost:3000) automatically.
-
-## (Optional) Run the demo app
-
-The demo app showcases some of Reflex's features.
-
-```bash
-reflex demo
-```

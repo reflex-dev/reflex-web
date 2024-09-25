@@ -119,7 +119,7 @@ button_style = {
 }
 
 
-def news_letter_form():
+def newsletter_form():
     return rx.el.form(
         rc.input_group(
             rc.input_right_element(
@@ -162,18 +162,18 @@ def message_group():
     )
 
 
-def news_letter(align="left"):
+def newsletter(align="left"):
     return rx.vstack(
         rx.text("Join Newsletter", color="#E8E8F4", style=footer_item_style),
         rx.text(
-            "Get the latest updates and news about Reflex.",
+            "Get the latest updates and news about Reflex",
             color="#6C6C81",
             font_size="0.8em",
         ),
         rx.cond(
             IndexState.signed_up,
             message_group(),
-            news_letter_form(),
+            newsletter_form(),
         ),
         align_items=align,
         width="100%",
@@ -250,7 +250,7 @@ def links():
             )
         ),
         rx.tablet_and_desktop(
-            news_letter(),
+            newsletter(),
         ),
         justify="between",
         align_items="top",
@@ -266,7 +266,7 @@ def footer(style=footer_style):
             installation(),
             links(),
             rx.mobile_only(
-                news_letter(),
+                newsletter(),
                 width="100%",
             ),
             rx.hstack(

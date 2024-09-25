@@ -147,7 +147,7 @@ from pcweb.pages.docs import vars, events, database, library, components
 
 A semantic table for presenting tabular data.
 
-If you just want to [represent static data]({library.datadisplay.datatable.path}) then the [`rx.data_table`]({library.datadisplay.datatable.path}) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
+If you just want to [represent static data]({library.table.datatable.path}) then the [`rx.data_table`]({library.table.datatable.path}) might be a better fit for your use case as it comes with in-built pagination, search and sorting.
 
 ## Basic Example
 

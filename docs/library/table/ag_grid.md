@@ -354,6 +354,7 @@ def ag_grid_simple_themes():
             width="100%",
             height="40vh",
         ),
+        width="100%",
     )
 ```
 
@@ -410,6 +411,7 @@ def ag_grid_simple_with_state():
             width="100%",
             height="40vh",
         ),
+        width="100%",
     )
 ```
 

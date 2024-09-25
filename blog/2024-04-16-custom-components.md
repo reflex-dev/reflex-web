@@ -49,7 +49,7 @@ import reflex as rx
 from reflex_image_zoom import image_zoom
 
 def zoom():
-    src = "/blog/custom_components.webp"
+    src = "/blog/custom_components.jpeg"
     return rx.hstack(
         rx.vstack(
             rx.text("Original Image"),

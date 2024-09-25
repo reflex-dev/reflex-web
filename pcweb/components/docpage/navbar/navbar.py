@@ -145,7 +145,7 @@ def blog_section() -> rx.Component:
                 ),
                 rx.box(
                     background_image=f'linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({list(blog_data.values())[0].metadata["image"]})',
-                    class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-transform duration-150 ease-out",
+                    class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-all duration-150 ease-out brightness-80 group-hover:brightness-100",
                 ),
                 href="/" + list(blog_data.keys())[0],
                 underline="none",
@@ -296,13 +296,25 @@ def new_component_section() -> rx.Component:
                 new_menu_trigger("Blog", blogs.path, "blog"),
                 blog_section(),
             ),
+            # Resources link is shown on docs pages
             new_nav_menu.item(
                 new_menu_trigger("Resources"),
                 resources_section(),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "block",
+                    "none",
+                ),
             ),
+            # Components link is shown on non docs pages
             new_nav_menu.item(
                 new_menu_trigger("Components", library.path, "library"),
                 components_section(),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "block",
+                    "none",
+                ),
             ),
             new_nav_menu.item(
                 link_item("Pricing", pricing.path, "pricing"),

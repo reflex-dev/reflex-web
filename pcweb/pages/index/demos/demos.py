@@ -22,11 +22,10 @@ class DemoState(rx.State):
 def tab(name: str, icon: str) -> rx.Component:
     is_selected = DemoState.demo == name
     return rx.box(
-        # rx.icon(tag=icon, size=16),
         get_icon(icon, class_name="!text-slate-9 shrink-0"),
         name,
-        class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-2 h-full font-small text-slate-9 transition-bg cursor-pointer"
-        + rx.cond(is_selected, " bg-slate-1 shadow-large", ""),
+        class_name="box-border flex flex-row justify-center items-center gap-2 hover:bg-slate-3 px-3 py-2 h-full font-small text-slate-9 transition-bg cursor-pointer text-nowrap"
+        + rx.cond(is_selected, " bg-slate-1 lg:shadow-large", ""),
         on_click=DemoState.set_demo(name),
     )
 
@@ -35,7 +34,7 @@ def code_block(code: str) -> rx.Component:
         code,
         language="python",
         # wrap_long_lines=True,
-        class_name="demo-code-block !px-10 !py-8 !rounded-none !text-slate-12",
+        class_name="demo-code-block !px-10 !py-10 !rounded-none !text-slate-12",
     )
 
 
@@ -55,7 +54,7 @@ def demo_section() -> rx.Component:
             tab("Image Gen", "image_ai_small"),
             tab("Charts", "chart"),
             tab("Custom", "code_custom"),
-            class_name="flex flex-row items-center overflow-hidden border-slate-4 border-b flex-wrap justify-center divide-x divide-slate-4 [&>:first-child]:border-l-slate-4 [&>:last-child]:!border-r-slate-4 [&>:first-child]:!border-l [&>:last-child]:!border-r",
+            class_name="flex flex-row lg:items-center overflow-hidden border-slate-4 border-b lg:justify-center divide-x divide-slate-4 [&>:first-child]:border-l-slate-4 [&>:last-child]:!border-r-slate-4 lg:[&>:first-child]:!border-l lg:[&>:last-child]:!border-r flex-nowrap overflow-x-auto justify-start",
         ),
         # Previews
         rx.box(
@@ -81,15 +80,23 @@ def demo_section() -> rx.Component:
                     ("Custom", code_block(react_code)),
                     image_gen(),
                 ),
+                # Bottom fade out
                 rx.box(
-                    class_name="absolute bottom-0 left-0 right-0 h-24 pointer-events-none",
+                    class_name="absolute bottom-0 left-0 right-0 h-[5.25rem] pointer-events-none",
                     style={
                         "background": "linear-gradient(180deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
                     },
                 ),
+                # Right fade out
+                rx.box(
+                    class_name="absolute right-0 top-0 bottom-0 w-[5.25rem] pointer-events-none",
+                    style={
+                        "background": "linear-gradient(90deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
+                    },
+                ),
                 class_name="desktop-only w-1/2 overflow-auto relative",
             ),
-            class_name="flex flex-row w-full max-h-full h-[34rem] overflow-hidden",
+            class_name="flex flex-row w-full max-h-full h-[31rem] lg:h-[34rem] overflow-hidden",
         ),
-        class_name="flex flex-col border-slate-3 bg-slate-2 border rounded-[1.125rem] w-full max-w-[69.25rem] h-full overflow-hidden shadow-large",
+        class_name="flex flex-col border-slate-3 bg-slate-2 lg:border lg:rounded-[1.125rem] w-[calc(100%+2rem)] -mx-4 h-full overflow-hidden shadow-large lg:w-full lg:-mx-0 max-w-[69.25rem]",
     )
