@@ -4,10 +4,10 @@ from pcweb.signup import IndexState
 import reflex_chakra as rc
 
 
-def news_letter_text() -> rx.Component:
+def newsletter_text() -> rx.Component:
     return rx.vstack(
         rc.text(
-            "Join Our Newsletter!",
+            "Join our newsletter!",
             text_align="left",
             font_size=["20px", "20px", "28px", "42px", "42px", "42px"],
             font_weight="bold",
@@ -15,7 +15,7 @@ def news_letter_text() -> rx.Component:
             class_name="inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-start text-transparent",
         ),
         rc.text(
-            " Get the latest updates and news about Reflex",
+            "Get the latest updates and news about Reflex",
             text_align="left",
             color="var(--c-slate-10)",
             font_weight="bold",
@@ -31,7 +31,7 @@ def news_letter_text() -> rx.Component:
 def message_group():
     return rx.vstack(
         rc.text(
-            "Welcome to the Reflex Community!",
+            "Welcome to the Reflex community!",
             text_align="left",
             background_image="linear-gradient(95deg, #D6D6ED 42.14%, #727280 63.21%)",
             font_size=["12px", "15px", "22px", "28px", "35px", "35px"],
@@ -49,7 +49,7 @@ def message_group():
     )
 
 
-def news_letter_form() -> rx.Component:
+def newsletter_form() -> rx.Component:
     return rx.el.form(
         rc.input_group(
             rc.input_right_element(
@@ -85,14 +85,14 @@ def news_letter_form() -> rx.Component:
     )
 
 
-def news_letter_section() -> rx.Component:
+def newsletter_section() -> rx.Component:
     return rx.center(
         rx.cond(
             IndexState.signed_up,
             message_group(),
             rx.vstack(
-                news_letter_text(),
-                news_letter_form(),
+                newsletter_text(),
+                newsletter_form(),
                 width="80%",
             ),
         ),
