@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from pcweb.components.icons.lucide import lucide_icons
+from pcweb.components.icons.lucide.lucide import lucide_icons
 ```
 
 # Icon

@@ -1,14 +1,26 @@
 import reflex as rx
 from reflex.components.lucide.icon import LUCIDE_ICON_LIST
 from typing import List, Dict
-import httpx
 from pcweb.components.hint import hint
 from pcweb.components.button import button
+import json
+import os
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.join(current_dir, "data")
+
+def load_json(filename):
+    with open(os.path.join(data_dir, filename), "r") as f:
+        return json.load(f)
+
+icon_nodes = load_json("icon-nodes.json")
+icon_tags = load_json("icon-tags.json")
+icon_categories = load_json("icon-categories.json")
+
+# Convert LUCIDE_ICON_LIST to use hyphens instead of underscores
+LUCIDE_ICON_LIST = [icon_name.replace("_", "-") for icon_name in LUCIDE_ICON_LIST]
 
 def create_lucide_icon(tag: str, attrs: dict, children: list = None) -> str:
-    if children is None:
-        children = []
     default_attributes = {
         "xmlns": "http://www.w3.org/2000/svg",
         "width": "24",
@@ -20,31 +32,16 @@ def create_lucide_icon(tag: str, attrs: dict, children: list = None) -> str:
         "stroke-linecap": "round",
         "stroke-linejoin": "round",
     }
-    # Merge default attributes with provided attributes
     merged_attrs = {**default_attributes, **attrs}
-
-    # Convert attributes object to a string
-    attr_string = " ".join([f'{key}="{value}"' for key, value in merged_attrs.items()])
-
-    # Process children, recursively calling create_lucide_icon for nested elements
+    attr_string = " ".join(f'{key}="{value}"' for key, value in merged_attrs.items())
     children_string = "".join(
-        [
-            (
-                child
-                if isinstance(child, str)
-                else create_lucide_icon(child[0], child[1], child[2])
-            )
-            for child in children
-        ]
+        child if isinstance(child, str) else create_lucide_icon(*child)
+        for child in (children or [])
     )
-
-    # Construct and return the element string
     return f"<{tag} {attr_string}>{children_string}</{tag}>"
-
 
 def lucide_icon(tag: str, **attrs):
     return rx.html(create_lucide_icon("svg", {"tag": tag, **attrs}))
-
 
 class IconState(rx.State):
     search_query: str = ""
@@ -52,86 +49,70 @@ class IconState(rx.State):
     filtered_icons: List[Dict[str, str]] = []
     expanded: bool = False
 
-    async def fetch_icons(self):
-        icon_nodes_url = "https://lucide.dev/api/icon-nodes"
-        icon_tags_url = "https://lucide.dev/api/tags"
-        icon_categories_url = "https://lucide.dev/api/categories"
-
-        try:
-            async with httpx.AsyncClient() as client:
-                icon_nodes_response = await client.get(icon_nodes_url)
-                icon_tags_response = await client.get(icon_tags_url)
-                icon_categories_response = await client.get(icon_categories_url)
-
-            icon_nodes = icon_nodes_response.json()
-            icon_tags = icon_tags_response.json()
-            icon_categories = icon_categories_response.json()
-        except httpx.HTTPError as e:
-            print(f"Error fetching data: {e}")
-            return
-
-        icons = []
-        for icon_name, icon_node in icon_nodes.items():
-            content = create_lucide_icon(
-                "svg",
-                {
-                    "class": f"lucide lucide-{icon_name.replace('_', '-')}",
-                    "xmlns": "http://www.w3.org/2000/svg",
-                    "width": "24",
-                    "height": "24",
-                    "viewBox": "0 0 24 24",
-                    "fill": "none",
-                    "stroke": "currentColor",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round",
-                },
-                [create_lucide_icon(node[0], node[1]) for node in icon_node],
-            )
-            icons.append(
-                {
-                    "name": icon_name,
-                    "content": content,
-                    "path": f"https://lucide.dev/api/icons/{icon_name}",
-                    "component": f"<{icon_name.replace('_', ' ').title().replace(' ', '')} />",
-                    "keywords": icon_tags.get(icon_name, [])
-                    + icon_categories.get(icon_name, []),
-                }
-            )
-        # Filter only the ones that are in LUCIDE_ICON_LIST (icons from the current Reflex version)
+    def fetch_icons(self):
+        default_svg_attrs = {
+            "xmlns": "http://www.w3.org/2000/svg",
+            "width": "24",
+            "height": "24",
+            "viewBox": "0 0 24 24",
+            "fill": "none",
+            "stroke": "currentColor",
+            "stroke-width": "2",
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+        }
+        
         self.icons = [
-            icon
-            for icon in icons
-            if icon["name"] in [name.replace("_", "-") for name in LUCIDE_ICON_LIST]
+            {
+                "name": icon_name,
+                "content": create_lucide_icon(
+                    "svg",
+                    {**default_svg_attrs, "class": f"lucide lucide-{icon_name}"},
+                    [create_lucide_icon(node[0], node[1]) for node in icon_nodes[icon_name]],
+                ),
+                "path": f"https://lucide.dev/api/icons/{icon_name}",
+                "component": f"<{icon_name.replace('-', '').title()} />",
+                "keywords": icon_tags.get(icon_name, []) + icon_categories.get(icon_name, []),
+            }
+            for icon_name in LUCIDE_ICON_LIST
+            if icon_name in icon_categories
         ]
+        
         self.filtered_icons = self.icons
 
     def filter_icons(self):
         if not self.search_query:
             self.filtered_icons = self.icons
         else:
-            query = self.search_query.lower()
+            query = self.search_query.lower().strip()
             self.filtered_icons = [
-                icon
-                for icon in self.icons
+                icon for icon in self.icons
                 if self._is_similar(query, icon["name"].lower())
                 or any(self._is_similar(query, kw.lower()) for kw in icon["keywords"])
             ]
 
-    def _is_similar(self, query: str, target: str) -> bool:
-        if query in target:
+    @staticmethod
+    def _is_similar(query: str, target: str) -> bool:
+        # Exact match
+        if query == target:
             return True
-        # Check for typos (allow one character difference)
-        if len(query) > 3 and (
-            query[:-1] in target
-            or query[1:] in target
-            or query[0] + query[2:] in target
-        ):
+        
+        # Start of word match
+        if target.startswith(query):
             return True
-        # Check for word order (split query into words and check if all words are in target)
-        query_words = query.split()
-        if len(query_words) > 1 and all(word in target for word in query_words):
+        
+        # Word boundary match
+        if f" {query}" in f" {target} ":
             return True
+        
+        # Acronym match
+        if query == ''.join(word[0] for word in target.split() if word):
+            return True
+        
+        # Substring match with minimum length
+        if len(query) >= 3 and query in target:
+            return True
+        
         return False
 
     def update_search(self, value: str):
