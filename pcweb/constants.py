@@ -1,4 +1,5 @@
 # pcweb constants.
+API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
 
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
@@ -10,7 +11,7 @@ GITHUB_DISCUSSIONS_URL = "https://github.com/orgs/reflex-dev/discussions"
 FORUM_URL = "https://forum.reflex.dev"
 TWITTER_URL = "https://twitter.com/getreflex"
 DISCORD_URL = "https://discord.gg/T5WSbC2YtQ"
-CONTACT_URL = "mailto:contact@pynecone.io"
+CONTACT_URL = "mailto:contact@reflex.dev"
 CHAT_APP_URL = "https://github.com/reflex-dev/reflex-chat"
 LINKEDIN_URL = "https://www.linkedin.com/company/reflex-dev"
 YC_URL = "https://www.ycombinator.com/companies/reflex"

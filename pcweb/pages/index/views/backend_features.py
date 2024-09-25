@@ -157,22 +157,22 @@ def backend_grid() -> rx.Component:
         pip_install_card(),
         backend_card(
             title="It's just Python",
-            description="Define and manage state with Python classes and functions.",
+            description="Define and manage state with Python classes and functions",
             icon="python",
         ),
         backend_card(
             title="PyPI",
-            description="Use any Python library with Reflex.",
+            description="Use any Python library with Reflex",
             icon="package",
         ),
         backend_card(
             title="Database management",
-            description="Use our built-in database or connect your own with a single line.",
+            description="Use our built-in database or connect your own with a single line",
             icon="backend_db",
         ),
         backend_card(
             title="Auth",
-            description="Secure your app with any auth provider - no vendor lock-in.",
+            description="Secure your app with any auth provider - no vendor lock-in",
             icon="backend_auth",
         ),
         backend_card(

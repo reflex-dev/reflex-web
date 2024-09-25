@@ -130,7 +130,7 @@ def component_grid() -> rx.Component:
         *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 lg:[&>*:first-child]:hidden",
     )
- 
+
 
 @webpage(path="/blog", title="Reflex Blog")
 def blogs():
@@ -139,7 +139,7 @@ def blogs():
             # pill(text="Blog posts"),
             h1_title(title="Blog"),
             rx.el.h2(
-                "Stay current with the latest news from Reflex.",
+                "Reflex is the open-source framework empowering Python developers to build web apps faster.",
                 class_name="font-md text-balance text-slate-10",
             ),
             class_name="pb-4 section-header",
@@ -157,9 +157,9 @@ for path, document in blog_data.items():
     route = f"/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(
-        path=route, 
-        title=document.metadata["title"]+ " · Reflex Blog", 
-        description=document.metadata["description"], 
+        path=route,
+        title=document.metadata["title"]+ " · Reflex Blog",
+        description=document.metadata["description"],
         image=document.metadata["image"],
         meta=document.metadata["meta"])(
         lambda doc=document: page(doc, route)
