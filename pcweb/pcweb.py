@@ -44,16 +44,18 @@ if sys.platform == "win32":
 
 # Add the pages to the app.
 for route in routes:
-    #print(f"Adding route: {route}")
+    # print(f"Adding route: {route}")
     if _check_whitelisted_path(route.path):
         page_args = {
             "component": route.component,
             "route": route.path,
             "title": route.title,
-            "image": "/previews/index_preview.png" if route.image is None else route.image,
+            "image": (
+                "/previews/index_preview.png" if route.image is None else route.image
+            ),
             "meta": [
                 {"name": "theme-color", "content": route.background_color},
-            ]
+            ],
         }
 
         # Add the description only if it is not None
@@ -62,7 +64,7 @@ for route in routes:
         # Add the extra meta data only if it is not None
         if route.meta is not None:
             page_args["meta"].extend(route.meta)
-        
+
         # Call add_page with the dynamically constructed arguments
         app.add_page(**page_args)
 
@@ -95,12 +97,14 @@ import sys
 import threading
 import traceback
 
+
 def dump_stacks(signal_number, frame):
     print(f"Signal {signal_number} received! Dumping all thread stacks...\n")
     for thread_id, thread in threading._active.items():
         print(f"\nThread ID: {thread_id} Name: {thread.name}")
         stack = sys._current_frames()[thread_id]
         traceback.print_stack(stack)
+
 
 def setup_signal_handler():
     print("Setting up USR1 signal")
