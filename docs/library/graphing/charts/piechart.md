@@ -26,7 +26,7 @@ data01 = [
   {
     "name": "Group B",
     "value": 300,
-    "fill":"#D41009FF"
+    "fill":"#AC0E08FF"
   },
   {
     "name": "Group C",
@@ -36,7 +36,7 @@ data01 = [
   {
     "name": "Group D",
     "value": 200,
-    "fill":"yellow"
+    "fill":rx.color("yellow", 10)
   },
   {
     "name": "Group E",
