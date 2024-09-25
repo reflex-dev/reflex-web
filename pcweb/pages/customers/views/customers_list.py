@@ -145,10 +145,10 @@ def customers_list() -> rx.Component:
         # Title
         rx.box(
             rx.el.h2(
-                "Best of dev teams trusts us.", class_name="font-x-large text-slate-12"
+                "From startups to global enterprises,", class_name="font-x-large text-slate-12"
             ),
             rx.el.h3(
-                "From small companies to large corps",
+                "ambitious builders choose Reflex",
                 class_name="font-x-large text-slate-9",
             ),
             class_name="flex flex-col justify-center items-center w-full text-center text-balance",

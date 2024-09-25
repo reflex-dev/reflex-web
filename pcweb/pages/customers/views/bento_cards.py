@@ -91,7 +91,7 @@ def bento_cards() -> rx.Component:
         # Bayesline
         card(
             company="bayesline",
-            text="Reflex give Bayesline a source-of-truth across all their work.",
+            text="Why Basyesline Chose Reflex over Plotly Dash",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-1 gap-4 mx-auto w-full max-w-[69.25rem]",
     )
