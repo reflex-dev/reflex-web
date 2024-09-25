@@ -354,11 +354,9 @@ def enterprise_tier() -> rx.Component:
                 spacing="3",
                 class_name="mb-6",
             ),
-            rx.link(
-                button("Contact", class_name="!w-full"),
-                href="#form-title",
-                width="100%",
-                underline="none",
+            rx.text(
+                "* With enterprise, you can deploy on-prem or host your app with us.",
+                class_name="text-sm text-slate-10",
             ),
             align_items="start",
             class_name="h-full z-10 p-8",
