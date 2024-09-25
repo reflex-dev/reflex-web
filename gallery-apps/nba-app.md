@@ -9,12 +9,19 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
-# NBA App
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The following is an app that displays NBA player stats from the 2015-2016 season. The table tab allows filtering and live updates. The graph tab shows the relationship between player stats.
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+## Setup
 
-## NBA App
+To run this app locally, install Reflex and run:
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+```bash
+reflex init --template nba_app
+```
+
+To run the app, use:
+
+```bash
+reflex run
+```

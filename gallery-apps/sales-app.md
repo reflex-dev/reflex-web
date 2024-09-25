@@ -9,12 +9,31 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
-# Sales App
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+## Setup
 
-## Sales App
+To run this app locally, install Reflex and run:
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+```bash
+reflex init --template dashboard
+```
+
+To run the app, use:
+
+Set the OpenAI API key:
+```
+export OPEN_AI_KEY=your-openai-api-key
+```
+
+```bash
+pip install -r requirements.txt
+reflex run
+```
+
+## Customizing the Inference
+
+Note: You can get your OpenAI API key [here](https://platform.openai.com/account/api-keys).
+
+You can customize the app by modifying the `sales/sales/backend/backend.py` file replacing OpenAI's API with that of other LLM providers.

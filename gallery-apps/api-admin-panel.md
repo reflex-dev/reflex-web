@@ -6,15 +6,28 @@ image: "api-admin-panel.webp"
 demo: "https://api-admin-panel.reflex.run/"
 source: "https://github.com/reflex-dev/gallery-apps/tree/main/api-admin-panel"
 meta: [
-    {"name": "keywords", "content": ""},
+    {"name": "keywords", "content": "admin panel, api admin panel, reflex admin panel"},
 ]
 ---
-# API Admin Panel
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The following is an admin panel for reading from and writing to your customer data, built on a REST API. This app lets you look through customers and take custom actions based on the data.
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+## Setup
 
-## API Admin Panel
+To run this app locally, install Reflex and run:
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+```bash
+reflex init --template api_admin_panel
+```
+
+To run the app, use:
+
+```bash
+reflex run
+```
+
+## Usage
+
+To use the app insert the desired endpoint click `New Request` then in the input field and click on the `Send` button. You can optionally add a body, headers, and cookies to the request. The response will be displayed in the table.
+
+When clicking on a row the request and response will be displayed in the respective sections. You can further customize this app by adding custom actions to the rows and `Commit` and `Close` buttons.

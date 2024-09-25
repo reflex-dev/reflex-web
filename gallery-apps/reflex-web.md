@@ -9,12 +9,5 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
-# Reflex Website
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
-
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
-
-## Reflex Website
-
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The Reflex website is a fully featured website and documentation site built with Reflex. More information can be found on the [Reflex Website GitHub](https://github.com/reflex-dev/reflex-web).
