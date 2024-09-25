@@ -12,6 +12,8 @@
 [![Discord](https://img.shields.io/discord/1029853095527727165?color=%237289da&label=Discord)](https://discord.gg/T5WSbC2YtQ)
 </div>
 
+![Screenshot 2024-09-25-13 24 35](https://github.com/user-attachments/assets/4e18e223-6757-4345-bdce-f655dc264996)
+
 # Overview
 
 Welcome to the repository for the Reflex website!
