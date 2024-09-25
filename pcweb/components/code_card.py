@@ -104,7 +104,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                             "by",
                             class_name="text-slate-9 font-small",
                             ),
-                            get_icon(icon="badge_logo",),
+                            get_icon(icon="badge_logo"),
                             rx.text(
                                 app["author"],
                                 class_name="text-slate-9 font-small",
