@@ -3,6 +3,9 @@ components:
     - ag_grid
 ---
 
+```python exec
+from pcweb.pages.docs import library
+```
 
 # AG Grid
 
@@ -15,6 +18,11 @@ pip install reflex-ag-grid
 ## Your First Reflex AG Grid
 
 A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid. Each grid also requires a unique `id`.
+
+```md alert info
+# Grid for Layout
+If you are looking for a grid for layout purposes, i.e. to layout Reflex components, consider using the [Grid component]({library.layout.grid.path}).
+```
 
 ```python demo exec
 import reflex as rx

@@ -126,10 +126,10 @@ core_components_dict = {
         "description": "Components that help with overlays, such as modals, popovers, and tooltips. These are useful for creating responsive and interactive user interfaces.",
         "component_category": "Overlay",
     },
-    "tables_and_grids": {
-        "path": "tables-and-grids",
+    "tables_and_data_grids": {
+        "path": "tables-and-data-grids",
         "description": "Powerful table components for organizing and displaying data efficiently. Includes versatile options like standard tables, interactive datatables, and editable data grids. Perfect for creating responsive, user-friendly interfaces that present information clearly and allow for easy data manipulation.",
-        "component_category": "Tables-And-Grids",
+        "component_category": "Tables-And-Data-Grids",
     },
     "typography": {
         "path": "typography",
