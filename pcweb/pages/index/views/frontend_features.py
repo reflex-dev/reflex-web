@@ -71,13 +71,12 @@ def frontend_grid() -> rx.Component:
             top="5rem",
         ),
         frontend_card(
-            title="Reusable components",
-            description="Keep your code clean as your app grows",
-            image="reusable.svg",
+            title="Wrap React components",
+            description="Use Reflex with Spline, Framer Motion, Google Auth, Aggrid, and more",
+            image="react.svg",
             cols="2",
             height="20rem",
             top="4rem",
-            image_cn="min-w-fit",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-4 gap-4 grid-rows-2 max-w-[84.5rem]",
     )
