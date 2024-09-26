@@ -3,7 +3,7 @@
 version: 0.1
 
 cli:
-  version: 1.22.4
+  version: 1.22.5
 
 # Trunk provides extensibility via plugins. (https://docs.trunk.io/plugins)
 plugins:
@@ -28,20 +28,20 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
-    - actionlint@1.7.1
-    - checkov@3.2.242
+    - actionlint@1.7.2
+    - checkov@3.2.255
     - git-diff-check
-    - markdownlint@0.41.0
-    - osv-scanner@1.8.4
+    - markdownlint@0.42.0
+    - osv-scanner@1.8.5
     - oxipng@9.1.2
-    - pyright@1.1.378
-    - ruff@0.6.3
+    - pyright@1.1.382
+    - ruff@0.6.7
     - shellcheck@0.10.0
     - shfmt@3.6.0
     - svgo@3.3.2
     - taplo@0.9.3
-    - trivy@0.54.1
-    - trufflehog@3.81.10
+    - trivy@0.55.2
+    - trufflehog@3.82.5
     - yamllint@1.35.1
 
   disabled:
