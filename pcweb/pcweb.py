@@ -8,7 +8,7 @@ from pcweb import styles
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
-from pcweb.scripts import get_pixel_website_trackers
+from pcweb.telemetry import get_pixel_website_trackers
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -89,25 +89,3 @@ for source, target in redirects:
     app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.component)
-
-import signal
-import sys
-import threading
-import traceback
-
-def dump_stacks(signal_number, frame):
-    print(f"Signal {signal_number} received! Dumping all thread stacks...\n")
-    for thread_id, thread in threading._active.items():
-        print(f"\nThread ID: {thread_id} Name: {thread.name}")
-        stack = sys._current_frames()[thread_id]
-        traceback.print_stack(stack)
-
-def setup_signal_handler():
-    print("Setting up USR1 signal")
-    signal.signal(signal.SIGUSR1, dump_stacks)
-
-
-try:
-    setup_signal_handler()
-except AttributeError:
-    print("Signal handling not supported on this platform")

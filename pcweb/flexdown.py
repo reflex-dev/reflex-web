@@ -421,13 +421,26 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
     include_indicators = True
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
-        args = lines[0].removeprefix(self.starting_indicator).split()
-        name = args[0] if args else "CEO"
-        quote_content = "\n".join(lines[1:-1])
+        quote_content = []
+        name = ""
+        role = ""
+        for line in lines[1:-1]:  # Skip the first and last lines (indicators)
+            if line.startswith("- name:"):
+                name = line.split(":", 1)[1].strip()
+            elif line.startswith("- role:"):
+                role = line.split(":", 1)[1].strip()
+            else:
+                quote_content.append(line)
+        
+        quote_text = "\n".join(quote_content).strip()
         
         return rx.box(
-            rx.text(quote_content, class_name="text-slate-11 font-base"),
-            rx.text(name, class_name="text-slate-10 font-base"),
+            rx.text(f'"{quote_text}"', class_name="text-slate-11 font-base italic"),
+            rx.box(
+                rx.text(name, class_name="text-slate-11 font-base"),
+                rx.text(role, class_name="text-slate-10 font-base"),
+                class_name="flex flex-col gap-0.5",
+            ),
             class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
         )
         

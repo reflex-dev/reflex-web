@@ -1,5 +1,6 @@
 # pcweb constants.
 API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
+FORM_URL_GET_DEMO: str = "https://5dha7vttyp3.typeform.com/to/O7kG4RQu"
 
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
