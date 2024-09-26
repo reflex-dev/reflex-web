@@ -4,6 +4,8 @@ from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.index.demos.demos import demo_section
 
+from pcweb.constants import FORM_URL_GET_DEMO
+
 
 def hero() -> rx.Component:
     """Render the hero section of the landing page."""
@@ -14,7 +16,7 @@ def hero() -> rx.Component:
             class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full font-xx-large text-center text-transparent text-balance mx-auto break-words",
         ),
         rx.el.h2(
-            """The open-source framework to build and deploy 
+            """The open-source framework to build and deploy
 web apps - no Javascript required.""",
             class_name="max-w-full w-full font-large text-center text-slate-11 -mt-2 font-normal text-[1.25rem] mx-auto text-balance word-wrap break-words md:whitespace-pre",
         ),
@@ -35,7 +37,7 @@ web apps - no Javascript required.""",
                     variant="muted",
                     class_name="!px-[1.125ren] !py-2 !h-12 !font-semibold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem] lg:!w-[9.3125rem] w-full",
                 ),
-                href="https://5dha7vttyp3.typeform.com/to/hQDMLKdX",
+                href=FORM_URL_GET_DEMO,
                 is_external=True,
                 underline="none",
                 class_name="w-full"
