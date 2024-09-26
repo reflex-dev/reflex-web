@@ -1,4 +1,5 @@
 import reflex as rx
+from pcweb.pages.docs import getting_started
 
 
 class CustomersState(rx.State):
@@ -140,6 +141,41 @@ def customers_list_item(
     )
 
 
+def your_company_item(
+    company: str, link: str, tag: str, has_page: bool = False
+) -> rx.Component:
+    return rx.link(
+        rx.box(
+            rx.icon(
+                tag="scan",
+                size=21,
+                stroke_width="2.5",
+                class_name="!text-slate-12",
+            ),
+            rx.text(company, class_name="font-base font-semibold text-slate-12"),
+            class_name="flex flex-row items-center gap-2.5 flex-1 justify-start",
+        ),
+        rx.text(
+            tag, class_name="font-small-smbold text-slate-9 flex-1 flex justify-center"
+        ),
+        rx.box(
+            rx.text(
+                "Make the switch",
+                class_name="font-small text-slate-12",
+            ),
+            rx.icon(
+                tag="chevron-right",
+                stroke_width="2.25",
+                class_name="size-3.5 !text-slate-12",
+            ),
+            class_name="flex flex-row items-center gap-1.5 flex-1 justify-end",
+        ),
+        href=link,
+        underline="none",
+        class_name="flex flex-row justify-between items-center w-full px-2.5 py-2 rounded-lg hover:bg-slate-3 transition-bg",
+    )
+
+
 def customers_list() -> rx.Component:
     return rx.el.section(
         # Title
@@ -165,6 +201,8 @@ def customers_list() -> rx.Component:
             customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
             # Bayesline
             customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
+            # Your company
+            your_company_item("Your company", getting_started.introduction.path, ""),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
         ),
         class_name="flex flex-col max-w-[64.19rem] justify-center w-full lg:border-x border-slate-3 py-12 lg:py-20 items-center",
