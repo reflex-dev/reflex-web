@@ -298,6 +298,15 @@ def new_component_section() -> rx.Component:
             ),
             # Resources link is shown on docs pages
             new_nav_menu.item(
+                new_menu_trigger("Case Studies", "/customers", "customers"),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs"),
+                    "none",
+                    "block",
+                ),
+            ),
+            # Resources link is shown on docs pages
+            new_nav_menu.item(
                 new_menu_trigger("Resources"),
                 resources_section(),
                 display=rx.cond(
