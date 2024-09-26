@@ -37,7 +37,7 @@ data: list[list[Any]] = [
 
 ```
 
-This component is introduced as an alternative to the [datatable]({library.datadisplay.datatable.path}) to support editing the displayed data.
+This component is introduced as an alternative to the [datatable]({library.tables_and_data_grids.datatable.path}) to support editing the displayed data.
 
 ## Columns
 

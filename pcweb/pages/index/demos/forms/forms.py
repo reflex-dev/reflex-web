@@ -1,11 +1,47 @@
+from __future__ import annotations
+
+import contextlib
+
+import httpx
 import reflex as rx
+from email_validator import EmailNotValidError, validate_email
+
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
+
+REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL = "https://hkdk.events/hiet6t6a0etc4e"
 
 
 class FormState(rx.State):
 
-    def submit(self, form_data):
+    def submit(
+        self,
+        form_data: dict[str, str],
+    ):
+        def submit_form() -> None:
+            nonlocal form_data
+            email: str | None
+            if email := form_data.get("input_email"):
+                validated_email: str | None = None
+                with contextlib.suppress(EmailNotValidError):
+                    validated_email = validate_email(
+                        email,
+                        check_deliverability=True,
+                    )
+
+                if validated_email is None:
+                    return
+
+                with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
+                    response = client.post(
+                        REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL,
+                        json=form_data,
+                    )
+                    response.raise_for_status()
+
+                return
+
+        submit_form()
         return rx.toast(form_data)
 
 
@@ -52,7 +88,7 @@ def form() -> rx.Component:
                 ),
                 rx.el.input(
                     # placeholder="Enter your password",
-                    name="Email",
+                    name="input_email",
                     type="email",
                     required=True,
                     class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
@@ -78,9 +114,9 @@ def form() -> rx.Component:
                 class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
             ),
             on_submit=FormState.submit,
-            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full shadow-large",
+            class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full lg:shadow-large",
         ),
-        class_name="flex items-center p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
+        class_name="flex items-center p-4 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 

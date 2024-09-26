@@ -120,7 +120,7 @@ def docdemo(
                 value="tab1",
             ),
             rx.tabs.content(
-                doccode(code, theme=theme),
+                rx.box(doccode(code, theme=theme), class_name="my-4"),
                 value="tab2",
             ),
             default_value="tab1",

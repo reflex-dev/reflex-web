@@ -7,12 +7,10 @@ from pcweb.signup import IndexState
 def os_card() -> rx.Component:
     return rx.box(
         rx.box(
-            rx.el.h2(
-                "Open source", class_name="font-large text-slate-12"
-            ),
+            rx.el.h2("Open source", class_name="font-large text-slate-12"),
             rx.el.p(
-                """Apache 2.0 license--view the source code, 
-contribute, and self-host""",
+                """Apache 2.0 license--view the source code,
+contribute, self-host, and more""",
                 class_name="font-base text-slate-9 whitespace-pre",
             ),
             class_name="flex flex-col gap-2",
@@ -21,13 +19,17 @@ contribute, and self-host""",
             # Glow
             rx.html(
                 """<svg xmlns="http://www.w3.org/2000/svg" width="300" height="89" viewBox="0 0 300 89" fill="none"><path d="M300 44.5C300 69.077 232.978 89 150 89S0 69.077 0 44.5 67.022 0 150 0s150 19.923 150 44.5" fill="url(#a)"/><defs><radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(150 44.5)rotate(90 0 1)"><stop stop-color="var(--c-violet-3)"/><stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/></radialGradient></defs></svg>""",
-                class_name="shrink-0 absolute w-[18.75rem] h-[5.5625rem] -translate-y-1/2 left-[-3.5rem] top-1/2",
+                class_name="desktop-only shrink-0 absolute w-[18.75rem] h-[5.5625rem] -translate-y-1/2 left-[-3.5rem] top-1/2",
             ),
-            button("Contribute on GitHub", variant="muted", class_name="self-start shrink-0"),
+            button(
+                "Contribute on GitHub",
+                variant="muted",
+                class_name="self-start shrink-0 w-full lg:w-auto lg:max-w-full max-w-[24rem]",
+            ),
             href=GITHUB_URL,
-            class_name="relative",
+            class_name="relative w-full lg:w-auto",
         ),
-        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-l !border-slate-3 lg:!border-t",
+        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-l !border-slate-3 lg:!border-t items-center lg:items-start text-center lg:text-start",
     )
 
 
@@ -69,15 +71,15 @@ def newletter_input() -> rx.Component:
     </radialGradient>
   </defs>
 </svg>""",
-                        class_name="shrink-0 absolute -translate-y-1/2 left-[-2.5rem] top-1/2 h-[5.5625rem] w-[25.1875rem] z-[-1]",
+                        class_name="desktop-only shrink-0 absolute -translate-y-1/2 left-[-2.5rem] top-1/2 h-[5.5625rem] w-[25.1875rem] z-[-1]",
                     ),
                     rx.el.input(
                         placeholder="Your email",
                         name="input_email",
                         type="email",
-                        class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
+                        class_name="relative box-border border-slate-4 focus:border-violet-9 focus:border-1 bg-slate-2 p-[0.5rem_0.75rem] border rounded-xl font-base text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full max-w-[24rem]",
                     ),
-                    class_name="relative w-full flex items-center",
+                    class_name="relative w-full flex items-center justify-center lg:justify-start",
                 ),
                 rx.box(
                     # Glow
@@ -91,19 +93,21 @@ def newletter_input() -> rx.Component:
     </radialGradient>
   </defs>
 </svg>""",
-                        class_name="shrink-0 absolute w-[11.4375rem] h-[5.5625rem] -translate-y-1/2 right-[-2.5rem] top-1/2 z-[-1]",
+                        class_name="desktop-only shrink-0 absolute w-[11.4375rem] h-[5.5625rem] -translate-y-1/2 right-[-2.5rem] top-1/2 z-[-1]",
                     ),
                     button(
                         "Subscribe",
                         type="submit",
                         variant="muted",
+                        class_name="w-full lg:w-auto lg:max-w-full max-w-[24rem]",
                     ),
                     class_name="relative",
                 ),
-                class_name="flex flex-row gap-2 align-center",
+                class_name="flex flex-col lg:flex-row gap-2 align-center",
                 on_submit=IndexState.signup,
             ),
-        )
+        ),
+        class_name="w-full lg:w-auto",
     )
 
 
@@ -119,7 +123,7 @@ and updates""",
             class_name="flex flex-col gap-2",
         ),
         newletter_input(),
-        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3",
+        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3 items-center lg:items-start text-center lg:text-start",
     )
 
 
@@ -137,5 +141,5 @@ def os_newsletter() -> rx.Component:
             os_newsletter_grid(),
             class_name="flex flex-row max-w-[64.19rem] justify-center w-full",
         ),
-        class_name="flex flex-col justify-center items-center w-full",
+        class_name="flex flex-col justify-center items-center w-full border-y border-slate-3 lg:border-y-0",
     )

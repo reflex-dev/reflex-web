@@ -16,7 +16,7 @@ By default there is a `vertical_border` between the columns, we can turn it off 
 
 We can allow `overscroll_x`, which allows users to scroll past the limit of the actual horizontal content. There is an equivalent `overscroll_y`.
 
-Check out [these docs]({library.datadisplay.data_editor.path}) for more information on these props.
+Check out [these docs]({library.tables_and_data_grids.data_editor.path}) for more information on these props.
 
 ```python demo
 rx.data_editor(

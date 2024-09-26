@@ -7,7 +7,7 @@ from pcweb.pages.docs import library
 # Data Table (Editable) Tutorial
 
 ```md alert info
-#There is another [datatable component]({library.datadisplay.datatable.path}), which is only used for displaying data and does not support user interactivity or editing.
+#There is another [datatable component]({library.tables_and_data_grids.datatable.path}), which is only used for displaying data and does not support user interactivity or editing.
 ```
 
 ```python eval

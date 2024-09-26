@@ -125,7 +125,7 @@ def chatbot() -> rx.Component:
             ),
             class_name="flex flex-col h-full max-h-full overflow-hidden gap-4 justify-between w-full",
         ),
-        class_name="flex flex-col items-center gap-4 p-6 lg:px-10 lg:py-12 h-full overflow-hidden",
+        class_name="flex flex-col items-center gap-4 p-4 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
 
