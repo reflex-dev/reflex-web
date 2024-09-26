@@ -13,16 +13,11 @@ icon_margins = {
 def h_comp_common(
     text: str,
     heading: str,
-    convert_to_str: bool = False,
     style: dict = {},
     mt: str = "4",
     class_name: str = "",
 ) -> rx.Component:
-    if convert_to_str:
-        id_ = text.to(list[str])[0].lower().split(" ").join("-")
-    else:
-        id_ = text.lower()
-
+    id_ = text.lower().split(" ").join("-")
     href = rx.State.router.page.full_path + "#" + id_
 
     return rx.link(
@@ -51,17 +46,15 @@ def h1_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h1",
-        convert_to_str=True,
         class_name="font-x-large lg:font-xx-large",
     )
 
 
 @rx.memo
-def h1_comp_xd(text: str) -> rx.Component:
+def h1_comp_xd(text: list[str]) -> rx.Component:
     return h_comp_common(
-        text=text,
+        text=text[0],
         heading="h1",
-        convert_to_str=True,
         class_name="font-x-large lg:font-xx-large",
     )
 
@@ -71,18 +64,16 @@ def h2_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h2",
-        convert_to_str=True,
         mt="8",
         class_name="font-large lg:font-x-large",
     )
 
 
 @rx.memo
-def h2_comp_xd(text: rx.Var[str]) -> rx.Component:
+def h2_comp_xd(text: list[str]) -> rx.Component:
     return h_comp_common(
-        text=text,
+        text=text[0],
         heading="h2",
-        convert_to_str=True,
         mt="8",
         class_name="font-large lg:font-x-large",
     )
@@ -94,17 +85,15 @@ def h3_comp(text: str) -> rx.Component:
         text=text,
         heading="h3",
         mt="4",
-        convert_to_str=True,
         class_name="font-large",
     )
 
 
 @rx.memo
-def h3_comp_xd(text: str) -> rx.Component:
+def h3_comp_xd(text: list[str]) -> rx.Component:
     return h_comp_common(
-        text=text,
+        text=text[0],
         heading="h3",
-        convert_to_str=True,
         mt="4",
         class_name="font-large",
     )
@@ -115,7 +104,6 @@ def h4_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",
-        convert_to_str=True,
         scroll_margin="6em",
         mt="2",
         class_name="font-md-smbold",
@@ -123,11 +111,10 @@ def h4_comp(text: str) -> rx.Component:
 
 
 @rx.memo
-def h4_comp_xd(text: str) -> rx.Component:
+def h4_comp_xd(text: list[str]) -> rx.Component:
     return h_comp_common(
-        text=text,
+        text=text[0],
         heading="h4",
-        convert_to_str=True,
         mt="2",
         class_name="font-md-smbold",
     )
