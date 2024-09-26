@@ -27,23 +27,6 @@ def component_grid() -> rx.Component:
     )
 
 
-# def community_component_grid() -> rx.Component:
-#     return rx.box(
-#         rx.cond(
-#             SideBarState.loading,
-#             rx.foreach(
-#                 rx.Var.range(12),
-#                 lambda i: skeleton_card(),
-#             ),
-#             rx.foreach(
-#                 SideBarState.community_apps_to_return,
-#                 lambda app: community_code_card(app=app),
-#             ),
-#         ),
-#         class_name="gap-6 grid grid-cols-1 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
-#     )
-
-
 def pagination() -> rx.Component:
     return rx.box(
         rx.el.button(
@@ -193,7 +176,7 @@ def sorting_menu() -> rx.Component:
     )
 
 
-@webpage(path="/gallery/", title="Gallery · Reflex")
+@webpage(path="/templates", title="Templates · Reflex")
 def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),

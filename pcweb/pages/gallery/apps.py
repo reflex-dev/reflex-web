@@ -8,7 +8,7 @@ from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
 
 
-GALLERY_APPS_PATH = "gallery-apps/"
+GALLERY_APPS_PATH = "templates/"
 
 
 def get_gallery_apps(paths):
@@ -183,10 +183,10 @@ def page(document) -> rx.Component:
 gallery_apps_routes = []
 for path, document in gallery_apps_data.items():
     # Get the docpage component.
-    route = f"/gallery/{document.metadata['title'].replace(' ', '-').lower()}"
+    route = f"/templates/{document.metadata['title'].replace(' ', '-').lower()}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     # Add "/gallery" to the image path
-    document.metadata["image"] = f"/gallery/{document.metadata['image']}"
+    document.metadata["image"] = f"/templates/{document.metadata['image']}"
     comp = gallery_app_page(
         path=route,
         title=document.metadata["title"],
@@ -197,5 +197,4 @@ for path, document in gallery_apps_data.items():
     )(lambda doc=document: page(doc))
 
     # Add the route to the list of routes.
-    gallery_apps_routes.append(comp)
-
+    gallery_apps_routes.append(comp) 

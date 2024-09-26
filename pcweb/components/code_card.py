@@ -82,7 +82,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                     alt="Image preview for app: " + app["title"],
                     class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out aspect-[1500/938]",
                 ),
-                href=f"/gallery/{app['title'].replace(' ', '-').lower()}",
+                href=f"/templates/{app['title'].replace(' ', '-').lower()}",
             ),
             class_name="relative border-slate-5 border-b border-solid w-full overflow-hidden h-[60%]",
         ),
