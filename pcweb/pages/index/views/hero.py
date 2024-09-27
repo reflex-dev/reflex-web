@@ -1,10 +1,10 @@
 import reflex as rx
-from pcweb.pages.docs import getting_started
+
 from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
+from pcweb.pages.docs import getting_started
 from pcweb.pages.index.demos.demos import demo_section
-
-from pcweb.constants import FORM_URL_GET_DEMO
 
 
 def hero() -> rx.Component:
@@ -37,7 +37,7 @@ web apps - no Javascript required.""",
                     variant="muted",
                     class_name="!px-[1.125ren] !py-2 !h-12 !font-semibold !text-[1.125rem] !leading-[1.625rem] !tracking-[-0.01688rem] transition-bg rounded-[0.875rem] lg:!w-[9.3125rem] w-full",
                 ),
-                href=FORM_URL_GET_DEMO,
+                href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
                 is_external=True,
                 underline="none",
                 class_name="w-full"
