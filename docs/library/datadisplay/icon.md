@@ -5,12 +5,19 @@ components:
 
 ```python exec
 import reflex as rx
+from pcweb.components.icons.lucide.lucide import lucide_icons
 ```
 
 # Icon
 
 The Icon component is used to display an icon from a library of icons. This implementation is based on the [Lucide Icons](https://lucide.dev/icons) where you can find a list of all available icons.
 
+
+## Icons List
+
+```python eval
+lucide_icons()
+```
 
 ## Basic Example
 

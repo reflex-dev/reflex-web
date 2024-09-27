@@ -72,7 +72,7 @@ def button_with_icon(
     **props,
 ) -> rx.Component:
     return rx.el.button(
-        get_icon(icon, class_name="mr-2 [&>svg]:size-5"),
+        get_icon(icon, class_name="[&>svg]:size-5"),
         text,
         onclick=onclick,
         style=style,

@@ -290,7 +290,7 @@ def new_component_section() -> rx.Component:
                 link_item("Docs", getting_started.introduction.path, "docs"),
             ),
             new_nav_menu.item(
-                link_item("Showcase", gallery.path, "gallery"),
+                link_item("Templates", gallery.path, "gallery"),
             ),
             new_nav_menu.item(
                 new_menu_trigger("Blog", blogs.path, "blog"),

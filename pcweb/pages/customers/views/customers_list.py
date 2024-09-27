@@ -120,12 +120,12 @@ def customers_list_item(
             rx.box(
                 rx.text(
                     "Visit",
-                    class_name="font-small text-slate-9",
+                    class_name="font-small text-slate-8",
                 ),
                 rx.icon(
                     tag="arrow-up-right",
                     stroke_width="2.25",
-                    class_name="size-3.5 !text-slate-9",
+                    class_name="size-3.5 !text-slate-8",
                 ),
                 class_name="flex flex-row items-center gap-1.5 flex-1 justify-end",
             ),
