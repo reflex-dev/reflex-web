@@ -9,12 +9,41 @@ meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
-# Sales App
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The following is a python dashboard to interactively display some data, i.e. customer data. The app allows you to add, edit, and delete customer data in a table, as well as visualize the changes in data over time. All the data is stored in a database. It is a good starting point for building more complex apps that require data visualization and editing.
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+## Setup
 
-## Sales App
+To run this app locally, install Reflex and run:
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+```bash
+reflex init --template customer_data_app
+```
+
+To run the app, use:
+
+```bash
+pip install -r requirements.txt
+reflex db migrate
+reflex run
+```
+
+
+## Setting an external Database
+
+It is also possibe to set an external database so that your data is not lost every time the app closes and so you can deploy your app and maintain data.
+
+In the `rxconfig.py` file we accept a `DATABASE_URL` environment variable.
+
+To set one run the following command in your terminal:
+
+```bash
+export DATABASE_URL="<YOUR URL KEY>"
+```
+
+
+## Customizing the Database Model
+
+We define our `Customer` model in the `customer_data_app/customer_data_app/backend/backend.py` file. The model is used to store customer data in the database. You can customize the model to input your own data here.
+
+It will also be necessary to edit some of the event handlers inside of `State` in the same file and to edit some of the UI components in `customer_data_app/customer_data_app/views/table.py` to reflect the changes in the model.

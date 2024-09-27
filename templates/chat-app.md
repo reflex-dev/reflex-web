@@ -11,10 +11,35 @@ meta: [
 ---
 # Chat App
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+The following is a python chat app. It is 100% Python-based, including the UI, all using Reflex. Easily create and delete chat sessions. The application is fully customizable and no knowledge of web dev is required to use it and it has responsive design for various devices.
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+## Usage
 
-## Chat App
+To run this app locally, install Reflex and run:
 
-Event handlers are the only way that we can modify the state in Reflex. They can be called in response to user actions, such as clicking a button or typing in a text box. These actions are called events.
+```bash
+git clone https://github.com/reflex-dev/reflex-chat.git
+```
+
+```bash
+cd reflex-chat
+```
+
+Set up your OpenAI API key:
+```bash
+export OPEN_AI_KEY=your-openai-api-key
+```
+
+Install the dependencies and run the app:
+
+```bash
+pip install -r requirements.txt
+```
+
+```bash
+reflex run
+```
+
+## Customizing the Inference
+
+You can customize the app by modifying the `chat/state.py` file replacing `model = self.openai_process_question` with that of other LLM providers and writing your own process question function.
