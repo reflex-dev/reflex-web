@@ -1,5 +1,6 @@
 import reflex as rx
 from ..state import SidebarItem
+from reflex.utils.format import to_title_case, to_snake_case
 
 
 def get_component_link(category, clist, prefix="") -> str:
@@ -25,8 +26,8 @@ def get_category_children(category, category_list, prefix=""):
         )
     )
     for c in category_list:
-        component_name = rx.utils.format.to_snake_case(c[0])
-        name = rx.utils.format.to_title_case(component_name)
+        component_name = to_snake_case(c[0])
+        name = to_title_case(component_name, sep=" ")
         item = SidebarItem(
             names=name,
             link=get_component_link(category, c, prefix=prefix),

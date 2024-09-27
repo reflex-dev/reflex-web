@@ -1,11 +1,6 @@
 """Reflex custom component NavMenu."""
 
 import reflex as rx
-
-from reflex.style import Style
-from pcweb.styles.shadows import shadows
-from pcweb.styles.colors import c_color
-
 from typing import Any, Dict, List, Literal, Optional, Union
 from reflex.vars import Var
 
@@ -44,23 +39,6 @@ class NavMenuRoot(NavMenu):
         }
 
 
-class NavMenuSub(NavMenu):
-    """Navigation menu sub component"""
-
-    tag = "Sub"
-    alias = "RadixNavigationMenuSub"
-
-    value: Var[str]
-    default_value: Var[str]
-    orientation: Var[LiteralMenuComponentOrientation] = "horizontal"
-
-    def get_event_triggers(self) -> Dict[str, Any]:
-        return {
-            **super().get_event_triggers(),
-            "on_value_change": lambda e0: [e0],
-        }
-
-
 class NavMenuList(NavMenu):
     """Contains the top level menu items."""
 
@@ -90,6 +68,7 @@ class NavMenuTrigger(NavMenu):
 
     class_name: Var[str] = "outline-none user-select-none"
 
+
 class NavMenuContent(NavMenu):
     """Contains the content associated with each trigger."""
 
@@ -106,82 +85,6 @@ class NavMenuContent(NavMenu):
     class_name: Var[str] = (
         "data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-full sm:w-auto",
     )
-
-
-class NavMenuLink(NavMenu):
-    """A navigational link."""
-
-    tag = "Link"
-    alias = "RadixNavigationMenuLink"
-
-    as_child: Var[bool] = False
-    active: Var[bool] = False
-    on_select: rx.EventHandler[lambda e: [e]] = None
-
-    def add_style(self) -> Style:
-        return {
-            "display": "block",
-            "text_decoration": "none",
-            "font_size": "15px",
-            "line_height": "1",
-            "padding": "8px 12px",
-            "outline": "none",
-            "user_select": "none",
-            "font_weight": "500",
-            "border_radius": "4px",
-            "color": "var(--accent-11)",
-            "_focus": {
-                "box_shadow": "0 0 0 2px var(--accent-7)",
-            },
-            "_hover": {
-                "background_color": "var(--accent-3)",
-                "color": "var(--accent-11)",
-            },
-        }
-
-
-class NavMenuIndicator(NavMenu):
-    """An optional indicator element that renders below the list."""
-
-    tag = "Indicator"
-    alias = "RadixNavigationMenuIndicator"
-
-    as_child: Var[bool] = False
-    force_mount: Var[bool]
-
-    def add_style(self) -> Style:
-        return {
-            "display": "flex",
-            "align_items": "flex-end",
-            "justify_content": "center",
-            "height": "10px",
-            "top": "100%",
-            "overflow": "hidden",
-            "z_index": "1",
-            "transition": "width, transform 250ms ease",
-            "&[data-state='visible']": {
-                "animation": "fadeIn 100ms ease",
-            },
-            "&[data-state='hidden']": {
-                "animation": "fadeOut 100ms ease",
-            },
-            "@keyframes fadeIn": {
-                "from": {
-                    "opacity": "0",
-                },
-                "to": {
-                    "opacity": "1",
-                },
-            },
-            "@keyframes fadeOut": {
-                "from": {
-                    "opacity": "1",
-                },
-                "to": {
-                    "opacity": "0",
-                },
-            },
-        }
 
 
 class NavMenuViewport(NavMenu):
@@ -202,13 +105,10 @@ class NavMenu(rx.Component):
     """NavMenu component."""
 
     root = staticmethod(NavMenuRoot.create)
-    # sub = staticmethod(NavMenuSub.create)
     list = staticmethod(NavMenuList.create)
     item = staticmethod(NavMenuItem.create)
     trigger = staticmethod(NavMenuTrigger.create)
     content = staticmethod(NavMenuContent.create)
-    # link = staticmethod(NavMenuLink.create)
-    # indicator = staticmethod(NavMenuIndicator.create)
     viewport = staticmethod(NavMenuViewport.create)
 
 

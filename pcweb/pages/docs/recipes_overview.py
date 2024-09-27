@@ -4,9 +4,6 @@ from pcweb.templates.docpage import (
     docpage,
     h1_comp,
     h2_comp,
-    h3_comp,
-    h4_comp,
-    text_comp,
     text_comp_2,
 )
 import reflex_chakra as rc
@@ -70,7 +67,7 @@ def component_grid():
     )
 
 
-def info_card(icon, color, title, content):
+def info_card(title, content):
     return rx.box(
         rx.el.h2(
             title,
@@ -88,20 +85,14 @@ def card_section():
     return rx.box(
         rc.box(
             info_card(
-                "box",
-                "violet",
                 "Portable",
                 "Easy to copy and integrate into your your next Reflex project.",
             ),
             info_card(
-                "palette",
-                "violet",
                 "Themed",
                 "Automatically adapts to the theme of your Reflex project.",
             ),
             info_card(
-                "settings",
-                "violet",
                 "Customizable",
                 "Every aspect of the components can be customized to fit your needs.",
             ),

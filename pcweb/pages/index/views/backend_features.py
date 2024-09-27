@@ -122,7 +122,6 @@ def backend_card(
     description: str,
     icon: str,
     cols: str = "1",
-    rows: str = "1",
     class_name: str = "",
 ) -> rx.Component:
     return rx.box(

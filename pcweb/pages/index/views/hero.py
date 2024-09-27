@@ -2,7 +2,6 @@ import reflex as rx
 from pcweb.pages.docs import getting_started
 from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
-from pcweb.pages.index.demos.demos import demo_section
 
 from pcweb.constants import FORM_URL_GET_DEMO
 

@@ -152,12 +152,12 @@ def docgraphing(
             ),
             rx.box(
                 rx.tabs.content(
-                    doccode(code), value="code", class_name="w-full px-0 py-1"
+                    doccode(code), value="code", class_name="w-full px-0"
                 ),
                 rx.tabs.content(
-                    doccode(data or ""), value="data", class_name="w-full px-0 py-1"
+                    doccode(data or ""), value="data", class_name="w-full px-0"
                 ),
-                class_name="w-full",
+                class_name="w-full my-4",
             ),
             default_value="code",
             class_name="w-full mt-6 justify-end",

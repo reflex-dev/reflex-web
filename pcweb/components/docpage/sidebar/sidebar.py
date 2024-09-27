@@ -3,34 +3,19 @@
 from __future__ import annotations
 
 import reflex as rx
-from pcweb import styles
 import reflex_chakra as rc
 from pcweb.components.docpage.navbar.state import NavbarState
-from pcweb.route import Route
 from .state import SidebarState, SidebarItem
 import reflex_chakra as rc
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import (
-    get_component_link,
     component_lib,
     graphing_libs,
 )
 from .sidebar_items.reference import api_reference, tutorials
 from .sidebar_items.recipes import recipes
 from pcweb.styles.colors import c_color
-from pcweb.styles.fonts import small
-from pcweb.styles.shadows import shadows
-
-
-heading_style2 = {
-    "background_color": rx.color("accent", 3),
-    "border_radius": "0.5em",
-    "width": "100%",
-    "padding_left": "0.5em",
-    "padding_right": "0.5em",
-}
-
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -63,9 +48,9 @@ def sidebar_leaf(
                             _hover={
                                 "color": c_color("slate", 11),
                             },
-                            transition="color 0.035s ease-out",
                             margin="0.5em 0.5em 0.2em 0.5em",
                             width="100%",
+                            class_name="transition-color",
                         ),
                     ),
                     href=item.link,
@@ -83,12 +68,10 @@ def sidebar_leaf(
                         rx.flex(
                             rx.text(
                                 item.names,
-                                color=c_color("violet", 9),
-                                style=small,
-                                transition="color 0.035s ease-out",
+                                class_name="font-small text-violet-9 transition-color",
                             ),
                             padding="0px 8px 0px 28px",
-                            border_left=f"1.5px solid {c_color('violet', 9)}",
+                            class_name="border-l-[1.5px] border-violet-9",
                         ),
                         href=item.link,
                     ),
@@ -96,17 +79,10 @@ def sidebar_leaf(
                         rx.flex(
                             rx.text(
                                 item.names,
-                                color=c_color("slate", 9),
-                                style=small,
-                                _hover={"color": c_color("slate", 11)},
-                                transition="color 0.035s ease-out",
-                                width="100%",
+                                class_name="font-small text-slate-9 transition-color hover:text-slate-11 w-full",
                             ),
                             padding="0px 8px 0px 28px",
-                            border_left=f"1.5px solid {c_color('slate', 4)}",
-                            _hover={
-                                "border_left": f"1.5px solid {c_color('slate', 8)}"
-                            },
+                            class_name="border-l-[1.5px] border-slate-4 hover:border-slate-8",
                         ),
                         href=item.link,
                     ),
@@ -141,7 +117,7 @@ def sidebar_icon(name):
     }
 
     return (
-        rx.icon(tag=icon_map.get(name), size=16, margin_right="20px")
+        rx.icon(tag=icon_map.get(name), size=16, class_name="mr-5")
         if name in icon_map
         else rx.fragment()
     )
@@ -318,7 +294,6 @@ def create_sidebar_section(section_title, section_url, items, index, url):
             allow_multiple=True,
             default_index=rx.cond(index, index, []),
             class_name="ml-0 pl-0 w-full",
-            # on_mount=SidebarState.load_sidebar_index,
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -466,7 +441,6 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        # on_mount=SidebarState.load_sidebar_index,
         class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px]",
     )
 

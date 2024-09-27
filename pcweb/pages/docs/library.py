@@ -1,7 +1,7 @@
 import reflex as rx
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 from pcweb.components.icons import get_icon
-
+from reflex.utils.format import to_title_case, to_snake_case
 
 def component_grid():
     from pcweb.components.docpage.sidebar.sidebar_items import get_component_link
@@ -16,7 +16,7 @@ def component_grid():
             sidebar.append(
                 rx.box(
                     rx.link(
-                        rx.el.h1(category, class_name="font-large text-slate-12"),
+                        rx.el.h1(to_title_case(to_snake_case(category), sep=" "), class_name="font-large text-slate-12"),
                         get_icon("new_tab", class_name="text-slate-11 [&>svg]:size-4"),
                         href=f"/docs/library/{prefix.strip('/')}/{category.lower()}",
                         underline="none",
@@ -25,7 +25,7 @@ def component_grid():
                     rx.box(
                         *[
                             rx.link(
-                                rx.utils.format.to_title_case(c[0]),
+                                to_title_case(to_snake_case(c[0]), sep=" "),
                                 href=get_component_link(
                                     category=category,
                                     clist=c,

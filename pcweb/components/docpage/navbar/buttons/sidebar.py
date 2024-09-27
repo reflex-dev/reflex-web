@@ -1,6 +1,4 @@
 import reflex as rx
-from pcweb.styles.colors import c_color
-from pcweb.styles.fonts import small
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
 from pcweb.pages.docs import getting_started, hosting

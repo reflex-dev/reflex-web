@@ -136,7 +136,6 @@ def component_grid() -> rx.Component:
 def blogs():
     return rx.el.section(
         rx.el.header(
-            # pill(text="Blog posts"),
             h1_title(title="Blog"),
             rx.el.h2(
                 "Reflex is the open-source framework empowering Python developers to build web apps faster.",

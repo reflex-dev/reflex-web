@@ -1,7 +1,5 @@
 import reflex as rx
 from pcweb.components.icons.patterns import get_icon
-from pcweb.components.button import button
-from pcweb.pages.docs import hosting
 
 
 def graphic_card() -> rx.Component:
@@ -69,17 +67,6 @@ def hosting_grid() -> rx.Component:
     return rx.box(
         graphic_card(),
         rx.box(
-            # rx.box(
-            #     rx.el.h3(
-            #         "Deploy your app with a single command",
-            #         class_name="font-x-large text-slate-12 text-right",
-            #     ),
-            #     rx.el.p(
-            #         "Performant, secure, and scalable",
-            #         class_name="font-x-large text-slate-9 text-right",
-            #     ),
-            #     class_name="flex flex-col items-end",
-            # ),
             rx.box(
                 rx.el.h3(
                     "Deploy your app with a single command",

@@ -9,11 +9,9 @@ from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
-from pcweb.components.logo import logo
 from pcweb.signup import IndexState
 from pcweb.constants import (
     ROADMAP_URL,
-    GITHUB_DISCUSSIONS_URL,
     GITHUB_URL,
     TWITTER_URL,
     DISCORD_URL,

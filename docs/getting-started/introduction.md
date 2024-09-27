@@ -9,7 +9,6 @@ from pcweb.pages.docs import  pages
 from pcweb.pages.docs import vars
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import base
-# from pcweb.styles.styles import tab_style
 ```
 
 <!-- TODO how do we consistently rename page title? -->

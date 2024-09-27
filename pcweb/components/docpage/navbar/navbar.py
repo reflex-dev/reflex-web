@@ -14,11 +14,10 @@ from pcweb.pages.docs.library import library
 from pcweb.pages.docs.custom_components import custom_components
 from pcweb.pages.gallery import gallery
 from .buttons.github import github
-from .buttons.discord import new_discord
+from .buttons.discord import discord
 from .buttons.color import color
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-from .state import NavbarState
 
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
@@ -31,8 +30,7 @@ from pcweb.pages.gallery import gallery
 
 from pcweb.pages.blog.paths import blog_data
 
-# from pcweb.components.docpage.navbar.nav_menu.nav_menu import nav_menu
-from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu as new_nav_menu
+from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL
 
 
@@ -117,7 +115,7 @@ def blog_section_item(date: str, title: str, url: str) -> rx.Component:
 
 
 def blog_section() -> rx.Component:
-    return new_nav_menu.content(
+    return nav_menu.content(
         rx.box(
             rx.link(
                 rx.moment(
@@ -194,7 +192,7 @@ def blog_section() -> rx.Component:
 
 
 def resources_section() -> rx.Component:
-    return new_nav_menu.content(
+    return nav_menu.content(
         rx.el.ul(
             resource_item("Changelog", changelog.path, "list"),
             resource_item("Debugging Guide", errors.path, "bug"),
@@ -208,7 +206,7 @@ def resources_section() -> rx.Component:
 
 
 def components_section() -> rx.Component:
-    return new_nav_menu.content(
+    return nav_menu.content(
         rx.box(
             rx.box(
                 rx.el.h3(
@@ -256,8 +254,8 @@ def components_section() -> rx.Component:
 
 def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
     if url:
-        return new_nav_menu.trigger(link_item(title, url, active_str))
-    return new_nav_menu.trigger(
+        return nav_menu.trigger(link_item(title, url, active_str))
+    return nav_menu.trigger(
         rx.text(
             title,
             class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-color desktop-only",
@@ -281,23 +279,23 @@ def logo() -> rx.Component:
 
 
 def new_component_section() -> rx.Component:
-    return new_nav_menu.root(
-        new_nav_menu.list(
-            new_nav_menu.item(
+    return nav_menu.root(
+        nav_menu.list(
+            nav_menu.item(
                 logo(),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 link_item("Docs", getting_started.introduction.path, "docs"),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 link_item("Showcase", gallery.path, "gallery"),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 new_menu_trigger("Blog", blogs.path, "blog"),
                 blog_section(),
             ),
-            # Resources link is shown on docs pages
-            new_nav_menu.item(
+            # Case Studies link isn't shown on docs pages
+            nav_menu.item(
                 new_menu_trigger("Case Studies", "/customers", "customers"),
                 display=rx.cond(
                     rx.State.router.page.path.contains("docs"),
@@ -306,7 +304,7 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             # Resources link is shown on docs pages
-            new_nav_menu.item(
+            nav_menu.item(
                 new_menu_trigger("Resources"),
                 resources_section(),
                 display=rx.cond(
@@ -316,7 +314,7 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             # Components link is shown on non docs pages
-            new_nav_menu.item(
+            nav_menu.item(
                 new_menu_trigger("Components", library.path, "library"),
                 components_section(),
                 display=rx.cond(
@@ -325,27 +323,27 @@ def new_component_section() -> rx.Component:
                     "none",
                 ),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 link_item("Pricing", pricing.path, "pricing"),
             ),
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
-        new_nav_menu.list(
-            new_nav_menu.item(
+        nav_menu.list(
+            nav_menu.item(
                 search_bar(),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 github(),
             ),
-            new_nav_menu.item(
-                new_discord(),
+            nav_menu.item(
+                discord(),
                 class_name="desktop-only",
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 color(),
                 class_name="desktop-only",
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 rx.link(
                     button(
                         "Deploy",
@@ -356,14 +354,14 @@ def new_component_section() -> rx.Component:
                 ),
                 class_name="desktop-only",
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 navbar_sidebar_button(),
                 class_name="mobile-only",
             ),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
         ),
         rx.box(
-            new_nav_menu.viewport(),
+            nav_menu.viewport(),
             class_name="top-[80%] left-[250px] absolute flex justify-start w-full",
         ),
     )

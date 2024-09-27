@@ -5,13 +5,8 @@ import re
 from typing import Callable, Type
 
 import reflex as rx
-from pcweb import styles
-from pcweb.styles import font_weights as fw
 from pcweb.templates.docpage import h1_comp, h2_comp
 from pcweb.flexdown import markdown
-from pcweb.styles.colors import c_color
-from pcweb.styles.fonts import small
-from pcweb.styles.styles import get_code_style
 
 
 class Source(rx.Base):

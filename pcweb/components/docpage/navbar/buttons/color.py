@@ -1,6 +1,4 @@
 import reflex as rx
-from .style import new_button_style
-from pcweb.styles.colors import c_color
 from pcweb.components.icons import get_icon
 
 

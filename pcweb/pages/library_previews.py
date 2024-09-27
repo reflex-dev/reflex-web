@@ -1,4 +1,5 @@
 import reflex as rx
+from reflex.utils.format import to_title_case, to_snake_case
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 
 
@@ -16,7 +17,7 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
             ),
             rx.box(
                 rx.text(
-                    name.capitalize(),
+                    to_title_case(to_snake_case(name), sep=" "),
                     class_name="truncate font-base text-slate-12",
                 ),
                 rx.icon("chevron-right", size=14, class_name="!text-slate-9"),
@@ -51,10 +52,9 @@ def create_previews(
         from pcweb.components.docpage.sidebar.sidebar_items import get_component_link
 
         component_list = get_component_list(type)
-
         return rx.box(
             rx.box(
-                h1_comp(text=component_category),
+                h1_comp(text=to_title_case(to_snake_case(component_category), sep=" ")),
                 text_comp_2(
                     text=description,
                 ),
@@ -63,7 +63,7 @@ def create_previews(
             rx.box(
                 *[
                     component_card(
-                        name=rx.utils.format.to_title_case(component[0]),
+                        name=component[0],
                         link=get_component_link(
                             component_category, component, prefix.strip("/") + "/"
                         ),
@@ -80,11 +80,15 @@ def create_previews(
 
 
 # Core Components
+# Notes:
+# - For the component_category, each word is capitalized and separated by a dash. Example: Data-Display
+# - The path is used to match the name of the component's images folder inside "assets/components_previews/".
+# - The svgs files are snake_case. Example: data_editor.svg
 core_components_dict = {
-    "datadisplay": {
-        "path": "datadisplay",
+    "data-display": {
+        "path": "data-display",
         "description": "Tools to show information clearly. These include ways to highlight important details, show user pictures, display lists, indicate progress, and organize data neatly.",
-        "component_category": "Datadisplay",
+        "component_category": "Data-Display",
     },
     "disclosure": {
         "path": "disclosure",

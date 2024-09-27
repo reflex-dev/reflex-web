@@ -4,7 +4,7 @@ from pcweb.templates.webpage import webpage
 from .state import SideBarState
 from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
-from pcweb.components.code_card import code_card, community_code_card
+from pcweb.components.code_card import community_code_card
 
 
 @rx.memo
@@ -45,7 +45,7 @@ def community_component_grid() -> rx.Component:
                 lambda app: community_code_card(app=app),
             ),
         ),
-        class_name="gap-6 grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
+        class_name="gap-6 grid grid-cols-1 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
     )
 
 
@@ -70,7 +70,6 @@ def pagination() -> rx.Component:
 
 def gallery_heading() -> rx.Component:
     return rx.box(
-        # pill(text="Apps made in Reflex"),
         h1_title(title="Reflex Showcase"),
         rx.el.h2(
             """Check out what the community is building with Reflex. See 2000+ more public projects on """,

@@ -51,15 +51,11 @@ def webpage(
                 The component with the template applied.
             """
             # Import here to avoid circular imports.
-            # from pcweb.components.webpage.footer import footer
             from pcweb.components.docpage.navbar import navbar
             from pcweb.views.footer import footer
-            from pcweb.views.bottom_section.bottom_logo import bottom_logo
             from pcweb.views.bottom_section.bottom_section import bottom_section
             from pcweb.components.webpage.badge import badge
             from pcweb.components.icons.patterns import default_patterns
-
-            # from pcweb.components.webpage.sidebar import sb
 
             # Wrap the component in the template.
             return rx.box(
@@ -71,7 +67,6 @@ def webpage(
                     class_name="w-full z-[1]",
                 ),
                 bottom_section(),
-                # bottom_logo(),
                 footer(),
                 badge(),
                 class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans overflow-hidden",

@@ -1,6 +1,4 @@
 import reflex as rx
-from pcweb.templates import webpage
-
 from .views.hero import hero
 from .views.companies import companies
 from .demos.demos import demo_section

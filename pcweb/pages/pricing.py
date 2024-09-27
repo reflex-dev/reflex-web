@@ -2,7 +2,7 @@ import reflex as rx
 import httpx
 from pcweb.templates.webpage import webpage
 from pcweb.components.webpage.comps import h1_title
-from pcweb.components.button import button, variant_styles, default_class_name
+from pcweb.components.button import button
 from pcweb.pages.docs import getting_started, hosting
 
 
