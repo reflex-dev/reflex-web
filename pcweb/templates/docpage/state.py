@@ -1,4 +1,5 @@
 """The state for the navbar component."""
+
 import os
 from datetime import datetime
 from typing import Any, Optional, Set
@@ -47,12 +48,14 @@ Feedback: {feedback}
         payload = {"content": discord_message}
         try:
             requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
         except Exception:
             return rx.toast.error(
-                "An error occurred while submitting your feedback. If the issue persists, "
-                "please file a Github issue or stop by our discord.",
+                """An error occurred while submitting your feedback. If the issue persists,
+please file a Github issue or stop by our Discord.""",
                 close_button=True,
             )
+
         else:
             yield rx.toast.success(
                 "Thank you for your feedback!",
