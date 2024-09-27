@@ -8,9 +8,10 @@ import reflex as rx
 from email_validator import EmailNotValidError, ValidatedEmail, validate_email
 from sqlmodel import Field
 
-from pcweb.constants import API_BASE_URL_LOOPS
-
-REFLEX_DEV_WEB_NEWSLETTER_FORM_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
+from pcweb.constants import (
+    API_BASE_URL_LOOPS,
+    REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
+)
 
 
 class Waitlist(rx.Model, table=True):
@@ -33,7 +34,7 @@ class IndexState(rx.State):
     ) -> None:
         with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
             response = client.post(
-                REFLEX_DEV_WEB_NEWSLETTER_FORM_URL,
+                REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
                 json={
                         "email": email,
                     },
