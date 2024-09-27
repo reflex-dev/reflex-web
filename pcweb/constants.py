@@ -5,6 +5,7 @@ REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL = "https://hkdk.events/hiet6t6
 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
 REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = "https://hkdk.events/fl9kcr4bf5pn7w"
 REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL: str = "https://hkdk.events/amh01aq0hojled"
+REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = "https://hkdk.events/8woee5brmxqwdr"
 
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"

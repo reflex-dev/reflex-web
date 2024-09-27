@@ -1,12 +1,16 @@
 """The state for the navbar component."""
 
+import contextlib
 import os
 from datetime import datetime
 from typing import Any, Optional, Set
 
+import httpx
 import reflex as rx
 import requests
 from sqlmodel import Field
+
+from pcweb.constants import REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
 
 
 class Feedback(rx.Model, table=True):
@@ -35,7 +39,12 @@ class FeedbackState(rx.State):
                 close_button=True,
             )
 
-        current_page_route = self.router.page.raw_path
+        current_page_route: str = self.router.page.raw_path
+        with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
+            client.post(
+                REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL,
+                json=form_data,
+            )
 
         discord_message = f"""
 Contact: {email}
