@@ -83,6 +83,7 @@ redirects = [
     ("/docs/library/layout/cond", "/docs/library/dynamic-rendering/cond"),
     # redirect previous chakra links to the new chakra docs
     ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/"),
+    ("/gallery", "/templates"),
 ]
 
 for source, target in redirects:
