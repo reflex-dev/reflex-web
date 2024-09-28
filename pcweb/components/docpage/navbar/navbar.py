@@ -287,7 +287,7 @@ def new_component_section() -> rx.Component:
             nav_menu.item(
                 link_item("Docs", getting_started.introduction.path, "docs"),
             ),
-            new_nav_menu.item(
+            nav_menu.item(
                 link_item("Templates", gallery.path, "gallery"),
             ),
             nav_menu.item(
