@@ -71,7 +71,7 @@ Quants want to spend their time building models, proving out their ideas, and no
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 The UI is the necessary evil, that is not our bread and butter.
 ```
 
@@ -80,7 +80,7 @@ It would take months before their app ideas could be used across an organization
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 You wouldn’t want to use Dash to build a production-grade application. It’s a prototyping tool. Usually, a UX and engineering team would re-implement everything from scratch. It will take six months for anyone to get hands on it, but we want this now.
 ```
 
@@ -88,7 +88,7 @@ When embarking on building Bayesline, Sebastian and his co-founder wanted an ope
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 So we basically need the tool that gets us to the finish line fastest without having to learn (a new framework) and without a super steep learning curve.
 ```
 
@@ -97,7 +97,7 @@ As their app grew, it eventually became slow and difficult to maintain.
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 The app was just getting painfully slow. Dash loads the entire application, the entire dom of every single page. As the application gets bigger, the performance will just go down.
 ```
 
@@ -107,7 +107,7 @@ Bayesline switched from Dash to Reflex because they could build both a productio
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 We wanted to build a frontend that would be as indistinguishable as possible from one built by professional frontend developers.
 ```
 
@@ -115,7 +115,7 @@ Complicated Dash apps not only eventually hit performance limits but are also ch
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 When we started looking at the (Dash) code, it just got to this point where you’re scared of it because there is no object-oriented notion; the code just turns into an enormous mess because you just have this huge collection of functions.
 ```
 
@@ -129,7 +129,7 @@ They quickly learned that Reflex was already ready to build production grade web
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 Turns out I don’t see right now, as it stands at least, reasons to migrate from Reflex to somewhere else.
 ```
 
@@ -145,7 +145,7 @@ Sebastian and his small team use Reflex to build a production-grade web app pure
 
 ```md quote
 - name: Misha and Sebastian
-- role: CEO and CTO
+- role: Cofounders
 Reflex definitely saved us from needing to hire a frontend engineer and sped us up by 4x relative to learning React
 ```
 
@@ -153,7 +153,7 @@ Reflex definitely saved us from needing to hire a frontend engineer and sped us 
 
 ```md quote
 - name: Sebastian
-- role: CTO
+- role: Cofounder
 50% less code than the same Dash app and easier to read / write / maintain code compared to Dash
 ```
 
@@ -161,6 +161,6 @@ Reflex definitely saved us from needing to hire a frontend engineer and sped us 
 
 ```md quote
 - name: Misha
-- role: CEO
+- role: Cofounder
 Using Reflex instead of Plotly Dash was like the difference between organized Legos and a plate of spaghetti
 ```

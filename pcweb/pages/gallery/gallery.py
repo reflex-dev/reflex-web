@@ -4,7 +4,7 @@ from pcweb.templates.webpage import webpage
 from .state import SideBarState
 from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
-from pcweb.components.code_card import community_code_card
+from pcweb.components.code_card import gallery_app_card
 
 
 @rx.memo
@@ -16,36 +16,14 @@ def skeleton_card() -> rx.Component:
 
 
 def component_grid() -> rx.Component:
+    from pcweb.pages.gallery.apps import gallery_apps_data
+
+    posts = []
+    for path, document in list(gallery_apps_data.items()):
+        posts.append(gallery_app_card(app=document.metadata))
     return rx.box(
-        rx.cond(
-            SideBarState.loading,
-            rx.foreach(
-                rx.Var.range(12),
-                lambda i: skeleton_card(),
-            ),
-            rx.foreach(
-                SideBarState.example_apps_to_return,
-                lambda app: community_code_card(app=app),
-            ),
-        ),
+        *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-[7.5rem]",
-    )
-
-
-def community_component_grid() -> rx.Component:
-    return rx.box(
-        rx.cond(
-            SideBarState.loading,
-            rx.foreach(
-                rx.Var.range(12),
-                lambda i: skeleton_card(),
-            ),
-            rx.foreach(
-                SideBarState.community_apps_to_return,
-                lambda app: community_code_card(app=app),
-            ),
-        ),
-        class_name="gap-6 grid grid-cols-1 lg:grid-cols-3 [&>*]:min-w-[320px] w-full",
     )
 
 
@@ -70,7 +48,7 @@ def pagination() -> rx.Component:
 
 def gallery_heading() -> rx.Component:
     return rx.box(
-        h1_title(title="Reflex Showcase"),
+        h1_title(title="Reflex Templates"),
         rx.el.h2(
             """Check out what the community is building with Reflex. See 2000+ more public projects on """,
             rx.link(
@@ -78,8 +56,22 @@ def gallery_heading() -> rx.Component:
                 href="https://github.com/reflex-dev/reflex/network/dependents",
                 is_external=True,
             ),
-            ".",  
+            ".",
             class_name="font-md text-balance text-slate-9",
+        ),
+        rx.text.span(
+            "Want to get your app featured? ",
+            rx.text.span(
+                "Submit it ",
+                rx.link(
+                    "here",
+                    href="https://github.com/reflex-dev/templates",
+                    is_external=True,
+                ),
+                ".",
+                class_name="font-md text-balance text-slate-9",
+            ),
+            class_name="font-md text-balance text-slate-9 -mt-4",
         ),
         class_name="section-header",
     )
@@ -184,7 +176,7 @@ def sorting_menu() -> rx.Component:
     )
 
 
-@webpage(path="/gallery/", title="Gallery · Reflex")
+@webpage(path="/templates", title="Templates · Reflex")
 def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),
