@@ -41,7 +41,7 @@ class FeedbackState(rx.State):
                 json=form_data,
             )
 
-        DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
+        discord_webhook_url: str | None = os.environ.get("DISCORD_WEBHOOK_URL")
         email: str = form_data.get("email", "")
         discord_message = f"""
 Contact: {email}
@@ -53,7 +53,7 @@ Feedback: {feedback}
         try:
             with httpx.Client() as client:
                 response: Response = client.post(
-                    DISCORD_WEBHOOK_URL,
+                    discord_webhook_url,
                     json=payload,
                 )
                 response.raise_for_status()
