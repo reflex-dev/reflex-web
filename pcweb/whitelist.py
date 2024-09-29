@@ -10,7 +10,8 @@
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
 WHITELISTED_PAGES = []
-  
+
+
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
         return True
@@ -25,4 +26,5 @@ def _check_whitelisted_path(path):
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):
             return True
+
     return False
