@@ -1,18 +1,21 @@
 """UI and logic inkeep chat component."""
 
-from typing import Set
+from typing import List, Set
+
 import reflex as rx
 from reflex.event import EventHandler
 from reflex.utils.imports import ImportVar
 from reflex.vars import Var
-from typing import List
 
 
 class Search(rx.Component):
     tag = "SearchBar"
 
     special_props: List[Var] = [
-        Var.create("{...searchBarProps}", _var_is_string=False)
+        Var.create(
+            "{...searchBarProps}",
+            _var_is_string=False,
+        ),
     ]
 
     is_open: Var[bool] = False
