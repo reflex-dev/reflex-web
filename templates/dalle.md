@@ -4,7 +4,7 @@ description: "DALL-E is a Reflex app for generating images using OpenAI's API"
 author: "Reflex"
 image: "dalle.webp"
 demo: "https://dalle.reflex.run/"
-source: "https://github.com/reflex-dev/reflex"
+source: "https://github.com/reflex-dev/reflex-examples/tree/main/dalle"
 meta: [
     {"name": "keywords", "content": ""},
 ]
