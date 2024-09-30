@@ -18,9 +18,6 @@ from pcweb.telemetry import (
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:
-    if not is_prod_mode():
-        return []
-
     return list(
         itertools.chain(
             pixels_google.get_pixel_website_trackers(),
