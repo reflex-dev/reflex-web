@@ -1,9 +1,15 @@
-import reflex as rx
 import httpx
-from pcweb.templates.webpage import webpage
-from pcweb.components.webpage.comps import h1_title
+import reflex as rx
+from httpx import Response
+
 from pcweb.components.button import button
+from pcweb.components.webpage.comps import h1_title
+from pcweb.constants import (
+    REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL,
+    REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL,
+)
 from pcweb.pages.docs import getting_started, hosting
+from pcweb.templates.webpage import webpage
 
 
 class FormState(rx.State):
@@ -13,30 +19,36 @@ class FormState(rx.State):
     async def submit(self, form_data: dict):
         self.is_loading = True
         yield
-        webhook_url = "https://hkdk.events/fl9kcr4bf5pn7w"
 
         try:
             with httpx.Client() as client:
-                response = client.post(webhook_url, json=form_data)
+                response = client.post(
+                    REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL,
+                    json=form_data,
+                )
                 response.raise_for_status()
+
             self.is_loading = False
             self.email_sent = True
             yield rx.toast.success("Demo request submitted successfully!")
-        except httpx.HTTPError as e:
+
+        except httpx.HTTPError:
             self.is_loading = False
             self.email_sent = False
             yield rx.toast.error("Failed to submit request. Please try again later.")
 
     async def submit_pro_waitlist(self, form_data: dict):
-
-        webhook_url = "https://hkdk.events/amh01aq0hojled"
-
         try:
             with httpx.Client() as client:
-                response = client.post(webhook_url, json=form_data)
+                response: Response = client.post(
+                    REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL,
+                    json=form_data,
+                )
                 response.raise_for_status()
+
             yield rx.toast.success("Thank you for joining the waitlist!")
-        except httpx.HTTPError as e:
+
+        except httpx.HTTPError:
             yield rx.toast.error("Failed to submit request. Please try again later.")
 
 

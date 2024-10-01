@@ -1,11 +1,16 @@
 """The state for the navbar component."""
+
+import contextlib
 import os
 from datetime import datetime
 from typing import Any, Optional, Set
 
+import httpx
 import reflex as rx
-import requests
+from httpx import Response
 from sqlmodel import Field
+
+from pcweb.constants import REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
 
 
 class Feedback(rx.Model, table=True):
@@ -23,36 +28,43 @@ class FeedbackState(rx.State):
 
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
-
-        # Check if the email is valid.
-        if "email" in form_data:
-            email = form_data["email"]
-
         if len(feedback) < 10 or len(feedback) > 500:
             return rx.toast.warning(
                 "Please enter your feedback. Between 10 and 500 characters.",
                 close_button=True,
             )
 
-        current_page_route = self.router.page.raw_path
+        current_page_route: str = self.router.page.raw_path
+        with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
+            client.post(
+                REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL,
+                json=form_data,
+            )
 
+        discord_webhook_url: str | None = os.environ.get("DISCORD_WEBHOOK_URL")
+        email: str = form_data.get("email", "")
         discord_message = f"""
 Contact: {email}
 Page: {current_page_route}
 Score: {"👍" if self.score == 1 else "👎"}
 Feedback: {feedback}
 """
-
-        DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
         payload = {"content": discord_message}
         try:
-            requests.post(DISCORD_WEBHOOK_URL, json=payload)
-        except Exception:
+            with httpx.Client() as client:
+                response: Response = client.post(
+                    discord_webhook_url,
+                    json=payload,
+                )
+                response.raise_for_status()
+
+        except httpx.HTTPError:
             return rx.toast.error(
-                "An error occurred while submitting your feedback. If the issue persists, "
-                "please file a Github issue or stop by our discord.",
+                """An error occurred while submitting your feedback. If the issue persists,
+please file a Github issue or stop by our Discord.""",
                 close_button=True,
             )
+
         else:
             yield rx.toast.success(
                 "Thank you for your feedback!",

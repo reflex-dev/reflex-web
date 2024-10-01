@@ -8,8 +8,7 @@ from email_validator import EmailNotValidError, validate_email
 
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
-
-REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL = "https://hkdk.events/hiet6t6a0etc4e"
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL
 
 
 class FormState(rx.State):
@@ -34,7 +33,7 @@ class FormState(rx.State):
 
                 with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
                     response = client.post(
-                        REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_URL,
+                        REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL,
                         json=form_data,
                     )
                     response.raise_for_status()
