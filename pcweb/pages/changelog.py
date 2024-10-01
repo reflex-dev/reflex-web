@@ -48,6 +48,18 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-09-30",
+            "v0.6.1",
+            "Experimental Dynamic Components",
+            [
+                "Fix various regressions from v0.5.10",
+                "Optionally run app using Granian instead of Uvicorn",
+                "Set `USE_SYSTEM_BUN=1` and `USE_SYSTEM_NODE=1` to use already-installed runtimes on the `PATH`",
+                "Bump nextjs to 14.2.13",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.1",
+        ),
+        change(
             "2024-09-24",
             "v0.6.0",
             "Improved Javascript Interop with updated rx.Var API",
