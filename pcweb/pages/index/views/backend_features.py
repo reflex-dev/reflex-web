@@ -152,7 +152,7 @@ def backend_grid() -> rx.Component:
                 "Seamless frontend-backend integration",
                 class_name="font-x-large text-slate-9 z-[1] text-balance lg:text-nowrap",
             ),
-            class_name="flex flex-col lg:border-r border-slate-3 lg:p-[5rem_6.5rem_5rem_2.5rem] lg:text-nowrap text-center lg:text-start pb-8 lg:pb-0 mt-12 lg:mt-0 col-span-1 lg:col-span-2",
+            class_name="flex flex-col lg:border-l border-slate-3 lg:p-[5rem_6.5rem_5rem_2.5rem] lg:text-nowrap text-center lg:text-start pb-8 lg:pb-0 mt-12 lg:mt-0 col-span-1 lg:col-span-2",
         ),
         pip_install_card(),
         backend_card(
