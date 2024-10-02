@@ -2,7 +2,7 @@
 author: Tom Gotsman
 date: 2024-10-03
 title: AG Grid in Reflex
-description: Getting Started with Powerful Data Tables for your Python Web Apps
+description: Getting Started with Powerful Data Tables in your Python Web Apps
 image: /blog/custom_components.jpeg
 meta: [
     {"name": "keywords", "content": ""},
@@ -21,19 +21,19 @@ You can start building powerful data-driven applications with Reflex AG Grid tod
 pip install reflex-ag-grid
 ```
 
-(Note: This is an initial release. Check our the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates. Join our mailing list to stay informed about new features and releases.)
+(Note: This is an initial release. Check our the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates)
 
 
 ## What is AG Grid?
 
 [AG Grid](https://www.ag-grid.com) is a feature-rich data grid library designed for displaying and manipulating tabular data in web applications. With over a million monthly downloads, and 90% of the Fortune 500 comapnies using it, it's a leading solution for working with tabular data. AG Grid offers a wide array of functionalities including:
 
-In-place cell editing
-Real-time data updates
-Pagination and infinite scrolling
-Column filtering, reordering, resizing, and hiding
-Row grouping and aggregation
-Built-in theming
+- In-place cell editing
+- Real-time data updates
+- Pagination and infinite scrolling
+- Column filtering, reordering, resizing, and hiding
+- Row grouping and aggregation
+- Built-in theming
 
 
 The AG Grid team is dedicated to continually improving the library, ensuring it remains at the forefront of data grid technology.
@@ -60,12 +60,22 @@ Like Reflex itself, the core functionality of AG Grid is free and open-source. F
 
 ## Getting Started with Reflex AG Grid
 
-Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like this one! View the live open-source app and Github code.
+Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like this one shown below! View the live app and Github code.
 
 
-[Picture here]
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
+
+```python eval
+image_zoom(rx.image(src="/blog/ag_grid.jpeg"))
+```
 
 This finance app uses Reflex AG Grid to display stock data in an interactive grid with advanced features like sorting, filtering, and pagination. Selecting a row from the grid shows that companies stock data for the past 6 months in a line chart. Let's review the code to see how Reflex AG Grid is used in this app.
+
+
+First we import the necessary libraries, including yfinance for fetching the stock data.
 
 ```python
 import reflex as rx
@@ -75,7 +85,19 @@ from datetime import datetime, timedelta
 import pandas as pd
 ```
 
-First we import the necessary libraries, including yfinance for fetching the stock data.
+Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. 
+
+We call this method when clicking on a button, by linking the `on_click` trigger of the button to this state function.
+
+
+We define state variables, any fields in your app that may change over time (A Var is directly rendered into the frontend of the app). 
+
+The `data` field stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. 
+
+The data is sorted by date and ticker in descending order and stored in the `dict_data` State var. 
+
+The `datetime_now` field stores the current datetime when the data was fetched.
+
 
 
 ```python
@@ -124,10 +146,7 @@ rx.button(
 )
 ```
 
-Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. We call this method when clicking on a button, by linking the `on_click` trigger of the button to this state function.
-
-We define state variables, any fields in your app that may change over time (A Var is directly rendered into the frontend of the app). The `data` field stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. The data is sorted by date and ticker in descending order and stored in the `dict_data` State var. The `datetime_now` field stores the current datetime when the data was fetched.
-
+The `column_defs` list defines the columns to be displayed in the AG Grid. The `header_name` is used to set the header title for each column. The `field` key represents the id of each column. The `filter` key is used to insert the filter feature, located below the header of each column.
 
 
 ```python
@@ -142,7 +161,15 @@ column_defs = [
 ]
 ```
 
-The `column_defs` list defines the columns to be displayed in the AG Grid. The `header_name` is used to set the header title for each column. The `field` key represents the id of each column. The `filter` key is used to insert the filter feature, located below the header of each column.
+Now for the most important part of our app, AG Grid itself! 
+
+The `id` is required because it uniquely identifies the Ag-Grid instance on the page. 
+The `column_defs` is the list of column definitions we defined earlier.
+The `row_data` is the data to be displayed in the grid, which is stored in the `dict_data` State var.
+
+The `pagination`, `pagination_page_size` and `pagination_page_size_selector` parameters enable pagination with specific variables in the grid.
+
+The `theme` parameter allows you to set the theme of the grid. We set it using the `grid_theme` State var in the `rx.select` component. Every state var has a built-in function to set it's value for convenience, called `set_VARNAME`, in this case `set_grid_theme`.
 
 
 ```python
@@ -159,15 +186,6 @@ ag_grid(
     height="60vh",
 )
 ```
-
-Now for the most important part of our app, AG Grid itself! 
-
-The `id` is required because it uniquely identifies the Ag-Grid instance on the page. 
-The `column_defs` is the list of column definitions we defined earlier.
-The `row_data` is the data to be displayed in the grid, which is stored in the `dict_data` State var.
-The `pagination`, `pagination_page_size` and `pagination_page_size_selector` parameters enable pagination with specific variables in the grid.
-The `theme` parameter allows you to set the theme of the grid. We set it using the `grid_theme` State var in the `rx.select` component. Every state var has a built-in function to set it's value for convenience, called `set_VARNAME`, in this case `set_grid_theme`.
-
 
 ```python
 class State(rx.State):
