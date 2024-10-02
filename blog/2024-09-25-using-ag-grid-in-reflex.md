@@ -60,7 +60,7 @@ Like Reflex itself, the core functionality of AG Grid is free and open-source. F
 
 ## Getting Started with Reflex AG Grid
 
-Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like this one shown below! View the live app and Github code.
+Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like this one shown below! View the live [app](https://ag-grid-app.reflex.run) and [Github code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
 
 
 ```python exec
