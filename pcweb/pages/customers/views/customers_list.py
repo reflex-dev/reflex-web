@@ -195,8 +195,6 @@ def customers_list() -> rx.Component:
         rx.box(
             # Dell
             customers_list_item("Dell", "https://www.dell.com/", "SaaS"),
-            # LlamaIndex
-            customers_list_item("LlamaIndex", "https://www.llamaindex.ai/", "AI"),
             # AutoDesk
             customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
             # Bayesline
