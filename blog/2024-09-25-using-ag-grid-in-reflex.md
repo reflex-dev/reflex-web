@@ -43,7 +43,8 @@ Reflex AG Grid seamlessly integrates AG Grid--a high-performance feature-rich da
 ## Why Reflex AG Grid?
 
 Reflex has become more popular among Python developers working in banking and fintech--who need components like AG Grid for advanced data handling.
-We're excited to announce that you can start building powerful data-driven applications with Reflex AG Grid today! Simply install it using pip:
+We're excited to announce that you can start building powerful data-driven applications with Reflex AG Grid today!
+Install Reflex AG Grid with pip:
 
 ```bash
 pip install reflex-ag-grid
