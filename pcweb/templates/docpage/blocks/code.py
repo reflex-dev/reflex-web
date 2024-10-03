@@ -78,7 +78,7 @@ def doccmdoutput(
                 command,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                theme="a11y-dark",
+                theme=rx.code_block.themes.a11y_dark,
                 language="bash",
                 code_tag_props={
                     "style": {
@@ -123,7 +123,7 @@ def doccmdoutput(
                 output,
                 border_radius="12px",
                 background="transparent",
-                theme="nord",
+                theme=rx.code_block.themes.nord,
                 language="log",
                 code_tag_props={
                     "style": {

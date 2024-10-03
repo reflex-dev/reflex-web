@@ -585,14 +585,12 @@ def prop_docs(
             ),
             class_name="justify-start pl-4",
         ),
-        rx.cond(
-            is_interactive,
-            rx.table.cell(
-                render_select(prop, component, prop_dict),
-                class_name="justify-start pl-4",
-            ),
-            rx.fragment(),
-        ),
+        rx.table.cell(
+            render_select(prop, component, prop_dict),
+            class_name="justify-start pl-4",
+        )
+        if is_interactive
+        else rx.fragment(),
     ]
 
 
@@ -893,8 +891,9 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
+    interactive_component = docdemobox(comp) if not isinstance(comp, Fragment) else "",
     return rx.vstack(
-        docdemobox(comp) if not isinstance(comp, Fragment) else "",
+        interactive_component,
         rx.scroll_area(
             rx.table.root(
                 rx.el.style(
@@ -918,14 +917,12 @@ def generate_props(src, component, comp):
                             "Default",
                             class_name=table_header_class_name,
                         ),
-                        rx.cond(
-                            is_interactive,
-                            rx.table.column_header_cell(
-                                "Interactive",
-                                class_name=table_header_class_name,
-                            ),
-                            rx.fragment(),
-                        ),
+                        rx.table.column_header_cell(
+                            "Interactive",
+                            class_name=table_header_class_name,
+                        )
+                        if is_interactive
+                        else rx.fragment(),
                     ),
                     class_name="bg-slate-3",
                 ),
