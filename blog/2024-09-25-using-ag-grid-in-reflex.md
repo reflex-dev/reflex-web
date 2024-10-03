@@ -2,31 +2,32 @@
 author: Tom Gotsman
 date: 2024-10-03
 title: AG Grid in Reflex
-description: Getting Started with Powerful Data Tables in your Python Web Apps
+description: Reflex introduces Reflex AG Grid, a powerful new component brings enterprise-grade data management directly to Python developers.
 image: /blog/ag-grid.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
 ---
 
-Reflex AG Grid is a high-performance and highly customizable component library for working with tabular data in Reflex applications. It seamlessly integrates AG Grid--a high-performance feature-rich datagrid for major JavaScript frameworks (like React) that offers filtering, grouping, pivoting, and more-- into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
+Reflex AG Grid seamlessly integrates AG Grid--a high-performance feature-rich datagrid for major JavaScript frameworks (like React) that offers filtering, grouping, pivoting, and more-- into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
 
 ## Why Reflex AG Grid?
 
-As Reflex gained traction in the Python web development community, we saw a growing demand for more sophisticated data handling components. Many developers who had experience with AG Grid in other frameworks were eager to leverage its capabilities in their Reflex projects. In response to this demand, we're excited to introduce Reflex AG Grid as a first-class citizen in the Reflex component ecosystem!
-
-You can start building powerful data-driven applications with Reflex AG Grid today! Simply install it using pip: 
+Reflex has become more popular among Python developers working in banking and fintech--who need components like AG Grid for advanced data handling.
+We're excited to announce that you can start building powerful data-driven applications with Reflex AG Grid today! Simply install it using pip:
 
 ```bash
 pip install reflex-ag-grid
 ```
 
-(Note: This is an initial release. Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates)
-
+**Note:** This is an initial release.
+Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates.
 
 ## What is AG Grid?
 
-[AG Grid](https://www.ag-grid.com) is a feature-rich data grid library designed for displaying and manipulating tabular data in web applications. With over a million monthly downloads, and 90% of the Fortune 500 comapnies using it, it's a leading solution for working with tabular data. AG Grid offers a wide array of functionalities including:
+[AG Grid](https://www.ag-grid.com) is a feature-rich data grid library designed for displaying and manipulating tabular data in web applications.
+With over a million monthly downloads, and 90% of the Fortune 500 comapnies using it, it's a leading solution for working with tabular data.
+AG Grid offers a wide array of functionalities including:
 
 - In-place cell editing
 - Real-time data updates
@@ -35,13 +36,12 @@ pip install reflex-ag-grid
 - Row grouping and aggregation
 - Built-in theming
 
-
 The AG Grid team is dedicated to continually improving the library, ensuring it remains at the forefront of data grid technology.
-
 
 ## Reflex AG Grid vs. Reflex DataTable Components
 
-While Reflex offers basic `rx.data_table` component out of the box, Reflex AG Grid takes data handling to the next level. If you're working with large datasets, need advanced filtering and sorting capabilities, or require features like editable cells and export options, Reflex AG Grid is the ideal choice.
+While Reflex offers basic `rx.data_table` component out of the box, Reflex AG Grid takes data handling to the next level.
+If you're working with large datasets, need advanced filtering and sorting capabilities, or require features like editable cells and export options, Reflex AG Grid is the ideal choice.
 
 Some key advantages of Reflex AG Grid include:
 
@@ -51,14 +51,14 @@ Some key advantages of Reflex AG Grid include:
 - Seamless integration with Reflex's reactive programming model
 - Support for both free (community) and enterprise AG Grid features
 
-
-Similarly to Reflex, the core functionality of AG Grid is free and open-source. For those needing even more power, AG Grid offers an enterprise version with additional features such as pivot tables, advanced groupings, and Excel export capabilities. Reflex AG Grid supports both the community and enterprise versions – you just need a valid AG Grid license key to unlock the enterprise features.
-
+Similarly to Reflex, the core functionality of AG Grid is free and open-source.
+For those needing even more power, AG Grid offers an enterprise version with additional features such as pivot tables, advanced groupings, and Excel export capabilities.
+Reflex AG Grid supports both the community and enterprise versions – you just need a valid AG Grid license key to unlock the enterprise features.
 
 ## Getting Started with Reflex AG Grid
 
-Follow along for a brief step-by-step guide on how to use Reflex AG Grid to build an app like the one shown below! Press the "Fetch Latest Data" button to see the app in action. Check out the full live [app](https://ag-grid-app.reflex.run) and [code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
-
+Follow along for a brief step-by-step guide on how to use Reflex AG Grid to build an app like the one shown below! Press the "Fetch Latest Data" button to see the app in action.
+Check out the full live [app](https://ag-grid-app.reflex.run) and [code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
 
 ```python exec
 import reflex as rx
@@ -66,9 +66,9 @@ def zoomed_out_iframe(src: str, title: str, width: str = "100%", height: str = "
     return rx.html(
         f"""
         <div style="width: {width}; height: {height}; overflow: hidden;">
-            <iframe 
-                src="{src}" 
-                title="{title}" 
+            <iframe
+                src="{src}"
+                title="{title}"
                 style="width: {int(100/zoom)}%; height: {int(100/zoom)}%; border: none; transform: scale({zoom}); transform-origin: 0 0;"
             >
             </iframe>
@@ -87,10 +87,11 @@ zoomed_out_iframe(
 )
 ```
 
+This finance app uses Reflex AG Grid to display stock data in an interactive grid with advanced features like sorting, filtering, and pagination.
+Selecting a row from the grid shows that companies stock data for the past 6 months in a line chart.
+Let's review the code to see how Reflex AG Grid is used in this app.
 
-This finance app uses Reflex AG Grid to display stock data in an interactive grid with advanced features like sorting, filtering, and pagination. Selecting a row from the grid shows that companies stock data for the past 6 months in a line chart. Let's review the code to see how Reflex AG Grid is used in this app.
-
-### Setup 
+### Setup
 
 First we import the necessary libraries, including yfinance for fetching the stock data.
 
@@ -104,16 +105,15 @@ import pandas as pd
 
 ### Fetching and transforming data
 
-Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. We call this function when clicking on a button, by linking the `on_click` trigger of the button to this state function.
+Next, we define the State class, which contains the application's state and logic.
+The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid.
+We call this function when clicking on a button, by linking the `on_click` trigger of the button to this state function.
 
+We define state variables, any fields in your app that may change over time (A Var is directly rendered into the frontend of the app).
 
-We define state variables, any fields in your app that may change over time (A Var is directly rendered into the frontend of the app). 
-
-The `data` state variable stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. The transformed data is sorted by date and ticker in descending order and stored in the `dict_data` state variable. 
+The `data` state variable stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. The transformed data is sorted by date and ticker in descending order and stored in the `dict_data` state variable.
 
 The `datetime_now` state variable stores the current datetime when the data was fetched.
-
-
 
 ```python
 # The list of companies to fetch data for
@@ -152,21 +152,23 @@ class State(rx.State):
                     "close": round(row["Close"], 2),
                     "volume": int(row["Volume"]),
                 })
-        
+
         self.dict_data = sorted(rows, key=lambda x: (x["date"], x["ticker"]), reverse=True)
 ```
 
 ```python
 rx.button(
-    "Fetch Latest Data", 
-    on_click=State.fetch_stock_data, 
+    "Fetch Latest Data",
+    on_click=State.fetch_stock_data,
 )
 ```
 
 ### Defining the AG Grid columns
 
-The `column_defs` list defines the columns to be displayed in the AG Grid. The `header_name` is used to set the header title for each column. The `field` key represents the id of each column. The `filter` key is used to insert the filter feature, located below the header of each column.
-
+The `column_defs` list defines the columns to be displayed in the AG Grid.
+The `header_name` is used to set the header title for each column.
+The `field` key represents the id of each column.
+The `filter` key is used to insert the filter feature, located below the header of each column.
 
 ```python
 column_defs = [
@@ -182,16 +184,16 @@ column_defs = [
 
 ### Displaying AG Grid
 
-Now for the most important part of our app, AG Grid itself! 
+Now for the most important part of our app, AG Grid itself!
 
-The `id` is required because it uniquely identifies the Ag-Grid instance on the page. 
-The `column_defs` is the list of column definitions we defined earlier.
-The `row_data` is the data to be displayed in the grid, which is stored in the `dict_data` State var.
+- `id` is required because it uniquely identifies the Ag-Grid instance on the page.
+- `column_defs` is the list of column definitions we defined earlier.
+- `row_data` is the data to be displayed in the grid, which is stored in the `dict_data` State var.
+- `pagination`, `pagination_page_size` and `pagination_page_size_selector` parameters enable pagination with specific variables in the grid.
+- `theme` enables you to set the theme of the grid.
 
-The `pagination`, `pagination_page_size` and `pagination_page_size_selector` parameters enable pagination with specific variables in the grid.
-
-The `theme` parameter allows you to set the theme of the grid. We set it using the `grid_theme` State var in the `rx.select` component. Every state var has a built-in function to set it's value for convenience, called `set_VARNAME`, in this case `set_grid_theme`.
-
+We set `theme` using the `grid_theme` State var in the `rx.select` component.
+Every state var has a built-in function to set it's value for convenience, called `set_VARNAME`, in this case `set_grid_theme`.
 
 ```python
 ag_grid(
@@ -224,14 +226,13 @@ rx.select(
 )
 ```
 
-The `on_selection_changed` event trigger, shown in the code above, is called when the user selects a row in the grid. This calls the function `handle_selection` method in the State class, which sets the `selected_rows` state var to the new selected row and calls the function `update_line_graph`.
+The `on_selection_changed` event trigger, shown in the code above, is called when the user selects a row in the grid.
+This calls the function `handle_selection` method in the State class, which sets the `selected_rows` state var to the new selected row and calls the function `update_line_graph`.
 
-
-The `update_line_graph` function gets the relevant ticker and uses it to set the `company` state var. The Date, Mid, and DateDifference data for that company for the past 6 months is then set to the state var `dff_ticker_hist`.
+The `update_line_graph` function gets the relevant ticker and uses it to set the `company` state var.
+The Date, Mid, and DateDifference data for that company for the past 6 months is then set to the state var `dff_ticker_hist`.
 
 Finally it is rendered in an `rx.recharts.line_chart`, using `rx.recharts.error_bar` to show the DateDifference data which are the highs and the lows for the day.
-
-
 
 ```python
 class State(rx.State):
@@ -248,7 +249,7 @@ class State(rx.State):
     def handle_selection(self, selected_rows, _, __):
         self.selected_rows = selected_rows
         self.update_line_graph()
-    
+
     def update_line_graph(self):
         if self.selected_rows:
             ticker = self.selected_rows[0]["ticker"]
@@ -256,15 +257,15 @@ class State(rx.State):
             self.dff_ticker_hist = None
             return
         self.company = ticker
-        
+
         dff_ticker_hist = self.data[ticker].reset_index()
         dff_ticker_hist["Date"] = pd.to_datetime(dff_ticker_hist["Date"]).dt.strftime("%Y-%m-%d")
-        
+
         dff_ticker_hist["Mid"] = (dff_ticker_hist["Open"] + dff_ticker_hist["Close"]) / 2
         dff_ticker_hist["DayDifference"] = dff_ticker_hist.apply(
             lambda row: [row["High"] - row["Mid"], row["Mid"] - row["Low"]], axis=1
         )
-        
+
         self.dff_ticker_hist = dff_ticker_hist.to_dict(orient="records")
 
 
@@ -287,9 +288,10 @@ rx.recharts.line_chart(
 )
 ```
 
-
 ## Conclusion
 
-By bringing AG Grid to the Reflex ecosystem, we're empowering Python developers to create sophisticated, data-rich web applications with ease. Whether you're building complex dashboards, data analysis tools, or an application that demands powerful data grid capabilities, Reflex AG Grid has you covered.
+By bringing AG Grid to the Reflex ecosystem, we're empowering Python developers to create sophisticated, data-rich web applications with ease.
+Whether you're building complex dashboards, data analysis tools, or an application that demands powerful data grid capabilities, Reflex AG Grid has you covered.
 
-We're excited to see what you'll build with Reflex AG Grid! Share your projects, ask questions, and join the discussion in our [community forums](https://forum.reflex.dev). Together, let's push the boundaries of what's possible with Python web development!
+We're excited to see what you'll build with Reflex AG Grid! Share your projects, ask questions, and join the discussion in our [community forums](https://forum.reflex.dev).
+Let's push the boundaries of what's possible with Python web development!
