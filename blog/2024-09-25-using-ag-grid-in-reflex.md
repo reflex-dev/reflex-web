@@ -60,20 +60,40 @@ Like Reflex itself, the core functionality of AG Grid is free and open-source. F
 
 ## Getting Started with Reflex AG Grid
 
-Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like the one shown below! Check out the live [app](https://ag-grid-app.reflex.run) and [code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
+Follow along for a brief step-by-step guide on how to use Reflex AG Grid to build an app like the one shown below! Press the "Fetch Latest Data" button to see the app in action. Check out the full live [app](https://ag-grid-app.reflex.run) and [code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
 
 
 ```python exec
 import reflex as rx
-from reflex_image_zoom import image_zoom
+def zoomed_out_iframe(src: str, title: str, width: str = "100%", height: str = "500px", zoom: float = 0.75):
+    return rx.html(
+        f"""
+        <div style="width: {width}; height: {height}; overflow: hidden;">
+            <iframe 
+                src="{src}" 
+                title="{title}" 
+                style="width: {int(100/zoom)}%; height: {int(100/zoom)}%; border: none; transform: scale({zoom}); transform-origin: 0 0;"
+            >
+            </iframe>
+        </div>
+        """
+    )
 ```
 
 ```python eval
-image_zoom(rx.image(src="/blog/ag_grid.jpeg"))
+zoomed_out_iframe(
+    src="https://ag-grid-app.reflex.run",
+    title="AG Grid app",
+    width="100%",
+    height="500px",
+    zoom=0.70  # Adjust this value to control the zoom level
+)
 ```
+
 
 This finance app uses Reflex AG Grid to display stock data in an interactive grid with advanced features like sorting, filtering, and pagination. Selecting a row from the grid shows that companies stock data for the past 6 months in a line chart. Let's review the code to see how Reflex AG Grid is used in this app.
 
+### Setup 
 
 First we import the necessary libraries, including yfinance for fetching the stock data.
 
@@ -84,6 +104,8 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import pandas as pd
 ```
+
+### Fetching and transforming data
 
 Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. We call this function when clicking on a button, by linking the `on_click` trigger of the button to this state function.
 
@@ -135,12 +157,16 @@ class State(rx.State):
                 })
         
         self.dict_data = sorted(rows, key=lambda x: (x["date"], x["ticker"]), reverse=True)
+```
 
+```python
 rx.button(
     "Fetch Latest Data", 
     on_click=State.fetch_stock_data, 
 )
 ```
+
+### Defining the AG Grid columns
 
 The `column_defs` list defines the columns to be displayed in the AG Grid. The `header_name` is used to set the header title for each column. The `field` key represents the id of each column. The `filter` key is used to insert the filter feature, located below the header of each column.
 
@@ -156,6 +182,8 @@ column_defs = [
     ag_grid.column_def(field="volume", header_name="Volume", filter=ag_grid.filters.number),
 ]
 ```
+
+### Displaying AG Grid
 
 Now for the most important part of our app, AG Grid itself! 
 
