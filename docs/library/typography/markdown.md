@@ -83,7 +83,7 @@ component_map = {
     "h3": lambda text: rx.heading(text, size="1", margin_y="1em"),
     "p": lambda text: rx.text(text, color="green", margin_y="1em"),
     "code": lambda text: rx.code(text, color="purple"),
-    "codeblock": lambda text, **props: rx.code_block(text, **props, theme="dark", margin_y="1em"),
+    "codeblock": lambda text, **props: rx.code_block(text, **props, theme=rx.code_block.themes.dark, margin_y="1em"),
     "a": lambda text, **props: rx.link(text, **props, color="blue", _hover={"color": "red"}),
 }
 

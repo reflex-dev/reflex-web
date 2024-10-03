@@ -11,12 +11,7 @@ from reflex.vars import Var
 class Search(rx.Component):
     tag = "SearchBar"
 
-    special_props: List[Var] = [
-        Var.create(
-            "{...searchBarProps}",
-            _var_is_string=False,
-        ),
-    ]
+    special_props: List[Var] = [Var("{...searchBarProps}")]
 
     is_open: Var[bool] = False
 
