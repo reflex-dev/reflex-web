@@ -13,8 +13,9 @@ We will use OpenAI's API to give our chatbot some intelligence.
 
 Ensure you have an active OpenAI subscription. Save your API key as an environment variable named `OPENAI_API_KEY`:
 
-```bash
-export OPENAI_API_KEY="your-api-key-here"
+    ```bash
+    export OPENAI_API_KEY="your-api-key-here"
+    ```
 
 ## Using the API
 
