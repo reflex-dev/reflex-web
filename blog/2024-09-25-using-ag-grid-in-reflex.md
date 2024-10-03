@@ -9,7 +9,7 @@ meta: [
 ]
 ---
 
-Reflex AG Grid seamlessly integrates AG Grid--a high-performance feature-rich datagrid for major JavaScript frameworks (like React) that offers filtering, grouping, pivoting, and more-- into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
+Reflex AG Grid seamlessly integrates AG Grid--a high-performance feature-rich data grid for major JavaScript frameworks (like React) that offers filtering, grouping, pivoting, and more-- into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
 
 ## Why Reflex AG Grid?
 
