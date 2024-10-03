@@ -17,9 +17,6 @@ from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
-from pcweb.styles.fonts import base, small, large
-from pcweb.styles.colors import c_color
-from pcweb.styles.shadows import shadows
 from pcweb.flexdown import markdown, xd
 from pcweb.templates.docpage import docpage, get_toc, h1_comp, h2_comp, docdemobox
 from reflex.base import Base
@@ -321,7 +318,7 @@ def render_select(prop, component, prop_dict):
                 rx.select.content(
                     rx.select.group(
                         *[
-                            rx.select.item(item, value=item, style=small)
+                            rx.select.item(item, value=item, class_name="font-small")
                             for item in literal_values
                         ]
                     )
@@ -385,7 +382,7 @@ def render_select(prop, component, prop_dict):
                     rx.select.item(
                         item,
                         value=item,
-                        style=small,
+                        class_name="font-small",
                         _hover=(
                             {"background": f"var(--{item}-9)"}
                             if prop.name == "color_scheme"

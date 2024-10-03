@@ -20,7 +20,7 @@ from pcweb.templates.docpage import (
 )
 
 from pcweb.styles.fonts import base, code
-
+import reflex_chakra as rc
 
 def get_code_style(color: str):
     return {
@@ -72,9 +72,9 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         has_content = bool(content.strip())
 
         if has_content:
-            return rx.chakra.accordion(
-                rx.chakra.accordion_item(
-                    rx.chakra.accordion_button(
+            return rc.accordion(
+                rc.accordion_item(
+                    rc.accordion_button(
                         rx.hstack(
                             rx.box(
                                 rx.match(
@@ -118,7 +118,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 else self.render_fn(content=content)
                             ),
                             rx.spacer(),
-                            rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
+                            rc.accordion_icon(color=f"{rx.color(color, 11)}"),
                             align_items="center",
                             justify_content="left",
                             text_align="left",
@@ -131,7 +131,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         _hover={},
                     ),
                     (
-                        rx.chakra.accordion_panel(
+                        rc.accordion_panel(
                             markdown(content), padding="0px", margin_top="16px"
                         )
                         if title
@@ -259,11 +259,11 @@ class DefinitionBlock(flexdown.blocks.Block):
         defs = [definition(title, content) for title, content in sections]
 
         return rx.fragment(
-            rx.mobile_only(rx.chakra.vstack(*defs)),
+            rx.mobile_only(rc.vstack(*defs)),
             rx.tablet_and_desktop(
-                rx.chakra.grid(
+                rc.grid(
                     *[
-                        rx.chakra.grid_item(d, row_span=1, col_span=1, width="100%")
+                        rc.grid_item(d, row_span=1, col_span=1, width="100%")
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",
@@ -364,9 +364,9 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
 
         color = "blue"
 
-        return rx.chakra.accordion(
-            rx.chakra.accordion_item(
-                rx.chakra.accordion_button(
+        return rc.accordion(
+            rc.accordion_item(
+                rc.accordion_button(
                     rx.hstack(
                         (
                             rx.markdown(
@@ -378,7 +378,7 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                             else rx.markdown("Video Description")
                         ),
                         rx.spacer(),
-                        rx.chakra.accordion_icon(color=f"{rx.color(color, 11)}"),
+                        rc.accordion_icon(color=f"{rx.color(color, 11)}"),
                         align_items="center",
                         justify_content="left",
                         text_align="left",
@@ -389,7 +389,7 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                     color=f"{rx.color(color, 11)}",
                     _hover={},
                 ),
-                rx.chakra.accordion_panel(
+                rc.accordion_panel(
                     rx.video(
                         url=url,
                         width="100%",

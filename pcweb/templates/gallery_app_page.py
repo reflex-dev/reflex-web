@@ -64,7 +64,6 @@ def gallery_app_page(
                         contents(*children, **props),
                         class_name="w-full z-[1] relative flex flex-col mx-auto lg:border-x border-slate-3 pt-24 lg:pt-48",
                     ),
-                    # rx.box(class_name="h-[1px] bg-slate-3 w-full")
                     rx.box(
                         bottom_section(),
                         class_name="border-t border-slate-3 border-x flex flex-col items-center w-full border-b",

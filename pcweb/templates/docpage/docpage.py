@@ -10,11 +10,7 @@ from .blocks import *
 from .state import FeedbackState
 from pcweb.components.icons.icons import get_icon
 from pcweb.styles.colors import c_color
-from pcweb.styles.fonts import small, medium, small_semibold
-from pcweb.styles.shadows import shadows
-import pcweb.templates.docpage.styles as st
 from reflex.components.radix.themes.base import LiteralAccentColor
-from pcweb.constants import GITHUB_URL, TWITTER_URL, DISCORD_URL
 from pcweb.components.button import button
 
 
@@ -31,7 +27,6 @@ def footer_link_flex(heading: str, links):
     return rx.box(
         rx.el.h4(
             heading,
-            as_="h4",
             class_name="font-semibold text-slate-12 text-sm tracking-[-0.01313rem]",
         ),
         *links,

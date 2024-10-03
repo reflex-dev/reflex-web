@@ -16,7 +16,6 @@ from reflex.components.radix.themes.base import RadixThemesComponent
 
 from .library import library
 from .recipes_overview import overview
-from .resources import resources
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 from pcweb.pages.library_previews import components_previews_pages
@@ -182,7 +181,6 @@ def get_component(doc: str, title: str):
 
 doc_routes = [
     library,
-    resources,
     custom_components,
     overview,
     *components_previews_pages,

@@ -5,56 +5,6 @@ from pcweb.flexdown import xd2 as xd
 from .paths import blog_data
 
 
-def back(title, url):
-    def create_linkedin_share_url(path):
-        """Create a LinkedIn share URL."""
-        encoded_url = "https://reflex.dev" + (
-            path if path.startswith("/") else "/" + path
-        )
-        encoded_url = encoded_url.replace(":", "%3A").replace("/", "%2F") + (
-            "" if encoded_url.endswith("%2F") else "%2F"
-        )
-        return f"https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}"
-
-    return rx.flex(
-        rx.link(
-            "<- Back to Blog",
-            color="var(--c-slate-9)",
-            margin_bottom="2em",
-            underline="hover",
-            href="/blog",
-        ),
-        rx.link(
-            rx.image(src="/companies/dark/twitter.svg", height="2em"),
-            href=f"https://twitter.com/intent/tweet?text={title}&url=https://reflex.dev{url}&via=getreflex",
-        ),
-        rx.link(
-            rx.image(src="/companies/dark/linkedin.svg", height="2em"),
-            href=create_linkedin_share_url(url),
-            is_external=True,
-        ),
-        rx.link(
-            rx.image(src="/companies/dark/yc.svg", height="2em"),
-            href=f"https://news.ycombinator.com/submitlink?u=https://reflex.dev{url}&t={title}",
-            is_external=True,
-        ),
-        rx.link(
-            rx.image(src="/companies/dark/reddit.svg", height="2em"),
-            href=f"https://www.reddit.com/submit?url=https://reflex.dev{url}&title={title}",
-            is_external=True,
-        ),
-        display=["none", "none", "none", "none", "flex", "flex"],
-        spacing="2",
-        direction="column",
-        z_index=1,
-        position="fixed",
-        top="300px",
-        left="15px",
-        margin=0,
-        width="auto",
-    )
-
-
 def more_posts(current_post: dict) -> rx.Component:
     from .blog import card_content
 

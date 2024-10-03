@@ -154,7 +154,6 @@ def faq_item(question: str, answer: str, index: int):
 def faq():
     return rx.el.section(
         rx.box(
-            # pill(text="Common Questions"),
             h1_title(title="Frequently Asked Questions"),
             rx.el.h2(
                 "We've compiled a list of the most common questions we get about Reflex. If you have a question that isn't answered here, feel free to reach out to us on our ",

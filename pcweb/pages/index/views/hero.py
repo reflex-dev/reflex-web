@@ -4,7 +4,6 @@ from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 from pcweb.pages.docs import getting_started
-from pcweb.pages.index.demos.demos import demo_section
 
 
 def hero() -> rx.Component:

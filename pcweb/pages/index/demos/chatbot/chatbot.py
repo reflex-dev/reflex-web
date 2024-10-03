@@ -2,9 +2,7 @@
 import os
 
 from openai import AsyncOpenAI
-from pcweb.components.button import button
 from pcweb.components.icon_button import icon_button
-from pcweb.components.hint import hint
 import reflex as rx
 
 

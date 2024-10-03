@@ -40,37 +40,10 @@ cell_style = {
     "line_height": "1.5",
 }
 
-tab_style = {
-    "color": c_color("slate", 9),
-    "cursor": "pointer",
-    "_hover": {
-        "color": c_color("slate", 11),
-    },
-    **fonts.small,
-    "padding_x": "0.5em",
-    "padding_y": "0.25em",
-    "&[data-state='active']": {
-        "color": c_color("violet", 9),
-    },
-    "not:&[data-state='active']": {
-        "color": c_color("slate", 11),
-    },
-}
-
 
 # General styles.
 SANS = "Instrument Sans"
-MONO = "IBM Plex Mono, Menlo, Consolas, DejaVu Sans Mono, monospace"
 BOLD_WEIGHT = font_weights["bold"]
-NAVBAR_LOGO = "/Reflex.svg"
-LOGO_URL = "/Reflex_white.svg"
-PADDING_X = ["1em", "1.5em", "1.5em", "1.5em", "3em"]
-PADDING_X2 = ["1em", "2em", "10em"]
-HERO_FONT_SIZE = ["2em", "3em", "3em", "4em"]
-H1_FONT_SIZE = ["2.2em", "2.4em", "2.5em"]
-H2_FONT_SIZE = "1.5em"
-H3_FONT_SIZE = "1.35em"
-H4_FONT_SIZE = "1.15em"
 
 DOC_BORDER_RADIUS = "6px"
 

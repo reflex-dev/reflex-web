@@ -1,9 +1,6 @@
 import reflex as rx
-from .style import new_button_style
-from pcweb.styles.fonts import small
 from pcweb.constants import GITHUB_STARS, GITHUB_URL
 from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
 
 
 def github() -> rx.Component:

@@ -1,12 +1,9 @@
 import reflex as rx
 
 from .forms.forms import form, form_code
-from pcweb.pages.gallery import gallery
 from .image_gen.image_gen import image_gen, image_gen_code
 from .charts.charts import charts, charts_code
 from .chatbot.chatbot import chatbot, chatbot_code
-
-# from .auth.auth import auth, auth_code
 from .react.react import react, react_code
 from pcweb.components.icons.icons import get_icon
 
@@ -33,7 +30,6 @@ def code_block(code: str) -> rx.Component:
     return rx.code_block(
         code,
         language="python",
-        # wrap_long_lines=True,
         class_name="demo-code-block !px-10 !py-10 !rounded-none !text-slate-12",
     )
 
