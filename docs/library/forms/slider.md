@@ -15,83 +15,85 @@ from pcweb.templates.docpage import style_grid
 
 # Slider
 
-Provides user selection from a range of values.
+Provides user selection from a range of values. The 
 
 ## Basic Example
 
-```python demo
-rx.slider(default_value=40)
-```
-
-### Setting slider defaults
-
-We can set the `min` and `max` values for the range of the slider. The defaults for `min` and `max` are 0 and 100.
-
-The stepping interval can also be adjusted by using the `step` prop. It defaults to 1.
-
-The `on_value_commit` event is called when the value changes at the end of an interaction. Useful when you only need to capture a final value e.g. to update a backend service.
+The slider can be controlled by a single value or a range of values. Slider can be hooked to state to control its value. Passing a list of two values creates a range slider.
 
 ```python demo exec
-class SliderVariationState(rx.State):
+class SliderState(rx.State):
     value: int = 50
 
-    def set_end(self, value: int):
-        self.value = value
+    def set_end(self, value: list[int]):
+        self.value = value[0]
 
-def slider_max_min_step():
+def slider_intro():
     return rx.vstack(
-        rx.heading(SliderVariationState.value),
-        rx.text("Min=20 Max=240"),
-        rx.slider(default_value=40, min=20, max=240, on_value_commit=SliderVariationState.set_end),
-        rx.text("Step=5"),
-        rx.slider(default_value=40, step=5, on_value_commit=SliderVariationState.set_end),
-        rx.text("Step=0.5"),
-        rx.slider(default_value=40, step=0.5, on_value_commit=SliderVariationState.set_end),
+        rx.heading(SliderState.value),
+        rx.slider(on_value_commit=SliderState.set_end),
         width="100%",
     )
 ```
 
-### Disabling
+## Range Slider
 
-When the `disabled` prop is set to `True`, it prevents the user from interacting with the slider.
-
-```python demo
-rx.slider(default_value=40, disabled=True)
-```
-
-### Control the value
-
-The `default_value` is the value of the slider when initially rendered. It can be a `float` or if multiple thumbs to drag are required then it can be passed as a `List[float]`. Providing multiple values creates a range slider.
-
-```python demo
-rx.slider(default_value=45.5)
-```
-
-```python demo
-rx.slider(default_value=[40, 60])
-```
-
-The `on_change` event is called when the `value` of the slider changes.
+Range slider is created by passing a list of two values to the `default_value` prop. The list should contain two values that are in the range of the slider.
 
 ```python demo exec
-class SliderVariationState2(rx.State):
-    value: int = 50
+class RangeSliderState(rx.State):
+    value_start: int = 25
+    value_end: int = 75
 
-    def set_end(self, value: int):
-        self.value = value
+    def set_end(self, value: list[int]):
+        self.value_start = value[0]
+        self.value_end = value[1]
 
-
-def slider_on_change():
+def range_slider_intro():
     return rx.vstack(
-        rx.heading(SliderVariationState2.value),
-        rx.slider(default_value=40, on_change=SliderVariationState2.set_end),
+        rx.hstack(
+            rx.heading(RangeSliderState.value_start),
+            rx.heading(RangeSliderState.value_end),
+        ),
+        rx.slider(
+            default_value=[25, 75],
+            min_=0,
+            max=100,
+            on_value_commit=RangeSliderState.set_end,
+        ),
         width="100%",
     )
 ```
 
-### Submitting a form using slider
+## Live Updating Slider
 
-The `name` of the slider. Submitted with its owning form as part of a name/value pair.
+You can use the `on_change` prop to update the slider value as you interact with it. The `on_change` prop takes a function that will be called with the new value of the slider. 
+
+Here we use the `throttle` method to limit the rate at which the function is called, which is useful to prevent excessive updates. In this example, the slider value is updated every 100ms.
+
+```python demo exec
+class LiveSliderState(rx.State):
+    value: int = 50
+
+    def set_end(self, value: list[int]):
+        self.value = value[0]
+
+def live_slider_intro():
+    return rx.vstack(
+        rx.heading(LiveSliderState.value),
+        rx.slider(
+            default_value=50,
+            min_=0,
+            max=100,
+            on_change=LiveSliderState.set_end.throttle(100),
+        ),
+        width="100%",
+    )
+```
+
+## Slider in forms
+
+Here we show how to use a slider in a form. We use the `name` prop to identify the slider in the form data. The form data is then passed to the `handle_submit` method to be processed.
 
 ```python demo exec
 class FormSliderState(rx.State):
@@ -102,77 +104,27 @@ class FormSliderState(rx.State):
         self.form_data = form_data
 
 
-def form_example2():
-    return rx.vstack(
-        rx.form.root(
+def slider_form_example():
+    return rx.card(
             rx.vstack(
-                rx.slider(default_value=40, name="slider"),
-                rx.button("Submit", type="submit"),
+                rx.heading("Example Form"),
+                rx.form.root(
+                    rx.hstack(
+                        rx.slider(default_value=40, name="slider"),
+                        rx.button("Submit", type="submit"),
+                        width="100%",
+                    ),
+                    on_submit=FormSliderState.handle_submit,
+                    reset_on_submit=True,
+                ),
+                rx.divider(),
+                rx.hstack(
+                    rx.heading("Results:"),
+                    rx.badge(FormSliderState.form_data.to_string()),
+                ),
+                align_items="left",
                 width="100%",
             ),
-            on_submit=FormSliderState.handle_submit,
-            reset_on_submit=True,
-            width="100%",
-        ),
-        rx.divider(),
-        rx.heading("Results"),
-        rx.text(FormSliderState.form_data.to_string()),
-        width="100%",
-    )
-```
-
-### Orientation
-
-Use the `orientation` prop to change the orientation of the slider.
-
-```python demo
-rx.slider(default_value=40, orientation="horizontal")
-```
-
-```python demo
-rx.slider(default_value=40, height="4em", orientation="vertical")
-```
-
-## Styling
-
-```python eval
-style_grid(component_used=rx.slider, component_used_str="slider", variants=["classic", "surface", "soft"], disabled=True, default_value=40)
-```
-
-### size
-
-```python demo
-rx.flex(
-    rx.slider(default_value=25, size="1"),
-    rx.slider(default_value=25, size="2"),
-    rx.slider(default_value=25, size="3"),
-    direction="column",
-    spacing="4",
-    width="100%",
-)
-```
-
-### high contrast
-
-```python demo
-rx.flex(
-    rx.slider(default_value=25),
-    rx.slider(default_value=25, high_contrast=True),
-    direction="column",
-    spacing="4",
-    width="100%",
-)
-```
-
-### radius
-
-```python demo
-rx.flex(
-    rx.slider(default_value=[25], radius="none"),
-    rx.slider(default_value=[25], radius="small"),
-    rx.slider(default_value=[25], radius="full"),
-    direction="column",
-    spacing="4",
-    width="100%",
-)
+        width="50%",
+    )   
 ```
