@@ -9,6 +9,7 @@ from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
 from pcweb.telemetry import get_pixel_website_trackers
+from pcweb.meta.meta import favicons_links
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -28,7 +29,7 @@ app = rx.App(
         radius="large",
         accent_color="violet",
     ),
-    head_components=get_pixel_website_trackers(),
+    head_components=get_pixel_website_trackers() + favicons_links(),
 )
 
 
