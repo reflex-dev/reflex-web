@@ -5,7 +5,36 @@ title: AG Grid in Reflex
 description: Getting started with powerful data tables in your Python web apps
 image: /blog/ag-grid.webp
 meta: [
-    {"name": "keywords", "content": ""},
+    {
+      "name": "keywords",
+      "content": "
+        advanced filtering and sorting,
+        ag grid customization,
+        ag grid features,
+        custom data grid components,
+        data grid integration,
+        data manipulation in python,
+        data-driven web apps,
+        editable data cells,
+        enterprise data grid features,
+        financial data display,
+        high-performance data grid,
+        interactive data tables,
+        large dataset management,
+        modern web application development,
+        open-source data grid,
+        python data analysis tools,
+        python data visualization,
+        python fintech applications,
+        python web development,
+        reactive programming model,
+        reflex ag grid,
+        reflex ecosystem,
+        stock market data grid,
+        tabular data handling,
+        web application development,
+      "
+    },
 ]
 ---
 
