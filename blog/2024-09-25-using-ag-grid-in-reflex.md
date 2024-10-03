@@ -9,7 +9,7 @@ meta: [
 ]
 ---
 
-Reflex AG Grid is a high-performance and highly customizable component library for working with tabular data in Reflex applications. It seamlessly integrates the powerful AG Grid library into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
+Reflex AG Grid is a high-performance and highly customizable component library for working with tabular data in Reflex applications. It seamlessly integrates AG Grid--a high-performance feature-rich datagrid for major JavaScript frameworks (like React) that offers filtering, grouping, pivoting, and more-- into the Reflex ecosystem, bringing advanced data grid capabilities to Python developers building modern web applications.
 
 ## Why Reflex AG Grid?
 
@@ -39,9 +39,6 @@ pip install reflex-ag-grid
 The AG Grid team is dedicated to continually improving the library, ensuring it remains at the forefront of data grid technology.
 
 
-
-
-
 ## Reflex AG Grid vs. Reflex DataTable Components
 
 While Reflex offers basic `rx.data_table` component out of the box, Reflex AG Grid takes data handling to the next level. If you're working with large datasets, need advanced filtering and sorting capabilities, or require features like editable cells and export options, Reflex AG Grid is the ideal choice.
@@ -55,7 +52,7 @@ Some key advantages of Reflex AG Grid include:
 - Support for both free (community) and enterprise AG Grid features
 
 
-Like Reflex itself, the core functionality of AG Grid is free and open-source. For those needing even more power, AG Grid offers an enterprise version with additional features such as pivot tables, advanced groupings, and Excel export capabilities. Reflex AG Grid supports both the community and enterprise versions – you just need a valid AG Grid license key to unlock the enterprise features.
+Similarly to Reflex, the core functionality of AG Grid is free and open-source. For those needing even more power, AG Grid offers an enterprise version with additional features such as pivot tables, advanced groupings, and Excel export capabilities. Reflex AG Grid supports both the community and enterprise versions – you just need a valid AG Grid license key to unlock the enterprise features.
 
 
 ## Getting Started with Reflex AG Grid
@@ -291,10 +288,8 @@ rx.recharts.line_chart(
 ```
 
 
-
-
 ## Conclusion
 
-By bringing AG Grid to the Reflex ecosystem, we're empowering Python developers to create sophisticated, data-rich web applications with ease. Whether you're building complex dashboards, data analysis tools, or any application that demands powerful data grid capabilities, Reflex AG Grid has you covered.
+By bringing AG Grid to the Reflex ecosystem, we're empowering Python developers to create sophisticated, data-rich web applications with ease. Whether you're building complex dashboards, data analysis tools, or an application that demands powerful data grid capabilities, Reflex AG Grid has you covered.
 
 We're excited to see what you'll build with Reflex AG Grid! Share your projects, ask questions, and join the discussion in our [community forums](https://forum.reflex.dev). Together, let's push the boundaries of what's possible with Python web development!
