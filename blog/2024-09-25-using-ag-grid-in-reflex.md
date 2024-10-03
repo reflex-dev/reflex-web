@@ -2,7 +2,7 @@
 author: Tom Gotsman
 date: 2024-10-03
 title: AG Grid in Reflex
-description: Reflex introduces Reflex AG Grid, a powerful new component brings enterprise-grade data management directly to Python developers.
+description: Getting started with powerful data tables in your Python web apps
 image: /blog/ag-grid.webp
 meta: [
     {"name": "keywords", "content": ""},
