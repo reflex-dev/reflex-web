@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2024-10-03
 title: AG Grid in Reflex
 description: Getting Started with Powerful Data Tables in your Python Web Apps
-image: /blog/custom_components.jpeg
+image: /blog/ag-grid.webp
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -21,7 +21,7 @@ You can start building powerful data-driven applications with Reflex AG Grid tod
 pip install reflex-ag-grid
 ```
 
-(Note: This is an initial release. Check our the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates)
+(Note: This is an initial release. Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates)
 
 
 ## What is AG Grid?
@@ -48,11 +48,11 @@ While Reflex offers basic `rx.data_table` component out of the box, Reflex AG Gr
 
 Some key advantages of Reflex AG Grid include:
 
-Superior performance with large datasets
-Extensive customization options
-Built-in features like column pinning and row grouping
-Seamless integration with Reflex's reactive programming model
-Support for both free (community) and enterprise features
+- Superior performance with large datasets
+- Extensive customization options
+- Built-in features like column pinning and row grouping
+- Seamless integration with Reflex's reactive programming model
+- Support for both free (community) and enterprise AG Grid features
 
 
 Like Reflex itself, the core functionality of AG Grid is free and open-source. For those needing even more power, AG Grid offers an enterprise version with additional features such as pivot tables, advanced groupings, and Excel export capabilities. Reflex AG Grid supports both the community and enterprise versions – you just need a valid AG Grid license key to unlock the enterprise features.
@@ -60,7 +60,7 @@ Like Reflex itself, the core functionality of AG Grid is free and open-source. F
 
 ## Getting Started with Reflex AG Grid
 
-Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like this one shown below! View the live [app](https://ag-grid-app.reflex.run) and [Github code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
+Follow along for a brief step-by-step guide on how to use Reflex AG Grid in an app like the one shown below! Check out the live [app](https://ag-grid-app.reflex.run) and [code](https://github.com/reflex-dev/reflex-examples/tree/main/ag_grid_finance).
 
 
 ```python exec
@@ -85,18 +85,14 @@ from datetime import datetime, timedelta
 import pandas as pd
 ```
 
-Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. 
-
-We call this method when clicking on a button, by linking the `on_click` trigger of the button to this state function.
+Next, we define the State class, which contains the application's state and logic. The `fetch_stock_data` function fetches stock data for the specified companies and transforms it into a format suitable for display in AG Grid. We call this function when clicking on a button, by linking the `on_click` trigger of the button to this state function.
 
 
 We define state variables, any fields in your app that may change over time (A Var is directly rendered into the frontend of the app). 
 
-The `data` field stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. 
+The `data` state variable stores the raw stock data fetched from Yahoo Finance. We transform this data to round the values and store it as a list of dictionaries, which is the format that AG Grid expects. The transformed data is sorted by date and ticker in descending order and stored in the `dict_data` state variable. 
 
-The data is sorted by date and ticker in descending order and stored in the `dict_data` State var. 
-
-The `datetime_now` field stores the current datetime when the data was fetched.
+The `datetime_now` state variable stores the current datetime when the data was fetched.
 
 
 
@@ -203,7 +199,7 @@ rx.select(
 )
 ```
 
-The `on_selection_changed` event trigger is called when the user selects a row in the grid. This calls the function `handle_selection` method in the State class, which sets the `selected_rows` state var to the new selected row and calls the function `update_line_graph`.
+The `on_selection_changed` event trigger, shown in the code above, is called when the user selects a row in the grid. This calls the function `handle_selection` method in the State class, which sets the `selected_rows` state var to the new selected row and calls the function `update_line_graph`.
 
 
 The `update_line_graph` function gets the relevant ticker and uses it to set the `company` state var. The Date, Mid, and DateDifference data for that company for the past 6 months is then set to the state var `dff_ticker_hist`.
