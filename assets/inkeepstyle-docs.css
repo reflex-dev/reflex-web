@@ -48,11 +48,6 @@
     justify-content: center;
   }
 
-  .ikp-d_flex {
-    justify-content: center;
-  }
-
-
   .ikp-search-bar-trigger__kbd,
   .ikp-search-bar-trigger__text {
     display: none;
