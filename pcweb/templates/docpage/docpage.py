@@ -203,7 +203,7 @@ def docpage_footer(path: str):
                     "Links",
                     [
                         footer_link("Home", "/"),
-                        footer_link("Showcase", gallery.path),
+                        footer_link("Templates", gallery.path),
                         footer_link("Blog", blogs.path),
                         footer_link("Changelog", changelog.path),
                     ],
