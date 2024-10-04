@@ -106,7 +106,7 @@ def page(document) -> rx.Component:
                 src=meta["image"],
                 alt=f"Image for Reflex App: {meta['title']}",
                 loading="lazy",
-                class_name="w-full object-cover max-w-full aspect-[1500/938] border-y border-slate-3",
+                class_name="w-full object-cover max-w-full aspect-[1500/938] border-y border-slate-3 border-solid",
             ),
             rx.box(
                 rx.el.header(
