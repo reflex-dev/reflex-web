@@ -14,8 +14,7 @@ from reflex.style import toggle_color_mode
 
 # Pyplot
 
-Reflex-pyplot is a graphing library that wraps Matplotlib. Use the `pyplot` component to display any Matplotlib plot in your app. Checkout [Matplotlib](https://matplotlib.org/) for more information.
-
+Pyplot (`reflex-pyplot`) is a graphing library that wraps Matplotlib. Use the `pyplot` component to display any Matplotlib plot in your app. Check out [Matplotlib](https://matplotlib.org/) for more information.
 
 ## Installation
 
@@ -32,7 +31,7 @@ To display a Matplotlib plot in your app, you can use the `pyplot` component. Pa
 ```md alert info
 # You must close the figure after creating 
 
-By not closing the figure, it could cause memory issues.
+Not closing the figure could cause memory issues.
 ```
 
 ```python demo exec
