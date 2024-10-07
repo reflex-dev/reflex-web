@@ -89,6 +89,7 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
     
     for item in [ax.xaxis.label, ax.yaxis.label, ax.title]:
         item.set_color(text_color)
+    plt.close(fig)
     
     return fig
 
@@ -108,13 +109,11 @@ class PyplotState(rx.State):
     @rx.var
     def fig_light(self) -> plt.Figure:
         fig = create_plot('light', self.plot_data, self.scale)
-        plt.close(fig)  # Close the figure after creating it
         return fig
     
     @rx.var
     def fig_dark(self) -> plt.Figure:
         fig = create_plot('dark', self.plot_data, self.scale)
-        plt.close(fig)  # Close the figure after creating it
         return fig
 
 def pyplot_example():
