@@ -63,7 +63,6 @@ Bayesline deploys customized equity factor risk (ML) models in the cloud, which 
 Sebastian Janisch, the Bayesline co-founder, led the technical team and worked previously at Bloomberg and BlackRock, where he was a Director in their Financial Modeling Group.
 Here is a [blog](https://bayesline.com/blog/building-risk-models) that explains what Bayesline does in detail (The images and demos are all Reflex apps).
 
-
 ## How Bayesline struggled with Plotly Dash
 
 Quantitative Analysts (Quants), like Sebastian, are usually proficient in data-oriented programming languages like Python.
@@ -135,7 +134,6 @@ Turns out I don’t see right now, as it stands at least, reasons to migrate fro
 
 Bayesline has since scaled from a prototype to a full fledged production app with paid trials.
 The team continues to build and deploy data-intensive apps using Reflex.
-
 
 ## What Bayesline gained from using Reflex
 
