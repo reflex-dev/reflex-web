@@ -28,12 +28,6 @@ pip install reflex-pyplot
 
 To display a Matplotlib plot in your app, you can use the `pyplot` component. Pass in the figure you created with Matplotlib to the `pyplot` component as a child.
 
-```md alert info
-# You must close the figure after creating 
-
-Not closing the figure could cause memory issues.
-```
-
 ```python demo exec
 import matplotlib.pyplot as plt
 import reflex as rx
@@ -56,6 +50,13 @@ def pyplot_simple_example():
             bg_color='#ffffff',
             width="100%",
         )
+```
+
+
+```md alert info
+# You must close the figure after creating 
+
+Not closing the figure could cause memory issues.
 ```
 
 ## Stateful Example
@@ -90,7 +91,7 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
     for item in [ax.xaxis.label, ax.yaxis.label, ax.title]:
         item.set_color(text_color)
     plt.close(fig)
-    
+
     return fig
 
 class PyplotState(rx.State):
