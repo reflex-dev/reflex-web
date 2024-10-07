@@ -3,7 +3,7 @@ components:
     - rx.slider
 
 Slider: |
-    lambda **props: rx.slider(default_value=40, height="50%", **props)
+    lambda **props: rx.center(rx.slider(default_value=40, height="100%", **props), height="4em", width="100%")
 
 ---
 
@@ -59,6 +59,7 @@ def range_slider_intro():
             default_value=[25, 75],
             min_=0,
             max=100,
+            size="1",
             on_value_commit=RangeSliderState.set_end,
         ),
         width="100%",

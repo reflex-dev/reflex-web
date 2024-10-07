@@ -39,71 +39,28 @@ A set of interactive radio buttons where only one can be selected at a time.
 
 ## Basic example
 
-```python demo
-rx.radio(["1", "2", "3"], default_value="1")
-```
-
-The `default_value` prop can be used to set the value of the radio item that should be checked when initially rendered.
-
-## Setting direction, spacing and size
-
-The direction of the `radio_group` can be set using the `direction` prop which takes values `'row' | 'column' | 'row-reverse' | 'column-reverse' |`.
-
-The gap between the `radio_group` items can also be set using the `gap` prop, which takes values `'1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' |`.
-
-The size of the `radio_group` items and the associated text can be set with the `size` prop, which can take values `1' | '2' | '3' |`
-
-```python demo
-rx.radio(["1", "2", "3", "4", "5"], direction="row", spacing="8", size="3")
-```
-
-## Using State Vars in the RadioGroup
-
-State vars can also be passed in as the `items` to the `radiogroup`.
-
 ```python demo exec
-class RadioState_HL1(rx.State):
-    items: list[str] = ["1", "2", "3"]
+class RadioGroupState(rx.State):
+    item: str = "No Selection"
 
-def radio_state_example_HL1():
-    return rx.radio(RadioState_HL1.items, direction="row", spacing="9")
-```
+    def set_item(self, item: str):
+        self.item = item
 
-### Control the value
-
-The controlled `value` of the radio item to check. Should be used in conjunction with `on_change` event handler.
-
-```python demo exec
-class RadioState_HL(rx.State):
-    text: str = "No Selection"
-
-
-def radio_state_example_HL():
+def radio_group_state_example():
     return rx.vstack(
-        rx.badge(RadioState_HL.text, color_scheme="green"),
-        rx.radio(["1", "2", "3"], on_change=RadioState_HL.set_text),
+        rx.badge(RadioGroupState.item, color_scheme="green"),
+        rx.radio(["1", "2", "3"], on_change=RadioGroupState.set_item, direction="row"),
     )
 ```
 
-When the `disabled` prop is set to `True`, it prevents the user from interacting with radio items.
-
-```python demo
-rx.flex(
-    rx.radio(["1", "2"]),
-    rx.radio(["1", "2"], disabled=True),
-    spacing="2",
-)
-
-```
-
-### Submitting a form using Radio Group
+## Submitting a form using Radio Group
 
 The `name` prop is used to name the group. It is submitted with its owning form as part of a name/value pair.
 
 When the `required` prop is `True`, it indicates that the user must check a radio item before the owning form can be submitted.
 
 ```python demo exec
-class FormRadioState_HL(rx.State):
+class FormRadioState(rx.State):
     form_data: dict = {}
 
     def handle_submit(self, form_data: dict):
@@ -111,18 +68,33 @@ class FormRadioState_HL(rx.State):
         self.form_data = form_data
 
 
-def form_example_HL():
-    return rx.vstack(
-        rx.form.root(
-            rx.vstack(
-                rx.radio(["1", "2", "3"], name="radio", required=True,),
-                rx.button("Submit", type="submit"),
+def radio_form_example():
+    return rx.card(
+        rx.vstack(
+            rx.heading("Example Form"),
+            rx.form.root(
+                rx.vstack(
+                    rx.radio_group(
+                        ["Option 1", "Option 2", "Option 3"],
+                        name="radio_choice",
+                        direction="row",
+                    ),
+                    rx.button("Submit", type="submit"),
+                    width="100%",
+                    spacing="4",
+                ),
+                on_submit=FormRadioState.handle_submit,
+                reset_on_submit=True,
             ),
-            on_submit=FormRadioState_HL.handle_submit,
-            reset_on_submit=True,
+            rx.divider(),
+            rx.hstack(
+                rx.heading("Results:"),
+                rx.badge(FormRadioState.form_data.to_string()),
+            ),
+            align_items="left",
+            width="100%",
+            spacing="4",
         ),
-        rx.divider(width="100%"),
-        rx.heading("Results"),
-        rx.text(FormRadioState_HL.form_data.to_string()),
+        width="50%",
     )
 ```
