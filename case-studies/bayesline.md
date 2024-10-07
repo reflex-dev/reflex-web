@@ -1,6 +1,6 @@
 ---
 company: Bayesline
-description: "Why Bayesline chose Reflex over Dash Plotly for their production-grade python web app"
+description: "Why Bayesline chose Reflex over Dash Plotly for their production-grade Python web app"
 domain: "https://bayesline.com/"
 founded: "New York, 2024"
 investors: "Y Combinator"
