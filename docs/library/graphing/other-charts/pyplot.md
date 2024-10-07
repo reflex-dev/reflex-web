@@ -38,6 +38,7 @@ By not closing the figure, it could cause memory issues.
 ```python demo exec
 import matplotlib.pyplot as plt
 import reflex as rx
+from reflex_pyplot import pyplot
 import numpy as np
 
 def create_contour_plot():
@@ -65,6 +66,12 @@ Lets create a scatter plot of random data. We'll also allow the user to randomiz
 In this example, we'll use a `color_mode_cond` to display the plot in both light and dark mode. We need to do this manually here because the colors are determined by the matplotlib chart and not the theme.
 
 ```python demo exec
+import matplotlib.pyplot as plt
+import reflex as rx
+from reflex_pyplot import pyplot
+import numpy as np
+
+
 def create_plot(theme: str, plot_data: tuple, scale: list):
     bg_color, text_color = ('#1e1e1e', 'white') if theme == 'dark' else ('white', 'black')
     grid_color = '#555555' if theme == 'dark' else '#cccccc'
