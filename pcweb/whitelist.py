@@ -9,7 +9,7 @@
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = ["/docs/library/graphing/other-charts/pyplot"]    
+WHITELISTED_PAGES = []    
 
 
 def _check_whitelisted_path(path):
