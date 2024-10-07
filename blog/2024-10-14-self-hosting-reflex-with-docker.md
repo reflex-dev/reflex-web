@@ -1,0 +1,283 @@
+---
+author: Tom Gotsman
+date: 2024-10-14
+title: Self Hosting a Reflex app with Docker
+description: Learn how to deploy and self-host your Reflex application using Docker for efficient containerization.
+image: /blog/ag-grid.webp
+meta: [
+    {
+      "name": "keywords",
+      "content": "
+        docker containerization,
+        self-hosting python apps,
+        reflex deployment,
+        containerized web applications,
+        docker compose for web apps,
+        python web app deployment,
+        reflex and docker integration,
+        devops for reflex applications,
+        data manipulation in python,
+        data-driven web apps,
+        modern web application development,
+        python data analysis tools,
+        python data visualization,
+        python fintech applications,
+        python web development,
+        reflex ecosystem,
+        reflex web development,
+      "
+    },
+]
+---
+
+Reflex offers a powerful way to build reactive web apps in pure Python, but deploying these apps can be challenging. Enter Docker: a game-changer for self-hosting. In this post, we'll explore how to leverage Docker's containerization to simplify the deployment of Reflex applications. Whether you're a seasoned developer or new to these technologies, you'll learn how to take your Reflex apps from development to production.
+
+
+## Setup 
+
+Before we dive into the deployment process, let's make sure we have everything we need. This tutorial assumes you have a Reflex app ready for deployment and Docker Compose installed on your machine. If you haven't already, you can install Docker Compose by following the instructions on the [Docker website](https://docs.docker.com/compose/install/).
+
+
+
+## Dockerizing Your Reflex App
+
+
+There will only be 4 files needed to Dockerize your Reflex app:
+
+1. `compose.yml`
+2. `Dockerfile`
+3. `web.Dockerfile`
+4. `nginx.conf`
+
+You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file.
+
+!!!!!!! add image here of file strucutre of app !!!!!!
+
+
+### compose.yml
+
+The first file is the `compose.yml` file. This file will define the services that will be run in the Docker containers and makes them work together. Here is an example of a `compose.yml` file:
+
+
+```yaml
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile
+    ports:
+     - 8000:8000
+    depends_on:
+     - redis
+  frontend:
+    build:
+      dockerfile: web.Dockerfile
+    ports:
+      - 3000:80
+    depends_on:
+      - backend
+  redis:
+    image: redis
+```
+
+Here we define three services: `backend`, `frontend`, and `redis`. The `backend` service will run the Reflex app, the `frontend` service will run the web server, and the `redis` service will run the Redis server. The `depends_on` key specifies the order in which the services should be started.
+
+The first to be run is the `redis` service. We use Redis for the state manager and it is good to put in its own container, so that its easy to differenatiate the resource usage from a cache and the actual web server. It pulls the docker image for redis and runs the image as a container. If we wanted a specific tag then we can specify it in the image key, i.e. `image: redis:7.4.0`.
+
+As the `backend` service is dependent on the `redis` service, the `backend` service will not start until the all the services in the `depends_on` have started and have passed the health checks. The `backend` service will build the backend Docker image using the `Dockerfile` and run the image as a container. For the `ports` first `8000` is the external port, the one that we get access to from the docker container. The second number is internal port i.e. within Reflex.
+
+Once the `backend` service has passed all the health checks, the `frontend` service will build the Docker image using the `web.Dockerfile` and run the image as a container. For the ports `3000` is the external port we access outside the container and it maps to port `80` for the internal port as this is where http resolves to because this is where nginx serves the application inside the container (we will explain what nginx is later in this blog).
+
+
+### Dockerfile
+
+The `Dockerfile` is used to build the Docker image for the Reflex app. Here is an example of a `Dockerfile`:
+
+```dockerfile
+FROM python:3.12
+
+
+ENV REDIS_URL=redis://redis PYTHONUNBUFFERED=1
+
+WORKDIR /app
+COPY . .
+
+RUN pip install -r requirements.txt
+
+
+ENTRYPOINT ["reflex", "run", "--env", "prod", "--backend-only", "--loglevel", "debug" ]
+```
+
+We start from the python image of 3.12. 
+
+Docker compose makes all the services accessible to each via their service name. Therefore `redis://` is the protocol, `redis` is the url and is easily accessible to all other services and therefore we access the redis container. If you are using a self hosted redis then you would put the actual url here instead of redis i.e. `REDIS_URL=redis://sjc04rdsdb01.your.cloud.provider.com`. `PYTHONUNBUFFERED=1` ensures that stdout and stderr go to the terminal.
+
+`WORKDIR /app` sets the working directory inside the docker container. `COPY . .` copies everything from your current directory into the docker container.
+
+The `ENTRYPOINT` is the command that is run when the container starts. In this case, we run the `reflex` command to start the Reflex app in production mode. The `--backend-only` flag tells Reflex to only run the backend server and not the frontend server. The `--loglevel` flag sets the log level to debug.
+
+
+### web.Dockerfile
+
+The `web.Dockerfile` is used to build the Docker image for the web server. Here is an example of a `web.Dockerfile`:
+
+```dockerfile
+FROM python:3.12 AS builder
+
+WORKDIR /app
+
+COPY . .
+RUN pip install -r requirements.txt
+RUN reflex export --frontend-only --no-zip
+
+FROM nginx
+
+COPY --from=builder /app/.web/_static /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+```
+
+We import `python:3.12` and build on top of it and the name of this build step is `builder` which we can then reference later as needed. The `WORKDIR`, `COPY`, `RUN pip install` commands are the same as in the `Dockerfile`. The `reflex export --frontend-only --no-zip` command exports the frontend assets to the `.web/_static` directory. After this step the build step we have with all these changes is called `builder`. 
+
+`nginx` is an image that we import and there is no need for an entry point as it already comes with an entry point built-in. 
+
+We now have `/app/.web/_static` in our builder from the reflex export command and we copy that into the location that nginx is looking to serve files from.
+
+We update the nginx configuration to one that serves our files and has a proxy pass to the backend as this is where nginx is looking to read a configuration file.
+
+### nginx.conf
+
+The `nginx.conf` file is used to configure the Nginx web server. Here is an example of an `nginx.conf` file:
+
+```nginx
+server { 
+ listen 80;
+ listen  [::]:80;
+ server_name frontend;
+
+
+ error_page   500 502 503 504  /50x.html;
+ location = /50x.html {
+    root   /usr/share/nginx/html;
+ }
+
+ location /_event {
+    proxy_set_header   Connection "upgrade";
+    proxy_pass http://backend:8000;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+ }
+
+ location /ping {
+    proxy_pass http://backend:8000;
+ }
+
+ location /_upload {
+    proxy_pass http://backend:8000;
+ }
+
+ location / {
+   # This would be the directory where your Reflex app's static files are stored at
+   root /usr/share/nginx/html;
+   try_files $uri /$uri/index.html;
+ }
+
+}
+```
+
+The `listen 80;` and `listen  [::]:80;` lines specify that the server should listen on port 80 and on any ip address on port 80.
+
+The `location /_event` block is used to proxy websocket connections to the backend server. The `proxy_pass http://backend:8000;` line specifies that the requests should be forwarded to the `backend` service on port 8000. Anything that hits the frontend on the 3 pages (`/_event`, `/ping`, `/_upload`) are passed on to the backend and then the backend will respond and the front end will pass that straight back to the user. 
+
+When a request doesn't match any of the specifically defined pages above, Nginx follows these steps:
+
+It looks in the `/usr/share/nginx/html` directory, which is where your Reflex app's static files are stored. Nginx tries to match the request's `$uri` to a file in this directory. 
+
+Here's how it works for a request to `myapp.com/home/user`:
+a. The `$uri` becomes `home/user`
+b. Nginx combines the root directory with the `$uri` where root is `/usr/share/nginx/html` so the path is `/usr/share/nginx/html/uri/index.html`
+c. Subbing in the `$uri` parameter it looks for a file at: `/usr/share/nginx/html/home/user/index.html`
+
+If Nginx finds a file at this path, it serves it to the user. If no file is found, Nginx returns a 404 (Not Found) page.
+
+
+## Running Your Dockerized Reflex App (locally)
+
+To run your Dockerized Reflex app, navigate to the top level of your app and run the following command:
+
+```bash
+docker compose up 
+```
+
+Now check out `localhost:3000`.
+
+```md alert warning
+# Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+If the docker desktop app is not running, you will see this error message. Make sure the docker desktop app is running before you run the dockerization command.
+```
+
+When you make changes to your app and want the changes to be reflected in the docker containers you will need to rebuild the images using docker compose with the build flag:
+
+```bash
+docker compose up --build
+```
+
+
+
+## Deploying your dockerized app to a remote server 
+
+To deploy your Dockerized Reflex app to a remote server, you will need to push your Docker images to a container registry like Docker Hub or Amazon ECR. Once your images are in the registry, you can pull them onto your remote server and run them using Docker Compose.
+
+Here are the steps to deploy your Dockerized Reflex app to a remote server:
+
+1. build and tag your images 
+
+```bash
+docker build . -f Dockerfile -t 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
+```
+`example_app` is the name of the repository. `-f` is used to specify the file that we want to build into an image. `-t` is for tagging and is used to name the docker image. After the colon is our tag, which we normally use to do versioning.
+
+Then we push this image to our remote repository:
+
+```bash
+docker push 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
+```
+
+Ensure that you authenticate with your remote repository, for AWS it may look something like this:
+
+```bash
+docker login -u AWS -p $(aws ecr get-login-password --region us-west-2) 83???????86.dkr.ecr.us-west-2.amazonaws.com
+```
+
+Now repeat the commands above with the `web.Dockerfile` to build and push these to the remote repository.
+
+
+### Update the compose.yml file
+
+We now want to pull these images we just uploaded from our remote repository. Ensure that there is docker installed on the remote server, create this one `compose.yml` file below and then run the following command:
+
+```bash
+docker compose up -d
+```
+
+
+```dockerfile
+services:
+  backend:
+    image: 8?????????6.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
+    ports:
+     - 8000:8000
+    entrypoint: ["reflex", "run", "--env", "prod", "--backend-only", "--loglevel", "debug" ]
+    depends_on:
+     - redis
+  frontend:
+    image: 8?????????6.dkr.ecr.us-west-2.amazonaws.com/example_app/frontend:v0.1   
+    ports:
+      - 3000:80
+    depends_on:
+      - backend
+  redis:
+    image: redis
+```
+
+## Extra Configurations
+
+Still to come ...
