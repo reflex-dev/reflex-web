@@ -48,6 +48,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-10-07",
+            "v0.6.2",
+            "Improve Event Processing Time",
+            [
+                "`rx.cond` can now be used with event triggers, like `on_click`",
+                "Replace dill with standard pickle for faster serialization",
+                "All `rx.el.svg` elements are now supported",
+                "Fix styling in dynamic components",
+                "Fix bug when using `rx.call_script` with f-strings and vars",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/v0.6.2",
+        ),
+        change(
             "2024-09-30",
             "v0.6.1",
             "Experimental Dynamic Components",
