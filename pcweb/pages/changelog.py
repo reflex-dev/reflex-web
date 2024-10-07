@@ -448,7 +448,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.8",
         ),
         change(
-            "2021-09-08",
+            "2023-09-08",
             "v0.2.7",
             "Reduced Package Size + Client-side Storage.",
             [
@@ -460,7 +460,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.7",
         ),
         change(
-            "2021-08-14",
+            "2023-08-14",
             "v0.2.6",
             "Bug fix to connect to no sql databases.",
             [
@@ -470,7 +470,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.6",
         ),
         change(
-            "2021-08-01",
+            "2023-08-01",
             "v0.2.5",
             "Performance improvements + bug fixes.",
             [
