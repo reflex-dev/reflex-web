@@ -70,9 +70,9 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     if start_index > 0:
         comment_line = lines[start_index - 1].strip()
         if comment_line.startswith("#"):
-            default_match = re.search(r'Default:\s*(["\']?\w+["\']?|\w+)', comment_line)
+            default_match = re.search(r"Default:\s*(.+)$", comment_line)
             if default_match:
-                default_value = default_match.group(1)
+                default_value = default_match.group(1).strip()
                 return default_value
 
     # Get the initial line
@@ -826,7 +826,7 @@ EVENTS = {
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
     }
-    
+
 }
 
 
