@@ -14,8 +14,8 @@ stats: [
         "value": "25%"
     },
     {
-        "metric": "Caps can be worn at once: Solution Architecture, UI/UX, front-end and back-end",
-        "value": "4"
+        "metric": "Cost saved as 1 person the can do the job of 2 with Reflex",
+        "value": "50%"
     }
 ]
 meta: [
