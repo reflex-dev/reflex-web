@@ -1,6 +1,6 @@
 ---
 author: Tom Gotsman
-date: 2024-10-14
+date: 2024-10-8
 title: Self Hosting a Reflex app with Docker
 description: Learn how to deploy and self-host your Reflex application using Docker for efficient containerization.
 image: /blog/ag-grid.webp
@@ -52,12 +52,12 @@ There will only be 4 files needed to Dockerize your Reflex app:
 You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file. See below for an example folder structure:
 
 ```bash
-{app_name}
+\{app_name}
 ├── .web
 ├── assets
-├── {app_name}
+├── \{app_name}
 │   ├── __init__.py
-│   └── {app_name}.py
+│   └── \{app_name}.py
 ├── compose.yml
 ├── Dockerfile
 ├── nginx.conf
