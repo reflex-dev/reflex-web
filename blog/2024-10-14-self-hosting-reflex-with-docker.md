@@ -49,15 +49,21 @@ There will only be 4 files needed to Dockerize your Reflex app:
 3. `web.Dockerfile`
 4. `nginx.conf`
 
-You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file. See the image below for an example folder structure:
+You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file. See below for an example folder structure:
 
-```python exec
-import reflex as rx
-from reflex_image_zoom import image_zoom
-```
+```bash
+{app_name}
+├── .web
+├── assets
+├── {app_name}
+│   ├── __init__.py
+│   └── {app_name}.py
+├── compose.yml
+├── Dockerfile
+├── nginx.conf
+├── web.Dockerfile
+└── rxconfig.py
 
-```python eval
-image_zoom(rx.image(src="/blog/hosting-blog-folder-structure.png", height=350, width=260))
 ```
 
 
