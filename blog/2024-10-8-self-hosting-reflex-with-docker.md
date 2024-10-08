@@ -1,8 +1,8 @@
 ---
 author: Tom Gotsman
 date: 2024-10-08
-title: Self Hosting a Reflex app with Docker
-description: Learn how to deploy and self-host your Reflex application using Docker for efficient containerization.
+title: Self Hosting Reflex with Docker
+description: Hosting Reflex on your own infra using Docker for efficient containerization.
 image: /blog/self-hosting-with-docker.webp
 meta: [
     {
@@ -30,12 +30,12 @@ meta: [
 ]
 ---
 
-Reflex offers a powerful way to build reactive web apps in pure Python, complete with one-line deployment for easy hosting. But for those who prefer self-hosting, enter Docker: a game-changer for self-hosting. In this post, we'll explore how to leverage Docker's containerization to simplify the deployment of Reflex applications. Whether you're a seasoned developer or new to these technologies, you'll learn how to take your Reflex apps from development to production.
+Reflex offers a powerful way to build reactive web apps in pure Python, complete with one-line deployment for easy hosting. For those who want to self host on their own infra we'll explore how to leverage Docker to containerize and deploy your app, taking your Reflex app from development to production.
 
 
-## Setup 
+## Prerequisites 
 
-Before we dive into the deployment process, let's make sure we have everything we need. This tutorial assumes you have a Reflex app ready for deployment and Docker Compose installed on your machine. If you haven't already, you can install Docker Compose by following the instructions on the [Docker website](https://docs.docker.com/compose/install/).
+This tutorial assumes you have a Reflex app ready for deployment and Docker Compose installed on your machine. If you haven't already, you can install Docker Compose by following the instructions on the [Docker website](https://docs.docker.com/compose/install/).
 
 
 
