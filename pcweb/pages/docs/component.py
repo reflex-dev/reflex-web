@@ -832,7 +832,6 @@ EVENTS = {
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
     }
-
     
 }
 
