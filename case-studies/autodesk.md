@@ -14,7 +14,7 @@ stats: [
         "value": "25%"
     },
     {
-        "metric": "Cost saved as 1 person the can do the job of 2 with Reflex",
+        "metric": "Cost saved as 1 person can do the job of 2 with Reflex",
         "value": "50%"
     }
 ]
