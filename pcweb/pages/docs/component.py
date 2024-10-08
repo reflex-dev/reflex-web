@@ -706,6 +706,12 @@ EVENTS = {
     "on_paste": {
         "description": "The on_paste event handler is called when the user pastes text into the editor. It receives the clipboard data and max character count as arguments.",
     },
+    "on_animation_start": {
+        "description": "The on_animation_start event handler is called when the animation starts. It receives the animation name as an argument.",
+    },
+    "on_animation_end": {
+        "description": "The on_animation_end event handler is called when the animation ends. It receives the animation name as an argument.",
+    },
     "toggle_code_view": {
         "description": "The toggle_code_view event handler is called when the user toggles code view. It receives a boolean whether code view is active.",
     },
@@ -826,6 +832,7 @@ EVENTS = {
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
     }
+
     
 }
 
