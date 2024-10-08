@@ -281,6 +281,8 @@ docker compose up --build
 
 ## Deploying your dockerized app to a remote server 
 
+*Note*: the following commands were used on a EC2 Amazon Linux vm, your commands may differ slightly.
+
 To deploy your Dockerized Reflex app to a remote server, you will need to push your Docker images to a container registry like Docker Hub or Amazon ECR. Once your images are in the registry, you can pull them onto your remote server and run them using Docker Compose.
 
 Here are the steps to deploy your Dockerized Reflex app to a remote server:
@@ -288,15 +290,16 @@ Here are the steps to deploy your Dockerized Reflex app to a remote server:
 1- Build and tag your image 
 
 ```bash
-docker build . -f Dockerfile -t 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
+docker build . -f Dockerfile -t 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1 --platform linux/amd64
 ```
 `example_app` is the name of the repository. `-f` is used to specify the file that we want to build into an image. `-t` is for tagging and is used to name the docker image. After the colon is our tag, which we normally use to do versioning.
 
+`--platform linux/amd64` is setting what platform this docker image will run on, this may differ depending on what machine you are going to host this on. 
 
 2- Push image to your remote repository
 
 ```bash
-docker push 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
+docker push 83????????86.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1 
 ```
 
 Ensure that you authenticate with your remote repository, for AWS it may look something like this:
@@ -306,34 +309,79 @@ docker login -u AWS -p $(aws ecr get-login-password --region us-west-2) 83??????
 ```
 
 Now repeat the commands above with the `web.Dockerfile` to build and push these to the remote repository.
+*Note* you will likely need to update your `web.Dockerfile` to include the `API_URL` for the hostname of where you are hosting
+```dockerfile
+FROM python:3.12 AS builder
+
+WORKDIR /app
+
+COPY . .
+ENV API_URL=http://ec2-XX-XXX-XXX-XX.us-west-2.compute.amazonaws.com
+RUN pip install -r requirements.txt
+RUN reflex export --frontend-only --no-zip
+
+
+FROM nginx
+
+
+COPY --from=builder /app/.web/_static /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+```
 
 
 ### Update the compose.yml file
 
-3- Update the `compose.yml` file to pull the images from the remote repository
-
-We now want to pull these images we just uploaded from our remote repository. Ensure that there is docker installed on the remote server, create this one `compose.yml` file below and then run the following command:
-
-```bash
-docker compose up -d
-```
+3- Add an updated the `compose.yml` file to pull the images from the remote repository to your remote host.
 
 
 ```dockerfile
 services:
   backend:
-    image: 8?????????6.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
-    ports:
-     - 8000:8000
+    image: XXXXXX.dkr.ecr.us-west-2.amazonaws.com/example_app/backend:v0.1
     entrypoint: ["reflex", "run", "--env", "prod", "--backend-only", "--loglevel", "debug" ]
     depends_on:
      - redis
   frontend:
-    image: 8?????????6.dkr.ecr.us-west-2.amazonaws.com/example_app/frontend:v0.1   
+    image: XXXXX.dkr.ecr.us-west-2.amazonaws.com/example_app/frontend:v0.1
     ports:
-      - 3000:80
+      - 80:80
     depends_on:
       - backend
   redis:
     image: redis
 ```
+
+4- In side your EC2 Machine
+
+```bash
+# add your compose.yml here
+vi compose.yml
+
+# become root
+sudo su 
+# install docker
+yum install docker -y 
+# download docker-compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose 
+# make docker-compose executable 
+chmod +x /usr/local/bin/docker-compose
+# check to make sure docker-compose is working
+docker-compose version
+# output: Docker Compose version v2.29.7
+
+# start docker
+systemctl start docker
+
+# configure aws for accessing private ecr
+aws configure
+# here you will have to provide your access key id and secret access key
+
+# login with docker using our ecr creds
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin xxxxxx.dkr.ecr.us-west-2.amazonaws.com
+
+# start up the app
+docker-compose up -d
+```
+
+
+
