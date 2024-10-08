@@ -99,7 +99,7 @@ import reflex as rx
 ```python eval
 rx.accordion.root(
     rx.accordion.item(
-        header=rx.heading("Explanation of the compose.yml file", color=rx.color("slate", 12), weight="regular", size='5'),
+        header=rx.text("Explanation of the compose.yml file", color=rx.color("slate", 12), weight="regular"),
         content=rx.markdown("""Here we define three services: `backend`, `frontend`, and `redis`. The `backend` service will run the Reflex app, the `frontend` service will run the web server, and the `redis` service will run the Redis server. The `depends_on` key specifies the order in which the services will be started.
 
 The first to be run is the `redis` service. We use Redis for the state manager and it is good to put in its own container, so that its easy to differenatiate the resource usage from a cache and the actual web server. It pulls the docker image for redis and runs the image as a container. If we wanted a specific tag then we can specify it in the image key, i.e. `image: redis:7.4.0`.
@@ -137,7 +137,7 @@ ENTRYPOINT ["reflex", "run", "--env", "prod", "--backend-only", "--loglevel", "d
 ```python eval
 rx.accordion.root(
     rx.accordion.item(
-        header=rx.heading("Explanation of the Dockerfile file", color=rx.color("slate", 12), weight="regular", size='5'),
+        header=rx.text("Explanation of the Dockerfile file", color=rx.color("slate", 12), weight="regular"),
         content=rx.markdown("""We start from the python image of 3.12. 
 
 Docker compose makes all the services accessible to each via their service name. Therefore `redis://` is the protocol, `redis` is the url and is easily accessible to all other services and therefore we access the redis container. If you are using a self hosted redis then you would put the actual url here instead of redis i.e. `REDIS_URL=redis://sjc04rdsdb01.your.cloud.provider.com`. `PYTHONUNBUFFERED=1` ensures that stdout and stderr go to the terminal.
@@ -174,7 +174,7 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 ```python eval
 rx.accordion.root(
     rx.accordion.item(
-        header=rx.heading("Explanation of the web.Dockerfile file", color=rx.color("slate", 12), weight="regular", size='5'),
+        header=rx.text("Explanation of the web.Dockerfile file", color=rx.color("slate", 12), weight="regular"),
         content=rx.markdown("""We import `python:3.12` and build on top of it and the name of this build step is `builder` which we can then reference later as needed. The `WORKDIR`, `COPY`, `RUN pip install` commands are the same as in the `Dockerfile`. The `reflex export --frontend-only --no-zip` command exports the frontend assets to the `.web/_static` directory. The `builder` step encompasses all lines until we reach the next `FROM` statement. After this the `builder` step is complete and ready to be used in later steps.
 
 `nginx` is an image that we import and there is no need for an entrypoint as we plan to utilize the existing one that comes with the image.
