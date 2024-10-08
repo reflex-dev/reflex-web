@@ -49,9 +49,16 @@ There will only be 4 files needed to Dockerize your Reflex app:
 3. `web.Dockerfile`
 4. `nginx.conf`
 
-You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file.
+You need to create these files at the top level of your app, the same folder level as the `rxconfig.py` file. See the image below for an example folder structure:
 
-!!!!!!! add image here of file strucutre of app !!!!!!
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
+
+```python eval
+image_zoom(rx.image(src="/blog/hosting-blog-folder-structure.png", height=350, width=260))
+```
 
 
 ### compose.yml
@@ -79,13 +86,13 @@ services:
     image: redis
 ```
 
-Here we define three services: `backend`, `frontend`, and `redis`. The `backend` service will run the Reflex app, the `frontend` service will run the web server, and the `redis` service will run the Redis server. The `depends_on` key specifies the order in which the services should be started.
+Here we define three services: `backend`, `frontend`, and `redis`. The `backend` service will run the Reflex app, the `frontend` service will run the web server, and the `redis` service will run the Redis server. The `depends_on` key specifies the order in which the services will be started.
 
 The first to be run is the `redis` service. We use Redis for the state manager and it is good to put in its own container, so that its easy to differenatiate the resource usage from a cache and the actual web server. It pulls the docker image for redis and runs the image as a container. If we wanted a specific tag then we can specify it in the image key, i.e. `image: redis:7.4.0`.
 
 As the `backend` service is dependent on the `redis` service, the `backend` service will not start until the all the services in the `depends_on` have started and have passed the health checks. The `backend` service will build the backend Docker image using the `Dockerfile` and run the image as a container. For the `ports` first `8000` is the external port, the one that we get access to from the docker container. The second number is internal port i.e. within Reflex.
 
-Once the `backend` service has passed all the health checks, the `frontend` service will build the Docker image using the `web.Dockerfile` and run the image as a container. For the ports `3000` is the external port we access outside the container and it maps to port `80` for the internal port as this is where http resolves to because this is where nginx serves the application inside the container (we will explain what nginx is later in this blog).
+Once the `backend` service has passed all the health checks, the `frontend` service image will be built using the Dockerfile `web.Dockerfile` and then run as a container. For the ports `3000` is the external port we access outside the container and it maps to port `80` for the internal port as this is where http resolves to because this is where nginx serves the application inside the container (we will explain what nginx is later in this blog).
 
 
 ### Dockerfile
@@ -135,13 +142,13 @@ COPY --from=builder /app/.web/_static /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 ```
 
-We import `python:3.12` and build on top of it and the name of this build step is `builder` which we can then reference later as needed. The `WORKDIR`, `COPY`, `RUN pip install` commands are the same as in the `Dockerfile`. The `reflex export --frontend-only --no-zip` command exports the frontend assets to the `.web/_static` directory. After this step the build step we have with all these changes is called `builder`. 
+We import `python:3.12` and build on top of it and the name of this build step is `builder` which we can then reference later as needed. The `WORKDIR`, `COPY`, `RUN pip install` commands are the same as in the `Dockerfile`. The `reflex export --frontend-only --no-zip` command exports the frontend assets to the `.web/_static` directory. The `builder` step encompasses all lines until we reach the next `FROM` statement. After this the `builder` step is complete and ready to be used in later steps.
 
-`nginx` is an image that we import and there is no need for an entry point as it already comes with an entry point built-in. 
+`nginx` is an image that we import and there is no need for an entrypoint as we plan to utilize the existing one that comes with the image.
 
 We now have `/app/.web/_static` in our builder from the reflex export command and we copy that into the location that nginx is looking to serve files from.
 
-We update the nginx configuration to one that serves our files and has a proxy pass to the backend as this is where nginx is looking to read a configuration file.
+We update the nginx configuration to one that serves our files and has a proxy pass to the backend and place this config where nginx looks to read its configuration from.
 
 ### nginx.conf
 
@@ -183,7 +190,7 @@ server {
 }
 ```
 
-The `listen 80;` and `listen  [::]:80;` lines specify that the server should listen on port 80 and on any ip address on port 80.
+The `listen 80;` and `listen  [::]:80;` lines specify that the server should listen on port 80 ([::] is for ipv6).
 
 The `location /_event` block is used to proxy websocket connections to the backend server. The `proxy_pass http://backend:8000;` line specifies that the requests should be forwarded to the `backend` service on port 8000. Anything that hits the frontend on the 3 pages (`/_event`, `/ping`, `/_upload`) are passed on to the backend and then the backend will respond and the front end will pass that straight back to the user. 
 
