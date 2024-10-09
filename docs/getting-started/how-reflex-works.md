@@ -182,7 +182,7 @@ On the frontend, we maintain an event queue of all pending events. An event cons
 Let's assume I type my username "picklelo" into the input. In this example, our event would look something like this:
 
 ```json
-\{
+{
     client_token: "abc123",
     event_handler: "GithubState.set_profile",
     arguments: ["picklelo"]
