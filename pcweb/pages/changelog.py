@@ -48,13 +48,26 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-10-07",
+            "v0.6.2",
+            "Improve Event Processing Time",
+            [
+                "`rx.cond` can now be used with event triggers, like `on_click`",
+                "Replace dill with standard pickle for faster serialization",
+                "All `rx.el.svg` elements are now supported",
+                "Fix styling in dynamic components",
+                "Fix bug when using `rx.call_script` with f-strings and vars",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/v0.6.2",
+        ),
+        change(
             "2024-09-30",
             "v0.6.1",
             "Experimental Dynamic Components",
             [
                 "Fix various regressions from v0.5.10",
                 "Optionally run app using Granian instead of Uvicorn",
-                "Set `USE_SYSTEM_BUN=1` and `USE_SYSTEM_NODE=1` to use already-installed runtimes on the `PATH`",
+                "Set `REFLEX_USE_SYSTEM_BUN=1` and `REFLEX_USE_SYSTEM_NODE=1` to use already-installed runtimes on the `PATH`",
                 "Bump nextjs to 14.2.13",
             ],
             "https://github.com/reflex-dev/reflex/releases/tag/v0.6.1",
@@ -435,7 +448,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.8",
         ),
         change(
-            "2021-09-08",
+            "2023-09-08",
             "v0.2.7",
             "Reduced Package Size + Client-side Storage.",
             [
@@ -447,7 +460,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.7",
         ),
         change(
-            "2021-08-14",
+            "2023-08-14",
             "v0.2.6",
             "Bug fix to connect to no sql databases.",
             [
@@ -457,7 +470,7 @@ def changelog_content():
             "https://github.com/reflex-dev/reflex/releases/tag/v0.2.6",
         ),
         change(
-            "2021-08-01",
+            "2023-08-01",
             "v0.2.5",
             "Performance improvements + bug fixes.",
             [
