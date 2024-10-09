@@ -150,6 +150,16 @@ The following example uses `useEffect` to register global hotkeys on the
 `document` object, and then triggers an event when a specific key is pressed.
 
 ```python demo exec
+import dataclasses
+
+@dataclasses.dataclass
+class KeyEvent:
+    key: str = ""
+
+def key_event(ev: rx.Var[KeyEvent]) -> tuple[Var[str]]:
+    # Takes the event object and returns the key pressed to send to the state
+    return (ev.key,)
+
 class GlobalKeyState(rx.State):
     key: str = ""
 
@@ -162,7 +172,7 @@ class GlobalKeyWatcher(rx.Fragment):
     keys: rx.Var[list[str]] = []
 
     # The event handler that will be called
-    on_key_down: rx.EventHandler[lambda ev: [ev.key]]
+    on_key_down: rx.EventHandler[key_event]
 
     def _get_imports(self) -> rx.utils.imports.ImportDict:
         return rx.utils.imports.merge_imports(
