@@ -309,7 +309,9 @@ docker login -u AWS -p $(aws ecr get-login-password --region us-west-2) 83??????
 ```
 
 Now repeat the commands above with the `web.Dockerfile` to build and push these to the remote repository.
+
 *Note* you will likely need to update your `web.Dockerfile` to include the `API_URL` for the hostname of where you are hosting
+
 ```dockerfile
 FROM python:3.12 AS builder
 
@@ -351,7 +353,7 @@ services:
     image: redis
 ```
 
-4- In side your EC2 Machine
+4- In side your EC2 Machine run the following commands (ignoring the comments):
 
 ```bash
 # add your compose.yml here
