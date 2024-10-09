@@ -154,9 +154,10 @@ import dataclasses
 
 @dataclasses.dataclass
 class KeyEvent:
+    """Interface of Javascript KeyboardEvent"""
     key: str = ""
 
-def key_event(ev: rx.Var[KeyEvent]) -> tuple[Var[str]]:
+def key_event_spec(ev: rx.Var[KeyEvent]) -> tuple[rx.Var[str]]:
     # Takes the event object and returns the key pressed to send to the state
     return (ev.key,)
 
@@ -172,7 +173,7 @@ class GlobalKeyWatcher(rx.Fragment):
     keys: rx.Var[list[str]] = []
 
     # The event handler that will be called
-    on_key_down: rx.EventHandler[key_event]
+    on_key_down: rx.EventHandler[key_event_spec]
 
     def _get_imports(self) -> rx.utils.imports.ImportDict:
         return rx.utils.imports.merge_imports(
