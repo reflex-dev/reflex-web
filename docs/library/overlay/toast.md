@@ -29,6 +29,26 @@ You can use `rx.toast` as an event handler for any component that triggers an ac
 rx.button("Show Toast", on_click=rx.toast("Hello, World!"))
 ```
 
+### Usage in State
+
+You can also use `rx.toast` in a state to show a toast when a specific action is triggered, using `yield`.
+
+```python demo exec
+import asyncio
+class ToastState(rx.State):
+
+    async def fetch_data(self):
+        # Simulate fetching data for a 2-second delay
+        await asyncio.sleep(2)
+        # Shows a toast when the data is fetched
+        yield rx.toast("Data fetched!")
+
+
+def render():
+    return rx.button("Get Data", on_click=ToastState.fetch_data)
+```
+
+
 ## Interaction
 
 If you want to interact with a toast, a few props are available to customize the behavior.
