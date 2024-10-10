@@ -36,7 +36,7 @@ def footer_link_flex(
     heading: str, links: list[rx.Component], class_name: str = ""
 ) -> rx.Component:
     return rx.box(
-        rx.el.h4(
+        rx.el.h3(
             heading,
             class_name="font-smbold text-slate-12 w-fit",
         ),
@@ -45,20 +45,21 @@ def footer_link_flex(
     )
 
 
-def social_menu_item(icon: str, url: str) -> rx.Component:
+def social_menu_item(icon: str, url: str, name: str) -> rx.Component:
     return rx.link(
         get_icon(icon, class_name="!text-slate-9 shrink-0"),
         class_name="flex w-full h-8 lg:size-8 border border-slate-5 rounded-lg hover:bg-slate-3 transition-bg bg-slate-1 px-3 py-1.5 justify-center items-center border-solid",
         href=url,
+        custom_attrs={"aria-label": "Social link for " + name},
         is_external=True,
     )
 
 
 def menu_socials() -> rx.Component:
     return rx.box(
-        social_menu_item("discord_navbar", DISCORD_URL),
-        social_menu_item("twitter", TWITTER_URL),
-        social_menu_item("github_navbar", GITHUB_URL),
+        social_menu_item("discord_navbar", DISCORD_URL, "Discord"),
+        social_menu_item("twitter", TWITTER_URL, "Twitter"),
+        social_menu_item("github_navbar", GITHUB_URL, "Github"),
         class_name="flex flex-row h-full align-center gap-2 w-full lg:w-fit max-w-[24rem]",
     )
 

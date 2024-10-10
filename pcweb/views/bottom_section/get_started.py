@@ -39,6 +39,7 @@ def code_block() -> rx.Component:
                         "pip install reflex\nreflex init\nreflex run"
                     ),
                     class_name="cursor-pointer self-baseline h-fit p-2 rounded-[0.625rem] hover:bg-slate-3 transition-bg",
+                    custom_attrs={"aria-label": "Copy code"},
                 ),
                 side="bottom",
             ),

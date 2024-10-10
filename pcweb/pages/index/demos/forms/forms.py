@@ -75,6 +75,7 @@ def form() -> rx.Component:
                     name="name",
                     type="text",
                     required=True,
+                    custom_attrs={"aria-label": "Name"},
                     class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none",
                 ),
                 class_name="flex flex-col gap-2",
@@ -90,6 +91,7 @@ def form() -> rx.Component:
                     name="input_email",
                     type="email",
                     required=True,
+                    custom_attrs={"aria-label": "Email"},
                     class_name="box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[0.625rem] font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none w-full",
                 ),
                 class_name="flex flex-col gap-2",
@@ -102,6 +104,7 @@ def form() -> rx.Component:
                 rx.el.textarea(
                     name="message",
                     type="text",
+                    custom_attrs={"aria-label": "Message"},
                     class_name="h-[4.75rem] box-border border-slate-5 focus:border-violet-9 focus:border-1 dark:bg-[#27282B] bg-slate-1 p-[0.5rem_0.75rem] border rounded-[10px] w-full font-small text-slate-11 placeholder:text-slate-9 outline-none focus:outline-none resize-none",
                 ),
                 class_name="flex flex-col gap-2",
