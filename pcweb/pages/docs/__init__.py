@@ -4,7 +4,10 @@ from types import SimpleNamespace
 
 import reflex as rx
 import flexdown
+
+# External Components
 from reflex_ag_grid import ag_grid
+from reflex_pyplot import pyplot
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
