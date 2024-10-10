@@ -109,22 +109,22 @@ rx.flex(
 )
 ```
 
-A radix color with a scale may also be specified using the `var()` token syntax seen below.
+A radix color with a scale may also be specified using `rx.color()` as seen below.
 
 ```python demo
 rx.flex(
-    rx.icon("zoom_in", size=18, color="var(--purple-1)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-2)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-3)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-4)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-5)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-6)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-7)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-8)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-9)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-10)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-11)"),
-    rx.icon("zoom_in", size=18, color="var(--purple-12)"),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 1)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 2)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 3)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 4)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 5)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 6)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 7)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 8)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 9)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 10)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 11)),
+    rx.icon("zoom_in", size=18, color=rx.color("purple", 12)),
     gap="2",
 )
 ```
@@ -133,18 +133,18 @@ Here is another example using the `accent` color with scales. The `accent` is th
 
 ```python demo
 rx.flex(
-    rx.icon("zoom_in", size=18, color="var(--accent-1)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-2)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-3)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-4)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-5)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-6)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-7)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-8)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-9)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-10)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-11)"),
-    rx.icon("zoom_in", size=18, color="var(--accent-12)"),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 1)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 2)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 3)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 4)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 5)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 6)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 7)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 8)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 9)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 10)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 11)),
+    rx.icon("zoom_in", size=18, color=rx.color("accent", 12)),
     gap="2",
 )
 ```

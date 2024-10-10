@@ -41,7 +41,7 @@ def code_block_dark(code: str, language: str):
                 class_name="!text-slate-9 hover:!text-slate-11 transition-color",
                 on_click=rx.set_clipboard(code),
             ),
-            class_name="top-[30px] right-[30px] absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
+            class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
         ),
         class_name="relative",
     )
