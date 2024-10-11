@@ -444,7 +444,7 @@ def prop_docs(
 
     literal_values = []  # Literal values of the prop
     all_types = []  # List for all the prop types
-    MAX_PROP_VALUES = 3
+    MAX_PROP_VALUES = 2
 
     COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
     if origin is Union:
