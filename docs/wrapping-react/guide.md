@@ -232,7 +232,7 @@ class PlotlyLib(NoSSRComponent):
 
 It may not always be clear when a library requires dynamic imports. A few things to keep in mind are if the component is very client side heavy i.e. the view and structure depends on things that are fetched at run time, or if it uses `window` or `document` objects directly it will need to be wrapped as a `NoSSRComponent`. 
 
-Some examples are;
+Some examples are:
 
 1. Video and Audio Players
 2. Maps
@@ -378,7 +378,7 @@ class Plotly(rx.Component):
     is_default = True
 
     # Since a serialize is defined now, we can use the Figure type directly.
-    data: Var[Figure]
+    data: rx.Var[Figure]
 ```
 
 ## Event Handlers

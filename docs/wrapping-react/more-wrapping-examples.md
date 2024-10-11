@@ -3,7 +3,7 @@
 
 ## AG Charts
 
-Here we wrap the AG Charts library from this [NPM package](https://www.npmjs.com/package/ag-charts-react). 
+Here we wrap the AG Charts library from the NPM package [ag-charts-react](https://www.npmjs.com/package/ag-charts-react). 
 
 In the react code below we can see the first `2` lines are importing React and ReactDOM, and this can be ignored when wrapping your component.
 
@@ -15,7 +15,7 @@ Line `9` uses the `useState` hook to create a state variable `chartOptions` and 
 
 When we see `useState` in React code, it correlates to state variables in your State. As you can see in our Reflex code we have a state variable `chart_options` which is a dictionary, like in our React code.
 
-Moving to line `26` we see that the `AgCharts` has a prop `options`. In order to use this in Reflex we must wrap this prop. We do this with `options: Var[dict]` in the `AgCharts` component. 
+Moving to line `26` we see that the `AgCharts` has a prop `options`. In order to use this in Reflex we must wrap this prop. We do this with `options: rx.Var[dict]` in the `AgCharts` component. 
 
 Lines `31` and `32` are rendering the component inside the root element. This can be ingored when we are wrapping a component as it is done in Reflex by creating an `index` function and adding it to the app.
 
@@ -64,16 +64,15 @@ Lines `31` and `32` are rendering the component inside the root element. This ca
 
 ```python
 import reflex as rx
-from reflex import Component, Var
 
-class AgCharts(Component):
+class AgCharts(rx.Component):
     """ A simple line chart component using AG Charts """
 
     library = "ag-charts-react"
     
     tag = "AgCharts"
 
-    options: Var[dict]
+    options: rx.Var[dict]
 
 
 chart = AgCharts.create
@@ -112,9 +111,9 @@ app.add_page(index)
 from pcweb.pages import docs
 ```
 
-In this example we are wrapping the React Leaflet library from this [NPM package](https://www.npmjs.com/package/react-leaflet).
+In this example we are wrapping the React Leaflet library from the NPM package [react-leaflet](https://www.npmjs.com/package/react-leaflet).
 
-On line `1` we import the `dynamic` function from Next.js and on line `21` we set `ssr: false`. Lines `4` and `6` use the `dynamic` function to import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. This is used to dynamically import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. There is more information of when this is needed on the `Dynamic Imports` section of this [page]({docs.wrapping_react.guide.path}).
+On line `1` we import the `dynamic` function from Next.js and on line `21` we set `ssr: false`. Lines `4` and `6` use the `dynamic` function to import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is used to dynamically import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. There is more information of when this is needed on the `Dynamic Imports` section of this [page]({docs.wrapping_react.guide.path}).
 
 It mentions in the documentation that it is necessary to include the Leaflet CSS file, which is added on line `2` in the React code below. This can be done in Reflex by using the `add_imports` method in the `MapContainer` component. We can add a relative path from within the React library or a full URL to the CSS file.
 
@@ -163,20 +162,19 @@ Lines `24` and `25` defines and exports a React functional component named `Home
 --tab Reflex Code
 
 ```python 
-from reflex.components.component import NoSSRComponent
-from reflex import Var
+import reflex as rx
 
-class MapContainer(NoSSRComponent):
+class MapContainer(rx.NoSSRComponent):
 
     library = "react-leaflet"
 
     tag = "MapContainer"
 
-    center: Var[list]
+    center: rx.Var[list]
 
-    zoom: Var[int]
+    zoom: rx.Var[int]
 
-    scroll_wheel_zoom: Var[bool]
+    scroll_wheel_zoom: rx.Var[bool]
 
     # Can also pass a url like: https://unpkg.com/leaflet/dist/leaflet.css 
     def add_imports(self):
@@ -184,13 +182,13 @@ class MapContainer(NoSSRComponent):
 
 
 
-class TileLayer(NoSSRComponent):
+class TileLayer(rx.NoSSRComponent):
 
     library = "react-leaflet"
 
     tag = "TileLayer"
 
-    url: Var[str]
+    url: rx.Var[str]
 
 
 map_container = MapContainer.create
@@ -218,7 +216,7 @@ app.add_page(index)
 
 ## React PDF Renderer
 
-In this example we are wrapping the React renderer for creating PDF files on the browser and server from this [NPM package](https://www.npmjs.com/package/@react-pdf/renderer).
+In this example we are wrapping the React renderer for creating PDF files on the browser and server from the NPM package [@react-pdf/renderer](https://www.npmjs.com/package/@react-pdf/renderer).
 
 This example is similar to the previous examples, and again Dynamic Imports are required for this library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. There is more information on why this is needed on the `Dynamic Imports` section of this [page]({docs.wrapping_react.guide.path}).
 
@@ -341,65 +339,63 @@ _State class associated with this component instance_
 --tab Reflex Code
 
 ```python
-from reflex.components.component import NoSSRComponent
-from reflex import Component
-from reflex import Var
+import reflex as rx
 
-class Document(Component):
+class Document(rx.Component):
     
     library = "@react-pdf/renderer"
 
     tag = "Document"
     
 
-class Page(Component):
+class Page(rx.Component):
     
     library = "@react-pdf/renderer"
 
     tag = "Page"
 
-    size: Var[str]
+    size: rx.Var[str]
     # here we are wrapping style prop but as style is a reserved name in Reflex we must name it something else and then change this name with rename props method
-    theme: Var[dict]
+    theme: rx.Var[dict]
 
     _rename_props: dict[str, str] = {
         "theme": "style",
     }
 
 
-class Text(Component):
+class Text(rx.Component):
     
     library = "@react-pdf/renderer"
 
     tag = "Text"
 
 
-class View(Component):
+class View(rx.Component):
     
     library = "@react-pdf/renderer"
 
     tag = "View"
 
     # here we are wrapping style prop but as style is a reserved name in Reflex we must name it something else and then change this name with rename props method
-    theme: Var[dict]
+    theme: rx.Var[dict]
 
     _rename_props: dict[str, str] = {
         "theme": "style",
     }
 
 
-class StyleSheet(Component):
+class StyleSheet(rx.Component):
     
     library = "@react-pdf/renderer"
 
     tag = "StyleSheet"
 
-    page: Var[dict]
+    page: rx.Var[dict]
 
-    section: Var[dict]
+    section: rx.Var[dict]
 
 
-class PDFViewer(NoSSRComponent):
+class PDFViewer(rx.NoSSRComponent):
     
     library = "@react-pdf/renderer"
 
