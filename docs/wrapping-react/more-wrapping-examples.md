@@ -3,47 +3,62 @@
 
 ## Wrapping AG Charts
 
+Here we wrap the AG Charts library from this [NPM package](https://www.npmjs.com/package/ag-charts-react). 
 
-from NPM package: https://www.npmjs.com/package/ag-charts-react
+In the react code below we can see the first `2` lines are importing React and ReactDOM, and this can be ignored when wrapping your component.
+
+We import the `AgCharts` component from the `ag-charts-react` library on line 5. In Reflex this is wrapped by `library = "ag-charts-react"` and `tag = "AgCharts"`.
+
+Line `7` defines a functional React component. This is similar in the Reflex code to using the `chart` component.
+
+Line `9` uses the `useState` hook to create a state variable `chartOptions` and its setter function `setChartOptions` (equivalent to the event handler `set_chart_options` in reflex). The initial state variable is of type dict and has two key value pairs `data` and `series`. 
+
+When we see `useState` in React code, it correlates to state variables in your State. As you can see in our Reflex code we have a state variable `chart_options` which is a dictionary, like in our React code.
+
+Moving to line `26` we see that the `AgCharts` has a prop `options`. In order to use this in Reflex we must wrap this prop. We do this with `options: Var[dict]` in the `AgCharts` component. 
+
+Lines `31` and `32` are rendering the component inside the root element. This can be ingored when we are wrapping a component as it is done in Reflex by creating an `index` function and adding it to the app.
+
 
 ```javascript
-import React, \{ useState } from 'react';
-import ReactDOM from 'react-dom/client';
-
-// React Chart Component
-import \{ AgCharts } from 'ag-charts-react';
-
-const ChartExample = () => {
-    // Chart Options: Control & configure the chart
-    const [chartOptions, setChartOptions] = useState({
-        // Data: Data to be displayed in the chart
-        data: [
-            \{ month: 'Jan', avgTemp: 2.3, iceCreamSales: 162000 },
-            \{ month: 'Mar', avgTemp: 6.3, iceCreamSales: 302000 },
-            \{ month: 'May', avgTemp: 16.2, iceCreamSales: 800000 },
-            \{ month: 'Jul', avgTemp: 22.8, iceCreamSales: 1254000 },
-            \{ month: 'Sep', avgTemp: 14.5, iceCreamSales: 950000 },
-            \{ month: 'Nov', avgTemp: 8.9, iceCreamSales: 200000 },
-        ],
-        // Series: Defines which chart type and data to use
-        series: [\{ type: 'bar', xKey: 'month', yKey: 'iceCreamSales' }],
-    });
-
-// React Chart Component
-  return (
-    // AgCharts component with options passed as prop
-    <AgCharts options=\{chartOptions} />
-  );
-}
-
-// Render component inside root element
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<ChartExample />);
+1 | import React, \{ useState } from 'react';
+2 | import ReactDOM from 'react-dom/client';
+3 | 
+4 | // React Chart Component
+5 | import \{ AgCharts } from 'ag-charts-react';
+6 | 
+7 | const ChartExample = () => {
+8 |     // Chart Options: Control & configure the chart
+9 |     const [chartOptions, setChartOptions] = useState({
+10|         // Data: Data to be displayed in the chart
+11|         data: [
+12|             \{ month: 'Jan', avgTemp: 2.3, iceCreamSales: 162000 },
+13|             \{ month: 'Mar', avgTemp: 6.3, iceCreamSales: 302000 },
+14|             \{ month: 'May', avgTemp: 16.2, iceCreamSales: 800000 },
+15|             \{ month: 'Jul', avgTemp: 22.8, iceCreamSales: 1254000 },
+16|             \{ month: 'Sep', avgTemp: 14.5, iceCreamSales: 950000 },
+17|             \{ month: 'Nov', avgTemp: 8.9, iceCreamSales: 200000 },
+18|         ],
+19|         // Series: Defines which chart type and data to use
+20|         series: [\{ type: 'bar', xKey: 'month', yKey: 'iceCreamSales' }],
+21|     });
+22| 
+23|     // React Chart Component
+24|     return (
+25|         // AgCharts component with options passed as prop
+26|         <AgCharts options=\{chartOptions} />
+27|     );
+28| }
+29| 
+30| // Render component inside root element
+31| const root = ReactDOM.createRoot(document.getElementById('root'));
+32| root.render(<ChartExample />);
 ```
 
 
 
 ```python
+import reflex as rx
 from reflex import Component, Var
 
 class AgCharts(Component):
@@ -59,10 +74,10 @@ class AgCharts(Component):
 chart = AgCharts.create
 
 
-def index() -> rx.Component:
-    return chart(
-        options={
-            "data": [
+class State(rx.State):
+    """The app state."""
+    chart_options: dict = {
+           "data": [
                 \{"month":"Jan", "avgTemp":2.3, "iceCreamSales":162000},
                 \{"month":"Mar", "avgTemp":6.3, "iceCreamSales":302000},
                 \{"month":"May", "avgTemp":16.2, "iceCreamSales":800000},
@@ -72,13 +87,15 @@ def index() -> rx.Component:
             ],
             "series": [\{"type":"bar", "xKey":"month", "yKey":"iceCreamSales"}]
         }
+
+def index() -> rx.Component:
+    return chart(
+        options=State.chart_options,
     )
 
 app = rx.App()
 app.add_page(index)
 ```
-
-
 
 
 
