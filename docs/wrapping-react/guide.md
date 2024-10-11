@@ -184,6 +184,10 @@ class Spline(rx.Component):
     lib_dependencies: list[str] = ["@splinetool/runtime@1.5.5"]  # Specify extra npm packages to install.
 ```
 
+In this example we are adding this dependency to pin its version. It would be automatically installed alongside the `react-spline` library when the component is created.
+
+A useful time to add `lib_dependencies` is when we are wrapping a component and we want plugins or extensions for the library. A good example is the React component `react-markdown` with its [extensions](https://www.npmjs.com/package/react-markdown#plugins). 
+
 ### Versions
 
 You can specify the version of the library you want to install by appending `@` and the version number to the library name.
@@ -226,12 +230,28 @@ class PlotlyLib(NoSSRComponent):
     lib_dependencies: List[str] = ["plotly.js@2.22.0"]
 ```
 
+It may not always be clear when a library requires dynamic imports. A few things to keep in mind are if the component is very client side heavy i.e. the view and structure depends on things that are fetched at run time, or if it uses `window` or `document` objects directly it will need to be wrapped as a `NoSSRComponent`. 
+
+Some examples are;
+
+1. Video and Audio Players
+2. Maps
+3. Drawing Canvas
+4. 3D Graphics
+5. QR Scanners
+6. Reactflow
+
+The reason for this is that it does not make sense for your server to render these components as the server does not have access to your camera, it cannot draw on your canvas or render a video from a file. 
+
+In addition, if in the component documentation it mentions nextJS compatibility or server side rendering compatibility, it is a good sign that it requires dynamic imports.
+
+
 ### Additional Imports
 
 Sometimes you may need to import additional files or stylesheets to use a component. You can do this by overriding the `add_imports` method in your component class. The method returns a dictionary where the key is the library and the values are a list of imports.
 
 ```python
-class ReactFlowLib(Component):
+class ReactFlowLib(rx.Component):
     """A component that wraps a react flow lib."""
 
     library = "reactflow"
@@ -418,3 +438,8 @@ class Hello(rx.Component):
             **props
         )
 ```
+
+
+## Degugging
+
+If you encounter an error while wrapping a component it is recommended to check the Console in the browser developer tools. You can access this by going to inspect element and then clicking on the Console tab on Mac. This is because the Console is where most Javascript errors are logged.

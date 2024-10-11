@@ -112,4 +112,39 @@ def index():
     )
 ```
 
+## What Not To Wrap
+
+There are some libraries on npm that are not do not expose React components and therefore are very hard to wrap with Reflex. 
+
+A library like [spline](https://www.npmjs.com/package/@splinetool/runtime) below is going to be difficult to wrap with Reflex because it does not expose a React component.
+
+```javascript
+import { Application } from '@splinetool/runtime';
+
+// make sure you have a canvas in the body
+const canvas = document.getElementById('canvas3d');
+
+// start the application and load the scene
+const spline = new Application(canvas);
+spline.load('https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode');
+```
+
+You should look out for JSX, a syntax extension to JavaScript, which has angle brackets (<h1>Hello, world!</h1>). If you see JSX, it's likely that the library is a React component and can be wrapped with Reflex. 
+
+If the library does not expose a react component you need to try and find a JS React wrapper for the library, such as [react-spline](https://www.npmjs.com/package/@splinetool/react-spline).
+
+```javascript
+import Spline from '@splinetool/react-spline';
+
+export default function App() {
+  return (
+    <div>
+      <Spline scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" />
+    </div>
+  );
+}
+```
+
+
+
 In the next page, we will go step by step through a more complex example of wrapping a React component.
