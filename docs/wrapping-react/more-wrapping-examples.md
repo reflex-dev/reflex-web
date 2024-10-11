@@ -1,7 +1,7 @@
 # Wrapping More React Libraries 
 
 
-## Wrapping AG Charts
+## AG Charts
 
 Here we wrap the AG Charts library from this [NPM package](https://www.npmjs.com/package/ag-charts-react). 
 
@@ -9,7 +9,7 @@ In the react code below we can see the first `2` lines are importing React and R
 
 We import the `AgCharts` component from the `ag-charts-react` library on line 5. In Reflex this is wrapped by `library = "ag-charts-react"` and `tag = "AgCharts"`.
 
-Line `7` defines a functional React component. This is similar in the Reflex code to using the `chart` component.
+Line `7` defines a functional React component, which on line `26` returns `AgCharts` which is similar in the Reflex code to using the `chart` component.
 
 Line `9` uses the `useState` hook to create a state variable `chartOptions` and its setter function `setChartOptions` (equivalent to the event handler `set_chart_options` in reflex). The initial state variable is of type dict and has two key value pairs `data` and `series`. 
 
@@ -104,50 +104,54 @@ app.add_page(index)
 
 
 
-## React Leaflet example:
+## React Leaflet
 
-https://react-leaflet.js.org/docs/start-installation/ is the page sent to from npm for installation. This mentions that we are required to follow all the instructions from this page: https://leafletjs.com/examples/quick-start/.
+```python exec
+from pcweb.pages import docs
+```
 
-Need to include Leaflet CSS file in the head section of your document:
+In this example we are wrapping the React Leaflet library from this [NPM package](https://www.npmjs.com/package/react-leaflet).
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+On line `1` we import the `dynamic` function from Next.js and on line `21` we set `ssr: false`. Lines `4` and `6` use the `dynamic` function to import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. This is used to dynamically import the `MapContainer` and `TileLayer` components from the `react-leaflet` library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. There is more information of when this is needed on the `Dynamic Imports` section of this [page]({docs.wrapping_react.guide.path}).
 
-and then it says that this is needed 
+It mentions in the documentation that it is necessary to include the Leaflet CSS file, which is added on line `2` in the React code below. This can be done in Reflex by using the `add_imports` method in the `MapContainer` component. We can add a relative path from within the React library or a full URL to the CSS file.
 
- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+Line `4` defines a functional React component, which on line `8` returns the `MapContainer` which is done in the Reflex code using the `map_container` component.
+
+The `MapContainer` component has props `center`, `zoom`, `scrollWheelZoom`, which we wrap in the `MapContainer` component in the Reflex code. We ignore the `style` prop as it is a reserved name in Reflex. We can use the `rename_props` method to change the name of the prop, as we will see in the React PDF Renderer example, but in this case we just ignore it and add the `width` and `height` props as css in Reflex.
+
+The `TileLayer` component has a prop `url` which we wrap in the `TileLayer` component in the Reflex code.
+
+Lines `24` and `25` defines and exports a React functional component named `Home` which returns the `MapComponent` component. This can be ignored in the Reflex code when wrapping the component as we return the `map_container` component in the `index` function.
 
 
 ```javascript
-import dynamic from "next/dynamic";
-import "leaflet/dist/leaflet.css";
-
-const MapComponent = dynamic(
-  () => {
-    return import("react-leaflet").then((\{ MapContainer, TileLayer }) => {
-      return () => (
-        <MapContainer
-          center=\{[51.505, -0.09]}
-          zoom=\{13}
-          scrollWheelZoom=\{true}
-          style=\{\{ height: "50vh", width: "100%" }}
-        >
-          <TileLayer
-            url="https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png"
-          />
-        </MapContainer>
-      );
-    });
-  },
-  \{ ssr: false }
-);
-
-export default function Home() {
-  return <MapComponent />;
-}
+1 | import dynamic from "next/dynamic";
+2 | import "leaflet/dist/leaflet.css";
+3 | 
+4 | const MapComponent = dynamic(
+5 |   () => {
+6 |     return import("react-leaflet").then((\{ MapContainer, TileLayer }) => {
+7 |       return () => (
+8 |         <MapContainer
+9 |           center=\{[51.505, -0.09]}
+10|           zoom=\{13}
+11|           scrollWheelZoom=\{true}
+12|           style=\{\{ height: "50vh", width: "100%" }}
+13|        >
+14|          <TileLayer
+15|            url="https://\{s}.tile.openstreetmap.org/\{z}/\{x}/\{y}.png"
+16|          />
+17|        </MapContainer>
+18|      );
+19|    });
+20|  },
+21|  \{ ssr: false }
+22| );
+23|
+24| export default function Home() {
+25|   return <MapComponent />;
+26| }
 ```
 
 
@@ -167,12 +171,7 @@ class MapContainer(NoSSRComponent):
 
     scroll_wheel_zoom: Var[bool]
 
-    lib_dependencies: list[str] = [
-        "react",
-        "react-dom",
-        "leaflet",
-    ]
-
+    # Can also pass a url like: https://unpkg.com/leaflet/dist/leaflet.css 
     def add_imports(self):
         return \{"": ["leaflet/dist/leaflet.css"]}
 
@@ -183,12 +182,6 @@ class TileLayer(NoSSRComponent):
     library = "react-leaflet"
 
     tag = "TileLayer"
-
-    lib_dependencies: list[str] = [
-        "react",
-        "react-dom",
-        "leaflet",
-    ]
 
     url: Var[str]
 
@@ -219,103 +212,120 @@ app.add_page(index)
 
 ## React PDF Renderer
 
-React renderer for creating PDF files on the browser and server.
+In this example we are wrapping the React renderer for creating PDF files on the browser and server from this [NPM package](https://www.npmjs.com/package/@react-pdf/renderer).
 
-Some weirdness on this one with the dynamic imports being, as i only found this after searching my error on stackoverflow.
+This example is similar to the previous examples, and again Dynamic Imports are required for this library. This is done in Reflex by using the `NoSSRComponent` class when defining the component. There is more information on why this is needed on the `Dynamic Imports` section of this [page]({docs.wrapping_react.guide.path}).
 
-And with the `style` prop in the React this is a reserved name in Reflex so could not be wrapped and so a different name must be used and then changed with `rename_props`.
+The main difference with this example is that the `style` prop, used on lines `20`, `21` and `24` in React code, is a reserved name in Reflex so can not be wrapped. A different name must be used when wrapping this prop and then this name must be changed back to the original with the `rename_props` method. In this example we name the prop `theme` in our Reflex code and then change it back to `style` with the `rename_props` method in both the `Page` and `View` components.
 
-Here is a list: 
 
-```python
-# The style of the component.
-style: Style = Style()
+```md alert info
+# List of reserved names in Reflex
 
-# A mapping from event triggers to event chains.
-event_triggers: Dict[str, Union[EventChain, Var]] = \{}
+_The style of the component._
 
-# The alias for the tag.
-alias: Optional[str] = None
+`style: Style = Style()`
 
-# Whether the import is default or named.
-is_default: Optional[bool] = False
+_A mapping from event triggers to event chains._
 
-# A unique key for the component.
-key: Any = None
+`event_triggers: Dict[str, Union[EventChain, Var]] = \{}`
 
-# The id for the component.
-id: Any = None
+_The alias for the tag._
 
-# The class name for the component.
-class_name: Any = None
+`alias: Optional[str] = None`
 
-# Special component props.
-special_props: List[Var] = []
+_Whether the import is default or named._
 
-# Whether the component should take the focus once the page is loaded
-autofocus: bool = False
+`is_default: Optional[bool] = False`
 
-# components that cannot be children
-_invalid_children: List[str] = []
+_A unique key for the component._
 
-# only components that are allowed as children
-_valid_children: List[str] = []
+`key: Any = None`
 
-# only components that are allowed as parent
-_valid_parents: List[str] = []
+_The id for the component._
 
-# props to change the name of
-_rename_props: Dict[str, str] = \{}
+`id: Any = None`
 
-# custom attribute
-custom_attrs: Dict[str, Union[Var, str]] = \{}
+_The class name for the component._
 
-# When to memoize this component and its children.
-_memoization_mode: MemoizationMode = MemoizationMode()
+`class_name: Any = None`
 
-# State class associated with this component instance
-State: Optional[Type[reflex.state.State]] = None
+_Special component props._
+
+`special_props: List[Var] = []`
+
+_Whether the component should take the focus once the page is loaded_
+
+`autofocus: bool = False`
+
+_components that cannot be children_
+
+`_invalid_children: List[str] = []`
+
+_only components that are allowed as children_
+
+`_valid_children: List[str] = []`
+
+_only components that are allowed as parent_
+
+`_valid_parents: List[str] = []`
+
+_props to change the name of_
+
+`_rename_props: Dict[str, str] = \{}`
+
+_custom attribute_
+
+`custom_attrs: Dict[str, Union[Var, str]] = \{}`
+
+_When to memoize this component and its children._
+
+`_memoization_mode: MemoizationMode = MemoizationMode()`
+
+_State class associated with this component instance_
+
+`State: Optional[Type[reflex.state.State]] = None`
 ```
 
 
 ```javascript
-import ReactDOM from 'react-dom';
-import \{ Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer';
-
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4',
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-});
-
-// Create Document Component
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style=\{styles.page}>
-      <View style=\{styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style=\{styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
-
-const App = () => (
-  <PDFViewer>
-    <MyDocument />
-  </PDFViewer>
-);
-
-ReactDOM.render(<App />, document.getElementById('root'));
+1 | import ReactDOM from 'react-dom';
+2 | import \{ Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer';
+3 |
+4 | // Create styles
+5 | const styles = StyleSheet.create({
+6 |   page: {
+7 |     flexDirection: 'row',
+8 |     backgroundColor: '#E4E4E4',
+9 |   },
+10|   section: {
+11|     margin: 10,
+12|    padding: 10,
+13|     flexGrow: 1,
+14|   },
+15| });
+16|
+17| // Create Document Component
+18| const MyDocument = () => (
+19|   <Document>
+20|     <Page size="A4" style=\{styles.page}>
+21|       <View style=\{styles.section}>
+22|         <Text>Section #1</Text>
+23|       </View>
+24|       <View style=\{styles.section}>
+25|         <Text>Section #2</Text>
+26|       </View>
+27|     </Page>
+28|   </Document>
+29| );
+30| 
+31| const App = () => (
+32|   <PDFViewer>
+33|     <MyDocument />
+34|   </PDFViewer>
+35| );
+36| 
+37| ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 
@@ -338,7 +348,7 @@ class Page(Component):
     tag = "Page"
 
     size: Var[str]
-    # here we are wrapping style prop but as this is ... we mist name it something else and then change thee name with rename props
+    # here we are wrapping style prop but as style is a reserved name in Reflex we must name it something else and then change this name with rename props method
     theme: Var[dict]
 
     _rename_props: dict[str, str] = {
@@ -359,7 +369,7 @@ class View(Component):
 
     tag = "View"
 
-    # here we are wrapping style prop but as this is ... we mist name it something else and then change thee name with rename props
+    # here we are wrapping style prop but as style is a reserved name in Reflex we must name it something else and then change this name with rename props method
     theme: Var[dict]
 
     _rename_props: dict[str, str] = {
