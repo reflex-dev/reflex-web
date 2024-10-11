@@ -89,6 +89,7 @@ def get_sidebar_items_frontend():
                 wrapping_react.overview,
                 wrapping_react.guide,
                 wrapping_react.example,
+                wrapping_react.more_wrapping_examples,
             ],
         ),
         create_item(
