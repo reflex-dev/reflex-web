@@ -26,6 +26,7 @@ def frontend_card(
             top=top,
             height=height,
             loading="lazy",
+            alt=title + " image",
         ),
         class_name=f"lg:col-span-{cols} col-span-1 h-96 rounded-[1.125rem] bg-slate-2 border border-slate-3 overflow-hidden relative lg:shadow-large max-h-full pointer-events-none",
     )
