@@ -98,12 +98,6 @@ app.add_page(index)
 ```
 
 
-
-
-
-
-
-
 ## React Leaflet
 
 ```python exec
@@ -160,7 +154,7 @@ from reflex.components.component import NoSSRComponent
 from reflex import Var
 
 class MapContainer(NoSSRComponent):
-    # here even thouhg there was a / in the npm package must be a kibrary and wr cannot look at paths in the library (what can be in package.json)
+
     library = "react-leaflet"
 
     tag = "MapContainer"
@@ -204,9 +198,6 @@ app = rx.App()
 app.add_page(index)
 
 ```
-
-
-
 
 
 
@@ -387,8 +378,7 @@ class StyleSheet(Component):
 
     section: Var[dict]
 
-# how was i to know that this needed dynamic imports, as i only found this after 
-# searching my error on stackoverflow
+
 class PDFViewer(NoSSRComponent):
     
     library = "@react-pdf/renderer"
