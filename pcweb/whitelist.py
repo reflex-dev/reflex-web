@@ -14,7 +14,7 @@ WHITELISTED_PAGES = []
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
-        return True
+        return True 
 
     # If the path is the root, always build it.
     if path == "/":
