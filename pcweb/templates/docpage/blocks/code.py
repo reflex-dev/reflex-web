@@ -23,7 +23,27 @@ def code_block(code: str, language: str):
             ),
             class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
         ),
-        class_name="relative mb-4",
+        class_name="relative my-4",
+    )
+
+
+@rx.memo
+def code_block_expanded(code: str, language: str, code_copy: str):
+    return rx.box(
+        rx.code_block(
+            code,
+            language=language,
+            class_name="code-block",
+        ),
+        rx.button(
+            get_icon(
+                icon="clipboard",
+                class_name="text-slate-9 hover:text-slate-11 transition-color",
+                on_click=rx.set_clipboard(code_copy),
+            ),
+            class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
+        ),
+        class_name="relative my-4",
     )
 
 
