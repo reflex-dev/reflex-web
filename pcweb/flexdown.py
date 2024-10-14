@@ -293,6 +293,17 @@ class DemoBlock(flexdown.blocks.Block):
         exec_mode = env.get("__exec", False)
         comp = ""
 
+        # If expand is in args, create a copy of the code without those lines.
+        demobox_props = {}
+        if "expand" in args:
+            demobox_props["expand"] = True
+            code_copy = code
+            code = "\n".join(
+                line
+                for line in code.split("\n")
+                if "\\start" not in line and "\\end" not in line
+            )
+
         for arg in args:
             if arg.startswith("id="):
                 comp_id = arg.rsplit("id=")[-1]
@@ -322,7 +333,6 @@ class DemoBlock(flexdown.blocks.Block):
             comp = eval(code, env, env)
 
         # Sweep up additional CSS-like props to apply to the demobox itself
-        demobox_props = {}
         for arg in args:
             prop, equals, value = arg.partition("=")
             if equals:
@@ -332,7 +342,12 @@ class DemoBlock(flexdown.blocks.Block):
             demobox_props["toggle"] = True
 
         return docdemo(
-            code, comp=comp, demobox_props=demobox_props, theme=self.theme, id=comp_id
+            code if "expand" not in args else code_copy,
+            comp=comp,
+            demobox_props=demobox_props,
+            theme=self.theme,
+            id=comp_id,
+            expanded="expand" in args,
         )
 
 
