@@ -207,19 +207,28 @@ def docdemo(
             default_value="tab1",
         )
 
-    # Create the demo.
     return rx.box(
         docdemobox(comp, **(demobox_props or {})),
         rx.box(
-            expand_button(button_id) if demobox_props.pop("expand", False) else None,
+            expand_button(button_id),
+            # Collapsed code
+            rx.box(
+                doccode(collapsed_code, theme=theme, code_copy=code),
+                class_name="",
+            ),
+            # Expanded code
             rx.box(
                 doccode(code, theme=theme, code_copy=code),
-                class_name="hidden" if demobox_props.get("expand", False) else "",
+                class_name="hidden",
             ),
+            on_mount=expand_code_script(button_id),
             spacing="4",
             width="100%",
+            class_name="mt-4 relative flex flex-col",
+        ) if expanded else rx.box(
+            doccode(code, theme=theme),
         ),
-        class_name="py-4 gap-4 flex flex-col w-full relative",
+        class_name="py-4 gap-4 flex flex-col w-full",
         **props,
     )
 
