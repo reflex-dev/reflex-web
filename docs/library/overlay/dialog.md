@@ -44,6 +44,7 @@ DialogContent: |
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 ```
 
 # Dialog
@@ -189,5 +190,94 @@ def dialog_example():
         ),
         direction="column",
         spacing="3",
+    )
+```
+
+Check out the [menu docs]({library.overlay.dropdown_menu.path}) for an example of opening a dialog from within a dropdown menu.
+
+
+## Form Submission to a Database from a Dialog
+
+This example adds new customers to a database from a dialog using a form.
+
+1. It defines a Customer model with name and email fields.
+2. The `add_customer_to_db` method adds a new customer to the database, checking for existing emails.
+3. On form submission, it calls the `add_customer_to_db` method.
+4. The UI component has:
+- A button to open a dialog
+- A dialog containing a form to add a new customer
+- Input fields for name and email
+- Submit and Cancel buttons
+
+
+```python demo exec
+class Customer(rx.Model, table=True):
+    """The customer model."""
+    name: str
+    email: str
+
+class State(rx.State):
+   
+    current_user: Customer = Customer()
+
+    def add_customer_to_db(self, form_data: dict):
+        self.current_user = form_data
+        ### Uncomment the code below to add your data to a database ###
+        # with rx.session() as session:
+        #     if session.exec(
+        #         select(Customer).where(Customer.email == self.current_user["email"])
+        #     ).first():
+        #         return rx.window_alert("User with this email already exists")
+        #     session.add(Customer(**self.current_user))
+        #     session.commit()
+        
+        return rx.toast.info(f"User {self.current_user['name']} has been added.", position="bottom-right")
+
+
+def index() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add Customer", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New Customer",
+            ),
+            rx.dialog.description(
+                "Fill the form with the customer's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="Customer Name", name="name"
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev", name="email"
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button("Submit", type="submit"),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),                     
+                on_submit=State.add_customer_to_db,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
     )
 ```
