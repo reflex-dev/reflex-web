@@ -41,7 +41,7 @@ def code_block_markdown(*children, **props):
 
 
 def code_block_markdown_dark(*children, **props):
-    language = props.get("language", "none")
+    language = props.get("language", "plain")
     return code_block_dark(code=children[0], language=language)
 
 
@@ -67,7 +67,7 @@ def doccmdoutput(
                 can_copy=True,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                theme=rx.code_block.themes.a11y_dark,
+                theme="ayu-dark",
                 language="bash",
                 code_tag_props={
                     "style": {
@@ -89,7 +89,7 @@ def doccmdoutput(
                 can_copy=True,
                 border_radius="12px",
                 background="transparent",
-                theme=rx.code_block.themes.nord,
+                theme="nord",
                 language="log",
                 code_tag_props={
                     "style": {
