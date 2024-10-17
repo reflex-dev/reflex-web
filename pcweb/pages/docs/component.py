@@ -70,9 +70,9 @@ def get_default_value(lines: list[str], start_index: int) -> str:
     if start_index > 0:
         comment_line = lines[start_index - 1].strip()
         if comment_line.startswith("#"):
-            default_match = re.search(r'Default:\s*(["\']?\w+["\']?|\w+)', comment_line)
+            default_match = re.search(r"Default:\s*(.+)$", comment_line)
             if default_match:
-                default_value = default_match.group(1)
+                default_value = default_match.group(1).strip()
                 return default_value
 
     # Get the initial line
@@ -444,7 +444,7 @@ def prop_docs(
 
     literal_values = []  # Literal values of the prop
     all_types = []  # List for all the prop types
-    MAX_PROP_VALUES = 3
+    MAX_PROP_VALUES = 2
 
     COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
     if origin is Union:
@@ -706,6 +706,12 @@ EVENTS = {
     "on_paste": {
         "description": "The on_paste event handler is called when the user pastes text into the editor. It receives the clipboard data and max character count as arguments.",
     },
+    "on_animation_start": {
+        "description": "The on_animation_start event handler is called when the animation starts. It receives the animation name as an argument.",
+    },
+    "on_animation_end": {
+        "description": "The on_animation_end event handler is called when the animation ends. It receives the animation name as an argument.",
+    },
     "toggle_code_view": {
         "description": "The toggle_code_view event handler is called when the user toggles code view. It receives a boolean whether code view is active.",
     },
@@ -826,7 +832,7 @@ EVENTS = {
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
     }
-    
+
 }
 
 
