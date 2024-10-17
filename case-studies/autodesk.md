@@ -68,14 +68,14 @@ In addition to its flagship offerings like AutoCAD, Revit, Maya, and Fusion 360,
 
 Autodesk Consulting provides support to customers to enable data-centric workflows, and integrating systems with custom app development leveraging Autodesk Platform Services.
 
-Autodesk consults for a wide variety of companies that need a better way to move data and manage their digital project delivery in a way that is easily visible for al stakeholders to see the progress. Up until now, many relied on legacy, disconnected workflows using spreasheets or other 3rd party systems, disjoint from where the live project data is stored.
+Autodesk consults for a wide variety of companies that need a better way to move data and manage their digital project delivery in a way that is easily visible for all stakeholders to see the progress. Up until now, many relied on legacy, disconnected workflows using spreadsheets or other 3rd party systems, disjoint from where the live project data is stored.
 
 These companies hired Autodesk Consulting to help them move their data more efficiently and visibly to create insights. The main parts that they needed help with were:
 
-- **Document Management**: This feature helps construction teams organize, store, and share important documents (e.g., blueprints, contracts, plans, [3D designs and 2D drawings data](https://tutorials.autodesk.io/tutorials/simple-viewer/)) efficiently in a Common Data Environement.
+- **Document Management**: This feature helps construction teams organize, store, and share important documents (e.g., blueprints, contracts, plans, [3D designs and 2D drawings data](https://tutorials.autodesk.io/tutorials/simple-viewer/)) efficiently in a Common Data Environment.
 - **RFI (Request for Information)**: RFIs are formal requests used during construction to clarify aspects of a project. Autodesk Build allows users to manage and track these RFIs within the platform.
 
-Autodesk was looking to build an app for its clients to exchange information between design and construction. These companies wanted automated workflows to migrate RFI submissions and handle the repetitive, time-consuming and error prone actions like document uploads, data entry, attachments and comments log for collaboration.
+Autodesk was looking to build an app for its clients to exchange information between design and construction. These companies wanted automated workflows to migrate RFI submissions and handle the repetitive, time-consuming and error prone actions like document uploads, data entry, attachments and comment logs for collaboration.
 
 Paolo Serra, a Principal Implementation Consultant at Autodesk, was tasked with this project. Paolo is a Python developer and was looking for a web based solution. He didn’t want to use React and Javascript, but still wanted to build a production grade web app.
 
@@ -85,9 +85,9 @@ Paolo Serra, a Principal Implementation Consultant at Autodesk, was tasked with 
 It normally requires multiple people to get an app up and there was a lack of resources available in the time frame we needed.
 ```
 
-The solution had to be cloud based, to connect to existing systems and they only had 30 days to deliver it all. 
+The solution had to be cloud based, to connect to existing systems and they only had 60 days to deliver it all. 
 
-Failure to deliver the value and results as contract obligations could lead to court litigations, financial losses, damaged reputation and losing the customer. And as Consutling services are available for high-end customers in the context of Enterprise Business Agreements, there was a lot at stake.
+Failure to deliver the value and results, due to contract obligations, could lead to court litigations, financial losses, damaged reputation and losing the customer. And as Consulting services are available for high-end customers in the context of Enterprise Business Agreements, there was a lot at stake.
 
 
 
@@ -116,7 +116,7 @@ Wrapping the React component in Reflex allowed us to catch and prevent common is
 Their team was able to leverage reusable high level components to build out UI with clean code including:
 
 - A custom wrapped Treeview component to show the file directory
-- A wrapped ModelViewer React component to view and collaborate on 2D drawings and 3D models via Autodeks Platform Services Viewer
+- A wrapped ModelViewer React component to view and collaborate on 2D drawings and 3D models via Autodesks Platform Services Viewer
 - A table component to show and filter the data
 
 The team was able to:
@@ -164,7 +164,7 @@ The time from ideation to prototype is shorter than traditional web dev, which i
 A couple of weeks of work can be skimmed off the estimate for an average 60 day project by using Reflex meaning we were able to focus on exceeding customer expectations.
 ```
 
-* The ability to wrap their local react library which was a company requirement and create resuable high-level components
+* The ability to wrap their local react library, which was a company requirement, and create reusable high-level components
 
 * Future proofing their code by writing it in Python
 
