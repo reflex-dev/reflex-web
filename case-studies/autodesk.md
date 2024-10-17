@@ -68,7 +68,7 @@ In addition to its flagship offerings like AutoCAD, Revit, Maya, and Fusion 360,
 
 Autodesk Consulting provides support to customers to enable data-centric workflows, and integrating systems with custom app development leveraging Autodesk Platform Services.
 
-Autodesk consults for a wide variety of companies that need a better way to move data and manage their digital project delivery in a way that is easily visible for al stakeholders to see the progress. Up until now, many relied on legacy, disconnected workflows using spreasheets or other 3rd party systems, disjoint form where the live project data is stored.
+Autodesk consults for a wide variety of companies that need a better way to move data and manage their digital project delivery in a way that is easily visible for al stakeholders to see the progress. Up until now, many relied on legacy, disconnected workflows using spreasheets or other 3rd party systems, disjoint from where the live project data is stored.
 
 These companies hired Autodesk Consulting to help them move their data more efficiently and visibly to create insights. The main parts that they needed help with were:
 
