@@ -116,6 +116,26 @@
         letter-spacing: -0.00406rem !important;
     }
 
+    .code-block pre {
+        font-family: var(--font-jetbrains) !important;
+        padding: 0 !important;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5rem !important;
+        color: var(--c-slate-12) !important;
+        background-color: transparent !important;
+    }
+
+    .code-block code {
+        font-family: var(--font-jetbrains) !important;
+        padding: 0 !important;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5rem !important;
+        color: var(--c-slate-12) !important;
+        background-color: transparent !important;
+    }
+
     .tab-style {
         color: var(--c-slate-9);
         cursor: pointer;
@@ -187,7 +207,7 @@
         line-height: 1.5rem;
         /* 150% */
         letter-spacing: -0.015rem;
-        
+
     }
 
     .font-md-smbold {
