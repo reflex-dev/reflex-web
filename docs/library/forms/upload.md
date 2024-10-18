@@ -1,6 +1,9 @@
 ---
 components:
     - rx.upload
+
+Upload: |
+    lambda **props: rx.center(rx.upload(id="my_upload", **props), height="4em", width="100%")
 ---
 
 ```python exec
@@ -16,10 +19,7 @@ You can upload files by clicking on the component or by dragging and dropping fi
 
 ```python demo
 rx.upload(
-    rx.text("Drag and drop files here or click to select files"),
     id="my_upload",
-    border="1px dotted rgb(107,99,246)",
-    padding="5em",
 )
 ```
 

@@ -33,22 +33,6 @@ The `input` component is an input field that users can type into.
 
 ## Basic Example
 
-```python demo
-rx.input()
-```
-
-### Setting Defaults
-
-Can set defaults for a `placeholder` for text to show in the `input` box before any text is input into it.
-
-Can limit the `max_length` allowed as input into the `input` box.
-
-```python demo
-rx.input(placeholder="Search here...", max_length=20)
-```
-
-### Using Event Handlers
-
 The `on_blur` event handler is called when focus has left the `input` for example, it’s called when the user clicks outside of a focused text input.
 
 ```python demo exec
@@ -84,7 +68,7 @@ def controlled_example():
     )
 ```
 
-Behind the scene, the input component is implemented using debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state var to directly control the `value` prop from the backend without the user experiencing input lag. For advanced use cases, you can tune the debounce delay by setting the `debounce_timeout` when creating the Input component. You can find examples of how it is used in the [DebouncedInput]({library.forms.debounce.path}) component.
+Behind the scenes, the input component is implemented as a debounced input to avoid sending individual state updates per character to the backend while the user is still typing. This allows a state variable to directly control the `value` prop from the backend without the user experiencing input lag.
 
 ### Submitting a form using input
 
@@ -104,21 +88,32 @@ class FormInputState(rx.State):
 
 
 def form_input1():
-    return rx.vstack(
-        rx.form.root(
-            rx.vstack(
-                rx.input(name="input", default_value="search", placeholder="Input text here...", type="password", required=True),
-                rx.button("Submit", type="submit"),
-                width="100%",
+    return rx.card(
+        rx.vstack(
+            rx.heading("Example Form"),
+            rx.form.root(
+                rx.hstack(
+                    rx.input(
+                        name="input",
+                        placeholder="Enter text...",
+                        type="text",
+                        required=True,
+                    ),
+                    rx.button("Submit", type="submit"),
+                    width="100%",
+                ),
+                on_submit=FormInputState.handle_submit,
+                reset_on_submit=True,
             ),
-            on_submit=FormInputState.handle_submit,
-            reset_on_submit=True,
+            rx.divider(),
+            rx.hstack(
+                rx.heading("Results:"),
+                rx.badge(FormInputState.form_data.to_string()),
+            ),
+            align_items="left",
             width="100%",
         ),
-        rx.divider(width="100%"),
-        rx.heading("Results"),
-        rx.text(FormInputState.form_data.to_string()),
-        width="100%",
+        width="50%",
     )
 ```
 
@@ -133,52 +128,5 @@ Set the value of the specified reference element, without needing to link it up 
 rx.hstack(
     rx.input(id="input1"),
     rx.button("Erase", on_click=rx.set_value("input1", "")),
-)
-```
-
-## Real World Example
-
-```python demo exec
-
-def song(title, initials: str, genre: str):
-    return rx.card(rx.flex(
-        rx.flex(
-            rx.avatar(fallback=initials),
-            rx.flex(
-                rx.text(title, size="2", weight="bold"),
-                rx.text(genre, size="1", color_scheme="gray"),
-                direction="column",
-                spacing="1",
-            ),
-            direction="row",
-            align_items="left",
-            spacing="1",
-        ),
-        rx.flex(
-            rx.icon(tag="chevron_right"),
-            align_items="center",
-        ),
-        justify="between",
-    ))
-
-
-def search():
-    return rx.card(
-    rx.flex(
-        rx.input(placeholder="Search songs...", ),
-        rx.flex(
-            song("The Less I Know", "T", "Rock"),
-            song("Breathe Deeper", "ZB", "Rock"),
-            song("Let It Happen", "TF", "Rock"),
-            song("Borderline", "ZB", "Pop"),
-            song("Lost In Yesterday", "TO", "Rock"),
-            song("Is It True", "TO", "Rock"),
-            direction="column",
-            spacing="1",
-        ),
-        direction="column",
-        spacing="3",
-    ),
-    style={"maxWidth": 500},
 )
 ```
