@@ -3,11 +3,6 @@ from __future__ import annotations
 import itertools
 from typing import TYPE_CHECKING
 
-from reflex.utils.exec import is_prod_mode
-
-if TYPE_CHECKING:
-    import reflex as rx
-
 from pcweb.telemetry import (
     pixels_clearbit,
     pixels_common_room,
@@ -15,6 +10,10 @@ from pcweb.telemetry import (
     pixels_instantly,
     pixels_posthog,
 )
+
+if TYPE_CHECKING:
+    import reflex as rx
+
 
 
 def get_pixel_website_trackers() -> list[rx.Component]:
