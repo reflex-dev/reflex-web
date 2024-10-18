@@ -12,11 +12,10 @@ In this more complex example we will be wrapping `reactflow` a library for build
 Lets start by importing the library [reactflow](https://www.npmjs.com/package/reactflow). Lets make a seperate file called `reactflow.py` and add the following code:
 
 ```python
-from reflex.components.component import Component
+import refex as rx
 from typing import Any, Dict, List, Union
-from reflex.vars import Var
 
-class ReactFlowLib(Component):
+class ReactFlowLib(rx.Component):
     """A component that wraps a react flow lib."""
 
     library = "reactflow"
@@ -37,41 +36,40 @@ Here we will define the `tag` and the `vars` that we will need to use the compon
 For this tutorial we will define `EventHandler` props `on_nodes_change` and `on_connect`, but you can find all the events that the component triggers in the [reactflow docs](https://reactflow.dev/docs/api/react-flow-props/#onnodeschange).
 
 ```python
-from reflex import Component, EventHandler, Var
+import reflex as rx
 from typing import Any, Dict, List, Union
 
-class ReactFlowLib(Component):
+class ReactFlowLib(rx.Component):
     ...
 
 class ReactFlow(ReactFlowLib):
 
     tag = "ReactFlow"
 
-    nodes: Var[List[Dict[str, Any]]]
+    nodes: rx.Var[List[Dict[str, Any]]]
 
-    edges: Var[List[Dict[str, Any]]]
+    edges: rx.Var[List[Dict[str, Any]]]
 
-    fit_view: Var[bool]
+    fit_view: rx.Var[bool]
 
-    nodes_draggable: Var[bool]
+    nodes_draggable: rx.Var[bool]
 
-    nodes_connectable: Var[bool]
+    nodes_connectable: rx.Var[bool]
 
-    nodes_focusable: Var[bool]
+    nodes_focusable: rx.Var[bool]
 
-    on_nodes_change: EventHandler[lambda e0: [e0]]
+    on_nodes_change: rx.EventHandler[lambda e0: [e0]]
 
-    on_connect: EventHandler[lambda e0: [e0]]
+    on_connect: rx.EventHandler[lambda e0: [e0]]
 ```
 
 Now lets add the `Background` and `Controls` components. We will also create the components using the `create` method so that we can use them in our app.
 
 ```python
-from reflex.components.component import Component
+import reflex as rx
 from typing import Any, Dict, List, Union
-from reflex.vars import Var
 
-class ReactFlowLib(Component):
+class ReactFlowLib(rx.Component):
     ...
 
 class ReactFlow(ReactFlowLib):
@@ -81,13 +79,13 @@ class Background(ReactFlowLib):
 
     tag = "Background"
 
-    color: Var[str]
+    color: rx.Var[str]
 
-    gap: Var[int]
+    gap: rx.Var[int]
 
-    size: Var[int]
+    size: rx.Var[int]
 
-    variant: Var[str]
+    variant: rx.Var[str]
 
 class Controls(ReactFlowLib):
 
@@ -236,12 +234,11 @@ app.add_page(index)
 
 ```python exec
 import reflex as rx
-from reflex import Component, EventHandler, Var
 from typing import Any, Dict, List, Union
 from collections import defaultdict
 import random
 
-class ReactFlowLib(Component):
+class ReactFlowLib(rx.Component):
     """A component that wraps a react flow lib."""
 
     library = "reactflow"
@@ -254,34 +251,34 @@ class ReactFlow(ReactFlowLib):
 
     tag = "ReactFlow"
 
-    nodes: Var[List[Dict[str, Any]]]
+    nodes: rx.Var[List[Dict[str, Any]]]
 
-    edges: Var[List[Dict[str, Any]]]
+    edges: rx.Var[List[Dict[str, Any]]]
 
-    fit_view: Var[bool]
+    fit_view: rx.Var[bool]
 
-    nodes_draggable: Var[bool]
+    nodes_draggable: rx.Var[bool]
 
-    nodes_connectable: Var[bool]
+    nodes_connectable: rx.Var[bool]
 
-    nodes_focusable: Var[bool]
+    nodes_focusable: rx.Var[bool]
 
-    on_nodes_change: EventHandler[lambda e0: [e0]]
+    on_nodes_change: rx.EventHandler[lambda e0: [e0]]
 
-    on_connect: EventHandler[lambda e0: [e0]]
+    on_connect: rx.EventHandler[lambda e0: [e0]]
 
 
 class Background(ReactFlowLib):
 
     tag = "Background"
 
-    color: Var[str]
+    color: rx.Var[str]
 
-    gap: Var[int]
+    gap: rx.Var[int]
 
-    size: Var[int]
+    size: rx.Var[int]
 
-    variant: Var[str]
+    variant: rx.Var[str]
 
 class Controls(ReactFlowLib):
 

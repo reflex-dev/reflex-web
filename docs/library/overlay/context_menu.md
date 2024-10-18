@@ -185,39 +185,110 @@ rx.context_menu.root(
 )
 ```
 
-```python demo
-rx.grid(
-    rx.context_menu.root(
-        rx.context_menu.trigger(
-            rx.button("Right click me"),
-        ),
-        rx.context_menu.content(
-            rx.context_menu.item("Edit", shortcut="⌘ E"),
-            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
-            rx.context_menu.separator(),
-            rx.context_menu.item("Archive", shortcut="⌘ N"),
-            rx.context_menu.separator(),
-            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red",
+
+
+
+## Opening a Dialog from Context Menu using State
+
+Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected. 
+
+The code below will not work as expected as because the dialog is within the menu and the dialog will only be open when the menu is open, rendering the dialog unusable.
+
+```python
+rx.context_menu.root(
+    rx.context_menu.trigger(rx.icon("ellipsis-vertical")),
+    rx.context_menu.content(
+        rx.context_menu.item(
+            rx.dialog.root(
+            rx.dialog.trigger(rx.text("Edit")),
+            rx.dialog.content(....),
+            .....
             ),
-            size="1",
         ),
     ),
-    rx.context_menu.root(
-        rx.context_menu.trigger(
-             rx.button("Right click me"),
-        ),
-        rx.context_menu.content(
-            rx.context_menu.item("Edit", shortcut="⌘ E"),
-            rx.context_menu.item("Duplicate", shortcut="⌘ D"),
-            rx.context_menu.separator(),
-            rx.context_menu.item("Archive", shortcut="⌘ N"),
-            rx.context_menu.separator(),
-            rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"
-            ),
-            size="2",
-        ),
-    ),
-    columns="2", 
-    spacing="3",
 )
+```
+
+
+In this example, we will show how to open a dialog box from a context menu, where the menu will close and the dialog will open and be functional.
+
+
+```python demo exec
+class ContextMenuState(rx.State):
+    which_dialog_open: str = ""
+
+    def delete(self):
+        yield rx.toast("Deleted item")
+
+    def save_settings(self):
+        yield rx.toast("Saved settings")
+
+
+def delete_dialog():
+    return rx.alert_dialog.root(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Are you Sure?"),
+            rx.alert_dialog.description(
+                rx.text(
+                    "This action cannot be undone. Are you sure you want to delete this item?",
+                ),
+                margin_bottom="20px",
+            ),
+            rx.hstack(
+                rx.alert_dialog.action(
+                    rx.button(
+                        "Delete",
+                        color_scheme="red",
+                        on_click=ContextMenuState.delete,
+                    ),
+                ),
+                rx.spacer(),
+                rx.alert_dialog.cancel(rx.button("Cancel")),
+            ),
+        ),
+        open=ContextMenuState.which_dialog_open == "delete",
+        on_open_change=ContextMenuState.set_which_dialog_open(""),
+    )
+
+
+def settings_dialog():
+    return rx.dialog.root(
+        rx.dialog.content(
+            rx.dialog.title("Settings"),
+            rx.dialog.description(
+                rx.text("Set your settings in this settings dialog."),
+                margin_bottom="20px",
+            ),
+            rx.dialog.close(
+                rx.button("Close", on_click=ContextMenuState.save_settings),
+            ),
+        ),
+        open=ContextMenuState.which_dialog_open == "settings",
+        on_open_change=ContextMenuState.set_which_dialog_open(""),
+    )
+
+
+def context_menu_call_dialog() -> rx.Component:
+    return rx.vstack(
+        rx.context_menu.root(
+            rx.context_menu.trigger(rx.icon("ellipsis-vertical")),
+            rx.context_menu.content(
+                rx.context_menu.item(
+                    "Delete",
+                    on_click=ContextMenuState.set_which_dialog_open("delete"),
+                ),
+                rx.context_menu.item(
+                    "Settings",
+                    on_click=ContextMenuState.set_which_dialog_open("settings"),
+                ),
+            ),
+        ),
+        rx.cond(
+            ContextMenuState.which_dialog_open,
+            rx.heading(f"{ContextMenuState.which_dialog_open} dialog is open"),
+        ),
+        delete_dialog(),
+        settings_dialog(),
+        align="center",
+    )
 ```

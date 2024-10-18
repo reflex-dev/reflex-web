@@ -7,7 +7,6 @@ config = rx.Config(
     deploy_url="https://reflex.dev",
     frontend_packages=[
         "chakra-react-select",
-        "tailwindcss@3.4.10",
         "@radix-ui/react-navigation-menu",
         "@inkeep/uikit",
     ],

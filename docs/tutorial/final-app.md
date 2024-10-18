@@ -9,6 +9,14 @@ from pcweb.pages.docs import hosting
 
 We will use OpenAI's API to give our chatbot some intelligence.
 
+## Configure the OpenAI API Key
+
+Ensure you have an active OpenAI subscription. Save your API key as an environment variable named `OPENAI_API_KEY`:
+
+    ```bash
+    export OPENAI_API_KEY="your-api-key-here"
+    ```
+
 ## Using the API
 
 We need to modify our event handler to send a request to the API.
@@ -103,20 +111,21 @@ We wrote all our code in three files, which you can find below.
 import reflex as rx
 
 from chatapp import style
-from chatapp.state import TutorialState
+from chatapp.state import State
 
 
 def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
-        rx.box(rx.text(question, text_align="right"), style=style.question_style),
-        rx.box(rx.text(answer, text_align="left"), style=style.answer_style),
+        rx.box(rx.text(question, style=style.question_style),text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style),text_align="left"),
+        margin_y="1em",
     )
 
 def chat() -> rx.Component:
     return rx.box(
         rx.foreach(
-            TutorialState.chat_history,
-            lambda messages: qa(messages[0], messages[1])
+            State.chat_history,
+            lambda messages: qa(messages[0], messages[1]),
         )
     )
 
@@ -124,12 +133,16 @@ def chat() -> rx.Component:
 def action_bar() -> rx.Component:
     return rx.hstack(
         rx.input(
+            value=State.question,
             placeholder="Ask a question",
-            value=TutorialState.question,
-            on_change=TutorialState.set_question,
+            on_change=State.set_question,
             style=style.input_style,
         ),
-        rx.button("Ask", on_click=TutorialState.answer, style=style.button_style),
+        rx.button(
+            "Ask",
+            on_click=State.answer,
+            style=style.button_style,
+        ),
     )
 
 
@@ -155,7 +168,7 @@ from openai import AsyncOpenAI
 
 import reflex as rx
 
-class TutorialState(rx.State):
+class State(rx.State):
 
     # The current question being asked.
     question: str
@@ -166,6 +179,7 @@ class TutorialState(rx.State):
     async def answer(self):
         # Our chatbot has some brains now!
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
         session = await client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[\{"role": "user", "content": self.question}],
@@ -189,7 +203,10 @@ class TutorialState(rx.State):
                     # presence of 'None' indicates the end of the response
                     break
                 answer += item.choices[0].delta.content
-                self.chat_history[-1] = (self.chat_history[-1][0], answer)
+                self.chat_history[-1] = (
+                    self.chat_history[-1][0],
+                    answer,
+                )
                 yield
 ```
 
@@ -211,10 +228,12 @@ message_style = dict(
 
 # Set specific styles for questions and answers.
 question_style = message_style | dict(
-    background_color=rx.color("gray", 4), margin_left=chat_margin
+    margin_left=chat_margin,
+    background_color=rx.color("gray", 4),
 )
 answer_style = message_style | dict(
-    background_color=rx.color("accent", 8), margin_right=chat_margin
+    margin_right=chat_margin,
+    background_color=rx.color("accent", 8),
 )
 
 # Styles for the action bar.

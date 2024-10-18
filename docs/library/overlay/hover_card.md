@@ -50,7 +50,7 @@ rx.text(
             rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
         rx.hover_card.content(
-            rx.text("This is the tooltip content."),
+            rx.text("This is the hovercard content."),
         ),
     ),
 )
@@ -68,7 +68,7 @@ rx.text(
                 rx.inset(
                     side="left",
                     pr="current",
-                    background="url('https://source.unsplash.com/random/800x600') center/cover",
+                    background="url('https://images.unsplash.com/5/unsplash-kitsune-4.jpg') center/cover",
                     height="full",
                 ),
                 rx.box(
@@ -108,7 +108,7 @@ def hovercard_example():
         rx.heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
         rx.heading(f"Hovercard open: {HovercardState.opened}"),
         rx.text(
-            "Hover over the text to see the tooltip. ",
+            "Hover over the text to see the hover card. ",
             rx.hover_card.root(
                 rx.hover_card.trigger(
                     rx.link("Hover over me", color_scheme="blue", underline="always"),

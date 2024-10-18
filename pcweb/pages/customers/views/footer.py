@@ -124,7 +124,7 @@ def footer() -> rx.Component:
                 "Reflex",
                 [
                     footer_link("Home", "/"),
-                    footer_link("Showcase", gallery.path),
+                    footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
                     footer_link("Changelog", changelog.path),
                 ],

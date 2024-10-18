@@ -106,6 +106,8 @@ rx.alert_dialog.root(
 )
 ```
 
+This example has a different color scheme and the `cancel` and `action` buttons are right aligned.
+
 ```python demo
 rx.alert_dialog.root(
     rx.alert_dialog.trigger(
@@ -233,4 +235,46 @@ def alert_dialog():
         direction="column",
         spacing="3",
     )
+```
+
+
+## Controlling Alert Dialog with State
+
+This example shows how to control whether the dialog is open or not with state. This is an easy way to show the dialog without needing to use the `rx.alert_dialog.trigger`.
+
+`rx.alert_dialog.root` has a prop `open` that can be set to a boolean value to control whether the dialog is open or not.
+
+We toggle this `open` prop with a button oustide of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
+
+
+```python demo exec
+class AlertDialogState2(rx.State):
+    opened: bool = False
+
+    def dialog_open(self):
+        self.opened = ~self.opened
+
+
+def alert_dialog2():
+    return rx.box(
+            rx.alert_dialog.root(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access"),
+            rx.alert_dialog.description(
+                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+            ),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel", on_click=AlertDialogState2.dialog_open),
+                ),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access", on_click=AlertDialogState2.dialog_open),
+                ),
+                spacing="3",
+            ),
+        ),
+        open=AlertDialogState2.opened,
+    ),
+    rx.button("Button to Open the Dialog", on_click=AlertDialogState2.dialog_open),
+)
 ```

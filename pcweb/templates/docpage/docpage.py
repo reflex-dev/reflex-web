@@ -12,7 +12,7 @@ from pcweb.components.icons.icons import get_icon
 from pcweb.styles.colors import c_color
 from reflex.components.radix.themes.base import LiteralAccentColor
 from pcweb.components.button import button
-
+from reflex.utils.format import to_title_case, to_snake_case
 
 def footer_link(text: str, href: str):
     return rx.link(
@@ -203,7 +203,7 @@ def docpage_footer(path: str):
                     "Links",
                     [
                         footer_link("Home", "/"),
-                        footer_link("Showcase", gallery.path),
+                        footer_link("Templates", gallery.path),
                         footer_link("Blog", blogs.path),
                         footer_link("Changelog", changelog.path),
                     ],
@@ -263,7 +263,7 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
         # Add the breadcrumb item to the list
         breadcrumbs.append(
             rx.link(
-                segment,
+                to_title_case(to_snake_case(segment), sep=" "),
                 class_name="font-small text-slate-9 hover:!text-slate-11 transition-color"
                 + (" truncate" if i == len(segments) - 1 else ""),
                 underline="none",
