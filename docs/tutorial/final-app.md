@@ -17,6 +17,12 @@ Ensure you have an active OpenAI subscription. Save your API key as an environme
     export OPENAI_API_KEY="your-api-key-here"
     ```
 
+Install the `openai` pypi package:
+
+    ```bash
+    pip install openai
+    ```
+
 ## Using the API
 
 We need to modify our event handler to send a request to the API.
