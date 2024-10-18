@@ -110,6 +110,40 @@ def counter():
 
 Vars can be referenced in multiple components, and will automatically update when the state changes.
 
+## Triggering events
+
+Components have special props, called event triggers, that can be used to make components interactive. Event triggers are defined as special component props, such as `on_click`, and can be used to trigger event handlers.
+
+
+```python demo exec
+def toast_button():
+    return rx.button("Show toast", on_click=rx.toast("Hello World"))
+```
+
+Event handlers are functions that update the state in response to events. They are defined as methods in the `State` class, and can be called by event triggers, or by other event handlers.
+
+```python demo exec
+class EventState(rx.State):
+    message: str = "Hello World"
+
+    def update_message(self):
+        self.message = "Goodbye World"
+
+def event_button():
+    return rx.button("Update Message", on_click=EventState.update_message)
+
+def index():
+    return rx.box(
+        rx.text(EventState.message),
+        event_button()
+    )
+```
+
+
+## Updating the screen
+
+When an event trigger is activated, the event handler is called, which updates the state. The UI is automatically re-rendered to reflect the new state.
+
 
 ## Compile-time vs. runtime
 
@@ -148,4 +182,29 @@ def count_if_even():
     )
 ```
 
+## Rendering lists
+
+To iterate over a var that is a list, use the `rx.foreach` function to render a list of components.
+
+```python demo exec
+class ListState(rx.State):
+    items: list[str] = ["Apple", "Banana", "Cherry"]
+
+def show_fruits():
+    return rx.box(
+        rx.foreach(ListState.items, lambda item: rx.heading(item)),
+    )
+```
+
+## App and Pages
+
+Reflex apps are created by instantiating the `rx.App` class. Pages are linked to specific URL routes, and are created by defining a function that returns a component.
+
+```python
+def index():
+    return rx.text('Root Page')
+
+rx.app = rx.App()
+app.add_page(index, route="/")
+```
 
