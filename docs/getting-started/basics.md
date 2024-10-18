@@ -14,7 +14,7 @@ This page gives an introduction to the most common concepts that you will use to
 # You will learn how to:
 * Create and nest components
 * Customize and style components
-* Distinguishes between compile-time and runtime
+* Distinguish between compile-time and runtime
 * Display data that changes over time
 * Respond to events and update the screen
 * Render conditions and lists
@@ -57,7 +57,7 @@ def my_page():
     )
 ```
 
-You can also use any base HTML element through the `rx.el` namespace.
+You can also use any base HTML element through the [`rx.el`]({docs.library.other.html.path}) namespace.
 
 ```python demo exec
 def my_div():
@@ -146,7 +146,7 @@ So far, we've defined state vars but we haven't shown how to change them. All st
 Event handlers are the ONLY way to change state in Reflex.
 ```
 
-Components have special props, such as `on_click`, called event triggers, that can be used to make components interactive. Event triggers connect components to event handlers, which update the state.
+Components have special props called event triggers, such as `on_click`, called event triggers, that can be used to make components interactive. Event triggers connect components to event handlers, which update the state.
 
 ```python demo exec
 class CounterState(rx.State):
@@ -350,7 +350,7 @@ The function that renders each item takes in a `Var`, since this will get compil
 
 You can't use arbitrary Python operations on state vars in components, but Reflex has [var operations]({docs.vars.var_operations.path}) that you can use to manipulate state vars.
 
-For example, to check if a var is even, use the `is_even` var operation.
+For example, to check if a var is even, you can use the `%` and `==` var operations. 
 
 ```python demo exec
 class CountEvenState(rx.State):
