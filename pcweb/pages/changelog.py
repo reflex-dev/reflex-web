@@ -48,6 +48,18 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-10-18",
+            "v0.6.3",
+            "Improved Static Typing for Var and Event",
+            [
+                "Support `aria_` and `data_` props passed to all components",
+                "Optimize state manager and state serialization",
+                "Graphing doc improvements",
+                "Bug fixes",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.3",
+        ),
+        change(
             "2024-10-07",
             "v0.6.2",
             "Improve Event Processing Time",
