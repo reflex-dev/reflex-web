@@ -13,6 +13,7 @@ def get_sidebar_items_learn():
             children=[
                 getting_started.introduction,
                 getting_started.installation,
+                getting_started.basics,
                 getting_started.project_structure,
                 getting_started.configuration,
                 getting_started.how_reflex_works,
