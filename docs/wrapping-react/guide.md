@@ -440,6 +440,6 @@ class Hello(rx.Component):
 ```
 
 
-## Degugging
+## Debugging
 
 If you encounter an error while wrapping a component it is recommended to check the Console in the browser developer tools. You can access this by going to inspect element and then clicking on the Console tab on Mac. This is because the Console is where most Javascript errors are logged.
