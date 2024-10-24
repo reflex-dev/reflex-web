@@ -13,7 +13,7 @@ from pcweb.meta.meta import favicons_links
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
-WINDOWS_MAX_ROUTES = 125
+WINDOWS_MAX_ROUTES = int(os.environ.get("REFLEX_WEB_WINDOWS_MAX_ROUTES", "100"))
 
 
 # Execute all the exec blocks in the documents.
@@ -45,16 +45,18 @@ if sys.platform == "win32":
 
 # Add the pages to the app.
 for route in routes:
-    #print(f"Adding route: {route}")
+    # print(f"Adding route: {route}")
     if _check_whitelisted_path(route.path):
         page_args = {
             "component": route.component,
             "route": route.path,
             "title": route.title,
-            "image": "/previews/index_preview.png" if route.image is None else route.image,
+            "image": "/previews/index_preview.png"
+            if route.image is None
+            else route.image,
             "meta": [
                 {"name": "theme-color", "content": route.background_color},
-            ]
+            ],
         }
 
         # Add the description only if it is not None
@@ -63,7 +65,7 @@ for route in routes:
         # Add the extra meta data only if it is not None
         if route.meta is not None:
             page_args["meta"].extend(route.meta)
-        
+
         # Call add_page with the dynamically constructed arguments
         app.add_page(**page_args)
 
