@@ -12,15 +12,11 @@ import reflex as rx
 
 # Text Area
 
-A text area is a multi-line text input field. This component uses Radix's [text area](https://radix-ui.com/primitives/docs/components/text-area) component.
+A text area is a multi-line text input field.
 
 ## Basic Example
 
-```python demo
-rx.text_area(
-    placeholder="Type here...",
-)
-```
+The text area component can be controlled by a single value. The `on_blur` prop can be used to update the value when the text area loses focus.
 
 ```python demo exec
 class TextAreaBlur(rx.State):
@@ -31,62 +27,55 @@ def blur_example():
     return rx.vstack(
         rx.heading(TextAreaBlur.text),
         rx.text_area(
+            placeholder="Type here...",
             on_blur=TextAreaBlur.set_text,
         ),
     )
 ```
+ 
+## Text Area in forms
+
+Here we show how to use a text area in a form. We use the `name` prop to identify the text area in the form data. The form data is then passed to the `submit_feedback` method to be processed.
 
 ```python demo exec
-class TextAreaControlled(rx.State):
-    text: str = "Hello World!"
+class TextAreaFeedbackState(rx.State):
+    feedback: str = ""
+    submitted: bool = False
 
+    def submit_feedback(self, form_data: dict):
+        self.submitted = True
 
-def controlled_example():
-    return rx.vstack(
-        rx.heading(TextAreaControlled.text),
-        rx.text_area(
-            value=TextAreaControlled.text,
-            on_change=TextAreaControlled.set_text,
+    def reset_form(self):
+        self.feedback = ""
+        self.attach_screenshot = True
+        self.submitted = False
+
+def feedback_form():
+    return rx.cond(
+        TextAreaFeedbackState.submitted,
+        rx.card(
+            rx.vstack(
+                rx.text("Thank you for your feedback!"),
+                rx.button("Submit another response", on_click=TextAreaFeedbackState.reset_form),
+            ),
         ),
-        rx.text_area(
-            value="Simon says: " + TextAreaControlled.text,
+        rx.card(
+            rx.form(
+                rx.flex(
+                    rx.text("Are you enjoying Reflex?"),
+                    rx.text_area(
+                        placeholder="Write your feedback…",
+                        value=TextAreaFeedbackState.feedback,
+                        on_change=TextAreaFeedbackState.set_feedback,
+                        resize="vertical",
+                    ),
+                    rx.button("Send", type="submit"),
+                    direction="column",
+                    spacing="3",
+                ),
+                on_submit=TextAreaFeedbackState.submit_feedback,
+            ),
         ),
     )
 ```
-
-### Setting a value without using a State var
-
-Set the value of the specified reference element, without needing to link it up to a State var. This is an alternate way to modify the value of the `text_area`.
-
-```python demo
-rx.hstack(
-    rx.text_area(id="text1"),
-    rx.button("Erase", on_click=rx.set_value("text1", "")),
-)
-```
-
-
-# Real World Example
-
-```python demo
-rx.card(
-    rx.flex(
-        rx.text("Are you enjoying Reflex?"),
-        rx.text_area(placeholder="Write your feedback…"),
-        rx.flex(
-            rx.text("Attach screenshot?", size="2"),
-            rx.switch(size="1", default_checked=True),
-            justify="between",
-        ),
-        rx.grid(
-            rx.button("Back", variant="surface"),
-            rx.button("Send"),
-            columns="2",
-            spacing="2",
-        ),
-        direction="column",
-        spacing="3",
-    ),
-    style={"maxWidth": 500},
-)
-```
+  

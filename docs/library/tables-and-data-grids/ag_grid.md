@@ -5,6 +5,7 @@ components:
 
 ```python exec
 from pcweb.pages.docs import library
+from pcweb.pages.docs import vars
 ```
 
 # AG Grid
@@ -17,7 +18,9 @@ pip install reflex-ag-grid
 
 ## Your First Reflex AG Grid
 
-A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid. Each grid also requires a unique `id`.
+A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid. 
+
+Each grid also requires a unique `id`, which is needed to uniquely identify the Ag-Grid instance on the page. If you have multiple grids on the same page, each grid must have a unique `id` so that it can be correctly rendered and managed.
 
 ```md alert info
 # Grid for Layout
@@ -48,6 +51,17 @@ def ag_grid_simple():
     )
 ```
 
+The format of the data passed to the `row_data` prop is a list of dictionaries. Each dictionary represents a row in the grid as seen below. 
+
+```python
+[
+   \{direction: "N", strength: "0-1", frequency: 0.5},
+   \{direction: "NNE", strength: "0-1", frequency: 0.6},
+   \{direction: "NE", strength: "0-1", frequency: 0.5},
+]
+```
+
+
 The previous example showed the `column_defs` written out in full. You can also extract the required information from the dataframe's column names:
 
 ```python demo exec
@@ -68,7 +82,6 @@ def ag_grid_simple_2():
         height="40vh",
     )
 ```
-
 
 
 
@@ -251,27 +264,45 @@ There are 7 provided cell editors in AG Grid:
 6. `ag_grid.editors.date`
 7. `ag_grid.editors.checkbox`
 
-In this example, we enable editing for the second and third columns. The second column uses the `number` cell editor, and the third column uses the `select` cell editor.
+In this example, we enable editing for the second and third columns. The second column uses the `number` cell editor, and the third column uses the `select` cell editor. 
+
+The `on_cell_value_changed` event trigger is linked to the `cell_value_changed` event handler in the state. This event handler is called whenever a cell value is changed and changes the value of the state var `data_df`. 
+
+`data` is a [computed var]({vars.computed_vars.path}), which means it has the `@rx.var` decorator and has its value derived from `data_df`.
+
 
 ```python demo exec
 import reflex as rx
 from reflex_ag_grid import ag_grid
 import pandas as pd
 
+class AGGridEditingState(rx.State):
+    data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+    @rx.var
+    def data(self) -> list[dict]:
+        return self.data_df.to_dict("records")
+
+    def cell_value_changed(self, row, col_field, new_value):
+        self.data_df.at[row, col_field] = new_value
+        yield rx.toast(f"Cell value changed, Row: {row}, Column: {col_field}, New Value: {new_value}")
+
 
 column_defs = [
     ag_grid.column_def(field="country"),
     ag_grid.column_def(field="pop", header_name="Population", editable=True, cell_editor=ag_grid.editors.number),
-    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={"values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']}),
+    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={
+        "values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']
+        }
+    ),
 ]
 
 def ag_grid_simple_editing():
     return ag_grid(
         id="ag_grid_basic_editing",
-        row_data=df.to_dict("records"),
+        row_data=AGGridEditingState.data,
         column_defs=column_defs,
+        on_cell_value_changed=AGGridEditingState.cell_value_changed,
         width="100%",
         height="40vh",
     )
@@ -310,9 +341,6 @@ def ag_grid_simple_pagination():
         height="40vh",
     )
 ```
-
-
-
 
 
 
@@ -369,9 +397,44 @@ def ag_grid_simple_themes():
 
 
 
+## AG Grid with State
 
 
-## Using AG Grid with State
+### Putting Data in State
+
+Assuming you want to make any edit to your data, you can put the data in State. This allows you to update the grid based on user input. It is recommended to make `data` a [computed var]({vars.computed_vars.path}), which means it has the `@rx.var` decorator. The state var `data` has its value derived from `data_df`.
+
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+class AGGridState2(rx.State):
+    data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+
+    @rx.var
+    def data(self) -> list[dict]:
+        return self.data_df.to_dict("records")
+
+column_defs = [
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="pop", header_name="Population"),
+    ag_grid.column_def(field="continent"),
+]
+
+def ag_grid_state_2():
+    return ag_grid(
+        id="ag_grid_state_2",
+        row_data=AGGridState2.data,
+        column_defs=column_defs,
+        width="100%",
+        height="40vh",
+    )
+```
+
+
+### Updating the Grid with State
 
 You can use State to update the grid based on a users input. In this example, we update the `column_defs` of the grid when a user clicks a button.
 
@@ -423,6 +486,87 @@ def ag_grid_simple_with_state():
     )
 ```
 
+
+
+## AG Grid with Data from a Database
+
+In this example, we will use a database to store the data. The data is loaded from a csv file and inserted into the database when the page is loaded using the `insert_dataframe_to_db` event handler. 
+
+The data is then fetched from the database and displayed in the grid using the `data` [computed var]({vars.computed_vars.path}). 
+
+When a cell value is changed, the data is updated in the database using the `cell_value_changed` event handler.
+
+
+```python
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+from sqlmodel import select
+
+class Country(rx.Model, table=True):
+    country: str
+    population: int
+    continent: str
+
+
+class AGGridDatabaseState(rx.State):
+
+    countries: list[Country]
+
+    # Insert data from a csv loaded dataframe to the database (Do this on the page load)
+    def insert_dataframe_to_db(self):
+        data = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        with rx.session() as session:
+            for _, row in data.iterrows():
+                db_record = Country(
+                    country=row['country'],
+                    population=row['pop'],
+                    continent=row['continent'],
+                )
+                session.add(db_record)
+            session.commit()
+
+    # Fetch data from the database using a computed variable
+    @rx.var
+    def data(self) -> list[dict]:
+        with rx.session() as session:
+            results = session.exec(select(Country)).all()
+            self.countries = [result.dict() for result in results]
+        return self.countries
+
+    # Update the database when a cell value is changed
+    def cell_value_changed(self, row, col_field, new_value):
+        self.countries[row][col_field] = new_value
+        with rx.session() as session:
+            country = Country(**self.countries[row])
+            session.merge(country)
+            session.commit()
+        yield rx.toast(f"Cell value changed, Row: \{row}, Column: \{col_field}, New Value: \{new_value}")
+
+
+column_defs = [
+    ag_grid.column_def(field="country"),
+    ag_grid.column_def(field="population", header_name="Population", editable=True, cell_editor=ag_grid.editors.number),
+    ag_grid.column_def(field="continent", editable=True, cell_editor=ag_grid.editors.select, cell_editor_params={
+        "values": ['Asia', 'Europe', 'Africa', 'Americas', 'Oceania']
+        }
+    ),
+]
+
+def index():
+    return ag_grid(
+        id="ag_grid_basic_editing",
+        row_data=AGGridDatabaseState.data,
+        column_defs=column_defs,
+        on_cell_value_changed=AGGridDatabaseState.cell_value_changed,
+        width="100%",
+        height="40vh",
+    )
+
+# Add state and page to the app.
+app = rx.App()
+app.add_page(index, on_load=AGGridDatabaseState.insert_dataframe_to_db)
+```
 
 
 

@@ -13,7 +13,7 @@
 __pycache__/
 assets/external/
 pcconfig2.py
+pcweb/whitelist.py
 pynecone.db
 reflex.db
 venv/
-pcweb/whitelist.py

@@ -160,7 +160,7 @@ These props accept arrays of numbers, where each number represents a pixel offse
 - For `vertical_points`, the offset is measured from the left edge of the chart
 
 ```md alert info
-**Important**: The values provided to these props are not directly related to the axis values. They represent pixel offsets within the chart's rendering area.
+# **Important**: The values provided to these props are not directly related to the axis values. They represent pixel offsets within the chart's rendering area.
 ```
 
 Here's an example demonstrating custom grid lines in a scatter chart:

@@ -13,6 +13,7 @@ def get_sidebar_items_learn():
             children=[
                 getting_started.introduction,
                 getting_started.installation,
+                getting_started.basics,
                 getting_started.project_structure,
                 getting_started.configuration,
                 getting_started.how_reflex_works,
@@ -89,6 +90,7 @@ def get_sidebar_items_frontend():
                 wrapping_react.overview,
                 wrapping_react.guide,
                 wrapping_react.example,
+                wrapping_react.more_wrapping_examples,
             ],
         ),
         create_item(
