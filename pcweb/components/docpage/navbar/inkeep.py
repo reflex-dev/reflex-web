@@ -26,7 +26,7 @@ class Search(rx.Component):
         return {
             "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
             "react": {ImportVar(tag="useContext")},
-            "/utils/context": {ImportVar(tag="ColorModeContext")},
+            "$/utils/context": {ImportVar(tag="ColorModeContext")},
         }
 
     def add_hooks(self):
