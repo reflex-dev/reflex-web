@@ -300,7 +300,7 @@ class State2(rx.State):
         User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
     ]
 
-def show_user2(user: list):
+def show_user2(user: User):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(user.name),
@@ -344,7 +344,7 @@ class State(rx.State):
         User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
     ]
 
-def show_user(user: list):
+def show_user(user: User):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(user.name),
@@ -393,8 +393,8 @@ rx.form(
         name="email",
     ),
     rx.select(
-        ["male", "female"],
-        placeholder="male",
+        ["Male", "Female"],
+        placeholder="Male",
         name="gender",
     ),
 )
@@ -414,8 +414,8 @@ rx.form(
             name="email",
         ),
         rx.select(
-            ["male", "female"],
-            placeholder="male",
+            ["Male", "Female"],
+            placeholder="Male",
             name="gender",
         ),
     ),
@@ -451,8 +451,8 @@ def form():
                 name="email",
             ),
             rx.select(
-                ["male", "female"],
-                placeholder="male",
+                ["Male", "Female"],
+                placeholder="Male",
                 name="gender",
             ),
             rx.button("Submit", type="submit"),
@@ -464,7 +464,7 @@ def form():
 
 Finally we must add the new `form()` component we have defined to the `index()` function so that the form is rendered on the page.
 
-Below is the full code for the app so far. If you try this form out you will see that you can add new users to the table by filling out the form and clicking the submit button and the form data will appear as a toast on the screen.
+Below is the full code for the app so far. If you try this form out you will see that you can add new users to the table by filling out the form and clicking the submit button. The form data will also appear as a toast on the screen when submitted.
 
 
 ```python exec
@@ -483,7 +483,7 @@ class State3(rx.State):
             position="bottom-right",
         )
 
-def show_user(user: list):
+def show_user(user: User):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(user.name),
@@ -502,8 +502,8 @@ def form():
                 name="email",
             ),
             rx.select(
-                ["male", "female"],
-                placeholder="male",
+                ["Male", "Female"],
+                placeholder="Male",
                 name="gender",
             ),
             rx.button("Submit", type="submit"),
@@ -546,7 +546,7 @@ class State(rx.State):
         self.users.append(User(**form_data))
 
 
-def show_user(user: list):
+def show_user(user: User):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(user.name),
@@ -565,8 +565,8 @@ def form():
                 name="email",
             ),
             rx.select(
-                ["male", "female"],
-                placeholder="male",
+                ["Male", "Female"],
+                placeholder="Male",
                 name="gender",
             ),
             rx.button("Submit", type="submit"),
@@ -598,4 +598,977 @@ def index() -> rx.Component:
 ```
 
 
-## putting form in overlay
+## Putting the Form in an Overlay
+
+In Reflex we like to make the user interaction as intuitive as possible. Placing the form we just constructed in an overlay creates a focused interaction by dimming the background, and ensures a cleaner layout when you have multiple action points such as editing and deleting as well.
+
+We will place the form inside of a `rx.dialog` component (also called a modal). The `rx.dialog.root` contains all the parts of a dialog, and the `rx.dialog.trigger` wraps the control that will open the dialog. In our case the trigger will be an `rx.button` that says "Add User" as shown below.
+
+```python
+rx.dialog.trigger(
+    rx.button(
+        rx.icon("plus", size=26),
+        rx.text("Add User", size="4"),
+    ),
+)
+```
+
+After the trigger we have the `rx.dialog.content` which contains everything within our dialog, including a title, a description and our form. The key part of the form within the dialog is that it now has two `rx.dialog.close` components. The first is to just close the dialog without submitting the form and he second is to close the dialog and submit the form as shown below.
+
+```python
+rx.dialog.close(
+    rx.button(
+        "Cancel",
+        variant="soft",
+        color_scheme="gray",
+    ),
+),
+rx.dialog.close(
+    rx.button(
+        "Submit", type="submit"
+    ),
+)
+```
+
+The total code for the dialog with the form in it is below.
+
+```python demo
+rx.dialog.root(
+    rx.dialog.trigger(
+        rx.button(
+            rx.icon("plus", size=26),
+            rx.text("Add User", size="4"),
+        ),
+    ),
+    rx.dialog.content(
+        rx.dialog.title(
+            "Add New User",
+        ),
+        rx.dialog.description(
+            "Fill the form with the user's info",
+        ),
+        rx.form(
+            # flex is similar to vstack and used to layout the form fields
+            rx.flex(
+                rx.input(
+                    placeholder="User Name", name="name", required=True
+                ),
+                rx.input(
+                    placeholder="user@reflex.dev",
+                    name="email",
+                ),
+                rx.select(
+                    ["Male", "Female"],
+                    placeholder="Male",
+                    name="gender",
+                ),
+                rx.flex(
+                    rx.dialog.close(
+                        rx.button(
+                            "Cancel",
+                            variant="soft",
+                            color_scheme="gray",
+                        ),
+                    ),
+                    rx.dialog.close(
+                        rx.button(
+                            "Submit", type="submit"
+                        ),
+                    ),
+                    spacing="3",
+                    justify="end",
+                ),
+                direction="column",
+                spacing="4",
+            ),
+            on_submit=State3.add_user,
+            reset_on_submit=False,
+        ),
+        # max_width is used to limit the width of the dialog
+        max_width="450px",
+    ),
+)
+```
+
+At this point we have an app that allows you to add users to a table by filling out a form. The form is placed in a dialog that can be opened by clicking the "Add User" button. We change the name of the component from `form` to `add_customer_button` and update this in our `index` component. The full app so far and code are below.
+
+
+```python exec
+def add_customer_button() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="Male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State3.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+```
+
+```python eval
+rx.vstack(
+    add_customer_button(),
+    rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Name"),
+                rx.table.column_header_cell("Email"),
+                rx.table.column_header_cell("Gender"),
+            ),
+        ),
+        rx.table.body(
+            rx.foreach(
+                State3.users, show_user
+            ),
+        ),
+        variant="surface",
+        size="3",
+    ),
+)
+```
+
+```python
+class User(rx.Base):
+    """The user model."""
+
+    name: str
+    email: str
+    gender: str
+
+
+class State(rx.State):
+    users: list[User] = [
+        User(name="Danilo Sousa", email="danilo@example.com", gender="Male"),
+        User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
+    ]
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+
+        
+
+def show_user(user: User):
+    """Show a person in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.gender),
+    )
+
+def add_customer_button() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="Male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+
+def index() -> rx.Component:
+    return rx.vstack(
+        add_customer_button(),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Gender"),
+                ),
+            ),
+            rx.table.body(
+                rx.foreach(
+                    State.users, show_user
+                ),
+            ),
+            variant="surface",
+            size="3",
+        ),
+    )
+```
+
+
+## Plotting the User Data in a Graph
+
+The last part of this tutorial is to plot the user data in a graph. We will use Reflex's built-in graphing library recharts to plot the number of users of each gender. 
+
+### Transforming the data for the graph
+
+The graphing components in Reflex expect to take in a list of dictionaries. Each dictionary represents a data point on the graph and contains the x and y values. We will create a new event handler in the state called `transform_data` to transform the user data into the format that the graphing components expect. We must also create a new state variable called `users_for_graph` to store the transformed data, which will be used to render the graph.
+
+
+```python
+from collections import Counter
+
+class State(rx.State):
+    users: list[User] = []
+    users_for_graph: list[dict] = []
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+        self.transform_data()
+    
+    def transform_data(self):
+        """Transform user gender group data into a format suitable for visualization in graphs."""
+        # Count users of each gender group
+        gender_counts = Counter(user.gender for user in self.users)
+        
+        # Transform into list of dict so it can be used in the graph
+        self.users_for_graph = [
+            {
+                "name": gender_group,
+                "value": count
+            }
+            for gender_group, count in gender_counts.items()
+        ]
+```
+
+As we can see above the `transform_data` event handler uses the `Counter` class from the `collections` module to count the number of users of each gender. We then create a list of dictionaries from this which we set to the state var `users_for_graph`. 
+
+Finally we can see that whenever we add a new user through submitting the form, we call the `transform_data` event handler to update the `users_for_graph` state variable.
+
+### Rendering the graph
+
+We use the `rx.recharts.bar_chart` component to render the graph. We pass through the state variable for our graphing data as `data=State.users_for_graph`. We alos pass in a `rx.recharts.bar` component which represents the bars on the graph. The `rx.recharts.bar` component takes in the `data_key` prop which is the key in the data dictionary that represents the y value of the bar. The `stroke` and `fill` props are used to set the color of the bars.
+
+The `rx.recharts.bar_chart` component also takes in `rx.recharts.x_axis` and `rx.recharts.y_axis` components which represent the x and y axes of the graph. The `data_key` prop of the `rx.recharts.x_axis` component is set to the key in the data dictionary that represents the x value of the bar. Finally we add `width` and `height` props to set the size of the graph.
+
+```python
+def graph():
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="value",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=State.users_for_graph,
+        width="100%",
+        height=250,
+    )
+```
+
+Finally we add this `graph()` component to our `index()` component so that the graph is rendered on the page. The code for the full app with the graph included is below. If you try this out you will see that the graph updates whenever you add a new user to the table.
+
+```python exec
+from collections import Counter
+
+class State4(rx.State):
+    users: list[User] = [
+        User(name="Danilo Sousa", email="danilo@example.com", gender="Male"),
+        User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
+    ]
+    users_for_graph: list[dict] = []
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+        self.transform_data()
+
+        return rx.toast.info(
+            f"User {form_data['name']} has been added.",
+            position="bottom-right",
+        )
+    
+    def transform_data(self):
+        """Transform user gender group data into a format suitable for visualization in graphs."""
+        # Count users of each gender group
+        gender_counts = Counter(user.gender for user in self.users)
+        
+        # Transform into list of dict so it can be used in the graph
+        self.users_for_graph = [
+            {
+                "name": gender_group,
+                "value": count
+            }
+            for gender_group, count in gender_counts.items()
+        ]
+
+def add_customer_button() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="Male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State4.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+
+def graph():
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="value",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=State4.users_for_graph,
+        width="100%",
+        height=250,
+    )
+```
+
+```python eval
+rx.vstack(
+    add_customer_button(),
+    rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Name"),
+                rx.table.column_header_cell("Email"),
+                rx.table.column_header_cell("Gender"),
+            ),
+        ),
+        rx.table.body(
+            rx.foreach(
+                State4.users, show_user
+            ),
+        ),
+        variant="surface",
+        size="3",
+    ),
+    graph(),
+)
+```
+
+```python
+from collections import Counter
+
+class State(rx.State):
+    users: list[User] = [
+        User(name="Danilo Sousa", email="danilo@example.com", gender="Male"),
+        User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
+    ]
+    users_for_graph: list[dict] = []
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+        self.transform_data()
+    
+    def transform_data(self):
+        """Transform user gender group data into a format suitable for visualization in graphs."""
+        # Count users of each gender group
+        gender_counts = Counter(user.gender for user in self.users)
+        
+        # Transform into list of dict so it can be used in the graph
+        self.users_for_graph = [
+            {
+                "name": gender_group,
+                "value": count
+            }
+            for gender_group, count in gender_counts.items()
+        ]
+        
+
+def show_user(user: User):
+    """Show a person in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.gender),
+    )
+
+def add_customer_button() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+
+def graph():
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="value",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=State.users_for_graph,
+        width="100%",
+        height=250,
+    )
+
+def index() -> rx.Component:
+    return rx.vstack(
+        add_customer_button(),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Gender"),
+                ),
+            ),
+            rx.table.body(
+                rx.foreach(
+                    State.users, show_user
+                ),
+            ),
+            variant="surface",
+            size="3",
+        ),
+        graph(),
+    )
+```
+
+One thing you may have noticed about your app is that the graph does not appear initially when you run the app, and that you must add a user to the table for it to first appear. This occurs because the `transform_data` event handler is only called when a user is added to the table. In the next section we will explore a solution to this.
+
+## Revisiting app.add_page
+
+At the beginning of this tutorial we mentioned that the `app.add_page` function is required for every Reflex app. This function is used to add a component to a page. 
+
+The `app.add_page` currently looks like this `app.add_page(index)`. We could change the route that the page renders on by setting the `route` prop such as `route="/custom-route"`, thos would change the route to `http://localhost:3000/custom-route` for this page.
+
+We can also set a `title` to be shown in the browser tab and a `description` as shown in search results. 
+
+So solve the problem we had above about our graph not loading when the page loads, we can use `on_load` inside of `app.add_page` to call the `transform_data` event handler when the page loads. This would look like `on_load=State.transform_data`. Below see what our `app.add_page` would look like with some of the changes above added.
+
+```python eval
+rx.vstack(
+    add_customer_button(),
+    rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Name"),
+                rx.table.column_header_cell("Email"),
+                rx.table.column_header_cell("Gender"),
+            ),
+        ),
+        rx.table.body(
+            rx.foreach(
+                State4.users, show_user
+            ),
+        ),
+        variant="surface",
+        size="3",
+    ),
+    graph(),
+    on_mouse_enter=State4.transform_data
+)
+```
+
+```python
+app.add_page(
+    index,
+    title="Customer Data App",
+    description="A simple app to manage customer data.",
+    on_load=State.transform_data,
+)
+```
+
+## Revisiting app=rx.App()
+
+At the beginning of the tutorial we also mentioned that we defined our app using `app=rx.App()`. We can also pass in some props to the `rx.App` component to customize the app.
+
+The most important one is `theme` which allows you to customize the look and feel of the app. The `theme` prop takes in an `rx.theme` component which has several props that can be set. 
+
+The `radius` prop sets the global radius value for the app that is inherited by all components that have a `radius` prop. It can be overwritten locally for a specific component by manually setting the `radius` prop.
+
+The `accent_color` prop sets the accent color of the app. Check out other options for the accent color [here]({docs.library.other.theme.path}).
+
+
+```python
+app = rx.App(
+    theme=rx.theme(
+        radius="full", accent_color="grass"
+    ),
+)
+```
+
+Unfortunately in this tutoial here we cannot actually apply this to the live example on the page, but if you copy and paste the code below into a reflex app locally you can see if in action.
+
+
+## Conclusion
+
+Finally let's make some final styling updates to our app. We will add some hover styling to the table rows and center the table inside the `show_user` with `style=\{"_hover": \{"bg": rx.color("gray", 3)}}, align="center"`.
+
+In addition, we will add some `width="100%"` and `align="center"` to the `index()` component to center the items on the page and ensure they stretch the full width of the page.
+
+Check out the full code and interactive app below:
+
+```python exec
+class State5(rx.State):
+    users: list[User] = [
+        User(name="Danilo Sousa", email="danilo@example.com", gender="Male"),
+        User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
+    ]
+    users_for_graph: list[dict] = []
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+        self.transform_data()
+
+        return rx.toast.info(
+            f"User {form_data['name']} has been added.",
+            position="bottom-right",
+        )
+    
+    def transform_data(self):
+        """Transform user gender group data into a format suitable for visualization in graphs."""
+        # Count users of each gender group
+        gender_counts = Counter(user.gender for user in self.users)
+        
+        # Transform into list of dict so it can be used in the graph
+        self.users_for_graph = [
+            {
+                "name": gender_group,
+                "value": count
+            }
+            for gender_group, count in gender_counts.items()
+        ]
+        
+
+def show_user5(user: User):
+    """Show a user in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.gender),
+        style={"_hover": {"bg": rx.color("gray", 3)}},
+        align="center",
+    )
+
+def add_customer_button5() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State5.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+
+def graph5():
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="value",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=State5.users_for_graph,
+        width="100%",
+        height=250,
+    )
+```
+
+
+```python eval
+rx.vstack(
+        add_customer_button5(),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Gender"),
+                ),
+            ),
+            rx.table.body(
+                rx.foreach(
+                    State5.users, show_user5
+                ),
+            ),
+            variant="surface",
+            size="3",
+            width="100%",
+        ),
+        graph5(),
+        align="center",
+        width="100%",
+        on_mouse_enter=State5.transform_data
+    )
+```
+
+```python
+import reflex as rx
+from collections import Counter
+
+class User(rx.Base):
+    """The user model."""
+
+    name: str
+    email: str
+    gender: str
+
+
+class State(rx.State):
+    users: list[User] = [
+        User(name="Danilo Sousa", email="danilo@example.com", gender="Male"),
+        User(name="Zahra Ambessa", email="zahra@example.com", gender="Female"),
+    ]
+    users_for_graph: list[dict] = []
+
+    def add_user(self, form_data: dict):
+        self.users.append(User(**form_data))
+        self.transform_data()
+    
+    def transform_data(self):
+        """Transform user gender group data into a format suitable for visualization in graphs."""
+        # Count users of each gender group
+        gender_counts = Counter(user.gender for user in self.users)
+        
+        # Transform into list of dict so it can be used in the graph
+        self.users_for_graph = [
+            {
+                "name": gender_group,
+                "value": count
+            }
+            for gender_group, count in gender_counts.items()
+        ]
+        
+
+def show_user(user: User):
+    """Show a user in a table row."""
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.gender),
+        style=\{"_hover": \{"bg": rx.color("gray", 3)}},
+        align="center",
+    )
+
+def add_customer_button() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name", required=True
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev",
+                        name="email",
+                    ),
+                    rx.select(
+                        ["Male", "Female"],
+                        placeholder="male",
+                        name="gender",
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button(
+                                "Submit", type="submit"
+                            ),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State.add_user,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
+    )
+
+def graph():
+    return rx.recharts.bar_chart(
+        rx.recharts.bar(
+            data_key="value",
+            stroke=rx.color("accent", 9),
+            fill=rx.color("accent", 8),
+        ),
+        rx.recharts.x_axis(data_key="name"),
+        rx.recharts.y_axis(),
+        data=State.users_for_graph,
+        width="100%",
+        height=250,
+    )
+
+def index() -> rx.Component:
+    return rx.vstack(
+        add_customer_button(),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Gender"),
+                ),
+            ),
+            rx.table.body(
+                rx.foreach(
+                    State.users, show_user
+                ),
+            ),
+            variant="surface",
+            size="3",
+            width="100%",
+        ),
+        graph(),
+        align="center",
+        width="100%",
+    )
+
+
+app = rx.App(
+    theme=rx.theme(
+        radius="full", accent_color="grass"
+    ),
+)
+
+app.add_page(
+    index,
+    title="Customer Data App",
+    description="A simple app to manage customer data.",
+    on_load=State.transform_data,
+)
+```
+
+And that is it for your first dashboard app. In this tutorial we have created a table to display user data, a form to add new users to the table, a graph to visualize the user data, and a dialog to add new users. We have also added some styling to the app to make it look better. We have explored state to allow you to show dynamic data that changes over time. We have also explored events to allow you to make your app interactive and respond to user actions. 
+
+
+## Advanced Section (Hooking this up to a Database)
