@@ -175,7 +175,7 @@ answer_style = message_style | dict(margin_right=chat_margin, background_color=r
 
 # Styles for the action bar.
 input_style = dict(
-    border_width="1px", padding="1em", box_shadow=shadow,width="350px"
+    border_width="1px", padding="0.5em", box_shadow=shadow,width="350px"
 )
 button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)
 ```
