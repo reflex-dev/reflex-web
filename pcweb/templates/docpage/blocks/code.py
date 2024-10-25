@@ -10,19 +10,13 @@ import pcweb.styles.fonts as fonts
 @rx.memo
 def code_block(code: str, language: str):
     return rx.box(
-        rx.code_block(
+        rx._x.code_block(
             code,
             language=language,
             class_name="code-block",
+            can_copy=True,
         ),
-        rx.button(
-            get_icon(
-                icon="clipboard",
-                class_name="text-slate-9 hover:text-slate-11 transition-color",
-                on_click=rx.set_clipboard(code),
-            ),
-            class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
-        ),
+
         class_name="relative mb-4",
     )
 
@@ -30,30 +24,24 @@ def code_block(code: str, language: str):
 @rx.memo
 def code_block_dark(code: str, language: str):
     return rx.box(
-        rx.code_block(
+        rx._x.code_block(
             code,
             language=language,
             class_name="code-block",
+            can_copy=True,
         ),
-        rx.button(
-            get_icon(
-                icon="clipboard",
-                class_name="!text-slate-9 hover:!text-slate-11 transition-color",
-                on_click=rx.set_clipboard(code),
-            ),
-            class_name="top-6 right-6 absolute bg-transparent px-0 transition-transform cursor-pointer active:scale-[0.8]",
-        ),
+
         class_name="relative",
     )
 
 
 def code_block_markdown(*children, **props):
-    language = props.get("language", "none")
+    language = props.get("language", "plain")
     return code_block(code=children[0], language=language)
 
 
 def code_block_markdown_dark(*children, **props):
-    language = props.get("language", "none")
+    language = props.get("language", "plain")
     return code_block_dark(code=children[0], language=language)
 
 
@@ -74,11 +62,12 @@ def doccmdoutput(
     return rx.flex(
         rx.flex(
             rx.lucide.icon(tag="chevrons-right", color="white", width=18, height=18),
-            rx.code_block(
+            rx._x.code_block(
                 command,
+                can_copy=True,
                 border_radius=styles.DOC_BORDER_RADIUS,
                 background="transparent",
-                theme=rx.code_block.themes.a11y_dark,
+                theme="ayu-dark",
                 language="bash",
                 code_tag_props={
                     "style": {
@@ -88,30 +77,6 @@ def doccmdoutput(
                 style=fonts.code,
                 font_family="Source Code Pro",
             ),
-            rx.button(
-                get_icon(
-                    icon="clipboard",
-                    color=c_color("slate", 2),
-                    transition="color 0.035s ease-out",
-                    _hover={
-                        "color": c_color("slate", 5),
-                    },
-                ),
-                height="auto",
-                background="transparent",
-                cursor="pointer",
-                _hover={
-                    "background": "transparent",
-                },
-                _active={
-                    "size": "0.8em",
-                    "transform": "scale(0.8)",
-                },
-                on_click=rx.set_clipboard(command),
-                position="absolute",
-                top="1.75em",
-                right="0.5em",
-            ),
             direction="row",
             align="center",
             spacing="1",
@@ -119,11 +84,12 @@ def doccmdoutput(
         ),
         rx.divider(size="4", color_scheme="green"),
         rx.flex(
-            rx.code_block(
+            rx._x.code_block(
                 output,
+                can_copy=True,
                 border_radius="12px",
                 background="transparent",
-                theme=rx.code_block.themes.nord,
+                theme="nord",
                 language="log",
                 code_tag_props={
                     "style": {

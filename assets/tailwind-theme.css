@@ -116,6 +116,26 @@
         letter-spacing: -0.00406rem !important;
     }
 
+    .code-block pre {
+        font-family: var(--font-jetbrains) !important;
+        padding: 0 !important;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5rem !important;
+        color: var(--c-slate-12) !important;
+        background-color: transparent !important;
+    }
+
+    .code-block code {
+        font-family: var(--font-jetbrains) !important;
+        padding: 0 !important;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5rem !important;
+        color: var(--c-slate-12) !important;
+        background-color: transparent !important;
+    }
+
     .tab-style {
         color: var(--c-slate-9);
         cursor: pointer;
@@ -160,6 +180,28 @@
         letter-spacing: -0.01219rem !important;
     }
 
+    .demo-code-block pre {
+        background: transparent !important;
+        font-family: var(--font-jetbrains) !important;
+        font-size: 0.8125rem !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        line-height: 150% !important;
+        letter-spacing: -0.01219rem !important;
+        padding: 2.5rem !important;
+    }
+
+    .demo-code-block code {
+        font-family: var(--font-jetbrains) !important;
+        padding: 0 !important;
+        font-size: 0.8125rem !important;
+        font-weight: 400 !important;
+        line-height: 150% !important;
+        letter-spacing: -0.01219rem !important;
+        color: var(--c-slate-12) !important;
+        background-color: transparent !important;
+    }
+
     .font-small {
         font-family: var(--font-instrument-sans);
         font-size: 0.9rem;
@@ -187,7 +229,7 @@
         line-height: 1.5rem;
         /* 150% */
         letter-spacing: -0.015rem;
-        
+
     }
 
     .font-md-smbold {
@@ -448,6 +490,18 @@
         background-color: transparent;
     }
 }
+
+@layer utilities {
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+     /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+    }
+  }
 
 .v-link {
     /* text-decoration: underline; */
