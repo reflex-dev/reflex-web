@@ -66,7 +66,7 @@ def link_item(name: str, url: str, active_str: str = ""):
     active = router_path.contains(active_str)
     if active_str == "docs":
         active = rx.cond(
-            router_path.contains("hosting") | router_path.contains("library"),
+            router_path.contains("library"),
             False,
             active,
         )
@@ -288,7 +288,7 @@ def new_component_section() -> rx.Component:
                 link_item("Docs", getting_started.introduction.path, "docs"),
             ),
             nav_menu.item(
-                link_item("Templates", gallery.path, "gallery"),
+                link_item("Templates", gallery.path, "templates"),
             ),
             nav_menu.item(
                 new_menu_trigger("Blog", blogs.path, "blog"),
