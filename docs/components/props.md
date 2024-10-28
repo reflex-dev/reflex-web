@@ -1,30 +1,30 @@
 ```python exec
-from pcweb.pages.docs.library import library
-from pcweb.pages.docs import state, vars
 import reflex as rx
+from pcweb.pages.docs.library import library
+from pcweb.pages import docs
 ```
 
 # Props
 
-Props modify the behavior and appearance of a component. They are passed in as keyword arguments to the component function.
+Props modify the behavior and appearance of a component. They are passed in as keyword arguments to a component.
 
 ## Component Props
 
-Each component has props that are specific to that component. For example, the `rx.avatar` component has a fallback prop that sets the `fallback` of the avatar.
+There are props that are shared between all components, but each component can also define its own props.
+
+For example, the `rx.image` component has a `src` prop that specifies the URL of the image to display and an `alt` prop that specifies the alternate text for the image.
 
 ```python demo
-rx.avatar(
-    fallback="JD"
+rx.image(
+    src="https://reflex.dev/logo.jpg",
+    alt="Reflex Logo",
 )
 ```
 
-Check the docs for the component you are using to see what props are available.
+Check the docs for the component you are using to see what props are available and how they affect the component (see the `rx.image` [reference]({docs.library.media.image.path}#api-reference) page for example).
 
-```md alert success
-# Reflex has a wide selection of [built-in components]({library.path}) to get you started quickly.
-```
 
-## HTML Props
+## Common Props
 
 Components support many standard HTML properties as props. For example: the HTML [id]({"https://www.w3schools.com/html/html_id.asp"}) property is exposed directly as the prop `id`. The HTML [className]({"https://www.w3schools.com/jsref/prop_html_classname.asp"}) property is exposed as the prop `class_name` (note the Pythonic snake_casing!).
 
@@ -36,19 +36,36 @@ rx.box(
 )
 ```
 
+## Style Props
+
+In addition to component-specific props, most built-in components support a full range of style props. You can use any CSS property to style a component.
+
+```python demo
+rx.button(
+    "Fancy Button",
+    border_radius="1em",
+    box_shadow="rgba(151, 65, 252, 0.8) 0 15px 30px -10px",
+    background_image="linear-gradient(144deg,#AF40FF,#5B42F3 50%,#00DDEB)",
+    box_sizing="border-box",
+    color="white",
+    opacity= 1,
+)
+```
+
+See the [styling docs]({docs.styling.overview.path}) to learn more about customizing the appearance of your app.
+
+
 ## Binding Props to State
 
-Reflex apps can have a [State]({state.overview.path}) that stores all variables that can change when the app is running, as well as the event handlers that can change those variables.
+```md alert warning
+# Optional: Learn all about [State]({docs.state.overview.path}) first.
+```
+
+Reflex apps define [State]({docs.state.overview.path}) classes that hold variables that can change over time.
 
 State may be modified in response to things like user input like clicking a button, or in response to events like loading a page.
 
 State vars can be bound to component props, so that the UI always reflects the current state of the app.
-
-```md alert warning
-# Optional: Learn all about [State]({state.overview.path}) first.
-```
-
-You can set the value of a prop to a [state var]({vars.base_vars.path}) to make the component update when the var changes.
 
 Try clicking the badge below to change its color.
 
@@ -66,14 +83,10 @@ class PropExampleState(rx.State):
 
 
 def index():
-    return rx.badge(
+    return rx.button(
         PropExampleState.text,
         color_scheme=PropExampleState.color,
         on_click=PropExampleState.flip_color,
-        font_size="1.5em",
-        _hover={
-            "cursor": "pointer",
-        }
     )
 ```
 

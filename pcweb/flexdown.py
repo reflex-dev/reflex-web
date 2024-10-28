@@ -267,7 +267,6 @@ class DefinitionBlock(flexdown.blocks.Block):
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",
-                    h="10em",
                     width="100%",
                     gap=4,
                     margin_bottom="1em",
