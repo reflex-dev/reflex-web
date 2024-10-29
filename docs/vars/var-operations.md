@@ -231,17 +231,36 @@ class DivState(rx.State):
 
 def var_div_example():
     return rx.vstack(
-        rx.chakra.table_container(
-            rx.chakra.table(
-                headers=["Integer 1", "Integer 2", "Operation", "Outcome"],
-                rows=[
-                    (DivState.number_1, DivState.number_2, "Int 1 / Int 2", f"{DivState.number_1 / DivState.number_2}"),
-                    (DivState.number_1, DivState.number_2, "Int 1 // Int 2", f"{DivState.number_1 // DivState.number_2}"),
-                    (DivState.number_1, DivState.number_2, "Int 1 % Int 2", f"{DivState.number_1 % DivState.number_2}"),
-                    ],
-                variant="striped",
-                color_scheme="red",
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Integer 1"),
+                    rx.table.column_header_cell("Integer 2"),
+                    rx.table.column_header_cell("Operation"),
+                    rx.table.column_header_cell("Outcome"),
+                ),
             ),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell(DivState.number_1),
+                    rx.table.cell(DivState.number_2),
+                    rx.table.cell("Int 1 / Int 2"),
+                    rx.table.cell(f"{DivState.number_1 / DivState.number_2}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(DivState.number_1),
+                    rx.table.cell(DivState.number_2),
+                    rx.table.cell("Int 1 // Int 2"),
+                    rx.table.cell(f"{DivState.number_1 // DivState.number_2}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell(DivState.number_1),
+                    rx.table.cell(DivState.number_2),
+                    rx.table.cell("Int 1 % Int 2"),
+                    rx.table.cell(f"{DivState.number_1 % DivState.number_2}"),
+                ),
+            ),
+            width="100%",
         ),
         rx.button("Update", on_click=DivState.update),
     )
