@@ -266,7 +266,7 @@ class BadState(rx.State):
 def count_if_even():
     return rx.box(
         rx.heading("Count: "),
-        # This will raise a compile error, as MyState.count is a var and not known a compile time.
+        # This will raise a compile error, as MyState.count is a var and not known at compile time.
         rx.text(BadState.count if BadState.count % 2 == 0 else "Odd"),
         # Using an if statement with a var as a prop will NOT work either.
         rx.text("hello", color="red" if BadState.count % 2 == 0 else "blue"),
