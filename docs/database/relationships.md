@@ -66,7 +66,7 @@ form.
 class FlagPostForm(rx.State):
     user: User
 
-    def flag_post(self, form_data: dict[str, str]):
+    def flag_post(self, form_data: dict[str, Any]):
         with rx.session() as session:
             post = session.get(Post, int(form_data.pop("post_id")))
             flag = Flag(message=form_data.pop("message"), post=post, user=self.user)

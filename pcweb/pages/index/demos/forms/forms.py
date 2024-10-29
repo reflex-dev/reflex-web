@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+from typing import Any
 
 import httpx
 import reflex as rx
@@ -12,10 +13,9 @@ from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL
 
 
 class FormState(rx.State):
-
     def submit(
         self,
-        form_data: dict[str, str],
+        form_data: dict[str, Any],
     ):
         def submit_form() -> None:
             nonlocal form_data

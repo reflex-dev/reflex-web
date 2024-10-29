@@ -109,7 +109,7 @@ ensure all fields are up to date before exiting the session.
 class AddUserForm(rx.State):
     user: User | None = None
     
-    def add_user(self, form_data: dict[str, str]):
+    def add_user(self, form_data: dict[str, Any]):
         with rx.session() as session:
             self.user = User(**form_data)
             session.add(self.user)
@@ -130,7 +130,7 @@ may either be created or updated accordingly.
 class AddUserForm(rx.State):
     ...
     
-    def update_user(self, form_data: dict[str, str]):
+    def update_user(self, form_data: dict[str, Any]):
         if self.user is None:
             return
         with rx.session() as session:
