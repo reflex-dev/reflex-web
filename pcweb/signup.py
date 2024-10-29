@@ -2,6 +2,7 @@ import contextlib
 import json
 import os
 from datetime import datetime
+from typing import Any
 
 import httpx
 import reflex as rx
@@ -36,11 +37,10 @@ class IndexState(rx.State):
             response = client.post(
                 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
                 json={
-                        "email": email,
-                    },
+                    "email": email,
+                },
             )
             response.raise_for_status()
-
 
     def add_contact_to_loops(
         self,
@@ -62,8 +62,8 @@ class IndexState(rx.State):
                     url,
                     headers=headers,
                     json={
-                            "email": email,
-                        },
+                        "email": email,
+                    },
                 )
                 response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
 
@@ -75,7 +75,7 @@ class IndexState(rx.State):
 
     def signup(
         self,
-        form_data: dict[str, str],
+        form_data: dict[str, Any],
     ):
         """Sign the user up for the newsletter."""
         email: str | None = None
