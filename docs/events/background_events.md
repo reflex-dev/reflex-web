@@ -77,7 +77,7 @@ class MyTaskState(rx.State):
 def background_task_example():
     return rx.hstack(
         rx.heading(MyTaskState.counter, " /"),
-        rx.chakra.number_input(
+        rx.input(
             value=MyTaskState.max_counter,
             on_change=MyTaskState.set_max_counter,
             width="8em",

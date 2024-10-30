@@ -387,7 +387,7 @@ class GetItemState1(rx.State):
 
 def get_item_error_1():
     return rx.vstack(
-        rx.chakra.circular_progress(value=GetItemState1.list_1[0])
+        rx.progress(value=GetItemState1.list_1[0])
     )
 ```
 
@@ -399,7 +399,7 @@ class GetItemState1(rx.State):
 
 def get_item_error_1():
     return rx.vstack(
-        rx.chakra.circular_progress(value=GetItemState1.list_1[0])
+        rx.progress(value=GetItemState1.list_1[0])
     )
 ```
 
