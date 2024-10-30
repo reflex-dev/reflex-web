@@ -214,7 +214,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.el.span(
+                            rx.text.span(
                                 header,
                                 font_weight="bold",
                             ),
