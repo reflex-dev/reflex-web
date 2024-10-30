@@ -136,7 +136,8 @@ redirects = [
     ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/"),
     ("/gallery", "/templates"),
     # Redirect any removed pages to their new home.
-    ("/docs/components/style-props", "/docs/components/props")
+    ("/docs/components/style-props", "/docs/components/props"),
+    ("/docs/components/conditional-props", "/docs/components/conditional-rendering")
 ]
 
 for source, target in redirects:

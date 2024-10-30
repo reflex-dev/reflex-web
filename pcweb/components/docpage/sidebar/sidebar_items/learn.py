@@ -54,7 +54,6 @@ def get_sidebar_items_frontend():
             "Components",
             children=[
                 components.props,
-                components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
                 components.html_to_reflex,
