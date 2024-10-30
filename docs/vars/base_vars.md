@@ -29,15 +29,13 @@ class TickerState(rx.State):
 
 
 def ticker_example():
-    return rx.chakra.stat_group(
-        rx.chakra.stat(
-            rx.chakra.stat_label(TickerState.ticker),
-            rx.chakra.stat_number(TickerState.price),
-            rx.chakra.stat_help_text(
-                rx.chakra.stat_arrow(type_="increase"),
-                "4%",
+    return rx.center(
+          rx.vstack(
+                rx.heading(TickerState.ticker, size="lg"),
+                rx.text(f"Current Price: {TickerState.price}", font_size="md"),
+                rx.text("Change: 4%", color="green"),
             ),
-        ),
+                        
     )
 ```
 
@@ -65,15 +63,13 @@ class TickerState(rx.State):
 from .state import TickerState
 
 def ticker_example():
-    return rx.chakra.stat_group(
-        rx.chakra.stat(
-            rx.chakra.stat_label(TickerState.ticker),
-            rx.chakra.stat_number(TickerState.price),
-            rx.chakra.stat_help_text(
-                rx.chakra.stat_arrow(type_="increase"),
-                "4%",
+    return rx.center(
+          rx.vstack(
+                rx.heading(TickerState.ticker, size="lg"),
+                rx.text(f"Current Price: {TickerState.price}", font_size="md"),
+                rx.text("Change: 4%", color="green"),
             ),
-        ),
+                        
     )
 ```
 
@@ -141,7 +137,7 @@ def backend_var_example():
                 on_click=BackendVarState.next_page,
             ),
             rx.text("Page Size"),
-            rx.chakra.number_input(
+            rx.input(
                 width="5em",
                 value=BackendVarState.limit,
                 on_change=BackendVarState.set_limit,
