@@ -205,13 +205,13 @@ def app_settings():
                 ),
                 rx.form.label(
                     "Update Frequency (seconds)",
-                    rx.chakra.number_input(
-                        value=ComplexLocalStorageState.data.update_frequency,
-                        on_change=lambda v: ComplexLocalStorageState.set_field(
-                            "update_frequency",
-                            v,
-                        ),
+                    rx.input(
+                    value=ComplexLocalStorageState.data.update_frequency,
+                    on_change=lambda v: ComplexLocalStorageState.set_field(
+                        "update_frequency",
+                        v,
                     ),
+                ),
                 ),
                 rx.dialog.close(rx.button("Save", type="submit")),
                 gap=2,

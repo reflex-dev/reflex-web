@@ -60,6 +60,7 @@ def check_urls(repo_dir):
     return errors
 
 
+@pytest.mark.skip(reason="Skip until reflex.dev index route is fixed")
 @pytest.mark.parametrize(
     "repo_dir",
     [Path(__file__).resolve().parent.parent],
