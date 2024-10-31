@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.editor
+  - rx.editor
 ---
 
 # Editor
@@ -14,6 +14,7 @@ import reflex as rx
 class EditorState(rx.State):
     content: str = "<p>Editor content</p>"
 
+    @rx.event
     def handle_change(self, content: str):
         """Handle the editor value change."""
         self.content = content
@@ -66,7 +67,7 @@ rx.fragment(
                     for field in editor_options_source.get_fields()
                 ],
             ),
-        ), 
+        ),
         style={"overflow": "auto"},
     ),
 )

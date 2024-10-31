@@ -12,6 +12,7 @@ SYNTHETIC_EVENTS = [
         "state": """class FocusState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self, text):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -26,6 +27,7 @@ SYNTHETIC_EVENTS = [
         "state": """class BlurState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self, text):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -49,6 +51,7 @@ SYNTHETIC_EVENTS = [
         "state": """class ClickState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -63,6 +66,7 @@ SYNTHETIC_EVENTS = [
         "state": """class ContextState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -77,6 +81,7 @@ SYNTHETIC_EVENTS = [
         "state": """class DoubleClickState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -91,6 +96,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MountState(rx.State):
     events: list[str] = []
 
+    @rx.event
     def on_mount(self):
         self.events = self.events[-4:] + ["on_mount @ " + str(datetime.now())]
 """,
@@ -102,6 +108,7 @@ SYNTHETIC_EVENTS = [
         "state": """class UnmountState(rx.State):
     events: list[str] = []
 
+    @rx.event
     def on_unmount(self):
         self.events = self.events[-4:] + ["on_unmount @ " + str(datetime.now())]
 """,
@@ -113,6 +120,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseUpState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -127,6 +135,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseDown(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -141,6 +150,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseEnter(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -155,6 +165,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseLeave(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -169,6 +180,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseMove(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -183,6 +195,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseOut(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -197,6 +210,7 @@ SYNTHETIC_EVENTS = [
         "state": """class MouseOver(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"
@@ -211,6 +225,7 @@ SYNTHETIC_EVENTS = [
         "state": """class ScrollState(rx.State):
     text = "Change Me!"
 
+    @rx.event
     def change_text(self):
         if self.text == "Change Me!":
             self.text = "Changed!"

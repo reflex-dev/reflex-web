@@ -19,6 +19,7 @@ must provide a type annotation.
 
 ```md alert warning
 # State Vars should provide type annotations.
+
 Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
@@ -35,7 +36,7 @@ def ticker_example():
                 rx.text(f"Current Price: {TickerState.price}", font_size="md"),
                 rx.text("Change: 4%", color="green"),
             ),
-                        
+
     )
 ```
 
@@ -43,6 +44,7 @@ In this example `ticker` and `price` are base vars in the app, which can be modi
 
 ```md alert warning
 # Vars must be JSON serializable.
+
 Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
 ```
 
@@ -69,10 +71,9 @@ def ticker_example():
                 rx.text(f"Current Price: {TickerState.price}", font_size="md"),
                 rx.text("Change: 4%", color="green"),
             ),
-                        
+
     )
 ```
-
 
 ## Backend-only Vars
 
@@ -113,13 +114,16 @@ class BackendVarState(rx.State):
     def total_pages(self) -> int:
         return len(self._backend) // self.limit + (1 if len(self._backend) % self.limit else 0)
 
+    @rx.event
     def prev_page(self):
         self.offset = max(self.offset - self.limit, 0)
 
+    @rx.event
     def next_page(self):
         if self.offset + self.limit < len(self._backend):
             self.offset += self.limit
 
+    @rx.event
     def generate_more(self):
         self._backend = np.append(self._backend, [random.randint(0, 100) for _ in range(random.randint(0, 100))])
 

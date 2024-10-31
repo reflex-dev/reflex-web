@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.FunnelChart
-    - rx.recharts.Funnel
+  - rx.recharts.FunnelChart
+  - rx.recharts.Funnel
 ---
 
 ```python exec
@@ -115,7 +115,6 @@ def funnel_events():
     )
 ```
 
-
 ## Dynamic Data
 
 Here is an example of a funnel chart with a `State`. Here we have defined a function `randomize_data`, which randomly changes the data when the graph is clicked on using `on_click=FunnelState.randomize_data`.
@@ -153,6 +152,8 @@ data = [
 ```python demo exec
 class FunnelState(rx.State):
     data = data
+
+    @rx.event
     def randomize_data(self):
         self.data[0]["value"] = 100
         for i in range(len(self.data) - 1):
@@ -179,7 +180,6 @@ def funnel_state():
     height=250,
   )
 ```
-
 
 ## Changing the Chart Animation
 

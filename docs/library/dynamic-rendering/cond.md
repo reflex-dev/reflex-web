@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.components.core.Cond
+  - rx.components.core.Cond
 ---
 
 ```python exec
@@ -18,6 +18,7 @@ If the condition is `True`, the first component is rendered, otherwise the secon
 class CondState(rx.State):
     show: bool = True
 
+    @rx.event
     def change(self):
         self.show = not (self.show)
 
@@ -58,6 +59,7 @@ class MultiCondState(rx.State):
     cond2: bool = False
     cond3: bool = True
 
+    @rx.event
     def change(self):
         self.cond1 = not (self.cond1)
 
@@ -66,18 +68,18 @@ def multi_cond_example():
     return rx.vstack(
         rx.button("Toggle", on_click=MultiCondState.change),
         rx.text(
-            rx.cond(MultiCondState.cond1, "True", "False"), 
-            " & True => ", 
+            rx.cond(MultiCondState.cond1, "True", "False"),
+            " & True => ",
             rx.cond(MultiCondState.cond1 & MultiCondState.cond3, "True", "False"),
         ),
         rx.text(
-            rx.cond(MultiCondState.cond1, "True", "False"), 
-            " & False => ", 
+            rx.cond(MultiCondState.cond1, "True", "False"),
+            " & False => ",
             rx.cond(MultiCondState.cond1 & MultiCondState.cond2, "True", "False"),
-        ),  
+        ),
         rx.text(
-            rx.cond(MultiCondState.cond1, "True", "False"), 
-            " | False => ", 
+            rx.cond(MultiCondState.cond1, "True", "False"),
+            " | False => ",
             rx.cond(MultiCondState.cond1 | MultiCondState.cond2, "True", "False"),
         ),
     )

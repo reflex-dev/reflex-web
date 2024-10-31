@@ -1,124 +1,120 @@
 ---
 components:
-    - rx.form
-    - rx.form.root
-    - rx.form.field
-    - rx.form.control
-    - rx.form.label
-    - rx.form.message
-    - rx.form.submit
+  - rx.form
+  - rx.form.root
+  - rx.form.field
+  - rx.form.control
+  - rx.form.label
+  - rx.form.message
+  - rx.form.submit
 
 FormRoot: |
-    lambda **props: rx.form.root(
-        rx.form.field(
-            rx.flex(
-                rx.form.label("Email"),
-                rx.form.control(
-                    rx.input(
-                        placeholder="Email Address",
-                        # type attribute is required for "typeMismatch" validation
-                        type="email",
-                    ),
-                    as_child=True,
-                ),
-                rx.form.message("Please enter a valid email"),
-                rx.form.submit(
-                    rx.button("Submit"),
-                    as_child=True,
-                ),
-                direction="column",
-                spacing="2",
-                align="stretch",
-            ),
-            name="email",
-        ),
-        **props,
-    )
-
+  lambda **props: rx.form.root(
+      rx.form.field(
+          rx.flex(
+              rx.form.label("Email"),
+              rx.form.control(
+                  rx.input(
+                      placeholder="Email Address",
+                      # type attribute is required for "typeMismatch" validation
+                      type="email",
+                  ),
+                  as_child=True,
+              ),
+              rx.form.message("Please enter a valid email"),
+              rx.form.submit(
+                  rx.button("Submit"),
+                  as_child=True,
+              ),
+              direction="column",
+              spacing="2",
+              align="stretch",
+          ),
+          name="email",
+      ),
+      **props,
+  )
 
 FormField: |
-    lambda **props: rx.form.root(
-        rx.form.field(
-            rx.flex(
-                rx.form.label("Email"),
-                rx.form.control(
-                    rx.input(
-                        placeholder="Email Address",
-                        # type attribute is required for "typeMismatch" validation
-                        type="email",
-                    ),
-                    as_child=True,
-                ),
-                rx.form.message("Please enter a valid email", match="typeMismatch"),
-                rx.form.submit(
-                    rx.button("Submit"),
-                    as_child=True,
-                ),
-                direction="column",
-                spacing="2",
-                align="stretch",
-            ),
-            **props,
-        ),
-        reset_on_submit=True,
-    )
-
+  lambda **props: rx.form.root(
+      rx.form.field(
+          rx.flex(
+              rx.form.label("Email"),
+              rx.form.control(
+                  rx.input(
+                      placeholder="Email Address",
+                      # type attribute is required for "typeMismatch" validation
+                      type="email",
+                  ),
+                  as_child=True,
+              ),
+              rx.form.message("Please enter a valid email", match="typeMismatch"),
+              rx.form.submit(
+                  rx.button("Submit"),
+                  as_child=True,
+              ),
+              direction="column",
+              spacing="2",
+              align="stretch",
+          ),
+          **props,
+      ),
+      reset_on_submit=True,
+  )
 
 FormLabel: |
-    lambda **props: rx.form.root(
-        rx.form.field(
-            rx.flex(
-                rx.form.label("Email", **props,),
-                rx.form.control(
-                    rx.input(
-                        placeholder="Email Address",
-                        # type attribute is required for "typeMismatch" validation
-                        type="email",
-                    ),
-                    as_child=True,
-                ),
-                rx.form.message("Please enter a valid email", match="typeMismatch"),
-                rx.form.submit(
-                    rx.button("Submit"),
-                    as_child=True,
-                ),
-                direction="column",
-                spacing="2",
-                align="stretch",
-            ),
-        ),
-        reset_on_submit=True,
-    )
+  lambda **props: rx.form.root(
+      rx.form.field(
+          rx.flex(
+              rx.form.label("Email", **props,),
+              rx.form.control(
+                  rx.input(
+                      placeholder="Email Address",
+                      # type attribute is required for "typeMismatch" validation
+                      type="email",
+                  ),
+                  as_child=True,
+              ),
+              rx.form.message("Please enter a valid email", match="typeMismatch"),
+              rx.form.submit(
+                  rx.button("Submit"),
+                  as_child=True,
+              ),
+              direction="column",
+              spacing="2",
+              align="stretch",
+          ),
+      ),
+      reset_on_submit=True,
+  )
 
 FormMessage: |
-    lambda **props: rx.form.root(
-                rx.form.field(
-                    rx.flex(
-                        rx.form.label("Email"),
-                        rx.form.control(
-                            rx.input(
-                                placeholder="Email Address",
-                                # type attribute is required for "typeMismatch" validation
-                                type="email",
-                            ),
-                            as_child=True,
-                        ),
-                        rx.form.message("Please enter a valid email", **props,),
-                        rx.form.submit(
-                            rx.button("Submit"),
-                            as_child=True,
-                        ),
-                        direction="column",
-                        spacing="2",
-                        align="stretch",
-                    ),
-                    name="email",
-                ),
-                on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
-                reset_on_submit=True,
-            )
-
-
+  lambda **props: rx.form.root(
+              rx.form.field(
+                  rx.flex(
+                      rx.form.label("Email"),
+                      rx.form.control(
+                          rx.input(
+                              placeholder="Email Address",
+                              # type attribute is required for "typeMismatch" validation
+                              type="email",
+                          ),
+                          as_child=True,
+                      ),
+                      rx.form.message("Please enter a valid email", **props,),
+                      rx.form.submit(
+                          rx.button("Submit"),
+                          as_child=True,
+                      ),
+                      direction="column",
+                      spacing="2",
+                      align="stretch",
+                  ),
+                  name="email",
+              ),
+              on_submit=lambda form_data: rx.window_alert(form_data.to_string()),
+              reset_on_submit=True,
+          )
 ---
 
 ```python exec
@@ -137,6 +133,7 @@ The form is submitted when the user clicks the submit button or presses enter on
 class FormState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -179,7 +176,6 @@ If you need these controls to be passed in the form data even when their values 
 # Video: Forms
 ```
 
-
 ## Dynamic Forms
 
 Forms can be dynamically created by iterating through state vars using `rx.foreach`.
@@ -199,6 +195,7 @@ class DynamicFormState(rx.State):
             for field in self.form_fields
         ]
 
+    @rx.event
     def add_field(self, form_data: dict):
         new_field = form_data.get("new_field")
         if not new_field:
@@ -206,6 +203,7 @@ class DynamicFormState(rx.State):
         field_name = new_field.strip().lower().replace(" ", "_")
         self.form_fields.append(field_name)
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         self.form_data = form_data
 

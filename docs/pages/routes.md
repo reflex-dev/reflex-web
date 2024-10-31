@@ -81,13 +81,12 @@ You can also provide local links to other pages in your project without writing 
 ```python demo
 rx.link("Example", href="/docs/library",)
 ```
-Check out the docs [here]({library.typography.link.path}) to learn more.
 
+Check out the docs [here]({library.typography.link.path}) to learn more.
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=4083&end=4423
 # Video: Link-based Navigation
 ```
-
 
 ### Redirect
 
@@ -109,6 +108,7 @@ Redirect can also be run from an event handler in State, meaning logic can be ad
 class Redirect2ExampleState(rx.State):
     redirect_to_org: bool = False
 
+    @rx.event
     def change_redirect(self):
         self.redirect_to_org = not self.redirect_to_org
 
@@ -116,6 +116,7 @@ class Redirect2ExampleState(rx.State):
     def url(self) -> str:
         return 'https://github.com/reflex-dev/' if self.redirect_to_org else 'https://github.com/reflex-dev/reflex/'
 
+    @rx.event
     def change_page(self):
         return rx.redirect(self.url, external=True)
 
@@ -131,7 +132,6 @@ def redirect_example():
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=4423&end=4903
 # Video: Redirecting to a New Page
 ```
-
 
 ## Nested Routes
 

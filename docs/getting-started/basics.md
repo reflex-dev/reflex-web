@@ -12,13 +12,14 @@ This page gives an introduction to the most common concepts that you will use to
 
 ```md section
 # You will learn how to:
-* Create and nest components
-* Customize and style components
-* Distinguish between compile-time and runtime
-* Display data that changes over time
-* Respond to events and update the screen
-* Render conditions and lists
-* Create pages and navigate between them
+
+- Create and nest components
+- Customize and style components
+- Distinguish between compile-time and runtime
+- Display data that changes over time
+- Respond to events and update the screen
+- Render conditions and lists
+- Create pages and navigate between them
 ```
 
 [Install]({docs.getting_started.installation.path}) `reflex` using pip.
@@ -44,7 +45,7 @@ def my_button():
     return rx.button("Click Me")
 ```
 
-Components can be nested inside each other to create complex UIs. 
+Components can be nested inside each other to create complex UIs.
 
 To nest components as children, pass them as positional arguments to the parent component. In the example below, the `rx.text` and `my_button` components are children of the `rx.box` component.
 
@@ -67,7 +68,6 @@ def my_div():
 ```
 
 If you need a component not provided by Reflex, you can check the [3rd party ecosystem]({custom_components.path}) or [wrap your own React component]({docs.wrapping_react.guide.path}).
-
 
 ## Customizing and styling components
 
@@ -97,12 +97,14 @@ In summary, components are made up of children and props.
 
 ```md definition
 # Children
-* Text or other Reflex components nested inside a component.
-* Passed as **positional arguments**.
+
+- Text or other Reflex components nested inside a component.
+- Passed as **positional arguments**.
 
 # Props
-* Attributes that affect the behavior and appearance of a component.
-* Passed as **keyword arguments**.
+
+- Attributes that affect the behavior and appearance of a component.
+- Passed as **keyword arguments**.
 ```
 
 ## Displaying data that changes over time
@@ -152,6 +154,7 @@ Components have special props called event triggers, such as `on_click`, called 
 class CounterState(rx.State):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
@@ -189,6 +192,7 @@ The `on_click` event trigger doesn't pass any arguments here, but some event tri
 class TextState(rx.State):
     text: str = ""
 
+    @rx.event
     def update_text(self, new_text: str):
         self.text = new_text
 
@@ -205,7 +209,7 @@ Make sure that the event handler has the same number of arguments as the event t
 
 ## Compile-time vs. runtime (IMPORTANT)
 
-Before we dive deeper into state, it's important to understand the difference between compile-time and runtime in Reflex. 
+Before we dive deeper into state, it's important to understand the difference between compile-time and runtime in Reflex.
 
 When you run your app, the frontend gets compiled to Javascript code that runs in the browser (compile-time). The backend stays in Python and runs on the server during the lifetime of the app (runtime).
 
@@ -227,6 +231,7 @@ class MyState3(rx.State):
     count: int = 0
     text: str = "even"
 
+    @rx.event
     def increment(self):
         # Use any Python code within state.
         # Even reference functions defined outside the state.
@@ -262,7 +267,7 @@ You cannot do an `if` statement on vars in components, since the value is not kn
 ```python
 class BadState(rx.State):
     count: int = 0
-    
+
 def count_if_even():
     return rx.box(
         rx.heading("Count: "),
@@ -309,6 +314,7 @@ As mentioned above, you cannot use Python `if/else` statements with state vars i
 class LoginState(rx.State):
     logged_in: bool = False
 
+    @rx.event
     def toggle_login(self):
         self.logged_in = not self.logged_in
 
@@ -350,12 +356,13 @@ The function that renders each item takes in a `Var`, since this will get compil
 
 You can't use arbitrary Python operations on state vars in components, but Reflex has [var operations]({docs.vars.var_operations.path}) that you can use to manipulate state vars.
 
-For example, to check if a var is even, you can use the `%` and `==` var operations. 
+For example, to check if a var is even, you can use the `%` and `==` var operations.
 
 ```python demo exec
 class CountEvenState(rx.State):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 

@@ -1,143 +1,141 @@
 ---
 components:
-    - rx.context_menu.root
-    - rx.context_menu.item
-    - rx.context_menu.separator
-    - rx.context_menu.trigger
-    - rx.context_menu.content
-    - rx.context_menu.sub
-    - rx.context_menu.sub_trigger
-    - rx.context_menu.sub_content
-
+  - rx.context_menu.root
+  - rx.context_menu.item
+  - rx.context_menu.separator
+  - rx.context_menu.trigger
+  - rx.context_menu.content
+  - rx.context_menu.sub
+  - rx.context_menu.sub_trigger
+  - rx.context_menu.sub_content
 
 only_low_level:
-    - True
+  - True
 
 ContextMenuRoot: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)")
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C"),
-                rx.context_menu.item("Share"),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More"),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate"),
-                        rx.context_menu.item("Duplicate"),
-                        rx.context_menu.item("Archive"),
-                    ),
-                ),
-            ),
-            **props
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)")
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C"),
+              rx.context_menu.item("Share"),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More"),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate"),
+                      rx.context_menu.item("Duplicate"),
+                      rx.context_menu.item("Archive"),
+                  ),
+              ),
+          ),
+          **props
+      )
 
 ContextMenuTrigger: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)"),
-                **props
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C"),
-                rx.context_menu.item("Share"),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More"),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate"),
-                        rx.context_menu.item("Duplicate"),
-                        rx.context_menu.item("Archive"),
-                    ),
-                ),
-            ),
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)"),
+              **props
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C"),
+              rx.context_menu.item("Share"),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More"),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate"),
+                      rx.context_menu.item("Duplicate"),
+                      rx.context_menu.item("Archive"),
+                  ),
+              ),
+          ),
+      )
 
 ContextMenuContent: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)")
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C"),
-                rx.context_menu.item("Share"),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More"),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate"),
-                        rx.context_menu.item("Duplicate"),
-                        rx.context_menu.item("Archive"),
-                    ),
-                ),
-                **props
-            ),
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)")
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C"),
+              rx.context_menu.item("Share"),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More"),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate"),
+                      rx.context_menu.item("Duplicate"),
+                      rx.context_menu.item("Archive"),
+                  ),
+              ),
+              **props
+          ),
+      )
 
 ContextMenuSubTrigger: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)")
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C"),
-                rx.context_menu.item("Share"),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More", **props),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate"),
-                        rx.context_menu.item("Duplicate"),
-                        rx.context_menu.item("Archive"),
-                    ),
-                ),
-            ),
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)")
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C"),
+              rx.context_menu.item("Share"),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More", **props),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate"),
+                      rx.context_menu.item("Duplicate"),
+                      rx.context_menu.item("Archive"),
+                  ),
+              ),
+          ),
+      )
 
 ContextMenuSubContent: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)")
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C"),
-                rx.context_menu.item("Share"),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More"),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate"),
-                        rx.context_menu.item("Duplicate"),
-                        rx.context_menu.item("Archive"),
-                        **props
-                    ),
-                ),
-            ),
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)")
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C"),
+              rx.context_menu.item("Share"),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More"),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate"),
+                      rx.context_menu.item("Duplicate"),
+                      rx.context_menu.item("Archive"),
+                      **props
+                  ),
+              ),
+          ),
+      )
 
 ContextMenuItem: |
-    lambda **props: rx.context_menu.root(
-            rx.context_menu.trigger(
-                rx.text("Context Menu (right click)")
-            ),
-            rx.context_menu.content(
-                rx.context_menu.item("Copy", shortcut="⌘ C", **props),
-                rx.context_menu.item("Share", **props),
-                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
-                rx.context_menu.sub(
-                    rx.context_menu.sub_trigger("More"),
-                    rx.context_menu.sub_content(
-                        rx.context_menu.item("Eradicate", **props),
-                        rx.context_menu.item("Duplicate", **props),
-                        rx.context_menu.item("Archive", **props),
-                    ),
-                ),
-            ),
-        )
+  lambda **props: rx.context_menu.root(
+          rx.context_menu.trigger(
+              rx.text("Context Menu (right click)")
+          ),
+          rx.context_menu.content(
+              rx.context_menu.item("Copy", shortcut="⌘ C", **props),
+              rx.context_menu.item("Share", **props),
+              rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
+              rx.context_menu.sub(
+                  rx.context_menu.sub_trigger("More"),
+                  rx.context_menu.sub_content(
+                      rx.context_menu.item("Eradicate", **props),
+                      rx.context_menu.item("Duplicate", **props),
+                      rx.context_menu.item("Archive", **props),
+                  ),
+              ),
+          ),
+      )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -185,12 +183,9 @@ rx.context_menu.root(
 )
 ```
 
-
-
-
 ## Opening a Dialog from Context Menu using State
 
-Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected. 
+Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected.
 
 The code below will not work as expected as because the dialog is within the menu and the dialog will only be open when the menu is open, rendering the dialog unusable.
 
@@ -209,17 +204,17 @@ rx.context_menu.root(
 )
 ```
 
-
 In this example, we will show how to open a dialog box from a context menu, where the menu will close and the dialog will open and be functional.
-
 
 ```python demo exec
 class ContextMenuState(rx.State):
     which_dialog_open: str = ""
 
+    @rx.event
     def delete(self):
         yield rx.toast("Deleted item")
 
+    @rx.event
     def save_settings(self):
         yield rx.toast("Saved settings")
 

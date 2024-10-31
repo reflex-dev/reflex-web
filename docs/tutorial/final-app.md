@@ -73,6 +73,7 @@ import os
 
 from openai import AsyncOpenAI
 
+@rx.event
 async def answer(self):
     # Our chatbot has some brains now!
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])

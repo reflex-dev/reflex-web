@@ -10,6 +10,7 @@ class ImageGenState(rx.State):
     image_url = ""
     processing = False
 
+    @rx.event
     def get_image(self, form_data):
         """Get the image from the prompt."""
         prompt = form_data["prompt"]
@@ -62,9 +63,7 @@ def image_gen() -> rx.Component:
                     "input:placeholder-shown + &": {
                         "opacity": "0.65",
                         "cursor": "default",
-                        "_hover": {
-                            "background": "var(--c-slate-5)"
-                        },
+                        "_hover": {"background": "var(--c-slate-5)"},
                     },
                     "cursor": rx.cond(ImageGenState.processing, "default", "pointer"),
                     "opacity": rx.cond(ImageGenState.processing, "0.65", "1"),
@@ -80,6 +79,7 @@ def image_gen() -> rx.Component:
         class_name="flex flex-col items-center gap-4 p-4 lg:px-10 lg:py-12 h-full overflow-hidden",
     )
 
+
 image_gen_code = """import reflex as rx
 import replicate
 
@@ -88,6 +88,7 @@ class ImageGenState(rx.State):
     image_url = ""
     processing = False
 
+    @rx.event
     def get_image(self, form_data):
         prompt = form_data["prompt"]
         if prompt == "":

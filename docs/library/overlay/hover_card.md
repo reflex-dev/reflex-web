@@ -1,33 +1,33 @@
 ---
 components:
-    - rx.hover_card.root
-    - rx.hover_card.content
-    - rx.hover_card.trigger
+  - rx.hover_card.root
+  - rx.hover_card.content
+  - rx.hover_card.trigger
 
 only_low_level:
-    - True
+  - True
 
 HoverCardRoot: |
-    lambda **props: rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.link("Hover over me"),
-        ),
-        rx.hover_card.content(
-            rx.text("This is the tooltip content."),
-        ),
-        **props
-    )
+  lambda **props: rx.hover_card.root(
+      rx.hover_card.trigger(
+          rx.link("Hover over me"),
+      ),
+      rx.hover_card.content(
+          rx.text("This is the tooltip content."),
+      ),
+      **props
+  )
 
 HoverCardContent: |
-    lambda **props: rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.link("Hover over me"),
-        ),
-        rx.hover_card.content(
-            rx.text("This is the tooltip content."),
-            **props
-        ),
-    )
+  lambda **props: rx.hover_card.root(
+      rx.hover_card.trigger(
+          rx.link("Hover over me"),
+      ),
+      rx.hover_card.content(
+          rx.text("This is the tooltip content."),
+          **props
+      ),
+  )
 ---
 
 ```python exec
@@ -98,6 +98,7 @@ class HovercardState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1

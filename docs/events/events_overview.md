@@ -25,6 +25,7 @@ class WordCycleState(rx.State):
     # The index of the current word.
     index: int = 0
 
+    @rx.event
     def next_word(self):
         self.index = (self.index + 1) % len(self.text)
 

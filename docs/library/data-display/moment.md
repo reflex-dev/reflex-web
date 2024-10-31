@@ -32,6 +32,7 @@ from datetime import datetime, timezone
 class MomentState(rx.State):
     date_now: datetime = datetime.now(timezone.utc)
 
+    @rx.event
     def update(self):
         self.date_now = datetime.now(timezone.utc)
 
@@ -146,6 +147,7 @@ Even better, you can actually link an event handler to the `on_change` prop that
 class MomentLiveState(rx.State):
     updating: bool = False
 
+    @rx.event
     def on_update(self, date):
         return rx.toast(f"Date updated: {date}")
 

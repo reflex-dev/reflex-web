@@ -1,72 +1,71 @@
 ---
 components:
-    - rx.select
-    - rx.select.root
-    - rx.select.trigger
-    - rx.select.content
-    - rx.select.group
-    - rx.select.item
-    - rx.select.label
-    - rx.select.separator
+  - rx.select
+  - rx.select.root
+  - rx.select.trigger
+  - rx.select.content
+  - rx.select.group
+  - rx.select.item
+  - rx.select.label
+  - rx.select.separator
 
 HighLevelSelect: |
-    lambda **props: rx.select(["apple", "grape", "pear"], default_value="pear", **props)
+  lambda **props: rx.select(["apple", "grape", "pear"], default_value="pear", **props)
 
 SelectRoot: |
-    lambda **props: rx.select.root(
-        rx.select.trigger(),
-        rx.select.content(
-            rx.select.group(
-                rx.select.item("apple", value="apple"),
-                rx.select.item("grape", value="grape"),
-                rx.select.item("pear", value="pear"),
-            ),
-        ),
-        default_value="pear",
-        **props
-    )
+  lambda **props: rx.select.root(
+      rx.select.trigger(),
+      rx.select.content(
+          rx.select.group(
+              rx.select.item("apple", value="apple"),
+              rx.select.item("grape", value="grape"),
+              rx.select.item("pear", value="pear"),
+          ),
+      ),
+      default_value="pear",
+      **props
+  )
 
 SelectTrigger: |
-    lambda **props: rx.select.root(
-        rx.select.trigger(**props),
-        rx.select.content(
-            rx.select.group(
-                rx.select.item("apple", value="apple"),
-                rx.select.item("grape", value="grape"),
-                rx.select.item("pear", value="pear"),
-            ),
-        ),
-        default_value="pear",
-    )
+  lambda **props: rx.select.root(
+      rx.select.trigger(**props),
+      rx.select.content(
+          rx.select.group(
+              rx.select.item("apple", value="apple"),
+              rx.select.item("grape", value="grape"),
+              rx.select.item("pear", value="pear"),
+          ),
+      ),
+      default_value="pear",
+  )
 
 SelectContent: |
-    lambda **props: rx.select.root(
-        rx.select.trigger(),
-        rx.select.content(
-            rx.select.group(
-                rx.select.item("apple", value="apple"),
-                rx.select.item("grape", value="grape"),
-                rx.select.item("pear", value="pear"),
-            ),
-            **props,
-        ),
-        default_value="pear",
-    )
+  lambda **props: rx.select.root(
+      rx.select.trigger(),
+      rx.select.content(
+          rx.select.group(
+              rx.select.item("apple", value="apple"),
+              rx.select.item("grape", value="grape"),
+              rx.select.item("pear", value="pear"),
+          ),
+          **props,
+      ),
+      default_value="pear",
+  )
 
 SelectItem: |
-    lambda **props: rx.select.root(
-        rx.select.trigger(),
-        rx.select.content(
-            rx.select.group(
-                rx.select.item("apple", value="apple", **props),
-                rx.select.item("grape", value="grape"),
-                rx.select.item("pear", value="pear"),
-            ),
-        ),
-        default_value="pear",
-    )
+  lambda **props: rx.select.root(
+      rx.select.trigger(),
+      rx.select.content(
+          rx.select.group(
+              rx.select.item("apple", value="apple", **props),
+              rx.select.item("grape", value="grape"),
+              rx.select.item("pear", value="pear"),
+          ),
+      ),
+      default_value="pear",
+  )
 ---
-
 
 ```python exec
 import random
@@ -82,6 +81,7 @@ Displays a list of options for the user to pick from—triggered by a button.
 class SelectState(rx.State):
     value: str = "apple"
 
+    @rx.event
     def change_value(self, value: str):
         """Change the select value var."""
         self.value = value
@@ -94,21 +94,18 @@ def select_intro():
             value=SelectState.value,
             on_change=SelectState.change_value,
         ),
-        rx.badge(SelectState.value),        
+        rx.badge(SelectState.value),
     )
 ```
 
-
-
-
-
 ```python demo exec
 class SelectState3(rx.State):
-    
+
     values: list[str] = ["apple", "grape", "pear"]
-    
+
     value: str = "apple"
 
+    @rx.event
     def change_value(self):
         """Change the select value var."""
         self.value = random.choice(self.values)
@@ -122,7 +119,7 @@ def select_example3():
             on_change=SelectState3.set_value,
         ),
         rx.button("Change Value", on_click=SelectState3.change_value),
-        
+
     )
 ```
 
@@ -146,6 +143,7 @@ When the `required` prop is `True`, it indicates that the user must select a val
 class FormSelectState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -174,6 +172,5 @@ def select_form_example():
             width="100%",
         ),
         width="50%",
-    )   
+    )
 ```
-

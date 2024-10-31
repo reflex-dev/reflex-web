@@ -15,6 +15,7 @@ class CallHandlerState(rx.State):
     count: int = 0
     progress: int = 0
 
+    @rx.event
     async def run(self):
         # Reset the count.
         self.set_progress(0)
@@ -57,6 +58,7 @@ Try entering an integer in the input below then clicking out.
 class CollatzState(rx.State):
     count: int = 1
 
+    @rx.event
     def start_collatz(self, count: str):
         """Run the collatz conjecture on the given number."""
         self.count = abs(int(count if count else 1))
@@ -64,9 +66,9 @@ class CollatzState(rx.State):
 
     async def run_step(self):
         """Run a single step of the collatz conjecture."""
-    
+
         while self.count > 1:
-            
+
             await asyncio.sleep(0.5)
 
             if self.count % 2 == 0:

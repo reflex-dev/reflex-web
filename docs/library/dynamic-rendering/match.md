@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.match
+  - rx.match
 ---
 
 ```python exec
@@ -70,7 +70,7 @@ def match_demo():
             ),
             value=MatchState.cat_breed,
             on_change=MatchState.set_cat_breed,
-            
+
         ),
         direction= "column",
         gap= "2"
@@ -84,53 +84,53 @@ the specified match cases aligns with the given match condition. Here are key co
 when working with the default case:
 
 - **Placement in the Match Function**: The default case must be the last non-tuple argument in the `rx.match` component.
-All match cases should be enclosed in tuples; any non-tuple value is automatically treated as the default case. For example:
+  All match cases should be enclosed in tuples; any non-tuple value is automatically treated as the default case. For example:
 
- ```python
+```python
 rx.match(
-            MatchState.cat_breed,
-            ("persian", rx.text("persian cat selected")),
-            rx.text("Unknown cat breed selected."),
-            ("siamese", rx.text("siamese cat selected")),
-        )
+           MatchState.cat_breed,
+           ("persian", rx.text("persian cat selected")),
+           rx.text("Unknown cat breed selected."),
+           ("siamese", rx.text("siamese cat selected")),
+       )
 ```
 
 The above code snippet will result in an error due to the misplaced default case.
 
 - **Single Default Case**: Only one default case is allowed in the `rx.match` component.
-Attempting to specify multiple default cases will lead to an error. For instance:
+  Attempting to specify multiple default cases will lead to an error. For instance:
 
- ```python
+```python
 rx.match(
-            MatchState.cat_breed,
-            ("persian", rx.text("persian cat selected")),
-            ("siamese", rx.text("siamese cat selected")),
-            rx.text("Unknown cat breed selected."),
-            rx.text("Another unknown cat breed selected.")
-        )
+           MatchState.cat_breed,
+           ("persian", rx.text("persian cat selected")),
+           ("siamese", rx.text("siamese cat selected")),
+           rx.text("Unknown cat breed selected."),
+           rx.text("Another unknown cat breed selected.")
+       )
 ```
 
 - **Optional Default Case for Component Return Values**: If the match cases in a `rx.match` component
-return components, the default case can be optional. In this scenario, if a default case is
-not provided, `rx.fragment` will be implicitly assigned as the default. For example:
+  return components, the default case can be optional. In this scenario, if a default case is
+  not provided, `rx.fragment` will be implicitly assigned as the default. For example:
 
- ```python
+```python
 rx.match(
-            MatchState.cat_breed,
-            ("persian", rx.text("persian cat selected")),
-            ("siamese", rx.text("siamese cat selected")),
-        )
+           MatchState.cat_breed,
+           ("persian", rx.text("persian cat selected")),
+           ("siamese", rx.text("siamese cat selected")),
+       )
 ```
 
 In this case, `rx.fragment` is the default case. However, not providing a default case for non-component
 return values will result in an error:
 
- ```python
+```python
 rx.match(
-            MatchState.cat_breed,
-            ("persian", "persian cat selected"),
-            ("siamese", "siamese cat selected"),
-        )
+           MatchState.cat_breed,
+           ("persian", "persian cat selected"),
+           ("siamese", "siamese cat selected"),
+       )
 ```
 
 The above code snippet will result in an error as a default case must be explicitly
@@ -152,7 +152,7 @@ import reflex as rx
 class MultiMatchState(rx.State):
     animal_breed: str = ""
     animal_options: List[str] = ["persian", "siamese", "maine coon", "pug", "corgi", "mustang", "rahvan", "football", "golf"]
-    
+
 def multi_match_demo():
     return rx.flex(
         rx.match(
@@ -171,7 +171,7 @@ def multi_match_demo():
             ),
             value=MultiMatchState.animal_breed,
             on_change=MultiMatchState.set_animal_breed,
-            
+
         ),
         direction= "column",
         gap= "2"
@@ -201,10 +201,12 @@ import reflex as rx
 
 class MatchPropState(rx.State):
     value: int = 0
-    
+
+    @rx.event
     def incr(self):
         self.value += 1
-    
+
+    @rx.event
     def decr(self):
         self.value -= 1
 
@@ -213,7 +215,7 @@ def match_prop_demo_():
     return rx.flex(
         rx.button("decrement", on_click=MatchPropState.decr, background_color="red"),
         rx.badge(
-            MatchPropState.value, 
+            MatchPropState.value,
             color_scheme= rx.match(
                     MatchPropState.value,
                     (1, "red"),
@@ -242,10 +244,12 @@ import reflex as rx
 
 class MatchMultiPropState(rx.State):
     value: int = 0
-    
+
+    @rx.event
     def incr(self):
         self.value += 1
-    
+
+    @rx.event
     def decr(self):
         self.value -= 1
 
@@ -254,7 +258,7 @@ def match_multi_prop_demo_():
     return rx.flex(
         rx.button("decrement", on_click=MatchMultiPropState.decr, background_color="red"),
         rx.badge(
-            MatchMultiPropState.value, 
+            MatchMultiPropState.value,
             color_scheme= rx.match(
                     MatchMultiPropState.value,
                     (1, 3, 9, "red"),
@@ -275,9 +279,9 @@ def match_multi_prop_demo_():
 ```md alert warning
 # Usage with Structural Pattern Matching
 
-The `rx.match` component is designed for structural pattern matching. If the value of your match condition evaluates to a boolean (True or False), it is recommended to use `rx.cond` instead. 
+The `rx.match` component is designed for structural pattern matching. If the value of your match condition evaluates to a boolean (True or False), it is recommended to use `rx.cond` instead.
 
-Consider the following example, which is more suitable for `rx.cond`:*
+Consider the following example, which is more suitable for `rx.cond`:\*
 ```
 
 ```python

@@ -16,6 +16,7 @@ class FormState(rx.State):
     is_loading: bool = False
     email_sent: bool = False
 
+    @rx.event
     async def submit(self, form_data: dict):
         self.is_loading = True
         yield
@@ -37,6 +38,7 @@ class FormState(rx.State):
             self.email_sent = False
             yield rx.toast.error("Failed to submit request. Please try again later.")
 
+    @rx.event
     async def submit_pro_waitlist(self, form_data: dict):
         try:
             with httpx.Client() as client:

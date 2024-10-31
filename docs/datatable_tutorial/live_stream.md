@@ -46,18 +46,18 @@ class DataTableLiveState(BaseState):
     rate: int = 0.4
     columns: list[dict[str, str]] = [
         {
-            "title": "id", 
-            "id": "v1", 
+            "title": "id",
+            "id": "v1",
             "type": "int",
             "width": 100,
         },
         {
-            "title": "advice", 
-            "id": "v2", 
+            "title": "advice",
+            "id": "v2",
             "type": "str",
             "width": 750,
         },
-    
+
     ]
 
     @rx.background
@@ -75,7 +75,7 @@ class DataTableLiveState(BaseState):
                 data = res.json()
                 self.table_data.append(\{"v1": data["slip"]["id"], "v2": data["slip"]["advice"]})
 
-
+    @rx.event
     def toggle_pause(self):
         self.running = not self.running
         if self.running:
