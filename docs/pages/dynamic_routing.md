@@ -12,7 +12,7 @@ and optional catch-all routes, each with detailed examples.
 
 ## Regular Dynamic Routes
 
-Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically. A regular dynamic route is defined by sqaure brackets in a route string / url pattern. For example `/users/[id]` or `/products/[category]`. These dynamic route arguments can be accesed by as a state var. For the examples above they would be `rx.State.id` and `rx.State.category` respectively. 
+Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically. A regular dynamic route is defined by sqaure brackets in a route string / url pattern. For example `/users/[id]` or `/products/[category]`. These dynamic route arguments can be accesed through a state var. For the examples above they would be `rx.State.id` and `rx.State.category` respectively. 
 
 ```md alert info
 # Why is the state var accessed as `rx.State.id`?
@@ -37,7 +37,10 @@ The [pid] part in the route is a dynamic segment, meaning it can match any value
 If a user navigates to `/post/5`, `State.post_id` will return `5`, and the page will display `5` as the heading. If the URL is `/post/xyz`, it will display `xyz`. If the URL is `/post/` without any additional parameter, it will display `""`.
 
 
-### Using `app.add_page` Method
+### Adding Dynamic Routes
+
+Adding dynamic routes uses the `add_page` method like any other page. The only difference is that the route string contains dynamic segments enclosed in square brackets.
+
 
 If you are using the `app.add_page` method to define pages, it is necessary to add the dynamic routes first, especially if they use the same function as a non dynamic route.
 
