@@ -137,7 +137,9 @@ redirects = [
     ("/gallery", "/templates"),
     # Redirect any removed pages to their new home.
     ("/docs/components/style-props", "/docs/components/props"),
-    ("/docs/components/conditional-props", "/docs/components/conditional-rendering")
+    ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
+    ("/docs/pages/routes", "/docs/pages/overview")
+
 ]
 
 for source, target in redirects:

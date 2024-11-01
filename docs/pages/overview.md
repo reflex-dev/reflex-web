@@ -6,8 +6,7 @@ from pcweb.pages.docs import api_reference, library
 
 # Pages
 
-Pages in Reflex allow you to define components for different URLs. This section covers creating pages, handling URL
-arguments, accessing query parameters, managing page metadata, and handling page load events.
+Pages map components to different URLs in your app. This section covers creating pages, handling URL arguments, accessing query parameters, managing page metadata, and handling page load events.
 
 ## Adding a Page
 
@@ -70,7 +69,7 @@ You can directly import the module or import another module that imports the dec
 
 ### Links
 
-Links are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
+[Links]({library.typography.link.path}) are accessible elements used primarily for navigation. Use the `href` prop to specify the location for the link to navigate to.
 
 ```python demo
 rx.link("Reflex Home Page.", href="https://reflex.dev/")
@@ -79,10 +78,16 @@ rx.link("Reflex Home Page.", href="https://reflex.dev/")
 You can also provide local links to other pages in your project without writing the full url.
 
 ```python demo
-rx.link("Example", href="/docs/library",)
+rx.link("Example", href="/docs/library")
 ```
 
-Check out the docs [here]({library.typography.link.path}) to learn more.
+To open the link in a new tab, set the `is_external` prop to `True`.
+
+```python demo
+rx.link("Open in new tab", href="https://reflex.dev/", is_external=True)
+```
+
+Check out the [link docs]({library.typography.link.path}) to learn more.
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=4083&end=4423
 # Video: Link-based Navigation
@@ -147,13 +152,9 @@ app = rx.App()
 
 This component will be available at `/nested/page`.
 
-## Getting the Current Page Link
+## Getting the Current Page
 
-The `router.page.path` attribute allows you to obtain the path of the current page from the router data,
-for dynamic pages this will contain the slug rather than the actual value used to load the page.
-
-To get the actual URL displayed in the browser, use `router.page.raw_path`. This
-will contain all query parameters and dynamic path segments.
+You can access the current page from the `router` attribute in any state. See the [router docs]({docs.utility_methods.router_attributes.path}) for all available attributes.
 
 ```python
 class State(rx.State):
@@ -162,6 +163,13 @@ class State(rx.State):
         current_page_url = self.router.page.raw_path
         # ... Your logic here ...
 ```
+
+The `router.page.path` attribute allows you to obtain the path of the current page from the router data,
+for dynamic pages this will contain the slug rather than the actual value used to load the page.
+
+To get the actual URL displayed in the browser, use `router.page.raw_path`. This
+will contain all query parameters and dynamic path segments.
+
 
 In the above example, `current_page_route` will contain the route pattern (e.g., `/posts/[id]`), while `current_page_url`
 will contain the actual URL (e.g., `http://example.com/posts/123`).
@@ -178,15 +186,3 @@ class State(rx.State):
 ```
 
 In this example, running on `localhost` should display `http://localhost:3000/user/hey/posts/3/`
-
-## Getting Client IP
-
-You can use the `router.session.client_ip` attribute to obtain the IP address of the client associated
-with the current state.
-
-```python
-class State(rx.State):
-    def some_method(self):
-        client_ip = self.router.session.client_ip
-        # ... Your logic here ...
-```
