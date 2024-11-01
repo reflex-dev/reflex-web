@@ -1,14 +1,12 @@
 ```python exec
 import reflex as rx
 
-from pcweb.pages.docs import vars
+from pcweb.pages import docs
 ```
 
 # Rendering Iterables
 
-You will often want to display multiple similar components from a collection of data. The `rx.foreach` component takes an `iterable` (list, tuple or dict) and a `function` that renders each item in the list. This is useful for dynamically rendering a list of items defined in a state.
-
-In this first simple example we iterate through a `list` of colors and render the name of the color and use this color as the background for that `rx.box`. As we can see we have a function `colored_box` that we pass to the `rx.foreach` component. This function renders each item from the `list` that we have defined as a state var `color`.
+Recall again from the [basics]({docs.getting_started.basics.path}) that we cannot use Python `for` loops when referencing state vars in Reflex. Instead, use the `rx.foreach` component to render components from a collection of data.
 
 ```python demo exec
 class IterState(rx.State):
@@ -16,31 +14,93 @@ class IterState(rx.State):
         "red",
         "green",
         "blue",
-        "yellow",
-        "orange",
-        "purple",
     ]
 
 
 def colored_box(color: str):
-    return rx.box(rx.text(color), background_color=color)
+    return rx.button(color, background_color=color)
 
 
-def simple_foreach():
-    return rx.grid(
+def dynamic_buttons():
+    return rx.vstack(
         rx.foreach(IterState.color, colored_box),
-        columns="6",
     )
 
 ```
 
-```md alert warning
-# The type signature of the functions does not matter to the `foreach` component.
+In this first simple example we iterate through a `list` of colors and render a dynamic number of buttons.
 
-Rather the type annotation on the `state var` determines what operations are available (e.g. when nesting).
+The first argument of the `rx.foreach` function is the state var that you want to iterate through. The second argument is a function that takes in an item from the data and returns a component. In this case, the `colored_box` function takes in a color and returns a button with that color.
+
+## For vs Foreach
+
+```md definition
+# Regualar For Loop
+* Use when iterating over constants.
+
+# Foreach
+* Use when iterating over state vars.
 ```
 
-## Enumeration
+The above example could have been written using a regular Python `for` loop, since the data is constant.
+
+```python demo exec
+colors = ["red", "green", "blue"]
+def dynamic_buttons_for():
+    return rx.vstack(
+        [colored_box(color) for color in colors],
+    )
+```
+
+However, as soon as you need the data to be dynamic, you must use `rx.foreach`.
+
+```python demo exec
+class DynamicIterState(rx.State):
+    color: list[str] = [
+        "red",
+        "green",
+        "blue",
+    ]
+
+    def add_color(self, form_data):
+        self.color.append(form_data["color"])
+
+def dynamic_buttons_foreach():
+    return rx.vstack(
+        rx.foreach(DynamicIterState.color, colored_box),
+        rx.form(
+            rx.input(name="color", placeholder="Add a color"),
+            rx.button("Add"),
+            on_submit=DynamicIterState.add_color,
+        )
+    )
+```
+
+## Render Function
+
+The function to render each item can be defined either as a separate function or as a lambda function. In the example below, we define the function `colored_box` separately and pass it to the `rx.foreach` function. 
+
+```python demo exec
+class IterState2(rx.State):
+    color: list[str] = [
+        "red",
+        "green",
+        "blue",
+    ]
+
+def colored_box(color: rx.Var[str]):
+    return rx.button(color, background_color=color)
+
+def dynamic_buttons2():
+    return rx.vstack(
+        rx.foreach(IterState2.color, colored_box),
+    )
+
+```
+
+Notice that the type annotation for the `color` parameter in the `colored_box` function is `rx.Var[str]` (rather than just `str`). This is because the `rx.foreach` function passes the item as a `Var` object, which is a wrapper around the actual value. This is what allows us to compile the frontend without knowing the actual value of the state var (which is only known at runtime).
+
+## Enumerating Iterables
 
 The function can also take an index as a second argument, meaning that we can enumerate through data as shown in the example below.
 
@@ -50,26 +110,25 @@ class IterIndexState(rx.State):
         "red",
         "green",
         "blue",
-        "yellow",
-        "orange",
-        "purple",
     ]
 
 
 def enumerate_foreach():
-    return rx.grid(
+    return rx.vstack(
         rx.foreach(
             IterIndexState.color,
-            lambda color, index: rx.box(rx.text(index), bg=color)
+            lambda color, index: rx.box(
+                rx.button(f"{index + 1}. {color}"),
+                padding_y="0.5em",
+            ),
         ),
-        columns="6",
     )
 
 ```
 
-## Dictionary
+## Iterating Dictionaries
 
-We can iterate through a `dict` data structure using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `[("sky", "blue"), ("balloon", "red"), ("grass", "green")]`.
+We can iterate through a `dict` using a `foreach`. When the dict is passed through to the function that renders each item, it is presented as a list of key-value pairs `[("sky", "blue"), ("balloon", "red"), ("grass", "green")]`.
 
 ```python demo exec
 class SimpleDictIterState(rx.State):
@@ -111,10 +170,10 @@ class NestedStateFE(rx.State):
         }
     ]
 
-def get_badge(technology: str) -> rx.Component:
+def get_badge(technology: rx.Var[str]) -> rx.Component:
     return rx.badge(technology, variant="soft", color_scheme="green")
 
-def project_item(project: dict) -> rx.Component:
+def project_item(project: rx.Var[dict[str, list]]) -> rx.Component:
     return rx.box(
         rx.hstack(            
             rx.foreach(project["technologies"], get_badge)
@@ -125,7 +184,7 @@ def projects_example() -> rx.Component:
     return rx.box(rx.foreach(NestedStateFE.projects, project_item))
 ```
 
-If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({vars.var_operations.path}).
+If you want an example where not all of the values in the dict are the same type then check out the example on [var operations using foreach]({docs.vars.var_operations.path}).
 
 Here is a further example of how to use `foreach` with a nested data structure.
 
@@ -138,8 +197,7 @@ class NestedDictIterState(rx.State):
     }
 
 
-def display_colors(color: list[str, list[str]]):
-    
+def display_colors(color: rx.Var[tuple[str, list[str]]]):
     return rx.vstack(
         rx.text(color[0], color=color[0]),
         rx.hstack(
@@ -186,12 +244,12 @@ class ForeachCondState(rx.State):
         ]
 
 
-def render_item(item: [str, bool]):
+def render_item(item: rx.Var[TodoListItem]):
     return rx.cond(
         item.is_packed, 
         rx.list.item(item.item_name + ' ✔'),
         rx.list.item(item.item_name),
-        )
+    )
 
 def packing_list():
     return rx.vstack(
