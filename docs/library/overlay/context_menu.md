@@ -76,6 +76,27 @@ ContextMenuContent: |
             ),
         )
 
+ContextMenuSub: |
+    lambda **props: rx.context_menu.root(
+            rx.context_menu.trigger(
+                rx.text("Context Menu (right click)")
+            ),
+            rx.context_menu.content(
+                rx.context_menu.item("Copy", shortcut="⌘ C"),
+                rx.context_menu.item("Share"),
+                rx.context_menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+                rx.context_menu.sub(
+                    rx.context_menu.sub_trigger("More"),
+                    rx.context_menu.sub_content(
+                        rx.context_menu.item("Eradicate"),
+                        rx.context_menu.item("Duplicate"),
+                        rx.context_menu.item("Archive"),
+                    ),
+                **props
+                ),
+            ),
+        )
+
 ContextMenuSubTrigger: |
     lambda **props: rx.context_menu.root(
             rx.context_menu.trigger(
@@ -185,6 +206,33 @@ rx.context_menu.root(
 )
 ```
 
+```md alert warning
+# `rx.context_menu.item` must be a DIRECT child of `rx.context_menu.content`
+
+The code below for example is not allowed:
+
+```python 
+rx.context_menu.root(
+    rx.context_menu.trigger(
+       rx.button("Right click me"),
+    ),
+    rx.context_menu.content(
+        rx.cond(
+            State.count % 2 == 0,
+            rx.vstack(
+                rx.context_menu.item("Even Option 1", on_click=State.set_selected_option("Even Option 1")),
+                rx.context_menu.item("Even Option 2", on_click=State.set_selected_option("Even Option 2")),
+                rx.context_menu.item("Even Option 3", on_click=State.set_selected_option("Even Option 3")),
+            ),
+            rx.vstack(
+                rx.context_menu.item("Odd Option A", on_click=State.set_selected_option("Odd Option A")),
+                rx.context_menu.item("Odd Option B", on_click=State.set_selected_option("Odd Option B")),
+                rx.context_menu.item("Odd Option C", on_click=State.set_selected_option("Odd Option C")),
+            )
+        )
+    ),
+)
+```
 
 
 
