@@ -3,6 +3,7 @@ company: Ansa
 description: "Why Ansa chose Reflex over Anvil for their data analysis workflow automations"
 domain: "https://www.ansa.co"
 founded: "New York, 2021"
+investors: ""
 stats: [
     {
         "metric": "Companies scored every month",
@@ -38,9 +39,9 @@ meta: [
 ---
 
 
-Meet Ansa a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies such as Coinbase, Rippling, Glassdoor and Godaddy.
+Meet [Ansa](www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies such as Coinbase, Rippling, Glassdoor and Godaddy.
 
-Ryan (Sullivan) is an investor and manages the tech and data science team at Ansa. He works to help find the right companies to invest in and improve Ansa's automated outbound strategies.
+Ryan Sullivan is an investor and manages the tech and data science team at Ansa. He works to help find the right companies to invest in and improve Ansa's automated outbound strategies.
 
 
 ## Ansa's overwhelming data analysis challenge
@@ -68,7 +69,7 @@ Ryan and his team wanted to build a web interface for their team to use to autom
 We don't have a full engineering team, so to build a full web app from scratch seemed like a lot for me to do. In addition, we don't have experience on the JavaScript side.
 ```
 
-The team previously built an [Anvil](link to anvil!!!!!!!!!!) app, a near no code framework. They didn't like the aesthetic and wanted to use more modern looking React components.
+The team previously built an [Anvil](https://anvil.works) app, a near no code framework. They didn't like the aesthetic and wanted to use more modern looking React components.
 
 ```md quote
 - name: Ryan
