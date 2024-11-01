@@ -237,10 +237,10 @@ class ToDoListItem:
     is_packed: bool
 
 class ForeachCondState(rx.State):
-    to_do_list: list[ToDoListItem] = [
-        ToDoListItem(item_name="Space suit", is_packed=True), 
-        ToDoListItem(item_name="Helmet", is_packed=True),
-        ToDoListItem(item_name="Back Pack", is_packed=False),
+    to_do_list: list[TodoListItem] = [
+        TodoListItem(item_name="Space suit", is_packed=True), 
+        TodoListItem(item_name="Helmet", is_packed=True),
+        TodoListItem(item_name="Back Pack", is_packed=False),
         ]
 
 
