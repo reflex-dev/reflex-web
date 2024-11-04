@@ -34,7 +34,7 @@ image_zoom(rx.image(src="/blog/github-python_top_language_2024.webp"))
 
 ## Reflex--Frontend. Backend. Pure Python.
 
-Reflex represents a shift in web development by enabling developers to build their web apps entirely in a **single language** (Python).
+Reflex represents a shift in web development by enabling developers to build their web apps entirely in a **single** language, Python.
 Designed to seamlessly integrate your backend and frontend, Reflex provides over 60 built-in components that developers can easily customize and extend--with the ability to bring your own components (React under the hood).
 
 ### Pros
