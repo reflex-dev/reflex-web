@@ -34,39 +34,38 @@ image_zoom(rx.image(src="/blog/github-python_top_language_2024.webp"))
 
 ## Reflex--Frontend. Backend. Pure Python.
 
-Reflex represents a shift in web development by enabling developers to build complete applications using only Python.
-Reflex was built to seamlessly integrate your backend and frontend and provides over 60 built-in components that developers can extend--Reflex's UI components are React under the hood.
+Reflex represents a shift in web development by enabling developers to build their web apps entirely in a **single language** (Python).
+Designed to seamlessly integrate your backend and frontend, Reflex provides over 60 built-in components that developers can easily customize and extend--with the ability to bring your own components (React under the hood).
 
 ### Pros
 
 - **Pure Python**: Reflex enables you to build both your frontend and backend in Python.
-- **No boilerplate**: Reflex abstracts away connecting your frontend and backend.
-- **Flexible and expressive**: Reflex has over 60 UI components built in, and supports React (bring your own components), Tailwind, and more.
-- **Database management**: Reflex also has first class support for SQLite, Postgres, and MySQL.
+- **No boilerplate**: Reflex handles connecting your frontend and backend.
+- **Flexible and expressive**: Reflex has over 60 UI components built in and is very customizable (Tailwind, custom CSS, etc.).
+- **Database management**: Reflex integrates with SQLAlchemy, and has first class support for SQLite, Postgres, and MySQL.
 - **Deployment**: Reflex apps can be deployed to the cloud with a single command (`reflex deploy`).
 
 ### Cons
 
-- **Ecosystem**: Reflex is a newer framework, so it has a smaller ecosystem compared to more established alternatives, however with 20k stars on GitHub it's one of the fastest growing Python frameworks.
+- **Ecosystem**: Reflex is a newer framework, so it has a smaller ecosystem (plugins) compared to more traditional alternatives like Django, however with 20k stars on GitHub it's one of the fastest growing Python frameworks.
 - **Breaking changes**: Reflex is still maturing and so the APIs are subject to change.
 
 ## FastAPI--high performance, easy to learn, fast to code, ready for production
 
-FastAPI is a modern web framework that has become popular for building REST APIs.
-Being built on top of Starlette and Pydantic, FastAPI is performant and easy to use and excels in scenarios requiring high performance and concurrent processing.
+FastAPI is a modern backend web framework that has become popular for building REST APIs.
+Built on top of Starlette and Pydantic, FastAPI is performant, ergonomic, and excels in scenarios requiring high performance and concurrent processing.
 
 ### Pros
 
-- **Automatic documentation**: FastAPI automatically generates OpenAPI (formerly Swagger) documentation for your API based on the Python type hints you provide, enhancing the developer experience.
-- **Data validation**: FastAPI uses Pydantic for data validation, allowing developers to easily validate request and response data with high performance.
 - **Type hints**: FastAPI utilizes Python type hints, improving code quality and simplifying API interactions.
-- **Performance**: FastAPI is one of the fastest Python web frameworks available, often on par with Node.js and Go.
-- **Dependency injection**: FastAPI features a built-in dependency injection system, facilitating component management.
+- **Automatic documentation**: FastAPI automatically generates OpenAPI (formerly Swagger) documentation for your API based on your type hints.
+- **Data validation**: FastAPI uses Pydantic for data validation, allowing developers to easily validate request and response data.
+- **Performance**: FastAPI is performant, often on par with Node.js and Go.
 
 ### Cons
 
-- **JavaScript dependency**: FastAPI requires a separate frontend framework
-- **Onboarding**: Not as accessible for folks who have not deployed web apps before. FastAPI is great for teams and organizations building services but for an individual just trying to build a side project it may be more difficult to get started.
+- **Frontend**: FastAPI requires a separate frontend framework.
+- **Onboarding**: Not as accessible for folks who have not deployed web apps before. FastAPI is great for small and medium sized organizations, but can be high effort for the individual developer.
 
 Reflex builds on top of FastAPI by adding a frontend layer, and abstracting away the boilerplate of connecting your backend and frontend--dramatically simplifying the development of full stack apps.
 Deployed Reflex apps get transpiled into FastAPI backend, and React frontend.
@@ -85,10 +84,9 @@ As one of the oldest Python frameworks, Django not only has a large community an
 
 ### Cons
 
-- **Performance**: Django is not as performant as FastAPI--which was designed for performance and with async in mind from the beginning (ASSGI).
-- **JavaScript dependency**: Django requires a separate frontend framework; there's an HTML templating system, but it's not as powerful as a React.
-- **Monolithic**: Django is a monolithic framework, which can make it difficult to maintain and scale large applications.
-- **Learning Curve**: Django has a steep learning curve, especially for those unfamiliar with its settings and file structure.
+- **Performance**: Django is not as performant as FastAPI--which was designed explicitly with performance and async in mind (ASSGI).
+- **Frontend**: Django requires a separate frontend framework; there's an HTML templating system built in but it's not as powerful as a React.
+- **Monolithic**: Django is a monolithic framework, which can make it difficult to scale large web apps.
 
 ## Flask--the micro framework for building web apps
 
@@ -105,7 +103,7 @@ Flask is a lightweight (micro) web framework that is easy to get started with an
 - **Jinja templating**: Web apps built with Flask are typically built using Jinja templating, which is not as powerful as React.
 - **Documentation**: Compared to FastAPI, Flask requires using additional libraries to build documentation.
 
-## Streamlit--a faster way to build and share data apps.
+## Streamlit--a faster way to build and share data apps
 
 Streamlit has gained considerable traction among data scientists for its ability to convert data scripts into interactive web applications quickly with minimal coding.
 Streamlit is good for building an app to test a model, or a dashboard to visualize data.
