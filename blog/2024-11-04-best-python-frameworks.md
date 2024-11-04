@@ -138,7 +138,7 @@ Cons:
 
 # TODO(elvis): link oobabaga project
 
-## Dash--data apps & dashboards for Python
+## Plotly Dash--data apps & dashboards for Python
 
 Dash is a framework for building analytical web apps. It's built on top of Flask, Plotly.js, and React.js.
 Dash applications are structured into two main components: layout and interactivity.
