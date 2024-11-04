@@ -20,7 +20,7 @@ def h4_comp_error(text: rx.Var[str]) -> rx.Component:
 @rx.memo
 def code_block_error(code: str):
     return rx.box(
-        rx.code_block(
+        rx._x.code_block(
             code,
             language="python",
             class_name="code-block !bg-slate-1",
@@ -32,6 +32,11 @@ def code_block_error(code: str):
 def markdown_error(text: str):
     return rx.markdown(
         text,
+        component_map={
+            "codeblock": lambda value, **props: rx._x.code_block(
+            value, **props
+        ),
+        },
         class_name="font-small text-slate-11 text-start markdown-code",
     )
 ```
