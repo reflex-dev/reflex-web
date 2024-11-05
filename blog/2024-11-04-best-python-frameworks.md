@@ -156,4 +156,4 @@ The layout defines the visual structure using HTML and React components, while i
 - **Cloud deployment**: Plotly's hosting service is primarily for enterprise, although
 cannot be easily deployed can be deployed with containers, making them easy to manage and scale.
 
-# TODO(elvis): link to case study -> See why X switched from Y to Reflex
+Check out why Bayesline (YC switched from Dash to Reflex: https://reflex.dev/customers/bayesline/
