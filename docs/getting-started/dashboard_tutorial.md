@@ -12,12 +12,12 @@ The techniques you’ll learn in the tutorial are fundamental to building any Re
 
 This tutorial is divided into several sections:
 
-- Setup for the tutorial will give you a starting point to follow the tutorial.
-- Overview will teach you the fundamentals of Reflex: components and props.
-- Showing dynamic data (State) will show you how to use state to render data that will change in your app.
-- Using a Form to Add Data will show you how to let a user add data to your app and introduce event handlers.
-- Plotting Data in a Graph will show you how to use Reflex's graphing components.
-- Final Cleanup and Conclusion will explain how to further customize your app and add some extra styling to it.
+- **Setup for the Tutorial**: A starting point to follow the tutorial
+- **Overview**: The fundamentals of Reflex UI (components and props)
+- **Showing Dynamic Data**: How to use State to render data that will change in your app.
+- **Add Data to your App**: Using a Form to let a user add data to your app and introduce event handlers.
+- **Plotting Data in a Graph**: How to use Reflex's graphing components.
+- **Final Cleanup and Conclusion**: How to further customize your app and add some extra styling to it.
 
 ### What are you building?
 
@@ -170,7 +170,10 @@ rx.vstack(
         graph5(),
         align="center",
         width="100%",
-        on_mouse_enter=State5.transform_data
+        on_mouse_enter=State5.transform_data,
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
     )
 ```
 
@@ -336,7 +339,7 @@ Don't worry if you don't understand the code above, in this tutorial we are goin
 
 ## Setup for the tutorial
 
-Check out the [installation docs]({docs.getting_started.installation.path}) to get Reflex set up on your machine. Follow these to create a folder called `dashboard_tutorial`, which you will `cd` into and then `pip install reflex`.
+Check out the [installation docs]({docs.getting_started.installation.path}) to get Reflex set up on your machine. Follow these to create a folder called `dashboard_tutorial`, which you will `cd` into and `pip install reflex`.
 
 We will choose template `0` when we run `reflex init` to get the blank template. Finally run `reflex run` to start the app and confirm everything is set up correctly.
 
@@ -347,17 +350,17 @@ Now that you’re set up, let’s get an overview of Reflex!
 
 ### Inspecting the starter code
 
-Within our `dashboard_tutorial` folder we just `cd`'d into, there is a `rxconfig.py` file that contains the configuration for our Reflex app. ([config docs]({docs.getting_started.configuration.path}) for more information)
+Within our `dashboard_tutorial` folder we just `cd`'d into, there is a `rxconfig.py` file that contains the configuration for our Reflex app. (Check out the [config docs]({docs.getting_started.configuration.path}) for more information)
 
 There is also an `assets` folder where static files such as images and stylesheets can be placed to be referenced within your app. ([asset docs]({docs.assets.referencing_assets.path}) for more information)
 
 Most importantly there is a folder also called `dashboard_tutorial` which contains all the code for your app. Inside of this folder there is a file named `dashboard_tutorial.py`. To begin this tutorial we will delete all the code in this file so that we can start from scratch and explain every step as we go.
 
-The first thing we need to do is import `reflex`. Once we have done this we can create a component, which is a a piece of reusable code that represents a part of a user interface. Components are used to render, manage, and update the UI elements in your application. 
+The first thing we need to do is import `reflex`. Once we have done this we can create a component, which is a reusable piece of user interface code. Components are used to render, manage, and update the UI elements in your application. 
 
 Let's look at the example below. Here we have a function called `index` that returns a `text` component (an in-built Reflex UI component) that displays the text "Hello World!".
 
-Next we define our app using `app = rx.App()` and add the component we just defined (`index`) to a page using `app.add_page(index)`. The definition of the app and adding a component to a page are required for every Reflex app.
+Next we define our app using `app = rx.App()` and add the component we just defined (`index`) to a page using `app.add_page(index)`. The function name (in this example `index`) which defines the component, must be what we pass into the `add_page`. The definition of the app and adding a component to a page are required for every Reflex app.
 
 ```python
 import reflex as rx
@@ -373,7 +376,11 @@ app.add_page(index)
 This code will render a page with the text "Hello World!" when you run your app like below:
 
 ```python eval
-rx.text("Hello World!")
+rx.text("Hello World!", 
+    border_width="2px",
+    border_radius="10px",
+    padding="1em"
+)
 ```
 
 ```md alert info
@@ -405,6 +412,9 @@ rx.table.root(
                 rx.table.cell("Female"),
             ),
         ),
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
     )
 ```
 
@@ -460,6 +470,9 @@ rx.table.root(
         ),
         variant="surface",
         size="3",
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
     )
 ```
 
@@ -499,11 +512,11 @@ This is where `State` comes in. `State` is a Python class that stores variables 
 To define a state class, subclass `rx.State` and define fields that store the state of your app. The state variables (vars) should have a type annotation, and can be initialized with a default value. Check out the [basics]({docs.getting_started.basics.path}) section for a simple example of how state works.
 
 
-In the example below we define a `State` class called `State` that has a variable called `users` that is a list of lists. Each list in the `users` list represents a user and contains their name, email and gender.
+In the example below we define a `State` class called `State` that has a variable called `users` that is a list of lists of strings. Each list in the `users` list represents a user and contains their name, email and gender.
 
 ```python
 class State(rx.State):
-    users: list[list] = [
+    users: list[list[str]] = [
         ["Danilo Sousa", "danilo@example.com", "Male"],
         ["Zahra Ambessa", "zahra@example.com", "Female"],
     ]
@@ -511,11 +524,16 @@ class State(rx.State):
 
 To iterate over a state var that is a list, we use the [`rx.foreach`]({docs.components.rendering_iterables.path}) function to render a list of components. The `rx.foreach` component takes an `iterable` (list, tuple or dict) and a `function` that renders each item in the `iterable`.
 
+```md alert info
+# Why can we not just splat this in a `for` loop
+You might be wondering why a `foreach` is even needed to render this state variable and why we cannot just splat a `for` loop. Check out this [documentation]({docs.getting_started.basics.path}#compile-time-vs.-runtime-(important)) to learn why.
+```
+
 Here the render function is `show_user` which takes in a single user and returns a `table.row` component that displays the users name, email and gender.
 
 ```python exec
 class State1(rx.State):
-    users: list[list] = [
+    users: list[list[str]] = [
         ["Danilo Sousa", "danilo@example.com", "Male"],
         ["Zahra Ambessa", "zahra@example.com", "Female"],
     ]
@@ -545,13 +563,16 @@ rx.table.root(
         ),
         variant="surface",
         size="3",
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
 )
 ```
 
 
 ```python
 class State(rx.State):
-    users: list[list] = [
+    users: list[list[str]] = [
         ["Danilo Sousa", "danilo@example.com", "Male"],
         ["Zahra Ambessa", "zahra@example.com", "Female"],
     ]
@@ -595,6 +616,8 @@ In Reflex when we create these classes to showcase our data, the class must inhe
 
 The `show_user` render function is also updated to access the data by named attributes, instead of indexing.
 
+`rx.Base` is also necessary if we want to have a state var that is an iterable with different types. For example if we wanted to have `age` as an `int` we would have to use `rx.base` as we could not do this with a state var defined as `list[list[str]]`. 
+
 ```python exec
 class User(rx.Base):
     """The user model."""
@@ -635,6 +658,9 @@ rx.table.root(
         ),
         variant="surface",
         size="3",
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
 )
 ```
 
@@ -736,9 +762,9 @@ Now you have probably realised that we have all the form fields, but we have no 
 
 In addition to this we need a way to update the `users` state variable when the form is submitted. All state changes are handled through functions in the state class, called [event handlers]({docs.events.events_overview.path}).
 
-Components have special props called event triggers, such as `on_submit`, that can be used to make components interactive. Event triggers connect components to event handlers, which update the state.
+Components have special props called event triggers, such as `on_submit`, that can be used to make components interactive. Event triggers connect components to event handlers, which update the state. Different event triggers expect the event handler that you hook them up to, to take in different arguments (and some do not take in any arguments).
 
-The `on_submit` event trigger of `rx.form` is hooked up to the `add_user` event handler that is defined in the `State` class. The `add_user` event handler takes in the form data as a dictionary and appends it to the `users` state variable.
+The `on_submit` event trigger of `rx.form` is hooked up to the `add_user` event handler that is defined in the `State` class. This event trigger expects to pass a `dict`, containing the form data, to the event handler that it is hooked up to. The `add_user` event handler takes in the form data as a dictionary and appends it to the `users` state variable. 
 
 
 ```python
@@ -774,7 +800,7 @@ def form():
 
 Finally we must add the new `form()` component we have defined to the `index()` function so that the form is rendered on the page.
 
-Below is the full code for the app so far. If you try this form out you will see that you can add new users to the table by filling out the form and clicking the submit button. The form data will also appear as a toast on the screen when submitted.
+Below is the full code for the app so far. If you try this form out you will see that you can add new users to the table by filling out the form and clicking the submit button. The form data will also appear as a toast (a small window in the corner of the page) on the screen when submitted.
 
 
 ```python exec
@@ -842,6 +868,9 @@ rx.vstack(
         variant="surface",
         size="3",
     ),
+    border_width="2px",
+    border_radius="10px",
+    padding="1em",
 )
 ```
 
@@ -910,7 +939,7 @@ def index() -> rx.Component:
 
 ### Putting the Form in an Overlay
 
-In Reflex we like to make the user interaction as intuitive as possible. Placing the form we just constructed in an overlay creates a focused interaction by dimming the background, and ensures a cleaner layout when you have multiple action points such as editing and deleting as well.
+In Reflex, we like to make the user interaction as intuitive as possible. Placing the form we just constructed in an overlay creates a focused interaction by dimming the background, and ensures a cleaner layout when you have multiple action points such as editing and deleting as well.
 
 We will place the form inside of a `rx.dialog` component (also called a modal). The `rx.dialog.root` contains all the parts of a dialog, and the `rx.dialog.trigger` wraps the control that will open the dialog. In our case the trigger will be an `rx.button` that says "Add User" as shown below.
 
@@ -923,7 +952,7 @@ rx.dialog.trigger(
 )
 ```
 
-After the trigger we have the `rx.dialog.content` which contains everything within our dialog, including a title, a description and our form. The key part of the form within the dialog is that it now has two `rx.dialog.close` components. The first is to just close the dialog without submitting the form and he second is to close the dialog and submit the form as shown below.
+After the trigger we have the `rx.dialog.content` which contains everything within our dialog, including a title, a description and our form. The first way to close the dialog is without submitting the form and the second way is to close the dialog by submitting the form as shown below. This requires two `rx.dialog.close` components within the dialog.
 
 ```python
 rx.dialog.close(
@@ -1079,6 +1108,9 @@ rx.vstack(
         variant="surface",
         size="3",
     ),
+    border_width="2px",
+    border_radius="10px",
+    padding="1em",
 )
 ```
 
@@ -1225,11 +1257,11 @@ class State(rx.State):
 
 As we can see above the `transform_data` event handler uses the `Counter` class from the `collections` module to count the number of users of each gender. We then create a list of dictionaries from this which we set to the state var `users_for_graph`. 
 
-Finally we can see that whenever we add a new user through submitting the form, we call the `transform_data` event handler to update the `users_for_graph` state variable.
+Finally we can see that whenever we add a new user through submitting the form and running the `add_user` event handler, we call the `transform_data` event handler to update the `users_for_graph` state variable.
 
 ### Rendering the graph
 
-We use the `rx.recharts.bar_chart` component to render the graph. We pass through the state variable for our graphing data as `data=State.users_for_graph`. We alos pass in a `rx.recharts.bar` component which represents the bars on the graph. The `rx.recharts.bar` component takes in the `data_key` prop which is the key in the data dictionary that represents the y value of the bar. The `stroke` and `fill` props are used to set the color of the bars.
+We use the `rx.recharts.bar_chart` component to render the graph. We pass through the state variable for our graphing data as `data=State.users_for_graph`. We also pass in a `rx.recharts.bar` component which represents the bars on the graph. The `rx.recharts.bar` component takes in the `data_key` prop which is the key in the data dictionary that represents the y value of the bar. The `stroke` and `fill` props are used to set the color of the bars.
 
 The `rx.recharts.bar_chart` component also takes in `rx.recharts.x_axis` and `rx.recharts.y_axis` components which represent the x and y axes of the graph. The `data_key` prop of the `rx.recharts.x_axis` component is set to the key in the data dictionary that represents the x value of the bar. Finally we add `width` and `height` props to set the size of the graph.
 
@@ -1374,6 +1406,9 @@ rx.vstack(
         size="3",
     ),
     graph(),
+    border_width="2px",
+    border_radius="10px",
+    padding="1em",
 )
 ```
 
@@ -1519,7 +1554,7 @@ The `app.add_page` currently looks like this `app.add_page(index)`. We could cha
 
 We can also set a `title` to be shown in the browser tab and a `description` as shown in search results. 
 
-So solve the problem we had above about our graph not loading when the page loads, we can use `on_load` inside of `app.add_page` to call the `transform_data` event handler when the page loads. This would look like `on_load=State.transform_data`. Below see what our `app.add_page` would look like with some of the changes above added.
+To solve the problem we had above about our graph not loading when the page loads, we can use `on_load` inside of `app.add_page` to call the `transform_data` event handler when the page loads. This would look like `on_load=State.transform_data`. Below see what our `app.add_page` would look like with some of the changes above added.
 
 ```python eval
 rx.vstack(
@@ -1541,7 +1576,10 @@ rx.vstack(
         size="3",
     ),
     graph(),
-    on_mouse_enter=State4.transform_data
+    on_mouse_enter=State4.transform_data,
+    border_width="2px",
+    border_radius="10px",
+    padding="1em",
 )
 ```
 
@@ -1564,6 +1602,7 @@ The `radius` prop sets the global radius value for the app that is inherited by 
 
 The `accent_color` prop sets the accent color of the app. Check out other options for the accent color [here]({docs.library.other.theme.path}).
 
+To see other props that can be set at the app level check out this [documentation](docs.styling.theming.path)
 
 ```python
 app = rx.App(
@@ -1573,7 +1612,7 @@ app = rx.App(
 )
 ```
 
-Unfortunately in this tutoial here we cannot actually apply this to the live example on the page, but if you copy and paste the code below into a reflex app locally you can see if in action.
+Unfortunately in this tutoial here we cannot actually apply this to the live example on the page, but if you copy and paste the code below into a reflex app locally you can see it in action.
 
 
 
@@ -1608,7 +1647,10 @@ rx.vstack(
         graph5(),
         align="center",
         width="100%",
-        on_mouse_enter=State5.transform_data
+        on_mouse_enter=State5.transform_data,
+        border_width="2px",
+        border_radius="10px",
+        padding="1em",
     )
 ```
 
@@ -1786,3 +1828,5 @@ In addition to the above we have we have
 
 
 ## Advanced Section (Hooking this up to a Database)
+
+Coming Soon!
