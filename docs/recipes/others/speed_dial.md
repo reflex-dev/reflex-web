@@ -366,7 +366,7 @@ def render_reveal():
 class SpeedDialMenu(rx.ComponentState):
     is_open: bool = False
 
-	@rx.event
+    @rx.event
     def toggle(self, value: bool):
         self.is_open = value
 
