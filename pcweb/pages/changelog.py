@@ -48,6 +48,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-10-29",
+            "v0.6.4",
+            "Make Var System Expandable",
+            [
+                "Set default gunicorn max_requests to avoid memory leak",
+                "Support for dotenv `env_file` when `python-dotenv` is installed",
+                "New `rx.dynamic` decorator for component functions using state",
+                "More event typing improvements",
+                "Experimental support for Shiki code block",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.4",
+        ),
+        change(
             "2024-10-18",
             "v0.6.3",
             "Improved Static Typing for Var and Event",

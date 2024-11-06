@@ -149,7 +149,9 @@ class Source(Base):
 
         parent_cls = self.component.__bases__[0]
         if parent_cls != rx.Component and parent_cls != BaseHTML:
-            props += Source(component=parent_cls).get_props()
+            parent_props = Source(component=parent_cls).get_props()
+            # filter out the props that have been overridden in the parent class.
+            props += [prop for prop in parent_props if prop.name not in {p.name for p in props}]
 
         return props
 
