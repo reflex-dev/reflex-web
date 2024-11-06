@@ -60,7 +60,7 @@ class DataTableLiveState(BaseState):
 
     ]
 
-    @rx.background
+    @rx.event(background=True)
     async def live_stream(self):
         while True:
             await asyncio.sleep(1 / self.rate)

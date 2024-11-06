@@ -92,7 +92,7 @@ Rewriting the example above shows how background tasks work in practice:
 class State(rx.State):
     posts: List[str] = []
     
-    @rx.background
+    @rx.event(background=True)
     async def get_posts(self):
         with httpx.AsyncClient() as client:
             for pid in range(10):

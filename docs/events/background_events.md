@@ -10,7 +10,7 @@ concurrently with other `EventHandler` functions. This enables long-running
 tasks to execute without blocking UI interactivity.
 
 A background task is defined by decorating an async `State` method with
-`@rx.background`.
+`@rx.event(background=True)`.
 
 Whenever a background task needs to interact with the state, **it must enter an
 `async with self` context block** which refreshes the state and takes an
@@ -21,7 +21,7 @@ task may be _stale_**. Attempting to modify the state from a background task
 outside of the context block will raise an `ImmutableStateError` exception.
 
 In the following example, the `my_task` event handler is decorated with
-`@rx.background` and increments the `counter` variable every half second, as
+`@rx.event(background=True)` and increments the `counter` variable every half second, as
 long as certain conditions are met. While it is running, the UI remains
 interactive and continues to process events normally.
 
@@ -40,7 +40,7 @@ class MyTaskState(rx.State):
     running: bool = False
     _n_tasks: int = 0
 
-    @rx.background
+    @rx.event(background=True)
     async def my_task(self):
         async with self:
             # The latest state values are always available inside the context
