@@ -12,6 +12,11 @@ tasks to execute without blocking UI interactivity.
 A background task is defined by decorating an async `State` method with
 `@rx.event(background=True)`.
 
+```md alert warning
+# `@rx.event(background=True)` used to be called `@rx.background`.
+In Reflex version 0.6.5 and later, the `@rx.background` decorator has been renamed to `@rx.event(background=True)`.
+```
+
 Whenever a background task needs to interact with the state, **it must enter an
 `async with self` context block** which refreshes the state and takes an
 exclusive lock to prevent other tasks or event handlers from modifying it

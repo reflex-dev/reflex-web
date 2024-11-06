@@ -47,11 +47,9 @@ Here, we go over a simple counter app that lets the user count up or down.
 class CounterExampleState(rx.State):
     count: int = 0
 
-    @rx.event
     def increment(self):
         self.count += 1
 
-    @rx.event
     def decrement(self):
         self.count -= 1
 
@@ -61,7 +59,6 @@ class IntroTabsState(rx.State):
     value = "tab1"
     tab_selected = ""
 
-    @rx.event
     def change_value(self, val):
         self.tab_selected = f"{val} clicked!"
         self.value = val
@@ -154,11 +151,9 @@ rx.box(
         """class State(rx.State):
     count: int = 0
 
-    @rx.event
     def increment(self):
         self.count += 1
 
-    @rx.event
     def decrement(self):
         self.count -= 1""",
         background=rx.cond(
@@ -246,16 +241,14 @@ Here our state has a single var, `count`, which holds the current value of the c
 ### Event Handlers
 
 ```python
-@rx.event
 def increment(self):
     self.count += 1
 
-@rx.event
 def decrement(self):
     self.count -= 1
 ```
 
-Within the state, we define functions, called **event handlers**, that change the state vars. They should be decorated with `rx.event` to provide better typing in the coding environment.
+Within the state, we define functions, called **event handlers**, that change the state vars.
 
 Event handlers are the only way that we can modify the state in Reflex.
 They can be called in response to user actions, such as clicking a button or typing in a text box.

@@ -64,6 +64,7 @@ class CollatzState(rx.State):
         self.count = abs(int(count if count else 1))
         return CollatzState.run_step
 
+    @rx.event
     async def run_step(self):
         """Run a single step of the collatz conjecture."""
 

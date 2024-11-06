@@ -19,9 +19,11 @@ and is useful for creating reusable components which operate independently of ea
 class ReusableCounter(rx.ComponentState):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
+    @rx.event
     def decrement(self):
         self.count -= 1
 
@@ -73,10 +75,12 @@ class EditableText(rx.ComponentState):
     original_text: str
     editing: bool = False
 
+    @rx.event
     def start_editing(self, original_text: str):
         self.original_text = original_text
         self.editing = True
 
+    @rx.event
     def stop_editing(self):
         self.editing = False
         self.original_text = ""

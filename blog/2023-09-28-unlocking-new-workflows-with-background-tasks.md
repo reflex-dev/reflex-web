@@ -111,6 +111,11 @@ For a more complete example with comparisons of the two styles, see the
 [reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/main/random-number-range/random_number_range/random_number_range.py)
 repository.
 
+```md alert warning
+# `@rx.event(background=True)` used to be called `@rx.background`.
+In Reflex version 0.6.5 and later, the `@rx.background` decorator has been renamed to `@rx.event(background=True)`.
+```
+
 ## Parallelizing Work
 
 Aside from UI interactivity, the other motivation for using background tasks is

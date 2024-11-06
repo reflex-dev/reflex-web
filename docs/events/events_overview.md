@@ -45,6 +45,8 @@ def event_triggers_example():
 In this example, the heading component has the **event trigger**, `on_mouse_over`.
 Whenever the user hovers over the heading, the `next_word` **event handler** will be called to cycle the word. Once the handler returns, the UI will be updated to reflect the new state.
 
+Adding the `@rx.event` decorator above the event handler is strongly recommended. This decorator enables proper static type checking, which ensures event handlers receive the correct number and types of arguments.
+
 # What in this section?
 
 In the event section of the documentation, you will explore the different types of events supported by Reflex, along with the different ways to call them.

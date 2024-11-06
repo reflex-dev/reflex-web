@@ -81,6 +81,7 @@ class YieldEventsState(rx.State):
     count: int = 0
     show_progress: bool = False
 
+    @rx.event
     async def add_five(self):
         self.show_progress = True
         yield
@@ -89,6 +90,7 @@ class YieldEventsState(rx.State):
         self.count += 5
         self.show_progress = False
 
+    @rx.event
     async def increment(self):
         yield YieldEventsState.add_five
         yield YieldEventsState.add_five

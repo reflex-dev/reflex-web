@@ -81,6 +81,11 @@ class StreamingState(rx.State):
 
 Here we define a `stop_stream` method that will stop the stream when called. We also define a `start_stream` method that will start the stream. We use the `@rx.event(background=True)` decorator to run the method in the background. This allows us to update the data without blocking the UI.
 
+```md alert warning
+# `@rx.event(background=True)` used to be called `@rx.background`.
+In Reflex version 0.6.5 and later, the `@rx.background` decorator has been renamed to `@rx.event(background=True)`.
+```
+
 Remember to use `async with self:` when updating the state in a background task.
 
 Finally we will define our UI using Reflex's new graphing components. We pass the data from our `StreamingState` class to the `area_chart` component and reference the data key we want to use in `area` component. We also add a buttons to start and stop the stream.
