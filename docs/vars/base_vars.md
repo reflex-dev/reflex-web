@@ -152,3 +152,56 @@ def backend_var_example():
         ),
     )
 ```
+
+
+## Using rx.field / rx.Field to improve type hinting for vars
+
+When defining state variables you can use `rx.Field[T]` to annotate the variable's type. Then, you can initialize the variable using `rx.field(default_value)`, where `default_value` is an instance of type `T`. 
+
+This approach makes the variable's type explicit, aiding static analysis tools in type checking. In addition, it shows you what methods are allowed to modify the variable in your frontend code, as they are listed in the type hint.
+
+Below are two examples:
+
+```python
+import reflex as rx
+
+app = rx.App()
+
+
+class State(rx.State):
+    x: rx.Field[bool] = rx.field(False)
+
+    def flip(self):
+        self.x = not self.x
+
+
+@app.add_page
+def index():
+    return rx.vstack(
+        rx.button("Click me", on_click=State.flip),
+        rx.text(State.x),
+        rx.text(~State.x),
+    )
+```
+
+Here `State.x`, as it is typed correctly as a `boolean` var, gets better code completion, i.e. here we get options such as `to_string()` or `equals()`.
+
+
+```python
+import reflex as rx
+
+app = rx.App()
+
+
+class State(rx.State):
+    x: rx.Field[dict[str, list[int]]] = rx.field(\{})
+
+
+@app.add_page
+def index():
+    return rx.vstack(
+        rx.text(State.x.values()[0][0]),
+    )
+```
+
+Here `State.x`, as it is typed correctly as a `dict` of `str` to `list` of `int` var, gets better code completion, i.e. here we get options such as `contains()`, `keys()`, `values()`, `items()` or `merge()`.
