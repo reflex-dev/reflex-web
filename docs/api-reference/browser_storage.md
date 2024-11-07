@@ -4,7 +4,7 @@
 
 Represents a state Var that is stored as a cookie in the browser. Currently only supports string values.
 
- Parameters
+Parameters
 
 - `name` : The name of the cookie on the client side.
 - `path`: The cookie path. Use `/` to make the cookie accessible on all pages.
@@ -144,19 +144,18 @@ rx.button(
 
 # Serialization Strategies
 
-If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage` var it needs to
-be serialized before and after storing it. It is recommended to use `rx.Base` for the data
-which provides simple serialization helpers and works recursively in complex object structures.
+If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage` var it needs to be serialized before and after storing it. It is recommended to use a dataclass for the data which provides simple serialization helpers and works recursively in complex object structures.
 
 ```python demo exec
 import reflex as rx
+import dataclasses
 
-
-class AppSettings(rx.Base):
+@dataclasses.dataclass
+class AppSettings:
     theme: str = 'light'
     sidebar_visible: bool = True
     update_frequency: int = 60
-    error_messages: list[str] = []
+    error_messages: list[str] = dataclasses.field(default_factory=list)
 
 
 class ComplexLocalStorageState(rx.State):

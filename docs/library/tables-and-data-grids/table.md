@@ -225,7 +225,10 @@ def foreach_table_example():
 It is also possible to define a `class` such as `Person` below and then iterate through this data structure, as a `list[Person]`.
 
 ```python
-class Person(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str
@@ -248,8 +251,10 @@ For filtering the `rx.input` component is used. The data is filtered based on th
 
 
 ```python demo exec
+import dataclasses
 
-class Person(rx.Base):
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str
