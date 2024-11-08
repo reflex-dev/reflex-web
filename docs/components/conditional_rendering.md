@@ -117,7 +117,10 @@ We can also reuse a `cond` component several times by defining it within a funct
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`.
 
 ```python demo exec
-class ToDoListItem(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class ToDoListItem:
     item_name: str
     is_packed: bool
 

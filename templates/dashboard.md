@@ -5,9 +5,7 @@ author: "Reflex"
 image: "dashboard.webp"
 demo: "https://dashboard-new.reflex.run/"
 source: "https://github.com/reflex-dev/templates/tree/main/dashboard"
-meta: [
-    {"name": "keywords", "content": ""},
-]
+meta: [{ "name": "keywords", "content": "" }]
 ---
 
 The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.
@@ -33,7 +31,10 @@ Right now the apps reads from a local CSV file. You can modify this by changing 
 Additionally you will want to change the `Item` class to match the data in your CSV file.
 
 ```python
-class Item(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class Item:
     """The item class."""
 
     name: str
@@ -41,4 +42,3 @@ class Item(rx.Base):
     date: str
     status: str
 ```
-
