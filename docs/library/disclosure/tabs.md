@@ -1,111 +1,110 @@
 ---
 components:
-    - rx.tabs.root
-    - rx.tabs.list
-    - rx.tabs.trigger
-    - rx.tabs.content
+  - rx.tabs.root
+  - rx.tabs.list
+  - rx.tabs.trigger
+  - rx.tabs.content
 
 only_low_level:
-    - True
+  - True
 
 TabsRoot: |
-    lambda **props: rx.tabs.root(
-        rx.tabs.list(
-            rx.tabs.trigger("Account", value="account"),
-            rx.tabs.trigger("Documents", value="documents"),
-            rx.tabs.trigger("Settings", value="settings"),
-        ),
-        rx.box(
-            rx.tabs.content(
-                rx.text("Make changes to your account"),
-                value="account",
-            ),
-            rx.tabs.content(
-                rx.text("Update your documents"),
-                value="documents",
-            ),
-            rx.tabs.content(
-                rx.text("Edit your personal profile"),
-                value="settings",
-            ),
-        ),
-        **props,
-    )
+  lambda **props: rx.tabs.root(
+      rx.tabs.list(
+          rx.tabs.trigger("Account", value="account"),
+          rx.tabs.trigger("Documents", value="documents"),
+          rx.tabs.trigger("Settings", value="settings"),
+      ),
+      rx.box(
+          rx.tabs.content(
+              rx.text("Make changes to your account"),
+              value="account",
+          ),
+          rx.tabs.content(
+              rx.text("Update your documents"),
+              value="documents",
+          ),
+          rx.tabs.content(
+              rx.text("Edit your personal profile"),
+              value="settings",
+          ),
+      ),
+      **props,
+  )
 
 TabsList: |
-    lambda **props: rx.tabs.root(
-        rx.tabs.list(
-            rx.tabs.trigger("Account", value="account"),
-            rx.tabs.trigger("Documents", value="documents"),
-            rx.tabs.trigger("Settings", value="settings"),
-            **props,
-        ),
-        rx.box(
-            rx.tabs.content(
-                rx.text("Make changes to your account"),
-                value="account",
-            ),
-            rx.tabs.content(
-                rx.text("Update your documents"),
-                value="documents",
-            ),
-            rx.tabs.content(
-                rx.text("Edit your personal profile"),
-                value="settings",
-            ),
-        ),
-    )
+  lambda **props: rx.tabs.root(
+      rx.tabs.list(
+          rx.tabs.trigger("Account", value="account"),
+          rx.tabs.trigger("Documents", value="documents"),
+          rx.tabs.trigger("Settings", value="settings"),
+          **props,
+      ),
+      rx.box(
+          rx.tabs.content(
+              rx.text("Make changes to your account"),
+              value="account",
+          ),
+          rx.tabs.content(
+              rx.text("Update your documents"),
+              value="documents",
+          ),
+          rx.tabs.content(
+              rx.text("Edit your personal profile"),
+              value="settings",
+          ),
+      ),
+  )
 
 TabsTrigger: |
-    lambda **props: rx.tabs.root(
-        rx.tabs.list(
-            rx.tabs.trigger("Account", value="account", **props,),
-            rx.tabs.trigger("Documents", value="documents"),
-            rx.tabs.trigger("Settings", value="settings"),
-        ),
-        rx.box(
-            rx.tabs.content(
-                rx.text("Make changes to your account"),
-                value="account",
-            ),
-            rx.tabs.content(
-                rx.text("Update your documents"),
-                value="documents",
-            ),
-            rx.tabs.content(
-                rx.text("Edit your personal profile"),
-                value="settings",
-            ),
-        ),
-    )
+  lambda **props: rx.tabs.root(
+      rx.tabs.list(
+          rx.tabs.trigger("Account", value="account", **props,),
+          rx.tabs.trigger("Documents", value="documents"),
+          rx.tabs.trigger("Settings", value="settings"),
+      ),
+      rx.box(
+          rx.tabs.content(
+              rx.text("Make changes to your account"),
+              value="account",
+          ),
+          rx.tabs.content(
+              rx.text("Update your documents"),
+              value="documents",
+          ),
+          rx.tabs.content(
+              rx.text("Edit your personal profile"),
+              value="settings",
+          ),
+      ),
+  )
 
 TabsContent: |
-    lambda **props: rx.tabs.root(
-        rx.tabs.list(
-            rx.tabs.trigger("Account", value="account"),
-            rx.tabs.trigger("Documents", value="documents"),
-            rx.tabs.trigger("Settings", value="settings"),
-        ),
-        rx.box(
-            rx.tabs.content(
-                rx.text("Make changes to your account"),
-                value="account",
-                **props,
-            ),
-            rx.tabs.content(
-                rx.text("Update your documents"),
-                value="documents",
-                **props,
-            ),
-            rx.tabs.content(
-                rx.text("Edit your personal profile"),
-                value="settings",
-                **props,
-            ),
-        ),
-    )
+  lambda **props: rx.tabs.root(
+      rx.tabs.list(
+          rx.tabs.trigger("Account", value="account"),
+          rx.tabs.trigger("Documents", value="documents"),
+          rx.tabs.trigger("Settings", value="settings"),
+      ),
+      rx.box(
+          rx.tabs.content(
+              rx.text("Make changes to your account"),
+              value="account",
+              **props,
+          ),
+          rx.tabs.content(
+              rx.text("Update your documents"),
+              value="documents",
+              **props,
+          ),
+          rx.tabs.content(
+              rx.text("Edit your personal profile"),
+              value="settings",
+              **props,
+          ),
+      ),
+  )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -121,7 +120,7 @@ They facilitate the organization and navigation between sets of content that sha
 ```python demo
 rx.tabs.root(
     rx.tabs.list(
-        rx.tabs.trigger("Tab 1", value="tab1"), 
+        rx.tabs.trigger("Tab 1", value="tab1"),
         rx.tabs.trigger("Tab 2", value="tab2")
     ),
     rx.tabs.content(
@@ -165,7 +164,7 @@ rx.tabs.root(
 ### Orientation
 
 We use `orientation` prop to set the orientation of the tabs component to `vertical` or `horizontal`. By default, the orientation
-will be set to `horizontal`. Setting this value will change both the visual orientation and the functional orientation. 
+will be set to `horizontal`. Setting this value will change both the visual orientation and the functional orientation.
 
 ```md alert info
 The functional orientation means for `vertical`, the `up` and `down` arrow keys moves focus between the next or previous tab,
@@ -174,6 +173,7 @@ while for `horizontal`, the `left` and `right` arrow keys moves focus between ta
 
 ```md alert warning
 # When using vertical orientation, make sure to assign a tabs.content for each trigger.
+
 Defining triggers without content will result in a visual bug where the width of the triggers list isn't constant.
 ```
 
@@ -226,6 +226,7 @@ class TabsState(rx.State):
     value = "tab1"
     tab_selected = ""
 
+    @rx.event
     def change_value(self, val):
         self.tab_selected = f"{val} clicked!"
         self.value = val

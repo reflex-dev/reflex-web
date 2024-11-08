@@ -386,6 +386,7 @@ class State(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]]
 
+    @rx.event
     def answer(self):
         # Our chatbot is not very smart right now...
         answer = "I don't know!"
@@ -499,6 +500,7 @@ def action_bar() -> rx.Component:
 ```python
 # state.py
 
+@rx.event
 def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
@@ -625,6 +627,7 @@ import os
 
 from openai import AsyncOpenAI
 
+@rx.event
 async def answer(self):
     # Our chatbot has some brains now!
     client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])

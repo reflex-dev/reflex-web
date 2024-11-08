@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.text_area
+  - rx.text_area
 
 TextArea: |
-    lambda **props: rx.text_area(**props)
+  lambda **props: rx.text_area(**props)
 ---
 
 ```python exec
@@ -32,7 +32,7 @@ def blur_example():
         ),
     )
 ```
- 
+
 ## Text Area in forms
 
 Here we show how to use a text area in a form. We use the `name` prop to identify the text area in the form data. The form data is then passed to the `submit_feedback` method to be processed.
@@ -42,9 +42,11 @@ class TextAreaFeedbackState(rx.State):
     feedback: str = ""
     submitted: bool = False
 
+    @rx.event
     def submit_feedback(self, form_data: dict):
         self.submitted = True
 
+    @rx.event
     def reset_form(self):
         self.feedback = ""
         self.attach_screenshot = True
@@ -78,4 +80,3 @@ def feedback_form():
         ),
     )
 ```
-  

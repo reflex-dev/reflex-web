@@ -13,6 +13,7 @@ from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL
 
 
 class FormState(rx.State):
+    @rx.event
     def submit(
         self,
         form_data: dict[str, Any],
@@ -126,6 +127,7 @@ form_code = """import reflex as rx
 
 class FormState(rx.State):
 
+    @rx.event
     def submit(self, form_data):
         return rx.toast(form_data)
 

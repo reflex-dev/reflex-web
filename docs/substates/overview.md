@@ -156,6 +156,7 @@ def set_salutation_popover():
 class GreeterState(rx.State):
     message: str = ""
 
+    @rx.event
     async def handle_submit(self, form_data: dict[str, Any]):
         settings = await self.get_state(SettingsState)
         self.message = f"{settings.salutation} {form_data['name']}"

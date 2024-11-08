@@ -1,9 +1,10 @@
 ---
 components:
-    - rx.recharts.XAxis
-    - rx.recharts.YAxis
-    - rx.recharts.ZAxis
+  - rx.recharts.XAxis
+  - rx.recharts.YAxis
+  - rx.recharts.ZAxis
 ---
+
 ```python exec
 import reflex as rx
 ```
@@ -177,9 +178,11 @@ class AxisState(rx.State):
 
     y_axis_offset: int
 
+    @rx.event
     def set_x_axis_offset(self, offset: str):
         self.x_axis_offset = int(offset)
-    
+
+    @rx.event
     def set_y_axis_offset(self, offset: str):
         self.y_axis_offset = int(offset)
 
@@ -282,4 +285,3 @@ def axis_labels():
         width="100%",
     )
 ```
-

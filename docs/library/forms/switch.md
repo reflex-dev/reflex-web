@@ -1,10 +1,9 @@
 ---
 components:
-     - rx.switch
+  - rx.switch
 
 Switch: |
-    lambda **props: rx.switch(**props)
-
+  lambda **props: rx.switch(**props)
 ---
 
 ```python exec
@@ -25,6 +24,7 @@ Here is a basic example of a switch. We use the `on_change` trigger to toggle th
 class SwitchState(rx.State):
     value: bool = False
 
+    @rx.event
     def set_end(self, value: bool):
         self.value = value
 
@@ -41,12 +41,12 @@ The `checked` prop is used to control the state of the switch. The event `on_cha
 
 The `disabled` prop when `True`, prevents the user from interacting with the switch. In our example below, even though the second switch is `disabled` we are still able to change whether it is checked or not using the `checked` prop.
 
-
 ```python demo exec
 class ControlSwitchState(rx.State):
 
     checked = True
 
+    @rx.event
     def change_checked(self, checked: bool):
         """Change the switch checked var."""
         self.checked = checked
@@ -76,6 +76,7 @@ The `value` prop is only used for form submission, use the `checked` prop to con
 class FormSwitchState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -103,5 +104,5 @@ def switch_form_example():
                 width="100%",
             ),
         width="50%",
-    )   
+    )
 ```

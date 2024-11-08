@@ -1,63 +1,62 @@
 ---
 components:
-    - rx.alert_dialog.root
-    - rx.alert_dialog.content
-    - rx.alert_dialog.trigger
-    - rx.alert_dialog.title
-    - rx.alert_dialog.description
-    - rx.alert_dialog.action
-    - rx.alert_dialog.cancel
+  - rx.alert_dialog.root
+  - rx.alert_dialog.content
+  - rx.alert_dialog.trigger
+  - rx.alert_dialog.title
+  - rx.alert_dialog.description
+  - rx.alert_dialog.action
+  - rx.alert_dialog.cancel
 
 only_low_level:
-    - True
+  - True
 
 AlertDialogRoot: |
-    lambda **props: rx.alert_dialog.root(
-        rx.alert_dialog.trigger(
-            rx.button("Revoke access"),
-        ),
-        rx.alert_dialog.content(
-            rx.alert_dialog.title("Revoke access"),
-            rx.alert_dialog.description(
-                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
-            ),
-            rx.flex(
-                rx.alert_dialog.cancel(
-                    rx.button("Cancel"),
-                ),
-                rx.alert_dialog.action(
-                    rx.button("Revoke access"),
-                ),
-                spacing="3",
-            ),
-        ),
-        **props
-    )
+  lambda **props: rx.alert_dialog.root(
+      rx.alert_dialog.trigger(
+          rx.button("Revoke access"),
+      ),
+      rx.alert_dialog.content(
+          rx.alert_dialog.title("Revoke access"),
+          rx.alert_dialog.description(
+              "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+          ),
+          rx.flex(
+              rx.alert_dialog.cancel(
+                  rx.button("Cancel"),
+              ),
+              rx.alert_dialog.action(
+                  rx.button("Revoke access"),
+              ),
+              spacing="3",
+          ),
+      ),
+      **props
+  )
 
 AlertDialogContent: |
-    lambda **props: rx.alert_dialog.root(
-        rx.alert_dialog.trigger(
-            rx.button("Revoke access"),
-        ),
-        rx.alert_dialog.content(
-            rx.alert_dialog.title("Revoke access"),
-            rx.alert_dialog.description(
-                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
-            ),
-            rx.flex(
-                rx.alert_dialog.cancel(
-                    rx.button("Cancel"),
-                ),
-                rx.alert_dialog.action(
-                    rx.button("Revoke access"),
-                ),
-                spacing="3",
-            ),
-            **props
-        ),
-    )
+  lambda **props: rx.alert_dialog.root(
+      rx.alert_dialog.trigger(
+          rx.button("Revoke access"),
+      ),
+      rx.alert_dialog.content(
+          rx.alert_dialog.title("Revoke access"),
+          rx.alert_dialog.description(
+              "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+          ),
+          rx.flex(
+              rx.alert_dialog.cancel(
+                  rx.button("Cancel"),
+              ),
+              rx.alert_dialog.action(
+                  rx.button("Revoke access"),
+              ),
+              spacing="3",
+          ),
+          **props
+      ),
+  )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -198,6 +197,7 @@ class AlertDialogState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1
@@ -237,7 +237,6 @@ def alert_dialog():
     )
 ```
 
-
 ## Controlling Alert Dialog with State
 
 This example shows how to control whether the dialog is open or not with state. This is an easy way to show the dialog without needing to use the `rx.alert_dialog.trigger`.
@@ -246,11 +245,11 @@ This example shows how to control whether the dialog is open or not with state. 
 
 We toggle this `open` prop with a button oustide of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
 
-
 ```python demo exec
 class AlertDialogState2(rx.State):
     opened: bool = False
 
+    @rx.event
     def dialog_open(self):
         self.opened = ~self.opened
 
@@ -304,6 +303,7 @@ class State(rx.State):
    
     current_user: User1 = User1()
 
+    @rx.event
     def add_user_to_db(self, form_data: dict):
         self.current_user = form_data
         ### Uncomment the code below to add your data to a database ###

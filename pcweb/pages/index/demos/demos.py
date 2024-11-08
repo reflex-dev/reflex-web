@@ -9,9 +9,9 @@ from pcweb.components.icons.icons import get_icon
 
 
 class DemoState(rx.State):
-
     demo = "Forms"
 
+    @rx.event
     def set_demo(self, demo):
         self.demo = demo
 
@@ -25,6 +25,7 @@ def tab(name: str, icon: str) -> rx.Component:
         + rx.cond(is_selected, " bg-slate-1 lg:shadow-large", ""),
         on_click=DemoState.set_demo(name),
     )
+
 
 def code_block(code: str) -> rx.Component:
     return rx._x.code_block(

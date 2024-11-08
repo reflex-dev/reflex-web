@@ -92,7 +92,7 @@ Rewriting the example above shows how background tasks work in practice:
 class State(rx.State):
     posts: List[str] = []
     
-    @rx.background
+    @rx.event(background=True)
     async def get_posts(self):
         with httpx.AsyncClient() as client:
             for pid in range(10):
@@ -110,6 +110,11 @@ For a more complete example with comparisons of the two styles, see the
 `random-number-range` app in the
 [reflex-examples](https://github.com/reflex-dev/reflex-examples/blob/main/random-number-range/random_number_range/random_number_range.py)
 repository.
+
+```md alert warning
+# `@rx.event(background=True)` used to be called `@rx.background`.
+In Reflex version 0.6.5 and later, the `@rx.background` decorator has been renamed to `@rx.event(background=True)`.
+```
 
 ## Parallelizing Work
 

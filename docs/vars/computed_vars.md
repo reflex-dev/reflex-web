@@ -53,6 +53,7 @@ class CachedVarState(rx.State):
         # This is updated anytime the state is updated.
         return time.strftime("%H:%M:%S")
 
+    @rx.event
     def increment_a(self):
         self.counter_a += 1
 
@@ -61,6 +62,7 @@ class CachedVarState(rx.State):
         # This is updated only when `counter_a` changes.
         return f"{self.counter_a} at {time.strftime('%H:%M:%S')}"
 
+    @rx.event
     def increment_b(self):
         self.counter_b += 1
 

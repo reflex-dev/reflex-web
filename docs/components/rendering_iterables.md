@@ -171,7 +171,10 @@ We can also use `foreach` with the `cond` component.
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`. We use the `foreach` to iterate over all of the items in the `to_do_list` using the `render_item` function.
 
 ```python demo exec
-class ToDoListItem(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class ToDoListItem:
     item_name: str
     is_packed: bool
 

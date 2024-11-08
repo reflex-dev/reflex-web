@@ -1,20 +1,19 @@
 ---
 components:
-    - rx.input
-    - rx.input.slot
-
+  - rx.input
+  - rx.input.slot
 
 Input: |
-    lambda **props: rx.input(placeholder="Search the docs", **props)
+  lambda **props: rx.input(placeholder="Search the docs", **props)
 
 TextFieldSlot: |
-    lambda **props: rx.input(
-        rx.input.slot(
-            rx.icon(tag="search", height="16", width="16"),
-            **props,
-        ),
-        placeholder="Search the docs",
-    )
+  lambda **props: rx.input(
+      rx.input.slot(
+          rx.icon(tag="search", height="16", width="16"),
+          **props,
+      ),
+      placeholder="Search the docs",
+  )
 ---
 
 ```python exec
@@ -25,7 +24,6 @@ from pcweb.pages.docs import library
 # Input
 
 The `input` component is an input field that users can type into.
-
 
 ```md video https://youtube.com/embed/ITOZkzjtjUA?start=1517&end=1869
 # Video: Input
@@ -44,7 +42,7 @@ def blur_example():
     return rx.vstack(
         rx.heading(TextfieldBlur.text),
         rx.input(
-            placeholder="Search here...", 
+            placeholder="Search here...",
             on_blur=TextfieldBlur.set_text,
         ),
     )
@@ -61,7 +59,7 @@ def controlled_example():
     return rx.vstack(
         rx.heading(TextfieldControlled.text),
         rx.input(
-            placeholder="Search here...", 
+            placeholder="Search here...",
             value=TextfieldControlled.text,
             on_change=TextfieldControlled.set_text,
         ),
@@ -82,6 +80,7 @@ The `type` is set here to `password`. The element is presented as a one-line pla
 class FormInputState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -118,7 +117,6 @@ def form_input1():
 ```
 
 To learn more about how to use forms in the [Form]({library.forms.form.path}) docs.
-
 
 ### Setting a value without using a State var
 

@@ -1,12 +1,10 @@
 ---
 components:
-    - rx.slider
+  - rx.slider
 
 Slider: |
-    lambda **props: rx.center(rx.slider(default_value=40, height="100%", **props), height="4em", width="100%")
-
+  lambda **props: rx.center(rx.slider(default_value=40, height="100%", **props), height="4em", width="100%")
 ---
-
 
 ```python exec
 import reflex as rx
@@ -15,7 +13,7 @@ from pcweb.templates.docpage import style_grid
 
 # Slider
 
-Provides user selection from a range of values. The 
+Provides user selection from a range of values. The
 
 ## Basic Example
 
@@ -25,6 +23,7 @@ The slider can be controlled by a single value or a range of values. Slider can 
 class SliderState(rx.State):
     value: int = 50
 
+    @rx.event
     def set_end(self, value: list[int]):
         self.value = value[0]
 
@@ -45,6 +44,7 @@ class RangeSliderState(rx.State):
     value_start: int = 25
     value_end: int = 75
 
+    @rx.event
     def set_end(self, value: list[int]):
         self.value_start = value[0]
         self.value_end = value[1]
@@ -68,7 +68,7 @@ def range_slider_intro():
 
 ## Live Updating Slider
 
-You can use the `on_change` prop to update the slider value as you interact with it. The `on_change` prop takes a function that will be called with the new value of the slider. 
+You can use the `on_change` prop to update the slider value as you interact with it. The `on_change` prop takes a function that will be called with the new value of the slider.
 
 Here we use the `throttle` method to limit the rate at which the function is called, which is useful to prevent excessive updates. In this example, the slider value is updated every 100ms.
 
@@ -76,6 +76,7 @@ Here we use the `throttle` method to limit the rate at which the function is cal
 class LiveSliderState(rx.State):
     value: int = 50
 
+    @rx.event
     def set_end(self, value: list[int]):
         self.value = value[0]
 
@@ -100,6 +101,7 @@ Here we show how to use a slider in a form. We use the `name` prop to identify t
 class FormSliderState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -127,5 +129,5 @@ def slider_form_example():
                 width="100%",
             ),
         width="50%",
-    )   
+    )
 ```

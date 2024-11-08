@@ -11,6 +11,7 @@ from pcweb.styles.fonts import base
 ```
 
 <!-- TODO how do we consistently rename page title? -->
+
 # Introduction
 
 **Reflex** is an open-source framework for quickly building beautiful, interactive web applications in **pure Python**.
@@ -19,24 +20,27 @@ from pcweb.styles.fonts import base
 
 ```md section
 ### Pure Python
+
 Use Python for everything. Don't worry about learning a new language.
 
 ### Easy to Learn
+
 Build and share your first app in minutes. No web development experience required.
 
 ### Full Flexibility
+
 Remain as flexible as traditional web frameworks. Reflex is easy to use, yet allows for advanced use cases.
 
 Build anything from small data science apps to large, multi-page websites. **This entire site was built and deployed with Reflex!**
 
 ### Batteries Included
+
 No need to reach for a bunch of different tools. Reflex handles the user interface, server-side logic, and deployment of your app.
 ```
 
 ## An example: Make it count
 
 Here, we go over a simple counter app that lets the user count up or down.
-
 
 ```python exec
 class CounterExampleState(rx.State):
@@ -104,7 +108,7 @@ def tabs():
             value="tab3",
             class_name="pt-4"
         ),
-        class_name="text-slate-12 font-normal", 
+        class_name="text-slate-12 font-normal",
         default_value="tab1",
         value=IntroTabsState.value,
         on_change=lambda x: IntroTabsState.change_value(
@@ -112,7 +116,6 @@ def tabs():
         ),
     )
 ```
-
 
 ```python demo box id=counter
 rx.hstack(
@@ -136,7 +139,6 @@ Here is the full code for this example:
 ```python eval
 tabs()
 ```
-
 
 ```python demo box
 rx.box(
@@ -211,8 +213,6 @@ app.add_page(index)""",
     class_name="w-full flex flex-col",
 )
 ```
-
-
 
 ## The Structure of a Reflex App
 
@@ -301,15 +301,15 @@ rx.button(
 Components interact with the state by binding events triggers to event handlers.
 For example, `on_click` is an event that is triggered when a user clicks a component.
 
-The first button in our app binds its `on_click` event to the `State.decrement` event handler.  Similarly the second button binds `on_click` to `State.increment`.
+The first button in our app binds its `on_click` event to the `State.decrement` event handler. Similarly the second button binds `on_click` to `State.increment`.
 
 In other words, the sequence goes like this:
 
-* User clicks "increment" on the UI.
-* `on_click` event is triggered.
-* Event handler `State.increment` is called.
-* `State.count` is incremented.
-* UI updates to reflect the new value of `State.count`.
+- User clicks "increment" on the UI.
+- `on_click` event is triggered.
+- Event handler `State.increment` is called.
+- `State.count` is incremented.
+- UI updates to reflect the new value of `State.count`.
 
 ### Add pages
 

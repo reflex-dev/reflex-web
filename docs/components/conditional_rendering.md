@@ -32,6 +32,7 @@ If `show` is `False` then the 3rd argument to the `cond` component is rendered, 
 class CondSimpleState(rx.State):
     show: bool = True
 
+    @rx.event
     def change(self):
         self.show = not (self.show)
 
@@ -55,6 +56,7 @@ You can use var operations with the `cond` component. To learn more generally ab
 class CondNegativeState(rx.State):
     show: bool = True
 
+    @rx.event
     def change(self):
         self.show = not (self.show)
 
@@ -90,6 +92,7 @@ import random
 class CondComplexState(rx.State):
     age: int = 19
 
+    @rx.event
     def change(self):
         self.age = random.randint(0, 100)
 
@@ -114,7 +117,10 @@ We can also reuse a `cond` component several times by defining it within a funct
 In this example we define the function `render_item`. This function takes in an `item`, uses the `cond` to check if the item `is_packed`. If it is packed it returns the `item_name` with a `✔` next to it, and if not then it just returns the `item_name`.
 
 ```python demo exec
-class ToDoListItem(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class ToDoListItem:
     item_name: str
     is_packed: bool
 
@@ -169,6 +175,7 @@ class NestedState(rx.State):
 
     num: int = 0
 
+    @rx.event
     def change(self):
         self.num = random.randint(-10, 10)
 
@@ -219,6 +226,7 @@ class CNS(rx.State):
     c: int = 2
 
 
+    @rx.event
     def change(self):
         self.a = random.randint(0, 10)
         self.b = random.randint(0, 10)
@@ -254,6 +262,8 @@ def cond_nested_example_2():
 class CondStyleState(rx.State):
     show: bool = False
     img_url: str = "/preview.png"
+
+    @rx.event
     def change(self):
         self.show = not (self.show)
 
@@ -271,6 +281,7 @@ def cond_style_example():
         ),
     )
 ```
+
 ## Multiple Conditional Statements
 
 The `rx.match` component in Reflex provides a powerful alternative to`rx.cond` for handling multiple conditional statements and structural pattern matching. This component allows you to handle multiple conditions and their associated components in a cleaner and more readable way compared to nested `rx.cond` structures.

@@ -52,7 +52,7 @@ handlers or frontend event triggers via the `rx.call_script` interface.
 
 ```python demo exec
 class SoundEffectState(rx.State):
-    @rx.background
+    @rx.event(background=True)
     async def delayed_play(self):
         await asyncio.sleep(1)
         return rx.call_script("playFromStart(button_sfx)")
@@ -105,6 +105,7 @@ class WindowState(rx.State):
             "y": scroll_position[1],
         }
 
+    @rx.event
     def get_client_values(self):
         return [
             rx.call_script(
@@ -139,8 +140,8 @@ If the callback is None, then no event is triggered.
 
 To use React Hooks directly in a Reflex app, you must subclass `rx.Component`,
 typically `rx.Fragment` is used when the hook functionality has no visual
-element. The hook code is returned by the `_get_hooks` method, which is expected
-to return a `str` containing Javascript code which will be inserted into the
+element. The hook code is returned by the `add_hooks` method, which is expected
+to return a `list[str]` containing Javascript code which will be inserted into the
 page component (i.e the render function itself).
 
 For supporting code that must be defined outside of the component render
@@ -152,6 +153,8 @@ The following example uses `useEffect` to register global hotkeys on the
 ```python demo exec
 import dataclasses
 
+from reflex.utils import imports
+
 @dataclasses.dataclass
 class KeyEvent:
     """Interface of Javascript KeyboardEvent"""
@@ -161,56 +164,54 @@ def key_event_spec(ev: rx.Var[KeyEvent]) -> tuple[rx.Var[str]]:
     # Takes the event object and returns the key pressed to send to the state
     return (ev.key,)
 
-class GlobalKeyState(rx.State):
+class GlobalHotkeyState(rx.State):
     key: str = ""
 
+    @rx.event
     def update_key(self, key):
         self.key = key
 
 
-class GlobalKeyWatcher(rx.Fragment):
-    # List of keys to trigger on
-    keys: rx.Var[list[str]] = []
+class GlobalHotkeyWatcher(rx.Fragment):
+    """A component that listens for key events globally."""
 
     # The event handler that will be called
     on_key_down: rx.EventHandler[key_event_spec]
 
-    def _get_imports(self) -> rx.utils.imports.ImportDict:
-        return rx.utils.imports.merge_imports(
-            super()._get_imports(),
-            {
-                "react": {rx.utils.imports.ImportVar(tag="useEffect")}
-            },
-        )
+    def add_imports(self) -> imports.ImportDict:
+        """Add the imports for the component."""
+        return {
+            "react": [imports.ImportVar(tag="useEffect")],
+        }
 
-    def _get_hooks(self) -> str | None:
-        return """
+    def add_hooks(self) -> list[str | rx.Var]:
+        """Add the hooks for the component."""
+        return [
+            """
             useEffect(() => {
-                const handle_key = (_ev) => {
-                    if (%s.includes(_ev.key))
-                        %s
-                }
+                const handle_key = %s;
                 document.addEventListener("keydown", handle_key, false);
                 return () => {
                     document.removeEventListener("keydown", handle_key, false);
                 }
             })
-            """ % (
-                self.keys,
-                str(rx.Var.create(self.event_triggers["on_key_down"])) + "(_ev)"
-            )
-
-    def render(self):
-        return ""  # No visual element, hooks only
-
+            """
+            % str(rx.Var.create(self.event_triggers["on_key_down"]))
+        ]
 
 def global_key_demo():
     return rx.vstack(
-        GlobalKeyWatcher.create(
+        GlobalHotkeyWatcher.create(
             keys=["a", "s", "d", "w"],
-            on_key_down=GlobalKeyState.update_key,
+            on_key_down=lambda key: rx.cond(
+                rx.Var.create(["a", "s", "d", "w"]).contains(key),
+                GlobalHotkeyState.update_key(key),
+                rx.console_log(key)
+            )
         ),
         rx.text("Press a, s, d or w to trigger an event"),
-        rx.heading(f"Last watched key pressed: {GlobalKeyState.key}"),
+        rx.heading(f"Last watched key pressed: {GlobalHotkeyState.key}"),
     )
 ```
+
+This snippet can also be imported through pip: [reflex-global-hotkey](https://pypi.org/project/reflex-global-hotkey/).

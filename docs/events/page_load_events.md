@@ -11,6 +11,7 @@ In this example, we fetch data when the page loads:
 class State(rx.State):
     data: Dict[str, Any]
 
+    @rx.event
     def get_data(self):
         # Fetch data
         self.data = fetch_data()
@@ -26,6 +27,7 @@ Another example would be checking if the user is authenticated when the page loa
 class State(rx.State):
     authenticated: bool
 
+    @rx.event
     def check_auth(self):
         # Check if user is authenticated
         self.authenticated = check_auth()

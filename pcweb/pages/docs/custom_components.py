@@ -18,6 +18,7 @@ class CustomComponentGalleryState(rx.State):
     selected_filter: str = ""
     original_components_list: list[dict[str, str]] = []
 
+    @rx.event
     def fetch_components_list(self):
         try:
             response = httpx.get(f"{config.cp_backend_url}/custom-components/gallery")
@@ -40,6 +41,7 @@ class CustomComponentGalleryState(rx.State):
         self.components_list = component_list
         self.original_components_list = component_list
 
+    @rx.event
     def set_selected_filter(self, filter):
         if self.selected_filter == filter:
             self.selected_filter = ""

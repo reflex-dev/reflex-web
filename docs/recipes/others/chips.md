@@ -99,7 +99,6 @@ def item_selector() -> rx.Component:
     )
 ```
 
-
 ## Multiple selection
 
 This example demonstrates selecting multiple skills from a list. It includes buttons to add all skills, clear selected skills, and select a random number of skills.
@@ -132,18 +131,23 @@ skills = [
 class BasicChipsState(rx.State):
     selected_items: list[str] = skills[:3]
 
+    @rx.event
     def add_selected(self, item: str):
         self.selected_items.append(item)
 
+    @rx.event
     def remove_selected(self, item: str):
         self.selected_items.remove(item)
 
+    @rx.event
     def add_all_selected(self):
         self.selected_items = list(skills)
 
+    @rx.event
     def clear_selected(self):
         self.selected_items.clear()
 
+    @rx.event
     def random_selected(self):
         self.selected_items = random.sample(skills, k=random.randint(1, len(skills)))
 

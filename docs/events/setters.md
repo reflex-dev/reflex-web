@@ -14,6 +14,7 @@ options: list[str] = ["1", "2", "3", "4"]
 class SetterState1(rx.State):
     selected: str = "1"
 
+    @rx.event
     def change(self, value):
         self.selected = value
 
