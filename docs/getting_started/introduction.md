@@ -1,7 +1,6 @@
 ```python exec
 import reflex as rx
 from pcweb import constants, styles
-from pcweb.pages.docs import tutorial
 from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
@@ -331,5 +330,5 @@ By continuing with our documentation, you will learn how to building awesome app
 
 For a glimpse of the possibilities, check out these resources:
 
-* For a more real-world example, check out the [tutorial]({tutorial.intro.path}).
+* For a more real-world example, check out either the [dashboard tutorial]({getting_started.dashboard_tutorial.path}) or the [chatapp tutorial]({getting_started.chatapp_tutorial.path}).
 * We have bots that can answer questions and generate Reflex code for you. Check them out in #ask-ai in our [Discord]({constants.DISCORD_URL})!

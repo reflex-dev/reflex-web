@@ -63,7 +63,7 @@ The hosting service does not currently handle database or file upload operations
 
 ## See it in Action
 
-Below is a video of deploying the [AI chat app]({docs.tutorial.intro.path}) to our hosting service.
+Below is a video of deploying the [AI chat app]({docs.getting_started.chatapp_tutorial.path}) to our hosting service.
 
 ```python eval
 rx.box(

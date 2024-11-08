@@ -4,7 +4,7 @@ from .item import create_item
 def get_sidebar_items_learn():
     from pcweb.pages.docs import (
         getting_started,
-        tutorial,
+        advanced_onboarding,
     )
 
     items = [
@@ -18,17 +18,12 @@ def get_sidebar_items_learn():
                 getting_started.chatapp_tutorial,
                 getting_started.project_structure,
                 getting_started.configuration,
-                getting_started.how_reflex_works,
             ],
         ),
         create_item(
-            "Tutorial",
+            "Advanced Onboarding",
             children=[
-                tutorial.intro,
-                tutorial.setup,
-                tutorial.frontend,
-                tutorial.adding_state,
-                tutorial.final_app,
+                advanced_onboarding.how_reflex_works,
             ],
         ),
     ]
