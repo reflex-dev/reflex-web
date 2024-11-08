@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.plotly
+  - rx.plotly
 ---
 
 # Plotly
@@ -12,26 +12,30 @@ import plotly.express as px
 import plotly.graph_objects as go
 ```
 
-Plotly is a graphing library that can be used to create interactive graphs. Use the rx.plotly component to wrap Plotly as a component for use in your web page. Checkout [Plotly](https://plotly.com/graphing-libraries/) for more information. 
+Plotly is a graphing library that can be used to create interactive graphs. Use the rx.plotly component to wrap Plotly as a component for use in your web page. Checkout [Plotly](https://plotly.com/graphing-libraries/) for more information.
 
 ```md alert info
 # When integrating Plotly graphs into your UI code, note that the method for displaying the graph differs from a regular Python script. Instead of using `fig.show()`, use `rx.plotly(data=fig)` within your UI code to ensure the graph is properly rendered and displayed within the user interface
 ```
+
 ## Basic Example
+
 Let's create a line graph of life expectancy in Canada.
 
 ```python demo exec
 import plotly.express as px
 
 df = px.data.gapminder().query("country=='Canada'")
-fig = px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')  
+fig = px.line(df, x="year", y="lifeExp", title='Life expectancy in Canada')
 
 def line_chart():
     return rx.center(
         rx.plotly(data=fig),
     )
 ```
+
 ## 3D graphing example
+
 Let's create a 3D surface plot of Mount Bruno. This is a slightly more complicated example, but it wraps in Reflex using the same method. In fact, you can wrap any figure using the same approach.
 
 ```python demo exec
@@ -57,7 +61,7 @@ def mountain_surface():
 
 ## Plot as State Var
 
-If the figure is set as a state var, it can be updated during run time. 
+If the figure is set as a state var, it can be updated during run time.
 
 ```python demo exec
 import plotly.express as px
@@ -70,6 +74,7 @@ class PlotlyState(rx.State):
         title="Life expectancy in Canada",
     )
 
+    @rx.event
     def set_selected_country(self, country):
         self.df = px.data.gapminder().query(f"country=='{country}'")
         self.figure = px.line(
@@ -92,10 +97,11 @@ def line_chart_with_state():
 ```
 
 ## Adding Styles and Layouts
-Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props. 
+
+Use `update_layout()` method to update the layout of your chart. Checkout [Plotly Layouts](https://plotly.com/python/reference/layout/) for all layouts props.
 
 ```md alert info
-Note that the width and height props are not recommended to ensure the plot remains size responsive to its container. The size of plot will be determined by it's outer container. 
+Note that the width and height props are not recommended to ensure the plot remains size responsive to its container. The size of plot will be determined by it's outer container.
 ```
 
 ```python demo exec
@@ -122,4 +128,3 @@ def add_styles():
         height="100%",
     )
 ```
-

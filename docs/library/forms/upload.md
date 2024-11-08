@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.upload
+  - rx.upload
 
 Upload: |
-    lambda **props: rx.center(rx.upload(id="my_upload", **props), height="4em", width="100%")
+  lambda **props: rx.center(rx.upload(id="my_upload", **props), height="4em", width="100%")
 ---
 
 ```python exec
@@ -24,7 +24,7 @@ rx.upload(
 ```
 
 Selecting a file will add it to the browser's file list, which can be rendered
-on the frontend using the `rx.selected_files(id)` special Var.  To clear the
+on the frontend using the `rx.selected_files(id)` special Var. To clear the
 selected files, you can use another special Var `rx.clear_selected_files(id)` as
 an event handler.
 
@@ -44,6 +44,7 @@ class State(rx.State):
     # The images to show.
     img: list[str]
 
+    @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
         """Handle the upload of file(s).
 
@@ -199,16 +200,19 @@ class UploadExample(rx.State):
     progress: int = 0
     total_bytes: int = 0
 
+    @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
         for file in files:
             self.total_bytes += len(await file.read())
 
+    @rx.event
     def handle_upload_progress(self, progress: dict):
         self.uploading = True
         self.progress = round(progress["progress"] * 100)
         if self.progress >= 100:
             self.uploading = False
 
+    @rx.event
     def cancel_upload(self):
         self.uploading = False
         return rx.cancel_upload("upload3")

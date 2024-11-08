@@ -13,6 +13,7 @@ Here is a simple example:
 class EventArgStateSlider(rx.State):
     value: int = 50
 
+    @rx.event
     def set_end(self, value: list[int]):
         self.value = value[0]
 
@@ -38,6 +39,7 @@ Here is a form example:
 class EventArgState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -77,6 +79,7 @@ Try typing a color in an input below and clicking away from it to change the col
 class ArgState(rx.State):
     colors: list[str] = ["rgba(245,168,152)", "MediumSeaGreen", "#DEADE3"]
 
+    @rx.event
     def change_color(self, color: str, index: int):
         self.colors[index] = color
 

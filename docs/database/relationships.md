@@ -66,6 +66,7 @@ form.
 class FlagPostForm(rx.State):
     user: User
 
+    @rx.event
     def flag_post(self, form_data: dict[str, Any]):
         with rx.session() as session:
             post = session.get(Post, int(form_data.pop("post_id")))
@@ -116,6 +117,7 @@ import sqlalchemy
 class PostState(rx.State):
     posts: List[Post]
 
+    @rx.event
     def load_posts(self):
         with rx.session() as session:
             self.posts = session.exec(

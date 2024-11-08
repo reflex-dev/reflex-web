@@ -70,9 +70,11 @@ class IndexState(rx.State):
         except httpx.HTTPError as e:
             print(f"An error occurred: {e}")
 
+    @rx.event
     def signup_for_another_user(self):
         self.signed_up = False
 
+    @rx.event
     def signup(
         self,
         form_data: dict[str, Any],

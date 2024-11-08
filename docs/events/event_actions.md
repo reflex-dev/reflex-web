@@ -34,6 +34,7 @@ rx.link("This Link Does Nothing", href="https://reflex.dev/", on_click=rx.preven
 class LinkPreventDefaultState(rx.State):
     status: bool = False
 
+    @rx.event
     def toggle_status(self):
         self.status = not self.status
 
@@ -64,9 +65,11 @@ attached to the outer vstack.
 class StopPropagationState(rx.State):
     where_clicked: list[str] = []
 
+    @rx.event
     def handle_click(self, where: str):
         self.where_clicked.append(where)
 
+    @rx.event
     def handle_reset(self):
         self.where_clicked = []
 
@@ -119,6 +122,7 @@ In the following example, the `on_scroll` event is throttled to only fire every 
 class ThrottleState(rx.State):
     last_scroll: datetime.datetime | None
 
+    @rx.event
     def handle_scroll(self):
         self.last_scroll = datetime.datetime.now(datetime.timezone.utc)
 
@@ -175,6 +179,7 @@ second.
 class DebounceState(rx.State):
     settled_value: int = 50
 
+    @rx.event
     def update_value(self, value: list[int]):
         self.settled_value = value[0]
 

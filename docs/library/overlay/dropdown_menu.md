@@ -1,129 +1,127 @@
 ---
 components:
-    - rx.dropdown_menu.root
-    - rx.dropdown_menu.content
-    - rx.dropdown_menu.trigger
-    - rx.dropdown_menu.item
-    - rx.dropdown_menu.separator
-    - rx.dropdown_menu.sub_content
+  - rx.dropdown_menu.root
+  - rx.dropdown_menu.content
+  - rx.dropdown_menu.trigger
+  - rx.dropdown_menu.item
+  - rx.dropdown_menu.separator
+  - rx.dropdown_menu.sub_content
 
 only_low_level:
-    - True
+  - True
 
 DropdownMenuRoot: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E"),
-            rx.menu.item("Share"),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate"),
-                    rx.menu.item("Duplicate"),
-                    rx.menu.item("Archive"),
-                ),
-            ),
-        ),
-        **props
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E"),
+          rx.menu.item("Share"),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More"),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate"),
+                  rx.menu.item("Duplicate"),
+                  rx.menu.item("Archive"),
+              ),
+          ),
+      ),
+      **props
+  )
 
 DropdownMenuContent: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E"),
-            rx.menu.item("Share"),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate"),
-                    rx.menu.item("Duplicate"),
-                    rx.menu.item("Archive"),
-                ),
-            ),
-            **props,
-        ),
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E"),
+          rx.menu.item("Share"),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More"),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate"),
+                  rx.menu.item("Duplicate"),
+                  rx.menu.item("Archive"),
+              ),
+          ),
+          **props,
+      ),
+  )
 
 DropdownMenuItem: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E", **props),
-            rx.menu.item("Share", **props),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate", **props),
-                    rx.menu.item("Duplicate", **props),
-                    rx.menu.item("Archive", **props),
-                ),
-            ),
-        ),
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E", **props),
+          rx.menu.item("Share", **props),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red", **props),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More"),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate", **props),
+                  rx.menu.item("Duplicate", **props),
+                  rx.menu.item("Archive", **props),
+              ),
+          ),
+      ),
+  )
 
 DropdownMenuSub: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E"),
-            rx.menu.item("Share"),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate"),
-                    rx.menu.item("Duplicate"),
-                    rx.menu.item("Archive"),
-                ),
-                **props,
-            ),
-        ),
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E"),
+          rx.menu.item("Share"),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More"),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate"),
+                  rx.menu.item("Duplicate"),
+                  rx.menu.item("Archive"),
+              ),
+              **props,
+          ),
+      ),
+  )
 
 DropdownMenuSubTrigger: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E"),
-            rx.menu.item("Share"),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More", **props),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate"),
-                    rx.menu.item("Duplicate"),
-                    rx.menu.item("Archive"),
-                ),
-            ),
-        ),
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E"),
+          rx.menu.item("Share"),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More", **props),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate"),
+                  rx.menu.item("Duplicate"),
+                  rx.menu.item("Archive"),
+              ),
+          ),
+      ),
+  )
 
 DropdownMenuSubContent: |
-    lambda **props: rx.menu.root(
-        rx.menu.trigger(rx.button("drop down menu")),
-        rx.menu.content(
-            rx.menu.item("Edit", shortcut="⌘ E"),
-            rx.menu.item("Share"),
-            rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
-            rx.menu.sub(
-                rx.menu.sub_trigger("More"),
-                rx.menu.sub_content(
-                    rx.menu.item("Eradicate"),
-                    rx.menu.item("Duplicate"),
-                    rx.menu.item("Archive"),
-                    **props,
-                ),
-            ),
-        ),
-    )
+  lambda **props: rx.menu.root(
+      rx.menu.trigger(rx.button("drop down menu")),
+      rx.menu.content(
+          rx.menu.item("Edit", shortcut="⌘ E"),
+          rx.menu.item("Share"),
+          rx.menu.item("Delete", shortcut="⌘ ⌫", color="red"),
+          rx.menu.sub(
+              rx.menu.sub_trigger("More"),
+              rx.menu.sub_content(
+                  rx.menu.item("Eradicate"),
+                  rx.menu.item("Duplicate"),
+                  rx.menu.item("Archive"),
+                  **props,
+              ),
+          ),
+      ),
+  )
 ---
-
-
 
 ```python exec
 import reflex as rx
@@ -169,9 +167,6 @@ rx.menu.root(
 )
 ```
 
-
-
-
 ## Events when the Dropdown Menu opens or closes
 
 The `on_open_change` event, from the `menu.root`, is called when the `open` state of the dropdown menu changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
@@ -181,6 +176,7 @@ class DropdownMenuState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1
@@ -209,11 +205,9 @@ def dropdown_menu_example():
     )
 ```
 
-
-
 ## Opening a Dialog from Menu using State
 
-Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected. 
+Accessing an overlay component from within another overlay component is a common use case but does not always work exactly as expected.
 
 The code below will not work as expected as because the dialog is within the menu and the dialog will only be open when the menu is open, rendering the dialog unusable.
 
@@ -232,17 +226,17 @@ rx.menu.root(
 )
 ```
 
-
 In this example, we will show how to open a dialog box from a dropdown menu, where the menu will close and the dialog will open and be functional.
-
 
 ```python demo exec
 class DropdownMenuState2(rx.State):
     which_dialog_open: str = ""
 
+    @rx.event
     def delete(self):
         yield rx.toast("Deleted item")
 
+    @rx.event
     def save_settings(self):
         yield rx.toast("Saved settings")
 

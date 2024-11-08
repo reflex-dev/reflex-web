@@ -69,34 +69,29 @@ config = rx.Config(
 
 We will discuss configuration in more detail in the next section.
 
-
 ## App Module
+
 Reflex imports the main app module based on the `app_name` from the config, which **must define a module-level global named `app` as an instance of `rx.App`**.
 
-The main app module is responsible for importing all other modules that make up the app and defining `app = rx.App()`. 
+The main app module is responsible for importing all other modules that make up the app and defining `app = rx.App()`.
 
 **All other modules containing pages, state, and models MUST be imported by the main app module or package** for Reflex to include them in the compiled output.
 
-
-
 # Breaking the App into Smaller Pieces
 
-As applications scale, effective organization is crucial. This is achieved by breaking the application down into smaller, manageable modules and organizing them into logical packages that avoid circular dependencies. 
+As applications scale, effective organization is crucial. This is achieved by breaking the application down into smaller, manageable modules and organizing them into logical packages that avoid circular dependencies.
 
 In the following documentation there will be an app with an `app_name` of `example_big_app`. The main module would be `example_big_app/example_big_app.py`.
 
 In the [Putting it all together](#putting-it-all-together) section there is a visual of the project folder structure to help follow along with the examples below.
 
-
 ### Pages Package: `example_big_app/pages`
 
 All complex apps will have multiple pages, so it is recommended to create `example_big_app/pages` as a package.
 
-1. This package should contain one module per page in the app. 
-2. If a particular page depends on the state, the substate should be defined in the same module as the page. 
+1. This package should contain one module per page in the app.
+2. If a particular page depends on the state, the substate should be defined in the same module as the page.
 3. The page-returning function should be decorated with `rx.page()` to have it added as a route in the app.
-
-
 
 ```python
 import reflex as rx
@@ -105,6 +100,7 @@ from ..state import AuthState
 
 
 class LoginState(AuthState):
+    @rx.event
     def handle_submit(self, form_data):
         self.logged_in = authenticate(form_data["username"], form_data["password"])
 
@@ -134,16 +130,14 @@ def login():
     )
 ```
 
-
 ### Templating: `example_big_app/template.py`
 
 Most applications maintain a consistent layout and structure across pages. Defining this common structure in a separate module facilitates easy sharing and reuse when constructing individual pages.
 
-
 **Best Practices**
+
 1. Factor out common frontend UI elements into a function that returns a component.
 2. If a function accepts a function that returns a component, it can be used as a decorator as seen below.
-
 
 ```python
 from typing import Callable
@@ -167,8 +161,6 @@ def template(page: Callable[[], rx.Component]) -> rx.Component:
 
 The `@template` decorator should appear below the `@rx.page` decorator and above the page-returning function. See the [Posts Page](#a-post-page-example_big_apppagespostspy) code for an example.
 
-
-
 ## State Management
 
 Most pages will use State in some capacity. You should avoid adding vars to a
@@ -191,7 +183,6 @@ access them.
 
 A better strategy is to load the desired state on demand from only the event
 handler which needs access to the substate.
-
 
 ### A Settings Component: `example_big_app/components/settings.py`
 
@@ -228,6 +219,7 @@ class PostsState(rx.State):
     page: int
     posts: list[Post]
 
+    @rx.event
     async def on_load(self):
         settings = await self.get_state(SettingsState)
         if settings.auto_update:
@@ -235,16 +227,19 @@ class PostsState(rx.State):
         else:
             self.refresh_tick = 0
 
+    @rx.event
     async def tick(self, _):
         settings = await self.get_state(SettingsState)
         with rx.session() as session:
             q = Post.select().offset(self.page * settings.posts_per_page).limit(settings.posts_per_page)
             self.posts = q.all()
 
+    @rx.event
     def go_to_previous(self):
         if self.page > 0:
             self.page = self.page - 1
 
+    @rx.event
     def go_to_next(self):
         if self.posts:
             self.page = self.page + 1
@@ -265,13 +260,11 @@ def posts():
     )
 ```
 
-
 ### Common State: `example_big_app/state.py`
 
 _Common_ states and substates that are shared by multiple pages or components
 should be implemented in a separate module to avoid circular imports. This
 module should not import other modules in the app.
-
 
 ## Component Reusability
 
@@ -280,7 +273,6 @@ the component, then simply call it where that functionality is needed.
 
 Component functions typically should not take any State classes as arguments, but prefer
 to import the needed state and access the vars on the class directly.
-
 
 ### Memoize Functions for Improved Performance
 
@@ -320,8 +312,7 @@ This package contains reusable parts of the app, for example headers, footers,
 and menus. If a particular component requires state, the substate may be defined
 in the same module for locality. Any substate defined in a component module
 should only contain fields and event handlers pertaining to that individual
-component. 
-
+component.
 
 ### External Components
 
@@ -332,16 +323,13 @@ that can be installed and used in any Reflex app.
 When wrapping npm components or other self-contained bits of functionality, it can be helpful
 to move this complexity outside the app itself for easier maintenance and reuse in other apps.
 
-
-
 ## Database Models: `example_big_app/models.py`
 
 It is recommended to implement all database models in a single file to make it easier to define relationships and understand the entire schema.
 
-However, if the schema is very large, it might make sense to have a `models` package with individual models defined in their own modules. 
+However, if the schema is very large, it might make sense to have a `models` package with individual models defined in their own modules.
 
 At any rate, defining the models separately allows any page or component to import and use them without circular imports.
-
 
 ## Top-level Package: `example_big_app/__init__.py`
 
@@ -367,7 +355,6 @@ __all__ = [
 
 If any pages are not imported here, they will not be compiled as part of the app.
 
-
 ## example_big_app/example_big_app.py
 
 This is the main app module. Since everything else is defined in other modules, this file becomes very simple.
@@ -377,7 +364,6 @@ import reflex as rx
 
 app = rx.App()
 ```
-
 
 ## File Management
 
@@ -403,7 +389,6 @@ path returned by `rx.get_upload_dir()`, and create working links via
 
 Uploaded files are served from the backend (default port 8000) via
 `/_upload/<relative_path>`
-
 
 ## Putting it all together
 

@@ -5,12 +5,14 @@ from pcweb.pages.docs import getting_started
 class CustomersState(rx.State):
     tags: list[str] = []
 
+    @rx.event
     def add_tag(self, tag: str):
         if tag not in self.tags:
             self.tags.append(tag)
         else:
             self.tags.remove(tag)
 
+    @rx.event
     def clear_tags(self):
         self.tags = []
 
@@ -181,7 +183,8 @@ def customers_list() -> rx.Component:
         # Title
         rx.box(
             rx.el.h2(
-                "From startups to global enterprises,", class_name="font-x-large text-slate-12"
+                "From startups to global enterprises,",
+                class_name="font-x-large text-slate-12",
             ),
             rx.el.h3(
                 "ambitious builders choose Reflex",

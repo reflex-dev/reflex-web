@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.PieChart
-    - rx.recharts.Pie
+  - rx.recharts.PieChart
+  - rx.recharts.Pie
 ---
 
 # Pie Chart
@@ -9,7 +9,6 @@ components:
 ```python exec
 import reflex as rx
 ```
-
 
 A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.
 
@@ -64,11 +63,9 @@ def pie_simple():
         )
 ```
 
-
-We can also add two pies on one chart by using two `rx.recharts.pie` components. 
+We can also add two pies on one chart by using two `rx.recharts.pie` components.
 
 In this example `inner_radius` and `outer_radius` props are used. They define the doughnut shape of a pie chart: `inner_radius` creates the hollow center (use "0%" for a full pie), while `outer_radius` sets the overall size. The `padding_angle` prop, used on the green pie below, adds space between pie slices, enhancing visibility of individual segments.
-
 
 ```python demo graphing
 
@@ -149,7 +146,6 @@ def pie_double():
         )
 ```
 
-
 ## Dynamic Data
 
 Chart data tied to a State var causes the chart to automatically update when the
@@ -173,12 +169,14 @@ class PieChartState(rx.State):
     def resource_types(self) -> list[str]:
         return [r["type_"] for r in self.resources]
 
+    @rx.event
     def increment(self, type_: str):
         for resource in self.resources:
             if resource["type_"] == type_:
                 resource["count"] += 1
                 break
 
+    @rx.event
     def decrement(self, type_: str):
         for resource in self.resources:
             if resource["type_"] == type_ and resource["count"] > 0:

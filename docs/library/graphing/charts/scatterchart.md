@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.ScatterChart
-    - rx.recharts.Scatter
+  - rx.recharts.ScatterChart
+  - rx.recharts.Scatter
 ---
 
 # Scatter Chart
@@ -57,7 +57,7 @@ def scatter_simple():
     rx.recharts.scatter(
         data=data01,
         fill="#8884d8",),
-    rx.recharts.x_axis(data_key="x", type_="number"), 
+    rx.recharts.x_axis(data_key="x", type_="number"),
     rx.recharts.y_axis(data_key="y"),
     width = "100%",
     height = 300,
@@ -148,7 +148,7 @@ def scatter_double():
         name="B"
       ),
     rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
-    rx.recharts.x_axis(data_key="x", type_="number"), 
+    rx.recharts.x_axis(data_key="x", type_="number"),
     rx.recharts.y_axis(data_key="y"),
     rx.recharts.z_axis(data_key="z", range=[60, 400], name="score"),
     rx.recharts.legend(),
@@ -158,9 +158,7 @@ def scatter_double():
   )
 ```
 
-
 To learn how to use the `x_axis_id` and `y_axis_id` props, check out the Multiple Axis section of the area chart [documentation]({library.graphing.charts.areachart.path}).
-
 
 ## Dynamic Data
 
@@ -174,6 +172,7 @@ Enter a starting number in the box below the chart to recalculate.
 class ScatterChartState(rx.State):
     data: list[dict[str, int]] = []
 
+    @rx.event
     def compute_collatz(self, form_data: dict) -> int:
         n = int(form_data.get("start") or 1)
         yield rx.set_value("start", "")
@@ -265,7 +264,7 @@ def scatter_shape():
               legend_type=ScatterChartState2.legend_type,
               shape=ScatterChartState2.shape,
           ),
-          rx.recharts.x_axis(data_key="x", type_="number"), 
+          rx.recharts.x_axis(data_key="x", type_="number"),
           rx.recharts.y_axis(data_key="y"),
           rx.recharts.legend(),
           width = "100%",
@@ -287,3 +286,4 @@ def scatter_shape():
       ),
       width="100%",
   )
+```

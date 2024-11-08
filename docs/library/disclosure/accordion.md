@@ -1,29 +1,28 @@
 ---
 components:
-    - rx.accordion.root
-    - rx.accordion.item
+  - rx.accordion.root
+  - rx.accordion.item
 
 AccordionRoot: |
-    lambda **props: rx.accordion.root(
-        rx.accordion.item(header="First Item", content="The first accordion item's content"),
-        rx.accordion.item(
-            header="Second Item", content="The second accordion item's content",
-        ),
-        rx.accordion.item(header="Third item", content="The third accordion item's content"),
-        width="300px",
-        **props,
-    )
+  lambda **props: rx.accordion.root(
+      rx.accordion.item(header="First Item", content="The first accordion item's content"),
+      rx.accordion.item(
+          header="Second Item", content="The second accordion item's content",
+      ),
+      rx.accordion.item(header="Third item", content="The third accordion item's content"),
+      width="300px",
+      **props,
+  )
 
 AccordionItem: |
-    lambda **props: rx.accordion.root(
-        rx.accordion.item(header="First Item", content="The first accordion item's content", **props),
-        rx.accordion.item(
-            header="Second Item", content="The second accordion item's content", **props,
-        ),
-        rx.accordion.item(header="Third item", content="The third accordion item's content", **props),
-        width="300px",
-    )
-
+  lambda **props: rx.accordion.root(
+      rx.accordion.item(header="First Item", content="The first accordion item's content", **props),
+      rx.accordion.item(
+          header="Second Item", content="The second accordion item's content", **props,
+      ),
+      rx.accordion.item(header="Third item", content="The third accordion item's content", **props),
+      width="300px",
+  )
 ---
 
 ```python exec
@@ -101,6 +100,7 @@ rx.flex(
 ```
 
 ### Collapsible
+
 We use the `collapsible` prop to allow all items to close. If set to `False`, an opened item cannot be closed.
 
 ```python demo
@@ -267,6 +267,8 @@ class AccordionState(rx.State):
     """The app state."""
     value: str = "item_1"
     item_selected: str
+
+    @rx.event
     def change_value(self, value):
         self.value = value
         self.item_selected = f"{value} selected"

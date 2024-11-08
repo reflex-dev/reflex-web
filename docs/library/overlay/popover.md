@@ -1,48 +1,48 @@
 ---
 components:
-    - rx.popover.root
-    - rx.popover.content
-    - rx.popover.trigger
-    - rx.popover.close
+  - rx.popover.root
+  - rx.popover.content
+  - rx.popover.trigger
+  - rx.popover.close
 
 only_low_level:
-    - True
+  - True
 
 PopoverRoot: |
-    lambda **props: rx.popover.root(
-        rx.popover.trigger(
-            rx.button("Popover"),
-        ),
-        rx.popover.content(
-            rx.flex(
-                rx.text("Simple Example"),
-                rx.popover.close(
-                    rx.button("Close"),
-                ),
-                direction="column",
-                spacing="3",
-            ),
-        ),
-        **props
-    )
+  lambda **props: rx.popover.root(
+      rx.popover.trigger(
+          rx.button("Popover"),
+      ),
+      rx.popover.content(
+          rx.flex(
+              rx.text("Simple Example"),
+              rx.popover.close(
+                  rx.button("Close"),
+              ),
+              direction="column",
+              spacing="3",
+          ),
+      ),
+      **props
+  )
 
 PopoverContent: |
-    lambda **props: rx.popover.root(
-        rx.popover.trigger(
-            rx.button("Popover"),
-        ),
-        rx.popover.content(
-            rx.flex(
-                rx.text("Simple Example"),
-                rx.popover.close(
-                    rx.button("Close"),
-                ),
-                direction="column",
-                spacing="3",
-            ),
-            **props
-        ),
-    )
+  lambda **props: rx.popover.root(
+      rx.popover.trigger(
+          rx.button("Popover"),
+      ),
+      rx.popover.content(
+          rx.flex(
+              rx.text("Simple Example"),
+              rx.popover.close(
+                  rx.button("Close"),
+              ),
+              direction="column",
+              spacing="3",
+          ),
+          **props
+      ),
+  )
 ---
 
 ```python exec
@@ -145,12 +145,11 @@ rx.popover.root(
 )
 ```
 
-
 ## Popover with dynamic title
 
 Code like below will not work as expected and it is necessary to place the dynamic title (`Index2State.language`) inside of an `rx.text` component.
 
-```python 
+```python
 class Index2State(rx.State):
     language: str = "EN"
 
@@ -167,7 +166,7 @@ def index() -> rx.Component:
 
 This code will work:
 
-```python demo exec 
+```python demo exec
 class Index2State(rx.State):
     language: str = "EN"
 
@@ -184,7 +183,6 @@ def index() -> rx.Component:
     )
 ```
 
-
 ## Events when the Popover opens or closes
 
 The `on_open_change` event is called when the `open` state of the popover changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
@@ -194,6 +192,7 @@ class PopoverState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1

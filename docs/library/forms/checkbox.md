@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.checkbox
+  - rx.checkbox
 
 HighLevelCheckbox: |
-    lambda **props: rx.checkbox("Basic Checkbox", **props)
+  lambda **props: rx.checkbox("Basic Checkbox", **props)
 ---
 
 ```python exec
@@ -33,6 +33,7 @@ The `input` prop is used to set the `checkbox` as a controlled component.
 class FormCheckboxState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         print(form_data)

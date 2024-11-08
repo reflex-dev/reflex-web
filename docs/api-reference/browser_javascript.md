@@ -52,7 +52,7 @@ handlers or frontend event triggers via the `rx.call_script` interface.
 
 ```python demo exec
 class SoundEffectState(rx.State):
-    @rx.background
+    @rx.event(background=True)
     async def delayed_play(self):
         await asyncio.sleep(1)
         return rx.call_script("playFromStart(button_sfx)")
@@ -105,6 +105,7 @@ class WindowState(rx.State):
             "y": scroll_position[1],
         }
 
+    @rx.event
     def get_client_values(self):
         return [
             rx.call_script(
@@ -164,6 +165,7 @@ def key_event_spec(ev: rx.Var[KeyEvent]) -> tuple[rx.Var[str]]:
 class GlobalKeyState(rx.State):
     key: str = ""
 
+    @rx.event
     def update_key(self, key):
         self.key = key
 
