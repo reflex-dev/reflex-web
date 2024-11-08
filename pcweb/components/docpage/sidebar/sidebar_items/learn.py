@@ -14,16 +14,17 @@ def get_sidebar_items_learn():
                 getting_started.introduction,
                 getting_started.installation,
                 getting_started.basics,
+                getting_started.project_structure,
                 getting_started.dashboard_tutorial,
                 getting_started.chatapp_tutorial,
-                getting_started.project_structure,
-                getting_started.configuration,
             ],
         ),
         create_item(
             "Advanced Onboarding",
             children=[
                 advanced_onboarding.how_reflex_works,
+                advanced_onboarding.configuration,
+                advanced_onboarding.code_structure,
             ],
         ),
     ]
