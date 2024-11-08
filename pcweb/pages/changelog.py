@@ -3,7 +3,7 @@ from pcweb import constants
 from pcweb.templates.webpage import webpage
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
-
+from pcweb.flexdown import markdown_with_shiki
 
 def change(
     date: str, version: str, description: str, points: list[str], link: str
@@ -33,7 +33,7 @@ def change(
         rx.el.ul(
             *[
                 rx.el.li(
-                    rx.markdown(d, class_name="markdown-code"),
+                    markdown_with_shiki(d, class_name="markdown-code"),
                     class_name="font-small text-slate-11",
                 )
                 for d in points

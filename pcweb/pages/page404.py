@@ -1,5 +1,6 @@
 import reflex as rx
 from pcweb.templates.webpage import webpage
+from pcweb.flexdown import markdown_with_shiki
 
 contents = f"""
 # Page Not Found
@@ -12,7 +13,7 @@ The page at `{rx.State.router.page.raw_path}` doesn't exist.
 def page404():
     return rx.center(
         rx.vstack(
-            rx.markdown(contents),
+            markdown_with_shiki(contents),
             rx.spacer(),
         ),
         class_name="h-[80vh] w-full",

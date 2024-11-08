@@ -5,10 +5,11 @@ from pcweb.pages.docs import tutorial
 from pcweb.pages.docs import getting_started
 from pcweb.pages.docs import wrapping_react
 from pcweb.pages.docs.library import library
-from pcweb.pages.docs import  pages
+from pcweb.pages.docs import pages
 from pcweb.pages.docs import vars
 from pcweb.styles.colors import c_color
 from pcweb.styles.fonts import base
+from pcweb.flexdown import markdown_with_shiki
 ```
 
 <!-- TODO how do we consistently rename page title? -->
@@ -76,7 +77,7 @@ def tabs():
             ),
         ),
         rx.tabs.content(
-            rx.markdown(
+            markdown_shiki(
                 """The frontend is built declaratively using Reflex components. Components are compiled down to JS and served to the users browser, therefore:
 
 - Only use Reflex components, vars, and var operations when building your UI. Any other logic should be put in your `State` (backend).
@@ -88,7 +89,7 @@ def tabs():
             class_name="pt-4"
         ),
         rx.tabs.content(
-            rx.markdown(
+            markdown_shiki(
                 """Write your backend in the `State` class. Here you can define functions and variables that can be referenced in the frontend. This code runs directly on the server and is not compiled, so there are no special caveats. Here you can use any Python external library and call any method/function.
                 """,
             ),
@@ -96,7 +97,7 @@ def tabs():
             class_name="pt-4"
         ),
         rx.tabs.content(
-            rx.markdown(
+            markdown_shiki(
                 f"""Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing]({pages.routes.path}) section for more information.
 
 - Start with a single page and scale to 100s of pages.
