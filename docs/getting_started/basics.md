@@ -1,5 +1,5 @@
 ```python exec
-from pcweb.pages.docs import components
+from pcweb.pages.docs import components, getting_started
 from pcweb.pages.docs.library import library
 from pcweb.pages.docs.custom_components import custom_components
 from pcweb.pages import docs
@@ -400,4 +400,7 @@ app.add_page(index, route="/")
 
 ## Next Steps
 
-Keep exploring the docs to start building your own Reflex app.
+Now that you have a basic understanding of how Reflex works, the next step is to start coding your own apps. Try one of the following tutorials:
+
+- [Dashboard Tutorial]({getting_started.dashboard_tutorial.path})
+- [Chatapp Tutorial]({getting_started.chatapp_tutorial.path})

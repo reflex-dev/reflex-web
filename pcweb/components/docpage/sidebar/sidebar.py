@@ -97,7 +97,7 @@ def sidebar_leaf(
 def sidebar_icon(name):
     icon_map = {
         "Getting Started": "rocket",
-        "Tutorial": "life-buoy",
+        "Advanced Onboarding": "newspaper",
         "Components": "layers",
         "Pages": "sticky-note",
         "Styling": "palette",
