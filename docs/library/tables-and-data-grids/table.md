@@ -222,7 +222,10 @@ def foreach_table_example():
 It is also possible to define a `class` such as `Person` below and then iterate through this data structure, as a `list[Person]`.
 
 ```python
-class Person(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str
@@ -241,8 +244,10 @@ For filtering the `rx.input` component is used. The data is filtered based on th
 `current_people` is an [`rx.var(cache=True)`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
 
 ```python demo exec
+import dataclasses
 
-class Person(rx.Base):
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str

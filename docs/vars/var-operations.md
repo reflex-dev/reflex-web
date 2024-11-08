@@ -466,10 +466,13 @@ def projects_example() -> rx.Component:
     return rx.box(rx.foreach(ProjectsState.projects, project_item))
 ```
 
-The previous example had only a single type for each of the dictionaries `keys` and `values`. For complex multi-type data, you need to use a `Base var`, as shown below.
+The previous example had only a single type for each of the dictionaries `keys` and `values`. For complex multi-type data, you need to use a dataclass, as shown below.
 
 ```python demo exec
-class ActressType(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class ActressType:
     actress_name: str
     age: int
     pages: list[dict[str, str]]
