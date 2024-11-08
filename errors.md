@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.flexdown import markdown_with_shiki
 ```
 
 ```python exec
@@ -30,13 +31,8 @@ def code_block_error(code: str):
 
 @rx.memo
 def markdown_error(text: str):
-    return rx.markdown(
+    return markdown_with_shiki(
         text,
-        component_map={
-            "codeblock": lambda value, **props: rx._x.code_block(
-            value, **props
-        ),
-        },
         class_name="font-small text-slate-11 text-start markdown-code",
     )
 ```
