@@ -221,7 +221,9 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style=\{"_hover": \{"bg": rx.color("gray", 3)}},
+        style=\{"_hover": 
+            \{"bg": rx.color("gray", 3)}
+        },
         align="center",
     )
 
@@ -614,9 +616,9 @@ A better way to structure our data in Reflex is to use a class to represent a us
 
 In Reflex when we create these classes to showcase our data, the class must inherit from `rx.Base`.
 
-The `show_user` render function is also updated to access the data by named attributes, instead of indexing.
-
 `rx.Base` is also necessary if we want to have a state var that is an iterable with different types. For example if we wanted to have `age` as an `int` we would have to use `rx.base` as we could not do this with a state var defined as `list[list[str]]`. 
+
+The `show_user` render function is also updated to access the data by named attributes, instead of indexing.
 
 ```python exec
 class User(rx.Base):
@@ -713,7 +715,7 @@ Next let's add a form to the app so we can add new users to the table.
 
 ## Using a Form to Add Data 
 
-We build a form using `rx.form`, whick takes several components such as `rx.input` and `rx.select`, which represent the form fields that allow you to add information to submit with the form. Check out here for other form components !!!!!
+We build a form using `rx.form`, whick takes several components such as `rx.input` and `rx.select`, which represent the form fields that allow you to add information to submit with the form. Check out the [form]({docs.library.forms.form.path}) docs for more information on form components.
 
 The `rx.input` component takes in several props. The `placeholder` prop is the text that is displayed in the input field when it is empty. The `name` prop is the name of the input field, which gets passed through in the dictionary when the form is submitted. The `required` prop is a boolean that determines if the input field is required.
 
@@ -736,7 +738,7 @@ rx.form(
 )
 ```
 
-This form is all very compact as you can see from the example, so we need to add some styling to make it look better. We can do this by adding a `vstack` component around the form fields. The `vstack` component stacks the form fields vertically. Check out the [layout] docs !!!! for more information on how to layout your app.
+This form is all very compact as you can see from the example, so we need to add some styling to make it look better. We can do this by adding a `vstack` component around the form fields. The `vstack` component stacks the form fields vertically. Check out the [layout]({docs.styling.layout.path}) docs for more information on how to layout your app.
 
 
 ```python demo
@@ -1699,7 +1701,9 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style=\{"_hover": \{"bg": rx.color("gray", 3)}},
+        style=\{"_hover": 
+            \{"bg": rx.color("gray", 3)}
+        },
         align="center",
     )
 
