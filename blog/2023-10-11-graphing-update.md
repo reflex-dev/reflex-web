@@ -66,7 +66,7 @@ class StreamingState(rx.State):
     def stop_stream(self):
         self.stream = False
 
-    @rx.background
+    @rx.event(background=True)
     async def start_stream(self):
         async with self:
             self.stream = True
@@ -79,7 +79,12 @@ class StreamingState(rx.State):
             await asyncio.sleep(3)
 ```
 
-Here we define a `stop_stream` method that will stop the stream when called. We also define a `start_stream` method that will start the stream. We use the `@rx.background` decorator to run the method in the background. This allows us to update the data without blocking the UI.
+Here we define a `stop_stream` method that will stop the stream when called. We also define a `start_stream` method that will start the stream. We use the `@rx.event(background=True)` decorator to run the method in the background. This allows us to update the data without blocking the UI.
+
+```md alert warning
+# `@rx.event(background=True)` used to be called `@rx.background`.
+In Reflex version 0.6.5 and later, the `@rx.background` decorator has been renamed to `@rx.event(background=True)`.
+```
 
 Remember to use `async with self:` when updating the state in a background task.
 
@@ -103,7 +108,7 @@ class StreamingState(rx.State):
     def stop_stream(self):
         self.stream = False
 
-    @rx.background
+    @rx.event(background=True)
     async def start_stream(self):
         async with self:
             self.stream = True

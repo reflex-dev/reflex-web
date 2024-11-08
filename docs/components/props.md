@@ -57,6 +57,7 @@ class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"
 
+    @rx.event
     def flip_color(self):
         if self.color == "red":
             self.color = "blue"

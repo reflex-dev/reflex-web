@@ -4,7 +4,7 @@
 
 Represents a state Var that is stored as a cookie in the browser. Currently only supports string values.
 
- Parameters
+Parameters
 
 - `name` : The name of the cookie on the client side.
 - `path`: The cookie path. Use `/` to make the cookie accessible on all pages.
@@ -164,14 +164,17 @@ class ComplexLocalStorageState(rx.State):
     data: AppSettings = AppSettings()
     settings_open: bool = False
 
+    @rx.event
     def save_settings(self):
         self.data_raw = self.data.json()
         self.settings_open = False
 
+    @rx.event
     def open_settings(self):
         self.data = AppSettings.parse_raw(self.data_raw)
         self.settings_open = True
 
+    @rx.event
     def set_field(self, field, value):
         setattr(self.data, field, value)
 

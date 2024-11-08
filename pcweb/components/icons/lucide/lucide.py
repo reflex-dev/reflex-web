@@ -9,9 +9,11 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(current_dir, "data")
 
+
 def load_json(filename):
     with open(os.path.join(data_dir, filename), "r") as f:
         return json.load(f)
+
 
 icon_nodes = load_json("icon-nodes.json")
 icon_tags = load_json("icon-tags.json")
@@ -19,6 +21,7 @@ icon_categories = load_json("icon-categories.json")
 
 # Convert LUCIDE_ICON_LIST to use hyphens instead of underscores
 LUCIDE_ICON_LIST = [icon_name.replace("_", "-") for icon_name in LUCIDE_ICON_LIST]
+
 
 def create_lucide_icon(tag: str, attrs: dict, children: list = None) -> str:
     default_attributes = {
@@ -40,8 +43,10 @@ def create_lucide_icon(tag: str, attrs: dict, children: list = None) -> str:
     )
     return f"<{tag} {attr_string}>{children_string}</{tag}>"
 
+
 def lucide_icon(tag: str, **attrs):
     return rx.html(create_lucide_icon("svg", {"tag": tag, **attrs}))
+
 
 class IconState(rx.State):
     search_query: str = ""
@@ -49,6 +54,7 @@ class IconState(rx.State):
     filtered_icons: List[Dict[str, str]] = []
     expanded: bool = False
 
+    @rx.event
     def fetch_icons(self):
         default_svg_attrs = {
             "xmlns": "http://www.w3.org/2000/svg",
@@ -61,23 +67,27 @@ class IconState(rx.State):
             "stroke-linecap": "round",
             "stroke-linejoin": "round",
         }
-        
+
         self.icons = [
             {
                 "name": icon_name,
                 "content": create_lucide_icon(
                     "svg",
                     {**default_svg_attrs, "class": f"lucide lucide-{icon_name}"},
-                    [create_lucide_icon(node[0], node[1]) for node in icon_nodes[icon_name]],
+                    [
+                        create_lucide_icon(node[0], node[1])
+                        for node in icon_nodes[icon_name]
+                    ],
                 ),
                 "path": f"https://lucide.dev/api/icons/{icon_name}",
                 "component": f"<{icon_name.replace('-', '').title()} />",
-                "keywords": icon_tags.get(icon_name, []) + icon_categories.get(icon_name, []),
+                "keywords": icon_tags.get(icon_name, [])
+                + icon_categories.get(icon_name, []),
             }
             for icon_name in LUCIDE_ICON_LIST
             if icon_name in icon_categories
         ]
-        
+
         self.filtered_icons = self.icons
 
     def filter_icons(self):
@@ -86,7 +96,8 @@ class IconState(rx.State):
         else:
             query = self.search_query.lower().strip()
             self.filtered_icons = [
-                icon for icon in self.icons
+                icon
+                for icon in self.icons
                 if self._is_similar(query, icon["name"].lower())
                 or any(self._is_similar(query, kw.lower()) for kw in icon["keywords"])
             ]
@@ -96,29 +107,31 @@ class IconState(rx.State):
         # Exact match
         if query == target:
             return True
-        
+
         # Start of word match
         if target.startswith(query):
             return True
-        
+
         # Word boundary match
         if f" {query}" in f" {target} ":
             return True
-        
+
         # Acronym match
-        if query == ''.join(word[0] for word in target.split() if word):
+        if query == "".join(word[0] for word in target.split() if word):
             return True
-        
+
         # Substring match with minimum length
         if len(query) >= 3 and query in target:
             return True
-        
+
         return False
 
+    @rx.event
     def update_search(self, value: str):
         self.search_query = value
         self.filter_icons()
 
+    @rx.event
     def copy_icon_name(self, name: str):
         yield rx.set_clipboard(name)
         return rx.toast(f'Copied "{name}" to clipboard')

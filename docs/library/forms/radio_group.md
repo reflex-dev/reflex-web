@@ -1,32 +1,31 @@
 ---
 components:
-    - rx.radio_group
-    - rx.radio_group.root
-    - rx.radio_group.item
+  - rx.radio_group
+  - rx.radio_group.root
+  - rx.radio_group.item
 
 HighLevelRadioGroup: |
-    lambda **props: rx.radio_group(["1", "2", "3", "4", "5"], **props)
+  lambda **props: rx.radio_group(["1", "2", "3", "4", "5"], **props)
 
 RadioGroupRoot: |
-    lambda **props: rx.radio_group.root(
-        rx.radio_group.item(value="1"),
-        rx.radio_group.item(value="2"),
-        rx.radio_group.item(value="3"),
-        rx.radio_group.item(value="4"),
-        rx.radio_group.item(value="5"),
-        **props
-    )
+  lambda **props: rx.radio_group.root(
+      rx.radio_group.item(value="1"),
+      rx.radio_group.item(value="2"),
+      rx.radio_group.item(value="3"),
+      rx.radio_group.item(value="4"),
+      rx.radio_group.item(value="5"),
+      **props
+  )
 
 RadioGroupItem: |
-    lambda **props: rx.radio_group.root(
-        rx.radio_group.item(value="1", **props),
-        rx.radio_group.item(value="2", **props),
-        rx.radio_group.item(value="3",),
-        rx.radio_group.item(value="4",),
-        rx.radio_group.item(value="5",),
-    )
+  lambda **props: rx.radio_group.root(
+      rx.radio_group.item(value="1", **props),
+      rx.radio_group.item(value="2", **props),
+      rx.radio_group.item(value="3",),
+      rx.radio_group.item(value="4",),
+      rx.radio_group.item(value="5",),
+  )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -43,6 +42,7 @@ A set of interactive radio buttons where only one can be selected at a time.
 class RadioGroupState(rx.State):
     item: str = "No Selection"
 
+    @rx.event
     def set_item(self, item: str):
         self.item = item
 
@@ -63,6 +63,7 @@ When the `required` prop is `True`, it indicates that the user must check a radi
 class FormRadioState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data

@@ -15,10 +15,10 @@ class DataTableState(rx.State):
 
     ...
 
-
+    @rx.event
     def get_clicked_data(self, pos: tuple[int, int]) -> str:
         self.clicked_cell = f"Cell clicked: \{pos}"
-        
+
 ```
 
 The state has a var called `clicked_cell` that will store a message about which cell was clicked. We define an event handler `get_clicked_data` that updates the value of the `clicked_cell` var when it is called. In essence, we have clicked on a cell, called the `on_cell_clicked` event trigger which calls the `get_clicked_data` event handler, which updates the `clicked_cell` var.
@@ -49,14 +49,16 @@ class DataTableState(rx.State):
     ...
 
 
-    def get_clicked_data(self, pos) -> str:
+    @rx.event
+    def get_clicked_data(self, pos):
         self.clicked_cell = f"Cell clicked: \{pos}"
 
-    def get_edited_data(self, pos, val) -> str:
+    @rx.event
+    def get_edited_data(self, pos, val):
         col, row = pos
         self.data[row][col] = val["data"]
         self.edited_cell = f"Cell edited: \{pos}, Cell value: \{val["data"]}"
-        
+
 ```
 
 The `on_cell_edited` event trigger is called when the user modifies the content of a cell. It receives the coordinates of the cell and the modified content. We pass these into the `get_edited_data` event handler and use them to update the `data` state var at the appropriate position. We then update the `edited_cell` var value.
@@ -152,6 +154,7 @@ class DataTableState2(rx.State):
 
     ...
 
+    @rx.event
     def get_group_header_right_click(self, index, val):
         self.right_clicked_group_header = f"Group header right clicked at index: \{index}, Group header value: \{val['group']}"
 
@@ -191,14 +194,17 @@ class DataTableState2(rx.State):
     ...
 
 
-    def get_item_hovered(self, pos) -> str:
+    @rx.event
+    def get_item_hovered(self, pos):
         self.item_hovered = f"Item Hovered type: \{pos['kind']}, Location: \{pos['location']}"
-        
+
+    @rx.event
     def get_deleted_item(self, selection):
         self.deleted = f"Deleted cell: \{selection['current']['cell']}"
 
+    @rx.event
     def column_resize(self, col, width):
-        self.cols[col['pos']]['width'] = width 
+        self.cols[col['pos']]['width'] = width
 ```
 
 ```python demo

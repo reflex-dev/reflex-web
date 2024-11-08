@@ -20,7 +20,6 @@ scrollToBottom();
 
 
 class TutorialState(rx.State):
-
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]] = [
         (
@@ -29,6 +28,7 @@ class TutorialState(rx.State):
         )
     ]
 
+    @rx.event
     async def submit(self, form_data: dict):
         self.question = form_data["question"]
         # Our chatbot has some brains now!
@@ -60,6 +60,7 @@ class TutorialState(rx.State):
                 yield rx.call_script(scroll_to_bottom())
         yield rx.call_script(scroll_to_bottom())
 
+    @rx.event
     def clear_chat(self):
         self.chat_history = []
 

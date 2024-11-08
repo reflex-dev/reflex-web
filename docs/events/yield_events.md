@@ -16,6 +16,7 @@ This example below shows how to yield 100 updates to the UI.
 class MultiUpdateState(rx.State):
     count: int = 0
 
+    @rx.event
     def timed_update(self):
         for i in range(100):
             self.count += 1
@@ -40,6 +41,7 @@ class ProgressExampleState(rx.State):
     count: int = 0
     show_progress: bool = False
 
+    @rx.event
     async def increment(self):
         self.show_progress = True
         yield
@@ -79,6 +81,7 @@ class YieldEventsState(rx.State):
     count: int = 0
     show_progress: bool = False
 
+    @rx.event
     async def add_five(self):
         self.show_progress = True
         yield
@@ -87,10 +90,11 @@ class YieldEventsState(rx.State):
         self.count += 5
         self.show_progress = False
 
+    @rx.event
     async def increment(self):
         yield YieldEventsState.add_five
         yield YieldEventsState.add_five
-        yield YieldEventsState.add_five 
+        yield YieldEventsState.add_five
 
 
 def multiple_yield_example():

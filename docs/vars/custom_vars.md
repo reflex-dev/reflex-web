@@ -27,6 +27,7 @@ class TranslationState(rx.State):
     input_text: str = "Hola Mundo"
     current_translation: Translation = Translation(original_text="", translated_text="")
 
+    @rx.event
     def translate(self):
         text = googletrans.Translator().translate(self.input_text, dest="en").text
         self.current_translation = Translation(original_text=self.input_text, translated_text=text)

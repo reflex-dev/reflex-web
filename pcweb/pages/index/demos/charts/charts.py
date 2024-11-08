@@ -44,6 +44,7 @@ data = [
 class ChartsState(rx.State):
     data = data
 
+    @rx.event
     def randomize_data(self):
         self.data = [
             {

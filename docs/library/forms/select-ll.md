@@ -1,15 +1,14 @@
 ---
 components:
-    - rx.select
-    - rx.select.root
-    - rx.select.trigger
-    - rx.select.content
-    - rx.select.group
-    - rx.select.item
-    - rx.select.label
-    - rx.select.separator
+  - rx.select
+  - rx.select.root
+  - rx.select.trigger
+  - rx.select.content
+  - rx.select.group
+  - rx.select.item
+  - rx.select.label
+  - rx.select.separator
 ---
-
 
 ```python exec
 import random
@@ -121,11 +120,12 @@ can also be controlled using state and a button without direct interaction with 
 
 ```python demo exec
 class SelectState2(rx.State):
-    
+
     values: list[str] = ["apple", "grape", "pear"]
-    
+
     value: str = ""
 
+    @rx.event
     def choose_randomly(self):
         """Change the select value var."""
         original_value = self.value
@@ -144,7 +144,7 @@ def select_example2():
             ),
             value=SelectState2.value,
             on_change=SelectState2.set_value,
-            
+
         ),
         rx.button("Choose Randomly", on_click=SelectState2.choose_randomly),
         rx.button("Reset", on_click=SelectState2.set_value("")),
@@ -155,26 +155,26 @@ The `open` prop and `on_open_change` event trigger work similarly to `value` and
 If `on_open_change` handler does not alter the `open` prop, the select will not be able to be opened or closed by clicking on the
 `select_trigger`.
 
- ```python demo exec
+```python demo exec
 class SelectState8(rx.State):
-    is_open: bool = False
-    
-def select_example8():    
-    return rx.flex(
-        rx.select.root(
-            rx.select.trigger(placeholder="No Selection"),
-            rx.select.content(
-                rx.select.group(
-                    rx.select.item("Apple", value="apple"),
-                    rx.select.item("Grape", value="grape"),
-                ),
-            ),
-            open=SelectState8.is_open,
-            on_open_change=SelectState8.set_is_open,
-        ),
-        rx.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
-        spacing="2",
-    )
+   is_open: bool = False
+
+def select_example8():
+   return rx.flex(
+       rx.select.root(
+           rx.select.trigger(placeholder="No Selection"),
+           rx.select.content(
+               rx.select.group(
+                   rx.select.item("Apple", value="apple"),
+                   rx.select.item("Grape", value="grape"),
+               ),
+           ),
+           open=SelectState8.is_open,
+           on_open_change=SelectState8.set_is_open,
+       ),
+       rx.button("Toggle", on_click=SelectState8.set_is_open(~SelectState8.is_open)),
+       spacing="2",
+   )
 ```
 
 ### Submitting a Form with Select
@@ -189,6 +189,7 @@ When the `required` prop of the `rx.select.root` is `True`, it indicates that th
 class FormSelectState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data

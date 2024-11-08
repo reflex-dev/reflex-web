@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.BarChart
-    - rx.recharts.Bar
+  - rx.recharts.BarChart
+  - rx.recharts.Bar
 ---
 
 # Bar Chart
@@ -149,7 +149,6 @@ def bar_double():
   )
 ```
 
-
 ## Ranged Charts
 
 You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
@@ -244,6 +243,7 @@ Here is an example of a bar graph with a `State`. Here we have defined a functio
 class BarState(rx.State):
     data = data
 
+    @rx.event
     def randomize_data(self):
         for i in range(len(self.data)):
             self.data[i]["uv"] = random.randint(0, 10000)
@@ -384,6 +384,5 @@ def bar_vertical():
 
     )
 ```
-
 
 To learn how to use the `sync_id`, `stack_id`,`x_axis_id` and `y_axis_id` props check out the of the area chart [documentation]({library.graphing.charts.areachart.path}), where these props are all described with examples.

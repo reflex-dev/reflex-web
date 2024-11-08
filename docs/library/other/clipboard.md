@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.clipboard
+  - rx.clipboard
 ---
 
 ```python exec
@@ -20,6 +20,7 @@ and will be triggered when data is pasted anywhere into the page.
 
 ```python demo exec
 class ClipboardPasteState(rx.State):
+    @rx.event
     def on_paste(self, data: list[tuple[str, str]]):
         for mime_type, item in data:
             yield rx.toast(f"Pasted {mime_type} data: {item}")

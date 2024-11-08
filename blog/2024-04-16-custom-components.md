@@ -148,9 +148,11 @@ For example we can create a counter component that increments and decrements a c
 class Counter(rx.ComponentState):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
+    @rx.event
     def decrement(self):
         self.count -= 1
 

@@ -35,7 +35,7 @@ import asyncio
 class ProgressState(rx.State):
     value: int = 0
 
-    @rx.background
+    @rx.event(background=True)
     async def start_progress(self):
         async with self:
             self.value = 0

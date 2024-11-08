@@ -16,6 +16,7 @@ class GithubState(rx.State):
     url: str = "https://github.com/reflex-dev"
     profile_image: str = "https://avatars.githubusercontent.com/u/104714959"
 
+    @rx.event
     def set_profile(self, username: str):
         if username == "":
             return
@@ -70,7 +71,7 @@ When you `reflex run` your app, Reflex compiles the frontend down to a single-pa
 
 The frontend's job is to reflect the app's state, and send events to the backend when the user interacts with the UI. No actual logic is run on the frontend.
 
-### Components 
+### Components
 
 Reflex frontends are built using components that can be composed together to create complex UIs. Instead of using a templating language that mixes HTML and Python, we just use Python functions to define the UI.
 
@@ -109,7 +110,7 @@ Under the hood, these components compile down to React components. For example, 
 
 Many of our core components are based on [Radix](https://radix-ui.com/), a popular React component library. We also have many other components for graphing, datatables, and more.
 
-We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers. 
+We chose React because it is a popular library with a huge ecosystem. Our goal isn't to recreate the web ecosystem, but to make it accessible to Python developers.
 
 This also lets our users bring their own components if we don't have a component they need. Users can [wrap their own React components]({wrapping_react.overview.path}) and then [publish them]({custom_components.overview.path}) for others to use. Over time we will build out our [third party component ecosystem]({cc.path}) so that users can easily find and use components that others have built.
 
@@ -156,7 +157,7 @@ Now we get into the interesting part - how we handle events and state updates.
 
 Normally when writing web apps, you have to write a lot of boilerplate code to connect the frontend and backend. With Reflex, you don't have to worry about that - we handle the communication between the frontend and backend for you. Developers just have to write their event handler logic, and when the vars are updated the UI is automatically updated.
 
-You can refer to the diagram above for a visual representation of the process. Let's walk through it with our Github profile image example. 
+You can refer to the diagram above for a visual representation of the process. Let's walk through it with our Github profile image example.
 
 ### Event Triggers
 
@@ -175,21 +176,21 @@ In our example we bind the `on_blur` event trigger to the `set_profile` event ha
 
 On the frontend, we maintain an event queue of all pending events. An event consists of three major pieces of data:
 
-* **client token**: Each client (browser tab) has a unique token to identify it. This let's the backend know which state to update.
-* **event handler**: The event handler to run on the state.
-* **arguments**: The arguments to pass to the event handler.
+- **client token**: Each client (browser tab) has a unique token to identify it. This let's the backend know which state to update.
+- **event handler**: The event handler to run on the state.
+- **arguments**: The arguments to pass to the event handler.
 
 Let's assume I type my username "picklelo" into the input. In this example, our event would look something like this:
 
 ```json
 {
-    client_token: "abc123",
-    event_handler: "GithubState.set_profile",
-    arguments: ["picklelo"]
+  "client_token": "abc123",
+  "event_handler": "GithubState.set_profile",
+  "arguments": ["picklelo"]
 }
 ```
 
-On the frontend, we maintain an event queue of all pending events. 
+On the frontend, we maintain an event queue of all pending events.
 
 When an event is triggered, it is added to the queue. We have a `processing` flag to make sure only one event is processed at a time. This ensures that the state is always consistent and there aren't any race conditions with two event handlers modifying the state at the same time.
 
@@ -230,10 +231,9 @@ In our case, the state update may look something like this:
 
 ```json
 {
-    "url": "https://github.com/picklelo",
-    "profile_image": "https://avatars.githubusercontent.com/u/104714959" 
+  "url": "https://github.com/picklelo",
+  "profile_image": "https://avatars.githubusercontent.com/u/104714959"
 }
 ```
 
 We store the new state in our state manager, and then send the state update to the frontend. The frontend then updates the UI to reflect the new state. In our example, the new Github profile image is displayed.
-
