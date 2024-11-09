@@ -561,3 +561,50 @@ The following props are available for `column_defs` as well as many others that 
 - `checkbox_selection`: `bool | None`: Set to true to render a checkbox for row selection.
 - `cell_editor`: `AGEditors | str | None`: Provide your own cell editor component for this column's cells. (Check out the Editing section of this page for more information)
 - `cell_editor_params`: `dict[str, list[Any]] | None`: Params to be passed to the cellEditor component.
+
+
+## What to do if the functionality you need is not available in Reflex
+
+Since Reflex AG Grid is wrapping the underlying AG Grid library, there is much more functionality available that is currently not exposed in Reflex. Check out this [documentation](https://www.ag-grid.com/react-data-grid/reference/) for more information on what is available in AG Grid.
+
+As Reflex does not expose all the functionality of AG Grid, you can use `ag_grid.api()`, which is a property of the `ag_grid` component, to access the underlying AG Grid API. This allows you to access the full functionality of AG Grid.
+
+Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this example.
+
+The example below uses the `select_all()` and `deselect_all()` methods of the AG Grid API to select and deselect all rows in the grid. This method is not available in Reflex directly. Check out this [documentation](https://www.ag-grid.com/react-data-grid/grid-api/#reference-selection-selectAll) to see what the methods look like in the AG Grid docs.
+
+```md alert info
+# Ensure that the docs are set to React tab in AG Grid
+```
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+column_defs = [
+    ag_grid.column_def(field="country", checkbox_selection=True),
+    ag_grid.column_def(field="pop"),
+    ag_grid.column_def(field="continent"),
+]
+
+def ag_grid_api_simple():
+    my_api = ag_grid.api(id="ag_grid_basic_row_selection")
+    return(
+            ag_grid(
+            id="ag_grid_basic_row_selection",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+        ),
+        rx.button("select all", on_click=my_api.select_all()),
+        rx.button("select all", on_click=my_api.deselect_all()),
+    )
+```
+
+
+The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. To use this in Reflex as you can see, it should be called in snake case and as it returns `void` this means that the function should be called with no arguments. 
+
