@@ -99,6 +99,14 @@ redirects = [
     ("/docs/utility-methods", "/docs/utility-methods/router-attributes"),
     ("/docs/datatable-tutorial", "/docs/datatable-tutorial/simple-table"),
     ("/docs/library/graphing", "/docs/library/graphing/charts"),
+    ("/docs/tutorial/intro", "/docs/getting-started/chatapp-tutorial"),
+    ("/docs/tutorial/setup", "/docs/getting-started/chatapp-tutorial"),
+    ("/docs/tutorial/frontend", "/docs/getting-started/chatapp-tutorial"),
+    ("/docs/tutorial/adding-state", "/docs/getting-started/chatapp-tutorial"),
+    ("/docs/tutorial/final-app", "/docs/getting-started/chatapp-tutorial"),
+    ("/docs/getting-started/configuration", "/docs/advanced-onboarding/configuration"),
+    ("/docs/getting-started/how-reflex-works", "/docs/advanced-onboarding/how-reflex-works"),
+
     # Recipes
     ("/docs/recipes/auth", "/docs/recipes"),
     ("/docs/recipes/auth", "/docs/recipes"),
