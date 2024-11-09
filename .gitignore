@@ -17,3 +17,4 @@ pcweb/whitelist.py
 pynecone.db
 reflex.db
 venv/
+.env
