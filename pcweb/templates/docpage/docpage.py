@@ -286,7 +286,7 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
                     class_name="font-sm text-slate-8 mobile-only",
                 )
             )
-
+    from pcweb.components.hosting_banner import HostingBannerState
     # Return the list of breadcrumb items with separators
     return rx.box(
         docs_sidebar_drawer(
@@ -303,7 +303,11 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
             rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
             class_name="p-[0.563rem] mobile-only",
         ),
-        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 lg:mt-[119px] mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
+        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full" + rx.cond(
+            HostingBannerState.show_banner,
+            " lg:mt-[175px]",
+            " lg:mt-[119px]",
+        ),
     )
 
 
@@ -414,6 +418,7 @@ def docpage(
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.docpage.sidebar import get_prev_next
             from pcweb.components.docpage.sidebar import sidebar as sb
+            from pcweb.components.hosting_banner import HostingBannerState
 
             # Create the docpage sidebar.
             sidebar = sb(url=path, width="300px")
@@ -494,7 +499,12 @@ def docpage(
                 rx.el.main(
                     rx.box(
                         sidebar,
-                        class_name="mt-[90px] h-full shrink-0 desktop-only lg:w-[24%]",
+                        class_name="h-full shrink-0 desktop-only lg:w-[24%]"
+                        + rx.cond(
+                            HostingBannerState.show_banner,
+                            " mt-[146px]",
+                            " mt-[90px]",
+                        ),
                     ),
                     rx.box(
                         rx.box(
@@ -567,7 +577,12 @@ def docpage(
                             ),
                             class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[300px] max-h-[80vh] overflow-hidden",
                         ),
-                        class_name="mt-[90px] h-full shrink-0 w-[16%]"
+                        class_name="h-full shrink-0 w-[16%]"
+                        + rx.cond(
+                            HostingBannerState.show_banner,
+                            " mt-[146px]",
+                            " mt-[90px]",
+                        )
                         + (" hidden xl:flex" if right_sidebar else " hidden"),
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
