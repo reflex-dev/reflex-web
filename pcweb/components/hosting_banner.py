@@ -15,16 +15,15 @@ class HostingBannerState(rx.State):
     show_banner: bool = True
 
     def hide_banner(self):
-        print("hide_banner")
         self.show_banner = False
+
 
 def hosting_banner() -> rx.Component:
     return rx.cond(
         HostingBannerState.show_banner,
-        rx.desktop_only(rx.box(
+        rx.box(
             rx.link(
                 rx.box(
-                    rx.text(""),
                     rx.text(
                         "Reflex Cloud - ",
                         rx.el.span(
@@ -35,14 +34,21 @@ def hosting_banner() -> rx.Component:
                     ),
                     rx.el.button(
                         "Launching Soon",
-                        class_name="text-slate-11 h-[1.5rem] rounded-md bg-slate-4 px-1.5 text-sm font-semibold z-[1]",
+                        class_name="text-slate-11 h-[1.5rem] rounded-md bg-slate-4 px-1.5 text-sm font-semibold z-[1] items-center justify-center shrink-0",
                     ),
                     class_name="flex items-center gap-4",
                 ),
                 href="/hosting",
+                underline="none",
+                class_name="mr-7 lg:mr-0",
             ),
-            rx.icon("x", on_click=HostingBannerState.hide_banner, size=16, color=rx.color("slate", 9), class_name="absolute right-4 z-[1]"),
+            rx.icon(
+                "x",
+                on_click=HostingBannerState.hide_banner,
+                size=16,
+                class_name="z-[1] cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4",
+            ),
             glow(),
-            class_name="px-4 lg:px-6 w-screen h-auto lg:h-[40px] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
-        ))
+            class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
+        ),
     )
