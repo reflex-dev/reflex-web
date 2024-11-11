@@ -47,7 +47,7 @@ def waitlist():
             rx.form(
                 rx.cond(
                     WaitlistState.success,
-                    rx.badge("Thank you for joining the waitlist!", color_scheme="green", size="5"),
+                    rx.badge("Thank you for joining the waitlist!", color_scheme="green", size="3"),
                     rx.vstack(
                         rx.hstack(
                     rx.el.input(
