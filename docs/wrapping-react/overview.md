@@ -129,7 +129,7 @@ const spline = new Application(canvas);
 spline.load('https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode');
 ```
 
-You should look out for JSX, a syntax extension to JavaScript, which has angle brackets (<h1>Hello, world!</h1>). If you see JSX, it's likely that the library is a React component and can be wrapped with Reflex. 
+You should look out for JSX, a syntax extension to JavaScript, which has angle brackets `(<h1>Hello, world!</h1>)`. If you see JSX, it's likely that the library is a React component and can be wrapped with Reflex. 
 
 If the library does not expose a react component you need to try and find a JS React wrapper for the library, such as [react-spline](https://www.npmjs.com/package/@splinetool/react-spline).
 
