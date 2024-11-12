@@ -5,6 +5,7 @@ import sys
 
 import reflex as rx
 from pcweb import styles
+from pcweb.github import fetch_count
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
@@ -121,8 +122,10 @@ redirects = [
     ("/docs/tutorial/adding-state", "/docs/getting-started/chatapp-tutorial"),
     ("/docs/tutorial/final-app", "/docs/getting-started/chatapp-tutorial"),
     ("/docs/getting-started/configuration", "/docs/advanced-onboarding/configuration"),
-    ("/docs/getting-started/how-reflex-works", "/docs/advanced-onboarding/how-reflex-works"),
-
+    (
+        "/docs/getting-started/how-reflex-works",
+        "/docs/advanced-onboarding/how-reflex-works",
+    ),
     # Recipes
     ("/docs/recipes/auth", "/docs/recipes"),
     ("/docs/recipes/auth", "/docs/recipes"),
@@ -135,6 +138,9 @@ redirects = [
 ]
 
 for source, target in redirects:
-    app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
+    if _check_whitelisted_path(target):
+        app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_custom_404_page(page404.component)
+
+app.register_lifespan_task(fetch_count)
