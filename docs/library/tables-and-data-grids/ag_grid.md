@@ -247,9 +247,7 @@ There are 7 provided cell editors in AG Grid:
 
 In this example, we enable editing for the second and third columns. The second column uses the `number` cell editor, and the third column uses the `select` cell editor.
 
-The `on_cell_value_changed` event trigger is linked to the `cell_value_changed` event handler in the state. This event handler is called whenever a cell value is changed and changes the value of the state var `data_df`.
-
-`data` is a [computed var]({vars.computed_vars.path}), which means it has the `@rx.var` decorator and has its value derived from `data_df`.
+The `on_cell_value_changed` event trigger is linked to the `cell_value_changed` event handler in the state. This event handler is called whenever a cell value is changed and changes the value of the backend var `_data_df` and the state var `data`.
 
 ```python demo exec
 import reflex as rx
@@ -257,15 +255,13 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridEditingState(rx.State):
-    data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-
-    @rx.var
-    def data(self) -> list[dict]:
-        return self.data_df.to_dict("records")
+    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+    data: list[dict] = _data_df.to_dict("records")
 
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
-        self.data_df.at[row, col_field] = new_value
+        self._data_df.at[row, col_field] = new_value
+        self.data = self._data_df.to_dict("records")
         yield rx.toast(f"Cell value changed, Row: {row}, Column: {col_field}, New Value: {new_value}")
 
 
@@ -371,19 +367,17 @@ def ag_grid_simple_themes():
 
 ### Putting Data in State
 
-Assuming you want to make any edit to your data, you can put the data in State. This allows you to update the grid based on user input. It is recommended to make `data` a [computed var]({vars.computed_vars.path}), which means it has the `@rx.var` decorator. The state var `data` has its value derived from `data_df`.
+Assuming you want to make any edit to your data, you can put the data in State. This allows you to update the grid based on user input. Whenever the `data` var is updated, the grid will be re-rendered with the new data.
 
 ```python demo exec
+from typing import Any
 import reflex as rx
 from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridState2(rx.State):
-    data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-
-    @rx.var
-    def data(self) -> list[dict]:
-        return self.data_df.to_dict("records")
+    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+    data: list[dict] = _data_df.to_dict("records")
 
 column_defs = [
     ag_grid.column_def(field="country"),
