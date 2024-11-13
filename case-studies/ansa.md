@@ -74,7 +74,7 @@ The team previously built on an all-python, low-code / no code framework. They d
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-It’s an older framework and the components didn't  look that good. We wanted to use react components and just make it look a little bit more modern.
+It’s an older framework and the components didn't look that good. We wanted to use react components and just make it look a little bit more modern.
 ```
 
 Their main concern though was that they didn't want to outgrow a near no code framework, as they wanted to build their app for the long term.
@@ -83,10 +83,10 @@ Their main concern though was that they didn't want to outgrow a near no code fr
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-We don't want to run into a situation where this year or next year, we want to add more functionality that this platform doesn't have and we're not able to integrate it. Additionally, the rate of improvement and development velocity from the Reflex team gave us confidence that their offering would continue to improve over time. We're building this for the long term and we want to make sure we both have the flexibility to not outgrow it and are working with the best out there. 
+We don't want to run into a situation where this year or next year, we want to add more functionality that this low code framework doesn't have and we're not able to integrate it. Additionally, the rate of improvement and development velocity from the Reflex team gave us confidence that their offering would continue to improve over time. We're building this for the long term and we want to make sure we both have the flexibility to not outgrow it and are working with the best out there. 
 ```
 
-In addition, there were particular technologies like LLMs and Vector Databases that Ryan and the team knew at some point they would want to integrate into the app. This would be extremely difficult if not impossible to keep up with the latest with low/no code frameworks.
+In addition, there were particular technologies like LLMs and Vector Databases that Ryan and the team knew at some point they would want to integrate into the app. It would be extremely difficult if not impossible to keep up with these latest innovations with low/no code frameworks.
 
 
 ```md quote
@@ -98,7 +98,7 @@ I started to feel that with this framework I didn’t know if they could keep up
 
 ## From manual work to automation with Reflex
 
-Ansa switched to Reflex so they could build an app for the long term and accommodate all the latests in LLM development without needing any JavaScript.
+Ansa switched to Reflex so they could build an app for the long term and accommodate all the latest innovations in LLM development without needing any JavaScript.
 
 They currently have an app with 8 different core company workflow automations, several of which we will discuss in this case study. 
 
@@ -107,7 +107,7 @@ The main challenges that Ansa faces are one, figuring out what companies, out of
 
 ### Creating natural language company search 
 
-The first automated workflow they built, using a combination of OpenAI, Langchain, and Chroma, introduced vector and NL searches over their database. This allows employees to combine quantitative and strict filtering with an understanding of the companies product offering through vector similarity. For example, an employee can type "Carbon accounting software companies with a CEO in NYC that score over 60" and receive a curated list of companies that fit that description.
+The first automated workflow they built, using a combination of OpenAI, Langchain, and Chroma, introduced vector and natural language searches over their database. This allows employees to combine quantitative and strict filtering with an understanding of the companies product offering through vector similarity. For example, an employee can type "Carbon accounting software companies with a CEO in NYC that score over 60" and receive a curated list of companies that fit that description.
 
 ```md quote
 - name: Ryan
@@ -117,14 +117,14 @@ We use LLMs to help navigate through the companies site and find different detai
 
 ### In-house company scoring algorithm 
 
-With private companies, there is far less data available to assess fit than with public companies, so they rely on alternative data to power a scoring algorithm that assesses the probability a given company is a fit for their investment workflow. They proactively score ~15K companies and display them in Reflex, and also built another automated workflow to score ad-hoc lists of companies. This workflow can take in a list in any format and send the identifiers to their API where they are scored by their custom ML model hosted in Databricks. 
+The next automated workflow takes this list of companies and scores them. With private companies, there is far less data available to assess fit than with public companies, so they rely on alternative data to power a scoring algorithm that assesses the probability a given company is a fit for their investment workflow. They proactively score ~15K companies and display them in Reflex, and also built another automated workflow to score ad-hoc lists of companies. This workflow can take in a list in any format and send the identifiers to their API where they are scored by their custom ML model hosted in Databricks. 
 
 The scored data is then displayed to the user in Reflex and emailed to the user as a CSV. This ML model is trained on a labeled dataset they have curated over years, and spots combinations of factors that they believe will lead to successful investments for the fund. 
 
 
 ### Improving email outbound 
 
-Finally, when their team has a short list of companies that fit within an investment, they built a fourth workflow to automate the extraction of the relevant information to reach out to these companies. Ryan runs us through this final workflow in his quote below.
+Finally, when their team has a short list of companies that fit within an investment, they built a third workflow to automate the extraction of the relevant information to reach out to these companies. Ryan runs us through this final workflow in his quote below.
 
 
 ```md quote
@@ -165,5 +165,5 @@ The app that Ryan and his team created, which contains 8 different automated wor
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-75% of our team uses the app on a weekly basis and we estimate we're saving over ~100 team hours per month. We've also identified one of core investments through the score from our model motivating the prioritization of an opportunity. 
+75% of our team uses the app on a weekly basis and we estimate we're saving over ~100 team hours per month.
 ```
