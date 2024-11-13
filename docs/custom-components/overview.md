@@ -1,3 +1,7 @@
+---
+title: "Custom Components Overview"
+---
+
 # Custom Components Overview
 
 ```python exec
