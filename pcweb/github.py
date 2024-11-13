@@ -17,8 +17,7 @@ async def fetch_count():
             with contextlib.suppress(Exception):
                 global REFLEX_STAR_COUNT
                 data = httpx.get(GITHUB_API_URL).json()
-                count = int(data["stargazers_count"])
-                REFLEX_STAR_COUNT = round(count / 1000)
+                REFLEX_STAR_COUNT = int(data["stargazers_count"])
             await asyncio.sleep(3600)
     except asyncio.CancelledError:
         pass
@@ -27,4 +26,8 @@ async def fetch_count():
 class GithubStarState(rx.State):
     @rx.var(cache=True, interval=60)
     def stars(self) -> str:
-        return f"{REFLEX_STAR_COUNT}K"
+        return f"{REFLEX_STAR_COUNT}"
+
+    @rx.var(cache=True, interval=60)
+    def stars_short(self) -> str:
+        return f"{round(REFLEX_STAR_COUNT/1000)}K"

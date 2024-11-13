@@ -1,6 +1,7 @@
 import reflex as rx
 from pcweb.components.icons import get_icon
-from pcweb.constants import GITHUB_STARS
+from pcweb.github import GithubStarState
+
 
 def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Component:
     return rx.box(
@@ -10,15 +11,27 @@ def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Compo
             class_name="flex flex-row gap-2 items-center",
         ),
         rx.text(stat, class_name="font-x-large text-slate-12"),
-        class_name="flex flex-col gap-2 w-full p-10 items-center lg:items-start" + " " + class_name,
+        class_name="flex flex-col gap-2 w-full p-10 items-center lg:items-start"
+        + " "
+        + class_name,
     )
 
 
 def stats_grid() -> rx.Component:
     return rx.box(
-        stat_card(stat=f"{GITHUB_STARS:,}+", text="Stars", icon="star", class_name="lg:!border-l !border-slate-3"),
-        stat_card(stat="150+", text="Contributors", icon="fork"),       
-        stat_card(stat="5,500+", text="Discord", icon="discord_navbar", class_name="lg:!border-r !border-slate-3"),
+        stat_card(
+            stat=f"{GithubStarState.stars:,}",
+            text="Stars",
+            icon="star",
+            class_name="lg:!border-l !border-slate-3",
+        ),
+        stat_card(stat="150+", text="Contributors", icon="fork"),
+        stat_card(
+            stat="5,500+",
+            text="Discord",
+            icon="discord_navbar",
+            class_name="lg:!border-r !border-slate-3",
+        ),
         class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full divide-slate-3 lg:divide-x !border-t-0 divide-y lg:divide-y-0",
     )
 
