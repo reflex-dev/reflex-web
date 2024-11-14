@@ -2,11 +2,11 @@ import reflex as rx
 from pcweb.components.icons.icons import get_icon
 
 
-def install_command(command: str, is_command: bool = True) -> rx.Component:
+def install_command(command: str) -> rx.Component:
     return rx.el.button(
         get_icon(icon="copy", class_name="p-[5px]"),
         rx.text(
-            "$" + command if is_command else command,
+            "$" + command,
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
