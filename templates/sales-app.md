@@ -11,14 +11,14 @@ meta: [
 template: "sales"
 ---
 
-The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.
+The following is a sales app that displays sales data. The table tab allows filtering and live updates. The graph tab shows the relationship between sales data.
 
 ## Setup
 
 To run this app locally, install Reflex and run:
 
 ```bash
-reflex init --template dashboard
+reflex init --template sales
 ```
 
 To run the app, use:

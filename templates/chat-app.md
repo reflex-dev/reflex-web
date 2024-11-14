@@ -19,11 +19,7 @@ The following is a python chat app. It is 100% Python-based, including the UI, a
 To run this app locally, install Reflex and run:
 
 ```bash
-git clone https://github.com/reflex-dev/reflex-chat.git
-```
-
-```bash
-cd reflex-chat
+reflex init --template chat
 ```
 
 Set up your OpenAI API key:

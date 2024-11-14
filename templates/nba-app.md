@@ -18,7 +18,7 @@ The following is an app that displays NBA player stats from the 2015-2016 season
 To run this app locally, install Reflex and run:
 
 ```bash
-reflex init --template nba_app
+reflex init --template nba
 ```
 
 To run the app, use:
