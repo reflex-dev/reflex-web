@@ -4,10 +4,11 @@ description: "Real-time chat application with multiple rooms using Reflex and Ch
 author: "Reflex"
 image: "chat-app.webp"
 demo: "https://chat.reflex.run/"
-source: "https://github.com/reflex-dev/reflex-examples/tree/main/gpt/gpt"
+source: "https://github.com/reflex-dev/reflex-chat"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "chat"
 ---
 # Chat App
 

@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/reflex-examples/tree/main/dalle"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "dalle"
 ---
 
 In this example we create a simple app for generating images using OpenAI's API.

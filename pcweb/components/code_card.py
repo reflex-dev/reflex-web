@@ -2,11 +2,11 @@ import reflex as rx
 from pcweb.components.icons.icons import get_icon
 
 
-def install_command(command: str) -> rx.Component:
+def install_command(command: str, is_command: bool = True) -> rx.Component:
     return rx.el.button(
         get_icon(icon="copy", class_name="p-[5px]"),
         rx.text(
-            "$" + command,
+            "$" + command if is_command else command,
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
@@ -28,7 +28,7 @@ def repo(repo_url: str) -> rx.Component:
 def code_card(app: dict) -> rx.Component:
     return rx.flex(
         rx.box(
-            rx.link(
+            rx.el.a(
                 rx.image(
                     src=app["image_url"],
                     loading="lazy",
@@ -88,10 +88,44 @@ def gallery_app_card(app: dict) -> rx.Component:
         ),
         rx.box(
             rx.box(
-                rx.el.h4(
+                rx.el.h6(
                     app["title"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
+                rx.cond("template" in app,
+                        rx.hstack(
+                            rx.el.p(
+                                "Template name: ",
+                                rx.code(app.get('template', "")),
+                                class_name="font-small text-slate-10 italic",
+                            ),
+                            rx.box(
+                                get_icon(icon="copy", class_name="p-[5px]"),
+                                on_click=rx.set_clipboard(app.get('template')),
+                                style=rx.Style(
+                                    {
+                                        "background": rx.color("gray", 3),
+                                        "border": "1px solid",
+                                        "border-color": rx.color("gray", 5),
+                                        "border-radius": "6px",
+                                        "opacity": "1",
+                                        "cursor": "pointer",
+                                        "_hover": {
+                                            "background": rx.color("gray", 4),
+                                        },
+                                        "transition": "background 0.250s ease-out",
+                                        "&>svg": {
+                                            "transition": "transform 0.250s ease-out, opacity 0.250s ease-out",
+                                        },
+                                        "_active": {
+                                            "background": rx.color("gray", 5),
+                                        },
+                                    }
+                                ),
+                            )
+                        ),
+
+                        ),
                 rx.text(
                     app["description"],
                     class_name="text-slate-10 font-small truncate text-pretty",
@@ -101,8 +135,8 @@ def gallery_app_card(app: dict) -> rx.Component:
                         "Reflex" in app["author"],
                         rx.box(
                             rx.text(
-                            "by",
-                            class_name="text-slate-9 font-small",
+                                "by",
+                                class_name="text-slate-9 font-small",
                             ),
                             get_icon(icon="badge_logo"),
                             rx.text(

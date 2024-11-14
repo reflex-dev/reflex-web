@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/sales"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "sales"
 ---
 
 The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.

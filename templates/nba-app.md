@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/nba"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "nba"
 ---
 
 The following is an app that displays NBA player stats from the 2015-2016 season. The table tab allows filtering and live updates. The graph tab shows the relationship between player stats.

@@ -5,7 +5,10 @@ author: "Reflex"
 image: "dashboard.webp"
 demo: "https://dashboard-new.reflex.run/"
 source: "https://github.com/reflex-dev/templates/tree/main/dashboard"
-meta: [{ "name": "keywords", "content": "" }]
+meta: [
+    {"name": "keywords", "content": ""},
+]
+template: "dashboard"
 ---
 
 The following is a dashboard to interactively display data some data. It is a good starting point for building more complex apps that require data visualization.
