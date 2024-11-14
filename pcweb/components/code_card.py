@@ -93,40 +93,6 @@ def gallery_app_card(app: dict) -> rx.Component:
                     app["title"],
                     class_name="font-smbold text-slate-12 truncate",
                 ),
-                # rx.cond("template" in app,
-                #         rx.hstack(
-                #             rx.el.p(
-                #                 "Template name: ",
-                #                 rx.code(app.get('template', "")),
-                #                 class_name="font-small text-slate-10 italic",
-                #             ),
-                #             rx.box(
-                #                 get_icon(icon="copy", class_name="p-[5px]"),
-                #                 on_click=rx.set_clipboard(app.get('template')),
-                #                 style=rx.Style(
-                #                     {
-                #                         "background": rx.color("gray", 3),
-                #                         "border": "1px solid",
-                #                         "border-color": rx.color("gray", 5),
-                #                         "border-radius": "6px",
-                #                         "opacity": "1",
-                #                         "cursor": "pointer",
-                #                         "_hover": {
-                #                             "background": rx.color("gray", 4),
-                #                         },
-                #                         "transition": "background 0.250s ease-out",
-                #                         "&>svg": {
-                #                             "transition": "transform 0.250s ease-out, opacity 0.250s ease-out",
-                #                         },
-                #                         "_active": {
-                #                             "background": rx.color("gray", 5),
-                #                         },
-                #                     }
-                #                 ),
-                #             )
-                #         ),
-                #
-                #         ),
                 rx.text(
                     app["description"],
                     class_name="text-slate-10 font-small truncate text-pretty",
