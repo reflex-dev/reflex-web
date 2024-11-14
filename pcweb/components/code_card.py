@@ -10,7 +10,6 @@ def install_command(command: str, **props) -> rx.Component:
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
-        width="auto",
         title=command,
         on_click=rx.set_clipboard(command),
         class_name="flex items-center gap-1.5 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pr-1.5 border rounded-md w-full max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
@@ -153,7 +152,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                         ),
                     ),
                     rx.hstack(
-                        rx.cond("template" in app, install_command(app.get('template', ""))),
+                        rx.cond("template" in app, install_command(app.get('template', ""), width="auto")),
                         repo(app["demo"]),
                     ),
 
