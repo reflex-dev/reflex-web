@@ -90,7 +90,7 @@ class CustomWrapper(ModelWrapper):
     def on_selection_changed(self, rows, source, type):
         super().on_selection_changed(rows, source, type)
         selected_ids = [row.id for row in self._selected_items]
-        return rx.toast.info(f"Selected rows: {selected_ids}")
+        return rx.toast.info(f"Selected rows: \{selected_ids}")
 ```
 
 ### Displayed Columns and Behavior
