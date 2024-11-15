@@ -89,9 +89,16 @@ def gallery_app_card(app: dict) -> rx.Component:
         ),
         rx.box(
             rx.box(
-                rx.el.h6(
-                    app["title"],
-                    class_name="font-smbold text-slate-12 truncate",
+                rx.hstack(
+                    rx.el.h6(
+                        app["title"],
+                        class_name="font-smbold text-slate-12 truncate",
+                    ),
+                    rx.el.button(
+                        get_icon(icon="copy", class_name="p-[5px]"),
+                        on_click=rx.set_clipboard(app["title"]),
+                        class_name="border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small border rounded-md text-slate-9 hover:!text-slate-9 no-underline transition-bg cursor-pointer",
+                    ),
                 ),
                 rx.text(
                     app["description"],
@@ -117,10 +124,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                             class_name="text-slate-9 font-small",
                         ),
                     ),
-                    rx.hstack(
-                        rx.cond("template" in app, install_command(app.get('template', ""),show_dollar_sign=False, width="auto")),
-                        repo(app["demo"]),
-                    ),
+                    repo(app["demo"]),
 
                     class_name="flex flex-row items-center gap-[6px] justify-between w-full",
                 ),

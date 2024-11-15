@@ -1,5 +1,5 @@
 ---
-title: NBA App
+title: nba
 description: "Interactive NBA app with player stats and live updates"
 author: "Reflex"
 image: "nba-app.webp"

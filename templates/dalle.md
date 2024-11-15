@@ -1,5 +1,5 @@
 ---
-title: DALL-E
+title: dalle
 description: "DALL-E is a Reflex app for generating images using OpenAI's API"
 author: "Reflex"
 image: "dalle.webp"

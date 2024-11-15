@@ -1,11 +1,11 @@
 ---
-title: CI Template
+title: ci_template
 description: "CI/CD job dashboard with real-time updates and controls"
 author: "Reflex"
 image: "cijob.webp"
 demo: "https://cijob.reflex.run/"
 source: "https://github.com/reflex-dev/templates/tree/main/ci_template"
-template: "ci"
+
 meta: [
     {"name": "keywords", "content": ""},
 ]

@@ -1,5 +1,5 @@
 ---
-title: API Admin Panel
+title: api_admin_panel
 description: "Interactive dashboard for API requests and response visualization"
 author: "Reflex"
 image: "api-admin-panel.webp"
@@ -8,7 +8,6 @@ source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
     {"name": "keywords", "content": "admin panel, api admin panel, reflex admin panel"},
 ]
-template: "api-admin-panel"
 ---
 
 The following is an admin panel for reading from and writing to your customer data, built on a REST API. This app lets you look through customers and take custom actions based on the data.

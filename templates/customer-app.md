@@ -1,5 +1,5 @@
 ---
-title: Customer Data App
+title: customer_data_app
 description: "A Reflex app for customer data management with visualizations"
 author: "Reflex"
 image: "customer-app.webp"
@@ -8,7 +8,6 @@ source: "https://github.com/reflex-dev/templates/tree/main/customer_data_app"
 meta: [
     {"name": "keywords", "content": ""},
 ]
-template: "customer-data"
 ---
 
 The following is a python dashboard to interactively display some data, i.e. customer data. The app allows you to add, edit, and delete customer data in a table, as well as visualize the changes in data over time. All the data is stored in a database. It is a good starting point for building more complex apps that require data visualization and editing.

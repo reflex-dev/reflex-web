@@ -1,5 +1,5 @@
 ---
-title: LLamaIndex App
+title: reflex-llamaindex-template
 description: "A minimal chat app using LLamaIndex"
 author: "Reflex"
 image: "llamaindex.png"
@@ -8,7 +8,6 @@ source: "https://github.com/reflex-dev/reflex-llamaindex-template"
 meta: [
     {"name": "keywords", "content": ""},
 ]
-template: "llamaindex"
 ---
 
 The following is an alternative UI to display the LLamaIndex app. 
@@ -22,7 +21,7 @@ If you plan on deploying your agentic workflow to prod, follow the [llama deploy
 To run this app locally, install Reflex and run:
 
 ```bash
-reflex init --template llamaindex
+reflex init --template reflex-llamaindex-template
 ```
 
 
