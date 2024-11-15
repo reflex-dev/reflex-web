@@ -2,11 +2,11 @@ import reflex as rx
 from pcweb.components.icons.icons import get_icon
 
 
-def install_command(command: str, **props) -> rx.Component:
+def install_command(command: str, show_dollar_sign: bool = True,  **props) -> rx.Component:
     return rx.el.button(
         get_icon(icon="copy", class_name="p-[5px]"),
         rx.text(
-            "$" + command,
+            "$" + command if show_dollar_sign else command,
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
@@ -118,7 +118,7 @@ def gallery_app_card(app: dict) -> rx.Component:
                         ),
                     ),
                     rx.hstack(
-                        rx.cond("template" in app, install_command(app.get('template', ""), width="auto")),
+                        rx.cond("template" in app, install_command(app.get('template', ""),show_dollar_sign=False, width="auto")),
                         repo(app["demo"]),
                     ),
 
