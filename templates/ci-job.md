@@ -5,7 +5,7 @@ author: "Reflex"
 image: "cijob.webp"
 demo: "https://cijob.reflex.run/"
 source: "https://github.com/reflex-dev/templates/tree/main/ci_template"
-template: "ci-template"
+template: "ci"
 meta: [
     {"name": "keywords", "content": ""},
 ]
