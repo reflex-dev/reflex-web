@@ -2,7 +2,7 @@
 author: Tom Gotsman
 date: 2024-11-19
 title: Reflex Authentication with Microsoft Azure
-description: to come
+description: A practical guide to implementing Microsoft Azure Single Sign-On (SSO) authentication in Reflex applications.
 image: /blog/self-hosting-with-docker.webp
 meta: [
     {
@@ -50,7 +50,7 @@ cache = msal.TokenCache()
 
 The Microsoft Authentication Library (MSAL) for Python library enables you to sign in users or apps with Microsoft identities. 
 
-The values you should get from your Azure portal are `client_id`, `client_secret`, and `tenant_id`. These values are unique to your application and company.
+The values you should get from your Azure portal / SSO team at your company are `client_id`, `client_secret`, and `tenant_id`. These values are unique to your application and company.
 
 It is recommended to retrive these values from environment variables or from a configuration file (they are just hardcoded for the example for simplicity).
 
@@ -78,7 +78,7 @@ else:
 
 Our `State` class has three state variables `_access_token`, `_flow`, and `_token`. 
 
-The `_access_token` is the token that allows you to interact with Microsoft applications and access data from Microsoft that is relevant to you. The `_flow` variable is used to initiate the authentication flow, and the `_token` variable stores the token that is returned from Microsoft.
+The `_access_token` is the token that allows you to interact with Microsoft applications and access data from Microsoft that is relevant to you. The `_flow` variable is used to initiate the authentication flow, and the `_token` variable stores the token that is returned from Microsoft. All of these variables are [backend variables]({docs.vars.base_vars.path}#backend-only-vars) and therefore the user cannot change these via the UI.  {docs.vars.base_vars.path}
 
 When we land on the home page, and we are not logged in, instantly the `require_auth` event handler is called, which checks if the `_token` variable is empty. As we are not logged in yet, the `_token` variable is empty, and the `redirect_sso` event handler is called.
 
@@ -86,7 +86,6 @@ This event handler initiates the authentication flow and redirects the user to t
 
 ```python
 class State(rx.State):
-	# the _ means the var is a backend var and therefore the user cannot change these via the UI
     _access_token: str = "" # _access_token has an expiration date and allows you to interact with microsoft applications and access data from microsoft that is relevant to you
     _flow: dict # do not touch this
     _token: Dict[str, str] = \{}
@@ -159,9 +158,9 @@ def callback() -> rx.Component:
 
 Now that we have all our tokens set correctly, when we redirect back to the home page, again the `require_auth` event handler is called. This time, the `_token` variable is not empty and so the page renders.
 
-The page contains an `rx.cond` component that checks if the user is authenticated. It runs the `check_auth` computed var, which returns `True` if the `_token` variable is not empty and `False` otherwise.
+The page contains an [`rx.cond`]({docs.components.conditional_rendering.path}) component that checks if the user is authenticated. It runs the `check_auth` [computed var]({docs.vars.computed_vars.path}), which returns `True` if the `_token` variable is not empty and `False` otherwise.
 
-If the user is authenticated, the `auth_view` component is rendered. If the user is not authenticated, the `unauth_view` component is rendered. The `auth_view` component displays a welcome message with the user's name from the `token` computed var, which returns the `_token` backend variable.
+If the user is authenticated, the `auth_view` component is rendered. If the user is not authenticated, the `unauth_view` component is rendered. The `auth_view` component displays a welcome message with the user's name from the `token` [computed var]({docs.vars.computed_vars.path}), which returns the `_token` [backend variable]({docs.vars.base_vars.path}#backend-only-vars).
 
 
 ```python
@@ -221,6 +220,18 @@ def logout() -> rx.Component:
 ## Putting it all together
 
 The full code is shown below. In this final code we have broken the app down into two different pages, with our state class in `azure_auth/azure_auth/auth/core.py` and the pages in `azure_auth/azure_auth/azure_auth.py`.
+
+Overall the final workflow is as follows:
+
+1. The user lands on the home page (localhost:3000) while not logged in.
+2. This runs the `require_auth` event handler and then the `redirect_sso` event handler.
+3. This redirects the user to the Microsoft sign-in page.
+4. After the user completes the Microsoft sign-in, they are redirected back to the `/callback` page based on the `redirect_uri`.
+5. The `callback` event handler is called, which parses out info sent back from Microsoft and validates it and stores it in `_token` and `_access_token`.
+6. The user is then redirected back to the home page based on the `login_redirect`.
+7. The `require_auth` event handler is called again, but this time the user is authenticated and the page renders.
+8. As the `check_auth` computed var inside of the `rx.cond` returns `True`, the `auth_view` component is rendered, displaying the user's name.
+9. On logout the `logout` event handler sets `self._token` to an empty dictionary and redirects to Microsoft logout page which forces the everything about the login state to be invalid.
 
 ```python
 # azure_auth/azure_auth/auth/core.py
@@ -334,6 +345,4 @@ def unauth_view() -> rx.Component:
 
 
 To do:
-- add links to backedn vars and computed vars
-- add the list of all the steps in one go at the start of putting it all together
 - add whole section on how to set up azure to get the client_id, client_secret, and tenant_id
