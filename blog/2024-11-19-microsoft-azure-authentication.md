@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2024-11-19
 title: Reflex Authentication with Microsoft Azure
 description: A practical guide to implementing Microsoft Azure Single Sign-On (SSO) authentication in Reflex applications.
-image: /blog/self-hosting-with-docker.webp
+image: /blog/azure_auth.webp
 meta: [
     {
       "name": "keywords",
@@ -54,23 +54,15 @@ The values you should get from your Azure portal / SSO team at your company are 
 
 It is recommended to retrive these values from environment variables or from a configuration file (they are just hardcoded for the example for simplicity).
 
-Next we have to set the `sso_app` variable, which is the client application that will be used to authenticate users. It is strongly recommended to set a `client_secret` for production applications.
+Next we have to set the `sso_app` variable, which is the client application that will be used to authenticate users.
 
 ```python
-sso_app: msal.ClientApplication
-if client_secret:
-    sso_app = msal.ConfidentialClientApplication(
-        client_id=client_id,
-        client_credential=client_secret,
-        authority=authority,
-        token_cache=cache,
-    )
-else:
-    sso_app = msal.PublicClientApplication(
-        client_id=client_id,
-        authority=authority,
-        token_cache=cache,
-    )
+sso_app = msal.ConfidentialClientApplication(
+    client_id=client_id,
+    client_credential=client_secret,
+    authority=authority,
+    token_cache=cache,
+)
 ```
 
 
@@ -78,7 +70,7 @@ else:
 
 Our `State` class has three state variables `_access_token`, `_flow`, and `_token`. 
 
-The `_access_token` is the token that allows you to interact with Microsoft applications and access data from Microsoft that is relevant to you. The `_flow` variable is used to initiate the authentication flow, and the `_token` variable stores the token that is returned from Microsoft. All of these variables are [backend variables]({docs.vars.base_vars.path}#backend-only-vars) and therefore the user cannot change these via the UI.  {docs.vars.base_vars.path}
+The `_access_token` is the token that allows you to interact with Microsoft applications and access data from Microsoft that is relevant to you. The `_flow` variable is used to initiate the authentication flow, and the _token variable stores the the decoded token and claims that is returned from Microsoft. All of these variables are [backend variables]({docs.vars.base_vars.path}#backend-only-vars) and therefore the user cannot change these via the UI.  {docs.vars.base_vars.path}
 
 When we land on the home page, and we are not logged in, instantly the `require_auth` event handler is called, which checks if the `_token` variable is empty. As we are not logged in yet, the `_token` variable is empty, and the `redirect_sso` event handler is called.
 
@@ -219,7 +211,7 @@ def logout() -> rx.Component:
 
 ## Putting it all together
 
-The full code is shown below. In this final code we have broken the app down into two different pages, with our state class in `azure_auth/azure_auth/auth/core.py` and the pages in `azure_auth/azure_auth/azure_auth.py`.
+The full code is shown below and in this [git repo](https://github.com/reflex-dev/reflex-examples/tree/main/azure_auth). In this final code we have broken the app down into two different pages, with our state class in `azure_auth/azure_auth/auth/core.py` and the pages in `azure_auth/azure_auth/azure_auth.py`.
 
 Overall the final workflow is as follows:
 
@@ -248,17 +240,9 @@ login_redirect = "/"
 cache = msal.TokenCache()
 
 
-sso_app: msal.ClientApplication
-if client_secret:
-    sso_app = msal.ConfidentialClientApplication(
+sso_app = msal.ConfidentialClientApplication(
         client_id=client_id,
         client_credential=client_secret,
-        authority=authority,
-        token_cache=cache,
-    )
-else:
-    sso_app = msal.PublicClientApplication(
-        client_id=client_id,
         authority=authority,
         token_cache=cache,
     )
@@ -342,7 +326,3 @@ def auth_view() -> rx.Component:
 def unauth_view() -> rx.Component:
     return rx.text("Unauthorized, redirected...")
 ```
-
-
-To do:
-- add whole section on how to set up azure to get the client_id, client_secret, and tenant_id
