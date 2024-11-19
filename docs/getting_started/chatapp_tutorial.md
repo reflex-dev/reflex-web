@@ -150,7 +150,7 @@ app.add_page(index)
 
 Components can be nested inside each other to create complex layouts. Here we create a parent container that contains two boxes for the question and answer.
 
-We also add some basic styling to the components. Components take in keyword arguments, called [props]({components.style_props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
+We also add some basic styling to the components. Components take in keyword arguments, called [props]({components.props.path}), that modify the appearance and functionality of the component. We use the `text_align` prop to align the text to the left and right.
 
 ### Reusing Components
 
