@@ -17,7 +17,7 @@ class IterState(rx.State):
     ]
 
 
-def colored_box(color: str):
+def colored_box(color: rx.Var[str]):
     return rx.button(color, background_color=color)
 
 
@@ -30,12 +30,11 @@ def dynamic_buttons():
 
 In this first simple example we iterate through a `list` of colors and render a dynamic number of buttons.
 
-The first argument of the `rx.foreach` function is the state var that you want to iterate through. The second argument is a function that takes in an item from the data and returns a component. In this case, the `colored_box` function takes in a color and returns a button with that color.
-
+The first argument of the `rx.foreach` function is the [state var]({docs.vars.base_vars.path}) containing the iterable data you want to iterate through (e.g., a `list`, `dict`, or similar). The second argument is a function that takes each item from the iterable individually and returns a component. In this example, the `colored_box` function takes a single color from the color list and returns a button with that color.
 ## For vs Foreach
 
 ```md definition
-# Regualar For Loop
+# Regular For Loop
 * Use when iterating over constants.
 
 # Foreach
@@ -48,7 +47,7 @@ The above example could have been written using a regular Python `for` loop, sin
 colors = ["red", "green", "blue"]
 def dynamic_buttons_for():
     return rx.vstack(
-        [colored_box(color) for color in colors],
+        *[colored_box(color) for color in colors],
     )
 ```
 
@@ -98,7 +97,7 @@ def dynamic_buttons2():
 
 ```
 
-Notice that the type annotation for the `color` parameter in the `colored_box` function is `rx.Var[str]` (rather than just `str`). This is because the `rx.foreach` function passes the item as a `Var` object, which is a wrapper around the actual value. This is what allows us to compile the frontend without knowing the actual value of the state var (which is only known at runtime).
+Notice that the type annotation for the `color` parameter in the `colored_box` function is `rx.Var[str]` (rather than just `str`). This is because the `rx.foreach` function passes the item as a `Var` object, which is a wrapper around the actual value. This is what allows us to compile the frontend without knowing the actual value of the state var (which is only known at [runtime]({docs.getting_started.basics.path}#compile-time-vs.-runtime-(important))).
 
 ## Enumerating Iterables
 
@@ -153,6 +152,11 @@ def dict_foreach():
         columns="3",
     )
 
+```
+
+```md alert warning
+# Dict Type Annotation.
+It is essential to provide the correct full type annotation for the dictionary in the state definition (e.g., `dict[str, str]` instead of `dict`) to ensure `rx.foreach` works as expected. Proper typing allows Reflex to infer and validate the structure of the data during rendering.
 ```
 
 ## Nested examples
@@ -237,14 +241,14 @@ class ToDoListItem:
     is_packed: bool
 
 class ForeachCondState(rx.State):
-    to_do_list: list[TodoListItem] = [
-        TodoListItem(item_name="Space suit", is_packed=True), 
-        TodoListItem(item_name="Helmet", is_packed=True),
-        TodoListItem(item_name="Back Pack", is_packed=False),
+    to_do_list: list[ToDoListItem] = [
+        ToDoListItem(item_name="Space suit", is_packed=True), 
+        ToDoListItem(item_name="Helmet", is_packed=True),
+        ToDoListItem(item_name="Back Pack", is_packed=False),
         ]
 
 
-def render_item(item: rx.Var[TodoListItem]):
+def render_item(item: rx.Var[ToDoListItem]):
     return rx.cond(
         item.is_packed, 
         rx.list.item(item.item_name + ' ✔'),
