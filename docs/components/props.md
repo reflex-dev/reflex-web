@@ -36,9 +36,11 @@ rx.box(
 )
 ```
 
+In the example above, the `class_name` prop of the `rx.box` component is assigned a list of class names. This means the `rx.box` component will be styled with the CSS classes `class-name-1` and `class-name-2`.
+
 ## Style Props
 
-In addition to component-specific props, most built-in components support a full range of style props. You can use any CSS property to style a component.
+In addition to component-specific props, most built-in components support a full range of style props. You can use any [CSS property](https://www.w3schools.com/cssref/index.php) to style a component.
 
 ```python demo
 rx.button(
