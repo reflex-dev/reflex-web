@@ -144,11 +144,11 @@ def redirect_example():
 Pages can also have nested routes.
 
 ```python
-@rx.page(route='/nested/page')
 def nested_page():
     return rx.text('Nested Page')
 
 app = rx.App()
+app.add_page(nested_page, route='/nested/page')
 ```
 
 This component will be available at `/nested/page`.
@@ -212,14 +212,14 @@ class State(rx.State):
 ```
 
 The `router.page.path` attribute allows you to obtain the path of the current page from the router data,
-for dynamic pages this will contain the slug rather than the actual value used to load the page.
+for [dynamic pages]({docs.pages.dynamic_routing.path}) this will contain the slug rather than the actual value used to load the page.
 
 To get the actual URL displayed in the browser, use `router.page.raw_path`. This
 will contain all query parameters and dynamic path segments.
 
 
 In the above example, `current_page_route` will contain the route pattern (e.g., `/posts/[id]`), while `current_page_url`
-will contain the actual URL (e.g., `http://example.com/posts/123`).
+will contain the actual URL (e.g., `/posts/123`).
 
 To get the full URL, access the same attributes with `full_` prefix.
 
@@ -230,6 +230,12 @@ class State(rx.State):
     @rx.var
     def current_url(self) -> str:
         return self.router.page.full_raw_path
+
+def index():
+    return rx.text(State.current_url)
+
+app = rx.App()
+app.add_page(index, route='/posts/[id]')
 ```
 
-In this example, running on `localhost` should display `http://localhost:3000/user/hey/posts/3/`
+In this example, running on `localhost` should display `http://localhost:3000/posts/123/`
