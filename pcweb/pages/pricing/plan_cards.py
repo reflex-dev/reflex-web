@@ -51,7 +51,11 @@ def card(
                 variant="secondary",
                 class_name="w-full !text-sm !font-semibold !text-slate-11",
             ),
-            href=HOSTING_URL,
+            href=(
+                HOSTING_URL
+                if button_text != "Contact sales"
+                else "mailto:sales@reflex.dev"
+            ),
             is_external=True,
             underline="none",
         ),

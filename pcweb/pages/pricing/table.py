@@ -100,7 +100,7 @@ def create_action_button(
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        href=HOSTING_URL,
+        href=HOSTING_URL if text != "Contact sales" else "mailto:sales@reflex.dev",
         is_external=True,
         underline="none",
         class_name="w-full flex justify-center items-center",
