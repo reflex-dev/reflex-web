@@ -232,7 +232,7 @@ With this configuration, Tailwind will be disabled, and no Tailwind styles will 
 
 ## Special Styles
 
-We support all of Chakra UI's [pseudo styles]({"https://chakra-ui.com/docs/features/style-props#pseudo"}).
+We support all of Chakra UI's [pseudo styles]({"https://v2.chakra-ui.com/docs/styled-system/style-props#pseudo"}).
 
 Below is an example of text that changes color when you hover over it.
 
