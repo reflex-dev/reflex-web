@@ -63,7 +63,7 @@ PLAN_BUTTONS = [
 
 def glow() -> rx.Component:
     return rx.table.row(
-        class_name="absolute flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[5] top-[-1rem] pointer-events-none",
+        class_name="absolute flex-shrink-0 left-1/2 -translate-x-1/2 z-[5] top-[-1rem] pointer-events-none",
         background_image=rx.color_mode_cond(
             "radial-gradient(50% 50% at 50% 50%, rgba(235, 228, 255, 0.661) 0%, rgba(252, 252, 253, 0.00) 100%) !important",
             "radial-gradient(50% 50% at 50% 50%, rgba(58, 45, 118, 0.241) 0%, rgba(21, 22, 24, 0.00) 100%) !important",
@@ -111,7 +111,7 @@ def create_table_row(cells: list) -> rx.Component:
     row_cells = [create_table_cell(cell) for cell in cells]
     return rx.table.row(
         *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 relative z-[2]",
+        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[56px]",
     )
 
 
@@ -121,7 +121,7 @@ def create_table_row_header(cells: list) -> rx.Component:
             rx.table.column_header_cell(cell, class_name=STYLES["header_cell"])
             for cell in cells
         ],
-        class_name="w-full [&>*:not(:first-child)]:text-center relative bg-slate-2 border border-slate-3 rounded-2xl z-[6]",
+        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative",
         padding_x="5rem !important",
     )
 
@@ -152,7 +152,7 @@ def table_body() -> rx.Component:
         rx.el.style(TABLE_STYLE),
         rx.table.header(
             create_table_row_header(["Features", "Pro", "Team", "Enterprise"]),
-            glow(),
+            # glow(),
             class_name="relative",
         ),
         # Section 1
@@ -162,7 +162,7 @@ def table_body() -> rx.Component:
         # Section 2
         rx.table.header(
             create_table_row_header(["Section 2", "", "", ""]),
-            glow(),
+            # glow(),
             class_name="relative",
         ),
         create_table_body(
@@ -174,7 +174,7 @@ def table_body() -> rx.Component:
         # Section 3
         rx.table.header(
             create_table_row_header(["Section 3", "", "", ""]),
-            glow(),
+            # glow(),
             class_name="relative",
         ),
         create_table_body(
@@ -190,7 +190,7 @@ def table_body() -> rx.Component:
                     rx.table.cell(create_action_button(text, variant, extra))
                     for text, variant, extra in PLAN_BUTTONS
                 ],
-                class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 !py-[1.25rem] border-y border-slate-4",
+                class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 !py-[1.25rem] border-y border-slate-4 !h-[76px] relative",
             ),
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
