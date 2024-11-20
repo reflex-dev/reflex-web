@@ -17,7 +17,7 @@ Reflex’s hosting service makes it easy to deploy your apps without worrying ab
 
 ### Prerequisites
 
-1. Hosting service requires `reflex>=0.3.2`.
+1. Hosting service requires `reflex>=0.6.5`.
 2. This tutorial assumes you have successfully `reflex init` and `reflex run` your app.
 3. Also make sure you have a `requirements.txt` file at the top level app directory that contains all your python dependencies!
 
@@ -43,7 +43,13 @@ reflex deploy
 
 The command is by default interactive. It asks you a few questions for information required for the deployment.
 
-**Name**: choose a name for the deployed app. This name will be part of the deployed app URL, i.e. `<app-name>.reflex.run`. The name should only contain domain name safe characters: no slashes, no underscores. Domain names are case insensitive. To avoid confusion, the name you choose here is also case insensitive. If you enter letters in upper cases, we automatically convert them to lower cases.
+**Name**: choose a name for the deployed app. This name will be part of the deployed app URL, i.e. `<app-name>-randomword-randomword.reflex.run`. 
+
+The name should only contain domain name safe characters: no slashes, no underscores.
+
+```md alert info
+# Custom domains are available for paid plans.
+```
 
 **Regions**: enter the region code here or press `Enter` to accept the default. The default code `sjc` stands for San Jose, California in the US west coast. Check the list of supported regions at [reflex deployments regions](#reflex-deployments-regions).
 
@@ -52,13 +58,7 @@ The command is by default interactive. It asks you a few questions for informati
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
 ```md alert info
-# Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
-```
-
-The hosting service does not currently handle database or file upload operations. It is necessary to set up an external database use it within your app.
-
-```md alert info
-# If you want to deploy on a custom URL we recommend using https://redirect.pizza
+# The hosting service does not currently handle database or file upload operations. Set up an external database use it within your app.
 ```
 
 ## See it in Action

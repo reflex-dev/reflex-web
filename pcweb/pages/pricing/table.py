@@ -33,6 +33,12 @@ TABLE_STYLE = """
 """
 
 # Data configuration
+PRICE_SECTION = [
+    ("Per Seat Price", "$19/mo", "$29/mo", "Custom"),
+    ("Compute", "Usage Based", "Usage Based", "Custom"),
+]
+
+
 TOP_SECTION = [
     ("Compute", "Up to 5 CPU 10GB", "Usage Based", "Usage Based"),
     ("Regions", "Multiple", "Multiple", "Multiple"),
@@ -150,6 +156,14 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
 def table_body() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
+        rx.table.header(
+            create_table_row_header(["Price", "Pro", "Team", "Enterprise"]),
+            glow(),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in PRICE_SECTION],
+        ),
         rx.table.header(
             create_table_row_header(["Features", "Pro", "Team", "Enterprise"]),
             # glow(),
