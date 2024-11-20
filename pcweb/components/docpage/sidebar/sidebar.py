@@ -284,8 +284,8 @@ def create_sidebar_section(
     section_title: str,
     section_url: str,
     items: list[SideBarItem],
-    index: rx.Var[list],
-    url: rx.Var[str]
+    index: rx.Var[list[str]] | list[str],
+    url: rx.Var[str] | str,
 ) -> rx.Component:
     # Check if the section has any nested sections (Like the Other Libraries Section)
     nested = any(len(child.children) > 0 for item in items for child in item.children)
@@ -374,7 +374,7 @@ def sidebar_comp(
                         url,
                     ),
                     create_sidebar_section(
-                        "State", state.overview.path, backend, backend_index, url
+                        "State", state.overview.path, filter_out_non_sidebar_items(backend), backend_index, url
                     ),
                     create_sidebar_section(
                         "Hosting",

@@ -46,9 +46,9 @@ def get_sidebar_items_frontend():
 
     items = [
         SideBarSection(
-            names="User Interface",
+            names="User Interface Overview",
             alt_name_for_next_prev="",
-            link="/docs/ui/overview"
+            link=ui.overview.path
         ),
         create_item(
             "Components",
@@ -121,8 +121,14 @@ def get_sidebar_items_backend():
         utility_methods,
         vars,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="State Overview",
+            alt_name_for_next_prev="",
+            link=state.overview.path
+        ),
         create_item(
             "Vars",
             children=[
