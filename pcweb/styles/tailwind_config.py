@@ -5,7 +5,9 @@ tw_config = {
     "darkMode": "class",
     "theme": {
         "fontFamily": {
-            "code": ["JetBrains Mono", "monospace"],
+            "sans": ["Instrument Sans", "sans-serif"],
+            "mono": ["JetBrains Mono", "monospace"],
+            "body": ["Instrument Sans", "sans-serif"],
         },
         "fontSize": {
             "xs": [
@@ -89,6 +91,30 @@ tw_config = {
             "small": "0px 2px 5px 0px light-dark(rgba(28, 32, 36, 0.03), rgba(0, 0, 0, 0.00))",
             "medium": "0px 4px 8px 0px light-dark(rgba(28, 32, 36, 0.04), rgba(0, 0, 0, 0.00))",
             "large": "0px 24px 12px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 8px 8px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00)), 0px 2px 6px 0px light-dark(rgba(28, 32, 36, 0.02), rgba(0, 0, 0, 0.00))",
+        },
+        "keyframes": {
+            "accordion-down": {
+                "from": {"height": "0"},
+                "to": {"height": "var(--radix-accordion-content-height)"},
+            },
+            "accordion-up": {
+                "from": {"height": "var(--radix-accordion-content-height)"},
+                "to": {"height": "0"},
+            },
+            "spin": {
+                "from": {"transform": "rotate(0deg)"},
+                "to": {"transform": "rotate(360deg)"},
+            },
+            "blur-in": {
+                "0%": {"filter": "blur(4px)"},
+                "100%": {"filter": "blur(0)"},
+            },
+        },
+        "animation": {
+            "accordion-down": "accordion-down 0.2s ease-out",
+            "accordion-up": "accordion-up 0.2s ease-out",
+            "spin": "spin 1s linear infinite",
+            "blur-in": "blur-in 0.15s ease forwards",
         },
     },
 }
