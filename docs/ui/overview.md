@@ -31,8 +31,7 @@ rx.text('Hello World!', color='blue', font_size="1.5em")
 Here `"Hello World!"` is the child text to display, while `color` and `font_size` are props that modify the appearance of the text.
 
 ```md alert success
-Regular Python data types can be passed in as children to components.
-This is useful for passing in text, numbers, and other simple data types.
+# Regular Python data types can be passed in as children to components. This is useful for passing in text, numbers, and other simple data types.
 ```
 
 ## Another Example
@@ -55,6 +54,7 @@ rx.vstack(
         header="Third item",
         content="The third accordion item's content",
     ),
+    collapsible=True,
     width="300px",
 )
 )

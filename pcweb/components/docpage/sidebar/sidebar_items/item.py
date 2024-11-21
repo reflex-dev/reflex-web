@@ -1,5 +1,5 @@
 from pcweb.route import Route
-from ..state import SidebarState, SidebarItem
+from ..state import SidebarState, SideBarItem
 
 
 def create_item(route: Route, children=None):
@@ -13,10 +13,10 @@ def create_item(route: Route, children=None):
         else:
             alt_name_for_next_prev = ""
         name = name.replace("Api", "API").replace("Cli", "CLI")
-        return SidebarItem(
+        return SideBarItem(
             names=name, alt_name_for_next_prev=alt_name_for_next_prev, link=route.path
         )
-    return SidebarItem(
+    return SideBarItem(
         names=route,
         children=list(map(create_item, children)),
     )

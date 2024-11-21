@@ -5,7 +5,7 @@ from __future__ import annotations
 import reflex as rx
 import reflex_chakra as rc
 from pcweb.components.docpage.navbar.state import NavbarState
-from .state import SidebarState, SidebarItem
+from .state import SidebarState, SideBarItem, SideBarBase
 import reflex_chakra as rc
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
@@ -16,6 +16,7 @@ from .sidebar_items.component_lib import (
 from .sidebar_items.reference import api_reference, tutorials
 from .sidebar_items.recipes import recipes
 from pcweb.styles.colors import c_color
+
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -28,7 +29,7 @@ def sidebar_link(*children, **props):
 
 
 def sidebar_leaf(
-    item: SidebarItem,
+    item: SideBarItem,
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
@@ -124,7 +125,7 @@ def sidebar_icon(name):
 
 
 def sidebar_item_comp(
-    item: SidebarItem,
+    item: SideBarItem,
     index: list[int],
     url: str,
 ):
@@ -221,6 +222,18 @@ def get_prev_next(url):
     return None, None
 
 
+def filter_out_non_sidebar_items(items: list[SideBarBase]) -> list[SideBarItem]:
+    """Filter out non-sidebar items making sure only SideBarItems are present.
+
+    Args:
+        items: The items to filter.
+
+    Return:
+        The filtered side bar items.
+    """
+    return [item for item in items if isinstance(item, SideBarItem)]
+
+
 def sidebar_category(name: str, url: str, icon: str, index: int):
     return rx.el.li(
         rx.link(
@@ -267,7 +280,13 @@ def sidebar_category(name: str, url: str, icon: str, index: int):
     )
 
 
-def create_sidebar_section(section_title, section_url, items, index, url):
+def create_sidebar_section(
+    section_title: str,
+    section_url: str,
+    items: list[SideBarItem],
+    index: rx.Var[list[str]] | list[str],
+    url: rx.Var[str] | str,
+) -> rx.Component:
     # Check if the section has any nested sections (Like the Other Libraries Section)
     nested = any(len(child.children) > 0 for item in items for child in item.children)
     # Make sure the index is a list
@@ -313,7 +332,6 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-
     from pcweb.pages.docs.recipes_overview import overview
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.custom_components import custom_components
@@ -351,12 +369,12 @@ def sidebar_comp(
                     create_sidebar_section(
                         "User Interface",
                         ui.overview.path,
-                        frontend,
+                        filter_out_non_sidebar_items(frontend),
                         frontend_index,
                         url,
                     ),
                     create_sidebar_section(
-                        "State", state.overview.path, backend, backend_index, url
+                        "State", state.overview.path, filter_out_non_sidebar_items(backend), backend_index, url
                     ),
                     create_sidebar_section(
                         "Hosting",
