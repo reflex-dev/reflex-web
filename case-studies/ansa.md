@@ -38,10 +38,22 @@ meta: [
 ]
 ---
 
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
 
-Meet [Ansa](www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and previously backed Crowdstrike, Coinbase, and SurveyMonkey.
+```python eval
+rx.vstack(
+    image_zoom(rx.image(src="/case_studies/ansa_app.png", border_radius="10px", alt="Ansa App")),
+    rx.text("Ansa App built with Reflex"),
+    width="100%",
+)
+```
 
-Ryan Sullivan is an investor and manages the engineering and data science team at Ansa. He finds and supports new investments and builds Ansa's data-driven sourcing strategy.
+Meet [Ansa](www.ansa.co), a venture capital firm based in New York City that invests in companies from Series A to C. They have invested in companies like Defense Unicorns, Bland, Gradient, and Selector and prior to founding the firm, supported investments in many of the venture-capital industry’s largest outcomes including Crowdstrike, Coinbase, and SurveyMonkey to name a few.
+
+Ryan Sullivan is an investor and oversees the engineering and data science team at Ansa. He finds and supports new investments and is the architect behind Ansa's data-driven sourcing strategy, working closely with the firms’ Managing Partner Marco Demeireles to build the firms’ proprietary sourcing applications and research products.
 
 
 ## Ansa's data analysis challenge
