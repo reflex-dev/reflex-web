@@ -27,7 +27,7 @@ cd reflex-chat
 
 Set up your OpenAI API key:
 ```bash
-export OPEN_AI_KEY=your-openai-api-key
+export OPENAI_API_KEY=your-openai-api-key
 ```
 
 Install the dependencies and run the app:
