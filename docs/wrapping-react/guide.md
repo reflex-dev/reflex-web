@@ -137,6 +137,11 @@ class GithubComponent(rx.Component):
     library = "@masenf/hello-react@github:masenf/hello-react"
     tag = "Counter"
 
+    def add_imports(self):
+        return {
+            "": ["@masenf/hello-react/dist/style.css"]
+        }
+
 def github_component_example():
     return GithubComponent.create()
 ```
