@@ -42,8 +42,14 @@ def get_sidebar_items_frontend():
         wrapping_react,
         custom_components,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="User Interface Overview",
+            alt_name_for_next_prev="",
+            link=ui.overview.path
+        ),
         create_item(
             "Components",
             children=[
@@ -115,8 +121,14 @@ def get_sidebar_items_backend():
         utility_methods,
         vars,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="State Overview",
+            alt_name_for_next_prev="",
+            link=state.overview.path
+        ),
         create_item(
             "Vars",
             children=[

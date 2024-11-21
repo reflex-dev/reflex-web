@@ -65,5 +65,6 @@ import reflex as rx
 config = rx.Config(
     app_name="{app_name}",
 )
+```
 
 We will discuss project structure and configuration in more detail in the [advanced project structure]({advanced_onboarding.code_structure.path}) documentation.

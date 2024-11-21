@@ -7,8 +7,8 @@ import reflex as rx
 from reflex.base import Base
 
 
-class SidebarItem(Base):
-    """A single item in the sidebar."""
+class SideBarBase(Base):
+    """Base class for the Side bar."""
 
     # The name to display in the sidebar.
     names: str = ""
@@ -19,10 +19,20 @@ class SidebarItem(Base):
     link: str = ""
 
     # The children items.
-    children: list[SidebarItem] = []
+    children: list[SideBarItem] = []
 
     # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for asthetics.
     outer = False
+
+
+class SideBarItem(SideBarBase):
+    """A single item in the sidebar."""
+    ...
+
+
+class SideBarSection(SideBarBase):
+    """A section in the sidebar."""
+    ...
 
 
 class SidebarState(rx.State):

@@ -5,6 +5,7 @@ from pcweb.templates.docpage import doclink
 from pcweb.templates.webpage import webpage
 from pcweb.constants import DISCORD_URL, CONTRIBUTING_URL
 from pcweb.components.webpage.comps import h1_title
+from pcweb.flexdown import markdown_with_shiki
 import reflex_chakra as rc
 
 faq_items = [
@@ -75,7 +76,7 @@ faq_items = [
     },
     {
         "Q": "What usage data is collected?",
-        "A": rx.markdown(
+        "A": markdown_with_shiki(
             """
 Anonymous usage data allows us to understand how Reflex is used and how we can improve the product.
 

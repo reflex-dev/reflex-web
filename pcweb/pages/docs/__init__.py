@@ -2,32 +2,38 @@ import os
 from collections import defaultdict
 from types import SimpleNamespace
 
-import reflex as rx
 import flexdown
 
 # External Components
 from reflex_ag_grid import ag_grid
 from reflex_pyplot import pyplot
 
+import reflex as rx
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
+from pcweb.pages.library_previews import components_previews_pages
 from pcweb.route import Route
 from pcweb.templates.docpage import docpage, get_toc
 from pcweb.whitelist import _check_whitelisted_path
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
+from reflex.config import environment
 
-from .library import library
-from .recipes_overview import overview
-from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 from .cloud_apiref import pages as cloud_apiref_pages
-from pcweb.pages.library_previews import components_previews_pages
+from .custom_components import custom_components
+from .library import library
+from .recipes_overview import overview
 
 
 def should_skip_compile(doc: flexdown.Document):
     """Skip compilation if the markdown file has not been modified since the last compilation."""
-    if not os.environ.get("REFLEX_PERSIST_WEB_DIR", False):
+    # Always skip compilation if the backend only environment variable is set.
+    if environment.REFLEX_BACKEND_ONLY.get():
+        return True
+
+    # Never skip compilation if the web directory persistance is not set.
+    if not environment.REFLEX_PERSIST_WEB_DIR.get():
         return False
 
     # Check if the doc has been compiled already.
@@ -76,7 +82,7 @@ def build_nested_namespace(
 
 def get_components_from_metadata(current_doc):
     components = []
-   
+
     for comp_str in current_doc.metadata.get("components", []):
         component = eval(comp_str)
         if isinstance(component, type):
@@ -85,7 +91,7 @@ def get_components_from_metadata(current_doc):
             components.append((component.__self__, comp_str))
         elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
             components.append((component.__call__.__self__, comp_str))
-    
+
     return components
 
 
@@ -131,6 +137,7 @@ manual_titles = {
     "docs/library/graphing/general/tooltip.md": "Graphing Tooltip",
     "docs/recipes/content/grid.md": "Grid Recipe",
 }
+
 
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
@@ -200,7 +207,7 @@ for api_route in cloud_apiref_pages:
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
 for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1] 
+    path = doc.split("/")[1:-1]
 
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
@@ -224,8 +231,8 @@ for doc in sorted(flexdown_docs):
 
 
 for doc in flexdown_docs:
-    if 'recipes' in doc:
-        category = doc.split('/')[2]
+    if "recipes" in doc:
+        category = doc.split("/")[2]
         recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():

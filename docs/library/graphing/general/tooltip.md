@@ -1,4 +1,5 @@
 ---
+title: "Graphing Tooltip"
 components:
     - rx.recharts.GraphingTooltip
 ---
