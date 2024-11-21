@@ -1,3 +1,7 @@
+---
+title: Database Overview
+---
+
 # Database
 
 Reflex uses [sqlmodel](https://sqlmodel.tiangolo.com) to provide a built-in ORM wrapping SQLAlchemy.
