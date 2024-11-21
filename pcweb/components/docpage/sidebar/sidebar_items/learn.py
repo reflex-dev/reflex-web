@@ -187,15 +187,19 @@ def get_sidebar_items_backend():
 
 
 def get_sidebar_items_hosting():
-    from pcweb.pages.docs import hosting
+    from pcweb.pages.docs import hosting, cloud_apiref
 
     items = [
         create_item(
-            "Reflex Deploy",
+            "Quick Start",
             children=[
                 hosting.deploy_quick_start,
                 hosting.hosting_cli_commands,
             ],
+        ),
+        create_item(
+            "CLI Reference",
+            children=cloud_apiref.pages
         ),
         create_item(
             "Self Hosting",
