@@ -1,4 +1,4 @@
-from .item import create_item, SidebarItem
+from .item import create_item
 
 
 def get_sidebar_items_api_reference():
