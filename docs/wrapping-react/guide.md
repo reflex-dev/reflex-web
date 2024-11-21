@@ -156,6 +156,30 @@ Some important notes regarding this approach:
 * `prepare` or `build` scripts will NOT be executed. The distribution archive,
   directory, or repo must already contain the built javascript files (this is common).
 
+```md alert
+# Ensure CSS files are exported in `package.json`
+
+In addition to exporting the module containing the component, any CSS files
+intended to be imported by the wrapped component must also be listed in the
+`exports` key of `package.json`.
+
+```json
+{
+  // ...,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  // ...
+}
+```
+
 ### Import Types
 
 Sometimes the component is a default export from the module (meaning it doesn't require curly braces in the import statement).
