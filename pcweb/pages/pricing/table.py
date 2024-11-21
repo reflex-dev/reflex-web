@@ -39,23 +39,36 @@ PRICE_SECTION = [
 ]
 
 
-TOP_SECTION = [
-    ("Compute", "Up to 5 CPU 10GB", "Usage Based", "Usage Based"),
+COMPUTE_SECTION = [
+    ("On Premise (Optional)", False, False, True),
+    ("Compute Per Project", "5 CPU, 10GB", "Unlimited", "Unlimited"),
     ("Regions", "Multiple", "Multiple", "Multiple"),
-    ("Team size", "Up to 5", "Up to 25", "Unlimited"),
-    ("Build logs", "30 days", "90 days", "Custom"),
+    ("Team size", "< 5", "< 15", "Unlimited"),
     ("Runtime logs", "1 day", "1 week", "Custom"),
-    ("Support", "Community support", "Slack, Teams, Email", "Custom"),
+    ("Build logs", "30 days", "90 days", "Custom"),
+    
 ]
 
-SECOND_SECTION = [
+FEATURE_SECTION = [
+    ("Custom domains", True, True, True),
+    ("Secrets", True, True, True),
+    ("Metrics and analytics", True, True, True),
+    ("Automatic CI/CD", True, True, True),
+    ("Multi-region", True, True, True),
+    ("One-click Auth", False, True, True),
+    ("Cron jobs", False, True, True),
+    ("SSO", False, False, True),
+]
+
+SECURITY_SECTION = [
     ("Web app firewall", True, True, True),
     ("HTTP/SSL", True, True, True),
     ("DDos", True, True, True),
     ("Custom onboarding", False, False, True),
 ]
 
-THIRD_SECTION = [
+SUPPORT_SECTION = [
+    ("Support", "Community support", "Email (1 Business Day)", "Support SLAs available"),
     ("Custom onboarding", False, False, True),
     ("Migrate existing apps", False, False, True),
 ]
@@ -165,36 +178,37 @@ def table_body() -> rx.Component:
             *[create_table_row(row) for row in PRICE_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Features", "Pro", "Team", "Enterprise"]),
-            # glow(),
+            create_table_row_header(["Compute", "", "", ""]),
             class_name="relative",
         ),
-        # Section 1
         create_table_body(
-            *[create_table_row(row) for row in TOP_SECTION],
+            *[create_table_row(row) for row in COMPUTE_SECTION],
         ),
-        # Section 2
         rx.table.header(
-            create_table_row_header(["Section 2", "", "", ""]),
-            # glow(),
+            create_table_row_header(["Features", "", "", ""]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_checkmark_row(feature, checks) for feature, *checks in FEATURE_SECTION],
+        ),
+        rx.table.header(
+            create_table_row_header(["Security", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in SECOND_SECTION
+                for feature, *checks in SECURITY_SECTION
             ],
         ),
-        # Section 3
         rx.table.header(
-            create_table_row_header(["Section 3", "", "", ""]),
-            # glow(),
+            create_table_row_header(["Support", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in THIRD_SECTION
+                for feature, *checks in SUPPORT_SECTION
             ],
         ),
         create_table_body(

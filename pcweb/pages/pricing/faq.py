@@ -85,28 +85,24 @@ faq_items = [
         "Yes! Reflex is open source and free to use. You can self-host your apps or use our hosting platform which has a generous free tier.",
     ),
     (
-        "How usage based billing is calculated?",
-        "Usage is calculated based on compute resources (CPU/RAM) consumed by your app. We measure this in compute units per hour.",
+        "What is the difference between Reflex and Reflex Hosting?",
+        "Reflex is our open-source framework for building web apps. Reflex Hosting is our platform for hosting Reflex apps.",
     ),
     (
-        "What is your privacy and security policy?",
-        "We take security seriously. All apps are deployed with SSL certificates, DDoS protection, and web application firewall. Your code and data remain private and secure.",
+        "Why was I charged $1 after adding a credit card?",
+        "A $1 USD transaction is performed as a credit security check to ensure your card details are correct and authorized. The charge is refunded after the transaction completes.",
+    ),
+    (
+        "How usage based billing is calculated?",
+        "Usage is calculated based on compute resources (CPU/RAM) consumed by your app. We measure this in compute units per hour.",
     ),
     (
         "What happens when I upgrade?",
         "When you upgrade your plan, you'll immediately get access to the new features and increased resource limits. Your app will continue running without interruption.",
     ),
     (
-        "How are prorations calculated?",
-        "If you upgrade mid-billing cycle, we'll prorate the new charges for the remainder of the billing period. You'll only pay for what you use.",
-    ),
-    (
         "What happens if I cancel the plan?",
         "If you cancel, you'll maintain access until the end of your current billing period. After that, your app will be downgraded to the free tier limits.",
-    ),
-    (
-        "How can I influence Reflex roadmap?",
-        "We welcome feedback and feature requests from our community. You can submit ideas through GitHub issues or discuss them in our Discord community.",
     ),
     (
         "What determines the total amount billed?",
@@ -118,7 +114,7 @@ faq_items = [
     ),
     (
         "Can I add members to my project?",
-        "Yes! Pro plan allows up to 5 team members, Team plan up to 25 members, and Enterprise plan has unlimited team members.",
+        "Yes! Pro plan allows up to 5 team members, Team plan up to 15 members, and Enterprise plan have unlimited team members.",
     ),
 ]
 
