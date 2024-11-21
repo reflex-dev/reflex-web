@@ -3,9 +3,7 @@
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
-from pcweb import constants
 from pcweb.pages import docs
-from pcweb.templates.docpage import doccmdoutput
 ```
 
 So far, we have been running our apps locally on our own machines.
@@ -20,7 +18,7 @@ Reflex’s hosting service makes it easy to deploy your apps without worrying ab
 
 1. Hosting service requires `reflex>=0.6.5`.
 2. This tutorial assumes you have successfully `reflex init` and `reflex run` your app.
-3. Also make sure you have a `requirements.txt` file at the top level app directory that contains all your python dependencies! (pip freez to get one tc)
+3. Also make sure you have a `requirements.txt` file at the top level app directory that contains all your python dependencies! (To create a `requirements.txt` file, run `pip freeze > requirements.txt`.)
 
 
 ### Authentication
@@ -28,7 +26,7 @@ Reflex’s hosting service makes it easy to deploy your apps without worrying ab
 First run the command below to login / signup to your Reflex Cloud account: (command ine)
 
 ```bash
-reflex loginv2
+reflex login
 ```
 
 You will be redirected to your browser where you can authenticate through Github or Gmail.
@@ -47,10 +45,10 @@ This screen shows the login command and the deploy command. As we are already lo
 
 Now you can start deploying your app.
 
-In your cloud UI copy the `reflex deployv2` command similar to the one shown below.
+In your cloud UI copy the `reflex deploy` command similar to the one shown below.
 
 ```bash
-reflex deployv2 --project 2a432b8f-2605-4753-####-####0cd1####
+reflex deploy --project 2a432b8f-2605-4753-####-####0cd1####
 ```
 
 In your project directory (where you would normally run `reflex run`) paste this command.

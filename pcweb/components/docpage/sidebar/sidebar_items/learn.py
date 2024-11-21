@@ -194,6 +194,7 @@ def get_sidebar_items_hosting():
             "Quick Start",
             children=[
                 hosting.deploy_quick_start,
+                hosting.additional_concepts,
                 hosting.hosting_cli_commands,
             ],
         ),
