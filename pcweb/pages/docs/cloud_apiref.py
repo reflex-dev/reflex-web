@@ -14,7 +14,7 @@ def get_command_help_output(path_to_file: str = None, name_of_cli_program: str =
         # Run the command and save the output to the temporary file
         result = subprocess.run(
             [
-                "poetry", "run", "typer", path_to_file, "utils", "docs",
+                "typer", path_to_file, "utils", "docs",
                 "--name", name_of_cli_program, "--output", temp_file_path
             ],
             stdout=subprocess.PIPE,

@@ -62,6 +62,15 @@ They are passed after the `--env` flag as key value pairs.
 To pass multiple environment variables, you can repeat the `--env` tag. i.e. `reflex deploy --project f88b1574-f101-####-####-5f########## --env KEY1=VALUE1 --env KEY2=VALUE`
 
 
+Alternatively if there is an environment variable file in your project directory you can pass the `--envfile` flag with the path to the env file. For example:
+
+```bash
+reflex deploy --project f88b1574-f101-####-####-5f########## --envfile .env
+```
+
+In this example the path to the file is `.env`. This will override any envs set manually.
+
+
 ```md alert info
 # More information on Environment Variables
 Environment variables are encrypted and safely stored. We recommend that backend API keys or secrets are entered as `envs`. Make sure to enter the `envs` without any quotation marks. We do not show the values of them in any CLI commands, only their names (or keys).
