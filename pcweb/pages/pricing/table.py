@@ -78,7 +78,7 @@ SUPPORT_SECTION = [
 PLAN_BUTTONS = [
     ("Start building for free", "secondary", "!text-slate-11 !w-fit"),
     ("Start with Pro plan", "primary", "!text-[#FCFCFD] !w-fit"),
-    ("Start with Team plan", "secondary", "!text-slate-11 !w-fit"),
+    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
     ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
 ]
 
