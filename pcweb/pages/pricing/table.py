@@ -23,7 +23,7 @@ TABLE_STYLE = """
 }
 .rt-TableRow {
     display: grid !important;
-    grid-template-columns: minmax(200px, 1fr) repeat(3, minmax(150px, 1fr)) !important;
+    grid-template-columns: minmax(100px, 1fr) repeat(4, minmax(100px, 1fr)) !important;
     padding: 1rem 2.5rem;
     gap: 6rem !important;
 }
@@ -34,49 +34,52 @@ TABLE_STYLE = """
 
 # Data configuration
 PRICE_SECTION = [
-    ("Per Seat Price", "$19/mo", "$29/mo", "Custom"),
-    ("Compute", "Usage Based", "Usage Based", "Custom"),
+    ("Per Seat Price", "$19/mo", "$19/mo", "$29/mo", "Custom"),
+    ("Compute", "Usage Based", "Usage Based", "Usage Based", "Custom"),
 ]
 
 
 COMPUTE_SECTION = [
-    ("On Premise (Optional)", False, False, True),
-    ("Compute Per Project", "5 CPU, 10GB", "Unlimited", "Unlimited"),
-    ("Regions", "Multiple", "Multiple", "Multiple"),
-    ("Team size", "< 5", "< 15", "Unlimited"),
-    ("Runtime logs", "1 day", "1 week", "Custom"),
-    ("Build logs", "30 days", "90 days", "Custom"),
-    
+    ("Compute Per Project", "5 CPU, 10GB", "5 CPU, 10GB", "Unlimited", "Unlimited"),
+    ("Regions", "Multiple", "Multiple", "Multiple", "Multiple"),
+    ("Team size", "< 5", "< 5", "< 15", "Unlimited"),
+    ("Runtime logs", "1 day", "1 day", "1 week", "Custom"),
+    ("Build logs", "30 days", "30 days", "90 days", "Custom"),
 ]
 
+ON_PREMISE_ROW = [("On Premise (Optional)", False, False, False, True)]
+
 FEATURE_SECTION = [
-    ("Custom domains", True, True, True),
-    ("Secrets", True, True, True),
-    ("Metrics and analytics", True, True, True),
-    ("Automatic CI/CD", True, True, True),
-    ("Multi-region", True, True, True),
-    ("One-click Auth", False, True, True),
-    ("Cron jobs", False, True, True),
-    ("SSO", False, False, True),
+    ("Custom domains", True, True, True, True),
+    ("Secrets", True, True, True, True),
+    ("Metrics and analytics", True, True, True, True),
+    ("Automatic CI/CD", True, True, True, True),
+    ("Multi-region", False, True, True, True),
+    ("One-click Auth", False, False, True, True),
+    ("Cron jobs", False, False, True, True),
+    ("SSO", False, False, False, True),
 ]
 
 SECURITY_SECTION = [
-    ("Web app firewall", True, True, True),
-    ("HTTP/SSL", True, True, True),
-    ("DDos", True, True, True),
-    ("Custom onboarding", False, False, True),
+    ("Web app firewall", True, True, True, True),
+    ("HTTP/SSL", True, True, True, True),
+    ("DDos", True, True, True, True),
+    ("Custom onboarding", False, False, True, True),
 ]
 
 SUPPORT_SECTION = [
-    ("Support", "Community support", "Email (1 Business Day)", "Support SLAs available"),
-    ("Custom onboarding", False, False, True),
-    ("Migrate existing apps", False, False, True),
+    ("Community support", True, True, True, True),
+    ("Email (1 Business Day)", False, False, False, True),
+    ("Support SLAs available", False, False, False, True),
+    ("Custom onboarding", False, False, False, True),
+    ("Migrate existing apps", False, False, False, True),
 ]
 
 PLAN_BUTTONS = [
-    ("Start with Pro plan", "primary", "!text-[#FCFCFD]"),
-    ("Start with Team plan", "secondary", "!text-slate-11"),
-    ("Contact sales", "secondary", "!text-slate-11"),
+    ("Start building for free", "secondary", "!text-slate-11 !w-fit"),
+    ("Start with Pro plan", "primary", "!text-[#FCFCFD] !w-fit"),
+    ("Start with Team plan", "secondary", "!text-slate-11 !w-fit"),
+    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
 ]
 
 
@@ -170,7 +173,7 @@ def table_body() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header(["Price", "Pro", "Team", "Enterprise"]),
+            create_table_row_header(["Price", "Hobby", "Pro", "Team", "Enterprise"]),
             glow(),
             class_name="relative",
         ),
@@ -182,17 +185,24 @@ def table_body() -> rx.Component:
             class_name="relative",
         ),
         create_table_body(
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in ON_PREMISE_ROW
+            ],
             *[create_table_row(row) for row in COMPUTE_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Features", "", "", ""]),
+            create_table_row_header(["Features", "", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
-            *[create_checkmark_row(feature, checks) for feature, *checks in FEATURE_SECTION],
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in FEATURE_SECTION
+            ],
         ),
         rx.table.header(
-            create_table_row_header(["Security", "", "", ""]),
+            create_table_row_header(["Security", "", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
@@ -202,7 +212,7 @@ def table_body() -> rx.Component:
             ],
         ),
         rx.table.header(
-            create_table_row_header(["Support", "", "", ""]),
+            create_table_row_header(["Support", "", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
