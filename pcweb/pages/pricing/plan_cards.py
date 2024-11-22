@@ -26,7 +26,7 @@ def radial_circle(violet: bool = False) -> rx.Component:
 
 
 def card(
-    title: str, description: str, features: list[str], button_text: str
+    title: str, description: str, features: list[tuple[str, str]], button_text: str
 ) -> rx.Component:
     return rx.box(
         rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
@@ -36,8 +36,8 @@ def card(
         rx.el.ul(
             *[
                 rx.el.li(
-                    rx.icon("circle-check", class_name="!text-violet-9", size=16),
-                    feature,
+                    rx.icon(feature[0], class_name="!text-violet-9", size=16),
+                    feature[1],
                     class_name="text-sm font-medium text-slate-11 flex items-center gap-1.5",
                 )
                 for feature in features
@@ -64,7 +64,7 @@ def card(
 
 
 def popular_card(
-    title: str, description: str, features: list[str], button_text: str
+    title: str, description: str, features: list[tuple[str, str]], button_text: str
 ) -> rx.Component:
     return rx.box(
         radial_circle(),
@@ -77,8 +77,8 @@ def popular_card(
         rx.el.ul(
             *[
                 rx.el.li(
-                    rx.icon("circle-check", class_name="!text-violet-9", size=16),
-                    feature,
+                    rx.icon(feature[0], class_name="!text-violet-9", size=16),
+                    feature[1],
                     class_name="text-sm font-medium text-slate-11 flex items-center gap-1.5",
                 )
                 for feature in features
@@ -106,11 +106,11 @@ def plan_cards() -> rx.Component:
             "Hobby",
             "Everything you need to get started with Reflex.",
             [
-                "Community support",
-                "1 team member",
-                "1 deployed app",
-                "1 day log retention",
-                "Basic analytics",
+                ("heart-handshake", "Community support"),
+                ("user", "1 team member"),
+                ("app-window", "1 deployed app"),
+                ("list-minus", "1 day log retention"),
+                ("map-pinned", "Single region"),
             ],
             "Start building for free",
         ),
@@ -118,12 +118,13 @@ def plan_cards() -> rx.Component:
             "Pro",
             "For professional projects $19/mo per member. Plus usage.",
             [
-                "Community support",
-                "Up to 5 team members",
-                "Max 5 deployed apps",
-                "30 days log retention",
-                "Multi-region",
-                "Custom domains",
+                ("heart-handshake", "Community support"),
+                ("users", "Up to 5 team members"),
+                ("app-window", "Max 5 deployed apps"),
+                ("globe", "Multi-region"),
+                ("brush", "Custom domains"),
+                ("activity", "Basic analytics"),
+                ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
         ),
@@ -131,13 +132,13 @@ def plan_cards() -> rx.Component:
             "Team",
             "Get the most comfort for $249/mo and $29/mo per member. Plus usage.",
             [
-                "Email support",
-                "Up to 15 team members",
-                "Unlimited Apps",
-                "90 days log retention",
-                "Metrics and analytics",
-                "One-click Auth",
-                "Everything in Pro",
+                ("mail", "Email support"),
+                ("users", "Up to 15 team members"),
+                ("app-window", "Unlimited Apps"),
+                ("list-minus", "90 days log retention"),
+                ("activity", "Metrics and analytics"),
+                ("lock-keyhole", "One-click Auth"),
+                ("circle-plus", "Everything in Pro"),
             ],
             "Start with Team plan",
         ),
@@ -145,13 +146,13 @@ def plan_cards() -> rx.Component:
             "Enterprise",
             "Get our priority support and a plan tailored to your needs.",
             [
-                "Priority Support + Custom Onboarding",
-                "On prem deployments",
-                "Advanced app analytics",
-                "Unlimited team members",
-                "Customized machine size",
-                "SOC 2 report",
-                "Everything in Team",
+                ("heart-handshake", "Priority Support + Custom Onboarding"),
+                ("users", "Unlimited team members"),
+                ("hard-drive", "On prem deployments"),
+                ("list-minus", "Advanced app analytics"),
+                ("cpu", "Customized machine size"),
+                ("shield-check", "SOC 2 report"),
+                ("circle-plus", "Everything in Team"),
             ],
             "Contact sales",
         ),

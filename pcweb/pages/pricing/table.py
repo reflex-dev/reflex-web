@@ -34,26 +34,26 @@ TABLE_STYLE = """
 
 # Data configuration
 PRICE_SECTION = [
-    ("Per Seat Price", "$19/mo", "$19/mo", "$29/mo", "Custom"),
-    ("Compute", "Usage Based", "Usage Based", "Usage Based", "Custom"),
+    ("Per Seat Price", "Free", "$19/mo", "Contact Sales", "Contact Sales"),
+    ("Compute", "Free", "Usage Based", "Usage Based", "Custom"),
 ]
 
 
 COMPUTE_SECTION = [
-    ("Compute Per Project", "5 CPU, 10GB", "5 CPU, 10GB", "Unlimited", "Unlimited"),
-    ("Regions", "Multiple", "Multiple", "Multiple", "Multiple"),
-    ("Team size", "< 5", "< 5", "< 15", "Unlimited"),
-    ("Runtime logs", "1 day", "1 day", "1 week", "Custom"),
-    ("Build logs", "30 days", "30 days", "90 days", "Custom"),
+    ("Compute Limits", "1 CPU, .5GB", "5 CPU, 10GB", "32 CPU, 64GB", "No Limit"),
+    ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
+    ("Team size", "1", "< 5", "< 15", "Unlimited"),
+    ("Runtime logs", "1 day", "7 days", "30 days", "Custom"),
+    ("Build logs", "1 days", "30 days", "90 days", "Custom"),
 ]
 
-ON_PREMISE_ROW = [("On Premise (Optional)", False, False, False, True)]
+ON_PREMISE_ROW = [("On Premises (Optional)", False, False, False, True)]
 
 FEATURE_SECTION = [
-    ("Custom domains", True, True, True, True),
     ("Secrets", True, True, True, True),
-    ("Metrics and analytics", True, True, True, True),
-    ("Automatic CI/CD", True, True, True, True),
+    ("Custom domains", False, True, True, True),
+    ("Metrics and analytics", False, True, True, True),
+    ("Automatic CI/CD", False, True, True, True),
     ("Multi-region", False, True, True, True),
     ("One-click Auth", False, False, True, True),
     ("Cron jobs", False, False, True, True),
@@ -64,12 +64,12 @@ SECURITY_SECTION = [
     ("Web app firewall", True, True, True, True),
     ("HTTP/SSL", True, True, True, True),
     ("DDos", True, True, True, True),
-    ("Custom onboarding", False, False, True, True),
 ]
+
 
 SUPPORT_SECTION = [
     ("Community support", True, True, True, True),
-    ("Email (1 Business Day)", False, False, False, True),
+    ("Email (1 Business Day)", False, False, True, True),
     ("Support SLAs available", False, False, False, True),
     ("Custom onboarding", False, False, False, True),
     ("Migrate existing apps", False, False, False, True),
@@ -108,8 +108,13 @@ def header() -> rx.Component:
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.125rem] mx-auto w-full",
     )
 
-
+ 
 def create_table_cell(content: str | rx.Component) -> rx.Component:
+    if content == "Usage Based":
+        return rx.table.cell(
+            rx.link(content, color=rx.color("violet", 12), text_decoration="underline"),
+            class_name=STYLES["cell"],
+        )
     return rx.table.cell(content, class_name=STYLES["cell"])
 
 
