@@ -7,6 +7,7 @@ from pcweb.pages.pricing.plan_cards import plan_cards
 from pcweb.pages.pricing.table import comparison_table
 from pcweb.views.bottom_section.get_started import get_started
 from pcweb.pages.pricing.faq import faq
+from pcweb.pages.pricing.calculator import calculator_section
 
 
 @rx.page(route="/pricing", title="Reflex · Pricing")
@@ -22,6 +23,7 @@ def pricing() -> rx.Component:
                 header(),
                 plan_cards(),
                 comparison_table(),
+                calculator_section(),
                 faq(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),

@@ -239,5 +239,5 @@ def comparison_table() -> rx.Component:
     return rx.box(
         header(),
         table_body(),
-        class_name="flex flex-col w-full  max-w-[69.125rem]",
+        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
     )
