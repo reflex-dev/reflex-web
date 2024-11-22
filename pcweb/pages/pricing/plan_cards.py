@@ -54,7 +54,7 @@ def card(
             href=(
                 HOSTING_URL
                 if button_text != "Contact sales"
-                else "mailto:sales@reflex.dev"
+                else "/sales"
             ),
             is_external=True,
             underline="none",
@@ -130,7 +130,7 @@ def plan_cards() -> rx.Component:
         ),
         card(
             "Team",
-            "For teams looking to scale. Plus usage.",
+            "For teams looking to scale their applications. Plus usage.",
             [
                 ("mail", "Email support"),
                 ("users", "Up to 15 team members"),
