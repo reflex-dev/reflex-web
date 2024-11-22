@@ -11,7 +11,7 @@ def card(company: str, text: str) -> rx.Component:
             ),
             alt=f"{company} logo",
             loading="lazy",
-            class_name="absolute top-10 left-10 z-[2]",
+            class_name="absolute top-10 left-10 z-[2] max-h-[32px]",
         ),
         # Center company logo
         rx.image(
@@ -21,7 +21,7 @@ def card(company: str, text: str) -> rx.Component:
             ),
             alt=f"{company} small logo",
             loading="lazy",
-            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2]",
+            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px]",
         ),
         # Wave pattern
         rx.html(
@@ -93,5 +93,10 @@ def bento_cards() -> rx.Component:
             company="bayesline",
             text="Why Basyesline Chose Reflex over Plotly Dash",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-1 gap-4 mx-auto w-full max-w-[69.25rem]",
+        # Ansa
+        card(
+            company="ansa",
+            text="Why Ansa chose Reflex over a no-code/low-code framework for their workflow automations",
+        ),
+        class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
     )
