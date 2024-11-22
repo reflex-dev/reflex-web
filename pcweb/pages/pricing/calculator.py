@@ -201,20 +201,22 @@ def pricing_widget() -> rx.Component:
         rx.center(
             rx.flex(
                 rx.badge(
-                        f"Total: ${
-                        round(
-                        BillingState.estimated_seats * BillingState.seat_rate
-                        + BillingState.estimated_ram_gb * (BillingState.mem_rate * MONTH_MINUTES)
-                        + BillingState.estimated_cpu_number * (BillingState.cpu_rate * MONTH_MINUTES)
-                        - 25
-                    )
-                }/month",
+                    f"Total: ${calculate_total()}/month",
+                ),
                 size='3',
                     class_name="mt-6",
                 )
-            )
         ),
         class_name="flex-1 flex flex-col relative h-full w-full max-w-[25rem] pb-2.5 z-[2]",
+    )
+
+
+def calculate_total():
+    return round(
+        BillingState.estimated_seats * BillingState.seat_rate
+        + BillingState.estimated_ram_gb * (BillingState.mem_rate * MONTH_MINUTES)
+        + BillingState.estimated_cpu_number * (BillingState.cpu_rate * MONTH_MINUTES)
+        - 25
     )
 
 
