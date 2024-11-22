@@ -2,6 +2,7 @@ import reflex as rx
 from typing import Optional
 from reflex.event import EventType, BASE_STATE
 from .button import button
+from .plan_cards import radial_circle
 import enum
 
 MONTH_MINUTES = 60 * 24 * 30
@@ -20,8 +21,8 @@ class BillingState(rx.State):
     mem_rate: float = 0.000231
 
     # Estimated numbers for the widget calculator
-    estimated_cpu_number: int = 0
-    estimated_ram_gb: int = 0
+    estimated_cpu_number: int = 1
+    estimated_ram_gb: int = 1
     estimated_seats: int = 1
 
     @rx.var(cache=True)
@@ -166,7 +167,7 @@ def pricing_widget() -> rx.Component:
                 stepper(
                     BillingState.estimated_ram_gb,
                     default_value="1",
-                    min_value=0,
+                    min_value=1,
                     max_value=BillingState.max_ram,
                     on_click_decrement=BillingState.setvar(
                         "estimated_ram_gb", (BillingState.estimated_ram_gb - 1)
@@ -183,7 +184,7 @@ def pricing_widget() -> rx.Component:
                 stepper(
                     BillingState.estimated_cpu_number,
                     default_value="0",
-                    min_value=0,
+                    min_value=1,
                     max_value=BillingState.max_cpu,
                     on_click_decrement=BillingState.setvar(
                         "estimated_cpu_number", (BillingState.estimated_cpu_number - 1)
@@ -197,9 +198,21 @@ def pricing_widget() -> rx.Component:
             class_name="flex flex-col gap-2",
         ),
         # Total 1 month
-        rx.text(
-            f"Total: ${round(BillingState.estimated_seats * BillingState.seat_rate + BillingState.estimated_ram_gb * (BillingState.mem_rate * MONTH_MINUTES) + BillingState.estimated_cpu_number * (BillingState.cpu_rate * MONTH_MINUTES))}/month",
-            class_name="text-base font-medium text-slate-12 text-center mt-6",
+        rx.center(
+            rx.flex(
+                rx.badge(
+                        f"Total: ${
+                        round(
+                        BillingState.estimated_seats * BillingState.seat_rate
+                        + BillingState.estimated_ram_gb * (BillingState.mem_rate * MONTH_MINUTES)
+                        + BillingState.estimated_cpu_number * (BillingState.cpu_rate * MONTH_MINUTES)
+                        - 25
+                    )
+                }/month",
+                size='3',
+                    class_name="mt-6",
+                )
+            )
         ),
         class_name="flex-1 flex flex-col relative h-full w-full max-w-[25rem] pb-2.5 z-[2]",
     )
@@ -210,40 +223,17 @@ def header() -> rx.Component:
         rx.el.h3(
             "Calculate costs.",
             class_name="text-slate-12 text-3xl font-semibold text-center",
+            id="calculator-header",
         ),
         rx.el.p(
             "Simply usage based pricing.",
             class_name="text-slate-9 text-3xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col pt-[5rem] 2xl:border-x border-slate-4 max-w-[64.125rem] mx-auto w-full",
-    )
-
-
-def tag_item(tag: str):
-    return rx.el.button(
-        rx.text(
-            tag,
-            class_name="font-small shrink-0",
-            color=rx.cond(
-                BillingState.selected_plan == tag,
-                "var(--c-white-1)",
-                "var(--c-slate-9)",
-            ),
+        rx.el.p(
+            "We subtract the hobby tier free CPU and RAM from your usage.",
+            class_name="text-slate-9 text-md font-medium text-center mt-2",
         ),
-        class_name="flex items-center justify-center px-3 py-1.5 cursor-pointer transition-bg shrink-0",
-        background_=rx.cond(
-            BillingState.selected_plan == tag,
-            "var(--c-violet-9)",
-            "var(--c-slate-2)",
-        ),
-        _hover={
-            "background": rx.cond(
-                BillingState.selected_plan == tag,
-                "var(--c-violet-9)",
-                "var(--c-slate-3)",
-            )
-        },
-        on_click=BillingState.change_plan(tag),
+        class_name="flex items-center mb-5 justify-between text-slate-11 flex-col pt-[5rem] 2xl:border-x border-slate-4 max-w-[64.125rem] mx-auto w-full",
     )
 
 
@@ -264,9 +254,14 @@ def filtering_tags():
             class_name="w-[13.5rem] h-[5.5rem] shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[0] pointer-events-none -mt-2",
         ),
         rx.box(
-            tag_item(Tiers.PRO.value),
-            tag_item(Tiers.TEAM.value),
-            class_name="shadow-large bg-slate-1 rounded-lg border border-slate-3 flex items-center divide-x divide-slate-3 mt-8 mb-12 relative overflow-hidden z-[1] overflow-x-auto",
+            rx.segmented_control.root(
+                rx.segmented_control.item(Tiers.PRO.value, value=Tiers.PRO.value),
+                rx.segmented_control.item(Tiers.TEAM.value, value=Tiers.TEAM.value),
+                on_change=BillingState.change_plan,
+                value=BillingState.selected_plan,
+                class_name="shadow-large bg-slate-1 rounded-lg border border-slate-3",
+            ),
+            class_name="mb-5 relative z-[1] overflow-x-auto",
         ),
         class_name="relative",
     )
@@ -275,7 +270,22 @@ def filtering_tags():
 def calculator_section() -> rx.Component:
     return rx.el.section(
         header(),
-        filtering_tags(),
-        pricing_widget(),
+        rx.box(
+            radial_circle(),
+            rx.box(
+                rx.flex(
+                    filtering_tags(),
+                    align_items="center",
+                    justify_content="center",
+                    width="100%",
+                ),
+                align_items="center",
+                width="100%",  
+            ),
+            rx.box(pricing_widget()),
+            class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 relative z-[1]",
+        ),  
         class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] justify-center items-center",
     )
+ 
+

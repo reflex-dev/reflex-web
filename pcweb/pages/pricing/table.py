@@ -112,7 +112,7 @@ def header() -> rx.Component:
 def create_table_cell(content: str | rx.Component) -> rx.Component:
     if content == "Usage Based":
         return rx.table.cell(
-            rx.link(content, color=rx.color("violet", 12), text_decoration="underline"),
+            rx.link(content, color=rx.color("violet", 12), href="#calculator-header", text_decoration="underline"),
             class_name=STYLES["cell"],
         )
     return rx.table.cell(content, class_name=STYLES["cell"])

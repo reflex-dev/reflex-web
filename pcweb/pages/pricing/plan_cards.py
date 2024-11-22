@@ -130,7 +130,7 @@ def plan_cards() -> rx.Component:
         ),
         card(
             "Team",
-            "Get the most comfort for $249/mo and $29/mo per member. Plus usage.",
+            "For teams looking to scale. Plus usage.",
             [
                 ("mail", "Email support"),
                 ("users", "Up to 15 team members"),
@@ -140,7 +140,7 @@ def plan_cards() -> rx.Component:
                 ("lock-keyhole", "One-click Auth"),
                 ("circle-plus", "Everything in Pro"),
             ],
-            "Start with Team plan",
+            "Contact sales",
         ),
         card(
             "Enterprise",
