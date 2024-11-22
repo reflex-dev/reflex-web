@@ -50,7 +50,7 @@ class BillingState(rx.State):
         if self.selected_plan == Tiers.PRO.value:
             return 10
         elif self.selected_plan == Tiers.TEAM.value:
-            return 48
+            return 64
 
     @rx.event
     def change_plan(self, plan: str) -> None:
