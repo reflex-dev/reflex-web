@@ -58,7 +58,7 @@ The name should only contain domain name safe characters: no slashes, no undersc
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
 ```md alert info
-# The hosting service does not currently handle database or file upload operations. Set up an external database use it within your app.
+# The hosting service does not currently handle database or file upload operations. Set up an external database and use it within your app.
 ```
 
 ## See it in Action
