@@ -108,6 +108,8 @@ def gallery_app_card(app: dict) -> rx.Component:
 
                                 ),
                             ),
+                            width="310px",
+                            max_width="310px",
 
                         ),
                         rx.cond(
