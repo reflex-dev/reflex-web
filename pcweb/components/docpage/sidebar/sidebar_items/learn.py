@@ -166,6 +166,7 @@ def get_sidebar_items_backend():
                 database.tables,
                 database.queries,
                 database.relationships,
+                database.model_editor,
             ],
         ),
         create_item(
