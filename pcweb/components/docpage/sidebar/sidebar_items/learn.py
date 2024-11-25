@@ -1,3 +1,4 @@
+from pcweb.pages.docs import cloud_cliref
 from .item import create_item
 
 
@@ -199,7 +200,7 @@ def get_sidebar_items_backend():
 
 
 def get_sidebar_items_hosting():
-    from pcweb.pages.docs import hosting, cloud_apiref
+    from pcweb.pages.docs import hosting
 
     items = [
         create_item(
@@ -211,7 +212,7 @@ def get_sidebar_items_hosting():
         ),
         create_item(
             "CLI Reference",
-            children=cloud_apiref.pages
+            children=cloud_cliref.pages
         ),
         create_item(
             "Self Hosting",

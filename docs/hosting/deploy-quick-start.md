@@ -16,14 +16,14 @@ Reflex’s hosting service makes it easy to deploy your apps without worrying ab
 
 ### Prerequisites
 
-1. Hosting service requires `reflex>=0.6.5`.
+1. Hosting service requires `reflex>=0.6.6`.
 2. This tutorial assumes you have successfully `reflex init` and `reflex run` your app.
 3. Also make sure you have a `requirements.txt` file at the top level app directory that contains all your python dependencies! (To create a `requirements.txt` file, run `pip freeze > requirements.txt`.)
 
 
 ### Authentication
 
-First run the command below to login / signup to your Reflex Cloud account: (command ine)
+First run the command below to login / signup to your Reflex Cloud account: (command line)
 
 ```bash
 reflex login

@@ -49,9 +49,24 @@ regions = {
 
 To go back, i.e. from an app to a project or from a project to your list of projects you just click the `REFLEX logo` in the top left corner of the page.
 
+```md alert info
+# All flag values are saved between runs
+All your flag values, i.e. environment variables or regions or tokens, are saved between runs. This means that if you run a command and you pass a flag value, the next time you run the same command the flag value will be the same as the last time you ran it. This means you should only set the flag values again if you want to change them.
+```
+
 ## Environment Variables
 
-Below is an example of how to use an environment variable in a deployment command:
+
+Below is an example of how to use an environment variable file. You can pass the `--envfile` flag with the path to the env file. For example:
+
+```bash
+reflex deploy --project f88b1574-f101-####-####-5f########## --envfile .env
+```
+
+In this example the path to the file is `.env`.
+
+
+If you prefer to pass the environment variables manually below is deployment command example:
 
 ```bash
 reflex deploy --project f88b1574-f101-####-####-5f########## --env OPENAI_API_KEY=sk-proj-vD4i9t6U############################
@@ -59,16 +74,7 @@ reflex deploy --project f88b1574-f101-####-####-5f########## --env OPENAI_API_KE
 
 They are passed after the `--env` flag as key value pairs. 
 
-To pass multiple environment variables, you can repeat the `--env` tag. i.e. `reflex deploy --project f88b1574-f101-####-####-5f########## --env KEY1=VALUE1 --env KEY2=VALUE`
-
-
-Alternatively if there is an environment variable file in your project directory you can pass the `--envfile` flag with the path to the env file. For example:
-
-```bash
-reflex deploy --project f88b1574-f101-####-####-5f########## --envfile .env
-```
-
-In this example the path to the file is `.env`. This will override any envs set manually.
+To pass multiple environment variables, you can repeat the `--env` tag. i.e. `reflex deploy --project f88b1574-f101-####-####-5f########## --env KEY1=VALUE1 --env KEY2=VALUE`. The `--envfile` flag will override any envs set manually.
 
 
 ```md alert info
@@ -98,6 +104,29 @@ At this time a User must be logged in to be added to a project. In future there 
 ```
 
 
+
+
+
+## Tokens
+
+A token gives someone else all the permissions you have as a User or an Admin. They can run any Reflex Cloud command from the CLI as if they are you using the `--token` flag. A good use case would be for GitHub actions (you store this token in the secrets).
+
+Tokens are found on the Project List page. If you cannot find it click the Reflex Logo in the top left side of the page until it appears as in the image below.
+
+```python eval
+image_zoom(rx.image(src="/hosting_tokens.png", alt="Adding tokens to Reflex Cloud"))
+```
+
+
+## VMTypes
+
+
+!!!!!!!!!!!!!!!! Still to come
+c1m1
+c1m2 
+!!!!!!!!!!!!
+
+
 ## Regions
 
 Below is an example of how to deploy your app in several regions:
@@ -106,7 +135,7 @@ Below is an example of how to deploy your app in several regions:
 reflex deploy --project f88b1574-f101-####-####-5f########## --region sjc --region iad
 ```
 
-By default all apps are deloyed in `sjc` if no other regions are given. If you wish to deploy in another region or several regions you can pass the `--region` flag with the region code. Check out all the regions that we can deploy to below:
+By default all apps are deloyed in `sjc` if no other regions are given. If you wish to deploy in another region or several regions you can pass the `--region` flag (`-r` also works) with the region code. Check out all the regions that we can deploy to below:
 
 
 ```python eval
@@ -129,25 +158,3 @@ rx.table.root(
     variant="surface",
 )
 ```
-
-
-
-
-## Tokens
-
-A token gives someone else all the permissions you have as a User or an Admin. They can run any Reflex Cloud command from the CLI as if they are you using the `--token` flag. A good use case would be for GitHub actions (you store this token in the secrets).
-
-Tokens are found on the Project List page. If you cannot find it click the Reflex Logo in the top left side of the page until it appears as in the image below.
-
-```python eval
-image_zoom(rx.image(src="/hosting_tokens.png", alt="Adding tokens to Reflex Cloud"))
-```
-
-
-## VMTypes
-
-
-!!!!!!!!!!!!!!!! Still to come
-c1m1
-c1m2 
-!!!!!!!!!!!!
