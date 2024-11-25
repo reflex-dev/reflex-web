@@ -34,7 +34,7 @@ def code_block_dark(code: str, language: str):
         class_name="relative",
     )
 
-
+ 
 def code_block_markdown(*children, **props):
     language = props.get("language", "plain")
     return code_block(code=children[0], language=language)
@@ -43,7 +43,7 @@ def code_block_markdown(*children, **props):
 def code_block_markdown_dark(*children, **props):
     language = props.get("language", "plain")
     return code_block_dark(code=children[0], language=language)
-
+ 
 
 def doccmdoutput(
     command: str,
@@ -59,10 +59,8 @@ def doccmdoutput(
     Returns:
         The styled command and its example output.
     """
-    return rx.flex(
-        rx.flex(
-            rx.lucide.icon(tag="chevrons-right", color="white", width=18, height=18),
-            rx._x.code_block(
+    return rx.vstack(
+        rx._x.code_block(
                 command,
                 can_copy=True,
                 border_radius=styles.DOC_BORDER_RADIUS,
@@ -76,20 +74,14 @@ def doccmdoutput(
                 },
                 style=fonts.code,
                 font_family="Source Code Pro",
-            ),
-            direction="row",
-            align="center",
-            spacing="1",
-            margin_left="1em",
+                width="100%",
         ),
-        rx.divider(size="4", color_scheme="green"),
-        rx.flex(
-            rx._x.code_block(
+        rx._x.code_block(
                 output,
-                can_copy=True,
+                can_copy=False,
                 border_radius="12px",
                 background="transparent",
-                theme="nord",
+                theme="ayu-dark",
                 language="log",
                 code_tag_props={
                     "style": {
@@ -98,14 +90,7 @@ def doccmdoutput(
                 },
                 style=fonts.code,
                 font_family="Source Code Pro",
-            ),
+                width="100%",
         ),
-        direction="column",
-        spacing="2",
-        border_radius="12px",
-        border=f"1px solid {c_color('slate', 5)}",
-        position="relative",
-        margin_y="1em",
-        width="100%",
-        background_color="black",
+        padding_y="1em",
     )
