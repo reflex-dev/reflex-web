@@ -185,7 +185,7 @@ class CustomWrapper(ModelWrapper):
         if field_type == bool:
             return rx.table.row(
                 rx.table.cell(rx.text(field_name)),
-                rx.table.cell(rx.switch(name=field_name)),
+                rx.table.cell(rx.switch(id=field_name)),
             )
         return super()._add_dialog_field(field_name, field_type)
 ```
