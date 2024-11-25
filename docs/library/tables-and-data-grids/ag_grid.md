@@ -568,7 +568,7 @@ The following props are available for `column_defs` as well as many others that 
 
 Since Reflex AG Grid is wrapping the underlying AG Grid library, there is much more functionality available that is currently not exposed in Reflex. Check out this [documentation](https://www.ag-grid.com/react-data-grid/reference/) for more information on what is available in AG Grid.
 
-As Reflex does not expose all the functionality of AG Grid, you can use `ag_grid.api()`, which is a property of the `ag_grid` component, to access the underlying AG Grid API. This allows you to access the full functionality of AG Grid.
+As Reflex does not expose all the functionality of AG Grid, you can use `ag_grid.api()`, which is hanging off the `ag_grid` namespace, to access the underlying AG Grid API. This allows you to access the full functionality of AG Grid.
 
 Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this first example.
 
@@ -610,7 +610,7 @@ def ag_grid_api_simple():
 
 The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. 
 
-To use this in Reflex as you can see, it should be called in snake case rather than camel case, and as it returns `void` this means that the function should be called with no arguments. 
+To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
 
 
 
@@ -656,7 +656,7 @@ def ag_grid_api_simple2():
     )
 ```
 
-The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore should be called with no arguments.
+The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore does not return anything.
 
 `exportDataAsCsv = (params?: CsvExportParams) => void;`
 
@@ -699,6 +699,6 @@ def ag_grid_api_argument():
     )
 ```
 
-The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a string (or undefined). 
+The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
 
 In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
