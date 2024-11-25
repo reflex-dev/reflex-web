@@ -202,6 +202,8 @@ def customers_list() -> rx.Component:
             customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
             # Bayesline
             customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
+            # Ansa
+            customers_list_item("Ansa", "/customers/ansa", "Dev Tools", True),
             # Your company
             your_company_item("Your company", getting_started.introduction.path, ""),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",
