@@ -1,5 +1,5 @@
 ---
-title: NBA App
+title: nba
 description: "Interactive NBA app with player stats and live updates"
 author: "Reflex"
 image: "nba-app.webp"
@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/templates/tree/main/nba"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "nba"
 ---
 
 The following is an app that displays NBA player stats from the 2015-2016 season. The table tab allows filtering and live updates. The graph tab shows the relationship between player stats.
@@ -17,7 +18,7 @@ The following is an app that displays NBA player stats from the 2015-2016 season
 To run this app locally, install Reflex and run:
 
 ```bash
-reflex init --template nba_app
+reflex init --template nba
 ```
 
 To run the app, use:

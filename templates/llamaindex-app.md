@@ -1,5 +1,5 @@
 ---
-title: LLamaIndex App
+title: reflex-llamaindex-template
 description: "A minimal chat app using LLamaIndex"
 author: "Reflex"
 image: "llamaindex.png"
@@ -21,8 +21,10 @@ If you plan on deploying your agentic workflow to prod, follow the [llama deploy
 To run this app locally, install Reflex and run:
 
 ```bash
-git clone https://github.com/reflex-dev/reflex-llamaindex-template.git
+reflex init --template reflex-llamaindex-template
 ```
+
+
 
 The following [lines](https://github.com/reflex-dev/reflex-llamaindex-template/blob/abfda49ff193ceb7da90c382e5cbdcb5fcdb665c/frontend/state.py#L55-L79) in the state.py file are where the app makes a request to your deployed agentic workflow. If you have not deployed your agentic workflow, you can edit this to call and api endpoint of your choice.
 

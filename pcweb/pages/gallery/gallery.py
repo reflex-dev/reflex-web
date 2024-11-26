@@ -52,6 +52,11 @@ def gallery_heading() -> rx.Component:
             ),
             class_name="font-md text-balance text-slate-9 -mt-4",
         ),
+        rx.text.span(
+            "Copy the template command and use it during ",
+            rx.code("reflex init"),
+            class_name="font-sm text-balance text-slate-9",
+        ),
         class_name="section-header",
     )
 
