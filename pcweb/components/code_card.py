@@ -1,18 +1,30 @@
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
+from reflex.components.datadisplay.shiki_code_block import copy_script
 
 
 def install_command(command: str, show_dollar_sign: bool = True,  **props) -> rx.Component:
     return rx.el.button(
-        get_icon(icon="copy", class_name="p-[5px]"),
+        rx.icon("copy", size=14, margin_left="5px"),
         rx.text(
             "$" + command if show_dollar_sign else command,
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
         title=command,
-        on_click=rx.set_clipboard(command),
+        on_click=[
+            rx.set_clipboard(command),
+            copy_script(),
+        ],
         class_name="flex items-center gap-1.5 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pr-1.5 border rounded-md w-full max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
+        style={
+            "opacity": "1",
+            "cursor": "pointer",
+            "transition": "background 0.250s ease-out",
+            "&>svg": {
+                "transition": "transform 0.250s ease-out, opacity 0.250s ease-out",
+            },
+        },
         **props,
     )
 
