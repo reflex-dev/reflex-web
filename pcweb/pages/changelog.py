@@ -48,6 +48,18 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-11-25",
+            "v0.6.6",
+            "Support Pydantic BaseModel (v1 & v2) objects in state",
+            [
+                "`reflex init` now links to templates on the web",
+                "New `.temporal` event action drops event when backend is down",
+                "Improved type checking",
+                "`rx.asset` promoted from experimental",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.6",
+        ),
+        change(
             "2024-11-12",
             "v0.6.5",
             "New Hosting Service CLI",
