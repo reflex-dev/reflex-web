@@ -104,10 +104,12 @@ def gallery_app_card(app: dict) -> rx.Component:
                 rx.el.h6(
                     app["title"],
                     class_name="font-smbold text-slate-12 truncate",
+                    width="100%",
                 ),
                 rx.text(
                     app["description"],
                     class_name="text-slate-10 font-small truncate text-pretty",
+                    width="100%",
                 ),
                 rx.box(
                     rx.vstack(
