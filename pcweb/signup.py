@@ -98,7 +98,6 @@ class IndexState(rx.State):
                         "background": "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%)",
                     },
                 )
-
         self.send_contact_to_webhook(email)
         self.add_contact_to_loops(email)
         # Check if the user is already on the newsletter
@@ -114,4 +113,4 @@ class IndexState(rx.State):
                 session.commit()
 
         self.signed_up = True
-        return None
+        return rx.toast.success("Thanks for signing up to the Newsletter!")

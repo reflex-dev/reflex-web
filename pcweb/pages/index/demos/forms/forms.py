@@ -10,6 +10,7 @@ from email_validator import EmailNotValidError, validate_email
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL
+from pcweb.signup import IndexState
 
 
 class FormState(rx.State):
@@ -42,7 +43,10 @@ class FormState(rx.State):
                 return
 
         submit_form()
-        return rx.toast(form_data)
+        # this adds the user to the newsletter in loops
+        yield IndexState.signup(form_data)
+        return
+        
 
 
 def form() -> rx.Component:
@@ -55,11 +59,11 @@ def form() -> rx.Component:
                 ),
                 rx.box(
                     rx.text(
-                        "Send us a message",
+                        "Join Newsletter",
                         class_name="font-md-smbold text-slate-12 leading-6",
                     ),
                     rx.text(
-                        "Fill the form and we’ll back to you shortly.",
+                        "Get the latest updates and news about Reflex.",
                         class_name="font-small text-slate-9",
                     ),
                     class_name="flex flex-col gap-1",
@@ -137,9 +141,9 @@ def form() -> rx.Component:
             rx.hstack(
                 rx.image(src="/envelope.png"),
                 rx.vstack(
-                    rx.heading("Send us a message"),
+                    rx.heading("Join Newsletter"),
                     rx.text(
-                        "Fill the form and we’ll back to you shortly.",
+                        "Get the latest updates and news about Reflex.",
                     ),
                 ),
             ),
