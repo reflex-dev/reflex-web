@@ -17,7 +17,7 @@ class IterState(rx.State):
     ]
 
 
-def colored_box(color: rx.Var[str]):
+def colored_box(color: str):
     return rx.button(color, background_color=color)
 
 
@@ -28,13 +28,32 @@ def dynamic_buttons():
 
 ```
 
+Here's the same example using a lambda function.
+
+```python
+def dynamic_buttons():
+    return rx.vstack(
+        rx.foreach(IterState.color, lambda color: colored_box(color)),
+    )
+```
+
+You can also use lambda functions directly with components without defining a separate function.
+
+```python
+def dynamic_buttons():
+    return rx.vstack(
+        rx.foreach(IterState.color, lambda color: rx.button(color, background_color=color)),
+    )
+```
+
 In this first simple example we iterate through a `list` of colors and render a dynamic number of buttons.
 
-The first argument of the `rx.foreach` function is the [state var]({docs.vars.base_vars.path}) containing the iterable data you want to iterate through (e.g., a `list`, `dict`, or similar). The second argument is a function that takes each item from the iterable individually and returns a component. In this example, the `colored_box` function takes a single color from the color list and returns a button with that color.
+The first argument of the `rx.foreach` function is the state var that you want to iterate through. The second argument is a function that takes in an item from the data and returns a component. In this case, the `colored_box` function takes in a color and returns a button with that color.
+
 ## For vs Foreach
 
 ```md definition
-# Regular For Loop
+# Regualar For Loop
 * Use when iterating over constants.
 
 # Foreach
@@ -47,7 +66,7 @@ The above example could have been written using a regular Python `for` loop, sin
 colors = ["red", "green", "blue"]
 def dynamic_buttons_for():
     return rx.vstack(
-        *[colored_box(color) for color in colors],
+        [colored_box(color) for color in colors],
     )
 ```
 
@@ -97,7 +116,7 @@ def dynamic_buttons2():
 
 ```
 
-Notice that the type annotation for the `color` parameter in the `colored_box` function is `rx.Var[str]` (rather than just `str`). This is because the `rx.foreach` function passes the item as a `Var` object, which is a wrapper around the actual value. This is what allows us to compile the frontend without knowing the actual value of the state var (which is only known at [runtime]({docs.getting_started.basics.path}#compile-time-vs.-runtime-(important))).
+Notice that the type annotation for the `color` parameter in the `colored_box` function is `rx.Var[str]` (rather than just `str`). This is because the `rx.foreach` function passes the item as a `Var` object, which is a wrapper around the actual value. This is what allows us to compile the frontend without knowing the actual value of the state var (which is only known at runtime).
 
 ## Enumerating Iterables
 
@@ -112,17 +131,31 @@ class IterIndexState(rx.State):
     ]
 
 
+def create_button(color: rx.Var[str], index: int):
+    return rx.box(
+        rx.button(f"{index + 1}. {color}"),
+        padding_y="0.5em",
+    )
+
 def enumerate_foreach():
     return rx.vstack(
         rx.foreach(
             IterIndexState.color,
-            lambda color, index: rx.box(
-                rx.button(f"{index + 1}. {color}"),
-                padding_y="0.5em",
-            ),
+            create_button
         ),
     )
+```
 
+Here's the same example using a lambda function.
+
+```python
+def enumerate_foreach():
+    return rx.vstack(
+        rx.foreach(
+            IterIndexState.color,
+            lambda color, index: create_button(color, index)
+        ),
+    )
 ```
 
 ## Iterating Dictionaries
