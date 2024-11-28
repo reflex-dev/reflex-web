@@ -1,7 +1,3 @@
----
-title: "Special Events Docs"
----
-
 ```python exec
 import reflex as rx
 ```

@@ -1,7 +1,3 @@
----
-title: "UI Overview"
----
-
 ```python exec
 from pcweb.pages.docs import components
 from pcweb.pages.docs.library import library
