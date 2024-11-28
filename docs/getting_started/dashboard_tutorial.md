@@ -354,7 +354,7 @@ Now that you’re set up, let’s get an overview of Reflex!
 
 Within our `dashboard_tutorial` folder we just `cd`'d into, there is a `rxconfig.py` file that contains the configuration for our Reflex app. (Check out the [config docs]({docs.advanced_onboarding.configuration.path}) for more information)
 
-There is also an `assets` folder where static files such as images and stylesheets can be placed to be referenced within your app. ([asset docs]({docs.assets.referencing_assets.path}) for more information)
+There is also an `assets` folder where static files such as images and stylesheets can be placed to be referenced within your app. ([asset docs]({docs.assets.overview.path}) for more information)
 
 Most importantly there is a folder also called `dashboard_tutorial` which contains all the code for your app. Inside of this folder there is a file named `dashboard_tutorial.py`. To begin this tutorial we will delete all the code in this file so that we can start from scratch and explain every step as we go.
 

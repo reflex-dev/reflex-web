@@ -36,6 +36,9 @@ class Route(Base):
     # https://github.com/reflex-dev/reflex-web/pull/659#pullrequestreview-2021171902
     add_as_page: bool = True
 
+    def __hash__(self):
+        return hash(f"{self.path}-{self.title}")
+
 
 def get_path(component_fn: Callable):
     """Get the path for a page based on the file location.

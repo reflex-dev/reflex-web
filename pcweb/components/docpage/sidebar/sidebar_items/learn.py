@@ -54,8 +54,6 @@ def get_sidebar_items_frontend():
             "Components",
             children=[
                 components.props,
-                components.style_props,
-                components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
                 components.html_to_reflex,
@@ -65,9 +63,8 @@ def get_sidebar_items_frontend():
         create_item(
             "Pages",
             children=[
-                pages.routes,
+                pages.overview,
                 pages.dynamic_routing,
-                pages.metadata,
             ],
         ),
         create_item(
@@ -84,7 +81,7 @@ def get_sidebar_items_frontend():
         create_item(
             "Assets",
             children=[
-                assets.referencing_assets,
+                assets.overview,
                 assets.upload_and_download_files,
             ],
         ),
