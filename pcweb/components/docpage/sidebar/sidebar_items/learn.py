@@ -208,6 +208,7 @@ def get_sidebar_items_hosting():
             children=[
                 hosting.deploy_quick_start,
                 hosting.additional_concepts,
+                hosting.deploy_with_github_actions,
             ],
         ),
         create_item(

@@ -42,6 +42,21 @@ regions = {
     "yul": "Montreal, Canada",
     "yyz": "Toronto, Canada"
 }
+
+vmtypes = [
+    {"id": "c1m.5", "name": "Single CPU Small", "cpu_cores": 1, "ram_gb": 0.512},
+    {"id": "c1m1", "name": "Single CPU Medium", "cpu_cores": 1, "ram_gb": 1.024},
+    {"id": "c1m2", "name": "Single CPU Large", "cpu_cores": 1, "ram_gb": 2.048},
+    {"id": "c2m.5", "name": "Double CPU Micro", "cpu_cores": 2, "ram_gb": 0.512},
+    {"id": "c2m1", "name": "Double CPU Small", "cpu_cores": 2, "ram_gb": 1.024},
+    {"id": "c2m2", "name": "Double CPU Medium", "cpu_cores": 2, "ram_gb": 2.048},
+    {"id": "c2m4", "name": "Double CPU Large", "cpu_cores": 2, "ram_gb": 4.096},
+    {"id": "c4m1", "name": "Quad CPU Micro", "cpu_cores": 4, "ram_gb": 1.024},
+    {"id": "c4m2", "name": "Quad CPU Small", "cpu_cores": 4, "ram_gb": 2.048},
+    {"id": "c4m4", "name": "Quad CPU Medium", "cpu_cores": 4, "ram_gb": 4.096},
+    {"id": "c4m8", "name": "Quad CPU Large", "cpu_cores": 4, "ram_gb": 8.192}
+]
+
 ```
 
 
@@ -120,12 +135,46 @@ image_zoom(rx.image(src="/hosting_tokens.png", alt="Adding tokens to Reflex Clou
 
 ## VMTypes
 
+To get all the possible VMTypes you can run the following command:
 
-!!!!!!!!!!!!!!!! Still to come
-c1m1
-c1m2 
-!!!!!!!!!!!!
+```bash
+reflex apps vmtypes
+```
 
+To set which VMType to use when deploying your app you can pass the `--vmtype` flag with the id of the VMType. For example:
+
+```bash
+reflex deploy --project f88b1574-f101-####-####-5f########## --vmtype c2m4
+```
+
+This will deploy your app with the `c2m4` VMType, giving your app 2 cpu cores and 4 gb of ram.
+
+Below is a table of all the possible VMTypes:
+
+```python eval
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("id"),
+            rx.table.column_header_cell("name"),
+            rx.table.column_header_cell("cpu (cores)"),
+            rx.table.column_header_cell("ram (gb)"),
+        ),
+    ),
+    rx.table.body(
+        *[
+            rx.table.row(
+                rx.table.cell(rx.code(vmtype["id"], style=get_code_style("violet"))),
+                rx.table.cell(vmtype["name"], style=cell_style),
+                rx.table.cell(vmtype["cpu_cores"], style=cell_style),
+                rx.table.cell(vmtype["ram_gb"], style=cell_style),
+            )
+            for vmtype in vmtypes
+        ]
+    ),
+    variant="surface",
+)
+```
 
 ## Regions
 
