@@ -1,0 +1,17 @@
+on:
+    push:
+      branches: ['lendemor/use_deploy_action']
+
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Deploy
+          uses: reflex-dev/reflex-deploy-action@v0
+          with:
+            auth_token: ${{ secrets.REFLEX_AUTH_TOKEN }}
+            project_id: ${{ secrets.PROJECT_ID }}
+            extra_args: "--vm-type=${{ vars.VM_TYPE }}"
+            python_version: 3.12
