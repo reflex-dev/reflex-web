@@ -146,7 +146,7 @@ def index():
             },
             max_files=5,
             disabled=False,
-            on_keyboard=True,
+            no_keyboard=True,
             on_drop=State.handle_upload(rx.upload_files(upload_id="upload2")),
             border=f"1px dotted \{color}",
             padding="5em",
