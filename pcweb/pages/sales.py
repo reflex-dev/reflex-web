@@ -151,7 +151,7 @@ def form() -> rx.Component:
                 FormState.is_loading,
                 button(
                     "Sending...",
-                    variant="muted",
+                    variant="secondary",
                     type="submit",
                     class_name="opacity-80 !cursor-not-allowed pointer-events-none !w-min",
                 ),
