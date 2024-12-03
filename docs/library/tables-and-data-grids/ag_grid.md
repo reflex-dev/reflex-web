@@ -255,8 +255,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridEditingState(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
@@ -280,6 +284,7 @@ def ag_grid_simple_editing():
         row_data=AGGridEditingState.data,
         column_defs=column_defs,
         on_cell_value_changed=AGGridEditingState.cell_value_changed,
+        on_mount=AGGridEditingState.load_data,
         width="100%",
         height="40vh",
     )
@@ -376,8 +381,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridState2(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
 column_defs = [
     ag_grid.column_def(field="country"),
@@ -390,6 +399,7 @@ def ag_grid_state_2():
         id="ag_grid_state_2",
         row_data=AGGridState2.data,
         column_defs=column_defs,
+        on_mount=AGGridState2.load_data,
         width="100%",
         height="40vh",
     )
@@ -594,10 +604,13 @@ def ag_grid_api_simple():
             id="ag_grid_basic_row_selection",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Select All", on_click=my_api.select_all()),
         rx.button("Deselect All", on_click=my_api.deselect_all()),
         spacing="4",
+        width="100%",
     )
 ```
 
@@ -643,10 +656,13 @@ def ag_grid_api_simple2():
             id="ag_grid_export_and_resize",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Export", on_click=my_api.export_data_as_csv()),
         rx.button("Resize Columns", on_click=my_api.size_columns_to_fit()),
         spacing="4",
+        width="100%",
     )
 ```
 
@@ -687,9 +703,12 @@ def ag_grid_api_argument():
             id="ag_grid_get_data_as_csv",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Get CSV data on backend", on_click=my_api.get_data_as_csv(callback=AGGridStateAPI.handle_get_data)),
         spacing="4",
+        width="100%",
     )
 ```
 
