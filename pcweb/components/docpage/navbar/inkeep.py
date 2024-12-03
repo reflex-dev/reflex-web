@@ -39,6 +39,101 @@ class Search(rx.Component):
     ssr: false,
   },
 );
+const supportFormConfig = {
+  heading: "Contact support",
+  fields: [
+    {
+      type: "STANDARD_FIELD",
+      label: "Name",
+      name: "first_name",
+      inputType: "TEXT",
+    },
+    {
+      type: "STANDARD_FIELD",
+      label: "Company Email",
+      name: "email",
+      inputType: "EMAIL",
+      required: true,
+    },
+    {
+      type: "INCLUDE_CHAT_SESSION",
+      defaultValue: true,
+    },
+    {
+      type: "STANDARD_FIELD",
+      label: "Additional details",
+      name: "additional_details",
+      inputType: "TEXTAREA",
+    },
+    {
+      type: 'STANDARD_FIELD',
+      label: 'Category',
+      name: 'category',
+      inputType: 'SELECT',
+      selectOptions: [
+        { label: 'Bug', value: 'BUG' },
+        { label: 'Feature idea', value: 'FEATURE' },
+        { label: 'Account access', value: 'ACCOUNT' },
+      ],
+    },
+  ],
+  submitCallback: async (values) => {
+    // const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    const discordWebhookUrl = "https://discord.com/api/webhooks/1313281051765903372/5w4g9xxKa5naY5I6I9esNxeT5rI66t75MniNNPFM7bBoagQuDZamgqQdoHIFqYh6x_7J";
+    if (!discordWebhookUrl) {
+      console.error("Discord webhook URL is not set in the environment.");
+      return;
+    }
+    
+    const { formDetails, chatSession, client } = values;
+
+    // Build the chat history string manually
+    let chatHistory = "**Chat History:**";
+    const messages = chatSession?.messages || [];
+    for (let i = 0; i < messages.length; i++) {
+      const msg = messages[i];
+      const role = msg.role === "user" ? "User" : "Assistant";
+      chatHistory += ` **${i + 1}. ${role}:** ${msg.content}\n`;
+    }
+
+    // Build a simple and readable message
+    const discordMessage = `
+  **New Support Request**
+
+  **Name:** ${formDetails.first_name || "N/A"}
+  **Email:** ${formDetails.email || "N/A"}
+  **Category:** ${formDetails.category || "N/A"}
+  **Additional Details:** ${formDetails.additional_details || "N/A"}
+
+  **Current Page URL:** ${client?.currentUrl || "N/A"}
+
+  **Chat Session ID:** ${chatSession?.chatSessionId || "N/A"}
+  ${chatHistory || "**Chat History:** No messages available."}
+  `;
+
+    // Prepare the payload
+    const payload = { content: discordMessage };
+
+    try {
+      // Send the payload to the Discord webhook
+      const response = await fetch(discordWebhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to send message: ${response.statusText}`);
+      }
+
+      console.log("Values sent successfully to Discord!");
+    } catch (error) {
+      console.error("Error sending values to Discord:", error);
+    }
+  },
+};
 const searchBarProps = {
   stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
@@ -112,6 +207,24 @@ const searchBarProps = {
       'What types of apps can I build with Reflex?',
       'Where can I deploy my apps?',
     ],
+    includeAIAnnotations: {
+      shouldEscalateToSupport: true,
+    },
+    aiAnnotationPolicies: {
+      shouldEscalateToSupport: [
+        {
+          threshold: "STANDARD", // "STRICT" or "STANDARD"
+          action: {
+            type: "SHOW_SUPPORT_BUTTON",
+            label: "Contact Support",
+            action: {
+              type: "OPEN_FORM",
+              formConfig: supportFormConfig,
+            },
+          },
+        },
+      ],
+    },
   },
 };""",
         ]
