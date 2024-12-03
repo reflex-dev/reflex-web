@@ -97,8 +97,8 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
 
 class PyplotState(rx.State):
     num_points: int = 100
-    plot_data: tuple = tuple(np.random.rand(2, 100) for _ in range(3))
-    scale: list = [random.uniform(0, 100) for _ in range(100)]
+    plot_data: tuple
+    scale: list
     fig: plt.Figure = plt.Figure()
 
     @rx.event
@@ -113,6 +113,8 @@ class PyplotState(rx.State):
     
     @rx.event
     def create_fig(self, theme: Literal["light", "dark"]):
+        self.plot_data = tuple(np.random.rand(2, 100) for _ in range(3))
+        self.scale = [random.uniform(0, 100) for _ in range(100)]
         self.fig = create_plot(
             theme, self.plot_data, self.scale
         )
