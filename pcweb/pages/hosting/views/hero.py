@@ -22,7 +22,7 @@ def hero() -> rx.Component:
         rx.box(
             rx.link(
                 button(
-                    "Start building",
+                    "Join the waitlist",
                     size="xl",
                     class_name="w-full lg:w-fit",
                 ),

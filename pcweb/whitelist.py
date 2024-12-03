@@ -9,7 +9,7 @@
 # - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"] 
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = [] 
+WHITELISTED_PAGES = ["/pricing", "/sales", "/launch", "/hosting"] 
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
