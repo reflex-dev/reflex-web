@@ -67,12 +67,16 @@ If the figure is set as a state var, it can be updated during run time.
 import plotly.express as px
 class PlotlyState(rx.State):
     df = px.data.gapminder().query(f"country=='Canada'")
-    figure = px.line(
-        df,
-        x="year",
-        y="lifeExp",
-        title="Life expectancy in Canada",
-    )
+    figure: go.Figure = px.line()
+
+    @rx.event
+    def create_figure(self):
+        self.figure = px.line(
+            self.df,
+            x="year",
+            y="lifeExp",
+            title="Life expectancy in Canada",
+        )
 
     @rx.event
     def set_selected_country(self, country):
@@ -85,6 +89,7 @@ class PlotlyState(rx.State):
         )
 
 
+
 def line_chart_with_state():
     return rx.vstack(
         rx.select(
@@ -92,7 +97,10 @@ def line_chart_with_state():
             default_value="Canada",
             on_change=PlotlyState.set_selected_country,
         ),
-        rx.plotly(data=PlotlyState.figure),
+        rx.plotly(
+            data=PlotlyState.figure,
+            on_mount=PlotlyState.create_figure,
+        ),
     )
 ```
 
