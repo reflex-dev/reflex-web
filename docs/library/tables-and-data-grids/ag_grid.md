@@ -255,8 +255,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridEditingState(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
@@ -280,6 +284,7 @@ def ag_grid_simple_editing():
         row_data=AGGridEditingState.data,
         column_defs=column_defs,
         on_cell_value_changed=AGGridEditingState.cell_value_changed,
+        on_mount=AGGridEditingState.load_data,
         width="100%",
         height="40vh",
     )
@@ -376,8 +381,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridState2(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
 column_defs = [
     ag_grid.column_def(field="country"),
@@ -390,6 +399,7 @@ def ag_grid_state_2():
         id="ag_grid_state_2",
         row_data=AGGridState2.data,
         column_defs=column_defs,
+        on_mount=AGGridState2.load_data,
         width="100%",
         height="40vh",
     )
