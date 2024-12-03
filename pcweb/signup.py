@@ -100,17 +100,5 @@ class IndexState(rx.State):
                 )
         self.send_contact_to_webhook(email)
         self.add_contact_to_loops(email)
-        # Check if the user is already on the newsletter
-        with rx.session() as session:
-            user = session.query(Waitlist).filter(Waitlist.email == email).first()
-            if user is None:
-                # Add the user to the newsletter
-                session.add(
-                    Waitlist(
-                        email=email,
-                    ),
-                )
-                session.commit()
-
         self.signed_up = True
         return rx.toast.success("Thanks for signing up to the Newsletter!")
