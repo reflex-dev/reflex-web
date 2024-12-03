@@ -78,7 +78,6 @@ const supportFormConfig = {
     },
   ],
   submitCallback: async (values) => {
-    // const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
     const discordWebhookUrl = "https://discord.com/api/webhooks/1313281051765903372/5w4g9xxKa5naY5I6I9esNxeT5rI66t75MniNNPFM7bBoagQuDZamgqQdoHIFqYh6x_7J";
     if (!discordWebhookUrl) {
       console.error("Discord webhook URL is not set in the environment.");
@@ -132,6 +131,7 @@ const supportFormConfig = {
     } catch (error) {
       console.error("Error sending values to Discord:", error);
     }
+    return { success: true };
   },
 };
 const searchBarProps = {
@@ -143,6 +143,7 @@ const searchBarProps = {
     organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#6E56CF',
+    consoleDebugLevel: 1,
     breadcrumbRules: {
       urlToBreadcrumbMapper: [
         {
@@ -225,6 +226,13 @@ const searchBarProps = {
         },
       ],
     },
+    getHelpCallToActions: [
+      {
+        name: 'Get help',
+        type: 'OPEN_FORM',
+        formConfig: supportFormConfig,
+      },
+    ],
   },
 };""",
         ]
