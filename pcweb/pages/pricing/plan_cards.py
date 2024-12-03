@@ -248,7 +248,7 @@ def plan_cards() -> rx.Component:
                 ("app-window", "Unlimited Apps"),
                 ("signal", "Full Website Analytics"),
                 ("lock-keyhole", "One Click Auth"),
-                ("git-branch", "Dev Stage Prod Environments"),
+                ("git-branch", "Dev, Stage & Prod Environments"),
                 ("database", "Database Editor UI and Migration Tool"),
                 ("test-tube", "Built-in Testing Framework"),
                 ("circle-plus", "Everything in Pro"),
@@ -259,7 +259,7 @@ def plan_cards() -> rx.Component:
             "Enterprise",
             "Get our priority support and a plan tailored to your needs.",
             [
-                ("headset", "Priority Support"),
+                ("headset", "Priority Engineering Support"),
                 ("user-round-plus", "White Glove Onboarding"),
                 ("users", "Unlimited team members"),
                 ("hard-drive", "On Premise Deployment"),

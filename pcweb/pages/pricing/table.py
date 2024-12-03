@@ -41,7 +41,7 @@ USERS_SECTION = [
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
     ("Starter Templates", True, True, True, True),
-    ("Pro Templates", False, True, True, True),
+    ("Enterprise Templates", False, False, True, True),
     ("One Click Auth", False, False, True, True),
     ("Embed Reflex Apps", False, False, True, True),
     ("Built-in Testing", False, False, True, True),
@@ -50,9 +50,9 @@ FRAMEWORK_SECTION = [
 THEME_SECTION = [("Theming", "Builtin Themes + Dark Mode", "Builtin Themes + Dark Mode", "Custom Themes", "Custom Themes")]
 
 REFLEX_AI_SECTION = [
-    ("Flexgen Website Builder", "5/day", "20/day ($0.5 / edit on top)", "100/day ($0.5 / edit on top)", "Custom"),
-    ("Full-Stack AI Agent", "5/day", "100/day ($0.2 / edit on top)", "250/day ($0.2 / edit on top)", "Custom"),
-    ("AI Assistant / Debugger", "5/day", "100/day ($0.2 / edit on top)", "250/day ($0.2 / edit on top)", "Custom"),
+    ("Flexgen Website Builder", "5/day", "20/day", "100/day (additional credits available)", "Custom"),
+    ("Full-Stack AI Agent", "5/day", "50/day", "250/day (additional credits available)", "Custom"),
+    ("AI Assistant / Debugger", "5/day", "50/day", "250/day (additional credits available)", "Custom"),
 ]
 
 DATABASE_SECTION = [
@@ -88,7 +88,7 @@ SECURITY_SECTION = [
     ("DDos Protection", True, True, True, True),
     ("2 Factor Auth", True, True, True, True),
     ("Rich Permissions Control", False, False, True, True),
-    ("Connect to Analytics Vendor", False, False, True, True),
+    ("Connect to Analytics Vendors", False, False, True, True),
     ("Audit Logs", False, False, False, True),
     ("Custom SSO", False, False, False, True),
 ]
@@ -101,7 +101,7 @@ SUPPORT_BOOLEAN_SECTION = [
     ("White Glove Onboarding", False, False, False, True),
     ("Support SLAs Available", False, False, False, True),
     ("Migrate Existing Apps", False, False, False, True),
-    ("Priority Support with Reflex Team", False, False, False, True),
+    ("Priority Support with Reflex Engineering Team", False, False, False, True),
 ]
 
 PLAN_BUTTONS = [
@@ -226,13 +226,6 @@ def table_body() -> rx.Component:
             *[create_table_row(row) for row in THEME_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Reflex AI", "", "", ""]),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in REFLEX_AI_SECTION],
-        ),
-        rx.table.header(
             create_table_row_header(["Database", "", "", ""]),
             class_name="relative",
         ),
@@ -273,6 +266,13 @@ def table_body() -> rx.Component:
                 create_checkmark_row(feature, checks)
                 for feature, *checks in SUPPORT_BOOLEAN_SECTION 
             ],
+        ),
+        rx.table.header(
+            create_table_row_header(["Reflex AI", "", "", ""]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in REFLEX_AI_SECTION],
         ),
         create_table_body(
             rx.table.row(

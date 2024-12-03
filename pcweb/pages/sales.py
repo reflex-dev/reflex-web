@@ -72,7 +72,7 @@ def form() -> rx.Component:
         rx.form(
             rx.box(
                 rx.text(
-                    "Get an enterprise quote",
+                    "Contact the Sales Team",
                     class_name="text-2xl text-slate-12 font-bold leading-6 scroll-m-[7rem]",
                     id="form-title",
                 ),
