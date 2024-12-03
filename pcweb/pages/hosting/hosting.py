@@ -26,7 +26,7 @@ def hosting_landing() -> rx.Component:
         rx.el.main(
             hero(),
             preview(),
-            companies(),
+            # companies(),
             deploy_animation(),
             features(),
             pricing_cards(),

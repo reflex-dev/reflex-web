@@ -10,13 +10,12 @@ def hero() -> rx.Component:
     return rx.el.section(
         # Headings
         rx.el.h1(
-            "Deploy and host your apps",
+            "Deploy with a single command",
             class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-4xl lg:text-5xl text-center text-transparent text-balance mx-auto break-words font-semibold",
         ),
         # TODO: Change this wording
         rx.el.h2(
-            """The open-source framework to build and deploy
-web apps - no Javascript required.""",
+            """A unified platform to build and manage your Reflex apps""",
             class_name="max-w-full w-full font-large text-center text-slate-11 -mt-2 font-normal text-[1.25rem] mx-auto text-balance word-wrap break-words md:whitespace-pre",
         ),
         # Buttons
