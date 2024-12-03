@@ -33,46 +33,74 @@ TABLE_STYLE = """
 """
 
 # Data configuration
-PRICE_SECTION = [
-    ("Per Seat Price", "Free", "$19/mo", "Contact Sales", "Contact Sales"),
-    ("Compute", "Free", "Usage Based", "Usage Based", "Custom"),
+USERS_SECTION = [
+    ("Per Seat Price", "Free", "$19/mo/user", "Contact Sales", "Contact Sales"),
+    ("User Limit", "1", "5", "25", "Unlimited"),
 ]
 
+FRAMEWORK_SECTION = [
+    ("Open Source Framework", True, True, True, True),
+    ("Starter Templates", True, True, True, True),
+    ("Pro Templates", False, True, True, True),
+    ("One Click Auth", False, False, True, True),
+    ("Embed Reflex Apps", False, False, True, True),
+    ("Built-in Testing", False, False, True, True),
+]
 
-COMPUTE_SECTION = [
-    ("Compute Limits", "1 CPU, .5GB", "5 CPU, 10GB", "32 CPU, 64GB", "No Limit"),
+THEME_SECTION = [("Theming", "Builtin Themes + Dark Mode", "Builtin Themes + Dark Mode", "Custom Themes", "Custom Themes")]
+
+REFLEX_AI_SECTION = [
+    ("Flexgen Website Builder", "5/day", "20/day ($0.5 / edit on top)", "100/day ($0.5 / edit on top)", "Custom"),
+    ("Full-Stack AI Agent", "5/day", "100/day ($0.2 / edit on top)", "250/day ($0.2 / edit on top)", "Custom"),
+    ("AI Assistant / Debugger", "5/day", "100/day ($0.2 / edit on top)", "250/day ($0.2 / edit on top)", "Custom"),
+]
+
+DATABASE_SECTION = [
+    ("Connect your own SQL DB", True, True, True, True),
+    ("Database Editor UI", False, False, True, True),
+    ("Database Migration Tool", False, False, True, True),
+]
+
+HOSTING_TEXT_SECTION = [
+    ("Compute Limits", "1 CPU, .5GB", "5 CPU, 10GB", "Custom", "Custom"),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
-    ("Team size", "1", "< 5", "< 15", "Unlimited"),
+    ("Custom Domains", "None", "1", "5", "Unlimited"),
+    ("Build logs", "7 day", "30 days", "90 days", "Custom"),
     ("Runtime logs", "1 day", "7 days", "30 days", "Custom"),
-    ("Build logs", "1 days", "30 days", "90 days", "Custom"),
 ]
 
-ON_PREMISE_ROW = [("On Premises (Optional)", False, False, False, True)]
-
-FEATURE_SECTION = [
+HOSTING_BOOLEAN_SECTION = [
+    ("CLI Deployments", True, True, True, True),
+    ("Automatic CI / CD Deploy (Github)", False, False, True, True),
     ("Secrets", True, True, True, True),
-    ("Custom domains", False, True, True, True),
-    ("Metrics and analytics", False, True, True, True),
-    ("Automatic CI/CD", False, True, True, True),
-    ("Multi-region", False, True, True, True),
-    ("One-click Auth", False, False, True, True),
-    ("Cron jobs", False, False, True, True),
-    ("SSO", False, False, False, True),
+    ("Secret Manager", False, False, True, True),
+    ("App Analytics", False, False, True, True),
+    ("Traces", False, False, True, True),
+    ("Custom Alerts", False, False, True, True),
+    ("Rollbacks", False, False, True, True),
+    ("Large File Support", False, False, True, True),
+    ("On Prem Hosting", False, False, False, True),
 ]
 
 SECURITY_SECTION = [
-    ("Web app firewall", True, True, True, True),
+    ("Web App Firewall", True, True, True, True),
     ("HTTP/SSL", True, True, True, True),
-    ("DDos", True, True, True, True),
+    ("DDos Protection", True, True, True, True),
+    ("2 Factor Auth", True, True, True, True),
+    ("Rich Permissions Control", False, False, True, True),
+    ("Connect to Analytics Vendor", False, False, True, True),
+    ("Audit Logs", False, False, False, True),
+    ("Custom SSO", False, False, False, True),
 ]
 
+SUPPORT_TEXT_SECTION = [
+    ("Support", "Community", "Community", "Email Support", "Dedicated Channel + Priority Support with Reflex engineering team")
+]
 
-SUPPORT_SECTION = [
-    ("Community support", True, True, True, True),
-    ("Email (1 Business Day)", False, False, True, True),
-    ("Support SLAs available", False, False, False, True),
-    ("Custom onboarding", False, False, False, True),
-    ("Migrate existing apps", False, False, False, True),
+SUPPORT_BOOLEAN_SECTION = [
+    ("White Glove Onboarding", False, False, False, True),
+    ("Support SLAs Available", False, False, False, True),
+    ("Migrate Existing Apps", False, False, False, True),
 ]
 
 PLAN_BUTTONS = [
@@ -183,27 +211,45 @@ def table_body() -> rx.Component:
             class_name="relative",
         ),
         create_table_body(
-            *[create_table_row(row) for row in PRICE_SECTION],
+            *[create_table_row(row) for row in USERS_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Compute", "", "", ""]),
+            create_table_row_header(["Framework", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in ON_PREMISE_ROW
+                for feature, *checks in FRAMEWORK_SECTION
             ],
-            *[create_table_row(row) for row in COMPUTE_SECTION],
+            *[create_table_row(row) for row in THEME_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Features", "", "", "", ""]),
+            create_table_row_header(["Reflex AI", "", "", ""]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in REFLEX_AI_SECTION],
+        ),
+        rx.table.header(
+            create_table_row_header(["Database", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in FEATURE_SECTION
+                for feature, *checks in DATABASE_SECTION
+            ],
+        ),
+        rx.table.header(
+            create_table_row_header(["Hosting", "", "", ""]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in HOSTING_TEXT_SECTION],
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in HOSTING_BOOLEAN_SECTION
             ],
         ),
         rx.table.header(
@@ -221,9 +267,10 @@ def table_body() -> rx.Component:
             class_name="relative",
         ),
         create_table_body(
+            *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in SUPPORT_SECTION
+                for feature, *checks in SUPPORT_BOOLEAN_SECTION 
             ],
         ),
         create_table_body(
