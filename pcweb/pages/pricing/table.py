@@ -47,12 +47,12 @@ FRAMEWORK_SECTION = [
     ("Built-in Testing", False, False, True, True),
 ]
 
-THEME_SECTION = [("Theming", "Builtin Themes + Dark Mode", "Builtin Themes + Dark Mode", "Custom Themes", "Custom Themes")]
+THEME_SECTION = [("Theming", "Builtin Themes", "Builtin Themes", "Custom Themes", "Custom Themes")]
 
 REFLEX_AI_SECTION = [
-    ("Flexgen Website Builder", "5/day", "20/day", "100/day (additional credits available)", "Custom"),
-    ("Full-Stack AI Agent", "5/day", "50/day", "250/day (additional credits available)", "Custom"),
-    ("AI Assistant / Debugger", "5/day", "50/day", "250/day (additional credits available)", "Custom"),
+    ("Flexgen Website Builder", "5/day", "20/day", "100/day", "Custom"),
+    ("Full-Stack AI Agent", "5/day", "50/day", "250/day", "Custom"),
+    ("AI Assistant / Debugger", "5/day", "50/day", "250/day", "Custom"),
 ]
 
 DATABASE_SECTION = [
@@ -102,6 +102,7 @@ SUPPORT_BOOLEAN_SECTION = [
     ("Support SLAs Available", False, False, False, True),
     ("Migrate Existing Apps", False, False, False, True),
     ("Priority Support with Reflex Engineering Team", False, False, False, True),
+    ("", "", "", "", ""),
 ]
 
 PLAN_BUTTONS = [
@@ -121,20 +122,6 @@ def glow() -> rx.Component:
         ),
         height="6rem !important",
         width="60.75rem !important",
-    )
-
-
-def header() -> rx.Component:
-    return rx.box(
-        rx.el.h3(
-            "Compare features across plans.",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "Find a perfect fit",
-            class_name="text-slate-9 text-3xl font-semibold text-center",
-        ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 
@@ -171,10 +158,10 @@ def create_table_row(cells: list) -> rx.Component:
     )
 
 
-def create_table_row_header(cells: list) -> rx.Component:
+def create_table_row_header(cells: list, coming_soon: bool = False) -> rx.Component:
     return rx.table.row(
         *[
-            rx.table.column_header_cell(cell, class_name=STYLES["header_cell"])
+            rx.table.column_header_cell(cell, rx.badge("coming soon", margin_left="0.5rem"), class_name=STYLES["header_cell"])  if cell and coming_soon else rx.table.column_header_cell(cell, class_name=STYLES["header_cell"]) 
             for cell in cells
         ],
         class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative",
@@ -203,7 +190,36 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
     return create_table_row(cells)
 
 
-def table_body() -> rx.Component:
+
+def header_hosting() -> rx.Component:
+    return rx.box(
+        rx.el.h3(
+            "Secure and Scalable Hosting",
+            class_name="text-slate-12 text-3xl font-semibold text-center",
+        ),
+        rx.el.p(
+            "Compare features across plans.",
+            class_name="text-slate-9 text-2xl font-semibold text-center",
+        ),
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+    )
+
+
+def header_oss() -> rx.Component:
+    return rx.box(
+        rx.el.h3(
+            "Supercharged Features to Build Faster",
+            class_name="text-slate-12 text-3xl font-semibold text-center",
+        ),
+        rx.el.p(
+            "Premium Features to help you get the most out of Reflex",
+            class_name="text-slate-9 text-2xl font-semibold text-center",
+        ),
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+    )
+
+
+def table_body_hosting() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
@@ -213,27 +229,6 @@ def table_body() -> rx.Component:
         ),
         create_table_body(
             *[create_table_row(row) for row in USERS_SECTION],
-        ),
-        rx.table.header(
-            create_table_row_header(["Framework", "", "", ""]),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in FRAMEWORK_SECTION
-            ],
-            *[create_table_row(row) for row in THEME_SECTION],
-        ),
-        rx.table.header(
-            create_table_row_header(["Database", "", "", ""]),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in DATABASE_SECTION
-            ],
         ),
         rx.table.header(
             create_table_row_header(["Hosting", "", "", ""]),
@@ -267,8 +262,36 @@ def table_body() -> rx.Component:
                 for feature, *checks in SUPPORT_BOOLEAN_SECTION 
             ],
         ),
+        class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
+    )
+
+
+def table_body_oss() -> rx.Component:
+    return rx.table.root(
+        rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header(["Reflex AI", "", "", ""]),
+            create_table_row_header(["Framework","Hobby", "Pro", "Team", "Enterprise"]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in FRAMEWORK_SECTION
+            ],
+            *[create_table_row(row) for row in THEME_SECTION],
+        ),
+        rx.table.header(
+            create_table_row_header(["Database", "", "", ""]),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in DATABASE_SECTION
+            ],
+        ),
+        rx.table.header(
+            create_table_row_header(["AI", "", "", ""], coming_soon=True),
             class_name="relative",
         ),
         create_table_body(
@@ -287,10 +310,17 @@ def table_body() -> rx.Component:
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
 
-
-def comparison_table() -> rx.Component:
+def comparison_table_hosting() -> rx.Component:
     return rx.box(
-        header(),
-        table_body(),
+        header_hosting(),
+        table_body_hosting(),
+        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
+    )
+
+
+def comparison_table_oss() -> rx.Component:
+    return rx.box(
+        header_oss(),
+        table_body_oss(),
         class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
     )
