@@ -94,13 +94,14 @@ SECURITY_SECTION = [
 ]
 
 SUPPORT_TEXT_SECTION = [
-    ("Support", "Community", "Community", "Email Support", "Dedicated Channel + Priority Support with Reflex engineering team")
+    ("Support", "Community", "Community", "Email Support", "Dedicated Support")
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
     ("White Glove Onboarding", False, False, False, True),
     ("Support SLAs Available", False, False, False, True),
     ("Migrate Existing Apps", False, False, False, True),
+    ("Priority Support with Reflex Team", False, False, False, True),
 ]
 
 PLAN_BUTTONS = [
@@ -133,10 +134,10 @@ def header() -> rx.Component:
             "Find a perfect fit",
             class_name="text-slate-9 text-3xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.125rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
- 
+
 def create_table_cell(content: str | rx.Component) -> rx.Component:
     if content == "Usage Based":
         return rx.table.cell(
@@ -155,7 +156,7 @@ def create_action_button(
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        href=HOSTING_URL if text != "Contact sales" else "mailto:sales@reflex.dev",
+        href=HOSTING_URL if text != "Contact sales" else "/sales",
         is_external=True,
         underline="none",
         class_name="w-full flex justify-center items-center",
@@ -184,7 +185,7 @@ def create_table_row_header(cells: list) -> rx.Component:
 def create_table_body(*body_content) -> rx.Component:
     return rx.table.body(
         *body_content,
-        class_name="w-full divide-y divide-slate-4 border border-slate-4 md:border-t-0 flex flex-col items-center justify-center border-x max-w-[64.125rem] mx-auto border-b-0",
+        class_name="w-full divide-y divide-slate-4 border border-slate-4 md:border-t-0 flex flex-col items-center justify-center border-x max-w-[64.19rem] mx-auto border-b-0",
     )
 
 
