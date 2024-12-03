@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
-
+from pcweb.components.hosting_banner import HostingBannerState
 
 def create_pattern(
     pattern: str,
@@ -12,6 +12,7 @@ def create_pattern(
         + " "
         + class_name,
     )
+
 
 def default_patterns() -> rx.Component:
     return [
@@ -39,6 +40,7 @@ def default_patterns() -> rx.Component:
         ),
     ]
 
+
 def index_patterns() -> rx.Component:
     return [
         rx.box(
@@ -54,4 +56,22 @@ def index_patterns() -> rx.Component:
         rx.box(
             class_name="bg-[radial-gradient(50%_50%_at_50%_50%,_var(--glow)_0%,_rgba(21,_22,_24,_0.00)_100%)] w-[56.125rem] h-[11.625rem] rounded-[56.125rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1] mt-[65.75rem] absolute top-0"
         ),
+    ]
+
+
+def hosting_patterns() -> rx.Component:
+    return [
+        rx.image(
+            src=rx.color_mode_cond(
+                light="/hosting/light/hosting_patterns.svg",
+                dark="/hosting/dark/hosting_patterns.svg",
+            ),
+            alt="Reflex Hosting Patterns",
+            class_name="desktop-only absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            + rx.cond(
+                HostingBannerState.show_banner,
+                " lg:mt-[24rem] mt-[3.5rem]",
+                " lg:mt-[19rem] mt-[8.5rem]",
+            ),
+        )
     ]

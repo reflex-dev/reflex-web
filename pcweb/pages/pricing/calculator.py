@@ -235,7 +235,7 @@ def header() -> rx.Component:
             "We subtract the hobby tier free CPU and RAM from your usage.",
             class_name="text-slate-9 text-md font-medium text-center mt-2",
         ),
-        class_name="flex items-center mb-5 justify-between text-slate-11 flex-col pt-[5rem] 2xl:border-x border-slate-4 max-w-[64.125rem] mx-auto w-full",
+        class_name="flex items-center mb-5 justify-between text-slate-11 flex-col pt-[5rem] mx-auto w-full",
     )
 
 
@@ -276,7 +276,7 @@ def calculator_section() -> rx.Component:
             radial_circle(),
             rx.box(
                 rx.flex(
-                    filtering_tags(),
+                    # filtering_tags(),
                     align_items="center",
                     justify_content="center",
                     width="100%",
