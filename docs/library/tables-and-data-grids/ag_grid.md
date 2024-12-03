@@ -604,10 +604,13 @@ def ag_grid_api_simple():
             id="ag_grid_basic_row_selection",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Select All", on_click=my_api.select_all()),
         rx.button("Deselect All", on_click=my_api.deselect_all()),
         spacing="4",
+        width="100%",
     )
 ```
 
@@ -653,10 +656,13 @@ def ag_grid_api_simple2():
             id="ag_grid_export_and_resize",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Export", on_click=my_api.export_data_as_csv()),
         rx.button("Resize Columns", on_click=my_api.size_columns_to_fit()),
         spacing="4",
+        width="100%",
     )
 ```
 
@@ -697,9 +703,12 @@ def ag_grid_api_argument():
             id="ag_grid_get_data_as_csv",
             row_data=df.to_dict("records"),
             column_defs=column_defs,
+            width="100%",
+            height="40vh",
         ),
         rx.button("Get CSV data on backend", on_click=my_api.get_data_as_csv(callback=AGGridStateAPI.handle_get_data)),
         spacing="4",
+        width="100%",
     )
 ```
 
