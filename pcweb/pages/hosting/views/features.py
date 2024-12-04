@@ -138,17 +138,17 @@ def features() -> rx.Component:
                 feature_card(
                     "backend_db",
                     "Build and deploy",
-                    "Skip the boilerplate and get started faster. No need to write API endpoints.",
+                    "Deploy and scale your Reflex app with a single command.",
                 ),
                 feature_card(
                     "infinity",
                     "Integrate with CI/CD",
-                    "Skip the boilerplate and get started faster. No need to write API endpoints.",
+                    "Deploy via GitHub Actions, GitLab CI, or your own custom pipeline.",
                 ),
                 feature_card(
                     "globe",
                     "Scale to multiple regions",
-                    "Skip the boilerplate and get started faster. No need to write API endpoints.",
+                    "Deploy your app to multiple regions for high availability and low latency.",
                 ),
                 rx.box(class_name="h-[4rem]"),
                 class_name="flex flex-col pt-8 lg:border-r border-slate-3",
@@ -157,12 +157,12 @@ def features() -> rx.Component:
                 feature_card(
                     "backend_auth",
                     "Add team members",
-                    "Skip the boilerplate and get started faster. No need to write API endpoints.",
+                    "Invite team members to your Reflex app and manage their permissions.",
                 ),
                 feature_card(
                     "analytics",
                     "Get alerts and metrics",
-                    "Skip the boilerplate and get started faster. No need to write API endpoints.",
+                    "Get alerts and metrics for your Reflex app to help you monitor and optimize your app.",
                 ),
                 class_name="flex flex-col -mt-[32px]",
             ),
