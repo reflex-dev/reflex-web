@@ -14,6 +14,8 @@ from .gallery.apps import gallery_apps_routes
 from .hosting_countdown.hosting_countdown import hosting_countdown
 from .pricing.pricing import pricing
 from .sales import sales
+from .hosting.hosting import hosting_landing
+
 routes = [
     *[r for r in locals().values() if isinstance(r, Route) and r.add_as_page],
     *blog_routes,

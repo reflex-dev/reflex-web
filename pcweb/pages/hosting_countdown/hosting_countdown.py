@@ -10,7 +10,7 @@ from pcweb.pages.hosting_countdown.animated_box import animated_box
 from pcweb.pages.hosting_countdown.waitlist import waitlist
 
 
-@rx.page(route="/hosting", title="Reflex · Hosting")
+@rx.page(route="/launch", title="Reflex · Launch")
 def hosting_countdown() -> rx.Component:
     """Get the Hosting landing page."""
     return rx.box(

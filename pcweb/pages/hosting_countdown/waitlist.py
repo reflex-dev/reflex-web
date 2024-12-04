@@ -31,7 +31,6 @@ class WaitlistState(rx.State):
 
         self.loading = False
 
-
 def waitlist():
     return rx.box(
         rx.box(

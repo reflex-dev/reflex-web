@@ -73,7 +73,7 @@ class State(rx.State):
     def user_post(self) -> str:
         args = self.router.page.params
         usernames = args.get('username', [])
-        return f'Posts by \{', '.join(usernames)}'
+        return f"Posts by \{', '.join(usernames)}"
 
 @rx.page(route='/users/[id]/posts/[...username]')
 def post():
@@ -87,7 +87,7 @@ app = rx.App()
 ```
 
 In this case, the `...username` catch-all pattern captures any number of segments after
-`/users/`, allowing URLs like `/users/2/john/` and `/users/1/john/doe/` to match the route.
+`/users/`, allowing URLs like `/users/2/posts/john/` and `/users/1/posts/john/doe/` to match the route.
 
 ## Optional Catch-All Routes
 

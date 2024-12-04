@@ -35,7 +35,7 @@ def sales_button() -> rx.Component:
             variant="secondary",
             class_name="!text-slate-11 !font-semibold !text-sm",
         ),
-        href="mailto:sales@reflex.dev",  # TODO: Change to sales page when we have it
+        href="/sales",
         is_external=True,
         class_name="self-center relative",
     )

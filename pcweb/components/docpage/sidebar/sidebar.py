@@ -112,7 +112,8 @@ def sidebar_icon(name):
         "Database": "database",
         "Authentication": "lock-keyhole",
         "Utility Methods": "cog",
-        "Reflex Deploy": "earth",
+        "Quick Start": "earth",
+        "CLI Reference": "square-terminal",
         "Self Hosting": "server",
         "Custom Components": "blocks",
     }
