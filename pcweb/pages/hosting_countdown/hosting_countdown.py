@@ -8,9 +8,10 @@ from pcweb.pages.hosting_countdown.semicircle_timer import semicircle_timer, ell
 from pcweb.pages.hosting_countdown.timer import timer
 from pcweb.pages.hosting_countdown.animated_box import animated_box
 from pcweb.pages.hosting_countdown.waitlist import waitlist
+from pcweb.meta.meta import hosting_meta_tags
 
 
-@rx.page(route="/launch", title="Reflex · Launch")
+@rx.page(route="/launch", title="Reflex · Launch", meta=hosting_meta_tags)
 def hosting_countdown() -> rx.Component:
     """Get the Hosting landing page."""
     return rx.box(

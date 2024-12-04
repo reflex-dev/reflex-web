@@ -8,9 +8,10 @@ from pcweb.pages.pricing.table import comparison_table_hosting, comparison_table
 from pcweb.views.bottom_section.get_started import get_started
 from pcweb.pages.pricing.faq import faq
 from pcweb.pages.pricing.calculator import calculator_section
+from pcweb.meta.meta import hosting_meta_tags
 
 
-@rx.page(route="/pricing", title="Reflex · Pricing")
+@rx.page(route="/pricing", title="Reflex · Pricing", meta=hosting_meta_tags)
 def pricing() -> rx.Component:
     """Get the Pricing landing page."""
     from pcweb.components.docpage.navbar import navbar
