@@ -1,7 +1,7 @@
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.components.new_button import button
-from pcweb.constants import HOSTING_URL
+from pcweb.pages.docs import hosting
 
 
 def grid() -> rx.Component:
@@ -169,8 +169,8 @@ def features() -> rx.Component:
             class_name="flex lg:flex-row flex-col justify-center items-center",
         ),
         rx.link(
-            button("Start building", variant="primary", size="xl"),
-            href=HOSTING_URL,
+            button("Start deploying", variant="primary", size="xl"),
+            href=hosting.deploy_quick_start.path,
             is_external=True,
             class_name="p-2 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
         ),

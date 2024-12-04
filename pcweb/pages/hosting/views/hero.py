@@ -1,7 +1,7 @@
 import reflex as rx
 from pcweb.components.new_button import button
+from pcweb.pages.docs import hosting
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
-from pcweb.constants import HOSTING_URL
 from pcweb.components.hosting_banner import HostingBannerState
 
 
@@ -22,12 +22,12 @@ def hero() -> rx.Component:
         rx.box(
             rx.link(
                 button(
-                    "Join the waitlist",
+                    "Start deploying",
                     size="xl",
                     class_name="w-full lg:w-fit",
                 ),
                 underline="none",
-                href=HOSTING_URL,
+                href=hosting.deploy_quick_start.path,
                 class_name="w-full lg:w-fit",
             ),
             rx.link(
