@@ -13,10 +13,10 @@ from pcweb.pages.index.views.get_started import get_started
 from pcweb.pages.index.views.footer_index import footer_index
 from pcweb.components.webpage.badge import badge
 from pcweb.pages.index.index_colors import index_colors
-from pcweb.meta.meta import meta_tags
+from pcweb.meta.meta import hosting_meta_tags
 
 
-@rx.page(route="/hosting", title="Reflex · Hosting", meta=meta_tags)
+@rx.page(route="/hosting", title="Reflex · Hosting", meta=hosting_meta_tags)
 def hosting_landing() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(
