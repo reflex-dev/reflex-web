@@ -10,7 +10,7 @@ def timer():
     return rx.box(
         rx.text("Launch in", class_name="font-small font-medium text-slate-9"),
         rx.moment(
-            date="2024-12-05T09:00:00",
+            date="2024-12-05T00:00:00",
             duration_from_now=True,
             format="DD[d] HH[h] mm[m] ss[s]",
             class_name="text-3xl font-semibold text-slate-12 countdown text-nowrap",
