@@ -1,3 +1,4 @@
+from pcweb.pages.docs import cloud_cliref
 from .item import create_item
 
 
@@ -200,11 +201,16 @@ def get_sidebar_items_hosting():
 
     items = [
         create_item(
-            "Reflex Deploy",
+            "Quick Start",
             children=[
                 hosting.deploy_quick_start,
-                hosting.hosting_cli_commands,
+                hosting.additional_concepts,
+                hosting.deploy_with_github_actions,
             ],
+        ),
+        create_item(
+            "CLI Reference",
+            children=cloud_cliref.pages
         ),
         create_item(
             "Self Hosting",
