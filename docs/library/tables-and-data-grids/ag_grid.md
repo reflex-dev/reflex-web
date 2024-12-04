@@ -255,8 +255,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridEditingState(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
     @rx.event
     def cell_value_changed(self, row, col_field, new_value):
@@ -280,6 +284,7 @@ def ag_grid_simple_editing():
         row_data=AGGridEditingState.data,
         column_defs=column_defs,
         on_cell_value_changed=AGGridEditingState.cell_value_changed,
+        on_mount=AGGridEditingState.load_data,
         width="100%",
         height="40vh",
     )
@@ -376,8 +381,12 @@ from reflex_ag_grid import ag_grid
 import pandas as pd
 
 class AGGridState2(rx.State):
-    _data_df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
-    data: list[dict] = _data_df.to_dict("records")
+    data: list[dict] = []
+
+    @rx.event
+    def load_data(self):
+        _df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+        self.data = _df.to_dict("records")
 
 column_defs = [
     ag_grid.column_def(field="country"),
@@ -390,6 +399,7 @@ def ag_grid_state_2():
         id="ag_grid_state_2",
         row_data=AGGridState2.data,
         column_defs=column_defs,
+        on_mount=AGGridState2.load_data,
         width="100%",
         height="40vh",
     )
@@ -555,3 +565,153 @@ The following props are available for `column_defs` as well as many others that 
 - `checkbox_selection`: `bool | None`: Set to true to render a checkbox for row selection.
 - `cell_editor`: `AGEditors | str | None`: Provide your own cell editor component for this column's cells. (Check out the Editing section of this page for more information)
 - `cell_editor_params`: `dict[str, list[Any]] | None`: Params to be passed to the cellEditor component.
+
+
+
+## Functionality you need is not available in Reflex
+
+Since Reflex AG Grid is wrapping the underlying AG Grid library, there is much more functionality available that is currently not exposed in Reflex. Check out this [documentation](https://www.ag-grid.com/react-data-grid/reference/) for more information on what is available in AG Grid.
+
+As Reflex does not expose all the functionality of AG Grid, you can use `ag_grid.api()`, which is hanging off the `ag_grid` namespace, to access the underlying AG Grid API. This allows you to access the full functionality of AG Grid.
+
+Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this first example.
+
+The example below uses the `select_all()` and `deselect_all()` methods of the AG Grid API to select and deselect all rows in the grid. This method is not available in Reflex directly. Check out this [documentation](https://www.ag-grid.com/react-data-grid/grid-api/#reference-selection-selectAll) to see what the methods look like in the AG Grid docs.
+
+```md alert info
+# Ensure that the docs are set to React tab in AG Grid
+```
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+column_defs = [
+    ag_grid.column_def(field="country", checkbox_selection=True),
+    ag_grid.column_def(field="pop"),
+    ag_grid.column_def(field="continent"),
+]
+
+def ag_grid_api_simple():
+    my_api = ag_grid.api(id="ag_grid_basic_row_selection")
+    return rx.vstack(
+            ag_grid(
+            id="ag_grid_basic_row_selection",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+            width="100%",
+            height="40vh",
+        ),
+        rx.button("Select All", on_click=my_api.select_all()),
+        rx.button("Deselect All", on_click=my_api.deselect_all()),
+        spacing="4",
+        width="100%",
+    )
+```
+
+
+The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. 
+
+To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
+
+
+
+```md alert info
+# Another way to use the AG Grid API
+It is also possible to use the AG Grid API directly with the event trigger (`on_click`) of the component. This removes the need to create a variable `my_api`. This is shown in the example below. It is necessary to use the `id` of the `ag_grid` component that is to be referenced.
+```python
+rx.button("Select all", on_click=ag_grid.api(id="ag_grid_basic_row_selection").select_all()),
+```
+
+
+### More examples
+
+The following example lets a user [export the data as a csv](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-exportDataAsCsv) and [adjust the size of columns to fit the available horizontal space](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-columnSizing-sizeColumnsToFit). (Try resizing the screen and then clicking the resize columns button)
+
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+column_defs = [
+    ag_grid.column_def(field="country", checkbox_selection=True),
+    ag_grid.column_def(field="pop"),
+    ag_grid.column_def(field="continent"),
+]
+
+def ag_grid_api_simple2():
+    my_api = ag_grid.api(id="ag_grid_export_and_resize")
+    return rx.vstack(
+            ag_grid(
+            id="ag_grid_export_and_resize",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+            width="100%",
+            height="40vh",
+        ),
+        rx.button("Export", on_click=my_api.export_data_as_csv()),
+        rx.button("Resize Columns", on_click=my_api.size_columns_to_fit()),
+        spacing="4",
+        width="100%",
+    )
+```
+
+The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore does not return anything.
+
+`exportDataAsCsv = (params?: CsvExportParams) => void;`
+
+`sizeColumnsToFit = (paramsOrGridWidth?: ISizeColumnsToFitParams  |  number) => void;`
+
+
+### Example with a Return Value
+
+This example shows how to get the data from `ag_grid` as a [csv on the backend](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-getDataAsCsv). The data that was passed to the backend is then displayed as a toast with the data.
+
+```python demo exec
+import reflex as rx
+from reflex_ag_grid import ag_grid
+import pandas as pd
+
+class AGGridStateAPI(rx.State):
+    def handle_get_data(self, data: str):
+        yield rx.toast(f"Got CSV data: {data}")
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+column_defs = [
+    ag_grid.column_def(field="country", checkbox_selection=True),
+    ag_grid.column_def(field="pop"),
+    ag_grid.column_def(field="continent"),
+]
+
+def ag_grid_api_argument():
+    my_api = ag_grid.api(id="ag_grid_get_data_as_csv")
+    return rx.vstack(
+            ag_grid(
+            id="ag_grid_get_data_as_csv",
+            row_data=df.to_dict("records"),
+            column_defs=column_defs,
+            width="100%",
+            height="40vh",
+        ),
+        rx.button("Get CSV data on backend", on_click=my_api.get_data_as_csv(callback=AGGridStateAPI.handle_get_data)),
+        spacing="4",
+        width="100%",
+    )
+```
+
+The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
+
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 

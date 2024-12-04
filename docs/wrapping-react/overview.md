@@ -1,7 +1,3 @@
----
-title: "Wrapping React Overview"
----
-
 ```python exec
 import reflex as rx
 from typing import Any

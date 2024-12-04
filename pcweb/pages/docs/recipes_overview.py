@@ -101,7 +101,7 @@ def card_section():
     )
 
 
-@docpage(set_path="/docs/recipes", right_sidebar=False, page_title="Recipes Overview")
+@docpage(set_path="/docs/recipes", right_sidebar=False)
 def overview():
     return rx.box(
         h1_comp(text="Recipes"),

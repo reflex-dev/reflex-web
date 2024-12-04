@@ -72,7 +72,7 @@ def form() -> rx.Component:
         rx.form(
             rx.box(
                 rx.text(
-                    "Get an enterprise quote",
+                    "Contact the Sales Team",
                     class_name="text-2xl text-slate-12 font-bold leading-6 scroll-m-[7rem]",
                     id="form-title",
                 ),
@@ -151,7 +151,7 @@ def form() -> rx.Component:
                 FormState.is_loading,
                 button(
                     "Sending...",
-                    variant="muted",
+                    variant="secondary",
                     type="submit",
                     class_name="opacity-80 !cursor-not-allowed pointer-events-none !w-min",
                 ),

@@ -205,10 +205,7 @@ server {
  server_name frontend;
 
 
- error_page   500 502 503 504  /50x.html;
- location = /50x.html {
-    root   /usr/share/nginx/html;
- }
+ error_page   404  /404.html;
 
  location /_event {
     proxy_set_header   Connection "upgrade";
@@ -228,7 +225,6 @@ server {
  location / {
    # This would be the directory where your Reflex app's static files are stored at
    root /usr/share/nginx/html;
-   try_files $uri /$uri/index.html;
  }
 
 }

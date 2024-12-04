@@ -101,7 +101,7 @@ def tabs():
         ),
         rx.tabs.content(
             markdown_with_shiki(
-                f"""Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing]({pages.routes.path}) section for more information.
+                f"""Each page is a Python function that returns a Reflex component. You can define multiple pages and navigate between them, see the [Routing]({pages.overview.path}) section for more information.
 
 - Start with a single page and scale to 100s of pages.
                 """,

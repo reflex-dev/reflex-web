@@ -324,6 +324,9 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             nav_menu.item(
+                link_item("Hosting", "/hosting", "hosting"),
+            ),
+            nav_menu.item(
                 link_item("Pricing", "/pricing", "pricing"),
             ),
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",

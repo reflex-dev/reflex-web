@@ -1,5 +1,5 @@
 ---
-title: Image Gen
+title: ai_image_gen
 description: "Generate AI images using Replicate's API"
 author: "Reflex"
 image: "image-gen.webp"
@@ -17,7 +17,7 @@ The following is an app that allows you to generate AI images. The current map u
 To run this app locally, install Reflex and run:
 
 ```bash
-reflex init --template image_gen
+reflex init --template ai_image_gen
 ```
 
 To run the app, set the `REPLICATE_API_TOKEN`:

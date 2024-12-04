@@ -135,6 +135,11 @@ redirects = [
     # redirect previous chakra links to the new chakra docs
     ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/"),
     ("/gallery", "/templates"),
+    # Redirect any removed pages to their new home.
+    ("/docs/components/style-props", "/docs/components/props"),
+    ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
+    ("/docs/pages/routes", "/docs/pages/overview"),
+    ("/docs/assets/referencing_assets", "/docs/assets/overview"),
 ]
 
 for source, target in redirects:

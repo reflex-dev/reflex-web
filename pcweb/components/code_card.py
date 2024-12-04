@@ -1,18 +1,31 @@
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
+from reflex.components.datadisplay.shiki_code_block import copy_script
 
 
-def install_command(command: str) -> rx.Component:
+def install_command(command: str, show_dollar_sign: bool = True,  **props) -> rx.Component:
     return rx.el.button(
-        get_icon(icon="copy", class_name="p-[5px]"),
+        rx.icon("copy", size=14, margin_left="5px"),
         rx.text(
-            "$" + command,
+            "$" + command if show_dollar_sign else command,
             as_="p",
             class_name="flex-grow flex-shrink min-w-0 font-small text-start truncate",
         ),
         title=command,
-        on_click=rx.set_clipboard(command),
+        on_click=[
+            rx.set_clipboard(command),
+            copy_script(),
+        ],
         class_name="flex items-center gap-1.5 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pr-1.5 border rounded-md w-full max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
+        style={
+            "opacity": "1",
+            "cursor": "pointer",
+            "transition": "background 0.250s ease-out",
+            "&>svg": {
+                "transition": "transform 0.250s ease-out, opacity 0.250s ease-out",
+            },
+        },
+        **props,
     )
 
 
@@ -28,7 +41,7 @@ def repo(repo_url: str) -> rx.Component:
 def code_card(app: dict) -> rx.Component:
     return rx.flex(
         rx.box(
-            rx.link(
+            rx.el.a(
                 rx.image(
                     src=app["image_url"],
                     loading="lazy",
@@ -88,35 +101,55 @@ def gallery_app_card(app: dict) -> rx.Component:
         ),
         rx.box(
             rx.box(
-                rx.el.h4(
+                rx.el.h6(
                     app["title"],
                     class_name="font-smbold text-slate-12 truncate",
+                    width="100%",
                 ),
                 rx.text(
                     app["description"],
                     class_name="text-slate-10 font-small truncate text-pretty",
+                    width="100%",
                 ),
                 rx.box(
-                    rx.cond(
-                        "Reflex" in app["author"],
+                    rx.vstack(
                         rx.box(
-                            rx.text(
-                            "by",
-                            class_name="text-slate-9 font-small",
+                            rx.hstack(
+                                install_command(f"reflex init --template {app['title']}"),
+                                rx.hstack(
+                                    repo(app["demo"]),
+                                    justify="start",
+
+                                ),
                             ),
-                            get_icon(icon="badge_logo"),
+                            width="310px",
+                            max_width="310px",
+
+                        ),
+                        rx.cond(
+                            "Reflex" in app["author"],
+                            rx.box(
+                                rx.text(
+                                    "by",
+                                    class_name="text-slate-9 font-small",
+                                ),
+                                get_icon(icon="badge_logo"),
+                                rx.text(
+                                    app["author"],
+                                    class_name="text-slate-9 font-small",
+                                ),
+                                class_name="flex flex-row items-start gap-1",
+                            ),
                             rx.text(
-                                app["author"],
+                                f"by {app['author']}",
                                 class_name="text-slate-9 font-small",
                             ),
-                            class_name="flex flex-row items-center gap-1",
                         ),
-                        rx.text(
-                            f"by {app['author']}",
-                            class_name="text-slate-9 font-small",
-                        ),
+                        align_items="start",
+                        class_name="brother-john"
                     ),
-                    repo(app["demo"]),
+
+
                     class_name="flex flex-row items-center gap-[6px] justify-between w-full",
                 ),
                 class_name="flex flex-col justify-between items-start gap-1 p-[0.625rem_0.75rem_0.625rem_0.75rem] w-full h-full",

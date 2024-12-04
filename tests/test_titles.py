@@ -20,11 +20,10 @@ def test_unique_titles(routes_fixture):
     titles = []
     for route in routes_fixture:
         if hasattr(route, 'title'):
-            titles.append(route.title)
+            titles.append(route)
     
     # Count occurrences of each title
     title_counts = Counter(titles)
-    
     # Find duplicate titles
     duplicates = [title for title, count in title_counts.items() if count > 1]
     

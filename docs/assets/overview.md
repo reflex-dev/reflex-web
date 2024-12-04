@@ -4,7 +4,7 @@ import reflex as rx
 
 # Assets
 
-Static files such as images and stylesheets can be placed in `"assets/"` folder of the project. These files can be referenced within your app.
+Static files such as images and stylesheets can be placed in `assets/` folder of the project. These files can be referenced within your app.
 
 ```md alert
 # Assets are copied during the build process.
@@ -15,7 +15,7 @@ when running in production mode. The `assets/` folder should only be used for st
 
 ## Referencing Assets
 
-To reference an image in the `"assets/"` simply pass the relative path as a prop.
+To reference an image in the `assets/` simply pass the relative path as a prop.
 
 For example, you can store your logo in your assets folder:
 
@@ -38,4 +38,4 @@ rx.image(src="/Reflex.svg", width="5em")
 
 The favicon is the small icon that appears in the browser tab.
 
-You can add a `"favicon.ico"` file to the `"assets/"` folder to change the favicon.
+You can add a `favicon.ico` file to the `assets/` folder to change the favicon.
