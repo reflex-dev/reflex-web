@@ -416,20 +416,26 @@ import pandas as pd
 
 class AgGridState(rx.State):
     """The app state."""
-    all_columns = [
-        ag_grid.column_def(field="country"),
-        ag_grid.column_def(field="pop"),
-        ag_grid.column_def(field="continent"),
-        ag_grid.column_def(field="lifeExp"),
-        ag_grid.column_def(field="gdpPercap"),
-    ]
+    all_columns: list = []
 
-    two_columns = [
-        ag_grid.column_def(field="country"),
-        ag_grid.column_def(field="pop"),
-    ]
-    column_defs = all_columns
+    two_columns: list = []
+    column_defs: list = all_columns
     n_clicks = 0
+
+    @rx.event
+    def init_columns(self):
+        self.all_columns = [
+            ag_grid.column_def(field="country"),
+            ag_grid.column_def(field="pop"),
+            ag_grid.column_def(field="continent"),
+            ag_grid.column_def(field="lifeExp"),
+            ag_grid.column_def(field="gdpPercap"),
+        ]
+        self.two_columns = [
+            ag_grid.column_def(field="country"),
+            ag_grid.column_def(field="pop"),
+        ]
+        self.column_defs = self.all_columns
 
     @rx.event
     def update_columns(self):
@@ -450,6 +456,7 @@ def ag_grid_simple_with_state():
             id="ag_grid_basic_with_state",
             row_data=df.to_dict("records"),
             column_defs=AgGridState.column_defs,
+            on_mount=AgGridState.init_columns,
             width="100%",
             height="40vh",
         ),
