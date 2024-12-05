@@ -226,7 +226,7 @@ def plan_cards() -> rx.Component:
         ),
         popular_card(
             "Pro",
-            "For professional projects $19/mo per member. Plus usage.",
+            "For professional projects $20/mo per member. Plus usage.",
             [
                 ("server", "Larger machine sizes"),
                 ("users", "Up to 5 team members"),
