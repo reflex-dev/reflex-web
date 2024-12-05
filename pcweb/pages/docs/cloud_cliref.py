@@ -39,39 +39,68 @@ def get_command_help_output(path_to_file: str = None, name_of_cli_program: str =
     # Return the content of the temporary file
     return output
 
-# Get the help output
-deploy_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.deployments", name_of_cli_program="reflex apps")
-reflexpy_output = get_command_help_output(path_to_file="reflex.reflex")
-
 # Dictionary to store the parsed documentation
 docs_dict = {}
 
+# Get the help output
+project_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.project", name_of_cli_program="reflex cloud project")
+secrets_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.secrets", name_of_cli_program="reflex cloud secrets")
+apps_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.apps", name_of_cli_program="reflex cloud apps")
+vmtypes_regions_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.vmtypes_regions", name_of_cli_program="reflex cloud")
+
+reflexpy_output = get_command_help_output(path_to_file="reflex.reflex")
+
+
 # Regular expression to capture each section
-pattern_deploy_subcommands = r"## `reflex apps (.*?)`\n(.*?)(?=\n## `reflex apps|\Z)"
+pattern_project_subcommands = r"## `reflex cloud project (.*?)`\n(.*?)(?=\n## `reflex cloud project|\Z)"
+pattern_secrets_subcommands = r"## `reflex cloud secrets (.*?)`\n(.*?)(?=\n## `reflex cloud secrets|\Z)"
+pattern_apps_subcommands = r"## `reflex cloud apps (.*?)`\n(.*?)(?=\n## `reflex cloud apps|\Z)"
+pattern_vmtypes_regions_subcommands = r"## `reflex cloud (.*?)`\n(.*?)(?=\n## `reflex cloud|\Z)"
 pattern_reflexpy = r"## `reflex (.*?)`\n(.*?)(?=\n## `reflex|\Z)"
 
-matches_deploy_subcommands = re.finditer(pattern_deploy_subcommands, deploy_subcommands_output, re.DOTALL)
+matches_project_subcommands = re.finditer(pattern_project_subcommands, project_subcommands_output, re.DOTALL)
+matches_secrets_subcommands = re.finditer(pattern_secrets_subcommands, secrets_subcommands_output, re.DOTALL)
+matches_apps_subcommands = re.finditer(pattern_apps_subcommands, apps_subcommands_output, re.DOTALL)
+matches_vmtypes_regions_subcommands = re.finditer(pattern_vmtypes_regions_subcommands, vmtypes_regions_subcommands_output, re.DOTALL)
 matches_reflexpy = re.finditer(pattern_reflexpy, reflexpy_output, re.DOTALL)
 
 # Iterate over all matches and populate the dictionary
-for match in matches_deploy_subcommands:
+for match in matches_project_subcommands:
     command_name = match.group(1).strip()
     command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[command_name] = command_doc
+    docs_dict[f"project {command_name}"] = command_doc
+
+# Iterate over all matches and populate the dictionary
+for match in matches_secrets_subcommands:
+    command_name = match.group(1).strip()
+    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
+    docs_dict[f"secrets {command_name}"] = command_doc
+
+# Iterate over all matches and populate the dictionary
+for match in matches_apps_subcommands:
+    command_name = match.group(1).strip()
+    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
+    docs_dict[f"apps {command_name}"] = command_doc
+
+for match in matches_vmtypes_regions_subcommands:
+    command_name = match.group(1).strip()
+    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
+    docs_dict[f"{command_name}"] = command_doc
 
 for match in matches_reflexpy:
     command_name = match.group(1).strip()
     command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
     docs_dict[command_name] = command_doc
 
+
 # Dictionary to store the categories and their respective commands
 categories = {
-    "login": ["loginv2", "logoutv2"],
-    "deploy": ["deployv2"],
-    "apps": ["status", "start", "stop", "scale", "delete", "logs", "history"],
-    "project": ["project-list", "project-create", "project-select", "project-invite",
-                 "project-get-select", "project-usage", "project-role-permissions", "project-users"],
-    "secrets": ["secrets-list", "secrets-delete", "secrets-update"],
+    "login": ["login", "logout"],
+    "deploy": ["deploy"],
+    "apps": ["apps status", "apps start", "apps stop", "apps scale", "apps delete", "apps logs", "apps history"],
+    "project": ["project list", "project create", "project select", "project invite",
+                 "project get-select", "project usage", "project role-permissions", "project users"],
+    "secrets": ["secrets list", "secrets delete", "secrets update"],
     "vmtypes": ["vmtypes"],
     "regions": ["regions"],
 }
