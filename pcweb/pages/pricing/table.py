@@ -34,7 +34,7 @@ TABLE_STYLE = """
 
 # Data configuration
 USERS_SECTION = [
-    ("Per Seat Price", "Free", "$19/mo/user", "Contact Sales", "Contact Sales"),
+    ("Per Seat Price", "Free", "$20/mo/user", "Contact Sales", "Contact Sales"),
     ("User Limit", "1", "5", "25", "Unlimited"),
 ]
 
