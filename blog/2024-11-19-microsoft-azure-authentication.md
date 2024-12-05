@@ -1,8 +1,8 @@
 ---
 author: Tom Gotsman
 date: 2024-11-19
-title: Reflex Authentication with Microsoft Azure
-description: A practical guide to implementing Microsoft Azure Single Sign-On (SSO) authentication in Reflex applications.
+title: Microsoft Azure Auth
+description: Implementing Microsoft Azure Single Sign-On (SSO) Auth in Reflex app.
 image: /blog/azure_auth.webp
 meta: [
     {
