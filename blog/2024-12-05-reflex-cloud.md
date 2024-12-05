@@ -27,7 +27,7 @@ With Reflex Cloud we're extending that same simplicity to hosting. We will set u
 animated_box(relative=True)
 ```
 
-Our free tier lets you deploy your first app at no cost. We're also introducing **Pro** and **Enterprise** tiers with additional features like larger instance sizes, custom domains, and website analytics.
+Our free tier lets you deploy your first app at no cost. We're also introducing **Pro**, **Team**, and **Enterprise** tiers with additional features like larger instance sizes, custom domains, and website analytics.
 
 ## What's Included
 
