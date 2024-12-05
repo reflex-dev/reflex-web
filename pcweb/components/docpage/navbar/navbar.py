@@ -31,7 +31,7 @@ from pcweb.components.hosting_banner import hosting_banner
 from pcweb.pages.blog.paths import blog_data
 
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL
+from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL, REFLEX_CLOUD_URL
 
 
 def resource_item(text: str, url: str, icon: str):
@@ -353,7 +353,8 @@ def new_component_section() -> rx.Component:
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
-                    href=hosting.deploy_quick_start.path,
+                    is_external=True,
+                    href=REFLEX_CLOUD_URL,
                 ),
                 class_name="desktop-only",
             ),
