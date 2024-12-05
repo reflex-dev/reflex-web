@@ -1,6 +1,5 @@
 import reflex as rx
 from pcweb.components.button import button
-from pcweb.constants import HOSTING_URL
 
 
 def glow() -> rx.Component:

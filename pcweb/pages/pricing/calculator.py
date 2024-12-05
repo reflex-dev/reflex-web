@@ -28,7 +28,7 @@ class BillingState(rx.State):
     @rx.var(cache=True)
     def seat_rate(self) -> int:
         if self.selected_plan == Tiers.PRO.value:
-            return 19
+            return 20
         elif self.selected_plan == Tiers.TEAM.value:
             return 29
 

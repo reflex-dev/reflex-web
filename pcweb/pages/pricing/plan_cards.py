@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.new_button import button
-from pcweb.constants import HOSTING_URL
+from pcweb.constants import REFLEX_CLOUD_URL
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -134,10 +134,14 @@ def grid() -> rx.Component:
 
 
 def card(
-    title: str, description: str, features: list[tuple[str, str]], button_text: str
+    title: str, description: str, features: list[tuple[str, str]], button_text: str, price: str = None
 ) -> rx.Component:
     return rx.box(
-        rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+        rx.hstack(
+            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+            rx.badge(price, color_scheme="gray", size="3") if price else rx.fragment(),
+            align_items="center",
+        ),
         rx.el.p(
             description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
         ),
@@ -160,7 +164,7 @@ def card(
                 size="lg",
                 class_name="w-full",
             ),
-            href=(HOSTING_URL if button_text != "Contact sales" else "/sales"),
+            href=(REFLEX_CLOUD_URL if button_text != "Contact sales" else "/sales"),
             is_external=True,
             underline="none",
         ),
@@ -169,7 +173,7 @@ def card(
 
 
 def popular_card(
-    title: str, description: str, features: list[tuple[str, str]], button_text: str
+    title: str, description: str, features: list[tuple[str, str]], button_text: str, price: str = None
 ) -> rx.Component:
     return rx.box(
         rx.box(
@@ -179,7 +183,11 @@ def popular_card(
         rx.box(
             glow(),
             grid(),
-            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+            rx.hstack(
+                rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+                rx.badge(price, color_scheme="violet", size="3") if price else rx.fragment(),
+                align_items="center",
+            ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
             rx.el.ul(
                 *[
@@ -200,7 +208,7 @@ def popular_card(
                     size="lg",
                     class_name="w-full !text-sm !font-semibold",
                 ),
-                href=f"{HOSTING_URL}/?redirect_url={HOSTING_URL}/billing/",
+                href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
                 is_external=True,
                 underline="none",
             ),
@@ -223,10 +231,11 @@ def plan_cards() -> rx.Component:
                 ("file-code", "Starter Templates"),
             ],
             "Start building for free",
+            price="Free",
         ),
         popular_card(
             "Pro",
-            "For professional projects $20/mo per member. Plus usage.",
+            "For professional projects and startups.",
             [
                 ("server", "Larger machine sizes"),
                 ("users", "Up to 5 team members"),
@@ -234,22 +243,23 @@ def plan_cards() -> rx.Component:
                 ("clock", "30 days log retention"),
                 ("globe", "Multi-region"),
                 ("brush", "Custom domains"),
-                ("wand", "AI Tools for App Building and Debugging"),
+                ("wand", "AI Tools for Building and Debugging"),
                 ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
+            price="$20/mo + usage",
         ),
         card(
             "Team",
-            "For teams looking to scale their applications. Plus usage.",
+            "For teams looking to scale their applications.",
             [
                 ("mail", "Email support"),
                 ("users", "Up to 25 team members"),
                 ("app-window", "Unlimited Apps"),
                 ("signal", "Full Website Analytics"),
                 ("lock-keyhole", "One Click Auth"),
-                ("git-branch", "Dev, Stage & Prod Environments"),
-                ("database", "Database Editor UI and Migration Tool"),
+                ("git-branch", "Dev, Stage & Prod Envs"),
+                ("database", "DB Editor UI and Migration Tool"),
                 ("test-tube", "Built-in Testing Framework"),
                 ("circle-plus", "Everything in Pro"),
             ],
@@ -263,7 +273,7 @@ def plan_cards() -> rx.Component:
                 ("user-round-plus", "White Glove Onboarding"),
                 ("users", "Unlimited team members"),
                 ("hard-drive", "On Premise Deployment"),
-                ("signal", "Full Analytics Dashboard of App Users"),
+                ("signal", "Full Analytics Dashboard"),
                 ("clock", "Unlimited log retention"),
                 ("activity", "Error Monitoring and Observability"),
                 ("git-pull-request", "Influence Reflex Roadmap"),
