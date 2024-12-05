@@ -19,15 +19,15 @@ from pcweb.pages.hosting_countdown.animated_box import animated_box
 
 Today we're launching [Reflex Cloud](/hosting), a unified platform for deploying and managing Reflex apps.
 
-We released our [open-source framework]({constants.GITHUB_URL}) with a goal to simplify web development - anyone who knows Python should be able to turn their ideas into web apps. Today thousands of teams now use Reflex for their data/AI apps, internal tools, and customer-facing web apps.
+We released our [open-source framework]({constants.GITHUB_URL}) with a goal to simplify web development - anyone who knows Python should be able to turn their ideas into web apps. Today thousands of teams use Reflex for their data/AI apps, internal tools, and customer-facing web apps.
 
-With Reflex Cloud we're extending that same simplicity to hosting. We will set up your infrastructure and in a few minutes your app will be live to share with the world.
+With Reflex Cloud we're extending that same simplicity to hosting. Just `reflex deploy`, and in a few minutes your app will be live to share with the world.
 
 ```python eval
 animated_box(relative=True)
 ```
 
-Our free tier lets you deploy your first app at no cost. We're also introducing **Pro**, **Team**, and **Enterprise** tiers with additional features like larger instance sizes, custom domains, and website analytics.
+Our free tier lets you deploy your first app at no cost. We're also introducing **Pro**, **Team**, and **Enterprise** tiers with additional features like one-click auth, custom domains, and on-premise hosting.
 
 ## What's Included
 
@@ -74,4 +74,4 @@ See the full list of features on our [pricing page](/pricing).
 
 ## What's Next
 
-Over the next few months we're working on building out the team features while making the platform more robust and reliable. We're also expanding Reflex Pro to go beyond hosting - with more tools to go from idea to apps easier (more coming soon!).
+Over the next few months we're working on building out the team features while making the platform more robust and reliable. We're also expanding Reflex Pro to go beyond hosting - including AI tools to help you build apps at the speed of thought.
