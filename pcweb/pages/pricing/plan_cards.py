@@ -139,7 +139,7 @@ def card(
     return rx.box(
         rx.hstack(
             rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
-            rx.badge(price, color_scheme="gray") if price else rx.fragment(),
+            rx.badge(price, color_scheme="gray", size="3") if price else rx.fragment(),
             align_items="center",
         ),
         rx.el.p(
@@ -185,7 +185,7 @@ def popular_card(
             grid(),
             rx.hstack(
                 rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
-                rx.badge(price, color_scheme="violet") if price else rx.fragment(),
+                rx.badge(price, color_scheme="violet", size="3") if price else rx.fragment(),
                 align_items="center",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
