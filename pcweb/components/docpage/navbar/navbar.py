@@ -324,7 +324,7 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             nav_menu.item(
-                link_item("Hosting", "/hosting", "hosting"),
+                link_item("Hosting", hosting.deploy_quick_start.path, "hosting"),
             ),
             nav_menu.item(
                 link_item("Pricing", "/pricing", "pricing"),
