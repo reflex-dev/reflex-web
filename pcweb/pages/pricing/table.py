@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
-from pcweb.constants import HOSTING_URL
+from pcweb.constants import REFLEX_CLOUD_URL
 
 # Constants for styling
 STYLES = {
@@ -143,7 +143,7 @@ def create_action_button(
             variant=variant,
             class_name=f"{STYLES['button_base']} {extra_styles}",
         ),
-        href=HOSTING_URL if text != "Contact sales" else "/sales",
+        href=REFLEX_CLOUD_URL if text != "Contact sales" else "/sales",
         is_external=True,
         underline="none",
         class_name="w-full flex justify-center items-center",
