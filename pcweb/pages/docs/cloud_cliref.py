@@ -42,55 +42,43 @@ def get_command_help_output(path_to_file: str = None, name_of_cli_program: str =
 # Dictionary to store the parsed documentation
 docs_dict = {}
 
-# Get the help output
-project_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.project", name_of_cli_program="reflex cloud project")
-secrets_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.secrets", name_of_cli_program="reflex cloud secrets")
-apps_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.apps", name_of_cli_program="reflex cloud apps")
-vmtypes_regions_subcommands_output = get_command_help_output(path_to_file="reflex_cli.v2.vmtypes_regions", name_of_cli_program="reflex cloud")
+def process_command(prefix, path_to_file, dict_prefix=""):
+    # Get the help output
+    if " " in prefix:
+        output = get_command_help_output(
+            path_to_file=path_to_file, name_of_cli_program=prefix
+        )
+    else:
+        output = get_command_help_output(path_to_file=path_to_file)
+    
+    # Construct the regular expression pattern
+    escaped_prefix = re.escape(prefix)
+    pattern = rf"## `{escaped_prefix} (.*?)`\n(.*?)(?=\n## `{escaped_prefix}|\Z)"
+    
+    # Find all matches using the pattern
+    matches = re.finditer(pattern, output, re.DOTALL)
+    
+    # Populate the dictionary with command names and documentation
+    for match in matches:
+        command_name = match.group(1).strip()
+        command_doc = (
+            match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
+        )
+        docs_dict[f"{dict_prefix}{command_name}"] = command_doc
 
-reflexpy_output = get_command_help_output(path_to_file="reflex.reflex")
 
+# List of command prefixes and their corresponding file paths
+commands_info = [
+    ("reflex cloud project", "reflex_cli.v2.project", "project "),
+    ("reflex cloud secrets", "reflex_cli.v2.secrets", "secrets "),
+    ("reflex cloud apps", "reflex_cli.v2.apps", "apps "),
+    ("reflex cloud", "reflex_cli.v2.vmtypes_regions", ""),
+    ("reflex", "reflex.reflex", ""),
+]
 
-# Regular expression to capture each section
-pattern_project_subcommands = r"## `reflex cloud project (.*?)`\n(.*?)(?=\n## `reflex cloud project|\Z)"
-pattern_secrets_subcommands = r"## `reflex cloud secrets (.*?)`\n(.*?)(?=\n## `reflex cloud secrets|\Z)"
-pattern_apps_subcommands = r"## `reflex cloud apps (.*?)`\n(.*?)(?=\n## `reflex cloud apps|\Z)"
-pattern_vmtypes_regions_subcommands = r"## `reflex cloud (.*?)`\n(.*?)(?=\n## `reflex cloud|\Z)"
-pattern_reflexpy = r"## `reflex (.*?)`\n(.*?)(?=\n## `reflex|\Z)"
-
-matches_project_subcommands = re.finditer(pattern_project_subcommands, project_subcommands_output, re.DOTALL)
-matches_secrets_subcommands = re.finditer(pattern_secrets_subcommands, secrets_subcommands_output, re.DOTALL)
-matches_apps_subcommands = re.finditer(pattern_apps_subcommands, apps_subcommands_output, re.DOTALL)
-matches_vmtypes_regions_subcommands = re.finditer(pattern_vmtypes_regions_subcommands, vmtypes_regions_subcommands_output, re.DOTALL)
-matches_reflexpy = re.finditer(pattern_reflexpy, reflexpy_output, re.DOTALL)
-
-# Iterate over all matches and populate the dictionary
-for match in matches_project_subcommands:
-    command_name = match.group(1).strip()
-    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[f"project {command_name}"] = command_doc
-
-# Iterate over all matches and populate the dictionary
-for match in matches_secrets_subcommands:
-    command_name = match.group(1).strip()
-    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[f"secrets {command_name}"] = command_doc
-
-# Iterate over all matches and populate the dictionary
-for match in matches_apps_subcommands:
-    command_name = match.group(1).strip()
-    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[f"apps {command_name}"] = command_doc
-
-for match in matches_vmtypes_regions_subcommands:
-    command_name = match.group(1).strip()
-    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[f"{command_name}"] = command_doc
-
-for match in matches_reflexpy:
-    command_name = match.group(1).strip()
-    command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-    docs_dict[command_name] = command_doc
+# Iterate over each command configuration
+for prefix, path_to_file, dict_prefix in commands_info:
+    process_command(prefix, path_to_file, dict_prefix)
 
 
 # Dictionary to store the categories and their respective commands
