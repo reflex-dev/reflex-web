@@ -9,7 +9,6 @@ from reflex_pyplot import pyplot
 import numpy as np
 import random
 import matplotlib.pyplot as plt
-from typing import Optional
 from reflex.style import toggle_color_mode
 ```
 
@@ -100,7 +99,7 @@ class PyplotState(rx.State):
     num_points: int = 100
     plot_data: tuple
     scale: list
-    fig:  Optional[plt.Figure] = None
+    fig: plt.Figure = plt.Figure()
 
     @rx.event
     def randomize(self):

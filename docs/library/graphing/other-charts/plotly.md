@@ -10,7 +10,6 @@ import reflex as rx
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from typing import Optional
 ```
 
 Plotly is a graphing library that can be used to create interactive graphs. Use the rx.plotly component to wrap Plotly as a component for use in your web page. Checkout [Plotly](https://plotly.com/graphing-libraries/) for more information.
@@ -71,8 +70,8 @@ import pandas as pd
 
 class PlotlyState(rx.State):
     df: pd.DataFrame
-    figure: Optional[go.Figure] = None
-    
+    figure: go.Figure = px.line()
+
     @rx.event
     def create_figure(self):
         self.df = px.data.gapminder().query("country=='Canada'")
