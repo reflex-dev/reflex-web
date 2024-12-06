@@ -23,7 +23,9 @@ Once you have purchased your domain, you can add it to your Reflex Cloud app by 
 
 2 - Once your app is deployed click the `Custom Domain` tab and add your custom domain to the input field and press the Add domain button. You should now see a page like below:
 
-!!!!!! Add image here !!!!!!!!
+```python eval
+image_zoom(rx.image(src="/custom-domains-DNS-inputs.png"))
+```
 
 ```python eval
 rx.box(height="20px")
