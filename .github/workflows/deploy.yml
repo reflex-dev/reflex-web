@@ -1,3 +1,5 @@
+name: deploy
+
 on:
     workflow_dispatch: # Allow manual trigger
     push:
@@ -15,5 +17,5 @@ jobs:
           with:
             auth_token: ${{ secrets.REFLEX_AUTH_TOKEN }}
             project_id: ${{ secrets.PROJECT_ID }}
-            extra_args: "--vm-type=${{ vars.VM_TYPE }}"
+            extra_args: "--vmtype=${{ vars.VM_TYPE }}"
             dry_run: ${{ vars.DRY_RUN }}
