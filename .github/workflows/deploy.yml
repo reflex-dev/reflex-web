@@ -1,4 +1,5 @@
 on:
+    workflow_dispatch: # Allow manual trigger
     push:
       branches: ['lendemor/use_deploy_action']
 
