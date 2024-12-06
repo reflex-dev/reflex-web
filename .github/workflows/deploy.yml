@@ -1,7 +1,12 @@
 name: deploy
 
 on:
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        required: true
+        default: 'false'
 
 jobs:
   deploy-dev:
