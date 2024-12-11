@@ -70,14 +70,17 @@ Here's how to use these models in your API routes:
 
 ```python
 @app.api.post("/users")
-async def create_user(user_data: UserModel):
+async def create_user(user_data: UserModel, token: str):
     """Create a new user."""
     async with app.state_manager.modify_state(token) as state:
         state.user = user_data
-        return {"status": "success", "user": user_data}
+        return {
+            "status": "success",
+            "user": user_data.dict()
+        }
 
 @app.api.get("/users/{user_id}")
-async def get_user(user_id: str):
+async def get_user(user_id: str, token: str):
     """Get user data."""
     state = await app.state_manager.get_state(token)
     if state.user and state.user.id == user_id:
