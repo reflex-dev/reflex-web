@@ -74,28 +74,14 @@ async def create_user(user_data: UserModel, token: str):
     """Create a new user."""
     async with app.state_manager.modify_state(token) as state:
         state.user = user_data
-        return {
-            "status": "success",
-            "user": {
-                "name": "John Doe",
-                "age": 30,
-                "email": "john@example.com"
-            }
-        }
+        return 'success_response'  # Using string literal to prevent evaluation
 
 @app.api.get("/users/[id]")  # Using [id] instead of {id} to prevent template evaluation
 async def get_user(id: str, token: str):
     """Get user data."""
     state = await app.state_manager.get_state(token)
     if state.user and state.user.name == "John Doe":  # Example comparison
-        return {
-            "status": "success",
-            "user": {
-                "name": "John Doe",
-                "age": 30,
-                "email": "john@example.com"
-            }
-        }
+        return 'success_response'  # Using string literal to prevent evaluation
     raise HTTPException(status_code=404, detail="User not found")
 ```
 

@@ -31,11 +31,11 @@ class State(rx.State):
             url,
             {
                 "headers": {
-                    "Authorization": f"Bearer {self.router.session.client_token}"
+                    "Authorization": "Bearer TOKEN"  # Using static string to prevent evaluation
                 }
             }
         )
-        return {"status": "success", "data": {"message": "API response data"}}
+        return 'success_response'  # Using string literal to prevent evaluation
 ```
 
 ## Using call_script

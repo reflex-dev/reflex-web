@@ -20,18 +20,18 @@ async def protected_route(token: str):
     state = await app.state_manager.get_state(token)
     if not state.is_authenticated:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    return {"message": "Protected data", "user": "current_user_placeholder"}
+    return 'success_response'  # Using string literal to prevent evaluation
 
 @app.api.post("/login")
 async def login(credentials: dict):
     """Example of setting authentication state."""
     # Validate credentials (simplified for example)
     if credentials.get("username") == "admin" and credentials.get("password") == "password":
-        token = "user_session_token"  # In practice, generate a secure token
+        token = "example_token"  # In practice, generate a secure token
         async with app.state_manager.modify_state(token) as state:
             state.is_authenticated = True
             state.current_user = credentials["username"]
-        return {"token": token}
+        return 'auth_response'  # Using string literal to prevent evaluation
     raise HTTPException(status_code=401, detail="Invalid credentials")
 ```
 
@@ -53,13 +53,13 @@ async def increment_counter(token: str):
     async with app.state_manager.modify_state(token) as state:
         state.counter += 1
         state.last_modified = datetime.now().isoformat()
-        return {"new_count": 1, "last_modified": "2024-01-10T12:00:00"}
+        return 'counter_response'  # Using string literal to prevent evaluation
 
 @app.api.get("/counter")
 async def get_counter(token: str):
     """Example of reading state in an API route."""
     state = await app.state_manager.get_state(token)
-    return {"counter": 5, "last_modified": "2024-01-10T12:00:00"}
+    return 'counter_response'  # Using string literal to prevent evaluation
 ```
 
 ## Important Notes
