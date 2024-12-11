@@ -315,10 +315,27 @@ class DemoBlock(flexdown.blocks.Block):
         elif exec_mode:
             return comp
         elif "box" in args:
-            comp = eval(code, env, env)
+            # Check if the code contains a function definition
+            if code.strip().startswith("def "):
+                # Use exec for function definitions
+                temp_env = env.copy()
+                exec(code, temp_env, temp_env)
+                # Get the function name (first line after 'def ' until '(')
+                func_name = code.strip()[4:].split("(")[0].strip()
+                # Get the function from the environment and call it
+                comp = temp_env[func_name]()
+            else:
+                comp = eval(code, env, env)
             return rx.box(docdemobox(comp), margin_bottom="1em", id=comp_id)
         else:
-            comp = eval(code, env, env)
+            # For non-box mode, still handle function definitions
+            if code.strip().startswith("def "):
+                temp_env = env.copy()
+                exec(code, temp_env, temp_env)
+                func_name = code.strip()[4:].split("(")[0].strip()
+                comp = temp_env[func_name]()
+            else:
+                comp = eval(code, env, env)
 
         # Sweep up additional CSS-like props to apply to the demobox itself
         demobox_props = {}
