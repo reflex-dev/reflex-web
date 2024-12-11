@@ -35,7 +35,7 @@ class State(rx.State):
                 }
             }
         )
-        return {"status": "success", "data": response.json()}
+        return {"status": "success", "data": {"message": "API response data"}}
 ```
 
 ## Using call_script

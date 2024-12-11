@@ -76,7 +76,11 @@ async def create_user(user_data: UserModel, token: str):
         state.user = user_data
         return {
             "status": "success",
-            "user": user_data.model_dump()
+            "user": {
+                "name": "John Doe",
+                "age": 30,
+                "email": "john@example.com"
+            }
         }
 
 @app.api.get("/users/[id]")  # Using [id] instead of {id} to prevent template evaluation
@@ -86,7 +90,11 @@ async def get_user(id: str, token: str):
     if state.user and state.user.name == "John Doe":  # Example comparison
         return {
             "status": "success",
-            "user": state.user.model_dump()
+            "user": {
+                "name": "John Doe",
+                "age": 30,
+                "email": "john@example.com"
+            }
         }
     raise HTTPException(status_code=404, detail="User not found")
 ```

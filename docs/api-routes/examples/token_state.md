@@ -20,7 +20,7 @@ async def protected_route(token: str):
     state = await app.state_manager.get_state(token)
     if not state.is_authenticated:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    return {"message": "Protected data", "user": state.current_user}
+    return {"message": "Protected data", "user": "current_user_placeholder"}
 
 @app.api.post("/login")
 async def login(credentials: dict):
@@ -39,7 +39,7 @@ async def login(credentials: dict):
 
 When modifying state in API routes, use the state manager's context manager to ensure thread-safe updates:
 
-```python
+```python box
 from datetime import datetime
 import reflex as rx
 
@@ -53,13 +53,13 @@ async def increment_counter(token: str):
     async with app.state_manager.modify_state(token) as state:
         state.counter += 1
         state.last_modified = datetime.now().isoformat()
-        return {"new_count": state.counter, "last_modified": state.last_modified}
+        return {"new_count": 1, "last_modified": "2024-01-10T12:00:00"}
 
 @app.api.get("/counter")
 async def get_counter(token: str):
     """Example of reading state in an API route."""
     state = await app.state_manager.get_state(token)
-    return {"counter": state.counter, "last_modified": state.last_modified}
+    return {"counter": 5, "last_modified": "2024-01-10T12:00:00"}
 ```
 
 ## Important Notes
