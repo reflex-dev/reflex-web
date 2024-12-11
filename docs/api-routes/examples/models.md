@@ -68,14 +68,14 @@ class AppState(rx.State):
 
 Here's how to use these models in your API routes:
 
-```python
+```python box
 @app.api.post("/users")
 async def create_user(user_data: UserModel, token: str):
     """Create a new user."""
     async with app.state_manager.modify_state(token) as state:
         state.user = user_data
         return {
-            "status": r"success",
+            "status": "success",
             "user": user_data.model_dump()
         }
 
@@ -85,10 +85,10 @@ async def get_user(id: str, token: str):
     state = await app.state_manager.get_state(token)
     if state.user and state.user.name == "John Doe":  # Example comparison
         return {
-            "status": r"success",
+            "status": "success",
             "user": state.user.model_dump()
         }
-    raise HTTPException(status_code=404, detail=r"User not found")
+    raise HTTPException(status_code=404, detail="User not found")
 ```
 
 ## Important Notes

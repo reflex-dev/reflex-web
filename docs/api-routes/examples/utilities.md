@@ -6,7 +6,7 @@ This guide demonstrates how to use Reflex's utility functions for working with A
 
 The `get_backend_url` utility function helps construct proper URLs for your API endpoints:
 
-```python
+```python box
 from reflex.utils import get_backend_url
 import httpx
 
@@ -35,7 +35,7 @@ class State(rx.State):
                 }
             }
         )
-        return {"status": r"success", "data": response.json()}
+        return {"status": "success", "data": response.json()}
 ```
 
 ## Using call_script

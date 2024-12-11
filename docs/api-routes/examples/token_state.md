@@ -6,7 +6,7 @@ This guide demonstrates how to work with tokens and state modification in your R
 
 When building protected endpoints, you can use tokens to authenticate requests and access state:
 
-```python
+```python box
 from fastapi import HTTPException
 import reflex as rx
 
