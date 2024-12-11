@@ -12,7 +12,7 @@ import reflex as rx
 
 class AuthState(rx.State):
     is_authenticated: bool = False
-    user_id: str = ""
+    current_user: str = ""  # Changed from user_id to avoid template evaluation
 
 @app.api.get("/protected")
 async def protected_route(token: str):
@@ -20,7 +20,7 @@ async def protected_route(token: str):
     state = await app.state_manager.get_state(token)
     if not state.is_authenticated:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    return {"message": "Protected data", "user_id": state.user_id}
+    return {"message": "Protected data", "user": state.current_user}
 
 @app.api.post("/login")
 async def login(credentials: dict):
@@ -30,7 +30,7 @@ async def login(credentials: dict):
         token = "user_session_token"  # In practice, generate a secure token
         async with app.state_manager.modify_state(token) as state:
             state.is_authenticated = True
-            state.user_id = credentials["username"]
+            state.current_user = credentials["username"]
         return {"token": token}
     raise HTTPException(status_code=401, detail="Invalid credentials")
 ```
@@ -40,6 +40,9 @@ async def login(credentials: dict):
 When modifying state in API routes, use the state manager's context manager to ensure thread-safe updates:
 
 ```python
+from datetime import datetime
+import reflex as rx
+
 class CounterState(rx.State):
     counter: int = 0
     last_modified: str = ""
