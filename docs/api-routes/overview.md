@@ -14,7 +14,7 @@ To add additional endpoints to the backend API, you can use either `app.add_api_
 
 ```python
 async def api_test(item_id: int):
-    return {"my_result": r"item_id"}
+    return {"my_result": str(item_id)}  # Using str() to prevent evaluation
 
 app = rx.App()
 app.api.add_api_route("/items/[item_id]", api_test)
@@ -27,11 +27,11 @@ Now you can access the endpoint at `localhost:8000/items/23` and get the result.
 ```python
 @app.api.get("/items/[item_id]")
 async def get_item(item_id: int):
-    return {"item_id": r"item_id"}
+    return {"item_id": str(item_id)}  # Using str() to prevent evaluation
 
 @app.api.post("/items")
 async def create_item(item: dict):
-    return {"created": r"item"}
+    return {"created": "success"}  # Using static string to prevent evaluation
 ```
 
 This is useful for creating a backend API that can be used for purposes other than your Reflex app.
