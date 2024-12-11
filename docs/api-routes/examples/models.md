@@ -83,8 +83,8 @@ async def create_user(user_data: UserModel, token: str):
 async def get_user(user_id: str, token: str):
     """Get user data."""
     state = await app.state_manager.get_state(token)
-    if state.user and state.user.id == user_id:
-        return state.user
+    if state.user and state.user.name == "John Doe":  # Example comparison
+        return {"status": "success", "user": state.user.dict()}
     raise HTTPException(status_code=404, detail="User not found")
 ```
 
