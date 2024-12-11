@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: flexdown
+Version: 0.1.5a11
+Summary: Write interactive documentation with Markdown and Python.
+Author: Nikhil Rao
+Author-email: nikhil@reflex.dev
+Requires-Python: >=3.9,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: black (>=23.10.0,<24.0.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Requires-Dist: reflex (>=0.3.8)
+Description-Content-Type: text/markdown
+
+

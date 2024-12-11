@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 
 from pcweb.pages import docs
@@ -8,7 +8,7 @@ from pcweb.pages import docs
 
 Recall again from the [basics]({docs.getting_started.basics.path}) that we cannot use Python `for` loops when referencing state vars in Reflex. Instead, use the `rx.foreach` component to render components from a collection of data.
 
-```python demo exec
+```python demo exec box
 class IterState(rx.State):
     color: list[str] = [
         "red",
@@ -62,7 +62,7 @@ The first argument of the `rx.foreach` function is the state var that you want t
 
 The above example could have been written using a regular Python `for` loop, since the data is constant.
 
-```python demo exec
+```python demo exec box
 colors = ["red", "green", "blue"]
 def dynamic_buttons_for():
     return rx.vstack(
@@ -72,7 +72,7 @@ def dynamic_buttons_for():
 
 However, as soon as you need the data to be dynamic, you must use `rx.foreach`.
 
-```python demo exec
+```python demo exec box
 class DynamicIterState(rx.State):
     color: list[str] = [
         "red",

@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 from pcweb import constants, styles
 from pcweb.pages.docs import getting_started
@@ -43,7 +43,7 @@ No need to reach for a bunch of different tools. Reflex handles the user interfa
 
 Here, we go over a simple counter app that lets the user count up or down.
 
-```python exec
+```python exec box
 class CounterExampleState(rx.State):
     count: int = 0
 
@@ -137,7 +137,7 @@ rx.hstack(
 
 Here is the full code for this example:
 
-```python eval
+```python eval box
 tabs()
 ```
 
@@ -221,7 +221,7 @@ Let's break this example down.
 
 ### Import
 
-```python
+```python box
 import reflex as rx
 ```
 
@@ -229,7 +229,7 @@ We begin by importing the `reflex` package (aliased to `rx`). We reference Refle
 
 ### State
 
-```python
+```python box
 class State(rx.State):
     count: int = 0
 ```
@@ -240,7 +240,7 @@ Here our state has a single var, `count`, which holds the current value of the c
 
 ### Event Handlers
 
-```python
+```python box
 def increment(self):
     self.count += 1
 
@@ -258,7 +258,7 @@ Our counter app has two event handlers, `increment` and `decrement`.
 
 ### User Interface (UI)
 
-```python
+```python box
 def index():
     return rx.hstack(
         rx.button(
@@ -283,7 +283,7 @@ We use different components such as `rx.hstack`, `rx.button`, and `rx.heading` t
 Reflex comes with [50+ built-in components]({library.path}) to help you get started.
 We are actively adding more components. Also, it's easy to [wrap your own React components]({wrapping_react.overview.path}).
 
-```python
+```python box
 rx.heading(State.count, font_size="2em"),
 ```
 
@@ -291,7 +291,7 @@ Components can reference the app's state vars.
 The `rx.heading` component displays the current value of the counter by referencing `State.count`.
 All components that reference state will reactively update whenever the state changes.
 
-```python
+```python box
 rx.button(
     "Decrement",
     color_scheme="ruby",
@@ -316,7 +316,7 @@ In other words, the sequence goes like this:
 
 Next we define our app and add the counter component to the base route.
 
-```python
+```python box
 app = rx.App()
 app.add_page(index)
 ```

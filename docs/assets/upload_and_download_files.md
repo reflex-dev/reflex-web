@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
@@ -18,7 +18,7 @@ If you want to let the users of your app download files from your server to thei
 
 For some basic usage, simply providing the path to your resource in a `rx.link` will work, and clicking the link will download or display the resource.
 
-```python demo
+```python demo box
 rx.link("Download", href="/reflex_banner.png")
 ```
 
@@ -28,7 +28,7 @@ Using the `rx.download` event will always prompt the browser to download the fil
 
 The `rx.download` event also allows the download to be triggered from another backend event handler.
 
-```python demo
+```python demo box
 rx.button(
     "Download",
     on_click=rx.download(url="/reflex_banner.png"),
@@ -37,7 +37,7 @@ rx.button(
 
 `rx.download` lets you specify a name for the file that will be downloaded, if you want it to be different from the name on the server side.
 
-```python demo
+```python demo box
 rx.button(
     "Download and Rename",
     on_click=rx.download(
@@ -49,7 +49,7 @@ rx.button(
 
 If the data to download is not already available at a known URL, pass the `data` directly to the `rx.download` event from the backend.
 
-```python demo exec
+```python demo exec box
 import random
 
 class DownloadState(rx.State):

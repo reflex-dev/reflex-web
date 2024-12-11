@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: mistletoe
+Version: 1.4.0
+Summary: A fast, extensible Markdown parser in pure Python.
+Home-page: https://github.com/miyuchina/mistletoe
+Author: Mi Yu
+Author-email: hello@afteryu.me
+License: MIT
+Keywords: markdown lexer parser development
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Markup :: Markdown
+Requires-Python: ~=3.5
+License-File: LICENSE
+

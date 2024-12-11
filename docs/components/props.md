@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 from pcweb.pages.docs.library import library
 from pcweb.pages import docs
@@ -14,7 +14,7 @@ There are props that are shared between all components, but each component can a
 
 For example, the `rx.image` component has a `src` prop that specifies the URL of the image to display and an `alt` prop that specifies the alternate text for the image.
 
-```python demo
+```python demo box
 rx.image(
     src="https://reflex.dev/logo.jpg",
     alt="Reflex Logo",
@@ -28,7 +28,7 @@ Check the docs for the component you are using to see what props are available a
 
 Components support many standard HTML properties as props. For example: the HTML [id]({"https://www.w3schools.com/html/html_id.asp"}) property is exposed directly as the prop `id`. The HTML [className]({"https://www.w3schools.com/jsref/prop_html_classname.asp"}) property is exposed as the prop `class_name` (note the Pythonic snake_casing!).
 
-```python demo
+```python demo box
 rx.box(
     "Hello World",
     id="box-id",
@@ -42,7 +42,7 @@ In the example above, the `class_name` prop of the `rx.box` component is assigne
 
 In addition to component-specific props, most built-in components support a full range of style props. You can use any [CSS property](https://www.w3schools.com/cssref/index.php) to style a component.
 
-```python demo
+```python demo box
 rx.button(
     "Fancy Button",
     border_radius="1em",
@@ -71,7 +71,7 @@ State vars can be bound to component props, so that the UI always reflects the c
 
 Try clicking the badge below to change its color.
 
-```python demo exec
+```python demo exec box
 class PropExampleState(rx.State):
     text: str = "Hello World"
     color: str = "red"

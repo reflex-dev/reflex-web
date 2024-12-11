@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: typesense
+Version: 0.14.0
+Summary: Python client for Typesense, an open source and typo tolerant search engine.
+Home-page: https://typesense.org
+Author: Typesense
+Author-email: contact@typesense.org
+License: Apache 2.0
+Platform: UNKNOWN
+Requires-Python: >=3
+License-File: LICENSE
+Requires-Dist: requests
+
+
+Typesense Python Client
+=======================
+
+Python client for the Typesense API: https://github.com/typesense/typesense
+
+Installation
+------------
+
+.. code-block::
+
+   $ pip install typesense
+
+You can also add ``typesense`` to your project's ``requirements.txt``.
+
+Usage
+-----
+
+You can find some examples `here <https://github.com/typesense/typesense-python/blob/master/examples/collection_operations.py>`_.
+
+See detailed `API documentation <https://typesense.org/api>`_.
+
+Compatibility
+-------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Typesense Server
+     - typesense-python
+   * - &gt;= v0.23.0
+     - &gt;= v0.14.0
+   * - &gt;= v0.21.0
+     - &gt;= v0.13.0
+   * - &gt;= v0.20.0
+     - &gt;= v0.11.0
+   * - &gt;= v0.19.0
+     - &gt;= v0.10.0
+   * - &gt;= v0.17.0
+     - &gt;= v0.9.0
+   * - &gt;= v0.16.0
+     - &gt;= v0.8.0
+   * - &gt;= v0.15.0
+     - &gt;= v0.7.0
+
+
+Contributing
+------------
+
+Bug reports and pull requests are welcome on GitHub at [https://github.com/typesense/typesense-python].
+
+License
+-------
+
+``typesense-python`` is distributed under the Apache 2 license.
+
+

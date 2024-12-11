@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import random
 import time
 
@@ -33,7 +33,7 @@ is only known at runtime.
 
 In this example below we use a var operation to concatenate a `string` with a `var`, meaning we do not have to do in within state as a computed var.
 
-```python demo exec
+```python demo exec box
 coins = ["BTC", "ETH", "LTC", "DOGE"]
 
 class VarSelectState(rx.State):

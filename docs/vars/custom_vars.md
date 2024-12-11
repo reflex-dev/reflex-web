@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 
 from pcweb.pages.docs import vars
@@ -16,7 +16,7 @@ In this example, we will create a custom var type for storing translations.
 
 Once defined, we can use it as a state var, and reference it from within a component.
 
-```python demo exec
+```python demo exec box
 import googletrans
 import dataclasses
 

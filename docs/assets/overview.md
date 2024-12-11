@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 ```
 
@@ -26,7 +26,7 @@ assets
 
 Then you can display it using a `rx.image` component:
 
-```python demo
+```python demo box
 rx.image(src="/Reflex.svg", width="5em")
 ```
 

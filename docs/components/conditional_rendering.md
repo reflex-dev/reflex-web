@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 
 from pcweb.pages.docs import library
@@ -23,7 +23,7 @@ rx.box(height="2em")
 
 Below is a simple example showing how to toggle between two text components by checking the value of the state var `show`.
 
-```python demo exec
+```python demo exec box
 class CondSimpleState(rx.State):
     show: bool = True
 
@@ -49,11 +49,11 @@ If `show` is `True` then the first component is rendered (in this case the blue 
 
 You can also set props conditionally using `rx.cond`. In this example, we set the `color` prop of a text component based on the value of the state var `show`.
 
-```python demo exec
+```python demo exec box
 class PropCondState(rx.State):
 
     value: int
-    
+
     @rx.event
     def set_end(self, value: list[int]):
         self.value = value[0]
@@ -78,7 +78,7 @@ You can use [var operations]({docs.vars.var_operations.path}) with the `cond` co
 
 The [`rx.match`]({library.dynamic_rendering.match.path}) component in Reflex provides a powerful alternative to`rx.cond` for handling multiple conditional statements and structural pattern matching. This component allows you to handle multiple conditions and their associated components in a cleaner and more readable way compared to nested `rx.cond` structures.
 
-```python demo exec
+```python demo exec box
 from typing import List
 
 import reflex as rx

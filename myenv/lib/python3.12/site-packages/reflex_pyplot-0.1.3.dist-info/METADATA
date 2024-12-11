@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: reflex-pyplot
+Version: 0.1.3
+Summary: Reflex custom component for matplotlib.
+Author-email: Alek Petuskey <alek@reflex.dev>
+License: Apache-2.0
+Project-URL: homepage, https://reflex.dev
+Project-URL: source, https://github.com/reflex-dev/reflex-graphing/tree/main/pyplot
+Keywords: reflex,matplotlib
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib
+
+# pyplot
+
+A Reflex custom component pyplot.
+
+## Installation
+
+```bash
+pip install reflex-pyplot
+```

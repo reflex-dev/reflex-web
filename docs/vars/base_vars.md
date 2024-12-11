@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import random
 import time
 
@@ -23,7 +23,7 @@ must provide a type annotation.
 Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
-```python demo exec
+```python demo exec box
 class TickerState(rx.State):
     ticker: str ="AAPL"
     price: str = "$150"
@@ -90,7 +90,7 @@ values that should not be sent to the client.
 For example, a backend-only var is used to store a large data structure which is
 then paged to the frontend using cached vars.
 
-```python demo exec
+```python demo exec box
 import numpy as np
 
 
@@ -160,7 +160,7 @@ def backend_var_example():
 
 ## Using rx.field / rx.Field to improve type hinting for vars
 
-When defining state variables you can use `rx.Field[T]` to annotate the variable's type. Then, you can initialize the variable using `rx.field(default_value)`, where `default_value` is an instance of type `T`. 
+When defining state variables you can use `rx.Field[T]` to annotate the variable's type. Then, you can initialize the variable using `rx.field(default_value)`, where `default_value` is an instance of type `T`.
 
 This approach makes the variable's type explicit, aiding static analysis tools in type checking. In addition, it shows you what methods are allowed to modify the variable in your frontend code, as they are listed in the type hint.
 
