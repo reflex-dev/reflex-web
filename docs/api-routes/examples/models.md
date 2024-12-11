@@ -79,8 +79,8 @@ async def create_user(user_data: UserModel, token: str):
             "user": user_data.dict()
         }
 
-@app.api.get("/users/{user_id}")
-async def get_user(user_id: str, token: str):
+@app.api.get("/users/[id]")  # Using [id] instead of {id} to prevent template evaluation
+async def get_user(id: str, token: str):
     """Get user data."""
     state = await app.state_manager.get_state(token)
     if state.user and state.user.name == "John Doe":  # Example comparison
