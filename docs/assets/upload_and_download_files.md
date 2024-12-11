@@ -4,29 +4,52 @@ from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
 ```
 
-# Files
+# File Upload and Download
 
-In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share medias, allow user to import their data, or export some backend data.
+Reflex provides built-in components and events for handling file uploads and downloads in your web applications. Whether you need to share media, allow users to import data, or export backend data, Reflex offers intuitive solutions for file handling.
 
-In this section, we will cover all you need to know for manipulating files in Reflex.
+## File Upload
 
-## Download
+The `rx.upload` component enables file upload functionality in your application. It supports both click-to-select and drag-and-drop interfaces, making it easy for users to upload files to your server.
 
-If you want to let the users of your app download files from your server to their computer, Reflex offer you two way.
+### Basic Usage
 
-### With a regular link
-
-For some basic usage, simply providing the path to your resource in a `rx.link` will work, and clicking the link will download or display the resource.
+Here's a simple example of file upload functionality:
 
 ```python demo
-rx.link("Download", href="/reflex_banner.png")
+def index():
+    return rx.upload(
+        rx.text("Drag and drop files here or click to select files"),
+        border="1px dashed",
+        padding="2em",
+    )
 ```
 
-### With `rx.download` event
+### Features
+- Click-to-select or drag-and-drop interface
+- Multiple file selection
+- File type restrictions
+- Upload progress tracking
+- Upload cancellation
+- Custom styling options
 
-Using the `rx.download` event will always prompt the browser to download the file, even if it could be displayed in the browser.
+For detailed information about advanced features and customization options, see the [Upload Component Documentation]({library.forms.upload.path}).
 
-The `rx.download` event also allows the download to be triggered from another backend event handler.
+## File Download
+
+Reflex offers two approaches for implementing file downloads:
+
+### 1. Direct Link Downloads
+
+For simple file downloads, use the `rx.link` component. This is ideal for static files or when you want the browser to handle the file display/download decision:
+
+```python demo
+rx.link("Download", href="/reflex_banner.png", download=True)
+```
+
+### 2. Programmatic Downloads
+
+For dynamic file downloads or when you need more control over the download process, use the `rx.download` event:
 
 ```python demo
 rx.button(
@@ -35,7 +58,9 @@ rx.button(
 )
 ```
 
-`rx.download` lets you specify a name for the file that will be downloaded, if you want it to be different from the name on the server side.
+#### Custom Filename
+
+You can specify a custom filename for the downloaded file:
 
 ```python demo
 rx.button(
@@ -47,7 +72,9 @@ rx.button(
 )
 ```
 
-If the data to download is not already available at a known URL, pass the `data` directly to the `rx.download` event from the backend.
+#### Dynamic Data Downloads
+
+For downloading dynamically generated data:
 
 ```python demo exec
 import random
@@ -67,24 +94,10 @@ def download_random_data_button():
     )
 ```
 
-The `data` arg accepts `str` or `bytes` data, a `data:` URI, `PIL.Image`, or any state Var. If the Var is not already a string, it will be converted to a string using `JSON.stringify`. This allows complex state structures to be offered as JSON downloads.
+The `data` parameter accepts various types:
+- `str` or `bytes` data
+- `data:` URI
+- `PIL.Image` objects
+- Any state Var (automatically converted to JSON)
 
-Reference page for `rx.download` [here]({api_reference.special_events.path}#rx.download).
-
-## Upload
-
-Uploading files to your server let your users interact with your app in a different way than just filling forms to provide data.
-
-The component `rx.upload` let your users upload files on the server.
-
-Here is a basic example of how it is used:
-
-```python
-def index():
-    return rx.fragment(
-        rx.upload(rx.text("Upload files"), rx.icon(tag="upload")),
-        rx.button(on_submit=State.<your_upload_handler>)
-    )
-```
-
-For detailed information, see the reference page of the component [here]({library.forms.upload.path}).
+For complete details about download options and parameters, see the [`rx.download` reference]({api_reference.special_events.path}#rx.download).
