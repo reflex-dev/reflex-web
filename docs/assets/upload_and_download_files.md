@@ -16,7 +16,7 @@ The `rx.upload` component enables file upload functionality in your application.
 
 Here's a simple example of file upload functionality:
 
-```python demo
+```python demo box
 def index():
     return rx.upload(
         rx.text("Drag and drop files here or click to select files"),
@@ -76,7 +76,7 @@ rx.button(
 
 For downloading dynamically generated data:
 
-```python demo exec
+```python demo box
 import random
 
 class DownloadState(rx.State):
