@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import random
 import time
 
@@ -13,7 +13,7 @@ var is recomputed every time an event is processed in your app.
 
 Try typing in the input box and clicking out.
 
-```python demo exec id=upper
+```python demo exec box id=upper
 class UppercaseState(rx.State):
     text: str = "hello"
 
@@ -43,7 +43,7 @@ expect it to.
 Previous versions of Reflex had a `@rx.cached_var` decorator, which is now replaced
 by the new `cache` argument of `@rx.var`.
 
-```python demo exec
+```python demo exec box
 class CachedVarState(rx.State):
     counter_a: int = 0
     counter_b: int = 0

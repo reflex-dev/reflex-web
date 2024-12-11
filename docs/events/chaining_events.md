@@ -1,4 +1,4 @@
-```python exec
+```python exec box
 import reflex as rx
 ```
 
@@ -8,7 +8,7 @@ import reflex as rx
 
 You can call other event handlers from event handlers to keep your code modular. Just use the `self.call_handler` syntax to run another event handler. As always, you can yield within your function to send incremental updates to the frontend.
 
-```python demo exec id=call-handler
+```python demo exec box id=call-handler
 import asyncio
 
 class CallHandlerState(rx.State):
@@ -54,7 +54,7 @@ In Reflex, event handlers run synchronously, so only one event handler can run a
 
 Try entering an integer in the input below then clicking out.
 
-```python demo exec id=collatz
+```python demo exec box id=collatz
 class CollatzState(rx.State):
     count: int = 1
 
