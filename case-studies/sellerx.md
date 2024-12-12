@@ -6,12 +6,16 @@ founded: "Berlin, 2020"
 investors: "L Catterton, Sofina, BlackRock and more"
 stats: [
     {
-        "metric": "Faster than developing with React and FastApi",
+        "metric": "Faster than developing with React and FastAPI",
         "value": "10x"
     },
     {
         "metric": "Increase in speed of data analysis, allowing a whole month of work to be done in less than a week",
         "value": "5x"
+    },
+    {
+        "metric": "Worth of data, over 500,000 data points, is ingested by the app daily",
+        "value": "100 GB"
     },
 ]
 meta: [
@@ -103,7 +107,7 @@ Overall they found that when they used Streamlit they always needed to go and bu
 
 ## How Reflex empowered SellerX
 
-The app Mike and his team were building handles around half a million data points daily. It handles hundred of thousands products in different marketplaces in 4 different continents and ingests daily a DB the size of 100GB worth of information.
+The app Mike and his team were building handles around half a million data points daily. It handles hundreds of thousands of products in different marketplaces in 4 different continents and ingests daily a DB the size of 100 GB worth of information.
 
 The app has several tables of data with images, links and lots of text data. It included web scrapers as well as many api calls.
 
@@ -158,5 +162,5 @@ Finally deployments have been much more straightforward with Reflex.
 ```md quote
 - name: Mike
 - role: Head of AI
-Also for deploying and everything is significantly easier. It's all just Python. You just open the right ports, add SSO, and then everyone that needs to have access can use the app.
+Also for deploying everything is significantly easier. It's all just Python. You just open the right ports, add SSO, and then everyone that needs to have access can use the app.
 ```
