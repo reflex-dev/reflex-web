@@ -43,9 +43,13 @@ rx.vstack(
     image_zoom(rx.image(src="/case_studies/sellerx_app.png", border_radius="10px", alt="SellerX App")),
     rx.text("SellerX App built with Reflex"),
     width="100%",
-    margin_botton="40px",
 )
 ```
+
+```python eval 
+rx.box(height="30px")
+```
+
 
 
 Meet SellerX, a Berlin-based, high-growth eCommerce player that aims to consolidate Amazon’s most successful sellers, acquiring them to scale their business and turn their brands into global household names. 
