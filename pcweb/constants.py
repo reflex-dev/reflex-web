@@ -1,9 +1,9 @@
 # pcweb constants.
 API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
 REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO: str = "https://5dha7vttyp3.typeform.com/to/O7kG4RQu"
-REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL = "https://hkdk.events/hiet6t6a0etc4e"
+REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = "https://hooks.zapier.com/hooks/catch/20661176/2s1nxp9/"
+
 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
-REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = "https://hkdk.events/fl9kcr4bf5pn7w"
 REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL: str = "https://hkdk.events/amh01aq0hojled"
 REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = "https://hkdk.events/8woee5brmxqwdr"
 
