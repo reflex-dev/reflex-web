@@ -23,7 +23,7 @@ class CustomComponentGalleryState(rx.State):
     def fetch_components_list(self):
         try:
             response = httpx.get(
-                f"{os.getenv("RCC_ENDPOINT")}/custom-components/gallery"
+                f"{os.getenv('RCC_ENDPOINT')}/custom-components/gallery"
             )
             response.raise_for_status()
             component_list = response.json()
