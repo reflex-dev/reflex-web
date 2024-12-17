@@ -48,6 +48,18 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2024-12-17",
+            "v0.6.7",
+            "Async DB support and improved DB connection pooling",
+            [
+                "Var operations support datetime values",
+                "Respect CORS for backend HTTP requests",
+                "Serialization performance improvements",
+                "Fix upload cancellation and props from state",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.7",
+        ),
+        change(
             "2024-11-25",
             "v0.6.6",
             "Support Pydantic BaseModel (v1 & v2) objects in state",
