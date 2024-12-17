@@ -18,8 +18,8 @@ def stats_grid() -> rx.Component:
             ),
             class_name="p-10 lg:border-l border-slate-3 flex justify-center lg:justify-start",
         ),
-        stat_card(stat="100+", text="Teams using Reflex in a production environment"),
-        stat_card(stat="5000+", text="New applications built with Reflex every month"),
+        stat_card(stat="500+", text="Teams using Reflex in a production environment"),
+        stat_card(stat="10,000+", text="New applications built with Reflex every month"),
         class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-1 w-full divide-slate-3 lg:divide-x !border-t-0 lg:border-b border-slate-3 lg:border-r divide-y lg:divide-y-0 [&>:last-child]:!border-b lg:[&>:last-child]:!border-b-0",
     )
 
