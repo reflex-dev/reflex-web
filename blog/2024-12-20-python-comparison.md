@@ -10,11 +10,24 @@ meta: [
 ---
 
 
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
+
 
 With 16 million Python developers worldwide and that number steadily growing, Python continues to thrive as one of the most popular programming languages. It has long been favored by data scientists, machine learning engineers, and backend developers for its simplicity and powerful ecosystem. With frameworks catering to various use cases, from full-stack web development to data visualization, Python offers something for every developer. Thanks to its vibrant community and robust ecosystem, developers have a wide range of options when building web apps. However, the sheer number of choices can make it difficult to select the right framework for your project.
 
 That's why we've reviewed the top Python frameworks for building web apps, comparing the strengths and weaknesses of each.
 
+
+```python eval
+rx.vstack(
+    image_zoom(rx.image(src="/blog/github-python_top_language_2024.webp", border_radius="10px", alt="Github Top Programming Languages")),
+    rx.text("Github top programming languages 2024"),
+    width="90%",
+)
+```
 
 
 ## Reflex
