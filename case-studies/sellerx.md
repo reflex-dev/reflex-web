@@ -61,15 +61,17 @@ Meet SellerX, a Berlin-based, high-growth eCommerce player that aims to consolid
 SellerX has become one of the largest eCommerce aggregators in the European market. Today it manages more than 50 ecommerce brands. 
 
 
-## SellerX's overwhelming data processing pipeline
+## SellerX's overwhelming data processing pipeline 
 
-SellerX has teams that collect a lot of data from Amazon to derive insights on which brands to acquire. This was a very manual process of employees looking up information about products, reviews, and prices so they can understand trends and make decisions on companies to look at investing in. They would have to go to Amazon and to the companies specific websites, copy this information and put it all manually in excel.
-
-[Mike Woodcock](https://www.linkedin.com/in/mike-woodcock/), the Head of AI & Automation at SellerX, was placed in charge of working with these teams and finding a way to streamline this process of data sourcing. He needed to build a custom interface for the teams to help them collect their data more efficiently. 
+SellerX has teams that collect a lot of data from Amazon and different marketplaces to derive insights on their brands and products. SellerX handles around half a million data points daily. It handles hundreds of thousands of products in different marketplaces in 4 different continents and ingests daily DBs the size of 100 GB worth of information.
+ 
+Some of the processes require information about products, reviews, and prices so they can understand trends and make decisions on companies to look at investing in. This process could be very labour intensive, they would have to go to Amazon and to the companies specific websites, explore different DBs, copy this information and put it all manually in excel.
+ 
+[Mike Woodcock](https://www.linkedin.com/in/mike-woodcock/), the Head of AI & Automation at SellerX, was placed in charge of working with various teams, among his other duties, to streamline the process of data sourcing. He needed to build a custom interface for the teams to help them collect their data more efficiently.
 
 His main requirements were that the final product needed to be a web interface, it needed SSO (single sign-on) capabilities, and the team needed to be able to iterate quickly with feedback.
 
-His plan was to create a web app to extract the needed information to create insights, therefore streamlining the process and cutting down on hundreds of hours of manual work a month. The data collection task would run in the background and then the end user would open up the app and all the information that they need to make their buying decisions on the companies would be ready for them.
+His plan was to create a web app to extract the needed information to create insights, therefore streamlining the process and cutting down on hundreds of hours of manual work a month. The data collection task would run in the background and then the end user would open up the app and all the information that they need to make their buying decisions on the companies would be ready for them.  
 
 
 
