@@ -159,7 +159,7 @@ error_message(
     error_code="TypeError: Invalid var passed for prop href, expected type <class 'str'>, got value {state.my_list.at(i)} of type typing.Any.",
     solution=[
                 h4_comp_error(text="Add a type annotation for list Vars"),
-                rx.text("For certain props, reflex validates type correctness of the variable. Expecially when de-referencing lists and dicts, it is important to supply the correct annotation."),
+                rx.text("For certain props, reflex validates type correctness of the variable. Especially when de-referencing lists and dicts, it is important to supply the correct annotation."),
                 code_block_error(code=
 """class State(rx.State):
     # NO

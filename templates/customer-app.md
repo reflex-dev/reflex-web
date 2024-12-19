@@ -31,7 +31,7 @@ reflex run
 
 ## Setting an external Database
 
-It is also possibe to set an external database so that your data is not lost every time the app closes and so you can deploy your app and maintain data.
+It is also possible to set an external database so that your data is not lost every time the app closes and so you can deploy your app and maintain data.
 
 In the `rxconfig.py` file we accept a `DATABASE_URL` environment variable.
 

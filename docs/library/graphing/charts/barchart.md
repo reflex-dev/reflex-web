@@ -151,7 +151,7 @@ def bar_double():
 
 ## Ranged Charts
 
-You can also assign a range in the bar by assiging the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
+You can also assign a range in the bar by assigning the data_key in the `rx.recharts.bar` to a list with two elements, i.e. here a range of two temperatures for each date.
 
 ```python demo graphing
 range_data = [

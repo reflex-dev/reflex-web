@@ -151,7 +151,11 @@ class Source(Base):
         if parent_cls != rx.Component and parent_cls != BaseHTML:
             parent_props = Source(component=parent_cls).get_props()
             # filter out the props that have been overridden in the parent class.
-            props += [prop for prop in parent_props if prop.name not in {p.name for p in props}]
+            props += [
+                prop
+                for prop in parent_props
+                if prop.name not in {p.name for p in props}
+            ]
 
         return props
 
@@ -579,7 +583,9 @@ def prop_docs(
                     style=get_code_style(
                         "red"
                         if default_value == "False"
-                        else "green" if default_value == "True" else "gray"
+                        else "green"
+                        if default_value == "True"
+                        else "gray"
                     ),
                     class_name="code-style leading-normal text-nowrap",
                 ),
@@ -604,7 +610,7 @@ EVENTS = {
         "description": "Function or event handler called when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input."
     },
     "on_change": {
-        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystoke triggers the on change."
+        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystroke triggers the on change."
     },
     "on_click": {
         "description": "Function or event handler called when the user clicks on an element. For example, it’s called when the user clicks on a button."
@@ -810,15 +816,11 @@ EVENTS = {
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called when the group is server-side."
     },
-    "get_server_side_group_key": {
-        "description": "Get the server side group key."
-    },
+    "get_server_side_group_key": {"description": "Get the server side group key."},
     "is_server_side_group_open_by_default": {
         "description": "Event handler to check if the server-side group is open by default."
     },
-    "get_child_count": {
-        "description": "Event handler to get the child count."
-    },
+    "get_child_count": {"description": "Event handler to get the child count."},
     "on_selection_changed": {
         "description": "The on_selection_changed event handler is called when the selection changes."
     },
@@ -833,8 +835,7 @@ EVENTS = {
     },
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
-    }
-
+    },
 }
 
 
@@ -899,7 +900,9 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
-    interactive_component = docdemobox(comp) if not isinstance(comp, Fragment) else "",
+    interactive_component = (
+        docdemobox(comp) if not isinstance(comp, Fragment) else "",
+    )
     return rx.vstack(
         interactive_component,
         rx.scroll_area(
@@ -1087,6 +1090,7 @@ def multi_docs(path, comp, component_list, title):
     active_class_name = "font-small bg-slate-2 p-2 text-slate-11 rounded-xl shadow-large w-28 cursor-default border border-slate-4 text-center"
 
     non_active_class_name = "font-small w-28 transition-color hover:text-slate-11 text-slate-9 p-2 text-center"
+
     def links(current_page, ll_doc_exists, path):
         path = str(path).rstrip("/")
         if ll_doc_exists:
@@ -1102,7 +1106,7 @@ def multi_docs(path, comp, component_list, title):
                             rx.box(
                                 rx.text("Low Level"), class_name=non_active_class_name
                             ),
-                            href=path+ "/low",
+                            href=path + "/low",
                             underline="none",
                         ),
                         class_name="bg-slate-3 rounded-[1.125rem] p-2 gap-2 flex items-center justify-center",

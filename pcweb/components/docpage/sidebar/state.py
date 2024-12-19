@@ -1,6 +1,5 @@
 """The state of the sidebar component."""
 
-
 from __future__ import annotations
 
 import reflex as rx
@@ -21,17 +20,19 @@ class SideBarBase(Base):
     # The children items.
     children: list[SideBarItem] = []
 
-    # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for asthetics.
+    # Whether the item is a category. Occurs if a single item is at the top level of the sidebar for aesthetics.
     outer = False
 
 
 class SideBarItem(SideBarBase):
     """A single item in the sidebar."""
+
     ...
 
 
 class SideBarSection(SideBarBase):
     """A section in the sidebar."""
+
     ...
 
 

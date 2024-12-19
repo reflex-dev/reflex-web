@@ -5,6 +5,7 @@ from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
 from pcweb.flexdown import markdown_with_shiki
 
+
 def change(
     date: str, version: str, description: str, points: list[str], link: str
 ) -> rx.Component:
@@ -350,7 +351,7 @@ def changelog_content():
         change(
             "2024-02-26",
             "v0.4.2",
-            "Syncronize local storage between tabs",
+            "Synchronize local storage between tabs",
             [
                 "Tuple type annotations are now respected index-wise",
                 "Substates are serialized individually",

@@ -279,7 +279,7 @@ class AnotherColorPicker(rx.Component):
 
 ## Custom Code
 
-Sometimes you may need to add custom code to your component, such as definining constants and functions used. Custom code will be inserted _outside_ of the react component function.
+Sometimes you may need to add custom code to your component, such as defining constants and functions used. Custom code will be inserted _outside_ of the react component function.
 
 ```javascript
 import React from "react";
