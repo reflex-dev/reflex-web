@@ -192,3 +192,23 @@ error_message(
     error_type="Python Error",
 )
 ```
+
+
+```python eval
+error_message(
+    heading="ImportError: couldn't import psycopg",
+    error_code="ImportError: couldn't import psycopg 'python' implementation: libpq library not found | couldn't import psycopg 'binary' implementation: No module named 'psycopg_binary' | couldn't import psycopg 'c' implementation: No module named 'psycopg_c'",
+    solution=[
+        h4_comp_error(text="This is caused by not installing the correct psycopg package. Solution is to add the following packages to your requirements.txt file."),
+        rx.el.ul(
+            rx.el.li("psycopg2-binary==2.9.9"),
+            rx.el.li("psycopg-binary==3.2.3"),
+rx.el.li("psycopg==3.2.3"),
+rx.el.li("psycopg-pool==3.2.3"),
+            class_name="list-disc pl-4",
+        ),
+    ],
+    error_type="Import Error",
+)
+```
+
