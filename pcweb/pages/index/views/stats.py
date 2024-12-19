@@ -27,7 +27,7 @@ def stats_grid() -> rx.Component:
         ),
         stat_card(stat="150+", text="Contributors", icon="fork"),
         stat_card(
-            stat="5,500+",
+            stat="6,500+",
             text="Discord",
             icon="discord_navbar",
             class_name="lg:!border-r !border-slate-3",
