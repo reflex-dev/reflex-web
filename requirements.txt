@@ -1,7 +1,7 @@
 email-validator==2.1.1
 black==23.10.0
 pandas>=1.5.3
-psycopg2-binary==2.9.9
+psycopg[binary]==3.2.3
 plotly-express==0.4.1
 googletrans-py==4.0.0
 typesense==0.14.0
