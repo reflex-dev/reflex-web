@@ -17,6 +17,8 @@ from pcweb.templates.docpage import (
     text_comp,
     list_comp,
     definition,
+    unordered_list_comp,
+    ordered_list_comp,
 )
 
 from pcweb.styles.fonts import base, code
@@ -518,6 +520,10 @@ component_map = {
 }
 comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
+comp2["ul"] = lambda items: unordered_list_comp(items=items)
+comp2["ol"] = lambda items: ordered_list_comp(items=items)
+
+    
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],

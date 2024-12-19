@@ -45,6 +45,19 @@ def text_comp_2(text: rx.Var[str]) -> rx.Component:
 def list_comp(text: rx.Var[str]) -> rx.Component:
     return rx.list_item(text, class_name="font-normal text-slate-12 mb-4")
 
+@rx.memo
+def unordered_list_comp(items: rx.Var[list[str]]) -> rx.Component:
+    return rx.list.unordered(
+        items,
+        class_name="mb-6"
+    )
+
+@rx.memo
+def ordered_list_comp(items: rx.Var[list[str]]) -> rx.Component:
+    return rx.list.ordered(
+        items,
+        class_name="mb-6"
+    )
 
 @rx.memo
 def code_comp(text: rx.Var[str]) -> rx.Component:

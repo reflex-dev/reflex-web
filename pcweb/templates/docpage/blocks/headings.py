@@ -37,7 +37,7 @@ def h_comp_common(
         href=href,
         on_click=lambda: rx.set_clipboard(href),
         # as_child=True,
-        class_name=f"flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-3 transition-colors group",
+        class_name=f"flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
     )
 
 
