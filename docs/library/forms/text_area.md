@@ -49,7 +49,6 @@ class TextAreaFeedbackState(rx.State):
     @rx.event
     def reset_form(self):
         self.feedback = ""
-        self.attach_screenshot = True
         self.submitted = False
 
 def feedback_form():
