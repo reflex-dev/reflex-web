@@ -100,7 +100,7 @@ def index():
 Below is an example of how to allow only a single file upload and render (in this case a video).
 
 ```python demo box
-rx.image(src="/upload_single_video.gif")
+rx.el.video(src="/upload_single_video.webm", auto_play=True, controls=True, loop=True)
 ```
 
 ```python
