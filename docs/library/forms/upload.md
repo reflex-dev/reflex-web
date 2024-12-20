@@ -31,7 +31,10 @@ an event handler.
 To upload the file(s), you need to bind an event handler and pass the special
 `rx.upload_files(upload_id=id)` event arg to it.
 
-A full example is shown below.
+
+### Multiple File Upload
+
+Below is an example of how to allow multiple file uploads (in this case images).
 
 ```python demo box
 rx.image(src="/upload.gif")
@@ -91,6 +94,87 @@ def index():
         padding="5em",
     )
 ```
+
+### Uploading a Single File (Video)
+
+Below is an example of how to allow only a single file upload and render (in this case a video).
+
+```python demo box
+rx.el.video(src="/upload_single_video.webm", auto_play=True, controls=True, loop=True)
+```
+
+```python
+class State(rx.State):
+    """The app state."""
+
+    # The video to show.
+    video: str
+
+    @rx.event
+    async def handle_upload(
+        self, files: list[rx.UploadFile]
+    ):
+        """Handle the upload of file(s).
+
+        Args:
+            files: The uploaded files.
+        """
+        current_file = files[0]
+        upload_data = await current_file.read()
+        outfile = rx.get_upload_dir() / current_file.filename
+
+        # Save the file.
+        with outfile.open("wb") as file_object:
+            file_object.write(upload_data)
+
+        # Update the video var.
+        self.video = current_file.filename
+
+
+color = "rgb(107,99,246)"
+
+
+def index():
+    """The main view."""
+    return rx.vstack(
+        rx.upload(
+            rx.vstack(
+                rx.button(
+                    "Select File",
+                    color=color,
+                    bg="white",
+                    border=f"1px solid \{color}",
+                ),
+                rx.text(
+                    "Drag and drop files here or click to select files"
+                ),
+            ),
+            id="upload1",
+            max_files=1,
+            border=f"1px dotted \{color}",
+            padding="5em",
+        ),
+        rx.text(rx.selected_files("upload1")),
+        rx.button(
+            "Upload",
+            on_click=State.handle_upload(
+                rx.upload_files(upload_id="upload1")
+            ),
+        ),
+        rx.button(
+            "Clear",
+            on_click=rx.clear_selected_files("upload1"),
+        ),
+        rx.cond(
+            State.video,
+            rx.video(url=rx.get_upload_url(State.video)),
+        ),
+        padding="5em",
+    )
+```
+
+
+### Customizing the Upload
 
 In the example below, the upload component accepts a maximum number of 5 files of specific types.
 It also disables the use of the space or enter key in uploading files.
@@ -165,6 +249,7 @@ def index():
         padding="5em",
     )
 ```
+
 
 ## Handling the Upload
 
