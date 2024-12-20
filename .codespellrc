@@ -1,0 +1,3 @@
+[codespell]
+skip = *.csv, *.json
+ignore-words-list = selectin

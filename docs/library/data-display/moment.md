@@ -76,7 +76,7 @@ rx.moment(MomentState.date_now, format="HH:mm:ss")
 
 ### Offset Date
 
-With the props `add` and `substract`, you can pass an `rx.MomentDelta` object to modify the displayed date without affecting the stored date in your state.
+With the props `add` and `subtract`, you can pass an `rx.MomentDelta` object to modify the displayed date without affecting the stored date in your state.
 
 ```python exec
 add_example = """rx.vstack(
@@ -111,10 +111,10 @@ subtract_example = """rx.vstack(
 rx.tabs(
     rx.tabs.list(
         rx.tabs.trigger("Add", value="add"), 
-        rx.tabs.trigger("Substract", value="substract")
+        rx.tabs.trigger("Subtract", value="subtract")
     ),
     rx.tabs.content(docdemo(add_example, comp=eval(add_example)), value="add"),
-    rx.tabs.content(docdemo(subtract_example, comp=eval(subtract_example)), value="substract"),
+    rx.tabs.content(docdemo(subtract_example, comp=eval(subtract_example)), value="subtract"),
     default_value="add",
 )
 ```

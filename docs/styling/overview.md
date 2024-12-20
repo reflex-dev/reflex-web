@@ -104,7 +104,7 @@ rx.box(
 
 ### Style Prop
 
-Inline styles can also be set with a `style` prop. This is useful for reusing styles betweeen multiple components.
+Inline styles can also be set with a `style` prop. This is useful for reusing styles between multiple components.
 
 ```python exec
 text_style = {

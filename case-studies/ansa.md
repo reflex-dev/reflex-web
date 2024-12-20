@@ -104,7 +104,7 @@ In addition, there were particular technologies like LLMs and Vector Databases t
 ```md quote
 - name: Ryan
 - role: Investor and Head of Data
-I started to feel that with this framework I didn’t know if they could keep up with the pace of new developments with LLMs. They abstract a lot of the backend, so it's difficult to install third party libaries and you don't have full control over the database. For example some of the newer stuff we do with vector databases, embeddings models, or LLMs would be harder to do with this framework as we'd have to move off their native database.
+I started to feel that with this framework I didn’t know if they could keep up with the pace of new developments with LLMs. They abstract a lot of the backend, so it's difficult to install third party libraries and you don't have full control over the database. For example some of the newer stuff we do with vector databases, embeddings models, or LLMs would be harder to do with this framework as we'd have to move off their native database.
 ```
 
 

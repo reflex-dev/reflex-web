@@ -175,16 +175,13 @@ def format_field(field):
     type_str = type_.__name__ if hasattr(type_, "__name__") else str(type_)
     if default:
         type_str += f" = {default}"
-    return rx.code(
-        field["prop"].name,
-        ": ",
-        type_str,
-        class_name="code-style"
-    )
+    return rx.code(field["prop"].name, ": ", type_str, class_name="code-style")
+
 
 table_header_class_name = (
     "font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"
 )
+
 
 def format_fields(headers, fields):
     return (
@@ -192,7 +189,12 @@ def format_fields(headers, fields):
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        *[rx.table.column_header_cell(header, class_name=table_header_class_name) for header in headers]
+                        *[
+                            rx.table.column_header_cell(
+                                header, class_name=table_header_class_name
+                            )
+                            for header in headers
+                        ]
                     )
                 ),
                 rx.table.body(
@@ -201,7 +203,10 @@ def format_fields(headers, fields):
                             rx.table.cell(
                                 format_field(field),
                             ),
-                            rx.table.cell(markdown(field["description"]), class_name="font-small text-slate-11"),
+                            rx.table.cell(
+                                markdown(field["description"]),
+                                class_name="font-small text-slate-11",
+                            ),
                         )
                         for field in fields
                     ],
@@ -217,17 +222,14 @@ def generate_docs(title: str, s: Source):
     class_fields = s.get_class_fields()
     return rx.box(
         h1_comp(text=title.title()),
-        rx.code(
-            s.get_name(),
-            class_name="code-style text-[18px]"
-        ),
+        rx.code(s.get_name(), class_name="code-style text-[18px]"),
         rx.divider(),
         markdown(s.get_overview()),
         (
             rx.box(
                 h2_comp(text="Class Fields"),
                 format_fields(["Prop", "Description"], class_fields),
-                oveflow="auto",
+                overflow="auto",
             )
             if class_fields
             else rx.fragment()
@@ -257,14 +259,14 @@ def generate_docs(title: str, s: Source):
                                 rx.table.cell(
                                     rx.code(
                                         field["name"] + field["signature"],
-                                        class_name="code-style"
+                                        class_name="code-style",
                                     ),
                                     white_space="normal",
                                 ),
                                 rx.table.cell(
                                     field["description"],
                                     white_space="normal",
-                                    class_name="font-small text-slate-11 text-nowrap"
+                                    class_name="font-small text-slate-11 text-nowrap",
                                 ),
                             )
                             for field in s.get_methods()

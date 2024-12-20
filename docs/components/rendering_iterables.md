@@ -53,7 +53,7 @@ The first argument of the `rx.foreach` function is the state var that you want t
 ## For vs Foreach
 
 ```md definition
-# Regualar For Loop
+# Regular For Loop
 * Use when iterating over constants.
 
 # Foreach

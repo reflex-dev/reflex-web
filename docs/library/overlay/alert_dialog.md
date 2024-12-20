@@ -243,7 +243,7 @@ This example shows how to control whether the dialog is open or not with state. 
 
 `rx.alert_dialog.root` has a prop `open` that can be set to a boolean value to control whether the dialog is open or not.
 
-We toggle this `open` prop with a button oustide of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
+We toggle this `open` prop with a button outside of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
 
 ```python demo exec
 class AlertDialogState2(rx.State):

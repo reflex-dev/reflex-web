@@ -60,7 +60,7 @@ def resource_item(text: str, url: str, icon: str):
 
 
 def link_item(name: str, url: str, active_str: str = ""):
-    # If URL doesnt end with a slash, add one
+    # If URL doesn't end with a slash, add one
     router_path = rx.State.router.page.path
     url = url.rstrip("/") + "/"
     active = router_path.contains(active_str)
