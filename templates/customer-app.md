@@ -1,5 +1,5 @@
 ---
-title: Customer Data App
+title: customer_data_app
 description: "A Reflex app for customer data management with visualizations"
 author: "Reflex"
 image: "customer-app.webp"

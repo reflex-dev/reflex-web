@@ -1,6 +1,7 @@
 import reflex as rx
 import httpx
 import json
+import os
 from rxconfig import config
 import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
@@ -21,7 +22,9 @@ class CustomComponentGalleryState(rx.State):
     @rx.event
     def fetch_components_list(self):
         try:
-            response = httpx.get(f"{config.cp_backend_url}/custom-components/gallery")
+            response = httpx.get(
+                f"{os.getenv('RCC_ENDPOINT')}/custom-components/gallery"
+            )
             response.raise_for_status()
             component_list = response.json()
         except (httpx.HTTPError, json.JSONDecodeError) as ex:

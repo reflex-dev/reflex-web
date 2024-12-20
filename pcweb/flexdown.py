@@ -17,6 +17,8 @@ from pcweb.templates.docpage import (
     text_comp,
     list_comp,
     definition,
+    unordered_list_comp,
+    ordered_list_comp,
 )
 
 from pcweb.styles.fonts import base, code
@@ -111,7 +113,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                                 color=f"{rx.color(color, 11)}",
                             ),
                             (
-                                rx.markdown(
+                                markdown_with_shiki(
                                     title, margin_y="0px", style=get_code_style(color)
                                 )
                                 if title
@@ -171,7 +173,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         ),
                         color=f"{rx.color(color, 11)}",
                     ),
-                    rx.markdown(
+                    markdown_with_shiki(
                         title,
                         color=f"{rx.color(color, 11)}",
                         margin_y="0px",
@@ -267,7 +269,6 @@ class DefinitionBlock(flexdown.blocks.Block):
                         for d in defs
                     ],
                     template_columns="repeat(2, 1fr)",
-                    h="10em",
                     width="100%",
                     gap=4,
                     margin_bottom="1em",
@@ -369,13 +370,13 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                 rc.accordion_button(
                     rx.hstack(
                         (
-                            rx.markdown(
+                            markdown_with_shiki(
                                 title,
                                 margin_y="0px",
                                 style=get_code_style(color),
                             )
                             if title
-                            else rx.markdown("Video Description")
+                            else markdown_with_shiki("Video Description")
                         ),
                         rx.spacer(),
                         rc.accordion_icon(color=f"{rx.color(color, 11)}"),
@@ -519,6 +520,10 @@ component_map = {
 }
 comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
+comp2["ul"] = lambda items: unordered_list_comp(items=items)
+comp2["ol"] = lambda items: ordered_list_comp(items=items)
+
+    
 
 xd = flexdown.Flexdown(
     block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
@@ -534,3 +539,21 @@ xd2.clear_modules()
 
 def markdown(text):
     return xd.get_default_block().render_fn(content=text)
+
+
+def markdown_with_shiki(*args, **kwargs):
+    """
+    Wrapper for the markdown component with a customized component map.
+    Uses the experimental Shiki-based code block (rx._x.code_block)
+    instead of the default CodeBlock component for code blocks.
+
+    Note: This wrapper should be removed once the default codeblock
+    in rx.markdown component map is updated to the Shiki-based code block.
+    """
+    return rx.markdown(
+        *args,
+        component_map={
+            "codeblock": lambda value, **props: rx._x.code_block(value, **props)
+        },
+        **kwargs
+    )

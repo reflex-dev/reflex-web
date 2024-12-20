@@ -31,32 +31,18 @@ rx.text('Hello World!', color='blue', font_size="1.5em")
 Here `"Hello World!"` is the child text to display, while `color` and `font_size` are props that modify the appearance of the text.
 
 ```md alert success
-Regular Python data types can be passed in as children to components.
-This is useful for passing in text, numbers, and other simple data types.
+# Regular Python data types can be passed in as children to components. This is useful for passing in text, numbers, and other simple data types.
 ```
 
 ## Another Example
 
-Now let's take a look at a more complex component, which has other components nested inside it. The `rx.vstack` component is a container that arranges its children vertically.
+Now let's take a look at a more complex component, which has other components nested inside it. The `rx.vstack` component is a container that arranges its children vertically with space between them.
 
 ```python demo
 rx.vstack(
-    rx.heading("Accordion"),
-    rx.accordion.root(
-    rx.accordion.item(
-        header="First Item",
-        content="The first accordion item's content",
-    ),
-    rx.accordion.item(
-        header="Second Item",
-        content="The second accordion item's content",
-    ),
-    rx.accordion.item(
-        header="Third item",
-        content="The third accordion item's content",
-    ),
-    width="300px",
-)
+    rx.heading("Sample Form"),
+    rx.input(placeholder="Name"),
+    rx.checkbox("Subscribe to Newsletter"),
 )
 ```
 
@@ -70,9 +56,9 @@ Styling props like `color` are shared across many components.
 
 ## Pages
 
-Reflex apps are organized into pages. Pages link a specific URL route to a component.
+Reflex apps are organized into pages, each of which maps to a different URL.
 
-You can create a page by defining a function that returns a component. By default, the function name will be used as the path, but you can also specify a path explicitly.
+Pages are defined as functions that return a component. By default, the function name will be used as the path, but you can also specify a route explicitly.
 
 ```python
 def index():

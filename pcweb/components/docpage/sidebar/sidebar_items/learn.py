@@ -1,3 +1,4 @@
+from pcweb.pages.docs import cloud_cliref
 from .item import create_item
 
 
@@ -42,14 +43,18 @@ def get_sidebar_items_frontend():
         wrapping_react,
         custom_components,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="User Interface Overview",
+            alt_name_for_next_prev="",
+            link=ui.overview.path
+        ),
         create_item(
             "Components",
             children=[
                 components.props,
-                components.style_props,
-                components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
                 components.html_to_reflex,
@@ -59,9 +64,8 @@ def get_sidebar_items_frontend():
         create_item(
             "Pages",
             children=[
-                pages.routes,
+                pages.overview,
                 pages.dynamic_routing,
-                pages.metadata,
             ],
         ),
         create_item(
@@ -78,7 +82,7 @@ def get_sidebar_items_frontend():
         create_item(
             "Assets",
             children=[
-                assets.referencing_assets,
+                assets.overview,
                 assets.upload_and_download_files,
             ],
         ),
@@ -115,8 +119,14 @@ def get_sidebar_items_backend():
         utility_methods,
         vars,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="State Overview",
+            alt_name_for_next_prev="",
+            link=state.overview.path
+        ),
         create_item(
             "Vars",
             children=[
@@ -191,11 +201,17 @@ def get_sidebar_items_hosting():
 
     items = [
         create_item(
-            "Reflex Deploy",
+            "Quick Start",
             children=[
                 hosting.deploy_quick_start,
-                hosting.hosting_cli_commands,
+                hosting.additional_concepts,
+                hosting.custom_domains,
+                hosting.deploy_with_github_actions,
             ],
+        ),
+        create_item(
+            "CLI Reference",
+            children=cloud_cliref.pages
         ),
         create_item(
             "Self Hosting",

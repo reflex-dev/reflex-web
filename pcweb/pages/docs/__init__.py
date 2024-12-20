@@ -21,6 +21,7 @@ from .library import library
 from .recipes_overview import overview
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
+from .cloud_cliref import pages as cloud_cliref_pages
 from pcweb.pages.library_previews import components_previews_pages
 
 
@@ -187,10 +188,14 @@ doc_routes = [
     custom_components,
     overview,
     *components_previews_pages,
-] + apiref_pages
+] + apiref_pages + cloud_cliref_pages
 
 
 for api_route in apiref_pages:
+    title = rx.utils.format.to_snake_case(api_route.title)
+    build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
+
+for api_route in cloud_cliref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 

@@ -3,7 +3,7 @@ from pcweb import constants
 from pcweb.templates.webpage import webpage
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
-
+from pcweb.flexdown import markdown_with_shiki
 
 def change(
     date: str, version: str, description: str, points: list[str], link: str
@@ -33,7 +33,7 @@ def change(
         rx.el.ul(
             *[
                 rx.el.li(
-                    rx.markdown(d, class_name="markdown-code"),
+                    markdown_with_shiki(d, class_name="markdown-code"),
                     class_name="font-small text-slate-11",
                 )
                 for d in points
@@ -47,6 +47,30 @@ def change(
 
 def changelog_content():
     return rx.el.ul(
+        change(
+            "2024-12-17",
+            "v0.6.7",
+            "Async DB support and improved DB connection pooling",
+            [
+                "Var operations support datetime values",
+                "Respect CORS for backend HTTP requests",
+                "Serialization performance improvements",
+                "Fix upload cancellation and props from state",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.7",
+        ),
+        change(
+            "2024-11-25",
+            "v0.6.6",
+            "Support Pydantic BaseModel (v1 & v2) objects in state",
+            [
+                "`reflex init` now links to templates on the web",
+                "New `.temporal` event action drops event when backend is down",
+                "Improved type checking",
+                "`rx.asset` promoted from experimental",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.6",
+        ),
         change(
             "2024-11-12",
             "v0.6.5",

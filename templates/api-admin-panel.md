@@ -1,10 +1,10 @@
 ---
-title: API Admin Panel
+title: api_admin_panel
 description: "Interactive dashboard for API requests and response visualization"
 author: "Reflex"
 image: "api-admin-panel.webp"
 demo: "https://api-admin-panel.reflex.run/"
-source: "https://github.com/reflex-dev/gallery-apps/tree/main/api-admin-panel"
+source: "https://github.com/reflex-dev/templates/tree/main/api_admin_panel"
 meta: [
     {"name": "keywords", "content": "admin panel, api admin panel, reflex admin panel"},
 ]

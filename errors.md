@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from pcweb.flexdown import markdown_with_shiki
 ```
 
 ```python exec
@@ -20,7 +21,7 @@ def h4_comp_error(text: rx.Var[str]) -> rx.Component:
 @rx.memo
 def code_block_error(code: str):
     return rx.box(
-        rx.code_block(
+        rx._x.code_block(
             code,
             language="python",
             class_name="code-block !bg-slate-1",
@@ -30,7 +31,7 @@ def code_block_error(code: str):
 
 @rx.memo
 def markdown_error(text: str):
-    return rx.markdown(
+    return markdown_with_shiki(
         text,
         class_name="font-small text-slate-11 text-start markdown-code",
     )
@@ -191,3 +192,16 @@ error_message(
     error_type="Python Error",
 )
 ```
+
+
+```python eval
+error_message(
+    heading="ImportError: couldn't import psycopg",
+    error_code="ImportError: couldn't import psycopg 'python' implementation: libpq library not found | couldn't import psycopg 'binary' implementation: No module named 'psycopg_binary' | couldn't import psycopg 'c' implementation: No module named 'psycopg_c'",
+    solution=[
+        h4_comp_error(text="This is caused by not installing the correct psycopg package. Solution is to add the `psycopg[binary]==3.2.3` package to your requirements.txt file."),
+    ],
+    error_type="Import Error",
+)
+```
+

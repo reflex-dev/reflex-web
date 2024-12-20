@@ -1,13 +1,14 @@
 ---
-title: DALL-E
+title: dalle
 description: "DALL-E is a Reflex app for generating images using OpenAI's API"
 author: "Reflex"
 image: "dalle.webp"
 demo: "https://dalle.reflex.run/"
-source: "https://github.com/reflex-dev/reflex-examples/tree/main/dalle"
+source: "https://github.com/reflex-dev/templates/tree/main/dalle"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+template: "dalle"
 ---
 
 In this example we create a simple app for generating images using OpenAI's API.
@@ -17,8 +18,7 @@ In this example we create a simple app for generating images using OpenAI's API.
 To run this app locally, install Reflex and run:
 
 ```bash
-git clone https://github.com/reflex-dev/reflex-examples.git
-cd reflex-examples/ci-job
+reflex init --template dalle
 ```
 
 Set up your OpenAI API key:

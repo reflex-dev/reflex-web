@@ -1,7 +1,7 @@
 email-validator==2.1.1
 black==23.10.0
 pandas>=1.5.3
-psycopg2-binary==2.9.9
+psycopg[binary]==3.2.3
 plotly-express==0.4.1
 googletrans-py==4.0.0
 typesense==0.14.0
@@ -13,6 +13,6 @@ mistletoe>=1.2.1
 reflex-image-zoom>=0.0.2
 reflex-chat==0.0.2a1
 reflex_type_animation==0.0.1
-reflex-ag-grid==0.0.8a1
+reflex-ag-grid==0.0.10
 replicate==0.32.1
 reflex-pyplot==0.1.3

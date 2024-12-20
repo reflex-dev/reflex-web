@@ -196,12 +196,16 @@ def customers_list() -> rx.Component:
         filtering_tags(),
         # Customers list
         rx.box(
+            # Bayesline
+            customers_list_item("Bayesline", "/customers/bayesline", "Fintech", True),
+            # Ansa
+            customers_list_item("Ansa", "/customers/ansa", "AI", True),
+            # Seller X
+            customers_list_item("SellerX", "/customers/sellerx", "AI", True),
             # Dell
-            customers_list_item("Dell", "https://www.dell.com/", "SaaS"),
+            customers_list_item("Dell", "https://www.dell.com/", "Dev Tools"),
             # AutoDesk
             customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
-            # Bayesline
-            customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
             # Your company
             your_company_item("Your company", getting_started.introduction.path, ""),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",

@@ -1,10 +1,10 @@
 ---
-title: Chat App
+title: reflex-chat
 description: "Real-time chat application with multiple rooms using Reflex and ChatGPT"
 author: "Reflex"
 image: "chat-app.webp"
 demo: "https://chat.reflex.run/"
-source: "https://github.com/reflex-dev/reflex-examples/tree/main/gpt/gpt"
+source: "https://github.com/reflex-dev/reflex-chat"
 meta: [
     {"name": "keywords", "content": ""},
 ]
@@ -18,16 +18,12 @@ The following is a python chat app. It is 100% Python-based, including the UI, a
 To run this app locally, install Reflex and run:
 
 ```bash
-git clone https://github.com/reflex-dev/reflex-chat.git
-```
-
-```bash
-cd reflex-chat
+reflex init --template reflex-chat
 ```
 
 Set up your OpenAI API key:
 ```bash
-export OPEN_AI_KEY=your-openai-api-key
+export OPENAI_API_KEY=your-openai-api-key
 ```
 
 Install the dependencies and run the app:

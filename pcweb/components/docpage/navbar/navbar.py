@@ -21,7 +21,7 @@ from .search import search_bar
 
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
-from pcweb.pages.pricing import pricing
+from pcweb.pages.pricing.pricing import pricing
 from pcweb.pages.errors import errors
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
@@ -31,7 +31,7 @@ from pcweb.components.hosting_banner import hosting_banner
 from pcweb.pages.blog.paths import blog_data
 
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL
+from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL, REFLEX_CLOUD_URL
 
 
 def resource_item(text: str, url: str, icon: str):
@@ -324,7 +324,10 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             nav_menu.item(
-                link_item("Pricing", pricing.path, "pricing"),
+                link_item("Hosting", "/hosting", "hosting"),
+            ),
+            nav_menu.item(
+                link_item("Pricing", "/pricing", "pricing"),
             ),
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
@@ -350,7 +353,8 @@ def new_component_section() -> rx.Component:
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
-                    href=hosting.deploy_quick_start.path,
+                    is_external=True,
+                    href=REFLEX_CLOUD_URL,
                 ),
                 class_name="desktop-only",
             ),

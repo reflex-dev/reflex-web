@@ -1,48 +1,11 @@
 from __future__ import annotations
 
-import contextlib
 from typing import Any
 
-import httpx
 import reflex as rx
-from email_validator import EmailNotValidError, validate_email
-
 from pcweb.components.button import button
 from pcweb.components.icons import get_icon
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL
-
-
-class FormState(rx.State):
-    @rx.event
-    def submit(
-        self,
-        form_data: dict[str, Any],
-    ):
-        def submit_form() -> None:
-            nonlocal form_data
-            email: str | None
-            if email := form_data.get("input_email"):
-                validated_email: str | None = None
-                with contextlib.suppress(EmailNotValidError):
-                    validated_email = validate_email(
-                        email,
-                        check_deliverability=True,
-                    )
-
-                if validated_email is None:
-                    return
-
-                with contextlib.suppress(httpx.HTTPError) and httpx.Client() as client:
-                    response = client.post(
-                        REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL,
-                        json=form_data,
-                    )
-                    response.raise_for_status()
-
-                return
-
-        submit_form()
-        return rx.toast(form_data)
+from pcweb.signup import IndexState
 
 
 def form() -> rx.Component:
@@ -55,11 +18,11 @@ def form() -> rx.Component:
                 ),
                 rx.box(
                     rx.text(
-                        "Send us a message",
+                        "Join Newsletter",
                         class_name="font-md-smbold text-slate-12 leading-6",
                     ),
                     rx.text(
-                        "Fill the form and we’ll back to you shortly.",
+                        "Get the latest updates and news about Reflex.",
                         class_name="font-small text-slate-9",
                     ),
                     class_name="flex flex-col gap-1",
@@ -116,7 +79,7 @@ def form() -> rx.Component:
                 type="submit",
                 class_name="!w-full !bg-slate-5 !border-t-[rgba(255,255,255,0.05)] !rounded-[0.625rem] hover:!bg-slate-6 !text-slate-9",
             ),
-            on_submit=FormState.submit,
+            on_submit=IndexState.signup,
             class_name="flex flex-col gap-4 border-slate-4 bg-[#F9F9FB] dark:bg-[#222326] p-6 border rounded-[1rem] w-full lg:shadow-large",
         ),
         class_name="flex items-center p-4 lg:px-10 lg:py-12 h-full overflow-hidden",
@@ -137,9 +100,9 @@ def form() -> rx.Component:
             rx.hstack(
                 rx.image(src="/envelope.png"),
                 rx.vstack(
-                    rx.heading("Send us a message"),
+                    rx.heading("Join Newsletter"),
                     rx.text(
-                        "Fill the form and we’ll back to you shortly.",
+                        "Get the latest updates and news about Reflex.",
                     ),
                 ),
             ),

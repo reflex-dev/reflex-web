@@ -1,7 +1,7 @@
 import reflex as rx
 
 
-def card(company: str, text: str) -> rx.Component:
+def card(company: str, text: str, class_name: str = "") -> rx.Component:
     return rx.link(
         # Top-Left corner company logo
         rx.image(
@@ -11,7 +11,7 @@ def card(company: str, text: str) -> rx.Component:
             ),
             alt=f"{company} logo",
             loading="lazy",
-            class_name="absolute top-10 left-10 z-[2]",
+            class_name="absolute top-10 left-10 z-[2] max-h-[32px]",
         ),
         # Center company logo
         rx.image(
@@ -21,7 +21,7 @@ def card(company: str, text: str) -> rx.Component:
             ),
             alt=f"{company} small logo",
             loading="lazy",
-            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2]",
+            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px]",
         ),
         # Wave pattern
         rx.html(
@@ -67,7 +67,7 @@ def card(company: str, text: str) -> rx.Component:
             class_name="absolute bottom-10 right-10 items-center gap-2 desktop-only",
         ),
         href=f"/customers/{company.lower()}",
-        class_name="rounded-[1.125rem] border border-solid border-slate-4 bg-slate-2 p-10 overflow-hidden relative h-[23.25rem] lg:shadow-large group",
+        class_name="rounded-[1.125rem] border border-solid border-slate-4 bg-slate-2 p-10 overflow-hidden relative h-[23.25rem] lg:shadow-large group" + class_name,
     )
 
 
@@ -93,5 +93,16 @@ def bento_cards() -> rx.Component:
             company="bayesline",
             text="Why Basyesline Chose Reflex over Plotly Dash",
         ),
-        class_name="grid grid-cols-1 lg:grid-cols-1 gap-4 mx-auto w-full max-w-[69.25rem]",
+        # Ansa
+        card(
+            company="ansa",
+            text="Why Ansa chose Reflex over a no-code/low-code framework for their workflow automations",
+        ),
+        # Seller X
+        card(
+            company="sellerx",
+            text="Why SellerX chose Reflex over Streamlit for their data processing pipeline",
+            class_name=" col-span-2",
+        ),
+        class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
     )

@@ -148,7 +148,7 @@ So far, we've defined state vars but we haven't shown how to change them. All st
 Event handlers are the ONLY way to change state in Reflex.
 ```
 
-Components have special props called event triggers, such as `on_click`, called event triggers, that can be used to make components interactive. Event triggers connect components to event handlers, which update the state.
+Components have special props, such as `on_click`, called event triggers that can be used to make components interactive. Event triggers connect components to event handlers, which update the state.
 
 ```python demo exec
 class CounterState(rx.State):
