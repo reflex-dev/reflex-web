@@ -715,7 +715,7 @@ Next let's add a form to the app so we can add new users to the table.
 
 ## Using a Form to Add Data 
 
-We build a form using `rx.form`, whick takes several components such as `rx.input` and `rx.select`, which represent the form fields that allow you to add information to submit with the form. Check out the [form]({docs.library.forms.form.path}) docs for more information on form components.
+We build a form using `rx.form`, which takes several components such as `rx.input` and `rx.select`, which represent the form fields that allow you to add information to submit with the form. Check out the [form]({docs.library.forms.form.path}) docs for more information on form components.
 
 The `rx.input` component takes in several props. The `placeholder` prop is the text that is displayed in the input field when it is empty. The `name` prop is the name of the input field, which gets passed through in the dictionary when the form is submitted. The `required` prop is a boolean that determines if the input field is required.
 
@@ -1552,7 +1552,7 @@ One thing you may have noticed about your app is that the graph does not appear 
 
 At the beginning of this tutorial we mentioned that the `app.add_page` function is required for every Reflex app. This function is used to add a component to a page. 
 
-The `app.add_page` currently looks like this `app.add_page(index)`. We could change the route that the page renders on by setting the `route` prop such as `route="/custom-route"`, thos would change the route to `http://localhost:3000/custom-route` for this page.
+The `app.add_page` currently looks like this `app.add_page(index)`. We could change the route that the page renders on by setting the `route` prop such as `route="/custom-route"`, this would change the route to `http://localhost:3000/custom-route` for this page.
 
 We can also set a `title` to be shown in the browser tab and a `description` as shown in search results. 
 

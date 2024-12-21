@@ -12,7 +12,7 @@ and optional catch-all routes, each with detailed examples.
 
 ## Regular Dynamic Routes
 
-Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically. A regular dynamic route is defined by sqaure brackets in a route string / url pattern. For example `/users/[id]` or `/products/[category]`. These dynamic route arguments can be accesed through a state var. For the examples above they would be `rx.State.id` and `rx.State.category` respectively. 
+Regular dynamic routes in Reflex allow you to match specific segments in a URL dynamically. A regular dynamic route is defined by square brackets in a route string / url pattern. For example `/users/[id]` or `/products/[category]`. These dynamic route arguments can be accessed through a state var. For the examples above they would be `rx.State.id` and `rx.State.category` respectively. 
 
 ```md alert info
 # Why is the state var accessed as `rx.State.id`?

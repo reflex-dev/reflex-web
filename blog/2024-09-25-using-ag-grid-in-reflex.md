@@ -56,7 +56,7 @@ Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) a
 ## What is AG Grid?
 
 [AG Grid](https://www.ag-grid.com) is a feature-rich data grid library designed for displaying and manipulating tabular data in web applications.
-With over a million monthly downloads, and 90% of the Fortune 500 comapnies using it, it's a leading solution for working with tabular data.
+With over a million monthly downloads, and 90% of the Fortune 500 companies using it, it's a leading solution for working with tabular data.
 AG Grid offers a wide array of functionalities including:
 
 - In-place cell editing

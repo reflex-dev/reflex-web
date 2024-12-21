@@ -52,7 +52,7 @@ The Microsoft Authentication Library (MSAL) for Python library enables you to si
 
 The values you should get from your Azure portal / SSO team at your company are `client_id`, `client_secret`, and `tenant_id`. These values are unique to your application and company.
 
-It is recommended to retrive these values from environment variables or from a configuration file (they are just hardcoded for the example for simplicity).
+It is recommended to retrieve these values from environment variables or from a configuration file (they are just hardcoded for the example for simplicity).
 
 Next we have to set the `sso_app` variable, which is the client application that will be used to authenticate users.
 

@@ -142,7 +142,7 @@ rx.accordion.root(
 ### Orientation
 
 We use `orientation` prop to set the orientation of the accordion to `vertical` or `horizontal`. By default, the orientation
-will be set to `vertical`. Note that, the orientation prop wont change the visual orientation but the
+will be set to `vertical`. Note that, the orientation prop won't change the visual orientation but the
 functional orientation of the accordion. This means that for vertical orientation, the up and down arrow keys moves focus between the next or previous item,
 while for horizontal orientation, the left or right arrow keys moves focus between items.
 

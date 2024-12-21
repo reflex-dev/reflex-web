@@ -235,7 +235,7 @@ class Person:
 
 In this example we sort and filter the data.
 
-The state variable `_people` is set to be a [backend-only variable]({vars.base_vars.path}). This is done incase the variable is very large in order to reduce network traffic and improve performance.
+The state variable `_people` is set to be a [backend-only variable]({vars.base_vars.path}). This is done in case the variable is very large in order to reduce network traffic and improve performance.
 
 For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Person` class. When a `select` item is selected, as the `on_change` event trigger is hooked up to the `set_sort_value` event handler, the data is sorted based on the state variable `sort_value` attribute selected. (Every base var has a [built-in event handler to set]({events.setters.path}) it's value for convenience, called `set_VARNAME`.)
 
