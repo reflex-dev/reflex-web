@@ -12,12 +12,9 @@ from pcweb.whitelist import _check_whitelisted_path
 from pcweb.telemetry import get_pixel_website_trackers
 from pcweb.meta.meta import favicons_links
 
-
-
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
 WINDOWS_MAX_ROUTES = int(os.environ.get("REFLEX_WEB_WINDOWS_MAX_ROUTES", "100"))
-
 
 # Execute all the exec blocks in the documents.
 for doc, href in outblocks:
@@ -51,10 +48,6 @@ app = rx.App(
     ],
 )
 
-
-
-
-
 # XXX: The app is TOO BIG to build on Windows, so explicitly disallow it except for testing
 if sys.platform == "win32":
     if not os.environ.get("REFLEX_WEB_WINDOWS_OVERRIDE"):
@@ -63,7 +56,6 @@ if sys.platform == "win32":
             "subset of pages for testing, set environment variable REFLEX_WEB_WINDOWS_OVERRIDE."
         )
     routes = routes[:WINDOWS_MAX_ROUTES]
-
 
 # Add the pages to the app.
 for route in routes:
