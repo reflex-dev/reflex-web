@@ -22,7 +22,7 @@ This is useful for creating a backend API that can be used for purposes other th
 
 ## Reserved Routes
 
-Some routes on the backend are reserved for the runtime of Reflex, and should not be overriden unless you know what you are doing.
+Some routes on the backend are reserved for the runtime of Reflex, and should not be overridden unless you know what you are doing.
 
 ## Ping
 

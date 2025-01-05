@@ -30,7 +30,7 @@ faq_items = [
         ),
     },
     {
-        "Q": "Whats the status on hosting?",
+        "Q": "What's the status on hosting?",
         "A": rx.text(
             "Our hosting service is in alpha! See more details in our ",
             doclink("deployment guide", href=hosting.deploy_quick_start.path),

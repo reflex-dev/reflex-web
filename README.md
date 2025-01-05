@@ -69,7 +69,7 @@ Below are some good ways to get started in the Reflex community.
  - **Join our Discourse**: Our [forum](https://forum.reflex.dev/) is a great way to talk about features you want added or things that are confusing/need clarification.
  - **GitHub Issues**: [Issues](https://github.com/reflex-dev/reflex/issues) are an excellent way to report bugs. Additionally, you can try and solve an existing issue and submit a PR.
 
-We are actively looking for contributors, no matter your skill level or experience. To contribute check out [CONTIBUTING.md](https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md)
+We are actively looking for contributors, no matter your skill level or experience. To contribute check out [CONTRIBUTING.md](https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md)
 
 ## License
 

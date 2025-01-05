@@ -17,7 +17,7 @@ When we see `useState` in React code, it correlates to state variables in your S
 
 Moving to line `26` we see that the `AgCharts` has a prop `options`. In order to use this in Reflex we must wrap this prop. We do this with `options: rx.Var[dict]` in the `AgCharts` component. 
 
-Lines `31` and `32` are rendering the component inside the root element. This can be ingored when we are wrapping a component as it is done in Reflex by creating an `index` function and adding it to the app.
+Lines `31` and `32` are rendering the component inside the root element. This can be ignored when we are wrapping a component as it is done in Reflex by creating an `index` function and adding it to the app.
 
 
 ---md tabs

@@ -83,7 +83,7 @@ Additionally you can modify the theme of your app through using the `Theme Panel
 
 On a high-level, component `color_scheme` inherits from the color specified in the theme. This means that if you change the theme, the color of the component will also change. Available colors can be found [here](https://www.radix-ui.com/colors).
 
-You can also specifiy the `color_scheme` prop.
+You can also specify the `color_scheme` prop.
 
 ```python demo
 rx.flex(

@@ -36,7 +36,7 @@ rx.match(
 
 - `condition`: The value to match against.
 - `(case_i, component_i)`: A Tuple of matching cases and their corresponding return components.
-- `default_component`: A special case for the default component when the condition isnt matched by any of the match cases.
+- `default_component`: A special case for the default component when the condition isn't matched by any of the match cases.
 
 Example
 

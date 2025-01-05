@@ -56,7 +56,7 @@ In your project directory (where you would normally run `reflex run`) paste this
 The command is by default interactive. It asks you a few questions for information required for the deployment.
 
 
-1. The first question will compare your `requirements.txt` to your python environment and if they are different then it will ask you if you want to update your `requirements.txt` or to continue with the current one. If they are identical this queston will not appear. To create a `requirements.txt` file, run `pip freeze > requirements.txt`.
+1. The first question will compare your `requirements.txt` to your python environment and if they are different then it will ask you if you want to update your `requirements.txt` or to continue with the current one. If they are identical this question will not appear. To create a `requirements.txt` file, run `pip freeze > requirements.txt`.
 2. The second question will search for a deployed app with the name of your current app, if it does not find one then it will ask if you wish to proceed in deploying your new app.
 3. The third question is optional and will ask you for an app description.
 
