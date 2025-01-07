@@ -21,34 +21,36 @@ class HostingBannerState(rx.State):
 def hosting_banner() -> rx.Component:
     return rx.cond(
         HostingBannerState.show_banner,
-        rx.link(
-            rx.box(
+        rx.hstack(
+            rx.link(
                 rx.box(
-                    rx.text(
-                        "Reflex Cloud - ",
-                        rx.el.span(
-                            "Fast, secure & scalable hosting. One command to deploy.",
-                            class_name="text-slate-12 font-medium text-sm",
+                    rx.box(
+                        rx.text(
+                            "Reflex Cloud - ",
+                            rx.el.span(
+                                "Fast, secure & scalable hosting. One command to deploy.",
+                                class_name="text-slate-12 font-medium text-sm",
+                            ),
+                            class_name="text-slate-12 font-semibold text-sm z-[1]",
                         ),
-                        class_name="text-slate-12 font-semibold text-sm z-[1]",
+                        rx.el.button(
+                            "Live Now!",
+                            class_name="text-green-11 h-[1.5rem] rounded-md bg-green-4 px-1.5 text-sm font-semibold z-[1] items-center justify-center shrink-0",
+                        ),
+                        class_name="flex items-center gap-4",
                     ),
-                    rx.el.button(
-                        "Live Now!",
-                        class_name="text-green-11 h-[1.5rem] rounded-md bg-green-4 px-1.5 text-sm font-semibold z-[1] items-center justify-center shrink-0",
-                    ),
-                    class_name="flex items-center gap-4",
                 ),
+                glow(),
+                href=REFLEX_CLOUD_URL,
+                underline="none",
+                is_external=True,
             ),
             rx.icon(
                 "x",
                 on_click=HostingBannerState.hide_banner,
                 size=16,
-                class_name="z-[1] cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4",
+                class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
             ),
-            glow(),
-            href=REFLEX_CLOUD_URL,
-            underline="none",
-            is_external=True,
             class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
         ),
     )

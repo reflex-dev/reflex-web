@@ -1,19 +1,20 @@
-# A list of whitelist paths that should be built.  
-# If the list is empty, all pages will be built.    
- 
+# A list of whitelist paths that should be built.
+# If the list is empty, all pages will be built.
+
 # Tips:
-# - Ensure that the path starts with a forward slash '/'. 
+# - Ensure that the path starts with a forward slash '/'.
 # - Do not include a trailing slash '/' at the end of the path.
 
 # Examples:
-# - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"] 
+# - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
 # - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = [] 
+WHITELISTED_PAGES = []
+
 
 def _check_whitelisted_path(path):
     if len(WHITELISTED_PAGES) == 0:
-        return True 
+        return True
 
     # If the path is the root, always build it.
     if path == "/":
@@ -21,7 +22,7 @@ def _check_whitelisted_path(path):
 
     if len(WHITELISTED_PAGES) == 1 and WHITELISTED_PAGES[0] == "/":
         return False
- 
+
     for whitelisted_path in WHITELISTED_PAGES:
         if path.startswith(whitelisted_path):
             return True
