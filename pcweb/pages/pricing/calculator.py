@@ -162,7 +162,6 @@ def pricing_widget() -> rx.Component:
                 rx.box(
                     rx.segmented_control.root(
                         rx.segmented_control.item("Pro", value="Pro"),
-                        rx.segmented_control.item("Team", value="Team"),
                         on_change=BillingState.change_plan,
                         default_value="Pro",
                         width="100%",
