@@ -20,6 +20,11 @@ class BillingState(rx.State):
     cpu_rate: float = 0.000463
     mem_rate: float = 0.000231
 
+    # Included in the price
+    included_cpu: int = 1
+    included_ram: int = .5
+    included_seats: int = 1
+
     # Estimated numbers for the widget calculator
     estimated_cpu_number: int = 1
     estimated_ram_gb: int = 1
@@ -30,14 +35,14 @@ class BillingState(rx.State):
         if self.selected_plan == Tiers.PRO.value:
             return 20
         elif self.selected_plan == Tiers.TEAM.value:
-            return 29
+            return 50
 
     @rx.var(cache=True)
     def max_seats(self) -> int:
         if self.selected_plan == Tiers.PRO.value:
             return 5
         elif self.selected_plan == Tiers.TEAM.value:
-            return 15
+            return 25
 
     @rx.var(cache=True)
     def max_cpu(self) -> int:
@@ -57,12 +62,19 @@ class BillingState(rx.State):
     def change_plan(self, plan: str) -> None:
         self.selected_plan = plan
         if plan == Tiers.PRO.value:
-            if self.estimated_cpu_number > 5:
-                self.estimated_cpu_number = 5
-            if self.estimated_ram_gb > 10:
-                self.estimated_ram_gb = 10
-            if self.estimated_seats > 5:
-                self.estimated_seats = 5
+            self.included_cpu = 1
+            self.included_ram = .5
+            self.included_seats = 1
+            # Enforce Pro tier limits
+            self.estimated_cpu_number = min(self.estimated_cpu_number, 5)
+            self.estimated_ram_gb = min(self.estimated_ram_gb, 10)
+            self.estimated_seats = min(self.estimated_seats, 5)
+        else:
+            self.included_cpu = 2
+            self.included_ram = 3
+            self.included_seats = 5
+            # Enforce Team tier minimum seats
+            self.estimated_seats = max(5, self.estimated_seats)
 
 
 def calculator(text: str, component: rx.Component, total: str) -> rx.Component:
@@ -144,13 +156,28 @@ def stepper(
 def pricing_widget() -> rx.Component:
     return rx.box(
         rx.box(
+            # Tier
+            calculator(
+                "Tier",
+                rx.box(
+                    rx.segmented_control.root(
+                        rx.segmented_control.item("Pro", value="Pro"),
+                        rx.segmented_control.item("Team", value="Team"),
+                        on_change=BillingState.change_plan,
+                        default_value="Pro",
+                        width="100%",
+                    ),
+                    class_name="flex flex-row pt-2 !w-[8.5rem] !h-[2.25rem] mb-2",
+                ),  
+                "",
+            ),
             # Team seats
             calculator(
                 "Members",
                 stepper(
                     BillingState.estimated_seats,
                     default_value="1",
-                    min_value=1,
+                    min_value=BillingState.included_seats,
                     max_value=BillingState.max_seats,
                     on_click_decrement=BillingState.setvar(
                         "estimated_seats", (BillingState.estimated_seats - 1)
@@ -201,10 +228,11 @@ def pricing_widget() -> rx.Component:
         rx.center(
             rx.flex(
                 rx.badge(
-                    f"Total: ${calculate_total()}/month",
+                    rx.text.strong(f"Total: ${calculate_total()}/mo"),
+                    "(includes free compute credits for tiers)",
+                    size='3',
                 ),
-                size='3',
-                    class_name="mt-6",
+                class_name="mt-6",
                 )
         ),
         class_name="flex-1 flex flex-col relative h-full w-full max-w-[25rem] pb-2.5 z-[2]",
@@ -212,28 +240,53 @@ def pricing_widget() -> rx.Component:
 
 
 def calculate_total():
-    return round(
-        BillingState.estimated_seats * BillingState.seat_rate
-        + BillingState.estimated_ram_gb * (BillingState.mem_rate * MONTH_MINUTES)
-        + BillingState.estimated_cpu_number * (BillingState.cpu_rate * MONTH_MINUTES)
-        - 25
+    # Base price using rx.cond
+    base_price = rx.cond(
+        BillingState.selected_plan == Tiers.PRO.value,
+        20,
+        250
     )
+    
+    # Calculate additional seats cost
+    additional_seats = rx.cond(
+        (BillingState.estimated_seats - BillingState.included_seats) > 0,
+        BillingState.estimated_seats - BillingState.included_seats,
+        0
+    )
+    seat_cost = additional_seats * BillingState.seat_rate
+    
+    # Calculate compute costs (CPU and RAM)
+    compute_credits = rx.cond(
+        BillingState.selected_plan == Tiers.PRO.value,
+        20,
+        50
+    )
+    compute_cost = (
+        (BillingState.estimated_ram_gb - BillingState.included_ram) * (BillingState.mem_rate * MONTH_MINUTES) +
+        (BillingState.estimated_cpu_number - BillingState.included_cpu) * (BillingState.cpu_rate * MONTH_MINUTES)
+    )
+    
+    # Use rx.cond for the max operation
+    compute_cost_after_credits = rx.cond(
+        compute_cost - compute_credits > 0,
+        compute_cost - compute_credits,
+        0
+    )
+    
+    total = base_price + seat_cost + compute_cost_after_credits
+    return round(total)
 
 
 def header() -> rx.Component:
     return rx.box(
         rx.el.h3(
-            "Calculate costs.",
+            "Cost Estimate",
             class_name="text-slate-12 text-3xl font-semibold text-center",
             id="calculator-header",
         ),
         rx.el.p(
-            "Simply usage based pricing.",
-            class_name="text-slate-9 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "We subtract the hobby tier free CPU and RAM from your usage.",
-            class_name="text-slate-9 text-md font-medium text-center mt-2",
+            "Get a price estimate for your organization.",
+            class_name="text-slate-9 text-2xl font-semibold text-center",
         ),
         class_name="flex items-center mb-5 justify-between text-slate-11 flex-col pt-[5rem] mx-auto w-full",
     )
