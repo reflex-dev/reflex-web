@@ -20,11 +20,6 @@ class BillingState(rx.State):
     cpu_rate: float = 0.000463
     mem_rate: float = 0.000231
 
-    # Included in the price
-    included_cpu: int = 1
-    included_ram: int = .5
-    included_seats: int = 1
-
     # Estimated numbers for the widget calculator
     estimated_cpu_number: int = 1
     estimated_ram_gb: int = 1
@@ -162,6 +157,7 @@ def pricing_widget() -> rx.Component:
                 rx.box(
                     rx.segmented_control.root(
                         rx.segmented_control.item("Pro", value="Pro"),
+                        #rx.segmented_control.item("Team (coming soon)", value="Team"),
                         on_change=BillingState.change_plan,
                         default_value="Pro",
                         width="100%",
@@ -176,7 +172,7 @@ def pricing_widget() -> rx.Component:
                 stepper(
                     BillingState.estimated_seats,
                     default_value="1",
-                    min_value=BillingState.included_seats,
+                    min_value=1,
                     max_value=BillingState.max_seats,
                     on_click_decrement=BillingState.setvar(
                         "estimated_seats", (BillingState.estimated_seats - 1)
@@ -227,8 +223,9 @@ def pricing_widget() -> rx.Component:
         rx.center(
             rx.flex(
                 rx.badge(
-                    rx.text.strong(f"Total: ${calculate_total()}/mo"),
-                    "(includes free compute credits for tiers)",
+                    f"Total: ${calculate_total()}- $20 free credits = ",
+                    rx.text.strong(f"${calculate_total()-20}/mo"),
+                   
                     size='3',
                 ),
                 class_name="mt-6",
@@ -248,31 +245,18 @@ def calculate_total():
     
     # Calculate additional seats cost
     additional_seats = rx.cond(
-        (BillingState.estimated_seats - BillingState.included_seats) > 0,
-        BillingState.estimated_seats - BillingState.included_seats,
+        BillingState.estimated_seats > 1,
+        BillingState.estimated_seats - 1,
         0
     )
     seat_cost = additional_seats * BillingState.seat_rate
     
-    # Calculate compute costs (CPU and RAM)
-    compute_credits = rx.cond(
-        BillingState.selected_plan == Tiers.PRO.value,
-        20,
-        50
-    )
     compute_cost = (
-        (BillingState.estimated_ram_gb - BillingState.included_ram) * (BillingState.mem_rate * MONTH_MINUTES) +
-        (BillingState.estimated_cpu_number - BillingState.included_cpu) * (BillingState.cpu_rate * MONTH_MINUTES)
+        (BillingState.estimated_ram_gb) * (BillingState.mem_rate * MONTH_MINUTES) +
+        (BillingState.estimated_cpu_number) * (BillingState.cpu_rate * MONTH_MINUTES)
     )
     
-    # Use rx.cond for the max operation
-    compute_cost_after_credits = rx.cond(
-        compute_cost - compute_credits > 0,
-        compute_cost - compute_credits,
-        0
-    )
-    
-    total = base_price + seat_cost + compute_cost_after_credits
+    total = base_price + seat_cost + compute_cost
     return round(total)
 
 

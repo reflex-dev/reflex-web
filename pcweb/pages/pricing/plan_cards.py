@@ -230,7 +230,7 @@ def plan_cards() -> rx.Component:
             [
                 ("heart-handshake", "Community support"),
                 ("app-window", "1 app included", "Free apps shutdown after 1 hour of inactivity, and are restarted on demand (usually within a few seconds)."),
-                ("clock", "1 days log retention"),
+                ("clock", "1 day log retention"),
                 ("code", "Open Source Framework"),
                 ("file-code", "Starter Templates"),
             ],
