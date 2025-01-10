@@ -49,6 +49,20 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-01-10",
+            "v0.6.8",
+            "Support recursive UI elements with rx.memo",
+            [
+                "New `EventChain.create` API for working with event handlers in JS code",
+                "New `State.get_var_value` API for accessing the value of a var from another state",
+                "String Var now supports `.endswith`",
+                "Fix `rx.get_upload_url` with `rx.download`",
+                "Fix for detached session issues with async SQLAlchemy",
+                "124 new icons added from Lucide 0.469.0",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.8",
+        ),
+        change(
             "2024-12-17",
             "v0.6.7",
             "Async DB support and improved DB connection pooling",
