@@ -6,6 +6,7 @@ from pcweb.constants import REFLEX_CLOUD_URL
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
     "header_cell": "text-slate-12 font-semibold text-lg",
+    "header_cell_sub": "text-slate-11 font-semibold text-md",
     "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
     "button_base": "!text-sm !font-semibold w-full text-nowrap",
 }
@@ -32,27 +33,16 @@ TABLE_STYLE = """
 }
 """
 
-# Data configuration
-USERS_SECTION = [
-    ("Per Seat Price", "Free", "$20/mo/user", "Contact Sales", "Contact Sales"),
-    ("User Limit", "1", "5", "25", "Unlimited"),
-]
-
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
-    ("Starter Templates", True, True, True, True),
-    ("Enterprise Templates", False, False, True, True),
+    ("Templates", True, True, True, True),
     ("One Click Auth", False, False, True, True),
     ("Embed Reflex Apps", False, False, True, True),
     ("Built-in Testing", False, False, True, True),
 ]
 
-THEME_SECTION = [("Theming", "Builtin Themes", "Builtin Themes", "Custom Themes", "Custom Themes")]
-
 REFLEX_AI_SECTION = [
-    ("Flexgen Website Builder", "5/day", "20/day", "100/day", "Custom"),
-    ("Full-Stack AI Agent", "5/day", "50/day", "250/day", "Custom"),
-    ("AI Assistant / Debugger", "5/day", "50/day", "250/day", "Custom"),
+    ("Number of Generations", "5/month", "100/month/seat", "250/month/seat", "Custom"),
 ]
 
 DATABASE_SECTION = [
@@ -64,13 +54,13 @@ DATABASE_SECTION = [
 HOSTING_TEXT_SECTION = [
     ("Compute Limits", "1 CPU, .5GB", "5 CPU, 10GB", "Custom", "Custom"),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
-    ("Custom Domains", "None", "1", "5", "Unlimited"),
     ("Build logs", "7 day", "30 days", "90 days", "Custom"),
     ("Runtime logs", "1 day", "7 days", "30 days", "Custom"),
 ]
 
 HOSTING_BOOLEAN_SECTION = [
     ("CLI Deployments", True, True, True, True),
+    ("Custom Domains", False, True, True, True),
     ("Automatic CI / CD Deploy (Github)", False, False, True, True),
     ("Secrets", True, True, True, True),
     ("Secret Manager", False, False, True, True),
@@ -90,11 +80,11 @@ SECURITY_SECTION = [
     ("Rich Permissions Control", False, False, True, True),
     ("Connect to Analytics Vendors", False, False, True, True),
     ("Audit Logs", False, False, False, True),
-    ("Custom SSO", False, False, False, True),
+    ("SSO", False, False, False, True),
 ]
 
 SUPPORT_TEXT_SECTION = [
-    ("Support", "Community", "Community", "Email Support", "Dedicated Support")
+    ("Support", "Community", "Community", "Email/Slack", "Dedicated Support")
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
@@ -154,15 +144,18 @@ def create_table_row(cells: list) -> rx.Component:
     row_cells = [create_table_cell(cell) for cell in cells]
     return rx.table.row(
         *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[56px]",
+        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px]",
     )
 
 
-def create_table_row_header(cells: list, coming_soon: bool = False) -> rx.Component:
+def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Component:
     return rx.table.row(
         *[
-            rx.table.column_header_cell(cell, rx.badge("coming soon", margin_left="0.5rem"), class_name=STYLES["header_cell"])  if cell and coming_soon else rx.table.column_header_cell(cell, class_name=STYLES["header_cell"]) 
-            for cell in cells
+            rx.table.column_header_cell(name, rx.badge("coming soon", margin_left="0.5rem"), class_name=STYLES["header_cell"])  if coming_soon else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]),
+            rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
+            rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
+            rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
+            rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"])
         ],
         class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative",
         padding_x="5rem !important",
@@ -223,15 +216,8 @@ def table_body_hosting() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header(["Price", "Hobby", "Pro", "Team", "Enterprise"]),
+            create_table_row_header("Hosting"),
             glow(),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in USERS_SECTION],
-        ),
-        rx.table.header(
-            create_table_row_header(["Hosting", "", "", ""]),
             class_name="relative",
         ),
         create_table_body(
@@ -242,7 +228,7 @@ def table_body_hosting() -> rx.Component:
             ],
         ),
         rx.table.header(
-            create_table_row_header(["Security", "", "", "", ""]),
+            create_table_row_header("Security"),
             class_name="relative",
         ),
         create_table_body(
@@ -252,7 +238,7 @@ def table_body_hosting() -> rx.Component:
             ],
         ),
         rx.table.header(
-            create_table_row_header(["Support", "", "", "", ""]),
+            create_table_row_header("Support"),
             class_name="relative",
         ),
         create_table_body(
@@ -270,7 +256,7 @@ def table_body_oss() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header(["Framework","Hobby", "Pro", "Team", "Enterprise"]),
+            create_table_row_header("Framework"),
             class_name="relative",
         ),
         create_table_body(
@@ -278,10 +264,9 @@ def table_body_oss() -> rx.Component:
                 create_checkmark_row(feature, checks)
                 for feature, *checks in FRAMEWORK_SECTION
             ],
-            *[create_table_row(row) for row in THEME_SECTION],
         ),
         rx.table.header(
-            create_table_row_header(["Database", "", "", ""]),
+            create_table_row_header("Database"),
             class_name="relative",
         ),
         create_table_body(
@@ -291,7 +276,7 @@ def table_body_oss() -> rx.Component:
             ],
         ),
         rx.table.header(
-            create_table_row_header(["AI", "", "", ""], coming_soon=True),
+            create_table_row_header("AI", coming_soon=True),
             class_name="relative",
         ),
         create_table_body(
