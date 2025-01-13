@@ -155,7 +155,7 @@ Next, we'll create our HTML template to display the data. Create a new file in y
 Below is an image of this app:
 
 ```python eval
-image_zoom(rx.image(src="/blog/flask_app.png"))
+image_zoom(rx.image(src="/blog/flask_app.png", width="40%", alt="Flask App"))
 ```
 
 ### Let's Understand How It All Works
