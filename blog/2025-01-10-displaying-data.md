@@ -24,21 +24,21 @@ This guide will walk you through the fundamentals of displaying data in Python w
 
 ### What Are Web Frameworks?
 
-Web frameworks are libraries that provide the tools and structure needed to build web applications. They handle common tasks like routing, request handling, and template rendering, allowing developers to focus on the unique features of their applications.
+Web frameworks are libraries that provide the tools and structure needed to build web applications which allows web-based data visualization. They handle common tasks like routing, request handling, and template rendering, allowing developers to focus on the unique features of their applications.
 
 ### Popular Python Web Frameworks for Beginners
 
-- **Flask**: A lightweight, minimalistic framework that's perfect for small projects and learning the basics. Flask's simplicity makes it ideal for data visualization projects where you need full control over which libraries to integrate.
-- **Django**: A full-stack framework that comes with built-in features like an admin panel, ORM, and user authentication. Its robust template system and extensive ecosystem make it suitable for large-scale data applications.
-- **Reflex**: An emerging framework designed for building web applications entirely in Python. Reflex stands out for its ability to create dynamic, interactive applications without requiring front-end JavaScript. It's particularly effective for creating real-time data dashboards.
-- **Streamlit**: A framework specifically designed for data applications. It excels at turning data scripts into shareable web apps with minimal code, making it popular for rapid prototyping of data visualizations.
-- **Dash**: Built on Flask, Dash specializes in creating analytical web applications. It's particularly strong in creating interactive data visualization apps and is widely used in scientific and financial sectors.
+- [**Flask**](https://flask.palletsprojects.com/en/stable/): A lightweight, minimalistic framework that's perfect for small projects and learning the basics. Flask's simplicity makes it ideal for data visualization projects where you need full control over which libraries to integrate.
+- [**Django**](https://www.djangoproject.com): A full-stack framework that comes with built-in features like an admin panel, ORM, and user authentication. Its robust template system and extensive ecosystem make it suitable for large-scale data applications.
+- [**Reflex**](https://reflex.dev): An emerging framework designed for building web applications entirely in Python. Reflex stands out for its ability to create dynamic, interactive applications without requiring front-end JavaScript. It's particularly effective for creating real-time data dashboards.
+- [**Streamlit**](https://streamlit.io): A framework specifically designed for data applications. It excels at turning data scripts into shareable web apps with minimal code, making it popular for rapid prototyping of data visualizations.
+- [**Dash**](https://dash.plotly.com): Built on Flask, Dash specializes in creating analytical web applications. It's particularly strong in creating interactive data visualization apps and is widely used in scientific and financial sectors.
 
 ### Choosing the Right Framework for Your Project
 
-When selecting a framework, consider factors like project scope, learning curve, and community support. For instance, Flask is great for prototyping or small data visualization projects, while Django's robust ecosystem is ideal for larger applications with complex data requirements. Reflex offers a unique approach by enabling you to build dynamic web apps entirely in Python, making it particularly effective for interactive dashboards.
+When selecting a framework, consider factors like project scope, learning curve, and community support. For instance, for Flask vs Django, Flask is great for prototyping or small data visualization projects, while Django's robust ecosystem is ideal for larger applications with complex data requirements. Reflex offers a unique approach by enabling you to build dynamic web apps entirely in Python, making it particularly effective for interactive dashboards.
 
-Looking to choose the right Python framework for your web app? Our latest guide compares Reflex, Django, Flask, Gradio, Streamlit, Dash, and FastAPI. Whether you're building a full-stack application, data dashboard, or API, the [Top Python Web Development Frameworks in 2025](https://reflex.dev/blog/2024-12-20-python-comparison/) blog will help you make an informed decision based on each framework's unique capabilities.
+Looking to choose the right Python framework for your web app? Our latest guide compares [Reflex](https://reflex.dev), [Django](https://www.djangoproject.com), [Flask](https://flask.palletsprojects.com/en/stable/), [Gradio](https://www.gradio.app), [Streamlit](https://streamlit.io), [Dash](https://dash.plotly.com), and [FastAPI](https://fastapi.tiangolo.com). Whether you're building a full-stack application, data dashboard, or API, the [Top Python Web Development Frameworks in 2025](https://reflex.dev/blog/2024-12-20-python-comparison/) blog will help you make an informed decision based on each framework's unique capabilities.
 
 ## Setting Up the Development Environment
 
@@ -60,11 +60,11 @@ Next, set up a virtual environment to isolate your project's dependencies, preve
 
    - **Windows:**
      ```bash
-     python -m venv venv
+     py -3 -m venv .venv
      ```
    - **macOS/Linux:**
      ```bash
-     python3 -m venv venv
+     python3 -m venv .venv
      ```
 
    This will create a `venv` directory containing the Python interpreter, pip, and an isolated environment.
@@ -73,11 +73,11 @@ Next, set up a virtual environment to isolate your project's dependencies, preve
 
    - **Windows:**
      ```bash
-     venv\Scripts\activate
+     .venv\Scripts\activate
      ```
    - **macOS/Linux:**
      ```bash
-     source venv/bin/activate
+     source .venv/bin/activate
      ```
 
 Once activated, your command prompt will indicate the environment is active.
@@ -86,7 +86,7 @@ Once activated, your command prompt will indicate the environment is active.
 
 With the environment active, install the necessary packages:
 
-Along with Flask and Reflex, we will be using Pandas for data manipulation, Matplotlib and Plotly for data visualizations. Install them!
+Along with Flask and Reflex, we will be using Pandas for data manipulation, and the Python plotting libraries Matplotlib and Plotly for interactive data visualizations. Install them!
 
 ```bash
 pip install --upgrade pip
@@ -94,7 +94,7 @@ pip install flask reflex pandas matplotlib plotly
 ```
 ## Building Your First Data Display Applications
 
-Now that we have our environment configured, let's create two simple applications that display sales data. We'll start with Flask, a beginner-friendly framework, and then show how to achieve the same with Reflex, a modern Python framework designed for interactive web apps.
+Now that we have our environment configured, let's create two simple applications that display sales data. We'll start with Flask and then show how to achieve the same with Reflex, a modern Python framework designed for interactive web apps.
 
 ### Flask: Building a Basic Data Table
 
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
-Next, we'll create our HTML template to display the data. Create a new file in your templates folder named index.html:
+Next, we'll create our HTML template to display the data. Create a new file in your `templates` folder named `index.html`:
 
 ### HTML Template ("templates/index.html"):
 
@@ -128,7 +128,7 @@ Next, we'll create our HTML template to display the data. Create a new file in y
 <!DOCTYPE html>
 <html>
 <head>
-    <title>\{{ title }}</title>
+    <title>{\{ title }}</title>
     <style>
         .data-table {
             border-collapse: collapse;
@@ -144,9 +144,9 @@ Next, we'll create our HTML template to display the data. Create a new file in y
     </style>
 </head>
 <body>
-    <h1>\{{ title }}</h1>
-    \{{ 
-        table \| safe 
+    <h1>{\{ title }}</h1>
+    {{ 
+        table | safe 
     }}
 </body>
 </html>
@@ -155,22 +155,23 @@ Next, we'll create our HTML template to display the data. Create a new file in y
 ### Let's Understand How It All Works
 
 **Setting Up Flask**
-- We import Flask and its template rendering functionality with from flask import Flask, render_template
-- app = Flask(__name__) creates our Flask application instance
-- The @app.route('/') decorator tells Flask that this function should handle requests to our homepage
+- We import Flask and its template rendering functionality with `from flask import Flask, render_template`
+- `app = Flask(__name__)` creates our Flask application instance
+- The `@app.route('/')` decorator tells Flask that this function should handle requests to our homepage
 
 **Creating and Handling Data**
 - We use Pandas to create a simple DataFrame with months and sales data
-- df.to_html() converts our DataFrame into an HTML table
-- The classes='data-table' parameter adds a CSS class to our table for styling purposes
+- `df.to_html()` converts our DataFrame into an HTML table
+- The `classes='data-table'` parameter adds a CSS class to our table for styling purposes
 
 **Rendering the Template**
-- render_template() takes the HTML template file and any variables we want to pass to it
+- `render_template()` takes the HTML template file and any variables we want to pass to it
 - We pass both the table HTML and a title that will be displayed on the page
 - The HTML template uses Jinja2 (Flask's templating engine) to dynamically create the web page.
 
 **Styling the Table**
-- The CSS class .data-table corresponds to the class name used in the df.to_html(classes='data-table') call in our Python code. This ensures that the styling rules are applied to the table generated by Pandas.
+- The CSS class `.data-table` corresponds to the class name used in the `df.to_html(classes='data-table')` call in our Python code. This ensures that the styling rules are applied to the table generated by Pandas.
+
 Our styles create:
 - A clean border around the table
 - Comfortable padding inside cells
@@ -242,7 +243,7 @@ To view your Flask application, run:
 ```bash
 python app.py
 ```
-Your terminal will display the server address (typically http://localhost:5000 or similar). Visit that address in your browser.
+Your terminal will display the server address (typically `http://localhost:5000` or similar). Visit that address in your browser.
 
 For the Reflex application:
 ```bash
@@ -290,7 +291,7 @@ if __name__ == '__main__':
 
 ```
 
-Now, let's create a simple HTML template that will display the fetched stock data in a readable table format. Make sure this file is located in the *templates/* folder of your Flask project.
+Now, let's create a simple HTML template that will display the fetched stock data in a readable table format. Make sure this file is located in the `templates/` folder of your Flask project.
 
 
 ```html
@@ -299,13 +300,13 @@ Now, let's create a simple HTML template that will display the fetched stock dat
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Data for \{\{ symbol }}</title>
+    <title>Stock Data for {\{ symbol }}</title>
 </head>
 <body>
-    <h1>Stock Data for \{\{ symbol }} </h1>
+    <h1>Stock Data for {\{ symbol }} </h1>
 
     \{% if stock_data.error %}
-        <p>Error: \{\{ stock_data.error }}]</p>
+        <p>Error: {\{ stock_data.error }}]</p>
     \{% else %}
         <table border="1">
             <thead>
@@ -321,12 +322,12 @@ Now, let's create a simple HTML template that will display the fetched stock dat
             <tbody>
                 \{% for date, details in stock_data.items() %}
                 <tr>
-                    <td>\{\{ date }}</td>
-                    <td>\{\{ details["1. open"] }}</td>
-                    <td>\{\{ details["2. high"] }}</td>
-                    <td>\{\{ details["3. low"] }}</td>
-                    <td>\{\{ details["4. close"] }}</td>
-                    <td>\{\{ details["5. volume"] }}</td>
+                    <td>{\{ date }}</td>
+                    <td>{\{ details["1. open"] }}</td>
+                    <td>{\{ details["2. high"] }}</td>
+                    <td>{\{ details["3. low"] }}</td>
+                    <td>{\{ details["4. close"] }}</td>
+                    <td>{\{ details["5. volume"] }}</td>
                 </tr>
                 \{% endfor %}
             </tbody>
@@ -351,11 +352,11 @@ Before running the application, you need to replace `YOUR_API_KEY` with your act
 - The HTML template `index.html` is used to render the stock data for the given symbol. It iterates over the stock data, displaying each date and its corresponding values.
 
 **Test the Application:**
-- After running the Flask app (flask run), navigate to your localhost at an address similar to http://localhost:5000/stocks/<symbol> (replace <symbol> with any valid stock symbol) to see the stock data displayed in a table.
+- After running the Flask app (`python app.py`), navigate to your localhost at an address similar to http://localhost:5000/stocks/symbol (replace symbol with any valid stock symbol, i.e. aapl) to see the stock data displayed in a table.
 
 ## Enhancing Data Visualization
 
-Now that we have our basic data sources set up, let's explore different ways to visualize our data. We'll look at three popular approaches: Plotly for interactive charts, Matplotlib for static visualizations, and Reflex for modern interactive dashboards.
+Now that we have our basic data sources set up, let's explore web-based data visualization. We'll look at three popular approaches: Plotly for interactive charts, Matplotlib for static visualizations, and Reflex for modern interactive dashboards.
 
 ### 1. Creating Interactive Charts with Plotly
 
@@ -386,6 +387,9 @@ def sales_dashboard():
     return render_template('dashboard.html',
                          plot=fig.to_html(full_html=False),
                          table=sales_data.to_html(classes='table'))
+
+if __name__ == "__main__":
+    app.run(debug=True)
 ```
 
 ```html
@@ -401,12 +405,12 @@ def sales_dashboard():
         <h1>Sales Dashboard</h1>
         <div class="row">
             <div class="col-12">
-                \{\{ plot | safe }}
+                {\{ plot | safe }}
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-12">
-                \{\{ table | safe }}
+                {\{ table | safe }}
             </div>
         </div>
     </div>
@@ -455,10 +459,10 @@ if __name__ == '__main__':
 ```
 
 This Matplotlib example generates a static line chart with markers. Key components of this implementation:
-- matplotlib.use('Agg'): Sets a non-interactive backend that works well with web applications, especially necessary for deployment and avoiding GUI-related errors
-- io.BytesIO(): Creates an in-memory buffer to store the plot without saving to disk
-- plt.savefig(buf, format='png'): Saves the plot to the buffer as a PNG image
-- send_file(buf, mimetype='image/png'): Flask serves the image directly to the browser without needing an HTML template
+- `matplotlib.use('Agg')`: Sets a non-interactive backend that works well with web applications, especially necessary for deployment and avoiding GUI-related errors
+- `io.BytesIO()`: Creates an in-memory buffer to store the plot without saving to disk
+- `plt.savefig(buf, format='png')`: Saves the plot to the buffer as a PNG image
+- `send_file(buf, mimetype='image/png')`: Flask serves the image directly to the browser without needing an HTML template
 
 ### 3. Modern Interactive Dashboards with Reflex
 
@@ -571,6 +575,7 @@ rx.container(
 ```
 
 To run these examples:
+
 For Flask apps:
 ```bash
 python app.py
@@ -584,11 +589,11 @@ Start with whichever visualization method feels most comfortable - Plotly is gre
 
 ## Enhancing User Experience
 
-Now that you have learned how to fetch and display data from various sources, the next step is to take your web application a step further by introducing dynamic content and interactivity. This will make your app more engaging and provide users with a richer experience.
+Now that you have learned how to fetch and display data from various sources in your Python web application, the next step is to take your web application a step further by introducing dynamic content and interactivity. This will make your app more engaging and provide users with a richer experience.
 
 ### Dynamic Content
 
-Dynamic content refers to elements of your application that change in real-time or based on user interaction, rather than remaining static. This could include data that updates without needing to reload the page, such as live charts, real-time stock prices, or even a user's personalized dashboard.
+Dynamic content refers to elements of your Python web application that change in real-time or based on user interaction, rather than remaining static. This could include data that updates without needing to reload the page, such as live charts, real-time stock prices, or even a user's personalized dashboard.
 
 For example, imagine you have a dashboard that visualizes monthly sales data. As users interact with the data or choose different time ranges, the data updates without a page reload, allowing for smoother, seamless user interactions.
 
@@ -604,7 +609,7 @@ If you're working with the Reflex framework, it's even easier to incorporate dyn
 
 Reflex provides advanced features such as:
 - Real-time updates: Easily refresh parts of your UI based on state changes
-- With over 60 built-in components, including data_table, slider, and button, you can effortlessly manage interactivity and create engaging, dynamic apps
+- With over 60 built-in components, including `data_table`, `slider`, and `button`, you can effortlessly manage interactivity and create engaging, dynamic apps
 - Automatic reactivity: With Reflex, any changes in your Python code directly affect the user interface in real-time
 
 Example: Here's how you can create a simple interactive table that updates in real-time with Reflex:
