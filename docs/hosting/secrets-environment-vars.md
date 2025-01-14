@@ -50,3 +50,5 @@ image_zoom(rx.image(src="/environment_variables_2.webp"))
 ```
 
 From here you can add or edit your environment variables. You will need to restart your app for these changes to take effect.
+
+This functionality in the UI can be disabled by an admin of the project.
