@@ -1,11 +1,11 @@
 ---
 author: Sumanth Papareddy and Tom Gotsman
 date: 2025-01-15  
-title: Beginner's Guide to Python Data Apps
+title: Build a Data App in Python — Beginner's Guide to Displaying and Visualizing Data
 description: Master Python data visualization for web apps! Learn how to create dynamic dashboards and display data seamlessly in Python web applications in under 5 minutes.
 image: /blog/beginners_guide_to_data_in_python_apps.webp
 meta: [  
-    {"name": "keywords", "content": "Python web development, beginner's guide to Python web apps, displaying data in Python, Flask vs. Django comparison, Reflex Python framework, data visualization in web applications, deploying Python web apps, interactive web applications with Python, Python web app tutorials for beginners, building dynamic web apps in Python, streamlit python, streamlit, streamlit alternatives, plotly, dash app, plotly python, fastapi"},  
+    {"name": "keywords", "content": "Python web development, beginner's guide to Python web apps, displaying data in Python, Flask vs. Django comparison, Reflex Python framework, data visualization in web applications, deploying Python web apps, interactive web applications with Python, visualizing data, Python web app tutorials for beginners, building dynamic web apps in Python, streamlit python, streamlit, streamlit alternatives, plotly, dash app, plotly python, fastapi, Matplotlib"},  
 ]
 ---
 
@@ -19,6 +19,16 @@ In today's digital world, data-driven web applications have become essential too
 The effective display of data in web applications is crucial for both user experience and decision-making. This is particularly important in data-intensive applications like analytics dashboards, business intelligence platforms, and monitoring tools, where users need to quickly understand and act on information.
 
 This guide will walk you through the fundamentals of displaying data in Python web applications, providing you with the tools and techniques needed to create effective data visualizations for your projects.
+
+1. [**Understanding Web Frameworks in Python**](#understanding-web-frameworks-in-python)  
+2. [**Popular Python Web Frameworks for Beginners**](#popular-python-web-frameworks-for-beginners)  
+3. [**Setting Up the Development Environment**](#setting-up-the-development-environment)  
+4. [**Building Your First Data Display Applications**](#building-your-first-data-display-applications)  
+5. [**Working with Different Data Sources**](#working-with-different-data-sources)  
+6. [**Enhancing Data Visualization Techniques**](#enhancing-data-visualization-techniques)  
+7. [**Improving User Interactivity**](#improving-user-interactivity)  
+8. [**Deploying Your Web Application**](#deploying-your-web-application)  
+9. [**Conclusion**](#conclusion)
 
 ## Understanding Web Frameworks in Python
 
@@ -42,7 +52,7 @@ Looking to choose the right Python framework for your web app? Our latest guide 
 
 ## Setting Up the Development Environment
 
-Once you've selected the framework, the next step is setting up your development environment. Let's walk through the essential setup process to get your web application up and running:
+Once you've selected your preferred Python web framework, the next step is setting up your development environment. Let's walk through the essential setup process to get your web application up and running:
 
 ### Step 1: Verify Python Installation
 
@@ -430,7 +440,7 @@ This creates a dashboard with both an interactive line chart and a data table. U
 
 ### 2. Static Visualizations with Matplotlib
 
-For simpler, static charts, Matplotlib is a great choice:
+For simpler, static charts in your Python web apps, Matplotlib is a great choice:
 
 ```python
 import matplotlib
