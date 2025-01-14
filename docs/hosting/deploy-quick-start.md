@@ -70,5 +70,12 @@ That’s it! You should receive some feedback on the progress of your deployment
 If you go back to the Cloud UI you should be able to see your deployed app and other useful app information.
 
 
+```md alert info
+# Moving around the Cloud UI
+To go back, i.e. from an app to a project or from a project to your list of projects you just click the `REFLEX logo` in the top left corner of the page.
+```
 
-
+```md alert info
+# All flag values are saved between runs
+All your flag values, i.e. environment variables or regions or tokens, are saved between runs. This means that if you run a command and you pass a flag value, the next time you run the same command the flag value will be the same as the last time you ran it. This means you should only set the flag values again if you want to change them.
+```
