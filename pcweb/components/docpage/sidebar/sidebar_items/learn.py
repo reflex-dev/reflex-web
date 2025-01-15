@@ -204,7 +204,10 @@ def get_sidebar_items_hosting():
             "Quick Start",
             children=[
                 hosting.deploy_quick_start,
-                hosting.additional_concepts,
+                hosting.project,
+                hosting.app,
+                hosting.secrets_environment_vars,
+                hosting.tokens,
                 hosting.custom_domains,
                 hosting.deploy_with_github_actions,
             ],

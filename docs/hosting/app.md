@@ -1,6 +1,7 @@
 ```python exec
 import reflex as rx
 from reflex_image_zoom import image_zoom
+from pcweb.pages.docs import hosting 
 from pcweb.pages import docs
 from pcweb.styles.styles import get_code_style, cell_style
 
@@ -59,78 +60,13 @@ vmtypes = [
 
 ```
 
+# App
 
-# Reflex Cloud - Additional Concepts
+In Reflex Cloud an "app" (or "application" or "website") refers to a web application built using the Reflex framework, which can be deployed and managed within the Cloud platform. 
 
-To go back, i.e. from an app to a project or from a project to your list of projects you just click the `REFLEX logo` in the top left corner of the page.
+You can deploy an app using the `reflex deploy` command.
 
-```md alert info
-# All flag values are saved between runs
-All your flag values, i.e. environment variables or regions or tokens, are saved between runs. This means that if you run a command and you pass a flag value, the next time you run the same command the flag value will be the same as the last time you ran it. This means you should only set the flag values again if you want to change them.
-```
-
-## Environment Variables
-
-
-Below is an example of how to use an environment variable file. You can pass the `--envfile` flag with the path to the env file. For example:
-
-```bash
-reflex deploy --project f88b1574-f101-####-####-5f########## --envfile .env
-```
-
-In this example the path to the file is `.env`.
-
-
-If you prefer to pass the environment variables manually below is deployment command example:
-
-```bash
-reflex deploy --project f88b1574-f101-####-####-5f########## --env OPENAI_API_KEY=sk-proj-vD4i9t6U############################
-```
-
-They are passed after the `--env` flag as key value pairs. 
-
-To pass multiple environment variables, you can repeat the `--env` tag. i.e. `reflex deploy --project f88b1574-f101-####-####-5f########## --env KEY1=VALUE1 --env KEY2=VALUE`. The `--envfile` flag will override any envs set manually.
-
-
-```md alert info
-# More information on Environment Variables
-Environment variables are encrypted and safely stored. We recommend that backend API keys or secrets are entered as `envs`. Make sure to enter the `envs` without any quotation marks. We do not show the values of them in any CLI commands, only their names (or keys).
-
-You access the values of `envs` by referencing `os.environ` with their names as keys in your app's backend. For example, if you set an env `ASYNC_DB_URL`, you are able to access it by `os.environ["ASYNC_DB_URL"]`. Some Python libraries automatically look for certain environment variables. For example, `OPENAI_API_KEY` for the `openai` python client. The `boto3` client credentials can be configured by setting `AWS_ACCESS_KEY_ID`,`AWS_SECRET_ACCESS_KEY`. This information is typically available in the documentation of the Python packages you use.
-```
-
-## Adding Team Members
-
-If you are a User you have the ability to create, deploy and delete apps, but you do not have the power to add or delete users from that project. You must be an Admin for that.
-
-As an Admin you will see the an `Add user` button in the top right of the screen, as shown in the image below. Clicking on this will allow you to add a user to the project. You will need to enter the email address of the user you wish to add.
-
-```python eval
-image_zoom(rx.image(src="/hosting_adding_team_members.png", alt="Adding team members to Reflex Cloud"))
-```
-
-```python eval
-rx.box(height="20px")
-```
-
-```md alert warning
-# Currently a User must already have logged in once before they can be added to a project. 
-At this time a User must be logged in to be added to a project. In future there will be automatic email invites sent to add new users who have never logged in before.
-```
-
-
-
-
-
-## Tokens
-
-A token gives someone else all the permissions you have as a User or an Admin. They can run any Reflex Cloud command from the CLI as if they are you using the `--token` flag. A good use case would be for GitHub actions (you store this token in the secrets).
-
-Tokens are found on the Project List page. If you cannot find it click the Reflex Logo in the top left side of the page until it appears as in the image below.
-
-```python eval
-image_zoom(rx.image(src="/hosting_tokens.png", alt="Adding tokens to Reflex Cloud"))
-```
+There are many actions you can take in the Cloud UI to manage your app. Below are some of the most common actions you may want to take.
 
 
 ## VMTypes
@@ -176,6 +112,7 @@ rx.table.root(
 )
 ```
 
+
 ## Regions
 
 Below is an example of how to deploy your app in several regions:
@@ -207,3 +144,84 @@ rx.table.root(
     variant="surface",
 )
 ```
+
+
+## View Logs
+
+To view the app logs follow the arrow in the image below and press on the `Logs` dropdown.
+
+```python eval
+image_zoom(rx.image(src="/view_logs.webp", padding_bottom="20px"))
+```
+
+```md alert info
+# CLI Command to view logs
+`reflex cloud apps logs [OPTIONS] [APP_ID]`
+```
+
+## View Deployment Logs and Deployment History
+
+To view the deployment history follow the arrow in the image below and press on the `Deployments`.
+
+```python eval
+image_zoom(rx.image(src="/view_deployment_logs.webp"))
+```
+
+This brings you to the page below where you can see the deployment history of your app. Click on deployment you wish to explore further.
+
+```python eval
+image_zoom(rx.image(src="/view_deployment_logs_2.webp", padding_bottom="20px"))
+```
+
+```md alert info
+# CLI Command to view deployment history
+`reflex cloud apps history [OPTIONS] [APP_ID]`
+```
+
+This brings you to the page below where you can view the deployment logs of your app by clicking the `Build logs` dropdown.
+
+```python eval
+image_zoom(rx.image(src="/view_deployment_logs_3.webp"))
+```
+
+
+## Stopping an App
+
+To stop an app follow the arrow in the image below and press on the `Stop app` button. Pausing an app will stop it from running and will not be accessible to users until you resume it. In addition, this will stop you being billed for your app.
+
+```python eval
+image_zoom(rx.image(src="/stopping_app.webp", padding_bottom="20px"))
+```
+
+```md alert info
+# CLI Command to stop an app
+`reflex cloud apps stop [OPTIONS] [APP_ID]`
+```
+
+## Deleting an App
+
+To delete an app click on the `Settings` tab in the Cloud UI on the app page.
+
+```python eval
+image_zoom(rx.image(src="/environment_variables.webp"))
+```
+
+Then click on the `Danger` tab as shown below.
+
+```python eval
+image_zoom(rx.image(src="/deleting_app.webp"))
+```
+
+Here there is a `Delete app` button. Pressing this button will delete the app and all of its data. This action is irreversible.
+
+```md alert info
+# CLI Command to delete an app
+`reflex cloud apps delete [OPTIONS] [APP_ID]`
+```
+
+
+## Other app settings
+
+Clicking on the `Settings` tab in the Cloud UI on the app page also allows a user to change the `app name`, change the `app description` and check the `app id`.
+
+The other app settings also allows users to edit and add secrets (environment variables) to the app. For more information on secrets, see the [Secrets (Environment Variables)]({hosting.secrets_environment_vars.path}) page.

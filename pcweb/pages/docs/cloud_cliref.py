@@ -86,7 +86,7 @@ categories = {
     "login": ["login", "logout"],
     "deploy": ["deploy"],
     "apps": ["apps status", "apps start", "apps stop", "apps scale", "apps delete", "apps logs", "apps history"],
-    "project": ["project list", "project create", "project select", "project invite",
+    "projects": ["project list", "project create", "project select", "project invite",
                  "project get-select", "project usage", "project role-permissions", "project users"],
     "secrets": ["secrets list", "secrets delete", "secrets update"],
     "vmtypes": ["vmtypes"],
