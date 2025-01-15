@@ -21,14 +21,12 @@ The effective display of data in web applications is crucial for both user exper
 This guide will walk you through the fundamentals of displaying data in Python web applications, providing you with the tools and techniques needed to create effective data visualizations for your projects.
 
 1. [**Understanding Web Frameworks in Python**](#understanding-web-frameworks-in-python)  
-2. [**Popular Python Web Frameworks for Beginners**](#popular-python-web-frameworks-for-beginners)  
-3. [**Setting Up the Development Environment**](#setting-up-the-development-environment)  
+2. [**Setting Up the Development Environment**](#setting-up-the-development-environment)  
 4. [**Building Your First Data Display Applications**](#building-your-first-data-display-applications)  
-5. [**Working with Different Data Sources**](#working-with-different-data-sources)  
-6. [**Enhancing Data Visualization Techniques**](#enhancing-data-visualization-techniques)  
-7. [**Improving User Interactivity**](#improving-user-interactivity)  
-8. [**Deploying Your Web Application**](#deploying-your-web-application)  
-9. [**Conclusion**](#conclusion)
+5. [**Fetching and Displaying Data**](#fetching-and-displaying-data)  
+6. [**Enhancing Data Visualization**](#enhancing-data-visualization)  
+7. [**Deploying Your Web Application**](#deploying-your-web-application)  
+
 
 ## Understanding Web Frameworks in Python
 
