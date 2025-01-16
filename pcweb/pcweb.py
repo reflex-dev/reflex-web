@@ -143,6 +143,6 @@ for source, target in redirects:
     if _check_whitelisted_path(target):
         app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
-app.add_custom_404_page(page404.component)
+app.add_page(page404.component, route=page404.path)
 
 app.register_lifespan_task(fetch_count)

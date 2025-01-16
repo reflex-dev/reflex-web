@@ -14,7 +14,6 @@ class Tiers(enum.Enum):
 
 
 class BillingState(rx.State):
-
     selected_plan: str = Tiers.PRO.value
     # Rates
     cpu_rate: float = 0.000463
@@ -54,11 +53,11 @@ class BillingState(rx.State):
             return 64
 
     @rx.event
-    def change_plan(self, plan: str) -> None:
-        self.selected_plan = plan
+    def change_plan(self, plan: str | list[str]) -> None:
+        self.selected_plan = plan[0] if isinstance(plan, list) else plan
         if plan == Tiers.PRO.value:
             self.included_cpu = 1
-            self.included_ram = .5
+            self.included_ram = 0.5
             self.included_seats = 1
             # Enforce Pro tier limits
             self.estimated_cpu_number = min(self.estimated_cpu_number, 5)
@@ -157,13 +156,13 @@ def pricing_widget() -> rx.Component:
                 rx.box(
                     rx.segmented_control.root(
                         rx.segmented_control.item("Pro", value="Pro"),
-                        #rx.segmented_control.item("Team (coming soon)", value="Team"),
+                        # rx.segmented_control.item("Team (coming soon)", value="Team"),
                         on_change=BillingState.change_plan,
                         default_value="Pro",
                         width="100%",
                     ),
                     class_name="flex flex-row pt-2 !w-[8.5rem] !h-[2.25rem] mb-2",
-                ),  
+                ),
                 "",
             ),
             # Team seats
@@ -225,11 +224,10 @@ def pricing_widget() -> rx.Component:
                 rx.badge(
                     f"Total: ${calculate_total()}- $20 free credits = ",
                     rx.text.strong(f"${calculate_total()-20}/mo"),
-                   
-                    size='3',
+                    size="3",
                 ),
                 class_name="mt-6",
-                )
+            )
         ),
         class_name="flex-1 flex flex-col relative h-full w-full max-w-[25rem] pb-2.5 z-[2]",
     )
@@ -237,25 +235,18 @@ def pricing_widget() -> rx.Component:
 
 def calculate_total():
     # Base price using rx.cond
-    base_price = rx.cond(
-        BillingState.selected_plan == Tiers.PRO.value,
-        20,
-        250
-    )
-    
+    base_price = rx.cond(BillingState.selected_plan == Tiers.PRO.value, 20, 250)
+
     # Calculate additional seats cost
     additional_seats = rx.cond(
-        BillingState.estimated_seats > 1,
-        BillingState.estimated_seats - 1,
-        0
+        BillingState.estimated_seats > 1, BillingState.estimated_seats - 1, 0
     )
     seat_cost = additional_seats * BillingState.seat_rate
-    
-    compute_cost = (
-        (BillingState.estimated_ram_gb) * (BillingState.mem_rate * MONTH_MINUTES) +
-        (BillingState.estimated_cpu_number) * (BillingState.cpu_rate * MONTH_MINUTES)
-    )
-    
+
+    compute_cost = (BillingState.estimated_ram_gb) * (
+        BillingState.mem_rate * MONTH_MINUTES
+    ) + (BillingState.estimated_cpu_number) * (BillingState.cpu_rate * MONTH_MINUTES)
+
     total = base_price + seat_cost + compute_cost
     return round(total)
 
@@ -318,12 +309,10 @@ def calculator_section() -> rx.Component:
                     width="100%",
                 ),
                 align_items="center",
-                width="100%",  
+                width="100%",
             ),
             rx.box(pricing_widget()),
             class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 relative z-[1]",
-        ),  
+        ),
         class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] justify-center items-center",
     )
- 
-
