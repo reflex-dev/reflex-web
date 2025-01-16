@@ -2,6 +2,7 @@
 import reflex as rx
 
 from pcweb.pages.docs import getting_started
+from pcweb.pages.pricing.pricing import pricing_path
 ```
 
 # Self Hosting
@@ -122,6 +123,10 @@ docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
 
 ## Remove Reflex branding from your self-hosted app
 
-To remove the Reflex branding, such as the "Made in Reflex" badge, from your self-hosted app, you must add the `--badge` flag to the export `reflex export --badge` or the run command `reflex run --env prod --badge`. 
+To remove the Reflex branding, such as the "Made in Reflex" badge, from your self-hosted app, you must add the `--badge` flag to the export command `reflex export --badge` or the run command `reflex run --env prod --badge`. 
 
-A paid team plan is required to remove the Reflex branding for self-hosted apps.
+
+
+```md alert info
+# A paid [team plan]({pricing_path}) is required to remove the Reflex branding for self-hosted apps.
+```

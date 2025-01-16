@@ -1,5 +1,6 @@
 ```python exec
 from pcweb.pages.docs import hosting
+from pcweb.pages.pricing.pricing import pricing_path
 ```
 
 # Reflex Branding
@@ -11,9 +12,9 @@ By default, Reflex branding, such as the "Made in Reflex" badge, will appear on 
 
 ## How to remove the Reflex branding from your app
 
-You can turn off the Reflex branding by adding the `--badge` flag to the `reflex deploy` command. 
+You can turn off the Reflex branding, when deploying to Reflex Cloud, by adding the `--badge` flag to the `reflex deploy` command. 
 
-In order for this to work a user hosting with Reflex Cloud must be logged in and on a paid plan. 
+In order for this to work a user hosting with Reflex Cloud must be logged in and on a [paid plan]({pricing_path}) (at least pro tier). 
 
 
 ```md alert info
