@@ -104,7 +104,7 @@ Redirect the user to a new path within the application using `rx.redirect()`.
 ```python demo
 rx.vstack(
     rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special_events")),
-    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', external=True))
+    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', is_external=True))
 )
 ```
 
@@ -124,7 +124,7 @@ class Redirect2ExampleState(rx.State):
 
     @rx.event
     def change_page(self):
-        return rx.redirect(self.url, external=True)
+        return rx.redirect(self.url, is_external=True)
 
 def redirect_example():
     return rx.vstack(
