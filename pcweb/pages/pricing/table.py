@@ -41,6 +41,10 @@ FRAMEWORK_SECTION = [
     ("Built-in Testing", False, False, True, True),
 ]
 
+REFLEX_BRANDING_SECTION = [
+    ("Remove Reflex Branding", "", "On Reflex Cloud", "Everywhere *", "Everywhere *"),
+]
+
 REFLEX_AI_SECTION = [
     ("Number of Generations", "5/month", "100/month/seat", "250/month/seat", "Custom"),
 ]
@@ -102,6 +106,9 @@ PLAN_BUTTONS = [
     ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
 ]
 
+ASTERIX_SECTION = [
+    ("* Everywhere: This includes removing the 'Made in Reflex' badge for self hosted apps.", "", "", "", "")
+]
 
 def glow() -> rx.Component:
     return rx.table.row(
@@ -264,6 +271,7 @@ def table_body_oss() -> rx.Component:
                 create_checkmark_row(feature, checks)
                 for feature, *checks in FRAMEWORK_SECTION
             ],
+            *[create_table_row(row) for row in REFLEX_BRANDING_SECTION],
         ),
         rx.table.header(
             create_table_row_header("Database"),
@@ -291,6 +299,9 @@ def table_body_oss() -> rx.Component:
                 ],
                 class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 !py-[1.25rem] border-y border-slate-4 !h-[76px] relative",
             ),
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in ASTERIX_SECTION],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
