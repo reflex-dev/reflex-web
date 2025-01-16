@@ -198,6 +198,10 @@ def popular_card(
                     rx.el.li(
                         rx.icon(feature[0], class_name="!text-violet-9", size=16),
                         feature[1],
+                        rx.tooltip(
+                            rx.icon("info", class_name="!text-slate-9", size=12),
+                            content=feature[2],
+                        ) if len(feature) == 3 else "",
                         class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
                     )
                     for feature in features
@@ -249,6 +253,7 @@ def plan_cards() -> rx.Component:
                 ("clock", "30 days log retention"),
                 ("globe", "Multi-region"),
                 ("brush", "Custom domains"),
+                ("file-badge", "Remove Branding with Reflex Cloud", "Check out the Reflex Branding doc page to learn how to remove the 'Made in Reflex' badge from your app.")
             ],
             "Start with Pro plan",
             price="$20/mo + compute",
@@ -264,6 +269,7 @@ def plan_cards() -> rx.Component:
                 ("git-branch", "Create multiple projects"),
                 ("signal", "Full Website Analytics"),
                 ("lock-keyhole", "One Click Auth"),
+                ("file-badge", "Remove Branding for Self-Hosting", "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Made in Reflex' badge from your app."),
                 ("circle-plus", "Everything in Pro"),
             ],
             "Contact sales",
