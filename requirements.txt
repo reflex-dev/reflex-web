@@ -16,4 +16,4 @@ reflex_type_animation==0.0.1
 reflex-ag-grid==0.0.10
 replicate==0.32.1
 reflex-pyplot==0.1.3
-reflex-chakra==0.6.3
+reflex-chakra==0.6.2
