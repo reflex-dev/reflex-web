@@ -16,7 +16,7 @@ from pcweb.constants import (
     DISCORD_URL,
     FORUM_URL,
 )
-
+from datetime import datetime
 
 def footer_link(text: str, href: str) -> rx.Component:
     return rx.link(
@@ -126,7 +126,7 @@ def footer() -> rx.Component:
             rx.box(
                 menu_socials(),
                 rx.text(
-                    "© 2024 Pynecone, Inc.",
+                    f"© {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 class_name="flex flex-col justify-between items-start gap-4 self-stretch",

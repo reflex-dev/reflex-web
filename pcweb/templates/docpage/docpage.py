@@ -13,6 +13,7 @@ from pcweb.styles.colors import c_color
 from reflex.components.radix.themes.base import LiteralAccentColor
 from pcweb.components.button import button
 from reflex.utils.format import to_title_case, to_snake_case
+from datetime import datetime
 
 def footer_link(text: str, href: str):
     return rx.link(
@@ -230,7 +231,7 @@ def docpage_footer(path: str):
             ),
             rx.box(
                 rx.text(
-                    "Copyright © 2024 Pynecone, Inc.",
+                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),
