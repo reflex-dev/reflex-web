@@ -6,8 +6,16 @@ import httpx
 import reflex as rx
 import contextlib
 
-REFLEX_STAR_COUNT = 0
 GITHUB_API_URL = "https://api.github.com/repos/reflex-dev/reflex"
+
+
+def get_stars_on_build():
+    """Fetch the stars when app is built as default"""
+    data = httpx.get(GITHUB_API_URL).json()
+    return int(data["stargazers_count"])
+
+
+REFLEX_STAR_COUNT = get_stars_on_build()
 
 
 async def fetch_count():
