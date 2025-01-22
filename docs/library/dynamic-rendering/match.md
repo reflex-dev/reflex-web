@@ -1,8 +1,3 @@
----
-components:
-  - rx.match
----
-
 ```python exec
 import reflex as rx
 ```

@@ -76,7 +76,7 @@ def build_nested_namespace(
 
 def get_components_from_metadata(current_doc):
     components = []
-   
+
     for comp_str in current_doc.metadata.get("components", []):
         component = eval(comp_str)
         if isinstance(component, type):
@@ -85,7 +85,9 @@ def get_components_from_metadata(current_doc):
             components.append((component.__self__, comp_str))
         elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
             components.append((component.__call__.__self__, comp_str))
-    
+        else:
+            raise ValueError(f"Invalid component: {component}")
+
     return components
 
 
@@ -132,6 +134,7 @@ manual_titles = {
     "docs/recipes/content/grid.md": "Grid Recipe",
 }
 
+
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
         return
@@ -162,13 +165,14 @@ def get_component(doc: str, title: str):
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
-        if issubclass(
-            clist[1][0],
-            (RadixThemesComponent, RadixPrimitiveComponent),
-        ):
-            component_list[category].append(clist)
-        else:
-            component_list[category].append(clist)
+        if len(clist) > 1:
+            if issubclass(
+                clist[1][0],
+                (RadixThemesComponent, RadixPrimitiveComponent),
+            ):
+                component_list[category].append(clist)
+            else:
+                component_list[category].append(clist)
         if should_skip_compile(doc):
             outblocks.append((d, route))
             return
@@ -183,12 +187,16 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [
-    library,
-    custom_components,
-    overview,
-    *components_previews_pages,
-] + apiref_pages + cloud_cliref_pages
+doc_routes = (
+    [
+        library,
+        custom_components,
+        overview,
+        *components_previews_pages,
+    ]
+    + apiref_pages
+    + cloud_cliref_pages
+)
 
 
 for api_route in apiref_pages:
@@ -200,7 +208,7 @@ for api_route in cloud_cliref_pages:
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
 for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1] 
+    path = doc.split("/")[1:-1]
 
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
@@ -224,8 +232,8 @@ for doc in sorted(flexdown_docs):
 
 
 for doc in flexdown_docs:
-    if 'recipes' in doc:
-        category = doc.split('/')[2]
+    if "recipes" in doc:
+        category = doc.split("/")[2]
         recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():

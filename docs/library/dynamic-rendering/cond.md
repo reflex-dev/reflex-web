@@ -1,8 +1,3 @@
----
-components:
-  - rx.components.core.Cond
----
-
 ```python exec
 import reflex as rx
 ```
