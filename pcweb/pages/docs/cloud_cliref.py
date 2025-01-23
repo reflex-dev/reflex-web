@@ -91,6 +91,7 @@ categories = {
     "secrets": ["secrets list", "secrets delete", "secrets update"],
     "vmtypes": ["vmtypes"],
     "regions": ["regions"],
+    "config": ["config"]
 }
 
 # Dictionary to store the combined documentation for each category
