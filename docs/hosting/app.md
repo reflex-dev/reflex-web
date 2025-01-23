@@ -9,7 +9,7 @@ from pcweb.styles.styles import get_code_style, cell_style
 regions = {
     "ams": "Amsterdam, Netherlands",
     "arn": "Stockholm, Sweden",
-    "alt": "Atlanta, Georgia (US)",
+    "atl": "Atlanta, Georgia (US)",
     "bog": "Bogotá, Colombia",
     "bom": "Mumbai, India",
     "bos": "Boston, Massachusetts (US)",
@@ -44,19 +44,6 @@ regions = {
     "yyz": "Toronto, Canada"
 }
 
-vmtypes = [
-    {"id": "c1m.5", "name": "Single CPU Small", "cpu_cores": 1, "ram_gb": 0.512},
-    {"id": "c1m1", "name": "Single CPU Medium", "cpu_cores": 1, "ram_gb": 1.024},
-    {"id": "c1m2", "name": "Single CPU Large", "cpu_cores": 1, "ram_gb": 2.048},
-    {"id": "c2m.5", "name": "Double CPU Micro", "cpu_cores": 2, "ram_gb": 0.512},
-    {"id": "c2m1", "name": "Double CPU Small", "cpu_cores": 2, "ram_gb": 1.024},
-    {"id": "c2m2", "name": "Double CPU Medium", "cpu_cores": 2, "ram_gb": 2.048},
-    {"id": "c2m4", "name": "Double CPU Large", "cpu_cores": 2, "ram_gb": 4.096},
-    {"id": "c4m1", "name": "Quad CPU Micro", "cpu_cores": 4, "ram_gb": 1.024},
-    {"id": "c4m2", "name": "Quad CPU Small", "cpu_cores": 4, "ram_gb": 2.048},
-    {"id": "c4m4", "name": "Quad CPU Medium", "cpu_cores": 4, "ram_gb": 4.096},
-    {"id": "c4m8", "name": "Quad CPU Large", "cpu_cores": 4, "ram_gb": 8.192}
-]
 
 ```
 
@@ -71,6 +58,18 @@ There are many actions you can take in the Cloud UI to manage your app. Below ar
 
 ## VMTypes
 
+
+To scale your app you can choose different VMTypes. VMTypes are different configurations of CPU and RAM.
+
+To scale your VM in the Cloud UI, click on the `Settings` tab in the Cloud UI on the app page, and then click on the `Scale` tab as shown below. Clicking on the `Change VM` button will allow you to scale your app.
+
+
+```python eval
+image_zoom(rx.image(src="/scaling_vms.webp", padding_bottom="20px"))
+```
+
+### VMTypes in the CLI
+
 To get all the possible VMTypes you can run the following command:
 
 ```bash
@@ -83,37 +82,31 @@ To set which VMType to use when deploying your app you can pass the `--vmtype` f
 reflex deploy --project f88b1574-f101-####-####-5f########## --vmtype c2m4
 ```
 
-This will deploy your app with the `c2m4` VMType, giving your app 2 cpu cores and 4 gb of ram.
+This will deploy your app with the `c2m4` VMType, giving your app 2 CPU cores and 4 GB of RAM.
 
-Below is a table of all the possible VMTypes:
+
+
+## Regions
+
+To scale your app you can choose different regions. Regions are different locations around the world where your app can be deployed. 
+
+To scale your app to multiple regions in the Cloud UI, click on the `Settings` tab in the Cloud UI on the app page, and then click on the `Regions` tab as shown below. Clicking on the `Add new region` button will allow you to scale your app to multiple regions.
 
 ```python eval
-rx.table.root(
-    rx.table.header(
-        rx.table.row(
-            rx.table.column_header_cell("id"),
-            rx.table.column_header_cell("name"),
-            rx.table.column_header_cell("cpu (cores)"),
-            rx.table.column_header_cell("ram (gb)"),
-        ),
-    ),
-    rx.table.body(
-        *[
-            rx.table.row(
-                rx.table.cell(rx.code(vmtype["id"], style=get_code_style("violet"))),
-                rx.table.cell(vmtype["name"], style=cell_style),
-                rx.table.cell(vmtype["cpu_cores"], style=cell_style),
-                rx.table.cell(vmtype["ram_gb"], style=cell_style),
-            )
-            for vmtype in vmtypes
-        ]
-    ),
-    variant="surface",
+image_zoom(rx.image(src="/scaling_regions.webp", padding_bottom="20px"))
+```
+
+The images below show all the regions that can be deployed in.
+
+```python eval
+rx.hstack(
+    image_zoom(rx.image(src="/regions_1.webp", padding_bottom="20px")),
+    image_zoom(rx.image(src="/regions_2.webp", padding_bottom="20px")),
 )
 ```
 
 
-## Regions
+### Selecting Regions to Deploy in the CLI
 
 Below is an example of how to deploy your app in several regions:
 
@@ -124,26 +117,8 @@ reflex deploy --project f88b1574-f101-####-####-5f########## --region sjc --regi
 By default all apps are deloyed in `sjc` if no other regions are given. If you wish to deploy in another region or several regions you can pass the `--region` flag (`-r` also works) with the region code. Check out all the regions that we can deploy to below:
 
 
-```python eval
-rx.table.root(
-    rx.table.header(
-        rx.table.row(
-            rx.table.column_header_cell("Region Code"),
-            rx.table.column_header_cell("Region"),
-        ),
-    ),
-    rx.table.body(
-        *[
-            rx.table.row(
-                rx.table.cell(rx.code(region_code, style=get_code_style("violet"))),
-                rx.table.cell(region_name, style=cell_style),
-            )
-            for region_code, region_name in regions.items()
-        ]
-    ),
-    variant="surface",
-)
-```
+
+
 
 
 ## View Logs
