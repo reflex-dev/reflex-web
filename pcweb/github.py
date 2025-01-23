@@ -11,8 +11,10 @@ GITHUB_API_URL = "https://api.github.com/repos/reflex-dev/reflex"
 
 def get_stars_on_build():
     """Fetch the stars when app is built as default"""
-    data = httpx.get(GITHUB_API_URL).json()
-    return int(data["stargazers_count"])
+    resp = httpx.get(GITHUB_API_URL)
+    resp.raise_for_status()
+    data = resp.json()
+    return int(data.get("stargazers_count", 21000))
 
 
 REFLEX_STAR_COUNT = get_stars_on_build()
