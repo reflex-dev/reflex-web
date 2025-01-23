@@ -71,6 +71,11 @@ If you go back to the Cloud UI you should be able to see your deployed app and o
 
 
 ```md alert info
+# Setup a Cloud Config File
+To create a `config.yml` file for your app to set your app configuration check out the [Cloud Config Docs]({docs.hosting.app.path}#config-file).
+```
+
+```md alert info
 # Moving around the Cloud UI
 To go back, i.e. from an app to a project or from a project to your list of projects you just click the `REFLEX logo` in the top left corner of the page.
 ```

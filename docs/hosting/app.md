@@ -117,7 +117,28 @@ reflex deploy --project f88b1574-f101-####-####-5f########## --region sjc --regi
 By default all apps are deloyed in `sjc` if no other regions are given. If you wish to deploy in another region or several regions you can pass the `--region` flag (`-r` also works) with the region code. Check out all the regions that we can deploy to below:
 
 
+## Config File
 
+To create a `config.yml` file for your app run the command below:
+
+```bash
+reflex cloud config
+```
+
+This will create a yaml file similar to the one below where you can edit the app configuration:
+
+```yaml
+name: default
+description: this is a default app
+regions:
+- sjc
+vmtype: c1m1
+hostname: default
+envfile: .env
+project: default
+packages:
+- procps
+```
 
 
 
