@@ -50,7 +50,7 @@ def process_command(prefix, path_to_file, dict_prefix=""):
         )
     else:
         output = get_command_help_output(path_to_file=path_to_file)
-    
+
     # Construct the regular expression pattern
     escaped_prefix = re.escape(prefix)
     pattern = rf"## `{escaped_prefix} (.*?)`\n(.*?)(?=\n## `{escaped_prefix}|\Z)"
@@ -85,12 +85,13 @@ for prefix, path_to_file, dict_prefix in commands_info:
 categories = {
     "login": ["login", "logout"],
     "deploy": ["deploy"],
-    "apps": ["apps status", "apps start", "apps stop", "apps scale", "apps delete", "apps logs", "apps history"],
+    "apps": ["apps scale", "apps status", "apps start", "apps stop", "apps delete", "apps logs", "apps history", "apps build-logs", "apps list"],
     "projects": ["project list", "project create", "project select", "project invite",
                  "project get-select", "project usage", "project role-permissions", "project users"],
     "secrets": ["secrets list", "secrets delete", "secrets update"],
     "vmtypes": ["vmtypes"],
     "regions": ["regions"],
+    "config": ["config"]
 }
 
 # Dictionary to store the combined documentation for each category
