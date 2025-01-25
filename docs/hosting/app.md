@@ -128,14 +128,15 @@ reflex cloud config
 This will create a yaml file similar to the one below where you can edit the app configuration:
 
 ```yaml
-name: default
-description: this is a default app
+name: medo
+description: ''
 regions:
-- sjc
+  sjc: 1
+  lhr: 2
 vmtype: c1m1
-hostname: default
+hostname: null
 envfile: .env
-project: default
+project: null
 packages:
 - procps
 ```
