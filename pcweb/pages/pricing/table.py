@@ -35,7 +35,7 @@ TABLE_STYLE = """
 
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
-    ("Built-in Auth", False, False, True, True),
+    ("One Click Auth", False, False, True, True),
     ("Embed Reflex Apps", False, False, True, True),
 ]
 
@@ -54,6 +54,7 @@ HOSTING_TEXT_SECTION = [
 
 HOSTING_BOOLEAN_SECTION = [
     ("CLI Deployments", True, True, True, True),
+    ("Automatic CI / CD Deploy (Github)", True, True, True, True),
     ("Custom Domains", False, True, True, True),
     ("Secret Manager", False, True, True, True),    
     ("App Analytics", False, True, True, True),
@@ -64,6 +65,7 @@ SECURITY_SECTION = [
     ("Web App Firewall", True, True, True, True),
     ("HTTP/SSL", True, True, True, True),
     ("DDos Protection", True, True, True, True),
+    ("2 Factor Auth", True, True, True, True),
     ("Audit Logs", False, False, False, True),
     ("SSO", False, False, False, True),
 ]
