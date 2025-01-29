@@ -31,7 +31,6 @@ gallery_apps_data_copy = gallery_apps_data.copy()
 
 
 def more_posts(current_post: dict) -> rx.Component:
-
     posts = []
     app_items = list(gallery_apps_data_copy.items())
     current_index = next(
@@ -49,8 +48,8 @@ def more_posts(current_post: dict) -> rx.Component:
         selected_posts = app_items[-3:]
     else:
         # Create a list of all posts except the current one
-        other_posts = app_items[:current_index] + app_items[current_index + 1:]
-        
+        other_posts = app_items[:current_index] + app_items[current_index + 1 :]
+
         if len(other_posts) <= 3:
             # If there are 3 or fewer other posts, show all of them
             selected_posts = other_posts
@@ -63,9 +62,9 @@ def more_posts(current_post: dict) -> rx.Component:
         else:
             # For all other cases, show one before and two after (or two before and one after if we're near the end)
             if current_index < len(app_items) - 2:
-                selected_posts = other_posts[current_index-1:current_index+2]
+                selected_posts = other_posts[current_index - 1 : current_index + 2]
             else:
-                selected_posts = other_posts[current_index-2:current_index+1]
+                selected_posts = other_posts[current_index - 2 : current_index + 1]
 
     for path, document in selected_posts:
         meta = document.metadata
@@ -131,14 +130,20 @@ def page(document) -> rx.Component:
                     class_name="flex flex-col gap-3 p-8",
                 ),
                 rx.box(
-                    rx.link(
-                        button_with_icon(
-                            "View Demo",
-                            icon="new_tab",
-                            class_name="!w-full flex-row-reverse gap-2",
-                        ),
-                        is_external=True,
-                        href=meta["demo"],
+                    *(
+                        [
+                            rx.link(
+                                button_with_icon(
+                                    "View Demo",
+                                    icon="new_tab",
+                                    class_name="!w-full flex-row-reverse gap-2",
+                                ),
+                                is_external=True,
+                                href=meta["demo"],
+                            )
+                        ]
+                        if meta.get("demo")
+                        else []
                     ),
                     rx.link(
                         button("View Code", variant="muted", class_name="!w-full"),
@@ -197,4 +202,4 @@ for path, document in gallery_apps_data.items():
     )(lambda doc=document: page(doc))
 
     # Add the route to the list of routes.
-    gallery_apps_routes.append(comp) 
+    gallery_apps_routes.append(comp)
