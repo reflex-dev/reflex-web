@@ -5,7 +5,7 @@ from pcweb.components.hosting_banner import HostingBannerState
 def header() -> rx.Component:
     return rx.box(
         rx.el.h1(
-            "Find a plan that's right for you",
+            "Pricing that scales with you",
             class_name="gradient-heading font-semibold text-4xl xl:text-5xl text-center",
         ),
         rx.el.h2(

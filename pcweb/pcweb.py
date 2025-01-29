@@ -5,7 +5,6 @@ import sys
 
 import reflex as rx
 from pcweb import styles
-from pcweb.github import fetch_count
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
@@ -144,5 +143,3 @@ for source, target in redirects:
         app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_page(page404.component, route=page404.path)
-
-app.register_lifespan_task(fetch_count)
