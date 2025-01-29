@@ -1,3 +1,4 @@
+from datetime import datetime
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.components.button import button
@@ -158,7 +159,7 @@ def footer_index() -> rx.Component:
             # Socials
             rx.box(
                 rx.text(
-                    "Copyright © 2024 Pynecone, Inc.",
+                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),

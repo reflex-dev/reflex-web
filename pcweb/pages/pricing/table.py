@@ -26,7 +26,7 @@ TABLE_STYLE = """
     display: grid !important;
     grid-template-columns: minmax(100px, 1fr) repeat(4, minmax(100px, 1fr)) !important;
     padding: 1rem 2.5rem;
-    gap: 6rem !important;
+    gap: 1rem !important;
 }
 .rt-ScrollAreaViewport {
     padding-top: 2rem;
@@ -35,10 +35,8 @@ TABLE_STYLE = """
 
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
-    ("Templates", True, True, True, True),
     ("One Click Auth", False, False, True, True),
     ("Embed Reflex Apps", False, False, True, True),
-    ("Built-in Testing", False, False, True, True),
 ]
 
 REFLEX_BRANDING_SECTION = [
@@ -49,30 +47,17 @@ REFLEX_AI_SECTION = [
     ("Number of Generations", "5/month", "100/month/seat", "250/month/seat", "Custom"),
 ]
 
-DATABASE_SECTION = [
-    ("Connect your own SQL DB", True, True, True, True),
-    ("Database Editor UI", False, False, True, True),
-    ("Database Migration Tool", False, False, True, True),
-]
-
 HOSTING_TEXT_SECTION = [
-    ("Compute Limits", "1 CPU, .5GB", "5 CPU, 10GB", "Custom", "Custom"),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
-    ("Build logs", "7 day", "30 days", "90 days", "Custom"),
-    ("Runtime logs", "1 day", "7 days", "30 days", "Custom"),
+    ("Logs", "1 day", "30 days", "90 days", "Custom"),
 ]
 
 HOSTING_BOOLEAN_SECTION = [
     ("CLI Deployments", True, True, True, True),
+    ("Automatic CI / CD Deploy (Github)", True, True, True, True),
     ("Custom Domains", False, True, True, True),
-    ("Automatic CI / CD Deploy (Github)", False, False, True, True),
-    ("Secrets", True, True, True, True),
-    ("Secret Manager", False, False, True, True),
-    ("App Analytics", False, False, True, True),
-    ("Traces", False, False, True, True),
-    ("Custom Alerts", False, False, True, True),
-    ("Rollbacks", False, False, True, True),
-    ("Large File Support", False, False, True, True),
+    ("Secret Manager", False, True, True, True),    
+    ("App Analytics", False, True, True, True),
     ("On Prem Hosting", False, False, False, True),
 ]
 
@@ -81,8 +66,6 @@ SECURITY_SECTION = [
     ("HTTP/SSL", True, True, True, True),
     ("DDos Protection", True, True, True, True),
     ("2 Factor Auth", True, True, True, True),
-    ("Rich Permissions Control", False, False, True, True),
-    ("Connect to Analytics Vendors", False, False, True, True),
     ("Audit Logs", False, False, False, True),
     ("SSO", False, False, False, True),
 ]
@@ -92,10 +75,8 @@ SUPPORT_TEXT_SECTION = [
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
-    ("White Glove Onboarding", False, False, False, True),
     ("Support SLAs Available", False, False, False, True),
-    ("Migrate Existing Apps", False, False, False, True),
-    ("Priority Support with Reflex Engineering Team", False, False, False, True),
+    ("Personalized Onboarding", False, False, False, True),
     ("", "", "", "", ""),
 ]
 
@@ -164,7 +145,7 @@ def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Compone
             rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"])
         ],
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative",
+        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
         padding_x="5rem !important",
     )
 
@@ -261,7 +242,13 @@ def table_body_hosting() -> rx.Component:
 
 def table_body_oss() -> rx.Component:
     return rx.table.root(
-        rx.el.style(TABLE_STYLE),
+        rx.table.header(
+            create_table_row_header("AI", coming_soon=True),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in REFLEX_AI_SECTION],
+        ),
         rx.table.header(
             create_table_row_header("Framework"),
             class_name="relative",
@@ -272,33 +259,6 @@ def table_body_oss() -> rx.Component:
                 for feature, *checks in FRAMEWORK_SECTION
             ],
             *[create_table_row(row) for row in REFLEX_BRANDING_SECTION],
-        ),
-        rx.table.header(
-            create_table_row_header("Database"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in DATABASE_SECTION
-            ],
-        ),
-        rx.table.header(
-            create_table_row_header("AI", coming_soon=True),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in REFLEX_AI_SECTION],
-        ),
-        create_table_body(
-            rx.table.row(
-                rx.table.cell(),
-                *[
-                    rx.table.cell(create_action_button(text, variant, extra))
-                    for text, variant, extra in PLAN_BUTTONS
-                ],
-                class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 !py-[1.25rem] border-y border-slate-4 !h-[76px] relative",
-            ),
         ),
         create_table_body(
             *[create_table_row(row) for row in ASTERIX_SECTION],

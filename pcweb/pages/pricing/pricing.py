@@ -25,7 +25,6 @@ def pricing() -> rx.Component:
                 plan_cards(),
                 comparison_table_hosting(),
                 comparison_table_oss(),
-                calculator_section(),
                 faq(),
                 class_name="flex flex-col relative justify-center items-center w-full",
             ),
