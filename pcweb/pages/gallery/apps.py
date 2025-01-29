@@ -197,7 +197,7 @@ for path, document in gallery_apps_data.items():
         title=document.metadata["title"],
         description=document.metadata["description"],
         image=document.metadata["image"],
-        demo=document.metadata["demo"],
+        demo=document.metadata["demo"] if "demo" in document.metadata else None,
         meta=document.metadata["meta"],
     )(lambda doc=document: page(doc))
 
