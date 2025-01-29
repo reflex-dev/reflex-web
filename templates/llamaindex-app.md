@@ -3,7 +3,6 @@ title: reflex-llamaindex-template
 description: "A minimal chat app using LLamaIndex"
 author: "Reflex"
 image: "llamaindex.png"
-demo: "https://frontend-gold-orca.dev.reflexcorp.run/"
 source: "https://github.com/reflex-dev/reflex-llamaindex-template"
 meta: [
     {"name": "keywords", "content": ""},
