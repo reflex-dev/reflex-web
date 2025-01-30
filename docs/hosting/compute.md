@@ -24,7 +24,7 @@ compute_table_base()
 
 ## Reserved Machines (Coming Soon)
 
-If you expect your apps to be continously recieving users, you may want to reserve a machine instead of having us manage your compute. 
+If you expect your apps to be continuously receiving users, you may want to reserve a machine instead of having us manage your compute. 
 
 This will be a flat monthly rate for the machine.
 
