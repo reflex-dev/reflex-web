@@ -3,7 +3,9 @@ from pcweb.components.icons.icons import get_icon
 from reflex.components.datadisplay.shiki_code_block import copy_script
 
 
-def install_command(command: str, show_dollar_sign: bool = True,  **props) -> rx.Component:
+def install_command(
+    command: str, show_dollar_sign: bool = True, **props
+) -> rx.Component:
     return rx.el.button(
         rx.icon("copy", size=14, margin_left="5px"),
         rx.text(
@@ -115,16 +117,22 @@ def gallery_app_card(app: dict) -> rx.Component:
                     rx.vstack(
                         rx.box(
                             rx.hstack(
-                                install_command(f"reflex init --template {app['title']}"),
-                                rx.hstack(
-                                    repo(app["demo"]),
-                                    justify="start",
-
+                                install_command(
+                                    f"reflex init --template {app['title']}"
+                                ),
+                                *(
+                                    [
+                                        rx.hstack(
+                                            repo(app["demo"]),
+                                            justify="start",
+                                        )
+                                    ]
+                                    if "demo" in app
+                                    else []
                                 ),
                             ),
                             width="310px",
                             max_width="310px",
-
                         ),
                         rx.cond(
                             "Reflex" in app["author"],
@@ -146,10 +154,8 @@ def gallery_app_card(app: dict) -> rx.Component:
                             ),
                         ),
                         align_items="start",
-                        class_name="brother-john"
+                        class_name="brother-john",
                     ),
-
-
                     class_name="flex flex-row items-center gap-[6px] justify-between w-full",
                 ),
                 class_name="flex flex-col justify-between items-start gap-1 p-[0.625rem_0.75rem_0.625rem_0.75rem] w-full h-full",
