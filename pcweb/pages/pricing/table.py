@@ -40,7 +40,7 @@ FRAMEWORK_SECTION = [
 ]
 
 REFLEX_BRANDING_SECTION = [
-    ("Remove Branding", "", "Cloud", "Everywhere *", "Everywhere *"),
+    ("Remove Branding", "", "On Cloud", "Everywhere*", "Everywhere*"),
 ]
 
 REFLEX_AI_SECTION = []

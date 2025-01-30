@@ -221,6 +221,7 @@ def get_sidebar_items_hosting():
                 hosting.logs,
                 hosting.secrets_environment_vars,
                 hosting.custom_domains,
+                hosting.config_file,
                 hosting.tokens,
                 hosting.deploy_with_github_actions,
             ],
