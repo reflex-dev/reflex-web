@@ -37,7 +37,7 @@ github_actions_configs = [
 ]
 ```
 
-# Reflex Deploy with Github Actions
+# Deploy with Github Actions
 
 This GitHub Action simplifies the deployment of Reflex applications to Reflex Cloud. It handles setting up the environment, installing the Reflex CLI, and deploying your app with minimal configuration.
 

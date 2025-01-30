@@ -114,8 +114,11 @@ def sidebar_icon(name):
         "Utility Methods": "cog",
         "Quick Start": "earth",
         "CLI Reference": "square-terminal",
+        "App": "blocks",
+        "Project": "server",
         "Self Hosting": "server",
         "Custom Components": "blocks",
+        "Usage": "chart-column",
     }
 
     return (

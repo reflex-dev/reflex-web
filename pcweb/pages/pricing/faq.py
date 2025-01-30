@@ -84,8 +84,8 @@ faq_items = [
         "Yes! Reflex is open source and free to use. You can self-host your apps or use our hosting platform which has a generous free tier.",
     ),
     (
-        "What is the difference between Reflex and Reflex Hosting?",
-        "Reflex is our open-source framework for building web apps. Reflex Hosting is our platform for hosting Reflex apps.",
+        "What is the difference between Reflex and Reflex Cloud?",
+        "Reflex is our open-source framework for building web apps. Reflex Cloud is our platform for hosting Reflex apps.",
     ),
     (
         "Why was I charged $1 after adding a credit card?",
@@ -93,7 +93,7 @@ faq_items = [
     ),
     (
         "How usage based billing is calculated?",
-        "Usage is calculated based on compute resources (CPU/RAM) consumed by your app. We measure this in compute units per hour.",
+        "Usage is calculated based on compute resources (CPU/RAM) consumed by your app. We measure this in compute units per minute.",
     ),
     (
         "What happens when I upgrade?",
@@ -113,7 +113,7 @@ faq_items = [
     ),
     (
         "Can I add members to my project?",
-        "Yes! Pro plan allows up to 5 team members, Team plan up to 15 members, and Enterprise plan have unlimited team members.",
+        "Yes! You can add unlimited members to your project with a per seat monthly charge on additional seats.",
     ),
 ]
 
@@ -129,5 +129,5 @@ def faq() -> rx.Component:
             class_name="max-w-[40rem] flex justify-center items-center flex-col mx-auto w-full gap-2",
         ),
         sales_button(),
-        class_name="flex flex-col gap-8 w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] pt-16",
+        class_name="flex flex-col gap-8 w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] py-32",
     )

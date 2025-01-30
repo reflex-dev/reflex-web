@@ -23,6 +23,7 @@ def pricing() -> rx.Component:
             rx.box(
                 header(),
                 plan_cards(),
+                calculator_section(),
                 comparison_table_hosting(),
                 comparison_table_oss(),
                 faq(),
