@@ -40,12 +40,10 @@ FRAMEWORK_SECTION = [
 ]
 
 REFLEX_BRANDING_SECTION = [
-    ("Remove Reflex Branding", "", "On Reflex Cloud", "Everywhere *", "Everywhere *"),
+    ("Remove Branding", "", "On Cloud", "Everywhere*", "Everywhere*"),
 ]
 
-REFLEX_AI_SECTION = [
-    ("Number of Generations", "5/month", "100/month/seat", "250/month/seat", "Custom"),
-]
+REFLEX_AI_SECTION = []
 
 HOSTING_TEXT_SECTION = [
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
@@ -54,7 +52,8 @@ HOSTING_TEXT_SECTION = [
 
 HOSTING_BOOLEAN_SECTION = [
     ("CLI Deployments", True, True, True, True),
-    ("Automatic CI / CD Deploy (Github)", True, True, True, True),
+    ("CI/CD Deploy Tokens", True, True, True, True),
+    ("Set Billing Limits", True, True, True, True),
     ("Custom Domains", False, True, True, True),
     ("Secret Manager", False, True, True, True),    
     ("App Analytics", False, True, True, True),
@@ -75,7 +74,7 @@ SUPPORT_TEXT_SECTION = [
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
-    ("Support SLAs Available", False, False, False, True),
+    ("SLAs Available", False, False, False, True),
     ("Personalized Onboarding", False, False, False, True),
     ("", "", "", "", ""),
 ]
@@ -88,7 +87,8 @@ PLAN_BUTTONS = [
 ]
 
 ASTERIX_SECTION = [
-    ("* Everywhere: This includes removing the 'Made in Reflex' badge for self hosted apps.", "", "", "", "")
+    ("* Everywhere: This includes removing the 'Made in Reflex' badge for self hosted apps.", "", "", "", ""),
+    ("",  "", "", "", ""),
 ]
 
 def glow() -> rx.Component:
@@ -132,14 +132,21 @@ def create_table_row(cells: list) -> rx.Component:
     row_cells = [create_table_cell(cell) for cell in cells]
     return rx.table.row(
         *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px]",
+        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
     )
 
 
 def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Component:
     return rx.table.row(
         *[
-            rx.table.column_header_cell(name, rx.badge("coming soon", margin_left="0.5rem"), class_name=STYLES["header_cell"])  if coming_soon else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]),
+            rx.table.column_header_cell(
+                rx.el.div(
+                    name, 
+                    rx.badge("coming soon", margin_left="0.5rem"), 
+                    class_name="flex items-center gap-2"
+                ),
+                class_name=STYLES["header_cell"])  if coming_soon else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]
+            ),
             rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
@@ -242,13 +249,6 @@ def table_body_hosting() -> rx.Component:
 
 def table_body_oss() -> rx.Component:
     return rx.table.root(
-        rx.table.header(
-            create_table_row_header("AI", coming_soon=True),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in REFLEX_AI_SECTION],
-        ),
         rx.table.header(
             create_table_row_header("Framework"),
             class_name="relative",

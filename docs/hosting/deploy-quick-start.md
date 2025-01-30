@@ -72,7 +72,7 @@ If you go back to the Cloud UI you should be able to see your deployed app and o
 
 ```md alert info
 # Setup a Cloud Config File
-To create a `config.yml` file for your app to set your app configuration check out the [Cloud Config Docs]({docs.hosting.app.path}#config-file).
+To create a `config.yml` file for your app to set your app configuration check out the [Cloud Config Docs]({docs.hosting.config_file.path}).
 ```
 
 ```md alert info

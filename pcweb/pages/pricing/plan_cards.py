@@ -31,7 +31,7 @@ def glow() -> rx.Component:
   <path d="M0 290C0 450.163 112.377 580 251 580C389.623 580 502 450.163 502 290C502 129.837 389.623 0 251 0C112.377 0 0 129.837 0 290Z" fill="url(#paint0_radial_13685_26666)"/>
   <defs>
     <radialGradient id="paint0_radial_13685_26666" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(251 290) rotate(90) scale(290 251)">
-      <stop stop-color="var(--c-violet-3)"/>
+      <stop stop-color="var(--c-violet-2)"/>
       <stop offset="1" stop-color="var(--c-slate-2)" stop-opacity="0"/>
     </radialGradient>
   </defs>
@@ -78,19 +78,19 @@ def grid() -> rx.Component:
 </mask>
 <g mask="url(#mask0_13685_24040)">
 <g filter="url(#filter0_f_13685_24040)">
-<circle cx="266" cy="89" r="55" fill="light-dark(var(--c-violet-7), var(--c-violet-5))"/>
+<circle cx="266" cy="89" r="55" fill="light-dark(var(--c-violet-6), var(--c-violet-4))"/>
 </g>
 <g filter="url(#filter1_f_13685_24040)">
-<circle cx="107" cy="258" r="64" fill="light-dark(var(--c-violet-7), var(--c-violet-5))"/>
+<circle cx="107" cy="258" r="64" fill="light-dark(var(--c-violet-6), var(--c-violet-4))"/>
 </g>
 <g filter="url(#filter2_f_13685_24040)">
-<circle cx="265" cy="328" r="28" fill="light-dark(var(--c-violet-7), var(--c-violet-5))"/>
+<circle cx="265" cy="328" r="28" fill="light-dark(var(--c-violet-6), var(--c-violet-4))"/>
 </g>
 <g filter="url(#filter3_f_13685_24040)">
-<circle cx="475" cy="174" r="64" fill="light-dark(var(--c-violet-7), var(--c-violet-5))"/>
+<circle cx="475" cy="174" r="64" fill="light-dark(var(--c-violet-6), var(--c-violet-4))"/>
 </g>
 <g filter="url(#filter4_f_13685_24040)">
-<circle cx="292" cy="492" r="48" fill="light-dark(var(--c-violet-7), var(--c-violet-5))"/>
+<circle cx="292" cy="492" r="48" fill="light-dark(var(--c-violet-6), var(--c-violet-4))"/>
 </g>
 </g>
 </g>
@@ -137,10 +137,10 @@ def card(
     title: str, description: str, features: list[tuple[str, str]], button_text: str, price: str = None
 ) -> rx.Component:
     return rx.box(
-        rx.hstack(
-            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+        rx.el.div(
+            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
             rx.badge(price, color_scheme="gray", size="3") if price else rx.fragment(),
-            align_items="center",
+            class_name="flex items-center mb-2 gap-2",
         ),
         rx.el.p(
             description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
@@ -188,9 +188,9 @@ def popular_card(
             glow(),
             grid(),
             rx.hstack(
-                rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-2"),
+                rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
                 rx.badge(price, color_scheme="violet", size="3") if price else rx.fragment(),
-                align_items="center",
+                class_name="flex items-center mb-2 gap-2",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
             rx.el.ul(
@@ -233,7 +233,7 @@ def plan_cards() -> rx.Component:
             "Everything you need to get started.",
             [
                 ("heart-handshake", "Community support"),
-                ("app-window", "1 app included", "Free apps shutdown after 1 hour of inactivity, and are restarted on demand (usually within a few seconds)."),
+                ("app-window", "Unlimited apps", "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month."),
                 ("clock", "1 day log retention"),
                 ("code", "Open Source Framework"),
                 ("file-code", "Starter Templates"),
@@ -245,15 +245,15 @@ def plan_cards() -> rx.Component:
             "Pro",
             "For professional projects and startups.",
             [   
-                ("heart-handshake", "Community support"),
+                ("heart-handshake", "Priority Community support"),
                 ("users", "1 seat incl. (additional seats at $20/mo)"),
-                ("credit-card", "$20 / month free compute credits"),
-                ("app-window", "Up to 5 apps"),
-                ("server", "Customizable machine sizes"),
+                ("credit-card", "$10 / month free compute credits"),
+                ("server", "Customize machine sizes"),
                 ("clock", "30 days log retention"),
                 ("globe", "Multi-region"),
                 ("brush", "Custom domains"),
-                ("file-badge", "Remove Branding with Reflex Cloud", "Check out the Reflex Branding doc page to learn how to remove the 'Made in Reflex' badge from your app.")
+                ("file-badge", "Remove Branding", "Check out the Reflex Branding doc page to learn how to remove the 'Made in Reflex' badge from your app."),
+                ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
             price="$20/mo + compute",
@@ -265,11 +265,10 @@ def plan_cards() -> rx.Component:
                 ("mail", "Email/Slack support"),
                 ("users", "5 seat incl. (additional seats available)"),
                 ("credit-card", "Monthly free compute credits"),
-                ("app-window", "Unlimited apps"),
                 ("git-branch", "Create multiple projects"),
                 ("signal", "Full Website Analytics"),
                 ("lock-keyhole", "One Click Auth"),
-                ("file-badge", "Remove Branding for Self-Hosting", "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Made in Reflex' badge from your app."),
+                ("file-badge", "Remove Branding Everywhere", "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Made in Reflex' badge from your app."),
                 ("circle-plus", "Everything in Pro"),
             ],
             "Contact sales",
@@ -278,7 +277,7 @@ def plan_cards() -> rx.Component:
             "Enterprise",
             "Get a plan tailored to your business needs.",
             [
-                ("headset", "Priority Engineering Support"),
+                ("headset", "Dedicated Support"),
                 ("users", "Customized seat amount"),
                 ("user-round-plus", "Personalized integration help"),
                 ("hard-drive", "On Premise Deployment"),

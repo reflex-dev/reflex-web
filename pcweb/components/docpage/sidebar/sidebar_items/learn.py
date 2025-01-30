@@ -201,17 +201,37 @@ def get_sidebar_items_hosting():
 
     items = [
         create_item(
-            "Quick Start",
+            "Deploy Quick Start",
             children=[
                 hosting.deploy_quick_start,
-                hosting.project,
-                hosting.app,
+            ],
+        ),
+        create_item(
+            "Project",
+            children=[
+                hosting.adding_members,
+            ],
+        ),  
+        create_item(
+            "App",
+            children=[
+                hosting.app_management,
+                hosting.machine_types,
+                hosting.regions, 
+                hosting.logs,
                 hosting.secrets_environment_vars,
-                hosting.tokens,
                 hosting.custom_domains,
-                hosting.reflex_branding,
+                hosting.config_file,
+                hosting.tokens,
                 hosting.deploy_with_github_actions,
             ],
+        ),  
+        create_item(
+            "Usage", 
+            children=[   
+                hosting.billing,
+                hosting.compute,   
+            ]
         ),
         create_item(
             "CLI Reference",
