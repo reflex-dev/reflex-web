@@ -201,7 +201,7 @@ def get_sidebar_items_hosting():
 
     items = [
         create_item(
-            "Quick Start",
+            "Deploy Quick Start",
             children=[
                 hosting.deploy_quick_start,
             ],

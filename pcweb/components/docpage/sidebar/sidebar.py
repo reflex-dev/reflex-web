@@ -112,7 +112,7 @@ def sidebar_icon(name):
         "Database": "database",
         "Authentication": "lock-keyhole",
         "Utility Methods": "cog",
-        "Quick Start": "earth",
+        "Deploy Quick Start": "earth",
         "CLI Reference": "square-terminal",
         "App": "blocks",
         "Project": "server",
