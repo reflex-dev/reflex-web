@@ -87,7 +87,7 @@ PLAN_BUTTONS = [
 ]
 
 ASTERIX_SECTION = [
-    ("* Everywhere: This includes removing the 'Made in Reflex' badge for self hosted apps.", "", "", "", ""),
+    ("* Everywhere: This includes removing the 'Built with Reflex' badge for self hosted apps.", "", "", "", ""),
     ("",  "", "", "", ""),
 ]
 
