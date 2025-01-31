@@ -123,8 +123,7 @@ docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
 
 ## Remove Reflex branding from your self-hosted app
 
-To remove the Reflex branding, such as the "Made in Reflex" badge, from your self-hosted app, you must add the `--badge` flag to the export command `reflex export --badge` or the run command `reflex run --env prod --badge`. 
-
+To remove the Reflex branding, such as the "Built with Reflex" badge, from your self-hosted app, you must add `show_built_with_reflex=False` to the `rx.Config()` in the `rxconfig.py` file. 
 
 
 ```md alert info
