@@ -127,6 +127,9 @@ class BackendVarState(rx.State):
     def generate_more(self):
         self._backend = np.append(self._backend, [random.randint(0, 100) for _ in range(random.randint(0, 100))])
 
+    @rx.event
+    def set_limit(self, value: str):
+        self.limit = int(value)
 
 def backend_var_example():
     return rx.vstack(
