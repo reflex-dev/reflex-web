@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.styles.tailwind_config import tw_config
+from tailwind_config import tw_config
 
 config = rx.Config(
     port=3000,
