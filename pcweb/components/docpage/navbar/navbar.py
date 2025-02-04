@@ -370,7 +370,7 @@ def new_component_section() -> rx.Component:
         ),
     )
 
-
+@rx.memo
 def navbar() -> rx.Component:
     return rx.box(
         hosting_banner(),

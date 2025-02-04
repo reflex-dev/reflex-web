@@ -45,6 +45,10 @@ class MyTaskState(rx.State):
     running: bool = False
     _n_tasks: int = 0
 
+    @rx.event
+    def set_max_counter(self, value: str):
+        self.max_counter = int(value)
+
     @rx.event(background=True)
     async def my_task(self):
         async with self:
