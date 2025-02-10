@@ -49,6 +49,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-02-10",
+            "v0.7.0",
+            rx.fragment("Async-capable Computed Var with ", rx.code("cache=True"), " by default"),
+            [
+                "Drop python 3.9 support and other deprecated features",
+                "Add `reflex rename` command",
+                "Show 'Built with Reflex' badge in prod mode",
+                "Support for specifying a custom app module",
+                "Bump NextJS to v15.1.6",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.0",
+        ),
+        change(
             "2025-01-10",
             "v0.6.8",
             "Support recursive UI elements with rx.memo",
