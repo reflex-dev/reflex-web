@@ -6,7 +6,6 @@ from pcweb.components.button import button
 from pcweb.components.webpage.comps import h1_title
 from pcweb.constants import (
     REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL,
-    REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL,
 )
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.templates.webpage import webpage
@@ -37,22 +36,6 @@ class FormState(rx.State):
             self.is_loading = False
             self.email_sent = False
             yield rx.toast.error("Failed to submit request. Please try again later.")
-
-    @rx.event
-    async def submit_pro_waitlist(self, form_data: dict):
-        try:
-            with httpx.Client() as client:
-                response: Response = client.post(
-                    REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL,
-                    json=form_data,
-                )
-                response.raise_for_status()
-
-            yield rx.toast.success("Thank you for joining the waitlist!")
-
-        except httpx.HTTPError:
-            yield rx.toast.error("Failed to submit request. Please try again later.")
-
 
 def dialog(trigger: rx.Component, content: rx.Component) -> rx.Component:
     return rx.dialog.root(

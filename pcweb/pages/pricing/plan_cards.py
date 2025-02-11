@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.new_button import button
-from pcweb.constants import REFLEX_CLOUD_URL
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -168,7 +168,7 @@ def card(
                 size="lg",
                 class_name="w-full",
             ),
-            href=(REFLEX_CLOUD_URL if button_text != "Contact sales" else "/sales"),
+            href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
             is_external=True,
             underline="none",
         ),
@@ -216,7 +216,7 @@ def popular_card(
                     size="lg",
                     class_name="w-full !text-sm !font-semibold",
                 ),
-                href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
+                href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
                 is_external=True,
                 underline="none",
             ),

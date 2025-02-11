@@ -42,7 +42,7 @@ class FeedbackState(rx.State):
                 json=form_data,
             )
 
-        discord_webhook_url: str | None = os.environ.get("DISCORD_WEBHOOK_URL")
+        discord_webhook_url: str | None = REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
         email: str = form_data.get("email", "")
         discord_message = f"""
 Contact: {email}

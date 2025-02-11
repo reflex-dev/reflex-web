@@ -1,35 +1,11 @@
-import httpx
 import reflex as rx
-from httpx import Response
-
-from pcweb.constants import REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL
-
+ 
 
 class WaitlistState(rx.State):
 
     loading = False
     success = False
     
-    @rx.event
-    async def submit_pro_waitlist(self, form_data: dict):
-        self.loading = True
-        yield
-
-        try:
-            with httpx.Client() as client:
-                response: Response = client.post(
-                    REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL,
-                    json=form_data,
-                )
-                response.raise_for_status()
-
-            self.success = True
-            yield rx.toast.success("Thank you for joining the waitlist!")
-
-        except httpx.HTTPError:
-            yield rx.toast.error("Failed to submit request. Please try again later.")
-
-        self.loading = False
 
 def waitlist():
     return rx.box(
@@ -72,7 +48,6 @@ def waitlist():
                     ), 
                     align_items="center",
                 )),   
-                on_submit=WaitlistState.submit_pro_waitlist,
                 class_name="flex lg:flex-row flex-col gap-2 justify-center items-center",
             ),
             class_name="flex flex-col items-center max-w-[40rem]bg-slate-1 self-center w-full",
