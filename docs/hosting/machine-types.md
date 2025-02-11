@@ -22,7 +22,7 @@ image_zoom(rx.image(src="/scaling_vms.webp", padding_bottom="20px"))
 To get all the possible VMTypes you can run the following command:
 
 ```bash
-reflex apps vmtypes
+reflex cloud vmtypes
 ```
 
 To set which VMType to use when deploying your app you can pass the `--vmtype` flag with the id of the VMType. For example:
