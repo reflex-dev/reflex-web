@@ -1614,7 +1614,7 @@ app = rx.App(
 )
 ```
 
-Unfortunately in this tutoial here we cannot actually apply this to the live example on the page, but if you copy and paste the code below into a reflex app locally you can see it in action.
+Unfortunately in this tutorial here we cannot actually apply this to the live example on the page, but if you copy and paste the code below into a reflex app locally you can see it in action.
 
 
 
