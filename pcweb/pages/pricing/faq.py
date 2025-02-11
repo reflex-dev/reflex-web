@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.button import button
-
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
 def glow() -> rx.Component:
     return rx.box(
@@ -34,7 +34,7 @@ def sales_button() -> rx.Component:
             variant="secondary",
             class_name="!text-slate-11 !font-semibold !text-sm",
         ),
-        href="/sales",
+        href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         is_external=True,
         class_name="self-center relative",
     )
