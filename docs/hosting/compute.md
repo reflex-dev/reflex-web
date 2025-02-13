@@ -69,7 +69,7 @@ Anna's total cost for compute would be `$2.49` for the month. However, since Pro
 ```md alert
 # Single Application - Multi Region
 
-Bob created a social media application and decided to host it on Reflex Cloud. Bob has users in Paris, London, San Jose and Sydney. Bob decided to deploy his application to all those region as well as aditional one in Paris since that where Bob lives. If users use the site in each region for 30 minutes a day how much would Bob pay?
+Bob created a social media application and decided to host it on Reflex Cloud. Bob has users in Paris, London, San Jose and Sydney. Bob decided to deploy his application to all those region as well as additional one in Paris since that where Bob lives. If users use the site in each region for 30 minutes a day how much would Bob pay?
 
 **Facts:**
 
@@ -85,7 +85,7 @@ Bob created a social media application and decided to host it on Reflex Cloud. B
 
 (assuming a 30 day month)
 
-Bob would owe `$6.23` for this month. However since Bob is a pro user they recieve a `$10` credit which brings Bob's bill down to `$0`.
+Bob would owe `$6.23` for this month. However since Bob is a pro user they receive a `$10` credit which brings Bob's bill down to `$0`.
 
 **Charge for compute:**
 
@@ -115,7 +115,7 @@ If users access the app on average for **16 hours per week** in each region, how
 
 (assuming 4 weeks in a month)
 
-Charlie would owe `$40.19` for this month. However since Charlie is a pro user they recieve a `$10` credit which brings Bob's bill down to `$30.19`.
+Charlie would owe `$40.19` for this month. However since Charlie is a pro user they receive a `$10` credit which brings Bob's bill down to `$30.19`.
 
 **Charge for compute:**
 
@@ -146,7 +146,7 @@ With users accessing the app **2 hours per day** over a **30-day month**, how mu
 
 (assuming a 30 day month)
 
-David would owe `$9.96` for this month. However since David is a pro user they recieve a `$10` credit, he will not be charged for compute for this month.
+David would owe `$9.96` for this month. However since David is a pro user they receive a `$10` credit, he will not be charged for compute for this month.
 
 **Charge for compute:**
 
@@ -177,7 +177,7 @@ With users actively using the app **6 hours per day in each region** over a **30
 
 (assuming a 30 day month)
 
-Emily would owe `$44.82` for this month. However since Emily is a pro user they recieve a `$10` credit which brings Emily's bill down to `$34.82`.
+Emily would owe `$44.82` for this month. However since Emily is a pro user they receive a `$10` credit which brings Emily's bill down to `$34.82`.
 
 **Charge for compute:**
 
@@ -220,11 +220,11 @@ Total compute hours = `60 + 360 = 420 compute hours`
 
 (assuming a 30 day month)
 
-Fred would owe `$34.86` for this month. However since Fred is a pro user they recieve a `$10` credit which brings Fred's bill down to `$24.86`.
+Fred would owe `$34.86` for this month. However since Fred is a pro user they receive a `$10` credit which brings Fred's bill down to `$24.86`.
 
 **Charge for compute:**
 
 `$24.82 dollars`
 ```
 
-One thing that is important to note is that in the hypothetical example where you have `50 people` using your app `continuosly for 24 hours` or if you have `1 person` using your app `continuosly for 24 hours`, you `will be charged the same amount` as the charge is based on the amount of time your app up and not the number of users using your app. In `both these examples` your `app is up for 24 hours` and therefore you will be `charged for 24 hours of compute`.
+One thing that is important to note is that in the hypothetical example where you have `50 people` using your app `continuously for 24 hours` or if you have `1 person` using your app `continuously for 24 hours`, you `will be charged the same amount` as the charge is based on the amount of time your app up and not the number of users using your app. In `both these examples` your `app is up for 24 hours` and therefore you will be `charged for 24 hours of compute`.
