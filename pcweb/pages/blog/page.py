@@ -53,6 +53,7 @@ def more_posts(current_post: dict) -> rx.Component:
 
 def page(document, route) -> rx.Component:
     """Create a page."""
+    print(route, vars(document))
     meta = document.metadata
     return rx.el.section(
         rx.el.article(
@@ -93,7 +94,7 @@ def page(document, route) -> rx.Component:
                 class_name="rounded-[1.125rem] w-auto object-cover max-w-full max-h-[25rem] aspect-[2/1]",
             ),
             rx.box(
-                xd.render(document, "blog.md"),
+                xd.render(document, document.filename),
                 class_name="flex flex-col gap-4 w-full max-w-2xl",
             ),
             more_posts(meta),

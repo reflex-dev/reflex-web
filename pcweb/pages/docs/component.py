@@ -415,23 +415,115 @@ def hovercard(trigger: rx.Component, content: rx.Component) -> rx.Component:
     )
 
 
+@rx.memo
 def color_scheme_hovercard(literal_values: list[str]) -> rx.Component:
     return hovercard(
         rx.icon(tag="palette", size=15, class_name="!text-slate-9 shrink-0"),
         rx.grid(
-            *[
-                rx.tooltip(
+            rx.foreach(
+                literal_values,
+                lambda color: rx.tooltip(
                     rx.box(
                         bg=f"var(--{color}-9)", class_name="rounded-md size-8 shrink-0"
                     ),
                     content=color,
                     delay_duration=0,
-                )
-                for color in literal_values
-            ],
+                ),
+            ),
             columns="6",
             spacing="3",
         ),
+    )
+
+
+@rx.memo
+def prop_doc_table_row(
+    prop_name: str,
+    prop_description: str,
+    type_name: str,
+    code_style_color: dict[str, Any],
+    ellipsis_type_names: str,
+    all_types_str: str,
+    literal_values: list[str],
+    default_value: str,
+    code_style_default_value: dict[str, Any],
+    rendered_select: rx.Component,
+) -> rx.Component:
+    return rx.table.row(
+        rx.table.cell(
+            rx.box(
+                rx.code(prop_name, class_name="code-style text-nowrap leading-normal"),
+                hovercard(
+                    rx.icon(
+                        tag="info",
+                        size=15,
+                        class_name="!text-slate-9 shrink-0",
+                    ),
+                    rx.text(prop_description, class_name="font-small text-slate-11"),
+                ),
+                class_name="flex flex-row items-center gap-2",
+            ),
+            class_name="justify-start pl-4",
+        ),
+        rx.table.cell(
+            rx.box(
+                rx.code(
+                    type_name,
+                    style=code_style_color,
+                    class_name="code-style text-nowrap leading-normal",
+                ),
+                rx.cond(
+                    ellipsis_type_names != "",
+                    hovercard(
+                        rx.icon(
+                            tag="circle-ellipsis",
+                            size=15,
+                            class_name="!text-slate-9 shrink-0",
+                        ),
+                        rx.text(
+                            ellipsis_type_names,
+                            class_name="font-small text-slate-11",
+                        ),
+                    ),
+                ),
+                rx.cond(
+                    all_types_str != "",
+                    hovercard(
+                        rx.icon(
+                            tag="info",
+                            size=15,
+                            class_name="!text-slate-9 shrink-0",
+                        ),
+                        rx.text(
+                            f"Union[{all_types_str}]",
+                            class_name="font-small text-slate-11",
+                        ),
+                    ),
+                ),
+                rx.cond(
+                    (prop_name == "color_scheme") | (prop_name == "accent_color"),
+                    color_scheme_hovercard(literal_values=literal_values),
+                ),
+                class_name="flex flex-row items-center gap-2",
+            ),
+            class_name="justify-start pl-4",
+        ),
+        rx.table.cell(
+            rx.box(
+                rx.code(
+                    default_value,
+                    style=code_style_default_value,
+                    class_name="code-style leading-normal text-nowrap",
+                ),
+                class_name="flex",
+            ),
+            class_name="justify-start pl-4",
+        ),
+        rx.table.cell(
+            rendered_select,
+            class_name="justify-start pl-4",
+        ),
+        align="center",
     )
 
 
@@ -448,6 +540,7 @@ def prop_docs(
     origin = get_origin(type_)
     args = get_args(type_)
 
+    ellipsis_type_names = ""
     literal_values = []  # Literal values of the prop
     all_types = []  # List for all the prop types
     MAX_PROP_VALUES = 2
@@ -486,10 +579,9 @@ def prop_docs(
     elif origin is Literal:
         literal_values = list(map(str, args))
         if len(literal_values) > MAX_PROP_VALUES and prop.name not in COMMON_TYPES:
-            type_name = "Literal"
-        else:
-            type_name = " | ".join([f'"{value}"' for value in literal_values])
-
+            ellipsis_type_names = " | ".join(f'"{v}"' for v in literal_values)
+            literal_values = literal_values[:MAX_PROP_VALUES] + ["..."]
+        type_name = " | ".join([f'"{value}"' for value in literal_values])
     else:
         type_name = type_.__name__
 
@@ -498,108 +590,24 @@ def prop_docs(
     # Get the color of the prop.
     color = TYPE_COLORS.get(type_.__name__, "gray")
     # Return the docs for the prop.
-    return [
-        rx.table.cell(
-            rx.box(
-                rx.code(prop.name, class_name="code-style text-nowrap leading-normal"),
-                hovercard(
-                    rx.icon(
-                        tag="info",
-                        size=15,
-                        class_name="!text-slate-9 shrink-0",
-                    ),
-                    rx.text(prop.description, class_name="font-small text-slate-11"),
-                ),
-                class_name="flex flex-row items-center gap-2",
-            ),
-            class_name="justify-start pl-4",
+    return prop_doc_table_row(
+        prop_name=prop.name,
+        prop_description=prop.description,
+        type_name=type_name,
+        code_style_color=get_code_style(color),
+        ellipsis_type_names=ellipsis_type_names,
+        all_types_str=", ".join(all_types) if (origin is Union and "Breakpoints" in all_types) else "",
+        literal_values=literal_values,
+        default_value=default_value,
+        code_style_default_value=get_code_style(
+            "red"
+            if default_value == "False"
+            else "green"
+            if default_value == "True"
+            else "gray"
         ),
-        rx.table.cell(
-            rx.box(
-                rx.cond(
-                    (len(literal_values) > 0) & (prop.name not in COMMON_TYPES),
-                    rx.code(
-                        (
-                            " | ".join(
-                                [f'"{v}"' for v in literal_values[:MAX_PROP_VALUES]]
-                                + ["..."]
-                            )
-                            if len(literal_values) > MAX_PROP_VALUES
-                            else type_name
-                        ),
-                        style=get_code_style(color),
-                        class_name="code-style text-nowrap leading-normal",
-                    ),
-                    rx.code(
-                        type_name,
-                        style=get_code_style(color),
-                        class_name="code-style text-nowrap leading-normal",
-                    ),
-                ),
-                rx.cond(
-                    len(literal_values) > MAX_PROP_VALUES
-                    and prop.name not in COMMON_TYPES,
-                    hovercard(
-                        rx.icon(
-                            tag="circle-ellipsis",
-                            size=15,
-                            class_name="!text-slate-9 shrink-0",
-                        ),
-                        rx.text(
-                            " | ".join([f'"{v}"' for v in literal_values]),
-                            class_name="font-small text-slate-11",
-                        ),
-                    ),
-                ),
-                rx.cond(
-                    (origin == Union)
-                    & (
-                        "Breakpoints" in all_types
-                    ),  # Display that the type is Union with Breakpoints
-                    hovercard(
-                        rx.icon(
-                            tag="info",
-                            size=15,
-                            class_name="!text-slate-9 shrink-0",
-                        ),
-                        rx.text(
-                            f"Union[{', '.join(all_types)}]",
-                            class_name="font-small text-slate-11",
-                        ),
-                    ),
-                ),
-                rx.cond(
-                    (prop.name == "color_scheme") | (prop.name == "accent_color"),
-                    color_scheme_hovercard(literal_values),
-                ),
-                class_name="flex flex-row items-center gap-2",
-            ),
-            class_name="justify-start pl-4",
-        ),
-        rx.table.cell(
-            rx.box(
-                rx.code(
-                    default_value,
-                    style=get_code_style(
-                        "red"
-                        if default_value == "False"
-                        else "green"
-                        if default_value == "True"
-                        else "gray"
-                    ),
-                    class_name="code-style leading-normal text-nowrap",
-                ),
-                class_name="flex",
-            ),
-            class_name="justify-start pl-4",
-        ),
-        rx.table.cell(
-            render_select(prop, component, prop_dict),
-            class_name="justify-start pl-4",
-        )
-        if is_interactive
-        else rx.fragment(),
-    ]
+        rendered_select=render_select(prop, component, prop_dict) if is_interactive else rx.fragment(),
+    )
 
 
 EVENTS = {
@@ -873,9 +881,7 @@ def generate_props(src, component, comp):
 
     body = rx.table.body(
         *[
-            rx.table.row(
-                *prop_docs(prop, prop_dict, component, is_interactive), align="center"
-            )
+            prop_docs(prop, prop_dict, component, is_interactive)
             for prop in src.get_props()
             if not prop.name.startswith("on_")  # ignore event trigger props
         ],
