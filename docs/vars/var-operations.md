@@ -392,9 +392,7 @@ class GetItemState1(rx.State):
     list_1: list = [50, 10, 20]
 
 def get_item_error_1():
-    return rx.vstack(
-        rx.progress(value=GetItemState1.list_1[0])
-    )
+    return rx.progress(value=GetItemState1.list_1[0])
 ```
 
 In the code above you would expect to index into the first index of the list_1 state var. In fact the code above throws the error: `Invalid var passed for prop value, expected type <class 'int'>, got value of type typing.Any.` This is because the type of the items inside the list have not been clearly defined in the state. To fix this you change the list_1 definition to `list_1: list[int] = [50, 10, 20]`
@@ -404,9 +402,7 @@ class GetItemState1(rx.State):
     list_1: list[int] = [50, 10, 20]
 
 def get_item_error_1():
-    return rx.vstack(
-        rx.progress(value=GetItemState1.list_1[0])
-    )
+    return rx.progress(value=GetItemState1.list_1[0])
 ```
 
 ### Using with Foreach
