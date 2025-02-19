@@ -428,12 +428,14 @@ def get_badge(technology: str) -> rx.Component:
     return rx.badge(technology, variant="soft", color_scheme="green")
 
 def project_item(project: dict):
-
     return rx.box(
         rx.hstack(
             rx.foreach(project["technologies"], get_badge)
         ),
     )
+
+def failing_projects_example() -> rx.Component:
+    return rx.box(rx.foreach(ProjectsState.projects, project_item))
 ```
 
 The code above throws the error `TypeError: Could not foreach over var of type Any. (If you are trying to foreach over a state var, add a type annotation to the var.)`
