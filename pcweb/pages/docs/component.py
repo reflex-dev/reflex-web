@@ -3,6 +3,7 @@
 import inspect
 import os
 import re
+from types import UnionType
 from typing import (
     Any,
     Type,
@@ -453,7 +454,7 @@ def prop_docs(
     MAX_PROP_VALUES = 2
 
     COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
-    if origin is Union:
+    if origin in (Union, UnionType):
         non_literal_types = []  # List for all the non-literal types
 
         for arg in args:
