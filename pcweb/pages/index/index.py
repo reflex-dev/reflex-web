@@ -16,7 +16,6 @@ from .index_colors import index_colors
 from pcweb.meta.meta import meta_tags
 
 
-
 @rx.page(route="/", title="Reflex · Web apps in Pure Python", meta=meta_tags)
 def index() -> rx.Component:
     """Get the main Reflex landing page."""

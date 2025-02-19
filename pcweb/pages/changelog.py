@@ -51,7 +51,9 @@ def changelog_content():
         change(
             "2025-02-10",
             "v0.7.0",
-            rx.fragment("Async-capable Computed Var with ", rx.code("cache=True"), " by default"),
+            rx.fragment(
+                "Async-capable Computed Var with ", rx.code("cache=True"), " by default"
+            ),
             [
                 "Drop python 3.9 support and other deprecated features",
                 "Add `reflex rename` command",

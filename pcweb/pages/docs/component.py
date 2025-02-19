@@ -7,14 +7,12 @@ from types import UnionType
 from typing import (
     Any,
     Type,
-    get_args,
     Literal,
     _GenericAlias,
     Union,
     get_args,
     get_origin,
 )
-from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
@@ -25,6 +23,8 @@ from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.base.fragment import Fragment
+from reflex.components.el.elements.base import BaseHTML
+import hashlib
 
 
 def get_code_style(color: str):
@@ -50,10 +50,6 @@ class Prop(Base):
 
     # The default value of the prop.
     default_value: str
-
-
-from reflex.components.el.elements.base import BaseHTML
-import re
 
 
 def get_default_value(lines: list[str], start_index: int) -> str:
@@ -192,9 +188,9 @@ class Source(Base):
 
             if i > 0:
                 comment_above = self.code[i - 1].strip()
-                assert comment_above.startswith(
-                    "#"
-                ), f"Expected comment, got {comment_above}"
+                assert comment_above.startswith("#"), (
+                    f"Expected comment, got {comment_above}"
+                )
 
             comment = Source.get_comment(comments)
             comments.clear()
@@ -235,8 +231,6 @@ TYPE_COLORS = {
 
 count = 0
 
-import hashlib
-
 
 def get_id(s):
     global count
@@ -273,7 +267,7 @@ def render_select(prop, component, prop_dict):
         return rx.fragment()
     try:
         type_ = rx.utils.types.get_args(prop.type_)[0]
-    except:
+    except Exception:
         return rx.fragment()
 
     try:
@@ -453,6 +447,8 @@ def prop_docs(
     all_types = []  # List for all the prop types
     MAX_PROP_VALUES = 2
 
+    short_type_name = None
+
     COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
     if origin in (Union, UnionType):
         non_literal_types = []  # List for all the non-literal types
@@ -479,10 +475,13 @@ def prop_docs(
                 else f"Union[Literal, {', '.join(non_literal_types)}]"
             )
 
+        short_type_name = "Union"
+
     elif origin is dict:
         key_type = args[0].__name__ if args else "Any"
         value_type = args[1].__name__ if len(args) > 1 else "Any"
         type_name = f"Dict[{key_type}, {value_type}]"
+        short_type_name = "Dict"
 
     elif origin is Literal:
         literal_values = list(map(str, args))
@@ -490,14 +489,16 @@ def prop_docs(
             type_name = "Literal"
         else:
             type_name = " | ".join([f'"{value}"' for value in literal_values])
+        short_type_name = "Literal"
 
     else:
         type_name = type_.__name__
+        short_type_name = type_name
 
     # Get the default value.
     default_value = prop.default_value if prop.default_value is not None else "-"
     # Get the color of the prop.
-    color = TYPE_COLORS.get(type_.__name__, "gray")
+    color = TYPE_COLORS.get(short_type_name, "gray")
     # Return the docs for the prop.
     return [
         rx.table.cell(
@@ -787,9 +788,6 @@ EVENTS = {
     "on_open_auto_focus": {
         "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
     },
-    "on_change": {
-        "description": "The on_change event handler is called when the value or checked state of the component changes."
-    },
     "on_value_change": {
         "description": "The on_change event handler is called when the value state of the component changes."
     },
@@ -814,9 +812,6 @@ EVENTS = {
     "on_drop": {
         "description": "The on_drop event handler is called when the user drops an item."
     },
-    "is_server_side_group": {
-        "description": "The is_server_side_group event handler is called when the group is server-side."
-    },
     "get_server_side_group_key": {"description": "Get the server side group key."},
     "is_server_side_group_open_by_default": {
         "description": "Event handler to check if the server-side group is open by default."
@@ -838,9 +833,6 @@ EVENTS = {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
     },
 }
-
-
-from reflex.components.radix import themes as rdxt
 
 
 def generate_props(src, component, comp):
@@ -893,7 +885,7 @@ def generate_props(src, component, comp):
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
-            except:
+            except Exception:
                 comp = rx.fragment()
             if "data" in component.__name__.lower():
                 raise Exception("Data components cannot be created")
@@ -950,9 +942,6 @@ def generate_props(src, component, comp):
 
 # Default event triggers.
 default_triggers = rx.Component.create().get_event_triggers()
-
-
-import inspect
 
 
 def same_trigger(t1, t2):

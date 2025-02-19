@@ -7,7 +7,6 @@ from pcweb.pages.docs import (
     styling,
     custom_components as custom_c,
     getting_started,
-    hosting,
 )
 from pcweb.components.button import button
 from pcweb.pages.docs.library import library
@@ -19,14 +18,10 @@ from .buttons.color import color
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
 
-from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.faq import faq
-from pcweb.pages.pricing.pricing import pricing
 from pcweb.pages.errors import errors
-from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
 from pcweb.pages.changelog import changelog
-from pcweb.pages.gallery import gallery
 from pcweb.components.hosting_banner import hosting_banner
 from pcweb.pages.blog.paths import blog_data
 
@@ -142,7 +137,7 @@ def blog_section() -> rx.Component:
                     class_name="z-[2] flex flex-row justify-between px-[1.125rem] pb-[0.875rem] w-full",
                 ),
                 rx.box(
-                    background_image=f'linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({list(blog_data.values())[0].metadata["image"]})',
+                    background_image=f"linear-gradient(to top, rgba(0, 0, 0, 3) 0%, rgba(0, 0, 0, 0) 35%), url({list(blog_data.values())[0].metadata['image']})",
                     class_name="group-hover:scale-105 absolute inset-0 bg-cover bg-no-repeat bg-center rounded-md transition-all duration-150 ease-out brightness-[0.8] group-hover:brightness-100",
                 ),
                 href="/" + list(blog_data.keys())[0],
@@ -369,6 +364,7 @@ def new_component_section() -> rx.Component:
             class_name="top-[80%] left-[250px] absolute flex justify-start w-full",
         ),
     )
+
 
 @rx.memo
 def navbar() -> rx.Component:

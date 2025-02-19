@@ -157,12 +157,11 @@ for path, document in blog_data.items():
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(
         path=route,
-        title=document.metadata["title"]+ " · Reflex Blog",
+        title=document.metadata["title"] + " · Reflex Blog",
         description=document.metadata["description"],
         image=document.metadata["image"],
-        meta=document.metadata["meta"])(
-        lambda doc=document: page(doc, route)
-    )
+        meta=document.metadata["meta"],
+    )(lambda doc=document: page(doc, route))
 
     # Add the route to the list of routes.
     blog_routes.append(comp)

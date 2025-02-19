@@ -12,4 +12,4 @@ class GithubStarState(rx.State):
 
     @rx.var(cache=True, interval=60)
     def stars_short(self) -> str:
-        return f"{round(REFLEX_STAR_COUNT/1000)}K"
+        return f"{round(REFLEX_STAR_COUNT / 1000)}K"

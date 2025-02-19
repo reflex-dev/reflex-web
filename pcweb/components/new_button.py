@@ -5,7 +5,9 @@ import reflex as rx
 LiteralButtonVariant = Literal[
     "primary", "secondary", "transparent", "destructive", "outline"
 ]
-LiteralButtonSize = Literal["sm", "md", "lg", "xl", "icon-sm", "icon-md", "icon-lg", "icon-xl"]
+LiteralButtonSize = Literal[
+    "sm", "md", "lg", "xl", "icon-sm", "icon-md", "icon-lg", "icon-xl"
+]
 
 DEFAULT_CLASS_NAME = "text-sm cursor-pointer inline-flex items-center justify-center relative transition-bg shrink-0 font-sans disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 transition-bg"
 

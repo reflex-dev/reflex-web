@@ -6,7 +6,6 @@ from .views.deploy_animation import deploy_animation
 from .views.pricing_cards import pricing_cards
 from .views.templates import templates
 from .views.features import features
-from pcweb.pages.index.views.companies import companies
 from pcweb.components.icons.patterns import hosting_patterns
 from pcweb.components.docpage.navbar import navbar
 from pcweb.pages.index.views.get_started import get_started

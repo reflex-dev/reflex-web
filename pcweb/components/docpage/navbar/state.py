@@ -1,5 +1,4 @@
 """The state for the navbar component."""
-import os
 
 import reflex as rx
 

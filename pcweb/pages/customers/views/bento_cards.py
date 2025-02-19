@@ -67,7 +67,8 @@ def card(company: str, text: str, class_name: str = "") -> rx.Component:
             class_name="absolute bottom-10 right-10 items-center gap-2 desktop-only",
         ),
         href=f"/customers/{company.lower()}",
-        class_name="rounded-[1.125rem] border border-solid border-slate-4 bg-slate-2 p-10 overflow-hidden relative h-[23.25rem] lg:shadow-large group" + class_name,
+        class_name="rounded-[1.125rem] border border-solid border-slate-4 bg-slate-2 p-10 overflow-hidden relative h-[23.25rem] lg:shadow-large group"
+        + class_name,
     )
 
 

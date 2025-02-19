@@ -2,8 +2,6 @@
 
 import reflex as rx
 from pcweb import styles
-from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
 import pcweb.styles.fonts as fonts
 
 
@@ -16,7 +14,6 @@ def code_block(code: str, language: str):
             class_name="code-block",
             can_copy=True,
         ),
-
         class_name="relative mb-4",
     )
 
@@ -30,11 +27,10 @@ def code_block_dark(code: str, language: str):
             class_name="code-block",
             can_copy=True,
         ),
-
         class_name="relative",
     )
 
- 
+
 def code_block_markdown(*children, **props):
     language = props.get("language", "plain")
     return code_block(code=children[0], language=language)
@@ -43,7 +39,7 @@ def code_block_markdown(*children, **props):
 def code_block_markdown_dark(*children, **props):
     language = props.get("language", "plain")
     return code_block_dark(code=children[0], language=language)
- 
+
 
 def doccmdoutput(
     command: str,
@@ -61,36 +57,36 @@ def doccmdoutput(
     """
     return rx.vstack(
         rx._x.code_block(
-                command,
-                can_copy=True,
-                border_radius=styles.DOC_BORDER_RADIUS,
-                background="transparent",
-                theme="ayu-dark",
-                language="bash",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-                style=fonts.code,
-                font_family="Source Code Pro",
-                width="100%",
+            command,
+            can_copy=True,
+            border_radius=styles.DOC_BORDER_RADIUS,
+            background="transparent",
+            theme="ayu-dark",
+            language="bash",
+            code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+            style=fonts.code,
+            font_family="Source Code Pro",
+            width="100%",
         ),
         rx._x.code_block(
-                output,
-                can_copy=False,
-                border_radius="12px",
-                background="transparent",
-                theme="ayu-dark",
-                language="log",
-                code_tag_props={
-                    "style": {
-                        "fontFamily": "inherit",
-                    }
-                },
-                style=fonts.code,
-                font_family="Source Code Pro",
-                width="100%",
+            output,
+            can_copy=False,
+            border_radius="12px",
+            background="transparent",
+            theme="ayu-dark",
+            language="log",
+            code_tag_props={
+                "style": {
+                    "fontFamily": "inherit",
+                }
+            },
+            style=fonts.code,
+            font_family="Source Code Pro",
+            width="100%",
         ),
         padding_y="1em",
     )

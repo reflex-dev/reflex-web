@@ -2,6 +2,7 @@ import reflex as rx
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.hosting_banner import HostingBannerState
 
+
 def create_pattern(
     pattern: str,
     class_name: str,

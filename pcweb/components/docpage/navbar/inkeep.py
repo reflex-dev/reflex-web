@@ -1,6 +1,6 @@
 """UI and logic inkeep chat component."""
 
-from typing import List, Set
+from typing import List
 
 import reflex as rx
 from reflex.event import EventHandler

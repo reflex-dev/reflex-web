@@ -4,13 +4,16 @@ from pcweb.flexdown import xd2 as xd
 from pcweb.templates.storypage import storypage
 
 
-
 def content(document):
-    return rx.box(
-        xd.render(document, document.filename),
-    ),
+    return (
+        rx.box(
+            xd.render(document, document.filename),
+        ),
+    )
+
 
 CUSTOMERS_PATH = "case-studies/"
+
 
 def get_customer_data(paths):
     customers = {}

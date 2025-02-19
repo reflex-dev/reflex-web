@@ -134,7 +134,11 @@ def grid() -> rx.Component:
 
 
 def card(
-    title: str, description: str, features: list[tuple[str, str]], button_text: str, price: str = None
+    title: str,
+    description: str,
+    features: list[tuple[str, str]],
+    button_text: str,
+    price: str = None,
 ) -> rx.Component:
     return rx.box(
         rx.el.div(
@@ -151,9 +155,11 @@ def card(
                     rx.icon(feature[0], class_name="!text-slate-9", size=16),
                     feature[1],
                     rx.tooltip(
-                            rx.icon("info", class_name="!text-slate-9", size=12),
+                        rx.icon("info", class_name="!text-slate-9", size=12),
                         content=feature[2],
-                    ) if len(feature) == 3 else "",
+                    )
+                    if len(feature) == 3
+                    else "",
                     class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
                 )
                 for feature in features
@@ -177,7 +183,11 @@ def card(
 
 
 def popular_card(
-    title: str, description: str, features: list[tuple[str, str]], button_text: str, price: str = None
+    title: str,
+    description: str,
+    features: list[tuple[str, str]],
+    button_text: str,
+    price: str = None,
 ) -> rx.Component:
     return rx.box(
         rx.box(
@@ -189,7 +199,9 @@ def popular_card(
             grid(),
             rx.hstack(
                 rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
-                rx.badge(price, color_scheme="violet", size="3") if price else rx.fragment(),
+                rx.badge(price, color_scheme="violet", size="3")
+                if price
+                else rx.fragment(),
                 class_name="flex items-center mb-2 gap-2",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
@@ -201,7 +213,9 @@ def popular_card(
                         rx.tooltip(
                             rx.icon("info", class_name="!text-slate-9", size=12),
                             content=feature[2],
-                        ) if len(feature) == 3 else "",
+                        )
+                        if len(feature) == 3
+                        else "",
                         class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
                     )
                     for feature in features
@@ -233,7 +247,11 @@ def plan_cards() -> rx.Component:
             "Everything you need to get started.",
             [
                 ("heart-handshake", "Community support"),
-                ("app-window", "Unlimited apps", "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month."),
+                (
+                    "app-window",
+                    "Unlimited apps",
+                    "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month.",
+                ),
                 ("clock", "1 day log retention"),
                 ("code", "Open Source Framework"),
                 ("file-code", "Starter Templates"),
@@ -244,7 +262,7 @@ def plan_cards() -> rx.Component:
         popular_card(
             "Pro",
             "For professional projects and startups.",
-            [   
+            [
                 ("heart-handshake", "Priority Community support"),
                 ("users", "1 seat incl. (additional seats at $20/mo)"),
                 ("credit-card", "$10 / month free compute credits"),
@@ -252,7 +270,11 @@ def plan_cards() -> rx.Component:
                 ("clock", "30 days log retention"),
                 ("globe", "Multi-region"),
                 ("brush", "Custom domains"),
-                ("file-badge", "Remove Branding", "Check out the Reflex Branding doc page to learn how to remove the 'Built with Reflex' badge from your app."),
+                (
+                    "file-badge",
+                    "Remove Branding",
+                    "Check out the Reflex Branding doc page to learn how to remove the 'Built with Reflex' badge from your app.",
+                ),
                 ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
@@ -268,7 +290,11 @@ def plan_cards() -> rx.Component:
                 ("git-branch", "Create multiple projects"),
                 ("signal", "Full Website Analytics"),
                 ("lock-keyhole", "One Click Auth"),
-                ("file-badge", "Remove Branding Everywhere", "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Built with Reflex' badge from your app."),
+                (
+                    "file-badge",
+                    "Remove Branding Everywhere",
+                    "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Built with Reflex' badge from your app.",
+                ),
                 ("circle-plus", "Everything in Pro"),
             ],
             "Contact sales",

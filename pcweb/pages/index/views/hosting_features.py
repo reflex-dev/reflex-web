@@ -46,7 +46,7 @@ def reflex_deploy_card() -> rx.Component:
 </radialGradient>
 </defs>
 </svg>
-""", 
+""",
             class_name="shrink-0 absolute top-1/2 right-[-5rem] transform -translate-y-1/2 z-[1] pointer-events-none",
         ),
         # Pip install

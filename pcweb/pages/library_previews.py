@@ -47,7 +47,11 @@ def create_previews(
     prefix: str = "",
     type: str = "core",
 ):
-    @docpage(right_sidebar=False, set_path=f"/docs/library{prefix.rstrip('/')}/" + path.strip('/') + "/", page_title=component_category + " Library")
+    @docpage(
+        right_sidebar=False,
+        set_path=f"/docs/library{prefix.rstrip('/')}/" + path.strip("/") + "/",
+        page_title=component_category + " Library",
+    )
     def page() -> rx.Component:
         from pcweb.components.docpage.sidebar.sidebar_items import get_component_link
 

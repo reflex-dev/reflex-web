@@ -1,5 +1,6 @@
 import reflex as rx
 
+
 def hint(
     text: str,
     content: rx.Component,
@@ -7,7 +8,7 @@ def hint(
     align: str = "center",
     active: bool = False,
     class_name: str = "",
-    **props
+    **props,
 ) -> rx.Component:
     return rx.hover_card.root(
         rx.hover_card.trigger(content, height="fit-content"),

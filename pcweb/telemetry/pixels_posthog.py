@@ -39,7 +39,7 @@ def get_pixel_script_posthog(
     )
 
 
-def get_pixel_website_trackers()-> Generator[rx.Component, None, None]:
+def get_pixel_website_trackers() -> Generator[rx.Component, None, None]:
     yield rx.script(
         get_pixel_script_posthog(
             reflex_pixel_id=REFLEX_PIXEL_ID,

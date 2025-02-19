@@ -1,6 +1,7 @@
 import reflex as rx
 from pcweb.constants import REFLEX_CLOUD_URL
 
+
 def glow() -> rx.Component:
     return rx.box(
         class_name="absolute w-[120rem] h-[23.75rem] flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[0] top-[-16rem]",

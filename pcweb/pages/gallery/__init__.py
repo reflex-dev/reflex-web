@@ -1,1 +1,1 @@
-from .gallery import gallery
+from .gallery import gallery as gallery
