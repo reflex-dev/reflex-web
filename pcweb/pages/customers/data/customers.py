@@ -7,7 +7,7 @@ from pcweb.templates.storypage import storypage
 
 def content(document):
     return rx.box(
-        xd.render(document, "blog.md"),
+        xd.render(document, document.filename),
     ),
 
 CUSTOMERS_PATH = "case-studies/"
