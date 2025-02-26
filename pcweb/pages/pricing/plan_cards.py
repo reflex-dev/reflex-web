@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.new_button import button
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO, REFLEX_CLOUD_URL, REFLEX_DOCS_URL
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -139,6 +139,7 @@ def card(
     features: list[tuple[str, str]],
     button_text: str,
     price: str = None,
+    redirect_url: str = None
 ) -> rx.Component:
     return rx.box(
         rx.el.div(
@@ -174,7 +175,7 @@ def card(
                 size="lg",
                 class_name="w-full",
             ),
-            href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+            href=redirect_url,
             is_external=True,
             underline="none",
         ),
@@ -230,7 +231,7 @@ def popular_card(
                     size="lg",
                     class_name="w-full !text-sm !font-semibold",
                 ),
-                href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+                href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
                 is_external=True,
                 underline="none",
             ),
@@ -258,6 +259,7 @@ def plan_cards() -> rx.Component:
             ],
             "Start building for free",
             price="Free",
+            redirect_url=REFLEX_DOCS_URL,
         ),
         popular_card(
             "Pro",
@@ -298,6 +300,7 @@ def plan_cards() -> rx.Component:
                 ("circle-plus", "Everything in Pro"),
             ],
             "Contact sales",
+            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
         card(
             "Enterprise",
@@ -314,6 +317,7 @@ def plan_cards() -> rx.Component:
                 ("circle-plus", "Everything in Team"),
             ],
             "Contact sales",
+            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
         class_name="grid 2xl:grid-cols-4 xl:grid-cols-2 sm:grid-cols-1 gap-4",
     )

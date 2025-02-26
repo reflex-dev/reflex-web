@@ -86,7 +86,7 @@ def card_section():
         rc.box(
             info_card(
                 "Portable",
-                "Easy to copy and integrate into your your next Reflex project.",
+                "Easy to copy and integrate into your next Reflex project.",
             ),
             info_card(
                 "Themed",
