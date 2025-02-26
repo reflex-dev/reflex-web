@@ -49,6 +49,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-02-25",
+            "v0.7.1",
+            "New rx.auto_scroll component",
+            [
+                "Upgrade to React 19",
+                "Added var operations for string vars: `.title()` and `.capitalize()`",
+                "Passing component as a prop is more reliable",
+                "Improved performance for compile and hot reload",
+                "'Built with Reflex' badge can be disabled by any user",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.1",
+        ),
+        change(
             "2025-02-10",
             "v0.7.0",
             rx.fragment("Async-capable Computed Var with ", rx.code("cache=True"), " by default"),
