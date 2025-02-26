@@ -9,7 +9,7 @@ def frontend_card(
     height: str = "auto",
     top: str = "5rem",
     cols: str = "1",
-    image_cn: str = ""
+    image_cn: str = "",
 ) -> rx.Component:
     return rx.box(
         rx.box(

@@ -35,13 +35,18 @@ def table_row(name: str, cpu: str, ram: str, cost: str) -> rx.Component:
         class_name="grid grid-cols-4 gap-4 px-6 py-2 border-b border-slate-4 hover:bg-slate-2",
     )
 
+
 def learn_more():
-    return rx.box( 
+    return rx.box(
         rx.el.p(
-            "Learn more about how we calculate ", 
-            rx.el.a("compute costs", href="/docs/hosting/compute", class_name="text-sm font-medium text-slate-10 underline"),
+            "Learn more about how we calculate ",
+            rx.el.a(
+                "compute costs",
+                href="/docs/hosting/compute",
+                class_name="text-sm font-medium text-slate-10 underline",
+            ),
             " only when your app is being used.",
-            class_name="text-sm font-medium text-slate-9"
+            class_name="text-sm font-medium text-slate-9",
         ),
         class_name="px-6 py-4 border-b border-slate-4 hover:bg-slate-2",
     )
@@ -63,7 +68,7 @@ def min_table(cost_text: str, description: bool = False) -> rx.Component:
         class_name="w-full",
     )
 
-  
+
 def hour_table(cost_text: str, description: bool = False) -> rx.Component:
     return rx.box(
         table_header(cost_text),
@@ -79,7 +84,6 @@ def hour_table(cost_text: str, description: bool = False) -> rx.Component:
         learn_more() if description else rx.fragment(),
         class_name="w-full",
     )
-
 
 
 def month_table(cost_text: str) -> rx.Component:
@@ -103,8 +107,14 @@ def compute_table() -> rx.Component:
         tabs.root(
             rx.box(
                 rx.vstack(
-                    rx.el.h3("Compute Pricing", class_name="text-slate-12 text-3xl font-semibold"),
-                    rx.el.p("Only pay when your app is being used, nothing more.", class_name="text-slate-9 text-lg font-semibold"),
+                    rx.el.h3(
+                        "Compute Pricing",
+                        class_name="text-slate-12 text-3xl font-semibold",
+                    ),
+                    rx.el.p(
+                        "Only pay when your app is being used, nothing more.",
+                        class_name="text-slate-9 text-lg font-semibold",
+                    ),
                     align_items="left",
                     justify_content="center`",
                     class_name="flex flex-col gap-1",
@@ -130,48 +140,52 @@ def compute_table() -> rx.Component:
             tabs.panel(
                 hour_table("Cost / hour", description=True),
                 value="hour",
-            ), 
+            ),
             default_value="min",
         ),
         class_name="flex flex-col w-full mt-5 py-24",
     )
 
- 
+
 def compute_table_base() -> rx.Component:
-    return rx.box( 
+    return rx.box(
         tabs.root(
             rx.box(
                 rx.vstack(
-                    rx.el.h3("Machine Sizes", class_name="text-slate-11 text-lg font-semibold"),
+                    rx.el.h3(
+                        "Machine Sizes",
+                        class_name="text-slate-11 text-lg font-semibold",
+                    ),
                     align_items="left",
                     justify_content="center`",
                 ),
                 rx.spacer(),
                 tabs.list(
                     tabs.tab(
-                        "Per min", 
+                        "Per min",
                         value="min",
                     ),
                     tabs.tab(
                         "Per hour",
                         value="hour",
-                    ), 
+                    ),
                     tabs.indicator(),
-                ), 
+                ),
                 class_name="flex flex-row gap-2 items-center justify-end pb-6 border-b border-slate-4",
             ),
             tabs.panel(
                 min_table("Cost / min"),
-                value="min", 
-            ), 
+                value="min",
+            ),
             tabs.panel(
                 hour_table("Cost / hour"),
                 value="hour",
-            ), 
+            ),
             default_value="min",
         ),
         class_name="flex flex-col w-full py-6",
     )
+
 
 def calculator_section() -> rx.Component:
     return rx.el.section(

@@ -7,7 +7,6 @@ from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.changelog import changelog
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
 from pcweb.signup import IndexState

@@ -1,7 +1,7 @@
 """Reflex custom component NavMenu."""
 
 import reflex as rx
-from typing import Any, Dict, List, Literal, Optional, Union
+from typing import Any, Dict, Literal
 from reflex.vars import Var
 
 

@@ -2,7 +2,7 @@
 
 import reflex as rx
 import textwrap
-from typing import Any, Callable
+from typing import Any
 from .code import code_block, code_block_dark
 import black
 
@@ -151,9 +151,7 @@ def docgraphing(
                 justify_content="end",
             ),
             rx.box(
-                rx.tabs.content(
-                    doccode(code), value="code", class_name="w-full px-0"
-                ),
+                rx.tabs.content(doccode(code), value="code", class_name="w-full px-0"),
                 rx.tabs.content(
                     doccode(data or ""), value="data", class_name="w-full px-0"
                 ),

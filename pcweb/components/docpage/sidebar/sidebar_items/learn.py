@@ -49,7 +49,7 @@ def get_sidebar_items_frontend():
         SideBarSection(
             names="User Interface Overview",
             alt_name_for_next_prev="",
-            link=ui.overview.path
+            link=ui.overview.path,
         ),
         create_item(
             "Components",
@@ -123,9 +123,7 @@ def get_sidebar_items_backend():
 
     items = [
         SideBarSection(
-            names="State Overview",
-            alt_name_for_next_prev="",
-            link=state.overview.path
+            names="State Overview", alt_name_for_next_prev="", link=state.overview.path
         ),
         create_item(
             "Vars",
@@ -211,13 +209,13 @@ def get_sidebar_items_hosting():
             children=[
                 hosting.adding_members,
             ],
-        ),  
+        ),
         create_item(
             "App",
             children=[
                 hosting.app_management,
                 hosting.machine_types,
-                hosting.regions, 
+                hosting.regions,
                 hosting.logs,
                 hosting.secrets_environment_vars,
                 hosting.custom_domains,
@@ -225,18 +223,15 @@ def get_sidebar_items_hosting():
                 hosting.tokens,
                 hosting.deploy_with_github_actions,
             ],
-        ),  
+        ),
         create_item(
-            "Usage", 
-            children=[   
+            "Usage",
+            children=[
                 hosting.billing,
-                hosting.compute,   
-            ]
+                hosting.compute,
+            ],
         ),
-        create_item(
-            "CLI Reference",
-            children=cloud_cliref.pages
-        ),
+        create_item("CLI Reference", children=cloud_cliref.pages),
         create_item(
             "Self Hosting",
             children=[hosting.self_hosting],

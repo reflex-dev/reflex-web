@@ -17,6 +17,7 @@ PIXEL2 = """
     first.parentNode.insertBefore(script, first);};
     reb2b.SNIPPET_VERSION = "1.0.1";reb2b.load("4N210HEPR96Z");}();"""
 
-def get_pixel_rb2b_website_trackers()-> Generator[rx.Component, None, None]:
+
+def get_pixel_rb2b_website_trackers() -> Generator[rx.Component, None, None]:
     yield rx.script(PIXEL_SCRIPT_RB2B)
     yield rx.script(PIXEL2)

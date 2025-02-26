@@ -2,7 +2,6 @@ import reflex as rx
 import httpx
 import json
 import os
-from rxconfig import config
 import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 from pcweb.styles.colors import c_color

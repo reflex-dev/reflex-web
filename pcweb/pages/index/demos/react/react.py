@@ -1,5 +1,6 @@
 import reflex as rx
 
+
 class Spline(rx.Component):
     """Spline component."""
 

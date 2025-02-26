@@ -27,5 +27,5 @@ for module in modules:
     docs = generate_docs(name, s)
     title = name.replace("_", " ").title()
     page_data = docpage(f"/docs/api-reference/{name}/", title)(docs)
-    page_data.title = page_data.title.split('·')[0].strip()
+    page_data.title = page_data.title.split("·")[0].strip()
     pages.append(page_data)

@@ -2,6 +2,7 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
+
 def glow() -> rx.Component:
     return rx.box(
         class_name="absolute flex-shrink-0 rounded-[120rem] left-1/2 -translate-x-1/2 z-[-1] top-[-1.25rem] pointer-events-none w-[20rem] h-[5rem]",

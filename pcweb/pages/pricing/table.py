@@ -55,7 +55,7 @@ HOSTING_BOOLEAN_SECTION = [
     ("CI/CD Deploy Tokens", True, True, True, True),
     ("Set Billing Limits", True, True, True, True),
     ("Custom Domains", False, True, True, True),
-    ("Secret Manager", False, True, True, True),    
+    ("Secret Manager", False, True, True, True),
     ("App Analytics", False, True, True, True),
     ("On Prem Hosting", False, False, False, True),
 ]
@@ -87,9 +87,16 @@ PLAN_BUTTONS = [
 ]
 
 ASTERIX_SECTION = [
-    ("* Everywhere: This includes removing the 'Built with Reflex' badge for self hosted apps.", "", "", "", ""),
-    ("",  "", "", "", ""),
+    (
+        "* Everywhere: This includes removing the 'Built with Reflex' badge for self hosted apps.",
+        "",
+        "",
+        "",
+        "",
+    ),
+    ("", "", "", "", ""),
 ]
+
 
 def glow() -> rx.Component:
     return rx.table.row(
@@ -106,7 +113,12 @@ def glow() -> rx.Component:
 def create_table_cell(content: str | rx.Component) -> rx.Component:
     if content == "Usage Based":
         return rx.table.cell(
-            rx.link(content, color=rx.color("violet", 12), href="#calculator-header", text_decoration="underline"),
+            rx.link(
+                content,
+                color=rx.color("violet", 12),
+                href="#calculator-header",
+                text_decoration="underline",
+            ),
             class_name=STYLES["cell"],
         )
     return rx.table.cell(content, class_name=STYLES["cell"])
@@ -141,16 +153,20 @@ def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Compone
         *[
             rx.table.column_header_cell(
                 rx.el.div(
-                    name, 
-                    rx.badge("coming soon", margin_left="0.5rem"), 
-                    class_name="flex items-center gap-2"
+                    name,
+                    rx.badge("coming soon", margin_left="0.5rem"),
+                    class_name="flex items-center gap-2",
                 ),
-                class_name=STYLES["header_cell"])  if coming_soon else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]
-            ),
+                class_name=STYLES["header_cell"],
+            )
+            if coming_soon
+            else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]),
             rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"])
+            rx.table.column_header_cell(
+                "Enterprise", class_name=STYLES["header_cell_sub"]
+            ),
         ],
         class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
         padding_x="5rem !important",
@@ -176,7 +192,6 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
         ],
     ]
     return create_table_row(cells)
-
 
 
 def header_hosting() -> rx.Component:
@@ -240,7 +255,7 @@ def table_body_hosting() -> rx.Component:
             *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in SUPPORT_BOOLEAN_SECTION 
+                for feature, *checks in SUPPORT_BOOLEAN_SECTION
             ],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
@@ -265,6 +280,7 @@ def table_body_oss() -> rx.Component:
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
+
 
 def comparison_table_hosting() -> rx.Component:
     return rx.box(

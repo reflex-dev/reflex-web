@@ -6,7 +6,6 @@ import reflex as rx
 import reflex_chakra as rc
 from pcweb.components.docpage.navbar.state import NavbarState
 from .state import SidebarState, SideBarItem, SideBarBase
-import reflex_chakra as rc
 
 from .sidebar_items.learn import learn, frontend, backend, hosting
 from .sidebar_items.component_lib import (
@@ -354,7 +353,9 @@ def sidebar_comp(
                 "Learn", getting_started.introduction.path, "graduation-cap", 0
             ),
             sidebar_category("Components", library.path, "layout-panel-left", 1),
-            sidebar_category("Deploy", hosting_page.deploy_quick_start.path, "cloud", 2),
+            sidebar_category(
+                "Deploy", hosting_page.deploy_quick_start.path, "cloud", 2
+            ),
             sidebar_category("API Reference", pages[0].path, "book-text", 3),
             class_name="flex flex-col items-start gap-1 w-full list-none",
         ),
@@ -378,7 +379,11 @@ def sidebar_comp(
                         url,
                     ),
                     create_sidebar_section(
-                        "State", state.overview.path, filter_out_non_sidebar_items(backend), backend_index, url
+                        "State",
+                        state.overview.path,
+                        filter_out_non_sidebar_items(backend),
+                        backend_index,
+                        url,
                     ),
                     create_sidebar_section(
                         "Recipes", overview.path, recipes, recipes_index, url

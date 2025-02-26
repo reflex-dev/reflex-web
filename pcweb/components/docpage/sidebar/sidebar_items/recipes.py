@@ -5,9 +5,6 @@ def get_sidebar_items_recipes():
     from pcweb.pages.docs import (
         recipes,
     )
-    from pcweb.pages.docs.recipes_overview import (
-        overview,
-    )
 
     return [
         create_item(
@@ -33,7 +30,7 @@ def get_sidebar_items_recipes():
             children=[
                 recipes.auth.login_form,
                 recipes.auth.signup_form,
-            ]
+            ],
         ),
         create_item(
             "Other",
@@ -43,7 +40,7 @@ def get_sidebar_items_recipes():
                 recipes.others.chips,
                 recipes.others.speed_dial,
                 recipes.others.dark_mode_toggle,
-            ]
+            ],
         ),
     ]
 

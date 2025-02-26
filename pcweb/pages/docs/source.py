@@ -144,9 +144,9 @@ class Source(rx.Base):
 
             prop = props[prop]
             # redundant check just to double-check line above prop is a comment
-            assert (
-                self.code[i - 1].strip().startswith("#")
-            ), f"Expected comment, got {self.code[i - 1]}"
+            assert self.code[i - 1].strip().startswith("#"), (
+                f"Expected comment, got {self.code[i - 1]}"
+            )
 
             # Get the comment for this prop.
             comment = Source.get_comment(comments)

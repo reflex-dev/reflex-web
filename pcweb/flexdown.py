@@ -24,6 +24,7 @@ from pcweb.templates.docpage import (
 from pcweb.styles.fonts import base, code
 import reflex_chakra as rc
 
+
 def get_code_style(color: str):
     return {
         "p": {"margin_y": "0px"},
@@ -413,6 +414,7 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
             width="100%",
         )
 
+
 class QuoteBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a quote."""
 
@@ -420,6 +422,7 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
     ending_indicator = "```"
 
     include_indicators = True
+
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
         quote_content = []
@@ -432,9 +435,9 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
                 role = line.split(":", 1)[1].strip()
             else:
                 quote_content.append(line)
-        
+
         quote_text = "\n".join(quote_content).strip()
-        
+
         return rx.box(
             rx.text(f'"{quote_text}"', class_name="text-slate-11 font-base italic"),
             rx.box(
@@ -444,7 +447,6 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
             ),
             class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
         )
-        
 
 
 class TabsBlock(flexdown.blocks.Block):
@@ -485,14 +487,20 @@ class TabsBlock(flexdown.blocks.Block):
         contents = []
 
         for i, (title, content) in enumerate(tab_sections):
-            value = f"tab{i+1}"
-            triggers.append(rx.tabs.trigger(title, value=value, class_name="tab-style font-base font-semibold text-[1.25rem]"))
-            
+            value = f"tab{i + 1}"
+            triggers.append(
+                rx.tabs.trigger(
+                    title,
+                    value=value,
+                    class_name="tab-style font-base font-semibold text-[1.25rem]",
+                )
+            )
+
             # Render the tab content
             tab_content = []
-            for block in env['__xd'].get_blocks(content, self.filename):
+            for block in env["__xd"].get_blocks(content, self.filename):
                 if isinstance(block, flexdown.blocks.MarkdownBlock):
-                    block.render_fn = env['__xd'].flexdown_memo
+                    block.render_fn = env["__xd"].flexdown_memo
                 try:
                     tab_content.append(block.render(env=env))
                 except Exception as e:
@@ -501,10 +509,12 @@ class TabsBlock(flexdown.blocks.Block):
                         f"\n{block.get_content(env)}"
                     )
                     raise e
-            
+
             contents.append(rx.tabs.content(rx.fragment(*tab_content), value=value))
 
-        return rx.tabs.root(rx.tabs.list(*triggers, class_name="mt-4"), *contents, default_value="tab1")
+        return rx.tabs.root(
+            rx.tabs.list(*triggers, class_name="mt-4"), *contents, default_value="tab1"
+        )
 
 
 component_map = {
@@ -523,15 +533,30 @@ comp2["codeblock"] = code_block_markdown_dark
 comp2["ul"] = lambda items: unordered_list_comp(items=items)
 comp2["ol"] = lambda items: ordered_list_comp(items=items)
 
-    
 
 xd = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
+    block_types=[
+        DemoBlock,
+        AlertBlock,
+        DefinitionBlock,
+        SectionBlock,
+        VideoBlock,
+        TabsBlock,
+        QuoteBlock,
+    ],
     component_map=component_map,
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
+    block_types=[
+        DemoBlockDark,
+        AlertBlock,
+        DefinitionBlock,
+        SectionBlock,
+        VideoBlock,
+        TabsBlock,
+        QuoteBlock,
+    ],
     component_map=comp2,
 )
 xd2.clear_modules()
@@ -555,5 +580,5 @@ def markdown_with_shiki(*args, **kwargs):
         component_map={
             "codeblock": lambda value, **props: rx._x.code_block(value, **props)
         },
-        **kwargs
+        **kwargs,
     )

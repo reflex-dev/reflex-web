@@ -273,7 +273,7 @@ def deploy_box():
     )
 
 
-def animated_box(relative: bool=False) -> rx.Component:
+def animated_box(relative: bool = False) -> rx.Component:
     return rx.box(
         rx.box(
             terminal_box(),
@@ -296,5 +296,7 @@ def animated_box(relative: bool=False) -> rx.Component:
             class_name="justify-center flex flex-col items-center max-w-[34.5rem] max-h-[17.875rem] shrink-0 relative w-full h-full overflow-hidden",
         ),
         on_mount=rx.call_script(typing_text_script()),  # On dev it will run twice
-        class_name="flex items-center justify-center  w-[34.5rem] h-[5rem]" if relative else "flex items-center justify-center  w-[34.5rem] h-[17.875rem] top-[13rem] absolute", 
+        class_name="flex items-center justify-center  w-[34.5rem] h-[5rem]"
+        if relative
+        else "flex items-center justify-center  w-[34.5rem] h-[17.875rem] top-[13rem] absolute",
     )

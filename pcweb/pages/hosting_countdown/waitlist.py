@@ -1,11 +1,10 @@
 import reflex as rx
- 
+
 
 class WaitlistState(rx.State):
-
     loading = False
     success = False
-    
+
 
 def waitlist():
     return rx.box(
@@ -22,32 +21,37 @@ def waitlist():
             rx.form(
                 rx.cond(
                     WaitlistState.success,
-                    rx.badge("Thank you for joining the waitlist!", color_scheme="green", size="3"),
+                    rx.badge(
+                        "Thank you for joining the waitlist!",
+                        color_scheme="green",
+                        size="3",
+                    ),
                     rx.vstack(
                         rx.hstack(
-                    rx.el.input(
-                        placeholder="Email",
-                        name="email",
-                        type="email",
-                        required=True,
-                        class_name="box-border flex flex-row gap-2 border-slate-5 bg-slate-1 focus:shadow-[0px_0px_0px_2px_var(--c-violet-4)] px-3.5 border rounded-[8px] h-[2rem] font-medium text-slate-12 placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 max-w-[17.4rem] text-base",
-                    ),
-                    rx.button(
-                        "Join Waitlist",
-                        background="linear-gradient(180deg, #6E56CF 0%, #654DC4 100%)",
-                        _hover={
-                            "background": "linear-gradient(180deg, #6E56CF 0%, #6E56CF 100%)"
-                        },
-                        class_name="w-fit h-[2rem] px-3.5 rounded-[8px] cursor-pointer text-[#FCFCFD] font-medium text-base transition-bg",
+                            rx.el.input(
+                                placeholder="Email",
+                                name="email",
+                                type="email",
+                                required=True,
+                                class_name="box-border flex flex-row gap-2 border-slate-5 bg-slate-1 focus:shadow-[0px_0px_0px_2px_var(--c-violet-4)] px-3.5 border rounded-[8px] h-[2rem] font-medium text-slate-12 placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 max-w-[17.4rem] text-base",
+                            ),
+                            rx.button(
+                                "Join Waitlist",
+                                background="linear-gradient(180deg, #6E56CF 0%, #654DC4 100%)",
+                                _hover={
+                                    "background": "linear-gradient(180deg, #6E56CF 0%, #6E56CF 100%)"
+                                },
+                                class_name="w-fit h-[2rem] px-3.5 rounded-[8px] cursor-pointer text-[#FCFCFD] font-medium text-base transition-bg",
+                            ),
+                            is_loading=WaitlistState.loading,
                         ),
-                        is_loading=WaitlistState.loading,
+                        rx.text(
+                            "Join the waitlist to get access.",
+                            class_name="text-slate-8 lg:text-md text-base mb-8 whitespace-pre-line font-medium text-center",
+                        ),
+                        align_items="center",
                     ),
-                    rx.text(
-                        "Join the waitlist to get access.",
-                        class_name="text-slate-8 lg:text-md text-base mb-8 whitespace-pre-line font-medium text-center",
-                    ), 
-                    align_items="center",
-                )),   
+                ),
                 class_name="flex lg:flex-row flex-col gap-2 justify-center items-center",
             ),
             class_name="flex flex-col items-center max-w-[40rem]bg-slate-1 self-center w-full",

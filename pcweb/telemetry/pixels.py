@@ -9,7 +9,6 @@ if TYPE_CHECKING:
     import reflex as rx
 
 
-
 def get_pixel_website_trackers() -> list[rx.Component]:
     return list(
         itertools.chain(

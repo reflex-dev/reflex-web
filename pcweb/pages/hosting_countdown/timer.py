@@ -4,9 +4,11 @@ import reflex as rx
 def timer():
     remove_negative_sign = rx.vars.function.ArgsFunctionOperation.create(
         args_names=("t",),
-        return_expr=rx.vars.sequence.string_replace_operation(rx.Var("t").to(str), "-", ""),
+        return_expr=rx.vars.sequence.string_replace_operation(
+            rx.Var("t").to(str), "-", ""
+        ),
     )
-    
+
     return rx.box(
         rx.text("Launch in", class_name="font-small font-medium text-slate-9"),
         rx.moment(

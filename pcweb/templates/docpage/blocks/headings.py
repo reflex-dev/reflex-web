@@ -31,13 +31,14 @@ def h_comp_common(
         rx.icon(
             tag="link",
             size=18,
-            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-" + mt,
+            class_name="!text-violet-11 invisible transition-[visibility_0.075s_ease-out] group-hover:visible mt-"
+            + mt,
         ),
         underline="none",
         href=href,
         on_click=lambda: rx.set_clipboard(href),
         # as_child=True,
-        class_name=f"flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
+        class_name="flex flex-row items-center gap-6 hover:!text-violet-11 text-slate-12 cursor-pointer mb-2 transition-colors group",
     )
 
 
