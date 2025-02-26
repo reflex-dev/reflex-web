@@ -33,49 +33,76 @@ TABLE_STYLE = """
 }
 """
 
+PRICE_SECTION = [
+    ("Per Seat Price", "FREE", "$20/month", "$49/user/month", "Custom"),
+    ("Team Size", "1", "1", "< 25", "Unlimited"),
+]
+
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
+    ("AG Grid *", True, True, True, True),
     ("One Click Auth", False, False, True, True),
-    ("Embed Reflex Apps", False, False, True, True),
+    ("Single Port Deploy", False, False, True, True),
+    ("HTTP Fallback for Websockets", False, False, True, True),
+    ("Custom NPM Registry", False, False, True, True),
 ]
 
-REFLEX_BRANDING_SECTION = [
-    ("Remove Branding", "", "On Cloud", "Everywhere*", "Everywhere*"),
+AI_TEXT_SECTION = [
+    ("AI App Building", "Limited Access", "$20 credits/month", "$40 credits/user/month", "Custom"),
 ]
 
-REFLEX_AI_SECTION = []
+AI_BOOLEAN_SECTION = [
+    ("Purchase Extra AI Credits", False, True, True, True),
+    ("One Click Cloud Deploy", True, True, True, True),
+    ("Github Integration", True, True, True, True),
+    ("Database Integration", True, True, True, True),
+    ("Secrets Integration", True, True, True, True),
+    ("Web IDE", True, True, True, True),
+    ("Private Apps", False, True, True, True),
+    ("Connect AI Builder to your Data Sources", False, False, True, True),
+    ("Bring your own API Keys", False, False, False, True),
+]
+
+
+
 
 HOSTING_TEXT_SECTION = [
+    ("Compute", "20 hours/month", "$10 credits/month + Usage", "$20 credits/user/month + Usage", "Custom"),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
-    ("Logs", "1 day", "30 days", "90 days", "Custom"),
+    ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
+    ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
 ]
 
 HOSTING_BOOLEAN_SECTION = [
+    ("CPU / Memory Metrics", True, True, True, True),
     ("CLI Deployments", True, True, True, True),
     ("CI/CD Deploy Tokens", True, True, True, True),
     ("Set Billing Limits", True, True, True, True),
     ("Custom Domains", False, True, True, True),
     ("Secret Manager", False, True, True, True),
-    ("App Analytics", False, True, True, True),
-    ("On Prem Hosting", False, False, False, True),
+    ("User Analytics", False, False, True, True),
+    ("Custom Alerts", False, False, True, True),
+    ("Rollbacks", False, False, True, True),
+    ("Audit Log", False, False, True, True),
+    ("On Prem Deployments", False, False, False, True),
 ]
 
 SECURITY_SECTION = [
     ("Web App Firewall", True, True, True, True),
     ("HTTP/SSL", True, True, True, True),
     ("DDos Protection", True, True, True, True),
-    ("2 Factor Auth", True, True, True, True),
-    ("Audit Logs", False, False, False, True),
+    ("Automatic CI/CD", False, True, True, True),
+    ("Security Audit Reports", False, False, True, True),
     ("SSO", False, False, False, True),
 ]
 
 SUPPORT_TEXT_SECTION = [
-    ("Support", "Community", "Community", "Email/Slack", "Dedicated Support")
+    ("Support", "Community", "Community", "Email Support", "Dedicated Support")
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
+    ("White Glove Onboarding", False, False, False, True),
     ("SLAs Available", False, False, False, True),
-    ("Personalized Onboarding", False, False, False, True),
     ("", "", "", "", ""),
 ]
 
@@ -88,7 +115,7 @@ PLAN_BUTTONS = [
 
 ASTERIX_SECTION = [
     (
-        "* Everywhere: This includes removing the 'Built with Reflex' badge for self hosted apps.",
+        "* AG Grid comes with a 'Built with Reflex' badge for Hobby and Pro tier.",
         "",
         "",
         "",
@@ -194,18 +221,6 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
     return create_table_row(cells)
 
 
-def header_hosting() -> rx.Component:
-    return rx.box(
-        rx.el.h3(
-            "Secure and Scalable Hosting",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
-        ),
-        rx.el.p(
-            "Compare features across plans.",
-            class_name="text-slate-9 text-2xl font-semibold text-center",
-        ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
-    )
 
 
 def header_oss() -> rx.Component:
@@ -221,6 +236,56 @@ def header_oss() -> rx.Component:
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
+def table_body_oss() -> rx.Component:
+    return rx.table.root(
+        rx.table.header(
+            create_table_row_header("Pricing"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in PRICE_SECTION],
+        ),
+        rx.table.header(
+            create_table_row_header("AI"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in AI_TEXT_SECTION],
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in AI_BOOLEAN_SECTION
+            ],
+        ),
+        rx.table.header(
+            create_table_row_header("Reflex Enterprise"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in FRAMEWORK_SECTION
+            ],
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in ASTERIX_SECTION],
+        ),
+        class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
+    )
+
+
+
+def header_hosting() -> rx.Component:
+    return rx.box(
+        rx.el.h3(
+            "Secure and Scalable Hosting",
+            class_name="text-slate-12 text-3xl font-semibold text-center",
+        ),
+        rx.el.p(
+            "Compare features across plans.",
+            class_name="text-slate-9 text-2xl font-semibold text-center",
+        ),
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+    )
 
 def table_body_hosting() -> rx.Component:
     return rx.table.root(
@@ -262,24 +327,6 @@ def table_body_hosting() -> rx.Component:
     )
 
 
-def table_body_oss() -> rx.Component:
-    return rx.table.root(
-        rx.table.header(
-            create_table_row_header("Framework"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in FRAMEWORK_SECTION
-            ],
-            *[create_table_row(row) for row in REFLEX_BRANDING_SECTION],
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in ASTERIX_SECTION],
-        ),
-        class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
-    )
 
 
 def comparison_table_hosting() -> rx.Component:
@@ -290,7 +337,7 @@ def comparison_table_hosting() -> rx.Component:
     )
 
 
-def comparison_table_oss() -> rx.Component:
+def comparison_table_ai_and_oss() -> rx.Component:
     return rx.box(
         header_oss(),
         table_body_oss(),
