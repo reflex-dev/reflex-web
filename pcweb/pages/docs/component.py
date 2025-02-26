@@ -479,7 +479,11 @@ def prop_docs(
 
     elif origin is dict:
         key_type = args[0].__name__ if args else "Any"
-        value_type = args[1].__name__ if len(args) > 1 else "Any"
+        value_type = (
+            (args[1].__name__ if hasattr(args[1], "__name__") else str(args[1]))
+            if len(args) > 1
+            else "Any"
+        )
         type_name = f"Dict[{key_type}, {value_type}]"
         short_type_name = "Dict"
 
