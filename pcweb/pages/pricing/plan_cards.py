@@ -250,11 +250,11 @@ def plan_cards() -> rx.Component:
                 ("brain", "AI App Builder (Limited Access)"),
                 (
                     "app-window",
-                    "Reflex Cloud Unlimited Apps",
+                    "Cloud Unlimited Apps",
                     "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month.",
                 ),
-                ("code", "Full access to Reflex Open Source Library"),
-                ("heart-handshake", "Community support on Discord/Github")
+                ("code", "Reflex Open Source"),
+                ("heart-handshake", "Discord/Github Support")
             ],
             "Start building for free",
             price="Free",
@@ -264,11 +264,8 @@ def plan_cards() -> rx.Component:
             "Pro",
             "For professional projects and startups.",
             [
-                # ("heart-handshake", "Priority Community support"),
                 ("brain", "AI App Builder (Free $20 credits / month)"),
-                ("circle-dollar-sign", "Purchase Extra AI Credits"),
-                ("credit-card", "Reflex Cloud (Free $10 credits / month)"),
-                ("server", "Customize hosting machine sizes"),
+                ("credit-card", "Cloud (Free $10 credits / month)"),
                 ("brush", "Custom domains"),
                 ("circle-plus", "Everything in Hobby"),
             ],
@@ -298,7 +295,7 @@ def plan_cards() -> rx.Component:
                 ("user-round-plus", "Personalized integration help"),
                 ("hard-drive", "On Premise Deployment"),
                 ("key", "Bring your own AI API keys"),
-                ("headset", "Priority Support"),
+                ("headset", "Dedicated Support Channel"),
                 ("git-pull-request", "Influence Reflex Roadmap"),
                 ("circle-plus", "Everything in Team"),
             ],

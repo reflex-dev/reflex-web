@@ -34,7 +34,7 @@ TABLE_STYLE = """
 """
 
 PRICE_SECTION = [
-    ("Per Seat Price", "FREE", "$20/month", "$49/user/month", "Custom"),
+    ("Per Seat Price", "FREE", "$20/month", "$49/month", "Custom"),
     ("Team Size", "1", "1", "< 25", "Unlimited"),
 ]
 
@@ -67,7 +67,7 @@ AI_BOOLEAN_SECTION = [
 
 
 HOSTING_TEXT_SECTION = [
-    ("Compute", "20 hours/month", "$10 credits/month + Usage", "$20 credits/user/month + Usage", "Custom"),
+    ("Compute", "20 hours/month", "$10 compute credits/month", "$20 compute credits/user/month", "Custom"),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
     ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
     ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
@@ -257,7 +257,7 @@ def table_body_oss() -> rx.Component:
             ],
         ),
         rx.table.header(
-            create_table_row_header("Reflex Enterprise"),
+            create_table_row_header("FRAMEWORK"),
             class_name="relative",
         ),
         create_table_body(
