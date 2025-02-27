@@ -299,8 +299,8 @@ def plan_cards() -> rx.Component:
                 ),
                 ("circle-plus", "Everything in Pro"),
             ],
-            "Contact sales",
-            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+            "Start with Team plan",
+            redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
         ),
         card(
             "Enterprise",
