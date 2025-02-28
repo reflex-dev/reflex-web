@@ -1,6 +1,10 @@
 import reflex as rx
 from pcweb.components.new_button import button
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO, REFLEX_CLOUD_URL, REFLEX_DOCS_URL
+from pcweb.constants import (
+    REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+    REFLEX_CLOUD_URL,
+    REFLEX_DOCS_URL,
+)
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -139,7 +143,7 @@ def card(
     features: list[tuple[str, str]],
     button_text: str,
     price: str = None,
-    redirect_url: str = None
+    redirect_url: str = None,
 ) -> rx.Component:
     return rx.box(
         rx.el.div(
@@ -254,7 +258,7 @@ def plan_cards() -> rx.Component:
                     "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month.",
                 ),
                 ("code", "Reflex Open Source"),
-                ("heart-handshake", "Discord/Github Support")
+                ("heart-handshake", "Discord/Github Support"),
             ],
             "Start building for free",
             price="Free",
@@ -277,7 +281,11 @@ def plan_cards() -> rx.Component:
             "For teams looking to scale their applications.",
             [
                 ("users", "Invite your team mates"),
-                ("cable", "Connect AI Builder to your Data", "Integrations include Databricks, Snowflake, etc."),
+                (
+                    "cable",
+                    "Connect AI Builder to your Data",
+                    "Integrations include Databricks, Snowflake, etc.",
+                ),
                 ("lock-keyhole", "One Click Auth"),
                 ("file-badge", "AG Grid with no Reflex Branding"),
                 ("mail", "Email support"),
