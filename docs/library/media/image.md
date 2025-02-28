@@ -41,8 +41,8 @@ import requests
 
 
 class ImageState(rx.State):
-    url = f"https://picsum.photos/id/1/200/300"
-    image = Image.open(requests.get(url, stream=True).raw)
+    url: str = f"https://picsum.photos/id/1/200/300"
+    image: Image.Image = Image.open(requests.get(url, stream=True).raw)
 
 
 def image_pil_example():
