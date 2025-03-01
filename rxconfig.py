@@ -8,7 +8,6 @@ config = rx.Config(
     frontend_packages=[
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
-        "@inkeep/uikit",
     ],
     telemetry_enabled=False,
     tailwind=tw_config,
