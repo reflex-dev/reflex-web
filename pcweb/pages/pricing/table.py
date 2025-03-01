@@ -48,7 +48,13 @@ FRAMEWORK_SECTION = [
 ]
 
 AI_TEXT_SECTION = [
-    ("AI App Building", "Limited Access", "$20 credits/month", "$40 credits/user/month", "Custom"),
+    (
+        "AI App Building",
+        "Limited Access",
+        "$20 credits/month",
+        "$40 credits/user/month",
+        "Custom",
+    ),
 ]
 
 AI_BOOLEAN_SECTION = [
@@ -64,10 +70,14 @@ AI_BOOLEAN_SECTION = [
 ]
 
 
-
-
 HOSTING_TEXT_SECTION = [
-    ("Compute", "20 hours/month", "$10 compute credits/month", "$20 compute credits/user/month", "Custom"),
+    (
+        "Compute",
+        "20 hours/month",
+        "$10 compute credits/month",
+        "$20 compute credits/user/month",
+        "Custom",
+    ),
     ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
     ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
     ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
@@ -221,8 +231,6 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
     return create_table_row(cells)
 
 
-
-
 def header_oss() -> rx.Component:
     return rx.box(
         rx.el.h3(
@@ -235,6 +243,7 @@ def header_oss() -> rx.Component:
         ),
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
+
 
 def table_body_oss() -> rx.Component:
     return rx.table.root(
@@ -273,7 +282,6 @@ def table_body_oss() -> rx.Component:
     )
 
 
-
 def header_hosting() -> rx.Component:
     return rx.box(
         rx.el.h3(
@@ -286,6 +294,7 @@ def header_hosting() -> rx.Component:
         ),
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
+
 
 def table_body_hosting() -> rx.Component:
     return rx.table.root(
@@ -325,8 +334,6 @@ def table_body_hosting() -> rx.Component:
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
-
-
 
 
 def comparison_table_hosting() -> rx.Component:

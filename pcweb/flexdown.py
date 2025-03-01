@@ -22,7 +22,6 @@ from pcweb.templates.docpage import (
 )
 
 from pcweb.styles.fonts import base, code
-import reflex_chakra as rc
 
 
 def get_code_style(color: str):
@@ -75,66 +74,71 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         has_content = bool(content.strip())
 
         if has_content:
-            return rc.accordion(
-                rc.accordion_item(
-                    rc.accordion_button(
-                        rx.hstack(
-                            rx.box(
-                                rx.match(
-                                    status,
-                                    (
-                                        "info",
-                                        rx.icon(
-                                            tag="info", size=18, margin_right=".5em"
+            return rx.accordion.root(
+                rx.accordion.item(
+                    rx.accordion.header(
+                        rx.accordion.trigger(
+                            rx.hstack(
+                                rx.box(
+                                    rx.match(
+                                        status,
+                                        (
+                                            "info",
+                                            rx.icon(
+                                                tag="info", size=18, margin_right=".5em"
+                                            ),
+                                        ),
+                                        (
+                                            "success",
+                                            rx.icon(
+                                                tag="circle_check",
+                                                size=18,
+                                                margin_right=".5em",
+                                            ),
+                                        ),
+                                        (
+                                            "warning",
+                                            rx.icon(
+                                                tag="triangle_alert",
+                                                size=18,
+                                                margin_right=".5em",
+                                            ),
+                                        ),
+                                        (
+                                            "error",
+                                            rx.icon(
+                                                tag="ban", size=18, margin_right=".5em"
+                                            ),
                                         ),
                                     ),
-                                    (
-                                        "success",
-                                        rx.icon(
-                                            tag="circle_check",
-                                            size=18,
-                                            margin_right=".5em",
-                                        ),
-                                    ),
-                                    (
-                                        "warning",
-                                        rx.icon(
-                                            tag="triangle_alert",
-                                            size=18,
-                                            margin_right=".5em",
-                                        ),
-                                    ),
-                                    (
-                                        "error",
-                                        rx.icon(
-                                            tag="ban", size=18, margin_right=".5em"
-                                        ),
-                                    ),
+                                    color=f"{rx.color(color, 11)}",
                                 ),
-                                color=f"{rx.color(color, 11)}",
+                                (
+                                    markdown_with_shiki(
+                                        title,
+                                        margin_y="0px",
+                                        style=get_code_style(color),
+                                    )
+                                    if title
+                                    else self.render_fn(content=content)
+                                ),
+                                rx.spacer(),
+                                rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                                align_items="center",
+                                justify_content="left",
+                                text_align="left",
+                                spacing="2",
+                                width="100%",
                             ),
-                            (
-                                markdown_with_shiki(
-                                    title, margin_y="0px", style=get_code_style(color)
-                                )
-                                if title
-                                else self.render_fn(content=content)
-                            ),
-                            rx.spacer(),
-                            rc.accordion_icon(color=f"{rx.color(color, 11)}"),
-                            align_items="center",
-                            justify_content="left",
-                            text_align="left",
-                            spacing="2",
-                            width="100%",
+                            padding="0px",
+                            color=f"{rx.color(color, 11)} !important",
+                            background_color="transparent !important",
+                            border_radius="12px",
+                            _hover={},
                         ),
-                        padding="0px",
-                        color=f"{rx.color(color, 11)}",
-                        border_radius="12px",
-                        _hover={},
                     ),
                     (
-                        rc.accordion_panel(
+                        rx.accordion.content(
                             markdown(content), padding="0px", margin_top="16px"
                         )
                         if title
@@ -144,10 +148,11 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                     padding=["16px", "24px"],
                     background_color=f"{rx.color(color, 3)}",
                     border=f"1px solid {rx.color(color, 4)}",
-                    allow_toggle=True,
                 ),
-                is_disabled=True,
-                allow_toggle=True,
+                background="none !important",
+                border_radius="0px",
+                box_shadow="unset !important",
+                collapsible=True,
                 width="100%",
                 margin_bottom="16px",
             )
@@ -262,16 +267,13 @@ class DefinitionBlock(flexdown.blocks.Block):
         defs = [definition(title, content) for title, content in sections]
 
         return rx.fragment(
-            rx.mobile_only(rc.vstack(*defs)),
+            rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rc.grid(
-                    *[
-                        rc.grid_item(d, row_span=1, col_span=1, width="100%")
-                        for d in defs
-                    ],
-                    template_columns="repeat(2, 1fr)",
+                rx.grid(
+                    *[rx.box(d) for d in defs],
+                    columns="2",
                     width="100%",
-                    gap=4,
+                    gap="1rem",
                     margin_bottom="1em",
                 )
             ),
@@ -366,32 +368,36 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
 
         color = "blue"
 
-        return rc.accordion(
-            rc.accordion_item(
-                rc.accordion_button(
-                    rx.hstack(
-                        (
-                            markdown_with_shiki(
-                                title,
-                                margin_y="0px",
-                                style=get_code_style(color),
-                            )
-                            if title
-                            else markdown_with_shiki("Video Description")
+        return rx.accordion.root(
+            rx.accordion.item(
+                rx.accordion.header(
+                    rx.accordion.trigger(
+                        rx.hstack(
+                            (
+                                markdown_with_shiki(
+                                    title,
+                                    margin_y="0px",
+                                    style=get_code_style(color),
+                                )
+                                if title
+                                else markdown_with_shiki("Video Description")
+                            ),
+                            rx.spacer(),
+                            rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                            align_items="center",
+                            justify_content="left",
+                            text_align="left",
+                            spacing="2",
+                            width="100%",
                         ),
-                        rx.spacer(),
-                        rc.accordion_icon(color=f"{rx.color(color, 11)}"),
-                        align_items="center",
-                        justify_content="left",
-                        text_align="left",
-                        spacing="2",
-                        width="100%",
+                        padding="0px",
+                        color=f"{rx.color(color, 11)} !important",
+                        background_color="transparent !important",
+                        border_radius="12px",
+                        _hover={},
                     ),
-                    padding="0px",
-                    color=f"{rx.color(color, 11)}",
-                    _hover={},
                 ),
-                rc.accordion_panel(
+                rx.accordion.content(
                     rx.video(
                         url=url,
                         width="100%",
@@ -405,12 +411,13 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                 border_radius="12px",
                 border=f"1px solid {rx.color(color, 4)}",
                 background_color=f"{rx.color(color, 3)}",
-                allow_toggle=True,
                 padding=["16px", "24px"],
             ),
             margin_bottom="16px",
-            is_disabled=True,
-            allow_toggle=True,
+            background="none !important",
+            border_radius="0px",
+            box_shadow="unset !important",
+            collapsible=True,
             width="100%",
         )
 

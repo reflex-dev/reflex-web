@@ -17,7 +17,6 @@ class TutorialState(rx.State):
 
     @rx.event
     async def submit(self, form_data: dict):
-
         question = form_data["question"]
         # Our chatbot has some brains now!
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])

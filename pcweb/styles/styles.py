@@ -2,7 +2,6 @@
 
 from pcweb.styles.colors import c_color
 import pcweb.styles.fonts as fonts
-import reflex_chakra as rc
 
 import reflex as rx
 
@@ -54,22 +53,12 @@ BASE_STYLE = {
         "background_color": rx.color("accent", 5, True),
     },
     "font_family": SANS,
-    rc.text: {
-        "font_family": SANS,
-        "font_size": 16,
-    },
     rx.heading: {
         "font_family": SANS,
     },
     rx.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
     rx.vstack: {"align_items": "center"},
     rx.hstack: {"align_items": "center"},
-    rc.divider: {"margin_bottom": "1em", "margin_top": "0.5em"},
-    rc.code: {"color": "#1F1944", "bg": "#EAE4FD"},
-    rc.alert: {
-        "border_radius": "8px",
-    },
-    rc.link: {"text_decoration": "none", "_hover": {}},
     rx.markdown: {
         "background": "transparent",
     },
