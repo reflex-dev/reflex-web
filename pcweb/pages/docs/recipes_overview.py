@@ -6,7 +6,6 @@ from pcweb.templates.docpage import (
     h2_comp,
     text_comp_2,
 )
-import reflex_chakra as rc
 
 
 def get_component_link(category, clist) -> str:
@@ -63,7 +62,7 @@ def component_grid():
         )
 
     return rx.box(
-        rc.box(*sidebar, class_name="grid grid-cols-1 lg:grid-cols-3 gap-6"),
+        rx.box(*sidebar, class_name="grid grid-cols-1 lg:grid-cols-3 gap-6"),
     )
 
 
@@ -83,7 +82,7 @@ def info_card(title, content):
 
 def card_section():
     return rx.box(
-        rc.box(
+        rx.box(
             info_card(
                 "Portable",
                 "Easy to copy and integrate into your next Reflex project.",
