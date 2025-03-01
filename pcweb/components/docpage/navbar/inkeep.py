@@ -8,23 +8,17 @@ from reflex.utils.imports import ImportVar
 from reflex.vars import Var
 
 
-class Search(rx.Component):
-    tag = "SearchBar"
+class InkeepSearchBar(rx.NoSSRComponent):
+    tag = "InkeepSearchBar"
+    library = "@inkeep/uikit-js"
 
-    special_props: List[Var] = [Var("{...searchBarProps}")]
 
-    is_open: Var[bool] = False
-
-    on_close: EventHandler[lambda: []]
-
-    on_shortcut_key_pressed: EventHandler[lambda: []]
-
+class Search(rx.el.Div):
     class_name: Var[str] = "max-w-[256px] max-h-[32px]"
 
     def add_imports(self):
         """Add the imports for the component."""
         return {
-            "next/dynamic": {ImportVar(tag="dynamic", is_default=True)},
             "react": {ImportVar(tag="useContext")},
             "$/utils/context": {ImportVar(tag="ColorModeContext")},
         }
@@ -33,12 +27,7 @@ class Search(rx.Component):
         """Add the hooks for the component."""
         return [
             "const { resolvedColorMode } = useContext(ColorModeContext)",
-            """const SearchBar = dynamic(
-  () => import('@inkeep/uikit').then((mod) => mod.InkeepSearchBar),
-  {
-    ssr: false,
-  },
-);
+            """
 const supportFormConfig = {
   heading: "Contact support",
   fields: [
@@ -236,6 +225,15 @@ const searchBarProps = {
   },
 };""",
         ]
+
+    @classmethod
+    def create(cls):
+        """Create the search component."""
+        return super().create(
+            InkeepSearchBar.create(
+                special_props=[Var("{...searchBarProps}")],
+            )
+        )
 
 
 inkeep = Search.create

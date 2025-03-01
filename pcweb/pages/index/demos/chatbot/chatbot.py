@@ -6,19 +6,6 @@ from pcweb.components.icon_button import icon_button
 import reflex as rx
 
 
-def scroll_to_bottom():
-    return """
-function scrollToBottom() {
-    var scrollContainer = document.getElementById('scroll-container');
-    if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight;
-    }
-    console.log("scrolling to bottom");
-}
-scrollToBottom();
-    """
-
-
 class TutorialState(rx.State):
     # Keep track of the chat history as a list of (question, answer) tuples.
     chat_history: list[tuple[str, str]] = [
@@ -30,12 +17,12 @@ class TutorialState(rx.State):
 
     @rx.event
     async def submit(self, form_data: dict):
-        self.question = form_data["question"]
+        question = form_data["question"]
         # Our chatbot has some brains now!
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
         session = await client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[{"role": "user", "content": self.question}],
+            messages=[{"role": "user", "content": question}],
             stop=None,
             temperature=0.7,
             stream=True,
@@ -44,10 +31,8 @@ class TutorialState(rx.State):
         # Add to the answer as the chatbot responds.
         answer = ""
         # self.chat_history = []
-        self.chat_history.append((self.question, answer))
+        self.chat_history.append((question, answer))
         yield
-
-        yield rx.call_script(scroll_to_bottom())
 
         async for item in session:
             if hasattr(item.choices[0].delta, "content"):
@@ -57,8 +42,6 @@ class TutorialState(rx.State):
                 answer += item.choices[0].delta.content
                 self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
-                yield rx.call_script(scroll_to_bottom())
-        yield rx.call_script(scroll_to_bottom())
 
     @rx.event
     def clear_chat(self):
@@ -70,12 +53,10 @@ def qa(question: str, answer: str) -> rx.Component:
         rx.box(
             rx.text(question),
             class_name="font-base text-slate-10 rounded-lg p-2 bg-slate-3 ml-[20%] text-end self-end",
-            on_mount=rx.call_script(scroll_to_bottom()),
         ),
         rx.box(
             rx.text(answer),
             class_name="font-base text-violet-10 rounded-lg p-2 bg-violet-3 max-w-[60%] mr-[20%] text-start self-start",
-            on_mount=rx.call_script(scroll_to_bottom()),
         ),
         class_name="flex flex-col gap-4 w-full",
     )
@@ -93,16 +74,14 @@ def chatbot() -> rx.Component:
             on_click=TutorialState.clear_chat,
         ),
         rx.box(
-            rx.box(
+            rx.auto_scroll(
                 rx.foreach(
                     TutorialState.chat_history,
                     lambda messages: qa(messages[0], messages[1]),
                 ),
                 rx.box(overflow_anchor="auto", height="0.5rem"),
-                id="scroll-container",
                 overflow_anchor="none",
                 class_name="flex flex-col gap-4 w-full overflow-y-auto",
-                on_mount=rx.call_script(scroll_to_bottom()),
             ),
             rx.form(
                 rx.el.input(

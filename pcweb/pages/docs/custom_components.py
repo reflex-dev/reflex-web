@@ -2,7 +2,6 @@ import reflex as rx
 import httpx
 import json
 import os
-import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 from pcweb.styles.colors import c_color
 from pcweb.styles.shadows import shadows
@@ -365,7 +364,7 @@ def add_item(category: dict) -> rx.Component:
 
 
 def component_grid():
-    return rc.box(
+    return rx.box(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         class_name="gap-6 grid grid-cols-1 lg:grid-cols-1 2xl:grid-cols-3 [&>*]:min-w-[260px] w-full",
     )
