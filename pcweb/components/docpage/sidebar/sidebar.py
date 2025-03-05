@@ -11,7 +11,7 @@ from .sidebar_items.component_lib import (
     component_lib,
     graphing_libs,
 )
-from .sidebar_items.reference import api_reference, tutorials
+from .sidebar_items.reference import api_reference
 from .sidebar_items.recipes import recipes
 from pcweb.styles.colors import c_color
 
@@ -217,8 +217,7 @@ append_to_items(
     + component_lib
     + graphing_libs
     + recipes
-    + api_reference
-    + tutorials,
+    + api_reference,
     flat_items,
 )
 
@@ -354,7 +353,6 @@ def sidebar_comp(
         state,
         ui,
         hosting as hosting_page,
-        datatable_tutorial,
     )
     from pcweb.pages.docs.apiref import pages
 
@@ -460,13 +458,6 @@ def sidebar_comp(
                         api_reference_index,
                         url,
                     ),
-                    create_sidebar_section(
-                        "Tutorials",
-                        datatable_tutorial.simple_table.path,
-                        tutorials,
-                        tutorials_index,
-                        url,
-                    ),
                     class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                 ),
             ),
@@ -493,7 +484,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     graphing_libs_index = calculate_index(graphing_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
-    tutorials_index = calculate_index(tutorials, url)
 
     return rx.box(
         sidebar_comp(
@@ -506,7 +496,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             graphing_libs_index=graphing_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
-            tutorials_index=tutorials_index,
             width=width,
         ),
         class_name="flex justify-end w-full h-full",

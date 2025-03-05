@@ -20,23 +20,4 @@ def get_sidebar_items_api_reference():
     ]
 
 
-def get_sidebar_items_tutorials():
-    from pcweb.pages.docs import (
-        datatable_tutorial,
-    )
-
-    return [
-        create_item(
-            "Datatable Tutorial",
-            children=[
-                datatable_tutorial.simple_table,
-                datatable_tutorial.add_interactivity,
-                datatable_tutorial.add_styling,
-                datatable_tutorial.live_stream,
-            ],
-        )
-    ]
-
-
 api_reference = get_sidebar_items_api_reference()
-tutorials = get_sidebar_items_tutorials()
