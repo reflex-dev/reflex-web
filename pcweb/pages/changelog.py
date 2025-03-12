@@ -55,7 +55,6 @@ def changelog_content():
             [
                 "Deprecated Component.__init__",
                 "Allow overwriting serializers",
-                "Use .f format spec with Vars",
                 "React 19 post mitigations",
                 "Performance improvements to evaluation time 👀",
             ],
