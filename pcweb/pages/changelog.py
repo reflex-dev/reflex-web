@@ -49,6 +49,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-03-12",
+            "v0.7.2",
+            "Use .f format spec with Vars",
+            [
+                "Deprecated Component.__init__",
+                "Allow overwriting serializers",
+                "Use .f format spec with Vars",
+                "React 19 post mitigations",
+                "Performance improvements to evaluation time 👀",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.2",
+        ),
+        change(
             "2025-02-25",
             "v0.7.1",
             "New rx.auto_scroll component",
