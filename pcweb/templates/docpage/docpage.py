@@ -473,7 +473,7 @@ def docpage(
                             rx.box(
                                 "Next",
                                 get_icon(icon="arrow_right"),
-                                class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
+                                class_name="flex flex-row lg:justify-start items-center gap-2 rounded-lg w-full self-end",
                             ),
                             underline="none",
                             href=next.link,
@@ -511,7 +511,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-24",
+                            class_name="px-0 lg:px-20",
                         ),
                         rx.box(
                             rx.el.article(comp),
@@ -520,7 +520,7 @@ def docpage(
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
                             docpage_footer(path=path.rstrip("/")),
-                            class_name="lg:mt-0 mt-6 px-4 lg:px-24",
+                            class_name="lg:mt-0 mt-6 px-4 lg:px-20",
                         ),
                         class_name="h-full w-full"
                         + (
@@ -541,7 +541,7 @@ def docpage(
                                         rx.el.li(
                                             rx.link(
                                                 text,
-                                                class_name="font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
+                                                class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
                                                 underline="none",
                                                 href=path
                                                 + "#"
@@ -553,7 +553,7 @@ def docpage(
                                             rx.list_item(
                                                 rx.link(
                                                     text,
-                                                    class_name="font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
+                                                    class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
                                                     underline="none",
                                                     href=path
                                                     + "#"
@@ -565,7 +565,7 @@ def docpage(
                                                 rx.link(
                                                     text,
                                                     underline="none",
-                                                    class_name="pl-6 font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
+                                                    class_name="pl-6 font-small text-slate-9 hover:!text-slate-11  transition-color",
                                                     href=path
                                                     + "#"
                                                     + text.lower().replace(" ", "-"),
@@ -577,15 +577,18 @@ def docpage(
                                 ],
                                 class_name="flex flex-col gap-4 list-none",
                             ),
-                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[300px] max-h-[80vh] overflow-hidden",
+                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-scroll",
+                            style={
+                                "width":"inherit"
+                            }
                         ),
-                        class_name="h-full shrink-0 w-[16%]"
+                        class_name="shrink-0 w-[16%]"
                         + rx.cond(
                             HostingBannerState.show_banner,
                             " mt-[146px]",
                             " mt-[90px]",
                         )
-                        + (" hidden xl:flex" if right_sidebar else " hidden"),
+                        + (" hidden xl:flex xl:flex-col" if right_sidebar else " hidden"),
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),
