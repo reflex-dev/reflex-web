@@ -49,6 +49,17 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-03-17",
+            "v0.7.3",
+            "New .get var operation",
+            [
+                ", and _ options for formatted numbers",
+                "added raw headers to router headers",
+                "exposed SVG elements at the el level",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.3",
+        ),
+        change(
             "2025-03-12",
             "v0.7.2",
             "Use .f format spec with Vars",
