@@ -49,6 +49,17 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-03-24",
+            "v0.7.4",
+            "SASS/SCSS support with libsass package",
+            [
+                "bun as primary package installer/runtime",
+                "call reflex apps with an ASGI framework",
+                "specify multiple env files",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.4",
+        ),
+        change(
             "2025-03-17",
             "v0.7.3",
             "New .get var operation",
