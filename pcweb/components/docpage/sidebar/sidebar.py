@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import reflex as rx
-import reflex_chakra as rc
 from pcweb.components.docpage.navbar.state import NavbarState
 from .state import SidebarState, SideBarItem, SideBarBase
 
@@ -12,7 +11,7 @@ from .sidebar_items.component_lib import (
     component_lib,
     graphing_libs,
 )
-from .sidebar_items.reference import api_reference, tutorials
+from .sidebar_items.reference import api_reference
 from .sidebar_items.recipes import recipes
 from pcweb.styles.colors import c_color
 
@@ -28,14 +27,15 @@ def sidebar_link(*children, **props):
 
 
 def sidebar_leaf(
+    item_index: str,
     item: SideBarItem,
     url: str,
 ) -> rx.Component:
     """Get the leaf node of the sidebar."""
     item.link = item.link.replace("_", "-").rstrip("/") + "/"
     return (
-        rx.el.li(
-            rc.accordion_item(
+        rx.accordion.item(
+            rx.accordion.header(
                 sidebar_link(
                     rx.flex(
                         rx.text(
@@ -55,13 +55,14 @@ def sidebar_leaf(
                     ),
                     href=item.link,
                 ),
-                border="none",
-                width="100%",
-            )
+            ),
+            value=item_index,
+            border="none",
+            width="100%",
         )
         if item.outer
-        else rx.el.li(
-            rc.accordion_item(
+        else rx.accordion.item(
+            rx.accordion.header(
                 rx.cond(
                     item.link == url,
                     sidebar_link(
@@ -87,9 +88,10 @@ def sidebar_leaf(
                         href=item.link,
                     ),
                 ),
-                border="none",
-                width="100%",
-            )
+            ),
+            border="none",
+            value=item_index,
+            width="100%",
         )
     )
 
@@ -128,42 +130,49 @@ def sidebar_icon(name):
 
 
 def sidebar_item_comp(
+    item_index: str,
     item: SideBarItem,
     index: list[int],
     url: str,
 ):
-    # print(index)
-    return rx.cond(
-        not item.children,
-        sidebar_leaf(item=item, url=url),
-        rc.accordion_item(
-            rc.accordion_button(
-                sidebar_icon(item.names),
-                rx.text(
-                    item.names,
-                    class_name="font-small",
-                ),
-                rx.box(class_name="flex-grow"),
-                rc.accordion_icon(class_name="size-4"),
-                class_name="items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
-            ),
-            rc.accordion_panel(
-                rc.accordion(
-                    rx.el.ul(
-                        *[
-                            sidebar_item_comp(child, index, url)
-                            for child in item.children
-                        ],
-                        class_name="flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
+    index = rx.Var.create(index)
+    return (
+        sidebar_leaf(item_index=item_index, item=item, url=url)
+        if not item.children
+        else rx.accordion.item(
+            rx.accordion.header(
+                rx.accordion.trigger(
+                    sidebar_icon(item.names),
+                    rx.text(
+                        item.names,
+                        class_name="font-small",
                     ),
-                    allow_multiple=True,
-                    default_index=index[1:2] if index else [],
-                    class_name="!my-2",
+                    rx.box(class_name="flex-grow"),
+                    rx.accordion.icon(class_name="size-4"),
+                    class_name="flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
+                ),
+            ),
+            rx.accordion.content(
+                rx.accordion.root(
+                    *[
+                        sidebar_item_comp(
+                            item_index="index" + str(child_index),
+                            item=child,
+                            index=index[1:],
+                            url=url,
+                        )
+                        for child_index, child in enumerate(item.children)
+                    ],
+                    type="multiple",
+                    collapsible=True,
+                    default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
                 ),
                 class_name="!p-0 w-full",
             ),
+            value=item_index,
             class_name="border-none w-full",
-        ),
+        )
     )
 
 
@@ -208,8 +217,7 @@ append_to_items(
     + component_lib
     + graphing_libs
     + recipes
-    + api_reference
-    + tutorials,
+    + api_reference,
     flat_items,
 )
 
@@ -304,17 +312,19 @@ def create_sidebar_section(
             href=section_url,
             class_name="py-3",
         ),
-        rc.accordion(
+        rx.accordion.root(
             *[
                 sidebar_item_comp(
+                    item_index="index" + str(item_index),
                     item=item,
-                    index=index if nested else [-1],
+                    index=index[1:] if nested else [],
                     url=url,
                 )
-                for item in items
+                for item_index, item in enumerate(items)
             ],
-            allow_multiple=True,
-            default_index=rx.cond(index, index, []),
+            type="multiple",
+            collapsible=True,
+            default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
             class_name="ml-0 pl-0 w-full",
         ),
         class_name="flex flex-col items-start ml-0 w-full",
@@ -343,7 +353,6 @@ def sidebar_comp(
         state,
         ui,
         hosting as hosting_page,
-        datatable_tutorial,
     )
     from pcweb.pages.docs.apiref import pages
 
@@ -449,13 +458,6 @@ def sidebar_comp(
                         api_reference_index,
                         url,
                     ),
-                    create_sidebar_section(
-                        "Tutorials",
-                        datatable_tutorial.simple_table.path,
-                        tutorials,
-                        tutorials_index,
-                        url,
-                    ),
                     class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                 ),
             ),
@@ -482,7 +484,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     graphing_libs_index = calculate_index(graphing_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
-    tutorials_index = calculate_index(tutorials, url)
 
     return rx.box(
         sidebar_comp(
@@ -495,7 +496,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             graphing_libs_index=graphing_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
-            tutorials_index=tutorials_index,
             width=width,
         ),
         class_name="flex justify-end w-full h-full",

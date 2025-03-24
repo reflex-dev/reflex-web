@@ -1,6 +1,10 @@
 import reflex as rx
 from pcweb.components.new_button import button
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO, REFLEX_CLOUD_URL, REFLEX_DOCS_URL
+from pcweb.constants import (
+    REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+    REFLEX_CLOUD_URL,
+    REFLEX_DOCS_URL,
+)
 
 
 def radial_circle(violet: bool = False) -> rx.Component:
@@ -139,7 +143,7 @@ def card(
     features: list[tuple[str, str]],
     button_text: str,
     price: str = None,
-    redirect_url: str = None
+    redirect_url: str = None,
 ) -> rx.Component:
     return rx.box(
         rx.el.div(
@@ -247,15 +251,14 @@ def plan_cards() -> rx.Component:
             "Hobby",
             "Everything you need to get started.",
             [
-                ("heart-handshake", "Community support"),
+                ("brain", "AI App Builder (Limited Access)"),
                 (
                     "app-window",
-                    "Unlimited apps",
+                    "Cloud Unlimited Apps",
                     "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month.",
                 ),
-                ("clock", "1 day log retention"),
-                ("code", "Open Source Framework"),
-                ("file-code", "Starter Templates"),
+                ("code", "Reflex Open Source"),
+                ("heart-handshake", "Discord/Github Support"),
             ],
             "Start building for free",
             price="Free",
@@ -265,18 +268,9 @@ def plan_cards() -> rx.Component:
             "Pro",
             "For professional projects and startups.",
             [
-                ("heart-handshake", "Priority Community support"),
-                ("users", "1 seat incl. (additional seats at $20/mo)"),
-                ("credit-card", "$10 / month free compute credits"),
-                ("server", "Customize machine sizes"),
-                ("clock", "30 days log retention"),
-                ("globe", "Multi-region"),
+                ("brain", "AI App Builder (Free $20 credits / month)"),
+                ("credit-card", "Cloud (Free $10 credits / month)"),
                 ("brush", "Custom domains"),
-                (
-                    "file-badge",
-                    "Remove Branding",
-                    "Check out the Reflex Branding doc page to learn how to remove the 'Built with Reflex' badge from your app.",
-                ),
                 ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
@@ -286,34 +280,31 @@ def plan_cards() -> rx.Component:
             "Team",
             "For teams looking to scale their applications.",
             [
-                ("mail", "Email/Slack support"),
-                ("users", "5 seat incl. (additional seats available)"),
-                ("credit-card", "Monthly free compute credits"),
-                ("git-branch", "Create multiple projects"),
-                ("signal", "Full Website Analytics"),
-                ("lock-keyhole", "One Click Auth"),
+                ("users", "Invite your team mates"),
                 (
-                    "file-badge",
-                    "Remove Branding Everywhere",
-                    "Check out the Remove Reflex Branding section in the Self Hosting doc page to learn how to remove the 'Built with Reflex' badge from your app.",
+                    "cable",
+                    "Connect AI Builder to your Data",
+                    "Integrations include Databricks, Snowflake, etc.",
                 ),
+                ("lock-keyhole", "One Click Auth"),
+                ("file-badge", "AG Grid with no Reflex Branding"),
+                ("mail", "Email support"),
                 ("circle-plus", "Everything in Pro"),
             ],
-            "Contact sales",
-            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
+            "Start with Team plan",
+            redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
+            price="$49/user/mo + compute",
         ),
         card(
             "Enterprise",
             "Get a plan tailored to your business needs.",
             [
-                ("headset", "Dedicated Support"),
-                ("users", "Customized seat amount"),
+                ("hand-helping", "White Glove Onboarding"),
                 ("user-round-plus", "Personalized integration help"),
                 ("hard-drive", "On Premise Deployment"),
-                ("clock", "Unlimited log retention"),
-                ("activity", "Error Monitoring and Observability"),
+                ("key", "Bring your own AI API keys"),
+                ("headset", "Dedicated Support Channel"),
                 ("git-pull-request", "Influence Reflex Roadmap"),
-                ("shield-check", "Audit logs, SSO, SOC2 Reports"),
                 ("circle-plus", "Everything in Team"),
             ],
             "Contact sales",

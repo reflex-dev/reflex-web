@@ -2,7 +2,6 @@ import reflex as rx
 import httpx
 import json
 import os
-import reflex_chakra as rc
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 from pcweb.styles.colors import c_color
 from pcweb.styles.shadows import shadows
@@ -348,13 +347,13 @@ def add_item(category: dict) -> rx.Component:
         rx.box(
             rx.box(
                 component_name(name),
-                download_count(category["downloads_last_month"]),
+                # download_count(category["downloads_last_month"]),
                 class_name="flex flex-row justify-between items-center w-full gap-3 p-[10px_12px_0px_12px]",
             ),
             rx.box(
                 install_command("pip install " + category["package_name"]),
                 download(category["download_url"]),
-                demo(category),
+                # demo(category),
                 title="pip install " + category["package_name"],
                 class_name="flex flex-row justify-between items-center w-full gap-1.5 p-[0px_6px_6px_6px]",
             ),
@@ -365,7 +364,7 @@ def add_item(category: dict) -> rx.Component:
 
 
 def component_grid():
-    return rc.box(
+    return rx.box(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         class_name="gap-6 grid grid-cols-1 lg:grid-cols-1 2xl:grid-cols-3 [&>*]:min-w-[260px] w-full",
     )
