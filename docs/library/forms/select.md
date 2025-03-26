@@ -188,14 +188,11 @@ rx.drawer.root(
         rx.drawer.content(
             rx.vstack(
                 rx.drawer.close(rx.box(rx.button("Close"))),
-                rx.select(["apple", "grape", "pear"], default_value="apple", position="popper"),
+                rx.select(["apple", "grape", "pear"], position="popper"),
             ),
-            top="auto",
-            right="auto",
-            height="100%",
             width="20em",
             padding="2em",
-            background_color="#FFF",
+            background_color=rx.color("gray", 1),
         ),
     ),
     direction="left",
