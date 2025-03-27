@@ -58,6 +58,23 @@ We recommend using a virtual environment with Python 3.10 or higher to run this 
 
     *Open the browser and go to `http://localhost:3000/` to see the website.*
 
+**`uv` alternative**
+
+Run the project with `uv` using:
+
+```bash
+uv run --with-requirements requirements.txt reflex run
+```
+
+or
+
+```bash
+uv venv
+uv pip install -r requirements.txt
+uv run reflex run
+```
+
+
 ## Contributing
 
 We welcome contributions of any size!
