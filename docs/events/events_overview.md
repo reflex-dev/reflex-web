@@ -47,6 +47,6 @@ Whenever the user hovers over the heading, the `next_word` **event handler** wil
 
 Adding the `@rx.event` decorator above the event handler is strongly recommended. This decorator enables proper static type checking, which ensures event handlers receive the correct number and types of arguments.
 
-# What in this section?
+# What's in this section?
 
 In the event section of the documentation, you will explore the different types of events supported by Reflex, along with the different ways to call them.
