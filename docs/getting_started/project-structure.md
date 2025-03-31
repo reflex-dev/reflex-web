@@ -45,9 +45,9 @@ The `assets` directory is where you can store any static assets you want to be p
 For example, if you save an image to `assets/image.png` you can display it from your app like this:
 
 ```python
-rx.image(src="image.png")
+rx.image(src="/image.png")
 ```
-
+j
 ## Main Project
 
 Initializing your project creates a directory with the same name as your app. This is where you will write your app's logic.
