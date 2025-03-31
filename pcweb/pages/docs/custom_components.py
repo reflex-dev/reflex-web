@@ -347,13 +347,13 @@ def add_item(category: dict) -> rx.Component:
         rx.box(
             rx.box(
                 component_name(name),
-                download_count(category["downloads_last_month"]),
+                # download_count(category["downloads_last_month"]),
                 class_name="flex flex-row justify-between items-center w-full gap-3 p-[10px_12px_0px_12px]",
             ),
             rx.box(
                 install_command("pip install " + category["package_name"]),
                 download(category["download_url"]),
-                demo(category),
+                # demo(category),
                 title="pip install " + category["package_name"],
                 class_name="flex flex-row justify-between items-center w-full gap-1.5 p-[0px_6px_6px_6px]",
             ),

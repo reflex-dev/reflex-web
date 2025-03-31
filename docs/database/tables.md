@@ -8,7 +8,7 @@ field in the record.
 
 ## Creating a Table
 
-To create a table make a class that inherits from `rx.Model`.
+To create a table, make a class that inherits from `rx.Model`.
 
 The following example shows how to create a table called `User`.
 
