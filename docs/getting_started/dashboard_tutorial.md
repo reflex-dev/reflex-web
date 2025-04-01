@@ -221,7 +221,9 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style={"_hover": {"bg": rx.color("gray", 3)}},
+        style=\{"_hover": 
+            \{"bg": rx.color("gray", 3)}
+        },
         align="center",
     )
 
@@ -1618,7 +1620,7 @@ Unfortunately in this tutorial here we cannot actually apply this to the live ex
 
 ## Conclusion
 
-Finally let's make some final styling updates to our app. We will add some hover styling to the table rows and center the table inside the `show_user` with `style={"_hover": {"bg": rx.color("gray", 3)}}, align="center"`.
+Finally let's make some final styling updates to our app. We will add some hover styling to the table rows and center the table inside the `show_user` with `style=\{"_hover": \{"bg": rx.color("gray", 3)}}, align="center"`.
 
 In addition, we will add some `width="100%"` and `align="center"` to the `index()` component to center the items on the page and ensure they stretch the full width of the page.
 
@@ -1699,8 +1701,8 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style={"_hover": 
-            {"bg": rx.color("gray", 3)}
+        style=\{"_hover": 
+            \{"bg": rx.color("gray", 3)}
         },
         align="center",
     )
