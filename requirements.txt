@@ -15,4 +15,5 @@ reflex-chat==0.0.2a1
 reflex_type_animation==0.0.1
 reflex-ag-grid==0.0.10
 replicate==0.32.1
-reflex-pyplot==0.1.3
+reflex-pyplot==0.1.
+python-multipart==0.0.20
