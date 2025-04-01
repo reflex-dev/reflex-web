@@ -221,9 +221,7 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style={"_hover": 
-            {"bg": rx.color("gray", 3)}
-        },
+        style={"_hover": {"bg": rx.color("gray", 3)}},
         align="center",
     )
 
@@ -1701,9 +1699,7 @@ def show_user(user: User):
         rx.table.cell(user.name),
         rx.table.cell(user.email),
         rx.table.cell(user.gender),
-        style=\{"_hover": 
-            \{"bg": rx.color("gray", 3)}
-        },
+        style={"_hover": {"bg": rx.color("gray", 3)}},
         align="center",
     )
 
