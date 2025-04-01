@@ -148,8 +148,17 @@ def card(
     return rx.box(
         rx.el.div(
             rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
-            rx.badge(price, color_scheme="gray", size="3") if price else rx.fragment(),
-            class_name="flex items-center mb-2 gap-2",
+            (
+                rx.badge(
+                    price,
+                    color_scheme="gray",
+                    size="3",
+                    class_name="font-medium text-lg",
+                )
+                if price
+                else rx.fragment()
+            ),
+            class_name="flex items-center mb-2 gap-4",
         ),
         rx.el.p(
             description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
@@ -159,12 +168,14 @@ def card(
                 rx.el.li(
                     rx.icon(feature[0], class_name="!text-slate-9", size=16),
                     feature[1],
-                    rx.tooltip(
-                        rx.icon("info", class_name="!text-slate-9", size=12),
-                        content=feature[2],
-                    )
-                    if len(feature) == 3
-                    else "",
+                    (
+                        rx.tooltip(
+                            rx.icon("info", class_name="!text-slate-9", size=12),
+                            content=feature[2],
+                        )
+                        if len(feature) == 3
+                        else ""
+                    ),
                     class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
                 )
                 for feature in features
@@ -204,10 +215,17 @@ def popular_card(
             grid(),
             rx.hstack(
                 rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
-                rx.badge(price, color_scheme="violet", size="3")
-                if price
-                else rx.fragment(),
-                class_name="flex items-center mb-2 gap-2",
+                (
+                    rx.badge(
+                        price,
+                        color_scheme="violet",
+                        size="3",
+                        class_name="font-medium text-lg",
+                    )
+                    if price
+                    else rx.fragment()
+                ),
+                class_name="flex items-center mb-2 gap-4",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
             rx.el.ul(
@@ -215,12 +233,14 @@ def popular_card(
                     rx.el.li(
                         rx.icon(feature[0], class_name="!text-violet-9", size=16),
                         feature[1],
-                        rx.tooltip(
-                            rx.icon("info", class_name="!text-slate-9", size=12),
-                            content=feature[2],
-                        )
-                        if len(feature) == 3
-                        else "",
+                        (
+                            rx.tooltip(
+                                rx.icon("info", class_name="!text-slate-9", size=12),
+                                content=feature[2],
+                            )
+                            if len(feature) == 3
+                            else ""
+                        ),
                         class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
                     )
                     for feature in features

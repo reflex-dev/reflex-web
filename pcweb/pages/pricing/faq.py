@@ -23,7 +23,7 @@ def header() -> rx.Component:
             "Check FAQ",
             class_name="text-slate-9 text-3xl font-semibold",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col pt-[5rem] pb-82xl:border-x border-slate-4",
+        class_name="flex items-center justify-between text-slate-11 flex-col pt-[5rem] xl:border-x border-slate-4",
     )
 
 
@@ -130,5 +130,5 @@ def faq() -> rx.Component:
             class_name="max-w-[40rem] flex justify-center items-center flex-col mx-auto w-full gap-2",
         ),
         sales_button(),
-        class_name="flex flex-col gap-8 w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] py-32",
+        class_name="flex flex-col gap-8 w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem]",
     )
