@@ -16,6 +16,10 @@ Reflex AG Grid is a high-performance and highly customizable grid that wraps AG 
 pip install reflex-ag-grid
 ```
 
+```md alert warning
+# Starting from reflex 0.7.1, the reflex-ag-grid package is not maintained anymore. Go to https://enterprise.reflex.dev/ to get the latest version of AG Grid maintained by the Reflex Team.
+```
+
 ## Your First Reflex AG Grid
 
 A basic Reflex AG Grid contains column definitions `column_defs`, which define the columns to be displayed in the grid, and `row_data`, which contains the data to be displayed in the grid.
