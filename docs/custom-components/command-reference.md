@@ -24,7 +24,7 @@ Options:
 Commands:
   init     Initialize a custom component.
   build    Build a custom component.
-  share    Collect more details on the published package for gallery."")
+  share    Collect more details on the published package for gallery.""")
 ```
 
 ## reflex component init
