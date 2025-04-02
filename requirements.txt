@@ -8,7 +8,7 @@ typesense==0.14.0
 openai==1.13.3
 pyyaml==6.0.1
 flexdown>=0.1.5a12,<0.2
-reflex==0.7.5
+reflex==0.7.4
 mistletoe>=1.2.1
 reflex-image-zoom>=0.0.2
 reflex-chat==0.0.2a1
