@@ -49,6 +49,19 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-03-31",
+            "v0.7.5",
+            "None as children of components",
+            [
+                "event handlers as vars",
+                "expose socket constants as env variables",
+                "add ndigits to round method",
+                "rx.run_in_thread for convenience",
+                "allow event handlers and such as arguments to rx.memo",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.5",
+        ),
+        change(
             "2025-03-24",
             "v0.7.4",
             "SASS/SCSS support with libsass package",
