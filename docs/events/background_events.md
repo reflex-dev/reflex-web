@@ -104,34 +104,6 @@ def background_task_example():
     )
 ```
 
-## Terminating Background Tasks on Page Close or Navigation
-
-Sometimes, background tasks may continue running even after the user navigates away from the page or closes the browser tab. To handle such cases, you can check if the websocket associated with the state is disconnected and terminate the background task when necessary.
-
-The solution involves checking if the client_token is still valid in the app.event_namespace.token_to_sid mapping. If the session is lost (e.g., the user navigates away or closes the page), the background task will stop.
-
-```python
-import asyncio
-import reflex as rx
-
-class State(rx.State):
-    @rx.event(background=True)
-    async def loop_function(self):
-        while True:
-            if self.router.session.client_token not in app.event_namespace.token_to_sid:
-                print("WebSocket connection closed or user navigated away. Stopping background task.")
-                break 
-            
-            print("Running background task...")
-            await asyncio.sleep(2)  
-
-
-@rx.page(on_load=State.loop_function)
-def index():
-    return rx.text("Hello, this page will manage background tasks and stop them when the page is closed or navigated away.")
-
-```
-
 ## Task Lifecycle
 
 When a background task is triggered, it starts immediately, saving a reference to
@@ -145,9 +117,6 @@ It is up to the developer to ensure that duplicate tasks are not created under
 the circumstances that are undesirable. In the example above, the `_n_tasks`
 backend var is used to control whether `my_task` will enter the increment loop,
 or exit early.
-
-
-
 
 ## Background Task Limitations
 
