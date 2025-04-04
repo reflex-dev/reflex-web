@@ -339,21 +339,54 @@ def doc_section():
 
 
 def new_component_section() -> rx.Component:
+    from pcweb.pages.docs.ai_builder import pages as ai_pages
+    from pcweb.pages.docs.cloud import pages as cloud_pages
+
     return nav_menu.root(
         nav_menu.list(
-            nav_menu.item(
-                logo(),
+            nav_menu.item(logo()),
+            rx.cond(
+                rx.State.router.page.path.contains("docs")
+                | rx.State.router.page.path.contains("ai-builder")
+                | rx.State.router.page.path.contains("cloud"),
+                rx.el.div(
+                    nav_menu.item(
+                        link_item("AI Builder", ai_pages[0].path, "builder"),
+                    ),
+                    nav_menu.item(
+                        link_item(
+                            "Framework", getting_started.introduction.path, "framework"
+                        ),
+                    ),
+                    nav_menu.item(
+                        link_item("Cloud", cloud_pages[0].path, "hosting"),
+                    ),
+                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                ),
+                rx.el.div(
+                    nav_menu.item(
+                        link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                    ),
+                    nav_menu.item(
+                        link_item("Framework", "/", "framework"),
+                    ),
+                    nav_menu.item(
+                        link_item("Cloud", "/hosting", "hosting"),
+                    ),
+                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                ),
             ),
             nav_menu.item(
-                link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                new_menu_trigger("Docs"),
+                doc_section(),
+                display=rx.cond(
+                    rx.State.router.page.path.contains("docs")
+                    | rx.State.router.page.path.contains("ai-builder")
+                    | rx.State.router.page.path.contains("cloud"),
+                    "none",
+                    "block",
+                ),
             ),
-            nav_menu.item(
-                link_item("Framework", "/", "framework"),
-            ),
-            nav_menu.item(
-                link_item("Cloud", "/hosting", "hosting"),
-            ),
-            nav_menu.item(new_menu_trigger("Docs"), doc_section()),
             nav_menu.item(new_menu_trigger("Resources"), new_resource_section()),
             nav_menu.item(
                 new_menu_trigger("Pricing", "/pricing", "pricing"),
