@@ -10,7 +10,7 @@ image_style = {
 }
 ```
 
-In order to publish a Python package, you need to use a publishing utility. Any would work, but we recommend either [Twine](https://twine.readthedocs.io/en/stable/) or (uv)[https://docs.astral.sh/uv/guides/package/#publishing-your-package].
+In order to publish a Python package, an account with the package index is required. As of **0.4.3**, Reflex only supports publishing to PyPI and TestPyPI. PyPI is short for **Python Package Index**, the official third-party software repository for Python. TestPyPI is a separate instance of index that allows users to test the distribution and installation of the package before publishing it to the real index.
 
 ## PyPI
 
@@ -22,7 +22,7 @@ rx.center(
 )
 ```
 
-A user can use username and password to authenticate with PyPI when publishing.
+A user can use username and password to authenticate with PyPI when publishing. Reflex does not store your PyPI credentials. If an API token is preferred, it can be generated in the account settings.
 
 ```python eval
 rx.center(
@@ -37,3 +37,7 @@ rx.center(
   rx.image(src="/custom_components/pypi_api_tokens.png", style=image_style, width="700px", loading="lazy"),
 )
 ```
+
+## TestPyPI
+
+TestPyPI has the same look and feel as PyPI.
