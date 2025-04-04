@@ -69,7 +69,6 @@ def gallery_app_page(
                         class_name="border-t border-slate-3 border-x flex flex-col items-center w-full border-b",
                     ),
                     footer_index(),
-                    badge(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans mx-auto max-w-[64.19rem]",
                 ),
                 class_name="relative overflow-hidden",
