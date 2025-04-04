@@ -7,12 +7,12 @@ from pcweb.components.icons import get_icon
 from pcweb.signup import IndexState
 
 
-def form() -> rx.Component:
+def form(color: str = "slate") -> rx.Component:
     return rx.box(
         rx.form(
             rx.box(
                 rx.box(
-                    get_icon("message_form", class_name="text-slate-9"),
+                    get_icon("message_form", class_name=f"text-{color}-9"),
                     class_name="size-14 rounded-full bg-slate-5 flex items-center justify-center shrink-0",
                 ),
                 rx.box(

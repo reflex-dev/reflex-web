@@ -42,7 +42,7 @@ def preview_block() -> rx.Component:
     )
 
 
-def demo_section() -> rx.Component:
+def demo_section(color: str = "slate") -> rx.Component:
     return rx.box(
         # Tabs
         rx.box(
@@ -58,7 +58,7 @@ def demo_section() -> rx.Component:
             rx.box(
                 rx.match(
                     DemoState.demo,
-                    ("Forms", form()),
+                    ("Forms", form(color)),
                     ("Chatbot", chatbot()),
                     ("Image Gen", image_gen()),
                     ("Charts", charts()),

@@ -15,6 +15,7 @@ from .hosting_countdown.hosting_countdown import hosting_countdown as hosting_co
 from .pricing.pricing import pricing as pricing
 from .sales import sales as sales
 from .hosting.hosting import hosting_landing as hosting_landing
+from .landing.landing import landing as landing
 
 routes = [
     *[r for r in locals().values() if isinstance(r, Route) and r.add_as_page],

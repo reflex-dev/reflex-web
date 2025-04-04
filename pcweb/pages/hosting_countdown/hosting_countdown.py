@@ -33,6 +33,5 @@ def hosting_countdown() -> rx.Component:
             class_name="flex flex-col w-full relative h-full max-w-[64.19rem] border-b border-slate-4 lg:border-x",
         ),
         footer_index(),
-        badge(),
         class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
     )
