@@ -1,6 +1,6 @@
 """UI and logic inkeep chat component."""
 
-from typing import List, Any
+from typing import List
 
 import reflex as rx
 from reflex.event import EventHandler
@@ -14,6 +14,8 @@ class InkeepSearchBar(rx.NoSSRComponent):
 
 
 class Search(rx.el.Div):
+    class_name: Var[str] = "max-w-[256px] max-h-[32px]"
+
     def add_imports(self):
         """Add the imports for the component."""
         return {
@@ -122,6 +124,7 @@ const supportFormConfig = {
   },
 };
 const searchBarProps = {
+  stylesheetUrls: ['/inkeepstyle-docs.css'],
   baseSettings: {
     apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
     integrationId: 'clkbf9e7e0001s601sa0ciax1',
@@ -168,119 +171,7 @@ const searchBarProps = {
       forcedColorMode: resolvedColorMode, // options: 'light' or dark'
     },
     theme: {
-      // Add inline styles using the recommended approach from the docs
-      styles: [
-        {
-          key: "custom-theme",
-          type: "style",
-          value: `
-            [data-theme='light'] .ikp-search-bar__button,
-            [data-theme='dark'] .ikp-search-bar__button {
-              display: flex;
-              max-height: 32px;
-              min-height: 32px;
-              padding: 6px;
-              min-width: 256px;
-              justify-content: space-between;
-              align-items: center;
-              border-radius: 10px;
-              border: 1px solid var(--c-slate-5, #E0E1E6);
-              background: var(--c-slate-1);
-              /* Small */
-              font-family: "Instrument Sans";
-              font-size: 14px;
-              font-style: normal;
-              font-weight: 500;
-              line-height: 20px;
-              /* 142.857% */
-              letter-spacing: -0.0125em;
-              color: var(--c-slate-9, #8B8D98);
-              /* Shadow/Large */
-              box-shadow: 0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02);
-              transition: background-color 0.1s linear, width 0s;
-            }
-            
-            [data-theme='light'] .ikp-search-bar__button:hover,
-            [data-theme='dark'] .ikp-search-bar__button:hover {
-              background-color: var(--c-slate-3, #F0F0F3);
-            }
-            
-            [data-theme='dark'] .ikp-modal__overlay {
-              background: rgba(18, 17, 19, 0.50);
-              backdrop-filter: blur(20px);
-            }
-            
-            @media (max-width: 80em) {
-              [data-theme='light'] .ikp-search-bar__button,
-              [data-theme='dark'] .ikp-search-bar__button {
-                padding: 2px 12px;
-                display: block;
-                height: 32px;
-                min-height: 32px;
-                width: 32px;
-                max-width: 6em;
-                min-width: 0px;
-              }
-            
-              .ikp-search-bar__button {
-                align-items: center;
-                justify-content: center;
-              }
-            
-              .ikp-search-bar__kbd-wrapper,
-              .ikp-search-bar__text {
-                display: none;
-              }
-            
-              .ikp-search-bar__icon {
-                padding: 0;
-                margin-right: 2px;
-              }
-            
-              .ikp-search-bar__content-wrapper {
-                justify-content: center;
-              }
-            }
-            
-            .ikp-search-bar__icon {
-              display: flex;
-            }
-            
-            .ikp-search-bar__icon svg {
-              width: auto;
-            }
-            
-            .ikp-search-bar__kbd-wrapper {
-              padding: 0px 8px;
-              justify-content: center;
-              align-items: center;
-              border-radius: 4px;
-              box-shadow: none;
-              color: var(--c-slate-9, #8B8D98);
-              font-family: "Instrument Sans";
-              --ikp-colors-transparent: var(--c-slate-3, #FCFCFD);
-              background: var(--c-slate-3, #F0F0F3) !important;
-              font-size: 12px;
-              font-style: normal;
-              font-weight: 500;
-              line-height: 20px;
-              /* 166.667% */
-              letter-spacing: -0.09px;
-            }
-            
-            .ikp-search-bar__text,
-            .ikp-search-bar__icon {
-              color: var(--c-slate-9, #8B8D98);
-              font-weight: 500;
-            }
-          `,
-        },
-        {
-          key: "google-fonts-instrument",
-          type: "link",
-          value: "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&display=swap",
-        },
-      ],
+      stylesheetUrls: ['/inkeepstyle-docs.css'],
       components: {
         SearchBarTrigger: {
           defaultProps: {
@@ -289,8 +180,6 @@ const searchBarProps = {
           },
         },
       },
-      // Add this to ensure CSS variables are applied
-      varsClassName: "ikp-variables",
     }
   },
   searchSettings: { // optional InkeepSearchSettings
