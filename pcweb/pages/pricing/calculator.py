@@ -106,17 +106,20 @@ def compute_table() -> rx.Component:
     return rx.box(
         tabs.root(
             rx.box(
-                rx.box(
+                rx.vstack(
                     rx.el.h3(
                         "Compute Pricing",
                         class_name="text-slate-12 text-3xl font-semibold",
                     ),
                     rx.el.p(
                         "Only pay when your app is being used, nothing more.",
-                        class_name="text-slate-9 text-lg font-semibold text-center lg:text-start text-balance",
+                        class_name="text-slate-9 text-lg font-semibold",
                     ),
-                    class_name="flex flex-col gap-1 justify-center items-center lg:items-start lg:justify-start",
+                    align_items="left",
+                    justify_content="center`",
+                    class_name="flex flex-col gap-1",
                 ),
+                rx.spacer(),
                 tabs.list(
                     tabs.tab(
                         "Per min",
@@ -128,7 +131,7 @@ def compute_table() -> rx.Component:
                     ),
                     tabs.indicator(),
                 ),
-                class_name="flex flex-col lg:flex-row gap-4 items-center justify-center lg:justify-between p-6 border-b border-slate-4",
+                class_name="flex flex-row gap-2 items-center justify-end p-6 border-b border-slate-4",
             ),
             tabs.panel(
                 min_table("Cost / min", description=True),
@@ -187,5 +190,5 @@ def compute_table_base() -> rx.Component:
 def calculator_section() -> rx.Component:
     return rx.el.section(
         compute_table(),
-        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-t 2xl:border-b pb-[6rem] justify-center items-center",
+        class_name="flex flex-col w-full max-w-[64.19rem] 2xl:border-x border-slate-4 2xl:border-b pb-[6rem] justify-center items-center",
     )
