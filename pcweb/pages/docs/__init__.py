@@ -23,6 +23,8 @@ from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 from .cloud_cliref import pages as cloud_cliref_pages
 from pcweb.pages.library_previews import components_previews_pages
+from .ai_builder import pages as ai_builder_pages
+from .cloud import pages as cloud_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -189,8 +191,17 @@ doc_routes = (
     ]
     + apiref_pages
     + cloud_cliref_pages
+    + ai_builder_pages
+    + cloud_pages
 )
 
+for cloud_page in cloud_pages:
+    title = rx.utils.format.to_snake_case(cloud_page.title)
+    build_nested_namespace(docs_ns, ["cloud"], title, cloud_page)
+
+for ai_page in ai_builder_pages:
+    title = rx.utils.format.to_snake_case(ai_page.title)
+    build_nested_namespace(docs_ns, ["ai_builder"], title, ai_page)
 
 for api_route in apiref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)

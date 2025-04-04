@@ -35,9 +35,10 @@ from pcweb.constants import (
     REFLEX_CLOUD_URL,
     REFLEX_AI_BUILDER,
 )
+from ..sidebar import SidebarState
 
 
-def resource_item(text: str, url: str, icon: str):
+def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
         rx.link(
             rx.box(
@@ -58,6 +59,7 @@ def resource_item(text: str, url: str, icon: str):
             class_name="w-full text-slate-9 hover:!text-slate-9",
             underline="none",
             href=url,
+            on_click=SidebarState.set_sidebar_index(index),
         ),
         class_name="w-full",
     )
@@ -290,21 +292,21 @@ def new_resource_section():
     )
 
 
-def resources_section() -> rx.Component:
-    return nav_menu.content(
-        rx.el.ul(
-            resource_item("Changelog", changelog.path, "list"),
-            resource_item("Debugging Guide", errors.path, "bug"),
-            resource_item("FAQ", faq.path, "circle-help"),
-            resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
-            resource_item("Roadmap", ROADMAP_URL, "route"),
-            resource_item("Forum", FORUM_URL, "github"),
-            resource_item("Blog", blogs.path, "blog"),
-            resource_item("Blog", blogs.path, "rss"),
-            resource_item("Templates", gallery.path, "layout-panel-top"),
-            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
-        ),
-    )
+# def resources_section() -> rx.Component:
+#     return nav_menu.content(
+#         rx.el.ul(
+#             resource_item("Changelog", changelog.path, "list"),
+#             resource_item("Debugging Guide", errors.path, "bug"),
+#             resource_item("FAQ", faq.path, "circle-help"),
+#             resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
+#             resource_item("Roadmap", ROADMAP_URL, "route"),
+#             resource_item("Forum", FORUM_URL, "github"),
+#             resource_item("Blog", blogs.path, "blog"),
+#             resource_item("Blog", blogs.path, "rss"),
+#             resource_item("Templates", gallery.path, "layout-panel-top"),
+#             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
+#         ),
+#     )
 
 
 def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
@@ -334,11 +336,16 @@ def logo() -> rx.Component:
 
 
 def doc_section():
+    from pcweb.pages.docs.ai_builder import pages as ai_pages
+    from pcweb.pages.docs.cloud import pages as cloud_pages
+
     return nav_menu.content(
         rx.el.ul(
-            resource_item("AI Builder Docs", changelog.path, "bot"),
-            resource_item("Framework Docs", getting_started.introduction.path, "frame"),
-            resource_item("Cloud Docs", "/", "server"),
+            resource_item("AI Builder Docs", ai_pages[0].path, "bot", 0),
+            resource_item(
+                "Framework Docs", getting_started.introduction.path, "frame", 0
+            ),
+            resource_item("Cloud Docs", cloud_pages[0].path, "server", 0),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[180px] min-w-max",
         ),
     )
@@ -359,12 +366,10 @@ def new_component_section() -> rx.Component:
             nav_menu.item(
                 link_item("Cloud", "/hosting", "hosting"),
             ),
-            # doc_section
             nav_menu.item(new_menu_trigger("Docs"), doc_section()),
-            # Resources link is shown on docs pages
             nav_menu.item(new_menu_trigger("Resources"), new_resource_section()),
             nav_menu.item(
-                new_menu_trigger("Pricing", "/pricing", "blog"),
+                new_menu_trigger("Pricing", "/pricing", "pricing"),
             ),
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
