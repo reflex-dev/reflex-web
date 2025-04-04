@@ -7,7 +7,6 @@ class SubmitPromptState(rx.State):
 
     @rx.event
     def redirect_to_ai_builder(self, form_data: dict):
-        print(form_data)
         if prompt := form_data.get("prompt"):
             return rx.redirect(f"{REFLEX_BUILD_URL.strip('/')}/?prompt={prompt}")
 
