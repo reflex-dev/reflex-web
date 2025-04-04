@@ -1,7 +1,6 @@
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.github import GithubStarState
-from pcweb.constants import DISCORD_USERS, CONTRIBUTORS
 
 
 def stat_card(stat: str, text: str, icon: str, class_name: str = "") -> rx.Component:
@@ -26,9 +25,9 @@ def stats_grid() -> rx.Component:
             icon="star",
             class_name="lg:!border-l !border-slate-3",
         ),
-        stat_card(stat=f"{CONTRIBUTORS:,}+", text="Contributors", icon="fork"),
+        stat_card(stat="150+", text="Contributors", icon="fork"),
         stat_card(
-            stat=f"{DISCORD_USERS:,}+",
+            stat="6,500+",
             text="Discord",
             icon="discord_navbar",
             class_name="lg:!border-r !border-slate-3",

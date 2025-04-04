@@ -1,4 +1,5 @@
 import reflex as rx
+from pcweb.components.webpage.badge import badge
 from pcweb.pages.index.index_colors import index_colors
 from pcweb.pages.index.views.footer_index import footer_index
 from pcweb.pages.pricing.header import header
@@ -35,5 +36,6 @@ def pricing() -> rx.Component:
             class_name="flex flex-col w-full relative h-full justify-center items-center",
         ),
         footer_index(),
+        badge(),
         class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
     )

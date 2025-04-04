@@ -3,7 +3,7 @@
 import reflex as rx
 from typing import Any, Dict, Literal
 from reflex.vars import Var
-from reflex.components.component import ComponentNamespace
+
 
 LiteralMenuComponentDir = Literal["ltr", "rtl"]
 LiteralMenuComponentOrientation = Literal["vertical", "horizontal"]
@@ -101,10 +101,10 @@ class NavMenuViewport(NavMenu):
     )
 
 
-class NavMenu(ComponentNamespace):
+class NavMenu(rx.Component):
     """NavMenu component."""
 
-    root = __call__ = staticmethod(NavMenuRoot.create)
+    root = staticmethod(NavMenuRoot.create)
     list = staticmethod(NavMenuList.create)
     item = staticmethod(NavMenuItem.create)
     trigger = staticmethod(NavMenuTrigger.create)

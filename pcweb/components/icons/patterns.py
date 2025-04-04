@@ -59,18 +59,6 @@ def index_patterns() -> rx.Component:
         ),
     ]
 
-def landing_patterns() -> rx.Component:
-    return [
-        rx.box(
-            get_icon("wave_pattern", class_name=""),
-            get_icon("wave_pattern", class_name="scale-x-[-1]"),
-            class_name="flex flex-row gap-[4.125rem] absolute top-0 left-1/2 transform -translate-x-1/2 lg:mt-[65px] mt-[0px] z-[-1] w-[64.15rem] overflow-hidden opacity-70 lg:opacity-100",
-        ),
-        # Glowing small
-        rx.box(
-            class_name="bg-[radial-gradient(50%_50%_at_50%_50%,_var(--glow)_0%,_rgba(21,_22,_24,_0.00)_100%)] w-[56.125rem] h-[23.625rem] rounded-[56.125rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-1] mt-[27.75rem] absolute top-0 block lg:hidden"
-        ),
-    ]
 
 def hosting_patterns() -> rx.Component:
     return [
