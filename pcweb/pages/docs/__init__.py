@@ -165,7 +165,14 @@ def get_component(doc: str, title: str):
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
-        component_list[category].append(clist)
+        if len(clist) > 1:
+            if issubclass(
+                clist[1][0],
+                (RadixThemesComponent, RadixPrimitiveComponent),
+            ):
+                component_list[category].append(clist)
+            else:
+                component_list[category].append(clist)
         if should_skip_compile(doc):
             outblocks.append((d, route))
             return
