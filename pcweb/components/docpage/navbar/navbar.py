@@ -36,6 +36,7 @@ from pcweb.constants import (
     REFLEX_AI_BUILDER,
 )
 from ..sidebar import SidebarState
+from ...link_button import resources_button
 
 
 def resource_item(text: str, url: str, icon: str, index):
@@ -198,20 +199,20 @@ def blog_section() -> rx.Component:
 
 
 def link_button(label: str, url: str) -> rx.Component:
-    common_cn = (
-        "transition-color font-small desktop-only items-center justify-start p-1 "
-    )
-
     return rx.link(
-        label,
+        resources_button(
+            label, size="md", variant="transparent", class_name="justify-start w-full"
+        ),
         href=url,
+        is_external=True,
         underline="none",
-        _hover={"color": "var(--c-slate-11)"},
-        class_name=common_cn + "text-slate-9",
+        class_name="!w-full",
     )
 
 
-def grid_card(title: str, description: str, url: str, image: str) -> rx.Component:
+def grid_card(
+    title: str, description: str, url: str, image: str, image_style: str
+) -> rx.Component:
     return rx.link(
         rx.box(
             rx.text(title, class_name="text-slate-12 text-base font-semibold"),
@@ -224,12 +225,12 @@ def grid_card(title: str, description: str, url: str, image: str) -> rx.Componen
         rx.text(description, class_name="text-slate-9 text-sm font-medium"),
         rx.image(
             src=image,
-            class_name="absolute bottom-0 right-0",
+            class_name=image_style,
         ),
         href=url,
         is_external=True,
         underline="none",
-        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[19.5625rem] overflow-hidden group",
+        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[16.5625rem] overflow-hidden group",
     )
 
 
@@ -248,7 +249,7 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
         href=url,
         is_external=True,
         underline="none",
-        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[17.5625rem] overflow-hidden group",
+        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[14.5625rem] overflow-hidden group",
     )
 
 
@@ -258,55 +259,41 @@ def new_resource_section():
             # Links
             rx.box(
                 link_button("Changelog", changelog.path),
-                link_button("Contributing", "/"),
-                link_button("Discussions", "/"),
+                link_button(
+                    "Contributing",
+                    "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+                ),
+                link_button(
+                    "Discussions", "https://github.com/orgs/reflex-dev/discussions"
+                ),
                 link_button("FAQ", faq.path),
                 class_name="flex flex-col w-full p-2",
             ),
-            class_name="flex flex-col w-full max-w-[9.1875rem] border-r border-slate-5",
+            class_name="flex flex-col w-full max-w-[10.1875rem] border-r border-slate-5",
         ),
         # Grid cards
         rx.box(
-            grid_card_unique(
+            grid_card(
                 "Blog",
                 "See what's new in the Reflex ecosystem.",
                 f"/blog",
-                _card(
-                    company="reflex",
-                    is_company=False,
-                    src=rx.color_mode_cond(
-                        "/logos/light/reflex.svg",
-                        "/logos/dark/reflex.svg",
-                    ),
-                ),
+                "/blog/top_python_web_frameworks.png",
+                "absolute bottom-0 rounded-tl-md",
             ),
-            grid_card_unique(
+            grid_card(
                 "Customers",
                 "Meet the teams who chose Reflex.",
                 "/customers",
-                _card("bayesline"),
+                rx.color_mode_cond(
+                    "/bayesline_light_landing.png",
+                    "/bayesline_dark_landing.png",
+                ),
+                "absolute -bottom-7 rounded-tl-md",
             ),
             class_name="grid grid-cols-2 gap-3 p-3 bg-slate-1",
         ),
-        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[40.55rem] font-sans overflow-hidden",
+        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[41.55rem] font-sans overflow-hidden",
     )
-
-
-# def resources_section() -> rx.Component:
-#     return nav_menu.content(
-#         rx.el.ul(
-#             resource_item("Changelog", changelog.path, "list"),
-#             resource_item("Debugging Guide", errors.path, "bug"),
-#             resource_item("FAQ", faq.path, "circle-help"),
-#             resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
-#             resource_item("Roadmap", ROADMAP_URL, "route"),
-#             resource_item("Forum", FORUM_URL, "github"),
-#             resource_item("Blog", blogs.path, "blog"),
-#             resource_item("Blog", blogs.path, "rss"),
-#             resource_item("Templates", gallery.path, "layout-panel-top"),
-#             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
-#         ),
-#     )
 
 
 def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Component:
