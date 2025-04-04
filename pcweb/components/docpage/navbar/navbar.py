@@ -1,7 +1,9 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
+from reflex.experimental import ClientStateVar
 
+from pcweb.pages.customers.views.bento_cards import _card
 from pcweb.pages.docs import (
     wrapping_react,
     styling,
@@ -26,17 +28,26 @@ from pcweb.components.hosting_banner import hosting_banner
 from pcweb.pages.blog.paths import blog_data
 
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import CONTRIBUTING_URL, FORUM_URL, ROADMAP_URL, REFLEX_CLOUD_URL
+from pcweb.constants import (
+    CONTRIBUTING_URL,
+    FORUM_URL,
+    ROADMAP_URL,
+    REFLEX_CLOUD_URL,
+    REFLEX_AI_BUILDER,
+)
+from ..sidebar import SidebarState
+from ...link_button import resources_button
 
 
-def resource_item(text: str, url: str, icon: str):
+def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
         rx.link(
             rx.box(
                 rx.icon(icon, size=16, class_name="flex-shrink-0 text-slate-9"),
+                rx.spacer(),
                 rx.text(
                     text,
-                    class_name="font-small text-slate-9 truncate",
+                    class_name="font-small text-slate-9 truncate text-start w-[100px]",
                 ),
                 rx.spacer(),
                 rx.icon(
@@ -44,11 +55,12 @@ def resource_item(text: str, url: str, icon: str):
                     size=14,
                     class_name="flex-shrink-0 text-slate-12",
                 ),
-                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-slate-3 px-[1.125rem] py-2 rounded-md w-full transition-bg",
+                class_name="flex flex-row flex-nowrap items-center gap-3 hover:bg-slate-3 px-[1.125rem] py-2 rounded-md w-full transition-bg justify-between",
             ),
             class_name="w-full text-slate-9 hover:!text-slate-9",
             underline="none",
             href=url,
+            on_click=SidebarState.set_sidebar_index(index),
         ),
         class_name="w-full",
     )
@@ -186,64 +198,101 @@ def blog_section() -> rx.Component:
     )
 
 
-def resources_section() -> rx.Component:
-    return nav_menu.content(
-        rx.el.ul(
-            resource_item("Changelog", changelog.path, "list"),
-            resource_item("Debugging Guide", errors.path, "bug"),
-            resource_item("FAQ", faq.path, "circle-help"),
-            resource_item("Contribute", CONTRIBUTING_URL, "code-xml"),
-            resource_item("Roadmap", ROADMAP_URL, "route"),
-            resource_item("Forum", FORUM_URL, "github"),
-            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-2 m-0 p-1.5 w-[492px] min-w-max",
+def link_button(label: str, url: str) -> rx.Component:
+    return rx.link(
+        resources_button(
+            label, size="md", variant="transparent", class_name="justify-start w-full"
         ),
+        href=url,
+        is_external=True,
+        underline="none",
+        class_name="!w-full",
     )
 
 
-def components_section() -> rx.Component:
+def grid_card(
+    title: str, description: str, url: str, image: str, image_style: str
+) -> rx.Component:
+    return rx.link(
+        rx.box(
+            rx.text(title, class_name="text-slate-12 text-base font-semibold"),
+            rx.el.button(
+                rx.icon("chevron-right", class_name="text-slate-9 size-4"),
+                class_name="size-6 group-hover:bg-slate-3 transition-bg rounded-md flex items-center justify-center",
+            ),
+            class_name="flex flex-row items-center gap-2 justify-between",
+        ),
+        rx.text(description, class_name="text-slate-9 text-sm font-medium"),
+        rx.image(
+            src=image,
+            class_name=image_style,
+        ),
+        href=url,
+        is_external=True,
+        underline="none",
+        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[16.5625rem] overflow-hidden group",
+    )
+
+
+def grid_card_unique(title: str, description: str, url: str, component) -> rx.Component:
+    return rx.link(
+        rx.box(
+            rx.text(title, class_name="text-slate-12 text-base font-semibold"),
+            rx.el.button(
+                rx.icon("chevron-right", class_name="text-slate-9 size-4"),
+                class_name="size-6 group-hover:bg-slate-3 transition-bg rounded-md flex items-center justify-center",
+            ),
+            class_name="flex flex-row items-center gap-2 justify-between",
+        ),
+        rx.text(description, class_name="text-slate-9 text-sm font-medium"),
+        component,
+        href=url,
+        is_external=True,
+        underline="none",
+        class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[14.5625rem] overflow-hidden group",
+    )
+
+
+def new_resource_section():
     return nav_menu.content(
         rx.box(
+            # Links
             rx.box(
-                rx.el.h3(
-                    "Core Components",
-                    class_name="px-[1.125rem] py-3.5 font-smbold text-slate-12 truncate self-stretch",
+                link_button("Changelog", changelog.path),
+                link_button(
+                    "Contributing",
+                    "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
                 ),
-                rx.el.ul(
-                    resource_item(
-                        "Component Library", library.path, "layout-panel-left"
-                    ),
-                    resource_item("Theming", styling.theming.path, "palette"),
-                    class_name="flex flex-col items-start gap-1.5 w-full",
+                link_button(
+                    "Discussions", "https://github.com/orgs/reflex-dev/discussions"
                 ),
-                class_name="flex flex-col items-start gap-1.5 p-1.5 w-[248px]",
+                link_button("FAQ", faq.path),
+                class_name="flex flex-col w-full p-2",
             ),
-            rx.box(
-                rx.el.h3(
-                    "Custom Components",
-                    class_name="px-[1.125rem] py-3.5 font-smbold text-slate-12 truncate self-stretch",
-                ),
-                rx.el.ul(
-                    resource_item(
-                        "Community Library",
-                        custom_components.path,
-                        "blocks",
-                    ),
-                    resource_item(
-                        "Wrapping React",
-                        wrapping_react.overview.path,
-                        "atom",
-                    ),
-                    resource_item(
-                        "Publishing Components",
-                        custom_c.overview.path,
-                        "git-fork",
-                    ),
-                    class_name="flex flex-col items-start gap-1.5 w-full",
-                ),
-                class_name="flex flex-col items-start gap-1.5 border-slate-5 bg-slate-1 p-1.5 border-l w-[280px]",
-            ),
-            class_name="flex flex-row items-start m-0 w-full min-w-max",
+            class_name="flex flex-col w-full max-w-[10.1875rem] border-r border-slate-5",
         ),
+        # Grid cards
+        rx.box(
+            grid_card(
+                "Blog",
+                "See what's new in the Reflex ecosystem.",
+                f"/blog",
+                "/blog/top_python_web_frameworks.png",
+                "absolute bottom-0 rounded-tl-md",
+            ),
+            grid_card(
+                "Customers",
+                "Meet the teams who chose Reflex.",
+                "/customers",
+                rx.color_mode_cond(
+                    "/bayesline_light_landing.png",
+                    "/bayesline_dark_landing.png",
+                ),
+                "absolute -bottom-7 rounded-tl-md",
+            ),
+            class_name="grid grid-cols-2 gap-3 p-3 bg-slate-1",
+        ),
+        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[41.55rem] font-sans overflow-hidden",
     )
 
 
@@ -273,74 +322,82 @@ def logo() -> rx.Component:
     )
 
 
+def doc_section():
+    from pcweb.pages.docs.ai_builder import pages as ai_pages
+    from pcweb.pages.docs.cloud import pages as cloud_pages
+
+    return nav_menu.content(
+        rx.el.ul(
+            resource_item("AI Builder Docs", ai_pages[0].path, "bot", 0),
+            resource_item(
+                "Framework Docs", getting_started.introduction.path, "frame", 0
+            ),
+            resource_item("Cloud Docs", cloud_pages[0].path, "server", 0),
+            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[180px] min-w-max",
+        ),
+    )
+
+
 def new_component_section() -> rx.Component:
+    from pcweb.pages.docs.ai_builder import pages as ai_pages
+    from pcweb.pages.docs.cloud import pages as cloud_pages
+
     return nav_menu.root(
         nav_menu.list(
-            nav_menu.item(
-                logo(),
+            nav_menu.item(logo()),
+            rx.cond(
+                rx.State.router.page.path.contains("docs")
+                | rx.State.router.page.path.contains("ai-builder")
+                | rx.State.router.page.path.contains("cloud"),
+                rx.el.div(
+                    nav_menu.item(
+                        link_item("AI Builder", ai_pages[0].path, "builder"),
+                    ),
+                    nav_menu.item(
+                        link_item(
+                            "Framework", getting_started.introduction.path, "framework"
+                        ),
+                    ),
+                    nav_menu.item(
+                        link_item("Cloud", cloud_pages[0].path, "hosting"),
+                    ),
+                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                ),
+                rx.el.div(
+                    nav_menu.item(
+                        link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                    ),
+                    nav_menu.item(
+                        link_item("Framework", "/", "framework"),
+                    ),
+                    nav_menu.item(
+                        link_item("Cloud", "/hosting", "hosting"),
+                    ),
+                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                ),
             ),
             nav_menu.item(
-                link_item("Docs", getting_started.introduction.path, "docs"),
-            ),
-            nav_menu.item(
-                link_item("Templates", gallery.path, "templates"),
-            ),
-            nav_menu.item(
-                new_menu_trigger("Blog", blogs.path, "blog"),
-                blog_section(),
-            ),
-            # Case Studies link isn't shown on docs pages
-            nav_menu.item(
-                new_menu_trigger("Case Studies", "/customers", "customers"),
+                new_menu_trigger("Docs"),
+                doc_section(),
                 display=rx.cond(
-                    rx.State.router.page.path.contains("docs"),
+                    rx.State.router.page.path.contains("docs")
+                    | rx.State.router.page.path.contains("ai-builder")
+                    | rx.State.router.page.path.contains("cloud"),
                     "none",
                     "block",
                 ),
             ),
-            # Resources link is shown on docs pages
+            nav_menu.item(new_menu_trigger("Resources"), new_resource_section()),
             nav_menu.item(
-                new_menu_trigger("Resources"),
-                resources_section(),
-                display=rx.cond(
-                    rx.State.router.page.path.contains("docs"),
-                    "block",
-                    "none",
-                ),
-            ),
-            # Components link is shown on non docs pages
-            nav_menu.item(
-                new_menu_trigger("Components", library.path, "library"),
-                components_section(),
-                display=rx.cond(
-                    rx.State.router.page.path.contains("docs"),
-                    "block",
-                    "none",
-                ),
-            ),
-            nav_menu.item(
-                link_item("Hosting", "/hosting", "hosting"),
-            ),
-            nav_menu.item(
-                link_item("Pricing", "/pricing", "pricing"),
+                new_menu_trigger("Pricing", "/pricing", "pricing"),
             ),
             class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
         nav_menu.list(
-            nav_menu.item(
-                search_bar(),
-            ),
-            nav_menu.item(
-                github(),
-            ),
-            nav_menu.item(
-                discord(),
-                class_name="desktop-only",
-            ),
-            nav_menu.item(
-                color(),
-                class_name="desktop-only",
-            ),
+            nav_menu.item(search_bar()),
+            nav_menu.item(github()),
+            nav_menu.item(discord(), class_name="desktop-only"),
+            nav_menu.item(color(), class_name="desktop-only"),
             nav_menu.item(
                 rx.link(
                     button(
@@ -353,10 +410,7 @@ def new_component_section() -> rx.Component:
                 ),
                 class_name="desktop-only",
             ),
-            nav_menu.item(
-                navbar_sidebar_button(),
-                class_name="mobile-only",
-            ),
+            nav_menu.item(navbar_sidebar_button(), class_name="mobile-only"),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
         ),
         rx.box(

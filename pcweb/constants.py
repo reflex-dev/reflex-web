@@ -18,6 +18,7 @@ REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = os.environ.get(
 REFLEX_URL = "https://reflex.dev/"
 REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
 REFLEX_CLOUD_URL = "https://cloud.reflex.dev/"
+REFLEX_AI_BUILDER = "https://reflex.build/"
 PYNECONE_URL = "https://pynecone.io"
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"
