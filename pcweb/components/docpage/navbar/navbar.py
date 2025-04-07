@@ -47,7 +47,7 @@ def resource_item(text: str, url: str, icon: str, index):
                 rx.spacer(),
                 rx.text(
                     text,
-                    class_name="font-small text-slate-9 truncate text-start w-[100px]",
+                    class_name="font-small text-slate-9 truncate text-start w-[150px]",
                 ),
                 rx.spacer(),
                 rx.icon(
@@ -67,22 +67,42 @@ def resource_item(text: str, url: str, icon: str, index):
 
 
 def link_item(name: str, url: str, active_str: str = ""):
-    # If URL doesn't end with a slash, add one
     router_path = rx.State.router.page.path
+
     url = url.rstrip("/") + "/"
-    active = router_path.contains(active_str)
-    if active_str == "docs":
+
+    if active_str == "framework":
+        is_home = router_path == "/"
+        is_docs = router_path.contains("docs")
+        not_cloud = ~router_path.contains("cloud")
+        not_ai_builder = ~router_path.contains("ai-builder")
+
         active = rx.cond(
-            router_path.contains("library"),
-            False,
-            active,
+            is_home, True, rx.cond(is_docs & not_cloud & not_ai_builder, True, False)
         )
-    if active_str == "":
+
+    elif active_str == "builder":
+        active = router_path.contains("ai-builder")
+
+    elif active_str == "hosting" or active_str == "cloud":
+        active = router_path.contains("cloud") | router_path.contains("hosting")
+
+    elif active_str == "pricing":
+        active = router_path.contains("pricing")
+
+    elif active_str == "docs":
+        active = rx.cond(
+            router_path.contains("library"), False, router_path.contains("docs")
+        )
+    elif active_str:
+        active = router_path.contains(active_str)
+    else:
         active = False
 
     common_cn = "transition-color p-[1.406rem_0px] font-small desktop-only items-center justify-center "
     active_cn = "shadow-[inset_0_-1px_0_0_var(--c-violet-9)] text-violet-9"
     unactive_cn = "shadow-none text-slate-9"
+
     return rx.link(
         name,
         href=url,
@@ -328,12 +348,12 @@ def doc_section():
 
     return nav_menu.content(
         rx.el.ul(
-            resource_item("AI Builder Docs", ai_pages[0].path, "bot", 0),
+            # resource_item("AI Builder Docs", ai_pages[0].path, "bot", 0),
             resource_item(
                 "Framework Docs", getting_started.introduction.path, "frame", 0
             ),
             resource_item("Cloud Docs", cloud_pages[0].path, "server", 0),
-            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[180px] min-w-max",
+            class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
         ),
     )
 
@@ -350,9 +370,9 @@ def new_component_section() -> rx.Component:
                 | rx.State.router.page.path.contains("ai-builder")
                 | rx.State.router.page.path.contains("cloud"),
                 rx.el.div(
-                    nav_menu.item(
-                        link_item("AI Builder", ai_pages[0].path, "builder"),
-                    ),
+                    # nav_menu.item(
+                    #     link_item("AI Builder", ai_pages[0].path, "builder"),
+                    # ),
                     nav_menu.item(
                         link_item(
                             "Framework", getting_started.introduction.path, "framework"
@@ -364,9 +384,9 @@ def new_component_section() -> rx.Component:
                     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
                 rx.el.div(
-                    nav_menu.item(
-                        link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
-                    ),
+                    # nav_menu.item(
+                    #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                    # ),
                     nav_menu.item(
                         link_item("Framework", "/", "framework"),
                     ),

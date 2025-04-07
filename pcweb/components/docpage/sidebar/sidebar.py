@@ -379,14 +379,14 @@ def sidebar_comp(
             ),
         ),
         # ... ... main docs for the ai builder
-        rx.cond(
-            rx.State.router.page.path.contains("ai-builder"),
-            rx.el.ul(
-                sidebar_category("Quickstart", ai_pages[0].path, "trending-up", 0),
-                sidebar_category("Integrations", ai_pages[1].path, "blocks", 1),
-                class_name="flex flex-col items-start gap-1 w-full list-none",
-            ),
-        ),
+        # rx.cond(
+        #     rx.State.router.page.path.contains("ai-builder"),
+        #     rx.el.ul(
+        #         sidebar_category("Quickstart", ai_pages[0].path, "trending-up", 0),
+        #         sidebar_category("Integrations", ai_pages[1].path, "blocks", 1),
+        #         class_name="flex flex-col items-start gap-1 w-full list-none",
+        #     ),
+        # ),
         # ... ... main docs for the cloud
         rx.cond(
             rx.State.router.page.path.contains("cloud"),
@@ -397,19 +397,19 @@ def sidebar_comp(
             ),
         ),
         # ... hide/show the sidebar items (accordions etc...) based on which pill is selected
-        rx.cond(
-            rx.State.router.page.path.contains("ai-builder"),
-            rx.el.ul(
-                create_sidebar_section(
-                    "AI Builder",
-                    ai_pages[0].path,
-                    ai_builder_items,
-                    ai_builder_index,
-                    url,
-                ),
-                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-            ),
-        ),
+        # rx.cond(
+        #     rx.State.router.page.path.contains("ai-builder"),
+        #     rx.el.ul(
+        #         create_sidebar_section(
+        #             "AI Builder",
+        #             ai_pages[0].path,
+        #             ai_builder_items,
+        #             ai_builder_index,
+        #             url,
+        #         ),
+        #         class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+        #     ),
+        # ),
         rx.cond(
             rx.State.router.page.path.contains("cloud"),
             rx.el.ul(
