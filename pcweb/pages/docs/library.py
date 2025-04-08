@@ -78,7 +78,8 @@ def component_grid():
 
 
 @docpage(
-    right_sidebar=False,
+    right_sidebar=True,
+    pseudo_right_bar=True,
 )
 def library():
     return rx.box(

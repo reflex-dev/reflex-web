@@ -23,6 +23,8 @@ from .custom_components import custom_components
 from .apiref import pages as apiref_pages
 from .cloud_cliref import pages as cloud_cliref_pages
 from pcweb.pages.library_previews import components_previews_pages
+from .ai_builder import pages as ai_builder_pages
+from .cloud import pages as cloud_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -189,16 +191,25 @@ doc_routes = (
     ]
     + apiref_pages
     + cloud_cliref_pages
+    + ai_builder_pages
+    + cloud_pages
 )
 
+for cloud_page in cloud_pages:
+    title = rx.utils.format.to_snake_case(cloud_page.title)
+    build_nested_namespace(docs_ns, ["cloud"], title, cloud_page)
+
+for ai_page in ai_builder_pages:
+    title = rx.utils.format.to_snake_case(ai_page.title)
+    build_nested_namespace(docs_ns, ["ai_builder"], title, ai_page)
 
 for api_route in apiref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
-for api_route in cloud_cliref_pages:
-    title = rx.utils.format.to_snake_case(api_route.title)
-    build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
+for ref in cloud_cliref_pages:
+    title = rx.utils.format.to_snake_case(ref.title)
+    build_nested_namespace(docs_ns, ["cloud"], title, ref)
 
 for doc in sorted(flexdown_docs):
     path = doc.split("/")[1:-1]
@@ -206,10 +217,17 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+
     comp = get_component(doc, title)
+
+    # # Check if the path starts with '/docs/cloud/', and if so, replace 'docs' with an empty string
+    # if route.startswith("/docs/cloud/"):
+    #     route = route.replace("/docs", "")
 
     if path[0] == "library" and isinstance(library, Route):
         locals()["library_"] = library
+
+    # print(route)
 
     # Add the component to the nested namespaces.
     build_nested_namespace(
@@ -230,4 +248,6 @@ for doc in flexdown_docs:
         recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():
+    # if name == "cloud":
+    #     print(name, ns)
     locals()[name] = ns
