@@ -240,7 +240,17 @@ def get_sidebar_items_hosting():
     return items
 
 
+def get_sidebar_items_hosting_cli_ref():
+    from pcweb.pages.docs.cloud_cliref import pages as cloud_pages
+
+    items = [
+        create_item("CLI Reference", children=cloud_cliref.pages),
+    ]
+    return items
+
+
 learn = get_sidebar_items_learn()
 frontend = get_sidebar_items_frontend()
 backend = get_sidebar_items_backend()
 hosting = get_sidebar_items_hosting()
+cli_ref = get_sidebar_items_hosting_cli_ref()

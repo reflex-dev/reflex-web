@@ -49,11 +49,11 @@ class SidebarState(rx.State):
             if "library" in route:
                 return 1
             elif "hosting" in route:
-                return 2
+                return 0
             elif "api-reference" in route:
                 return 3
             else:
                 return 0
         if "hosting" in route:
-            return 2
+            return 0
         return self._sidebar_index

@@ -74,7 +74,7 @@ def link_item(name: str, url: str, active_str: str = ""):
     if active_str == "framework":
         is_home = router_path == "/"
         is_docs = router_path.contains("docs")
-        not_cloud = ~router_path.contains("cloud")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
         not_ai_builder = ~router_path.contains("ai-builder")
 
         active = rx.cond(
@@ -345,6 +345,7 @@ def logo() -> rx.Component:
 def doc_section():
     from pcweb.pages.docs.ai_builder import pages as ai_pages
     from pcweb.pages.docs.cloud import pages as cloud_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
         rx.el.ul(
@@ -352,7 +353,9 @@ def doc_section():
             resource_item(
                 "Framework Docs", getting_started.introduction.path, "frame", 0
             ),
-            resource_item("Cloud Docs", cloud_pages[0].path, "server", 0),
+            resource_item(
+                "Cloud Docs", hosting_page.deploy_quick_start.path, "server", 0
+            ),
             class_name="items-start gap-1.5 gap-x-1.5 grid grid-cols-1 m-0 p-1.5 w-[280px] min-w-max",
         ),
     )
@@ -361,6 +364,7 @@ def doc_section():
 def new_component_section() -> rx.Component:
     from pcweb.pages.docs.ai_builder import pages as ai_pages
     from pcweb.pages.docs.cloud import pages as cloud_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.root(
         nav_menu.list(
@@ -379,7 +383,9 @@ def new_component_section() -> rx.Component:
                         ),
                     ),
                     nav_menu.item(
-                        link_item("Cloud", cloud_pages[0].path, "hosting"),
+                        link_item(
+                            "Cloud", hosting_page.deploy_quick_start.path, "hosting"
+                        ),
                     ),
                     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
