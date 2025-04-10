@@ -320,10 +320,22 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
     if url:
         return nav_menu.trigger(link_item(title, url, active_str))
     return nav_menu.trigger(
-        rx.text(
-            title,
-            class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-color desktop-only",
-        )
+        rx.box(
+            rx.text(
+                title,
+                class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-colors desktop-only",
+            ),
+            rx.icon(
+                "chevron-down",
+                class_name="chevron size-6 !text-slate-9 py-1 transition-transform duration-200 ease-in-out desktop-only",
+            ),
+            class_name="flex flex-row items-center gap-x-2 group user-select-none",
+        ),
+        style={
+            "&[data-state='open'] .chevron": {
+                "transform": "rotate(180deg)",
+            },
+        },
     )
 
 
