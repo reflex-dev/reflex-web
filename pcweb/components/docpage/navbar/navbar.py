@@ -275,7 +275,7 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
 
 def new_resource_section():
     _company_items = [
-        {"label": "Newsletter", "url": changelog.path, "icon": "mails"},
+        {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
     ]
 
