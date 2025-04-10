@@ -274,32 +274,76 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
 
 
 def new_resource_section():
-    return nav_menu.content(
-        rx.box(
-            # Links
+    _company_items = [
+        {"label": "Newsletter", "url": changelog.path, "icon": "mails"},
+        {"label": "Blog", "url": "/blog", "icon": "library-big"},
+    ]
+
+    _open_source_items = [
+        {"label": "Templates", "url": "/templates", "icon": "layout-panel-top"},
+        {"label": "Changelog", "url": changelog.path, "icon": "history"},
+        {
+            "label": "Contributing",
+            "url": "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+            "icon": "handshake",
+        },
+        {
+            "label": "Discussions",
+            "url": "https://github.com/orgs/reflex-dev/discussions",
+            "icon": "message-square-text",
+        },
+        {
+            "label": "FAQ",
+            "url": faq.path,
+            "icon": "table-of-contents",
+        },
+    ]
+
+    def _link_button(label: str, url: str, icon: str) -> rx.Component:
+        return rx.link(
+            resources_button(
+                rx.icon(icon, class_name="size-4"),
+                label,
+                size="md",
+                variant="transparent",
+                class_name="justify-start w-full items-center",
+            ),
+            href=url,
+            is_external=True,
+            underline="none",
+            class_name="!w-full",
+        )
+
+    def _resource_section_column(
+        section_title: str, resource_item: list[dict[str, str]]
+    ):
+        return rx.box(
             rx.box(
-                link_button("Changelog", changelog.path),
-                link_button(
-                    "Contributing",
-                    "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+                rx.text(
+                    section_title,
+                    class_name="text-sm text-slate-10 font-semibold px-2.5 py-1",
                 ),
-                link_button(
-                    "Discussions", "https://github.com/orgs/reflex-dev/discussions"
+                rx.foreach(
+                    resource_item,
+                    lambda item: _link_button(item["label"], item["url"], item["icon"]),
                 ),
-                link_button("FAQ", faq.path),
                 class_name="flex flex-col w-full p-2",
             ),
-            class_name="flex flex-col w-full max-w-[10.1875rem] border-r border-slate-5",
-        ),
+            class_name="flex flex-col w-full max-w-[9.1875rem]",
+        )
+
+    return nav_menu.content(
+        _resource_section_column("Open Source", _open_source_items),
+        _resource_section_column("Company", _company_items),
         # Grid cards
         rx.box(
-            grid_card(
-                "Blog",
-                "See what's new in the Reflex ecosystem.",
-                f"/blog",
-                "/blog/top_python_web_frameworks.png",
-                "absolute bottom-0 rounded-tl-md",
-            ),
+            # grid_card(
+            #     "Blog",
+            #     "See what's new in the Reflex ecosystem.",
+            #     f"/blog",
+            #     "/blog/top_python_web_frameworks.png",
+            #     "absolute bottom-0 rounded-tl-md",
+            # ),
             grid_card(
                 "Customers",
                 "Meet the teams who chose Reflex.",
@@ -312,7 +356,7 @@ def new_resource_section():
             ),
             class_name="grid grid-cols-2 gap-3 p-3 bg-slate-1",
         ),
-        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[41.55rem] font-sans overflow-hidden",
+        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[34.55rem] font-sans overflow-hidden",
     )
 
 
