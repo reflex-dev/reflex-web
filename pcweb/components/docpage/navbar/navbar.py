@@ -424,7 +424,24 @@ def new_component_section() -> rx.Component:
 
     return nav_menu.root(
         nav_menu.list(
-            nav_menu.item(logo()),
+            nav_menu.item(
+                rx.box(
+                    logo(),
+                    rx.badge(
+                        "Docs",
+                        variant="surface",
+                        class_name="text-violet-9 desktop-only text-sm",
+                        display=rx.cond(
+                            rx.State.router.page.path.contains("docs")
+                            | rx.State.router.page.path.contains("ai-builder")
+                            | rx.State.router.page.path.contains("cloud"),
+                            "block",
+                            "none",
+                        ),
+                    ),
+                    class_name="flex flex-row gap-x-0",
+                ),
+            ),
             rx.cond(
                 rx.State.router.page.path.contains("docs")
                 | rx.State.router.page.path.contains("ai-builder")
@@ -445,26 +462,18 @@ def new_component_section() -> rx.Component:
                     ),
                     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
-                # rx.el.div(
-                #     # nav_menu.item(
-                #     #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
-                #     # ),
-                #     nav_menu.item(
-                #         link_item("Framework", "/", "framework"),
-                #     ),
-                #     nav_menu.item(
-                #         link_item("Cloud", "/hosting", "hosting"),
-                #     ),
-                #     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
-                # ),
-            ),
-            nav_menu.item(
-                link_item("Framework", "/", "framework"),
-                class_name="desktop-only",
-            ),
-            nav_menu.item(
-                link_item("Cloud", "/hosting", "hosting"),
-                class_name="desktop-only",
+                rx.el.div(
+                    # nav_menu.item(
+                    #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                    # ),
+                    nav_menu.item(
+                        link_item("Framework", "/", "framework"),
+                    ),
+                    nav_menu.item(
+                        link_item("Cloud", "/hosting", "hosting"),
+                    ),
+                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                ),
             ),
             nav_menu.item(
                 new_menu_trigger("Docs"),
