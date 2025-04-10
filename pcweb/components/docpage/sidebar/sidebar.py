@@ -151,7 +151,7 @@ def sidebar_item_comp(
                     ),
                     rx.box(class_name="flex-grow"),
                     rx.accordion.icon(class_name="size-4"),
-                    class_name="flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 !pl-2 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
+                    class_name="flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
                 ),
             ),
             rx.accordion.content(
@@ -168,7 +168,7 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[15px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
                 ),
                 class_name="!p-0 w-full",
             ),

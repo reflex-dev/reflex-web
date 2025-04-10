@@ -123,7 +123,8 @@ and updates""",
             class_name="flex flex-col gap-2",
         ),
         newletter_input(),
-        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3 items-center lg:items-start text-center lg:text-start",
+        id="newsletter",
+        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-r !border-slate-3 items-center lg:items-start text-center lg:text-start scroll-mt-72",
     )
 
 
