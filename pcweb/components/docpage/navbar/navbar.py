@@ -371,9 +371,9 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-6 !text-slate-9 py-1 transition-transform duration-200 ease-in-out desktop-only",
+                class_name="chevron size-5 !text-slate-9 py-1 mr-0 transition-transform duration-200 ease-in-out desktop-only",
             ),
-            class_name="flex flex-row items-center gap-x-2 group user-select-none",
+            class_name="flex flex-row items-center gap-x-1 group user-select-none",
         ),
         style={
             "&[data-state='open'] .chevron": {
@@ -445,18 +445,26 @@ def new_component_section() -> rx.Component:
                     ),
                     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
-                rx.el.div(
-                    # nav_menu.item(
-                    #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
-                    # ),
-                    nav_menu.item(
-                        link_item("Framework", "/", "framework"),
-                    ),
-                    nav_menu.item(
-                        link_item("Cloud", "/hosting", "hosting"),
-                    ),
-                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
-                ),
+                # rx.el.div(
+                #     # nav_menu.item(
+                #     #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
+                #     # ),
+                #     nav_menu.item(
+                #         link_item("Framework", "/", "framework"),
+                #     ),
+                #     nav_menu.item(
+                #         link_item("Cloud", "/hosting", "hosting"),
+                #     ),
+                #     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                # ),
+            ),
+            nav_menu.item(
+                link_item("Framework", "/", "framework"),
+                class_name="desktop-only",
+            ),
+            nav_menu.item(
+                link_item("Cloud", "/hosting", "hosting"),
+                class_name="desktop-only",
             ),
             nav_menu.item(
                 new_menu_trigger("Docs"),
