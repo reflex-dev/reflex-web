@@ -364,10 +364,22 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
     if url:
         return nav_menu.trigger(link_item(title, url, active_str))
     return nav_menu.trigger(
-        rx.text(
-            title,
-            class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-color desktop-only",
-        )
+        rx.box(
+            rx.text(
+                title,
+                class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-colors desktop-only",
+            ),
+            rx.icon(
+                "chevron-down",
+                class_name="chevron size-5 !text-slate-9 py-1 mr-0 transition-transform duration-200 ease-in-out desktop-only",
+            ),
+            class_name="flex flex-row items-center gap-x-1 group user-select-none",
+        ),
+        style={
+            "&[data-state='open'] .chevron": {
+                "transform": "rotate(180deg)",
+            },
+        },
     )
 
 
@@ -412,7 +424,24 @@ def new_component_section() -> rx.Component:
 
     return nav_menu.root(
         nav_menu.list(
-            nav_menu.item(logo()),
+            nav_menu.item(
+                rx.box(
+                    logo(),
+                    rx.badge(
+                        "Docs",
+                        variant="surface",
+                        class_name="text-violet-9 desktop-only text-sm",
+                        display=rx.cond(
+                            rx.State.router.page.path.contains("docs")
+                            | rx.State.router.page.path.contains("ai-builder")
+                            | rx.State.router.page.path.contains("cloud"),
+                            "block",
+                            "none",
+                        ),
+                    ),
+                    class_name="flex flex-row gap-x-0",
+                ),
+            ),
             rx.cond(
                 rx.State.router.page.path.contains("docs")
                 | rx.State.router.page.path.contains("ai-builder")
