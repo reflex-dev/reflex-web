@@ -125,7 +125,7 @@ The bg-background class uses the --background variable (defined in the CSS file)
 
 ## Dynamic Styling
 
-You can style a component based of a condtion using `rx.cond` or `rx.match`.
+You can style a component based of a condition using `rx.cond` or `rx.match`.
 
 ```python demo exec
 class TailwindState(rx.State):
