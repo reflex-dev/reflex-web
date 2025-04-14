@@ -26,7 +26,7 @@ class CustomComponentGalleryState(rx.State):
     original_components_list: list[dict[str, str]] = []
 
     current_page: int = 1
-    current_limit: int = 10  # Default number of items per page
+    current_limit: int = 50  # Default number of items per page
     total_pages: int = 1
     offset: int = 0
     number_of_rows: int = 0
@@ -353,7 +353,7 @@ def create_pagination():
             rx.text("Rows per page", weight="bold", font_size="12px"),
             rx.select(
                 CustomComponentGalleryState.limits,
-                default_value="10",
+                default_value="50",
                 on_change=CustomComponentGalleryState.delta_limit,
                 width="80px",
             ),
