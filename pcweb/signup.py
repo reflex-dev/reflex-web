@@ -1,7 +1,7 @@
 import contextlib
-import json
 import os
 from datetime import datetime
+from typing import Any
 
 import httpx
 import reflex as rx
@@ -36,11 +36,10 @@ class IndexState(rx.State):
             response = client.post(
                 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL,
                 json={
-                        "email": email,
-                    },
+                    "email": email,
+                },
             )
             response.raise_for_status()
-
 
     def add_contact_to_loops(
         self,
@@ -62,20 +61,22 @@ class IndexState(rx.State):
                     url,
                     headers=headers,
                     json={
-                            "email": email,
-                        },
+                        "email": email,
+                    },
                 )
                 response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
 
         except httpx.HTTPError as e:
             print(f"An error occurred: {e}")
 
+    @rx.event
     def signup_for_another_user(self):
         self.signed_up = False
 
+    @rx.event
     def signup(
         self,
-        form_data: dict[str, str],
+        form_data: dict[str, Any],
     ):
         """Sign the user up for the newsletter."""
         email: str | None = None
@@ -96,20 +97,7 @@ class IndexState(rx.State):
                         "background": "linear-gradient(218deg, #1D1B23 -35.66%, #131217 100.84%)",
                     },
                 )
-
         self.send_contact_to_webhook(email)
         self.add_contact_to_loops(email)
-        # Check if the user is already on the newsletter
-        with rx.session() as session:
-            user = session.query(Waitlist).filter(Waitlist.email == email).first()
-            if user is None:
-                # Add the user to the newsletter
-                session.add(
-                    Waitlist(
-                        email=email,
-                    ),
-                )
-                session.commit()
-
         self.signed_up = True
-        return None
+        return rx.toast.success("Thanks for signing up to the Newsletter!")

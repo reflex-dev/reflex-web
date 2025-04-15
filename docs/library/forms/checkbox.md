@@ -1,9 +1,9 @@
 ---
 components:
-    - rx.checkbox
+  - rx.checkbox
 
 HighLevelCheckbox: |
-    lambda **props: rx.checkbox("Basic Checkbox", **props)
+  lambda **props: rx.checkbox("Basic Checkbox", **props)
 ---
 
 ```python exec
@@ -12,73 +12,58 @@ import reflex as rx
 
 # Checkbox
 
-Checkboxes allow users to select one or more items from a set.
-
-## Basic example
-
-```python demo
-rx.checkbox()
-```
-
-The `checkbox` component takes a `text` prop, which is the text label associated with the checkbox.
-
-The `default_checked` prop defines whether the `checkbox` is checked by default.
-
-The `gap` prop determines the space between the `checkbox` and the `text` label.
-
-```python demo
-rx.checkbox("Agree to Terms and Conditions", default_checked=True, spacing="2")
-
-```
-
-The `size` prop determines the size of the `checkbox` and the associated `text` label.
-
-```python demo
-rx.checkbox("Agree to Terms and Conditions", size="3")
-```
-
-### Disabled
-
-The `disabled` prop disables the `checkbox`, by default it is `False`. A disabled `checkbox` does not respond to user interactions such as click and cannot be focused.
-
-```python demo
-rx.hstack(
-    rx.checkbox(),
-    rx.checkbox(disabled=True),
-)
-```
-
-## Triggers
-
-### OnChange
+## Basic Example
 
 The `on_change` trigger is called when the `checkbox` is clicked.
 
-```python demo
-rx.checkbox("Agree to Terms and Conditios", default_checked=True, on_change=rx.window_alert("Checked!"))
+```python demo exec
+class CheckboxState(rx.State):
+    checked: bool = False
+
+def checkbox_example():
+    return rx.vstack(
+        rx.heading(CheckboxState.checked),
+        rx.checkbox(on_change=CheckboxState.set_checked),
+    )
 ```
 
-The `checkbox` can also take other styling props such as `color_scheme` and `variant`.
+The `input` prop is used to set the `checkbox` as a controlled component.
 
-```python demo
-rx.checkbox("Agree to Terms and Conditios", size="3", color_scheme="red", variant="soft")
-```
+```python demo exec
+class FormCheckboxState(rx.State):
+    form_data: dict = {}
 
-## Real World Example
+    @rx.event
+    def handle_submit(self, form_data: dict):
+        """Handle the form submit."""
+        print(form_data)
+        self.form_data = form_data
 
-```python demo
-rx.flex(
-    rx.heading("Terms and Conditions"),
-    rx.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut  sem nec arcu 'pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.",
-    ),
-    rx.checkbox("I certify that I have read and agree to the terms and conditions for this reservation.", spacing="2", size="2", default_checked=True),
-    rx.button("Book Reservation"),
-    direction="column",
-    align_items="start",
-    border="1px solid #e2e8f0",
-    background_color="#f7fafc",
-    border_radius="15px",
-    spacing="3",
-    padding="1em",
-)
+
+def form_checkbox_example():
+    return rx.card(
+        rx.vstack(
+            rx.heading("Example Form"),
+            rx.form.root(
+                rx.hstack(
+                    rx.checkbox(
+                        name="checkbox",
+                        label="Accept terms and conditions",
+                    ),
+                    rx.button("Submit", type="submit"),
+                    width="100%",
+                ),
+                on_submit=FormCheckboxState.handle_submit,
+                reset_on_submit=True,
+            ),
+            rx.divider(),
+            rx.hstack(
+                rx.heading("Results:"),
+                rx.badge(FormCheckboxState.form_data.to_string()),
+            ),
+            align_items="left",
+            width="100%",
+        ),
+        width="50%",
+    )
 ```

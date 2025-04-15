@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.RadarChart
-    - rx.recharts.Radar
+  - rx.recharts.RadarChart
+  - rx.recharts.Radar
 ---
 
 # Radar Chart
@@ -75,7 +75,7 @@ def radar_simple():
 
 ## Multiple Radars
 
-We can also add two radars on one chart by using two `rx.recharts.radar` components. 
+We can also add two radars on one chart by using two `rx.recharts.radar` components.
 
 In this plot an `inner_radius` and an `outer_radius` are set which determine the chart's size and shape. The `inner_radius` sets the distance from the center to the innermost part of the chart (creating a hollow center if greater than zero), while the `outer_radius` defines the chart's overall size by setting the distance from the center to the outermost edge of the radar plot.
 
@@ -146,12 +146,9 @@ def radar_multiple():
 
 ```
 
-
 ## Using More Props
 
-
 The `dot` prop shows points at each data vertex when true. `legend_type="line"` displays a line in the chart legend. `animation_begin=0` starts the animation immediately, `animation_duration=8000` sets an 8-second animation, and `animation_easing="ease-in"` makes the animation start slowly and speed up. These props control the chart's appearance and animation behavior.
-
 
 ```python demo graphing
 
@@ -193,7 +190,7 @@ data = [
         "fullMark": 150
     }
     ]
-    
+
 
 def radar_start_end():
     return rx.recharts.radar_chart(
@@ -218,8 +215,6 @@ def radar_start_end():
         )
 
 ```
-
-
 
 # Dynamic Data
 
@@ -248,6 +243,7 @@ class RadarChartState(rx.State):
     def trait_names(self) -> list[str]:
         return [t["trait"] for t in self.traits]
 
+    @rx.event
     def set_trait(self, trait: str, value: int):
         for t in self.traits:
             if t["trait"] == trait:

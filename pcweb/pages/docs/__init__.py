@@ -6,8 +6,8 @@ import reflex as rx
 import flexdown
 
 # External Components
-from reflex_ag_grid import ag_grid
-from reflex_pyplot import pyplot
+from reflex_ag_grid import ag_grid as ag_grid
+from reflex_pyplot import pyplot as pyplot
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
@@ -21,7 +21,10 @@ from .library import library
 from .recipes_overview import overview
 from .custom_components import custom_components
 from .apiref import pages as apiref_pages
+from .cloud_cliref import pages as cloud_cliref_pages
 from pcweb.pages.library_previews import components_previews_pages
+from .ai_builder import pages as ai_builder_pages
+from .cloud import pages as cloud_pages
 
 
 def should_skip_compile(doc: flexdown.Document):
@@ -75,7 +78,7 @@ def build_nested_namespace(
 
 def get_components_from_metadata(current_doc):
     components = []
-   
+
     for comp_str in current_doc.metadata.get("components", []):
         component = eval(comp_str)
         if isinstance(component, type):
@@ -84,7 +87,9 @@ def get_components_from_metadata(current_doc):
             components.append((component.__self__, comp_str))
         elif isinstance(component, SimpleNamespace) and hasattr(component, "__call__"):
             components.append((component.__call__.__self__, comp_str))
-    
+        else:
+            raise ValueError(f"Invalid component: {component}")
+
     return components
 
 
@@ -131,6 +136,7 @@ manual_titles = {
     "docs/recipes/content/grid.md": "Grid Recipe",
 }
 
+
 def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
         return
@@ -161,13 +167,7 @@ def get_component(doc: str, title: str):
         return multi_docs(path=route, comp=d, component_list=clist, title=title2)
     if doc.startswith("docs/library"):
         clist = [title, *get_components_from_metadata(d)]
-        if issubclass(
-            clist[1][0],
-            (RadixThemesComponent, RadixPrimitiveComponent),
-        ):
-            component_list[category].append(clist)
-        else:
-            component_list[category].append(clist)
+        component_list[category].append(clist)
         if should_skip_compile(doc):
             outblocks.append((d, route))
             return
@@ -182,28 +182,52 @@ def get_component(doc: str, title: str):
     )
 
 
-doc_routes = [
-    library,
-    custom_components,
-    overview,
-    *components_previews_pages,
-] + apiref_pages
+doc_routes = (
+    [
+        library,
+        custom_components,
+        overview,
+        *components_previews_pages,
+    ]
+    + apiref_pages
+    + cloud_cliref_pages
+    + ai_builder_pages
+    + cloud_pages
+)
 
+for cloud_page in cloud_pages:
+    title = rx.utils.format.to_snake_case(cloud_page.title)
+    build_nested_namespace(docs_ns, ["cloud"], title, cloud_page)
+
+for ai_page in ai_builder_pages:
+    title = rx.utils.format.to_snake_case(ai_page.title)
+    build_nested_namespace(docs_ns, ["ai_builder"], title, ai_page)
 
 for api_route in apiref_pages:
     title = rx.utils.format.to_snake_case(api_route.title)
     build_nested_namespace(docs_ns, ["api_reference"], title, api_route)
 
+for ref in cloud_cliref_pages:
+    title = rx.utils.format.to_snake_case(ref.title)
+    build_nested_namespace(docs_ns, ["cloud"], title, ref)
+
 for doc in sorted(flexdown_docs):
-    path = doc.split("/")[1:-1] 
+    path = doc.split("/")[1:-1]
 
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+
     comp = get_component(doc, title)
+
+    # # Check if the path starts with '/docs/cloud/', and if so, replace 'docs' with an empty string
+    # if route.startswith("/docs/cloud/"):
+    #     route = route.replace("/docs", "")
 
     if path[0] == "library" and isinstance(library, Route):
         locals()["library_"] = library
+
+    # print(route)
 
     # Add the component to the nested namespaces.
     build_nested_namespace(
@@ -219,9 +243,11 @@ for doc in sorted(flexdown_docs):
 
 
 for doc in flexdown_docs:
-    if 'recipes' in doc:
-        category = doc.split('/')[2]
+    if "recipes" in doc:
+        category = doc.split("/")[2]
         recipes_list[category].append(doc)
 
 for name, ns in docs_ns.__dict__.items():
+    # if name == "cloud":
+    #     print(name, ns)
     locals()[name] = ns

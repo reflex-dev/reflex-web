@@ -1,63 +1,62 @@
 ---
 components:
-    - rx.alert_dialog.root
-    - rx.alert_dialog.content
-    - rx.alert_dialog.trigger
-    - rx.alert_dialog.title
-    - rx.alert_dialog.description
-    - rx.alert_dialog.action
-    - rx.alert_dialog.cancel
+  - rx.alert_dialog.root
+  - rx.alert_dialog.content
+  - rx.alert_dialog.trigger
+  - rx.alert_dialog.title
+  - rx.alert_dialog.description
+  - rx.alert_dialog.action
+  - rx.alert_dialog.cancel
 
 only_low_level:
-    - True
+  - True
 
 AlertDialogRoot: |
-    lambda **props: rx.alert_dialog.root(
-        rx.alert_dialog.trigger(
-            rx.button("Revoke access"),
-        ),
-        rx.alert_dialog.content(
-            rx.alert_dialog.title("Revoke access"),
-            rx.alert_dialog.description(
-                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
-            ),
-            rx.flex(
-                rx.alert_dialog.cancel(
-                    rx.button("Cancel"),
-                ),
-                rx.alert_dialog.action(
-                    rx.button("Revoke access"),
-                ),
-                spacing="3",
-            ),
-        ),
-        **props
-    )
+  lambda **props: rx.alert_dialog.root(
+      rx.alert_dialog.trigger(
+          rx.button("Revoke access"),
+      ),
+      rx.alert_dialog.content(
+          rx.alert_dialog.title("Revoke access"),
+          rx.alert_dialog.description(
+              "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+          ),
+          rx.flex(
+              rx.alert_dialog.cancel(
+                  rx.button("Cancel"),
+              ),
+              rx.alert_dialog.action(
+                  rx.button("Revoke access"),
+              ),
+              spacing="3",
+          ),
+      ),
+      **props
+  )
 
 AlertDialogContent: |
-    lambda **props: rx.alert_dialog.root(
-        rx.alert_dialog.trigger(
-            rx.button("Revoke access"),
-        ),
-        rx.alert_dialog.content(
-            rx.alert_dialog.title("Revoke access"),
-            rx.alert_dialog.description(
-                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
-            ),
-            rx.flex(
-                rx.alert_dialog.cancel(
-                    rx.button("Cancel"),
-                ),
-                rx.alert_dialog.action(
-                    rx.button("Revoke access"),
-                ),
-                spacing="3",
-            ),
-            **props
-        ),
-    )
+  lambda **props: rx.alert_dialog.root(
+      rx.alert_dialog.trigger(
+          rx.button("Revoke access"),
+      ),
+      rx.alert_dialog.content(
+          rx.alert_dialog.title("Revoke access"),
+          rx.alert_dialog.description(
+              "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+          ),
+          rx.flex(
+              rx.alert_dialog.cancel(
+                  rx.button("Cancel"),
+              ),
+              rx.alert_dialog.action(
+                  rx.button("Revoke access"),
+              ),
+              spacing="3",
+          ),
+          **props
+      ),
+  )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -105,6 +104,8 @@ rx.alert_dialog.root(
     ),
 )
 ```
+
+This example has a different color scheme and the `cancel` and `action` buttons are right aligned.
 
 ```python demo
 rx.alert_dialog.root(
@@ -196,6 +197,7 @@ class AlertDialogState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1
@@ -232,5 +234,134 @@ def alert_dialog():
         ),
         direction="column",
         spacing="3",
+    )
+```
+
+## Controlling Alert Dialog with State
+
+This example shows how to control whether the dialog is open or not with state. This is an easy way to show the dialog without needing to use the `rx.alert_dialog.trigger`.
+
+`rx.alert_dialog.root` has a prop `open` that can be set to a boolean value to control whether the dialog is open or not.
+
+We toggle this `open` prop with a button outside of the dialog and the `rx.alert_dialog.cancel` and `rx.alert_dialog.action` buttons inside the dialog.
+
+```python demo exec
+class AlertDialogState2(rx.State):
+    opened: bool = False
+
+    @rx.event
+    def dialog_open(self):
+        self.opened = ~self.opened
+
+
+def alert_dialog2():
+    return rx.box(
+            rx.alert_dialog.root(
+        rx.alert_dialog.content(
+            rx.alert_dialog.title("Revoke access"),
+            rx.alert_dialog.description(
+                "Are you sure? This application will no longer be accessible and any existing sessions will be expired.",
+            ),
+            rx.flex(
+                rx.alert_dialog.cancel(
+                    rx.button("Cancel", on_click=AlertDialogState2.dialog_open),
+                ),
+                rx.alert_dialog.action(
+                    rx.button("Revoke access", on_click=AlertDialogState2.dialog_open),
+                ),
+                spacing="3",
+            ),
+        ),
+        open=AlertDialogState2.opened,
+    ),
+    rx.button("Button to Open the Dialog", on_click=AlertDialogState2.dialog_open),
+)
+```
+
+
+## Form Submission to a Database from an Alert Dialog
+
+This example adds new users to a database from an alert dialog using a form.
+
+1. It defines a User1 model with name and email fields.
+2. The `add_user_to_db` method adds a new user to the database, checking for existing emails.
+3. On form submission, it calls the `add_user_to_db` method.
+4. The UI component has:
+- A button to open an alert dialog
+- An alert dialog containing a form to add a new user
+- Input fields for name and email
+- Submit and Cancel buttons
+
+
+```python demo exec
+class User1(rx.Model, table=True):
+    """The user model."""
+    name: str
+    email: str
+
+class State(rx.State):
+   
+    current_user: User1 = User1()
+
+    @rx.event
+    def add_user_to_db(self, form_data: dict):
+        self.current_user = form_data
+        ### Uncomment the code below to add your data to a database ###
+        # with rx.session() as session:
+        #     if session.exec(
+        #         select(User1).where(user.email == self.current_user["email"])
+        #     ).first():
+        #         return rx.window_alert("User with this email already exists")
+        #     session.add(User1(**self.current_user))
+        #     session.commit()
+        
+        return rx.toast.info(f"User {self.current_user['name']} has been added.", position="bottom-right")
+
+
+def index() -> rx.Component:
+    return rx.alert_dialog.root(
+        rx.alert_dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.alert_dialog.content(
+            rx.alert_dialog.title(
+                "Add New User",
+            ),
+            rx.alert_dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name"
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev", name="email"
+                    ),
+                    rx.flex(
+                        rx.alert_dialog.cancel(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.alert_dialog.action(
+                            rx.button("Submit", type="submit"),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),                     
+                on_submit=State.add_user_to_db,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
     )
 ```

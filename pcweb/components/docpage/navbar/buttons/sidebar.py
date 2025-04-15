@@ -73,6 +73,7 @@ def navbar_sidebar_drawer(trigger) -> rx.Component:
                     drawer_item("Case Studies", "/customers", "customers"),
                     drawer_item("Components", library.path, "library"),
                     drawer_item("Hosting", hosting.deploy_quick_start.path, "hosting"),
+                    drawer_item("Pricing", "/pricing", "hosting"),
                     drawer_socials(),
                     rx.el.button(
                         rx.color_mode.icon(

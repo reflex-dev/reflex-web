@@ -1,8 +1,3 @@
----
-components:
-    - rx.foreach
----
-
 ```python exec
 import reflex as rx
 ```
@@ -14,6 +9,7 @@ This is useful for dynamically rendering a list of items defined in a state.
 
 ```md alert warning
 # `rx.foreach` is specialized for usecases where the iterable is defined in a state var.
+
 For an iterable where the content doesn't change at runtime, i.e a constant, using a list/dict comprehension instead of `rx.foreach` is preferred.
 ```
 
@@ -97,6 +93,7 @@ class ListState(rx.State):
     items: List[str] = ["Write Code", "Sleep", "Have Fun"]
     new_item: str
 
+    @rx.event
     def add_item(self):
         self.items += [self.new_item]
 

@@ -1,10 +1,11 @@
+from pcweb.pages.docs import cloud_cliref
 from .item import create_item
 
 
 def get_sidebar_items_learn():
     from pcweb.pages.docs import (
         getting_started,
-        tutorial,
+        advanced_onboarding,
     )
 
     items = [
@@ -13,19 +14,18 @@ def get_sidebar_items_learn():
             children=[
                 getting_started.introduction,
                 getting_started.installation,
+                getting_started.basics,
                 getting_started.project_structure,
-                getting_started.configuration,
-                getting_started.how_reflex_works,
+                getting_started.dashboard_tutorial,
+                getting_started.chatapp_tutorial,
             ],
         ),
         create_item(
-            "Tutorial",
+            "Advanced Onboarding",
             children=[
-                tutorial.intro,
-                tutorial.setup,
-                tutorial.frontend,
-                tutorial.adding_state,
-                tutorial.final_app,
+                advanced_onboarding.how_reflex_works,
+                advanced_onboarding.configuration,
+                advanced_onboarding.code_structure,
             ],
         ),
     ]
@@ -43,14 +43,18 @@ def get_sidebar_items_frontend():
         wrapping_react,
         custom_components,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="User Interface Overview",
+            alt_name_for_next_prev="",
+            link=ui.overview.path,
+        ),
         create_item(
             "Components",
             children=[
                 components.props,
-                components.style_props,
-                components.conditional_props,
                 components.conditional_rendering,
                 components.rendering_iterables,
                 components.html_to_reflex,
@@ -60,9 +64,8 @@ def get_sidebar_items_frontend():
         create_item(
             "Pages",
             children=[
-                pages.routes,
+                pages.overview,
                 pages.dynamic_routing,
-                pages.metadata,
             ],
         ),
         create_item(
@@ -79,7 +82,7 @@ def get_sidebar_items_frontend():
         create_item(
             "Assets",
             children=[
-                assets.referencing_assets,
+                assets.overview,
                 assets.upload_and_download_files,
             ],
         ),
@@ -116,8 +119,12 @@ def get_sidebar_items_backend():
         utility_methods,
         vars,
     )
+    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
+        SideBarSection(
+            names="State Overview", alt_name_for_next_prev="", link=state.overview.path
+        ),
         create_item(
             "Vars",
             children=[
@@ -192,12 +199,39 @@ def get_sidebar_items_hosting():
 
     items = [
         create_item(
-            "Reflex Deploy",
+            "Deploy Quick Start",
             children=[
                 hosting.deploy_quick_start,
-                hosting.hosting_cli_commands,
             ],
         ),
+        create_item(
+            "Project",
+            children=[
+                hosting.adding_members,
+            ],
+        ),
+        create_item(
+            "App",
+            children=[
+                hosting.app_management,
+                hosting.machine_types,
+                hosting.regions,
+                hosting.logs,
+                hosting.secrets_environment_vars,
+                hosting.custom_domains,
+                hosting.config_file,
+                hosting.tokens,
+                hosting.deploy_with_github_actions,
+            ],
+        ),
+        create_item(
+            "Usage",
+            children=[
+                hosting.billing,
+                hosting.compute,
+            ],
+        ),
+        create_item("CLI Reference", children=cloud_cliref.pages),
         create_item(
             "Self Hosting",
             children=[hosting.self_hosting],
@@ -206,7 +240,17 @@ def get_sidebar_items_hosting():
     return items
 
 
+def get_sidebar_items_hosting_cli_ref():
+    from pcweb.pages.docs.cloud_cliref import pages as cloud_pages
+
+    items = [
+        create_item("CLI Reference", children=cloud_cliref.pages),
+    ]
+    return items
+
+
 learn = get_sidebar_items_learn()
 frontend = get_sidebar_items_frontend()
 backend = get_sidebar_items_backend()
 hosting = get_sidebar_items_hosting()
+cli_ref = get_sidebar_items_hosting_cli_ref()

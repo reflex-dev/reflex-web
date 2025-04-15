@@ -9,9 +9,9 @@ from pcweb.components.icons.icons import get_icon
 
 
 class DemoState(rx.State):
-
     demo = "Forms"
 
+    @rx.event
     def set_demo(self, demo):
         self.demo = demo
 
@@ -26,11 +26,12 @@ def tab(name: str, icon: str) -> rx.Component:
         on_click=DemoState.set_demo(name),
     )
 
+
 def code_block(code: str) -> rx.Component:
-    return rx.code_block(
+    return rx._x.code_block(
         code,
         language="python",
-        class_name="demo-code-block !px-10 !py-10 !rounded-none !text-slate-12",
+        class_name="demo-code-block !rounded-none !text-slate-12 no-scrollbar",
     )
 
 
@@ -66,7 +67,7 @@ def demo_section() -> rx.Component:
                 ),
                 class_name="border-slate-4 border-r w-full lg:w-1/2 h-auto",
             ),
-            rx.box(
+            rx.scroll_area(
                 rx.match(
                     DemoState.demo,
                     ("Forms", code_block(form_code)),
@@ -90,7 +91,7 @@ def demo_section() -> rx.Component:
                         "background": "linear-gradient(90deg, light-dark(rgba(249, 249, 251, 0.00), rgba(26, 27, 29, 0.00)) 0%, var(--c-slate-2) 79.62%)",
                     },
                 ),
-                class_name="desktop-only w-1/2 overflow-auto relative",
+                class_name="desktop-only w-1/2 relative",
             ),
             class_name="flex flex-row w-full max-h-full h-[31rem] lg:h-[34rem] overflow-hidden",
         ),

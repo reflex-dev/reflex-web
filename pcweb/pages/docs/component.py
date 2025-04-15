@@ -3,17 +3,17 @@
 import inspect
 import os
 import re
+from types import UnionType
 from typing import (
     Any,
+    Sequence,
     Type,
-    get_args,
     Literal,
     _GenericAlias,
     Union,
     get_args,
     get_origin,
 )
-from pydantic import Field
 import reflex as rx
 import flexdown
 import textwrap
@@ -24,6 +24,8 @@ from reflex.components.component import Component
 from reflex.components.radix.primitives.base import RadixPrimitiveComponent
 from reflex.components.radix.themes.base import RadixThemesComponent
 from reflex.components.base.fragment import Fragment
+from reflex.components.el.elements.base import BaseHTML
+import hashlib
 
 
 def get_code_style(color: str):
@@ -49,10 +51,6 @@ class Prop(Base):
 
     # The default value of the prop.
     default_value: str
-
-
-from reflex.components.el.elements.base import BaseHTML
-import re
 
 
 def get_default_value(lines: list[str], start_index: int) -> str:
@@ -149,7 +147,13 @@ class Source(Base):
 
         parent_cls = self.component.__bases__[0]
         if parent_cls != rx.Component and parent_cls != BaseHTML:
-            props += Source(component=parent_cls).get_props()
+            parent_props = Source(component=parent_cls).get_props()
+            # filter out the props that have been overridden in the parent class.
+            props += [
+                prop
+                for prop in parent_props
+                if prop.name not in {p.name for p in props}
+            ]
 
         return props
 
@@ -185,9 +189,9 @@ class Source(Base):
 
             if i > 0:
                 comment_above = self.code[i - 1].strip()
-                assert comment_above.startswith(
-                    "#"
-                ), f"Expected comment, got {comment_above}"
+                assert comment_above.startswith("#"), (
+                    f"Expected comment, got {comment_above}"
+                )
 
             comment = Source.get_comment(comments)
             comments.clear()
@@ -228,8 +232,6 @@ TYPE_COLORS = {
 
 count = 0
 
-import hashlib
-
 
 def get_id(s):
     global count
@@ -266,7 +268,7 @@ def render_select(prop, component, prop_dict):
         return rx.fragment()
     try:
         type_ = rx.utils.types.get_args(prop.type_)[0]
-    except:
+    except Exception:
         return rx.fragment()
 
     try:
@@ -446,8 +448,10 @@ def prop_docs(
     all_types = []  # List for all the prop types
     MAX_PROP_VALUES = 2
 
+    short_type_name = None
+
     COMMON_TYPES = {}  # Used to exclude common types from the MAX_PROP_VALUES
-    if origin is Union:
+    if origin in (Union, UnionType):
         non_literal_types = []  # List for all the non-literal types
 
         for arg in args:
@@ -472,10 +476,15 @@ def prop_docs(
                 else f"Union[Literal, {', '.join(non_literal_types)}]"
             )
 
+        short_type_name = "Union"
+
     elif origin is dict:
         key_type = args[0].__name__ if args else "Any"
-        value_type = args[1].__name__ if len(args) > 1 else "Any"
+        value_type = (
+            getattr(args[1], "__name__", str(args[1])) if len(args) > 1 else "Any"
+        )
         type_name = f"Dict[{key_type}, {value_type}]"
+        short_type_name = "Dict"
 
     elif origin is Literal:
         literal_values = list(map(str, args))
@@ -483,14 +492,16 @@ def prop_docs(
             type_name = "Literal"
         else:
             type_name = " | ".join([f'"{value}"' for value in literal_values])
+        short_type_name = "Literal"
 
     else:
         type_name = type_.__name__
+        short_type_name = type_name
 
     # Get the default value.
     default_value = prop.default_value if prop.default_value is not None else "-"
     # Get the color of the prop.
-    color = TYPE_COLORS.get(type_.__name__, "gray")
+    color = TYPE_COLORS.get(short_type_name, "gray")
     # Return the docs for the prop.
     return [
         rx.table.cell(
@@ -577,7 +588,9 @@ def prop_docs(
                     style=get_code_style(
                         "red"
                         if default_value == "False"
-                        else "green" if default_value == "True" else "gray"
+                        else "green"
+                        if default_value == "True"
+                        else "gray"
                     ),
                     class_name="code-style leading-normal text-nowrap",
                 ),
@@ -602,7 +615,7 @@ EVENTS = {
         "description": "Function or event handler called when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input."
     },
     "on_change": {
-        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystoke triggers the on change."
+        "description": "Function or event handler called when the value of an element has changed. For example, it is called when the user types into a text input each keystroke triggers the on change."
     },
     "on_click": {
         "description": "Function or event handler called when the user clicks on an element. For example, it’s called when the user clicks on a button."
@@ -778,9 +791,6 @@ EVENTS = {
     "on_open_auto_focus": {
         "description": "The on_open_auto_focus event handler is called when the component opens and the focus is returned to the first item."
     },
-    "on_change": {
-        "description": "The on_change event handler is called when the value or checked state of the component changes."
-    },
     "on_value_change": {
         "description": "The on_change event handler is called when the value state of the component changes."
     },
@@ -805,18 +815,11 @@ EVENTS = {
     "on_drop": {
         "description": "The on_drop event handler is called when the user drops an item."
     },
-    "is_server_side_group": {
-        "description": "The is_server_side_group event handler is called when the group is server-side."
-    },
-    "get_server_side_group_key": {
-        "description": "Get the server side group key."
-    },
+    "get_server_side_group_key": {"description": "Get the server side group key."},
     "is_server_side_group_open_by_default": {
         "description": "Event handler to check if the server-side group is open by default."
     },
-    "get_child_count": {
-        "description": "Event handler to get the child count."
-    },
+    "get_child_count": {"description": "Event handler to get the child count."},
     "on_selection_changed": {
         "description": "The on_selection_changed event handler is called when the selection changes."
     },
@@ -831,12 +834,8 @@ EVENTS = {
     },
     "is_server_side_group": {
         "description": "The is_server_side_group event handler is called to check if the group is server-side."
-    }
-
+    },
 }
-
-
-from reflex.components.radix import themes as rdxt
 
 
 def generate_props(src, component, comp):
@@ -889,7 +888,7 @@ def generate_props(src, component, comp):
         else:
             try:
                 comp = rx.vstack(component.create("Test", **prop_dict))
-            except:
+            except Exception:
                 comp = rx.fragment()
             if "data" in component.__name__.lower():
                 raise Exception("Data components cannot be created")
@@ -897,7 +896,9 @@ def generate_props(src, component, comp):
         print(f"Failed to create component {component.__name__}, error: {e}")
         comp = rx.fragment()
 
-    interactive_component = docdemobox(comp) if not isinstance(comp, Fragment) else "",
+    interactive_component = (
+        docdemobox(comp) if not isinstance(comp, Fragment) else "",
+    )
     return rx.vstack(
         interactive_component,
         rx.scroll_area(
@@ -946,12 +947,11 @@ def generate_props(src, component, comp):
 default_triggers = rx.Component.create().get_event_triggers()
 
 
-import inspect
-
-
 def same_trigger(t1, t2):
     if t1 is None or t2 is None:
         return False
+    t1 = t1 if not isinstance(t1, Sequence) else t1[0]
+    t2 = t2 if not isinstance(t2, Sequence) else t2[0]
     args1 = inspect.getfullargspec(t1).args
     args2 = inspect.getfullargspec(t2).args
     return args1 == args2
@@ -1085,6 +1085,7 @@ def multi_docs(path, comp, component_list, title):
     active_class_name = "font-small bg-slate-2 p-2 text-slate-11 rounded-xl shadow-large w-28 cursor-default border border-slate-4 text-center"
 
     non_active_class_name = "font-small w-28 transition-color hover:text-slate-11 text-slate-9 p-2 text-center"
+
     def links(current_page, ll_doc_exists, path):
         path = str(path).rstrip("/")
         if ll_doc_exists:
@@ -1100,7 +1101,7 @@ def multi_docs(path, comp, component_list, title):
                             rx.box(
                                 rx.text("Low Level"), class_name=non_active_class_name
                             ),
-                            href=path+ "/low",
+                            href=path + "/low",
                             underline="none",
                         ),
                         class_name="bg-slate-3 rounded-[1.125rem] p-2 gap-2 flex items-center justify-center",

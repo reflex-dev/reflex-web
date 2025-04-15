@@ -17,10 +17,12 @@ from pcweb.templates.docpage import (
     text_comp,
     list_comp,
     definition,
+    unordered_list_comp,
+    ordered_list_comp,
 )
 
 from pcweb.styles.fonts import base, code
-import reflex_chakra as rc
+
 
 def get_code_style(color: str):
     return {
@@ -72,66 +74,71 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
         has_content = bool(content.strip())
 
         if has_content:
-            return rc.accordion(
-                rc.accordion_item(
-                    rc.accordion_button(
-                        rx.hstack(
-                            rx.box(
-                                rx.match(
-                                    status,
-                                    (
-                                        "info",
-                                        rx.icon(
-                                            tag="info", size=18, margin_right=".5em"
+            return rx.accordion.root(
+                rx.accordion.item(
+                    rx.accordion.header(
+                        rx.accordion.trigger(
+                            rx.hstack(
+                                rx.box(
+                                    rx.match(
+                                        status,
+                                        (
+                                            "info",
+                                            rx.icon(
+                                                tag="info", size=18, margin_right=".5em"
+                                            ),
+                                        ),
+                                        (
+                                            "success",
+                                            rx.icon(
+                                                tag="circle_check",
+                                                size=18,
+                                                margin_right=".5em",
+                                            ),
+                                        ),
+                                        (
+                                            "warning",
+                                            rx.icon(
+                                                tag="triangle_alert",
+                                                size=18,
+                                                margin_right=".5em",
+                                            ),
+                                        ),
+                                        (
+                                            "error",
+                                            rx.icon(
+                                                tag="ban", size=18, margin_right=".5em"
+                                            ),
                                         ),
                                     ),
-                                    (
-                                        "success",
-                                        rx.icon(
-                                            tag="circle_check",
-                                            size=18,
-                                            margin_right=".5em",
-                                        ),
-                                    ),
-                                    (
-                                        "warning",
-                                        rx.icon(
-                                            tag="triangle_alert",
-                                            size=18,
-                                            margin_right=".5em",
-                                        ),
-                                    ),
-                                    (
-                                        "error",
-                                        rx.icon(
-                                            tag="ban", size=18, margin_right=".5em"
-                                        ),
-                                    ),
+                                    color=f"{rx.color(color, 11)}",
                                 ),
-                                color=f"{rx.color(color, 11)}",
+                                (
+                                    markdown_with_shiki(
+                                        title,
+                                        margin_y="0px",
+                                        style=get_code_style(color),
+                                    )
+                                    if title
+                                    else self.render_fn(content=content)
+                                ),
+                                rx.spacer(),
+                                rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                                align_items="center",
+                                justify_content="left",
+                                text_align="left",
+                                spacing="2",
+                                width="100%",
                             ),
-                            (
-                                rx.markdown(
-                                    title, margin_y="0px", style=get_code_style(color)
-                                )
-                                if title
-                                else self.render_fn(content=content)
-                            ),
-                            rx.spacer(),
-                            rc.accordion_icon(color=f"{rx.color(color, 11)}"),
-                            align_items="center",
-                            justify_content="left",
-                            text_align="left",
-                            spacing="2",
-                            width="100%",
+                            padding="0px",
+                            color=f"{rx.color(color, 11)} !important",
+                            background_color="transparent !important",
+                            border_radius="12px",
+                            _hover={},
                         ),
-                        padding="0px",
-                        color=f"{rx.color(color, 11)}",
-                        border_radius="12px",
-                        _hover={},
                     ),
                     (
-                        rc.accordion_panel(
+                        rx.accordion.content(
                             markdown(content), padding="0px", margin_top="16px"
                         )
                         if title
@@ -141,10 +148,11 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                     padding=["16px", "24px"],
                     background_color=f"{rx.color(color, 3)}",
                     border=f"1px solid {rx.color(color, 4)}",
-                    allow_toggle=True,
                 ),
-                is_disabled=True,
-                allow_toggle=True,
+                background="none !important",
+                border_radius="0px",
+                box_shadow="unset !important",
+                collapsible=True,
                 width="100%",
                 margin_bottom="16px",
             )
@@ -171,7 +179,7 @@ class AlertBlock(flexdown.blocks.MarkdownBlock):
                         ),
                         color=f"{rx.color(color, 11)}",
                     ),
-                    rx.markdown(
+                    markdown_with_shiki(
                         title,
                         color=f"{rx.color(color, 11)}",
                         margin_y="0px",
@@ -214,7 +222,7 @@ class SectionBlock(flexdown.blocks.Block):
                 *[
                     rx.fragment(
                         rx.text(
-                            rx.chakra.span(
+                            rx.text.span(
                                 header,
                                 font_weight="bold",
                             ),
@@ -259,17 +267,13 @@ class DefinitionBlock(flexdown.blocks.Block):
         defs = [definition(title, content) for title, content in sections]
 
         return rx.fragment(
-            rx.mobile_only(rc.vstack(*defs)),
+            rx.mobile_only(rx.vstack(*defs)),
             rx.tablet_and_desktop(
-                rc.grid(
-                    *[
-                        rc.grid_item(d, row_span=1, col_span=1, width="100%")
-                        for d in defs
-                    ],
-                    template_columns="repeat(2, 1fr)",
-                    h="10em",
+                rx.grid(
+                    *[rx.box(d) for d in defs],
+                    columns="2",
                     width="100%",
-                    gap=4,
+                    gap="1rem",
                     margin_bottom="1em",
                 )
             ),
@@ -364,32 +368,36 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
 
         color = "blue"
 
-        return rc.accordion(
-            rc.accordion_item(
-                rc.accordion_button(
-                    rx.hstack(
-                        (
-                            rx.markdown(
-                                title,
-                                margin_y="0px",
-                                style=get_code_style(color),
-                            )
-                            if title
-                            else rx.markdown("Video Description")
+        return rx.accordion.root(
+            rx.accordion.item(
+                rx.accordion.header(
+                    rx.accordion.trigger(
+                        rx.hstack(
+                            (
+                                markdown_with_shiki(
+                                    title,
+                                    margin_y="0px",
+                                    style=get_code_style(color),
+                                )
+                                if title
+                                else markdown_with_shiki("Video Description")
+                            ),
+                            rx.spacer(),
+                            rx.accordion.icon(color=f"{rx.color(color, 11)}"),
+                            align_items="center",
+                            justify_content="left",
+                            text_align="left",
+                            spacing="2",
+                            width="100%",
                         ),
-                        rx.spacer(),
-                        rc.accordion_icon(color=f"{rx.color(color, 11)}"),
-                        align_items="center",
-                        justify_content="left",
-                        text_align="left",
-                        spacing="2",
-                        width="100%",
+                        padding="0px",
+                        color=f"{rx.color(color, 11)} !important",
+                        background_color="transparent !important",
+                        border_radius="12px",
+                        _hover={},
                     ),
-                    padding="0px",
-                    color=f"{rx.color(color, 11)}",
-                    _hover={},
                 ),
-                rc.accordion_panel(
+                rx.accordion.content(
                     rx.video(
                         url=url,
                         width="100%",
@@ -403,14 +411,16 @@ class VideoBlock(flexdown.blocks.MarkdownBlock):
                 border_radius="12px",
                 border=f"1px solid {rx.color(color, 4)}",
                 background_color=f"{rx.color(color, 3)}",
-                allow_toggle=True,
                 padding=["16px", "24px"],
             ),
             margin_bottom="16px",
-            is_disabled=True,
-            allow_toggle=True,
+            background="none !important",
+            border_radius="0px",
+            box_shadow="unset !important",
+            collapsible=True,
             width="100%",
         )
+
 
 class QuoteBlock(flexdown.blocks.MarkdownBlock):
     """A block that displays a quote."""
@@ -419,6 +429,7 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
     ending_indicator = "```"
 
     include_indicators = True
+
     def render(self, env) -> rx.Component:
         lines = self.get_lines(env)
         quote_content = []
@@ -431,9 +442,9 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
                 role = line.split(":", 1)[1].strip()
             else:
                 quote_content.append(line)
-        
+
         quote_text = "\n".join(quote_content).strip()
-        
+
         return rx.box(
             rx.text(f'"{quote_text}"', class_name="text-slate-11 font-base italic"),
             rx.box(
@@ -443,7 +454,6 @@ class QuoteBlock(flexdown.blocks.MarkdownBlock):
             ),
             class_name="flex flex-col gap-4 border-l-[3px] border-slate-4 pl-6 mt-2 mb-6",
         )
-        
 
 
 class TabsBlock(flexdown.blocks.Block):
@@ -484,14 +494,20 @@ class TabsBlock(flexdown.blocks.Block):
         contents = []
 
         for i, (title, content) in enumerate(tab_sections):
-            value = f"tab{i+1}"
-            triggers.append(rx.tabs.trigger(title, value=value, class_name="tab-style font-base font-semibold text-[1.25rem]"))
-            
+            value = f"tab{i + 1}"
+            triggers.append(
+                rx.tabs.trigger(
+                    title,
+                    value=value,
+                    class_name="tab-style font-base font-semibold text-[1.25rem]",
+                )
+            )
+
             # Render the tab content
             tab_content = []
-            for block in env['__xd'].get_blocks(content, self.filename):
+            for block in env["__xd"].get_blocks(content, self.filename):
                 if isinstance(block, flexdown.blocks.MarkdownBlock):
-                    block.render_fn = env['__xd'].flexdown_memo
+                    block.render_fn = env["__xd"].flexdown_memo
                 try:
                     tab_content.append(block.render(env=env))
                 except Exception as e:
@@ -500,10 +516,12 @@ class TabsBlock(flexdown.blocks.Block):
                         f"\n{block.get_content(env)}"
                     )
                     raise e
-            
+
             contents.append(rx.tabs.content(rx.fragment(*tab_content), value=value))
 
-        return rx.tabs.root(rx.tabs.list(*triggers, class_name="mt-4"), *contents, default_value="tab1")
+        return rx.tabs.root(
+            rx.tabs.list(*triggers, class_name="mt-4"), *contents, default_value="tab1"
+        )
 
 
 component_map = {
@@ -519,14 +537,33 @@ component_map = {
 }
 comp2 = component_map.copy()
 comp2["codeblock"] = code_block_markdown_dark
+comp2["ul"] = lambda items: unordered_list_comp(items=items)
+comp2["ol"] = lambda items: ordered_list_comp(items=items)
+
 
 xd = flexdown.Flexdown(
-    block_types=[DemoBlock, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
+    block_types=[
+        DemoBlock,
+        AlertBlock,
+        DefinitionBlock,
+        SectionBlock,
+        VideoBlock,
+        TabsBlock,
+        QuoteBlock,
+    ],
     component_map=component_map,
 )
 xd.clear_modules()
 xd2 = flexdown.Flexdown(
-    block_types=[DemoBlockDark, AlertBlock, DefinitionBlock, SectionBlock, VideoBlock, TabsBlock, QuoteBlock],
+    block_types=[
+        DemoBlockDark,
+        AlertBlock,
+        DefinitionBlock,
+        SectionBlock,
+        VideoBlock,
+        TabsBlock,
+        QuoteBlock,
+    ],
     component_map=comp2,
 )
 xd2.clear_modules()
@@ -534,3 +571,21 @@ xd2.clear_modules()
 
 def markdown(text):
     return xd.get_default_block().render_fn(content=text)
+
+
+def markdown_with_shiki(*args, **kwargs):
+    """
+    Wrapper for the markdown component with a customized component map.
+    Uses the experimental Shiki-based code block (rx._x.code_block)
+    instead of the default CodeBlock component for code blocks.
+
+    Note: This wrapper should be removed once the default codeblock
+    in rx.markdown component map is updated to the Shiki-based code block.
+    """
+    return rx.markdown(
+        *args,
+        component_map={
+            "codeblock": lambda value, **props: rx._x.code_block(value, **props)
+        },
+        **kwargs,
+    )

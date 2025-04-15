@@ -1,3 +1,4 @@
+from datetime import datetime
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
 from pcweb.pages.gallery import gallery
@@ -5,7 +6,6 @@ from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.changelog import changelog
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
 from pcweb.signup import IndexState
@@ -52,8 +52,16 @@ def menu_socials() -> rx.Component:
     return rx.box(
         rx.box(
             social_menu_item("github", GITHUB_URL),
-            social_menu_item("twitter", TWITTER_URL, class_name="border-l border-slate-5 border-solid border-y-0 border-r-0"),
-            social_menu_item("forum", FORUM_URL, class_name="!border-l !border-r border-slate-5 border-solid border-y-0"),
+            social_menu_item(
+                "twitter",
+                TWITTER_URL,
+                class_name="border-l border-slate-5 border-solid border-y-0 border-r-0",
+            ),
+            social_menu_item(
+                "forum",
+                FORUM_URL,
+                class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
+            ),
             social_menu_item("discord", DISCORD_URL),
             class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),
@@ -126,7 +134,7 @@ def footer() -> rx.Component:
             rx.box(
                 menu_socials(),
                 rx.text(
-                    "© 2024 Pynecone, Inc.",
+                    f"© {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 class_name="flex flex-col justify-between items-start gap-4 self-stretch",

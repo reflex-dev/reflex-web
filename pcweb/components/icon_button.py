@@ -1,7 +1,9 @@
 import reflex as rx
 from typing import Literal, Callable
 
-LiteralButtonVariant = Literal["primary", "success", "destructive", "secondary", "muted"]
+LiteralButtonVariant = Literal[
+    "primary", "success", "destructive", "secondary", "muted"
+]
 
 default_class_name = "rounded-full w-8 h-8 inline-flex items-center justify-center cursor-pointer relative border-t border-[rgba(255,255,255,0.21)] shrink-0"
 after_class_name = "after:absolute after:inset-[1px] after:border-t after:rounded-[11px] after:border-white after:opacity-[0.22]"

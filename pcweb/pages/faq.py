@@ -5,7 +5,7 @@ from pcweb.templates.docpage import doclink
 from pcweb.templates.webpage import webpage
 from pcweb.constants import DISCORD_URL, CONTRIBUTING_URL
 from pcweb.components.webpage.comps import h1_title
-import reflex_chakra as rc
+from pcweb.flexdown import markdown_with_shiki
 
 faq_items = [
     {
@@ -29,7 +29,7 @@ faq_items = [
         ),
     },
     {
-        "Q": "Whats the status on hosting?",
+        "Q": "What's the status on hosting?",
         "A": rx.text(
             "Our hosting service is in alpha! See more details in our ",
             doclink("deployment guide", href=hosting.deploy_quick_start.path),
@@ -75,7 +75,7 @@ faq_items = [
     },
     {
         "Q": "What usage data is collected?",
-        "A": rx.markdown(
+        "A": markdown_with_shiki(
             """
 Anonymous usage data allows us to understand how Reflex is used and how we can improve the product.
 
@@ -127,24 +127,27 @@ Alternatively, you can set the `TELEMETRY_ENABLED` environment variable to `Fals
 
 def faq_item(question: str, answer: str, index: int):
     return rx.el.li(
-        rc.accordion(
-            rc.accordion_item(
-                rc.accordion_button(
-                    rx.el.h3(
-                        question, class_name="font-smbold text-slate-12 text-start"
+        rx.accordion.root(
+            rx.accordion.item(
+                rx.accordion.header(
+                    rx.accordion.trigger(
+                        rx.el.h3(
+                            question, class_name="font-smbold text-slate-12 text-start"
+                        ),
+                        rx.spacer(),
+                        rx.accordion.icon(color="var(--c-slate-9)"),
+                        class_name="!bg-transparent hover:!bg-transparent !p-4 lg:!p-6",
                     ),
-                    rc.spacer(),
-                    rc.accordion_icon(color="var(--c-slate-9)"),
-                    class_name="!bg-transparent hover:!bg-transparent !p-4 lg:!p-6",
                 ),
-                rc.accordion_panel(
+                rx.accordion.content(
                     answer,
                     class_name="!p-[0rem_1rem_1rem_1rem] lg:!p-[0rem_1.5rem_1.5rem_1.5rem] font-small text-slate-11 text-start [&>code]:!font-code",
                 ),
                 class_name="border-none",
             ),
-            allow_multiple=True,
-            class_name="border-slate-4 bg-slate-2 p-0 border rounded-xl w-full",
+            type="multiple",
+            collapsible=True,
+            class_name="border-slate-4 !bg-slate-2 p-0 border rounded-xl w-full !shadow-none",
         ),
         class_name="w-full",
     )

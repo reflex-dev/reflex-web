@@ -1,5 +1,6 @@
 """Template for documentation pages."""
 
+from datetime import datetime
 from typing import Callable
 
 import reflex as rx
@@ -13,6 +14,7 @@ from pcweb.styles.colors import c_color
 from reflex.components.radix.themes.base import LiteralAccentColor
 from pcweb.components.button import button
 from reflex.utils.format import to_title_case, to_snake_case
+
 
 def footer_link(text: str, href: str):
     return rx.link(
@@ -166,11 +168,9 @@ def docpage_footer(path: str):
     from pcweb.pages.docs.library import library
     from pcweb.pages.changelog import changelog
     from pcweb.pages.blog import blogs
-    from pcweb.pages.changelog import changelog
     from pcweb.pages.faq import faq
     from pcweb.pages.errors import errors
-    from pcweb.signup import IndexState
-    from pcweb.constants import ROADMAP_URL, GITHUB_DISCUSSIONS_URL, FORUM_URL
+    from pcweb.constants import ROADMAP_URL, FORUM_URL
     from pcweb.views.footer import newsletter_form, menu_socials
 
     return rx.el.footer(
@@ -230,7 +230,7 @@ def docpage_footer(path: str):
             ),
             rx.box(
                 rx.text(
-                    "Copyright © 2024 Pynecone, Inc.",
+                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),
@@ -286,6 +286,7 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
                     class_name="font-sm text-slate-8 mobile-only",
                 )
             )
+    from pcweb.components.hosting_banner import HostingBannerState
 
     # Return the list of breadcrumb items with separators
     return rx.box(
@@ -303,7 +304,12 @@ def breadcrumb(path: str, nav_sidebar: rx.Component):
             rx.icon(tag="chevron-down", size=14, class_name="!text-slate-9"),
             class_name="p-[0.563rem] mobile-only",
         ),
-        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 lg:mt-[119px] mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full",
+        class_name="relative z-10 flex flex-row justify-between items-center gap-4 lg:gap-0 border-slate-4 bg-slate-1 mt-12 mb-6 lg:mb-12 p-[0.5rem_1rem_0.5rem_1rem] lg:p-0 border-b lg:border-none w-full"
+        + rx.cond(
+            HostingBannerState.show_banner,
+            " lg:mt-[175px]",
+            " lg:mt-[119px]",
+        ),
     )
 
 
@@ -373,6 +379,7 @@ def docpage(
     t: str | None = None,
     right_sidebar: bool = True,
     page_title: str | None = None,
+    pseudo_right_bar: bool = False,
 ) -> rx.Component:
     """A template that most pages on the reflex.dev site should use.
 
@@ -414,6 +421,7 @@ def docpage(
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.docpage.sidebar import get_prev_next
             from pcweb.components.docpage.sidebar import sidebar as sb
+            from pcweb.components.hosting_banner import HostingBannerState
 
             # Create the docpage sidebar.
             sidebar = sb(url=path, width="300px")
@@ -466,7 +474,7 @@ def docpage(
                             rx.box(
                                 "Next",
                                 get_icon(icon="arrow_right"),
-                                class_name="flex flex-row justify-center lg:justify-start items-center gap-2 rounded-lg w-full self-end",
+                                class_name="flex flex-row lg:justify-start items-center gap-2 rounded-lg w-full self-end",
                             ),
                             underline="none",
                             href=next.link,
@@ -494,12 +502,17 @@ def docpage(
                 rx.el.main(
                     rx.box(
                         sidebar,
-                        class_name="mt-[90px] h-full shrink-0 desktop-only lg:w-[24%]",
+                        class_name="h-full shrink-0 desktop-only lg:w-[24%]"
+                        + rx.cond(
+                            HostingBannerState.show_banner,
+                            " mt-[146px]",
+                            " mt-[90px]",
+                        ),
                     ),
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-24",
+                            class_name="px-0 lg:px-20",
                         ),
                         rx.box(
                             rx.el.article(comp),
@@ -508,7 +521,7 @@ def docpage(
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
                             docpage_footer(path=path.rstrip("/")),
-                            class_name="lg:mt-0 mt-6 px-4 lg:px-24",
+                            class_name="lg:mt-0 mt-6 px-4 lg:px-20",
                         ),
                         class_name="h-full w-full"
                         + (
@@ -517,58 +530,76 @@ def docpage(
                             else " lg:max-w-[60%] 2xl:max-w-[100%]"
                         ),
                     ),
-                    rx.el.nav(
-                        rx.box(
-                            rx.el.h5(
-                                "On this page",
-                                class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
-                            ),
-                            rx.el.ul(
-                                *[
-                                    (
-                                        rx.el.li(
-                                            rx.link(
-                                                text,
-                                                class_name="font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
-                                                underline="none",
-                                                href=path
-                                                + "#"
-                                                + text.lower().replace(" ", "-"),
-                                            )
-                                        )
-                                        if level == 1
-                                        else (
-                                            rx.list_item(
+                    (
+                        rx.el.nav(
+                            rx.box(
+                                rx.el.h5(
+                                    "On this page",
+                                    class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
+                                ),
+                                rx.el.ul(
+                                    *[
+                                        (
+                                            rx.el.li(
                                                 rx.link(
                                                     text,
-                                                    class_name="font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
+                                                    class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
                                                     underline="none",
                                                     href=path
                                                     + "#"
                                                     + text.lower().replace(" ", "-"),
                                                 )
                                             )
-                                            if level == 2
-                                            else rx.el.li(
-                                                rx.link(
-                                                    text,
-                                                    underline="none",
-                                                    class_name="pl-6 font-small text-slate-9 hover:!text-slate-11 truncate transition-color",
-                                                    href=path
-                                                    + "#"
-                                                    + text.lower().replace(" ", "-"),
+                                            if level == 1
+                                            else (
+                                                rx.list_item(
+                                                    rx.link(
+                                                        text,
+                                                        class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
+                                                        underline="none",
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
+                                                    )
+                                                )
+                                                if level == 2
+                                                else rx.el.li(
+                                                    rx.link(
+                                                        text,
+                                                        underline="none",
+                                                        class_name="pl-6 font-small text-slate-9 hover:!text-slate-11  transition-color",
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
+                                                    )
                                                 )
                                             )
                                         )
-                                    )
-                                    for level, text in toc
-                                ],
-                                class_name="flex flex-col gap-4 list-none",
+                                        for level, text in toc
+                                    ],
+                                    class_name="flex flex-col gap-4 list-none",
+                                ),
+                                class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-scroll",
+                                style={"width": "inherit"},
                             ),
-                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] w-full max-w-[300px] max-h-[80vh] overflow-hidden",
-                        ),
-                        class_name="mt-[90px] h-full shrink-0 w-[16%]"
-                        + (" hidden xl:flex" if right_sidebar else " hidden"),
+                            class_name="shrink-0 w-[16%]"
+                            + rx.cond(
+                                HostingBannerState.show_banner,
+                                " mt-[146px]",
+                                " mt-[90px]",
+                            )
+                            + (
+                                " hidden xl:flex xl:flex-col"
+                                if right_sidebar
+                                else " hidden"
+                            ),
+                        )
+                        if not pseudo_right_bar
+                        else rx.spacer()
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),

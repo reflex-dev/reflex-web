@@ -1,6 +1,6 @@
 ---
 components:
-    - rx.toast.provider
+  - rx.toast.provider
 ---
 
 ```python exec
@@ -11,21 +11,11 @@ import reflex as rx
 
 A `rx.toast` is a non-blocking notification that disappears after a certain amount of time. It is often used to show a message to the user without interrupting their workflow.
 
-Using the `rx.toast` function require to have a toast provider in your app.
-
-## Toast Provider
-
-`rx.toast.provider` is a component that provides a context for displaying toasts. It should be placed at the root of your app.
-
-```md alert warning
-# In most case you will not need to include this component directly, as it is already included in `rx.app` as the `overlay_component` for displaying connections errors.
-```
-
 ## Usage
 
 You can use `rx.toast` as an event handler for any component that triggers an action.
 
-```python
+```python demo
 rx.button("Show Toast", on_click=rx.toast("Hello, World!"))
 ```
 
@@ -37,6 +27,7 @@ You can also use `rx.toast` in a state to show a toast when a specific action is
 import asyncio
 class ToastState(rx.State):
 
+    @rx.event
     async def fetch_data(self):
         # Simulate fetching data for a 2-second delay
         await asyncio.sleep(2)
@@ -47,7 +38,6 @@ class ToastState(rx.State):
 def render():
     return rx.button("Get Data", on_click=ToastState.fetch_data)
 ```
-
 
 ## Interaction
 
@@ -78,7 +68,7 @@ If the presets don't fit your needs, you can customize the toasts by passing to 
 
 ```python demo
 rx.button(
-    "Custom", 
+    "Custom",
     on_click=rx.toast(
         "Custom Toast!",
         position="top-right",
@@ -90,7 +80,7 @@ rx.button(
 The following props are available for customization:
 
 - `description`: `str | Var`: Toast's description, renders underneath the title.
-- `close_button`: `bool`: Whether to show the close button.    
+- `close_button`: `bool`: Whether to show the close button.
 - `invert`: `bool`: Dark toast in light mode and vice versa.
 - `important`: `bool`: Control the sensitivity of the toast for screen readers.
 - `duration`: `int`: Time in milliseconds that should elapse before automatically closing the toast.
@@ -103,3 +93,13 @@ The following props are available for customization:
 - `style`: `Style`: Custom style for the toast.
 - `on_dismiss`: `Any`: The function gets called when either the close button is clicked, or the toast is swiped.
 - `on_auto_close`: `Any`: Function that gets called when the toast disappears automatically after it's timeout (`duration` prop).
+
+## Toast Provider
+
+Using the `rx.toast` function require to have a toast provider in your app.
+
+`rx.toast.provider` is a component that provides a context for displaying toasts. It should be placed at the root of your app.
+
+```md alert warning
+# In most case you will not need to include this component directly, as it is already included in `rx.app` as the `overlay_component` for displaying connections errors.
+```

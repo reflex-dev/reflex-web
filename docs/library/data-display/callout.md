@@ -19,6 +19,7 @@ CalloutRoot: |
 
 ```python exec
 import reflex as rx
+from pcweb.pages import docs
 ```
 
 # Callout
@@ -29,7 +30,7 @@ A `callout` is a short message to attract user's attention.
 rx.callout("You will need admin privileges to install and access this application.", icon="info")
 ```
 
-The `icon` prop allows an icon to be passed to the `callout` component. See the [**icon** component for all icons that are available.](/docs/library/datadisplay/icon/)
+The `icon` prop allows an icon to be passed to the `callout` component. See the [**icon** component for all icons that are available.]({docs.library.data_display.icon.path})
 
 ## As alert
 

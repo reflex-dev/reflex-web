@@ -1,5 +1,5 @@
 ---
-title: Dashboard
+title: dashboard
 description: "Interactive dashboard with real-time data visualization"
 author: "Reflex"
 image: "dashboard.webp"
@@ -33,7 +33,10 @@ Right now the apps reads from a local CSV file. You can modify this by changing 
 Additionally you will want to change the `Item` class to match the data in your CSV file.
 
 ```python
-class Item(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class Item:
     """The item class."""
 
     name: str
@@ -41,4 +44,3 @@ class Item(rx.Base):
     date: str
     status: str
 ```
-

@@ -8,7 +8,7 @@ from pcweb.pages.docs import vars
 
 As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
 
-This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types by inheriting from `rx.Base`.
+This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types by inheriting from `rx.Base` or decorating them as dataclasses with `@dataclasses.dataclass`.
 
 ## Defining a Type
 
@@ -27,14 +27,14 @@ class TranslationState(rx.State):
     input_text: str = "Hola Mundo"
     current_translation: Translation = Translation(original_text="", translated_text="")
 
+    @rx.event
     def translate(self):
-        text = googletrans.Translator().translate(self.input_text, dest="en").text
-        self.current_translation = Translation(original_text=self.input_text, translated_text=text)
-
+        self.current_translation.original_text = self.input_text
+        self.current_translation.translated_text = googletrans.Translator().translate(self.input_text, dest="en").text
 
 def translation_example():
     return rx.vstack(
-        rx.input(on_blur=TranslationState.set_input_text, default_value=TranslationState.input_text, placeholder="Text to translate..."),
+        rx.input(on_blur=TranslationState.setvar("input_text"), default_value=TranslationState.input_text, placeholder="Text to translate...",),
         rx.button("Translate", on_click=TranslationState.translate),
         rx.text(TranslationState.current_translation.translated_text),
     )

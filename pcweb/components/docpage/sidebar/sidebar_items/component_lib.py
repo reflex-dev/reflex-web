@@ -1,5 +1,5 @@
 import reflex as rx
-from ..state import SidebarItem
+from ..state import SideBarItem
 from reflex.utils.format import to_title_case, to_snake_case
 
 
@@ -12,7 +12,7 @@ def get_component_link(category, clist, prefix="") -> str:
 def get_category_children(category, category_list, prefix=""):
     category = category.replace("-", " ")
     if isinstance(category_list, dict):
-        return SidebarItem(
+        return SideBarItem(
             names=category,
             children=[
                 get_category_children(c, category_list[c]) for c in category_list
@@ -20,7 +20,7 @@ def get_category_children(category, category_list, prefix=""):
         )
     category_item_children = []
     category_item_children.append(
-        SidebarItem(
+        SideBarItem(
             names="Overview",
             link=f"/docs/library/{prefix}{category.lower().replace(' ', '-')}/",
         )
@@ -28,17 +28,16 @@ def get_category_children(category, category_list, prefix=""):
     for c in category_list:
         component_name = to_snake_case(c[0])
         name = to_title_case(component_name, sep=" ")
-        item = SidebarItem(
+        item = SideBarItem(
             names=name,
             link=get_component_link(category, c, prefix=prefix),
         )
         category_item_children.append(item)
-    return SidebarItem(names=category, children=category_item_children)
+    return SideBarItem(names=category, children=category_item_children)
 
 
 def get_sidebar_items_component_lib():
     from pcweb.pages.docs import component_list
-    from pcweb.pages.docs.library import library
 
     library_item_children = []
 
@@ -61,9 +60,8 @@ def get_sidebar_items_graphings():
         )
         graphing_children.append(category_item)
 
-    return [
-        *graphing_children
-        ]
+    return [*graphing_children]
+
 
 component_lib = get_sidebar_items_component_lib()
 graphing_libs = get_sidebar_items_graphings()

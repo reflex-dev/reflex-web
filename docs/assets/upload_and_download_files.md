@@ -6,7 +6,7 @@ from pcweb.pages.docs import api_reference
 
 # Files
 
-In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share medias, allow user to import their data, or export some backend data.
+In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share media, allow user to import their data, or export some backend data.
 
 In this section, we will cover all you need to know for manipulating files in Reflex.
 
@@ -30,7 +30,7 @@ The `rx.download` event also allows the download to be triggered from another ba
 
 ```python demo
 rx.button(
-    "Download", 
+    "Download",
     on_click=rx.download(url="/reflex_banner.png"),
 )
 ```
@@ -39,9 +39,9 @@ rx.button(
 
 ```python demo
 rx.button(
-    "Download and Rename", 
+    "Download and Rename",
     on_click=rx.download(
-        url="/reflex_banner.png", 
+        url="/reflex_banner.png",
         filename="different_name_logo.png"
     ),
 )
@@ -53,6 +53,7 @@ If the data to download is not already available at a known URL, pass the `data`
 import random
 
 class DownloadState(rx.State):
+    @rx.event
     def download_random_data(self):
         return rx.download(
             data=",".join([str(random.randint(0, 100)) for _ in range(10)]),

@@ -65,6 +65,8 @@ Lets create a scatter plot of random data. We'll also allow the user to randomiz
 In this example, we'll use a `color_mode_cond` to display the plot in both light and dark mode. We need to do this manually here because the colors are determined by the matplotlib chart and not the theme.
 
 ```python demo exec
+import random
+from typing import Literal
 import matplotlib.pyplot as plt
 import reflex as rx
 from reflex_pyplot import pyplot
@@ -95,37 +97,43 @@ def create_plot(theme: str, plot_data: tuple, scale: list):
 
 class PyplotState(rx.State):
     num_points: int = 100
-    plot_data: tuple = tuple(np.random.rand(2, 100) for _ in range(3))
-    scale: list = [random.uniform(0, 100) for _ in range(100)]
+    plot_data: tuple
+    scale: list
+    fig: plt.Figure = plt.Figure()
 
+    @rx.event
     def randomize(self):
         self.plot_data = tuple(np.random.rand(2, self.num_points) for _ in range(3))
         self.scale = [random.uniform(0, 100) for _ in range(self.num_points)]
 
+    @rx.event
     def set_num_points(self, num_points: list[int]):
         self.num_points = num_points[0]
         self.randomize()
-
-    @rx.var(cache=True)
-    def fig_light(self) -> plt.Figure:
-        fig = create_plot('light', self.plot_data, self.scale)
-        return fig
-
-    @rx.var(cache=True)
-    def fig_dark(self) -> plt.Figure:
-        fig = create_plot('dark', self.plot_data, self.scale)
-        return fig
+    
+    @rx.event
+    def create_fig(self, theme: Literal["light", "dark"]):
+        self.plot_data = tuple(np.random.rand(2, 100) for _ in range(3))
+        self.scale = [random.uniform(0, 100) for _ in range(100)]
+        self.fig = create_plot(
+            theme, self.plot_data, self.scale
+        )
 
 def pyplot_example():
     return rx.vstack(
         rx.card(
-            rx.color_mode_cond(
-                pyplot(PyplotState.fig_light, width="100%", height="height"),
-                pyplot(PyplotState.fig_dark, width="100%", height="height"),
+            pyplot(
+                PyplotState.fig,
+                width="100%",
+                height="100%",
+                on_mount=rx.color_mode_cond(PyplotState.create_fig("light"), PyplotState.create_fig("dark")),
             ),
             rx.vstack(
                 rx.hstack(
-                    rx.button("Randomize", on_click=PyplotState.randomize),
+                    rx.button(
+                        "Randomize",
+                        on_click=PyplotState.randomize,
+                    ),
                     rx.text("Number of Points:"),
                     rx.slider(
                         default_value=100,

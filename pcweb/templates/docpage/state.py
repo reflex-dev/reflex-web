@@ -1,9 +1,8 @@
 """The state for the navbar component."""
 
 import contextlib
-import os
 from datetime import datetime
-from typing import Any, Optional, Set
+from typing import Optional
 
 import httpx
 import reflex as rx
@@ -26,6 +25,7 @@ class FeedbackState(rx.State):
 
     score: Optional[int] = None
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         feedback = form_data["feedback"]
         if len(feedback) < 10 or len(feedback) > 500:
@@ -41,7 +41,9 @@ class FeedbackState(rx.State):
                 json=form_data,
             )
 
-        discord_webhook_url: str | None = os.environ.get("DISCORD_WEBHOOK_URL")
+        discord_webhook_url: str | None = (
+            REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL
+        )
         email: str = form_data.get("email", "")
         discord_message = f"""
 Contact: {email}

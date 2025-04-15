@@ -3,6 +3,7 @@ from pcweb import constants
 from pcweb.templates.webpage import webpage
 from pcweb.components.icons.icons import get_icon
 from pcweb.components.webpage.comps import h1_title
+from pcweb.flexdown import markdown_with_shiki
 
 
 def change(
@@ -33,7 +34,7 @@ def change(
         rx.el.ul(
             *[
                 rx.el.li(
-                    rx.markdown(d, class_name="markdown-code"),
+                    markdown_with_shiki(d, class_name="markdown-code"),
                     class_name="font-small text-slate-11",
                 )
                 for d in points
@@ -47,6 +48,156 @@ def change(
 
 def changelog_content():
     return rx.el.ul(
+        change(
+            "2025-03-31",
+            "v0.7.5",
+            "None as children of components",
+            [
+                "event handlers as vars",
+                "expose socket constants as env variables",
+                "add ndigits to round method",
+                "rx.run_in_thread for convenience",
+                "allow event handlers and such as arguments to rx.memo",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.5",
+        ),
+        change(
+            "2025-03-24",
+            "v0.7.4",
+            "SASS/SCSS support with libsass package",
+            [
+                "bun as primary package installer/runtime",
+                "call reflex apps with an ASGI framework",
+                "specify multiple env files",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.4",
+        ),
+        change(
+            "2025-03-17",
+            "v0.7.3",
+            "New .get var operation",
+            [
+                ", and _ options for formatted numbers",
+                "added raw headers to router headers",
+                "exposed SVG elements at the el level",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.3",
+        ),
+        change(
+            "2025-03-12",
+            "v0.7.2",
+            "Use .f format spec with Vars",
+            [
+                "Deprecated Component.__init__",
+                "Allow overwriting serializers",
+                "React 19 post mitigations",
+                "Performance improvements to evaluation time 👀",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.2",
+        ),
+        change(
+            "2025-02-25",
+            "v0.7.1",
+            "New rx.auto_scroll component",
+            [
+                "Upgrade to React 19",
+                "Added var operations for string vars: `.title()` and `.capitalize()`",
+                "Passing component as a prop is more reliable",
+                "Improved performance for compile and hot reload",
+                "'Built with Reflex' badge can be disabled by any user",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.1",
+        ),
+        change(
+            "2025-02-10",
+            "v0.7.0",
+            rx.fragment(
+                "Async-capable Computed Var with ", rx.code("cache=True"), " by default"
+            ),
+            [
+                "Drop python 3.9 support and other deprecated features",
+                "Add `reflex rename` command",
+                "Show 'Built with Reflex' badge in prod mode",
+                "Support for specifying a custom app module",
+                "Bump NextJS to v15.1.6",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.0",
+        ),
+        change(
+            "2025-01-10",
+            "v0.6.8",
+            "Support recursive UI elements with rx.memo",
+            [
+                "New `EventChain.create` API for working with event handlers in JS code",
+                "New `State.get_var_value` API for accessing the value of a var from another state",
+                "String Var now supports `.endswith`",
+                "Fix `rx.get_upload_url` with `rx.download`",
+                "Fix for detached session issues with async SQLAlchemy",
+                "124 new icons added from Lucide 0.469.0",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.8",
+        ),
+        change(
+            "2024-12-17",
+            "v0.6.7",
+            "Async DB support and improved DB connection pooling",
+            [
+                "Var operations support datetime values",
+                "Respect CORS for backend HTTP requests",
+                "Serialization performance improvements",
+                "Fix upload cancellation and props from state",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.7",
+        ),
+        change(
+            "2024-11-25",
+            "v0.6.6",
+            "Support Pydantic BaseModel (v1 & v2) objects in state",
+            [
+                "`reflex init` now links to templates on the web",
+                "New `.temporal` event action drops event when backend is down",
+                "Improved type checking",
+                "`rx.asset` promoted from experimental",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.6",
+        ),
+        change(
+            "2024-11-12",
+            "v0.6.5",
+            "New Hosting Service CLI",
+            [
+                "Additional static and runtime typing improvements",
+                "`rx.get_state` API for accessing state outside of event handlers",
+                "Support custom `bunfig.toml`",
+                "Direct encoding of State vars to JSON (without `get_value`)",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.5",
+        ),
+        change(
+            "2024-10-29",
+            "v0.6.4",
+            "Make Var System Expandable",
+            [
+                "Set default gunicorn max_requests to avoid memory leak",
+                "Support for dotenv `env_file` when `python-dotenv` is installed",
+                "New `rx.dynamic` decorator for component functions using state",
+                "More event typing improvements",
+                "Experimental support for Shiki code block",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.4",
+        ),
+        change(
+            "2024-10-18",
+            "v0.6.3",
+            "Improved Static Typing for Var and Event",
+            [
+                "Support `aria_` and `data_` props passed to all components",
+                "Optimize state manager and state serialization",
+                "Graphing doc improvements",
+                "Bug fixes",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.6.3",
+        ),
         change(
             "2024-10-07",
             "v0.6.2",
@@ -301,7 +452,7 @@ def changelog_content():
         change(
             "2024-02-26",
             "v0.4.2",
-            "Syncronize local storage between tabs",
+            "Synchronize local storage between tabs",
             [
                 "Tuple type annotations are now respected index-wise",
                 "Substates are serialized individually",

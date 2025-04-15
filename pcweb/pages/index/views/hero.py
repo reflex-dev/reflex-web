@@ -28,7 +28,7 @@ web apps - no Javascript required.""",
                 ),
                 underline="none",
                 href=getting_started.introduction.path,
-                class_name="w-full"
+                class_name="w-full",
             ),
             rx.link(
                 button(
@@ -39,7 +39,7 @@ web apps - no Javascript required.""",
                 href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
                 is_external=True,
                 underline="none",
-                class_name="w-full"
+                class_name="w-full",
             ),
             class_name="flex flex-col lg:flex-row items-center gap-4 mt-4 w-full lg:w-auto lg:max-w-full max-w-[24rem]",
         ),

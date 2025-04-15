@@ -2,7 +2,6 @@
 
 import reflex as rx
 from pcweb.styles import fonts
-from pcweb.styles.colors import c_color
 
 
 def definition(title: str, *children) -> rx.Component:
@@ -37,13 +36,25 @@ def definition(title: str, *children) -> rx.Component:
 def text_comp(text: rx.Var[str]) -> rx.Component:
     return rx.text(text, class_name="font-normal text-slate-12 mb-4 leading-7")
 
+
 @rx.memo
 def text_comp_2(text: rx.Var[str]) -> rx.Component:
     return rx.text(text, class_name="font-normal text-slate-12 max-w-[80%] mb-10")
 
+
 @rx.memo
 def list_comp(text: rx.Var[str]) -> rx.Component:
     return rx.list_item(text, class_name="font-normal text-slate-12 mb-4")
+
+
+@rx.memo
+def unordered_list_comp(items: rx.Var[list[str]]) -> rx.Component:
+    return rx.list.unordered(items, class_name="mb-6")
+
+
+@rx.memo
+def ordered_list_comp(items: rx.Var[list[str]]) -> rx.Component:
+    return rx.list.ordered(items, class_name="mb-6")
 
 
 @rx.memo

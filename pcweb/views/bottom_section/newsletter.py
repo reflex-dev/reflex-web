@@ -76,7 +76,7 @@ def newletter_input() -> rx.Component:
                 on_submit=IndexState.signup,
             ),
         ),
-        class_name="w-full"
+        class_name="w-full",
     )
 
 

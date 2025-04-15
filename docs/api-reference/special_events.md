@@ -27,7 +27,7 @@ scroll to an element in the page
 rx.button(
     "Scroll to download button",
     on_click=rx.scroll_to("download button")
-    
+
 )
 ```
 
@@ -45,7 +45,7 @@ Redirect the user to a new path within the application.
 ```python demo
 rx.vstack(
     rx.button("open in tab", on_click=rx.redirect("/docs/api-reference/special-events")),
-    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', external=True))
+    rx.button("open in new tab", on_click=rx.redirect('https://github.com/reflex-dev/reflex/', is_external=True))
 )
 ```
 
@@ -53,22 +53,21 @@ When this event is triggered, it navigates the user to a different page or locat
 By default, the redirection occurs in the same tab. However, if you set the external parameter to True, the redirection
 will open in a new tab or window, providing a seamless user experience.
 
-
 This event can also be run from an event handler in State. It is necessary to `return` the `rx.redirect()`.
 
 ```python demo exec
 class RedirectExampleState(rx.State):
     """The app state."""
 
+    @rx.event
     def change_page(self):
-        return rx.redirect('https://github.com/reflex-dev/reflex/', external=True)
+        return rx.redirect('https://github.com/reflex-dev/reflex/', is_external=True)
 
 def redirect_example():
     return rx.vstack(
         rx.button("Change page in State", on_click=RedirectExampleState.change_page),
     )
 ```
-
 
 ## rx.set_clipboard
 

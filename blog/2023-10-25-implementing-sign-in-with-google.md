@@ -193,6 +193,7 @@ and effectively log the user out of the app.
 
 ```python
 import json
+from typing import Any
 
 class State(rx.State):
     id_token_json: str = rx.LocalStorage()
@@ -201,7 +202,7 @@ class State(rx.State):
         self.id_token_json = json.dumps(id_token)
 
     @rx.var(cache=True)
-    def tokeninfo(self) -> dict[str, str]:
+    def tokeninfo(self) -> dict[str, Any]:
         try:
             return verify_oauth2_token(
                 json.loads(self.id_token_json)["credential"],
@@ -347,9 +348,9 @@ def protected() -> rx.Component:
 
 ## Putting the Pieces Together
 
-All of the code for this example is available in the
-["google_auth"](https://github.com/reflex-dev/reflex-examples/tree/a4ffe6cacf8f38b54b95b72b0d525a91b69da3b3/google_auth)
-subdirectory inside the `reflex-examples` repo.
+The production code for this example has been published as a reuable third-party
+component, [`reflex-google-auth`](https://github.com/masenf/reflex-google-auth)
+and can be used directly in any Reflex app.
 
 ### react_oauth_google.py
 
@@ -378,6 +379,7 @@ import functools
 import json
 import os
 import time
+from typing import Any
 
 from google.auth.transport import requests
 from google.oauth2.id_token import verify_oauth2_token
@@ -396,7 +398,7 @@ class State(rx.State):
         self.id_token_json = json.dumps(id_token)
 
     @rx.var(cache=True)
-    def tokeninfo(self) -> dict[str, str]:
+    def tokeninfo(self) -> dict[str, Any]:
         try:
             return verify_oauth2_token(
                 json.loads(self.id_token_json)["credential"],

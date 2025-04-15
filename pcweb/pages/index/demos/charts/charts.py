@@ -44,6 +44,7 @@ data = [
 class ChartsState(rx.State):
     data = data
 
+    @rx.event
     def randomize_data(self):
         self.data = [
             {
@@ -113,7 +114,6 @@ def charts():
                     "borderColor": rx.color("slate", 5),
                     "borderRadius": "0.75rem",
                     "boxShadow": "0px 2px 4px 0px rgba(28, 32, 36, 0.05)",
-                    "fontFamily": "var(--font-instrument-sans)",
                     "fontFamily": "var(--font-instrument-sans)",
                     "fontSize": "0.9rem",
                     "fontStyle": "normal",

@@ -1,3 +1,4 @@
+from datetime import datetime
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.components.button import button
@@ -6,14 +7,11 @@ from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.changelog import changelog
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
-from pcweb.components.logo import logo
 from pcweb.signup import IndexState
 from pcweb.constants import (
     ROADMAP_URL,
-    GITHUB_DISCUSSIONS_URL,
     GITHUB_URL,
     TWITTER_URL,
     DISCORD_URL,
@@ -116,6 +114,7 @@ def news_letter() -> rx.Component:
         ),
     )
 
+
 @rx.memo
 def footer() -> rx.Component:
     return rx.el.footer(
@@ -153,7 +152,7 @@ def footer() -> rx.Component:
             # Socials
             rx.box(
                 rx.text(
-                    "Copyright © 2024 Pynecone, Inc.",
+                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),

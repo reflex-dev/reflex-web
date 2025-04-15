@@ -34,6 +34,7 @@ class QueryUser(rx.State):
     name: str
     users: list[User]
 
+    @rx.event
     def get_users(self):
         with rx.session() as session:
             self.users = session.exec(
@@ -54,6 +55,7 @@ class AddUser(rx.State):
     username: str
     email: str
     
+    @rx.event
     def add_user(self):
         with rx.session() as session:
             session.add(User(username=self.username, email=self.email))
@@ -70,6 +72,7 @@ class ChangeEmail(rx.State):
     username: str
     email: str
 
+    @rx.event
     def modify_user(self):
         with rx.session() as session:
             user = session.exec(User.select().where(
@@ -88,6 +91,7 @@ To delete a user, first query the database for the object, then call
 class RemoveUser(rx.State):
     username: str
 
+    @rx.event
     def delete_user(self):
         with rx.session() as session:
             user = session.exec(User.select().where(
@@ -109,7 +113,8 @@ ensure all fields are up to date before exiting the session.
 class AddUserForm(rx.State):
     user: User | None = None
     
-    def add_user(self, form_data: dict[str, str]):
+    @rx.event
+    def add_user(self, form_data: dict[str, Any]):
         with rx.session() as session:
             self.user = User(**form_data)
             session.add(self.user)
@@ -130,7 +135,8 @@ may either be created or updated accordingly.
 class AddUserForm(rx.State):
     ...
     
-    def update_user(self, form_data: dict[str, str]):
+    @rx.event
+    def update_user(self, form_data: dict[str, Any]):
         if self.user is None:
             return
         with rx.session() as session:
@@ -165,6 +171,8 @@ import reflex as rx
 
 
 class State(rx.State):
+
+    @rx.event
     def insert_user_raw(self, username, email):
         with rx.session() as session:
             session.execute(

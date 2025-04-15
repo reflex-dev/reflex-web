@@ -1,5 +1,6 @@
 ```python exec
 import reflex as rx
+from typing import Any
 ```
 
 # Substates
@@ -115,7 +116,7 @@ class LoginState(BaseState):
         # authenticate
         authenticate(...)
 
-        # Set the var on the parent state. 
+        # Set the var on the parent state.
         self.current_user = username
 ```
 
@@ -123,14 +124,14 @@ You can access the parent state properties from a child substate automatically.
 
 ## Accessing Arbitrary States
 
-An event handler in a particular state can access and modify vars in another state instance by calling 
+An event handler in a particular state can access and modify vars in another state instance by calling
 the `get_state` async method and passing the desired state class. If the requested state is not already loaded,
 it will be loaded and deserialized on demand.
 
 In the following example, the `GreeterState` accesses the `SettingsState` to get the `salutation` and uses it
 to update the `message` var.
 
-Notably, the widget that sets the salutation does NOT have to  load the `GreeterState` when handling the
+Notably, the widget that sets the salutation does NOT have to load the `GreeterState` when handling the
 input `on_change` event, which improves performance.
 
 ```python demo exec
@@ -155,7 +156,8 @@ def set_salutation_popover():
 class GreeterState(rx.State):
     message: str = ""
 
-    async def handle_submit(self, form_data: dict[str, str]):
+    @rx.event
+    async def handle_submit(self, form_data: dict[str, Any]):
         settings = await self.get_state(SettingsState)
         self.message = f"{settings.salutation} {form_data['name']}"
 
@@ -193,4 +195,3 @@ Avoid defining computed vars inside a state that contains a large amount of data
 states with computed vars are always loaded to ensure the values are recalculated.
 When using computed vars, it better to define them in a state that directly inherits from `rx.State` and
 does not have other states inheriting from it, to avoid loading unnecessary data.
-

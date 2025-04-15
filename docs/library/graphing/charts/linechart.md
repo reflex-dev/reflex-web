@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.LineChart
-    - rx.recharts.Line
+  - rx.recharts.LineChart
+  - rx.recharts.Line
 ---
 
 # Line Chart
@@ -73,7 +73,7 @@ def line_simple():
     rx.recharts.line(
         data_key="uv",
     ),
-    rx.recharts.x_axis(data_key="name"), 
+    rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     data=data,
     width = "100%",
@@ -141,8 +141,8 @@ def line_features():
     rx.recharts.line(
         data_key="uv",
         type_="monotone",
-        stroke="#82ca9d",), 
-    rx.recharts.x_axis(data_key="name"), 
+        stroke="#82ca9d",),
+    rx.recharts.x_axis(data_key="name"),
     rx.recharts.y_axis(),
     rx.recharts.cartesian_grid(stroke_dasharray="3 3"),
     rx.recharts.graphing_tooltip(),
@@ -233,7 +233,6 @@ def line_vertical():
     )
 ```
 
-
 ## Dynamic Data
 
 Chart data can be modified by tying the `data` prop to a State var. Most other
@@ -251,6 +250,7 @@ class LineChartState(rx.State):
     pv_type: str = "monotone"
     uv_type: str = "monotone"
 
+    @rx.event
     def munge_data(self):
         for row in self.data:
             row["uv"] += random.randint(-500, 500)
@@ -269,7 +269,7 @@ def line_dynamic():
         type_=LineChartState.uv_type,
         stroke="#82ca9d",
       ),
-      rx.recharts.x_axis(data_key="name"), 
+      rx.recharts.x_axis(data_key="name"),
       rx.recharts.y_axis(),
       data=LineChartState.data,
       margin={

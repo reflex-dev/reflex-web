@@ -19,6 +19,7 @@ must provide a type annotation.
 
 ```md alert warning
 # State Vars should provide type annotations.
+
 Reflex relies on type annotations to determine the type of state vars during the compilation process.
 ```
 
@@ -29,15 +30,13 @@ class TickerState(rx.State):
 
 
 def ticker_example():
-    return rx.chakra.stat_group(
-        rx.chakra.stat(
-            rx.chakra.stat_label(TickerState.ticker),
-            rx.chakra.stat_number(TickerState.price),
-            rx.chakra.stat_help_text(
-                rx.chakra.stat_arrow(type_="increase"),
-                "4%",
+    return rx.center(
+          rx.vstack(
+                rx.heading(TickerState.ticker, size="3"),
+                rx.text(f"Current Price: {TickerState.price}", font_size="md"),
+                rx.text("Change: 4%", color="green"),
             ),
-        ),
+
     )
 ```
 
@@ -45,6 +44,7 @@ In this example `ticker` and `price` are base vars in the app, which can be modi
 
 ```md alert warning
 # Vars must be JSON serializable.
+
 Vars are used to communicate between the frontend and backend. They must be primitive Python types, Plotly figures, Pandas dataframes, or [a custom defined type]({vars.custom_vars.path}).
 ```
 
@@ -65,18 +65,15 @@ class TickerState(rx.State):
 from .state import TickerState
 
 def ticker_example():
-    return rx.chakra.stat_group(
-        rx.chakra.stat(
-            rx.chakra.stat_label(TickerState.ticker),
-            rx.chakra.stat_number(TickerState.price),
-            rx.chakra.stat_help_text(
-                rx.chakra.stat_arrow(type_="increase"),
-                "4%",
+    return rx.center(
+          rx.vstack(
+                rx.heading(TickerState.ticker, size="3"),
+                rx.text(f"Current Price: {TickerState.price}", font_size="md"),
+                rx.text("Change: 4%", color="green"),
             ),
-        ),
+
     )
 ```
-
 
 ## Backend-only Vars
 
@@ -117,16 +114,22 @@ class BackendVarState(rx.State):
     def total_pages(self) -> int:
         return len(self._backend) // self.limit + (1 if len(self._backend) % self.limit else 0)
 
+    @rx.event
     def prev_page(self):
         self.offset = max(self.offset - self.limit, 0)
 
+    @rx.event
     def next_page(self):
         if self.offset + self.limit < len(self._backend):
             self.offset += self.limit
 
+    @rx.event
     def generate_more(self):
         self._backend = np.append(self._backend, [random.randint(0, 100) for _ in range(random.randint(0, 100))])
 
+    @rx.event
+    def set_limit(self, value: str):
+        self.limit = int(value)
 
 def backend_var_example():
     return rx.vstack(
@@ -141,7 +144,7 @@ def backend_var_example():
                 on_click=BackendVarState.next_page,
             ),
             rx.text("Page Size"),
-            rx.chakra.number_input(
+            rx.input(
                 width="5em",
                 value=BackendVarState.limit,
                 on_change=BackendVarState.set_limit,
@@ -156,3 +159,56 @@ def backend_var_example():
         ),
     )
 ```
+
+
+## Using rx.field / rx.Field to improve type hinting for vars
+
+When defining state variables you can use `rx.Field[T]` to annotate the variable's type. Then, you can initialize the variable using `rx.field(default_value)`, where `default_value` is an instance of type `T`. 
+
+This approach makes the variable's type explicit, aiding static analysis tools in type checking. In addition, it shows you what methods are allowed to modify the variable in your frontend code, as they are listed in the type hint.
+
+Below are two examples:
+
+```python
+import reflex as rx
+
+app = rx.App()
+
+
+class State(rx.State):
+    x: rx.Field[bool] = rx.field(False)
+
+    def flip(self):
+        self.x = not self.x
+
+
+@app.add_page
+def index():
+    return rx.vstack(
+        rx.button("Click me", on_click=State.flip),
+        rx.text(State.x),
+        rx.text(~State.x),
+    )
+```
+
+Here `State.x`, as it is typed correctly as a `boolean` var, gets better code completion, i.e. here we get options such as `to_string()` or `equals()`.
+
+
+```python
+import reflex as rx
+
+app = rx.App()
+
+
+class State(rx.State):
+    x: rx.Field[dict[str, list[int]]] = rx.field(\{})
+
+
+@app.add_page
+def index():
+    return rx.vstack(
+        rx.text(State.x.values()[0][0]),
+    )
+```
+
+Here `State.x`, as it is typed correctly as a `dict` of `str` to `list` of `int` var, gets better code completion, i.e. here we get options such as `contains()`, `keys()`, `values()`, `items()` or `merge()`.

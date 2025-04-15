@@ -10,7 +10,7 @@ meta: [
 ---
 
 ```python exec
-from pcweb.pages.docs import wrapping_react, custom_components, styling, events, tutorial, getting_started, substates
+from pcweb.pages.docs import wrapping_react, custom_components, styling, events, getting_started, substates
 from pcweb.pages.docs.custom_components import custom_components as cc
 ```
 
@@ -69,7 +69,7 @@ def zoom():
 
 You can also create custom components that don't wrap React, but instead are built out of existing Reflex components. For example, you can define custom navigation bars, modals, or even entire pages as custom components.
 
-In our [intro tutorial]({tutorial.final_app.path}) we share the code for creating a chat component in Reflex. Having the full code gives you full flexibility in how your chat component works and appears, but sometimes you just want to drop in a chat component and not worry about the details.
+In our [intro chatapp tutorial]({getting_started.chatapp_tutorial.path}) we share the code for creating a chat component in Reflex. Having the full code gives you full flexibility in how your chat component works and appears, but sometimes you just want to drop in a chat component and not worry about the details.
 
 With custom components, we now have a [reflex-chat](https://github.com/picklelo/reflex-chat/) package that you can install with `pip` and use in your app.
 
@@ -148,9 +148,11 @@ For example we can create a counter component that increments and decrements a c
 class Counter(rx.ComponentState):
     count: int = 0
 
+    @rx.event
     def increment(self):
         self.count += 1
 
+    @rx.event
     def decrement(self):
         self.count -= 1
 

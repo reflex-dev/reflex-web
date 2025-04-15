@@ -1,48 +1,48 @@
 ---
 components:
-    - rx.popover.root
-    - rx.popover.content
-    - rx.popover.trigger
-    - rx.popover.close
+  - rx.popover.root
+  - rx.popover.content
+  - rx.popover.trigger
+  - rx.popover.close
 
 only_low_level:
-    - True
+  - True
 
 PopoverRoot: |
-    lambda **props: rx.popover.root(
-        rx.popover.trigger(
-            rx.button("Popover"),
-        ),
-        rx.popover.content(
-            rx.flex(
-                rx.text("Simple Example"),
-                rx.popover.close(
-                    rx.button("Close"),
-                ),
-                direction="column",
-                spacing="3",
-            ),
-        ),
-        **props
-    )
+  lambda **props: rx.popover.root(
+      rx.popover.trigger(
+          rx.button("Popover"),
+      ),
+      rx.popover.content(
+          rx.flex(
+              rx.text("Simple Example"),
+              rx.popover.close(
+                  rx.button("Close"),
+              ),
+              direction="column",
+              spacing="3",
+          ),
+      ),
+      **props
+  )
 
 PopoverContent: |
-    lambda **props: rx.popover.root(
-        rx.popover.trigger(
-            rx.button("Popover"),
-        ),
-        rx.popover.content(
-            rx.flex(
-                rx.text("Simple Example"),
-                rx.popover.close(
-                    rx.button("Close"),
-                ),
-                direction="column",
-                spacing="3",
-            ),
-            **props
-        ),
-    )
+  lambda **props: rx.popover.root(
+      rx.popover.trigger(
+          rx.button("Popover"),
+      ),
+      rx.popover.content(
+          rx.flex(
+              rx.text("Simple Example"),
+              rx.popover.close(
+                  rx.button("Close"),
+              ),
+              direction="column",
+              spacing="3",
+          ),
+          **props
+      ),
+  )
 ---
 
 ```python exec
@@ -124,7 +124,7 @@ rx.popover.root(
     rx.popover.content(
         rx.inset(
             side="top",
-            background="url('https://source.unsplash.com/random/800x600') center/cover",
+            background="url('https://images.unsplash.com/5/unsplash-kitsune-4.jpg') center/cover",
             height="100px",
         ),
         rx.box(
@@ -143,4 +143,82 @@ rx.popover.root(
         style={"width": 360},
     )
 )
+```
+
+## Popover with dynamic title
+
+Code like below will not work as expected and it is necessary to place the dynamic title (`Index2State.language`) inside of an `rx.text` component.
+
+```python
+class Index2State(rx.State):
+    language: str = "EN"
+
+def index() -> rx.Component:
+    return rx.popover.root(
+        rx.popover.trigger(
+            rx.button(Index2State.language),
+        ),
+        rx.popover.content(
+            rx.text('Success')
+        )
+    )
+```
+
+This code will work:
+
+```python demo exec
+class Index2State(rx.State):
+    language: str = "EN"
+
+def index() -> rx.Component:
+    return rx.popover.root(
+        rx.popover.trigger(
+            rx.button(
+                rx.text(Index2State.language)
+            ),
+        ),
+        rx.popover.content(
+            rx.text('Success')
+        )
+    )
+```
+
+## Events when the Popover opens or closes
+
+The `on_open_change` event is called when the `open` state of the popover changes. It is used in conjunction with the `open` prop, which is passed to the event handler.
+
+```python demo exec
+class PopoverState(rx.State):
+    num_opens: int = 0
+    opened: bool = False
+
+    @rx.event
+    def count_opens(self, value: bool):
+        self.opened = value
+        self.num_opens += 1
+
+
+def popover_example():
+    return rx.flex(
+        rx.heading(f"Number of times popover opened or closed: {PopoverState.num_opens}"),
+        rx.heading(f"Popover open: {PopoverState.opened}"),
+        rx.popover.root(
+            rx.popover.trigger(
+                rx.button("Popover"),
+            ),
+            rx.popover.content(
+                rx.flex(
+                    rx.text("Simple Example"),
+                    rx.popover.close(
+                        rx.button("Close"),
+                    ),
+                    direction="column",
+                    spacing="3",
+                ),
+            ),
+            on_open_change=PopoverState.count_opens,
+        ),
+        direction="column",
+        spacing="3",
+    )
 ```

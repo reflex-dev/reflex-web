@@ -1,4 +1,4 @@
-from .item import create_item, SidebarItem
+from .item import create_item
 
 
 def get_sidebar_items_api_reference():
@@ -7,7 +7,8 @@ def get_sidebar_items_api_reference():
     return [
         create_item(
             "API Reference",
-            children=apiref.pages + [
+            children=apiref.pages
+            + [
                 api_reference.var_system,
                 api_reference.cli,
                 api_reference.event_triggers,
@@ -19,24 +20,4 @@ def get_sidebar_items_api_reference():
     ]
 
 
-
-def get_sidebar_items_tutorials():
-    from pcweb.pages.docs import (
-        datatable_tutorial,
-    )
-
-    return [
-        create_item(
-            "Datatable Tutorial",
-            children=[
-                datatable_tutorial.simple_table,
-                datatable_tutorial.add_interactivity,
-                datatable_tutorial.add_styling,
-                datatable_tutorial.live_stream,
-            ],
-        )
-    ]
-
-
 api_reference = get_sidebar_items_api_reference()
-tutorials = get_sidebar_items_tutorials()

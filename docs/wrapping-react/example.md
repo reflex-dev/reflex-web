@@ -9,7 +9,7 @@ In this more complex example we will be wrapping `reactflow` a library for build
 
 ## Import
 
-Lets start by importing the library [reactflow](https://www.npmjs.com/package/reactflow). Lets make a seperate file called `reactflow.py` and add the following code:
+Lets start by importing the library [reactflow](https://www.npmjs.com/package/reactflow). Lets make a separate file called `reactflow.py` and add the following code:
 
 ```python
 import refex as rx
@@ -146,6 +146,7 @@ class State(rx.State):
     nodes: List[Dict[str, Any]] = initial_nodes
     edges: List[Dict[str, Any]] = initial_edges
 
+    @rx.event
     def add_random_node(self):
         new_node_id = f'\{len(self.nodes) + 1\}'
         node_type = random.choice(['default'])
@@ -163,10 +164,12 @@ class State(rx.State):
         }
         self.nodes.append(new_node)
 
+    @rx.event
     def clear_graph(self):
         self.nodes = []  # Clear the nodes list
         self.edges = []  # Clear the edges list
 
+    @rx.event
     def on_connect(self, new_edge):
         # Iterate over the existing edges
         for i, edge in enumerate(self.edges):
@@ -185,6 +188,7 @@ class State(rx.State):
             "animated": True,
         })
 
+    @rx.event
     def on_nodes_change(self, node_changes: List[Dict[str, Any]]):
         # Receives a list of Nodes in case of events like dragging
         map_id_to_new_position = defaultdict(dict)
@@ -319,6 +323,7 @@ class ReactFlowState(rx.State):
     nodes: List[Dict[str, Any]] = initial_nodes
     edges: List[Dict[str, Any]] = initial_edges
 
+    @rx.event
     def add_random_node(self):
         new_node_id = f'{len(self.nodes) + 1}'
         node_type = random.choice(['default'])
@@ -336,10 +341,12 @@ class ReactFlowState(rx.State):
         }
         self.nodes.append(new_node)
 
+    @rx.event
     def clear_graph(self):
         self.nodes = []  # Clear the nodes list
         self.edges = []  # Clear the edges list
 
+    @rx.event
     def on_connect(self, new_edge):
         # Iterate over the existing edges
         for i, edge in enumerate(self.edges):
@@ -358,6 +365,7 @@ class ReactFlowState(rx.State):
             "animated": True,
         })
 
+    @rx.event
     def on_nodes_change(self, node_changes: List[Dict[str, Any]]):
         # Receives a list of Nodes in case of events like dragging
         map_id_to_new_position = defaultdict(dict)

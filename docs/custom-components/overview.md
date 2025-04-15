@@ -8,10 +8,9 @@ from pcweb.pages.docs.custom_components import custom_components as custom_compo
 
 Reflex users create many components of their own: ready to use high level components, or nicely wrapped React components. With **Custom Components**, the community can easily share these components now.
 
-Release **0.4.3** introduces a series of `reflex component` commands that help developers wrap react components, test, and publish them as python packages. As shown in the image below, there are already a few custom components published on PyPI, such as `reflex-spline`, `reflex-webcam`. 
+Release **0.4.3** introduces a series of `reflex component` commands that help developers wrap react components, test, and publish them as python packages. As shown in the image below, there are already a few custom components published on PyPI, such as `reflex-spline`, `reflex-webcam`.
 
 Check out the custom components gallery [here]({custom_components_gallery.path}).
-
 
 ```python eval
 rx.center(
@@ -29,7 +28,8 @@ Follow these steps to publish the custom component as a python package:
 
 1. `reflex component init`: creates a new custom component project from templates.
 2. dev and test: developer implements and tests the custom component.
-3. `reflex component publish`: builds and uploads the package to a python package index.
+3. `reflex component build`: builds the package.
+4. `twine upload` or `uv publish`: uploads the package to a python package index.
 
 ### Initialization
 
@@ -64,7 +64,11 @@ After finishing the custom component implementation, the user is encouraged to f
 ### Publish
 
 ```bash
-reflex component publish
+reflex component build
 ```
 
-Once ready to publish, execute `reflex component publish` with the credentials in the command options (either `--username` and `--password` together or `--token`). First the command builds the distribution files if they are not already built. The end result is a `dist` folder containing the distribution files. The user does not need to do anything manually with these distribution files. The the command proceeds to publish those files. The same version of the package can only be published once. If already exists, the publish ends in error. The user can go to the `pyproject.toml` file and update the version number as desired. After the `publish` command finishes successfully, the package is uploaded to PyPI. 🎉
+Once you're ready to publish your package, run `reflex component build` to build the package. The command builds the distribution files if they are not already built. The end result is a `dist` folder containing the distribution files. The user does not need to do anything manually with these distribution files.
+
+In order to publish these files as a Python package, you need to use a publishing utility. Any would work, but we recommend either [Twine](https://twine.readthedocs.io/en/stable/) or (uv)[https://docs.astral.sh/uv/guides/package/#publishing-your-package]. Make sure to keep your package version in pyproject.toml updated.
+
+You can also share your components with the rest of the community at our website using the command `reflex component share`. See you there!

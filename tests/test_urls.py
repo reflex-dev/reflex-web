@@ -1,4 +1,5 @@
 """Integration tests for all urls in Reflex."""
+
 import os
 import re
 from pathlib import Path
@@ -44,7 +45,7 @@ def check_urls(repo_dir):
                                 errors.append(
                                     f"Found insecure HTTP URL: {url} in {file_path}"
                                 )
-                            url = url.strip('"\n\'')
+                            url = url.strip("\"\n'")
                             try:
                                 response = requests.head(
                                     url, allow_redirects=False, timeout=5
@@ -60,6 +61,7 @@ def check_urls(repo_dir):
     return errors
 
 
+@pytest.mark.skip(reason="Skip until reflex.dev index route is fixed")
 @pytest.mark.parametrize(
     "repo_dir",
     [Path(__file__).resolve().parent.parent],

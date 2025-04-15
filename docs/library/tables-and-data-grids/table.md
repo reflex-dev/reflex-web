@@ -1,141 +1,140 @@
 ---
 components:
-    - rx.table.root
-    - rx.table.header
-    - rx.table.row
-    - rx.table.column_header_cell
-    - rx.table.body
-    - rx.table.cell
-    - rx.table.row_header_cell
-   
+  - rx.table.root
+  - rx.table.header
+  - rx.table.row
+  - rx.table.column_header_cell
+  - rx.table.body
+  - rx.table.cell
+  - rx.table.row_header_cell
+
 only_low_level:
-    - True
+  - True
 
 TableRoot: |
-    lambda **props: rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell("Full Name"),
-                    rx.table.column_header_cell("Email"),
-                    rx.table.column_header_cell("Group"),
-                ),
-            ),
-            rx.table.body(
-                rx.table.row(
-                    rx.table.row_header_cell("Danilo Rosa"),
-                    rx.table.cell("danilo@example.com"),
-                    rx.table.cell("Developer"),
-                ),
-                rx.table.row(
-                    rx.table.row_header_cell("Zahra Ambessa"),
-                    rx.table.cell("zahra@example.com"),
-                    rx.table.cell("Admin"),
-                ),
-            ),
-            width="80%",
-            **props,
-        )
+  lambda **props: rx.table.root(
+          rx.table.header(
+              rx.table.row(
+                  rx.table.column_header_cell("Full Name"),
+                  rx.table.column_header_cell("Email"),
+                  rx.table.column_header_cell("Group"),
+              ),
+          ),
+          rx.table.body(
+              rx.table.row(
+                  rx.table.row_header_cell("Danilo Rosa"),
+                  rx.table.cell("danilo@example.com"),
+                  rx.table.cell("Developer"),
+              ),
+              rx.table.row(
+                  rx.table.row_header_cell("Zahra Ambessa"),
+                  rx.table.cell("zahra@example.com"),
+                  rx.table.cell("Admin"),
+              ),
+          ),
+          width="80%",
+          **props,
+      )
 
 TableRow: |
-    lambda **props: rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell("Full Name"),
-                    rx.table.column_header_cell("Email"),
-                    rx.table.column_header_cell("Group"),
-                    **props,
-                ),
-            ),
-            rx.table.body(
-                rx.table.row(
-                    rx.table.row_header_cell("Danilo Rosa"),
-                    rx.table.cell(rx.text("danilo@example.com", as_="p"), rx.text("danilo@yahoo.com", as_="p"), rx.text("danilo@gmail.com", as_="p"),),
-                    rx.table.cell("Developer"),
-                    **props,
-                ),
-                rx.table.row(
-                    rx.table.row_header_cell("Zahra Ambessa"),
-                    rx.table.cell("zahra@example.com"),
-                    rx.table.cell("Admin"),
-                    **props,
-                ),
-            ),
-            width="80%",
-        )
+  lambda **props: rx.table.root(
+          rx.table.header(
+              rx.table.row(
+                  rx.table.column_header_cell("Full Name"),
+                  rx.table.column_header_cell("Email"),
+                  rx.table.column_header_cell("Group"),
+                  **props,
+              ),
+          ),
+          rx.table.body(
+              rx.table.row(
+                  rx.table.row_header_cell("Danilo Rosa"),
+                  rx.table.cell(rx.text("danilo@example.com", as_="p"), rx.text("danilo@yahoo.com", as_="p"), rx.text("danilo@gmail.com", as_="p"),),
+                  rx.table.cell("Developer"),
+                  **props,
+              ),
+              rx.table.row(
+                  rx.table.row_header_cell("Zahra Ambessa"),
+                  rx.table.cell("zahra@example.com"),
+                  rx.table.cell("Admin"),
+                  **props,
+              ),
+          ),
+          width="80%",
+      )
 
 TableColumnHeaderCell: |
-    lambda **props: rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell("Full Name", **props,),
-                    rx.table.column_header_cell("Email", **props,),
-                    rx.table.column_header_cell("Group", **props,),
-                ),
-            ),
-            rx.table.body(
-                rx.table.row(
-                    rx.table.row_header_cell("Danilo Rosa"),
-                    rx.table.cell("danilo@example.com"),
-                    rx.table.cell("Developer"),
-                ),
-                rx.table.row(
-                    rx.table.row_header_cell("Zahra Ambessa"),
-                    rx.table.cell("zahra@example.com"),
-                    rx.table.cell("Admin"),
-                ),
-            ),
-            width="80%",
-        )
-    
+  lambda **props: rx.table.root(
+          rx.table.header(
+              rx.table.row(
+                  rx.table.column_header_cell("Full Name", **props,),
+                  rx.table.column_header_cell("Email", **props,),
+                  rx.table.column_header_cell("Group", **props,),
+              ),
+          ),
+          rx.table.body(
+              rx.table.row(
+                  rx.table.row_header_cell("Danilo Rosa"),
+                  rx.table.cell("danilo@example.com"),
+                  rx.table.cell("Developer"),
+              ),
+              rx.table.row(
+                  rx.table.row_header_cell("Zahra Ambessa"),
+                  rx.table.cell("zahra@example.com"),
+                  rx.table.cell("Admin"),
+              ),
+          ),
+          width="80%",
+      )
+
 TableCell: |
-    lambda **props: rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell("Full Name"),
-                    rx.table.column_header_cell("Email"),
-                    rx.table.column_header_cell("Group"),
-                ),
-            ),
-            rx.table.body(
-                rx.table.row(
-                    rx.table.row_header_cell("Danilo Rosa"),
-                    rx.table.cell("danilo@example.com", **props,),
-                    rx.table.cell("Developer", **props,),
-                ),
-                rx.table.row(
-                    rx.table.row_header_cell("Zahra Ambessa"),
-                    rx.table.cell("zahra@example.com", **props,),
-                    rx.table.cell("Admin", **props,),
-                ),
-            ),
-            width="80%",
-        )
+  lambda **props: rx.table.root(
+          rx.table.header(
+              rx.table.row(
+                  rx.table.column_header_cell("Full Name"),
+                  rx.table.column_header_cell("Email"),
+                  rx.table.column_header_cell("Group"),
+              ),
+          ),
+          rx.table.body(
+              rx.table.row(
+                  rx.table.row_header_cell("Danilo Rosa"),
+                  rx.table.cell("danilo@example.com", **props,),
+                  rx.table.cell("Developer", **props,),
+              ),
+              rx.table.row(
+                  rx.table.row_header_cell("Zahra Ambessa"),
+                  rx.table.cell("zahra@example.com", **props,),
+                  rx.table.cell("Admin", **props,),
+              ),
+          ),
+          width="80%",
+      )
 
 TableRowHeaderCell: |
-    lambda **props: rx.table.root(
-            rx.table.header(
-                rx.table.row(
-                    rx.table.column_header_cell("Full Name"),
-                    rx.table.column_header_cell("Email"),
-                    rx.table.column_header_cell("Group"),
-                ),
-            ),
-            rx.table.body(
-                rx.table.row(
-                    rx.table.row_header_cell("Danilo Rosa", **props,),
-                    rx.table.cell("danilo@example.com"),
-                    rx.table.cell("Developer"),
-                ),
-                rx.table.row(
-                    rx.table.row_header_cell("Zahra Ambessa", **props,),
-                    rx.table.cell("zahra@example.com"),
-                    rx.table.cell("Admin"),
-                ),
-            ),
-            width="80%",
-        )
+  lambda **props: rx.table.root(
+          rx.table.header(
+              rx.table.row(
+                  rx.table.column_header_cell("Full Name"),
+                  rx.table.column_header_cell("Email"),
+                  rx.table.column_header_cell("Group"),
+              ),
+          ),
+          rx.table.body(
+              rx.table.row(
+                  rx.table.row_header_cell("Danilo Rosa", **props,),
+                  rx.table.cell("danilo@example.com"),
+                  rx.table.cell("Developer"),
+              ),
+              rx.table.row(
+                  rx.table.row_header_cell("Zahra Ambessa", **props,),
+                  rx.table.cell("zahra@example.com"),
+                  rx.table.cell("Admin"),
+              ),
+          ),
+          width="80%",
+      )
 ---
-
 
 ```python exec
 import reflex as rx
@@ -184,7 +183,6 @@ rx.table.root(
 # Set the table `width` to fit within its container and prevent it from overflowing.
 ```
 
-
 ## Showing State data (using foreach)
 
 Many times there is a need for the data we represent in our table to be dynamic. Dynamic data must be in `State`. Later we will show an example of how to access data from a database and how to load data from a source file.
@@ -194,8 +192,8 @@ In this example there is a `people` data structure in `State` that is [iterated 
 ```python demo exec
 class TableForEachState(rx.State):
     people: list[list] = [
-        ["Danilo Sousa", "danilo@example.com", "Developer"], 
-        ["Zahra Ambessa", "zahra@example.com", "Admin"], 
+        ["Danilo Sousa", "danilo@example.com", "Developer"],
+        ["Zahra Ambessa", "zahra@example.com", "Admin"],
         ["Jasper Eriks", "jasper@example.com", "Developer"],
     ]
 
@@ -221,42 +219,139 @@ def foreach_table_example():
     )
 ```
 
-
 It is also possible to define a `class` such as `Person` below and then iterate through this data structure, as a `list[Person]`.
 
 ```python
-class Person(rx.Base):
+import dataclasses
+
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str
 ```
-
-
-
 ## Sorting and Filtering (Searching)
 
+In this example we show two approaches to sort and filter data:
+1. Using SQL-like operations for database-backed models (simulated)
+2. Using Python operations for in-memory data
 
-In this example we sort and filter the data. 
+Both approaches use the same UI components: `rx.select` for sorting and `rx.input` for filtering.
 
-The state variable `_people` is set to be a [backend-only variable]({vars.base_vars.path}). This is done incase the variable is very large in order to reduce network traffic and improve performance.
+### Approach 1: Database Filtering and Sorting
 
-For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Person` class. When a `select` item is selected, as the `on_change` event trigger is hooked up to the `set_sort_value` event handler, the data is sorted based on the state variable `sort_value` attribute selected. (Every base var has a [built-in event handler to set]({events.setters.path}) it's value for convenience, called `set_VARNAME`.)
-
-For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `set_search_value` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Person`.
-
-`current_people` is an [`rx.var(cache=True)`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
+For database-backed models, we typically use SQL queries with `select`, `where`, and `order_by`. In this example, we'll simulate this behavior with mock data.
 
 
 ```python demo exec
+# Simulating database operations with mock data
+class DatabaseTableState(rx.State):
+    # Mock data to simulate database records
+    users: list = [
+        {"name": "John Doe", "email": "john@example.com", "phone": "555-1234", "address": "123 Main St"},
+        {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-5678", "address": "456 Oak Ave"},
+        {"name": "Bob Johnson", "email": "bob@example.com", "phone": "555-9012", "address": "789 Pine Rd"},
+        {"name": "Alice Brown", "email": "alice@example.com", "phone": "555-3456", "address": "321 Maple Dr"},
+    ]
+    filtered_users: list[dict] = []
+    sort_value = ""
+    search_value = ""
 
-class Person(rx.Base):
+    
+    @rx.event
+    def load_entries(self):
+        """Simulate querying the database with filter and sort."""
+        # Start with all users
+        result = self.users.copy()
+        
+        # Apply filtering if search value exists
+        if self.search_value != "":
+            search_term = self.search_value.lower()
+            result = [
+                user for user in result
+                if any(search_term in str(value).lower() for value in user.values())
+            ]
+        
+        # Apply sorting if sort column is selected
+        if self.sort_value != "":
+            result = sorted(result, key=lambda x: x[self.sort_value])
+            
+        self.filtered_users = result
+        yield
+        
+    @rx.event
+    def sort_values(self, sort_value):
+        """Update sort value and reload data."""
+        self.sort_value = sort_value
+        yield self.load_entries()
+
+    @rx.event
+    def filter_values(self, search_value):
+        """Update search value and reload data."""
+        self.search_value = search_value
+        yield self.load_entries()
+
+
+def show_customer(user):
+    """Show a customer in a table row."""
+    return rx.table.row(
+        rx.table.cell(user["name"]),
+        rx.table.cell(user["email"]),
+        rx.table.cell(user["phone"]),
+        rx.table.cell(user["address"]),
+    )
+
+
+def database_table_example():
+    return rx.vstack(
+        rx.select(
+            ["name", "email", "phone", "address"],
+            placeholder="Sort By: Name",
+            on_change=lambda value: DatabaseTableState.sort_values(value),
+        ),
+        rx.input(
+            placeholder="Search here...",
+            on_change=lambda value: DatabaseTableState.filter_values(value),
+        ),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(DatabaseTableState.filtered_users, show_customer)),
+            on_mount=DatabaseTableState.load_entries,
+            width="100%",
+        ),
+        width="100%",
+    )
+```
+
+### Approach 2: In-Memory Filtering and Sorting
+
+For in-memory data, we use Python operations like `sorted()` and list comprehensions.
+
+The state variable `_people` is set to be a backend-only variable. This is done in case the variable is very large in order to reduce network traffic and improve performance.
+
+When a `select` item is selected, the `on_change` event trigger is hooked up to the `set_sort_value` event handler. Every base var has a built-in event handler to set its value for convenience, called `set_VARNAME`.
+
+`current_people` is an `rx.var(cache=True)`. It is a var that is only recomputed when the other state vars it depends on change. This ensures that the `People` shown in the table are always up to date whenever they are searched or sorted.
+
+```python demo exec
+import dataclasses
+
+@dataclasses.dataclass
+class Person:
     full_name: str
     email: str
     group: str
 
 
-class TableSortingState(rx.State):
-    
+class InMemoryTableState(rx.State):
+
     _people: list[Person] = [
         Person(full_name="Danilo Sousa", email="danilo@example.com", group="Developer"),
         Person(full_name="Zahra Ambessa", email="zahra@example.com", group="Admin"),
@@ -279,14 +374,14 @@ class TableSortingState(rx.State):
             people = [
                 person for person in people
                 if any(
-                    self.search_value in getattr(person, attr).lower()
+                    self.search_value.lower() in getattr(person, attr).lower()
                     for attr in ['full_name', 'email', 'group']
                 )
             ]
         return people
 
 
-def show_person(person: list):
+def show_person(person: Person):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(person.full_name),
@@ -294,16 +389,16 @@ def show_person(person: list):
         rx.table.cell(person.group),
     )
 
-def sorting_table_example():
+def in_memory_table_example():
     return rx.vstack(
         rx.select(
             ["full_name", "email", "group"],
             placeholder="Sort By: full_name",
-            on_change=TableSortingState.set_sort_value,
+            on_change=InMemoryTableState.set_sort_value,
         ),
         rx.input(
             placeholder="Search here...",
-            on_change=TableSortingState.set_search_value,
+            on_change=InMemoryTableState.set_search_value,
         ),
         rx.table.root(
             rx.table.header(
@@ -313,21 +408,21 @@ def sorting_table_example():
                     rx.table.column_header_cell("Group"),
                 ),
             ),
-            rx.table.body(rx.foreach(TableSortingState.current_people, show_person)),
+            rx.table.body(rx.foreach(InMemoryTableState.current_people, show_person)),
             width="100%",
         ),
         width="100%",
     )
 ```
 
+### When to Use Each Approach
 
+- **Database Approach**: Best for large datasets or when the data already exists in a database
+- **In-Memory Approach**: Best for smaller datasets, prototyping, or when the data is static or loaded from an API
 
+Both approaches provide the same user experience with filtering and sorting functionality.
 
-
-
-
-
-# Database 
+# Database
 
 The more common use case for building an `rx.table` is to use data from a database.
 
@@ -337,21 +432,18 @@ The code below shows how to load data from a database and place it in an `rx.tab
 
 A `Customer` [model]({database.tables.path}) is defined that inherits from `rx.Model`.
 
-The `load_entries` event handler executes a [query]({database.queries.path}) that is used to request information from a database table. This `load_entries` event handler is called on the `on_mount` event trigger of the `rx.table.root`. 
+The `load_entries` event handler executes a [query]({database.queries.path}) that is used to request information from a database table. This `load_entries` event handler is called on the `on_mount` event trigger of the `rx.table.root`.
 
 If you want to load the data when the page in the app loads you can set `on_load` in `app.add_page()` to equal this event handler, like `app.add_page(page_name, on_load=State.load_entries)`.
-
 
 ```python
 class Customer(rx.Model, table=True):
     """The customer model."""
-
     name: str
     email: str
     phone: str
     address: str
 ```
-
 
 ```python demo exec
 from sqlmodel import select
@@ -360,7 +452,8 @@ class DatabaseTableState(rx.State):
 
     users: list[Customer] = []
 
-    def load_entries(self) -> list[Customer]:
+    @rx.event
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             self.users = session.exec(select(Customer)).all()
@@ -392,21 +485,17 @@ def loading_data_table_example():
 
 ```
 
-
-
 ## Filtering (Searching) and Sorting
 
 In this example we sort and filter the data.
 
-For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Customer` class. When a select item is selected, as the `on_change` event trigger is hooked up to the `sort_values` event handler, the data is sorted based on the state variable `sort_value` attribute selected. 
+For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Customer` class. When a select item is selected, as the `on_change` event trigger is hooked up to the `sort_values` event handler, the data is sorted based on the state variable `sort_value` attribute selected.
 
 The sorting query gets the `sort_column` based on the state variable `sort_value`, it gets the order using the `asc` function from sql and finally uses the `order_by` function.
 
-For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `filter_values` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Customer`. 
+For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `filter_values` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Customer`.
 
 The `%` character before and after `search_value` makes it a wildcard pattern that matches any sequence of characters before or after the `search_value`. `query.where(...)` modifies the existing query to include a filtering condition. The `or_` operator is a logical OR operator that combines multiple conditions. The query will return results that match any of these conditions. `Customer.name.ilike(search_value)` checks if the `name` column of the `Customer` table matches the `search_value` pattern in a case-insensitive manner (`ilike` stands for "case-insensitive like").
-
-
 
 ```python
 class Customer(rx.Model, table=True):
@@ -417,7 +506,6 @@ class Customer(rx.Model, table=True):
     phone: str
     address: str
 ```
-
 
 ```python demo exec
 from sqlmodel import select, asc, or_
@@ -430,7 +518,8 @@ class DatabaseTableState2(rx.State):
     sort_value = ""
     search_value = ""
 
-    def load_entries(self) -> list[Customer]:
+    @rx.event
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             query = select(Customer)
@@ -453,12 +542,15 @@ class DatabaseTableState2(rx.State):
 
             self.users = session.exec(query).all()
 
-    
+    @rx.event
     def sort_values(self, sort_value):
+        print(sort_value)
         self.sort_value = sort_value
         self.load_entries()
 
+    @rx.event
     def filter_values(self, search_value):
+        print(search_value)
         self.search_value = search_value
         self.load_entries()
 
@@ -503,10 +595,7 @@ def loading_data_table_example2():
 ```
 
 
-
-
 ## Pagination
-
 
 Pagination is an important part of database management, especially when working with large datasets. It helps in enabling efficient data retrieval by breaking down results into manageable loads.
 
@@ -516,8 +605,6 @@ The purpose of this code is to retrieve a specific subset of rows from the `Cust
 
 `query.limit(self.limit)` modifies the query to limit the number of rows returned. The maximum number of rows to return is specified by `self.limit`.
 
-
-
 ```python demo exec
 from sqlmodel import select, func
 
@@ -525,7 +612,7 @@ from sqlmodel import select, func
 class DatabaseTableState3(rx.State):
 
     users: list[Customer] = []
-    
+
     total_items: int
     offset: int = 0
     limit: int = 3
@@ -544,10 +631,12 @@ class DatabaseTableState3(rx.State):
             1 if self.total_items % self.limit else 0
         )
 
+    @rx.event
     def prev_page(self):
         self.offset = max(self.offset - self.limit, 0)
         self.load_entries()
 
+    @rx.event
     def next_page(self):
         if self.offset + self.limit < self.total_items:
             self.offset += self.limit
@@ -557,8 +646,8 @@ class DatabaseTableState3(rx.State):
         """Return the total number of items in the Customer table."""
         self.total_items = session.exec(select(func.count(Customer.id))).one()
 
-
-    def load_entries(self) -> list[Customer]:
+    @rx.event
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             query = select(Customer)
@@ -568,7 +657,7 @@ class DatabaseTableState3(rx.State):
 
             self.users = session.exec(query).all()
             self._get_total_items(session)
-        
+
 
 def show_customer(user: Customer):
     """Show a customer in a table row."""
@@ -612,29 +701,19 @@ def loading_data_table_example3():
     )
 
 ```
-
 ## More advanced examples
 
-The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app and code: https://github.com/reflex-dev/data-viewer. 
+The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app and code: https://github.com/reflex-dev/data-viewer.
 
+# Download
 
-
-
-
-
-
-
-
-# Download 
-
-Most users will want to download their data after they have got the subset that they would like in their table. 
+Most users will want to download their data after they have got the subset that they would like in their table.
 
 In this example there are buttons to download the data as a `json` and as a `csv`.
 
 For the `json` download the `rx.download` is in the frontend code attached to the `on_click` event trigger for the button. This works because if the `Var` is not already a string, it will be converted to a string using `JSON.stringify`.
 
 For the `csv` download the `rx.download` is in the backend code as an event_handler `download_csv_data`. There is also a helper function `_convert_to_csv` that converts the data in `self.users` to `csv` format.
-
 
 ```python demo exec
 import io
@@ -645,7 +724,8 @@ class TableDownloadState(rx.State):
 
     users: list[Customer] = []
 
-    def load_entries(self) -> list[Customer]:
+    @rx.event
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             self.users = session.exec(select(Customer)).all()
@@ -653,7 +733,7 @@ class TableDownloadState(rx.State):
 
     def _convert_to_csv(self) -> str:
         """Convert the users data to CSV format."""
-        
+
         # Make sure to load the entries first
         if not self.users:
             self.load_entries()
@@ -673,7 +753,7 @@ class TableDownloadState(rx.State):
         output.close()
         return csv_data
 
-
+    @rx.event
     def download_csv_data(self):
         csv_data = self._convert_to_csv()
         return rx.download(
@@ -725,7 +805,6 @@ def download_data_table_example():
     )
 
 ```
-
 
 # Real World Example UI
 

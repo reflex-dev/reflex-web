@@ -29,6 +29,7 @@ def stats() -> rx.Component:
         class_name="justify-center gap-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3",
     )
 
+
 def open_source() -> rx.Component:
     return rx.el.section(
         rx.box(

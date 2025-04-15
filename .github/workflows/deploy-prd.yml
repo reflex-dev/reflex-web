@@ -1,0 +1,38 @@
+name: Deploy to production
+
+on:
+  workflow_dispatch:
+    # This allows manual triggering of the workflow
+
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+env:
+  FLY_API_TOKEN: ${{ secrets.PRD_FLY_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy to Reflex Cloud
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+
+      - name: Update Reflex CLI
+        run: pip install reflex-hosting-cli -U
+
+      - name: Deploy to Reflex
+        id: deploy
+        run: |
+          reflex deploy --project ${{ secrets.PRD_PROJECT_ID }} --token ${{ secrets.PRD_TOKEN }} --no-interactive

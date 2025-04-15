@@ -4,13 +4,16 @@ from pcweb.flexdown import xd2 as xd
 from pcweb.templates.storypage import storypage
 
 
-
 def content(document):
-    return rx.box(
-        xd.render(document, "blog.md"),
-    ),
+    return (
+        rx.box(
+            xd.render(document, document.filename),
+        ),
+    )
+
 
 CUSTOMERS_PATH = "case-studies/"
+
 
 def get_customer_data(paths):
     customers = {}
@@ -43,7 +46,7 @@ for path, document in customer_data.items():
         investors=document.metadata["investors"],
         stats=document.metadata["stats"],
         meta=document.metadata["meta"],
-    )(lambda doc=document: content(document))
+    )(lambda doc=document: content(doc))
 
     # # Add the route to the list of routes.
     customers_routes.append(comp)

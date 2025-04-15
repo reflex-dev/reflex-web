@@ -5,12 +5,14 @@ from pcweb.pages.docs import getting_started
 class CustomersState(rx.State):
     tags: list[str] = []
 
+    @rx.event
     def add_tag(self, tag: str):
         if tag not in self.tags:
             self.tags.append(tag)
         else:
             self.tags.remove(tag)
 
+    @rx.event
     def clear_tags(self):
         self.tags = []
 
@@ -181,7 +183,8 @@ def customers_list() -> rx.Component:
         # Title
         rx.box(
             rx.el.h2(
-                "From startups to global enterprises,", class_name="font-x-large text-slate-12"
+                "From startups to global enterprises,",
+                class_name="font-x-large text-slate-12",
             ),
             rx.el.h3(
                 "ambitious builders choose Reflex",
@@ -193,12 +196,16 @@ def customers_list() -> rx.Component:
         filtering_tags(),
         # Customers list
         rx.box(
+            # Bayesline
+            customers_list_item("Bayesline", "/customers/bayesline", "Fintech", True),
+            # Ansa
+            customers_list_item("Ansa", "/customers/ansa", "AI", True),
+            # Seller X
+            customers_list_item("SellerX", "/customers/sellerx", "AI", True),
             # Dell
-            customers_list_item("Dell", "https://www.dell.com/", "SaaS"),
+            customers_list_item("Dell", "https://www.dell.com/", "Dev Tools"),
             # AutoDesk
             customers_list_item("AutoDesk", "https://www.autodesk.com/", "SaaS"),
-            # Bayesline
-            customers_list_item("Bayesline", "/customers/bayesline", "AI", True),
             # Your company
             your_company_item("Your company", getting_started.introduction.path, ""),
             class_name="flex flex-col max-w-[40rem] justify-center w-full items-center",

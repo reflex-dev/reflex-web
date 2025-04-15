@@ -74,10 +74,13 @@ def company_card(company: str, founded: str, investors: str, url: str) -> rx.Com
             class_name="flex flex-col",
         ),
         # Investors
-        rx.box(
-            rx.text("Investors", class_name="text-slate-9 font-small-smbold"),
-            rx.text(investors, class_name="text-slate-12 font-base truncate"),
-            class_name="flex flex-col",
+        rx.cond(
+            investors,
+            rx.box(
+                rx.text("Investors", class_name="text-slate-9 font-small-smbold"),
+                rx.text(investors, class_name="text-slate-12 font-base truncate"),
+                class_name="flex flex-col",
+            ),
         ),
         class_name="flex-col gap-4 w-[13rem] p-8 rounded-[1.125rem] border border-slate-3 bg-slate-2 z-[1] justify-start absolute right-[-6.5rem] top-[12rem] hidden xl:flex",
         is_external=True,

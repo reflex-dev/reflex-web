@@ -6,15 +6,16 @@ import reflex as rx
 
 The event handler signature needs to match the event trigger definition argument count. If the event handler takes two arguments, the event trigger must be able to provide two arguments.
 
-Here is a simple example: 
+Here is a simple example:
 
 ```python demo exec
 
 class EventArgStateSlider(rx.State):
     value: int = 50
 
-    def set_end(self, value: int):
-        self.value = value
+    @rx.event
+    def set_end(self, value: list[int]):
+        self.value = value[0]
 
 
 def slider_max_min_step():
@@ -31,14 +32,14 @@ def slider_max_min_step():
 
 The event trigger here is `on_value_commit` and it is called when the value changes at the end of an interaction. This event trigger passes one argument, which is the value of the slider. The event handler which is triggered by the event trigger must therefore take one argument, which is `value` here.
 
-
-Here is a form example: 
+Here is a form example:
 
 ```python demo exec
 
 class EventArgState(rx.State):
     form_data: dict = {}
 
+    @rx.event
     def handle_submit(self, form_data: dict):
         """Handle the form submit."""
         self.form_data = form_data
@@ -68,9 +69,6 @@ In this example the event trigger is the `on_submit` event of the form. The even
 
 When the number of args accepted by an EventHandler differs from that provided by the event trigger, an `EventHandlerArgMismatch` error will be raised.
 
-
-
-
 ## Pass Additional Arguments to Event Handlers
 
 In some use cases, you want to pass additional arguments to your event handlers. To do this you can bind an event trigger to a lambda, which can call your event handler with the arguments you want.
@@ -81,6 +79,7 @@ Try typing a color in an input below and clicking away from it to change the col
 class ArgState(rx.State):
     colors: list[str] = ["rgba(245,168,152)", "MediumSeaGreen", "#DEADE3"]
 
+    @rx.event
     def change_color(self, color: str, index: int):
         self.colors[index] = color
 
@@ -101,10 +100,9 @@ When the number of args accepted by a lambda differs from that provided by the e
 
 ```md alert warning
 # Event Handler Parameters should provide type annotations.
+
 Like state vars, be sure to provide the right type annotations for the parameters in an event handler.
 ```
-
-
 
 ## Events with Partial Arguments (Advanced)
 

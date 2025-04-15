@@ -22,10 +22,9 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  build    Build a custom component.
   init     Initialize a custom component.
-  publish  Publish a custom component.
-""")
+  build    Build a custom component.
+  share    Collect more details on the published package for gallery.""")
 ```
 
 ## reflex component init
@@ -61,7 +60,7 @@ The `init` command uses the current enclosing folder name to construct a python 
 The `init` command creates a set of files and folders prefilled with the package name and other details. During the init, the `custom_component` folder is installed locally in editable mode, so a developer can incrementally develop and test with ease. The changes in component implementation is automatically reflected where it is used. Below is the folder structure after the `init` command.
 
 ```python eval
-rx.code_block("""
+rx._x.code_block("""
 google_auth/
 ├── pyproject.toml
 ├── README.md
@@ -140,54 +139,9 @@ Options:
 
 ## reflex component publish
 
-To publish to a package index, a user is required to already have an account with them. As of **0.4.3**, Reflex only supports uploading to PyPI and TestPyPI. Those indices are separate PyPI and TestPyPI should have sufficient documentation on the account creation and how to generate API tokens. We also have a [short guide]({custom_components.overview.path}) covering this topic.
+To publish to a package index, a user is required to already have an account with them. As of **0.7.5**, Reflex does not handle the publishing process for you. You can do so manually by first running `reflex component build` followed by `twine upload` or `uv publish` or your choice of a publishing utility.
 
-The publish process starts with a build if needed. If the distribution files for the version specified in pyproject.toml file already exist, the command prompts the user to confirm rebuilding the files nor not. After making sure the distribution files are ready, the command proceeds to upload them to the specified python package index.
-
-```python eval
-doccmdoutput(
-    command="reflex component publish --help",
-    output="""
-reflex component publish --help
-Usage: reflex component publish [OPTIONS]
-
-  Publish a custom component. Must be run from the project root directory
-  where the pyproject.toml is.
-
-  Args:     repository: The name of the Python package repository, such pypi,
-  testpypi.     token: The token to use for authentication on python package
-  repository. If token is provided, no username/password should be provided at
-  the same time.     username: The username to use for authentication on
-  python package repository.     password: The password to use for
-  authentication on python package repository.     loglevel: The log level to
-  use.
-
-  Raises:     Exit: If arguments provided are not correct or the publish
-  fails.
-
-Options:
-  -r, --repository TEXT           The name of the repository. Defaults to
-                                  pypi. Only supports pypi and testpypi (Test
-                                  PyPI) for now.
-  -t, --token TEXT                The API token to use for authentication on
-                                  python package repository. If token is
-                                  provided, no username/password should be
-                                  provided at the same time
-  -u, --username TEXT             The username to use for authentication on
-                                  python package repository. Username and
-                                  password must both be provided.
-  -p, --password TEXT             The password to use for authentication on
-                                  python package repository. Username and
-                                  password must both be provided.
-  --build / --no-build            Whether to build the package before
-                                  publishing. If the package is already built,
-                                  set this to False.  [default: build]
-  --loglevel [debug|info|warning|error|critical]
-                                  The log level to use.  [default:
-                                  LogLevel.INFO]
-  --help                          Show this message and exit.
-""")
-```
+You can then share your build on our website with `reflex component share`.
 
 ## reflex component build
 

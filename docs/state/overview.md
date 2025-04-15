@@ -106,6 +106,7 @@ class ExampleState(rx.State):
     # A base var for the index of the current color.
     index: int = 0
 
+    @rx.event
     def next_color(self):
         """An event handler to go to the next color."""
         # Event handlers can modify the base vars.
@@ -141,11 +142,13 @@ The heading component links its `on_click` event to the
 
 ```md alert success
 # With Reflex, you never have to write an API.
-All interactions between the frontend and backend are handled through events. 
+
+All interactions between the frontend and backend are handled through events.
 ```
 
 ```md alert info
 # State vs. Instance?
+
 When building the UI of your app, reference vars and event handlers via the state class (`ExampleState`).
 
 When writing backend event handlers, access and set vars via the instance (`self`).
@@ -153,9 +156,9 @@ When writing backend event handlers, access and set vars via the instance (`self
 
 ```md alert warning
 # Cannot print a State var.
+
 The code `print(ExampleState.index)` will not work because the State var values are only known at compile time.
 ```
-
 
 ## Client States
 
@@ -171,14 +174,13 @@ never directly initialize a state class.
 ```
 
 All user state is stored on the server, and all event handlers are executed on
-the server.  Reflex uses websockets to send events to the server, and to send
+the server. Reflex uses websockets to send events to the server, and to send
 state updates back to the client.
-
 
 ## Helper Methods
 
 Similar to backend vars, any method defined in a State class that begins with an
-underscore `_` is considered a helper method. Such methods are not usable as 
+underscore `_` is considered a helper method. Such methods are not usable as
 event triggers, but may be called from other event handler methods within the
 state.
 

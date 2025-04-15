@@ -1,33 +1,33 @@
 ---
 components:
-    - rx.hover_card.root
-    - rx.hover_card.content
-    - rx.hover_card.trigger
+  - rx.hover_card.root
+  - rx.hover_card.content
+  - rx.hover_card.trigger
 
 only_low_level:
-    - True
+  - True
 
 HoverCardRoot: |
-    lambda **props: rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.link("Hover over me"),
-        ),
-        rx.hover_card.content(
-            rx.text("This is the tooltip content."),
-        ),
-        **props
-    )
+  lambda **props: rx.hover_card.root(
+      rx.hover_card.trigger(
+          rx.link("Hover over me"),
+      ),
+      rx.hover_card.content(
+          rx.text("This is the tooltip content."),
+      ),
+      **props
+  )
 
 HoverCardContent: |
-    lambda **props: rx.hover_card.root(
-        rx.hover_card.trigger(
-            rx.link("Hover over me"),
-        ),
-        rx.hover_card.content(
-            rx.text("This is the tooltip content."),
-            **props
-        ),
-    )
+  lambda **props: rx.hover_card.root(
+      rx.hover_card.trigger(
+          rx.link("Hover over me"),
+      ),
+      rx.hover_card.content(
+          rx.text("This is the tooltip content."),
+          **props
+      ),
+  )
 ---
 
 ```python exec
@@ -50,7 +50,7 @@ rx.text(
             rx.link("Hover over me", color_scheme="blue", underline="always"),
         ),
         rx.hover_card.content(
-            rx.text("This is the tooltip content."),
+            rx.text("This is the hovercard content."),
         ),
     ),
 )
@@ -68,7 +68,7 @@ rx.text(
                 rx.inset(
                     side="left",
                     pr="current",
-                    background="url('https://source.unsplash.com/random/800x600') center/cover",
+                    background="url('https://images.unsplash.com/5/unsplash-kitsune-4.jpg') center/cover",
                     height="full",
                 ),
                 rx.box(
@@ -98,6 +98,7 @@ class HovercardState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1
@@ -108,7 +109,7 @@ def hovercard_example():
         rx.heading(f"Number of times hovercard opened or closed: {HovercardState.num_opens}"),
         rx.heading(f"Hovercard open: {HovercardState.opened}"),
         rx.text(
-            "Hover over the text to see the tooltip. ",
+            "Hover over the text to see the hover card. ",
             rx.hover_card.root(
                 rx.hover_card.trigger(
                     rx.link("Hover over me", color_scheme="blue", underline="always"),

@@ -11,9 +11,9 @@ env:
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
   pull_request:
-    branches: ['main']
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       reflex_dep:
@@ -33,13 +33,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.11.5', '3.12.0']
+        python-version: ["3.11.5", "3.12.0"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Install Requirements for reflex-web and reflex
         run: |
-          pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt pytest playwright pytest-playwright
+          pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt pytest playwright pytest-playwright uvicorn
           playwright install --with-deps
       - name: Run unit tests
         run: |

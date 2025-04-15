@@ -1,8 +1,7 @@
 import reflex as rx
 import httpx
 import json
-from rxconfig import config
-import reflex_chakra as rc
+import os
 from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
 from pcweb.styles.colors import c_color
 from pcweb.styles.shadows import shadows
@@ -18,9 +17,12 @@ class CustomComponentGalleryState(rx.State):
     selected_filter: str = ""
     original_components_list: list[dict[str, str]] = []
 
+    @rx.event
     def fetch_components_list(self):
         try:
-            response = httpx.get(f"{config.cp_backend_url}/custom-components/gallery")
+            response = httpx.get(
+                f"{os.getenv('RCC_ENDPOINT')}/custom-components/gallery"
+            )
             response.raise_for_status()
             component_list = response.json()
         except (httpx.HTTPError, json.JSONDecodeError) as ex:
@@ -40,6 +42,7 @@ class CustomComponentGalleryState(rx.State):
         self.components_list = component_list
         self.original_components_list = component_list
 
+    @rx.event
     def set_selected_filter(self, filter):
         if self.selected_filter == filter:
             self.selected_filter = ""
@@ -344,13 +347,13 @@ def add_item(category: dict) -> rx.Component:
         rx.box(
             rx.box(
                 component_name(name),
-                download_count(category["downloads_last_month"]),
+                # download_count(category["downloads_last_month"]),
                 class_name="flex flex-row justify-between items-center w-full gap-3 p-[10px_12px_0px_12px]",
             ),
             rx.box(
                 install_command("pip install " + category["package_name"]),
                 download(category["download_url"]),
-                demo(category),
+                # demo(category),
                 title="pip install " + category["package_name"],
                 class_name="flex flex-row justify-between items-center w-full gap-1.5 p-[0px_6px_6px_6px]",
             ),
@@ -361,7 +364,7 @@ def add_item(category: dict) -> rx.Component:
 
 
 def component_grid():
-    return rc.box(
+    return rx.box(
         rx.foreach(CustomComponentGalleryState.components_list, add_item),
         class_name="gap-6 grid grid-cols-1 lg:grid-cols-1 2xl:grid-cols-3 [&>*]:min-w-[260px] w-full",
     )

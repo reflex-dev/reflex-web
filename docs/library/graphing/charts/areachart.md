@@ -1,7 +1,7 @@
 ---
 components:
-    - rx.recharts.AreaChart
-    - rx.recharts.Area
+  - rx.recharts.AreaChart
+  - rx.recharts.Area
 ---
 
 # Area Chart
@@ -240,6 +240,7 @@ def area_stack():
         height = 300,
     )
 ```
+
 ## Multiple Axis
 
 Multiple axes can be used for displaying different data series with varying scales or units on the same chart. This allows for a more comprehensive comparison and analysis of the data.
@@ -390,6 +391,8 @@ Here is an example of an area graph with a `State`. Here we have defined a funct
 class AreaState(rx.State):
     data = data
     curve_type = ""
+
+    @rx.event
     def randomize_data(self):
         for i in range(len(self.data)):
             self.data[i]["uv"] = random.randint(0, 10000)

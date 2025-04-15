@@ -12,6 +12,7 @@ Top banners are used to highlight important information or features at the top o
 class TopBannerBasic(rx.ComponentState):
     hide: bool = False
 
+    @rx.event
     def toggle(self):
         self.hide = not self.hide
 
@@ -77,6 +78,7 @@ top_banner_basic = TopBannerBasic.create
 class TopBannerSignup(rx.ComponentState):
     hide: bool = False
 
+    @rx.event
     def toggle(self):
         self.hide = not self.hide
 
@@ -142,6 +144,7 @@ top_banner_signup = TopBannerSignup.create
 class TopBannerGradient(rx.ComponentState):
     hide: bool = False
 
+    @rx.event
     def toggle(self):
         self.hide = not self.hide
 
@@ -200,6 +203,7 @@ top_banner_gradient = TopBannerGradient.create
 class TopBannerNewsletter(rx.ComponentState):
     hide: bool = False
 
+    @rx.event
     def toggle(self):
         self.hide = not self.hide
 

@@ -137,6 +137,11 @@ class GithubComponent(rx.Component):
     library = "@masenf/hello-react@github:masenf/hello-react"
     tag = "Counter"
 
+    def add_imports(self):
+        return {
+            "": ["@masenf/hello-react/dist/style.css"]
+        }
+
 def github_component_example():
     return GithubComponent.create()
 ```
@@ -150,6 +155,30 @@ Some important notes regarding this approach:
 * The repo or archive must contain a `package.json` file.
 * `prepare` or `build` scripts will NOT be executed. The distribution archive,
   directory, or repo must already contain the built javascript files (this is common).
+
+```md alert
+# Ensure CSS files are exported in `package.json`
+
+In addition to exporting the module containing the component, any CSS files
+intended to be imported by the wrapped component must also be listed in the
+`exports` key of `package.json`.
+
+```json
+{
+  // ...,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  // ...
+}
+```
 
 ### Import Types
 
@@ -279,7 +308,7 @@ class AnotherColorPicker(rx.Component):
 
 ## Custom Code
 
-Sometimes you may need to add custom code to your component, such as definining constants and functions used. Custom code will be inserted _outside_ of the react component function.
+Sometimes you may need to add custom code to your component, such as defining constants and functions used. Custom code will be inserted _outside_ of the react component function.
 
 ```javascript
 import React from "react";
@@ -440,6 +469,6 @@ class Hello(rx.Component):
 ```
 
 
-## Degugging
+## Debugging
 
 If you encounter an error while wrapping a component it is recommended to check the Console in the browser developer tools. You can access this by going to inspect element and then clicking on the Console tab on Mac. This is because the Console is where most Javascript errors are logged.

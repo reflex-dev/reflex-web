@@ -1,14 +1,24 @@
+import os
+
 # pcweb constants.
 API_BASE_URL_LOOPS: str = "https://app.loops.so/api/v1"
-REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO: str = "https://5dha7vttyp3.typeform.com/to/O7kG4RQu"
-REFLEX_DEV_WEB_LANDING_FORM_DEMO_FORM_WEBHOOK_URL = "https://hkdk.events/hiet6t6a0etc4e"
+REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO: str = (
+    "https://cal.com/forms/f87bd9b2-b339-4915-b4d4-0098e2db4394"
+)
+REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = (
+    "https://hooks.zapier.com/hooks/catch/20661176/2s1nxp9/"
+)
+
 REFLEX_DEV_WEB_NEWSLETTER_FORM_WEBHOOK_URL: str = "https://hkdk.events/t0qopjbznnp2fr"
-REFLEX_DEV_WEB_LANDING_FORM_SALES_CALL_WEBHOOK_URL: str = "https://hkdk.events/fl9kcr4bf5pn7w"
-REFLEX_DEV_WEB_PRICING_FORM_PRO_PLAN_WAITLIST_WEBHOOK_URL: str = "https://hkdk.events/amh01aq0hojled"
-REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = "https://hkdk.events/8woee5brmxqwdr"
+REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = os.environ.get(
+    "REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL"
+)
 
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
+REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
+REFLEX_CLOUD_URL = "https://cloud.reflex.dev/"
+REFLEX_AI_BUILDER = "https://reflex.build/"
 PYNECONE_URL = "https://pynecone.io"
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"
@@ -30,6 +40,7 @@ NEXT_SCRIPT_URL = "https://nextjs.org/docs/app/api-reference/components/script"
 GALLERY_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link"
 NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
+REFLEX_CLOUD_URL = "https://cloud.reflex.dev"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
@@ -50,6 +61,6 @@ ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows
 ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
 # Stats
-GITHUB_STARS = 19000
-MONTHLY_USERS = 5000
-DISCORD = 3500
+GITHUB_STARS = 23000
+MONTHLY_USERS = 10000
+DISCORD = 7000

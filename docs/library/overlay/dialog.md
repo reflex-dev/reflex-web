@@ -1,49 +1,49 @@
 ---
 components:
-    - rx.dialog.root
-    - rx.dialog.trigger
-    - rx.dialog.title
-    - rx.dialog.content
-    - rx.dialog.description
-    - rx.dialog.close
+  - rx.dialog.root
+  - rx.dialog.trigger
+  - rx.dialog.title
+  - rx.dialog.content
+  - rx.dialog.description
+  - rx.dialog.close
 
 only_low_level:
-    - True
+  - True
 
 DialogRoot: |
-    lambda **props: rx.dialog.root(
-        rx.dialog.trigger(rx.button("Open Dialog")),
-        rx.dialog.content(
-            rx.dialog.title("Welcome to Reflex!"),
-            rx.dialog.description(
-                "This is a dialog component. You can render anything you want in here.",
-            ),
-            rx.dialog.close(
-                rx.button("Close Dialog"),
-            ),
-        ),
-        **props,
-    )
+  lambda **props: rx.dialog.root(
+      rx.dialog.trigger(rx.button("Open Dialog")),
+      rx.dialog.content(
+          rx.dialog.title("Welcome to Reflex!"),
+          rx.dialog.description(
+              "This is a dialog component. You can render anything you want in here.",
+          ),
+          rx.dialog.close(
+              rx.button("Close Dialog"),
+          ),
+      ),
+      **props,
+  )
 
 DialogContent: |
-    lambda **props: rx.dialog.root(
-        rx.dialog.trigger(rx.button("Open Dialog")),
-        rx.dialog.content(
-            rx.dialog.title("Welcome to Reflex!"),
-            rx.dialog.description(
-                "This is a dialog component. You can render anything you want in here.",
-            ),
-            rx.dialog.close(
-                rx.button("Close Dialog"),
-            ),
-            **props,
-        ),
-    )
+  lambda **props: rx.dialog.root(
+      rx.dialog.trigger(rx.button("Open Dialog")),
+      rx.dialog.content(
+          rx.dialog.title("Welcome to Reflex!"),
+          rx.dialog.description(
+              "This is a dialog component. You can render anything you want in here.",
+          ),
+          rx.dialog.close(
+              rx.button("Close Dialog"),
+          ),
+          **props,
+      ),
+  )
 ---
-
 
 ```python exec
 import reflex as rx
+from pcweb.pages.docs import library
 ```
 
 # Dialog
@@ -165,6 +165,7 @@ class DialogState(rx.State):
     num_opens: int = 0
     opened: bool = False
 
+    @rx.event
     def count_opens(self, value: bool):
         self.opened = value
         self.num_opens += 1
@@ -189,5 +190,94 @@ def dialog_example():
         ),
         direction="column",
         spacing="3",
+    )
+```
+
+Check out the [menu docs]({library.overlay.dropdown_menu.path}) for an example of opening a dialog from within a dropdown menu.
+
+## Form Submission to a Database from a Dialog
+
+This example adds new users to a database from a dialog using a form.
+
+1. It defines a User model with name and email fields.
+2. The `add_user_to_db` method adds a new user to the database, checking for existing emails.
+3. On form submission, it calls the `add_user_to_db` method.
+4. The UI component has:
+
+- A button to open a dialog
+- A dialog containing a form to add a new user
+- Input fields for name and email
+- Submit and Cancel buttons
+
+```python demo exec
+class User(rx.Model, table=True):
+    """The user model."""
+    name: str
+    email: str
+
+class State(rx.State):
+
+    current_user: User = User()
+
+    @rx.event
+    def add_user_to_db(self, form_data: dict):
+        self.current_user = form_data
+        ### Uncomment the code below to add your data to a database ###
+        # with rx.session() as session:
+        #     if session.exec(
+        #         select(User).where(user.email == self.current_user["email"])
+        #     ).first():
+        #         return rx.window_alert("User with this email already exists")
+        #     session.add(User(**self.current_user))
+        #     session.commit()
+
+        return rx.toast.info(f"User {self.current_user['name']} has been added.", position="bottom-right")
+
+
+def index() -> rx.Component:
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.button(
+                rx.icon("plus", size=26),
+                rx.text("Add User", size="4"),
+            ),
+        ),
+        rx.dialog.content(
+            rx.dialog.title(
+                "Add New User",
+            ),
+            rx.dialog.description(
+                "Fill the form with the user's info",
+            ),
+            rx.form(
+                rx.flex(
+                    rx.input(
+                        placeholder="User Name", name="name"
+                    ),
+                    rx.input(
+                        placeholder="user@reflex.dev", name="email"
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button(
+                                "Cancel",
+                                variant="soft",
+                                color_scheme="gray",
+                            ),
+                        ),
+                        rx.dialog.close(
+                            rx.button("Submit", type="submit"),
+                        ),
+                        spacing="3",
+                        justify="end",
+                    ),
+                    direction="column",
+                    spacing="4",
+                ),
+                on_submit=State.add_user_to_db,
+                reset_on_submit=False,
+            ),
+            max_width="450px",
+        ),
     )
 ```

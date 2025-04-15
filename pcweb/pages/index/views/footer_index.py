@@ -1,3 +1,4 @@
+from datetime import datetime
 import reflex as rx
 from pcweb.components.icons import get_icon
 from pcweb.components.button import button
@@ -6,7 +7,6 @@ from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.changelog import changelog
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
 from pcweb.signup import IndexState
@@ -158,7 +158,7 @@ def footer_index() -> rx.Component:
             # Socials
             rx.box(
                 rx.text(
-                    "Copyright © 2024 Pynecone, Inc.",
+                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
                     class_name="font-small text-slate-9",
                 ),
                 menu_socials(),

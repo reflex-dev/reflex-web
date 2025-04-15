@@ -10,7 +10,7 @@ to be stored on the client and accessed from different browser tabs.
 
 A client-side storage var looks and acts like a normal `str` var, except the
 default value is either `rx.Cookie` or `rx.LocalStorage` depending on where the
-value should be stored.  The key name will be based on the var name, but this
+value should be stored. The key name will be based on the var name, but this
 can be overridden by passing `name="my_custom_name"` as a keyword argument.
 
 For more information see [Browser Storage](/docs/api-reference/browser-storage/).
