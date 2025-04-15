@@ -77,6 +77,7 @@ def get_sidebar_items_frontend():
                 styling.custom_stylesheets,
                 styling.layout,
                 styling.common_props,
+                styling.tailwind,
             ],
         ),
         create_item(
