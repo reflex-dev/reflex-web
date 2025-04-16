@@ -15,7 +15,7 @@ So far the enterprise package contains the following features:
 - AgGrid and AgCharts
 - Single Port Proxy
 
-More features will be added in the futures. If you have any feature requests, please [open an issue](https://github.com/reflex-dev/reflex/issues/new/choose).
+More features will be added in the future. If you have any feature requests, please [open an issue](https://github.com/reflex-dev/reflex/issues/new/choose).
 
 ## Installation of reflex_enterprise.
 
