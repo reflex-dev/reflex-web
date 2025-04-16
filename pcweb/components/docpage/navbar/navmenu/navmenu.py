@@ -1,5 +1,6 @@
 """Reflex custom component NavMenu."""
 
+from types import SimpleNamespace
 import reflex as rx
 from typing import Any, Dict, Literal
 from reflex.vars import Var
@@ -101,7 +102,7 @@ class NavMenuViewport(NavMenu):
     )
 
 
-class NavMenu(rx.Component):
+class NavMenu(SimpleNamespace):
     """NavMenu component."""
 
     root = staticmethod(NavMenuRoot.create)

@@ -1,4 +1,4 @@
-from pcweb.styles.tailwind_radix_map import radix_colors_dict, custom_colors_dict
+from tailwind_radix_map import radix_colors_dict, custom_colors_dict
 
 tw_config = {
     "plugins": ["@tailwindcss/typography", "tailwindcss-radix"],
