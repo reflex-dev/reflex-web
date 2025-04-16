@@ -4,9 +4,18 @@
 import reflex as rx
 ```
 
-Reflex Enterprise is a package containing paid features built on top of Reflex.
+Reflex Enterprise is a package containing premium features built on top of Reflex designed to help you build production-ready web apps faster.
 
 See complete docs at [Enterprise Docs](https://enterprise.reflex.dev)
+
+## Features
+
+So far the enterprise package contains the following features:
+
+- AgGrid and AgCharts
+- Single Port Proxy
+
+More features will be added in the futures. If you have any feature requests, please [open an issue](https://github.com/reflex-dev/reflex/issues/new/choose).
 
 ## Installation of reflex_enterprise.
 
@@ -35,3 +44,6 @@ config = rxe.Config(
 )
 ```
 
+## Pricing
+
+Unlike the open source `reflex` package, the `reflex-enterprise` package is free to use for all users but requires a paid tier to remove [branding](https://enterprise.reflex.dev/built-with-reflex/).
