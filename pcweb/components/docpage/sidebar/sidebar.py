@@ -397,7 +397,7 @@ def sidebar_comp(
                     sidebar_category(
                         "Enterprise",
                         enterprise.overview.path,
-                        "circle-dollar-sign",
+                        "building-2",
                         3,
                     ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
