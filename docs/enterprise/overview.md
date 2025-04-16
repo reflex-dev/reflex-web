@@ -4,7 +4,7 @@
 import reflex as rx
 ```
 
-Reflex Enterprise is a package containing premium features built on top of Reflex designed to help you build production-ready web apps faster.
+Reflex Enterprise is a package containing premium features built on top of Reflex designed to help you build enterprise-grade applications faster.
 
 See complete docs at [Enterprise Docs](https://enterprise.reflex.dev)
 
