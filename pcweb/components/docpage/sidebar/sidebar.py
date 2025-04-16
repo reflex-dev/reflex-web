@@ -351,21 +351,17 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-    from pcweb.pages.docs.recipes_overview import overview
-    from pcweb.pages.docs.library import library
-    from pcweb.pages.docs.custom_components import custom_components
-    from pcweb.pages.docs import (
-        getting_started,
-        state,
-        ui,
-        hosting as hosting_page,
-    )
+    from pcweb.pages.docs import enterprise, getting_started, state, ui
+    from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs.apiref import pages
     from pcweb.pages.docs.cloud import pages as cloud_pages
+    from pcweb.pages.docs.custom_components import custom_components
+    from pcweb.pages.docs.library import library
+    from pcweb.pages.docs.recipes_overview import overview
 
-    return rx.box(
+    return rx.box(  # pyright: ignore [reportCallIssue]
         # Handle sidebar categories for docs/cloud first
-        rx.cond(
+        rx.cond(  # pyright: ignore [reportCallIssue]
             rx.State.router.page.path.startswith("/docs/hosting/"),
             rx.el.ul(
                 sidebar_category(
@@ -377,24 +373,41 @@ def sidebar_comp(
                 class_name="flex flex-col items-start gap-1 w-full list-none",
             ),
             # If the path doesn't start with /docs/cloud, check for general docs
-            rx.cond(
+            rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/"),
                 rx.el.ul(
                     sidebar_category(
-                        "Learn", getting_started.introduction.path, "graduation-cap", 0
+                        "Learn",
+                        getting_started.introduction.path,
+                        "graduation-cap",
+                        0,
                     ),
                     sidebar_category(
-                        "Components", library.path, "layout-panel-left", 1
+                        "Components",
+                        library.path,
+                        "layout-panel-left",
+                        1,
                     ),
-                    sidebar_category("API Reference", pages[0].path, "book-text", 2),
+                    sidebar_category(
+                        "API Reference",
+                        pages[0].path,
+                        "book-text",
+                        2,
+                    ),
+                    sidebar_category(
+                        "Enterprise",
+                        enterprise.overview.path,
+                        "building-2",
+                        3,
+                    ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
             ),
         ),
         # Handle the sidebar content based on docs/cloud or docs
-        rx.cond(
+        rx.cond(  # pyright: ignore [reportCallIssue]
             rx.State.router.page.path.startswith("/docs/hosting/"),
-            rx.match(
+            rx.match(  # pyright: ignore [reportCallIssue]
                 SidebarState.sidebar_index,
                 (
                     0,
@@ -423,9 +436,9 @@ def sidebar_comp(
                 #     ),
                 # ),
             ),
-            rx.cond(
+            rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/"),
-                rx.match(
+                rx.match(  # pyright: ignore [reportCallIssue]
                     SidebarState.sidebar_index,
                     (
                         0,
@@ -474,17 +487,17 @@ def sidebar_comp(
                                 graphing_libs_index,
                                 url,
                             ),
-                            rx.link(
-                                rx.box(
-                                    rx.box(
-                                        rx.icon("atom", size=16),
+                            rx.link(  # pyright: ignore [reportCallIssue]
+                                rx.box(  # pyright: ignore [reportCallIssue]
+                                    rx.box(  # pyright: ignore [reportCallIssue]
+                                        rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
                                         rx.el.h5(
                                             "Custom Components",
                                             class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
                                         ),
                                         class_name="flex flex-row items-center gap-3 text-slate-12",
                                     ),
-                                    rx.text(
+                                    rx.text(  # pyright: ignore [reportCallIssue]
                                         "See what components people have made with Reflex!",
                                         class_name="font-small text-slate-9",
                                     ),
