@@ -1,21 +1,38 @@
-import reflex as rx
-import httpx
 import json
 import os
-from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
-from pcweb.styles.colors import c_color
-from pcweb.styles.shadows import shadows
-from pcweb.styles.fonts import base
+
+import httpx
+import reflex as rx
+
 from pcweb.components.icons.icons import get_icon
+from pcweb.styles.colors import c_color
+from pcweb.styles.fonts import base
+from pcweb.styles.shadows import shadows
+from pcweb.templates.docpage import docpage, h1_comp, text_comp_2
+
+SORTING_CRITERIA = {
+    "Recent": lambda x: x["updated_at"],
+    "Downloads": lambda x: x["downloads"]["last_month"],
+}
 
 
 class CustomComponentGalleryState(rx.State):
     tags: list[str] = []
 
     components_list: list[dict[str, str]] = []
+    paginated_data: list[dict[str, str]] = []
 
     selected_filter: str = ""
     original_components_list: list[dict[str, str]] = []
+
+    current_page: int = 1
+    current_limit: int = 50  # Default number of items per page
+    total_pages: int = 1
+    offset: int = 0
+    number_of_rows: int = 0
+
+    # Added available limits for the number of items per page
+    limits: list[str] = ["10", "20", "50", "100"]
 
     @rx.event
     def fetch_components_list(self):
@@ -31,7 +48,6 @@ class CustomComponentGalleryState(rx.State):
 
         for c in component_list:
             c["downloads_last_month"] = c["downloads"]["last_month"]
-            # Filters out the keywords that says "reflex", "reflex-custom-component".
             c["keywords"] = [
                 keyword
                 for keyword in c["keywords"] or []
@@ -39,29 +55,70 @@ class CustomComponentGalleryState(rx.State):
             ]
             c["download_url"] = package_url(c["package_name"])
 
-        self.components_list = component_list
         self.original_components_list = component_list
+        self.number_of_rows = len(component_list)
+        self.total_pages = (
+            self.number_of_rows + self.current_limit - 1
+        ) // self.current_limit
+        self.paginate()
 
     @rx.event
-    def set_selected_filter(self, filter):
-        if self.selected_filter == filter:
-            self.selected_filter = ""
-            self.components_list = self.original_components_list
-        else:
-            self.selected_filter = filter
-            self.sort_by_filter(filter)
+    def paginate(self) -> None:
+        start = self.offset
+        end = start + self.current_limit
+        self.paginated_data = self.original_components_list[start:end]
+        self.current_page = (self.offset // self.current_limit) + 1
 
-    def sort_by_filter(self, filter):
-        if filter == "Recent":
-            self.components_list = sorted(
-                self.components_list, key=lambda x: x["created_at"], reverse=True
-            )
-        elif filter == "Downloads":
-            self.components_list = sorted(
-                self.components_list,
-                key=lambda x: x["downloads"]["last_month"],
-                reverse=True,
-            )
+    @rx.event
+    def delta_limit(self, limit: str) -> None:
+        self.current_limit = int(limit)
+        self.offset = 0
+        self.total_pages = (
+            self.number_of_rows + self.current_limit - 1
+        ) // self.current_limit
+        self.paginate()
+
+    @rx.event
+    def previous(self) -> None:
+        if self.offset >= self.current_limit:
+            self.offset -= self.current_limit
+        else:
+            self.offset = 0
+        self.paginate()
+
+    @rx.event
+    def next(self) -> None:
+        if self.offset + self.current_limit < self.number_of_rows:
+            self.offset += self.current_limit
+        self.paginate()
+
+    @rx.event
+    def sort_components(self):
+        # Get the sorting function based on the selected filter
+        sorting_function = SORTING_CRITERIA.get(
+            self.selected_filter, lambda x: x["updated_at"]
+        )
+
+        # Both "Recent" and "Downloads" should be sorted in reverse order (newest/highest first)
+        if self.selected_filter in ["Recent", "Downloads"]:
+            self.original_components_list.sort(key=sorting_function, reverse=True)
+        else:
+            # Default sorting behavior, if no filter selected
+            self.original_components_list.sort(key=sorting_function, reverse=False)
+
+        # After sorting, paginate the data
+        self.paginate()
+
+    @rx.event
+    def set_selected_filter(self, filter_text: str):
+        # Reset to the first page when the filter is changed
+        self.selected_filter = filter_text
+        self.offset = 0  # Reset pagination
+        self.total_pages = (
+            self.number_of_rows + self.current_limit - 1
+        ) // self.current_limit  # Recalculate total pages
+        self.sort_components()  # Sort components based on selected filter
+        self.paginate()  # Update paginated data
 
 
 def filter_item(
@@ -81,7 +138,7 @@ def filter_item(
         class_name="flex flex-row gap-[14px] items-center justify-start w-full cursor-pointer hover:bg-slate-3 transition-bg text-nowrap overflow-hidden p-[8px_14px]",
         border_top=f"1px solid {c_color('slate', 5)}" if border else "none",
         border_bottom=f"1px solid {c_color('slate', 5)}" if border else "none",
-        on_click=CustomComponentGalleryState.set_selected_filter(text),
+        on_click=on_click,
     )
 
 
@@ -129,11 +186,15 @@ def sorting_filters() -> rx.Component:
         filter_item(
             "history",
             "Recent",
+            on_click=lambda: CustomComponentGalleryState.set_selected_filter("Recent"),
         ),
         filter_item(
             "arrow_down_big",
             "Downloads",
             border=True,
+            on_click=lambda: CustomComponentGalleryState.set_selected_filter(
+                "Downloads"
+            ),
         ),
         gap="0px",
         width="100%",
@@ -213,160 +274,130 @@ def package_url(package_name: str) -> str:
     return f"https://pypi.org/pypi/{package_name}/"
 
 
-def last_update(time: str) -> rx.Component:
-    return rx.hstack(
-        rx.text(
-            "Last update:",
-            line_height="0.5em",
-            color=rx.color("mauve", 11),
-            size="1",
-        ),
-        rx.text(
-            rx.moment(
-                time,
-                from_now=True,
-            ),
-            size="1",
-            line_height="0.5em",
-            color=rx.color("mauve", 11),
-        ),
-    )
-
-
-def demo(category: dict) -> rx.Component:
-    return rx.cond(
-        category["demo_url"],
-        rx.dialog.root(
-            rx.dialog.trigger(
-                rx.box(
-                    get_icon(
-                        icon="eye",
-                    ),
-                    class_name="text-slate-9 rounded-[6px] hover:bg-slate-3 transition-bg cursor-pointer border border-slate-5 bg-slate-1 shadow-small p-[5px]",
-                ),
-            ),
-            rx.dialog.content(
-                rx.box(
-                    rx.box(
-                        install_command("pip install " + category["package_name"]),
-                        rx.dialog.close(
-                            rx.el.button(
-                                rx.icon(
-                                    tag="x",
-                                    class_name="p-[5px] !text-slate-9",
-                                ),
-                                class_name="cursor-pointer h-auto shadow-small rounded-[6px] outline-none bg-slate-1 border border-slate-5 hover:bg-slate-3 transition-bg",
-                            ),
-                            outline="none",
-                        ),
-                        class_name="flex flex-col-reverse gap-3 w-auto max-w-full lg:flex-row items-end lg:items-center justify-end lg:justify-center",
-                    ),
-                    rx.el.iframe(
-                        src=category["demo_url"],
-                        class_name="w-full h-full rounded-xl",
-                    ),
-                    class_name="flex flex-col gap-4 w-full h-full",
-                ),
-                class_name="h-[75vh] border border-slate-5 bg-slate-1 shadow-large max-w-[calc(100vw-20%)]",
-            ),
-        ),
-    )
-
-
 def download(download_url: str) -> rx.Component:
     return rx.link(
-        get_icon(icon="new_tab", class_name="p-[5px]"),
+        get_icon(icon="new_tab"),
         underline="none",
         href=download_url,
         is_external=True,
-        class_name="text-slate-9 hover:!text-slate-9 border border-slate-5 bg-slate-1 hover:bg-slate-3 transition-bg cursor-pointer max-w-full shadow-small rounded-[6px] border-solid",
+        class_name="text-slate-9 hover:!text-slate-9 bg-slate-1 hover:bg-slate-3 transition-bg cursor-pointer rounded-[6px]",
+        title="Documentation",
     )
 
 
-def install_command(command: str) -> rx.Component:
-    return rx.box(
-        get_icon(icon="copy", class_name="p-[5px]"),
-        rx.text(
-            "$" + command,
-            as_="p",
-            class_name="font-small truncate flex-1 min-w-0",
-        ),
-        on_click=rx.set_clipboard(command),
-        class_name="flex flex-row gap-1.5 text-slate-9 w-full items-center overflow-hidden border border-slate-5 bg-slate-1 hover:bg-slate-3 transition-bg cursor-pointer shadow-small rounded-[6px] pr-1.5 max-w-[20rem]",
-    )
-
-
-def download_count(downloads: str) -> rx.Component:
-    return rx.box(
-        get_icon(icon="arrow_down", class_name="p-[3px]"),
-        rx.text(
-            downloads,
-            class_name="font-small truncate",
-        ),
-        class_name="flex flex-row gap-1 text-slate-9 justify-center items-center",
-    )
-
-
-def component_name(name: str) -> rx.Component:
-    return rx.heading(
-        name,
-        class_name="font-base truncate text-slate-12 font-semibold",
-        as_="h4",
-    )
-
-
-def add_item(category: dict) -> rx.Component:
-    # Format the package name to be more human readable
+def table_rows(category: dict):
     name = rx.Var(
         f"{str(category['package_name'])}.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')",
     )
-    return rx.flex(
-        rx.box(
-            rx.cond(
-                category["demo_url"],
-                rx.box(
-                    rx.link(
-                        rx.cond(
-                            category["image_url"],
-                            rx.image(
-                                src=category["image_url"],
-                                loading="lazy",
-                                alt="Image preview for app: " + category["name"],
-                                class_name="w-full h-full duration-150 object-top object-cover hover:scale-105 transition-transform ease-out",
-                            ),
-                            rx.fragment(),
-                        ),
-                        href=category["demo_url"],
-                        is_external=True,
-                    ),
-                    class_name="relative w-full h-full overflow-hidden",
+
+    updated_at = rx.Var(
+        f"({category['updated_at']}).split('T')[0].split('-').map((part, index) => index === 1 ? 'JanFebMarAprMayJunJulAugSepOctNovDec'.slice(part * 3, part * 3 + 3) : part.padStart(2, '0'))"
+        f".slice(1).join(' ') + ', ' + ({category['updated_at']}).split('T')[0].split('-')[0]"
+    )
+
+    return rx.table.row(
+        rx.table.cell(name),
+        rx.table.cell(updated_at),
+        rx.table.cell(
+            rx.box(
+                rx.text(
+                    "pip install " + category["package_name"],
+                    as_="p",
+                    class_name="font-small truncate flex-1 min-w-0",
                 ),
-            ),
-            class_name="flex w-full h-full relative overflow-hidden border-slate-5 border-b border-solid",
+                get_icon(icon="copy", class_name="p-[5px]"),
+                on_click=rx.set_clipboard("pip install " + category["package_name"]),
+                class_name="flex flex-row gap-1.5 text-slate-9 w-full items-center overflow-hidden border border-slate-5 bg-slate-1 hover:bg-slate-3 transition-bg cursor-pointer shadow-small rounded-[6px] px-1.5 max-w-[20rem]",
+            )
         ),
-        rx.box(
-            rx.box(
-                component_name(name),
-                # download_count(category["downloads_last_month"]),
-                class_name="flex flex-row justify-between items-center w-full gap-3 p-[10px_12px_0px_12px]",
-            ),
-            rx.box(
-                install_command("pip install " + category["package_name"]),
-                download(category["download_url"]),
-                # demo(category),
-                title="pip install " + category["package_name"],
-                class_name="flex flex-row justify-between items-center w-full gap-1.5 p-[0px_6px_6px_6px]",
-            ),
-            class_name="flex flex-col gap-[10px] w-full",
-        ),
-        class_name="bg-slate-2 flex flex-col rounded-xl border border-slate-5 shadow-large overflow-hidden w-full h-[300px] cursor-pointer",
+        rx.table.cell(download(category["download_url"])),
+        white_space="nowrap",
+        align="center",
     )
 
 
 def component_grid():
+    table = rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.foreach(
+                    ["Package Name", "Last Updated", "Install Command", "Docs"],
+                    lambda column_name: rx.table.column_header_cell(
+                        rx.text(column_name, size="1"),
+                    ),
+                ),
+                white_space="nowrap",
+            ),
+        ),
+        rx.table.body(
+            rx.foreach(
+                CustomComponentGalleryState.paginated_data,
+                table_rows,
+            )
+        ),
+        width="100%",
+        variant="ghost",
+        max_width="800px",
+        size="1",
+    )
+
     return rx.box(
-        rx.foreach(CustomComponentGalleryState.components_list, add_item),
-        class_name="gap-6 grid grid-cols-1 lg:grid-cols-1 2xl:grid-cols-3 [&>*]:min-w-[260px] w-full",
+        table,
+        class_name="w-full h-full min-h-[60vh] flex flex-col items-start justify-start",
+    )
+
+
+def create_pagination():
+    return rx.hstack(
+        rx.hstack(
+            rx.text("Rows per page", weight="bold", font_size="12px"),
+            rx.select(
+                CustomComponentGalleryState.limits,
+                default_value="50",
+                on_change=CustomComponentGalleryState.delta_limit,
+                width="80px",
+            ),
+            align_items="center",
+        ),
+        rx.hstack(
+            rx.text(
+                f"Page {CustomComponentGalleryState.current_page} of {CustomComponentGalleryState.total_pages}",
+                width="100px",
+                weight="bold",
+                font_size="12px",
+            ),
+            rx.button(
+                rx.icon(
+                    tag="chevron-left",
+                    on_click=CustomComponentGalleryState.previous,
+                    size=25,
+                    cursor="pointer",
+                ),
+                color_scheme="gray",
+                variant="surface",
+                size="1",
+                width="32px",
+                height="32px",
+            ),
+            rx.button(
+                rx.icon(
+                    tag="chevron-right",
+                    on_click=CustomComponentGalleryState.next,
+                    size=25,
+                    cursor="pointer",
+                ),
+                color_scheme="gray",
+                variant="surface",
+                size="1",
+                width="32px",
+                height="32px",
+            ),
+            align_items="center",
+            spacing="1",
+        ),
+        align_items="center",
+        spacing="4",
+        flex_wrap="wrap",
     )
 
 
@@ -385,6 +416,7 @@ def custom_components() -> rx.Component:
             class_name="flex flex-col w-full",
         ),
         component_grid(),
+        create_pagination(),
         class_name="flex flex-col h-full w-full gap-6 mb-16",
         on_mount=CustomComponentGalleryState.fetch_components_list,
     )
