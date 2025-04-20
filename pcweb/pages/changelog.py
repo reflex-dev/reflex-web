@@ -49,6 +49,28 @@ def change(
 def changelog_content():
     return rx.el.ul(
         change(
+            "2025-04-14",
+            "v0.7.7",
+            "input `type=number` and `range` and `checkbox` fixes",
+            [
+                "bun installation behavior changes",
+                "small database supported to reflex cloud",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.7",
+        ),
+        change(
+            "2025-04-08",
+            "v0.7.6",
+            "Cleanup dependencies",
+            [
+                "made admin dashboard to optional",
+                "`reflex components publish` has been removed",
+                "`rx.el.select` now can take `value` and default_value",
+                "`context` param to `app.add_page`",
+            ],
+            "https://github.com/reflex-dev/reflex/releases/tag/v0.7.6",
+        ),
+        change(
             "2025-03-31",
             "v0.7.5",
             "None as children of components",
