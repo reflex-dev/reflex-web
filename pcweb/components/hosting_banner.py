@@ -1,5 +1,6 @@
 import reflex as rx
-from pcweb.constants import REFLEX_CLOUD_URL
+
+from pcweb.constants import REFLEX_AI_BUILDER
 
 
 def glow() -> rx.Component:
@@ -27,28 +28,29 @@ def hosting_banner() -> rx.Component:
                 rx.box(
                     rx.box(
                         rx.text(
-                            "Reflex Cloud - ",
+                            "Reflex Build - ",
                             rx.el.span(
-                                "Fast, secure & scalable hosting. One command to deploy.",
+                                "Build internal apps with AI.",
                                 # class_name="text-slate-12 font-medium text-sm",
                                 class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
                             ),
-                            rx.el.span(
-                                "Fast & scalable hosting.",
-                                # class_name="text-slate-12 font-medium text-sm",
-                                class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
-                            ),
+                            # ... keep this for mobile view if/when needed
+                            # rx.el.span(
+                            #     "Build internal apps with AI.",
+                            #     # class_name="text-slate-12 font-medium text-sm",
+                            #     class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
+                            # ),
                             class_name="text-slate-12 font-semibold text-sm z-[1]",
                         ),
                         rx.el.button(
-                            "Live Now!",
+                            "Try for Free!",
                             class_name="hidden md:inline-block text-green-11 h-[1.5rem] rounded-md bg-green-4 px-1.5 text-sm font-semibold z-[1] items-center justify-center shrink-0",
                         ),
                         class_name="flex items-center gap-4",
                     ),
                 ),
                 glow(),
-                href=REFLEX_CLOUD_URL,
+                href=REFLEX_AI_BUILDER,
                 underline="none",
                 is_external=True,
             ),
