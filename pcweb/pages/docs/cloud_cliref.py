@@ -1,3 +1,4 @@
+from functools import lru_cache
 import subprocess
 import tempfile
 import os
@@ -7,6 +8,7 @@ import reflex as rx
 from pcweb.flexdown import markdown
 
 
+@lru_cache
 def get_command_help_output(
     path_to_file: str = None, name_of_cli_program: str = "reflex"
 ) -> str:
@@ -54,41 +56,80 @@ def get_command_help_output(
 docs_dict = {}
 
 
-def process_command(prefix, path_to_file, dict_prefix=""):
+def process_command(
+    prefix, path_to_file, dict_prefix, readable_name, contains_subcommands=True
+):
     # Get the help output
-    if " " in prefix:
-        output = get_command_help_output(
-            path_to_file=path_to_file, name_of_cli_program=prefix
-        )
-    else:
-        output = get_command_help_output(path_to_file=path_to_file)
+    output = get_command_help_output(
+        path_to_file=path_to_file, name_of_cli_program=prefix
+    )
+
+    if output is None:
+        raise ValueError(f"Failed to get help output for {prefix}")
 
     # Construct the regular expression pattern
-    escaped_prefix = re.escape(prefix)
-    pattern = rf"## `{escaped_prefix} (.*?)`\n(.*?)(?=\n## `{escaped_prefix}|\Z)"
+    escaped_prefix = re.escape(prefix + (" " + dict_prefix if dict_prefix else ""))
+    # This matches against the command name then until the next command (## `) or the end of the string
+    pattern = rf"# `{escaped_prefix}`\n(.*?)(?=\n## `|\Z)"
 
     # Find all matches using the pattern
-    matches = re.finditer(pattern, output, re.DOTALL)
+    matches = re.findall(pattern, output, re.DOTALL)
+
+    if len(matches) > 1:
+        raise ValueError(
+            f"Multiple matches found for `{escaped_prefix}` in the output. Please check the regex pattern."
+        )
+
+    if len(matches) == 0:
+        print(output)
+        raise ValueError(
+            f"No matches found for `{escaped_prefix}` in the output. Please check the regex pattern."
+        )
+
+    first_match = matches[0]
+
+    if not contains_subcommands:
+        docs_dict[readable_name] = (
+            first_match.strip().replace("<", "&lt;").replace(">", "&gt;")
+        )
+        return
+
+    subcommands_pattern = rf"### `{escaped_prefix} ([a-zA-Z -]*)`\n(.*?)(?=\n### `|\Z)"
+    subcommands_matches = re.finditer(subcommands_pattern, first_match, re.DOTALL)
 
     # Populate the dictionary with command names and documentation
-    for match in matches:
+    for match in subcommands_matches:
         command_name = match.group(1).strip()
         command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-        docs_dict[f"{dict_prefix}{command_name}"] = command_doc
+        docs_dict[
+            command_name if not readable_name else readable_name + " " + command_name
+        ] = command_doc
 
 
 # List of command prefixes and their corresponding file paths
 commands_info = [
-    ("reflex cloud project", "reflex_cli.v2.project", "project "),
-    ("reflex cloud secrets", "reflex_cli.v2.secrets", "secrets "),
-    ("reflex cloud apps", "reflex_cli.v2.apps", "apps "),
-    ("reflex cloud", "reflex_cli.v2.vmtypes_regions", ""),
-    ("reflex", "reflex.reflex", ""),
+    ("reflex cloud", "reflex_cli.v2.deployments", "project-cli", "project", True),
+    ("reflex cloud", "reflex_cli.v2.deployments", "secrets-cli", "secrets", True),
+    ("reflex cloud", "reflex_cli.v2.deployments", "apps-cli", "apps", True),
+    ("reflex cloud", "reflex_cli.v2.deployments", "vmtypes", "vmtypes", False),
+    ("reflex cloud", "reflex_cli.v2.deployments", "regions", "regions", False),
+    ("reflex cloud", "reflex_cli.v2.deployments", "config", "config", False),
+    ("reflex", "reflex.reflex", "deploy", "deploy", False),
+    ("reflex", "reflex.reflex", "login", "login", False),
+    ("reflex", "reflex.reflex", "logout", "logout", False),
 ]
 
 # Iterate over each command configuration
-for prefix, path_to_file, dict_prefix in commands_info:
-    process_command(prefix, path_to_file, dict_prefix)
+for (
+    prefix,
+    path_to_file,
+    dict_prefix,
+    readable_name,
+    contains_subcommands,
+) in commands_info:
+    process_command(
+        prefix, path_to_file, dict_prefix, readable_name, contains_subcommands
+    )
 
 
 # Dictionary to store the categories and their respective commands
