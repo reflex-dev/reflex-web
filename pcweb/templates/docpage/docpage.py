@@ -381,7 +381,7 @@ def docpage(
     right_sidebar: bool = True,
     page_title: str | None = None,
     pseudo_right_bar: bool = False,
-) -> rx.Component:
+):
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
