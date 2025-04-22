@@ -1,3 +1,4 @@
+import functools
 from typing import Callable
 
 import reflex as rx
@@ -232,6 +233,7 @@ def storypage(
             The templated route.
         """
 
+        @functools.wraps(contents)
         def wrapper(*children, **props) -> rx.Component:
             """The template component.
 
