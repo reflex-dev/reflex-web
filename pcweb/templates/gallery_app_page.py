@@ -1,3 +1,4 @@
+import functools
 from typing import Callable
 import reflex as rx
 from pcweb.route import Route
@@ -39,6 +40,7 @@ def gallery_app_page(
             The templated route.
         """
 
+        @functools.wraps(contents)
         def wrapper(*children, **props) -> rx.Component:
             """The template component.
 
