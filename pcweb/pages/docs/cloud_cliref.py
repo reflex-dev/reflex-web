@@ -69,9 +69,10 @@ def process_command(
         raise ValueError(f"Failed to get help output for {prefix}")
 
     subcommands = subcommand if isinstance(subcommand, tuple) else (subcommand,)
+    used_subcommand = subcommands[0]
 
     # Construct the regular expression pattern
-    escaped_prefix = re.escape(prefix + (" " + subcommands[0]))
+    escaped_prefix = re.escape(prefix + (" " + used_subcommand))
     # This matches against the command name then until the next command (## `) or the end of the string
     pattern = rf"# `{escaped_prefix}`\n(.*?)(?=\n## `|\Z)"
 
@@ -95,8 +96,13 @@ def process_command(
 
     first_match: str = matches[0]
 
+    used_subcommand = (
+        used_subcommand[: used_subcommand.index("-")]
+        if "-" in used_subcommand
+        else used_subcommand
+    )
     if not contains_nested_subcommand:
-        cli_to_doc[subcommands[0]] = (
+        cli_to_doc[used_subcommand] = (
             first_match.strip().replace("<", "&lt;").replace(">", "&gt;")
         )
         return
@@ -108,7 +114,7 @@ def process_command(
     for match in subcommands_matches:
         nested_subcommand_name = match.group(1).strip()
         command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-        cli_to_doc[subcommands[0] + " " + nested_subcommand_name] = command_doc
+        cli_to_doc[used_subcommand + " " + nested_subcommand_name] = command_doc
 
 
 # List of command prefixes and their corresponding file paths
