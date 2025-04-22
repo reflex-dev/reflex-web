@@ -9,9 +9,7 @@ from pcweb.flexdown import markdown
 
 
 @lru_cache
-def get_command_help_output(
-    path_to_file: str = None, name_of_cli_program: str = "reflex"
-) -> str:
+def get_command_help_output(path_to_file: str, name_of_cli_program: str) -> str:
     # Create a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".md") as temp_file:
         temp_file_path = temp_file.name
@@ -53,22 +51,27 @@ def get_command_help_output(
 
 
 # Dictionary to store the parsed documentation
-docs_dict = {}
+cli_to_doc = {}
 
 
 def process_command(
-    prefix, path_to_file, dict_prefix, readable_name, contains_subcommands=True
+    prefix: str,
+    cli_module: str,
+    subcommand: str | tuple[str, ...],
+    contains_nested_subcommand: bool,
 ):
     # Get the help output
     output = get_command_help_output(
-        path_to_file=path_to_file, name_of_cli_program=prefix
+        path_to_file=cli_module, name_of_cli_program=prefix
     )
 
     if output is None:
         raise ValueError(f"Failed to get help output for {prefix}")
 
+    subcommands = subcommand if isinstance(subcommand, tuple) else (subcommand,)
+
     # Construct the regular expression pattern
-    escaped_prefix = re.escape(prefix + (" " + dict_prefix if dict_prefix else ""))
+    escaped_prefix = re.escape(prefix + (" " + subcommands[0]))
     # This matches against the command name then until the next command (## `) or the end of the string
     pattern = rf"# `{escaped_prefix}`\n(.*?)(?=\n## `|\Z)"
 
@@ -81,15 +84,19 @@ def process_command(
         )
 
     if len(matches) == 0:
+        if len(subcommands) > 1:
+            return process_command(
+                prefix, cli_module, subcommands[1:], contains_nested_subcommand
+            )
         print(output)
         raise ValueError(
             f"No matches found for `{escaped_prefix}` in the output. Please check the regex pattern."
         )
 
-    first_match = matches[0]
+    first_match: str = matches[0]
 
-    if not contains_subcommands:
-        docs_dict[readable_name] = (
+    if not contains_nested_subcommand:
+        cli_to_doc[subcommands[0]] = (
             first_match.strip().replace("<", "&lt;").replace(">", "&gt;")
         )
         return
@@ -99,37 +106,42 @@ def process_command(
 
     # Populate the dictionary with command names and documentation
     for match in subcommands_matches:
-        command_name = match.group(1).strip()
+        nested_subcommand_name = match.group(1).strip()
         command_doc = match.group(2).strip().replace("<", "&lt;").replace(">", "&gt;")
-        docs_dict[
-            command_name if not readable_name else readable_name + " " + command_name
-        ] = command_doc
+        cli_to_doc[subcommands[0] + " " + nested_subcommand_name] = command_doc
 
 
 # List of command prefixes and their corresponding file paths
-commands_info = [
-    ("reflex cloud", "reflex_cli.v2.deployments", "project-cli", "project", True),
-    ("reflex cloud", "reflex_cli.v2.deployments", "secrets-cli", "secrets", True),
-    ("reflex cloud", "reflex_cli.v2.deployments", "apps-cli", "apps", True),
-    ("reflex cloud", "reflex_cli.v2.deployments", "vmtypes", "vmtypes", False),
-    ("reflex cloud", "reflex_cli.v2.deployments", "regions", "regions", False),
-    ("reflex cloud", "reflex_cli.v2.deployments", "config", "config", False),
-    ("reflex", "reflex.reflex", "deploy", "deploy", False),
-    ("reflex", "reflex.reflex", "login", "login", False),
-    ("reflex", "reflex.reflex", "logout", "logout", False),
-]
+commands_info = (
+    (
+        "reflex cloud",
+        "reflex_cli.v2.deployments",
+        ("project", "project-cli"),
+        True,
+    ),
+    (
+        "reflex cloud",
+        "reflex_cli.v2.deployments",
+        ("secrets", "secrets-cli"),
+        True,
+    ),
+    ("reflex cloud", "reflex_cli.v2.deployments", ("apps", "apps-cli"), True),
+    ("reflex cloud", "reflex_cli.v2.deployments", "vmtypes", False),
+    ("reflex cloud", "reflex_cli.v2.deployments", "regions", False),
+    ("reflex cloud", "reflex_cli.v2.deployments", "config", False),
+    ("reflex", "reflex.reflex", "deploy", False),
+    ("reflex", "reflex.reflex", "login", False),
+    ("reflex", "reflex.reflex", "logout", False),
+)
 
 # Iterate over each command configuration
 for (
     prefix,
     path_to_file,
     dict_prefix,
-    readable_name,
     contains_subcommands,
 ) in commands_info:
-    process_command(
-        prefix, path_to_file, dict_prefix, readable_name, contains_subcommands
-    )
+    process_command(prefix, path_to_file, dict_prefix, contains_subcommands)
 
 
 # Dictionary to store the categories and their respective commands
@@ -169,9 +181,9 @@ modules = {}
 # Extract and combine documentation for each category
 for category, commands in categories.items():
     docs_list = [
-        f"# {command}\n\n{docs_dict[command]}"
+        f"# {command}\n\n{cli_to_doc[command]}"
         for command in commands
-        if command in docs_dict
+        if command in cli_to_doc
     ]
     modules[category] = "\n\n".join(docs_list)
 
