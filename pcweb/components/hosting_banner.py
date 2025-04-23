@@ -36,7 +36,7 @@ def hosting_banner() -> rx.Component:
                             ),
                             # ... keep this for mobile view if/when needed
                             rx.el.span(
-                                "Build internal apps with AI.",
+                                "Try for Free!",
                                 # class_name="text-slate-12 font-medium text-sm",
                                 class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
                             ),
