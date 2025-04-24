@@ -172,10 +172,10 @@ def bento_cards() -> rx.Component:
         #     text="To build the fastest-growing corporate card, LlamaIndex chose the fastest tool.",
         # ),
         # # Autodesk
-        # card(
-        #     company="autodesk",
-        #     text="Autodesk switched their 1,000 person team to Reflex to move faster.",
-        # ),
+        card(
+            company="autodesk",
+            text="Autodesk switched their 1,000 person team to Reflex to move faster.",
+        ),
         # Bayesline
         card(
             company="bayesline",
@@ -190,7 +190,6 @@ def bento_cards() -> rx.Component:
         card(
             company="sellerx",
             text="Why SellerX chose Reflex over Streamlit for their data processing pipeline",
-            class_name=" col-span-2",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
     )
