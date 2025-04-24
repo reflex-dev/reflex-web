@@ -105,7 +105,6 @@ def h4_comp(text: str) -> rx.Component:
     return h_comp_common(
         text=text,
         heading="h4",
-        scroll_margin="6em",
         mt="2",
         class_name="font-md-smbold",
     )
