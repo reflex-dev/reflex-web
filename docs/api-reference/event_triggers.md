@@ -110,7 +110,7 @@ SYNTHETIC_EVENTS = [
         # Simulate API call
         import asyncio
         await asyncio.sleep(1)
-        self.data = [{"id": 1, "name": "Item 1"}, {"id": 2, "name": "Item 2"}]
+        self.data = [dict(id=1, name="Item 1"), dict(id=2, name="Item 2")]
         self.loading = False
 """,
         "example": """rx.vstack(
@@ -336,7 +336,7 @@ async def load_data(self):
     # Perform long operation
     await asyncio.sleep(1)
     
-    self.data = [{"id": 1, "name": "Item 1"}]
+    self.data = [dict(id=1, name="Item 1")]
     self.loading = False
     # Final update: Hide spinner and show data
 ```
