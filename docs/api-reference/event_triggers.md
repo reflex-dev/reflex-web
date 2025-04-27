@@ -317,31 +317,50 @@ Event triggers are component specific and are listed in the documentation for ea
 
 Reflex components have lifecycle events like `on_mount` and `on_unmount` that allow you to execute code at specific points in a component's existence. These events are crucial for initializing data, cleaning up resources, and creating dynamic user interfaces.
 
-## Yield Events
+## Page Load Events
 
-For more complex event handling, Reflex supports yielding from event handlers to send multiple state updates to the frontend. This is particularly useful for:
+In addition to component lifecycle events, Reflex also provides page-level events like `on_load` that are triggered when a page loads. The `on_load` event is useful for:
 
-- Showing loading states during long operations
-- Streaming data as it becomes available
-- Chaining multiple events together
+- Fetching data when a page first loads
+- Checking authentication status
+- Initializing page-specific state
+- Setting default values for cookies or browser storage
 
-To use yield events, simply use the Python `yield` keyword in your event handler:
+You can specify an event handler to run when the page loads using the `on_load` parameter in the `@rx.page` decorator or `app.add_page()` method:
 
 ```python
-@rx.event
-async def load_data(self):
-    self.loading = True
-    yield  # First update: Show loading spinner
-    
-    # Perform long operation
-    await asyncio.sleep(1)
-    
-    self.data = [dict(id=1, name="Item 1")]
-    self.loading = False
-    # Final update: Hide spinner and show data
+class State(rx.State):
+    data: dict = {}
+
+    @rx.event
+    def get_data(self):
+        # Fetch data when the page loads
+        self.data = fetch_data()
+
+@rx.page(on_load=State.get_data)
+def index():
+    return rx.text('Data loaded on page load')
 ```
 
-For more details on yield events, see the [yield events documentation](/docs/events/yield_events).
+This is particularly useful for authentication checks:
+
+```python
+class State(rx.State):
+    authenticated: bool = False
+
+    @rx.event
+    def check_auth(self):
+        # Check if user is authenticated
+        self.authenticated = check_auth()
+        if not self.authenticated:
+            return rx.redirect('/login')
+
+@rx.page(on_load=State.check_auth)
+def protected_page():
+    return rx.text('Protected content')
+```
+
+For more details on page load events, see the [page load events documentation](/docs/events/page_load_events).
 
 ```python eval
 rx.box(
