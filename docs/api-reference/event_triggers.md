@@ -92,27 +92,70 @@ SYNTHETIC_EVENTS = [
     },
     {
         "name": "on_mount",
-        "description": "The on_mount event handler is called after the component is rendered on the page. It is similar to a page on_load event, although it does not necessarily fire when navigating between pages.",
+        "description": "The on_mount event handler is called after the component is rendered on the page. It is similar to a page on_load event, although it does not necessarily fire when navigating between pages. This event is particularly useful for initializing data, making API calls, or setting up component-specific state when a component first appears.",
         "state": """class MountState(rx.State):
     events: list[str] = []
+    data: list[dict] = []
+    loading: bool = False
 
     @rx.event
     def on_mount(self):
         self.events = self.events[-4:] + ["on_mount @ " + str(datetime.now())]
+        
+    @rx.event
+    async def load_data(self):
+        # Common pattern: Set loading state, yield to update UI, then fetch data
+        self.loading = True
+        yield
+        # Simulate API call
+        import asyncio
+        await asyncio.sleep(1)
+        self.data = [{"id": 1, "name": "Item 1"}, {"id": 2, "name": "Item 2"}]
+        self.loading = False
 """,
-        "example": """rx.vstack(rx.foreach(MountState.events, rx.text), on_mount=MountState.on_mount)""",
+        "example": """rx.vstack(
+    rx.heading("Component Lifecycle Demo"),
+    rx.foreach(MountState.events, rx.text),
+    rx.cond(
+        MountState.loading,
+        rx.spinner(),
+        rx.foreach(
+            MountState.data,
+            lambda item: rx.text(f"ID: {item['id']} - {item['name']}")
+        )
+    ),
+    on_mount=MountState.on_mount,
+)""",
     },
     {
         "name": "on_unmount",
-        "description": "The on_unmount event handler is called after removing the component from the page. However, on_unmount will only be called for internal navigation, not when following external links or refreshing the page.",
+        "description": "The on_unmount event handler is called after removing the component from the page. However, on_unmount will only be called for internal navigation, not when following external links or refreshing the page. This event is useful for cleaning up resources, saving state, or performing cleanup operations before a component is removed from the DOM.",
         "state": """class UnmountState(rx.State):
     events: list[str] = []
+    resource_id: str = "resource-12345"
+    status: str = "Resource active"
 
     @rx.event
     def on_unmount(self):
         self.events = self.events[-4:] + ["on_unmount @ " + str(datetime.now())]
+        # Common pattern: Clean up resources when component is removed
+        self.status = f"Resource {self.resource_id} cleaned up"
+        
+    @rx.event
+    def initialize_resource(self):
+        self.status = f"Resource {self.resource_id} initialized"
 """,
-        "example": """rx.vstack(rx.foreach(UnmountState.events, rx.text), on_unmount=UnmountState.on_unmount)""",
+        "example": """rx.vstack(
+    rx.heading("Unmount Demo"),
+    rx.foreach(UnmountState.events, rx.text),
+    rx.text(UnmountState.status),
+    rx.link(
+        rx.button("Navigate Away (Triggers Unmount)"),
+        href="/docs",
+    ),
+    on_mount=UnmountState.initialize_resource,
+    on_unmount=UnmountState.on_unmount,
+)""",
     },
     {
         "name": "on_mouse_up",
@@ -269,6 +312,36 @@ Components can modify the state based on user events such as clicking a button o
 These events are triggered by event triggers.
 
 Event triggers are component specific and are listed in the documentation for each component.
+
+## Component Lifecycle Events
+
+Reflex components have lifecycle events like `on_mount` and `on_unmount` that allow you to execute code at specific points in a component's existence. These events are crucial for initializing data, cleaning up resources, and creating dynamic user interfaces.
+
+## Yield Events
+
+For more complex event handling, Reflex supports yielding from event handlers to send multiple state updates to the frontend. This is particularly useful for:
+
+- Showing loading states during long operations
+- Streaming data as it becomes available
+- Chaining multiple events together
+
+To use yield events, simply use the Python `yield` keyword in your event handler:
+
+```python
+@rx.event
+async def load_data(self):
+    self.loading = True
+    yield  # First update: Show loading spinner
+    
+    # Perform long operation
+    await asyncio.sleep(1)
+    
+    self.data = [{"id": 1, "name": "Item 1"}]
+    self.loading = False
+    # Final update: Hide spinner and show data
+```
+
+For more details on yield events, see the [yield events documentation](/docs/events/yield_events).
 
 ```python eval
 rx.box(
