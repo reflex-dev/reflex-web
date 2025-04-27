@@ -59,7 +59,9 @@ We also have a var `color` which is the current color of the color picker.
 Since this component has interaction we must specify any event triggers that the component takes. The color picker has a single trigger `on_change` to specify when the color changes. This trigger takes in a single argument `color` which is the new color.
 
 ```python exec
-class ColorPicker(rx.Component):
+from reflex.components.component import NoSSRComponent
+
+class ColorPicker(NoSSRComponent):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
@@ -87,7 +89,9 @@ rx.box(
 ```
 
 ```python
-class ColorPicker(rx.Component):
+from reflex.components.component import NoSSRComponent
+
+class ColorPicker(NoSSRComponent):
     library = "react-colorful"
     tag = "HexColorPicker"
     color: rx.Var[str]
