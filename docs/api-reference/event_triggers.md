@@ -330,7 +330,7 @@ You can specify an event handler to run when the page loads using the `on_load` 
 
 ```python
 class State(rx.State):
-    data: dict = {}
+    data: dict = dict()
 
     @rx.event
     def get_data(self):
