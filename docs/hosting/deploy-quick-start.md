@@ -94,6 +94,8 @@ Options:
 - `--env-vars`: Set environment variables for your app
 - `--token`: Use a token for authentication instead of interactive login
 
+For more detailed information about deployment, see the [Deploy Documentation](https://reflex.dev/docs/hosting/deploy/).
+
 
 ```md alert info
 # Once your code is uploaded, the hosting service will start the deployment. After a complete upload, exiting from the command **does not** affect the deployment process. The command prints a message when you can safely close it without affecting the deployment.
