@@ -362,6 +362,8 @@ def protected_page():
 
 For more details on page load events, see the [page load events documentation](/docs/events/page_load_events).
 
+# Event Reference
+
 ```python eval
 rx.box(
     rx.divider(),
