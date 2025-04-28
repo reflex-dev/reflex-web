@@ -38,7 +38,7 @@ def test_handler_from_handler(
             return False
     
     run_button.click()
-    expect(chain_heading).to_have_text(is_at_least_value, timeout=15000)
+    expect(chain_heading).to_have_text(is_at_least_value)
     
     expect(chain_heading).to_have_text("10")
 
@@ -52,7 +52,7 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
     collatz_box = page.locator('[id="collatz"]')
 
     collatz_input = collatz_box.get_by_role("textbox")
-    collatz_input.fill("10", timeout=4000)
+    collatz_input.fill("10")
     
     def is_expected_value(value: str):
         return value == "1"
@@ -61,4 +61,4 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
     
     collatz_heading = page.locator('[id="collatz"] > .rt-Flex > span')
     
-    expect(collatz_heading).to_have_text(is_expected_value, timeout=15000)
+    expect(collatz_heading).to_have_text(is_expected_value)
