@@ -30,18 +30,17 @@ def test_handler_from_handler(
     run_button = page.get_by_role("button", name="Run")
     run_button.scroll_into_view_if_needed()
     expect(run_button).to_be_visible()
+    
+    def is_at_least_value(value: str):
+        try:
+            return int(value) >= 10
+        except ValueError:
+            return False
+    
     run_button.click()
-    # commented this as runtime is not reliable in CI
-    # expect(chain_heading).to_have_text("1")
-    # expect(chain_heading).to_have_text("2")
-    # expect(chain_heading).to_have_text("3")
-    # expect(chain_heading).to_have_text("4")
-    # expect(chain_heading).to_have_text("5")
-    # expect(chain_heading).to_have_text("6")
-    # expect(chain_heading).to_have_text("7")
-    # expect(chain_heading).to_have_text("8")
-    # expect(chain_heading).to_have_text("9")
-    expect(chain_heading).to_have_text("10", timeout=10000)
+    expect(chain_heading).to_have_text(is_at_least_value, timeout=15000)
+    
+    expect(chain_heading).to_have_text("10")
 
 
 def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
@@ -54,14 +53,12 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
 
     collatz_input = collatz_box.get_by_role("textbox")
     collatz_input.fill("10", timeout=4000)
+    
+    def is_expected_value(value: str):
+        return value == "1"
+    
     collatz_input.blur()
+    
     collatz_heading = page.locator('[id="collatz"] > .rt-Flex > span')
-    # commented this as runtime is not reliable in CI
-    # expect(collatz_heading).to_have_text("10")
-    # expect(collatz_heading).to_have_text("5")
-    # expect(collatz_heading).to_have_text("16")
-    # expect(collatz_heading).to_have_text("8")
-    # expect(collatz_heading).to_have_text("4")
-    # expect(collatz_heading).to_have_text("2")
-    expect(collatz_heading).to_have_text("1", timeout=10000)
-    time.sleep(20)
+    
+    expect(collatz_heading).to_have_text(is_expected_value, timeout=15000)
