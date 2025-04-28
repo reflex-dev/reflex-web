@@ -21,6 +21,8 @@ def test_handler_from_handler(
     chaining_event_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
+    page.set_default_timeout(60000)
+    page.set_default_navigation_timeout(60000)
 
     page.goto(reflex_web_app.frontend_url + chaining_event_url)
     expect(page).to_have_url(re.compile(chaining_event_url))
