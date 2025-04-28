@@ -65,46 +65,47 @@ class SerializationDemoState(rx.State):
 def serialization_demo():
     return rx.vstack(
         rx.heading("State Variables", size="4"),
-        rx.table(
-            rx.thead(
-                rx.tr(
-                    rx.th("Variable"),
-                    rx.th("Type"),
-                    rx.th("Value"),
-                )
-            ),
-            rx.tbody(
-                rx.tr(
-                    rx.td("number"),
-                    rx.td("int"),
-                    rx.td(f"{SerializationDemoState.number}"),
-                ),
-                rx.tr(
-                    rx.td("text"),
-                    rx.td("str"),
-                    rx.td(f"{SerializationDemoState.text}"),
-                ),
-                rx.tr(
-                    rx.td("is_active"),
-                    rx.td("bool"),
-                    rx.td(f"{SerializationDemoState.is_active}"),
-                ),
-                rx.tr(
-                    rx.td("items"),
-                    rx.td("list[str]"),
-                    rx.td(f"{SerializationDemoState.items}"),
-                ),
-                rx.tr(
-                    rx.td("settings"),
-                    rx.td("dict[str, Any]"),
-                    rx.td(f"{SerializationDemoState.settings}"),
-                ),
-                rx.tr(
-                    rx.td("coordinates"),
-                    rx.td("tuple[int, int]"),
-                    rx.td(f"{SerializationDemoState.coordinates}"),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Variable"),
+                    rx.table.column_header_cell("Type"),
+                    rx.table.column_header_cell("Value"),
                 ),
             ),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("number"),
+                    rx.table.cell("int"),
+                    rx.table.cell(f"{SerializationDemoState.number}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("text"),
+                    rx.table.cell("str"),
+                    rx.table.cell(f"{SerializationDemoState.text}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("is_active"),
+                    rx.table.cell("bool"),
+                    rx.table.cell(f"{SerializationDemoState.is_active}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("items"),
+                    rx.table.cell("list[str]"),
+                    rx.table.cell(f"{SerializationDemoState.items}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("settings"),
+                    rx.table.cell("dict[str, Any]"),
+                    rx.table.cell(f"{SerializationDemoState.settings}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("coordinates"),
+                    rx.table.cell("tuple[int, int]"),
+                    rx.table.cell(f"{SerializationDemoState.coordinates}"),
+                ),
+            ),
+            width="100%",
         ),
         rx.divider(),
         rx.heading("JSON Serialized State", size="4"),
@@ -143,7 +144,7 @@ def backend_only_demo():
         rx.button("Calculate Summary", on_click=BackendOnlyState.calculate_summary),
         rx.divider(),
         rx.heading("Data Summary", size="4"),
-        rx.code_block(BackendOnlyState.data_summary, language="json"),
+        rx.code_block(str(BackendOnlyState.data_summary), language="json"),
         width="100%",
     )
 ```
