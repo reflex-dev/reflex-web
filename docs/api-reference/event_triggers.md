@@ -318,6 +318,19 @@ Event triggers are component specific and are listed in the documentation for ea
 
 Reflex components have lifecycle events like `on_mount` and `on_unmount` that allow you to execute code at specific points in a component's existence. These events are crucial for initializing data, cleaning up resources, and creating dynamic user interfaces.
 
+### When Lifecycle Events Are Activated
+
+- **on_mount**: This event is triggered immediately after a component is rendered and attached to the DOM. It fires:
+  - When a page containing the component is first loaded
+  - When a component is conditionally rendered (appears after being hidden)
+  - When navigating to a page containing the component using internal navigation
+  - It does NOT fire when the page is refreshed or when following external links
+
+- **on_unmount**: This event is triggered just before a component is removed from the DOM. It fires:
+  - When navigating away from a page containing the component using internal navigation
+  - When a component is conditionally removed from the DOM (e.g., via a condition that hides it)
+  - It does NOT fire when refreshing the page, closing the browser tab, or following external links
+
 ## Page Load Events
 
 In addition to component lifecycle events, Reflex also provides page-level events like `on_load` that are triggered when a page loads. The `on_load` event is useful for:
