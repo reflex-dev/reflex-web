@@ -32,8 +32,13 @@ def test_handler_from_handler(
     expect(run_button).to_be_visible()
     
     page.evaluate("""() => {
-        const button = document.querySelector('button[data-accent-color]:has-text("Run")');
-        if (button) button.click();
+        const buttons = document.querySelectorAll('button[data-accent-color]');
+        for (const button of buttons) {
+            if (button.textContent.includes('Run')) {
+                button.click();
+                break;
+            }
+        }
     }""")
     
     expect(chain_heading).to_have_text("10", timeout=15000)
@@ -51,8 +56,10 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
     collatz_input.fill("10")
     
     page.evaluate("""() => {
-        const input = document.querySelector('#collatz input');
-        if (input) input.blur();
+        const inputs = document.querySelectorAll('#collatz input');
+        if (inputs && inputs.length > 0) {
+            inputs[0].blur();
+        }
     }""")
     
     collatz_heading = page.locator('[id="collatz"] > .rt-Flex > span')
