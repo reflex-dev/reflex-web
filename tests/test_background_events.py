@@ -14,9 +14,6 @@ def background_events_url() -> str:
     return docs.events.background_events.path
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") is not None, reason="Consistently fails in CI"
-)
 def test_background_events(
     reflex_web_app: AppHarness,
     page: Page,
@@ -24,7 +21,7 @@ def test_background_events(
 ):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(reflex_web_app.frontend_url + background_events_url)
+    page.goto(reflex_web_app.frontend_url + background_events_url, timeout=60000)
     expect(page).to_have_url(re.compile(background_events_url))
 
     start_button = page.get_by_role("button", name="Start", exact=True)
