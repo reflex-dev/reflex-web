@@ -323,6 +323,9 @@ class Settings:
     theme: str
     font_size: int
     notifications: bool
+    
+    def __str__(self):
+        return f"Settings(theme={self.theme}, font_size={self.font_size}, notifications={self.notifications})"
 
 class StorageState(rx.State):
     # Use LocalStorage to persist settings between sessions
@@ -369,7 +372,7 @@ def storage_demo():
         rx.text("Current Settings:"),
         rx.text(f"Theme: {StorageState.current_settings.theme}"),
         rx.text(f"Font Size: {StorageState.current_settings.font_size}"),
-        rx.text(f"Notifications: {StorageState.current_settings.notifications}"),
+        rx.text(f"Notifications: {str(StorageState.current_settings.notifications)}"),
         rx.hstack(
             rx.button("Toggle Theme", on_click=StorageState.toggle_theme),
             rx.button("Increase Font", on_click=StorageState.increase_font),
