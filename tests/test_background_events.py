@@ -20,8 +20,9 @@ def test_background_events(
     background_events_url: str,
 ):
     assert reflex_web_app.frontend_url is not None
+    page.set_default_timeout(60000)
 
-    page.goto(reflex_web_app.frontend_url + background_events_url, timeout=120000)
+    page.goto(reflex_web_app.frontend_url + background_events_url)
     expect(page).to_have_url(re.compile(background_events_url))
 
     start_button = page.get_by_role("button", name="Start", exact=True)
