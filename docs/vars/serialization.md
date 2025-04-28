@@ -65,12 +65,47 @@ class SerializationDemoState(rx.State):
 def serialization_demo():
     return rx.vstack(
         rx.heading("State Variables", size="4"),
-        rx.text(f"number: {SerializationDemoState.number}"),
-        rx.text(f"text: {SerializationDemoState.text}"),
-        rx.text(f"is_active: {SerializationDemoState.is_active}"),
-        rx.text(f"items: {SerializationDemoState.items}"),
-        rx.text(f"settings: {SerializationDemoState.settings}"),
-        rx.text(f"coordinates: {SerializationDemoState.coordinates}"),
+        rx.table(
+            rx.thead(
+                rx.tr(
+                    rx.th("Variable"),
+                    rx.th("Type"),
+                    rx.th("Value"),
+                )
+            ),
+            rx.tbody(
+                rx.tr(
+                    rx.td("number"),
+                    rx.td("int"),
+                    rx.td(f"{SerializationDemoState.number}"),
+                ),
+                rx.tr(
+                    rx.td("text"),
+                    rx.td("str"),
+                    rx.td(f"{SerializationDemoState.text}"),
+                ),
+                rx.tr(
+                    rx.td("is_active"),
+                    rx.td("bool"),
+                    rx.td(f"{SerializationDemoState.is_active}"),
+                ),
+                rx.tr(
+                    rx.td("items"),
+                    rx.td("list[str]"),
+                    rx.td(f"{SerializationDemoState.items}"),
+                ),
+                rx.tr(
+                    rx.td("settings"),
+                    rx.td("dict[str, Any]"),
+                    rx.td(f"{SerializationDemoState.settings}"),
+                ),
+                rx.tr(
+                    rx.td("coordinates"),
+                    rx.td("tuple[int, int]"),
+                    rx.td(f"{SerializationDemoState.coordinates}"),
+                ),
+            ),
+        ),
         rx.divider(),
         rx.heading("JSON Serialized State", size="4"),
         rx.code_block(SerializationDemoState.serialized_state, language="json"),
@@ -108,7 +143,7 @@ def backend_only_demo():
         rx.button("Calculate Summary", on_click=BackendOnlyState.calculate_summary),
         rx.divider(),
         rx.heading("Data Summary", size="4"),
-        rx.code_block(str(BackendOnlyState.data_summary), language="json"),
+        rx.code_block(BackendOnlyState.data_summary, language="json"),
         width="100%",
     )
 ```
@@ -231,61 +266,9 @@ def serializer_demo():
     )
 ```
 
-## The `.to` Operator and Type Checking
+## Type Checking and Type Conversion
 
-One of the most common sources of errors in Reflex applications is related to type checking and the `.to` operator. Reflex needs to know the types of variables at compile time to generate the correct JavaScript code.
-
-### Understanding the `.to` Operator
-
-The `.to` operator allows you to convert a Var from one type to another. This is particularly useful when you need to ensure a specific type for an operation:
-
-```python
-# Example of using the .to operator in a component
-# Note: This is a code example, not a runnable demo
-class TypeConversionState(rx.State):
-    text_value: str = "42"
-    
-    @rx.var
-    def as_number(self) -> int:
-        # In actual Reflex code, state vars have a .to method
-        # that converts them to a different type
-        # This is just an example - in real code you would use:
-        # return self.text_value.to(int)
-        return int(self.text_value)
-    
-    @rx.event
-    def increment(self):
-        # Convert to int, increment, then convert back to string
-        self.text_value = str(int(self.text_value) + 1)
-
-# In a component, you would use .to like this:
-# rx.text(State.some_number.to(str))
-# rx.progress(value=State.some_string.to(int))
-```
-
-```python demo exec
-# Simple demo without using .to operator
-class SimpleConversionState(rx.State):
-    text_value: str = "42"
-    
-    @rx.var
-    def as_number(self) -> int:
-        # Simple conversion without .to
-        return int(self.text_value)
-    
-    @rx.event
-    def increment(self):
-        self.text_value = str(int(self.text_value) + 1)
-
-def type_conversion_demo():
-    return rx.vstack(
-        rx.heading("Type Conversion Example", size="4"),
-        rx.text(f"Text value: {SimpleConversionState.text_value} (type: str)"),
-        rx.text(f"As number: {SimpleConversionState.as_number} (type: int)"),
-        rx.button("Increment", on_click=SimpleConversionState.increment),
-        width="100%",
-    )
-```
+One of the most common sources of errors in Reflex applications is related to type checking. Reflex needs to know the types of variables at compile time to generate the correct JavaScript code.
 
 ### Common Type Errors and Solutions
 
@@ -299,7 +282,7 @@ Error: Invalid var passed for prop value, expected type <class 'int'>, got value
 
 This error occurs when Reflex cannot determine the type of a variable at compile time. To fix it:
 
-1. **Add explicit type annotations to your state variables:**
+1. **Always use explicit type annotations for your state variables:**
 
 ```python
 # Incorrect - type is Any
@@ -309,14 +292,7 @@ items: list = [1, 2, 3]
 items: list[int] = [1, 2, 3]
 ```
 
-2. **Use the `.to` operator to convert to the expected type:**
-
-```python
-# If you need to pass a list item to a component expecting an int
-rx.progress(value=State.items[0].to(int))
-```
-
-3. **For nested structures, be specific about all types:**
+2. **For nested structures, be specific about all types:**
 
 ```python
 # Incorrect
@@ -327,6 +303,13 @@ users: list[dict[str, Any]] = [dict(name="Alice", scores=[10, 20])]
 
 # Even better - fully specified
 users: list[dict[str, Union[str, list[int]]]] = [dict(name="Alice", scores=[10, 20])]
+```
+
+3. **As a fallback, use the `.to` operator to convert to the expected type:**
+
+```python
+# If you need to pass a list item to a component expecting an int
+rx.progress(value=State.items[0].to(int))
 ```
 
 ## Serialization with Browser Storage
@@ -407,26 +390,7 @@ Some Python types cannot be automatically serialized:
 - **Database connections**: Store connection parameters, not the connection itself
 - **Complex objects**: Use custom serializers or convert to basic types
 
-### 2. Circular References
 
-Objects that reference each other in a circular manner can cause serialization errors:
-
-```python
-# Problematic circular reference
-class A:
-    def __init__(self):
-        self.b = None
-
-class B:
-    def __init__(self, a):
-        self.a = a
-
-a = A()
-b = B(a)
-a.b = b  # Creates a circular reference
-```
-
-Solution: Break the circular reference or use a custom serializer that handles this case.
 
 ### 3. Large Data Structures
 
@@ -441,9 +405,9 @@ Sending large data structures between frontend and backend can cause performance
 4. Use cached vars to minimize recalculation
 ```
 
-### 4. Type Inconsistency
+### 2. Type Inconsistency
 
-Ensure consistent types between frontend and backend:
+Always use strict typing and ensure consistent types between frontend and backend:
 
 ```python
 # Problematic - type changes during serialization
@@ -455,7 +419,10 @@ class State(rx.State):
         self.value = "42"  # Now it's a string!
 ```
 
-Solution: Use explicit type annotations and consistent types, or use the `.to` operator to ensure type consistency.
+Solution: 
+1. Use explicit type annotations for all state variables
+2. Maintain consistent types throughout your application
+3. As a fallback, use the `.to` operator when you need to convert between types
 
 ## Conclusion
 
