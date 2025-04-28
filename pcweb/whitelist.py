@@ -1,30 +1,20 @@
-# A list of whitelist paths that should be built.
-# If the list is empty, all pages will be built.
+"""
+This file is used to whitelist pages for development.
+It should be empty when committed to the repository.
+"""
 
-# Tips:
-# - Ensure that the path starts with a forward slash '/'.
-# - Do not include a trailing slash '/' at the end of the path.
+WHITELISTED_PAGES = []
 
-# Examples:
-# - Correct: WHITELISTED_PAGES = ["/docs/getting-started/introduction"]
-# - Incorrect: WHITELISTED_PAGES = ["/docs/getting-started/introduction/"]
 
-WHITELISTED_PAGES = [] 
+def _check_whitelisted_path(path: str) -> bool:
+    """Check if a path is whitelisted.
 
- 
-def _check_whitelisted_path(path):
-    if len(WHITELISTED_PAGES) == 0:
+    Args:
+        path: The path to check.
+
+    Returns:
+        Whether the path is whitelisted.
+    """
+    if not WHITELISTED_PAGES:
         return True
-
-    # If the path is the root, always build it.
-    if path == "/":
-        return True
-
-    if len(WHITELISTED_PAGES) == 1 and WHITELISTED_PAGES[0] == "/":
-        return False
-
-    for whitelisted_path in WHITELISTED_PAGES:
-        if path.startswith(whitelisted_path):
-            return True
-
-    return False
+    return any(path.startswith(page) for page in WHITELISTED_PAGES)
