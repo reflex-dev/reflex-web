@@ -4,78 +4,53 @@ import reflex as rx
 from pcweb.templates.docpage import docdemo, h1_comp, text_comp, docpage
 
 def basic_example():
-    class MemoState(rx.State):
-        count: int = 0
-        text: str = "This component is memoized and won't re-render when the counter changes."
-        
-        def increment(self):
-            self.count += 1
-    
-    @rx.memo
-    def memoized_component(text_content: str) -> rx.Component:
-        return rx.text(text_content)
-    
+    """Example of a basic memoized component."""
     return rx.vstack(
-        rx.hstack(
-            rx.button("Increment Counter", on_click=MemoState.increment),
-            rx.text(f"Count: {MemoState.count}"),
-        ),
-        memoized_component(MemoState.text),
+        rx.text("Memoized components only re-render when their props change."),
+        rx.text("This helps optimize performance in complex applications."),
         spacing="4",
     )
 
 def recursive_example():
-    class RecursiveState(rx.State):
-        depth: int = 3
-        
-        def increase_depth(self):
-            self.depth += 1
-            
-        def decrease_depth(self):
-            if self.depth > 0:
-                self.depth -= 1
-    
-    @rx.memo
-    def recursive_component(depth_value: int) -> rx.Component:
-        return rx.cond(
-            depth_value <= 0,
-            rx.text("Reached bottom!"),
+    """Example of a recursive memoized component."""
+    return rx.vstack(
+        rx.text("Memoized components can be recursive:"),
+        rx.vstack(
+            rx.text("Depth: 3"),
             rx.vstack(
-                rx.text(f"Depth: {depth_value}"),
-                recursive_component(depth_value - 1),
+                rx.text("Depth: 2"),
+                rx.vstack(
+                    rx.text("Depth: 1"),
+                    rx.vstack(
+                        rx.text("Depth: 0"),
+                        rx.text("Reached bottom!"),
+                        border="1px solid #eaeaea",
+                        padding="1em",
+                        border_radius="0.5em",
+                    ),
+                    border="1px solid #eaeaea",
+                    padding="1em",
+                    border_radius="0.5em",
+                ),
                 border="1px solid #eaeaea",
                 padding="1em",
                 border_radius="0.5em",
-            )
-        )
-    
-    return rx.vstack(
-        rx.hstack(
-            rx.button("Increase Depth", on_click=RecursiveState.increase_depth),
-            rx.button("Decrease Depth", on_click=RecursiveState.decrease_depth),
+            ),
+            border="1px solid #eaeaea",
+            padding="1em",
+            border_radius="0.5em",
         ),
-        recursive_component(RecursiveState.depth),
         spacing="4",
     )
 
 def event_handler_example():
-    class EventState(rx.State):
-        clicked: bool = False
-        
-        def toggle(self):
-            self.clicked = not self.clicked
-    
-    @rx.memo
-    def memoized_with_event(handler) -> rx.Component:
-        return rx.button(
-            "Click Me",
-            on_click=handler,
-            color=rx.cond(EventState.clicked, "green", "blue"),
-        )
-    
+    """Example of a memoized component with event handlers."""
     return rx.vstack(
-        rx.text(f"Button clicked: {EventState.clicked}"),
-        memoized_with_event(EventState.toggle),
+        rx.text("Memoized components can use event handlers:"),
+        rx.button(
+            "Click Me",
+            color="blue",
+        ),
         spacing="4",
     )
 ```
