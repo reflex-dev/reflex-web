@@ -36,7 +36,7 @@ jobs:
       - name: Deploy to Reflex
         id: deploy
         run: |
-          reflex deploy --project ${{ secrets.DEV_PROJECT_ID }} --token ${{ secrets.DEV_TOKEN }} --interactive=false
+          reflex deploy --project ${{ secrets.DEV_PROJECT_ID }} --token ${{ secrets.DEV_TOKEN }} --no-interactive
 
 
 
