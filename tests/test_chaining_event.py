@@ -31,9 +31,7 @@ def test_handler_from_handler(
     run_button.scroll_into_view_if_needed()
     expect(run_button).to_be_visible()
     
-    run_button.click()
-    
-    expect(chain_heading).to_have_text(re.compile(r"10"))
+    run_button.click(force=True)
     
     expect(chain_heading).to_have_text("10")
 
@@ -49,8 +47,8 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
     collatz_input = collatz_box.get_by_role("textbox")
     collatz_input.fill("10")
     
-    collatz_input.blur()
+    collatz_input.blur(force=True)
     
     collatz_heading = page.locator('[id="collatz"] > .rt-Flex > span')
     
-    expect(collatz_heading).to_have_text(re.compile(r"1"))
+    expect(collatz_heading).to_have_text("1")
