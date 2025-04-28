@@ -46,7 +46,7 @@ class SerializationDemoState(rx.State):
     
     # Collection types
     items: list[str] = ["apple", "banana", "cherry"]
-    settings: dict[str, Any] = {"theme": "dark", "notifications": True}
+    settings: dict[str, str] = {"theme": "dark", "notifications": "enabled"}
     coordinates: tuple[int, int] = (10, 20)
     
     @rx.var
@@ -92,17 +92,17 @@ def serialization_demo():
                 rx.table.row(
                     rx.table.row_header_cell("items"),
                     rx.table.cell("list[str]"),
-                    rx.table.cell(f"{SerializationDemoState.items}"),
+                    rx.table.cell(SerializationDemoState.items.to_string()),
                 ),
                 rx.table.row(
                     rx.table.row_header_cell("settings"),
                     rx.table.cell("dict[str, Any]"),
-                    rx.table.cell(f"{SerializationDemoState.settings}"),
+                    rx.table.cell(SerializationDemoState.settings.to_string()),
                 ),
                 rx.table.row(
                     rx.table.row_header_cell("coordinates"),
                     rx.table.cell("tuple[int, int]"),
-                    rx.table.cell(f"{SerializationDemoState.coordinates}"),
+                    rx.table.cell(SerializationDemoState.coordinates.to_string()),
                 ),
             ),
             width="100%",
@@ -144,7 +144,7 @@ def backend_only_demo():
         rx.button("Calculate Summary", on_click=BackendOnlyState.calculate_summary),
         rx.divider(),
         rx.heading("Data Summary", size="4"),
-        rx.code_block(str(BackendOnlyState.data_summary), language="json"),
+        rx.code_block(BackendOnlyState.data_summary.to_string(), language="json"),
         width="100%",
     )
 ```
@@ -170,11 +170,18 @@ class UserProfile:
     email: str
     joined_date: datetime
     preferences: Dict[str, Any]
+    
+    def __str__(self):
+        prefs_str = {k: str(v) for k, v in self.preferences.items()}
+        return f"UserProfile(username={self.username}, email={self.email}, joined_date={self.joined_date}, preferences={prefs_str})"
 
 class User(rx.Base):
     name: str
     age: int
     profile: UserProfile
+    
+    def __str__(self):
+        return f"User(name={self.name}, age={self.age})"
 
 class CustomTypeState(rx.State):
     user: User = User(
@@ -184,7 +191,7 @@ class CustomTypeState(rx.State):
             username="alice123",
             email="alice@example.com",
             joined_date=datetime.now(),
-            preferences={"theme": "dark", "notifications": True}
+            preferences={"theme": "dark", "notifications": "enabled"}
         )
     )
     
@@ -198,7 +205,10 @@ class CustomTypeState(rx.State):
                 "username": self.user.profile.username,
                 "email": self.user.profile.email,
                 "joined_date": self.user.profile.joined_date.isoformat(),
-                "preferences": self.user.profile.preferences
+                "preferences": {
+                    "theme": self.user.profile.preferences["theme"],
+                    "notifications": str(self.user.profile.preferences["notifications"])
+                }
             }
         }
         return json.dumps(user_dict, indent=2)
@@ -209,7 +219,7 @@ def custom_type_demo():
         rx.text(f"User: {CustomTypeState.user.name}, {CustomTypeState.user.age}"),
         rx.text(f"Username: {CustomTypeState.user.profile.username}"),
         rx.text(f"Email: {CustomTypeState.user.profile.email}"),
-        rx.text(f"Joined: {CustomTypeState.user.profile.joined_date}"),
+        rx.text(f"Joined: {str(CustomTypeState.user.profile.joined_date)}"),
         rx.divider(),
         rx.heading("JSON Representation", size="4"),
         rx.code_block(CustomTypeState.user_json, language="json"),
@@ -261,7 +271,7 @@ def serializer_demo():
     return rx.vstack(
         rx.heading("Custom Serializers", size="4"),
         rx.text("Complex Object:"),
-        rx.code_block(str(SerializerDemoState.complex_obj), language="python"),
+        rx.code_block("ComplexObject(id=123, name='Test Object')", language="python"),
         rx.button("Update Object", on_click=SerializerDemoState.update_object),
         width="100%",
     )
@@ -322,7 +332,7 @@ When using `rx.LocalStorage` or `rx.Cookie` for client-side persistence, you nee
 class Settings:
     theme: str
     font_size: int
-    notifications: bool
+    notifications: str
     
     def __str__(self):
         return f"Settings(theme={self.theme}, font_size={self.font_size}, notifications={self.notifications})"
@@ -331,54 +341,80 @@ class StorageState(rx.State):
     # Use LocalStorage to persist settings between sessions
     settings_json: str = rx.LocalStorage("")
     
-    # Current settings object
-    settings: Settings = Settings(theme="light", font_size=14, notifications=True)
+    # Store settings as individual vars instead of a complex object
+    theme: str = "light"
+    font_size: int = 14
+    notifications: str = "enabled"
     
     @rx.var
-    def current_settings(self) -> Settings:
+    def current_settings_json(self) -> str:
         if not self.settings_json:
-            return self.settings
+            settings = {
+                "theme": self.theme,
+                "font_size": self.font_size,
+                "notifications": self.notifications
+            }
+            return json.dumps(settings)
         
-        try:
-            data = json.loads(self.settings_json)
-            return Settings(**data)
-        except:
-            return self.settings
+        return self.settings_json
     
     @rx.event
     def save_settings(self):
         # Serialize settings to JSON for storage
         self.settings_json = json.dumps({
-            "theme": self.settings.theme,
-            "font_size": self.settings.font_size,
-            "notifications": self.settings.notifications
+            "theme": self.theme,
+            "font_size": self.font_size,
+            "notifications": self.notifications
         })
     
     @rx.event
     def toggle_theme(self):
-        self.settings.theme = "dark" if self.settings.theme == "light" else "light"
+        self.theme = "dark" if self.theme == "light" else "light"
     
     @rx.event
     def increase_font(self):
-        self.settings.font_size += 1
+        self.font_size += 1
     
     @rx.event
     def toggle_notifications(self):
-        self.settings.notifications = not self.settings.notifications
+        self.notifications = "disabled" if self.notifications == "enabled" else "enabled"
 
 def storage_demo():
     return rx.vstack(
         rx.heading("Browser Storage Serialization", size="4"),
         rx.text("Current Settings:"),
-        rx.text(f"Theme: {StorageState.current_settings.theme}"),
-        rx.text(f"Font Size: {StorageState.current_settings.font_size}"),
-        rx.text(f"Notifications: {str(StorageState.current_settings.notifications)}"),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Setting"),
+                    rx.table.column_header_cell("Value"),
+                ),
+            ),
+            rx.table.body(
+                rx.table.row(
+                    rx.table.row_header_cell("Theme"),
+                    rx.table.cell(StorageState.theme),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("Font Size"),
+                    rx.table.cell(f"{StorageState.font_size}"),
+                ),
+                rx.table.row(
+                    rx.table.row_header_cell("Notifications"),
+                    rx.table.cell(StorageState.notifications.to_string()),
+                ),
+            ),
+            width="100%",
+        ),
         rx.hstack(
             rx.button("Toggle Theme", on_click=StorageState.toggle_theme),
             rx.button("Increase Font", on_click=StorageState.increase_font),
             rx.button("Toggle Notifications", on_click=StorageState.toggle_notifications),
         ),
         rx.button("Save Settings", on_click=StorageState.save_settings),
+        rx.divider(),
+        rx.heading("Stored JSON", size="4"),
+        rx.code_block(StorageState.current_settings_json, language="json"),
         rx.text("Settings will persist after page refresh once saved"),
         width="100%",
     )
