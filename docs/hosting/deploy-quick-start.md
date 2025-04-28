@@ -63,38 +63,7 @@ The command is by default interactive. It asks you a few questions for informati
 
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
-#### Deploy Command Options
-
-The `reflex deploy` command has several options to customize your deployment:
-
-```bash
-$ reflex deploy --help
-Usage: reflex deploy [OPTIONS]
-
-  Deploy the app to the Reflex hosting service.
-
-Options:
-  --project TEXT                  The project ID to deploy to.
-  --app TEXT                      The app ID to deploy to.
-  --region TEXT                   The region to deploy to.
-  --vmtype TEXT                   The VM type to deploy to.
-  --description TEXT              The description of the app.
-  --env-vars TEXT                 The environment variables to set for the app.
-  --token TEXT                    The token to use for authentication.
-  --loglevel [debug|default|info|warning|error|critical]
-                                  The log level to use.
-  --help                          Show this message and exit.
-```
-
-- `--project`: Specify the project ID to deploy to
-- `--app`: Specify an existing app ID to update
-- `--region`: Choose a specific region for deployment
-- `--vmtype`: Select the VM type for your deployment
-- `--description`: Add a description for your app
-- `--env-vars`: Set environment variables for your app
-- `--token`: Use a token for authentication instead of interactive login
-
-For more detailed information about deployment, see the [Deploy Documentation](https://reflex.dev/docs/hosting/deploy/).
+For detailed information about the deploy command and its options, see the [Deploy API Reference](https://reflex.dev/docs/hosting/deploy/) and the [CLI Reference](https://reflex.dev/docs/api-reference/cli/).
 
 
 ```md alert info
