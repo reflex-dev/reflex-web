@@ -4,16 +4,16 @@ import reflex as rx
 from pcweb.templates.docpage import docdemo, h1_comp, text_comp, docpage
 
 def basic_example():
-    @rx.memo
-    def memoized_component(text_var: rx.Var[str]) -> rx.Component:
-        return rx.text(text_var)
-
     class MemoState(rx.State):
         count: int = 0
         text: str = "This component is memoized and won't re-render when the counter changes."
         
         def increment(self):
             self.count += 1
+    
+    @rx.memo
+    def memoized_component(text_content: str) -> rx.Component:
+        return rx.text(text_content)
     
     return rx.vstack(
         rx.hstack(
@@ -36,13 +36,13 @@ def recursive_example():
                 self.depth -= 1
     
     @rx.memo
-    def recursive_component(depth: rx.Var[int]) -> rx.Component:
+    def recursive_component(depth_value: int) -> rx.Component:
         return rx.cond(
-            depth <= 0,
+            depth_value <= 0,
             rx.text("Reached bottom!"),
             rx.vstack(
-                rx.text(f"Depth: {depth}"),
-                recursive_component(depth - 1),
+                rx.text(f"Depth: {depth_value}"),
+                recursive_component(depth_value - 1),
                 border="1px solid #eaeaea",
                 padding="1em",
                 border_radius="0.5em",
