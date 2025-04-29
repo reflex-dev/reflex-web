@@ -36,11 +36,14 @@ rx.flex(
 
 ## Dynamic Icons
 
-It is not possible to use dynamic values as the `tag` prop, because it is used to import the icon from the Lucide library.
-If you have a specific subset of icons you want to use dynamically, define an rx.match with them:
+There are two ways to use dynamic icons in Reflex:
+
+### Using rx.match (Static Set of Icons)
+
+If you have a specific subset of icons you want to use dynamically, you can define an `rx.match` with them:
 
 ```python
-def dynamic_icon(icon_name):
+def dynamic_icon_with_match(icon_name):
     return rx.match(
         icon_name,
         ("plus", rx.icon("plus")),
@@ -50,7 +53,7 @@ def dynamic_icon(icon_name):
 ```
 
 ```python exec
-def dynamic_icon(icon_name):
+def dynamic_icon_with_match(icon_name):
     return rx.match(
         icon_name,
         ("plus", rx.icon("plus")),
@@ -59,10 +62,51 @@ def dynamic_icon(icon_name):
     )
 ```
 
-You can then use the `dynamic_icon` function to display the icons dynamically.
+You can then use the function to display the icons dynamically:
 
 ```python demo
-rx.foreach(["plus", "minus", "equal"], dynamic_icon)    
+rx.foreach(["plus", "minus", "equal"], dynamic_icon_with_match)    
+```
+
+### Using Dynamic Icon Tags (Any Icon)
+
+Reflex also supports using dynamic values directly as the `tag` prop in `rx.icon()`. This allows you to use any icon from the Lucide library dynamically at runtime.
+
+```python exec
+class DynamicIconState(rx.State):
+    current_icon: str = "heart"
+    
+    def change_icon(self):
+        icons = ["heart", "star", "bell", "calendar", "settings"]
+        import random
+        self.current_icon = random.choice(icons)
+```
+
+```python demo
+rx.vstack(
+    rx.heading("Dynamic Icon Example"),
+    rx.icon(DynamicIconState.current_icon, size=30, color="red"),
+    rx.button("Change Icon", on_click=DynamicIconState.change_icon),
+    spacing="4",
+    align="center",
+)
+```
+
+Under the hood, when a dynamic value is passed as the `tag` prop to `rx.icon()`, Reflex automatically uses a special `DynamicIcon` component that can load icons at runtime.
+
+```python demo
+# You can also use dynamic icons in a foreach loop
+rx.hstack(
+    rx.foreach(
+        ["heart", "star", "bell", "calendar", "settings"],
+        lambda icon: rx.icon(icon, size=24, color="blue"),
+    ),
+    spacing="4",
+)
+```
+
+```md alert
+When using dynamic icons, make sure the icon names are valid. Invalid icon names will cause runtime errors.
 ```
 
 ## Styling
