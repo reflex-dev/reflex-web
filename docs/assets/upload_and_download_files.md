@@ -16,62 +16,53 @@ In this section, we will cover all you need to know for manipulating files in Re
 
 Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
 
-```python demo exec
-# Create a table comparing assets vs upload directory
-# Define styles
-cell_style = {"py": "4", "px": "6"}
-
-# Helper function to process text with code elements
-def process_text(text):
-    if "`" not in text:
-        return rx.text(text)
-    
-    parts = text.split("`")
-    components = []
-    for i, part in enumerate(parts):
-        if i % 2 == 0:
-            if part:  # Only add non-empty text
-                components.append(rx.text(part))
-        else:
-            # This is code that was between backticks
-            components.append(rx.code(part, style=get_code_style("violet")))
-    
-    return rx.hstack(*components, spacing="2", flex_wrap="wrap")
-
-# Create the table
+```python eval
+# Simple table comparing assets vs upload directory
 rx.table.root(
     rx.table.header(
         rx.table.row(
-            rx.table.column_header_cell("Feature", style=cell_style),
-            rx.table.column_header_cell("Assets", style=cell_style),
-            rx.table.column_header_cell("Upload Directory", style=cell_style),
+            rx.table.column_header_cell("Feature"),
+            rx.table.column_header_cell("Assets"),
+            rx.table.column_header_cell("Upload Directory"),
         ),
     ),
     rx.table.body(
         rx.table.row(
-            rx.table.cell(rx.text("Purpose", font_weight="bold"), style=cell_style),
-            rx.table.cell(process_text("Static files included with your app (images, stylesheets, scripts)"), style=cell_style),
-            rx.table.cell(process_text("Dynamic files uploaded by users during runtime"), style=cell_style),
+            rx.table.cell(rx.text("Purpose", font_weight="bold")),
+            rx.table.cell(rx.text("Static files included with your app (images, stylesheets, scripts)")),
+            rx.table.cell(rx.text("Dynamic files uploaded by users during runtime")),
         ),
         rx.table.row(
-            rx.table.cell(rx.text("Location", font_weight="bold"), style=cell_style),
-            rx.table.cell(process_text("`assets/` folder or next to Python files (shared assets)"), style=cell_style),
-            rx.table.cell(process_text("`uploaded_files/` directory (configurable)"), style=cell_style),
+            rx.table.cell(rx.text("Location", font_weight="bold")),
+            rx.table.cell(rx.hstack(
+                rx.code("assets/", style=get_code_style("violet")),
+                rx.text(" folder or next to Python files (shared assets)"),
+                spacing="2",
+            )),
+            rx.table.cell(rx.hstack(
+                rx.code("uploaded_files/", style=get_code_style("violet")),
+                rx.text(" directory (configurable)"),
+                spacing="2",
+            )),
         ),
         rx.table.row(
-            rx.table.cell(rx.text("Access Method", font_weight="bold"), style=cell_style),
-            rx.table.cell(process_text("`rx.asset()` or direct path reference"), style=cell_style),
-            rx.table.cell(process_text("`rx.get_upload_url()`"), style=cell_style),
+            rx.table.cell(rx.text("Access Method", font_weight="bold")),
+            rx.table.cell(rx.hstack(
+                rx.code("rx.asset()", style=get_code_style("violet")),
+                rx.text(" or direct path reference"),
+                spacing="2",
+            )),
+            rx.table.cell(rx.code("rx.get_upload_url()", style=get_code_style("violet"))),
         ),
         rx.table.row(
-            rx.table.cell(rx.text("When to Use", font_weight="bold"), style=cell_style),
-            rx.table.cell(process_text("For files that are part of your application's codebase"), style=cell_style),
-            rx.table.cell(process_text("For files that users upload through your application"), style=cell_style),
+            rx.table.cell(rx.text("When to Use", font_weight="bold")),
+            rx.table.cell(rx.text("For files that are part of your application's codebase")),
+            rx.table.cell(rx.text("For files that users upload through your application")),
         ),
         rx.table.row(
-            rx.table.cell(rx.text("Availability", font_weight="bold"), style=cell_style),
-            rx.table.cell(process_text("Available at compile time"), style=cell_style),
-            rx.table.cell(process_text("Available at runtime"), style=cell_style),
+            rx.table.cell(rx.text("Availability", font_weight="bold")),
+            rx.table.cell(rx.text("Available at compile time")),
+            rx.table.cell(rx.text("Available at runtime")),
         ),
     ),
     width="100%",
