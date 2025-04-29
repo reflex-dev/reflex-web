@@ -64,7 +64,7 @@ def assets_vs_upload_comparison():
                     components.append(rx.code(part, style=get_code_style("violet")))
             
             # Return the components in an hstack
-            return rx.hstack(*components, spacing="2px", flex_wrap="wrap")
+            return rx.hstack(*components, spacing="2", flex_wrap="wrap")
         else:
             # No code to style, just return the text
             return rx.text(text)
