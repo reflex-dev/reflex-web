@@ -32,6 +32,7 @@ def cn(class_1: Var | str, class_2: Var | str = "") -> Var:
         )
         .to(FunctionVar)
         .call(class_1, class_2)
+        .to(str)
     )
 
 
