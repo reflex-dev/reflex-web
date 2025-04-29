@@ -101,23 +101,35 @@ class PyplotState(rx.State):
     scale: list
     fig: plt.Figure = plt.Figure()
 
-    @rx.event
-    def randomize(self):
+    def _generate_plot_data(self):
+        """Generate random plot data based on current num_points."""
         self.plot_data = tuple(np.random.rand(2, self.num_points) for _ in range(3))
         self.scale = [random.uniform(0, 100) for _ in range(self.num_points)]
 
     @rx.event
+    def randomize(self):
+        """Generate new random data."""
+        self._generate_plot_data()
+        self.update_fig()
+
+    @rx.event
     def set_num_points(self, num_points: list[int]):
+        """Update number of points."""
         self.num_points = num_points[0]
-        self.randomize()
+        self._generate_plot_data()
+        self.update_fig()
+    
+    @rx.event
+    def update_fig(self):
+        """Update the figure with current data."""
+        theme = "dark" if rx.get_color_mode() == "dark" else "light"
+        self.fig = create_plot(theme, self.plot_data, self.scale)
     
     @rx.event
     def create_fig(self, theme: Literal["light", "dark"]):
-        self.plot_data = tuple(np.random.rand(2, 100) for _ in range(3))
-        self.scale = [random.uniform(0, 100) for _ in range(100)]
-        self.fig = create_plot(
-            theme, self.plot_data, self.scale
-        )
+        """Initialize the figure on component mount."""
+        self._generate_plot_data()
+        self.fig = create_plot(theme, self.plot_data, self.scale)
 
 def pyplot_example():
     return rx.vstack(
@@ -132,14 +144,14 @@ def pyplot_example():
                 rx.hstack(
                     rx.button(
                         "Randomize",
-                        on_click=PyplotState.randomize,
+                        on_click=PyplotState.randomize.debounce(1200),  # 1.2 second debounce
                     ),
                     rx.text("Number of Points:"),
                     rx.slider(
                         default_value=100,
                         min_=10,
                         max=1000,
-                        on_value_commit=PyplotState.set_num_points,
+                        on_change=PyplotState.set_num_points.debounce(1200),  # 1.2 second debounce
                     ),
                     width="100%",
                 ),
