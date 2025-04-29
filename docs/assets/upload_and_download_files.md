@@ -16,82 +16,66 @@ In this section, we will cover all you need to know for manipulating files in Re
 
 Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
 
-```python demo
-def assets_vs_upload_comparison():
-    # Define styles
-    cell_style = {"py": "4", "px": "6"}
+```python demo exec
+# Create a table comparing assets vs upload directory
+# Define styles
+cell_style = {"py": "4", "px": "6"}
+
+# Helper function to process text with code elements
+def process_text(text):
+    if "`" not in text:
+        return rx.text(text)
     
-    # Define comparison data
-    features = {
-        "Purpose": {
-            "assets": "Static files included with your app (images, stylesheets, scripts)",
-            "upload": "Dynamic files uploaded by users during runtime"
-        },
-        "Location": {
-            "assets": "`assets/` folder or next to Python files (shared assets)",
-            "upload": "`uploaded_files/` directory (configurable)"
-        },
-        "Access Method": {
-            "assets": "`rx.asset()` or direct path reference",
-            "upload": "`rx.get_upload_url()`"
-        },
-        "When to Use": {
-            "assets": "For files that are part of your application's codebase",
-            "upload": "For files that users upload through your application"
-        },
-        "Availability": {
-            "assets": "Available at compile time",
-            "upload": "Available at runtime"
-        }
-    }
-    
-    # Function to process text and style code elements
-    def process_text(text):
-        # Check if the text contains backtick-quoted code
-        if "`" in text:
-            # Split the text by backticks
-            parts = text.split("`")
-            components = []
-            
-            # Process each part
-            for i, part in enumerate(parts):
-                # Even indices are regular text, odd indices are code
-                if i % 2 == 0:
-                    if part:  # Only add non-empty text
-                        components.append(rx.text(part))
-                else:
-                    # This is code that was between backticks
-                    components.append(rx.code(part, style=get_code_style("violet")))
-            
-            # Return the components in an hstack
-            return rx.hstack(*components, spacing="2", flex_wrap="wrap")
+    parts = text.split("`")
+    components = []
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            if part:  # Only add non-empty text
+                components.append(rx.text(part))
         else:
-            # No code to style, just return the text
-            return rx.text(text)
+            # This is code that was between backticks
+            components.append(rx.code(part, style=get_code_style("violet")))
     
-    # Create table rows
-    rows = []
-    for feature, values in features.items():
-        rows.append(
-            rx.table.row(
-                rx.table.cell(rx.text(feature, font_weight="bold"), style=cell_style),
-                rx.table.cell(process_text(values["assets"]), style=cell_style),
-                rx.table.cell(process_text(values["upload"]), style=cell_style),
-            )
-        )
-    
-    # Create and return the table
-    return rx.table.root(
-        rx.table.header(
-            rx.table.row(
-                rx.table.column_header_cell("Feature", style=cell_style),
-                rx.table.column_header_cell("Assets", style=cell_style),
-                rx.table.column_header_cell("Upload Directory", style=cell_style),
-            ),
+    return rx.hstack(*components, spacing="2", flex_wrap="wrap")
+
+# Create the table
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Feature", style=cell_style),
+            rx.table.column_header_cell("Assets", style=cell_style),
+            rx.table.column_header_cell("Upload Directory", style=cell_style),
         ),
-        rx.table.body(*rows),
-        width="100%",
-    )
+    ),
+    rx.table.body(
+        rx.table.row(
+            rx.table.cell(rx.text("Purpose", font_weight="bold"), style=cell_style),
+            rx.table.cell(process_text("Static files included with your app (images, stylesheets, scripts)"), style=cell_style),
+            rx.table.cell(process_text("Dynamic files uploaded by users during runtime"), style=cell_style),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Location", font_weight="bold"), style=cell_style),
+            rx.table.cell(process_text("`assets/` folder or next to Python files (shared assets)"), style=cell_style),
+            rx.table.cell(process_text("`uploaded_files/` directory (configurable)"), style=cell_style),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Access Method", font_weight="bold"), style=cell_style),
+            rx.table.cell(process_text("`rx.asset()` or direct path reference"), style=cell_style),
+            rx.table.cell(process_text("`rx.get_upload_url()`"), style=cell_style),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("When to Use", font_weight="bold"), style=cell_style),
+            rx.table.cell(process_text("For files that are part of your application's codebase"), style=cell_style),
+            rx.table.cell(process_text("For files that users upload through your application"), style=cell_style),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Availability", font_weight="bold"), style=cell_style),
+            rx.table.cell(process_text("Available at compile time"), style=cell_style),
+            rx.table.cell(process_text("Available at runtime"), style=cell_style),
+        ),
+    ),
+    width="100%",
+)
 ```
 
 ```md alert
