@@ -38,7 +38,7 @@ rx.flex(
 
 There are two ways to use dynamic icons in Reflex:
 
-### Using rx.match (Static Set of Icons)
+### Using rx.match
 
 If you have a specific subset of icons you want to use dynamically, you can define an `rx.match` with them:
 
@@ -62,7 +62,7 @@ def dynamic_icon_with_match(icon_name):
     )
 ```
 
-### Using Dynamic Icon Tags (Any Icon)
+### Using Dynamic Icon Tags
 
 Reflex also supports using dynamic values directly as the `tag` prop in `rx.icon()`. This allows you to use any icon from the Lucide library dynamically at runtime.
 
