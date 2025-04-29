@@ -1,40 +1,25 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
-from reflex.experimental import ClientStateVar
 
-from pcweb.pages.customers.views.bento_cards import _card
+from pcweb.components.button import button
+from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
+from pcweb.components.hosting_banner import hosting_banner
+from pcweb.constants import (
+    REFLEX_CLOUD_URL,
+)
+from pcweb.pages.blog import blogs
+from pcweb.pages.blog.paths import blog_data
+from pcweb.pages.changelog import changelog
 from pcweb.pages.docs import (
-    wrapping_react,
-    styling,
-    custom_components as custom_c,
     getting_started,
 )
-from pcweb.components.button import button
-from pcweb.pages.docs.library import library
-from pcweb.pages.docs.custom_components import custom_components
-from pcweb.pages.gallery import gallery
-from .buttons.github import github
-from .buttons.discord import discord
+from pcweb.pages.faq import faq
 from .buttons.color import color
+from .buttons.discord import discord
+from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
-from pcweb.components.hosting_banner import hosting_banner
-from pcweb.pages.blog.paths import blog_data
-
-from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import (
-    CONTRIBUTING_URL,
-    FORUM_URL,
-    ROADMAP_URL,
-    REFLEX_CLOUD_URL,
-    REFLEX_AI_BUILDER,
-)
 from ..sidebar import SidebarState
 from ...link_button import resources_button
 
@@ -367,13 +352,14 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
         rx.box(
             rx.text(
                 title,
-                class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-colors desktop-only",
+                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors desktop-only",
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-5 !text-slate-9 py-1 mr-0 transition-transform duration-200 ease-in-out desktop-only",
+                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-colors desktop-only",
             ),
             class_name="flex flex-row items-center gap-x-1 group user-select-none",
+            on_click=rx.stop_propagation,
         ),
         style={
             "&[data-state='open'] .chevron": {
@@ -399,8 +385,6 @@ def logo() -> rx.Component:
 
 
 def doc_section():
-    from pcweb.pages.docs.ai_builder import pages as ai_pages
-    from pcweb.pages.docs.cloud import pages as cloud_pages
     from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
@@ -418,8 +402,6 @@ def doc_section():
 
 
 def new_component_section() -> rx.Component:
-    from pcweb.pages.docs.ai_builder import pages as ai_pages
-    from pcweb.pages.docs.cloud import pages as cloud_pages
     from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.root(

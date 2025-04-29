@@ -74,36 +74,24 @@ def card(company: str, text: str, class_name: str = "") -> rx.Component:
 
 def bento_cards() -> rx.Component:
     return rx.el.section(
-        # # Dell
-        # card(
-        #     company="dell",
-        #     text="Dell is the standard for frontend hosting. Reflex keeps them shipping.",
-        # ),
-        # # LlamaIndex
-        # card(
-        #     company="llamaindex",
-        #     text="To build the fastest-growing corporate card, LlamaIndex chose the fastest tool.",
-        # ),
-        # # Autodesk
-        # card(
-        #     company="autodesk",
-        #     text="Autodesk switched their 1,000 person team to Reflex to move faster.",
-        # ),
+        card(
+            company="autodesk",
+            text="How Autodesk saved 25% of their development time on each project with Reflex",
+        ),
         # Bayesline
         card(
             company="bayesline",
-            text="Why Basyesline Chose Reflex over Plotly Dash",
+            text="Why Bayesline chose Reflex over Plotly Dash for their production-grade apps",
         ),
         # Ansa
         card(
             company="ansa",
-            text="Why Ansa chose Reflex over a no-code/low-code framework for their workflow automations",
+            text="How Ansa saved 100 hours of manual work a month with Reflex",
         ),
         # Seller X
         card(
             company="sellerx",
-            text="Why SellerX chose Reflex over Streamlit for their data processing pipeline",
-            class_name=" col-span-2",
+            text="Why SellerX chose Reflex over Streamlit",
         ),
         class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
     )
@@ -159,38 +147,3 @@ def _card(company: str, is_company: bool = True, **kwarg) -> rx.Component:
     )
 
 
-def bento_cards() -> rx.Component:
-    return rx.el.section(
-        # # Dell
-        # card(
-        #     company="dell",
-        #     text="Dell is the standard for frontend hosting. Reflex keeps them shipping.",
-        # ),
-        # # LlamaIndex
-        # card(
-        #     company="llamaindex",
-        #     text="To build the fastest-growing corporate card, LlamaIndex chose the fastest tool.",
-        # ),
-        # # Autodesk
-        # card(
-        #     company="autodesk",
-        #     text="Autodesk switched their 1,000 person team to Reflex to move faster.",
-        # ),
-        # Bayesline
-        card(
-            company="bayesline",
-            text="Why Basyesline Chose Reflex over Plotly Dash",
-        ),
-        # Ansa
-        card(
-            company="ansa",
-            text="Why Ansa chose Reflex over a no-code/low-code framework for their workflow automations",
-        ),
-        # Seller X
-        card(
-            company="sellerx",
-            text="Why SellerX chose Reflex over Streamlit for their data processing pipeline",
-            class_name=" col-span-2",
-        ),
-        class_name="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto w-full max-w-[69.25rem]",
-    )
