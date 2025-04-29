@@ -132,7 +132,7 @@ def pyplot_example():
                 rx.hstack(
                     rx.button(
                         "Randomize",
-                        on_click=PyplotState.randomize,
+                        on_click=PyplotState.randomize.debounce(1200),  # 1.2 second debounce
                     ),
                     rx.text("Number of Points:"),
                     rx.slider(
