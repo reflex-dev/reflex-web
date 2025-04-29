@@ -29,7 +29,7 @@ Each grid also requires a unique `id`, which is needed to uniquely identify the 
 ```md alert info
 # Grid for Layout
 
-If you are looking for a grid for layout purposes, i.e. to layout Reflex components, consider using the [Grid component]({library.layout.grid.path}).
+If you are looking for a grid for layout purposes, i.e. to layout Reflex components, consider using the [Grid component](/docs/library/layout/grid/).
 ```
 
 ```python demo exec
@@ -472,7 +472,7 @@ def ag_grid_simple_with_state():
 
 In this example, we will use a database to store the data. The data is loaded from a csv file and inserted into the database when the page is loaded using the `insert_dataframe_to_db` event handler.
 
-The data is then fetched from the database and displayed in the grid using the `data` [computed var]({vars.computed_vars.path}).
+The data is then fetched from the database and displayed in the grid using the `data` [computed var](/docs/vars/computed-vars/).
 
 When a cell value is changed, the data is updated in the database using the `cell_value_changed` event handler.
 
@@ -725,4 +725,4 @@ def ag_grid_api_argument():
 
 The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.    
