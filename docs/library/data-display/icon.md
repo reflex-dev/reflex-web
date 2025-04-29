@@ -62,12 +62,6 @@ def dynamic_icon_with_match(icon_name):
     )
 ```
 
-You can then use the function to display the icons dynamically:
-
-```python demo
-rx.foreach(["plus", "minus", "equal"], dynamic_icon_with_match)    
-```
-
 ### Using Dynamic Icon Tags (Any Icon)
 
 Reflex also supports using dynamic values directly as the `tag` prop in `rx.icon()`. This allows you to use any icon from the Lucide library dynamically at runtime.
@@ -93,17 +87,6 @@ rx.vstack(
 ```
 
 Under the hood, when a dynamic value is passed as the `tag` prop to `rx.icon()`, Reflex automatically uses a special `DynamicIcon` component that can load icons at runtime.
-
-```python demo
-# You can also use dynamic icons in a foreach loop
-rx.hstack(
-    rx.foreach(
-        ["heart", "star", "bell", "calendar", "settings"],
-        lambda icon: rx.icon(icon, size=24, color="blue"),
-    ),
-    spacing="4",
-)
-```
 
 ```md alert
 When using dynamic icons, make sure the icon names are valid. Invalid icon names will cause runtime errors.
