@@ -1,7 +1,5 @@
 ```python exec
 import reflex as rx
-from pcweb.pages.docs import library
-from pcweb.pages.docs import api_reference
 ```
 
 # Files
