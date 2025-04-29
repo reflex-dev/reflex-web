@@ -102,7 +102,7 @@ Async computed vars are useful for operations that require asynchronous processi
 - File I/O operations
 - Any other operations that benefit from async/await
 
-```python demo
+```python demo box
 class AsyncVarState(rx.State):
     count: int = 0
     
@@ -134,7 +134,7 @@ When the count changes, the async computed var is automatically recomputed.
 Just like regular computed vars, async computed vars can also be cached. This is especially
 useful for expensive async operations like API calls or database queries.
 
-```python demo
+```python demo box
 class AsyncCachedVarState(rx.State):
     user_id: int = 1
     refresh_trigger: int = 0
