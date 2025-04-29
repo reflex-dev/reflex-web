@@ -16,7 +16,7 @@ In this section, we will cover all you need to know for manipulating files in Re
 
 Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
 
-```python box
+```python demo
 def assets_vs_upload_comparison():
     # Define styles
     cell_style = {"py": "4", "px": "6"}
