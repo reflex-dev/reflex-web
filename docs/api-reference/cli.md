@@ -12,19 +12,21 @@ Usage: reflex [OPTIONS] COMMAND [ARGS]...
   Reflex CLI to create, run, and deploy apps.
 
 Options:
-  -v, --version  Get the Reflex version.
-  --help         Show this message and exit.
+  --version  Show the version and exit.
+  --help     Show this message and exit.
 
 Commands:
-  db           Subcommands for managing the database schema.
-  demo         Run the demo app.
-  deploy       Deploy the app to the Reflex hosting service.
-  deployments  Subcommands for managing the Deployments.
-  export       Export the app to a zip file.
-  init         Initialize a new Reflex app in the current directory.
-  login        Authenticate with Reflex hosting service.
-  logout       Log out of access to Reflex hosting service.
-  run          Run the app in the current directory.
+  cloud      The Hosting CLI.
+  component  CLI for creating custom components.
+  db         Subcommands for managing the database schema.
+  deploy     Deploy the app to the Reflex hosting service.
+  export     Export the app to a zip file.
+  init       Initialize a new Reflex app in the current directory.
+  login      Authenticate with experimental Reflex hosting service.
+  logout     Log out of access to Reflex hosting service.
+  rename     Rename the app in the current directory.
+  run        Run the app in the current directory.
+  script     Subcommands for running helper scripts.
 ```
 
 ## Init
@@ -88,3 +90,39 @@ You can export your app's frontend and backend to zip files using the `reflex ex
 The frontend is a compiled NextJS app, which can be deployed to a static hosting service like Github Pages or Vercel.
 However this is just a static build, so you will need to deploy the backend separately.
 See the self-hosting guide for more information.
+
+## Rename
+
+The `reflex rename` command allows you to rename your Reflex app. This updates the app name in the configuration files.
+
+```bash
+$ reflex rename --help
+Usage: reflex rename [OPTIONS] NEW_NAME
+
+  Rename the app in the current directory.
+
+Options:
+  --loglevel [debug|default|info|warning|error|critical]
+                                  The log level to use.
+  --help                          Show this message and exit.
+```
+
+## Cloud
+
+The `reflex cloud` command provides access to the Reflex Cloud hosting service. It includes subcommands for managing apps, projects, secrets, and more.
+
+For detailed documentation on Reflex Cloud and deployment, see the [Cloud Quick Start Guide](https://reflex.dev/docs/hosting/deploy-quick-start/).
+
+## Script
+
+The `reflex script` command provides access to helper scripts for Reflex development.
+
+```bash
+$ reflex script --help
+Usage: reflex script [OPTIONS] COMMAND [ARGS]...
+
+  Subcommands for running helper scripts.
+
+Options:
+  --help  Show this message and exit.
+```
