@@ -122,7 +122,7 @@ class PyplotState(rx.State):
     @rx.event
     def update_fig(self):
         """Update the figure with current data."""
-        theme = "dark" if rx.get_color_mode() == "dark" else "light"
+        theme = "dark" if rx.color_mode == "dark" else "light"
         self.fig = create_plot(theme, self.plot_data, self.scale)
     
     @rx.event
