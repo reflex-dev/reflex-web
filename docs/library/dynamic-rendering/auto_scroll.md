@@ -62,7 +62,7 @@ Some common props you might use with `auto_scroll`:
 
 ## How It Works
 
-The component uses React hooks to track when new content is added and maintains the scroll position in two scenarios:
+The component tracks when new content is added and maintains the scroll position in two scenarios:
 
 1. When the user is already near the bottom of the content (within 50 pixels), it will scroll to the bottom when new content is added.
 2. When the container didn't have a scrollbar before but does now (due to new content), it will automatically scroll to the bottom.
