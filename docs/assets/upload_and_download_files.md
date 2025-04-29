@@ -10,6 +10,26 @@ In addition to any assets you ship with your app, many web app will often need t
 
 In this section, we will cover all you need to know for manipulating files in Reflex.
 
+## Assets vs Upload Directory
+
+Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
+
+| Feature | Assets | Upload Directory |
+| --- | --- | --- |
+| Purpose | Static files included with your app (images, stylesheets, scripts) | Dynamic files uploaded by users during runtime |
+| Location | `assets/` folder or next to Python files (shared assets) | `uploaded_files/` directory (configurable) |
+| Access Method | `rx.asset()` or direct path reference | `rx.get_upload_url()` |
+| When to Use | For files that are part of your application's codebase | For files that users upload through your application |
+| Availability | Available at compile time | Available at runtime |
+
+```md alert
+# Assets are primarily intended for frontend use
+
+Assets in Reflex are primarily intended for frontend use and are not expected to be read from the backend. When assets are needed in both frontend and backend, they are currently copied to the backend (though this behavior may change in future versions).
+```
+
+For more information about assets, see the [Assets Overview](/docs/assets/overview/).
+
 ## Download
 
 If you want to let the users of your app download files from your server to their computer, Reflex offer you two way.
