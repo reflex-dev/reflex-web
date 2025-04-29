@@ -79,21 +79,19 @@ app = rx.App(api_transformer=fastapi_app)
 
 You can also provide a callable that transforms the ASGI app:
 
-```python
+```python box
 import reflex as rx
-from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
-# Create a transformer function
+# Create a transformer function that returns a transformed ASGI app
 def add_cors_middleware(app):
-    # Add CORS middleware to the app
-    middleware = CORSMiddleware(
+    # Wrap the app with CORS middleware and return the wrapped app
+    return CORSMiddleware(
         app=app,
         allow_origins=["https://example.com"],
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    return middleware
 
 # Create a Reflex app with the transformer
 app = rx.App(api_transformer=add_cors_middleware)
