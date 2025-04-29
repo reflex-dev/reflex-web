@@ -209,3 +209,43 @@ updated default_value from the state.
 Without the `key` set, the slider would always display the original
 `settled_value` after a page reload, instead of its current value.
 ```
+
+## Temporal Events
+
+_Added in v0.5.0_
+
+### temporal
+
+The `.temporal` action prevents events from being queued when the backend is down.
+This is useful for non-critical events where you don't want them to pile up if there's
+a temporary connection issue.
+
+```md alert warning
+# Temporal events are discarded when the backend is down.
+
+When the backend is unavailable, events with the `.temporal` action will be
+discarded rather than queued for later processing. Only use this for events
+where it's acceptable to lose some interactions during connection issues.
+```
+
+In the following example, the button's `on_click` handler uses `.temporal` to
+prevent clicks from being queued when the backend is down:
+
+```python demo exec
+class TemporalState(rx.State):
+    count: int = 0
+
+    @rx.event
+    def increment(self):
+        self.count += 1
+
+def temporal_example():
+    return rx.vstack(
+        rx.heading(f"Count: {TemporalState.count}"),
+        rx.button(
+            "Increment (Temporal)",
+            on_click=TemporalState.increment.temporal,
+        ),
+        rx.text("This button's clicks won't be queued if the backend is down."),
+    )
+```
