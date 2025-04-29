@@ -19,7 +19,7 @@ There are two ways to reference assets in your Reflex app:
 
 ### 1. Direct Path Reference
 
-To reference an image in the `assets/` folder, simply pass the relative path as a prop.
+To reference an image in the `assets/` folder, pass the relative path as a prop.
 
 For example, you can store your logo in your assets folder:
 
