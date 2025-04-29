@@ -206,11 +206,12 @@ import reflex as rx
 class AsyncUserState(rx.State):
     users: list[User] = []
     
-    @rx.background
+    @rx.event(background=True)
     async def get_users_async(self):
         async with rx.asession() as asession:
             result = await asession.execute(User.select())
-            self.users = (await result.all())
+            async with self:
+                self.users = (await result.all())
 ```
 
 ### Async Select
@@ -222,12 +223,13 @@ class AsyncQueryUser(rx.State):
     name: str
     users: list[User] = []
 
-    @rx.background
+    @rx.event(background=True)
     async def get_users(self):
         async with rx.asession() as asession:
             stmt = User.select().where(User.username.contains(self.name))
             result = await asession.execute(stmt)
-            self.users = (await result.all())
+            async with self:
+                self.users = (await result.all())
 ```
 
 ### Async Insert
@@ -239,7 +241,7 @@ class AsyncAddUser(rx.State):
     username: str
     email: str
     
-    @rx.background
+    @rx.event(background=True)
     async def add_user(self):
         async with rx.asession() as asession:
             asession.add(User(username=self.username, email=self.email))
@@ -255,7 +257,7 @@ class AsyncChangeEmail(rx.State):
     username: str
     email: str
 
-    @rx.background
+    @rx.event(background=True)
     async def modify_user(self):
         async with rx.asession() as asession:
             stmt = User.select().where(User.username == self.username)
@@ -275,7 +277,7 @@ To delete a user asynchronously:
 class AsyncRemoveUser(rx.State):
     username: str
 
-    @rx.background
+    @rx.event(background=True)
     async def delete_user(self):
         async with rx.asession() as asession:
             stmt = User.select().where(User.username == self.username)
@@ -294,10 +296,11 @@ Similar to the regular session, you can refresh an object to ensure all fields a
 class AsyncAddUserForm(rx.State):
     user: User | None = None
     
-    @rx.background
+    @rx.event(background=True)
     async def add_user(self, form_data: dict[str, str]):
         async with rx.asession() as asession:
-            self.user = User(**form_data)
+            async with self:
+                self.user = User(**form_data)
             asession.add(self.user)
             await asession.commit()
             await asession.refresh(self.user)
@@ -311,7 +314,7 @@ You can also execute raw SQL asynchronously:
 class AsyncRawSQL(rx.State):
     users: list[list] = []
     
-    @rx.background
+    @rx.event(background=True)
     async def insert_user_raw(self, username, email):
         async with rx.asession() as asession:
             await asession.execute(
@@ -323,17 +326,19 @@ class AsyncRawSQL(rx.State):
             )
             await asession.commit()
     
-    @rx.background
+    @rx.event(background=True)
     async def get_raw_users(self):
         async with rx.asession() as asession:
             result = await asession.execute("SELECT * FROM user")
-            self.users = [list(row) for row in (await result.all())]
+            async with self:
+                self.users = [list(row) for row in (await result.all())]
 ```
 
 ```md alert info
 # Important Notes for Async Database Operations
-- Always use the `@rx.background` decorator for async event handlers
+- Always use the `@rx.event(background=True)` decorator for async event handlers
 - Most operations against the `asession` must be awaited, including `commit()`, `execute()`, `refresh()`, and `delete()`
 - The `add()` method does not need to be awaited
 - Result objects from queries have methods like `all()` and `first()` that must be awaited
+- Use `async with self:` when updating state variables in background tasks
 ```
