@@ -112,7 +112,7 @@ def download_user_data(self):
     )
 ```
 
-For more details on `rx.download`, see the [reference page]({api_reference.special_events.path}#rx.download).
+For more details on `rx.download`, see the [reference page](/docs/events/special-events/#rx.download).
 
 ## Upload
 
@@ -246,7 +246,7 @@ When using the Reflex hosting service, the uploaded files directory is not persi
 
 ### Advanced Upload Features
 
-For more advanced upload scenarios, see the [Upload component reference]({library.forms.upload.path}) which covers:
+For more advanced upload scenarios, see the [Upload component reference](/docs/library/forms/upload/) which covers:
 
 - Multiple file uploads
 - Single file uploads
