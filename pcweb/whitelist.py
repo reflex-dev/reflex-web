@@ -12,7 +12,6 @@ Examples:
 
 WHITELISTED_PAGES = []
 
-
 def _check_whitelisted_path(path: str):
     if len(WHITELISTED_PAGES) == 0:
         return True
