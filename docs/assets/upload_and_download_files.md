@@ -14,13 +14,59 @@ In this section, we will cover all you need to know for manipulating files in Re
 
 Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
 
-| Feature | Assets | Upload Directory |
-| --- | --- | --- |
-| Purpose | Static files included with your app (images, stylesheets, scripts) | Dynamic files uploaded by users during runtime |
-| Location | `assets/` folder or next to Python files (shared assets) | `uploaded_files/` directory (configurable) |
-| Access Method | `rx.asset()` or direct path reference | `rx.get_upload_url()` |
-| When to Use | For files that are part of your application's codebase | For files that users upload through your application |
-| Availability | Available at compile time | Available at runtime |
+```python demo exec
+def assets_vs_upload_comparison():
+    # Define styles
+    cell_style = {"py": "4", "px": "6"}
+    
+    # Define comparison data
+    features = {
+        "Purpose": {
+            "assets": "Static files included with your app (images, stylesheets, scripts)",
+            "upload": "Dynamic files uploaded by users during runtime"
+        },
+        "Location": {
+            "assets": "`assets/` folder or next to Python files (shared assets)",
+            "upload": "`uploaded_files/` directory (configurable)"
+        },
+        "Access Method": {
+            "assets": "`rx.asset()` or direct path reference",
+            "upload": "`rx.get_upload_url()`"
+        },
+        "When to Use": {
+            "assets": "For files that are part of your application's codebase",
+            "upload": "For files that users upload through your application"
+        },
+        "Availability": {
+            "assets": "Available at compile time",
+            "upload": "Available at runtime"
+        }
+    }
+    
+    # Create table rows
+    rows = []
+    for feature, values in features.items():
+        rows.append(
+            rx.table.row(
+                rx.table.cell(rx.text(feature, font_weight="bold"), style=cell_style),
+                rx.table.cell(rx.text(values["assets"]), style=cell_style),
+                rx.table.cell(rx.text(values["upload"]), style=cell_style),
+            )
+        )
+    
+    # Create and return the table
+    return rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Feature", style=cell_style),
+                rx.table.column_header_cell("Assets", style=cell_style),
+                rx.table.column_header_cell("Upload Directory", style=cell_style),
+            ),
+        ),
+        rx.table.body(*rows),
+        width="100%",
+    )
+```
 
 ```md alert
 # Assets are primarily intended for frontend use
