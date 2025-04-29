@@ -2,6 +2,8 @@
 import reflex as rx
 from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
+from pcweb.styles.styles import get_code_style
+from pcweb.styles.colors import c_color
 ```
 
 # Files
@@ -43,14 +45,38 @@ def assets_vs_upload_comparison():
         }
     }
     
+    # Function to process text and style code elements
+    def process_text(text):
+        # Check if the text contains backtick-quoted code
+        if "`" in text:
+            # Split the text by backticks
+            parts = text.split("`")
+            components = []
+            
+            # Process each part
+            for i, part in enumerate(parts):
+                # Even indices are regular text, odd indices are code
+                if i % 2 == 0:
+                    if part:  # Only add non-empty text
+                        components.append(rx.text(part))
+                else:
+                    # This is code that was between backticks
+                    components.append(rx.code(part, style=get_code_style("violet")))
+            
+            # Return the components in an hstack
+            return rx.hstack(*components, spacing="2px", flex_wrap="wrap")
+        else:
+            # No code to style, just return the text
+            return rx.text(text)
+    
     # Create table rows
     rows = []
     for feature, values in features.items():
         rows.append(
             rx.table.row(
                 rx.table.cell(rx.text(feature, font_weight="bold"), style=cell_style),
-                rx.table.cell(rx.text(values["assets"]), style=cell_style),
-                rx.table.cell(rx.text(values["upload"]), style=cell_style),
+                rx.table.cell(process_text(values["assets"]), style=cell_style),
+                rx.table.cell(process_text(values["upload"]), style=cell_style),
             )
         )
     
