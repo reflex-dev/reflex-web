@@ -149,7 +149,6 @@ Represents a state Var that is stored in sessionStorage in the browser. Similar 
 Parameters
 
 - `name`: The name of the storage key on the client side.
-- `sync`: Boolean indicates if the state should be kept in sync across tabs of the same browser.
 
 ```python
 class SessionStorageState(rx.State):
@@ -159,9 +158,6 @@ class SessionStorageState(rx.State):
     # session storage with custom settings
     s2: str = rx.SessionStorage("s2 default")
     s3: str = rx.SessionStorage(name="s3")
-
-    # session storage that automatically updates in other states across tabs
-    s4: str = rx.SessionStorage(sync=True)
 ```
 
 ### Session Persistence
@@ -334,3 +330,4 @@ Here's a comparison of the different client-side storage options in Reflex:
 - You want to isolate data to a specific tab/window
 - You're storing sensitive information that shouldn't persist after the session ends
 - You're implementing per-session features like form data, shopping carts, or multi-step processes
+- You want to persist data for a state after Redis expiration (for server-side state that needs to survive longer than Redis TTL)
