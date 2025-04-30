@@ -58,7 +58,7 @@ Shared assets are placed next to your Python file and are linked to the app's ex
 # my_component.py
 import reflex as rx
 
-# my_script.js is located next to this Python file
+# my_script.js is located in the same directory as this Python file
 def my_component():
     return rx.box(
         rx.script(src=rx.asset("my_script.js", shared=True)),

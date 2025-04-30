@@ -57,7 +57,7 @@ rx.table.root(
         rx.table.row(
             rx.table.cell(rx.text("When to Use", font_weight="bold")),
             rx.table.cell(rx.text("For files that are part of your application's codebase")),
-            rx.table.cell(rx.text("For files that users upload through your application")),
+            rx.table.cell(rx.text("For files that users upload or generate through your application")),
         ),
         rx.table.row(
             rx.table.cell(rx.text("Availability", font_weight="bold")),
@@ -69,11 +69,7 @@ rx.table.root(
 )
 ```
 
-```md alert
-# Assets are primarily intended for frontend use
 
-Assets in Reflex are primarily intended for frontend use and are not expected to be read from the backend. When assets are needed in both frontend and backend, they are currently copied to the backend (though this behavior may change in future versions).
-```
 
 For more information about assets, see the [Assets Overview](/docs/assets/overview/).
 
