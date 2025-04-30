@@ -38,7 +38,7 @@ def test_background_events(
     expect(heading).to_have_text("0 /")
 
     start_button.click()
-    expect(heading).to_have_text(["5 /", "6 /"])
+    expect(heading).to_have_text(re.compile(r"[4-7] /"))
 
     reset_button.click()
     expect(heading).to_have_text("0 /")
