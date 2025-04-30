@@ -131,5 +131,5 @@ def env_vars_page():
     )
 
 
-env_vars_doc = docpage("/docs/api-reference/environment-variables/", "Environment Variables")(env_vars_page)
+env_vars_doc = docpage("/docs/api-reference/environment-variables/", "Environment Variables", right_sidebar=False)(env_vars_page)
 env_vars_doc.title = "Environment Variables"
