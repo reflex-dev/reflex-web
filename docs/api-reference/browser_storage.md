@@ -142,9 +142,70 @@ rx.button(
 )
 ```
 
+## rx.SessionStorage
+
+Represents a state Var that is stored in sessionStorage in the browser. Similar to localStorage, but the data is cleared when the page session ends (when the browser/tab is closed). Currently only supports string values.
+
+Parameters
+
+- `name`: The name of the storage key on the client side.
+
+```python
+class SessionStorageState(rx.State):
+    # session storage with default settings
+    s1: str = rx.SessionStorage()
+
+    # session storage with custom settings
+    s2: str = rx.SessionStorage("s2 default")
+    s3: str = rx.SessionStorage(name="s3")
+```
+
+### Session Persistence
+
+SessionStorage data is cleared when the page session ends. A page session lasts as long as the browser is open and survives page refreshes and restores, but is cleared when the tab or browser is closed.
+
+Unlike LocalStorage, SessionStorage is isolated to the tab/window in which it was created, so it's not shared with other tabs/windows of the same origin.
+
+## rx.remove_session_storage
+
+Remove a session storage item from the client's browser.
+
+Parameters
+
+- `key`: The key to remove from session storage.
+
+```python
+rx.button(
+    'Remove Session Storage',
+    on_click=rx.remove_session_storage('key'),
+)
+```
+
+This event can also be returned from an event handler:
+
+```python
+class SessionStorageState(rx.State):
+    ...
+    def logout(self):
+        return rx.remove_session_storage('session_storage_state.s1')
+```
+
+## rx.clear_session_storage()
+
+Clear all session storage items from the client's browser. This may affect other
+apps running in the same domain or libraries within your app that use session
+storage.
+
+```python
+rx.button(
+    'Clear all Session Storage',
+    on_click=rx.clear_session_storage(),
+)
+```
+
 # Serialization Strategies
 
-If a non-trivial data structure should be stored in a `Cookie` or `LocalStorage` var it needs to be serialized before and after storing it. It is recommended to use a dataclass for the data which provides simple serialization helpers and works recursively in complex object structures.
+If a non-trivial data structure should be stored in a `Cookie`, `LocalStorage`, or `SessionStorage` var it needs to be serialized before and after storing it. It is recommended to use a dataclass for the data which provides simple serialization helpers and works recursively in complex object structures.
 
 ```python demo exec
 import reflex as rx
@@ -234,3 +295,39 @@ def app_settings_example():
         ),
     )
 ```
+
+# Comparison of Storage Types
+
+Here's a comparison of the different client-side storage options in Reflex:
+
+| Feature | rx.Cookie | rx.LocalStorage | rx.SessionStorage |
+|---------|-----------|----------------|------------------|
+| Persistence | Until cookie expires | Until explicitly deleted | Until browser/tab is closed |
+| Storage Limit | ~4KB | ~5MB | ~5MB |
+| Sent with Requests | Yes | No | No |
+| Accessibility | Server & Client | Client Only | Client Only |
+| Expiration | Configurable | Never | End of session |
+| Scope | Configurable (domain, path) | Origin (domain) | Tab/Window |
+| Syncing Across Tabs | No | Yes (with sync=True) | No |
+| Use Case | Authentication, Server-side state | User preferences, App state | Temporary session data |
+
+# When to Use Each Storage Type
+
+## Use rx.Cookie When:
+- You need the data to be accessible on the server side (cookies are sent with HTTP requests)
+- You're handling user authentication
+- You need fine-grained control over expiration and scope
+- You need to limit the data to specific paths in your app
+
+## Use rx.LocalStorage When:
+- You need to store larger amounts of data (up to ~5MB)
+- You want the data to persist indefinitely (until explicitly deleted)
+- You need to share data between different tabs/windows of your app
+- You want to store user preferences that should be remembered across browser sessions
+
+## Use rx.SessionStorage When:
+- You need temporary data that should be cleared when the browser/tab is closed
+- You want to isolate data to a specific tab/window
+- You're storing sensitive information that shouldn't persist after the session ends
+- You're implementing per-session features like form data, shopping carts, or multi-step processes
+- You want to persist data for a state after Redis expiration (for server-side state that needs to survive longer than Redis TTL)
