@@ -179,6 +179,73 @@ def index():
     )
 ```
 
+### Accessing Individual Var Values
+
+In addition to accessing entire state instances with `get_state`, you can retrieve individual variable values using the `get_var_value` method:
+
+```python
+# Access a var value from another state
+value = await self.get_var_value(OtherState.some_var)
+```
+
+This async method is particularly useful when you only need a specific value rather than loading the entire state. Using `get_var_value` can be more efficient than `get_state` when:
+
+1. You only need to access a single variable from another state
+2. The other state contains a large amount of data
+3. You want to avoid loading unnecessary data into memory
+
+Here's an example that demonstrates how to use `get_var_value` to access data between states:
+
+```python demo exec
+# Define a state that holds a counter value
+class CounterState(rx.State):
+    # This variable will be accessed from another state
+    count: int = 0
+    
+    @rx.event
+    async def increment(self):
+        # Increment the counter when the button is clicked
+        self.count += 1
+
+# Define a separate state that will display information
+class DisplayState(rx.State):
+    # This will show the current count value
+    message: str = ""
+    
+    @rx.event
+    async def show_count(self):
+        # Use get_var_value to access just the count variable from CounterState
+        # This is more efficient than loading the entire state with get_state
+        current = await self.get_var_value(CounterState.count)
+        self.message = f"Current count: {current}"
+
+def var_value_example():
+    return rx.vstack(
+        rx.heading("Get Var Value Example"),
+        rx.hstack(
+            # This button calls DisplayState.show_count to display the current count
+            rx.button("Get Count Value", on_click=DisplayState.show_count),
+            # This button calls CounterState.increment to increase the counter
+            rx.button("Increment", on_click=CounterState.increment),
+        ),
+        # Display the message from DisplayState
+        rx.text(DisplayState.message),
+        width="100%",
+        align="center",
+        spacing="4",
+    )
+```
+
+In this example:
+1. We have two separate states: `CounterState` which manages a counter, and `DisplayState` which displays information
+2. When you click "Increment", it calls `CounterState.increment()` to increase the counter value
+3. When you click "Show Count", it calls `DisplayState.show_count()` which uses `get_var_value` to retrieve just the count value from `CounterState` without loading the entire state
+4. The current count is then displayed in the message
+
+This pattern is useful when you have multiple states that need to interact with each other but don't need to access all of each other's data.
+
+If the var is not retrievable, `get_var_value` will raise an `UnretrievableVarValueError`.
+
 ## Performance Implications
 
 When an event handler is called, Reflex will load the data not only for the substate containing
