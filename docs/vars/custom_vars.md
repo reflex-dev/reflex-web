@@ -1,5 +1,7 @@
 ```python exec
 import reflex as rx
+import dataclasses
+from typing import TypedDict
 
 from pcweb.pages.docs import vars
 ```
@@ -8,18 +10,21 @@ from pcweb.pages.docs import vars
 
 As mentioned in the [vars page]({vars.base_vars.path}), Reflex vars must be JSON serializable.
 
-This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types by inheriting from `rx.Base` or decorating them as dataclasses with `@dataclasses.dataclass`.
+This means we can support any Python primitive types, as well as lists, dicts, and tuples. However, you can also create more complex var types using dataclasses (recommended), TypedDict, or Pydantic models.
 
 ## Defining a Type
 
-In this example, we will create a custom var type for storing translations.
+In this example, we will create a custom var type for storing translations using a dataclass.
 
 Once defined, we can use it as a state var, and reference it from within a component.
 
 ```python demo exec
 import googletrans
+import dataclasses
+from typing import TypedDict
 
-class Translation(rx.Base):
+@dataclasses.dataclass
+class Translation:
     original_text: str
     translated_text: str
 
@@ -39,3 +44,31 @@ def translation_example():
         rx.text(TranslationState.current_translation.translated_text),
     )
 ```
+
+## Alternative Approaches
+
+### Using TypedDict
+
+You can also use TypedDict for defining custom var types:
+
+```python
+from typing import TypedDict
+
+class Translation(TypedDict):
+    original_text: str
+    translated_text: str
+```
+
+### Using Pydantic Models
+
+Pydantic models are another option for complex data structures:
+
+```python
+from pydantic import BaseModel
+
+class Translation(BaseModel):
+    original_text: str
+    translated_text: str
+```
+
+For complex data structures, dataclasses are recommended as they provide a clean, type-safe way to define custom var types with good IDE support.

@@ -2,6 +2,8 @@
 import reflex as rx
 from pcweb.pages.docs import library
 from pcweb.pages.docs import api_reference
+from pcweb.styles.styles import get_code_style
+from pcweb.styles.colors import c_color
 ```
 
 # Files
@@ -9,6 +11,67 @@ from pcweb.pages.docs import api_reference
 In addition to any assets you ship with your app, many web app will often need to receive or send files, whether you want to share media, allow user to import their data, or export some backend data.
 
 In this section, we will cover all you need to know for manipulating files in Reflex.
+
+## Assets vs Upload Directory
+
+Before diving into file uploads and downloads, it's important to understand the difference between assets and the upload directory in Reflex:
+
+```python eval
+# Simple table comparing assets vs upload directory
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Feature"),
+            rx.table.column_header_cell("Assets"),
+            rx.table.column_header_cell("Upload Directory"),
+        ),
+    ),
+    rx.table.body(
+        rx.table.row(
+            rx.table.cell(rx.text("Purpose", font_weight="bold")),
+            rx.table.cell(rx.text("Static files included with your app (images, stylesheets, scripts)")),
+            rx.table.cell(rx.text("Dynamic files uploaded by users during runtime")),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Location", font_weight="bold")),
+            rx.table.cell(rx.hstack(
+                rx.code("assets/", style=get_code_style("violet")),
+                rx.text(" folder or next to Python files (shared assets)"),
+                spacing="2",
+            )),
+            rx.table.cell(rx.hstack(
+                rx.code("uploaded_files/", style=get_code_style("violet")),
+                rx.text(" directory (configurable)"),
+                spacing="2",
+            )),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Access Method", font_weight="bold")),
+            rx.table.cell(rx.hstack(
+                rx.code("rx.asset()", style=get_code_style("violet")),
+                rx.text(" or direct path reference"),
+                spacing="2",
+            )),
+            rx.table.cell(rx.code("rx.get_upload_url()", style=get_code_style("violet"))),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("When to Use", font_weight="bold")),
+            rx.table.cell(rx.text("For files that are part of your application's codebase")),
+            rx.table.cell(rx.text("For files that users upload or generate through your application")),
+        ),
+        rx.table.row(
+            rx.table.cell(rx.text("Availability", font_weight="bold")),
+            rx.table.cell(rx.text("Available at compile time")),
+            rx.table.cell(rx.text("Available at runtime")),
+        ),
+    ),
+    width="100%",
+)
+```
+
+
+
+For more information about assets, see the [Assets Overview](/docs/assets/overview/).
 
 ## Download
 
