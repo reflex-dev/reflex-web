@@ -224,7 +224,7 @@ def var_value_example():
         rx.heading("Get Var Value Example"),
         rx.hstack(
             # This button calls DisplayState.show_count to display the current count
-            rx.button("Show Count", on_click=DisplayState.show_count),
+            rx.button("Get Count Value", on_click=DisplayState.show_count),
             # This button calls CounterState.increment to increase the counter
             rx.button("Increment", on_click=CounterState.increment),
         ),
