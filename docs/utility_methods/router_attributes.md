@@ -74,7 +74,7 @@ The `self.router` attribute has several sub-attributes that provide various info
 
 ### Example Values on this Page
 
-```python eval box
+```python eval
 rx.table.root(
         rx.table.header(
             rx.table.row(
