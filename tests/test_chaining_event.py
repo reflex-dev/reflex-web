@@ -1,4 +1,3 @@
-import os
 import re
 import time
 
@@ -15,9 +14,6 @@ def chaining_event_url() -> str:
     return docs.events.chaining_events.path
 
 
-@pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS") is not None, reason="Consistently fails in CI"
-)
 def test_handler_from_handler(
     reflex_web_app: AppHarness,
     page: Page,
