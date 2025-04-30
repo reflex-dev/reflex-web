@@ -100,7 +100,7 @@ rx.table.root(
 
 The `raw_headers` attribute provides access to all HTTP headers as a frozen dictionary. This is useful when you need to access headers that are not explicitly defined in the `HeaderData` class:
 
-```python
+```python box
 # Access a specific header
 custom_header_value = self.router.headers.raw_headers.get("x-custom-header", "")
 

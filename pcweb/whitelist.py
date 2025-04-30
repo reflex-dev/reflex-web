@@ -1,4 +1,5 @@
-"""A list of whitelist paths that should be built.
+"""
+This file contains a list of paths that should be built for the Reflex application.
 If the list is empty, all pages will be built.
 
 Tips:
@@ -12,19 +13,16 @@ Examples:
 
 WHITELISTED_PAGES = []
 
-def _check_whitelisted_path(path: str):
-    if len(WHITELISTED_PAGES) == 0:
+
+def _check_whitelisted_path(path: str) -> bool:
+    """Check if a given path is whitelisted.
+
+    Args:
+        path: The path to check.
+
+    Returns:
+        Whether the path is whitelisted.
+    """
+    if not WHITELISTED_PAGES:
         return True
-
-    # If the path is the root, always build it.
-    if path == "/":
-        return True
-
-    if len(WHITELISTED_PAGES) == 1 and WHITELISTED_PAGES[0] == "/":
-        return False
-
-    for whitelisted_path in WHITELISTED_PAGES:
-        if path.startswith(whitelisted_path):
-            return True
-
-    return False
+    return path in WHITELISTED_PAGES
