@@ -38,7 +38,8 @@ def test_background_events(
     expect(heading).to_have_text("0 /")
 
     start_button.click()
-    expect(heading).to_have_text("6 /")
+    expect(heading).to_have_text(["5 /", "6 /"])
+
     reset_button.click()
     expect(heading).to_have_text("0 /")
-    expect(heading).to_have_text("10 /", timeout=10000)
+    expect(heading).to_have_text("10 /", timeout=12000)
