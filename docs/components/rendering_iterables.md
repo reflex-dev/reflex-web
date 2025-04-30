@@ -8,6 +8,8 @@ from pcweb.pages import docs
 
 Recall again from the [basics]({docs.getting_started.basics.path}) that we cannot use Python `for` loops when referencing state vars in Reflex. Instead, use the `rx.foreach` component to render components from a collection of data.
 
+For dynamic content that should automatically scroll to show the newest items, consider using the [auto scroll]({docs.library.dynamic_rendering.auto_scroll.path}) component together with `rx.foreach`.
+
 ```python demo exec
 class IterState(rx.State):
     color: list[str] = [
