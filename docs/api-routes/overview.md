@@ -20,7 +20,7 @@ This is useful for creating a backend API that can be used for purposes beyond y
 
 You can set the `api_transformer` parameter when initializing your Reflex app:
 
-```python box
+```python
 import reflex as rx
 from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -49,7 +49,7 @@ The `api_transformer` parameter can accept:
 
 When you provide a FastAPI or Starlette instance as the API transformer, Reflex will mount its internal API to your app, allowing you to define additional routes:
 
-```python box
+```python
 import reflex as rx
 from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -79,7 +79,7 @@ app = rx.App(api_transformer=fastapi_app)
 
 You can also provide a callable that transforms the ASGI app:
 
-```python box
+```python
 import reflex as rx
 from starlette.middleware.cors import CORSMiddleware
 
@@ -101,7 +101,7 @@ app = rx.App(api_transformer=add_cors_middleware)
 
 You can apply multiple transformers by providing a sequence:
 
-```python box
+```python
 import reflex as rx
 from fastapi import FastAPI
 from starlette.middleware import Middleware
