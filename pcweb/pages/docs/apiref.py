@@ -20,6 +20,8 @@ modules = [
     rx.Var,
 ]
 
+from .env_vars import env_vars_doc
+
 pages = []
 for module in modules:
     s = Source(module=module)
@@ -29,3 +31,5 @@ for module in modules:
     page_data = docpage(f"/docs/api-reference/{name}/", title)(docs)
     page_data.title = page_data.title.split("·")[0].strip()
     pages.append(page_data)
+
+pages.append(env_vars_doc)
