@@ -68,14 +68,14 @@ class EnvVarDocs:
         
         env_vars.sort(key=lambda x: x[0])
         
-        return rx.scroll_area(
+        return rx.box(
             rx.table.root(
                 rx.table.header(
                     rx.table.row(
-                        rx.table.column_header_cell("Name", class_name="font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"),
-                        rx.table.column_header_cell("Type", class_name="font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"),
-                        rx.table.column_header_cell("Default", class_name="font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"),
-                        rx.table.column_header_cell("Description", class_name="font-small text-slate-12 text-normal w-auto justify-start pl-4 font-bold"),
+                        rx.table.column_header_cell("Name", class_name="font-small text-slate-12 text-normal w-[20%] justify-start pl-4 font-bold"),
+                        rx.table.column_header_cell("Type", class_name="font-small text-slate-12 text-normal w-[15%] justify-start pl-4 font-bold"),
+                        rx.table.column_header_cell("Default", class_name="font-small text-slate-12 text-normal w-[15%] justify-start pl-4 font-bold"),
+                        rx.table.column_header_cell("Description", class_name="font-small text-slate-12 text-normal w-[50%] justify-start pl-4 font-bold"),
                     )
                 ),
                 rx.table.body(
@@ -83,23 +83,28 @@ class EnvVarDocs:
                         rx.table.row(
                             rx.table.cell(
                                 rx.code(var.name, class_name="code-style"),
+                                class_name="w-[20%]",
                             ),
                             rx.table.cell(
                                 rx.code(str(var.type_.__name__ if hasattr(var.type_, "__name__") else str(var.type_)), class_name="code-style"),
+                                class_name="w-[15%]",
                             ),
                             rx.table.cell(
                                 rx.code(str(var.default), class_name="code-style"),
+                                class_name="w-[15%]",
                             ),
                             rx.table.cell(
                                 markdown(cls.get_env_var_docstring(name) or ""),
-                                class_name="font-small text-slate-11",
+                                class_name="font-small text-slate-11 w-[50%]",
                             ),
                         )
                         for name, var in env_vars
                     ],
                 ),
+                width="100%",
+                overflow_x="visible",
+                class_name="w-full",
             ),
-            max_height="35em",
         )
 
 
