@@ -63,80 +63,75 @@ app.add_page(
 )
 ```
 
-## Styling with Tailwind
+## SASS/SCSS Support
 
-You can integrate custom Tailwind themes within your Reflex app as well. The setup process is similar to the CSS Styling method mentioned above, with only a few minor variations.
+Reflex supports SASS/SCSS stylesheets alongside regular CSS. This allows you to use more advanced styling features like variables, nesting, mixins, and more.
 
-Begin by creating a CSS file inside your `assets` folder. Inside the CSS file, include the following Tailwind directives:
+### Using SASS/SCSS Files
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+To use SASS/SCSS files in your Reflex app:
 
-:root {
-  --background: blue;
-  --foreground: green;
-}
-
-.dark {
-  --background: darkblue;
-  --foreground: lightgreen;
-}
-```
-
-We define a couple of custom CSS variables (--background and --foreground) that will be used throughout your app for styling. These variables can be dynamically updated based on the theme.
-
-Tailwind defaults to light mode, but to handle dark mode, you can define a separate set of CSS variables under the .dark class. 
-
-Tailwind Directives (@tailwind base, @tailwind components, @tailwind utilities): These are essential Tailwind CSS imports that enable the default base styles, components, and utility classes.
-
-Next, you'll need to configure Tailwind in your `rxconfig.py` file to ensure that the Reflex app uses your custom Tailwind setup.
-
-```python
-import reflex as rx
-
-tailwind_config = {
-    "plugins": ["@tailwindcss/typography"],
-    "theme": {
-        "extend": {
-            "colors": {
-                "background": "var(--background)",
-                "foreground": "var(--foreground)"
-            },
-        }
-    },
-}
-
-config = rx.Config(
-    app_name="app",
-    tailwind=tailwind_config,
-)
-```
-
-In the theme section, we're extending the default Tailwind theme to include custom colors. Specifically, we're referencing the CSS variables (--background and --foreground) that were defined earlier in your CSS file.
-
-The rx.Config object is used to initialize and configure your Reflex app. Here, we're passing the tailwind_config dictionary to ensure Tailwind's custom setup is applied to the app.
-
-Finally, to apply your custom styles and Tailwind configuration, you need to reference the CSS file you created in your `assets` folder inside the `rx.App` setup. This will allow you to use the custom properties (variables) directly within your Tailwind classes.
-
-In your `app.py` (or main application file), make the following changes:
+1. Create a `.sass` or `.scss` file in your `assets` directory
+2. Reference the file in your `rx.App` configuration just like you would with CSS files
 
 ```python
 app = rx.App(
-    theme=rx.theme(appearance="light"),
-    stylesheets=["/style.css"],
-)
-app.add_page(
-    rx.center(
-        rx.text("Tailwind & Reflex!"),
-        class_name="bg-background w-full h-[100vh]",
-    ),
-    "/",
+    stylesheets=[
+        "/styles.scss",  # This path is relative to assets/
+        "/sass/main.sass",  # You can organize files in subdirectories
+    ],
 )
 ```
 
-The bg-background class uses the --background variable (defined in the CSS file), which will be applied as the background color. 
+Reflex automatically detects the file extension and compiles these files to CSS using the `libsass` package.
+
+### Example SASS/SCSS File
+
+Here's an example of a SASS file (`assets/styles.scss`) that demonstrates some of the features:
+
+```scss
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$padding: 16px;
+
+// Nesting
+.container {
+  background-color: $primary-color;
+  padding: $padding;
+  
+  .button {
+    background-color: $secondary-color;
+    padding: $padding / 2;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-box {
+  @include flex-center;
+  height: 100px;
+}
+```
+
+### Dependency Requirement
+
+The `libsass` package is required for SASS/SCSS compilation. If it's not installed, Reflex will show an error message. You can install it with:
+
+```bash
+pip install "libsass>=0.23.0"
+```
+
+This package is included in the default Reflex installation, so you typically don't need to install it separately.
 
 ## Fonts
 

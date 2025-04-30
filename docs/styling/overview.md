@@ -172,64 +172,6 @@ app = rx.App(
 
 Additionally you can modify the theme of your app through using the `Theme Panel` component which can be found in the [Theme Panel docs]({library.other.theme.path}).
 
-
-
-
-## Tailwind
-
-Reflex supports [Tailwind CSS]({"https://tailwindcss.com/"}) out of the box. To enable it, pass in a dictionary for the `tailwind` argument of your `rxconfig.py`:
-
-```python
-import reflex as rx
-
-
-class AppConfig(rx.Config):
-    pass
-
-
-config = AppConfig(
-    app_name="app",
-    db_url="sqlite:///reflex.db",
-    env=rx.Env.DEV,
-    tailwind=\{},
-)
-```
-
-All Tailwind configuration options are supported. Plugins and presets are automatically wrapped in `require()`:
-
-```python
-config = AppConfig(
-    app_name="app",
-    db_url="sqlite:///reflex.db",
-    env=rx.Env.DEV,
-    tailwind={
-        "theme": {
-            "extend": \{},
-        },
-        "plugins": ["@tailwindcss/typography"],
-    },
-)
-```
-
-You can use any of the [utility classes]({"https://tailwindcss.com/docs/utility-first"}) under the `class_name` prop:
-
-```python demo
-rx.box(
-    "Hello World",
-    class_name="text-4xl text-center text-blue-500",
-)
-```
-
-### Disabling Tailwind
-
-If you want to disable Tailwind in your configuration, you can do so by setting the `tailwind` config to `None`. This can be useful if you need to temporarily turn off Tailwind for your project:
-
-```python
-config = rx.Config(app_name="app", tailwind=None)
-```
-
-With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application.
-
 ## Special Styles
 
 We support all of Chakra UI's [pseudo styles]({"https://v2.chakra-ui.com/docs/styled-system/style-props#pseudo"}).

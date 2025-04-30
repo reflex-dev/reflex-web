@@ -86,7 +86,6 @@ for route in routes:
 redirects = [
     ("/docs", "/docs/getting-started/introduction"),
     ("/docs/getting-started", "/docs/getting-started/introduction"),
-    ("/docs/components", "/docs/components/overview"),
     ("/docs/state", "/docs/state/overview"),
     ("/docs/styling", "/docs/styling/overview"),
     ("/docs/database", "/docs/database/overview"),
@@ -97,7 +96,6 @@ redirects = [
     ("/docs/library/layout/foreach", "/docs/library/dynamic-rendering/foreach"),
     ("/docs/library/layout/match", "/docs/library/dynamic-rendering/match"),
     ("/docs/library/layout/cond", "/docs/library/dynamic-rendering/cond"),
-    ("/docs/tutorial", "/docs/tutorial/intro"),
     ("/docs/components", "/docs/components/props"),
     ("/docs/pages", "/docs/pages/routes"),
     ("/docs/assets", "/docs/assets/referencing-assets"),
@@ -112,6 +110,7 @@ redirects = [
     ("/docs/utility-methods", "/docs/utility-methods/router-attributes"),
     ("/docs/datatable-tutorial", "/docs/datatable-tutorial/simple-table"),
     ("/docs/library/graphing", "/docs/library/graphing/charts"),
+    ("/docs/tutorial", "/docs/getting-started/chatapp-tutorial"),
     ("/docs/tutorial/intro", "/docs/getting-started/chatapp-tutorial"),
     ("/docs/tutorial/setup", "/docs/getting-started/chatapp-tutorial"),
     ("/docs/tutorial/frontend", "/docs/getting-started/chatapp-tutorial"),
@@ -123,7 +122,6 @@ redirects = [
         "/docs/advanced-onboarding/how-reflex-works",
     ),
     # Recipes
-    ("/docs/recipes/auth", "/docs/recipes"),
     ("/docs/recipes/auth", "/docs/recipes"),
     ("/docs/recipes/layout", "/docs/recipes"),
     ("/docs/recipes/others", "/docs/recipes"),

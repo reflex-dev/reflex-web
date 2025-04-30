@@ -1,6 +1,7 @@
 """Template for documentation pages."""
 
 from datetime import datetime
+import functools
 from typing import Callable
 
 import reflex as rx
@@ -379,7 +380,8 @@ def docpage(
     t: str | None = None,
     right_sidebar: bool = True,
     page_title: str | None = None,
-) -> rx.Component:
+    pseudo_right_bar: bool = False,
+):
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -406,6 +408,7 @@ def docpage(
         # Set the page title.
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
+        @functools.wraps(contents)
         def wrapper(*args, **kwargs) -> rx.Component:
             """The actual function wrapper.
 
@@ -529,28 +532,17 @@ def docpage(
                             else " lg:max-w-[60%] 2xl:max-w-[100%]"
                         ),
                     ),
-                    rx.el.nav(
-                        rx.box(
-                            rx.el.h5(
-                                "On this page",
-                                class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
-                            ),
-                            rx.el.ul(
-                                *[
-                                    (
-                                        rx.el.li(
-                                            rx.link(
-                                                text,
-                                                class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
-                                                underline="none",
-                                                href=path
-                                                + "#"
-                                                + text.lower().replace(" ", "-"),
-                                            )
-                                        )
-                                        if level == 1
-                                        else (
-                                            rx.list_item(
+                    (
+                        rx.el.nav(
+                            rx.box(
+                                rx.el.h5(
+                                    "On this page",
+                                    class_name="font-smbold text-[0.875rem] text-slate-12 hover:text-violet-9 leading-5 tracking-[-0.01313rem] transition-color",
+                                ),
+                                rx.el.ul(
+                                    *[
+                                        (
+                                            rx.el.li(
                                                 rx.link(
                                                     text,
                                                     class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
@@ -560,35 +552,56 @@ def docpage(
                                                     + text.lower().replace(" ", "-"),
                                                 )
                                             )
-                                            if level == 2
-                                            else rx.el.li(
-                                                rx.link(
-                                                    text,
-                                                    underline="none",
-                                                    class_name="pl-6 font-small text-slate-9 hover:!text-slate-11  transition-color",
-                                                    href=path
-                                                    + "#"
-                                                    + text.lower().replace(" ", "-"),
+                                            if level == 1
+                                            else (
+                                                rx.list_item(
+                                                    rx.link(
+                                                        text,
+                                                        class_name="font-small text-slate-9 hover:!text-slate-11 whitespace-normal transition-color",
+                                                        underline="none",
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
+                                                    )
+                                                )
+                                                if level == 2
+                                                else rx.el.li(
+                                                    rx.link(
+                                                        text,
+                                                        underline="none",
+                                                        class_name="pl-6 font-small text-slate-9 hover:!text-slate-11  transition-color",
+                                                        href=path
+                                                        + "#"
+                                                        + text.lower().replace(
+                                                            " ", "-"
+                                                        ),
+                                                    )
                                                 )
                                             )
                                         )
-                                    )
-                                    for level, text in toc
-                                ],
-                                class_name="flex flex-col gap-4 list-none",
+                                        for level, text in toc
+                                    ],
+                                    class_name="flex flex-col gap-4 list-none",
+                                ),
+                                class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-scroll",
+                                style={"width": "inherit"},
                             ),
-                            class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-scroll",
-                            style={
-                                "width":"inherit"
-                            }
-                        ),
-                        class_name="shrink-0 w-[16%]"
-                        + rx.cond(
-                            HostingBannerState.show_banner,
-                            " mt-[146px]",
-                            " mt-[90px]",
+                            class_name="shrink-0 w-[16%]"
+                            + rx.cond(
+                                HostingBannerState.show_banner,
+                                " mt-[146px]",
+                                " mt-[90px]",
+                            )
+                            + (
+                                " hidden xl:flex xl:flex-col"
+                                if right_sidebar
+                                else " hidden"
+                            ),
                         )
-                        + (" hidden xl:flex xl:flex-col" if right_sidebar else " hidden"),
+                        if not pseudo_right_bar
+                        else rx.spacer()
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),

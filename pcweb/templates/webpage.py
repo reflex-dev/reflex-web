@@ -1,3 +1,4 @@
+import functools
 from typing import Callable
 
 import reflex as rx
@@ -40,6 +41,7 @@ def webpage(
             The templated route.
         """
 
+        @functools.wraps(contents)
         def wrapper(*children, **props) -> rx.Component:
             """The template component.
 
