@@ -193,6 +193,10 @@ This async method is useful when you only need a specific value rather than the 
 ```python demo exec
 class CounterState(rx.State):
     count: int = 0
+    
+    @rx.event
+    async def increment(self):
+        self.count += 1
 
 class DisplayState(rx.State):
     message: str = ""
@@ -202,18 +206,13 @@ class DisplayState(rx.State):
         # Get just the count value without loading the entire state
         current = await self.get_var_value(CounterState.count)
         self.message = f"Current count: {current}"
-        
-    @rx.event
-    async def increment_counter(self):
-        # We can also modify other state vars
-        CounterState.count += 1
 
 def var_value_example():
     return rx.vstack(
         rx.heading("Get Var Value Example"),
         rx.hstack(
             rx.button("Show Count", on_click=DisplayState.show_count),
-            rx.button("Increment", on_click=DisplayState.increment_counter),
+            rx.button("Increment", on_click=CounterState.increment),
         ),
         rx.text(DisplayState.message),
         width="100%",
