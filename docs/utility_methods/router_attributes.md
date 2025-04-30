@@ -29,7 +29,7 @@ router_data = [
       {"name": "rx.State.router.headers.sec_websocket_extensions", "value": RouterState.router.headers.sec_websocket_extensions},
       {"name": "rx.State.router.headers.accept_encoding", "value": RouterState.router.headers.accept_encoding},
       {"name": "rx.State.router.headers.accept_language", "value": RouterState.router.headers.accept_language},
-      {"name": "rx.State.router.headers.raw_headers", "value": str(RouterState.router.headers.raw_headers)},
+      {"name": "rx.State.router.headers.raw_headers", "value": RouterState.router.headers.raw_headers.to_string()},
   ]
 
 ```
