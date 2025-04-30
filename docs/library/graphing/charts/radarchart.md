@@ -271,7 +271,7 @@ def radar_dynamic():
                     rx.text(trait_name, width="7em"),
                     rx.slider(
                         default_value=RadarChartState.traits[i]["value"].to(int),
-                        on_change=lambda value: RadarChartState.set_trait(trait_name, value),
+                        on_change=lambda value: RadarChartState.set_trait(trait_name, value[0]),
                         width="25vw",
                     ),
                     rx.text(RadarChartState.traits[i]['value']),
