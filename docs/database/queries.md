@@ -189,3 +189,156 @@ class State(rx.State):
         with rx.session() as session:
             return [list(row) for row in session.execute("SELECT * FROM user").all()]
 ```
+
+## Async Database Operations
+
+Reflex provides an async version of the session function called `rx.asession` for asynchronous database operations. This is useful when you need to perform database operations in an async context, such as within async event handlers.
+
+The `rx.asession` function returns an async SQLAlchemy session that must be used with an async context manager. Most operations against the `asession` must be awaited.
+
+```python
+import sqlalchemy.ext.asyncio
+import sqlalchemy
+
+import reflex as rx
+
+
+class AsyncUserState(rx.State):
+    users: list[User] = []
+    
+    @rx.event(background=True)
+    async def get_users_async(self):
+        async with rx.asession() as asession:
+            result = await asession.execute(User.select())
+            async with self:
+                self.users = (await result.all())
+```
+
+### Async Select
+
+The following example shows how to query the database asynchronously:
+
+```python
+class AsyncQueryUser(rx.State):
+    name: str
+    users: list[User] = []
+
+    @rx.event(background=True)
+    async def get_users(self):
+        async with rx.asession() as asession:
+            stmt = User.select().where(User.username.contains(self.name))
+            result = await asession.execute(stmt)
+            async with self:
+                self.users = (await result.all())
+```
+
+### Async Insert
+
+To add a new record to the database asynchronously:
+
+```python
+class AsyncAddUser(rx.State):
+    username: str
+    email: str
+    
+    @rx.event(background=True)
+    async def add_user(self):
+        async with rx.asession() as asession:
+            asession.add(User(username=self.username, email=self.email))
+            await asession.commit()
+```
+
+### Async Update
+
+To update a user asynchronously:
+
+```python
+class AsyncChangeEmail(rx.State):
+    username: str
+    email: str
+
+    @rx.event(background=True)
+    async def modify_user(self):
+        async with rx.asession() as asession:
+            stmt = User.select().where(User.username == self.username)
+            result = await asession.execute(stmt)
+            user = (await result.first())
+            if user:
+                user.email = self.email
+                asession.add(user)
+                await asession.commit()
+```
+
+### Async Delete
+
+To delete a user asynchronously:
+
+```python
+class AsyncRemoveUser(rx.State):
+    username: str
+
+    @rx.event(background=True)
+    async def delete_user(self):
+        async with rx.asession() as asession:
+            stmt = User.select().where(User.username == self.username)
+            result = await asession.execute(stmt)
+            user = (await result.first())
+            if user:
+                await asession.delete(user)
+                await asession.commit()
+```
+
+### Async Refresh
+
+Similar to the regular session, you can refresh an object to ensure all fields are up to date:
+
+```python
+class AsyncAddUserForm(rx.State):
+    user: User | None = None
+    
+    @rx.event(background=True)
+    async def add_user(self, form_data: dict[str, str]):
+        async with rx.asession() as asession:
+            async with self:
+                self.user = User(**form_data)
+            asession.add(self.user)
+            await asession.commit()
+            await asession.refresh(self.user)
+```
+
+### Async SQL Execution
+
+You can also execute raw SQL asynchronously:
+
+```python
+class AsyncRawSQL(rx.State):
+    users: list[list] = []
+    
+    @rx.event(background=True)
+    async def insert_user_raw(self, username, email):
+        async with rx.asession() as asession:
+            await asession.execute(
+                sqlalchemy.text(
+                    "INSERT INTO user (username, email) "
+                    "VALUES (:username, :email)"
+                ),
+                dict(username=username, email=email),
+            )
+            await asession.commit()
+    
+    @rx.event(background=True)
+    async def get_raw_users(self):
+        async with rx.asession() as asession:
+            result = await asession.execute("SELECT * FROM user")
+            async with self:
+                self.users = [list(row) for row in (await result.all())]
+```
+
+```md alert info
+# Important Notes for Async Database Operations
+- Always use the `@rx.event(background=True)` decorator for async event handlers
+- Most operations against the `asession` must be awaited, including `commit()`, `execute()`, `refresh()`, and `delete()`
+- The `add()` method does not need to be awaited
+- Result objects from queries have methods like `all()` and `first()` that must be awaited
+- Use `async with self:` when updating state variables in background tasks
+```
