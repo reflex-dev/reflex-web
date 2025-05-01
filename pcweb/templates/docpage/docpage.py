@@ -1,20 +1,20 @@
 """Template for documentation pages."""
 
-from datetime import datetime
 import functools
+from datetime import datetime
 from typing import Callable
 
-import reflex as rx
 import flexdown
 import mistletoe
+from reflex.components.radix.themes.base import LiteralAccentColor
+from reflex.utils.format import to_title_case, to_snake_case
+
+from pcweb.components.button import button
+from pcweb.components.icons.icons import get_icon
 from pcweb.route import Route, get_path
+from pcweb.styles.colors import c_color
 from .blocks import *
 from .state import FeedbackState
-from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
-from reflex.components.radix.themes.base import LiteralAccentColor
-from pcweb.components.button import button
-from reflex.utils.format import to_title_case, to_snake_case
 
 
 def footer_link(text: str, href: str):
@@ -514,7 +514,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-20",
+                            class_name="px-0 lg:px-20 pt-11 sm:pt-0",
                         ),
                         rx.box(
                             rx.el.article(comp),
