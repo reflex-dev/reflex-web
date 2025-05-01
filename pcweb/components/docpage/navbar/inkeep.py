@@ -184,7 +184,7 @@ const escalationParams = {
 };
 const searchBarProps = {
   baseSettings: {
-    apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
+    apiKey: '6299820854cd95d0a6e55a502d5bae06549e62360e7805a6',
     customIcons: {search: {custom: "/icons/search.svg"}},
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#6E56CF',
