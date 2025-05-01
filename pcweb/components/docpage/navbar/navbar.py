@@ -1,40 +1,25 @@
 """UI and logic for the navbar component."""
 
 import reflex as rx
-from reflex.experimental import ClientStateVar
 
-from pcweb.pages.customers.views.bento_cards import _card
+from pcweb.components.button import button
+from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
+from pcweb.components.hosting_banner import hosting_banner
+from pcweb.constants import (
+    REFLEX_CLOUD_URL,
+)
+from pcweb.pages.blog import blogs
+from pcweb.pages.blog.paths import blog_data
+from pcweb.pages.changelog import changelog
 from pcweb.pages.docs import (
-    wrapping_react,
-    styling,
-    custom_components as custom_c,
     getting_started,
 )
-from pcweb.components.button import button
-from pcweb.pages.docs.library import library
-from pcweb.pages.docs.custom_components import custom_components
-from pcweb.pages.gallery import gallery
-from .buttons.github import github
-from .buttons.discord import discord
+from pcweb.pages.faq import faq
 from .buttons.color import color
+from .buttons.discord import discord
+from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
-from pcweb.components.hosting_banner import hosting_banner
-from pcweb.pages.blog.paths import blog_data
-
-from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import (
-    CONTRIBUTING_URL,
-    FORUM_URL,
-    ROADMAP_URL,
-    REFLEX_CLOUD_URL,
-    REFLEX_AI_BUILDER,
-)
 from ..sidebar import SidebarState
 from ...link_button import resources_button
 
@@ -274,32 +259,76 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
 
 
 def new_resource_section():
-    return nav_menu.content(
-        rx.box(
-            # Links
+    _company_items = [
+        {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
+        {"label": "Blog", "url": "/blog", "icon": "library-big"},
+    ]
+
+    _open_source_items = [
+        {"label": "Templates", "url": "/templates", "icon": "layout-panel-top"},
+        {"label": "Changelog", "url": changelog.path, "icon": "history"},
+        {
+            "label": "Contributing",
+            "url": "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+            "icon": "handshake",
+        },
+        {
+            "label": "Discussions",
+            "url": "https://github.com/orgs/reflex-dev/discussions",
+            "icon": "message-square-text",
+        },
+        {
+            "label": "FAQ",
+            "url": faq.path,
+            "icon": "table-of-contents",
+        },
+    ]
+
+    def _link_button(label: str, url: str, icon: str) -> rx.Component:
+        return rx.link(
+            resources_button(
+                rx.icon(icon, class_name="size-4"),
+                label,
+                size="md",
+                variant="transparent",
+                class_name="justify-start w-full items-center",
+            ),
+            href=url,
+            is_external=True,
+            underline="none",
+            class_name="!w-full",
+        )
+
+    def _resource_section_column(
+        section_title: str, resource_item: list[dict[str, str]]
+    ):
+        return rx.box(
             rx.box(
-                link_button("Changelog", changelog.path),
-                link_button(
-                    "Contributing",
-                    "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
+                rx.text(
+                    section_title,
+                    class_name="text-sm text-slate-10 font-semibold px-2.5 py-1",
                 ),
-                link_button(
-                    "Discussions", "https://github.com/orgs/reflex-dev/discussions"
+                rx.foreach(
+                    resource_item,
+                    lambda item: _link_button(item["label"], item["url"], item["icon"]),
                 ),
-                link_button("FAQ", faq.path),
                 class_name="flex flex-col w-full p-2",
             ),
-            class_name="flex flex-col w-full max-w-[10.1875rem] border-r border-slate-5",
-        ),
+            class_name="flex flex-col w-full max-w-[9.1875rem]",
+        )
+
+    return nav_menu.content(
+        _resource_section_column("Open Source", _open_source_items),
+        _resource_section_column("Company", _company_items),
         # Grid cards
         rx.box(
-            grid_card(
-                "Blog",
-                "See what's new in the Reflex ecosystem.",
-                f"/blog",
-                "/blog/top_python_web_frameworks.png",
-                "absolute bottom-0 rounded-tl-md",
-            ),
+            # grid_card(
+            #     "Blog",
+            #     "See what's new in the Reflex ecosystem.",
+            #     f"/blog",
+            #     "/blog/top_python_web_frameworks.png",
+            #     "absolute bottom-0 rounded-tl-md",
+            # ),
             grid_card(
                 "Customers",
                 "Meet the teams who chose Reflex.",
@@ -312,7 +341,7 @@ def new_resource_section():
             ),
             class_name="grid grid-cols-2 gap-3 p-3 bg-slate-1",
         ),
-        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[41.55rem] font-sans overflow-hidden",
+        class_name="flex flex-row shadow-large rounded-xl bg-slate-2 border border-slate-5 w-[34.55rem] font-sans overflow-hidden",
     )
 
 
@@ -320,10 +349,23 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
     if url:
         return nav_menu.trigger(link_item(title, url, active_str))
     return nav_menu.trigger(
-        rx.text(
-            title,
-            class_name="p-[1.406rem_0px] font-small text-slate-9 hover:text-slate-11 transition-color desktop-only",
-        )
+        rx.box(
+            rx.text(
+                title,
+                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors desktop-only",
+            ),
+            rx.icon(
+                "chevron-down",
+                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-colors desktop-only",
+            ),
+            class_name="flex flex-row items-center gap-x-1 group user-select-none",
+            on_click=rx.stop_propagation,
+        ),
+        style={
+            "&[data-state='open'] .chevron": {
+                "transform": "rotate(180deg)",
+            },
+        },
     )
 
 
@@ -343,8 +385,6 @@ def logo() -> rx.Component:
 
 
 def doc_section():
-    from pcweb.pages.docs.ai_builder import pages as ai_pages
-    from pcweb.pages.docs.cloud import pages as cloud_pages
     from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
@@ -362,13 +402,28 @@ def doc_section():
 
 
 def new_component_section() -> rx.Component:
-    from pcweb.pages.docs.ai_builder import pages as ai_pages
-    from pcweb.pages.docs.cloud import pages as cloud_pages
     from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.root(
         nav_menu.list(
-            nav_menu.item(logo()),
+            nav_menu.item(
+                rx.box(
+                    logo(),
+                    rx.badge(
+                        "Docs",
+                        variant="surface",
+                        class_name="text-violet-9 desktop-only text-sm",
+                        display=rx.cond(
+                            rx.State.router.page.path.contains("docs")
+                            | rx.State.router.page.path.contains("ai-builder")
+                            | rx.State.router.page.path.contains("cloud"),
+                            "block",
+                            "none",
+                        ),
+                    ),
+                    class_name="flex flex-row gap-x-0",
+                ),
+            ),
             rx.cond(
                 rx.State.router.page.path.contains("docs")
                 | rx.State.router.page.path.contains("ai-builder")

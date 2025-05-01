@@ -1,6 +1,7 @@
 """Template for documentation pages."""
 
 from datetime import datetime
+import functools
 from typing import Callable
 
 import reflex as rx
@@ -380,7 +381,7 @@ def docpage(
     right_sidebar: bool = True,
     page_title: str | None = None,
     pseudo_right_bar: bool = False,
-) -> rx.Component:
+):
     """A template that most pages on the reflex.dev site should use.
 
     This template wraps the webpage with the navbar and footer.
@@ -407,6 +408,7 @@ def docpage(
         # Set the page title.
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
+        @functools.wraps(contents)
         def wrapper(*args, **kwargs) -> rx.Component:
             """The actual function wrapper.
 

@@ -1,5 +1,6 @@
 """Reflex custom component NavMenu."""
 
+from types import SimpleNamespace
 import reflex as rx
 from typing import Any, Dict, Literal
 from reflex.vars import Var
@@ -28,7 +29,7 @@ class NavMenuRoot(NavMenu):
     orientation: Var[LiteralMenuComponentOrientation] = "horizontal"
     dir: Var[LiteralMenuComponentDir]
 
-    class_name: Var[str] = (
+    class_name: Var[str] | str = (
         "relative flex w-full items-center h-full justify-between gap-6 mx-auto z-[9999] flex-row max-w-[94.5rem]"
     )
 
@@ -66,7 +67,7 @@ class NavMenuTrigger(NavMenu):
 
     as_child: Var[bool] = False
 
-    class_name: Var[str] = "outline-none user-select-none"
+    class_name: Var[str] | str = "outline-none user-select-none"
 
 
 class NavMenuContent(NavMenu):
@@ -82,7 +83,7 @@ class NavMenuContent(NavMenu):
     on_pointer_down_outside: rx.EventHandler[lambda e: [e]] = None
     on_focus_outside: rx.EventHandler[lambda e: [e]] = None
     on_interact_outside: rx.EventHandler[lambda e: [e]] = None
-    class_name: Var[str] = (
+    class_name: Var[str] | str = (
         "data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight absolute top-0 left-0 w-full sm:w-auto",
     )
 
@@ -96,12 +97,12 @@ class NavMenuViewport(NavMenu):
     as_child: Var[bool] = False
     force_mount: Var[bool]
 
-    class_name: Var[str] = (
+    class_name: Var[str] | str = (
         "data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut relative h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_left] overflow-hidden bg-slate-2 transition-[width,_height] duration-300 sm:w-[var(--radix-navigation-menu-viewport-width)] border border-slate-5 shadow-large rounded-xl"
     )
 
 
-class NavMenu(rx.Component):
+class NavMenu(SimpleNamespace):
     """NavMenu component."""
 
     root = staticmethod(NavMenuRoot.create)

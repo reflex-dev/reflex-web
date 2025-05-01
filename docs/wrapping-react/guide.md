@@ -441,20 +441,18 @@ def index():
 
 ## Assets
 
-_Experimental feature added in v0.5.3_.
-
 If a wrapped component depends on assets such as images, scripts, or
-stylesheets, these can kept adjacent to the component code and
-included in the final build using the `rx._x.asset` function.
+stylesheets, these can be kept adjacent to the component code and
+included in the final build using the `rx.asset` function.
 
-`rx._x.asset` returns a relative path that references the asset in the compiled
+`rx.asset` returns a relative path that references the asset in the compiled
 output. The target files are copied into a subdirectory of `assets/external`
 based on the module where they are initially used. This allows third-party
 components to have external assets with the same name without conflicting
 with each other.
 
 For example, if there is an SVG file named `wave.svg` in the same directory as
-this component, it can be rendered using `rx.image` and `rx._x.asset`.
+this component, it can be rendered using `rx.image` and `rx.asset`.
 
 ```python
 class Hello(rx.Component):
@@ -462,7 +460,7 @@ class Hello(rx.Component):
     def create(cls, *children, **props) -> rx.Component:
         props.setdefault("align", "center")
         return rx.hstack(
-            rx.image(src=rx._x.asset("wave.svg"), width="50px", height="50px"),
+            rx.image(src=rx.asset("wave.svg", shared=True), width="50px", height="50px"),
             rx.heading("Hello ", *children),
             **props
         )

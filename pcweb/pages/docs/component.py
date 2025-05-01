@@ -6,6 +6,7 @@ import re
 from types import UnionType
 from typing import (
     Any,
+    Sequence,
     Type,
     Literal,
     _GenericAlias,
@@ -949,18 +950,20 @@ default_triggers = rx.Component.create().get_event_triggers()
 def same_trigger(t1, t2):
     if t1 is None or t2 is None:
         return False
+    t1 = t1 if not isinstance(t1, Sequence) else t1[0]
+    t2 = t2 if not isinstance(t2, Sequence) else t2[0]
     args1 = inspect.getfullargspec(t1).args
     args2 = inspect.getfullargspec(t2).args
     return args1 == args2
 
 
-def generate_event_triggers(comp, src):
+def generate_event_triggers(comp: type[Component], src):
     prop_name_to_description = {
         prop.name: prop.description
         for prop in src.get_props()
         if prop.name.startswith("on_")
     }
-    triggers = comp().get_event_triggers()
+    triggers = comp._unsafe_create(children=[]).get_event_triggers()
     custom_events = [
         event
         for event in triggers

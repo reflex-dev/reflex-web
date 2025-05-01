@@ -230,18 +230,115 @@ class Person:
     email: str
     group: str
 ```
-
 ## Sorting and Filtering (Searching)
 
-In this example we sort and filter the data.
+In this example we show two approaches to sort and filter data:
+1. Using SQL-like operations for database-backed models (simulated)
+2. Using Python operations for in-memory data
 
-The state variable `_people` is set to be a [backend-only variable]({vars.base_vars.path}). This is done in case the variable is very large in order to reduce network traffic and improve performance.
+Both approaches use the same UI components: `rx.select` for sorting and `rx.input` for filtering.
 
-For sorting the `rx.select` component is used. The data is sorted based on the attributes of the `Person` class. When a `select` item is selected, as the `on_change` event trigger is hooked up to the `set_sort_value` event handler, the data is sorted based on the state variable `sort_value` attribute selected. (Every base var has a [built-in event handler to set]({events.setters.path}) it's value for convenience, called `set_VARNAME`.)
+### Approach 1: Database Filtering and Sorting
 
-For filtering the `rx.input` component is used. The data is filtered based on the search query entered into the `rx.input` component. When a search query is entered, as the `on_change` event trigger is hooked up to the `set_search_value` event handler, the data is filtered based on if the state variable `search_value` is present in any of the data in that specific `Person`.
+For database-backed models, we typically use SQL queries with `select`, `where`, and `order_by`. In this example, we'll simulate this behavior with mock data.
 
-`current_people` is an [`rx.var(cache=True)`]({vars.computed_vars.path}). It is a var that is only recomputed when the other state vars it depends on change. This is to ensure that the `People` shown in the table are always up to date whenever they are searched or sorted.
+
+```python demo exec
+# Simulating database operations with mock data
+class DatabaseTableState(rx.State):
+    # Mock data to simulate database records
+    users: list = [
+        {"name": "John Doe", "email": "john@example.com", "phone": "555-1234", "address": "123 Main St"},
+        {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-5678", "address": "456 Oak Ave"},
+        {"name": "Bob Johnson", "email": "bob@example.com", "phone": "555-9012", "address": "789 Pine Rd"},
+        {"name": "Alice Brown", "email": "alice@example.com", "phone": "555-3456", "address": "321 Maple Dr"},
+    ]
+    filtered_users: list[dict] = []
+    sort_value = ""
+    search_value = ""
+
+    
+    @rx.event
+    def load_entries(self):
+        """Simulate querying the database with filter and sort."""
+        # Start with all users
+        result = self.users.copy()
+        
+        # Apply filtering if search value exists
+        if self.search_value != "":
+            search_term = self.search_value.lower()
+            result = [
+                user for user in result
+                if any(search_term in str(value).lower() for value in user.values())
+            ]
+        
+        # Apply sorting if sort column is selected
+        if self.sort_value != "":
+            result = sorted(result, key=lambda x: x[self.sort_value])
+            
+        self.filtered_users = result
+        yield
+        
+    @rx.event
+    def sort_values(self, sort_value):
+        """Update sort value and reload data."""
+        self.sort_value = sort_value
+        yield self.load_entries()
+
+    @rx.event
+    def filter_values(self, search_value):
+        """Update search value and reload data."""
+        self.search_value = search_value
+        yield self.load_entries()
+
+
+def show_customer(user):
+    """Show a customer in a table row."""
+    return rx.table.row(
+        rx.table.cell(user["name"]),
+        rx.table.cell(user["email"]),
+        rx.table.cell(user["phone"]),
+        rx.table.cell(user["address"]),
+    )
+
+
+def database_table_example():
+    return rx.vstack(
+        rx.select(
+            ["name", "email", "phone", "address"],
+            placeholder="Sort By: Name",
+            on_change=lambda value: DatabaseTableState.sort_values(value),
+        ),
+        rx.input(
+            placeholder="Search here...",
+            on_change=lambda value: DatabaseTableState.filter_values(value),
+        ),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(DatabaseTableState.filtered_users, show_customer)),
+            on_mount=DatabaseTableState.load_entries,
+            width="100%",
+        ),
+        width="100%",
+    )
+```
+
+### Approach 2: In-Memory Filtering and Sorting
+
+For in-memory data, we use Python operations like `sorted()` and list comprehensions.
+
+The state variable `_people` is set to be a backend-only variable. This is done in case the variable is very large in order to reduce network traffic and improve performance.
+
+When a `select` item is selected, the `on_change` event trigger is hooked up to the `set_sort_value` event handler. Every base var has a built-in event handler to set its value for convenience, called `set_VARNAME`.
+
+`current_people` is an `rx.var(cache=True)`. It is a var that is only recomputed when the other state vars it depends on change. This ensures that the `People` shown in the table are always up to date whenever they are searched or sorted.
 
 ```python demo exec
 import dataclasses
@@ -253,7 +350,7 @@ class Person:
     group: str
 
 
-class TableSortingState(rx.State):
+class InMemoryTableState(rx.State):
 
     _people: list[Person] = [
         Person(full_name="Danilo Sousa", email="danilo@example.com", group="Developer"),
@@ -277,14 +374,14 @@ class TableSortingState(rx.State):
             people = [
                 person for person in people
                 if any(
-                    self.search_value in getattr(person, attr).lower()
+                    self.search_value.lower() in getattr(person, attr).lower()
                     for attr in ['full_name', 'email', 'group']
                 )
             ]
         return people
 
 
-def show_person(person: list):
+def show_person(person: Person):
     """Show a person in a table row."""
     return rx.table.row(
         rx.table.cell(person.full_name),
@@ -292,16 +389,16 @@ def show_person(person: list):
         rx.table.cell(person.group),
     )
 
-def sorting_table_example():
+def in_memory_table_example():
     return rx.vstack(
         rx.select(
             ["full_name", "email", "group"],
             placeholder="Sort By: full_name",
-            on_change=TableSortingState.set_sort_value,
+            on_change=InMemoryTableState.set_sort_value,
         ),
         rx.input(
             placeholder="Search here...",
-            on_change=TableSortingState.set_search_value,
+            on_change=InMemoryTableState.set_search_value,
         ),
         rx.table.root(
             rx.table.header(
@@ -311,12 +408,19 @@ def sorting_table_example():
                     rx.table.column_header_cell("Group"),
                 ),
             ),
-            rx.table.body(rx.foreach(TableSortingState.current_people, show_person)),
+            rx.table.body(rx.foreach(InMemoryTableState.current_people, show_person)),
             width="100%",
         ),
         width="100%",
     )
 ```
+
+### When to Use Each Approach
+
+- **Database Approach**: Best for large datasets or when the data already exists in a database
+- **In-Memory Approach**: Best for smaller datasets, prototyping, or when the data is static or loaded from an API
+
+Both approaches provide the same user experience with filtering and sorting functionality.
 
 # Database
 
@@ -335,7 +439,6 @@ If you want to load the data when the page in the app loads you can set `on_load
 ```python
 class Customer(rx.Model, table=True):
     """The customer model."""
-
     name: str
     email: str
     phone: str
@@ -350,7 +453,7 @@ class DatabaseTableState(rx.State):
     users: list[Customer] = []
 
     @rx.event
-    def load_entries(self) -> list[Customer]:
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             self.users = session.exec(select(Customer)).all()
@@ -416,7 +519,7 @@ class DatabaseTableState2(rx.State):
     search_value = ""
 
     @rx.event
-    def load_entries(self) -> list[Customer]:
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             query = select(Customer)
@@ -441,11 +544,13 @@ class DatabaseTableState2(rx.State):
 
     @rx.event
     def sort_values(self, sort_value):
+        print(sort_value)
         self.sort_value = sort_value
         self.load_entries()
 
     @rx.event
     def filter_values(self, search_value):
+        print(search_value)
         self.search_value = search_value
         self.load_entries()
 
@@ -488,6 +593,7 @@ def loading_data_table_example2():
     )
 
 ```
+
 
 ## Pagination
 
@@ -541,7 +647,7 @@ class DatabaseTableState3(rx.State):
         self.total_items = session.exec(select(func.count(Customer.id))).one()
 
     @rx.event
-    def load_entries(self) -> list[Customer]:
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             query = select(Customer)
@@ -595,7 +701,6 @@ def loading_data_table_example3():
     )
 
 ```
-
 ## More advanced examples
 
 The real power of the `rx.table` comes where you are able to visualise, add and edit data live in your app. Check out these apps and code to see how this is done: app: https://customer-data-app.reflex.run code: https://github.com/reflex-dev/reflex-examples/tree/main/customer_data_app and code: https://github.com/reflex-dev/data-viewer.
@@ -620,7 +725,7 @@ class TableDownloadState(rx.State):
     users: list[Customer] = []
 
     @rx.event
-    def load_entries(self) -> list[Customer]:
+    def load_entries(self):
         """Get all users from the database."""
         with rx.session() as session:
             self.users = session.exec(select(Customer)).all()

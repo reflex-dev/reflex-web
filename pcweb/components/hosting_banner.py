@@ -1,5 +1,6 @@
 import reflex as rx
-from pcweb.constants import REFLEX_CLOUD_URL
+
+from pcweb.constants import REFLEX_AI_BUILDER
 
 
 def glow() -> rx.Component:
@@ -26,23 +27,36 @@ def hosting_banner() -> rx.Component:
             rx.link(
                 rx.box(
                     rx.box(
+                        # Header text with responsive spans
                         rx.text(
-                            "Reflex Cloud - ",
+                            "Reflex Build – ",
+                            # Descriptive text: hidden on small, inline on md+
                             rx.el.span(
-                                "Fast, secure & scalable hosting. One command to deploy.",
-                                class_name="text-slate-12 font-medium text-sm",
+                                "Build internal apps with AI.",
+                                class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
+                            ),
+                            # Mobile CTA: inline on small, hidden on md+
+                            rx.el.span(
+                                "Try for Free!",
+                                class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
                             ),
                             class_name="text-slate-12 font-semibold text-sm z-[1]",
                         ),
+                        # Standalone CTA button: hidden on small, inline on md+
                         rx.el.button(
-                            "Live Now!",
-                            class_name="text-green-11 h-[1.5rem] rounded-md bg-green-4 px-1.5 text-sm font-semibold z-[1] items-center justify-center shrink-0",
+                            "Try for Free!",
+                            class_name=(
+                                "hidden md:inline-block "
+                                "text-green-11 h-[1.5rem] rounded-md bg-green-4 "
+                                "px-1.5 text-sm font-semibold z-[1] items-center "
+                                "justify-center shrink-0"
+                            ),
                         ),
                         class_name="flex items-center gap-4",
-                    ),
+                    )
                 ),
                 glow(),
-                href=REFLEX_CLOUD_URL,
+                href=REFLEX_AI_BUILDER,
                 underline="none",
                 is_external=True,
             ),
@@ -52,6 +66,6 @@ def hosting_banner() -> rx.Component:
                 size=16,
                 class_name="cursor-pointer hover:!text-slate-11 transition-color !text-slate-9 absolute right-4 z-10",
             ),
-            class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
+            class_name="px-4 lg:px-6 w-screen h-auto lg:h-[3.5rem] shadow-[inset_0_-1px_0_0_var(--c-slate-3)] flex items-center justify-between md:justify-center bg-slate-1 flex-row gap-4 overflow-hidden relative lg:py-0 py-2 max-w-full",
         ),
     )

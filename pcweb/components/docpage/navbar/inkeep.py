@@ -284,6 +284,13 @@ const searchBarProps = {
               box-shadow: 0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02);
               transition: background-color 0.1s linear, width 0s;
             }
+
+            [data-theme='light'] .ikp-search-bar__container,
+            [data-theme='dark'] .ikp-search-bar__container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
             
             [data-theme='light'] .ikp-search-bar__button:hover,
             [data-theme='dark'] .ikp-search-bar__button:hover {

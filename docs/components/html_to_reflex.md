@@ -1,7 +1,7 @@
 # Convert HTML to Reflex
 
 
-To convert HTML to Reflex code use this live converter tool: https://flexgen.reflex.run/reverse-compiler/
+To convert HTML to Reflex code use this live converter tool: https://reflex.build/reverse-compiler/
 
 ## Convert Figma file to Reflex
 
