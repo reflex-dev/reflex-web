@@ -19,24 +19,28 @@ When using `rx.memo`, you must follow these requirements:
 When you wrap a component function with `@rx.memo`, the component will only re-render when its props change. This helps improve performance by preventing unnecessary re-renders.
 
 ```python
+# Define a state class to track count
 class DemoState(rx.State):
     count: int = 0
     
+    @rx.event
     def increment(self):
         self.count += 1
 
+# Define a memoized component
 @rx.memo
 def expensive_component(label: str) -> rx.Component:
     return rx.vstack(
-        rx.heading(label, size="lg"),
+        rx.heading(label),
         rx.text("This component only re-renders when props change!"),
         rx.divider(),
     )
 
+# Use the memoized component in your app
 def index():
     return rx.vstack(
         rx.heading("Memo Example"),
-        rx.text(f"Count: {DemoState.count}"),
+        rx.text("Count: 0"),  # This will update with state.count
         rx.button("Increment", on_click=DemoState.increment),
         rx.divider(),
         expensive_component(label="Memoized Component"),  # Must use keyword arguments
@@ -54,19 +58,23 @@ In this example, the `expensive_component` will only re-render when the `label` 
 You can also use `rx.memo` with components that have event handlers:
 
 ```python
+# Define a state class to track clicks
 class ButtonState(rx.State):
     clicks: int = 0
     
+    @rx.event
     def increment(self):
         self.clicks += 1
 
+# Define a memoized button component
 @rx.memo
 def my_button(text: str, on_click: rx.EventHandler) -> rx.Component:
     return rx.button(text, on_click=on_click)
 
+# Use the memoized button in your app
 def index():
     return rx.vstack(
-        rx.text(f"Clicks: {ButtonState.clicks}"),
+        rx.text("Clicks: 0"),  # This will update with state.clicks
         my_button(
             text="Click me", 
             on_click=ButtonState.increment
@@ -80,29 +88,34 @@ def index():
 When used with state variables, memoized components will only re-render when the specific state variables they depend on change:
 
 ```python
+# Define a state class with multiple variables
 class AppState(rx.State):
     name: str = "World"
     count: int = 0
     
+    @rx.event
     def increment(self):
         self.count += 1
         
+    @rx.event
     def set_name(self, name: str):
         self.name = name
 
+# Define a memoized greeting component
 @rx.memo
 def greeting(name: str) -> rx.Component:
-    return rx.heading(f"Hello, {name}!")
+    return rx.heading("Hello, " + name)  # Will display the name prop
 
+# Use the memoized component with state variables
 def index():
     return rx.vstack(
         greeting(name=AppState.name),  # Must use keyword arguments
-        rx.text(f"Count: {AppState.count}"),
+        rx.text("Count: 0"),  # Will display the count
         rx.button("Increment Count", on_click=AppState.increment),
         rx.input(
             placeholder="Enter your name", 
             on_change=AppState.set_name,
-            value=AppState.name,
+            value="World",  # Will be bound to AppState.name
         ),
         spacing="4",
     )
@@ -113,12 +126,15 @@ def index():
 You can also pass arguments to event handlers in memoized components:
 
 ```python
+# Define a state class to track messages
 class MessageState(rx.State):
     message: str = ""
     
+    @rx.event
     def set_message(self, text: str):
         self.message = text
 
+# Define a memoized component with event handlers that pass arguments
 @rx.memo
 def action_buttons(on_action: rx.EventHandler[rx.event.passthrough_event_spec(str)]) -> rx.Component:
     return rx.hstack(
@@ -128,9 +144,10 @@ def action_buttons(on_action: rx.EventHandler[rx.event.passthrough_event_spec(st
         spacing="2",
     )
 
+# Use the memoized component with event handlers
 def index():
     return rx.vstack(
-        rx.text(f"Status: {MessageState.message}"),
+        rx.text("Status: "),  # Will display the message
         action_buttons(on_action=MessageState.set_message),
         spacing="4",
     )
