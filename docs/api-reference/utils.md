@@ -31,7 +31,6 @@ async def run_in_thread(func: Callable, *, timeout: float | None = None) -> Any
 
 ### Usage
 
-To use `run_in_thread`, you must call it from within a method decorated with `@rx.event(background=True)`:
 
 ```python demo exec id=run_in_thread_demo
 import asyncio
@@ -151,6 +150,5 @@ class FileProcessingState(rx.State):
 ### Notes
 
 - The function passed to `run_in_thread` must be a regular (non-async) function.
-- Always use `run_in_thread` within a method decorated with `@rx.event(background=True)`.
 - Consider setting appropriate timeouts to prevent indefinite blocking.
 - Handle `asyncio.TimeoutError` exceptions to gracefully manage timeouts.
