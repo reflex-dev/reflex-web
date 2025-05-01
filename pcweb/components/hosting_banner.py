@@ -1,6 +1,6 @@
 import reflex as rx
 
-from pcweb.constants import REFLEX_AI_BUILDER
+from pcweb.constants import REFLEX_BUILD_URL
 
 
 def glow() -> rx.Component:
@@ -14,7 +14,7 @@ def glow() -> rx.Component:
 
 
 class HostingBannerState(rx.State):
-    show_banner: bool = True
+    show_banner: bool = False
 
     def hide_banner(self):
         self.show_banner = False
@@ -56,7 +56,7 @@ def hosting_banner() -> rx.Component:
                     )
                 ),
                 glow(),
-                href=REFLEX_AI_BUILDER,
+                href=REFLEX_BUILD_URL,
                 underline="none",
                 is_external=True,
             ),

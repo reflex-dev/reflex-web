@@ -1,6 +1,7 @@
 import reflex as rx
 
 
+@rx.memo
 def index_colors() -> rx.Component:
     return rx.el.style(
         """

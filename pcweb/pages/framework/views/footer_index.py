@@ -17,6 +17,28 @@ from pcweb.constants import (
     DISCORD_URL,
     FORUM_URL,
 )
+from pcweb.components.icons.hugeicons import hi
+from reflex.style import color_mode, set_color_mode
+
+
+def tab_item(mode: str, icon: str) -> rx.Component:
+    active_cn = " text-slate-9 shadow-small bg-slate-1"
+    unactive_cn = " hover:text-slate-12 text-slate-9"
+    return rx.el.button(
+        hi(tag=icon, class_name="shrink-0"),
+        on_click=set_color_mode(mode),
+        class_name="flex items-center cursor-pointer justify-center rounded-md transition-color size-7 outline-none focus:outline-none "
+        + rx.cond(mode == color_mode, active_cn, unactive_cn),
+    )
+
+
+def dark_mode_toggle() -> rx.Component:
+    return rx.box(
+        tab_item("system", "computer"),
+        tab_item("light", "sun-01"),
+        tab_item("dark", "moon-02"),
+        class_name="flex flex-row items-center bg-slate-3 p-1 rounded-[0.625rem] w-fit",
+    )
 
 
 def footer_link(text: str, href: str) -> rx.Component:
@@ -122,6 +144,7 @@ def newsletter() -> rx.Component:
     )
 
 
+@rx.memo
 def footer_index() -> rx.Component:
     return rx.el.footer(
         rx.box(
@@ -152,6 +175,8 @@ def footer_index() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
+                    rx.box(class_name="grow"),
+                    dark_mode_toggle(),
                 ],
                 class_name="!row-span-3 lg:!border-t-0 lg:!border-r !border-slate-3",
             ),

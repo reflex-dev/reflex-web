@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.pages.index.components.stat import stat
+from pcweb.pages.framework.components.stat import stat
 
 
 def frontend_card(

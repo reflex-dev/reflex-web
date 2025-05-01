@@ -36,7 +36,7 @@ def feature_card(icon: str, title: str, description: str) -> rx.Component:
             class_name="flex flex-row gap-2 items-center",
         ),
         rx.text(description, class_name="text-slate-9 font-medium text-sm text-start"),
-        class_name="flex flex-col gap-2 w-[22rem] h-[8rem] px-8 py-5",
+        class_name="flex flex-col gap-2 w-full lg:w-[22rem] h-[8rem] px-8 py-5",
     )
 
 
@@ -68,7 +68,7 @@ def content() -> rx.Component:
                 "Get alerts and metrics",
                 "Get alerts and metrics for your Reflex app to help you monitor and optimize your app.",
             ),
-            class_name="flex flex-col max-w-[21.4375rem] divide-y divide-slate-3",
+            class_name="flex flex-col max-w-full lg:max-w-[21.4375rem] divide-y divide-slate-3",
         ),
         rx.box(
             rx.image(

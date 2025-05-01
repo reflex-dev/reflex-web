@@ -19,8 +19,12 @@ def product_card(
     return rx.el.div(
         rx.el.div(
             rx.image(
-                src=f"/landing/products/{rx.color_mode_cond(light='light', dark='dark')}/product_{graphic}.webp",
-                class_name="w-auto pointer-events-none",
+                src=f"/landing/products/light/product_{graphic}.webp",
+                class_name="w-auto pointer-events-none block dark:hidden",
+            ),
+            rx.image(
+                src=f"/landing/products/dark/product_{graphic}.webp",
+                class_name="w-auto pointer-events-none hidden dark:block",
             ),
         ),
         rx.el.div(

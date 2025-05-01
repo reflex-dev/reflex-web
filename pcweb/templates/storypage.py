@@ -3,7 +3,7 @@ from typing import Callable
 
 import reflex as rx
 from pcweb.route import Route
-from pcweb.pages.index.index_colors import index_colors
+from pcweb.pages.framework.index_colors import index_colors
 from pcweb.components.icons.icons import get_icon
 
 

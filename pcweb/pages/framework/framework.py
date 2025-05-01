@@ -13,7 +13,7 @@ from pcweb.templates.mainpage import mainpage
 
 
 @mainpage(path="/framework", title="Reflex · Web apps in Pure Python", meta=meta_tags)
-def index() -> rx.Component:
+def framework() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(
         *index_patterns(),

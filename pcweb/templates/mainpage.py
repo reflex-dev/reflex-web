@@ -52,9 +52,10 @@ def mainpage(
             """
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
-            from pcweb.pages.index.views.footer_index import footer_index
-            from pcweb.pages.index.views.get_started import get_started
-            from pcweb.pages.index.index_colors import index_colors
+            from pcweb.pages.framework.views.footer_index import footer_index
+            from pcweb.pages.framework.views.get_started import get_started
+            from pcweb.pages.framework.index_colors import index_colors
+            from pcweb.components.webpage.badge import badge
 
             # Wrap the component in the template.
             return rx.box(
@@ -65,6 +66,7 @@ def mainpage(
                     get_started(),
                     class_name="flex flex-col w-full justify-center items-center",
                 ),
+                badge(),
                 footer_index(),
                 class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
                 **props,

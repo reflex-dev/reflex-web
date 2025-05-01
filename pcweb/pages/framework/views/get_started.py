@@ -67,6 +67,7 @@ def code_block() -> rx.Component:
     )
 
 
+@rx.memo
 def get_started() -> rx.Component:
     return rx.el.section(
         code_block(),

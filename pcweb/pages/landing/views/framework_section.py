@@ -1,6 +1,6 @@
 import reflex as rx
 from pcweb.components.icons.hugeicons import hi
-from pcweb.pages.index.demos.demos import demo_section
+from pcweb.pages.framework.demos.demos import demo_section
 
 def header() -> rx.Component:
     return rx.box(
