@@ -63,6 +63,76 @@ app.add_page(
 )
 ```
 
+## SASS/SCSS Support
+
+Reflex supports SASS/SCSS stylesheets alongside regular CSS. This allows you to use more advanced styling features like variables, nesting, mixins, and more.
+
+### Using SASS/SCSS Files
+
+To use SASS/SCSS files in your Reflex app:
+
+1. Create a `.sass` or `.scss` file in your `assets` directory
+2. Reference the file in your `rx.App` configuration just like you would with CSS files
+
+```python
+app = rx.App(
+    stylesheets=[
+        "/styles.scss",  # This path is relative to assets/
+        "/sass/main.sass",  # You can organize files in subdirectories
+    ],
+)
+```
+
+Reflex automatically detects the file extension and compiles these files to CSS using the `libsass` package.
+
+### Example SASS/SCSS File
+
+Here's an example of a SASS file (`assets/styles.scss`) that demonstrates some of the features:
+
+```scss
+// Variables
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$padding: 16px;
+
+// Nesting
+.container {
+  background-color: $primary-color;
+  padding: $padding;
+  
+  .button {
+    background-color: $secondary-color;
+    padding: $padding / 2;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-box {
+  @include flex-center;
+  height: 100px;
+}
+```
+
+### Dependency Requirement
+
+The `libsass` package is required for SASS/SCSS compilation. If it's not installed, Reflex will show an error message. You can install it with:
+
+```bash
+pip install "libsass>=0.23.0"
+```
+
+This package is included in the default Reflex installation, so you typically don't need to install it separately.
+
 ## Fonts
 
 You can take advantage of Reflex's support for custom stylesheets to add custom fonts to your app.
