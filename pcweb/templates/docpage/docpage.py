@@ -513,7 +513,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-20",
+                            class_name="px-0 lg:px-20 pt-11 sm:pt-0",
                         ),
                         rx.box(
                             rx.el.article(comp),
