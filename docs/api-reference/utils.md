@@ -45,7 +45,8 @@ class RunInThreadState(rx.State):
     @rx.event(background=True)
     async def run_quick_task(self):
         """Run a quick task that completes within the timeout."""
-        self.status = "Running quick task..."
+        async with self:
+            self.status = "Running quick task..."
         
         def quick_function():
             time.sleep(0.5)
@@ -65,7 +66,8 @@ class RunInThreadState(rx.State):
     @rx.event(background=True)
     async def run_slow_task(self):
         """Run a slow task that exceeds the timeout."""
-        self.status = "Running slow task..."
+        async with self:
+            self.status = "Running slow task..."
         
         def slow_function():
             time.sleep(3.0)
