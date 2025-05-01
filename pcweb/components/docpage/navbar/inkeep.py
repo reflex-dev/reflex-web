@@ -1,9 +1,6 @@
 """UI and logic inkeep chat component."""
 
-from typing import List, Any
-
 import reflex as rx
-from reflex.event import EventHandler
 from reflex.utils.imports import ImportVar
 from reflex.vars import Var
 
@@ -74,7 +71,7 @@ const supportFormConfig = {
   buttons: {
     submit: {
       onSubmit: async ({ values, conversation }) => {
-        const webhookUrl = 'https://discord.com/api/webhooks/1313281051765903372/5w4g9xxKa5naY5I6I9esNxeT5rI66t75MniNNPFM7bBoagQuDZamgqQdoHIFqYh6x_7J'
+        const webhookUrl = 'https://discord.com/api/webhooks/1338969279760044112/W9BeoqhcHGvi3uIRPoGgYwybFfxeH1g0yWANxBS-tQ8XbSN32SzCV6IVjkHLfjlc_hJn'
         if (!webhookUrl) {
           console.error('Discord webhook URL is not set in the environment.')
           return
