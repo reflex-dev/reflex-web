@@ -3,6 +3,36 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.templates.webpage import webpage
 
+numbers = {
+    "1": """
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+            <path d="M10.5 8.5L12.5 7V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            """,
+    "2": """
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none" class="text-purple-10">
+    <path d="M9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 12.0786 12.1196 13.9172 10.3503 14.8505C9.54685 15.2743 9 16.0917 9 17H15" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+           
+           """,
+    "3": """
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+    <path d="M12.5 12H11.5M12.5 12C13.8807 12 15 10.8807 15 9.5C15 8.11929 13.8807 7 12.5 7H11.5C10.1193 7 9 8.11929 9 9.5M12.5 12C13.8807 12 15 13.1193 15 14.5C15 15.8807 13.8807 17 12.5 17H11.5C10.1193 17 9 15.8807 9 14.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+    """,
+    "4": """
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+    <path d="M15 7V12.5M15 12.5V17M15 12.5H9.43601C9.19521 12.5 9 12.3048 9 12.064C9 12.0216 9.00619 11.9794 9.01839 11.9387L10.5 7" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+    
+    """,
+}
+
 
 def affiliates_title():
     return rx.box(
@@ -11,7 +41,7 @@ def affiliates_title():
             class_name="gradient-heading font-x-large lg:font-xxx-large text-start text-transparent lg:text-center",
         ),
         rx.text(
-            "Earn 50% of your referrals’ subscription revenue for their first six months—start earning today!",
+            "Become a Reflex partner in under 5 minutes and start earning 50% of your referrals’ subscription revenue for their first six months—join today!",
             class_name="font-md text-balance text-slate-9",
         ),
         class_name="section-header",
@@ -29,7 +59,7 @@ def feature_card(icon: str, title: str, description: str) -> rx.Component:
             rx.text(
                 description, class_name="text-slate-9 font-medium text-sm text-start"
             ),
-            class_name="flex flex-col gap-2 w-[22rem] h-[9rem] px-8 py-6",
+            class_name="flex flex-col gap-2 w-[22rem] h-[9rem] px-1 lg:px-8 py-6",
         ),
         class_name="border-slate-3 border-b box-border",
     )
@@ -38,12 +68,21 @@ def feature_card(icon: str, title: str, description: str) -> rx.Component:
 def step_box(step_number: str) -> rx.Component:
     """Helper function to create a step number box with consistent styling."""
     return rx.box(
-        rx.text(
-            f"Step {step_number}",
-            class_name="text-md font-semibold text-center text-slate-10",
+        rx.box(
+            # rx.text(
+            #     f"Step {step_number}",
+            #     class_name="text-md text-center text-slate-10",
+            # ),
+            # rx.html(
+            #     numbers[step_number],
+            #     filter=rx.color_mode_cond("", "invert(0.85)"),
+            # ),
+            color=rx.color("accent", 5),
+            class_name="w-full h-[5rem] flex items-center justify-center p-3 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
         ),
-        color=rx.color("accent", 5),
-        class_name="h-[5rem] flex items-center justify-center p-3 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+        display=["none" if i <= 3 else "flex" for i in range(6)],
+        color=rx.color("accent", 4),
+        class_name="w-full h-[5rem] flex items-center justify-center py-3 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(-315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
     )
 
 
@@ -59,13 +98,13 @@ def features() -> rx.Component:
                 # Left column with steps 2 and 4
                 feature_card(
                     "backend_db",
-                    "Submit Your Application",
+                    "1. Submit Your Application",
                     "Provide your basic info to get a unique affiliate link.",
                 ),
                 step_box("2"),
                 feature_card(
                     "infinity",
-                    "Track Your Referrals",
+                    "3. Track Your Referrals",
                     "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
                 ),
                 step_box("4"),
@@ -78,13 +117,13 @@ def features() -> rx.Component:
                 step_box("1"),
                 feature_card(
                     "backend_auth",
-                    "Share Reflex",
+                    "2. Share Reflex",
                     "Post your link anywhere—blog posts, social media, email newsletters, even your YouTube channel.",
                 ),
                 step_box("3"),
                 feature_card(
                     "analytics",
-                    "Get Paid",
+                    "4. Get Paid",
                     "We'll send you 50% of each referred user's subscription revenue for their first six months.",
                 ),
                 class_name="flex flex-col -mt-[32px]",
@@ -97,7 +136,7 @@ def features() -> rx.Component:
             is_external=True,
             class_name="p-2 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
         ),
-        class_name="flex flex-col justify-center items-center max-w-[64.19rem] lg:border-x border-slate-3 w-full mx-auto lg:pb-[5.5rem] pb-4 relative overflow-hidden pt-6",
+        class_name="flex flex-col justify-center items-center max-w-[64.19rem] lg:border-x border-slate-3 w-full mx-auto lg:pb-[5.5rem] pb-4 relative overflow-hidden pt-10",
     )
 
 
