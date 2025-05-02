@@ -209,3 +209,44 @@ updated default_value from the state.
 Without the `key` set, the slider would always display the original
 `settled_value` after a page reload, instead of its current value.
 ```
+
+## Temporal Events
+
+_Added in [v0.6.6](https://github.com/reflex-dev/reflex/releases/tag/v0.6.6)_
+
+### temporal
+
+The `.temporal` action prevents events from being queued when the backend is down.
+This is useful for non-critical events where you do not want them to pile up if there is
+a temporary connection issue.
+
+```md alert warning
+# Temporal events are discarded when the backend is down.
+
+When the backend is unavailable, events with the `.temporal` action will be
+discarded rather than queued for later processing. Only use this for events
+where it is acceptable to lose some interactions during connection issues.
+```
+
+In the following example, the `rx.moment` component with `interval` and `on_change` uses `.temporal` to
+prevent periodic updates from being queued when the backend is down:
+
+```python demo exec
+class TemporalState(rx.State):
+    current_time: str = ""
+
+    @rx.event
+    def update_time(self):
+        self.current_time = datetime.datetime.now().strftime("%H:%M:%S")
+
+def temporal_example():
+    return rx.vstack(
+        rx.heading("Current Time:"),
+        rx.heading(TemporalState.current_time),
+        rx.moment(
+            interval=1000,
+            on_change=TemporalState.update_time.temporal,
+        ),
+        rx.text("Time updates will not be queued if the backend is down."),
+    )
+```

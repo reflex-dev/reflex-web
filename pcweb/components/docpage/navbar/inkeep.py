@@ -1,16 +1,13 @@
 """UI and logic inkeep chat component."""
 
-from typing import List, Any
-
 import reflex as rx
-from reflex.event import EventHandler
 from reflex.utils.imports import ImportVar
 from reflex.vars import Var
 
 
 class InkeepSearchBar(rx.NoSSRComponent):
     tag = "InkeepSearchBar"
-    library = "@inkeep/cxkit-react@0.5.9"
+    library = "@inkeep/cxkit-react@0.5.55"
 
 
 class Search(rx.el.Div):
@@ -26,143 +23,113 @@ class Search(rx.el.Div):
         return [
             "const { resolvedColorMode } = useContext(ColorModeContext)",
             """
-const supportFormConfig = {
-  heading: "Contact support",
-  fields: [
-    {
-      type: "STANDARD_FIELD",
-      label: "Name",
-      name: "first_name",
-      inputType: "TEXT",
+const escalationParams = {
+  type: "object",
+  properties: {
+    explanation: {
+      type: "string",
+      description: "A brief few word justification of why a specific confidence level was chosen.",
     },
-    {
-      type: "STANDARD_FIELD",
-      label: "Company Email",
-      name: "email",
-      inputType: "EMAIL",
-      required: true,
-    },
-    {
-      type: "INCLUDE_CHAT_SESSION",
-      defaultValue: true,
-    },
-    {
-      type: "STANDARD_FIELD",
-      label: "Additional details",
-      name: "additional_details",
-      inputType: "TEXTAREA",
-    },
-    {
-      type: 'STANDARD_FIELD',
-      label: 'Category',
-      name: 'category',
-      inputType: 'SELECT',
-      selectOptions: [
-        { label: 'Bug', value: 'BUG' },
-        { label: 'Feature idea', value: 'FEATURE' },
-        { label: 'Account access', value: 'ACCOUNT' },
-      ],
-    },
-  ],
-  submitCallback: async (values) => {
-    const discordWebhookUrl = "https://discord.com/api/webhooks/1313281051765903372/5w4g9xxKa5naY5I6I9esNxeT5rI66t75MniNNPFM7bBoagQuDZamgqQdoHIFqYh6x_7J";
-    if (!discordWebhookUrl) {
-      console.error("Discord webhook URL is not set in the environment.");
-      return;
-    }
-    
-    const { formDetails, chatSession, client } = values;
-
-    // Build the chat history string manually
-    let chatHistory = "**Chat History:**";
-    const messages = chatSession?.messages || [];
-    for (let i = 0; i < messages.length; i++) {
-      const msg = messages[i];
-      const role = msg.role === "user" ? "User" : "Assistant";
-      chatHistory += ` **${i + 1}. ${role}:** ${msg.content}\n`;
-    }
-
-    // Build a simple and readable message
-    const discordMessage = `
-  **New Support Request**
-
-  **Name:** ${formDetails.first_name || "N/A"}
-  **Email:** ${formDetails.email || "N/A"}
-  **Category:** ${formDetails.category || "N/A"}
-  **Additional Details:** ${formDetails.additional_details || "N/A"}
-
-  **Current Page URL:** ${client?.currentUrl || "N/A"}
-
-  **Chat Session ID:** ${chatSession?.chatSessionId || "N/A"}
-  ${chatHistory || "**Chat History:** No messages available."}
-  `;
-
-    // Prepare the payload
-    const payload = { content: discordMessage };
-
-    try {
-      // Send the payload to the Discord webhook
-      const response = await fetch(discordWebhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    answerConfidence: {
+      anyOf: [
+        {
+          type: "string",
+          const: "very_confident",
+          description: `\n    The AI Assistant provided a complete and direct answer to all parts of the User Question.\n    The answer fully resolved the issue without requiring any further action from the User.\n    Every part of the answer was cited from the information sources.\n    The assistant did not ask for more information or provide options requiring User action.\n    This is the highest Answer Confidence level and should be used sparingly.\n  `,
         },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to send message: ${response.statusText}`);
-      }
-
-      console.log("Values sent successfully to Discord!");
-    } catch (error) {
-      console.error("Error sending values to Discord:", error);
-    }
-    return { success: true };
+        {
+          type: "string",
+          const: "somewhat_confident",
+          description: `\n    The AI Assistant provided a complete and direct answer to the User Question, but the answer contained minor caveats or uncertainties. \n \n    Examples:\n    • The AI Assistant asked follow-up questions to the User\n    • The AI Assistant requested additional information from the User\n    • The AI Assistant suggested uncertainty in the answer\n    • The AI Assistant answered the question but mentioned potential exceptions\n  `,
+        },
+        {
+          type: "string",
+          const: "not_confident",
+          description: `\n    The AI Assistant tried to answer the User Question but did not fully resolve it.\n    The assistant provided options requiring further action from the User, asked for more information, showed uncertainty,\n    suggested the user contact support or provided contact information, or provided an indirect or incomplete answer.\n    This is the most common Answer Confidence level.\n \n    Examples:\n    • The AI Assistant provided a general answer not directly related to the User Question\n    • The AI Assistant said to reach out to support or provided an email address or contact information\n    • The AI Assistant provided options that require further action from the User to resolve the issue\n  `,
+        },
+        {
+          type: "string",
+          const: "no_sources",
+          description: `\n    The AI Assistant did not use or cite any sources from the information sources to answer the User Question.\n  `,
+        },
+        {
+          type: "string",
+          const: "other",
+          description: `\n    The User Question is unclear or unrelated to the subject matter.\n  `,
+        },
+      ],
+      description: "A measure of how confidently the AI Assistant completely and directly answered the User Question.",
+    },
   },
+  required: ["explanation", "answerConfidence"],
+  additionalProperties: false,
 };
 const searchBarProps = {
   baseSettings: {
-    apiKey: '87b7469f79014c35a3313795088151a52de8a58a547abd16',
-    integrationId: 'clkbf9e7e0001s601sa0ciax1',
+    apiKey: '6299820854cd95d0a6e55a502d5bae06549e62360e7805a6',
     customIcons: {search: {custom: "/icons/search.svg"}},
-    organizationId: 'org_WQKeNdnuPGEfuUhC',
     organizationDisplayName: 'Reflex',
     primaryBrandColor: '#6E56CF',
-    consoleDebugLevel: 1,
-    breadcrumbRules: {
-      urlToBreadcrumbMapper: [
-        {
-          matchingRule: {
-            ruleType: 'PartialUrl',
-            partialUrl: 'reflex.dev/blog',
-          },
-          breadcrumbName: 'Blogs',
-        },
-        {
-          matchingRule: {
-            ruleType: 'PartialUrl',
-            partialUrl: 'reflex.dev/docs',
-          },
-          breadcrumbName: 'Docs',
-        },
-        {
-          matchingRule: {
-            ruleType: 'PartialUrl',
-            partialUrl: 'reflex.dev/docs/api-reference',
-          },
-          replaceLeading: true,
-          breadcrumbName: 'API Reference',
-        },
-        {
-          matchingRule: {
-            ruleType: 'PartialUrl',
-            partialUrl: 'reflex.dev/docs/library',
-          },
-          replaceLeading: true,
-          breadcrumbName: 'Components',
-        },
-      ],
+    transformSource: (source) => {
+      const urlPatterns = {
+        blog: 'reflex.dev/blog',
+        library: 'reflex.dev/docs/library',
+        apiRef: 'reflex.dev/docs/api-reference',
+        docs: 'reflex.dev/docs',
+      }
+
+      function matchUrl(pattern) {
+        return source.url.includes(pattern)
+      }
+
+      function getBreadcrumbs() {
+        if (matchUrl(urlPatterns.blog)) {
+          return ['Blogs', ...source.breadcrumbs.slice(1)]
+        }
+        if (matchUrl(urlPatterns.library)) {
+          return ['Components', ...source.breadcrumbs.slice(1)]
+        }
+        if (matchUrl(urlPatterns.apiRef)) {
+          return ['API Reference']
+        }
+        if (matchUrl(urlPatterns.docs)) {
+          return ['Docs', ...source.breadcrumbs.slice(1)]
+        }
+        return source.breadcrumbs
+      }
+
+      const breadcrumbs = getBreadcrumbs()
+
+      function getTabs() {
+        const tabMap = {
+          [urlPatterns.blog]: 'Blogs',
+          [urlPatterns.library]: 'Components',
+          [urlPatterns.apiRef]: 'API Reference',
+          [urlPatterns.docs]: 'Docs',
+        }
+
+        for (const [pattern, tab] of Object.entries(tabMap)) {
+          if (matchUrl(pattern)) {
+            return [
+              ...(source.tabs ?? []),
+              // If the first breadcrumb is the same as the tab, use the remaining breadcrumbs
+              // This is only if you don't want breadcrumbs to include current tab, e.g. just "Blog Post" instead of "Blogs > Blog Post" in the Blogs tab
+              // The tab type accepts a string or an object with a breadcrumbs property i.e. breadcrumbs shown for this source in that tab
+              [
+                tab,
+                { breadcrumbs: breadcrumbs[0] === tab ? breadcrumbs.slice(1) : breadcrumbs },
+              ],
+            ]
+          }
+        }
+        return source.tabs
+      }
+
+      return {
+        ...source,
+        tabs: getTabs(),
+        breadcrumbs,
+      }
     },
     colorMode: {
       forcedColorMode: resolvedColorMode, // options: 'light' or dark'
@@ -288,58 +255,46 @@ const searchBarProps = {
           value: "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&display=swap",
         },
       ],
-      components: {
-        SearchBarTrigger: {
-          defaultProps: {
-            variant: 'subtle', // 'emphasized' 'subtle'
-            size: 'expand',
-          },
-        },
-      },
-      // Add this to ensure CSS variables are applied
-      varsClassName: "ikp-variables",
     }
   },
   searchSettings: { // optional InkeepSearchSettings
-    tabSettings: {
-      isAllTabEnabled: true,
-      useAllRootBreadcrumbsAsTabs: true,
-      rootBreadcrumbsToUseAsTabs: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
-      tabOrderByLabel: ['All', 'Docs', 'Components', 'API Reference', 'Blogs'],
-    },
+    tabs: ['All', 'Docs', 'Components', 'API Reference', 'Blogs', 'GitHub', 'Forums'].map((t) => [
+      t,
+      { isAlwaysVisible: true },
+    ]),
     placeholder: 'Search',
   },
   aiChatSettings: { // optional typeof InkeepAIChatSettings
-    quickQuestions: [
+    exampleQuestions: [
       'How does Reflex work?',
       'What types of apps can I build with Reflex?',
       'Where can I deploy my apps?',
     ],
-    includeAIAnnotations: {
-      shouldEscalateToSupport: true,
-    },
-    aiAnnotationPolicies: {
-      shouldEscalateToSupport: [
-        {
-          threshold: "STANDARD", // "STRICT" or "STANDARD"
-          action: {
-            type: "SHOW_SUPPORT_BUTTON",
-            label: "Contact Support",
-            action: {
-              type: "OPEN_FORM",
-              formConfig: supportFormConfig,
-            },
-          },
-        },
-      ],
-    },
-    getHelpCallToActions: [
+    getTools: () => [
       {
-        name: 'Get help',
-        type: 'OPEN_FORM',
-        formConfig: supportFormConfig,
+        type: "function",
+        function: {
+          name: "provideAnswerConfidence",
+          description: "Determine how confident the AI assistant was and whether or not to escalate to humans.",
+          parameters: escalationParams,
+        },
+        renderMessageButtons: ({ args }) => {
+          const confidence = args.answerConfidence;
+          if (["not_confident", "no_sources", "other"].includes(confidence)) {
+            return [
+              {
+                label: "Contact Support",
+                action: {
+                  'type': 'open_form',
+                },
+              }
+            ];
+          }
+          return [];
+        },
       },
     ],
+
   },
 };""",
         ]

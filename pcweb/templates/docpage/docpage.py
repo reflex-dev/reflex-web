@@ -1,20 +1,20 @@
 """Template for documentation pages."""
 
-from datetime import datetime
 import functools
+from datetime import datetime
 from typing import Callable
 
-import reflex as rx
 import flexdown
 import mistletoe
+from reflex.components.radix.themes.base import LiteralAccentColor
+from reflex.utils.format import to_title_case, to_snake_case
+
+from pcweb.components.button import button
+from pcweb.components.icons.icons import get_icon
 from pcweb.route import Route, get_path
+from pcweb.styles.colors import c_color
 from .blocks import *
 from .state import FeedbackState
-from pcweb.components.icons.icons import get_icon
-from pcweb.styles.colors import c_color
-from reflex.components.radix.themes.base import LiteralAccentColor
-from pcweb.components.button import button
-from reflex.utils.format import to_title_case, to_snake_case
 
 
 def footer_link(text: str, href: str):
@@ -407,9 +407,9 @@ def docpage(
         Returns:
             The final route with the template applied.
         """
-        # Get the path to set for the sidebar.
+
         path = get_path(contents) if set_path is None else set_path
-        # Set the page title.
+
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
         @functools.wraps(contents)
@@ -423,23 +423,19 @@ def docpage(
             Returns:
                 The page with the template applied.
             """
-            # Import here to avoid circular imports.
+
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.docpage.sidebar import get_prev_next
             from pcweb.components.docpage.sidebar import sidebar as sb
             from pcweb.components.hosting_banner import HostingBannerState
 
-            # Create the docpage sidebar.
             sidebar = sb(url=path, width="300px")
 
-            # Set the sidebar path for the navbar sidebar.
             nav_sidebar = sb(url=path, width="100%")
 
-            # Get the previous and next sidebar links.
             prev, next = get_prev_next(path)
             links = []
 
-            # Create the previous component link.
             if prev:
                 next_prev_name = (
                     prev.alt_name_for_next_prev
@@ -467,7 +463,7 @@ def docpage(
             else:
                 links.append(rx.fragment())
             links.append(rx.spacer())
-            # Create the next component link.
+
             if next:
                 next_prev_name = (
                     next.alt_name_for_next_prev
@@ -502,7 +498,10 @@ def docpage(
             if isinstance(comp, tuple):
                 toc, comp = comp
 
-            # Return the templated page.
+            show_right_sidebar = right_sidebar and len(toc) >= 2
+
+            main_content_width = " lg:w-[60%]" if show_right_sidebar else " lg:w-full"
+
             return rx.box(
                 navbar(),
                 rx.el.main(
@@ -518,7 +517,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-20",
+                            class_name="px-0 lg:px-20 pt-11 sm:pt-0",
                         ),
                         rx.box(
                             rx.el.article(comp),
@@ -529,12 +528,7 @@ def docpage(
                             docpage_footer(path=path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 lg:px-20",
                         ),
-                        class_name="h-full w-full"
-                        + (
-                            " lg:w-[60%]"
-                            if right_sidebar
-                            else " lg:max-w-[60%] 2xl:max-w-[100%]"
-                        ),
+                        class_name="h-full w-full" + main_content_width,
                     ),
                     (
                         rx.el.nav(
@@ -600,11 +594,11 @@ def docpage(
                             )
                             + (
                                 " hidden xl:flex xl:flex-col"
-                                if right_sidebar
+                                if show_right_sidebar and not pseudo_right_bar
                                 else " hidden"
                             ),
                         )
-                        if not pseudo_right_bar
+                        if not pseudo_right_bar or show_right_sidebar
                         else rx.spacer()
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
@@ -612,7 +606,6 @@ def docpage(
                 class_name="flex flex-col justify-center bg-slate-1 w-full",
             )
 
-        # Return the route.
         components = path.split("/")
         category = (
             " ".join(
