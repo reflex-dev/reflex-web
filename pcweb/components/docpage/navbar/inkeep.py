@@ -294,14 +294,7 @@ const searchBarProps = {
         },
       },
     ],
-    getHelpOptions: [
-      {
-        name: 'Get help',
-        action: {
-          type: 'open_form',
-        },
-      },
-    ],
+
   },
 };""",
         ]
