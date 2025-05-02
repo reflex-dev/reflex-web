@@ -386,10 +386,11 @@ def logo() -> rx.Component:
 
 def doc_section():
     from pcweb.pages.docs import hosting as hosting_page
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
 
     return nav_menu.content(
         rx.el.ul(
-            # resource_item("AI Builder Docs", ai_pages[0].path, "bot", 0),
+            resource_item("AI Builder Docs", ai_builder_pages.overview.path, "bot", 0),
             resource_item(
                 "Framework Docs", getting_started.introduction.path, "frame", 0
             ),
@@ -403,6 +404,7 @@ def doc_section():
 
 def new_component_section() -> rx.Component:
     from pcweb.pages.docs import hosting as hosting_page
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
 
     return nav_menu.root(
         nav_menu.list(
@@ -429,9 +431,9 @@ def new_component_section() -> rx.Component:
                 | rx.State.router.page.path.contains("ai-builder")
                 | rx.State.router.page.path.contains("cloud"),
                 rx.el.div(
-                    # nav_menu.item(
-                    #     link_item("AI Builder", ai_pages[0].path, "builder"),
-                    # ),
+                    nav_menu.item(
+                        link_item("AI Builder", ai_builder_pages.overview.path, "builder"),
+                    ),
                     nav_menu.item(
                         link_item(
                             "Framework", getting_started.introduction.path, "framework"
