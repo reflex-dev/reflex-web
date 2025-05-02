@@ -23,124 +23,6 @@ class Search(rx.el.Div):
         return [
             "const { resolvedColorMode } = useContext(ColorModeContext)",
             """
-const supportFormConfig = {
-  heading: "Contact support",
-  fields: [
-    {
-      label: 'Name',
-      name: 'first_name',
-      inputType: 'text',
-    },
-    {
-      label: 'Company Email',
-      name: 'email',
-      inputType: 'email',
-      isRequired: true,
-    },
-    {
-      _type: 'include_chat_session',
-      label: 'Include chat history',
-      defaultValue: true,
-      name: 'include_chat_session',
-    },
-    {
-      label: 'Additional details',
-      name: 'additional_details',
-      inputType: 'textarea',
-    },
-    {
-      label: 'Category',
-      name: 'category',
-      inputType: 'select',
-      items: [
-        {
-          label: 'Bug',
-          value: 'BUG',
-        },
-        {
-          label: 'Feature idea',
-          value: 'FEATURE',
-        },
-        {
-          label: 'Account access',
-          value: 'ACCOUNT',
-        },
-      ],
-    },
-  ],
-  buttons: {
-    submit: {
-      onSubmit: async ({ values, conversation }) => {
-        const webhookUrl = 'https://discord.com/api/webhooks/1338969279760044112/W9BeoqhcHGvi3uIRPoGgYwybFfxeH1g0yWANxBS-tQ8XbSN32SzCV6IVjkHLfjlc_hJn'
-        if (!webhookUrl) {
-          console.error('Discord webhook URL is not set in the environment.')
-          return
-       }
-
-        const currentUrl = window.location.href
-
-        // Build the chat history string manually
-        let chatHistory = '**Chat History:**'
-        const messages = conversation?.messages || []
-        for (let i = 0; i < messages.length; i++) {
-          const message = messages[i]
-          const role = message.role === 'user' ? 'User' : 'Assistant'
-          const content =
-            typeof message.content === 'string'
-              ? message.content
-              : message.content[0].text
-          chatHistory += ` **${i + 1}. ${role}:** ${content}\n`;
-        }
-
-        // Build a simple and readable message
-        const discordMessage = `
-        **New Support Request**
-
-        **Name:** ${values.first_name || "N/A"}
-        **Email:** ${values.email || "N/A"}
-        **Category:** ${values.category || "N/A"}
-        **Additional Details:** ${values.additional_details || "N/A"}
-
-        **Current Page URL:** ${currentUrl || "N/A"}
-
-        **Chat Session ID:** ${conversation?.id || "N/A"}
-        ${chatHistory || "**Chat History:** No messages available."}
-        `;
-
-        // Prepare the payload
-        const payload = { content: discordMessage };
-
-        try {
-          // Send the payload to the Discord webhook
-          const response = await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-          })
-
-          if (!response.ok) {
-            throw new Error(`Failed to send message: ${response.statusText}`)
-          }
-
-          console.log('Values sent successfully to Discord!')
-        } catch (error) {
-          console.error('Error sending values to Discord:', error)
-        }
-      },
-    },
-  },
-  successView: {
-    heading: 'Thank you!',
-    message: 'Your form has been submitted successfully.',
-    doneButton: {
-      label: 'Back to chat',
-      icon: { builtIn: 'LuArrowLeft' },
-      action: 'return_to_chat',
-    },
-  },
-};
 const escalationParams = {
   type: "object",
   properties: {
@@ -404,7 +286,6 @@ const searchBarProps = {
                 label: "Contact Support",
                 action: {
                   'type': 'open_form',
-                  formSettings: supportFormConfig,
                 },
               }
             ];
@@ -418,7 +299,6 @@ const searchBarProps = {
         name: 'Get help',
         action: {
           type: 'open_form',
-          formSettings: supportFormConfig,
         },
       },
     ],
