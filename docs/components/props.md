@@ -38,6 +38,33 @@ rx.box(
 
 In the example above, the `class_name` prop of the `rx.box` component is assigned a list of class names. This means the `rx.box` component will be styled with the CSS classes `class-name-1` and `class-name-2`.
 
+### ARIA and Data Attributes
+
+Reflex supports accessibility attributes (ARIA) and data attributes using Python's snake_case convention (with underscore) instead of the HTML kebab-case (with dash). These are automatically converted to the proper format when rendered as HTML.
+
+For example, `aria_label` becomes `aria-label` and `data_testid` becomes `data-testid` in the generated HTML.
+
+```python demo
+rx.button(
+    "Close",
+    aria_label="Close dialog",
+    data_testid="close-button",
+)
+```
+
+### Custom Attributes
+
+For cases where you need to add arbitrary HTML attributes that aren't covered by the built-in props, you can use `custom_attrs` as an escape hatch. This prop accepts a dictionary of attribute names and values.
+
+```python demo
+rx.button(
+    "Custom Button",
+    custom_attrs={"role": "menuitem", "tabindex": "-1"},
+)
+```
+
+Note that for ARIA and data attributes, it's recommended to use the underscore notation (`aria_label`, `data_testid`) instead of `custom_attrs` for better readability and consistency.
+
 ## Style Props
 
 In addition to component-specific props, most built-in components support a full range of style props. You can use any [CSS property](https://www.w3schools.com/cssref/index.php) to style a component.
