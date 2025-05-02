@@ -60,6 +60,13 @@ ANACONDA_URL = "https://docs.anaconda.com/free/navigator/"
 ANACONDA_INSTALLATION = "https://docs.anaconda.com/free/anaconda/install/windows/"
 ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-started/#navigator-managing-environments"
 
+# Cloudflare
+SCREENSHOT_BUCKET = "https://pub-c14a5dcf674640a6b73fded32bad72ca.r2.dev/"
+
+# Reflex Cloud Backend
+RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/")
+
+
 # Stats
 GITHUB_STARS = 23000
 MONTHLY_USERS = 10000

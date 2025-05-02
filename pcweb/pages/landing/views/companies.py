@@ -28,13 +28,16 @@ companies_case_studies = {
         "company_name": "Fastly",
         "quote": "Fastly is a cloud computing company that provides content delivery network (CDN) services.",
         "person": "Juan",
+        "picture": "/favicon.ico",
         "role": "CEO",
     },
     "autodesk": {
         "company_name": "Autodesk",
         "quote": "Autodesk is a software company that provides design and engineering software.",
         "person": "Juan",
+        "picture": "/favicon.ico",
         "role": "CEO",
+        "url": "/customers/bayesline",
     },
 }
 
@@ -62,7 +65,8 @@ def company_card(path: str, name: str) -> rx.Component:
             class_name="w-full col-span-2 h-[10.75rem] flex justify-center items-center bg-slate-1 border-box",
         )
 
-    is_case_study = name in companies_case_studies
+    is_customer = name in companies_case_studies
+    has_case_study = False
     parent_box_class_name = "h-[10.75rem] w-full relative overflow-hidden flex justify-center items-center bg-slate-1 border-box"
     image_component = rx.image(
         src=path,
@@ -72,13 +76,34 @@ def company_card(path: str, name: str) -> rx.Component:
     content_items = [image_component]
     badge_component = None
 
-    if is_case_study:
-        parent_box_class_name += " cursor-pointer group"
-        badge_component = rx.box(
-            "Case Study",
-            get_icon("arrow_top_right", class_name="size-3.5 rotate-45 group-hover:rotate-0 transition-transform"),
-            class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]",
+    if is_customer:
+        has_case_study = "url" in companies_case_studies[name]
+        parent_box_class_name += " group" + (
+            " cursor-pointer" if has_case_study else ""
         )
+
+        if has_case_study:
+            # Badge for customers WITH a case study URL
+            badge_text = "Case Study"
+            badge_icon = get_icon(
+                "arrow_top_right",
+                class_name="size-3.5 rotate-45 group-hover:rotate-0 transition-transform",
+            )
+            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
+            badge_component = rx.box(
+                badge_text,
+                badge_icon,
+                class_name=badge_class_name,
+            )
+        else:
+            # Badge for customers WITHOUT a case study URL
+            badge_text = "Customer"
+            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
+            badge_component = rx.box(
+                badge_text,
+                class_name=badge_class_name,
+            )
+
         content_items.append(badge_component)
 
     trigger_box = rx.box(
@@ -86,7 +111,7 @@ def company_card(path: str, name: str) -> rx.Component:
         class_name=parent_box_class_name,
     )
 
-    if is_case_study:
+    if is_customer:
         case_study = companies_case_studies[name]
         hover_content = rx.hover_card.content(
             rx.box(
@@ -94,21 +119,68 @@ def company_card(path: str, name: str) -> rx.Component:
                     f'“{case_study["quote"]}”',
                     class_name="text-sm text-slate-12 italic font-medium",
                 ),
-                rx.text(
-                    f"{case_study['person']}, {case_study['role']}",
-                    class_name="text-sm text-slate-9 font-medium",
+                rx.box(
+                    rx.image(
+                        src=case_study["picture"],
+                        class_name="size-8 rounded-full",
+                    ),
+                    rx.box(
+                        rx.text(
+                            f"{case_study['person']}",
+                            class_name="text-sm text-slate-9 font-medium",
+                        ),
+                        rx.text(
+                            case_study["role"],
+                            class_name="text-sm text-slate-9 font-medium",
+                        ),
+                    ),
+                    rx.box(class_name="grow"),
+                    (
+                        rx.link(
+                            "Read",
+                            get_icon(
+                                "arrow_top_right",
+                                class_name="size-3.5",
+                            ),
+                            href=case_study["url"],
+                            class_name="flex flex-row items-center gap-1.5 font-medium text-sm text-slate-12 underline hover:!text-slate-12 decoration-slate-12",
+                        )
+                        if has_case_study
+                        else None
+                    ),
+                    class_name="flex flex-row items-center gap-2 w-full",
                 ),
-                class_name="flex flex-col gap-2",
+                class_name="flex flex-col gap-2.5",
             ),
             side="top",
             side_offset=-50,
             align="center",
-            class_name="flex justify-center items-center bg-slate-1 p-3 rounded-xl shadow-large border border-slate-5 w-[17rem]",
+            on_click=rx.cond(
+                has_case_study,
+                rx.redirect(case_study.get("url", "#")),
+                rx.noop(),
+            ),
+            class_name="flex justify-center items-center bg-slate-1 p-3 rounded-xl shadow-large border border-slate-5 w-[17rem]"
+            + (
+                " cursor-pointer" if has_case_study else ""
+            ),
         )
-        return rx.hover_card.root(
-            rx.hover_card.trigger(trigger_box),
-            hover_content,
-        )
+
+        if has_case_study:
+            return rx.link(
+                rx.hover_card.root(
+                    rx.hover_card.trigger(trigger_box),
+                    hover_content,
+                ),
+                href=case_study.get("url", "#"),
+                is_external=True,
+            )
+        else:
+            return rx.hover_card.root(
+                rx.hover_card.trigger(trigger_box),
+                hover_content,
+            )
+
     else:
         return trigger_box
 
