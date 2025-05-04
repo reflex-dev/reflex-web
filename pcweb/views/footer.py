@@ -129,6 +129,8 @@ def newsletter_form() -> rx.Component:
 
 @rx.memo
 def footer() -> rx.Component:
+    from pcweb.pages.framework.views.footer_index import dark_mode_toggle
+
     return rx.el.footer(
         rx.box(
             rx.box(
@@ -164,6 +166,8 @@ def footer() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
+                    rx.box(class_name="grow"),
+                    dark_mode_toggle(),
                 ],
             ),
             newsletter_form(),

@@ -7,6 +7,7 @@ from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
 from pcweb.constants import (
     REFLEX_CLOUD_URL,
+    REFLEX_BUILD_URL,
 )
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
@@ -22,6 +23,8 @@ from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
 from ..sidebar import SidebarState
 from ...link_button import resources_button
+from pcweb.pages.framework.framework import framework
+from pcweb.pages.hosting.hosting import hosting_landing
 
 
 def resource_item(text: str, url: str, icon: str, index):
@@ -56,7 +59,7 @@ def link_item(name: str, url: str, active_str: str = ""):
 
     url = url.rstrip("/") + "/"
 
-    if active_str == "framework":
+    if active_str == "/":
         is_home = router_path == "/"
         is_docs = router_path.contains("docs")
         not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
@@ -449,10 +452,10 @@ def new_component_section() -> rx.Component:
                     #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
                     # ),
                     nav_menu.item(
-                        link_item("Framework", "/", "framework"),
+                        link_item("Framework", framework.path, "framework"),
                     ),
                     nav_menu.item(
-                        link_item("Cloud", "/hosting", "hosting"),
+                        link_item("Cloud", hosting_landing.path, "hosting"),
                     ),
                     class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
@@ -478,16 +481,15 @@ def new_component_section() -> rx.Component:
             nav_menu.item(search_bar()),
             nav_menu.item(github()),
             nav_menu.item(discord(), class_name="desktop-only"),
-            nav_menu.item(color(), class_name="desktop-only"),
             nav_menu.item(
                 rx.link(
                     button(
-                        "Deploy",
+                        "Build",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
                     is_external=True,
-                    href=REFLEX_CLOUD_URL,
+                    href=REFLEX_BUILD_URL,
                 ),
                 class_name="desktop-only",
             ),
@@ -504,7 +506,7 @@ def new_component_section() -> rx.Component:
 @rx.memo
 def navbar() -> rx.Component:
     return rx.box(
-        hosting_banner(),
+        # hosting_banner(),
         rx.el.header(
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
