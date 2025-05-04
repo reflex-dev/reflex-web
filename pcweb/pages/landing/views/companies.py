@@ -10,34 +10,39 @@ companies_list = [
     "rappi",
     "accenture",
     "ibm",
-    "dell",
+    "fastly",
     "autodesk",
     "STATS",
     "twilio",
     "ford",
     "paloalto",
     "bosch",
-    "fastly",
+    
+    "dell",
     "unicef",
     "nasa",
     "nike",
 ]
 
 companies_case_studies = {
-    "fastly": {
-        "company_name": "Fastly",
-        "quote": "Fastly is a cloud computing company that provides content delivery network (CDN) services.",
-        "person": "Juan",
+    "dell": {
+        "company_name": "Dell",
+        "quote": """Reflex has been a game changer. 
+        In just a week, I had a demo up and running, and the performance was excellent. 
+        It made the project feasible for my team, who were mostly from a support background, not development. 
+        Reflex has helped us go from struggling with clunky tools to building a smooth, efficient interface.
+        """,
+        "person": "JL",
         "picture": "/favicon.ico",
-        "role": "CEO",
+        "role": "Principal Engineer",
     },
     "autodesk": {
         "company_name": "Autodesk",
-        "quote": "Autodesk is a software company that provides design and engineering software.",
-        "person": "Juan",
+        "quote": "One person the can do the job of two with Reflex, so it cut our cost in half.",
+        "person": "Paolo",
         "picture": "/favicon.ico",
-        "role": "CEO",
-        "url": "/customers/bayesline",
+        "role": "Principal Consultant",
+        "url": "/customers/autodesk",
     },
 }
 
@@ -87,7 +92,7 @@ def company_card(path: str, name: str) -> rx.Component:
             badge_text = "Case Study"
             badge_icon = get_icon(
                 "arrow_top_right",
-                class_name="size-3.5 rotate-45 group-hover:rotate-0 transition-transform",
+                class_name="size-3 rotate-45 group-hover:rotate-0 transition-transform",
             )
             badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
             badge_component = rx.box(
@@ -96,11 +101,15 @@ def company_card(path: str, name: str) -> rx.Component:
                 class_name=badge_class_name,
             )
         else:
-            # Badge for customers WITHOUT a case study URL
-            badge_text = "Customer"
-            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
+            badge_text = "Quote"
+            badge_icon = get_icon(
+                "quote",
+                class_name="size-3 group-hover:rotate-0 transition-transform",
+            )
+            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
             badge_component = rx.box(
                 badge_text,
+                badge_icon,
                 class_name=badge_class_name,
             )
 
@@ -153,14 +162,14 @@ def company_card(path: str, name: str) -> rx.Component:
                 class_name="flex flex-col gap-2.5",
             ),
             side="top",
-            side_offset=-50,
+            side_offset=-120,
             align="center",
             on_click=rx.cond(
                 has_case_study,
                 rx.redirect(case_study.get("url", "#")),
                 rx.noop(),
             ),
-            class_name="flex justify-center items-center bg-slate-1 p-3 rounded-xl shadow-large border border-slate-5 w-[17rem]"
+            class_name="flex justify-center items-center bg-slate-1 p-3 rounded-xl shadow-large border border-slate-5 w-[22rem]"
             + (
                 " cursor-pointer" if has_case_study else ""
             ),

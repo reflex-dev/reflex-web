@@ -415,6 +415,9 @@ webpage = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" view
 
 arrow_top_right = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" color="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 5a1 1 0 0 0 0 2h7.586L5.293 17.293a1 1 0 1 0 1.414 1.414L17 8.414V16a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" fill="currentColor"/></svg>"""
 
+quote="""<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>"""
+
+
 ICONS = {
     # Socials
     "github": github,
@@ -471,6 +474,7 @@ ICONS = {
     "dollar": dollar,
     "webpage": webpage,
     "arrow_top_right": arrow_top_right,
+    "quote": quote,
 }
 
 LiteralIcon = Literal[
