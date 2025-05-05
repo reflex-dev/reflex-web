@@ -16,6 +16,7 @@ from pcweb.constants import (
     TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    LINKEDIN_URL,
 )
 
 
@@ -54,6 +55,7 @@ def menu_socials() -> rx.Component:
         social_menu_item("discord_navbar", DISCORD_URL),
         social_menu_item("twitter", TWITTER_URL),
         social_menu_item("github_navbar", GITHUB_URL),
+        social_menu_item("linkedin", LINKEDIN_URL),
         class_name="flex flex-row h-full align-center gap-2",
     )
 

@@ -16,6 +16,7 @@ from pcweb.constants import (
     TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    LINKEDIN_URL,
 )
 from pcweb.components.icons.hugeicons import hi
 from reflex.style import color_mode, set_color_mode
@@ -82,6 +83,7 @@ def menu_socials() -> rx.Component:
         social_menu_item("discord_navbar", DISCORD_URL, "Discord"),
         social_menu_item("twitter", TWITTER_URL, "Twitter"),
         social_menu_item("github_navbar", GITHUB_URL, "Github"),
+        social_menu_item("linkedin", LINKEDIN_URL, "LinkedIn"),
         class_name="flex flex-row h-full align-center gap-2 w-full lg:w-fit max-w-[24rem]",
     )
 

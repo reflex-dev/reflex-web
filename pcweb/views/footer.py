@@ -15,6 +15,7 @@ from pcweb.constants import (
     TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    LINKEDIN_URL,
 )
 
 
@@ -63,6 +64,7 @@ def menu_socials() -> rx.Component:
                 class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
             ),
             social_menu_item("discord", DISCORD_URL),
+            social_menu_item("linkedin", LINKEDIN_URL),
             class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),
         class_name="border-slate-5 bg-slate-1 shadow-large border rounded-full h-6 overflow-hidden",
