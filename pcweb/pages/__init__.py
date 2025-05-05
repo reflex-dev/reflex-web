@@ -1,7 +1,6 @@
 from pcweb.route import Route
 
 from .blog import blog_routes
-from .changelog import changelog as changelog
 from .docs import doc_routes
 from .faq import faq as faq
 from .framework.framework import framework as framework
