@@ -1,15 +1,11 @@
 from datetime import datetime
+
 import reflex as rx
-from pcweb.components.icons import get_icon
+from reflex.style import color_mode, set_color_mode
+
 from pcweb.components.button import button
-from pcweb.pages.gallery import gallery
-from pcweb.pages.docs import getting_started, hosting
-from pcweb.pages.docs.library import library
-from pcweb.pages.changelog import changelog
-from pcweb.pages.blog import blogs
-from pcweb.pages.faq import faq
-from pcweb.pages.errors import errors
-from pcweb.signup import IndexState
+from pcweb.components.icons import get_icon
+from pcweb.components.icons.hugeicons import hi
 from pcweb.constants import (
     ROADMAP_URL,
     GITHUB_URL,
@@ -18,8 +14,14 @@ from pcweb.constants import (
     FORUM_URL,
     LINKEDIN_URL,
 )
-from pcweb.components.icons.hugeicons import hi
-from reflex.style import color_mode, set_color_mode
+from pcweb.pages.blog import blogs
+from pcweb.pages.changelog import changelog
+from pcweb.pages.docs import getting_started, hosting
+from pcweb.pages.docs.library import library
+from pcweb.pages.errors import errors
+from pcweb.pages.faq import faq
+from pcweb.pages.gallery import gallery
+from pcweb.signup import IndexState
 
 
 def tab_item(mode: str, icon: str) -> rx.Component:
@@ -177,6 +179,7 @@ def footer_index() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
+                    footer_link("Affiliates", "/affiliates"),
                     rx.box(class_name="grow"),
                     dark_mode_toggle(),
                 ],
