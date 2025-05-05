@@ -3,7 +3,7 @@ from typing import Callable
 
 import reflex as rx
 from pcweb.route import Route
-from pcweb.pages.index.index_colors import index_colors
+from pcweb.pages.framework.index_colors import index_colors
 from pcweb.components.icons.icons import get_icon
 
 
@@ -223,7 +223,7 @@ def storypage(
     """
     props = props or {}
 
-    def webpage(contents: Callable[[], Route]) -> Route:
+    def storypage(contents: Callable[[], Route]) -> Route:
         """Wrapper to create a templated route.
 
         Args:
@@ -266,7 +266,6 @@ def storypage(
                     rx.box(class_name="h-[1px] bg-slate-3 w-full"),
                     bottom_section(),
                     footer(),
-                    badge(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans gap-4 mx-auto max-w-[64.19rem] lg:border-x border-slate-3 pt-24 lg:pt-48",
                 ),
                 class_name="relative overflow-hidden",
@@ -282,4 +281,4 @@ def storypage(
             add_as_page=add_as_page,
         )
 
-    return webpage
+    return storypage

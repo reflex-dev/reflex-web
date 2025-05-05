@@ -2,7 +2,7 @@ import functools
 from typing import Callable
 import reflex as rx
 from pcweb.route import Route
-from pcweb.pages.index.index_colors import index_colors
+from pcweb.pages.framework.index_colors import index_colors
 
 
 def gallery_app_page(
@@ -55,7 +55,7 @@ def gallery_app_page(
             from pcweb.components.docpage.navbar import navbar
             from pcweb.components.webpage.badge import badge
             from pcweb.views.bottom_section.bottom_section import bottom_section
-            from pcweb.pages.index.views.footer_index import footer_index
+            from pcweb.pages.framework.views.footer_index import footer_index
 
             # Wrap the component in the template.
             return rx.box(
@@ -71,7 +71,6 @@ def gallery_app_page(
                         class_name="border-t border-slate-3 border-x flex flex-col items-center w-full border-b",
                     ),
                     footer_index(),
-                    badge(),
                     class_name="relative flex flex-col justify-start items-center w-full h-full min-h-screen font-instrument-sans mx-auto max-w-[64.19rem]",
                 ),
                 class_name="relative overflow-hidden",

@@ -173,7 +173,7 @@ def docpage_footer(path: str):
     from pcweb.pages.errors import errors
     from pcweb.constants import ROADMAP_URL, FORUM_URL
     from pcweb.views.footer import newsletter_form, menu_socials
-
+    from pcweb.pages.framework.views.footer_index import dark_mode_toggle
     return rx.el.footer(
         rx.box(
             rx.box(
@@ -230,12 +230,16 @@ def docpage_footer(path: str):
                 class_name="flex flex-wrap justify-between gap-12 w-full",
             ),
             rx.box(
-                rx.text(
-                    f"Copyright © {datetime.now().year} Pynecone, Inc.",
-                    class_name="font-small text-slate-9",
+                rx.box(
+                    rx.text(
+                        f"Copyright © {datetime.now().year} Pynecone, Inc.",
+                        class_name="font-small text-slate-9",
+                    ),
+                    menu_socials(),
+                    class_name="flex flex-row justify-between items-center w-full",
                 ),
-                menu_socials(),
-                class_name="flex flex-row justify-between items-center w-full",
+                dark_mode_toggle(),
+                class_name="flex flex-col gap-4"
             ),
             class_name="flex flex-col justify-between gap-10 py-6 lg:py-8 w-full",
         ),
