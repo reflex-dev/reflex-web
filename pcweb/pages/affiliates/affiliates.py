@@ -1,7 +1,11 @@
 import reflex as rx
 
 from pcweb.components.button import button
-from pcweb.templates.webpage import webpage
+from pcweb.components.docpage.navbar import navbar
+from pcweb.components.webpage.badge import badge
+from pcweb.pages.hosting.views.features import grid
+from pcweb.pages.index.index_colors import index_colors
+from pcweb.pages.index.views.footer_index import footer_index
 
 numbers = {
     "1": """
@@ -52,7 +56,7 @@ def feature_card(icon: str, title: str, description: str) -> rx.Component:
     return rx.box(
         rx.box(
             rx.box(
-                # get_icon(icon, class_name="!text-slate-12 !size-5"),
+                rx.icon(tag=icon, class_name="!text-slate-12 !size-5"),
                 rx.text(title, class_name="text-slate-12 text-base font-medium"),
                 class_name="flex flex-row gap-2 items-center",
             ),
@@ -93,40 +97,41 @@ def spacer() -> rx.Component:
 
 def features() -> rx.Component:
     return rx.el.section(
+        grid(),
         rx.box(
             rx.box(
                 # Left column with steps 2 and 4
                 feature_card(
-                    "backend_db",
-                    "1. Submit Your Application",
+                    "frame",
+                    "Submit Your Application",
                     "Provide your basic info to get a unique affiliate link.",
                 ),
-                step_box("2"),
+                # step_box("2"),
                 feature_card(
-                    "infinity",
-                    "3. Track Your Referrals",
+                    "audio-lines",
+                    "Track Your Referrals",
                     "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
                 ),
-                step_box("4"),
+                # step_box("4"),
                 spacer(),
                 class_name="flex flex-col pt-8 lg:border-r border-slate-3",
             ),
             rx.box(
                 # Right column with steps 1 and 3
                 spacer(),
-                step_box("1"),
+                # step_box("1"),
                 feature_card(
-                    "backend_auth",
-                    "2. Share Reflex",
+                    "share-2",
+                    "Share Reflex",
                     "Post your link anywhere—blog posts, social media, email newsletters, even your YouTube channel.",
                 ),
-                step_box("3"),
+                # step_box("3"),
                 feature_card(
-                    "analytics",
-                    "4. Get Paid",
+                    "dollar-sign",
+                    "Get Paid",
                     "We'll send you 50% of each referred user's subscription revenue for their first six months.",
                 ),
-                class_name="flex flex-col -mt-[32px]",
+                class_name="flex flex-col",
             ),
             class_name="flex lg:flex-row flex-col justify-center items-center",
         ),
@@ -144,7 +149,7 @@ def features_small_screen():
     return rx.box(
         rx.box(
             rx.box(
-                step_box("1"),
+                # step_box("1"),
                 feature_card(
                     "backend_db",
                     "Submit Your Application",
@@ -153,7 +158,7 @@ def features_small_screen():
                 class_name="flex flex-col",
             ),
             rx.box(
-                step_box("2"),
+                # step_box("2"),
                 feature_card(
                     "backend_auth",
                     "Share Reflex",
@@ -162,7 +167,7 @@ def features_small_screen():
                 class_name="flex flex-col",
             ),
             rx.box(
-                step_box("3"),
+                # step_box("3"),
                 feature_card(
                     "infinity",
                     "Track Your Referrals",
@@ -171,7 +176,7 @@ def features_small_screen():
                 class_name="flex flex-col",
             ),
             rx.box(
-                step_box("4"),
+                # step_box("4"),
                 feature_card(
                     "analytics",
                     "Get Paid",
@@ -186,7 +191,7 @@ def features_small_screen():
                 button("Become a Partner", variant="primary", size="xl"),
                 href="https://cal.com/forms/09dc3703-39fc-42ec-b03b-8ee32de7590f",
                 is_external=True,
-                class_name="p-2 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
+                class_name="p-4 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
             ),
             class_name="flex items-center justify-center",
         ),
@@ -194,18 +199,25 @@ def features_small_screen():
     )
 
 
-@webpage(path="/affiliates", title="Affiliates · Reflex")
+@rx.page(route="/affiliates", title="Affiliates · Reflex")
 def affiliates() -> rx.Component:
-    return rx.el.section(
-        affiliates_title(),
-        rx.box(
-            features(),
-            class_name="hidden lg:block",  # Hide by default, show on lg screens and up
+    return rx.box(
+        index_colors(),
+        navbar(),
+        rx.el.section(
+            affiliates_title(),
+            rx.box(
+                features(),
+                class_name="hidden lg:block",  # Hide by default, show on lg screens and up
+            ),
+            rx.box(
+                features_small_screen(),
+                class_name="block lg:hidden",  # Show by default, hide on lg screens and up
+            ),
+            id="affiliates",
+            class_name="section-content",
         ),
-        rx.box(
-            features_small_screen(),
-            class_name="block lg:hidden",  # Show by default, hide on lg screens and up
-        ),
-        id="affiliates",
-        class_name="section-content",
+        footer_index(),
+        badge(),
+        class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
     )
