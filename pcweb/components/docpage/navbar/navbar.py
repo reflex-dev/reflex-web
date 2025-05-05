@@ -4,9 +4,7 @@ import reflex as rx
 
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.components.hosting_banner import hosting_banner
 from pcweb.constants import (
-    REFLEX_CLOUD_URL,
     REFLEX_BUILD_URL,
 )
 from pcweb.pages.blog import blogs
@@ -16,15 +14,14 @@ from pcweb.pages.docs import (
     getting_started,
 )
 from pcweb.pages.faq import faq
-from .buttons.color import color
+from pcweb.pages.framework.framework import framework
+from pcweb.pages.hosting.hosting import hosting_landing
 from .buttons.discord import discord
 from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
 from ..sidebar import SidebarState
 from ...link_button import resources_button
-from pcweb.pages.framework.framework import framework
-from pcweb.pages.hosting.hosting import hosting_landing
 
 
 def resource_item(text: str, url: str, icon: str, index):
@@ -393,7 +390,12 @@ def doc_section():
 
     return nav_menu.content(
         rx.el.ul(
-            resource_item("AI Builder Docs", ai_builder_pages.overview.path, "bot", 0),
+            resource_item(
+                "AI Builder Docs",
+                ai_builder_pages.overview.what_is_reflex_build.path,
+                "bot",
+                0,
+            ),
             resource_item(
                 "Framework Docs", getting_started.introduction.path, "frame", 0
             ),
@@ -435,7 +437,9 @@ def new_component_section() -> rx.Component:
                 | rx.State.router.page.path.contains("cloud"),
                 rx.el.div(
                     nav_menu.item(
-                        link_item("AI Builder", ai_builder_pages.overview.path, "builder"),
+                        link_item(
+                            "AI Builder", ai_builder_pages.overview.path, "builder"
+                        ),
                     ),
                     nav_menu.item(
                         link_item(

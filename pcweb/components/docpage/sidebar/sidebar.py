@@ -3,19 +3,18 @@
 from __future__ import annotations
 
 import reflex as rx
-from pcweb.components.docpage.navbar.state import NavbarState
-from pcweb.pages.docs import cloud_cliref
-from .state import SidebarState, SideBarItem, SideBarBase
 
-from .sidebar_items.learn import learn, frontend, backend, hosting, cli_ref
+from pcweb.components.docpage.navbar.state import NavbarState
+from pcweb.styles.colors import c_color
+from .sidebar_items.ai import ai_builder_overview_items, ai_builder_integrations_items
 from .sidebar_items.component_lib import (
     component_lib,
     graphing_libs,
 )
-from .sidebar_items.ai import ai_builder_overview_items, ai_builder_integrations_items
-from .sidebar_items.reference import api_reference
+from .sidebar_items.learn import learn, frontend, backend, hosting, cli_ref
 from .sidebar_items.recipes import recipes
-from pcweb.styles.colors import c_color
+from .sidebar_items.reference import api_reference
+from .state import SidebarState, SideBarItem, SideBarBase
 
 
 def sidebar_link(*children, **props):
@@ -356,7 +355,6 @@ def sidebar_comp(
     from pcweb.pages.docs import enterprise, getting_started, state, ui
     from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs.apiref import pages
-    from pcweb.pages.docs.cloud import pages as cloud_pages
     from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.recipes_overview import overview
@@ -379,8 +377,8 @@ def sidebar_comp(
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
                 rx.el.ul(
                     sidebar_category(
-                        "Overview",
-                        "/docs/ai-builder/overview",
+                        "Learn",
+                        "/docs/ai-builder/overview/what-is-reflex-build",
                         "bot",
                         0,
                     ),
@@ -466,7 +464,8 @@ def sidebar_comp(
                         rx.el.ul(
                             create_sidebar_section(
                                 "Overview",
-                                ai_builder_pages.overview.path,
+                                ai_builder_pages.overview.what_is_reflex_build.path,
+                                # ai_builder_pages.overview.path,
                                 ai_builder_overview_items,
                                 ai_builder_overview_index,
                                 url,
