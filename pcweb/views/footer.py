@@ -12,7 +12,6 @@ from pcweb.constants import (
     LINKEDIN_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
