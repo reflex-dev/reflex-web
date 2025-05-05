@@ -394,6 +394,30 @@ globe = """<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBo
   <path fill-rule="evenodd" clip-rule="evenodd" d="M6.04297 10.0004C6.04297 10.6487 6.08043 11.2743 6.14752 11.875H1.2395C1.11073 11.2703 1.04297 10.6431 1.04297 10C1.04297 9.35691 1.11073 8.72966 1.2395 8.125H6.14761C6.08046 8.72591 6.04297 9.35183 6.04297 10.0004ZM6.33433 6.875H1.60311C2.68989 3.95554 5.25544 1.7558 8.38922 1.18633C8.24849 1.47236 8.10167 1.78253 7.95314 2.0963L7.95255 2.09756C7.892 2.22548 7.83117 2.354 7.77034 2.48171C7.21606 3.64571 6.66043 5.13304 6.33433 6.875ZM7.6078 6.875H12.3948C12.0878 5.35751 11.5964 4.05373 11.1037 3.01913C11.0296 2.86365 10.9556 2.70647 10.8823 2.55071C10.6123 1.97738 10.3513 1.42314 10.1311 1.04258C10.0879 1.04197 10.0446 1.04166 10.0013 1.04166C9.95797 1.04166 9.91472 1.04197 9.87155 1.04258C9.6513 1.42311 9.3903 1.97731 9.12039 2.55059C9.04705 2.70636 8.97297 2.86365 8.89889 3.01913C8.40622 4.05373 7.91481 5.35751 7.6078 6.875ZM12.5966 8.125H7.40604C7.33371 8.72408 7.29297 9.35016 7.29297 10.0004C7.29297 10.6504 7.33367 11.2762 7.40594 11.875H12.5966C12.669 11.2762 12.7096 10.6504 12.7096 10.0004C12.7096 9.35016 12.6689 8.72408 12.5966 8.125ZM13.6683 6.875C13.3422 5.13304 12.7866 3.64571 12.2322 2.48171C12.1713 2.35378 12.1104 2.22506 12.0497 2.09693C11.9012 1.78316 11.7541 1.47236 11.6134 1.18633C14.7471 1.7558 17.3127 3.95554 18.3995 6.875H13.6683ZM18.7631 8.125H13.855C13.9221 8.72591 13.9596 9.35183 13.9596 10.0004C13.9596 10.6487 13.9222 11.2743 13.8551 11.875H18.7631C18.8919 11.2703 18.9596 10.6431 18.9596 10C18.9596 9.35691 18.8919 8.72966 18.7631 8.125ZM8.89889 16.9817C8.40614 15.9469 7.91463 14.6428 7.60763 13.125H12.395C12.088 14.6428 11.5965 15.9469 11.1037 16.9817C11.0305 17.1355 10.9572 17.291 10.8846 17.4451C10.6138 18.02 10.352 18.5759 10.1311 18.9574C10.0879 18.958 10.0446 18.9583 10.0013 18.9583C9.95797 18.9583 9.91472 18.958 9.87155 18.9574C9.65064 18.5759 9.3888 18.02 9.11797 17.4451L9.11755 17.4441C9.04505 17.2903 8.97205 17.1352 8.89889 16.9817ZM13.6685 13.125H18.3995C17.3127 16.0444 14.7473 18.2441 11.6136 18.8137C11.7552 18.526 11.903 18.2139 12.0524 17.8982C12.1121 17.772 12.1722 17.6452 12.2322 17.5192C12.7866 16.3549 13.3424 14.8673 13.6685 13.125ZM1.60311 13.125H6.33417C6.66024 14.8673 7.21597 16.3549 7.77034 17.5192C7.83038 17.6452 7.89042 17.772 7.95019 17.8982C8.09964 18.2139 8.24739 18.526 8.38897 18.8137C5.25531 18.2441 2.68986 16.0444 1.60311 13.125Z" fill="currentColor"/>
 </svg>"""
 
+chevron_right = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M6.00003 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>"""
+
+ai_chat_02 = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" color="currentColor" class="shrink-0 css-769e2z"><path d="M14.1706 20.8905C18.3536 20.6125 21.6856 17.2332 21.9598 12.9909C22.0134 12.1607 22.0134 11.3009 21.9598 10.4707C21.6856 6.22838 18.3536 2.84913 14.1706 2.57107C12.7435 2.47621 11.2536 2.47641 9.8294 2.57107C5.64639 2.84913 2.31441 6.22838 2.04024 10.4707C1.98659 11.3009 1.98659 12.1607 2.04024 12.9909C2.1401 14.536 2.82343 15.9666 3.62791 17.1746C4.09501 18.0203 3.78674 19.0758 3.30021 19.9978C2.94941 20.6626 2.77401 20.995 2.91484 21.2351C3.05568 21.4752 3.37026 21.4829 3.99943 21.4982C5.24367 21.5285 6.08268 21.1757 6.74868 20.6846C7.1264 20.4061 7.31527 20.2668 7.44544 20.2508C7.5756 20.2348 7.83177 20.3403 8.34401 20.5513C8.8044 20.7409 9.33896 20.8579 9.8294 20.8905C11.2536 20.9852 12.7435 20.9854 14.1706 20.8905Z" stroke="currentColor"></path><path d="M7.5 15L9.34189 9.47434C9.43631 9.19107 9.7014 9 10 9C10.2986 9 10.5637 9.19107 10.6581 9.47434L12.5 15M15.5 9V15M8.5 13H11.5" stroke="currentColor"></path></svg>
+"""
+
+dollar = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="currentColor">
+<path d="M14.4998 12.001C14.4998 13.3817 13.3805 14.501 11.9998 14.501C10.6191 14.501 9.49982 13.3817 9.49982 12.001C9.49982 10.6203 10.6191 9.50098 11.9998 9.50098C13.3805 9.50098 14.4998 10.6203 14.4998 12.001Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 5.00098C18.4794 5.00098 20.1903 5.38518 21.1329 5.6773C21.6756 5.84549 22 6.35987 22 6.92803V16.6833C22 17.7984 20.7719 18.6374 19.6762 18.4305C18.7361 18.253 17.5107 18.1104 16 18.1104C11.2491 18.1104 10.1096 19.9161 3.1448 18.3802C2.47265 18.232 2 17.6275 2 16.9392V6.92214C2 5.94628 2.92079 5.23464 3.87798 5.42458C10.1967 6.67844 11.4209 5.00098 16 5.00098Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M2 9.00098C3.95133 9.00098 5.70483 7.40605 5.92901 5.75514M18.5005 5.50098C18.5005 7.54062 20.2655 9.46997 22 9.46997M22 15.001C20.1009 15.001 18.2601 16.3112 18.102 18.0993M6.00049 18.4971C6.00049 16.2879 4.20963 14.4971 2.00049 14.4971" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>"""
+
+webpage = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="currentColor">
+<path d="M2 12C2 8.31088 2 6.46632 2.81382 5.15878C3.1149 4.67504 3.48891 4.25428 3.91891 3.91556C5.08116 3.00002 6.72077 3.00002 10 3.00002H14C17.2792 3.00002 18.9188 3.00002 20.0811 3.91556C20.5111 4.25428 20.8851 4.67504 21.1862 5.15878C22 6.46632 22 8.31088 22 12C22 15.6891 22 17.5337 21.1862 18.8412C20.8851 19.325 20.5111 19.7457 20.0811 20.0845C18.9188 21 17.2792 21 14 21H10C6.72077 21 5.08116 21 3.91891 20.0845C3.48891 19.7457 3.1149 19.325 2.81382 18.8412C2 17.5337 2 15.6891 2 12Z" stroke="currentColor" stroke-width="2"></path>
+<path d="M2 9.50002L22 9.50002" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+<path d="M6 6.00002H7M10 6.00002H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>"""
+
+arrow_top_right = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" color="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 5a1 1 0 0 0 0 2h7.586L5.293 17.293a1 1 0 1 0 1.414 1.414L17 8.414V16a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" fill="currentColor"/></svg>"""
+
+quote="""<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>"""
+
+
 ICONS = {
     # Socials
     "github": github,
@@ -445,6 +469,12 @@ ICONS = {
     "infinity": infinity,
     "analytics": analytics,
     "globe": globe,
+    "chevron_right": chevron_right,
+    "ai-chat-02": ai_chat_02,
+    "dollar": dollar,
+    "webpage": webpage,
+    "arrow_top_right": arrow_top_right,
+    "quote": quote,
 }
 
 LiteralIcon = Literal[
@@ -496,6 +526,11 @@ LiteralIcon = Literal[
     "infinity",
     "analytics",
     "globe",
+    "chevron_right",
+    "ai-chat-02",
+    "dollar",
+    "webpage",
+    "arrow_top_right",
 ]
 
 
@@ -507,5 +542,27 @@ def get_icon(icon: LiteralIcon, class_name: str = "", **props) -> rx.Component:
     return rx.html(
         ICONS[icon],
         class_name=f"flex justify-center items-center {class_name}",
+        **props,
+    )
+
+
+def get_icon_var(icon: str, class_name: rx.Var[str] | str = "", **props) -> rx.Var:
+    """Get an icon component.
+
+    Args:
+        icon (str): The name of the icon to retrieve.
+        class_name (str, optional): Additional CSS classes. Defaults to "".
+        **props: Additional properties to pass to the component.
+
+    Returns:
+        rx.Component: The icon component.
+
+    Raises:
+        KeyError: If the icon name is not found in ICONS.
+
+    """
+    return rx.html(
+        rx.Var.create(ICONS)[icon],
+        class_name=class_name,
         **props,
     )

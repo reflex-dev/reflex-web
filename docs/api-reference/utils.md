@@ -9,16 +9,15 @@ Reflex provides utility functions to help with common tasks in your applications
 
 ## run_in_thread
 
-The `run_in_thread` function allows you to run a non-async function in a separate thread, which is useful for preventing long-running operations from blocking the UI event queue.
+The `run_in_thread` function allows you to run a **non-async** function in a separate thread, which is useful for preventing long-running operations from blocking the UI event queue.
 
 ```python
-async def run_in_thread(func: Callable, *, timeout: float | None = None) -> Any
+async def run_in_thread(func: Callable) -> Any
 ```
 
 ### Parameters
 
 - `func`: The non-async function to run in a separate thread.
-- `timeout`: Maximum number of seconds to wait for the function to complete. If `None` (default), wait indefinitely.
 
 ### Returns
 
@@ -27,76 +26,88 @@ async def run_in_thread(func: Callable, *, timeout: float | None = None) -> Any
 ### Raises
 
 - `ValueError`: If the function is an async function.
-- `asyncio.TimeoutError`: If the function execution exceeds the specified timeout.
 
 ### Usage
 
-
 ```python demo exec id=run_in_thread_demo
 import asyncio
+import dataclasses
 import time
 import reflex as rx
 
 
-class RunInThreadState(rx.State):
+def quick_blocking_function():
+    time.sleep(0.5)
+    return "Quick task completed successfully!"
+
+
+def slow_blocking_function():
+    time.sleep(3.0)
+    return "This should never be returned due to timeout!"
+
+
+@dataclasses.dataclass
+class TaskInfo:
     result: str = "No result yet"
     status: str = "Idle"
+
+
+class RunInThreadState(rx.State):
+    tasks: list[TaskInfo] = []
     
     @rx.event(background=True)
     async def run_quick_task(self):
         """Run a quick task that completes within the timeout."""
         async with self:
-            self.status = "Running quick task..."
-        
-        def quick_function():
-            time.sleep(0.5)
-            return "Quick task completed successfully!"
+            task_ix = len(self.tasks)
+            self.tasks.append(TaskInfo(status="Running quick task..."))
+            task_info = self.tasks[task_ix]
         
         try:
-            # Run with a timeout of 2 seconds (more than enough time)
-            result = await rx.run_in_thread(quick_function, timeout=2.0)
+            result = await rx.run_in_thread(quick_blocking_function)
             async with self:
-                self.result = result
-                self.status = "Idle"
+                task_info.result = result
+                task_info.status = "Complete"
         except Exception as e:
             async with self:
-                self.result = f"Error: {str(e)}"
-                self.status = "Idle"
+                task_info.result = f"Error: {str(e)}"
+                task_info.status = "Failed"
     
     @rx.event(background=True)
     async def run_slow_task(self):
         """Run a slow task that exceeds the timeout."""
         async with self:
-            self.status = "Running slow task..."
-        
-        def slow_function():
-            time.sleep(3.0)
-            return "This should never be returned due to timeout!"
+            task_ix = len(self.tasks)
+            self.tasks.append(TaskInfo(status="Running slow task..."))
+            task_info = self.tasks[task_ix]
         
         try:
             # Run with a timeout of 1 second (not enough time)
-            result = await rx.run_in_thread(slow_function, timeout=1.0)
+            result = await asyncio.wait_for(
+                rx.run_in_thread(slow_blocking_function),
+                timeout=1.0,
+            )
             async with self:
-                self.result = result
-                self.status = "Idle"
+                task_info.result = result
+                task_info.status = "Complete"
         except asyncio.TimeoutError:
             async with self:
-                self.result = "Task timed out after 1 second!"
-                self.status = "Idle"
+                # Warning: even though we stopped waiting for the task,
+                # it may still be running in thread
+                task_info.result = "Task timed out after 1 second!"
+                task_info.status = "Timeout"
         except Exception as e:
             async with self:
-                self.result = f"Error: {str(e)}"
-                self.status = "Idle"
+                task_info.result = f"Error: {str(e)}"
+                task_info.status = "Failed"
 
 
 def run_in_thread_example():
     return rx.vstack(
         rx.heading("run_in_thread Example", size="3"),
-        rx.text("Status: ", RunInThreadState.status),
-        rx.text("Result: ", RunInThreadState.result),
         rx.hstack(
             rx.button(
-                "Run Quick Task (completes within timeout)",
+                "Run Quick Task",
                 on_click=RunInThreadState.run_quick_task,
                 color_scheme="green",
             ),
@@ -105,6 +116,18 @@ def run_in_thread_example():
                 on_click=RunInThreadState.run_slow_task,
                 color_scheme="red",
             ),
+        ),
+        rx.vstack(
+            rx.foreach(
+                RunInThreadState.tasks.reverse()[:10],
+                lambda task: rx.hstack(
+                    rx.text(task.status),
+                    rx.spacer(),
+                    rx.text(task.result),
+                ),
+            ),
+            align="start",
+            width="100%",
         ),
         width="100%",
         align_items="start",
@@ -119,7 +142,6 @@ Use `run_in_thread` when you need to:
 1. Execute CPU-bound operations that would otherwise block the event loop
 2. Call synchronous libraries that don't have async equivalents
 3. Prevent long-running operations from blocking UI responsiveness
-4. Set a maximum execution time for potentially slow operations
 
 ### Example: Processing a Large File
 
@@ -132,25 +154,17 @@ class FileProcessingState(rx.State):
     
     @rx.event(background=True)
     async def process_large_file(self):
-        self.progress = "Processing file..."
+        async with self:
+            self.progress = "Processing file..."
         
         def process_file():
             # Simulate processing a large file
             time.sleep(5)
             return "File processed successfully!"
         
-        try:
-            # Set a timeout of 10 seconds
-            result = await rx.run_in_thread(process_file, timeout=10.0)
-            async with self:
-                self.progress = result
-        except asyncio.TimeoutError:
-            async with self:
-                self.progress = "File processing timed out!"
+        # Save the result to a local variable to avoid blocking the event loop.
+        result = await rx.run_in_thread(process_file)
+        async with self:
+            # Then assign the local result to the state while holding the lock.
+            self.progress = result
 ```
-
-### Notes
-
-- The function passed to `run_in_thread` must be a regular (non-async) function.
-- Consider setting appropriate timeouts to prevent indefinite blocking.
-- Handle `asyncio.TimeoutError` exceptions to gracefully manage timeouts.
