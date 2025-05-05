@@ -100,32 +100,27 @@ def features() -> rx.Component:
         grid(),
         rx.box(
             rx.box(
-                # Left column with steps 2 and 4
                 feature_card(
                     "frame",
                     "Submit Your Application",
                     "Provide your basic info to get a unique affiliate link.",
                 ),
-                # step_box("2"),
                 feature_card(
                     "audio-lines",
                     "Track Your Referrals",
                     "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
                 ),
-                # step_box("4"),
                 spacer(),
                 class_name="flex flex-col pt-8 lg:border-r border-slate-3",
             ),
             rx.box(
                 # Right column with steps 1 and 3
                 spacer(),
-                # step_box("1"),
                 feature_card(
                     "share-2",
                     "Share Reflex",
                     "Post your link anywhere—blog posts, social media, email newsletters, even your YouTube channel.",
                 ),
-                # step_box("3"),
                 feature_card(
                     "dollar-sign",
                     "Get Paid",
@@ -139,7 +134,7 @@ def features() -> rx.Component:
             button("Become a Partner", variant="primary", size="xl"),
             href="https://cal.com/forms/09dc3703-39fc-42ec-b03b-8ee32de7590f",
             is_external=True,
-            class_name="p-2 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
+            class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
         ),
         class_name="flex flex-col justify-center items-center max-w-[64.19rem] lg:border-x border-slate-3 w-full mx-auto lg:pb-[5.5rem] pb-4 relative overflow-hidden pt-10",
     )
@@ -149,36 +144,32 @@ def features_small_screen():
     return rx.box(
         rx.box(
             rx.box(
-                # step_box("1"),
                 feature_card(
-                    "backend_db",
+                    "frame",
                     "Submit Your Application",
                     "Provide your basic info to get a unique affiliate link.",
                 ),
                 class_name="flex flex-col",
             ),
             rx.box(
-                # step_box("2"),
                 feature_card(
-                    "backend_auth",
+                    "share-2",
                     "Share Reflex",
                     "Post your link anywhere—blog posts, social media, email newsletters, even your YouTube channel.",
                 ),
                 class_name="flex flex-col",
             ),
             rx.box(
-                # step_box("3"),
                 feature_card(
-                    "infinity",
+                    "audio-lines",
                     "Track Your Referrals",
                     "Log in to your Affiliate Dashboard to see clicks, sign‑ups, and revenue data.",
                 ),
                 class_name="flex flex-col",
             ),
             rx.box(
-                # step_box("4"),
                 feature_card(
-                    "analytics",
+                    "dollar-sign",
                     "Get Paid",
                     "We'll send you 50% of each referred user's subscription revenue for their first six months.",
                 ),
@@ -191,7 +182,7 @@ def features_small_screen():
                 button("Become a Partner", variant="primary", size="xl"),
                 href="https://cal.com/forms/09dc3703-39fc-42ec-b03b-8ee32de7590f",
                 is_external=True,
-                class_name="p-4 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
+                class_name="p-3 border border-slate-3 rounded-[1.375rem] border-solid lg:mt-0 mt-4",
             ),
             class_name="flex items-center justify-center",
         ),
