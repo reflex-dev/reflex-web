@@ -264,6 +264,7 @@ def new_resource_section():
     _company_items = [
         {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
+        {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
     ]
 
     _open_source_items = [
