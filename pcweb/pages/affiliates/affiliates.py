@@ -3,9 +3,9 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar import navbar
 from pcweb.components.webpage.badge import badge
+from pcweb.pages.framework.index_colors import index_colors
+from pcweb.pages.framework.views.footer_index import footer_index
 from pcweb.pages.hosting.views.features import grid
-from pcweb.pages.index.index_colors import index_colors
-from pcweb.pages.index.views.footer_index import footer_index
 
 numbers = {
     "1": """
