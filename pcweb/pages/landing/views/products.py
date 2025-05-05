@@ -18,16 +18,6 @@ def product_card(
 ) -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.image(
-                src=f"/landing/products/light/product_{graphic}.webp",
-                class_name="w-auto pointer-events-none block dark:hidden",
-            ),
-            rx.image(
-                src=f"/landing/products/dark/product_{graphic}.webp",
-                class_name="w-auto pointer-events-none hidden dark:block",
-            ),
-        ),
-        rx.el.div(
             rx.el.span(number),
             rx.el.span(name),
             rx.image(
@@ -53,6 +43,16 @@ def product_card(
                 class_name="flex flex-row gap-2 items-center gap-[0.375rem] mt-4 group",
             ),
             class_name="flex flex-col gap-2 px-10 pb-10 pt-6",
+        ),
+        rx.el.div(
+            rx.image(
+                src=f"/landing/products/light/product_{graphic}.webp",
+                class_name="w-auto pointer-events-none block dark:hidden",
+            ),
+            rx.image(
+                src=f"/landing/products/dark/product_{graphic}.webp",
+                class_name="w-auto pointer-events-none hidden dark:block",
+            ),
         ),
         class_name="flex flex-col divide-y divide-slate-3",
     )

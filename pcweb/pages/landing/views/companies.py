@@ -1,7 +1,12 @@
 import reflex as rx
+from reflex.experimental import ClientStateVar
 from pcweb.components.icons.icons import get_icon
-from pcweb.components.icons.hugeicons import hi
 from pcweb.pages.framework.views.companies import companies as index_companies
+
+company_cs = ClientStateVar.create("company", "")
+area_x_pos = ClientStateVar.create(var_name="area_x_pos", default=0)
+area_y_pos = ClientStateVar.create(var_name="area_y_pos", default=0)
+area_opacity = ClientStateVar.create(var_name="area_opacity", default=0)
 
 companies_list = [
     "apple",
@@ -17,7 +22,6 @@ companies_list = [
     "ford",
     "paloalto",
     "bosch",
-    
     "dell",
     "unicef",
     "nasa",
@@ -28,10 +32,8 @@ companies_case_studies = {
     "dell": {
         "company_name": "Dell",
         "quote": """Reflex has been a game changer. 
-        In just a week, I had a demo up and running, and the performance was excellent. 
-        It made the project feasible for my team, who were mostly from a support background, not development. 
-        Reflex has helped us go from struggling with clunky tools to building a smooth, efficient interface.
-        """,
+        In just a week, I had a demo up and running with excellent performance. 
+        It made the project feasible for my support team, helping us build a smooth, efficient interface.""",
         "person": "JL",
         "picture": "/favicon.ico",
         "role": "Principal Engineer",
@@ -45,6 +47,8 @@ companies_case_studies = {
         "url": "/customers/autodesk",
     },
 }
+
+companies_case_studies_var = rx.Var.create(companies_case_studies)
 
 
 def stat(stat: str, text: str) -> rx.Component:
@@ -63,135 +67,148 @@ def stat(stat: str, text: str) -> rx.Component:
     )
 
 
-def company_card(path: str, name: str) -> rx.Component:
-    if name == "STATS":
-        return rx.box(
-            stat(stat="100K+", text="Apps built with Reflex"),
-            class_name="w-full col-span-2 h-[10.75rem] flex justify-center items-center bg-slate-1 border-box",
-        )
-
-    is_customer = name in companies_case_studies
-    has_case_study = False
-    parent_box_class_name = "h-[10.75rem] w-full relative overflow-hidden flex justify-center items-center bg-slate-1 border-box"
-    image_component = rx.image(
-        src=path,
-        class_name="w-[4.75rem] h-auto pointer-events-none",
-        alt=f"{name} logo",
-    )
-    content_items = [image_component]
-    badge_component = None
-
-    if is_customer:
-        has_case_study = "url" in companies_case_studies[name]
-        parent_box_class_name += " group" + (
-            " cursor-pointer" if has_case_study else ""
-        )
-
-        if has_case_study:
-            # Badge for customers WITH a case study URL
-            badge_text = "Case Study"
-            badge_icon = get_icon(
-                "arrow_top_right",
-                class_name="size-3 rotate-45 group-hover:rotate-0 transition-transform",
-            )
-            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
-            badge_component = rx.box(
-                badge_text,
-                badge_icon,
-                class_name=badge_class_name,
-            )
-        else:
-            badge_text = "Quote"
-            badge_icon = get_icon(
-                "quote",
-                class_name="size-3 group-hover:rotate-0 transition-transform",
-            )
-            badge_class_name = "absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85]"
-            badge_component = rx.box(
-                badge_text,
-                badge_icon,
-                class_name=badge_class_name,
-            )
-
-        content_items.append(badge_component)
-
-    trigger_box = rx.box(
-        *content_items,
-        class_name=parent_box_class_name,
-    )
-
-    if is_customer:
-        case_study = companies_case_studies[name]
-        hover_content = rx.hover_card.content(
+def quote_box(company: str) -> rx.Component:
+    case_study = companies_case_studies_var[company]
+    return rx.fragment(
+        rx.text(
+            f'“{case_study["quote"]}”',
+            class_name="text-sm text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
+        ),
+        rx.box(
+            rx.image(
+                src=case_study["picture"],
+                class_name="size-6 rounded-full",
+            ),
             rx.box(
                 rx.text(
-                    f'“{case_study["quote"]}”',
-                    class_name="text-sm text-slate-12 italic font-medium",
+                    f"{case_study['person']}",
+                    class_name="text-xs text-slate-9 font-medium",
                 ),
-                rx.box(
-                    rx.image(
-                        src=case_study["picture"],
-                        class_name="size-8 rounded-full",
-                    ),
+                rx.text(
+                    case_study["role"],
+                    class_name="text-xs text-slate-9 font-medium",
+                ),
+            ),
+            class_name="flex flex-row items-center gap-2 w-full animate-fade animate-duration-[750ms] animate-fill-both",
+        ),
+    )
+
+
+def case_study_badge() -> rx.Component:
+    return rx.box(
+        rx.text("Case Study", class_name="text-xs text-violet-9 font-semibold"),
+        get_icon(
+            "arrow_top_right",
+            class_name="size-3 group-hover:rotate-0 transition-transform rotate-45",
+        ),
+        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+    )
+
+
+def quote_badge() -> rx.Component:
+    return rx.box(
+        rx.text("Quote", class_name="text-xs text-violet-9 font-semibold"),
+        get_icon("quote", class_name="size-3"),
+        class_name="absolute bottom-4 right-4 bg-violet-3 border border-violet-6 text-violet-9 group-hover:bg-violet-4 group-hover:border-violet-7 text-xs font-semibold px-2 py-1 rounded-full transition-colors flex flex-row items-center gap-1 scale-[0.85] pointer-events-none",
+    )
+
+
+@rx.memo
+def company_card(image: str, name: str, id: str) -> rx.Component:
+    area_x_pos = ClientStateVar.create(
+        var_name="area_x_pos", default=0, global_ref=False
+    )
+    area_y_pos = ClientStateVar.create(
+        var_name="area_y_pos", default=0, global_ref=False
+    )
+    area_opacity = ClientStateVar.create(
+        var_name="area_opacity", default=0, global_ref=False
+    )
+    return rx.box(
+        rx.cond(
+            name == "STATS",
+            rx.box(
+                rx.cond(
+                    companies_case_studies_var.contains(company_cs.value),
+                    quote_box(company_cs.value),
                     rx.box(
-                        rx.text(
-                            f"{case_study['person']}",
-                            class_name="text-sm text-slate-9 font-medium",
-                        ),
-                        rx.text(
-                            case_study["role"],
-                            class_name="text-sm text-slate-9 font-medium",
-                        ),
+                        stat(stat="100K+", text="Apps built with Reflex"),
+                        class_name="animate-fade flex justify-center items-center size-full animate-duration-[750ms] animate-fill-both",
                     ),
-                    rx.box(class_name="grow"),
-                    (
-                        rx.link(
-                            "Read",
-                            get_icon(
-                                "arrow_top_right",
-                                class_name="size-3.5",
-                            ),
-                            href=case_study["url"],
-                            class_name="flex flex-row items-center gap-1.5 font-medium text-sm text-slate-12 underline hover:!text-slate-12 decoration-slate-12",
-                        )
-                        if has_case_study
-                        else None
+                ),
+                class_name="flex flex-col gap-2.5 w-full h-[10.75rem] justify-between bg-slate-1 border-box p-4 overflow-hidden",
+            ),
+            rx.box(
+                rx.image(
+                    src=image,
+                    class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all",
+                    alt=f"{name} logo",
+                ),
+                class_name=(
+                    "w-full h-[10.75rem] flex justify-center items-center bg-slate-1 border-box transition-colors group",
+                    rx.cond(
+                        companies_case_studies_var.contains(name)
+                        & companies_case_studies_var[name].get("url", None),
+                        "cursor-pointer hover:bg-violet-3 dark:hover:bg-violet-1",
+                        "hover:bg-[#fdfdfd78] dark:hover:bg-[#15161863]",
                     ),
-                    class_name="flex flex-row items-center gap-2 w-full",
                 ),
-                class_name="flex flex-col gap-2.5",
+                on_mouse_enter=company_cs.set_value(name),
+                on_mouse_leave=company_cs.set_value(""),
             ),
-            side="top",
-            side_offset=-120,
-            align="center",
-            on_click=rx.cond(
-                has_case_study,
-                rx.redirect(case_study.get("url", "#")),
-                rx.noop(),
+        ),
+        rx.box(
+            aria_hidden=True,
+            style={
+                "border": "2px solid var(--c-violet-6)",
+                "opacity": area_opacity.value,
+                "WebkitMaskImage": f"radial-gradient(circle at {area_x_pos.value}px {area_y_pos.value}px, black 45%, transparent)",
+            },
+            class_name="pointer-events-none absolute left-0 top-0 z-10 h-full w-full border bg-[transparent] opacity-0 transition-opacity duration-500 box-border",
+        ),
+        rx.cond(
+            companies_case_studies_var.contains(name),
+            rx.cond(
+                companies_case_studies_var[name].get("url", None),
+                case_study_badge(),
+                quote_badge(),
             ),
-            class_name="flex justify-center items-center bg-slate-1 p-3 rounded-xl shadow-large border border-slate-5 w-[22rem]"
-            + (
-                " cursor-pointer" if has_case_study else ""
+        ),
+        on_mouse_enter=area_opacity.set_value(1),
+        on_mouse_leave=area_opacity.set_value(0),
+        on_mouse_move=[
+            rx.call_function(
+                area_x_pos.set_value(
+                    rx.Var(
+                        f"event.clientX - document.getElementById({id}).getBoundingClientRect().left"
+                    )
+                )
             ),
-        )
-
-        if has_case_study:
-            return rx.link(
-                rx.hover_card.root(
-                    rx.hover_card.trigger(trigger_box),
-                    hover_content,
-                ),
-                href=case_study.get("url", "#"),
-                is_external=True,
-            )
-        else:
-            return rx.hover_card.root(
-                rx.hover_card.trigger(trigger_box),
-                hover_content,
-            )
-
-    else:
-        return trigger_box
+            rx.call_function(
+                area_y_pos.set_value(
+                    rx.Var(
+                        f"event.clientY - document.getElementById({id}).getBoundingClientRect().top"
+                    )
+                )
+            ),
+        ],
+        ref=id,
+        id=id,
+        class_name=(
+            "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
+            rx.cond(
+                name == "STATS",
+                "col-span-2",
+                "",
+            ),
+        ),
+        on_click=rx.cond(
+            companies_case_studies_var.contains(name)
+            & companies_case_studies_var[name].get("url", None),
+            rx.redirect(companies_case_studies_var[name].get("url", "#")),
+            rx.noop(),
+        ),
+    )
 
 
 def companies() -> rx.Component:
@@ -200,12 +217,13 @@ def companies() -> rx.Component:
         rx.box(
             *[
                 company_card(
-                    f"/landing/companies/{rx.color_mode_cond(light='light', dark='dark')}/{company}.svg",
-                    company,
+                    image=f"/landing/companies/{rx.color_mode_cond(light='light', dark='dark')}/{company}.svg",
+                    name=company,
+                    id=f"landing-company-card-{company}",
                 )
                 for company in companies_list
             ],
-            class_name="lg:grid grid-cols-6 w-full gap-[1px] bg-slate-3 hidden relative",
+            class_name="lg:grid grid-cols-6 w-full hidden relative",
         ),
         rx.el.div(
             index_companies(),
