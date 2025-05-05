@@ -15,7 +15,6 @@ from pcweb.constants import (
     LINKEDIN_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.changelog import changelog
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
@@ -158,7 +157,7 @@ def footer_index() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", changelog.path),
+                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
                 ],
                 class_name="lg:!border-l !border-slate-3 !row-span-2",
             ),

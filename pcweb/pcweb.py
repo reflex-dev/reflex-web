@@ -134,6 +134,7 @@ redirects = [
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
     ("/docs/pages/routes", "/docs/pages/overview"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
+    ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
 ]
 
 for source, target in redirects:

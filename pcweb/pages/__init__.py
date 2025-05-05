@@ -1,7 +1,6 @@
 from pcweb.route import Route
 from .affiliates import affiliates as affiliates
 from .blog import blog_routes
-from .changelog import changelog as changelog
 from .customers.data.customers import customers_routes
 from .customers.data.customers import customers_routes
 from .customers.landing import customers as customers

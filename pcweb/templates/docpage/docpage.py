@@ -167,7 +167,6 @@ def docpage_footer(path: str):
     from pcweb.pages.gallery import gallery
     from pcweb.pages.docs import getting_started, hosting
     from pcweb.pages.docs.library import library
-    from pcweb.pages.changelog import changelog
     from pcweb.pages.blog import blogs
     from pcweb.pages.faq import faq
     from pcweb.pages.errors import errors
@@ -206,7 +205,7 @@ def docpage_footer(path: str):
                         footer_link("Home", "/"),
                         footer_link("Templates", gallery.path),
                         footer_link("Blog", blogs.path),
-                        footer_link("Changelog", changelog.path),
+                        footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
                     ],
                 ),
                 footer_link_flex(
