@@ -18,15 +18,6 @@ def product_card(
 ) -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.el.span(number),
-            rx.el.span(name),
-            rx.image(
-                src=f"/landing/lines/light/lines_{color[0]}.webp",
-                class_name="h-6 w-auto pointer-events-none",
-            ),
-            class_name=f"flex flex-row gap-5 items-center px-3.5 h-10 font-mono text-xs font-medium text-{color[0]}-{color[1]} overflow-hidden",
-        ),
-        rx.el.div(
             rx.el.span(title, class_name="text-slate-12 text-xl font-semibold"),
             rx.el.span(description, class_name="text-slate-9 text-sm font-medium"),
             rx.link(
@@ -43,6 +34,15 @@ def product_card(
                 class_name="flex flex-row gap-2 items-center gap-[0.375rem] mt-4 group",
             ),
             class_name="flex flex-col gap-2 px-10 pb-10 pt-6",
+        ),
+        rx.el.div(
+            rx.el.span(number),
+            rx.el.span(name),
+            rx.image(
+                src=f"/landing/lines/light/lines_{color[0]}.webp",
+                class_name="h-6 w-auto pointer-events-none",
+            ),
+            class_name=f"flex flex-row gap-5 items-center px-3.5 h-10 font-mono text-xs font-medium text-{color[0]}-{color[1]} overflow-hidden",
         ),
         rx.el.div(
             rx.image(
