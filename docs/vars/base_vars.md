@@ -77,15 +77,29 @@ def ticker_example():
 
 ## Backend-only Vars
 
-Any Var in a state class that starts with an underscore is considered backend
-only and will not be synchronized with the frontend. Data associated with a
-specific session that is not directly rendered on the frontend should be stored
-in a backend-only var to reduce network traffic and improve performance.
+Any Var in a state class that starts with an underscore (`_`) is considered backend
+only and will **not be synchronized with the frontend**. Data associated with a
+specific session that is _not directly rendered on the frontend should be stored
+in a backend-only var_ to reduce network traffic and improve performance.
 
 They have the advantage that they don't need to be JSON serializable, however
-they must still be cloudpickle-able to be used with redis in prod mode. They are
-not directly renderable on the frontend, and may be used to store sensitive
-values that should not be sent to the client.
+they must still be pickle-able to be used with redis in prod mode. They are
+not directly renderable on the frontend, and **may be used to store sensitive
+values that should not be sent to the client**.
+
+```md alert warning
+# Protect auth data and sensitive state in backend-only vars.
+
+Regular vars and computed vars should **only** be used for rendering the state
+of your app in the frontend. Having any type of permissions or authenticated state based on
+a regular var presents a security risk as you may assume these have shared control
+with the frontend (client) due to default setter methods.
+
+For improved security, `state_auto_setters=False` may be set in `rxconfig.py`
+to prevent the automatic generation of setters for regular vars, however, the
+client will still be able to locally modify the contents of frontend vars as
+they are presented in the UI.
+```
 
 For example, a backend-only var is used to store a large data structure which is
 then paged to the frontend using cached vars.
