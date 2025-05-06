@@ -15,7 +15,7 @@ With decentralized event handlers, you can:
 
 ## Basic Usage
 
-To create a decentralized event handler, use the `@event` decorator on a function that takes a state instance as its first parameter:
+To create a decentralized event handler, use the `@rx.event` decorator on a function that takes a state instance as its first parameter:
 
 ```python demo exec
 import reflex as rx
