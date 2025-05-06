@@ -18,7 +18,7 @@ We have solutions that currently exist outside of the core framework:
 
 - Store sensitive user tokens and information in [backend-only vars]({vars.base_vars.path}#backend-only-vars).
 - Validate user session and permissions for each event handler that performs an authenticated action and all computed vars or loader events that access private data.
-- All content that is staticly rendered in the frontend (for example, data hardcoded or loaded at compile time in the UI) will be publicly available, even if the page redirects to a login or uses `rx.cond` to hide content.
+- All content that is statically rendered in the frontend (for example, data hardcoded or loaded at compile time in the UI) will be publicly available, even if the page redirects to a login or uses `rx.cond` to hide content.
 - Only data that originates from state can be truly private and protected.
 - When using cookies or local storage, a signed JWT can detect and invalidate any local tampering.
 
