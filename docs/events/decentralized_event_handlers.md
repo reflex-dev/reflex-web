@@ -10,7 +10,6 @@ Decentralized event handlers allow you to define event handlers outside of state
 
 With decentralized event handlers, you can:
 - Organize event handlers by feature rather than by state class
-- Reuse event handlers across multiple state classes
 - Separate UI logic from state management
 - Create more maintainable and scalable applications
 
@@ -88,8 +87,7 @@ Decentralized event handlers are particularly useful in these scenarios:
 
 1. **Large applications** with many event handlers that benefit from better organization
 2. **Feature-based organization** where you want to group related event handlers together
-3. **Shared functionality** where the same event handler logic is used across multiple state classes
-4. **Separation of concerns** when you want to keep state definitions clean and focused
+3. **Separation of concerns** when you want to keep state definitions clean and focused
 
 ### Type Annotations
 
