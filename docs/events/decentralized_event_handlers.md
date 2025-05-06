@@ -18,12 +18,12 @@ With decentralized event handlers, you can:
 To create a decentralized event handler, use the `@event` decorator on a function that takes a state instance as its first parameter:
 
 ```python demo exec
-from reflex import event
+import reflex as rx
 
 class MyState(rx.State):
     count: int = 0
 
-@event
+@rx.event
 def increment(state: MyState, amount: int = 1):
     state.count += amount
 
@@ -62,11 +62,11 @@ class TraditionalState(rx.State):
 rx.button("Increment", on_click=TraditionalState.increment(5))
 
 # Decentralized event handler outside the state class
-class ModernState(rx.State):
+class DecentralizedState(rx.State):
     count: int = 0
 
-@event
-def increment(state: ModernState, amount: int = 1):
+@rx.event
+def increment(state: DecentralizedState, amount: int = 1):
     state.count += amount
 
 # Usage in components
@@ -94,7 +94,7 @@ Decentralized event handlers are particularly useful in these scenarios:
 Always use proper type annotations for your state parameter and any additional parameters:
 
 ```python box
-@event
+@rx.event
 def update_user(state: UserState, name: str, age: int):
     state.name = name
     state.age = age
@@ -119,12 +119,12 @@ Consider these approaches for organizing decentralized event handlers:
 ```python box
 # Example organization in a larger application
 # events/user_events.py
-@event
+@rx.event
 def update_user(state: UserState, name: str, age: int):
     state.name = name
     state.age = age
 
-@event
+@rx.event
 def delete_user(state: UserState):
     state.name = ""
     state.age = 0
@@ -136,13 +136,13 @@ Decentralized event handlers work seamlessly with other Reflex event features:
 
 ```python box
 # Background event
-@event(background=True)
+@rx.event(background=True)
 async def long_running_task(state: AppState):
     # Long-running task implementation
     pass
 
 # Event chaining
-@event
+@rx.event
 def process_form(state: FormState, data: dict):
     # Process form data
     return validate_data  # Chain to another event
