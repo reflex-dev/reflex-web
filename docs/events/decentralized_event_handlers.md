@@ -77,7 +77,7 @@ Key differences:
 - Traditional event handlers use `self` to reference the state instance
 - Decentralized event handlers explicitly take a state instance as the first parameter
 - Both approaches use the same syntax for triggering events in components
-- Both can be decorated with `@rx.event` or `@event` respectively
+- Both can be decorated with `@rx.event` respectively
 
 ## Best Practices
 
