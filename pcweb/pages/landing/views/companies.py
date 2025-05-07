@@ -24,7 +24,7 @@ companies_list = [
     "bosch",
     "dell",
     "twilio",
-    "nasa",
+    "sellerx",
     "nike",
 ]
 
