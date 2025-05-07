@@ -565,17 +565,60 @@ We will use OpenAI's API to give our chatbot some intelligence.
 
 ### Configure the OpenAI API Key
 
-Ensure you have an active OpenAI subscription. Save your API key as an environment variable named `OPENAI_API_KEY`:
+First, ensure you have an active OpenAI subscription.
+Next, install the latest openai package:
+```bash 
+pip install --upgrade openai
+```
 
-    ```bash
-    export OPENAI_API_KEY="your-api-key-here"
-    ```
 
-Install the `openai` pypi package:
+There are two ways to configure your OpenAI API key:
 
-    ```bash
-    pip install openai
-    ```
+Option 1: Environment Variable (Recommended)
+
+Set your API key as an environment variable named OPENAI_API_KEY:
+
+```bash
+export OPENAI_API_KEY="your-api-key-here"
+```     
+
+
+Option 2: Direct Configuration in Code
+
+If you prefer to set it in code, you can update the state.py file to include your API key directly:
+
+```python
+# state.py
+import os
+from openai import AsyncOpenAI
+
+import reflex as rx
+
+# Initialize the OpenAI client
+client = AsyncOpenAI(api_key="YOUR_OPENAI_API_KEY")  # Replace with your actual API key
+
+```
+
+Alternative Setup with Environment Variables
+
+For better security practice, you can modify your state.py to check for environment variables first:
+
+```python
+# state.py
+import os
+from openai import AsyncOpenAI
+
+import reflex as rx
+
+# Initialize the OpenAI client with API key from environment or use default
+api_key = os.environ.get("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY")
+client = AsyncOpenAI(api_key=api_key)
+
+class State(rx.State):
+    # Code continues as above...
+```
+
+
 
 ### Using the API
 
