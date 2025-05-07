@@ -12,19 +12,19 @@ companies_list = [
     "apple",
     "microsoft",
     "amazon",
-    "rappi",
+    "unicef",    
     "accenture",
     "ibm",
     "fastly",
     "autodesk",
     "STATS",
-    "unicef",
+    "sellerx",
     "ford",
     "paloalto",
     "bosch",
     "dell",
     "twilio",
-    "sellerx",
+    "rappi",
     "nike",
 ]
 
@@ -53,6 +53,15 @@ companies_case_studies = {
         "person": "Lakshmi",
         "picture": "/favicon.ico",
         "role": "Data Science Specialist",
+    },
+    "sellerx": {
+        "company_name": "SellerX",
+        "quote": """With Reflex, we're able to ingest 100 GB of data and over 500,000 data points daily, all while developing ten times faster than with React and FastAPI. 
+        The built-in AG Grid functionality seamlessly integrates, making it the perfect solution for handling and visualizing large-scale data efficiently.""",
+        "person": "Mike",
+        "picture": "/favicon.ico",
+        "role": "Head of AI & Automation",
+        "url": "/customers/sellerx",
     },
 }
 
