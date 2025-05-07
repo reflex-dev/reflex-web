@@ -18,12 +18,12 @@ companies_list = [
     "fastly",
     "autodesk",
     "STATS",
-    "twilio",
+    "unicef",
     "ford",
     "paloalto",
     "bosch",
     "dell",
-    "unicef",
+    "twilio",
     "nasa",
     "nike",
 ]
@@ -40,11 +40,19 @@ companies_case_studies = {
     },
     "autodesk": {
         "company_name": "Autodesk",
-        "quote": "One person the can do the job of two with Reflex, so it cut our cost in half.",
+        "quote": "One person can do the job of two with Reflex, so it cut our cost in half. I am able to wear all the caps at once: Solution Architecture, UI/UX, front-end and back-end.",
         "person": "Paolo",
         "picture": "/favicon.ico",
         "role": "Principal Consultant",
         "url": "/customers/autodesk",
+    },
+    "unicef": {
+        "company_name": "Unicef",
+        "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks. 
+        It integrates seamlessly with Microsoft Azure, making deployment and scaling smooth and efficient.""",
+        "person": "Lakshmi",
+        "picture": "/favicon.ico",
+        "role": "Data Science Specialist",
     },
 }
 
@@ -72,7 +80,7 @@ def quote_box(company: str) -> rx.Component:
     return rx.fragment(
         rx.text(
             f'“{case_study["quote"]}”',
-            class_name="text-sm text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
+            class_name="text-xs text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
         ),
         rx.box(
             rx.image(
