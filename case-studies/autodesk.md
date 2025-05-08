@@ -145,7 +145,7 @@ Paolo and his team chose Reflex to develop a production-ready web app fully in P
 ```md quote
 - name: Paolo
 - role: Principal Implementation Consultant
-One person the can do the job of two with Reflex, so it cut our cost in half.
+One person can do the job of two with Reflex, so it cut our cost in half.
 ```
 
 * Rapid prototyping, ensuring faster, more collaborative development
