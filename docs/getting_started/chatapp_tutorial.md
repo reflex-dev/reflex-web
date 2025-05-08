@@ -437,7 +437,7 @@ rx.container(
 ```python
 # chatapp.py
 from chatapp.state import State
-...
+
 
 def chat() -> rx.Component:
     return rx.box(
@@ -447,7 +447,7 @@ def chat() -> rx.Component:
         )
     )
 
-...
+
 
 def action_bar() -> rx.Component:
     return rx.hstack(
@@ -499,7 +499,6 @@ def action_bar() -> rx.Component:
 
 ```python
 # state.py
-
 @rx.event
 def answer(self):
     # Our chatbot is not very smart right now...
@@ -536,7 +535,6 @@ rx.container(
 # state.py
 import asyncio
 
-...
 async def answer(self):
     # Our chatbot is not very smart right now...
     answer = "I don't know!"
@@ -565,60 +563,51 @@ We will use OpenAI's API to give our chatbot some intelligence.
 
 ### Configure the OpenAI API Key
 
-Ensure you have an active OpenAI subscription. Save your API key as an environment variable named `OPENAI_API_KEY`:
+First, ensure you have an active OpenAI subscription.
+Next, install the latest openai package:
+```bash 
+pip install --upgrade openai
+```
 
-    ```bash
-    export OPENAI_API_KEY="your-api-key-here"
-    ```
+Direct Configuration of API in Code
 
-Install the `openai` pypi package:
+Update the state.py file to include your API key directly:
 
-    ```bash
-    pip install openai
-    ```
+```python
+# state.py
+import os
+from openai import AsyncOpenAI
+
+import reflex as rx
+
+# Initialize the OpenAI client
+client = AsyncOpenAI(api_key="YOUR_OPENAI_API_KEY")  # Replace with your actual API key
+
+```
 
 ### Using the API
 
-We need to modify our event handler to send a request to the API.
+Making your chatbot intelligent requires connecting to a language model API. This section explains how to integrate with OpenAI's API to power your chatbot's responses.
 
-```python exec
-def qa(question: str, answer: str) -> rx.Component:
-    return rx.box(
-        rx.box(rx.text(question, style=style.question_style), text_align="right"),
-        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
-        margin_y="1em",
-    )
+1. First, the user types a prompt that is updated via the `on_change` event handler.
+2. Next, when a prompt is ready, the user can choose to submit it by clicking the `Ask` button which in turn triggers the `State.answer` method inside our `state.py` file.
+3. Finally, if the method is triggered, the `prompt` is sent via a request to OpenAI client and returns an answer that we can trim and use to update the chat history! 
 
 
-def chat1() -> rx.Component:
-    return rx.box(
-        rx.foreach(
-            ChatappState.chat_history, lambda messages: qa(messages[0], messages[1])
-        )
-    )
-
-
-def action_bar3() -> rx.Component:
+```python
+# chatapp.py
+def action_bar() -> rx.Component:
     return rx.hstack(
         rx.input(
-            value=ChatappState.question,
+            value=State.question,
             placeholder="Ask a question",
-            on_change=ChatappState.set_question,
-            style=style.input_style,
-        ),
-        rx.button("Ask", on_click=ChatappState.answer4, style=style.button_style),
-    )
-```
+            # on_change event updates the input as the user types a prompt.
+            on_change=State.set_question,
+            style=style.input_style),
 
-```python demo box
-rx.center(
-    rx.vstack(
-        chat1(),
-        action_bar3(),
-        align="center",
-        width="100%",
+        # on_click event triggers the API to send the prompt to OpenAI.
+        rx.button("Ask", on_click=State.answer, style=style.button_style),
     )
-)
 ```
 
 ```python
@@ -665,20 +654,36 @@ Finally, we have our chatbot!
 
 ### Final Code
 
-We wrote all our code in three files, which you can find below.
+This application is a simple, interactive chatbot built with Reflex that leverages OpenAI's API for intelligent responses. The chatbot features a clean interface with streaming responses for a natural conversation experience.
+
+Key Features
+
+1. Real-time streaming responses
+2. Clean, visually distinct chat bubbles for questions and answers
+3. Simple input interface with question field and submit button
+
+Project Structure
+
+Below is the full chatbot code with a commented title that corresponds to the filename.
+
+```text
+chatapp/
+├── chatapp.py    # UI components and app setup
+├── state.py      # State management and API integration
+└── style.py      # Styling definitions
+```
+
+The `chatapp.py` file:
 
 ```python
-# chatapp.py
 import reflex as rx
-
 from chatapp import style
 from chatapp.state import State
 
-
 def qa(question: str, answer: str) -> rx.Component:
     return rx.box(
-        rx.box(rx.text(question, style=style.question_style),text_align="right"),
-        rx.box(rx.text(answer, style=style.answer_style),text_align="left"),
+        rx.box(rx.text(question, style=style.question_style), text_align="right"),
+        rx.box(rx.text(answer, style=style.answer_style), text_align="left"),
         margin_y="1em",
     )
 
@@ -689,7 +694,6 @@ def chat() -> rx.Component:
             lambda messages: qa(messages[0], messages[1]),
         )
     )
-
 
 def action_bar() -> rx.Component:
     return rx.hstack(
@@ -706,7 +710,6 @@ def action_bar() -> rx.Component:
         ),
     )
 
-
 def index() -> rx.Component:
     return rx.center(
         rx.vstack(
@@ -716,66 +719,58 @@ def index() -> rx.Component:
         )
     )
 
-
 app = rx.App()
 app.add_page(index)
 ```
 
+
+The `state.py` file:
+
 ```python
-# state.py
 import os
-
 from openai import AsyncOpenAI
-
 import reflex as rx
 
 class State(rx.State):
-
-    # The current question being asked.
     question: str
-
-    # Keep track of the chat history as a list of (question, answer) tuples.
-    chat_history: list[tuple[str, str]]
+    chat_history: list[tuple[str, str]] = []
 
     async def answer(self):
-        # Our chatbot has some brains now!
         client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
-
+        
+        # Start streaming completion from OpenAI
         session = await client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[\{"role": "user", "content": self.question}],
-            stop=None,
+            messages=[
+                \{"role": "user", "content": self.question}
+            ],    
             temperature=0.7,
             stream=True,
         )
 
-        # Add to the answer as the chatbot responds.
+        # Initialize response and update UI
         answer = ""
         self.chat_history.append((self.question, answer))
-
-        # Clear the question input.
         self.question = ""
-        # Yield here to clear the frontend input before continuing.
         yield
-
+        
+        # Process streaming response
         async for item in session:
             if hasattr(item.choices[0].delta, "content"):
                 if item.choices[0].delta.content is None:
-                    # presence of 'None' indicates the end of the response
                     break
                 answer += item.choices[0].delta.content
-                self.chat_history[-1] = (
-                    self.chat_history[-1][0],
-                    answer,
-                )
+                self.chat_history[-1] = (self.chat_history[-1][0], answer)
                 yield
 ```
 
+
+The `style.py` file:
+
 ```python
-# style.py
 import reflex as rx
 
-# Common styles for questions and answers.
+# Common style base
 shadow = "rgba(0, 0, 0, 0.15) 0px 2px 8px"
 chat_margin = "20%"
 message_style = dict(
@@ -787,7 +782,7 @@ message_style = dict(
     display="inline-block",
 )
 
-# Set specific styles for questions and answers.
+# Styles for questions and answers
 question_style = message_style | dict(
     margin_left=chat_margin,
     background_color=rx.color("gray", 4),
@@ -797,13 +792,11 @@ answer_style = message_style | dict(
     background_color=rx.color("accent", 8),
 )
 
-# Styles for the action bar.
+# Styles for input elements
 input_style = dict(border_width="1px", padding="0.5em", box_shadow=shadow, width="350px")
-button_style = dict(
-    background_color=rx.color("accent", 10), box_shadow=shadow
-)
-
+button_style = dict(background_color=rx.color("accent", 10), box_shadow=shadow)
 ```
+
 
 ### Next Steps
 
