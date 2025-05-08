@@ -14,7 +14,7 @@ class EventArgStateSlider(rx.State):
     value: int = 50
 
     @rx.event
-    def set_end(self, value: list[int]):
+    def set_end(self, value: list[int | float]):
         self.value = value[0]
 
 

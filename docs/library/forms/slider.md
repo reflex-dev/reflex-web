@@ -24,7 +24,7 @@ class SliderState(rx.State):
     value: int = 50
 
     @rx.event
-    def set_end(self, value: list[int]):
+    def set_end(self, value: list[int | float]):
         self.value = value[0]
 
 def slider_intro():
@@ -45,7 +45,7 @@ class RangeSliderState(rx.State):
     value_end: int = 75
 
     @rx.event
-    def set_end(self, value: list[int]):
+    def set_end(self, value: list[int | float]):
         self.value_start = value[0]
         self.value_end = value[1]
 
@@ -77,7 +77,7 @@ class LiveSliderState(rx.State):
     value: int = 50
 
     @rx.event
-    def set_end(self, value: list[int]):
+    def set_end(self, value: list[int | float]):
         self.value = value[0]
 
 def live_slider_intro():

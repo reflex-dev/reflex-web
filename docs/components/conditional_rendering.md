@@ -55,7 +55,7 @@ class PropCondState(rx.State):
     value: int
     
     @rx.event
-    def set_end(self, value: list[int]):
+    def set_end(self, value: list[int | float]):
         self.value = value[0]
 
 

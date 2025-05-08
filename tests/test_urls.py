@@ -50,7 +50,8 @@ def check_urls(repo_dir):
                                 response = requests.head(
                                     url, allow_redirects=False, timeout=5
                                 )
-                                response.raise_for_status()
+                                if response.status_code != 405:
+                                    response.raise_for_status()
                             except requests.RequestException as e:
                                 errors.append(
                                     f"Error accessing URL: {url} in {file_path} | Error: {e}, , Check your path ends with a /"
@@ -61,7 +62,6 @@ def check_urls(repo_dir):
     return errors
 
 
-@pytest.mark.skip(reason="Skip until reflex.dev index route is fixed")
 @pytest.mark.parametrize(
     "repo_dir",
     [Path(__file__).resolve().parent.parent],
