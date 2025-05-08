@@ -283,13 +283,13 @@ class DatabaseTableState(rx.State):
     def sort_values(self, sort_value):
         """Update sort value and reload data."""
         self.sort_value = sort_value
-        yield self.load_entries()
+        yield DatabaseTableState.load_entries()
 
     @rx.event
     def filter_values(self, search_value):
         """Update search value and reload data."""
         self.search_value = search_value
-        yield self.load_entries()
+        yield DatabaseTableState.load_entries()
 
 
 def show_customer(user):
@@ -445,7 +445,72 @@ class Customer(rx.Model, table=True):
     address: str
 ```
 
-```python demo exec
+```python exec
+class DatabaseTableState(rx.State):
+
+    users: list[dict] = []
+
+    @rx.event
+    def load_entries(self):
+        """Get all users from the database."""
+        customers_json = [
+            {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "phone": "555-1234",
+                "address": "123 Main St"
+            },
+            {
+                "name": "Jane Smith",
+                "email": "jane@example.com",
+                "phone": "555-5678",
+                "address": "456 Oak Ave"
+            },
+            {
+                "name": "Bob Johnson",
+                "email": "bob@example.com",
+                "phone": "555-9012",
+                "address": "789 Pine Blvd"
+            },
+            {
+                "name": "Alice Williams",
+                "email": "alice@example.com",
+                "phone": "555-3456",
+                "address": "321 Maple Dr"
+            }
+        ]
+        self.users = customers_json
+
+def show_customer(user: dict):
+    return rx.table.row(
+        rx.table.cell(user["name"]),
+        rx.table.cell(user["email"]),
+        rx.table.cell(user["phone"]),
+        rx.table.cell(user["address"]),
+    )
+
+def loading_data_table_example():
+    return rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell("Name"),
+            rx.table.column_header_cell("Email"),
+            rx.table.column_header_cell("Phone"),
+            rx.table.column_header_cell("Address"),
+        ),
+    ),
+    rx.table.body(rx.foreach(DatabaseTableState.users, show_customer)),
+    on_mount=DatabaseTableState.load_entries,
+    width="100%",
+    margin_bottom="1em",
+)
+```
+
+```python eval
+loading_data_table_example()
+```
+
+```python
 from sqlmodel import select
 
 class DatabaseTableState(rx.State):
@@ -507,7 +572,95 @@ class Customer(rx.Model, table=True):
     address: str
 ```
 
-```python demo exec
+```python exec
+class DatabaseTableState2(rx.State):
+
+    # Mock data to simulate database records
+    _users: list[dict] = [
+        {"name": "John Doe", "email": "john@example.com", "phone": "555-1234", "address": "123 Main St"},
+        {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-5678", "address": "456 Oak Ave"},
+        {"name": "Bob Johnson", "email": "bob@example.com", "phone": "555-9012", "address": "789 Pine Rd"},
+        {"name": "Alice Brown", "email": "alice@example.com", "phone": "555-3456", "address": "321 Maple Dr"},
+        {"name": "Charlie Wilson", "email": "charlie@example.com", "phone": "555-7890", "address": "654 Elm St"},
+        {"name": "Emily Davis", "email": "emily@example.com", "phone": "555-2345", "address": "987 Cedar Ln"},
+    ]
+    
+    users: list[dict] = []
+    sort_value = ""
+    search_value = ""
+
+    @rx.event
+    def load_entries(self):
+        # Start with all users
+        result = self._users.copy()
+        
+        # Apply filtering if search value exists
+        if self.search_value != "":
+            search_term = self.search_value.lower()
+            result = [
+                user for user in result
+                if any(search_term in str(value).lower() for value in user.values())
+            ]
+        
+        # Apply sorting if sort column is selected
+        if self.sort_value != "":
+            result = sorted(result, key=lambda x: x[self.sort_value])
+            
+        self.users = result
+
+    @rx.event
+    def sort_values(self, sort_value):
+        self.sort_value = sort_value
+        yield DatabaseTableState2.load_entries()
+
+    @rx.event
+    def filter_values(self, search_value):
+        self.search_value = search_value
+        yield DatabaseTableState2.load_entries()
+
+
+def show_customer_2(user: dict):
+    return rx.table.row(
+        rx.table.cell(user["name"]),
+        rx.table.cell(user["email"]),
+        rx.table.cell(user["phone"]),
+        rx.table.cell(user["address"]),
+    )
+
+def loading_data_table_example_2():
+    return rx.vstack(
+        rx.select(
+            ["name", "email", "phone", "address"],
+        placeholder="Sort By: Name",
+        on_change= lambda value: DatabaseTableState2.sort_values(value),
+    ),
+    rx.input(
+        placeholder="Search here...",
+        on_change= lambda value: DatabaseTableState2.filter_values(value),
+    ),
+    rx.table.root(
+        rx.table.header(
+            rx.table.row(
+                rx.table.column_header_cell("Name"),
+                rx.table.column_header_cell("Email"),
+                rx.table.column_header_cell("Phone"),
+                rx.table.column_header_cell("Address"),
+            ),
+        ),
+        rx.table.body(rx.foreach(DatabaseTableState2.users, show_customer_2)),
+        on_mount=DatabaseTableState2.load_entries,
+        width="100%",
+    ),
+    width="100%",
+    margin_bottom="1em",
+)
+```
+
+```python eval
+loading_data_table_example_2()
+```
+
+```python
 from sqlmodel import select, asc, or_
 
 
@@ -525,7 +678,7 @@ class DatabaseTableState2(rx.State):
             query = select(Customer)
 
             if self.search_value != "":
-                search_value = f"%{self.search_value.lower()}%"
+                search_value = self.search_value.lower()
                 query = query.where(
                     or_(
                         Customer.name.ilike(search_value),
@@ -605,7 +758,104 @@ The purpose of this code is to retrieve a specific subset of rows from the `Cust
 
 `query.limit(self.limit)` modifies the query to limit the number of rows returned. The maximum number of rows to return is specified by `self.limit`.
 
-```python demo exec
+```python exec
+class DatabaseTableState3(rx.State):
+
+    _mock_data: list[Customer] = [
+        Customer(name="John Doe", email="john@example.com", phone="555-1234", address="123 Main St"),
+        Customer(name="Jane Smith", email="jane@example.com", phone="555-5678", address="456 Oak Ave"),
+        Customer(name="Bob Johnson", email="bob@example.com", phone="555-9012", address="789 Pine Rd"),
+        Customer(name="Alice Brown", email="alice@example.com", phone="555-3456", address="321 Maple Dr"),
+        Customer(name="Charlie Wilson", email="charlie@example.com", phone="555-7890", address="654 Elm St"),
+        Customer(name="Emily Davis", email="emily@example.com", phone="555-2345", address="987 Cedar Ln"),
+    ]
+    users: list[Customer] = []
+
+    total_items: int
+    offset: int = 0
+    limit: int = 3
+
+    @rx.var(cache=True)
+    def page_number(self) -> int:
+        return (
+            (self.offset // self.limit)
+            + 1
+            + (1 if self.offset % self.limit else 0)
+        )
+
+    @rx.var(cache=True)
+    def total_pages(self) -> int:
+        return self.total_items // self.limit + (
+            1 if self.total_items % self.limit else 0
+        )
+
+    @rx.event
+    def prev_page(self):
+        self.offset = max(self.offset - self.limit, 0)
+        self.load_entries()
+
+    @rx.event
+    def next_page(self):
+        if self.offset + self.limit < self.total_items:
+            self.offset += self.limit
+        self.load_entries()
+
+    def _get_total_items(self, session):
+        self.total_items = session.exec(select(func.count(Customer.id))).one()
+
+    @rx.event
+    def load_entries(self):
+        self.users = self._mock_data[self.offset:self.offset + self.limit]
+        self.total_items = len(self._mock_data)
+
+
+def show_customer(user: Customer):
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.phone),
+        rx.table.cell(user.address),
+    )
+
+
+def loading_data_table_example3():
+    return rx.vstack(
+        rx.hstack(
+            rx.button(
+                "Prev",
+                on_click=DatabaseTableState3.prev_page,
+            ),
+            rx.text(
+                f"Page {DatabaseTableState3.page_number} / {DatabaseTableState3.total_pages}"
+            ),
+            rx.button(
+                "Next",
+                on_click=DatabaseTableState3.next_page,
+            ),
+        ),
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(DatabaseTableState3.users, show_customer)),
+            on_mount=DatabaseTableState3.load_entries,
+            width="100%",
+        ),
+        width="100%",
+        margin_bottom="1em",
+    )
+```
+
+```python eval
+loading_data_table_example3()
+```
+
+```python
 from sqlmodel import select, func
 
 
@@ -715,7 +965,104 @@ For the `json` download the `rx.download` is in the frontend code attached to th
 
 For the `csv` download the `rx.download` is in the backend code as an event_handler `download_csv_data`. There is also a helper function `_convert_to_csv` that converts the data in `self.users` to `csv` format.
 
-```python demo exec
+```python exec
+import io
+import csv
+import json
+
+class TableDownloadState(rx.State):
+    _mock_data: list[Customer] = [
+        Customer(name="John Doe", email="john@example.com", phone="555-1234", address="123 Main St"),
+        Customer(name="Jane Smith", email="jane@example.com", phone="555-5678", address="456 Oak Ave"),
+        Customer(name="Bob Johnson", email="bob@example.com", phone="555-9012", address="789 Pine Rd"),
+    ]
+    users: list[Customer] = []
+
+    @rx.event
+    def load_entries(self):
+        self.users = self._mock_data
+
+    def _convert_to_csv(self) -> str:
+        if not self.users:
+            self.load_entries()
+
+        fieldnames = ["id", "name", "email", "phone", "address"] 
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=fieldnames)
+        writer.writeheader()
+        for user in self.users:
+            writer.writerow(user.dict())
+
+        csv_data = output.getvalue()
+        output.close()
+        return csv_data
+
+
+    def _convert_to_json(self) -> str:
+        return json.dumps([u.dict() for u in self._mock_data], indent=2)
+
+    @rx.event
+    def download_csv_data(self):
+        csv_data = self._convert_to_csv()
+        return rx.download(
+            data=csv_data,
+            filename="data.csv",
+        )
+
+    @rx.event
+    def download_json_data(self):
+        json_data = self._convert_to_json()
+        return rx.download(
+            data=json_data,
+            filename="data.json",
+        )
+
+def show_customer(user: Customer):
+    return rx.table.row(
+        rx.table.cell(user.name),
+        rx.table.cell(user.email),
+        rx.table.cell(user.phone),
+        rx.table.cell(user.address),
+    )
+
+def download_data_table_example():
+    return rx.vstack(
+        rx.table.root(
+            rx.table.header(
+                rx.table.row(
+                    rx.table.column_header_cell("Name"),
+                    rx.table.column_header_cell("Email"),
+                    rx.table.column_header_cell("Phone"),
+                    rx.table.column_header_cell("Address"),
+                ),
+            ),
+            rx.table.body(rx.foreach(TableDownloadState.users, show_customer)),
+            width="100%",
+            on_mount=TableDownloadState.load_entries,
+        ),
+        rx.hstack(
+            rx.button(
+                "Download as JSON",
+                on_click=TableDownloadState.download_json_data,
+            ),
+            rx.button(
+                "Download as CSV",
+                on_click=TableDownloadState.download_csv_data,
+            ),
+            spacing="7",
+        ),
+        width="100%",
+        spacing="5",
+        margin_bottom="1em",
+    )
+
+```
+
+```python eval
+download_data_table_example()
+```
+
+```python
 import io
 import csv
 from sqlmodel import select
