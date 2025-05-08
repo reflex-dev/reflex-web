@@ -569,21 +569,9 @@ Next, install the latest openai package:
 pip install --upgrade openai
 ```
 
+Direct Configuration of API in Code
 
-There are two ways to configure your OpenAI API key:
-
-Option 1: Environment Variable (Recommended)
-
-Set your API key as an environment variable named OPENAI_API_KEY:
-
-```bash
-export OPENAI_API_KEY="your-api-key-here"
-```     
-
-
-Option 2: Direct Configuration in Code
-
-If you prefer to set it in code, you can update the state.py file to include your API key directly:
+Update the state.py file to include your API key directly:
 
 ```python
 # state.py
@@ -596,27 +584,6 @@ import reflex as rx
 client = AsyncOpenAI(api_key="YOUR_OPENAI_API_KEY")  # Replace with your actual API key
 
 ```
-
-Alternative Setup with Environment Variables
-
-For better security practice, you can modify your state.py to check for environment variables first:
-
-```python
-# state.py
-import os
-from openai import AsyncOpenAI
-
-import reflex as rx
-
-# Initialize the OpenAI client with API key from environment or use default
-api_key = os.environ.get("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY")
-client = AsyncOpenAI(api_key=api_key)
-
-class State(rx.State):
-    # Code continues as above...
-```
-
-
 
 ### Using the API
 
