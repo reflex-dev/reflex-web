@@ -2,27 +2,46 @@ import reflex as rx
 import httpx
 from pcweb.components.icons.hugeicons import hi
 from pcweb.constants import SCREENSHOT_BUCKET, REFLEX_BUILD_URL, RX_CLOUD_BACKEND
+import asyncio
+import contextlib
+
+TEMPLATES_LIST = [
+    "bbfcc0b8-8f09-4211-884e-7ad2f1a36906",
+    "e6293a74-4a47-44a3-bc1e-8966863feb46",
+    "a7f5bf05-a34a-4b40-a39f-4f6c71ded78f",
+    "dd3a7d49-e174-41d3-8856-cad921a98749",
+    "576aab1d-e733-42fa-a13e-515fd72ba012",
+    "28194790-f5cc-4625-bd30-cf2693890e08",
+    "7e5346b7-025c-4ff3-9b32-c1b9d7afcaec",
+    "2f969644-3140-4dbb-b639-5d0a940603c2",
+    "47f86c01-59ec-4088-b47a-64ceddf58a6e",
+    "98afee02-538f-4334-ab10-f05c1c3d564b",
+]
+
+
+async def retreive_templates():
+    """Fetch and update the TEMPLATES_LIST."""
+    try:
+        while True:
+            with contextlib.suppress(Exception):
+                async with httpx.AsyncClient() as client:
+                    global TEMPLATES_LIST
+                    response = await client.get(
+                        f"{RX_CLOUD_BACKEND}v1/flexgen/templates",
+                    )
+                    response_data = response.json()
+                    if isinstance(response_data, list):
+                        TEMPLATES_LIST = response_data
+
+            await asyncio.sleep(60 * 10)
+    except asyncio.CancelledError:
+        pass
 
 
 class AIBuilderGallery(rx.State):
-    items: list[str] = [
-        "bbfcc0b8-8f09-4211-884e-7ad2f1a36906",
-        "e6293a74-4a47-44a3-bc1e-8966863feb46",
-        "a7f5bf05-a34a-4b40-a39f-4f6c71ded78f",
-        "dd3a7d49-e174-41d3-8856-cad921a98749",
-        "576aab1d-e733-42fa-a13e-515fd72ba012",
-        "28194790-f5cc-4625-bd30-cf2693890e08",
-        "7e5346b7-025c-4ff3-9b32-c1b9d7afcaec",
-        "2f969644-3140-4dbb-b639-5d0a940603c2",
-        "47f86c01-59ec-4088-b47a-64ceddf58a6e",
-        "98afee02-538f-4334-ab10-f05c1c3d564b",
-    ]
-
-    # @rx.event
-    # async def fetch_items(self):
-    #     async with httpx.AsyncClient() as client:
-    #         response = await client.get(f"{RX_CLOUD_BACKEND}v1/flexgen/templates")
-    #         # self.items = response.json()
+    @rx.var(interval=60 * 10)
+    def items(self) -> list[str]:
+        return TEMPLATES_LIST
 
 
 def header() -> rx.Component:
