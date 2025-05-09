@@ -267,7 +267,7 @@ def process_command(command: click.Command, name: str) -> str:
         process(ctx.to_info_dict()["command"], None, name)
 
 
-if find_spec("typer") is not None:
+if find_spec("typer") is not None and find_spec("typer.main") is not None:
     import typer  # pyright: ignore[reportMissingImports]
 
     if isinstance(cli, typer.Typer):
