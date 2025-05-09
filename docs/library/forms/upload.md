@@ -56,14 +56,14 @@ class State(rx.State):
         """
         for file in files:
             upload_data = await file.read()
-            outfile = rx.get_upload_dir() / file.filename
+            outfile = rx.get_upload_dir() / file.name
 
             # Save the file.
             with outfile.open("wb") as file_object:
                 file_object.write(upload_data)
 
             # Update the img var.
-            self.img.append(file.filename)
+            self.img.append(file.name)
 
 
 color = "rgb(107,99,246)"
@@ -121,14 +121,14 @@ class State(rx.State):
         """
         current_file = files[0]
         upload_data = await current_file.read()
-        outfile = rx.get_upload_dir() / current_file.filename
+        outfile = rx.get_upload_dir() / current_file.name
 
         # Save the file.
         with outfile.open("wb") as file_object:
             file_object.write(upload_data)
 
         # Update the video var.
-        self.video = current_file.filename
+        self.video = current_file.name
 
 
 color = "rgb(107,99,246)"
@@ -197,14 +197,14 @@ class State(rx.State):
         """
         for file in files:
             upload_data = await file.read()
-            outfile = rx.get_upload_dir() / file.filename
+            outfile = rx.get_upload_dir() / file.name
 
             # Save the file.
             with outfile.open("wb") as file_object:
                 file_object.write(upload_data)
 
             # Update the img var.
-            self.img.append(file.filename)
+            self.img.append(file.name)
 
 
 color = "rgb(107,99,246)"
