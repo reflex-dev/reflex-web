@@ -35,7 +35,6 @@ def get_sidebar_items_ai_builder_overview():
         create_item(
             "Integrations",
             children=[
-                ai_builder.integrations,
                 ai_builder.integrations.github,
                 ai_builder.integrations.database,
             ],
