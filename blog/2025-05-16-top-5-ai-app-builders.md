@@ -48,10 +48,8 @@ That's why we've reviewed the top AI App Builders, comparing the strengths and w
 
 **Cons**
 
-- Still maturing: some features may require workarounds or custom implementation
-- Smaller ecosystem than older, established frameworks like Django
-
-
+- Product only for Python developers: this is not for javascript developers
+- Not built to create static sites, more geared for interactive data apps
 
 ## Replit Agent
 
