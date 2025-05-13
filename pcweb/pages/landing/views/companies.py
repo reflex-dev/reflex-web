@@ -209,7 +209,6 @@ def company_card(image: str, name: str, id: str) -> rx.Component:
                 )
             ),
         ],
-        ref=id,
         id=id,
         class_name=(
             "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
