@@ -6,7 +6,7 @@ import reflex as rx
 
 from pcweb.components.docpage.navbar.state import NavbarState
 from pcweb.styles.colors import c_color
-from .sidebar_items.ai import ai_builder_overview_items, ai_builder_integrations_items
+from .sidebar_items.ai import ai_builder_overview_items
 from .sidebar_items.component_lib import (
     component_lib,
     graphing_libs,
@@ -219,7 +219,6 @@ append_to_items(
     + graphing_libs
     + recipes
     + ai_builder_overview_items
-    + ai_builder_integrations_items
     + api_reference,
     flat_items,
 )
@@ -348,7 +347,6 @@ def sidebar_comp(
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
-    ai_builder_integrations_index: list[int],
     tutorials_index: list[int],
     width: str = "100%",
 ):
@@ -381,12 +379,6 @@ def sidebar_comp(
                         "/docs/ai-builder/overview/what-is-reflex-build",
                         "bot",
                         0,
-                    ),
-                    sidebar_category(
-                        "Integrations",
-                        "/docs/ai-builder/integrations",
-                        "layout-panel-top",
-                        1,
                     ),
                     class_name="flex flex-col items-start gap-1 w-full list-none",
                 ),
@@ -457,35 +449,16 @@ def sidebar_comp(
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
                 rx.State.router.page.path.startswith("/docs/ai-builder/"),
-                rx.match(  # pyright: ignore [reportCallIssue]
-                    SidebarState.sidebar_index,
-                    (
-                        0,
-                        rx.el.ul(
-                            create_sidebar_section(
-                                "Overview",
-                                ai_builder_pages.overview.what_is_reflex_build.path,
-                                # ai_builder_pages.overview.path,
-                                ai_builder_overview_items,
-                                ai_builder_overview_index,
-                                url,
-                            ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                        ),
+                rx.el.ul(
+                    create_sidebar_section(
+                        "Overview",
+                        ai_builder_pages.overview.what_is_reflex_build.path,
+                        # ai_builder_pages.overview.path,
+                        ai_builder_overview_items,
+                        ai_builder_overview_index,
+                        url,
                     ),
-                    (
-                        1,
-                        rx.el.ul(
-                            create_sidebar_section(
-                                "Integrations",
-                                ai_builder_pages.integrations.path,
-                                ai_builder_integrations_items,
-                                ai_builder_integrations_index,
-                                url,
-                            ),
-                            class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
-                        ),
-                    ),
+                    class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                 ),
                 rx.cond(  # pyright: ignore [reportCallIssue]
                     rx.State.router.page.path.startswith("/docs/"),
@@ -609,7 +582,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
-    ai_builder_integrations_index = calculate_index(ai_builder_integrations_items, url)
 
     return rx.box(
         sidebar_comp(
@@ -623,7 +595,6 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
             ai_builder_overview_index=ai_builder_overview_index,
-            ai_builder_integrations_index=ai_builder_integrations_index,
             cli_ref_index=cli_ref_index,
             #
             width=width,

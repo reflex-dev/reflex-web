@@ -29,15 +29,6 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.prompting.breaking_up_complex_prompts,
             ],
         ),
-    ]
-
-
-def get_sidebar_items_ai_builder_integrations():
-    from pcweb.pages.docs import (
-        ai_builder,
-    )
-
-    return [
         create_item(
             "Integrations",
             children=[
@@ -50,4 +41,3 @@ def get_sidebar_items_ai_builder_integrations():
 
 
 ai_builder_overview_items = get_sidebar_items_ai_builder_overview()
-ai_builder_integrations_items = get_sidebar_items_ai_builder_integrations()
