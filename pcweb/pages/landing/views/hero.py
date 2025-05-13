@@ -62,7 +62,6 @@ def preset_cards(text: str, id: str, icon: str) -> rx.Component:
             },
             class_name="pointer-events-none absolute left-0 top-0 z-10 h-full w-full rounded-[0.625rem] border-[1.5px] bg-[transparent] opacity-0 transition-opacity duration-500 box-border",
         ),
-        ref=id,
         class_name="relative w-full",
     )
 
