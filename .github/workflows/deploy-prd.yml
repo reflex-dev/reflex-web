@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
     # This allows manual triggering of the workflow
 
-
 concurrency:
   group: deploy-prod
   cancel-in-progress: false
@@ -21,16 +20,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.12'
+          python-version: "3.12"
+          activate-environment: true
 
-      - name: Install Requirements
-        run: pip install -r requirements.txt
+      - name: Install the project
+        run: uv sync --locked --no-dev
 
       - name: Update Reflex CLI
-        run: pip install reflex-hosting-cli -U
+        run: uv pip install reflex-hosting-cli -U
 
       - name: Deploy to Reflex
         id: deploy
