@@ -8,6 +8,7 @@ env:
   OPENAI_API_KEY: dummy
   TELEMETRY_ENABLED: false
   REFLEX_DEP: "git+https://github.com/reflex-dev/reflex@main"
+  PYTHONUNBUFFERED: 1
 
 on:
   push:
@@ -33,16 +34,24 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.11.5", "3.12.0"]
+        python-version: ["3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
       - name: Install Requirements for reflex-web and reflex
-        run: |
-          pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt pytest playwright pytest-playwright uvicorn
-          playwright install --with-deps
+        run: uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
+
+      - name: Install Playwright
+        run: playwright install --with-deps
+
+      - name: Initialize reflex
+        run: reflex init
+
       - name: Run unit tests
-        run: |
-          export PYTHONUNBUFFERED=1
-          reflex init
-          pytest tests
+        run: pytest tests
