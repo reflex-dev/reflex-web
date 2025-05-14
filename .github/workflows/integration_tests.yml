@@ -33,10 +33,11 @@ jobs:
           python-version: "3.11"
           activate-environment: true
 
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
       - name: Install Requirements for reflex-web and reflex
-        run: |
-          uv sync
-          uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
+        run: uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
 
       - name: Init Website for reflex-web
         run: reflex init
