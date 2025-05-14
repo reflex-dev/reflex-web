@@ -18,3 +18,7 @@ rx.image(
     padding_bottom="2rem",
 )
 ```
+
+The advised prompt to use is:
+
+`Build an app from a reference image`
