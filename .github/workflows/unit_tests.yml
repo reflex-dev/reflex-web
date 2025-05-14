@@ -49,7 +49,7 @@ jobs:
         run: uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
 
       - name: Install Playwright
-        run: playwright install --with-deps
+        run: uv run playwright install --with-deps
 
       - name: Initialize reflex
         run: reflex init
