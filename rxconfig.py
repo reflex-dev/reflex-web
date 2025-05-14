@@ -9,6 +9,7 @@ config = rx.Config(
         "chakra-react-select",
         "@radix-ui/react-navigation-menu",
     ],
+    show_build_with_reflex=False,
     telemetry_enabled=False,
     tailwind=tw_config,
 )
