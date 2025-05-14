@@ -16,11 +16,11 @@ def get_sidebar_items_ai_builder_overview():
         create_item(
             "Features",
             children=[
+                ai_builder.features.image_as_prompt,
+                ai_builder.features.templates,
                 ai_builder.features.ide,
-                ai_builder.features.image_upload,
                 ai_builder.features.environment_variables,
                 ai_builder.features.installing_external_packages,
-                ai_builder.features.templates,
                 ai_builder.features.download_app,
                 ai_builder.features.deploy_app,
             ],
