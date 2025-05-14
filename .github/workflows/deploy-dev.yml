@@ -26,6 +26,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
+          activate-environment: true
 
       - name: Update Reflex CLI
         run: uv pip install reflex-hosting-cli -U

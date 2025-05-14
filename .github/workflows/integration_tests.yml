@@ -31,6 +31,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.11"
+          activate-environment: true
 
       - name: Install Requirements for reflex-web and reflex
         run: uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
