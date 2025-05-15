@@ -1502,6 +1502,7 @@ dependencies = [
     { name = "reflex-image-zoom" },
     { name = "reflex-pyplot" },
     { name = "replicate" },
+    { name = "requests" },
 ]
 
 [package.dev-dependencies]
@@ -1528,6 +1529,7 @@ requires-dist = [
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
     { name = "reflex-pyplot", specifier = "==0.1.3" },
     { name = "replicate", specifier = "==1.0.6" },
+    { name = "requests", specifier = ">=2.32.3" },
 ]
 
 [package.metadata.requires-dev]
