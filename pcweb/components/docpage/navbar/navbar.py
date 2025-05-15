@@ -9,7 +9,6 @@ from pcweb.constants import (
 )
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
-from pcweb.pages.changelog import changelog
 from pcweb.pages.docs import (
     getting_started,
 )
@@ -262,11 +261,12 @@ def new_resource_section():
     _company_items = [
         {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
+        {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
     ]
 
     _open_source_items = [
         {"label": "Templates", "url": "/templates", "icon": "layout-panel-top"},
-        {"label": "Changelog", "url": changelog.path, "icon": "history"},
+        {"label": "Changelog", "url": "https://github.com/reflex-dev/reflex/releases", "icon": "history"},
         {
             "label": "Contributing",
             "url": "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",

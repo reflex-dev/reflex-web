@@ -2,13 +2,13 @@ name: integration-tests
 
 env:
   TELEMETRY_ENABLED: false
-  NODE_OPTIONS: '--max_old_space_size=8192'
+  NODE_OPTIONS: "--max_old_space_size=8192"
   REFLEX_DEP: "git+https://github.com/reflex-dev/reflex@main"
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       reflex_dep:
@@ -26,12 +26,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v3
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.11' 
+          python-version: "3.11"
+          activate-environment: true
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
       - name: Install Requirements for reflex-web and reflex
-        run: pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}' -r requirements.txt
+        run: uv pip install '${{ github.event.inputs.reflex_dep || env.REFLEX_DEP }}'
+
       - name: Init Website for reflex-web
         run: reflex init
+
       - name: Export the website
         run: reflex export

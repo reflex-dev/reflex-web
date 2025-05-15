@@ -19,3 +19,5 @@ pynecone.db
 reflex.db
 venv/
 .env
+build
+*.egg-info

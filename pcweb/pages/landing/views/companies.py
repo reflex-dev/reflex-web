@@ -12,19 +12,19 @@ companies_list = [
     "apple",
     "microsoft",
     "amazon",
-    "rappi",
+    "unicef",    
     "accenture",
     "ibm",
     "fastly",
     "autodesk",
     "STATS",
-    "twilio",
+    "sellerx",
     "ford",
     "paloalto",
     "bosch",
     "dell",
-    "unicef",
-    "nasa",
+    "twilio",
+    "rappi",
     "nike",
 ]
 
@@ -40,11 +40,28 @@ companies_case_studies = {
     },
     "autodesk": {
         "company_name": "Autodesk",
-        "quote": "One person the can do the job of two with Reflex, so it cut our cost in half.",
+        "quote": "One person can do the job of two with Reflex, so it cut our cost in half. I am able to wear all the caps at once: Solution Architecture, UI/UX, front-end and back-end.",
         "person": "Paolo",
         "picture": "/favicon.ico",
         "role": "Principal Consultant",
         "url": "/customers/autodesk",
+    },
+    # "unicef": {
+    #     "company_name": "Unicef",
+    #     "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks. 
+    #     It integrates seamlessly with Microsoft Azure, making deployment and scaling smooth and efficient.""",
+    #     "person": "Lakshmi",
+    #     "picture": "/favicon.ico",
+    #     "role": "Data Science Specialist",
+    # },
+    "sellerx": {
+        "company_name": "SellerX",
+        "quote": """With Reflex, we're able to ingest 100 GB of data and over 500,000 data points daily, all while developing ten times faster than with React and FastAPI. 
+        The built-in AG Grid functionality seamlessly integrates, making it the perfect solution for handling and visualizing large-scale data efficiently.""",
+        "person": "Mike",
+        "picture": "/favicon.ico",
+        "role": "Head of AI & Automation",
+        "url": "/customers/sellerx",
     },
 }
 
@@ -72,7 +89,7 @@ def quote_box(company: str) -> rx.Component:
     return rx.fragment(
         rx.text(
             f'“{case_study["quote"]}”',
-            class_name="text-sm text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
+            class_name="text-xs text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
         ),
         rx.box(
             rx.image(
@@ -192,7 +209,6 @@ def company_card(image: str, name: str, id: str) -> rx.Component:
                 )
             ),
         ],
-        ref=id,
         id=id,
         class_name=(
             "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
