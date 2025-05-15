@@ -135,6 +135,7 @@ redirects = [
     ("/docs/pages/routes", "/docs/pages/overview"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
+    ("/blog/2025-10-27-top-10-data-visualization-libraries", "/blog/2025-01-27-top-10-data-visualization-libraries")
 ]
 
 for source, target in redirects:

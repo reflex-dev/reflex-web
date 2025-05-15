@@ -10,6 +10,9 @@ concurrency:
   group: deploy-dev
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 env:
   CP_WEB_URL: https://cloud.rxc.app/
   CP_BACKEND_URL: https://cloud-f188e2cd-51fb-4b29-b546-2ce4b9efc5d5.fly.dev/
