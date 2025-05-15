@@ -18,7 +18,7 @@ from .state import FeedbackState
 
 
 def right_sidebar_item_highlight():
-    return """
+    return r"""
    function setupTableOfContentsHighlight() {
     // Delay to ensure DOM is fully loaded
     setTimeout(() => {
