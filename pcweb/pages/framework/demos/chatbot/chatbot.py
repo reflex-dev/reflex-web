@@ -107,17 +107,25 @@ def chatbot() -> rx.Component:
     )
 
 
-chatbot_code = """import reflex as rx
-# pip install reflex-chat
-from reflex_chat import chat, api
-
-def index() -> rx.Component:
-    return rx.container(
-        rx.box(
-            chat(process=api.openai()),
-            height="100vh",
+chatbot_code = """
+rx.box(
+    rx.icon_button("trash", on_click=ChatState.clear_chat),
+    rx.box(
+        rx.auto_scroll(
+            rx.foreach(
+                ChatState.chat_history,
+                lambda messages: qa(messages[0], messages[1]),
+            ),
         ),
-        size="2",
+        rx.form(
+            rx.input(
+                placeholder="Ask me anything",
+                name="question",
+            ),
+            rx.icon_button("arrow-up"),
+            on_submit=TutorialState.submit,
+            reset_on_submit=True
+        ),
     )
-
+)
 """
