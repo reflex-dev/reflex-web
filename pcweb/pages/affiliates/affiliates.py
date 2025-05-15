@@ -11,19 +11,19 @@ from pcweb.pages.hosting.views.features import grid
 meta_tags = [
     {"property": "og:url", "content": "https://reflex.dev/affiliates/"},
     {"property": "og:type", "content": "website"},
-    {"property": "og:title", "content": "Reflex Affiliates · Earn with Python"},
+    {"property": "og:title", "content": "Reflex Affiliates · Earn by sharing Reflex"},
     {
         "property": "og:description",
-        "content": "Join the Reflex affiliate program and earn by sharing the open-source Python web framework.",
+        "content": "Join the Reflex affiliate program and earn rewards today.",
     },
     {"property": "og:image", "content": "/previews/affiliates_preview.png"},
     {"name": "twitter:card", "content": "summary_large_image"},
     {"property": "twitter:domain", "content": "reflex.dev"},
     {"property": "twitter:url", "content": "https://reflex.dev/affiliates/"},
-    {"name": "twitter:title", "content": "Reflex Affiliates · Earn with Python"},
+    {"name": "twitter:title", "content": "Reflex Affiliate Program"},
     {
         "name": "twitter:description",
-        "content": "Join the Reflex affiliate program and earn by sharing the open-source Python web framework.",
+        "content": "Join the Reflex affiliate program and earn rewards today.",
     },
     {"name": "twitter:image", "content": "/previews/affiliates_preview.png"},
 ]
