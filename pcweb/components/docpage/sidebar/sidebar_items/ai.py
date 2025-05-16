@@ -4,13 +4,15 @@ from .item import create_item
 def get_sidebar_items_ai_builder_overview():
     from pcweb.pages.docs import ai_builder
 
+    # !!! leave commented out sidebar items until they are filled out !!!
+
     return [
         create_item(
             "Overview",
             children=[
                 ai_builder.overview.what_is_reflex_build,
-                ai_builder.overview.quickstart,
-                ai_builder.overview.frequently_asked_questions,
+                # ai_builder.overview.quickstart,
+                # ai_builder.overview.frequently_asked_questions,
             ],
         ),
         create_item(
@@ -25,13 +27,13 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.deploy_app,
             ],
         ),
-        create_item(
-            "Prompting Guide",
-            children=[
-                ai_builder.prompting.fixing_errors,
-                ai_builder.prompting.breaking_up_complex_prompts,
-            ],
-        ),
+        # create_item(
+        #     "Prompting Guide",
+        #     children=[
+        #         ai_builder.prompting.fixing_errors,
+        #         ai_builder.prompting.breaking_up_complex_prompts,
+        #     ],
+        # ),
         create_item(
             "Integrations",
             children=[

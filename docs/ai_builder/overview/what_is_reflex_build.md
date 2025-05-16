@@ -224,7 +224,7 @@ def feature_card(feature: dict) -> rx.Component:
                 feature["description"],
                 class_name="text-sm font-regular block align-center px-2",
             ),
-            class_name="flex flex-col p-2",
+            class_name="flex flex-col",
         ),
         class_name="w-full rounded-md",
     )
@@ -233,54 +233,11 @@ def feature_card(feature: dict) -> rx.Component:
 def _docs_features() -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.el.div(
-                rx.el.label("Every Detail Counts", class_name="text-sm font-light"),
-                rx.el.label(
-                    " Crafted for Real Impact", class_name="text-3xl font-bold"
-                ),
-                rx.el.label(
-                    "Reflex Build's features are carefully thought out and built to elevate the experience — no compromises.",
-                    class_name="text-md font-regular",
-                ),
-                class_name="flex flex-col w-full max-w-lg gap-y-1 p-4",
-            ),
-            class_name="flex flex-col gap-y-4 justify-start max-w-lg",
-        ),
-        rx.el.div(
             rx.foreach(LandingState.features, feature_card),
-            class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4",
+            class_name="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4",
         ),
-        class_name="flex flex-col w-full h-full justify-start align-start items-start py-4 gap-x-4 z-[99] px-4",
+        class_name="flex flex-col w-full h-full justify-start align-start items-start py-4 gap-x-4 z-[99]",
     )
-
-
-# def _docs_title_section():
-#     return rx.el.div(
-#         rx.el.label(
-#             "Build Web Apps Faster With Reflex Build",
-#             class_name="text-6xl font-bold text-center max-sm:text-3xl max-sm:text-start",
-#         ),
-#         rx.el.div(
-#             rx.el.label(
-#                 "Create beautiful Python applications with the power of AI.",
-#                 class_name="text-md font-regular text-center max-sm:text-sm max-sm:text-start",
-#             ),
-#             rx.el.label(
-#                 "Build at the speed of thought.",
-#                 class_name="text-md font-regular text-center max-sm:text-sm max-sm:text-start",
-#             ),
-#             class_name="flex flex-col gap-y-0 w-full",
-#         ),
-#         rx.el.div(
-#             rx.el.a(
-#                 "Get Started",
-#                 href="/",
-#                 class_name="no-underline",
-#             ),
-#             class_name="px-4 py-2 bg-purple-5 rounded-md max-sm:w-full text-center text-sm font-bold",
-#         ),
-#         class_name="flex flex-col w-full max-w-3xl justify-center items-center align-center gap-y-4 px-8 py-24 max-sm:py-12 max-sm:gap-y-4 z-[99]",
-#     )
 
 
 def _docs_app_section_features_small_screen(feature: list[str]):
@@ -298,7 +255,7 @@ def _docs_app_section_features_small_screen(feature: list[str]):
             rx.el.label(feature[3], class_name="text-sm font-light cursor-pointer"),
             class_name="flex flex-col px-1 py-2",
         ),
-        class_name="w-full flex flex-col rounded-md p-4 cursor-pointer",
+        class_name="w-full flex flex-col rounded-md cursor-pointer",
     )
 
 
@@ -379,30 +336,15 @@ def _docs_app_sections():
 def _docs_app_sections_small_screen():
     return rx.el.div(
         rx.el.div(
-            rx.el.div(
-                rx.el.label(
-                    "Small details, big impact", class_name="text-sm font-light"
-                ),
-                rx.el.label(
-                    "Made With Exceptional Care", class_name="text-3xl font-bold"
-                ),
-                rx.el.label(
-                    "Every feature in Reflex Build is carefully crafted to set new standards. Mediocre isn't an option.",
-                    class_name="text-md font-regular",
-                ),
-                class_name="flex flex-col w-full md:max-w-lg lg:max-w-lg gap-y-1 p-4",
-            ),
             rx.grid(
                 rx.foreach(
                     feature_images,
                     lambda feature: _docs_app_section_features_small_screen(feature),
                 ),
-                class_name="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 w-full",
+                class_name="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 w-full",
             ),
-            class_name="flex flex-col gap-y-4 justify-start",
+            class_name="flex flex-col gap-y-4 justify-start py-4",
         ),
-        class_name="flex flex-row w-full h-full justify-center align-center items-center p-4 gap-x-4 z-[99]",
-        display=["flex" if i <= 4 else "none" for i in range(6)],
     )
 
 
@@ -415,16 +357,23 @@ screen_normalization = (
     )
 ```
 
+
+## Feature Overview
+
+Reflex Build provides a streamlined interface for building AI applications. The **Project Menu Bar** helps you manage sessions and stored variables, while the **Chat Area** displays real-time prompts, edits, and file generations. The **Application Workspace** organizes your project structure, and the **Code Editor** allows direct, instant code editing. Key actions like deploy and share are accessible via the **Bottom Menu Bar**, and the **Preview Tab** lets you view and interact with your live app at any time.
+
 ```python eval
 rx.el.div(
-    #_docs_title_section(),
-    rx.el.div(_docs_app_sections(), class_name=screen_normalization),
     _docs_app_sections_small_screen(),
-    rx.divider(class_name="opacity-50"),
+)
+```
+
+## Interface Highlights
+
+Reflex Build’s interface is designed for clarity and efficiency. The **Project Menu Bar** helps you manage sessions, apps, and variables. The **Chat Area** shows prompts in action with visual feedback and file generation. In the **Application Workspace**, you can view and organize your project files. The **Code Editor** allows quick, direct edits with instant saving. Use the **Bottom Menu Bar** for key actions like deploy and download. The **Preview Tab** lets you interact with a live version of your app, including refresh and full-screen options.
+
+```python eval
+rx.el.div(
     rx.el.div(_docs_features(), class_name=screen_normalization),
-    #rx.divider(class_name="opacity-50"),
-    #rx.el.div(_docs_app_prompting_strategies(), class_name=screen_normalization),
-    #rx.el.div(landing_patterns(), class_name="h-auto z-[1] overflow-hidden"),
-    #class_name="relative overflow-hidden justify-center align-start items-center gap-y-12 flex flex-col",
 )
 ```
