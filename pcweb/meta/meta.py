@@ -82,3 +82,38 @@ def favicons_links() -> list[rx.Component]:
         rx.el.link(rel="manifest", href="/meta/site.webmanifest"),
         rx.el.link(rel="shortcut icon", href="/favicon.ico"),
     ]
+
+
+def create_meta_tags(title: str, description: str, image: str) -> list[rx.Component]:
+    return [
+        # HTML Meta Tags
+        {"name": "application-name", "content": "Reflex"},
+        {
+            "name": "keywords",
+            "content": "reflex, python, web apps, framework, open source, frontend, backend, full stack",
+        },
+        {
+            "name": "description",
+            "content": description,
+        },
+        # Facebook Meta Tags
+        {"property": "og:url", "content": "https://reflex.dev/"},
+        {"property": "og:type", "content": "website"},
+        {"property": "og:title", "content": title},
+        {
+            "property": "og:description",
+            "content": description,
+        },
+        {"property": "og:image", "content": image},
+        # Twitter Meta Tags
+        {"name": "twitter:card", "content": "summary_large_image"},
+        {"property": "twitter:domain", "content": "reflex.dev"},
+        {"property": "twitter:url", "content": "https://reflex.dev/"},
+        {"name": "twitter:title", "content": title},
+        {
+            "name": "twitter:description",
+            "content": description,
+        },
+        {"name": "twitter:image", "content": image},
+        {"name": "twitter:creator", "content": "@getreflex"},
+    ]
