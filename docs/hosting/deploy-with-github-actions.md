@@ -32,7 +32,7 @@ github_actions_configs = [
         "name": "python_version",
         "description": "The Python version to use for the deployment environment.",
         "required": False,
-        "default": "3.9"
+        "default": "3.12"
     }
 ]
 ```
