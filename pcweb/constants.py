@@ -64,9 +64,7 @@ ANACONDA_SETUP_ENVIRONMENT = "https://docs.anaconda.com/free/navigator/getting-s
 SCREENSHOT_BUCKET = "https://pub-c14a5dcf674640a6b73fded32bad72ca.r2.dev/"
 
 # Reflex Cloud Backend
-RX_CLOUD_BACKEND = os.getenv(
-    "RX_CLOUD_BACKEND", "https://cloud-1e140ead-7b27-4248-961b-a58562714ac0.fly.dev/"
-)
+RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.dev/")
 
 
 # Stats

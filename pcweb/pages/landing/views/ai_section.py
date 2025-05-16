@@ -95,6 +95,5 @@ def ai_section() -> rx.Component:
     return rx.el.section(
         header(),
         gallery(),
-        # on_mount=AIBuilderGallery.fetch_items,
         class_name="flex flex-col mx-auto w-full max-w-[84.19rem]",
     )
