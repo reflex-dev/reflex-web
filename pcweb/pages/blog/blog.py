@@ -4,7 +4,7 @@ from .page import page
 from .paths import blog_data
 from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
-
+from pcweb.meta.meta import create_meta_tags
 
 def first_post_card(meta: dict, path: str) -> rx.Component:
     return rx.link(
@@ -160,7 +160,11 @@ for path, document in blog_data.items():
         title=document.metadata["title"] + " · Reflex Blog",
         description=document.metadata["description"],
         image=document.metadata["image"],
-        meta=document.metadata["meta"],
+        meta=create_meta_tags(
+            title=document.metadata["title"],
+            description=document.metadata["description"],
+            image=document.metadata["image"],
+        ),
     )(lambda doc=document: page(doc, route))
 
     # Add the route to the list of routes.
