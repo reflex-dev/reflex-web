@@ -613,7 +613,7 @@ def docpage(
 
             show_right_sidebar = right_sidebar and len(toc) >= 2
 
-            main_content_width = " lg:w-[60%]" if show_right_sidebar else " lg:w-full"
+            main_content_width = " lg:w-[90%]" if show_right_sidebar else " lg:w-full"
 
             return rx.box(
                 navbar(),
@@ -630,7 +630,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-20 pt-11 sm:pt-0",
+                            class_name="px-0 lg:px-20 pt-0",
                         ),
                         rx.box(
                             rx.el.article(comp),
@@ -644,6 +644,7 @@ def docpage(
                         class_name="h-full w-full" + main_content_width,
                     ),
                     (
+                        # right-hand sidebar
                         rx.el.nav(
                             rx.box(
                                 rx.el.h5(
@@ -713,7 +714,7 @@ def docpage(
                             id="toc-navigation",
                         )
                         if not pseudo_right_bar or show_right_sidebar
-                        else rx.spacer()
+                        else rx.el.div(class_name="hidden")
                     ),
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),
