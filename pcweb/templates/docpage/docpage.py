@@ -17,6 +17,117 @@ from .blocks import *
 from .state import FeedbackState
 
 
+def right_sidebar_item_highlight():
+    return r"""
+   function setupTableOfContentsHighlight() {
+    // Delay to ensure DOM is fully loaded
+    setTimeout(() => {
+        const tocLinks = document.querySelectorAll('#toc-navigation a');
+        const activeClass = 'text-violet-9';
+        const defaultClass = 'text-slate-9';
+
+        function normalizeId(id) {
+            return id.toLowerCase().replace(/\s+/g, '-');
+        }
+
+        function highlightTocLink() {
+            // Get the current hash from the URL
+            const currentHash = window.location.hash.substring(1);
+            
+            // Reset all links
+            tocLinks.forEach(link => {
+                link.classList.remove(activeClass);
+                link.classList.add(defaultClass);
+            });
+
+            // If there's a hash, find and highlight the corresponding link
+            if (currentHash) {
+                const correspondingLink = Array.from(tocLinks).find(link => {
+                    // Extract the ID from the link's href
+                    const linkHash = new URL(link.href).hash.substring(1);
+                    return normalizeId(linkHash) === normalizeId(currentHash);
+                });
+
+                if (correspondingLink) {
+                    correspondingLink.classList.remove(defaultClass);
+                    correspondingLink.classList.add(activeClass);
+                }
+            }
+        }
+
+        // Add click event listeners to TOC links to force highlight
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Remove active class from all links
+                tocLinks.forEach(otherLink => {
+                    otherLink.classList.remove(activeClass);
+                    otherLink.classList.add(defaultClass);
+                });
+
+                // Add active class to clicked link
+                e.target.classList.remove(defaultClass);
+                e.target.classList.add(activeClass);
+            });
+        });
+
+        // Intersection Observer for scroll-based highlighting
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const headerId = entry.target.id;
+                    
+                    // Find corresponding TOC link
+                    const correspondingLink = Array.from(tocLinks).find(link => {
+                        const linkHash = new URL(link.href).hash.substring(1);
+                        return normalizeId(linkHash) === normalizeId(headerId);
+                    });
+
+                    if (correspondingLink) {
+                        // Reset all links
+                        tocLinks.forEach(link => {
+                            link.classList.remove(activeClass);
+                            link.classList.add(defaultClass);
+                        });
+
+                        // Highlight current link
+                        correspondingLink.classList.remove(defaultClass);
+                        correspondingLink.classList.add(activeClass);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe headers
+        const headerSelectors = Array.from(tocLinks).map(link => 
+            new URL(link.href).hash.substring(1)
+        );
+
+        headerSelectors.forEach(selector => {
+            const header = document.getElementById(selector);
+            if (header) {
+                observer.observe(header);
+            }
+        });
+
+        // Initial highlighting
+        highlightTocLink();
+
+        // Handle hash changes
+        window.addEventListener('hashchange', highlightTocLink);
+    }, 100);
+}
+
+// Run the function when the page loads
+setupTableOfContentsHighlight();
+    """
+
+
 def footer_link(text: str, href: str):
     return rx.link(
         text,
@@ -173,6 +284,7 @@ def docpage_footer(path: str):
     from pcweb.constants import ROADMAP_URL, FORUM_URL
     from pcweb.views.footer import newsletter_form, menu_socials
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
+
     return rx.el.footer(
         rx.box(
             rx.box(
@@ -205,7 +317,9 @@ def docpage_footer(path: str):
                         footer_link("Home", "/"),
                         footer_link("Templates", gallery.path),
                         footer_link("Blog", blogs.path),
-                        footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                        footer_link(
+                            "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                        ),
                     ],
                 ),
                 footer_link_flex(
@@ -238,7 +352,7 @@ def docpage_footer(path: str):
                     class_name="flex flex-row justify-between items-center w-full",
                 ),
                 dark_mode_toggle(),
-                class_name="flex flex-col gap-4"
+                class_name="flex flex-col gap-4",
             ),
             class_name="flex flex-col justify-between gap-10 py-6 lg:py-8 w-full",
         ),
@@ -596,6 +710,7 @@ def docpage(
                                 if show_right_sidebar and not pseudo_right_bar
                                 else " hidden"
                             ),
+                            id="toc-navigation",
                         )
                         if not pseudo_right_bar or show_right_sidebar
                         else rx.spacer()
@@ -603,6 +718,7 @@ def docpage(
                     class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
                 ),
                 class_name="flex flex-col justify-center bg-slate-1 w-full",
+                on_mount=rx.call_script(right_sidebar_item_highlight()),
             )
 
         components = path.split("/")

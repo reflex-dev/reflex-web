@@ -47,7 +47,7 @@ We recommend using a virtual environment with Python 3.10 or higher to run this 
 6. Install the dependencies.
 
     ```bash
-    python -m pip install -r requirements.txt
+    python -m pip install .
     ```
 
 7. Run the project.

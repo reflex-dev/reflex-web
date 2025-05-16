@@ -46,14 +46,14 @@ companies_case_studies = {
         "role": "Principal Consultant",
         "url": "/customers/autodesk",
     },
-    "unicef": {
-        "company_name": "Unicef",
-        "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks. 
-        It integrates seamlessly with Microsoft Azure, making deployment and scaling smooth and efficient.""",
-        "person": "Lakshmi",
-        "picture": "/favicon.ico",
-        "role": "Data Science Specialist",
-    },
+    # "unicef": {
+    #     "company_name": "Unicef",
+    #     "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks. 
+    #     It integrates seamlessly with Microsoft Azure, making deployment and scaling smooth and efficient.""",
+    #     "person": "Lakshmi",
+    #     "picture": "/favicon.ico",
+    #     "role": "Data Science Specialist",
+    # },
     "sellerx": {
         "company_name": "SellerX",
         "quote": """With Reflex, we're able to ingest 100 GB of data and over 500,000 data points daily, all while developing ten times faster than with React and FastAPI. 
@@ -209,7 +209,6 @@ def company_card(image: str, name: str, id: str) -> rx.Component:
                 )
             ),
         ],
-        ref=id,
         id=id,
         class_name=(
             "relative w-full after:content[''] after:absolute after:z-[1] after:bg-slate-3 after:left-0 after:top-[-1px] after:w-full after:h-[1px] before:content[''] before:absolute before:z-[1] before:bg-slate-3 before:top-0 before:left-[-1px] before:h-full before:w-[1px] group",
