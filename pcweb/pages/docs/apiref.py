@@ -1,4 +1,5 @@
 import reflex as rx
+from reflex.utils.imports import ImportVar
 from pcweb.templates.docpage import docpage
 
 from .source import Source, generate_docs
@@ -17,6 +18,7 @@ modules = [
     rx.state.StateManager,
     # rx.state.BaseState,
     rx.State,
+    ImportVar,
     rx.Var,
 ]
 
