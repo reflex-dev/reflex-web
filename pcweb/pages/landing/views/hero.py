@@ -1,6 +1,8 @@
+import uuid
+import httpx
 import reflex as rx
 from pcweb.components.icons.icons import get_icon_var
-from pcweb.constants import REFLEX_BUILD_URL
+from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND
 from reflex.experimental import ClientStateVar
 
 textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
@@ -9,11 +11,23 @@ textarea_opacity = ClientStateVar.create(var_name="textarea_opacity", default=0)
 
 
 class SubmitPromptState(rx.State):
-
-    @rx.event
-    def redirect_to_ai_builder(self, form_data: dict):
+    @rx.event(background=True)
+    async def redirect_to_ai_builder(self, form_data: dict):
         if prompt := form_data.get("prompt"):
-            return rx.redirect(f"{REFLEX_BUILD_URL.strip('/')}/?prompt={prompt}")
+            random_uuid = uuid.uuid4()
+
+            with httpx.AsyncClient() as client:
+                await client.post(
+                    RX_BUILD_BACKEND.rstrip("/") + "/prompt",
+                    json={
+                        "prompt": prompt,
+                        "token": str(random_uuid),
+                    },
+                )
+
+            return rx.redirect(
+                REFLEX_BUILD_URL.strip("/") + "/prompt?token={random_uuid!s}"
+            )
 
 
 @rx.memo
