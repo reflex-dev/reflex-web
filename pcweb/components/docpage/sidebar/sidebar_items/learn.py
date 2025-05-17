@@ -91,7 +91,12 @@ def get_sidebar_items_frontend():
             "Wrapping React",
             children=[
                 wrapping_react.overview,
-                wrapping_react.guide,
+                wrapping_react.library_and_tags,
+                wrapping_react.props,
+                wrapping_react.custom_code_and_hooks,
+                wrapping_react.imports_and_styles,
+                wrapping_react.local_packages,
+                wrapping_react.serializers,
                 wrapping_react.example,
                 wrapping_react.more_wrapping_examples,
             ],

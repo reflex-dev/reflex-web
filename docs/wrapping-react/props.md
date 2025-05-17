@@ -1,0 +1,110 @@
+
+When wrapping a React component, you want to define the props that will be accepted by the component.
+This is done by defining the props and annotating them with a `rx.Var`.
+
+Broadly, there are three kinds of props you can encounter when wrapping a React component:
+1. **Simple Props**: These are props that are passed directly to the component. They can be of any type, including strings, numbers, booleans, and even lists or dictionaries.
+2. **Callback Props**: These are props that expect to receive a function. That function will usually be called by the component as a callback. (This is different from event handlers.)
+3. **Component Props**: These are props that expect to receive a components themselves. They can be used to create more complex components by composing them together.
+4. **Event Handlers**: These are props that expect to receive a function that will be called when an event occurs. They are defined as `rx.EventHandler` with a signature function to define the spec of the event.
+
+### Simple Props
+
+Simple props are the most common type of props you will encounter when wrapping a React component. They are passed directly to the component and can be of any type (but most commonly strings, numbers, booleans, and structures).
+
+```python
+class CustomReactType(TypedDict):
+    """Custom React type."""
+
+    # Define the structure of the custom type.
+    prop1: str
+    prop2: int
+    prop3: bool
+
+class SimplePropsComponent(MyBaseComponent):
+    """MyComponent."""
+
+    # Type the props according the component documentation.
+    # props annotated as `string`
+    prop1: rx.Var[str]
+    # props annotated as `number`
+    prop2: rx.Var[int]
+    # props annotated as `boolean`
+    prop3: rx.Var[bool]
+    # props annotated as `string[]`
+    prop4: rx.Var[list[str]]
+    # props annotated as `CustomReactType`
+    props5: rx.Var[CustomReactType]
+```
+
+### Callback Props
+
+Callback props are used to handle events or to pass data back to the parent component. They are defined as `rx.Var` with a type of `FunctionVar` or `Callable`.
+
+```python
+from typing import Callable
+from reflex.vars.function import FunctionVar
+
+class CallbackPropsComponent(MyBaseComponent):
+    """MyComponent."""
+
+    # A callback prop that takes a single argument.
+    callback_props: rx.Var[Callable]
+```
+
+### Component Props
+Some components will occasionally accept other components as props, usually annotated as `ReactNode`. In Reflex, these are defined as `rx.Component`.
+
+```python
+class ComponentPropsComponent(MyBaseComponent):
+    """MyComponent."""
+
+    # A prop that takes a component as an argument.
+    component_props: rx.Var[rx.Component]
+```
+
+### Event Handlers
+Event handlers are props that expect to receive a function that will be called when an event occurs. They are defined as `rx.EventHandler` with a signature function to define the spec of the event.
+
+```python
+from reflex.vars.event_handler import EventHandler
+from reflex.vars.function import FunctionVar
+from reflex.vars.object import ObjectVar
+
+class InputEventType(TypedDict):
+    """Input event type."""
+
+    # Define the structure of the input event.
+    foo: str
+    bar: int
+
+
+def custom_spec(event: ObjectVar[InputEventType]) -> tuple[str, int]:
+    """Custom event spec."""
+    return (
+        event.foo.to(str),
+        event.bar.to(int),
+    )
+
+class EventHandlerComponent(MyBaseComponent):
+    """MyComponent."""
+
+    # An event handler that take no argument.
+    on_event: rx.EventHandler[rx.event.no_args_event_spec]
+
+    # An event handler that takes a single string argument.
+    on_event_with_arg: rx.EventHandler[rx.event.passthrough_event_spec(str)]
+
+    # An event handler specialized for input events, accessing event.target.value from the event.
+    on_input_change: rx.EventHandler[rx.event.input_event]
+
+    # An event handler specialized for key events, accessing event.key from the event and provided modifiers (ctrl, alt, shift, meta).
+    on_key_down: rx.EventHandler[rx.event.key_event]
+
+    # An event handler that takes a custom spec.
+    on_custom_event: rx.EventHandler[custom_spec]
+```
+
+```md alert info
+# Custom event specs have a few use case where they are particularly useful. If the event returns non-serializable data, you can filter them out so the event can be sent to the backend. You can also use them to transform the data before sending it to the backend.
+```
