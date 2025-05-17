@@ -65,7 +65,7 @@ SCREENSHOT_BUCKET = "https://pub-c14a5dcf674640a6b73fded32bad72ca.r2.dev/"
 
 # Reflex Cloud Backend
 RX_CLOUD_BACKEND = os.getenv("RX_CLOUD_BACKEND", "https://cloud-backend.reflex.dev/")
-
+RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.dev/")
 
 # Stats
 GITHUB_STARS = 23000
