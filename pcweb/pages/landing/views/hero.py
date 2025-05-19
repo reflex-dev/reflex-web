@@ -16,7 +16,7 @@ class SubmitPromptState(rx.State):
         if prompt := form_data.get("prompt"):
             random_uuid = uuid.uuid4()
 
-            with httpx.AsyncClient() as client:
+            async with httpx.AsyncClient() as client:
                 await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
                     json={
