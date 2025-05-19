@@ -1,7 +1,12 @@
 from tailwind_radix_map import radix_colors_dict, custom_colors_dict
 
 tw_config = {
-    "plugins": ["@tailwindcss/typography", "tailwindcss-radix", "tailwindcss-animated"],
+    "plugins": [
+        "@tailwindcss/typography",
+        "tailwindcss-radix",
+        "tailwindcss-animated",
+        "tailwind-scrollbar",
+    ],
     "darkMode": "class",
     "theme": {
         "extend": {
@@ -110,9 +115,13 @@ tw_config = {
                     "0%": {"filter": "blur(4px)"},
                     "100%": {"filter": "blur(0)"},
                 },
+                "border": {
+                    "to": {"--border-angle": "360deg"},
+                },
             },
             "animation": {
-                "accordion-down": "accordion-down 0.2s ease-out",
+                "border": "border 3s linear infinite",
+                "" "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "spin": "spin 1s linear infinite",
                 "blur-in": "blur-in 0.15s ease forwards",

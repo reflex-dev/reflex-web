@@ -303,7 +303,7 @@
     }
 
     .mobile-only {
-        @apply flex lg:hidden;
+        @apply lg:hidden flex;
     }
 
     .desktop-only {
@@ -339,23 +339,23 @@
     }
 
     .section-content {
-        @apply flex flex-col justify-center items-center gap-10 mx-auto mb-20 px-4 lg:px-6 w-full max-w-6xl mt-4 pt-24 lg:pt-52;
+        @apply flex flex-col justify-center items-center gap-10 mx-auto mt-4 mb-20 px-4 lg:px-6 pt-24 lg:pt-52 w-full max-w-6xl;
     }
 
     .section-header {
-        @apply flex flex-col justify-center items-start lg:items-center gap-6 w-full text-start lg:text-center;
+        @apply flex flex-col justify-center items-start lg:items-center gap-6 w-full lg:text-center text-start;
     }
 
     .gradient-heading {
-        @apply inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-balance text-center text-transparent;
+        @apply inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-transparent text-center text-balance;
     }
 
     .table-header {
-        @apply font-small text-slate-12 w-auto justify-start pl-4 font-bold;
+        @apply justify-start pl-4 w-auto font-small font-bold text-slate-12;
     }
 
     /* .tab-style {
-        @apply text-slate-9 cursor-pointer hover:text-slate-11 px-2 py-1 text-sm font-medium data-[state='active']:text-violet-9 not-[data-state='active']:text-slate-11;
+        @apply px-2 py-1 font-medium text-slate-9 data-[state='active']:text-violet-9 not-[data-state='active']:text-slate-11 hover:text-slate-11 text-sm cursor-pointer;
     } */
 
     @keyframes enterFromRight {
@@ -491,17 +491,27 @@
     }
 }
 
+@property --border-angle {
+    inherits: false;
+    initial-value: 0deg;
+    syntax: '<angle>';
+}
+
 @layer utilities {
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-          display: none;
-      }
-     /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
-  }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
 
 .v-link {
     /* text-decoration: underline; */
