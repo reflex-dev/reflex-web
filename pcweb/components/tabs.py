@@ -8,18 +8,25 @@ from reflex import Component
 from reflex.components.component import ComponentNamespace
 from reflex.event import EventHandler
 from reflex.vars import Var
+from reflex.utils.imports import ImportVar
 
 
 class BaseUIComponent(Component):
     """Set of content sections to be displayed one at a time."""
 
-    library = "@base-ui-components/react@^1.0.0-alpha.5"
+    lib_dependencies: list[str] = ["@base-ui-components/react@^1.0.0-alpha.8"]
 
 
 class TabsBaseUIComponent(BaseUIComponent):
-    """Tabs component."""
+    library = "@base-ui-components/react/tabs"
 
-    tag = "Tabs"
+    @property
+    def import_var(self):
+        return ImportVar(
+            tag="Tabs",
+            package_path="",
+            install=False,
+        )
 
 
 class TabsRoot(TabsBaseUIComponent):
