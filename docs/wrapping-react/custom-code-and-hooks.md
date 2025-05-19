@@ -95,9 +95,9 @@ export function Div_7178f430b7b371af8a12d8265d65ab9b() {
 
   /* memoized triggers such as on_click, on_change, etc will render here */
 
-    useEffect(() => {
-        console.log("PostTrigger: "+ customHookVariable);
-    }, []);
+  useEffect(() => {
+    console.log("PostTrigger: "+ customHookVariable);
+  }, []);
 
   return jsx("div", \{\});
 }
