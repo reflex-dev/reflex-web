@@ -15,6 +15,11 @@ textarea_opacity = ClientStateVar.create(var_name="textarea_opacity", default=0)
 MAX_FILE_SIZE_MB = 5
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 MAX_IMAGES_COUNT = 5
+prompt_map = {
+    "Use an Image": "Build an app from a reference image",
+    "Chat App": "A chat app hooked up to an LLM",
+    "Landing Page": "SaaS Landing Page for an AI Company",
+}
 
 
 class ImageData(TypedDict):
@@ -35,12 +40,13 @@ class SubmitPromptState(rx.State):
                 await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
                     json={
-                        "prompt": prompt,
+                        "prompt": prompt_map[prompt],
                         "token": str(random_uuid),
                         "images": self.image_data_uris,
                     },
                 )
-
+            async with self:
+                self.reset()
             return rx.redirect(
                 REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
             )
@@ -378,7 +384,7 @@ def prompt_box() -> rx.Component:
             rx.box(
                 preset_image_card(text="Use an Image", id="upload-image-button"),
                 preset_cards(text="Chat App", id="chat-app", icon="ai-chat-02"),
-                preset_cards(text="Dashboard UI", id="dashboard-ui", icon="webpage"),
+                preset_cards(text="Landing Page", id="landing-page", icon="webpage"),
                 class_name="grid grid-cols-1 lg:grid-cols-3 gap-2",
             ),
             class_name="flex flex-col gap-4 w-full",
