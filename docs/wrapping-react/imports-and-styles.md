@@ -40,7 +40,7 @@ Styles are any CSS styles that need to be included in the component. The style w
 class StyledComponent(MyBaseComponent):
     """MyComponent."""
 
-    def add_styles(self) -> list[str]:
+    def add_style(self) -> dict[str, Any] | None:
         """Add styles to the component."""
 
         return rx.Style({

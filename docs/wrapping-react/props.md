@@ -16,25 +16,28 @@ Simple props are the most common type of props you will encounter when wrapping 
 class CustomReactType(TypedDict):
     """Custom React type."""
 
-    # Define the structure of the custom type.
-    prop1: str
-    prop2: int
-    prop3: bool
+    # Define the structure of the custom type to match the Javascript structure.
+    attribute1: str
+    attribute2: bool
+    attribute3: int
 
 class SimplePropsComponent(MyBaseComponent):
     """MyComponent."""
 
     # Type the props according the component documentation.
-    # props annotated as `string`
-    prop1: rx.Var[str]
-    # props annotated as `number`
-    prop2: rx.Var[int]
-    # props annotated as `boolean`
-    prop3: rx.Var[bool]
-    # props annotated as `string[]`
-    prop4: rx.Var[list[str]]
-    # props annotated as `CustomReactType`
-    props5: rx.Var[CustomReactType]
+    
+    prop1: rx.Var[str] # props annotated as `string` in javascript
+    
+    prop2: rx.Var[int] # props annotated as `number` in javascript
+    
+    prop3: rx.Var[bool] # props annotated as `boolean` in javascript
+    
+    prop4: rx.Var[list[str]] # props annotated as `string[]` in javascript
+    
+    props5: rx.Var[CustomReactType] # props annotated as `CustomReactType` in javascript
+
+    # Sometimes a props will accept multiple types. You can use `|` to specify the types.
+    props6: rx.Var[str | bool] # props annotated as `string | boolean` in javascript
 ```
 
 ### Callback Props

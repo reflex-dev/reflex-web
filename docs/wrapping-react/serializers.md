@@ -21,7 +21,7 @@ from plotly.io import to_json
 @rx.serializer
 def serialize_figure(figure: Figure) -> list:
     # Use Plotly's to_json method to convert the figure to a JSON string.
-    return json.loads(str(to_json(figure)))["data"]
+    return json.loads(to_json(figure))["data"]
 ```
 
 We can then define a var of this type as a prop in our component.
