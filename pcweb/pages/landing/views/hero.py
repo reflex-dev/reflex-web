@@ -26,7 +26,7 @@ class SubmitPromptState(rx.State):
                 )
 
             return rx.redirect(
-                REFLEX_BUILD_URL.strip("/") + "/prompt?token={random_uuid!s}"
+                REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
             )
 
 
