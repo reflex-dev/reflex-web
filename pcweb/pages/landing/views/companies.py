@@ -12,10 +12,10 @@ companies_list = [
     "apple",
     "microsoft",
     "amazon",
-    "unicef",    
+    "fastly",    
     "accenture",
     "ibm",
-    "fastly",
+    "unicef",
     "autodesk",
     "STATS",
     "sellerx",
@@ -46,9 +46,16 @@ companies_case_studies = {
         "role": "Principal Consultant",
         "url": "/customers/autodesk",
     },
+    "fastly": {
+        "company_name": "Fastly",
+        "quote": "Migrating our cybersecurity app from Streamlit to Reflex has been excellent. We quickly built a unified interface connecting BigQuery, Salesforce, and PagerDuty for our 15+ team members. The ease of use and rapid development, supported by your responsive team, made it a great experience.",
+        "person": "Emanuele Bonura",
+        "picture": "/favicon.ico",
+        "role": "Senior SOC Engineer",
+    },
     # "unicef": {
     #     "company_name": "Unicef",
-    #     "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks. 
+    #     "quote": """Reflex made it easy to focus on building my app with pure Python and integrate the components I needed without the hassle of learning new front-end frameworks.
     #     It integrates seamlessly with Microsoft Azure, making deployment and scaling smooth and efficient.""",
     #     "person": "Lakshmi",
     #     "picture": "/favicon.ico",
