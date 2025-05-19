@@ -683,7 +683,7 @@ def docpage(
                                                     rx.link(
                                                         text,
                                                         underline="none",
-                                                        class_name="pl-6 font-small text-slate-9 hover:!text-slate-11  transition-color",
+                                                        class_name="pl-6 font-small text-slate-9 hover:!text-slate-11 transition-color",
                                                         href=path
                                                         + "#"
                                                         + text.lower().replace(
@@ -697,7 +697,7 @@ def docpage(
                                     ],
                                     class_name="flex flex-col gap-4 list-none",
                                 ),
-                                class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-scroll",
+                                class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-auto",
                                 style={"width": "inherit"},
                             ),
                             class_name="shrink-0 w-[16%]"
