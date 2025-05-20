@@ -1,3 +1,8 @@
+---
+title: Props - Wrapping React 
+---
+
+# Props
 
 When wrapping a React component, you want to define the props that will be accepted by the component.
 This is done by defining the props and annotating them with a `rx.Var`.
@@ -8,7 +13,7 @@ Broadly, there are three kinds of props you can encounter when wrapping a React 
 3. **Component Props**: These are props that expect to receive a components themselves. They can be used to create more complex components by composing them together.
 4. **Event Handlers**: These are props that expect to receive a function that will be called when an event occurs. They are defined as `rx.EventHandler` with a signature function to define the spec of the event.
 
-### Simple Props
+## Simple Props
 
 Simple props are the most common type of props you will encounter when wrapping a React component. They are passed directly to the component and can be of any type (but most commonly strings, numbers, booleans, and structures).
 
@@ -26,21 +31,27 @@ class SimplePropsComponent(MyBaseComponent):
 
     # Type the props according the component documentation.
     
-    prop1: rx.Var[str] # props annotated as `string` in javascript
+    # props annotated as `string` in javascript
+    prop1: rx.Var[str] 
     
-    prop2: rx.Var[int] # props annotated as `number` in javascript
+    # props annotated as `number` in javascript
+    prop2: rx.Var[int]
     
-    prop3: rx.Var[bool] # props annotated as `boolean` in javascript
+    # props annotated as `boolean` in javascript
+    prop3: rx.Var[bool] 
     
-    prop4: rx.Var[list[str]] # props annotated as `string[]` in javascript
+    # props annotated as `string[]` in javascript
+    prop4: rx.Var[list[str]] 
     
-    props5: rx.Var[CustomReactType] # props annotated as `CustomReactType` in javascript
+    # props annotated as `CustomReactType` in javascript
+    props5: rx.Var[CustomReactType] 
 
     # Sometimes a props will accept multiple types. You can use `|` to specify the types.
-    props6: rx.Var[str | bool] # props annotated as `string | boolean` in javascript
+    # props annotated as `string | boolean` in javascript
+    props6: rx.Var[str | bool] 
 ```
 
-### Callback Props
+## Callback Props
 
 Callback props are used to handle events or to pass data back to the parent component. They are defined as `rx.Var` with a type of `FunctionVar` or `Callable`.
 
@@ -55,7 +66,7 @@ class CallbackPropsComponent(MyBaseComponent):
     callback_props: rx.Var[Callable]
 ```
 
-### Component Props
+## Component Props
 Some components will occasionally accept other components as props, usually annotated as `ReactNode`. In Reflex, these are defined as `rx.Component`.
 
 ```python
@@ -66,7 +77,7 @@ class ComponentPropsComponent(MyBaseComponent):
     component_props: rx.Var[rx.Component]
 ```
 
-### Event Handlers
+## Event Handlers
 Event handlers are props that expect to receive a function that will be called when an event occurs. They are defined as `rx.EventHandler` with a signature function to define the spec of the event.
 
 ```python
