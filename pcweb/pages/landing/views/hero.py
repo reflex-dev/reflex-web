@@ -37,7 +37,7 @@ class SubmitPromptState(rx.State):
             random_uuid = uuid.uuid4()
 
             async with httpx.AsyncClient() as client:
-                await client.post(
+                response = await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
                     json={
                         "prompt": prompt_map[prompt],
@@ -47,8 +47,12 @@ class SubmitPromptState(rx.State):
                 )
             async with self:
                 self.reset()
-            return rx.redirect(
-                REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
+            return (
+                rx.redirect("/")
+                if not response.is_success
+                else rx.redirect(
+                    REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
+                )
             )
 
     @rx.event
