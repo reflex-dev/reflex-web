@@ -24,7 +24,7 @@ rx.image(
 ```
 
 
-## Installing through the `requirements.txt` file
+## Installing through the requirements.txt file
 
 Add the package to the `requirements.txt` file and then save the app. This will install the package in your app's environment and recompile your app.
 
