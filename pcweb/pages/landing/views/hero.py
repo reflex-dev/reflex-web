@@ -40,7 +40,7 @@ class SubmitPromptState(rx.State):
                 response = await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
                     json={
-                        "prompt": prompt_map[prompt],
+                        "prompt": prompt_map.get(prompt, prompt),
                         "token": str(random_uuid),
                         "images": self.image_data_uris,
                     },
