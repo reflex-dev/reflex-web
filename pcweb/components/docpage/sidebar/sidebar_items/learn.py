@@ -99,6 +99,7 @@ def get_sidebar_items_frontend():
                 wrapping_react.serializers,
                 wrapping_react.example,
                 wrapping_react.more_wrapping_examples,
+                wrapping_react.imperative_api,
             ],
         ),
         create_item(
