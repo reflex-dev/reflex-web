@@ -72,7 +72,7 @@ class ElementAPI:
     
     @property
     def _api(self) -> JSAPIVar:
-        return JSAPIVar(f"document.getElementById('{self.element_id}')")
+        return JSAPIVar(f"document.getElementById('\{self.element_id\}')")
     
     def focus(self) -> rx.event.EventSpec:
         """Focus the element."""
@@ -81,7 +81,7 @@ class ElementAPI:
     def scroll_into_view(self, behavior: str = "smooth") -> rx.event.EventSpec:
         """Scroll the element into view."""
         return rx.event.run_script(
-            self._api.scroll_into_view({"behavior": behavior})
+            self._api.scroll_into_view(\{"behavior": behavior\})
         )
 
 # Create and use the API
@@ -154,7 +154,7 @@ Add a method or property to access the JavaScript object through JSAPIVar:
 def _api(self) -> JSAPIVar:
     """Get the JavaScript API object."""
     return JSAPIVar(
-        f"document.getElementById('{self.element_id}')"
+        f"document.getElementById('\{self.element_id\}')"
     )
 ```
 
@@ -170,7 +170,7 @@ def focus(self) -> rx.event.EventSpec:
 def scroll_into_view(self, behavior: str = "smooth") -> rx.event.EventSpec:
     """Scroll the element into view."""
     return rx.event.run_script(
-        self._api.scroll_into_view({"behavior": behavior})
+        self._api.scroll_into_view(\{"behavior": behavior\})
     )
 
 def set_attribute(self, name: str, value: str) -> rx.event.EventSpec:
