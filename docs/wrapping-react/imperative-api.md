@@ -49,12 +49,14 @@ When you create a `JSAPIVar`, you're effectively creating a reference to a JavaS
 Here's a simple example showing how to use JSAPIVar to access a JavaScript object's methods:
 
 ```python
+from reflex_enterprise.vars import JSAPIVar
+
 # Create a JSAPIVar that points to a JavaScript object
 my_api_var = JSAPIVar("document.getElementById('my-element')")  # JavaScript expression to access the object
 
 # Call methods on the JavaScript object
 # Python snake_case is automatically converted to JavaScript camelCase
-result = my_api_var.get_bounding_client_rect()  # Calls getBoundingClientRect() in JS
+rx.button("Get Bounding Rect", on_click=my_api_var.get_bounding_client_rect())  # Calls getBoundingClientRect() in JS
 
 # Pass parameters to methods
 my_api_var.set_attribute("aria-label", "Example")  # Calls setAttribute() in JS
@@ -67,12 +69,11 @@ For a more structured approach, you can wrap JSAPIVar in a class:
 class ElementAPI:
     """Wrapper for DOM element API methods."""
     
-    def __init__(self, element_id: str):
-        self.element_id = element_id
+    element_id: str
     
     @property
     def _api(self) -> JSAPIVar:
-        return JSAPIVar(f"document.getElementById('\{self.element_id\}')")
+        return JSAPIVar(f"document.getElementById('\{self.element_id}')")
     
     def focus(self) -> rx.event.EventSpec:
         """Focus the element."""
@@ -81,7 +82,7 @@ class ElementAPI:
     def scroll_into_view(self, behavior: str = "smooth") -> rx.event.EventSpec:
         """Scroll the element into view."""
         return rx.event.run_script(
-            self._api.scroll_into_view(\{"behavior": behavior\})
+            self._api.scroll_into_view(\{"behavior": behavior})
         )
 
 # Create and use the API
@@ -147,14 +148,15 @@ class ElementAPI:
 
 ### 2. Create a JSAPIVar Reference
 
-Add a method or property to access the JavaScript object through JSAPIVar:
+Define an api property that will create the `JSAPIVar` instance.
+This property serve as the effective link between your Python API and the JavaScript object: 
 
 ```python
 @property
 def _api(self) -> JSAPIVar:
     """Get the JavaScript API object."""
     return JSAPIVar(
-        f"document.getElementById('\{self.element_id\}')"
+        f"document.getElementById('\{self.element_id}')"
     )
 ```
 
@@ -170,7 +172,7 @@ def focus(self) -> rx.event.EventSpec:
 def scroll_into_view(self, behavior: str = "smooth") -> rx.event.EventSpec:
     """Scroll the element into view."""
     return rx.event.run_script(
-        self._api.scroll_into_view(\{"behavior": behavior\})
+        self._api.scroll_into_view(\{"behavior": behavior})
     )
 
 def set_attribute(self, name: str, value: str) -> rx.event.EventSpec:
@@ -180,9 +182,9 @@ def set_attribute(self, name: str, value: str) -> rx.event.EventSpec:
     )
 ```
 
-### 4. Create a Factory Method (Optional)
+### 4. Define the Create Method (Optional)
 
-For convenience, you might add a class method to create instances:
+For convenience, you might add a class method to create instance of your API:
 
 ```python
 @classmethod
@@ -191,6 +193,9 @@ def create(cls, element_id: str) -> "ElementAPI":
     return cls(element_id=element_id)
 ```
 
+This is only needed if you need to apply some operations on the initial value provided to the API at creation time.
+The above example is a simple case where the `element_id` is stored as-is, so it could be skipped.
+
 ### 5. Use the API in Your Components
 
 Now you can use the API in your Reflex components:
@@ -198,28 +203,16 @@ Now you can use the API in your Reflex components:
 ```python
 def index() -> rx.Component:
     # Create an API instance for a specific element
-    input_api = ElementAPI.create("my-input")
+    input_api = ElementAPI.create("my-input") # or ElementAPI("my-input") if you didn't define the create method
     
     return rx.box(
         rx.input(id="my-input", placeholder="Type here..."),
         rx.hstack(
             rx.button("Focus Input", on_click=input_api.focus()),
-            rx.button("Scroll to Input", on_click=input_api.scroll_into_view()),
+            rx.button("Scroll to Input", on_click=input_api.scroll_into_view("auto")),
         ),
     )
 ```
-
-### Key Implementation Considerations
-
-When implementing your own API wrapper:
-
-1. **Naming Conventions**: Remember that snake_case method names in Python are automatically converted to camelCase in JavaScript.
-
-2. **Type Safety**: Consider adding proper type annotations to your API methods for better IDE support and documentation.
-
-3. **Error Handling**: JavaScript errors don't automatically propagate back to Python, so consider adding error handling in your component.
-
-4. **Performance**: API calls create events - avoid creating them in render methods or frequently called code paths.
 
 This pattern can be adapted for any JavaScript library or component, from simple DOM manipulations to complex third-party libraries.
 
