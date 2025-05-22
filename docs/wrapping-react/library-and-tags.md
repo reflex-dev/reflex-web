@@ -29,6 +29,8 @@ This is when we will define the most important attributes of the component:
 4. **lib_dependencies**: Any additional libraries needed to use the component.
 5. **is_default**: (Optional) If the component is a default export from the module, set this to `True`. Default is `False`.
 
+Optionally, you can override the default component creation behavior by implementing the `create` class method. Most components won't need this when props are straightforward conversions from Python to JavaScript. However, this is useful when you need to add custom initialization logic, transform props, or handle special cases when the component is created.
+
 ```md alert warning
 # When setting the `library` attribute, it is recommended to included a pinned version of the package. Doing so, the package will only change when you intentionally update the version, avoid unexpected breaking changes.
 ```
@@ -51,6 +53,21 @@ class MyBaseComponent(rx.Component):
 
     # If the component is a default export from the module, set this to True.
     is_default = True/False
+
+    @classmethod
+    def create(cls, *children, **props):
+        """Create an instance of MyBaseComponent.
+        
+        Args:
+            *children: The children of the component.
+            **props: The props of the component.
+            
+        Returns:
+            The component instance.
+        """
+        # Your custom creation logic here
+        return super().create(*children, **props)
+
 ```
 
 # Wrapping a Dynamic Component 
