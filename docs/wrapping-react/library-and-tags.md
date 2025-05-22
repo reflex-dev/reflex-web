@@ -158,7 +158,7 @@ from reflex.vars.function import FunctionStringVar
         # Apply the parsing function to the props
         if (prop_to_parse := props.get("propsToParse")) is not None:
             if isinstance(prop_to_parse, Var):
-                props["propsToParse"] = FunctionStringVar("myParsingFunction").call(prop_to_parse)
+                props["propsToParse"] = FunctionStringVar.create("myParsingFunction").call(prop_to_parse)
             else:
                 # This is not a state Var, so you can parse the value directly in python
                 parsed_prop = python_parsing_function(prop_to_parse)
