@@ -114,3 +114,55 @@ The reason for this is that it does not make sense for your server to render the
 
 In addition, if in the component documentation it mentions nextJS compatibility or server side rendering compatibility, it is a good sign that it requires dynamic imports.
 
+# Advanced - Parsing a state Var with a JS Function
+When wrapping a component, you may need to parse a state var by applying a JS function to it. 
+
+## Define the parsing function
+
+First you need to define the parsing function by writing it in `add_custom_code`.
+
+```python
+
+def add_custom_code(self) -> list[str]:
+    """Add custom code to the component."""
+    # Define the parsing function
+    return [
+        """
+        function myParsingFunction(inputProp) {
+            // Your parsing logic here
+            return parsedProp;
+        }"""
+    ]
+```
+
+## Apply the parsing function to your props
+
+Then, you can apply the parsing function to your props in the `create` method. 
+
+```python
+from reflex.vars.base import Var
+from reflex.vars.function import FunctionStringVar
+
+    ...
+    @classmethod
+    def create(cls, *children, **props):
+        """Create an instance of MyBaseComponent.
+        
+        Args:
+            *children: The children of the component.
+            **props: The props of the component.
+            
+        Returns:
+            The component instance.
+        """
+        # Apply the parsing function to the props
+        if (prop_to_parse := props.get("propsToParse")) is not None:
+            if isinstance(prop_to_parse, Var):
+                props["propsToParse"] = FunctionStringVar("myParsingFunction").call(prop_to_parse)
+            else:
+                # This is not a state Var, so you can parse the value directly in python
+                parsed_prop = python_parsing_function(prop_to_parse)
+                props["propsToParse"] = parsed_prop
+        return super().create(*children, **props)
+    ...
+```
