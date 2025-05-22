@@ -14,11 +14,9 @@ There are two ways to find a component to wrap:
 
 In both cases, the process of wrapping the component is the same except for the `library` field.
 
-In this guide we are wrapping the `HexColorPicker` component from the [react-colorful](https://www.npmjs.com/package/react-colorful) library.
-
 # Wrapping the Component
 
-When wrapping a React component, the first step is to create a new component in your Reflex app. This is done by creating a new class that inherits from `rx.Component` or `rx.NoSSRComponent`. 
+To start wrapping your React component, the first step is to create a new component in your Reflex app. This is done by creating a new class that inherits from `rx.Component` or `rx.NoSSRComponent`. 
 
 See the [API Reference]({api_reference.component.path}) for more details on the `rx.Component` class.
 
