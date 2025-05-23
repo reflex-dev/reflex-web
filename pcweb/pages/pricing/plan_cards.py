@@ -311,7 +311,7 @@ def plan_cards() -> rx.Component:
                 ("lock-keyhole", "One Click Auth"),
                 ("file-badge", "AG Grid with no Reflex Branding"),
                 ("mail", "Email support"),
-                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Team-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when hosting their apps on Reflex Cloud"),
+                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Team-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when self-hosting their apps."),
                 ("circle-plus", "Everything in Pro"),
             ],
             "Start with Team plan",
