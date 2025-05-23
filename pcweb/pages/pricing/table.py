@@ -40,7 +40,7 @@ PRICE_SECTION = [
 
 FRAMEWORK_SECTION = [
     ("Open Source Framework", True, True, True, True),
-    ("AG Grid *", True, True, True, True),
+    ("Enterprise Components (AG Grid) *", True, True, True, True),
     ("One Click Auth", False, False, True, True),
     ("Single Port Deploy", False, False, True, True),
     ("HTTP Fallback for Websockets", False, False, True, True),
