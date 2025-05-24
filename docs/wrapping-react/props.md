@@ -17,6 +17,8 @@ Broadly, there are three kinds of props you can encounter when wrapping a React 
 
 Simple props are the most common type of props you will encounter when wrapping a React component. They are passed directly to the component and can be of any type (but most commonly strings, numbers, booleans, and structures).
 
+For custom types, you can use `TypedDict` to define the structure of the custom types. However, if you need the attributes to be automatically converted to camelCase once compiled in JS, you can use `rx.PropsBase` instead of `TypedDict`.
+
 ```python
 class CustomReactType(TypedDict):
     """Custom React type."""
@@ -25,6 +27,15 @@ class CustomReactType(TypedDict):
     attribute1: str
     attribute2: bool
     attribute3: int
+
+
+class CustomReactType2(rx.PropsBase):
+    """Custom React type."""
+
+    # Define the structure of the custom type to match the Javascript structure.
+    attr_foo: str # will be attrFoo in JS
+    attr_bar: bool # will be attrBar in JS
+    attr_baz: int # will be attrBaz in JS
 
 class SimplePropsComponent(MyBaseComponent):
     """MyComponent."""
@@ -46,9 +57,12 @@ class SimplePropsComponent(MyBaseComponent):
     # props annotated as `CustomReactType` in javascript
     props5: rx.Var[CustomReactType] 
 
+    # props annotated as `CustomReactType2` in javascript
+    props6: rx.Var[CustomReactType2]
+
     # Sometimes a props will accept multiple types. You can use `|` to specify the types.
     # props annotated as `string | boolean` in javascript
-    props6: rx.Var[str | bool] 
+    props7: rx.Var[str | bool] 
 ```
 
 ## Callback Props
@@ -92,13 +106,29 @@ class InputEventType(TypedDict):
     foo: str
     bar: int
 
+class OutputEventType(TypedDict):
+    """Output event type."""
 
-def custom_spec(event: ObjectVar[InputEventType]) -> tuple[str, int]:
-    """Custom event spec."""
+    # Define the structure of the output event.
+    baz: str
+    qux: int
+
+
+def custom_spec1(event: ObjectVar[InputEventType]) -> tuple[str, int]:
+    """Custom event spec using ObjectVar with custom type as input and tuple as output."""
     return (
         event.foo.to(str),
         event.bar.to(int),
     )
+
+def custom_spec2(event: ObjectVar[dict]) -> tuple[Var[OutputEventType]]:
+    """Custom event spec using ObjectVar with dict as input and custom type as output."""
+    return Var.create(
+        {
+            "baz": event["foo"],
+            "qux": event["bar"],
+        },
+    ).to(OutputEventType)
 
 class EventHandlerComponent(MyBaseComponent):
     """MyComponent."""
@@ -115,8 +145,11 @@ class EventHandlerComponent(MyBaseComponent):
     # An event handler specialized for key events, accessing event.key from the event and provided modifiers (ctrl, alt, shift, meta).
     on_key_down: rx.EventHandler[rx.event.key_event]
 
-    # An event handler that takes a custom spec.
-    on_custom_event: rx.EventHandler[custom_spec]
+    # An event handler that takes a custom spec. (Event handler must expect a tuple of two values [str and int])
+    on_custom_event: rx.EventHandler[custom_spec1]
+
+    # Another event handler that takes a custom spec. (Event handler must expect a tuple of one value, being a OutputEventType)
+    on_custom_event2: rx.EventHandler[custom_spec2]
 ```
 
 ```md alert info
