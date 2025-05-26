@@ -1,5 +1,12 @@
 # What Is Reflex Build
 
+<div class="p-1 my-4 rounded-lg bg-slate-5">
+  <video controls width="100%">
+  <source src="/build_intro.mov" type="video/quicktime">
+  Your browser does not support the video tag.
+  </video>
+</div>
+
 Reflex Build is an AI-powered platform that empowers users of all skill levels to create full-stack web applications
 without writing any code—just by describing their ideas in plain English. Instead of hiring developers, users can
 instantly generate web apps or websites, turning ideas into functional apps as quickly as possible.
