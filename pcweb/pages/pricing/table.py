@@ -58,61 +58,92 @@ AI_TEXT_SECTION = [
 ]
 
 AI_BOOLEAN_SECTION = [
-    ("Purchase Extra AI Credits", False, True, True, True),
+    ("Prompt to App", True, True, True, True),
+    ("Image to App", True, True, True, True),
+    ("Web IDE", True, True, True, True),
+    ("Custom User Rules", True, True, True, True),
     ("One Click Cloud Deploy", True, True, True, True),
     ("Github Integration", True, True, True, True),
     ("Database Integration", True, True, True, True),
     ("Secrets Integration", True, True, True, True),
-    ("Web IDE", True, True, True, True),
+    ("Purchase Extra AI Credits", False, True, True, True),
     ("Private Apps", False, True, True, True),
     ("Connect AI Builder to your Data Sources", False, False, True, True),
     ("Bring your own API Keys", False, False, False, True),
 ]
 
+ASTERIX_SECTION_ENTERPRISE = [
+    (
+        "* Enterprise components that come with a 'Built with Reflex' badge for Hobby and Pro tier.",
+        "",
+        "",
+        "",
+        "",
+    ),
+    ("", "", "", "", ""),
+]
+
+
+REFLEX_ENTERPRISE_BOOLEAN_SECTION = [
+    ("AG Grid *",True, True, True, True),
+    ("AG Charts *",True, True, True, False),
+    ("Map Component *",True, True, False, False),
+    ("Drag and Drop Component *",True, True, False, False),
+    ("Single Port Deploy",False, False, True, True),
+    ("HTTP Fallback for Websockets",False, False, False, True),
+    ("Custom NPM Registry",False, False, False, True),
+    ("One Click Auth",False, False, True, True),
+]
 
 HOSTING_TEXT_SECTION = [
     (
         "Compute",
         "20 hours/month",
-        "$10 compute credits/month",
+        "$10 credits/month",
         "$20 compute credits/user/month",
         "Custom",
     ),
-    ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
     ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
     ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
 ]
 
 HOSTING_BOOLEAN_SECTION = [
+    ("Multiple Regions", False, True, True, True),
     ("CPU / Memory Metrics", True, True, True, True),
-    ("CLI Deployments", True, True, True, True),
-    ("CI/CD Deploy Tokens", True, True, True, True),
-    ("Set Billing Limits", True, True, True, True),
-    ("Custom Domains", False, True, True, True),
-    ("Secret Manager", False, True, True, True),
     ("User Analytics", False, False, True, True),
+    ("On Premise Deployments", False, False, False, True),
+    ("Custom Domains", False, True, True, True),
+
+    # ... the following were not in the notion docs
+    # ("CLI Deployments", True, True, True, True),
+    # ("CI/CD Deploy Tokens", True, True, True, True),
+    # ("Set Billing Limits", True, True, True, True),
+]
+
+FEATURES_SECTION = [
+    ("Secrets", False, True, True, True),
     ("Custom Alerts", False, False, True, True),
     ("Rollbacks", False, False, True, True),
     ("Audit Log", False, False, True, True),
-    ("On Prem Deployments", False, False, False, True),
 ]
 
 SECURITY_SECTION = [
     ("Web App Firewall", True, True, True, True),
     ("HTTP/SSL", True, True, True, True),
-    ("DDos Protection", True, True, True, True),
+    # ("DDos Protection", True, True, True, True),
     ("Automatic CI/CD", False, True, True, True),
     ("Security Audit Reports", False, False, True, True),
     ("SSO", False, False, False, True),
 ]
 
 SUPPORT_TEXT_SECTION = [
-    ("Support", "Community", "Community", "Email Support", "Dedicated Support")
+    ("Support", "Community Support", "Community Support", "Email Support", "Dedicated Support")
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
     ("White Glove Onboarding", False, False, False, True),
-    ("SLAs Available", False, False, False, True),
+    # ... not in the notion docs
+    # ("SLAs Available", False, False, False, True),
     ("", "", "", "", ""),
 ]
 
@@ -255,7 +286,7 @@ def table_body_oss() -> rx.Component:
             *[create_table_row(row) for row in PRICE_SECTION],
         ),
         rx.table.header(
-            create_table_row_header("AI"),
+            create_table_row_header("Reflex Build"),
             class_name="relative",
         ),
         create_table_body(
@@ -265,6 +296,22 @@ def table_body_oss() -> rx.Component:
                 for feature, *checks in AI_BOOLEAN_SECTION
             ],
         ),
+        #
+        rx.table.header(
+            create_table_row_header("Reflex Enterprise"),
+            class_name="relative",
+        ),
+        create_table_body(
+        *[
+            create_checkmark_row(feature, checks)
+            for feature, *checks in REFLEX_ENTERPRISE_BOOLEAN_SECTION
+        ],
+
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in ASTERIX_SECTION_ENTERPRISE],
+        ),
+        #
         rx.table.header(
             create_table_row_header("FRAMEWORK"),
             class_name="relative",
@@ -300,7 +347,7 @@ def table_body_hosting() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header("Hosting"),
+            create_table_row_header("Reflex Cloud"),
             glow(),
             class_name="relative",
         ),
@@ -309,6 +356,16 @@ def table_body_hosting() -> rx.Component:
             *[
                 create_checkmark_row(feature, checks)
                 for feature, *checks in HOSTING_BOOLEAN_SECTION
+            ],
+        ),
+        rx.table.header(
+            create_table_row_header("Features"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in FEATURES_SECTION
             ],
         ),
         rx.table.header(
