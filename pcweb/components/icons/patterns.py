@@ -59,6 +59,7 @@ def index_patterns() -> rx.Component:
         ),
     ]
 
+
 def landing_patterns() -> rx.Component:
     return [
         rx.box(
@@ -72,6 +73,7 @@ def landing_patterns() -> rx.Component:
         ),
     ]
 
+
 def hosting_patterns() -> rx.Component:
     return [
         rx.image(
@@ -80,7 +82,7 @@ def hosting_patterns() -> rx.Component:
                 dark="/hosting/dark/hosting_patterns.svg",
             ),
             alt="Reflex Hosting Patterns",
-            class_name="desktop-only absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            class_name="lg:flex hidden absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(
                 HostingBannerState.show_banner,
                 " lg:mt-[24rem] mt-[3.5rem]",

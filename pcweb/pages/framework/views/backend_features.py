@@ -113,7 +113,7 @@ def pip_install_card() -> rx.Component:
             on_click=rx.set_clipboard("pip install reflex"),
             class_name="flex flex-row items-center gap-1.5 px-1.5 py-1 rounded-lg cursor-pointer transition-bg border border-solid border-slate-4 bg-[rgba(249,249,251,0.48)] dark:bg-[rgba(26,27,29,0.48)] hover:bg-[rgba(249,249,251,0.48)] dark:hover:bg-[rgba(26,27,29,0.48)] backdrop-filter backdrop-blur-[6px]",
         ),
-        class_name="desktop-only h-full w-full justify-center items-center relative overflow-hidden row-span-2 lg:!border-r !border-slate-3 !border-t-0",
+        class_name="lg:flex hidden h-full w-full justify-center items-center relative overflow-hidden row-span-2 lg:!border-r !border-slate-3 !border-t-0",
     )
 
 

@@ -83,7 +83,7 @@ def link_item(name: str, url: str, active_str: str = ""):
     else:
         active = False
 
-    common_cn = "transition-color p-[1.406rem_0px] font-small desktop-only items-center justify-center "
+    common_cn = "transition-color p-[1.406rem_0px] font-small lg:flex hidden items-center justify-center "
     active_cn = "shadow-[inset_0_-1px_0_0_var(--c-violet-9)] text-violet-9"
     unactive_cn = "shadow-none text-slate-9"
 
@@ -266,7 +266,11 @@ def new_resource_section():
 
     _open_source_items = [
         {"label": "Templates", "url": "/templates", "icon": "layout-panel-top"},
-        {"label": "Changelog", "url": "https://github.com/reflex-dev/reflex/releases", "icon": "history"},
+        {
+            "label": "Changelog",
+            "url": "https://github.com/reflex-dev/reflex/releases",
+            "icon": "history",
+        },
         {
             "label": "Contributing",
             "url": "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
@@ -352,13 +356,13 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
         rx.box(
             rx.text(
                 title,
-                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors desktop-only",
+                class_name="p-[1.406rem_0px] font-small text-slate-9 group-hover:text-slate-11 transition-colors",
             ),
             rx.icon(
                 "chevron-down",
-                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-colors desktop-only",
+                class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-all ease-out",
             ),
-            class_name="flex flex-row items-center gap-x-1 group user-select-none",
+            class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer lg:flex hidden",
             on_click=rx.stop_propagation,
         ),
         style={
@@ -419,7 +423,7 @@ def new_component_section() -> rx.Component:
                     rx.badge(
                         "Docs",
                         variant="surface",
-                        class_name="text-violet-9 desktop-only text-sm",
+                        class_name="text-violet-9 lg:flex hidden text-sm",
                         display=rx.cond(
                             rx.State.router.page.path.contains("docs")
                             | rx.State.router.page.path.contains("ai-builder")
@@ -451,7 +455,7 @@ def new_component_section() -> rx.Component:
                             "Cloud", hosting_page.deploy_quick_start.path, "hosting"
                         ),
                     ),
-                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                    class_name="lg:flex hidden flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
                 rx.el.div(
                     # nav_menu.item(
@@ -463,7 +467,7 @@ def new_component_section() -> rx.Component:
                     nav_menu.item(
                         link_item("Cloud", hosting_landing.path, "hosting"),
                     ),
-                    class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                    class_name="lg:flex hidden flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
                 ),
             ),
             nav_menu.item(
@@ -476,17 +480,23 @@ def new_component_section() -> rx.Component:
                     "none",
                     "block",
                 ),
+                class_name="cursor-pointer",
             ),
-            nav_menu.item(new_menu_trigger("Resources"), new_resource_section()),
+            nav_menu.item(
+                new_menu_trigger("Resources"),
+                new_resource_section(),
+                class_name="cursor-pointer",
+            ),
             nav_menu.item(
                 new_menu_trigger("Pricing", "/pricing", "pricing"),
+                class_name="lg:flex hidden",
             ),
-            class_name="desktop-only flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+            class_name="flex lex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
         nav_menu.list(
             nav_menu.item(search_bar()),
             nav_menu.item(github()),
-            nav_menu.item(discord(), class_name="desktop-only"),
+            nav_menu.item(discord(), class_name="lg:flex hidden"),
             nav_menu.item(
                 rx.link(
                     button(
@@ -497,9 +507,9 @@ def new_component_section() -> rx.Component:
                     is_external=True,
                     href=REFLEX_BUILD_URL,
                 ),
-                class_name="desktop-only",
+                class_name="lg:flex hidden",
             ),
-            nav_menu.item(navbar_sidebar_button(), class_name="mobile-only"),
+            nav_menu.item(navbar_sidebar_button(), class_name="lg:hidden flex"),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
         ),
         rx.box(
@@ -517,5 +527,5 @@ def navbar() -> rx.Component:
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
         ),
-        class_name="flex flex-col w-full top-0 z-[9999] fixed",
+        class_name="flex flex-col w-full top-0 z-[9999] fixed bg-red-6 text-slate-12",
     )

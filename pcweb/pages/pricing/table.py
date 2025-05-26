@@ -188,16 +188,18 @@ def create_table_row(cells: list) -> rx.Component:
 def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Component:
     return rx.table.row(
         *[
-            rx.table.column_header_cell(
-                rx.el.div(
-                    name,
-                    rx.badge("coming soon", margin_left="0.5rem"),
-                    class_name="flex items-center gap-2",
-                ),
-                class_name=STYLES["header_cell"],
-            )
-            if coming_soon
-            else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]),
+            (
+                rx.table.column_header_cell(
+                    rx.el.div(
+                        name,
+                        rx.badge("coming soon", margin_left="0.5rem"),
+                        class_name="flex items-center gap-2",
+                    ),
+                    class_name=STYLES["header_cell"],
+                )
+                if coming_soon
+                else rx.table.column_header_cell(name, class_name=STYLES["header_cell"])
+            ),
             rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
             rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
@@ -340,7 +342,7 @@ def comparison_table_hosting() -> rx.Component:
     return rx.box(
         header_hosting(),
         table_body_hosting(),
-        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
+        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
     )
 
 
@@ -348,5 +350,5 @@ def comparison_table_ai_and_oss() -> rx.Component:
     return rx.box(
         header_oss(),
         table_body_oss(),
-        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
+        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
     )

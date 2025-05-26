@@ -49,7 +49,7 @@ def footer_link(text: str, href: str) -> rx.Component:
         rx.icon(
             tag="chevron-right",
             size=16,
-            class_name="shrink-0 mobile-only",
+            class_name="shrink-0 lg:hidden flex",
         ),
         href=href,
         class_name="font-small text-slate-9 hover:!text-slate-11 no-underline transition-color w-full lg:w-fit flex flex-row justify-between items-center",
@@ -157,7 +157,9 @@ def footer_index() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                    footer_link(
+                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                    ),
                 ],
                 class_name="lg:!border-l !border-slate-3 !row-span-2",
             ),
