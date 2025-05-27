@@ -38,14 +38,6 @@ PRICE_SECTION = [
     ("Team Size", "1", "1", "< 25", "Unlimited"),
 ]
 
-FRAMEWORK_SECTION = [
-    ("Open Source Framework", True, True, True, True),
-    ("Enterprise Components (AG Grid) *", True, True, True, True),
-    ("One Click Auth", False, False, True, True),
-    ("Single Port Deploy", False, False, True, True),
-    ("HTTP Fallback for Websockets", False, False, True, True),
-    ("Custom NPM Registry", False, False, True, True),
-]
 
 AI_TEXT_SECTION = [
     (
@@ -58,7 +50,6 @@ AI_TEXT_SECTION = [
 ]
 
 AI_BOOLEAN_SECTION = [
-    ("Prompt to App", True, True, True, True),
     ("Image to App", True, True, True, True),
     ("Web IDE", True, True, True, True),
     ("Custom User Rules", True, True, True, True),
@@ -68,7 +59,6 @@ AI_BOOLEAN_SECTION = [
     ("Secrets Integration", True, True, True, True),
     ("Purchase Extra AI Credits", False, True, True, True),
     ("Private Apps", False, True, True, True),
-    ("Connect AI Builder to your Data Sources", False, False, True, True),
     ("Bring your own API Keys", False, False, False, True),
 ]
 
@@ -121,7 +111,7 @@ HOSTING_BOOLEAN_SECTION = [
 ]
 
 FEATURES_SECTION = [
-    ("Secrets", False, True, True, True),
+    ("Secrets", True, True, True, True),
     ("Custom Alerts", False, False, True, True),
     ("Rollbacks", False, False, True, True),
     ("Audit Log", False, False, True, True),
@@ -306,24 +296,9 @@ def table_body_oss() -> rx.Component:
             create_checkmark_row(feature, checks)
             for feature, *checks in REFLEX_ENTERPRISE_BOOLEAN_SECTION
         ],
-
         ),
         create_table_body(
             *[create_table_row(row) for row in ASTERIX_SECTION_ENTERPRISE],
-        ),
-        #
-        rx.table.header(
-            create_table_row_header("FRAMEWORK"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in FRAMEWORK_SECTION
-            ],
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in ASTERIX_SECTION],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
