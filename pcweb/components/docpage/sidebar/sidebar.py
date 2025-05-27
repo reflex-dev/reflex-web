@@ -453,7 +453,6 @@ def sidebar_comp(
                     create_sidebar_section(
                         "Overview",
                         ai_builder_pages.overview.what_is_reflex_build.path,
-                        # ai_builder_pages.overview.path,
                         ai_builder_overview_items,
                         ai_builder_overview_index,
                         url,
