@@ -378,12 +378,12 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
 
 def logo() -> rx.Component:
     return rx.link(
-        rx.color_mode_cond(
+        rx.fragment(
             rx.image(
-                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0 block dark:hidden"
             ),
             rx.image(
-                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0 hidden dark:block"
             ),
         ),
         class_name="flex shrink-0 mr-3",
