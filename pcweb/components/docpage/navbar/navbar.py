@@ -74,6 +74,13 @@ def link_item(name: str, url: str, active_str: str = ""):
     elif active_str == "pricing":
         active = router_path.contains("pricing")
 
+    elif active_str == "framework":
+        # Check if path contains "docs" but excludes ai-builder, cloud, and hosting
+        is_docs = router_path.contains("docs")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
+        not_ai_builder = ~router_path.contains("ai-builder")
+        active = is_docs & not_cloud & not_ai_builder
+
     elif active_str == "docs":
         active = rx.cond(
             router_path.contains("library"), False, router_path.contains("docs")
