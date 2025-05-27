@@ -438,7 +438,7 @@ def new_component_section() -> rx.Component:
                 rx.el.div(
                     nav_menu.item(
                         link_item(
-                            "AI Builder", ai_builder_pages.overview.path, "builder"
+                            "AI Builder", ai_builder_pages.overview.what_is_reflex_build.path, "builder"
                         ),
                     ),
                     nav_menu.item(
