@@ -74,7 +74,7 @@ AI_BOOLEAN_SECTION = [
 
 ASTERIX_SECTION_ENTERPRISE = [
     (
-        "* Enterprise components that come with a 'Built with Reflex' badge for Hobby and Pro tier.",
+        "* Enterprise components included for Hobby (with `Built with Reflex` badge) and Pro (if self-hosted).",
         "",
         "",
         "",
@@ -86,10 +86,10 @@ ASTERIX_SECTION_ENTERPRISE = [
 
 REFLEX_ENTERPRISE_BOOLEAN_SECTION = [
     ("AG Grid *",True, True, True, True),
-    ("AG Charts *",True, True, True, False),
-    ("Map Component *",True, True, False, False),
-    ("Drag and Drop Component *",True, True, False, False),
-    ("Single Port Deploy",False, False, True, True),
+    ("AG Charts *",True, True, True, True),
+    ("Map Component *",True, True, True, True),
+    ("Drag and Drop Component *",True, True, True, True),
+    ("Single Port Deploy *",True, True, True, True),
     ("HTTP Fallback for Websockets",False, False, False, True),
     ("Custom NPM Registry",False, False, False, True),
     ("One Click Auth",False, False, True, True),
