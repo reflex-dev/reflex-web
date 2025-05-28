@@ -1,79 +1,51 @@
 ---
 components:
   - rx.upload
+  - rx.upload.root
 
 Upload: |
-  lambda **props: rx.center(rx.upload(id="my_upload", **props), height="4em", width="100%")
+  lambda **props: rx.center(rx.upload(id="my_upload", **props))
+  lambda **props: rx.center(rx.upload(id="my_upload", **props))
 ---
 
 ```python exec
 import reflex as rx
 ```
 
-# Upload
+# File Upload
 
-The Upload component can be used to upload files to the server.
+Reflex makes it simple to add file upload functionality to your app. You can let users select files, store them on your server, and display or process them as needed. Below is a minimal example that demonstrates how to upload files, save them to disk, and display uploaded images using application state.
 
-You can pass components as children to customize its appearance.
-You can upload files by clicking on the component or by dragging and dropping files onto it.
 
-```python demo
-rx.upload(
-    id="my_upload",
-)
+## Basic File Upload Example
+
+You can let users upload files and keep track of them in your app’s state. The example below allows users to upload files, saves them using the backend, and then displays the uploaded files as images.
+
+```python
+import reflex as rx
+class State(rx.State):
+    uploaded_files: list[str] = []
+
+    @rx.event
+    async def handle_upload(self, files: list[rx.UploadFile]):
+        for file in files:
+            data = await file.read()
+            path = rx.get_upload_dir() / file.name
+            with path.open("wb") as f:
+                f.write(data)
+            self.uploaded_files.append(file.name)
+
+def upload_component():
+    return rx.vstack(
+        rx.upload(id="upload"),
+        rx.button("Upload", on_click=State.handle_upload(rx.upload_files("upload"))),
+        rx.foreach(State.uploaded_files, lambda f: rx.image(src=rx.get_upload_url(f))),
+    )
 ```
 
-To use a completely unstyled upload component and apply your own customization, use `rx.upload.root` instead:
+## How File Upload Works
 
-```python demo
-rx.upload.root(
-    rx.box(
-        rx.icon(
-            tag="cloud_upload",
-            style={"width": "3rem", "height": "3rem", "color": "#2563eb", "marginBottom": "0.75rem"},
-        ),
-        rx.hstack(
-            rx.text(
-                "Click to upload",
-                style={"fontWeight": "bold", "color": "#1d4ed8"},
-            ),
-            " or drag and drop",
-            style={"fontSize": "0.875rem", "color": "#4b5563"},
-        ),
-        rx.text(
-            "SVG, PNG, JPG or GIF (MAX. 5MB)",
-            style={"fontSize": "0.75rem", "color": "#6b7280", "marginTop": "0.25rem"},
-        ),
-        style={
-            "display": "flex",
-            "flexDirection": "column",
-            "alignItems": "center",
-            "justifyContent": "center",
-            "padding": "1.5rem",
-            "textAlign": "center",
-        },
-    ),
-    id="my_upload",
-    style={
-        "maxWidth": "24rem",
-        "height": "16rem",
-        "borderWidth": "2px",
-        "borderStyle": "dashed",
-        "borderColor": "#60a5fa",
-        "borderRadius": "0.75rem",
-        "cursor": "pointer",
-        "transitionProperty": "background-color",
-        "transitionDuration": "0.2s",
-        "transitionTimingFunction": "ease-in-out",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "boxShadow": "0 1px 2px rgba(0, 0, 0, 0.05)",
-    },
-)
-```
-
-Selecting a file will add it to the browser's file list, which can be rendered
+Selecting a file will add it to the browser file list, which can be rendered
 on the frontend using the `rx.selected_files(id)` special Var. To clear the
 selected files, you can use another special Var `rx.clear_selected_files(id)` as
 an event handler.
@@ -98,12 +70,12 @@ Reflex provides two key functions for handling uploaded files:
 - **Type**: Returns `str`
 
 ### Key Differences
-- **rx.get_upload_dir()** → Backend file path for saving files
-- **rx.get_upload_url()** → Frontend URL for displaying files
+- **rx.get_upload_dir()** -> Backend file path for saving files
+- **rx.get_upload_url()** -> Frontend URL for displaying files
 
 ### Basic Upload Pattern
 
-Here's the standard pattern for handling file uploads:
+Here is the standard pattern for handling file uploads:
 
 ```python
 import reflex as rx
@@ -383,6 +355,57 @@ def index():
     )
 ```
 
+### Unstyled Upload Component
+
+To use a completely unstyled upload component and apply your own customization, use `rx.upload.root` instead:
+
+```python demo
+rx.upload.root(
+    rx.box(
+        rx.icon(
+            tag="cloud_upload",
+            style={"width": "3rem", "height": "3rem", "color": "#2563eb", "marginBottom": "0.75rem"},
+        ),
+        rx.hstack(
+            rx.text(
+                "Click to upload",
+                style={"fontWeight": "bold", "color": "#1d4ed8"},
+            ),
+            " or drag and drop",
+            style={"fontSize": "0.875rem", "color": "#4b5563"},
+        ),
+        rx.text(
+            "SVG, PNG, JPG or GIF (MAX. 5MB)",
+            style={"fontSize": "0.75rem", "color": "#6b7280", "marginTop": "0.25rem"},
+        ),
+        style={
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "padding": "1.5rem",
+            "textAlign": "center",
+        },
+    ),
+    id="my_upload",
+    style={
+        "maxWidth": "24rem",
+        "height": "16rem",
+        "borderWidth": "2px",
+        "borderStyle": "dashed",
+        "borderColor": "#60a5fa",
+        "borderRadius": "0.75rem",
+        "cursor": "pointer",
+        "transitionProperty": "background-color",
+        "transitionDuration": "0.2s",
+        "transitionTimingFunction": "ease-in-out",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "boxShadow": "0 1px 2px rgba(0, 0, 0, 0.05)",
+    },
+)
+```
 
 ## Handling the Upload
 
