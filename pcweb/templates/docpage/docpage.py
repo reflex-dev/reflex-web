@@ -613,14 +613,17 @@ def docpage(
 
             show_right_sidebar = right_sidebar and len(toc) >= 2
 
-            main_content_width = " lg:w-[90%]" if show_right_sidebar else " lg:w-full"
+            grid_cols_classes = "grid-cols-1"
+            if show_right_sidebar:
+                grid_cols_classes += " 2xl:grid-cols-[300px_1fr_16%]"
+            grid_cols_classes += " lg:grid-cols-[300px_1fr]"
 
             return rx.box(
                 navbar(),
                 rx.el.main(
                     rx.box(
                         sidebar,
-                        class_name="h-full shrink-0 desktop-only lg:w-[24%]"
+                        class_name="h-full shrink-0 desktop-only lg:block hidden"
                         + rx.cond(
                             HostingBannerState.show_banner,
                             " mt-[146px]",
@@ -630,7 +633,7 @@ def docpage(
                     rx.box(
                         rx.box(
                             breadcrumb(path=path, nav_sidebar=nav_sidebar),
-                            class_name="px-0 lg:px-20 pt-0",
+                            class_name="px-0 xl:px-20 pt-0",
                         ),
                         rx.box(
                             rx.el.article(comp),
@@ -639,9 +642,10 @@ def docpage(
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
                             docpage_footer(path=path.rstrip("/")),
-                            class_name="lg:mt-0 mt-6 px-4 lg:px-20",
+                            class_name="lg:mt-0 mt-6 px-4 xl:px-20",
                         ),
-                        class_name="h-full w-full" + main_content_width,
+                        class_name="h-full mx-auto max-w-2xl lg:col-start-2 lg:col-end-3 2xl:col-start-2 2xl:col-end-3 "
+                        + (" xl:max-w-[60rem]" if show_right_sidebar else "xl:max-w-full"),
                     ),
                     (
                         # right-hand sidebar
@@ -700,7 +704,7 @@ def docpage(
                                 class_name="fixed flex flex-col justify-start gap-4 p-[0.875rem_0.5rem_0px_0.5rem] max-h-[80vh] overflow-y-auto",
                                 style={"width": "inherit"},
                             ),
-                            class_name="shrink-0 w-[16%]"
+                            class_name="shrink-0 2xl:col-start-3 2xl:col-end-4"
                             + rx.cond(
                                 HostingBannerState.show_banner,
                                 " mt-[146px]",
@@ -716,9 +720,10 @@ def docpage(
                         if not pseudo_right_bar or show_right_sidebar
                         else rx.el.div(class_name="hidden")
                     ),
-                    class_name="justify-center flex flex-row mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full",
+                    class_name="grid justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full "
+                    + grid_cols_classes,
                 ),
-                class_name="flex flex-col justify-center bg-slate-1 w-full",
+                class_name="flex flex-col justify-center bg-slate-1 w-full mx-auto",
                 on_mount=rx.call_script(right_sidebar_item_highlight()),
             )
 

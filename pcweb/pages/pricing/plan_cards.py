@@ -271,6 +271,7 @@ def plan_cards() -> rx.Component:
             "Hobby",
             "Everything you need to get started.",
             [
+                ("frame", "Open Source Framework"),
                 ("brain", "AI App Builder (Limited Access)"),
                 (
                     "app-window",
@@ -279,7 +280,7 @@ def plan_cards() -> rx.Component:
                 ),
                 ("code", "Reflex Open Source"),
                 ("heart-handshake", "Discord/Github Support"),
-                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Free-tier users can access Reflex Enterprise features, with a required 'Built with Reflex' badge displayed on their apps.")
+                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Free-tier users can access Reflex Enterprise features, with a required 'Built with Reflex' badge displayed on their apps."),
             ],
             "Start building for free",
             price="Free",
