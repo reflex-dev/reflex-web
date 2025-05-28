@@ -74,6 +74,13 @@ def link_item(name: str, url: str, active_str: str = ""):
     elif active_str == "pricing":
         active = router_path.contains("pricing")
 
+    elif active_str == "framework":
+        # Check if path contains "docs" but excludes ai-builder, cloud, and hosting
+        is_docs = router_path.contains("docs")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
+        not_ai_builder = ~router_path.contains("ai-builder")
+        active = is_docs & not_cloud & not_ai_builder
+
     elif active_str == "docs":
         active = rx.cond(
             router_path.contains("library"), False, router_path.contains("docs")
@@ -371,12 +378,12 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
 
 def logo() -> rx.Component:
     return rx.link(
-        rx.color_mode_cond(
+        rx.fragment(
             rx.image(
-                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0 block dark:hidden"
             ),
             rx.image(
-                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0 hidden dark:block"
             ),
         ),
         class_name="flex shrink-0 mr-3",
@@ -438,7 +445,7 @@ def new_component_section() -> rx.Component:
                 rx.el.div(
                     nav_menu.item(
                         link_item(
-                            "AI Builder", ai_builder_pages.overview.path, "builder"
+                            "AI Builder", ai_builder_pages.overview.what_is_reflex_build.path, "builder"
                         ),
                     ),
                     nav_menu.item(
