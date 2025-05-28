@@ -5,13 +5,16 @@ to deploying your app. With an intuitive layout, real-time editing, and seamless
 platform, the IDE empowers users to stay focused and productive without ever leaving the browser.
 
 
-
-<div class="p-4 rounded-lg bg-slate-5">
-  <video controls width="100%">
-  <source src="/ide_demo.mov" type="video/quicktime">
-  Your browser does not support the video tag.
-  </video>  
-
+<div class="p-1 my-4 rounded-lg bg-slate-5">
+  <iframe
+    width="100%"
+    height="400"
+    src="https://www.youtube.com/embed/8wPfBVAnPKU "
+    title="Reflex Build - IDE"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
 </div>
 
 
@@ -33,4 +36,3 @@ The built-in code editor supports syntax highlighting, inline error detection, a
 ### One-Click Deployment
 
 From the IDE, you can deploy your app with a single click. No terminal, no external tools—just build and ship straight from your browser.
-
