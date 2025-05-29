@@ -194,7 +194,7 @@ def card(
             is_external=True,
             underline="none",
         ),
-        class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full min-w-[20.375rem] h-[33.5rem]",
+        class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full min-w-0 h-[33.5rem] overflow-hidden",
     )
 
 
@@ -259,7 +259,7 @@ def popular_card(
                 is_external=True,
                 underline="none",
             ),
-            class_name="flex flex-col p-8 border border-[--violet-9] rounded-[1.125rem] w-full min-w-[20.375rem] h-[33.5rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden",
+            class_name="flex flex-col p-8 border border-[--violet-9] rounded-[1.125rem] w-full min-w-0 h-[33.5rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden",
         ),
         class_name="relative",
     )
@@ -334,5 +334,5 @@ def plan_cards() -> rx.Component:
             "Contact sales",
             redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
-        class_name="grid 2xl:grid-cols-4 xl:grid-cols-2 sm:grid-cols-1 gap-4",
+        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
     )
