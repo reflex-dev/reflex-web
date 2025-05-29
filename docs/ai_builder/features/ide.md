@@ -29,6 +29,10 @@ Changes you make in the editor are immediately reflected across your project—n
 
 Easily create, rename, or delete files and folders directly in the workspace. The file tree gives you full visibility into your application structure at all times.
 
+### Drag-and-Drop File Upload
+
+Seamlessly import files into your project by dragging them straight into the editor. Whether you're adding assets, scripts, or config files, it's fast and intuitive—no extra clicks required.
+
 ### Context-Aware Code Editor
 
 The built-in code editor supports syntax highlighting, inline error detection, and AI-assisted suggestions to help you write clean, efficient code with confidence.
