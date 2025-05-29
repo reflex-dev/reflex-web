@@ -70,7 +70,6 @@ ASTERIX_SECTION_ENTERPRISE = [
         "",
         "",
     ),
-    ("", "", "", "", ""),
 ]
 
 
@@ -134,7 +133,6 @@ SUPPORT_BOOLEAN_SECTION = [
     ("White Glove Onboarding", False, False, False, True),
     # ... not in the notion docs
     # ("SLAs Available", False, False, False, True),
-    ("", "", "", "", ""),
 ]
 
 PLAN_BUTTONS = [
@@ -300,6 +298,17 @@ def table_body_oss() -> rx.Component:
         create_table_body(
             *[create_table_row(row) for row in ASTERIX_SECTION_ENTERPRISE],
         ),
+        rx.table.header(
+            create_table_row_header("Support"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
+            *[
+                create_checkmark_row(feature, checks)
+                for feature, *checks in SUPPORT_BOOLEAN_SECTION
+            ],
+        ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
 
@@ -351,17 +360,6 @@ def table_body_hosting() -> rx.Component:
             *[
                 create_checkmark_row(feature, checks)
                 for feature, *checks in SECURITY_SECTION
-            ],
-        ),
-        rx.table.header(
-            create_table_row_header("Support"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in SUPPORT_BOOLEAN_SECTION
             ],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
