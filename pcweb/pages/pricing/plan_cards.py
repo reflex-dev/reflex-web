@@ -153,12 +153,12 @@ def card(
                     price,
                     color_scheme="gray",
                     size="3",
-                    class_name="font-medium text-lg",
+                    class_name="font-medium 2xl:text-lg text-base w-fit",
                 )
                 if price
                 else rx.fragment()
             ),
-            class_name="flex items-center mb-2 gap-4",
+            class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
         ),
         rx.el.p(
             description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
@@ -213,19 +213,19 @@ def popular_card(
         rx.box(
             glow(),
             grid(),
-            rx.hstack(
+            rx.el.div(
                 rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
                 (
                     rx.badge(
                         price,
                         color_scheme="violet",
                         size="3",
-                        class_name="font-medium text-lg",
+                        class_name="font-medium 2xl:text-lg text-base w-fit",
                     )
                     if price
                     else rx.fragment()
                 ),
-                class_name="flex items-center mb-2 gap-4",
+                class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
             rx.el.ul(
