@@ -9,7 +9,7 @@ platform, the IDE empowers users to stay focused and productive without ever lea
   <iframe
     width="100%"
     height="400"
-    src="https://www.youtube.com/embed/8wPfBVAnPKU "
+    src="https://www.youtube.com/embed/aW0ZefEC3SU "
     title="Reflex Build - IDE"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -28,6 +28,10 @@ Changes you make in the editor are immediately reflected across your project—n
 ### File & Folder Management
 
 Easily create, rename, or delete files and folders directly in the workspace. The file tree gives you full visibility into your application structure at all times.
+
+### Drag-and-Drop File Upload
+
+Seamlessly import files into your project by dragging them straight into the editor. Whether you're adding assets, scripts, or config files, it's fast and intuitive—no extra clicks required.
 
 ### Context-Aware Code Editor
 
