@@ -131,6 +131,10 @@ SUPPORT_TEXT_SECTION = [
 
 SUPPORT_BOOLEAN_SECTION = [
     ("White Glove Onboarding", False, False, False, True),
+    (     "",
+    "",
+    "",
+    "","",)
     # ... not in the notion docs
     # ("SLAs Available", False, False, False, True),
 ]
