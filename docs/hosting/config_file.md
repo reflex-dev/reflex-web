@@ -176,5 +176,5 @@ reflex deploy
 # Use specific configuration file
 reflex deploy --config cloud-prod.yml
 reflex deploy --config cloud-staging.yml
-```error: The lockfile at `uv.lock` needs to be updated, but `--locked` was provided. To update the lockfile, run `uv lock`.
+```
 
