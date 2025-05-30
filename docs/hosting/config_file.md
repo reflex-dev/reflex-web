@@ -24,22 +24,21 @@ The `cloud.yml` file uses YAML format and supports the following structure. **Al
 # Basic deployment settings
 name: my-app-prod                    # Optional: defaults to project folder name
 description: 'Production deployment' # Optional: empty by default
-project: my-client-project          # Optional: for organization
+projectname: my-client-project          # Optional: defaults to personal project
 
 # Infrastructure settings
 regions:                            # Optional: defaults to sjc: 1
-  sjc: 1                           # San Jose (primary)
-  lhr: 2                           # London (secondary)
+  sjc: 1                           # San Jose (# of machines)
+  lhr: 2                           # London (# of machines)
 vmtype: c2m2                       # Optional: defaults to c1m1
 
 # Custom domain and environment
-hostname: myapp.com                 # Optional: null uses default Reflex URL
+hostname: myapp                    # Optional: myapp.reflex.dev
 envfile: .env.production           # Optional: defaults to .env
 
 # Additional dependencies
 packages:                          # Optional: empty by default
   - procps
-  - imagemagick
 ```
 
 ## Configuration Options Reference
@@ -64,13 +63,16 @@ rx.table.root(
             align="center"
         ) for option, type_, default, description, link in [
             ("name", "string", "folder name", "Deployment identifier in dashboard", None),
-            ("description", "string", "empty", "Human-readable deployment description", None),
+            ("description", "string", "empty", "Description of deployment", None),
             ("regions", "object", "sjc: 1", "Region deployment mapping", "/docs/hosting/regions"),
             ("vmtype", "string", "c1m1", "Virtual machine specifications", "/docs/hosting/machine-types"),
-            ("hostname", "string", "null", "Custom domain configuration", "/docs/hosting/custom-domains"),
+            ("hostname", "string", "null", "Custom subdomain", None),
             ("envfile", "string", ".env", "Environment variables file path", "/docs/hosting/secrets-environment-vars"),
-            ("project", "string", "null", "Project organization", None),
+            ("project", "uuid", "null", "Project uuid", None),
+            ("projectname", "string", "null", "Project name", None),
             ("packages", "array", "empty", "Additional system packages", None),
+            ("include_db", "boolean", "false", "Include local sqlite", None),
+            ("strategy", "string", "auto", "Deployment strategy", None)
         ]
     ]),
     variant="ghost",
@@ -80,116 +82,60 @@ rx.table.root(
 )
 ```
 
-## Detailed Configuration Options
+## Configuration Options
 
-### Regions
-
-Available deployment regions with their codes:
-
-- `sjc`: San Jose, California (US West)
-- `lhr`: London, United Kingdom (Europe)
-- `fra`: Frankfurt, Germany (Europe)
-- `syd`: Sydney, Australia (Asia-Pacific)
-
-Specify regions using the format `region: instance_count`:
-
-```yaml
-regions:
-  sjc: 1    # Primary region with 1 instance
-  lhr: 2    # Backup region with 2 instances for high availability
-```
-
-**Use Cases:**
-- Single region: Cost-effective for regional applications
-- Multi-region: Global applications requiring low latency and redundancy
-
-### VM Types
-
-Choose the appropriate virtual machine size based on your application needs:
-
-### Custom Domains
-
-Set `hostname` to use your own domain instead of the default Reflex Cloud URL:
-
-```yaml
-hostname: myapp.com
-```
-
-**Requirements:**
-- Domain ownership verification
-- DNS configuration (CNAME or A record)
-- SSL certificate (handled automatically)
-
-### Environment Variables
-
-Specify the path to your environment variables file:
-
-```yaml
-envfile: .env.production  # Custom environment file
-```
-
-Example `.env` file structure:
-
-```bash
-
-DATABASE_URL=postgresql://user:pass@host:port/dbname
-
-OPENAI_API_KEY=your_api_key_here
-STRIPE_SECRET_KEY=sk_live_...
-
-DEBUG=False
-SECRET_KEY=your_secret_key_here
-```
+For details of specific sections click the links in the table.
 
 ### Projects
 
 Organize deployments using projects:
 
 ```yaml
-project: client-alpha    # Groups related deployments
+projectname: client-alpha    # Groups related deployments
 ```
 
-Projects help separate:
-- Different clients or customers
-- Development, staging, and production environments
-- Team-based application ownership
+You can also specify a project uuid instead of name:
+```yaml
+project: 12345678-1234-1234-1234-1234567890ab
+```
 
-### Packages
+You can go to the homepage of the project in the reflex cloud dashboard to find your project uuid in the url `https://cloud.reflex.dev/project/uuid`
 
-Install additional system packages your application requires:
+### Apt Packages
+
+Install additional system packages your application requires. Package names are based on the apt package manager:
 
 ```yaml
 packages:
-  - procps      # Process monitoring tools
-  - imagemagick # Image processing
-  - ffmpeg      # Media processing
+  - procps=2.0.32-1  # Version pinning is optional
+  - imagemagick 
+  - ffmpeg      
 ```
 
-## Multiple Configuration Examples
+### Include SQLite
 
-### Minimal Configuration
+Include local sqlite database:
+
 ```yaml
-# Uses all defaults - suitable for development
-name: my-app-dev
+include_db: true
 ```
 
-### Production Configuration
+This is not persistent and will be lost on restart. It is recommended to use a database service instead.
+
+### Strategy
+
+Deployment strategy:
+Available strategies:
+- `immediate`: [Default] Deploy immediately
+- `rolling`: Deploy in a rolling manner
+- `bluegreen`: Deploy in a blue-green manner
+- `canary`: Deploy in a canary manner, boot as single machine verify its health and then restart the rest.
+
 ```yaml
-name: myapp-production
-description: 'Main production deployment'
-regions:
-  sjc: 2
-  lhr: 1
-vmtype: c4m4
-hostname: myapp.com
-envfile: .env.production
-project: myapp
-packages:
-  - imagemagick
-  - redis-tools
+strategy: immediate
 ```
 
-### Multi-Environment Setup
+## Multi-Environment Setup
 
 **Development (`cloud-dev.yml`):**
 ```yaml
@@ -217,11 +163,9 @@ regions:
   sjc: 2
   lhr: 1
 vmtype: c4m4
-hostname: myapp.com
+hostname: myapp
 envfile: .env.production
 ```
-
-## Using Different Configuration Files
 
 Deploy with specific configuration files:
 
@@ -233,35 +177,3 @@ reflex deploy
 reflex deploy --config cloud-prod.yml
 reflex deploy --config cloud-staging.yml
 ```
-
-## Deployment Workflow
-
-1. **Generate base configuration:**
-   ```bash
-   reflex cloud config
-   ```
-
-2. **Customize the `cloud.yml` file** based on your requirements using the options above
-
-3. **Create environment file** (if needed):
-   ```bash
-   touch .env
-   # Add your environment variables
-   ```
-
-4. **Deploy your application:**
-   ```bash
-   reflex deploy
-   ```
-
-5. **Monitor deployment** through the (Reflex Cloud)[https://cloud.reflex.dev/] dashboard
-
-## Summary
-
-The `cloud.yml` configuration provides complete control over your Reflex Cloud deployments while maintaining simplicity. All configuration options are optional, allowing you to start with minimal setup and gradually add complexity as your application scales.
-
-Key takeaways:
-- Start with basic configuration and expand as needed
-- Use multiple configuration files for different environments
-- Leverage regions for global availability and redundancy
-- Secure environment variables and never commit them to version control
