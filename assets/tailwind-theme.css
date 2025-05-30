@@ -546,3 +546,10 @@
         display: none;
     }
 } */
+
+@layer base {
+
+    body {
+        @apply isolate bg-slate-1 font-sans antialiased;
+    }
+}
