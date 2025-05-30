@@ -80,15 +80,15 @@ Here is the standard pattern for handling file uploads:
 ```python
 import reflex as rx
 
+def create_unique_filename(file_name: str):
+    import random
+    import string
+
+    filename = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+    return filename + "_" + file_name
+
 class State(rx.State):
     uploaded_files: list[str] = []
-
-    def create_unique_filename(file_name: str):
-        import random
-        import string
-
-        filename = "".join(random.choices(string.ascii_letters + string.digits, k=10))
-        return filename + "_" + file_name
 
     @rx.event
     async def handle_upload(self, files: list[rx.UploadFile]):
