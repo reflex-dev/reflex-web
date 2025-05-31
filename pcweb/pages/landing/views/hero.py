@@ -445,7 +445,7 @@ def hero() -> rx.Component:
         ),
         # Headings
         rx.el.h1(
-            "Build Internal Tools With AI",
+            "Prompt to production app, in seconds",
             class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-5xl lg:text-6xl font-semibold text-center text-transparent text-balance mx-auto break-words z-[1]",
         ),
         rx.el.h2(
