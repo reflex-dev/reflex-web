@@ -1,0 +1,11 @@
+name: pcweb
+description: Production version of pcweb
+regions:
+  sjc: 1
+  ewr: 2
+  nrt: 1
+  lhr: 1
+vmtype: pc2m4
+strategy: rolling
+envfile: prod.env
+project: 43c03060-d50d-4507-b0d5-19bc05fdf941

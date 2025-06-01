@@ -301,7 +301,7 @@ def new_resource_section():
                 class_name="justify-start w-full items-center",
             ),
             href=url,
-            is_external=True,
+            is_external=False,
             underline="none",
             class_name="!w-full",
         )

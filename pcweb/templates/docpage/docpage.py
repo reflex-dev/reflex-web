@@ -642,9 +642,9 @@ def docpage(
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
                             docpage_footer(path=path.rstrip("/")),
-                            class_name="lg:mt-0 mt-6 px-4 xl:px-20",
+                            class_name="lg:mt-0 mt-6 px-4 xl:px-20 h-screen bg-slate-1",
                         ),
-                        class_name="h-full mx-auto max-w-2xl lg:col-start-2 lg:col-end-3 2xl:col-start-2 2xl:col-end-3 "
+                        class_name="w-full bg-slate-1 h-full mx-auto max-w-2xl "
                         + (" xl:max-w-[60rem]" if show_right_sidebar else "xl:max-w-full"),
                     ),
                     (
