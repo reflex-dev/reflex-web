@@ -18,7 +18,7 @@ MAX_IMAGES_COUNT = 5
 prompt_map = {
     "Use an Image": "Build an app from a reference image",
     "Chat App": "A chat app hooked up to an LLM",
-    "Landing Page": "SaaS Landing Page for an AI Company",
+    "Live Dashboard": "Live stream data on a real-time dashboard",
 }
 
 
