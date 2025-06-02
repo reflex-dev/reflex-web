@@ -119,13 +119,3 @@ Finally, you can start your Reflex container service as follows.
 ```bash
 docker run -d -p 3000:3000 -p 8000:8000 --name app reflex-project:latest
 ```
-
-
-## Remove Reflex branding from your self-hosted app
-
-To remove the Reflex branding, such as the "Built with Reflex" badge, from your self-hosted app, you must add `show_built_with_reflex=False` to the `rx.Config()` in the `rxconfig.py` file. 
-
-
-```md alert info
-# A paid [team plan]({pricing_path}) is required to remove the Reflex branding for self-hosted apps.
-```
