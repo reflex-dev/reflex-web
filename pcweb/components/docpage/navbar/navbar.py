@@ -239,7 +239,7 @@ def grid_card(
             class_name=image_style,
         ),
         href=url,
-        is_external=True,
+        is_external=False,
         underline="none",
         class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[16.5625rem] overflow-hidden group",
     )
