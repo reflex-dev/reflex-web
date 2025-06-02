@@ -33,7 +33,7 @@ def right_sidebar_item_highlight():
         function highlightTocLink() {
             // Get the current hash from the URL
             const currentHash = window.location.hash.substring(1);
-            
+
             // Reset all links
             tocLinks.forEach(link => {
                 link.classList.remove(activeClass);
@@ -81,7 +81,7 @@ def right_sidebar_item_highlight():
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const headerId = entry.target.id;
-                    
+
                     // Find corresponding TOC link
                     const correspondingLink = Array.from(tocLinks).find(link => {
                         const linkHash = new URL(link.href).hash.substring(1);
@@ -104,7 +104,7 @@ def right_sidebar_item_highlight():
         }, observerOptions);
 
         // Observe headers
-        const headerSelectors = Array.from(tocLinks).map(link => 
+        const headerSelectors = Array.from(tocLinks).map(link =>
             new URL(link.href).hash.substring(1)
         );
 
@@ -720,7 +720,7 @@ def docpage(
                         if not pseudo_right_bar or show_right_sidebar
                         else rx.el.div(class_name="hidden")
                     ),
-                    class_name="grid justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full "
+                    class_name="grid justify-center mx-auto mt-0 max-w-[94.5em] h-full min-h-screen w-full lg:px-10 "
                     + grid_cols_classes,
                 ),
                 class_name="flex flex-col justify-center bg-slate-1 w-full mx-auto",
