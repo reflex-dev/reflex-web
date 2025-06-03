@@ -41,6 +41,7 @@ GALLERY_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi68
 NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
 REFLEX_CLOUD_URL = "https://cloud.reflex.dev"
+ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
