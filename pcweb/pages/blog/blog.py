@@ -38,7 +38,7 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-nowrap text-slate-9",
+                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
@@ -46,9 +46,9 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                             class_name="font-small text-slate-9",
                         ),
                         get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
+                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden flex-shrink-0",
                     ),
-                    class_name="flex flex-row justify-between items-center gap-1 w-full h-auto",
+                    class_name="flex flex-row justify-between items-center gap-1 min-w-0 w-full h-auto",
                 ),
                 class_name="flex flex-col justify-between p-[0rem_0.75rem_0.75rem_0.75rem] w-full h-full",
             ),
@@ -93,7 +93,7 @@ def card_content(meta: dict, path: str) -> rx.Component:
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-nowrap text-slate-9",
+                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
