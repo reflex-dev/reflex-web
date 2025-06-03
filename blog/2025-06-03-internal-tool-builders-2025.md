@@ -118,16 +118,16 @@ image_zoom(rx.image(src="/blog/reflex-build.png", border_radius="10px", alt="Ref
 - **Pure Python**: With Reflex, developers can stay in one language for the frontend and backend.
 - **Low learning curve**: Simple syntax, intuitive component structure, and built-in state management make app-building fast with Reflex.
 - **Flexible**: Reflex comes with over 60 UI components that are highly customizable (supporting Tailwind, custom CSS, etc.).
-- **Built for teams**: RBAC, audit logs, and Git-friendly workflows make Reflex enterprise-ready.
-- **Actively evolving**: Reflex provides regular updates, community-sourced [templates](https://reflex.dev/templates/), and a clear roadmap for new features.
-- **AI-focused**: Reflex’s AI chatbot makes it easy for technical and non-technical users alike to build a beautiful, fully functional internal tool.
+- **Built for Enterprises**: Reflex’s AI app builder integrates easily with your company data and with Github.
+- **Open Source**: Reflex is open-source, so you can self-host or contribute to the codebase, and you completely own your code and can export your app so no vendor lock in.
+- **AI-focused**: Reflex’s AI app builder makes it easy for technical and non-technical users alike to build a beautiful, fully functional internal tool.
 
 [👋 Describe your idea, and let Reflex Build turn it into a full-stack Python app.](https://build.reflex.dev/)
 
 #### Cons
 
 - **Ecosystem**: As a newer tool, Reflex offers fewer plugins than some options on this list. But it’s growing fast with frequent updates.
-- **Breaking changes**: Reflex is still maturing, so its APIs are subject to change.
+- **Requires some Python Knowledge**: While Reflex is designed to be approachable, it’s still a developer-focused tool. Non-technical users may need some training to get the most out of it.
 
 
 #### Pricing
@@ -159,14 +159,14 @@ image_zoom(rx.image(src="/blog/retool.png", border_radius="10px", alt="Retool")
 
 #### Pros
 
-- Developer-friendly: Retool supports full-code customization alongside some no-code offerings.
-- Plenty of options: Retool provides dozens of built-in integrations for common databases, APIs, and auth providers.
-- Flexible: Retool offers both cloud and on-premises deployment options.
+- **Developer-friendly**: Retool supports full-code customization alongside some no-code offerings.
+- **Plenty of options**: Retool provides dozens of built-in integrations for common databases, APIs, and auth providers.
+- **Flexible**: Retool offers both cloud and on-premises deployment options.
 
 #### Cons
 
-- Pricey: Retool’s pricing may be unrealistic for small teams or early-stage startups.
-- Complex: Retool’s learning curve can be steep for teams new to JavaScript or frontend concepts.
+- **Pricey**: Retool’s pricing may be unrealistic for small teams or early-stage startups.
+- **Complex**: Retool’s learning curve can be steep for teams new to JavaScript or frontend concepts.
 
 
 #### Pricing
