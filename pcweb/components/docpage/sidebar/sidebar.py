@@ -551,6 +551,33 @@ def sidebar_comp(
                                 class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                             ),
                         ),
+                        (
+                            3,
+                            rx.el.ul(
+                                rx.link(  # pyright: ignore [reportCallIssue]
+                                    rx.box(  # pyright: ignore [reportCallIssue]
+                                        rx.box(  # pyright: ignore [reportCallIssue]
+                                            rx.icon(
+                                                "atom", size=16
+                                            ),  # pyright: ignore [reportCallIssue]
+                                            rx.el.h5(
+                                                "Reflex Enterprise",
+                                                class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
+                                            ),
+                                            class_name="flex flex-row items-center gap-3 text-slate-12",
+                                        ),
+                                        rx.text(  # pyright: ignore [reportCallIssue]
+                                            "See the Reflex Enterprise components in action!",
+                                            class_name="font-small text-slate-9",
+                                        ),
+                                        class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
+                                    ),
+                                    underline="none",
+                                    href="#",
+                                ),
+                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                            ),
+                        ),
                     ),
                 ),
             ),
