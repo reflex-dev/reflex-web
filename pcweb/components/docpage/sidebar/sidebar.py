@@ -15,7 +15,7 @@ from .sidebar_items.learn import learn, frontend, backend, hosting, cli_ref
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
 from .state import SidebarState, SideBarItem, SideBarBase
-
+from pcweb.constants import ENTERPRISE_DOCS_URL
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -573,7 +573,8 @@ def sidebar_comp(
                                         class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
                                     ),
                                     underline="none",
-                                    href="#",
+                                    href=ENTERPRISE_DOCS_URL,
+                                    is_external=True,
                                 ),
                                 class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                             ),
