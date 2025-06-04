@@ -263,10 +263,10 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
         class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[14.5625rem] overflow-hidden group",
     )
 
-
+#
 def new_resource_section():
     _company_items = [
-        {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
+        {"label": "Newsletter", "url": "https://reflex.dev/#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
         {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
     ]
