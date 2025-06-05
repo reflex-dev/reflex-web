@@ -66,13 +66,15 @@ Site-reliability, platform, and security teams use **Reflex** to surface real-
 - **Supply-Chain Automation Viewer** – visualizes robot and conveyor status in distribution centres; integrates with third-party control APIs for fast triage.
 - **Security-Ops Command Center** – unifies BigQuery logs, ticket data, cloud storage, Firestore, Salesforce CRM records, and PagerDuty alerts so analysts can hunt threats and track user activity in a single interface.
 
+---
+
 ### Database Admin & CRUD
 
 Database admins can spin up Python-native panels that let teams **read, write, and update** their data through polished tables, forms, and charts. With **Reflex**, full-featured database dashboards and CRUD apps come together in minutes—no separate front-end stack, no raw CLI sessions.
 
 ```python eval
     rx.el.div(
-        image_zoom(rx.image(src="/case_studies/admin_app.png", border_radius="10px", alt="DevOps App")),
+        image_zoom(rx.image(src="/case_studies/admin_app.png", border_radius="10px", alt="Admin App")),
         class_name="py-4"
     )
 ```
