@@ -14,7 +14,7 @@ def use_case_content():
     return rx.box(xd.render(document, document.filename))
 
 
-@rx.page(route="/use-case", title="Use Case - Reflex")
+@rx.page(route="/use-cases", title="Use Cases - Reflex")
 def use_case():
     return rx.box(
         rx.box(
