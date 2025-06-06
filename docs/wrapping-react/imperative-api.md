@@ -149,7 +149,7 @@ class ElementAPI:
 ### 2. Create a JSAPIVar Reference
 
 Define an api property that will create the `JSAPIVar` instance.
-This property serve as the effective link between your Python API and the JavaScript object: 
+This property serves as the effective link between your Python API and the JavaScript object:
 
 ```python
 @property
