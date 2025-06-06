@@ -40,8 +40,8 @@ NEXT_SCRIPT_URL = "https://nextjs.org/docs/app/api-reference/components/script"
 GALLERY_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link"
 NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
-REFLEX_CLOUD_URL = "https://cloud.reflex.dev"
 ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
+DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
 
 # Install urls.
 BUN_URL = "https://bun.sh"
