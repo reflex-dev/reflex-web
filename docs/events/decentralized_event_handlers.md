@@ -24,14 +24,14 @@ class MyState(rx.State):
     count: int = 0
 
 @rx.event
-def increment(state: MyState, amount: int = 1):
+def increment(state: MyState, amount: int):
     state.count += amount
 
 def decentralized_event_example():
     return rx.vstack(
         rx.heading(f"Count: {MyState.count}"),
         rx.hstack(
-            rx.button("Increment by 1", on_click=increment()),
+            rx.button("Increment by 1", on_click=increment(1)),
             rx.button("Increment by 5", on_click=increment(5)),
             rx.button("Increment by 10", on_click=increment(10)),
         ),
