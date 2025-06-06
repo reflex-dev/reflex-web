@@ -110,7 +110,7 @@ When you call a method on a `JSAPIVar` instance, you're not actually executing J
 
 1. The method call is converted to a special type of event
 2. This event contains the method name and arguments
-3. When the event is processed on the client, it evaluate the referenced Javascript expression that was passed to the `JSAPIVar`
+3. When the event is processed on the client, it evaluates the referenced Javascript expression that was passed to the `JSAPIVar`
 4. It then calls the specified method with the provided arguments
 
 This architecture allows for a clean separation between your Python component definitions and the JavaScript methods they need to invoke, while still providing a cohesive developer experience.
