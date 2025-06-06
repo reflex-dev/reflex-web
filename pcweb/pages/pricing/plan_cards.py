@@ -153,12 +153,12 @@ def card(
                     price,
                     color_scheme="gray",
                     size="3",
-                    class_name="font-medium text-lg",
+                    class_name="font-medium 2xl:text-lg text-base w-fit",
                 )
                 if price
                 else rx.fragment()
             ),
-            class_name="flex items-center mb-2 gap-4",
+            class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
         ),
         rx.el.p(
             description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
@@ -194,7 +194,7 @@ def card(
             is_external=True,
             underline="none",
         ),
-        class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full min-w-[20.375rem] h-[33.5rem]",
+        class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full min-w-0 h-[33.5rem] overflow-hidden",
     )
 
 
@@ -213,19 +213,19 @@ def popular_card(
         rx.box(
             glow(),
             grid(),
-            rx.hstack(
+            rx.el.div(
                 rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
                 (
                     rx.badge(
                         price,
                         color_scheme="violet",
                         size="3",
-                        class_name="font-medium text-lg",
+                        class_name="font-medium 2xl:text-lg text-base w-fit",
                     )
                     if price
                     else rx.fragment()
                 ),
-                class_name="flex items-center mb-2 gap-4",
+                class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
             ),
             rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
             rx.el.ul(
@@ -259,7 +259,7 @@ def popular_card(
                 is_external=True,
                 underline="none",
             ),
-            class_name="flex flex-col p-8 border border-[--violet-9] rounded-[1.125rem] w-full min-w-[20.375rem] h-[33.5rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden",
+            class_name="flex flex-col p-8 border border-[--violet-9] rounded-[1.125rem] w-full min-w-0 h-[33.5rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden",
         ),
         class_name="relative",
     )
@@ -271,6 +271,7 @@ def plan_cards() -> rx.Component:
             "Hobby",
             "Everything you need to get started.",
             [
+                ("frame", "Open Source Framework"),
                 ("brain", "AI App Builder (Limited Access)"),
                 (
                     "app-window",
@@ -279,6 +280,7 @@ def plan_cards() -> rx.Component:
                 ),
                 ("code", "Reflex Open Source"),
                 ("heart-handshake", "Discord/Github Support"),
+                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Free-tier users can access Reflex Enterprise features, with a required 'Built with Reflex' badge displayed on their apps."),
             ],
             "Start building for free",
             price="Free",
@@ -291,6 +293,7 @@ def plan_cards() -> rx.Component:
                 ("brain", "AI App Builder (Free $20 credits / month)"),
                 ("credit-card", "Cloud (Free $10 credits / month)"),
                 ("brush", "Custom domains"),
+                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Pro-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when hosting their apps on Reflex Cloud"),
                 ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
@@ -309,6 +312,7 @@ def plan_cards() -> rx.Component:
                 ("lock-keyhole", "One Click Auth"),
                 ("file-badge", "AG Grid with no Reflex Branding"),
                 ("mail", "Email support"),
+                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Team-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when self-hosting their apps."),
                 ("circle-plus", "Everything in Pro"),
             ],
             "Start with Team plan",
@@ -330,5 +334,5 @@ def plan_cards() -> rx.Component:
             "Contact sales",
             redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
-        class_name="grid 2xl:grid-cols-4 xl:grid-cols-2 sm:grid-cols-1 gap-4",
+        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
     )

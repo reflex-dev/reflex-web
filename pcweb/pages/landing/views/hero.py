@@ -18,7 +18,7 @@ MAX_IMAGES_COUNT = 5
 prompt_map = {
     "Use an Image": "Build an app from a reference image",
     "Chat App": "A chat app hooked up to an LLM",
-    "Landing Page": "SaaS Landing Page for an AI Company",
+    "Live Dashboard": "Live stream data on a real-time dashboard",
 }
 
 
@@ -388,7 +388,7 @@ def prompt_box() -> rx.Component:
             rx.box(
                 preset_image_card(text="Use an Image", id="upload-image-button"),
                 preset_cards(text="Chat App", id="chat-app", icon="ai-chat-02"),
-                preset_cards(text="Landing Page", id="landing-page", icon="webpage"),
+                preset_cards(text="Live Dashboard", id="live-dashboard", icon="webpage"),
                 class_name="grid grid-cols-1 lg:grid-cols-3 gap-2",
             ),
             class_name="flex flex-col gap-4 w-full",
@@ -445,7 +445,7 @@ def hero() -> rx.Component:
         ),
         # Headings
         rx.el.h1(
-            "Build Internal Tools With AI",
+            "Prompt to production app, in seconds",
             class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-5xl lg:text-6xl font-semibold text-center text-transparent text-balance mx-auto break-words z-[1]",
         ),
         rx.el.h2(

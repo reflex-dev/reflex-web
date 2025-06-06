@@ -60,8 +60,10 @@ to initialize alembic and create a migration script with the current schema.
 After making changes to the schema, use
 `reflex db makemigrations --message 'something changed'`
 to generate a script in the `alembic/versions` directory that will update the
-database schema. It is recommended that scripts be inspected before applying
-them.
+database schema.  It is recommended that generated scripts be inspected before applying them.
+
+Bear in mind that your newest models will not be detected by the `reflex db makemigrations`
+command unless imported and used somewhere within the application.
 
 The `reflex db migrate` command is used to apply migration scripts to bring the
 database up to date. During app startup, if Reflex detects that the current
