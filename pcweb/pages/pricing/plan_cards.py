@@ -291,13 +291,13 @@ def plan_cards() -> rx.Component:
             "For professional projects and startups.",
             [
                 ("brain", "AI App Builder (Free $20 credits / month)"),
-                ("credit-card", "Cloud (Free $10 credits / month)"),
+                ("credit-card", "Cloud Compute (Free $10 credits / month)"),
                 ("brush", "Custom domains"),
                 ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Pro-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when hosting their apps on Reflex Cloud"),
                 ("circle-plus", "Everything in Hobby"),
             ],
             "Start with Pro plan",
-            price="$20/mo + compute",
+            price="$20/mo",
         ),
         card(
             "Team",
@@ -309,6 +309,7 @@ def plan_cards() -> rx.Component:
                     "Connect AI Builder to your Data",
                     "Integrations include Databricks, Snowflake, etc.",
                 ),
+                ("credit-card", "Cloud Compute (Free $20 credits / user / month)"),
                 ("lock-keyhole", "One Click Auth"),
                 ("file-badge", "AG Grid with no Reflex Branding"),
                 ("mail", "Email support"),
@@ -317,7 +318,7 @@ def plan_cards() -> rx.Component:
             ],
             "Start with Team plan",
             redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
-            price="$49/user/mo + compute",
+            price="$49/user/mo",
         ),
         card(
             "Enterprise",
