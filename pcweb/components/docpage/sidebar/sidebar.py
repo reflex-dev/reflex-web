@@ -5,17 +5,16 @@ from __future__ import annotations
 import reflex as rx
 
 from pcweb.components.docpage.navbar.state import NavbarState
+from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
+
 from .sidebar_items.ai import ai_builder_overview_items
-from .sidebar_items.component_lib import (
-    component_lib,
-    graphing_libs,
-)
-from .sidebar_items.learn import learn, frontend, backend, hosting, cli_ref
+from .sidebar_items.component_lib import component_lib, graphing_libs
+from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
-from .state import SidebarState, SideBarItem, SideBarBase
-from pcweb.constants import ENTERPRISE_DOCS_URL
+from .state import SideBarBase, SideBarItem, SidebarState
+
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -60,6 +59,7 @@ def sidebar_leaf(
             value=item_index,
             border="none",
             width="100%",
+            class_name="!overflow-visible",
         )
         if item.outer
         else rx.accordion.item(
@@ -93,6 +93,7 @@ def sidebar_leaf(
             border="none",
             value=item_index,
             width="100%",
+            class_name="!overflow-visible",
         )
     )
 
@@ -149,8 +150,8 @@ def sidebar_item_comp(
                         class_name="font-small",
                     ),
                     rx.box(class_name="flex-grow"),
-                    rx.accordion.icon(class_name="size-4"),
-                    class_name="flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
+                    rx.accordion.icon(class_name="size-4 !text-slate-9 group-hover:!text-violet-9"),
+                    class_name="!px-0 flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full !text-slate-9 aria-expanded:text-slate-11 hover:!text-slate-11 transition-color group",
                 ),
             ),
             rx.accordion.content(
@@ -167,12 +168,12 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent",
                 ),
-                class_name="!p-0 w-full",
+                class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
             value=item_index,
-            class_name="border-none w-full",
+            class_name="border-none w-full !bg-transparent",
         )
     )
 
@@ -327,7 +328,7 @@ def create_sidebar_section(
             type="multiple",
             collapsible=True,
             default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-            class_name="ml-0 pl-0 w-full",
+            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px]",
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -350,13 +351,14 @@ def sidebar_comp(
     tutorials_index: list[int],
     width: str = "100%",
 ):
-    from pcweb.pages.docs import enterprise, getting_started, state, ui
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import enterprise, getting_started
     from pcweb.pages.docs import hosting as hosting_page
+    from pcweb.pages.docs import state, ui
     from pcweb.pages.docs.apiref import pages
     from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.recipes_overview import overview
-    from pcweb.pages.docs import ai_builder as ai_builder_pages
 
     return rx.box(  # pyright: ignore [reportCallIssue]
         # Handle sidebar categories for docs/cloud first

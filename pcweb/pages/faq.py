@@ -132,16 +132,16 @@ def faq_item(question: str, answer: str, index: int):
                 rx.accordion.header(
                     rx.accordion.trigger(
                         rx.el.h3(
-                            question, class_name="font-smbold text-slate-12 text-start"
+                            question, class_name="font-smbold !text-slate-12 text-start"
                         ),
                         rx.spacer(),
-                        rx.accordion.icon(color="var(--c-slate-9)"),
+                        rx.accordion.icon(class_name="!text-slate-12"),
                         class_name="!bg-transparent hover:!bg-transparent !p-4 lg:!p-6",
                     ),
                 ),
                 rx.accordion.content(
                     answer,
-                    class_name="!p-[0rem_1rem_1rem_1rem] lg:!p-[0rem_1.5rem_1.5rem_1.5rem] font-small text-slate-11 text-start [&>code]:!font-code",
+                    class_name="!p-[0rem_1rem_1rem_1rem] lg:!p-[0rem_1.5rem_1.5rem_1.5rem] !font-small !text-slate-11 text-start [&>code]:!font-code before:!h-0 after:!h-0",
                 ),
                 class_name="border-none",
             ),
