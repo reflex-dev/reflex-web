@@ -338,6 +338,7 @@ def docpage_footer(path: str):
                         footer_link("Common Errors", errors.path),
                         footer_link("Roadmap", ROADMAP_URL),
                         footer_link("Forum", FORUM_URL),
+                        footer_link("Use Case", "/use-cases"),
                     ],
                 ),
                 class_name="flex flex-wrap justify-between gap-12 w-full",

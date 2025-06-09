@@ -1,4 +1,5 @@
 from .item import create_item
+from pcweb.pages import use_case
 
 
 def get_sidebar_items_ai_builder_overview():
@@ -11,6 +12,7 @@ def get_sidebar_items_ai_builder_overview():
             "Overview",
             children=[
                 ai_builder.overview.what_is_reflex_build,
+                ai_builder.overview.use_case,
                 # ai_builder.overview.quickstart,
                 # ai_builder.overview.frequently_asked_questions,
             ],
