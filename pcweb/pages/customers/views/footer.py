@@ -117,7 +117,7 @@ def news_letter() -> rx.Component:
 
 
 @rx.memo
-def footer() -> rx.Component:
+def footer_customer() -> rx.Component:
     return rx.el.footer(
         rx.box(
             footer_link_flex(
