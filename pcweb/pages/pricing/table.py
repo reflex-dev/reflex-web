@@ -42,9 +42,9 @@ PRICE_SECTION = [
 AI_TEXT_SECTION = [
     (
         "Message Limit",
-        "30 msgs/mo",
-        "100 msgs/mo",
-        "250 msgs/mo",
+        "30 msgs/month",
+        "100 msgs/month",
+        "250 msgs/month",
         "Custom",
     ),
 ]

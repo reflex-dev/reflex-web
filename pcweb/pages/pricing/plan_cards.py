@@ -143,8 +143,6 @@ def _get_price_label(title: str) -> str:
     """Get the appropriate price label for each plan."""
     if title == "Hobby":
         return "Free"
-    elif title == "Enterprise":
-        return ""  # No label for Enterprise (Custom pricing)
     else:
         return "From"
 
@@ -160,9 +158,10 @@ def _render_price_display(price: str, title: str) -> rx.Component:
             class_name="flex items-baseline"
         )
     else:
-        # Handle regular pricing (e.g., "$25/month")
+        # Handle regular pricing (e.g., "$25/month", "Custom")
         main_price = price.split("/")[0] if "/" in price else price
         period = f" / {price.split('/')[1]}" if "/" in price else ""
+        
         return rx.el.div(
             rx.el.span(main_price, class_name="text-4xl font-bold text-slate-12"),
             rx.el.span(period, class_name="text-sm text-slate-9"),
@@ -183,6 +182,11 @@ def _render_messaging_section(title: str) -> rx.Component:
             "sub": rx.link("Upgrade to Team for more messages", href="#reflex-build",
                           class_name="text-xs text-slate-9 hover:text-slate-11 underline")
         },
+        "Team": {
+            "main": "Reflex build 250 msgs/month",
+            "sub": rx.link("More messages available on request", href="#reflex-build",
+                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+        },
         "Enterprise": {
             "main": "Reflex build 500+ msgs/month",
             "sub": rx.link("More messages available on request", href="#reflex-build",
@@ -193,7 +197,7 @@ def _render_messaging_section(title: str) -> rx.Component:
     if title in messaging_config:
         config = messaging_config[title]
         return rx.el.div(
-            rx.el.p(config["main"], class_name="text-sm font-medium text-slate-12 mt-4"),
+            rx.el.p(config["main"], class_name="text-md font-semibold text-slate-12 mt-4"),
             rx.el.p(config["sub"]) if title == "Hobby" else config["sub"],
             class_name="mt-4"
         )
@@ -321,11 +325,7 @@ def popular_card(
             rx.el.div(
                 rx.el.span("From", class_name="text-sm text-slate-9 block mb-1"),
                 _render_price_display(price, title),
-                rx.el.div(
-                    rx.el.p("Reflex build 250 msgs/month", class_name="text-sm font-medium text-slate-12 mt-4"),
-                    rx.link("More messages available on request", href="#reflex-build", class_name="text-xs text-slate-9 hover:text-slate-11 underline"),
-                    class_name="mt-4"
-                ),
+                _render_messaging_section(title),
                 class_name="mb-6"
             ),
             
@@ -380,7 +380,7 @@ def plan_cards() -> rx.Component:
             "Team",
             "For teams looking to scale their applications.",
             [   
-                ("credit-card", "Cloud Compute $20/mo included"),
+                ("credit-card", "Cloud Compute $20/month included"),
                 ("users", "Invite your teammates"),
                 (
                     "cable",
