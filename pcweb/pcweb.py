@@ -139,8 +139,6 @@ redirects = [
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
     ("/blog/2025-10-27-top-10-data-visualization-libraries", "/blog/2025-01-27-top-10-data-visualization-libraries"),
-    # Databricks notion page redirect
-    ("/databricks", DATABRICKS_NOTION_URL)
 ]
 
 for source, target in redirects:
