@@ -14,8 +14,6 @@ from .hosting.hosting import hosting_landing as hosting_landing
 from .landing.landing import landing as landing
 from .page404 import page404 as page404
 from .pricing.pricing import pricing as pricing
-
-# from .hosting_countdown.hosting_countdown import hosting_countdown as hosting_countdown
 from .sales import sales as sales
 
 routes = [
