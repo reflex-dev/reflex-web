@@ -173,22 +173,22 @@ def _render_messaging_section(title: str) -> rx.Component:
     """Render the messaging/features section for each plan."""
     messaging_config = {
         "Hobby": {
-            "main": "Reflex build 5 msgs/day",
+            "main": "Reflex Build 5 msgs/day",
             "sub": rx.link("Monthly cap 30 messages", href="#reflex-build", 
                           class_name="text-xs text-slate-9 hover:text-slate-11 underline")
         },
         "Pro": {
-            "main": "Reflex build 100 msgs/month",
+            "main": "Reflex Build 100 msgs/month",
             "sub": rx.link("Upgrade to Team for more messages", href="#reflex-build",
                           class_name="text-xs text-slate-9 hover:text-slate-11 underline")
         },
         "Team": {
-            "main": "Reflex build 250 msgs/month",
+            "main": "Reflex Build 250 msgs/month",
             "sub": rx.link("More messages available on request", href="#reflex-build",
                           class_name="text-xs text-slate-9 hover:text-slate-11 underline")
         },
         "Enterprise": {
-            "main": "Reflex build 500+ msgs/month",
+            "main": "Reflex Build 500+ msgs/month",
             "sub": rx.link("More messages available on request", href="#reflex-build",
                           class_name="text-xs text-slate-9 hover:text-slate-11 underline")
         }
