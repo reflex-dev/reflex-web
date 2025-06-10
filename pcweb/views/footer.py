@@ -170,7 +170,7 @@ def footer() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                     footer_link("Affiliates", "/affiliates"),
-                    footer_link("Use Cases", "/use-cases"),
+                    footer_link("Use Cases", "/docs/ai-builder/overview/use-cases"),
                     rx.box(class_name="grow"),
                     dark_mode_toggle(),
                 ],

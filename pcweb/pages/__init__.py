@@ -1,6 +1,5 @@
 from pcweb.route import Route
 from .affiliates import affiliates as affiliates
-from .use_case import use_case as use_case
 from .blog import blog_routes
 from .customers.data.customers import customers_routes
 from .customers.landing import customers as customers
