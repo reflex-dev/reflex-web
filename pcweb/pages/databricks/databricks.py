@@ -11,7 +11,7 @@ from pcweb.pages.framework.index_colors import index_colors
 
 document = flexdown.parse_file("pcweb/pages/databricks/databricks.md")
 
-def content():
+def databricks_content():
     return rx.box(xd.render(document, document.filename))
 
 
@@ -22,7 +22,7 @@ def databricks():
             index_colors(),
             navbar(),
             rx.el.main(
-                content(),
+                databricks_content(),
                 rx.box(class_name="flex-grow"),
                 class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
             ),
