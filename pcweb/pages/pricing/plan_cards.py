@@ -30,6 +30,7 @@ def radial_circle(violet: bool = False) -> rx.Component:
 
 
 def glow() -> rx.Component:
+    """Radial gradient glow effect for popular card."""
     return rx.html(
         """<svg xmlns="http://www.w3.org/2000/svg" width="502" height="580" viewBox="0 0 502 580" fill="none">
   <path d="M0 290C0 450.163 112.377 580 251 580C389.623 580 502 450.163 502 290C502 129.837 389.623 0 251 0C112.377 0 0 129.837 0 290Z" fill="url(#paint0_radial_13685_26666)"/>
@@ -45,6 +46,7 @@ def glow() -> rx.Component:
 
 
 def grid() -> rx.Component:
+    """Animated grid background for popular card."""
     return rx.html(
         """<svg width="326" height="472" viewBox="0 0 326 472" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_13685_24040)">
@@ -137,6 +139,103 @@ def grid() -> rx.Component:
     )
 
 
+def _get_price_label(title: str) -> str:
+    """Get the appropriate price label for each plan."""
+    if title == "Hobby":
+        return "Free"
+    else:
+        return "From"
+
+
+def _render_price_display(price: str, title: str) -> rx.Component:
+    """Render the price display section with proper formatting."""
+    if "user" in price:
+        # Handle user-based pricing (e.g., "$49 user/month")
+        parts = price.split(" ", 1)
+        return rx.el.div(
+            rx.el.span(parts[0], class_name="text-4xl font-bold text-slate-12"),
+            rx.el.span(f"  {parts[1]}", class_name="text-sm text-slate-9 ml-2"),
+            class_name="flex items-baseline"
+        )
+    else:
+        # Handle regular pricing (e.g., "$25/month", "Custom")
+        main_price = price.split("/")[0] if "/" in price else price
+        period = f" / {price.split('/')[1]}" if "/" in price else ""
+        
+        return rx.el.div(
+            rx.el.span(main_price, class_name="text-4xl font-bold text-slate-12"),
+            rx.el.span(period, class_name="text-sm text-slate-9"),
+            class_name="flex items-baseline"
+        )
+
+
+def _render_messaging_section(title: str) -> rx.Component:
+    """Render the messaging/features section for each plan."""
+    messaging_config = {
+        "Hobby": {
+            "main": "Reflex Build 5 msgs/day",
+            "sub": rx.link("Monthly cap 30 messages", href="#reflex-build", 
+                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+        },
+        "Pro": {
+            "main": "Reflex Build 100 msgs/month",
+            "sub": rx.link("Upgrade to Team for more messages", href="#reflex-build",
+                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+        },
+        "Team": {
+            "main": "Reflex Build 250 msgs/month",
+            "sub": rx.link("More messages available on request", href="#reflex-build",
+                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+        },
+        "Enterprise": {
+            "main": "Reflex Build 500+ msgs/month",
+            "sub": rx.link("More messages available on request", href="#reflex-build",
+                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+        }
+    }
+    
+    if title in messaging_config:
+        config = messaging_config[title]
+        return rx.el.div(
+            rx.el.p(config["main"], class_name="text-md font-semibold text-slate-12 mt-4"),
+            rx.el.p(config["sub"]) if title == "Hobby" else config["sub"],
+            class_name="mt-4"
+        )
+    else:
+        # Default spacing for plans without messaging section
+        return rx.el.div(class_name="h-[3.5rem]")
+
+
+def _get_features_header(title: str) -> str:
+    """Get the appropriate features section header for each plan."""
+    headers = {
+        "Hobby": "Get started with:",
+        "Pro": "Everything in the Free Plan, plus:",
+        "Team": "Everything in the Pro Plan, plus:",
+        "Enterprise": "Everything in Team, plus:"
+    }
+    return headers.get(title, "Features:")
+
+
+def _render_feature_list(features: list[tuple[str, str]]) -> rx.Component:
+    """Render the feature list with consistent styling."""
+    return rx.el.ul(
+        *[
+            rx.el.li(
+                rx.icon("check", class_name="!text-green-500", size=16),
+                feature[1],
+                rx.tooltip(
+                    rx.icon("info", class_name="!text-slate-9", size=12),
+                    content=feature[2],
+                ) if len(feature) == 3 else "",
+                class_name="text-sm font-medium text-slate-11 flex items-center gap-3 mb-2",
+            )
+            for feature in features
+        ],
+        class_name="flex flex-col",
+    )
+
+
 def card(
     title: str,
     description: str,
@@ -145,56 +244,43 @@ def card(
     price: str = None,
     redirect_url: str = None,
 ) -> rx.Component:
+    """Standard pricing card component."""
     return rx.box(
-        rx.el.div(
-            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
-            (
-                rx.badge(
-                    price,
-                    color_scheme="gray",
-                    size="3",
-                    class_name="font-medium 2xl:text-lg text-base w-fit",
-                )
-                if price
-                else rx.fragment()
-            ),
-            class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
-        ),
-        rx.el.p(
-            description, class_name="text-sm font-medium text-slate-9 mb-8 text-pretty"
-        ),
-        rx.el.ul(
-            *[
-                rx.el.li(
-                    rx.icon(feature[0], class_name="!text-slate-9", size=16),
-                    feature[1],
-                    (
-                        rx.tooltip(
-                            rx.icon("info", class_name="!text-slate-9", size=12),
-                            content=feature[2],
-                        )
-                        if len(feature) == 3
-                        else ""
-                    ),
-                    class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
-                )
-                for feature in features
-            ],
-            class_name="flex flex-col gap-2",
-        ),
-        rx.box(class_name="flex-1"),
+        # Header
+        rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-4"),
+        rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-6 text-pretty"),
+        
+        # CTA Button
         rx.link(
             button(
                 button_text,
                 variant="secondary",
                 size="lg",
-                class_name="w-full",
+                class_name="w-full mb-6",
             ),
             href=redirect_url,
             is_external=True,
             underline="none",
         ),
-        class_name="flex flex-col p-8 border border-slate-4 rounded-[1.125rem] shadow-small bg-slate-2 w-full min-w-0 h-[33.5rem] overflow-hidden",
+        
+        # Pricing Section
+        rx.el.div(
+            rx.el.span(_get_price_label(title), class_name="text-sm text-slate-9 block mb-1"),
+            _render_price_display(price, title),
+            _render_messaging_section(title),
+            class_name="mb-6"
+        ),
+        
+        # Divider
+        rx.el.hr(class_name="border-slate-3 mb-6"),
+        
+        # Features Section
+        rx.el.div(
+            rx.el.p(_get_features_header(title), class_name="text-sm font-medium text-slate-9 mb-4"),
+            _render_feature_list(features),
+        ),
+        
+        class_name="flex flex-col p-6 border border-slate-4 rounded-lg shadow-small bg-slate-2 w-full min-w-0 overflow-hidden h-[42rem]",
     )
 
 
@@ -205,62 +291,56 @@ def popular_card(
     button_text: str,
     price: str = None,
 ) -> rx.Component:
+    """Popular pricing card component with special styling and effects."""
     return rx.box(
+        # Popular Badge
         rx.box(
-            "Most popular",
+            "Most Popular",
             class_name="absolute top-[-0.75rem] left-8 rounded-md bg-[--violet-9] h-[1.5rem] text-sm font-medium text-center px-2 flex items-center justify-center text-[#FCFCFD] z-[10]",
         ),
+        
+        # Card Content with Background Effects
         rx.box(
             glow(),
             grid(),
-            rx.el.div(
-                rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl"),
-                (
-                    rx.badge(
-                        price,
-                        color_scheme="violet",
-                        size="3",
-                        class_name="font-medium 2xl:text-lg text-base w-fit",
-                    )
-                    if price
-                    else rx.fragment()
-                ),
-                class_name="flex 2xl:items-center mb-2 2xl:gap-4 gap-2 2xl:flex-row flex-col",
-            ),
-            rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-8"),
-            rx.el.ul(
-                *[
-                    rx.el.li(
-                        rx.icon(feature[0], class_name="!text-violet-9", size=16),
-                        feature[1],
-                        (
-                            rx.tooltip(
-                                rx.icon("info", class_name="!text-slate-9", size=12),
-                                content=feature[2],
-                            )
-                            if len(feature) == 3
-                            else ""
-                        ),
-                        class_name="text-sm font-medium text-slate-11 flex items-center gap-3",
-                    )
-                    for feature in features
-                ],
-                class_name="flex flex-col gap-2",
-            ),
-            rx.box(class_name="flex-1"),
+            
+            # Header
+            rx.el.h3(title, class_name="font-semibold text-slate-12 text-2xl mb-4"),
+            rx.el.p(description, class_name="text-sm font-medium text-slate-9 mb-6 text-pretty"),
+            
+            # CTA Button
             rx.link(
                 button(
                     button_text,
                     variant="primary",
                     size="lg",
-                    class_name="w-full !text-sm !font-semibold",
+                    class_name="w-full mb-6 !text-sm !font-semibold",
                 ),
                 href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
                 is_external=True,
                 underline="none",
             ),
-            class_name="flex flex-col p-8 border border-[--violet-9] rounded-[1.125rem] w-full min-w-0 h-[33.5rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden",
+            
+            # Pricing Section
+            rx.el.div(
+                rx.el.span("From", class_name="text-sm text-slate-9 block mb-1"),
+                _render_price_display(price, title),
+                _render_messaging_section(title),
+                class_name="mb-6"
+            ),
+            
+            # Divider
+            rx.el.hr(class_name="border-slate-3 mb-6"),
+            
+            # Features Section
+            rx.el.div(
+                rx.el.p("Everything in the Pro Plan, plus:", class_name="text-sm font-medium text-slate-9 mb-4"),
+                _render_feature_list(features),
+            ),
+            
+            class_name="flex flex-col p-6 border-2 border-[--violet-9] rounded-lg w-full min-w-0 relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden h-[42rem]",
         ),
+        
         class_name="relative",
     )
 
@@ -271,69 +351,65 @@ def plan_cards() -> rx.Component:
             "Hobby",
             "Everything you need to get started.",
             [
-                ("frame", "Open Source Framework"),
-                ("brain", "AI App Builder (Limited Access)"),
                 (
                     "app-window",
-                    "Cloud Unlimited Apps",
+                    "Cloud Limited Apps",
                     "Free users are limited to 20 hours of 1 vCPU, 1 GB RAM  machines per month.",
                 ),
-                ("code", "Reflex Open Source"),
                 ("heart-handshake", "Discord/Github Support"),
                 ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Free-tier users can access Reflex Enterprise features, with a required 'Built with Reflex' badge displayed on their apps."),
+                ("frame", "Open Source Framework"),
             ],
-            "Start building for free",
-            price="Free",
+            "Start for Free",
+            price="$0/month",
             redirect_url=REFLEX_DOCS_URL,
         ),
-        popular_card(
+        card(
             "Pro",
             "For professional projects and startups.",
             [
-                ("brain", "AI App Builder (Free $20 credits / month)"),
-                ("credit-card", "Cloud Compute (Free $10 credits / month)"),
+                ("credit-card", "Cloud Credits $10/month included"),
                 ("brush", "Custom domains"),
                 ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Pro-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when hosting their apps on Reflex Cloud"),
-                ("circle-plus", "Everything in Hobby"),
             ],
-            "Start with Pro plan",
-            price="$20/mo",
+            "Upgrade now",
+            price="$20/month",
+            redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
         ),
-        card(
+        popular_card(
             "Team",
             "For teams looking to scale their applications.",
-            [
-                ("users", "Invite your team mates"),
+            [   
+                ("credit-card", "Cloud Compute $20/month included"),
+                ("users", "Invite your teammates"),
                 (
                     "cable",
-                    "Connect AI Builder to your Data",
-                    "Integrations include Databricks, Snowflake, etc.",
+                    "Reflex Build Integrations",
+                    "Databricks, Snowflake, etc.",
                 ),
-                ("credit-card", "Cloud Compute (Free $20 credits / user / month)"),
-                ("lock-keyhole", "One Click Auth"),
                 ("file-badge", "AG Grid with no Reflex Branding"),
                 ("mail", "Email support"),
                 ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Team-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when self-hosting their apps."),
-                ("circle-plus", "Everything in Pro"),
             ],
-            "Start with Team plan",
-            redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
-            price="$49/user/mo",
+            "Upgrade now",
+            price="$49 user/month",
         ),
         card(
             "Enterprise",
             "Get a plan tailored to your business needs.",
             [
+                ("credit-card", "Cloud Compute $100/mo included"),
+                ("hard-drive", "On Premise Deployment", "Option to self-host your apps on your own infrastructure."),
                 ("hand-helping", "White Glove Onboarding"),
                 ("user-round-plus", "Personalized integration help"),
-                ("hard-drive", "On Premise Deployment"),
                 ("key", "Bring your own AI API keys"),
                 ("headset", "Dedicated Support Channel"),
                 ("git-pull-request", "Influence Reflex Roadmap"),
                 ("circle-plus", "Everything in Team"),
             ],
-            "Contact sales",
+            "Contact Us",
+            price="Custom",
             redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
-        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
     )

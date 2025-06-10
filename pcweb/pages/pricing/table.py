@@ -41,15 +41,17 @@ PRICE_SECTION = [
 
 AI_TEXT_SECTION = [
     (
-        "AI App Building",
-        "Limited Access",
-        "$20 credits/month",
-        "$40 credits/user/month",
+        "Message Limit",
+        "30 msgs/month",
+        "100 msgs/month",
+        "250 msgs/month",
         "Custom",
     ),
 ]
 
 AI_BOOLEAN_SECTION = [
+    ("Purchase Extra AI Messages", False, False, True, True),
+    ("Private Apps", False, True, True, True),
     ("Image to App", True, True, True, True),
     ("Web IDE", True, True, True, True),
     ("Custom User Rules", True, True, True, True),
@@ -57,8 +59,6 @@ AI_BOOLEAN_SECTION = [
     ("Github Integration", True, True, True, True),
     ("Database Integration", True, True, True, True),
     ("Secrets Integration", True, True, True, True),
-    ("Purchase Extra AI Credits", False, True, True, True),
-    ("Private Apps", False, True, True, True),
     ("Bring your own API Keys", False, False, False, True),
 ]
 
@@ -205,7 +205,23 @@ def create_table_row(cells: list) -> rx.Component:
     )
 
 
-def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Component:
+def create_table_row_header(name: list, coming_soon: bool = False, anchor: str = None) -> rx.Component:
+    # Create row attributes
+    base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center"
+    
+    # Add scroll margin for anchor positioning
+    if anchor:
+        base_class += " scroll-mt-24"
+    
+    row_attrs = {
+        "class_name": base_class,
+        "padding_x": "5rem !important",
+    }
+    
+    # Add id attribute if anchor is provided
+    if anchor:
+        row_attrs["id"] = anchor
+    
     return rx.table.row(
         *[
             rx.table.column_header_cell(
@@ -225,8 +241,7 @@ def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Compone
                 "Enterprise", class_name=STYLES["header_cell_sub"]
             ),
         ],
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
-        padding_x="5rem !important",
+        **row_attrs
     )
 
 
@@ -275,7 +290,7 @@ def table_body_oss() -> rx.Component:
             *[create_table_row(row) for row in PRICE_SECTION],
         ),
         rx.table.header(
-            create_table_row_header("Reflex Build"),
+            create_table_row_header("Reflex Build", anchor="reflex-build"),
             class_name="relative",
         ),
         create_table_body(
