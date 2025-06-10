@@ -39,7 +39,7 @@ From buyside analytics desks to compliance back offices, finance teams choose *
     )
 ```
 
-Modern merchants and growth marketers juggle stock feeds, ad platforms, and customer-service queues that rarely live in the same tool. **Reflex** lets teams wire those APIs together—from Amazon listings to TikTok ads—then ship production dashboards or scheduled automations with nothing but Python. The result: faster decisions on pricing, spend, and fulfilment, plus fewer hops between spreadsheets and BI tools.
+Modern merchants and growth marketers juggle stock feeds, ad platforms, and customer-service queues that rarely live in the same tool. **Reflex** lets teams wire those APIs together—from Amazon listings to TikTok ads—then ship production dashboards or scheduled automations with nothing but Python. The result: faster decisions on pricing, spend, and fulfillment, plus fewer hops between spreadsheets and BI tools.
 
 **Examples of apps you can stand up in Reflex:**
 
