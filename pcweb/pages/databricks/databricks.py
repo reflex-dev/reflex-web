@@ -11,18 +11,18 @@ from pcweb.pages.framework.index_colors import index_colors
 
 document = flexdown.parse_file("pcweb/pages/databricks/databricks.md")
 
-def use_case_content():
+def content():
     return rx.box(xd.render(document, document.filename))
 
 
 @rx.page(route="/databricks", title="Databricks - Reflex")
-def use_case():
+def databricks():
     return rx.box(
         rx.box(
             index_colors(),
             navbar(),
             rx.el.main(
-                use_case_content(),
+                content(),
                 rx.box(class_name="flex-grow"),
                 class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
             ),
