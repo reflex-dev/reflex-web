@@ -15,6 +15,34 @@ from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
 from .state import SideBarBase, SideBarItem, SidebarState
 
+Scrollable_SideBar = """
+function scrollToActiveSidebarLink() {
+  const currentPath = window.location.pathname.replace(/\\/+$|\\/$/g, "") + "/";
+
+  const activeLink = document.querySelector(`a[href="${currentPath}"]`) ||
+                    document.querySelector(`a[href="${currentPath.slice(0, -1)}"]`);
+
+  if (activeLink) {
+    activeLink.scrollIntoView({
+      block: "center",
+      behavior: "smooth"
+    });
+  }
+}
+
+setTimeout(scrollToActiveSidebarLink, 100);
+
+window.addEventListener("popstate", () => {
+  setTimeout(scrollToActiveSidebarLink, 100);
+});
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="/docs"]');
+  if (link) {
+    setTimeout(scrollToActiveSidebarLink, 200);
+  }
+});
+"""
 
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
@@ -628,6 +656,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             #
             width=width,
         ),
+        on_mount=rx.call_script(Scrollable_SideBar),
         class_name="flex justify-end w-full h-full",
     )
 
