@@ -82,6 +82,7 @@ def social_menu_item(icon: str, url: str, name: str) -> rx.Component:
 def menu_socials() -> rx.Component:
     return rx.box(
         social_menu_item("discord_navbar", DISCORD_URL, "Discord"),
+        social_menu_item("forum", FORUM_URL, "Forum"),
         social_menu_item("twitter", TWITTER_URL, "Twitter"),
         social_menu_item("github_navbar", GITHUB_URL, "Github"),
         social_menu_item("linkedin", LINKEDIN_URL, "LinkedIn"),
