@@ -25,7 +25,6 @@ function scrollToActiveSidebarLink() {
   if (activeLink) {
     activeLink.scrollIntoView({
       block: "center",
-      behavior: "smooth"
     });
   }
 }
