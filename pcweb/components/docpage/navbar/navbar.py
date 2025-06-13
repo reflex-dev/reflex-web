@@ -76,10 +76,12 @@ def link_item(name: str, url: str, active_str: str = ""):
 
     elif active_str == "framework":
         # Check if path contains "docs" but excludes ai-builder, cloud, and hosting
+        # OR if path contains "open-source" (for the main open source landing page)
         is_docs = router_path.contains("docs")
+        is_open_source_page = router_path.contains("open-source")
         not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
         not_ai_builder = ~router_path.contains("ai-builder")
-        active = is_docs & not_cloud & not_ai_builder
+        active = (is_docs & not_cloud & not_ai_builder) | is_open_source_page
 
     elif active_str == "docs":
         active = rx.cond(
@@ -330,13 +332,6 @@ def new_resource_section():
         _resource_section_column("Company", _company_items),
         # Grid cards
         rx.box(
-            # grid_card(
-            #     "Blog",
-            #     "See what's new in the Reflex ecosystem.",
-            #     f"/blog",
-            #     "/blog/top_python_web_frameworks.png",
-            #     "absolute bottom-0 rounded-tl-md",
-            # ),
             grid_card(
                 "Customers",
                 "Meet the teams who chose Reflex.",
@@ -405,7 +400,7 @@ def doc_section():
                 0,
             ),
             resource_item(
-                "Framework Docs", getting_started.introduction.path, "frame", 0
+                "Open Source Docs", getting_started.introduction.path, "frame", 0
             ),
             resource_item(
                 "Cloud Docs", hosting_page.deploy_quick_start.path, "server", 0
@@ -451,7 +446,7 @@ def new_component_section() -> rx.Component:
                     ),
                     nav_menu.item(
                         link_item(
-                            "Framework", getting_started.introduction.path, "framework"
+                            "Open Source", getting_started.introduction.path, "framework"
                         ),
                     ),
                     nav_menu.item(
@@ -466,7 +461,7 @@ def new_component_section() -> rx.Component:
                     #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
                     # ),
                     nav_menu.item(
-                        link_item("Framework", framework.path, "framework"),
+                        link_item("Open Source", framework.path, "framework"),
                     ),
                     nav_menu.item(
                         link_item("Cloud", hosting_landing.path, "hosting"),
