@@ -14,7 +14,7 @@ def glow() -> rx.Component:
 
 
 class HostingBannerState(rx.State):
-    show_banner: bool = False
+    show_banner: bool = True
 
     def hide_banner(self):
         self.show_banner = False
@@ -32,19 +32,19 @@ def hosting_banner() -> rx.Component:
                             "Reflex Build – ",
                             # Descriptive text: hidden on small, inline on md+
                             rx.el.span(
-                                "Build internal apps with AI.",
+                                "Production grade internal and enterprise ready app.",
                                 class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
                             ),
                             # Mobile CTA: inline on small, hidden on md+
                             rx.el.span(
-                                "Try for Free!",
+                                "Early Access!",
                                 class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
                             ),
                             class_name="text-slate-12 font-semibold text-sm z-[1]",
                         ),
                         # Standalone CTA button: hidden on small, inline on md+
                         rx.el.button(
-                            "Try for Free!",
+                            "Early Access!",
                             class_name=(
                                 "hidden md:inline-block "
                                 "text-green-11 h-[1.5rem] rounded-md bg-green-4 "
@@ -56,7 +56,7 @@ def hosting_banner() -> rx.Component:
                     )
                 ),
                 glow(),
-                href=REFLEX_BUILD_URL,
+                href="/pricing",
                 underline="none",
                 is_external=True,
             ),

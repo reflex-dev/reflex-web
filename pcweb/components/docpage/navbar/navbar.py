@@ -21,7 +21,7 @@ from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
 from ..sidebar import SidebarState
 from ...link_button import resources_button
-
+from pcweb.components.hosting_banner import hosting_banner
 
 def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
@@ -520,7 +520,7 @@ def new_component_section() -> rx.Component:
 @rx.memo
 def navbar() -> rx.Component:
     return rx.box(
-        # hosting_banner(),
+        hosting_banner(),
         rx.el.header(
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
