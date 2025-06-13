@@ -32,19 +32,19 @@ def hosting_banner() -> rx.Component:
                             "Reflex Build – ",
                             # Descriptive text: hidden on small, inline on md+
                             rx.el.span(
-                                "Production grade internal and enterprise ready app.",
+                                "Prompt to production app, in seconds.",
                                 class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
                             ),
                             # Mobile CTA: inline on small, hidden on md+
                             rx.el.span(
-                                "Early Access!",
+                                "Early Access",
                                 class_name="inline-block md:hidden text-slate-12 font-medium text-sm",
                             ),
                             class_name="text-slate-12 font-semibold text-sm z-[1]",
                         ),
                         # Standalone CTA button: hidden on small, inline on md+
                         rx.el.button(
-                            "Early Access!",
+                            "Get Early Access",
                             class_name=(
                                 "hidden md:inline-block "
                                 "text-green-11 h-[1.5rem] rounded-md bg-green-4 "
