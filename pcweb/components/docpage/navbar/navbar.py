@@ -498,12 +498,12 @@ def new_component_section() -> rx.Component:
             nav_menu.item(
                 rx.link(
                     button(
-                        "Build",
+                        "Get a Demo",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
                     is_external=True,
-                    href=REFLEX_BUILD_URL,
+                    href="/pricing",
                 ),
                 class_name="desktop-only",
             ),
