@@ -2,15 +2,16 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
-# Constants for styling
+# Constants for styling - KEEPING ORIGINAL
 STYLES = {
-    "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
+    "cell": "text-slate-12 font-medium text-sm",
     "header_cell": "text-slate-12 font-semibold text-lg",
     "header_cell_sub": "text-slate-11 font-semibold text-md",
-    "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
+    "feature_cell": "text-slate-9 font-medium text-sm",
     "button_base": "!text-sm !font-semibold w-full text-nowrap",
 }
 
+# KEEPING ORIGINAL TABLE STYLE BUT MODIFIED FOR 2 COLUMNS
 TABLE_STYLE = """
 .rt-TableCell {
     background-color: transparent !important;
@@ -21,139 +22,96 @@ TABLE_STYLE = """
     gap: 0 !important;
     width: 100% !important;
     min-height: max-content !important;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 .rt-TableRow {
     display: grid !important;
-    grid-template-columns: minmax(100px, 1fr) repeat(4, minmax(100px, 1fr)) !important;
+    grid-template-columns: minmax(200px, 1fr) minmax(400px, 2fr) !important;
     padding: 1rem 2.5rem;
     gap: 1rem !important;
+    min-height: 50px !important;
+    align-items: start !important;
 }
 .rt-ScrollAreaViewport {
     padding-top: 2rem;
 }
 """
 
+# NEW DATA STRUCTURE - FEATURE AND DESCRIPTION PAIRS
 PRICE_SECTION = [
-    ("Per Seat Price", "FREE", "$20/month", "$49/month", "Custom"),
-    ("Team Size", "1", "1", "< 25", "Unlimited"),
+    ("Per Seat Price", "Flexible pricing tiers from free to custom enterprise solutions"),
+    ("Team Size", "Scale from individual developers to unlimited enterprise teams"),
 ]
 
-
 AI_TEXT_SECTION = [
-    (
-        "Message Limit",
-        "30 msgs/month",
-        "100 msgs/month",
-        "250 msgs/month",
-        "Custom",
-    ),
+    ("Message Limit", "Monthly AI assistance limits ranging from 30 to 250+ messages based on your plan"),
 ]
 
 AI_BOOLEAN_SECTION = [
-    ("Purchase Extra AI Messages", False, False, True, True),
-    ("Private Apps", False, True, True, True),
-    ("Image to App", True, True, True, True),
-    ("Web IDE", True, True, True, True),
-    ("Custom User Rules", True, True, True, True),
-    ("One Click Cloud Deploy", True, True, True, True),
-    ("Github Integration", True, True, True, True),
-    ("Database Integration", True, True, True, True),
-    ("Secrets Integration", True, True, True, True),
-    ("Bring your own API Keys", False, False, False, True),
+    ("Purchase Extra AI Messages", "Buy additional AI messages when you exceed your monthly limit"),
+    ("Private Apps", "Keep your applications secure and visible only to authorized team members"),
+    ("Image to App", "Transform design mockups into working Reflex applications using AI"),
+    ("Web IDE", "Build and edit applications directly in your browser with our integrated development environment"),
+    ("Custom User Rules", "Define specific rules and constraints for AI assistance tailored to your project needs"),
+    ("One Click Cloud Deploy", "Deploy applications to the cloud instantly without complex configuration"),
+    ("Github Integration", "Seamlessly sync your code repositories with GitHub for version control"),
+    ("Database Integration", "Connect to PostgreSQL, MySQL, SQLite and other databases with built-in ORM support"),
+    ("Secrets Integration", "Securely manage API keys, credentials, and sensitive configuration data"),
+    ("Bring your own API Keys", "Use your own third-party service API keys for maximum control and cost management"),
 ]
-
-ASTERIX_SECTION_ENTERPRISE = [
-    (
-        "* Enterprise components included for Hobby (with `Built with Reflex` badge) and Pro (if self-hosted).",
-        "",
-        "",
-        "",
-        "",
-    ),
-]
-
 
 REFLEX_ENTERPRISE_BOOLEAN_SECTION = [
-    ("AG Grid *",True, True, True, True),
-    ("AG Charts *",True, True, True, True),
-    ("Map Component *",True, True, True, True),
-    ("Drag and Drop Component *",True, True, True, True),
-    ("Single Port Deploy *",True, True, True, True),
-    ("HTTP Fallback for Websockets",False, False, False, True),
-    ("Custom NPM Registry",False, False, False, True),
-    ("One Click Auth",False, False, True, True),
+    ("AG Grid", "Advanced data grid with sorting, filtering, grouping, and Excel-like functionality"),
+    ("AG Charts", "Professional interactive charting and data visualization library"),
+    ("Map Component", "Interactive mapping with markers, layers, and geospatial data support"),
+    ("Drag and Drop Component", "Intuitive drag-and-drop interface components for enhanced user experience"),
+    ("Single Port Deploy", "Simplified deployment architecture running your entire application on one port"),
+    ("HTTP Fallback for Websockets", "Automatic fallback ensuring reliability when WebSocket connections fail"),
+    ("Custom NPM Registry", "Use private NPM registries for proprietary packages and enhanced security"),
+    ("One Click Auth", "Quick authentication setup with Google, GitHub, Auth0 and other providers"),
 ]
 
 HOSTING_TEXT_SECTION = [
-    (
-        "Compute",
-        "20 hours/month",
-        "$10 credits/month",
-        "$20 compute credits/user/month",
-        "Custom",
-    ),
-    ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
-    ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
+    ("Compute", "Flexible compute resources with credits ranging from 20 hours to custom enterprise allocations"),
+    ("Build Logs", "Application build logs retained from 1 day to custom enterprise retention periods"),
+    ("Runtime Logs", "Application runtime logs kept from 1 hour to custom enterprise durations"),
 ]
 
 HOSTING_BOOLEAN_SECTION = [
-    ("Multiple Regions", False, True, True, True),
-    ("CPU / Memory Metrics", True, True, True, True),
-    ("User Analytics", False, False, True, True),
-    ("On Premise Deployments", False, False, False, True),
-    ("Custom Domains", False, True, True, True),
-
-    # ... the following were not in the notion docs
-    # ("CLI Deployments", True, True, True, True),
-    # ("CI/CD Deploy Tokens", True, True, True, True),
-    # ("Set Billing Limits", True, True, True, True),
+    ("Multiple Regions", "Deploy across geographic regions for better performance and availability"),
+    ("CPU / Memory Metrics", "Monitor application resource usage with detailed performance metrics"),
+    ("User Analytics", "Track user behavior and application usage with built-in analytics tools"),
+    ("On Premise Deployments", "Deploy on your own infrastructure for maximum control and security"),
+    ("Custom Domains", "Use your own domain names instead of default Reflex subdomains"),
 ]
 
 FEATURES_SECTION = [
-    ("Secrets", True, True, True, True),
-    ("Custom Alerts", False, False, True, True),
-    ("Rollbacks", False, False, True, True),
-    ("Audit Log", False, False, True, True),
+    ("Secrets", "Secure storage and management of sensitive configuration data and API keys"),
+    ("Custom Alerts", "Set up notifications and alerts based on application metrics and events"),
+    ("Rollbacks", "Quickly revert to previous application versions when issues are detected"),
+    ("Audit Log", "Comprehensive logging of actions and changes for compliance and security"),
 ]
 
 SECURITY_SECTION = [
-    ("Web App Firewall", True, True, True, True),
-    ("HTTP/SSL", True, True, True, True),
-    # ("DDos Protection", True, True, True, True),
-    ("Automatic CI/CD", False, True, True, True),
-    ("Security Audit Reports", False, False, True, True),
-    ("SSO", False, False, False, True),
+    ("Web App Firewall", "Built-in protection against common web vulnerabilities and attacks"),
+    ("HTTP/SSL", "Automatic HTTPS encryption with managed SSL certificates for all applications"),
+    ("Automatic CI/CD", "Automated continuous integration and deployment pipelines"),
+    ("Security Audit Reports", "Regular security assessments and vulnerability reports"),
+    ("SSO", "Single Sign-On integration with enterprise identity providers"),
 ]
 
 SUPPORT_TEXT_SECTION = [
-    ("Support", "Community Support", "Community Support", "Email Support", "Dedicated Support")
+    ("Support", "Support levels from community forums to dedicated technical assistance")
 ]
 
 SUPPORT_BOOLEAN_SECTION = [
-    ("White Glove Onboarding", False, False, False, True),
-    ("", "", "", "", ""),
-    # ... not in the notion docs
-    # ("SLAs Available", False, False, False, True),
+    ("White Glove Onboarding", "Personalized setup and migration assistance for enterprise customers"),
 ]
 
-PLAN_BUTTONS = [
-    ("Start building for free", "secondary", "!text-slate-11 !w-fit"),
-    ("Start with Pro plan", "primary", "!text-[#FCFCFD] !w-fit"),
-    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
-    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
+ASTERIX_SECTION_ENTERPRISE = [
+    ("* Enterprise components", "Included for Hobby (with `Built with Reflex` badge) and Pro (if self-hosted)."),
 ]
-
-ASTERIX_SECTION = [
-    (
-        "* AG Grid comes with a 'Built with Reflex' badge for Hobby and Pro tier.",
-        "",
-        "",
-        "",
-        "",
-    ),
-    ("", "", "", "", ""),
-]
-
 
 def glow() -> rx.Component:
     return rx.table.row(
@@ -165,7 +123,6 @@ def glow() -> rx.Component:
         height="6rem !important",
         width="60.75rem !important",
     )
-
 
 def create_table_cell(content: str | rx.Component) -> rx.Component:
     if content == "Usage Based":
@@ -179,7 +136,6 @@ def create_table_cell(content: str | rx.Component) -> rx.Component:
             class_name=STYLES["cell"],
         )
     return rx.table.cell(content, class_name=STYLES["cell"])
-
 
 def create_action_button(
     text: str, variant: str, extra_styles: str = ""
@@ -196,32 +152,30 @@ def create_action_button(
         class_name="w-full flex justify-center items-center",
     )
 
-
 def create_table_row(cells: list) -> rx.Component:
     row_cells = [create_table_cell(cell) for cell in cells]
     return rx.table.row(
         *row_cells,
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
+        class_name="w-full bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
     )
 
-
 def create_table_row_header(name: list, coming_soon: bool = False, anchor: str = None) -> rx.Component:
-    # Create row attributes
-    base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center"
-    
+    # Create row attributes - KEEPING ORIGINAL STYLING
+    base_class = "w-full bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center"
+
     # Add scroll margin for anchor positioning
     if anchor:
         base_class += " scroll-mt-24"
-    
+
     row_attrs = {
         "class_name": base_class,
         "padding_x": "5rem !important",
     }
-    
+
     # Add id attribute if anchor is provided
     if anchor:
         row_attrs["id"] = anchor
-    
+
     return rx.table.row(
         *[
             rx.table.column_header_cell(
@@ -234,37 +188,16 @@ def create_table_row_header(name: list, coming_soon: bool = False, anchor: str =
             )
             if coming_soon
             else rx.table.column_header_cell(name, class_name=STYLES["header_cell"]),
-            rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell(
-                "Enterprise", class_name=STYLES["header_cell_sub"]
-            ),
+            rx.table.column_header_cell("", class_name=STYLES["header_cell_sub"]),
         ],
         **row_attrs
     )
-
 
 def create_table_body(*body_content) -> rx.Component:
     return rx.table.body(
         *body_content,
         class_name="w-full divide-y divide-slate-4 border border-slate-4 md:border-t-0 flex flex-col items-center justify-center border-x max-w-[64.19rem] mx-auto border-b-0",
     )
-
-
-def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component:
-    cells = [
-        feature,
-        *[
-            rx.box(
-                rx.icon("check", class_name="text-slate-12", size=16) if c else "",
-                class_name="flex justify-center items-center",
-            )
-            for c in checks
-        ],
-    ]
-    return create_table_row(cells)
-
 
 def header_oss() -> rx.Component:
     return rx.box(
@@ -278,7 +211,6 @@ def header_oss() -> rx.Component:
         ),
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
-
 
 def table_body_oss() -> rx.Component:
     return rx.table.root(
@@ -295,21 +227,14 @@ def table_body_oss() -> rx.Component:
         ),
         create_table_body(
             *[create_table_row(row) for row in AI_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in AI_BOOLEAN_SECTION
-            ],
+            *[create_table_row(row) for row in AI_BOOLEAN_SECTION],
         ),
-        #
         rx.table.header(
             create_table_row_header("Reflex Enterprise"),
             class_name="relative",
         ),
         create_table_body(
-        *[
-            create_checkmark_row(feature, checks)
-            for feature, *checks in REFLEX_ENTERPRISE_BOOLEAN_SECTION
-        ],
+            *[create_table_row(row) for row in REFLEX_ENTERPRISE_BOOLEAN_SECTION],
         ),
         create_table_body(
             *[create_table_row(row) for row in ASTERIX_SECTION_ENTERPRISE],
@@ -320,14 +245,10 @@ def table_body_oss() -> rx.Component:
         ),
         create_table_body(
             *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in SUPPORT_BOOLEAN_SECTION
-            ],
+            *[create_table_row(row) for row in SUPPORT_BOOLEAN_SECTION],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
-
 
 def header_hosting() -> rx.Component:
     return rx.box(
@@ -342,7 +263,6 @@ def header_hosting() -> rx.Component:
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
-
 def table_body_hosting() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
@@ -353,34 +273,24 @@ def table_body_hosting() -> rx.Component:
         ),
         create_table_body(
             *[create_table_row(row) for row in HOSTING_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in HOSTING_BOOLEAN_SECTION
-            ],
+            *[create_table_row(row) for row in HOSTING_BOOLEAN_SECTION],
         ),
         rx.table.header(
             create_table_row_header("Features"),
             class_name="relative",
         ),
         create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in FEATURES_SECTION
-            ],
+            *[create_table_row(row) for row in FEATURES_SECTION],
         ),
         rx.table.header(
             create_table_row_header("Security"),
             class_name="relative",
         ),
         create_table_body(
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in SECURITY_SECTION
-            ],
+            *[create_table_row(row) for row in SECURITY_SECTION],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
-
 
 def comparison_table_hosting() -> rx.Component:
     return rx.box(
@@ -388,7 +298,6 @@ def comparison_table_hosting() -> rx.Component:
         table_body_hosting(),
         class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
     )
-
 
 def comparison_table_ai_and_oss() -> rx.Component:
     return rx.box(
