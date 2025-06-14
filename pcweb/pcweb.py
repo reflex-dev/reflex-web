@@ -87,6 +87,7 @@ for route in routes:
 
 # Add redirects
 redirects = [
+    ("/framework", "/open-source"),
     ("/docs", "/docs/getting-started/introduction"),
     ("/docs/getting-started", "/docs/getting-started/introduction"),
     ("/docs/state", "/docs/state/overview"),
