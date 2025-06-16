@@ -8,9 +8,6 @@ import urllib.parse
 from datetime import datetime
 from reflex.event import EventType
 
-# from pcweb.pages.pricing.ui.select import select, select_item
-# from pcweb.pages.pricing.ui.dropdown import dropdown
-
 
 SelectVariant = Literal["primary", "secondary", "outline", "transparent"]
 SelectSize = Literal["sm", "md", "lg"]
@@ -208,17 +205,17 @@ def text_input_field(label: str, name: str, placeholder: str, required: bool = F
 def select_field(label: str, name: str, options: list, placeholder: str, required: bool = False, state_var: str = ""):
     """Helper for creating custom select fields."""
     # Create scroll area with selectable options
-    scroll_content = rx.scroll_area(
+    scroll_content = rx.box(
         *[
             select_item(
                 content=(option, lambda opt=option, var=state_var: QuoteFormState.set_select_value(var, opt)),
-                size="md",
+                size="sm",
                 variant="selectable",
                 class_name="w-full justify-start px-4 py-2 hover:bg-slate-2 rounded-md",
             )
             for option in options
         ],
-        class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0",
+        class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0 overflow-y-scroll",
     )
 
     # Get the current selected value for this field
@@ -264,7 +261,6 @@ def custom_quote_form() -> rx.Component:
                 ),
                 class_name="mb-8 lg:mb-0 text-center sm:text-left",
             ),
-
             # Right column - Form
             rx.box(
                 rx.el.form(
