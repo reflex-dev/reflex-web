@@ -120,7 +120,7 @@ def form_field(label: str, input_component, required: bool = False, class_name: 
         class_name=class_name,
     )
 
-def text_input_field(label: str, name: str, placeholder: str, required: bool = False, input_type: str = "text"):
+def text_input_field(label: str, name: str, placeholder: str, required: bool = False, input_type: str = "text", class_name: str = "mb-6"):
     """Helper for creating text input fields."""
     input_component = quote_input(
         name=name,
@@ -128,7 +128,7 @@ def text_input_field(label: str, name: str, placeholder: str, required: bool = F
         type=input_type,
         required=required,
     )
-    return form_field(label, input_component, required)
+    return form_field(label, input_component, required, class_name)
 
 def select_field(label: str, name: str, options: list, placeholder: str, required: bool = False, state_var: str = ""):
     """Helper for creating custom select fields."""
@@ -193,13 +193,20 @@ def custom_quote_form() -> rx.Component:
             rx.box(
                 rx.el.form(
                     # Personal Information
-                    text_input_field("First name", "first_name", "John", required=True),
-                    text_input_field("Last name", "last_name", "Smith", required=True),
-                    text_input_field("Business email", "business_email", "john@reflex.dev", required=True, input_type="email"),
-                    text_input_field("Job title", "job_title", "CTO", required=True),
+                    rx.el.div(
+                        text_input_field("First name", "first_name", "John", required=True, class_name="mb-0"),
+                        text_input_field("Last name", "last_name", "Smith", required=True, class_name="mb-0"),
+                        class_name="flex-row flex gap-x-2 mb-6",
+                    ),
 
-                    # Company Information
-                    text_input_field("Company name", "company_name", "Pynecone, Inc.", required=True),
+                    text_input_field("Business email", "business_email", "john@reflex.dev", required=True, input_type="email"),
+
+                    rx.el.div(
+                        text_input_field("Job title", "job_title", "CTO", required=True, class_name="mb-0"),
+                        text_input_field("Company name", "company_name", "Pynecone, Inc.", required=True, class_name="mb-0"),
+                        class_name="flex-row flex gap-x-2 mb-6",
+                    ),
+
                     text_input_field("Phone number", "phone_number", "(555) 123-4567", required=True, input_type="tel"),
 
                     # Project Details
@@ -219,11 +226,15 @@ def custom_quote_form() -> rx.Component:
                     ),
                     class_name="w-full space-y-6",
                 ),
-                class_name="bg-slate-1 p-6 sm:p-8 rounded-2xl border border-slate-4 shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0",
+                rx.box(
+                    "1 Month Free Trial",
+                    class_name="absolute top-[-0.75rem] left-8 rounded-md bg-[--violet-9] h-[1.5rem] text-sm font-medium text-center px-2 flex items-center justify-center text-[#FCFCFD] z-[10]",
+                ),
+                class_name="relative bg-slate-1 p-6 sm:p-8 rounded-2xl border-2 border-[--violet-9] shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0",
             ),
             class_name="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto items-start",
         ),
-        class_name="py-12 sm:py-20 px-4 sm:px-8 bg-white",
+        class_name="py-12 sm:py-20 px-4 sm:px-8",
     )
 
 def header() -> rx.Component:
