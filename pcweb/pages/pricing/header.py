@@ -8,7 +8,10 @@ import urllib.parse
 from datetime import datetime
 from reflex.event import EventType
 
-# Import your custom select components
+# from pcweb.pages.pricing.ui.select import select, select_item
+# from pcweb.pages.pricing.ui.dropdown import dropdown
+
+
 SelectVariant = Literal["primary", "secondary", "outline", "transparent"]
 SelectSize = Literal["sm", "md", "lg"]
 SelectItemVariant = Literal["selectable", "actions", "projects"]
@@ -40,7 +43,7 @@ def select_item(
     """A select item component."""
     text, on_click_event = content
     base_classes = [
-        "inline-flex transition-bg shrink-0 items-center w-full max-w-32 cursor-pointer disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 outline-none focus:outline-none",
+        "flex transition-bg items-center w-full max-w-32 cursor-pointer disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 outline-none focus:outline-none",
         "bg-transparent text-slate-9 font-medium hover:bg-slate-3 font-sans",
         SIZE_STYLES[size],
     ]
@@ -52,7 +55,15 @@ def select_item(
         **props,
     }
 
-    return rx.el.button(text, **common_props)
+    return rx.popover.close(
+        rx.el.button(
+            text,
+            rx.box(class_name="flex-1"),
+            **common_props,
+        ),
+        class_name="w-full outline-none focus:outline-none",
+    )
+    # return rx.el.button(text, **common_props)
 
 def select(
     content: rx.Component,
@@ -91,7 +102,7 @@ def select(
         ),
         rx.popover.content(
             content,
-            class_name="items-center bg-transparent !shadow-none !p-0 border-none overflow-visible font-sans pointer-events-auto max-w-32",
+            class_name="bg-transparent !shadow-none !p-0 border-none overflow-visible font-sans pointer-events-auto max-w-32",
         ),
         **props,
     )
@@ -139,6 +150,7 @@ class QuoteFormState(rx.State):
             domain = email.split("@")[1]
             if domain in banned_domains:
                 self.banned_email = True
+                yield rx.set_focus("email")
                 return
 
 
@@ -201,11 +213,12 @@ def select_field(label: str, name: str, options: list, placeholder: str, require
             select_item(
                 content=(option, lambda opt=option, var=state_var: QuoteFormState.set_select_value(var, opt)),
                 size="md",
+                variant="selectable",
                 class_name="w-full justify-start px-4 py-2 hover:bg-slate-2 rounded-md",
             )
             for option in options
         ],
-        class_name="max-h-48 bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0",
+        class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0",
     )
 
     # Get the current selected value for this field
@@ -216,7 +229,7 @@ def select_field(label: str, name: str, options: list, placeholder: str, require
         placeholder=current_value,
         variant="primary",
         size="md",
-        class_name="w-full",
+        class_name="w-full justify-between flex-1",
         show_arrow=True,
     )
     return form_field(label, select_component, required)
