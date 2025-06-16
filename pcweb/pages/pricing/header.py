@@ -24,7 +24,7 @@ VARIANT_STYLES: dict[SelectVariant, str] = {
 
 SIZE_STYLES: dict[SelectSize, str] = {
     "xs": "text-sm px-1.5 h-7 rounded-md gap-1.5",
-    "sm": "text-sm px-2 h-8 rounded-lg gap-2",
+    "sm": "text-sm px-2 h-8 rounded-lg",
     "md": "text-sm px-2.5 min-h-9 max-h-9 rounded-[10px] gap-2.5",
     "lg": "text-sm px-3 h-10 rounded-xl gap-3",
 }
@@ -40,7 +40,7 @@ def select_item(
     """A select item component."""
     text, on_click_event = content
     base_classes = [
-        "inline-flex transition-bg shrink-0 items-center w-full cursor-pointer disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 outline-none focus:outline-none",
+        "inline-flex transition-bg shrink-0 items-center w-full max-w-32 cursor-pointer disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:!text-slate-8 outline-none focus:outline-none",
         "bg-transparent text-slate-9 font-medium hover:bg-slate-3 font-sans",
         SIZE_STYLES[size],
     ]
@@ -57,7 +57,7 @@ def select_item(
 def select(
     content: rx.Component,
     variant: SelectVariant = "primary",
-    size: SelectSize = "sm",
+    size: SelectSize = "xs",
     placeholder: str = "Select an option",
     align: Literal["start", "center", "end"] = "start",
     class_name: str = "",
@@ -91,7 +91,7 @@ def select(
         ),
         rx.popover.content(
             content,
-            class_name="items-center bg-transparent !shadow-none !p-0 border-none overflow-visible font-sans pointer-events-auto",
+            class_name="items-center bg-transparent !shadow-none !p-0 border-none overflow-visible font-sans pointer-events-auto max-w-32",
         ),
         **props,
     )
@@ -102,6 +102,7 @@ class QuoteFormState(rx.State):
     referral_source: str = "Google Search"
     banned_email: bool = False
 
+
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
         setattr(self, field, value)
@@ -109,7 +110,29 @@ class QuoteFormState(rx.State):
     @rx.event
     def submit(self, form_data: dict[str, Any]):
         # Email domain validation
-        banned_domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'aol.com']
+        banned_domains = [
+            'gmail.com',
+            'outlook.com',
+            'hotmail.com',
+            'yahoo.com',
+            'icloud.com',
+            'aol.com',
+            'protonmail.com',
+            'proton.me',
+            'mail.com',
+            'yandex.com',
+            'zoho.com',
+            'live.com',
+            'msn.com',
+            'me.com',
+            'mac.com',
+            'googlemail.com',
+            'yahoo.co.uk',
+            'yahoo.ca',
+            'yahoo.co.in',
+            'outlook.co.uk',
+            'hotmail.co.uk'
+        ]
 
         email = form_data.get("email", "").lower()
         if "@" in email:
@@ -131,9 +154,9 @@ class QuoteFormState(rx.State):
                 "Job Title": form_data.get("job_title", ""),
                 "Company name": form_data.get("company_name", ""),
                 "Phone Number": form_data.get("phone_number", ""),
-                "Number of Employees": self.num_employees,  # From state
+                "Number of Employees": self.num_employees,
                 "What internal tools are you looking to build?": form_data.get("internal_tools", ""),
-                "Where did you first hear about Reflex?": self.referral_source,  # From state
+                "Where did you first hear about Reflex?": self.referral_source,
                 "month": current_month,
                 "date": current_date,
             }
@@ -182,7 +205,7 @@ def select_field(label: str, name: str, options: list, placeholder: str, require
             )
             for option in options
         ],
-        class_name="max-h-48 bg-slate-1 border border-slate-5 rounded-lg shadow-lg",
+        class_name="max-h-48 bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0",
     )
 
     # Get the current selected value for this field
