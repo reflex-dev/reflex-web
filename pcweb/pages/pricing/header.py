@@ -215,7 +215,7 @@ def select_field(label: str, name: str, options: list, placeholder: str, require
             )
             for option in options
         ],
-        class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0 overflow-y-scroll",
+        class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0 overflow-y-scroll w-full",
     )
 
     # Get the current selected value for this field
@@ -248,7 +248,7 @@ def custom_quote_form() -> rx.Component:
             # Left column - Content
             rx.box(
                 rx.el.h2(
-                    "Request Your Custom Quote",
+                    "Book a Demo",
                     class_name="text-slate-12 text-4xl font-bold mb-8",
                 ),
                 rx.el.p(
@@ -295,11 +295,14 @@ def custom_quote_form() -> rx.Component:
                     text_input_field("Phone number", "phone_number", "(555) 123-4567", required=True, input_type="tel"),
 
                     # Project Details
-                    textarea_field("What internal tools are you looking to build?", "internal_tools", "Customer service admin panel", required=True),
+                    textarea_field("What are you looking to build?", "internal_tools", "Please list any apps, requirements, or data sources you plan on using", required=True),
 
                     # Company Size and Referral
-                    select_field("Number of employees", "num_employees", ["1-10", "11-50", "51-100", "101-500", "500+"], "500+", required=True, state_var="num_employees"),
-                    select_field("How did you hear about us?", "referral_source", ["Google Search", "Social Media", "Word of Mouth", "Blog", "Conference", "Other"], "Google Search", required=True, state_var="referral_source"),
+                    rx.el.div(
+                        select_field("Number of employees", "num_employees", ["1-10", "11-50", "51-100", "101-500", "500+"], "500+", required=True, state_var="num_employees"),
+                        select_field("How did you hear about us?", "referral_source", ["Google Search", "Social Media", "Word of Mouth", "Blog", "Conference", "Other"], "Google Search", required=True, state_var="referral_source"),
+                        class_name="w-full flex-row flex flex-wrap justify-between mb-6",
+                    ),
 
                     # Submit button
                     button(
@@ -334,6 +337,6 @@ def header() -> rx.Component:
         #     "The complete platform for building and deploying your apps.",
         #     class_name="text-slate-9 text-md lg:text-xl font-semibold text-center",
         # ),
-        class_name="flex flex-col gap-2 justify-center items-center max-w-[64.19rem] 2xl:border-x border-slate-4 w-full pb-16 "
+        class_name="flex flex-col gap-2 justify-center items-center max-w-[64.19rem] 2xl:border-x border-slate-4 w-full -mb-10 "
         + rx.cond(HostingBannerState.show_banner, "pt-[11rem]", "pt-[12rem]"),
     )

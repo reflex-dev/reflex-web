@@ -57,7 +57,7 @@ def pricing_page_companies() -> rx.Component:
             logo("accenture", "21px"),
             logo("rappi", "21px"),
             logo("nike", "19px"),
-            class_name="flex flex-row flex-wrap justify-start items-center gap-8 h-auto",
+            class_name="flex flex-row flex-wrap justify-center md:justify-start items-center gap-8 h-auto",
         ),
         class_name="flex flex-col justify-center gap-4 w-full h-auto",
     )
