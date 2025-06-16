@@ -25,7 +25,7 @@ def pricing() -> rx.Component:
         rx.el.main(
             rx.box(
                 header(),
-                plan_cards(),
+                # plan_cards(),
                 comparison_table_ai(),
                 comparison_table_hosting(),
                 calculator_section(),
