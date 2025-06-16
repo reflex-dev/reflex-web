@@ -50,9 +50,7 @@ class SubmitPromptState(rx.State):
             return (
                 rx.redirect("/")
                 if not response.is_success
-                else rx.redirect(
-                    REFLEX_BUILD_URL.strip("/") + f"/prompt?token={random_uuid!s}"
-                )
+                else rx.redirect(REFLEX_BUILD_URL.strip("/"))
             )
 
     @rx.event
@@ -388,7 +386,9 @@ def prompt_box() -> rx.Component:
             rx.box(
                 preset_image_card(text="Use an Image", id="upload-image-button"),
                 preset_cards(text="Chat App", id="chat-app", icon="ai-chat-02"),
-                preset_cards(text="Live Dashboard", id="live-dashboard", icon="webpage"),
+                preset_cards(
+                    text="Live Dashboard", id="live-dashboard", icon="webpage"
+                ),
                 class_name="grid grid-cols-1 lg:grid-cols-3 gap-2",
             ),
             class_name="flex flex-col gap-4 w-full",

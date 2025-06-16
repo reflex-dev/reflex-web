@@ -173,9 +173,8 @@ def _render_messaging_section(title: str) -> rx.Component:
     """Render the messaging/features section for each plan."""
     messaging_config = {
         "Hobby": {
-            "main": "Reflex Build 5 msgs/day",
-            "sub": rx.link("Monthly cap 30 messages", href="#reflex-build", 
-                          class_name="text-xs text-slate-9 hover:text-slate-11 underline")
+            "main": "",
+            "sub": None
         },
         "Pro": {
             "main": "Reflex Build 100 msgs/month",
@@ -198,12 +197,9 @@ def _render_messaging_section(title: str) -> rx.Component:
         config = messaging_config[title]
         return rx.el.div(
             rx.el.p(config["main"], class_name="text-md font-semibold text-slate-12 mt-4"),
-            rx.el.p(config["sub"]) if title == "Hobby" else config["sub"],
-            class_name="mt-4"
+            config["sub"] if config["sub"] else None,
         )
-    else:
-        # Default spacing for plans without messaging section
-        return rx.el.div(class_name="h-[3.5rem]")
+    return rx.el.div()
 
 
 def _get_features_header(title: str) -> str:
@@ -280,7 +276,7 @@ def card(
             _render_feature_list(features),
         ),
         
-        class_name="flex flex-col p-6 border border-slate-4 rounded-lg shadow-small bg-slate-2 w-full min-w-0 overflow-hidden h-[42rem]",
+        class_name="flex flex-col p-6 border border-slate-4 rounded-lg shadow-small bg-slate-2 w-full min-w-0 max-w-md w-[28rem] overflow-hidden h-[42rem]",
     )
 
 
@@ -295,7 +291,7 @@ def popular_card(
     return rx.box(
         # Popular Badge
         rx.box(
-            "Most Popular",
+            "1 Month Free Trial",
             class_name="absolute top-[-0.75rem] left-8 rounded-md bg-[--violet-9] h-[1.5rem] text-sm font-medium text-center px-2 flex items-center justify-center text-[#FCFCFD] z-[10]",
         ),
         
@@ -316,7 +312,7 @@ def popular_card(
                     size="lg",
                     class_name="w-full mb-6 !text-sm !font-semibold",
                 ),
-                href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
+                href=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
                 is_external=True,
                 underline="none",
             ),
@@ -338,10 +334,10 @@ def popular_card(
                 _render_feature_list(features),
             ),
             
-            class_name="flex flex-col p-6 border-2 border-[--violet-9] rounded-lg w-full min-w-0 relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden h-[42rem]",
+            class_name="flex flex-col p-6 border-2 border-[--violet-9] rounded-lg w-full min-w-0 max-w-md w-[28rem] relative z-[1] backdrop-blur-[6px] bg-[rgba(249,_249,_251,_0.48)] dark:bg-[rgba(26,_27,_29,_0.48)] shadow-[0px_2px_5px_0px_rgba(28_32_36_0.03)] overflow-hidden h-[42rem]",
         ),
         
-        class_name="relative",
+        class_name="relative w-full min-w-0 max-w-md w-[28rem]",
     )
 
 
@@ -361,40 +357,10 @@ def plan_cards() -> rx.Component:
                 ("frame", "Open Source Framework"),
             ],
             "Start for Free",
-            price="$0/month",
+            price="Free",
             redirect_url=REFLEX_DOCS_URL,
         ),
-        card(
-            "Pro",
-            "For professional projects and startups.",
-            [
-                ("credit-card", "Cloud Credits $10/month included"),
-                ("brush", "Custom domains"),
-                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Pro-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when hosting their apps on Reflex Cloud"),
-            ],
-            "Upgrade now",
-            price="$20/month",
-            redirect_url=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_CLOUD_URL}/billing/",
-        ),
         popular_card(
-            "Team",
-            "For teams looking to scale their applications.",
-            [   
-                ("credit-card", "Cloud Compute $20/month included"),
-                ("users", "Invite your teammates"),
-                (
-                    "cable",
-                    "Reflex Build Integrations",
-                    "Databricks, Snowflake, etc.",
-                ),
-                ("file-badge", "AG Grid with no Reflex Branding"),
-                ("mail", "Email support"),
-                ("building", rx.link("Reflex Enterprise", href="https://reflex.dev/docs/enterprise/overview/", class_name="!text-slate-11"), "Team-tier users can access Reflex Enterprise features without the 'Built with Reflex' badge when self-hosting their apps."),
-            ],
-            "Upgrade now",
-            price="$49 user/month",
-        ),
-        card(
             "Enterprise",
             "Get a plan tailored to your business needs.",
             [
@@ -409,7 +375,6 @@ def plan_cards() -> rx.Component:
             ],
             "Contact Us",
             price="Custom",
-            redirect_url=REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO,
         ),
-        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        class_name="flex flex-row flex-wrap justify-center items-center gap-6 w-full"
     )
