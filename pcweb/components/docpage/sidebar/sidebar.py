@@ -19,8 +19,8 @@ Scrollable_SideBar = """
 function scrollToActiveSidebarLink() {
   const currentPath = window.location.pathname.replace(/\\/+$|\\/$/g, "") + "/";
 
-  const activeLink = document.querySelector(`a[href="${currentPath}"]`) ||
-                    document.querySelector(`a[href="${currentPath.slice(0, -1)}"]`);
+  const activeLink = document.querySelector(`#sidebar-container a[href="${currentPath}"]`) ||
+                    document.querySelector(`#sidebar-container a[href="${currentPath.slice(0, -1)}"]`);
 
   if (activeLink) {
     activeLink.scrollIntoView({
@@ -656,6 +656,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             width=width,
         ),
         on_mount=rx.call_script(Scrollable_SideBar),
+        id=rx.Var.create("sidebar-container"),
         class_name="flex justify-end w-full h-full",
     )
 
