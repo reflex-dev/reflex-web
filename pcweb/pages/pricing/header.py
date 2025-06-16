@@ -2,8 +2,10 @@ import reflex as rx
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.pages.framework.views.companies import pricing_page_companies
 from pcweb.components.new_button import button
-from typing import Literal
+from typing import Literal, Any
 
+import urllib.parse
+from datetime import datetime
 from reflex.event import EventType
 
 # Import your custom select components
@@ -98,10 +100,48 @@ class QuoteFormState(rx.State):
     """State management for the quote form."""
     num_employees: str = "500+"
     referral_source: str = "Google Search"
+    banned_email: bool = False
 
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
         setattr(self, field, value)
+
+    @rx.event
+    def submit(self, form_data: dict[str, Any]):
+        # Email domain validation
+        banned_domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'aol.com']
+
+        email = form_data.get("email", "").lower()
+        if "@" in email:
+            domain = email.split("@")[1]
+            if domain in banned_domains:
+                self.banned_email = True
+                return
+
+
+            self.banned_email = False
+            now = datetime.now()
+            current_month = now.strftime("%Y-%m")
+            current_date = now.strftime("%Y-%m-%d")
+
+            params = {
+                "First Name": form_data.get("first_name", ""),
+                "Last Name": form_data.get("last_name", ""),
+                "Business Email Address": form_data.get("email", ""),
+                "Job Title": form_data.get("job_title", ""),
+                "Company name": form_data.get("company_name", ""),
+                "Phone Number": form_data.get("phone_number", ""),
+                "Number of Employees": self.num_employees,  # From state
+                "What internal tools are you looking to build?": form_data.get("internal_tools", ""),
+                "Where did you first hear about Reflex?": self.referral_source,  # From state
+                "month": current_month,
+                "date": current_date,
+            }
+
+            query_string = urllib.parse.urlencode(params)
+            cal_url = f"https://cal.com/team/reflex/talk-to-a-reflex-expert?{query_string}"
+
+            return rx.redirect(cal_url)
 
 def quote_input(placeholder: str, name: str, **props):
     return rx.el.input(
@@ -198,9 +238,22 @@ def custom_quote_form() -> rx.Component:
                         text_input_field("Last name", "last_name", "Smith", required=True, class_name="mb-0"),
                         class_name="flex-row flex gap-x-2 mb-6",
                     ),
-
-                    text_input_field("Business email", "business_email", "john@reflex.dev", required=True, input_type="email"),
-
+                    rx.cond(
+                        QuoteFormState.banned_email,
+                        rx.box(
+                            rx.el.div(
+                              rx.text("Business email", class_name="text-slate-11 text-sm font-medium mb-2"),
+                              rx.text("Personal emails not allowed!", class_name="text-red-8 text-sm font-medium mb-2"),
+                            class_name="flex flex-row items-center justify-between w-full",
+                            ),
+                            rx.el.input(
+                                placeholder="Personal emails not allowed!",
+                                name="email",
+                                class_name="box-border w-full border-2 border-red-5 bg-slate-1 px-6 pr-8 border rounded-[0.625rem] h-[2.25rem] font-medium text-slate-12 text-sm placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 peer pl-2.5 disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:text-slate-8 disabled:placeholder:text-slate-8",
+                            )
+                        ),
+                        text_input_field("Business email", "email", "john@reflex.dev", required=True, input_type="email"),
+                    ),
                     rx.el.div(
                         text_input_field("Job title", "job_title", "CTO", required=True, class_name="mb-0"),
                         text_input_field("Company name", "company_name", "Pynecone, Inc.", required=True, class_name="mb-0"),
@@ -225,6 +278,7 @@ def custom_quote_form() -> rx.Component:
                         class_name="w-full mt-2",
                     ),
                     class_name="w-full space-y-6",
+                    on_submit=QuoteFormState.submit,
                 ),
                 rx.box(
                     "1 Month Free Trial",
