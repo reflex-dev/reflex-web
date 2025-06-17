@@ -7,7 +7,7 @@ from typing import Literal, Any
 import urllib.parse
 from datetime import datetime
 from reflex.event import EventType
-
+from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
 
 SelectVariant = Literal["primary", "secondary", "outline", "transparent"]
 SelectSize = Literal["sm", "md", "lg"]
@@ -28,6 +28,7 @@ SIZE_STYLES: dict[SelectSize, str] = {
     "md": "text-sm px-2.5 min-h-9 max-h-9 rounded-[10px] gap-2.5",
     "lg": "text-sm px-3 h-10 rounded-xl gap-3",
 }
+
 
 def select_item(
     content: tuple[str | rx.Component, EventType[()]],
@@ -61,6 +62,7 @@ def select_item(
         class_name="w-full outline-none focus:outline-none",
     )
     # return rx.el.button(text, **common_props)
+
 
 def select(
     content: rx.Component,
@@ -104,12 +106,13 @@ def select(
         **props,
     )
 
+
 class QuoteFormState(rx.State):
     """State management for the quote form."""
+
     num_employees: str = "500+"
     referral_source: str = "Google Search"
     banned_email: bool = False
-
 
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
@@ -119,27 +122,27 @@ class QuoteFormState(rx.State):
     def submit(self, form_data: dict[str, Any]):
         # Email domain validation
         banned_domains = [
-            'gmail.com',
-            'outlook.com',
-            'hotmail.com',
-            'yahoo.com',
-            'icloud.com',
-            'aol.com',
-            'protonmail.com',
-            'proton.me',
-            'mail.com',
-            'yandex.com',
-            'zoho.com',
-            'live.com',
-            'msn.com',
-            'me.com',
-            'mac.com',
-            'googlemail.com',
-            'yahoo.co.uk',
-            'yahoo.ca',
-            'yahoo.co.in',
-            'outlook.co.uk',
-            'hotmail.co.uk'
+            "gmail.com",
+            "outlook.com",
+            "hotmail.com",
+            "yahoo.com",
+            "icloud.com",
+            "aol.com",
+            "protonmail.com",
+            "proton.me",
+            "mail.com",
+            "yandex.com",
+            "zoho.com",
+            "live.com",
+            "msn.com",
+            "me.com",
+            "mac.com",
+            "googlemail.com",
+            "yahoo.co.uk",
+            "yahoo.ca",
+            "yahoo.co.in",
+            "outlook.co.uk",
+            "hotmail.co.uk",
         ]
 
         email = form_data.get("email", "").lower()
@@ -149,7 +152,6 @@ class QuoteFormState(rx.State):
                 self.banned_email = True
                 yield rx.set_focus("email")
                 return
-
 
             self.banned_email = False
             now = datetime.now()
@@ -164,16 +166,42 @@ class QuoteFormState(rx.State):
                 "Company name": form_data.get("company_name", ""),
                 "Phone Number": form_data.get("phone_number", ""),
                 "Number of Employees": self.num_employees,
-                "What internal tools are you looking to build?": form_data.get("internal_tools", ""),
+                "What internal tools are you looking to build?": form_data.get(
+                    "internal_tools", ""
+                ),
                 "Where did you first hear about Reflex?": self.referral_source,
                 "month": current_month,
                 "date": current_date,
             }
 
             query_string = urllib.parse.urlencode(params)
-            cal_url = f"https://cal.com/team/reflex/talk-to-a-reflex-expert?{query_string}"
+            cal_url = (
+                f"https://cal.com/team/reflex/talk-to-a-reflex-expert?{query_string}"
+            )
+
+            yield QuoteFormState.send_demo_event(form_data)
 
             return rx.redirect(cal_url)
+
+    @rx.event(background=True)
+    async def send_demo_event(self, form_data: dict[str, Any]):
+        first_name = form_data.get("first_name", "")
+        last_name = form_data.get("last_name", "")
+        await send_data_to_posthog(
+            DemoEvent(
+                distinct_id=f"{first_name} {last_name}",
+                first_name=first_name,
+                last_name=last_name,
+                company_email=form_data.get("company_email", ""),
+                phone_number=form_data.get("phone_number", ""),
+                job_title=form_data.get("job_title", ""),
+                company_name=form_data.get("company_name", ""),
+                num_employees=self.num_employees,
+                internal_tools=form_data.get("internal_tools", ""),
+                referral_source=self.referral_source,
+            )
+        )
+
 
 def quote_input(placeholder: str, name: str, **props):
     return rx.el.input(
@@ -183,7 +211,10 @@ def quote_input(placeholder: str, name: str, **props):
         **props,
     )
 
-def form_field(label: str, input_component, required: bool = False, class_name: str = "mb-6"):
+
+def form_field(
+    label: str, input_component, required: bool = False, class_name: str = "mb-6"
+):
     """Reusable form field component with label and input."""
     label_text = f"{label} {'*' if required else ''}"
     return rx.box(
@@ -192,7 +223,15 @@ def form_field(label: str, input_component, required: bool = False, class_name: 
         class_name=class_name,
     )
 
-def text_input_field(label: str, name: str, placeholder: str, required: bool = False, input_type: str = "text", class_name: str = "mb-6"):
+
+def text_input_field(
+    label: str,
+    name: str,
+    placeholder: str,
+    required: bool = False,
+    input_type: str = "text",
+    class_name: str = "mb-6",
+):
     """Helper for creating text input fields."""
     input_component = quote_input(
         name=name,
@@ -202,13 +241,26 @@ def text_input_field(label: str, name: str, placeholder: str, required: bool = F
     )
     return form_field(label, input_component, required, class_name)
 
-def select_field(label: str, name: str, options: list, placeholder: str, required: bool = False, state_var: str = ""):
+
+def select_field(
+    label: str,
+    name: str,
+    options: list,
+    placeholder: str,
+    required: bool = False,
+    state_var: str = "",
+):
     """Helper for creating custom select fields."""
     # Create scroll area with selectable options
     scroll_content = rx.box(
         *[
             select_item(
-                content=(option, lambda opt=option, var=state_var: QuoteFormState.set_select_value(var, opt)),
+                content=(
+                    option,
+                    lambda opt=option, var=state_var: QuoteFormState.set_select_value(
+                        var, opt
+                    ),
+                ),
                 size="sm",
                 variant="selectable",
                 class_name="w-full justify-start px-4 py-2 hover:bg-slate-2 rounded-md",
@@ -231,6 +283,7 @@ def select_field(label: str, name: str, options: list, placeholder: str, require
     )
     return form_field(label, select_component, required)
 
+
 def textarea_field(label: str, name: str, placeholder: str, required: bool = False):
     """Helper for creating textarea fields."""
     textarea_component = rx.el.textarea(
@@ -240,6 +293,7 @@ def textarea_field(label: str, name: str, placeholder: str, required: bool = Fal
         class_name="w-full px-3 py-2 font-medium text-slate-12 text-sm placeholder:text-slate-9 border border-slate-5 bg-slate-1 focus:shadow-[0px_0px_0px_2px_var(--c-violet-4)] rounded-lg focus:border-violet-8 focus:outline-none bg-transparent min-h-[100px] resize-y transition-colors",
     )
     return form_field(label, textarea_component, required)
+
 
 def custom_quote_form() -> rx.Component:
     """Custom quote form component with clean, maintainable structure."""
@@ -266,44 +320,108 @@ def custom_quote_form() -> rx.Component:
                 rx.el.form(
                     # Personal Information
                     rx.el.div(
-                        text_input_field("First name", "first_name", "John", required=True, class_name="mb-0"),
-                        text_input_field("Last name", "last_name", "Smith", required=True, class_name="mb-0"),
+                        text_input_field(
+                            "First name",
+                            "first_name",
+                            "John",
+                            required=True,
+                            class_name="mb-0",
+                        ),
+                        text_input_field(
+                            "Last name",
+                            "last_name",
+                            "Smith",
+                            required=True,
+                            class_name="mb-0",
+                        ),
                         class_name="flex-row flex gap-x-2 mb-6",
                     ),
                     rx.cond(
                         QuoteFormState.banned_email,
                         rx.box(
                             rx.el.div(
-                              rx.text("Business email", class_name="text-slate-11 text-sm font-medium mb-2"),
-                              rx.text("Personal emails not allowed!", class_name="text-red-8 text-sm font-medium mb-2"),
-                            class_name="flex flex-row items-center justify-between w-full",
+                                rx.text(
+                                    "Business email",
+                                    class_name="text-slate-11 text-sm font-medium mb-2",
+                                ),
+                                rx.text(
+                                    "Personal emails not allowed!",
+                                    class_name="text-red-8 text-sm font-medium mb-2",
+                                ),
+                                class_name="flex flex-row items-center justify-between w-full",
                             ),
                             rx.el.input(
                                 placeholder="Personal emails not allowed!",
                                 name="email",
                                 class_name="box-border w-full border-2 border-red-5 bg-slate-1 px-6 pr-8 border rounded-[0.625rem] h-[2.25rem] font-medium text-slate-12 text-sm placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 peer pl-2.5 disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:text-slate-8 disabled:placeholder:text-slate-8",
-                            )
+                            ),
                         ),
-                        text_input_field("Business email", "email", "john@reflex.dev", required=True, input_type="email"),
+                        text_input_field(
+                            "Business email",
+                            "email",
+                            "john@reflex.dev",
+                            required=True,
+                            input_type="email",
+                        ),
                     ),
                     rx.el.div(
-                        text_input_field("Job title", "job_title", "CTO", required=True, class_name="mb-0"),
-                        text_input_field("Company name", "company_name", "Pynecone, Inc.", required=True, class_name="mb-0"),
+                        text_input_field(
+                            "Job title",
+                            "job_title",
+                            "CTO",
+                            required=True,
+                            class_name="mb-0",
+                        ),
+                        text_input_field(
+                            "Company name",
+                            "company_name",
+                            "Pynecone, Inc.",
+                            required=True,
+                            class_name="mb-0",
+                        ),
                         class_name="flex-row flex gap-x-2 mb-6",
                     ),
-
-                    text_input_field("Phone number", "phone_number", "(555) 123-4567", required=True, input_type="tel"),
-
+                    text_input_field(
+                        "Phone number",
+                        "phone_number",
+                        "(555) 123-4567",
+                        required=True,
+                        input_type="tel",
+                    ),
                     # Project Details
-                    textarea_field("What are you looking to build?", "internal_tools", "Please list any apps, requirements, or data sources you plan on using", required=True),
-
+                    textarea_field(
+                        "What are you looking to build?",
+                        "internal_tools",
+                        "Please list any apps, requirements, or data sources you plan on using",
+                        required=True,
+                    ),
                     # Company Size and Referral
                     rx.el.div(
-                        select_field("Number of employees", "num_employees", ["1-10", "11-50", "51-100", "101-500", "500+"], "500+", required=True, state_var="num_employees"),
-                        select_field("How did you hear about us?", "referral_source", ["Google Search", "Social Media", "Word of Mouth", "Blog", "Conference", "Other"], "Google Search", required=True, state_var="referral_source"),
+                        select_field(
+                            "Number of employees",
+                            "num_employees",
+                            ["1-10", "11-50", "51-100", "101-500", "500+"],
+                            "500+",
+                            required=True,
+                            state_var="num_employees",
+                        ),
+                        select_field(
+                            "How did you hear about us?",
+                            "referral_source",
+                            [
+                                "Google Search",
+                                "Social Media",
+                                "Word of Mouth",
+                                "Blog",
+                                "Conference",
+                                "Other",
+                            ],
+                            "Google Search",
+                            required=True,
+                            state_var="referral_source",
+                        ),
                         class_name="w-full flex-row flex flex-wrap justify-between mb-6",
                     ),
-
                     # Submit button
                     button(
                         "Submit",
@@ -325,6 +443,7 @@ def custom_quote_form() -> rx.Component:
         ),
         class_name="py-12 sm:py-20 px-4 sm:px-8",
     )
+
 
 def header() -> rx.Component:
     return rx.box(
