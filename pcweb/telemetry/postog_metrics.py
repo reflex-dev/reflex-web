@@ -41,7 +41,7 @@ async def send_data_to_posthog(event_instance: PosthogEvent):
     """Send data to PostHog using class introspection.
 
     Args:
-        event_instance: An instance of a FlexgenEvent subclass.
+        event_instance: An instance of a PosthogEvent subclass.
 
     Raises:
         httpx.HTTPError: When there is an error sending data to PostHog.
