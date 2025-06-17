@@ -1,15 +1,9 @@
 import reflex as rx
 from pcweb.components.button import button
-from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
+from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO, PRICING_TABLE_STYLES
 
 # Constants for styling
-STYLES = {
-    "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
-    "header_cell": "text-slate-12 font-semibold text-lg",
-    "header_cell_sub": "text-slate-11 font-semibold text-md",
-    "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
-    "button_base": "!text-sm !font-semibold w-full text-nowrap",
-}
+STYLES = PRICING_TABLE_STYLES
 
 TABLE_STYLE = """
 .rt-TableCell {

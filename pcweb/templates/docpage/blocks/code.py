@@ -3,6 +3,7 @@
 import reflex as rx
 from pcweb import styles
 import pcweb.styles.fonts as fonts
+from pcweb.constants import DOC_BORDER_RADIUS
 
 
 @rx.memo
@@ -59,7 +60,7 @@ def doccmdoutput(
         rx._x.code_block(
             command,
             can_copy=True,
-            border_radius=styles.DOC_BORDER_RADIUS,
+            border_radius=DOC_BORDER_RADIUS,
             background="transparent",
             theme="ayu-dark",
             language="bash",

@@ -19,7 +19,7 @@ REFLEX_URL = "https://reflex.dev/"
 REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
 REFLEX_CLOUD_URL = os.getenv("REFLEX_CLOUD_URL", "https://cloud.reflex.dev/")
 REFLEX_BUILD_URL = os.getenv("REFLEX_BUILD_URL", "https://build.reflex.dev/")
-PYNECONE_URL = "https://pynecone.io"
+
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"
 OLD_GITHUB_URL = "https://github.com/pynecone-io/pynecone"
@@ -70,6 +70,34 @@ RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.d
 
 # Stats
 GITHUB_STARS = 23000
-MONTHLY_USERS = 10000
 DISCORD_USERS = 7000
 CONTRIBUTORS = 170
+
+MAX_FILE_SIZE_MB = 5
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+MAX_IMAGES_COUNT = 5
+
+PROMPT_MAP = {
+    "Use an Image": "Build an app from a reference image",
+    "Chat App": "A chat app hooked up to an LLM",
+    "Live Dashboard": "Live stream data on a real-time dashboard",
+}
+
+CONTRIBUTION_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
+BUGS_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+
+FONT_FAMILY = "Instrument Sans"
+DOC_BORDER_RADIUS = "6px"
+
+SPLINE_SCENE_URL = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+
+REFLEX_DOMAIN_URL = "https://reflex.dev/"
+TWITTER_CREATOR = "@getreflex"
+
+PRICING_TABLE_STYLES = {
+    "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
+    "header_cell": "text-slate-12 font-semibold text-lg",
+    "header_cell_sub": "text-slate-11 font-semibold text-md",
+    "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
+    "button_base": "!text-sm !font-semibold w-full text-nowrap",
+}

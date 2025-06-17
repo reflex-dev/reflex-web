@@ -1,6 +1,8 @@
 # FONT STYLES
 
-font_family = "Instrument Sans"
+from pcweb.constants import FONT_FAMILY
+
+font_family = FONT_FAMILY
 
 small = {
     "font-family": font_family,
