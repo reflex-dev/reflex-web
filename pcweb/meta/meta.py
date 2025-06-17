@@ -1,5 +1,5 @@
 import reflex as rx
-from pcweb.constants import REFLEX_DOMAIN_URL, TWITTER_CREATOR
+from pcweb.constants import REFLEX_DOMAIN_URL, REFLEX_DOMAIN, TWITTER_CREATOR
 
 
 meta_tags = [
@@ -24,7 +24,7 @@ meta_tags = [
     {"property": "og:image", "content": "/previews/index_preview.png"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": "reflex.dev"},
+    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
     {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
@@ -57,7 +57,7 @@ hosting_meta_tags = [
     {"property": "og:image", "content": "/previews/hosting_preview.png"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": "reflex.dev"},
+    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
     {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
@@ -108,7 +108,7 @@ def create_meta_tags(title: str, description: str, image: str) -> list[rx.Compon
         {"property": "og:image", "content": image},
         # Twitter Meta Tags
         {"name": "twitter:card", "content": "summary_large_image"},
-        {"property": "twitter:domain", "content": "reflex.dev"},
+        {"property": "twitter:domain", "content": REFLEX_DOMAIN},
         {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
         {"name": "twitter:title", "content": title},
         {

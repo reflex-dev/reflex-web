@@ -88,6 +88,8 @@ CONTRIBUTION_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3
 BUGS_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
 SPLINE_SCENE_URL = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+SPLINE_RUNTIME_VERSION = "1.5.5"
 
 REFLEX_DOMAIN_URL = "https://reflex.dev/"
+REFLEX_DOMAIN = "reflex.dev"
 TWITTER_CREATOR = "@getreflex"
