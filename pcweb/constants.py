@@ -93,3 +93,6 @@ SPLINE_RUNTIME_VERSION = "1.5.5"
 REFLEX_DOMAIN_URL = "https://reflex.dev/"
 REFLEX_DOMAIN = "reflex.dev"
 TWITTER_CREATOR = "@getreflex"
+
+# Posthog
+POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
