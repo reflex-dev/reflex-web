@@ -28,11 +28,15 @@ def hosting_banner() -> rx.Component:
                 rx.box(
                     rx.box(
                         # Header text with responsive spans
+                        rx.el.span(
+                            "New",
+                            class_name="inline-flex items-center font-medium px-1.5 h-5 rounded-md text-xs bg-violet-9 text-slate-1 z-[1]",
+                        ),
                         rx.text(
                             "Reflex Build – ",
                             # Descriptive text: hidden on small, inline on md+
                             rx.el.span(
-                                "Prompt to production app, in seconds.",
+                                "The first AI agent to build internal Python enterprise apps",
                                 class_name="hidden md:inline-block text-slate-12 font-medium text-sm",
                             ),
                             # Mobile CTA: inline on small, hidden on md+
@@ -47,9 +51,9 @@ def hosting_banner() -> rx.Component:
                             "Get Early Access",
                             class_name=(
                                 "hidden md:inline-block "
-                                "text-green-11 h-[1.5rem] rounded-md bg-green-4 "
+                                "text-green-11 h-[1.65rem] rounded-md bg-green-4 "
                                 "px-1.5 text-sm font-semibold z-[1] items-center "
-                                "justify-center shrink-0"
+                                "justify-center shrink-0 border border-green-9 hover:bg-green-5 transition-colors"
                             ),
                         ),
                         class_name="flex items-center gap-4",
