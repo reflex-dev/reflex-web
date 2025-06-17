@@ -192,7 +192,7 @@ class QuoteFormState(rx.State):
                 distinct_id=f"{first_name} {last_name}",
                 first_name=first_name,
                 last_name=last_name,
-                company_email=form_data.get("company_email", ""),
+                company_email=form_data.get("email", ""),
                 phone_number=form_data.get("phone_number", ""),
                 job_title=form_data.get("job_title", ""),
                 company_name=form_data.get("company_name", ""),
