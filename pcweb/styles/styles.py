@@ -2,7 +2,6 @@
 
 from pcweb.styles.colors import c_color
 import pcweb.styles.fonts as fonts
-from pcweb.constants import FONT_FAMILY, DOC_BORDER_RADIUS
 
 import reflex as rx
 
@@ -42,8 +41,10 @@ cell_style = {
 
 
 # General styles.
-SANS = FONT_FAMILY
+SANS = "Instrument Sans"
 BOLD_WEIGHT = font_weights["bold"]
+
+DOC_BORDER_RADIUS = "6px"
 
 # The base application style.
 BASE_STYLE = {

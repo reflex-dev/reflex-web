@@ -87,18 +87,7 @@ PROMPT_MAP = {
 CONTRIBUTION_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
 BUGS_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
 
-FONT_FAMILY = "Instrument Sans"
-DOC_BORDER_RADIUS = "6px"
-
 SPLINE_SCENE_URL = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
 
 REFLEX_DOMAIN_URL = "https://reflex.dev/"
 TWITTER_CREATOR = "@getreflex"
-
-PRICING_TABLE_STYLES = {
-    "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
-    "header_cell": "text-slate-12 font-semibold text-lg",
-    "header_cell_sub": "text-slate-11 font-semibold text-md",
-    "feature_cell": "text-slate-9 font-medium text-sm whitespace-nowrap",
-    "button_base": "!text-sm !font-semibold w-full text-nowrap",
-}
