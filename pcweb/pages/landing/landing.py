@@ -11,6 +11,9 @@ from pcweb.pages.landing.views.hosting_section import hosting_section
 from pcweb.pages.landing.views.products import products
 from pcweb.pages.landing.views.security import security
 from pcweb.pages.landing.views.start_building import start_building
+from pcweb.pages.landing.views.companies import companies
+from pcweb.meta.meta import meta_tags
+from pcweb.pages.landing.views.outcomes_section import outcomes_section
 from pcweb.pages.landing.views.use_cases import use_cases
 from pcweb.pages.landing.views.video_demo import video_demo
 from pcweb.templates.mainpage import mainpage
@@ -27,6 +30,7 @@ def landing() -> rx.Component:
         ai_section(),
         framework_section(),
         hosting_section(),
+        outcomes_section(),
         security(),
         start_building(),
         # stats(),
