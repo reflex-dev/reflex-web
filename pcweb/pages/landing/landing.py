@@ -10,6 +10,7 @@ from pcweb.pages.framework.views.os_newsletter import os_newsletter
 from pcweb.pages.landing.views.start_building import start_building
 from pcweb.pages.landing.views.companies import companies
 from pcweb.meta.meta import meta_tags
+from pcweb.pages.landing.views.outcomes_section import outcomes_section
 
 
 @mainpage(path="/", title="Reflex · Web apps in Pure Python", meta=meta_tags)
@@ -21,6 +22,7 @@ def landing() -> rx.Component:
         ai_section(),
         framework_section(),
         hosting_section(),
+        outcomes_section(),
         start_building(),
         stats(),
         os_newsletter(),
