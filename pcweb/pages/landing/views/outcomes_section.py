@@ -1,10 +1,9 @@
+from typing import List
+
 import reflex as rx
 
 from pcweb.components.icons import get_icon
 from pcweb.components.new_button import button
-
-from typing import List
-
 
 # Outcomes features data
 OUTCOMES_FEATURES = [
@@ -117,7 +116,7 @@ def outcomes_showcase() -> rx.Component:
 <rect x="-162.583" y="797.486" width="995" height="827" rx="413.5" transform="rotate(-99 -162.583 797.486)" stroke="var(--c-slate-5)"/>
 <rect x="-142.271" y="828.258" width="1019" height="851" rx="425.5" transform="rotate(-102 -142.271 828.258)" stroke="var(--c-slate-5)"/>
 </svg>""",
-            class_name="shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-3] pointer-events-none hidden lg:flex",
+            class_name="shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[-3] pointer-events-none hidden lg:flex dark:opacity-60",
         ),
         # Gradial blur
         rx.html(
