@@ -7,12 +7,13 @@ from typing import Callable
 import flexdown
 import mistletoe
 from reflex.components.radix.themes.base import LiteralAccentColor
-from reflex.utils.format import to_title_case, to_snake_case
+from reflex.utils.format import to_snake_case, to_title_case
 
 from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
 from pcweb.route import Route, get_path
 from pcweb.styles.colors import c_color
+
 from .blocks import *
 from .state import FeedbackState
 
@@ -275,15 +276,15 @@ def link_pill(text: str, href: str) -> rx.Component:
 
 @rx.memo
 def docpage_footer(path: str):
-    from pcweb.pages.gallery import gallery
-    from pcweb.pages.docs import getting_started, hosting
-    from pcweb.pages.docs.library import library
+    from pcweb.constants import FORUM_URL, ROADMAP_URL
     from pcweb.pages.blog import blogs
-    from pcweb.pages.faq import faq
+    from pcweb.pages.docs import ai_builder, getting_started, hosting
+    from pcweb.pages.docs.library import library
     from pcweb.pages.errors import errors
-    from pcweb.constants import ROADMAP_URL, FORUM_URL
-    from pcweb.views.footer import newsletter_form, menu_socials
+    from pcweb.pages.faq import faq
     from pcweb.pages.framework.views.footer_index import dark_mode_toggle
+    from pcweb.pages.gallery import gallery
+    from pcweb.views.footer import menu_socials, newsletter_form
 
     return rx.el.footer(
         rx.box(
@@ -338,7 +339,7 @@ def docpage_footer(path: str):
                         footer_link("Common Errors", errors.path),
                         footer_link("Roadmap", ROADMAP_URL),
                         footer_link("Forum", FORUM_URL),
-                        footer_link("Use Case", "/docs/ai-builder/overview/use-cases"),
+                        footer_link("Use Case", "/use-cases"),
                     ],
                 ),
                 class_name="flex flex-wrap justify-between gap-12 w-full",
@@ -646,7 +647,11 @@ def docpage(
                             class_name="lg:mt-0 mt-6 px-4 xl:px-20 h-screen bg-slate-1",
                         ),
                         class_name="w-full bg-slate-1 h-full mx-auto max-w-2xl "
-                        + (" xl:max-w-[60rem]" if show_right_sidebar else "xl:max-w-full"),
+                        + (
+                            " xl:max-w-[60rem]"
+                            if show_right_sidebar
+                            else "xl:max-w-full"
+                        ),
                     ),
                     (
                         # right-hand sidebar
