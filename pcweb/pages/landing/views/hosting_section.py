@@ -22,7 +22,7 @@ A complete infrastructure for your app""",
         ),
         rx.el.p(
             """Deploy anywhere — Reflex supports all major cloud providers, 
-including Databricks, AWS, GCP, Azure, Snowflake, DigitalOcean, and more.""",
+including Databricks, AWS, GCP, Azure, Snowflake and more.""",
             class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre pb-6",
         ),
         rx.image(

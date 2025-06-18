@@ -32,7 +32,7 @@ def product_card(
                 underline="none",
                 class_name="flex flex-row gap-2 items-center gap-[0.375rem] mt-4 group",
             ),
-            class_name="flex flex-col gap-2 px-10 pb-10 pt-6",
+            class_name="flex flex-col gap-2 p-10",
         ),
         rx.el.div(
             rx.el.span(number),
