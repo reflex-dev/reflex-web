@@ -53,7 +53,7 @@ def hosting_banner() -> rx.Component:
                                 "hidden md:inline-block "
                                 "text-green-11 h-[1.65rem] rounded-md bg-green-4 "
                                 "px-1.5 text-sm font-semibold z-[1] items-center "
-                                "justify-center shrink-0 border border-green-9 hover:bg-green-5 transition-colors"
+                                "justify-center shrink-0 border border-green-5 hover:bg-green-5 transition-colors"
                             ),
                         ),
                         class_name="flex items-center gap-4",

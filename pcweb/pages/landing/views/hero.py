@@ -1,12 +1,15 @@
-import uuid
-import httpx
 import base64
-import reflex as rx
-from pcweb.components.icons.icons import get_icon_var
-from pcweb.components.icons.hugeicons import hi
-from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND, MAX_FILE_SIZE_MB, MAX_FILE_SIZE_BYTES, MAX_IMAGES_COUNT, PROMPT_MAP
-from reflex.experimental import ClientStateVar
+import uuid
 from typing import TypedDict
+
+import httpx
+import reflex as rx
+from reflex.experimental import ClientStateVar
+
+from pcweb.components.icons.hugeicons import hi
+from pcweb.components.icons.icons import get_icon_var
+from pcweb.components.new_button import button
+from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND, MAX_FILE_SIZE_MB, MAX_FILE_SIZE_BYTES, MAX_IMAGES_COUNT, PROMPT_MAP
 
 textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
 textarea_y_pos = ClientStateVar.create(var_name="textarea_y_pos", default=0)
@@ -425,12 +428,12 @@ def hero() -> rx.Component:
             class_name="absolute top-[232px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover z-[1] pointer-events-none w-[31rem] h-[20.875rem] hidden lg:block bg-transparent mix-blend-overlay",
         ),
         # Small gradient
-        rx.box(
-            class_name="z-[-1] blur-[16px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[37rem] lg:h-[9.5rem] h-[6.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[21.5rem] saturate-[1.25] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
-        ),
+        # rx.box(
+        #     class_name="z-[-1] blur-[16px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[37rem] lg:h-[9.5rem] h-[6.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[21.5rem] saturate-[1.25] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
+        # ),
         # Big gradient
         rx.box(
-            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[56rem] lg:h-[6.5rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[28.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
+            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[56rem] lg:h-[5.5rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[29.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-70 lg:block hidden"
         ),
         # New Ellipse gradient
         rx.box(
@@ -443,8 +446,20 @@ def hero() -> rx.Component:
         ),
         rx.el.h2(
             "A unified platform to build and deploy all in Python.",
-            class_name="max-w-full w-full text-lg lg:text-xl text-center text-slate-9 -mt-2 font-medium mx-auto text-balance word-wrap break-words md:whitespace-pre z-[1]",
+            class_name="max-w-full w-full text-lg lg:text-xl text-center text-slate-9 font-medium mx-auto text-balance word-wrap break-words md:whitespace-pre z-[1]",
         ),
-        prompt_box(),
-        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] pt-28 lg:pt-[9.65rem] relative lg:overflow-hidden overflow-visible z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
+        rx.box(
+            rx.link(
+                button("Book a demo", size="xl", class_name="px-6"),
+                href="/pricing",
+            ),
+            # rx.link(
+            #     button(
+            #         "See Pricing", size="xl", variant="secondary", class_name="px-6"
+            #     ),
+            #     href="/pricing",
+            # ),
+            class_name="flex flex-row gap-4 items-center justify-center z-[10] mt-2",
+        ),
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] pt-28 lg:pt-[10.65rem] relative lg:overflow-hidden overflow-visible z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
     )

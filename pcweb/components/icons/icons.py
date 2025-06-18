@@ -1,5 +1,6 @@
-import reflex as rx
 from typing import Literal
+
+import reflex as rx
 
 github = """<svg width="17.25" height="17.25" viewBox="0 0 17.25 17.25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_8358_8381)">
@@ -415,7 +416,7 @@ webpage = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" view
 
 arrow_top_right = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" color="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 5a1 1 0 0 0 0 2h7.586L5.293 17.293a1 1 0 1 0 1.414 1.414L17 8.414V16a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" fill="currentColor"/></svg>"""
 
-quote="""<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>"""
+quote = """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>"""
 
 linkedin = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" class="injected-svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="currentColor">
 <path d="M5 9H4.5C3.55719 9 3.08579 9 2.79289 9.29289C2.5 9.58579 2.5 10.0572 2.5 11V19.5C2.5 20.4428 2.5 20.9142 2.79289 21.2071C3.08579 21.5 3.55719 21.5 4.5 21.5H5C5.94281 21.5 6.41421 21.5 6.70711 21.2071C7 20.9142 7 20.4428 7 19.5V11C7 10.0572 7 9.58579 6.70711 9.29289C6.41421 9 5.94281 9 5 9Z" fill="currentColor"></path>
@@ -428,6 +429,18 @@ image_03 = """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" vie
 <circle cx="8.5" cy="9" r="1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
 <path d="M21.5 17.5L16.348 11.8797C16.1263 11.6377 15.8131 11.5 15.485 11.5C15.1744 11.5 14.8766 11.6234 14.6571 11.8429L10 16.5L7.83928 14.3393C7.62204 14.122 7.32741 14 7.02019 14C6.68931 14 6.37423 14.1415 6.15441 14.3888L2.5 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>"""
+
+shield = """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="currentColor">
+<path opacity="0.4" d="M21 11.1833V8.28029C21 6.64029 21 5.82028 20.5959 5.28529C20.1918 4.75029 19.2781 4.49056 17.4507 3.9711C16.2022 3.6162 15.1016 3.18863 14.2223 2.79829C13.0234 2.2661 12.424 2 12 2C11.576 2 10.9766 2.2661 9.77771 2.79829C8.89839 3.18863 7.79784 3.61619 6.54933 3.9711C4.72193 4.49056 3.80822 4.75029 3.40411 5.28529C3 5.82028 3 6.64029 3 8.28029V11.1833C3 16.8085 8.06277 20.1835 10.594 21.5194C11.2011 21.8398 11.5046 22 12 22C12.4954 22 12.7989 21.8398 13.406 21.5194C15.9372 20.1835 21 16.8085 21 11.1833Z" fill="currentColor"></path>
+<path d="M21 11.1833V8.28029C21 6.64029 21 5.82028 20.5959 5.28529C20.1918 4.75029 19.2781 4.49056 17.4507 3.9711C16.2022 3.6162 15.1016 3.18863 14.2223 2.79829C13.0234 2.2661 12.424 2 12 2C11.576 2 10.9766 2.2661 9.77771 2.79829C8.89839 3.18863 7.79784 3.61619 6.54933 3.9711C4.72193 4.49056 3.80822 4.75029 3.40411 5.28529C3 5.82028 3 6.64029 3 8.28029V11.1833C3 16.8085 8.06277 20.1835 10.594 21.5194C11.2011 21.8398 11.5046 22 12 22C12.4954 22 12.7989 21.8398 13.406 21.5194C15.9372 20.1835 21 16.8085 21 11.1833Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+</svg>"""
+
+play_video = """<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.4" d="M32.0005 3.83337C47.5565 3.83355 60.1665 16.4445 60.1665 32.0004C60.1663 47.5562 47.5564 60.1662 32.0005 60.1664C16.4446 60.1664 3.83367 47.5563 3.8335 32.0004C3.8335 16.4443 16.4445 3.83337 32.0005 3.83337Z" fill="#1C2024" stroke="#D9D9D9"/>
+<path d="M43.8332 33.2032C43.2945 35.1134 40.7492 36.463 35.6582 39.1624C30.7366 41.772 28.2758 43.0768 26.2929 42.5523C25.4731 42.3355 24.7261 41.9238 24.1236 41.3563C22.6665 39.9843 22.6665 37.323 22.6665 32C22.6665 26.6771 22.6665 24.0158 24.1236 22.6437C24.7261 22.0764 25.4731 21.6646 26.2929 21.4478C28.2758 20.9233 30.7366 22.2281 35.6582 24.8376C40.7492 27.5371 43.2945 28.8867 43.8332 30.7968C44.0553 31.5854 44.0553 32.4147 43.8332 33.2032Z" fill="#FCFCFD"/>
+</svg>
+
+"""
 
 ICONS = {
     # Socials
@@ -488,6 +501,8 @@ ICONS = {
     "quote": quote,
     "linkedin": linkedin,
     "image-03": image_03,
+    "shield": shield,
+    "play_video": play_video,
 }
 
 LiteralIcon = Literal[
@@ -547,6 +562,8 @@ LiteralIcon = Literal[
     "quote",
     "linkedin",
     "image-03",
+    "shield",
+    "play_video",
 ]
 
 

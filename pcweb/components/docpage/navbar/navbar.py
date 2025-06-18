@@ -4,24 +4,22 @@ import reflex as rx
 
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import (
-    REFLEX_BUILD_URL,
-)
+from pcweb.components.hosting_banner import hosting_banner
+from pcweb.constants import REFLEX_BUILD_URL
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
-from pcweb.pages.docs import (
-    getting_started,
-)
+from pcweb.pages.docs import ai_builder, getting_started
 from pcweb.pages.faq import faq
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
+
+from ...link_button import resources_button
+from ..sidebar import SidebarState
 from .buttons.discord import discord
 from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-from ..sidebar import SidebarState
-from ...link_button import resources_button
-from pcweb.components.hosting_banner import hosting_banner
+
 
 def resource_item(text: str, url: str, icon: str, index):
     return rx.el.li(
@@ -265,18 +263,31 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
         class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[14.5625rem] overflow-hidden group",
     )
 
+
 #
 def new_resource_section():
     _company_items = [
-        {"label": "Newsletter", "url": "https://reflex.dev/#newsletter", "icon": "mails"},
+        {
+            "label": "Newsletter",
+            "url": "https://reflex.dev/#newsletter",
+            "icon": "mails",
+        },
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
         {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
-        {"label": "Use Cases", "url": "/docs/ai-builder/overview/use-cases", "icon": "list-checks"},
+        {
+            "label": "Use Cases",
+            "url": "/use-cases",
+            "icon": "list-checks",
+        },
     ]
 
     _open_source_items = [
         {"label": "Templates", "url": "/templates", "icon": "layout-panel-top"},
-        {"label": "Changelog", "url": "https://github.com/reflex-dev/reflex/releases", "icon": "history"},
+        {
+            "label": "Changelog",
+            "url": "https://github.com/reflex-dev/reflex/releases",
+            "icon": "history",
+        },
         {
             "label": "Contributing",
             "url": "https://github.com/reflex-dev/reflex/blob/main/CONTRIBUTING.md",
@@ -376,10 +387,14 @@ def logo() -> rx.Component:
     return rx.link(
         rx.fragment(
             rx.image(
-                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0 block dark:hidden"
+                src="/logos/light/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0 block dark:hidden",
             ),
             rx.image(
-                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0 hidden dark:block"
+                src="/logos/dark/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0 hidden dark:block",
             ),
         ),
         class_name="flex shrink-0 mr-3",
@@ -388,14 +403,14 @@ def logo() -> rx.Component:
 
 
 def doc_section():
-    from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
         rx.el.ul(
             resource_item(
                 "AI Builder Docs",
-                ai_builder_pages.overview.what_is_reflex_build.path,
+                ai_builder.overview.what_is_reflex_build.path,
                 "bot",
                 0,
             ),
@@ -411,8 +426,8 @@ def doc_section():
 
 
 def new_component_section() -> rx.Component:
-    from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.root(
         nav_menu.list(
@@ -441,12 +456,16 @@ def new_component_section() -> rx.Component:
                 rx.el.div(
                     nav_menu.item(
                         link_item(
-                            "AI Builder", ai_builder_pages.overview.what_is_reflex_build.path, "builder"
+                            "AI Builder",
+                            ai_builder_pages.overview.what_is_reflex_build.path,
+                            "builder",
                         ),
                     ),
                     nav_menu.item(
                         link_item(
-                            "Open Source", getting_started.introduction.path, "framework"
+                            "Open Source",
+                            getting_started.introduction.path,
+                            "framework",
                         ),
                     ),
                     nav_menu.item(
