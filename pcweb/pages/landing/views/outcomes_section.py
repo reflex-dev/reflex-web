@@ -15,7 +15,7 @@ OUTCOMES_FEATURES = [
     {
         "title": "Fast Time to Launch",
         "description": "Get your first app up and running quickly with expert guidance.",
-        "icon": "arrow_top_right",
+        "icon": "zap",
     },
     {
         "title": "Guaranteed Success",
@@ -40,7 +40,7 @@ def header() -> rx.Component:
             "Your success, guaranteed. Real outcomes, real support",
             class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-t border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 
@@ -135,16 +135,16 @@ def outcomes_showcase() -> rx.Component:
         rx.box(
             rx.el.h2(
                 "Powerful Outcomes",
-                class_name="text-2xl font-bold text-slate-12 text-center",
+                class_name="text-2xl font-semibold text-slate-12 text-center",
             ),
             rx.el.p(
                 "Everything you need to achieve your goals",
-                class_name="text-slate-11 text-center mt-2",
+                class_name="font-medium text-slate-9 text-center mt-2",
             ),
             rx.link(
                 button(
                     "Book Demo Now!",
-                    class_name="!h-10 mt-10 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap w-48",
+                    class_name="!h-10 mt-6 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap w-48",
                 ),
                 underline="none",
                 is_external=True,
