@@ -15,7 +15,7 @@ OUTCOMES_FEATURES = [
     {
         "title": "Fast Time to Launch",
         "description": "Get your first app up and running quickly with expert guidance.",
-        "icon": "zap",
+        "icon": "arrow_top_right",
     },
     {
         "title": "Guaranteed Success",
