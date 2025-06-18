@@ -97,7 +97,7 @@ def use_cases():
                 "Build internal tools, dashboards, and AI apps with Reflex.",
                 class_name="lg:text-3xl text-xl font-semibold text-slate-9 text-balance",
             ),
-            class_name="w-full flex flex-col gap-2 px-6 py-[3.5rem] text-center border-b border-slate-3",
+            class_name="w-full flex flex-col gap-2 px-6 py-[3.5rem] text-center",
         ),
         tabs.root(
             rx.box(
