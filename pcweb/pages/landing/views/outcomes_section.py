@@ -1,7 +1,8 @@
 import reflex as rx
 
 from pcweb.components.icons import get_icon
-from pcweb.components.button import button
+from pcweb.components.new_button import button
+
 from typing import List
 
 
@@ -15,7 +16,7 @@ OUTCOMES_FEATURES = [
     {
         "title": "Fast Time to Launch",
         "description": "Get your first app up and running quickly with expert guidance.",
-        "icon": "arrow_top_right",
+        "icon": "zap",
     },
     {
         "title": "Guaranteed Success",
@@ -34,13 +35,13 @@ def header() -> rx.Component:
     return rx.box(
         rx.el.h3(
             "Deliver Outcomes",
-            class_name="text-slate-12 text-3xl font-semibold text-center",
+            class_name="lg:text-3xl text-xl font-semibold text-slate-12 text-balance",
         ),
         rx.el.p(
             "Your success, guaranteed. Real outcomes, real support",
-            class_name="text-slate-9 text-xl font-semibold text-center",
+            class_name="lg:text-3xl text-xl font-semibold text-slate-9 text-balance",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-t border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex text-center flex-col py-[3.5rem] 2xl:border-x border-t border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
 
 
@@ -139,21 +140,23 @@ def outcomes_showcase() -> rx.Component:
             ),
             rx.el.p(
                 "Everything you need to achieve your goals",
-                class_name="font-medium text-slate-9 text-center mt-2",
+                class_name="font-medium text-slate-9 text-center mt-2 text-base",
             ),
             rx.link(
                 button(
-                    "Book Demo Now!",
-                    class_name="!h-10 mt-6 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap w-48",
+                    "Book a demo",
+                    size="xl",
                 ),
                 underline="none",
                 is_external=True,
                 href="/pricing",
+                class_name="mt-6",
             ),
             class_name="flex flex-col justify-center items-center h-full",
         ),
-        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 border border-slate-3",
+        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 border border-slate-3 p-1 border-t-0 border-b-0",
     )
+
 
 def outcomes_card(
     title: str,
@@ -169,8 +172,9 @@ def outcomes_card(
             _card_description(description),
             class_name="flex flex-col gap-[0.875rem]",
         ),
-        class_name=f"col-span-{cols} h-[11rem] overflow-hidden p-8 w-full {class_name}",
+        class_name=f"col-span-{cols} h-[11rem] overflow-hidden p-8 w-full {class_name} first:border-b border-slate-3 last:border-t",
     )
+
 
 def _card_header(title: str, icon: str) -> rx.Component:
     """Card header with icon and title."""
@@ -180,9 +184,13 @@ def _card_header(title: str, icon: str) -> rx.Component:
         class_name="flex flex-row items-center gap-2",
     )
 
+
 def _card_description(description: str) -> rx.Component:
     """Card description text."""
-    return rx.el.p(description, class_name="text-slate-9 font-medium text-sm text-start")
+    return rx.el.p(
+        description, class_name="text-slate-9 font-medium text-sm text-start"
+    )
+
 
 def _create_grid_items() -> List[rx.Component]:
     """Creates the grid items with outcomes showcase in the center."""
@@ -200,12 +208,14 @@ def _create_grid_items() -> List[rx.Component]:
 
     return grid_items
 
+
 def outcomes_grid() -> rx.Component:
     """Main outcomes features grid component."""
     return rx.box(
         *_create_grid_items(),
-        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 lg:grid-rows-2 w-full divide-y divide-slate-3 border border-slate-3",
+        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 lg:grid-rows-2 w-full border border-b-0 border-slate-3",
     )
+
 
 def outcomes_section() -> rx.Component:
     return rx.el.section(

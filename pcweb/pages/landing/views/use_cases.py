@@ -89,15 +89,15 @@ def tab_panel(item: dict[str, str]):
 def use_cases():
     return rx.el.section(
         rx.box(
-            rx.el.h1(
+            rx.el.h3(
                 "Use Cases by Industry",
-                class_name="text-3xl font-semibold text-slate-12",
+                class_name="lg:text-3xl text-xl font-semibold text-slate-12 text-balance",
             ),
             rx.el.p(
-                "Organizations across industries use Reflex to build internal tools, dashboards, and AI-driven applications.",
-                class_name="text-xl text-slate-9 font-medium",
+                "Build internal tools, dashboards, and AI apps with Reflex.",
+                class_name="lg:text-3xl text-xl font-semibold text-slate-9 text-balance",
             ),
-            class_name="w-full flex flex-col gap-2 px-6 py-10 text-center",
+            class_name="w-full flex flex-col gap-2 px-6 py-[3.5rem] text-center border-b border-slate-3",
         ),
         tabs.root(
             rx.box(
