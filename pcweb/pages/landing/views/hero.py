@@ -4,7 +4,7 @@ import base64
 import reflex as rx
 from pcweb.components.icons.icons import get_icon_var
 from pcweb.components.icons.hugeicons import hi
-from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND
+from pcweb.constants import REFLEX_BUILD_URL, RX_BUILD_BACKEND, MAX_FILE_SIZE_MB, MAX_FILE_SIZE_BYTES, MAX_IMAGES_COUNT, PROMPT_MAP
 from reflex.experimental import ClientStateVar
 from typing import TypedDict
 
@@ -12,14 +12,7 @@ textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
 textarea_y_pos = ClientStateVar.create(var_name="textarea_y_pos", default=0)
 textarea_opacity = ClientStateVar.create(var_name="textarea_opacity", default=0)
 
-MAX_FILE_SIZE_MB = 5
-MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
-MAX_IMAGES_COUNT = 5
-prompt_map = {
-    "Use an Image": "Build an app from a reference image",
-    "Chat App": "A chat app hooked up to an LLM",
-    "Live Dashboard": "Live stream data on a real-time dashboard",
-}
+
 
 
 class ImageData(TypedDict):
@@ -40,7 +33,7 @@ class SubmitPromptState(rx.State):
                 response = await client.post(
                     RX_BUILD_BACKEND.rstrip("/") + "/prompt",
                     json={
-                        "prompt": prompt_map.get(prompt, prompt),
+                        "prompt": PROMPT_MAP.get(prompt, prompt),
                         "token": str(random_uuid),
                         "images": self.image_data_uris,
                     },

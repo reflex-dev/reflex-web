@@ -2,7 +2,6 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
-# Constants for styling
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
     "header_cell": "text-slate-12 font-semibold text-lg",
