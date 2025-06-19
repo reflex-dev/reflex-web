@@ -15,11 +15,11 @@ def start_building() -> rx.Component:
         # Headings
         rx.el.h2(
             "Ready to get started?",
-            class_name="text-slate-12 text-2xl lg:text-4xl font-semibold text-center lg:text-center",
+            class_name="text-slate-12 text-2xl lg:text-4xl font-semibold text-center",
         ),
         rx.el.h3(
             "Start building with Reflex",
-            class_name="text-slate-9 text-2xl lg:text-4xl font-semibold text-center lg:text-center",
+            class_name="text-slate-9 text-2xl lg:text-4xl font-semibold text-center",
         ),
         rx.link(
             button(
