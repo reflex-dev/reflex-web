@@ -107,7 +107,7 @@ redirects = [
     ("/docs/wrapping-react", "/docs/wrapping-react/overview"),
     ("/docs/vars", "/docs/vars/base-vars"),
     ("/docs/events", "/docs/events/events-overview"),
-    ("/docs/substates", "/docs/substates/overview"),
+    ("/docs/component-state", "/docs/component-state/overview"),
     ("/docs/api-routes", "/docs/api-routes/overview"),
     ("/docs/client-storage", "/docs/client-storage/overview"),
     ("/docs/authentication", "/docs/authentication/authentication-overview"),
