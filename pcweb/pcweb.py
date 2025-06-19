@@ -142,8 +142,8 @@ redirects = [
     ),
 ]
 
-# for source, target in redirects:
-#     if _check_whitelisted_path(target):
-#         app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
+for source, target in redirects:
+    if _check_whitelisted_path(target):
+        app.add_page(lambda: rx.fragment(), route=source, on_load=rx.redirect(target))
 
 app.add_page(page404.component, route=page404.path)

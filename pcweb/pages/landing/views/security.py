@@ -27,7 +27,7 @@ def security():
                 class_name="flex flex-col gap-2 lg:col-span-2 p-10 max-lg:border-b border-slate-3",
             ),
             security_badges(),
-            class_name="grid grid-col-1 lg:grid-cols-3 lg:divide-x divide-slate-4 w-full",
+            class_name="grid grid-cols-1 lg:grid-cols-3 lg:divide-x divide-slate-4 w-full",
         ),
         class_name="flex flex-col gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 justify-center items-center relative overflow-hidden border-t border-slate-3",
     )

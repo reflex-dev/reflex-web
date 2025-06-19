@@ -153,7 +153,7 @@ def outcomes_showcase() -> rx.Component:
             ),
             class_name="flex flex-col justify-center items-center h-full",
         ),
-        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 lg:border border-slate-3 p-1 lg:border-t-0 lg:border-b-0",
+        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 lg:border border-slate-3 max-lg:py-[3rem] lg:p-1 lg:border-t-0 lg:border-b-0",
     )
 
 
@@ -171,7 +171,7 @@ def outcomes_card(
             _card_description(description),
             class_name="flex flex-col gap-[0.875rem]",
         ),
-        class_name=f"col-span-{cols} h-[11rem] overflow-hidden p-8 w-full {class_name} lg:first:border-b border-slate-3 lg:last:border-t",
+        class_name=f"col-span-{cols} lg:h-[11rem] overflow-hidden p-8 w-full {class_name} lg:first:border-b border-slate-3 lg:last:border-t",
     )
 
 
