@@ -1,10 +1,10 @@
 import urllib.parse
-from datetime import datetime
 from typing import Any, Literal
 
 import reflex as rx
 from reflex.event import EventType
 
+from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
 from pcweb.pages.framework.views.companies import pricing_page_companies
@@ -173,7 +173,7 @@ How they heard about Reflex: {self.referral_source}"""
             }
 
             query_string = urllib.parse.urlencode(params)
-            cal_url = f"https://cal.com/team/reflex/reflex-team-enterprise-follow-up-call?{query_string}"
+            cal_url = f"{CAL_REQUEST_DEMO_URL}?{query_string}"
 
             yield QuoteFormState.send_demo_event(form_data)
 
