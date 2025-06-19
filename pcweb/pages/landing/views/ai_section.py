@@ -35,7 +35,7 @@ items = [
         "value": "engineering",
         "color": "pink",
         "image": "/case_studies/devops_app.png",
-        "description": "Surface real-time telemetry, automate routine infra tasks, and replace shell scripts with role-based web UIs",
+        "description": "Surface real-time telemetry, automate routine infra tasks, and replace shell scripts with role-based web UIs.",
     },
     {
         "title": "Databases",
@@ -43,7 +43,7 @@ items = [
         "value": "database",
         "color": "gold",
         "image": "/case_studies/admin_app.png",
-        "description": "Full-featured database dashboards and CRUD apps come together in minutes",
+        "description": "Full-featured database dashboards and CRUD apps come together in minutes.",
     },
     {
         "title": "AI Workflows",
