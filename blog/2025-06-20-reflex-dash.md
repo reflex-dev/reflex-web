@@ -13,7 +13,10 @@ meta: [
 
 
 ---
-
+```python exec
+import reflex as rx
+from reflex_image_zoom import image_zoom
+```
 
 
 **Plotly Dash** and **Reflex** are Python frameworks for building interactive data dashboards. Both enable data scientists and quantitative analysts in finance to create and deploy rich web-based financial dashboards without extensive web-development experience, though they take different approaches.
@@ -26,6 +29,10 @@ Below we will analyze the strengths and weaknesses of each framework across seve
 4. [Deployment & Scalability](#deployment-&-scalability)  
 
 
+```python eval
+image_zoom(rx.image(src="/blog/star-history-reflex-dash.png", border_radius="10px", alt="Reflex vs Dash Github Star History")
+)
+```
 
 ## Language & Framework Design
 
