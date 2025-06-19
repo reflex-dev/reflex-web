@@ -271,7 +271,7 @@ def new_resource_section():
         {"label": "Newsletter", "url": "https://reflex.dev/#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
         {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
-        {"label": "Use Cases", "url": "/docs/ai-builder/overview/use-cases", "icon": "list-checks"},
+        {"label": "Use Cases", "url": "/use-cases", "icon": "list-checks"},
     ]
 
     _open_source_items = [
