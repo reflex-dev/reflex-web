@@ -3,7 +3,7 @@ author: Tom Gotsman
 date: 2025-06-20
 title: Reflex vs Plotly Dash
 description: A Comparison of Python Frameworks for Building Interactive Financial Dashboards
-image: /blog/ai_app_builders.png
+image: /blog/reflex-dash.webp
 meta: [
   {
     "name": "keywords",
@@ -20,10 +20,10 @@ meta: [
 
 Below we will analyze the strengths and weaknesses of each framework across several dimensions:
 
-1. Language & Framework Design  
-2. Component Library & Customization  
-3. Interactivity & State Management  
-4. Deployment & Scalability  
+1. [Language & Framework Design](#language-&-framework-design)
+2. [Component Library & Customization](#component-library-&-customization)
+3. [Interactivity & State Management](#interactivity-&-state-management) 
+4. [Deployment & Scalability](#deployment-&-scalability)  
 
 
 
