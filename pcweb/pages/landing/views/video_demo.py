@@ -66,3 +66,29 @@ def video_demo() -> rx.Component:
         ),
         class_name="h-full overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-12 relative isolate items-center",
     )
+
+
+def watch_preview() -> rx.Component:
+    return dialog(
+        trigger=button(
+            "Watch Preview",
+            variant="secondary",
+            size="xl",
+            class_name="w-fit flex flex-row-reverse",
+            icon=rx.icon("chevron-right", size=16),
+        ),
+        content=rx.box(
+            rx.image(
+                "/logo.jpg",
+                class_name="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 z-[-1] rounded-md",
+            ),
+            rx.video(
+                url=DEMO_VIDEO_URL,
+                playing=True,
+                controls=False,
+                class_name="size-full z-[1]",
+            ),
+            class_name="relative isolate aspect-video bg-slate-1 rounded-2xl overflow-hidden",
+        ),
+        class_name="!max-w-[70rem] !p-0 !bg-transparent overflow-hidden",
+    )

@@ -1,7 +1,9 @@
 import reflex as rx
 from reflex.experimental import ClientStateVar
 
-from .video_demo import video_demo
+from pcweb.components.new_button import button
+
+from .video_demo import video_demo, watch_preview
 
 textarea_x_pos = ClientStateVar.create(var_name="textarea_x_pos", default=0)
 textarea_y_pos = ClientStateVar.create(var_name="textarea_y_pos", default=0)
@@ -72,12 +74,12 @@ def hero() -> rx.Component:
             class_name="absolute top-[232px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover z-[1] pointer-events-none w-[31rem] h-[20.875rem] hidden lg:block bg-transparent mix-blend-overlay",
         ),
         # Small gradient
-        rx.box(
-            class_name="z-[-1] blur-[16px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[37rem] lg:h-[9.5rem] h-[6.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:top-[21.5rem] top-[25.5rem] saturate-[1.25] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:opacity-50"
-        ),
+        # rx.box(
+        #     class_name="z-[-1] blur-[16px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[37rem] lg:h-[9.5rem] h-[6.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:top-[21.5rem] top-[25.5rem] saturate-[1.25] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:opacity-50"
+        # ),
         # Big gradient
         rx.box(
-            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[60rem] lg:h-[17.5rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[28.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100"
+            class_name="z-[-1] blur-[28px] absolute rounded-[64.25rem] bg-[radial-gradient(50%_50%_at_50%_50%,_light-dark(#D4CAFE,#4329AC)_0%,_rgba(21,_22,_24,_0)_100%)] w-[40rem] lg:h-[10.25rem] h-[18.5rem] overflow-hidden pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-[28.25rem] saturate-[1.5] lg:-mx-0 -mx-8 opacity-80 md:opacity-100 max-lg:hidden"
         ),
         # New Ellipse gradient
         rx.box(
@@ -90,8 +92,20 @@ def hero() -> rx.Component:
         ),
         rx.el.h2(
             "A unified platform to build and deploy all in Python.",
-            class_name="max-w-full w-full text-lg lg:text-xl text-center text-slate-9 -mt-2 font-medium mx-auto text-balance word-wrap break-words md:whitespace-pre z-[1]",
+            class_name="max-w-full w-full text-lg lg:text-xl text-center text-slate-9 font-medium mx-auto text-balance word-wrap break-words md:whitespace-pre z-[1]",
         ),
-        hero_box(),
-        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] pt-28 lg:pt-[9.65rem] relative lg:overflow-hidden overflow-visible z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
+        rx.box(
+            rx.link(
+                button(
+                    "Get Early Access",
+                    size="xl",
+                    class_name="w-fit flex flex-row-reverse",
+                    icon=rx.icon("chevron-right", size=16),
+                ),
+                href="/pricing",
+            ),
+            watch_preview(),
+            class_name="flex flex-row gap-4 items-center z-[10] mt-2",
+        ),
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-[6.31rem] pt-28 lg:pt-[10rem] relative lg:overflow-hidden overflow-visible z-[1] bg-transparent lg:bg-slate-1 lg:px-4",
     )
