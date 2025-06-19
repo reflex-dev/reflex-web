@@ -10,8 +10,6 @@ from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
 from pcweb.telemetry import get_pixel_website_trackers
 from pcweb.meta.meta import favicons_links
-from pcweb.pages.landing.views.ai_section import retreive_templates
-from pcweb.constants import DATABRICKS_NOTION_URL
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -48,8 +46,6 @@ app = rx.App(
         ),
     ],
 )
-
-app.register_lifespan_task(retreive_templates)
 
 # XXX: The app is TOO BIG to build on Windows, so explicitly disallow it except for testing
 if sys.platform == "win32":

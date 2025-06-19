@@ -40,7 +40,7 @@ def header() -> rx.Component:
             "Your success, guaranteed. Real outcomes, real support",
             class_name="lg:text-3xl text-xl font-semibold text-slate-9 text-balance",
         ),
-        class_name="flex text-center flex-col py-[3.5rem] 2xl:border-x border-t border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex text-center flex-col py-[3.5rem] 2xl:border-x border-t border-slate-3 max-w-[64.19rem] mx-auto w-full max-lg:border-b",
     )
 
 
@@ -153,7 +153,7 @@ def outcomes_showcase() -> rx.Component:
             ),
             class_name="flex flex-col justify-center items-center h-full",
         ),
-        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 border border-slate-3 p-1 border-t-0 border-b-0",
+        class_name="desktop-only h-full w-full flex flex-col justify-center items-center relative overflow-hidden row-span-2 col-span-1 lg:border border-slate-3 p-1 lg:border-t-0 lg:border-b-0",
     )
 
 
@@ -171,7 +171,7 @@ def outcomes_card(
             _card_description(description),
             class_name="flex flex-col gap-[0.875rem]",
         ),
-        class_name=f"col-span-{cols} h-[11rem] overflow-hidden p-8 w-full {class_name} first:border-b border-slate-3 last:border-t",
+        class_name=f"col-span-{cols} h-[11rem] overflow-hidden p-8 w-full {class_name} lg:first:border-b border-slate-3 lg:last:border-t",
     )
 
 
@@ -212,7 +212,7 @@ def outcomes_grid() -> rx.Component:
     """Main outcomes features grid component."""
     return rx.box(
         *_create_grid_items(),
-        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 lg:grid-rows-2 w-full border border-b-0 border-slate-3",
+        class_name="grid grid-cols-1 lg:grid-cols-3 gap-0 grid-rows-2 lg:grid-rows-2 w-full lg:border border-b-0 border-slate-3 max-lg:divide-y divide-slate-3",
     )
 
 
