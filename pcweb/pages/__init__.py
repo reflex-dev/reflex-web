@@ -1,6 +1,7 @@
 from pcweb.route import Route
 from .affiliates import affiliates as affiliates
 from .databricks import databricks as databricks
+from .use_cases import use_cases as use_cases
 from .blog import blog_routes
 from .customers.data.customers import customers_routes
 from .customers.landing import customers as customers

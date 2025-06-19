@@ -18,6 +18,7 @@ from pcweb.constants import (
     LINKEDIN_URL,
 )
 
+from pcweb.pages.framework.views.footer_index import dark_mode_toggle
 
 def footer_link(text: str, href: str) -> rx.Component:
     return rx.link(
@@ -148,7 +149,9 @@ def footer_customer() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
-                    footer_link("Use Cases", "/docs/ai-builder/overview/use-cases"),
+                    footer_link("Use Cases", "/use-cases"),
+                    rx.box(class_name="grow"),
+                    dark_mode_toggle(),
                 ],
                 class_name="!row-span-3 !border-t-0",
             ),
