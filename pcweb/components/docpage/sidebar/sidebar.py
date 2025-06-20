@@ -136,7 +136,7 @@ def sidebar_icon(name):
         "Wrapping React": "atom",
         "Vars": "variable",
         "Events": "arrow-left-right",
-        "Substates": "boxes",
+        "Component State": "boxes",
         "API Routes": "route",
         "Client Storage": "package-open",
         "Database": "database",
