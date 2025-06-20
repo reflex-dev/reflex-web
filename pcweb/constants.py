@@ -43,6 +43,9 @@ NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
 ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
 DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
+CAL_REQUEST_DEMO_URL = (
+    "https://cal.com/team/reflex/reflex-team-enterprise-follow-up-call"
+)
 
 # Install urls.
 BUN_URL = "https://bun.sh"
