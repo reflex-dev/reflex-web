@@ -13,6 +13,7 @@ from pcweb.pages.docs import (
     getting_started,
 )
 from pcweb.pages.faq import faq
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
 from .buttons.discord import discord
@@ -271,7 +272,7 @@ def new_resource_section():
         {"label": "Newsletter", "url": "https://reflex.dev/#newsletter", "icon": "mails"},
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
         {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
-        {"label": "Use Cases", "url": "/use-cases", "icon": "list-checks"},
+        {"label": "Use Cases", "url": use_cases_page.path, "icon": "list-checks"},
     ]
 
     _open_source_items = [

@@ -16,6 +16,7 @@ from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.gallery import gallery
 from pcweb.signup import IndexState
 
@@ -174,7 +175,7 @@ def footer() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                     footer_link("Affiliates", "/affiliates"),
-                    footer_link("Use Cases", "/use-cases"),
+                    footer_link("Use Cases", use_cases_page.path),
                     rx.box(class_name="grow"),
                     dark_mode_toggle(),
                 ],

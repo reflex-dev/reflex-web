@@ -1,41 +1,67 @@
+import functools
+from typing import Callable
 import reflex as rx
+from pcweb.route import Route
 
-from reflex.event import EventType
-from typing import Callable, Any
-from pcweb.components.docpage.navbar import navbar
-from pcweb.pages.customers.views.footer import footer_customer
-from pcweb.views.bottom_section.bottom_section import bottom_section
-from pcweb.pages.framework.index_colors import index_colors
 
 def highlight_page(
-    route: str | None = None,
-    title: str | None = None,
-    image: str | None = None,
-    description: str | None = None,
-    meta: list[Any] | None = None,
-    script_tags: list[Any] | None = None,
-    on_load: EventType[()] | None = None,
-) -> Callable[[Callable[[], rx.Component]], Callable[[], rx.Component]]:
-    """Decorator that wraps a page's main content in a consistent layout and registers it with rx.page."""
+    path: str,
+    title: str = "",
+    description: str = None,
+    image: str = None,
+    meta: list[dict[str, str]] = None,
+    props=None,
+    add_as_page=True,
+) -> Callable:
+    """A template that most pages on the reflex.dev site should use.
 
-    def decorator(page_func: Callable[[], rx.Component]) -> Callable[[], rx.Component]:
-        @rx.page(
-            route=route,
-            title=title,
-            image=image,
-            description=description,
-            meta=meta,
-            script_tags=script_tags,
-            on_load=on_load,
-        )
-        def wrapped_page() -> rx.Component:
-            content = page_func()
+    This template wraps the webpage with the navbar and footer.
+
+    Args:
+        path: The path of the page.
+        title: The title of the page.
+        props: Props to apply to the template.
+        add_as_page: whether to add the route to the app pages.
+
+    Returns:
+        A wrapper function that returns the full webpage.
+    """
+    props = props or {}
+
+    def webpage(contents: Callable[[], Route]) -> Route:
+        """Wrapper to create a templated route.
+
+        Args:
+            contents: The function to create the page route.
+
+        Returns:
+            The templated route.
+        """
+
+        @functools.wraps(contents)
+        def wrapper(*children, **props) -> rx.Component:
+            """The template component.
+
+            Args:
+                children: The children components.
+                props: The props to apply to the component.
+
+            Returns:
+                The component with the template applied.
+            """
+            # Import here to avoid circular imports.
+            from pcweb.components.docpage.navbar import navbar
+            from pcweb.pages.customers.views.footer import footer_customer
+            from pcweb.views.bottom_section.bottom_section import bottom_section
+            from pcweb.pages.framework.index_colors import index_colors
+
+            # Wrap the component in the template.
             return rx.box(
                 rx.box(
                     index_colors(),
                     navbar(),
                     rx.el.main(
-                        content,
+                        contents(*children, **props),
                         rx.box(class_name="flex-grow"),
                         class_name="w-full z-[1] relative flex flex-col justify-center mx-auto max-w-[640px] lg:px-0 px-4 pb-20",
                     ),
@@ -47,6 +73,14 @@ def highlight_page(
                 class_name="relative overflow-hidden",
             )
 
-        return wrapped_page
+        return Route(
+            path=path,
+            title=title,
+            description=description,
+            image=image,
+            meta=meta,
+            component=wrapper,
+            add_as_page=add_as_page,
+        )
 
-    return decorator
+    return webpage
