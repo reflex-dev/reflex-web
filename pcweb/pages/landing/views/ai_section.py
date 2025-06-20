@@ -1,47 +1,59 @@
 import reflex as rx
-import httpx
+
 from pcweb.components.icons.hugeicons import hi
-from pcweb.constants import SCREENSHOT_BUCKET, REFLEX_BUILD_URL, RX_CLOUD_BACKEND
-import asyncio
-import contextlib
+from pcweb.components.new_button import button
+from pcweb.components.tabs import tabs
 
-TEMPLATES_LIST = [
-    "bbfcc0b8-8f09-4211-884e-7ad2f1a36906",
-    "e6293a74-4a47-44a3-bc1e-8966863feb46",
-    "a7f5bf05-a34a-4b40-a39f-4f6c71ded78f",
-    "dd3a7d49-e174-41d3-8856-cad921a98749",
-    "576aab1d-e733-42fa-a13e-515fd72ba012",
-    "28194790-f5cc-4625-bd30-cf2693890e08",
-    "7e5346b7-025c-4ff3-9b32-c1b9d7afcaec",
-    "2f969644-3140-4dbb-b639-5d0a940603c2",
-    "47f86c01-59ec-4088-b47a-64ceddf58a6e",
-    "98afee02-538f-4334-ab10-f05c1c3d564b",
+items = [
+    {
+        "title": "Analytics",
+        "icon": "analytics-01",
+        "value": "data",
+        "color": "orange",
+        "image": "/case_studies/analytics_dashboard.webp",
+        "description": "Convert notebooks into production apps with live tables, charts, and custom components.",
+    },
+    {
+        "title": "Finance",
+        "icon": "money-02",
+        "value": "financial",
+        "color": "jade",
+        "image": "/case_studies/bayesline_app.png",
+        "description": "Financial analytics dashboard that delivers custom equity-factor risk models in minutes.",
+    },
+    {
+        "title": "E-commerce",
+        "icon": "shopping-bag-01",
+        "value": "ecommerce",
+        "color": "blue",
+        "image": "/case_studies/sellerx_app.png",
+        "description": "Unify marketplace sales, inventory alerts, and supplier data in a single dashboard.",
+    },
+    {
+        "title": "DevOps",
+        "icon": "ai-cloud-01",
+        "value": "engineering",
+        "color": "pink",
+        "image": "/case_studies/devops_app.png",
+        "description": "Surface real-time telemetry, automate routine infra tasks, and replace shell scripts with role-based web UIs.",
+    },
+    {
+        "title": "Databases",
+        "icon": "database",
+        "value": "database",
+        "color": "gold",
+        "image": "/case_studies/admin_app.png",
+        "description": "Full-featured database dashboards and CRUD apps come together in minutes.",
+    },
+    {
+        "title": "AI Workflows",
+        "icon": "sparkles",
+        "value": "ai",
+        "color": "purple",
+        "image": "/case_studies/ai_workflow.webp",
+        "description": "Transform unstructured content into actionable insights with OCR, speech-to-text, and LLM pipelines.",
+    },
 ]
-
-
-async def retreive_templates():
-    """Fetch and update the TEMPLATES_LIST."""
-    try:
-        while True:
-            with contextlib.suppress(Exception):
-                async with httpx.AsyncClient() as client:
-                    global TEMPLATES_LIST
-                    response = await client.get(
-                        f"{RX_CLOUD_BACKEND}v1/flexgen/templates",
-                    )
-                    response_data = response.json()
-                    if isinstance(response_data, list):
-                        TEMPLATES_LIST = response_data
-
-            await asyncio.sleep(60 * 10)
-    except asyncio.CancelledError:
-        pass
-
-
-class AIBuilderGallery(rx.State):
-    @rx.var(interval=60 * 10)
-    def items(self) -> list[str]:
-        return TEMPLATES_LIST
 
 
 def header() -> rx.Component:
@@ -56,8 +68,7 @@ def header() -> rx.Component:
             class_name="flex flex-row gap-2 items-center text-violet-9",
         ),
         rx.el.h2(
-            """Instantly turn your ideas into real apps. 
-Try AI-powered generation""",
+            """Use Cases by Industry""",
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
@@ -69,31 +80,68 @@ Try AI-powered generation""",
     )
 
 
-def gallery_item(item: str) -> rx.Component:
-    return rx.link(
-        rx.image(
-            src=f"{SCREENSHOT_BUCKET}{item}",
-            class_name="absolute top-0 left-0 w-full h-full object-cover hover:scale-105 transition-all duration-200 ease-out object-center",
-        ),
-        href=f"{REFLEX_BUILD_URL}gen/{item}/",
-        is_external=True,
-        class_name="relative overflow-hidden border-slate-3 border rounded-[1.125rem] h-[14rem] bg-slate-2 flex justify-center items-center w-full shadow-small",
+def tab_item(item: dict[str, str]):
+    return tabs.tab(
+        hi(item["icon"], class_name=f"text-{item['color']}-9", size=19),
+        item["title"],
+        value=item["value"],
+        class_name="w-full rounded-none border border-slate-3 text-base",
     )
 
 
-def gallery() -> rx.Component:
-    return rx.box(
-        rx.foreach(
-            AIBuilderGallery.items,
-            lambda item: gallery_item(item),
+def tab_panel(item: dict[str, str]):
+    return tabs.panel(
+        rx.box(
+            rx.image(
+                src=item["image"],
+                class_name="size-full object-cover object-left-top border border-slate-3",
+            ),
+            class_name="max-lg:aspect-square lg:h-[550px] overflow-hidden p-3",
         ),
-        class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4",
+        rx.box(
+            rx.el.p(
+                item["description"], class_name="text-xl text-slate-10 font-semibold"
+            ),
+            class_name="p-4",
+        ),
+        keep_mounted=True,
+        value=item["value"],
+        class_name="border-t border-slate-3 flex flex-col divide-y divide-slate-3 data-[hidden]:hidden border-b",
+    )
+
+
+def use_cases():
+    return rx.el.section(
+        tabs.root(
+            rx.box(
+                tabs.list(
+                    *[tab_item(item) for item in items],
+                    tabs.indicator(class_name="rounded-none bg-slate-4"),
+                    class_name="w-full flex justify-start rounded-none bg-slate-1 gap-2 max-lg:overflow-x-auto",
+                ),
+                class_name="w-full flex justify-start px-2 py-1",
+            ),
+            *[tab_panel(item) for item in items],
+            default_value=items[0]["value"],
+            class_name="w-full flex flex-col border-t border-slate-3",
+        ),
+        rx.link(
+            button(
+                "View all use cases",
+                size="lg",
+                icon=rx.icon("chevron-right", size=16),
+                variant="transparent",
+                class_name="flex-row-reverse my-3.5",
+            ),
+            href="/use-cases",
+        ),
+        class_name="flex flex-col mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 justify-center items-center relative overflow-hidden border-b border-slate-3",
     )
 
 
 def ai_section() -> rx.Component:
     return rx.el.section(
         header(),
-        gallery(),
+        use_cases(),
         class_name="flex flex-col mx-auto w-full max-w-[84.19rem]",
     )

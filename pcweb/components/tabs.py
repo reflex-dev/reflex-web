@@ -1,20 +1,30 @@
-"""Interactive components provided by base-ui components."""
+"""Interactive tab components for Base UI."""
 
 from __future__ import annotations
 
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from reflex import Component
 from reflex.components.component import ComponentNamespace
-from reflex.event import EventHandler
-from reflex.vars import Var
+from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
+from reflex.vars import Var
+
+from pcweb.components.utils.twmerge import cn
 
 
 class BaseUIComponent(Component):
     """Set of content sections to be displayed one at a time."""
 
     lib_dependencies: list[str] = ["@base-ui-components/react@^1.0.0-alpha.8"]
+
+
+# Default class names for each component
+TABS_LIST_CLASS_NAME = "bg-slate-3 inline-flex gap-1 p-1 items-center justify-start rounded-[10px] relative z-0"
+
+TABS_TAB_CLASS_NAME = "h-7 px-1.5 rounded-md justify-center items-center gap-1.5 inline-flex text-sm font-medium text-slate-9 cursor-pointer z-[1] hover:text-slate-12 transition-color text-nowrap data-[selected]:text-slate-12"
+
+TABS_INDICATOR_CLASS_NAME = "absolute top-1/2 left-0 -z-1 h-7 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] rounded-md bg-slate-1 shadow-small transition-all duration-200 ease-in-out"
 
 
 class TabsBaseUIComponent(BaseUIComponent):
@@ -41,13 +51,13 @@ class TabsRoot(TabsBaseUIComponent):
     value: Var[Any]
 
     # Event handler called when the value changes
-    on_value_change: EventHandler
+    on_value_change: EventHandler[passthrough_event_spec(str)]
 
     # The orientation of the component
     orientation: Var[Literal["horizontal", "vertical"]] = "horizontal"
 
     # Class name
-    class_name: Optional[Var[str] | str]
+    class_name: Var[str] | str | None
 
 
 class TabsList(TabsBaseUIComponent):
@@ -62,9 +72,14 @@ class TabsList(TabsBaseUIComponent):
     loop: Var[bool] = True
 
     # Class name
-    class_name: Optional[Var[str] | str] = (
-        "bg-slate-3 inline-flex gap-1 p-1 items-center justify-start rounded-[10px] relative z-0"
-    )
+    class_name: Var[str] | str | None = TABS_LIST_CLASS_NAME
+
+    @classmethod
+    def create(cls, *children, **props) -> Component:
+        """Create the tabs list component."""
+        if "class_name" in props:
+            props["class_name"] = cn(TABS_LIST_CLASS_NAME, props["class_name"])
+        return super().create(*children, **props)
 
 
 class TabsTab(TabsBaseUIComponent):
@@ -76,27 +91,17 @@ class TabsTab(TabsBaseUIComponent):
     value: Var[Any]
 
     # Optional icon component
-    icon: Optional[Component] = None
+    icon: Component | None = None
 
     # Class name
-    class_name: Optional[Var[str] | str] = (
-        "h-7 px-1.5 rounded-md justify-center items-center gap-1.5 inline-flex text-sm font-medium text-slate-9 cursor-pointer z-[1] hover:text-slate-12 transition-color"
-    )
+    class_name: Var[str] | str | None = TABS_TAB_CLASS_NAME
 
     @classmethod
-    def create(cls, *children, icon=None, **props) -> Component:
-        """Create the tab component with optional icon.
-
-        Args:
-            *children: The children of the component.
-            icon: Optional icon component to display.
-            **props: The properties of the component.
-
-        Returns:
-            The tab Component.
-
-        """
-        if icon:
+    def create(cls, *children, icon: Component | None = None, **props) -> Component:
+        """Create the tab component with optional icon."""
+        if "class_name" in props:
+            props["class_name"] = cn(TABS_TAB_CLASS_NAME, props["class_name"])
+        if icon is not None:
             children = (icon, *children)
         return super().create(*children, **props)
 
@@ -107,12 +112,17 @@ class TabsIndicator(TabsBaseUIComponent):
     tag = "Tabs.Indicator"
 
     # Whether to render before hydration
-    render_before_hydration: Var[bool] = True
+    render_before_hydration: Var[bool] = False
 
     # Class name
-    class_name: Optional[Var[str] | str] = (
-        "absolute top-1/2 left-0 -z-1 h-7 w-[var(--active-tab-width)] -translate-y-1/2 translate-x-[var(--active-tab-left)] rounded-md bg-slate-1 shadow-small transition-all duration-200 ease-in-out"
-    )
+    class_name: Var[str] | str | None = TABS_INDICATOR_CLASS_NAME
+
+    @classmethod
+    def create(cls, *children, **props) -> Component:
+        """Create the tabs indicator component."""
+        if "class_name" in props:
+            props["class_name"] = cn(TABS_INDICATOR_CLASS_NAME, props["class_name"])
+        return super().create(*children, **props)
 
 
 class TabsPanel(TabsBaseUIComponent):
@@ -127,7 +137,7 @@ class TabsPanel(TabsBaseUIComponent):
     keep_mounted: Var[bool] = False
 
     # Class name
-    class_name: Optional[Var[str] | str]
+    class_name: Var[str] | str | None
 
 
 class Tabs(ComponentNamespace):
