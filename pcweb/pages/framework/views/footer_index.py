@@ -7,15 +7,15 @@ from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 from pcweb.components.icons.hugeicons import hi
 from pcweb.constants import (
-    ROADMAP_URL,
-    GITHUB_URL,
-    TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    GITHUB_URL,
     LINKEDIN_URL,
+    ROADMAP_URL,
+    TWITTER_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import getting_started, hosting
+from pcweb.pages.docs import ai_builder, getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
@@ -158,7 +158,9 @@ def footer_index() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                    footer_link(
+                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                    ),
                 ],
                 class_name="lg:!border-l !border-slate-3 !row-span-2",
             ),
@@ -180,7 +182,7 @@ def footer_index() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                     footer_link("Affiliates", "/affiliates"),
-                    footer_link("Use Cases", "/docs/ai-builder/overview/use-cases"),
+                    footer_link("Use Cases", "/use-cases"),
                     rx.box(class_name="grow"),
                     dark_mode_toggle(),
                 ],
