@@ -4,15 +4,15 @@ import reflex as rx
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import (
-    ROADMAP_URL,
-    GITHUB_URL,
-    TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    GITHUB_URL,
     LINKEDIN_URL,
+    ROADMAP_URL,
+    TWITTER_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import getting_started, hosting
+from pcweb.pages.docs import ai_builder, getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
@@ -68,8 +68,8 @@ def menu_socials() -> rx.Component:
             social_menu_item("discord", DISCORD_URL),
             social_menu_item(
                 "linkedin",
-                 LINKEDIN_URL,
-                 class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
+                LINKEDIN_URL,
+                class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
             ),
             class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),
@@ -155,7 +155,9 @@ def footer() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                    footer_link(
+                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                    ),
                 ],
             ),
             footer_link_flex(

@@ -1,12 +1,10 @@
 from pcweb.pages.docs import cloud_cliref
+
 from .item import create_item
 
 
 def get_sidebar_items_learn():
-    from pcweb.pages.docs import (
-        getting_started,
-        advanced_onboarding,
-    )
+    from pcweb.pages.docs import advanced_onboarding, getting_started
 
     items = [
         create_item(
@@ -33,17 +31,17 @@ def get_sidebar_items_learn():
 
 
 def get_sidebar_items_frontend():
+    from pcweb.components.docpage.sidebar.state import SideBarSection
     from pcweb.pages.docs import (
         assets,
         components,
+        custom_components,
         library_,
         pages,
         styling,
         ui,
         wrapping_react,
-        custom_components,
     )
-    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
         SideBarSection(
@@ -114,6 +112,7 @@ def get_sidebar_items_frontend():
 
 
 def get_sidebar_items_backend():
+    from pcweb.components.docpage.sidebar.state import SideBarSection
     from pcweb.pages.docs import (
         api_routes,
         authentication,
@@ -125,7 +124,6 @@ def get_sidebar_items_backend():
         utility_methods,
         vars,
     )
-    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
         SideBarSection(

@@ -1,9 +1,8 @@
 import reflex as rx
+
 from pcweb.components.icons.icons import get_icon
-from pcweb.pages.docs import (
-    getting_started,
-)
-from pcweb.constants import REFLEX_CLOUD_URL, REFLEX_BUILD_URL
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
+from pcweb.pages.docs import ai_builder, getting_started
 
 
 def product_card(
@@ -33,7 +32,7 @@ def product_card(
                 underline="none",
                 class_name="flex flex-row gap-2 items-center gap-[0.375rem] mt-4 group",
             ),
-            class_name="flex flex-col gap-2 px-10 pb-10 pt-6",
+            class_name="flex flex-col gap-2 p-10",
         ),
         rx.el.div(
             rx.el.span(number),
@@ -64,9 +63,9 @@ def products() -> rx.Component:
             1,
             "AI Builder",
             "Generate Your App With AI",
-            "Describe your idea, and let AI turn it into a full-stack Python app.",
-            "Explore Gallery",
-            REFLEX_BUILD_URL,
+            "Describe your idea, and let AI transform it into a complete, production-ready Python web application.",
+            "View Use Cases",
+            "/use-cases",
             ("violet", "9"),
             "ai",
         ),
@@ -74,7 +73,7 @@ def products() -> rx.Component:
             2,
             "Reflex Framework",
             "Iterate In Python With Reflex",
-            "Build and refine your app using pure Python—fast, flexible, and scalable.",
+            "Build and refine your app using pure Python—fast, flexible, scalable, and open source.",
             "Get Started In Docs",
             getting_started.introduction.path,
             ("jade", "10"),
@@ -84,9 +83,9 @@ def products() -> rx.Component:
             3,
             "Hosting Platform",
             "Deploy, Host, and Scale",
-            "Launch your app instantly with Reflex's powerful hosting platform.",
-            "Start Building",
-            REFLEX_CLOUD_URL,
+            "Deploy through Databricks, Snowflake, self-host on AWS, GCP, Azure, or use Reflex Cloud.",
+            "Explore Databricks Integration",
+            "/databricks",
             ("amber", "11"),
             "hosting",
         ),
