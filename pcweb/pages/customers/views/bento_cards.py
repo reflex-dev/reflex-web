@@ -145,5 +145,3 @@ def _card(company: str, is_company: bool = True, **kwarg) -> rx.Component:
             class_name="shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] pointer-events-none w-[15rem] h-[15rem]",
         ),
     )
-
-

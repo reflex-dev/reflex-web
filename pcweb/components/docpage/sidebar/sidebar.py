@@ -43,6 +43,7 @@ document.addEventListener('click', (e) => {
 });
 """
 
+
 def sidebar_link(*children, **props):
     """Create a sidebar link that closes the sidebar when clicked."""
     return rx.link(
@@ -136,7 +137,7 @@ def sidebar_icon(name):
         "Wrapping React": "atom",
         "Vars": "variable",
         "Events": "arrow-left-right",
-        "Substates": "boxes",
+        "State Structure": "boxes",
         "API Routes": "route",
         "Client Storage": "package-open",
         "Database": "database",
@@ -177,7 +178,9 @@ def sidebar_item_comp(
                         class_name="font-small",
                     ),
                     rx.box(class_name="flex-grow"),
-                    rx.accordion.icon(class_name="size-4 !text-slate-9 group-hover:!text-violet-9"),
+                    rx.accordion.icon(
+                        class_name="size-4 !text-slate-9 group-hover:!text-violet-9"
+                    ),
                     class_name="!px-0 flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full !text-slate-9 aria-expanded:text-slate-11 hover:!text-slate-11 transition-color group",
                 ),
             ),
@@ -546,9 +549,7 @@ def sidebar_comp(
                                 rx.link(  # pyright: ignore [reportCallIssue]
                                     rx.box(  # pyright: ignore [reportCallIssue]
                                         rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon(
-                                                "atom", size=16
-                                            ),  # pyright: ignore [reportCallIssue]
+                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
                                             rx.el.h5(
                                                 "Custom Components",
                                                 class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
@@ -586,9 +587,7 @@ def sidebar_comp(
                                 rx.link(  # pyright: ignore [reportCallIssue]
                                     rx.box(  # pyright: ignore [reportCallIssue]
                                         rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon(
-                                                "atom", size=16
-                                            ),  # pyright: ignore [reportCallIssue]
+                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
                                             rx.el.h5(
                                                 "Reflex Enterprise",
                                                 class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
