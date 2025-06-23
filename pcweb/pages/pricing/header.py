@@ -149,7 +149,7 @@ class QuoteFormState(rx.State):
         email = form_data.get("email", "").lower()
         if "@" in email:
             domain = email.split("@")[1]
-            if domain in banned_domains:
+            if domain in banned_domains or domain.endswith('.edu'):
                 self.banned_email = True
                 yield rx.set_focus("email")
                 return
