@@ -13,6 +13,10 @@ instance of a component, rather than existing globally in the app. A Component S
 [Event Handlers]({events.events_overview.path}),
 and is useful for creating reusable components which operate independently of each other.
 
+```md alert warning
+# ComponentState cannot be used inside `rx.foreach()` as it will only create one state instance for all elements in the loop. Each iteration of the foreach will share the same state, which may lead to unexpected behavior.
+```
+
 ## Using ComponentState
 
 ```python demo exec
