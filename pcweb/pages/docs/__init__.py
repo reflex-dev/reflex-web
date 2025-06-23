@@ -123,7 +123,6 @@ manual_titles = {
     "docs/api-routes/overview.md": "API Routes Overview",
     "docs/client_storage/overview.md": "Client Storage Overview",
     "docs/state_structure/overview.md": "State Structure Overview", 
-    "docs/state_structure/component_state.md": "Component State Overview",
     "docs/state/overview.md": "State Overview",
     "docs/styling/overview.md": "Styling Overview",
     "docs/ui/overview.md": "UI Overview",
