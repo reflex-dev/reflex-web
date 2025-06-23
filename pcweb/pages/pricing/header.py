@@ -4,9 +4,9 @@ from typing import Any, Literal
 import reflex as rx
 from reflex.event import EventType
 
-from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
+from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.pages.framework.views.companies import pricing_page_companies
 from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
 
@@ -149,7 +149,7 @@ class QuoteFormState(rx.State):
         email = form_data.get("email", "").lower()
         if "@" in email:
             domain = email.split("@")[1]
-            if domain in banned_domains or domain.endswith('.edu'):
+            if domain in banned_domains or domain.endswith(".edu"):
                 self.banned_email = True
                 yield rx.set_focus("email")
                 return
