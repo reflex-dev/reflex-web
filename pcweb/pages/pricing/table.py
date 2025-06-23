@@ -36,7 +36,10 @@ AI_BUILDER_FEATURES = [
     ("Open Source Framework", "Apache 2.0 License, free forever."),
     ("Enterprise Package", "Advanced features and support for enterprises."),
     ("AI Builder", "Build fullstack Python apps via prompting."),
-    ("One Click Deploy", "Deploy apps with a single click to Reflex Cloud or your own infrastructure."),
+    (
+        "One Click Deploy",
+        "Deploy apps with a single click to Reflex Cloud or your own infrastructure.",
+    ),
     ("Git Provider", "Connect and deploy from Github, Gitlab, and Bitbucket."),
     ("Integrations", "Connect to Databricks, AWS, GCP, Azure,Snowflake, and more."),
     ("On Premise Deployments", "Deploy on your own infrastructure."),
@@ -80,7 +83,10 @@ CLOUD_SECURITY_FEATURES = [
 ]
 
 SUPPORT_LEVELS = [
-    ("Customer Success", "Dedicated Customer Success contact to ensure you get the most out of Reflex."),
+    (
+        "Customer Success",
+        "Dedicated Customer Success contact to ensure you get the most out of Reflex.",
+    ),
     ("Onboarding", "Get a forward deployed engineer to help you get started."),
 ]
 
@@ -195,38 +201,42 @@ def create_table_row(cells: list) -> rx.Component:
     )
 
 
-def create_table_row_header(name: str, coming_soon: bool = False, anchor: str = None, badge: str = None) -> rx.Component:
+def create_table_row_header(
+    name: str, coming_soon: bool = False, anchor: str = None, badge: str = None
+) -> rx.Component:
     # Create row attributes
     base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center"
-    
+
     # Add scroll margin for anchor positioning
     if anchor:
         base_class += " scroll-mt-24"
-    
+
     row_attrs = {
         "class_name": base_class,
         "padding_x": "5rem !important",
     }
-    
+
     # Add id attribute if anchor is provided
     if anchor:
         row_attrs["id"] = anchor
-    
+
     # Compose the header cell content
     header_content = rx.el.div(
         rx.el.span(name),
-        rx.badge(badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5") if badge else None,
+        rx.badge(
+            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
+        )
+        if badge
+        else None,
         rx.badge("coming soon", margin_left="0.5rem") if coming_soon else None,
-        class_name="flex items-center gap-x-2"
+        class_name="flex items-center gap-x-2",
     )
-    
+
     return rx.table.row(
         rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
         rx.table.column_header_cell("Free", class_name=STYLES["header_cell_sub"]),
-        rx.table.column_header_cell(
-            "Enterprise", class_name=STYLES["header_cell_sub"]
-        ),
-        **row_attrs
+        rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"]),
+        **row_attrs,
     )
 
 
@@ -276,12 +286,18 @@ def create_feature_row(feature: str, description: str) -> rx.Component:
 def create_feature_table_header(section: str, badge: str = None) -> rx.Component:
     header_content = rx.el.div(
         rx.el.span(section),
-        rx.badge(badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5") if badge else None,
-        class_name="flex items-center gap-x-2"
+        rx.badge(
+            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
+        )
+        if badge
+        else None,
+        class_name="flex items-center gap-x-2",
     )
     return rx.table.row(
         rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
-        rx.table.cell("", class_name=STYLES["header_cell"]),  # Empty cell for alignment, no title
+        rx.table.cell(
+            "", class_name=STYLES["header_cell"]
+        ),  # Empty cell for alignment, no title
         class_name="w-full bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
         padding_x="5rem !important",
     )
@@ -294,14 +310,20 @@ def table_body_oss() -> rx.Component:
             class_name="relative",
         ),
         create_table_body(
-            *[create_feature_row(feature, desc) for feature, desc in AI_BUILDER_FEATURES],
+            *[
+                create_feature_row(feature, desc)
+                for feature, desc in AI_BUILDER_FEATURES
+            ],
         ),
         rx.table.header(
             create_feature_table_header("Security"),
             class_name="relative",
         ),
         create_table_body(
-            *[create_feature_row(feature, desc) for feature, desc in AI_BUILDER_SECURITY_FEATURES],
+            *[
+                create_feature_row(feature, desc)
+                for feature, desc in AI_BUILDER_SECURITY_FEATURES
+            ],
         ),
         rx.table.header(
             create_feature_table_header("Support"),

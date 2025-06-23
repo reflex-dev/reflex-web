@@ -279,6 +279,7 @@ class DefinitionBlock(flexdown.blocks.Block):
             ),
         )
 
+
 class DemoOnly(flexdown.blocks.Block):
     """A block that displays only a component demo without showing the code."""
 
