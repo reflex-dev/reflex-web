@@ -117,7 +117,7 @@ def get_sidebar_items_backend():
         api_routes,
         authentication,
         client_storage,
-        component_state,
+        state_structure,
         database,
         events,
         state,
@@ -154,9 +154,10 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            "Component State",
+            "State Structure",
             children=[
-                component_state.overview,
+                state_structure.overview,
+                state_structure.component_state,
             ],
         ),
         create_item(
