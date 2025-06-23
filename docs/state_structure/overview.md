@@ -90,38 +90,6 @@ def index():
     )
 ```
 
-## State Inheritance
-
-A substate can also inherit from another substate other than `rx.State`, allowing you to create a hierarchy of states.
-
-For example, you can create a base state that defines variables and event handlers that are common to all pages in your app, such as the current logged in user.
-
-```python
-class BaseState(rx.State):
-    """Define your base state here."""
-
-    current_user: str = ""
-
-    def logout(self):
-        self.current_user = ""
-
-
-class LoginState(BaseState):
-    """Define your login state here."""
-
-    username: str = ""
-    password: str = ""
-
-    def login(self, username, password):
-        # authenticate
-        authenticate(...)
-
-        # Set the var on the parent state.
-        self.current_user = username
-```
-
-You can access the parent state properties from a child substate automatically.
-
 ## Accessing Arbitrary States
 
 An event handler in a particular state can access and modify vars in another state instance by calling

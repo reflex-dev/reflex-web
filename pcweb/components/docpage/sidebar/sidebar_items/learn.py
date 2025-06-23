@@ -117,10 +117,10 @@ def get_sidebar_items_backend():
         api_routes,
         authentication,
         client_storage,
+        state_structure,
         database,
         events,
         state,
-        substates,
         utility_methods,
         vars,
     )
@@ -154,10 +154,10 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            "Substates",
+            "State Structure",
             children=[
-                substates.overview,
-                substates.component_state,
+                state_structure.overview,
+                state_structure.component_state,
             ],
         ),
         create_item(
