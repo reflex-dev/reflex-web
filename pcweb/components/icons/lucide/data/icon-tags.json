@@ -1595,7 +1595,7 @@
         "diy",
         "fixed",
         "build",
-        "contruction",
+        "construction",
         "parts"
     ],
     "bomb": [
@@ -1733,7 +1733,7 @@
         "informed",
         "knowledge",
         "knowledgeable",
-        "knowledgable",
+        "knowledgeable",
         "education",
         "high school",
         "university",
@@ -6285,7 +6285,7 @@
         "helmet",
         "construction",
         "safety",
-        "savety"
+        "safety"
     ],
     "hash": [
         "hashtag",
@@ -10608,7 +10608,7 @@
     "shield-minus": [
         "unshield",
         "cybersecurity",
-        "unsecure",
+        "insecure",
         "unguard",
         "unblock",
         "antivirus",
