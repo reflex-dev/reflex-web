@@ -6,6 +6,7 @@ from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
 from pcweb.meta.meta import create_meta_tags
 
+
 def first_post_card(meta: dict, path: str) -> rx.Component:
     return rx.link(
         rx.box(
