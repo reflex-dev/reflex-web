@@ -23,7 +23,7 @@ def ring_progress_example():
         rxe.mantine.ring_progress(
             size=100,
             sections=[
-                {"value": RingProgressState.value, "color": "blue"},
+                \{"value": RingProgressState.value, "color": "blue"},
             ],
         ),
         rx.button("Randomize", on_click=RingProgressState.random),
