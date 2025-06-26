@@ -81,7 +81,7 @@ def ag_grid_simple_2():
     return ag_grid(
         id="ag_grid_basic_2",
         row_data=df.to_dict("records"),
-        column_defs=[{"field": i} for i in df.columns],
+        column_defs=[dict(field=i) for i in df.columns],
         width="100%",
         height="40vh",
     )
@@ -725,4 +725,4 @@ def ag_grid_api_argument():
 
 The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.  
