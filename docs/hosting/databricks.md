@@ -4,7 +4,7 @@ from pcweb.styles.styles import get_code_style, cell_style
 
 ```
 
-# Deploying Reflex to Databricks
+# Deploy Reflex to Databricks
 
 This guide walks you through deploying a Reflex web application on Databricks using the Apps platform.
 
@@ -60,7 +60,6 @@ env:
    - Navigate to Account Settings → Tokens
    - Create a new token and copy the value
    - Replace `your-token-here` in the configuration
-
 2. **Databricks Resources**
    - Update `DATABRICKS_CATALOG` with your target catalog name
    - Update `DATABRICKS_SCHEMA` with your target schema name
@@ -90,14 +89,15 @@ app = rxe.App(
 )
 ```
 
-Also remember to add  `reflex-enterprise` to your `requirements.txt` file.
+```md alert info
+# Also add  `reflex-enterprise` and `asgiproxy`  to your `requirements.txt` file.
+```
 
 ## Step 4: Create Databricks App
 
 1. **Navigate to Apps**
    - Go to **Compute** → **Apps**
    - Click **Create App**
-
 2. **Configure Application**
    - Select **Custom App**
    - Configure SQL warehouse for your application
@@ -128,7 +128,6 @@ Also remember to add  `reflex-enterprise` to your `requirements.txt` file.
 1. **Initiate Deployment**
    - Click **Deploy** in the Apps interface
    - When prompted for the code path, provide your Git folder path or select your repository folder
-
 2. **Monitor Deployment**
    - The deployment process will begin automatically
    - Monitor logs for any configuration issues
@@ -141,7 +140,6 @@ To deploy updates from your GitHub repository:
    - In the deployment interface, click **Deployment Source**
    - Select **main** branch
    - Click **Pull** to fetch the latest changes from GitHub
-
 2. **Redeploy**
    - Click **Deploy** again to apply the updates
 
