@@ -6,7 +6,7 @@ order: 1
 from pcweb.pages import docs
 ```
 
-# Build with Reflex Badge
+# Built with Reflex Badge
 
 The option `show_built_with_reflex` allows you to toggle the "Built with Reflex" badge. This badge is displayed on the bottom right corner of the frontend.
 

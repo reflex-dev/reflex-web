@@ -33,4 +33,4 @@ def draggable_item():
 
 ## Provider
 
-For drag and drop to work, your app need to be wrapped with the `rxe.dnd.provider` component. By default, `draggable` and `drop_target` will add the `rxe.dnd.provider` automatically to the app wrapping components tree.
+For drag and drop to work, your app needs to be wrapped with the `rxe.dnd.provider` component. By default, `draggable` and `drop_target` will add the `rxe.dnd.provider` automatically to the app wrapping components tree.

@@ -61,7 +61,7 @@ import reflex_enterprise as rxe
 class PillInputState(rx.State):
     """State for the PillsInput demo."""
 
-    tags: set[str] = \{"Foo", "Bar"}
+    tags: set[str] = {"Foo", "Bar"}
 
     @rx.event
     def add_tag(self, tag: str):

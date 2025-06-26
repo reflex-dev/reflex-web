@@ -10,7 +10,7 @@ from pcweb.pages import docs
 
 > Available starting from Team tier.
 
-By using the config option `use_single_port` you can configure your backend to proxy any request it received and cannot handle to the frontend. This results in a single port deployment, where the frontend and backend are both served on the same port.
+By using the config option `use_single_port` you can configure your backend to proxy any requests it receives and cannot handle to the frontend. This results in a single port deployment, where the frontend and backend are both served on the same port.
 
 ## Tier Requirements
 
