@@ -5,7 +5,7 @@ title: Interactive Maps
 # Interactive Maps
 
 ```python exec
-from flexd.flexd import docs
+from pcweb.pages import docs
 import reflex as rx
 import reflex_enterprise as rxe
 ```

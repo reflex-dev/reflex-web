@@ -5,7 +5,7 @@ title: Reflex Enterprise
 # Reflex Enterprise
 
 ```python exec
-from flexd.flexd import docs
+from pcweb.pages import docs
 import reflex as rx
 import reflex_enterprise as rxe
 from reflex_enterprise.components.ag_grid.resource import RendererParams

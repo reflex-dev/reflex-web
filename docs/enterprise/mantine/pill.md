@@ -3,7 +3,7 @@ title: Pill
 ---
 
 ```python exec
-from flexd.flexd import docs
+from pcweb.pages import docs
 ```
 
 # Pill

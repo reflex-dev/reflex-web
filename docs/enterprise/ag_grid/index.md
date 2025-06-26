@@ -4,7 +4,7 @@ order: 3
 ---
 
 ```python exec
-from flexd.flexd import docs
+from pcweb.pages import docs
 ```
 
 # AG Grid
