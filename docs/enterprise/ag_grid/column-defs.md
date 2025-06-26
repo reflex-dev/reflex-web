@@ -17,7 +17,7 @@ AgGrid allows you to define the columns of your grid, passed to the prop `column
 ```
 
 Here we define a grid with 3 columns:
-```python
+```python demo box
 column_defs = [
     {"field": "direction"},
     {"field": "strength"},
@@ -27,13 +27,13 @@ column_defs = [
 
 To set default properties for all your columns, you can define `default_col_def` in your grid:
 
-```python
+```python demo box
 default_col_def = { "editable": True }
 ```
 
 Any column can override the default properties defined above by setting their own value:
 
-```python
+```python demo box
 column_defs = [
     {"field": "direction"},
     {"field": "strength", "editable": False},
@@ -73,7 +73,7 @@ def ag_grid_simple_col_def():
 ## Columns Groups
 It is also possible to group columns by defining a `children` property in the column definition. This property should be a list of column definitions.
 
-```python
+```python demo box
 column_defs = [
     {"field": "direction"},
     {
@@ -120,7 +120,7 @@ def ag_grid_column_groups():
 
 It is also possible to define column types that can be reused across multiple columns. This is useful when you have multiple columns with the same properties.
 
-```python
+```python demo box
 column_types = {
     "price": {"editable": False, "value_formatter": "'$' + params.value"},
 }
