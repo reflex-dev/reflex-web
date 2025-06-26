@@ -1,5 +1,6 @@
 from pcweb.route import Route
 from .affiliates import affiliates as affiliates
+from .security import security as security
 from .databricks.databricks import databricks_page as databricks_page
 from .use_cases.use_cases import use_cases_page as use_cases_page
 from .blog import blog_routes
