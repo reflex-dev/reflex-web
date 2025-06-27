@@ -97,7 +97,7 @@ def hero() -> rx.Component:
         rx.box(
             rx.link(
                 button(
-                    "Get Early Access",
+                    "Get Access",
                     size="xl",
                     class_name="w-fit flex flex-row-reverse",
                     icon=rx.icon("chevron-right", size=16),
