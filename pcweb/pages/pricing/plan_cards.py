@@ -398,5 +398,5 @@ def plan_cards() -> rx.Component:
             "Contact Us",
             price="Custom",
         ),
-        class_name="flex flex-row flex-wrap justify-center items-center gap-6 w-full",
+        class_name="flex flex-row flex-wrap justify-center items-center gap-6 w-full lg:border-x border-slate-3 max-w-[64.19rem]",
     )
