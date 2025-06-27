@@ -49,7 +49,7 @@ env:
     value: "your-catalog-name"
   - name: "DATABRICKS_SCHEMA"
     value: "your-schema-name"
-  - name: "SHOW_BUILT_WITH_REFLEX"
+  - name: "REFLEX_SHOW_BUILT_WITH_REFLEX"
     value: 0
 ```
 
@@ -74,7 +74,7 @@ Update your Reflex application for Databricks compatibility:
 import reflex as rx
 import reflex_enterprise as rxe
 
-rxe.Config(app_name="your-app-name", use_single_port=True)
+rxe.Config(app_name="app", use_single_port=True)
 ```
 
 ### Update Application Entry Point
