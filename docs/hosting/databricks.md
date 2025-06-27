@@ -181,7 +181,7 @@ rx.table.root(
             rx.table.cell(rx.code("default")),
         ),
         rx.table.row(
-            rx.table.cell(rx.code("SHOW_BUILT_WITH_REFLEX")),
+            rx.table.cell(rx.code("REFLEX_SHOW_BUILT_WITH_REFLEX")),
             rx.table.cell("Show Reflex branding (Enterprise only)"),
             rx.table.cell([rx.code("0"), " or ", rx.code("1")]),
         ),
