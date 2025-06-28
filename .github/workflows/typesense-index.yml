@@ -1,0 +1,60 @@
+name: Typesense Documentation Indexing
+
+env:
+  TELEMETRY_ENABLED: false
+  NODE_OPTIONS: "--max_old_space_size=8192"
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["docs/**"]
+  workflow_dispatch:
+    inputs:
+      force_reindex:
+        description: "Force complete reindexing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  index-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+          activate-environment: true
+
+      - name: Install indexing dependencies
+        run: |
+          uv pip install typesense python-frontmatter markdown beautifulsoup4
+
+      - name: Run Typesense indexing
+        env:
+          TYPESENSE_ADMIN_API_KEY: ${{ secrets.TYPESENSE_ADMIN_API_KEY }}
+        run: |
+          python scripts/typesense_indexer.py
+
+      - name: Verify indexing
+        env:
+          TYPESENSE_SEARCH_API_KEY: ${{ secrets.TYPESENSE_SEARCH_API_KEY }}
+        run: |
+          python -c "
+          import typesense
+          client = typesense.Client({
+            'nodes': [{'host': 'z2mi3hyewokc16a4p-1.a1.typesense.net', 'port': '443', 'protocol': 'https'}],
+            'api_key': '${{ secrets.TYPESENSE_SEARCH_API_KEY }}',
+            'connection_timeout_seconds': 60
+          })
+          result = client.collections['docs'].documents.search({'q': 'reflex', 'query_by': 'title,content'})
+          print(f'Search verification: Found {result[\"found\"]} documents')
+          "
