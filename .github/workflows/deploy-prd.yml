@@ -36,6 +36,13 @@ jobs:
       - name: Update Reflex CLI
         run: uv pip install reflex-hosting-cli -U
 
+      - name: Index documentation to Typesense
+        env:
+          TYPESENSE_ADMIN_API_KEY: ${{ secrets.TYPESENSE_ADMIN_API_KEY }}
+        run: |
+          uv pip install typesense python-frontmatter markdown beautifulsoup4
+          python scripts/typesense_indexer.py
+
       - name: Deploy to Reflex
         id: deploy
         run: |
