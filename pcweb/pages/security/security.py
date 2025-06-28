@@ -1,11 +1,7 @@
 import reflex as rx
 
-from pcweb.components.docpage.navbar import navbar
-from pcweb.components.webpage.badge import badge
-from pcweb.pages.framework.index_colors import index_colors
-from pcweb.pages.framework.views.footer_index import footer_index
-from pcweb.components.icons import hi
-from pcweb.components.new_button import button
+from pcweb.components.icons import get_icon
+from pcweb.templates.mainpage import mainpage
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.pages.pricing.table import create_feature_table_header, create_feature_row, create_table_body, TABLE_STYLE
 
@@ -38,29 +34,30 @@ trust_services_criteria = [
     {
         "title": "Security",
         "description": "Protection of systems and data from unauthorized access through firewalls, multi-factor authentication, and continuous monitoring.",
-        "icon": "shield"
+        "icon": "shield",
     },
     {
         "title": "Availability",
         "description": "Ensures that systems are operational and accessible as promised, with redundancy, failover systems, and uptime monitoring in place.",
-        "icon": "cloud"
+        "icon": "globe",
     },
     {
         "title": "Confidentiality",
         "description": "Restricts access to sensitive information using encryption, role-based access controls, and secure data handling policies.",
-        "icon": "shield"
+        "icon": "backend_auth",
     },
     {
         "title": "Processing Integrity",
         "description": "Guarantees that system operations are accurate, timely, and authorized, using code reviews, automated tests, and deployment controls.",
-        "icon": "gears"
+        "icon": "code_custom",
     },
     {
         "title": "Privacy",
         "description": "Covers the collection, use, retention, and disposal of personal information according to regulatory and contractual obligations.",
-        "icon": "user-shield"
+        "icon": "clipboard",
     }
 ]
+
 
 def outcomes_showcase() -> rx.Component:
     """Central outcomes showcase component with prominent display."""
@@ -91,16 +88,23 @@ def outcomes_showcase() -> rx.Component:
     )
 
 def security_title():
-    return rx.box(
-        rx.heading(
+    return rx.el.section(
+        # Headings
+        rx.el.h1(
             "Security, Compliance, and Trust at Reflex",
-            class_name="gradient-heading font-x-large lg:font-xxx-large text-start text-transparent lg:text-center",
+            class_name="max-w-full inline-block bg-clip-text bg-gradient-to-r from-slate-12 to-slate-11 w-full text-4xl lg:text-5xl text-center text-transparent text-balance mx-auto break-words font-semibold",
         ),
-        rx.text(
-            "We're committed to protecting your data through enterprise-grade security practices and full SOC 2 compliance.",
-            class_name="font-md text-balance text-slate-9",
+        # TODO: Change this wording
+        rx.el.h2(
+            """We're committed to protecting your data through enterprise-grade security practices and full SOC 2 compliance.""",
+            class_name="max-w-full w-full font-large text-center text-slate-11 -mt-2 font-normal text-[1.25rem] mx-auto text-balance word-wrap break-words md:whitespace-pre",
         ),
-        class_name="section-header max-w-[64.19rem] px-8 " + rx.cond(HostingBannerState.show_banner, "pt-[11rem]", "pt-[12rem]"),
+        class_name="flex flex-col justify-center items-center gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 pb-4 lg:pb-[7.875rem]"
+        + rx.cond(
+            HostingBannerState.show_banner,
+            " lg:pt-[15.2rem] pt-[8rem]",
+            " lg:pt-[13.2rem] pt-[6rem]",
+        ),
     )
 
 
@@ -125,7 +129,7 @@ def security_card(
 def _card_header(title: str, icon: str) -> rx.Component:
     """Card header with icon and title."""
     return rx.box(
-        # hi(icon, class_name="!text-slate-9"),
+        get_icon(icon, class_name="!text-slate-9"),
         rx.el.h3(title, class_name="text-slate-12 text-base font-semibold"),
         class_name="flex flex-row items-center gap-2",
     )
@@ -180,7 +184,7 @@ def security_grid() -> rx.Component:
     return rx.box(
         mobile_layout,
         desktop_layout,
-        class_name="flex flex-row max-w-[64.19rem] justify-center w-full py-10",
+        class_name="flex flex-row max-w-[64.19rem] justify-center w-full",
     )
 
 def security_table_header() -> rx.Component:
@@ -193,7 +197,7 @@ def security_table_header() -> rx.Component:
             "From data protection to privacy compliance, Reflex is built with security-first principles to meet the needs of modern teams and enterprises.",
             class_name="text-slate-9 text-xl font-medium text-center mt-4",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] max-w-[64.19rem] mx-auto w-full px-6",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] max-w-[64.19rem] mx-auto w-full px-6 lg:border-x border-slate-3",
     )
 
 
@@ -237,26 +241,18 @@ def table_security() -> rx.Component:
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
 
-
-@rx.page(route="/security", title="Security - Reflex")
+@mainpage(path="/security", title="Security - Reflex")
 def security():
     return rx.box(
-        index_colors(),
-        navbar(),
-        rx.el.main(
+        rx.box(
+            security_title(),
+            security_grid(),
             rx.box(
-                security_title(),
-                security_grid(),
-                rx.box(
-                    security_table_header(),
-                    table_security(),
-                    class_name="flex-col w-full  max-w-[69.125rem] desktop-only pb-12",
-                ),
-                class_name="flex flex-col relative justify-center items-center w-full",
+                security_table_header(),
+                table_security(),
+                class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
             ),
-            class_name="flex flex-col w-full relative h-full justify-center items-center",
+            class_name="flex flex-col relative justify-center items-center w-full",
         ),
-        footer_index(),
-        badge(),
-        class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
+        class_name="flex flex-col w-full",
     )
