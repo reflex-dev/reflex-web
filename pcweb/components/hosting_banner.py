@@ -48,7 +48,7 @@ def hosting_banner() -> rx.Component:
                         ),
                         # Standalone CTA button: hidden on small, inline on md+
                         rx.el.button(
-                            "Get Early Access",
+                            "Get Access",
                             class_name=(
                                 "hidden md:inline-block "
                                 "text-green-11 h-[1.65rem] rounded-md bg-green-4 "

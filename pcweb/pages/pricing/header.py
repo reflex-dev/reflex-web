@@ -429,10 +429,6 @@ def custom_quote_form() -> rx.Component:
                     class_name="w-full space-y-6",
                     on_submit=QuoteFormState.submit,
                 ),
-                rx.box(
-                    "1 Month Free Trial",
-                    class_name="absolute top-[-0.75rem] left-8 rounded-md bg-[--violet-9] h-[1.5rem] text-sm font-medium text-center px-2 flex items-center justify-center text-[#FCFCFD] z-[10]",
-                ),
                 class_name="relative bg-slate-1 p-6 sm:p-8 rounded-2xl border-2 border-[--violet-9] shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0",
             ),
             class_name="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto items-start",

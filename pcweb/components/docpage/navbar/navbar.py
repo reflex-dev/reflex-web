@@ -5,7 +5,7 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
 from pcweb.components.hosting_banner import hosting_banner
-from pcweb.constants import REFLEX_BUILD_URL
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
 from pcweb.pages.docs import ai_builder, getting_started
@@ -506,6 +506,19 @@ def new_component_section() -> rx.Component:
             nav_menu.item(search_bar()),
             nav_menu.item(github()),
             nav_menu.item(discord(), class_name="desktop-only"),
+            nav_menu.item(
+                rx.link(
+                    button(
+                        "Sign In",
+                        variant="secondary",
+                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                    ),
+                    underline="none",
+                    is_external=True,
+                    href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_BUILD_URL}",
+                ),
+                class_name="desktop-only",
+            ),
             nav_menu.item(
                 rx.link(
                     button(

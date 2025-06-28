@@ -25,7 +25,7 @@ def video_demo() -> rx.Component:
                 class_name="flex flex-col gap-1.5",
             ),
             rx.link(
-                button("Get Early Access", size="lg", class_name="w-fit"),
+                button("Get Access", size="lg", class_name="w-fit"),
                 href="/pricing",
             ),
             class_name="flex flex-col gap-4 max-lg:items-center max-lg:justify-center max-lg:text-center",

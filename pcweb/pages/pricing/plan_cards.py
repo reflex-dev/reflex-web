@@ -301,11 +301,6 @@ def popular_card(
 ) -> rx.Component:
     """Popular pricing card component with special styling and effects."""
     return rx.box(
-        # Popular Badge
-        rx.box(
-            "1 Month Free Trial",
-            class_name="absolute top-[-0.75rem] left-8 rounded-md bg-[--violet-9] h-[1.5rem] text-sm font-medium text-center px-2 flex items-center justify-center text-[#FCFCFD] z-[10]",
-        ),
         # Card Content with Background Effects
         rx.box(
             glow(),
@@ -398,5 +393,5 @@ def plan_cards() -> rx.Component:
             "Contact Us",
             price="Custom",
         ),
-        class_name="flex flex-row flex-wrap justify-center items-center gap-6 w-full",
+        class_name="flex flex-row flex-wrap justify-center items-center gap-6 w-full lg:border-x border-slate-3 max-w-[64.19rem]",
     )
