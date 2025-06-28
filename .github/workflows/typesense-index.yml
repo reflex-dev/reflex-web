@@ -5,9 +5,6 @@ env:
   NODE_OPTIONS: "--max_old_space_size=8192"
 
 on:
-  push:
-    branches: ["main"]
-    paths: ["docs/**"]
   workflow_dispatch:
     inputs:
       force_reindex:
