@@ -1,0 +1,26 @@
+name: pre-commit
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+          activate-environment: true
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Run pre-commit
+        run: uv run pre-commit run --all-files

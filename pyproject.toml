@@ -27,14 +27,13 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest", "playwright", "pytest-playwright", "uvicorn"]
+dev = ["pytest", "playwright", "pytest-playwright", "uvicorn", "pre-commit"]
 
 [tool.setuptools.packages.find]
 where = ["pcweb"]
 
 [tool.ruff]
 target-version = "py311"
-output-format = "concise"
 lint.isort.split-on-trailing-comma = false
 lint.select = [
   "ANN001",
