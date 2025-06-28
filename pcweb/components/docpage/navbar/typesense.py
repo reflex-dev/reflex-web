@@ -115,12 +115,12 @@ def suggestion_item(title: str, url: str) -> rx.Component:
                 color="var(--c-slate-12)",
                 font_size="14px"
             ),
-            spacing="3",
+            spacing="2",
             align_items="center"
         ),
-        padding="12px 16px",
+        padding="8px 12px",
         cursor="pointer",
-        border_radius="8px",
+        border_radius="6px",
         _hover={"background_color": "var(--c-slate-3)"},
         on_click=lambda: TypesenseSearchState.navigate_to_result(url),
         width="100%"
@@ -135,7 +135,7 @@ def search_result_item(result: rx.Var) -> rx.Component:
                 result['title'],
                 font_weight="600",
                 color="var(--c-slate-12)",
-                font_size="16px",
+                font_size="15px",
                 margin_bottom="4px"
             ),
             rx.text(
@@ -154,9 +154,9 @@ def search_result_item(result: rx.Var) -> rx.Component:
             spacing="1",
             width="100%"
         ),
-        padding="16px",
+        padding="12px",
         border="1px solid var(--c-slate-4)",
-        border_radius="12px",
+        border_radius="8px",
         cursor="pointer",
         _hover={"background_color": "var(--c-slate-2)", "border_color": "var(--c-slate-5)"},
         on_click=lambda: TypesenseSearchState.navigate_to_result(result['url']),
@@ -193,7 +193,7 @@ def search_modal() -> rx.Component:
                         ),
                         width="100%",
                         justify="end",
-                        margin_bottom="16px"
+                        margin_bottom="12px"
                     ),
                     rx.input(
                         placeholder="What are you searching for?",
@@ -202,10 +202,10 @@ def search_modal() -> rx.Component:
                         auto_focus=True,
                         style={
                             "width": "100%",
-                            "padding": "16px 20px",
-                            "font_size": "18px",
+                            "padding": "12px 16px",
+                            "font_size": "16px",
                             "border": "1px solid var(--c-slate-6)",
-                            "border_radius": "12px",
+                            "border_radius": "8px",
                             "background": "var(--c-slate-1)",
                             "color": "var(--c-slate-12)",
                             "outline": "none"
@@ -237,8 +237,8 @@ def search_modal() -> rx.Component:
                                 font_weight="600",
                                 color="var(--c-slate-11)",
                                 font_size="14px",
-                                margin_top="24px",
-                                margin_bottom="12px"
+                                margin_top="16px",
+                                margin_bottom="8px"
                             ),
                             rx.vstack(
                                 suggestion_item("Getting Started with Reflex", "/docs/getting-started/introduction"),
@@ -254,9 +254,9 @@ def search_modal() -> rx.Component:
                             align_items="start"
                         )
                     ),
-                    spacing="4",
+                    spacing="3",
                     width="100%",
-                    max_width="600px"
+                    max_width="520px"
                 ),
                 position="fixed",
                 top="20%",
@@ -265,7 +265,7 @@ def search_modal() -> rx.Component:
                 background="var(--c-slate-1)",
                 border="1px solid var(--c-slate-6)",
                 border_radius="16px",
-                padding="24px",
+                padding="16px",
                 box_shadow="0px 24px 48px rgba(0, 0, 0, 0.2)",
                 z_index="10000",
                 max_height="70vh",
