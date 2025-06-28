@@ -124,7 +124,8 @@ def typesense_search() -> rx.Component:
                 "max_height": "32px",
                 "min_height": "32px",
                 "padding": "6px 12px",
-                "min_width": "256px",
+                "min_width": ["32px", "32px", "256px"],
+                "max_width": ["6em", "6em", "none"],
                 "border_radius": "10px",
                 "border": "1px solid var(--c-slate-5, #E0E1E6)",
                 "background": "var(--c-slate-1)",
@@ -182,29 +183,5 @@ def typesense_search() -> rx.Component:
                 z_index="1000"
             )
         ),
-        position="relative",
-        class_name="search-container"
-    )
-
-search_styles = """
-<style>
-.search-container {
-    position: relative;
-}
-
-@media (max-width: 80em) {
-    .search-container input {
-        min-width: 32px !important;
-        max-width: 6em !important;
-        padding: 2px 12px !important;
-    }
-}
-</style>
-"""
-
-def typesense_search_with_styles() -> rx.Component:
-    """Create the Typesense search component with styles."""
-    return rx.fragment(
-        rx.html(search_styles),
-        typesense_search()
+        position="relative"
     )
