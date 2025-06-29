@@ -130,7 +130,8 @@ class TypesenseSearchState(rx.State):
                 'assets': 'Assets',
                 'api-routes': 'API Routes',
                 'ui': 'UI',
-                'state_structure': 'State Structure'
+                'state_structure': 'State Structure',
+                'Blog': 'Blog'
             }.get(section, section.replace('-', ' ').replace('_', ' ').title())
             parts.append(section_display)
         
