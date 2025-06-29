@@ -13,6 +13,23 @@ class TypesenseSearchState(rx.State):
     is_searching: bool = False
     show_results: bool = False
     show_modal: bool = False
+    selected_filter: str = "All"
+    
+    filter_categories = [
+        "All",
+        "Docs", 
+        "Components",
+        "API Reference",
+        "Blogs"
+    ]
+    
+    filter_section_mapping = {
+        "All": None,
+        "Docs": ["getting_started", "hosting", "events", "styling", "state", "vars", "database", "authentication", "recipes", "advanced_onboarding", "enterprise", "utility_methods", "client_storage", "pages", "assets", "api-routes", "ui", "state_structure"],
+        "Components": ["library", "components", "custom-components", "wrapping-react"],
+        "API Reference": ["api-reference"],
+        "Blogs": ["Blog"]
+    }
     
     suggestions = [
         {"title": "Getting Started with Reflex", "url": "/docs/getting-started/introduction"},
@@ -33,11 +50,18 @@ class TypesenseSearchState(rx.State):
         self.show_results = False
         self.search_query = ""
         self.search_results = []
+        self.selected_filter = "All"
         
     def handle_key_down(self, key: str):
         """Handle keyboard events."""
         if key == "Escape":
             self.close_modal()
+    
+    async def set_filter(self, filter_name: str):
+        """Set the selected filter and re-run search if there's an active query."""
+        self.selected_filter = filter_name
+        if self.search_query.strip():
+            await self.search_docs(self.search_query)
     
     async def search_docs(self, query: str):
         """Search the documentation using Typesense."""
@@ -60,7 +84,7 @@ class TypesenseSearchState(rx.State):
                     'port': '443',
                     'protocol': 'https'
                 }],
-                'api_key': os.getenv('TYPESENSE_SEARCH_API_KEY'),
+                'api_key': 'KuwU0fBZYHMuvhtv32LXekhBo9bTWDU0',
                 'connection_timeout_seconds': 10
             })
             
@@ -72,6 +96,12 @@ class TypesenseSearchState(rx.State):
                 'snippet_threshold': 30,
                 'num_typos': 2
             }
+            
+            if self.selected_filter != "All":
+                sections = self.filter_section_mapping.get(self.selected_filter, [])
+                if sections:
+                    filter_conditions = [f'section:={section}' for section in sections]
+                    search_parameters['filter_by'] = ' || '.join(filter_conditions)
             
             result = client.collections['docs'].documents.search(search_parameters)
             
@@ -151,6 +181,58 @@ class TypesenseSearchState(rx.State):
         self.show_results = False
         self.show_modal = False
         return rx.redirect(url)
+
+
+def filter_pill(filter_name: str) -> rx.Component:
+    """Render a single filter pill."""
+    is_selected = TypesenseSearchState.selected_filter == filter_name
+    
+    return rx.box(
+        rx.text(
+            filter_name,
+            font_size="14px",
+            font_weight="500",
+            color=rx.cond(
+                is_selected,
+                "var(--c-white-1)",
+                "var(--c-slate-9)"
+            )
+        ),
+        padding="6px 12px",
+        border_radius="20px",
+        cursor="pointer",
+        background=rx.cond(
+            is_selected,
+            "var(--c-violet-9)",
+            "var(--c-slate-2)"
+        ),
+        _hover={
+            "background": rx.cond(
+                is_selected,
+                "var(--c-violet-8)",
+                "var(--c-slate-3)"
+            )
+        },
+        on_click=TypesenseSearchState.set_filter(filter_name),
+        transition="all 0.2s ease",
+        class_name="typesense-filter-pill"
+    )
+
+
+def filter_pills() -> rx.Component:
+    """Render the filter pills container."""
+    return rx.hstack(
+        rx.foreach(
+            TypesenseSearchState.filter_categories,
+            filter_pill
+        ),
+        spacing="2",
+        width="100%",
+        overflow_x="auto",
+        padding="0 2px",
+        margin_bottom="12px",
+        class_name="typesense-filter-pills"
+    )
 
 
 def suggestion_item(title: str, url: str) -> rx.Component:
@@ -269,6 +351,7 @@ def search_modal() -> rx.Component:
                         },
                         _focus={"border_color": "var(--c-violet-7)"}
                     ),
+                    filter_pills(),
                     rx.cond(
                         TypesenseSearchState.search_query.length() > 0,
                         rx.cond(
