@@ -1,0 +1,4 @@
+typesense>=0.21.0
+python-frontmatter>=1.0.0
+markdown>=3.4.0
+beautifulsoup4>=4.12.0
