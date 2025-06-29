@@ -1,6 +1,6 @@
 # Reflex Enterprise
 
-```python exec
+```python
 import reflex as rx
 ```
 

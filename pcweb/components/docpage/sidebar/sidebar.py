@@ -10,6 +10,7 @@ from pcweb.styles.colors import c_color
 
 from .sidebar_items.ai import ai_builder_overview_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
+from .sidebar_items.enterprise import enterprise
 from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
@@ -375,6 +376,7 @@ def sidebar_comp(
     graphing_libs_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
+    enterprise_index: list[int],
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
@@ -382,7 +384,7 @@ def sidebar_comp(
     width: str = "100%",
 ):
     from pcweb.pages.docs import ai_builder as ai_builder_pages
-    from pcweb.pages.docs import enterprise, getting_started
+    from pcweb.pages.docs import enterprise as enterprise_ns, getting_started
     from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs import state, ui
     from pcweb.pages.docs.apiref import pages
@@ -438,7 +440,7 @@ def sidebar_comp(
                         ),
                         sidebar_category(
                             "Enterprise",
-                            enterprise.overview.path,
+                            enterprise_ns.index.path,
                             "building-2",
                             3,
                         ),
@@ -584,25 +586,12 @@ def sidebar_comp(
                         (
                             3,
                             rx.el.ul(
-                                rx.link(  # pyright: ignore [reportCallIssue]
-                                    rx.box(  # pyright: ignore [reportCallIssue]
-                                        rx.box(  # pyright: ignore [reportCallIssue]
-                                            rx.icon("atom", size=16),  # pyright: ignore [reportCallIssue]
-                                            rx.el.h5(
-                                                "Reflex Enterprise",
-                                                class_name="font-smbold text-[0.875rem] text-slate-12 leading-5 tracking-[-0.01313rem] transition-color",
-                                            ),
-                                            class_name="flex flex-row items-center gap-3 text-slate-12",
-                                        ),
-                                        rx.text(  # pyright: ignore [reportCallIssue]
-                                            "See the Reflex Enterprise components in action!",
-                                            class_name="font-small text-slate-9",
-                                        ),
-                                        class_name="flex flex-col gap-2 border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-large px-3.5 py-2 border rounded-xl transition-bg",
-                                    ),
-                                    underline="none",
-                                    href=ENTERPRISE_DOCS_URL,
-                                    is_external=True,
+                                create_sidebar_section(
+                                    "Enterprise",
+                                    enterprise_ns.index.path,
+                                    enterprise,
+                                    enterprise_index,
+                                    url,
                                 ),
                                 class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                             ),
@@ -634,6 +623,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     graphing_libs_index = calculate_index(graphing_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
+    enterprise_index = calculate_index(enterprise, url)
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
@@ -651,6 +641,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             recipes_index=recipes_index,
             ai_builder_overview_index=ai_builder_overview_index,
             cli_ref_index=cli_ref_index,
+            enterprise_index=enterprise_index,
             #
             width=width,
         ),
