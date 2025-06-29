@@ -189,8 +189,67 @@ class TypesenseIndexer:
             raise
 
 
+def verify_indexing_coverage(docs_root: Path, processed_files: List[Path], failed_files: List[tuple]) -> bool:
+    """Verify that all markdown files were processed and indexed."""
+    all_md_files = list(docs_root.rglob('*.md'))
+    total_found = len(all_md_files)
+    total_processed = len(processed_files)
+    total_failed = len(failed_files)
+    
+    logger.info("=" * 60)
+    logger.info("INDEXING COVERAGE VERIFICATION REPORT")
+    logger.info("=" * 60)
+    logger.info(f"Total markdown files found: {total_found}")
+    logger.info(f"Successfully processed: {total_processed}")
+    logger.info(f"Failed to process: {total_failed}")
+    logger.info(f"Coverage: {(total_processed / total_found * 100):.1f}%")
+    
+    if failed_files:
+        logger.error("FAILED FILES:")
+        for file_path, error in failed_files:
+            rel_path = file_path.relative_to(docs_root)
+            logger.error(f"  - {rel_path}: {error}")
+    
+    attempted_files = set(processed_files + [f[0] for f in failed_files])
+    missing_files = set(all_md_files) - attempted_files
+    
+    if missing_files:
+        logger.error("FILES NOT ATTEMPTED:")
+        for file_path in missing_files:
+            rel_path = file_path.relative_to(docs_root)
+            logger.error(f"  - {rel_path}")
+    
+    sections = {}
+    for file_path in all_md_files:
+        rel_path = file_path.relative_to(docs_root)
+        section = rel_path.parts[0] if rel_path.parts else 'root'
+        if section not in sections:
+            sections[section] = {'total': 0, 'processed': 0, 'failed': 0}
+        sections[section]['total'] += 1
+        
+        if file_path in processed_files:
+            sections[section]['processed'] += 1
+        elif file_path in [f[0] for f in failed_files]:
+            sections[section]['failed'] += 1
+    
+    logger.info("\nSECTION BREAKDOWN:")
+    for section, stats in sorted(sections.items()):
+        coverage = (stats['processed'] / stats['total'] * 100) if stats['total'] > 0 else 0
+        logger.info(f"  {section}: {stats['processed']}/{stats['total']} ({coverage:.1f}%) - {stats['failed']} failed")
+    
+    success = total_processed == total_found and total_failed == 0
+    
+    if success:
+        logger.info("✅ ALL MARKDOWN FILES SUCCESSFULLY INDEXED!")
+    else:
+        logger.error("❌ INDEXING INCOMPLETE - Some files were not processed")
+    
+    logger.info("=" * 60)
+    return success
+
+
 def main():
-    """Main indexing function."""
+    """Main indexing function with comprehensive verification."""
     repo_root = Path(__file__).parent.parent
     docs_root = repo_root / 'docs'
     
@@ -207,17 +266,50 @@ def main():
     logger.info(f"Found {len(md_files)} markdown files")
     
     documents = []
+    processed_files = []
+    failed_files = []
+    
     for md_file in md_files:
-        doc = processor.process_file(md_file, docs_root)
-        if doc:
-            documents.append(doc)
+        try:
+            doc = processor.process_file(md_file, docs_root)
+            if doc:
+                documents.append(doc)
+                processed_files.append(md_file)
+            else:
+                failed_files.append((md_file, "process_file returned None"))
+        except Exception as e:
+            failed_files.append((md_file, str(e)))
+            logger.error(f"Failed to process {md_file.relative_to(docs_root)}: {e}")
     
     logger.info(f"Processed {len(documents)} documents successfully")
+    
+    coverage_success = verify_indexing_coverage(docs_root, processed_files, failed_files)
+    
+    if not coverage_success:
+        logger.error("Indexing coverage verification failed!")
+        sys.exit(1)
     
     indexer.recreate_collection()
     indexer.index_documents(documents)
     
-    logger.info("Indexing completed successfully!")
+    try:
+        search_result = indexer.client.collections['docs'].documents.search({
+            'q': '*',
+            'query_by': 'title',
+            'per_page': 1
+        })
+        indexed_count = search_result['found']
+        logger.info(f"Verification: {indexed_count} documents confirmed in Typesense")
+        
+        if indexed_count != len(documents):
+            logger.error(f"Mismatch: Expected {len(documents)} but Typesense has {indexed_count}")
+            sys.exit(1)
+        
+    except Exception as e:
+        logger.error(f"Failed to verify indexed documents: {e}")
+        sys.exit(1)
+    
+    logger.info("✅ Indexing completed successfully with full verification!")
 
 
 if __name__ == '__main__':
