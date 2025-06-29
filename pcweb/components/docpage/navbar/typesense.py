@@ -244,7 +244,8 @@ def search_modal() -> rx.Component:
                             variant="ghost",
                             size="2",
                             color="var(--c-slate-9)",
-                            on_click=TypesenseSearchState.close_modal
+                            on_click=TypesenseSearchState.close_modal,
+                            class_name="typesense-modal-close-btn"
                         ),
                         width="100%",
                         justify="end",
@@ -255,6 +256,7 @@ def search_modal() -> rx.Component:
                         value=TypesenseSearchState.search_query,
                         on_change=TypesenseSearchState.search_docs,
                         auto_focus=True,
+                        class_name="typesense-search-input",
                         style={
                             "width": "100%",
                             "padding": "12px 16px",
@@ -325,7 +327,8 @@ def search_modal() -> rx.Component:
                 z_index="10000",
                 max_height="70vh",
                 overflow_y="auto",
-                tab_index=0
+                tab_index=0,
+                class_name="typesense-search-modal"
             ),
             position="fixed",
             top="0",
@@ -340,9 +343,47 @@ def search_modal() -> rx.Component:
 def typesense_search() -> rx.Component:
     """Create the Typesense search trigger component."""
     return rx.box(
-        rx.input(
-            placeholder="Search docs...",
-            on_focus=TypesenseSearchState.open_modal,
+        rx.hstack(
+            rx.icon(
+                "search",
+                size=16,
+                color="var(--c-slate-9, #8B8D98)",
+                style={"display": "flex", "flex_shrink": "0"}
+            ),
+            rx.input(
+                placeholder="Search docs...",
+                on_focus=TypesenseSearchState.open_modal,
+                style={
+                    "flex": "1",
+                    "border": "none",
+                    "outline": "none",
+                    "background": "transparent",
+                    "font_family": "Instrument Sans",
+                    "font_size": "14px",
+                    "font_weight": "500",
+                    "line_height": "20px",
+                    "letter_spacing": "-0.0125em",
+                    "color": "var(--c-slate-9, #8B8D98)",
+                    "padding": "0"
+                }
+            ),
+            rx.text(
+                "⌘K",
+                style={
+                    "padding": "2px 6px",
+                    "border_radius": "4px",
+                    "background": "var(--c-slate-3, #F0F0F3)",
+                    "color": "var(--c-slate-9, #8B8D98)",
+                    "font_family": "Instrument Sans",
+                    "font_size": "12px",
+                    "font_weight": "500",
+                    "line_height": "20px",
+                    "letter_spacing": "-0.09px",
+                    "display": ["none", "none", "block"]
+                }
+            ),
+            align_items="center",
+            spacing="2",
             style={
                 "display": "flex",
                 "max_height": "32px",
@@ -353,18 +394,16 @@ def typesense_search() -> rx.Component:
                 "border_radius": "10px",
                 "border": "1px solid var(--c-slate-5, #E0E1E6)",
                 "background": "var(--c-slate-1)",
-                "font_family": "Instrument Sans",
-                "font_size": "14px",
-                "font_weight": "500",
-                "line_height": "20px",
-                "letter_spacing": "-0.0125em",
-                "color": "var(--c-slate-9, #8B8D98)",
                 "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
                 "transition": "background-color 0.1s linear",
-                "outline": "none"
+                "cursor": "pointer"
             },
             _hover={"background_color": "var(--c-slate-3, #F0F0F3)"},
+            on_click=TypesenseSearchState.open_modal,
+            width="100%",
+            class_name="typesense-search-trigger"
         ),
         search_modal(),
-        position="relative"
+        position="relative",
+        class_name="typesense-search-container"
     )
