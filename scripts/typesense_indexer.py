@@ -70,9 +70,16 @@ class MarkdownProcessor:
     
     def clean_content(self, content: str) -> str:
         """Clean markdown content for indexing."""
+        content = re.sub(r'^---.*?---', '', content, flags=re.DOTALL | re.MULTILINE)
+        
         content = re.sub(r'```[^`]*```', '', content, flags=re.DOTALL)
+        content = re.sub(r'```python exec.*?```', '', content, flags=re.DOTALL)
+        content = re.sub(r'```python demo.*?```', '', content, flags=re.DOTALL)
+        content = re.sub(r'```python eval.*?```', '', content, flags=re.DOTALL)
         
         content = re.sub(r'`[^`]*`', '', content)
+        
+        content = re.sub(r'^#+\s*.*$', '', content, flags=re.MULTILINE)
         
         content = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', content)
         
@@ -80,20 +87,12 @@ class MarkdownProcessor:
         
         content = re.sub(r'<[^>]*>', '', content)
         
-        content = re.sub(r'^---.*?---', '', content, flags=re.DOTALL | re.MULTILINE)
-        
-        content = re.sub(r'```python exec.*?```', '', content, flags=re.DOTALL)
-        
-        content = re.sub(r'```python demo.*?```', '', content, flags=re.DOTALL)
-        
-        content = re.sub(r'```python eval.*?```', '', content, flags=re.DOTALL)
-        
         content = re.sub(r'\n\s*\n', '\n\n', content)
         content = content.strip()
         
         return content
     
-    def process_file(self, file_path: Path, docs_root: Path) -> Optional[Dict[str, Any]]:
+    def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file."""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -102,15 +101,23 @@ class MarkdownProcessor:
             metadata = post.metadata
             content = post.content
             
-            rel_path = file_path.relative_to(docs_root)
-            path_parts = list(rel_path.parts[:-1])  # Remove filename
+            rel_path = file_path.relative_to(content_root)
             
-            url_path = '/' + '/'.join(['docs'] + path_parts)
-            if file_path.name != 'index.md':
-                url_path += '/' + file_path.stem
-            
-            if url_path != '/' and url_path.endswith('/'):
-                url_path = url_path.rstrip('/')
+            if is_blog:
+                url_path = '/blog/' + file_path.stem
+                section = 'Blog'
+                subsection = metadata.get('author', None)
+            else:
+                path_parts = list(rel_path.parts[:-1])  # Remove filename
+                url_path = '/' + '/'.join(['docs'] + path_parts)
+                if file_path.name != 'index.md':
+                    url_path += '/' + file_path.stem
+                
+                if url_path != '/' and url_path.endswith('/'):
+                    url_path = url_path.rstrip('/')
+                
+                section = path_parts[0] if path_parts else 'docs'
+                subsection = path_parts[1] if len(path_parts) > 1 else None
             
             title = metadata.get('title', '')
             if not title:
@@ -122,11 +129,7 @@ class MarkdownProcessor:
                 components = [components]
             
             headings = self.extract_headings(content)
-            
             clean_content = self.clean_content(content)
-            
-            section = path_parts[0] if path_parts else 'docs'
-            subsection = path_parts[1] if len(path_parts) > 1 else None
             
             document = {
                 'title': title,
@@ -248,30 +251,99 @@ def verify_indexing_coverage(docs_root: Path, processed_files: List[Path], faile
     return success
 
 
+def verify_combined_coverage(all_md_files: List[Path], processed_files: List[Path], failed_files: List[tuple]) -> bool:
+    """Verify that all markdown files (docs + blogs) were processed and indexed."""
+    total_found = len(all_md_files)
+    total_processed = len(processed_files)
+    total_failed = len(failed_files)
+    
+    logger.info("=" * 60)
+    logger.info("COMBINED INDEXING COVERAGE VERIFICATION REPORT")
+    logger.info("=" * 60)
+    logger.info(f"Total markdown files found: {total_found}")
+    logger.info(f"Successfully processed: {total_processed}")
+    logger.info(f"Failed to process: {total_failed}")
+    logger.info(f"Coverage: {(total_processed / total_found * 100):.1f}%")
+    
+    if failed_files:
+        logger.error("FAILED FILES:")
+        for file_path, error in failed_files:
+            logger.error(f"  - {file_path}: {error}")
+    
+    attempted_files = set(processed_files + [f[0] for f in failed_files])
+    missing_files = set(all_md_files) - attempted_files
+    
+    if missing_files:
+        logger.error("FILES NOT ATTEMPTED:")
+        for file_path in missing_files:
+            logger.error(f"  - {file_path}")
+    
+    sections = {}
+    for file_path in all_md_files:
+        if 'blog' in str(file_path):
+            section = 'blog'
+        else:
+            parts = file_path.parts
+            section = parts[-3] if len(parts) >= 3 else 'docs'
+        
+        if section not in sections:
+            sections[section] = {'total': 0, 'processed': 0, 'failed': 0}
+        sections[section]['total'] += 1
+        
+        if file_path in processed_files:
+            sections[section]['processed'] += 1
+        elif file_path in [f[0] for f in failed_files]:
+            sections[section]['failed'] += 1
+    
+    logger.info("\nSECTION BREAKDOWN:")
+    for section, stats in sorted(sections.items()):
+        coverage = (stats['processed'] / stats['total'] * 100) if stats['total'] > 0 else 0
+        logger.info(f"  {section}: {stats['processed']}/{stats['total']} ({coverage:.1f}%) - {stats['failed']} failed")
+    
+    success = total_processed == total_found and total_failed == 0
+    
+    if success:
+        logger.info("✅ ALL MARKDOWN FILES (DOCS + BLOGS) SUCCESSFULLY INDEXED!")
+    else:
+        logger.error("❌ INDEXING INCOMPLETE - Some files were not processed")
+    
+    logger.info("=" * 60)
+    return success
+
+
 def main():
     """Main indexing function with comprehensive verification."""
     repo_root = Path(__file__).parent.parent
     docs_root = repo_root / 'docs'
+    blog_root = repo_root / 'blog'
     
     if not docs_root.exists():
         logger.error(f"Docs directory not found: {docs_root}")
         sys.exit(1)
     
+    if not blog_root.exists():
+        logger.error(f"Blog directory not found: {blog_root}")
+        sys.exit(1)
+    
     logger.info(f"Starting indexing process for docs in: {docs_root}")
+    logger.info(f"Starting indexing process for blog in: {blog_root}")
     
     processor = MarkdownProcessor()
     indexer = TypesenseIndexer()
     
-    md_files = list(docs_root.rglob('*.md'))
-    logger.info(f"Found {len(md_files)} markdown files")
+    docs_files = list(docs_root.rglob('*.md'))
+    logger.info(f"Found {len(docs_files)} documentation files")
+    
+    blog_files = list(blog_root.rglob('*.md'))
+    logger.info(f"Found {len(blog_files)} blog files")
     
     documents = []
     processed_files = []
     failed_files = []
     
-    for md_file in md_files:
+    for md_file in docs_files:
         try:
-            doc = processor.process_file(md_file, docs_root)
+            doc = processor.process_file(md_file, docs_root, is_blog=False)
             if doc:
                 documents.append(doc)
                 processed_files.append(md_file)
@@ -281,9 +353,22 @@ def main():
             failed_files.append((md_file, str(e)))
             logger.error(f"Failed to process {md_file.relative_to(docs_root)}: {e}")
     
+    for md_file in blog_files:
+        try:
+            doc = processor.process_file(md_file, blog_root, is_blog=True)
+            if doc:
+                documents.append(doc)
+                processed_files.append(md_file)
+            else:
+                failed_files.append((md_file, "process_file returned None"))
+        except Exception as e:
+            failed_files.append((md_file, str(e)))
+            logger.error(f"Failed to process {md_file.relative_to(blog_root)}: {e}")
+    
     logger.info(f"Processed {len(documents)} documents successfully")
     
-    coverage_success = verify_indexing_coverage(docs_root, processed_files, failed_files)
+    all_md_files = docs_files + blog_files
+    coverage_success = verify_combined_coverage(all_md_files, processed_files, failed_files)
     
     if not coverage_success:
         logger.error("Indexing coverage verification failed!")
