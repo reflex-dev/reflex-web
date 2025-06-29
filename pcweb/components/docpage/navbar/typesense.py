@@ -80,7 +80,10 @@ class TypesenseSearchState(rx.State):
                     'title': hit['document']['title'],
                     'content': hit['document']['content'][:150] + '...' if len(hit['document']['content']) > 150 else hit['document']['content'],
                     'url': hit['document']['url'],
-                    'path': hit['document']['path']
+                    'path': hit['document']['path'],
+                    'section': hit['document'].get('section', ''),
+                    'subsection': hit['document'].get('subsection', ''),
+                    'breadcrumb': self._create_breadcrumb(hit['document'])
                 }
                 for hit in result['hits']
             ]
@@ -97,6 +100,51 @@ class TypesenseSearchState(rx.State):
         """Hide search results."""
         self.show_results = False
     
+    def _create_breadcrumb(self, document: dict) -> str:
+        """Create a breadcrumb string from document metadata."""
+        parts = []
+        
+        section = document.get('section', '')
+        if section:
+            section_display = {
+                'getting_started': 'Getting Started',
+                'library': 'Components',
+                'api-reference': 'API Reference',
+                'hosting': 'Hosting',
+                'events': 'Events',
+                'styling': 'Styling',
+                'state': 'State',
+                'vars': 'Variables',
+                'database': 'Database',
+                'authentication': 'Authentication',
+                'custom-components': 'Custom Components',
+                'wrapping-react': 'Wrapping React',
+                'ai_builder': 'AI Builder',
+                'recipes': 'Recipes',
+                'advanced_onboarding': 'Advanced',
+                'enterprise': 'Enterprise',
+                'utility_methods': 'Utilities',
+                'client_storage': 'Client Storage',
+                'components': 'Components',
+                'pages': 'Pages',
+                'assets': 'Assets',
+                'api-routes': 'API Routes',
+                'ui': 'UI',
+                'state_structure': 'State Structure'
+            }.get(section, section.replace('-', ' ').replace('_', ' ').title())
+            parts.append(section_display)
+        
+        subsection = document.get('subsection', '')
+        if subsection:
+            subsection_display = subsection.replace('-', ' ').replace('_', ' ').title()
+            parts.append(subsection_display)
+        
+        title = document.get('title', '')
+        if title and (not parts or title.lower() != parts[-1].lower()):
+            parts.append(title)
+        
+        return ' > '.join(parts)
+
     def navigate_to_result(self, url: str):
         """Navigate to a search result."""
         self.show_results = False
@@ -128,27 +176,33 @@ def suggestion_item(title: str, url: str) -> rx.Component:
 
 
 def search_result_item(result: rx.Var) -> rx.Component:
-    """Render a single search result item."""
+    """Render a single search result item with breadcrumb navigation."""
     return rx.box(
         rx.vstack(
             rx.text(
-                result['title'],
-                font_weight="600",
-                color="var(--c-slate-12)",
-                font_size="15px",
+                result['breadcrumb'],
+                color="var(--c-slate-9)",
+                font_size="12px",
+                font_weight="500",
+                margin_bottom="4px"
+            ),
+            rx.hstack(
+                rx.icon("file-text", size=16, color="var(--c-slate-9)"),
+                rx.text(
+                    result['title'],
+                    font_weight="600",
+                    color="var(--c-slate-12)",
+                    font_size="15px"
+                ),
+                spacing="2",
+                align_items="center",
                 margin_bottom="4px"
             ),
             rx.text(
                 result['content'],
                 color="var(--c-slate-11)",
                 font_size="14px",
-                line_height="1.5",
-                margin_bottom="6px"
-            ),
-            rx.text(
-                result['path'],
-                color="var(--c-slate-9)",
-                font_size="12px"
+                line_height="1.5"
             ),
             align_items="start",
             spacing="1",
