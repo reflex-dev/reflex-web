@@ -7,6 +7,7 @@ source: "https://github.com/reflex-dev/reflex-llamaindex-template"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+tags: ["AI/ML", "Chat"]
 ---
 
 The following is an alternative UI to display the LLamaIndex app. 
