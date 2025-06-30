@@ -74,4 +74,3 @@ def ag_grid_value_formatter():
 ```
 
 
-[Home Page](/)

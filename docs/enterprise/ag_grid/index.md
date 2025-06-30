@@ -664,4 +664,3 @@ The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAs
 In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
 
 
-[Home Page](/)

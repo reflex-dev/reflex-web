@@ -60,5 +60,4 @@ def ag_grid_simple_themes():
     )
 ```
 
-[Home Page](/)
 [AG Grid]({docs.ag_grid.index.route})
