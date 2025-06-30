@@ -239,7 +239,10 @@ def get_sidebar_items_hosting():
         create_item("CLI Reference", children=cloud_cliref.pages),
         create_item(
             "Self Hosting",
-            children=[hosting.self_hosting],
+            children=[
+                hosting.self_hosting,
+                hosting.databricks,
+            ],
         ),
     ]
     return items
