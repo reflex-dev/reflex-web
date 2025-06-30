@@ -1,10 +1,11 @@
 import flexdown
+from flexdown.document import Document
 import reflex as rx
 from pcweb.flexdown import xd2 as xd
 
 from pcweb.templates.highlightpage import highlight_page
 
-document = flexdown.parse_file("pcweb/pages/use_cases/use_cases.md")
+document = Document.from_file("pcweb/pages/use_cases/use_cases.md")
 
 
 def use_cases_content() -> rx.Component:

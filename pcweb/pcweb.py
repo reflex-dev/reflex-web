@@ -4,6 +4,7 @@ import os
 import sys
 
 import reflex as rx
+import reflex_enterprise as rxe
 from pcweb import styles
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
@@ -20,7 +21,7 @@ for doc, href in outblocks:
     exec_blocks(doc, href)
 
 # Create the app.
-app = rx.App(
+app = rxe.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
@@ -133,6 +134,7 @@ redirects = [
     # Redirect any removed pages to their new home.
     ("/docs/components/style-props", "/docs/components/props"),
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
+    ("/docs/enterprise", "/docs/enterprise/overview"),
     ("/docs/pages/routes", "/docs/pages/overview"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
