@@ -7,22 +7,22 @@ from reflex.vars import Var
 
 class TypesenseSearchState(rx.State):
     """State for the Typesense search component."""
-    
+
     search_query: str = ""
     search_results: list[dict] = []
     is_searching: bool = False
     show_results: bool = False
     show_modal: bool = False
     selected_filter: str = "All"
-    
+
     filter_categories = [
         "All",
-        "Docs", 
+        "Docs",
         "Components",
         "API Reference",
         "Blogs"
     ]
-    
+
     filter_section_mapping = {
         "All": None,
         "Docs": ["getting_started", "hosting", "events", "styling", "state", "vars", "database", "authentication", "recipes", "advanced_onboarding", "enterprise", "utility_methods", "client_storage", "pages", "assets", "api-routes", "ui", "state_structure"],
@@ -30,7 +30,7 @@ class TypesenseSearchState(rx.State):
         "API Reference": ["api-reference"],
         "Blogs": ["Blog"]
     }
-    
+
     suggestions = [
         {"title": "Getting Started with Reflex", "url": "/docs/getting-started/introduction"},
         {"title": "Components Overview", "url": "/docs/library"},
@@ -39,11 +39,8 @@ class TypesenseSearchState(rx.State):
         {"title": "Styling and Theming", "url": "/docs/styling/overview"},
         {"title": "Deployment Guide", "url": "/docs/hosting/deploy"},
     ]
-    
-    def open_modal(self):
-        """Open the search modal."""
-        self.show_modal = True
-        
+
+
     def close_modal(self):
         """Close the search modal and reset state."""
         self.show_modal = False
@@ -51,18 +48,18 @@ class TypesenseSearchState(rx.State):
         self.search_query = ""
         self.search_results = []
         self.selected_filter = "All"
-        
+
     def handle_key_down(self, key: str):
         """Handle keyboard events."""
         if key == "Escape":
             self.close_modal()
-    
+
     async def set_filter(self, filter_name: str):
         """Set the selected filter and re-run search if there's an active query."""
         self.selected_filter = filter_name
         if self.search_query.strip():
             await self.search_docs(self.search_query)
-    
+
     async def search_docs(self, query: str):
         """Search the documentation using Typesense."""
         self.search_query = query
@@ -70,14 +67,14 @@ class TypesenseSearchState(rx.State):
             self.search_results = []
             self.show_results = False
             return
-        
+
         self.is_searching = True
-        
+
         try:
             import typesense
-            
+
             import os
-            
+
             client = typesense.Client({
                 'nodes': [{
                     'host': 'z2mi3hyewokc16a4p-1.a1.typesense.net',
@@ -87,7 +84,7 @@ class TypesenseSearchState(rx.State):
                 'api_key': 'KuwU0fBZYHMuvhtv32LXekhBo9bTWDU0',
                 'connection_timeout_seconds': 10
             })
-            
+
             search_parameters = {
                 'q': query,
                 'query_by': 'title,content,headings',
@@ -96,15 +93,15 @@ class TypesenseSearchState(rx.State):
                 'snippet_threshold': 30,
                 'num_typos': 2
             }
-            
+
             if self.selected_filter != "All":
                 sections = self.filter_section_mapping.get(self.selected_filter, [])
                 if sections:
                     filter_conditions = [f'section:={section}' for section in sections]
                     search_parameters['filter_by'] = ' || '.join(filter_conditions)
-            
+
             result = client.collections['docs'].documents.search(search_parameters)
-            
+
             self.search_results = [
                 {
                     'title': hit['document']['title'],
@@ -118,22 +115,22 @@ class TypesenseSearchState(rx.State):
                 for hit in result['hits']
             ]
             self.show_results = True
-            
+
         except Exception as e:
             print(f"Search error: {e}")
             self.search_results = []
             self.show_results = False
-        
+
         self.is_searching = False
-    
+
     def hide_results(self):
         """Hide search results."""
         self.show_results = False
-    
+
     def _create_breadcrumb(self, document: dict) -> str:
         """Create a breadcrumb string from document metadata."""
         parts = []
-        
+
         section = document.get('section', '')
         if section:
             section_display = {
@@ -164,17 +161,17 @@ class TypesenseSearchState(rx.State):
                 'Blog': 'Blog'
             }.get(section, section.replace('-', ' ').replace('_', ' ').title())
             parts.append(section_display)
-        
+
         subsection = document.get('subsection', '')
         if subsection:
             subsection_display = subsection.replace('-', ' ').replace('_', ' ').title()
             parts.append(subsection_display)
-        
+
         title = document.get('title', '')
         if title and (not parts or title.lower() != parts[-1].lower()):
             parts.append(title)
-        
-        return ' > '.join(parts)
+
+        return ' › '.join(parts)
 
     def navigate_to_result(self, url: str):
         """Navigate to a search result."""
@@ -186,52 +183,27 @@ class TypesenseSearchState(rx.State):
 def filter_pill(filter_name: str) -> rx.Component:
     """Render a single filter pill."""
     is_selected = TypesenseSearchState.selected_filter == filter_name
-    
+
     return rx.box(
         rx.text(
             filter_name,
-            font_size="14px",
-            font_weight="500",
-            color=rx.cond(
-                is_selected,
-                "var(--c-white-1)",
-                "var(--c-slate-9)"
-            )
+            class_name="text-sm font-medium " + rx.cond(is_selected, "!text-violet-9", "!text-slate-9").to(str)
         ),
-        padding="6px 12px",
-        border_radius="20px",
-        cursor="pointer",
-        background=rx.cond(
-            is_selected,
-            "var(--c-violet-9)",
-            "var(--c-slate-2)"
-        ),
-        _hover={
-            "background": rx.cond(
-                is_selected,
-                "var(--c-violet-8)",
-                "var(--c-slate-3)"
-            )
-        },
+
         on_click=TypesenseSearchState.set_filter(filter_name),
-        transition="all 0.2s ease",
-        class_name="typesense-filter-pill"
+        class_name="typesense-filter-pill hover:bg-slate-3 cursor-pointer px-2 py-1 rounded-[10px] bg-slate-1 transition-bg " + rx.cond(is_selected, "border border-violet-9", "border border-slate-5").to(str)
     )
+
 
 
 def filter_pills() -> rx.Component:
     """Render the filter pills container."""
-    return rx.hstack(
+    return rx.box(
         rx.foreach(
             TypesenseSearchState.filter_categories,
             filter_pill
         ),
-        spacing="2",
-        width="100%",
-        overflow_x="auto",
-        padding="0 2px",
-        margin_bottom="12px",
-        class_name="typesense-filter-pills"
+        class_name="typesense-filter-pills flex flex-row gap-x-2 py-2 w-full overflow-x-auto"
     )
 
 
@@ -264,18 +236,13 @@ def search_result_item(result: rx.Var) -> rx.Component:
         rx.vstack(
             rx.text(
                 result['breadcrumb'],
-                color="var(--c-slate-9)",
-                font_size="12px",
-                font_weight="500",
-                margin_bottom="4px"
+                class_name="text-sm text-slate-9 mb-2",
             ),
             rx.hstack(
-                rx.icon("file-text", size=16, color="var(--c-slate-9)"),
+                rx.icon("file-text", class_name="size-4 shrink-0 !text-slate-9"),
                 rx.text(
                     result['title'],
-                    font_weight="600",
-                    color="var(--c-slate-12)",
-                    font_size="15px"
+                    class_name="text-md font-medium text-slate-12",
                 ),
                 spacing="2",
                 align_items="center",
@@ -291,202 +258,114 @@ def search_result_item(result: rx.Var) -> rx.Component:
             spacing="1",
             width="100%"
         ),
-        padding="12px",
-        border="1px solid var(--c-slate-4)",
-        border_radius="8px",
-        cursor="pointer",
-        _hover={"background_color": "var(--c-slate-2)", "border_color": "var(--c-slate-5)"},
+        class_name="p-2 border border-slate-4 rounded-[8px] cursor-pointer w-full hover:border-slate-5 hover:bg-slate-2",
         on_click=lambda: TypesenseSearchState.navigate_to_result(result['url']),
-        width="100%"
     )
 
 
 def search_modal() -> rx.Component:
     """Create the full-screen search modal."""
-    return rx.cond(
-        TypesenseSearchState.show_modal,
+
+    return rx.box(
         rx.box(
             rx.box(
-                position="fixed",
-                top="0",
-                left="0",
-                right="0",
-                bottom="0",
-                background="rgba(0, 0, 0, 0.6)",
-                backdrop_filter="blur(4px)",
-                z_index="9999",
-                on_click=TypesenseSearchState.close_modal
+                rx.dialog.close(rx.el.button(rx.icon(tag="x", class_name="size-4 !text-slate-9 shrink-0"))),
+                class_name="w-full flex justify-end"
             ),
             rx.box(
-                rx.vstack(
-                    rx.hstack(
-                        rx.spacer(),
-                        rx.button(
-                            "Esc",
-                            variant="ghost",
-                            size="2",
-                            color="var(--c-slate-9)",
-                            on_click=TypesenseSearchState.close_modal,
-                            class_name="typesense-modal-close-btn"
-                        ),
-                        width="100%",
-                        justify="end",
-                        margin_bottom="12px"
-                    ),
-                    rx.input(
-                        placeholder="What are you searching for?",
-                        value=TypesenseSearchState.search_query,
-                        on_change=TypesenseSearchState.search_docs,
-                        auto_focus=True,
-                        class_name="typesense-search-input",
-                        style={
-                            "width": "100%",
-                            "padding": "12px 16px",
-                            "font_size": "16px",
-                            "border": "1px solid var(--c-slate-6)",
-                            "border_radius": "8px",
-                            "background": "var(--c-slate-1)",
-                            "color": "var(--c-slate-12)",
-                            "outline": "none"
-                        },
-                        _focus={"border_color": "var(--c-violet-7)"}
-                    ),
-                    filter_pills(),
-                    rx.cond(
-                        TypesenseSearchState.search_query.length() > 0,
-                        rx.cond(
-                            TypesenseSearchState.search_results.length() > 0,
-                            rx.vstack(
-                                rx.foreach(
-                                    TypesenseSearchState.search_results,
-                                    search_result_item
-                                ),
-                                spacing="2",
-                                width="100%",
-                                margin_top="16px"
-                            ),
-                            rx.cond(
-                                TypesenseSearchState.is_searching,
-                                rx.text("Searching...", color="var(--c-slate-9)", margin_top="16px"),
-                                rx.text("No results found", color="var(--c-slate-9)", margin_top="16px")
-                            )
-                        ),
-                        rx.vstack(
-                            rx.text(
-                                "Suggestions",
-                                font_weight="600",
-                                color="var(--c-slate-11)",
-                                font_size="14px",
-                                margin_top="16px",
-                                margin_bottom="8px"
-                            ),
-                            rx.vstack(
-                                suggestion_item("Getting Started with Reflex", "/docs/getting-started/introduction"),
-                                suggestion_item("Components Overview", "/docs/library"),
-                                suggestion_item("State Management", "/docs/state/overview"),
-                                suggestion_item("Event Handlers", "/docs/events/event-handlers"),
-                                suggestion_item("Styling and Theming", "/docs/styling/overview"),
-                                suggestion_item("Deployment Guide", "/docs/hosting/deploy"),
-                                spacing="1",
-                                width="100%"
-                            ),
-                            width="100%",
-                            align_items="start"
-                        )
-                    ),
-                    spacing="3",
-                    width="100%",
-                    max_width="520px"
+                rx.icon(
+                    "search",
+                    class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
                 ),
-                position="fixed",
-                top="20%",
-                left="50%",
-                transform="translateX(-50%)",
-                background="var(--c-slate-1)",
-                border="1px solid var(--c-slate-6)",
-                border_radius="16px",
-                padding="16px",
-                box_shadow="0px 24px 48px rgba(0, 0, 0, 0.2)",
-                z_index="10000",
-                max_height="70vh",
-                overflow_y="auto",
-                tab_index=0,
-                class_name="typesense-search-modal"
+                rx.el.input(
+                    placeholder="What are you searching for?",
+                    value=TypesenseSearchState.search_query,
+                    on_change=TypesenseSearchState.search_docs,
+                    auto_focus=True,
+                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 hidden md:block placeholder:text-sm",
+                ),
+                align_items="center",
+                spacing="2",
+                style={
+                    "padding": "6px 12px",
+                    "min_width": ["32px", "32px", "256px"],
+                    "max_width": ["6em", "6em", "none"],
+                    "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
+                },
+                class_name="w-full cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
             ),
-            position="fixed",
-            top="0",
-            left="0",
-            right="0",
-            bottom="0",
-            z_index="9998"
-        )
+            filter_pills(),
+            class_name="w-full flex flex-col items-center gap-y-4"
+        ),
+        rx.scroll_area(
+            rx.cond(
+                TypesenseSearchState.search_query.length() > 0,
+                rx.cond(
+                    TypesenseSearchState.search_results.length() > 0,
+                    rx.box(
+                        rx.foreach(
+                            TypesenseSearchState.search_results,
+                            search_result_item
+                        ),
+                        class_name="w-full flex flex-col gap-y-4 mt-4"
+                    ),
+                    rx.cond(
+                        TypesenseSearchState.is_searching,
+                        rx.text("Searching...", color="var(--c-slate-9)", margin_top="16px"),
+                        rx.text("No results found", color="var(--c-slate-9)", margin_top="16px")
+                    )
+                ),
+                rx.box(
+                    rx.text(
+                        "Suggestions",
+                        class_name="text-sm text-slate-11 mb-2 mt-6 font-medium",
+                    ),
+                    rx.vstack(
+                        suggestion_item("Getting Started with Reflex", "/docs/getting-started/introduction"),
+                        suggestion_item("Components Overview", "/docs/library"),
+                        suggestion_item("State Management", "/docs/state/overview"),
+                        suggestion_item("Event Handlers", "/docs/events/event-handlers"),
+                        suggestion_item("Styling and Theming", "/docs/styling/overview"),
+                        suggestion_item("Deployment Guide", "/docs/hosting/deploy"),
+                        spacing="1",
+                        width="100%"
+                    ),
+                    class_name="w-full flex flex-col gap-y-2 align-start",
+                )
+            ),
+            class_name="w-full h-[50vh] overflow-y-scroll [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem]"
+        ),
+        class_name="w-full flex flex-col gap-y-4"
     )
-
 
 def typesense_search() -> rx.Component:
     """Create the Typesense search trigger component."""
-    return rx.box(
-        rx.hstack(
-            rx.icon(
-                "search",
-                size=16,
-                color="var(--c-slate-9, #8B8D98)",
-                style={"display": "flex", "flex_shrink": "0"}
-            ),
-            rx.input(
-                placeholder="Search docs...",
-                on_focus=TypesenseSearchState.open_modal,
+    return rx.dialog.root(
+        rx.dialog.trigger(
+            rx.box(
+                rx.icon(
+                    "search",
+                    class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+                ),
+                rx.text(
+                    "⌘K",
+                    class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+                ),
+                rx.el.input(
+                    placeholder="Search",
+                    read_only=True,
+                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
+                ),
+                align_items="center",
+                spacing="2",
                 style={
-                    "flex": "1",
-                    "border": "none",
-                    "outline": "none",
-                    "background": "transparent",
-                    "font_family": "Instrument Sans",
-                    "font_size": "14px",
-                    "font_weight": "500",
-                    "line_height": "20px",
-                    "letter_spacing": "-0.0125em",
-                    "color": "var(--c-slate-9, #8B8D98)",
-                    "padding": "0"
-                }
+                    "padding": "6px 12px",
+                    "min_width": ["32px", "32px", "256px"],
+                    "max_width": ["6em", "6em", "none"],
+                    "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
+                },
+                class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
             ),
-            rx.text(
-                "⌘K",
-                style={
-                    "padding": "2px 6px",
-                    "border_radius": "4px",
-                    "background": "var(--c-slate-3, #F0F0F3)",
-                    "color": "var(--c-slate-9, #8B8D98)",
-                    "font_family": "Instrument Sans",
-                    "font_size": "12px",
-                    "font_weight": "500",
-                    "line_height": "20px",
-                    "letter_spacing": "-0.09px",
-                    "display": ["none", "none", "block"]
-                }
-            ),
-            align_items="center",
-            spacing="2",
-            style={
-                "display": "flex",
-                "max_height": "32px",
-                "min_height": "32px",
-                "padding": "6px 12px",
-                "min_width": ["32px", "32px", "256px"],
-                "max_width": ["6em", "6em", "none"],
-                "border_radius": "10px",
-                "border": "1px solid var(--c-slate-5, #E0E1E6)",
-                "background": "var(--c-slate-1)",
-                "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
-                "transition": "background-color 0.1s linear",
-                "cursor": "pointer"
-            },
-            _hover={"background_color": "var(--c-slate-3, #F0F0F3)"},
-            on_click=TypesenseSearchState.open_modal,
-            width="100%",
-            class_name="typesense-search-trigger"
         ),
-        search_modal(),
-        position="relative",
-        class_name="typesense-search-container"
+        rx.dialog.content(search_modal(), class_name="w-full max-w-[520px] bg-slate-1 border-none outline-none")
     )
