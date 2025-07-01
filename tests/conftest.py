@@ -76,11 +76,10 @@ def pytest_runtest_makereport(item, call):
                     return
 
                 video_file = Path(video_path)
-                
+
                 if report.failed:
                     # Test failed - keep video and create metadata
                     test_name = item.name
-                    print(f"Video recorded for failed test {test_name}: {video_path}")
 
                     import fcntl
                     import json
@@ -107,17 +106,15 @@ def pytest_runtest_makereport(item, call):
                         f.seek(0)
                         f.truncate()
                         json.dump(metadata, f, indent=2)
-
-                    print(f"Added metadata mapping: {video_filename} -> {test_name}")
                 else:
                     # Test passed - remove video file
                     if video_file.exists():
                         video_file.unlink()
-                        print(f"Removed video for passed test: {item.name}")
 
             except Exception as e:
                 print(f"Failed to process video for test {item.name}: {e}")
                 import traceback
+
                 traceback.print_exc()
         else:
             if report.failed:
@@ -131,4 +128,6 @@ def pytest_runtest_makereport(item, call):
                         for f in video_dir.glob("*.webm")
                         if f.stat().st_mtime > (time.time() - 60)
                     ]
-                    print(f"Recent video files found: {[f.name for f in recent_videos]}")
+                    print(
+                        f"Recent video files found: {[f.name for f in recent_videos]}"
+                    )
