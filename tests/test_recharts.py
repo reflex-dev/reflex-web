@@ -5,7 +5,7 @@ from playwright.sync_api import Page, expect
 import pytest
 from reflex.testing import AppHarness
 
-from .utils import get_full_url
+from utils import get_full_url
 
 @pytest.fixture
 def scatterchart_page_url() -> str:

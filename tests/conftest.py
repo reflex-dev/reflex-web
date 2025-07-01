@@ -1,8 +1,12 @@
+import sys
 from pathlib import Path
 
 import pytest
 
 from reflex.testing import AppHarness
+
+# Add tests directory to Python path for absolute imports
+sys.path.insert(0, str(Path(__file__).parent))
 
 
 @pytest.fixture(scope="session")

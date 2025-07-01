@@ -6,7 +6,7 @@ from playwright.sync_api import Page, expect
 
 from reflex.testing import AppHarness
 
-from .utils import get_full_url
+from utils import get_full_url
 
 @pytest.fixture
 def chaining_event_url() -> str:
