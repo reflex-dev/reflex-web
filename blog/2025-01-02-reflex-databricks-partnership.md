@@ -73,4 +73,4 @@ If you're using Databricks and your team writes Python, Reflex lets you build ap
 
 We're already helping teams migrate legacy tools and build new ones faster using AI + Python + Databricks.
 
-**Send us a message** to see it in action or [book a call](https://www.notion.so/Reflex-Databricks-Integration-222024b7336e805cbd88de6390894ad2?pvs=21) to explore what you can build.
+**[Send us a message](mailto:team@reflex.dev)** to see it in action or [book a call](https://www.notion.so/Reflex-Databricks-Integration-222024b7336e805cbd88de6390894ad2?pvs=21) to explore what you can build.
