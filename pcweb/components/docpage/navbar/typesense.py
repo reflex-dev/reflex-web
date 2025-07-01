@@ -3,6 +3,11 @@
 import reflex as rx
 from reflex.utils.imports import ImportVar
 from reflex.vars import Var
+import typesense
+import os
+from reflex.experimental import ClientStateVar
+
+SearchInputClientState = ClientStateVar.create("SearchInputClientState", "")
 
 
 class TypesenseSearchState(rx.State):
@@ -49,16 +54,12 @@ class TypesenseSearchState(rx.State):
         self.search_results = []
         self.selected_filter = "All"
 
-    def handle_key_down(self, key: str):
-        """Handle keyboard events."""
-        if key == "Escape":
-            self.close_modal()
-
     async def set_filter(self, filter_name: str):
         """Set the selected filter and re-run search if there's an active query."""
         self.selected_filter = filter_name
         if self.search_query.strip():
             await self.search_docs(self.search_query)
+
 
     async def search_docs(self, query: str):
         """Search the documentation using Typesense."""
@@ -71,10 +72,6 @@ class TypesenseSearchState(rx.State):
         self.is_searching = True
 
         try:
-            import typesense
-
-            import os
-
             client = typesense.Client({
                 'nodes': [{
                     'host': 'z2mi3hyewokc16a4p-1.a1.typesense.net',
@@ -279,8 +276,8 @@ def search_modal() -> rx.Component:
                 ),
                 rx.el.input(
                     placeholder="What are you searching for?",
-                    value=TypesenseSearchState.search_query,
                     on_change=TypesenseSearchState.search_docs,
+                    id="search-input",
                     auto_focus=True,
                     class_name="bg-transparent border-none outline-none focus:outline-none pl-4 hidden md:block placeholder:text-sm",
                 ),
@@ -340,32 +337,43 @@ def search_modal() -> rx.Component:
 
 def typesense_search() -> rx.Component:
     """Create the Typesense search trigger component."""
-    return rx.dialog.root(
-        rx.dialog.trigger(
-            rx.box(
-                rx.icon(
-                    "search",
-                    class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+    return rx.fragment(
+        rx.dialog.root(
+            rx.dialog.trigger(
+                rx.box(
+                    rx.icon(
+                        "search",
+                        class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+                    ),
+                    rx.text(
+                        "⌘K",
+                        class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+                    ),
+                    rx.el.input(
+                        placeholder="Search",
+                        read_only=True,
+                        class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
+                    ),
+                    align_items="center",
+                    spacing="2",
+                    style={
+                        "padding": "6px 12px",
+                        "min_width": ["32px", "32px", "256px"],
+                        "max_width": ["6em", "6em", "none"],
+                        "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
+                    },
+                    class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
                 ),
-                rx.text(
-                    "⌘K",
-                    class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-                ),
-                rx.el.input(
-                    placeholder="Search",
-                    read_only=True,
-                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
-                ),
-                align_items="center",
-                spacing="2",
-                style={
-                    "padding": "6px 12px",
-                    "min_width": ["32px", "32px", "256px"],
-                    "max_width": ["6em", "6em", "none"],
-                    "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
-                },
-                class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
+                id="search-trigger"
             ),
+            rx.dialog.content(search_modal(), class_name="w-full max-w-[520px] bg-slate-1 border-none outline-none")
         ),
-        rx.dialog.content(search_modal(), class_name="w-full max-w-[520px] bg-slate-1 border-none outline-none")
+        rx.script("""
+            document.addEventListener('keydown', function(e) {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.getElementById('search-trigger').click();
+                }
+            });
+        """)
     )
