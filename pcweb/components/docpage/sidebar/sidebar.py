@@ -10,7 +10,7 @@ from pcweb.styles.colors import c_color
 
 from .sidebar_items.ai import ai_builder_overview_items
 from .sidebar_items.component_lib import component_lib, graphing_libs
-from .sidebar_items.enterprise import enterprise_items
+from .sidebar_items.enterprise import enterprise_items, enterprise_usage_items, enterprise_component_items
 from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
@@ -588,9 +588,16 @@ def sidebar_comp(
                             3,
                             rx.el.ul(
                                 create_sidebar_section(
-                                    "Enterprise",
+                                    "Enterprise Usage",
                                     enterprise.overview.path,
-                                    enterprise_items,
+                                    enterprise_usage_items,
+                                    enterprise_index,
+                                    url,
+                                ),
+                                create_sidebar_section(
+                                    "Components",
+                                    enterprise.ag_grid.index.path,
+                                    enterprise_component_items,
                                     enterprise_index,
                                     url,
                                 ),

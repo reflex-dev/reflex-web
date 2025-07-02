@@ -3,12 +3,17 @@
 from ..state import SideBarItem
 
 
-def get_sidebar_items_enterprise():
-    """Get the enterprise sidebar items matching the overview page categories."""
+def get_sidebar_items_enterprise_usage():
+    """Get the enterprise usage sidebar items."""
     return [
         SideBarItem(
             names="Overview",
-            link="/docs/enterprise/overview/",
+            children=[
+                SideBarItem(
+                    names="How to use Enterprise",
+                    link="/docs/enterprise/overview/",
+                ),
+            ],
         ),
         SideBarItem(
             names="Configuration",
@@ -23,6 +28,12 @@ def get_sidebar_items_enterprise():
                 ),
             ],
         ),
+    ]
+
+
+def get_sidebar_items_enterprise_components():
+    """Get the enterprise components sidebar items."""
+    return [
         SideBarItem(
             names="AG Grid",
             children=[
@@ -146,4 +157,8 @@ def get_sidebar_items_enterprise():
     ]
 
 
-enterprise_items = get_sidebar_items_enterprise()
+enterprise_usage_items = get_sidebar_items_enterprise_usage()
+enterprise_component_items = get_sidebar_items_enterprise_components()
+enterprise_items = (
+    enterprise_usage_items + enterprise_component_items
+)  # Keep for backward compatibility
