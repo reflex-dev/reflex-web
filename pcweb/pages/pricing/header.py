@@ -1,3 +1,4 @@
+import re
 import urllib.parse
 from typing import Any, Literal
 
@@ -114,6 +115,7 @@ class QuoteFormState(rx.State):
     num_employees: str = "500+"
     referral_source: str = "Google Search"
     banned_email: bool = False
+    banned_phone: bool = False
 
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
@@ -121,6 +123,21 @@ class QuoteFormState(rx.State):
 
     @rx.event
     def submit(self, form_data: dict[str, Any]):
+        # Phone number validation
+        phone = form_data.get("phone_number", "").strip()
+        if phone:
+            phone_pattern = r'^(\+?1[-.\s]?)?(\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4})|(\+[1-9]\d{0,3}[-.\s]?(\(?[0-9]{1,4}\)?[-.\s]?){1,5}[0-9]{1,4})$'
+            
+            # Remove common formatting characters for validation
+            clean_phone = re.sub(r'[^\d+]', '', phone)
+            
+            if not re.match(phone_pattern, phone) or len(clean_phone) < 10 or len(clean_phone) > 15:
+                self.banned_phone = True
+                yield rx.set_focus("phone_number")
+                return
+            
+            self.banned_phone = False
+
         # Email domain validation
         banned_domains = [
             "gmail.com",
@@ -377,12 +394,36 @@ def custom_quote_form() -> rx.Component:
                         ),
                         class_name="flex-row flex gap-x-2 mb-6",
                     ),
-                    text_input_field(
-                        "Phone number",
-                        "phone_number",
-                        "(555) 123-4567",
-                        required=True,
-                        input_type="tel",
+                    rx.cond(
+                        QuoteFormState.banned_phone,
+                        rx.box(
+                            rx.el.div(
+                                rx.text(
+                                    "Phone number",
+                                    class_name="text-slate-11 text-sm font-medium mb-2",
+                                ),
+                                rx.text(
+                                    "Invalid phone number format!",
+                                    class_name="text-red-8 text-sm font-medium mb-2",
+                                ),
+                                class_name="flex flex-row items-center justify-between w-full",
+                            ),
+                            rx.el.input(
+                                placeholder="Please enter a valid phone number",
+                                name="phone_number",
+                                type="tel",
+                                required=True,
+                                class_name="box-border w-full border-2 border-red-5 bg-slate-1 px-6 pr-8 border rounded-[0.625rem] h-[2.25rem] font-medium text-slate-12 text-sm placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 peer pl-2.5 disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:text-slate-8 disabled:placeholder:text-slate-8",
+                            ),
+                            class_name="mb-6",
+                        ),
+                        text_input_field(
+                            "Phone number",
+                            "phone_number",
+                            "(555) 123-4567",
+                            required=True,
+                            input_type="tel",
+                        ),
                     ),
                     # Project Details
                     textarea_field(

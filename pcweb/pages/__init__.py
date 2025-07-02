@@ -1,9 +1,11 @@
 from pcweb.route import Route
 from .affiliates import affiliates as affiliates
+from .security import security as security
 from .databricks.databricks import databricks_page as databricks_page
 from .use_cases.use_cases import use_cases_page as use_cases_page
 from .blog import blog_routes
 from .customers.data.customers import customers_routes
+from .security.security import security as security
 from .customers.landing import customers as customers
 from .docs import doc_routes
 from .errors import errors as errors
