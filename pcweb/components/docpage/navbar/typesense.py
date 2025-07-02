@@ -46,6 +46,11 @@ class TypesenseSearchState(rx.State):
     ]
 
 
+    def open_modal(self):
+        """Open the search modal and reset filter state."""
+        self.show_modal = True
+        self.selected_filter = "All"
+
     def close_modal(self):
         """Close the search modal and reset state."""
         self.show_modal = False
@@ -200,7 +205,7 @@ def filter_pills() -> rx.Component:
             TypesenseSearchState.filter_categories,
             filter_pill
         ),
-        class_name="typesense-filter-pills flex flex-row gap-x-2 py-2 w-full overflow-x-auto"
+        class_name="typesense-filter-pills flex flex-row gap-x-3 py-3 w-full overflow-x-auto"
     )
 
 
@@ -358,7 +363,8 @@ def typesense_search() -> rx.Component:
                         "max_width": ["6em", "6em", "none"],
                         "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
                     },
-                    class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
+                    class_name="w-full hover:bg-slate-3 cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative",
+                    on_click=TypesenseSearchState.open_modal
                 ),
                 id="search-trigger"
             ),
