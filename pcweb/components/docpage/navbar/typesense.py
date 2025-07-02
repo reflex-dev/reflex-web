@@ -275,11 +275,11 @@ def search_modal() -> rx.Component:
                 rx.el.button(
                     "ESC",
                     class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
-                    on_click=rx.call_function("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
+                    on_click=rx.run_script("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
                 ),
                 rx.el.input(
                     placeholder="What are you searching for?",
-                    on_change=TypesenseSearchState.search_docs,
+                    on_change=TypesenseSearchState.search_docs.debounce(500),
                     id="search-input",
                     auto_focus=True,
                     class_name="w-full bg-transparent border-none outline-none focus:outline-none pl-4 pr-10 placeholder:text-base text-base",
