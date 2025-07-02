@@ -198,7 +198,7 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent",
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent !rounded-none",
                 ),
                 class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
