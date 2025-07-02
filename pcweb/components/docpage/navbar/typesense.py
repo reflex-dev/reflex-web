@@ -272,23 +272,22 @@ def search_modal() -> rx.Component:
                     "search",
                     class_name="absolute left-1 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
                 ),
-                rx.text(
+                rx.el.button(
                     "ESC",
                     class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
+                    on_click=rx.call_function("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
                 ),
                 rx.el.input(
                     placeholder="What are you searching for?",
                     on_change=TypesenseSearchState.search_docs,
                     id="search-input",
                     auto_focus=True,
-                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 placeholder:text-base text-base",
+                    class_name="w-full bg-transparent border-none outline-none focus:outline-none pl-4 pr-10 placeholder:text-base text-base",
                 ),
                 align_items="center",
                 spacing="2",
                 style={
                     "padding": "6px 12px",
-                    "min_width": ["32px", "32px", "256px"],
-                    "max_width": ["6em", "6em", "none"],
                 },
                 class_name="w-full cursor-pointer flex max-h-[32px] min-h-[32px] relative"
             ),
