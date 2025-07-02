@@ -19,8 +19,6 @@ Reflex is built specifically for **Python teams and data professionals**. You ca
 
 No JavaScript. No frontend boilerplate. No DevOps headaches.
 
-![Reflex x Databricks Partnership](/blog/databricks-partnership.jpeg)
-
 ### Bridging the Prototype-to-Production Divide
 
 Enterprise teams today are stuck between two extremes:
