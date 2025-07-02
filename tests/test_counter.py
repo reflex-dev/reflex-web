@@ -7,6 +7,7 @@ from playwright.sync_api import Page, expect
 import pytest
 from reflex.testing import AppHarness
 
+from utils import get_full_url
 
 @pytest.fixture
 def intro_page_url() -> str:
@@ -18,7 +19,7 @@ def intro_page_url() -> str:
 def test_counter(reflex_web_app: AppHarness, page: Page, intro_page_url):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(reflex_web_app.frontend_url + intro_page_url)
+    page.goto(get_full_url(reflex_web_app, intro_page_url))
     expect(page).to_have_url(re.compile(intro_page_url))
 
     counter_block = page.locator('[id="counter"]')

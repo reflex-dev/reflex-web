@@ -3,6 +3,7 @@ from playwright.sync_api import Page, expect
 
 from reflex.testing import AppHarness
 
+from utils import get_full_url
 
 @pytest.fixture
 def event_argument_url() -> str:
@@ -18,7 +19,7 @@ def test_lambdas(
 ):
     assert reflex_web_app.frontend_url is not None
 
-    page.goto(reflex_web_app.frontend_url + event_argument_url)
+    page.goto(get_full_url(reflex_web_app, event_argument_url))
 
     inputs = page.get_by_role("textbox")
 

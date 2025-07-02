@@ -1,10 +1,11 @@
 import flexdown
+from flexdown.document import Document
 import reflex as rx
 from pcweb.flexdown import xd2 as xd
 
 from pcweb.templates.highlightpage import highlight_page
 
-document = flexdown.parse_file("pcweb/pages/databricks/databricks.md")
+document = Document.from_file("pcweb/pages/databricks/databricks.md")
 
 
 def databricks_content() -> rx.Component:
