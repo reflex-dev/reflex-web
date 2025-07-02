@@ -193,7 +193,7 @@ def filter_pill(filter_name: str) -> rx.Component:
         ),
 
         on_click=TypesenseSearchState.set_filter(filter_name),
-        class_name="typesense-filter-pill hover:bg-slate-3 cursor-pointer px-2 py-1 rounded-[10px] transition-bg " + rx.cond(is_selected, "bg-violet-3 border border-violet-9", "bg-slate-1 border border-slate-5").to(str)
+        class_name="shrink-0 typesense-filter-pill hover:bg-slate-3 cursor-pointer px-2 py-1 rounded-[10px] transition-bg " + rx.cond(is_selected, "bg-violet-3 border border-violet-9", "bg-slate-1 border border-slate-5").to(str)
     )
 
 
