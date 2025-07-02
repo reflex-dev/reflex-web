@@ -8,6 +8,7 @@ source: "https://github.com/reflex-dev/reflex-chat"
 meta: [
     {"name": "keywords", "content": ""},
 ]
+tags: ["AI/ML", "Chat"]
 ---
 # Chat App
 

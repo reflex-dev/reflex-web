@@ -1,12 +1,13 @@
-import reflex as rx
 import flexdown
-from pcweb.flexdown import xd2 as xd
-from pcweb.templates.gallery_app_page import gallery_app_page
-from pcweb.components.icons import get_icon
-from pcweb.pages.gallery import gallery
+import reflex as rx
+
 from pcweb.components.button import button, button_with_icon
 from pcweb.components.code_card import gallery_app_card
-
+from pcweb.components.icons import get_icon
+from pcweb.constants import SCREENSHOT_BUCKET
+from pcweb.flexdown import xd2 as xd
+from pcweb.pages.gallery import gallery
+from pcweb.templates.gallery_app_page import gallery_app_page
 
 GALLERY_APPS_PATH = "templates/"
 
@@ -190,8 +191,11 @@ for path, document in gallery_apps_data.items():
     # Get the docpage component.
     route = f"/templates/{document.metadata['title'].replace(' ', '-').lower()}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
-    # Add "/gallery" to the image path
-    document.metadata["image"] = f"/templates/{document.metadata['image']}"
+    document.metadata["image"] = (
+        f"/templates/{document.metadata['image']}"
+        if not document.metadata.get("ai_template", False)
+        else f"{SCREENSHOT_BUCKET}{document.metadata['image']}"
+    )
     comp = gallery_app_page(
         path=route,
         title=document.metadata["title"],

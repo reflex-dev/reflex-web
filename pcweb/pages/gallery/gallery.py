@@ -1,8 +1,9 @@
 import reflex as rx
 
-from pcweb.templates.webpage import webpage
-from pcweb.components.webpage.comps import h1_title
 from pcweb.components.code_card import gallery_app_card
+from pcweb.components.webpage.comps import h1_title
+from pcweb.pages.gallery.sidebar import TemplatesState, pagination, sidebar
+from pcweb.templates.webpage import webpage
 
 
 @rx.memo
@@ -18,10 +19,23 @@ def component_grid() -> rx.Component:
 
     posts = []
     for path, document in list(gallery_apps_data.items()):
-        posts.append(gallery_app_card(app=document.metadata))
+        posts.append(
+            rx.cond(
+                TemplatesState.filtered_templates.contains(document.metadata["title"]),
+                gallery_app_card(app=document.metadata),
+                None,
+            )
+        )
     return rx.box(
         *posts,
-        class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-[7.5rem]",
+        rx.box(
+            rx.el.h4(
+                "No templates found",
+                class_name="text-base font-semibold text-slate-12 text-nowrap",
+            ),
+            class_name="flex-col gap-2 flex absolute left-1 top-0 z-[-1] w-full",
+        ),
+        class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full relative",
     )
 
 
@@ -55,7 +69,7 @@ def gallery_heading() -> rx.Component:
         rx.text.span(
             "Copy the template command and use it during ",
             rx.code("reflex init"),
-            class_name="font-sm text-balance text-slate-9",
+            class_name="text-base text-balance text-slate-9 font-medium",
         ),
         class_name="section-header",
     )
@@ -65,7 +79,15 @@ def gallery_heading() -> rx.Component:
 def gallery() -> rx.Component:
     return rx.el.section(
         gallery_heading(),
-        component_grid(),
+        rx.box(
+            sidebar(),
+            rx.box(
+                component_grid(),
+                pagination(),
+                class_name="flex flex-col",
+            ),
+            class_name="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full",
+        ),
         id="gallery",
-        class_name="section-content",
+        class_name="section-content !max-w-[80rem] mx-auto",
     )
