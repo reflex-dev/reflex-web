@@ -205,7 +205,7 @@ def filter_pills() -> rx.Component:
             TypesenseSearchState.filter_categories,
             filter_pill
         ),
-        class_name="typesense-filter-pills flex flex-row gap-x-3 py-3 w-full overflow-x-auto"
+        class_name="typesense-filter-pills flex flex-row gap-x-3 px-6 pt-2 w-full overflow-x-auto"
     )
 
 
@@ -224,11 +224,8 @@ def suggestion_item(title: str, url: str) -> rx.Component:
             align_items="center"
         ),
         padding="8px 12px",
-        cursor="pointer",
-        border_radius="6px",
-        _hover={"background_color": "var(--c-slate-3)"},
         on_click=lambda: TypesenseSearchState.navigate_to_result(url),
-        width="100%"
+        class_name="w-full shadow-sm hover:bg-slate-3 cursor-pointer rounded-[6px]"
     )
 
 
@@ -270,17 +267,21 @@ def search_modal() -> rx.Component:
 
     return rx.box(
         rx.box(
-            rx.box(
+            rx.box(rx.box(
                 rx.icon(
                     "search",
-                    class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+                    class_name="absolute left-1 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
+                ),
+                rx.text(
+                    "ESC",
+                    class_name="absolute right-1 top-1/2 transform -translate-y-1/2 text-sm border border-slate-5 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
                 ),
                 rx.el.input(
                     placeholder="What are you searching for?",
                     on_change=TypesenseSearchState.search_docs,
                     id="search-input",
                     auto_focus=True,
-                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 hidden md:block placeholder:text-base text-base",
+                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 placeholder:text-base text-base",
                 ),
                 align_items="center",
                 spacing="2",
@@ -288,9 +289,10 @@ def search_modal() -> rx.Component:
                     "padding": "6px 12px",
                     "min_width": ["32px", "32px", "256px"],
                     "max_width": ["6em", "6em", "none"],
-                    "box_shadow": "0px 24px 12px 0px rgba(28, 32, 36, 0.02), 0px 8px 8px 0px rgba(28, 32, 36, 0.02), 0px 2px 6px 0px rgba(28, 32, 36, 0.02)",
                 },
-                class_name="w-full cursor-pointer flex max-h-[32px] min-h-[32px] border border-slate-5 rounded-[10px] bg-slate-1 transition-bg relative"
+                class_name="w-full cursor-pointer flex max-h-[32px] min-h-[32px] relative"
+            ),
+            class_name="w-full px-6 py-2 top-0 left-0 absolute border-b border-slate-5"
             ),
             filter_pills(),
             class_name="w-full flex flex-col items-center gap-y-4"
@@ -316,7 +318,7 @@ def search_modal() -> rx.Component:
                 rx.box(
                     rx.text(
                         "Suggestions",
-                        class_name="text-sm text-slate-11 mb-2 mt-6 font-medium",
+                        class_name="text-sm text-slate-11 font-medium",
                     ),
                     rx.vstack(
                         suggestion_item("Getting Started with Reflex", "/docs/getting-started/introduction"),
@@ -331,9 +333,9 @@ def search_modal() -> rx.Component:
                     class_name="w-full flex flex-col gap-y-2 align-start",
                 )
             ),
-            class_name="w-full h-[50vh] overflow-y-scroll [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem]"
+            class_name="w-full h-[50vh] overflow-y-scroll [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mb-[1rem] px-6 py-2"
         ),
-        class_name="w-full flex flex-col gap-y-4"
+        class_name="w-full flex flex-col gap-y-2 relative pt-16"
     )
 
 def typesense_search() -> rx.Component:
@@ -368,7 +370,11 @@ def typesense_search() -> rx.Component:
                 ),
                 id="search-trigger"
             ),
-            rx.dialog.content(search_modal(), class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none")
+            rx.dialog.content(search_modal(), class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none p-0",
+                on_interact_outside=TypesenseSearchState.close_modal,
+                on_escape_key_down=TypesenseSearchState.close_modal,
+
+            )
         ),
         rx.script("""
             document.addEventListener('keydown', function(e) {
