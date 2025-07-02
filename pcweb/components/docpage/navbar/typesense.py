@@ -188,7 +188,7 @@ def filter_pill(filter_name: str) -> rx.Component:
         ),
 
         on_click=TypesenseSearchState.set_filter(filter_name),
-        class_name="typesense-filter-pill hover:bg-slate-3 cursor-pointer px-2 py-1 rounded-[10px] bg-slate-1 transition-bg " + rx.cond(is_selected, "border border-violet-9", "border border-slate-5").to(str)
+        class_name="typesense-filter-pill hover:bg-slate-3 cursor-pointer px-2 py-1 rounded-[10px] transition-bg " + rx.cond(is_selected, "bg-violet-3 border border-violet-9", "bg-slate-1 border border-slate-5").to(str)
     )
 
 
@@ -255,7 +255,7 @@ def search_result_item(result: rx.Var) -> rx.Component:
             spacing="1",
             width="100%"
         ),
-        class_name="p-2 border border-slate-4 rounded-[8px] cursor-pointer w-full hover:border-slate-5 hover:bg-slate-2",
+        class_name="p-2 border border-slate-4 rounded-[8px] cursor-pointer w-full hover:border-slate-5 hover:bg-slate-2 shadow-small",
         on_click=lambda: TypesenseSearchState.navigate_to_result(result['url']),
     )
 
@@ -266,10 +266,6 @@ def search_modal() -> rx.Component:
     return rx.box(
         rx.box(
             rx.box(
-                rx.dialog.close(rx.el.button(rx.icon(tag="x", class_name="size-4 !text-slate-9 shrink-0"))),
-                class_name="w-full flex justify-end"
-            ),
-            rx.box(
                 rx.icon(
                     "search",
                     class_name="absolute left-2 top-1/2 transform -translate-y-1/2 text-md w-4 h-4 flex-shrink-0 !text-slate-9",
@@ -279,7 +275,7 @@ def search_modal() -> rx.Component:
                     on_change=TypesenseSearchState.search_docs,
                     id="search-input",
                     auto_focus=True,
-                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 hidden md:block placeholder:text-sm",
+                    class_name="bg-transparent border-none outline-none focus:outline-none pl-4 hidden md:block placeholder:text-base text-base",
                 ),
                 align_items="center",
                 spacing="2",
@@ -366,7 +362,7 @@ def typesense_search() -> rx.Component:
                 ),
                 id="search-trigger"
             ),
-            rx.dialog.content(search_modal(), class_name="w-full max-w-[520px] bg-slate-1 border-none outline-none")
+            rx.dialog.content(search_modal(), class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none")
         ),
         rx.script("""
             document.addEventListener('keydown', function(e) {
