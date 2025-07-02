@@ -2188,6 +2188,18 @@ wheels = [
 ]
 
 [[package]]
+name = "typesense"
+version = "1.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9b/2c/6f012a17934d50f73d20f1138b3bc42cfb7ec465052bd8e56c0dcf8ce92d/typesense-1.1.1.tar.gz", hash = "sha256:876280e5f2bb8a4a24ae427863ee8216d2e9e76cfe96e0a87a379e66078dc591", size = 45214, upload-time = "2025-05-20T18:13:32.865Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1b/8f/6306446e5ce28ddddd8babf407597b9afa3fff521794fe2dcfb16f12e16a/typesense-1.1.1-py3-none-any.whl", hash = "sha256:633aeb26c24e17be654ea22f20d3f76f87c804f259d0a560b7e0ae817f24077a", size = 70604, upload-time = "2025-05-20T18:13:30.975Z" },
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.14.0"
 source = { registry = "https://pypi.org/simple" }
