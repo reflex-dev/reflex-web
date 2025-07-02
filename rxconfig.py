@@ -11,9 +11,6 @@ config = rx.Config(
     ],
     show_build_with_reflex=False,
     telemetry_enabled=False,
-<<<<<<< HEAD
-    plugins=[rx.plugins.TailwindV3Plugin(tw_config)],
-=======
     tailwind=tw_config,
->>>>>>> 41fefec (Address UI feedback: bigger search input, lighter violet pills, wider modal, card shadows)
+    plugins=[rx.plugins.TailwindV3Plugin()],
 )
