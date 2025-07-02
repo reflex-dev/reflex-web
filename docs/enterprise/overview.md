@@ -261,7 +261,7 @@ if rxe is not None:
     width="100%",
     detail_row_height=200,
     detail_row_auto_height=True,
-    min_height="400px",
+    height="400px",
     loading=False,
 )
     grid.api.set_grid_option("suppressContextMenu", True)

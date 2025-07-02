@@ -24,47 +24,47 @@ def get_sidebar_items_enterprise():
             ],
         ),
         SideBarItem(
-            names="AGGrid and AGChart",
+            names="AG Grid",
             children=[
                 SideBarItem(
-                    names="AG Grid",
-                    children=[
-                        SideBarItem(
-                            names="Overview",
-                            link="/docs/enterprise/ag_grid/",
-                        ),
-                        SideBarItem(
-                            names="Column Definitions",
-                            link="/docs/enterprise/ag_grid/column-defs/",
-                        ),
-                        SideBarItem(
-                            names="Aligned Grids",
-                            link="/docs/enterprise/ag_grid/aligned-grids/",
-                        ),
-                        SideBarItem(
-                            names="Model Wrapper",
-                            link="/docs/enterprise/ag_grid/model-wrapper/",
-                        ),
-                        SideBarItem(
-                            names="Pivot Mode",
-                            link="/docs/enterprise/ag_grid/pivot-mode/",
-                        ),
-                        SideBarItem(
-                            names="Theme",
-                            link="/docs/enterprise/ag_grid/theme/",
-                        ),
-                        SideBarItem(
-                            names="Value Transformers",
-                            link="/docs/enterprise/ag_grid/value-transformers/",
-                        ),
-                        SideBarItem(
-                            names="Undocumented Features",
-                            link="/docs/enterprise/ag_grid/undocumented-features-guideline/",
-                        ),
-                    ],
+                    names="Overview",
+                    link="/docs/enterprise/ag_grid/",
                 ),
                 SideBarItem(
-                    names="AG Chart",
+                    names="Column Definitions",
+                    link="/docs/enterprise/ag_grid/column-defs/",
+                ),
+                SideBarItem(
+                    names="Aligned Grids",
+                    link="/docs/enterprise/ag_grid/aligned-grids/",
+                ),
+                SideBarItem(
+                    names="Model Wrapper",
+                    link="/docs/enterprise/ag_grid/model-wrapper/",
+                ),
+                SideBarItem(
+                    names="Pivot Mode",
+                    link="/docs/enterprise/ag_grid/pivot-mode/",
+                ),
+                SideBarItem(
+                    names="Theme",
+                    link="/docs/enterprise/ag_grid/theme/",
+                ),
+                SideBarItem(
+                    names="Value Transformers",
+                    link="/docs/enterprise/ag_grid/value-transformers/",
+                ),
+                SideBarItem(
+                    names="Undocumented Features",
+                    link="/docs/enterprise/ag_grid/undocumented-features-guideline/",
+                ),
+            ],
+        ),
+        SideBarItem(
+            names="AG Chart",
+            children=[
+                SideBarItem(
+                    names="Overview",
                     link="/docs/enterprise/ag_chart/",
                 ),
             ],
