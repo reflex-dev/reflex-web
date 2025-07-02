@@ -154,7 +154,7 @@ def blogs():
 blog_routes = [blogs]
 for path, document in blog_data.items():
     # Get the docpage component.
-    route = f"/{path}"
+    route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(
         path=route,
