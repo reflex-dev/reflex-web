@@ -31,9 +31,9 @@ def decentralized_event_example():
     return rx.vstack(
         rx.heading(f"Count: {MyState.count}"),
         rx.hstack(
-            rx.button("Increment by 1", on_click=increment(1)),
-            rx.button("Increment by 5", on_click=increment(5)),
-            rx.button("Increment by 10", on_click=increment(10)),
+            rx.button("Increment by 1", on_click=lambda: increment(1)),
+            rx.button("Increment by 5", on_click=lambda: increment(5)),
+            rx.button("Increment by 10", on_click=lambda: increment(10)),
         ),
         spacing="4",
         align="center",
