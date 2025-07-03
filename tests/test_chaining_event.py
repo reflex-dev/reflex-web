@@ -6,6 +6,7 @@ from playwright.sync_api import Page, expect
 
 from reflex.testing import AppHarness
 
+from utils import get_full_url
 
 @pytest.fixture
 def chaining_event_url() -> str:
@@ -23,7 +24,7 @@ def test_handler_from_handler(
     page.set_default_timeout(60000)
     page.set_default_navigation_timeout(60000)
 
-    page.goto(reflex_web_app.frontend_url + chaining_event_url)
+    page.goto(get_full_url(reflex_web_app, chaining_event_url))
     expect(page).to_have_url(re.compile(chaining_event_url))
 
     chain_heading = page.locator('[id="call-handler"] > .rt-Flex > span')
@@ -51,7 +52,7 @@ def test_collatz(reflex_web_app: AppHarness, page: Page, chaining_event_url):
     page.set_default_timeout(60000)
     page.set_default_navigation_timeout(60000)
 
-    page.goto(reflex_web_app.frontend_url + chaining_event_url)
+    page.goto(get_full_url(reflex_web_app, chaining_event_url))
     expect(page).to_have_url(re.compile(chaining_event_url))
 
     collatz_box = page.locator('[id="collatz"]')
