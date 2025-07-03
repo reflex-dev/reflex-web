@@ -330,7 +330,7 @@ def search_modal() -> rx.Component:
                     class_name="w-full flex flex-col gap-y-2 align-start",
                 )
             ),
-            class_name="w-full h-[50vh] overflow-y-scroll [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mb-[1rem] px-6 py-2"
+            class_name="w-full overflow-y-scroll [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mb-[1rem] px-6 py-2 " + rx.cond(TypesenseSearchState.show_results, "h-[50vh]", "h-full")
         ),
         class_name="w-full flex flex-col gap-y-2 relative pt-16"
     )
