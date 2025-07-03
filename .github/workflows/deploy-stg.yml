@@ -13,6 +13,7 @@ permissions:
   contents: read
 
 env:
+  NODE_OPTIONS: "--max-old-space-size=8192"
   FLY_API_TOKEN: ${{ secrets.STG_FLY_API_TOKEN }}
   CP_WEB_URL: https://cloud.reflexcorp.run/
   CP_BACKEND_URL: https://cloud-29f4f535-4fb8-48b9-8b55-2000f2782aee.fly.dev/
