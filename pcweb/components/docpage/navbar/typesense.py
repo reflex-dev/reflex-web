@@ -367,7 +367,8 @@ def typesense_search() -> rx.Component:
                 ),
                 id="search-trigger"
             ),
-            rx.dialog.content(search_modal(), class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none p-0",
+            rx.dialog.content(search_modal(),
+                class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none p-0 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
                 on_interact_outside=TypesenseSearchState.close_modal,
                 on_escape_key_down=TypesenseSearchState.close_modal,
 
