@@ -99,9 +99,10 @@ def hero() -> rx.Component:
                 button(
                     "Get Access",
                     size="xl",
-                    class_name="w-fit flex flex-row-reverse",
+                    class_name="w-fit flex flex-row-reverse gap-2",
                     icon=rx.icon("chevron-right", size=16),
                 ),
+                underline="none",
                 href="/pricing",
             ),
             watch_preview(),
