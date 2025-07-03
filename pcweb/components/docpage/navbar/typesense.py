@@ -4,10 +4,8 @@ import reflex as rx
 from reflex.utils.imports import ImportVar
 from reflex.vars import Var
 import typesense
-import os
-from reflex.experimental import ClientStateVar
 
-SearchInputClientState = ClientStateVar.create("SearchInputClientState", "")
+from reflex.experimental import ClientStateVar
 
 
 class TypesenseSearchState(rx.State):
