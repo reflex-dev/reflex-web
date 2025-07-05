@@ -107,6 +107,7 @@ class TypesenseSearchState(rx.State):
     def _reset_search_state(self):
         """Reset all search-related state variables."""
         self.show_results = False
+        self.is_searching = False
         self.search_query = ""
         self.search_results = []
         self.selected_filter = "All"
@@ -373,15 +374,6 @@ def search_results_section() -> rx.Component:
             search_result_item
         ),
         class_name="w-full flex flex-col gap-y-4 mt-4"
-    )
-
-
-def search_status_message() -> rx.Component:
-    """Render search status messages (searching/no results/results)."""
-    return rx.cond(
-        TypesenseSearchState.is_searching,
-        rx.text("Searching...", color="var(--c-slate-9)", margin_top="16px"),
-        rx.text("No results found", color="var(--c-slate-9)", margin_top="16px")
     )
 
 
