@@ -2,16 +2,16 @@
 
 import reflex as rx
 import typesense
-
+import os
 
 # Constants
 TYPESENSE_CONFIG = {
     'nodes': [{
-        'host': 'z2mi3hyewokc16a4p-1.a1.typesense.net',
+        'host': os.getenv('TYPESENSE_HOST'),
         'port': '443',
         'protocol': 'https'
     }],
-    'api_key': 'KuwU0fBZYHMuvhtv32LXekhBo9bTWDU0',
+    'api_key': os.getenv('TYPESENSE_SEARCH_API_KEY'),
     'connection_timeout_seconds': 10
 }
 

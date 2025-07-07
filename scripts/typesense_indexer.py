@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 TYPESENSE_CONFIG = {
     'nodes': [{
-        'host': 'z2mi3hyewokc16a4p-1.a1.typesense.net',
+        'host': os.getenv('TYPESENSE_HOST'),
         'port': '443',
         'protocol': 'https'
     }],

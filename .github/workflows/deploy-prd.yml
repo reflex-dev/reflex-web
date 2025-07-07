@@ -14,6 +14,8 @@ permissions:
 env:
   NODE_OPTIONS: "--max-old-space-size=8192"
   FLY_API_TOKEN: ${{ secrets.PRD_FLY_API_TOKEN }}
+  TYPESENSE_HOST: ${{ secrets.PRD_TYPESENSE_HOST }}
+  TYPESENSE_SEARCH_API_KEY: ${{ secrets.PRD_TYPESENSE_SEARCH_API_KEY }}
 
 jobs:
   deploy:
@@ -38,7 +40,8 @@ jobs:
 
       - name: Index documentation to Typesense
         env:
-          TYPESENSE_ADMIN_API_KEY: ${{ secrets.TYPESENSE_ADMIN_API_KEY }}
+          TYPESENSE_ADMIN_API_KEY: ${{ secrets.PRD_TYPESENSE_ADMIN_API_KEY }}
+          TYPESENSE_HOST: ${{ secrets.PRD_TYPESENSE_HOST }}
         run: |
           uv pip install typesense python-frontmatter markdown beautifulsoup4
           python scripts/typesense_indexer.py
