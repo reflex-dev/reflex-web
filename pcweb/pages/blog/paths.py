@@ -9,7 +9,7 @@ def get_blog_data(paths):
     blogs = {}
     for path in reversed(sorted(paths)):
         document = Document.from_file(path)
-        path_str = str(path).replace(".md", "/")
+        path_str = str(path).replace(PAGES_PATH, "").replace(".md", "/")
         blogs[path_str] = document
     return blogs
 
