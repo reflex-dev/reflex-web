@@ -4,12 +4,15 @@ from typing import Any, Literal
 
 import reflex as rx
 from reflex.event import EventType
+from reflex.experimental import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
 from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.pages.framework.views.companies import pricing_page_companies
 from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
+
+ThankYouDialogState = ClientStateVar.create("thank_you_dialog_state", False)
 
 SelectVariant = Literal["primary", "secondary", "outline", "transparent"]
 SelectSize = Literal["sm", "md", "lg"]
@@ -63,7 +66,6 @@ def select_item(
         ),
         class_name="w-full outline-none focus:outline-none",
     )
-    # return rx.el.button(text, **common_props)
 
 
 def select(
@@ -115,28 +117,30 @@ class QuoteFormState(rx.State):
     num_employees: str = "500+"
     referral_source: str = "Google Search"
     banned_email: bool = False
-    banned_phone: bool = False
+    banned_linkedin: bool = False
 
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
         setattr(self, field, value)
 
+    def is_small_company(self) -> bool:
+        """Check if company has 10 or fewer employees."""
+        return self.num_employees in ["1", "2-5", "6-10"]
+
     @rx.event
     def submit(self, form_data: dict[str, Any]):
-        # Phone number validation
-        phone = form_data.get("phone_number", "").strip()
-        if phone:
-            phone_pattern = r'^(\+?1[-.\s]?)?(\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4})|(\+[1-9]\d{0,3}[-.\s]?(\(?[0-9]{1,4}\)?[-.\s]?){1,5}[0-9]{1,4})$'
-            
-            # Remove common formatting characters for validation
-            clean_phone = re.sub(r'[^\d+]', '', phone)
-            
-            if not re.match(phone_pattern, phone) or len(clean_phone) < 10 or len(clean_phone) > 15:
-                self.banned_phone = True
-                yield rx.set_focus("phone_number")
+        # LinkedIn URL validation
+        linkedin_url = form_data.get("linkedin_url", "").strip()
+        if linkedin_url:
+            # Basic LinkedIn URL validation
+            linkedin_pattern = r'^https?://(www\.)?linkedin\.com/(in|company)/.+$'
+
+            if not re.match(linkedin_pattern, linkedin_url):
+                self.banned_linkedin = True
+                yield rx.set_focus("linkedin_url")
                 return
-            
-            self.banned_phone = False
+
+            self.banned_linkedin = False
 
         # Email domain validation
         banned_domains = [
@@ -176,13 +180,22 @@ class QuoteFormState(rx.State):
             notes_content = f"""
 Name: {form_data.get("first_name", "")} {form_data.get("last_name", "")}
 Business Email: {form_data.get("email", "")}
-Phone Number: {form_data.get("phone_number", "")}
+LinkedIn URL: {form_data.get("linkedin_url", "")}
 Job Title: {form_data.get("job_title", "")}
 Company Name: {form_data.get("company_name", "")}
 Number of Employees: {self.num_employees}
 Internal Tools to Build: {form_data.get("internal_tools", "")}
 How they heard about Reflex: {self.referral_source}"""
 
+            # Send to PostHog for all submissions
+            yield QuoteFormState.send_demo_event(form_data)
+
+            # Check if it's a small company
+            if self.is_small_company():
+                yield ThankYouDialogState.push(True)
+                return
+
+            # For larger companies, redirect to calendar booking
             params = {
                 "email": form_data.get("email", ""),
                 "name": f"{form_data.get('first_name', '')} {form_data.get('last_name', '')}",
@@ -192,9 +205,8 @@ How they heard about Reflex: {self.referral_source}"""
             query_string = urllib.parse.urlencode(params)
             cal_url = f"{CAL_REQUEST_DEMO_URL}?{query_string}"
 
-            yield QuoteFormState.send_demo_event(form_data)
-
             return rx.redirect(cal_url)
+
 
     @rx.event(background=True)
     async def send_demo_event(self, form_data: dict[str, Any]):
@@ -206,7 +218,7 @@ How they heard about Reflex: {self.referral_source}"""
                 first_name=first_name,
                 last_name=last_name,
                 company_email=form_data.get("email", ""),
-                phone_number=form_data.get("phone_number", ""),
+                linkedin_url=form_data.get("linkedin_url", ""),  # Updated from phone_number
                 job_title=form_data.get("job_title", ""),
                 company_name=form_data.get("company_name", ""),
                 num_employees=self.num_employees,
@@ -264,22 +276,21 @@ def select_field(
     state_var: str = "",
 ):
     """Helper for creating custom select fields."""
+
+    def create_select_item(option, state_var):
+        return select_item(
+            content=(
+                option,
+                lambda: QuoteFormState.set_select_value(state_var, option),
+            ),
+            size="sm",
+            variant="selectable",
+            class_name="w-full justify-start px-4 py-2 hover:bg-slate-2 rounded-md",
+        )
+
     # Create scroll area with selectable options
     scroll_content = rx.box(
-        *[
-            select_item(
-                content=(
-                    option,
-                    lambda opt=option, var=state_var: QuoteFormState.set_select_value(
-                        var, opt
-                    ),
-                ),
-                size="sm",
-                variant="selectable",
-                class_name="w-full justify-start px-4 py-2 hover:bg-slate-2 rounded-md",
-            )
-            for option in options
-        ],
+        *[create_select_item(option, state_var) for option in options],
         class_name="!pt-0 !mt-0 !max-h-[15rem] bg-slate-1 border border-slate-5 rounded-lg shadow-lg py-0 overflow-y-scroll w-full",
     )
 
@@ -306,6 +317,47 @@ def textarea_field(label: str, name: str, placeholder: str, required: bool = Fal
         class_name="w-full px-3 py-2 font-medium text-slate-12 text-sm placeholder:text-slate-9 border border-slate-5 bg-slate-1 focus:shadow-[0px_0px_0px_2px_var(--c-violet-4)] rounded-lg focus:border-violet-8 focus:outline-none bg-transparent min-h-[100px] resize-y transition-colors",
     )
     return form_field(label, textarea_component, required)
+
+
+def thank_you_modal() -> rx.Component:
+    """Thank you modal for small companies."""
+
+    return rx.dialog.root(
+        rx.dialog.content(
+            rx.box(
+                rx.box(
+                    rx.text(
+                        "Thank You for Your Interest!",
+                        class_name="text-2xl font-semibold text-slate-12 font-sans",
+                    ),
+                    rx.dialog.close(
+                        button(
+                            rx.icon("x", class_name="!text-slate-9"),
+                            variant="transparent",
+                            size="icon-sm",
+                            type="button",
+                            class_name="focus:outline-none",
+                            on_click=ThankYouDialogState.set_value(False)
+
+                        ),
+                    ),
+                    class_name="flex flex-row items-center gap-2 justify-between w-full",
+                ),
+                rx.text(
+                    "We've received your submission and our team will get back to you soon. We appreciate your interest in Reflex!",
+                    class_name="text-slate-9 font-medium text-sm",
+                ),
+                class_name="flex flex-col w-full gap-y-4"
+            ),
+            class_name="w-full",
+            on_interact_outside=ThankYouDialogState.set_value(False),
+            on_escape_key_down=ThankYouDialogState.set_value(False),
+
+        ),
+        open=ThankYouDialogState.value
+    )
+
+
 
 
 def custom_quote_form() -> rx.Component:
@@ -394,35 +446,36 @@ def custom_quote_form() -> rx.Component:
                         ),
                         class_name="flex-row flex gap-x-2 mb-6",
                     ),
+                    # LinkedIn field (replacing phone number)
                     rx.cond(
-                        QuoteFormState.banned_phone,
+                        QuoteFormState.banned_linkedin,
                         rx.box(
                             rx.el.div(
                                 rx.text(
-                                    "Phone number",
+                                    "LinkedIn profile URL",
                                     class_name="text-slate-11 text-sm font-medium mb-2",
                                 ),
                                 rx.text(
-                                    "Invalid phone number format!",
+                                    "Invalid LinkedIn URL format!",
                                     class_name="text-red-8 text-sm font-medium mb-2",
                                 ),
                                 class_name="flex flex-row items-center justify-between w-full",
                             ),
                             rx.el.input(
-                                placeholder="Please enter a valid phone number",
-                                name="phone_number",
-                                type="tel",
+                                placeholder="Please enter a valid LinkedIn URL",
+                                name="linkedin_url",
+                                type="url",
                                 required=True,
                                 class_name="box-border w-full border-2 border-red-5 bg-slate-1 px-6 pr-8 border rounded-[0.625rem] h-[2.25rem] font-medium text-slate-12 text-sm placeholder:text-slate-9 outline-none focus:outline-none caret-slate-12 peer pl-2.5 disabled:cursor-not-allowed disabled:border disabled:border-slate-5 disabled:!bg-slate-3 disabled:text-slate-8 disabled:placeholder:text-slate-8",
                             ),
                             class_name="mb-6",
                         ),
                         text_input_field(
-                            "Phone number",
-                            "phone_number",
-                            "(555) 123-4567",
+                            "LinkedIn profile URL",
+                            "linkedin_url",
+                            "https://linkedin.com/in/your-profile",
                             required=True,
-                            input_type="tel",
+                            input_type="url",
                         ),
                     ),
                     # Project Details
@@ -437,7 +490,7 @@ def custom_quote_form() -> rx.Component:
                         select_field(
                             "Number of employees",
                             "num_employees",
-                            ["1-10", "11-50", "51-100", "101-500", "500+"],
+                            ["1", "2-5", "6-10", "11-50", "51-100", "101-500", "500+"],  # Updated options
                             "500+",
                             required=True,
                             state_var="num_employees",
@@ -469,11 +522,14 @@ def custom_quote_form() -> rx.Component:
                     ),
                     class_name="w-full space-y-6",
                     on_submit=QuoteFormState.submit,
+                    reset_on_submit=True,
                 ),
                 class_name="relative bg-slate-1 p-6 sm:p-8 rounded-2xl border-2 border-[--violet-9] shadow-lg w-full max-w-md mx-auto lg:max-w-none lg:mx-0",
             ),
             class_name="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto items-start",
         ),
+        # Thank you modal
+        thank_you_modal(),
         class_name="py-12 sm:py-20 px-4 sm:px-8",
     )
 
@@ -481,14 +537,6 @@ def custom_quote_form() -> rx.Component:
 def header() -> rx.Component:
     return rx.box(
         custom_quote_form(),
-        # rx.el.h1(
-        #     "Get a custom quote",
-        #     class_name="gradient-heading font-semibold text-3xl lg:text-5xl text-center",
-        # ),
-        # rx.el.p(
-        #     "The complete platform for building and deploying your apps.",
-        #     class_name="text-slate-9 text-md lg:text-xl font-semibold text-center",
-        # ),
         class_name="flex flex-col gap-2 justify-center items-center max-w-[64.19rem] 2xl:border-x border-slate-4 w-full -mb-10 "
         + rx.cond(HostingBannerState.show_banner, "pt-[11rem]", "pt-[12rem]"),
     )
