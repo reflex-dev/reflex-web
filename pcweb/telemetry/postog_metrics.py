@@ -29,7 +29,7 @@ class DemoEvent(PosthogEvent):
     first_name: str
     last_name: str
     company_email: str
-    phone_number: str
+    linkedin_url: str
     job_title: str
     company_name: str
     num_employees: str
