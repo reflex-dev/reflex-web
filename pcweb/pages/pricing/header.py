@@ -118,7 +118,6 @@ class QuoteFormState(rx.State):
     referral_source: str = "Google Search"
     banned_email: bool = False
     banned_linkedin: bool = False
-    show_thank_you: bool = False
 
     def set_select_value(self, field: str, value: str):
         """Update the selected value for a given field."""
@@ -193,8 +192,6 @@ How they heard about Reflex: {self.referral_source}"""
 
             # Check if it's a small company
             if self.is_small_company():
-                # Show thank you message instead of redirecting to calendar
-                self.show_thank_you = True
                 yield ThankYouDialogState.push(True)
                 return
 
@@ -210,10 +207,6 @@ How they heard about Reflex: {self.referral_source}"""
 
             return rx.redirect(cal_url)
 
-    @rx.event
-    def close_thank_you(self):
-        """Close the thank you modal."""
-        self.show_thank_you = False
 
     @rx.event(background=True)
     async def send_demo_event(self, form_data: dict[str, Any]):
