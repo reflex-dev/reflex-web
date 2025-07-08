@@ -89,10 +89,7 @@ def create_meta_tags(title: str, description: str, image: str, url: str = None) 
     page_url = url if url else REFLEX_DOMAIN_URL
     
     if image and not image.startswith(('http://', 'https://')):
-        if image.startswith('/'):
-            image_url = f"https://reflex.dev{image}"
-        else:
-            image_url = f"https://reflex.dev/{image}"
+        image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
     else:
         image_url = image
     
