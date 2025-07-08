@@ -11,6 +11,5 @@ config = rx.Config(
     ],
     show_build_with_reflex=False,
     telemetry_enabled=False,
-    tailwind=tw_config,
-    plugins=[rx.plugins.TailwindV3Plugin()],
+    plugins=[rx.plugins.TailwindV3Plugin(tw_config)],
 )
