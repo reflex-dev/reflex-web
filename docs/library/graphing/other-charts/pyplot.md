@@ -112,13 +112,11 @@ class PyplotState(rx.State):
     @rx.var
     def fig_light(self) -> Figure:
         fig = create_plot("light", self.plot_data, self.scale)
-        plt.close(fig)
         return fig
     
     @rx.var
     def fig_dark(self) -> Figure:
         fig = create_plot("dark", self.plot_data, self.scale)
-        plt.close(fig)
         return fig
 
 def pyplot_example():
