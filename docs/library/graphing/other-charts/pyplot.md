@@ -5,7 +5,7 @@ components:
 
 ```python exec
 import reflex as rx
-from custom_components.reflex_pyplot import pyplot
+from reflex_pyplot import pyplot
 import numpy as np
 import random
 import matplotlib.pyplot as plt
@@ -32,7 +32,7 @@ To display a Matplotlib plot in your app, you can use the `pyplot` component. Pa
 ```python demo exec
 import matplotlib.pyplot as plt
 import reflex as rx
-from custom_components.reflex_pyplot import pyplot
+from reflex_pyplot import pyplot
 import numpy as np
 
 def create_contour_plot():
@@ -70,7 +70,7 @@ import random
 from typing import Literal
 import matplotlib.pyplot as plt
 import reflex as rx
-from custom_components.reflex_pyplot import pyplot
+from reflex_pyplot import pyplot
 import numpy as np
 
 

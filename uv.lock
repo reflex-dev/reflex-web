@@ -1873,14 +1873,14 @@ wheels = [
 
 [[package]]
 name = "reflex-pyplot"
-version = "0.2.0"
+version = "0.2.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "matplotlib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/af/1f/a9171ea2d8ea90ac0f0c9d5100260c3edda34388f87cce2ba8a9d545920c/reflex_pyplot-0.2.0.tar.gz", hash = "sha256:b79451eac7f35c61c3ca7d444475344459166a764043200c086e224ec3a9009b", size = 72914, upload_time = "2025-07-03T16:47:35.935Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6f/fd/e80f57f0f25612e2b2f72908b8ff639d5ee32d472f6e68385e982fcafa06/reflex_pyplot-0.2.1.tar.gz", hash = "sha256:965d035fbc13f7baef9f173c0ee120fe1192ba2e5fee66be7726174c0ecb4004", size = 72924, upload_time = "2025-07-09T18:37:11.516Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d3/64/4e7a150fcaec5f5c1621f307380d6130fb7f7cbf4c4c9b9053871c55070c/reflex_pyplot-0.2.0-py3-none-any.whl", hash = "sha256:580fd87136629aac321209723b56375d815ef9d23a9a6bdc39e8936c61d653ed", size = 1914, upload_time = "2025-07-03T16:47:34.204Z" },
+    { url = "https://files.pythonhosted.org/packages/da/1c/6afe1c37faa920b3b4bed3407dabbbc8d2f765eff62fc9d9de415f4e9752/reflex_pyplot-0.2.1-py3-none-any.whl", hash = "sha256:69e71d6ae063ada0b5fe073480d4c32b9271c1dd48e2263361f24a7cb7b183f5", size = 1827, upload_time = "2025-07-09T18:37:10.317Z" },
 ]
 
 [[package]]
@@ -1929,7 +1929,7 @@ requires-dist = [
     { name = "reflex", git = "https://github.com/reflex-dev/reflex?rev=main" },
     { name = "reflex-enterprise", specifier = "==0.3.1a1" },
     { name = "reflex-image-zoom", specifier = ">=0.0.2" },
-    { name = "reflex-pyplot", specifier = ">=0.2.0" },
+    { name = "reflex-pyplot", specifier = ">=0.2.1" },
     { name = "replicate", specifier = "==1.0.6" },
     { name = "requests", specifier = ">=2.32.3" },
 ]
