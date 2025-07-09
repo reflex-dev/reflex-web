@@ -8,7 +8,7 @@ import flexdown
 from flexdown.document import Document
 
 # External Components
-from reflex_pyplot import pyplot as pyplot
+from custom_components.reflex_pyplot import pyplot as pyplot
 
 from pcweb.flexdown import xd
 from pcweb.pages.docs.component import multi_docs
