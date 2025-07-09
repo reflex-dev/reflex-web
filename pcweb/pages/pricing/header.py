@@ -1,5 +1,4 @@
 import re
-import urllib.parse
 from typing import Any, Literal
 
 import reflex as rx
@@ -8,7 +7,6 @@ from reflex.experimental import ClientStateVar
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
-from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.pages.framework.views.companies import pricing_page_companies
 from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
 
@@ -123,10 +121,6 @@ class QuoteFormState(rx.State):
         """Update the selected value for a given field."""
         setattr(self, field, value)
 
-    def is_small_company(self) -> bool:
-        """Check if company has 10 or fewer employees."""
-        return self.num_employees in ["1", "2-5", "6-10"]
-
     @rx.event
     def submit(self, form_data: dict[str, Any]):
         # LinkedIn URL validation
@@ -190,22 +184,9 @@ How they heard about Reflex: {self.referral_source}"""
             # Send to PostHog for all submissions
             yield QuoteFormState.send_demo_event(form_data)
 
-            # Check if it's a small company
-            if self.is_small_company():
-                yield ThankYouDialogState.push(True)
-                return
-
-            # For larger companies, redirect to calendar booking
-            params = {
-                "email": form_data.get("email", ""),
-                "name": f"{form_data.get('first_name', '')} {form_data.get('last_name', '')}",
-                "notes": notes_content,
-            }
-
-            query_string = urllib.parse.urlencode(params)
-            cal_url = f"{CAL_REQUEST_DEMO_URL}?{query_string}"
-
-            return rx.redirect(cal_url)
+            # Show thank you modal for all submissions
+            yield ThankYouDialogState.push(True)
+            return
 
 
     @rx.event(background=True)
