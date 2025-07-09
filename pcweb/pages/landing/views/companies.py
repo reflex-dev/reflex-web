@@ -167,12 +167,14 @@ def company_card(name: str, id: str) -> rx.Component:
                 rx.image(
                     src=f"/landing/companies/light/{name}.svg",
                     class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:hidden",
+                    loading="lazy",
                     alt=f"{name} logo",
                 ),
                 # Dark
                 rx.image(
                     src=f"/landing/companies/dark/{name}.svg",
                     class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:block hidden",
+                    loading="lazy",
                     alt=f"{name} logo",
                 ),
                 class_name=(

@@ -9,13 +9,13 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
             rx.image(
                 src=f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
                 loading="lazy",
-                alt="Image preview of " + name,
+                alt=f"Image preview of {name}",
                 class_name="object-contain object-center h-full w-full dark:hidden",
             ),
             rx.image(
                 src=f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
                 loading="lazy",
-                alt="Image preview of " + name,
+                alt=f"Image preview of {name}",
                 class_name="object-contain object-center h-full w-full dark:block hidden",
             ),
             rx.box(

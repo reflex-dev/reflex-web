@@ -6,14 +6,14 @@ def card(company: str, text: str, class_name: str = "") -> rx.Component:
         # Top-Left corner company logo
         # Light
         rx.image(
-            src="/customers/light/{company}/{company}_top.svg",
+            src=f"/customers/light/{company}/{company}_top.svg",
             alt=f"{company} logo",
             loading="lazy",
             class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:hidden",
         ),
         # Dark
         rx.image(
-            src="/customers/dark/{company}/{company}_top.svg",
+            src=f"/customers/dark/{company}/{company}_top.svg",
             alt=f"{company} logo",
             loading="lazy",
             class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:block hidden",
