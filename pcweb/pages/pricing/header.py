@@ -184,6 +184,7 @@ How they heard about Reflex: {self.referral_source}"""
             # Send to PostHog for all submissions
             yield QuoteFormState.send_demo_event(form_data)
 
+            yield ThankYouDialogState.push(True)
             yield rx.redirect("/pricing?lead=1")
             return
 
