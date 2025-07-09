@@ -7,13 +7,16 @@ def component_card(name: str, link: str, section: str) -> rx.Component:
     return rx.link(
         rx.box(
             rx.image(
-                src=rx.color_mode_cond(
-                    f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
-                    f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
-                ),
+                src=f"/components_previews/{section.lower()}/light/{name.lower()}.svg",
                 loading="lazy",
                 alt="Image preview of " + name,
-                class_name="object-contain object-center h-full w-full",
+                class_name="object-contain object-center h-full w-full dark:hidden",
+            ),
+            rx.image(
+                src=f"/components_previews/{section.lower()}/dark/{name.lower()}.svg",
+                loading="lazy",
+                alt="Image preview of " + name,
+                class_name="object-contain object-center h-full w-full dark:block hidden",
             ),
             rx.box(
                 rx.text(

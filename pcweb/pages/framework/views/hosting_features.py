@@ -21,13 +21,16 @@ def graphic_card() -> rx.Component:
             class_name="pointer-events-none w-auto h-auto -rotate-90 shrink-0 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]",
         ),
         rx.image(
-            src=rx.color_mode_cond(
-                light="/landing/hosting_features/light/deploy.svg",
-                dark="/landing/hosting_features/dark/deploy.svg",
-            ),
+            src="/landing/hosting_features/light/deploy.svg",
             alt="Hosting graphic",
             loading="lazy",
-            class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2]",
+            class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2] dark:hidden",
+        ),
+        rx.image(
+            src="/landing/hosting_features/dark/deploy.svg",
+            alt="Hosting graphic",
+            loading="lazy",
+            class_name="w-[7.875rem] h-[8.5rem] shrink-0 z-[2] dark:block hidden",
         ),
         class_name="flex justify-center items-center relative pointer-events-none h-full w-full lg:my-0 my-10",
     )

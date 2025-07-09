@@ -4,24 +4,34 @@ import reflex as rx
 def card(company: str, text: str, class_name: str = "") -> rx.Component:
     return rx.link(
         # Top-Left corner company logo
+        # Light
         rx.image(
-            src=rx.color_mode_cond(
-                light=f"/customers/light/{company}/{company}_top.svg",
-                dark=f"/customers/dark/{company}/{company}_top.svg",
-            ),
+            src="/customers/light/{company}/{company}_top.svg",
             alt=f"{company} logo",
             loading="lazy",
-            class_name="absolute top-10 left-10 z-[2] max-h-[32px]",
+            class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:hidden",
+        ),
+        # Dark
+        rx.image(
+            src="/customers/dark/{company}/{company}_top.svg",
+            alt=f"{company} logo",
+            loading="lazy",
+            class_name="absolute top-10 left-10 z-[2] max-h-[32px] dark:block hidden",
         ),
         # Center company logo
+        # Light
         rx.image(
-            rx.color_mode_cond(
-                light=f"/customers/light/{company}/{company}_middle.svg",
-                dark=f"/customers/dark/{company}/{company}_middle.svg",
-            ),
+            src=f"/customers/light/{company}/{company}_middle.svg",
             alt=f"{company} small logo",
             loading="lazy",
-            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px]",
+            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:hidden",
+        ),
+        # Dark
+        rx.image(
+            src=f"/customers/dark/{company}/{company}_middle.svg",
+            alt=f"{company} small logo",
+            loading="lazy",
+            class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:block hidden",
         ),
         # Wave pattern
         rx.html(
@@ -102,14 +112,19 @@ def _card(company: str, is_company: bool = True, **kwarg) -> rx.Component:
         # Center company logo
         rx.cond(
             is_company,
-            rx.image(
-                rx.color_mode_cond(
-                    light=f"/customers/light/{company}/{company}_middle.svg",
-                    dark=f"/customers/dark/{company}/{company}_middle.svg",
+            rx.fragment(
+                rx.image(
+                    f"/customers/light/{company}/{company}_middle.svg",
+                    alt=f"{company} small logo",
+                    loading="lazy",
+                    class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:hidden",
                 ),
-                alt=f"{company} small logo",
-                loading="lazy",
-                class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px]",
+                rx.image(
+                    f"/customers/dark/{company}/{company}_middle.svg",
+                    alt=f"{company} small logo",
+                    loading="lazy",
+                    class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[2] max-h-[88px] dark:block hidden",
+                ),
             ),
             rx.image(
                 **kwarg,
