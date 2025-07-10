@@ -70,7 +70,7 @@ async def send_data_to_slack(event_instance: DemoEvent):
     """
     slack_payload = {
         "lookingToBuild": event_instance.internal_tools,
-        "businessName": event_instance.company_name,
+        "businessEmail": event_instance.company_email,
         "howDidYouHear": event_instance.referral_source,
         "linkedinUrl": event_instance.linkedin_url,
         "jobTitle": event_instance.job_title,
