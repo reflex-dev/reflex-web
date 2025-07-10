@@ -12,6 +12,10 @@ from pcweb.pages.docs import enterprise
 
 `rxe.mantine.combobox` - Flexible dropdown with custom target, dropdown, and options structure.
 
+```md alert info
+# The examples below use `rx.select` as a working alternative that provides similar functionality.
+```
+
 ## Basic Usage
 
 ```python demo exec toggle

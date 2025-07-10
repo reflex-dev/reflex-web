@@ -60,13 +60,13 @@ def dynamic_autocomplete():
     )
 ```
 
-## With Validation
+## With Error State
 
 ```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
-def validated_autocomplete():
+def error_state_autocomplete():
     return rxe.mantine.autocomplete(
         data=["JavaScript", "TypeScript", "Python", "Java"],
         error="Example validation error",
@@ -88,19 +88,6 @@ def loading_autocomplete():
     )
 ```
 
-## With Error
-
-```python demo exec toggle
-import reflex as rx
-import reflex_enterprise as rxe
-
-def error_autocomplete():
-    return rxe.mantine.autocomplete(
-        data=["JavaScript", "TypeScript", "Python"],
-        placeholder="Type a language",
-        error="Example error message",
-    )
-```
 
 ## Disabled
 
