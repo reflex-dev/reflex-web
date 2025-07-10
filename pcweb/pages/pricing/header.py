@@ -205,6 +205,7 @@ How they heard about Reflex: {self.referral_source}"""
             num_employees=self.num_employees,
             internal_tools=form_data.get("internal_tools", ""),
             referral_source=self.referral_source,
+            phone_number=form_data.get("phone_number", ""),
         )
         
         # Send to PostHog (existing)
@@ -466,6 +467,13 @@ def custom_quote_form() -> rx.Component:
                             required=True,
                             input_type="url",
                         ),
+                    ),
+                    text_input_field(
+                        "Phone number (optional)",
+                        "phone_number",
+                        "+1 (555) 123-4567",
+                        required=False,
+                        input_type="tel",
                     ),
                     # Project Details
                     textarea_field(
