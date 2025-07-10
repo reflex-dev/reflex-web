@@ -285,55 +285,6 @@ from reflex_cli.v2.cli import login, logout, deploy
 
 process_command(hosting_cli, "reflex cloud")
 
-@click.command()
-@click.option(
-    "--loglevel",
-    type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]),
-    default="INFO",
-    help="The log level to use.",
-)
-def login_cmd(loglevel):
-    """Authenticate with experimental Reflex hosting service."""
-    pass
-
-@click.command()
-@click.option(
-    "--loglevel", 
-    type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]),
-    default="INFO",
-    help="The log level to use.",
-)
-def logout_cmd(loglevel):
-    """Log out of access to Reflex hosting service."""
-    pass
-
-@click.command()
-@click.option("--app-name", help="The name of the app.")
-@click.option("--app-id", help="The ID of the app.")
-@click.option("--region", help="The region to deploy to. Use `reflex cloud regions` to see available regions.")
-@click.option("--env", "envs", multiple=True, help="The environment variables to set: <key>=<value>.")
-@click.option("--vmtype", help="The VM type to allocate. Use `reflex cloud vmtypes` to see available VM types.")
-@click.option("--hostname", help="The hostname to use for the frontend.")
-@click.option("--interactive/--no-interactive", default=True, help="Whether to use interactive mode.")
-@click.option("--envfile", help="The path to an env file to use. Will override any envs set manually.")
-@click.option("--project", help="The project to deploy to.")
-@click.option("--project-name", help="The name of the project.")
-@click.option("--token", help="The authentication token.")
-@click.option("--config-path", default="cloud.yml", help="The path to the config file.")
-@click.option(
-    "--loglevel",
-    type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]),
-    default="INFO",
-    help="The log level to use.",
-)
-def deploy_cmd(**kwargs):
-    """Deploy the app to the Reflex hosting service."""
-    pass
-
-# Process core commands
-process_command(login_cmd, "reflex login")
-process_command(logout_cmd, "reflex logout") 
-process_command(deploy_cmd, "reflex deploy")
 
 
 
