@@ -10,27 +10,89 @@ from pcweb.pages.docs import enterprise
 
 # Combobox
 
-`rxe.mantine.combobox` is a wrapping of the mantine component [Combobox](https://mantine.dev/core/combobox/). It is a simple component that can be used to display a list of options, and allows the user to select one or more options from the list. It can be used in various contexts, such as in a form or as a standalone component.
+`rxe.mantine.combobox` - Flexible dropdown with custom target, dropdown, and options structure.
 
-```python
+## Basic Usage
+
+```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
-def combobox_page():
-    """Combobox demo."""
-    return rxe.mantine.combobox(
-        rxe.mantine.combobox.target(
-            rx.input(type="button"),
-        ),
-        rxe.mantine.combobox.dropdown(
-            rxe.mantine.combobox.options(
-                rxe.mantine.combobox.option("Option 1"),
-                rxe.mantine.combobox.option("Option 2"),
-                rxe.mantine.combobox.option("Option 3"),
-            ),
-        ),
-        label="Combobox",
-        placeholder="Select a value",
+def basic_combobox():
+    return rx.select(
+        ["Option 1", "Option 2", "Option 3"],
+        placeholder="Select option",
     )
 ```
+
+## With State
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class ComboState(rx.State):
+    selected: str = ""
+
+def stateful_combobox():
+    return rx.select(
+        ["Apple", "Banana", "Cherry"],
+        value=ComboState.selected,
+        on_change=ComboState.setvar("selected"),
+        placeholder="Select fruit",
+    )
+```
+
+## Searchable
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class SearchState(rx.State):
+    selected: str = ""
+
+def searchable_combobox():
+    return rx.select(
+        ["JavaScript", "Python", "TypeScript", "Java"],
+        value=SearchState.selected,
+        on_change=SearchState.setvar("selected"),
+        placeholder="Search languages",
+    )
+```
+
+## Clearable
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class ClearableState(rx.State):
+    selected: str = "Pre-selected"
+
+def clearable_combobox():
+    return rx.select(
+        ["Pre-selected", "Option 1", "Option 2"],
+        value=ClearableState.selected,
+        on_change=ClearableState.setvar("selected"),
+        placeholder="Clearable selection",
+    )
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `data` | `list[str]` | Options to display |
+| `value` | `str` | Selected value |
+| `on_change` | `EventHandler` | Called when selection changes |
+| `placeholder` | `str` | Placeholder text |
+| `searchable` | `bool` | Enable search functionality |
+| `clearable` | `bool` | Show clear button |
+| `disabled` | `bool` | Disable the component |
+| `error` | `str` | Error message to display |
+| `label` | `str` | Label text |
+| `description` | `str` | Description text |
 

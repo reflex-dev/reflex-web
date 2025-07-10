@@ -513,21 +513,11 @@ The following props are available for `column_defs` as well as many others that 
 
 
 
-## Functionality you need is not available/working in Reflex
+## Grid API
 
-All AGGrid options found in this [documentation](https://www.ag-grid.com/react-data-grid/reference/) are mapped in rxe.ag_grid, but some features might not have been fully tested, due to the sheer number of existing features in the underlying AG Grid library.
+Access AG Grid methods using `rxe.ag_grid.api()` with matching component ID.
 
-If one of the ag_grid props does not import the expected module, you can pass it manually via the props `community_modules` or `enterprise_modules`, which expect a `set[str]` of the module names. You will get a warning in the browser console if a module is missing, so you can check there if a feature is not working as expected.
-
-You can also report the missing module on our discord or GitHub issues page of the main Reflex repository.
-
-Best practice is to create a single instance of `ag_grid.api()` with the same `id` as the `id` of the `ag_grid` component that is to be referenced, `"ag_grid_basic_row_selection"` in this first example.
-
-The example below uses the `select_all()` and `deselect_all()` methods of the AG Grid API to select and deselect all rows in the grid. This method is not available in Reflex directly. Check out this [documentation](https://www.ag-grid.com/react-data-grid/grid-api/#reference-selection-selectAll) to see what the methods look like in the AG Grid docs.
-
-```md alert info
-# Ensure that the docs are set to React tab in AG Grid
-```
+### Selection API
 
 ```python demo exec toggle
 import reflex as rx
@@ -538,129 +528,223 @@ df = pd.read_csv(
     "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
 )
 
-column_defs = [
-    {"field": "country", "checkboxSelection": True},
-    {"field": "pop"},
-    {"field": "continent"},
-]
-
-def ag_grid_api_simple():
-    my_api = rxe.ag_grid.api(id="ag_grid_basic_row_selection")
-    return rx.vstack(
-            rxe.ag_grid(
-            id="ag_grid_basic_row_selection",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-            row_selection="single",
-            width="100%",
-            height="40vh",
-        ),
-        rx.button("Select All", on_click=my_api.select_all()),
-        rx.button("Deselect All", on_click=my_api.deselect_all()),
-        spacing="4",
-        width="100%",
-    )
-```
-
-
-The react code for the `select_all()` event handler is `selectAll = (source?: SelectionEventSourceType) => void;`. 
-
-To use this in Reflex as you can see, it should be called in snake case rather than camel case. The `void` means it doesn't return anything. The `source?` indicates that it takes an optional `source` argument.
-
-
-```md alert info
-# Another way to use the AG Grid API
-It is also possible to use the AG Grid API directly with the event trigger (`on_click`) of the component. This removes the need to create a variable `my_api`. This is shown in the example below. It is necessary to use the `id` of the `ag_grid` component that is to be referenced.
-
-```python
-rx.button("Select all", on_click=rxe.ag_grid.api(id="ag_grid_basic_row_selection").select_all()),
-```
-
-### More examples
-
-The following example lets a user [export the data as a csv](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-exportDataAsCsv) and [adjust the size of columns to fit the available horizontal space](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-columnSizing-sizeColumnsToFit). (Try resizing the screen and then clicking the resize columns button)
-
-
-```python demo exec toggle
-import reflex as rx
-import reflex_enterprise as rxe
-import pandas as pd
-
-df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
-)
-
-column_defs = [
-    {"field": "country", "checkboxSelection": True},
-    {"field": "pop"},
-    {"field": "continent"},
-]
-
-def ag_grid_api_simple2():
-    my_api = rxe.ag_grid.api(id="ag_grid_export_and_resize")
-    return rx.vstack(
-            rxe.ag_grid(
-            id="ag_grid_export_and_resize",
-            row_data=df.to_dict("records"),
-            column_defs=column_defs,
-            width="100%",
-            height="40vh",
-        ),
-        rx.button("Export", on_click=my_api.export_data_as_csv()),
-        rx.button("Resize Columns", on_click=my_api.size_columns_to_fit()),
-        spacing="4",
-        width="100%",
-    )
-```
-
-The react code for both of these is shown below. The key point to see is that both of these functions return `void` and therefore does not return anything.
-
-`exportDataAsCsv = (params?: CsvExportParams) => void;`
-
-`sizeColumnsToFit = (paramsOrGridWidth?: ISizeColumnsToFitParams  |  number) => void;`
-
-
-### Example with a Return Value
-
-This example shows how to get the data from `ag_grid` as a [csv on the backend](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-getDataAsCsv). The data that was passed to the backend is then displayed as a toast with the data.
-
-```python
-import reflex as rx
-import reflex_enterprise as rxe
-import pandas as pd
-
-class AGGridStateAPI(rx.State):
-    def handle_get_data(self, data: str):
-        yield rx.toast(f"Got CSV data: {data}")
-
-df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
-)
-
-column_defs = [
-    \{"field": "country", "checkboxSelection": True\},
-    \{"field": "pop"\},
-    \{"field": "continent"\},
-]
-
-def ag_grid_api_argument():
-    my_api = rxe.ag_grid.api(id="ag_grid_get_data_as_csv")
+def selection_api():
+    api = rxe.ag_grid.api(id="selection_grid")
     return rx.vstack(
         rxe.ag_grid(
-            id="ag_grid_get_data_as_csv",
+            id="selection_grid",
             row_data=df.to_dict("records"),
-            column_defs=column_defs,
+            column_defs=[
+                {"field": "country", "checkboxSelection": True},
+                {"field": "pop"},
+                {"field": "continent"},
+            ],
+            row_selection="multiple",
             width="100%",
             height="40vh",
         ),
-        rx.button("Get CSV data on backend", on_click=my_api.get_data_as_csv(callback=AGGridStateAPI.handle_get_data)),
+        rx.hstack(
+            rx.button("Select All", on_click=api.select_all()),
+            rx.button("Deselect All", on_click=api.deselect_all()),
+            spacing="2",
+        ),
         spacing="4",
-        width="100%",
     )
 ```
 
-The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
+### Export & Resize API
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+import pandas as pd
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+def export_resize_api():
+    api = rxe.ag_grid.api(id="export_grid")
+    return rx.vstack(
+        rxe.ag_grid(
+            id="export_grid",
+            row_data=df.to_dict("records"),
+            column_defs=[
+                {"field": "country"},
+                {"field": "pop"},
+                {"field": "continent"},
+            ],
+            width="100%",
+            height="40vh",
+        ),
+        rx.hstack(
+            rx.button("Export CSV", on_click=api.export_data_as_csv()),
+            rx.button("Resize Columns", on_click=api.size_columns_to_fit()),
+            spacing="2",
+        ),
+        spacing="4",
+    )
+```
+
+### API with Callbacks
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+import pandas as pd
+
+class GridAPIState(rx.State):
+    @rx.event
+    def handle_csv_data(self, data: str):
+        yield rx.toast(f"CSV data received: {len(data)} characters")
+
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv"
+)
+
+def callback_api():
+    api = rxe.ag_grid.api(id="callback_grid")
+    return rx.vstack(
+        rxe.ag_grid(
+            id="callback_grid",
+            row_data=df.to_dict("records"),
+            column_defs=[
+                {"field": "country"},
+                {"field": "pop"},
+                {"field": "continent"},
+            ],
+            width="100%",
+            height="40vh",
+        ),
+        rx.button(
+            "Get CSV Data", 
+            on_click=api.get_data_as_csv(callback=GridAPIState.handle_csv_data)
+        ),
+        spacing="4",
+    )
+```
+
+## Performance Optimization
+
+### Large Datasets
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+def large_dataset_grid():
+    # Generate large dataset
+    data = [
+        {"id": i, "name": f"Item {i}", "value": i * 10}
+        for i in range(1000)
+    ]
+    
+    return rxe.ag_grid(
+        id="large_dataset_grid",
+        row_data=data,
+        column_defs=[
+            {"field": "id", "width": 100},
+            {"field": "name", "width": 200},
+            {"field": "value", "width": 150},
+        ],
+        # Performance optimizations
+        row_buffer=10,
+        suppress_row_click_selection=True,
+        enable_cell_text_selection=False,
+        width="100%",
+        height="400px",
+    )
+```
+
+### Virtual Scrolling
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+def virtual_scrolling_grid():
+    data = [
+        {"row": i, "data": f"Row {i} data", "more": f"More {i}"}
+        for i in range(10000)
+    ]
+    
+    return rxe.ag_grid(
+        id="virtual_scrolling_grid",
+        row_data=data,
+        column_defs=[
+            {"field": "row"},
+            {"field": "data"},
+            {"field": "more"},
+        ],
+        # Enable virtual scrolling
+        row_model_type="infinite",
+        cache_block_size=100,
+        max_blocks_in_cache=10,
+        width="100%",
+        height="400px",
+    )
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Grid not rendering**
+- Check `row_data` and `column_defs` are properly formatted
+- Ensure component has explicit width and height
+
+**API methods not working**
+- Verify API instance ID matches grid component ID
+- Check browser console for missing module warnings
+
+**Performance issues with large data**
+- Use `row_buffer` to limit rendered rows
+- Enable virtual scrolling for 1000+ rows
+- Disable unnecessary features like text selection
+
+**Missing features**
+- Add required modules via `community_modules` or `enterprise_modules`
+- Check AG Grid documentation for module requirements
+
+### Module Loading
+
+```python
+# Manual module loading
+rxe.ag_grid(
+    # ... other props
+    community_modules={"ClientSideRowModelModule", "CsvExportModule"},
+    enterprise_modules={"SetFilterModule", "MenuModule"},
+)
+```
+
+### Performance Tips
+
+| Scenario | Optimization |
+|----------|-------------|
+| 1000+ rows | Use `row_model_type="infinite"` |
+| Frequent updates | Set `suppress_animation_frame=True` |
+| Large columns | Use `suppress_column_virtualisation=False` |
+| Mobile devices | Reduce `row_buffer` to 5-10 |
+
+## API Reference
+
+### Grid API Methods
+
+| Method | Description | Returns |
+|--------|-------------|---------|
+| `select_all()` | Select all rows | `void` |
+| `deselect_all()` | Deselect all rows | `void` |
+| `export_data_as_csv()` | Export grid data | `void` |
+| `get_data_as_csv(callback)` | Get CSV data | `string` |
+| `size_columns_to_fit()` | Resize columns to fit | `void` |
+
+### Performance Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `row_buffer` | `int` | Number of rows to render outside viewport |
+| `row_model_type` | `str` | Row model (`clientSide`, `infinite`, `serverSide`) |
+| `cache_block_size` | `int` | Rows per cache block |
+| `suppress_row_click_selection` | `bool` | Disable row selection on click |     
 
 

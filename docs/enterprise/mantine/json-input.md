@@ -4,28 +4,104 @@ title: JSON Input
 
 # JSON Input
 
-`rxe.mantine.json_input` is a component that allows you to input JSON data in a user-friendly way. It provides validation and formatting features to ensure that the JSON data is correctly structured.
+`rxe.mantine.json_input` - Input and validate JSON data with automatic formatting and syntax validation.
 
-## Example
+## Basic Usage
 
 ```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
-class JsonInputState(rx.State):
-    json_data: str = ''
+class JsonState(rx.State):
+    data: str = ""
 
-def json_input_example():
+def basic_json_input():
     return rxe.mantine.json_input(
-        id="json-input",
-        value=JsonInputState.json_data,
-        placeholder="Enter JSON data",
-        label="JSON Input",
-        description="Please enter valid JSON data.",
-        required=True,
-        size="md",
-        format_on_blur=True,
-        on_change=lambda value: JsonInputState.setvar("json_data", value),
-        width="300px",
+        value=JsonState.data,
+        on_change=JsonState.setvar("data"),
+        placeholder='{"key": "value"}',
     )
 ```
+
+## With Formatting
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class FormattedJsonState(rx.State):
+    data: str = '{"name": "John", "age": 30}'
+
+def formatted_json_input():
+    return rxe.mantine.json_input(
+        value=FormattedJsonState.data,
+        on_change=FormattedJsonState.setvar("data"),
+        format_on_blur=True,
+        placeholder="JSON will be formatted on blur",
+    )
+```
+
+## With Validation
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+import json
+
+class ValidatedJsonState(rx.State):
+    data: str = ""
+    error: str = ""
+
+    @rx.event
+    def validate(self, value: str):
+        self.data = value
+        try:
+            json.loads(value) if value else {}
+            self.error = ""
+        except json.JSONDecodeError as e:
+            self.error = f"Invalid JSON: {str(e)}"
+
+def validated_json_input():
+    return rxe.mantine.json_input(
+        value=ValidatedJsonState.data,
+        on_change=ValidatedJsonState.validate,
+        error=ValidatedJsonState.error,
+        placeholder="Enter valid JSON",
+    )
+```
+
+## Required Field
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class RequiredJsonState(rx.State):
+    data: str = ""
+
+def required_json_input():
+    return rxe.mantine.json_input(
+        value=RequiredJsonState.data,
+        on_change=RequiredJsonState.setvar("data"),
+        required=True,
+        label="Configuration",
+        placeholder="Required JSON field",
+    )
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `value` | `str` | JSON string value |
+| `on_change` | `EventHandler` | Called when value changes |
+| `placeholder` | `str` | Placeholder text |
+| `format_on_blur` | `bool` | Auto-format JSON on blur |
+| `required` | `bool` | Mark as required field |
+| `disabled` | `bool` | Disable the input |
+| `error` | `str` | Error message to display |
+| `label` | `str` | Label text |
+| `description` | `str` | Description text |
+| `size` | `str` | Input size (`xs`, `sm`, `md`, `lg`, `xl`) |

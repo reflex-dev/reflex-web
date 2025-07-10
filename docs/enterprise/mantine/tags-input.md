@@ -4,52 +4,145 @@ title: TagsInput
 
 # TagsInput
 
-`rxe.mantine.tags_input` is a wrapping of the mantine component [TagsInput](https://mantine.dev/core/tags-input/). It is an utility component that can be used to display a list of tags or labels. It can be used in various contexts, such as in a form or as a standalone component.
+`rxe.mantine.tags_input` - Add and manage tags with validation and suggestions.
 
 ```md alert info
-# You can use the props mentioned in the Mantine documentation, but they need to be passed in snake_case.
+# Props use snake_case format (e.g., `max_length` instead of `maxLength`).
 ```
 
-## Basic Example
+## Basic Usage
 
 ```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
-def tags_input_simple_page():
-    """TagsInput demo."""
+class TagsState(rx.State):
+    tags: list[str] = []
+
+def basic_tags_input():
     return rxe.mantine.tags_input(
-        placeholder="Enter tags",
-        label="Press Enter to ad a tag",
+        value=TagsState.tags,
+        on_change=TagsState.setvar("tags"),
+        placeholder="Press Enter to add tags",
     )
 ```
 
-## State Example
+## With Initial Values
 
 ```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
-class TagsInputState(rx.State):
-    """State for the TagsInput component."""
+class InitialTagsState(rx.State):
+    tags: list[str] = ["Python", "JavaScript"]
 
-    tags: list[str] = ["Tag1", "Tag2"]
+def initial_tags_input():
+    return rxe.mantine.tags_input(
+        value=InitialTagsState.tags,
+        on_change=InitialTagsState.setvar("tags"),
+        placeholder="Add more tags",
+    )
+```
+
+## With Validation
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class ValidatedTagsState(rx.State):
+    tags: list[str] = []
+    error: str = ""
 
     @rx.event
-    def update_tags(self, tags: list[str]):
-        """Add a tag to the list of tags."""
+    def validate(self, tags: list[str]):
         self.tags = tags
+        if len(tags) > 5:
+            self.error = "Maximum 5 tags allowed"
+        else:
+            self.error = ""
 
-def tags_input_page():
-    """TagsInput demo."""
+def validated_tags_input():
     return rxe.mantine.tags_input(
-        value=TagsInputState.tags,
-        on_change=TagsInputState.update_tags,
-        placeholder="Enter tags",
-        label="TagsInput",
-        description="This is a TagsInput component",
-        error="",
-        size="md",
-        radius="xl",
+        value=ValidatedTagsState.tags,
+        on_change=ValidatedTagsState.validate,
+        error=ValidatedTagsState.error,
+        placeholder="Max 5 tags",
     )
 ```
+
+## With Suggestions
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class SuggestedTagsState(rx.State):
+    tags: list[str] = []
+    suggestions: list[str] = ["react", "vue", "angular", "svelte"]
+
+    @rx.event
+    def add_suggestion(self, tag: str):
+        if tag not in self.tags:
+            self.tags = self.tags + [tag]
+
+def suggested_tags_input():
+    return rx.vstack(
+        rxe.mantine.tags_input(
+            value=SuggestedTagsState.tags,
+            on_change=SuggestedTagsState.setvar("tags"),
+            placeholder="Type or click suggestions",
+        ),
+        rx.flex(
+            rx.foreach(
+                SuggestedTagsState.suggestions,
+                lambda tag: rx.button(
+                    tag,
+                    on_click=lambda: SuggestedTagsState.add_suggestion(tag),
+                    size="2",
+                    variant="outline",
+                )
+            ),
+            wrap="wrap",
+            gap="2",
+        ),
+        spacing="4",
+    )
+```
+
+## Styled
+
+```python demo exec toggle
+import reflex as rx
+import reflex_enterprise as rxe
+
+class StyledTagsState(rx.State):
+    tags: list[str] = ["Design", "Development"]
+
+def styled_tags_input():
+    return rxe.mantine.tags_input(
+        value=StyledTagsState.tags,
+        on_change=StyledTagsState.setvar("tags"),
+        placeholder="Add skills",
+        size="lg",
+        radius="xl",
+        label="Skills",
+        description="Add your professional skills",
+    )
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `value` | `list[str]` | Current tags |
+| `on_change` | `EventHandler` | Called when tags change |
+| `placeholder` | `str` | Placeholder text |
+| `disabled` | `bool` | Disable the input |
+| `error` | `str` | Error message to display |
+| `label` | `str` | Label text |
+| `description` | `str` | Description text |
+| `size` | `str` | Input size (`xs`, `sm`, `md`, `lg`, `xl`) |
+| `radius` | `str` | Border radius (`xs`, `sm`, `md`, `lg`, `xl`) |
