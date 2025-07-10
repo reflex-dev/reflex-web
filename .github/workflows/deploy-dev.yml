@@ -42,3 +42,14 @@ jobs:
         id: deploy
         run: |
           reflex deploy --project ${{ secrets.DEV_PROJECT_ID }} --token ${{ secrets.DEV_TOKEN }} --no-interactive
+
+      - name: Check for dead links
+        run: |
+          # Install dependencies for dead link checker
+          pip install -r scripts/requirements.txt
+          
+          # Wait a moment for deployment to be fully ready
+          sleep 30
+          
+          # Run dead link checker
+          python scripts/check_dead_links.py https://pcweb-gray-orca.rxc.app --max-pages 200 --timeout 15 --delay 1
