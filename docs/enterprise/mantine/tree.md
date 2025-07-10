@@ -180,10 +180,33 @@ def max_depth_tree():
 
 ### Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `data` | `list[dict]` | Tree data structure |
-| `level_offset` | `int` | Indentation per level (px) |
+```python demo-only
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell(rx.text("Prop", size="1", weight="bold", color=rx.color("slate", 11))),
+            rx.table.column_header_cell(rx.text("Type", size="1", weight="bold", color=rx.color("slate", 11))),
+            rx.table.column_header_cell(rx.text("Description", size="1", weight="bold", color=rx.color("slate", 11))),
+            align="center"
+        )
+    ),
+    rx.table.body(*[
+        rx.table.row(
+            rx.table.cell(rx.text(prop, class_name="text-sm")),
+            rx.table.cell(rx.text(type_, class_name="text-sm")),
+            rx.table.cell(rx.text(description, size="1", weight="regular")),
+            align="center"
+        ) for prop, type_, description in [
+            ("data", "list[dict]", "Tree data structure"),
+            ("level_offset", "int", "Indentation per level (px)"),
+        ]
+    ]),
+    variant="ghost",
+    size="2",
+    width="100%",
+    max_width="800px",
+)
+```
 
 ### Data Structure
 

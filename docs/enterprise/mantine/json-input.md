@@ -93,15 +93,38 @@ def required_json_input():
 
 ### Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `value` | `str` | JSON string value |
-| `on_change` | `EventHandler` | Called when value changes |
-| `placeholder` | `str` | Placeholder text |
-| `format_on_blur` | `bool` | Auto-format JSON on blur |
-| `required` | `bool` | Mark as required field |
-| `disabled` | `bool` | Disable the input |
-| `error` | `str` | Error message to display |
-| `label` | `str` | Label text |
-| `description` | `str` | Description text |
-| `size` | `str` | Input size (`xs`, `sm`, `md`, `lg`, `xl`) |
+```python demo-only
+rx.table.root(
+    rx.table.header(
+        rx.table.row(
+            rx.table.column_header_cell(rx.text("Prop", size="1", weight="bold", color=rx.color("slate", 11))),
+            rx.table.column_header_cell(rx.text("Type", size="1", weight="bold", color=rx.color("slate", 11))),
+            rx.table.column_header_cell(rx.text("Description", size="1", weight="bold", color=rx.color("slate", 11))),
+            align="center"
+        )
+    ),
+    rx.table.body(*[
+        rx.table.row(
+            rx.table.cell(rx.text(prop, class_name="text-sm")),
+            rx.table.cell(rx.text(type_, class_name="text-sm")),
+            rx.table.cell(rx.text(description, size="1", weight="regular")),
+            align="center"
+        ) for prop, type_, description in [
+            ("value", "str", "JSON string value"),
+            ("on_change", "EventHandler", "Called when value changes"),
+            ("placeholder", "str", "Placeholder text"),
+            ("format_on_blur", "bool", "Auto-format JSON on blur"),
+            ("required", "bool", "Mark as required field"),
+            ("disabled", "bool", "Disable the input"),
+            ("error", "str", "Error message to display"),
+            ("label", "str", "Label text"),
+            ("description", "str", "Description text"),
+            ("size", "str", "Input size (xs, sm, md, lg, xl)"),
+        ]
+    ]),
+    variant="ghost",
+    size="2",
+    width="100%",
+    max_width="800px",
+)
+```
