@@ -8,7 +8,7 @@ from reflex.experimental import ClientStateVar
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
 from pcweb.pages.framework.views.companies import pricing_page_companies
-from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
+from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog, send_data_to_slack
 
 ThankYouDialogState = ClientStateVar.create("thank_you_dialog_state", False)
 
@@ -193,20 +193,24 @@ How they heard about Reflex: {self.referral_source}"""
     async def send_demo_event(self, form_data: dict[str, Any]):
         first_name = form_data.get("first_name", "")
         last_name = form_data.get("last_name", "")
-        await send_data_to_posthog(
-            DemoEvent(
-                distinct_id=f"{first_name} {last_name}",
-                first_name=first_name,
-                last_name=last_name,
-                company_email=form_data.get("email", ""),
-                linkedin_url=form_data.get("linkedin_url", ""),  # Updated from phone_number
-                job_title=form_data.get("job_title", ""),
-                company_name=form_data.get("company_name", ""),
-                num_employees=self.num_employees,
-                internal_tools=form_data.get("internal_tools", ""),
-                referral_source=self.referral_source,
-            )
+        demo_event = DemoEvent(
+            distinct_id=f"{first_name} {last_name}",
+            first_name=first_name,
+            last_name=last_name,
+            company_email=form_data.get("email", ""),
+            linkedin_url=form_data.get("linkedin_url", ""),
+            job_title=form_data.get("job_title", ""),
+            company_name=form_data.get("company_name", ""),
+            num_employees=self.num_employees,
+            internal_tools=form_data.get("internal_tools", ""),
+            referral_source=self.referral_source,
         )
+        
+        # Send to PostHog (existing)
+        await send_data_to_posthog(demo_event)
+        
+        # Send to Slack (new)
+        await send_data_to_slack(demo_event)
 
 
 def quote_input(placeholder: str, name: str, **props):
