@@ -46,10 +46,10 @@ jobs:
       - name: Check for dead links
         run: |
           # Install dependencies for dead link checker
-          pip install -r scripts/requirements.txt
+          uv pip install -r scripts/requirements.txt
           
           # Wait a moment for deployment to be fully ready
           sleep 30
           
           # Run dead link checker
-          python scripts/check_dead_links.py https://pcweb-gray-orca.rxc.app --max-pages 200 --timeout 15 --delay 1
+          python scripts/check_dead_links.py https://pcweb-gray-orca.rxc.app --timeout 15 --delay 1

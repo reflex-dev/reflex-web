@@ -10,14 +10,13 @@ import sys
 import time
 from collections import deque
 from urllib.parse import urljoin, urlparse
-from urllib.robotparser import RobotFileParser
 
 import requests
 from bs4 import BeautifulSoup
 
 
 class DeadLinkChecker:
-    def __init__(self, base_url, max_pages=500, timeout=10, delay=0.5):
+    def __init__(self, base_url, max_pages=None, timeout=10, delay=0.5):
         self.base_url = base_url.rstrip('/')
         self.domain = urlparse(base_url).netloc
         self.max_pages = max_pages
@@ -64,8 +63,8 @@ class DeadLinkChecker:
             if response.status_code == 405:
                 response = self.session.get(url, timeout=self.timeout, allow_redirects=True)
             
-            if response.status_code == 403 and 'twitter.com' in url:
-                print(f"Warning: Twitter link may be blocked by bot detection: {url}")
+            if response.status_code == 403 and parsed.netloc in ['twitter.com', 'www.twitter.com', 'x.com', 'www.x.com']:
+                print(f"Warning: Twitter/X link may be blocked by bot detection: {url}")
                 return True
             
             if response.status_code >= 400:
@@ -113,7 +112,7 @@ class DeadLinkChecker:
 
     def crawl_page(self, url):
         """Crawl a single page and extract links."""
-        if url in self.visited_pages or len(self.visited_pages) >= self.max_pages:
+        if url in self.visited_pages or (self.max_pages and len(self.visited_pages) >= self.max_pages):
             return []
             
         self.visited_pages.add(url)
@@ -149,7 +148,7 @@ class DeadLinkChecker:
         print(f"Starting dead link check for {self.base_url}")
         print(f"Max pages: {self.max_pages}, Timeout: {self.timeout}s")
         
-        while self.pages_to_visit and len(self.visited_pages) < self.max_pages:
+        while self.pages_to_visit and (not self.max_pages or len(self.visited_pages) < self.max_pages):
             url = self.pages_to_visit.popleft()
             self.crawl_page(url)
         
