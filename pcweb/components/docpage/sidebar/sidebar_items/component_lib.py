@@ -6,7 +6,7 @@ from reflex.utils.format import to_title_case, to_snake_case
 def get_component_link(category, clist, prefix="") -> str:
     component_name = rx.utils.format.to_kebab_case(clist[0])
     # construct the component link. The component name points to the name of the md file.
-    return f"/docs/library/{prefix}{category.lower().replace(' ', '-')}/{component_name.lower()}"
+    return f"/docs/library/{prefix.strip('/')}/{category.lower().replace(' ', '-')}/{component_name.lower()}"
 
 
 def get_category_children(category, category_list, prefix=""):
