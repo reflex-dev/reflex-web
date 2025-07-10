@@ -276,6 +276,264 @@ if find_spec("typer") is not None and find_spec("typer.main") is not None:
 # Iterate over each command configuration
 process_command(cli, "reflex")
 
+try:
+    import sys
+    import os
+    
+    hosting_cli_path = os.path.expanduser("~/repos/reflex-hosting-cli")
+    if hosting_cli_path not in sys.path:
+        sys.path.insert(0, hosting_cli_path)
+    
+    from reflex_cli.v2.deployments import hosting_cli
+    
+    process_command(hosting_cli, "reflex cloud")
+    
+except ImportError:
+    # If hosting CLI is not available, create mock commands for documentation
+    @click.group()
+    def mock_hosting_cli():
+        """The Hosting CLI.
+        
+        This CLI is used to manage the Reflex cloud hosting service.
+        It provides commands for managing apps, projects, secrets, and VM types/regions.
+        """
+        pass
+    
+    @click.group()
+    def mock_apps_cli():
+        """Commands for managing apps."""
+        pass
+    
+    @mock_apps_cli.command(name="history")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def app_history(**kwargs):
+        """Get the deployment history for an app."""
+        pass
+    
+    @mock_apps_cli.command("build-logs")
+    @click.argument("deployment_id", required=True)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def deployment_build_logs(**kwargs):
+        """Get the build logs for a deployment."""
+        pass
+    
+    @mock_apps_cli.command(name="status")
+    @click.argument("deployment_id", required=True)
+    @click.option("--watch/--no-watch", is_flag=True, help="Whether to continuously watch the status.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def deployment_status(**kwargs):
+        """Get the status of a deployment."""
+        pass
+    
+    @mock_apps_cli.command(name="stop")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def stop_app(**kwargs):
+        """Stop an app."""
+        pass
+    
+    @mock_apps_cli.command(name="start")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def start_app(**kwargs):
+        """Start an app."""
+        pass
+    
+    @mock_apps_cli.command(name="delete")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def delete_app(**kwargs):
+        """Delete an app."""
+        pass
+    
+    @mock_apps_cli.command(name="logs")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def app_logs(**kwargs):
+        """Get logs for an app."""
+        pass
+    
+    @mock_apps_cli.command(name="list")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def list_apps(**kwargs):
+        """List all apps."""
+        pass
+    
+    @mock_apps_cli.command(name="scale")
+    @click.argument("app_id", required=False)
+    @click.option("--app-name", help="The name of the application.")
+    @click.option("--vmtype", help="The VM type to scale to.")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def scale_app(**kwargs):
+        """Scale an app to a different VM type."""
+        pass
+    
+    @click.group()
+    def mock_project_cli():
+        """Commands for managing projects."""
+        pass
+    
+    @mock_project_cli.command(name="create")
+    @click.argument("name", required=True)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def create_project(**kwargs):
+        """Create a new project."""
+        pass
+    
+    @mock_project_cli.command(name="invite")
+    @click.argument("role", required=True)
+    @click.argument("user", required=True)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def invite_user_to_project(**kwargs):
+        """Invite a user to a project."""
+        pass
+    
+    @mock_project_cli.command(name="select")
+    @click.argument("project_id", required=False)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def select_project(**kwargs):
+        """Select a project to work with."""
+        pass
+    
+    @mock_project_cli.command(name="get-select")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def get_select_project(**kwargs):
+        """Get the currently selected project."""
+        pass
+    
+    @mock_project_cli.command(name="list")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def get_projects(**kwargs):
+        """List all projects."""
+        pass
+    
+    @mock_project_cli.command(name="role-permissions")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def get_project_role_permissions(**kwargs):
+        """Get role permissions for a project."""
+        pass
+    
+    @mock_project_cli.command(name="users")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def get_project_role_users(**kwargs):
+        """Get users for a project."""
+        pass
+    
+    @click.group()
+    def mock_secrets_cli():
+        """Commands for managing secrets."""
+        pass
+    
+    @mock_secrets_cli.command(name="list")
+    @click.argument("app_id", required=True)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in JSON format.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def get_secrets(**kwargs):
+        """Retrieve secrets for a given application."""
+        pass
+    
+    @mock_secrets_cli.command(name="update")
+    @click.argument("app_id", required=True)
+    @click.option("--envfile", help="The path to an env file to use. Will override any envs set manually.")
+    @click.option("--env", "envs", multiple=True, help="The environment variables to set: <key>=<value>.")
+    @click.option("--reboot/--no-reboot", is_flag=True, help="Automatically reboot your site with the new secrets")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def update_secrets(**kwargs):
+        """Update secrets for a given application."""
+        pass
+    
+    @mock_secrets_cli.command(name="delete")
+    @click.argument("app_id", required=True)
+    @click.argument("key", required=True)
+    @click.option("--token", help="The authentication token.")
+    @click.option("--reboot/--no-reboot", is_flag=True, help="Automatically reboot your site with the new secrets")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--interactive/--no-interactive", "-i", is_flag=True, default=True, help="Whether to use interactive mode.")
+    def delete_secret(**kwargs):
+        """Delete a secret for a given application."""
+        pass
+    
+    @click.group()
+    def mock_vm_types_regions_cli():
+        """Commands for VM types and regions."""
+        pass
+    
+    @mock_vm_types_regions_cli.command("vmtypes")
+    @click.option("--token", help="The authentication token.")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    def get_vm_types(**kwargs):
+        """Retrieve the available VM types."""
+        pass
+    
+    @mock_vm_types_regions_cli.command(name="regions")
+    @click.option("--loglevel", type=click.Choice(["DEBUG", "INFO", "WARNING", "ERROR"]), default="INFO", help="The log level to use.")
+    @click.option("--json/--no-json", "-j", "as_json", is_flag=True, help="Whether to output the result in json format.")
+    def get_deployment_regions(**kwargs):
+        """List all the regions of the hosting service."""
+        pass
+    
+    @mock_vm_types_regions_cli.command(name="config")
+    def generate_cloud_config():
+        """Generate a configuration file for the cloud deployment."""
+        pass
+    
+    mock_hosting_cli.add_command(mock_apps_cli, name="apps")
+    mock_hosting_cli.add_command(mock_project_cli, name="project")
+    mock_hosting_cli.add_command(mock_secrets_cli, name="secrets")
+    mock_hosting_cli.add_command(get_vm_types, name="vmtypes")
+    mock_hosting_cli.add_command(get_deployment_regions, name="regions")
+    mock_hosting_cli.add_command(generate_cloud_config, name="config")
+    
+    process_command(mock_hosting_cli, "reflex cloud")
+
 
 REFLEX_PREFIX = "reflex"
 REFLEX_CLOUD_PREFIX = REFLEX_PREFIX + " cloud"
