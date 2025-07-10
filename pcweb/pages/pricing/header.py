@@ -4,6 +4,7 @@ from typing import Any, Literal
 import reflex as rx
 from reflex.event import EventType
 from reflex.experimental import ClientStateVar
+from reflex.utils.console import log
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
@@ -210,7 +211,10 @@ How they heard about Reflex: {self.referral_source}"""
         await send_data_to_posthog(demo_event)
         
         # Send to Slack (new)
-        await send_data_to_slack(demo_event)
+        try:
+            await send_data_to_slack(demo_event)
+        except Exception as e:
+            log(f"Failed to send to Slack: {e}")
 
 
 def quote_input(placeholder: str, name: str, **props):

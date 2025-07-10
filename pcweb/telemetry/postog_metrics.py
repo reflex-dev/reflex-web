@@ -69,7 +69,7 @@ async def send_data_to_slack(event_instance: DemoEvent):
     """
     slack_payload = {
         "lookingToBuild": event_instance.internal_tools,
-        "businessName": event_instance.company_email,
+        "businessName": event_instance.company_name,
         "howDidYouHear": event_instance.referral_source,
         "linkedinUrl": event_instance.linkedin_url,
         "jobTitle": event_instance.job_title,
@@ -87,5 +87,5 @@ async def send_data_to_slack(event_instance: DemoEvent):
                 headers={"Content-Type": "application/json"}
             )
             response.raise_for_status()
-    except Exception:
-        log("Error sending data to Slack webhook")
+    except Exception as e:
+        log(f"Error sending data to Slack webhook: {e}")
