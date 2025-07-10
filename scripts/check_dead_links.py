@@ -8,6 +8,7 @@ import argparse
 import re
 import sys
 import time
+import xml.etree.ElementTree as ET
 from collections import deque
 from urllib.parse import urljoin, urlparse
 
@@ -143,14 +144,49 @@ class DeadLinkChecker:
             print(f"Error crawling {url}: {e}")
             return []
 
+    def get_sitemap_urls(self):
+        """Try to get URLs from sitemap.xml."""
+        sitemap_url = f"{self.base_url}/sitemap.xml"
+        print(f"Checking for sitemap at: {sitemap_url}")
+        
+        try:
+            response = self.session.get(sitemap_url, timeout=self.timeout)
+            if response.status_code == 200:
+                print("✅ Found sitemap.xml, parsing URLs...")
+                root = ET.fromstring(response.content)
+                
+                urls = []
+                for url_elem in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url'):
+                    loc_elem = url_elem.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+                    if loc_elem is not None and loc_elem.text:
+                        urls.append(loc_elem.text)
+                
+                print(f"Found {len(urls)} URLs in sitemap")
+                return urls
+            else:
+                print(f"No sitemap found (HTTP {response.status_code})")
+                return None
+                
+        except Exception as e:
+            print(f"Error fetching sitemap: {e}")
+            return None
+
     def run(self):
         """Run the dead link checker."""
         print(f"Starting dead link check for {self.base_url}")
         print(f"Max pages: {self.max_pages}, Timeout: {self.timeout}s")
         
-        while self.pages_to_visit and (not self.max_pages or len(self.visited_pages) < self.max_pages):
-            url = self.pages_to_visit.popleft()
-            self.crawl_page(url)
+        sitemap_urls = self.get_sitemap_urls()
+        if sitemap_urls:
+            print("Using sitemap-based crawling...")
+            for url in sitemap_urls:
+                if not self.max_pages or len(self.visited_pages) < self.max_pages:
+                    self.crawl_page(url)
+        else:
+            print("Using breadth-first crawling...")
+            while self.pages_to_visit and (not self.max_pages or len(self.visited_pages) < self.max_pages):
+                url = self.pages_to_visit.popleft()
+                self.crawl_page(url)
         
         print(f"\nCrawl complete!")
         print(f"Pages visited: {len(self.visited_pages)}")
