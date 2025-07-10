@@ -273,7 +273,7 @@ def filter_pills() -> rx.Component:
             TypesenseSearchState.filter_categories,
             filter_pill
         ),
-        class_name="typesense-filter-pills flex flex-row gap-x-3 pt-2 w-full overflow-x-auto"
+        class_name="hidden md:flex md:flex-row gap-x-3 pt-2 overflow-x-auto justify-start w-full"
     )
 
 
@@ -478,10 +478,11 @@ def typesense_search() -> rx.Component:
             ),
             rx.dialog.content(
                 search_modal(),
-                class_name="w-full max-w-[640px] bg-slate-1 border-none outline-none p-0 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
+                class_name="w-full max-w-[640px] mx-auto bg-slate-1 border-none outline-none p-0 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",
                 on_interact_outside=TypesenseSearchState.close_modal,
                 on_escape_key_down=TypesenseSearchState.close_modal,
             )
         ),
-        keyboard_shortcut_script()
+        keyboard_shortcut_script(),
+        class_name="w-full"
     )
