@@ -156,13 +156,19 @@ class DeadLinkChecker:
                 root = ET.fromstring(response.content)
                 
                 urls = []
-                for url_elem in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}url'):
-                    loc_elem = url_elem.find('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+                for url_elem in root.findall('.//{https://www.sitemaps.org/schemas/sitemap/0.9}url'):
+                    loc_elem = url_elem.find('{https://www.sitemaps.org/schemas/sitemap/0.9}loc')
                     if loc_elem is not None and loc_elem.text:
                         urls.append(loc_elem.text)
                 
+                if not urls:
+                    for url_elem in root.findall('.//url'):
+                        loc_elem = url_elem.find('loc')
+                        if loc_elem is not None and loc_elem.text:
+                            urls.append(loc_elem.text)
+                
                 print(f"Found {len(urls)} URLs in sitemap")
-                return urls
+                return urls if urls else None
             else:
                 print(f"No sitemap found (HTTP {response.status_code})")
                 return None
