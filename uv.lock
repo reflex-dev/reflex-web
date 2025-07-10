@@ -1904,6 +1904,7 @@ dependencies = [
     { name = "reflex-pyplot" },
     { name = "replicate" },
     { name = "requests" },
+    { name = "typesense" },
 ]
 
 [package.dev-dependencies]
@@ -1932,6 +1933,7 @@ requires-dist = [
     { name = "reflex-pyplot", specifier = "==0.1.3" },
     { name = "replicate", specifier = "==1.0.6" },
     { name = "requests", specifier = ">=2.32.3" },
+    { name = "typesense", specifier = ">=1.1.1" },
 ]
 
 [package.metadata.requires-dev]
