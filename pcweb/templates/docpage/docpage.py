@@ -288,7 +288,8 @@ def convert_url_path_to_github_path(url_path) -> str:
         
         path_no_slashes = string_replace_operation(url_path, r"^/+|/+$", "")
         path_with_underscores = string_replace_operation(path_no_slashes, "-", "_")
-        return f"{path_with_underscores}.md"
+        path_clean = string_replace_operation(path_with_underscores, r"^/+", "")
+        return f"{path_clean}.md"
     else:
         path = url_path.strip("/")
         path = path.replace("-", "_")
