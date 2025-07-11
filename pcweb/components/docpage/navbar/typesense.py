@@ -135,7 +135,8 @@ class TypesenseSearchState(rx.State):
         self.is_searching = True
 
         try:
-            results = await self._perform_search(query)
+            search_query = self._preprocess_query(query)
+            results = await self._perform_search(search_query)
             self.search_results = self._format_search_results(results)
             self.show_results = True
         except Exception as e:
@@ -148,6 +149,19 @@ class TypesenseSearchState(rx.State):
         """Clear search results and hide results display."""
         self.search_results = []
         self.show_results = False
+
+    def _preprocess_query(self, query: str) -> str:
+        """Preprocess search query to improve search results.
+        
+        Removes 'rx.' prefix from queries to better match component documentation.
+        For example, 'rx.memo' becomes 'memo' for better search matching.
+        """
+        query = query.strip()
+        
+        if query.lower().startswith('rx.'):
+            query = query[3:].strip()
+        
+        return query
 
     async def _perform_search(self, query: str) -> dict:
         """Perform the actual Typesense search."""
