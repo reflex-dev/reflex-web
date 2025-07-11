@@ -94,7 +94,6 @@ class MarkdownProcessor:
 
     def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file and return a dict ready for indexing."""
-
         def normalize_slug(s: str) -> str:
             return s.replace('_', '-')
 
@@ -115,7 +114,13 @@ class MarkdownProcessor:
                 path_parts = [normalize_slug(p) for p in rel_path.parts[:-1]]  # Remove filename and normalize
                 url_path = '/' + '/'.join(['docs'] + path_parts)
                 if file_path.name != 'index.md':
-                    url_path += '/' + normalize_slug(file_path.stem)
+                    # Handle special case: replace -ll suffix with /low
+                    stem = normalize_slug(file_path.stem)
+                    if stem.endswith('-ll'):
+                        stem = stem[:-3]  # Remove -ll
+                        url_path += '/' + stem + '/low'
+                    else:
+                        url_path += '/' + stem
 
                 if url_path != '/' and url_path.endswith('/'):
                     url_path = url_path.rstrip('/')
