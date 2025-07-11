@@ -388,12 +388,8 @@ def main():
     indexer.index_documents(documents)
 
     try:
-        search_result = indexer.client.collections['docs'].documents.search({
-            'q': '*',
-            'query_by': 'title',
-            'per_page': 1
-        })
-        indexed_count = search_result['found']
+        collection_info = indexer.client.collections['docs'].retrieve()
+        indexed_count = collection_info['num_documents']
         logger.info(f"Verification: {indexed_count} documents confirmed in Typesense")
 
         if indexed_count != len(documents):
