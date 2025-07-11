@@ -291,7 +291,9 @@ def convert_url_path_to_github_path(url_path) -> str:
         path_clean = string_replace_operation(path_with_underscores, r"^/+", "")
         return f"{path_clean}.md"
     else:
-        path = url_path.strip("/")
+        path = str(url_path).strip("/")
+        while "//" in path:
+            path = path.replace("//", "/")
         path = path.replace("-", "_")
         if not path.endswith(".md"):
             path += ".md"
@@ -327,7 +329,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}".replace("main//", "main/"),
+                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}",
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
