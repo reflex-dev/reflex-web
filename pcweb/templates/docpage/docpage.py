@@ -274,20 +274,27 @@ def link_pill(text: str, href: str) -> rx.Component:
     )
 
 
-def convert_url_path_to_github_path(url_path: str) -> str:
+def convert_url_path_to_github_path(url_path) -> str:
     """Convert a URL path to the corresponding GitHub filesystem path.
     
     Args:
-        url_path: URL path like "/docs/getting-started/introduction/"
+        url_path: URL path like "/docs/getting-started/introduction/" (can be str or rx.Var[str])
         
     Returns:
         GitHub filesystem path like "docs/getting_started/introduction.md"
     """
-    path = url_path.strip("/")
-    path = path.replace("-", "_")
-    if not path.endswith(".md"):
-        path += ".md"
-    return path
+    if hasattr(url_path, '_js_expr'):  # This is a Reflex Var
+        from reflex.vars.sequence import string_replace_operation
+        
+        path_no_slashes = string_replace_operation(url_path, r"^/+|/+$", "")
+        path_with_underscores = string_replace_operation(path_no_slashes, "-", "_")
+        return f"{path_with_underscores}.md"
+    else:
+        path = url_path.strip("/")
+        path = path.replace("-", "_")
+        if not path.endswith(".md"):
+            path += ".md"
+        return path
 
 
 @rx.memo
