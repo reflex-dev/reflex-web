@@ -617,8 +617,8 @@ def docpage(
 
             grid_cols_classes = "grid-cols-1"
             if show_right_sidebar:
-                grid_cols_classes += " 2xl:grid-cols-[300px_960px_16%]"
-            grid_cols_classes += " lg:grid-cols-[300px_960px]"
+                grid_cols_classes += " 2xl:grid-cols-[300px_1fr_240px]"
+            grid_cols_classes += " lg:grid-cols-[300px_1fr]"
 
             return rx.box(
                 navbar(),
@@ -646,12 +646,7 @@ def docpage(
                             docpage_footer(path=path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 xl:px-20 h-screen bg-slate-1",
                         ),
-                        class_name="w-full bg-slate-1 h-full mx-auto max-w-2xl "
-                        + (
-                            " xl:max-w-[60rem]"
-                            if show_right_sidebar
-                            else "xl:max-w-full"
-                        ),
+                        class_name="w-full bg-slate-1 h-full mx-auto",
                     ),
                     (
                         # right-hand sidebar
