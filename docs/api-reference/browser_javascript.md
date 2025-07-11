@@ -78,7 +78,15 @@ rx.vstack(
     rx.script(
         src="https://cdn.jsdelivr.net/gh/scottschiller/snowstorm@snowstorm_20131208/snowstorm-min.js",
     ),
-    rx.button("Start Duststorm", on_click=rx.call_script("snowStorm.autoStart = false; snowStorm.snowColor = '#111'; snowStorm.start()")),
+    rx.script("""
+        window.addEventListener('load', function() {
+            if (typeof snowStorm !== 'undefined') {
+                snowStorm.autoStart = false;
+                snowStorm.snowColor = '#111';
+            }
+        });
+    """),
+    rx.button("Start Duststorm", on_click=rx.call_script("snowStorm.start()")),
     rx.button("Toggle Duststorm", on_click=rx.call_script("snowStorm.toggleSnow()")),
 )
 ```
