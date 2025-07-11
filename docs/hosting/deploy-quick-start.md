@@ -63,7 +63,7 @@ The command is by default interactive. It asks you a few questions for informati
 
 That’s it! You should receive some feedback on the progress of your deployment and in a few minutes your app should be up. 🎉
 
-For detailed information about the deploy command and its options, see the [Deploy API Reference](https://reflex.dev/docs/hosting/deploy/) and the [CLI Reference](https://reflex.dev/docs/api-reference/cli/).
+For detailed information about the deploy command and its options, see the [Deploy API Reference](https://reflex.dev/docs/hosting/cli/deploy/) and the [CLI Reference](https://reflex.dev/docs/api-reference/cli/).
 
 
 ```md alert info
