@@ -23,17 +23,17 @@ import reflex as rx
 class MyState(rx.State):
     count: int = 0
 
-    @rx.event
-    def increment(self, amount: int):
-        self.count += amount
+@rx.event
+def increment(state: MyState, amount: int):
+    state.count += amount
 
 def decentralized_event_example():
     return rx.vstack(
         rx.heading(f"Count: {MyState.count}"),
         rx.hstack(
-            rx.button("Increment by 1", on_click=lambda: MyState.increment(1)),
-            rx.button("Increment by 5", on_click=lambda: MyState.increment(5)),
-            rx.button("Increment by 10", on_click=lambda: MyState.increment(10)),
+            rx.button("Increment by 1", on_click=increment(1)),
+            rx.button("Increment by 5", on_click=increment(5)),
+            rx.button("Increment by 10", on_click=increment(10)),
         ),
         spacing="4",
         align="center",
@@ -53,11 +53,11 @@ Here's a comparison between traditional event handlers defined within state clas
 # Traditional event handler within a state class
 class TraditionalState(rx.State):
     count: int = 0
-    
+
     @rx.event
     def increment(self, amount: int = 1):
         self.count += amount
-    
+
 # Usage in components
 rx.button("Increment", on_click=TraditionalState.increment(5))
 
