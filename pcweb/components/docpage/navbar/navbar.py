@@ -515,7 +515,7 @@ def new_component_section() -> rx.Component:
                     ),
                     underline="none",
                     is_external=True,
-                    href=f"{REFLEX_CLOUD_URL.strip("/")}/?redirect_url={REFLEX_BUILD_URL.strip()}",
+                    href=f"{REFLEX_CLOUD_URL.strip("/")}/?redirect_url={REFLEX_BUILD_URL}",
                 ),
                 class_name="desktop-only",
             ),
