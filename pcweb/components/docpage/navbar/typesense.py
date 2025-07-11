@@ -313,7 +313,7 @@ def suggestions_section() -> rx.Component:
                 ),
                 "Suggestions"
             ),
-            class_name="text-sm text-slate-11 font-medium mb-2",
+            class_name="text-sm text-slate-11 font-medium",
         ),
         rx.cond(
             TypesenseSearchState.search_query.length() == 0,
