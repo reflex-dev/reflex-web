@@ -274,6 +274,22 @@ def link_pill(text: str, href: str) -> rx.Component:
     )
 
 
+def convert_url_path_to_github_path(url_path: str) -> str:
+    """Convert a URL path to the corresponding GitHub filesystem path.
+    
+    Args:
+        url_path: URL path like "/docs/getting-started/introduction/"
+        
+    Returns:
+        GitHub filesystem path like "docs/getting_started/introduction.md"
+    """
+    path = url_path.strip("/")
+    path = path.replace("-", "_")
+    if not path.endswith(".md"):
+        path += ".md"
+    return path
+
+
 @rx.memo
 def docpage_footer(path: str):
     from pcweb.constants import FORUM_URL, ROADMAP_URL
@@ -303,7 +319,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}",
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
