@@ -79,6 +79,7 @@ Try typing a color in an input below and clicking away from it to change the col
 class ArgState(rx.State):
     colors: list[str] = ["rgba(245,168,152)", "MediumSeaGreen", "#DEADE3"]
 
+    @rx.event
     def change_color(self, color: str, index: int):
         self.colors[index] = color
 
