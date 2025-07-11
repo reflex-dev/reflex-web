@@ -101,6 +101,6 @@ class IndexState(rx.State):
         self.add_contact_to_loops(email)
         self.signed_up = True
         return [
-            rx.call_script(f"ko.identify('{email}')"),
+            rx.call_script(f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}"),
             rx.toast.success("Thanks for signing up to the Newsletter!")
         ]
