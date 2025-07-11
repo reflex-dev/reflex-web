@@ -106,7 +106,7 @@ class PyplotState(rx.State):
         self.scale = [random.uniform(0, 100) for _ in range(self.num_points)]
 
     def set_num_points(self, num_points: list[int | float]):
-        self.num_points = num_points[0]
+        self.num_points = int(num_points[0])
         self.randomize()
     
     @rx.var
