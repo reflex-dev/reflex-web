@@ -159,7 +159,9 @@ class TypesenseSearchState(rx.State):
         query = query.strip()
         
         if query.lower().startswith('rx.'):
-            query = query[3:].strip()
+            processed_query = query[3:].strip()
+            if processed_query:
+                query = processed_query
         
         return query
 
