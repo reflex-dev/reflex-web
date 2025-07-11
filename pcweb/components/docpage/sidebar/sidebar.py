@@ -602,9 +602,7 @@ def sidebar_comp(
                                 ),
                                 create_sidebar_section(
                                     "Components",
-                                    enterprise_component_items[0]
-                                    .children[0]
-                                    .link.replace("_", "-"),
+                                    enterprise.components.path,
                                     enterprise_component_items,
                                     enterprise_index,
                                     url,
