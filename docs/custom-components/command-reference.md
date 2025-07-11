@@ -52,7 +52,7 @@ The `init` command uses the current enclosing folder name to construct a python 
 
 The `init` command creates a set of files and folders prefilled with the package name and other details. During the init, the `custom_component` folder is installed locally in editable mode, so a developer can incrementally develop and test with ease. The changes in component implementation is automatically reflected where it is used. Below is the folder structure after the `init` command.
 
-```
+```text
 google_auth/
 ├── pyproject.toml
 ├── README.md
