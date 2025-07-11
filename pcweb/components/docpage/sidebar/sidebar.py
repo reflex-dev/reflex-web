@@ -617,7 +617,7 @@ def sidebar_comp(
                 "background_color": "transparent",
             },
         },
-        class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px]",
+        class_name="flex flex-col !pb-24 gap-6 items-start max-h-[90%] p-[1rem_0rem_1rem_1rem] lg-p2 scroll-p-4 fixed w-full overflow-y-scroll hidden-scrollbar lg:max-w-[300px] transition-opacity duration-300 ease-in-out",
     )
 
 
