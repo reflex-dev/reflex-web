@@ -4,7 +4,6 @@ import functools
 from datetime import datetime
 from typing import Callable
 
-import flexdown
 import mistletoe
 from reflex.components.radix.themes.base import LiteralAccentColor
 from reflex.utils.format import to_snake_case, to_title_case
@@ -548,6 +547,7 @@ def get_headings(comp):
 
 def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+    import flexdown
 
     component_list = component_list or []
     component_list = component_list[1:]
