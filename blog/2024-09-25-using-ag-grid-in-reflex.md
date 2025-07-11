@@ -51,7 +51,7 @@ pip install reflex-ag-grid
 ```
 
 **Note:** This is an initial release.
-Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/library/tables-and-data-grids/ag-grid/) for the latest version and any updates.
+Check out the [open source repo](https://github.com/reflex-dev/reflex-ag-grid) and our [docs](https://reflex.dev/docs/enterprise/ag-grid/) for the latest version and any updates.
 
 ## What is AG Grid?
 

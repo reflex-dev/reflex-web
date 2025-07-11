@@ -65,10 +65,6 @@ def get_sidebar_items_enterprise_components():
                     names="Value Transformers",
                     link="/docs/enterprise/ag_grid/value-transformers/",
                 ),
-                SideBarItem(
-                    names="Undocumented Features",
-                    link="/docs/enterprise/ag_grid/undocumented-features-guideline/",
-                ),
             ],
         ),
         SideBarItem(

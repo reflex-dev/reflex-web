@@ -100,3 +100,5 @@ TWITTER_CREATOR = "@getreflex"
 
 # Posthog
 POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
+
+SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")
