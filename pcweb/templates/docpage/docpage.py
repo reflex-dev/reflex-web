@@ -277,8 +277,8 @@ def link_pill(text: str, href: str) -> rx.Component:
 def convert_url_path_to_github_path(url_path) -> str:
     """Convert a URL path to the corresponding GitHub filesystem path.
     
-    Converts browser URLs (kebab-case) back to actual file paths (snake_case)
-    to match the filesystem structure in the docs/ folder.
+    Preserves the exact file structure as it exists in the docs/ folder,
+    handling mixed naming conventions (some folders use hyphens, others underscores).
     
     Args:
         url_path: URL path like "/docs/getting-started/introduction/" (can be str or rx.Var[str])
@@ -292,15 +292,171 @@ def convert_url_path_to_github_path(url_path) -> str:
         path_no_slashes = string_replace_operation(url_path, r"^/+|/+$", "")
         path_clean = string_replace_operation(path_no_slashes, r"/+", "/")
         
-        path_snake_case = string_replace_operation(path_clean, "-", "_")
+        path_converted = string_replace_operation(path_clean, "getting-started", "getting_started")
+        path_converted = string_replace_operation(path_converted, "client-storage", "client_storage")
+        path_converted = string_replace_operation(path_converted, "utility-methods", "utility_methods")
+        path_converted = string_replace_operation(path_converted, "advanced-onboarding", "advanced_onboarding")
+        path_converted = string_replace_operation(path_converted, "state-structure", "state_structure")
+        path_converted = string_replace_operation(path_converted, "ai-builder", "ai_builder")
         
-        return f"{path_snake_case}.md"
+        path_converted = string_replace_operation(path_converted, "chatapp-tutorial", "chatapp_tutorial")
+        path_converted = string_replace_operation(path_converted, "dashboard-tutorial", "dashboard_tutorial")
+        
+        path_converted = string_replace_operation(path_converted, "login-form", "login_form")
+        path_converted = string_replace_operation(path_converted, "signup-form", "signup_form")
+        path_converted = string_replace_operation(path_converted, "multi-column-row", "multi_column_row")
+        path_converted = string_replace_operation(path_converted, "top-banner", "top_banner")
+        path_converted = string_replace_operation(path_converted, "dark-mode-toggle", "dark_mode_toggle")
+        path_converted = string_replace_operation(path_converted, "pricing-cards", "pricing_cards")
+        path_converted = string_replace_operation(path_converted, "speed-dial", "speed_dial")
+        
+        path_converted = string_replace_operation(path_converted, "deploy-app", "deploy_app")
+        path_converted = string_replace_operation(path_converted, "download-app", "download_app")
+        path_converted = string_replace_operation(path_converted, "environment-variables", "environment_variables")
+        path_converted = string_replace_operation(path_converted, "image-as-prompt", "image_as_prompt")
+        path_converted = string_replace_operation(path_converted, "installing-external-packages", "installing_external_packages")
+        path_converted = string_replace_operation(path_converted, "frequently-asked-questions", "frequently_asked_questions")
+        path_converted = string_replace_operation(path_converted, "what-is-reflex-build", "what_is_reflex_build")
+        path_converted = string_replace_operation(path_converted, "breaking-up-complex-prompts", "breaking_up_complex_prompts")
+        path_converted = string_replace_operation(path_converted, "fixing-errors", "fixing_errors")
+        
+        path_converted = string_replace_operation(path_converted, "enterprise/ag-grid", "enterprise/ag_grid")
+        path_converted = string_replace_operation(path_converted, "ag-chart", "ag_chart")
+        
+        path_converted = string_replace_operation(path_converted, "page-load-events", "page_load_events")
+        path_converted = string_replace_operation(path_converted, "background-events", "background_events")
+        path_converted = string_replace_operation(path_converted, "yield-events", "yield_events")
+        path_converted = string_replace_operation(path_converted, "event-arguments", "event_arguments")
+        path_converted = string_replace_operation(path_converted, "event-actions", "event_actions")
+        path_converted = string_replace_operation(path_converted, "chaining-events", "chaining_events")
+        path_converted = string_replace_operation(path_converted, "special-events", "special_events")
+        path_converted = string_replace_operation(path_converted, "decentralized-event-handlers", "decentralized_event_handlers")
+        path_converted = string_replace_operation(path_converted, "events-overview", "events_overview")
+        path_converted = string_replace_operation(path_converted, "authentication-overview", "authentication_overview")
+        path_converted = string_replace_operation(path_converted, "dynamic-routing", "dynamic_routing")
+        path_converted = string_replace_operation(path_converted, "code-structure", "code_structure")
+        path_converted = string_replace_operation(path_converted, "component-state", "component_state")
+        
+        path_converted = string_replace_operation(path_converted, "segmented-control", "segmented_control")
+        path_converted = string_replace_operation(path_converted, "auto-scroll", "auto_scroll")
+        path_converted = string_replace_operation(path_converted, "code-block", "code_block")
+        path_converted = string_replace_operation(path_converted, "data-list", "data_list")
+        path_converted = string_replace_operation(path_converted, "scroll-area", "scroll_area")
+        path_converted = string_replace_operation(path_converted, "html-embed", "html_embed")
+        path_converted = string_replace_operation(path_converted, "aspect-ratio", "aspect_ratio")
+        path_converted = string_replace_operation(path_converted, "data-table", "data_table")
+        path_converted = string_replace_operation(path_converted, "data-editor", "data_editor")
+        path_converted = string_replace_operation(path_converted, "hover-card", "hover_card")
+        path_converted = string_replace_operation(path_converted, "alert-dialog", "alert_dialog")
+        path_converted = string_replace_operation(path_converted, "context-menu", "context_menu")
+        path_converted = string_replace_operation(path_converted, "dropdown-menu", "dropdown_menu")
+        path_converted = string_replace_operation(path_converted, "radio-group", "radio_group")
+        path_converted = string_replace_operation(path_converted, "text-area", "text_area")
+        
+        path_converted = string_replace_operation(path_converted, "custom-vars", "custom_vars")
+        path_converted = string_replace_operation(path_converted, "computed-vars", "computed_vars")
+        path_converted = string_replace_operation(path_converted, "base-vars", "base_vars")
+        
+        path_converted = string_replace_operation(path_converted, "config-file", "config_file")
+        
+        path_converted = string_replace_operation(path_converted, "upload-and-download-files", "upload_and_download_files")
+        path_converted = string_replace_operation(path_converted, "rendering-iterables", "rendering_iterables")
+        path_converted = string_replace_operation(path_converted, "html-to-reflex", "html_to_reflex")
+        path_converted = string_replace_operation(path_converted, "conditional-rendering", "conditional_rendering")
+        path_converted = string_replace_operation(path_converted, "other-methods", "other_methods")
+        path_converted = string_replace_operation(path_converted, "lifespan-tasks", "lifespan_tasks")
+        path_converted = string_replace_operation(path_converted, "exception-handlers", "exception_handlers")
+        path_converted = string_replace_operation(path_converted, "router-attributes", "router_attributes")
+        path_converted = string_replace_operation(path_converted, "event-triggers", "event_triggers")
+        path_converted = string_replace_operation(path_converted, "browser-storage", "browser_storage")
+        path_converted = string_replace_operation(path_converted, "var-system", "var_system")
+        path_converted = string_replace_operation(path_converted, "browser-javascript", "browser_javascript")
+        
+        return f"{path_converted}.md"
     else:
         path = str(url_path).strip("/")
         while "//" in path:
             path = path.replace("//", "/")
         
-        path = path.replace("-", "_")
+        path = path.replace("getting-started", "getting_started")
+        path = path.replace("client-storage", "client_storage")
+        path = path.replace("utility-methods", "utility_methods")
+        path = path.replace("advanced-onboarding", "advanced_onboarding")
+        path = path.replace("state-structure", "state_structure")
+        path = path.replace("ai-builder", "ai_builder")
+        
+        path = path.replace("chatapp-tutorial", "chatapp_tutorial")
+        path = path.replace("dashboard-tutorial", "dashboard_tutorial")
+        
+        path = path.replace("login-form", "login_form")
+        path = path.replace("signup-form", "signup_form")
+        path = path.replace("multi-column-row", "multi_column_row")
+        path = path.replace("top-banner", "top_banner")
+        path = path.replace("dark-mode-toggle", "dark_mode_toggle")
+        path = path.replace("pricing-cards", "pricing_cards")
+        path = path.replace("speed-dial", "speed_dial")
+        
+        path = path.replace("deploy-app", "deploy_app")
+        path = path.replace("download-app", "download_app")
+        path = path.replace("environment-variables", "environment_variables")
+        path = path.replace("image-as-prompt", "image_as_prompt")
+        path = path.replace("installing-external-packages", "installing_external_packages")
+        path = path.replace("frequently-asked-questions", "frequently_asked_questions")
+        path = path.replace("what-is-reflex-build", "what_is_reflex_build")
+        path = path.replace("breaking-up-complex-prompts", "breaking_up_complex_prompts")
+        path = path.replace("fixing-errors", "fixing_errors")
+        
+        path = path.replace("enterprise/ag-grid", "enterprise/ag_grid")
+        path = path.replace("ag-chart", "ag_chart")
+        
+        path = path.replace("page-load-events", "page_load_events")
+        path = path.replace("background-events", "background_events")
+        path = path.replace("yield-events", "yield_events")
+        path = path.replace("event-arguments", "event_arguments")
+        path = path.replace("event-actions", "event_actions")
+        path = path.replace("chaining-events", "chaining_events")
+        path = path.replace("special-events", "special_events")
+        path = path.replace("decentralized-event-handlers", "decentralized_event_handlers")
+        path = path.replace("events-overview", "events_overview")
+        path = path.replace("authentication-overview", "authentication_overview")
+        path = path.replace("dynamic-routing", "dynamic_routing")
+        path = path.replace("code-structure", "code_structure")
+        path = path.replace("component-state", "component_state")
+        
+        path = path.replace("segmented-control", "segmented_control")
+        path = path.replace("auto-scroll", "auto_scroll")
+        path = path.replace("code-block", "code_block")
+        path = path.replace("data-list", "data_list")
+        path = path.replace("scroll-area", "scroll_area")
+        path = path.replace("html-embed", "html_embed")
+        path = path.replace("aspect-ratio", "aspect_ratio")
+        path = path.replace("data-table", "data_table")
+        path = path.replace("data-editor", "data_editor")
+        path = path.replace("hover-card", "hover_card")
+        path = path.replace("alert-dialog", "alert_dialog")
+        path = path.replace("context-menu", "context_menu")
+        path = path.replace("dropdown-menu", "dropdown_menu")
+        path = path.replace("radio-group", "radio_group")
+        path = path.replace("text-area", "text_area")
+        
+        path = path.replace("custom-vars", "custom_vars")
+        path = path.replace("computed-vars", "computed_vars")
+        path = path.replace("base-vars", "base_vars")
+        
+        path = path.replace("config-file", "config_file")
+        
+        path = path.replace("upload-and-download-files", "upload_and_download_files")
+        path = path.replace("rendering-iterables", "rendering_iterables")
+        path = path.replace("html-to-reflex", "html_to_reflex")
+        path = path.replace("conditional-rendering", "conditional_rendering")
+        path = path.replace("other-methods", "other_methods")
+        path = path.replace("lifespan-tasks", "lifespan_tasks")
+        path = path.replace("exception-handlers", "exception_handlers")
+        path = path.replace("router-attributes", "router_attributes")
+        path = path.replace("event-triggers", "event_triggers")
+        path = path.replace("browser-storage", "browser_storage")
+        path = path.replace("var-system", "var_system")
+        path = path.replace("browser-javascript", "browser_javascript")
         
         if not path.endswith(".md"):
             path += ".md"
