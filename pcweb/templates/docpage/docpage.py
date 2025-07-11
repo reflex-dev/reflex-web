@@ -326,7 +326,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}",
+                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}".replace("main//", "main/"),
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
