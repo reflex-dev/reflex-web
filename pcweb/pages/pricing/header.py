@@ -185,6 +185,8 @@ How they heard about Reflex: {self.referral_source}"""
             # Send to PostHog for all submissions
             yield QuoteFormState.send_demo_event(form_data)
 
+            yield rx.call_script(f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}")
+            
             yield ThankYouDialogState.push(True)
             yield rx.redirect("/pricing?lead=1")
             return
