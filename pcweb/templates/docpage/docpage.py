@@ -274,12 +274,18 @@ def link_pill(text: str, href: str) -> rx.Component:
     )
 
 
-def _build_url_to_filepath_mapping():
-    """Build dynamic mapping from browser URLs to filesystem paths.
+_URL_TO_FILEPATH_MAP = None
+
+def _get_url_to_filepath_mapping():
+    """Get the URL-to-filepath mapping, building it lazily on first access.
     
-    Uses the same logic as the routing system to convert file paths to browser URLs,
-    then creates the reverse mapping for URL-to-filepath conversion.
+    Uses lazy loading to avoid circular imports during module initialization.
     """
+    global _URL_TO_FILEPATH_MAP
+    
+    if _URL_TO_FILEPATH_MAP is not None:
+        return _URL_TO_FILEPATH_MAP
+    
     import flexdown
     import reflex as rx
     
@@ -313,9 +319,8 @@ def _build_url_to_filepath_mapping():
             
             url_to_filepath[url_key] = doc_path
     
-    return url_to_filepath
-
-_URL_TO_FILEPATH_MAP = _build_url_to_filepath_mapping()
+    _URL_TO_FILEPATH_MAP = url_to_filepath
+    return _URL_TO_FILEPATH_MAP
 
 def convert_url_path_to_github_path(url_path) -> str:
     """Convert a URL path to the corresponding GitHub filesystem path.
@@ -338,7 +343,8 @@ def convert_url_path_to_github_path(url_path) -> str:
         path_without_docs = string_replace_operation(path_clean, "^docs/", "")
         
         result_path = path_without_docs
-        for browser_url, file_path in _URL_TO_FILEPATH_MAP.items():
+        url_to_filepath_map = _get_url_to_filepath_mapping()
+        for browser_url, file_path in url_to_filepath_map.items():
             if browser_url != file_path.replace('.md', ''):
                 result_path = string_replace_operation(result_path, browser_url, file_path.replace('.md', ''))
         
@@ -354,8 +360,9 @@ def convert_url_path_to_github_path(url_path) -> str:
         if path.startswith("docs/"):
             path = path[5:]
         
-        if path in _URL_TO_FILEPATH_MAP:
-            return _URL_TO_FILEPATH_MAP[path]
+        url_to_filepath_map = _get_url_to_filepath_mapping()
+        if path in url_to_filepath_map:
+            return url_to_filepath_map[path]
         
         if not path.endswith(".md"):
             path += ".md"
