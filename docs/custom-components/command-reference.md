@@ -6,7 +6,7 @@ The custom component commands are under `reflex component` subcommand. To see th
 reflex component --help
 ```
 
-```
+```text
 Usage: reflex component [OPTIONS] COMMAND [ARGS]...
 
   Subcommands for creating and publishing Custom Components.
@@ -28,7 +28,7 @@ Below is an example of running the `init` command.
 reflex component init
 ```
 
-```
+```text
 reflex component init
 ─────────────────────────────────────── Initializing reflex-google-auth project ───────────────────────────────────────
 Info: Populating pyproject.toml with package name: reflex-google-auth
@@ -95,7 +95,7 @@ The help manual is shown when adding the `--help` option to the command.
 reflex component init --help
 ```
 
-```
+```text
 Usage: reflex component init [OPTIONS]
 
   Initialize a custom component.
@@ -135,7 +135,7 @@ The `build` command generates the `.tar.gz` and `.whl` distribution files to be 
 reflex component build --help
 ```
 
-```
+```text
 Usage: reflex component build [OPTIONS]
 
   Build a custom component. Must be run from the project root directory where
