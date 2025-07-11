@@ -287,14 +287,41 @@ def convert_url_path_to_github_path(url_path) -> str:
         from reflex.vars.sequence import string_replace_operation
         
         path_no_slashes = string_replace_operation(url_path, r"^/+|/+$", "")
-        path_with_underscores = string_replace_operation(path_no_slashes, "-", "_")
-        path_clean = string_replace_operation(path_with_underscores, r"^/+", "")
-        return f"{path_clean}.md"
+        path_clean = string_replace_operation(path_no_slashes, r"^/+", "")
+        
+        api_ref_condition = string_replace_operation(path_clean, r"^docs/api-reference/", "")
+        path_with_api_ref = rx.cond(
+            path_clean != api_ref_condition,  # If replacement happened, we're in api-reference
+            f"docs/api-reference/{string_replace_operation(api_ref_condition, '-', '_')}",
+            path_clean
+        )
+        
+        hyphenated_folders = ["api-routes", "custom-components", "wrapping-react"]
+        final_path = path_with_api_ref
+        for folder in hyphenated_folders:
+            folder_condition = string_replace_operation(final_path, f"^docs/{folder}/", "")
+            final_path = rx.cond(
+                final_path != folder_condition,  # If replacement happened, we're in this hyphenated folder
+                f"docs/{folder}/{folder_condition}",  # Keep hyphens as-is
+                string_replace_operation(final_path, "-", "_")  # Convert dashes to underscores for other paths
+            )
+        
+        return f"{final_path}.md"
     else:
         path = str(url_path).strip("/")
         while "//" in path:
             path = path.replace("//", "/")
-        path = path.replace("-", "_")
+        
+        if path.startswith("docs/api-reference/"):
+            parts = path.split("/")
+            if len(parts) >= 3:
+                file_part = "/".join(parts[2:]).replace("-", "_")
+                path = f"docs/api-reference/{file_part}"
+        elif any(path.startswith(f"docs/{folder}/") for folder in ["api-routes", "custom-components", "wrapping-react"]):
+            pass
+        else:
+            path = path.replace("-", "_")
+        
         if not path.endswith(".md"):
             path += ".md"
         return path
