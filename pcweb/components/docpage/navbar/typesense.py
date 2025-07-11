@@ -321,9 +321,9 @@ def suggestions_section() -> rx.Component:
                 suggestion_item("Getting Started with Reflex", "/docs/getting-started/introduction", "rocket"),
                 suggestion_item("Components Overview", "/docs/library", "blocks"),
                 suggestion_item("State Management", "/docs/state/overview", "database"),
-                suggestion_item("Event Handlers", "/docs/events/event-handlers", "zap"),
+                suggestion_item("Event Overview", "/docs/events/events-overview", "zap"),
                 suggestion_item("Styling and Theming", "/docs/styling/overview", "palette"),
-                suggestion_item("Deployment Guide", "/docs/hosting/deploy", "cloud"),
+                suggestion_item("Deployment Guide", "/docs/hosting/deploy-quick-start/", "cloud"),
                 class_name="w-full flex flex-col gap-y-1 items-start"
             ),
             rx.box(),
@@ -344,7 +344,7 @@ def search_result_item(result: rx.Var) -> rx.Component:
                 rx.icon("file-text", class_name="size-4 shrink-0 !text-slate-9"),
                 rx.html(
                     result['title'],
-                    class_name="text-md font-medium text-slate-12",
+                    class_name="text-md font-medium !text-slate-12",
                 ),
                 spacing="2",
                 align_items="center",
@@ -352,10 +352,10 @@ def search_result_item(result: rx.Var) -> rx.Component:
             ),
             rx.html(
                 result['content'],
-                color="var(--c-slate-11)",
+                # color="var(--c-slate-11)",
                 font_size="14px",
                 line_height="1.5",
-                class_name="prose prose-sm"
+                class_name="prose prose-sm text-slate-12"
             ),
             align_items="start",
             spacing="1",
