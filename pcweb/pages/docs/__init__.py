@@ -223,6 +223,9 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+    # Handle index files: /folder/index/ -> /folder/
+    if route.endswith("/index/"):
+        route = route[:-7] + "/"
 
     comp = get_component(doc, title)
 
