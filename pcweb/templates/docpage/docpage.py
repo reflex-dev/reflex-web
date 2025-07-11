@@ -276,28 +276,28 @@ def link_pill(text: str, href: str) -> rx.Component:
 
 def convert_url_path_to_github_path(url_path) -> str:
     """Convert a URL path to the corresponding GitHub filesystem path.
-    
+
     Preserves the exact file structure as it exists in the docs/ folder,
     only cleaning slashes and adding .md extension.
-    
+
     Args:
         url_path: URL path like "/docs/getting-started/introduction/" (can be str or rx.Var[str])
-        
+
     Returns:
         GitHub filesystem path like "docs/getting-started/introduction.md"
     """
     if hasattr(url_path, '_js_expr'):  # This is a Reflex Var
         from reflex.vars.sequence import string_replace_operation
-        
+
         path_no_slashes = string_replace_operation(url_path, r"^/+|/+$", "")
         path_clean = string_replace_operation(path_no_slashes, r"/+", "/")
-        
+
         return f"{path_clean}.md"
     else:
         path = str(url_path).strip("/")
         while "//" in path:
             path = path.replace("//", "/")
-        
+
         if not path.endswith(".md"):
             path += ".md"
         return path
@@ -332,7 +332,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/blob/main/{convert_url_path_to_github_path(path)}",
+                    f"https://github.com/reflex-dev/reflex-web/blob/main{convert_url_path_to_github_path(path)}",
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
