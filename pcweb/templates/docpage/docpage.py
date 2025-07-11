@@ -617,8 +617,8 @@ def docpage(
 
             grid_cols_classes = "grid-cols-1"
             if show_right_sidebar:
-                grid_cols_classes += " 2xl:grid-cols-[300px_1fr_16%]"
-            grid_cols_classes += " lg:grid-cols-[300px_1fr]"
+                grid_cols_classes += " 2xl:grid-cols-[300px_960px_16%]"
+            grid_cols_classes += " lg:grid-cols-[300px_960px]"
 
             return rx.box(
                 navbar(),
