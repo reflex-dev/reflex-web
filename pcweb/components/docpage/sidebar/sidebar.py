@@ -596,7 +596,7 @@ def sidebar_comp(
                                 ),
                                 create_sidebar_section(
                                     "Components",
-                                    enterprise.ag_grid.index.path,
+                                    "/docs/enterprise/ag_grid/",
                                     enterprise_component_items,
                                     enterprise_index,
                                     url,
