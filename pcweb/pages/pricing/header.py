@@ -1,4 +1,5 @@
 import re
+import urllib.parse
 from typing import Any, Literal
 
 import reflex as rx
@@ -8,6 +9,7 @@ from reflex.utils.console import log
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
+from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.pages.framework.views.companies import pricing_page_companies
 from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog, send_data_to_slack
 
@@ -122,6 +124,10 @@ class QuoteFormState(rx.State):
         """Update the selected value for a given field."""
         setattr(self, field, value)
 
+    def is_small_company(self) -> bool:
+        """Check if company has 5 or fewer employees."""
+        return self.num_employees in ["1", "2-5"]
+
     @rx.event
     def submit(self, form_data: dict[str, Any]):
         # LinkedIn URL validation
@@ -187,9 +193,21 @@ How they heard about Reflex: {self.referral_source}"""
 
             yield rx.call_script(f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}")
             
-            yield ThankYouDialogState.push(True)
-            yield rx.redirect("/pricing?lead=1")
-            return
+            if self.is_small_company():
+                yield ThankYouDialogState.push(True)
+                yield rx.redirect("/pricing?lead=1")
+                return
+
+            params = {
+                "email": form_data.get("email", ""),
+                "name": f"{form_data.get('first_name', '')} {form_data.get('last_name', '')}",
+                "notes": notes_content,
+            }
+
+            query_string = urllib.parse.urlencode(params)
+            cal_url = f"{CAL_REQUEST_DEMO_URL}?{query_string}"
+
+            return rx.redirect(cal_url)
 
 
     @rx.event(background=True)
