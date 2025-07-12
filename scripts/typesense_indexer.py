@@ -52,6 +52,7 @@ class MarkdownProcessor:
 
     def __init__(self):
         self.md = Markdown(extensions=['meta', 'toc'])
+        self._component_names = None
 
     def extract_headings(self, content: str) -> List[str]:
         """Extract headings from markdown content."""
@@ -91,6 +92,75 @@ class MarkdownProcessor:
         content = content.strip()
 
         return content
+
+    def _get_component_names_from_docs(self) -> List[str]:
+        """Extract component names from markdown files in docs/library directory.
+        
+        Dynamically discovers component names from the actual markdown files
+        instead of using a hardcoded list.
+        """
+        if self._component_names is not None:
+            return self._component_names
+        
+        component_names = set()
+        
+        repo_root = Path(__file__).parent.parent
+        library_root = repo_root / 'docs' / 'library'
+        
+        if not library_root.exists():
+            logger.warning(f"Library docs directory not found: {library_root}")
+            self._component_names = []
+            return self._component_names
+        
+        for md_file in library_root.rglob('*.md'):
+            component_name = md_file.stem
+            
+            if component_name.endswith('-ll'):
+                component_name = component_name[:-3]
+            
+            if '_' in component_name:
+                component_names.add(component_name)
+                component_names.add(component_name.replace('_', ''))
+            else:
+                component_names.add(component_name)
+            
+            if '-' in component_name:
+                component_names.add(component_name.replace('-', '_'))
+        
+        self._component_names = sorted(list(component_names))
+        logger.info(f"Discovered {len(self._component_names)} component names from docs/library")
+        
+        return self._component_names
+
+    def enhance_content_with_rx_prefixes(self, content: str, title: str) -> str:
+        """Enhance content with rx. prefixed versions of component names for better search.
+        
+        For component documentation, adds both the component name and rx.prefixed version
+        to make searches like 'rx.memo' find the memo documentation.
+        
+        Component names are dynamically extracted from docs/library markdown files.
+        """
+        enhanced_content = content
+        
+        component_names = self._get_component_names_from_docs()
+        
+        title_lower = title.lower()
+        content_lower = content.lower()
+        
+        rx_terms = []
+        for component in component_names:
+            if component in title_lower or component in content_lower:
+                rx_terms.append(f"rx.{component}")
+        
+        rx_patterns = re.findall(r'rx\.(\w+)', content)
+        for match in rx_patterns:
+            if match not in component_names:
+                rx_terms.append(f"rx.{match}")
+        
+        if rx_terms:
+            enhanced_content += "\n\n" + " ".join(rx_terms)
+        
+        return enhanced_content
 
     def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file and return a dict ready for indexing."""
@@ -139,10 +209,11 @@ class MarkdownProcessor:
 
             headings = self.extract_headings(content)
             clean_content = self.clean_content(content)
+            enhanced_content = self.enhance_content_with_rx_prefixes(clean_content, title)
 
             document = {
                 'title': title,
-                'content': clean_content,
+                'content': enhanced_content,
                 'headings': headings,
                 'path': str(rel_path).replace('_', '-'),  # Normalize for internal use
                 'url': url_path,                           # Normalized, user-facing

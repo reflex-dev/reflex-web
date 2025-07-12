@@ -149,6 +149,7 @@ class TypesenseSearchState(rx.State):
         self.search_results = []
         self.show_results = False
 
+
     async def _perform_search(self, query: str) -> dict:
         """Perform the actual Typesense search."""
         client = typesense.Client(TYPESENSE_CONFIG)
