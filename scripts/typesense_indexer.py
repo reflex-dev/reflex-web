@@ -52,6 +52,7 @@ class MarkdownProcessor:
 
     def __init__(self):
         self.md = Markdown(extensions=['meta', 'toc'])
+        self._component_names = None
 
     def extract_headings(self, content: str) -> List[str]:
         """Extract headings from markdown content."""
@@ -92,22 +93,56 @@ class MarkdownProcessor:
 
         return content
 
+    def _get_component_names_from_docs(self) -> List[str]:
+        """Extract component names from markdown files in docs/library directory.
+        
+        Dynamically discovers component names from the actual markdown files
+        instead of using a hardcoded list.
+        """
+        if self._component_names is not None:
+            return self._component_names
+        
+        component_names = set()
+        
+        repo_root = Path(__file__).parent.parent
+        library_root = repo_root / 'docs' / 'library'
+        
+        if not library_root.exists():
+            logger.warning(f"Library docs directory not found: {library_root}")
+            self._component_names = []
+            return self._component_names
+        
+        for md_file in library_root.rglob('*.md'):
+            component_name = md_file.stem
+            
+            if component_name.endswith('-ll'):
+                component_name = component_name[:-3]
+            
+            if '_' in component_name:
+                component_names.add(component_name)
+                component_names.add(component_name.replace('_', ''))
+            else:
+                component_names.add(component_name)
+            
+            if '-' in component_name:
+                component_names.add(component_name.replace('-', '_'))
+        
+        self._component_names = sorted(list(component_names))
+        logger.info(f"Discovered {len(self._component_names)} component names from docs/library")
+        
+        return self._component_names
+
     def enhance_content_with_rx_prefixes(self, content: str, title: str) -> str:
         """Enhance content with rx. prefixed versions of component names for better search.
         
         For component documentation, adds both the component name and rx.prefixed version
         to make searches like 'rx.memo' find the memo documentation.
+        
+        Component names are dynamically extracted from docs/library markdown files.
         """
         enhanced_content = content
         
-        component_names = [
-            'memo', 'button', 'text', 'input', 'box', 'vstack', 'hstack', 
-            'image', 'link', 'heading', 'divider', 'form', 'select', 'table',
-            'card', 'badge', 'icon', 'spinner', 'progress', 'tabs', 'modal',
-            'drawer', 'toast', 'alert', 'accordion', 'slider', 'switch',
-            'checkbox', 'radio', 'textarea', 'code', 'markdown', 'video',
-            'audio', 'upload', 'download', 'chart', 'graph', 'grid'
-        ]
+        component_names = self._get_component_names_from_docs()
         
         title_lower = title.lower()
         content_lower = content.lower()
