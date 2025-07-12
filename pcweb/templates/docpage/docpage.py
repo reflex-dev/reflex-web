@@ -4,7 +4,6 @@ import functools
 from datetime import datetime
 from typing import Callable
 
-import flexdown
 import mistletoe
 from reflex.components.radix.themes.base import LiteralAccentColor
 from reflex.utils.format import to_snake_case, to_title_case
@@ -13,6 +12,7 @@ from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
 from pcweb.route import Route, get_path
 from pcweb.styles.colors import c_color
+from pcweb.utils.url_mapping import convert_url_path_to_github_path
 
 from .blocks import *
 from .state import FeedbackState
@@ -303,7 +303,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    f"https://github.com/reflex-dev/reflex-web/blob/main{convert_url_path_to_github_path(path)}",
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
@@ -453,6 +453,7 @@ def get_headings(comp):
 
 def get_toc(source, href, component_list=None):
     from pcweb.flexdown import xd
+    import flexdown
 
     component_list = component_list or []
     component_list = component_list[1:]
