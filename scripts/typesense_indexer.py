@@ -92,6 +92,41 @@ class MarkdownProcessor:
 
         return content
 
+    def enhance_content_with_rx_prefixes(self, content: str, title: str) -> str:
+        """Enhance content with rx. prefixed versions of component names for better search.
+        
+        For component documentation, adds both the component name and rx.prefixed version
+        to make searches like 'rx.memo' find the memo documentation.
+        """
+        enhanced_content = content
+        
+        component_names = [
+            'memo', 'button', 'text', 'input', 'box', 'vstack', 'hstack', 
+            'image', 'link', 'heading', 'divider', 'form', 'select', 'table',
+            'card', 'badge', 'icon', 'spinner', 'progress', 'tabs', 'modal',
+            'drawer', 'toast', 'alert', 'accordion', 'slider', 'switch',
+            'checkbox', 'radio', 'textarea', 'code', 'markdown', 'video',
+            'audio', 'upload', 'download', 'chart', 'graph', 'grid'
+        ]
+        
+        title_lower = title.lower()
+        content_lower = content.lower()
+        
+        rx_terms = []
+        for component in component_names:
+            if component in title_lower or component in content_lower:
+                rx_terms.append(f"rx.{component}")
+        
+        rx_patterns = re.findall(r'rx\.(\w+)', content)
+        for match in rx_patterns:
+            if match not in component_names:
+                rx_terms.append(f"rx.{match}")
+        
+        if rx_terms:
+            enhanced_content += "\n\n" + " ".join(rx_terms)
+        
+        return enhanced_content
+
     def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file and return a dict ready for indexing."""
         def normalize_slug(s: str) -> str:
@@ -139,10 +174,11 @@ class MarkdownProcessor:
 
             headings = self.extract_headings(content)
             clean_content = self.clean_content(content)
+            enhanced_content = self.enhance_content_with_rx_prefixes(clean_content, title)
 
             document = {
                 'title': title,
-                'content': clean_content,
+                'content': enhanced_content,
                 'headings': headings,
                 'path': str(rel_path).replace('_', '-'),  # Normalize for internal use
                 'url': url_path,                           # Normalized, user-facing
