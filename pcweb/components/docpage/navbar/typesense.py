@@ -1,8 +1,9 @@
-"""Typesense search component for the navbar."""
+"""Improved Typesense search component with better component search handling."""
 
 import reflex as rx
 import typesense
 import os
+import re
 
 # Constants
 TYPESENSE_CONFIG = {
@@ -15,12 +16,16 @@ TYPESENSE_CONFIG = {
     'connection_timeout_seconds': 10
 }
 
-SEARCH_PARAMS = {
-    'query_by': 'title,content,headings',
+# Enhanced search parameters with component-aware boosting
+BASE_SEARCH_PARAMS = {
     'per_page': 8,
-    'highlight_full_fields': 'title,content',
+    'highlight_full_fields': 'title,content,components',
     'snippet_threshold': 30,
-    'num_typos': 2
+    'num_typos': 2,
+    'typo_tokens_threshold': 1,
+    'drop_tokens_threshold': 1,
+    'prioritize_exact_match': True,
+    'prioritize_token_position': True,
 }
 
 FILTER_CATEGORIES = [
@@ -74,14 +79,14 @@ DEFAULT_SUGGESTIONS = [
     {"title": "Getting Started with Reflex", "url": "/docs/getting-started/introduction"},
     {"title": "Components Overview", "url": "/docs/library"},
     {"title": "State Management", "url": "/docs/state/overview"},
-    {"title": "Event Handlers", "url": "/docs/events/event-handlers"},
+    {"title": "Events Overview", "url": "/docs/events/events-overview"},
     {"title": "Styling and Theming", "url": "/docs/styling/overview"},
-    {"title": "Deployment Guide", "url": "/docs/hosting/deploy"},
+    {"title": "Deployment Guide", "url": "/docs/hosting/deploy-quick-start"},
 ]
 
 
 class TypesenseSearchState(rx.State):
-    """State management for the Typesense search component."""
+    """Enhanced state management for the Typesense search component."""
 
     # State variables
     search_query: str = ""
@@ -93,7 +98,6 @@ class TypesenseSearchState(rx.State):
     filter_categories: list[str] = FILTER_CATEGORIES
     suggestions: list[dict] = DEFAULT_SUGGESTIONS
 
-    # Modal management
     def open_modal(self):
         """Open the search modal and reset filter state."""
         self.show_modal = True
@@ -112,7 +116,6 @@ class TypesenseSearchState(rx.State):
         self.search_results = []
         self.selected_filter = "All"
 
-    # Filter management
     async def set_filter(self, filter_name: str):
         """Set the selected filter and re-run search if there's an active query."""
         self.selected_filter = filter_name
@@ -123,9 +126,25 @@ class TypesenseSearchState(rx.State):
         """Get sections for current filter."""
         return FILTER_SECTION_MAPPING.get(self.selected_filter, [])
 
-    # Search functionality
+    def _is_component_query(self, query: str) -> bool:
+        """Detect if the query is likely searching for a component."""
+        query_lower = query.lower()
+        # Check for rx. prefix, common component patterns, or if it's in components section
+        return (
+            query_lower.startswith('rx.') or
+            query_lower.startswith('reflex.') or
+            any(keyword in query_lower for keyword in ['button', 'input', 'text', 'box', 'image', 'link', 'icon', 'form', 'table', 'chart', 'modal', 'dialog']) or
+            self.selected_filter == "Components"
+        )
+
+    def _clean_component_query(self, query: str) -> str:
+        """Clean and normalize component queries."""
+        # Remove rx. or reflex. prefix for better matching
+        cleaned = re.sub(r'^(rx\.|reflex\.)', '', query.lower())
+        return cleaned.strip()
+
     async def search_docs(self, query: str):
-        """Search the documentation using Typesense."""
+        """Enhanced search with component-aware logic."""
         self.search_query = query
 
         if not query.strip():
@@ -135,7 +154,14 @@ class TypesenseSearchState(rx.State):
         self.is_searching = True
 
         try:
-            results = await self._perform_search(query)
+            # Determine search strategy based on query type
+            is_component_search = self._is_component_query(query)
+
+            if is_component_search:
+                results = await self._perform_component_search(query)
+            else:
+                results = await self._perform_regular_search(query)
+
             self.search_results = self._format_search_results(results)
             self.show_results = True
         except Exception as e:
@@ -149,15 +175,51 @@ class TypesenseSearchState(rx.State):
         self.search_results = []
         self.show_results = False
 
-    async def _perform_search(self, query: str) -> dict:
-        """Perform the actual Typesense search."""
+    async def _perform_component_search(self, query: str) -> dict:
+        """Perform component-focused search with boosted relevance."""
+        client = typesense.Client(TYPESENSE_CONFIG)
+
+        # Clean the query for component matching
+        cleaned_query = self._clean_component_query(query)
+
+        search_parameters = {
+            'q': cleaned_query,
+            **BASE_SEARCH_PARAMS,
+            # Prioritize components field, then title, then content
+            'query_by': 'components,title,content,headings',
+            'query_by_weights': '4,3,1,2',  # Higher weight for components field
+            'highlight_start_tag': '<mark>',
+            'highlight_end_tag': '</mark>',
+            'sort_by': '_text_match:desc',  # Sort by text match relevance
+        }
+
+        # Apply filter if not "All"
+        if self.selected_filter != "All":
+            sections = self._get_filter_sections()
+            if sections:
+                filter_conditions = [f'section:={section}' for section in sections]
+                search_parameters['filter_by'] = ' || '.join(filter_conditions)
+        else:
+            # For component searches, prefer component-heavy sections
+            component_sections = ['library', 'components', 'custom-components', 'wrapping-react', 'api-reference']
+            boost_conditions = [f'section:={section}' for section in component_sections]
+            # Use this as a boost rather than hard filter
+            search_parameters['boost_by'] = f"if(section:=[{','.join(component_sections)}], 2, 1)"
+
+        return client.collections['docs'].documents.search(search_parameters)
+
+    async def _perform_regular_search(self, query: str) -> dict:
+        """Perform regular search for non-component queries."""
         client = typesense.Client(TYPESENSE_CONFIG)
 
         search_parameters = {
             'q': query,
-            **SEARCH_PARAMS,
+            **BASE_SEARCH_PARAMS,
+            'query_by': 'title,content,headings,components',
+            'query_by_weights': '3,2,2,1',  # Balanced weights for regular search
             'highlight_start_tag': '<mark>',
-            'highlight_end_tag': '</mark>'
+            'highlight_end_tag': '</mark>',
+            'sort_by': '_text_match:desc',
         }
 
         # Apply filter if not "All"
@@ -170,39 +232,97 @@ class TypesenseSearchState(rx.State):
         return client.collections['docs'].documents.search(search_parameters)
 
     def _format_search_results(self, result: dict) -> list[dict]:
-        """Format search results for display."""
-        return [
-            {
-                'title': hit['document']['title'],
-                'content': self._get_highlighted_content(hit),  # <-- use highlight-aware content
-                'url': hit['document']['url'],
-                'path': hit['document']['path'],
-                'section': hit['document'].get('section', ''),
-                'subsection': hit['document'].get('subsection', ''),
-                'breadcrumb': self._create_breadcrumb(hit['document'])
-            }
-            for hit in result['hits']
-        ]
+        """Format search results for display with enhanced component info."""
+        formatted_results = []
 
+        for hit in result['hits']:
+            doc = hit['document']
+
+            # Extract component information
+            components = doc.get('components', [])
+            component_info = None
+            if components:
+                component_info = f"Components: {', '.join(components)}"
+
+            formatted_result = {
+                'title': doc['title'],
+                'content': self._get_highlighted_content(hit),
+                'url': doc['url'],
+                'path': doc['path'],
+                'section': doc.get('section', ''),
+                'subsection': doc.get('subsection', ''),
+                'breadcrumb': self._create_breadcrumb(doc),
+                'components': components,
+                'component_info': component_info,
+                'score': hit.get('text_match', 0)  # Include relevance score
+            }
+
+            formatted_results.append(formatted_result)
+
+        return formatted_results
 
     def _get_highlighted_content(self, hit: dict) -> str:
-        """Get highlighted content snippet."""
+        """Get highlighted content snippet with component-aware highlighting."""
         highlights = hit.get('highlights', [])
+
+        def fix_component_highlighting(text):
+            """Fix incomplete word and component highlighting patterns."""
+            import re
+
+            # Fix 1: Complete partial words (e.g., Form -> Forms)
+            text = re.sub(r'<mark>([^<]*?)</mark>([a-zA-Z0-9_]*)', r'<mark>\1\2</mark>', text)
+
+            # Fix 2: Handle component patterns where only component name is highlighted
+            # rx.<mark>form</mark> -> <mark>rx.form</mark>
+            text = re.sub(r'((?:rx|reflex)\.)<mark>([^<]*?)</mark>', r'<mark>\1\2</mark>', text)
+
+            # Fix 3: Handle reverse case where namespace is highlighted
+            # <mark>rx</mark>.form -> <mark>rx.form</mark>
+            text = re.sub(r'<mark>(rx|reflex)</mark>\.([a-zA-Z0-9_]+)', r'<mark>\1.\2</mark>', text)
+
+            # Fix 4: Handle chained components/methods
+            # <mark>rx.component</mark>.method -> <mark>rx.component.method</mark>
+            text = re.sub(r'<mark>((?:rx|reflex)\.[a-zA-Z0-9_]+)</mark>\.([a-zA-Z0-9_]+)', r'<mark>\1.\2</mark>', text)
+
+            return text
+
         if highlights:
+            # Prioritize component field highlights
+            for highlight in highlights:
+                if highlight.get('field') == 'components':
+                    values = highlight.get('values', [])
+                    if values:
+                        # Apply highlighting fix to component values too
+                        fixed_values = [fix_component_highlighting(value) for value in values]
+                        highlighted_components = ', '.join(fixed_values)
+                        return f"<span style='font-weight: 600;'>Components:</span> {highlighted_components}"
+
+            # Then look for content highlights
             for highlight in highlights:
                 if highlight.get('field') == 'content':
-                    # Prefer the short 'snippet' if available, else fallback to 'value'
                     content = highlight.get('snippet') or highlight.get('value')
                     if content and '<mark>' in content:
+                        # Apply comprehensive highlighting fix
+                        content = fix_component_highlighting(content)
                         content = content.replace(
                             '<mark>', '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
                         ).replace('</mark>', '</span>')
+                        return content
 
+            # Finally, title highlights
+            for highlight in highlights:
+                if highlight.get('field') == 'title':
+                    content = highlight.get('snippet') or highlight.get('value')
+                    if content and '<mark>' in content:
+                        # Apply comprehensive highlighting fix
+                        content = fix_component_highlighting(content)
+                        content = content.replace(
+                            '<mark>', '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
+                        ).replace('</mark>', '</span>')
                         return content
 
         # Fallback to truncated plain content
         return self._truncate_content(hit['document']['content'])
-
 
     def _truncate_content(self, content: str, max_length: int = 150) -> str:
         """Truncate content to specified length."""
@@ -236,7 +356,6 @@ class TypesenseSearchState(rx.State):
 
         return ' › '.join(parts)
 
-    # Navigation
     def hide_results(self):
         """Hide search results."""
         self.show_results = False
@@ -248,7 +367,7 @@ class TypesenseSearchState(rx.State):
         return rx.redirect(url)
 
 
-# Component functions
+# Component functions (keeping your existing UI components)
 def filter_pill(filter_name: str) -> rx.Component:
     """Render a single filter pill."""
     is_selected = TypesenseSearchState.selected_filter == filter_name
@@ -333,7 +452,7 @@ def suggestions_section() -> rx.Component:
 
 
 def search_result_item(result: rx.Var) -> rx.Component:
-    """Render a single search result item with breadcrumb navigation."""
+    """Enhanced search result item with component information."""
     return rx.box(
         rx.vstack(
             rx.text(
@@ -345,6 +464,7 @@ def search_result_item(result: rx.Var) -> rx.Component:
                 rx.html(
                     result['title'],
                     class_name="text-md font-medium !text-slate-12",
+                    word_break= "keep-all",
                 ),
                 spacing="2",
                 align_items="center",
@@ -352,7 +472,6 @@ def search_result_item(result: rx.Var) -> rx.Component:
             ),
             rx.html(
                 result['content'],
-                # color="var(--c-slate-11)",
                 font_size="14px",
                 line_height="1.5",
                 class_name="prose prose-sm text-slate-12"
@@ -386,7 +505,7 @@ def search_input() -> rx.Component:
             on_click=rx.run_script("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
         ),
         rx.el.input(
-            placeholder="What are you searching for?",
+            placeholder="Search components, docs, or features...",
             on_change=TypesenseSearchState.search_docs.debounce(500),
             id="search-input",
             auto_focus=True,
@@ -441,7 +560,7 @@ def search_trigger() -> rx.Component:
             class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
         ),
         rx.el.input(
-            placeholder="Search",
+            placeholder="Search components...",
             read_only=True,
             class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
         ),
