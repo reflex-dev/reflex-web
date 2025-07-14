@@ -107,23 +107,6 @@ class TypesenseSearchState(rx.State):
         """Get sections for current filter."""
         return FILTER_SECTION_MAPPING.get(self.selected_filter, [])
 
-    def _is_component_query(self, query: str) -> bool:
-        """Detect if the query is likely searching for a component."""
-        query_lower = query.lower()
-        # Check for rx. prefix, common component patterns, or if it's in components section
-        return (
-            query_lower.startswith('rx.') or
-            query_lower.startswith('reflex.') or
-            any(keyword in query_lower for keyword in ['button', 'input', 'text', 'box', 'image', 'link', 'icon', 'form', 'table', 'chart', 'modal', 'dialog']) or
-            self.selected_filter == "Components"
-        )
-
-    def _clean_component_query(self, query: str) -> str:
-        """Clean and normalize component queries."""
-        # Remove rx. or reflex. prefix for better matching
-        cleaned = re.sub(r'^(rx\.|reflex\.)', '', query.lower())
-        return cleaned.strip()
-
     async def search_docs(self, query: str):
         """Enhanced search with component-aware logic."""
         self.search_query = query
@@ -135,13 +118,7 @@ class TypesenseSearchState(rx.State):
         self.is_searching = True
 
         try:
-            # Determine search strategy based on query type
-            is_component_search = self._is_component_query(query)
-
-            if is_component_search:
-                results = await self._perform_component_search(query)
-            else:
-                results = await self._perform_regular_search(query)
+            results = await self._perform_unified_search(query)
 
             self.search_results = self._format_search_results(results)
             self.show_results = True
@@ -151,66 +128,35 @@ class TypesenseSearchState(rx.State):
 
         self.is_searching = False
 
-    def _clear_search_results(self):
-        """Clear search results and hide results display."""
-        self.search_results = []
-        self.show_results = False
-
-    async def _perform_component_search(self, query: str) -> dict:
-        """Perform component-focused search with boosted relevance."""
-        client = typesense.Client(TYPESENSE_CONFIG)
-
-        # Clean the query for component matching
-        cleaned_query = self._clean_component_query(query)
-
-        search_parameters = {
-            'q': cleaned_query,
-            **BASE_SEARCH_PARAMS,
-            # Prioritize components field, then title, then content
-            'query_by': 'components,title,content,headings',
-            'query_by_weights': '4,3,1,2',  # Higher weight for components field
-            'highlight_start_tag': '<mark>',
-            'highlight_end_tag': '</mark>',
-            'sort_by': '_text_match:desc',  # Sort by text match relevance
-        }
-
-        # Apply filter if not "All"
-        if self.selected_filter != "All":
-            sections = self._get_filter_sections()
-            if sections:
-                filter_conditions = [f'section:={section}' for section in sections]
-                search_parameters['filter_by'] = ' || '.join(filter_conditions)
-        else:
-            # For component searches, prefer component-heavy sections
-            component_sections = ['library', 'components', 'custom-components', 'wrapping-react', 'api-reference']
-            boost_conditions = [f'section:={section}' for section in component_sections]
-            # Use this as a boost rather than hard filter
-            search_parameters['boost_by'] = f"if(section:=[{','.join(component_sections)}], 2, 1)"
-
-        return client.collections['docs'].documents.search(search_parameters)
-
-    async def _perform_regular_search(self, query: str) -> dict:
-        """Perform regular search for non-component queries."""
+    async def _perform_unified_search(self, query: str) -> dict:
+        """Perform a single search using is_component metadata for boosting/filtering."""
         client = typesense.Client(TYPESENSE_CONFIG)
 
         search_parameters = {
             'q': query,
             **BASE_SEARCH_PARAMS,
             'query_by': 'title,content,headings,components',
-            'query_by_weights': '3,2,2,1',  # Balanced weights for regular search
+            'query_by_weights': '4,3,3,2',  # Title + content > headings > components
             'highlight_start_tag': '<mark>',
             'highlight_end_tag': '</mark>',
-            'sort_by': '_text_match:desc',
+            'sort_by': 'is_component:desc, _text_match:desc',
         }
 
         # Apply filter if not "All"
         if self.selected_filter != "All":
-            sections = self._get_filter_sections()
-            if sections:
-                filter_conditions = [f'section:={section}' for section in sections]
-                search_parameters['filter_by'] = ' || '.join(filter_conditions)
+            if self.selected_filter == "Components":
+                search_parameters["filter_by"] = "is_component:=true"
+            else:
+                sections = self._get_filter_sections()
+                if sections:
+                    search_parameters['filter_by'] = ' || '.join(f"section:={s}" for s in sections)
 
         return client.collections['docs'].documents.search(search_parameters)
+
+    def _clear_search_results(self):
+        """Clear search results and hide results display."""
+        self.search_results = []
+        self.show_results = False
 
     def _format_search_results(self, result: dict) -> list[dict]:
             """Format search results for display with enhanced component info."""

@@ -38,13 +38,14 @@ COLLECTION_SCHEMA = {
         {'name': 'id', 'type': 'string'},
         {'name': 'title', 'type': 'string'},
         {'name': 'content', 'type': 'string'},
-        {'name': 'code_examples', 'type': 'string', 'optional': True},  # Preserve code examples
+        {'name': 'code_examples', 'type': 'string', 'optional': True},
         {'name': 'headings', 'type': 'string[]'},
         {'name': 'path', 'type': 'string'},
         {'name': 'url', 'type': 'string'},
         {'name': 'components', 'type': 'string[]', 'optional': True},
         {'name': 'section', 'type': 'string'},
         {'name': 'subsection', 'type': 'string', 'optional': True},
+        {'name': 'is_component', 'type': 'bool', 'optional': True},
     ]
 }
 
@@ -322,6 +323,8 @@ class TypesenseIndexer:
             # Get path info
             url = self.get_url_from_path(file_path, docs_root)
             section, subsection = self.get_section_info(file_path, docs_root)
+            rel_path = file_path.relative_to(docs_root)
+            is_component = 'library' in rel_path.parts
 
             # Create document
             doc = {
@@ -332,6 +335,7 @@ class TypesenseIndexer:
                 'path': str(file_path.relative_to(docs_root)),
                 'url': url,
                 'section': section,
+                'is_component': is_component,
             }
 
             # Add breadcrumbs
