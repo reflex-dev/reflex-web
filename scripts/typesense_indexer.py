@@ -288,51 +288,68 @@ class TypesenseIndexer:
         parts = relative_path.parts
 
         if len(parts) == 1:
-            return 'root', None
+            return 'blog', None
         elif len(parts) == 2:
             return parts[0], None
         else:
             return parts[0], parts[1]
 
-    def process_file(self, file_path: Path, docs_root: Path) -> Optional[Dict[str, Any]]:
+    def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file."""
+        def normalize_slug(s: str) -> str:
+            return s.replace('_', '-')
+
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
 
             # Parse frontmatter
             post = frontmatter.loads(content)
+            metadata = post.metadata
 
-            # Extract title
-            # new default title with “-ll” → “Low Level”
-            stem = file_path.stem
-            if stem.endswith('-ll'):
-                base = stem[:-3].replace('-', ' ').title()
-                default_title = f"{base} Low Level"
+            if is_blog:
+                # Blog processing
+                url = '/blog/' + normalize_slug(file_path.stem)
+                section = 'Blog'
+                subsection = metadata.get('author', None)
+                rel_path = file_path.relative_to(content_root)
+                is_component = False
+
+                # Extract title for blog
+                title = metadata.get('title', '')
+                if not title:
+                    headings = self.processor.extract_headings(post.content)
+                    title = headings[0] if headings else normalize_slug(file_path.stem).replace('-', ' ').title()
             else:
-                default_title = stem.replace('-', ' ').title()
+                # Docs processing (using new logic)
+                url = self.get_url_from_path(file_path, content_root)
+                section, subsection = self.get_section_info(file_path, content_root)
+                rel_path = file_path.relative_to(content_root)
+                is_component = 'library' in rel_path.parts
 
-            title = post.metadata.get('title', default_title)
+                # Extract title for docs (with -ll handling)
+                stem = file_path.stem
+                if stem.endswith('-ll'):
+                    base = stem[:-3].replace('-', ' ').title()
+                    default_title = f"{base} Low Level"
+                else:
+                    default_title = stem.replace('-', ' ').title()
 
-            # Process content
+                title = metadata.get('title', default_title)
+
+            # Process content (common for both)
             clean_content = self.processor.clean_content(post.content)
             headings = self.processor.extract_headings(post.content)
             components = list(self.processor.extract_components(post.content))
             code_examples = self.processor.extract_code_examples(post.content)
 
-            # Get path info
-            url = self.get_url_from_path(file_path, docs_root)
-            section, subsection = self.get_section_info(file_path, docs_root)
-            rel_path = file_path.relative_to(docs_root)
-            is_component = 'library' in rel_path.parts
-
             # Create document
             doc = {
-                'id': str(file_path.relative_to(docs_root)),
+                'id': str(rel_path),
                 'title': title,
                 'content': clean_content,
                 'headings': headings,
-                'path': str(file_path.relative_to(docs_root)),
+                'path': str(rel_path),
                 'url': url,
                 'section': section,
                 'is_component': is_component,
@@ -355,7 +372,7 @@ class TypesenseIndexer:
             logger.error(f"Error processing {file_path}: {e}")
             return None
 
-    def index_documents(self, docs_root: Path, batch_size: int = 100) -> bool:
+    def index_documents(self, docs_root: Path, batch_size: int = 100, is_blog: bool = False) -> bool:
         """Index all markdown files in the docs directory."""
         try:
             # Find all markdown files
@@ -413,6 +430,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Index Reflex documentation to Typesense')
     parser.add_argument('--docs-path', default='./docs', help='Path to docs directory')
+    parser.add_argument('--blog-path', default='./blog', help='Path to blog directory')
     parser.add_argument('--force', action='store_true', help='Force recreate collection')
     parser.add_argument('--batch-size', type=int, default=100, help='Batch size for indexing')
 
@@ -433,6 +451,12 @@ def main():
         logger.error(f"Docs path does not exist: {docs_path}")
         sys.exit(1)
 
+    # Validate blog path
+    blog_path = Path(args.blog_path)
+    if not blog_path.exists():
+        logger.error(f"Blog path does not exist: {blog_path}")
+        sys.exit(1)
+
     # Initialize indexer
     indexer = TypesenseIndexer(TYPESENSE_CONFIG)
 
@@ -441,9 +465,14 @@ def main():
         logger.error("Failed to create collection")
         sys.exit(1)
 
-    # Index documents
+    # Index docs
     if not indexer.index_documents(docs_path, batch_size=args.batch_size):
-        logger.error("Failed to index documents")
+        logger.error("Failed to index docs")
+        sys.exit(1)
+
+    # Index blog
+    if not indexer.index_documents(blog_path, batch_size=args.batch_size, is_blog=True):
+        logger.error("Failed to index blog")
         sys.exit(1)
 
     logger.info("Indexing process completed successfully!")

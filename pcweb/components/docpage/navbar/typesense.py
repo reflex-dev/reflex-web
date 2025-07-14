@@ -18,7 +18,7 @@ TYPESENSE_CONFIG = {
 
 # Enhanced search parameters with component-aware boosting
 BASE_SEARCH_PARAMS = {
-    'per_page': 8,
+    'per_page': 20,
     'highlight_full_fields': 'title,content,components',
     'snippet_threshold': 30,
     'num_typos': 2,
@@ -380,7 +380,7 @@ def search_input() -> rx.Component:
             on_click=rx.run_script("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
         ),
         rx.el.input(
-            placeholder="Search components, docs, or features...",
+            placeholder="Search...",
             on_change=TypesenseSearchState.search_docs.debounce(500),
             id="search-input",
             auto_focus=True,
