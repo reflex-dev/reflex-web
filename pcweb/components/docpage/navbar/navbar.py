@@ -270,7 +270,7 @@ def new_resource_section():
     _company_items = [
         {
             "label": "Newsletter",
-            "url": "https://reflex.dev/#newsletter",
+            "url": "https://reflex.dev/open-source/#newsletter",
             "icon": "mails",
         },
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
@@ -515,7 +515,7 @@ def new_component_section() -> rx.Component:
                     ),
                     underline="none",
                     is_external=True,
-                    href=f"{REFLEX_CLOUD_URL}/?redirect_url={REFLEX_BUILD_URL}",
+                    href=f"{REFLEX_CLOUD_URL.strip('/')}/?redirect_url={REFLEX_BUILD_URL}",
                 ),
                 class_name="desktop-only",
             ),

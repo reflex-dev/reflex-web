@@ -120,6 +120,7 @@ outblocks = []
 manual_titles = {
     "docs/database/overview.md": "Database Overview",
     "docs/custom-components/overview.md": "Custom Components Overview",
+    "docs/custom-components/command-reference.md": "Custom Component CLI Reference",
     "docs/api-routes/overview.md": "API Routes Overview",
     "docs/client_storage/overview.md": "Client Storage Overview",
     "docs/state_structure/overview.md": "State Structure Overview", 
@@ -223,6 +224,9 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+    # Handle index files: /folder/index/ -> /folder/
+    if route.endswith("/index/"):
+        route = route[:-7] + "/"
 
     comp = get_component(doc, title)
 

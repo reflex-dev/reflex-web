@@ -1,14 +1,17 @@
 import re
+import urllib.parse
 from typing import Any, Literal
 
 import reflex as rx
 from reflex.event import EventType
 from reflex.experimental import ClientStateVar
+from reflex.utils.console import log
 
 from pcweb.components.hosting_banner import HostingBannerState
 from pcweb.components.new_button import button
+from pcweb.constants import CAL_REQUEST_DEMO_URL
 from pcweb.pages.framework.views.companies import pricing_page_companies
-from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog
+from pcweb.telemetry.postog_metrics import DemoEvent, send_data_to_posthog, send_data_to_slack
 
 ThankYouDialogState = ClientStateVar.create("thank_you_dialog_state", False)
 
@@ -121,6 +124,10 @@ class QuoteFormState(rx.State):
         """Update the selected value for a given field."""
         setattr(self, field, value)
 
+    def is_small_company(self) -> bool:
+        """Check if company has 5 or fewer employees."""
+        return self.num_employees in ["1", "2-5"]
+
     @rx.event
     def submit(self, form_data: dict[str, Any]):
         # LinkedIn URL validation
@@ -184,29 +191,51 @@ How they heard about Reflex: {self.referral_source}"""
             # Send to PostHog for all submissions
             yield QuoteFormState.send_demo_event(form_data)
 
-            yield ThankYouDialogState.push(True)
-            yield rx.redirect("/pricing?lead=1")
-            return
+            yield rx.call_script(f"try {{ ko.identify('{email}'); }} catch(e) {{ console.warn('Koala identify failed:', e); }}")
+            
+            if self.is_small_company():
+                yield ThankYouDialogState.push(True)
+                yield rx.redirect("/pricing?lead=1")
+                return
+
+            params = {
+                "email": form_data.get("email", ""),
+                "name": f"{form_data.get('first_name', '')} {form_data.get('last_name', '')}",
+                "notes": notes_content,
+            }
+
+            query_string = urllib.parse.urlencode(params)
+            cal_url = f"{CAL_REQUEST_DEMO_URL}?{query_string}"
+
+            return rx.redirect(cal_url)
 
 
     @rx.event(background=True)
     async def send_demo_event(self, form_data: dict[str, Any]):
         first_name = form_data.get("first_name", "")
         last_name = form_data.get("last_name", "")
-        await send_data_to_posthog(
-            DemoEvent(
-                distinct_id=f"{first_name} {last_name}",
-                first_name=first_name,
-                last_name=last_name,
-                company_email=form_data.get("email", ""),
-                linkedin_url=form_data.get("linkedin_url", ""),  # Updated from phone_number
-                job_title=form_data.get("job_title", ""),
-                company_name=form_data.get("company_name", ""),
-                num_employees=self.num_employees,
-                internal_tools=form_data.get("internal_tools", ""),
-                referral_source=self.referral_source,
-            )
+        demo_event = DemoEvent(
+            distinct_id=f"{first_name} {last_name}",
+            first_name=first_name,
+            last_name=last_name,
+            company_email=form_data.get("email", ""),
+            linkedin_url=form_data.get("linkedin_url", ""),
+            job_title=form_data.get("job_title", ""),
+            company_name=form_data.get("company_name", ""),
+            num_employees=self.num_employees,
+            internal_tools=form_data.get("internal_tools", ""),
+            referral_source=self.referral_source,
+            phone_number=form_data.get("phone_number", ""),
         )
+        
+        # Send to PostHog (existing)
+        await send_data_to_posthog(demo_event)
+        
+        # Send to Slack (new)
+        try:
+            await send_data_to_slack(demo_event)
+        except Exception as e:
+            log(f"Failed to send to Slack: {e}")
 
 
 def quote_input(placeholder: str, name: str, **props):
@@ -458,6 +487,13 @@ def custom_quote_form() -> rx.Component:
                             required=True,
                             input_type="url",
                         ),
+                    ),
+                    text_input_field(
+                        "Phone number (optional)",
+                        "phone_number",
+                        "+1 (555) 123-4567",
+                        required=False,
+                        input_type="tel",
                     ),
                     # Project Details
                     textarea_field(

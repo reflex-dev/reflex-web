@@ -180,7 +180,7 @@ class DebounceState(rx.State):
     settled_value: int = 50
 
     @rx.event
-    def update_value(self, value: list[int]):
+    def update_value(self, value: list[int | float]):
         self.settled_value = value[0]
 
 
