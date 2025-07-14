@@ -47,34 +47,6 @@ FILTER_SECTION_MAPPING = {
     "Blogs": ["Blog"]
 }
 
-SECTION_DISPLAY_NAMES = {
-    'getting_started': 'Getting Started',
-    'library': 'Components',
-    'api-reference': 'API Reference',
-    'hosting': 'Hosting',
-    'events': 'Events',
-    'styling': 'Styling',
-    'state': 'State',
-    'vars': 'Variables',
-    'database': 'Database',
-    'authentication': 'Authentication',
-    'custom-components': 'Custom Components',
-    'wrapping-react': 'Wrapping React',
-    'ai_builder': 'AI Builder',
-    'recipes': 'Recipes',
-    'advanced_onboarding': 'Advanced',
-    'enterprise': 'Enterprise',
-    'utility_methods': 'Utilities',
-    'client_storage': 'Client Storage',
-    'components': 'Components',
-    'pages': 'Pages',
-    'assets': 'Assets',
-    'api-routes': 'API Routes',
-    'ui': 'UI',
-    'state_structure': 'State Structure',
-    'Blog': 'Blog'
-}
-
 DEFAULT_SUGGESTIONS = [
     {"title": "Getting Started with Reflex", "url": "/docs/getting-started/introduction"},
     {"title": "Components Overview", "url": "/docs/library"},
@@ -83,6 +55,15 @@ DEFAULT_SUGGESTIONS = [
     {"title": "Styling and Theming", "url": "/docs/styling/overview"},
     {"title": "Deployment Guide", "url": "/docs/hosting/deploy-quick-start"},
 ]
+
+# Precompiled regex patterns for component highlighting fixes
+PATTERN_PARTIAL_WORD = re.compile(r'<mark>([^<]*?)</mark>([a-zA-Z0-9_]*)')
+PATTERN_COMPONENT_NAME = re.compile(r'((?:rx|reflex)\.)<mark>([^<]*?)</mark>')
+PATTERN_NAMESPACE = re.compile(r'<mark>(rx|reflex)</mark>\.([a-zA-Z0-9_]+)')
+PATTERN_CHAINED = re.compile(r'<mark>((?:rx|reflex)\.[a-zA-Z0-9_]+)</mark>\.([a-zA-Z0-9_]+)')
+
+# Styling for highlights
+HIGHLIGHT_STYLE = '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
 
 
 class TypesenseSearchState(rx.State):
@@ -232,34 +213,30 @@ class TypesenseSearchState(rx.State):
         return client.collections['docs'].documents.search(search_parameters)
 
     def _format_search_results(self, result: dict) -> list[dict]:
-        """Format search results for display with enhanced component info."""
-        formatted_results = []
+            """Format search results for display with enhanced component info."""
+            formatted_results = []
 
-        for hit in result['hits']:
-            doc = hit['document']
+            for hit in result['hits']:
+                doc = hit['document']
+                components = doc.get('components', [])
+                component_info = None
+                if components:
+                    component_info = f"Components: {', '.join(components)}"
+                formatted_result = {
+                    'title': doc['title'],
+                    'content': self._get_highlighted_content(hit),
+                    'url': doc['url'],
+                    'path': doc['path'],
+                    'section': doc.get('section', ''),
+                    'subsection': doc.get('subsection', ''),
+                    'breadcrumb': doc.get('breadcrumb', ''),
+                    'components': components,
+                    'component_info': component_info,
+                    'score': hit.get('text_match', 0)
+                }
+                formatted_results.append(formatted_result)
 
-            # Extract component information
-            components = doc.get('components', [])
-            component_info = None
-            if components:
-                component_info = f"Components: {', '.join(components)}"
-
-            formatted_result = {
-                'title': doc['title'],
-                'content': self._get_highlighted_content(hit),
-                'url': doc['url'],
-                'path': doc['path'],
-                'section': doc.get('section', ''),
-                'subsection': doc.get('subsection', ''),
-                'breadcrumb': self._create_breadcrumb(doc),
-                'components': components,
-                'component_info': component_info,
-                'score': hit.get('text_match', 0)  # Include relevance score
-            }
-
-            formatted_results.append(formatted_result)
-
-        return formatted_results
+            return formatted_results
 
     def _get_highlighted_content(self, hit: dict) -> str:
         """Get highlighted content snippet with component-aware highlighting."""
@@ -267,59 +244,26 @@ class TypesenseSearchState(rx.State):
 
         def fix_component_highlighting(text):
             """Fix incomplete word and component highlighting patterns."""
-            import re
-
-            # Fix 1: Complete partial words (e.g., Form -> Forms)
-            text = re.sub(r'<mark>([^<]*?)</mark>([a-zA-Z0-9_]*)', r'<mark>\1\2</mark>', text)
-
-            # Fix 2: Handle component patterns where only component name is highlighted
-            # rx.<mark>form</mark> -> <mark>rx.form</mark>
-            text = re.sub(r'((?:rx|reflex)\.)<mark>([^<]*?)</mark>', r'<mark>\1\2</mark>', text)
-
-            # Fix 3: Handle reverse case where namespace is highlighted
-            # <mark>rx</mark>.form -> <mark>rx.form</mark>
-            text = re.sub(r'<mark>(rx|reflex)</mark>\.([a-zA-Z0-9_]+)', r'<mark>\1.\2</mark>', text)
-
-            # Fix 4: Handle chained components/methods
-            # <mark>rx.component</mark>.method -> <mark>rx.component.method</mark>
-            text = re.sub(r'<mark>((?:rx|reflex)\.[a-zA-Z0-9_]+)</mark>\.([a-zA-Z0-9_]+)', r'<mark>\1.\2</mark>', text)
-
+            text = PATTERN_PARTIAL_WORD.sub(r'<mark>\1\2</mark>', text)
+            text = PATTERN_COMPONENT_NAME.sub(r'<mark>\1\2</mark>', text)
+            text = PATTERN_NAMESPACE.sub(r'<mark>\1.\2</mark>', text)
+            text = PATTERN_CHAINED.sub(r'<mark>\1.\2</mark>', text)
             return text
 
-        if highlights:
-            # Prioritize component field highlights
-            for highlight in highlights:
-                if highlight.get('field') == 'components':
-                    values = highlight.get('values', [])
-                    if values:
-                        # Apply highlighting fix to component values too
-                        fixed_values = [fix_component_highlighting(value) for value in values]
-                        highlighted_components = ', '.join(fixed_values)
-                        return f"<span style='font-weight: 600;'>Components:</span> {highlighted_components}"
-
-            # Then look for content highlights
-            for highlight in highlights:
-                if highlight.get('field') == 'content':
-                    content = highlight.get('snippet') or highlight.get('value')
-                    if content and '<mark>' in content:
-                        # Apply comprehensive highlighting fix
-                        content = fix_component_highlighting(content)
-                        content = content.replace(
-                            '<mark>', '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
-                        ).replace('</mark>', '</span>')
-                        return content
-
-            # Finally, title highlights
-            for highlight in highlights:
-                if highlight.get('field') == 'title':
-                    content = highlight.get('snippet') or highlight.get('value')
-                    if content and '<mark>' in content:
-                        # Apply comprehensive highlighting fix
-                        content = fix_component_highlighting(content)
-                        content = content.replace(
-                            '<mark>', '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
-                        ).replace('</mark>', '</span>')
-                        return content
+        for highlight in highlights:
+            field = highlight.get('field')
+            if field == 'components':
+                values = highlight.get('values', [])
+                if values:
+                    fixed_values = [fix_component_highlighting(value) for value in values]
+                    highlighted_components = ', '.join(fixed_values)
+                    styled = f"<span style='font-weight: 600;'>Components:</span> {highlighted_components}"
+                    return styled.replace('<mark>', HIGHLIGHT_STYLE).replace('</mark>', '</span>')
+            elif field in ['content', 'title']:
+                content = highlight.get('snippet') or highlight.get('value', '')
+                if content and '<mark>' in content:
+                    content = fix_component_highlighting(content)
+                    return content.replace('<mark>', HIGHLIGHT_STYLE).replace('</mark>', '</span>')
 
         # Fallback to truncated plain content
         return self._truncate_content(hit['document']['content'])
@@ -329,32 +273,6 @@ class TypesenseSearchState(rx.State):
         if len(content) <= max_length:
             return content
         return content[:max_length] + '...'
-
-    def _create_breadcrumb(self, document: dict) -> str:
-        """Create a breadcrumb string from document metadata."""
-        parts = []
-
-        # Add section
-        section = document.get('section', '')
-        if section:
-            section_display = SECTION_DISPLAY_NAMES.get(
-                section,
-                section.replace('-', ' ').replace('_', ' ').title()
-            )
-            parts.append(section_display)
-
-        # Add subsection
-        subsection = document.get('subsection', '')
-        if subsection:
-            subsection_display = subsection.replace('-', ' ').replace('_', ' ').title()
-            parts.append(subsection_display)
-
-        # Add title if different from last part
-        title = document.get('title', '')
-        if title and (not parts or title.lower() != parts[-1].lower()):
-            parts.append(title)
-
-        return ' › '.join(parts)
 
     def hide_results(self):
         """Hide search results."""

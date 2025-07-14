@@ -48,26 +48,81 @@ COLLECTION_SCHEMA = {
     ]
 }
 
-# Common Reflex components for better detection
-REFLEX_COMPONENTS = {
-    'rx.text', 'rx.button', 'rx.input', 'rx.box', 'rx.flex', 'rx.image', 'rx.link',
-    'rx.icon', 'rx.form', 'rx.table', 'rx.chart', 'rx.modal', 'rx.dialog', 'rx.select',
-    'rx.slider', 'rx.switch', 'rx.checkbox', 'rx.radio', 'rx.textarea', 'rx.upload',
-    'rx.progress', 'rx.badge', 'rx.card', 'rx.tooltip', 'rx.popover', 'rx.drawer',
-    'rx.tabs', 'rx.accordion', 'rx.alert', 'rx.breadcrumb', 'rx.menu', 'rx.pagination',
-    'rx.divider', 'rx.spacer', 'rx.center', 'rx.container', 'rx.stack', 'rx.hstack',
-    'rx.vstack', 'rx.grid', 'rx.responsive_grid', 'rx.fragment', 'rx.cond', 'rx.foreach',
-    'rx.moment', 'rx.html', 'rx.markdown', 'rx.code', 'rx.heading', 'rx.span',
-    'rx.em', 'rx.strong', 'rx.kbd', 'rx.highlight', 'rx.color_picker', 'rx.debounce_input',
-    'rx.editor', 'rx.data_table', 'rx.plotly', 'rx.recharts', 'rx.chakra', 'rx.radix'
+# Section display names to create breadcrumbs
+SECTION_DISPLAY_NAMES = {
+    'getting_started': 'Getting Started',
+    'library': 'Components',
+    'api-reference': 'API Reference',
+    'hosting': 'Hosting',
+    'events': 'Events',
+    'styling': 'Styling',
+    'state': 'State',
+    'vars': 'Variables',
+    'database': 'Database',
+    'authentication': 'Authentication',
+    'custom-components': 'Custom Components',
+    'wrapping-react': 'Wrapping React',
+    'ai_builder': 'AI Builder',
+    'recipes': 'Recipes',
+    'advanced_onboarding': 'Advanced',
+    'enterprise': 'Enterprise',
+    'utility_methods': 'Utilities',
+    'client_storage': 'Client Storage',
+    'components': 'Components',
+    'pages': 'Pages',
+    'assets': 'Assets',
+    'api-routes': 'API Routes',
+    'ui': 'UI',
+    'state_structure': 'State Structure',
+    'Blog': 'Blog'
 }
-
 
 class MarkdownProcessor:
     """Enhanced processor for markdown files with better component detection."""
 
     def __init__(self):
         self.md = Markdown(extensions=['meta', 'toc'])
+        self._component_names = None  # cache
+
+    def _get_component_names_from_docs(self) -> List[str]:
+            """Discover component slugs in docs/library → ['button', 'input', ...]."""
+            if self._component_names is not None:
+                return self._component_names
+
+            repo_root = Path(__file__).parent
+            library_root = repo_root / 'docs' / 'library'
+            names = set()
+
+            if library_root.exists():
+                for md_file in library_root.rglob('*.md'):
+                    slug = md_file.stem
+                    # strip “-ll”
+                    if slug.endswith('-ll'):
+                        slug = slug[:-3]
+                    # add variants
+                    names.add(slug)
+                    names.add(slug.replace('-', '_'))
+                    names.add(slug.replace('_', ''))
+            else:
+                logger.warning(f"Library docs directory not found: {library_root}")
+
+            self._component_names = sorted(names)
+            logger.info(f"Discovered {len(names)} components")
+            return self._component_names
+
+    def extract_components(self, content: str) -> Set[str]:
+        """Find any of those components (with rx. prefix) in the markdown."""
+        components = set()
+        comp_names = self._get_component_names_from_docs()
+
+        # look for either plain or rx.<name>
+        for name in comp_names:
+            # word boundary so we don’t match “button” inside “mybutton”
+            pattern = rf'\b(?:rx\.)?{re.escape(name)}\b'
+            for match in re.finditer(pattern, content):
+                components.add(f"rx.{name}")
+
+        return components
 
     def extract_headings(self, content: str) -> List[str]:
         """Extract headings from markdown content."""
@@ -83,35 +138,6 @@ class MarkdownProcessor:
                     headings.append(heading_text.strip())
 
         return headings
-
-    def extract_components(self, content: str) -> Set[str]:
-        """Extract Reflex components mentioned in the content."""
-        components = set()
-
-        # Pattern to match rx.component_name or reflex.component_name
-        component_pattern = r'(?:^|\s)(rx\.[a-zA-Z_][a-zA-Z0-9_]*|reflex\.[a-zA-Z_][a-zA-Z0-9_]*)'
-
-        # Find all component mentions
-        matches = re.findall(component_pattern, content, re.MULTILINE)
-
-        for match in matches:
-            # Normalize to rx.component format
-            if match.startswith('reflex.'):
-                match = 'rx.' + match[7:]  # Replace 'reflex.' with 'rx.'
-
-            # Only include known components or ones that follow naming conventions
-            if match in REFLEX_COMPONENTS or self._is_likely_component(match):
-                components.add(match)
-
-        # Also check for component names in headings and documentation
-        for heading in self.extract_headings(content):
-            heading_lower = heading.lower()
-            for component in REFLEX_COMPONENTS:
-                comp_name = component.replace('rx.', '')
-                if comp_name in heading_lower or heading_lower.replace(' ', '_') == comp_name:
-                    components.add(component)
-
-        return components
 
     def _is_likely_component(self, name: str) -> bool:
         """Check if a name is likely a Reflex component."""
@@ -199,24 +225,61 @@ class TypesenseIndexer:
             return False
 
     def get_url_from_path(self, file_path: Path, docs_root: Path) -> str:
-        """Generate URL from file path."""
+        """Generate URL from file path, handling ‘-ll’ suffixes as ‘…/low’."""
         relative_path = file_path.relative_to(docs_root)
 
-        # Convert path to URL format
-        url_parts = []
-        for part in relative_path.parts[:-1]:  # Exclude filename
-            url_parts.append(part)
+        # Build the URL path segments (excluding the filename for now)
+        url_parts = list(relative_path.parts[:-1])
 
-        # Handle index files
+        # Handle index.md specially
         if file_path.name == 'index.md':
+            # e.g. docs/foo/index.md → /foo/
             url = '/' + '/'.join(url_parts) if url_parts else '/'
         else:
-            # Remove .md extension
-            filename = file_path.stem
-            url_parts.append(filename)
+            stem = file_path.stem  # filename without .md
+
+            # If the filename ends with “-ll”, strip it and add a “low” segment
+            if stem.endswith('-ll'):
+                base = stem[:-3]           # remove the “-ll”
+                url_parts.append(base)     # e.g. …/foo
+                url_parts.append('low')    # then …/low
+            else:
+                url_parts.append(stem)     # normal case
+
             url = '/' + '/'.join(url_parts)
 
+        # Ensure no trailing slash (unless it’s the root)
+        if url != '/' and url.endswith('/'):
+            url = url.rstrip('/')
+
         return url
+
+    def create_breadcrumb(self, document: dict) -> str:
+            """Create a breadcrumb string from document metadata."""
+            parts = []
+
+            # Add section
+            section = document.get('section', '')
+            if section:
+                section_display = SECTION_DISPLAY_NAMES.get(
+                    section,
+                    section.replace('-', ' ').replace('_', ' ').title()
+                )
+                parts.append(section_display)
+
+            # Add subsection
+            subsection = document.get('subsection', '')
+            if subsection:
+                subsection_display = subsection.replace('-', ' ').replace('_', ' ').title()
+                parts.append(subsection_display)
+
+            # Add title if different from last part
+            title = document.get('title', '')
+            if title and (not parts or title.lower() != parts[-1].lower()):
+                parts.append(title)
+
+            return ' › '.join(parts)
+
 
     def get_section_info(self, file_path: Path, docs_root: Path) -> tuple[str, Optional[str]]:
         """Extract section and subsection from file path."""
@@ -240,7 +303,15 @@ class TypesenseIndexer:
             post = frontmatter.loads(content)
 
             # Extract title
-            title = post.metadata.get('title', file_path.stem.replace('-', ' ').title())
+            # new default title with “-ll” → “Low Level”
+            stem = file_path.stem
+            if stem.endswith('-ll'):
+                base = stem[:-3].replace('-', ' ').title()
+                default_title = f"{base} Low Level"
+            else:
+                default_title = stem.replace('-', ' ').title()
+
+            title = post.metadata.get('title', default_title)
 
             # Process content
             clean_content = self.processor.clean_content(post.content)
@@ -262,6 +333,9 @@ class TypesenseIndexer:
                 'url': url,
                 'section': section,
             }
+
+            # Add breadcrumbs
+            doc['breadcrumb'] = self.create_breadcrumb(doc)
 
             # Add optional fields
             if code_examples:
