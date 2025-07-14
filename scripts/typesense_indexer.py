@@ -301,64 +301,70 @@ class TypesenseIndexer:
 
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+                post = frontmatter.load(f)
 
-            # Parse frontmatter
-            post = frontmatter.loads(content)
             metadata = post.metadata
+            rel_path = file_path.relative_to(content_root)
 
             if is_blog:
-                # Blog processing
-                url = '/blog/' + normalize_slug(file_path.stem)
+                # Blog logic
+                slug = normalize_slug(file_path.stem)
+                url_path = '/blog/' + slug
                 section = 'Blog'
                 subsection = metadata.get('author', None)
-                rel_path = file_path.relative_to(content_root)
-                is_component = False
 
-                # Extract title for blog
                 title = metadata.get('title', '')
                 if not title:
                     headings = self.processor.extract_headings(post.content)
-                    title = headings[0] if headings else normalize_slug(file_path.stem).replace('-', ' ').title()
+                    title = headings[0] if headings else slug.replace('-', ' ').title()
             else:
-                # Docs processing (using new logic)
-                url = self.get_url_from_path(file_path, content_root)
-                section, subsection = self.get_section_info(file_path, content_root)
-                rel_path = file_path.relative_to(content_root)
-                is_component = 'library' in rel_path.parts
+                # Docs logic (matching your cleaner version)
+                path_parts = [normalize_slug(p) for p in rel_path.parts[:-1]]  # Remove filename and normalize
+                url_path = '/' + '/'.join(['docs'] + path_parts)
 
-                # Extract title for docs (with -ll handling)
-                stem = file_path.stem
-                if stem.endswith('-ll'):
-                    base = stem[:-3].replace('-', ' ').title()
+                stem = normalize_slug(file_path.stem)
+                if file_path.name != 'index.md':
+                    if stem.endswith('-ll'):
+                        stem = stem[:-3]  # Remove -ll
+                        url_path += '/' + stem + '/low'
+                    else:
+                        url_path += '/' + stem
+
+                if url_path != '/' and url_path.endswith('/'):
+                    url_path = url_path.rstrip('/')
+
+                section = path_parts[0] if path_parts else 'docs'
+                subsection = path_parts[1] if len(path_parts) > 1 else None
+
+                # Title logic
+                if file_path.stem.endswith('-ll'):
+                    base = stem.replace('-', ' ').title()
                     default_title = f"{base} Low Level"
                 else:
                     default_title = stem.replace('-', ' ').title()
-
                 title = metadata.get('title', default_title)
 
-            # Process content (common for both)
+            # Common processing
             clean_content = self.processor.clean_content(post.content)
             headings = self.processor.extract_headings(post.content)
             components = list(self.processor.extract_components(post.content))
             code_examples = self.processor.extract_code_examples(post.content)
 
-            # Create document
+            print(url_path)
+
             doc = {
                 'id': str(rel_path),
                 'title': title,
                 'content': clean_content,
                 'headings': headings,
                 'path': str(rel_path),
-                'url': url,
+                'url': url_path,
                 'section': section,
-                'is_component': is_component,
+                'is_component': 'library' in rel_path.parts,
             }
 
-            # Add breadcrumbs
             doc['breadcrumb'] = self.create_breadcrumb(doc)
 
-            # Add optional fields
             if code_examples:
                 doc['code_examples'] = code_examples
             if components:
@@ -384,7 +390,7 @@ class TypesenseIndexer:
             processed = 0
 
             for file_path in markdown_files:
-                doc = self.process_file(file_path, docs_root)
+                doc = self.process_file(file_path, docs_root, is_blog)
                 if doc:
                     documents.append(doc)
                     processed += 1
