@@ -90,7 +90,7 @@ class MarkdownProcessor:
             if self._component_names is not None:
                 return self._component_names
 
-            repo_root = Path(__file__).parent
+            repo_root = Path(__file__).parent.parent
             library_root = repo_root / 'docs' / 'library'
             names = set()
 

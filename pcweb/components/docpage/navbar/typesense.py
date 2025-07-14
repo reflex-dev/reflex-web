@@ -65,7 +65,6 @@ PATTERN_CHAINED = re.compile(r'<mark>((?:rx|reflex)\.[a-zA-Z0-9_]+)</mark>\.([a-
 # Styling for highlights
 HIGHLIGHT_STYLE = '<span style="background-color: var(--violet-3); color: var(--violet-11); padding: 2px 4px; border-radius: 3px;">'
 
-
 class TypesenseSearchState(rx.State):
     """Enhanced state management for the Typesense search component."""
 
@@ -107,6 +106,16 @@ class TypesenseSearchState(rx.State):
         """Get sections for current filter."""
         return FILTER_SECTION_MAPPING.get(self.selected_filter, [])
 
+    def _clean_component_query(self, query: str) -> str:
+        """Normalize component query by removing rx./reflex. prefix."""
+        return re.sub(r'^(rx\.|reflex\.)', '', query.lower()).strip()
+
+    def _expand_query_variants(self, query: str) -> str:
+        """Return query string with rx./reflex. variants for flexible matching."""
+        cleaned = self._clean_component_query(query)
+        variants = {cleaned, f"rx.{cleaned}", f"reflex.{cleaned}"}
+        return " ".join(sorted(variants))  # Order doesn't matter
+
     async def search_docs(self, query: str):
         """Enhanced search with component-aware logic."""
         self.search_query = query
@@ -119,7 +128,6 @@ class TypesenseSearchState(rx.State):
 
         try:
             results = await self._perform_unified_search(query)
-
             self.search_results = self._format_search_results(results)
             self.show_results = True
         except Exception as e:
@@ -132,11 +140,13 @@ class TypesenseSearchState(rx.State):
         """Perform a single search using is_component metadata for boosting/filtering."""
         client = typesense.Client(TYPESENSE_CONFIG)
 
+        expanded_query = self._expand_query_variants(query)
+
         search_parameters = {
-            'q': query,
+            'q': expanded_query,
             **BASE_SEARCH_PARAMS,
             'query_by': 'title,content,headings,components',
-            'query_by_weights': '4,3,3,2',  # Title + content > headings > components
+            'query_by_weights': '4,3,3,2',
             'highlight_start_tag': '<mark>',
             'highlight_end_tag': '</mark>',
             'sort_by': 'is_component:desc, _text_match:desc',
@@ -159,30 +169,31 @@ class TypesenseSearchState(rx.State):
         self.show_results = False
 
     def _format_search_results(self, result: dict) -> list[dict]:
-            """Format search results for display with enhanced component info."""
-            formatted_results = []
+        """Format search results for display with enhanced component info."""
+        formatted_results = []
 
-            for hit in result['hits']:
-                doc = hit['document']
-                components = doc.get('components', [])
-                component_info = None
-                if components:
-                    component_info = f"Components: {', '.join(components)}"
-                formatted_result = {
-                    'title': doc['title'],
-                    'content': self._get_highlighted_content(hit),
-                    'url': doc['url'],
-                    'path': doc['path'],
-                    'section': doc.get('section', ''),
-                    'subsection': doc.get('subsection', ''),
-                    'breadcrumb': doc.get('breadcrumb', ''),
-                    'components': components,
-                    'component_info': component_info,
-                    'score': hit.get('text_match', 0)
-                }
-                formatted_results.append(formatted_result)
+        for hit in result['hits']:
+            doc = hit['document']
+            components = doc.get('components', [])
+            component_info = None
+            if components:
+                component_info = f"Components: {', '.join(components)}"
+            formatted_result = {
+                'title': doc['title'],
+                'content': self._get_highlighted_content(hit),
+                'url': doc['url'],
+                'path': doc['path'],
+                'section': doc.get('section', ''),
+                'subsection': doc.get('subsection', ''),
+                'breadcrumb': doc.get('breadcrumb', ''),
+                'components': components,
+                'component_info': component_info,
+                'score': hit.get('text_match', 0)
+            }
+            formatted_results.append(formatted_result)
 
-            return formatted_results
+        return formatted_results
+
 
     def _get_highlighted_content(self, hit: dict) -> str:
         """Get highlighted content snippet with component-aware highlighting."""
