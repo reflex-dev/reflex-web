@@ -4,6 +4,7 @@ import reflex as rx
 import typesense
 import os
 import re
+from scripts.component_discovery import get_component_names
 
 # Constants
 TYPESENSE_CONFIG = {
@@ -18,7 +19,7 @@ TYPESENSE_CONFIG = {
 
 # Enhanced search parameters with component-aware boosting
 BASE_SEARCH_PARAMS = {
-    'per_page': 8,
+    'per_page': 20,
     'highlight_full_fields': 'title,content,components',
     'snippet_threshold': 30,
     'num_typos': 2,
@@ -107,16 +108,6 @@ class TypesenseSearchState(rx.State):
         """Get sections for current filter."""
         return FILTER_SECTION_MAPPING.get(self.selected_filter, [])
 
-    def _is_component_query(self, query: str) -> bool:
-        """Detect if the query is likely searching for a component."""
-        query_lower = query.lower()
-        # Check for rx. prefix, common component patterns, or if it's in components section
-        return (
-            query_lower.startswith('rx.') or
-            query_lower.startswith('reflex.') or
-            any(keyword in query_lower for keyword in ['button', 'input', 'text', 'box', 'image', 'link', 'icon', 'form', 'table', 'chart', 'modal', 'dialog']) or
-            self.selected_filter == "Components"
-        )
 
     def _clean_component_query(self, query: str) -> str:
         """Clean and normalize component queries."""
@@ -125,9 +116,8 @@ class TypesenseSearchState(rx.State):
         return cleaned.strip()
 
     async def search_docs(self, query: str):
-        """Enhanced search with component-aware logic."""
+        """Search docs, using component‑boost when the Components tab is active."""
         self.search_query = query
-
         if not query.strip():
             self._clear_search_results()
             return
@@ -135,16 +125,16 @@ class TypesenseSearchState(rx.State):
         self.is_searching = True
 
         try:
-            # Determine search strategy based on query type
-            is_component_search = self._is_component_query(query)
-
-            if is_component_search:
+            if self.selected_filter == "Components":
+                # Hard “Components” priority
                 results = await self._perform_component_search(query)
             else:
+                # All other tabs (Docs, API Reference, Blogs, or All)
                 results = await self._perform_regular_search(query)
 
             self.search_results = self._format_search_results(results)
             self.show_results = True
+
         except Exception as e:
             print(f"Search error: {e}")
             self._clear_search_results()
