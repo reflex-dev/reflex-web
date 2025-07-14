@@ -17,8 +17,6 @@ import frontmatter
 import typesense
 from markdown import Markdown
 from bs4 import BeautifulSoup
-from component_discovery import get_component_names
-
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -113,13 +111,17 @@ class MarkdownProcessor:
             return self._component_names
 
     def extract_components(self, content: str) -> Set[str]:
-        """Extract any component names (with rx. prefix) found in the markdown."""
+        """Find any of those components (with rx. prefix) in the markdown."""
         components = set()
-        for name in get_component_names():
-            # match whole words “button” or “rx.button”
+        comp_names = self._get_component_names_from_docs()
+
+        # look for either plain or rx.<name>
+        for name in comp_names:
+            # word boundary so we don’t match “button” inside “mybutton”
             pattern = rf'\b(?:rx\.)?{re.escape(name)}\b'
-            for _ in re.finditer(pattern, content, flags=re.IGNORECASE):
+            for match in re.finditer(pattern, content):
                 components.add(f"rx.{name}")
+
         return components
 
     def extract_headings(self, content: str) -> List[str]:
@@ -136,6 +138,17 @@ class MarkdownProcessor:
                     headings.append(heading_text.strip())
 
         return headings
+
+    def _is_likely_component(self, name: str) -> bool:
+        """Check if a name is likely a Reflex component."""
+        if not name.startswith('rx.'):
+            return False
+
+        component_name = name[3:]  # Remove 'rx.' prefix
+
+        # Component names should be lowercase with underscores
+        # and not contain special characters
+        return re.match(r'^[a-z][a-z0-9_]*$', component_name) is not None
 
     def extract_code_examples(self, content: str) -> str:
         """Extract code examples from markdown content."""
