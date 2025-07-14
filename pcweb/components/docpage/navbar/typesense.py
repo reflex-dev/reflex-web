@@ -380,7 +380,7 @@ def search_input() -> rx.Component:
             on_click=rx.run_script("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))"),
         ),
         rx.el.input(
-            placeholder="Search...",
+            placeholder="Search components, docs, or features...",
             on_change=TypesenseSearchState.search_docs.debounce(500),
             id="search-input",
             auto_focus=True,
@@ -435,7 +435,7 @@ def search_trigger() -> rx.Component:
             class_name="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm bg-slate-3 rounded-md text-sm !text-slate-9 px-[5px] py-[2px] hidden md:inline",
         ),
         rx.el.input(
-            placeholder="Search components...",
+            placeholder="Search",
             read_only=True,
             class_name="bg-transparent border-none outline-none focus:outline-none pl-4 cursor-pointer hidden md:block",
         ),
