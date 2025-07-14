@@ -8,7 +8,7 @@ title: JSON Input
 
 ## Example
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

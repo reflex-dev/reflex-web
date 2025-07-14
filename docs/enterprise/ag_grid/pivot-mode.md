@@ -14,7 +14,7 @@ You can also define how rows are aggregated by passing the `agg_func` property i
 
 You can find a live example here: [Pivot Mode Example](https://aggrid.reflex.run/pivot).
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 import reflex as rx
 
@@ -54,7 +54,7 @@ def pivot_page():
 
 # Pivot using State
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 import reflex as rx
 

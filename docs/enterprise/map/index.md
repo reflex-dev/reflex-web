@@ -27,7 +27,7 @@ Map components are included with `reflex-enterprise`. No additional installation
 
 Here's a simple example of creating a map with a marker:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -92,7 +92,7 @@ rxe.map.tile_layer(
 
 Add point markers to specific locations:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -128,7 +128,7 @@ def markers_example():
 
 Draw shapes and areas on the map:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -189,7 +189,7 @@ def vectors_example():
 
 Maps support comprehensive event handling for user interactions:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -230,7 +230,7 @@ def interactive_example():
 
 Add UI controls for enhanced user interaction:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -282,7 +282,7 @@ map_api = rxe.map.api("my-map-id")
 
 Here are some commonly used API methods demonstrated in action:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -365,7 +365,7 @@ This means you can use any method from the [Leaflet Map documentation](https://l
 
 ### Advanced Example
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

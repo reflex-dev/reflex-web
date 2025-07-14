@@ -12,7 +12,7 @@ from pcweb.pages.docs import enterprise
 
 `rxe.mantine.pill` is a wrapping of the mantine component [Pill](https://mantine.dev/core/pill/). It is a simple component that can be used to display a small piece of information, such as a tag or a label. It can be used in various contexts, such as in a list of tags or labels, or as a standalone component.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -32,7 +32,7 @@ def pill_page():
 ## Pill Group
 `rxe.mantine.pill.group` allows grouping multiple `rxe.mantine.pill` components together, with a predefined layout.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -56,7 +56,7 @@ By itself it does not include any logic, it only renders given children.
 
 ## Example
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

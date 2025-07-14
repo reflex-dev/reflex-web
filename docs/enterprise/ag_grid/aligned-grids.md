@@ -6,7 +6,7 @@ AgGrid provides a way to align multiple grids together. This is useful when you 
 
 You can do so through the `aligned_grids` prop. This prop takes a list of grid IDs that you want to align. 
 
-```python demo exec toggle
+```python demo exec
 import pandas as pd
 
 import reflex_enterprise as rxe

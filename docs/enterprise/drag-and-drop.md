@@ -22,7 +22,7 @@ Reflex Enterprise provides comprehensive drag and drop functionality for creatin
 
 Here's a basic example showing how to create a draggable item and drop target:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -77,7 +77,7 @@ def basic_drag_drop():
 
 Create a draggable item that can be moved between multiple drop targets:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -145,7 +145,7 @@ def multi_position_example():
 
 Access drag and drop state information using collected parameters:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
@@ -204,7 +204,7 @@ def state_tracking_example():
 
 Create dynamic draggable lists using `rx.foreach`:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 
