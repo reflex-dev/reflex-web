@@ -45,7 +45,7 @@ config = rx.Config(
     app_name="my_app",
     plugins=[
         rx.plugins.SitemapPlugin(),
-        rx.plugins.TailwindV3Plugin(),
+        rx.plugins.TailwindV4Plugin(),
     ],
 )
 ```
@@ -87,9 +87,53 @@ The sitemap configuration supports the following options:
 - `changefreq`: How frequently the page changes (`"always"`, `"hourly"`, `"daily"`, `"weekly"`, `"monthly"`, `"yearly"`, `"never"`)
 - `priority`: Priority of this URL relative to other URLs (0.0 to 1.0)
 
+### TailwindV4Plugin
+
+The `TailwindV4Plugin` provides support for Tailwind CSS v4, which is the recommended version for new projects and includes performance improvements and new features.
+
+```python
+import reflex as rx
+
+# Basic configuration
+config = rx.Config(
+    app_name="my_app",
+    plugins=[
+        rx.plugins.TailwindV4Plugin(),
+    ],
+)
+```
+
+You can customize the Tailwind configuration by passing a config dictionary:
+
+```python
+import reflex as rx
+
+tailwind_config = {
+    "theme": {
+        "extend": {
+            "colors": {
+                "brand": {
+                    "50": "#eff6ff",
+                    "500": "#3b82f6",
+                    "900": "#1e3a8a",
+                }
+            }
+        }
+    },
+    "plugins": ["@tailwindcss/typography"],
+}
+
+config = rx.Config(
+    app_name="my_app",
+    plugins=[
+        rx.plugins.TailwindV4Plugin(tailwind_config),
+    ],
+)
+```
+
 ### TailwindV3Plugin
 
-The `TailwindV3Plugin` integrates Tailwind CSS v3 into your Reflex application, providing utility-first CSS styling.
+The `TailwindV3Plugin` integrates Tailwind CSS v3 into your Reflex application. While still supported, TailwindV4Plugin is recommended for new projects.
 
 ```python
 import reflex as rx
@@ -128,50 +172,6 @@ config = rx.Config(
 )
 ```
 
-### TailwindV4Plugin
-
-The `TailwindV4Plugin` provides support for the newer Tailwind CSS v4, which includes performance improvements and new features.
-
-```python
-import reflex as rx
-
-# Basic configuration
-config = rx.Config(
-    app_name="my_app",
-    plugins=[
-        rx.plugins.TailwindV4Plugin(),
-    ],
-)
-```
-
-Like TailwindV3Plugin, you can customize the configuration:
-
-```python
-import reflex as rx
-
-tailwind_config = {
-    "theme": {
-        "extend": {
-            "colors": {
-                "brand": {
-                    "50": "#eff6ff",
-                    "500": "#3b82f6",
-                    "900": "#1e3a8a",
-                }
-            }
-        }
-    },
-    "plugins": ["@tailwindcss/typography"],
-}
-
-config = rx.Config(
-    app_name="my_app",
-    plugins=[
-        rx.plugins.TailwindV4Plugin(tailwind_config),
-    ],
-)
-```
-
 ## Plugin Management
 
 ### Default Plugins
@@ -197,7 +197,7 @@ import reflex as rx
 config = rx.Config(
     app_name="my_app",
     plugins=[
-        rx.plugins.TailwindV3Plugin(),  # Runs first
+        rx.plugins.TailwindV4Plugin(),  # Runs first
         rx.plugins.SitemapPlugin(),     # Runs second
     ],
 )
@@ -265,7 +265,7 @@ tailwind_config = {
 config = rx.Config(
     app_name="my_app",
     plugins=[
-        rx.plugins.TailwindV3Plugin(tailwind_config),
+        rx.plugins.TailwindV4Plugin(tailwind_config),
     ],
 )
 ```

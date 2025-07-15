@@ -18,7 +18,7 @@ import reflex as rx
 config = rx.Config(
     app_name="myapp",
     plugins=[
-        rx.plugins.TailwindV3Plugin(),
+        rx.plugins.TailwindV4Plugin(),
     ],
 )
 ```
@@ -43,7 +43,7 @@ tailwind_config = {
 config = rx.Config(
     app_name="myapp",
     plugins=[
-        rx.plugins.TailwindV3Plugin(tailwind_config),
+        rx.plugins.TailwindV4Plugin(tailwind_config),
     ],
 )
 ```
@@ -52,51 +52,20 @@ config = rx.Config(
 
 Reflex supports both Tailwind CSS v3 and v4:
 
-- **TailwindV3Plugin**: Use for stable, production applications. This is the most tested and widely used version.
-- **TailwindV4Plugin**: Use for new projects that want the latest features and performance improvements.
+- **TailwindV4Plugin**: The recommended choice for new projects. Includes the latest features and performance improvements and is used by default in new Reflex templates.
+- **TailwindV3Plugin**: Still supported for existing projects. Use this if you need compatibility with older Tailwind configurations.
 
 ```python
-# For Tailwind CSS v3 (recommended for most projects)
-config = rx.Config(
-    app_name="myapp",
-    plugins=[rx.plugins.TailwindV3Plugin()],
-)
-
-# For Tailwind CSS v4 (latest features)
+# For Tailwind CSS v4 (recommended for new projects)
 config = rx.Config(
     app_name="myapp", 
     plugins=[rx.plugins.TailwindV4Plugin()],
 )
-```
 
-## Legacy Configuration (Deprecated)
-
-The legacy `tailwind` parameter is still supported but deprecated:
-
-```python
+# For Tailwind CSS v3 (existing projects)
 config = rx.Config(
-    app_name="app",
-    tailwind={
-        "plugins": ["@tailwindcss/typography"],
-    },
-)
-```
-
-**Migration:** Replace the `tailwind` parameter with the appropriate plugin:
-
-```python
-# Old approach
-config = rx.Config(
-    app_name="app",
-    tailwind={"plugins": ["@tailwindcss/typography"]},
-)
-
-# New approach
-config = rx.Config(
-    app_name="app",
-    plugins=[
-        rx.plugins.TailwindV3Plugin({"plugins": ["@tailwindcss/typography"]}),
-    ],
+    app_name="myapp",
+    plugins=[rx.plugins.TailwindV3Plugin()],
 )
 ```
 
