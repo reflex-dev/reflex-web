@@ -46,7 +46,7 @@ jobs:
           TYPESENSE_HOST: ${{ secrets.DEV_TYPESENSE_HOST }}
         run: |
           uv pip install typesense python-frontmatter markdown beautifulsoup4
-          python scripts/typesense_indexer.py
+          python scripts/typesense_indexer.py --force
 
       - name: Deploy to Reflex
         id: deploy
@@ -57,9 +57,9 @@ jobs:
         run: |
           # Install dependencies for dead link checker
           uv pip install -r scripts/requirements.txt
-          
+
           # Wait a moment for deployment to be fully ready
           sleep 30
-          
+
           # Run dead link checker
           python scripts/check_dead_links.py https://pcweb-gray-orca.rxc.app --timeout 15 --delay 1
