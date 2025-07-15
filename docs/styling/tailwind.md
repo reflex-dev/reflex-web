@@ -6,18 +6,72 @@ from pcweb.pages.docs import library
 
 # Tailwind
 
-Reflex supports [Tailwind CSS]({"https://tailwindcss.com/"}) out of the box. To enable it, pass in a dictionary for the `tailwind` argument of your `rxconfig.py`:
+Reflex supports [Tailwind CSS]({"https://tailwindcss.com/"}) through a plugin system that provides better control and supports multiple Tailwind versions.
+
+## Plugin-Based Configuration (Recommended)
+
+The recommended way to use Tailwind CSS is through the plugin system:
 
 ```python
 import reflex as rx
 
 config = rx.Config(
     app_name="myapp",
-    tailwind=\{},
+    plugins=[
+        rx.plugins.TailwindV3Plugin(),
+    ],
 )
 ```
 
-All Tailwind configuration options are supported. Plugins and presets are automatically wrapped in `require()`:
+You can customize the Tailwind configuration by passing a config dictionary to the plugin:
+
+```python
+import reflex as rx
+
+tailwind_config = {
+    "plugins": ["@tailwindcss/typography"],
+    "theme": {
+        "extend": {
+            "colors": {
+                "primary": "#3b82f6",
+                "secondary": "#64748b",
+            }
+        }
+    },
+}
+
+config = rx.Config(
+    app_name="myapp",
+    plugins=[
+        rx.plugins.TailwindV3Plugin(tailwind_config),
+    ],
+)
+```
+
+### Choosing Between Tailwind Versions
+
+Reflex supports both Tailwind CSS v3 and v4:
+
+- **TailwindV3Plugin**: Use for stable, production applications. This is the most tested and widely used version.
+- **TailwindV4Plugin**: Use for new projects that want the latest features and performance improvements.
+
+```python
+# For Tailwind CSS v3 (recommended for most projects)
+config = rx.Config(
+    app_name="myapp",
+    plugins=[rx.plugins.TailwindV3Plugin()],
+)
+
+# For Tailwind CSS v4 (latest features)
+config = rx.Config(
+    app_name="myapp", 
+    plugins=[rx.plugins.TailwindV4Plugin()],
+)
+```
+
+## Legacy Configuration (Deprecated)
+
+The legacy `tailwind` parameter is still supported but deprecated:
 
 ```python
 config = rx.Config(
@@ -27,6 +81,26 @@ config = rx.Config(
     },
 )
 ```
+
+**Migration:** Replace the `tailwind` parameter with the appropriate plugin:
+
+```python
+# Old approach
+config = rx.Config(
+    app_name="app",
+    tailwind={"plugins": ["@tailwindcss/typography"]},
+)
+
+# New approach
+config = rx.Config(
+    app_name="app",
+    plugins=[
+        rx.plugins.TailwindV3Plugin({"plugins": ["@tailwindcss/typography"]}),
+    ],
+)
+```
+
+All Tailwind configuration options are supported. Plugins and presets are automatically wrapped in `require()`:
 
 You can use any of the [utility classes]({"https://tailwindcss.com/docs/utility-first"}) under the `class_name` prop:
 
