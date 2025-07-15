@@ -46,36 +46,9 @@ COLLECTION_SCHEMA = {
         {'name': 'section', 'type': 'string'},
         {'name': 'subsection', 'type': 'string', 'optional': True},
         {'name': 'is_component', 'type': 'bool', 'optional': True},
-    ]
-}
-
-# Section display names to create breadcrumbs
-SECTION_DISPLAY_NAMES = {
-    'getting_started': 'Getting Started',
-    'library': 'Components',
-    'api-reference': 'API Reference',
-    'hosting': 'Hosting',
-    'events': 'Events',
-    'styling': 'Styling',
-    'state': 'State',
-    'vars': 'Variables',
-    'database': 'Database',
-    'authentication': 'Authentication',
-    'custom-components': 'Custom Components',
-    'wrapping-react': 'Wrapping React',
-    'ai_builder': 'AI Builder',
-    'recipes': 'Recipes',
-    'advanced_onboarding': 'Advanced',
-    'enterprise': 'Enterprise',
-    'utility_methods': 'Utilities',
-    'client_storage': 'Client Storage',
-    'components': 'Components',
-    'pages': 'Pages',
-    'assets': 'Assets',
-    'api-routes': 'API Routes',
-    'ui': 'UI',
-    'state_structure': 'State Structure',
-    'Blog': 'Blog'
+        #
+        {'name': 'weight', 'type': 'int32'},  # ← add this line
+    ],
 }
 
 class MarkdownProcessor:
@@ -255,6 +228,12 @@ class TypesenseIndexer:
 
         return url
 
+    def format_display_name(self, name: str) -> str:
+        # Basic title casing
+        parts = name.replace('-', ' ').replace('_', ' ').split()
+        title = ' '.join([p.upper() if p.lower() in {"ai", "ui", "api"} else p.capitalize() for p in parts])
+        return title
+
     def create_breadcrumb(self, document: dict) -> str:
             """Create a breadcrumb string from document metadata."""
             parts = []
@@ -262,10 +241,7 @@ class TypesenseIndexer:
             # Add section
             section = document.get('section', '')
             if section:
-                section_display = SECTION_DISPLAY_NAMES.get(
-                    section,
-                    section.replace('-', ' ').replace('_', ' ').title()
-                )
+                section_display = self.format_display_name(section)
                 parts.append(section_display)
 
             # Add subsection
@@ -293,6 +269,7 @@ class TypesenseIndexer:
             return parts[0], None
         else:
             return parts[0], parts[1]
+
 
     def process_file(self, file_path: Path, content_root: Path, is_blog: bool = False) -> Optional[Dict[str, Any]]:
         """Process a single markdown file."""
@@ -350,8 +327,6 @@ class TypesenseIndexer:
             components = list(self.processor.extract_components(post.content))
             code_examples = self.processor.extract_code_examples(post.content)
 
-            print(url_path)
-
             doc = {
                 'id': str(rel_path),
                 'title': title,
@@ -361,6 +336,7 @@ class TypesenseIndexer:
                 'url': url_path,
                 'section': section,
                 'is_component': 'library' in rel_path.parts,
+                'weight': 2 if not is_blog else 1,
             }
 
             doc['breadcrumb'] = self.create_breadcrumb(doc)

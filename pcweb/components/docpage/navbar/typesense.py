@@ -146,10 +146,10 @@ class TypesenseSearchState(rx.State):
             'q': expanded_query,
             **BASE_SEARCH_PARAMS,
             'query_by': 'title,content,headings,components',
-            'query_by_weights': '4,3,3,2',
+            'query_by_weights': '10,3,3,6',
             'highlight_start_tag': '<mark>',
             'highlight_end_tag': '</mark>',
-            'sort_by': 'is_component:desc, _text_match:desc',
+            'sort_by': 'weight:desc, is_component:desc, _text_match:desc',
         }
 
         # Apply filter if not "All"
