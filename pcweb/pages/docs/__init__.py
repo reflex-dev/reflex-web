@@ -140,7 +140,7 @@ def get_component(doc: str, title: str):
     if doc.endswith("-style.md"):
         return
 
-    if doc.endswith("-ll.md"):
+    if doc.endswith("_ll.md"):
         return
 
     # Get the docpage component.

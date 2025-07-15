@@ -114,10 +114,10 @@ class MarkdownProcessor:
                 path_parts = [normalize_slug(p) for p in rel_path.parts[:-1]]  # Remove filename and normalize
                 url_path = '/' + '/'.join(['docs'] + path_parts)
                 if file_path.name != 'index.md':
-                    # Handle special case: replace -ll suffix with /low
+                    # Handle special case: replace _ll suffix with /low
                     stem = normalize_slug(file_path.stem)
-                    if stem.endswith('-ll'):
-                        stem = stem[:-3]  # Remove -ll
+                    if stem.endswith('_ll'):
+                        stem = stem[:-3]  # Remove _ll
                         url_path += '/' + stem + '/low'
                     else:
                         url_path += '/' + stem
