@@ -145,8 +145,8 @@ class TypesenseSearchState(rx.State):
         search_parameters = {
             'q': expanded_query,
             **BASE_SEARCH_PARAMS,
-            'query_by': 'title,content,headings,components',
-            'query_by_weights': '10,3,3,6',
+            'query_by': 'title,content,headings,components,section',
+            'query_by_weights': '10,3,3,6,8',
             'highlight_start_tag': '<mark>',
             'highlight_end_tag': '</mark>',
             'sort_by': 'weight:desc, is_component:desc, _text_match:desc',
