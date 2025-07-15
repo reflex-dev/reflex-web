@@ -303,7 +303,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    f"https://github.com/reflex-dev/reflex-web/tree/main{path.replace('-', '_')}.md",
                 ),
                 class_name="desktop-only flex-row items-center gap-2 w-auto",
             ),
