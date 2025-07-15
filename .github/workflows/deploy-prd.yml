@@ -44,7 +44,7 @@ jobs:
           TYPESENSE_HOST: ${{ secrets.PRD_TYPESENSE_HOST }}
         run: |
           uv pip install typesense python-frontmatter markdown beautifulsoup4
-          python scripts/typesense_indexer.py
+          python scripts/typesense_indexer.py --force
 
       - name: Deploy to Reflex
         id: deploy
