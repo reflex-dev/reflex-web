@@ -23,7 +23,6 @@ def get_sidebar_items_learn():
             children=[
                 advanced_onboarding.how_reflex_works,
                 advanced_onboarding.configuration,
-                advanced_onboarding.plugins,
                 advanced_onboarding.code_structure,
             ],
         ),

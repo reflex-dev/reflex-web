@@ -248,10 +248,12 @@ If you're currently using the legacy `tailwind` configuration parameter, you sho
 ```python
 config = rx.Config(
     app_name="my_app",
-    tailwind={
-        "plugins": ["@tailwindcss/typography"],
-        "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
-    },
+    plugins=[
+        rx.plugins.TailwindV4Plugin({
+            "plugins": ["@tailwindcss/typography"],
+            "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
+        }),
+    ],
 )
 ```
 

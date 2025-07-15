@@ -8,7 +8,7 @@ from pcweb.pages.docs import library
 
 Reflex supports [Tailwind CSS]({"https://tailwindcss.com/"}) through a plugin system that provides better control and supports multiple Tailwind versions.
 
-## Plugin-Based Configuration (Recommended)
+## Plugin-Based Configuration
 
 The recommended way to use Tailwind CSS is through the plugin system:
 
@@ -80,17 +80,6 @@ rx.box(
 )
 ```
 
-### Disabling Tailwind
-
-If you want to disable Tailwind in your configuration, you can do so by setting the `tailwind` config to `None`. This can be useful if you need to temporarily turn off Tailwind for your project:
-
-```python
-config = rx.Config(app_name="app", tailwind=None)
-```
-
-With this configuration, Tailwind will be disabled, and no Tailwind styles will be applied to your application.
-
-
 ## Custom theme
 
 You can integrate custom Tailwind themes within your Reflex app as well. The setup process is similar to the CSS Styling method mentioned above, with only a few minor variations.
@@ -138,7 +127,9 @@ tailwind_config = {
 
 config = rx.Config(
     app_name="app",
-    tailwind=tailwind_config,
+    plugins=[
+        rx.plugins.TailwindV4Plugin(tailwind_config),
+    ],
 )
 ```
 
