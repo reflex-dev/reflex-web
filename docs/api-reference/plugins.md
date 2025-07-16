@@ -7,33 +7,6 @@ from pcweb.pages.docs import advanced_onboarding
 
 Reflex supports a plugin system that allows you to extend the framework's functionality during the compilation process. Plugins can add frontend dependencies, modify build configurations, generate static assets, and perform custom tasks before compilation.
 
-## Plugin Architecture
-
-All plugins inherit from the base `Plugin` class and can implement several lifecycle methods:
-
-```python
-class Plugin:
-    def get_frontend_development_dependencies(self, **context) -> list[str]:
-        """Get NPM packages required by the plugin for development."""
-        return []
-    
-    def get_frontend_dependencies(self, **context) -> list[str]:
-        """Get NPM packages required by the plugin."""
-        return []
-    
-    def get_static_assets(self, **context) -> Sequence[tuple[Path, str | bytes]]:
-        """Get static assets required by the plugin."""
-        return []
-    
-    def get_stylesheet_paths(self, **context) -> Sequence[str]:
-        """Get paths to stylesheets required by the plugin."""
-        return []
-    
-    def pre_compile(self, **context) -> None:
-        """Called before compilation to perform custom tasks."""
-        pass
-```
-
 ## Configuring Plugins
 
 Plugins are configured in your `rxconfig.py` file using the `plugins` parameter:
@@ -203,7 +176,35 @@ config = rx.Config(
 )
 ```
 
-## Creating Custom Plugins
+
+## Plugin Architecture
+
+All plugins inherit from the base `Plugin` class and can implement several lifecycle methods:
+
+```python
+class Plugin:
+    def get_frontend_development_dependencies(self, **context) -> list[str]:
+        """Get NPM packages required by the plugin for development."""
+        return []
+    
+    def get_frontend_dependencies(self, **context) -> list[str]:
+        """Get NPM packages required by the plugin."""
+        return []
+    
+    def get_static_assets(self, **context) -> Sequence[tuple[Path, str | bytes]]:
+        """Get static assets required by the plugin."""
+        return []
+    
+    def get_stylesheet_paths(self, **context) -> Sequence[str]:
+        """Get paths to stylesheets required by the plugin."""
+        return []
+    
+    def pre_compile(self, **context) -> None:
+        """Called before compilation to perform custom tasks."""
+        pass
+```
+
+### Creating Custom Plugins
 
 You can create custom plugins by inheriting from the base `Plugin` class:
 
