@@ -383,7 +383,7 @@ def comparison_table_hosting() -> rx.Component:
     return rx.box(
         header_hosting(),
         table_body_hosting(),
-        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
+        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
     )
 
 
@@ -391,5 +391,5 @@ def comparison_table_ai() -> rx.Component:
     return rx.box(
         header_ai(),
         table_body_oss(),
-        class_name="flex-col w-full  max-w-[69.125rem] desktop-only",
+        class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
     )
