@@ -1,8 +1,4 @@
 @import "tailwindcss";
-@plugin "tailwindcss-animated";
-@plugin "tailwindcss-radix";
-@plugin "tailwind-scrollbar";
-@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
