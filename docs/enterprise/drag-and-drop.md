@@ -226,18 +226,36 @@ class DynamicListState(rx.State):
 
     def move_item(self, item_data: dict, target_list: str):
         item_id = item_data.get("id")
+        source_list = item_data.get("list_id")
         
-        # Remove from source list
-        self.list_a = [item for item in self.list_a if item.id != item_id]
-        self.list_b = [item for item in self.list_b if item.id != item_id]
+        if not item_id or not source_list:
+            return
+            
+        # Find the item in the source list
+        source_items = getattr(self, f"list_{source_list.lower()}")
+        item_to_move = None
+        for item in source_items:
+            if item.id == item_id:
+                item_to_move = item
+                break
+                
+        if not item_to_move:
+            return
+            
+        # Remove from source list only
+        if source_list == "A":
+            self.list_a = [item for item in self.list_a if item.id != item_id]
+        else:
+            self.list_b = [item for item in self.list_b if item.id != item_id]
         
-        # Add to target list
+        # Create new item for target list
         new_item = ListItem(
             id=item_id,
-            text=item_data.get("text", ""),
+            text=item_to_move.text,
             list_id=target_list
         )
         
+        # Add to target list
         if target_list == "A":
             self.list_a.append(new_item)
         else:
@@ -467,45 +485,81 @@ def item_data_example():
 
 ### Custom Collect Functions
 
-The `collect` parameter allows you to access drag and drop state information:
+The `collect` parameter allows you to access drag and drop state information in real-time:
 
 ```python demo exec toggle
 import reflex as rx
 import reflex_enterprise as rxe
 
 class CollectState(rx.State):
-    status: str = "Ready to drag"
+    drag_info: str = "No drag activity"
+    drop_info: str = "No drop activity"
 
 def collect_draggable():
+    params = rxe.dnd.Draggable.collected_params
     return rxe.dnd.draggable(
         rx.box(
-            "Drag with collect",
+            rx.vstack(
+                rx.text("Drag me!", weight="bold"),
+                rx.text(f"Dragging: {params.is_dragging}", size="2"),
+                rx.text(f"Can drag: {params.can_drag}", size="2"),
+                spacing="1"
+            ),
             p=4,
-            bg="green.100",
-            border="1px solid green",
-            cursor="grab"
+            bg=rx.cond(params.is_dragging, "blue.200", "blue.100"),
+            border="1px solid blue",
+            cursor=rx.cond(params.is_dragging, "grabbing", "grab"),
+            opacity=rx.cond(params.is_dragging, 0.7, 1.0)
         ),
         type="collect_item",
-        item={"id": "collect_test"}
+        item={"id": "collect_test", "name": "Test Item"}
     )
 
 def collect_drop_target():
+    params = rxe.dnd.DropTarget.collected_params
     return rxe.dnd.drop_target(
         rx.box(
-            rx.text(CollectState.status),
+            rx.vstack(
+                rx.text("Drop Zone", weight="bold"),
+                rx.text(f"Is over: {params.is_over}", size="2"),
+                rx.text(f"Can drop: {params.can_drop}", size="2"),
+                rx.cond(
+                    params.item,
+                    rx.text(f"Hovering item: {params.item.get('name', 'Unknown')}", size="2"),
+                    rx.text("No item hovering", size="2")
+                ),
+                spacing="1"
+            ),
             p=4,
-            bg="yellow.100",
-            border="2px dashed orange",
-            min_height="100px"
+            bg=rx.cond(
+                params.is_over & params.can_drop,
+                "green.200",
+                rx.cond(params.is_over, "yellow.200", "gray.100")
+            ),
+            border=rx.cond(
+                params.is_over & params.can_drop,
+                "2px solid green",
+                rx.cond(params.is_over, "2px solid yellow", "2px dashed gray")
+            ),
+            min_height="120px"
         ),
         accept=["collect_item"],
-        on_drop=lambda item: CollectState.setvar("status", "Item dropped successfully!")
+        on_drop=lambda item: [
+            CollectState.setvar("drop_info", f"Dropped: {item.get('name', 'Unknown')}"),
+            rx.toast(f"Successfully dropped {item.get('name', 'item')}")
+        ]
     )
 
 def custom_collect_example():
     return rx.vstack(
-        collect_draggable(),
-        collect_drop_target(),
+        rx.text("Real-time Monitor State", weight="bold", size="4"),
+        rx.hstack(
+            collect_draggable(),
+            collect_drop_target(),
+            spacing="6",
+            align="start"
+        ),
+        rx.text(CollectState.drop_info, size="2", color="gray.600"),
         spacing="4"
     )
 ```
