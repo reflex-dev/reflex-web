@@ -2,7 +2,7 @@
 
 import reflex as rx
 
-REFLEX_STAR_COUNT = 21500
+REFLEX_STAR_COUNT = 23200
 
 
 class GithubStarState(rx.State):

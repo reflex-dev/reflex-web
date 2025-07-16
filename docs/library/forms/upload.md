@@ -1,29 +1,50 @@
 ---
 components:
   - rx.upload
+  - rx.upload.root
 
 Upload: |
-  lambda **props: rx.center(rx.upload(id="my_upload", **props), height="4em", width="100%")
+  lambda **props: rx.center(rx.upload(id="my_upload", **props))
 ---
 
 ```python exec
 import reflex as rx
 ```
 
-# Upload
+# File Upload
 
-The Upload component can be used to upload files to the server.
+Reflex makes it simple to add file upload functionality to your app. You can let users select files, store them on your server, and display or process them as needed. Below is a minimal example that demonstrates how to upload files, save them to disk, and display uploaded images using application state.
 
-You can pass components as children to customize its appearance.
-You can upload files by clicking on the component or by dragging and dropping files onto it.
 
-```python demo
-rx.upload(
-    id="my_upload",
-)
+## Basic File Upload Example
+
+You can let users upload files and keep track of them in your app’s state. The example below allows users to upload files, saves them using the backend, and then displays the uploaded files as images.
+
+```python
+import reflex as rx
+class State(rx.State):
+    uploaded_files: list[str] = []
+
+    @rx.event
+    async def handle_upload(self, files: list[rx.UploadFile]):
+        for file in files:
+            data = await file.read()
+            path = rx.get_upload_dir() / file.name
+            with path.open("wb") as f:
+                f.write(data)
+            self.uploaded_files.append(file.name)
+
+def upload_component():
+    return rx.vstack(
+        rx.upload(id="upload"),
+        rx.button("Upload", on_click=State.handle_upload(rx.upload_files("upload"))),
+        rx.foreach(State.uploaded_files, lambda f: rx.image(src=rx.get_upload_url(f))),
+    )
 ```
 
-Selecting a file will add it to the browser's file list, which can be rendered
+## How File Upload Works
+
+Selecting a file will add it to the browser file list, which can be rendered
 on the frontend using the `rx.selected_files(id)` special Var. To clear the
 selected files, you can use another special Var `rx.clear_selected_files(id)` as
 an event handler.
@@ -31,6 +52,89 @@ an event handler.
 To upload the file(s), you need to bind an event handler and pass the special
 `rx.upload_files(upload_id=id)` event arg to it.
 
+## File Storage Functions
+
+Reflex provides two key functions for handling uploaded files:
+
+### rx.get_upload_dir()
+- **Purpose**: Returns a `Path` object pointing to the server-side directory where uploaded files should be saved
+- **Usage**: Used in backend event handlers to determine where to save uploaded files
+- **Default Location**: `./uploaded_files` (can be customized via `REFLEX_UPLOADED_FILES_DIR` environment variable)
+- **Type**: Returns `pathlib.Path`
+
+### rx.get_upload_url(filename)
+- **Purpose**: Returns the URL string that can be used in frontend components to access uploaded files
+- **Usage**: Used in frontend components (like `rx.image`, `rx.video`) to display uploaded files
+- **URL Format**: `/_upload/filename`
+- **Type**: Returns `str`
+
+### Key Differences
+- **rx.get_upload_dir()** -> Backend file path for saving files
+- **rx.get_upload_url()** -> Frontend URL for displaying files
+
+### Basic Upload Pattern
+
+Here is the standard pattern for handling file uploads:
+
+```python
+import reflex as rx
+
+def create_unique_filename(file_name: str):
+    import random
+    import string
+
+    filename = "".join(random.choices(string.ascii_letters + string.digits, k=10))
+    return filename + "_" + file_name
+
+class State(rx.State):
+    uploaded_files: list[str] = []
+
+    @rx.event
+    async def handle_upload(self, files: list[rx.UploadFile]):
+        """Handle file upload with proper directory management."""
+        for file in files:
+            # Read the file data
+            upload_data = await file.read()
+
+            # Get the upload directory (backend path)
+            upload_dir = rx.get_upload_dir()
+
+            # Ensure the directory exists
+            upload_dir.mkdir(parents=True, exist_ok=True)
+
+            # Create unique filename to prevent conflicts
+            unique_filename = create_unique_filename(file.name)
+
+            # Create full file path
+            file_path = upload_dir / unique_filename
+
+            # Save the file
+            with file_path.open("wb") as f:
+                f.write(upload_data)
+
+            # Store filename for frontend display
+            self.uploaded_files.append(unique_filename)
+
+def upload_component():
+    return rx.vstack(
+        rx.upload(
+            rx.text("Drop files here or click to select"),
+            id="file_upload",
+            border="2px dashed #ccc",
+            padding="2em",
+        ),
+        rx.button(
+            "Upload Files",
+            on_click=State.handle_upload(rx.upload_files(upload_id="file_upload")),
+        ),
+        # Display uploaded files using rx.get_upload_url()
+        rx.foreach(
+            State.uploaded_files,
+            lambda filename: rx.image(src=rx.get_upload_url(filename))
+        ),
+    )
+
+```
 
 ### Multiple File Upload
 
@@ -74,11 +178,11 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
             id="upload1",
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.hstack(rx.foreach(rx.selected_files("upload1"), rx.text)),
@@ -151,7 +255,7 @@ def index():
             ),
             id="upload1",
             max_files=1,
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.text(rx.selected_files("upload1")),
@@ -215,7 +319,7 @@ def index():
     return rx.vstack(
         rx.upload(
             rx.vstack(
-                rx.button("Select File", color=color, bg="white", border=f"1px solid \{color}"),
+                rx.button("Select File", color=color, bg="white", border=f"1px solid {color}"),
                 rx.text("Drag and drop files here or click to select files"),
             ),
             id="upload2",
@@ -232,7 +336,7 @@ def index():
             disabled=False,
             no_keyboard=True,
             on_drop=State.handle_upload(rx.upload_files(upload_id="upload2")),
-            border=f"1px dotted \{color}",
+            border=f"1px dotted {color}",
             padding="5em",
         ),
         rx.grid(
@@ -250,6 +354,57 @@ def index():
     )
 ```
 
+### Unstyled Upload Component
+
+To use a completely unstyled upload component and apply your own customization, use `rx.upload.root` instead:
+
+```python demo
+rx.upload.root(
+    rx.box(
+        rx.icon(
+            tag="cloud_upload",
+            style={"width": "3rem", "height": "3rem", "color": "#2563eb", "marginBottom": "0.75rem"},
+        ),
+        rx.hstack(
+            rx.text(
+                "Click to upload",
+                style={"fontWeight": "bold", "color": "#1d4ed8"},
+            ),
+            " or drag and drop",
+            style={"fontSize": "0.875rem", "color": "#4b5563"},
+        ),
+        rx.text(
+            "SVG, PNG, JPG or GIF (MAX. 5MB)",
+            style={"fontSize": "0.75rem", "color": "#6b7280", "marginTop": "0.25rem"},
+        ),
+        style={
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "padding": "1.5rem",
+            "textAlign": "center",
+        },
+    ),
+    id="my_upload",
+    style={
+        "maxWidth": "24rem",
+        "height": "16rem",
+        "borderWidth": "2px",
+        "borderStyle": "dashed",
+        "borderColor": "#60a5fa",
+        "borderRadius": "0.75rem",
+        "cursor": "pointer",
+        "transitionProperty": "background-color",
+        "transitionDuration": "0.2s",
+        "transitionTimingFunction": "ease-in-out",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "boxShadow": "0 1px 2px rgba(0, 0, 0, 0.05)",
+    },
+)
+```
 
 ## Handling the Upload
 
@@ -270,6 +425,24 @@ The backend of your app will mount this uploaded files directory on `/_upload` w
 ```md alert info
 # When using the Reflex hosting service, the uploaded files directory is not persistent and will be cleared on every deployment. For persistent storage of uploaded files, it is recommended to use an external service, such as S3.
 ```
+
+### Directory Structure and URLs
+
+By default, Reflex creates the following structure:
+
+```text
+your_project/
+├── uploaded_files/          # rx.get_upload_dir() points here
+│   ├── image1.png
+│   ├── document.pdf
+│   └── video.mp4
+└── ...
+```
+
+The files are automatically served at:
+- `/_upload/image1.png` ← `rx.get_upload_url("image1.png")`
+- `/_upload/document.pdf` ← `rx.get_upload_url("document.pdf")`
+- `/_upload/video.mp4` ← `rx.get_upload_url("video.mp4")`
 
 ## Cancellation
 

@@ -1,39 +1,7 @@
 from typing import Dict, Literal
 
 import reflex as rx
-
-"""Tailwind CSS class merging utility."""
-
-from reflex import ImportVar
-from reflex.vars import FunctionVar, Var
-from reflex.vars.base import VarData
-
-
-def cn(class_1: Var | str, class_2: Var | str = "") -> Var:
-    """Merge Tailwind CSS classes.
-
-    Args:
-        class_1: First class string or Var
-        class_2: Second class string or Var (optional)
-
-    Returns:
-        Var: A Var with merged classes
-
-    Examples:
-        >>> cn("bg-red-500", rx.cond(State.is_active, "bg-blue-500", "bg-red-500"))
-        >>> cn("bg-red-500", "text-white bg-blue-500")
-        >>> cn("base-class")
-
-    """
-    return (
-        Var(
-            "cn",
-            _var_data=VarData(imports={"clsx-for-tailwind": ImportVar(tag="cn")}),
-        )
-        .to(FunctionVar)
-        .call(class_1, class_2)
-        .to(str)
-    )
+from pcweb.components.utils.twmerge import cn
 
 
 LiteralButtonVariant = Literal[

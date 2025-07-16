@@ -5,9 +5,9 @@ from types import SimpleNamespace
 
 import reflex as rx
 import flexdown
+from flexdown.document import Document
 
 # External Components
-from reflex_ag_grid import ag_grid as ag_grid
 from reflex_pyplot import pyplot as pyplot
 
 from pcweb.flexdown import xd
@@ -92,7 +92,7 @@ def get_components_from_metadata(current_doc):
 
 
 flexdown_docs = [
-    doc.replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
+    str(doc).replace("\\", "/") for doc in flexdown.utils.get_flexdown_files("docs/")
 ]
 
 graphing_components = defaultdict(list)
@@ -120,11 +120,12 @@ outblocks = []
 manual_titles = {
     "docs/database/overview.md": "Database Overview",
     "docs/custom-components/overview.md": "Custom Components Overview",
+    "docs/custom-components/command-reference.md": "Custom Component CLI Reference",
     "docs/api-routes/overview.md": "API Routes Overview",
     "docs/client_storage/overview.md": "Client Storage Overview",
+    "docs/state_structure/overview.md": "State Structure Overview", 
     "docs/state/overview.md": "State Overview",
     "docs/styling/overview.md": "Styling Overview",
-    "docs/substates/overview.md": "Substates Overview",
     "docs/ui/overview.md": "UI Overview",
     "docs/wrapping-react/overview.md": "Wrapping React Overview",
     "docs/library/html/html.md": "HTML Elements",
@@ -145,6 +146,9 @@ def get_component(doc: str, title: str):
     # Get the docpage component.
     doc = doc.replace("\\", "/")
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+    # Handle index files: /folder/index/ -> /folder/
+    if route.endswith("/index/"):
+        route = route[:-7] + "/"
     if doc in manual_titles.keys():
         title2 = manual_titles[doc]
     else:
@@ -154,7 +158,7 @@ def get_component(doc: str, title: str):
     if not _check_whitelisted_path(route):
         return
 
-    d = flexdown.parse_file(doc)
+    d = Document.from_file(doc)
 
     if doc.startswith("docs/library/graphing"):
         if should_skip_compile(doc):
@@ -220,6 +224,9 @@ for doc in sorted(flexdown_docs):
     title = rx.utils.format.to_snake_case(os.path.basename(doc).replace(".md", ""))
     title2 = to_title_case(title)
     route = rx.utils.format.to_kebab_case(f"/{doc.replace('.md', '/')}")
+    # Handle index files: /folder/index/ -> /folder/
+    if route.endswith("/index/"):
+        route = route[:-7] + "/"
 
     comp = get_component(doc, title)
 

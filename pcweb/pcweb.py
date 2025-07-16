@@ -4,13 +4,13 @@ import os
 import sys
 
 import reflex as rx
+import reflex_enterprise as rxe
 from pcweb import styles
 from pcweb.pages import page404, routes
 from pcweb.pages.docs import outblocks, exec_blocks
 from pcweb.whitelist import _check_whitelisted_path
 from pcweb.telemetry import get_pixel_website_trackers
 from pcweb.meta.meta import favicons_links
-from pcweb.pages.landing.views.ai_section import retreive_templates
 
 # This number discovered by trial and error on Windows 11 w/ Node 18, any
 # higher and the prod build fails with EMFILE error.
@@ -21,7 +21,7 @@ for doc, href in outblocks:
     exec_blocks(doc, href)
 
 # Create the app.
-app = rx.App(
+app = rxe.App(
     style=styles.BASE_STYLE,
     stylesheets=styles.STYLESHEETS,
     theme=rx.theme(
@@ -47,8 +47,6 @@ app = rx.App(
         ),
     ],
 )
-
-app.register_lifespan_task(retreive_templates)
 
 # XXX: The app is TOO BIG to build on Windows, so explicitly disallow it except for testing
 if sys.platform == "win32":
@@ -87,6 +85,7 @@ for route in routes:
 
 # Add redirects
 redirects = [
+    ("/framework", "/open-source"),
     ("/docs", "/docs/getting-started/introduction"),
     ("/docs/getting-started", "/docs/getting-started/introduction"),
     ("/docs/state", "/docs/state/overview"),
@@ -106,7 +105,7 @@ redirects = [
     ("/docs/wrapping-react", "/docs/wrapping-react/overview"),
     ("/docs/vars", "/docs/vars/base-vars"),
     ("/docs/events", "/docs/events/events-overview"),
-    ("/docs/substates", "/docs/substates/overview"),
+    ("/docs/state-structure", "/docs/state-structure/overview"),
     ("/docs/api-routes", "/docs/api-routes/overview"),
     ("/docs/client-storage", "/docs/client-storage/overview"),
     ("/docs/authentication", "/docs/authentication/authentication-overview"),
@@ -130,15 +129,19 @@ redirects = [
     ("/docs/recipes/others", "/docs/recipes"),
     ("/docs/recipes/content", "/docs/recipes"),
     # redirect previous chakra links to the new chakra docs
-    ("/docs/library/chakra/[...component]", "https://chakra.reflex.run/introduction/"),
+    ("/docs/library/chakra/[[...splat]]", "https://chakra.reflex.run/introduction/"),
     ("/gallery", "/templates"),
     # Redirect any removed pages to their new home.
     ("/docs/components/style-props", "/docs/components/props"),
     ("/docs/components/conditional-props", "/docs/components/conditional-rendering"),
+    ("/docs/enterprise", "/docs/enterprise/overview"),
     ("/docs/pages/routes", "/docs/pages/overview"),
     ("/docs/assets/referencing_assets", "/docs/assets/overview"),
     ("/changelog", "https://github.com/reflex-dev/reflex/releases"),
-    ("/blog/2025-10-27-top-10-data-visualization-libraries", "/blog/2025-01-27-top-10-data-visualization-libraries")
+    (
+        "/blog/2025-10-27-top-10-data-visualization-libraries",
+        "/blog/2025-01-27-top-10-data-visualization-libraries",
+    ),
 ]
 
 for source, target in redirects:

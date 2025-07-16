@@ -893,3 +893,10 @@
     initial-value: 0deg;
     syntax: '<angle>';
 }
+
+@layer base {
+
+    body {
+        @apply isolate bg-slate-1 font-sans antialiased;
+    }
+}

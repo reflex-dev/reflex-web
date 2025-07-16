@@ -4,18 +4,19 @@ import reflex as rx
 
 from pcweb.components.icons.icons import get_icon
 from pcweb.constants import (
-    ROADMAP_URL,
-    GITHUB_URL,
-    TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    GITHUB_URL,
     LINKEDIN_URL,
+    ROADMAP_URL,
+    TWITTER_URL,
 )
 from pcweb.pages.blog import blogs
-from pcweb.pages.docs import getting_started, hosting
+from pcweb.pages.docs import ai_builder, getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.errors import errors
 from pcweb.pages.faq import faq
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.gallery import gallery
 from pcweb.signup import IndexState
 
@@ -65,7 +66,11 @@ def menu_socials() -> rx.Component:
                 class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
             ),
             social_menu_item("discord", DISCORD_URL),
-            social_menu_item("linkedin", LINKEDIN_URL),
+            social_menu_item(
+                "linkedin",
+                LINKEDIN_URL,
+                class_name="!border-l !border-r border-slate-5 border-solid border-y-0",
+            ),
             class_name="flex flex-row h-full align-center divide-x divide-slate-5 border-solid",
         ),
         class_name="border-slate-5 bg-slate-1 shadow-large border rounded-full h-6 overflow-hidden",
@@ -150,7 +155,9 @@ def footer() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                    footer_link(
+                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                    ),
                 ],
             ),
             footer_link_flex(
@@ -170,6 +177,7 @@ def footer() -> rx.Component:
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
                     footer_link("Affiliates", "/affiliates"),
+                    footer_link("Use Cases", use_cases_page.path),
                     rx.box(class_name="grow"),
                     dark_mode_toggle(),
                 ],

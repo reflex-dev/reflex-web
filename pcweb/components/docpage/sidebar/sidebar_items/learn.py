@@ -1,12 +1,10 @@
 from pcweb.pages.docs import cloud_cliref
+
 from .item import create_item
 
 
 def get_sidebar_items_learn():
-    from pcweb.pages.docs import (
-        getting_started,
-        advanced_onboarding,
-    )
+    from pcweb.pages.docs import advanced_onboarding, getting_started
 
     items = [
         create_item(
@@ -33,17 +31,17 @@ def get_sidebar_items_learn():
 
 
 def get_sidebar_items_frontend():
+    from pcweb.components.docpage.sidebar.state import SideBarSection
     from pcweb.pages.docs import (
         assets,
         components,
+        custom_components,
         library_,
         pages,
         styling,
         ui,
         wrapping_react,
-        custom_components,
     )
-    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
         SideBarSection(
@@ -114,18 +112,18 @@ def get_sidebar_items_frontend():
 
 
 def get_sidebar_items_backend():
+    from pcweb.components.docpage.sidebar.state import SideBarSection
     from pcweb.pages.docs import (
         api_routes,
         authentication,
         client_storage,
+        state_structure,
         database,
         events,
         state,
-        substates,
         utility_methods,
         vars,
     )
-    from pcweb.components.docpage.sidebar.state import SideBarSection
 
     items = [
         SideBarSection(
@@ -156,10 +154,10 @@ def get_sidebar_items_backend():
             ],
         ),
         create_item(
-            "Substates",
+            "State Structure",
             children=[
-                substates.overview,
-                substates.component_state,
+                state_structure.overview,
+                state_structure.component_state,
             ],
         ),
         create_item(
@@ -241,7 +239,10 @@ def get_sidebar_items_hosting():
         create_item("CLI Reference", children=cloud_cliref.pages),
         create_item(
             "Self Hosting",
-            children=[hosting.self_hosting],
+            children=[
+                hosting.self_hosting,
+                hosting.databricks,
+            ],
         ),
     ]
     return items

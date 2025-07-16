@@ -6,6 +6,7 @@ from pcweb.components.webpage.comps import h1_title
 from pcweb.components.icons.icons import get_icon
 from pcweb.meta.meta import create_meta_tags
 
+
 def first_post_card(meta: dict, path: str) -> rx.Component:
     return rx.link(
         rx.box(
@@ -38,7 +39,7 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-nowrap text-slate-9",
+                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
@@ -46,9 +47,9 @@ def first_post_card(meta: dict, path: str) -> rx.Component:
                             class_name="font-small text-slate-9",
                         ),
                         get_icon(icon="new_tab", class_name="p-[5px]"),
-                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden",
+                        class_name="flex items-center border-slate-5 bg-slate-1 hover:bg-slate-3 shadow-small pl-[5px] border rounded-md w-auto max-w-full text-slate-9 transition-bg cursor-pointer overflow-hidden flex-shrink-0",
                     ),
-                    class_name="flex flex-row justify-between items-center gap-1 w-full h-auto",
+                    class_name="flex flex-row justify-between items-center gap-1 min-w-0 w-full h-auto",
                 ),
                 class_name="flex flex-col justify-between p-[0rem_0.75rem_0.75rem_0.75rem] w-full h-full",
             ),
@@ -93,7 +94,7 @@ def card_content(meta: dict, path: str) -> rx.Component:
                 rx.box(
                     rx.text(
                         meta["author"],
-                        class_name="font-small text-nowrap text-slate-9",
+                        class_name="font-small text-slate-9 truncate overflow-hidden text-ellipsis max-w-[50%] min-w-0 flex-shrink",
                     ),
                     rx.el.button(
                         rx.text(
@@ -119,13 +120,13 @@ def card_content(meta: dict, path: str) -> rx.Component:
 def first_post() -> rx.Component:
     for path, document in blog_data.items():
         if path == list(blog_data.keys())[0]:
-            return first_post_card(meta=document.metadata, path=path)
+            return first_post_card(meta=document.metadata, path=f"/blog/{path}")
 
 
 def component_grid() -> rx.Component:
     posts = []
     for path, document in list(blog_data.items()):
-        posts.append(card_content(meta=document.metadata, path=path))
+        posts.append(card_content(meta=document.metadata, path=f"/blog/{path}"))
     return rx.box(
         *posts,
         class_name="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-[320px] w-full mb-4 lg:[&>*:first-child]:hidden",
@@ -153,7 +154,7 @@ def blogs():
 blog_routes = [blogs]
 for path, document in blog_data.items():
     # Get the docpage component.
-    route = f"/{path}"
+    route = f"/blog/{path}"
     title = rx.utils.format.to_snake_case(path.rsplit("/", 1)[1].replace(".md", ""))
     comp = webpage(
         path=route,
@@ -164,6 +165,7 @@ for path, document in blog_data.items():
             title=document.metadata["title"],
             description=document.metadata["description"],
             image=document.metadata["image"],
+            url=f"https://reflex.dev{route}",
         ),
     )(lambda doc=document: page(doc, route))
 

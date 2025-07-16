@@ -4,23 +4,22 @@ import reflex as rx
 
 from pcweb.components.button import button
 from pcweb.components.docpage.navbar.navmenu.navmenu import nav_menu
-from pcweb.constants import (
-    REFLEX_BUILD_URL,
-)
+from pcweb.components.hosting_banner import hosting_banner
+from pcweb.constants import REFLEX_BUILD_URL, REFLEX_CLOUD_URL
 from pcweb.pages.blog import blogs
 from pcweb.pages.blog.paths import blog_data
-from pcweb.pages.docs import (
-    getting_started,
-)
+from pcweb.pages.docs import ai_builder, getting_started
 from pcweb.pages.faq import faq
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.framework.framework import framework
 from pcweb.pages.hosting.hosting import hosting_landing
+
+from ...link_button import resources_button
+from ..sidebar import SidebarState
 from .buttons.discord import discord
 from .buttons.github import github
 from .buttons.sidebar import navbar_sidebar_button
 from .search import search_bar
-from ..sidebar import SidebarState
-from ...link_button import resources_button
 
 
 def resource_item(text: str, url: str, icon: str, index):
@@ -73,6 +72,15 @@ def link_item(name: str, url: str, active_str: str = ""):
 
     elif active_str == "pricing":
         active = router_path.contains("pricing")
+
+    elif active_str == "framework":
+        # Check if path contains "docs" but excludes ai-builder, cloud, and hosting
+        # OR if path contains "open-source" (for the main open source landing page)
+        is_docs = router_path.contains("docs")
+        is_open_source_page = router_path.contains("open-source")
+        not_cloud = ~(router_path.contains("cloud") | router_path.contains("hosting"))
+        not_ai_builder = ~router_path.contains("ai-builder")
+        active = (is_docs & not_cloud & not_ai_builder) | is_open_source_page
 
     elif active_str == "docs":
         active = rx.cond(
@@ -232,7 +240,7 @@ def grid_card(
             class_name=image_style,
         ),
         href=url,
-        is_external=True,
+        is_external=False,
         underline="none",
         class_name="w-[14.5rem] rounded-md shadow-small bg-white-1 border border-slate-4 flex flex-col gap-3 p-5 relative border-solid !h-[16.5625rem] overflow-hidden group",
     )
@@ -257,11 +265,17 @@ def grid_card_unique(title: str, description: str, url: str, component) -> rx.Co
     )
 
 
+#
 def new_resource_section():
     _company_items = [
-        {"label": "Newsletter", "url": "#newsletter", "icon": "mails"},
+        {
+            "label": "Newsletter",
+            "url": "https://reflex.dev/open-source/#newsletter",
+            "icon": "mails",
+        },
         {"label": "Blog", "url": "/blog", "icon": "library-big"},
         {"label": "Affiliates", "url": "/affiliates", "icon": "network"},
+        {"label": "Use Cases", "url": use_cases_page.path, "icon": "list-checks"},
     ]
 
     _open_source_items = [
@@ -298,7 +312,7 @@ def new_resource_section():
                 class_name="justify-start w-full items-center",
             ),
             href=url,
-            is_external=True,
+            is_external=False,
             underline="none",
             class_name="!w-full",
         )
@@ -326,13 +340,6 @@ def new_resource_section():
         _resource_section_column("Company", _company_items),
         # Grid cards
         rx.box(
-            # grid_card(
-            #     "Blog",
-            #     "See what's new in the Reflex ecosystem.",
-            #     f"/blog",
-            #     "/blog/top_python_web_frameworks.png",
-            #     "absolute bottom-0 rounded-tl-md",
-            # ),
             grid_card(
                 "Customers",
                 "Meet the teams who chose Reflex.",
@@ -375,12 +382,16 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
 
 def logo() -> rx.Component:
     return rx.link(
-        rx.color_mode_cond(
+        rx.fragment(
             rx.image(
-                src="/logos/light/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/light/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0 block dark:hidden",
             ),
             rx.image(
-                src="/logos/dark/reflex.svg", alt="Reflex Logo", class_name="shrink-0"
+                src="/logos/dark/reflex.svg",
+                alt="Reflex Logo",
+                class_name="shrink-0 hidden dark:block",
             ),
         ),
         class_name="flex shrink-0 mr-3",
@@ -389,19 +400,19 @@ def logo() -> rx.Component:
 
 
 def doc_section():
-    from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.content(
         rx.el.ul(
             resource_item(
                 "AI Builder Docs",
-                ai_builder_pages.overview.what_is_reflex_build.path,
+                ai_builder.overview.what_is_reflex_build.path,
                 "bot",
                 0,
             ),
             resource_item(
-                "Framework Docs", getting_started.introduction.path, "frame", 0
+                "Open Source Docs", getting_started.introduction.path, "frame", 0
             ),
             resource_item(
                 "Cloud Docs", hosting_page.deploy_quick_start.path, "server", 0
@@ -412,8 +423,8 @@ def doc_section():
 
 
 def new_component_section() -> rx.Component:
-    from pcweb.pages.docs import hosting as hosting_page
     from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import hosting as hosting_page
 
     return nav_menu.root(
         nav_menu.list(
@@ -442,12 +453,16 @@ def new_component_section() -> rx.Component:
                 rx.el.div(
                     nav_menu.item(
                         link_item(
-                            "AI Builder", ai_builder_pages.overview.path, "builder"
+                            "AI Builder",
+                            ai_builder_pages.overview.what_is_reflex_build.path,
+                            "builder",
                         ),
                     ),
                     nav_menu.item(
                         link_item(
-                            "Framework", getting_started.introduction.path, "framework"
+                            "Open Source",
+                            getting_started.introduction.path,
+                            "framework",
                         ),
                     ),
                     nav_menu.item(
@@ -462,7 +477,7 @@ def new_component_section() -> rx.Component:
                     #     link_item("AI Builder", REFLEX_AI_BUILDER, "builder"),
                     # ),
                     nav_menu.item(
-                        link_item("Framework", framework.path, "framework"),
+                        link_item("Open Source", framework.path, "framework"),
                     ),
                     nav_menu.item(
                         link_item("Cloud", hosting_landing.path, "hosting"),
@@ -500,12 +515,25 @@ def new_component_section() -> rx.Component:
             nav_menu.item(
                 rx.link(
                     button(
-                        "Build",
+                        "Sign In",
+                        variant="secondary",
                         class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
                     ),
                     underline="none",
                     is_external=True,
-                    href=REFLEX_BUILD_URL,
+                    href=f"{REFLEX_CLOUD_URL.strip('/')}/?redirect_url={REFLEX_BUILD_URL}",
+                ),
+                class_name="desktop-only",
+            ),
+            nav_menu.item(
+                rx.link(
+                    button(
+                        "Contact Sales",
+                        class_name="!h-8 !font-small-smbold !rounded-[0.625rem] whitespace-nowrap",
+                    ),
+                    underline="none",
+                    is_external=True,
+                    href="/pricing",
                 ),
                 class_name="lg:flex hidden",
             ),
@@ -522,7 +550,7 @@ def new_component_section() -> rx.Component:
 @rx.memo
 def navbar() -> rx.Component:
     return rx.box(
-        # hosting_banner(),
+        hosting_banner(),
         rx.el.header(
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",

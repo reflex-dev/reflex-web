@@ -12,7 +12,7 @@ companies_list = [
     "apple",
     "microsoft",
     "amazon",
-    "fastly",    
+    "fastly",
     "accenture",
     "ibm",
     "unicef",
@@ -95,7 +95,7 @@ def quote_box(company: str) -> rx.Component:
     case_study = companies_case_studies_var[company]
     return rx.fragment(
         rx.text(
-            f'“{case_study["quote"]}”',
+            f"“{case_study['quote']}”",
             class_name="text-xs text-slate-12 italic font-medium animate-fade animate-duration-[750ms] animate-fill-both",
         ),
         rx.box(
@@ -138,7 +138,7 @@ def quote_badge() -> rx.Component:
 
 
 @rx.memo
-def company_card(image: str, name: str, id: str) -> rx.Component:
+def company_card(name: str, id: str) -> rx.Component:
     area_x_pos = ClientStateVar.create(
         var_name="area_x_pos", default=0, global_ref=False
     )
@@ -163,9 +163,18 @@ def company_card(image: str, name: str, id: str) -> rx.Component:
                 class_name="flex flex-col gap-2.5 w-full h-[10.75rem] justify-between bg-slate-1 border-box p-4 overflow-hidden",
             ),
             rx.box(
+                # Light
                 rx.image(
-                    src=image,
-                    class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all",
+                    src=f"/landing/companies/light/{name}.svg",
+                    class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:hidden",
+                    loading="lazy",
+                    alt=f"{name} logo",
+                ),
+                # Dark
+                rx.image(
+                    src=f"/landing/companies/dark/{name}.svg",
+                    class_name="w-[4.75rem] h-auto pointer-events-none group-hover:grayscale-0 grayscale-[1] opacity-50 group-hover:opacity-100 transition-all dark:block hidden",
+                    loading="lazy",
                     alt=f"{name} logo",
                 ),
                 class_name=(
@@ -240,7 +249,6 @@ def companies() -> rx.Component:
         rx.box(
             *[
                 company_card(
-                    image=f"/landing/companies/{rx.color_mode_cond(light='light', dark='dark')}/{company}.svg",
                     name=company,
                     id=f"landing-company-card-{company}",
                 )

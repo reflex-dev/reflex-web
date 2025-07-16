@@ -10,5 +10,5 @@ config = rx.Config(
     ],
     show_build_with_reflex=False,
     telemetry_enabled=False,
-    plugins=[rx.plugins.TailwindV4Plugin()],
+    plugins=[rx.plugins.TailwindV4Plugin(), rx.plugins.SitemapPlugin()],
 )

@@ -1,5 +1,6 @@
 import reflex as rx
 import flexdown
+from flexdown.document import Document
 from pcweb.flexdown import xd2 as xd
 from pcweb.templates.storypage import storypage
 
@@ -18,8 +19,8 @@ CUSTOMERS_PATH = "case-studies/"
 def get_customer_data(paths):
     customers = {}
     for path in reversed(sorted(paths)):
-        document = flexdown.parse_file(path)
-        path = path.replace(".md", "/")
+        document = Document.from_file(path)
+        path = str(path).replace(".md", "/")
         customers[path] = document
     return customers
 

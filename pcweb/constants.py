@@ -17,9 +17,10 @@ REFLEX_DEV_WEB_GENERAL_FORM_FEEDBACK_WEBHOOK_URL: str = os.environ.get(
 # pcweb urls.
 REFLEX_URL = "https://reflex.dev/"
 REFLEX_DOCS_URL = "https://reflex.dev/docs/getting-started/introduction/"
+PYNECONE_URL = "https://pynecone.io"
 REFLEX_CLOUD_URL = os.getenv("REFLEX_CLOUD_URL", "https://cloud.reflex.dev/")
 REFLEX_BUILD_URL = os.getenv("REFLEX_BUILD_URL", "https://build.reflex.dev/")
-PYNECONE_URL = "https://pynecone.io"
+
 PIP_URL = "https://pypi.org/project/reflex"
 GITHUB_URL = "https://github.com/reflex-dev/reflex"
 OLD_GITHUB_URL = "https://github.com/pynecone-io/pynecone"
@@ -40,7 +41,12 @@ NEXT_SCRIPT_URL = "https://nextjs.org/docs/app/api-reference/components/script"
 GALLERY_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfB30hXB09CZ_H0Zi684w1y1zQSScyT3Qhd1mOUrAAIq9dj3Q/viewform?usp=sf_link"
 NPMJS_URL = "https://www.npmjs.com/"
 SPLINE_URL = "https://github.com/splinetool/react-spline"
-REFLEX_CLOUD_URL = "https://cloud.reflex.dev"
+ENTERPRISE_DOCS_URL = "https://enterprise.reflex.dev"
+DATABRICKS_NOTION_URL = "https://reflex-dev.notion.site/reflex-x-databricks"
+DEMO_VIDEO_URL = "https://www.youtube.com/watch?v=s-kr8v7827g"
+CAL_REQUEST_DEMO_URL = (
+    "https://cal.com/team/reflex/reflex-team-enterprise-follow-up-call"
+)
 
 # Install urls.
 BUN_URL = "https://bun.sh"
@@ -69,6 +75,30 @@ RX_BUILD_BACKEND = os.getenv("RX_BUILD_BACKEND", "https://build-backend.reflex.d
 
 # Stats
 GITHUB_STARS = 23000
-MONTHLY_USERS = 10000
 DISCORD_USERS = 7000
 CONTRIBUTORS = 170
+
+MAX_FILE_SIZE_MB = 5
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
+MAX_IMAGES_COUNT = 5
+
+PROMPT_MAP = {
+    "Use an Image": "Build an app from a reference image",
+    "Chat App": "A chat app hooked up to an LLM",
+    "Live Dashboard": "Live stream data on a real-time dashboard",
+}
+
+CONTRIBUTION_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
+BUGS_URL = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+
+SPLINE_SCENE_URL = "https://prod.spline.design/Br2ec3WwuRGxEuij/scene.splinecode"
+SPLINE_RUNTIME_VERSION = "1.5.5"
+
+REFLEX_DOMAIN_URL = "https://reflex.dev/"
+REFLEX_DOMAIN = "reflex.dev"
+TWITTER_CREATOR = "@getreflex"
+
+# Posthog
+POSTHOG_API_KEY = os.getenv("POSTHOG_API_KEY")
+
+SLACK_DEMO_WEBHOOK_URL: str = os.environ.get("SLACK_DEMO_WEBHOOK_URL")

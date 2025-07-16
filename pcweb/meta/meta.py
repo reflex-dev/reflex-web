@@ -1,4 +1,5 @@
 import reflex as rx
+from pcweb.constants import REFLEX_DOMAIN_URL, REFLEX_DOMAIN, TWITTER_CREATOR
 
 
 meta_tags = [
@@ -13,7 +14,7 @@ meta_tags = [
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
     # Facebook Meta Tags
-    {"property": "og:url", "content": "https://reflex.dev/"},
+    {"property": "og:url", "content": REFLEX_DOMAIN_URL},
     {"property": "og:type", "content": "website"},
     {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
     {
@@ -23,15 +24,15 @@ meta_tags = [
     {"property": "og:image", "content": "/previews/index_preview.png"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": "reflex.dev"},
-    {"property": "twitter:url", "content": "https://reflex.dev/"},
+    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
+    {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "name": "twitter:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
     {"name": "twitter:image", "content": "/previews/index_preview.png"},
-    {"name": "twitter:creator", "content": "@getreflex"},
+    {"name": "twitter:creator", "content": TWITTER_CREATOR},
 ]
 
 hosting_meta_tags = [
@@ -46,7 +47,7 @@ hosting_meta_tags = [
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
     # Facebook Meta Tags
-    {"property": "og:url", "content": "https://reflex.dev/"},
+    {"property": "og:url", "content": REFLEX_DOMAIN_URL},
     {"property": "og:type", "content": "website"},
     {"property": "og:title", "content": "Reflex · Web apps in Pure Python"},
     {
@@ -56,15 +57,15 @@ hosting_meta_tags = [
     {"property": "og:image", "content": "/previews/hosting_preview.png"},
     # Twitter Meta Tags
     {"name": "twitter:card", "content": "summary_large_image"},
-    {"property": "twitter:domain", "content": "reflex.dev"},
-    {"property": "twitter:url", "content": "https://reflex.dev/"},
+    {"property": "twitter:domain", "content": REFLEX_DOMAIN},
+    {"property": "twitter:url", "content": REFLEX_DOMAIN_URL},
     {"name": "twitter:title", "content": "Reflex · Web apps in Pure Python"},
     {
         "name": "twitter:description",
         "content": "The open-source framework to build and deploy web apps using Python.",
     },
     {"name": "twitter:image", "content": "/previews/hosting_preview.png"},
-    {"name": "twitter:creator", "content": "@getreflex"},
+    {"name": "twitter:creator", "content": TWITTER_CREATOR},
 ]
 
 
@@ -84,7 +85,14 @@ def favicons_links() -> list[rx.Component]:
     ]
 
 
-def create_meta_tags(title: str, description: str, image: str) -> list[rx.Component]:
+def create_meta_tags(title: str, description: str, image: str, url: str = None) -> list[rx.Component]:
+    page_url = url if url else REFLEX_DOMAIN_URL
+    
+    if image and not image.startswith(('http://', 'https://')):
+        image_url = f"https://reflex.dev{'' if image.startswith('/') else '/'}{image}"
+    else:
+        image_url = image
+    
     return [
         # HTML Meta Tags
         {"name": "application-name", "content": "Reflex"},
@@ -97,23 +105,23 @@ def create_meta_tags(title: str, description: str, image: str) -> list[rx.Compon
             "content": description,
         },
         # Facebook Meta Tags
-        {"property": "og:url", "content": "https://reflex.dev/"},
+        {"property": "og:url", "content": page_url},
         {"property": "og:type", "content": "website"},
         {"property": "og:title", "content": title},
         {
             "property": "og:description",
             "content": description,
         },
-        {"property": "og:image", "content": image},
+        {"property": "og:image", "content": image_url},
         # Twitter Meta Tags
         {"name": "twitter:card", "content": "summary_large_image"},
-        {"property": "twitter:domain", "content": "reflex.dev"},
-        {"property": "twitter:url", "content": "https://reflex.dev/"},
+        {"property": "twitter:domain", "content": REFLEX_DOMAIN},
+        {"property": "twitter:url", "content": page_url},
         {"name": "twitter:title", "content": title},
         {
             "name": "twitter:description",
             "content": description,
         },
-        {"name": "twitter:image", "content": image},
-        {"name": "twitter:creator", "content": "@getreflex"},
+        {"name": "twitter:image", "content": image_url},
+        {"name": "twitter:creator", "content": TWITTER_CREATOR},
     ]

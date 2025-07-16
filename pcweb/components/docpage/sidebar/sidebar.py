@@ -5,16 +5,48 @@ from __future__ import annotations
 import reflex as rx
 
 from pcweb.components.docpage.navbar.state import NavbarState
+from pcweb.constants import ENTERPRISE_DOCS_URL
 from pcweb.styles.colors import c_color
+
 from .sidebar_items.ai import ai_builder_overview_items
-from .sidebar_items.component_lib import (
-    component_lib,
-    graphing_libs,
+from .sidebar_items.component_lib import component_lib, graphing_libs
+from .sidebar_items.enterprise import (
+    enterprise_items,
+    enterprise_usage_items,
+    enterprise_component_items,
 )
-from .sidebar_items.learn import learn, frontend, backend, hosting, cli_ref
+from .sidebar_items.learn import backend, cli_ref, frontend, hosting, learn
 from .sidebar_items.recipes import recipes
 from .sidebar_items.reference import api_reference
-from .state import SidebarState, SideBarItem, SideBarBase
+from .state import SideBarBase, SideBarItem, SidebarState
+
+Scrollable_SideBar = """
+function scrollToActiveSidebarLink() {
+  const currentPath = window.location.pathname.replace(/\\/+$|\\/$/g, "") + "/";
+
+  const activeLink = document.querySelector(`#sidebar-container a[href="${currentPath}"]`) ||
+                    document.querySelector(`#sidebar-container a[href="${currentPath.slice(0, -1)}"]`);
+
+  if (activeLink) {
+    activeLink.scrollIntoView({
+      block: "center",
+    });
+  }
+}
+
+setTimeout(scrollToActiveSidebarLink, 100);
+
+window.addEventListener("popstate", () => {
+  setTimeout(scrollToActiveSidebarLink, 100);
+});
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="/docs"]');
+  if (link) {
+    setTimeout(scrollToActiveSidebarLink, 200);
+  }
+});
+"""
 
 
 def sidebar_link(*children, **props):
@@ -60,6 +92,7 @@ def sidebar_leaf(
             value=item_index,
             border="none",
             width="100%",
+            class_name="!overflow-visible",
         )
         if item.outer
         else rx.accordion.item(
@@ -93,6 +126,7 @@ def sidebar_leaf(
             border="none",
             value=item_index,
             width="100%",
+            class_name="!overflow-visible",
         )
     )
 
@@ -108,7 +142,7 @@ def sidebar_icon(name):
         "Wrapping React": "atom",
         "Vars": "variable",
         "Events": "arrow-left-right",
-        "Substates": "boxes",
+        "State Structure": "boxes",
         "API Routes": "route",
         "Client Storage": "package-open",
         "Database": "database",
@@ -149,8 +183,10 @@ def sidebar_item_comp(
                         class_name="font-small",
                     ),
                     rx.box(class_name="flex-grow"),
-                    rx.accordion.icon(class_name="size-4"),
-                    class_name="flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full text-slate-9 aria-expanded:text-slate-11 hover:text-slate-11 transition-color",
+                    rx.accordion.icon(
+                        class_name="size-4 !text-slate-9 group-hover:!text-violet-9"
+                    ),
+                    class_name="!px-0 flex items-center !bg-transparent !hover:bg-transparent !py-2 !pr-0 w-full !text-slate-9 aria-expanded:text-slate-11 hover:!text-slate-11 transition-color group",
                 ),
             ),
             rx.accordion.content(
@@ -167,12 +203,12 @@ def sidebar_item_comp(
                     type="multiple",
                     collapsible=True,
                     default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)]",
+                    class_name="!my-2 flex flex-col items-start gap-4 !ml-[10px] list-none [box-shadow:inset_1.25px_0_0_0_var(--c-slate-4)_!important] !bg-transparent !rounded-none",
                 ),
-                class_name="!p-0 w-full",
+                class_name="!p-0 w-full !bg-transparent before:!h-0 after:!h-0",
             ),
             value=item_index,
-            class_name="border-none w-full",
+            class_name="border-none w-full !bg-transparent",
         )
     )
 
@@ -219,7 +255,8 @@ append_to_items(
     + graphing_libs
     + recipes
     + ai_builder_overview_items
-    + api_reference,
+    + api_reference
+    + enterprise_items,
     flat_items,
 )
 
@@ -327,7 +364,7 @@ def create_sidebar_section(
             type="multiple",
             collapsible=True,
             default_value=index[:1].foreach(lambda x: "index" + x.to_string()),
-            class_name="ml-0 pl-0 w-full",
+            class_name="ml-0 pl-0 w-full !bg-transparent !shadow-none rounded-[0px]",
         ),
         class_name="flex flex-col items-start ml-0 w-full",
     )
@@ -344,19 +381,21 @@ def sidebar_comp(
     graphing_libs_index: list[int],
     api_reference_index: list[int],
     recipes_index: list[int],
+    enterprise_index: list[int],
     #
     cli_ref_index: list[int],
     ai_builder_overview_index: list[int],
     tutorials_index: list[int],
     width: str = "100%",
 ):
-    from pcweb.pages.docs import enterprise, getting_started, state, ui
+    from pcweb.pages.docs import ai_builder as ai_builder_pages
+    from pcweb.pages.docs import enterprise, getting_started
     from pcweb.pages.docs import hosting as hosting_page
+    from pcweb.pages.docs import state, ui
     from pcweb.pages.docs.apiref import pages
     from pcweb.pages.docs.custom_components import custom_components
     from pcweb.pages.docs.library import library
     from pcweb.pages.docs.recipes_overview import overview
-    from pcweb.pages.docs import ai_builder as ai_builder_pages
 
     return rx.box(  # pyright: ignore [reportCallIssue]
         # Handle sidebar categories for docs/cloud first
@@ -453,7 +492,6 @@ def sidebar_comp(
                     create_sidebar_section(
                         "Overview",
                         ai_builder_pages.overview.what_is_reflex_build.path,
-                        # ai_builder_pages.overview.path,
                         ai_builder_overview_items,
                         ai_builder_overview_index,
                         url,
@@ -552,6 +590,26 @@ def sidebar_comp(
                                 class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                             ),
                         ),
+                        (
+                            3,
+                            rx.el.ul(
+                                create_sidebar_section(
+                                    "Enterprise Usage",
+                                    enterprise.overview.path,
+                                    enterprise_usage_items,
+                                    enterprise_index,
+                                    url,
+                                ),
+                                create_sidebar_section(
+                                    "Components",
+                                    enterprise.components.path,
+                                    enterprise_component_items,
+                                    enterprise_index,
+                                    url,
+                                ),
+                                class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -579,6 +637,7 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
     graphing_libs_index = calculate_index(graphing_libs, url)
     api_reference_index = calculate_index(api_reference, url)
     recipes_index = calculate_index(recipes, url)
+    enterprise_index = calculate_index(enterprise_items, url)
 
     cli_ref_index = calculate_index(cli_ref, url)
     ai_builder_overview_index = calculate_index(ai_builder_overview_items, url)
@@ -594,11 +653,14 @@ def sidebar(url=None, width: str = "100%") -> rx.Component:
             graphing_libs_index=graphing_libs_index,
             api_reference_index=api_reference_index,
             recipes_index=recipes_index,
+            enterprise_index=enterprise_index,
             ai_builder_overview_index=ai_builder_overview_index,
             cli_ref_index=cli_ref_index,
             #
             width=width,
         ),
+        on_mount=rx.call_script(Scrollable_SideBar),
+        id=rx.Var.create("sidebar-container"),
         class_name="flex justify-end w-full h-full",
     )
 

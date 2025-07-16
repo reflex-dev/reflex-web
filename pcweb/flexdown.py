@@ -280,6 +280,55 @@ class DefinitionBlock(flexdown.blocks.Block):
         )
 
 
+class DemoOnly(flexdown.blocks.Block):
+    """A block that displays only a component demo without showing the code."""
+
+    starting_indicator = "```python demo-only"
+    ending_indicator = "```"
+    include_indicators = True
+    theme: str = None
+
+    def render(self, env) -> rx.Component:
+        lines = self.get_lines(env)
+        code = "\n".join(lines[1:-1])
+
+        args = lines[0].removeprefix(self.starting_indicator).split()
+
+        exec_mode = env.get("__exec", False)
+        comp = ""
+
+        for arg in args:
+            if arg.startswith("id="):
+                comp_id = arg.rsplit("id=")[-1]
+                break
+        else:
+            comp_id = None
+
+        if "exec" in args:
+            env["__xd"].exec(code, env, self.filename)
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
+        elif "graphing" in args:
+            env["__xd"].exec(code, env, self.filename)
+            if not exec_mode:
+                comp = env[list(env.keys())[-1]]()
+                # Get all the code before the final "def".
+                parts = code.rpartition("def")
+                data, code = parts[0], parts[1] + parts[2]
+                comp = docgraphing(code, comp=comp, data=data)
+                return comp
+        elif exec_mode:
+            return comp
+        elif "box" in args:
+            comp = eval(code, env, env)
+            return rx.box(comp, margin_bottom="1em", id=comp_id)
+        else:
+            comp = eval(code, env, env)
+
+        # Return only the component without any code display
+        return rx.box(comp, margin_bottom="1em", id=comp_id)
+
+
 class DemoBlock(flexdown.blocks.Block):
     """A block that displays a component along with its code."""
 
@@ -543,6 +592,7 @@ comp2["ol"] = lambda items: ordered_list_comp(items=items)
 
 xd = flexdown.Flexdown(
     block_types=[
+        DemoOnly,
         DemoBlock,
         AlertBlock,
         DefinitionBlock,

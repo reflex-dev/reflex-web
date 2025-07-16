@@ -1,10 +1,12 @@
 from typing import Callable
 
 import reflex as rx
-from pcweb.route import Route
+
 from pcweb.meta.meta import meta_tags
+from pcweb.route import Route
 
 DEFAULT_TITLE = "Web Apps in Pure Python"
+
 
 def mainpage(
     path: str,
@@ -52,10 +54,11 @@ def mainpage(
             """
             # Import here to avoid circular imports.
             from pcweb.components.docpage.navbar import navbar
+            from pcweb.components.hosting_banner import HostingBannerState
+            from pcweb.components.webpage.badge import badge
+            from pcweb.pages.framework.index_colors import index_colors
             from pcweb.pages.framework.views.footer_index import footer_index
             from pcweb.pages.framework.views.get_started import get_started
-            from pcweb.pages.framework.index_colors import index_colors
-            from pcweb.components.webpage.badge import badge
 
             # Wrap the component in the template.
             return rx.box(
@@ -69,6 +72,7 @@ def mainpage(
                 badge(),
                 footer_index(),
                 class_name="flex flex-col w-full max-w-[94.5rem] justify-center items-center mx-auto px-4 lg:px-5 relative overflow-hidden",
+                padding_top=rx.cond(HostingBannerState.show_banner, "56px", "0"),
                 **props,
             )
 

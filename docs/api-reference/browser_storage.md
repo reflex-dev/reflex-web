@@ -205,18 +205,18 @@ rx.button(
 
 # Serialization Strategies
 
-If a non-trivial data structure should be stored in a `Cookie`, `LocalStorage`, or `SessionStorage` var it needs to be serialized before and after storing it. It is recommended to use a dataclass for the data which provides simple serialization helpers and works recursively in complex object structures.
+If a non-trivial data structure should be stored in a `Cookie`, `LocalStorage`, or `SessionStorage` var it needs to be serialized before and after storing it. It is recommended to use a pydantic class for the data which provides simple serialization helpers and works recursively in complex object structures.
 
 ```python demo exec
 import reflex as rx
-import dataclasses
+import pydantic
 
-@dataclasses.dataclass
-class AppSettings:
+
+class AppSettings(pydantic.BaseModel):
     theme: str = 'light'
     sidebar_visible: bool = True
     update_frequency: int = 60
-    error_messages: list[str] = dataclasses.field(default_factory=list)
+    error_messages: list[str] = pydantic.Field(default_factory=list)
 
 
 class ComplexLocalStorageState(rx.State):
@@ -226,12 +226,12 @@ class ComplexLocalStorageState(rx.State):
 
     @rx.event
     def save_settings(self):
-        self.data_raw = self.data.json()
+        self.data_raw = self.data.model_dump_json()
         self.settings_open = False
 
     @rx.event
     def open_settings(self):
-        self.data = AppSettings.parse_raw(self.data_raw)
+        self.data = AppSettings.model_validate_json(self.data_raw)
         self.settings_open = True
 
     @rx.event
@@ -269,12 +269,12 @@ def app_settings():
                 rx.form.label(
                     "Update Frequency (seconds)",
                     rx.input(
-                    value=ComplexLocalStorageState.data.update_frequency,
-                    on_change=lambda v: ComplexLocalStorageState.set_field(
-                        "update_frequency",
-                        v,
+                        value=ComplexLocalStorageState.data.update_frequency,
+                        on_change=lambda v: ComplexLocalStorageState.set_field(
+                            "update_frequency",
+                            v,
+                        ),
                     ),
-                ),
                 ),
                 rx.dialog.close(rx.button("Save", type="submit")),
                 gap=2,
@@ -291,7 +291,7 @@ def app_settings_example():
         ),
         rx.dialog.content(
             rx.dialog.title("App Settings"),
-            rx.dialog.description(app_settings()),
+            app_settings(),
         ),
     )
 ```

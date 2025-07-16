@@ -1,6 +1,7 @@
 import reflex as rx
-from pcweb.components.icons.hugeicons import hi
+
 from pcweb.components.icons import get_icon
+from pcweb.components.icons.hugeicons import hi
 
 
 def header() -> rx.Component:
@@ -20,9 +21,13 @@ A complete infrastructure for your app""",
             class_name="max-w-full w-full lg:text-3xl text-2xl text-center text-slate-12 font-semibold text-balance word-wrap break-words md:whitespace-pre",
         ),
         rx.el.p(
-            """Launch your app with a single command, enjoy automatic scaling, and focus on 
-building while Reflex handles infrastructure..""",
-            class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre",
+            """Deploy anywhere — Reflex supports all major cloud providers, 
+including Databricks, AWS, GCP, Azure, Snowflake and more.""",
+            class_name="text-slate-11 text-sm font-medium text-center text-balance word-wrap break-words md:whitespace-pre pb-6",
+        ),
+        rx.image(
+            src="/hosting_graphing.svg",
+            class_name="h-auto max-w-[25rem] w-full mx-auto",
         ),
         class_name="flex flex-col gap-4 mx-auto w-full max-w-[64.19rem] lg:border-x border-slate-3 p-10 justify-center items-center relative overflow-hidden h-[22.75rem] border-b border-slate-3",
     )
@@ -72,8 +77,12 @@ def content() -> rx.Component:
         ),
         rx.box(
             rx.image(
-                src=f"/landing/hosting_features/{rx.color_mode_cond(light='light', dark='dark')}/card.webp",
-                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none",
+                src=f"/landing/hosting_features/light/card.webp",
+                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:hidden",
+            ),
+            rx.image(
+                src=f"/landing/hosting_features/dark/card.webp",
+                class_name="absolute top-0 left-0 w-full h-full object-cover pointer-events-none dark:block hidden",
             ),
             class_name="justify-center items-center relative overflow-hidden w-full lg:flex hidden",
         ),
@@ -81,9 +90,20 @@ def content() -> rx.Component:
     )
 
 
+def graph() -> rx.Component:
+    return rx.box(
+        rx.image(
+            src="/hosting_graphing.svg",
+            class_name="w-full h-[10rem]",
+        ),
+        class_name="flex flex-col lg:flex-row max-w-[64.19rem] mx-auto w-full border-x-0 lg:border-x border-slate-3 divide-x-0 lg:divide-x divide-slate-3 p-10",
+    )
+
+
 def hosting_section() -> rx.Component:
     return rx.el.section(
         header(),
+        # graph(),
         content(),
         class_name="flex flex-col mx-auto w-full max-w-[84.19rem] relative",
     )

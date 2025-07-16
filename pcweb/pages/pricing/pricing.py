@@ -5,7 +5,7 @@ from pcweb.pages.pricing.header import header
 from pcweb.pages.pricing.plan_cards import plan_cards
 from pcweb.pages.pricing.table import (
     comparison_table_hosting,
-    comparison_table_ai_and_oss,
+    comparison_table_ai,
 )
 from pcweb.pages.pricing.faq import faq
 from pcweb.pages.pricing.calculator import calculator_section
@@ -25,8 +25,8 @@ def pricing() -> rx.Component:
         rx.el.main(
             rx.box(
                 header(),
-                plan_cards(),
-                comparison_table_ai_and_oss(),
+                # plan_cards(),
+                comparison_table_ai(),
                 comparison_table_hosting(),
                 calculator_section(),
                 faq(),

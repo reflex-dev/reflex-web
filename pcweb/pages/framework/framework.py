@@ -12,7 +12,7 @@ from pcweb.meta.meta import meta_tags
 from pcweb.templates.mainpage import mainpage
 
 
-@mainpage(path="/framework", title="Reflex · Web apps in Pure Python", meta=meta_tags)
+@mainpage(path="/open-source", title="Reflex · Web apps in Pure Python", meta=meta_tags)
 def framework() -> rx.Component:
     """Get the main Reflex landing page."""
     return rx.box(

@@ -77,16 +77,23 @@ def landing_patterns() -> rx.Component:
 def hosting_patterns() -> rx.Component:
     return [
         rx.image(
-            src=rx.color_mode_cond(
-                light="/hosting/light/hosting_patterns.svg",
-                dark="/hosting/dark/hosting_patterns.svg",
-            ),
+            src="/hosting/light/hosting_patterns.svg",
             alt="Reflex Hosting Patterns",
-            class_name="lg:flex hidden absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            class_name="dark:hidden desktop-only absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             + rx.cond(
                 HostingBannerState.show_banner,
                 " lg:mt-[24rem] mt-[3.5rem]",
                 " lg:mt-[19rem] mt-[8.5rem]",
             ),
-        )
+        ),
+        rx.image(
+            src="/hosting/dark/hosting_patterns.svg",
+            alt="Reflex Hosting Patterns",
+            class_name="dark:flex hidden lg:flex absolute top-0 z-[-1] w-[1028px] h-[478px] pointer-events-none shrink-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            + rx.cond(
+                HostingBannerState.show_banner,
+                " lg:mt-[24rem] mt-[3.5rem]",
+                " lg:mt-[19rem] mt-[8.5rem]",
+            ),
+        ),
     ]

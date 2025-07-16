@@ -1,9 +1,6 @@
 import reflex as rx
 from pcweb.components.icons.icons import get_icon
-from pcweb.constants import GITHUB_STARS
-
-contribution_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22"
-bugs_url = "https://github.com/reflex-dev/reflex/issues?q=is%3Aopen+is%3Aissue"
+from pcweb.constants import GITHUB_STARS, CONTRIBUTION_URL, BUGS_URL
 
 
 def stat(icon: str, stat: str, text: str) -> rx.Component:

@@ -2,7 +2,6 @@ import reflex as rx
 from pcweb.components.button import button
 from pcweb.constants import REFLEX_DEV_WEB_LANDING_FORM_URL_GET_DEMO
 
-# Constants for styling
 STYLES = {
     "cell": "text-slate-12 font-medium text-sm whitespace-nowrap",
     "header_cell": "text-slate-12 font-semibold text-lg",
@@ -24,7 +23,7 @@ TABLE_STYLE = """
 }
 .rt-TableRow {
     display: grid !important;
-    grid-template-columns: minmax(100px, 1fr) repeat(4, minmax(100px, 1fr)) !important;
+    grid-template-columns: minmax(100px, 1fr) repeat(2, minmax(100px, 1fr)) !important;
     padding: 1rem 2.5rem;
     gap: 1rem !important;
 }
@@ -33,105 +32,122 @@ TABLE_STYLE = """
 }
 """
 
-PRICE_SECTION = [
-    ("Per Seat Price", "FREE", "$20/month", "$49/month", "Custom"),
-    ("Team Size", "1", "1", "< 25", "Unlimited"),
-]
-
-FRAMEWORK_SECTION = [
-    ("Open Source Framework", True, True, True, True),
-    ("Enterprise Components (AG Grid) *", True, True, True, True),
-    ("One Click Auth", False, False, True, True),
-    ("Single Port Deploy", False, False, True, True),
-    ("HTTP Fallback for Websockets", False, False, True, True),
-    ("Custom NPM Registry", False, False, True, True),
-]
-
-AI_TEXT_SECTION = [
+AI_BUILDER_FEATURES = [
+    ("Open Source Framework", "Apache 2.0 License, free forever."),
+    ("Enterprise Package", "Advanced features and support for enterprises."),
+    ("AI Builder", "Build fullstack Python apps via prompting."),
     (
-        "AI App Building",
-        "Limited Access",
-        "$20 credits/month",
-        "$40 credits/user/month",
-        "Custom",
+        "One Click Deploy",
+        "Deploy apps with a single click to Reflex Cloud or your own infrastructure.",
     ),
+    ("Git Provider", "Connect and deploy from Github, Gitlab, and Bitbucket."),
+    ("Integrations", "Connect to Databricks, AWS, GCP, Azure,Snowflake, and more."),
+    ("On Premise Deployments", "Deploy on your own infrastructure."),
 ]
 
-AI_BOOLEAN_SECTION = [
-    ("Purchase Extra AI Credits", False, True, True, True),
-    ("One Click Cloud Deploy", True, True, True, True),
-    ("Github Integration", True, True, True, True),
-    ("Database Integration", True, True, True, True),
-    ("Secrets Integration", True, True, True, True),
-    ("Web IDE", True, True, True, True),
-    ("Private Apps", False, True, True, True),
-    ("Connect AI Builder to your Data Sources", False, False, True, True),
-    ("Bring your own API Keys", False, False, False, True),
+AI_BUILDER_SECURITY_FEATURES = [
+    ("SSO/SAML", "Single sign-on and SAML support."),
+    ("Granular Access Control", "Fine-grained user and role management."),
+    ("Audit Logs", "Track and audit user actions."),
+    ("Secret Management Integration", "Integrate with secret management tools."),
 ]
 
-
-HOSTING_TEXT_SECTION = [
+CLOUD_HOSTING_LIMITS = [
     (
         "Compute",
         "20 hours/month",
-        "$10 compute credits/month",
-        "$20 compute credits/user/month",
         "Custom",
     ),
-    ("Regions", "Single", "Multiple", "Multiple", "Multiple"),
-    ("Build Logs", "1 day", "30 days", "90 days", "Custom"),
-    ("Runtime Logs", "1 hour", "1 day", "1 week", "Custom"),
+    ("Build Logs", "1 day", "Custom"),
+    ("Runtime Logs", "1 hour", "Custom"),
 ]
 
-HOSTING_BOOLEAN_SECTION = [
-    ("CPU / Memory Metrics", True, True, True, True),
-    ("CLI Deployments", True, True, True, True),
-    ("CI/CD Deploy Tokens", True, True, True, True),
-    ("Set Billing Limits", True, True, True, True),
-    ("Custom Domains", False, True, True, True),
-    ("Secret Manager", False, True, True, True),
-    ("User Analytics", False, False, True, True),
-    ("Custom Alerts", False, False, True, True),
-    ("Rollbacks", False, False, True, True),
-    ("Audit Log", False, False, True, True),
-    ("On Prem Deployments", False, False, False, True),
+CLOUD_HOSTING_FEATURES = [
+    ("Multiple Regions", True, True),
+    ("App Metrics", True, True),
+    ("Custom Domains", True, True),
+    ("On Premise Deployments", False, True),
 ]
 
-SECURITY_SECTION = [
-    ("Web App Firewall", True, True, True, True),
-    ("HTTP/SSL", True, True, True, True),
-    ("DDos Protection", True, True, True, True),
-    ("Automatic CI/CD", False, True, True, True),
-    ("Security Audit Reports", False, False, True, True),
-    ("SSO", False, False, False, True),
+AI_BUILDER_ADDITIONAL_FEATURES = [
+    ("Secrets", True, True),
+    ("Audit Logs", False, True),
 ]
 
-SUPPORT_TEXT_SECTION = [
-    ("Support", "Community", "Community", "Email Support", "Dedicated Support")
+CLOUD_SECURITY_FEATURES = [
+    ("Web App Firewall", True, True),
+    ("HTTP/SSL", True, True),
+    ("Security Audit Reports", False, True),
+    ("SSO/SAML", False, True),
+    ("Audit Logs", False, True),
 ]
 
-SUPPORT_BOOLEAN_SECTION = [
-    ("White Glove Onboarding", False, False, False, True),
-    ("SLAs Available", False, False, False, True),
-    ("", "", "", "", ""),
+SUPPORT_LEVELS = [
+    (
+        "Customer Success",
+        "Dedicated Customer Success contact to ensure you get the most out of Reflex.",
+    ),
+    ("Onboarding", "Get a forward deployed engineer to help you get started."),
 ]
 
 PLAN_BUTTONS = [
     ("Start building for free", "secondary", "!text-slate-11 !w-fit"),
-    ("Start with Pro plan", "primary", "!text-[#FCFCFD] !w-fit"),
-    ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
     ("Contact sales", "secondary", "!text-slate-11 !w-fit"),
 ]
 
 ASTERIX_SECTION = [
     (
-        "* AG Grid comes with a 'Built with Reflex' badge for Hobby and Pro tier.",
-        "",
-        "",
+        "* AG Grid comes with a 'Built with Reflex' badge for Hobby tier.",
         "",
         "",
     ),
-    ("", "", "", "", ""),
+    ("", "", ""),
+]
+
+HOSTING_TEXT_SECTION = [
+    (
+        "Compute",
+        "20 hours/month",
+        "Custom",
+    ),
+    ("Build Logs", "1 day", "Custom"),
+    ("Runtime Logs", "1 hour", "Custom"),
+]
+
+HOSTING_BOOLEAN_SECTION = [
+    ("Multiple Regions", True, True),
+    ("App Metrics", True, True),
+    ("Custom Domains", True, True),
+    ("On Premise Deployments", False, True),
+]
+
+FEATURES_SECTION = [
+    ("Secrets", True, True),
+    ("Audit Logs", False, True),
+]
+
+BUILDER_SECURITY_SECTION = [
+    ("SSO/SAML", True, True),
+    ("Granular Access Control", True, True),
+    ("Audit Log", True, True),
+    ("Secret Management Integration", False, True),
+]
+
+SECURITY_SECTION = [
+    ("Web App Firewall", True, True),
+    ("HTTP/SSL", True, True),
+    ("Security Audit Reports", False, True),
+    ("SSO/SAML", False, True),
+    ("Audit Logs", False, True),
+]
+
+SUPPORT_TEXT_SECTION = [
+    ("Support", "Community Support", "Dedicated Support"),
+]
+
+SUPPORT_BOOLEAN_SECTION = [
+    ("White Glove Onboarding", False, True),
+    ("", "", ""),
 ]
 
 
@@ -185,30 +201,42 @@ def create_table_row(cells: list) -> rx.Component:
     )
 
 
-def create_table_row_header(name: list, coming_soon: bool = False) -> rx.Component:
+def create_table_row_header(
+    name: str, coming_soon: bool = False, anchor: str = None, badge: str = None
+) -> rx.Component:
+    # Create row attributes
+    base_class = "w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center"
+
+    # Add scroll margin for anchor positioning
+    if anchor:
+        base_class += " scroll-mt-24"
+
+    row_attrs = {
+        "class_name": base_class,
+        "padding_x": "5rem !important",
+    }
+
+    # Add id attribute if anchor is provided
+    if anchor:
+        row_attrs["id"] = anchor
+
+    # Compose the header cell content
+    header_content = rx.el.div(
+        rx.el.span(name),
+        rx.badge(
+            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
+        )
+        if badge
+        else None,
+        rx.badge("coming soon", margin_left="0.5rem") if coming_soon else None,
+        class_name="flex items-center gap-x-2",
+    )
+
     return rx.table.row(
-        *[
-            (
-                rx.table.column_header_cell(
-                    rx.el.div(
-                        name,
-                        rx.badge("coming soon", margin_left="0.5rem"),
-                        class_name="flex items-center gap-2",
-                    ),
-                    class_name=STYLES["header_cell"],
-                )
-                if coming_soon
-                else rx.table.column_header_cell(name, class_name=STYLES["header_cell"])
-            ),
-            rx.table.column_header_cell("Hobby", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell("Pro", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell("Team", class_name=STYLES["header_cell_sub"]),
-            rx.table.column_header_cell(
-                "Enterprise", class_name=STYLES["header_cell_sub"]
-            ),
-        ],
-        class_name="w-full [&>*:not(:first-child)]:text-center bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
-        padding_x="5rem !important",
+        rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
+        rx.table.column_header_cell("Free", class_name=STYLES["header_cell_sub"]),
+        rx.table.column_header_cell("Enterprise", class_name=STYLES["header_cell_sub"]),
+        **row_attrs,
     )
 
 
@@ -233,52 +261,76 @@ def create_checkmark_row(feature: str, checks: tuple[bool, ...]) -> rx.Component
     return create_table_row(cells)
 
 
-def header_oss() -> rx.Component:
+def header_ai() -> rx.Component:
     return rx.box(
         rx.el.h3(
-            "Supercharged Features to Build Faster",
+            "The enterprise-grade fullstack AI app building platform.",
             class_name="text-slate-12 text-3xl font-semibold text-center",
         ),
         rx.el.p(
-            "Premium Features to help you get the most out of Reflex",
-            class_name="text-slate-9 text-2xl font-semibold text-center",
+            "Build customized, secure, and scalable apps in seconds",
+            class_name="text-slate-9 text-xl font-semibold text-center",
         ),
-        class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+        class_name="flex items-center justify-between text-slate-11 flex-col py-[2.5rem] pt-[10rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
+    )
+
+
+def create_feature_row(feature: str, description: str) -> rx.Component:
+    return rx.table.row(
+        rx.table.cell(feature, class_name=STYLES["cell"]),
+        rx.table.cell(description, class_name=STYLES["cell"]),
+        class_name="w-full bg-slate-1 z-[2] !h-[50px] hover:bg-slate-2",
+    )
+
+
+def create_feature_table_header(section: str, badge: str = None) -> rx.Component:
+    header_content = rx.el.div(
+        rx.el.span(section),
+        rx.badge(
+            badge, class_name="ml-2 bg-violet-2 text-violet-11 border border-violet-5"
+        )
+        if badge
+        else None,
+        class_name="flex items-center gap-x-2",
+    )
+    return rx.table.row(
+        rx.table.column_header_cell(header_content, class_name=STYLES["header_cell"]),
+        rx.table.cell(
+            "", class_name=STYLES["header_cell"]
+        ),  # Empty cell for alignment, no title
+        class_name="w-full bg-slate-2 border border-slate-3 rounded-2xl z-[6] !h-[3.625rem] relative align-content center",
+        padding_x="5rem !important",
     )
 
 
 def table_body_oss() -> rx.Component:
     return rx.table.root(
         rx.table.header(
-            create_table_row_header("Pricing"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in PRICE_SECTION],
-        ),
-        rx.table.header(
-            create_table_row_header("AI"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in AI_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in AI_BOOLEAN_SECTION
-            ],
-        ),
-        rx.table.header(
-            create_table_row_header("FRAMEWORK"),
+            create_feature_table_header("Reflex Build"),
             class_name="relative",
         ),
         create_table_body(
             *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in FRAMEWORK_SECTION
+                create_feature_row(feature, desc)
+                for feature, desc in AI_BUILDER_FEATURES
             ],
         ),
+        rx.table.header(
+            create_feature_table_header("Security"),
+            class_name="relative",
+        ),
         create_table_body(
-            *[create_table_row(row) for row in ASTERIX_SECTION],
+            *[
+                create_feature_row(feature, desc)
+                for feature, desc in AI_BUILDER_SECURITY_FEATURES
+            ],
+        ),
+        rx.table.header(
+            create_feature_table_header("Support"),
+            class_name="relative",
+        ),
+        create_table_body(
+            *[create_feature_row(feature, desc) for feature, desc in SUPPORT_LEVELS],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
     )
@@ -291,8 +343,8 @@ def header_hosting() -> rx.Component:
             class_name="text-slate-12 text-3xl font-semibold text-center",
         ),
         rx.el.p(
-            "Compare features across plans.",
-            class_name="text-slate-9 text-2xl font-semibold text-center",
+            "Deploy your apps in seconds on cloud, or self-host on your own infra.",
+            class_name="text-slate-9 text-xl font-semibold text-center",
         ),
         class_name="flex items-center justify-between text-slate-11 flex-col py-[5rem] 2xl:border-x border-slate-4 max-w-[64.19rem] mx-auto w-full",
     )
@@ -302,15 +354,15 @@ def table_body_hosting() -> rx.Component:
     return rx.table.root(
         rx.el.style(TABLE_STYLE),
         rx.table.header(
-            create_table_row_header("Hosting"),
+            create_table_row_header("Reflex Cloud"),
             glow(),
             class_name="relative",
         ),
         create_table_body(
-            *[create_table_row(row) for row in HOSTING_TEXT_SECTION],
+            *[create_table_row(row) for row in CLOUD_HOSTING_LIMITS],
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in HOSTING_BOOLEAN_SECTION
+                for feature, *checks in CLOUD_HOSTING_FEATURES
             ],
         ),
         rx.table.header(
@@ -320,18 +372,7 @@ def table_body_hosting() -> rx.Component:
         create_table_body(
             *[
                 create_checkmark_row(feature, checks)
-                for feature, *checks in SECURITY_SECTION
-            ],
-        ),
-        rx.table.header(
-            create_table_row_header("Support"),
-            class_name="relative",
-        ),
-        create_table_body(
-            *[create_table_row(row) for row in SUPPORT_TEXT_SECTION],
-            *[
-                create_checkmark_row(feature, checks)
-                for feature, *checks in SUPPORT_BOOLEAN_SECTION
+                for feature, *checks in CLOUD_SECURITY_FEATURES
             ],
         ),
         class_name="w-full overflow-x-auto max-w-[69.125rem] -mt-[2rem]",
@@ -346,9 +387,9 @@ def comparison_table_hosting() -> rx.Component:
     )
 
 
-def comparison_table_ai_and_oss() -> rx.Component:
+def comparison_table_ai() -> rx.Component:
     return rx.box(
-        header_oss(),
+        header_ai(),
         table_body_oss(),
         class_name="flex-col w-full  max-w-[69.125rem] lg:flex hidden",
     )

@@ -1,22 +1,34 @@
 from datetime import datetime
+
 import reflex as rx
-from pcweb.components.icons import get_icon
+
 from pcweb.components.button import button
 from pcweb.pages.gallery import gallery
 from pcweb.pages.docs import getting_started, hosting
 from pcweb.pages.docs.library import library
 from pcweb.pages.blog import blogs
+from pcweb.pages.use_cases.use_cases import use_cases_page
 from pcweb.pages.faq import faq
 from pcweb.pages.errors import errors
 from pcweb.signup import IndexState
+from pcweb.components.icons import get_icon
 from pcweb.constants import (
-    ROADMAP_URL,
-    GITHUB_URL,
-    TWITTER_URL,
     DISCORD_URL,
     FORUM_URL,
+    GITHUB_URL,
     LINKEDIN_URL,
+    ROADMAP_URL,
+    TWITTER_URL,
 )
+from pcweb.pages.blog import blogs
+from pcweb.pages.docs import ai_builder, getting_started, hosting
+from pcweb.pages.docs.library import library
+from pcweb.pages.errors import errors
+from pcweb.pages.faq import faq
+from pcweb.pages.gallery import gallery
+from pcweb.signup import IndexState
+
+from pcweb.pages.framework.views.footer_index import dark_mode_toggle
 
 
 def footer_link(text: str, href: str) -> rx.Component:
@@ -52,6 +64,7 @@ def social_menu_item(icon: str, url: str) -> rx.Component:
 def menu_socials() -> rx.Component:
     return rx.box(
         social_menu_item("discord_navbar", DISCORD_URL),
+        social_menu_item("forum", FORUM_URL),
         social_menu_item("twitter", TWITTER_URL),
         social_menu_item("github_navbar", GITHUB_URL),
         social_menu_item("linkedin", LINKEDIN_URL),
@@ -117,7 +130,7 @@ def news_letter() -> rx.Component:
 
 
 @rx.memo
-def footer() -> rx.Component:
+def footer_customer() -> rx.Component:
     return rx.el.footer(
         rx.box(
             footer_link_flex(
@@ -126,7 +139,9 @@ def footer() -> rx.Component:
                     footer_link("Home", "/"),
                     footer_link("Templates", gallery.path),
                     footer_link("Blog", blogs.path),
-                    footer_link("Changelog", "https://github.com/reflex-dev/reflex/releases"),
+                    footer_link(
+                        "Changelog", "https://github.com/reflex-dev/reflex/releases"
+                    ),
                 ],
                 class_name="!row-span-2",
             ),
@@ -147,6 +162,9 @@ def footer() -> rx.Component:
                     footer_link("Common Errors", errors.path),
                     footer_link("Roadmap", ROADMAP_URL),
                     footer_link("Forum", FORUM_URL),
+                    footer_link("Use Cases", use_cases_page.path),
+                    rx.box(class_name="grow"),
+                    dark_mode_toggle(),
                 ],
                 class_name="!row-span-3 !border-t-0",
             ),

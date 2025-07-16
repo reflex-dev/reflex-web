@@ -11,6 +11,7 @@ def get_sidebar_items_ai_builder_overview():
             "Overview",
             children=[
                 ai_builder.overview.what_is_reflex_build,
+                # ai_builder.overview.use_cases,
                 # ai_builder.overview.quickstart,
                 # ai_builder.overview.frequently_asked_questions,
             ],
@@ -27,13 +28,13 @@ def get_sidebar_items_ai_builder_overview():
                 ai_builder.features.deploy_app,
             ],
         ),
-        # create_item(
-        #     "Prompting Guide",
-        #     children=[
-        #         ai_builder.prompting.fixing_errors,
-        #         ai_builder.prompting.breaking_up_complex_prompts,
-        #     ],
-        # ),
+        create_item(
+            "Prompting Guide",
+            children=[
+                # ai_builder.prompting.fixing_errors,
+                ai_builder.prompting.breaking_up_complex_prompts,
+            ],
+        ),
         create_item(
             "Integrations",
             children=[
