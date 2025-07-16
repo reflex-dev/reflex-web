@@ -896,6 +896,16 @@
 
 @layer base {
 
+    button,
+    [role='button'] {
+        cursor: pointer;
+    }
+
+    button:disabled,
+    [role='button']:disabled {
+        cursor: default;
+    }
+
     body {
         @apply isolate bg-slate-1 font-sans antialiased;
     }

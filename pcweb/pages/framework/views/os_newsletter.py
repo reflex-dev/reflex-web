@@ -29,7 +29,7 @@ contribute, self-host, and more""",
             href=GITHUB_URL,
             class_name="relative w-full lg:w-auto",
         ),
-        class_name="flex flex-col gap-8 w-full p-10 pb-12 lg:!border-l !border-slate-3 lg:!border-t items-center lg:items-start text-center lg:text-start",
+        class_name="lg:!border-b-0 flex flex-col gap-8 w-full p-10 pb-12 lg:!border-l !border-slate-3 items-center lg:items-start text-center lg:text-start",
     )
 
 

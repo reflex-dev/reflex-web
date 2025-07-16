@@ -158,6 +158,7 @@ def backend_grid() -> rx.Component:
             title="It's just Python",
             description="Define and manage state with Python classes and functions",
             icon="python",
+            class_name="lg:!border-l !border-slate-3",
         ),
         backend_card(
             title="PyPI",
@@ -168,11 +169,13 @@ def backend_grid() -> rx.Component:
             title="Database management",
             description="Use our built-in database or connect your own with a single line",
             icon="backend_db",
+            class_name="lg:!border-l lg:!border-b-0 !border-slate-3",
         ),
         backend_card(
             title="Auth",
             description="Secure your app with any auth provider - no vendor lock-in",
             icon="backend_auth",
+            class_name="lg:!border-b-0",
         ),
         backend_card(
             title="Check out the docs",
