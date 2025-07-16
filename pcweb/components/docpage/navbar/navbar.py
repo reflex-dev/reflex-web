@@ -506,7 +506,7 @@ def new_component_section() -> rx.Component:
                 new_menu_trigger("Pricing", "/pricing", "pricing"),
                 class_name="lg:flex hidden",
             ),
-            class_name="flex lex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+            class_name="flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
         ),
         nav_menu.list(
             nav_menu.item(search_bar()),
@@ -555,5 +555,5 @@ def navbar() -> rx.Component:
             new_component_section(),
             class_name="flex flex-row items-center gap-12 bg-slate-1 shadow-[inset_0_-1px_0_0_var(--c-slate-3)] px-4 lg:px-6 w-screen h-[48px] lg:h-[65px]",
         ),
-        class_name="flex flex-col w-full top-0 z-[9999] fixed bg-red-6 text-slate-12",
+        class_name="flex flex-col w-full top-0 z-[9999] fixed text-slate-12",
     )
