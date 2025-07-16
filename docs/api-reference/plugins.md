@@ -72,11 +72,11 @@ config = rx.Config(
 The sitemap plugin automatically includes all your app's routes. For dynamic routes or custom configuration, you can add sitemap metadata to individual pages:
 
 ```python
-@rx.page(route="/blog/[slug]", sitemap={"changefreq": "weekly", "priority": 0.8})
+@rx.page(route="/blog/[slug]", context={"sitemap": {"changefreq": "weekly", "priority": 0.8}})
 def blog_post():
     return rx.text("Blog post content")
 
-@rx.page(route="/about", sitemap={"changefreq": "monthly", "priority": 0.5})
+@rx.page(route="/about", context={"sitemap": {"changefreq": "monthly", "priority": 0.5}})
 def about():
     return rx.text("About page")
 ```
@@ -244,20 +244,18 @@ config = rx.Config(
 
 If you're currently using the legacy `tailwind` configuration parameter, you should migrate to using the plugin system:
 
-**Old approach:**
+**Old approach (legacy):**
 ```python
 config = rx.Config(
     app_name="my_app",
-    plugins=[
-        rx.plugins.TailwindV4Plugin({
-            "plugins": ["@tailwindcss/typography"],
-            "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
-        }),
-    ],
+    tailwind={
+        "plugins": ["@tailwindcss/typography"],
+        "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
+    },
 )
 ```
 
-**New approach:**
+**New approach (plugin-based):**
 ```python
 tailwind_config = {
     "plugins": ["@tailwindcss/typography"],

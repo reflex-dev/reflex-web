@@ -69,7 +69,7 @@ config = rx.Config(
 )
 ```
 
-All Tailwind configuration options are supported. Plugins and presets are automatically wrapped in `require()`:
+All Tailwind configuration options are supported.
 
 You can use any of the [utility classes]({"https://tailwindcss.com/docs/utility-first"}) under the `class_name` prop:
 
@@ -79,6 +79,10 @@ rx.box(
     class_name="text-4xl text-center text-blue-500",
 )
 ```
+
+## Disabling Tailwind
+
+To disable Tailwind in your project, simply don't include any Tailwind plugins in your configuration. This will prevent Tailwind styles from being applied to your application.
 
 ## Custom theme
 
