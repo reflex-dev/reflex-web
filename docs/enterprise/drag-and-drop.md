@@ -335,32 +335,11 @@ Access real-time drag/drop state:
 - `is_over`: Boolean indicating if draggable is hovering
 - `can_drop`: Boolean indicating if drop is allowed
 
-```python exec
-from pcweb.templates.docpage import h1_comp, h2_comp
+# API Reference
 
-h1_comp(text="API Reference")
-```
+### rxe.dnd.draggable
 
-```python exec
-rx.box(
-    h2_comp(text="rxe.dnd.draggable"),
-    rx.markdown("""
 Creates a draggable component that can be moved around the interface.
-
-```python
-rxe.dnd.draggable(
-    *children,
-    type: str,                                    # Required: drag type identifier
-    item: dict | Callable[[DragSourceMonitor], dict] = None,  # Data passed to drop handlers
-    preview_options: dict = None,                 # Options for drag preview
-    options: dict = None,                         # Drag source options
-    on_end: EventHandler = None,                  # Called when drag ends
-    can_drag: Callable[[DragSourceMonitor], bool] = None,     # Predicate for drag ability
-    is_dragging: Callable[[DragSourceMonitor], bool] = None,  # Override drag state
-    collect: Callable[[DragSourceMonitor], dict] = None,      # Custom state collection
-    **props                                       # Standard component props
-)
-```
 
 **Parameters:**
 
@@ -372,23 +351,10 @@ rxe.dnd.draggable(
 - **`can_drag`** (Callable): Function that determines if the item can be dragged
 - **`is_dragging`** (Callable): Function to override the default dragging state detection
 - **`collect`** (Callable): Function to collect custom properties from the drag monitor
-        """),
-    h2_comp(text="rxe.dnd.drop_target"),
-    rx.markdown("""
-Creates a drop target that can receive draggable items.
 
-```python
-rxe.dnd.drop_target(
-    *children,
-    accept: str | list[str],                      # Required: accepted drag types
-    options: dict = None,                         # Drop target options
-    on_drop: EventHandler = None,                 # Called when item is dropped
-    on_hover: EventHandler = None,                # Called when item hovers
-    can_drop: Callable[[dict, DropTargetMonitor], bool] = None,  # Drop validation
-    collect: Callable[[DropTargetMonitor], dict] = None,         # Custom state collection
-    **props                                       # Standard component props
-)
-```
+### rxe.dnd.drop_target
+
+Creates a drop target that can receive draggable items.
 
 **Parameters:**
 
@@ -398,10 +364,10 @@ rxe.dnd.drop_target(
 - **`on_hover`** (EventHandler): Event handler called when an item hovers over the target
 - **`can_drop`** (Callable): Function that determines if a specific item can be dropped
 - **`collect`** (Callable): Function to collect custom properties from the drop monitor
-        """),
-    h2_comp(text="Monitor Classes"),
-    rx.markdown("""
-#### DragSourceMonitor
+
+## Monitor Classes
+
+### DragSourceMonitor
 
 Provides information about the drag operation state:
 
@@ -412,7 +378,7 @@ Provides information about the drag operation state:
 - **`get_drop_result()`**: Returns the drop result (available in `on_end`)
 - **`did_drop()`**: Returns `True` if the item was successfully dropped
 
-#### DropTargetMonitor
+### DropTargetMonitor
 
 Provides information about the drop target state:
 
@@ -420,10 +386,10 @@ Provides information about the drop target state:
 - **`can_drop()`**: Returns `True` if the hovering item can be dropped
 - **`get_item()`**: Returns the item data of the hovering draggable
 - **`get_item_type()`**: Returns the drag type of the hovering item
-        """),
-    h2_comp(text="Default Collected Parameters"),
-    rx.markdown("""
-#### Draggable.collected_params
+
+## Default Collected Parameters
+
+### Draggable.collected_params
 
 ```python
 {
@@ -432,7 +398,7 @@ Provides information about the drop target state:
 }
 ```
 
-#### DropTarget.collected_params
+### DropTarget.collected_params
 
 ```python
 {
@@ -440,10 +406,6 @@ Provides information about the drop target state:
     "can_drop": bool,          # True when the hovering item can be dropped
     "item": dict | None        # Data from the hovering draggable item
 }
-```
-        """),
-    class_name="flex flex-col"
-)
 ```
 
 ## Advanced Usage Examples
