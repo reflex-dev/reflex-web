@@ -239,35 +239,3 @@ config = rx.Config(
     ],
 )
 ```
-
-## Migration from Legacy Configuration
-
-If you're currently using the legacy `tailwind` configuration parameter, you should migrate to using the plugin system:
-
-**Old approach (legacy):**
-```python
-config = rx.Config(
-    app_name="my_app",
-    tailwind={
-        "plugins": ["@tailwindcss/typography"],
-        "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
-    },
-)
-```
-
-**New approach (plugin-based):**
-```python
-tailwind_config = {
-    "plugins": ["@tailwindcss/typography"],
-    "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
-}
-
-config = rx.Config(
-    app_name="my_app",
-    plugins=[
-        rx.plugins.TailwindV4Plugin(tailwind_config),
-    ],
-)
-```
-
-The plugin approach provides better control, clearer configuration, and support for multiple Tailwind versions.

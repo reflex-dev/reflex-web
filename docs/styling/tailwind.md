@@ -48,6 +48,38 @@ config = rx.Config(
 )
 ```
 
+```md alert info
+## Migration from Legacy Configuration
+
+If you're currently using the legacy `tailwind` configuration parameter, you should migrate to using the plugin system:
+
+**Old approach (legacy):**
+``````python
+config = rx.Config(
+    app_name="my_app",
+    tailwind={
+        "plugins": ["@tailwindcss/typography"],
+        "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
+    },
+)
+``````
+
+**New approach (plugin-based):**
+``````python
+tailwind_config = {
+    "plugins": ["@tailwindcss/typography"],
+    "theme": {"extend": {"colors": {"primary": "#3b82f6"}}},
+}
+
+config = rx.Config(
+    app_name="my_app",
+    plugins=[
+        rx.plugins.TailwindV4Plugin(tailwind_config),
+    ],
+)
+``````
+```
+
 ### Choosing Between Tailwind Versions
 
 Reflex supports both Tailwind CSS v3 and v4:
@@ -106,11 +138,11 @@ Begin by creating a CSS file inside your `assets` folder. Inside the CSS file, i
 }
 ```
 
-We define a couple of custom CSS variables (--background and --foreground) that will be used throughout your app for styling. These variables can be dynamically updated based on the theme.
+We define a couple of custom CSS variables (`--background` and `--foreground`) that will be used throughout your app for styling. These variables can be dynamically updated based on the theme.
 
-Tailwind defaults to light mode, but to handle dark mode, you can define a separate set of CSS variables under the .dark class. 
+Tailwind defaults to light mode, but to handle dark mode, you can define a separate set of CSS variables under the `.dark` class. 
 
-Tailwind Directives (@tailwind base, @tailwind components, @tailwind utilities): These are essential Tailwind CSS imports that enable the default base styles, components, and utility classes.
+Tailwind Directives (`@tailwind base`, `@tailwind components`, `@tailwind utilities`): These are essential Tailwind CSS imports that enable the default base styles, components, and utility classes.
 
 Next, you'll need to configure Tailwind in your `rxconfig.py` file to ensure that the Reflex app uses your custom Tailwind setup.
 
@@ -137,9 +169,9 @@ config = rx.Config(
 )
 ```
 
-In the theme section, we're extending the default Tailwind theme to include custom colors. Specifically, we're referencing the CSS variables (--background and --foreground) that were defined earlier in your CSS file.
+In the theme section, we're extending the default Tailwind theme to include custom colors. Specifically, we're referencing the CSS variables (`--background` and `--foreground`) that were defined earlier in your CSS file.
 
-The rx.Config object is used to initialize and configure your Reflex app. Here, we're passing the tailwind_config dictionary to ensure Tailwind's custom setup is applied to the app.
+The `rx.Config` object is used to initialize and configure your Reflex app. Here, we're passing the `tailwind_config` dictionary to ensure Tailwind's custom setup is applied to the app.
 
 Finally, to apply your custom styles and Tailwind configuration, you need to reference the CSS file you created in your `assets` folder inside the `rx.App` setup. This will allow you to use the custom properties (variables) directly within your Tailwind classes.
 
@@ -159,7 +191,7 @@ app.add_page(
 )
 ```
 
-The bg-background class uses the --background variable (defined in the CSS file), which will be applied as the background color.
+The `bg-background` class uses the `--background` variable (defined in the CSS file), which will be applied as the background color.
 
 ## Dynamic Styling
 
