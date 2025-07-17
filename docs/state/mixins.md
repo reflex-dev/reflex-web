@@ -234,9 +234,11 @@ class DashboardState(AuthMixin, rx.State):
 
     @rx.var
     def welcome_message(self) -> str:
-        if self.is_authenticated:
-            return f"Welcome, {self.username}!"
-        return "Please log in"
+        return rx.cond(
+            self.is_authenticated,
+            f"Welcome, {self.username}!",
+            "Please log in"
+        )
 ```
 
 By using state mixins, you can create modular, reusable state logic that keeps your application organized and reduces code duplication.
