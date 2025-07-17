@@ -6,7 +6,7 @@ title: MultiSelect
 
 `rxe.mantine.multi_select` is a component for selecting multiple options from a list. It allows users to choose one or more items, making it suitable for scenarios where multiple selections are required.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

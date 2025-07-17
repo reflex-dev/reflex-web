@@ -6,7 +6,7 @@ title: Spoiler
 
 `rxe.mantine.spoiler` is a component that allows you to hide or reveal content. It is useful for displaying additional information or details that may not be immediately relevant to the user.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 

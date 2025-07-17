@@ -21,7 +21,7 @@ A basic Reflex AG Grid contains column definitions `column_defs`, which define t
 
 Each grid also requires a unique `id`, which is needed to uniquely identify the Ag-Grid instance on the page. If you have multiple grids on the same page, each grid must have a unique `id` so that it can be correctly rendered and managed.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -56,7 +56,7 @@ The format of the data passed to the `row_data` prop is a list of dictionaries. 
 
 The previous example showed the `column_defs` written out in full. You can also extract the required information from the dataframe's column names:
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -78,7 +78,7 @@ def ag_grid_simple_2():
 
 In the above example, the first letter of the field names provided are capitalized when displaying the header name. You can customize the header names by providing a `header_name` key in the column definition. In this example, the `header_name` is customized for the second and third columns.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -106,7 +106,7 @@ def ag_grid_simple_headers():
 
 Allow a user to filter a column by setting the `filter` key to `True` in the column definition. In this example we enable filtering for the first and last columns.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -138,7 +138,7 @@ You can also set the filter type using the `filter` key. The following filter ty
 
 (`ag_grid.filters.set` and `ag_grid.filters.multi` are available with AG Grid Enterprise)
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -169,7 +169,7 @@ By default, the rows can be sorted by any column by clicking on the column heade
 
 In this example, we disable sorting for the first column.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -197,7 +197,7 @@ def ag_grid_simple_row_sorting():
 
 Row Selection is enabled using the `row_selection` attribute. Setting it to `multiple` allows users to select multiple rows at a time. You can use the `checkbox_selection` column definition attribute to render checkboxes for selection.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -283,7 +283,7 @@ def ag_grid_simple_editing():
 
 By default, the grid uses a vertical scroll. You can reduce the amount of scrolling required by adding pagination. To add pagination, set `pagination=True`. You can set the `pagination_page_size` to the number of rows per page and `pagination_page_size_selector` to a list of options for the user to select from.
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -529,7 +529,7 @@ The example below uses the `select_all()` and `deselect_all()` methods of the AG
 # Ensure that the docs are set to React tab in AG Grid
 ```
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -581,7 +581,7 @@ rx.button("Select all", on_click=rxe.ag_grid.api(id="ag_grid_basic_row_selection
 The following example lets a user [export the data as a csv](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-export-exportDataAsCsv) and [adjust the size of columns to fit the available horizontal space](https://www.ag-grid.com/javascript-data-grid/grid-api/#reference-columnSizing-sizeColumnsToFit). (Try resizing the screen and then clicking the resize columns button)
 
 
-```python demo exec toggle
+```python demo exec
 import reflex as rx
 import reflex_enterprise as rxe
 import pandas as pd
@@ -661,6 +661,6 @@ def ag_grid_api_argument():
 
 The react code for the `get_data_as_csv` method of the AG Grid API is `getDataAsCsv = (params?: CsvExportParams) => string  |  undefined;`. Here the function returns a `string` (or undefined). 
 
-In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method. 
+In Reflex to handle this returned value it is necessary to pass a `callback` as an argument to the `get_data_as_csv` method that will get the returned value. In this example the `handle_get_data` event handler is passed as the callback. This event handler will be called with the returned value from the `get_data_as_csv` method.  
 
 
