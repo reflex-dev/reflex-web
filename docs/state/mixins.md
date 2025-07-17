@@ -82,9 +82,16 @@ def multi_mixin_example():
         rx.text(CombinedState.count_display),
         rx.text(f"Last updated: {CombinedState.last_updated}"),
         rx.button("Increment & Log", on_click=CombinedState.increment_with_log),
-        rx.vstack(
-            *[rx.text(msg) for msg in CombinedState.log_messages[-3:]] if CombinedState.log_messages else [rx.text("No logs yet")],
-            spacing="1"
+        rx.cond(
+            CombinedState.log_messages.length() > 0,
+            rx.vstack(
+                rx.foreach(
+                    CombinedState.log_messages[-3:],
+                    rx.text
+                ),
+                spacing="1"
+            ),
+            rx.text("No logs yet")
         ),
         spacing="4",
         align="center",
