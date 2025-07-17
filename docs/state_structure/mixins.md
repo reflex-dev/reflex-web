@@ -225,53 +225,95 @@ This pattern allows you to build complex functionality by composing simpler mixi
 
 State mixins are particularly useful for:
 
-- **Authentication**: Shared login/logout functionality
-- **Validation**: Common form validation logic
+- **Form Validation**: Shared validation logic across forms
+- **UI State Management**: Common modal, loading, or notification patterns
 - **Logging**: Centralized logging and debugging
 - **API Integration**: Shared HTTP client functionality
-- **UI State**: Common modal, loading, or notification patterns
+- **Data Formatting**: Consistent data presentation across components
 
 ```python demo exec
-class AuthMixin(rx.State, mixin=True):
-    is_authenticated: bool = False
-    username: str = ""
+class ValidationMixin(rx.State, mixin=True):
+    errors: dict[str, str] = {}
+    is_loading: bool = False
 
     @rx.event
-    def login(self, username: str):
-        # Simplified login logic
-        self.username = username
-        self.is_authenticated = True
+    def validate_email(self, email: str) -> bool:
+        if "@" not in email or "." not in email:
+            self.errors["email"] = "Invalid email format"
+            return False
+        self.errors.pop("email", None)
+        return True
 
     @rx.event
-    def logout(self):
-        self.username = ""
-        self.is_authenticated = False
+    def validate_required(self, field: str, value: str) -> bool:
+        if not value.strip():
+            self.errors[field] = f"{field.title()} is required"
+            return False
+        self.errors.pop(field, None)
+        return True
 
-class DashboardState(AuthMixin, rx.State):
-    dashboard_data: list[str] = []
+    @rx.event
+    def clear_errors(self):
+        self.errors = {}
 
-    @rx.var
-    def welcome_message(self) -> str:
-        return rx.cond(
-            self.is_authenticated,
-            f"Welcome, {self.username}!",
-            "Please log in"
-        )
+class ContactFormState(ValidationMixin, rx.State):
+    name: str = ""
+    email: str = ""
+    message: str = ""
 
-def auth_example():
+    @rx.event
+    def submit_form(self):
+        self.clear_errors()
+        valid_name = self.validate_required("name", self.name)
+        valid_email = self.validate_email(self.email)
+        valid_message = self.validate_required("message", self.message)
+        
+        if valid_name and valid_email and valid_message:
+            self.is_loading = True
+            yield rx.sleep(1)
+            self.is_loading = False
+            self.name = ""
+            self.email = ""
+            self.message = ""
+
+def validation_example():
     return rx.vstack(
-        rx.text(DashboardState.welcome_message),
+        rx.heading("Contact Form"),
+        rx.input(
+            placeholder="Name",
+            value=ContactFormState.name,
+            on_change=ContactFormState.set_name,
+        ),
         rx.cond(
-            DashboardState.is_authenticated,
-            rx.button("Logout", on_click=DashboardState.logout),
-            rx.hstack(
-                rx.input(placeholder="Username", on_blur=DashboardState.login),
-                rx.text("(Enter username to login)"),
-                spacing="2",
-            ),
+            ContactFormState.errors.contains("name"),
+            rx.text(ContactFormState.errors["name"], color="red"),
+        ),
+        rx.input(
+            placeholder="Email",
+            value=ContactFormState.email,
+            on_change=ContactFormState.set_email,
+        ),
+        rx.cond(
+            ContactFormState.errors.contains("email"),
+            rx.text(ContactFormState.errors["email"], color="red"),
+        ),
+        rx.text_area(
+            placeholder="Message",
+            value=ContactFormState.message,
+            on_change=ContactFormState.set_message,
+        ),
+        rx.cond(
+            ContactFormState.errors.contains("message"),
+            rx.text(ContactFormState.errors["message"], color="red"),
+        ),
+        rx.button(
+            "Submit",
+            on_click=ContactFormState.submit_form,
+            loading=ContactFormState.is_loading,
         ),
         spacing="4",
         align="center",
+        width="300px",
     )
 ```
 
