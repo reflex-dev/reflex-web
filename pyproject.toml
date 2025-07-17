@@ -69,3 +69,5 @@ lint.ignore = [
     "TRY0",
 ]
 lint.pydocstyle.convention = "google"
+[tool.uv]
+required-version = ">=0.7.0"
