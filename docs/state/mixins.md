@@ -102,7 +102,7 @@ def multi_mixin_example():
 
 Mixins can also include backend variables (prefixed with `_`) that are not sent to the client:
 
-```python demo box
+```python demo exec
 class DatabaseMixin(rx.State, mixin=True):
     _db_connection: dict = {}  # Backend only
     user_count: int = 0        # Sent to client
@@ -114,6 +114,15 @@ class DatabaseMixin(rx.State, mixin=True):
 
 class AppState(DatabaseMixin, rx.State):
     app_title: str = "User Management"
+
+def database_example():
+    return rx.vstack(
+        rx.heading(AppState.app_title),
+        rx.text(f"User count: {AppState.user_count}"),
+        rx.button("Fetch Users", on_click=AppState.fetch_user_count),
+        spacing="4",
+        align="center",
+    )
 ```
 
 Backend variables are useful for storing sensitive data, database connections, or other server-side state that shouldn't be exposed to the client.
@@ -162,7 +171,7 @@ def formatting_example():
 
 Mixins can inherit from other mixins to create hierarchical functionality:
 
-```python demo box
+```python demo exec
 class BaseMixin(rx.State, mixin=True):
     base_value: str = "base"
 
@@ -175,7 +184,16 @@ class ExtendedMixin(BaseMixin, mixin=True):
 
 class FinalState(ExtendedMixin, rx.State):
     final_value: str = "final"
-    # Inherits base_value, extended_value, and combined_value
+
+def nested_mixin_example():
+    return rx.vstack(
+        rx.text(f"Base: {FinalState.base_value}"),
+        rx.text(f"Extended: {FinalState.extended_value}"),
+        rx.text(f"Combined: {FinalState.combined_value}"),
+        rx.text(f"Final: {FinalState.final_value}"),
+        spacing="4",
+        align="center",
+    )
 ```
 
 This pattern allows you to build complex functionality by composing simpler mixins.
@@ -213,7 +231,7 @@ State mixins are particularly useful for:
 - **API Integration**: Shared HTTP client functionality
 - **UI State**: Common modal, loading, or notification patterns
 
-```python demo box
+```python demo exec
 class AuthMixin(rx.State, mixin=True):
     is_authenticated: bool = False
     username: str = ""
@@ -239,6 +257,22 @@ class DashboardState(AuthMixin, rx.State):
             f"Welcome, {self.username}!",
             "Please log in"
         )
+
+def auth_example():
+    return rx.vstack(
+        rx.text(DashboardState.welcome_message),
+        rx.cond(
+            DashboardState.is_authenticated,
+            rx.button("Logout", on_click=DashboardState.logout),
+            rx.hstack(
+                rx.input(placeholder="Username", on_blur=DashboardState.login),
+                rx.text("(Enter username to login)"),
+                spacing="2",
+            ),
+        ),
+        spacing="4",
+        align="center",
+    )
 ```
 
 By using state mixins, you can create modular, reusable state logic that keeps your application organized and reduces code duplication.

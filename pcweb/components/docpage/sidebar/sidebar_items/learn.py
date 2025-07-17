@@ -158,6 +158,7 @@ def get_sidebar_items_backend():
             children=[
                 state_structure.overview,
                 state_structure.component_state,
+                state.mixins,
             ],
         ),
         create_item(
