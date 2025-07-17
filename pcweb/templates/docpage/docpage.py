@@ -11,7 +11,7 @@ from reflex.utils.format import to_snake_case, to_title_case
 
 from pcweb.components.button import button
 from pcweb.components.icons.icons import get_icon
-from pcweb.route import Route, get_path
+from pcweb.route import Route, get_path, get_github_path
 from pcweb.styles.colors import c_color
 
 from .blocks import *
@@ -275,7 +275,7 @@ def link_pill(text: str, href: str) -> rx.Component:
 
 
 @rx.memo
-def docpage_footer(path: str):
+def docpage_footer(path: str, github_path: str):
     from pcweb.constants import FORUM_URL, ROADMAP_URL
     from pcweb.pages.blog import blogs
     from pcweb.pages.docs import ai_builder, getting_started, hosting
@@ -303,7 +303,7 @@ def docpage_footer(path: str):
                 ),
                 link_pill(
                     "Edit this page",
-                    f"https://github.com/reflex-dev/reflex-web/tree/main{path}.md",
+                    f"https://github.com/reflex-dev/reflex-web/tree/main/docs{github_path}.md",
                 ),
                 class_name="lg:flex hidden flex-row items-center gap-2 w-auto",
             ),
@@ -524,6 +524,7 @@ def docpage(
         """
 
         path = get_path(contents) if set_path is None else set_path
+        github_path = get_github_path(contents) if set_path is None else set_path
 
         title = contents.__name__.replace("_", " ").title() if t is None else t
 
@@ -648,7 +649,7 @@ def docpage(
                                 *links,
                                 class_name="flex flex-row gap-2 mt-8 lg:mt-10 mb-6 lg:mb-12",
                             ),
-                            docpage_footer(path=path.rstrip("/")),
+                            docpage_footer(path=path.rstrip("/"), github_path=github_path.rstrip("/")),
                             class_name="lg:mt-0 mt-6 px-4 xl:px-20 h-screen bg-slate-1",
                         ),
                         class_name="w-full bg-slate-1 h-full mx-auto max-w-2xl "
