@@ -53,3 +53,20 @@ def get_path(component_fn: Callable):
         module.__name__.replace(".", "/").replace("_", "-").split("pcweb/pages")[1]
         + "/"
     )
+
+
+def get_github_path(component_fn: Callable):
+    """Get the original file path for GitHub links based on the file location.
+    
+    This preserves underscores in filenames, unlike get_path() which converts them to hyphens for URLs.
+
+    Args:
+        component_fn: The component function for the page.
+    """
+    module = inspect.getmodule(component_fn)
+
+    # Create a path based on the module name, preserving underscores for GitHub links.
+    return (
+        module.__name__.replace(".", "/").split("pcweb/pages")[1]
+        + "/"
+    )
