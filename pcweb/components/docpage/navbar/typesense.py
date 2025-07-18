@@ -6,6 +6,7 @@ from reflex.experimental import ClientStateVar
 BlogData = ClientStateVar.create("blog_Data", indexed_blogs)
 SearchData = ClientStateVar.create("indexed_docs", indexed_docs)
 SearchInput = ClientStateVar.create("search", "")
+FilterToggle = ClientStateVar.create("filter_toggle", "docs")
 
 suggestion_items = [
     {"name": "Components Overview", "path": "/docs/library", "icon": "blocks", "description": "Discover and explore the full library of available components"},
@@ -203,7 +204,7 @@ def search_content():
                     rx.foreach(
                         SearchData.value,
                         lambda value: rx.cond(
-                            value["name"].to(str).lower().contains(SearchInput.value.lower()),
+                            value["name"].to(str).lower().contains(SearchInput.value.lower().replace('rx.', '')),
                             search_result(
                                 value['parts'].to(list), value
                             ),
@@ -233,9 +234,6 @@ def search_content():
         class_name="w-full h-full pt-11 [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] [&_.rt-ScrollAreaScrollbar]:mt-[3rem]",
     )
 
-
-FilterToggle = ClientStateVar.create("filter_toggle", "docs")
-
 def toggle_doc_and_blog():
     active = "text-slate-9 bg-slate-1"
     passive = "text-slate-9"
@@ -261,7 +259,6 @@ def typesense_search() -> rx.Component:
             rx.dialog.content(
                 search_input(),
                 search_content(),
-                # toggle_doc_and_blog(),
                 on_interact_outside=SearchInput.set_value(""),
                 on_escape_key_down=SearchInput.set_value(""),
                 class_name="w-full max-w-[640px] mx-auto h-[60vh] bg-slate-1 border-none outline-none p-3 lg:!fixed lg:!top-24 lg:!left-1/2 lg:!transform lg:!-translate-x-1/2 lg:!translate-y-0 lg:!m-0",

@@ -2,6 +2,7 @@ import os
 import pathlib
 import json
 import re
+import yaml
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
@@ -22,13 +23,17 @@ def clean_name(name: str) -> str:
 
 
 def clean_markdown(text: str) -> str:
+    text = re.sub(r"^---[\s\S]*?---\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"```[\s\S]*?```", "", text)
     text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)
+    text = re.sub(r"<div[\s\S]*?</div>", "", text, flags=re.IGNORECASE)
     text = re.sub(r"`[^`]+`", "", text)
     text = re.sub(r"^#+\s*", "", text, flags=re.MULTILINE)
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
     text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
     text = re.sub(r"\n\s*\n+", "\n\n", text)
     return text.strip()
+
 
 def extractive_summary(text: str, sentence_count: int = 2) -> str:
     parser = PlaintextParser.from_string(text, Tokenizer("english"))
@@ -124,14 +129,6 @@ if __name__ == "__main__":
         f.write("indexed_docs = ")
         json.dump(index, f, indent=2, ensure_ascii=False)
     print(f"Indexed {len(index)} documents. Output written to {output_path}")
-
-
-import os
-import json
-import pathlib
-import re
-import yaml
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 def extract_frontmatter(md_path: str) -> dict:
