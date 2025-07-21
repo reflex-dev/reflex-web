@@ -34,7 +34,7 @@ class AGGridThemeState(rx.State):
     theme: str = "quartz"
     themes: list[str] = ["quartz", "balham", "alpine", "material"]
 
-df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv")
+df = pd.read_csv("data/gapminder2007.csv")
 
 column_defs = [
     {"field": "country"},
@@ -60,4 +60,4 @@ def ag_grid_simple_themes():
     )
 ```
 
-[AG Grid]({docs.ag_grid.index.route})
+📊 **Dataset source:** [gapminder2007.csv](https://raw.githubusercontent.com/plotly/datasets/master/gapminder2007.csv)
