@@ -5,7 +5,7 @@ from pcweb.flexdown import markdown_with_shiki
 contents = f"""
 # Page Not Found
 
-The page at `{rx.State.router.page.raw_path}` doesn't exist.
+The page at `{rx.State.router.url}` doesn't exist.
 """
 
 

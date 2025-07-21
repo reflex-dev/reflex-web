@@ -50,7 +50,7 @@ def resource_item(text: str, url: str, icon: str, index):
 
 
 def link_item(name: str, url: str, active_str: str = ""):
-    router_path = rx.State.router.page.path
+    router_path = rx.State.router.url.path
 
     url = url.rstrip("/") + "/"
 
@@ -436,9 +436,9 @@ def new_component_section() -> rx.Component:
                         variant="surface",
                         class_name="text-violet-9 lg:flex hidden text-sm",
                         display=rx.cond(
-                            rx.State.router.page.path.contains("docs")
-                            | rx.State.router.page.path.contains("ai-builder")
-                            | rx.State.router.page.path.contains("cloud"),
+                            rx.State.router.url.path.contains("docs")
+                            | rx.State.router.url.path.contains("ai-builder")
+                            | rx.State.router.url.path.contains("cloud"),
                             "block",
                             "none",
                         ),
@@ -447,9 +447,9 @@ def new_component_section() -> rx.Component:
                 ),
             ),
             rx.cond(
-                rx.State.router.page.path.contains("docs")
-                | rx.State.router.page.path.contains("ai-builder")
-                | rx.State.router.page.path.contains("cloud"),
+                rx.State.router.url.path.contains("docs")
+                | rx.State.router.url.path.contains("ai-builder")
+                | rx.State.router.url.path.contains("cloud"),
                 rx.el.div(
                     nav_menu.item(
                         link_item(
@@ -489,9 +489,9 @@ def new_component_section() -> rx.Component:
                 new_menu_trigger("Docs"),
                 doc_section(),
                 display=rx.cond(
-                    rx.State.router.page.path.contains("docs")
-                    | rx.State.router.page.path.contains("ai-builder")
-                    | rx.State.router.page.path.contains("cloud"),
+                    rx.State.router.url.path.contains("docs")
+                    | rx.State.router.url.path.contains("ai-builder")
+                    | rx.State.router.url.path.contains("cloud"),
                     "none",
                     "block",
                 ),

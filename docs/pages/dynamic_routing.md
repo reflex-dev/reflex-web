@@ -67,7 +67,7 @@ Example:
 class State(rx.State):
     @rx.var
     def user_post(self) -> str:
-        args = self.router.page.params
+        args = self.router.url.params
         usernames = args.get('splat', [])
         return f"Posts by \{', '.join(usernames)}"
 

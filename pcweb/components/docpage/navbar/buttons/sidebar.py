@@ -36,7 +36,7 @@ def drawer_socials() -> rx.Component:
 
 
 def drawer_item(text: str, url: str, active_str: str = "") -> rx.Component:
-    router_path = rx.State.router.page.path
+    router_path = rx.State.router.url.path
     if not url.endswith("/"):
         url += "/"
     active = router_path.contains(active_str)
