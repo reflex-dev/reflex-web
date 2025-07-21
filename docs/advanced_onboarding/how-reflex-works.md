@@ -20,7 +20,10 @@ class GithubState(rx.State):
     def set_profile(self, username: str):
         if username == "":
             return
-        github_data = requests.get(f"https://api.github.com/users/{username}").json()
+        try:
+            github_data = requests.get(f"https://api.github.com/users/{username}").json()
+        except:
+            return
         self.url = github_data["url"]
         self.profile_image = github_data["avatar_url"]
 
