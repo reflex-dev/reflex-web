@@ -61,9 +61,7 @@ import reflex as rx
 
 import reflex_enterprise as rxe
 
-df = pd.read_csv(
-    "https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv"
-)
+df = pd.read_csv("data/wind_dataset.csv")
 
 
 class PivotState(rx.State):
@@ -126,5 +124,7 @@ def sandbox_page():
     )
 
 ```
+
+📊 **Dataset source:** [wind_dataset.csv](https://raw.githubusercontent.com/plotly/datasets/master/wind_dataset.csv)
 
 
