@@ -7,8 +7,8 @@ import replicate
 class ImageGenState(rx.State):
     """The app state."""
 
-    image_url = ""
-    processing = False
+    image_url: str = ""
+    processing: bool = False
 
     @rx.event
     def get_image(self, form_data):
@@ -24,7 +24,7 @@ class ImageGenState(rx.State):
             "black-forest-labs/flux-schnell",
             input=input,
         )
-        self.image_url = output[0]
+        self.image_url = str(output[0])
         self.processing = False
 
 
