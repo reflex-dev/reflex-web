@@ -8,11 +8,7 @@ class RouterState(rx.State):
 
 router_data = [
       {"name": "rx.State.router.url", "value": RouterState.router.url},
-      {"name": "rx.State.router.url.scheme", "value": RouterState.router.url.scheme},
-      {"name": "rx.State.router.url.netloc", "value": RouterState.router.url.netloc},
       {"name": "rx.State.router.url.path", "value": RouterState.router.url.path},
-      {"name": "rx.State.router.url.query", "value": RouterState.router.url.query},
-      {"name": "rx.State.router.url.fragment", "value": RouterState.router.url.fragment},
       {"name": "rx.State.router.session.client_token", "value": RouterState.router.session.client_token},
       {"name": "rx.State.router.session.session_id", "value": RouterState.router.session.session_id},
       {"name": "rx.State.router.session.client_ip", "value": RouterState.router.session.client_ip},
@@ -43,13 +39,10 @@ about the current page, session, or state.
 
 The `self.router` attribute has several sub-attributes that provide various information:
 
-* `router.url`: the current URL as a ReflexURL object with URL components
-  * `netloc`: The hostname and port serving the current page (frontend).
+* `router.url`: the current URL as a ReflexURL object
   * `path`: The path of the current page (for dynamic pages, this will contain the slug)
-  * `query`: The query string of the URL (URL parameters)
-  * `fragment`: The fragment (hash) portion of the URL
-  * `scheme`: The URL scheme (http, https, etc.)
   * The full URL string can be accessed directly as `router.url`
+  * Note: Other URL components like scheme, netloc, query, and fragment are not directly accessible through Reflex's variable system
 
 * `router.session`: data about the current session
   * `client_token`: UUID associated with the current tab's token. Each tab has a unique token.
