@@ -20,7 +20,8 @@ import reflex as rx
 
 import reflex_enterprise as rxe
 
-df = pd.read_json("https://www.ag-grid.com/example-assets/olympic-winners.json")
+# Olympic winners data (originally from https://www.ag-grid.com/example-assets/olympic-winners.json)
+df = pd.read_json("data/olympic-winners.json")
 
 def pivot_page():
     return rxe.ag_grid(
