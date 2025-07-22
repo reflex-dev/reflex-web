@@ -14,7 +14,7 @@ dependencies = [
     "psycopg[binary]==3.2.9",
     "plotly-express==0.4.1",
     "googletrans-py==4.0.0",
-    "openai==1.96.1",
+    "openai==1.97.0",
     "flexdown>=0.2.0",
     "reflex @ git+https://github.com/reflex-dev/reflex@main",
     "mistletoe>=1.2.1",
@@ -23,8 +23,9 @@ dependencies = [
     "reflex-pyplot==0.2.1",
     "reflex-enterprise>=0.3.1a2",
     "requests>=2.32.3",
-    "posthog==6.1.0",
+    "posthog==6.1.1",
     "typesense>=1.1.1",
+    "fastapi"
 ]
 
 [dependency-groups]
