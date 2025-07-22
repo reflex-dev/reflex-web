@@ -401,7 +401,7 @@ def sidebar_comp(
     return rx.box(  # pyright: ignore [reportCallIssue]
         # Handle sidebar categories for docs/cloud first
         rx.cond(  # pyright: ignore [reportCallIssue]
-            rx.State.router.page.path.startswith("/docs/hosting/"),
+            rx.State.router.url.path.startswith("/docs/hosting/"),
             rx.el.ul(
                 sidebar_category(
                     "Cloud", hosting_page.deploy_quick_start.path, "cloud", 0
@@ -412,7 +412,7 @@ def sidebar_comp(
                 class_name="flex flex-col items-start gap-1 w-full list-none",
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
-                rx.State.router.page.path.startswith("/docs/ai-builder/"),
+                rx.State.router.url.path.startswith("/docs/ai-builder/"),
                 rx.el.ul(
                     sidebar_category(
                         "Learn",
@@ -424,7 +424,7 @@ def sidebar_comp(
                 ),
                 # If the path doesn't start with /docs/cloud, check for general docs
                 rx.cond(  # pyright: ignore [reportCallIssue]
-                    rx.State.router.page.path.startswith("/docs/"),
+                    rx.State.router.url.path.startswith("/docs/"),
                     rx.el.ul(
                         sidebar_category(
                             "Learn",
@@ -457,7 +457,7 @@ def sidebar_comp(
         ),
         # Handle the sidebar content based on docs/cloud or docs
         rx.cond(  # pyright: ignore [reportCallIssue]
-            rx.State.router.page.path.startswith("/docs/hosting/"),
+            rx.State.router.url.path.startswith("/docs/hosting/"),
             rx.match(  # pyright: ignore [reportCallIssue]
                 SidebarState.sidebar_index,
                 (
@@ -488,7 +488,7 @@ def sidebar_comp(
                 # ),
             ),
             rx.cond(  # pyright: ignore [reportCallIssue]
-                rx.State.router.page.path.startswith("/docs/ai-builder/"),
+                rx.State.router.url.path.startswith("/docs/ai-builder/"),
                 rx.el.ul(
                     create_sidebar_section(
                         "Overview",
@@ -500,7 +500,7 @@ def sidebar_comp(
                     class_name="flex flex-col items-start gap-6 p-[0px_1rem_0px_0.5rem] w-full list-none list-style-none",
                 ),
                 rx.cond(  # pyright: ignore [reportCallIssue]
-                    rx.State.router.page.path.startswith("/docs/"),
+                    rx.State.router.url.path.startswith("/docs/"),
                     rx.match(  # pyright: ignore [reportCallIssue]
                         SidebarState.sidebar_index,
                         (
