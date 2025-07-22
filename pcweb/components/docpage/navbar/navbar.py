@@ -91,7 +91,7 @@ def link_item(name: str, url: str, active_str: str = ""):
     else:
         active = False
 
-    common_cn = "transition-color p-[1.406rem_0px] font-small lg:flex hidden items-center justify-center "
+    common_cn = "transition-color p-[1.406rem_0px] font-small xl:flex hidden items-center justify-center "
     active_cn = "shadow-[inset_0_-1px_0_0_var(--c-violet-9)] text-violet-9"
     unactive_cn = "shadow-none text-slate-9"
 
@@ -369,7 +369,7 @@ def new_menu_trigger(title: str, url: str = None, active_str: str = "") -> rx.Co
                 "chevron-down",
                 class_name="chevron size-5 !text-slate-9 group-hover:!text-slate-11 py-1 mr-0 transition-all ease-out",
             ),
-            class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer lg:flex hidden",
+            class_name="flex-row items-center gap-x-1 group user-select-none cursor-pointer xl:flex hidden",
             on_click=rx.stop_propagation,
         ),
         style={
@@ -434,7 +434,7 @@ def new_component_section() -> rx.Component:
                     rx.badge(
                         "Docs",
                         variant="surface",
-                        class_name="text-violet-9 lg:flex hidden text-sm",
+                        class_name="text-violet-9 xl:flex hidden text-sm",
                         display=rx.cond(
                             rx.State.router.page.path.contains("docs")
                             | rx.State.router.page.path.contains("ai-builder")
@@ -464,13 +464,14 @@ def new_component_section() -> rx.Component:
                             getting_started.introduction.path,
                             "framework",
                         ),
+                        class_name="whitespace-nowrap",
                     ),
                     nav_menu.item(
                         link_item(
                             "Cloud", hosting_page.deploy_quick_start.path, "hosting"
                         ),
                     ),
-                    class_name="lg:flex hidden flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                    class_name="xl:flex hidden flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
                 ),
                 rx.el.div(
                     # nav_menu.item(
@@ -478,11 +479,12 @@ def new_component_section() -> rx.Component:
                     # ),
                     nav_menu.item(
                         link_item("Open Source", framework.path, "framework"),
+                        class_name="whitespace-nowrap",
                     ),
                     nav_menu.item(
                         link_item("Cloud", hosting_landing.path, "hosting"),
                     ),
-                    class_name="lg:flex hidden flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+                    class_name="xl:flex hidden flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
                 ),
             ),
             nav_menu.item(
@@ -504,14 +506,14 @@ def new_component_section() -> rx.Component:
             ),
             nav_menu.item(
                 new_menu_trigger("Pricing", "/pricing", "pricing"),
-                class_name="lg:flex hidden",
+                class_name="xl:flex hidden",
             ),
-            class_name="flex flex-row items-center gap-0 lg:gap-7 m-0 h-full list-none",
+            class_name="flex flex-row items-center gap-0 xl:gap-7 m-0 h-full list-none",
         ),
         nav_menu.list(
             nav_menu.item(search_bar()),
             nav_menu.item(github()),
-            nav_menu.item(discord(), class_name="lg:flex hidden"),
+            nav_menu.item(discord(), class_name="xl:flex hidden"),
             nav_menu.item(
                 rx.link(
                     button(
@@ -535,9 +537,9 @@ def new_component_section() -> rx.Component:
                     is_external=True,
                     href="/pricing",
                 ),
-                class_name="lg:flex hidden",
+                class_name="xl:flex hidden",
             ),
-            nav_menu.item(navbar_sidebar_button(), class_name="lg:hidden flex"),
+            nav_menu.item(navbar_sidebar_button(), class_name="xl:hidden flex"),
             class_name="flex flex-row gap-2 m-0 h-full list-none items-center",
         ),
         rx.box(
