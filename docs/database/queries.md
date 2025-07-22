@@ -211,7 +211,7 @@ class AsyncUserState(rx.State):
         async with rx.asession() as asession:
             result = await asession.execute(User.select())
             async with self:
-                self.users = (await result.all())
+                self.users = result.all()
 ```
 
 ### Async Select
@@ -229,7 +229,7 @@ class AsyncQueryUser(rx.State):
             stmt = User.select().where(User.username.contains(self.name))
             result = await asession.execute(stmt)
             async with self:
-                self.users = (await result.all())
+                self.users = result.all()
 ```
 
 ### Async Insert
@@ -262,7 +262,7 @@ class AsyncChangeEmail(rx.State):
         async with rx.asession() as asession:
             stmt = User.select().where(User.username == self.username)
             result = await asession.execute(stmt)
-            user = (await result.first())
+            user = result.first()
             if user:
                 user.email = self.email
                 asession.add(user)
@@ -282,7 +282,7 @@ class AsyncRemoveUser(rx.State):
         async with rx.asession() as asession:
             stmt = User.select().where(User.username == self.username)
             result = await asession.execute(stmt)
-            user = (await result.first())
+            user = result.first()
             if user:
                 await asession.delete(user)
                 await asession.commit()
@@ -331,7 +331,7 @@ class AsyncRawSQL(rx.State):
         async with rx.asession() as asession:
             result = await asession.execute("SELECT * FROM user")
             async with self:
-                self.users = [list(row) for row in (await result.all())]
+                self.users = [list(row) for row in result.all()]
 ```
 
 ```md alert info
@@ -339,6 +339,6 @@ class AsyncRawSQL(rx.State):
 - Always use the `@rx.event(background=True)` decorator for async event handlers
 - Most operations against the `asession` must be awaited, including `commit()`, `execute()`, `refresh()`, and `delete()`
 - The `add()` method does not need to be awaited
-- Result objects from queries have methods like `all()` and `first()` that must be awaited
+- Result objects from queries have methods like `all()` and `first()` that are synchronous and return data directly
 - Use `async with self:` when updating state variables in background tasks
 ```
