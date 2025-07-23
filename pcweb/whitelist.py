@@ -11,7 +11,7 @@ Examples:
 """
 
 WHITELISTED_PAGES = [
-	"/templates",
+	"/templates"
 ]
 
 
