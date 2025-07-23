@@ -10,7 +10,6 @@ from pcweb.flexdown import xd2 as xd
 from pcweb.pages.gallery import gallery
 from pcweb.templates.gallery_app_page import gallery_app_page
 
-# ✅ Supported template sources and route prefixes
 GALLERY_APP_SOURCES = [
     ("templates/", "docs/getting-started/open-source-templates/"),
     ("reflex_build_templates/", "templates/"),
@@ -26,6 +25,7 @@ def load_all_gallery_apps():
             document = flexdown.parse_file(path)
             clean_path = path.replace(".md", "/")
             gallery_apps[(clean_path, folder)] = document
+
     return gallery_apps
 
 
@@ -117,7 +117,7 @@ def page(document, is_reflex_template: bool) -> rx.Component:
         )
     )
 
-    back_route_origin = "/docs/getting-started/open-source-templates" if not is_reflex_template else "/templates"
+    back_route_origin = "/docs/getting-started/open-source-templates/" if not is_reflex_template else "/templates/"
 
     return rx.el.section(
         rx.el.article(

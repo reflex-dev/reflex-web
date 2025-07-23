@@ -29,11 +29,15 @@ class TemplatesState(rx.State):
         from pcweb.pages.gallery.apps import gallery_apps_data
 
         filtered = []
-        for path, document in gallery_apps_data.items():
+        for (path, folder), document in gallery_apps_data.items():
+            if folder != "templates/":
+                continue
+
             app_metadata = document.metadata
             app_title = app_metadata.get("title", "")
             app_description = app_metadata.get("description", "")
             app_tags = app_metadata.get("tags", [])
+
 
             # Text search filtering
             if self.query.strip():

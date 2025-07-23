@@ -5,7 +5,7 @@ from pcweb.components.button import button
 from pcweb.components.icons import get_icon
 
 REFLEX_BUILD_TEMPLATES_PATH = "reflex_build_templates/"
-REFLEX_BUILD_TEMPLATES_IMAGES = "reflex_build_template_images/"
+REFLEX_BUILD_TEMPLATES_IMAGES = "/reflex_build_template_images/"
 
 def get_templatey_apps(paths):
     """Method to parse each markdown file and return the data from the file"""
